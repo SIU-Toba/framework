@@ -99,10 +99,15 @@ class ef_combo extends ef
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.options.length = 0;//Borro las opciones que existan
 			//Creo los OPTIONS recuperados
+			var hay_datos = false
 			for (id in datos){
+				if (id !=  '".apex_ef_no_seteado."')
+					hay_datos = true;
 				s_.options[s_.options.length] = new Option(datos[id], id);
 			}
-			s_.focus();
+			if (hay_datos)
+				s_.focus();
+			atender_proxima_consulta();
 		}
 		";	
 	}

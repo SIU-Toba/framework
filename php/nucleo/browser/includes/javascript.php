@@ -8,8 +8,8 @@ function trim(s){
 
 //********************  POPUPS  ************************
 
-function solicitar_item_popup( url, tx, ty, scroll ){
-	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ",dependent=yes";
+function solicitar_item_popup( url, tx, ty, scroll, resizable ){
+	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ", resizable=" + resizable + ",dependent=yes";
 	if (!window.ventana_hija){
 		// No fue definida.
 		ventana_hija = window.open( url , 'ventana_hija', vars);
@@ -37,8 +37,24 @@ Parametros:
 	- 1 y 2) Item que hay que llamar: proyecto, item
 	- 3) Parametros que se desea pasar al item
 	- 4) Callback que hay que llamar cuando los datos regresen
+
+La lista de espera se implementa como una pila, de esta forma primero se carga el ef más lejano
+y en último lugar el ef más cercano. Así los focos se otorgan en el orden de la pantalla.
 */
 ?>
+var lista_espera = new Array();
+function encolar_consulta(item_proyecto, item, parametros, callback)
+{
+	lista_espera.push(new Array(item_proyecto, item, parametros, callback));
+}
+
+function atender_proxima_consulta()
+{
+	var proximo = lista_espera.pop();
+	if (proximo)
+		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3]);
+}
+
 function consultar_info( item_proyecto, item, parametros, callback)
 {
 	//alert('Entre');

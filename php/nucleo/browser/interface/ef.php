@@ -111,6 +111,7 @@ class ef //Clase abstracta, padre de todos los EF
 		foreach($this->dependientes as $dependiente){
 			$js .= " escuchar_master_{$dependiente}('{$this->id}', ef.value);\n";
 		}
+		$js .= " atender_proxima_consulta();\n";
 		$js .= "\n}\n";
 		return $js;
 	}
@@ -129,7 +130,6 @@ class ef //Clase abstracta, padre de todos los EF
 	//-----------------------------------------------------	
 
 	function javascript_slave_escuchar()
-	//ATENCION, falta resolver el caso con multiples dependencias
 	{
 		return "
 		function escuchar_master_{$this->id_form}(maestro, valor)
@@ -144,8 +144,8 @@ class ef //Clase abstracta, padre de todos los EF
 				dependencias = maestro + ';' + valor;
 				//Empaqueto toda la informacion que tengo que mandar.
 				parametros = '{$this->padre[0]};{$this->padre[1]};{$this->id}|' + dependencias;
-				//Disparo el sistema de recarga de informacion
-				consultar_info('toba','/basicos/ef/respuesta',parametros,'recargar_slave_{$this->id_form}');
+				//Se encola la recarga de informacion
+				encolar_consulta('toba','/basicos/ef/respuesta',parametros,'recargar_slave_{$this->id_form}');
 			}
 		}
 		";	

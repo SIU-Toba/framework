@@ -469,7 +469,8 @@ class vinculador
 			$tx = (isset($init[0])) ? $init[0] : 400;
 			$ty = (isset($init[1])) ? $init[1] : 400;
 			$scroll = (isset($init[2])) ? $init[2] : "yes";
-			$html = "<a href='#' $clase onclick=\"javascript:return solicitar_item_popup('$url', $tx, $ty, '$scroll')\">";
+			$resizable = (isset($init[3])) ? $init[3] : "yes";
+			$html = "<a href='#' $clase onclick=\"javascript:return solicitar_item_popup('$url', $tx, $ty, '$scroll', '$resizable')\">";
 		}
 
 		if( isset($parametros['imagen']) && 
