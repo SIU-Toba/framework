@@ -355,7 +355,9 @@ class objeto_ei_formulario extends objeto
 		}else{
 			//----> MODO OMNI <-------
 			if(acceso_post()){
-				return true;
+				if($this->existio_memoria_previa()){
+					return true;
+				}
 			}
 		}
 	}
@@ -628,6 +630,10 @@ class objeto_ei_formulario extends objeto
 		if($this->estado_proceso!="INFRACCION")
 		{
 			echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
+			//A los ocultos se les deja incluir javascript
+			foreach ($this->lista_ef_ocultos as $ef) {
+				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
+			}
 			echo "<table class='objeto-base'>";
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
@@ -637,6 +643,7 @@ class objeto_ei_formulario extends objeto
 			echo "</td></tr>\n";
 			echo "</table>\n";
 			//Funciones que necesita este form
+			echo "\n<!-- ------------ Funciones JAVASCRIPT (". $this->id[1] .")	--------------	-->\n\n";
 			$this->obtener_funciones_javascript();	
 			echo "\n<!-- ****************** Fin EI FORMULARIO (". $this->id[1] .") ******************** -->\n\n";
 			$this->flag_out = true;
@@ -653,10 +660,6 @@ class objeto_ei_formulario extends objeto
 		//Genero	la	interface
 		if($this->estado_proceso!="INFRACCION")
 		{
-			//A los ocultos se les deja incluir javascript
-			foreach ($this->lista_ef_ocultos as $ef) {
-				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
-			}
 			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
 			foreach ($this->lista_ef_post	as	$ef){
 				echo "<tr><td class='abm-fila'>\n";
@@ -667,7 +670,6 @@ class objeto_ei_formulario extends objeto
 			$this->obtener_botones();
 			echo "</td></tr>\n";
 			echo "</table>\n";
-			echo "\n<!-- ------------ Funciones JAVASCRIPT (". $this->id[1] .")	--------------	-->\n\n";
 		}
 	}
 	//-------------------------------------------------------------------------------

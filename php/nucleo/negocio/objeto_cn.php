@@ -37,6 +37,11 @@ class objeto_cn extends objeto
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 	}
 
+	function __call($metodo, $argumentos)
+	{
+		ei_arbol($argumentos, "Llamada al metodo no implementado: " . $metodo);
+	}
+
 	function get_estado_proceso()
 	{
 		return $this->proceso_ok;

@@ -75,7 +75,7 @@ class objeto_ci_me extends objeto_ci
 		$dependencias = array();
 		if( trim( $this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos_adhoc"] )!="" )
 		{
-			$metodo = $this->info_ci["objetos_adhoc"];
+			$metodo = $this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos_adhoc"];
 			//ATENCION: hay que controlar que las DEPENDENCIAS existan...
 			$dependencias = $this->cn->$metodo();
 		}

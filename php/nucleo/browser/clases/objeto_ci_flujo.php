@@ -25,12 +25,12 @@ class objeto_ci_flujo extends objeto_ci_me
 		if( $etapa = $this->cn->$metodo() ){
 			if(isset($this->indice_etapas[$etapa])){
 				$this->etapa_actual = $etapa;
-				$this->log->debug("CI-Flujo: Etapa actual: " . $this->etapa_actual);
+				$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] ******  Etapa actual: " . $this->etapa_actual . "  ****");
 			}else{
-				throw new excepcion_toba("No es posible recuperar la etapa ACTIVA");
+				throw new excepcion_toba("No es posible recuperar la etapa ACTIVA. La etapa no existe");
 			}
 		}else{
-			throw new excepcion_toba("No es posible recuperar la etapa ACTIVA");
+			throw new excepcion_toba("No es posible recuperar la etapa ACTIVA. El metodo no esta definido");
 		}
 		$this->memoria["etapa"] = $this->etapa_actual;
 	}
@@ -90,6 +90,12 @@ class objeto_ci_flujo extends objeto_ci_me
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
+	}
+
+	function barra_superior()
+	{
+		$titulo = $this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["etiqueta"];
+		parent::barra_superior($titulo);
 	}
 }
 ?>

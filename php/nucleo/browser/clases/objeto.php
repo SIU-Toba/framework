@@ -15,6 +15,7 @@ class objeto
 	var $lista_dependencias;					//Lista de dependencias disponibles
 	var $dependencias = array();							//Array de sub-OBJETOS
 	var $memoria;
+	var $memoria_existencia_previa = false;
 	var $observaciones;
 	var $canal;										// Canal por el que recibe datos 
 	var $canal_recibido;							// Datos recibidos por el canal
@@ -434,7 +435,9 @@ class objeto
 		if( $this->solicitud->hilo->verificar_acceso_menu() ){
 			$this->log->debug("OBJETO ". get_class($this) . " [". $this->id[1] . "] El estado de la memoria no es regenerado porque el acceso proviene del MENU");
 		}else{
-			$this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1]);
+			if($this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1])){
+				$this->memoria_existencia_previa = true;
+			}
 		}
 	}
 
@@ -458,6 +461,11 @@ class objeto
 	{
 		unset($this->memoria);
 		$this->solicitud->hilo->persistir_dato("obj_".$this->id[1],null);
+	}
+
+	function existio_memoria_previa()
+	{
+		return $this->memoria_existencia_previa;
 	}
 	
 //*******************************************************************************************
@@ -554,6 +562,26 @@ class objeto
 		$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
 	}
 	
+	function get_estado_sesion()
+	{
+		$propiedades_a_persistir = $this->mantener_estado_sesion();
+		if(count($propiedades_a_persistir)>0){
+			$propiedades = get_object_vars($this);
+			for($a=0;$a<count($propiedades_a_persistir);$a++){
+				//Existe la propiedad
+				if(in_array($propiedades_a_persistir[$a],$propiedades)){
+					//Si la propiedad no es NULL
+					if(isset($this->$propiedades_a_persistir[$a])){
+						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+					}
+				}
+			}
+			if(isset($temp)){
+				return $temp;
+			}
+		}
+	}
+
 //*******************************************************************************************
 //*******************************************************************************************
 

@@ -483,8 +483,8 @@ TD.portada-comentario {
 	 TEXT-ALIGN: center
 }
 .texto-ss {
-	FONT-SIZE: 9px;
-	 FONT-FAMILY: Courier,Courier New,  mono;
+	FONT-SIZE: 11px;
+	 FONT-FAMILY: courier,courier new,  mono;
 	 TEXT-ALIGN: left
 }
 .texto {
@@ -831,18 +831,29 @@ TD.abm-zona-botones {
 TD.abm-fila {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
-	 FONT-SIZE: 8px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
 	 MARGIN: 0px;
-	 COLOR: #441177;
+	 COLOR: #660000;
 	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-fila-ml {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
-	 FONT-SIZE: 8px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
 	 MARGIN: 0px;
-	 COLOR: #441177;
+	 COLOR: #660000;
 	 BACKGROUND-COLOR: #d4d0c8
+}
+TD.abm-fila-ml-selec {
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 MARGIN: 0px;
+	 COLOR: #ffffff;
+	 BACKGROUND-COLOR: #a4a098
 }
 TD.abm-columna {
 	PADDING-RIGHT: 2px;

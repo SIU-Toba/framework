@@ -152,10 +152,8 @@ class objeto_ci extends objeto
 
 	function procesar()
 	/*
-		Hay casos en los que se requiere procesamiento pero no se necesita
-		cargar los datos de las dependencias.
-		Arreglar esto deberia incluir la unificacion con los metodos 
-		procesar en los hijos.
+		ATENCION: Esta clase ahora se puede llamar desde otro CI, por lo tanto
+		no hay que confiar siempre en que la interface siempre estuvo cargada!!!
 	*/
 	{
 		$this->determinar_modelo_opciones();
@@ -164,30 +162,37 @@ class objeto_ci extends objeto
 		$this->determinar_dependencias();
 		$this->cargar_dependencias( $this->dependencias_actual );
 
-		// 1 - Cancelar la operacion?
-		if( ! $this->controlar_cancelacion() ){
-			try{
-				// 2 - Busco eventos en los EI
-				$this->controlar_eventos($this->dependencias_actual);
-		
-				// 3 - Proceso la operacion
-				$this->controlar_procesamiento();
-			}catch(excepcion_toba $e) 
-			{
-				$this->informar_msg($e->getMessage(), 'error');
+		//En el request anterior, se genero salida?
+		//Si es asi tengo que recuperar la informacion proveniente de la interaccion
+		if(isset($this->memoria["generacion_interface"]))
+		{
+			if( $this->memoria["generacion_interface"] == 1 ){
+				// 1 - Cancelar la operacion?
+				if( ! $this->controlar_cancelacion() ){
+					try{
+						// 2 - Busco eventos en los EI
+						$this->controlar_eventos($this->dependencias_actual);
+				
+						// 3 - Proceso la operacion
+						$this->controlar_procesamiento();
+					}catch(excepcion_toba $e) 
+					{
+						$this->informar_msg($e->getMessage(), 'error');
+					}
+				}
 			}
+			// 4 - En el caso en que las dependencias se determinen ad-hoc,
+			//		Los eventos pueden haber influido en la lista a cargar
+			$this->determinar_dependencias();
+			$this->cargar_dependencias( $this->dependencias_actual );
 		}
-
-		// 4 - En el caso en que las dependencias se determinen ad-hoc,
-		//		Los eventos pueden haber influido en la lista a cargar
-		$this->determinar_dependencias();
-		$this->cargar_dependencias( $this->dependencias_actual );
-
 		// 5- Cargo los DAOS //Seba, lo saque del if anterior
 		$this->cargar_daos();
 		// 6 - Cargo las interfaces de los EI
-		//Esto deberia estar en un metodo aparte
+		//Esto deberia estar en un metodo aparte???
 		$this->cargar_datos_dependencias();
+		//Por ahora no se genero ninguna interface
+		$this->memoria["generacion_interface"] = 0;
 	}
 	//-------------------------------------------------------------------------------
 	
@@ -223,6 +228,7 @@ class objeto_ci extends objeto
 		foreach($dependencias as $dep){
 			if(isset($this->dependencias[$dep])){
 				//La dependencia ya se encuentra cargada
+				
 				continue;
 			}
 			//Creo la dependencia
@@ -325,7 +331,7 @@ class objeto_ci extends objeto
 				form -> modificar registro
 			Si se selecciona un registro distinto, antes de modificar se modifica una incorrecto		
 */
-	function controlar_eventos($dependencias)
+	function controlar_eventos( $dependencias )
 	{
 		//-[ 1 ]- Escanea las dependencias buscando eventos
 		foreach($dependencias as $dep)
@@ -636,6 +642,7 @@ class objeto_ci extends objeto
 			$existe_previo = 1;
 		}
 		echo "</table>\n";
+		$this->memoria["generacion_interface"] = 1;
 	}
 	//-------------------------------------------------------------------------------
 

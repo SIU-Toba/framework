@@ -139,10 +139,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//ATENCION: Esto hay que mejorarlo
 	{
 		if(acceso_post()){
-			return true;
-		}else{
-			return false;
+			if($this->existio_memoria_previa()){
+				return true;
+			}
 		}
+		return false;
 	}
 	//-------------------------------------------------------------------------------
 	
