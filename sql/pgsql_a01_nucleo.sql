@@ -67,6 +67,7 @@ CREATE TABLE			apex_elemento_infra_input
 	ip_origen					varchar(40)		NULL,
 	ip_destino					varchar(40)		NULL,
 	datos						text			NOT NULL,
+	datos2_test					text			NOT NULL,
 	ingreso						timestamp(0) without	time zone	DEFAULT current_timestamp NOT	NULL,
 	CONSTRAINT	"apex_elem_infra_input_pk"	PRIMARY KEY	("entrada"),
 	CONSTRAINT	"apex_elem_infra_input_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
