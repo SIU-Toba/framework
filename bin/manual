@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+. i_config
+
+#----------> La clave de este script es iterar por directorios y actuar ???
+
+# Funcionalidad no implementada
+#==> * Hacer funcionar todo
+
+	dir=$toba_dir/var
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Script para generar los manuales del toba."
+
+##***********************************************************************************************##
+## Manejo de la documentacion automatica de codigo
+##***********************************************************************************************##
+#@ manual generar                              -- Genera el manual
+
+elif [ "$1" = "generar" ]
+then
+	
+	a=temp.xml 								#archivo original																		
+	b=temp.fo								#archivo FO																		
+	c=manual.pdf								#archivo PDF (final)																		
+	item /doc/docbook1 > $a
+	xmllint --valid --noout --encode encoding $a
+	controlar "VALIDACION DE XML_DOCBOOK"
+	xsltproc --stringparam fop.extensions 1 \
+	--output $b \
+	http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl \
+	$a
+	controlar "TRANSFORMACION XML -> XSL-FO"
+	fop.bat $b $c
+	controlar "TRANSFORMACION XSL-FO -> PDF"
+	rm -f $a
+	rm -f $b
+	controlar "Ficheros temporales eliminados"
+	
+	
+	
+
+##***********************************************************************************************##
+## Ver Cosas Pendientes
+##***********************************************************************************************##
+elif [ "$1" = "pendiente" ]
+then
+	pendiente $0
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi
