@@ -380,9 +380,9 @@ class ef_combo_dao extends ef_combo
 	{
 		$parametros = array();
 		for($a=0;$a<count($this->dependencias);$a++){
-			$parametros[] = $this->dependencias_datos[$this->dependencias[$a]];
+			$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]] . "'";
 		}
-		$param = implode(",", $parametros);
+		$param = implode(", ", $parametros);
 		if($this->modo =="estatico" )
 		{
 			$valores = $this->recuperar_datos_dao($param);
@@ -402,9 +402,9 @@ class ef_combo_dao extends ef_combo
 		include_once($this->include);
 		if($this->requiere_instancia){
 			$sentencia = "\$c = new {$this->clase}();
-							\$valores = \$c->{$this->dao}(\$param);";
+							\$valores = \$c->{$this->dao}($param);";
 		}else{
-			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."(\$param);";
+			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."($param);";
 		}
 		eval($sentencia);//echo $sentencia;
 		return $valores;

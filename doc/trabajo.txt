@@ -144,7 +144,9 @@
 		-> ME_TAB con secuencia estricta
 		-> Tabs verticales
 		-> Barra superior igual a la inferior optativa.
-		-> La forma de renderizar la cola de mensajes tiene que ser optativa
+		-> Un CI tiene que poder ocultar tabs en el server, e inhabilitarlos en el cliente. 
+			(y cuando tenga una clase JS, que lo haga de una manera unificada)
+		-> La forma de renderizar la cola de mensajes tiene que poder customizarse
 		-> Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
 			Pensar en este punto la relacion CI ->->> CN...
 
