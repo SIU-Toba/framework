@@ -107,6 +107,7 @@ class ef_combo extends ef
 			}
 			if (hay_datos)
 				s_.focus();
+			document.body.style.cursor = '';
 			atender_proxima_consulta();
 		}
 		";	

@@ -58,6 +58,7 @@ function atender_proxima_consulta()
 function consultar_info( item_proyecto, item, parametros, callback)
 {
 	//alert('Entre');
+	document.body.style.cursor = 'wait';
 	nombre_frame = this.name;
 	nombre_callback = callback;
 	top.<? echo  apex_frame_com ?>.realizar_consulta(nombre_frame, item_proyecto, item, parametros);
