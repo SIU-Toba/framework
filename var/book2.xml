@@ -31,12 +31,12 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
     etc.</para>
 		</legalnotice>
 	</bookinfo>
-<section>
+<chapter>
 <title>Documentacion</title>
-</section>
-<section>
+</chapter>
+<chapter>
 <title>Administración</title>
-	<section>
+	<chapter>
 	<title>Tablas Maestras</title>
 		<section>
 		<title>Fuente de datos-motor</title>
@@ -56,10 +56,10 @@ lkj lkj lk		</section>
 		<section>
 		<title>Tipo de grafico</title>
 		</section>
-	</section>
-	<section>
+	</chapter>
+	<chapter>
 	<title>APEX</title>
-		<section>
+		<chapter>
 		<title>Elementos</title>
 			<section>
 			<title>ELEMENTO de FORMULARIO (EF)</title>
@@ -94,9 +94,9 @@ Este es un parrafo de prueba,
 			<section>
 			<title>ZONA</title>
 			</section>
-		</section>
-	</section>
-	<section>
+		</chapter>
+	</chapter>
+	<chapter>
 	<title>Estadisticas</title>
 		<section>
 		<title>Instanciacion de clases</title>
@@ -107,9 +107,9 @@ Este es un parrafo de prueba,
 		<section>
 		<title>Solicitudes generadas</title>
 		</section>
-	</section>
-</section>
-<section>
+	</chapter>
+</chapter>
+<chapter>
 <title>Info</title>
 	<section>
 	<title>Conceptos Basicos</title>
@@ -123,7 +123,7 @@ gtrtrtrt	</section>
 	<section>
 	<title>Objetos Standart</title>
 	</section>
-</section>
+</chapter>
 <section>
 <title>Inicio</title>
 </section>

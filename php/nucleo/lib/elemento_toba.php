@@ -212,9 +212,21 @@ class elemento_toba_item extends elemento_toba
 	
 	function obtener_docbook()
 	{
+		$docbook = "";
 		if(isset($this->datos['apex_item_info'][0]['descripcion_larga'])){
-			return $this->datos['apex_item_info'][0]['descripcion_larga'];
+			$docbook .= $this->datos['apex_item_info'][0]['descripcion_larga'];
 		}
+		/*
+		for($a=0;$a<count($this->subelementos);$a++)
+		{
+			$docbook .= $this->subelementos[$a]->obtener_docbook();
+		}
+		*/
+	}
+	
+	function obtener_php()
+	{
+		//Devuelve el PHP asociado al ITEM	
 	}
 }
 //######################################################################
@@ -271,6 +283,11 @@ class elemento_toba_objeto extends elemento_toba
 			}
 			
 		}
+	}
+
+	function obtener_docbook()
+	{
+		
 	}
 }
 //######################################################################
