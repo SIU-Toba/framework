@@ -48,5 +48,11 @@ class toba
 		}
 		return $db[$fuente];
 	}
+
+	function get_encriptador()
+	{
+		global $encriptador;
+		return $encriptador;	
+	}
 }
 ?>

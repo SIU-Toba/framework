@@ -280,7 +280,8 @@ class objeto_mt_abms extends objeto_mt_s
                     $this->pre_update();
                     $sql = $this->dependencias["formulario"]->obtener_sql("update");
                     $this->on_update($sql);
-                    
+      
+                    //---Empieza la ejecucion
                     if( $this->ejecutar_sql($sql) ){
                         $clave = $this->dependencias["formulario"]->obtener_clave();
                         $this->memoria["clave"] = $clave;

@@ -221,7 +221,7 @@ class vinculador
 		$vinculo = $this->prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
 			if(apex_pa_encriptar_qs){
-				global $encriptador;
+				$encriptador = toba::get_encriptador();
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
 				$parametros_formateados .= $parametros_formateados . "&jmb76=". uniqid("");

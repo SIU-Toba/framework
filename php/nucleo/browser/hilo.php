@@ -80,7 +80,7 @@ class hilo
 		$this->parametros = array();
 		if(apex_pa_encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
-				global $encriptador;
+				$encriptador = toba::get_encriptador();
 				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]),$this->parametros);
 				unset($this->parametros["jmb76"]);//Clave agregada para complicar la encriptacion
 			}
