@@ -24,7 +24,8 @@ class objeto_ei_formulario extends objeto
 	var $parametros;
 	var $modelo_eventos;
 	var $mapa_dependencias;
-
+	var $flag_out = false;			//indica si el formulario genero output
+	
 	function __construct($id)
 /*
 	@@acceso: nucleo
@@ -633,6 +634,7 @@ class objeto_ei_formulario extends objeto
 			//Funciones que necesita este form
 			$this->obtener_funciones_javascript();	
 			echo "\n<!-- ****************** Fin EI FORMULARIO (". $this->id[1] .") ******************** -->\n\n";
+			$this->flag_out = true;
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -762,15 +764,17 @@ class objeto_ei_formulario extends objeto
 	@@desc: Esto se puede HEREDAR para agregar una validacion propia  general al formulario
 */
 	{
-		$eliminar = "eliminar_ei_{$this->id[1]}";
-		$agregar = "agregar_ei_{$this->id[1]}";
-		//Retorna la llamada a la funcion que valida el form.
-		echo "\n// Llamada a la funcion que valida el ei_form\n";
-		echo "if(!validacion_ei_form_{$this->id[1]}(formulario)){\n";
-		echo " $eliminar=0 \n";
-		echo " $agregar=0 \n";
-		echo "return false;\n";
-		echo " }\n";
+		if(	$this->flag_out ){
+			$eliminar = "eliminar_ei_{$this->id[1]}";
+			$agregar = "agregar_ei_{$this->id[1]}";
+			//Retorna la llamada a la funcion que valida el form.
+			echo "\n// Llamada a la funcion que valida el ei_form\n";
+			echo "if(!validacion_ei_form_{$this->id[1]}(formulario)){\n";
+			echo " $eliminar=0 \n";
+			echo " $agregar=0 \n";
+			echo "return false;\n";
+			echo " }\n";			
+		}
 	}
 	//-------------------------------------------------------------------------------
 }

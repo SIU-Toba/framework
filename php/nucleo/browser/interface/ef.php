@@ -21,18 +21,19 @@ require_once("ef_sin_estado.php");	//EF de tipo COMBO
 
 class ef //Clase abstracta, padre de todos los EF
 {
-	var $padre;		    			// PADRE del ELEMENTO (ID del objeto en el que este esta incluido)
+	var $padre;		    		// PADRE del ELEMENTO (ID del objeto en el que este esta incluido)
 	var $nombre_formulario;		// Nombre del formulario donde el ELEMENTO esta metido
-	var $id;			    			// ID del ELEMENTO
+	var $id;			    	// ID del ELEMENTO
 	var $etiqueta;	   			// Etiqueta del ELEMENTO
-	var $descripcion;   			// Descripcion del ELEMENTO
+	var $descripcion;   		// Descripcion del ELEMENTO
 	var $id_form_orig;			// ID original a utilizar en el FORM
-	var $id_form;	    			// ID a utilizar en el FORM
-	var $dato;          			// NOMBRE del DATO que esta manejando el ELEMENTO (si es un DATO compuesto, es un array)
-	var $estado;	    			// Estado ACTUAL del ELEMETO (Si el DATO es compuesto, es un array)
-	var $obligatorio;				// Flag que indica SI se el ELEMENTO representa un valor obligatorio
+	var $id_form;	    		// ID a utilizar en el FORM
+	var $dato;          		// NOMBRE del DATO que esta manejando el ELEMENTO (si es un DATO compuesto, es un array)
+	var $estado;	    		// Estado ACTUAL del ELEMETO (Si el DATO es compuesto, es un array)
+	var $obligatorio;			// Flag que indica SI se el ELEMENTO representa un valor obligatorio
 	var $validacion=true;		// Flag que indica el estado de la validacion realizada sobre el estado
 	var $solo_lectura;      	// Flag que indica si el objeto se debe deshabilitar cuando se muestra
+	var $ocultable = false;		// Indica si el EF provee una interface para ocultarlo y mostrarlo
 	var $javascript="";			//Javascript del elemento de formulario
 	//--- DEPENDENCIAS ---
 	var $dependencias;			// Array de DEPENDENCIAS (Ids de EFs MAESTROS)
@@ -79,6 +80,9 @@ class ef //Clase abstracta, padre de todos los EF
 		if(isset($parametros["javascript"])){
 			$temp = explode(",",$parametros["javascript"]);
 			$this->javascript = " " . $temp[0] .  "=\"return " . $temp[1] . ";\"";
+		}
+		if(isset($parametros['ocultable'])){
+			$this->ocultable = true;
 		}
 	}
 
@@ -394,6 +398,12 @@ class ef //Clase abstracta, padre de todos los EF
 //-------------------- INTERFACE ----------------------
 //-----------------------------------------------------
     
+	function obtener_input()
+	{
+		//Esta funcion se define en cada hijo,
+		//Devuelve el HTML que constituye interface
+	}
+
 	function envoltura_std($elemento_formulario, $item_editor_padre=null,$canal_editor_detalle_ef=0)
 	//Envoltura normal
 	{
@@ -410,12 +420,36 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
 
+
+	//Javascript para ocultar y mostrar el EF
+	echo "
+
+ef_{$this->id_form}_estado = 'v';
+function ef_alternar{$this->id_form}()
+{
+	
+}
+
+function ef_ocultar_{$this->id_form}()
+{
+	if (ie||ns6)
+	var div_img=document.all? document.all['{$this->id_form}_div'] : document.getElementById? document.getElementById('{$this->id_form}_div') : '';
+	div_img.style.visibility='hidden';
+}
+
+function ef_mostrar_{$this->id_form}()
+{
+	if (ie||ns6)
+	var div_img=document.all? document.all['{$this->id_form}_div'] : document.getElementById? document.getElementById('{$this->id_form}_div') : '';
+	div_img.style.visibility='visible';
+}
+	";
+		echo "<div id='{$this->id_form}_div' name='{$this->id_form}_div'>";
+		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
 		echo "<tr><td >".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
-
 		echo "<tr><td class='$estilo'>";
 		if(trim($this->descripcion)!=""){
 			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
@@ -440,19 +474,7 @@ class ef //Clase abstracta, padre de todos los EF
 		}
 		echo "<td class='ef-zonainput'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";
-	}
-	
-	function envoltura_filtro($elemento_formulario)
-	//Crea la envoltura HTML del elemento para utilizarse como filtro
-	//(Cambia de color si esta activado)
-	{
-		$a="";
-		if($this->activado())$a="-activado";
-		echo "<table border='0' cellpadding='0' cellspacing='0'>\n";
-		echo "<tr><td ><img src='img/nulo.gif' width='180' height='1'></td><td><img src='img/nulo.gif' width='1' height='1'></td></tr>\n";
-		echo "<tr><td class='parametro-item{$a}'>&nbsp;{$this->etiqueta}</td>\n";
-		echo "<td class='parametro-item{$a}'>$elemento_formulario</td></tr>\n";
-		echo "</table>\n";
+		echo "</div>";
 	}
 	
 	function envoltura_ei_ml()
@@ -478,11 +500,6 @@ class ef //Clase abstracta, padre de todos los EF
 								411);
 	}	
 	
-	function obtener_html()
-	{
-		$this->envoltura_filtro( $this->obtener_input() );
-	}
-
 	function obtener_interface_ei()
 	{
 		$this->envoltura_std($this->obtener_input(),
@@ -490,11 +507,24 @@ class ef //Clase abstracta, padre de todos los EF
 								574);
 	}	
 	
-	function obtener_input()
+	function obtener_html()
 	{
-		//Esta funcion se define en cada hijo,
-		//Devuelve el HTML que constituye interface
+		$this->envoltura_filtro( $this->obtener_input() );
 	}
+
+	function envoltura_filtro($elemento_formulario)
+	//Crea la envoltura HTML del elemento para utilizarse como filtro
+	//(Cambia de color si esta activado)
+	{
+		$a="";
+		if($this->activado())$a="-activado";
+		echo "<table border='0' cellpadding='0' cellspacing='0'>\n";
+		echo "<tr><td ><img src='img/nulo.gif' width='180' height='1'></td><td><img src='img/nulo.gif' width='1' height='1'></td></tr>\n";
+		echo "<tr><td class='parametro-item{$a}'>&nbsp;{$this->etiqueta}</td>\n";
+		echo "<td class='parametro-item{$a}'>$elemento_formulario</td></tr>\n";
+		echo "</table>\n";
+	}
+	
 }
 //########################################################################################################
 //########################################################################################################
