@@ -88,7 +88,7 @@ class elemento_toba
 			if(!($temp = consultar_fuente($sql))){
 				if($this->tablas[$a]['obligatoria']==1){
 					//No se cargaron datos y la tabla es obligatoria
-					throw new excepcion_toba("No se cargo una tabla obligatoria");
+					throw new excepcion_toba("No se cargo una tabla obligatoria ($tabla)");
 				}
 			}else{
 				$this->datos[$tabla]=$temp;
@@ -212,7 +212,9 @@ class elemento_toba_item extends elemento_toba
 	
 	function obtener_docbook()
 	{
-		return $this->datos['apex_item_info'][0]['descripcion_larga'];
+		if(isset($this->datos['apex_item_info'][0]['descripcion_larga'])){
+			return $this->datos['apex_item_info'][0]['descripcion_larga'];
+		}
 	}
 }
 //######################################################################
