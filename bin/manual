@@ -58,7 +58,8 @@ then
 	controlar "Ficheros temporales eliminados"
 	
 	
-	
+	#PARA GENERAR IMAGENES DESDE HTML A JPG
+	#url2bmp.exe -url http://127.0.0.1/toba/admin.php -format jpg -file "c:\archivo.jpg" -notinteractive
 
 ##***********************************************************************************************##
 ## Ver Cosas Pendientes
