@@ -13,14 +13,14 @@
 	function sl(){ return salto_linea(); }
 	//-----------------------------------------------------------------
 	
-	function aplanar_matriz($matriz)
-	//Toma una matriz cuya segunda dimension tiene siempre un solo componente y lo aplana a una sola dimension
+	function aplanar_matriz($matriz, $campo = null)
+	//Toma una matriz y lo aplana a una sola dimension, si no se especifica un campo, se elige el primero
 	//Util para aplanar recordset de consultas de un solo campo
-	//Ej: array(0 => array('bla' => 'cero'), 1 => array('bla' => 'uno'))  --->  array('cero', 'uno')
+	//Ej: array(0 => array('campo' => 'cero'), 1 => array('campo' => 'uno'))  --->  array('cero', 'uno')
 	{
 		$aplanado = array();
-		foreach ($matriz as $arreglo) {
-			$aplanado[] = current($arreglo);
+		foreach ($matriz as $clave => $arreglo) {
+			$aplanado[$clave] = ($campo === null) ? current($arreglo) : $arreglo[$campo];
 		}
 		return $aplanado;
 	}

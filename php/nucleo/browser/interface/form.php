@@ -32,6 +32,21 @@ class form {
         $combo .= "</select>\n";
         return $combo;
     }
+	
+    function multi_select($nombre,$actuales,$datos, $tamanio, $clase="ef-combo", $extra="")
+    {
+        if(!is_array($datos)){//Si datos no es un array, no puedo seguir
+            $datos[""] = "";
+        }
+        $combo = "<select name='".$nombre."[]' id='$nombre' class='$clase' size='$tamanio' multiple $extra>\n";
+        foreach ($datos as $id => $desc){
+            $s = "";
+            if (in_array($id, $actuales)) $s = "SELECTED";
+            $combo .= "<option value='$id' $s>$desc</option>\n";
+        }
+        $combo .= "</select>\n";
+        return $combo;
+    }	
 
 //________________________________________________________________________________________________________
 
