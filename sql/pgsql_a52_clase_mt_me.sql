@@ -26,7 +26,8 @@ CREATE TABLE apex_objeto_mt_me
 	activacion_cancelar						varchar(40)			NULL, --> CN: Indica cuando se puede cancelar
 	ev_cancelar								smallint			NULL,
 	ev_cancelar_etiq						varchar(30)			NULL,
-	objetos									varchar(80)			NULL,
+	objetos									varchar(80)			NULL,	
+	post_procesar							varchar(40)			NULL, --> CN: Informacion posterior al proceso
 	ancho									varchar(20)			NULL,
 	alto									varchar(20)			NULL,
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
