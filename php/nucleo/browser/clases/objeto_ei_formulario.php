@@ -25,6 +25,7 @@ class objeto_ei_formulario extends objeto
 	var $modelo_eventos;
 	var $mapa_dependencias;
 	var $flag_out = false;			//indica si el formulario genero output
+	var $evento_mod_estricto;		// Solo dispara la modificacion si se apreto el boton procesar
 	
 	function __construct($id)
 /*
@@ -40,6 +41,7 @@ class objeto_ei_formulario extends objeto
 		//Nombre de los botones de javascript
 		$this->js_eliminar = "eliminar_ei_{$this->id[1]}";
 		$this->js_agregar = "agregar_ei_{$this->id[1]}";
+		$this->evento_mod_estricto = true;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -285,24 +287,23 @@ class objeto_ei_formulario extends objeto
 		$evento = null;
 		if($this->controlar_agregar())
 		{
-			$evento = "alta";
+			return "alta";
 		}
 		if($this->controlar_eliminar())
 		{
-			$evento = "baja";
 			unset($this->memoria['datos']);
+			return "baja";
 		}
 		if($this->controlar_limpiar())
 		{
-			$evento = "limpiar";
 			unset($this->memoria['datos']);
+			return "limpiar";
 		}
 		if($this->controlar_modificacion())
 		{
-			$evento = "modificacion";
 			unset($this->memoria['datos']);
+			return "modificacion";
 		}
-		return $evento;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -313,7 +314,13 @@ class objeto_ei_formulario extends objeto
 			//----> MODO MULTI <------
 			//Se apreto el boton?
 			if(isset($_POST[$this->submit])){
-				if($_POST[$this->submit]==$this->submit_modificar) return true;
+				if( $_POST[$this->submit]==$this->submit_modificar ){
+					 return true;
+				}
+			}
+			//SI la modificacion se mapea en forma estricta, salgo porque no se apreto el boton
+			if($this->evento_mod_estricto){
+				return false;	
 			}
 			//Se modificaron datos (y la navegacion se dio por otro boton??)
 			if(isset($this->memoria['datos'])){
@@ -351,7 +358,7 @@ class objeto_ei_formulario extends objeto
 	function controlar_agregar()
 	{
 		if(isset($_POST[$this->submit])){
-			return ($_POST[$this->submit]==$this->submit_agregar);
+			return ( trim($_POST[$this->submit]) == trim($this->submit_agregar) );
 		}
 		return false;
 	}

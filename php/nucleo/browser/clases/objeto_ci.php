@@ -204,12 +204,11 @@ class objeto_ci extends objeto
 				}
 				//echo "Cargando dependencia : $dep";
 				//SI el CN me devuelve un DATO para la dependencia
-				if( $dato = $this->cn->$metodo($parametros) ){
-					//ei_arbol($dato, $dep);
-					$this->dependencias[$dep]->$metodo_ei( $dato );
-					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- LLAMADA CN -- \nMETODO: $metodo \nPARAMETROS:\n" . var_export($parametros,true) . "\n\n");
-					//$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- DATOS RECIBIDOS -- \n" . var_export($dato,true) . "\n\n");
-				}
+				$dato = $this->cn->$metodo($parametros);
+				//ei_arbol($dato, $dep);
+				$this->dependencias[$dep]->$metodo_ei( $dato );
+				$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- LLAMADA CN -- \nMETODO: $metodo \nPARAMETROS:\n" . var_export($parametros,true) . "\n\n");
+				//$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- DATOS RECIBIDOS -- \n" . var_export($dato,true) . "\n\n");
 			}
 			//ei_arbol($this->dependencias[$dependencia]->info_estado());
 		}			
