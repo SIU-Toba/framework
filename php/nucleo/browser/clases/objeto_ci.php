@@ -453,7 +453,7 @@ class objeto_ci extends objeto
 	{
 		$existe_previo = 0;
 		echo "<table class='tabla-0'  width='100%'>\n";
-		foreach(array_keys($this->dependencias_actual) as $dep){
+		foreach($this->dependencias_actual as $dep){
 			if($existe_previo){
 				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
 			}
