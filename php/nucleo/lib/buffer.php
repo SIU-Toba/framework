@@ -61,6 +61,9 @@ class buffer
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
+		if(! isset($this->definicion['columna'] )){
+			$this->definicion['columna'] = array();
+		}
 		//la interaccion con la interface?
 		if(isset($this->definicion["control_sincro"])){
 			if($this->definicion["control_sincro"]=="1"){	
