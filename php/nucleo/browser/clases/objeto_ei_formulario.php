@@ -636,7 +636,7 @@ class objeto_ei_formulario extends objeto
 		if($this->estado_proceso!="INFRACCION")
 		{
 			echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
-			echo "<table width='10%' class='objeto-base'>";
+			echo "<table class='objeto-base'>";
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";
@@ -665,7 +665,7 @@ class objeto_ei_formulario extends objeto
 			foreach ($this->lista_ef_ocultos as $ef) {
 				$this->elemento_formulario[$ef]->obtener_javascript_general();
 			}
-			echo "<table class='tabla-0'>";
+			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
 			foreach ($this->lista_ef_post	as	$ef){
 				echo "<tr><td class='abm-fila'>\n";
 				$this->elemento_formulario[$ef]->obtener_interface_ei();
