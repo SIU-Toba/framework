@@ -5,6 +5,7 @@ class manual_docbook
 {
 	private $items;
 	private $docbook;
+	private $niveles;
 	
 	function __construct($proyecto)
 	{
@@ -21,6 +22,12 @@ class manual_docbook
 					ORDER BY i.padre,i.orden;";
 		$rs = $db["instancia"][apex_db_con]->Execute($sql);
 		$this->items = $rs->getArray();
+		$this->niveles[0] = "chapter";
+		$this->niveles[1] = "section";
+		$this->niveles[2] = "section";
+		$this->niveles[3] = "section";
+		$this->niveles[4] = "section";
+		$this->niveles[5] = "section";
 	}
 	
 	//-----------------------------------------------------------
@@ -31,8 +38,8 @@ class manual_docbook
 	{
 		$raices = NULL;
 		$this->obtener_encabezado();
-		echo "<book xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\docbook.xsd'>\n";	
+		echo "<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V4.2//EN' \"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd\">";
+		echo "<book>\n";	
 		$this->obtener_info();
 		for($i=0;$i<count($this->items);$i++)
 		{
@@ -47,9 +54,7 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
 
 	function obtener_encabezado()
 	{
-		echo "<?xml version='1.0'?>
-<?altova_xslfo C:\Documentacion\xml\XSL\docbook-xsl-1.67.2\fo\docbook.xsl?>
-";
+		 echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\" standalone=\"no\"?>";
 	}
 	//-----------------------------------------------------------
 	
@@ -65,7 +70,7 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
 				<date>Jan 15, 2001 ???????</date>
 			</revision>
 		</revhistory>
-		<corpauthor>S.I.U. (Sistemas de Información Universitaria)</corpauthor>
+		<corpauthor>S.I.U. Sistema de Información Universitaria</corpauthor>
 		<publisher>
 			<publishername>???????</publishername>
 			<address>
@@ -74,7 +79,7 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
 		</publisher>
 		<copyright>
 			<year>2005</year>
-			<holder>Sistemas de Información Universitaria</holder>
+			<holder>Sistema de Información Universitaria</holder>
 		</copyright>
 		<date>Jan 15, 2001 ???????</date>
 		<legalnotice>
@@ -100,18 +105,19 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
 		if ($this->items[$nodo]['carpeta']!="1")
 		{
 			//Item COMUN
-			echo  $inden . "<section>\n";
+			echo  $inden . "<".$this->niveles[$x].">\n";
 			echo  $inden . "<title>".$this->items[$nodo]['nombre']."</title>\n";
 			//echo "item: " . $this->items[$nodo]['nombre'] . "\n";
+	
 			$elemento = new elemento_toba_item();
-			$elemento->cargar_db($this->items[$nodo]['proyecto'],
-									$this->items[$nodo]['item']);
-			echo   $elemento->obtener_docbook();
-			echo  $inden . "</section>\n";
+			$elemento->cargar_db($this->items[$nodo]['proyecto'], $this->items[$nodo]['item']);
+			echo $inden . $elemento->obtener_docbook();
+
+			echo  $inden . "</".$this->niveles[$x].">\n";
 		}else{
 			//Carpeta
 			//echo "carpeta: " . $this->items[$nodo]['nombre'] . "\n";
-			echo  $inden . "<section>\n";
+			echo  $inden . "<".$this->niveles[$x].">\n";
 			echo  $inden . "<title>".$this->items[$nodo]['nombre']."</title>\n";
 			$rs = $this->obtener_lista_hijos($nodo);
 			for($i=0;$i<count($rs);$i++)
@@ -120,7 +126,7 @@ xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\do
 				$this->incorporar_hijos($rs[ $i ]);
 				$x--;
 			}
-			echo  $inden . "</section>\n";
+			echo  $inden . "</".$this->niveles[$x].">\n";
 		}
 	}
 	//-----------------------------------------------------------
