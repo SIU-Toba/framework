@@ -52,7 +52,7 @@ include_once("nucleo/lib/buffer_i.php");
 					if(preg_match("/nextval/",$columna['default'])){
 						if(preg_match("/.*\"(.*)\".*/", $columna['default'], $matches)){
 							//echo "TABLA: $tabla COLUMNA: {$columna['columna']} SEQ: {$columna['columna']}";
-							echo "SELECT setval('{$matches[1]}', {$columna['columna']}) FROM $tabla";
+							echo "SELECT setval('{$matches[1]}', max({$columna['columna']})) FROM $tabla;";
 							echo "\n";
 						}	
 					}			
