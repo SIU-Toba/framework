@@ -186,7 +186,7 @@ class objeto_ci_me extends objeto_ci
 			}else{
 				//--> Entrada a la ETAPA inicial!!
 				//echo "Estado INICIAL";
-				$this->limpiar_memoria_global();//Limpio la memoria reclamada por este objeto
+				//$this->limpiar_memoria_global();
 				$this->etapa_actual = $this->info_ci_me_etapa[0]["posicion"];
 				//$this->cn->reset();
 			}

@@ -3,8 +3,8 @@ require_once("nucleo/negocio/objeto_cn.php");	//Ancestro de todos los OE
 
 class objeto_cn_t extends objeto_cn
 {
-	protected $transaccion_abierta;	// privado | boolean | Indica si la transaccion se encuentra en proceso
-	protected $estado_transaccion;	// privado | boolean | Indica el estado de la ultima ejecucio de SQL
+	protected $transaccion_abierta;			// privado | boolean | Indica si la transaccion se encuentra en proceso
+	protected $estado_transaccion;			// privado | boolean | Indica el estado de la ultima ejecucio de SQL
 	protected $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
 	protected $proceso_ok;
 
@@ -17,6 +17,11 @@ class objeto_cn_t extends objeto_cn
 		parent::__construct($id, $resetear);
 		$this->transaccion_abierta = false;
 		$this->proceso_ok = false;
+	}
+
+	function get_estado_proceso()
+	{
+		return $this->proceso_ok;
 	}
 
 	//-------------------------------------------------------------------------------

@@ -20,7 +20,6 @@ class objeto_ci extends objeto
 	var $cancelar_etiq;
 	var $flag_cancelar_operacion;		//Flag de GET que cancela la operacion
 	var $dependencias_actual = array();
-	var $estado_procesar = false;
 	var $estado_cancelar = false;	
 	
 	function objeto_ci($id)
@@ -80,7 +79,8 @@ class objeto_ci extends objeto
 												metodo_despachador		as	metodo_despachador,
 												ev_cancelar				as	ev_cancelar,
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
-												objetos					as	objetos,			
+												objetos					as	objetos,
+												post_procesar			as	post_procesar,
 												ancho					as	ancho,			
 												alto					as	alto
 										FROM	apex_objeto_mt_me
@@ -265,15 +265,14 @@ class objeto_ci extends objeto
 		$this->estado_cancelar = true;
 		$this->cn->cancelar();
 		$this->borrar_memoria();
-		//ATENCION: falta limpiar el estado interno
 	}
 	//-------------------------------------------------------------------------------
 
 	function procesar_operacion()
 	{
 		//Se dispara el procesamiento del controlador de negocio
-		$this->estado_procesar = true;
 		$this->cn->procesar();
+		$this->borrar_memoria();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -419,36 +418,67 @@ class objeto_ci extends objeto
 	@@desc: Devuelve la interface del Marco Transaccional
 */
 	{
+		//-[0]- Si el proceso funciono
+		if( $this->cn->get_estado_proceso() ){
+			if(trim($this->info_ci['post_procesar']))
+			{
+				$metodo = $this->info_ci['post_procesar'];
+				if( defined("apex_pa_ci_mensaje") )
+				{
+					if( apex_pa_ci_mensaje == "pantalla")
+					{
+						//Pantalla de POST procesamiento. Si las cosas no salieron ok, no se llega aca
+						echo "<br>\n";
+						echo "<div align='center'>\n";
+						$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "500";
+						$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
+						echo "<table width='$ancho' $alto class='objeto-base'>\n";
+						echo "<tr><td>";
+						$this->barra_superior();
+						echo "</td></tr>\n";
+						echo "<tr><td class='ci-cuerpo' height='100%'>";
+						$metodo = $this->info_ci['post_procesar'];
+						echo ei_mensaje( $this->cn->$metodo() );
+						echo "</td></tr>\n";
+						echo "<tr><td class='abm-zona-botones'>";
+						echo form::button("boton", "Volver a comenzar" ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true)."';\"","abm-input");
+						echo "</td></tr>\n";		
+						echo "</table>\n";
+						echo "</div>\n";		
+						return;					
+					}
+					elseif(apex_pa_ci_mensaje == "mensaje")
+					{
+						$this->informar_msg( $this->cn->$metodo() );
+					}
+				}
+			}
+		}
 		//-[1]- Muestro la cola de mensajes
 		$this->solicitud->cola_mensajes->mostrar();
-		
 		//-[2]- Genero la SALIDA
 		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
 		$this->obtener_javascript_global_consumido();
-
 		echo "<br>\n";
 		$javascript_submit = " onSubmit='return validar_ci_".$this->nombre_formulario."(this)' ";
 		echo form::abrir($this->nombre_formulario, $vinculo, $javascript_submit);
 		echo "<div align='center'>\n";
 		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "500";
-		echo "<table width='$ancho' class='objeto-base'>\n";
-
+		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
+		echo "<table width='$ancho' $alto class='objeto-base'>\n";
 		//--> Barra SUPERIOR
 		echo "<tr><td>";
 		$this->barra_superior();
 		echo "</td></tr>\n";
-
 		//--> Interface especifica del CI
-		echo "<tr><td class='ci-cuerpo'>";
+		echo "<tr><td class='ci-cuerpo' height='100%'>";
 		$this->obtener_interface();
 		echo "</td></tr>\n";
-
 		//--> Pie del CI
 		echo "<tr><td class='abm-zona-botones'>";
 		$this->obtener_pie();
 		echo "</td></tr>\n";
-
 		echo "</table>\n";
 		echo "</div>\n";
 		echo form::cerrar();

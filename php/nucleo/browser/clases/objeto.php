@@ -543,11 +543,13 @@ class objeto
 		}
 	}
 
-	function eliminar_estado_sesion()
+	function eliminar_estado_sesion($no_eliminar=array())
 	{
 		$propiedades_a_persistir = $this->mantener_estado_sesion();
 		for($a=0;$a<count($propiedades_a_persistir);$a++){
-			unset($this->$propiedades_a_persistir[$a]);
+			if(!in_array($propiedades_a_persistir[$a], $no_eliminar)){
+				unset($this->$propiedades_a_persistir[$a]);			
+			}
 		}
 		$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
 	}

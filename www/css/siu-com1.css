@@ -1561,6 +1561,7 @@ TD.ei-cuerpo {
 }
 
 TD.ci-cuerpo {
+ VERTICAL-ALIGN: top;
 	font-size: 10px;
 	color: #F0F1FF;
 	background-color: #D4D0C8;
