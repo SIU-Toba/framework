@@ -147,6 +147,7 @@ class ef //Clase abstracta, padre de todos los EF
 				//Empaqueto toda la informacion que tengo que mandar.
 				parametros = '{$this->padre[0]};{$this->padre[1]};{$this->id}|' + dependencias;
 				//Se encola la recarga de informacion
+				//alert('parametros:' + parametros);
 				encolar_consulta('toba','/basicos/ef/respuesta',parametros,'recargar_slave_{$this->id_form}');
 			}
 		}

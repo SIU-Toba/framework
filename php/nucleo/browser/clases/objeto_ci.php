@@ -349,6 +349,43 @@ class objeto_ci extends objeto
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function acc_editor_depencencias($dep)
+	{
+		//if($this->solicitud->hilo->entorno_instanciador() )
+		if(apex_pa_acceso_directo_editor)
+		{
+			//-[ 1 ]- RUTEO DE EVENTOS
+			$msg = $this->consultar_info_dependencia($dep,"parametros_a");
+			$msg = ereg_replace("\n"," -- ",$msg);
+			//echo recurso::imagen_apl("eventos_ruteo.gif",true,null,null,$msg);
+
+			//-[ 2 ]-Acceso al PLAN de ruteo de EVENTOS de la DEPENDENCIA
+			//Vinculo al EDITOR del OBJETO. Hay que controlar que el objeto no se CI
+			$zona = implode(apex_qs_separador,$this->id);
+			//Armo la clave a enviar por el CANAL del FORM de edicion de deps
+			$temp = $this->id; 
+			$temp[] = $dep; 
+			$ei = implode(apex_qs_separador, $temp);
+			//Esta es una llamada harcodeada al FORM de propiedades de la dependencia
+			$id_objeto_formulario =  151;
+			$vinc_ruteo= $this->solicitud->vinculador->obtener_vinculo_a_item(
+						"toba","/admin/objetos/dependencias",
+						array(	apex_hilo_qs_zona => $zona,
+								apex_hilo_qs_canal_obj .$id_objeto_formulario => $ei ),
+						true);   
+	
+			if($vinc_ruteo){
+	            echo $vinc_ruteo;
+			}
+
+			//-[ 3 ]- Metodo de CARGA
+			$msg = $this->consultar_info_dependencia($dep,"parametros_b");
+			$msg = ereg_replace("\n"," -- ",$msg);
+			//echo recurso::imagen_apl("objetos/negocio.gif",true,null,null,$msg);
+
+		}
+	}
+
 	//-------------------------------------------------------------------------------
 	//---- HTML ---------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
