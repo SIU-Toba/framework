@@ -32,9 +32,10 @@ CREATE TABLE apex_objeto_cuadro
 	exportar		           	smallint       	NULL,		-- Exportar XLS
 	exportar_rtf            	smallint       	NULL,		-- Exportar PDF
 	pdf_propiedades         	varchar			NULL,
-	pdf_respetar_paginacion 	smallint       	NULL,  -- ATENCION - Eliminar a futuro
+	pdf_respetar_paginacion 	smallint       	NULL,  		-- ATENCION - Eliminar a futuro
 	asociacion_columnas			varchar(100)	NULL,
-	ev_seleccion				smallint		NULL,
+	ev_seleccion				smallint		NULL,		-- EI cuadro, lupa -> seleccion
+	ev_eliminar					smallint		NULL,		-- EI cuadro, tacho -> eliminacion
 	dao_nucleo_proyecto			varchar(15)		NULL,
 	dao_nucleo					varchar(60)		NULL,
 	dao_metodo					varchar(80)		NULL,

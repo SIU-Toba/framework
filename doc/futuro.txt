@@ -29,6 +29,7 @@
 
 	2) Cosas pendientes
 	
+		-	El bugzilla tiene una API que pueda utilizarse desde toba?
 		-	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
 		-	Facilitar la creación de nuevos estilos. Tarea: analizar la distribución de los estilos.
 		-	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
@@ -40,15 +41,14 @@
 
 	3) Cosas concretas pendientes
 	
-		-	Prioridad: SIU-Quilmes (tope 20 de febrero)
+		-	Prioridad: SIU-Quilmes
 
 			-	Cascada en ABMs (cuando se produce un error los dependientes quedan sin estado)
 			-	Enter en los formularios
 		
-		-	Prioridad: SIU-Comechingones (tope 1 marzo)
+		-	Prioridad: SIU-Comechingones
 
 			-	BUFFER
-				-	Funciones cosmeticas para columnas asociadas
 				-	Filtrado de registros
 				-	Multitabla
 			-	CN
@@ -60,13 +60,9 @@
 				-	Separadores
 			-	Cola de mensajes
 				-	Reconfirmacion
-			-	EI_FORM
-				-	Set elementos no editables en runtime
-				-	Declarar nuevos eventos
 
 		-	General
 
-			-	Administrador de permisos (post orden menu)
 			-	Administrador de derechos 
 			-	Esquema de manejo de usuarios de distintas instancias para una instalacion (deployment)
 
