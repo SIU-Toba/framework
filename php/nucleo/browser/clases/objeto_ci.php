@@ -99,7 +99,6 @@ class objeto_ci extends objeto
 		// 0 - Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
-			return;
 		}
 		// 1 - Cargo las dependencias
 		if(isset($this->info_ci["objetos"])){

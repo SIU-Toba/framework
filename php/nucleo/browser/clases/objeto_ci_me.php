@@ -183,7 +183,6 @@ class objeto_ci_me extends objeto_ci
 		// -[0]- Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
-			return;
 		}
 		//ATENCION: Falta controlar si el paso de etapas es VALIDO
 		//Veo en que etapa estoy.
