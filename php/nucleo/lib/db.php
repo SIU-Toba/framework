@@ -235,4 +235,19 @@ require("3ros/adodb340/adodb.inc.php");
 		}
 	}
 //-------------------------------------------------------------------------------------
+
+	function ejecutar_sql($sql, $fuente="instancia")
+	//Dispara una execpcion si algo salio mal
+	//El codigo de la excepsion deberia ser el SQLSTATE
+	//Deberia buscarla en la FUENTE para descubrir el SQLSTATE
+	{
+		global $db;	
+		if(!isset($db[$fuente])){
+			throw new excepcion_toba("La fuente de datos no se encuentra disponible." );
+		}
+		if ( $db[$fuente][apex_db_con]->Execute($sql) === false ){
+			throw new excepcion_toba("ERROR ejecutando el SQL. " . $db[$fuente][apex_db_con]->ErrorMsg() . "." );
+		}		
+	}
+//-------------------------------------------------------------------------------------
 ?>
