@@ -21,15 +21,15 @@
 	$abm_cabecera = $this->cargar_objeto("objeto_mt_abms",0);
 	if($abm_cabecera > -1){
 
-		$this->objetos[$abm_cabecera]->procesar();
+		$this->objetos[$abm_cabecera]->procesar(null,true);
 		//Si el ABM proceso una BAJA, vuelvo a la etapa INICIAL
 		if($this->objetos[$abm_cabecera]->obtener_etapa()=="PM-D"){
 			$etapa = "cabecera";
-		}elseif($this->objetos[$abm_cabecera]->obtener_etapa()=="SA"){
+		}
+		elseif($this->objetos[$abm_cabecera]->obtener_etapa()=="SA"){
 			$etapa = "cabecera";
 		}
-
-		if(	$etapa=="cabecera")
+		if($etapa=="cabecera")
 		{
 			$cuadro_cabecera = $this->cargar_objeto("objeto_cuadro",0);
 			if($cuadro_cabecera > -1){
