@@ -72,6 +72,7 @@
 		
 		-	Plan de capacitacion
 		-	Documentación
+			-	WIKI
 			-	Online para guiar el desarrollo con el administrador.
 			-	Offline para entender conceptos.
 		-	Implementar un foro y un sitio de referencia
