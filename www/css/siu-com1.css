@@ -1957,7 +1957,7 @@ TD.cat-item-dato5-nb {
 
 
 TD.cat-arbol-carpeta {
-	background-color: #7B7979;
+	background-color: #756CA4;
 	border-top: 4px outset #231F20;
 	border-left: 1px solid #4F4C4D;
 	/*border-bottom: 1px solid #000011;*/
@@ -1966,7 +1966,7 @@ TD.cat-arbol-carpeta {
 TD.cat-arbol-carpeta-info {
 	font-size: 10px;
 	color: #ffffff;
-	background-color: #7B7979;
+	background-color: #756CA4;
 	font-weight: bold;
 	text-align: left;
 	border-top: 4px outset #231F20;
@@ -1982,7 +1982,7 @@ TD.cat-arbol-item {
 
 
 TD.cat-arbol {
-	background-color: #7B7979;
+	background-color: #756CA4;
 	/*border-right: 1px solid #E9E8E8;*/
 	border-left: 2px solid #231F20;
 	/* border-bottom: 1px solid #4F4C4D; */

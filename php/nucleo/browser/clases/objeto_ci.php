@@ -77,11 +77,12 @@ class objeto_ci extends objeto
 												debug_eventos 			as debug_eventos,
 												ev_procesar				as	ev_procesar,
 												ev_procesar_etiq		as	ev_procesar_etiq,
+									--SI!		activacion_procesar		as activacion_procesar,
 												ev_cancelar				as	ev_cancelar,
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
 												objetos					as	objetos,			
-												ancho						as	ancho,			
-												alto						as	alto			
+												ancho					as	ancho,			
+												alto					as	alto
 										FROM	apex_objeto_mt_me
 										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
 										AND	objeto_mt_me='".$this->id[1]."';";
@@ -474,6 +475,15 @@ class objeto_ci extends objeto
 	{
 		if($this->info_ci['ev_procesar']){
 			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
+		}else{
+/*
+			if(trim($this->info_ci['activacion_procesar'])!=""){
+				$metodo = $this->info_ci['activacion_procesar'];
+				if($this->$cn->$metodo()){
+					echo form::submit($this->submit,$this->submit_etiq,"abm-input");
+				}
+			}
+*/
 		}
 		if($this->info_ci['ev_cancelar']){
 			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
