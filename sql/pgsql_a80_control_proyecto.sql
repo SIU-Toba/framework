@@ -8,7 +8,7 @@ CREATE TABLE apex_cp_dificultades (
 
 
 CREATE TABLE apex_cp_entregables (
-       id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_entregable_seq"'::text),
+       id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_cp_entregable_seq"'::text),
        numero               VARCHAR(8) NOT NULL,
        descripcion          VARCHAR(255) NOT NULL,
        dificultad           INTEGER NOT NULL,
