@@ -215,6 +215,8 @@ class elemento_toba_item extends elemento_toba
 		$docbook = "";
 		if(isset($this->datos['apex_item_info'][0]['descripcion_larga'])){
 			$docbook .= $this->datos['apex_item_info'][0]['descripcion_larga'];
+		}else{
+			$docbook .= "<para></para>";
 		}
 		/*
 		for($a=0;$a<count($this->subelementos);$a++)
@@ -222,6 +224,7 @@ class elemento_toba_item extends elemento_toba
 			$docbook .= $this->subelementos[$a]->obtener_docbook();
 		}
 		*/
+		return $docbook;
 	}
 	
 	function obtener_php()
