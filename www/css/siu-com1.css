@@ -832,20 +832,16 @@ TD.abm-fila {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-SIZE: 8px;
-	 PADDING-BOTTOM: 3px;
 	 MARGIN: 0px;
 	 COLOR: #441177;
-	 PADDING-TOP: 1px;
 	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-fila-ml {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-SIZE: 8px;
-	 PADDING-BOTTOM: 3px;
 	 MARGIN: 0px;
 	 COLOR: #441177;
-	 PADDING-TOP: 1px;
 	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-columna {
@@ -1422,16 +1418,15 @@ DIV.doc-func-param-obligatorio {
 TD.ef-etiqueta-obligatorio {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
-	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
+	 text-weight: bold
 }
 TD.ef-etiqueta {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
@@ -1439,7 +1434,6 @@ TD.ef-etiqueta-error {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
