@@ -289,6 +289,22 @@ class objeto
 	}
 
 //*******************************************************************************************
+//****************************<  Acceso al MODULO de MENSAJES   >****************************
+//*******************************************************************************************	
+
+	function obtener_mensaje($indice, $parametros=null)
+	{
+		//Busco el mensaje del OBJETO
+		if($mensaje = mensaje::get_objeto($this->id[1], $indice, $parametros)){
+			return $mensaje;	
+		}else{
+			//El objeto no tiene un mensaje con el indice solicitado,
+			//Busco el INDICE global
+			return mensaje::get($indice, $parametros);
+		}
+	}
+
+//*******************************************************************************************
 //****************************<  Informacion sobre el proceso   >****************************
 //*******************************************************************************************	
 

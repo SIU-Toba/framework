@@ -11,8 +11,10 @@ require_once("nucleo/lib/encriptador.php");			//Encriptador
 require_once("nucleo/lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("nucleo/lib/sql.php");					//Libreria de manipulacion del SQL
 require_once("nucleo/lib/finalizar.php");			//Implementacion de DESTRUCTORES
-require_once("nucleo/lib/excepcion_toba.php");		//Implementacion de DESTRUCTORES
-require_once("nucleo/lib/logger.php");				//Implementacion de DESTRUCTORES
+require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA
+require_once("nucleo/lib/logger.php");				//Logger
+require_once("nucleo/lib/mensaje.php");				//Modulo de mensajes parametrizables
+require_once("nucleo/toba.php");					//Obtencion de referencias a los objetos CENTRALES
 require_once("instancias.php");                     //Listado de INSTANCIAS...
 //-------------------------------------------------------------------------
 define("apex_buffer_clave","x_buffer_clave");		//Clave interna de los BUFFERS
