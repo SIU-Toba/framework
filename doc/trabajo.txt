@@ -1,9 +1,13 @@
 -------------------------------------------------
 --- TRABAJO en el TOBA 
-	 -> Pendiente
-	 › En desarrollo
-	 º Para revisar
+	-> 			Pendiente
+	› 			En desarrollo
+	º 			Para revisar
+	-D			Dialogo!
 --------------------------------------------------
+
+-D		j: Este es el tipo de informacion que es util manejar en el bugzilla?
+-D			esta mas orientado a reporte de bugs?
 
 	*** ML: 
 	
@@ -17,13 +21,17 @@
 				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
 				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
 				Se podría saber una vez que los ef's puedan saber, por ahora sólo se puede jugar con el número de líneas.
-						Si se hiciera, ¿cómo se utilizaría? Los cambios que se pueden hacer en el browser son todos los posibles
-						¿tiene sentido hacer un diff o es más razonable tomar todo en conjunto?)
+-D					s:	Si se hiciera, ¿cómo se utilizaría? Los cambios que se pueden hacer en el browser son todos los posibles
+-D						¿tiene sentido hacer un diff o es más razonable tomar todo en conjunto?)
+-D					j:	La idea seria saber que linea recibio una modificacion... (Un flag que diga: "la linea 1 y la 4 se modificaron")
+-D						ej: ABM de cuadros. Se editan las propiedades de dos columnas... hay que hacer un update de todas?
+-D						Mas alla del mecanismo de alto nivel que se encarga de sincronizar con la base, a nivel ei_form es necesario saberlo
+-D						(no lo tengo 100% pensado, pero me parece que es mas facil hacerlo asi que hacer un diff en el server... que opinas??)
 		-> TAB ORDER
 		-> Agregado automático de líneas (TAB en el último EF de la última línea crea línea nueva)
-		-> Enter. podemos guardar con ALT + S o ALT + G, está piola
+		-> Enter. podemos guardar con ALT + S o ALT + G, está piola (Me encanto!!)
 		-> Hay que pensar bien la relacion de este componente y el buffer
-		-> Selección múltiple de líneas
+		-> Selección múltiple de líneas (??)
 
 	*** EF:
 
@@ -42,7 +50,7 @@
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
 			-> ef_vinculo?
 			-> ef_template?
-			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que no se metio)
+			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
 			-> ef_multi_selecccion 
 				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
 				-> Utilizando un conjunto de checkbox (muy explicito, ideal para conjunto chico de datos)
@@ -52,23 +60,23 @@
 			-> Migración del JS suelto a las clases (esto incluye el código cascada)
 			-> Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
 			-> Construir las etiquetas usando <label for> con atajos de teclado
-			
-		---------------------
+		-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR
 		-> COMBO DAO que maneje mas de una columna
-		-> Los COMBO DAO necesitan un valor NO SETEADO (para disparar el onchange)
 		-> EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
 			
 
 	*** EI_CUADRO
 
-->		-> Claves de mas de una columna
+		-> Claves de mas de una columna
 		-> Encriptacion de claves... el mecanismo es distinto que el del GET
 		-> Evento ELIMINACION (con popup preguntando...)
 		-> sistematizar totales
 		-> Mostrar fila seleccionada
 		-> Paginar, con ordenamiento total
 		-> Cortes de control fácil de crear y entender
-		
+		-> CSS 'no_wrap' en vez de '&nbsp;'
+		-> Boton ocultar de siu-quilmes
+		-> Utilizar los titulos de las columnas en la generacion de PDF
 
 	*** EI_FORM
 
@@ -83,9 +91,24 @@
 		-> Personalización del layout de los efs
 		
 	*** EI_FILTRO
-		-> ¿Se va a unir con el objeto_filtro? ¿Que pása con las dimensiones?
-		-> Actualmente las dimensiones son escasas para hacer filtros reales, va a ser la piedra inicial para la generación de reportes.
 
+-D			s: ¿Se va a unir con el objeto_filtro? ¿Que pása con las dimensiones?
+-D				Actualmente las dimensiones son escasas para hacer filtros reales, va a ser la piedra inicial para la generación de reportes.
+-D			J: Esto hay que decidirlo. Creo que para algunas cosas pueden ser muy util, por ejemplo para la generacion de reportes dinamicos 
+-D				en las instanciaciones del toba que tengan la arquitectura original (El origen de la palabra 'dimensiones' vienen de experimentos
+-D				que hice el en siu con el datawarehouse de informix, el metacube).
+				
+	*** objeto_filtro
+			
+		-> 	Flag que indique el cambio de where
+		->	Unificar la jerarquia con el ei_form para soportar cascadas
+		->	(perfil de datos)Implementar las dimensiones restringidas por comparacion
+
+	*** objeto_mt_abms
+		
+		->	Terminar de sintetizar la jerarquia de herencia (heredar del CI, usar un UT_FORM)		
+		->	Hacer que los botones sean dinamicos
+		->	Mecanismo para tener columnas que funciones en la cascada pero no se graben en la tabla
 
 	*** CI
 		
@@ -105,21 +128,37 @@
 
 	**** CN
 	
-		-> Derechos 
+		-> Derechos (Requiere un administrador de derechos)
 		-> Controles configurables 
 
-	*** GENERAL
+	**** BUFFER
+	
+		-> Filtrado de registros
+		-> Multitabla de con correspondencia debil
 
-->>		-> Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
-		-> Las entidades mas complejas necesitan una forma de persistir datos.
+	**** GENERAL
+
+		-> Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
+		-> Las entidades mas complejas necesitan una forma de persistir datos durante la sesion (recordar su estado inicial).
 		-> mantener_estado_sesion no respeta el no acceso al hilo
-		-> Foco automatico vs. hidden. Que tal utilizar los objetos JS (por ej pedir focus al form y este le pide al 1er EF) 
-										Sino hay que recorrer el DOM, mas bajo nivel pero infalible
+		-> Foco automatico vs. hidden. 
+-D					s:	Que tal utilizar los objetos JS (por ej pedir focus al form y este le pide al 1er EF) 
+-D						Sino hay que recorrer el DOM, mas bajo nivel pero infalible
+-D					j:	SI!!, me parece OK. El problema que me hizo escribir este item es el siguiente:
+-D							- Un form con un evento que oculta el primer campo visible, cuando navegas por un CI
+-D								tira un error de JS cuando volves al tab en el que fue ocultado!
 		-> inicializacion.php se choca entre los proyectos (utiliza el PATH en lugar de buscar el del proyecto)
 		-> HTML y CSS
 			-> Empezar a utilizar el DOCTYPE, va a pasar al IE de modo compatible a modo CSS, se ven mal algunas cosas
 				Sin el DOCTYPE no se puede validar el documento y no funcionan cosas avanzadas de CSS (ej. tablas con scroll)
-			->
+		->	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
+		->	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
+		->	Carga de objetos toba
+			- Lugar unificado de carga (actualmente solicitud y objeto)
+			- Excepciones
+		->	Desarrollar el display de errores de la cola de mensajes
+		->	Javascript en el login que deje guardado en el HILO el browser que se esta utilizando
+		->	Armar una entrada al sistema (en modo usuario final) que abra un popup sin botones de volver, etc.
 
 	*** Inteface ADMINISTRATIVA
 

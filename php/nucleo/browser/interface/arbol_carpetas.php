@@ -59,6 +59,35 @@ class arbol_carpetas
 	}
 	//---------------------------------------------------------------------
 	
+	function obtener_combo2()
+	{
+
+		$carpeta = $this->buscar_carpeta_inicial('');
+		if ($carpeta !== false)
+		{
+			$arbol_carpetas = $this->ordenar_recursivo($carpeta, 0);
+		}else{
+			echo "ERROR!";
+		}
+		$datos = array();
+		$pos = 0;
+		foreach($arbol_carpetas as $carpeta)
+		{
+			$nivel = $carpeta['nivel'] - 1;
+			if($nivel >= 0){
+				$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
+			}else{
+				$inden = "";
+			}
+			$datos[$pos]['proyecto'] = $carpeta['item_proyecto'];
+			$datos[$pos]['item'] = $carpeta['item'];
+			$datos[$pos]['desc'] = $inden . $carpeta['nombre'];
+			$pos++;
+		}
+		return $datos;
+	}
+	//---------------------------------------------------------------------
+
 	protected function buscar_carpeta_inicial()
 	{
 		foreach ($this->items_originales as $item)

@@ -169,19 +169,20 @@ class ef //Clase abstracta, padre de todos los EF
 		function escuchar_master_{$this->id_form}()
 		{
 			$lista_maestros
-
 			//-- ¿Estan los maestros cargados?
 			var cargados = true;
 			for (var i in maestros) {
   				if (! eval('master_cargado_' + maestros[i] + '{$this->agregado_form}()'))
   					cargados = false;
 			}
+			//Me reseteo (por si nunca se vuelve a la callback)
+			//Esto resetea al mismo tiempo a los EFs que dependen de MI
+			//Esto se tiene que hacer aunque los masters no esten cargados tambien
+			//por el caso De un master que se paso al estado 'no_seteado'
+			reset_{$this->id_form}();
+
 			if(cargados)//SI Se cargaron todos los MAESTROS...
 			{
-				//Me reseteo (por si nunca se vuelve a la callback)
-				//Esto resetea al mismo tiempo a los EFs que dependen de MI
-				reset_{$this->id_form}();
-
 				//-- Obtengo el valor de mis maestros
 				var dependencias = '';
 				for (var i in maestros) {

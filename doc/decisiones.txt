@@ -1,0 +1,4 @@
+
+	ID de ITEMS
+	
+		- No se deberian ocultar? (si se necesitan en la navegacion que se haga referenciandolos por vinculos (que los IDs sean de los vinculos) )

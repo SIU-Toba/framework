@@ -1,21 +1,20 @@
 
 	SIU - Toba: Plan de trabajo 2005
 
-	A - CODIGO FUENTE
-	-----------------
+	(El detalle necesidades concretas a hoy eta en ./trabajo.txt)
 
-	1) Temas generales a desarrollar
+	A - Temas generales a programar
+	-------------------------------
 
 		-	Soporte para el desarrollo de logica de negocio.
 			-	Entidades
 			-	Procesos (roles de las entidades)
 		-	Elemento que maneje un flujo de pantallas. 
 			-	Manejar patrones con roles y posibiliar la parametrizacion de los mismos
-			-	Maquina de estados en patron
 			-	CI que puede incluir otros CI.
 		-	API en PHP y Javascript para los elementos de toba (item, objeto, usuario)
 			-	Que los CI y EI tengan una clase homologan en javascript
-		-	compilación a PHP
+		-	Compilación de metadatos a PHP (en conjunto con utilizacion de mecanismos de optimizacion (MM, zend optimizer, etc))
 		-	Testing automatico
 		-	Ambiente de trabajo
 			-	Log de modificaciones para metricas
@@ -24,57 +23,27 @@
 		-	No reescribir la logica de negocio en PHP y javascript (evaluar librerias 3ros)
 		-	Librería de javascript con utilizades (evaluar librerias 3ros)
 		-	Mensajeria entre instancias (intercambio de elementos toba) para facilitar el desarrollo remoto
+			- 	Nodo central de la red en un toba del SIU que mantenga la sincronizacion entre proyectos distribuidos
 		-	Reescritura del administrador utilizando el desarrollo en capas (hacer mas intuitiva y veloz la interface de usuarios).
+			-	Metodo simplificado de creacion de operaciones en base a modelos...
 		-	Multimotor
+		-	Se puede utlizar SSL de manera detallada? (Controlar certificados, etc.)
+		-	ACCESO
+			-	Esquema de manejo de usuarios de distintas instancias para una instalacion
+			-	Abstraccion del login para soportar mecanismos externos
+			-	Cuando se crea un proyecto hay que crear en forma optativa un manejador de usuarios para el mismo
+		- 	Refactorizar el manejo de la fuente de datos
+		-	Separacion de las tablas de metadatos por dominios (para distribuirlas entre instancias, reemplazar algunas por PHP compilado, etc.)
+		-	Hacer una migracion completa a PHP5 (migrar: constructores, visibilidad de metodos y propiedades, usar interfaces, eliminar referencias globales)
+		-	Completar el esquema de ayuda online
 
-	2) Cosas pendientes
-	
-		-	El bugzilla tiene una API que pueda utilizarse desde toba?
-		-	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
-		-	Facilitar la creación de nuevos estilos. Tarea: analizar la distribución de los estilos.
-		-	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
-		-	Carga de objetos:
-			- Lugar unificado de carga (actualmente solicitud y objeto)
-			- Control la existencia de la instanciacion
-			- Excepciones
-
-
-	3) Cosas concretas pendientes
-	
-		-	Prioridad: SIU-Quilmes
-
-			-	Cascada en ABMs (cuando se produce un error los dependientes quedan sin estado)
-			-	Enter en los formularios
-		
-		-	Prioridad: SIU-Comechingones
-
-			-	BUFFER
-				-	Filtrado de registros
-				-	Multitabla
-			-	CN
-				-	Derechos
-				-	Controles configurables
-			-	Entidad
-				-	Bifurcacion y acoplamiento en dos buffers para una sola entrada
-			-	EF
-				-	Separadores
-			-	Cola de mensajes
-				-	Reconfirmacion
-
-		-	General
-
-			-	Administrador de derechos 
-			-	Esquema de manejo de usuarios de distintas instancias para una instalacion (deployment)
-
-
-	B - PRACTICAS
-	-------------
+	B - Actividades asociadas a la documentacion
+	--------------------------------------------
 		
 		-	Plan de capacitacion
-		-	Documentación
-			-	WIKI
-			-	Online para guiar el desarrollo con el administrador.
-			-	Offline para entender conceptos.
+		-	WIKI
+		-	Online para guiar el desarrollo con el administrador.
+		-	Offline para entender conceptos.
 		-	Implementar un foro y un sitio de referencia
 		-	Lineamientos al programador
 			-	Uso de directorios

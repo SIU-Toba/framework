@@ -1,0 +1,6 @@
+include: nucleo/browser/interface/arbol_carpetas.php;
+clase: arbol_carpetas;
+dao: obtener_combo2;
+instanciable: 1;
+clave: proyecto, item;
+valor: desc;

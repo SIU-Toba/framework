@@ -161,7 +161,7 @@ class ef_combo extends ef
 		return "
 		function master_cargado_{$this->id_form}()
 		{
-			return (master_get_estado_{$this->id_form}() != '".apex_ef_no_seteado.".');
+			return ( master_get_estado_{$this->id_form}() != '".apex_ef_no_seteado."');
 		}
 		";		
 	}	
@@ -171,12 +171,8 @@ class ef_combo extends ef
 
 	function obtener_input()
 	{
+		$estado = $this->obtener_estado_input();
 		//ei_arbol($this->valores);
-        if (isset($this->estado)) {
-            $estado = $this->estado;
-        }else{
-            $estado = "";
-        }
         if ($this->solo_lectura)
         {
 				if (count($this->valores) > 0){
@@ -193,6 +189,15 @@ class ef_combo extends ef
 				$html = $this->obtener_javascript_general() . "\n\n";
 				$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() . $this->input_extra );
 				return $html;
+        }
+	}
+
+	function obtener_estado_input()
+	{
+        if (isset($this->estado)) {
+            return $this->estado;
+        }else{
+            return "";
         }
 	}
 
@@ -258,14 +263,19 @@ class ef_combo extends ef
 class ef_combo_dao extends ef_combo
 /*
 	El DAO estatico no deberia ser una clase separada?
+	ATENCION: falta el valor predeterminado en el caso de claves compuestas
 */
 {
 	private $dao;
 	private $include;
 	private $clase;
+	private $requiere_instancia = false;
 	private $modo; 		//Carga estatica o a travez del CN
 	private $clave;
 	private $valor;
+	private $opcion_seleccionada;
+	private $estado_nulo;
+	private $cantidad_claves;
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -279,6 +289,11 @@ class ef_combo_dao extends ef_combo
 		if(isset($parametros["clase"])){
 			$this->clase = $parametros["clase"];
 		}
+		if(isset($parametros["instanciable"])){
+			if( $parametros["instanciable"] == "1" ){
+				$this->requiere_instancia = true;
+			}
+		}
 		if(isset($this->include) && isset($this->clase) )
 		{
 			$this->modo = "estatico";
@@ -288,6 +303,7 @@ class ef_combo_dao extends ef_combo
 		//Clave de los datos a recibir
 		if(isset($parametros["clave"])){
 			$this->clave = explode(",",$parametros["clave"]);
+			$this->clave = array_map("trim",$this->clave);
 		}else{
 			//SI no esta definido esto tiene que tirar una excepcion
 		}
@@ -314,6 +330,20 @@ class ef_combo_dao extends ef_combo
 				$this->cargar_datos();
 			}
 		}
+		//**** CC!
+		$this->cantidad_claves = count($this->clave);
+		//Representacion a nivel datos de lo no_seteado
+		if( $this->cantidad_claves > 1){
+			foreach($this->dato as $dato){
+				$this->estado_nulo[$dato] = 'NULL';
+			}
+	        if(isset($parametros["no_seteado"])){
+	    		if($parametros["no_seteado"]!=""){
+					$this->opcion_seleccionada = apex_ef_no_seteado;
+					$this->estado = $this->estado_nulo;
+	    		}
+	        }
+		}
 	}
 	
 	function obtener_dao()
@@ -336,11 +366,11 @@ class ef_combo_dao extends ef_combo
 		Si el DAO esta a a cargo del CN, el CN lo carga a travez de este metodo.
 		Si el DAO se carga a travez de una clase estatica, el mismo obtiene los
 		datos directamente de la misma, obviando los parametros
-		Esto es realmente feo... pero tuvo que salir...
+		Esto hay que pensarlo un poco mejor
 	*/
 	{
 		if($this->modo =="estatico" ){
-			$valores = $this->recuperar_datos_estaticos();
+			$valores = $this->recuperar_datos_dao();
 		}
 		$this->adjuntar_datos($valores);
 	}
@@ -355,46 +385,167 @@ class ef_combo_dao extends ef_combo
 		$param = implode(",", $parametros);
 		if($this->modo =="estatico" )
 		{
-			$valores = $this->recuperar_datos_estaticos($param);
+			$valores = $this->recuperar_datos_dao($param);
 			if(isset($valores)){
 				$this->adjuntar_datos($valores);	
 				$this->input_extra = "";
 			}else{
-				//La idea de la linea comentada era lograr el mismo efecto que provoca
-				//la carga desde el server de un valor NULL (en blanco con la longitud del no_seteado)
-				//$desc = str_repeat(count($this->no_seteado),"&nbsp");
-				$this->valores[apex_ef_no_seteado] = "";
+				$this->valores[apex_ef_no_seteado] = $this->no_seteado;
 			}
 		}else{
 			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
 		}
 	}
 
-	function recuperar_datos_estaticos($param=null)
+	function recuperar_datos_dao($param=null)
 	{
 		include_once($this->include);
-		$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."(\$param);";
+		if($this->requiere_instancia){
+			$sentencia = "\$c = new {$this->clase}();
+							\$valores = \$c->{$this->dao}(\$param);";
+		}else{
+			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."(\$param);";
+		}
 		eval($sentencia);//echo $sentencia;
 		return $valores;
 	}
 
 	function adjuntar_datos($valores)
 	{
-		//Incluyo el valor no seteado
+		//-[ 0 ]- Incluyo el valor no seteado
 		if(isset($this->no_seteado)){
 			$this->valores[apex_ef_no_seteado] = $this->no_seteado;
 		}
-		//Armo los valores...
 		//ei_arbol($valores);
-		if(count($this->clave)>1){
-			echo "La clave es multiple!!!";
-		}else{
-			//La clave es unica
-			$id = $this->clave[0];
+		//-[ 1 ]- Armo los valores...
+		if( $this->cantidad_claves > 1){
+			//**** CC!
+			//La clave es COMPUESTA
 			for($a=0;$a<count($valores);$a++){
 				//Determino la clave
+				//Este algoritmo podria ser mejor...
+				$id = "";
+				for($c=0;$c<count($this->clave);$c++){
+					$id .= $valores[$a][$this->clave[$c]] . apex_ef_separador;
+				}
+				$id = substr($id,0,strlen($id)-strlen(apex_ef_separador));
+				//Adjunto los DATOS
+				$this->valores[ $id ] = $valores[$a][$this->valor];
+			}
+		}else{
+			//La clave es SIMPLE
+			$id = $this->clave[0];
+			for($a=0;$a<count($valores);$a++){
+				//Adjunto los DATOS
 				$this->valores[ $valores[$a][$id] ] = $valores[$a][$this->valor];
 			}
+		}
+	}
+
+	function cargar_estado($estado=null)
+	//Carga el estado interno. Es un array asociativo del tipo dato:valor
+	{
+		if( $this->cantidad_claves > 1){
+		//**** CC!
+	   		if(isset($estado)){								
+				//El estado tiene el formato adecuado?
+				if(count($estado)<>$this->cantidad_claves){
+					echo ei_mensaje("ERROR: la cantidad de claves no coinciden");
+					return false;
+				}
+				//Si el estado es nulo tengo que manejarlo de una forma especial
+				$valores = "";
+				foreach($estado as $valor){
+					$valores .= $valor;
+				}
+				if(trim($valores)==""){									//Valor NULO
+					$this->estado = $this->estado_nulo;
+					$this->opcion_seleccionada = apex_ef_no_seteado;
+				}else{													//Valor seteado
+		    		$this->estado=$estado;
+					//Deduzco la opcion seleccionada del estado
+					$opcion = "";
+	    	        foreach($this->dato as $dato){//Sigo el orden de las columnas
+	        	        $opcion .= $this->estado[$dato] . apex_ef_separador;
+		            }
+	    	        //Saca el ultimo apex_ef_separador
+					$this->opcion_seleccionada = substr($opcion,0,strlen($opcion)-strlen(apex_ef_separador));
+				}
+				return true;
+			}elseif(isset($_POST[$this->id_form])){
+	            //Deduzco el estado de la opcion seleccionada
+	   			$this->opcion_seleccionada=$_POST[$this->id_form];
+				//echo $this->id . " - " . $this->opcion_seleccionada. "<br>";
+				if($this->opcion_seleccionada == apex_ef_no_seteado){	//Valor nulo
+					$this->estado = $this->estado_nulo;
+				}else{													//Valor seteado
+		            $temp = explode(apex_ef_separador, $this->opcion_seleccionada);
+	    	        $temp_ind = 0;
+					unset($this->estado);
+	        	    foreach($this->dato as $dato){//Sigo el orden de las columnas
+	            	    $this->estado[$dato] = $temp[$temp_ind];
+	                	$temp_ind++;
+		            }
+				}
+				//ei_arbol($this->estado,$this->id);
+				return true;
+	    	}
+			return false;
+		}else{
+			return parent::cargar_estado($estado);
+		}
+	}
+
+	function obtener_estado()
+	//Devuelve el estado interno
+	{
+		if( $this->cantidad_claves > 1){
+		//**** CC!
+			if($this->activado()){
+				return $this->estado;
+			}else{
+				return $this->estado_nulo;
+			}
+		}else{
+			return parent::obtener_estado();
+		}
+	}
+
+	function activado()
+	{
+		//Devuelve TRUE si el elemento esta seteado y FALSE en el caso contrario
+		if( $this->cantidad_claves > 1){
+		//**** CC!
+			return isset($this->estado) && ($this->estado !==  $this->estado_nulo);
+		}else{
+			return parent::activado();
+		}
+	}
+
+	function obtener_estado_input()
+	{
+		if( $this->cantidad_claves > 1){
+		//**** CC!
+			return $this->opcion_seleccionada;
+		}else{
+			return parent::obtener_estado_input();
+		}
+	}
+
+	function establecer_solo_lectura()
+	{
+		if( $this->cantidad_claves > 1){
+		//**** CC!
+			//Elimino los valores distintos al seleccionado
+			if(isset($this->estado)){
+				foreach(array_keys($this->valores) as $valor){
+					if($valor != $this->opcion_seleccionada){
+						unset($this->valores[$valor]);
+					}	
+				}
+			}
+		}else{
+			parent::establecer_solo_lectura();
 		}
 	}
 
@@ -650,7 +801,7 @@ class ef_combo_db_proyecto extends ef_combo_db
 			foreach($estado as $valor){
 				$valores .= $valor;
 			}
-			if(trim($valor)==""){									//Valor NULO
+			if(trim($valores)==""){									//Valor NULO
 				$this->estado = $this->estado_nulo;
 				$this->opcion_seleccionada = apex_ef_no_seteado;
 			}else{													//Valor seteado
@@ -702,18 +853,6 @@ class ef_combo_db_proyecto extends ef_combo_db
 	}
 
 }
-
-//SEGUIR ACA!!!!!!!!!!!!!
-// Este elemento de formulario consiste en un conjunto de combos relacionales, su contenido proviene de recordsets
-//PARAMETROS ADICIONALES:
-// "sql": SQL que genera la lista (EL sql debe devolver dos columnas: clave, descripcion)
-// "no_seteado": Valor que representa el estado de NO activado
-/*
-class ef_combo_db_cascada extends ef_combo_db
-{
-}
-*/
-
 //########################################################################################################
 //########################################################################################################
 
