@@ -1,11 +1,22 @@
 <?php
 require_once("nucleo/browser/interface/ef.php");// Elementos de interface
 
-abstract class ef_multi_seleccion extends ef
+define('carga_dao_estatico', '400');
+define('carga_dao_cn', '401');
+define('carga_sql', '402');
+
+class ef_multi_seleccion extends ef
 {
 	protected $valores;				//Array con valores de la lista
 	protected $tamanio;
-	
+
+	protected $modo_carga; //DAO, DAO_CN, SQL
+	protected $dao;
+	protected $include;
+	protected $clase;
+	protected $sql;
+	protected $fuente;
+		
 	//parametros validación
 	protected $cant_maxima;
 	protected $cant_minima;
@@ -30,41 +41,98 @@ abstract class ef_multi_seleccion extends ef
 			$this->cant_minima = $parametros['cant_minima'];
 			unset($parametros['cant_minima']);
 		}
+		
+		//Se carga a partir de un DAO?
 		if(isset($parametros["dao"])){
 			$this->dao = $parametros["dao"];
+			if(isset($parametros["include"])){
+				$this->include = $parametros["include"];
+			}			
+			if(isset($parametros["clase"])){
+				$this->clase = $parametros["clase"];
+			}
+			if(isset($this->include) && isset($this->clase) )
+				$this->modo_carga = carga_dao_estatico;
+			else
+				$this->modo_carga = carga_dao_cn;
+			unset($parametros["dao"]);
+			unset($parametros["clase"]);
+			unset($parametros["include"]);		
 		}
-		if(isset($parametros["include"])){
-			$this->include = $parametros["include"];
+
+		//Se carga a partir de un SQL?
+		if (isset($parametros["sql"])) {
+			$this->modo_carga = carga_sql;
+			$this->sql = stripslashes($parametros["sql"]);
+	        if((isset($parametros["fuente"]))&&(trim($parametros["fuente"])!="")){
+	    		$this->fuente = $parametros["fuente"];
+	            unset($parametros["fuente"]);
+	        }else{
+	            $this->fuente = "instancia"; //La instancia por defecto es la CENTRAL
+	        }
+			unset($parametros["sql"]);
 		}
-		if(isset($parametros["clase"])){
-			$this->clase = $parametros["clase"];
-		}
-		if(isset($this->include) && isset($this->clase) )
-		{
-			$this->modo = "estatico";
-		}else{
-			$this->modo = "cn";	
-		}
-		unset($parametros["dao"]);
-		unset($parametros["clase"]);
-		unset($parametros["include"]);		
+
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		
-		if($this->modo == "estatico"){
-			$this->cargar_datos(array());
-		}		
+
+		$this->cargar_datos();
 	}
 
-	function cargar_datos($datos)
+	function cargar_datos_dao()
 	{
-		if($this->modo == "estatico" )
-		{
-			include_once($this->include);
-			$sentencia = "\$this->valores = " .  $this->clase . "::" . $this->dao ."();";
-			eval($sentencia);//echo $sentencia;
-		}else{
-			$this->valores = $valores;
+		include_once($this->include);
+		$sentencia = "\$this->valores = " .  $this->clase . "::" . $this->dao ."();";
+		eval($sentencia);//echo $sentencia;
+	}
+	
+	function cargar_datos_db()
+	{
+		$this->valores = array();//Limpio la lista de valores
+		if(isset($this->no_seteado)){
+    		if(trim($this->estado)==""){
+    			$this->estado = apex_ef_no_seteado;
+	   		}
+	    	$this->valores[apex_ef_no_seteado] = $this->no_seteado;
+        }
+		global $ADODB_FETCH_MODE, $db;
+		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+		$rs = $db[$this->fuente][apex_db_con]->Execute($this->sql);
+		if(!$rs){
+			monitor::evento("bug","COMBO DB: No se genero el recordset. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: {$this->sql} -- ");
 		}
+		if($rs->EOF){
+			//echo ei_mensaje("EF etiquetado '$etiqueta'<br> No se obtuvieron registros: ". $this->sql);
+		}
+		$temp = $this->preparar_valores($rs->getArray());
+		if(is_array($temp)){
+			$this->valores = $this->valores + $temp;
+		}
+		//ei_arbol($this->valores);
+	}	
+
+    function preparar_valores($datos_recordset)
+    {
+		$valores = null;
+		foreach ($datos_recordset as $fila){
+            $valores[$fila[0]] = $fila[1];
+		}
+        return $valores;
+    }
+	
+	function cargar_datos($datos = null)
+	{
+		if ($datos !== null) {
+			$this->valores = $datos;
+		} elseif ($this->modo_carga == carga_dao_estatico) {
+			$this->cargar_datos_dao();
+		} elseif ($this->modo_carga == carga_sql) {
+			$this->cargar_datos_db();		
+		}
+	}
+	
+	function get_valores()
+	{
+		return $this->valores;
 	}
 	
 	function cargar_estado()
@@ -104,14 +172,29 @@ abstract class ef_multi_seleccion extends ef
 		$this->validacion = true;
 		return array(true,"");
 	}
+	
+	function validar_seleccionados()
+	{
+		foreach ($this->estado as $seleccionado)
+		{
+			if (! array_key_exists($seleccionado, $this->valores) )
+			{
+				$this->validacion = false;
+                return array(false, "El elemento seleccionado no pertenece a los datos de entrada.");
+			}
+		}
+		return array(true, "");
+	}
 
     function validar_estado()
     {
 		if( $this->activado() ) {
-            return $this->validar_limites();
+            $limites =  $this->validar_limites();
+			if (!$this->validacion)
+				return $limites;
+			return $this->validar_seleccionados();
 		} else { 
-			$this->validacion = true;
-			return array(true,"");
+			return parent::validar_estado();
 		}
     }
 	

@@ -53,8 +53,8 @@ $this->hilo->desactivar_reciclado();
 			abrir_fuente_datos($f, $fp);
 
 			//---[ 2 ]- BUSCO los VALORES
-	
-			if($data[0]['ef'] == "ef_combo_dao")		//-------------- DAO
+			$es_dao = (($data[0]['ef'] == "ef_combo_dao") || isset($i['dao']));
+			if ($es_dao)		//-------------- DAO
 			{
 				if(isset($i["dao"])){
 					$dao = $i["dao"];
