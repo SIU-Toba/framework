@@ -47,6 +47,7 @@ class buffer_db
 		//Registro la finalizacion del objeto
 		$this->posicion_finalizador = registrar_finalizacion( $this );
 		//Inicializar la estructura de campos
+		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
 		$this->inicializar_definicion_campos();
 		//-- Si el BUFFER fue creado en el request previo, lo recargo
 		if( $this->existe_instanciacion_previa() ){
@@ -558,58 +559,6 @@ class buffer_db
 	}
 	//-------------------------------------------------------------------------------
 
-	function ejecutar_sql($sql,$controlar_ar=true)
-	//ATENCION!!!!! los update fallan y el error no se reporta!!!
-	{
-		$db = toba::get_fuente($this->fuente);
-		//if($db[$this->fuente][apex_db_con]->Execute($sql) === true){
-		if( !$db[apex_db_con]->Execute($sql)){
-			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
-							" Error en la sincronizacion a la DB. "
-							. $db[apex_db_con]->ErrorMsg() . 
-							" [ SQL: " . $sql . " ]");
-			throw new excepcion_toba($this->msg_error_sincro);
-		}else{
-			if($controlar_ar){
-				$registros_afectados = $db[apex_db_con]->affected_rows();
-				//echo "REGISTROS: " . $registros_afectados;
-				if($registros_afectados === 1){
-					$this->sql[] = $sql;
-				}else{
-					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
-									"	EJECUTAR SQL: No hay registros afectados.");
-					throw new excepcion_toba($this->msg_error_sincro);
-				}
-			}else{
-				$this->sql[] = $sql;
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function recuperar_secuencia($secuencia)
-	{
-		$db = toba::get_fuente($this->fuente);
-		$sql = "SELECT currval('$secuencia') as seq;";
-		$rs = $db[apex_db_con]->Execute($sql);
-		//print $sql;
-		if((!$rs)){
-			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
-										" Recuperar SECUENCIA '$secuencia': SQL mal formado."
-										. $db[apex_db_con]->ErrorMsg() );
-			throw new excepcion_toba($this->msg_error_sincro);
-		}
-		if($rs->EOF){
-			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - " .
-									" Recuperar SECUENCIA '$secuencia': No existen datos.");
-			throw new excepcion_toba($this->msg_error_sincro);
-		}else{
-			$datos =& $rs->getArray();
-			return $datos[0]['seq'];
-		}
-	}	
-	//-------------------------------------------------------------------------------
-	
 	function obtener_sql_ejecutado()
 	{
 		return $this->sql;	

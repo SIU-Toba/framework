@@ -21,7 +21,7 @@ require_once("buffer_db.php");
 	-- no_nulo (array):			columnas que no pueden ser ""
 	-- externa (array):			columnas que no se utilizan para operaciones SQL
 
-	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, no_nulo y externa )
+	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, externa y no_nulo )
 	tienen que tener como valor valores existentes en los arrays "columna" o "clave" )
 
 	*** PENDIENTE ***
@@ -87,6 +87,7 @@ class buffer_db_s extends buffer_db
 	//Sincroniza las modificaciones del BUFFER con la DB
 	//ATENCION, mejorar control de errores
 	{
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - SINCRONIZACION!"); 
 		if($this->control_sincro_db){
 			$ok = $this->controlar_alteracion_db();
 		}
@@ -109,21 +110,24 @@ class buffer_db_s extends buffer_db
 		//-- INSERT --
 		foreach(array_keys($sql_i) as $registro)
 		{
-			$this->ejecutar_sql($sql_i[$registro],false);
+			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_i[$registro]); 
+			ejecutar_sql( $sql_i[$registro], $this->fuente);
 			if(count($this->campos_secuencia)>0){
 				foreach($this->definicion['secuencia'] as $secuencia){
 					//Actualizo el valor
-					$this->datos[$registro][$secuencia['col']] = $this->recuperar_secuencia($secuencia['seq']);
+					$this->datos[$registro][$secuencia['col']] = recuperar_secuencia($secuencia['seq'], $this->fuente);
 				}
 			}
 		}
 		//-- DELETE --
 		foreach(array_keys($sql_d) as $registro){
-			$this->ejecutar_sql($sql_d[$registro]);
+			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_d[$registro]); 
+			ejecutar_sql($sql_d[$registro], $this->fuente);
 		}
 		//-- UPDATE --
 		foreach(array_keys($sql_u) as $registro){
-			$this->ejecutar_sql($sql_u[$registro]);
+			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_u[$registro]); 
+			ejecutar_sql($sql_u[$registro], $this->fuente);
 		}
 		
 		//-[2]- Todo bien, actualizo los METADATOS del BUFFER
@@ -179,19 +183,18 @@ class buffer_db_s extends buffer_db
 			$campos_insert = $this->campos_manipulables;
 		}
 		$registro = $this->datos[$id_registro];
-		//Escapo los caracteres que forman parte de la sintaxis SQL
+		//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
 		foreach($campos_insert as $id_campo => $campo){
-			if(isset($registro[$campo])){
-				$valores[$id_campo] = addslashes($registro[$campo]);	
-			}else{
+			if(!isset($registro[$campo]) || (trim($registro[$campo]) == "") ){
 				$valores[$id_campo] = "NULL";
+			}else{
+				$valores[$id_campo] = "'" . addslashes(trim($registro[$campo])) . "'";
 			}
 		}
 		$sql = "INSERT INTO " . $this->definicion["tabla"] .
-				" ( " . implode(",",$campos_insert) . " ) ".
-				" VALUES ('" . implode("','", $valores) . "');";
+				" ( " . implode(", ",$campos_insert) . " ) ".
+				" VALUES (" . implode(", ", $valores) . ");";
 		//Formateo NULOS
-		$sql = ereg_replace("'NULL'","null",$sql);
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
@@ -215,7 +218,7 @@ class buffer_db_s extends buffer_db
 		}
 		//Escapo los caracteres que forman parte de la sintaxis SQL
 		foreach($campos_update as $campo){
-			if(!isset($registro[$campo])){
+			if( (!isset($registro[$campo])) || (trim($registro[$campo]) == "") ){
 				$set[] = " $campo = NULL ";
 			}else{
 				$set[] = " $campo = '". addslashes($registro[$campo]) . "' ";

@@ -1,9 +1,11 @@
 <?php
 require_once("buffer_db.php");
 /*
-
-
+	Atencion, el buffer multitabla no funca con las columnas disjuntas.
+		1 -> 1		: todo BIEN
+		1 -> 0 ó 1	: todo MAL
 */
+
 class buffer_db_mt extends buffer_db
 {
 	function __construct($id, $definicion, $fuente)
@@ -34,11 +36,11 @@ class buffer_db_mt extends buffer_db
 			if(isset($this->definicion[$tabla]['secuencia'])){
 				for($a=0;$a<count($this->definicion[$tabla]['secuencia']);$a++){
 					$this->campos_secuencia[] = $this->definicion[$tabla]['secuencia'][$a]['col'];
+					$this->campos_secuencia_tabla[$tabla][] = $this->definicion[$tabla]['secuencia'][$a]['col'];
 				}
 			}
 		}
 		array_unique($this->campos);
-		
 		//---- CAMPOS_MANIPULABLES ----
 		$this->campos_manipulables = array_diff($this->campos, $this->campos_secuencia);
 		//$this->campos_manipulables = $this->campos;
@@ -56,6 +58,11 @@ class buffer_db_mt extends buffer_db
 		}else{
 			$this->campos_no_nulo = array();
 		}
+		//---- Columnas EXTERNAS ----
+		if(!isset($this->definicion['externa'])){
+			//Solo hay que trabajar sobre los manipulables
+			$this->definicion['externa'] = array();
+		}
 	}
 
 
@@ -69,10 +76,12 @@ class buffer_db_mt extends buffer_db
 	//Sincroniza las modificaciones del BUFFER con la DB
 	//ATENCION, mejorar control de errores
 	{
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - SINCRONIZACION!"); 
 		if($this->control_sincro_db){
 			$ok = $this->controlar_alteracion_db();
 		}
 		//-[0]- Planifico
+		$deletes=array(); $inserts=array(); $updates=array();
 		foreach(array_keys($this->control) as $registro){
 			switch($this->control[$registro]['estado']){
 				case "d":
@@ -122,36 +131,46 @@ class buffer_db_mt extends buffer_db
 	//-------------------------------------------------------------------------------
 
 	function insertar($id_registro)
-	//Genera sentencia de INSERT
+	//Ejecuto los INSERTS en orden ascendente
+	//MAL: estoy creando el plan de cada tabla por cada registro...
 	{
-		return;
-		//Campos utilizados
-		if(isset($this->definicion['externa'])){
-			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['externa']);
-		}else{
-			$campos_insert = $this->campos_manipulables;
-		}
-		$registro = $this->datos[$id_registro];
-		//Escapo los caracteres que forman parte de la sintaxis SQL
-		foreach($campos_insert as $id_campo => $campo){
-			if(isset($registro[$campo])){
-				$valores[$id_campo] = addslashes($registro[$campo]);	
+		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		{
+			$tabla = $this->definicion['tabla'][$t];
+			//Armo la lista de campos
+			$campos = array();
+			$campos = array_merge(	$this->definicion[$tabla]['clave'],
+									$this->definicion[$tabla]['columna'] );
+			//Extraigo las secuencias de la tabla y las columnas externas
+			if(isset($this->campos_secuencia_tabla[$tabla])){
+				$campos = array_diff ( $campos, $this->definicion['externa'], $this->campos_secuencia_tabla[$tabla] );
 			}else{
-				$valores[$id_campo] = "NULL";
+				$campos = array_diff ( $campos, $this->definicion['externa'] );
 			}
-		}
-		$sql = "INSERT INTO " . $this->definicion["tabla"] .
-				" ( " . implode(",",$campos_insert) . " ) ".
-				" VALUES ('" . implode("','", $valores) . "');";
-		//Formateo NULOS
-		$sql = ereg_replace("'NULL'","null",$sql);
-		return $sql;
-
-		$this->ejecutar_sql($sql_i[$registro],false);
-		if(count($this->campos_secuencia)>0){
-			foreach($this->definicion['secuencia'] as $secuencia){
-				//Actualizo el valor
-				$this->datos[$registro][$secuencia['col']] = $this->recuperar_secuencia($secuencia['seq']);
+			//Busco el registro
+			$registro = $this->datos[$id_registro];
+			//Escapo los caracteres que forman parte de la sintaxis SQL
+			$valores = array();
+			foreach($campos as $id => $col){
+				if( !isset($registro[$col]) || (trim($registro[$col]) == "") ){
+					$valores[$id] = "NULL";
+				}else{
+					$valores[$id] = "'" . addslashes(trim($registro[$col])) . "'";	
+				}
+			}
+			//Armo el INSERT
+			$sql = "INSERT INTO " . $tabla .
+					" ( " . implode(", ",$campos) . " ) ".
+					" VALUES (" . implode(" ,", $valores) . ");";
+			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
+			ejecutar_sql($sql, $this->fuente);
+			//REcupero el valor de las secuencias
+			if(isset($this->definicion[$tabla]['secuencia']))
+			{
+				foreach($this->definicion[$tabla]['secuencia'] as $sec)
+				{
+					$this->datos[$id_registro][ $sec['col'] ] = recuperar_secuencia( $sec['seq'], $this->fuente );
+				}
 			}
 		}
 	}
@@ -160,48 +179,61 @@ class buffer_db_mt extends buffer_db
 	function modificar($id_registro)
 	//Genera sentencia de UPDATE
 	{
-		return;
-		//Campos utilizados
-		if(isset($this->definicion['externa'])){
-			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['externa'],
-										$this->definicion['clave']);
-		}else{
-			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['clave']);
-		}
-		$registro = $this->datos[$id_registro];
-		//Genero el WHERE
-		foreach($this->definicion["clave"] as $clave){
-			$sql_where[] =	"( $clave = '{$registro[$clave]}')";
-		}
-		//Escapo los caracteres que forman parte de la sintaxis SQL
-		foreach($campos_update as $campo){
-			if(!isset($registro[$campo])){
-				$set[] = " $campo = NULL ";
-			}else{
-				$set[] = " $campo = '". addslashes($registro[$campo]) . "' ";
+		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		{
+			$tabla = $this->definicion['tabla'][$t];
+			//Armo la lista de campos
+			$campos_update = array();
+			$campos_update = array_diff(	$this->definicion[$tabla]['columna'],
+											$this->campos_secuencia, 
+											$this->definicion['externa'] );
+			if(count($campos_update) > 0)
+			{
+				//Busco el registro
+				$registro = $this->datos[$id_registro];
+				//Genero el WHERE
+				$sql_where = array();
+				foreach($this->definicion[$tabla]["clave"] as $clave){
+					$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+				}
+				//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
+				$set = array();
+				foreach($campos_update as $campo){
+					if( ( !isset($registro[$campo])) || (trim($registro[$campo]) == "") ){
+						$set[] = " $campo = NULL ";
+					}else{
+						$set[] = " $campo = '". addslashes(trim($registro[$campo])) . "' ";
+					}
+				}
+				//Armo el QUERY
+				$sql = "UPDATE $tabla SET ".
+						implode(", ",$set) .
+						" WHERE " . implode(" AND ",$sql_where) .";";
+				$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
+				//Ejecuto el SQL
+				ejecutar_sql($sql, $this->fuente);
 			}
 		}
-		$sql = "UPDATE " . $this->definicion["tabla"] . " SET ".
-				implode(", ",$set) .
-				" WHERE " . implode(" AND ",$sql_where) .";";
-		return $sql;
 	}
 	//-------------------------------------------------------------------------------
 
 	function eliminar($id_registro)
-	//Genera sentencia de DELETE
+	//Elimina los registros.
 	{
-		return;
-		$registro = $this->datos[$id_registro];
-		//Genero el WHERE
-		foreach($this->definicion["clave"] as $clave){
-			$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+		//Primero las secundarias, despues las principales
+		for( $t= count($this->definicion['tabla']) - 1; $t >= 0 ;$t--)
+		{
+			$tabla = $this->definicion['tabla'][$t];
+			$registro = $this->datos[$id_registro];
+			//Genero el WHERE
+			$sql_where = array();
+			foreach($this->definicion[$tabla]["clave"] as $clave){
+				$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+			}
+			$sql = "DELETE FROM $tabla WHERE " . implode(" AND ",$sql_where) .";";
+			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
+			ejecutar_sql($sql, $this->fuente);
 		}
-		$sql = "DELETE FROM " . $this->definicion["tabla"] .
-				" WHERE " . implode(" AND ",$sql_where) .";";
-		return $sql;
 	}
 
 	//-------------------------------------------------------------------------------
