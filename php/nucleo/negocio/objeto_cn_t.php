@@ -124,18 +124,22 @@ class objeto_cn_t extends objeto_cn
 	}
 	//-------------------------------------------------------------------------------
 
+	function procesar_especifico(){  }
+	function validar_datos(){  }
+
 	function procesar()
 	//Esto hay que redeclararlo en los HIJOS
 	{
 		try
 		{
 			$this->iniciar_transaccion();
+			$this->validar_datos();
 			$this->procesar_especifico();
 			$this->finalizar_transaccion();
-		}catch(excepcion_toba $e){
+		}catch(exception $e){
 			$this->abortar_transaccion();
 			$this->informar_msg($e->getMessage(), "error");
-			//$this->solicitud->log->debug( $e );
+			$this->solicitud->log->debug( $e );
 		}
 	}
 
