@@ -1,11 +1,12 @@
 <?
+include_once("nucleo/lib/elemento_toba.php");
 
-class docbook1
+class docbook
 {
 	private $items;
 	private $arbol;
 	
-	function __construct($proyecto)
+	function __construct($proyecto, $tipo_manual)
 	{
 		global $db, $ADODB_FETCH_MODE, $solicitud;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -80,12 +81,10 @@ class docbook1
 
 	function obtener_xml()
 	{
-		//print $this->arbol;
-		ei_arbol($this->items);
+		$elemento = new elemento_toba_item();
+		$elemento->cargar_db("toba","/admin/apex/elementos/ef");
+		return $elemento->obtener_doc();	
 	}
 }
-
-
-
 
 ?>
