@@ -4,14 +4,14 @@ class js
 {
 	function abrir()
 	{
-		return '<script language="JavaScript" type="text/javascript">';
+		return "<script language='JavaScript' type='text/javascript'>\n";
 	}
 
 	//-------------------------------------------------------------------------------------
 
 	function cerrar()
 	{
-		return '</script>';
+		return "</script>\n";
 	}
 
 	//-------------------------------------------------------------------------------------
