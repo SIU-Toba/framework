@@ -120,13 +120,10 @@ class buffer_db_s extends buffer_db
 		//-- DELETE --
 		foreach(array_keys($sql_d) as $registro){
 			$this->ejecutar_sql($sql_d[$registro]);
-			unset($this->control[$registro]);
-			unset($this->datos[$registro]);
 		}
 		//-- UPDATE --
 		foreach(array_keys($sql_u) as $registro){
 			$this->ejecutar_sql($sql_u[$registro]);
-			$this->control[$registro]['estado'] = "db";
 		}
 		
 		//-[2]- Todo bien, actualizo los METADATOS del BUFFER
