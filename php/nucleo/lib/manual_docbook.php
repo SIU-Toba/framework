@@ -40,9 +40,8 @@ class manual_docbook
 	{
 		$raices = NULL;
 		$this->obtener_encabezado();
-		$path = $this->solicitud->hilo->obtener_path();
-		//LA RUTA NO TIENE QUE SER "c:/" SE TIENE QUE USAR EL PATH
-		echo "<!DOCTYPE book SYSTEM \"c:/toba/var/docbook/DTD/docbookx.dtd\">";
+		$path = str_replace ("\\", "/", $this->solicitud->hilo->obtener_path());
+		echo "<!DOCTYPE book SYSTEM \"" . $path . "/var/docbook/dtd/docbookx.dtd\">";
 		echo "<book>\n";	
 		$this->obtener_info();
 		for($i=0;$i<count($this->items);$i++)
