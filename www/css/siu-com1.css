@@ -811,7 +811,7 @@ TD.abm-fila
 {
 	font-size: 8px;
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #EFECE6; /*F2F2F2;*/
 	text-align: left;
 	padding: 0px 3px 0px 3px ;
 	margin: 0px 0px 0px 0px ;
@@ -821,7 +821,7 @@ TD.abm-fila-ml
 {
 	font-size: 8px;
 	color: #441177;
-	background-color: #FFFFFF;
+	background-color: #EFECE6; /*FFFFFF;*/
 	text-align: center;
 	padding: 3px ;
 	margin: 0px;
@@ -1388,8 +1388,8 @@ TD.ef-etiqueta-obligatorio
 	background-color: #D4D0C8;
 	text-align: left;
 	padding: 0px 2px 0px 4px ;
-	border-bottom: 1px solid #4F4C4D;
-	border-right: 1px solid #4F4C4D;	
+	/*border-bottom: 1px solid #4F4C4D;
+	border-right: 1px solid #4F4C4D;	*/
 
 /*
 	border-left: 1px solid #4F4C4D;
@@ -1406,8 +1406,8 @@ TD.ef-etiqueta
 	background-color: #D4D0C8;
 	text-align: left;
 	padding: 0px 2px 0px 4px ;
-	border-right: 1px solid #4F4C4D;
-	border-bottom: 1px solid #4F4C4D;
+	/* border-right: 1px solid #4F4C4D; */
+	/* border-bottom: 1px solid #4F4C4D; */
 
 /*
 	border-left: 1px solid #4F4C4D;
@@ -1438,7 +1438,7 @@ TD.ef-zonainput
 	font-weight: bold;
 	font-size: 10px;
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #EFECE6; /*F2F2F2;*/
 	text-align: left;
 	padding: 0px 0px 0px 4px ;	
 	border-top: 1px none #4F4C4D;
@@ -1457,7 +1457,7 @@ TD.ef-zonainput
 {
 	font-size: 10px;
 /*	color: #231F20;*/
-	background-color: #F2F2F2;
+	background-color: #FFFDF9;/*#F2F2F2;*/
 	border-top: 2px solid #404040;
 	border-left: 2px solid #404040;
 	border-bottom: 2px solid #D4D0C8;
@@ -1480,7 +1480,7 @@ TD.ef-zonainput
 {
 	font-size: 10px;
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #FFFDF9; /*#F2F2F2; */
 	text-align: right;
 	border-top: 2px solid #404040;
 	border-left: 2px solid #404040;
@@ -1492,7 +1492,7 @@ TD.ef-zonainput
 {
 	font-size: 10px;
 	color: #231F20;
-	background-color:#F2F2F2;
+	background-color:#FFFDF9; /*#F2F2F2; */
 	text-align: right;
 }
 
@@ -1501,7 +1501,7 @@ TD.ef-zonainput
 	font-size: 10px;
 /*	font-weight: bold; */
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #FFFDF9; /*#F2F2F2; */
 	text-align: right;
 }
 
@@ -1510,7 +1510,7 @@ TD.ef-zonainput
 .ef-input-upload
 {
 	font-size: 10px;
-	color: #231F20;
+	color: #FFFDF9; /*#231F20; */
 }
 
 .ef-textarea
@@ -1518,7 +1518,7 @@ TD.ef-zonainput
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #FFFDF9; /*#F2F2F2; */
 	border-top: 2px solid #404040;
 	border-left: 2px solid #404040;
 	border-bottom: 2px solid #D4D0C8;
@@ -1529,7 +1529,7 @@ TD.ef-zonainput
 {
 	font-size: 10px;
 	color: #231F20;
-	background-color: #F2F2F2;
+	background-color: #FFFDF9; /* #F2F2F2; */
 	border-top: 2px solid #404040;
 	border-left: 2px solid #404040;
 	border-bottom: 2px solid #D4D0C8;
@@ -1539,7 +1539,17 @@ TD.ef-zonainput
 .ef-checkbox
 {
 	font-size: 10px;
-	color: #231F20;
+	color: #FFFDF9; /*#231F20; */
+}
+
+/* -------------------------- EOF Elementos de Formulario ----------------------------- */
+
+TD.ei-base {
+	font-size: 10px;
+	color: #F0F1FF;
+	background-color: #CAC7C2;
+	text-align: left;
+	padding: 2px 2px 2px 2px ;
 }
 
 TD.ei-cuerpo {
