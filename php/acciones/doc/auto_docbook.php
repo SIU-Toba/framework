@@ -1,10 +1,14 @@
 <?
+//include_once("nucleo/consola/emular_web.php");
+include_once('nucleo/lib/manual_docbook.php');
 
-include_once('nucleo/lib/docbook.php');
+	$doc = new manual_docbook('comechingones','usuario');
 
-	$doc = new docbook('sipefco');
 	//$doc->preparar_arbol();
-	$doc->obtener_xml();
+	echo $doc->obtener_xml();
+
+
+
 
 
 ?>

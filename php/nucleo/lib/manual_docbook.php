@@ -1,7 +1,7 @@
 <?
 include_once("nucleo/lib/elemento_toba.php");
 
-class docbook
+class manual_docbook
 {
 	private $items;
 	private $arbol;
@@ -24,67 +24,64 @@ class docbook
 	}
 	//-----------------------------------------------------------
 	
-	function preparar_arbol ()
-	{
-		$raices = NULL;
-		for($i=0;$i<count($this->items);$i++)
-		{
-			if($this->items[ $i ]['padre'] == NULL)
-			{
-				$this->arbol .= "\n<ul class=\"navmeister\">\n";
-				$this->get_padres($i);
-				$this->arbol .= "</ul>\n";
-			}
-		}
-	}
 	
-	function get_padres($nodo)
-	{
-		static $x=0;
-		$inden = str_repeat("	",$x );
-		//Transformar $this->item en ARBOL
-		//ei_arbol($this->items, 'item');
-		
-		$this->arbol .= $inden . "<li><a href='' title='".$this->items[$nodo]['nombre']."' target=''>".$this->items[$nodo]['nombre']."</a>\n";
-		
-		if (!$this->items[$nodo]['carpeta'])
-		{
-			$this->arbol .= $inden . "</li>\n";
-		}else{
-			$this->arbol .= $inden . "<ul>\n";
-			$rs = $this->get_hijos ($nodo);
-			for($i=0;$i<count($rs);$i++)
-			{
-				$x++;
-				$this->get_padres($rs[ $i ]);
-				$x--;
-			}
-			$this->arbol .= $inden . "</ul>\n";
-			$this->arbol .= $inden . "</li>\n";
-		}
-	}
-	
-	function get_hijos($nodo)
-	{
-		$hijos = NULL;
-		for($i=0;$i<count($this->items);$i++)
-		{
-			if($this->items[ $i ]['padre'] == $this->items[ $nodo ][ 'item' ])
-			{
-				$hijos[] = $i;
-			}
-		}
-		return $hijos;
-	}
-	
+	//-----------------------------------------------------------
+	//----- Generacion de XML  ----------------------------------
 	//-----------------------------------------------------------
 
 	function obtener_xml()
 	{
+		$manual = $this->obtener_cabecera();
+		$manual .= $this->obtener_cuerpo();
+		return $manual;
+	}
+
+	function obtener_cuerpo()
+	{
 		$elemento = new elemento_toba_item();
 		$elemento->cargar_db("toba","/admin/apex/elementos/ef");
-		return $elemento->obtener_doc();	
+		return $elemento->obtener_docbook();
 	}
-}
 
+	function obtener_cabecera()
+	{
+		return "<?xml version='1.0'?>
+<?altova_xslfo C:\Documentacion\xml\XSL\docbook-xsl-1.67.2\fo\docbook.xsl?>
+<book xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	 xsi:noNamespaceSchemaLocation='C:\Documentacion\xml\SCHEMA\docbook-xsd-4.4CR4\docbook.xsd'>
+
+	<bookinfo>
+		<title>TOBA</title>
+		<subtitle>Manual de usuario</subtitle>
+		<titleabbrev>book-ex ???????</titleabbrev>
+		<revhistory>
+			<revision>
+				<revnumber>1</revnumber>
+				<date>Jan 15, 2001 ???????</date>
+			</revision>
+		</revhistory>
+		<corpauthor>S.I.U. (Sistemas de Información Universitaria)</corpauthor>
+		<publisher>
+			<publishername>???????</publishername>
+			<address>
+(The content here is shown in the Address appendix.)
+     </address>
+		</publisher>
+		<copyright>
+			<year>2005</year>
+			<holder>Sistemas de Información Universitaria</holder>
+		</copyright>
+		<date>Jan 15, 2001 ???????</date>
+		<legalnotice>
+			<title>Noticia Legal</title>
+			<para>This
+    paragraph could be a copyright notice, license agreement,
+    etc.</para>
+		</legalnotice>
+	</bookinfo>";	
+	}
+
+	//-----------------------------------------------------------
+	//-----------------------------------------------------------
+}
 ?>

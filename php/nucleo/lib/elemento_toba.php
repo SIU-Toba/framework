@@ -210,7 +210,7 @@ class elemento_toba_item extends elemento_toba
 		}
 	}
 	
-	function obtener_doc()
+	function obtener_docbook()
 	{
 		return $this->datos['apex_item_info'][0]['descripcion_larga'];
 	}
