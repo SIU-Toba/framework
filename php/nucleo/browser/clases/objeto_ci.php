@@ -13,15 +13,14 @@ class objeto_ci extends objeto
 {
 	var $nombre_formulario;			// privado | string | Nombre del <form> del MT
 	var $cn;								// Controlador de negocio asociado
-	var $debug_eventos = false;	// Modo debug de eventos
-	var $ruteo_eventos;				// lugar donde se guardan los eventos ruteados en modo debug
 	var $datos_cargados;		
 	var $submit;						// Boton de SUBMIT
 	var $submit_etiq;					// Etiqueta del boton SUBMIT
 	var $cancelar_etiq;
-	var $cancelar_operacion;		//Flag de GET que cancela la operacion
+	var $flag_cancelar_operacion;		//Flag de GET que cancela la operacion
 	var $dependencias_actual = array();
-
+	var $estado_procesar = false;
+	var $estado_cancelar = false;	
 	
 	function objeto_ci($id)
 /*
@@ -37,11 +36,6 @@ class objeto_ci extends objeto
 		$this->flag_no_propagacion = "no_prop" . $this->id[1];
 		//Cargo las DEPENDENCIAS
 		$this->cargar_info_dependencias();
-		if($this->info_ci["debug_eventos"]=="1"){
-			$this->debug_eventos = true;
-		}else{
-			$this->debug_eventos = false;
-		}
 		//Boton SUBMIT
 		if($this->info_ci['ev_procesar_etiq']){
 			$this->submit_etiq = $this->info_ci['ev_procesar_etiq'];
@@ -54,7 +48,7 @@ class objeto_ci extends objeto
 		}else{
 			$this->cancelar_etiq = "cancelar";
 		}
-		$this->cancelar_operacion = "ci_canop";
+		$this->flag_cancelar_operacion = "ci_canop";
 	}
 
 	function destruir()
@@ -95,7 +89,17 @@ class objeto_ci extends objeto
 	//-------------------------------------------------------------------------------
 
 	function procesar()
+	/*
+		Hay casos en los que se requiere procesamiento pero no se necesita
+		cargar los datos de las dependencias.
+		Arreglar esto deberia incluir la unificacion con los metodos 
+		procesar en los hijos.
+	*/
 	{
+		// 0 - Cancelar la operacion?
+		if( $this->operacion_cancelada() ){
+			$this->cancelar_operacion();
+		}
 		// 1 - Cargo las dependencias
 		if(isset($this->info_ci["objetos"])){
 			$dependencias = explode(",",$this->info_ci["objetos"]);
@@ -104,15 +108,17 @@ class objeto_ci extends objeto
 		$this->cargar_dependencias($this->dependencias_actual);
 		// 2 - Busco eventos en los EI
 		$this->controlar_eventos($this->dependencias_actual);
-		// 3 - Cargo las interfaces de los EI
-		$this->cargar_datos_dependencias();
-		// 4 - Proceso la operacion
+
+		// 3 - Proceso la operacion
 		if($this->controlar_activacion()){ //Procesar el Marco transaccional
 			//$this->cargar_dependencias_inactivas();
 			$this->procesar_operacion();
-		// 5- Cargo los DAOS
-		$this->cargar_daos();
 		}
+		// 4- Cargo los DAOS //Seba, lo saque del if anterior
+		$this->cargar_daos();
+
+		// 5 - Cargo las interfaces de los EI
+		$this->cargar_datos_dependencias();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -129,6 +135,7 @@ class objeto_ci extends objeto
 			$this->dependencias[$dep]->inicializar($parametro);
 		}
 	}
+	//-------------------------------------------------------------------------------
 	
 	function cargar_daos()
 	{
@@ -176,12 +183,8 @@ class objeto_ci extends objeto
 				if( $dato = $this->cn->$metodo($parametros) ){
 					//ei_arbol($dato, $dep);
 					$this->dependencias[$dep]->cargar_datos( $dato );
-					$param = $parametros;
-					$this->log->debug("CI [cargar_dependencia] DEP: $dep, METODO CN: $metodo, PARAMETROS CN: " . $param );
-					if($this->debug_eventos){
-						$this->datos_cargados[$dep] = $dato;
-					}
-
+					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- LLAMADA CN -- \nMETODO: $metodo \nPARAMETROS:\n" . var_export($parametros,true) . "\n\n");
+					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- DATOS RECIBIDOS -- \n" . var_export($dato,true) . "\n\n");
 				}
 			}
 			//ei_arbol($this->dependencias[$dependencia]->info_estado());
@@ -204,6 +207,15 @@ class objeto_ci extends objeto
 			return false;	
 		}
 	}
+	//-------------------------------------------------------------------------------
+
+	function operacion_cancelada()
+	{
+		if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
+			return true;
+		}
+		return false;
+	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -215,23 +227,23 @@ class objeto_ci extends objeto
 	{
 		$this->cn = $controlador;
 	}
+	//-------------------------------------------------------------------------------
 
+	function cancelar_operacion()
+	{	
+		//Se dispara la cancelacion en el controlador de negocio
+		$this->estado_cancelar = true;
+		$this->cn->cancelar();
+	}
 	//-------------------------------------------------------------------------------
 
 	function procesar_operacion()
 	{
 		//Se dispara el procesamiento del controlador de negocio
+		$this->estado_procesar = true;
 		$this->cn->procesar();
 	}
-	
-	function operacion_cancelada()
-	{
-		if($this->solicitud->hilo->obtener_parametro($this->cancelar_operacion)){
-			return true;
-		}
-		return false;
-	}
-	
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------------  PROCESAMIENTO de EVENTOS  ------------------------------
@@ -270,7 +282,6 @@ class objeto_ci extends objeto
 		if($temp = $this->consultar_info_dependencia($dep,"parametros_a") ){
 			if($plan_ruteo = parsear_propiedades_array($temp))
 			{
-				//if($this->debug_eventos) ei_arbol($plan_ruteo, "DEPENDENCIA: $dep EVENTO: $evento");
 				if(isset($plan_ruteo[$evento])){
 					//FALTAN CONTROLES de SINTAXIS!!
 					$metodo_dep = trim($plan_ruteo[$evento][0]);//echo "Mdep: $metodo_dep";
@@ -286,18 +297,21 @@ class objeto_ci extends objeto
 					try
 					{
 						if($metodo_dep=="null"){
-							if($this->debug_eventos){
-								$this->ruteo_eventos[$dep]["CN"] = $metodo_cn;
-							}
+							$ruteo_eventos[$dep]["CN"] = $metodo_cn;
+							$ruteo_eventos[$evento]["CN"]["parametros"] = $parametros;
+							$evento = var_export($ruteo_eventos, true);
+							$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep)\n -- EVENTO! -- \n$evento");
 							$this->cn->$metodo_cn($parametros);
 						}else{
 							$datos_evento = $this->dependencias[$dep]->$metodo_dep();
+							//LOG: mejorar la descripcion
+							$ruteo_eventos[$evento]["EI"]["metodo"] = $metodo_dep;
+							$ruteo_eventos[$evento]["EI"]["retorno"] = $datos_evento;
+							$ruteo_eventos[$evento]["CN"]["metodo"] = $metodo_cn;
+							$ruteo_eventos[$evento]["CN"]["parametros"] = $parametros;
+							$evento = var_export($ruteo_eventos, true);
+							$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep)\n -- EVENTO! -- \n$evento");
 							$this->cn->$metodo_cn( $datos_evento, $parametros );
-							if($this->debug_eventos){
-								$this->ruteo_eventos[$dep.":".$evento]["EI"]["metodo"] = $metodo_dep;
-								$this->ruteo_eventos[$dep.":".$evento]["EI"]["retorno"] = $datos_evento;
-								$this->ruteo_eventos[$dep.":".$evento]["CN"] = $metodo_cn;
-							}
 						}
 					}catch (excepcion_toba $e)
 					{
@@ -305,35 +319,15 @@ class objeto_ci extends objeto
 					}
 				}else{
 					//Este evento no esta mapeado
-					if($this->debug_eventos){
-						$this->ruteo_eventos[$dep] = "El evento no $evento no posee un plan de ruteo";
-					}
+					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) No hay plan para el evento '$evento'");
 				}
 			}else{
-				if($this->debug_eventos){
-					$this->ruteo_eventos[$dep] = "Mapeo INVALIDO";
-				}
+				$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) Mapeo INVALIDO");
 			}
 		}else{
-			if($this->debug_eventos){
-				$this->ruteo_eventos[$dep] = "No hay plan de ruteo para la dependencia (evento: $evento)";
-			}
+			$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) No hay plan de ruteo para la dependencia (evento: $evento)");
 		}
-	}
-	//-------------------------------------------------------------------------------
 
-	function mostrar_eventos()
-	{
-		if($this->debug_eventos){
-			//EVENTOS
-			if(isset($this->ruteo_eventos)){
-				ei_arbol($this->ruteo_eventos,"Ruteo de EVENTOS");
-			}
-			//CARGA de DATOS
-			if(isset($this->datos_cargados)){
-				ei_arbol($this->datos_cargados,"DATOS cargados en el EI");
-			}
-		}			
 	}
 
 	//-------------------------------------------------------------------------------
@@ -389,7 +383,6 @@ class objeto_ci extends objeto
 		$this->obtener_javascript_validador_form($this->dependencias_actual);
 		echo "<br>\n";
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
-		$this->mostrar_eventos();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -424,7 +417,7 @@ class objeto_ci extends objeto
 			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
 		}
 		if($this->info_ci['ev_cancelar']){
-			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->cancelar_operacion=>1),true)."';\"","abm-input");
+			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
 		}
 	}
 

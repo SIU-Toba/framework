@@ -180,6 +180,10 @@ class objeto_ci_me extends objeto_ci
 
 	function procesar()
 	{
+		// -[0]- Cancelar la operacion?
+		if( $this->operacion_cancelada() ){
+			$this->cancelar_operacion();
+		}
 		//ATENCION: Falta controlar si el paso de etapas es VALIDO
 		//Veo en que etapa estoy.
 		$this->evaluar_etapa();
@@ -338,7 +342,7 @@ class objeto_ci_me extends objeto_ci
 		}
 		echo form::submit($this->submit,$this->submit_etiq,"abm-input", $disabled);
 		if($this->info_ci['ev_cancelar']){
-			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->cancelar_operacion=>1),true)."';\"","abm-input");
+			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
 		}
 	}																		
 	//-------------------------------------------------------------------------------

@@ -372,7 +372,7 @@ class buffer
 	{
 		if(!isset($this->datos[$id])){
 			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			$this->log->info($mensaje);
+			$this->log->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
@@ -395,7 +395,7 @@ class buffer
 	{
 		if(!isset($this->datos[$id])){
 			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			$this->log->info($mensaje);
+			$this->log->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
 		if($this->control[$id]['estado']=="i"){
@@ -474,10 +474,10 @@ class buffer
 			//en las secuencias...
 			if( !((in_array($campo, $this->campos_manipulables)) ||
 				(in_array($campo,$this->campos_secuencia)) ) ){
-					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
 							" El registro tiene una estructura incorrecta: El campo '$campo' ". 
 							" se encuentra definido y no existe en el registro.");
-					$this->log->debug( debug_backtrace() );
+					//$this->log->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento posee una estructura incorrecta");
 			}
 		}
@@ -499,10 +499,10 @@ class buffer
 			if(is_array($valores_columna)){
 				//Controlo que el nuevo valor no exista
 				if(in_array($registro[$campo], $valores_columna)){
-					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
 									" El valor '".$registro[$campo] ."' crea un duplicado " .
 									" en el campo '" . $campo . "', definido como no_duplicado");
-					$this->log->debug( debug_backtrace() );
+					//$this->log->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento ya se encuentra definido");
 				}
 			}
@@ -519,11 +519,11 @@ class buffer
 		foreach($this->campos_no_nulo as $campo){
 			if(isset($registro[$campo])){
 				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
-					$this->log->info($mensaje_programador . $campo);
+					$this->log->error($mensaje_programador . $campo);
 					throw new excepcion_toba($mensaje_usuario);
 				}
 			}else{
-					$this->log->info($mensaje_programador . $campo);
+					$this->log->error($mensaje_programador . $campo);
 					throw new excepcion_toba($mensaje_usuario);
 			}
 		}
@@ -607,7 +607,7 @@ class buffer
 		$db = toba::get_fuente($this->fuente);
 		//if($db[$this->fuente][apex_db_con]->Execute($sql) === true){
 		if( !$db[apex_db_con]->Execute($sql)){
-			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
 							" Error en la sincronizacion a la DB. "
 							. $db[apex_db_con]->ErrorMsg() . 
 							" [ SQL: " . $sql . " ]");
@@ -619,7 +619,7 @@ class buffer
 				if($registros_afectados === 1){
 					$this->sql[] = $sql;
 				}else{
-					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
 									"	EJECUTAR SQL: No hay registros afectados.");
 					throw new excepcion_toba($this->msg_error_sincro);
 				}
@@ -637,13 +637,13 @@ class buffer
 		$rs = $db[apex_db_con]->Execute($sql);
 		//print $sql;
 		if((!$rs)){
-			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
 										" Recuperar SECUENCIA '$secuencia': SQL mal formado."
 										. $db[apex_db_con]->ErrorMsg() );
 			throw new excepcion_toba($this->msg_error_sincro);
 		}
 		if($rs->EOF){
-			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - " .
+			$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - " .
 									" Recuperar SECUENCIA '$secuencia': No existen datos.");
 			throw new excepcion_toba($this->msg_error_sincro);
 		}else{
@@ -727,13 +727,15 @@ class buffer
 		}
 		//Escapo los caracteres que forman parte de la sintaxis SQL
 		foreach($campos_update as $campo){
-			$set[] = " $campo = '". addslashes($registro[$campo]) . "' ";
+			if(!isset($registro[$campo])){
+				$set[] = " $campo = NULL ";
+			}else{
+				$set[] = " $campo = '". addslashes($registro[$campo]) . "' ";
+			}
 		}
 		$sql = "UPDATE " . $this->definicion["tabla"] . " SET ".
 				implode(", ",$set) .
 				" WHERE " . implode(" AND ",$sql_where) .";";
-		//Formateo NULOS
-		$sql = ereg_replace("'NULL'","NULL",$sql);
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------

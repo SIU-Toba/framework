@@ -431,7 +431,11 @@ class objeto
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		$this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1]);
+		if( $this->solicitud->hilo->verificar_acceso_menu() ){
+			$this->log->debug("OBJETO ". get_class($this) . " [". $this->id[1] . "] El estado de la memoria no es regenerado porque el acceso proviene del MENU");
+		}else{
+			$this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1]);
+		}
 	}
 
 	function controlar_memoria()
@@ -505,11 +509,15 @@ class objeto
 	//Recupera las propiedades guardadas en la sesion
 	{
 		if($this->solicitud->hilo->existe_dato_global($this->id_ses_grec)){
-			//Recupero las propiedades de la sesion
-			$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
-			foreach($temp as $propiedad => $valor){
-				$this->$propiedad = $valor;
-			}	
+			if( $this->solicitud->hilo->verificar_acceso_menu() ){
+				$this->log->debug("OBJETO ". get_class($this) . " [". $this->id[1] . "] El estado de las propiedades no es regenerado porque el acceso proviene del MENU");
+			}else{
+				//Recupero las propiedades de la sesion
+				$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
+				foreach($temp as $propiedad => $valor){
+					$this->$propiedad = $valor;
+				}	
+			}
 		}		
 	}
 	

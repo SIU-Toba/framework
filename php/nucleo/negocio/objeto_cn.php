@@ -35,6 +35,17 @@ class objeto_cn extends objeto
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 	}
 
+	function establecer_tiempo_maximo($tiempo="30")
+/*
+ 	@@acceso: interno
+	@@desc: Establece el tiempo maximo de ejecucion de la SOLICITUD
+	@@param: string | tiempo en segundo (0=indeterminado) | 30
+*/
+	{
+		ini_set("max_execution_time",$tiempo);
+	}
+
+
 	//-------------------------------------------------------------------------------
 	//------  MANEJO de DERECHOS
 	//-------------------------------------------------------------------------------
@@ -145,14 +156,9 @@ class objeto_cn extends objeto
 		echo ei_mensaje("TRANSACCION cn padre!!!");
 	}
 
-	function establecer_tiempo_maximo($tiempo="30")
-/*
- 	@@acceso: interno
-	@@desc: Establece el tiempo maximo de ejecucion de la SOLICITUD
-	@@param: string | tiempo en segundo (0=indeterminado) | 30
-*/
+	function cancelar()
+	//Esto hay que redeclararlo en los HIJOS
 	{
-		ini_set("max_execution_time",$tiempo);
 	}
 
 	//-------------------------------------------------------------------------------

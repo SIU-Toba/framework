@@ -213,8 +213,8 @@ class logger
 			{
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 				{
-					echo $this->ref_niveles[$this->niveles[$a]] . 
-							" - " . $this->mensajes[$a] . "<br>";
+					echo "*** " . $this->ref_niveles[$this->niveles[$a]] . 
+						" ***  " . $this->mensajes[$a] . "<br>";
 				}			
 			}
 			echo "</pre></td></tr></table>";

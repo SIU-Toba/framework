@@ -5,7 +5,8 @@ class objeto_cn_ent extends objeto_cn_t
 {
 	protected $entidad;
 	protected $entidad_id;
-	protected $seleccion;	
+	protected $seleccion;
+	protected $proceso_ok = false;
 
 	function __construct($id, $resetear=false)
 /*
@@ -170,11 +171,20 @@ class objeto_cn_ent extends objeto_cn_t
 		$elemento = $parametros[0];
 		unset($this->seleccion[$elemento]);
 	}
+
+	//-------------------------------------------------------------------------------
+	//----- Carga y descarga de entidades
 	//-------------------------------------------------------------------------------
 	
 	function procesar_especifico()
 	{
 		$this->entidad->sincronizar_db();
+		$this->proceso_ok = true;
+	}
+	
+	function verificar_estado_proceso()
+	{
+		return $this->proceso_ok;
 	}
 
 	//-------------------------------------------------------------------------------
