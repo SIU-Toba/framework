@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_comechingones
 
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
 VACUUM VACUUM FULL ANALYSE apex_objeto_html;
