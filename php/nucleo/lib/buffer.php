@@ -246,12 +246,10 @@ class buffer
 	//Los datos son 
 	{
 		$db = toba::get_fuente($this->fuente);
-		$sql = $this->generar_sql_select();
-		//echo $sql . "<br>";
+		$sql = $this->generar_sql_select();//echo $sql . "<br>";
 		//-- Intento cargar el BUFFER
 		$rs = $db[apex_db_con]->Execute($sql);
-		if((!$rs)){
-			
+		if(!is_object($rs)){
 			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
 		}
@@ -262,7 +260,7 @@ class buffer
 			}
 			return null;
 		}else{
-			$datos =& $rs->getArray();
+			$datos =6 $rs->getArray();
 			//ei_arbol($datos);
 			//Los campos NO SQL deberian estar metidos en el array
 			if(isset($this->definicion['no_sql'])){
