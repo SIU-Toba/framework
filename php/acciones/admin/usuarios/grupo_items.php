@@ -79,7 +79,7 @@
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
 				<a href="#" class='cat-item' onclick="cascada('<?=$item->id()?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
-	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->id()?></td>
+	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->nombre()?></td>
 		  
 			<? }else{
 				//******************< Items comunes >*************************

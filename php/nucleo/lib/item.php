@@ -22,7 +22,7 @@ class item
 	
 	function nombre() { return $this->datos['nombre']; }
 	
-	function proyecto() { return $this->datos['item_proyecto']; }
+	function proyecto() { return $this->datos['proyecto']; }
 	
 	function tipo_solicitud() { return $this->datos["solicitud_tipo"]; }
 	
@@ -101,9 +101,8 @@ class item
 	
 	function otorgar_permiso($grupo)
 	{
-		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$sql = "INSERT INTO apex_usuario_grupo_acc_item (usuario_grupo_acc, proyecto, item) 
-				VALUES ('$grupo', '$proyecto', '{$this->id()}')";
+				VALUES ('$grupo', '{$this->proyecto()}', '{$this->id()}')";
 		if(toba::get_db('instancia')->Execute($sql) === false)
 			throw new excepcion_toba("Ha ocurrido un error CREANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
 	}
@@ -114,6 +113,7 @@ class item
 	{
 		return "
 				i.orden							as orden,
+				i.proyecto						as proyecto,
 				i.item		 					as item,
 				i.padre		 					as padre,
 				i.nombre	 					as nombre,
@@ -137,10 +137,10 @@ class item
 	}
 	
 	//------------------------------------CARGAS PARTICULARES--------------------------------------------------------		
-	function cargar_por_id($id)
+	function cargar_por_id($proyecto, $id)
 	{
 		$sql = "SELECT {$this->definicion_campos()} FROM {$this->definicion_tabla()} WHERE 
-				i.item = '$id' AND i.proyecto = '".toba::get_hilo()->obtener_proyecto()."'";
+				i.item = '$id' AND i.proyecto = '$proyecto'";
 		$rs = toba::get_db('instancia')->Execute($sql);
 		if (!$rs || $rs->EOF)
 			throw new excepcion_toba("ITEM Carga - [error] " . toba::get_db('instancia')->ErrorMsg()." - [sql] $sql");

@@ -127,7 +127,7 @@ class ef_combo extends ef
 		if(isset($this->no_seteado)){
 			$js .= "s_.options[0] = new Option('{$this->no_seteado}', '".apex_ef_no_seteado."');\n";
 		}else{
-			$js .= "s_.options[0] = new Option('', 'x');\n";
+			$js .= "s_.options[0] = new Option('', '".apex_ef_no_seteado."');\n";
 		}
 		//Reseteo las dependencias	
 		if(isset($this->dependientes)){

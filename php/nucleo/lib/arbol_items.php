@@ -3,14 +3,20 @@ require_once("item.php");
 
 class arbol_items
 {
+	protected $proyecto;
 	protected $carpeta_inicial;
 	protected $items;
 	protected $mensaje;
 	
 	protected $camino; //Durante el recorrido va manteniendo el camino actual
 	
-	function __construct($menu=false)
+	function __construct($menu=false, $proyecto = null)
 	{
+		if (!$proyecto)
+			$this->proyecto = toba::get_hilo()->obtener_proyecto();
+		else
+			$this->proyecto = $proyecto;
+
 		global $db, $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		if ($menu)
@@ -24,7 +30,7 @@ class arbol_items
 				FROM 	apex_item i,
 						apex_proyecto p
 				WHERE	i.proyecto = p.proyecto
-	            AND     i.proyecto = '".toba::get_hilo()->obtener_proyecto()."'
+	            AND     i.proyecto = '{$this->proyecto}'
 				AND 	solicitud_tipo <> 'fantasma'
 				$where
 				ORDER BY i.carpeta, i.orden";
@@ -79,7 +85,13 @@ class arbol_items
 		}
 	}
 	
+	
 	function dejar_grupo_acceso($grupo)
+	/*
+		Del conjunto de items disponibles, sólo mantiene aquellos que tiene grupo de acceso $grupo
+		Este filtro afecta al recorrido ya que toma tanto carpetas como items. Una carpeta que no es del grupo de 
+		acceso $grupo bloquea el recorrido de todos sus hijos. Es recomendable utilizarlo luego de un recorrido.
+	*/
 	{
 		foreach ($this->items as $posicion => $item) {
 			if (!in_array($grupo, $item->grupos_acceso())) 
@@ -182,8 +194,8 @@ class arbol_items
 	protected function borrar_permisos_actuales($grupo)
 	{
 		//Borro los permisos existentes de todo el arbol
-		$sql = "DELETE FROM apex_usuario_grupo_acc_item WHERE usuario_grupo_acc = '".
-				$grupo."' AND proyecto = '".toba::get_hilo()->obtener_proyecto()."';\n";
+		$sql = "DELETE FROM apex_usuario_grupo_acc_item WHERE usuario_grupo_acc = '$grupo' AND
+							proyecto = '{$this->proyecto}';\n";
 		if(toba::get_db('instancia')->Execute($sql) === false)
 			throw new excepcion_toba("Ha ocurrido un error ELIMINANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
 	}

@@ -24,20 +24,23 @@ echo form::cerrar();
 echo "</div>";
 
 if ($this->objetos[$formulario]->controlar_agregar()) {
-
-	if ($this->objetos[$formulario]->validar_estado()) {
-		$datos = $this->objetos[$formulario]->obtener_datos();
-		$test = new GroupTest('Casos de TEST');
-	    foreach (casos_dao::get_casos() as $clase =>$caso) {
-		    if (in_array($clase, $datos['casos']))
-		    {
-		        require_once($caso['categoria']."/".$clase.".php");
-		        $test->addTestCase(new $clase($caso['nombre']));
-		    }
+	try {
+		if ($this->objetos[$formulario]->validar_estado()) {
+			$datos = $this->objetos[$formulario]->obtener_datos();
+			$test = new GroupTest('Casos de TEST');
+		    foreach (casos_dao::get_casos() as $clase =>$caso) {
+			    if (in_array($clase, $datos['casos']))
+			    {
+			        require_once($caso['categoria']."/".$clase.".php");
+			        $test->addTestCase(new $clase($caso['nombre']));
+			    }
+			}
+			$test->run(new HtmlReporter());
+		} else {
+			$this->objetos[$formulario]->mostrar_info_proceso();
 		}
-		$test->run(new HtmlReporter());
-	} else {
-		$this->objetos[$formulario]->mostrar_info_proceso();
+	} catch (Exception $e) {
+		die(ei_mensaje($e->getMessage(), "error"));
 	}
 }
 
