@@ -132,11 +132,12 @@ class ef //Clase abstracta, padre de todos los EF
 
 	function javascript_slave_escuchar()
 	{
+		//ATENCION: Falta la cola para los mastes
 		return "
 		function escuchar_master_{$this->id_form}(maestro, valor)
 		{
 			//alert('M: ' + maestro + ' ' + valor);	
-			if(true)//SI Se cargaron todas las dependencias...
+			if(true)//SI Se cargaron todos los MAESTROS...
 			{
 				//Me reseteo (por si nunca se vuelve a la callback)
 				//Esto resetea al mismo tiempo a los EFs que dependen de MI

@@ -99,6 +99,7 @@ class objeto_ci extends objeto
 		// 0 - Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
+			return;
 		}
 		// 1 - Cargo las dependencias
 		if(isset($this->info_ci["objetos"])){
@@ -234,6 +235,8 @@ class objeto_ci extends objeto
 		//Se dispara la cancelacion en el controlador de negocio
 		$this->estado_cancelar = true;
 		$this->cn->cancelar();
+		$this->borrar_memoria();
+		//ATENCION: falta limpiar el estado interno
 	}
 	//-------------------------------------------------------------------------------
 
