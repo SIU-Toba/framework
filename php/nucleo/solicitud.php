@@ -141,7 +141,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 						i.solicitud_registrar_cron	as			item_solic_cronometrar,	
 						i.parametro_a as							item_parametro_a,	
 						i.parametro_b as							item_parametro_b,	
-						pt.include_arriba	as						item_include_arriba,	
+						i.parametro_c as							item_parametro_c,							pt.include_arriba	as						item_include_arriba,	
 						pt.include_abajo as						item_include_abajo,	
 						i.zona_proyecto as						item_zona_proyecto,
 						i.zona as									item_zona,

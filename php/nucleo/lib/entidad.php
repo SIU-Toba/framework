@@ -12,10 +12,12 @@ Definir un nuevo tipo de entidad deberia implicar:
 class entidad
 {
 	protected $elemento;
+	protected $cargado;
 	
 	function __construct()
 	{
 		//Llevar el plan a una estructura de control concreta?
+		$this->cargado = false;
 	}
 	
 	function info()
@@ -129,7 +131,6 @@ class entidad
 	//-------------------------------------------------------
 	//------ Interface de sincronizacion
 	//-------------------------------------------------------
-	
 
 	public function cargar($id)
 	//Carga un instanciacion de la entidad
@@ -147,5 +148,11 @@ class entidad
 		
 	}
 	//-------------------------------------------------------
+
+	public function resetear()
+	{
+		
+	}
+	
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once("objeto.php");
 require_once("nucleo/browser/interface/form.php");
+require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 
 class objeto_ci extends objeto
 /*

@@ -5,7 +5,7 @@
 		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();
 		$cuadro =& new objeto_ei_cuadro($editable,$this);
-		$cuadro->cargar_datos(array());
+		$cuadro->cargar_datos();
 		//$cuadro->info_definicion();
 		//$cuadro->info_estado();
 		enter();

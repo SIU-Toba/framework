@@ -65,7 +65,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 								c.asociacion_columnas			as	asociacion_columnas,
 								c.ev_seleccion					as	ev_seleccion,
 								c.dao_nucleo_proyecto			as  dao_nucleo_proyecto,	
-								c.dao_nucleo					as  dao_nucleo,			
+								c.dao_nucleo					as  dao_clase,			
 								c.dao_metodo					as  dao_metodo,
 								n.archivo 						as	dao_archivo
 					 FROM		apex_objeto_cuadro c
@@ -124,7 +124,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 	}
 //--------------------------------------------------------------------------
 
-    function cargar_datos($datos,$memorizar=true)
+    function cargar_datos($datos=null,$memorizar=true)
 /*
     @@acceso: publico
     @@desc: Carga los datos del cuadro desde la base
@@ -135,7 +135,16 @@ class objeto_ei_cuadro extends objeto_cuadro
 */
     {
         $this->sql = "";
-        $this->datos = $datos;
+		if(isset($datos)){
+	        $this->datos = $datos;
+		}else{
+			if(trim($this->info_cuadro['dao_metodo'])!=""){
+				include_once($this->info_cuadro['dao_archivo']);
+				$sentencia = "\$this->datos = " . $this->info_cuadro['dao_clase'] 
+											. "::" .  $this->info_cuadro['dao_metodo'] . "();";
+				eval($sentencia);//echo $sentencia;
+			}
+		}
         //ei_arbol($this->datos,"DATOS");
         if($this->ordenar_datos){
             $this->ordenar();
