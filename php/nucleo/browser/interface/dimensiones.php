@@ -410,12 +410,12 @@ class dimension_numero_conector extends ef
 	{
 //		$this->no_interactivo = $no_interactivo;
 		$this->digitos = $parametros['digitos'];
-		$this->conectores[">="]="Mayor o igual a";
-		$this->conectores["<="]="Menor o igual a";
+		$this->conectores["="]="Igual a";
 		$this->conectores[">"]="Mayor a";
 		$this->conectores["<"]="Menor a";
-		$this->conectores["="]="Igual a";
-		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$columna,$obligatorio);
+		$this->conectores[">="]="Mayor o igual a";
+		$this->conectores["<="]="Menor o igual a";
+		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$columna,$obligatorio, $parametros);
 	}
 
 	function obtener_info()
@@ -454,9 +454,12 @@ class dimension_numero_conector extends ef
 		//Si es INTERACTIVO, REQUERIDO y esta DESACTIVADO, tiene que gritar...
 		if(($this->obligatorio) && ($this->activado()===false) ){
 			return array(false, $this->etiqueta . ": El parametro es requerido y se encuentra desactivado");
-		}else{
-			return array(true, ""); 
 		}
+		if ($this->activado()) {
+	 		if (!is_numeric($this->estado[1]))
+	 			return array(false, $this->etiqueta . ": El valor debe ser numérico");
+		}
+		return array(true, "");
 	}
 }
 //########################################################################################################
@@ -577,10 +580,10 @@ class dimension_numero_rango extends ef
 		if ($this->activado())
 		{
 			if (trim($this->estado[0]) != '' && !is_numeric($this->estado[0]))
-				return array(false, $this->etiqueta . ": El primer parámetro debe ser numéricos");
+				return array(false, $this->etiqueta . ": El primer parámetro debe ser numérico");
 				
 			if (trim($this->estado[1]) != '' && !is_numeric($this->estado[1]))
-				return array(false, $this->etiqueta . ": El segundo parámetro debe ser numéricos");
+				return array(false, $this->etiqueta . ": El segundo parámetro debe ser numérico");
 		}
 		return array(true, "");
 	}
