@@ -1,4 +1,6 @@
 Para poder correr la batería de test:
 	-Copiar toba_testing al %toba_dir%/proyectos
-	-Reiniciar la instancia
-	-Ejecutar el item toba||/pruebas/testing_automatico/casos
+	-Cargar el proyecto toba_testing
+	-Ejecutar:
+		-vía web el item 'toba||/pruebas/testing_automatico_web'
+		-vía consola 'item /pruebas/testing_automatico_consola [-c Categoría] [-t Caso de test]'

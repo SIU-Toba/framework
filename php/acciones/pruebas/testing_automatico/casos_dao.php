@@ -1,5 +1,5 @@
 <?php
-
+include_once('nucleo/browser/interface/ef.php');
 
 class casos_dao
 {
