@@ -72,10 +72,10 @@
 		-> cascada no seteada no obligatorio
 		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
-			-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
+			?? ef_nota (cuando pasas el mouse por encima muestra un mensaje)
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
-			-> ef_vinculo?
-			-> ef_template?
+			?? ef_vinculo
+			?? ef_template
 			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
 			-> ef_multi_selecccion 
 				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
@@ -84,12 +84,14 @@
 				-> Hay que buscar uno para conjunto grandes de datos ej: quiero seleccionar 5 clientes de un total de 20.000, basado en el popup
 		-> Refactoring de los actuales:
 			› Migración del JS suelto a las clases (esto incluye el código cascada)
-			-> Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
+			› Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
 			-> Construir las etiquetas usando <label for> con atajos de teclado
 		-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR
 		-> COMBO DAO que maneje mas de una columna
 		-> EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
-			
+-D:					s: Ver el diagrama adjunto en docs. Me parece que la inclusión de elementos sin estado (líneas, dibujitos, notas, vinculo, fieldset, etc.) 
+						no debe ser en los ef sino en el formulario. Por ejemplo el layout de los efs dentro del formulario puede incluir
+						notas, lineas y cualquier otro formateo que se quiera en forma de template.
 
 	*** EI_CUADRO
 
