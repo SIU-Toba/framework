@@ -1,5 +1,5 @@
 <? 
-    $ci = $this->cargar_objeto("objeto_ci_me",0); 
+    $ci = $this->cargar_objeto($this->info["item_parametro_a"],0); 
     if($ci > -1){ 
         $this->objetos[$ci]->procesar(); 
         $this->objetos[$ci]->obtener_html(); 

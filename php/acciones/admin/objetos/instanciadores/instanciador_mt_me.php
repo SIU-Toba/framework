@@ -4,11 +4,8 @@
 		$this->zona->obtener_html_barra_superior();
 
 		include_once("nucleo/browser/clases/objeto_ci_me_tab.php");
-		$mt =& new objeto_ci_me_tab($editable,$this);
+		$mt = new objeto_ci_me_tab($editable);
 		//$mt->info_definicion();
-
-
-		echo ei_mensaje("Atencion, si las dependencias tienen DAOS, esto va a dar un error");
 
 		$mt->procesar();
 		$mt->obtener_html();

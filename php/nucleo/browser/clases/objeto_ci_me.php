@@ -321,6 +321,30 @@ class objeto_ci_me extends objeto_ci
 				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
 			}
 			echo "<tr><td class='celda-vacia'>";
+
+			//Acceso al PLAN de ruteo de EVENTOS de la DEPENDENCIA
+			if($this->solicitud->hilo->entorno_instanciador() || true)
+			{
+				//Vinculo al EDITOR del OBJETO
+				//Hay que controlar que el objeto no se CI
+				$zona = implode(apex_qs_separador,$this->id);
+				//Armo la clave a enviar por el CANAL del FORM de edicion de deps
+				$temp = $this->id; 
+				$temp[] = $dep; 
+				$ei = implode(apex_qs_separador, $temp);
+				//Esta es una llamada harcodeada al FORM de propiedades de la dependencia
+				$id_objeto_formulario =  151;
+				$vinc_ruteo= $this->solicitud->vinculador->obtener_vinculo_a_item(
+							"toba","/admin/objetos/dependencias",
+							array(	apex_hilo_qs_zona => $zona,
+									apex_hilo_qs_canal_obj .$id_objeto_formulario => $ei ),
+							true);   
+		
+				if($vinc_ruteo){
+		            echo $vinc_ruteo;
+				}
+			}
+			//HTML de la DEPENDENCIA
 			$this->dependencias[$dep]->obtener_html();	
 			echo "</td></tr>\n";
 			$existe_previo = 1;

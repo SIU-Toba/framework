@@ -49,6 +49,13 @@ class objeto_ci extends objeto
 			$this->cancelar_etiq = "cancelar";
 		}
 		$this->flag_cancelar_operacion = "ci_canop";
+		//Si tengo al CN como dependencia, lo cargo!
+		//EL ID que puede tomar el CN esta harcodeado
+		if(isset($this->indice_dependencias['__cn'])){
+			$this->cargar_dependencia('__cn');
+			//Asigno la referencia a la variable del CN de la clase
+			$this->asignar_controlador_negocio( $this->dependencias['__cn'] );
+		}
 	}
 
 	function destruir()
@@ -144,16 +151,20 @@ class objeto_ci extends objeto
 		//Clase que pueden tener DAOS para combos
 		//$clases_dao[]="objeto_ei_formulario, objeto_ei_cuadro";
 		foreach ($this->dependencias as $dependencia){		
-			if( $dao_form = $dependencia->obtener_consumo_dao() ){
-				//ei_arbol($dao_form,"DAO");
-				//Por cada elemento de formulario que necesita DAOS
-				foreach($dao_form as $ef => $dao){
-					$sentencia = "\$datos = \$this->cn->{$dao}();";
-					//echo $sentencia;
-					eval($sentencia);
-					//ei_arbol($datos,"DATOS $ef");
-					//El cuadro carga sus daos de otra forma
-					$dependencia->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+			if(	$dependencia instanceof objeto_ei_formulario ||	
+				$dependencia instanceof objeto_ei_cuadro )
+			{
+				if( $dao_form = $dependencia->obtener_consumo_dao() ){
+					//ei_arbol($dao_form,"DAO");
+					//Por cada elemento de formulario que necesita DAOS
+					foreach($dao_form as $ef => $dao){
+						$sentencia = "\$datos = \$this->cn->{$dao}();";
+						//echo $sentencia;
+						eval($sentencia);
+						//ei_arbol($datos,"DATOS $ef");
+						//El cuadro carga sus daos de otra forma
+						$dependencia->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+					}
 				}
 			}
 		}
@@ -389,10 +400,6 @@ class objeto_ci extends objeto
 	//-------------------------------------------------------------------------------
 
 	function obtener_interface()
-/*
- 	@@acceso: interno
-	@@desc: Genera la INTERFACE
-*/
 	{
 		$existe_previo = 0;
 		echo "<table class='tabla-0'  width='100%'>\n";
@@ -401,6 +408,7 @@ class objeto_ci extends objeto
 				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
 			}
 			echo "<tr><td class='celda-vacia'>";
+			//echo recurso::imagen_apl("objetos/fantasma.gif",true);
 			$this->dependencias[$dep]->obtener_html();	
 			echo "</td></tr>\n";
 			$existe_previo = 1;
