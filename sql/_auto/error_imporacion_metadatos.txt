@@ -1,3 +1,65 @@
-psql:_auto/metadatos.sql:9: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
-psql:_auto/metadatos.sql:10: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
-psql:_auto/metadatos.sql:11: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:12: ERROR:  parser: parse error at or near "." at character 1
+psql:_auto/metadatos.sql:13: ERROR:  apex_md_tabla_col_fk_tab referential integrity violation - key referenced from apex_mod_datos_tabla_columna not found in apex_mod_datos_tabla
+psql:_auto/metadatos.sql:14: ERROR:  apex_md_tabla_col_fk_tab referential integrity violation - key referenced from apex_mod_datos_tabla_columna not found in apex_mod_datos_tabla
+psql:_auto/metadatos.sql:1634: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1635: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1636: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1639: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1640: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1641: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1642: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1643: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1644: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1645: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1646: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1647: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1650: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1651: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1652: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1655: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1656: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1657: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1660: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1661: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1662: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1663: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1664: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1667: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1668: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1669: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1670: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1671: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1674: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1675: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1676: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1677: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1680: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:1681: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1682: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1683: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1684: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:1687: \t: extra argument "oba\php\acciones\consola\info_sql.php" ignored
+psql:_auto/metadatos.sql:1687: \t: extra argument "on" ignored
+psql:_auto/metadatos.sql:1687: \t: extra argument "line" ignored
+psql:_auto/metadatos.sql:1687: \t: extra argument "151" ignored
+psql:_auto/metadatos.sql:1689: \t: extra argument "oba\php\acciones\consola\info_sql.php" ignored
+psql:_auto/metadatos.sql:1689: \t: extra argument "on" ignored
+psql:_auto/metadatos.sql:1689: \t: extra argument "line" ignored
+psql:_auto/metadatos.sql:1689: \t: extra argument "151" ignored
+psql:_auto/metadatos.sql:1691: \t: extra argument "oba\php\acciones\consola\info_sql.php" ignored
+psql:_auto/metadatos.sql:1691: \t: extra argument "on" ignored
+psql:_auto/metadatos.sql:1691: \t: extra argument "line" ignored
+psql:_auto/metadatos.sql:1691: \t: extra argument "151" ignored
+psql:_auto/metadatos.sql:1693: \t: extra argument "oba\php\acciones\consola\info_sql.php" ignored
+psql:_auto/metadatos.sql:1693: \t: extra argument "on" ignored
+psql:_auto/metadatos.sql:1693: \t: extra argument "line" ignored
+psql:_auto/metadatos.sql:1693: \t: extra argument "151" ignored
+psql:_auto/metadatos.sql:1694: ERROR:  parser: parse error at or near "Notice" at character 1
+psql:_auto/metadatos.sql:1695: ERROR:  apex_md_secu_fk_proy referential integrity violation - key referenced from apex_mod_datos_secuencia not found in apex_proyecto
+psql:_auto/metadatos.sql:1696: ERROR:  apex_md_secu_fk_proy referential integrity violation - key referenced from apex_mod_datos_secuencia not found in apex_proyecto
+psql:_auto/metadatos.sql:1697: ERROR:  apex_md_secu_fk_proy referential integrity violation - key referenced from apex_mod_datos_secuencia not found in apex_proyecto
+psql:_auto/metadatos.sql:1712: \t: extra argument "oba\php\acciones\consola\info_sql.php" ignored
+psql:_auto/metadatos.sql:1712: \t: extra argument "on" ignored
+psql:_auto/metadatos.sql:1712: \t: extra argument "line" ignored
+psql:_auto/metadatos.sql:1712: \t: extra argument "151" ignored
+psql:_auto/metadatos.sql:1713: ERROR:  parser: parse error at or near "Notice" at character 1

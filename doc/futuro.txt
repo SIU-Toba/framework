@@ -1,0 +1,91 @@
+
+	SIU - Toba: Plan de trabajo 2005
+
+	A - CODIGO FUENTE
+	-----------------
+
+	1) Temas generales a desarrollar
+
+		-	Soporte para el desarrollo de logica de negocio.
+			-	Entidades
+			-	Procesos (roles de las entidades)
+		-	Elemento que maneje un flujo de pantallas. 
+			-	Manejar patrones con roles y posibiliar la parametrizacion de los mismos
+			-	Maquina de estados en patron
+			-	CI que puede incluir otros CI.
+		-	API en PHP y Javascript para los elementos de toba (item, objeto, usuario)
+			-	Que los CI y EI tengan una clase homologan en javascript
+		-	compilación a PHP
+		-	Testing automatico
+		-	Ambiente de trabajo
+			-	Log de modificaciones para metricas
+			-	Soporte al testeo no automatico
+			-	Relacionar un item con un estado y mostrarlo en el arbol de navegación
+		-	No reescribir la logica de negocio en PHP y javascript (evaluar librerias 3ros)
+		-	Librería de javascript con utilizades (evaluar librerias 3ros)
+		-	Mensajeria entre instancias (intercambio de elementos toba) para facilitar el desarrollo remoto
+		-	Reescritura del administrador utilizando el desarrollo en capas (hacer mas intuitiva y veloz la interface de usuarios).
+		-	Multimotor
+
+	2) Cosas pendientes
+	
+		-	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
+		-	Facilitar la creación de nuevos estilos. Tarea: analizar la distribución de los estilos.
+		-	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
+		-	Manejar la carga de objetos con excepciones
+
+
+	3) Cosas concretas pendientes
+	
+		-	Prioridad: SIU-Quilmes (tope 20 de febrero)
+
+			-	El orden de los cuadros deberia ser completo y no de la pagina (modificar el orde by y no el array resultante)
+			-	Cascada en ABMs
+				-	Carga correcta en modificacion
+				-	Caso de muchos maestros
+			-	Enter en los formularios
+		
+		-	Prioridad: SIU-Comechingones (tope 1 marzo)
+
+			-	BUFFER
+				-	Funciones cosmeticas para columnas asociadas
+				-	Filtrado de registros
+				-	Reset
+			-	Implementar cascada en DAOS
+			-	CN
+				-	Derechos
+				-	Controles configurables
+			-	Entidad
+				-	Bifurcacion y acoplamiento en dos buffers para una sola entrada
+			-	EF
+				-	Separadores
+				-	Poder ocultarlos por javascript
+			-	Cola de mensajes
+				-	Reconfirmacion
+			-	EI_FORM
+				-	Set elementos no editables en runtime
+				-	Declarar nuevos eventos
+				-	Si no se le pide el html, que no genere el javascript
+			- 	CI
+				- Uso recursivo de CIs
+				- CI control flujo
+
+		-	General
+
+			-	Administrador de permisos (post orden menu)
+			-	Administrador de derechos 
+			-	Esquema de manejo de usuarios de distintas instancias para una instalacion (deployment)
+
+
+	B - PRACTICAS
+	-------------
+		
+		-	Plan de capacitacion
+		-	Documentación
+			-	Online para guiar el desarrollo con el administrador.
+			-	Offline para entender conceptos.
+		-	Implementar un foro y un sitio de referencia
+		-	Lineamientos al programador
+			-	Uso de directorios
+			-	Convenciones 
+		-	Glosario

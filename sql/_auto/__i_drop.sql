@@ -1,3 +1,6 @@
+
+... Utilizando instancia: desarrollo
+
 DROP TABLE apex_dim_restric_soltipo ;
 DROP TABLE apex_objeto_html ;
 DROP TABLE apex_objeto_esquema ;
@@ -129,8 +132,13 @@ DROP TABLE apex_log_sistema_tipo ;
 DROP TABLE apex_proyecto ;
 DROP TABLE apex_estilo ;
 DROP TABLE apex_estilo_paleta ;
+DROP TABLE apex_elemento_infra_input ;
 DROP TABLE apex_elemento_infra_tabla ;
 DROP TABLE apex_elemento_infra ;
+
+... Utilizando instancia: desarrollo
+
+DROP SEQUENCE apex_elemento_infra_input_seq;
 DROP SEQUENCE apex_columna_estilo_seq;
 DROP SEQUENCE apex_columna_formato_seq;
 DROP SEQUENCE apex_columna_proceso_seq;

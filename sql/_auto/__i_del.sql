@@ -1,3 +1,6 @@
+
+... Utilizando instancia: desarrollo
+
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_objeto_html ;
 DELETE FROM apex_objeto_esquema ;
@@ -129,5 +132,6 @@ DELETE FROM apex_log_sistema_tipo ;
 DELETE FROM apex_proyecto ;
 DELETE FROM apex_estilo ;
 DELETE FROM apex_estilo_paleta ;
+DELETE FROM apex_elemento_infra_input ;
 DELETE FROM apex_elemento_infra_tabla ;
 DELETE FROM apex_elemento_infra ;

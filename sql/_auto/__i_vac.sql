@@ -1,3 +1,6 @@
+
+... Utilizando instancia: desarrollo
+
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
 VACUUM VACUUM FULL ANALYSE apex_objeto_html;
 VACUUM VACUUM FULL ANALYSE apex_objeto_esquema;
@@ -129,5 +132,6 @@ VACUUM VACUUM FULL ANALYSE apex_log_sistema_tipo;
 VACUUM VACUUM FULL ANALYSE apex_proyecto;
 VACUUM VACUUM FULL ANALYSE apex_estilo;
 VACUUM VACUUM FULL ANALYSE apex_estilo_paleta;
+VACUUM VACUUM FULL ANALYSE apex_elemento_infra_input;
 VACUUM VACUUM FULL ANALYSE apex_elemento_infra_tabla;
 VACUUM VACUUM FULL ANALYSE apex_elemento_infra;
