@@ -252,6 +252,7 @@ class buffer
 		if(!is_object($rs)){
 			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
+			throw new excepcion_toba("Error cargando datos en el buffer. Verifique la definicion. $sql");
 		}
 		if($rs->EOF){
 			if($carga_estricta){
