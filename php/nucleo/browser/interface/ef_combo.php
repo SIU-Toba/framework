@@ -334,8 +334,13 @@ class ef_combo_dao extends ef_combo
 		$this->cantidad_claves = count($this->clave);
 		//Representacion a nivel datos de lo no_seteado
 		if( $this->cantidad_claves > 1){
-			foreach($this->dato as $dato){
-				$this->estado_nulo[$dato] = 'NULL';
+			if(!is_array($this->dato)){
+				toba::get_cola_mensajes()->agregar("COMBO: {$this->etiqueta}. La cantidad de claves ({$this->cantidad_claves})
+															tiene que corresponderse con la cantidad de datos manejados por el EF (1)","error");
+			}else{
+				foreach($this->dato as $dato){
+					$this->estado_nulo[$dato] = 'NULL';
+				}
 			}
 	        if(isset($parametros["no_seteado"])){
 	    		if($parametros["no_seteado"]!=""){
@@ -449,7 +454,7 @@ class ef_combo_dao extends ef_combo
 		//**** CC!
 	   		if(isset($estado)){								
 				//El estado tiene el formato adecuado?
-				if(count($estado)<>$this->cantidad_claves){
+				if(count($estado) <> $this->cantidad_claves){
 					echo ei_mensaje("ERROR: la cantidad de claves no coinciden");
 					return false;
 				}

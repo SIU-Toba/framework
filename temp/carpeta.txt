@@ -4,3 +4,10 @@ dao: obtener_combo2;
 instanciable: 1;
 clave: proyecto, item;
 valor: desc;
+
+sql: SELECT proyecto, item, item || ' --- '  || nombre
+FROM apex_item 
+WHERE carpeta = 1
+%w% ORDER BY item;
+columna_proyecto: proyecto;
+incluir_toba: 0;

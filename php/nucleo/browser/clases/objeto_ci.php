@@ -161,11 +161,8 @@ class objeto_ci extends objeto
 		$this->determinar_modelo_opciones();
 
 		// 0 - Cargo las dependencias
-		if(isset($this->info_ci["objetos"])){
-			$dependencias = explode(",",$this->info_ci["objetos"]);
-			$this->dependencias_actual = array_map("trim",$dependencias);
-		}
-		$this->cargar_dependencias($this->dependencias_actual);
+		$this->determinar_dependencias();
+		$this->cargar_dependencias( $this->dependencias_actual );
 
 		// 1 - Cancelar la operacion?
 		if( ! $this->controlar_cancelacion() ){
@@ -181,12 +178,39 @@ class objeto_ci extends objeto
 			}
 		}
 
-		// 4- Cargo los DAOS //Seba, lo saque del if anterior
+		// 4 - En el caso en que las dependencias se determinen ad-hoc,
+		//		Los eventos pueden haber influido en la lista a cargar
+		$this->determinar_dependencias();
+		$this->cargar_dependencias( $this->dependencias_actual );
+
+		// 5- Cargo los DAOS //Seba, lo saque del if anterior
 		$this->cargar_daos();
-		// 5 - Cargo las interfaces de los EI
+		// 6 - Cargo las interfaces de los EI
 		//Esto deberia estar en un metodo aparte
 		$this->cargar_datos_dependencias();
 	}
+	//-------------------------------------------------------------------------------
+	
+	function determinar_dependencias()
+	{
+		if(trim($this->info_ci["activacion_cancelar"])!="")
+		{
+			//EL CN determina que dependencias hay que cargar
+			//ATENCION: hay que usar otro campo de la base, use este porque estaba vacio...
+			$metodo = $this->info_ci["activacion_cancelar"];
+			$deps = $this->cn->$metodo();
+			//ATENCION: hay que controlar que las etapas existan...
+			$this->dependencias_actual = $deps;
+		}elseif(trim($this->info_ci["objetos"])!="")
+		{
+			//Se escribio una lista de objetos a cargar
+			$dependencias = explode(",",$this->info_ci["objetos"]);
+			$this->dependencias_actual = array_map("trim",$dependencias);
+		}else{
+			throw new excepcion_toba("No es posible determinar que dependencias cargar");
+		}
+	}
+
 	//-------------------------------------------------------------------------------
 
 	function cargar_dependencias($dependencias)
@@ -197,6 +221,10 @@ class objeto_ci extends objeto
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		//Cargo dependencias
 		foreach($dependencias as $dep){
+			if(isset($this->dependencias[$dep])){
+				//La dependencia ya se encuentra cargada
+				continue;
+			}
 			//Creo la dependencia
 			$this->cargar_dependencia($dep);		
 			if($this->dependencias[$dep] instanceof objeto_ci ){
