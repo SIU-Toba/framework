@@ -73,6 +73,7 @@
 		?? cascada no seteada no obligatorio
 		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
+			-> ef_moneda !!!
 			?? ef_nota (cuando pasas el mouse por encima muestra un mensaje)
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
 			?? ef_vinculo
