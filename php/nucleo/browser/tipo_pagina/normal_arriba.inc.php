@@ -26,6 +26,13 @@
 	$parametros = array(apex_hilo_qs_zona=> $this->info["item_proyecto"] . apex_qs_separador . $this->info["item"]);
 	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/info",$parametros,true);
 	echo "&nbsp;</td>";
+
+
+	echo "<td  class='barra-0-edit' width='1'>";
+	$parametros = array('plantilla' => recurso::css());
+	echo "<a href='".$this->vinculador->generar_solicitud('toba','/admin/objetos/editores/editor_estilos', $parametros)."' target='".apex_frame_lista."'>".
+	recurso::imagen_apl("css.gif",true,null,null,"Editar los estilos del ítem.")."</a>";
+	echo "&nbsp;</td>";
 	
 	//- 3 - Boton que dispara la cronometracion
 	if(!isset($this->zona)){

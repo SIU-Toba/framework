@@ -42,10 +42,7 @@
 	
 		-	Prioridad: SIU-Quilmes (tope 20 de febrero)
 
-			-	El orden de los cuadros deberia ser completo y no de la pagina (modificar el orde by y no el array resultante)
-			-	Cascada en ABMs
-				-	Carga correcta en modificacion
-				-	Caso de muchos maestros
+			-	Cascada en ABMs (cuando se produce un error los dependientes quedan sin estado)
 			-	Enter en los formularios
 		
 		-	Prioridad: SIU-Comechingones (tope 1 marzo)
