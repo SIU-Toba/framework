@@ -209,6 +209,11 @@ class elemento_toba_item extends elemento_toba
 			}
 		}
 	}
+	
+	function obtener_doc()
+	{
+		ei_arbol($this->datos['apex_item_info']);
+	}
 }
 //######################################################################
 //######################################################################

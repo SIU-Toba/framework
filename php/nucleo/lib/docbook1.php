@@ -1,6 +1,6 @@
 <?
 
-class docbook
+class docbook1
 {
 	private $items;
 	private $arbol;
