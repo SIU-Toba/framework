@@ -197,6 +197,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				foreach ($this->lista_ef as $ef){
 					$this->elemento_formulario[$ef]->establecer_id_form($fila);
 					$x	= $this->elemento_formulario[$ef]->cargar_estado();
+					//La validación del estado no se hace aquí porque interrumpiría la carga
 				}
 				//2) Seteo el registro
 				$this->cargar_ef_a_registro($i);
@@ -210,12 +211,25 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function validar_estado()
 /*
 	@@acceso: interno
-	@@desc: Valida	el	registro
+	@@desc: Valida	cada fila
 	@@pendiente: grados:	EJ	un	ef_oculto_proyecto no la deberia	dejar	pasar...
 */
 	{
-		return false;
-	}
+		//Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual
+		//de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden
+		//ver las modificaciones hechas, sería deseable poder verlos.
+		foreach ($this->datos as $registro => $datos_registro) {
+			$this->cargar_registro_a_ef($registro);
+			foreach ($this->lista_ef as $ef){
+				$this->elemento_formulario[$ef]->establecer_id_form($registro);
+				$temp = $this->elemento_formulario[$ef]->validar_estado();
+				if(!$temp[0]){
+					$mensaje = "Error en el elemento de formulario '" . $this->elemento_formulario[$ef]->obtener_etiqueta() ."' - ". $temp[1];
+					throw new excepcion_toba($mensaje);
+				}
+			}			
+		}
+ 	}
 	//-------------------------------------------------------------------------------
 
 	function limpiar_interface()
@@ -266,7 +280,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 	//-------------------------------------------------------------------------------
 
-	function cargar_datos($datos)
+	function cargar_datos($datos = null)
 	{
 		$this->datos = $datos;
 		$this->carga_inicial();
@@ -314,6 +328,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					$this->datos[$id_registro][$dato[$x]]	= $estado[$dato[$x]];
 				}
 			}else{					//El EF maneja	un	DATO SIMPLE
+				//ATENCION, esta truchada es para evitar el comportamiento de los EF de retornar NULL
+				if ($estado == 'NULL')
+					$estado = null;
 				$this->datos[$id_registro][$dato] = $estado;
 			}
 		}
