@@ -97,6 +97,27 @@ class ef_popup extends ef_editable
         }
     }
 	
+	function javascript_master_get_estado()
+	{
+		return "
+		function master_get_estado_{$this->id_form}()
+		{
+			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			return(s_.value);
+		}
+		";		
+	}
+	
+	function javascript_master_cargado()
+	{
+		return "
+		function master_cargado_{$this->id_form}()
+		{
+			return (master_get_estado_{$this->id_form}() != '".apex_ef_no_seteado.".');
+		}
+		";		
+	}
+	
     function cargar_estado($estado=null)
     {
         parent::cargar_estado($estado);

@@ -106,8 +106,10 @@ class ef_combo extends ef
 				s_.options[s_.options.length] = new Option(datos[id], id);
 			}
 			if (hay_datos)
+			{
+				s_.disabled = false;
 				s_.focus();
-			document.body.style.cursor = '';
+			}
 			atender_proxima_consulta();
 		}
 		";	
@@ -120,6 +122,7 @@ class ef_combo extends ef
 		function reset_{$this->id_form}()
 		{
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			s_.disabled = true;
 			s_.options.length = 0;\n";
 		if(isset($this->no_seteado)){
 			$js .= "s_.options[0] = new Option('{$this->no_seteado}', '".apex_ef_no_seteado."');\n";
@@ -136,6 +139,27 @@ class ef_combo extends ef
 		//Hay que resetear a los DEPENDIENTES
 		return $js;
 	}
+	
+	function javascript_master_get_estado()
+	{
+		return "
+		function master_get_estado_{$this->id_form}()
+		{
+			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			return(s_.value);
+		}
+		";		
+	}
+	
+	function javascript_master_cargado()
+	{
+		return "
+		function master_cargado_{$this->id_form}()
+		{
+			return (master_get_estado_{$this->id_form}() != '".apex_ef_no_seteado.".');
+		}
+		";		
+	}	
 	//-----------------------------------------------
 	//-----------------------------------------------
 	//-----------------------------------------------	
@@ -371,6 +395,7 @@ class ef_combo_db extends ef_combo
 		}else{
 			$this->cargar_datos_db();
 		}
+		
 	}
 
 	function cargar_datos_db()
@@ -395,7 +420,6 @@ class ef_combo_db extends ef_combo
 		if(is_array($temp)){
 			$this->valores = $this->valores + $temp;
 		}
-		//echo $this->sql. "<br>";
 		//ei_arbol($this->valores);
 	}
 

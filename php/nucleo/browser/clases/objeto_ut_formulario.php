@@ -582,6 +582,10 @@ class	objeto_ut_formulario	extends objeto_ei_formulario
 		if($this->estado_proceso!="INFRACCION")
 		{
 			echo "\n<!-- ***************** Inicio UT FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
+			//A los ocultos se les deja incluir javascript
+			foreach ($this->lista_ef_ocultos as $ef) {
+				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
+			}
 			echo "<table width='100%' class='tabla-0'>";
 			foreach ($this->lista_ef_post	as	$ef){
 				echo "<tr><td class='abm-fila'>\n";

@@ -19,9 +19,15 @@ $this->hilo->desactivar_reciclado();
 		$dependencias = array();
 		foreach($temp as $dep){
 			$valores = explode(";", $dep);
-			$dependencias[$valores[0]] = trim($valores[1]);
+			if ($valores[1] != apex_ef_valor_oculto)
+				$dependencias[$valores[0]] = $valores[1];
+			else {
+				//Caso particular para los ocultos
+				$clave_memoria = "obj_" .$referencia_ef[1]. "_ef_" . $valores[0];
+				$valor = toba::get_solicitud()->hilo->recuperar_dato($clave_memoria);
+				$dependencias[$valores[0]] = $valor;
+			}
 		}
-		//ei_arbol($dependencias);
 
  		try{
 			//---[ 1 ]- Busco la definicion del EF
@@ -93,7 +99,6 @@ $this->hilo->desactivar_reciclado();
 					else
 						$sql_ef = ereg_replace( $mascara.$dep.$mascara, 'NULL', $sql_ef );
 				}
-				//echo $sql_ef;
 				//---[ 3 ]- Busco los datos del EF, los organizo y los devuelvo
 				
 				$data = consultar_fuente( $sql_ef, $f, ADODB_FETCH_NUM ); //print_r($data);

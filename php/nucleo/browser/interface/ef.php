@@ -2,6 +2,7 @@
 require_once("form.php");// Elementos STANDART de formulario
 define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO
 define("apex_ef_separador","||");// Valor que debe ser considerado como NO ACTIVADO
+define("apex_ef_valor_oculto", "#oculto#"); // Valor que debe ser considerado como SOLO DISPONIBLE EN SERVER
 define("apex_ef_dependenca","%");//Mascara para 
 
 /*######################################################################################################
@@ -37,6 +38,7 @@ class ef //Clase abstracta, padre de todos los EF
 	var $javascript="";			//Javascript del elemento de formulario
 	//--- DEPENDENCIAS ---
 	var $dependencias;			// Array de DEPENDENCIAS (Ids de EFs MAESTROS)
+	var $maestros;				// Array de id_form de Maestros
 	var $dependencias_datos;	// Datos devueltos por las dependencias
 	var $dependientes;			// Array de ESCLAVOS
 	var $dep_master = false;	//Soy master?
@@ -103,26 +105,50 @@ class ef //Clase abstracta, padre de todos los EF
 		$this->dependientes[$ef] = $id_form;
 		$this->dep_master = true;
 	}
+	
+	function registrar_ef_maestro($ef, $id_form)
+	{
+		$this->maestros[$ef] = $id_form;
+	}
 
 	function javascript_master_evento()
 	//Dispara el evento de modificacion del padre
 	{
-		return " onchange='modificacion_maestro_{$this->id_form}(this);' ";
+		return " onchange='modificacion_maestro_{$this->id_form}();' ";
 	}
 
 	function javascript_master_notificar()
 	{
 		//Le aviso a los dependientes que me modifique
-		$js = "function modificacion_maestro_{$this->id_form}(ef)\n{\n";
+		$js = "function modificacion_maestro_{$this->id_form}()\n{\n";
 		//$js .= "	alert(ef.value);\n";
 		foreach($this->dependientes as $dependiente){
-			$js .= " escuchar_master_{$dependiente}{$this->agregado_form}('{$this->id}', ef.value);\n";
+			$js .= " escuchar_master_{$dependiente}{$this->agregado_form}();\n";
 		}
 		$js .= " atender_proxima_consulta();\n";
 		$js .= "\n}\n";
 		return $js;
 	}
-
+	
+	function javascript_master_get_estado()
+	{
+		return "
+		function master_get_estado_{$this->id_form}()
+		{
+			alert('OBTENCION ESTADO ef {$this->id}. Redefinir');
+		}
+		";		
+	}
+	
+	function javascript_master_cargado()
+	{
+		return "
+		function master_cargado_{$this->id_form}()
+		{
+			alert('PREGUNTA si esta cargado el ef {$this->id}. Redefinir');
+		}
+		";		
+	}
 	//*************************
 	//***      SLAVE        ***
 	//*************************
@@ -135,29 +161,45 @@ class ef //Clase abstracta, padre de todos los EF
 		return $this->dependencias;
 	}
 	//-----------------------------------------------------	
-
 	function javascript_slave_escuchar()
 	{
-		//ATENCION: Falta la cola para los mastes
-		return "
-		function escuchar_master_{$this->id_form}(maestro, valor)
+		$lista_maestros = dump_array_javascript($this->maestros, 'maestros');
+		$js = "
+		function escuchar_master_{$this->id_form}()
 		{
-			//alert('M: ' + maestro + ' ' + valor);	
-			if(true)//SI Se cargaron todos los MAESTROS...
+			$lista_maestros
+
+			//-- ¿Estan los maestros cargados?
+			var cargados = true;
+			for (var i in maestros) {
+  				if (! eval('master_cargado_' + maestros[i] + '()'))
+  					cargados = false;
+			}
+			if(cargados)//SI Se cargaron todos los MAESTROS...
 			{
 				//Me reseteo (por si nunca se vuelve a la callback)
 				//Esto resetea al mismo tiempo a los EFs que dependen de MI
 				reset_{$this->id_form}();
-				//-- Recargo mis datos
-				dependencias = maestro + ';' + valor;
+
+				//-- Obtengo el valor de mis maestros
+				var dependencias = '';
+				for (var i in maestros) {
+					valor = eval('master_get_estado_' + maestros[i] + '()');
+					if (valor != '')
+						dependencias = dependencias + '|' + i + ';' + valor;
+					else //Caso particular para los ocultos
+						dependencias = dependencias + '|' + i;					
+				}
 				//Empaqueto toda la informacion que tengo que mandar.
-				parametros = '{$this->padre[0]};{$this->padre[1]};{$this->id}|' + dependencias;
+				parametros = '{$this->padre[0]};{$this->padre[1]};{$this->id}' + dependencias;
 				//Se encola la recarga de informacion
 				//alert('parametros:' + parametros);
-				encolar_consulta('toba','/basicos/ef/respuesta',parametros,'recargar_slave_{$this->id_form}');
+				var prefijo_vinculo = '".toba::get_hilo()->prefijo_vinculo()."';
+				encolar_consulta('toba','/basicos/ef/respuesta',parametros,'recargar_slave_{$this->id_form}', prefijo_vinculo);
 			}
 		}
-		";	
+		";
+		return $js;
 	}
 	//-----------------------------------------------------	
 	
@@ -249,6 +291,8 @@ class ef //Clase abstracta, padre de todos los EF
 		$js = "";
 		if($this->dep_master){
 			$js .= $this->javascript_master_notificar();
+			$js .= $this->javascript_master_get_estado();
+			$js .= $this->javascript_master_cargado();			
 		}
 		if($this->dep_slave){
 			$js .= $this->javascript_slave_escuchar();

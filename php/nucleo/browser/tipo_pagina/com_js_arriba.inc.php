@@ -27,10 +27,10 @@
 
 //Solicita informacion al servidor (Esta funcion recarga la pagina)
 //Faltan validaciones!
-function realizar_consulta(nombre_frame, item_proyecto, item, parametros)
+function realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo)
 {
 	//1) Cargo en el formulario el ITEM que resuelve la pregunta
-	v_prefijo="<? echo $this->hilo->prefijo_vinculo() ?>";
+	v_prefijo=prefijo_vinculo;
 	v_id_item="<? echo apex_hilo_qs_item ?>";
 	v_separador="<? echo apex_qs_separador ?>";
 	vinculo = v_prefijo + "&" + v_id_item + "=" + item_proyecto + v_separador + item;

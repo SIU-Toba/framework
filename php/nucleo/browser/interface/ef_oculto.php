@@ -78,8 +78,24 @@ class ef_oculto extends ef
 
 	function obtener_interface()
 	{
+		return null;;
+	}
+	
+	function javascript_master_notificar()
+	{
 		return null;
 	}
+	
+	function javascript_master_get_estado()
+	{
+		return " function master_get_estado_{$this->id_form}() { return '".apex_ef_valor_oculto."' }\n";		
+	}
+	
+	function javascript_master_cargado()
+	{
+		return " function master_cargado_{$this->id_form}() { return true; }\n";
+	}	
+
 }
 //########################################################################################################
 //########################################################################################################

@@ -20,6 +20,7 @@ class objeto_ei_formulario extends objeto
 	var $lista_ef = array();		//	interno | array |	Lista	completa	de	a los	EF
 	var $lista_ef_post = array();	//	interno | array |	Lista	de	elementos que se reciben por POST
 	var $lista_ef_dao = array();
+	var $lista_ef_ocultos = array();
 	var $nombre_ef_cli = array(); // interno | array | ID html de los elementos
 	var $parametros;
 	var $modelo_eventos;
@@ -126,18 +127,16 @@ class objeto_ei_formulario extends objeto
 			//-[1]- Armo las listas	que determinan	el	plan de accion	del ABM
 			$this->lista_ef[]	= $this->info_formulario_ef[$a]["identificador"];
 			switch ($this->info_formulario_ef[$a]["elemento_formulario"]) {
-				 case	"ef_oculto":
-					  break;
-				 case	"ef_oculto_secuencia":
-					  break;
-				 case	"ef_oculto_proyecto":
-					  break;
-				 case	"ef_oculto_usuario":
-					  break;
+				case	"ef_oculto":
+				case	"ef_oculto_secuencia":
+				case	"ef_oculto_proyecto":
+				case	"ef_oculto_usuario":
+					$this->lista_ef_ocultos[] = $this->info_formulario_ef[$a]["identificador"];
+					break;
 				case "ef_combo_dao":
 					  $this->lista_ef_post[] =	$this->info_formulario_ef[$a]["identificador"];
 					  $this->lista_ef_dao[] =	$this->info_formulario_ef[$a]["identificador"];
-					  break;
+					break;
 				 default:
 					  $this->lista_ef_post[] =	$this->info_formulario_ef[$a]["identificador"];
 			}
@@ -266,8 +265,13 @@ class objeto_ei_formulario extends objeto
 				foreach( $dependencias as $dep )
 				{
 					if(is_object($this->elemento_formulario[$dep])){
-						$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
-						$this->elemento_formulario[$dep]->registrar_ef_dependiente($ef, $id_form);
+						//Se le notifican a un maestro sus slaves
+						$id_form_dep = $this->elemento_formulario[$ef]->obtener_id_form();
+						$this->elemento_formulario[$dep]->registrar_ef_dependiente($ef, $id_form_dep);
+						
+						//Se le notifican a un slave todos sus maestros
+						$id_form_master = $this->elemento_formulario[$dep]->obtener_id_form();
+						$this->elemento_formulario[$ef]->registrar_ef_maestro($dep, $id_form_master);
 					}else{
 						echo ei_mensaje("La dependencia '$dep' es invalida");
 					}
@@ -655,6 +659,10 @@ class objeto_ei_formulario extends objeto
 		//Genero	la	interface
 		if($this->estado_proceso!="INFRACCION")
 		{
+			//A los ocultos se les deja incluir javascript
+			foreach ($this->lista_ef_ocultos as $ef) {
+				$this->elemento_formulario[$ef]->obtener_javascript_general();
+			}
 			echo "<table class='tabla-0'>";
 			foreach ($this->lista_ef_post	as	$ef){
 				echo "<tr><td class='abm-fila'>\n";

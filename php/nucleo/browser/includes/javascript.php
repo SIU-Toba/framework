@@ -43,25 +43,24 @@ y en último lugar el ef más cercano. Así los focos se otorgan en el orden de la 
 */
 ?>
 var lista_espera = new Array();
-function encolar_consulta(item_proyecto, item, parametros, callback)
+
+function encolar_consulta()
 {
-	lista_espera.push(new Array(item_proyecto, item, parametros, callback));
+	lista_espera.push(arguments);
 }
 
 function atender_proxima_consulta()
 {
 	var proximo = lista_espera.pop();
 	if (proximo)
-		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3]);
+		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3], proximo[4]);
 }
 
-function consultar_info( item_proyecto, item, parametros, callback)
+function consultar_info(item_proyecto, item, parametros, callback, prefijo_vinculo)
 {
-	//alert('Entre');
-	document.body.style.cursor = 'wait';
 	nombre_frame = this.name;
 	nombre_callback = callback;
-	top.<? echo  apex_frame_com ?>.realizar_consulta(nombre_frame, item_proyecto, item, parametros);
+	top.<? echo  apex_frame_com ?>.realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
 }
 <?
 /*
