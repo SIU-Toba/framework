@@ -1,15 +1,15 @@
 <?php
-include("buffer.php");
+include("buffer_db.php");
 
-class buffer_i extends buffer
+class buffer_i extends buffer_db
 {
 	var $tabla;
 
-	function buffer_i($id, $tabla, $fuente)
+	function __construct($id, $tabla, $fuente)
 	{
 		$this->tabla = $tabla;
 		$definicion = $this->generar_definicion($fuente);
-		parent::buffer($id, $definicion, $fuente);
+		parent::__construct($id, $definicion, $fuente);
 	}
 	//-------------------------------------------------------------------------------
 
