@@ -8,8 +8,8 @@ CREATE TABLE apex_cp_dificultades (
               PRIMARY KEY (id_dificultad)
 );
 
-CREATE SEQUENCE apex_cp_entregables_sq;
 
+CREATE SEQUENCE apex_cp_entregables_sq;
 CREATE TABLE apex_cp_entregables (
        id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_cp_entregables_sq"'::text),
        numero               VARCHAR(8) NOT NULL,
@@ -38,8 +38,8 @@ CREATE TABLE apex_cp_responsables (
               PRIMARY KEY (id_responsable)
 );
 
-CREATE SEQUENCE apex_cp_estados_sq;
 
+CREATE SEQUENCE apex_cp_estados_sq;
 CREATE TABLE apex_cp_estados (
        id_estado            INTEGER NOT NULL DEFAULT nextval('"apex_cp_estados_sq"'::text),
        descripcion          VARCHAR(32) NOT NULL,
@@ -49,7 +49,6 @@ CREATE TABLE apex_cp_estados (
 
 
 CREATE SEQUENCE apex_cp_iteraciones_sq;
-
 CREATE TABLE apex_cp_iteraciones (
        id_iteracion         INTEGER NOT NULL DEFAULT nextval('"apex_cp_iteraciones_sq"'::text),
        fecha_inicio         DATE NOT NULL,

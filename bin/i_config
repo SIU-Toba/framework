@@ -44,7 +44,7 @@ fi
 	then
 		#El usuario escribio una instancia a mano
 		echo
-		echo "... Utilizando instancia: $instancia"
+		echo "--- Utilizando instancia: $instancia"
 		echo
 		shift # Saco el parametro de la llamada
 	elif [ $resultado != "200" ]

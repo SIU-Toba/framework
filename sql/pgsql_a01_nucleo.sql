@@ -55,7 +55,7 @@ CREATE TABLE			apex_elemento_infra_input
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: proyecto
---: dump_order_by: elemento_infra, tabla
+--: dump_order_by: entrada
 --: zona: general
 --: desc: En esta tabla se guardan los elementos toba recibidos desde otras instancias
 --: version: 1.0

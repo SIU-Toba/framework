@@ -323,7 +323,9 @@ class objeto_ci_me extends objeto_ci
 			echo "<tr><td class='celda-vacia'>";
 
 			//Acceso al PLAN de ruteo de EVENTOS de la DEPENDENCIA
-			if($this->solicitud->hilo->entorno_instanciador() || true)
+			
+			//if($this->solicitud->hilo->entorno_instanciador() )
+			if(apex_pa_acceso_directo_editor)
 			{
 				//Vinculo al EDITOR del OBJETO
 				//Hay que controlar que el objeto no se CI
