@@ -5,6 +5,8 @@ class objeto_cn extends objeto
 /*
  	@@acceso: nucleo
 	@@desc: Descripcion
+
+
 */
 {
 	var $indice_reglas;				//Indice de reglas de negocio
@@ -32,6 +34,33 @@ class objeto_cn extends objeto
 		parent::destruir();
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 	}
+
+	//-------------------------------------------------------------------------------
+	//------  MANEJO de DERECHOS
+	//-------------------------------------------------------------------------------
+
+	/*
+		Falta la carga de derechos
+	*/
+	
+	function obtener_derechos()
+	{
+		return $this->derechos;
+	}
+	
+	function posee_derecho($derecho)
+	{
+		return in_array($derecho, $this->derechos);
+	}
+
+	//-------------------------------------------------------------------------------
+	//------  MANEJO de CONTROLES configurables
+	//-------------------------------------------------------------------------------
+
+
+	//-------------------------------------------------------------------------------
+
+
 /*
 	function obtener_definicion_db()
 	{
