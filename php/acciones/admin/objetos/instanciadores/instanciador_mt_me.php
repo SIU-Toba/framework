@@ -3,8 +3,8 @@
 		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();
 
-		include_once("nucleo/browser/clases/objeto_ci_me.php");
-		$mt =& new objeto_ci_me($editable,$this);
+		include_once("nucleo/browser/clases/objeto_ci_me_tab.php");
+		$mt =& new objeto_ci_me_tab($editable,$this);
 		//$mt->info_definicion();
 
 

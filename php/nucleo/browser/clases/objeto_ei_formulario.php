@@ -498,7 +498,9 @@ class objeto_ei_formulario extends objeto
 	{
 		$dao = null;
 		foreach ($this->lista_ef_dao as $ef){
-			$dao[$ef] = $this->elemento_formulario[$ef]->obtener_dao();
+			if($temp = $this->elemento_formulario[$ef]->obtener_dao()){
+				$dao[$ef] = $temp;
+			}
 		}
 		return $dao;
 	}

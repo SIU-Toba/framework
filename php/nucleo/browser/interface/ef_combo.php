@@ -210,22 +210,41 @@ class ef_combo extends ef
 
 class ef_combo_dao extends ef_combo
 {
-	var $dao;
+	private $dao;
+	private $include;
+	private $clase;
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
+		$parametros['valores'] = array();
 		if(isset($parametros["dao"])){
 			$this->dao = $parametros["dao"];
-			//$dao = explode(",",$parametros["dao"]);
-			//$this->dao["clase"] = trim($dao[0]);
-			//$this->dao["metodo"] = trim($dao[1]);
 		}
-		 unset($parametros["dao"]);//Este valor no significa nada para el padre
-		$parametros['valores'] = array();
+		if(isset($parametros["include"])){
+			$this->include = $parametros["include"];
+		}
+		if(isset($parametros["clase"])){
+			$this->clase = $parametros["clase"];
+		}
+		if(isset($this->include) && isset($this->clase) )
+		{
+			//Desabilito el consumo por CN
+			//Busco los datos
+			include_once($this->include);
+			$sentencia = "\$datos = " .  $this->clase . "::" . $this->dao ."();";
+			eval($sentencia);//echo $sentencia;
+		$parametros['valores'] = $datos;
+			$this->dao = null;
+		}
+		unset($parametros["dao"]);//Este valor no significa nada para el padre
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
 	function obtener_dao()
+	/*
+		SI no se especifican CLASE e INCLUDE, se solicita la funcion al CN asociado,
+		si, esos parametros existen, se consulta al DAO directamente ACA
+	*/
 	{
 		return $this->dao;	
 	}
