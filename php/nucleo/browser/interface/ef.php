@@ -172,7 +172,7 @@ class ef //Clase abstracta, padre de todos los EF
 			//-- ¿Estan los maestros cargados?
 			var cargados = true;
 			for (var i in maestros) {
-  				if (! eval('master_cargado_' + maestros[i] + '()'))
+  				if (! eval('master_cargado_' + maestros[i] + '{$this->agregado_form}()'))
   					cargados = false;
 			}
 			if(cargados)//SI Se cargaron todos los MAESTROS...
@@ -184,7 +184,7 @@ class ef //Clase abstracta, padre de todos los EF
 				//-- Obtengo el valor de mis maestros
 				var dependencias = '';
 				for (var i in maestros) {
-					valor = eval('master_get_estado_' + maestros[i] + '()');
+					valor = eval('master_get_estado_' + maestros[i] + '{$this->agregado_form}()');
 					if (valor != '')
 						dependencias = dependencias + '|' + i + ';' + valor;
 					else //Caso particular para los ocultos
