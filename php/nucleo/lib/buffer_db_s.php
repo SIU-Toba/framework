@@ -38,17 +38,17 @@ class buffer_db_s extends buffer_db
 {
 	function __construct($id, $definicion, $fuente)
 	{
-		parent::__construct($id, $definicion, $fuente);
-		if(! isset($this->definicion['columna'] )){
-			$this->definicion['columna'] = array();
+		if( !isset($definicion['columna'] )){
+			$definicion['columna'] = array();
 		}
+		parent::__construct($id, $definicion, $fuente);
 	}
 	//-------------------------------------------------------------------------------
 
 	function inicializar_definicion_campos()
 	{
 		//- CAMPOS: (columnas + claves)
-		$this->campos = array_merge($this->definicion['clave'],$this->definicion['columna']);
+		$this->campos = array_merge($this->definicion['clave'], $this->definicion['columna']);
 		//ei_arbol($this->campos,"campos");
 		//- CAMPOS_SECUENCIA:
 		if(isset($this->definicion['secuencia'])){
