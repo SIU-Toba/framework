@@ -12,15 +12,17 @@ class objeto_ci extends objeto
 	ATENCION: Falta el control del estado en el servidor
 */
 {
-	var $nombre_formulario;			// privado | string | Nombre del <form> del MT
-	var $cn;								// Controlador de negocio asociado
-	var $datos_cargados;		
-	var $submit;						// Boton de SUBMIT
-	var $submit_etiq;					// Etiqueta del boton SUBMIT
-	var $cancelar_etiq;
-	var $flag_cancelar_operacion;		//Flag de GET que cancela la operacion
-	var $dependencias_actual = array();
-	var $estado_cancelar = false;	
+	protected $cn;							// Controlador de negocio asociado
+	protected $nombre_formulario;			// privado | string | Nombre del <form> del MT
+	protected $submit;						// Boton de SUBMIT
+	protected $submit_etiq;					// Etiqueta del boton SUBMIT
+	protected $cancelar_etiq;
+	protected $estado_cancelar = false;	
+	protected $flag_cancelar_operacion;		//Flag de GET que cancela la operacion
+	protected $dependencias_actual = array();
+	protected $modelo_opciones;				//Modelo de opciones de navegacion en la operacon
+	protected $opciones_anteriores;			//Opciones ofrecidas en el REQUEST anterior
+	protected $submit_especifico;			//Prefijo del SUBMIT de las opciones especificas
 	
 	function objeto_ci($id)
 /*
@@ -36,24 +38,6 @@ class objeto_ci extends objeto
 		$this->flag_no_propagacion = "no_prop" . $this->id[1];
 		//Cargo las DEPENDENCIAS
 		$this->cargar_info_dependencias();
-		//Boton SUBMIT
-		if($this->info_ci['ev_procesar_etiq']){
-			$this->submit_etiq = $this->info_ci['ev_procesar_etiq'];
-		}else{
-			$this->submit_etiq = "Procesar";
-		}
-		//Boton CANCELAR
-		if($this->info_ci['ev_cancelar_etiq']){
-			$this->cancelar_etiq = $this->info_ci['ev_cancelar_etiq'];
-		}else{
-			$this->cancelar_etiq = "cancelar";
-		}
-		$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
-	}
-
-	function set_nombre_formulario($nombre)
-	{
-		$this->nombre_formulario = $nombre;
 	}
 
 	function destruir()
@@ -61,7 +45,12 @@ class objeto_ci extends objeto
 		parent::destruir();
 		$this->memorizar();					//GUARDO Memoria sincronizada
 	}
-	
+
+	function asignar_controlador_negocio( $controlador )
+	{
+		$this->cn = $controlador;
+	}
+
 	function obtener_definicion_db()
 /*
  	@@acceso:
@@ -81,6 +70,7 @@ class objeto_ci extends objeto
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
 												objetos					as	objetos,
 												post_procesar			as	post_procesar,
+												-- metodo_opciones			as  metodo_opciones,
 												ancho					as	ancho,			
 												alto					as	alto
 										FROM	apex_objeto_mt_me
@@ -89,6 +79,57 @@ class objeto_ci extends objeto
 		$sql["info_ci"]["tipo"]="1";
 		$sql["info_ci"]["estricto"]="1";
 		return $sql;
+	}
+
+	function determinar_modelo_opciones()
+	//Determino el modelo de OPCIONES de navegacion
+	{
+		//ATENCION!!!
+		//Hay que usar "metodo_opciones"...
+		if(trim($this->info_ci['activacion_procesar'])=="")
+		{
+			//-- A -- El modelo ESTANDAR implica un boton de PROCESAR, y uno de CANCELAR
+			$this->modelo_opciones = "estandar";
+			//Boton SUBMIT
+			if($this->info_ci['ev_procesar_etiq']){
+				$this->submit_etiq = $this->info_ci['ev_procesar_etiq'];
+			}else{
+				$this->submit_etiq = "Procesar";
+			}
+			//Boton CANCELAR
+			if($this->info_ci['ev_cancelar_etiq']){
+				$this->cancelar_etiq = $this->info_ci['ev_cancelar_etiq'];
+			}else{
+				$this->cancelar_etiq = "Cancelar";
+			}
+			$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
+		}else
+		{
+			//-- B -- El modelo ESPECIFICO es determinado por el CN
+			//DEvuelve un ARRAY de opciones y los metodos que hay que llamar para cada una
+			$this->modelo_opciones = "especifico";
+			$this->submit_especifico = $this->nombre_formulario . "_submit_especifico";
+			//IMPORTANTE, este metodo es llamado antes de rutear los eventos de la interface,
+			//por lo tanto el estado del CN es el de la finalizacion del request ANTERIOR.
+			//Esta lista corresponde entonces a las opciones que tenia la pantalla anterior
+			$this->opciones_anteriores = $this->get_opciones_especificas();
+		}
+	}
+
+	function get_opciones_especificas()
+	//Acceso a las opciones especificas de la operacion
+	{
+		$metodo = trim($this->info_ci['activacion_procesar']);
+		$opciones = $this->cn->$metodo();
+		if(! is_array($opciones) ){
+			throw new excepcion_toba("El metodo de generacion de OPCIONES especificas debe devolver un array");
+		}
+		return $opciones;		
+	}
+
+	function set_nombre_formulario($nombre)
+	{
+		$this->nombre_formulario = $nombre;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -105,6 +146,7 @@ class objeto_ci extends objeto
 		procesar en los hijos.
 	*/
 	{
+		$this->determinar_modelo_opciones();
 		// 0 - Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
@@ -222,62 +264,6 @@ class objeto_ci extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-
-	function controlar_activacion()
-/*
- 	@@acceso: interno
-	@@desc: Determina si se activo este marco transaccional (si el submit se disparo desde el formulario HTML del mismo)
-*/
-	{
-		if(isset($_POST[$this->submit])){
-			//Apretaron el SUBMIT de este FORM
-			return true;		
-		}else{
-			//El submit no es de este formulario, la atencion esta en otro lugar...
-			return false;	
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function operacion_cancelada()
-	{
-		if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
-			return true;
-		}
-		return false;
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------------  Relacion con el Controlador de Negocio   ------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function asignar_controlador_negocio( $controlador )
-	{
-		$this->cn = $controlador;
-	}
-	//-------------------------------------------------------------------------------
-
-	function cancelar_operacion()
-	{	
-		//Se dispara la cancelacion en el controlador de negocio
-		$this->estado_cancelar = true;
-		$this->cn->cancelar();
-		$this->borrar_memoria();
-	}
-	//-------------------------------------------------------------------------------
-
-	function procesar_operacion()
-	{
-		//Se dispara el procesamiento del controlador de negocio
-		$this->cn->procesar();
-		if( $this->cn->get_estado_proceso() ){
-			$this->borrar_memoria();
-		}
-	}
-
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------------  PROCESAMIENTO de EVENTOS  ------------------------------
 	//-------------------------------------------------------------------------------
@@ -289,8 +275,8 @@ class objeto_ci extends objeto
 			Si se selecciona un registro distinto, antes de modificar se modifica una incorrecto		
 */
 	function controlar_eventos($dependencias)
-	//Escanea las dependencias buscando eventos
 	{
+		//-[ 1 ]- Escanea las dependencias buscando eventos
 		foreach($dependencias as $dep)
 		{
 			//-- ! CI! --
@@ -307,6 +293,18 @@ class objeto_ci extends objeto
 				//Se proceso el evento... si es un formulario limpio la interface
 				if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
 					$this->dependencias[$dep]->limpiar_interface();
+				}
+			}
+		}
+		//-[ 2 ]- En el caso de un modelo ESPECIFICO de opciones, tengo que ver cual opero
+		if($this->modelo_opciones=="especifico"){
+			//Me fijo si se eligio una opcion
+			foreach( $this->opciones_anteriores as $id => $opcion)
+			{
+				if( isset($_POST[$this->submit_especifico . $id]) ){
+					//Se selecciono una opcion, llamo al metodo del CN indicado
+					$metodo = $opcion["metodo"];
+					$this->cn->$metodo();
 				}
 			}
 		}
@@ -369,6 +367,60 @@ class objeto_ci extends objeto
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
+	//------------------  Modelo de OPCIONES ESTANDAR   -----------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+/*
+	El modelo de opciones el el mecanismo que se utiliza para presentar opciones de 
+	navegacion dentro de la operacion al usuario
+*/
+
+	function controlar_activacion()
+/*
+ 	@@acceso: interno
+	@@desc: Determina si se activo este marco transaccional (si el submit se disparo desde el formulario HTML del mismo)
+*/
+	{
+		if(isset($_POST[$this->submit])){
+			//Apretaron el SUBMIT de este FORM
+			return true;		
+		}else{
+			//El submit no es de este formulario, la atencion esta en otro lugar...
+			return false;	
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function operacion_cancelada()
+	{
+		if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
+			return true;
+		}
+		return false;
+	}
+	//-------------------------------------------------------------------------------
+
+	function cancelar_operacion()
+	{	
+		//Se dispara la cancelacion en el controlador de negocio
+		$this->estado_cancelar = true;
+		$this->cn->cancelar();
+		$this->borrar_memoria();
+	}
+	//-------------------------------------------------------------------------------
+
+	function procesar_operacion()
+	{
+		//Se dispara el procesamiento del controlador de negocio
+		$this->cn->procesar();
+		if( $this->cn->get_estado_proceso() ){
+			$this->borrar_memoria();
+		}
+	}
+
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
 	//--------------------------------  SALIDA --------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -422,7 +474,7 @@ class objeto_ci extends objeto
 	{
 		//-[0]- Si el proceso funciono
 		if( $this->cn->get_estado_proceso() ){
-			if(trim($this->info_ci['post_procesar']))
+			if(trim($this->info_ci['post_procesar'])!="")
 			{
 				$metodo = $this->info_ci['post_procesar'];
 				if( defined("apex_pa_ci_mensaje") )
@@ -525,25 +577,35 @@ class objeto_ci extends objeto
 	@@desc: Genera los BOTONES del Marco Transaccional
 */
 	{
+		if($this->modelo_opciones=="estandar"){
+			$this->generar_opciones_estandar();			
+		}elseif($this->modelo_opciones="especifico"){
+			$this->generar_opciones_especificas();			
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function generar_opciones_estandar()
+	//Modelo ESTANDAR de manejar las opciones de USUARIO
+	{
 		if($this->info_ci['ev_procesar']){
 			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
-		}else{
-			if(trim($this->info_ci['activacion_procesar'])!=""){
-				$metodo = $this->info_ci['activacion_procesar'];
-				if($this->cn->$metodo()){
-					echo form::submit($this->submit,$this->submit_etiq,"abm-input");
-				}
-			}
 		}
 		if($this->info_ci['ev_cancelar']){
 			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
-		}else{
-			if(trim($this->info_ci['activacion_cancelar'])!=""){
-				$metodo = $this->info_ci['activacion_cancelar'];
-				if($this->cn->$metodo()){
-					echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
-				}
-			}
+		}
+	}
+	//-------------------------------------------------------------------------------
+	
+	function generar_opciones_especificas()
+	{
+		//Como esto se llama despues del ruteo de EVENTOS, es posible que no devuelva lo mismo 
+		//que la llamada al mismo metodo en el constructor
+		$opciones = $this->get_opciones_especificas();
+		foreach($opciones as $id => $opcion)
+		{
+			$clave = $this->submit_especifico . $id;
+			echo "&nbsp;" . form::submit($clave,$opcion["etiqueta"],"abm-input");
 		}
 	}
 

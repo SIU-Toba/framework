@@ -1,7 +1,5 @@
 <?php
 require_once("objeto_ci.php");	//Ancestro de todos los OE
-include_once("nucleo/browser/interface/form.php");// HTML FROM
-
 /*
 	//ATENCION Ordenar los eventos antes de rutearlos... (seleccion ultimos)
 */
@@ -50,7 +48,8 @@ class objeto_ci_me extends objeto_ci
 													objetos				  as objetos,
 													pre_condicion		as	pre_condicion,	
 													post_condicion	    as	post_condicion,	
-													ev_procesar		    as	ev_procesar		
+													ev_procesar		    as	ev_procesar,
+													ev_cancelar			as ev_cancelar
 										FROM	apex_objeto_mt_me_etapa
 										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
 										AND	objeto_mt_me = '".$this->id[1]."'
@@ -197,6 +196,7 @@ class objeto_ci_me extends objeto_ci
 
 	function procesar()
 	{
+		$this->determinar_modelo_opciones();
 		// -[0]- Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
@@ -332,25 +332,16 @@ class objeto_ci_me extends objeto_ci
 	}
 	//-------------------------------------------------------------------------------
 	
-	function obtener_pie()
+	function generar_opciones_estandar()
 /*
  	@@acceso: interno
 	@@desc: Genera los BOTONES del Marco Transaccional
 */
 	{
-		if(trim($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_procesar"])==""){
-			$disabled = " disabled ";
-			if(trim($this->info_ci['activacion_procesar'])!=""){
-				$metodo = $this->info_ci['activacion_procesar'];
-				if($this->cn->$metodo()){
-					$disabled = "";
-				}
-			}
-		}else{
-			$disabled = "";
+		if($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_procesar"]){
+			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
 		}
-		echo form::submit($this->submit,$this->submit_etiq,"abm-input", $disabled);
-		if($this->info_ci['ev_cancelar']){
+		if($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_cancelar"]){
 			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
 		}
 	}																		

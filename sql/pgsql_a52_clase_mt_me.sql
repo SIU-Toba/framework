@@ -20,10 +20,10 @@ CREATE TABLE apex_objeto_mt_me
 	objeto_mt_me							int4				NOT NULL,
 	incremental								smallint			NULL,
 	debug_eventos							smallint			NULL,
-	activacion_procesar						varchar(40)			NULL, --> CN: Indica cuando procesar
+	activacion_procesar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar
+	activacion_cancelar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar
 	ev_procesar								smallint			NULL,
 	ev_procesar_etiq						varchar(30)			NULL,
-	activacion_cancelar						varchar(40)			NULL, --> CN: Indica cuando se puede cancelar
 	ev_cancelar								smallint			NULL,
 	ev_cancelar_etiq						varchar(30)			NULL,
 	objetos									varchar(80)			NULL,	
@@ -31,6 +31,7 @@ CREATE TABLE apex_objeto_mt_me
 	ancho									varchar(20)			NULL,
 	alto									varchar(20)			NULL,
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
+	metodo_opciones							varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion
 	CONSTRAINT	"apex_objeto_mt_me_pk" PRIMARY	KEY ("objeto_mt_me_proyecto","objeto_mt_me"),
 	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
 );

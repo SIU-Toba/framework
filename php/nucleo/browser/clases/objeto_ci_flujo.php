@@ -38,6 +38,7 @@ class objeto_ci_flujo extends objeto_ci_me
 
 	function procesar()
 	{
+		$this->determinar_modelo_opciones();
 		// -[0]- Cancelar la operacion?
 		if( $this->operacion_cancelada() ){
 			$this->cancelar_operacion();
@@ -91,35 +92,6 @@ class objeto_ci_flujo extends objeto_ci_me
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
-	}
-	//-------------------------------------------------------------------------------
-	
-	function obtener_pie()
-/*
- 	@@acceso: interno
-	@@desc: Genera los BOTONES del Marco Transaccional
-*/
-	{
-		if($this->info_ci['ev_procesar']){
-			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
-		}else{
-			if(trim($this->info_ci['activacion_procesar'])!=""){
-				$metodo = $this->info_ci['activacion_procesar'];
-				if($this->cn->$metodo()){
-					echo form::submit($this->submit,$this->submit_etiq,"abm-input");
-				}
-			}
-		}
-		if($this->info_ci['ev_cancelar']){
-			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
-		}else{
-			if(trim($this->info_ci['activacion_cancelar'])!=""){
-				$metodo = $this->info_ci['activacion_cancelar'];
-				if($this->cn->$metodo()){
-					echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
-				}
-			}
-		}
 	}
 }
 ?>
