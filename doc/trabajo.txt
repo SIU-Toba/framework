@@ -6,78 +6,26 @@
 	-D			Dialogo!
 	??			Explicar más
 --------------------------------------------------
+	Pendientes de charla:
+		- Prototipo de declaración de eventos en form
 
--D		j: Este es el tipo de informacion que es util manejar en el bugzilla?
--D			esta mas orientado a reporte de bugs?
--D		s: Totalmente, inicialmente este txt parece buenisimo (toda la info esta ahí y se pueden hacer diff para ver cosas nuevas).
--D			En cuanto cada tema se haga más extenso empieza la pesadilla, ej. querés ver como va el historial de desarrollo del cascada 
--D			y se te mezcla el ruido de un montón de cosas. Más que seguimiento de bugs, debe ser seguimiento de bugs, mejoras 
--D			y nuevos requerimientos (por eso issue tracker más que bug tracker). Si se puede usar algo basado en el SVN bárbaro, sino me
--D			parecía que un sitio centralizado especializado en esto era la solución.
-
-	*** ML: 
-	
-		º Sistematizar la generacion de totales
-		º Validacion de EFs en cliente 
-		º Validación de EFs en servidor
-		› Facilidades en la extension del JS
-		º Agregar y eliminar filas
-		› Mejorar el disparo de eventos
-			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron?
-				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
-				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
-				Se podría saber una vez que los ef's puedan saber, por ahora sólo se puede jugar con el número de líneas.
--D					s:	Si se hiciera, ¿cómo se utilizaría? Los cambios que se pueden hacer en el browser son todos los posibles
--D						¿tiene sentido hacer un diff o es más razonable tomar todo en conjunto?)
--D					j:	La idea seria saber que linea recibio una modificacion... (Un flag que diga: "la linea 1 y la 4 se modificaron")
--D						ej: ABM de cuadros. Se editan las propiedades de dos columnas... hay que hacer un update de todas?
--D						Mas alla del mecanismo de alto nivel que se encarga de sincronizar con la base, a nivel ei_form es necesario saberlo
--D						(no lo tengo 100% pensado, pero me parece que es mas facil hacerlo asi que hacer un diff en el server... que opinas?)
--D					s:  Si hay que describir los cambios, no tendría que ser desde la carga de datos en el ML sino desde el inicio
--D						de la transacción (pensando en ME) que es lo que realmente vale. En este caso no se si el objeto debería meterse,
--D						tiene responsabilidades de interface y no de persistencia. 
--D						En situaciones extremas, si se va haciendo el diff incrementalmente durante la transacción, se puede entrar en problemas 
--D						de consistencia (el vinculo que hacia referencia el cuadro lo borraron durante la 'transacción' ME). 
--D						En casos normales, facilita hacer un ABM. Deberíamos probarlo con un ejemplo, ¿te parece rehacer el editor 
--D						de las columnas del cuadro?	Para hacer la descripción de los cambios se necesita identificar a cada columna, actualmente el ML no
--D						sabe más que la posición de las filas, una solución sería agregar un flag a cada fila (N, M) y ¿las borradas?
--D						Si se brinda este servicio desde el negocio vos dirías "A las modificadas hacer UPDATE a las nuevas INSERT y las borradas DELETE"
--D						Igualmente no me queda claro como se haría en los ME
- 		º TAB ORDER: Se implementa dando un rango a cada objeto, este lo distribuye a gusto y placer. En el caso del ml (el único implementado)
- 					 lo distribuye entre los EFs con el objeto javascript asociado (no desordena el código PHP y permite cambiar el taborder de las
- 					 nuevas líneas).
-		º Agregado automático de líneas. TAB + enter (o espaciadora) en el último EF de la última línea crea línea nueva y posiciona
-		  en el primer ef de la línea nueva.
-		º Accesos de teclado. Los CI ejecutan por defecto con ALT + s y cancela con ALT + c, cada instancia lo cambia a gusto (Ej. P&rocesar)
-		?? Hay que pensar bien la relacion de este componente y el buffer
--D					s: Hay que empezar YA a definir que es cada cosa, ¿que es un buffer? (creo saberlo pero da a confusión) en cuanto este el wiki empezamos.
-		-> Selección múltiple de líneas, Hoy se puede seleccionar una unica fila y realizar operaciones sobre ella (por ahora sólo borrar,
-		   subir y bajar en el posicionamiento). Para hacer borrados multiples o reposicionamientos multiples estaría piola poder seleccionar
-		   varias filas con CTRL por ejemplo. 
--D					s:	Otra operación que estaría buena sería la agrupación (selecciono varios y los agrupo). 
--D						Imaginate el ABM del ei_form con un ML, seleccionas varios EF y los agrupas con un label. Así en el layout final
--D						se muestran con un fieldset con legend, o en disposición horizontal.. De todas formas esto crea un conjunto nuevo
--D						de problemas pero el producto final tiene calidad
+	---------------------------------------------------------------------------
+	-------------------------  ELEMENTOS DE INTERFACE -------------------------
 
 	*** EF:
 
 		-> VALIDACION
-			-> SERVER: Excepciones
-			º CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
-						como por algo externo... (esto deja la ventana abierta para testear las interfaces con JS)
-						- Otra cosa interesante de esto es que se pueden mostrar todas las cosas que estan mal a la vez.
-			(relacionado, pero sobre el ei_form )
-				-> Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
-				º Terminar de migrar a las validaciones a las clases JS
-		º El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
-		?? cascada no seteada no obligatorio
-		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
+			-> SERVER: Excepciones.
+			-> CLIENTE: No disparar un ALERT, disparar una exepción. Elaborar una forma distinta de señalar el origen.
+						Validación 'poco ruidosa' particular de un ef cuando cambia el estado
+		-> 'NULL' cambiar por NULL (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
-			-> ef_moneda !!!
-			?? ef_nota (cuando pasas el mouse por encima muestra un mensaje)
+			Para Multilinea:
+				-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
+				-> ef_vinculo
+				-> ef_template
+!			-> ef_moneda con conversión (simbolo $ por defecto) (máscara) (validación de decimales)
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
-			?? ef_vinculo
-			?? ef_template
 			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
 			-> ef_multi_selecccion 
 				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
@@ -88,61 +36,88 @@
 			› Migración del JS suelto a las clases (esto incluye el código cascada)
 			› Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
 			-> Construir las etiquetas usando <label for> con atajos de teclado
-		-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR!!!!
-		-> EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
--D:					s: Ver el diagrama adjunto en docs. Me parece que la inclusión de elementos sin estado (líneas, dibujitos, notas, vinculo, fieldset, etc.) 
-						no debe ser en los ef sino en el formulario. Por ejemplo el layout de los efs dentro del formulario puede incluir
-						notas, lineas y cualquier otro formateo que se quiera en forma de template.
+			-> Seguridad 
+		->Cascadas
+			-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR!!!!		
+			-> cascada no seteada no obligatorio. Relajar las validaciones obligatorias si el padre no se cargo.
+			-> Distribución de responsabilidades con el form
 		-> Los proyectos deberian tener un repositorio de EFs instanciados 
 			(Un nuevo lugar del administrador para definir EFs que se usan en muchos ei_form)
+		-> Migración de visibilidad de interfaces
+		-> Método comparar estado (para determinar si se modifico o no el form)
 
-
-	*** EI_CUADRO
-
-		-> Evento ELIMINACION (con popup preguntando...)
-		-> sistematizar totales
-		-> Mostrar fila seleccionada
-		-> Paginar, con ordenamiento total
-		-> Cortes de control fácil de crear y entender
-		-> CSS 'no_wrap' en vez de '&nbsp;'
-		-> Boton ocultar de siu-quilmes
-		-> Utilizar los titulos de las columnas en la generacion de PDF
+	*** EIs
+		-> Método general para plegar y desplegar
+		
+	*** JS en EI
+!		-> Facilidades en la extension del JS: 
+			-> Documentar forma de extensión.
+			-> Modificar metodos de extension en PHP. Función crear_objeto_js y extender_objeto_js
+!		-> Explicar nuevas caracteristicas y funcionamiento.
+		-> Chequear version de JS, consumo de memoria, browser soportados.
+!		-> Inventario de consumo de js concreto
 
 	*** EI_FORM
-
-		-> FORM JS no nulo salta en modificaciones estrictas
-		-> BOTONES
-			(casos)
-			-> COMPROMISO: Cancelar en modo alta
-			-> COMPROMISO RECT: Las nuevas se eliminan, las otras no
-			-> Form reutilizado con distintas botoneras
+		-> Mejorar el disparo de eventos (Analizar si la modificación afecto el set de datos)
+		-> Pensar forma de agregar nuevos eventos
+		-> Eventos
+			-> Form reutilizado con distintos eventos
+!			-> Homologar con los botones actuales
+!			-> Seprar la generación de botones de la descripcion de cuales van
+!			-> Extender la declaración de botones
 		-> Utilización de shotcuts para acceder a los efs (por ejemplo N&ombre se dispara con ALT + o)
-		-> Utilización sencilla desde una acción ad-hoc
-		-> Personalización del layout de los efs
+		-> Personalización del layout de los efs. Idear una forma de agruparlos con un label
 		-> Cuando una cascada sale a buscar una respuesta al server, el submit del form se deberia desactivar hasta que vuelva
-		
-	*** EI_FILTRO
+		-> El submit se debe poder correr una sola vez
 
--D			s: ¿Se va a unir con el objeto_filtro? ¿Que pása con las dimensiones?
--D				Actualmente las dimensiones son escasas para hacer filtros reales, va a ser la piedra inicial para la generación de reportes.
--D			J: Esto hay que decidirlo. Creo que para algunas cosas pueden ser muy util, por ejemplo para la generacion de reportes dinamicos 
--D				en las instanciaciones del toba que tengan la arquitectura original (El origen de la palabra 'dimensiones' vienen de experimentos
--D				que hice el en siu con el datawarehouse de informix, el metacube).
-				
+	*** ML: 
+		-> Procesamiento de filas:
+!			-> Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar eventos al prototipo.
+			-> Respetar el formato del EF en el resultado del proceso
+!		-> Agregar y eliminar filas: Parametrizar comandos disponibles (agregar_eliminar, mover, ver_numero_fila)
+		› Mejorar el disparo de eventos (relación con buffer)
+			-> A: Clase JS indica los cambios puntuales al ei, con una extensión sepa manejar un buffer.
+			-> B: Nuevo buffer que haga diff de datos.
+		-> Selección múltiple de líneas y operaciones sobre la selección.
+		
+	*** EI_CUADRO
+!		-> Evento ELIMINACION (con popup preguntando...)
+!		-> sistematizar totales
+!		-> Mostrar fila seleccionada (estilo tr)
+		-> Refactoring de estilos
+			-> CSS 'no_wrap' en vez de '&nbsp;', mayusculas, otros...
+			-> Esquema aditivo de estilos
+		-> Utilizar los titulos de las columnas en la generacion de PDF
+		-> Ordenamiento en el cliente (ver WebFX)
+
+	*** EI_FILTRO
+		-> En el objeto_filtro extender ei_filtro, unificar dimensiones con efs
+
+	*** EI Reportes
+!		-> Analizar
+		-> Cortes de control fácil de crear y entender	
+
+	--------------------------------------------------------------------------------
+	-------------------------  DESARROLLO SOBRE EL MODELO  -------------------------
+
 	*** objeto_filtro
-			
 		-> 	Flag que indique el cambio de where
 		->	Unificar la jerarquia con el ei_form para soportar cascadas
 		->	(perfil de datos)Implementar las dimensiones restringidas por comparacion
 
 	*** objeto_mt_abms
-		
 		->	Terminar de sintetizar la jerarquia de herencia (heredar del CI, usar un UT_FORM)		
 		->	Hacer que los botones sean dinamicos
 		->	Mecanismo para tener columnas que funciones en la cascada pero no se graben en la tabla
+	
+	*** objeto_cuadro
+		-> Paginar, con ordenamiento total	
+		-> Boton ocultar de siu-quilmes
+		
+	-------------------------------------------------------------------------
+	-------------------------  DESARROLLO EN CAPAS  -------------------------
 
 	*** CI
-		
 		-> PROBLEMAS de NAVEGACION
 			-> Orden cuadro?
 			-> agregar: despues del proceso el boton queda mapeado a otra cosa
@@ -173,25 +148,26 @@
 		-> Filtrado de registros
 		-> Multitabla de con correspondencia debil
 
+	*** JS General
+		-> Clase toba en js: 
+			-> Colgar eventos al onload
+		-> Encadenacion standard de eventos
+
+	-------------------------------------------------------------
+	-------------------------  GENERAL  -------------------------
+
 	**** GENERAL
 
-		-> Foco automatico vs. hidden. 
--D					s:	Que tal utilizar los objetos JS (por ej pedir focus al form y este le pide al 1er EF) 
--D						Sino hay que recorrer el DOM, mas bajo nivel pero infalible
--D					j:	SI!!, me parece OK. El problema que me hizo escribir este item es el siguiente:
--D							- Un form con un evento que oculta el primer campo visible, cuando navegas por un CI
--D								tira un error de JS cuando volves al tab en el que fue ocultado!
-		-> inicializacion.php se choca entre los proyectos (utiliza el PATH en lugar de buscar el del proyecto)
+		-> Foco automatico
 		-> HTML y CSS
 			-> Empezar a utilizar el DOCTYPE, va a pasar al IE de modo compatible a modo CSS, se ven mal algunas cosas
 				Sin el DOCTYPE no se puede validar el documento y no funcionan cosas avanzadas de CSS (ej. tablas con scroll)
-		->	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
+!!		->	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
 				- El menu actual consume demasiados recursos del navegador, tiene que haber una forma simple de elegir entre varios menues.
 		->	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
 		->	Carga de objetos toba
 			- Lugar unificado de carga (actualmente solicitud y objeto)
 			- Excepciones
-		->	Desarrollar el display de errores de la cola de mensajes
 		->	Javascript en el login que deje guardado en el HILO el browser que se esta utilizando
 		->	Armar una entrada al sistema (en modo usuario final) que abra un popup sin botones de volver, etc.
 		->	Hay que pensar como se manejan los EI que son casi identicos
@@ -210,6 +186,10 @@
 		->	Completar el esquema de ayuda online
 		-> Las entidades mas complejas necesitan una forma de persistir datos durante la sesion (recordar su estado inicial).
 		-> mantener_estado_sesion no respeta el no acceso al hilo
+		-> Modificación de los tooltips
+
+	--------------------------------------------------------------------
+	-------------------------  ADMINISTRACION  -------------------------
 
 	*** Inteface ADMINISTRATIVA
 
