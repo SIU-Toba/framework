@@ -50,13 +50,6 @@ class objeto_ci extends objeto
 			$this->cancelar_etiq = "cancelar";
 		}
 		$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
-		//Si tengo al CN como dependencia, lo cargo!
-		//EL ID que puede tomar el CN esta harcodeado
-		if(isset($this->indice_dependencias['__cn'])){
-			$this->cargar_dependencia('__cn');
-			//Asigno la referencia a la variable del CN de la clase
-			$this->asignar_controlador_negocio( $this->dependencias['__cn'] );
-		}
 	}
 
 	function set_nombre_formulario($nombre)
@@ -83,6 +76,7 @@ class objeto_ci extends objeto
 												ev_procesar				as	ev_procesar,
 												ev_procesar_etiq		as	ev_procesar_etiq,
 												activacion_procesar		as	activacion_procesar,
+												activacion_cancelar		as	activacion_cancelar,
 												metodo_despachador		as	metodo_despachador,
 												ev_cancelar				as	ev_cancelar,
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
@@ -504,13 +498,20 @@ class objeto_ci extends objeto
 		}else{
 			if(trim($this->info_ci['activacion_procesar'])!=""){
 				$metodo = $this->info_ci['activacion_procesar'];
-				if($this->$cn->$metodo()){
+				if($this->cn->$metodo()){
 					echo form::submit($this->submit,$this->submit_etiq,"abm-input");
 				}
 			}
 		}
 		if($this->info_ci['ev_cancelar']){
 			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
+		}else{
+			if(trim($this->info_ci['activacion_cancelar'])!=""){
+				$metodo = $this->info_ci['activacion_cancelar'];
+				if($this->cn->$metodo()){
+					echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
+				}
+			}
 		}
 	}
 

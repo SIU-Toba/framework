@@ -104,7 +104,7 @@ class entidad
 			//echo "Estoy aca!";
 			$this->elemento[$elemento]['buffer']->agregar_registro($registro);
 		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
+			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros.");	
 		}
 	}
 	//-------------------------------------------------------
@@ -116,7 +116,7 @@ class entidad
 		if($this->elemento[$elemento]['registros']=="n"){
 			$this->elemento[$elemento]['buffer']->modificar_registro($registro, $id);
 		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
+			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros");	
 		}
 	}
 	//-------------------------------------------------------
@@ -126,7 +126,7 @@ class entidad
 		if($this->elemento[$elemento]['registros']=="n"){
 			$this->elemento[$elemento]['buffer']->eliminar_registro($id);
 		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
+			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros");	
 		}
 	}
 
