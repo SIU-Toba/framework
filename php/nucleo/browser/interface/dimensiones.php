@@ -246,8 +246,15 @@ class dimension_fecha_lapso extends ef_editable_fecha
 
 	function cargar_estado($estado = null)
 	{
-		$this->fecha_inicial->cargar_estado($estado);
-		$this->fecha_final->cargar_estado($estado);
+		if ($estado !== NULL) 
+		{
+    		$this->fecha_inicial->cargar_estado($estado[0]);
+			$this->fecha_final->cargar_estado($estado[1]);
+		}else
+		{
+    		$this->fecha_inicial->cargar_estado($estado);
+			$this->fecha_final->cargar_estado($estado);
+		}
 	}	
 	
 	function validar_estado()
