@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META NAME="description" CONTENT="Mimer SQL Reference Manual">
+<META NAME="keywords" CONTENT="administration, backup, BSQL, client, connections, consistency, data, databank, database, Embedded SQL, ESQL, export, import, JDBC, load, management, Mimer, ODBC, optimistic concurrency control, PSM, RDBM, RDBMS, relational, remote, restore, security, server, shadowing, SQL, SQL92, SQL-92, SQL99, SQL-99, stored procedures, system, transaction, unload ">
+<meta name="GENERATOR" content="Quadralay WebWorks Publisher Standard Edition 6.0.6">
+<meta name="TEMPLATEBASE" content="Dynamic HTML Standard Edition">
+<meta name="LASTUPDATED" content="11/01/01 17:10:44">
+<link rel="StyleSheet" href="standard.css" type="text/css" media="screen">
+<title>SQLSTATE Return Codes</title>
+</head>
+
+<body background="images/backgrnd.gif">
+
+<table width="300" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="http://developer.mimer.com/documentation/Mimer_SQL_Reference_Manual/Mimer_SQL_Reference_Manual.htm" target="_top">
+    <img src="images/navhome.gif" width="60" height="23" border="0" alt="Mimer SQL Reference Manual"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceTOC.html"><img src="images/navtoc.gif" width="60" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="App_return_status.html"><img src="images/navprev.gif" width="60" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceIX.html"><img src="images/navnext.gif" width="60" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceIX.html"><img src="images/navidx.gif" width="60" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+
+<p><a href="http://developer.mimer.se"><img src="images/mimer_developer.gif" alt="Mimer Developer Site" border="0" WIDTH="159" HEIGHT="61"></a></p>
+<p><font face="arial, helvetica, sans-serif" size="2"><a href="http://www.mimer.com/developer" target="_blank">www.mimer.com/developer</a></font></p>
+<hr align="left">
+
+<blockquote>
+<h2 class="NewHTMLPage">
+  <a name="1110406"> </a>SQLSTATE Return Codes
+</h2><hr>
+<p class="Body">
+  <a name="1111122"> </a>SQLSTATE contains a 5 character long return code string that indicates status of an SQL statement. These return codes follows the established standards. Observe that not all standardized SQLSTATE return codes are used by Mimer SQL.
+</p>
+<p class="Body">
+  <a name="1111125"> </a>The SQLSTATE values consists of two fields: the class, which is the first two characters of the string, and the subclass, which is the terminating three characters of the string.
+</p>
+<h3 class="Heading2">
+  <a name="1110412"> </a>List of SQLSTATE Values
+</h3>
+<p class="Body">
+  <a name="1111543"> </a>: 
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <caption></caption>
+  <tr bgcolor="#CCCCCC">
+    <th><h5 class="Heading4">
+  <a name="1111258"> </a>Class
+</h5>
+</th>
+    <th><h5 class="Heading4">
+  <a name="1111260"> </a>Subclass
+</h5>
+</th>
+    <th><h5 class="Heading4">
+  <a name="1111262"> </a>Meaning
+</h5>
+</th>
+  </tr>
+  <tr>
+    <td><a name="1111268"> </a><div class="CellBody">00</div></td>
+    <td><a name="1111270"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111272"> </a><div class="CellBody">Successful completion</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111274"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111276"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111278"> </a><div class="CellBody">Warning</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111280"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111282"> </a><div class="CellBody">002</div></td>
+    <td><a name="1111284"> </a><div class="CellBody">Disconnect error</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111286"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111288"> </a><div class="CellBody">003</div></td>
+    <td><a name="1111290"> </a><div class="CellBody">Null value eliminated in set function</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111292"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111294"> </a><div class="CellBody">004</div></td>
+    <td><a name="1111296"> </a><div class="CellBody">String data, right truncation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111332"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111334"> </a><div class="CellBody">005</div></td>
+    <td><a name="1111336"> </a><div class="CellBody">Insufficient item descriptor areas</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111338"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111340"> </a><div class="CellBody">006</div></td>
+    <td><a name="1111342"> </a><div class="CellBody">Privilege not revoked</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111344"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111346"> </a><div class="CellBody">007</div></td>
+    <td><a name="1111348"> </a><div class="CellBody">Privilege not granted</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111350"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111352"> </a><div class="CellBody">008</div></td>
+    <td><a name="1111354"> </a><div class="CellBody">Implicit zero-bit padding</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111356"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111358"> </a><div class="CellBody">009</div></td>
+    <td><a name="1111360"> </a><div class="CellBody">Search condition too long for information schema</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111392"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111394"> </a><div class="CellBody">00A</div></td>
+    <td><a name="1111396"> </a><div class="CellBody">Query expression too long for information schema</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111398"> </a><div class="CellBody">01</div></td>
+    <td><a name="1111400"> </a><div class="CellBody">00B</div></td>
+    <td><a name="1111402"> </a><div class="CellBody">Default option too long for information schema</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111404"> </a><div class="CellBody">02</div></td>
+    <td><a name="1111406"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111408"> </a><div class="CellBody">No data</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111410"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111412"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111414"> </a><div class="CellBody">Dynamic SQL error</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111416"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111418"> </a><div class="CellBody">001</div></td>
+    <td><a name="1111420"> </a><div class="CellBody"><span style="color: #000000;  font-size: 10pt; font-style: normal; font-weight: normal; text-decoration: none; text-transform: none; vertical-align: baseline">using clause</span> does not match dynamic parameter specifications</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111461"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111463"> </a><div class="CellBody">002</div></td>
+    <td><a name="1111465"> </a><div class="CellBody"><span style="color: #000000;  font-size: 10pt; font-style: normal; font-weight: normal; text-decoration: none; text-transform: none; vertical-align: baseline">using clause</span> does not match target specification</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111467"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111469"> </a><div class="CellBody">003</div></td>
+    <td><a name="1111471"> </a><div class="CellBody">Cursor specification cannot be executed</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111473"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111475"> </a><div class="CellBody">004</div></td>
+    <td><a name="1111477"> </a><div class="CellBody"><span style="color: #000000;  font-size: 10pt; font-style: normal; font-weight: normal; text-decoration: none; text-transform: none; vertical-align: baseline">using clause</span> required for dynamic parameters</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111479"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111481"> </a><div class="CellBody">005</div></td>
+    <td><a name="1111483"> </a><div class="CellBody">Prepared statement is not a cursor specification</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111485"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111487"> </a><div class="CellBody">006</div></td>
+    <td><a name="1111489"> </a><div class="CellBody">Restricted data type attribute violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111520"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111522"> </a><div class="CellBody">007</div></td>
+    <td><a name="1111524"> </a><div class="CellBody"><span style="color: #000000;  font-size: 10pt; font-style: normal; font-weight: normal; text-decoration: none; text-transform: none; vertical-align: baseline">using clause</span> required for result fields</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111526"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111528"> </a><div class="CellBody">008</div></td>
+    <td><a name="1111530"> </a><div class="CellBody">Invalid descriptor count</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111532"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111534"> </a><div class="CellBody">009</div></td>
+    <td><a name="1111536"> </a><div class="CellBody">Invalid descriptor index</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111538"> </a><div class="CellBody">07</div></td>
+    <td><a name="1111540"> </a><div class="CellBody">00F</div></td>
+    <td><a name="1111542"> </a><div class="CellBody">Undefined DATETIME_INTERVAL_CODE</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111631"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111633"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111635"> </a><div class="CellBody">Connection exception</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111637"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111639"> </a><div class="CellBody">001</div></td>
+    <td><a name="1111641"> </a><div class="CellBody">Client unable to establish connection</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111643"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111645"> </a><div class="CellBody">002</div></td>
+    <td><a name="1111647"> </a><div class="CellBody">Connection name in use</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111649"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111651"> </a><div class="CellBody">003</div></td>
+    <td><a name="1111653"> </a><div class="CellBody">Connection does not exist</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111655"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111657"> </a><div class="CellBody">004</div></td>
+    <td><a name="1111659"> </a><div class="CellBody">Server rejected the connection</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111703"> </a><div class="CellBody">08</div></td>
+    <td><a name="1111705"> </a><div class="CellBody">006</div></td>
+    <td><a name="1111707"> </a><div class="CellBody">Connection failure</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111709"> </a><div class="CellBody">09</div></td>
+    <td><a name="1111711"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111713"> </a><div class="CellBody">Triggered action exception</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111715"> </a><div class="CellBody">0A</div></td>
+    <td><a name="1111717"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111719"> </a><div class="CellBody">Feature not supported</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111721"> </a><div class="CellBody">0K</div></td>
+    <td><a name="1111723"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111725"> </a><div class="CellBody">Resignal when handler not active</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111727"> </a><div class="CellBody">20</div></td>
+    <td><a name="1111729"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111731"> </a><div class="CellBody">Case not found for a case statement</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111775"> </a><div class="CellBody">21</div></td>
+    <td><a name="1111777"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111779"> </a><div class="CellBody">Cardinality violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111781"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111783"> </a><div class="CellBody">000</div></td>
+    <td><a name="1111785"> </a><div class="CellBody">Data exception</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111787"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111789"> </a><div class="CellBody">001</div></td>
+    <td><a name="1111791"> </a><div class="CellBody">String data, right truncation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111793"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111795"> </a><div class="CellBody">002</div></td>
+    <td><a name="1111797"> </a><div class="CellBody">Null value, no indicator parameter</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111799"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111801"> </a><div class="CellBody">003</div></td>
+    <td><a name="1111803"> </a><div class="CellBody">Numeric value out of range</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111847"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111849"> </a><div class="CellBody">005</div></td>
+    <td><a name="1111851"> </a><div class="CellBody">Error in assignment</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111853"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111855"> </a><div class="CellBody">006</div></td>
+    <td><a name="1111857"> </a><div class="CellBody">Invalid interval format</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111859"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111861"> </a><div class="CellBody">007</div></td>
+    <td><a name="1111863"> </a><div class="CellBody">Invalid datetime format</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111865"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111867"> </a><div class="CellBody">008</div></td>
+    <td><a name="1111869"> </a><div class="CellBody">Datetime field overflow</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111871"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111873"> </a><div class="CellBody">011</div></td>
+    <td><a name="1111875"> </a><div class="CellBody">Substring error</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111926"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111928"> </a><div class="CellBody">012</div></td>
+    <td><a name="1111930"> </a><div class="CellBody">Division by zero</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111932"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111934"> </a><div class="CellBody">015</div></td>
+    <td><a name="1111936"> </a><div class="CellBody">Interval field overflow</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111938"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111940"> </a><div class="CellBody">018</div></td>
+    <td><a name="1111942"> </a><div class="CellBody">Invalid character value for cast</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111944"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111946"> </a><div class="CellBody">019</div></td>
+    <td><a name="1111948"> </a><div class="CellBody">Invalid escape character</div></td>
+  </tr>
+  <tr>
+    <td><a name="1111950"> </a><div class="CellBody">22</div></td>
+    <td><a name="1111952"> </a><div class="CellBody">023</div></td>
+    <td><a name="1111954"> </a><div class="CellBody">Invalid parameter value</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112003"> </a><div class="CellBody">22</div></td>
+    <td><a name="1112005"> </a><div class="CellBody">024</div></td>
+    <td><a name="1112007"> </a><div class="CellBody">Unterminated C string</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112009"> </a><div class="CellBody">22</div></td>
+    <td><a name="1112011"> </a><div class="CellBody">025</div></td>
+    <td><a name="1112013"> </a><div class="CellBody">Invalid escape sequence</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112015"> </a><div class="CellBody">22</div></td>
+    <td><a name="1112017"> </a><div class="CellBody">026</div></td>
+    <td><a name="1112019"> </a><div class="CellBody">String data, length mismatch</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112021"> </a><div class="CellBody">22</div></td>
+    <td><a name="1112023"> </a><div class="CellBody">027</div></td>
+    <td><a name="1112025"> </a><div class="CellBody">Trim error</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112027"> </a><div class="CellBody">23</div></td>
+    <td><a name="1112029"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112031"> </a><div class="CellBody">Integrity constraint violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112081"> </a><div class="CellBody">24</div></td>
+    <td><a name="1112083"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112085"> </a><div class="CellBody">Invalid cursor state</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112087"> </a><div class="CellBody">25</div></td>
+    <td><a name="1112089"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112091"> </a><div class="CellBody">Invalid transaction state</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112093"> </a><div class="CellBody">26</div></td>
+    <td><a name="1112095"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112097"> </a><div class="CellBody">Invalid SQL statement name</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112099"> </a><div class="CellBody">27</div></td>
+    <td><a name="1112101"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112103"> </a><div class="CellBody">Triggered data change violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112105"> </a><div class="CellBody">28</div></td>
+    <td><a name="1112107"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112109"> </a><div class="CellBody">Invalid authorization specification</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112111"> </a><div class="CellBody">2E</div></td>
+    <td><a name="1112113"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112115"> </a><div class="CellBody">Invalid connection name</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112163"> </a><div class="CellBody">2F</div></td>
+    <td><a name="1112165"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112167"> </a><div class="CellBody">SQL routine exception</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112169"> </a><div class="CellBody">2F</div></td>
+    <td><a name="1112171"> </a><div class="CellBody">003</div></td>
+    <td><a name="1112173"> </a><div class="CellBody">Prohibited SQL-statement attempted</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112175"> </a><div class="CellBody">2F</div></td>
+    <td><a name="1112177"> </a><div class="CellBody">005</div></td>
+    <td><a name="1112179"> </a><div class="CellBody">Function executed no return statement</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112181"> </a><div class="CellBody">33</div></td>
+    <td><a name="1112183"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112185"> </a><div class="CellBody">Invalid SQL descriptor name</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112187"> </a><div class="CellBody">34</div></td>
+    <td><a name="1112189"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112191"> </a><div class="CellBody">Invalid cursor name</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112235"> </a><div class="CellBody">35</div></td>
+    <td><a name="1112237"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112239"> </a><div class="CellBody">Invalid condition number</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112241"> </a><div class="CellBody">3C</div></td>
+    <td><a name="1112243"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112245"> </a><div class="CellBody">Ambiguous cursor name</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112247"> </a><div class="CellBody">40</div></td>
+    <td><a name="1112249"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112251"> </a><div class="CellBody">Transaction rollback</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112253"> </a><div class="CellBody">40</div></td>
+    <td><a name="1112255"> </a><div class="CellBody">001</div></td>
+    <td><a name="1112257"> </a><div class="CellBody">Serialization failure</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112259"> </a><div class="CellBody">40</div></td>
+    <td><a name="1112261"> </a><div class="CellBody">003</div></td>
+    <td><a name="1112263"> </a><div class="CellBody">Statement completion unknown</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112307"> </a><div class="CellBody">42</div></td>
+    <td><a name="1112309"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112311"> </a><div class="CellBody">Syntax error or access rule violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112313"> </a><div class="CellBody">44</div></td>
+    <td><a name="1112315"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112317"> </a><div class="CellBody">WITH CHECK OPTION violation</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112319"> </a><div class="CellBody">45</div></td>
+    <td><a name="1112321"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112323"> </a><div class="CellBody">Unhandled user-defined exception</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112325"> </a><div class="CellBody">S1</div></td>
+    <td><a name="1112327"> </a><div class="CellBody">000</div></td>
+    <td><a name="1112329"> </a><div class="CellBody">General error</div></td>
+  </tr>
+  <tr>
+    <td><a name="1112331"> </a><div class="CellBody">S1</div></td>
+    <td><a name="1112333"> </a><div class="CellBody">001</div></td>
+    <td><a name="1112335"> </a><div class="CellBody">Memory allocation failure</div></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+<p class="Body">
+  <a name="1110363"> </a>
+</p>
+</blockquote>
+
+<hr>
+
+<table align="right" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right"><font size="1">
+    <img src="images/upright_db.gif" width="178" height="27" border="0"><br>
+    <a href="http://www.upright.se">Upright Database Technology AB</a><br>
+    Voice: +46 18 780 92 00<br>
+    Fax: +46 18 780 92 40<br>
+    <a href="mailto:dbtechnology@upright.se">dbtechnology@upright.se</a><br>
+    </font></td>
+  </tr>
+</table>
+
+<table width="300" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="http://developer.mimer.com/documentation/Mimer_SQL_Reference_Manual/Mimer_SQL_Reference_Manual.htm" target="_top">
+    <img src="images/navhome.gif" width="60" height="23" border="0" alt="Mimer SQL Reference Manual"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceTOC.html"><img src="images/navtoc.gif" width="60" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="App_return_status.html"><img src="images/navprev.gif" width="60" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceIX.html"><img src="images/navnext.gif" width="60" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="Mimer_SQL_ReferenceIX.html"><img src="images/navidx.gif" width="60" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+
+</body>
+</html>
