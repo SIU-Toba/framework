@@ -2226,7 +2226,7 @@ maximo: Cantidad maxima de caracteres para el campo a completar;
 operador: Operador utilizado para concatenar el valor (Tiene que ser un operador valido para el motor utilizado);
 pre_string: String a concatenar ANTES del  texto obtenido de la interface;
 post_string: String a concatenar DESPUES del  texto obtenido de la interface;','no',NULL,'toba',NULL,'0','0',NULL);
-
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba','fecha_lapso','Lapso entre dos fechas','Lapso entre dos fechas','inclusive','no',NULL,NULL,NULL,NULL,NULL,NULL);
 -----------  apex_dimension_grupo  ------------------------
 
 INSERT INTO apex_dimension_grupo (proyecto, dimension_grupo, nombre, descripcion, orden) VALUES ('toba','gen','General','General','0');
