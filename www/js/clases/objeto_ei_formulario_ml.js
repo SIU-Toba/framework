@@ -245,8 +245,14 @@ var def = objeto_ei_formulario_ml.prototype;
 	def.validar = function() {
 		for (fila in this.filas) {
 			for (id_ef in this.efs) {
-				if (! this.efs[id_ef].posicionarse_en_fila(this.filas[fila]).validar())
+				var ef = this.efs[id_ef].posicionarse_en_fila(this.filas[fila]);
+				if (! ef.validar()) {
+					this.seleccionar(this.filas[fila]);
+					ef.seleccionar();
+					alert(ef.obtener_error());
+					ef.resetear_error();
 					return false;
+				}
 			}
 		}
 		return true;

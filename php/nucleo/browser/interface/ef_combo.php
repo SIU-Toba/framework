@@ -220,6 +220,17 @@ class ef_combo extends ef
 		}
     }
     
+	function obtener_consumo_javascript()
+	{
+		$consumos = array('interface/ef','interface/ef_combo');
+		return $consumos;
+	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_combo({$this->parametros_js()})";
+	}	
+	
     function obtener_javascript()
     {
     //Si el campo es obligatorio, el combo no puede tener el valor no_seteado
@@ -768,6 +779,11 @@ class ef_combo_db_ayuda extends ef_combo_db
 		$html .= "</table>\n";
 		return $html;
 	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_combo_ayuda({$this->parametros_js()})";
+	}	
 }
 //########################################################################################################
 //########################################################################################################

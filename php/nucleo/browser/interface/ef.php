@@ -1,6 +1,6 @@
 <?
 require_once("form.php");// Elementos STANDART de formulario
-define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO
+define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
 define("apex_ef_separador","||");// Valor que debe ser considerado como NO ACTIVADO
 define("apex_ef_valor_oculto", "#oculto#"); // Valor que debe ser considerado como SOLO DISPONIBLE EN SERVER
 define("apex_ef_dependenca","%");//Mascara para 

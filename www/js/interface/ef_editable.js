@@ -8,35 +8,16 @@ def.constructor = ef_editable;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
 	}
 
-	def.valor = function() {
-		return this.input().value;
-	}
-	
-	def.input = function() {
-		return document.getElementById(this.id_form);
-	}
-	
-	def.cuando_cambia_valor = function(callback) { 
-		if (! this.input().onchange)	//Para no romper scripts hechos ad-hoc
-			this.input().onchange = callback;	
-	}
-	
-	def.seleccionar = function () {
-		this.input().focus();
-		this.input().select();
-	}
-	
 	def.validar = function () {
 		if (this.obligatorio && ereg_nulo.test(this.valor())) {
-			this.seleccionar();
-			alert('El campo ' + this.etiqueta + ' es obligatorio.');
+			this.error = 'El campo ' + this.etiqueta + ' es obligatorio.';
 		    return false;
 		}
 		return true;
 	}
 	
 //--------------------------------------------------------------------------------
-//Clase ef_editable_numero
+//Clase ef_editable_numero hereda de ef_editable
 ef_editable_numero.prototype = new ef_editable;
 var def = ef_editable_numero.prototype;
 def.constructor = ef_editable_numero;
@@ -55,8 +36,7 @@ def.constructor = ef_editable_numero;
 			return false;
 		var valor = this.valor();
 		if (isNaN(valor)) {
-			this.seleccionar();
-			alert('El campo ' + this.etiqueta + ' es numérico.');
+			this.error = 'El campo ' + this.etiqueta + ' es numérico.';
 		    return false;
 		}
 		return true;
@@ -64,7 +44,7 @@ def.constructor = ef_editable_numero;
 	
 
 //--------------------------------------------------------------------------------
-//Clase ef_editable_porcentaje
+//Clase ef_editable_porcentaje hereda de ef_editable_numero
 ef_editable_porcentaje.prototype = new ef_editable_numero;
 var def = ef_editable_porcentaje.prototype;
 
@@ -77,15 +57,14 @@ var def = ef_editable_porcentaje.prototype;
 			return false;
 		var valor = this.valor();
 		if (valor != '' && (valor < 0 || valor > 100)) {
-			this.seleccionar();
-			alert('El campo ' + this.etiqueta + ' posee un porcentaje fuera de rango.');
+			this.error = 'El campo ' + this.etiqueta + ' posee un porcentaje fuera de rango.';
 		    return false;
 		}
 		return true;
 	}
 	
 //--------------------------------------------------------------------------------
-//Clase ef_editable_clave
+//Clase ef_editable_clave hereda de ef_editable
 ef_editable_clave.prototype = new ef_editable;
 var def = ef_editable_clave.prototype;
 
@@ -101,16 +80,14 @@ var def = ef_editable_clave.prototype;
 		var test = document.getElementById(this.id_form + '_test');
 		if (orig.value != test.value)
 		{
-			orig.value = test.value = '';
-			this.seleccionar();
-			alert('El campo ' + this.etiqueta + ': Las contraseñas no coinciden.');
+			this.error = 'El campo ' + this.etiqueta + ': Las contraseñas no coinciden.';
 		    return false;
 		}		
 		return true;
 	}
 	
 //--------------------------------------------------------------------------------
-//Clase ef_editable_fecha
+//Clase ef_editable_fecha hereda de ef_editable
 ef_editable_fecha.prototype = new ef_editable;
 var def = ef_editable_fecha.prototype;
 
@@ -121,8 +98,9 @@ var def = ef_editable_fecha.prototype;
 	def.validar = function() {
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
-		if (! validar_fecha(this.valor())) {
-			this.seleccionar();
+		var valida = validar_fecha(this.valor(), false);
+		if (valida != true) {
+			this.error = valida;
 		    return false;
 		}		
 		return true;

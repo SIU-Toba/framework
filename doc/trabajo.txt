@@ -29,7 +29,7 @@
 
 		-> VALIDACION
 			-> SERVER: Excepciones
-			-> CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
+			º CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
 						como por algo externo... (esto deja la ventana abierta para testear las interfaces con JS)
 			(relacionado, pero sobre el ei_form )
 				-> Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
