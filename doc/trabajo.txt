@@ -4,10 +4,16 @@
 	› 			En desarrollo
 	º 			Para revisar
 	-D			Dialogo!
+	??			Explicar más
 --------------------------------------------------
 
 -D		j: Este es el tipo de informacion que es util manejar en el bugzilla?
 -D			esta mas orientado a reporte de bugs?
+-D		s: Totalmente, inicialmente este txt parece buenisimo (toda la info esta ahí y se pueden hacer diff para ver cosas nuevas).
+-D			En cuanto cada tema se haga más extenso empieza la pesadilla, ej. querés ver como va el historial de desarrollo del cascada 
+-D			y se te mezcla el ruido de un montón de cosas. Más que seguimiento de bugs, debe ser seguimiento de bugs, mejoras 
+-D			y nuevos requerimientos (por eso issue tracker más que bug tracker). Si se puede usar algo basado en el SVN bárbaro, sino me
+-D			parecía que un sitio centralizado especializado en esto era la solución.
 
 	*** ML: 
 	
@@ -17,7 +23,7 @@
 		› Facilidades en la extension del JS
 		º Agregar y eliminar filas
 		º Mejorar el disparo de eventos
-			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron??
+			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron?
 				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
 				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
 				Se podría saber una vez que los ef's puedan saber, por ahora sólo se puede jugar con el número de líneas.
@@ -26,12 +32,28 @@
 -D					j:	La idea seria saber que linea recibio una modificacion... (Un flag que diga: "la linea 1 y la 4 se modificaron")
 -D						ej: ABM de cuadros. Se editan las propiedades de dos columnas... hay que hacer un update de todas?
 -D						Mas alla del mecanismo de alto nivel que se encarga de sincronizar con la base, a nivel ei_form es necesario saberlo
--D						(no lo tengo 100% pensado, pero me parece que es mas facil hacerlo asi que hacer un diff en el server... que opinas??)
-		-> TAB ORDER
+-D						(no lo tengo 100% pensado, pero me parece que es mas facil hacerlo asi que hacer un diff en el server... que opinas?)
+-D					s:  Si hay que describir los cambios, no tendría que ser desde la carga de datos en el ML sino desde el inicio
+-D						de la transacción (pensando en ME) que es lo que realmente vale. En este caso no se si el objeto debería meterse,
+-D						tiene responsabilidades de interface y no de persistencia. 
+-D						En situaciones extremas, si se va haciendo el diff incrementalmente durante la transacción, se puede entrar en problemas 
+-D						de consistencia (el vinculo que hacia referencia el cuadro lo borraron durante la 'transacción' ME). 
+-D						En casos normales, facilita hacer un ABM. Deberíamos probarlo con un ejemplo, ¿te parece rehacer el editor 
+-D						de las columnas del cuadro?	Para hacer la descripción de los cambios se necesita identificar a cada columna, actualmente el ML no
+-D						sabe más que la posición de las filas, una solución sería agregar un flag a cada fila (N, M) y ¿las borradas?
+-D						Si se brinda este servicio desde el negocio vos dirías "A las modificadas hacer UPDATE a las nuevas INSERT y las borradas DELETE"
+-D						Igualmente no me queda claro como se haría en los ME
+ 		-> TAB ORDER
 		-> Agregado automático de líneas (TAB en el último EF de la última línea crea línea nueva)
 		-> Enter. podemos guardar con ALT + S o ALT + G, está piola (Me encanto!!)
 		-> Hay que pensar bien la relacion de este componente y el buffer
-		-> Selección múltiple de líneas (??)
+		-> Selección múltiple de líneas, Hoy se puede seleccionar una unica fila y realizar operaciones sobre ella (por ahora sólo borrar,
+		   subir y bajar en el posicionamiento). Para hacer borrados multiples o reposicionamientos multiples estaría piola poder seleccionar
+		   varias filas con CTRL por ejemplo. 
+-D					s:	Otra operación que estaría buena sería la agrupación (selecciono varios y los agrupo). 
+-D						Imaginate el ABM del ei_form con un ML, seleccionas varios EF y los agrupas con un label. Así en el layout final
+-D						se muestran con un fieldset con legend, o en disposición horizontal.. De todas formas esto crea un conjunto nuevo
+-D						de problemas pero el producto final tiene calidad
 
 	*** EF:
 
