@@ -69,8 +69,8 @@
 			(relacionado, pero sobre el ei_form )
 				-> Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
 				º Terminar de migrar a las validaciones a las clases JS
-		-> El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
-		-> cascada no seteada no obligatorio
+		º El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
+		?? cascada no seteada no obligatorio
 		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
 			?? ef_nota (cuando pasas el mouse por encima muestra un mensaje)

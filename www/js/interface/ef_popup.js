@@ -19,15 +19,18 @@ def.constructor = ef_popup;
 	}
 
 	def.seleccionar = function () {
-		this.vinculo().focus();
+		if (this.vinculo())
+			this.vinculo().focus();
 	}
 		
 	def.tab = function () {
-		return this.vinculo().tabIndex;
+		if (this.vinculo())
+			return this.vinculo().tabIndex;
 	}
 			
 	def.cambiar_tab = function(tab_index) {
-		this.vinculo().tabIndex = tab_index;
+		if (this.vinculo())
+			this.vinculo().tabIndex = tab_index;
 	}	
 	
 	

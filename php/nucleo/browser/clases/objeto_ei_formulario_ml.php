@@ -19,7 +19,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 {
 	var $datos;		//Datos que tiene el formulario
 	var $lista_ef_totales = array();
-	protected $objeto_js;
 	
 	function __construct($id)
 /*
@@ -28,8 +27,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 */
 	{
 		parent::__construct($id);
-		$this->objeto_js = "objeto_{$id[1]}";
-		$this->rango_tabs = array(1, 1000);
+		$this->rango_tabs = manejador_tabs::instancia()->reservar(5000);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -377,7 +375,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Botonera de agregar
 		if ($this->info_formulario['filas_agregar']) {
 			echo "<div style='text-align: left;'>";
-			$tab = ($this->rango_tabs[1] - 10);
+			$tab = ($this->rango_tabs[1] - 10);	
 			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
 									"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
 			echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 

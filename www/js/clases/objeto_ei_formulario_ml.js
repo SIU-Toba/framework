@@ -1,7 +1,8 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_formulario_ml
-
+objeto_ei_formulario_ml.prototype = new objeto_ei_formulario;
 var def = objeto_ei_formulario_ml.prototype;
+def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción
 	function objeto_ei_formulario_ml(instancia, rango_tabs, cant_filas, con_agregar) {
@@ -19,12 +20,6 @@ var def = objeto_ei_formulario_ml.prototype;
 		this.efs_totalizar = new Array();		///ID de los ef's que poseen totalizacion
 	}
 
-	def.agregar_ef  = function (ef) {
-		if (ef) {			//Temporal: Se escuchan a ef's falsos para ir implementandolos de a poco
-			this.efs[ef.id()] = ef;
-		}
-	}
-	
 	def.iniciar = function () {
 		for (fila in this.filas) {
 			this.agregar_tab_index(this.filas[fila]);
