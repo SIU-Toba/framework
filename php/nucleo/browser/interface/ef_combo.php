@@ -156,10 +156,11 @@ class ef_combo extends ef
 					$valores = array($this->no_seteado);
 				}
 	        	$input = form::select("",$estado, $valores, "ef-combo", "disabled");	
+				if ($estado == "")
+					$estado = apex_ef_no_seteado;
 				$input .= form::hidden($this->id_form, $estado);
             return $input;
         }else{
-			//echo "El estado es $estado";
 				$html = $this->obtener_javascript_general() . "\n\n";
 				$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() );
 				return $html;
@@ -466,6 +467,7 @@ class ef_combo_db_proyecto extends ef_combo_db
 
     function preparar_valores($recordset)
     {
+		$valores = array();
 		foreach ($recordset as $fila){
             $valores[$fila[0].apex_ef_separador.$fila[1]] = $fila[2];
 		}
