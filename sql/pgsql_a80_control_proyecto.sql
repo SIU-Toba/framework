@@ -1,15 +1,19 @@
 
+CREATE SEQUENCE apex_cp_dificultades_sq;
+
 CREATE TABLE apex_cp_dificultades (
-       id_dificultad        INTEGER NOT NULL,
+       id_dificultad        INTEGER NOT NULL DEFAULT nextval('"apex_cp_dificultades_sq"'::text),
        descripcion          VARCHAR(32) NOT NULL,
        CONSTRAINT XPKapex_cp_dificultades 
               PRIMARY KEY (id_dificultad)
 );
 
+CREATE SEQUENCE apex_cp_entregables_sq;
 
 CREATE TABLE apex_cp_entregables (
-       id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_cp_entregable_seq"'::text),
+       id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_cp_entregables_sq"'::text),
        numero               VARCHAR(8) NOT NULL,
+       nombre				VARCHAR(32) NOT NULL,
        descripcion          VARCHAR(255) NOT NULL,
        dificultad           INTEGER NOT NULL,
 		item_proyecto		varchar(15)		NOT NULL,
@@ -35,17 +39,20 @@ CREATE TABLE apex_cp_responsables (
               PRIMARY KEY (id_reponsable)
 );
 
+CREATE SEQUENCE apex_cp_estados_sq;
 
 CREATE TABLE apex_cp_estados (
-       id_estado            INTEGER NOT NULL,
+       id_estado            INTEGER NOT NULL DEFAULT nextval('"apex_cp_estados_sq"'::text),
        descripcion          VARCHAR(32) NOT NULL,
        CONSTRAINT XPKapex_cp_estados 
               PRIMARY KEY (id_estado)
 );
 
 
+CREATE SEQUENCE apex_cp_iteraciones_sq;
+
 CREATE TABLE apex_cp_iteraciones (
-       id_iteracion         INTEGER NOT NULL,
+       id_iteracion         INTEGER NOT NULL DEFAULT nextval('"apex_cp_iteraciones_sq"'::text),
        fecha_inicio         DATE NOT NULL,
        fecha_fin            DATE NOT NULL,
        Activa               INTEGER NOT NULL,
