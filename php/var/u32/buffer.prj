@@ -1,42 +1,33 @@
 [Project ID]
 Signature=UE Proj: v.1
-[Project Information]
-Filter=*.*
-Project Directory=E:\toba\php\var\u32\
-Use Relative Directory=1
-Relative to Project File=1
-Project Wordfile=
-Project Tagfile=
-Create Tagfile=0
-Include Sub Directories=0
-[Files]
-0=E:\toba\php\nucleo\lib\buffer.php
-1=E:\toba\proyectos\sipefco\php\p_acciones\pruebas\buffer.php
-2=E:\toba\proyectos\sipefco\php\p_nucleo\gestion_basica\buffer_sau_comprobantes.php
-3=E:\toba\proyectos\sipefco\php\p_nucleo\gestion_basica\buffer_sau_gp_cabeceras.php
-4=E:\toba\php\nucleo\lib\buffer_mt.php
 [Group]
 0=
 [Open Files]
-Open File0=E:\toba\php\nucleo\lib\buffer.php
-Open File Pos0=4511
-Open File Line0=3136
-Active File Index=0
-Open File Window Pos0=2,3,-1,-1,-4,-23,88,88,693,674
-Open File1=E:\toba\php\nucleo\lib\buffer_mt.php
-Open File Pos1=0
-Open File Line1=0
-Open File Window Pos1=0,1,-1,-1,-4,-23,132,132,745,718
-Open File2=E:\toba\proyectos\sipefco\php\p_nucleo\gestion_basica\buffer_sau_comprobantes.php
-Open File Pos2=1138
-Open File Line2=0
-Open File Window Pos2=0,1,-1,-1,-4,-23,242,242,821,828
-Open File3=E:\toba\proyectos\sipefco\php\p_acciones\pruebas\buffer.php
-Open File Pos3=336
-Open File Line3=0
-Open File Window Pos3=0,1,-1,-1,-4,-23,110,110,715,696
-Open File4=
+Open File0=F:\toba\php\nucleo\lib\buffer_db.php
 Active File Display Mode=3
-[File View]
-Current Select=E:\\
-Scroll Position=0
+Open File Pos0=1699
+Open File Line0=409
+Open File Window Pos0=0,1,-1,-1,-4,-23,88,88,1104,632
+Open File1=F:\toba\php\nucleo\lib\buffer_db_s.php
+Open File Pos1=1874
+Open File Line1=542
+Open File Window Pos1=0,1,-1,-1,-4,-23,66,66,1082,610
+Open File2=F:\toba\php\nucleo\lib\buffer_db_mt.php
+Open File Pos2=5920
+Open File Line2=4097
+Active File Index=2
+Open File Window Pos2=2,3,-1,-1,-4,-23,44,44,1056,584
+Open File3=F:\toba\proyectos\comechingones\php\p_nucleo\anexas\buffer_anx_personas_domicilios.php
+Open File Pos3=374
+Open File Line3=0
+Open File Window Pos3=0,1,-1,-1,-4,-23,154,154,1170,698
+Open File4=F:\toba\proyectos\comechingones\php\p_acciones\pruebas\buffer_mt.php
+Open File Pos4=242
+Open File Line4=0
+Open File Window Pos4=0,1,-1,-1,-4,-23,132,132,1148,676
+Open File5=
+[Files]
+0=F:\toba\php\nucleo\lib\buffer_db.php
+1=F:\toba\php\nucleo\lib\buffer_db_mt.php
+2=F:\toba\php\nucleo\lib\buffer_db_s.php
+3=F:\toba\proyectos\comechingones\php\p_nucleo\anexas\buffer_anx_domicilios.php

@@ -51,16 +51,16 @@ include_once("nucleo/lib/buffer_i.php");
 		$php = "<?
 //Generacion: ". date("j-m-Y H:i:s") ."
 //Fuente de datos: '$fuente'
-require_once('nucleo/lib/buffer.php');
+require_once('nucleo/lib/buffer_db_s.php');
 
-class buffer_$tabla extends buffer
+class buffer_$tabla extends buffer_db_s
 //buffer especifico de la tabla '$tabla'
 {
 	function buffer_$tabla(\$id, \$fuente)
 	{
 ";
 		$php .= dump_array_php($definicion_buffer,"		\$definicion");
-		$php .= "		parent::buffer(\$id, \$definicion, \$fuente);
+		$php .= "		parent::__construct(\$id, \$definicion, \$fuente);
 	}	
 }
 ?>

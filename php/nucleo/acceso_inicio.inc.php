@@ -22,19 +22,22 @@ require_once("instancias.php");                     //(NO SVN) Listado de INSTAN
 define("apex_buffer_clave","x_buffer_clave");		//Clave interna de los BUFFERS
 
 
-#-[1]- Creacion del cronometro y encriptador
-
+	#-[1]- Creacion del cronometro y encriptador
 	$cronometro =& new cronometro();	//Creo el cronometro;
 	$encriptador =& new encriptador();	//Creo el encriptador;
-    if(isset($instancia[apex_pa_instancia])){
-
-#-[2]- Abro la conexion a la INSTANCIA
-
-		//set_error_handler("error_db_instancia");
-    	abrir_base("instancia",$instancia[apex_pa_instancia]);
-		//restore_error_handler();
+    
+    if(isset($instancia[apex_pa_instancia]))
+    {
+		#-[2]- Abro la conexion a la INSTANCIA
+		try{
+			abrir_base("instancia",$instancia[apex_pa_instancia]);
+		}catch(exception $e){
+			echo "No es posible conectarse a la instancia.";
+			//if(apex_pa_validacion_debug) echo "<pre>"; print_r($instancia[apex_pa_instancia]);
+			die();
+		}
     }else{
-        die("La instancia esta mal definida!");
+        die("No hay una entrada para " . apex_pa_instancia . " en el archivo de instancias.");
     }
 	$cronometro->marcar("INICIO: Abrir la conexion a la INSTANCIA","nucleo");
 

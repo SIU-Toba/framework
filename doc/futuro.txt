@@ -53,8 +53,7 @@
 			-	BUFFER
 				-	Funciones cosmeticas para columnas asociadas
 				-	Filtrado de registros
-				-	Reset
-			-	Implementar cascada en DAOS
+				-	Multitabla
 			-	CN
 				-	Derechos
 				-	Controles configurables
@@ -62,16 +61,11 @@
 				-	Bifurcacion y acoplamiento en dos buffers para una sola entrada
 			-	EF
 				-	Separadores
-				-	Poder ocultarlos por javascript
 			-	Cola de mensajes
 				-	Reconfirmacion
 			-	EI_FORM
 				-	Set elementos no editables en runtime
 				-	Declarar nuevos eventos
-				-	Si no se le pide el html, que no genere el javascript
-			- 	CI
-				- Uso recursivo de CIs
-				- CI control flujo
 
 		-	General
 
