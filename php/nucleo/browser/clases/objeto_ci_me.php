@@ -286,6 +286,7 @@ class objeto_ci_me extends objeto_ci
 	@@desc: Genera la INTERFACE de la transaccion.
 */
 	{
+		//-[2]- Genero la SALIDA
 		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "10%";
 		echo "<table width='$ancho' class='tabla-0'>\n";
 		//Tabs

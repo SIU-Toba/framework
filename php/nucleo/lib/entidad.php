@@ -11,6 +11,7 @@ Definir un nuevo tipo de entidad deberia implicar:
 */
 class entidad
 {
+	protected $log;
 	protected $elemento;
 	protected $cargado;
 	
@@ -18,6 +19,7 @@ class entidad
 	{
 		//Llevar el plan a una estructura de control concreta?
 		$this->cargado = false;
+		$this->log = toba::get_logger();
 	}
 	
 	function info()
@@ -144,7 +146,7 @@ class entidad
 	{
 		foreach(array_keys($this->elemento) as $elemento)
 		{
-			$temp[$elemento] = $this->elemento[$elemento]['buffer']->resetear();
+			$this->elemento[$elemento]['buffer']->resetear();
 		}
 	}
 	//-------------------------------------------------------

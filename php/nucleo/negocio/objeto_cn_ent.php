@@ -44,7 +44,11 @@ class objeto_cn_ent extends objeto_cn_t
 		}
 		//Identifico el elemento y actualizo la entidad
 		$elemento = $parametros[0];
-		$this->entidad->acc_elemento($elemento, "ins", $datos);		
+		try{
+			$this->entidad->acc_elemento($elemento, "ins", $datos);			
+		}catch(excepcion_toba $e){
+			$this->informar_msg($e->getMessage(),"info");
+		}
 	}
 	//-------------------------------------------------------------------------------
 	

@@ -56,8 +56,10 @@ class cola_mensajes
 		foreach($this->mensajes as $mensaje){
 			$temp .= $mensaje . " <br>";
 		}
-		echo ei_mensaje($temp, $this->nivel_gravedad);
-		$this->vaciar();		
+		if(trim($temp)!=""){
+			echo ei_mensaje($temp, $this->nivel_gravedad);			
+		}
+		//$this->vaciar();		
 	}
 	
 	public function vaciar()

@@ -26,7 +26,7 @@ class toba
 	function get_logger()
 	{
 		global $solicitud;
-		return $solicitud->logger;
+		return $solicitud->log;
 	}
 
 	function get_cola_mensajes()

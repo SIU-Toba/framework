@@ -1,5 +1,4 @@
 <?php
-define("apex_buffer_debug","0");
 
 class buffer
 /*
@@ -36,24 +35,27 @@ class buffer
  -> Es realmente necesario fijar la clave interna a los registros??
 */
 {
-	var $definicion;				//Definicion que indica la construccion del BUFFER
-	var $fuente;					//Fuente de datos utilizada
-	var $identificador;				//Identificador del registro
-	var $campos;					//Campos del BUFFER
-	var $campos_secuencia;		
-	var $campos_manipulables;		
-	var $where;						//Condicion utilizada para cargar datos - WHERE
-	var $from;						//Condicion utilizada para cargar datos - FROM
-	var $control = array();			//Estructura de control
-	var $datos = array();			//Datos cargados en el BUFFER
-	var $datos_orig = array();		//Datos tal cual salieron de la DB (Control de SINCRO)
-	var $proximo_registro = 0;		//Posicion del proximo registro en el array de datos
-	var $control_sincro_db;			//Se activa el control de sincronizacion con la DB?
-	var $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
-	var $sql;						//Array de SQLs ejecutados
+	protected $log;						//Referencia al LOGGER
+	protected $solicitud;					//Referencia a la solicitud
+	protected $definicion;				//Definicion que indica la construccion del BUFFER
+	protected $fuente;					//Fuente de datos utilizada
+	protected $identificador;				//Identificador del registro
+	protected $campos;					//Campos del BUFFER
+	protected $campos_secuencia;		
+	protected $campos_manipulables;		
+	protected $where;						//Condicion utilizada para cargar datos - WHERE
+	protected $from;						//Condicion utilizada para cargar datos - FROM
+	protected $control = array();			//Estructura de control
+	protected $datos = array();			//Datos cargados en el BUFFER
+	protected $datos_orig = array();		//Datos tal cual salieron de la DB (Control de SINCRO)
+	protected $proximo_registro = 0;		//Posicion del proximo registro en el array de datos
+	protected $control_sincro_db;			//Se activa el control de sincronizacion con la DB?
+	protected $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
+	protected $sql;						//Array de SQLs ejecutados
 
 	function buffer($id, $definicion, $fuente)
 	{
+		$this->log = toba::get_logger();
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
@@ -75,7 +77,6 @@ class buffer
 		if( $this->existe_instanciacion_previa() ){
 			$this->cargar_datos_sesion();
 		}
-
 	}
 	//-------------------------------------------------------------------------------
 
@@ -163,23 +164,23 @@ class buffer
 	{
 		if(!isset($this->where)){
 			if(isset($where)){
-				if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Control WHERE: No existe<br>";
+				$this->log->debug("BUFFER {$this->identificador} - Control WHERE: No existe");
 				return false;	
 			}
 		}else{
 			for($a=0;$a<count($this->where);$a++){
 				if(!isset($where[$a])){
-					if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Control WHERE: nuevo mas corto<br>"; 
+					$this->log->debug("BUFFER {$this->identificador} - Control WHERE: nuevo mas corto"); 
 					return false;
 				}else{
 					if($where[$a] !== $this->where[$a]){
-						if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Control WHERE: nuevo distinto<br>"; 
+						$this->log->debug("BUFFER {$this->identificador} - Control WHERE: nuevo distinto"); 
 						return false;	
 					}
 				}
 			}
 		}
-		if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Control WHERE: OK!<br>";
+		$this->log->debug("BUFFER {$this->identificador} - Control WHERE: OK!");
 		return true;
 	}
 	//-------------------------------------------------------------------------------
@@ -188,7 +189,7 @@ class buffer
 	//Cargo los BUFFERS con datos de la DB
 	//ATENCION: Los datos solo se cargan si se le pasa como parametro un WHERE
 	{
-		if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Cargar de DB<br>";
+		$this->log->debug("BUFFER {$this->identificador} - Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
@@ -261,7 +262,7 @@ class buffer
 	function cargar_datos_sesion()
 	//Cargo el BUFFER desde la sesion
 	{
-		if(apex_buffer_debug) echo "BUFFER {$this->identificador} - Cargar de SESION<br>";
+		$this->log->debug("BUFFER {$this->identificador} - Cargar de SESION");
 		global $solicitud;
 		$datos = $solicitud->hilo->recuperar_dato_global($this->identificador);
 		//Traera un problema el pasaje por referencia
@@ -297,10 +298,17 @@ class buffer
 
 	function resetear()
 	{
+		$this->log->debug("BUFFER {$this->identificador} - RESET");
 		if($this->existe_instanciacion_previa()){
 			global $solicitud;
 			return $solicitud->hilo->eliminar_dato_global($this->identificador);
 		}
+		$this->datos = array();
+		$this->datos_orig = array();
+		$this->control = array();
+		$this->proximo_registro = 0;
+		$this->where = null;
+		$this->from = null;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -482,7 +490,7 @@ class buffer
 			if(is_array($valores_columna)){
 				//Controlo que el nuevo valor no exista
 				if(in_array($registro[$campo], $valores_columna)){
-					throw new excepcion_toba("BUFFER: ERROR de validacion. El valor '".$registro[$campo]
+					throw new excepcion_toba("BUFFER: El valor '".$registro[$campo]
 											."' crea un duplicado en el campo '" . $campo . "'.");
 				}
 			}

@@ -176,6 +176,8 @@ class objeto_ci extends objeto
 				if( $dato = $this->cn->$metodo($parametros) ){
 					//ei_arbol($dato, $dep);
 					$this->dependencias[$dep]->cargar_datos( $dato );
+					$param = $parametros;
+					$this->log->debug("CI [cargar_dependencia] DEP: $dep, METODO CN: $metodo, PARAMETROS CN: " . $param );
 					if($this->debug_eventos){
 						$this->datos_cargados[$dep] = $dato;
 					}
@@ -350,16 +352,9 @@ class objeto_ci extends objeto
 	@@desc: Devuelve la interface del Marco Transaccional
 */
 	{
-/*
-		//-[1]- Muestro el resultado del procesamiento
-		$this->mostrar_info_proceso();
-		if(is_array($this->dependencias)){
-			foreach(array_keys($this->dependencias) as $dependencia){
-				$this->dependencias[$dependencia]->mostrar_info_proceso();//DETALLES
-			}
-		}
-
-*/
+		//-[1]- Muestro la cola de mensajes
+		$this->solicitud->cola_mensajes->mostrar();
+		
 		//-[2]- Genero la SALIDA
 		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
