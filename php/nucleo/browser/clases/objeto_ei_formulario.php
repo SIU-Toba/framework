@@ -588,36 +588,38 @@ class objeto_ei_formulario extends objeto
 	@@retorno: array | estado de cada elemento de formulario
 */
 	{
-		//ei_arbol($datos,"DATOS para llenar el EI_FORM");
-		//Seteo los	EF	con el valor recuperado
-		foreach ($this->lista_ef as $ef){	//Tengo que	recorrer	todos	los EF...
-			$temp = null;
-			$dato = $this->elemento_formulario[$ef]->obtener_dato();
-			if(is_array($dato)){	//El EF maneja	DATO COMPUESTO
-				$temp = array();
-				for($x=0;$x<count($dato);$x++){
-					if(isset($datos[$dato[$x]])){
-						$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+		if(isset($datos)){
+			//ei_arbol($datos,"DATOS para llenar el EI_FORM");
+			//Seteo los	EF	con el valor recuperado
+			foreach ($this->lista_ef as $ef){	//Tengo que	recorrer	todos	los EF...
+				$temp = null;
+				$dato = $this->elemento_formulario[$ef]->obtener_dato();
+				if(is_array($dato)){	//El EF maneja	DATO COMPUESTO
+					$temp = array();
+					for($x=0;$x<count($dato);$x++){
+						if(isset($datos[$dato[$x]])){
+							$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+						}
+					}
+					if(count($temp)>0){
+						
+					}
+				}else{					//El EF maneja	un	DATO SIMPLE
+					if(isset($datos[$dato])){
+						$temp = stripslashes($datos[$dato]);
 					}
 				}
-				if(count($temp)>0){
-					
-				}
-			}else{					//El EF maneja	un	DATO SIMPLE
-				if(isset($datos[$dato])){
-					$temp = stripslashes($datos[$dato]);
+				if(isset($temp)){
+					$this->elemento_formulario[$ef]->cargar_estado($temp);
 				}
 			}
-			if(isset($temp)){
-				$this->elemento_formulario[$ef]->cargar_estado($temp);
-			}
+			//Memorizo que clave cargue de la base
+			//guardo los datos en la memoria
+			//para compararlos y saber si se modificaron
+			$this->memoria["datos"] = $datos;
+			$this->etapa = "modificar";
+			$this->procesar_dependencias();
 		}
-		//Memorizo que clave cargue de la base
-		//guardo los datos en la memoria
-		//para compararlos y saber si se modificaron
-		$this->memoria["datos"] = $datos;
-		$this->etapa = "modificar";
-		$this->procesar_dependencias();
 	}
 
 	//-------------------------------------------------------------------------------
