@@ -674,11 +674,16 @@ class objeto_cuadro extends objeto
                 echo "</td>";
                 echo "</tr></table>";
                 echo "</div>";              
+				if (true || $this->info_cuadro["pag_mostrar_resumen"]) //ATENCION: Agregar el parametro al admin
+				{
+					$rango_inicial = ($this->pag_tamano * ($this->pag_actual - 1)) + 1;
+					$rango_final_teorico = ($rango_inicial + $this->pag_tamano) - 1;
+					$rango_final = ($this->pag_actual != $this->pag_cantidad_paginas) ? $rango_final_teorico : $this->pag_cantidad_registros;
+					echo "<div class='lista-pag-descr'>Resultados $rango_inicial al $rango_final de {$this->pag_cantidad_registros}</div>";
+				}
                 echo "</td></tr>\n\n\n";
 
 				//Exportacion de PAGINAS SEPARADAS		
-
-
             }
         }
     }

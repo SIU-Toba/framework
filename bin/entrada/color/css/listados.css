@@ -8,6 +8,11 @@ TD.lista-pag-bot {
 	padding: 2px 2px 2px 2px ;
 }
 
+.lista-pag-descr {
+	font-size: 9px;
+	font-weight:lighter;
+}
+
 TABLE.listado-base {
 	border-collapse: collapse;
 	empty-cells: show;
