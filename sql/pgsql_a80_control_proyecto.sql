@@ -8,12 +8,13 @@ CREATE TABLE apex_cp_dificultades (
 
 
 CREATE TABLE apex_cp_entregables (
-       id_entregable        INTEGER NOT NULL,
+       id_entregable        INTEGER NOT NULL DEFAULT nextval('"apex_entregable_seq"'::text),
        numero               VARCHAR(8) NOT NULL,
        descripcion          VARCHAR(255) NOT NULL,
        dificultad           INTEGER NOT NULL,
 		item_proyecto		varchar(15)		NOT NULL,
 		item				varchar(60)		NOT NULL,
+		nombre				varchar(8)
        CONSTRAINT XPKapex_cp_entregables 
               PRIMARY KEY (id_entregable), 
        CONSTRAINT R_5
@@ -28,7 +29,7 @@ CREATE TABLE apex_cp_entregables (
 
 
 CREATE TABLE apex_cp_responsables (
-       id_reponsable        INTEGER NOT NULL,
+       id_responsable        INTEGER NOT NULL,
        Nombre               VARCHAR(32) NOT NULL,
        CONSTRAINT XPKapex_cp_responsables 
               PRIMARY KEY (id_reponsable)
