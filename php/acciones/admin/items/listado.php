@@ -46,11 +46,11 @@
 	else
 		$menu = true;
 
-	$catalogador = new arbol_items_admin($this, $menu);
+	$catalogador = new arbol_items_admin($menu);
 	if ($carpeta_seleccionada != '') 
 		$catalogador->set_carpeta_inicial($carpeta_seleccionada);
 	$catalogador->ordenar();
-	$total = $catalogador->obtener_cantidad_items();
+	$total = $catalogador->cantidad_items();
 
 	//-----------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------

@@ -48,6 +48,12 @@ class toba
 		}
 		return $db[$fuente];
 	}
+	
+	function get_db($fuente, $ado=null)
+	{
+		$fuente = toba::get_fuente($fuente, $ado);
+		return $fuente[apex_db_con];
+	}
 
 	function get_encriptador()
 	{

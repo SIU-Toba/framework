@@ -12,6 +12,19 @@
 	//-----------------------------------------------------------------
 	function sl(){ return salto_linea(); }
 	//-----------------------------------------------------------------
+	
+	function aplanar_matriz($matriz)
+	//Toma una matriz cuya segunda dimension tiene siempre un solo componente y lo aplana a una sola dimension
+	//Util para aplanar recordset de consultas de un solo campo
+	//Ej: array(0 => array('bla' => 'cero'), 1 => array('bla' => 'uno'))  --->  array('cero', 'uno')
+	{
+		$aplanado = array();
+		foreach ($matriz as $arreglo) {
+			$aplanado[] = current($arreglo);
+		}
+		return $aplanado;
+	}
+	//-----------------------------------------------------------------	
 
 	function dump_array_php($array, $nombre="array",$html=false)
 	//Dumpea un array como sintaxis de definicion de array de PHP
