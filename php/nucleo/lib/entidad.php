@@ -1,5 +1,5 @@
 <?
-require_once('nucleo/lib/buffer.php');
+require_once('nucleo/lib/buffer_db.php');
 /*
 Una entidad posee un conjunto de buffers y conoce la logica de persistencia entre los mismos
 Definir un nuevo tipo de entidad deberia implicar:
@@ -54,7 +54,7 @@ class entidad
 	
 	public function existe_elemento($elemento)
 	{
-		return ($this->elemento[$elemento]['buffer'] instanceof buffer);
+		return ($this->elemento[$elemento]['buffer'] instanceof buffer_db);
 	}
 
 	//-------------------------------------------------------
