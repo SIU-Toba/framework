@@ -19,10 +19,8 @@ class menu_css
 					AND		(i.proyecto = u.proyecto)
 					--AND		(i.padre <> '')
 					AND 	(i.menu = 1)
-					--AND		(u.usuario_grupo_acc = '".$solicitud->hilo->obtener_usuario_grupo_acceso()."' )
-					--AND		(i.proyecto = '".$solicitud->hilo->obtener_proyecto()."')
-					AND		(u.usuario_grupo_acc = 'admin' )
-					AND		(i.proyecto = 'sipefco')
+					AND		(u.usuario_grupo_acc = '".$solicitud->hilo->obtener_usuario_grupo_acceso()."' )
+					AND		(i.proyecto = '".$solicitud->hilo->obtener_proyecto()."')
 					ORDER BY i.padre,i.orden;";
 		$rs = $db["instancia"][apex_db_con]->Execute($sql);
 		$this->items = $rs->getArray();
