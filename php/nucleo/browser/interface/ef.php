@@ -79,7 +79,9 @@ class ef //Clase abstracta, padre de todos los EF
 		//---- Javascript		
 		if(isset($parametros["javascript"])){
 			$temp = explode(",",$parametros["javascript"]);
-			$this->javascript = " " . $temp[0] .  "=\"return " . $temp[1] . ";\"";
+			$evento = $temp[0];
+			$metodo = $temp[1];
+			$this->javascript = " " . $evento .  "=\"return " . $metodo . ";\"";
 		}
 		if(isset($parametros['ocultable'])){
 			$this->ocultable = true;
@@ -424,28 +426,39 @@ class ef //Clase abstracta, padre de todos los EF
 
 	//Javascript para ocultar y mostrar el EF
 if($this->ocultable){
+
 	echo "
-
-ef_{$this->id_form}_estado = 'v';
-function ef_alternar{$this->id_form}()
+<script language='javascript'>
+ef_{$this->id_form}_estado = 'visible';
+function ef_alternar_{$this->id_form}()
 {
-	
+	if(ef_{$this->id_form}_estado == 'visible'){
+		ef_ocultar_{$this->id_form}()
+	}else{
+		ef_mostrar_{$this->id_form}()
+	}
 }
-
 function ef_ocultar_{$this->id_form}()
 {
 	if (ie||ns6)
 	var div_img=document.all? document.all['{$this->id_form}_div'] : document.getElementById? document.getElementById('{$this->id_form}_div') : '';
 	div_img.style.visibility='hidden';
+	if (ie||ns6)
+	var div_inp=document.all? document.all['{$this->id_form}'] : document.getElementById? document.getElementById('{$this->id_form}') : '';
+	div_inp.style.visibility='hidden';
+	ef_{$this->id_form}_estado = 'oculto';
 }
-
 function ef_mostrar_{$this->id_form}()
 {
 	if (ie||ns6)
 	var div_img=document.all? document.all['{$this->id_form}_div'] : document.getElementById? document.getElementById('{$this->id_form}_div') : '';
 	div_img.style.visibility='visible';
+	var div_inp=document.all? document.all['{$this->id_form}'] : document.getElementById? document.getElementById('{$this->id_form}') : '';
+	div_inp.style.visibility='visible';
+	ef_{$this->id_form}_estado = 'visible';
 }
-	";
+</script>
+";
 }
 		echo "<div id='{$this->id_form}_div' name='{$this->id_form}_div'>";
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";

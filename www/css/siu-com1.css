@@ -419,7 +419,7 @@ TD.mensaje-cuerpo-error {
 
 TABLE.tabla-0 {
 	border-collapse: collapse;
-	empty-cells: show;
+	empty-cells: hide;
 	padding: 0px 0px 0px 0px ;
 	margin: 0px 0px 0px 0px ;
 	font-size: 10px;

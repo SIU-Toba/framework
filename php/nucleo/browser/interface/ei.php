@@ -511,8 +511,11 @@ function firstFocus()
 		for (j=0;j<formulario.length;j++)
 		{
 			var elemento = formulario.elements[j];
-			if ((elemento.type=="text") && (!elemento.disabled) &&	(elemento.style.display != 'none'))
+			var display = elemento.style.display;
+			if ((elemento.type=="text") && (!elemento.disabled) 
+				&& ( display != 'none') && ( display != 'hidden') )
 			{
+				//alert('El display es: '  + display  );
 			   elemento.focus();
 			   return;
 			}
