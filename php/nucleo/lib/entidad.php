@@ -24,7 +24,7 @@ class entidad
 	{
 		foreach(array_keys($this->elemento) as $elemento)
 		{
-			$temp[$elemento] = $this->elemento[$elemento]['buffer']->info();
+			$temp[$elemento] = $this->elemento[$elemento]['buffer']->info(true);
 		}
 		return $temp;
 	}
@@ -140,7 +140,13 @@ class entidad
 	}
 	//-------------------------------------------------------
 
-	public function sincronizar_db()
+	public function descargar()
+	{
+		
+	}
+	//-------------------------------------------------------
+	
+		public function sincronizar_db()
 	//Sincroniza la entidad contra la base de datos
 	//Esto lee un plan y lo ejecuta. Si la entidad tiene una regla de grabacion
 	//muy complicada, deberia redefinir esta funcion
@@ -148,11 +154,5 @@ class entidad
 		
 	}
 	//-------------------------------------------------------
-
-	public function resetear()
-	{
-		
-	}
-	
 }
 ?>

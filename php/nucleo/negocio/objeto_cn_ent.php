@@ -3,8 +3,9 @@ require_once("nucleo/negocio/objeto_cn_t.php");	//Ancestro de todos los OE
 
 class objeto_cn_ent extends objeto_cn_t
 {
-	var $entidad;
-	var $seleccion;
+	protected $entidad;
+	protected $entidad_id;
+	protected $seleccion;	
 
 	function __construct($id, $resetear=false)
 /*
@@ -20,6 +21,7 @@ class objeto_cn_ent extends objeto_cn_t
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "seleccion";
+		$propiedades[] = "entidad_id";
 		return $propiedades;
 	}
 
@@ -154,6 +156,29 @@ class objeto_cn_ent extends objeto_cn_t
 	{
 		$this->entidad->sincronizar_db();
 	}
+
 	//-------------------------------------------------------------------------------
+	//----- Carga y descarga de entidades
+	//-------------------------------------------------------------------------------
+
+	function cargar($id)
+	{
+		$this->entidad_id = $id;
+		$this->entidad->cargar($id);
+	}
+	
+	function existe_entidad_cargada()
+	{
+		return isset($this->entidad_id);	
+	}
+	
+	function descargar()
+	{
+		$this->entidad_id = null;
+		$this->entidad->descargar();	
+	}
+	
+	//-------------------------------------------------------------------------------
+
 }
 ?>

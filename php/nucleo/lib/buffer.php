@@ -26,6 +26,7 @@ class buffer
 
 	*** PENDIENTE ***
 
+ -> Implementar el RESET!!!
  -> Hay que hacer algo con el manejo de NULLs...
  -> Valores unicos producto de varias columnas...
  -> Obtencion y mapeo de informacion de COSMETICA...
@@ -191,7 +192,7 @@ class buffer
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
-		if(!isset($where)){
+		if(isset($where)){
 			//ei_arbol($where,"WHERE con datos");
 			$this->datos = $this->cargar_db();
 		}else{
