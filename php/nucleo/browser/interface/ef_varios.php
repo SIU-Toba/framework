@@ -106,6 +106,18 @@ class ef_checkbox extends ef
     	}
 		return false;
 	}
+	
+	function obtener_consumo_javascript()
+	{
+		$consumos = array('interface/ef','interface/ef_checkbox');
+		return $consumos;
+	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_checkbox({$this->parametros_js()})";
+	}	
+		
 }
 // ########################################################################################################
 // ########################################################################################################

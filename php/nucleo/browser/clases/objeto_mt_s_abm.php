@@ -24,9 +24,9 @@ class objeto_mt_abms extends objeto_mt_s
 */
 	{
 		parent::objeto_mt_s($id);
-		$this->submit_eli = "Eliminar";
-		$this->submit_mod = "Modificar";
-		$this->submit_limpiar = "Limpiar formulario";
+		$this->submit_eli = "&Eliminar";
+		$this->submit_mod = "&Modificar";
+		$this->submit_limpiar = "&Limpiar formulario";
 	}
 	//-------------------------------------------------------------------------------
 
@@ -270,7 +270,8 @@ class objeto_mt_abms extends objeto_mt_s
     {
         $this->etapa_actual = "PM";
         $this->cargar_post();
-        if( $_POST[$this->submit]==$this->submit_mod )//            ( 1 ) MODIFICAR
+		$this->dependencias["formulario"]->procesar_dependencias();		
+        if( $_POST[$this->submit]==$this->submit_mod)//            ( 1 ) MODIFICAR
         {
             $this->etapa_actual = "PM-U";
             if( $this->validar_estado() ) // Validacion OK
@@ -335,12 +336,14 @@ class objeto_mt_abms extends objeto_mt_s
                         $this->memoria["proxima_etapa"] = "PM";
                         $this->abortar_transaccion("Error ELIMINANDO el registro");
                         $this->estado_proceso = "ERROR";
+						$this->control_modificacion_claves();						
                 }
 				$this->post_delete();
 
             }else{  //La transaccion no se inicio
                 $this->memoria["proxima_etapa"] = "PM";
                 $this->estado_proceso = "ERROR";
+				$this->control_modificacion_claves();
             }
 			
         }
@@ -471,14 +474,26 @@ class objeto_mt_abms extends objeto_mt_s
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td class='abm-zona-botones'>";
 		if($this->memoria["proxima_etapa"]=="PA"){
-			echo form::submit($this->submit,"Agregar","abm-input");
+			$acceso = tecla_acceso("&Agregar");
+			echo form::submit($this->submit,$acceso[0],"abm-input", '', $acceso[1]);
 		}elseif($this->memoria["proxima_etapa"]=="PM"){
+			//Esto es para solucionar un BUG del IE con los <button>
+			echo form::hidden($this->submit, '');
 			if($this->dependencias["formulario"]->info_formulario["ev_mod_limpiar"]){
-				echo "&nbsp;&nbsp;" . form::button("boton", $this->submit_limpiar ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_no_propagacion=>1),true)."';\"","abm-input");
+				$acceso = tecla_acceso($this->submit_limpiar);
+				echo "&nbsp;&nbsp;" . form::button("boton", $acceso[0] ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_no_propagacion=>1),true)."';\"",
+													"abm-input", $acceso[1]);
 			}
-			echo "&nbsp;&nbsp;" . form::submit($this->submit, $this->submit_mod, "abm-input");
-			if($this->dependencias["formulario"]->permitir_eliminar()===true)
-				echo  "&nbsp;&nbsp;" . form::submit($this->submit, $this->submit_eli, "abm-input-eliminar", " onclick='eliminar_{$this->nombre_formulario}=1' ");
+			$acceso = tecla_acceso($this->submit_mod);
+			echo "&nbsp;&nbsp;" . form::submit($this->submit."_mod", $acceso[0], "abm-input", 
+								  "onclick='{$this->nombre_formulario}.{$this->submit}.value = \"{$this->submit_mod}\"'", $acceso[1]);
+			if($this->dependencias["formulario"]->permitir_eliminar()===true) {
+				$acceso = tecla_acceso($this->submit_eli);
+				echo  "&nbsp;&nbsp;";
+				echo form::submit($this->submit."_eli", $acceso[0], "abm-input-eliminar", 
+								" onclick='eliminar_{$this->nombre_formulario}=1; {$this->nombre_formulario}.{$this->submit}.value = \"{$this->submit_eli}\"' ",
+								$acceso[1]);
+			}
 		}else{
 			echo "Atencion: la proxima etapa no se encuentra definida!";
 		}

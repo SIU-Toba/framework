@@ -5,14 +5,18 @@
 		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();
 		$form =& new objeto_ei_formulario_ml($editable,$this);
+		$form->cargar_datos();
 		enter();
 		echo "<div align='center'>\n";
 		echo "<table class='objeto-base' width='100'>\n";
 		echo "<tr><td>";
 		$form->inicializar(array("nombre_formulario"=>"formulario"));
+
 		echo form::abrir($form ->nombre_formulario, '');
 		$consumo_js = array_unique($form->consumo_javascript_global());
 		js::cargar_consumos_globales($consumo_js);
+		echo form::cerrar();
+		
 		$form->obtener_html();
 		echo "</td></tr>\n";
 		echo "</table>\n";

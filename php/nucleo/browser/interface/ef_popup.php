@@ -3,7 +3,7 @@
 class ef_popup extends ef_editable
 {
     var $descripcion_estado;
-    var $vinculo_item;
+    var $item_destino;
     var $ventana;
     
 	function ef_popup($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros)
@@ -30,27 +30,25 @@ class ef_popup extends ef_editable
         }else{
         	$this->ventana = null;
     	}
-        
-		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
-
+		
         if (isset($parametros["item_destino"])){
-            $item = $parametros["item_destino"];
-    		global $solicitud;
-    		$proyecto = $solicitud->hilo->obtener_proyecto();
-            $this->vinculo_item = $solicitud->vinculador->obtener_vinculo_a_item($proyecto, 
-                                                          $item, array("ef_popup" => $this->id_form), false);
-
-            unset($parametros['item_destino']);                                        
-        }
-
+			$this->item_destino = $parametros["item_destino"];
+            unset($parametros['item_destino']);
+		}		
+				
+		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
 //-------------------- INTERFACE --------------------------
 
 	function obtener_input()
 	{
+        if (isset($this->item_destino)) {
+            $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(toba::get_hilo()->obtener_proyecto(), 
+										$this->item_destino, array("ef_popup" => $this->id_form), false);
+        }
 		if(!isset($this->estado)) $this->estado="";	
 		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
-		if($this->solo_lectura || $this->vinculo_item == NULL){
+		if($this->solo_lectura || $vinculo_item == NULL){
 			$r = form::text("", $this->estado,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);
 			$r .= form::hidden($this->id_form, $this->estado);
 		}else{
@@ -62,7 +60,7 @@ class ef_popup extends ef_editable
 			$r .= form::hidden($this->id_form, $this->estado, $this->obtener_javascript_input());
     		$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ". $this->javascript);
 			$r .= "</td><td>\n";
-			$r .= "<a id='link_{$this->id_form}'";
+			$r .= "<a id='{$this->id_form}_vinculo'";
 			if(!isset($this->ventana)){
 				$inicializacion_ventana = "null";
 			}else{
@@ -70,9 +68,8 @@ class ef_popup extends ef_editable
 				//ancho, alto, scroll.
 				$inicializacion_ventana = "[" . implode(",",$this->ventana) . "]";
 			}
-			$r .= " onclick=\" javascript: popup_abrir_item('{$this->vinculo_item}', '{$this->id_form}', $recurso_js_cod, $recurso_js_desc, $inicializacion_ventana)\"";
-            $r .= "href='#' name='link_{$this->id_form}'>".
-                   recurso::imagen_apl('doc.gif',true,16,16,"Selecionar un elemento")."</a> ";
+			$r .= " onclick=\" javascript: popup_abrir_item('$vinculo_item', '{$this->id_form}', $recurso_js_cod, $recurso_js_desc, $inicializacion_ventana)\"";
+            $r .= "href='#' name='{$this->id_form}_vinculo'>".recurso::imagen_apl('doc.gif',true,16,16,"Selecionar un elemento")."</a> ";
 			$r .= "</td></tr>\n</table>\n";            
         }
 		return $r;
@@ -80,10 +77,13 @@ class ef_popup extends ef_editable
     
 	function obtener_consumo_javascript()
 	{
-		$consumo = parent::obtener_consumo_javascript();
-		$consumo[] = "popup";
-		return $consumo;
-	}
+		return array_merge(parent::obtener_consumo_javascript(), array('interface/ef_popup'));
+	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_popup({$this->parametros_js()})";
+	}		
 	
     function obtener_javascript()
     {
@@ -136,41 +136,34 @@ class ef_popup extends ef_editable
     //Carga la descripcion desde la base de datos en base al estado actual
     function obtener_descripcion_estado()
     {
-        if (trim($this->estado) == '')
-        {
+        if (trim($this->estado) == '') {
             $this->descripcion_estado = ''; 
             return;
         }                                                                              
 
-        if (isset($this->sql)) 
-        {
+        if (isset($this->sql)) {
             $where_adj = array();
-            if (isset($this->columna_clave)) 
-            {
+            if (isset($this->columna_clave)) {
                $where_adj[] = $this->columna_clave."='".$this->estado."'";    
                $temp_sql = sql_agregar_clausulas_where($this->sql,$where_adj);
-            }
-            else
+            } else {
                 $temp_sql = sql_agregar_clausulas_where($this->sql, "");
+			}
             
             global $ADODB_FETCH_MODE, $db;
             $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
             $rs = $db[$this->fuente][apex_db_con]->Execute($temp_sql); 
             
-            if(!$rs)
-            {   
+            if(!$rs) {   
                 monitor::evento("bug","EF_POPUP: No se genero el recordset. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: {$this->sql} -- ");
             }
-            if($rs->EOF)
-            {
+            if($rs->EOF){
                 echo ei_mensaje("EF etiquetado '" . $this->etiqueta . "'<br>No se obtuvieron registros: ". $this->sql);
             }
             $this->estado = $rs->fields[0];  
             $this->descripcion_estado = $rs->fields[1];
-        }  
-        else
-        {
+        } else {
             $this->descripcion_estado = $this->estado;
         }     
     }

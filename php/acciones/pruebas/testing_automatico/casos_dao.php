@@ -5,12 +5,18 @@ class casos_dao
 {
 	function get_categorias()
 	{
-		return array(apex_ef_no_seteado => 'Todas', 'items' => 'Items', 'ef' => "Ef's");
+		return array(apex_ef_no_seteado => 'Todas', 
+					 'items' => 'Items', 
+					 'ef' => "Ef's", 
+					 'varios' => 'Varios');
 	}
 	
 	function get_casos($categoria = apex_ef_no_seteado)
 	{
 		$casos = array(
+					//Varios
+					'test_parseo_etiquetas' => array('nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
+					
 					//Items
 					'test_item' => array('nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
 					'test_arbol_items' => array('nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),

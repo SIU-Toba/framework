@@ -95,13 +95,13 @@ class objeto_ci extends objeto
 			if($this->info_ci['ev_procesar_etiq']){
 				$this->submit_etiq = $this->info_ci['ev_procesar_etiq'];
 			}else{
-				$this->submit_etiq = "Procesar";
+				$this->submit_etiq = "Proce&sar";
 			}
 			//Boton CANCELAR
 			if($this->info_ci['ev_cancelar_etiq']){
 				$this->cancelar_etiq = $this->info_ci['ev_cancelar_etiq'];
 			}else{
-				$this->cancelar_etiq = "Cancelar";
+				$this->cancelar_etiq = "&Cancelar";
 			}
 			$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
 		}else
@@ -664,10 +664,13 @@ class objeto_ci extends objeto
 	//Modelo ESTANDAR de manejar las opciones de USUARIO
 	{
 		if($this->info_ci['ev_procesar']){
-			echo form::submit($this->submit,$this->submit_etiq,"abm-input");
+			$acceso = tecla_acceso($this->submit_etiq);
+			echo form::submit($this->submit,$acceso[0],"abm-input", '', $acceso[1]);
 		}
 		if($this->info_ci['ev_cancelar']){
-			echo "&nbsp;" . form::button("boton", $this->cancelar_etiq ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"","abm-input");
+			$acceso = tecla_acceso($this->cancelar_etiq);
+			echo "&nbsp;" . form::button("boton", $acceso[0] ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"",
+										"abm-input", $acceso[1]);
 		}
 	}
 	//-------------------------------------------------------------------------------

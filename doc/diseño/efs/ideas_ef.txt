@@ -1,0 +1,23 @@
+¿En que difieren?
+----------------------
+-Reglas lógicas
+	-Tipo de estado: simple, compuesto, sin estado...
+	-Forma de validar el estado: ¿es numero? ¿es porcentaje? ¿esta dentro de este conjunto?...
+	-Forma de obtener los datos (DAO, SQL, array...)
+-Reglas gráficas
+	-Componente gráfico para representar y cambiar el estado: ¿es un combo o un conjunto de checkbox?
+	
+En una definición ideal se implementan estas funcionalidades y cada ef toma el conjunto utilizado (herencia multiple), 
+esto brindaría la máxima reutilización y mínima repetición. Lamentablemente sólo se puede armar un arbol simple de herencia con 
+lo cual hay que definir por cual de estas diferencias (o semejanzas) se va a heredar (también se podrian utilizar interfaces... no sé como quedaría).
+
+Forma de hacer la herencia en el árbol:
+-----------------------
+
+Hacer la herencia por el concepto lógico brinda el mejor entendimiento abstracto, el desarrollador lee "el usuario selecciona un instrumento de la banda" inmediatamente el conjunto de efs que puede utilizar se achican a aquellos que tienen un conjunto de entrada  (instrumentos de la banda) y sólo un valor de salida (instrumento seleccionado), más sencillo el usuario 'selecciona uno', el 'cómo' es otro tema (ver esquema	conceptual) puede hacerlo con un combo, con radio buttons o un popup.	
+
+El arbol de herencia quedaría con las reglas lógicas (tipo de estado, forma de validarlo y forma de obtenerlos) en los niveles superiores y los detalles gráficos en las hojas. Los detalles gráficos no se van a poder reutilizar pero sí la lógica.
+
+
+
+

@@ -33,4 +33,8 @@ TD.objeto-ei-barra-superior {
 	text-align: left;
 	padding: 3px 3px 3px 3px ;
 }
+
+.tabla-con-scroll {
+	overflow: auto;
+}
 /*----------------------------------------------------------------*/

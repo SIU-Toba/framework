@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 
-<frameset rows="*" cols="380,*" frameborder="YES" border="2" bordercolor="#553DA1" framespacing="0">
+<frameset rows="*" cols="380,*" frameborder="YES" border="1" bordercolor="#553DA1" framespacing="0" id='frameset_admin'>
   <frameset rows="87,*,3" frameborder="NO" border="1"  bordercolor="#553DA1" framespacing="0">
     <frame src="<? echo $this->vinculador->generar_solicitud("toba","/admin/menu_principal")?>" name="<? echo  apex_frame_control ?>" scrolling="NO">
     <frame src="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos/organizador")?>" name="<? echo  apex_frame_lista ?>" scrolling="auto">

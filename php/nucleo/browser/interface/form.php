@@ -11,7 +11,7 @@ class form {
     {
         $r = "<INPUT type='text' name='$nombre' id='$nombre' maxlength='$len' size='$size' ";
         if (isset($actual)) $r .= "value='$actual' ";
-        if ($read_only) $r .= "onFocus='this.blur()' ";
+        if ($read_only) $r .= " disabled ";
         $r .= "class='$clase' $extra>\n";
         return $r;
     }
@@ -25,8 +25,7 @@ class form {
         }
         $combo = "<select name='$nombre' id='$nombre' class='$clase' $extra>\n";
         foreach ($datos as $id => $desc){
-            $s = "";
-            if ($id == $actual) $s = "SELECTED";
+            $s = ($id == $actual) ? "selected" : "";
             $combo .= "<option value='$id' $s>$desc</option>\n";
         }
         $combo .= "</select>\n";
@@ -40,8 +39,7 @@ class form {
         }
         $combo = "<select name='".$nombre."[]' id='$nombre' class='$clase' size='$tamanio' multiple $extra>\n";
         foreach ($datos as $id => $desc){
-            $s = "";
-            if (in_array($id, $actuales)) $s = "SELECTED";
+            $s = (in_array($id, $actuales)) ? "selected" : "";
             $combo .= "<option value='$id' $s>$desc</option>\n";
         }
         $combo .= "</select>\n";
@@ -76,31 +74,40 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function submit($nombre,$valor,$clase="ef-boton",$extra="")
+    function submit($nombre,$valor,$clase="ef-boton",$extra="", $tecla = null)
     // Boton de SUBMIT
     {
-        return "<INPUT type='submit' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+		if ($tecla === null)
+	        return "<INPUT type='submit' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+		else
+			return form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'submit', '', $clase);
     }
 //________________________________________________________________________________________________________
 
-    function image($nombre,$src,$extra="")
+    function image($nombre,$src,$extra="", $tecla = null)
     // Boton de SUBMIT
     {
-        return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $extra>\n";
+		$acceso = form::acceso($tecla);
+        return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $acceso $extra>\n";
     }
  //________________________________________________________________________________________________________
 
-    function button($nombre,$valor,$extra="",$clase="ef-boton")
+    function button($nombre,$valor,$extra="",$clase="ef-boton", $tecla = null)
     // Boton de SUBMIT
     {
-        return "<INPUT type='button' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+		if ($tecla === null)
+	        return "<INPUT type='button' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+		else
+			return form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
 //________________________________________________________________________________________________________
 
-    function button_html($nombre,$html, $extra="", $tipo='button', $valor='', $clase="ef-boton")
+    function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton")
     // Boton con html embebido
     {
-        return "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>$html</button>\n";
+		$acceso = form::acceso($tecla, $tip);
+        return  "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' class='$clase' tabindex='$tab' $acceso $extra>".
+				"$html</button>\n";
     }
 
 //________________________________________________________________________________________________________
@@ -140,6 +147,10 @@ class form {
     }
 
 //________________________________________________________________________________________________________
+	function acceso($tecla, $tip='')
+	{
+		return ($tecla === null) ? "title='$tip'" : "accesskey='$tecla' title=\"$tip [ALT $tecla]\"";		
+	}
 
 }
 ?>

@@ -246,15 +246,13 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 	//Validacion en el servidor. El campo es numerico?
 	{
 		$val_padre = parent::validar_estado();//Obligatorio nulo?
-        if($val_padre[0]){
-			if(isset($this->estado)){
-				if((is_numeric($this->estado))||(trim($this->estado)=="")){//Numerico?
-					$this->validacion = true;
-					return array(true,"");
-				}else{
-					$this->validacion = false;
-	                return array(false,"El campo es numerico.");
-				}
+        if($val_padre[0] &&  isset($this->estado)) {
+			if((is_numeric($this->estado))||(trim($this->estado)=="")){//Numerico?
+				$this->validacion = true;
+				return array(true,"");
+			}else{
+				$this->validacion = false;
+                return array(false,"El campo es numerico.");
 			}
 		}else{
 			return $val_padre;
@@ -312,7 +310,7 @@ if( !( (formulario.". $this->id_form .".value >= 0) &&  (formulario.". $this->id
 	//Validacion en el servidor. El campo es numerico?
 	{
 		$val_padre = parent::validar_estado();
-        if($val_padre[0]){
+        if($val_padre[0] && $this->activado()){
 			if( ($this->estado >= 0) && ($this->estado <= 100) ){
 				$this->validacion = true;
 				return array(true,"");

@@ -792,13 +792,13 @@ TD.abm-fila-ml
 
 TD.abm-fila-ml-selec 
 { 
-	background-color: #99CDD5;
+	background-color: #DEEFF2;
 	border-collapse:collapse;
 	border-top: 1px solid #339BAC;
 	border-bottom: 1px solid #339BAC;	
 }
 
-TD.abm-columna
+.abm-columna
 {
 	font-size: 10px;
 	color: #008297;
@@ -1531,6 +1531,10 @@ TD.objeto-ei-barra-superior {
 	background-color: #339BAC;
 	text-align: left;
 	padding: 3px 3px 3px 3px ;
+}
+
+.tabla-con-scroll {
+	overflow: auto;
 }
 /*----------------------------------------------------------------*/TD.grafico-titulo {
 	font-size: 12px;

@@ -10,6 +10,22 @@ function salir(){
 if(confirm('Desea terminar la sesion?')) 
 	top.location.href='<? echo $this->hilo->finalizar() ?>';
 }
+
+var frame_admin = top.document.getElementById('frameset_admin');
+var ancho_frame = frame_admin.cols;
+var expandido = true;
+function mostrar_ocultar_frame() {
+	var imagen = document.getElementById('imagen_manejo_frame');
+	if (expandido) {
+		imagen.src = '<?echo recurso::imagen_apl("expander.gif",false);?>';
+		frame_admin.cols = '8,*';
+		expandido = false;
+	} else {
+		imagen.src = '<?echo recurso::imagen_apl("contraer.gif",false);?>';
+		frame_admin.cols = ancho_frame;
+		expandido = true;
+	}
+}
 </script>
 <table width='100%'  class='tabla-0' >
 <tr><td class='listado-barra-superior'><? echo gif_nulo(1,4) ?></td></tr>
@@ -17,8 +33,11 @@ if(confirm('Desea terminar la sesion?'))
 
 	<table class='tabla-0' width='100%'>
 	<tr> 
-		 <td class='listado-vacia' width='1%'><a  target="<? echo  apex_frame_lista  ?>" 
-		 href="<? echo $this->vinculador->generar_solicitud("toba","/red/organizador") ?>">
+		<td class='listado-vacia' width='1%' nowrap valign='middle'>
+		<a href="javascript: mostrar_ocultar_frame();">
+		 	<img src="<? echo recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'>
+		</a>
+		 <a  target="<? echo  apex_frame_lista  ?>" href="<? echo $this->vinculador->generar_solicitud("toba","/red/organizador") ?>">
 		 <? echo recurso::imagen_apl("logo_barra_apex.gif",true,null,null,"Red SIU-Toba")?></a></td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
@@ -163,6 +182,6 @@ if(confirm('Desea terminar la sesion?'))
 	</tr>
 	</table>
 </td></tr>
-<tr><td  class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
-<tr><td  class='listado-linea' ><? echo gif_nulo(1,1) ?></td></tr>
+<tr><td colspan=2 class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
+<tr><td colspan=2 class='listado-linea' ><? echo gif_nulo(1,1) ?></td></tr>
 </table>

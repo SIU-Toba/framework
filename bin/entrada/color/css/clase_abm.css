@@ -66,13 +66,13 @@ TD.abm-fila-ml
 
 TD.abm-fila-ml-selec 
 { 
-	background-color: %col_sp_4%;
+	background-color: %col_sp_6%;
 	border-collapse:collapse;
 	border-top: 1px solid %col_sp_2%;
 	border-bottom: 1px solid %col_sp_2%;	
 }
 
-TD.abm-columna
+.abm-columna
 {
 	font-size: 10px;
 	color: %col_sp_1%;
