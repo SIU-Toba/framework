@@ -260,7 +260,7 @@ class buffer
 			}
 			return null;
 		}else{
-			$datos =6 $rs->getArray();
+			$datos =& $rs->getArray();
 			//ei_arbol($datos);
 			//Los campos NO SQL deberian estar metidos en el array
 			if(isset($this->definicion['no_sql'])){
