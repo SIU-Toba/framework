@@ -37,6 +37,15 @@ class objeto_ei_cuadro extends objeto_cuadro
 		}else{
 			$this->ev_seleccion = false;
 		}
+		
+		//-----------------------------------------------------------------------------------
+		//--------------------- Hardcodeo esto para que tenga scroll ------------------------
+		//-----------------------------------------------------------------------------------
+		$this->info_formulario["scroll"] = 0;
+		$this->info_formulario["ancho"] = 500;
+		$this->info_formulario["alto"] = "auto";
+		
+		
     }
 
 	function obtener_definicion_db()
@@ -180,6 +189,19 @@ class objeto_ei_cuadro extends objeto_cuadro
         }else{
             if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
             //echo "<br>\n";
+            
+	        //Compruebo si tiene scroll ////////////////////////////////////////////////
+	        
+	        if($this->info_formulario["scroll"]){
+				$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "500";
+				$alto = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
+				echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
+			//	echo "<table class='tabla-0'>\n";
+			}else{
+				$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "100";
+			//	echo "<table width='$ancho' class='tabla-0'>\n";
+			}
+            
             echo "<table class='objeto-base' width='$ancho'>\n\n\n";
 
             if($mostrar_cabecera){
@@ -281,6 +303,12 @@ class objeto_ei_cuadro extends objeto_cuadro
             echo "</td></tr>\n";
             $this->generar_html_barra_paginacion();
             echo "</table>\n";
+            
+			//Y por cierto......... si esto tenia scroll, cierro el div !!!
+			if($this->info_formulario["scroll"]){
+				echo "</div>";
+			}
+		            
             //echo "<br>\n";
         }
     }
