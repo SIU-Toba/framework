@@ -240,7 +240,7 @@ class ef //Clase abstracta, padre de todos los EF
 			//Controlo que todas las dependencias esten cargadas
 			$control_dep = true;
 			foreach($this->dependencias as $dep){
-				if(trim($datos[$dep])==""){
+				if(!array_key_exists($dep, $datos) || trim($datos[$dep])==""){
 					$control_dep = false;
 					break;
 				}
