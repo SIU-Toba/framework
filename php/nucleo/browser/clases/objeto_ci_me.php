@@ -98,17 +98,40 @@ class objeto_ci_me extends objeto_ci
 
 	function cargar_dependencias_activas()
 	{
-		//-[1]- Obtengo la dependencias de la etapa ACTUAL
-		$this->dependencias_actual = $this->obtener_dependencias($this->etapa_actual);
-		//-[2]- Obtengo la dependencias de la etapa ANTERIOR
+		$this->cargar_dependencias_actuales();
+		$this->cargar_dependencias_previas();
+	}
+	//-------------------------------------------------------------------------------
+
+	function cargar_dependencias_previas()
+	{
 		if(isset($this->etapa_previa)){
 			$this->dependencias_previa = $this->obtener_dependencias($this->etapa_previa);
-		}else{
-			$this->dependencias_previa = array();
+			$dependencias = null;
+			foreach($this->dependencias_previa as $dep){
+				if(!isset($this->dependencias[$dep])){
+					$dependencias[] = $dep;
+				}
+			}
+			if(isset($dependencias)){
+				$this->cargar_dependencias($this->dependencias_previa);
+			}
+		}		
+	}
+
+	function cargar_dependencias_actuales()
+	{
+		$this->dependencias_actual = $this->obtener_dependencias($this->etapa_actual);	
+		//Controlo no volver a cargar una dependencia
+		$dependencias = null;
+		foreach($this->dependencias_actual as $dep){
+			if(!isset($this->dependencias[$dep])){
+				$dependencias[] = $dep;
+			}
 		}
-		$dependencias_activas = array_unique(array_merge($this->dependencias_actual, $this->dependencias_previa));
-		//ei_arbol($dependencias_activas);
-		$this->cargar_dependencias($dependencias_activas);
+		if(isset($dependencias)){
+			$this->cargar_dependencias($dependencias);
+		}
 	}
 	//-------------------------------------------------------------------------------
 
@@ -129,12 +152,6 @@ class objeto_ci_me extends objeto_ci
 		}
 		$this->cargar_dependencias($dependencias_inactivas);
 	}
-	//-------------------------------------------------------------------------------
-
-	function descargar_dependencias()
-	{
-
-	}	
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -188,7 +205,7 @@ class objeto_ci_me extends objeto_ci
 		//Veo en que etapa estoy.
 		$this->evaluar_etapa();
 		//Creo las dependencias de esta etapa
-		$this->cargar_dependencias_activas();		
+		$this->cargar_dependencias_activas();
 
 		try 
 		{
@@ -211,11 +228,6 @@ class objeto_ci_me extends objeto_ci
 			//$this->cargar_dependencias_inactivas();
 			$this->procesar_operacion();
 		}
-		//-[4]- Cargar de los DAOS
-		$this->cargar_daos();
-				
-		//Guardo el estado de las dependencias
-		$this->descargar_dependencias();	
 	}
 	//-------------------------------------------------------------------------------
 
@@ -265,7 +277,10 @@ class objeto_ci_me extends objeto_ci
 		if($metodo = $this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["pre_condicion"]){
 			$this->cn->$metodo();
 		}
+		// Cargo los elementos de interface
 		$this->cargar_datos_dependencias();
+		// Cargar de los DAOS
+		$this->cargar_daos();
 		return true;	
 	}
 	//-------------------------------------------------------------------------------
@@ -313,21 +328,7 @@ class objeto_ci_me extends objeto_ci
 
 	function interface_estandar()
 	{
-		$existe_previo = 0;
-		echo "<table class='tabla-0'  width='100%'>\n";
-		foreach($this->dependencias_actual as $dep){
-			if($existe_previo){
-				//Separador
-				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
-			}
-			echo "<tr><td class='celda-vacia'>";
-			$this->acc_editor_depencencias($dep);
-			//HTML de la DEPENDENCIA
-			$this->dependencias[$dep]->obtener_html();	
-			echo "</td></tr>\n";
-			$existe_previo = 1;
-		}
-		echo "</table>\n";
+		parent::obtener_interface();
 	}
 	//-------------------------------------------------------------------------------
 	

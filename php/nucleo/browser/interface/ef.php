@@ -555,7 +555,14 @@ function ef_mostrar_{$this->id_form}()
 								"/admin/objetos/editores/formulario",
 								574);
 	}	
-	
+
+	function obtener_interface_ei_filtro()
+	{
+		$this->envoltura_std($this->obtener_input(),
+								"/admin/objetos/editores/ei_filtro",
+								1088);
+	}
+		
 	function obtener_html()
 	{
 		$this->envoltura_filtro( $this->obtener_input() );

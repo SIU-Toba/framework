@@ -32,7 +32,10 @@
 		-	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
 		-	Facilitar la creación de nuevos estilos. Tarea: analizar la distribución de los estilos.
 		-	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
-		-	Manejar la carga de objetos con excepciones
+		-	Carga de objetos:
+			- Lugar unificado de carga (actualmente solicitud y objeto)
+			- Control la existencia de la instanciacion
+			- Excepciones
 
 
 	3) Cosas concretas pendientes

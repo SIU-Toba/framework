@@ -49,7 +49,7 @@ class objeto_ci extends objeto
 		}else{
 			$this->cancelar_etiq = "cancelar";
 		}
-		$this->flag_cancelar_operacion = "ci_canop";
+		$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
 		//Si tengo al CN como dependencia, lo cargo!
 		//EL ID que puede tomar el CN esta harcodeado
 		if(isset($this->indice_dependencias['__cn'])){
@@ -57,6 +57,11 @@ class objeto_ci extends objeto
 			//Asigno la referencia a la variable del CN de la clase
 			$this->asignar_controlador_negocio( $this->dependencias['__cn'] );
 		}
+	}
+
+	function set_nombre_formulario($nombre)
+	{
+		$this->nombre_formulario = $nombre;
 	}
 
 	function destruir()
@@ -74,10 +79,11 @@ class objeto_ci extends objeto
 		$sql = parent::obtener_definicion_db();
 		//-- CI ----------------------
 		$sql["info_ci"]["sql"] = "SELECT		incremental	as	incremental,
-												debug_eventos 			as debug_eventos,
+												debug_eventos 			as	debug_eventos,
 												ev_procesar				as	ev_procesar,
 												ev_procesar_etiq		as	ev_procesar_etiq,
-												activacion_procesar		as activacion_procesar,
+												activacion_procesar		as	activacion_procesar,
+												metodo_despachador		as	metodo_despachador,
 												ev_cancelar				as	ev_cancelar,
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
 												objetos					as	objetos,			
@@ -139,10 +145,17 @@ class objeto_ci extends objeto
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		//Cargo dependencias
 		foreach($dependencias as $dep){
-			//Crear
+			//Creo la dependencia
 			$this->cargar_dependencia($dep);		
-//			Inicializar
-			$this->dependencias[$dep]->inicializar($parametro);
+			if($this->dependencias[$dep] instanceof objeto_ci ){
+				//-- CI! --
+				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
+				$this->dependencias[$dep]->set_nombre_formulario($this->nombre_formulario);
+				$this->dependencias[$dep]->procesar();
+			}else{
+				// Inicializar
+				$this->dependencias[$dep]->inicializar($parametro);
+			}
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -150,14 +163,13 @@ class objeto_ci extends objeto
 	function cargar_daos()
 	{
 		//Manejo de DAOS
-		//Solo para formularios!!
-		//Clase que pueden tener DAOS para combos
-		//$clases_dao[]="objeto_ei_formulario, objeto_ei_cuadro";
-		foreach ($this->dependencias as $dependencia){		
-			if(	$dependencia instanceof objeto_ei_formulario ||	
-				$dependencia instanceof objeto_ei_cuadro )
+		//Los daos solo tienen que ejecutarse sobre las depedencias actuales
+		foreach($this->dependencias_actual as $dep)
+		{			
+			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||	
+				$this->dependencias[$dep] instanceof objeto_ei_cuadro )
 			{
-				if( $dao_form = $dependencia->obtener_consumo_dao() ){
+				if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
 					//ei_arbol($dao_form,"DAO");
 					//Por cada elemento de formulario que necesita DAOS
 					foreach($dao_form as $ef => $dao){
@@ -166,7 +178,7 @@ class objeto_ci extends objeto
 						eval($sentencia);
 						//ei_arbol($datos,"DATOS $ef");
 						//El cuadro carga sus daos de otra forma
-						$dependencia->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+						$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
 					}
 				}
 			}
@@ -286,17 +298,21 @@ class objeto_ci extends objeto
 	{
 		foreach($dependencias as $dep)
 		{
-			//-[1]- Cargo la actividad del usuario
-			$this->dependencias[$dep]->recuperar_interaccion();
-			//-[2]- Valido el ESTADO
-			//$this->dependencias[$dep]->validar_estado();
-			//-[3]- Controlo los eventos
-			if($evento = $this->dependencias[$dep]->obtener_evento() ){
-				$this->procesar_evento($dep, $evento);
-			}
-			//Se proceso el evento... si es un formulario limpio la interface
-			if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
-				$this->dependencias[$dep]->limpiar_interface();
+			//-- ! CI! --
+			if( ! ($this->dependencias[$dep] instanceof objeto_ci ) )
+			{
+				//-[1]- Cargo la actividad del usuario
+				$this->dependencias[$dep]->recuperar_interaccion();
+				//-[2]- Valido el ESTADO
+				//$this->dependencias[$dep]->validar_estado();
+				//-[3]- Controlo los eventos
+				if($evento = $this->dependencias[$dep]->obtener_evento() ){
+					$this->procesar_evento($dep, $evento);
+				}
+				//Se proceso el evento... si es un formulario limpio la interface
+				if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
+					$this->dependencias[$dep]->limpiar_interface();
+				}
 			}
 		}
 	}
@@ -415,8 +431,7 @@ class objeto_ci extends objeto
 		//-[2]- Genero la SALIDA
 		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
-
-		$this->obtener_javascript_global_consumido($this->dependencias_actual);
+		$this->obtener_javascript_global_consumido();
 
 		echo "<br>\n";
 		$javascript_submit = " onSubmit='return validar_ci_".$this->nombre_formulario."(this)' ";
@@ -443,7 +458,7 @@ class objeto_ci extends objeto
 		echo "</table>\n";
 		echo "</div>\n";
 		echo form::cerrar();
-		$this->obtener_javascript_validador_form($this->dependencias_actual);
+		$this->obtener_javascript_validador_form();
 		echo "<br>\n";
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 	}
@@ -453,13 +468,24 @@ class objeto_ci extends objeto
 	{
 		$existe_previo = 0;
 		echo "<table class='tabla-0'  width='100%'>\n";
-		foreach($this->dependencias_actual as $dep){
+		foreach($this->dependencias_actual as $dep)
+		{
 			if($existe_previo){
+				//Separador
 				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
 			}
 			echo "<tr><td class='celda-vacia'>";
-			//echo recurso::imagen_apl("objetos/fantasma.gif",true);
-			$this->dependencias[$dep]->obtener_html();	
+			if( $this->dependencias[$dep] instanceof objeto_ci )
+			// -- CI! --
+			{
+				//HTML del CI
+				$this->dependencias[$dep]->obtener_interface();
+			}else{
+				//Acceso al editor
+				$this->acc_editor_depencencias($dep);
+				//HTML de la DEPENDENCIA
+				$this->dependencias[$dep]->obtener_html();	
+			}
 			echo "</td></tr>\n";
 			$existe_previo = 1;
 		}
@@ -492,7 +518,7 @@ class objeto_ci extends objeto
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_javascript_global_consumido($dependencias)
+	function obtener_javascript_global_consumido()
 /*
  	@@acceso: interno
 	@@desc: Genera el javascript GLOBAL que se consumen los EF. El javascript GLOBAL esta compuesto
@@ -500,17 +526,6 @@ class objeto_ci extends objeto
 */
 	{
 		$consumo_js = $this->consumo_javascript_global();
-		if(is_array($dependencias)){
-			foreach($dependencias as $ei){
-				//Es un formulario?
-				if($this->dependencias[$ei] instanceof objeto_ei_formulario ){
-					$temp = $this->dependencias[$ei]->consumo_javascript_global();
-					if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
-				}else{
-					//echo "no es un formulario";
-				}
-			}
-		}
 		$consumo_js = array_unique($consumo_js);
 		//--> Expresion regular que machea NULOS
 		if(in_array("ereg_nulo",$consumo_js)){
@@ -542,14 +557,32 @@ class objeto_ci extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	function obtener_javascript_validador_form($dependencias)
+	function consumo_javascript_global()
+/*
+ 	@@acceso: interno
+	@@desc: Javascript global requerido por los HIJOS de este CI
+*/
+	{
+		$consumo_js = array();
+		foreach($this->dependencias_actual as $dep){
+			//Es un formulario?
+			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
+				$this->dependencias[$dep] instanceof objeto_ci )
+			{
+				$temp = $this->dependencias[$dep]->consumo_javascript_global();
+				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
+			}else{
+					//echo "no es un formulario";
+			}
+		}
+		return $consumo_js;
+	}
+	//-------------------------------------------------------------------------------
+	
+	function obtener_javascript_validador_form()
 /*
  	@@acceso: interno
 	@@desc: Javascript asociado al SUBMIT del FROM
-
-
-	Hay que separar la validacion de cada ei_formulario en una funcion,
-	llamadas desde esta???
 */
 	{
 		//-[2]- Incluyo el JAVASCRIPT de CONTROLA el FORM
@@ -557,35 +590,24 @@ class objeto_ci extends objeto
 		echo "//----------- Funcion VALIDADORA del FORM ----------\n";
 		echo "function validar_ci_{$this->nombre_formulario}(formulario){\n";
 //		echo "alert(\"estoy aca!!\");return false;\n";
-
-		//Cargo el JAVASCRIPT de las dependencias
-		foreach($dependencias as $ei){
-			if($this->dependencias[$ei] instanceof objeto_ei_formulario ){
-				echo $this->dependencias[$ei]->obtener_javascript();
-			}
-		}
-		//Control especifico del CI
 		$this->obtener_javascript();
-
 		echo "\n\nreturn true;\n";//Todo OK, salgo de la validacion del formulario
 		echo "}\n</script>\n\n";
-	}
-
-	function consumo_javascript_global()
-/*
- 	@@acceso: interno
-	@@desc: Javascript global requerido por los HIJOS de este CI
-*/
-	{
-		return array();
 	}
 	//-------------------------------------------------------------------------------
 
 	function obtener_javascript()
 	//Javascript que los HIJOS incorporan en la validacion del formulario
 	{
+		foreach($this->dependencias_actual as $dep)
+		{
+			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
+				$this->dependencias[$dep] instanceof objeto_ci )
+			{
+				echo $this->dependencias[$dep]->obtener_javascript();
+			}
+		}
 	}
 	//-------------------------------------------------------------------------------
-
 }
 ?>

@@ -28,6 +28,7 @@ CREATE TABLE apex_objeto_mt_me
 	ancho									varchar(20)			NULL,
 	alto									varchar(20)			NULL,
 	activacion_procesar						varchar(40)			NULL, -- Funcion del CN que indica cuando procesar
+	metodo_despachador						varchar(40)			NULL, -- (ci_flujo) Funcion del CN que indica la etapa activa
 	CONSTRAINT	"apex_objeto_mt_me_pk" PRIMARY	KEY ("objeto_mt_me_proyecto","objeto_mt_me"),
 	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
 );
