@@ -42,12 +42,13 @@ class objeto_cn_ent_se extends objeto_cn_ent
 		if( $this->existe_entidad_cargada() )
 		{
 			$opciones[0]['etiqueta'] = "Eliminar";
-			$opciones[0]['metodo'] = "eliminar_entidad";
+			$opciones[0]['metodo'] = "procesar";
 			$opciones[0]['metodo_param'] = "eliminar";
 			$opciones[1]['etiqueta'] = "Modificar";
 			$opciones[1]['metodo'] = "procesar";
 			$opciones[2]['etiqueta'] = "Cancelar";
 			$opciones[2]['metodo'] = "cancelar";
+			$opciones[2]['rol'] = "cancelar";
 		}
 		elseif( $this->etapa == "ALTA")
 		{
@@ -55,6 +56,7 @@ class objeto_cn_ent_se extends objeto_cn_ent
 			$opciones[0]['metodo'] = "procesar";
 			$opciones[2]['etiqueta'] = "Cancelar";
 			$opciones[2]['metodo'] = "cancelar";
+			$opciones[2]['rol'] = "cancelar";
 		}
 		else		
 		{

@@ -1,0 +1,16 @@
+
+
+	Notas sobre los temas Seba
+
+	- EI_FORM *
+		-> Estaria bueno que el efecto de la validacion erronea en el cliente y la del server sean parecidas
+
+	- ML: 
+		-> Puede utilizarse la clase de javascript para saber que lineas se modificaron??
+			-> Puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento?
+
+
+	- EF:
+		-> La nueva jerarquia tiene que generar excepciones cuando falla la validacion del server
+		-> El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
+		

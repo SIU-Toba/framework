@@ -6,7 +6,6 @@ class objeto_cn_t extends objeto_cn
 	protected $transaccion_abierta;			// privado | boolean | Indica si la transaccion se encuentra en proceso
 	protected $estado_transaccion;			// privado | boolean | Indica el estado de la ultima ejecucio de SQL
 	protected $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
-	protected $proceso_ok;
 
 	function __construct($id, $resetear=false)
 /*
@@ -16,12 +15,6 @@ class objeto_cn_t extends objeto_cn
 	{
 		parent::__construct($id, $resetear);
 		$this->transaccion_abierta = false;
-		$this->proceso_ok = false;
-	}
-
-	function get_estado_proceso()
-	{
-		return $this->proceso_ok;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -136,6 +129,7 @@ class objeto_cn_t extends objeto_cn
 	{
 		try
 		{
+			//ignore_user_abort();				//------> ?????
 			$this->iniciar_transaccion();
 			$this->validar_datos();
 			$this->procesar_especifico($parametros);

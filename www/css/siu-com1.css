@@ -1418,10 +1418,10 @@ DIV.doc-func-param-obligatorio {
 TD.ef-etiqueta-obligatorio {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
+	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left;
-	 text-weight: bold
+	 TEXT-ALIGN: left
 }
 TD.ef-etiqueta {
 	PADDING-RIGHT: 2px;
@@ -1434,7 +1434,8 @@ TD.ef-etiqueta-error {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
-	 BACKGROUND-COLOR: #d4d0c8;
+	 COLOR: #ffffff;
+	 BACKGROUND-COLOR: #ff411b;
 	 TEXT-ALIGN: left
 }
 TD.ef-zonainput {
@@ -2189,6 +2190,7 @@ TD.tabs-contenedor {
 	 PADDING-LEFT: 7px;
 	 PADDING-BOTTOM: 10px;
 	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
 	 BORDER-LEFT: #ffffff 2px solid;
 	 PADDING-TOP: 10px;
 	 BORDER-BOTTOM: #808080 2px solid;

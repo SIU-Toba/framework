@@ -40,33 +40,31 @@ class objeto_ci_flujo extends objeto_ci_me
 	{
 		$this->determinar_modelo_opciones();
 		// -[0]- Cancelar la operacion?
-		if( $this->operacion_cancelada() ){
-			$this->cancelar_operacion();
-		}
-		try 
+		if( ! $this->controlar_cancelacion() )
 		{
-			//-[1]- Procesamiento de la <<< SALIDA de la etapa PREVIA >>>
-			if(isset($this->memoria["etapa"])){
-				$this->etapa_previa = $this->memoria["etapa"];
-				$this->cargar_dependencias_previas();
-				$this->disparar_salida();
-			}
+			try 
+			{
+				//-[1]- Procesamiento de la <<< SALIDA de la etapa PREVIA >>>
+				if(isset($this->memoria["etapa"])){
+					$this->etapa_previa = $this->memoria["etapa"];
+					$this->disparar_salida();
+				}
+				//-[2]- Procesamiento de la <<< OPERACION >>>
+				$this->controlar_procesamiento();
+	
+				//-[3]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
+				$this->evaluar_etapa_actual();
+				$this->disparar_entrada();
 
-			//-[2]- Procesamiento de la <<< OPERACION >>>
-			if($this->controlar_activacion()){ //Procesar el Marco transaccional
-				//$this->cargar_dependencias_inactivas();
-				$this->procesar_operacion();
+			} catch(excepcion_toba $e) 
+			{
+				$this->cargar_etapa_anterior();
+				$this->informar_msg($e->getMessage(), 'error');
 			}
-
+		}else{
 			//-[3]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
 			$this->evaluar_etapa_actual();
-			$this->cargar_dependencias_actuales();
 			$this->disparar_entrada();
-
-		} catch(excepcion_toba $e) 
-		{
-			$this->cargar_etapa_anterior();
-			echo ei_mensaje($e->getMessage(), 'error');
 		}
 	}
 	//-------------------------------------------------------------------------------

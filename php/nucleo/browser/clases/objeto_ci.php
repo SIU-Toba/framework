@@ -22,6 +22,7 @@ class objeto_ci extends objeto
 	protected $dependencias_actual = array();
 	protected $modelo_opciones;				//Modelo de opciones de navegacion en la operacon
 	protected $opciones_anteriores;			//Opciones ofrecidas en el REQUEST anterior
+	protected $opcion_cancelar;				//Indica cual es la opcion de cancelar
 	protected $submit_especifico;			//Prefijo del SUBMIT de las opciones especificas
 	
 	function objeto_ci($id)
@@ -113,12 +114,23 @@ class objeto_ci extends objeto
 			//por lo tanto el estado del CN es el de la finalizacion del request ANTERIOR.
 			//Esta lista corresponde entonces a las opciones que tenia la pantalla anterior
 			$this->opciones_anteriores = $this->get_opciones_especificas();
+			$this->opcion_cancelar = null;
+			//SI un boton cumple el rol de CANCELAR la operacion, esto se avisa explicitamente.
+			//(la cancelacion tiene algunas consideraciones especiales: se ejecuta antes de rutear eventos y borra la memoria)
+			foreach($this->opciones_anteriores  as $id => $opcion){
+				if(isset($opcion['rol'])){
+					if($opcion['rol'] == "cancelar") $this->opcion_cancelar = $id;
+					break;
+				}
+			}
 		}
 	}
 
 	function get_opciones_especificas()
 	//Acceso a las opciones especificas de la operacion
 	{
+		//ATENCION!!!
+		//Hay que usar "metodo_opciones"...
 		$metodo = trim($this->info_ci['activacion_procesar']);
 		$opciones = $this->cn->$metodo();
 		if(! is_array($opciones) ){
@@ -147,27 +159,30 @@ class objeto_ci extends objeto
 	*/
 	{
 		$this->determinar_modelo_opciones();
-		// 0 - Cancelar la operacion?
-		if( $this->operacion_cancelada() ){
-			$this->cancelar_operacion();
-		}
-		// 1 - Cargo las dependencias
+
+		// 0 - Cargo las dependencias
 		if(isset($this->info_ci["objetos"])){
 			$dependencias = explode(",",$this->info_ci["objetos"]);
 			$this->dependencias_actual = array_map("trim",$dependencias);
 		}
 		$this->cargar_dependencias($this->dependencias_actual);
-		// 2 - Busco eventos en los EI
-		$this->controlar_eventos($this->dependencias_actual);
 
-		// 3 - Proceso la operacion
-		if($this->controlar_activacion()){ //Procesar el Marco transaccional
-			//$this->cargar_dependencias_inactivas();
-			$this->procesar_operacion();
+		// 1 - Cancelar la operacion?
+		if( ! $this->controlar_cancelacion() ){
+			try{
+				// 2 - Busco eventos en los EI
+				$this->controlar_eventos($this->dependencias_actual);
+		
+				// 3 - Proceso la operacion
+				$this->controlar_procesamiento();
+			}catch(excepcion_toba $e) 
+			{
+				$this->informar_msg($e->getMessage(), 'error');
+			}
 		}
+
 		// 4- Cargo los DAOS //Seba, lo saque del if anterior
 		$this->cargar_daos();
-
 		// 5 - Cargo las interfaces de los EI
 		//Esto deberia estar en un metodo aparte
 		$this->cargar_datos_dependencias();
@@ -177,6 +192,7 @@ class objeto_ci extends objeto
 	function cargar_dependencias($dependencias)
 	//Hay logica para subir al padre
 	{
+		$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] <<*** CREAR dependencias ***>> \n" . var_export($dependencias, true));
 		//Parametros a los formularios
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		//Cargo dependencias
@@ -263,6 +279,13 @@ class objeto_ci extends objeto
 		}			
 	}
 
+	function borrar_memoria()
+	{
+		//Falta borrar ciclicamente la memoria de los hijos
+		unset($this->memoria);
+		$this->solicitud->hilo->persistir_dato("obj_".$this->id[1],null);
+	}
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------------  PROCESAMIENTO de EVENTOS  ------------------------------
@@ -284,33 +307,17 @@ class objeto_ci extends objeto
 			{
 				//-[1]- Cargo la actividad del usuario
 				$this->dependencias[$dep]->recuperar_interaccion();
-				//-[2]- Valido el ESTADO
-				//$this->dependencias[$dep]->validar_estado();
 				//-[3]- Controlo los eventos
 				if($evento = $this->dependencias[$dep]->obtener_evento() ){
+					//-[3.1]- Valido el ESTADO
+					if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
+						$this->dependencias[$dep]->validar_estado();
+					}
 					$this->procesar_evento($dep, $evento);
 				}
 				//Se proceso el evento... si es un formulario limpio la interface
 				if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
 					$this->dependencias[$dep]->limpiar_interface();
-				}
-			}
-		}
-		//-[ 2 ]- En el caso de un modelo ESPECIFICO de opciones, tengo que ver cual opero
-		if($this->modelo_opciones=="especifico"){
-			//Me fijo si se eligio una opcion
-			foreach( $this->opciones_anteriores as $id => $opcion)
-			{
-				if( isset($_POST[$this->submit_especifico . $id]) ){
-					//Se selecciono una opcion, llamo al metodo del CN indicado
-					$metodo = $opcion["metodo"];
-					if(isset($opcion['metodo_param'])){
-						$this->cn->$metodo( $opcion['metodo_param'] );
-					}else{
-						$this->cn->$metodo();
-					}
-					//ATENCION: Esto aparentemente es temporal
-					$this->borrar_memoria();
 				}
 			}
 		}
@@ -381,49 +388,76 @@ class objeto_ci extends objeto
 	navegacion dentro de la operacion al usuario
 */
 
-	function controlar_activacion()
-/*
- 	@@acceso: interno
-	@@desc: Determina si se activo este marco transaccional (si el submit se disparo desde el formulario HTML del mismo)
-*/
+	function controlar_cancelacion()
+	//FALTA LLAMAR A LA CANCELACION DE CIs HIJOS
 	{
-		if(isset($_POST[$this->submit])){
-			//Apretaron el SUBMIT de este FORM
-			return true;		
+		if($this->modelo_opciones=="especifico"){
+			if( isset($_POST[ $this->submit_especifico . $this->opcion_cancelar ]) ){
+				//Se selecciono una opcion, llamo al metodo del CN indicado
+				$opcion = $this->opciones_anteriores[$this->opcion_cancelar];
+				$metodo = $opcion["metodo"];
+				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] INVOCACION a CANCELAR: *** $metodo ***");
+				if(isset($opcion['metodo_param'])){
+					$this->cn->$metodo( $opcion['metodo_param'] );
+				}else{
+					$this->cn->$metodo();
+				}
+				$this->estado_cancelar = true;
+				$this->borrar_memoria();
+				return true;
+			}
 		}else{
-			//El submit no es de este formulario, la atencion esta en otro lugar...
-			return false;	
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function operacion_cancelada()
-	{
-		if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
-			return true;
+			if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
+				//Se dispara la cancelacion en el controlador de negocio
+				$this->cn->cancelar();
+				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] *** CANCELAR ESTANDAR ***");
+				$this->estado_cancelar = true;
+				$this->borrar_memoria();
+				return true;
+			}
 		}
 		return false;
 	}
 	//-------------------------------------------------------------------------------
 
-	function cancelar_operacion()
-	{	
-		//Se dispara la cancelacion en el controlador de negocio
-		$this->estado_cancelar = true;
-		$this->cn->cancelar();
-		$this->borrar_memoria();
-	}
-	//-------------------------------------------------------------------------------
-
-	function procesar_operacion()
+	function controlar_procesamiento()
+/*
+ 	@@acceso: interno
+	@@desc: Determina si se activo este marco transaccional (si el submit se disparo desde el formulario HTML del mismo)
+*/
 	{
-		//Se dispara el procesamiento del controlador de negocio
-		$this->cn->procesar();
+		if($this->modelo_opciones=="especifico"){
+			//Me fijo si se eligio una opcion
+			foreach( $this->opciones_anteriores as $id => $opcion)
+			{
+				if($id !== $this->opcion_cancelar ){
+					if( isset($_POST[$this->submit_especifico . $id]) ){
+						//Se selecciono una opcion, llamo al metodo del CN indicado
+						$metodo = $opcion["metodo"];
+						$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] INVOCACION a PROCESAR: *** $metodo ***");
+						if(isset($opcion['metodo_param'])){
+							$this->cn->$metodo( $opcion['metodo_param'] );
+						}else{
+							$this->cn->$metodo();
+						}
+					}
+				}
+			}
+		}else{
+			if(isset($_POST[$this->submit])){
+				//Apretaron el SUBMIT de este FORM
+				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] *** PROCESAR ESTANDAR ***");
+				$this->cn->procesar();
+			}
+		}
 		if( $this->cn->get_estado_proceso() ){
 			$this->borrar_memoria();
+			//Tengo que borrar la memoria de las dependencias cargadas que sean CI...
+			return true;		
+		}else{
+			return false;
 		}
 	}
-
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -478,7 +512,7 @@ class objeto_ci extends objeto
 	@@desc: Devuelve la interface del Marco Transaccional
 */
 	{
-		//-[0]- Si el proceso funciono
+		//-[0]- Si el CN tiene 
 		if( $this->cn->get_estado_proceso() ){
 			if(trim($this->info_ci['post_procesar'])!="")
 			{

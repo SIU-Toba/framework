@@ -186,7 +186,7 @@ class objeto_ci_me extends objeto_ci
 				//--> Entrada a la ETAPA inicial!!
 				//echo "Estado INICIAL";
 				//$this->limpiar_memoria_global();
-				$this->etapa_actual = $this->info_ci_me_etapa[0]["posicion"];
+				$this->etapa_actual = $this->get_etapa_inicial();
 				//$this->cn->reset();
 			}
 		}
@@ -194,58 +194,49 @@ class objeto_ci_me extends objeto_ci
 	}
 	//-------------------------------------------------------------------------------
 
+	function get_etapa_inicial()
+	{
+		return $this->info_ci_me_etapa[0]["posicion"];
+	}
+	//-------------------------------------------------------------------------------
+	
+
 	function procesar()
 	{
 		$this->determinar_modelo_opciones();
-		// -[0]- Cancelar la operacion?
-		if( $this->operacion_cancelada() ){
-			$this->cancelar_operacion();
-		}
-		//ATENCION: Falta controlar si el paso de etapas es VALIDO
 		//Veo en que etapa estoy.
 		$this->evaluar_etapa();
-		//Creo las dependencias de esta etapa
-		$this->cargar_dependencias_activas();
-
-		try 
+		if( ! $this->controlar_cancelacion() )
 		{
-			//-[1]- Procesamiento de la <<< SALIDA de la etapa PREVIA >>>
-			if(isset($this->etapa_previa)){
-				$this->disparar_salida();
+			try{
+				//-[1]- Procesamiento de la <<< SALIDA de la etapa PREVIA >>>
+				if(isset($this->etapa_previa)){
+					$this->disparar_salida();
+				}
+				//-[2]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
+				$this->disparar_entrada();
+
+				//-[3]- Se activo una orden de procesamiento?
+				if( $this->controlar_procesamiento() ){
+					$this->cargar_etapa_inicial();					
+				}
+			} catch(excepcion_toba $e) 
+			{
+				$this->cargar_etapa_anterior();
+				$this->informar_msg($e->getMessage(), 'error');
 			}
-
-			//-[2]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
-			$this->disparar_entrada();
-
-		} catch(excepcion_toba $e) 
-		{
-			$this->cargar_etapa_anterior();
-			echo ei_mensaje($e->getMessage(), 'error');
 		}
-		
-		//-[3]- Procesamiento de la <<< OPERACION >>>
-		if($this->controlar_activacion()){ //Procesar el Marco transaccional
-			//$this->cargar_dependencias_inactivas();
-			$this->procesar_operacion();
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function disparar_entrada()
-	//Dispara la entrada a una etapa
-	{
-		$proceso_entrada_especifico = "procesar_entrada_" . $this->etapa_actual;
-		if(method_exists($this, $proceso_entrada_especifico)){
-			return $this->$proceso_entrada_especifico();
-		}else{
-			//Utilizo el procesamiento generico
-			return $this->procesar_entrada();
+		else{
+			//El usuario cancelo la operacion
+			$this->cargar_etapa_inicial();					
 		}
 	}
 	//-------------------------------------------------------------------------------
 	
 	function disparar_salida()
 	{
+		//Creo las dependencias de esta etapa
+		$this->cargar_dependencias_previas();
 		$proceso_salida_especifico = "procesar_salida_" . $this->etapa_previa;
 		if(method_exists($this, $proceso_salida_especifico)){
 			return $this->$proceso_salida_especifico();
@@ -269,6 +260,21 @@ class objeto_ci_me extends objeto_ci
 	}
 	//-------------------------------------------------------------------------------
 
+	function disparar_entrada()
+	//Dispara la entrada a una etapa
+	{
+		//Creo las dependencias de esta etapa
+		$this->cargar_dependencias_actuales();
+		$proceso_entrada_especifico = "procesar_entrada_" . $this->etapa_actual;
+		if(method_exists($this, $proceso_entrada_especifico)){
+			return $this->$proceso_entrada_especifico();
+		}else{
+			//Utilizo el procesamiento generico
+			return $this->procesar_entrada();
+		}
+	}
+	//-------------------------------------------------------------------------------
+
 	function procesar_entrada()
 	//Entrada GENERICA a una ETAPA
 	{
@@ -286,12 +292,21 @@ class objeto_ci_me extends objeto_ci
 	//-------------------------------------------------------------------------------
 
 	function cargar_etapa_anterior()
+	//Carga la etapa anterior a la actual
 	{
 		$this->etapa_actual = $this->etapa_previa;
-		$this->dependencias_actual = $this->dependencias_previa;
 		$this->memoria["etapa"] = $this->etapa_actual;
 		$this->disparar_entrada();
-	}	
+	}
+	//-------------------------------------------------------------------------------
+	
+	function cargar_etapa_inicial()
+	//Carga la etapa inicial de la operacion
+	{
+		$this->etapa_actual = $this->get_etapa_inicial();
+		$this->memoria["etapa"] = $this->etapa_actual;
+		$this->disparar_entrada();
+	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------

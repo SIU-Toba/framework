@@ -423,28 +423,18 @@ class objeto_ei_formulario extends objeto
 	//-------------------------------------------------------------------------------
 
 	function validar_estado()
-/*
-	@@acceso: interno
-	@@desc: Valida	el	registro
-	@@pendiente: grados:	EJ	un	ef_oculto_proyecto no la deberia	dejar	pasar...
-*/
 	{
+		$status =	true;
 		//Valida	el	estado de los ELEMENTOS	de	FORMULARIO
-		  $status =	true;
-		foreach ($this->lista_ef as $ef){
-			$temp	= $this->elemento_formulario[$ef]->validar_estado();
-				if(!$temp[0]){
-					 $status	= false;
-					$this->registrar_info_proceso("[". $this->elemento_formulario[$ef]->obtener_etiqueta(). 
-													"]	- ". $temp[1],"error");
-				}
+		foreach ($this->lista_ef as $ef)
+		{
+			//En la refactorizacion de EFs, el EF directamente dispara una excepcion
+			$temp = $this->elemento_formulario[$ef]->validar_estado();
+			if(!$temp[0]){
+				$mensaje = "Error en el elemento de formulario '" . $this->elemento_formulario[$ef]->obtener_etiqueta() ."' - ". $temp[1];
+				throw new excepcion_toba($mensaje);
+			}
 		}
-		//Validacion ESPECIFICA
-		//Carga los	datos	donde	el	VALIDADOR del HIJO los busca (ahorrar?)
-		if(!$temp){
-			$status = false;
-		}
-		  return	$status;
 	}
 	//-------------------------------------------------------------------------------
 

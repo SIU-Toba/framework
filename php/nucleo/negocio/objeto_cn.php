@@ -9,8 +9,9 @@ class objeto_cn extends objeto
 
 */
 {
-	var $indice_reglas;				//Indice de reglas de negocio
-
+	protected $indice_reglas;				//Indice de reglas de negocio
+	protected $proceso_ok;
+	
 	function __construct($id, $resetear=false)
 /*
  	@@acceso: nucleo
@@ -18,6 +19,7 @@ class objeto_cn extends objeto
 */
 	{
 		parent::objeto($id);
+		$this->proceso_ok = false;
 		if(!$resetear){
 			$this->recuperar_estado_sesion();
 			//ATENCION: Esta bien que en este mismo request despues se guarde el 
@@ -33,6 +35,11 @@ class objeto_cn extends objeto
 	{
 		parent::destruir();
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
+	}
+
+	function get_estado_proceso()
+	{
+		return $this->proceso_ok;
 	}
 
 	function establecer_tiempo_maximo($tiempo="30")
@@ -153,6 +160,7 @@ class objeto_cn extends objeto
 	//Esto hay que redeclararlo en los HIJOS
 	{
 		//ignore_user_abort() //Esto puede ser importante
+		$this->proceso_ok = true;
 		echo ei_mensaje("TRANSACCION cn padre!!!");
 	}
 
