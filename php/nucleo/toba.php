@@ -54,5 +54,14 @@ class toba
 		global $encriptador;
 		return $encriptador;	
 	}
+
+	function get_info_instancia($id)
+	{
+		global $instancia;
+		if(!isset($instancia[$id])){
+			throw new excepcion_toba("La instancia no se encuentra definida." );
+		}
+		return $instancia[$id];
+	}
 }
 ?>

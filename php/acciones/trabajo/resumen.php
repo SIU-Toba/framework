@@ -3,16 +3,18 @@
 	if($editable = $this->zona->obtener_editable_propagado()){
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
-	
+
+	$param = print_r( toba::get_info_instancia(apex_pa_instancia), true);
 			
 	//Mostrar la instancia y revision utilizada
 	echo "<pre>
 
 		INSTANCIA: " . apex_pa_instancia . "
-		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() );
+$param";
 		$proyecto  = $this->hilo->obtener_proyecto();
 		if( $proyecto != "toba" ){
-			echo "\n		revision SVN $proyecto: " . revision_svn($this->hilo->obtener_proyecto_path() );
+			echo "		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() ) . "
+		revision SVN $proyecto: " . revision_svn($this->hilo->obtener_proyecto_path() );
 		}
 
 		

@@ -250,7 +250,7 @@ class buffer
 		//-- Intento cargar el BUFFER
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
-			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos" .
+			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
 		}
 		if($rs->EOF){

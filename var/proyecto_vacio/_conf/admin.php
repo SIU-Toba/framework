@@ -2,7 +2,6 @@
 ################################################################################
 ############################> PUNTO de ACCESO <#################################
 ################################################################################
-
 #-------------------------------------------------------------------------------
 #----<  ESQUEMA de VALIDACION  >------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -26,19 +25,28 @@ define("apex_pa_validacion_debug",1);
 # SSL: agregar 'https://' a los links
 define("apex_pa_SSL",0);
 # Tiempo maximo de no interaccion.
-define("apex_pa_sesion_ventana",40);
+define("apex_pa_sesion_ventana",340);
 # Tiempo maximo de duracion de la sesion.
 define("apex_pa_sesion_maximo",0);
 # Manejo de parametros de querystring encriptados
-define("apex_pa_encriptar_qs",1);
+define("apex_pa_encriptar_qs",0);
 #-------------------------------------------------------------------------------
 #----<  Configuracion APEX  >-------------------------------------------------
 #-------------------------------------------------------------------------------
 # apex_pa_ID: ID de este punto de acceso
 #(Una misma sesion no deberia manejarse desde dos puntos de acceso)
 define("apex_pa_ID",$_SERVER["SCRIPT_FILENAME"]);
-# apex_pa_instancia: Instancia a la que el punto de acceso debe conectarse
-define("apex_pa_instancia","desarrollo"); //OLMEDO1
+# apex_pa_instancia: Parametro por defecto de creacion de la instancia
+define("apex_pa_instancia","desarrollo");
+# apex_pa_instancia_ : Instancia del 
+#define("apex_pa_instancia_metadatos","");
+#define("apex_pa_instancia_usuarios",""); 
+#define("apex_pa_instancia_logs","");
+#define("apex_pa_instancia_negocio_1","");
+#define("apex_pa_instancia_negocio_2","");
+#define("apex_pa_instancia_negocio_3","");
+#define("apex_pa_instancia_negocio_4","");
+#define("apex_pa_instancia_negocio_5","");
 # apex_proyecto: Proyecto PRIMARIO
 define("apex_pa_proyecto","%proyecto%");  //Proyecto: 'multi' = LOGON multiproyecto
 # apex_nombre: Nombre del sistema
@@ -56,31 +64,34 @@ define("apex_pa_administrador","jbordon@siu.edu.ar");
 # Acceso directo de OBJETOS a sus EDITORES
 define("apex_pa_acceso_directo_editor",1);//Los OBJETOS muestran LINKs a sus EDITORES
 #-------------------------------------------------------------------------------
+#----<  LOGGER  >----------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Indica el nivel de ERRORES que se va a registrar
+# 0 - EMERG
+# 1 - ALERT
+# 2 - CRIT
+# 3 - ERROR
+# 4 - WARNING
+# 5 - NOTICE
+# 6 - INFO
+# 7 - DEBUG
+# Nivel de log a ARCHVO
+define("apex_pa_log_archivo",1);
+define("apex_pa_log_archivo_nivel",2);
+# Nivel de log a la DB
+define("apex_pa_log_db",1);
+define("apex_pa_log_db_nivel",2);
+# Nivel de log a la pantalla
+define("apex_pa_log_pantalla",1);
+define("apex_pa_log_pantalla_nivel",7);
+#-------------------------------------------------------------------------------
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 define("apex_pa_estilo","violeta1");
 //MODELO de MENU a utilizar: milonic, milonic_frames
 define("apex_pa_menu","");
-
 ################################################################################
-
-    //Genero el INCLUDE que necesito para llegar al NUCLEO de APEX
-    if(isset($_ENV["toba_dir"])){
-        $dir_raiz = $_ENV["toba_dir"];
-		if (substr(PHP_OS, 0, 3) == 'WIN'){
-			$dir_php = $dir_raiz . "\\php";
-    	    ini_set("include_path", ".;" . $dir_php );
-		}else{
-			$dir_php = $dir_raiz . "/php";
-    	    ini_set("include_path", ".:" . $dir_php );
-		}
-        //echo ini_get("include_path");
-    }else{
-        die("No existe la VARIABLE de ENTORNO 'toba_dir'");
-    }
-
-    //Llamo al script que genera la SOLICITUD!!!
-    require_once("nucleo/acceso_browser.php"); 
-
+//Llamo al script que genera la SOLICITUD!!!
+require_once("nucleo/acceso_browser.php"); 
 ################################################################################
 ?>
