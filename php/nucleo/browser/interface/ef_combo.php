@@ -186,7 +186,7 @@ class ef_combo extends ef
             return $input;
         }else{
 				$html = $this->obtener_javascript_general() . "\n\n";
-				$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() );
+				$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() . $this->input_extra );
 				return $html;
         }
 	}
@@ -267,7 +267,7 @@ class ef_combo_dao extends ef_combo
 		}else{
 			$this->modo = "cn";	
 		}
-		unset($parametros["dao"]);//Este valor no significa nada para el padre
+		unset($parametros["dao"]);
 		unset($parametros["clase"]);
 		unset($parametros["include"]);
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
@@ -277,7 +277,9 @@ class ef_combo_dao extends ef_combo
 		//El modo estatico puede funcionar con cascadas
 		if($this->modo == "estatico"){
 			if(is_array($this->dependencias)){
-				$this->valores = array();
+				//$this->establecer_solo_lectura();
+				//$this->valores = array();
+				$this->input_extra = " disabled ";
 			}else{
 				$this->cargar_datos();
 			}
@@ -316,6 +318,38 @@ class ef_combo_dao extends ef_combo
 		}
 	}
 
+	function cargar_datos_master_ok()
+	//Si el master esta cargado, el EF procede a cargar sus registros
+	{
+		$parametros = array();
+		for($a=0;$a<count($this->dependencias);$a++){
+			$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]]."'";
+		}
+		$param = implode(",", $parametros);
+		if($this->modo =="estatico" )
+		{
+			include_once($this->include);
+			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."($param);";
+			//Esto es para que quede el no_seteado en los casos en que no se devuelven valores
+			eval($sentencia);//echo $sentencia;
+			if(isset($valores)){
+				$this->valores = $valores;	
+				$this->input_extra = "";
+			}else{
+				//La idea de la linea comentada era lograr el mismo efecto que provoca
+				//la carga desde el server de un valor NULL (en blanco con la longitud del no_seteado)
+				//$desc = str_repeat(count($this->no_seteado),"&nbsp");
+				$this->valores[apex_ef_no_seteado] = "";
+			}
+		}else{
+			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
+		}
+
+
+		
+
+
+	}
 }
 //########################################################################################################
 //########################################################################################################
@@ -389,7 +423,6 @@ class ef_combo_db extends ef_combo
         unset($parametros["sql"]);
 
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		//Si hay dependencias... no?
 		if(is_array($this->dependencias)){
 			$this->valores = array();
 		}else{
@@ -421,6 +454,20 @@ class ef_combo_db extends ef_combo
 			$this->valores = $this->valores + $temp;
 		}
 		//ei_arbol($this->valores);
+	}
+
+	function cargar_datos_master_ok()
+	//Si el master esta cargado, el EF procede a cargar sus registros
+	{
+		if(isset($this->sql)){
+			//1) Reescribo el SQL con los datos de las dependencias	
+			foreach($this->dependencias_datos as $dep => $valor){
+				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->sql);
+			}
+			//echo $this->id . " - " . $this->sql;
+			//2) Regenero la consulta a la base
+			$this->cargar_datos_db();
+		}
 	}
 
     function preparar_valores($datos_recordset)

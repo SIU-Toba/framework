@@ -35,7 +35,8 @@ class ef //Clase abstracta, padre de todos los EF
 	var $validacion=true;		// Flag que indica el estado de la validacion realizada sobre el estado
 	var $solo_lectura;      	// Flag que indica si el objeto se debe deshabilitar cuando se muestra
 	var $ocultable = false;		// Indica si el EF provee una interface para ocultarlo y mostrarlo
-	var $javascript="";			//Javascript del elemento de formulario
+	var $javascript="";			// Javascript del elemento de formulario
+	var $input_extra = "";		// Parametros adicionales
 	//--- DEPENDENCIAS ---
 	var $dependencias;			// Array de DEPENDENCIAS (Ids de EFs MAESTROS)
 	var $maestros;				// Array de id_form de Maestros
@@ -106,11 +107,6 @@ class ef //Clase abstracta, padre de todos los EF
 		$this->dep_master = true;
 	}
 	
-	function registrar_ef_maestro($ef, $id_form)
-	{
-		$this->maestros[$ef] = $id_form;
-	}
-
 	function javascript_master_evento()
 	//Dispara el evento de modificacion del padre
 	{
@@ -121,7 +117,6 @@ class ef //Clase abstracta, padre de todos los EF
 	{
 		//Le aviso a los dependientes que me modifique
 		$js = "function modificacion_maestro_{$this->id_form}()\n{\n";
-		//$js .= "	alert(ef.value);\n";
 		foreach($this->dependientes as $dependiente){
 			$js .= " escuchar_master_{$dependiente}{$this->agregado_form}();\n";
 		}
@@ -155,6 +150,11 @@ class ef //Clase abstracta, padre de todos los EF
 	
 	//Tiene que generar codigo javascript (una callback)
 	//que escuche los eventos del maestro
+
+	function registrar_ef_maestro($ef, $id_form)
+	{
+		$this->maestros[$ef] = $id_form;
+	}
 
 	function obtener_dependencias()
 	{
@@ -229,34 +229,24 @@ class ef //Clase abstracta, padre de todos los EF
 	//-----------------------------------------------------		
 	
 	function cargar_datos_dependencias($datos)
-	//Se pasa un array con los datos de todas las dependencias
-	//Actualmen Regenera el SQL en base a las dependencias.
-	//Si no tengo los valores de todas las dependencias
-	//tendria que mostrar al componente desactivado
+	//El form indica despues de su carga el valor que tomaron las
+	//dependencias (los maestros) de este EF. Si estan todos completos, puede
+	//proceder a cargar sus datos
 	{
-		$this->dependencias_datos = $datos;
-		//ei_arbol($this->dependencias_datos);
-		//Controlo que todas las dependencias esten cargadas
-		$control = true;
-		foreach($this->dependencias as $dep){
-			if(trim($datos[$dep])==""){
-				$control = false;
-				break;
+		if(count($datos)>0)
+		{
+			$this->dependencias_datos = $datos;
+			//ei_arbol($this->dependencias_datos);
+			//Controlo que todas las dependencias esten cargadas
+			$control_dep = true;
+			foreach($this->dependencias as $dep){
+				if(trim($datos[$dep])==""){
+					$control_dep = false;
+					break;
+				}
 			}
-		}
-		if(isset($this->sql)){
-			//echo $this->id . " - " . $this->sql;
-			//1) Reescribo el SQL con los datos de las dependencias	
-			foreach($datos as $dep => $valor){
-				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->sql);
-			}
-			//echo $this->id . " - " . $this->sql;
-			//2) Regenero la consulta a la base
-			if($control){
-				$this->cargar_datos_db();
-			}else{
-				 $this->estado = apex_ef_no_seteado;
-				 $this->establecer_solo_lectura();
+			if($control_dep){
+				$this->cargar_datos_master_ok();
 			}
 		}
 	}

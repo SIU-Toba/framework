@@ -24,7 +24,6 @@ class objeto_ei_formulario extends objeto
 	var $nombre_ef_cli = array(); // interno | array | ID html de los elementos
 	var $parametros;
 	var $modelo_eventos;
-	var $mapa_dependencias;
 	var $flag_out = false;			//indica si el formulario genero output
 	var $evento_mod_estricto;		// Solo dispara la modificacion si se apreto el boton procesar
 	
@@ -242,10 +241,13 @@ class objeto_ei_formulario extends objeto
 			$dependencias = $this->elemento_formulario[$ef]->obtener_dependencias();
 			if(is_array($dependencias)){
 				//echo "entre $ef<br>";
+				$estado = array();
 				foreach( $dependencias as $dep ){
 					//echo "entre $dep<br>";
 					if(is_object($this->elemento_formulario[$dep])){
-						$estado[$dep] = $this->elemento_formulario[$dep]->obtener_estado();
+						if($temp = $this->elemento_formulario[$dep]->obtener_estado()){
+							if($temp != "NULL") $estado[$dep] = $temp;
+						}
 					}else{
 						echo ei_mensaje("La dependencia '$dep' es invalida");
 					}
