@@ -80,7 +80,7 @@
 		echo 	"<div align='center'><table class='tabla-0' width='100%'>
 				<tr>
 				<td align='center'  style='padding: 10px 10px 10px 10px;' class='$clase'>
-				$texto</td><tr></table></div>";
+				$texto</td></tr></table></div>";
 	}
 //----------------------------------------------------------------------------------	
 
@@ -93,10 +93,10 @@
 */
 	{
 		echo "<div align='center'><table border='0' cellspacing='0' cellpadding='10'>";
-		if(isset($titulo)) echo "<tr><td align='center'>$titulo</td><tr>";
+		if(isset($titulo)) echo "<tr><td align='center'>$titulo</td></tr>";
 		echo "<tr><td align='center'><pre>";
 		print_r(htmlspecialchars($texto));
-		echo "<pre></td><tr></table></div>";
+		echo "<pre></td></tr></table></div>";
 	}
 //----------------------------------------------------------------------------------	
 
@@ -110,7 +110,7 @@
 		echo "<table width='$ancho' border='0' cellspacing='0' cellpadding='10' align='center'>";
 		echo "<tr><td align='center'>";
 		echo $html;		
-		echo "</td><tr></table>";
+		echo "</td></tr></table>";
 	}
 //----------------------------------------------------------------------------------	
     

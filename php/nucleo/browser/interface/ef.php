@@ -436,7 +436,7 @@ class ef //Clase abstracta, padre de todos los EF
 				echo "</td>\n";
 			}
 		}
-		echo "<td class='ef-zonainput'>$elemento_formulario</td><tr>\n";
+		echo "<td class='ef-zonainput'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";
 	}
 	
@@ -449,7 +449,7 @@ class ef //Clase abstracta, padre de todos los EF
 		echo "<table border='0' cellpadding='0' cellspacing='0'>\n";
 		echo "<tr><td ><img src='img/nulo.gif' width='180' height='1'></td><td><img src='img/nulo.gif' width='1' height='1'></td></tr>\n";
 		echo "<tr><td class='parametro-item{$a}'>&nbsp;{$this->etiqueta}</td>\n";
-		echo "<td class='parametro-item{$a}'>$elemento_formulario</td><tr>\n";
+		echo "<td class='parametro-item{$a}'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";
 	}
 	

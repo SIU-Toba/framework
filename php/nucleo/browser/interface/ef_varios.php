@@ -868,7 +868,7 @@ class ef_html extends ef
 	function obtener_input()
 	{
 		if(isset($this->estado)){
-			$estado = $this->estado;
+			$estado = addslashes($this->estado);
 		}else{
 			$estado = "";
 		}

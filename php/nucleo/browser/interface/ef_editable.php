@@ -412,7 +412,7 @@ class ef_editable_fecha extends ef_editable
         {
     		$html .= form::text("",$this->estado,true,$this->tamano,$this->tamano, $this->estilo, "disabled" . $this->javascript);
             $html .= form::hidden($this->id_form, $this->estado);
-            $html .= "</td><tr>\n";            
+            $html .= "</td></tr>\n";            
         } 
 		$html .= "</table>\n";
 		return $html;

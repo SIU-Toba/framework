@@ -15,8 +15,8 @@
  * 	instances in a HTML page in the client side. For server side
  * 	operations, use the specific integration system.
  * 
- * Version:  2.0 Beta 2
- * Modified: 2004-05-31 23:07:55
+ * Version:  2.0 RC2
+ * Modified: 2004-11-23 20:35:14
  * 
  * File Authors:
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
@@ -109,7 +109,7 @@ FCKeditor.prototype._GetIFrameHtml = function()
 	var sLink = this.BasePath + 'editor/fckeditor.html?InstanceName=' + this.InstanceName ;
 	if (this.ToolbarSet) sLink += '&Toolbar=' + this.ToolbarSet ;
 
-	return '<iframe id="' + this.InstanceName + '___Frame" src="' + sLink + '" width="' + this.Width + '" height="' + this.Height + '" frameborder="no" scrolling="no"></iframe>' ;
+	return '<iframe name="' + this.InstanceName + '___Frame" id="' + this.InstanceName + '___Frame" src="' + sLink + '" width="' + this.Width + '" height="' + this.Height + '" frameborder="no" scrolling="no"></iframe>' ;
 }
 
 FCKeditor.prototype._IsCompatibleBrowser = function()
@@ -154,7 +154,7 @@ FCKeditor.prototype._HTMLEncode = function( text )
 	text = text.replace(/"/g, "&quot;") ;
 	text = text.replace(/</g, "&lt;") ;
 	text = text.replace(/>/g, "&gt;") ;
-	text = text.replace(/'/g, "&#146;") ;
+	text = text.replace(/'/g, "&#39;") ;
 
 	return text ;
 }
