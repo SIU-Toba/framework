@@ -40,6 +40,7 @@ class ef //Clase abstracta, padre de todos los EF
 	var $dependientes;			// Array de ESCLAVOS
 	var $dep_master = false;	//Soy master?
 	var $dep_slave = false;		//Soy slave?
+	var $agregado_form;			//Número de linea en un form multilinea
 	
 	function ef($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -109,7 +110,7 @@ class ef //Clase abstracta, padre de todos los EF
 		$js = "function modificacion_maestro_{$this->id_form}(ef)\n{\n";
 		//$js .= "	alert(ef.value);\n";
 		foreach($this->dependientes as $dependiente){
-			$js .= " escuchar_master_{$dependiente}('{$this->id}', ef.value);\n";
+			$js .= " escuchar_master_{$dependiente}{$this->agregado_form}('{$this->id}', ef.value);\n";
 		}
 		$js .= " atender_proxima_consulta();\n";
 		$js .= "\n}\n";
@@ -274,6 +275,7 @@ class ef //Clase abstracta, padre de todos los EF
 
 	function establecer_id_form($agregado="")
 	{
+		$this->agregado_form = $agregado;
 		$this->id_form = $this->id_form_orig . $agregado;
 	}
 
