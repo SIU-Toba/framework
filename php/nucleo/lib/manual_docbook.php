@@ -6,10 +6,12 @@ class manual_docbook
 	private $items;
 	private $docbook;
 	private $niveles;
+	private $solicitud;
 	
 	function __construct($proyecto)
 	{
 		global $db, $ADODB_FETCH_MODE, $solicitud;
+		$this->solicitud = $solicitud;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = "	SELECT 	i.padre as 		padre,
 							i.carpeta as 	carpeta, 
@@ -38,7 +40,9 @@ class manual_docbook
 	{
 		$raices = NULL;
 		$this->obtener_encabezado();
-		echo "<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V4.2//EN' \"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd\">";
+		$path = $this->solicitud->hilo->obtener_path();
+		//LA RUTA NO TIENE QUE SER "c:/" SE TIENE QUE USAR EL PATH
+		echo "<!DOCTYPE book SYSTEM \"c:/toba/var/docbook/DTD/docbookx.dtd\">";
 		echo "<book>\n";	
 		$this->obtener_info();
 		for($i=0;$i<count($this->items);$i++)
