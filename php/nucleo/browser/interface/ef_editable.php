@@ -153,14 +153,19 @@ class ef_editable extends ef
 		return $html;
 	}
 
+	function crear_objeto_js()
+	{
+		return "new ef_editable('{$this->id_form}')";
+	}
+	
 	function obtener_consumo_javascript()
 	{
+		$consumos = array('interface/ef_editable');
         if($this->obligatorio){
 		//Consumo la expresion regular que machea campos nulos
-			return array("ereg_nulo");
-		}else{
-			return null;
+			$consumos[] = "ereg_nulo";
 		}
+		return $consumos;
 	}
 
 	function obtener_javascript()
@@ -269,6 +274,11 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		}
 		return form::text($this->id_form,$estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,$this->javascript);
 	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_editable_numero('{$this->id_form}')";
+	}	
 }
 //########################################################################################################
 //########################################################################################################

@@ -422,12 +422,12 @@ padding: 2px;
 background-color: <? echo $color_serie["s"][6] ?>;
 visibility: hidden;
 z-index: 1;
-font-size: 10;
+font-size: 10px;
 color: <? echo $color_serie["p"][1] ?>;
 }
 </style>
 </HEAD>
-<BODY leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' onLoad='firstFocus()' <? echo $estilo_body ?>>
+<BODY style='margin-left: 0px;	margin-top: 0px; margin-right: 0px;	margin-bottom: 0px;' onLoad='firstFocus()' <? echo $estilo_body ?>>
 <div id="dhtmltooltip"></div>
 <script type="text/javascript">
 /***********************************************
@@ -499,7 +499,6 @@ document.onmousemove=positiontip;
 </script>
 
 <script type="text/javascript">	
-
 /*
  onLoad='firstFocus()'
 */

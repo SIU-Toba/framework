@@ -265,6 +265,18 @@ class ef //Clase abstracta, padre de todos los EF
 //-----------------------------------------------------
 //-------------------- JAVASCRIPT ---------------------
 //-----------------------------------------------------
+	function crear_objeto_js()
+	//Retorna la sentencia de creación del objeto javascript que representa al EF
+	{
+		return "false";
+	}
+	
+	function objeto_js()
+	//Retorna el nombre de la instancia del objeto en javascript
+	//Ej: alert({$ef->objeto_js()}.valor())
+	{
+		return $this->id_form_orig;
+	}
 
 	function obtener_javascript_input()
 	//Javascript acoplable al INPUT,
@@ -464,7 +476,7 @@ class ef //Clase abstracta, padre de todos los EF
 if($this->ocultable){
 
 	echo "
-<script language='javascript'>
+<script language='javascript' type='text/javascript'>
 ef_{$this->id_form}_estado = 'visible';
 function ef_alternar_{$this->id_form}()
 {
@@ -500,7 +512,7 @@ function ef_mostrar_{$this->id_form}()
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
 		echo "<tr><td >".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
-		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
+		echo "<tr><td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<tr><td class='$estilo'>";
 		if(trim($this->descripcion)!=""){
 			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);

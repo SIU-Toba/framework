@@ -6,80 +6,47 @@ class js
 	{
 		return '<script language="JavaScript" type="text/javascript">';
 	}
+
 	//-------------------------------------------------------------------------------------
+
 	function cerrar()
 	{
 		return '</script>';
 	}
-	//-------------------------------------------------------------------------------------
-	function checks_intercalar()
-	{
-		$salida = 	'
-			function checks_intercalar(check)
-			//Recibe el check de control como parametro
-			{
-				if (check.checked)
-					checks_marcar(check.form, check.name);
-				else
-					checks_desmarcar(check.form, check.name);
-			}
-		';
-		return $salida;
-	}
-	//-------------------------------------------------------------------------------------
-
-	function checks_marcar()
-	{
-		$salida = 	'
-			function checks_marcar(f, excepcion)
-			//Recibe el formulario como parametro
-			{
-				for(i=0;i<f.elements.length;i++)
-					if(f.elements[i].type=="checkbox" && f.elements[i].name != excepcion) 
-						f.elements[i].checked=true;
-			}
-		';
-		return $salida;
-	}
 
 	//-------------------------------------------------------------------------------------
 	
-	function checks_desmarcar()
+	function cargar_consumos_globales($consumos)
 	{
-		$salida = 	'
-			function checks_desmarcar(f, excepcion)
-			//Recibe el formulario como parametro
-			{
-				for(i=0;i<f.elements.length;i++)
-					if(f.elements[i].type=="checkbox" && f.elements[i].name != excepcion) 
-						f.elements[i].checked=false;
-			}
-		';
-		return $salida;
+		$consumos = array_unique($consumos);
+		
+		foreach ($consumos as $consumo)	{
+			switch ($consumo) {
+				//--> Expresion regular que machea NULOS
+				case 'ereg_nulo':
+					echo "\n<script language='javascript'> ereg_nulo = /^\s*$/;</script>\n";
+					break;
+				//--> Expresion regular que machea NUMEROS
+				case 'ereg_numero':
+					echo "\n<script language='javascript'> ereg_numero = /^[1234567890,.-]*$/;</script>\n"; 
+					break;
+				//--> Codigo necesario para los ef_fecha
+				case 'fecha':
+					echo "\n\n<SCRIPT language='javascript' src='".recurso::js("calendario_es.js")."'></SCRIPT>\n";
+					echo "<SCRIPT language='javascript'>document.write(getCalendarStyles());</SCRIPT>\n";
+					echo "<SCRIPT language='javascript'>var calendario = new CalendarPopup('div_calendario');calendario.showYearNavigation();calendario.showYearNavigationInput();</SCRIPT>\n";
+					echo "<DIV id='div_calendario'  style='VISIBILITY: hidden; POSITION: absolute; BACKGROUND-COLOR: white; layer-background-color: white'></DIV>\n";
+					break;
+				//--> Codigo necesario para el EDITOR HTML embebido
+				case 'fck_editor':
+					echo "\n\n<SCRIPT type='text/javascript' src='".recurso::js("fckeditor/fckeditor.js")."'></SCRIPT>\n";
+					break;
+				//--> Por defecto carga el archivo del consumo
+				default:
+					echo "\n<SCRIPT language='javascript' src='".recurso::js("$consumo.js")."'></SCRIPT>\n";
+	        }
+		}
 	}
-	//-------------------------------------------------------------------------------------
-	
-	function checks_alguno_marcado()
-	{
-		$salida = 	"
-			function checks_alguno_marcado(f)
-			//Recibe el formulario como parametro
-			{
-				uno_marcado = false;
-				i = 0;
-				while(i<f.elements.length && !uno_marcado) {
-					if(f.elements[i].type=='checkbox')// && ){
-						uno_marcado = (f.elements[i].checked == true);
-					}		
-					i++;
-				}
-				return (uno_marcado);
-			}
-		";
-		return $salida;
-	}
-	//-------------------------------------------------------------------------------------
-	
 
 }
 ?>

@@ -979,22 +979,7 @@ class objeto_abms extends objeto
 			$temp = $this->elemento_formulario[$ef]->obtener_consumo_javascript();
 			if(isset($temp)) $dependencias = array_merge($dependencias, $temp);
 		}
-		$dependencias = array_unique($dependencias);//Elimino los duplicados
-		//--> Expresion regular que machea NULOS
-		if(in_array("ereg_nulo",$dependencias)){
-			echo "\n<script language='javascript'> ereg_nulo = /^\s*$/;</script>\n"; 
-		}
-		//--> Expresion regular que machea NUMEROS
-		if(in_array("ereg_numero",$dependencias)){
-			echo "\n<script language='javascript'> ereg_numero = /^[1234567890,.-]*$/;</script>\n"; 
-		}
-		//--> Codigo necesario para los ef_fecha
-		if(in_array("fecha",$dependencias)){
-			echo "\n\n<SCRIPT language='javascript' src='".recurso::js("calendario_es.js")."'></SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>document.write(getCalendarStyles());</SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>var calendario = new CalendarPopup('div_calendario');calendario.showYearNavigation();calendario.showYearNavigationInput();</SCRIPT>\n";
-			echo "<DIV id='div_calendario'  style='VISIBILITY: hidden; POSITION: absolute; BACKGROUND-COLOR: white; layer-background-color: white'></DIV>\n";
-		}
+		js::cargar_consumos_globales($dependencias);
 
 		//----------------> codigo generico BASICO <----------------
 

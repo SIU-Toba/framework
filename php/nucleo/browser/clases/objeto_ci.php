@@ -558,35 +558,7 @@ class objeto_ci extends objeto
 	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
 */
 	{
-		$consumo_js = $this->consumo_javascript_global();
-		$consumo_js = array_unique($consumo_js);
-		//--> Expresion regular que machea NULOS
-		if(in_array("ereg_nulo",$consumo_js)){
-			echo "\n<script language='javascript'> ereg_nulo = /^\s*$/;</script>\n"; 
-		}
-		//--> Expresion regular que machea NUMEROS
-		if(in_array("ereg_numero",$consumo_js)){
-			echo "\n<script language='javascript'> ereg_numero = /^[1234567890,.-]*$/;</script>\n"; 
-		}
-		//--> Codigo necesario para los ef_fecha
-		if(in_array("fecha",$consumo_js)){
-			echo "\n\n<SCRIPT language='javascript' src='".recurso::js("calendario_es.js")."'></SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>document.write(getCalendarStyles());</SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>var calendario = new CalendarPopup('div_calendario');calendario.showYearNavigation();calendario.showYearNavigationInput();</SCRIPT>\n";
-            echo  file_get_contents("nucleo/browser/interface/validacion_fecha.inc",true);
-			echo "<DIV id='div_calendario'  style='VISIBILITY: hidden; POSITION: absolute; BACKGROUND-COLOR: white; layer-background-color: white'></DIV>\n";
-		}
-		//--> Codigo necesario para el EDITOR HTML embebido
-        if (in_array("fck_editor", $consumo_js)){
-			echo "\n\n<SCRIPT type='text/javascript' src='".recurso::js("fckeditor/fckeditor.js")."'></SCRIPT>\n";
-        }
-        //--> Codigo necesario para los EF que necesitan ventanas flotantes
-        if (in_array("popup", $consumo_js)){
-			echo "\n\n<SCRIPT language='javascript' src='".recurso::js("popup.js")."'></SCRIPT>\n";        
-        }
-        if (in_array("financiero", $consumo_js)){
-			echo "\n\n<SCRIPT language='javascript' src='".recurso::js("financiero.js")."'></SCRIPT>\n";        
-        }		
+		js::cargar_consumos_globales($this->consumo_javascript_global());
 	}
 	//-------------------------------------------------------------------------------
 

@@ -19,6 +19,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 {
 	var $datos = array();		//Datos que tiene el formulario
 	var $lista_ef_totales = array();
+	protected $objeto_js;
 	
 	function __construct($id)
 /*
@@ -27,6 +28,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 */
 	{
 		parent::__construct($id);
+		$this->objeto_js = "objeto_{$id[1]}";
 	}
 	//-------------------------------------------------------------------------------
 
@@ -383,6 +385,15 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
+		//ATENCION: revisar la logica de cantidad de filas actuales
+		$cant_filas = $this->existen_datos_cargados() ? count($this->datos) : $this->info_formulario["filas"];
+		echo "<script language='javascript' type='text/javascript'>\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml(document.{$this->nombre_formulario}, $cant_filas);\n";
+		foreach ($this->lista_ef_post	as	$ef){
+			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()});\n";
+		}
+		echo "</script>\n";
+
 		//Tengo que leer los datos, si esque existen
 		//SCROLL???
 		if($this->info_formulario["scroll"]){
@@ -449,8 +460,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo "<td  class='abm-total'>\n";
 				if(in_array($ef, $this->lista_ef_totales)){
 					$this->elemento_formulario[$ef]->cargar_estado(0);
-					echo $this->elemento_formulario[$ef]->establecer_id_form("s");
-					echo $this->elemento_formulario[$ef]->obtener_input();
+					$this->elemento_formulario[$ef]->establecer_id_form("s");
+					$objeto_js_ef = $this->elemento_formulario[$ef]->objeto_js();
+					$id_form_total = $this->elemento_formulario[$ef]->obtener_id_form();
+					echo "
+						<script language='javascript' type='text/javascript'>
+							{$this->objeto_js}.agregar_totalizacion('$objeto_js_ef', '{$this->objeto_js}');
+						</script>
+						<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
 				}else{
 					echo "&nbsp;";
 				}
@@ -464,6 +481,16 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "</div>";
 		}
 	}
+
 	//-------------------------------------------------------------------------------
+	//---- JAVASCRIPT ---------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function consumo_javascript_global()
+	{
+		$consumos = parent::consumo_javascript_global();
+		$consumos[] = 'clases/objeto_ei_formulario_ml';
+		return $consumos;
+	}
 }
 ?>

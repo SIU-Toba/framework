@@ -430,22 +430,7 @@ class objeto_mt_me extends objeto_mt
 				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
 			}
 		}
-		$consumo_js = array_unique($consumo_js);
-		//--> Expresion regular que machea NULOS
-		if(in_array("ereg_nulo",$consumo_js)){
-			echo "\n<script language='javascript'> ereg_nulo = /^\s*$/;</script>\n"; 
-		}
-		//--> Expresion regular que machea NUMEROS
-		if(in_array("ereg_numero",$consumo_js)){
-			echo "\n<script language='javascript'> ereg_numero = /^[1234567890,.-]*$/;</script>\n"; 
-		}
-		//--> Codigo necesario para los ef_fecha
-		if(in_array("fecha",$consumo_js)){
-			echo "\n\n<SCRIPT language='javascript' src='".recurso::js("calendario_es.js")."'></SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>document.write(getCalendarStyles());</SCRIPT>\n";
-			echo "<SCRIPT language='javascript'>var calendario = new CalendarPopup('div_calendario');calendario.showYearNavigation();calendario.showYearNavigationInput();</SCRIPT>\n";
-			echo "<DIV id='div_calendario'  style='VISIBILITY: hidden; POSITION: absolute; BACKGROUND-COLOR: white; layer-background-color: white'></DIV>\n";
-		}
+		js::cargar_consumos_globales($consumos_js);
 	}
 	//-------------------------------------------------------------------------------
 
