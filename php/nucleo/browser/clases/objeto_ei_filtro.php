@@ -7,14 +7,20 @@ require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
 	ser tambien el ancestro del formulario de carga.
 	El ancestro deberia estar encargado solo de los EF.
 	Esta refactorizacion queda PENDIENTE
+
+	ATENCION: 	El filtro declara una funcion con un nomnbre coloquial para los EF,
+				esto hace que no pueda haber dos filtros en la misma etapa del CI
+				porque se redeclararia la funcion!
 */
 
 class objeto_ei_filtro extends objeto_ei_formulario
 {
+	protected $oculto;
 	
 	function __construct($id)
 	{
 		parent::__construct($id);
+		$this->oculto = "filtro_" . $this->id[1];
 	}
 
 	function inicializar_especifico()
@@ -35,14 +41,22 @@ class objeto_ei_filtro extends objeto_ei_formulario
 	
 	function obtener_evento()
 	{
+		//Se presiono el boton FILTRAR?
 		if(isset($_POST[$this->submit])){
 			if( trim($_POST[$this->submit]) == trim($this->submit_filtrar) ){
 				return "filtrar";	
 			}
 		}
+		//Se presiono el boton LIMPIAR?
 		if(isset($_POST[$this->submit])){
 			if( trim($_POST[$this->submit]) == trim($this->submit_limpiar) ){
 				return "limpiar";	
+			}
+		}
+		//Se activo el filtrado por JAVASCRIPT?
+		if(isset($_POST[$this->oculto])){
+			if( trim($_POST[$this->oculto]) == "ok" ){
+				return "filtrar";	
 			}
 		}
 		return null;
@@ -84,6 +98,7 @@ class objeto_ei_filtro extends objeto_ei_formulario
 				echo "</td></tr>\n";
 			}
 			echo "<tr><td class='ei-base'>\n";
+			echo form::hidden($this->oculto,"");
 			$this->obtener_botones();
 			echo "</td></tr>\n";
 			echo "</table>\n";
@@ -102,8 +117,14 @@ class objeto_ei_filtro extends objeto_ei_formulario
 		foreach ($this->lista_ef_post	as	$ef){
 			echo $this->elemento_formulario[$ef]->obtener_javascript();
 		}
-		echo "\nreturn true;\n";
-		echo "\n}\n</script>\n";
+		echo "\nreturn true;\n\n}\n";
+		echo "	
+			function submit_filtro(form)
+			{
+				form.{$this->oculto}.value='ok';
+				form.submit();
+			}";
+		echo "</script>\n";
 	}
 
 	function obtener_javascript()
