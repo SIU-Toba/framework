@@ -60,9 +60,15 @@
                     $clave_registro = $this->objetos[$mt]->obtener_clave();
                     if($this->zona->cargar_editable($clave_registro)){
                         $this->zona->refrescar_listado_editable_apex();
+                        echo "<script language'javascript'>\n";
+                        echo "document.location.href='".$this->vinculador->generar_solicitud($this->hilo->obtener_proyecto(),
+                                NULL,null,true)."'\n";
+                        echo "</script>\n";
+/*
+
                         $this->zona->obtener_html_barra_superior();
                         $this->objetos[$mt]->obtener_html();
-                        $this->zona->obtener_html_barra_inferior();
+                        $this->zona->obtener_html_barra_inferior();*/
                     }else{
                         echo ei_mensaje("No es posible cargar la zona");
                     }
