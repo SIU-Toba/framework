@@ -56,8 +56,8 @@ class buffer
 
 	function buffer($id, $definicion, $fuente)
 	{
-		$this->log = toba::get_logger();
 		$this->solicitud = toba::get_solicitud();
+		$this->log = toba::get_logger();		
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
@@ -155,6 +155,12 @@ class buffer
 	function cargar_datos($where=null, $from=null)
 	//Cargar datos en el BUFFER (DB o SESION). 
 	{
+		if(isset($where)){
+			if(!is_array($where)){
+				throw new excepcion_toba("El WHERE debe ser un array");
+			}	
+		}
+		
 		if( $this->existe_instanciacion_previa() ){
 			//Es posible que el usuario haya cambiado de WHERE
 			if( !($this->controlar_conservacion_where($where)) ){
@@ -242,12 +248,14 @@ class buffer
 		//-- Intento cargar el BUFFER
 		$rs = $db[apex_db_con]->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug","[BUFFER: {$this->identificador} ] Error cargando DATOS'. $sql . "
-						.$db[apex_db_con]->ErrorMsg());
+			
+			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos" .
+									$sql . " - " . $db[apex_db_con]->ErrorMsg());
 		}
 		if($rs->EOF){
 			if($carga_estricta){
-				monitor::evento("bug","[BUFFER: {$this->identificador} ] No se recuperarron DATOS' ");
+				$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - " .
+								"No se recuperarron DATOS. Se solicito carga estricta");
 			}
 			return null;
 		}else{
@@ -513,9 +521,9 @@ class buffer
 	function control_nulos($registro)
 	//Controla que los valores obligatorios existan
 	{
-		$mensaje_usuario = "El elemento poser valores incompletos";
-		$mensaje_programador = "BUFFER " . get_class($this). " [{$this->identificador}] - 
-					Es necesario especificar un valor para el campo: ";
+		$mensaje_usuario = "El elemento posee valores incompletos";
+		$mensaje_programador = "BUFFER " . get_class($this). " [{$this->identificador}] - ".
+					" Es necesario especificar un valor para el campo: ";
 		foreach($this->campos_no_nulo as $campo){
 			if(isset($registro[$campo])){
 				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){

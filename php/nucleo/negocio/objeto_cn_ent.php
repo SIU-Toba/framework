@@ -152,8 +152,10 @@ class objeto_cn_ent extends objeto_cn_t
 		if( $this->entidad->existe_elemento($elemento)){
 			$this->seleccion[$elemento] = $id_registro;
 		}else{
-			//Llamada al LOGGER
-			echo ei_mensaje("Error en la DEFINCION en la seleccion: el elemento no existe");			
+			//Se esta intentando seleccionar un registro de un elemento de la entidad
+			//que no existe, esta mal el ruteo de eventos de CI
+			$this->log->error("BUFFER  " . get_class($this). " [{$this->id[1]}] - Error en la definicion, el elemento de la entidad no exite"); 
+			$this->informar_msg("Error INTERNO","error");
 		}
 	}
 	//-------------------------------------------------------------------------------

@@ -3,7 +3,6 @@ require_once("nucleo/negocio/objeto_cn.php");	//Ancestro de todos los OE
 
 class objeto_cn_t extends objeto_cn
 {
-	var $buffer;
 	var $transaccion_abierta;	// privado | boolean | Indica si la transaccion se encuentra en proceso
 	var $estado_transaccion;	// privado | boolean | Indica el estado de la ultima ejecucio de SQL
 	var $posicion_finalizador;		//Posicion del objeto en el array de finalizacion

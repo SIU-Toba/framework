@@ -831,6 +831,19 @@ class objeto
 	            echo $vinc_info;
 	    		echo "</td>\n";
 	        }            
+
+/*
+			//Vinculo al plan de RUTEO de EVENTOS
+			$vinc_info= $this->solicitud->vinculador->obtener_vinculo_a_item(
+						"toba","/admin/objetos/dependencias",
+						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
+						true);
+	        if ($vinc_info && ($this->info['clase']) ){
+	    		echo "<td class='$estilo'>";
+	            echo $vinc_info;
+	    		echo "</td>\n";
+	        }            
+*/
 	   		echo "</tr></table>";
 		}
 	}
