@@ -146,45 +146,33 @@ class objeto_ci_me extends objeto_ci
 	{
 		$this->etapa_actual = null;
 		$this->etapa_previa = null;
-        $navegando = false;     //Indica que se esta navegando por el objeto_ci
+        $navegando_tabs = false;     //Indica que se esta navegando por el objeto_ci
+
         for($a=0;$a<count($this->info_ci_me_etapa);$a++)
         {
             if(isset($_POST[$this->info_ci_me_etapa[$a]["submit"]])){
             	$this->etapa_actual = $this->info_ci_me_etapa[$a]["posicion"];
             	$this->etapa_previa = $this->memoria["etapa"];
-                $navegando = true;
+                $navegando_tabs = true;
+   				//echo "Etapa " . $this->etapa_actual;
             	break;			
             }
-        }
-        
+        } 
+
 		//Toda la navegacion interna es por POST
-		if($navegando){
+		if(!$navegando_tabs){
 			//Navegacion de TABS: en que etapa entre
 			//Se activo un subelemento, mantengo la etapa
-			if(!isset($this->etapa_actual)){ 
-				if(isset($this->memoria["etapa"])){
-					$this->etapa_actual = $this->memoria["etapa"];
-					$this->etapa_previa = $this->memoria["etapa"];
-				}else{
-					echo ei_mensaje("ERROR de NAVEGACION");
-				}
-			}
-		}else{
-			/* 
 			if(isset($this->memoria["etapa"])){
-
-				Esto no tiene sentido porque pueden perderse datos
-				de los formularios. Toda la navegacion tiene que ser 
-				en con POST
-				
 				$this->etapa_actual = $this->memoria["etapa"];
 				$this->etapa_previa = $this->memoria["etapa"];
-			}else{*/
+			}else{
 				//--> Entrada a la ETAPA inicial!!
+				//echo "Estado INICIAL";
 				$this->limpiar_memoria_global();//Limpio la memoria reclamada por este objeto
 				$this->etapa_actual = $this->info_ci_me_etapa[0]["posicion"];
 				//$this->cn->reset();
-			//}
+			}
 		}
 		$this->memoria["etapa"] = $this->etapa_actual;
 	}

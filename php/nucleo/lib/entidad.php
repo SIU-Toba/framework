@@ -18,18 +18,25 @@ class entidad
 		//Llevar el plan a una estructura de control concreta?
 	}
 	
+	function info()
+	{
+		foreach(array_keys($this->elemento) as $elemento)
+		{
+			$temp[$elemento] = $this->elemento[$elemento]['buffer']->info();
+		}
+		return $temp;
+	}
+	
 	//-------------------------------------------------------
-	//------ Interface de EDICION
+	//------ Interface de EXTERNA
 	//-------------------------------------------------------
-/*
-	Como generalizo la entrada de parametros?
-*/
 
-	public function editar($elemento, $accion, $parametros)
+	public function acc_elemento($elemento, $accion, $parametros)
 	//Entrada a la modificacion de los buffers
 	{
+		//ei_arbol($parametros, "ELEMENTO: " . $elemento . " - ACCION: " . $accion);
 		//--[ 1 ]-- Controlo que el elemento exista
-		if( ! ($this->elemento[$elemento]['buffer'] instanceof buffer ) ){
+		if( ! ($this->existe_elemento($elemento)) ){
 			throw new excepcion_toba("El elemento '$elemento' no forma parte de la entidad");	
 		}
 		//--[ 2 ]-- Controlo que la accion solicitada exista.
@@ -37,77 +44,83 @@ class entidad
 			throw new excepcion_toba("La accion solicitada sobre el elemento '$elemento' no esta definida");	
 		}
 		//Disparo la accion
-		return $this->$accion($elemento, $parametro);
+		return $this->$accion($elemento, $parametros);
+	}
+	//-------------------------------------------------------
+	
+	public function existe_elemento($elemento)
+	{
+		return ($this->elemento[$elemento]['buffer'] instanceof buffer);
 	}
 
-	//--------- Para BUFFERS de 1 registro
-	
-	protected function get($elemento, $parametros)
+	//-------------------------------------------------------
+	//------ Interface interna con los BUFFERS
+	//-------------------------------------------------------	
+
+	protected function get($elemento)
 	{
-		//Es un buffer de un registro?
 		if($this->elemento[$elemento]['registros']=="1"){
 			return $this->elemento[$elemento]['buffer']->obtener_registro(0);
 		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
+			return $this->elemento[$elemento]['buffer']->obtener_registros();
 		}
 	}
+	//-------------------------------------------------------
 
-	protected function set($elemento, $parametros)
+	protected function get_x($elemento, $id)
+	//parametros = 
 	{
-		//Es un buffer de 1 registro?
+		if($this->elemento[$elemento]['registros']=="n"){
+			return $this->elemento[$elemento]['buffer']->obtener_registro($id);
+		}else{
+			throw new excepcion_toba("Error en la definicion de la ENTIDAD.
+				El buffer no maneja multiples registros");	
+		}
+	}
+	//-------------------------------------------------------
+
+	protected function set($elemento, $registro)
+	{
 		if($this->elemento[$elemento]['registros']=="1"){
 			if( $this->elemento[$elemento]['buffer']->cantidad_registros() > 0 ){
-				return $this->elemento[$elemento]['buffer']->modificar_registro($registro, 0);
+				$this->elemento[$elemento]['buffer']->modificar_registro($registro, 0);
 			}else{
-				return $this->elemento[$elemento]['buffer']->insertar_registro($registro);
+				$this->elemento[$elemento]['buffer']->agregar_registro($registro);
 			}
 		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
+			throw new excepcion_toba("Error en la definicion de la ENTIDAD. 
+			El metodo SET es para BUFFERS que manejan un solo registro");	
 		}
 	}
+	//-------------------------------------------------------
 
-	//-------- Para buffers de N registros
-
-	protected function get_conjunto($elemento, $parametros)
+	protected function ins($elemento, $registro)
 	{
 		if($this->elemento[$elemento]['registros']=="n"){
-
+			//echo "Estoy aca!";
+			$this->elemento[$elemento]['buffer']->agregar_registro($registro);
 		}else{
 			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
 		}
 	}
-
-	protected function get_registro($elemento, $parametros)
-	{
-		if($this->elemento[$elemento]['registros']=="n"){
-
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
-		}
-	}
-
-	protected function ins($elemento, $parametros)
-	{
-		if($this->elemento[$elemento]['registros']=="n"){
-
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
-		}
-	}
+	//-------------------------------------------------------
 
 	protected function upd($elemento, $parametros)
 	{
+		$registro = $parametros['registro'];
+		$id = $parametros['id'];
 		if($this->elemento[$elemento]['registros']=="n"){
-
+			$this->elemento[$elemento]['buffer']->modificar_registro($registro, $id);
 		}else{
 			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
 		}
 	}
+	//-------------------------------------------------------
 
-	protected function del($elemento, $parametros)
+	protected function del($elemento, $id)
 	{
 		if($this->elemento[$elemento]['registros']=="n"){
-
+			$this->elemento[$elemento]['buffer']->eliminar_registro($id);
 		}else{
 			throw new excepcion_toba("Error en la definicion de la ENTIDAD");	
 		}
@@ -124,13 +137,15 @@ class entidad
 		//Armo los WHERE y cargo
 		//a los BUFFERS
 	}
+	//-------------------------------------------------------
 
-	public function sincronizar()
+	public function sincronizar_db()
 	//Sincroniza la entidad contra la base de datos
 	//Esto lee un plan y lo ejecuta. Si la entidad tiene una regla de grabacion
 	//muy complicada, deberia redefinir esta funcion
 	{
 		
 	}
+	//-------------------------------------------------------
 }
 ?>

@@ -20,30 +20,6 @@ class objeto_cn_t extends objeto_cn
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//------------------  Manejo del BUFFER  ----------------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-/*
-	function inicializar_buffer()
-	{
-		$mapeo_db = $this->obtener_mapeo_db();
-		if(is_array($mapeo_db)){
-			$this->buffer =& new buffer( $mapeo_db, $this->info['fuente'] );
-		}else{
-			$this->buffer = null;		
-		}	
-	}
-	//-------------------------------------------------------------------------------
-
-	function obtener_mapeo_db()
-	{
-		//Los hijos tienen que definir su mapeo a la base.
-		return null;
-	}		
-
-*/
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//------------------  Manejo de TRANSACCIONES  ----------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -149,16 +125,20 @@ class objeto_cn_t extends objeto_cn
 	}
 	//-------------------------------------------------------------------------------
 
-/*	function procesar()
+	function procesar()
 	//Esto hay que redeclararlo en los HIJOS
 	{
-		if($this->iniciar_transaccion()){
-			$this->buffer->sincronizar_db();
-		}else{
-			echo ei_mensaje("Error procesando la operacion");
-		}	
+		try
+		{
+			$this->iniciar_transaccion();
+			$this->procesar_especifico();
+			$this->finalizar_transaccion();
+		}catch(excepcion_toba $e){
+			$this->abortar_transaccion();			
+			$this->solicitud->log->registrar_excepcion($e);
+		}
 	}
-*/
+
 	//-------------------------------------------------------------------------------
 }
 ?>

@@ -283,14 +283,17 @@ class objeto_ei_formulario extends objeto
 		if($this->controlar_eliminar())
 		{
 			$evento = "baja";
+			unset($this->memoria['datos']);
 		}
 		if($this->controlar_limpiar())
 		{
 			$evento = "limpiar";
+			unset($this->memoria['datos']);
 		}
 		if($this->controlar_modificacion())
 		{
 			$evento = "modificacion";
+			unset($this->memoria['datos']);
 		}
 		return $evento;
 	}
@@ -299,7 +302,7 @@ class objeto_ei_formulario extends objeto
 	function controlar_modificacion()
 	{
 		if($this->modelo_eventos=="multi")
-		{
+		{	
 			//----> MODO MULTI <------
 			//Se apreto el boton?
 			if(isset($_POST[$this->submit])){

@@ -1,9 +1,10 @@
 <?php
-require_once("nucleo/negocio/objeto_cn.php");	//Ancestro de todos los OE
+require_once("nucleo/negocio/objeto_cn_t.php");	//Ancestro de todos los OE
 
-class objeto_cn_ent extends objeto_cn
+class objeto_cn_ent extends objeto_cn_t
 {
 	var $entidad;
+	var $seleccion;
 
 	function __construct($id, $resetear=false)
 /*
@@ -14,40 +15,145 @@ class objeto_cn_ent extends objeto_cn
 		parent::__construct($id, $resetear);
 	}
 
-	//-------------------------------------------------------------------------------
-	//----- Manejo del ENTIDADES
-	//-------------------------------------------------------------------------------
+	function mantener_estado_sesion()
+	//Propiedades que necesitan persistirse en la sesion
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "seleccion";
+		return $propiedades;
+	}
 
-	/*
-		En este lugar es donde tengo que rutear los eventos del CI
-		en llamadas al metodo EDITAR de la entidad.
-		
-		** Como utilizo la definicion del CI para hacer eso???
-
-			- Metodo de entrada (ej: editar_entidad) + parametros!!
-			- Atencion, el mecanismo de obtencion de parametros no tiene que romper compatibilidad
-			- El metodo de entrada tiene que mapear a $this->entidad->editar(buffer, accion, parametros);
-
-		** Como guardo la linea activa???
-
-			- Metodo de entrada comun + parametros!
-			- Esto tiene que mapear a una estructura interna que pueda funcionar!
-
-		** Que metodos ofrezco para controlar derechos o controles antes de la llamadas?
-
-			- 1) redefinir el metodo standart y meterle un IF
-			- 2) Crear una entrada nueva
-		
-	*/
+	function info_entidad()
+	{
+		//Informacion
+		ei_arbol( $this->entidad->info(), "ENTIDAD");		
+		ei_arbol( $this->seleccion, "SELECCION" );
+	}
 
 	//-------------------------------------------------------------------------------
-	// VAlidacion transaccion
+	//----- ACCESO a las ENTIDADES
 	//-------------------------------------------------------------------------------
 
-	/*
-		Puede ser que algunas validacines queden del lado de la entidad?
-		Se puede especializar el marco de la transaccion?
+	public function ins($datos, $parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		//Identifico el elemento y actualizo la entidad
+		$elemento = $parametros[0];
+		$this->entidad->acc_elemento($elemento, "ins", $datos);		
+	}
+	//-------------------------------------------------------------------------------
 	
-	*/
+	public function del($parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		$elemento = $parametros[0];
+		if(!isset($this->seleccion[$elemento])){
+			throw new excepcion_toba("No existe un marcador del registro a eliminar");			
+		}
+		$this->entidad->acc_elemento($elemento, "del", $this->seleccion[$elemento]);
+		unset($this->seleccion[$elemento]);	
+	}
+	//-------------------------------------------------------------------------------
+	
+	public function upd($datos, $parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		$elemento = $parametros[0];
+		if(!isset($this->seleccion[$elemento])){
+			throw new excepcion_toba("No existe un marcador del registro a modificar");			
+		}
+		$temp['id'] = $this->seleccion[$elemento];
+		$temp['registro'] = $datos;
+		$this->entidad->acc_elemento($elemento, "upd", $temp);
+		unset($this->seleccion[$elemento]);	
+	}
+	//-------------------------------------------------------------------------------
+	
+	public function set($datos, $parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		$elemento = $parametros[0];
+		$this->entidad->acc_elemento($elemento, "set", $datos);
+	}
+	//-------------------------------------------------------------------------------
+	
+	public function get($parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		$elemento = $parametros[0];
+		return $this->entidad->acc_elemento($elemento, "get", null);
+	}
+	//-------------------------------------------------------------------------------
+	
+	public function get_x($parametros)
+	{
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
+			de un array de parametros en el ruteo de eventos del CI");			
+		}
+		$elemento = $parametros[0];
+		if(isset($this->seleccion[$elemento])){
+			return $this->entidad->acc_elemento($elemento, "get_x", $this->seleccion[$elemento]);						
+		}else{
+			return null;
+		}
+	}
+	//-------------------------------------------------------------------------------
+		
+	public function seleccionar($id_registro, $parametros)
+	//Mantiene estado de pantalla de seleccion de registros de la pantalla
+	{
+		//ei_arbol($datos,"DATOS");
+		//ei_arbol($parametros,"PARAMETROS");
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores
+			necesita definir el elemento de la entidad a mantener.");
+		}
+		//Existe el elemento de la ENTIDAD?
+		$elemento = $parametros[0];
+		if( $this->entidad->existe_elemento($elemento)){
+			$this->seleccion[$elemento] = $id_registro;
+		}else{
+			//Llamada al LOGGER
+			echo ei_mensaje("Error en la DEFINCION en la seleccion: el elemento no existe");			
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	public function limpiar($parametros)
+	//Mantiene estado de pantalla de seleccion de registros de la pantalla
+	{
+		//ei_arbol($datos,"DATOS");
+		//ei_arbol($parametros,"PARAMETROS");
+		if(!is_array($parametros)){
+			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores
+			necesita definir el elemento de la entidad a mantener.");
+		}
+		//Existe el elemento de la ENTIDAD?
+		$elemento = $parametros[0];
+		unset($this->seleccion[$elemento]);
+	}
+	//-------------------------------------------------------------------------------
+	
+	function procesar_especifico()
+	{
+		$this->entidad->sincronizar_db();
+	}
+	//-------------------------------------------------------------------------------
 }
 ?>

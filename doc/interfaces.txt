@@ -1,0 +1,25 @@
+
+INTERFACES
+
+
+ENTIDAD: 
+
+	* cargar(id)
+	* sincronizar()
+	
+	
+	* acc_elemento(string elemento, string accion, parametro )
+
+	posibles acciones
+	
+		- get												[1 o n]
+		- get_x 	(int id)								[n]
+		
+		- del 		(int id)								[n]
+		- upd 		array("id"=> int id, 
+						"registro" => array registro)		[n]
+		- set 		(array registro)						[1]
+		- ins 		(array registro)						[n]
+		
+		
+

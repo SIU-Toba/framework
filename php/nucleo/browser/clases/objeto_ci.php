@@ -159,11 +159,20 @@ class objeto_ci extends objeto
 		{			
 			//En el PARAMETRO B de la dependencia se especifica el metodo
 			//Del controlador de negocio que carga a la dependencia
-			if($metodo = $this->consultar_info_dependencia($dep,"parametros_b") )
+			if($info = $this->consultar_info_dependencia($dep,"parametros_b") )
 			{
+				$temp = explode(",", $info);
+				$metodo = trim($temp[0]);
+				//Parametros al metodo de carga
+				if(isset($temp[1])){
+					$parametros = explode("|",$temp[1]);
+					$parametros = array_map("trim",$parametros);
+				}else{
+					$parametros = null;
+				}
 				//echo "Cargando dependencia : $dep";
 				//SI el CN me devuelve un DATO para la dependencia
-				if( $dato = $this->cn->$metodo() ){
+				if( $dato = $this->cn->$metodo($parametros) ){
 					//ei_arbol($dato, $dep);
 					$this->dependencias[$dep]->cargar_datos( $dato );
 					if($this->debug_eventos){
@@ -263,16 +272,24 @@ class objeto_ci extends objeto
 					//FALTAN CONTROLES de SINTAXIS!!
 					$metodo_dep = trim($plan_ruteo[$evento][0]);//echo "Mdep: $metodo_dep";
 					$metodo_cn = trim($plan_ruteo[$evento][1]);//echo "Mcn: $metodo_cn";	
+					//Tomo el resto de los valores como parametros}
+					if(count($plan_ruteo[$evento])>2){
+						$temp = trim($plan_ruteo[$evento][2]);
+						$parametros = explode("|",$temp);
+						$parametros = array_map("trim",$parametros);
+					}else{
+						$parametros = null;
+					}
 					try
 					{
 						if($metodo_dep=="null"){
 							if($this->debug_eventos){
 								$this->ruteo_eventos[$dep]["CN"] = $metodo_cn;
 							}
-							$this->cn->$metodo_cn();
+							$this->cn->$metodo_cn($parametros);
 						}else{
 							$datos_evento = $this->dependencias[$dep]->$metodo_dep();
-							$this->cn->$metodo_cn( $datos_evento );
+							$this->cn->$metodo_cn( $datos_evento, $parametros );
 							if($this->debug_eventos){
 								$this->ruteo_eventos[$dep.":".$evento]["EI"]["metodo"] = $metodo_dep;
 								$this->ruteo_eventos[$dep.":".$evento]["EI"]["retorno"] = $datos_evento;

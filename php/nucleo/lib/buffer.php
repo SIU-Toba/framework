@@ -320,7 +320,7 @@ class buffer
 		return $datos;
 	}
 	//-------------------------------------------------------------------------------
-
+	/* Esto no es un patron de filtrado de la funcion anterior?? */
 	function obtener_registros_a_insertar($condiciones=null)
 	{
 		$datos = null;
@@ -348,39 +348,31 @@ class buffer
 	{
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_buffer_clave])) unset($registro[apex_buffer_clave]);
-		$resultado = $this->validar_registro($registro);
-		if( $resultado[0] == "ok" ){
-			$registro[apex_buffer_clave]=$this->proximo_registro;
-			$this->datos[$this->proximo_registro] = $registro;
-			$this->control[$this->proximo_registro]['estado'] = "i";
-			$this->proximo_registro++;
-		}else{
-			throw new excepcion_toba("BUFFER: ERROR de validacion. " . $resultado[1]);
-		}
+		$this->validar_registro($registro);
+		$registro[apex_buffer_clave]=$this->proximo_registro;
+		$this->datos[$this->proximo_registro] = $registro;
+		$this->control[$this->proximo_registro]['estado'] = "i";
+		$this->proximo_registro++;
 	}
 	//-------------------------------------------------------------------------------
 
 	function modificar_registro($registro, $id)
 	{
 		if(!isset($this->datos[$id])){
-			throw new excepcion_toba("BUFFER: No existe un registro con el INDICE indicado");
+			throw new excepcion_toba("BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)");
 		}
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_buffer_clave])) unset($registro[apex_buffer_clave]);
-		$resultado = $this->validar_registro($registro, $id);
-		if( $resultado[0] == "ok" ){
-			if($this->control[$id]['estado']=="i"){
-				$this->datos[$id] = $registro;
-				$this->datos[$id][apex_buffer_clave] = $id; 
-			}else{
-				$this->control[$id]['estado']="u";
-				foreach(array_keys($registro) as $clave){
-					$this->datos[$id][$clave] = $registro[$clave];
-				}
-				$this->datos[$id][apex_buffer_clave] = $id; 
-			}
+		$this->validar_registro($registro, $id);
+		if($this->control[$id]['estado']=="i"){
+			$this->datos[$id] = $registro;
+			$this->datos[$id][apex_buffer_clave] = $id; 
 		}else{
-			throw new excepcion_toba("BUFFER: ERROR de validacion. " . $resultado[1]);
+			$this->control[$id]['estado']="u";
+			foreach(array_keys($registro) as $clave){
+				$this->datos[$id][$clave] = $registro[$clave];
+			}
+			$this->datos[$id][apex_buffer_clave] = $id; 
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -388,7 +380,7 @@ class buffer
 	function eliminar_registro($id=null)
 	{
 		if(!isset($this->datos[$id])){
-			throw new excepcion_toba("BUFFER: No existe un registro con el INDICE indicado");
+			throw new excepcion_toba("BUFFER: ELIMINAR. No existe un registro con el INDICE indicado ($id)");
 		}
 		if($this->control[$id]['estado']=="i"){
 			unset($this->control[$id]);
@@ -449,28 +441,14 @@ class buffer
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	//throw new excepcion_toba("BUFFER: ERROR de validacion. " . $resultado[1]);
+
 	function validar_registro($registro, $id=null)
 	//Valida el registro
 	{
-		//Estructura
-		$resultado = $this->control_estructura_registro($registro);
-		if($resultado[0]== "ok"){
-			//Nulos
-			$resultado = $this->control_nulos($registro);
-			if($resultado[0] == "ok"){
-				//Unicos
-				$resultado = $this->control_valores_unicos($registro, $id);
-				if($resultado[0] == "ok"){
-					return array("ok","El registro es valido.");
-				}else{
-					return array("buffer", $resultado[1]);
-				}
-			}else{
-				return array("buffer", $resultado[1]);
-			}
-		}else{
-			return array("buffer", $resultado[1]);
-		}		
+		$this->control_estructura_registro($registro);
+		$this->control_nulos($registro);
+		$this->control_valores_unicos($registro, $id);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -482,10 +460,9 @@ class buffer
 			//en las secuencias...
 			if( !((in_array($campo, $this->campos_manipulables)) ||
 				(in_array($campo,$this->campos_secuencia)) ) ){
-				return array("buffer","El campo '$campo' no existe.");
+					throw new excepcion_toba("BUFFER: ERROR de validacion. El campo '$campo' no existe.");
 			}
 		}
-		return array("ok","Estructura OK");
 	}
 	//-------------------------------------------------------------------------------
 
@@ -504,12 +481,11 @@ class buffer
 			if(is_array($valores_columna)){
 				//Controlo que el nuevo valor no exista
 				if(in_array($registro[$campo], $valores_columna)){
-					return array("buffer","El valor '".$registro[$campo]
+					throw new excepcion_toba("BUFFER: ERROR de validacion. El valor '".$registro[$campo]
 											."' crea un duplicado en el campo '" . $campo . "'.");
 				}
 			}
 		}
-		return array("ok","No duplicados OK.");
 	}
 	//-------------------------------------------------------------------------------
 	
@@ -519,13 +495,14 @@ class buffer
 		foreach($this->campos_no_nulo as $campo){
 			if(isset($registro[$campo])){
 				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
-					return array("buffer","El campo '". $campo ."' no admite valores NULOS.");
+					throw new excepcion_toba("BUFFER: ERROR de validacion. El campo '". 
+					$campo ."' no admite valores NULOS.");
 				}
 			}else{
-				return array("buffer","Es necesario especificar un valor para el campo '". $campo ."'.");
+				throw new excepcion_toba("BUFFER: ERROR de validacion. Es necesario 
+						especificar un valor para el campo '". $campo ."'.");
 			}
 		}
-		return array("ok","No nulo OK.");
 	}
 
 	//-------------------------------------------------------------------------------
@@ -556,73 +533,59 @@ class buffer
 					break;
 			}
 		}
-
-		//$sql = array_merge($sql_d, $sql_u, $sql_i);
-		//ei_arbol($sql, "SQL de sincronizacion con la DB");
-		//-<2>- Ejecuto los SQL en el motor
-		//ATENCION! hay que cambiar esto, los inserts van primero
+		//-[1]- EJECUTO SQL
 		//-- INSERT --
-		foreach(array_keys($sql_i) as $registro){
-			$resultado = $this->ejecutar_sql($sql_i[$registro],false);
-			
-			if($resultado[0]!="ok"){
-				$resultado[1] = "Error INSERTANDO el registro '$registro'. " . $resultado[1];
-				throw new excepcion_toba( $resultado[1] );
-				//return $resultado;
-			}else{
-				//Recupero secuencias
-				if(count($this->campos_secuencia)>0){
-					foreach($this->definicion['secuencia'] as $secuencia){
-						$resultado = $this->recuperar_secuencia($secuencia['seq']);
-
-						if($resultado[0] != "ok"){
-							return $resultado;
-						}else{
-							//Actualizo el valor del BUFFER
-							$this->datos[$registro][$secuencia['col']] = $resultado[1];
-							//Actualizo el valor del array de control
-							$this->control[$registro]['estado'] = "db";
-						}
-					}
+		foreach(array_keys($sql_i) as $registro)
+		{
+			$this->ejecutar_sql($sql_i[$registro],false);
+			if(count($this->campos_secuencia)>0){
+				foreach($this->definicion['secuencia'] as $secuencia){
+					//Actualizo el valor
+					$this->datos[$registro][$secuencia['col']] = $this->recuperar_secuencia($secuencia['seq']);
 				}
 			}
 		}
 		//-- DELETE --
 		foreach(array_keys($sql_d) as $registro){
-			$resultado = $this->ejecutar_sql($sql_d[$registro]);
-			if($resultado[0]!="ok"){
-				$resultado[1] = "Error ELIMINANDO el registro '$registro'. " . $resultado[1];
-				return $resultado;
-			}else{
-				//Actualizo el estado del array de control
-				unset($this->control[$registro]);
-				unset($this->datos[$registro]);
-			}
+			$this->ejecutar_sql($sql_d[$registro]);
+			unset($this->control[$registro]);
+			unset($this->datos[$registro]);
 		}
 		//-- UPDATE --
 		foreach(array_keys($sql_u) as $registro){
-			$resultado = $this->ejecutar_sql($sql_u[$registro]);
-			if($resultado[0]!="ok"){
-				$resultado[1] = "Error MODIFICANDO el registro '$registro'. " . $resultado[1];
-				return $resultado;
-			}else{
-				//Actualizo el estado del array de control
-				$this->control[$registro]['estado'] = "db";
-			}
+			$this->ejecutar_sql($sql_u[$registro]);
+			$this->control[$registro]['estado'] = "db";
 		}
-		return array("ok","El buffer se sincronizo satisfactoriamente.");
+		
+		//-[2]- Todo bien, actualizo los METADATOS del BUFFER
+
+		//-- INSERT --
+		foreach(array_keys($sql_i) as $registro)
+		{
+			//Actualizo el valor del array de control
+			$this->control[$registro]['estado'] = "db";
+		}
+		//-- DELETE --
+		foreach(array_keys($sql_d) as $registro){
+			unset($this->control[$registro]);
+			unset($this->datos[$registro]);
+		}
+		//-- UPDATE --
+		foreach(array_keys($sql_u) as $registro){
+			$this->control[$registro]['estado'] = "db";
+		}
 	}
 	//-------------------------------------------------------------------------------
 
 	function ejecutar_sql($sql,$controlar_ar=true)
-	//ATENCION!!!!! los update fallan pero el error no se reporta!!!
+	//ATENCION!!!!! los update fallan y el error no se reporta!!!
 	{
 		global $db, $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		
 		//if($db[$this->fuente][apex_db_con]->Execute($sql) === true){
 		if(!$db[$this->fuente][apex_db_con]->Execute($sql)){
-			return array("buffer","El SQL no se ejecuto correctamente. " 
+			throw new excepcion_toba("BUFFER: Ejecutar SQL de sincronizacion." 
 							.$db[$this->fuente][apex_db_con]->ErrorMsg() . " SQL: " . $sql);
 		}else{
 			if($controlar_ar){
@@ -630,13 +593,11 @@ class buffer
 				//echo "REGISTROS: " . $registros_afectados;
 				if($registros_afectados === 1){
 					$this->sql[] = $sql;
-					return array("ok","El SQL se ejecuto correctamente.");
 				}else{
-					return array("buffer","No hay registros afectados.");
+					throw new excepcion_toba("BUFFER: EJECUTAR SQL: No hay registros afectados.");
 				}
 			}else{
 				$this->sql[] = $sql;
-				return array("ok","El SQL se ejecuto correctamente.");
 			}
 		}
 	}
@@ -648,18 +609,16 @@ class buffer
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = "SELECT currval('$secuencia') as seq;";
 		$rs = $db[$this->fuente][apex_db_con]->Execute($sql);
-		
 		//print $sql;
-		
 		if((!$rs)){
-			return array("buffer","El sql de recuperacion de secuencia esta mal formado." 
-							.$db[$this->fuente][apex_db_con]->ErrorMsg());
+			throw new excepcion_toba("BUFFER: Recuperar SECUENCIA '$secuencia': SQL mal formado."
+											.$db[$this->fuente][apex_db_con]->ErrorMsg());
 		}
 		if($rs->EOF){
-			return array("buffer","Error recuperando la secuencia.");
+			throw new excepcion_toba("BUFFER: Recuperar SECUENCIA '$secuencia': No existen datos.");
 		}else{
 			$datos =& $rs->getArray();
-			return array("ok",$datos[0]['seq']);
+			return $datos[0]['seq'];
 		}
 	}	
 	
