@@ -36,8 +36,17 @@ define("apex_pa_encriptar_qs",0);
 # apex_pa_ID: ID de este punto de acceso
 #(Una misma sesion no deberia manejarse desde dos puntos de acceso)
 define("apex_pa_ID",$_SERVER["SCRIPT_FILENAME"]);
-# apex_pa_instancia: Instancia a la que el punto de acceso debe conectarse
-define("apex_pa_instancia","desarrollo"); //OLMEDO1
+# apex_pa_instancia: Parametro por defecto de creacion de la instancia
+define("apex_pa_instancia","desarrollo");
+# apex_pa_instancia_ : Instancia del 
+#define("apex_pa_instancia_metadatos","");
+#define("apex_pa_instancia_usuarios",""); 
+#define("apex_pa_instancia_logs","");
+#define("apex_pa_instancia_negocio_1","");
+#define("apex_pa_instancia_negocio_2","");
+#define("apex_pa_instancia_negocio_3","");
+#define("apex_pa_instancia_negocio_4","");
+#define("apex_pa_instancia_negocio_5","");
 # apex_proyecto: Proyecto PRIMARIO
 define("apex_pa_proyecto","multi");  //Proyecto: 'multi' = LOGON multiproyecto
 # apex_nombre: Nombre del sistema

@@ -221,6 +221,7 @@ CREATE TABLE apex_fuente_datos
 	base						varchar(30)		NULL,	--	NOT? ODBC e	instancia no la utilizan...
 	administrador				varchar(60)		NULL,
 	link_instancia				smallint		NULL,	--	En	vez de abrir una conexion,	utilizar	la	conexion	a la intancia
+	instancia_id				varchar(30)	NULL,
 	orden						smallint		NULL,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,

@@ -143,7 +143,8 @@ class objeto
 									d.usuario as				fuente_usuario,
 									d.clave as					fuente_clave,
 									d.base as					fuente_base,
-									d.link_instancia as		fuente_link_instancia,
+									d.link_instancia as			fuente_link_instancia,
+									d.instancia_id as			fuente_link_instancia_id,
 									oi.objeto as				objeto_existe_ayuda
 							FROM	apex_objeto o
 										LEFT OUTER JOIN apex_objeto_info oi 
@@ -262,7 +263,8 @@ class objeto
 						apex_db_usuario => $this->info["fuente_usuario"],
 						apex_db_clave => $this->info["fuente_clave"],
 						apex_db_base => $this->info["fuente_base"],
-						apex_db_link =>	$this->info["fuente_link_instancia"])
+						apex_db_link =>	$this->info["fuente_link_instancia"],
+						apex_db_link_id =>	$this->info["fuente_link_instancia_id"])
 					);
 		//$cronometro->marcar('OBJETO ['.$this->id[1].']: Conectar FUENTE de DATOS',apex_nivel_nucleo);
 	}

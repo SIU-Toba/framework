@@ -22,6 +22,7 @@ define("apex_db_base",4);
 define("apex_db_con",5);//Conexion concreta ( Indice a la variable de tipo RECURSO referencia a la conexion propiamente dicha)
 define("apex_db_link",6);
 define("apex_db",7);
+define("apex_db_link_id",8);
 //--------------------------------
 require("3ros/adodb340/adodb.inc.php");
 //--------------------------------
@@ -41,6 +42,18 @@ require("3ros/adodb340/adodb.inc.php");
 			//La conexion es un LINK a la conexion primaria de la INSTANCIA?
 			if(isset($parm[apex_db_link])){
 				if($parm[apex_db_link]==1){
+					//La fuente solicita un LINK a un elemento del archivo de INSTANCIAS
+					if(isset($parm[apex_db_link_id])){
+						if(trim($parm[apex_db_link_id])!=""){
+							global $instancia;
+							//Existe una descripcion de esa instancia?
+							if(isset($instancia[$parm[apex_db_link_id]])){
+		    					return abrir_base($id,$instancia[$parm[apex_db_link_id]]);
+							}else{
+								throw new excepcion_toba("ABRIR_BASE: no existe el indice en 'instancias.php'");
+							}
+						}
+					}
 					$db[$id] =& $db["instancia"];
 				}
 			//Creo la conexion solicitada
@@ -66,7 +79,6 @@ require("3ros/adodb340/adodb.inc.php");
 			}
 		}
 		return true;
-	
 	}
 //-------------------------------------------------------------------------------------
 	
@@ -102,6 +114,7 @@ require("3ros/adodb340/adodb.inc.php");
 		$parm[apex_db_clave] = $rs->fields["clave"];
 		$parm[apex_db_base] = $rs->fields["base"];
 		$parm[apex_db_link] = $rs->fields["link_instancia"];
+		$parm[apex_db_link_id] = $rs->fields["instancia_id"];
 		abrir_base($id, $parm);
 	}
 //-------------------------------------------------------------------------------------
