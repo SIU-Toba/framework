@@ -43,13 +43,15 @@ require_once("nucleo/browser/interface/ef.php");
 			}
 			
 			//---[ 2 ]- Uso los valores de las dependencias para armar el SQL
-
+	
 			$mascara = "%";
 			foreach( $dependencias as $dep => $valor ){
-				$sql_ef = ereg_replace( $mascara.$dep.$mascara, $valor, $sql_ef );
+				if ($valor != apex_ef_no_seteado)
+					$sql_ef = ereg_replace( $mascara.$dep.$mascara, $valor, $sql_ef );
+				else
+					$sql_ef = ereg_replace( $mascara.$dep.$mascara, 'NULL', $sql_ef );
 			}
 			//echo $sql_ef;
-
 			//---[ 3 ]- Busco los datos del EF, los organizo y los devuelvo
 			
 			abrir_fuente_datos($f, $fp);
