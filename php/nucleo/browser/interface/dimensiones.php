@@ -180,7 +180,9 @@ class dimension_mes_lapso extends ef
 	function obtener_where()
 	{
 		if($this->activado()){
-			return " ( (".$this->mes_i->obtener_where().") AND (".$this->mes_f->obtener_where().") )";
+			return  "( ({$this->mes_i->dato[1]}*100+{$this->mes_i->dato[0]}{$this->mes_i->operador}{$this->mes_i->estado[1]}*100+ {$this->mes_i->estado[0]}) AND 
+						({$this->mes_f->dato[1]}*100+{$this->mes_f->dato[0]}{$this->mes_f->operador}{$this->mes_f->estado[1]}*100+ {$this->mes_f->estado[0]}))";
+			//return " ( (".$this->mes_i->obtener_where().") AND (".$this->mes_f->obtener_where().") )";
 		}
 	}
 
