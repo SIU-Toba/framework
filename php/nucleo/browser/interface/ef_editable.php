@@ -144,12 +144,13 @@ class ef_editable extends ef
 	{
 		if(!isset($this->estado) || $this->estado=="NULL") $this->estado="";
 		if($this->solo_lectura){
-			$r = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,"disabled " . $this->javascript);
-			$r .= form::hidden($this->id_form, $this->estado);
-			return $r;
+			$html = form::text($this->id_form."_desc", $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,"disabled " . $this->javascript);
+			$html .= form::hidden($this->id_form, $this->estado);
 		}else{
-			return form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,$this->javascript);
+			$html = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,$this->javascript);
 		}
+		$html .= $this->obtener_javascript_general() . "\n\n";
+		return $html;
 	}
 
 	function obtener_consumo_javascript()
@@ -162,7 +163,7 @@ class ef_editable extends ef
 		}
 	}
 
-    function obtener_javascript()
+	function obtener_javascript()
     {
         //Si el campo es obligatorio, en el form hay que llenarlo si o si
         if($this->obligatorio){
@@ -174,6 +175,27 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 }";
         }
     }
+	
+	function javascript_master_get_estado()
+	{
+		return "
+		function master_get_estado_{$this->id_form}()
+		{
+			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			return(s_.value);
+		}
+		";		
+	}
+	
+	function javascript_master_cargado()
+	{
+		return "
+		function master_cargado_{$this->id_form}()
+		{
+			return (trim(master_get_estado_{$this->id_form}()) != '');
+		}
+		";		
+	}	
 }
 //########################################################################################################
 //########################################################################################################

@@ -665,7 +665,7 @@ class objeto_ei_formulario extends objeto
 		{
 			//A los ocultos se les deja incluir javascript
 			foreach ($this->lista_ef_ocultos as $ef) {
-				$this->elemento_formulario[$ef]->obtener_javascript_general();
+				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
 			}
 			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
 			foreach ($this->lista_ef_post	as	$ef){
