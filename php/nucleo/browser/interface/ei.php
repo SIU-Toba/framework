@@ -515,8 +515,13 @@ function firstFocus()
 				&& ( display != 'none') && ( display != 'hidden') )
 			{
 				//alert('El display es: '  + display  );
-			   elemento.focus();
-			   return;
+				var error =false
+				try {
+				   elemento.focus();
+				} catch(e) {
+					error = true;
+				}
+			   if (!error) return;
 			}
 		}
 	}

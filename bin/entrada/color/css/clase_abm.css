@@ -49,15 +49,27 @@ TD.abm-fila
 	margin: 0px 0px 0px 0px ;
 }
 
-TD.abm-fila-ml
+TD.abm-fila-ml, TD.abm-fila-ml-selec
 {
 	font-size: 8px;
 	color: %col_sp_1%;
-	background-color: %col_ss_6%;
 	text-align: center;
 	padding: 0px 0px 0px 0px ;
 	margin: 0px 0px 0px 0px ;
 	/* border-right: 1px solid %col_sp_3%; */
+}
+
+TD.abm-fila-ml 
+{
+	background-color: %col_ss_6%;
+}	
+
+TD.abm-fila-ml-selec 
+{ 
+	background-color: %col_sp_4%;
+	border-collapse:collapse;
+	border-top: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;	
 }
 
 TD.abm-columna

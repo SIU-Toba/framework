@@ -77,5 +77,31 @@ function retornar_info(datos)
 	com_datos_retornados = datos;
 	setTimeout(nombre_callback+"(com_datos_retornados)", 0);
 }
+
+//----Utilidades
+//Reemplaza todas las ocurrencias de un string en otro
+function reemplazar(oldStr,findStr,repStr) {
+  var srchNdx = 0; 
+  var newStr = ""; 
+  while (oldStr.indexOf(findStr,srchNdx) != -1)  
+  {
+    newStr += oldStr.substring(srchNdx,oldStr.indexOf(findStr,srchNdx));
+    newStr += repStr;
+    srchNdx = (oldStr.indexOf(findStr,srchNdx) + findStr.length);
+  }
+  newStr += oldStr.substring(srchNdx,oldStr.length);
+  return newStr;
+}	
+
+function ei_arbol(arreglo)
+{
+	var salida = '';
+	for (dim in arreglo) {
+		salida = salida + dim + ' => ' + arreglo[dim] + '\n';
+	}
+	alert(salida);
+}
+
+
 <?/*****************************************************************************/?>
 </script>

@@ -97,6 +97,13 @@ class form {
     }
 //________________________________________________________________________________________________________
 
+    function button_html($nombre,$html, $extra="", $tipo='button', $valor='', $clase="ef-boton")
+    // Boton con html embebido
+    {
+        return "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>$html</button>\n";
+    }
+
+//________________________________________________________________________________________________________
     function password($nombre,$valor="",$clase="ef-input")
     // Boton de SUBMIT
     {

@@ -547,10 +547,23 @@ function ef_mostrar_{$this->id_form}()
 	
 	function envoltura_ei_ml()
 	{
-		$html = $this->obtener_etiqueta();
+		if($this->validacion){
+	        if($this->obligatorio){
+    	        $estilo = "ef-etiqueta-obligatorio";
+				$marca = "(*)";
+        	}else{
+	            $estilo = "ef-etiqueta";
+				$marca ="";
+    	    }
+		}else{
+            $estilo = "ef-etiqueta-error";
+			$marca ="";
+		}	
+		$html = "<div class='$estilo'>".$this->obtener_etiqueta()." $marca";
 		if(trim($this->descripcion)!=""){
-			$html .= " ".recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
+			$html .= "<br>".recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
 		}
+		$html .= "</div>";
 		return $html;
 	}
 

@@ -17,7 +17,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	
 */
 {
-	var $datos = array();		//Datos que tiene el formulario
+	var $datos;		//Datos que tiene el formulario
 	var $lista_ef_totales = array();
 	protected $objeto_js;
 	
@@ -126,14 +126,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//ATENCION: esto hay que pensarlo. Que eventos se necesitan??
 	// Como es la interaccion de un ML con un buffer?
 	{
-		if($this->controlar_agregar())
-		{
-			return "alta";
-		}
-		if($this->controlar_eliminar())
-		{
-			return "baja";
-		}
+
 		if($this->controlar_modificacion())
 		{
 			return "modificacion";
@@ -148,34 +141,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if(acceso_post()){
 			return true;
 		}else{
-			return false;	
+			return false;
 		}
-		/*//ei_arbol( $datos_actuales, "INTERFACE" );
-		//ei_arbol( $this->memoria["datos"], "MEMORIA" );
-		if(isset($this->memoria['datos'])){
-			if(is_array($this->memoria['datos'])){
-				$datos_actuales = $this->obtener_datos();
-				foreach($datos_actuales as $clave => $dato){
-					$dato = ereg_replace("NULL","",$dato);
-					if( $this->memoria['datos'][$clave] != $dato){
-						return true;
-					}
-				}
-			}
-		}*/
 	}
 	//-------------------------------------------------------------------------------
 	
-	function controlar_agregar()
-	{
-		return false;
-	}
-	//-------------------------------------------------------------------------------
-	
-	function controlar_eliminar()
-	{
-		return false;
-	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -185,47 +155,55 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function recuperar_interaccion()
 	{
-		if($this->cargar_post()==true){
-			//$this->validar_estado();	
-			//Se modificaron los datos?
-			//ei_arbol($this->datos, "datos");
-		}else{
-			//echo ei_mensaje("No se cargo el POST");		
-		}
+		if(! $this->cargar_post())
+			$this->carga_inicial();
 	}
 	//-------------------------------------------------------------------------------
 
+	function carga_inicial()
+/*
+	@@acceso: interno
+	@@desc: Carga los datos a partir de la definición
+*/
+	{
+		if (!isset($this->datos) || $this->datos === null) {
+			$this->datos = array();
+			if ($this->info_formulario["filas"] > 0 ) {
+				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
+					$this->datos[$i] = array();
+				}
+			}
+		}	
+	}
+	
 	function cargar_post()
 	{
 /*
 	@@acceso: interno
-	@@desc: Carga el estado	de	cada EF a partir del	POST!
+	@@desc: Carga los datos a partir del POST
 */
-		if(isset($this->memoria["filas"]))
-		{	
-			$estado = true;
+		if (! isset($_POST[$this->objeto_js.'_listafilas']))
+			return false;
+
+		$this->datos = array();			
+		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
+		if ($lista_filas != '') {
+			$filas = explode('_', $lista_filas);
 			//Por cada fila
-			for($a=0; $a< $this->memoria["filas"]; $a++)
+			$i = 0;
+			foreach ($filas as $fila)
 			{
-				$estado = true;
 				//1) Cargo los EFs
 				foreach ($this->lista_ef as $ef){
-					$this->elemento_formulario[$ef]->establecer_id_form($a);
+					$this->elemento_formulario[$ef]->establecer_id_form($fila);
 					$x	= $this->elemento_formulario[$ef]->cargar_estado();
-					if	(!$x){
-						//$estado = false;
-						//echo "ERROR en $ef <br>";
-					}
 				}
 				//2) Seteo el registro
-				$this->cargar_ef_a_registro($a);
+				$this->cargar_ef_a_registro($i);
+				$i++;
 			}
-			return $estado;
-		}else{
-			//echo "Que pasa?";
 		}
-
-
+		return true;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -258,7 +236,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 	//-------------------------------------------------------------------------------
 
-	function	obtener_nombres_ef()
+	function obtener_nombres_ef()
 /*
 	@@acceso: actividad
 	@@desc: Recupera la lista de nombres de EF
@@ -277,6 +255,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function cantidad_lineas()
+	{
+		return count($this->datos);
+	}
+	//-------------------------------------------------------------------------------	
 	function obtener_datos()
 	{
 		return $this->datos;
@@ -286,6 +269,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function cargar_datos($datos)
 	{
 		$this->datos = $datos;
+		$this->carga_inicial();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -344,21 +328,23 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	@@retorno: array | estado de cada elemento de formulario
 */
 	{
-		$datos =& $this->datos[$id_registro];
+		$datos = (isset($this->datos[$id_registro])) ? $this->datos[$id_registro] : array();
 		foreach ($this->lista_ef as $ef)
 		{
 			//Seteo el ID-formulario del EF para que referencie al registro actual
 			$this->elemento_formulario[$ef]->establecer_id_form($id_registro);
-			$dato	= $this->elemento_formulario[$ef]->obtener_dato();
+			$this->elemento_formulario[$ef]->resetear_estado();
+			$dato = $this->elemento_formulario[$ef]->obtener_dato();
 			if(is_array($dato)){	//El EF maneja	 *** DATO COMPUESTO
 				$temp = array();
 				for($x=0;$x<count($dato);$x++){
 					$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
 				}
 			}else{					//El EF maneja	un	*** DATO SIMPLE
-				$temp = stripslashes($datos[$dato]);
+				$temp = (isset($datos[$dato])) ? stripslashes($datos[$dato]) : null;
 			}
-			$this->elemento_formulario[$ef]->cargar_estado($temp);
+			if ($temp !== null)
+				$this->elemento_formulario[$ef]->cargar_estado($temp);
 		}
 	}
 
@@ -370,68 +356,47 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
-		//Tengo que leer los datos, si esque existen
+		//Botonera de agregar
+		if ($this->info_formulario['filas_agregar']) {
+			echo "<div style='text-align: left;'>";
+			echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), "onclick='{$this->objeto_js}.subir_seleccionada();' disabled");
+			echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true), "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled");
+			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), "onclick='{$this->objeto_js}.crear_fila();'");
+			echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), "onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled");
+			$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
+			echo form::button_html("{$this->objeto_js}_deshacer", $html, " onclick='{$this->objeto_js}.deshacer();' disabled");
+			echo "</div>\n";
+		}				
+		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "500";
 		//SCROLL???
 		if($this->info_formulario["scroll"]){
-			$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "500";
 			$alto = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
 			echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
-			echo "<table class='tabla-0'>\n";
 		}else{
-			$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "100";
-			echo "<table width='$ancho' class='tabla-0'>\n";
+			echo "<div>";
 		}
+		echo form::hidden("{$this->objeto_js}_listafilas",'');
+		echo "<table width='$ancho' class='tabla-0'>\n";
+
 		//------ TITULOS -----
-		echo "<tr>";
+		echo "<thead>\n<tr>\n";
+		if ($this->info_formulario['filas_agregar']) {
+			echo "<td class='abm-columna'>&nbsp;</td>\n";
+		}
 		foreach ($this->lista_ef_post	as	$ef){
 			echo "<td  class='abm-columna'>\n";
 			echo $this->elemento_formulario[$ef]->envoltura_ei_ml();
 			echo "</td>\n";
 		}
-		echo "</tr>\n";
-		//------ FILAS ------
-		if($this->existen_datos_cargados())
-		{
-			//ATENCION: esto se cuelga con un array asociativo como parametro!
-			for($a=0;$a < count($this->datos);$a++)
-			{
-				$this->cargar_registro_a_ef($a);
-				echo "\n<!-- FILA $a ------------->\n\n";
-				echo "<tr>";
-				foreach ($this->lista_ef_post	as	$ef){
-					echo "<td class='abm-fila-ml'>\n";
-					echo $this->elemento_formulario[$ef]->obtener_input();
-					echo "</td>\n";
-				}
-				echo "</tr>\n";
-			}
-			$this->memoria["filas"] = $a;
-			//En este caso tengo que agregar las lineas que falten	
-			if(count($this->datos) < $this->info_formulario["filas"]){
+		echo "</tr>\n</thead>\n";
 
-			}
-		}else
-		{
-			if(isset($this->info_formulario["filas"])){
-				for($a=0;$a< $this->info_formulario["filas"];$a++){
-					//Aca va el codigo que modifica el estado de cada EF segun los datos...
-					echo "\n<!-- FILA $a ------------->\n\n";
-					echo "<tr>";
-					foreach ($this->lista_ef_post	as	$ef){
-						echo "<td  class='abm-fila-ml'>\n";
-						echo $this->elemento_formulario[$ef]->establecer_id_form($a);
-						echo $this->elemento_formulario[$ef]->obtener_input();
-						echo "</td>\n";
-					}
-					echo "</tr>\n";
-				}
-			$this->memoria["filas"] = $a;
-			}
-		}
 		//------ Totales ------
 		if(count($this->lista_ef_totales)>0){
 			echo "\n<!-- TOTALES ------------->\n\n";
-			echo "<tr>";
+			echo "<tfoot>\n<tr>\n";
+			if ($this->info_formulario['filas_agregar']) {
+				echo "<td class='abm-total'>&nbsp;</td>\n";
+			}			
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
 				if(in_array($ef, $this->lista_ef_totales)){
@@ -443,13 +408,37 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 				echo "</td>\n";
 			}
+			echo "</tr>\n</tfoot>\n";
+		}		
+
+		//------ FILAS ------
+		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
+		echo "<tbody>";
+		for($a=0; $a <  count($this->datos) + 1; $a++) {
+			if ($a < count($this->datos)) {
+				$fila = $a;
+				$estilo = "'";
+			} else {
+				$fila = "__fila__";
+				$estilo = "style='display:none;'";
+			}
+			$this->cargar_registro_a_ef($fila);
+			//Aca va el codigo que modifica el estado de cada EF segun los datos...
+			echo "\n<!-- FILA $fila ------------->\n\n";
+			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
+			if ($this->info_formulario['filas_agregar']) {
+				echo "<td class='abm-fila-ml'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
+				echo "</span></td>\n";
+			}
+			foreach ($this->lista_ef_post as $ef){
+				echo "<td  class='abm-fila-ml'>\n";
+				echo $this->elemento_formulario[$ef]->establecer_id_form($fila);
+				echo $this->elemento_formulario[$ef]->obtener_input();
+				echo "</td>\n";
+			}
 			echo "</tr>\n";
 		}
-		echo "</table>\n";
-		//SCROLL???
-		if($this->info_formulario["scroll"]){
-			echo "</div>";
-		}
+		echo "</tbody>\n</table>\n</div>";
 	}
 
 	//-------------------------------------------------------------------------------
@@ -459,25 +448,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function obtener_funciones_javascript()
 	{
 		echo js::abrir();
-		//ATENCION: revisar la logica de cantidad de filas actuales
-		if ($this->existen_datos_cargados()) {
-			$cant_filas = count($this->datos);
-		} else {
-			$cant_filas = is_numeric($this->info_formulario["filas"]) ? $this->info_formulario["filas"] : 0;
-		}
-
 		//Creación de los objetos javascript de los objetos
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml(document.{$this->nombre_formulario}, $cant_filas);\n";
+		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', {$this->cantidad_lineas()}, $con_agregar);\n";
 		foreach ($this->lista_ef_post	as	$ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()});\n";
 		}
-		
 		//Agregado de callbacks para calculo de totales
 		if(count($this->lista_ef_totales)>0) {
 			foreach ($this->lista_ef_post as $ef) {
 				if(in_array($ef, $this->lista_ef_totales)){
 					$objeto_js_ef = $this->elemento_formulario[$ef]->objeto_js();
-					echo "{$this->objeto_js}.agregar_totalizacion('$objeto_js_ef', '{$this->objeto_js}');";
+					echo "{$this->objeto_js}.agregar_totalizacion('$objeto_js_ef');\n";
 				}
 			}
 		}		
@@ -497,12 +479,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	@@desc: devuelve JAVASCRIPT que se ejecuta en el onSUBMIT del FORMULARIO
 */
 	{
-		echo "	
-			if ({$this->objeto_js}) {
-				if (! {$this->objeto_js}.validar())
-					return false;
-			}
-		";
+		echo "\nif (! {$this->objeto_js}.submit()) return false;";
 	}	
 }
 ?>
