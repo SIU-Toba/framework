@@ -30,5 +30,16 @@ class objeto_cn_ent_pd extends objeto_cn_ent
 		parent::upd($datos, $parametros);
 		$this->procesar();
 	}
+
+	public function seleccionar($id_registro, $parametros)
+	{
+		$this->cargar($id_registro);
+	}
+	
+	function get_x($parametros)
+	{
+		$elemento = $parametros[0];
+		return $this->entidad->acc_elemento($elemento, "get_x", 0);				
+	}
 }
 ?>
