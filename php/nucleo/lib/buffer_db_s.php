@@ -19,9 +19,9 @@ require_once("buffer_db.php");
 								la secuencia no lo es...
 	-- no_duplicado (array): 	claves o columnas que son UNIQUE en la DB
 	-- no_nulo (array):			columnas que no pueden ser ""
-	-- no_sql (array):			columnas que no se utilizan para operaciones SQL
+	-- externa (array):			columnas que no se utilizan para operaciones SQL
 
-	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, no_nulo y no_sql )
+	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, no_nulo y externa )
 	tienen que tener como valor valores existentes en los arrays "columna" o "clave" )
 
 	*** PENDIENTE ***
@@ -154,8 +154,8 @@ class buffer_db_s extends buffer_db
 	function generar_sql_select()
 	{
 		//Campos utilizados
-		if(isset($this->definicion['no_sql'])){
-			$campos_select = array_diff($this->campos, $this->definicion['no_sql']);
+		if(isset($this->definicion['externa'])){
+			$campos_select = array_diff($this->campos, $this->definicion['externa']);
 		}else{
 			$campos_select = $this->campos;
 		}
@@ -173,8 +173,8 @@ class buffer_db_s extends buffer_db
 	//Genera sentencia de INSERT
 	{
 		//Campos utilizados
-		if(isset($this->definicion['no_sql'])){
-			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['no_sql']);
+		if(isset($this->definicion['externa'])){
+			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['externa']);
 		}else{
 			$campos_insert = $this->campos_manipulables;
 		}
@@ -200,9 +200,9 @@ class buffer_db_s extends buffer_db
 	//Genera sentencia de UPDATE
 	{
 		//Campos utilizados
-		if(isset($this->definicion['no_sql'])){
+		if(isset($this->definicion['externa'])){
 			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['no_sql'],
+										$this->definicion['externa'],
 										$this->definicion['clave']);
 		}else{
 			$campos_update = array_diff($this->campos_manipulables, 

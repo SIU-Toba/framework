@@ -1,6 +1,6 @@
 <?
 include_once("nucleo/consola/emular_web.php");
-include_once("nucleo/lib/buffer_i.php");
+include_once("nucleo/lib/buffer_db_s_i.php");
 
 /*
 	Atencion: los campos que son secuencias no tienen que aparecer 
@@ -44,7 +44,7 @@ include_once("nucleo/lib/buffer_i.php");
 	{
 		//1)Busco la definicion
 		$tabla = $tabla_x['relname'];
-		$buffer =& new buffer_i("x",$tabla,$fuente);
+		$buffer =& new buffer_db_s_i("x",$tabla,$fuente);
 		$definicion_buffer = $buffer->obtener_definicion();
 		
 		//2)Creo el PHP de buffer 

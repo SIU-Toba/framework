@@ -4,7 +4,7 @@
 	No tiene implementada la carga ni la sincronizacion.
 	Solo provee los metodos para alterar el conjunto de registros y mantenerlos en la sesion.
 */
-
+define("apex_buffer_separador","%");
 class buffer_db
 {
 	protected $log;						//Referencia al LOGGER
@@ -181,6 +181,8 @@ class buffer_db
 		}
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proximo_registro = count($this->datos);	
+		//Lleno las columnas basadas en valores EXTERNOS
+		$this->actualizar_campos_externos();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -207,10 +209,10 @@ class buffer_db
 			$datos =& $rs->getArray();
 			//ei_arbol($datos);
 			//Los campos NO SQL deberian estar metidos en el array
-			if(isset($this->definicion['no_sql'])){
-				foreach($this->definicion['no_sql'] as $no_sql){
+			if(isset($this->definicion['externa'])){
+				foreach($this->definicion['externa'] as $externa){
 					for($a=0;$a<count($datos);$a++){
-						$datos[$a][$no_sql] = "";
+						$datos[$a][$externa] = "";
 					}
 				}
 			}
@@ -304,6 +306,8 @@ class buffer_db
 		$registro[apex_buffer_clave]=$this->proximo_registro;
 		$this->datos[$this->proximo_registro] = $registro;
 		$this->control[$this->proximo_registro]['estado'] = "i";
+		//Actualizo los valores externos
+		$this->actualizar_campos_externos_registro( $this->proximo_registro, "agregar");
 		$this->proximo_registro++;
 	}
 	//-------------------------------------------------------------------------------
@@ -328,6 +332,8 @@ class buffer_db
 			}
 			$this->datos[$id][apex_buffer_clave] = $id; 
 		}
+		//Actualizo los valores externos
+		$this->actualizar_campos_externos_registro($id,"modificar");
 	}
 	//-------------------------------------------------------------------------------
 
@@ -347,9 +353,26 @@ class buffer_db
 	}
 	//-------------------------------------------------------------------------------
 
-	function cantidad_registros()
+	function eliminar_registros()
+	//Elimina todos los registros
 	{
-		return count($this->datos);
+		foreach(array_keys($this->control) as $registro)
+		{
+			if($this->control[$registro]['estado']=="i"){
+				unset($this->control[$registro]);
+				unset($this->datos[$registro]);
+			}else{
+				$this->control[$registro]['estado']="d";
+			}
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function establecer_registro_valor($id, $columna, $valor)
+	{
+		if(isset($this->datos[$id][$columna])){
+			$this->datos[$id][$columna] = $valor;
+		}
 	}
 	//-------------------------------------------------------------------------------
 
@@ -360,6 +383,12 @@ class buffer_db
 		}else{
 			return null;
 		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function cantidad_registros()
+	{
+		return count($this->datos);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -465,6 +494,53 @@ class buffer_db
 			}else{
 					$this->log->error($mensaje_programador . $campo);
 					throw new excepcion_toba($mensaje_usuario);
+			}
+		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//---------------  Columnas cosmeticas   ----------------------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function actualizar_campos_externos()
+	//Actualiza los campos externos despues de cargar el buffer
+	{
+		foreach(array_keys($this->control) as $registro)
+		{
+			$this->actualizar_campos_externos_registro($registro);
+		}	
+	}
+	
+	function actualizar_campos_externos_registro($id_registro, $evento=null)
+	{
+		//Itero planes de carga externa
+		if(isset($this->definicion['carga_externa'])){
+			foreach(array_keys($this->definicion['carga_externa']) as $carga)
+			{
+				//SI entre por un evento, tengo que controlar que la carga este
+				//Activada para eventos, si no esta activada paso al siguiente
+				if(isset($evento)){
+					if(! $this->definicion['carga_externa'][$carga]['eventos_iu'] ){	
+						continue;
+					}
+				}
+				// - 1 - Obtengo el query
+				$sql = $this->definicion['carga_externa'][$carga]['sql'];
+				// - 2 - Reemplazo valores llave
+				foreach($this->definicion['carga_externa'][$carga]['llave'] as $col_llave ){
+					$valor_llave = $this->datos[$id_registro][$col_llave];
+					$sql = ereg_replace( apex_buffer_separador . $col_llave . apex_buffer_separador, $valor_llave, $sql);
+				}
+				//echo "<pre>SQL: "  . $sql . "<br>";
+				// - 3 - Ejecuto SQL
+				$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
+				// - 4 - Seteo los valores recuperados en el registro
+				foreach($this->definicion['carga_externa'][$carga]['col'] as $columna_externa ){
+					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
+				}
+				//ei_arbol($this->datos);
 			}
 		}
 	}

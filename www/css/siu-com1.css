@@ -832,27 +832,21 @@ TD.abm-fila {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-SIZE: 8px;
-	 PADDING-BOTTOM: 0px;
+	 PADDING-BOTTOM: 3px;
 	 MARGIN: 0px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #efece6;
-	 TEXT-ALIGN: left
+	 COLOR: #441177;
+	 PADDING-TOP: 1px;
+	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-fila-ml {
-	BORDER-RIGHT: #000000 1px solid;
-	 PADDING-RIGHT: 3px;
-	 BORDER-TOP: #000000 1px solid;
+	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-SIZE: 8px;
 	 PADDING-BOTTOM: 3px;
 	 MARGIN: 0px;
-	 BORDER-LEFT: #000000 1px solid;
 	 COLOR: #441177;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: #000000 1px solid;
-	 BACKGROUND-COLOR: #efece6;
-	 TEXT-ALIGN: center
+	 PADDING-TOP: 1px;
+	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-columna {
 	PADDING-RIGHT: 2px;
@@ -1430,9 +1424,6 @@ TD.ef-etiqueta-obligatorio {
 	 PADDING-LEFT: 4px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 0px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
@@ -1441,21 +1432,15 @@ TD.ef-etiqueta {
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 0px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TD.ef-etiqueta-error {
 	PADDING-RIGHT: 2px;
-	 BORDER-TOP: #4f4c4d 1px solid;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 BACKGROUND-COLOR: #ff411b;
+	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TD.ef-zonainput {
@@ -1466,11 +1451,9 @@ TD.ef-zonainput {
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
-	 BORDER-LEFT: #4f4c4d 1px solid;
 	 COLOR: #231f20;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #4f4c4d 1px;
-	 BACKGROUND-COLOR: #efece6;
 	 TEXT-ALIGN: left
 }
 .ef-boton {

@@ -1,7 +1,7 @@
 <?php
 include("buffer_db_s.php");
 
-class buffer_i extends buffer_db_s
+class buffer_db_s_i extends buffer_db_s
 {
 	var $tabla;
 

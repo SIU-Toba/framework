@@ -126,8 +126,8 @@ class buffer_db_mt extends buffer_db
 	{
 		return;
 		//Campos utilizados
-		if(isset($this->definicion['no_sql'])){
-			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['no_sql']);
+		if(isset($this->definicion['externa'])){
+			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['externa']);
 		}else{
 			$campos_insert = $this->campos_manipulables;
 		}
@@ -162,9 +162,9 @@ class buffer_db_mt extends buffer_db
 	{
 		return;
 		//Campos utilizados
-		if(isset($this->definicion['no_sql'])){
+		if(isset($this->definicion['externa'])){
 			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['no_sql'],
+										$this->definicion['externa'],
 										$this->definicion['clave']);
 		}else{
 			$campos_update = array_diff($this->campos_manipulables, 
@@ -221,8 +221,8 @@ class buffer_db_mt extends buffer_db
 			//-- COLUMNAS
 			$campos = array_merge( $this->definicion[$tabla]['columna'], $this->definicion[$tabla]['clave'] );
 			//Elimino campos NO SQL
-			if(isset($this->definicion['tabla']['no_sql'])){
-				$campos = array_diff( $campos, $this->definicion[$tabla]['no_sql'] );
+			if(isset($this->definicion['tabla']['externa'])){
+				$campos = array_diff( $campos, $this->definicion[$tabla]['externa'] );
 			}
 			foreach($campos as $campo){
 				//Los campos duplicados los comprimo
