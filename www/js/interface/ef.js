@@ -16,11 +16,6 @@ def.constructor = ef;
 		return this.id_form;	
 	}
 
-	//cuando_cambia_valor (disparar_callback)
-	def.cuando_cambia_valor = function(callback) {
-		return; 
-	}
-
 	//permite tener varias instancias del ef
 	def.posicionarse_en_fila = function(fila) {
 		this.id_form = this.id_form_orig + fila;
@@ -40,6 +35,7 @@ def.constructor = ef;
 		this.input().tabIndex = tab_index;
 	}
 	
+	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
 		if (! this.input().onchange)	//Para no romper scripts hechos ad-hoc
 			this.input().onchange = callback;	
