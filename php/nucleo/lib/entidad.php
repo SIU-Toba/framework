@@ -134,14 +134,6 @@ class entidad
 	//------ Interface de sincronizacion
 	//-------------------------------------------------------
 
-	public function cargar($id)
-	//Carga un instanciacion de la entidad
-	{
-		//Armo los WHERE y cargo
-		//a los BUFFERS
-	}
-	//-------------------------------------------------------
-
 	public function descargar()
 	{
 		foreach(array_keys($this->elemento) as $elemento)
@@ -150,13 +142,26 @@ class entidad
 		}
 	}
 	//-------------------------------------------------------
-	
+
+	public function cargar($id)
+	//Carga un instanciacion de la entidad
+	{
+		//Armo los WHERE y cargo
+		//a los BUFFERS
+	}
+	//-------------------------------------------------------
+
 	public function sincronizar_db()
 	//Sincroniza la entidad contra la base de datos
-	//Esto lee un plan y lo ejecuta. Si la entidad tiene una regla de grabacion
+	//Esto deberia leer un plan y ejecutarlo. Si la entidad tiene una regla de grabacion
 	//muy complicada, deberia redefinir esta funcion
 	{
-		
+	}
+	//-------------------------------------------------------
+
+	public function eliminar()
+	//Elimina el contenido de los BUFFERs y los sincroniza
+	{
 	}
 	//-------------------------------------------------------
 }

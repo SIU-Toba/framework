@@ -304,7 +304,11 @@ class objeto_ci extends objeto
 				if( isset($_POST[$this->submit_especifico . $id]) ){
 					//Se selecciono una opcion, llamo al metodo del CN indicado
 					$metodo = $opcion["metodo"];
-					$this->cn->$metodo();
+					if(isset($opcion['metodo_param'])){
+						$this->cn->$metodo( $opcion['metodo_param'] );
+					}else{
+						$this->cn->$metodo();
+					}
 				}
 			}
 		}

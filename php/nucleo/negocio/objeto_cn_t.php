@@ -131,17 +131,14 @@ class objeto_cn_t extends objeto_cn
 	}
 	//-------------------------------------------------------------------------------
 
-	function procesar_especifico(){  }
-	function validar_datos(){  }
-
-	function procesar()
+	function procesar($parametros=null)
 	//Esto hay que redeclararlo en los HIJOS
 	{
 		try
 		{
 			$this->iniciar_transaccion();
 			$this->validar_datos();
-			$this->procesar_especifico();
+			$this->procesar_especifico($parametros);
 			$this->finalizar_transaccion();
 			$this->proceso_ok = true;
 		}
@@ -152,6 +149,9 @@ class objeto_cn_t extends objeto_cn
 		}
 	}
 
+	function procesar_especifico(){  }
+	function validar_datos(){  }
+	
 	//-------------------------------------------------------------------------------
 }
 ?>

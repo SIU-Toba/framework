@@ -187,15 +187,15 @@ class objeto_cn_ent extends objeto_cn_t
 	//----- Carga y descarga de entidades
 	//-------------------------------------------------------------------------------
 
+	function existe_entidad_cargada()
+	{
+		return isset($this->entidad_id);	
+	}
+
 	function cargar($id)
 	{
 		$this->entidad_id = $id;
 		$this->entidad->cargar($id);
-	}
-	
-	function existe_entidad_cargada()
-	{
-		return isset($this->entidad_id);	
 	}
 	
 	function descargar()
@@ -203,8 +203,6 @@ class objeto_cn_ent extends objeto_cn_t
 		$this->entidad_id = null;
 		$this->entidad->descargar();	
 	}
-	
 	//-------------------------------------------------------------------------------
-
 }
 ?>
