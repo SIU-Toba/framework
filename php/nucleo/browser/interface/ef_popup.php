@@ -48,6 +48,8 @@ class ef_popup extends ef_editable
 
 	function obtener_input()
 	{
+		if(!isset($this->estado)) $this->estado="";	
+		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
 		if($this->solo_lectura || $this->vinculo_item == NULL){
 			$r = form::text("", $this->estado,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);
 			$r .= form::hidden($this->id_form, $this->estado);
