@@ -4,7 +4,11 @@
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
 	
-	echo "REVISION: " . version_svn();
+	
+	echo "<pre>
+		
+		REVISION: " . version_svn() ."
+		INSTANCIA: " . apex_pa_instancia;
 		
 /*
 	echo "<pre>";
