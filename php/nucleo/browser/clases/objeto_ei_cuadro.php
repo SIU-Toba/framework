@@ -22,7 +22,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 */
     {
         parent::objeto_cuadro($id);
-        $this->submit = "ei_cuad_" . $this->id[1] ."_";
+        $this->submit = "ei_cuadro_" . $this->id[1] ."_";
 		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_buffer_clave );
@@ -107,19 +107,49 @@ class objeto_ei_cuadro extends objeto_cuadro
 
 	function recuperar_interaccion()
 	{
-		//El usuario presiono un BOTON?
-		//ATENCION!! Esto no funciona para las claves compuestas
+		//Si se presiono un boton, busco la clave
 		foreach (array_keys($_POST) as $post)
         {
 			if(preg_match("/".$this->submit.".*_x/", $post)){
 				$sobra = strlen($this->submit);
 				$clave = substr($post, $sobra, (strlen($post) - $sobra - 2 ));
-				//PHP convierte los "." es "_" en los botones de submit.
-				$clave = ereg_replace("_",".",$clave);//echo $partida;
-				$this->clave_seleccionada = $clave;
+				//PHP convierte los "." es "_" en los botones de submit (Es raro, pero es asi)
+				//$clave = ereg_replace("_",".",$clave);//echo $partida;
+				if(apex_pa_encriptar_qs){
+					$encriptador = toba::get_encriptador();
+					$clave = $encriptador->descifrar( $clave );
+				}
+				if(count($this->columnas_clave) > 1 )
+				{
+					//La clave es un array, devuelvo un array asociativo con el nombre de las claves
+					$clave = explode(apex_qs_separador, $clave);
+					for($a=0;$a<count($clave);$a++){
+						$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
+					}
+				}else{
+					$this->clave_seleccionada = $clave;			
+				}
 			}
 		}
 	}
+//--------------------------------------------------------------------------
+
+    function obtener_clave_fila($fila)
+	//Genero la CLAVE
+    {
+        $id_fila = "";
+        foreach($this->columnas_clave as $clave){
+            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+        }
+        $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
+		if(apex_pa_encriptar_qs)
+		{
+			$encriptador = toba::get_encriptador();
+			//ATENCION: me faltaria ponerle un uniqid("") para que sea mas robusto;
+			$id_fila = $encriptador->cifrar($id_fila);
+		}
+        return $this->submit . $id_fila;
+    }
 //--------------------------------------------------------------------------
 
 	function obtener_consumo_dao()
@@ -297,7 +327,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 	            //-- Evento FIJO de seleccion
 				if($this->ev_seleccion){
 					echo "<td class='lista-col-titulo'>\n";
-					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"));
+					echo form::image( $this->obtener_clave_fila($f) ,recurso::imagen_apl("doc.gif"));
 	            	echo "</td>\n";
 	            }
 				//----------------------------

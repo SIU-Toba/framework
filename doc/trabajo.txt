@@ -65,6 +65,7 @@
 			-> SERVER: Excepciones
 			º CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
 						como por algo externo... (esto deja la ventana abierta para testear las interfaces con JS)
+						- Otra cosa interesante de esto es que se pueden mostrar todas las cosas que estan mal a la vez.
 			(relacionado, pero sobre el ei_form )
 				-> Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
 				º Terminar de migrar a las validaciones a las clases JS
@@ -86,17 +87,17 @@
 			› Migración del JS suelto a las clases (esto incluye el código cascada)
 			› Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
 			-> Construir las etiquetas usando <label for> con atajos de teclado
-		-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR
-		-> COMBO DAO que maneje mas de una columna
+		-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR!!!!
 		-> EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
 -D:					s: Ver el diagrama adjunto en docs. Me parece que la inclusión de elementos sin estado (líneas, dibujitos, notas, vinculo, fieldset, etc.) 
 						no debe ser en los ef sino en el formulario. Por ejemplo el layout de los efs dentro del formulario puede incluir
 						notas, lineas y cualquier otro formateo que se quiera en forma de template.
+		-> Los proyectos deberian tener un repositorio de EFs instanciados 
+			(Un nuevo lugar del administrador para definir EFs que se usan en muchos ei_form)
+
 
 	*** EI_CUADRO
 
-		-> Claves de mas de una columna
-		-> Encriptacion de claves... el mecanismo es distinto que el del GET
 		-> Evento ELIMINACION (con popup preguntando...)
 		-> sistematizar totales
 		-> Mostrar fila seleccionada
@@ -117,6 +118,7 @@
 		-> Utilización de shotcuts para acceder a los efs (por ejemplo N&ombre se dispara con ALT + o)
 		-> Utilización sencilla desde una acción ad-hoc
 		-> Personalización del layout de los efs
+		-> Cuando una cascada sale a buscar una respuesta al server, el submit del form se deberia desactivar hasta que vuelva
 		
 	*** EI_FILTRO
 
@@ -145,6 +147,9 @@
 			-> agregar: despues del proceso el boton queda mapeado a otra cosa
 			-> modificar: el CI recuerda el TAB
 			-> Manejo post procesar
+			-> El cancelar esta disparando validaciones
+		-> El metodo que permite modificar la lista de EI a mostrar, puede competir con el rastreador de eventos
+		-> En la generacion de botones, algunos necesitan un confirm de javascript
 		-> Controlar el Metodo de salida y entrada a ETAPAS
 		-> Un CN tiene que tener una forma de mandar a un CI multitab a un tab (falla validacion server)
 		-> ME_TAB con secuencia estricta
@@ -153,6 +158,7 @@
 		-> Un CI tiene que poder ocultar tabs en el server, e inhabilitarlos en el cliente. 
 			(y cuando tenga una clase JS, que lo haga de una manera unificada)
 		-> La forma de renderizar la cola de mensajes tiene que poder customizarse
+		-> Layout??
 		-> Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
 			Pensar en este punto la relacion CI ->->> CN...
 
@@ -168,9 +174,6 @@
 
 	**** GENERAL
 
-		-> Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
-		-> Las entidades mas complejas necesitan una forma de persistir datos durante la sesion (recordar su estado inicial).
-		-> mantener_estado_sesion no respeta el no acceso al hilo
 		-> Foco automatico vs. hidden. 
 -D					s:	Que tal utilizar los objetos JS (por ej pedir focus al form y este le pide al 1er EF) 
 -D						Sino hay que recorrer el DOM, mas bajo nivel pero infalible
@@ -182,6 +185,7 @@
 			-> Empezar a utilizar el DOCTYPE, va a pasar al IE de modo compatible a modo CSS, se ven mal algunas cosas
 				Sin el DOCTYPE no se puede validar el documento y no funcionan cosas avanzadas de CSS (ej. tablas con scroll)
 		->	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
+				- El menu actual consume demasiados recursos del navegador, tiene que haber una forma simple de elegir entre varios menues.
 		->	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
 		->	Carga de objetos toba
 			- Lugar unificado de carga (actualmente solicitud y objeto)
@@ -189,11 +193,27 @@
 		->	Desarrollar el display de errores de la cola de mensajes
 		->	Javascript en el login que deje guardado en el HILO el browser que se esta utilizando
 		->	Armar una entrada al sistema (en modo usuario final) que abra un popup sin botones de volver, etc.
+		->	Hay que pensar como se manejan los EI que son casi identicos
+				Hay que introducir un esquema que no implique clonar y modificar, una especie de herencia de metadatos
+				(algo asi como un link a otro objeto con una modificacion...)
+		-> Mejorar el LOGGER a pantalla.
+		->	Se puede utlizar SSL de manera detallada? (Controlar certificados, etc.)
+		->	ACCESO
+			-	Esquema de manejo de usuarios de distintas instancias para una instalacion
+			-	Abstraccion del login para soportar mecanismos externos
+			-	Cuando se crea un proyecto hay que crear en forma optativa un manejador de usuarios para el mismo
+		->	Multimotor
+		-> 	Refactorizar el manejo de la fuente de datos
+		->	Separacion de las tablas de metadatos por dominios (para distribuirlas entre instancias, reemplazar algunas por PHP compilado, etc.)
+		->	Hacer una migracion completa a PHP5 (migrar: constructores, visibilidad de metodos y propiedades, usar interfaces, eliminar referencias globales)
+		->	Completar el esquema de ayuda online
+		-> Las entidades mas complejas necesitan una forma de persistir datos durante la sesion (recordar su estado inicial).
+		-> mantener_estado_sesion no respeta el no acceso al hilo
 
 	*** Inteface ADMINISTRATIVA
 
 	-> CI: mostrar plan de ruteo y de carga
-	-> CI: clonar bien
+	-> CI: clonar bien (incluir dependencias...)
 	-> Separar objetos por modulos
 	-> Eliminar items completos
 	-> Eliminar carpetas completas
@@ -203,4 +223,17 @@
 	
 	-> Los scripts de dumpeo tienen que estar preparados para manejar N instancias
 	-> Hay que mejorar el generador de BUFFERS
+
+	*** DOCUMENTACION
+	
+	->	Plan de capacitacion
+	->	WIKI
+	->	Online para guiar el desarrollo con el administrador.
+	->	Offline para entender conceptos.
+	->	Implementar un foro y un sitio de referencia
+	->	Lineamientos al programador
+		->	Uso de directorios
+		->	Convenciones 
+	->	Glosario
+	
 	

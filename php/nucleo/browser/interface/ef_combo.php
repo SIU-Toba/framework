@@ -300,35 +300,18 @@ class ef_combo_dao extends ef_combo
 		}else{
 			$this->modo = "cn";	
 		}
+		unset($parametros["dao"]);
+		unset($parametros["clase"]);
+		unset($parametros["include"]);
+		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		
+		//---------------------- Manejo de CLAVES compuestas ------------------
 		//Clave de los datos a recibir
 		if(isset($parametros["clave"])){
 			$this->clave = explode(",",$parametros["clave"]);
 			$this->clave = array_map("trim",$this->clave);
 		}else{
 			//SI no esta definido esto tiene que tirar una excepcion
-		}
-		//Clave de los datos a recibir
-		if(isset($parametros["valor"])){
-			$this->valor = $parametros["valor"];
-		}else{
-			//SI no esta definido esto tiene que tirar una excepcion
-		}
-		unset($parametros["dao"]);
-		unset($parametros["clase"]);
-		unset($parametros["include"]);
-		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		//Si el elemento no posee dependencias lo puedo cargar ahora...
-		//Sino hay que esperar que la carga se llame explicitamente una vez que el padre se encuentre cargado
-		
-		//El modo estatico puede funcionar con cascadas
-		if($this->modo == "estatico"){
-			if(is_array($this->dependencias)){
-				//$this->establecer_solo_lectura();
-				//$this->valores = array();
-				$this->input_extra = " disabled ";
-			}else{
-				$this->cargar_datos();
-			}
 		}
 		//**** CC!
 		$this->cantidad_claves = count($this->clave);
@@ -348,6 +331,26 @@ class ef_combo_dao extends ef_combo
 					$this->estado = $this->estado_nulo;
 	    		}
 	        }
+		}
+		//Clave de los datos a recibir
+		if(isset($parametros["valor"])){
+			$this->valor = $parametros["valor"];
+		}else{
+			//SI no esta definido esto tiene que tirar una excepcion
+		}
+		//----------------------------------------------------------------------
+
+		//Si el elemento no posee dependencias lo puedo cargar ahora...
+		//Sino hay que esperar que la carga se llame explicitamente una vez que el padre se encuentre cargado
+		//El modo estatico puede funcionar con cascadas
+		if($this->modo == "estatico"){
+			if(is_array($this->dependencias)){
+				//$this->establecer_solo_lectura();
+				//$this->valores = array();
+				$this->input_extra = " disabled ";
+			}else{
+				$this->cargar_datos();
+			}
 		}
 	}
 	
@@ -417,6 +420,7 @@ class ef_combo_dao extends ef_combo
 	}
 
 	function adjuntar_datos($valores)
+	//ATENCION: Las claves de los combos, hay que encriptarlas?
 	{
 		//-[ 0 ]- Incluyo el valor no seteado
 		if(isset($this->no_seteado)){
