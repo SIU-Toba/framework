@@ -248,6 +248,8 @@ class ef_combo_dao extends ef_combo
 	private $include;
 	private $clase;
 	private $modo; 		//Carga estatica o a travez del CN
+	private $clave;
+	private $valor;
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -266,6 +268,18 @@ class ef_combo_dao extends ef_combo
 			$this->modo = "estatico";
 		}else{
 			$this->modo = "cn";	
+		}
+		//Clave de los datos a recibir
+		if(isset($parametros["clave"])){
+			$this->clave = explode(",",$parametros["clave"]);
+		}else{
+			//SI no esta definido esto tiene que tirar una excepcion
+		}
+		//Clave de los datos a recibir
+		if(isset($parametros["valor"])){
+			$this->valor = $parametros["valor"];
+		}else{
+			//SI no esta definido esto tiene que tirar una excepcion
 		}
 		unset($parametros["dao"]);
 		unset($parametros["clase"]);
@@ -306,15 +320,30 @@ class ef_combo_dao extends ef_combo
 		Si el DAO esta a a cargo del CN, el CN lo carga a travez de este metodo.
 		Si el DAO se carga a travez de una clase estatica, el mismo obtiene los
 		datos directamente de la misma, obviando los parametros
+		Esto es realmente feo... pero tuvo que salir...
 	*/
 	{
 		if($this->modo =="estatico" )
 		{
 			include_once($this->include);
-			$sentencia = "\$this->valores = " .  $this->clase . "::" . $this->dao ."();";
+			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."();";
 			eval($sentencia);//echo $sentencia;
+		}
+		//Incluyo el valor no seteado
+		if(isset($this->no_seteado)){
+			$this->valores[apex_ef_no_seteado] = $this->no_seteado;
+		}
+		//Armo los valores...
+		//ei_arbol($valores);
+		if(count($this->clave)>1){
+			echo "La clave es multiple!!!";
 		}else{
-			$this->valores = $valores;
+			//La clave es unica
+			$id = $this->clave[0];
+			for($a=0;$a<count($valores);$a++){
+				//Determino la clave
+				$this->valores[ $valores[$a][$id] ] = $valores[$a][$this->valor];
+			}
 		}
 	}
 
@@ -344,11 +373,6 @@ class ef_combo_dao extends ef_combo
 		}else{
 			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
 		}
-
-
-		
-
-
 	}
 }
 //########################################################################################################

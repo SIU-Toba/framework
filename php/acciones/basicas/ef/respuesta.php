@@ -70,13 +70,29 @@ $this->hilo->desactivar_reciclado();
 					//Preparo los parametros recibidos
 					$param = "'" . implode("', '",$dependencias) . "'";
 					include_once($include);
-					$sentencia = "\$datos = " .  $clase . "::" . $dao ."($param);";
+					$sentencia = "\$datos_pre = " .  $clase . "::" . $dao ."($param);";
 					try{
 						eval($sentencia);//echo $sentencia;
 						//$datos = ppg::get_p_principales_cr('5833');
 						//$datos = ppg::get_incisos();
 						//$datos["llamada"] = $sentencia;
 						//$datos["includeo"] = $include;
+
+						//Tengo que incluir ACA los valores NO_SETEADOS!
+
+						//Formateo los datos para que los pueda levantar en COMBO
+						$clave = explode(",",$i['clave']);
+						$valor = $i['valor'];
+						if(count($clave)>1){
+							$datos['1'] = "LA CLAVE ES MULTIPLE, Culpar a Juan";
+						}else{
+							//La clave es unica
+							$id = $clave[0];
+							for($a=0;$a<count($datos_pre);$a++){
+								//Determino la clave
+								$datos[ $datos_pre[$a][$id] ] = $datos_pre[$a][$valor];
+							}
+						}
 					}catch(excepcion_toba $e){
 						$datos['1'] = "Excepcion: " . $e->getMessage();
 					}
@@ -84,6 +100,7 @@ $this->hilo->desactivar_reciclado();
 				}else{
 					$datos['hola'] = "";
 				}
+				//$datos['1'] = "HOLA";
 				responder($datos);					
 
 			}else 										//----------------- COMBOS comunes
