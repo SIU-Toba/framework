@@ -312,9 +312,9 @@ class buffer
 
 	function resetear()
 	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - RESET");
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - RESET!!");
 		if($this->existe_instanciacion_previa()){
-			return $this->solicitud->hilo->eliminar_dato_global($this->identificador);
+			$this->solicitud->hilo->eliminar_dato_global($this->identificador);
 		}
 		$this->datos = array();
 		$this->datos_orig = array();
