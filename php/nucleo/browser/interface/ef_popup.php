@@ -52,11 +52,12 @@ class ef_popup extends ef_editable
 			$r = form::text("", $this->estado,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);
 			$r .= form::hidden($this->id_form, $this->estado);
 		}else{
+			$r = $this->obtener_javascript_general() . "\n\n";		
             $recurso_js_cod = "document.{$this->nombre_formulario}.{$this->id_form}";
             $recurso_js_desc = "document.{$this->nombre_formulario}.{$this->id_form}_desc";
-    		$r = "<table class='tabla-0'>";
+    		$r .= "<table class='tabla-0'>";
     		$r .= "<tr><td>\n";		
-			$r .= form::hidden($this->id_form, $this->estado);            
+			$r .= form::hidden($this->id_form, $this->estado, $this->obtener_javascript_input());
     		$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ". $this->javascript);
 			$r .= "</td><td>\n";
 			$r .= "<a id='link_{$this->id_form}'";
@@ -87,13 +88,13 @@ class ef_popup extends ef_editable
         //Si el campo es obligatorio, en el form hay que llenarlo si o si
         if($this->obligatorio){
             return "
-if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
-	alert(\"El campo '". $this->etiqueta ."' es obligatorio.\");
-    return false;
-}";
+				if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
+					alert(\"El campo '". $this->etiqueta ."' es obligatorio.\");
+				    return false;
+				}";
         }
     }
-
+	
     function cargar_estado($estado=null)
     {
         parent::cargar_estado($estado);

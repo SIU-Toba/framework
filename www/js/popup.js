@@ -41,6 +41,8 @@ function popup_callback(indice, clave, desc)
 		{
 			encontrado=true;
 			popup_elementos[i][1].value = clave;
+			if (popup_elementos[i][1].onchange)
+				popup_elementos[i][1].onchange();
 			popup_elementos[i][2].value = desc;	
 		}			
 		i++;

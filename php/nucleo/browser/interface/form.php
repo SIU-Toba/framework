@@ -54,10 +54,10 @@ class form {
 
 //________________________________________________________________________________________________________
 
-    function hidden($nombre,$valor)
+    function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {
-        return "<input name='$nombre' id='$nombre' type='hidden' value='$valor'>\n";
+        return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra>\n";
     }
 //________________________________________________________________________________________________________
 
