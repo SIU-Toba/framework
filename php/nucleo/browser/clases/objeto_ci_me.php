@@ -46,6 +46,7 @@ class objeto_ci_me extends objeto_ci
 													etiqueta			  as etiqueta,
 													descripcion			  as descripcion,
 													objetos				  as objetos,
+													objetos_adhoc		as	objetos_adhoc,
 													pre_condicion		as	pre_condicion,	
 													post_condicion	    as	post_condicion,	
 													ev_procesar		    as	ev_procesar,
@@ -65,21 +66,27 @@ class objeto_ci_me extends objeto_ci
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-
-	function obtener_dependencias($etapa=null)
+	function obtener_dependencias( $etapa )
 /*
  	@@acceso: actividad
 	@@desc: Devuelve las dependencias asociadas especificamente con el ME
 */
 	{
-		//Devuelvo las dependencias de todas las etapas.
 		$dependencias = array();
-		if(isset($etapa)){
-			if(isset($this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"])){
-				$dependencias = explode(",",$this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"]);
-				$dependencias = array_map("trim",$dependencias);
-			}
-		}else{
+		if( trim( $this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos_adhoc"] )!="" )
+		{
+			$metodo = $this->info_ci["objetos_adhoc"];
+			//ATENCION: hay que controlar que las DEPENDENCIAS existan...
+			$dependencias = $this->cn->$metodo();
+		}
+		elseif( trim($this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"])!="" )
+		{
+			$dependencias = explode(",",$this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"]);
+			$dependencias = array_map("trim",$dependencias);
+		}
+		return $dependencias;
+		/*
+		else{
 			//Todas las etapas
 			for($a=0;$a<count($this->info_ci_me_etapa);$a++)
 			{
@@ -90,8 +97,7 @@ class objeto_ci_me extends objeto_ci
 				}
 				if(is_array($temp)) $dependencias = array_merge($dependencias, $temp) ;
 			}
-		}
-		return $dependencias;
+		}*/
 	}
 	//-------------------------------------------------------------------------------
 

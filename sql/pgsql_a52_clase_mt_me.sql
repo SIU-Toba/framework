@@ -55,6 +55,7 @@ CREATE TABLE apex_objeto_mt_me_etapa
 	etiqueta							varchar(80)			NOT NULL,
 	descripcion							varchar(255)		NULL,
 	objetos								varchar(80)			NULL, 	-- ATENCION: TEMPORAL!!!
+	objetos_adhoc						varchar(80)			NULL, 	-- ATENCION: TEMPORAL!!!
 	pre_condicion						varchar(40)			NULL,	--> CN: Metodo a llamar cuando se entra en una etapa
 	post_condicion						varchar(40)			NULL,	--> CN: Metodo a llamar cuando se sale de una etapa
 	gen_interface_pre					varchar(40)			NULL,	--> CN: Metodo a llamar para generar interface PRE objetos

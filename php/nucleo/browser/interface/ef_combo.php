@@ -403,6 +403,7 @@ class ef_combo_dao extends ef_combo
 	}
 
 	function recuperar_datos_dao($param=null)
+	//ATENCION: los parametros son codigo PHP a evaluar, no son un array...
 	{
 		include_once($this->include);
 		if($this->requiere_instancia){
