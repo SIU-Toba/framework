@@ -1,20 +1,29 @@
 -------------------------------------------------
---- TRABAJO en el TOBA
+--- TRABAJO en el TOBA 
+	 -> Pendiente
+	 › En desarrollo
+	 º Para revisar
 --------------------------------------------------
 
 	*** ML: 
 	
-		- Sistematizar la generacion de totales
-		- Validacion de EFs en cliente y servidor
-		- Facilidades en la extension del JS
-		- Agregar y eliminar filas
-		- Mejorar el disparo de eventos
+		º Sistematizar la generacion de totales
+		º Validacion de EFs en cliente 
+		-> Validación de EFs en servidor
+		› Facilidades en la extension del JS
+		º Agregar y eliminar filas
+		º Mejorar el disparo de eventos
 			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron??
 				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
 				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
-		- TAB ORDER
-		- Enter
-		- Hay que pensar bien la relacion de este componente y el buffer
+				Se podría saber una vez que los ef's puedan saber, por ahora sólo se puede jugar con el número de líneas.
+						Si se hiciera, ¿cómo se utilizaría? Los cambios que se pueden hacer en el browser son todos los posibles
+						¿tiene sentido hacer un diff o es más razonable tomar todo en conjunto?)
+		-> TAB ORDER
+		-> Agregado automático de líneas (TAB en el último EF de la última línea crea línea nueva)
+		-> Enter. podemos guardar con ALT + S o ALT + G, está piola
+		-> Hay que pensar bien la relacion de este componente y el buffer
+		-> Selección múltiple de líneas
 
 	*** EF:
 
@@ -23,79 +32,106 @@
 			-> CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
 						como por algo externo... (esto deja la ventana abierta para testear las interfaces con JS)
 			(relacionado, pero sobre el ei_form )
-				- Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
+				-> Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
+				› Terminar de migrar a las validaciones a las clases JS
 		-> El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
 		-> cascada no seteada no obligatorio
 		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
-			- ef_nota (cuando pasas el mouse por encima muestra un mensaje)
-			- ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
-			- ef_vinculo?
-			- ef_template?
-			- ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que no se metio)
+			-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
+			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
+			-> ef_vinculo?
+			-> ef_template?
+			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que no se metio)
+			-> ef_multi_selecccion 
+				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
+				-> Utilizando un conjunto de checkbox (muy explicito, ideal para conjunto chico de datos)
+				-> Utilizando dos <SELECT> pasando los datos de uno a otro (muy gráfico)
+				-> Hay que buscar uno para conjunto grandes de datos ej: quiero seleccionar 5 clientes de un total de 20.000, basado en el popup
+		-> Refactoring de los actuales:
+			-> Migración del JS suelto a las clases (esto incluye el código cascada)
+			-> Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
+			-> Construir las etiquetas usando <label for> con atajos de teclado
+			
 		---------------------
-		- COMBO DAO que maneje mas de una columna
-		- Los COMBO DAO necesitan un valor NO SETEADO (para disparar el onchange)
-		- EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
+		-> COMBO DAO que maneje mas de una columna
+		-> Los COMBO DAO necesitan un valor NO SETEADO (para disparar el onchange)
+		-> EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
 			
 
 	*** EI_CUADRO
 
-->		- Claves de mas de una columna
-		- Encriptacion de claves... el mecanismo es distinto que el del GET
-		- Evento ELIMINACION (con popup preguntando...)
-		- sistematizar totales
-		- Mostrar fila seleccionada
-		- Paginar
+->		-> Claves de mas de una columna
+		-> Encriptacion de claves... el mecanismo es distinto que el del GET
+		-> Evento ELIMINACION (con popup preguntando...)
+		-> sistematizar totales
+		-> Mostrar fila seleccionada
+		-> Paginar, con ordenamiento total
+		-> Cortes de control fácil de crear y entender
+		
 
 	*** EI_FORM
 
-		- FORM JS no nulo salta en modificaciones estrictas
-		- BOTONES
+		-> FORM JS no nulo salta en modificaciones estrictas
+		-> BOTONES
 			(casos)
-			- COMPROMISO: Cancelar en modo alta
-			- COMPROMISO RECT: Las nuevas se eliminan, las otras no
-			- Form reutilizado con distintas botoneras
+			-> COMPROMISO: Cancelar en modo alta
+			-> COMPROMISO RECT: Las nuevas se eliminan, las otras no
+			-> Form reutilizado con distintas botoneras
+		-> Utilización de shotcuts para acceder a los efs (por ejemplo N&ombre se dispara con ALT + o)
+		-> Utilización sencilla desde una acción ad-hoc
+		-> Personalización del layout de los efs
+		
+	*** EI_FILTRO
+		-> ¿Se va a unir con el objeto_filtro? ¿Que pása con las dimensiones?
+		-> Actualmente las dimensiones son escasas para hacer filtros reales, va a ser la piedra inicial para la generación de reportes.
+
 
 	*** CI
 		
-		- PROBLEMAS de NAVEGACION
-			- Orden cuadro?
-			- agregar: despues del proceso el boton queda mapeado a otra cosa
-			- modificar: el CI recuerda el TAB
-			- Manejo post procesar
-		- Controlar el Metodo de salida y entrada a ETAPAS
-		- Un CN tiene que tener una forma de mandar a un CI multitab a un tab (falla validacion server)
-		- ME_TAB con secuencia estricta
-		- Tabs verticales
-		- Barra superior igual a la inferior optativa.
-		- La forma de renderizar la cola de mensajes tiene que ser optativa
-		- Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
-			Pensar en este punto la relacion CI --> CN...
+		-> PROBLEMAS de NAVEGACION
+			-> Orden cuadro?
+			-> agregar: despues del proceso el boton queda mapeado a otra cosa
+			-> modificar: el CI recuerda el TAB
+			-> Manejo post procesar
+		-> Controlar el Metodo de salida y entrada a ETAPAS
+		-> Un CN tiene que tener una forma de mandar a un CI multitab a un tab (falla validacion server)
+		-> ME_TAB con secuencia estricta
+		-> Tabs verticales
+		-> Barra superior igual a la inferior optativa.
+		-> La forma de renderizar la cola de mensajes tiene que ser optativa
+		-> Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
+			Pensar en este punto la relacion CI ->->> CN...
 
 	**** CN
 	
-		- Derechos 
-		- Controles configurables 
+		-> Derechos 
+		-> Controles configurables 
 
 	*** GENERAL
 
-->		- Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
-		- Las entidades mas complejas necesitan una forma de persistir datos.
-		- mantener_estado_sesion no respeta el no acceso al hilo
-		- Foco automatico vs. hidden
+->>		-> Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
+		-> Las entidades mas complejas necesitan una forma de persistir datos.
+		-> mantener_estado_sesion no respeta el no acceso al hilo
+		-> Foco automatico vs. hidden. Que tal utilizar los objetos JS (por ej pedir focus al form y este le pide al 1er EF) 
+										Sino hay que recorrer el DOM, mas bajo nivel pero infalible
+		-> inicializacion.php se choca entre los proyectos (utiliza el PATH en lugar de buscar el del proyecto)
+		-> HTML y CSS
+			-> Empezar a utilizar el DOCTYPE, va a pasar al IE de modo compatible a modo CSS, se ven mal algunas cosas
+				Sin el DOCTYPE no se puede validar el documento y no funcionan cosas avanzadas de CSS (ej. tablas con scroll)
+			->
 
 	*** Inteface ADMINISTRATIVA
 
-	- CI: mostrar plan de ruteo y de carga
-	- CI: clonar bien
-	- Separar objetos por modulos
-	- Eliminar items completos
-	- Eliminar carpetas completas
-	- Exportar/importar items
-
+	-> CI: mostrar plan de ruteo y de carga
+	-> CI: clonar bien
+	-> Separar objetos por modulos
+	-> Eliminar items completos
+	-> Eliminar carpetas completas
+	-> Exportar/importar items
+	
 	*** Interface CONSOLA
 	
-	- Los scripts de dumpeo tienen que estar preparados para manejar N instancias
-	- Hay que mejorar el generador de BUFFERS
+	-> Los scripts de dumpeo tienen que estar preparados para manejar N instancias
+	-> Hay que mejorar el generador de BUFFERS
 	
