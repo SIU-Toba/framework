@@ -196,6 +196,9 @@ then
 	then
 		echo
 		cp $d_sql/datos_instancia.sql > $d_sql/datos_instancia.sql.bak
+
+		#if [ -f ]
+
 		item /consola/dump $logs -i -v -p $2 > $d_sql/datos_instancia.sql
 		controlar "Exportacion de la INFO-INSTANCIA del proyecto TOBA"
 	else
@@ -246,9 +249,11 @@ then
 	elif [ $2 = "toba" ]
 	then
 		archivo_datos=${d_sql}/datos.sql 
+
 		archivo_datos_i=${d_sql}/datos_instancia.sql 
 	else
 		archivo_datos=${d_proy}/$2/sql/datos.sql 
+
 		archivo_datos_i=${d_proy}/$2/sql/datos_instancia.sql 
 	fi
 			

@@ -12,13 +12,18 @@ CREATE TABLE apex_cp_entregables (
        numero               VARCHAR(8) NOT NULL,
        descripcion          VARCHAR(255) NOT NULL,
        dificultad           INTEGER NOT NULL,
-       item                 INTEGER NULL,
+		item_proyecto		varchar(15)		NOT NULL,
+		item				varchar(60)		NOT NULL,
        CONSTRAINT XPKapex_cp_entregables 
               PRIMARY KEY (id_entregable), 
        CONSTRAINT R_5
               FOREIGN KEY (dificultad)
                              REFERENCES apex_cp_dificultades
-                             ON DELETE SET NULL
+                             ON DELETE SET NULL,
+		CONSTRAINT	"R6"	FOREIGN KEY	("item_proyecto","item")	
+			REFERENCES "apex_item" ("proyecto","item") 
+			ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	
+			DEFERRABLE INITIALLY	IMMEDIATE
 );
 
 
