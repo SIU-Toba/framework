@@ -35,6 +35,10 @@ def.constructor = ef;
 		this.input().tabIndex = tab_index;
 	}
 	
+	def.tab = function () {
+		return this.input().tabIndex;
+	}
+	
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
 		if (! this.input().onchange)	//Para no romper scripts hechos ad-hoc

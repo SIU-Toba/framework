@@ -22,6 +22,10 @@ def.constructor = ef_popup;
 		this.vinculo().focus();
 	}
 		
+	def.tab = function () {
+		return this.vinculo().tabIndex;
+	}
+			
 	def.cambiar_tab = function(tab_index) {
 		this.vinculo().tabIndex = tab_index;
 	}	

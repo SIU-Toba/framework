@@ -93,6 +93,13 @@ var def = objeto_ei_formulario_ml.prototype;
 		var nodo_padre = document.getElementById(this.instancia + '_fila' + this.filas[pos_a]);
 		var nodo_selecc = document.getElementById(this.instancia + '_fila' + this.filas[pos_b]);
 		nodo_selecc.swapNode(nodo_padre);
+			//Reemplazo de los tabs index
+		for (id_ef in this.efs) {
+			var tab_a = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).tab();
+			var tab_b = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).tab();
+			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).cambiar_tab(tab_b);
+			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).cambiar_tab(tab_a);			
+		}
 			//Reemplazo interno
 		var temp = this.filas[pos_a];
 		this.filas[pos_a] = this.filas[pos_b];
