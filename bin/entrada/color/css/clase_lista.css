@@ -1,0 +1,131 @@
+/*  ------------------------------ lista -------------------------  */
+
+TABLE.lista-tabla {
+	border-collapse: collapse;
+	background-color: %col_sp_1%;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 10px;
+	border-top: 2px solid %col_sp_1%;
+	border-left: 2px solid %col_sp_1%;
+	border-bottom: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+}
+
+A.lista-link {
+	text-decoration: none; 
+	color: %col_sp_1%; 
+}
+
+TD.lista-titulo {
+	font-size: 12px;
+	font-weight: bold; 
+	color: %col_sn_6%; 
+	background-color: %col_sp_2%; 
+	text-align: left;
+	padding: 10,10,5,10;
+}
+
+TD.lista-subtitulo {
+	font-size: 10px;
+	color: %col_sn_6%; 
+	background-color: %col_sp_2%; 
+	text-align: left;
+	padding: 5,5,5,10;
+}
+
+TD.lista-col-titulo {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_sp_3%; 
+	text-align: center;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.lista-fila-titulo {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_sp_3%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+	white-space: nowrap;
+}
+
+TD.lista-vinculo {
+	color: %col_sp_1%; 
+	background-color: %col_sp_5%; 
+	padding: 2;
+	text-align: center;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}
+
+TD.lista-c {
+	color: %col_sp_1%; 
+	background-color: %col_sn_6%; 
+	padding: 2;
+	text-align: center;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}
+
+TD.lista-t {
+	color: %col_sp_1%; 
+	background-color: %col_sn_6%; 
+	padding: 2;
+	text-align: left;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}
+
+TD.lista-n {
+	color: %col_sp_1%; 
+	background-color: %col_sn_6%; 
+	padding: 2;
+	text-align: right;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}
+
+TD.lista-e {
+	color: %col_sp_1%; 
+	background-color: %col_ss_4%; 
+	padding: 2;
+	text-align: center;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}
+
+TD.lista-e2 {
+	color: %col_sp_1%; 
+	background-color: %col_ss_3%; 
+	padding: 2;
+	text-align: center;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%
+}

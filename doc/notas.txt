@@ -1,0 +1,6 @@
+Atencion: si levanto el apache como servicio, no toma las variables de 
+entorno de /etc/profile
+
+Atencion: PAra que los ITEMs publicos no generen solicitudes
+de varios registros hay que imposibilitar que puedan
+asignarse permisos a las mismas

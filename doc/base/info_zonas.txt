@@ -1,0 +1,8 @@
+1- Nucleo: Relacion entre los elementos fundamentales: ITEM, CLASE, PATRON y OBJETO. Esta toda la informacion relacionada con el hecho de solicitar un ITEM del catalogo.
+2- Objetos: Esquema de objetos estandart. Se ve la relacion entre las clases y la cabecera de los objetos (la tabla apex_objeto) y como esta se va ramificando segun las clases particulares.
+3- Usuario: Relacion de los usuarios con su perfil de acceso y de datos
+4- Dimensiones: Muestra como esta pensado el esquema de dimensiones, que es la base del manejo de perfiles de datos. Existen dos tipos de perfil, uno para dimensiones que viven explicitamente en una tabla (Unidades academicas, dependencias,  fuentes, el nivel de estudios, etc - tomando el wichi-pampa de ejemplo), y otra para valores escalares (edad, bruto, etc). La logica que implementa esto esta en la clase FILTRO.
+5- Solicitud: Como esta pensado el LOG de las solicitudes. El modelo incluye un esquema registro de observaciones para ITEMs y OBJETOS, que puede usarse sin modificaciones para manejar la auditoria de datos.
+6- Documentacion: Muestra el esquema de documentacion (Informacion y notas entre usuarios) de los elementos principales ITEM, CLASE, OBJETO, PATRON y se incluye NUCLEO, para documentar los objetos del core y librerias.
+7- Modelo de datos: Estas tablas guardan la informacion sobre el modelo de datos del toba. Se utilizan para generar los planes de dumpeo. Se llenan con un SQL que se genera automaticamente parseando el script de creacion.
+8- Otros: Lo que quedo afuera.

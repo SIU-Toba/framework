@@ -1,0 +1,77 @@
+	#linenumbers {
+		width: 43px;
+		height: 100%;
+		overflow: auto;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-Index: 1;
+		background-color: #EEEEEE;
+		border: 0px;
+		border-right: 1px outset buttonhighlight;
+	}
+	#codeframe > #linenumbers {
+		width: 42px;
+	}
+	#codeframe {
+		padding: 0px;
+		padding-left: 40px;
+		background-color: white;
+		height: 100%;
+		width: auto;
+	}
+	BODY {
+		font-family: 'Courier New',lucida console, courier, monospace;
+		font-size: 13px;
+		margin: 0px;
+	}
+    #inputLine {
+		position: absolute;
+		top:  -2px;
+		left: 44px;
+		width: 100%;
+		height: 20px;
+		overflow: display;
+		z-Index: 3;
+		margin: 0px;
+		border: 0px;
+		padding: 0px;
+    }
+	#inputLine FORM {
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+	}
+    #inputLine #inputLineEntry {
+		border: 0px; 
+		width: 100%; 
+		margin: 0px; 
+		padding: 0px;
+		background-color: yellow; 
+		font-family: 'Courier New',courier, monospace; 
+	}
+	code, code li, pre {
+		word-break: keep-all;
+		white-space: no-wrap;
+		font-family: 'Courier New',courier, monospace;
+		font-size: 16px;
+	}
+    #content {
+		margin: 0px;
+		padding: 0px;
+		border: 0px;
+		padding-left: 4px;
+		padding-right: 4px;
+		width: auto;
+		position: absolute;
+		left: 0px;
+		z-Index: 2;
+	}
+	#content code {
+		margin: 0px;
+		padding: 0px;
+		border: 0px;
+	}
+	#content ol {
+		margin-top: 0px;
+	}

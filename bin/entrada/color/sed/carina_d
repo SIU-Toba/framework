@@ -1,0 +1,43 @@
+#########################
+####   TIPOGRAFIAS   ####
+#########################
+
+s/%f_1%/Verdana, Arial, Helvetica, sans-serif/g  
+s/%f_2%/Courier,Courier New,  mono/g 
+
+#########################
+#####   COLORES   #######
+#########################
+
+#----> Serie principal   
+s/%col_sp_1%/#231F20/g  
+s/%col_sp_2%/#4F4C4D/g
+s/%col_sp_3%/#7B7979/g  
+s/%col_sp_4%/#A7A5A6/g    
+s/%col_sp_5%/#D3D2D2/g  
+s/%col_sp_6%/#E9E8E8/g  
+
+#----> Serie secundaria
+s/%col_ss_1%/#A39069/g  
+s/%col_ss_2%/#CDBC99/g 
+s/%col_ss_3%/#E8DBBE/g  
+s/%col_ss_4%/#FFDDBB/g  
+s/%col_ss_5%/#FEFFDF/g  
+s/%col_ss_6%/#FFFFF1/g   
+
+#----> Serie neutra
+s/%col_sn_1%/#000011/g  
+s/%col_sn_2%/#666677/g  
+s/%col_sn_3%/#9999AA/g  
+s/%col_sn_4%/#CCCCDD/g  
+s/%col_sn_5%/#ECECF0/g  
+s/%col_sn_6%/#ffffff/g  
+
+#----> Excepciones
+s/%col_ex_1%/#FF411B/g  
+s/%col_ex_2%/#FFC71B/g  
+s/%col_ex_3%/#993884/g
+
+
+
+

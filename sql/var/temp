@@ -1,0 +1,4 @@
+
+UPDATE apex_msg 
+SET indice =  'db' || substr(indice,3)
+WHERE indice ~* 'pg_';

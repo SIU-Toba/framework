@@ -1,0 +1,236 @@
+____________________________________________________________________________ 
+5-11-2004 / 17:09
+  
+  1    12 ms    22 ms    12 ms  cpe-100-129.bvconline.com.ar [200.47.100.129] 
+  2    17 ms    11 ms    13 ms  10.9.0.1 
+  3    12 ms    27 ms    14 ms  line190.comsat.net.ar [200.47.30.190] 
+  4    15 ms    12 ms    13 ms  line225.comsat.net.ar [200.47.33.225] 
+  5    15 ms    17 ms    13 ms  200-47-60-241.comsat.net.ar [200.47.60.241] 
+  6    26 ms    38 ms    28 ms  200-47-201-53.comsat.net.ar [200.47.201.53] 
+  7    24 ms    23 ms    29 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1] 
+  8    30 ms    26 ms    30 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2] 
+  9    38 ms    25 ms    49 ms  200-47-57-157.comsat.net.ar [200.47.57.157] 
+ 10    37 ms    29 ms    28 ms  200-47-57-158.comsat.net.ar [200.47.57.158] 
+ 11   203 ms   191 ms    38 ms  200-47-57-162.comsat.net.ar [200.47.57.162] 
+ 12   239 ms     *        *     MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53] 
+ 13   217 ms   220 ms   265 ms  168.83.68.132 
+ 14   364 ms   251 ms   248 ms  168.83.68.132 
+ 15   295 ms   227 ms   275 ms  168.83.60.13
+ 
+5-11-2004 / 17:10
+  
+  1    16 ms    13 ms    11 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]  
+  2    18 ms    20 ms    12 ms  10.9.0.1  
+  3    29 ms    17 ms    24 ms  line190.comsat.net.ar [200.47.30.190]  
+  4    16 ms    15 ms    15 ms  line225.comsat.net.ar [200.47.33.225]  
+  5    18 ms    30 ms    18 ms  200-47-60-241.comsat.net.ar [200.47.60.241]  
+  6    44 ms    51 ms    50 ms  200-47-201-53.comsat.net.ar [200.47.201.53]  
+  7    44 ms    71 ms    52 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]  
+  8    72 ms    48 ms    50 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]  
+  9    78 ms    73 ms    75 ms  200-47-57-157.comsat.net.ar [200.47.57.157]  
+ 10    20 ms    27 ms    23 ms  200-47-57-158.comsat.net.ar [200.47.57.158]  
+ 11    31 ms    28 ms    32 ms  200-47-57-162.comsat.net.ar [200.47.57.162]  
+ 12   190 ms   217 ms   191 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]  
+ 13   236 ms     *      290 ms  168.83.68.133  
+ 14   217 ms   222 ms   227 ms  siu-gw.me.gov.ar [168.83.80.242]  
+ 15   224 ms   206 ms   205 ms  168.83.60.13 
+
+____________________________________________________________________________
+8-11-2004 / 09:21
+ 
+  1    16 ms    15 ms    14 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    28 ms    20 ms    12 ms  10.9.0.1
+  3    56 ms    19 ms    34 ms  line190.comsat.net.ar [200.47.30.190]
+  4    29 ms    48 ms    52 ms  line225.comsat.net.ar [200.47.33.225]
+  5    50 ms    42 ms    52 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   102 ms   127 ms    73 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    94 ms   103 ms   123 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8   127 ms   144 ms   124 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9    79 ms   118 ms    99 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10   123 ms   147 ms   105 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   296 ms   100 ms    76 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12   219 ms   223 ms   250 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   295 ms   297 ms   254 ms  168.83.68.133
+ 14   253 ms     *      246 ms  168.83.68.132
+ 15   249 ms   326 ms   276 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   217 ms   251 ms   220 ms  168.83.60.13
+ 
+8-11-2004 / 9:22
+
+  1    28 ms    16 ms    30 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    13 ms    13 ms    13 ms  10.9.0.1
+  3    19 ms     *       60 ms  line190.comsat.net.ar [200.47.30.190]
+  4    80 ms    95 ms    26 ms  line225.comsat.net.ar [200.47.33.225]
+  5   150 ms   352 ms   223 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   148 ms   169 ms   380 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7   152 ms   126 ms   152 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8   318 ms   526 ms   850 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9   174 ms   168 ms   278 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10   122 ms   116 ms   225 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   173 ms   212 ms   171 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12  2632 ms   388 ms   699 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   270 ms   246 ms   274 ms  168.83.68.133
+ 14   396 ms   456 ms   343 ms  168.83.68.132
+ 15  1027 ms   538 ms   378 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   297 ms   273 ms   281 ms  168.83.60.13 
+
+____________________________________________________________________________ 
+09-11-2004 / 12:28
+
+  1    12 ms    12 ms    21 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    17 ms    23 ms    15 ms  10.9.0.1
+  3    98 ms    25 ms    56 ms  line190.comsat.net.ar [200.47.30.190]
+  4    26 ms    72 ms    49 ms  line225.comsat.net.ar [200.47.33.225]
+  5   133 ms   150 ms   156 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   168 ms     *      186 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7   233 ms   171 ms   247 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8     *        *      206 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9     *      164 ms   225 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10   226 ms   205 ms   198 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11     *        *        *     Request timed out.
+ 12   361 ms   305 ms   311 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13     *        *      316 ms  168.83.68.133
+ 14     *      365 ms   420 ms  168.83.68.132
+ 15   420 ms   400 ms   475 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   344 ms   549 ms   348 ms  168.83.60.13
+
+09-11-2004 / 12:32
+
+  1    15 ms    12 ms    13 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2   137 ms    15 ms     *     10.9.0.1
+  3   118 ms    29 ms    68 ms  line190.comsat.net.ar [200.47.30.190]
+  4    35 ms   144 ms    57 ms  line225.comsat.net.ar [200.47.33.225]
+  5   214 ms   226 ms   173 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   152 ms   156 ms   170 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7   219 ms   201 ms   175 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8     *      249 ms   192 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9   271 ms     *      177 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10   201 ms   197 ms   176 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   186 ms     *      145 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12   380 ms   371 ms   382 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13     *      401 ms   321 ms  168.83.68.133
+ 14     *      343 ms   456 ms  168.83.68.132
+ 15     *      377 ms     *     siu-gw.me.gov.ar [168.83.80.242]
+ 16   418 ms   352 ms     *     168.83.60.13
+ 17     *        *        *     Request timed out.
+ 18   349 ms   323 ms     *     168.83.60.13
+ 19     *      377 ms     *     168.83.60.13
+ 20   401 ms   350 ms   412 ms  168.83.60.13
+ 
+____________________________________________________________________________ 
+11-11-2004 / 08:57
+
+  1    17 ms    13 ms    13 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    21 ms    13 ms    20 ms  10.9.0.1
+  3    28 ms    23 ms    50 ms  line190.comsat.net.ar [200.47.30.190]
+  4    22 ms    16 ms    29 ms  line225.comsat.net.ar [200.47.33.225]
+  5    71 ms    54 ms   100 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6    97 ms    97 ms    76 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    53 ms    48 ms    48 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8   135 ms   150 ms   100 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9   128 ms   174 ms   123 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10   166 ms   173 ms   149 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11    85 ms    96 ms   227 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 12     *      253 ms     *     MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   235 ms   257 ms   319 ms  168.83.68.132
+ 14   245 ms     *        *     168.83.68.132
+ 15     *        *        *     Request timed out.
+ 16     *        *        *     Request timed out.
+ 17   230 ms   217 ms   223 ms  168.83.60.13
+ 
+11-11-20004 / 08:58
+ 
+  1    12 ms    16 ms    15 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    13 ms    15 ms    38 ms  10.9.0.1
+  3    52 ms    46 ms    71 ms  line190.comsat.net.ar [200.47.30.190]
+  4    43 ms    44 ms   100 ms  line225.comsat.net.ar [200.47.33.225]
+  5   121 ms   127 ms   100 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6    98 ms   101 ms   147 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    97 ms    68 ms    52 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8    71 ms    47 ms    55 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9    48 ms    70 ms    47 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10    58 ms    51 ms    33 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   126 ms    97 ms   100 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12     *      228 ms   202 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   248 ms   305 ms   369 ms  168.83.68.133
+ 14     *        *        *     Request timed out.
+ 15   283 ms   273 ms   302 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   233 ms   298 ms   325 ms  168.83.60.13
+
+____________________________________________________________________________ 
+12-11-2004 / 09:35
+
+  1    26 ms    15 ms    25 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    36 ms    25 ms    32 ms  10.9.0.1
+  3    31 ms    50 ms    52 ms  line190.comsat.net.ar [200.47.30.190]
+  4    53 ms   101 ms    78 ms  line225.comsat.net.ar [200.47.33.225]
+  5    43 ms    56 ms    66 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   115 ms   131 ms    96 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    79 ms    75 ms    73 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8    46 ms    53 ms    48 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9    52 ms    45 ms    32 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10    52 ms    54 ms    48 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11    55 ms    73 ms    69 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12   217 ms   226 ms   196 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   207 ms   206 ms   222 ms  168.83.68.133
+ 14   276 ms   325 ms   273 ms  168.83.68.132
+ 15   276 ms   303 ms   271 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   225 ms   248 ms   230 ms  168.83.60.13
+ 
+12-11-2004 / 09:36
+ 
+  1    14 ms    12 ms    12 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    20 ms    15 ms    19 ms  10.9.0.1
+  3    28 ms    20 ms    22 ms  line190.comsat.net.ar [200.47.30.190]
+  4    15 ms    17 ms    21 ms  line225.comsat.net.ar [200.47.33.225]
+  5    42 ms    41 ms    37 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6    29 ms    32 ms    30 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    59 ms    44 ms    46 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8    89 ms    77 ms   102 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9    98 ms    50 ms    48 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10    42 ms    36 ms    56 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11    68 ms    33 ms   200 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 12   231 ms   247 ms   276 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   225 ms   226 ms   224 ms  168.83.68.133
+ 14   203 ms   256 ms   214 ms  168.83.68.132
+ 15   243 ms   225 ms   224 ms  siu-gw.me.gov.ar [168.83.80.242]
+ 16   219 ms   245 ms   229 ms  168.83.60.13 
+____________________________________________________________________________  
+15-11-2004 / 16:40
+
+  1    22 ms    32 ms    18 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    12 ms    17 ms    27 ms  10.9.0.1
+  3    45 ms    67 ms    50 ms  line190.comsat.net.ar [200.47.30.190]
+  4    74 ms    75 ms   164 ms  line225.comsat.net.ar [200.47.33.225]
+  5    74 ms    46 ms    24 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6    81 ms    45 ms    77 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    99 ms   153 ms   117 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8    37 ms    33 ms    39 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9     *       89 ms    51 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10    49 ms    52 ms    71 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   197 ms   147 ms   121 ms  200-47-57-162.comsat.net.ar [200.47.57.162]
+ 12   270 ms   250 ms   251 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   299 ms   222 ms   303 ms  168.83.68.133
+ 14   454 ms   421 ms   582 ms  168.83.68.132
+ 15  1025 ms  1072 ms   899 ms  168.83.60.13 
+ 
+15-11-2004 / 16:42
+
+  1    20 ms    29 ms    20 ms  cpe-100-129.bvconline.com.ar [200.47.100.129]
+  2    29 ms    71 ms    26 ms  10.9.0.1
+  3    68 ms    28 ms    74 ms  line190.comsat.net.ar [200.47.30.190]
+  4    45 ms    30 ms    43 ms  line225.comsat.net.ar [200.47.33.225]
+  5    49 ms    72 ms    52 ms  200-47-60-241.comsat.net.ar [200.47.60.241]
+  6   126 ms    71 ms    49 ms  200-47-201-53.comsat.net.ar [200.47.201.53]
+  7    50 ms    99 ms    52 ms  Giga_Nucleo_1_A.comsat.net.ar [200.47.200.1]
+  8    72 ms    78 ms   123 ms  OC12_GSR_Guemes.comsat.net.ar [200.47.201.2]
+  9   121 ms   101 ms   122 ms  200-47-57-157.comsat.net.ar [200.47.57.157]
+ 10    69 ms    74 ms    97 ms  200-47-57-158.comsat.net.ar [200.47.57.158]
+ 11   272 ms   252 ms   299 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 12   300 ms   343 ms   302 ms  MCYE-RECYT-2M.secyt.gov.ar [168.83.0.53]
+ 13   404 ms   448 ms   326 ms  168.83.68.132
+ 14   451 ms   447 ms   373 ms  168.83.68.132
+ 15   300 ms   271 ms     *     siu-gw.me.gov.ar [168.83.80.242]
+ 16   317 ms   376 ms   701 ms  168.83.60.13 
+
+____________________________________________________________________________   

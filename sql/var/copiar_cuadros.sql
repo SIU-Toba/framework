@@ -1,0 +1,76 @@
+INSERT INTO apex_objeto_cuadro(
+   objeto_cuadro_proyecto  ,
+   objeto_cuadro           ,
+   titulo                  ,
+   subtitulo               ,
+   sql                     ,
+   columnas_clave			,
+   archivos_callbacks      ,
+   ordenar                 ,
+   exportar                ,
+   paginar                 ,
+   exportar_rtf            ,
+   tamano_pagina           ,   
+   eof_invisible           
+) 
+SELECT    'costos'  ,
+   336,
+   titulo                  ,
+   subtitulo               ,
+   sql                     ,
+   columnas_clave			,
+   archivos_callbacks      ,
+   ordenar                 ,
+   exportar                ,
+   paginar                 ,
+   exportar_rtf            ,
+   tamano_pagina           ,   
+   eof_invisible           
+FROM apex_objeto_cuadro
+WHERE objeto_cuadro = 335
+AND	objeto_cuadro_proyecto = 'costos';
+
+INSERT INTO apex_objeto_cuadro_columna(
+   objeto_cuadro_proyecto			  ,  
+   objeto_cuadro     			,
+   orden				         ,
+   titulo         					,   
+   columna_estilo   			 ,
+	columna_ancho				,
+	ancho_html					,		
+	total						,	
+   valor_sql              		,	
+   valor_sql_formato    		,	
+   valor_fijo                ,
+	valor_proceso				,	
+	valor_proceso_esp			,
+	valor_proceso_parametros	,	
+	vinculo_indice	      		,	
+   par_dimension_proyecto    ,
+   par_dimension          		,   
+   par_tabla           		     , 
+   par_columna  			    ,
+   no_ordenar)				
+ SELECT    'costos'			  ,  
+   336     			,
+   orden				         ,
+   titulo         					,   
+   columna_estilo   			 ,
+	columna_ancho				,
+	ancho_html					,		
+	total						,	
+   valor_sql              		,	
+   valor_sql_formato    		,	
+   valor_fijo                ,
+	valor_proceso				,	
+	valor_proceso_esp			,
+	valor_proceso_parametros	,	
+	vinculo_indice	      		,	
+   par_dimension_proyecto    ,
+   par_dimension          		,   
+   par_tabla           		     , 
+   par_columna  			    ,
+   no_ordenar	
+ 	FROM apex_objeto_cuadro_columna
+WHERE objeto_cuadro = 335
+AND	objeto_cuadro_proyecto = 'costos';	

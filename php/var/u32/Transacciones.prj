@@ -1,0 +1,57 @@
+[Project ID]
+Signature=UE Proj: v.1
+[Group]
+0=browser
+1=clases
+2=nucleo
+3=
+[Project Information]
+Filter=*.*
+Project Directory=C:\toba\php\var\u32\
+Use Relative Directory=1
+Relative to Project File=1
+Project Wordfile=
+Project Tagfile=
+Create Tagfile=0
+Include Sub Directories=0
+[Open Files]
+Open File0=
+Active File Display Mode=-1
+[File View]
+Current Select=Archivos abiertos\
+Scroll Position=0
+[Files - browser]
+0=C:\toba\php\nucleo\browser\hilo.php
+1=C:\toba\php\nucleo\browser\recurso.php
+2=C:\toba\php\nucleo\browser\sesion.php
+3=C:\toba\php\nucleo\browser\vinculador.php
+4=C:\toba\php\nucleo\browser\zona\zona.php
+[Files - clases]
+0=C:\toba\php\nucleo\browser\clases\objeto.php
+1=C:\toba\php\nucleo\browser\clases\objeto_cuadro_reg.php
+2=C:\toba\php\nucleo\browser\clases\objeto_filtro.php
+3=C:\toba\php\nucleo\browser\clases\objeto_grafico.php
+4=C:\toba\php\nucleo\browser\clases\objeto_hoja.php
+5=C:\toba\php\nucleo\browser\clases\objeto_hoja_contenido.php
+6=C:\toba\php\nucleo\browser\clases\objeto_lista.php
+7=C:\toba\php\nucleo\browser\clases\objeto_mt.php
+8=C:\toba\php\nucleo\browser\clases\objeto_mt_mds_DC.php
+9=C:\toba\php\nucleo\browser\clases\objeto_mt_me.php
+10=C:\toba\php\nucleo\browser\clases\objeto_mt_s.php
+11=C:\toba\php\nucleo\browser\clases\objeto_mt_s_abm.php
+12=C:\toba\php\nucleo\browser\clases\objeto_mt_s_md.php
+13=C:\toba\php\nucleo\browser\clases\objeto_plan.php
+14=C:\toba\php\nucleo\browser\clases\objeto_ut.php
+15=C:\toba\php\nucleo\browser\clases\objeto_ut_formulario.php
+16=C:\toba\php\nucleo\browser\clases\objeto_ut_formulario_bl.php
+17=C:\toba\php\nucleo\browser\clases\objeto_ut_formulario_ml.php
+18=C:\toba\php\nucleo\browser\clases\objeto_ut_multicheq.php
+19=C:\toba\php\nucleo\browser\clases\objeto_cuadro.php
+[Files - nucleo]
+0=C:\toba\php\nucleo\acceso_browser.php
+1=C:\toba\php\nucleo\acceso_fin.inc.php
+2=C:\toba\php\nucleo\acceso_inicio.inc.php
+3=C:\toba\php\nucleo\acceso_wddx.php
+4=C:\toba\php\nucleo\solicitud.php
+5=C:\toba\php\nucleo\solicitud_especifica.php
+6=C:\toba\php\nucleo\acceso_consola.php

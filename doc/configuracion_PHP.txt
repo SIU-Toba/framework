@@ -1,0 +1,8 @@
+# Directivas que hay que configurar en PHP.INI
+
+magic_quotes_gpc = Off
+include_path = ".;f:\toba\php"
+
+extension=php_gd2.dll
+extension=php_pgsql.dll
+

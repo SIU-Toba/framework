@@ -1,0 +1,2 @@
+En esta carpeta se guardan las definiciones del toba PRECOMPILADAS
+(serializacion de los arrays extraidos de la base)

@@ -1,0 +1,15 @@
+This file explains how to insert a file read from disk into the editor
+using php:
+
+
+Assuming the contents of your file are in $file:
+
+    $file = str_replace("\r", "", $file);
+    $file = str_replace("\n", "\\n", $file);
+    $file = str_replace('"', '\"', $file);
+    $file = str_replace("\t", "\\t", $file);
+
+And then set the contents with:
+
+    editor.setContents("<?php echo $file; ?>");
+

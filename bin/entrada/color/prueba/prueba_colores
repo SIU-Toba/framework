@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body>
+<br>
+<table align='center' width='400' border='1'>
+	<tr><td colspan='3' align='center'>SERIE PRINCIPAL</td></tr>
+	<tr><td>1</td> <td align='center'>%col_sp_1%</td> <td bgcolor='%col_sp_1%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>2</td> <td align='center'>%col_sp_2%</td> <td bgcolor='%col_sp_2%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>3</td> <td align='center'>%col_sp_3%</td> <td bgcolor='%col_sp_3%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>4</td> <td align='center'>%col_sp_4%</td> <td bgcolor='%col_sp_4%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>5</td> <td align='center'>%col_sp_5%</td> <td bgcolor='%col_sp_5%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>6</td> <td align='center'>%col_sp_6%</td> <td bgcolor='%col_sp_6%' width='80%'>&nbsp;&nbsp;</td></tr>
+</table>
+<br>
+<table align='center' width='400' border='1'>
+	<tr><td colspan='3' align='center'>SERIE SECUNDARIA</td></tr>
+	<tr><td>1</td> <td align='center'>%col_ss_1%</td> <td bgcolor='%col_ss_1%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>2</td> <td align='center'>%col_ss_2%</td> <td bgcolor='%col_ss_2%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>3</td> <td align='center'>%col_ss_3%</td> <td bgcolor='%col_ss_3%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>4</td> <td align='center'>%col_ss_4%</td> <td bgcolor='%col_ss_4%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>5</td> <td align='center'>%col_ss_5%</td> <td bgcolor='%col_ss_5%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>6</td> <td align='center'>%col_ss_6%</td> <td bgcolor='%col_ss_6%' width='80%'>&nbsp;&nbsp;</td></tr>
+</table>
+<br>
+<table align='center' width='400' border='1'>
+	<tr><td colspan='3' align='center'>SERIE NEUTRA</td></tr>
+	<tr><td>1</td> <td align='center'>%col_sn_1%</td> <td bgcolor='%col_sn_1%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>2</td> <td align='center'>%col_sn_2%</td> <td bgcolor='%col_sn_2%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>3</td> <td align='center'>%col_sn_3%</td> <td bgcolor='%col_sn_3%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>4</td> <td align='center'>%col_sn_4%</td> <td bgcolor='%col_sn_4%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>5</td> <td align='center'>%col_sn_5%</td> <td bgcolor='%col_sn_5%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>6</td> <td align='center'>%col_sn_6%</td> <td bgcolor='%col_sn_6%' width='80%'>&nbsp;&nbsp;</td></tr>
+</table>
+<br>
+<table align='center' width='400' border='1'>
+	<tr><td colspan='3' align='center'>EXCEPCIONES</td></tr>
+	<tr><td>1</td> <td align='center'>%col_ex_1%</td> <td bgcolor='%col_ex_1%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>2</td> <td align='center'>%col_ex_2%</td> <td bgcolor='%col_ex_2%' width='80%'>&nbsp;&nbsp;</td></tr>
+	<tr><td>3</td> <td align='center'>%col_ex_3%</td> <td bgcolor='%col_ex_3%' width='80%'>&nbsp;&nbsp;</td></tr>
+</table>
+<br>
+</body>
+</html>

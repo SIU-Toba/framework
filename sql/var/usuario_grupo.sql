@@ -1,0 +1,1 @@
+SELECT ' INSERT INTO apex_usuario_proyecto (usuario, proyecto, usuario_grupo_acc, usuario_perfil_datos) VALUES (\'' || usuario || '\',\'%proyecto%\',\'admin\',\'no\');' FROM apex_usuario;

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> <!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2004 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * File Name: fck_paste.html
+ * 	This dialog is shown when, for some reason (usually security settings), 
+ * 	the user is not able to paste data from the clipboard to the editor using 
+ * 	the toolbar buttons or the context menu.
+ * 
+ * Version:  2.0 Beta 2
+ * Modified: 2004-08-31 00:02:26
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+-->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<script language="javascript">
+var dialogArguments = window.parent.InnerDialogLoaded() ;
+
+// Sets the Skin CSS
+document.write( '<link href="' + dialogArguments.FCKConfig.SkinPath + 'fck_dialog.css" type="text/css" rel="stylesheet">' ) ;
+
+function OnLoad()
+{
+	if ( window.parent.dialogArguments.CustomValue == 'Word' )
+	{
+		document.getElementById('frmData').style.display = '' ;
+		document.getElementById('frmData').contentDocument.designMode = 'on' ;
+	}
+	else
+		document.getElementById('txtData').style.display = '' ;
+
+	// First of all, translate the dialog box texts
+	dialogArguments.FCKLanguageManager.TranslatePage(document) ;
+	
+	window.parent.SetOkButton( true ) ;	
+	window.parent.SetScrollBar( false ) ;	
+}
+
+function Ok()
+{
+	if ( window.parent.dialogArguments.CustomValue == 'Word' )
+	{
+		var sHtml = document.getElementById('frmData').contentDocument.body.innerHTML ;
+		dialogArguments.FCK.CleanAndPaste( sHtml ) ;
+	}
+	else
+	{
+		var sText = dialogArguments.FCKTools.HTMLEncode( document.getElementById('txtData').value )  ;
+		sText = sText.replace( /\n/g, '<BR>' ) ;
+		dialogArguments.FCK.InsertHtml( sText ) ;
+	}
+	
+	return true ;
+}
+		</script>
+	</head>
+	<body onload="OnLoad()" scroll="no">
+		<table height="98%" cellspacing="0" cellpadding="0" width="100%" border="0">
+			<tr>
+				<td>
+					The editor was not able to automaticaly execute pasting because of the <STRONG>secutiry 
+						settings</STRONG> of your browser.
+					<BR>
+					Please paste inside the following box using the keyboard (<STRONG>Ctrl+V</STRONG>) 
+					and hit <STRONG>OK</STRONG>.
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" height="100%" style="BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid">
+					<textarea id="txtData" style="BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; DISPLAY: none; BORDER-LEFT: #000000 1px; WIDTH: 99%; BORDER-BOTTOM: #000000 1px; HEIGHT: 98%"></textarea>
+					<iframe id="frmData" height="98%" width="99%" frameborder="no" style="BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; DISPLAY: none; BORDER-LEFT: #000000 1px; BORDER-BOTTOM: #000000 1px; BACKGROUND-COLOR: #ffffff"></iframe>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

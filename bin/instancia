@@ -1,0 +1,314 @@
+#!/bin/bash
+#
+. i_config
+
+# Funcionalidad no implementada
+#==> * carpeta proyecto
+
+d_export=$d_sql/_auto/exportacion
+d_archivo=${instancia}.${e_dia}.${e_hora}.sql
+d_export_archivo=${d_export}/${d_archivo}
+d_export_archivo_reg=${d_export}/ultimo.txt
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Administrar la INSTANCIA"
+	echo "           Si no se especifica una <I> se utiliza la variable de entorno \"\$toba_instancia\""
+	echo "           AHORA: <I> = $toba_instancia"
+
+##***********************************************************************************************##
+## Muestra la fecha de las exportaciones
+##***********************************************************************************************##
+#@ instancia [<I>] control_exp                 -- Muestra las fechas de las ultimas exportaciones
+
+elif [ "$1" = "control_exp" ]
+then
+
+	echo
+	echo " Fecha de las ultimas EXPORTACIONES"
+	echo
+	cd $toba_dir/sql
+	dato=`ls -l datos.sql | awk '{ print $6 " " $7 " " $8 }'`
+	echo $dato " -- TOBA" 
+	cd $d_proy	
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		cd $d_proy/$a/sql
+		dato=`ls -l datos.sql | awk '{ print $6 " " $7 " " $8 }'`
+		echo $dato " -- PROYECTO $a" 
+	done
+
+##***********************************************************************************************##
+## Exporta la instancia por proyecto
+##***********************************************************************************************##
+#@ instancia [<I>] exportar [no_log]           -- Exporta la instancia <I> por PROYECTO
+
+elif [ "$1" = exportar ]
+then
+
+	echo
+	echo " ATENCION: si este comando falla, no subir los SQL al CVS!!"
+	echo
+	echo "-------------------------------------------------------------------------------------"
+	echo
+	echo " Exportando proyecto TOBA"
+	echo
+	proyecto exportar toba $2
+	controlar "EXPORTAR proyecto TOBA"	
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo 
+		echo "-------------------------------------------------------------------------------------"
+		echo
+		echo "  Exportar proyecto: $a"
+		echo
+		proyecto exportar $a $2
+		controlar "EXPORTAR proyecto \"$a\""	
+	done
+	
+##***********************************************************************************************##
+## Exporta la instancia por proyecto
+##***********************************************************************************************##
+#@ instancia [<I>] exportar_local              -- Exporta la instancia <I> por PROYECTO
+
+elif [ "$1" = "exportar_local" ]
+then
+
+	echo
+	echo " Exportando proyecto TOBA"
+	echo
+	proyecto exportar_local toba $2
+	controlar "EXPORTAR proyecto TOBA"	
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo 
+		echo "-------------------------------------------------------------------------------------"
+		echo
+		echo "  Exportar proyecto: $a"
+		echo
+		proyecto exportar_local $a $2
+		controlar "EXPORTAR proyecto \"$a\""	
+	done
+
+##***********************************************************************************************##
+## Busca las definiciones de tablas y revierte el orden de aparicion (para DEL,DROP)
+##***********************************************************************************************##
+#@ instancia [<I>] cargar                      -- Crea la instancia y la carga los DATOS de cada proyecto
+elif [ "$1" = "cargar" ]
+then
+
+	cd $toba_dir/sql
+	adm $instancia crear
+	controlar "--<1> CREAR TABLAS en INSTANCIA: $instancia"
+
+	echo "Cargando proyecto TOBA"
+	proyecto $instancia cargar toba
+	controlar "CARGAR proyecto TOBA en instancia $instancia"	
+	echo "Cargando proyectos"
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo "  cargar proyecto: $a"
+		proyecto $instancia cargar $a
+		controlar "CARGAR proyecto \"$a\" en instancia $instancia"	
+	done
+
+	cd $toba_dir/sql		
+	adm $instancia crear_post
+	controlar "--<3> CREAR POST-CONSTRAINTS en INSTANCIA: $instancia"
+	
+##***********************************************************************************************##
+## Regenera una <I>
+##***********************************************************************************************##
+#@ instancia [<I>] regenerar                   -- Elimina la instancia y la carga
+elif [ "$1" = "regenerar" ]
+then
+
+	cd $toba_dir/sql
+	adm $instancia borrar
+	controlar "<1> ELIMINAR instancia: $instancia"
+	instancia $instancia cargar
+	controlar "<2> RECUPERAR instancia: $instancia"
+
+##***********************************************************************************************##
+## Borra los LOGs de una <I>
+##***********************************************************************************************##
+#@ instancia [<I>] borrar_logs                 -- Elimina la instancia y la carga
+elif [ "$1" = "borrar_logs" ]
+then
+
+	cd $toba_dir/sql/_auto
+	db run __del-his.sql
+	controlar "BORRAR LOGS: $instancia"
+
+##***********************************************************************************************##
+## Crea SQL administrativo
+##***********************************************************************************************##
+#@ instancia [<I>] sql                         -- Genera SQL admin. del TOBA (segun METADATOS)
+elif [ "$1" = "sql" ]
+then
+
+	cd $toba_dir/sql/${c_auto}
+	item $instancia /consola/sql_tab_gen -h -x drop > __i_drop.sql
+	item $instancia /consola/sql_seq_gen >> __i_drop.sql	
+	item $instancia /consola/sql_tab_gen -h -x vac > __i_vac.sql
+	item $instancia /consola/sql_tab_gen -h -x del_full > __i_del.sql
+
+##***********************************************************************************************##
+## Crea SQL administrativo
+##***********************************************************************************************##
+#@ instancia [<I>] sql_proy                    -- Genera SQL admin. de los PROYECTOS (segun METADATOS)
+elif [ "$1" = "sql_proy" ]
+then
+
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo "  Gerando SQL ADM del proyecto: $a"
+		proyecto sql $a
+	done
+
+##***********************************************************************************************##
+## Regeneracion de SQL (metadatos y sql administrativo)
+##***********************************************************************************************##
+#@ instancia [<I>] sql_full                    -- Regenera METADATOS y crea SQL admin. general
+elif [ "$1" = "sql_full" ]
+then
+	
+	cd $toba_dir/sql
+	sql $instancia metadatos
+	echo "Generando SQL administrativo de la instancia"
+	instancia $instancia sql
+	echo "Generando SQL administrativo del proyecto"
+	instancia $instancia sql_proy
+
+##***********************************************************************************************##
+## Elimina una <I>
+##***********************************************************************************************##
+#@ instancia [<I>] eliminar                    -- Elimina la BASE de <I>
+
+elif [ "$1" = eliminar ]
+then
+
+	echo "INSTANCIA actual: " $instancia
+	instancia $instancia control_exp
+	db $instancia borrar $db_base
+
+##***********************************************************************************************##
+## Crea una <I> (base, datos)
+##***********************************************************************************************##
+#@ instancia [<I>] iniciar                     -- Inicia la instancia <I> (base, datos)
+
+elif [ "$1" = iniciar ]
+then
+
+	db $instancia crear $db_base
+	controlar "Crear base TOBA"
+	instancia $instancia cargar
+
+##***********************************************************************************************##
+## Busca las definiciones de tablas y revierte el orden de aparicion (para DEL,DROP)
+##***********************************************************************************************##
+#@ instancia [<I>] eliminar_proyectos          -- Elimina los datos de los PROYECTOS (no toba)
+elif [ "$1" = "eliminar_proyectos" ]
+then
+
+	echo
+	sp_ "Desea ELIMINAR los datos los proyectos??"
+	while [ : ]
+	do
+		read respuesta
+		if [ $respuesta = "S" ]
+		then
+			cd $d_proy
+			for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+			do
+				echo "  Eliminando metadatos del proyecto: $a"
+				proyecto borrar $a	
+				controlar "borrar proyecto \"$a\""
+			done
+		fi
+		break
+	done
+
+##***********************************************************************************************##
+## Dumpea la instancia en su totalidad
+##***********************************************************************************************##
+#@ instancia [<I>] foto                        -- Captura el estado actual de TODA la instancia <I>
+
+elif [ "$1" = "foto" ]
+then
+
+	item $instancia /consola/dump -v -h > $d_export_archivo
+	if [ $? = 0 ]
+	then
+		echo $d_archivo > $d_export_archivo_reg
+	fi
+	
+##***********************************************************************************************##
+## Recupera una instancia desde la ultima foto
+##***********************************************************************************************##
+#@ instancia [<I>] recuperar_foto              -- Crea la instancia y carga los datos de la ultima FOTO
+elif [ "$1" = "recuperar_foto" ]
+then
+
+	cd $toba_dir/sql
+	adm $instancia crear
+	controlar "--<1> CREAR TABLAS en INSTANCIA: $instancia"
+	archivo_import=`cat $d_export_archivo_reg`
+	db $instancia run ${d_export}/${archivo_import} 2> ${c_auto}/error_importacion.txt
+	controlar "--<2> LEVANTAR datos en INSTANCIA: $instancia"
+	adm $instancia crear_post
+	controlar "--<3> CREAR POST-CONSTRAINTS en INSTANCIA: $instancia"
+	echo "Lista de errores de importacion: "
+	cat ${c_auto}/error_importacion.txt
+	echo "- FIN -"
+
+##***********************************************************************************************##
+## Regenera una instancia en base a la ultima foto
+##***********************************************************************************************##
+#@ instancia [<I>] regenerar_foto              -- Elimina la instancia y recupera la ultima FOTO
+elif [ "$1" = "regenerar_foto" ]
+then
+
+	cd $toba_dir/sql
+	adm $instancia borrar
+	controlar "<1> ELIMINAR instancia: $instancia"
+	instancia $instancia recuperar_foto 
+	controlar "<2> RECUPERAR instancia: $instancia"
+
+##***********************************************************************************************##
+## Regenera una instancia en base a la ultima foto
+##***********************************************************************************************##
+#@ instancia [<I>] guardar_info_local          -- Elimina la instancia y recupera la ultima FOTO
+elif [ "$1" = "guardar_info_local" ]
+then
+
+	cd $toba_dir
+	tar -cvf info_local.tar 	./sql/datos_instancia.sql \
+										./proyectos/*/sql/datos_instancia.sql \
+										./php/instancias.php \
+										./bin/salida/historico_comandos.txt
+	gzip info_local.tar
+
+
+##***********************************************************************************************##
+## Ver Cosas Pendientes
+##***********************************************************************************************##
+elif [ "$1" = "pendiente" ]
+then
+	pendiente $0
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi

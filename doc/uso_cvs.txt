@@ -1,0 +1,18 @@
+
+******  1) Regenerar la instancia en base al CVS  **********
+
+-- Resguardo la informacion LOCAL (El CVS no la maneja)	instancia exportar_local
+-- Hago un UPDATE del CVS (obtengo datos nuevos)
+	-- UPDATE del TOBA
+	-- UPDATE de los PROYECTOS
+-- Elimino la instancia anterior							instancia eliminar
+-- Creo la instancia NUEVA									instancia iniciar
+
+******  2) Subir la instancia al CVS  *********
+	
+-- Bajo los datos de la instancia							instancia exportar
+-- COMMIT los datos nuevos al CVS
+	-- COMMIT del TOBA
+	-- COMMIT de los PROYECTOS
+	
+***************************************************************

@@ -1,0 +1,2473 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="copyright" content="(C) Copyright IBM Corporation 2004" />
+<meta name="DC.rights.owner" content="(C) Copyright IBM Corporation 2004" />
+<meta name="security" content="public" />
+<meta name="Robots" content="index,follow" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="DC.Type" content="reference" />
+<meta name="DC.Title" content="Listing of SQLSTATE values" />
+<meta name="DC.Relation" scheme="URI" content="rzalaco.dita" />
+<meta name="DC.Format" content="XHTML" />
+<meta name="DC.Identifier" content="cc" />
+<meta name="DC.Language" content="en-us" />
+<!-- All rights reserved. Licensed Materials Property of IBM -->
+<!-- US Government Users Restricted Rights -->
+<!-- Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with IBM Corp. -->
+<link rel="stylesheet" type="text/css" href="./../ibmdita.css" />
+<link rel="stylesheet" type="text/css" href="./../ic.css" />
+<title>Listing of SQLSTATE values</title>
+</head>
+<body id="cc"><a name="cc"><!-- --></a>
+<!-- Java sync-link --><script language="Javascript" src="../../synch.js" type="text/javascript"></script>
+<h1 class="topictitle1">Listing of SQLSTATE values</h1>
+<div><div class="skipspace">The tables below provide descriptions of SQLSTATE codes that can
+be returned to applications by DB2<sup>®</sup> UDB for iSeries™. The tables include SQLSTATE values,
+their meanings, and their corresponding SQLCODE values. </div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode00"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode00" width="100%" frame="border" border="1" rules="all"><caption>Table 1. <b>Class
+Code 00: Unqualified Successful Completion</b></caption><thead align="left"><tr><th valign="top" id="d0e29">SQLSTATE Value</th>
+<th valign="top" id="d0e31"> Meaning</th>
+<th valign="top" id="d0e33"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e29 ">00000</td>
+<td valign="top" headers="d0e31 ">Completion of the operation was successful and did not result in any
+type of warning or exception condition.</td>
+<td valign="top" headers="d0e33 ">+000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode01"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode01" width="100%" frame="border" border="1" rules="all"><caption>Table 2. <b>Class
+Code 01: Warning </b></caption><thead align="left"><tr><th valign="top" id="d0e57">SQLSTATE Value</th>
+<th valign="top" id="d0e59"> Meaning</th>
+<th valign="top" id="d0e61"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e57 ">01002</td>
+<td valign="top" headers="d0e59 ">A DISCONNECT error occurred.</td>
+<td valign="top" headers="d0e61 ">+596</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01003</td>
+<td valign="top" headers="d0e59 ">Null values were eliminated from the argument of a column function.</td>
+<td valign="top" headers="d0e61 ">+000</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01004</td>
+<td valign="top" headers="d0e59 ">The value of a string was truncated when assigned to another string
+data type with a shorter length.</td>
+<td valign="top" headers="d0e61 ">+000, +445, +802, +20141</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01005</td>
+<td valign="top" headers="d0e59 ">Insufficient number of entries in an SQLDA.</td>
+<td valign="top" headers="d0e61 ">+239</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01006</td>
+<td valign="top" headers="d0e59 ">A privilege was not revoked.</td>
+<td valign="top" headers="d0e61 ">+569</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01007</td>
+<td valign="top" headers="d0e59 ">A privilege was not granted.</td>
+<td valign="top" headers="d0e61 ">+570</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01009</td>
+<td valign="top" headers="d0e59 ">The search condition is too long for the information schema.</td>
+<td valign="top" headers="d0e61 ">+177</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">0100A</td>
+<td valign="top" headers="d0e59 ">The query expression of the view is too long for the information schema.</td>
+<td valign="top" headers="d0e61 ">+178</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">0100C</td>
+<td valign="top" headers="d0e59 ">One or more ad hoc result sets were returned from the procedure.</td>
+<td valign="top" headers="d0e61 ">+466</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">0100D</td>
+<td valign="top" headers="d0e59 ">The cursor that was closed has been reopened on the next result set
+within the chain.</td>
+<td valign="top" headers="d0e61 ">+467</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">0100E</td>
+<td valign="top" headers="d0e59 ">The procedure returned too many result sets.</td>
+<td valign="top" headers="d0e61 ">+464, +20206</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01503</td>
+<td valign="top" headers="d0e59 ">The number of result columns is larger than the number of host variables
+provided.</td>
+<td valign="top" headers="d0e61 ">+000, +030</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01504</td>
+<td valign="top" headers="d0e59 ">The UPDATE or DELETE statement does not include a WHERE clause.</td>
+<td valign="top" headers="d0e61 ">+000, +088</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01505</td>
+<td valign="top" headers="d0e59 ">The statement was not executed because it is unacceptable in this environment.</td>
+<td valign="top" headers="d0e61 ">+084</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01506</td>
+<td valign="top" headers="d0e59 ">An adjustment was made to a DATE or TIMESTAMP value to correct an invalid
+date resulting from an arithmetic operation.</td>
+<td valign="top" headers="d0e61 ">+000</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01515</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because the non-null
+value of the column is not within the range of the host variable.</td>
+<td valign="top" headers="d0e61 ">+304</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01517</td>
+<td valign="top" headers="d0e59 ">A character that cannot be converted was replaced with a substitute
+character.</td>
+<td valign="top" headers="d0e61 ">+335</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01519</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because a numeric
+value is out of range.</td>
+<td valign="top" headers="d0e61 ">+802</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01520</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because the characters
+cannot be converted.</td>
+<td valign="top" headers="d0e61 ">+331</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01522</td>
+<td valign="top" headers="d0e59 ">The local table or view name used in the CREATE ALIAS statement is
+undefined.</td>
+<td valign="top" headers="d0e61 ">+403</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01526</td>
+<td valign="top" headers="d0e59 ">Isolation level has been escalated.</td>
+<td valign="top" headers="d0e61 ">+595</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01528</td>
+<td valign="top" headers="d0e59 ">WHERE NOT NULL is ignored, because the index key cannot contain null
+values.</td>
+<td valign="top" headers="d0e61 ">+645</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01532</td>
+<td valign="top" headers="d0e59 ">An undefined object name was detected.</td>
+<td valign="top" headers="d0e61 ">+204</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01534</td>
+<td valign="top" headers="d0e59 ">The string representation of a datetime value is invalid.</td>
+<td valign="top" headers="d0e61 ">+180, +181</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01535</td>
+<td valign="top" headers="d0e59 ">An arithmetic operation on a date or timestamp has a result that is
+not within the valid range of dates.</td>
+<td valign="top" headers="d0e61 ">+183</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01536</td>
+<td valign="top" headers="d0e59 ">During remote bind where existence checking is deferred, the server-name
+specified does not match the current server.</td>
+<td valign="top" headers="d0e61 ">+114</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01539</td>
+<td valign="top" headers="d0e59 ">Connection is successful but only SBCS characters should be used.</td>
+<td valign="top" headers="d0e61 ">+863</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01542</td>
+<td valign="top" headers="d0e59 ">Authorization ID does not have the privilege to perform the operation
+as specified.</td>
+<td valign="top" headers="d0e61 ">+552</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01544</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because a substring
+error occurred; for example, an argument of SUBSTR is out of range.</td>
+<td valign="top" headers="d0e61 ">+138</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01545</td>
+<td valign="top" headers="d0e59 ">An unqualified column name has been interpreted as a correlated reference.</td>
+<td valign="top" headers="d0e61 ">+012</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01547</td>
+<td valign="top" headers="d0e59 ">A mixed data value is improperly formed.</td>
+<td valign="top" headers="d0e61 ">+191, +304, +802</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01548</td>
+<td valign="top" headers="d0e59 ">The authorization ID does not have the privilege to perform the specified
+operation on the identified object.</td>
+<td valign="top" headers="d0e61 ">+551</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01557</td>
+<td valign="top" headers="d0e59 ">Too many host variables have been specified on SELECT INTO or FETCH.</td>
+<td valign="top" headers="d0e61 ">+326</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01564</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because division
+by zero occurred.</td>
+<td valign="top" headers="d0e61 ">+802</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01565</td>
+<td valign="top" headers="d0e59 ">The null value has been assigned to a host variable, because a miscellaneous
+data exception occurred; for example, the character value for the CAST, DECIMAL,
+FLOAT, or INTEGER scalar function is invalid; a floating-point NAN (not a
+number) or invalid data in a packed decimal field was detected.</td>
+<td valign="top" headers="d0e61 ">+304, +420, +802</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01567</td>
+<td valign="top" headers="d0e59 ">The table was created but not journaled.</td>
+<td valign="top" headers="d0e61 ">+7905</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01587</td>
+<td valign="top" headers="d0e59 ">The unit of work was committed or rolled back, but the outcome is not
+fully known at all sites.</td>
+<td valign="top" headers="d0e61 ">+990</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01593</td>
+<td valign="top" headers="d0e59 ">An ALTER TABLE may cause data truncation.</td>
+<td valign="top" headers="d0e61 ">+460</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01594</td>
+<td valign="top" headers="d0e59 ">Insufficient number of entries in an SQLDA for ALL information (i.e.
+not enough descriptors to return the distinct name).</td>
+<td valign="top" headers="d0e61 ">+237</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01627</td>
+<td valign="top" headers="d0e59 ">The DATALINK value may not be valid because the table is in reconcile
+pending or reconcile is not a possible state.</td>
+<td valign="top" headers="d0e61 ">+360</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01634</td>
+<td valign="top" headers="d0e59 ">The distinct data type name is too long and cannot be returned in the
+SQLDA. The short name is returned instead.</td>
+<td valign="top" headers="d0e61 ">+7036</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01643</td>
+<td valign="top" headers="d0e59 ">Assignment to SQLCODE or SQLSTATE variable does not signal a warning
+or error.</td>
+<td valign="top" headers="d0e61 ">+385</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01646</td>
+<td valign="top" headers="d0e59 ">A result sets cannot be returned because the cursor was closed.</td>
+<td valign="top" headers="d0e61 ">+7050</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01647</td>
+<td valign="top" headers="d0e59 ">A DB2SQL BEFORE trigger changed to DB2ROW.</td>
+<td valign="top" headers="d0e61 ">+7051</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01658</td>
+<td valign="top" headers="d0e59 ">Binary data is invalid for DECRYPT_CHAR and DECYRYPT_DB.</td>
+<td valign="top" headers="d0e61 ">+20224</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01660</td>
+<td valign="top" headers="d0e59 ">The routine was created but a restore will not update the catalog.</td>
+<td valign="top" headers="d0e61 ">+7909</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01662</td>
+<td valign="top" headers="d0e59 ">Release record option ignored on CLOSE.</td>
+<td valign="top" headers="d0e61 ">+30107</td>
+</tr>
+<tr><td valign="top" headers="d0e57 ">01Hxx</td>
+<td valign="top" headers="d0e59 ">Valid warning SQLSTATEs returned by a user-defined function or external
+procedure CALL.</td>
+<td valign="top" headers="d0e61 ">+462</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode02"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode02" width="100%" frame="border" border="1" rules="all"><caption>Table 3. <b>Class
+Code 02: No Data</b></caption><thead align="left"><tr><th valign="top" id="d0e414">SQLSTATE Value</th>
+<th valign="top" id="d0e416"> Meaning</th>
+<th valign="top" id="d0e418"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e414 ">02000</td>
+<td valign="top" headers="d0e416 ">One of the following exceptions occurred: <ul><li>The result of the SELECT INTO statement or the subselect of the INSERT
+statement was an empty table.</li>
+<li>The number of rows identified in the searched UPDATE or DELETE statement
+was zero.</li>
+<li>The position of the cursor referenced in the FETCH statement was after
+the last row of the result table.</li>
+<li>The fetch orientation is invalid.</li>
+</ul>
+</td>
+<td valign="top" headers="d0e418 ">+100</td>
+</tr>
+<tr><td valign="top" headers="d0e414 ">02001</td>
+<td valign="top" headers="d0e416 ">No additional result sets returned.</td>
+<td valign="top" headers="d0e418 ">+387</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode07"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode07" width="100%" frame="border" border="1" rules="all"><caption>Table 4. <b>Class
+Code 07: Dynamic SQL Error </b></caption><thead align="left"><tr><th valign="top" id="d0e458">SQLSTATE Value</th>
+<th valign="top" id="d0e460"> Meaning</th>
+<th valign="top" id="d0e462"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e458 ">07001</td>
+<td valign="top" headers="d0e460 ">The number of host variables is not correct for the number of parameter
+markers.</td>
+<td valign="top" headers="d0e462 ">-313</td>
+</tr>
+<tr><td valign="top" headers="d0e458 ">07002</td>
+<td valign="top" headers="d0e460 ">The call parameter list or control block is invalid.</td>
+<td valign="top" headers="d0e462 ">-804</td>
+</tr>
+<tr><td valign="top" headers="d0e458 ">07003</td>
+<td valign="top" headers="d0e460 ">The statement identified in the EXECUTE statement is a select-statement,
+or is not in a prepared state.</td>
+<td valign="top" headers="d0e462 ">-518</td>
+</tr>
+<tr><td valign="top" headers="d0e458 ">07004</td>
+<td valign="top" headers="d0e460 ">The USING clause or INTO clause is required for dynamic parameters.</td>
+<td valign="top" headers="d0e462 ">-313</td>
+</tr>
+<tr><td valign="top" headers="d0e458 ">07005</td>
+<td valign="top" headers="d0e460 ">The statement name of the cursor identifies a prepared statement that
+cannot be associated with a cursor.</td>
+<td valign="top" headers="d0e462 ">-517</td>
+</tr>
+<tr><td valign="top" headers="d0e458 ">07006</td>
+<td valign="top" headers="d0e460 ">An input host variable, transition variable, or parameter marker cannot
+be used, because of its data type.</td>
+<td valign="top" headers="d0e462 ">-301</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode08"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode08" width="100%" frame="border" border="1" rules="all"><caption>Table 5. <b>Class
+Code 08: Connection Exception </b></caption><thead align="left"><tr><th valign="top" id="d0e521">SQLSTATE Value</th>
+<th valign="top" id="d0e523"> Meaning</th>
+<th valign="top" id="d0e525"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e521 ">08001</td>
+<td valign="top" headers="d0e523 ">The application requester is unable to establish the connection.</td>
+<td valign="top" headers="d0e525 ">-30080, -30082, -30089</td>
+</tr>
+<tr><td valign="top" headers="d0e521 ">08002</td>
+<td valign="top" headers="d0e523 ">The connection already exists.</td>
+<td valign="top" headers="d0e525 ">-842</td>
+</tr>
+<tr><td valign="top" headers="d0e521 ">08003</td>
+<td valign="top" headers="d0e523 ">The connection does not exist.</td>
+<td valign="top" headers="d0e525 ">-843, -900</td>
+</tr>
+<tr><td valign="top" headers="d0e521 ">08004</td>
+<td valign="top" headers="d0e523 ">The application server rejected establishment of the connection.</td>
+<td valign="top" headers="d0e525 ">-30060, -30061</td>
+</tr>
+<tr><td valign="top" headers="d0e521 ">08501</td>
+<td valign="top" headers="d0e523 ">A DISCONNECT is not allowed when the connection uses an LU6.2 protected
+conversation.</td>
+<td valign="top" headers="d0e525 ">-858</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode09"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode09" width="100%" frame="border" border="1" rules="all"><caption>Table 6. <b>Class
+Code 09: Triggered Action Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e577">SQLSTATE Value</th>
+<th valign="top" id="d0e579"> Meaning</th>
+<th valign="top" id="d0e581"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e577 ">09000</td>
+<td valign="top" headers="d0e579 ">A triggered SQL statement failed.</td>
+<td valign="top" headers="d0e581 ">-723</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode0A"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0A" width="100%" frame="border" border="1" rules="all"><caption>Table 7. <b>Class
+Code 0A: Feature Not Supported</b></caption><thead align="left"><tr><th valign="top" id="d0e605">SQLSTATE Value</th>
+<th valign="top" id="d0e607"> Meaning</th>
+<th valign="top" id="d0e609"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e605 ">0A001</td>
+<td valign="top" headers="d0e607 ">The CONNECT statement is invalid, because the process is not in the
+connectable state.</td>
+<td valign="top" headers="d0e609 ">-752</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode0E"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0E" width="100%" frame="border" border="1" rules="all"><caption>Table 8. <b>Class
+Code 0E: Invalid Schema Name List Specification </b></caption><thead align="left"><tr><th valign="top" id="d0e633">SQLSTATE Value</th>
+<th valign="top" id="d0e635"> Meaning</th>
+<th valign="top" id="d0e637"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e633 ">0E000</td>
+<td valign="top" headers="d0e635 ">The schema name list in a SET™ PATH statement is not valid.</td>
+<td valign="top" headers="d0e637 ">-329</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode0F"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0F" width="100%" frame="border" border="1" rules="all"><caption>Table 9. <b>Class
+Code 0F: Invalid Token </b></caption><thead align="left"><tr><th valign="top" id="d0e664">SQLSTATE Value</th>
+<th valign="top" id="d0e666"> Meaning</th>
+<th valign="top" id="d0e668"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e664 ">0F001</td>
+<td valign="top" headers="d0e666 ">The locator value does not currently represent any value.</td>
+<td valign="top" headers="d0e668 ">-423</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode0K"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0K" width="100%" frame="border" border="1" rules="all"><caption>Table 10. <b>Class
+Code 0K: Resignal When Handler Not Active</b></caption><thead align="left"><tr><th valign="top" id="d0e692">SQLSTATE Value</th>
+<th valign="top" id="d0e694"> Meaning</th>
+<th valign="top" id="d0e696"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e692 ">0K000</td>
+<td valign="top" headers="d0e694 ">A RESIGNAL was issued but a handler is not active.</td>
+<td valign="top" headers="d0e696 ">-787</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode0W"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0W" width="100%" frame="border" border="1" rules="all"><caption>Table 11. <b>Class Code 0W: Prohibited Statement Encountered During Trigger</b></caption><thead align="left"><tr><th valign="top" id="d0e720">SQLSTATE Value</th>
+<th valign="top" id="d0e722"> Meaning</th>
+<th valign="top" id="d0e724"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e720 ">0W000</td>
+<td valign="top" headers="d0e722 ">The statement is not allowed in a trigger.</td>
+<td valign="top" headers="d0e724 ">-751</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode0Z"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode0Z" width="100%" frame="border" border="1" rules="all"><caption>Table 12. <b>Class Code 0Z: Diagnostics Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e748">SQLSTATE Value</th>
+<th valign="top" id="d0e750"> Meaning</th>
+<th valign="top" id="d0e752"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e748 ">0Z001</td>
+<td valign="top" headers="d0e750 ">Maximum number of stacked diagnostics areas exceeded.</td>
+<td valign="top" headers="d0e752 ">-20226</td>
+</tr>
+<tr><td valign="top" headers="d0e748 ">0Z002</td>
+<td valign="top" headers="d0e750 ">Stacked diagnostics accessed without and active handler.</td>
+<td valign="top" headers="d0e752 ">-20228</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<div class="p">
+<div class="skipspace"><a name="cc__classcode20"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode20" width="100%" frame="border" border="1" rules="all"><caption>Table 13. <b>Class
+Code 20: Case Not Found for Case Statement </b></caption><thead align="left"><tr><th valign="top" id="d0e780">SQLSTATE Value</th>
+<th valign="top" id="d0e782"> Meaning</th>
+<th valign="top" id="d0e784"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e780 ">20000</td>
+<td valign="top" headers="d0e782 ">The case was not found for the CASE statement.</td>
+<td valign="top" headers="d0e784 ">-773</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode21"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode21" width="100%" frame="border" border="1" rules="all"><caption>Table 14. <b>Class
+Code 21: Cardinality Violation</b></caption><thead align="left"><tr><th valign="top" id="d0e808">SQLSTATE Value</th>
+<th valign="top" id="d0e810"> Meaning</th>
+<th valign="top" id="d0e812"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e808 ">21000</td>
+<td valign="top" headers="d0e810 ">The result of a SELECT INTO, scalar fullselect, or subquery of a basic
+predicate is more than one value.</td>
+<td valign="top" headers="d0e812 ">-811</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode22"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode22" width="100%" frame="border" border="1" rules="all"><caption>Table 15. <b>Class
+Code 22: Data Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e836">SQLSTATE Value</th>
+<th valign="top" id="d0e838"> Meaning</th>
+<th valign="top" id="d0e840"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e836 ">22001</td>
+<td valign="top" headers="d0e838 ">Character data, right truncation occurred; for example, an update or
+insert value is a string that is too long for the column, or a datetime value
+cannot be assigned to a host variable, because it is too small.</td>
+<td valign="top" headers="d0e840 ">-302, -303, -404, -433, -802</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22002</td>
+<td valign="top" headers="d0e838 ">A null value, or the absence of an indicator parameter was detected;
+for example, the null value cannot be assigned to a host variable, because
+no indicator variable is specified.</td>
+<td valign="top" headers="d0e840 ">-305</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22003</td>
+<td valign="top" headers="d0e838 ">A numeric value is out of range.</td>
+<td valign="top" headers="d0e840 ">-302, -304, -406, -446, -802</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22004</td>
+<td valign="top" headers="d0e838 ">A null value cannot returned from a procedure that is defined as PARAMETER
+STYLE GENERAL or a type-preserving method that is invoked with a non-null
+argument.</td>
+<td valign="top" headers="d0e840 ">-305</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22006</td>
+<td valign="top" headers="d0e838 ">The fetch orientation is invalid.</td>
+<td valign="top" headers="d0e840 ">-231</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22007</td>
+<td valign="top" headers="d0e838 ">An invalid datetime format was detected; that is, an invalid string
+representation or value was specified.</td>
+<td valign="top" headers="d0e840 ">-180, -181</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22008</td>
+<td valign="top" headers="d0e838 ">Datetime field overflow occurred; for example, an arithmetic operation
+on a date or timestamp has a result that is not within the valid range of
+dates.</td>
+<td valign="top" headers="d0e840 ">-183</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22011</td>
+<td valign="top" headers="d0e838 ">A substring error occurred; for example, an argument of SUBSTR is out
+of range.</td>
+<td valign="top" headers="d0e840 ">-138</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22012</td>
+<td valign="top" headers="d0e838 ">Division by zero is invalid.</td>
+<td valign="top" headers="d0e840 ">-802</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22018</td>
+<td valign="top" headers="d0e838 ">The character value for the CAST, DECIMAL, FLOAT, or INTEGER scalar
+function is invalid.</td>
+<td valign="top" headers="d0e840 ">-420</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22019</td>
+<td valign="top" headers="d0e838 ">The LIKE predicate has an invalid escape character.</td>
+<td valign="top" headers="d0e840 ">-130</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22021</td>
+<td valign="top" headers="d0e838 ">A character is not in the coded character set or the conversion is
+not supported.</td>
+<td valign="top" headers="d0e840 ">-330, -331</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22023</td>
+<td valign="top" headers="d0e838 ">A parameter or host variable value is invalid.</td>
+<td valign="top" headers="d0e840 ">-302, -304, -406, -802</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22024</td>
+<td valign="top" headers="d0e838 ">A NUL-terminated input host variable or parameter did not contain a
+NUL.</td>
+<td valign="top" headers="d0e840 ">-302</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22025</td>
+<td valign="top" headers="d0e838 ">The LIKE predicate string pattern contains an invalid occurrence of
+an escape character.</td>
+<td valign="top" headers="d0e840 ">-130</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22501</td>
+<td valign="top" headers="d0e838 ">The length control field of a variable length string is negative or
+greater than the maximum.</td>
+<td valign="top" headers="d0e840 ">-311</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22503</td>
+<td valign="top" headers="d0e838 ">The string representation of a name is invalid.</td>
+<td valign="top" headers="d0e840 ">-188</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22504</td>
+<td valign="top" headers="d0e838 ">A mixed data value is invalid.</td>
+<td valign="top" headers="d0e840 ">-191, -304, -406, -802</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22511</td>
+<td valign="top" headers="d0e838 ">ADT length exceeds maximum column length. The value for a ROWID or
+reference column is not valid.</td>
+<td valign="top" headers="d0e840 ">-399</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22522</td>
+<td valign="top" headers="d0e838 ">A CCSID value is not valid at all, not valid for the data type or subtype,
+or not valid for the encoding scheme.</td>
+<td valign="top" headers="d0e840 ">-189</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22524</td>
+<td valign="top" headers="d0e838 ">Character conversion resulted in truncation</td>
+<td valign="top" headers="d0e840 ">-334</td>
+</tr>
+<tr><td valign="top" headers="d0e836 ">22525</td>
+<td valign="top" headers="d0e838 ">Partitioning key value is not valid.</td>
+<td valign="top" headers="d0e840 ">-327</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode23"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode23" width="100%" frame="border" border="1" rules="all"><caption>Table 16. <b>Class
+Code 23: Constraint Violation </b></caption><thead align="left"><tr><th valign="top" id="d0e1011">SQLSTATE Value</th>
+<th valign="top" id="d0e1013"> Meaning</th>
+<th valign="top" id="d0e1015"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1011 ">23001</td>
+<td valign="top" headers="d0e1013 ">The update or delete of a parent key is prevented by a RESTRICT update
+or delete rule.</td>
+<td valign="top" headers="d0e1015 ">-531, -532</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23502</td>
+<td valign="top" headers="d0e1013 ">An insert or update value is null, but the column cannot contain null
+values.</td>
+<td valign="top" headers="d0e1015 ">-407</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23503</td>
+<td valign="top" headers="d0e1013 ">The insert or update value of a foreign key is invalid.</td>
+<td valign="top" headers="d0e1015 ">-530</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23504</td>
+<td valign="top" headers="d0e1013 ">The update or delete of a parent key is prevented by a NO ACTION update
+or delete rule.</td>
+<td valign="top" headers="d0e1015 ">-531, -532</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23505</td>
+<td valign="top" headers="d0e1013 ">A violation of the constraint imposed by a unique index or a unique
+constraint occurred.</td>
+<td valign="top" headers="d0e1015 ">-803</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23511</td>
+<td valign="top" headers="d0e1013 ">A parent row cannot be deleted, because the check constraint restricts
+the deletion.</td>
+<td valign="top" headers="d0e1015 ">-543</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23512</td>
+<td valign="top" headers="d0e1013 ">The check constraint cannot be added, because the table contains rows
+that do not satisfy the constraint definition.</td>
+<td valign="top" headers="d0e1015 ">-544</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23513</td>
+<td valign="top" headers="d0e1013 ">The resulting row of the INSERT or UPDATE does not conform to the check
+constraint definition.</td>
+<td valign="top" headers="d0e1015 ">-545</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23515</td>
+<td valign="top" headers="d0e1013 ">The unique index cannot be created or unique constraint added because
+the table contains duplicate values of the specified key.</td>
+<td valign="top" headers="d0e1015 ">-603</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23520</td>
+<td valign="top" headers="d0e1013 ">The foreign key cannot be defined, because all of its values are not
+equal to a parent key of the parent table.</td>
+<td valign="top" headers="d0e1015 ">-667</td>
+</tr>
+<tr><td valign="top" headers="d0e1011 ">23522</td>
+<td valign="top" headers="d0e1013 ">The range of values for the identity column or sequence is exhausted.</td>
+<td valign="top" headers="d0e1015 ">-359</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode24"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode24" width="100%" frame="border" border="1" rules="all"><caption>Table 17. <b>Class
+Code 24: Invalid Cursor State</b></caption><thead align="left"><tr><th valign="top" id="d0e1109">SQLSTATE Value</th>
+<th valign="top" id="d0e1111"> Meaning</th>
+<th valign="top" id="d0e1113"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1109 ">24501</td>
+<td valign="top" headers="d0e1111 ">The identified cursor is not open.</td>
+<td valign="top" headers="d0e1113 ">-501, -507</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24502</td>
+<td valign="top" headers="d0e1111 ">The cursor identified in an OPEN statement is already open.</td>
+<td valign="top" headers="d0e1113 ">-502</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24504</td>
+<td valign="top" headers="d0e1111 ">The cursor identified in the UPDATE, DELETE, SET, or GET statement is not positioned
+on a row.</td>
+<td valign="top" headers="d0e1113 ">-508</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24506</td>
+<td valign="top" headers="d0e1111 ">The statement identified in the PREPARE is the statement of an open
+cursor.</td>
+<td valign="top" headers="d0e1113 ">-519</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24507</td>
+<td valign="top" headers="d0e1111 ">FETCH CURRENT was specified, but the current row is deleted, or a value
+of an ORDER BY column of the current row has changed.</td>
+<td valign="top" headers="d0e1113 ">-226</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24513</td>
+<td valign="top" headers="d0e1111 ">FETCH NEXT, PRIOR, CURRENT, or RELATIVE is not allowed, because the
+cursor position is not known.</td>
+<td valign="top" headers="d0e1113 ">-227</td>
+</tr>
+<tr><td valign="top" headers="d0e1109 ">24514</td>
+<td valign="top" headers="d0e1111 ">A previous error has disabled this cursor.</td>
+<td valign="top" headers="d0e1113 ">-906</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode25"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode25" width="100%" frame="border" border="1" rules="all"><caption>Table 18. <b>Class
+Code 25: Invalid Transaction State </b></caption><thead align="left"><tr><th valign="top" id="d0e1182">SQLSTATE Value</th>
+<th valign="top" id="d0e1184"> Meaning</th>
+<th valign="top" id="d0e1186"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1182 ">25000</td>
+<td valign="top" headers="d0e1184 ">An update operation is invalid for the application execution environment.</td>
+<td valign="top" headers="d0e1186 ">-30090</td>
+</tr>
+<tr><td valign="top" headers="d0e1182 ">25006</td>
+<td valign="top" headers="d0e1184 ">An update operation is not valid because the transaction is read only.</td>
+<td valign="top" headers="d0e1186 ">-817</td>
+</tr>
+<tr><td valign="top" headers="d0e1182 ">25501</td>
+<td valign="top" headers="d0e1184 ">The statement is only allowed as the first statement in a unit of work.</td>
+<td valign="top" headers="d0e1186 ">-428</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode26"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode26" width="100%" frame="border" border="1" rules="all"><caption>Table 19. <b>Class
+Code 26: Invalid SQL Statement Identifier</b></caption><thead align="left"><tr><th valign="top" id="d0e1224">SQLSTATE Value</th>
+<th valign="top" id="d0e1226"> Meaning</th>
+<th valign="top" id="d0e1228"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1224 ">26501</td>
+<td valign="top" headers="d0e1226 ">The statement identified does not exist.</td>
+<td valign="top" headers="d0e1228 ">-514, -516</td>
+</tr>
+<tr><td valign="top" headers="d0e1224 ">26510</td>
+<td valign="top" headers="d0e1226 ">The statement name specified in a DECLARE CURSOR already has a cursor
+allocated to it.</td>
+<td valign="top" headers="d0e1228 ">-5023</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode27"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode27" width="100%" frame="border" border="1" rules="all"><caption>Table 20. <b>Class
+Code 27: Triggered Data Change Violation</b></caption><thead align="left"><tr><th valign="top" id="d0e1259">SQLSTATE Value</th>
+<th valign="top" id="d0e1261"> Meaning</th>
+<th valign="top" id="d0e1263"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1259 ">27000</td>
+<td valign="top" headers="d0e1261 ">An attempt was made to modify the target table of the MERGE statement
+by a constraint or trigger.</td>
+<td valign="top" headers="d0e1263 ">-907</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode28"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode28" width="100%" frame="border" border="1" rules="all"><caption>Table 21. <b>Class
+Code 28: Invalid Authorization Specification</b></caption><thead align="left"><tr><th valign="top" id="d0e1287">SQLSTATE Value</th>
+<th valign="top" id="d0e1289"> Meaning</th>
+<th valign="top" id="d0e1291"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1287 ">28000</td>
+<td valign="top" headers="d0e1289 ">Authorization name is invalid.</td>
+<td valign="top" headers="d0e1291 ">-113, -188</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode2D"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode2D" width="100%" frame="border" border="1" rules="all"><caption>Table 22. <b>Class
+Code 2D: Invalid Transaction Termination </b></caption><thead align="left"><tr><th valign="top" id="d0e1315">SQLSTATE Value</th>
+<th valign="top" id="d0e1317"> Meaning</th>
+<th valign="top" id="d0e1319"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1315 ">2D522</td>
+<td valign="top" headers="d0e1317 ">COMMIT and ROLLBACK are not allowed in an ATOMIC Compound statement. </td>
+<td valign="top" headers="d0e1319 ">-774</td>
+</tr>
+<tr><td valign="top" headers="d0e1315 ">2D528</td>
+<td valign="top" headers="d0e1317 ">Dynamic COMMIT or COMMIT ON RETURN procedure is invalid for the application
+execution environment</td>
+<td valign="top" headers="d0e1319 ">-426, -30090</td>
+</tr>
+<tr><td valign="top" headers="d0e1315 ">2D529</td>
+<td valign="top" headers="d0e1317 ">Dynamic ROLLBACK is invalid for the application execution environment.</td>
+<td valign="top" headers="d0e1319 ">-427, -30090</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode2E"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode2E" width="100%" frame="border" border="1" rules="all"><caption>Table 23. <b>Class
+Code 2E: Invalid Connection Name</b></caption><thead align="left"><tr><th valign="top" id="d0e1357">SQLSTATE Value</th>
+<th valign="top" id="d0e1359"> Meaning</th>
+<th valign="top" id="d0e1361"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1357 ">2E000</td>
+<td valign="top" headers="d0e1359 ">Connection name is invalid.</td>
+<td valign="top" headers="d0e1361 ">-113, -188, -251</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode2F"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode2F" width="100%" frame="border" border="1" rules="all"><caption>Table 24. <b>Class
+Code 2F: SQL Function Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e1385">SQLSTATE Value</th>
+<th valign="top" id="d0e1387"> Meaning</th>
+<th valign="top" id="d0e1389"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1385 ">2F002</td>
+<td valign="top" headers="d0e1387 ">The SQL function attempted to modify data, but the function was not
+defined as MODIFIES SQL DATA.</td>
+<td valign="top" headers="d0e1389 ">-577</td>
+</tr>
+<tr><td valign="top" headers="d0e1385 ">2F003</td>
+<td valign="top" headers="d0e1387 ">The statement is not allowed in a function or procedure.</td>
+<td valign="top" headers="d0e1389 ">-751</td>
+</tr>
+<tr><td valign="top" headers="d0e1385 ">2F004</td>
+<td valign="top" headers="d0e1387 ">The SQL function attempted to read data, but the function was not defined
+as READS SQL DATA.</td>
+<td valign="top" headers="d0e1389 ">-579</td>
+</tr>
+<tr><td valign="top" headers="d0e1385 ">2F005</td>
+<td valign="top" headers="d0e1387 ">The function did not execute a RETURN statement.</td>
+<td valign="top" headers="d0e1389 ">-578</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode34"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode34" width="100%" frame="border" border="1" rules="all"><caption>Table 25. <b>Class
+Code 34: Invalid Cursor Name</b></caption><thead align="left"><tr><th valign="top" id="d0e1434">SQLSTATE Value</th>
+<th valign="top" id="d0e1436"> Meaning</th>
+<th valign="top" id="d0e1438"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1434 ">34000</td>
+<td valign="top" headers="d0e1436 ">Cursor name is invalid.</td>
+<td valign="top" headers="d0e1438 ">-504</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode35"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode35" width="100%" frame="border" border="1" rules="all"><caption>Table 26. <b>Class Code 35: Invalid Condition Number </b></caption><thead align="left"><tr><th valign="top" id="d0e1462">SQLSTATE Value</th>
+<th valign="top" id="d0e1464"> Meaning</th>
+<th valign="top" id="d0e1466"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1462 ">35000</td>
+<td valign="top" headers="d0e1464 ">Condition number is invalid.</td>
+<td valign="top" headers="d0e1466 ">-393</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode36"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode36" width="100%" frame="border" border="1" rules="all"><caption>Table 27. <b>Class Code 36: Cursor Sensitivity Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e1490">SQLSTATE Value</th>
+<th valign="top" id="d0e1492"> Meaning</th>
+<th valign="top" id="d0e1494"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1490 ">36001</td>
+<td valign="top" headers="d0e1492 ">A SENSITIVE cursor cannot be defined for the specified select-statement.</td>
+<td valign="top" headers="d0e1494 ">-243</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode38"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode38" width="100%" frame="border" border="1" rules="all"><caption>Table 28. <b>Class
+Code 38: External Function Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e1518">SQLSTATE Value</th>
+<th valign="top" id="d0e1520"> Meaning</th>
+<th valign="top" id="d0e1522"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1518 ">38xxx</td>
+<td valign="top" headers="d0e1520 ">Valid error SQLSTATEs returned by an external routine or trigger.</td>
+<td valign="top" headers="d0e1522 ">-443</td>
+</tr>
+<tr><td valign="top" headers="d0e1518 ">38001</td>
+<td valign="top" headers="d0e1520 ">The external routine is not allowed to execute SQL statements.</td>
+<td valign="top" headers="d0e1522 ">-487</td>
+</tr>
+<tr><td valign="top" headers="d0e1518 ">38002</td>
+<td valign="top" headers="d0e1520 ">The external routine attempted to modify data, but the routine was
+not defined as MODIFIES SQL DATA.</td>
+<td valign="top" headers="d0e1522 ">-577</td>
+</tr>
+<tr><td valign="top" headers="d0e1518 ">38003</td>
+<td valign="top" headers="d0e1520 ">The statement is not allowed in a routine.</td>
+<td valign="top" headers="d0e1522 ">-751</td>
+</tr>
+<tr><td valign="top" headers="d0e1518 ">38004</td>
+<td valign="top" headers="d0e1520 ">The external routine attempted to read data, but the routine was not
+defined as READS SQL DATA.</td>
+<td valign="top" headers="d0e1522 ">-579</td>
+</tr>
+<tr><td valign="top" headers="d0e1518 ">38501</td>
+<td valign="top" headers="d0e1520 ">Error occurred while calling a user-defined function, external procedure,
+or trigger (using the SIMPLE CALL or SIMPLE CALL WITH NULLS calling convention).</td>
+<td valign="top" headers="d0e1522 ">-443, -4302</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode39"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode39" width="100%" frame="border" border="1" rules="all"><caption>Table 29. <b>Class
+Code 39: External Function Call Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e1581">SQLSTATE Value</th>
+<th valign="top" id="d0e1583"> Meaning</th>
+<th valign="top" id="d0e1585"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1581 ">39004</td>
+<td valign="top" headers="d0e1583 ">A null value is not allowed for an IN or INOUT argument when using
+PARAMETER STYLE GENERAL or an argument that is a Java™ primitive type.</td>
+<td valign="top" headers="d0e1585 ">-470, -20205</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode3B"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode3B" width="100%" frame="border" border="1" rules="all"><caption>Table 30. <b>Class
+Code 3B: Savepoint Exception</b></caption><thead align="left"><tr><th valign="top" id="d0e1612">SQLSTATE Value</th>
+<th valign="top" id="d0e1614"> Meaning</th>
+<th valign="top" id="d0e1616"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1612 ">3B001</td>
+<td valign="top" headers="d0e1614 ">The savepoint is not valid.</td>
+<td valign="top" headers="d0e1616 ">-880</td>
+</tr>
+<tr><td valign="top" headers="d0e1612 ">3B002</td>
+<td valign="top" headers="d0e1614 ">The maximum number of savepoints has been reached.</td>
+<td valign="top" headers="d0e1616 ">-20112</td>
+</tr>
+<tr><td valign="top" headers="d0e1612 ">3B501</td>
+<td valign="top" headers="d0e1614 ">A duplicate savepoint name was detected.</td>
+<td valign="top" headers="d0e1616 ">-881</td>
+</tr>
+<tr><td valign="top" headers="d0e1612 ">3B502</td>
+<td valign="top" headers="d0e1614 ">A RELEASE or ROLLBACK TO SAVEPOINT was specified, but a savepoint does
+not exist.</td>
+<td valign="top" headers="d0e1616 ">-882</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode3C"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode3C" width="100%" frame="border" border="1" rules="all"><caption>Table 31. <b>Class
+Code 3C: Ambiguous Cursor Name</b></caption><thead align="left"><tr><th valign="top" id="d0e1661">SQLSTATE Value</th>
+<th valign="top" id="d0e1663"> Meaning</th>
+<th valign="top" id="d0e1665"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1661 ">3C000</td>
+<td valign="top" headers="d0e1663 ">The cursor name is ambiguous.</td>
+<td valign="top" headers="d0e1665 ">-051</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode3F"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode3F" width="100%" frame="border" border="1" rules="all"><caption>Table 32. <b>Class Code 3F: Invalid Schema (Collection) Name</b></caption><thead align="left"><tr><th valign="top" id="d0e1689">SQLSTATE Value</th>
+<th valign="top" id="d0e1691"> Meaning</th>
+<th valign="top" id="d0e1693"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1689 ">3F000</td>
+<td valign="top" headers="d0e1691 ">The schema (collection) name is invalid.</td>
+<td valign="top" headers="d0e1693 ">-713</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode42"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode42" width="100%" frame="border" border="1" rules="all"><caption>Table 33. <b>Class
+Code 42: Syntax Error or Access Rule Violation</b></caption><thead align="left"><tr><th valign="top" id="d0e1717">SQLSTATE Value</th>
+<th valign="top" id="d0e1719"> Meaning</th>
+<th valign="top" id="d0e1721"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e1717 ">42501</td>
+<td valign="top" headers="d0e1719 ">The authorization ID does not have the privilege to perform the specified
+operation on the identified object.</td>
+<td valign="top" headers="d0e1721 ">-551</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42502</td>
+<td valign="top" headers="d0e1719 ">The authorization ID does not have the privilege to perform the operation
+as specified.</td>
+<td valign="top" headers="d0e1721 ">-552</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42506</td>
+<td valign="top" headers="d0e1719 ">Owner authorization failure occurred.</td>
+<td valign="top" headers="d0e1721 ">-30053</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42601</td>
+<td valign="top" headers="d0e1719 ">A character, token, or clause is invalid or missing.</td>
+<td valign="top" headers="d0e1721 ">-007, -011, -029, -097, -104, -109, -115, -128, -199, -441, -491</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42602</td>
+<td valign="top" headers="d0e1719 ">A character that is invalid in a name has been detected.</td>
+<td valign="top" headers="d0e1721 ">-113, -251</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42603</td>
+<td valign="top" headers="d0e1719 ">An unterminated string constant has been detected.</td>
+<td valign="top" headers="d0e1721 ">-010</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42604</td>
+<td valign="top" headers="d0e1719 ">An invalid numeric or string constant has been detected.</td>
+<td valign="top" headers="d0e1721 ">-103, -105</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42605</td>
+<td valign="top" headers="d0e1719 ">The number of arguments specified for a scalar function is invalid.</td>
+<td valign="top" headers="d0e1721 ">-170</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42606</td>
+<td valign="top" headers="d0e1719 ">An invalid hexadecimal constant has been detected.</td>
+<td valign="top" headers="d0e1721 ">-110</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42607</td>
+<td valign="top" headers="d0e1719 ">An operand of a column function or CONCAT operator is invalid.</td>
+<td valign="top" headers="d0e1721 ">-112</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42609</td>
+<td valign="top" headers="d0e1719 ">All operands of an operator or predicate are parameter markers.</td>
+<td valign="top" headers="d0e1721 ">-417</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42610</td>
+<td valign="top" headers="d0e1719 ">A parameter marker is not allowed.</td>
+<td valign="top" headers="d0e1721 ">-184, -418</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42611</td>
+<td valign="top" headers="d0e1719 ">The column or argument definition is invalid.</td>
+<td valign="top" headers="d0e1721 ">-106, -604</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42612</td>
+<td valign="top" headers="d0e1719 ">The statement string is an SQL statement that is not acceptable in
+the context in which it is presented.</td>
+<td valign="top" headers="d0e1721 ">-084</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42613</td>
+<td valign="top" headers="d0e1719 ">Clauses are mutually exclusive.</td>
+<td valign="top" headers="d0e1721 ">-628</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42614</td>
+<td valign="top" headers="d0e1719 ">A duplicate keyword or clause is invalid.</td>
+<td valign="top" headers="d0e1721 ">-637</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42615</td>
+<td valign="top" headers="d0e1719 ">An invalid alternative was detected.</td>
+<td valign="top" headers="d0e1721 ">-644</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42616</td>
+<td valign="top" headers="d0e1719 ">Invalid options are specified.</td>
+<td valign="top" headers="d0e1721 ">-5047</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42617</td>
+<td valign="top" headers="d0e1719 ">The statement string is blank or empty.</td>
+<td valign="top" headers="d0e1721 ">-198</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42618</td>
+<td valign="top" headers="d0e1719 ">A host variable is not allowed.</td>
+<td valign="top" headers="d0e1721 ">-090, -312, -5012, -5024</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42620</td>
+<td valign="top" headers="d0e1719 ">Read-only SCROLL was specified with the UPDATE clause.</td>
+<td valign="top" headers="d0e1721 ">-228</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42621</td>
+<td valign="top" headers="d0e1719 ">The check constraint generated column expression is invalid.</td>
+<td valign="top" headers="d0e1721 ">-546</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42622</td>
+<td valign="top" headers="d0e1719 ">A name or label is too long.</td>
+<td valign="top" headers="d0e1721 ">-107</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42623</td>
+<td valign="top" headers="d0e1719 ">A DEFAULT clause cannot be specified.</td>
+<td valign="top" headers="d0e1721 ">-373</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42625</td>
+<td valign="top" headers="d0e1719 ">A CASE expression is invalid.</td>
+<td valign="top" headers="d0e1721 ">-580</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42629</td>
+<td valign="top" headers="d0e1719 ">Parameter names must be specified for SQL routines.</td>
+<td valign="top" headers="d0e1721 ">-078</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42631</td>
+<td valign="top" headers="d0e1719 ">An expression must be specified on a RETURN statement in an SQL function.</td>
+<td valign="top" headers="d0e1721 ">-057</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42701</td>
+<td valign="top" headers="d0e1719 ">A duplicate column name in an INSERT or UPDATE operation or the SET transition-variable was detected.</td>
+<td valign="top" headers="d0e1721 ">-121</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42702</td>
+<td valign="top" headers="d0e1719 ">A column reference is ambiguous, because of duplicate names.</td>
+<td valign="top" headers="d0e1721 ">-203</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42703</td>
+<td valign="top" headers="d0e1719 ">An undefined column or parameter name was detected.</td>
+<td valign="top" headers="d0e1721 ">-205, -206, -213, -5001</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42704</td>
+<td valign="top" headers="d0e1719 ">An undefined object or constraint name was detected.</td>
+<td valign="top" headers="d0e1721 ">-204</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42705</td>
+<td valign="top" headers="d0e1719 ">An undefined server-name was detected.</td>
+<td valign="top" headers="d0e1721 ">-950</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42707</td>
+<td valign="top" headers="d0e1719 ">A column name in ORDER BY does not identify a column of the result
+table.</td>
+<td valign="top" headers="d0e1721 ">-208</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42709</td>
+<td valign="top" headers="d0e1719 ">A duplicate column name was specified in a key column list.</td>
+<td valign="top" headers="d0e1721 ">-537</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42710</td>
+<td valign="top" headers="d0e1719 ">A duplicate object or constraint name was detected.</td>
+<td valign="top" headers="d0e1721 ">-456, -601</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42711</td>
+<td valign="top" headers="d0e1719 ">A duplicate column name was detected in the object definition or ALTER
+TABLE statement.</td>
+<td valign="top" headers="d0e1721 ">-612</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42712</td>
+<td valign="top" headers="d0e1719 ">A duplicate table designator was detected in the FROM clause or REFERENCING
+clause of a CREATE TRIGGER statement.</td>
+<td valign="top" headers="d0e1721 ">-212</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42713</td>
+<td valign="top" headers="d0e1719 ">A duplicate object was detected in a list or is the same as an existing
+object.</td>
+<td valign="top" headers="d0e1721 ">-242</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42718</td>
+<td valign="top" headers="d0e1719 ">The local server name is not defined.</td>
+<td valign="top" headers="d0e1721 ">-250</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42723</td>
+<td valign="top" headers="d0e1719 ">A function with the same signature already exists in the schema.</td>
+<td valign="top" headers="d0e1721 ">-454</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42724</td>
+<td valign="top" headers="d0e1719 ">Unable to access an external program used for a user-defined function
+or a procedure.</td>
+<td valign="top" headers="d0e1721 ">-444, -4300, -4303, -4304, -4306</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42725</td>
+<td valign="top" headers="d0e1719 ">A routine or method was referenced directly (not by either signature
+or by specific instance name), but there is more than one specific instance
+of that routine or method.</td>
+<td valign="top" headers="d0e1721 ">-476</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42726</td>
+<td valign="top" headers="d0e1719 ">Duplicate names for common table expressions were detected.</td>
+<td valign="top" headers="d0e1721 ">-340</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42732</td>
+<td valign="top" headers="d0e1719 ">A duplicate schema name in the SET CURRENT PATH statement was detected.</td>
+<td valign="top" headers="d0e1721 ">-585</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42733</td>
+<td valign="top" headers="d0e1719 ">A procedure with the specified name cannot be added to the schema because
+the procedure overloading is not allowed in this database and there is already
+a procedure with the same name in the schema.</td>
+<td valign="top" headers="d0e1721 ">-484</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42734</td>
+<td valign="top" headers="d0e1719 ">A duplicate parameter-name, SQL variable name, label, or condition-name
+was detected.</td>
+<td valign="top" headers="d0e1721 ">-590</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42736</td>
+<td valign="top" headers="d0e1719 ">The label specified on the GOTO, ITERATE, or LEAVE statement is not
+found or not valid.</td>
+<td valign="top" headers="d0e1721 ">-779</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42737</td>
+<td valign="top" headers="d0e1719 ">The condition specified is not defined.</td>
+<td valign="top" headers="d0e1721 ">-781</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42738</td>
+<td valign="top" headers="d0e1719 ">A duplicate column name or unnamed column was specified in a DECLARE
+CURSOR statement of a FOR statement.</td>
+<td valign="top" headers="d0e1721 ">-783</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42802</td>
+<td valign="top" headers="d0e1719 ">The number of insert or update values is not the same as the number
+of columns.</td>
+<td valign="top" headers="d0e1721 ">-117</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42803</td>
+<td valign="top" headers="d0e1719 ">A column reference in the SELECT or HAVING clause is invalid, because
+it is not a grouping column; or a column reference in the GROUP BY clause
+is invalid.</td>
+<td valign="top" headers="d0e1721 ">-119, -122</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42804</td>
+<td valign="top" headers="d0e1719 ">The result expressions in a CASE expression are not compatible.</td>
+<td valign="top" headers="d0e1721 ">-581</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42805</td>
+<td valign="top" headers="d0e1719 ">An integer in the ORDER BY clause does not identify a column of the
+result table.</td>
+<td valign="top" headers="d0e1721 ">-125</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42806</td>
+<td valign="top" headers="d0e1719 ">A value cannot be assigned to a host variable, because the data types
+are not compatible.</td>
+<td valign="top" headers="d0e1721 ">-303</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42807</td>
+<td valign="top" headers="d0e1719 ">The INSERT, UPDATE, or DELETE is not permitted on this object.</td>
+<td valign="top" headers="d0e1721 ">-150, -155</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42808</td>
+<td valign="top" headers="d0e1719 ">A column identified in the INSERT or UPDATE operation is not updatable.</td>
+<td valign="top" headers="d0e1721 ">-151</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42809</td>
+<td valign="top" headers="d0e1719 ">The identified object is not the type of object to which the statement
+applies.</td>
+<td valign="top" headers="d0e1721 ">-152, -156, -159</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42810</td>
+<td valign="top" headers="d0e1719 ">A base table is not identified in a FOREIGN KEY clause.</td>
+<td valign="top" headers="d0e1721 ">-157</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42811</td>
+<td valign="top" headers="d0e1719 ">The number of columns specified is not the same as the number of columns
+in the SELECT clause.</td>
+<td valign="top" headers="d0e1721 ">-158</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42812</td>
+<td valign="top" headers="d0e1719 ">A library name is required in CREATE TABLE in the system naming mode.</td>
+<td valign="top" headers="d0e1721 ">-5002</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42813</td>
+<td valign="top" headers="d0e1719 ">WITH CHECK OPTION cannot be used for the specified view.</td>
+<td valign="top" headers="d0e1721 ">-160</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42814</td>
+<td valign="top" headers="d0e1719 ">The column cannot be dropped, because it is the only column in the
+table.</td>
+<td valign="top" headers="d0e1721 ">-195</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42815</td>
+<td valign="top" headers="d0e1719 ">The data type, length, scale, value, or CCSID is invalid.</td>
+<td valign="top" headers="d0e1721 ">-060, -171, -451, -713, -846, -5005</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42816</td>
+<td valign="top" headers="d0e1719 ">A datetime value or duration in an expression is invalid.</td>
+<td valign="top" headers="d0e1721 ">-182, -187</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42817</td>
+<td valign="top" headers="d0e1719 ">The column cannot be dropped, because RESTRICT was specified and a
+view or constraint is dependent on the column or the column is part of a partitioning
+key.</td>
+<td valign="top" headers="d0e1721 ">-196</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42818</td>
+<td valign="top" headers="d0e1719 ">The operands of an operator or function are not compatible.</td>
+<td valign="top" headers="d0e1721 ">-131, -401</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42819</td>
+<td valign="top" headers="d0e1719 ">An operand of an arithmetic operation or an operand of a function that
+requires a number is not a number.</td>
+<td valign="top" headers="d0e1721 ">-402</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42820</td>
+<td valign="top" headers="d0e1719 ">A numeric constant is too long, or it has a value that is not within
+the range of its data type.</td>
+<td valign="top" headers="d0e1721 ">-405, -410</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42821</td>
+<td valign="top" headers="d0e1719 ">A data type for an assignment to a column or variable is not compatible
+with the data type.</td>
+<td valign="top" headers="d0e1721 ">-408</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42822</td>
+<td valign="top" headers="d0e1719 ">An expression in the ORDER BY clause or GROUP BY clause is not valid.</td>
+<td valign="top" headers="d0e1721 ">-214</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42823</td>
+<td valign="top" headers="d0e1719 ">Multiple columns are returned from a subquery that only allows one
+column.</td>
+<td valign="top" headers="d0e1721 ">-412</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42824</td>
+<td valign="top" headers="d0e1719 ">An operand of LIKE is not a string, or the first operand is not a column.</td>
+<td valign="top" headers="d0e1721 ">-132, -414</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42825</td>
+<td valign="top" headers="d0e1719 ">The rows of UNION, INTERSECT, EXCEPT, or VALUES do not have compatible
+columns.</td>
+<td valign="top" headers="d0e1721 ">-415</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42826</td>
+<td valign="top" headers="d0e1719 ">The rows of UNION, INTERSECT, EXCEPT, or VALUES do not have the same
+number of columns.</td>
+<td valign="top" headers="d0e1721 ">-421</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42827</td>
+<td valign="top" headers="d0e1719 ">The table identified in the UPDATE or DELETE is not the same table
+designated by the cursor.</td>
+<td valign="top" headers="d0e1721 ">-509</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42828</td>
+<td valign="top" headers="d0e1719 ">The table designated by the cursor of the UPDATE or DELETE statement
+cannot be modified, or the cursor is read-only.</td>
+<td valign="top" headers="d0e1721 ">-510, -520</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42829</td>
+<td valign="top" headers="d0e1719 ">FOR UPDATE OF is invalid, because the result table designated by the
+cursor cannot be modified.</td>
+<td valign="top" headers="d0e1721 ">-511</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42830</td>
+<td valign="top" headers="d0e1719 ">The foreign key does not conform to the description of the parent key.</td>
+<td valign="top" headers="d0e1721 ">-538</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42832</td>
+<td valign="top" headers="d0e1719 ">The operation is not allowed on system objects.</td>
+<td valign="top" headers="d0e1721 ">-607</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42833</td>
+<td valign="top" headers="d0e1719 ">The qualified object name is inconsistent with the naming option.</td>
+<td valign="top" headers="d0e1721 ">-5016</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42834</td>
+<td valign="top" headers="d0e1719 ">SET NULL cannot be specified, because no column of the foreign key
+can be assigned the null value.</td>
+<td valign="top" headers="d0e1721 ">-629</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42835</td>
+<td valign="top" headers="d0e1719 ">Cyclic references cannot be specified between named derived tables.</td>
+<td valign="top" headers="d0e1721 ">-341</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42836</td>
+<td valign="top" headers="d0e1719 ">The specification of a recursive, named derived table is invalid.</td>
+<td valign="top" headers="d0e1721 ">-346</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42837</td>
+<td valign="top" headers="d0e1719 ">The column cannot be altered, because its attributes are not compatible
+with the current column attributes.</td>
+<td valign="top" headers="d0e1721 ">-190</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42841</td>
+<td valign="top" headers="d0e1719 ">A parameter marker can not be a user-defined type or reference type.</td>
+<td valign="top" headers="d0e1721 ">-432</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42842</td>
+<td valign="top" headers="d0e1719 ">A column or parameter definition is invalid, because a specified option
+is inconsistent with the column description.</td>
+<td valign="top" headers="d0e1721 ">-683</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42845</td>
+<td valign="top" headers="d0e1719 ">An invalid use of a NOT DETERMINISTIC or EXTERNAL ACTION function was
+detected.</td>
+<td valign="top" headers="d0e1721 ">-583</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42846</td>
+<td valign="top" headers="d0e1719 ">Cast from source type to target type is not supported.</td>
+<td valign="top" headers="d0e1721 ">-461</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42847</td>
+<td valign="top" headers="d0e1719 ">An OVRDBF command was issued for one of the referenced files, but one
+of the parameters is not valid for SQL.</td>
+<td valign="top" headers="d0e1721 ">-7002</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42848</td>
+<td valign="top" headers="d0e1719 ">Isolation level CS WITH KEEP LOCKS is not allowed.</td>
+<td valign="top" headers="d0e1721 ">-194</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42850</td>
+<td valign="top" headers="d0e1719 ">A logical file is invalid in CREATE VIEW.</td>
+<td valign="top" headers="d0e1721 ">-7010</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42851</td>
+<td valign="top" headers="d0e1719 ">A referenced file is not a table, view, or physical file.</td>
+<td valign="top" headers="d0e1721 ">-7011</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42852</td>
+<td valign="top" headers="d0e1719 ">The privileges specified in GRANT or REVOKE are invalid or inconsistent.
+(For example, GRANT ALTER on a view.)</td>
+<td valign="top" headers="d0e1721 ">-557</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42854</td>
+<td valign="top" headers="d0e1719 ">A result column data type in the select list is not compatible with
+the defined type in a typed view or materialized query table definition.</td>
+<td valign="top" headers="d0e1721 ">-20055</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42855</td>
+<td valign="top" headers="d0e1719 ">The assignment of the LOB to this host variable is not allowed. The
+target host variable for all fetches of this LOB value for This cursor must
+be a locator or LOB variable.</td>
+<td valign="top" headers="d0e1721 ">-392</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42857</td>
+<td valign="top" headers="d0e1719 ">A referenced file has more than one format.</td>
+<td valign="top" headers="d0e1721 ">-7003</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42858</td>
+<td valign="top" headers="d0e1719 ">Operation cannot be applied to the specified object.</td>
+<td valign="top" headers="d0e1721 ">-7001</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42860</td>
+<td valign="top" headers="d0e1719 ">The constraint cannot be dropped because it is enforcing a primary
+key or ROWID.</td>
+<td valign="top" headers="d0e1721 ">-784</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42862</td>
+<td valign="top" headers="d0e1719 ">An extended dynamic statement cannot be executed against a non-extended
+dynamic package.</td>
+<td valign="top" headers="d0e1721 ">-827</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42863</td>
+<td valign="top" headers="d0e1719 ">An undefined host variable in REXX has been detected.</td>
+<td valign="top" headers="d0e1721 ">-306</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42866</td>
+<td valign="top" headers="d0e1719 ">The data type in either the RETURNS clause or the CAST FROM clause
+in the CREATE FUNCTION statement is not appropriate for the data type returned
+from the sourced function or RETURN statement in the function body.</td>
+<td valign="top" headers="d0e1721 ">-475</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42872</td>
+<td valign="top" headers="d0e1719 ">FETCH statement clauses are incompatible with the cursor definition.</td>
+<td valign="top" headers="d0e1721 ">-225</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42873</td>
+<td valign="top" headers="d0e1719 ">An invalid number of rows was specified in a multiple-row FETCH or
+multiple-row INSERT.</td>
+<td valign="top" headers="d0e1721 ">-221</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42874</td>
+<td valign="top" headers="d0e1719 ">ALWCPYDTA(*NO) was specified, but a copy is necessary to implement
+the select-statement.</td>
+<td valign="top" headers="d0e1721 ">-527</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42875</td>
+<td valign="top" headers="d0e1719 ">The schema-name portion of a qualified name must be the same name as
+the schema name.</td>
+<td valign="top" headers="d0e1721 ">-5051</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42876</td>
+<td valign="top" headers="d0e1719 ">Different CCSIDs for keys in CREATE INDEX are only allowed with a *HEX
+sort sequence.</td>
+<td valign="top" headers="d0e1721 ">-7024</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42877</td>
+<td valign="top" headers="d0e1719 ">The column name cannot be qualified.</td>
+<td valign="top" headers="d0e1721 ">-197</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42878</td>
+<td valign="top" headers="d0e1719 ">An invalid function or procedure name was used with the EXTERNAL keyword.</td>
+<td valign="top" headers="d0e1721 ">-449</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42879</td>
+<td valign="top" headers="d0e1719 ">The data type of one or more input parameters in the CREATE FUNCTION
+statement is not appropriate for the corresponding data type in the source
+function.</td>
+<td valign="top" headers="d0e1721 ">-492</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42880</td>
+<td valign="top" headers="d0e1719 ">The CAST TO and CAST FROM data types are incompatible, or would always
+result in truncation of a fixed string.</td>
+<td valign="top" headers="d0e1721 ">-453</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42881</td>
+<td valign="top" headers="d0e1719 ">Invalid use of a function.</td>
+<td valign="top" headers="d0e1721 ">-391</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42882</td>
+<td valign="top" headers="d0e1719 ">The specific instance name qualifier is not equal to the function name
+qualifier.</td>
+<td valign="top" headers="d0e1721 ">-455</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42883</td>
+<td valign="top" headers="d0e1719 ">No function or method was found with a matching signature.</td>
+<td valign="top" headers="d0e1721 ">-458</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42884</td>
+<td valign="top" headers="d0e1719 ">No routine was found with the specified name and compatible arguments.</td>
+<td valign="top" headers="d0e1721 ">-440</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42885</td>
+<td valign="top" headers="d0e1719 ">The number of input parameters specified on a CREATE FUNCTION statement
+does not match the number provided by the function named in the SOURCE clause.</td>
+<td valign="top" headers="d0e1721 ">-483</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42886</td>
+<td valign="top" headers="d0e1719 ">The IN, OUT, or INOUT parameter attributes do not match.</td>
+<td valign="top" headers="d0e1721 ">-469</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42887</td>
+<td valign="top" headers="d0e1719 ">The function is not valid in the context where it occurs.</td>
+<td valign="top" headers="d0e1721 ">-390</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42888</td>
+<td valign="top" headers="d0e1719 ">The table does not have a primary key.</td>
+<td valign="top" headers="d0e1721 ">-539</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42889</td>
+<td valign="top" headers="d0e1719 ">The table already has a primary key.</td>
+<td valign="top" headers="d0e1721 ">-624</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42890</td>
+<td valign="top" headers="d0e1719 ">A column list was specified in the references clause, but the identified
+parent table does not have a unique constraint with the specified column names.</td>
+<td valign="top" headers="d0e1721 ">-573</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42891</td>
+<td valign="top" headers="d0e1719 ">A duplicate UNIQUE constraint already exists.</td>
+<td valign="top" headers="d0e1721 ">-541</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42892</td>
+<td valign="top" headers="d0e1719 ">The referential constraint and trigger are not allowed, because the
+DELETE rule and trigger event are not compatible.</td>
+<td valign="top" headers="d0e1721 ">-675</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42893</td>
+<td valign="top" headers="d0e1719 ">The object or constraint cannot be dropped or authorities cannot be
+revoked from the object, because other objects are dependent on it.</td>
+<td valign="top" headers="d0e1721 ">-478, -616</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42894</td>
+<td valign="top" headers="d0e1719 ">The value of a column or sequence attribute is invalid.</td>
+<td valign="top" headers="d0e1721 ">-574</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42895</td>
+<td valign="top" headers="d0e1719 ">For static SQL, an input host variable cannot be used, because its
+data type is not compatible with the parameter of a procedure or user-defined
+function.</td>
+<td valign="top" headers="d0e1721 ">-301</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42896</td>
+<td valign="top" headers="d0e1719 ">The ASP number is invalid.</td>
+<td valign="top" headers="d0e1721 ">-7026</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42898</td>
+<td valign="top" headers="d0e1719 ">An invalid correlated reference or transition table was detected in
+a trigger.</td>
+<td valign="top" headers="d0e1721 ">-696</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42899</td>
+<td valign="top" headers="d0e1719 ">Correlated references and column names are not allowed for triggered
+actions with the FOR EACH STATEMENT clause.</td>
+<td valign="top" headers="d0e1721 ">-697</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428A1</td>
+<td valign="top" headers="d0e1719 ">Unable to access a file referenced by a file reference variable.</td>
+<td valign="top" headers="d0e1721 ">-452</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428B3</td>
+<td valign="top" headers="d0e1719 ">An invalid SQLSTATE was specified.</td>
+<td valign="top" headers="d0e1721 ">-435</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428B7</td>
+<td valign="top" headers="d0e1719 ">A number specified in an SQL statement is out of the valid range.</td>
+<td valign="top" headers="d0e1721 ">-490</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428B8</td>
+<td valign="top" headers="d0e1719 ">The name specified on a rename is not valid.</td>
+<td valign="top" headers="d0e1721 ">-7029</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428BA</td>
+<td valign="top" headers="d0e1719 ">WITHOUT RETURN cursors must not be specified in SET RESULT
+SETS.</td>
+<td valign="top" headers="d0e1721 ">-20236</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428C1</td>
+<td valign="top" headers="d0e1719 ">Only one ROWID or IDENTITY column can be specified for a table.</td>
+<td valign="top" headers="d0e1721 ">-372</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428C7</td>
+<td valign="top" headers="d0e1719 ">A ROWID or reference column specification is not valid.</td>
+<td valign="top" headers="d0e1721 ">-771</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428C9</td>
+<td valign="top" headers="d0e1719 ">A ROWID or IDENTITY column cannot be specified as the target column
+of an INSERT or UPDATE.</td>
+<td valign="top" headers="d0e1721 ">-798</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D1</td>
+<td valign="top" headers="d0e1719 ">Unable to access a file referenced by a DATALINK value.</td>
+<td valign="top" headers="d0e1721 ">-358</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D2</td>
+<td valign="top" headers="d0e1719 ">AS LOCATOR cannot be specified for a non-LOB parameter.</td>
+<td valign="top" headers="d0e1721 ">-398</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D4</td>
+<td valign="top" headers="d0e1719 ">A cursor specified in a FOR statement cannot be referenced in an OPEN,
+CLOSE, or FETCH statement.</td>
+<td valign="top" headers="d0e1721 ">-776</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D5</td>
+<td valign="top" headers="d0e1719 ">The ending label does not match the beginning label.</td>
+<td valign="top" headers="d0e1721 ">-778</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D6</td>
+<td valign="top" headers="d0e1719 ">UNDO is not allowed for NOT ATOMIC compound statements.</td>
+<td valign="top" headers="d0e1721 ">-780</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D7</td>
+<td valign="top" headers="d0e1719 ">The condition value is not allowed.</td>
+<td valign="top" headers="d0e1721 ">-782</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428D8</td>
+<td valign="top" headers="d0e1719 ">The sqlcode or sqlstate variable declaration is not valid.</td>
+<td valign="top" headers="d0e1721 ">-785</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428EC</td>
+<td valign="top" headers="d0e1719 ">The fullselect specified for the materialized query table is not valid.</td>
+<td valign="top" headers="d0e1721 ">-20058</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428EK</td>
+<td valign="top" headers="d0e1719 ">The qualifier for a declared global temporary table name or an index
+on a declared global temporary table must be SESSION.</td>
+<td valign="top" headers="d0e1721 ">-079</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428EW</td>
+<td valign="top" headers="d0e1719 ">The table cannot be converted to or from a materialized query table.</td>
+<td valign="top" headers="d0e1721 ">-20093</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428F1</td>
+<td valign="top" headers="d0e1719 ">An SQL TABLE function must return a table result.</td>
+<td valign="top" headers="d0e1721 ">-20120</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428F2</td>
+<td valign="top" headers="d0e1719 ">An integer expression must be specified on a RETURN statement in an
+SQL procedure.</td>
+<td valign="top" headers="d0e1721 ">-058</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428F9</td>
+<td valign="top" headers="d0e1719 ">A sequence expression cannot be specified in this context.</td>
+<td valign="top" headers="d0e1721 ">-348</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FA</td>
+<td valign="top" headers="d0e1719 ">The scale of the decimal number must be zero.</td>
+<td valign="top" headers="d0e1721 ">-336</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FC</td>
+<td valign="top" headers="d0e1719 ">The length of the encryption password is not valid.</td>
+<td valign="top" headers="d0e1721 ">-20144</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FD</td>
+<td valign="top" headers="d0e1719 ">The password used for decryption does not match the password used to
+encrypt the data.</td>
+<td valign="top" headers="d0e1721 ">-20145</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FE</td>
+<td valign="top" headers="d0e1719 ">The data is not a result of the ENCRYPT function.</td>
+<td valign="top" headers="d0e1721 ">-20146</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FR</td>
+<td valign="top" headers="d0e1719 ">A column cannot be altered as specified.</td>
+<td valign="top" headers="d0e1721 ">-20180</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FT</td>
+<td valign="top" headers="d0e1719 ">The table is not compatible with the specified data partitioning operation.</td>
+<td valign="top" headers="d0e1721 ">-20183</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428FY</td>
+<td valign="top" headers="d0e1719 ">A column cannot be added, dropped, or altered in a materialized query
+table.</td>
+<td valign="top" headers="d0e1721 ">-20235</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428G0</td>
+<td valign="top" headers="d0e1719 ">A logical file prevents the alter of the partition attributes.</td>
+<td valign="top" headers="d0e1721 ">-20246</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">428G2</td>
+<td valign="top" headers="d0e1719 ">The last data partition cannot be dropped from the table.</td>
+<td valign="top" headers="d0e1721 ">-20251</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42903</td>
+<td valign="top" headers="d0e1719 ">Invalid use of an aggregate function or OLAP function.</td>
+<td valign="top" headers="d0e1721 ">-120</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42904</td>
+<td valign="top" headers="d0e1719 ">The SQL procedure was not created because of a compile error.</td>
+<td valign="top" headers="d0e1721 ">-7032</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42906</td>
+<td valign="top" headers="d0e1719 ">A column function in a subquery of a HAVING clause includes an expression
+that applies an operator to a correlated reference.</td>
+<td valign="top" headers="d0e1721 ">-133</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42907</td>
+<td valign="top" headers="d0e1719 ">The string is too long.</td>
+<td valign="top" headers="d0e1721 ">-134</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42908</td>
+<td valign="top" headers="d0e1719 ">The statement does not include a required column list.</td>
+<td valign="top" headers="d0e1721 ">-153</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42910</td>
+<td valign="top" headers="d0e1719 ">The statement is not allowed in a Compound statement.</td>
+<td valign="top" headers="d0e1721 ">-775</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42911</td>
+<td valign="top" headers="d0e1719 ">A decimal divide operation is invalid, because the result would have
+a negative scale.</td>
+<td valign="top" headers="d0e1721 ">-419</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42912</td>
+<td valign="top" headers="d0e1719 ">A column cannot be updated, because it is not identified in the UPDATE
+clause of the select-statement of the cursor.</td>
+<td valign="top" headers="d0e1721 ">-503</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42914</td>
+<td valign="top" headers="d0e1719 ">The DELETE is invalid, because a table referenced in a subquery can
+be affected by the operation.</td>
+<td valign="top" headers="d0e1721 ">-536</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42917</td>
+<td valign="top" headers="d0e1719 ">The object cannot be explicitly dropped or altered.</td>
+<td valign="top" headers="d0e1721 ">-658</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42918</td>
+<td valign="top" headers="d0e1719 ">A user-defined data type cannot be created with a system-defined data
+type name (for example, INTEGER).</td>
+<td valign="top" headers="d0e1721 ">-473</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42919</td>
+<td valign="top" headers="d0e1719 ">Nested compound statements are not allowed.</td>
+<td valign="top" headers="d0e1721 ">-777</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42922</td>
+<td valign="top" headers="d0e1719 ">DROP SCHEMA cannot be executed under commitment control.</td>
+<td valign="top" headers="d0e1721 ">-5003</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42923</td>
+<td valign="top" headers="d0e1719 ">Program or package must be recreated to reference an alias-name.</td>
+<td valign="top" headers="d0e1721 ">-7033</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42924</td>
+<td valign="top" headers="d0e1719 ">An alias resolved to another alias rather than a table or view at the
+remote location.</td>
+<td valign="top" headers="d0e1721 ">-513</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42926</td>
+<td valign="top" headers="d0e1719 ">Locators are not allowed with COMMIT(*NONE).</td>
+<td valign="top" headers="d0e1721 ">-7034</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42929</td>
+<td valign="top" headers="d0e1719 ">FOR ALL PARTITIONS is not allowed for an encoded vector index.</td>
+<td valign="top" headers="d0e1721 ">-20243</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42930</td>
+<td valign="top" headers="d0e1719 ">The same column was identified in FOR UPDATE OF and ORDER BY.</td>
+<td valign="top" headers="d0e1721 ">-5021</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42932</td>
+<td valign="top" headers="d0e1719 ">The program preparation assumptions are incorrect.</td>
+<td valign="top" headers="d0e1721 ">-30052</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42937</td>
+<td valign="top" headers="d0e1719 ">The parameter must not have a subtype of mixed.</td>
+<td valign="top" headers="d0e1721 ">-192</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42939</td>
+<td valign="top" headers="d0e1719 ">The name cannot be used, because the specified identifier is reserved
+for system use.</td>
+<td valign="top" headers="d0e1721 ">-457, -707</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42944</td>
+<td valign="top" headers="d0e1719 ">The authorization ID cannot be both an owner and primary group owner.</td>
+<td valign="top" headers="d0e1721 ">-7028</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42961</td>
+<td valign="top" headers="d0e1719 ">The server name specified does not match the current server.</td>
+<td valign="top" headers="d0e1721 ">-114</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42962</td>
+<td valign="top" headers="d0e1719 ">A long column, LOB column, structured type column or datalink column
+cannot be used in an index, a key, or a constraint.</td>
+<td valign="top" headers="d0e1721 ">-350</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42969</td>
+<td valign="top" headers="d0e1719 ">The package was not created and the current unit of work was rolled
+back, because of internal limitations or an invalid section number.</td>
+<td valign="top" headers="d0e1721 ">-7020</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42970</td>
+<td valign="top" headers="d0e1719 ">COMMIT HOLD or ROLLBACK HOLD is only allowed to a DB2 UDB for iSeries application
+server.</td>
+<td valign="top" headers="d0e1721 ">-7018</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42971</td>
+<td valign="top" headers="d0e1719 ">SQL statements cannot be executed under commitment control, because
+commitment control is already active to another relational database.</td>
+<td valign="top" headers="d0e1721 ">-7017</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42972</td>
+<td valign="top" headers="d0e1719 ">An expression in a join-condition or ON clause of a MERGE statement
+references columns in more than one of the operand tables.</td>
+<td valign="top" headers="d0e1721 ">-338</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42977</td>
+<td valign="top" headers="d0e1719 ">The authorization ID cannot be changed when connecting to the local
+server.</td>
+<td valign="top" headers="d0e1721 ">-7022</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42978</td>
+<td valign="top" headers="d0e1719 ">An indicator variable is not a small integer.</td>
+<td valign="top" headers="d0e1721 ">-080</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42981</td>
+<td valign="top" headers="d0e1719 ">CREATE SCHEMA is not allowed if changes are pending in the unit of
+work.</td>
+<td valign="top" headers="d0e1721 ">-7941</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42984</td>
+<td valign="top" headers="d0e1719 ">The privilege cannot be granted to the view, because *OBJOPR or *OBJMGT
+authority exists on a dependent view or table, and the grantee does not have
+*ALLOBJ or the specified privilege on the dependent table or view.</td>
+<td valign="top" headers="d0e1721 ">-7027</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42985</td>
+<td valign="top" headers="d0e1719 ">The statement is not allowed in a routine.</td>
+<td valign="top" headers="d0e1721 ">-577, -579, -751</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42987</td>
+<td valign="top" headers="d0e1719 ">The statement is not allowed in a trigger.</td>
+<td valign="top" headers="d0e1721 ">-751</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42990</td>
+<td valign="top" headers="d0e1719 ">A unique index or unique constraint is not allowed because the key
+columns are not a superset of the partitioned key columns.</td>
+<td valign="top" headers="d0e1721 ">-270</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42995</td>
+<td valign="top" headers="d0e1719 ">The requested function does not apply to global temporary tables.</td>
+<td valign="top" headers="d0e1721 ">-526</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42996</td>
+<td valign="top" headers="d0e1719 ">The partition key cannot be a datetime or floating-point column.</td>
+<td valign="top" headers="d0e1721 ">-328</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42998</td>
+<td valign="top" headers="d0e1719 ">A referential constraint is not allowed because the foreign key columns
+are not a superset of the partitioned key columns or the node group is not
+the same as the parent table.</td>
+<td valign="top" headers="d0e1721 ">-256</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">42999</td>
+<td valign="top" headers="d0e1719 ">The query is not allowed on a distributed table or view.</td>
+<td valign="top" headers="d0e1721 ">-255</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">429B6</td>
+<td valign="top" headers="d0e1719 ">Rows from a distributed table cannot be redistributed because the table
+contains a datalink column with FILE LINK CONTROL.</td>
+<td valign="top" headers="d0e1721 ">-7037</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">429B7</td>
+<td valign="top" headers="d0e1719 ">A referential constraint with a delete rule of CASCADE is not allowed
+on a table with a DataLink column with FILE LINK CONTROL.</td>
+<td valign="top" headers="d0e1721 ">-7038</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">429BD</td>
+<td valign="top" headers="d0e1719 ">RETURN must be the last SQL statement of the atomic compound statement
+within an SQL row or table function.</td>
+<td valign="top" headers="d0e1721 ">-20148</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">429BH</td>
+<td valign="top" headers="d0e1719 ">A partitioned table cannot contain an identity column.</td>
+<td valign="top" headers="d0e1721 ">-20247</td>
+</tr>
+<tr><td valign="top" headers="d0e1717 ">429BM</td>
+<td valign="top" headers="d0e1719 ">The ICU sort sequence cannot be used in this context.</td>
+<td valign="top" headers="d0e1721 ">-20268</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode44"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode44" width="100%" frame="border" border="1" rules="all"><caption>Table 34. <b>Class
+Code 44: WITH CHECK OPTION Violation</b></caption><thead align="left"><tr><th valign="top" id="d0e3167">SQLSTATE Value</th>
+<th valign="top" id="d0e3169"> Meaning</th>
+<th valign="top" id="d0e3171"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3167 ">44000</td>
+<td valign="top" headers="d0e3169 ">The INSERT or UPDATE is not allowed, because a resulting row does not
+satisfy the view definition.</td>
+<td valign="top" headers="d0e3171 ">-161</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode46"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode46" width="100%" frame="border" border="1" rules="all"><caption>Table 35. <b>Class
+Code 46: Java Errors </b></caption><thead align="left"><tr><th valign="top" id="d0e3198">SQLSTATE Value</th>
+<th valign="top" id="d0e3200"> Meaning</th>
+<th valign="top" id="d0e3202"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3198 ">46001</td>
+<td valign="top" headers="d0e3200 ">The URL specified on an install or replace of a jar procedure did not
+identify a valid jar file.</td>
+<td valign="top" headers="d0e3202 ">-20200</td>
+</tr>
+<tr><td valign="top" headers="d0e3198 ">46002</td>
+<td valign="top" headers="d0e3200 ">The jar name specified on the install, replace, or remove of a Java procedure
+is not valid.</td>
+<td valign="top" headers="d0e3202 ">-20201</td>
+</tr>
+<tr><td valign="top" headers="d0e3198 ">46003</td>
+<td valign="top" headers="d0e3200 ">The jar file cannot be removed, a class is in use by a procedure.</td>
+<td valign="top" headers="d0e3202 ">-20202</td>
+</tr>
+<tr><td valign="top" headers="d0e3198 ">46007</td>
+<td valign="top" headers="d0e3200 ">A Java function has a Java method with an invalid signature.</td>
+<td valign="top" headers="d0e3202 ">-20203</td>
+</tr>
+<tr><td valign="top" headers="d0e3198 ">46008</td>
+<td valign="top" headers="d0e3200 ">A Java function cannot map to a single Java method.</td>
+<td valign="top" headers="d0e3202 ">-20204</td>
+</tr>
+<tr><td valign="top" headers="d0e3198 ">46501</td>
+<td valign="top" headers="d0e3200 ">The install or remove jar procedure for "&lt;jar-id&gt;" specified the
+use of a deployment descriptor.</td>
+<td valign="top" headers="d0e3202 ">-20207</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode51"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode51" width="100%" frame="border" border="1" rules="all"><caption>Table 36. <b>Class
+Code 51: Invalid Application State</b></caption><thead align="left"><tr><th valign="top" id="d0e3276">SQLSTATE Value</th>
+<th valign="top" id="d0e3278"> Meaning</th>
+<th valign="top" id="d0e3280"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3276 ">51002</td>
+<td valign="top" headers="d0e3278 ">The package corresponding to an SQL statement execution request was
+not found.</td>
+<td valign="top" headers="d0e3280 ">-805</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51003</td>
+<td valign="top" headers="d0e3278 ">Consistency tokens do not match.</td>
+<td valign="top" headers="d0e3280 ">-818</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51004</td>
+<td valign="top" headers="d0e3278 ">An address in the SQLDA is invalid.</td>
+<td valign="top" headers="d0e3280 ">-822</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51009</td>
+<td valign="top" headers="d0e3278 ">COMMIT or ROLLBACK is not allowed, because commitment control has not
+been started.</td>
+<td valign="top" headers="d0e3280 ">-7007</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51015</td>
+<td valign="top" headers="d0e3278 ">An attempt was made to execute a section that was found to be in error
+at bind time.</td>
+<td valign="top" headers="d0e3280 ">-525</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51021</td>
+<td valign="top" headers="d0e3278 ">SQL statements cannot be executed until the application process executes
+a rollback operation.</td>
+<td valign="top" headers="d0e3280 ">-918</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51035</td>
+<td valign="top" headers="d0e3278 ">A PREVVAL expression cannot be used because a value has not been generated
+for the sequence yet in this session.</td>
+<td valign="top" headers="d0e3280 ">-845</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51036</td>
+<td valign="top" headers="d0e3278 ">An implicit connect to a remote server is not allowed because a savepoint
+is outstanding.</td>
+<td valign="top" headers="d0e3280 ">-20110</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51037</td>
+<td valign="top" headers="d0e3278 ">The operation is not allowed because a trigger has been marked inoperative.</td>
+<td valign="top" headers="d0e3280 ">-7048</td>
+</tr>
+<tr><td valign="top" headers="d0e3276 ">51039</td>
+<td valign="top" headers="d0e3278 ">The ENCRYPTION PASSWORD value is not set.</td>
+<td valign="top" headers="d0e3280 ">-20143</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><span><img src="./delta.gif" alt="Start of change" /></span><a name="cc__classcode53"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode53" width="100%" frame="border" border="1" rules="all"><caption>Table 37. <b>Class Code 53: Invalid Operand or Inconsistent Specification</b></caption><thead align="left"><tr><th valign="top" id="d0e3367">SQLSTATE Value</th>
+<th valign="top" id="d0e3369"> Meaning</th>
+<th valign="top" id="d0e3371"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3367 ">53038</td>
+<td valign="top" headers="d0e3369 ">The number of key limit values is zero or greater than the number of
+columns in the key.</td>
+<td valign="top" headers="d0e3371 ">-663</td>
+</tr>
+<tr><td valign="top" headers="d0e3367 ">53039</td>
+<td valign="top" headers="d0e3369 ">The PART clause of the ALTER statement is omitted or invalid.</td>
+<td valign="top" headers="d0e3371 ">-665</td>
+</tr>
+<tr><td valign="top" headers="d0e3367 ">53045</td>
+<td valign="top" headers="d0e3369 ">The data type of the key limit constant is not the same as the data
+type of the column.</td>
+<td valign="top" headers="d0e3371 ">-678</td>
+</tr>
+</tbody>
+</table>
+<span><img src="./deltaend.gif" alt="End of change" /></span></div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode54"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode54" width="100%" frame="border" border="1" rules="all"><caption>Table 38. <b>Class
+Code 54: SQL or Product Limit Exceeded</b></caption><thead align="left"><tr><th valign="top" id="d0e3409">SQLSTATE Value</th>
+<th valign="top" id="d0e3411"> Meaning</th>
+<th valign="top" id="d0e3413"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3409 ">54001</td>
+<td valign="top" headers="d0e3411 ">The statement is too long or too complex.</td>
+<td valign="top" headers="d0e3413 ">-101</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54002</td>
+<td valign="top" headers="d0e3411 ">A string constant is too long.</td>
+<td valign="top" headers="d0e3413 ">-102</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54004</td>
+<td valign="top" headers="d0e3411 ">The statement has too many table names or too many items in a SELECT
+or INSERT list.</td>
+<td valign="top" headers="d0e3413 ">-129, -840</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54005</td>
+<td valign="top" headers="d0e3411 ">The sort key is too long, or has too many columns.</td>
+<td valign="top" headers="d0e3413 ">-136</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54006</td>
+<td valign="top" headers="d0e3411 ">The result of concatenation is too long.</td>
+<td valign="top" headers="d0e3413 ">-137</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54008</td>
+<td valign="top" headers="d0e3411 ">The key is too long, a column of the key is too long, or the key many
+columns.</td>
+<td valign="top" headers="d0e3413 ">-602, -613, -614, -631</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54009</td>
+<td valign="top" headers="d0e3411 ">Too many users were specified in GRANT or REVOKE.</td>
+<td valign="top" headers="d0e3413 ">-5017</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54010</td>
+<td valign="top" headers="d0e3411 ">The record length of the table is too long.</td>
+<td valign="top" headers="d0e3413 ">-101</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54011</td>
+<td valign="top" headers="d0e3411 ">Too many columns were specified for a table, view, or table function.</td>
+<td valign="top" headers="d0e3413 ">-101, -680 </td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54018</td>
+<td valign="top" headers="d0e3411 ">The row is too long.</td>
+<td valign="top" headers="d0e3413 ">-809</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54019</td>
+<td valign="top" headers="d0e3411 ">The maximum number of late descriptors has been exceeded, probably
+because too many different CCSIDs were used.</td>
+<td valign="top" headers="d0e3413 ">-871</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54021</td>
+<td valign="top" headers="d0e3411 ">Too many constraints, or the size of the constraint is too large.</td>
+<td valign="top" headers="d0e3413 ">-642</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54023</td>
+<td valign="top" headers="d0e3411 ">The limit for the number of parameters or arguments for a function
+or a procedure has been exceeded.</td>
+<td valign="top" headers="d0e3413 ">-442, -448</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54028</td>
+<td valign="top" headers="d0e3411 ">The maximum number of concurrent LOB handles has been reached.</td>
+<td valign="top" headers="d0e3413 ">-429</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54035</td>
+<td valign="top" headers="d0e3411 ">An internal object limit exceeded.</td>
+<td valign="top" headers="d0e3413 ">-7049</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54038</td>
+<td valign="top" headers="d0e3411 ">Maximum depth of nested routines or triggers was exceeded.</td>
+<td valign="top" headers="d0e3413 ">-724</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54044</td>
+<td valign="top" headers="d0e3411 ">A multiple-byte (UCS-2) sort sequence table cannot be supported in DRDA<sup>®</sup> because
+it is too large.</td>
+<td valign="top" headers="d0e3413 ">-7031</td>
+</tr>
+<tr><td valign="top" headers="d0e3409 ">54054</td>
+<td valign="top" headers="d0e3411 ">The combination of the number of table space partitions and the corresponding
+length of the partitioning limit key it too large.</td>
+<td valign="top" headers="d0e3413 ">-4701</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode55"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode55" width="100%" frame="border" border="1" rules="all"><caption>Table 39. <b>Class
+Code 55: Object Not in Prerequisite State</b></caption><thead align="left"><tr><th valign="top" id="d0e3559">SQLSTATE Value</th>
+<th valign="top" id="d0e3561"> Meaning</th>
+<th valign="top" id="d0e3563"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3559 ">55005</td>
+<td valign="top" headers="d0e3561 ">Recursion is only supported to a DB2 UDB for iSeries application server.</td>
+<td valign="top" headers="d0e3563 ">-145</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55006</td>
+<td valign="top" headers="d0e3561 ">The object cannot be dropped, because it is currently in use by the
+same application process.</td>
+<td valign="top" headers="d0e3563 ">-615, -950</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55007</td>
+<td valign="top" headers="d0e3561 ">The object cannot be altered, because it is currently in use by the
+same application process.</td>
+<td valign="top" headers="d0e3563 ">-951</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55018</td>
+<td valign="top" headers="d0e3561 ">The schema cannot be dropped, because it is in the library list.</td>
+<td valign="top" headers="d0e3563 ">-7006</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55019</td>
+<td valign="top" headers="d0e3561 ">The object is in an invalid state for the operation.</td>
+<td valign="top" headers="d0e3563 ">-7008, -20054</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55029</td>
+<td valign="top" headers="d0e3561 ">Local program attempted to connect to a remote database.</td>
+<td valign="top" headers="d0e3563 ">-862</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55042</td>
+<td valign="top" headers="d0e3561 ">The alias is not allowed because it identifies a single member of a
+multiple member file.</td>
+<td valign="top" headers="d0e3563 ">-7030</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55048</td>
+<td valign="top" headers="d0e3561 ">Encrypted data cannot be encrypted.</td>
+<td valign="top" headers="d0e3563 ">-20147</td>
+</tr>
+<tr><td valign="top" headers="d0e3559 ">55050</td>
+<td valign="top" headers="d0e3561 ">An object cannot be created into a protected schema.</td>
+<td valign="top" headers="d0e3563 ">-7052</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode56"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode56" width="100%" frame="border" border="1" rules="all"><caption>Table 40. <b>Class
+Code 56: Miscellaneous SQL or Product Error</b></caption><thead align="left"><tr><th valign="top" id="d0e3649">SQLSTATE Value</th>
+<th valign="top" id="d0e3651"> Meaning</th>
+<th valign="top" id="d0e3653"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3649 ">56016</td>
+<td valign="top" headers="d0e3651 ">The ranges specified for data partitions are not valid.</td>
+<td valign="top" headers="d0e3653 ">-636</td>
+</tr>
+<tr><td valign="top" headers="d0e3649 ">56084</td>
+<td valign="top" headers="d0e3651 ">An unsupported SQLTYPE was encountered in a select list or input list.</td>
+<td valign="top" headers="d0e3653 ">-351, -352</td>
+</tr>
+<tr><td valign="top" headers="d0e3649 ">56095</td>
+<td valign="top" headers="d0e3651 ">A bind option is invalid.</td>
+<td valign="top" headers="d0e3653 ">-30104</td>
+</tr>
+<tr><td valign="top" headers="d0e3649 ">560BF</td>
+<td valign="top" headers="d0e3651 ">The encryption and decryption facility has not been installed.</td>
+<td valign="top" headers="d0e3653 ">-20223</td>
+</tr>
+<tr><td valign="top" headers="d0e3649 ">560C4</td>
+<td valign="top" headers="d0e3651 ">The option is not valid for the ARD interface.</td>
+<td valign="top" headers="d0e3653 ">-5027, -5028</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode57"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode57" width="100%" frame="border" border="1" rules="all"><caption>Table 41. <b>Class
+Code 57: Resource Not Available or Operator Intervention</b></caption><thead align="left"><tr><th valign="top" id="d0e3705">SQLSTATE Value</th>
+<th valign="top" id="d0e3707"> Meaning</th>
+<th valign="top" id="d0e3709"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3705 ">57005</td>
+<td valign="top" headers="d0e3707 ">The statement cannot be executed, because a utility or a governor time
+limit was exceeded.</td>
+<td valign="top" headers="d0e3709 ">-666</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57006</td>
+<td valign="top" headers="d0e3707 ">The object cannot be created, because a DROP or CREATE is pending.</td>
+<td valign="top" headers="d0e3709 ">-679</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57007</td>
+<td valign="top" headers="d0e3707 ">The object cannot be used, because an operation is pending.</td>
+<td valign="top" headers="d0e3709 ">-910</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57011</td>
+<td valign="top" headers="d0e3707 ">Virtual storage or database resource is not available.</td>
+<td valign="top" headers="d0e3709 ">-904, -971, -7053</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57012</td>
+<td valign="top" headers="d0e3707 ">A non-database resource is not available. This will not affect the
+successful execution of subsequent statements.</td>
+<td valign="top" headers="d0e3709 ">-30040</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57013</td>
+<td valign="top" headers="d0e3707 ">A non-database resource is not available. This will affect the successful
+execution of subsequent statements.</td>
+<td valign="top" headers="d0e3709 ">-30041</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57014</td>
+<td valign="top" headers="d0e3707 ">Processing was canceled as requested.</td>
+<td valign="top" headers="d0e3709 ">-952</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57017</td>
+<td valign="top" headers="d0e3707 ">Character conversion is not defined.</td>
+<td valign="top" headers="d0e3709 ">-332</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57033</td>
+<td valign="top" headers="d0e3707 ">Deadlock or timeout occurred without automatic rollback.</td>
+<td valign="top" headers="d0e3709 ">-913</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57042</td>
+<td valign="top" headers="d0e3707 ">DDM recursion has occurred.</td>
+<td valign="top" headers="d0e3709 ">-30001</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57043</td>
+<td valign="top" headers="d0e3707 ">A local SQL application program cannot be executed on an application
+server.</td>
+<td valign="top" headers="d0e3709 ">-7021</td>
+</tr>
+<tr><td valign="top" headers="d0e3705 ">57050</td>
+<td valign="top" headers="d0e3707 ">The file server is not currently available.</td>
+<td valign="top" headers="d0e3709 ">-357</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p> </p>
+</div>
+<div class="skipspace"><div class="p">
+<div class="skipspace"><a name="cc__classcode58"><!-- --></a><table cellpadding="4" cellspacing="0" summary="" id="cc__classcode58" width="100%" frame="border" border="1" rules="all"><caption>Table 42. <b>Class
+Code 58: System Error</b></caption><thead align="left"><tr><th valign="top" id="d0e3810">SQLSTATE Value</th>
+<th valign="top" id="d0e3812"> Meaning</th>
+<th valign="top" id="d0e3814"> SQLCODE Values</th>
+</tr>
+</thead>
+<tbody><tr><td valign="top" headers="d0e3810 ">58003</td>
+<td valign="top" headers="d0e3812 ">An invalid section number was detected.</td>
+<td valign="top" headers="d0e3814 ">-144</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58004</td>
+<td valign="top" headers="d0e3812 ">A system error (that does not necessarily preclude the successful execution
+of subsequent SQL statements) occurred.</td>
+<td valign="top" headers="d0e3814 ">-901, -4301</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58008</td>
+<td valign="top" headers="d0e3812 ">Execution failed due to a distribution protocol error that will not
+affect the successful execution of subsequent DDM commands or SQL statements.</td>
+<td valign="top" headers="d0e3814 ">-30000</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58009</td>
+<td valign="top" headers="d0e3812 ">Execution failed due to a distribution protocol error that caused deallocation
+of the conversation.</td>
+<td valign="top" headers="d0e3814 ">-30020</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58010</td>
+<td valign="top" headers="d0e3812 ">Execution failed due to a distribution protocol error that will affect
+the successful execution of subsequent DDM commands or SQL statements.</td>
+<td valign="top" headers="d0e3814 ">-30021</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58011</td>
+<td valign="top" headers="d0e3812 ">The DDM command is invalid while the bind process in progress.</td>
+<td valign="top" headers="d0e3814 ">-30050</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58012</td>
+<td valign="top" headers="d0e3812 ">The bind process with the specified package name and consistency token
+is not active.</td>
+<td valign="top" headers="d0e3814 ">-30051</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58014</td>
+<td valign="top" headers="d0e3812 ">The DDM command is not supported.</td>
+<td valign="top" headers="d0e3814 ">-30070</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58015</td>
+<td valign="top" headers="d0e3812 ">The DDM object is not supported.</td>
+<td valign="top" headers="d0e3814 ">-30071</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58016</td>
+<td valign="top" headers="d0e3812 ">The DDM parameter is not supported.</td>
+<td valign="top" headers="d0e3814 ">-30072</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58017</td>
+<td valign="top" headers="d0e3812 ">The DDM parameter value is not supported.</td>
+<td valign="top" headers="d0e3814 ">-30073</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58018</td>
+<td valign="top" headers="d0e3812 ">The DDM reply message is not supported.</td>
+<td valign="top" headers="d0e3814 ">-30074</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58028</td>
+<td valign="top" headers="d0e3812 ">The commit operation failed, because a resource in the unit of work
+was not able to commit its resources.</td>
+<td valign="top" headers="d0e3814 ">-175</td>
+</tr>
+<tr><td valign="top" headers="d0e3810 ">58033</td>
+<td valign="top" headers="d0e3812 ">An unexpected error occurred while attempting to access a client driver.</td>
+<td valign="top" headers="d0e3814 ">-969</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div>
+<p>
+<b class="parentlink">Parent topic:</b> <a href="rzalaco.htm" title="">SQLCODE and SQLSTATE concepts</a><br />
+</p>
+</div>
+</body>
+</html>

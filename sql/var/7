@@ -1,0 +1,8 @@
+INSERT INTO apex_usuario_proyecto (usuario, proyecto, usuario_grupo_acc, usuario_perfil_datos ) 
+SELECT usuario, 'costos', 'basico', 'no' 
+FROM apex_usuario u
+WHERE		NOT EXISTS (
+						SELECT 1 FROM apex_usuario_proyecto p
+						WHERE p.usuario = u.usuario
+						AND	p.proyecto = 'costos' )
+						;

@@ -1,0 +1,35 @@
+/*------------------ ELEMENTOS de INTERFACE --------------------*/
+
+TD.ei-cuerpo {
+	font-size: 10px;
+	color: %col_sp_6%;
+	background-color: %col_sp_2%;
+	text-align: left;
+	padding: 2px 2px 2px 2px ;
+}
+
+TD.ei-base {
+	font-size: 10px;
+	color: %col_sp_5%;
+	background-color: %col_sp_5%;
+	text-align: left;
+	padding: 4px 4px 4px 4px ;
+}
+
+TD.ci-cuerpo {
+	font-size: 10px;
+	color: %col_sn_6%;
+	background-color: %col_sp_6%;
+	text-align: left;
+	padding: 10px 10px 10px 10px ;
+}
+
+TD.objeto-ei-barra-superior {
+	font-weight: bold;
+	font-size: 11px;
+	color: %col_ss_6%;
+	background-color: %col_sp_2%;
+	text-align: left;
+	padding: 3px 3px 3px 3px ;
+}
+/*----------------------------------------------------------------*/

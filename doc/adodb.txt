@@ -1,0 +1,347 @@
+/cygdrive/f/toba/php/acciones/actividad/sesiones.php:92:     	echo "<a href='" . $this->vinculador->generar_solicitud("toba",null,array("opcion" => $rs->fields["solicitud_tipo"])) . "' class='basico'>";
+/cygdrive/f/toba/php/acciones/actividad/sesiones.php:93:        echo recurso::imagen_apl($rs->fields["icono"],true,null,null,$rs->fields["descripcion_corta"]);
+/cygdrive/f/toba/php/acciones/admin/apex/clase_doc_pdf.php:35:				pdf_show_xy($pdf, $rs->fields["descripcion"] . " (" . $rs->fields["archivo"] . ")", 50, 750);
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:45:		$proyecto = $rs->fields["pro_id"];
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:48:          <td colspan="8" align="center" class="cat-item-categ1"><? echo $rs->fields["pro_des"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:59:		while((!$rs->EOF)&&($rs->fields["pro_id"]==$proyecto))
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:64:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos/propiedades",array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"] ))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:69:<? if ($rs->fields["cla_id"]!="objeto"){?>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:70:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_editor_proyecto"],$rs->fields["cla_editor"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:76:<? if ($rs->fields["cla_id"]!="objeto"){?>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:77:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_instanciador_proyecto"],$rs->fields["cla_instanciador"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:82:          <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["obj_nombre"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:83:          <td width="2%" class='lista-obj-dato2'><? echo trim($rs->fields["fue_id"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:84:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["obj_ri"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:85:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["obj_vinc_s"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/clase_objetos.php:86:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["obj_vinc_e"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:17:		$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:63:	$tipo = $rs->fields["clase_tipo"];
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:67:          <td width='99%' colspan='8' class='cat-item-dato4'><?  echo $rs->fields["tipo_descripcion"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:70:	while( (!$rs->EOF) && ($rs->fields["clase_tipo"] == $tipo ) )
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:76:		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/clase_propiedades",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["clase"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:82:<?		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/clase_php",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["clase"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:89:		if($rs->fields["autodoc"]==1){
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:90:			echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/clase_autodoc",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["clase"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:98:		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/clase_doc",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["clase"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:104:		echo "<td width='90%' class='lista-obj-dato1'>" . trim($rs->fields["clase"]) . "</td>";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:106:          <td width="2%" class='lista-obj-dato3'><? echo recurso::imagen_apl($rs->fields["icono"],true) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:107:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["objetos"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:108:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["objetos_item"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:130:		$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:168:	$tipo = $rs->fields["nucleo_tipo"];
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:172:          <td width='99%' colspan='8' class='cat-item-dato4'><?  echo $rs->fields["tipo_descripcion"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:175:	while( (!$rs->EOF) && ($rs->fields["nucleo_tipo"] == $tipo ) )
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:182:		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/nucleo_propiedades",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["nucleo"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:188:<?		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/nucleo_php",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["nucleo"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:195:		if($rs->fields["autodoc"]==1){
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:196:			echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/nucleo_autodoc",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["nucleo"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:203:          <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["archivo"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:224:		$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:269:		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/patron_propiedades",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["patron"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:275:<?		echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/patron_php",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["patron"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:282:		if($rs->fields["autodoc"]==1){
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:283:			echo "<a href='". $this->vinculador->generar_solicitud("toba","/admin/apex/patron_autodoc",array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["patron"] ),true). "' target='". apex_frame_centro ."' >";
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:290:          <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["descripcion_corta"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:291:          <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["items"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:336:		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:337:				<img src="<? echo recurso::imagen_apl($rs->fields["imagen"]) ?>" alt="<? echo trim($rs->fields["descripcion"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/apex/listado.php:340:          <td width="2%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/buffers/listado.php:43:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/buffers/propiedades", array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["buffer"]) ) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/buffers/listado.php:48:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/buffers/coloreado", array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["buffer"]) ) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/buffers/listado.php:53:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/buffers/ejecutar", array(apex_hilo_qs_zona=> $rs->fields["proyecto"] .apex_qs_separador. $rs->fields["buffer"]) ) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/buffers/listado.php:57:          <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["descripcion_corta"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/buffers/listado.php:58:          <td width="2%" class='cat-item-dato3'><? echo $rs->fields["items_consumidores"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:51:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/datos/fuente",array( apex_hilo_qs_zona => $rs->fields["fuente_proyecto"] .apex_qs_separador. $rs->fields["fuente"]))?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:52:			  <? echo recurso::imagen_apl("fuente.gif",true,null,null,"host/dsn: " . $rs->fields["host"]) ?>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:56:		<a href='<? echo  $this->vinculador->generar_solicitud("toba","/admin/datos/fuente_sql",array( apex_hilo_qs_zona => $rs->fields["fuente_proyecto"] .apex_qs_separador. $rs->fields["fuente"])) ?>'  class="cat-item" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:60:          <td  class='lista-obj-dato1' width="5%"><? echo $rs->fields["fuente"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:61:          <td  class='lista-obj-dato1'><? echo $rs->fields["base"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:62:          <td  class='lista-obj-dato1'><? echo $rs->fields["motor"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:63:          <td  class='lista-obj-dato1'><? echo $rs->fields["proyecto"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:64:          <td  class='lista-obj-dato1'><? echo $rs->fields["link_instancia"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:103:		$proyecto = $rs->fields["proyecto"];
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:114:		while((!$rs->EOF) && ($rs->fields["proyecto"]==$proyecto))
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:116:			if(trim($rs->fields["solicitud"])!=""){
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:119:          <td  class='lista-obj-dato5'><? echo $rs->fields["sesion"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:120:          <td  class='lista-obj-dato4'><? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:122:		 	<a href="<? echo $this->vinculador->generar_url("/admin/auditoria/solicitudes",array(apex_hilo_qs_edga=>$rs->fields["solicitud"])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:123:			  <? echo $rs->fields["sesion_ingreso"] ?>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:130:          <td  class='lista-obj-dato2'><? echo $rs->fields["sesion"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:131:          <td  class='lista-obj-dato1'><? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/datos/organizador.php:132:          <td  class='lista-obj-dato1'><? echo $rs->fields["sesion_ingreso"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor.inc.php:69:	$dim_desc = "<b>" . $rs->fields["dim_nombre"] . "</b>";
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor.inc.php:70:	if(trim($rs->fields["dim_descripcion"])<>"") $dim_desc .= " - " . $rs->fields["dim_descripcion"];
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor.inc.php:71:	$perfil_desc = "<b>" . $rs->fields["perfil_nombre"] . "</b>";
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor.inc.php:72:	if(trim($rs->fields["perfil_descripcion"])<>"") $perfil_desc .= " - " . $rs->fields["perfil_descripcion"];
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor_tab_asoc.php:4:	if(isset($rs->fields["inicializacion"])){
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor_tab_asoc.php:5:		//echo $rs->fields["inicializacion"];
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor_tab_asoc.php:6:		$param_x = parsear_propiedades($rs->fields["inicializacion"]);
+/cygdrive/f/toba/php/acciones/admin/dimensiones/editor_tab_asoc.php:18:		$tab_param["fuente"]= $rs->fields["dim_fuente"];
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:55:<?	if($rs->fields["perfil"]!="no"){ ?>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:57:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/propiedades",array( apex_hilo_qs_zona => $rs->fields['dim_proy'] .apex_qs_separador. $rs->fields['dim_id'] )) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:58:				<img src="<? echo recurso::imagen_apl("dimension.gif") ?>" alt="<? echo trim($rs->fields["dim_id"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:62:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/probar",array( apex_hilo_qs_zona => $rs->fields['dim_proy'] .apex_qs_separador. $rs->fields['dim_id'] )) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:63:				<img src="<? echo recurso::imagen_apl("items/instanciar.gif") ?>" alt="<? echo trim($rs->fields["dim_id"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:66:          <td width="90%" class='lista-obj-dato4'>&nbsp;<? echo "[<b>" . $rs->fields["dim_id"] ."</b>] - ". trim($rs->fields["dim_des"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:67:          <td width="2%" class='lista-obj-dato4'>&nbsp;<? echo trim($rs->fields["filtros"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:68:          <td width="2%" class='lista-obj-dato4'>&nbsp;<? echo trim($rs->fields["perfiles"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:69:          <td width="2%" class='lista-obj-dato5'><? echo trim($rs->fields["fue_id"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:72:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/propiedades",array( apex_hilo_qs_zona => $rs->fields['dim_proy'] .apex_qs_separador. $rs->fields['dim_id'] )) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:73:				<img src="<? echo recurso::imagen_apl("dimension.gif") ?>" alt="<? echo trim($rs->fields["dim_id"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:77:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/probar",array( apex_hilo_qs_zona => $rs->fields['dim_proy'] .apex_qs_separador. $rs->fields['dim_id'] )) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:78:				<img src="<? echo recurso::imagen_apl("items/instanciar.gif") ?>" alt="<? echo trim($rs->fields["dim_id"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:81:          <td width="90%" class='lista-obj-dato1'><? echo "[<b>" . $rs->fields["dim_id"] ."</b>] - ". trim($rs->fields["dim_des"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:82:          <td width="2%" class='lista-obj-dato1'>&nbsp;<? echo trim($rs->fields["filtros"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:83:          <td width="2%" class='lista-obj-dato1'>&nbsp;<? echo trim($rs->fields["perfiles"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/dimensiones/listado.php:84:          <td width="2%" class='lista-obj-dato2'>&nbsp;<? echo trim($rs->fields["fue_id"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:49:		$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:117:	$nivel = substr_count($rs->fields["item"], "/");
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:121:	if($rs->fields["carpeta"]){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:125:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades",array( apex_hilo_qs_zona => $rs->fields['item_proyecto'] .apex_qs_separador. $rs->fields["item"])) ?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:130:		  <? echo $rs->fields["item"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:132:			<? if($rs->fields["menu"]){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:140:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array("padre_p"=>$rs->fields["item_proyecto"], "padre_i"=>$rs->fields["item"]) ) ?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:144:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array("padre_p"=>$rs->fields["item_proyecto"], "padre_i"=>$rs->fields["item"]) ) ?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:153:		if(!(($rs->fields['act_buf']==0) && 
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:154:			($rs->fields['act_buf_p']=="toba"))){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:158:		elseif(!(($rs->fields['act_pat']=="especifico") && 
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:159:			($rs->fields['act_pat_p']=="toba"))){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:169:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades",array( apex_hilo_qs_zona => $rs->fields['item_proyecto'] .apex_qs_separador. $rs->fields["item"]))?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:174:<?	if($rs->fields["solicitud_tipo"]=="consola"){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:176:	}elseif($rs->fields["solicitud_tipo"]=="wddx"){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:180:		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields['item_proyecto'], $rs->fields["item"]) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:185:		  &nbsp;<? echo strrchr($rs->fields["item"],"/")?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:187:		if($rs->fields["crono"] == 1){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:194:		if($rs->fields["publico"] == 1){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:200:		if($rs->fields["registrar"] == 1){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:206:	    if($rs->fields["menu"] == 1){
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:211:		  <td  class='cat-item-dato3' width='2%' ><? echo $rs->fields["objetos"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado.php:212:		  <td  class='cat-item-botones2' width='2%' ><? echo recurso::imagen_apl("nota.gif",true,null,null,$rs->fields["nombre"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:51:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades",array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["item_id"]))?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:55:		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields['pro_id'], $rs->fields["item_id"]) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:60:<? if($rs->fields["item_menu"]){?>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:64:          <td  class='cat-item-dato2' colspan='4'><? echo $rs->fields["item_id"]?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:68:			$item = $rs->fields["item_id"];
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:69:			while((!$rs->EOF)&&($rs->fields["item_id"]==$item ))
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:77:				<img src="<? echo recurso::imagen_apl($rs->fields["cla_icono"]) ?>" alt="<? echo trim($rs->fields["cla_des"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:80:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos/propiedades",array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"] ))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:85:<? if ($rs->fields["cla_id"]!="objeto"){?>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:86:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_editor_proyecto"],$rs->fields["cla_editor"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:92:<? if ($rs->fields["cla_id"]!="objeto"){?>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:93:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_instanciador_proyecto"],$rs->fields["cla_instanciador"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:98:          <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["obj_nombre"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/listado_objetos.php:99:          <td width="2%" class='lista-obj-dato2'><? echo trim($rs->fields["fue_id"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/items/php.php:21:                        if(trim($rs->fields[0])==""){
+/cygdrive/f/toba/php/acciones/admin/items/php.php:27:							//echo "<br><pre>" . $rs->fields[0] . "</pre><br>";
+/cygdrive/f/toba/php/acciones/admin/items/php.php:28:							highlight_string( "<?\n\n" . $rs->fields[0] . "\n\n?>");
+/cygdrive/f/toba/php/acciones/admin/objetos/clonar.php:89:				$clon = $rs->fields[0];
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:45:			$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:128:		$tipo = $rs->fields["cla_tipo"];
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:131:          <td height='22' width='99%' colspan='8' class='cat-item-dato4'>&nbsp;<b><?  echo $rs->fields["cla_desc"] ?></b></td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:134:	while( (!$rs->EOF) && ($rs->fields["cla_tipo"] == $tipo ) )
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:138:<? if (isset($rs->fields["obj_subclase"]))
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:148:<? echo recurso::imagen_apl($rs->fields["cla_icono"],true,null,null,trim( "CLASE: " . $rs->fields["cla_id"])."  ID: ". $rs->fields['pro_id'] . "-" . $rs->fields["obj_id"]) ?>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:150:          <td width="90%" class='lista-obj-dato1<? echo $clase ?>'><? echo trim($rs->fields["obj_nombre"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:152:          <td width="2%" class='lista-obj-dato2<? echo $clase ?>'>&nbsp;<? echo trim($rs->fields["fue_id"]) ?>&nbsp;</td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:154:           <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_ri"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:155:          <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_vinc_s"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:156:          <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_vinc_e"]) ?></td>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:158:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos/propiedades",array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"] ))?>" target="<? echo  apex_frame_centro ?>" class='basico'>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:163:<? if (isset($rs->fields["cla_editor"])){?>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:164:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_editor_proyecto"],$rs->fields["cla_editor"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>" class='basico'>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:170:<? if (isset($rs->fields["cla_instanciador"])){?>
+/cygdrive/f/toba/php/acciones/admin/objetos/listado.php:171:			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_instanciador_proyecto"],$rs->fields["cla_instanciador"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]))?>" target="<? echo  apex_frame_centro ?>" class='basico'>
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:35:		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"],$zona) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:36:				<img src="<? echo recurso::imagen_apl($rs->fields["imagen"]) ?>" alt="<? echo trim($rs->fields["descripcion"])?>" border="0">
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:39:          <td width="2%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:79:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/proyectos/propiedades",array(apex_hilo_qs_zona => $rs->fields['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:84:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/proyectos/usuarios",array(apex_hilo_qs_zona => $rs->fields['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:88:          <td  class='lista-obj-dato1'  width="50%"><? echo $rs->fields["proyecto"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/proyectos/organizador.php:89:          <td  class='lista-obj-dato1'  width="50%"><? echo $rs->fields["descripcion_corta"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/proyectos/usuarios.php:118:		$nombre_combo = $prefijo_grupo . $rs->fields["usuario"];
+/cygdrive/f/toba/php/acciones/admin/proyectos/usuarios.php:130:		$grupo_acc_actual = (trim($rs->fields["grupo_acc"])!="") ? $rs->fields["grupo_acc"] : apex_ef_no_seteado;
+/cygdrive/f/toba/php/acciones/admin/proyectos/usuarios.php:136:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/proyectos/usuarios.php:140:          <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/proyectos/usuarios.php:141:          <td width="50%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:101:		$total = $rs->fields["total"];
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:148:	$nivel = substr_count($rs->fields["item"], "/");
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:152:	if($rs->fields["carpeta"]){
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:156:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $rs->fields["pro_id"] . apex_qs_separador . $rs->fields["item"]) ) ?>" class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:161:<? if($rs->fields["menu"]){?>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:167:			<a href="#" class='cat-item' onclick="cascada('<? echo $rs->fields["item"] ?>',true);return false;"><? echo recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:170:			<a href="#" class='cat-item' onclick="cascada('<? echo $rs->fields["item"] ?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:172:          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><? echo $rs->fields["item"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:178:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array(apex_hilo_qs_zona => $rs->fields["pro_id"] . apex_qs_separador . $rs->fields["item"]) ) ?>" class='cat-item'>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:182:<? if($rs->fields["menu"]){?>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:187:<? echo form::checkbox($prefijo_items.$rs->fields["item"],$editable[1],$rs->fields["permiso"]) ?>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:189:          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><? echo strrchr($rs->fields["item"],"/")?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:190:          <td  class='cat-item-dato1' width='300' ><? echo $rs->fields["nombre"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/grupo_items.php:191:          <td  class='cat-item-botones2' width='2%' ><img src='<? echo recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $rs->fields["usuario"] ?>' border='0'></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:141:		$grupo = $rs->fields[$modo];
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:149:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba",$editor,array( apex_hilo_qs_zona => $rs->fields[$modo.'_proyecto'] .apex_qs_separador. $rs->fields[$modo])) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:153:          <td align="center" class="cat-item-categ1"><? echo $rs->fields["corte_descripcion"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:155:			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array($modo=>$rs->fields[$modo])) ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:164:		while((!$rs->EOF) && ($rs->fields[$modo]==$grupo))
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:166:			if(trim($rs->fields["usuario"])!=""){
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:170:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields["usuario"])) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:175:	if( $rs->fields["usuario"] == $this->hilo->obtener_usuario() ){
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:177:          <td width="30%" class='lista-obj-dato4'>&nbsp;<b><? echo $rs->fields["usuario"] ?></b></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:178:          <td width="70%" class='lista-obj-dato4'>&nbsp;<b><? echo $rs->fields["usuario_nombre"] ?></b></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:182:          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:183:          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario_nombre"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:231:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:235:          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_grupo.php:236:          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td></tr>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_instancia.php:25:		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_instancia.php:29:          <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
+/cygdrive/f/toba/php/acciones/admin/usuarios/listado_instancia.php:30:          <td width="50%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td></tr>
+/cygdrive/f/toba/php/acciones/basicas/cabecera.php:134:		if($rs->fields["carpeta"]==1){
+/cygdrive/f/toba/php/acciones/basicas/cabecera.php:137:			echo ",'" . trim($rs->fields["nombre"]) . "','show-menu=" . trim($rs->fields["item"]) . " target=contenido;sourceframe=".$source_frame.";',,'',1\n";
+/cygdrive/f/toba/php/acciones/basicas/cabecera.php:141:			echo ",'" . trim($rs->fields["nombre"]) . "','". $this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) . " target=contenido;sourceframe=".$source_frame.";',,'',1\n";
+/cygdrive/f/toba/php/acciones/consola/exp_def_item.php:28:			$nombre_archivo = ereg_replace("/","_",$rs->fields["item"]);
+/cygdrive/f/toba/php/acciones/consola/exp_def_item.php:29:			echo "<" . $nombre_archivo . "> ". $rs->fields["nombre"] . "\n";
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:39:			echo "<" . $rs->fields["objeto"] . "> (".$rs->fields["clase"].") ". $rs->fields["nombre"] . "\n";
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:41:			if(isset($rs->fields["subclase"])){
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:42:				if(isset($rs->fields["subclase_archivo"])){
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:43:					include_once($rs->fields["subclase_archivo"]);					
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:44:					$inicializacion = "\$objeto = new ".$rs->fields["subclase"]."(array(\$proyecto,".$rs->fields["objeto"]."),\$this);";
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:52:				include_once($rs->fields["archivo"]);
+/cygdrive/f/toba/php/acciones/consola/exp_def_obj.php:53:				$inicializacion = "\$objeto = new ".$rs->fields["clase"]."(array(\$proyecto,".$rs->fields["objeto"]."),\$this);";
+/cygdrive/f/toba/php/acciones/consola/menu.php:16:			echo " " . $rs->fields["item"] . "\n";
+/cygdrive/f/toba/php/acciones/consola/menu.php:17:			echo "      " . $rs->fields["nombre"] . "\n";
+/cygdrive/f/toba/php/nucleo/solicitud.php:67:		$this->id =	$rs->fields[0];
+/cygdrive/f/toba/php/nucleo/solicitud.php:288:								if(trim($rs->fields[0])==""){	
+/cygdrive/f/toba/php/nucleo/solicitud.php:293:							eval($rs->fields[0]);
+/cygdrive/f/toba/php/nucleo/solicitud_especifica.php:137:			echo $rs->fields["descripcion_breve"] ."\n";
+/cygdrive/f/toba/php/nucleo/solicitud_especifica.php:139:			echo $rs->fields["descripcion_larga"] ."\n\n";
+/cygdrive/f/toba/php/nucleo/browser/logon.php:147:			    echo "	<td class='lista-e'><a class='basico' href='#' onclick=\"javascript:autologin('".$rs->fields["usuario"]."','".$rs->fields["clave"]."');return false;\">".$rs->fields["usuario"]."</a></td>";
+/cygdrive/f/toba/php/nucleo/browser/logon.php:148:    			echo "	<td class='lista-t'>&nbsp;".$rs->fields["nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/sesion.php:35:			$sesion = $rs->fields[0];
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:45:			if ($this->clave==$rs->fields["clave"]){										//1b: usuario/clave
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:48:				$estado = $this->validar_vencimiento($rs->fields["vencimiento"]); 		//2: fecha de vencimiento
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:50:				$estado = $this->validar_dia($rs->fields["dias"]);			//3: dia de la semana
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:52:				$estado = $this->validar_horario($rs->fields["hora_entrada"],$rs->fields["hora_salida"]); //4: horario de ingreso
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:54:				$estado = $this->validar_ip($rs->fields["ip_permitida"]);//5: ip desde donde se accede	
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:75:		if ($rs->fields[0] < apex_pa_validacion_intentos){
+/cygdrive/f/toba/php/nucleo/browser/usuario_http.php:76:			return array (false,$texto." Quedan " . (apex_pa_validacion_intentos - $rs->fields[0]) . " intentos antes de bloquear la IP.");
+/cygdrive/f/toba/php/nucleo/browser/clases/objeto_cuadro.php:322:        return $rs->fields["x_x_x_x"];
+/cygdrive/f/toba/php/nucleo/browser/clases/objeto_formulario_db.php:399:				if(trim($rs->fields[0])==""){
+/cygdrive/f/toba/php/nucleo/browser/clases/objeto_formulario_db.php:403:				$this->elemento_formulario[$secuencia]->cargar_estado($rs->fields[0]);	
+/cygdrive/f/toba/php/nucleo/browser/clases/objeto_ut_formulario.php:400:				if(trim($rs->fields[0])==""){
+/cygdrive/f/toba/php/nucleo/browser/clases/objeto_ut_formulario.php:404:				$this->elemento_formulario[$secuencia]->cargar_estado($rs->fields[0]);	
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:99:		$padre = trim($rs->fields["padre"]);
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:103:		while((!$rs->EOF)&&($padre == trim($rs->fields["padre"])))
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:105:			if($rs->fields["carpeta"]==1){
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:108:				echo ",'<img src=\"".recurso::imagen_apl('menu_nodo.gif')."\" border=\"0\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "','show-menu=" . trim($rs->fields["item"]) . "',,'',1\n";
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:112:				//ej llamada JS: echo ",'<img src=img/menu_item.gif border=0>&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "',\"javascript:jumpto(". trim($rs->fields["menu"]) . ")\",,'',1\n";
+/cygdrive/f/toba/php/nucleo/browser/includes/menu_inferior.php:113:				echo ",'<img src=\"".recurso::imagen_apl('menu_item.gif')."\" border=\"0\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "','".$this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]). " target=$frame_destino',,'',1\n";
+/cygdrive/f/toba/php/nucleo/browser/interface/ef_editable.php:76:				$this->estado = $rs->fields[0];
+/cygdrive/f/toba/php/nucleo/browser/interface/ef_popup.php:104:            $this->estado = $rs->fields[0];  
+/cygdrive/f/toba/php/nucleo/browser/interface/ef_popup.php:105:            $this->descripcion_estado = $rs->fields[1];
+/cygdrive/f/toba/php/nucleo/browser/interface/tabla_asociacion.php:205:			echo form::checkbox($this->form_prefijo.$rs->fields["clave"],$rs->fields["seteado"],$rs->fields["clave"]);
+/cygdrive/f/toba/php/nucleo/browser/interface/tabla_asociacion.php:207:			echo "<td class='cat-item-dato1'>&nbsp;".$rs->fields["descripcion"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/con_usuario_perfil_arriba.inc.php:31:			echo "	<td width='90%' class='barra-obj-tit'>&nbsp;".$rs->fields["descripcion"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_buffer.php:94:					echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs->fields["proyecto"]."&nbsp;</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_buffer.php:95:					echo "<td  class='barra-obj-link' >&nbsp;".$rs->fields["item"]."&nbsp;</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_buffer.php:100:												array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_buffer.php:101:													.apex_qs_separador. $rs->fields["item"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_buffer.php:105:					echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:131:					if(!isset($contador[$rs->fields["clase"]])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:132:						$contador[$rs->fields["clase"]] = 0;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:134:						$contador[$rs->fields["clase"]] += 1;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:137:						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:138:						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:142:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:143:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:147:						if(isset($rs->fields["clase_editor"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:149:														$rs->fields["clase_editor_proyecto"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:150:														$rs->fields["clase_editor"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:151:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:152:															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:155:						if(isset($rs->fields["clase_instanciador"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:159:														$rs->fields["clase_instanciador_proyecto"], 
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:160:														$rs->fields["clase_instanciador"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:161:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:162:															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:211:													array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:212:													. apex_qs_separador. $rs->fields["perfil_datos"]),
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_dimension.php:215:						echo "<td  class='barra-obj-link' width='100%' >".$rs->fields["nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:124:					if(!isset($contador[$rs->fields["clase"]])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:125:						$contador[$rs->fields["clase"]] = 0;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:127:						$contador[$rs->fields["clase"]] += 1;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:130:						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:131:						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:132:						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs->fields["clase"]."\", ".($contador[$rs->fields["clase"]]).")</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:136:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:137:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:141:						if(isset($rs->fields["clase_editor"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:143:														$rs->fields["clase_editor_proyecto"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:144:														$rs->fields["clase_editor"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:145:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:146:															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:149:						if(isset($rs->fields["clase_instanciador"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:153:														$rs->fields["clase_instanciador_proyecto"], 
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:154:														$rs->fields["clase_instanciador"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:155:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_item.php:156:															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:170:					if(!isset($contador[$rs->fields["clase"]])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:171:						$contador[$rs->fields["clase"]] = 0;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:173:						$contador[$rs->fields["clase"]] += 1;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:176:						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:177:						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:178:						echo "<td  class='barra-obj-link'>\$this->dependencias[\"".$rs->fields["objeto_identificador"]."\"]->metodo()</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:182:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:183:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:187:						if(isset($rs->fields["clase_editor"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:189:														$rs->fields["clase_editor_proyecto"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:190:														$rs->fields["clase_editor"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:191:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:192:															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:195:						if(isset($rs->fields["clase_instanciador"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:199:														$rs->fields["clase_instanciador_proyecto"], 
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:200:														$rs->fields["clase_instanciador"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:201:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:202:															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:255:					if(!isset($contador[$rs->fields["clase"]])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:256:						$contador[$rs->fields["clase"]] = 0;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:258:						$contador[$rs->fields["clase"]] += 1;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:261:						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:262:						echo "<td  class='barra-obj-link' >".$rs->fields["objeto"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:263:						echo "<td  class='barra-obj-link' width='300'>".$rs->fields["objeto_nombre"]. "&nbsp;-&nbsp;" . $rs->fields["objeto_descripcion"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:267:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:268:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:274:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:275:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:280:													$rs->fields["clase_editor_proyecto"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:281:													$rs->fields["clase_editor"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:282:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:283:														 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:322:					echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs->fields["proyecto"]."&nbsp;</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:323:					echo "<td  class='barra-obj-link' >&nbsp;".$rs->fields["item"]."&nbsp;</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:328:												array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:329:													.apex_qs_separador. $rs->fields["item"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:333:					echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:387:					if(!isset($contador[$rs->fields["clase"]])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:388:						$contador[$rs->fields["clase"]] = 0;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:390:						$contador[$rs->fields["clase"]] += 1;
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:393:						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:394:						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:395:						echo "<td  class='barra-obj-link'>\"".$rs->fields["objeto_identificador"]."\"</td>";
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:399:													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:400:														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:404:						if(isset($rs->fields["clase_editor"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:406:														$rs->fields["clase_editor_proyecto"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:407:														$rs->fields["clase_editor"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:408:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:409:															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:412:						if(isset($rs->fields["clase_instanciador"])){
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:416:														$rs->fields["clase_instanciador_proyecto"], 
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:417:														$rs->fields["clase_instanciador"],
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:418:														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
+/cygdrive/f/toba/php/nucleo/browser/zona/zona_objeto.php:419:															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+/cygdrive/f/toba/php/nucleo/lib/db.php:80:		$parm[apex_db_motor] = $rs->fields["fuente_datos_motor"];
+/cygdrive/f/toba/php/nucleo/lib/db.php:81:		$parm[apex_db_profile] = $rs->fields["host"];
+/cygdrive/f/toba/php/nucleo/lib/db.php:82:		$parm[apex_db_usuario] = $rs->fields["usuario"];
+/cygdrive/f/toba/php/nucleo/lib/db.php:83:		$parm[apex_db_clave] = $rs->fields["clave"];
+/cygdrive/f/toba/php/nucleo/lib/db.php:84:		$parm[apex_db_base] = $rs->fields["base"];
+/cygdrive/f/toba/php/nucleo/lib/db.php:85:		$parm[apex_db_link] = $rs->fields["link_instancia"];

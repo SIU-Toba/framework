@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+. config
+#
+#
+########################> FUNCIONES <####################
+
+crear_directorio_prueba()
+{
+	pre=prueba_
+	post=`date +%s`
+	dir=${var}${pre}${post}
+	mkdir ${dir}
+}
+#########################################################
+
+#----------------------------------> Pruba del exportador de INSERTS
+if [ "$1" = "registros" ]
+then
+
+	crear_directorio_prueba
+	proy ver $2 > ${dir}/registros_1.txt
+	proy ver $3 > ${dir}/registros_2.txt
+	diff ${dir}/registros_1.txt ${dir}/registros_2.txt > ${dir}/diferencias.txt
+	echo "diferencia de registros:"
+	cat ${dir}/diferencias.txt
+	exit
+
+#----------------------------------> Comparacion de igualdad de DUMPS
+elif [ "$1" = "igualdad" ]
+then
+
+	crear_directorio_prueba
+	proy pdump $3 $2 > ${dir}/dump_1.sql
+	proy pdump $4 $2 > ${dir}/dump_2.sql
+	diff ${dir}/dump_1.sql ${dir}/dump_2.sql > ${dir}/diferencias.txt
+	echo "diferencia de registros:"
+	cat ${dir}/diferencias.txt
+
+#----------------------------------> 	AYUDA!
+else
+
+	echo "¿Que desea probar?"
+
+fi
+	
+##########################################################

@@ -1,0 +1,9 @@
+Helene was designed and built by Muze, with some help from:
+
+Paul Colomiets: <pc AT newagelab DOT com.ua>
+- Helene now has highlighting support for the smarty template language.
+  (http://smarty.php.net/) 
+- Multiline pasting now works in IE.
+- Multiple bugfixes
+- Undo/Redo support
+

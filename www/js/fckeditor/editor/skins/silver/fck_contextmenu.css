@@ -1,0 +1,89 @@
+/*
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2004 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * File Name: fck_contextmenu.css
+ * 	Styles used by the context menu.
+ * 
+ * Version:  2.0 Beta 2
+ * Modified: 2004-05-31 23:07:55
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+ */
+
+.CM_ContextMenu, .CM_ContextMenu *
+{
+	font-size: 11px;
+	font-family: 'Microsoft Sans Serif' , Tahoma, Arial, Verdana, Sans-Serif;
+}
+
+.CM_ContextMenu
+{
+	border: 1px solid #8f8f73;
+	padding: 2px;
+	background-color: #f7f7f7;
+}
+
+.CM_Option, .CM_Over, .CM_Disabled
+{
+	padding: 0px 3px;
+	height: 18px;
+	cursor: default;
+}
+
+.CM_Option, .CM_Over
+{
+	cursor: hand;
+}
+
+.CM_Option .CM_Icon, .CM_Disabled .CM_Icon, .CM_Separator .CM_Icon
+{
+	background-color: #dedede;
+}
+
+.CM_Option .CM_Icon IMG
+{
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.70;
+}
+
+.CM_Disabled .CM_Icon IMG, .CM_Disabled .CM_Label
+{
+	filter: gray() alpha(opacity=30);
+	-moz-opacity: 0.30;
+}
+
+.CM_Option .CM_Label, .CM_Over .CM_Label
+{
+	padding: 1px 10px 1px 3px;
+}
+
+.CM_Over
+{
+	color: #fff;
+	background-color: #8a857d;
+}
+
+.CM_Over .CM_Icon
+{
+	background-color: #6c6761;
+}
+
+.CM_Separator TD
+{
+	height: 3px;
+}
+
+.CM_Separator .CM_Label DIV
+{
+	border-top: #b9b99d 1px solid;
+	margin-left: 2px;
+	margin-right: 3px;
+}

@@ -1,0 +1,10 @@
+chmod u+x adm
+chmod u+x arbol
+chmod u+x cod
+chmod u+x color
+chmod u+x db
+chmod u+x entorno
+chmod u+x instancia
+chmod u+x item
+chmod u+x proyecto
+chmod u+x sql

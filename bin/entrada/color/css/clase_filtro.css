@@ -1,0 +1,75 @@
+/*  ------------------------------ FILTRO -------------------------  */
+
+.parametro-item {
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 10px; 
+	COLOR: %col_sp_2%; 
+	BACKGROUND-COLOR: %col_sp_4%; 
+	TEXT-ALIGN: left;
+	border: 1px inset %col_sp_1%;
+}
+.parametro-item-activado {
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 10px; 
+	COLOR: %col_sp_1%;
+	BACKGROUND-COLOR: %col_ss_3%; 
+	TEXT-ALIGN: left;
+	border: 1px inset %col_sp_1%;
+}
+.parametro-tabla {
+	FONT-SIZE: 12px;
+	COLOR: %col_sn_1%;
+	BACKGROUND-COLOR: %col_sn_3%;
+	TEXT-ALIGN: center;
+}
+.parametro-fila {
+	FONT-SIZE: 12px;
+	COLOR: %col_sn_1%;
+	BACKGROUND-COLOR: %col_sn_3%;
+	TEXT-ALIGN: left;
+}
+.filtro-titulo
+{
+	font-weight: bold;
+	font-size: 11px;
+	color: %col_ss_6%;
+	background-color: %col_sp_2%;
+	text-align: left;
+	padding: 5px 5px 5px 5px ;
+	border-top: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;
+}
+.filtro-item {
+	color: %col_ss_6%;
+	background-color: %col_ss_6%;
+	text-align: left;
+	padding: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_4%;
+}
+
+input.parametros_boton
+{
+    font-size: 10px;
+    color: %col_sp_4%;
+}
+input.parametros
+{
+    border: %col_sn_2% 2px solid;
+    font-size: 10px;
+    color: %col_sn_2%;
+    font-family: verdana, arial;
+    background-color: %col_sp_5%
+	 TEXT-ALIGN: right;
+}
+select.parametros
+{
+    font-size: 10px;
+    color: %col_sp_1%;
+    background-color: %col_sp_4%;
+    border-bottom: %col_sn_3% 1px solid;
+    border-left: %col_sn_3% 1px solid;
+    border-right: %col_sn_3% 1px solid;
+    border-top: %col_sn_3% 1px solid;
+}

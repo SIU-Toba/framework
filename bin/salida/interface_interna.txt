@@ -1,0 +1,326 @@
+----------------- SOLICITUD ----------------
+
+ CLASE (5) solicitud
+
+    PROPIEDAD (7) $id;
+    PROPIEDAD (8) $info;
+    PROPIEDAD (9) $info_objetos;
+    PROPIEDAD (10) $indice_objetos;
+    PROPIEDAD (11) $objetos;
+    PROPIEDAD (12) $objetos_indice_actual;
+    PROPIEDAD (13) $bases_secundarias;
+    PROPIEDAD (14) $observaciones;
+    PROPIEDAD (15) $observaciones_objeto;
+    PROPIEDAD (16) $script;
+    PROPIEDAD (17) $en_tramite;
+    PROPIEDAD (18) $registrar;
+    PROPIEDAD (19) $cronometrar;
+    PROPIEDAD (20) $auto_html;
+
+    FUNCION (22) solicitud($item,$usuario)
+    FUNCION (145) info(){
+    FUNCION (162) procesar()
+    FUNCION (194) finalizar_solicitud()
+    FUNCION (210) registrar()
+    FUNCION (249) observar($tipo,
+    FUNCION (259) observar_objeto($objeto,
+    FUNCION (272) cargar_info_objetos()
+    FUNCION (316) cargar_objeto($clase,$posicion)
+    FUNCION (342) obtener_info_objetos()
+    FUNCION (348) obtener_indice_objetos()
+
+----------------- ANCESTRO OBJETOS ----------------
+
+ CLASE (20) objeto
+
+    PROPIEDAD (22) $solicitud;
+    PROPIEDAD (23) $id;
+    PROPIEDAD (24) $info;
+    PROPIEDAD (25) $info_dependencias;
+    PROPIEDAD (26) $indice_dependencias;
+    PROPIEDAD (27) $dependencias;
+    PROPIEDAD (28) $dependencias_indice_actual;
+    PROPIEDAD (29) $memoria;
+    PROPIEDAD (30) $observaciones;
+
+    FUNCION (32) objeto($id,
+    FUNCION (65) info()
+    FUNCION (77) conectar_fuente()
+    FUNCION (89) dump_sql()
+    FUNCION (102) vinculo_editor(){
+    FUNCION (117) observar($tipo,$observacion,$forzar_registro=false,$mostrar=false,$cortar_ejecucion=false)
+    FUNCION (128) memorizar()
+    FUNCION (134) cargar_memoria()
+    FUNCION (140) controlar_memoria()
+    FUNCION (152) cargar_info_dependencias()
+    FUNCION (179) cargar_dependencia($clase,$posicion)
+    FUNCION (206) obtener_info_dependencias()
+    FUNCION (212) obtener_indice_dependencias()
+    FUNCION (221) mostrar_estado()
+    FUNCION (227) obtener_nombre()
+    FUNCION (232) obtener_descripcion()
+
+----------------- VINCULADOR ----------------
+
+ CLASE (3) vinculador
+
+    PROPIEDAD (5) $solicitud;
+    PROPIEDAD (6) $prefijo;
+    PROPIEDAD (7) $info;
+    PROPIEDAD (8) $indices_objeto;
+    PROPIEDAD (9) $indices_item_d;
+
+    FUNCION (11) vinculador(&$solicitud)
+    FUNCION (61) info(){
+    FUNCION (68) agregar_vinculos_objeto($objeto)
+    FUNCION (79) generar_url($item="",$zona="",$datos_get=null)
+    FUNCION (100) obtener_url_item($item,
+    FUNCION (111) obtener_url_objeto($objeto,
+    FUNCION (125) obtener_link_item($item,
+    FUNCION (143) javascript_head()
+    FUNCION (152) javascript_popup()
+    FUNCION (167) procesar_vinculos()
+    FUNCION (178) generar_popup_vinculos()
+    FUNCION (207) generar_array_vinculos()
+
+----------------- HILO ----------------
+
+ CLASE (40) hilo
+
+    PROPIEDAD (43) $id;
+    PROPIEDAD (44) $url_actual;
+    PROPIEDAD (45) $item_solicitado;
+    PROPIEDAD (46) $hilo_referencia;
+    PROPIEDAD (47) $zona;
+
+    FUNCION (49) hilo()
+    FUNCION (72) finalizar()
+    FUNCION (80) obtener_id(){
+    FUNCION (84) obtener_item_solicitado()
+    FUNCION (89) obtener_zona()
+    FUNCION (94) obtener_proyecto()
+    FUNCION (99) prefijo_vinculo()
+    FUNCION (107) persistir_dato($indice,
+    FUNCION (112) recuperar_dato($indice)
+
+----------------- RECURSOS ----------------
+
+ CLASE (3) recurso
+
+    FUNCION (5) preambulo()
+    FUNCION (18) path_pro()
+    FUNCION (24) path_apl()
+    FUNCION (32) imagen_pro($imagen,$html=false,$ancho=null,
+    FUNCION (47) imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null)
+    FUNCION (64) js($javascript)
+    FUNCION (71) css()
+
+----------------- OBJETO ABMS ----------------
+
+ CLASE (7) objeto_abms
+
+    PROPIEDAD (9) $info_abms;
+    PROPIEDAD (10) $info_abms_items;
+    PROPIEDAD (11) $items;
+    PROPIEDAD (12) $claves_primarias;
+    PROPIEDAD (13) $clave_get;
+    PROPIEDAD (14) $submit;
+    PROPIEDAD (15) $valores_fijos;
+    PROPIEDAD (16) $ejecucion_evento;
+
+    FUNCION (18) objeto_abms($id,
+    FUNCION (70) info()
+    FUNCION (92) procesar_evento($clave_par=null)
+    FUNCION (160) establecer_evento($evento)
+    FUNCION (167) establecer_clave($clave)
+    FUNCION (177) verificar_ejecucion_evento()
+    FUNCION (184) obtener_evento()
+    FUNCION (191) establecer_valor_items($array_items,$actualizar=false)
+    FUNCION (210) establecer_propiedad_item($campo,
+    FUNCION (225) evento_procesar_insert()
+    FUNCION (262) evento_procesar_update()
+    FUNCION (277) evento_procesar_delete()
+    FUNCION (299) crear_items()
+    FUNCION (313) recuperar_estado_items()
+    FUNCION (326) resetear_items()
+    FUNCION (338) dump_estado_items()
+    FUNCION (348) cargar_registro_db($registro)
+    FUNCION (394) generar_sql_select($registro)
+    FUNCION (410) generar_sql_insert()
+    FUNCION (424) generar_sql_update()
+    FUNCION (441) generar_sql_delete()
+    FUNCION (455) obtener_html($get=null)
+    FUNCION (461) obtener_html_formulario($get=null)
+    FUNCION (477) obtener_html_lista()
+    FUNCION (494) obtener_formulario_items()
+    FUNCION (512) obtener_formulario_botones($get=null)
+
+----------------- OBJETO HOJA ----------------
+
+ CLASE (8) objeto_hoja
+
+    PROPIEDAD (11) $info_hoja;
+    PROPIEDAD (12) $info_hoja_dir;
+    PROPIEDAD (13) $contenido;
+
+    FUNCION (15) objeto_hoja($id,
+    FUNCION (77) cargar_datos($where_filtro="")
+    FUNCION (106) generar_html()
+    FUNCION (120) info()
+
+----------------- OBJETO LISTA ----------------
+
+ CLASE (7) objeto_lista
+
+    PROPIEDAD (9) $info_lista;
+    PROPIEDAD (10) $datos;
+
+    FUNCION (12) objeto_lista($id,
+    FUNCION (44) info()
+    FUNCION (52) cargar_datos($where="")
+    FUNCION (69) obtener_html($get=null,$generar_vinculos=true)
+
+----------------- OBJETO FILTRO ----------------
+
+ CLASE (7) objeto_filtro
+
+    PROPIEDAD (9) $info_parametros;
+    PROPIEDAD (10) $parametros;
+
+    FUNCION (12) objeto_filtro($id,
+    FUNCION (46) generar_parametros()
+    FUNCION (67) obtener_interface_vertical($uri="")
+    FUNCION (74) chequearRango(
+    FUNCION (110) control()
+    FUNCION (117) obtener_where()
+    FUNCION (135) obtener_info()
+    FUNCION (150) obtener_estado()
+    FUNCION (167) info()
+    FUNCION (178) generar_filtro()
+
+----------------- PAGINA ----------------
+
+ CLASE (3) pagina
+
+    FUNCION (7) cabecera($head="",$onload="")
+    FUNCION (13) barra()
+    FUNCION (19) pie()
+    FUNCION (27) separador($titulo="")
+    FUNCION (35) mensaje($mensaje,$tipo='info',$subtitulo="")
+
+----------------- Elementos de INTERFACE ----------------
+
+    FUNCION (5) ei_centrar($html)
+    FUNCION (15) gif_nulo($ancho=1,$alto=1)
+    FUNCION (21) ei_cuadro_vertical($datos,$titulo,$col_ver,$col_formato)
+    FUNCION (43) ei_tabla($tabla,$identificador="Tabla
+    FUNCION (72) ei_arbol($arbol,$identificador="Arbol
+    FUNCION (88) ei_arbol_nivel($nivel)
+
+----------------- Elementos de Formulario ----------------
+
+ CLASE (38) ef
+
+    PROPIEDAD (40) $padre;
+    PROPIEDAD (41) $id;
+    PROPIEDAD (42) $nombre;
+    PROPIEDAD (43) $descripcion;
+    PROPIEDAD (44) $id_form;
+    PROPIEDAD (45) $estado;
+
+    FUNCION (47) ef($padre,$id,$nombre,$descripcion)
+    FUNCION (56) cargar_estado($estado="")
+    FUNCION (69) obtener_id()
+    FUNCION (75) obtener_nombre()
+    FUNCION (81) activado()
+    FUNCION (87) obtener_estado()
+    FUNCION (97) resetear_estado()
+    FUNCION (105) obtener_info()
+    FUNCION (113) envoltura_abm($elemento_formulario)
+    FUNCION (137) envoltura_filtro($elemento_formulario)
+    FUNCION (150) obtener_interface()
+    FUNCION (155) obtener_input()
+
+ CLASE (164) ef_combo
+
+    PROPIEDAD (169) $valores;
+
+    FUNCION (171) ef_combo($padre,$id,$nombre,$descripcion,
+    FUNCION (181) obtener_info()
+    FUNCION (189) obtener_estado()
+    FUNCION (199) obtener_input()
+
+ CLASE (207) ef_combo_fijo
+
+    FUNCION (212) ef_combo_fijo($padre,$id,$nombre,$descripcion,
+
+ CLASE (222) ef_combo_db
+
+    FUNCION (229) ef_combo_db($padre,$id,$nombre,$descripcion,
+
+ CLASE (248) ef_editable
+
+    PROPIEDAD (251) $tamano;
+
+    FUNCION (253) ef_editable($padre,$id,$nombre,$descripcion,
+    FUNCION (259) obtener_input()
+
+ CLASE (269) ef_editable_numero
+
+    FUNCION (273) ef_editable_numero($padre,$id,$nombre,$descripcion,
+
+ CLASE (283) ef_texto
+
+    PROPIEDAD (286) $filas;
+    PROPIEDAD (287) $columnas;
+
+    FUNCION (289) ef_texto($padre,$id,$nombre,$descripcion,
+    FUNCION (296) obtener_input()
+
+ CLASE (304) ef_checkbox
+
+    PROPIEDAD (306) $valor;
+    PROPIEDAD (307) $valor_info;
+
+    FUNCION (309) ef_checkbox($padre,$id,$nombre,$descripcion,
+    FUNCION (316) obtener_info()
+    FUNCION (324) obtener_input()
+
+ CLASE (332) ef_invisible
+
+    FUNCION (334) ef_invisible($padre,$id,$nombre,$descripcion)
+    FUNCION (340) cargar_estado($estado="")
+    FUNCION (346) obtener_input()
+    FUNCION (351) obtener_interface()
+
+ CLASE (359) ef_fijo
+
+    FUNCION (361) ef_fijo($padre,$id,$nombre,$descripcion,$estado)
+    FUNCION (367) cargar_estado($estado="")
+    FUNCION (373) obtener_input()
+
+----------------- HTML - FORM ----------------
+
+ CLASE (6) form
+
+    FUNCION (9) text($nombre,$actual,$read_only,$len,$size,$clase="ef-input")
+    FUNCION (20) select($nombre,$actual,$datos,$clase="ef-combo")
+    FUNCION (34) textarea($nombre,$valor,$filas,$columnas,$clase="ef-textarea")
+    FUNCION (41) checkbox($nombre,$actual,$valor,$clase="ef-checkbox")
+    FUNCION (50) hidden($nombre,$valor)
+    FUNCION (57) submit($nombre,$valor,$clase="ef-boton")
+    FUNCION (64) button($nombre,$valor,$extra="",$clase="ef-boton")
+    FUNCION (71) password($nombre,$clase="ef-input")
+    FUNCION (78) abrir($nombre,$action,$extra="",$method="POST")
+    FUNCION (84) cerrar()
+
+----------------- Formateo ----------------
+
+    FUNCION (3) formato_NULO($valor)
+    FUNCION (8) formato_moneda($valor)
+    FUNCION (15) formato_millares($valor)
+    FUNCION (20) formato_persona($valor)
+    FUNCION (25) formato_mayusculas($valor)
+    FUNCION (30) formato_indivisible($valor)
+    FUNCION (35) formato_may_ind($valor)
+    FUNCION (40) formato_salto_linea_html($valor)

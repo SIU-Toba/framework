@@ -1,0 +1,61 @@
+Helene version 0.5
+
+Changes in Helene since version 0.4
+
+New features:
+- Helene now has highlighting support for the smarty template language.
+  (http://smarty.php.net/) Thanks to Paul Colomiets.
+- Multiline pasting now works in IE. Thanks to Paul Colomiets.
+- Multiline pasting now works partially (only via ctrl-v) in Moz.
+- Undo/Redo. Thanks to Paul Colomiets.
+
+Bugs fixed:
+- Stack overflow problems when loading a file > 400 lines has been fixed.
+  Thanks to Paul Colomiets.
+- Fixed loading files with \r\n in IE. Thanks to Paul Colomiets.
+- Fixed a javascript error when clicking below the last line.
+- Fixed cursor position when switching to a line with a tab in it
+
+
+
+Changes in Helene since version 0.3
+
+New features:
+- Helene now has tab support. No tabWidth can be set yet.
+- Autoindenting now works. And can be toggled.
+
+Bugs fixed:
+- Fixed insertion of \n\n with setContents
+- Fixed weird mozilla background color behaviour
+
+
+
+
+Changes in Helene since version 0.2
+
+New features:
+- Actions are now all controlled via configurable key bindings.
+- Added some joe bindings (^k-v ^k-u ^e ^a ^x ^z)
+- Added setKeyBinding() which allows on the fly switching.
+
+Bugs fixed:
+- Fixed a javascript error when clicking outside of the LI SPAN or TEXTAREA.
+- Fixed Mozilla keypress handling. We now cancel the onKeyPress.
+- Fixed inputline positioning and lineheight problems (background color)
+
+
+
+
+Changes in Helene since version 0.1
+
+New Features:
+- Loading and saving is now implemented
+- Mouseclicks are correctly handled by both IE and Mozilla.
+
+Bugs fixed:
+- Lots and lots.
+
+
+First release of Helene
+
+We now have a somewhat working version. And released it as 0.1

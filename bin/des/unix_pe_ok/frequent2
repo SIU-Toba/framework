@@ -1,0 +1,2 @@
+sed 's/[ \(->][ \(->]*/\
+/g' $* | sort | uniq -c | sort -nr | sed 10q

@@ -1,0 +1,1 @@
+PRECOMPILACION de elementos del nucleo (Vinculador, perfiles de acceso, etc)

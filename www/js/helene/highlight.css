@@ -1,0 +1,62 @@
+	.h_pinp_block {
+		background-color: #DDDDDD;
+	}
+	.h_pinp {
+		color: blue;
+	}
+	.h_special_char {
+		color: darkcyan;
+	}
+	.h_operator {
+		color: red;
+	}
+	.h_doublequote {
+		color: red;
+	}
+	.h_singlequote {
+		color: red;
+	}
+	.h_var {
+		color: green;
+	}
+	.h_ident {
+		color: purple;
+	}
+	.h_single_comments {
+		color: darkorange;
+	}
+	.h_blockcomment {
+		color: darkorange;
+	}
+	.h_script_block {
+		background-color: #FFFFFF;
+	}
+	.h_script {
+		color: blue;
+	}
+  .h_smartymarkers {
+    color: darkblue;
+  }
+  .h_smartykeywords1 {
+    color: darkblue;
+    font-weight:bold;
+  }
+  .h_smartykeywords2 {
+    color: darkblue;
+    font-weight:bold;
+  }
+  .h_smartykeywords3 {
+    color: black;
+    font-weight:bold;
+  }
+  .h_smartytag {
+    background-color: #F0F0FF;
+  }
+  .h_phpkeywords1 {
+		color: purple;
+    font-weight:bold;
+  }
+  .h_phpkeywords2 {
+		color: purple;
+    font-weight:bold;
+  }

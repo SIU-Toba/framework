@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+. i_config
+
+	# Directorios de trabajo
+
+	dir_sed=$toba_dir/bin/entrada/color/sed
+	dir_p=$toba_dir/bin/entrada/color/prueba
+	dir_mat=$toba_dir/bin/entrada/color/css
+	dir_otros=$toba_dir/bin/entrada/color/otros
+	dir_css=$toba_dir/www/css
+
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Manejo de la abstraccion de colores."
+
+##***********************************************************************************************##
+## Ver los colores definidos en un archivo
+##***********************************************************************************************##
+#@ color ver ARCHIVO                           -- Muestra las ocuerrencias de palabras *#* (colores)
+
+elif [ "$1" = "ver" ]
+then
+
+	cat $2 |
+	tr -sc A-Za-z#0123456789 '\012' |
+	sort |
+	uniq |
+	egrep "#" |
+	sort
+
+##***********************************************************************************************##
+## Prueba de funcionamiento del generador de COLORES
+##***********************************************************************************************##
+#@ color probar                                -- Prueba los colores
+elif [ "$1" = "probar" ]
+then
+
+	for i in `ls $dir_sed`
+	do
+		sed -f $dir_sed/$i $dir_p/prueba_colores > $dir_p/$i.html
+	done
+
+##***********************************************************************************************##
+##Genera los archivos que poseen definiciones de color
+##***********************************************************************************************##
+#@ color generar                               -- Genera archivos con definiciones de color
+elif [ "$1" = "generar" ]
+then
+
+	for i in `ls $dir_sed | egrep -v CVS`
+	do
+		echo "Procesando CSS $i"
+		########  Armo los CSS
+		rm -f $dir_css/${i}.css
+		for j in `ls $dir_mat | egrep -v CVS`
+		do
+			sed -f $dir_sed/$i $dir_mat/$j >> $dir_css/${i}.css
+		done
+
+		########  Armo el array de PHP donde se definen las series (ej: para los graficos)
+		sed -f $dir_sed/$i $dir_otros/series.txt > $d_php/nucleo/browser/color/series/${i}.inc.php
+	done
+
+##***********************************************************************************************##
+## Ver Cosas Pendientes
+##***********************************************************************************************##
+elif [ "$1" = "pendiente" ]
+then
+	pendiente $0
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi

@@ -1,0 +1,3 @@
+psql:_auto/metadatos.sql:9: ERROR:  ExecInsert: Fail to add null value in not null attribute proyecto
+psql:_auto/metadatos.sql:10: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto
+psql:_auto/metadatos.sql:11: ERROR:  ExecInsert: Fail to add null value in not null attribute tabla_proyecto

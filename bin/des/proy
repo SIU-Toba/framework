@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+. config
+#
+if [ "$1" = "crear" ]
+
+#-----> OJO!!! presupone que el subdirectorio y la base.
+
+then
+	
+	######################### 1) Creo APL
+	apl crear $2
+	if [ $? = 0 ]
+	then
+		echo "crear APL: OK!"
+	else
+		echo "*****************************  ERROR $?! al crear"
+		exit 1
+	fi	
+	######################### 2) Creo post-constraints
+	psql -f ${sql}pgsql_crear_constraints.sql -d $2 -U $usuario -h $ip -p $puerto -v ON_ERROR_STOP=
+	if [ $? = 0 ]
+	then
+		echo "post-constraints APL: OK!"
+	else
+		echo "*****************************  ERROR $?! al crear post-constraints"
+		exit 1
+	fi	
+	######################### 3) Inserto los registros APL
+	psql -f ${sql}pgsql_datos_basicos.sql -d $2 -U $usuario -h $ip -p $puerto -v ON_ERROR_STOP=
+	if [ $? = 0 ]
+	then
+		echo "inserts APL: OK!"
+	else
+		echo "*****************************  ERROR $?! al insertar APL"
+		exit 1
+	fi	
+	######################### 4) Inserto los registros PROYECTO
+	psql -f ${proyectos}$2/sql/pgsql_datos.sql -d $2 -U $usuario -h $ip -p $puerto -v ON_ERROR_STOP=
+	if [ $? = 0 ]
+	then
+		echo "inserts PROYECTO: OK!"
+	else
+		echo "*****************************  ERROR $?! al insertar PROYECTO"
+		exit 1
+	fi	
+
+elif [ "$1" = "dump" ] 
+
+#-----> OJO!!! presupone que el subdirectorio, la base y los registros se marcaron con el MISMO nombre.
+then
+	
+	archivo=${proyectos}$2/sql/pgsql_datos.sql
+	${php}/php apl.php $2 dump $2 > $archivo
+	echo "PROYECTO '$2' dumpeado en: $archivo"
+	lineas=`cat $archivo | wc -l`
+	echo
+	echo "INSERTS generados: $lineas"
+
+elif [ "$1" = "pdump" ]
+then
+
+	${php}/php apl.php $2 dump $3
+
+elif [ "$1" = "ver" ]
+then
+
+	${php}/php apl.php $2 reg_pref apl
+
+elif [ "$1" = "exp_apl" ]
+then
+	
+	archivo=${sql}pgsql_datos_basicos.sql
+	${php}/php apl.php $2 dump apl > $archivo
+	echo "APL de PROYECTO '$2' dumpeado en: $archivo"
+	lineas=`cat $archivo | wc -l`
+	echo
+	echo "INSERTS generados: $lineas"
+else
+
+	nombre=" - pro - "
+	. ayuda_cab
+	echo "   proyecto  dump     'nombre_proyecto' Reliza dump del proyecto"
+	echo "   proyecto  dump_apl 'nombre_proyecto' Reliza dump tablas APL de proyecto"
+	echo "   proyecto  reg_tab  'prefijo'         Cantidad registros tablas prefijo*"
+	. ayuda_pie
+
+fi

@@ -1,0 +1,58 @@
+acciones/admin/objetos/editores/editor_cuadro.php:15:			//Atencion, creo que que aca me dio un error en tandil, esta todo OK?
+acciones/admin/objetos/editores/editor_cuadro2.php:15:			//Atencion, creo que que aca me dio un error en tandil, esta todo OK?
+acciones/admin/objetos/editores/editor_cuadro_reg.php:15:			//Atencion, creo que que aca me dio un error en tandil, esta todo OK?
+acciones/admin/usuarios/grupo_items.php:20:		//ATENCION: por como se construye el menu, es necesario dar permiso
+nucleo/solicitud.php:299:	//Atencion: el tiempo consumido en el LOGGING y BENCHMARK no quedan registrados...
+nucleo/solicitud.php:452:    //ATENCION: la clase se especifica como 'proyecto,clase'
+nucleo/solicitud.php:484:		//--->>> ATENCION: Tengo que controlar que todo esta OK. ------------ FALTA!!!!
+nucleo/solicitud_especifica.php:26:		//ATENCION: esto esjecuta un LOOP recursivo cuando un la pagina inicial es un FRAMSET
+nucleo/browser/hilo.php:58:            //Atencion, no hay hilo de referencia. CONTROLAR!!
+nucleo/browser/http.php:6://Atencion, hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
+nucleo/browser/http.php:11:		//Atencion!! Esto no funcion si se llama despues del session_start()!!!!
+nucleo/browser/sesion.php:47:				//ATENCION: si el proyecto esta en un path que incluye la cadena "toba/toba" se va todo al carajo.
+nucleo/browser/sesion.php:108:			//ATENCION: Tengo que controlar que esto este OK!!!
+nucleo/browser/sesion.php:247:					//ATENCION, se abre la sesion sin volver a validar el USUARIO.
+nucleo/browser/usuario_http.php:3://Atencion, no se consideran las condiciones de sesion del grupo de acceso...
+nucleo/browser/clases/objeto.php:385:					$this->registrar_info_proceso("ATENCION: La dependencia define
+nucleo/browser/clases/objeto_cuadro.php:218:		//ATENCION: se confia en un paso correcto de parametros
+nucleo/browser/clases/objeto_cuadro.php:322:		//ATENCION: este parseo no funciona con sub-querys!!!
+nucleo/browser/clases/objeto_cuadro.php:325:			//Atencion, un QUERY con group by se ejecuta 2 veces con todos los registros!
+nucleo/browser/clases/objeto_formulario.php:231:					$this->registrar_info_proceso("OBJETO_ABMS: [cargar_estado_ef] ATENCION: No existe un elemento de formulario identificado '$ef'","error");
+nucleo/browser/clases/objeto_formulario.php:243:		//Atencion, no deberia tocar los ocultos...
+nucleo/browser/clases/objeto_formulario.php:273:					$activacion = false;	//El submit no es de este formulario, la atencion esta en otro lugar...
+nucleo/browser/clases/objeto_formulario.php:349:	//Atencion: SI el ABM esta configurado en AUTO-RESET, es probable que este metodo
+nucleo/browser/clases/objeto_formulario.php:732:		//ATENCION!!: esto implica que nunca se va a poder grabar la palabra "NULL"
+nucleo/browser/clases/objeto_formulario.php:792:		//ATENCION!!: esto implica que nunca se va a poder grabar la palabra "NULL"
+nucleo/browser/clases/objeto_mt.php:87:			//El submit no es de este formulario, la atencion esta en otro lugar...
+nucleo/browser/clases/objeto_mt_s_md.php:57:					//Atencion, se supone que ya estan ordenados como corresponde
+nucleo/browser/clases/objeto_mt_s_md.php:282:					//ATENCION: se supone que los hijos se borrar con un CASCADE!!!
+nucleo/browser/clases/objeto_ut_formulario.php:551:		//ATENCION!!: esto implica	que nunca se va a	poder	grabar la palabra	"NULL"
+nucleo/browser/clases/objeto_ut_formulario.php:617:		//ATENCION!!: esto implica	que nunca se va a	poder	grabar la palabra	"NULL"
+nucleo/browser/clases/objeto_ut_formulario.php:652:	@@desc: Atencion:	SI	el	ABM esta	configurado	en	AUTO-RESET,	es	probable	que este	metodo devuelva un NULL
+nucleo/browser/clases/objeto_ut_formulario_ml.php:389:		//Atencion,	no	deberia tocar los	ocultos?...
+nucleo/browser/clases/objeto_ut_formulario_ml.php:552:		//ATENCION!!: esto implica	que nunca se va a	poder	grabar la palabra	"NULL"
+nucleo/browser/clases/objeto_ut_formulario_ml.php:618:		//ATENCION!!: esto implica	que nunca se va a	poder	grabar la palabra	"NULL"
+nucleo/browser/clases/objeto_ut_formulario_ml.php:653:	@@desc: Atencion:	SI	el	ABM esta	configurado	en	AUTO-RESET,	es	probable	que este	metodo devuelva un NULL
+nucleo/browser/clases/objeto_ut_multicheq.php:5://	ATENCION!! esta clase no maneja claves	duplicadas!!
+nucleo/browser/clases/objeto_ut_multicheq.php:96:								//ATENCION:	Corregir	para claves	multiples!!!
+nucleo/browser/clases/objeto_ut_multicheq.php:232:                //ATENCION: Javascript para seleccionar todas las opcciones
+nucleo/browser/interface/ef_combo.php:262:		//------> ATENCION!! el manejo de NULOS no funciona!! 
+nucleo/browser/interface/ef_editable.php:190:	alert(\"ATENCION: El campo '". $this->etiqueta ."' es numerico.\");
+nucleo/browser/interface/ef_editable.php:241:	alert(\"ATENCION: El campo '". $this->etiqueta ."' posee un porcentaje fuera de rango.\");
+nucleo/browser/interface/ef_editable.php:284:	alert(\"ATENCION: Las contraseñas no coinciden\");
+nucleo/browser/interface/ef_oculto.php:20://Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
+nucleo/browser/interface/ef_varios.php:91://ATENCION: los datos (columnas, etc) que maneja el combo tienen que definirse en este orde: ID del elemento
+nucleo/browser/interface/ef_varios.php:265://ATENCION: los datos (columnas, etc) que maneja el combo tienen que definirse en este orde: ID del elemento
+nucleo/browser/interface/grafico.php:10:Atencion! Este objeto vive en dos etapas (Es creado en dos request simultaneos)
+nucleo/browser/interface/grafico.php:154:		//ATENCION: No tendria que limpiar la variable de sesion que memorizo todo????
+nucleo/browser/interface/tabla_asociacion.php:95:			//ATENCION!!! --> la sintaxis de la transaccion no es multi-motor!
+nucleo/browser/zona/zona_item.php:59:                //ATENCION, solicitud directa
+nucleo/lib/error.php:72:		$mensaje = "<b>ATENCION:</b> la ACTIVIDAD solicitada no se encuentra disponible<br>";
+nucleo/lib/monitor.php:33:	//ATENCION: cuando la solicitud no se puede crear el mensaje se muestra sin el encabezado de HTML!!!
+var/objeto_abms.php:242:					$this->registrar_info_proceso("OBJETO_ABMS: [cargar_estado_ef] ATENCION: No existe un elemento de formulario identificado '$ef'","error");
+var/objeto_abms.php:257:		//Atencion, no deberia tocar los ocultos?...
+var/objeto_abms.php:290:					$activacion = false;	//El submit no es de este formulario, la atencion esta en otro lugar...
+var/objeto_abms.php:367:	@@desc: Atencion: SI el ABM esta configurado en AUTO-RESET, es probable que este metodo devuelva un NULL
+var/objeto_abms.php:774:		//ATENCION!!: esto implica que nunca se va a poder grabar la palabra "NULL"
+var/objeto_abms.php:837:		//ATENCION!!: esto implica que nunca se va a poder grabar la palabra "NULL"
+var/des/cuadro_old.php:266://Atencion, el manejo de conexiones secundarias es lamentable...

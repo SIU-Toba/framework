@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+. config
+#
+#
+########################> FUNCIONES <####################
+
+crear_directorio_prueba()
+{
+	pre=prueba_
+	post=`date +%s`
+	dir=${var}${pre}${post}
+	mkdir ${dir}
+}
+
+# Parametros: 1) base A 2) base B
+comparar_registros()
+{
+	echo "prueba de cantidad de registros"
+	php apl.php $1 ver > ${dir}/registros_$1.txt
+	php apl.php $2 ver > ${dir}/registros_$2.txt
+	diff ${dir}/registros_$1.txt ${dir}/registros_$2.txt > ${dir}/diferencias.txt
+	echo "diferencia de registros:"
+	cat ${dir}/diferencias.txt
+}
+
+#########################################################
+
+#----------------------------------> Pruba del exportador de INSERTS
+if [ "$1" = "dump" ]
+then
+
+	crear_directorio_prueba
+	base_origen=wichi
+	base_destino=wicho
+	echo "dump de registros: ${base_origen}"
+	php apl.php ${base_origen} dump apl > ${dir}/dump_apl.sql
+	php apl.php ${base_origen} dump wichi > ${dir}/dump_wichi.sql
+	cat ${dir}/dump_apl.sql ${dir}/dump_wichi.sql > ${dir}/dump.sql
+	apl a_vaciar ${base_destino}
+	echo "importar registros: ${base_destino}"
+	psql -U $usuario -h $ip -p $puerto -d ${base_destino} < ${dir}/dump.sql &> ${dir}/resultado_inserts.txt
+	comparar_registros ${base_origen} ${base_destino}
+	exit
+
+#----------------------------------> Comparacion de igualdad de DUMPS
+elif [ "$1" = "igualdad" ]
+then
+
+	crear_directorio_prueba
+	php apl.php $2 dump apl > ${dir}/dump_$2.sql
+	php apl.php $2 dump wichi >> ${dir}/dump_$2.sql
+	php apl.php $3 dump apl > ${dir}/dump_$3.sql
+	php apl.php $3 dump wichi >> ${dir}/dump_$3.sql
+	diff ${dir}/dump_$2.sql ${dir}/dump_$3.sql > ${dir}/diferencias.txt
+	cat ${dir}/diferencias.txt
+
+#----------------------------------> 	AYUDA!
+else
+
+	echo "¿Que desea probar?"
+
+fi
+	
+##########################################################

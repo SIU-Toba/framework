@@ -1,0 +1,122 @@
+
+/* hover effect */
+
+ul.navmeister ul { display:none; }
+ul.navmeister li:hover ul { display:inline; }
+
+ul.navmeister li:hover ul ul { display:none; }
+ul.navmeister li ul li:hover ul { display:inline; }
+
+ul.navmeister li:hover ul ul ul { display:none; }
+ul.navmeister li ul li ul li:hover ul { display:inline; }
+
+ul.navmeister li ul li:hover ul ul ul { display:none; }
+ul.navmeister li ul li ul li ul li:hover ul { display:inline; }
+
+ul.navmeister li ul li ul li:hover ul ul ul { display:none; }
+ul.navmeister li ul li ul li ul li ul li:hover ul { display:inline; }
+
+/* 
+extend infinitely by adding deeper levels of none/inline combination
+*/
+
+
+
+
+
+
+
+/* position the main list container */
+
+ul.navmeister {
+	width:auto;
+	float:left;						/*	POSICION DEL MENU EN PANTALLA	*/
+	margin:0em;
+	padding:0px;
+	margin-left:-16;
+	}
+
+
+
+
+/* style the list items */
+
+ul.navmeister li {
+	width:8em;					/*	ANCHO BOTONES PADRES DEL MENU	 */
+	margin:0px;
+	padding:0;
+	list-style-type:none;
+	background-color:#f8fbd0;		/*	RELLENO DEL MENU (sin over)	*/
+	}
+	
+ul.navmeister li.youAreHere {
+	background-color:#ffefdc;		/*	NO SE	*/
+	}
+
+ul.navmeister li:hover {
+	background-color:#f8f8fb;		/*	NO SE 	*/
+	}
+	
+ul.navmeister li a {
+	color:#000000;				/*	COLOR DE LA TIPOGRAFIA	*/
+	border:1px solid #000000;		/*	BORDE DEL MENU	*/
+	-moz-border-radius:0px;
+	font:0.6em verdana,arial,helvetica,sans-serif;	/*	FONT , TIPOGRAFIA	*/
+	font-weight:normal;
+	text-decoration:none;
+	display:block;
+	text-align:center;
+	padding:4px 10px 4px 10px;
+	}
+
+
+
+
+
+
+
+
+
+
+
+/* position and size the sub list and container */
+
+ul.navmeister ul li {
+	width:8em; /* _both_ width definitions are necessary and must be the same */
+	}
+	
+ul.navmeister ul {
+	width:8em; /* _both_ width definitions are necessary and must be the same */
+	position:relative;
+	right:1em;
+	margin:0;
+	margin-top:0em;
+	padding:0;
+	}
+
+
+
+
+
+/* 
+position the child list container
+this cascades from here until you change it ..
+*/
+
+ul.navmeister ul li ul {
+	position:absolute;
+	margin-top:-1.4em;	/*	POSICION VERTICAL DEL SEGUNDO NIVEL		*/
+	left:8em;				/*	POSICION HORIZONTAL DEL SEGUNDO NIVEL	*/
+	}
+
+
+/*
+position the great-grandchild list container
+this also cascades from here until you change it ..
+*/
+
+ul.navmeister ul li ul li ul li ul {
+	position:absolute;
+	right:0em;
+	}
+

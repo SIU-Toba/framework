@@ -1,0 +1,27 @@
+Javascript syntax highlighting editor
+
+(yes, its written in javascript)
+
+TODO
+
+
++ done: Mozilla compatibility
+  fix sizes, fix range code, use the W3C DOM methods only
+  change hardcoded size info into configurable variables
+- multiple line selections
+  - catch shift-down and shift-up, as well as pgup, pgdown versions
+    solution idea: enlarge the textarea, copy the new line contents in it
+    on unselect (if changed) commit the entire textarea
+  - also catch mousedown and up events
+- multiple line copy/paste
+  - its a textarea now, so it should be simple to check whether a paste resulted in
+    more than one line. If so, commit them all.
+- undo/redo
+  - it should be possible to build an unlimited undo/redo, at least
+    if we only undo line by line. Just keep a log of changes via updateLine
+    deleteLine and insertLine..
+- grow the input line when entering lines longer than the current size of the input line
+- create a menu bar, with text size, load, save, undo, redo, etc.
++ done: autoindent the next line when pressing enter (configurable)
++ done: support tabs
+- support different tabsizes configurable

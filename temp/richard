@@ -1,0 +1,5 @@
+Hola Juan como andas.. te queria hacer algunas preguntas sobre la zona...  me gustaria que algunos de los abms del proyecto nuestro se comporten de  manera similar a los editores del toba(donde cada vez que das de alta un  elemento te envia a la zona del mismo) estuve siguiendo el editor del abm  para ver como se hacia pero en algun punto me perdi..creo que el drama que  tengo es que cargo el editable en la zona  usando($this->zona->cargar_editable()).. pero despues no se propaga, tal  vez me estoy olvidando de llamar algun metodo que lo coloque en la  memoria..no se.
+
+Otra cosa relacionada.. vi que vos cuando borras un editable que esta en  la zona solo mostras el ABM vacio.. hay alguna forma de redireccionar al  cliente automaticamente hacia otro item en vez de mostrar el ABM?. Una  cosa que estaria buena es poder reventar un editable que se viene  propagando por la zona.. algo asi como un descargar_editable()(no se si  alcanza con modificar la variable "editable_cargado")para que un item no  se propague mas..(En el ABM no habia algo asi para los canales?).
+
+Te adjunto ambos archivos por si hay algo que me haya olvidado y que sea  necesario. 

@@ -1,0 +1,10 @@
+#cat $* |
+#tr -sc A-Za-z '\012' |
+#sort |
+#uniq -c |
+#sort -n |
+#tail |
+#5
+ 
+cat $* |
+tr -sc A-Za-z '\012'

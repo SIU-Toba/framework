@@ -1,0 +1,8 @@
+SELECT d.proyecto, 
+d.dimension, d.nombre 
+FROM apex_dimension d, 
+apex_dimension_tipo t 
+WHERE d.dimension_tipo = t.dimension_tipo 
+AND d.dimension_tipo_proyecto = t.proyecto
+AND t.dimension_tipo_perfil <> 'no' 
+ORDER BY 2;

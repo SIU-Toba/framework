@@ -1,0 +1,1 @@
+SELECT tabname FROM systables WHERE tabid > 99 ORDER BY tabname;

@@ -1,0 +1,334 @@
+#!/bin/bash
+#
+. i_config
+
+# Funcionalidad no implementada
+#==> * Crear configuracion APACHE
+
+d_export=$d_sql/_auto/exportacion
+d_export_archivo=${d_export}/${instancia}.${e_dia}.${e_hora}.sql
+d_export_archivo_reg=${d_export}/ultimo.txt
+
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Administra un proyecto"
+	echo "           Si no se especifica una <I> se utiliza la variable de entorno \"\$toba_instancia\""
+	echo "           AHORA: <I> = $toba_instancia"
+
+##***********************************************************************************************##
+## Crea un proyecto
+##***********************************************************************************************##
+#@ proyecto [<I>] crear PROYECTO               -- Crear un proyecto
+
+elif [ "$1" = "crear" ]
+then
+	
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+	elif [ $2 = "toba" ]	# El toba no tiene carpeta de proyecto
+	then
+		echo
+		echo "El nombre \"toba\" no esta permitido!"
+	else
+		if [ -d ${d_proy}/$2 ]
+		then
+			echo
+			echo "ATENCION, ya existe una carpeta con ese nombre en el directorio \"${d_proy}\"!!!"
+		else
+			#-------------------------------------------------------------------------------
+			#--------------------------------> Creo el proyecto <---------------------------
+			#-------------------------------------------------------------------------------
+			echo "Creando \"$2\"..."
+
+			cd $d_proy
+
+			#----------------> Creo la carpera
+
+			cp -R ../var/proyecto_vacio $2
+			controlar "<1> CREAR carpeta"			
+
+			#----------------> Configuro archivos
+
+			proyecto conf $2
+			controlar "<2> Configurar archivos"			
+
+
+			#----------------> Elimino temporales
+			rm -rf $2/_conf
+			
+
+			#----------------> Inserto los registros BASICOS
+
+			pgsql_ejecutar $2/sql/_auto/ini.sql
+			controlar "<3> Crear registros basicos"
+
+			#----------------> Genero SQL administrativo para le proyecto
+
+			proyecto sql $2
+			controlar "<4> Crear scripts SQL administrativos"
+
+			#----------------> Elimino las carpetas CVS del nuevo proyecto
+			
+			cd $d_proy/$2
+			arbol del_cvs > borrar_cvs.txt
+			sh < borrar_cvs.txt
+			rm -f borrar_cvs.txt
+			
+			#-------------------------------------------------------------------------------
+		fi
+	fi
+
+##***********************************************************************************************##
+## Configura los archivos creados automaticamente
+##***********************************************************************************************##
+#@ proyecto [<I>] conf PROYECTO                -- Configura un proyecto recien creado
+
+elif [ "$1" = "conf" ]
+then
+
+	cd ${d_proy}/$2                                                               
+	sed "s/%proyecto%/$2/g" _conf/admin.php 					> www/admin.php
+	controlar "  1) _conf/admin.php"    
+	sed "s/%proyecto%/$2/g" _conf/aplicacion.php				> www/aplicacion.php
+	controlar "  2) _conf/aplicacion.php"  
+	sed "s/%proyecto%/$2/g"	_conf/toba.conf					> x.conf
+	sed "s/%toba_dir%/$toba_dir/g" x.conf						> toba.conf
+	rm -f x.conf
+	controlar "  3) _conf/toba.conf 	"  
+	sed "s/%proyecto%/$2/g" _conf/ini.sql						> sql/_auto/ini.sql
+	controlar "  4) _conf/ini.sql"  
+            
+##***********************************************************************************************##
+## Genera SQL administrativo
+##***********************************************************************************************##
+#@ proyecto [<I>] sql PROYECTO                 -- Crea SQL admin. del PROYECTO
+
+elif [ "$1" = "sql" ]
+then
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	else
+		item /consola/sql_tab_gen -h -p $2 > $d_proy/$2/sql/_auto/__p_del.sql
+	fi	
+
+
+##***********************************************************************************************##
+## 
+##***********************************************************************************************##
+#@ proyecto [<I>] exportar PROYECTO [no_log]   -- Exporta un proyecto de la instancia
+
+elif [ "$1" = "exportar" ]
+then
+
+	if [ "$3" = "no_log" ]
+	then
+		logs=" "
+	else
+		logs=" -h "
+	fi
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		echo
+		echo "- 1)Informacion de la INSTANCIA"
+		echo
+		cp $d_sql/datos_instancia.sql $d_sql/datos_instancia.sql.bak
+		item /consola/dump $logs -i -v -p $2 > $d_sql/datos_instancia.sql
+		controlar "Exportacion de la INFO-INSTANCIA del proyecto"
+		echo
+		echo "- 2)Informacion del PROYECTO"
+		echo
+		item /consola/dump -v -ni -p $2 > $d_sql/datos.sql
+		controlar "Exportacion de la INFO del proyecto"
+	else
+		echo
+		echo "- 1)Informacion de la INSTANCIA"
+		echo
+		item /consola/dump $logs -i -v -p $2 > $d_proy/$2/sql/datos_instancia.sql
+		controlar "Exportacion de la INFO-INSTANCIA del proyecto"
+		echo
+		echo "- 2)Informacion del PROYECTO"
+		echo
+		cp $d_proy/$2/sql/datos_instancia.sql $d_proy/$2/sql/datos_instancia.sql.bak
+		item /consola/dump -v -ni -p $2 > $d_proy/$2/sql/datos.sql
+		controlar "Exportacion de la INFO del proyecto"
+	fi	
+
+
+##***********************************************************************************************##
+## 
+##***********************************************************************************************##
+#@ proyecto [<I>] exportar_local               -- Exporta la informacion LOCAL del proyecto
+
+elif [ "$1" = "exportar_local" ]
+then
+
+	if [ "$3" = "no_log" ]
+	then
+		logs=" "
+	else
+		logs=" -h "
+	fi
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		echo
+		cp $d_sql/datos_instancia.sql > $d_sql/datos_instancia.sql.bak
+		item /consola/dump $logs -i -v -p $2 > $d_sql/datos_instancia.sql
+		controlar "Exportacion de la INFO-INSTANCIA del proyecto TOBA"
+	else
+		echo
+		cp $d_proy/$2/sql/datos_instancia.sql $d_proy/$2/sql/datos_instancia.sql.bak
+		item /consola/dump $logs -i -v -p $2 > $d_proy/$2/sql/datos_instancia.sql
+		controlar "Exportacion de la INFO-INSTANCIA del proyecto $2"
+	fi	
+
+##***********************************************************************************************##
+## Borra los registros que conforman el proyecto dentro de la instancia
+##***********************************************************************************************##
+#@ proyecto [<I>] borrar PROYECTO              -- Elimina un PROYECTO
+
+elif [ "$1" = "borrar" ]
+then
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		echo
+		echo "El nombre \"toba\" no esta permitido!"
+		exit 2
+	else
+		pgsql_ejecutar $d_proy/$2/sql/_auto/__p_del.sql
+		controlar "Eliminar los registros del proyecto \"$2\""  
+		echo "Los datos del proyecto han sido eliminados"
+		echo "(si desea eliminar el proyecto por completo, elimine el directorio \"$d_proy/$2\" manualmente )"
+	fi	
+
+##***********************************************************************************************##
+## Recupera los datos de un proyecto
+##***********************************************************************************************##
+#@ proyecto [<I>] cargar PROYECTO              -- Cargar un PROYECTO en un <I>
+
+elif [ "$1" = "cargar" ]
+then
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		archivo_datos=${d_sql}/datos.sql 
+		archivo_datos_i=${d_sql}/datos_instancia.sql 
+	else
+		archivo_datos=${d_proy}/$2/sql/datos.sql 
+		archivo_datos_i=${d_proy}/$2/sql/datos_instancia.sql 
+	fi
+			
+	# Controlo que el archivo exista		
+	if [ ! -f $archivo_datos ]
+	then
+		echo "No es posible cargar el proyecto \"$2\""
+		echo "No existe archivo: $archivo_datos"
+		exit 2
+	fi
+	
+	# Ejecuto el archivo
+	echo "CARGAR Informacion del proyecto"
+	pgsql_ejecutar $archivo_datos
+	controlar "Cargar proyecto \"$2\""  
+
+	if [ -f $archivo_datos_i ]
+	then
+		echo "CARGAR Informacion de la INSTANCIA asociada al proyecto"
+		pgsql_ejecutar $archivo_datos_i
+		controlar "Cargar datos de INSTANCIA del proyecto \"$2\""  
+	fi
+	
+##***********************************************************************************************##
+## Empaqueta un proyecto para su distribuicion
+##***********************************************************************************************##
+#@ proyecto [<I>] empaquetar PROYECTO          -- Cargar un PROYECTO en un <I>
+
+elif [ "$1" = "empaquetar" ]
+then
+
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		echo
+		echo "Este comando no es aplicable sobre el proyecto \"toba\"!"
+		exit 2
+	else
+		if [ -d ${d_proy}/$2 ]
+		then
+			proyecto $instancia exportar $2
+			cd $d_proy
+			#------ COPIAR
+			cp -R ./$2 $toba_dir/temp
+			controlar "1) Copiar archivos"
+			cd $toba_dir/temp/$2
+			controlar "2) Accediendo al directorio temporal"
+			#------ CVS
+			arbol del_cvs > del
+			sh < del
+			rm -f del_cvs
+			controlar "3) Eliminar carpetas CVS"
+			#------ Elimino cosas que no hay que publicar
+			rm -f ./sql/datos_instancia.sql			
+			#------ Empaquetar
+			cd ..
+			tar -cvf $2.tar $2
+			controlar "4) Archivar..."
+			gzip $2.tar
+			controlar "5) Eliminar directorio temporal"
+			rm -Rf $2
+		else
+			echo "El proyecto no existe"
+		fi
+	fi
+
+##***********************************************************************************************##
+## Ver Cosas Pendientes
+##***********************************************************************************************##
+elif [ "$1" = "pendiente" ]
+then
+	pendiente $0
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi

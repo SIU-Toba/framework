@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>Helene - Syntax Highlighting Editor in Javascript</title>
+<style>
+  body {
+    margin: 10px;
+    padding: 0px;
+    background-color: white;
+    font-family: Verdana, helvetica, sans-serif;
+    color: black;
+	font:menu;
+  }
+  h3 {
+    color: darkorange;
+  }
+  a {
+  	color: darkorange;
+  	text-decoration: none;
+  }
+  input, select{
+	font:menu;
+	}
+</style>
+</head>
+</head>
+<body onload="init();">
+<h3><a href="http://helene.muze.nl/">Helene - Syntax Highlighting Editor in Javascript</a></h3>
+<form>
+<input type="button" name="clear" value="Clear" onClick="editor.setContents('');">
+<input type="button" name="save" value="Save to Textarea" onClick="myfile.value = editor.getContents();">
+<input type="button" name="load" value="Load from Textarea" onClick="editor.setContents(myfile.value);">
+keybinding: <select name="keybinding" onChange="editor.setKeyBinding(keybinding.options[keybinding.selectedIndex].value); editor.inputLineEntry.focus();">
+<option value="default" selected>Default</option>
+<option value="joe">Joe</option>
+</select>
+autoindent: <select name="autoindent" onChange="editor.setAutoIndent(autoindent.options[autoindent.selectedIndex].value); editor.inputLineEntry.focus();">
+<option value="on" selected>On</option>
+<option value="off">Off</option>
+</select>
+<br>
+<textarea name="myfile" wrap="Off" style="width: 100%; height: 20%;"></textarea>
+</form>
+<iframe name="editor" src="editor.html" style="width: 100%; height: 70%;"></iframe>
+<script type="text/javascript">
+function init(){
+editor.setContents(
+"<?php\n\t$site=currentsite();\n$site_url=make_url($site);\n  putvar(\"site\", $site);\n  putvar(\"site_url\", $site_url);\n  $frop = \"frip\"; // single line comment\n/*\n  block comment\n*/\n?>\n<table width=\"90%\" bgcolor=\"#404074\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\"><tr><td>\n  <table width=\"100%\" cellspacing=\"1\">\n  <tr bgcolor=\"#404074\">\n    <td><b><font color=\"white\"><?php echo $nlsdata->name; ?></font></b></td>\n  </tr>\n  <tr>\n    <td bgcolor=\"white\"><?php echo $nlsdata->summary; ?></td>\n  </tr>\n  </table>\n</td></tr></table>\n<p>\n<table width=\"90%\" bgcolor=\"#404074\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\"><tr><td>\n  <table width=\"100%\" cellspacing=\"1\">\n  <?php\n    $topic=substr($path, strlen($site));\n    $topic=substr($topic, 0, strpos($topic, '/'));\n    putvar(\"current\", $path);\n    get($site.$topic.\'/\', \"app.show.thread.html\");\n  ?>\n  </table>\n</td></tr></table>\n<form action=\"<?php echo make_url(); ?>reply.html\" onSubmit=\"this.returnpage.value=document.location; return true;\">\n<input type=\"hidden\" name=\"returnpage\">\n<table width=\"90%\" bgcolor=\"#404074\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\"><tr><td>\n  <table width=\"100%\" cellspacing=\"1\">\n  <tr bgcolor=\"#404074\">\n    <td colspan=\"2\"><b><font color=\"white\">Reply to this message:</font></b></td>\n  </tr>\n  <tr bgcolor=\"white\">\n    <td>\n      <table>\n      <tr>\n        <td align=\"right\">Title:</td>\n        <td><input type=\"text\" name=\"title\" maxlength=\"50\" size=\"50\"></td>\n      </tr><tr bgcolor=\"white\">\n        <td align=\"right\" valign=\"top\">Text:</td>\n        <td><textarea name=\"summary\" cols=\"50\" rows=\"8\"></textarea></td>\n      </tr><tr bgcolor=\"white\">\n        <td></td>\n        <td align=\"right\"><input type=\"submit\" value=\"&nbsp;OK&nbsp;\" style=\"width: 100px;\"></td>\n      </tr>\n      </table>\n    </td>\n  </tr>\n  </table>\n</td></tr></table>\n</form>\n"
+);
+}
+</script>
+</body>
+</html>

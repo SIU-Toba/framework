@@ -1,0 +1,11 @@
+
+--UPDATE apex_mod_datos_tabla_columna SET dump = 0 WHERE tabla = 'apex_estilo' AND columna ~* 'serie';
+--SELECT * FROM apex_mod_datos_tabla_columna WHERE tabla = 'apex_estilo' AND columna ~* 'serie';
+
+--SELECT * FROM apex_mod_datos_tabla_columna WHERE tabla = 'apex_estilo';
+
+--DELETE FROM apex_mod_datos_tabla_columna WHERE tabla = 'apex_objeto_abms_item';
+--DELETE FROM apex_mod_datos_tabla WHERE tabla = 'apex_objeto_abms_item';
+
+DELETE FROM apex_mod_datos_tabla_columna WHERE tabla = 'apex_objeto_abms_clave';
+DELETE FROM apex_mod_datos_tabla WHERE tabla = 'apex_objeto_abms_clave';

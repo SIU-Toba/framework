@@ -1,0 +1,157 @@
+/*------------------------ ELEMENTOS de FORMULARIO ----------------------*/
+
+TD.ef-etiqueta-obligatorio
+{
+	font-weight: bold; 
+	font-size: 10px;
+	color: %col_ss_1%;
+	background-color: %col_sp_4%;
+	text-align: left;
+	padding: 0px 2px 0px 4px ;
+	border-top: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+
+/*
+	border-left: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+
+TD.ef-etiqueta
+{
+/*	font-weight: bold; */
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: left;
+	padding: 0px 2px 0px 4px ;
+	border-top: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+
+/*
+	border-left: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+TD.ef-etiqueta-error
+{
+/*	font-weight: bold; */
+	font-size: 10px;
+	color: %col_sn_6%;
+	background-color: %col_ex_1%;
+	text-align: left;
+	padding: 0px 2px 0px 4px ;
+	border-top: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+
+/*
+	border-left: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+
+TD.ef-zonainput
+{
+	font-weight: bold;
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: left;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+.ef-boton
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+}
+
+.ef-input
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+/*
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+.ef-input-file
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+/*
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+.ef-input-numero
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+	text-align: right;
+/*
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+*/
+}
+
+.ef-input-numero-2
+{
+	font-size: 10px;
+	color: %col_ss_2%;
+	background-color: %col_ss_5%;
+	text-align: right;
+}
+
+.ef-input-numero-3
+{
+	font-size: 10px;
+/*	font-weight: bold; */
+	color: %col_sp_1%;
+	background-color: %col_ss_5%;
+	text-align: right;
+}
+
+.ef-textarea
+{
+	font-family: %f_1%;
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%
+}
+
+.ef-combo
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+	border-top: 0px solid %col_sp_2%;
+	border-left: 0px solid %col_sp_2%;
+	border-bottom: 0px solid %col_sp_2%;
+	border-right: 0px solid %col_sp_2%;
+}
+
+.ef-checkbox
+{
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+}
+

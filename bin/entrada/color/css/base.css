@@ -1,0 +1,477 @@
+/***************************************************************************/
+/********************************   GENERAL   ******************************/
+/***************************************************************************/
+
+
+body {
+	font-family: %f_1%;
+	background-color: %col_sp_6%;
+}
+
+body.lista {
+	font-family: %f_1%;
+	background-color: %col_sp_2%;
+}
+
+
+body.control {
+	font-family: %f_1%;
+	background-color: %col_sp_1%;
+}
+
+/*----------------------------< tipo de ALINEACION >------------------------*/
+
+A.basico {
+	text-decoration: none; 
+	color: %col_sp_1%; 
+/*	font-size: 10px;*/
+}	
+
+
+/*----------------------------< tipo de ALINEACION >------------------------*/
+
+.num {	text-align: right;	}
+.tex { 	text-align: left;		}
+.cen {	text-align: center;	}
+
+/*------------------------------< tipo de BORDE >---------------------------*/
+
+.borde-0 {
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+.borde-1 {
+	border-top: 2px solid %col_sp_2%;
+	border-left: 2px solid %col_sp_2%;
+	border-bottom: 2px solid %col_sp_2%;
+	border-right: 2px solid %col_sp_2%;
+}
+
+.borde-especial {
+	border-top: 1px dashed %col_sp_2%;
+	border-left: 1px dashed %col_sp_2%;
+	border-bottom: 1px dashed %col_sp_2%;
+	border-right: 1px dashed %col_sp_2%;
+}
+
+/***************************************************************************/
+/************************** ELEMENTOS BASICOS ******************************/
+/***************************************************************************/
+
+
+
+/*-------------------------------- MENU -----------------------------*/
+
+TD.menu-0 {
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: left;
+}
+
+TD.menu-1 {
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: right;
+}
+
+/*-------------------------------- MENSAJES -----------------------------*/
+
+/*--------- info -------*/
+
+TABLE.mensaje-info {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 10px;
+	border-top: 3px solid %col_sp_1%;
+	border-left: 3px solid %col_sp_1%;
+	border-bottom: 3px solid %col_sp_1%;
+	border-right: 3px solid %col_sp_1%;
+}
+
+TD.mensaje-titulo-info {
+	font-size: 12px;
+	color: %col_sp_6%;
+	background-color: %col_sp_2%;
+	text-align: right;
+	font-weight: bold;
+	padding: 5px 10px 3px 10px ;
+}
+
+TD.mensaje-subtitulo-info {
+	font-size: 11px;
+	color: %col_sp_4%;
+	background-color: %col_sp_2%;
+	text-align: left;
+	padding: 0px 0px 5px 5px ;
+}
+
+TD.mensaje-cuerpo-info {
+	font-size: 12px;
+	color: %col_sp_1%;
+	background-color: %col_sn_6%;
+	text-align: left;
+	padding: 15px 10px 15px 10px ;
+}
+
+/*--------- error -------*/
+
+TABLE.mensaje-error {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 10px;
+	border-top: 3px solid %col_ss_1%;
+	border-left: 3px solid %col_ss_1%;
+	border-bottom: 3px solid %col_ss_1%;
+	border-right: 3px solid %col_ss_1%;
+}
+
+TD.mensaje-titulo-error {
+	font-size: 12px;
+	color: %col_sn_6%;
+	background-color: %col_ex_1%;
+	text-align: right;
+	font-weight: bold;
+	padding: 5px 10px 3px 10px ;
+}
+
+TD.mensaje-subtitulo-error {
+	font-size: 11px;
+	color: %col_sn_4%;
+	background-color: %col_ex_1%;
+	text-align: left;
+	padding: 0px 0px 5px 5px ;
+}
+
+TD.mensaje-cuerpo-error {
+	font-size: 12px;
+	color: %col_ss_1%;
+	background-color: %col_sn_6%;
+	text-align: center;
+	padding: 15px 10px 15px 10px ;
+}
+
+/*------------------------------< tipo de TABLA >---------------------------*/
+
+TABLE.tabla-0 {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 10px;
+}
+
+TD.celda-vacia {
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+TABLE.tabla-1 {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 11px;
+}
+
+TABLE.tabla-2 {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 12px;
+}
+
+/*------------------------------< PORTADA >---------------------------*/
+
+TD.portada-titulo {
+	font-size: 18px;
+	color: %col_sp_2%;
+	text-align: center;
+	font-weight: bold;
+	padding: 5px 10px 5px 10px ;
+}
+
+TD.portada-comentario {
+	font-size: 10px;
+	color: %col_sp_3%;
+	text-align: center;
+}
+
+/*-----------------------------<  PARRAFO  >-------------------------------*/
+
+.texto-ss {
+ 	font-family: %f_2%;
+ 	text-align: left;		
+	font-size: 9px;
+}
+
+.texto {
+	color: %col_sp_1%;
+ 	text-align: left;		
+	font-size: 12px;
+}
+
+.texto-2 {
+	color: %col_ss_1%;
+ 	text-align: left;		
+	font-size: 12px;
+}
+
+/*-----------------------------<  CRONOMETRO  >-------------------------------*/
+
+
+TD.cron-base {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_sp_4%; 
+	text-align: left;
+	padding: 2px 1px 2px 0px ;
+	border-bottom: 1px dashed %col_sp_6%;
+}
+
+TD.cron-nucleo {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_ss_2%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.cron-objeto {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_ss_3%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.cron-item {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_ss_1%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.cron-lib {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_ss_4%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.cron-basura {
+	font-weight: bold; 
+	color: %col_ss_6%; 
+	background-color: %col_sp_4%; 
+	text-align: left;
+	border-top: 1px solid %col_sp_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+/*---------------------------------------------------------------------------------------
+----------------------------------< Estilos de columnas >----------------------------
+---------------------------------------------------------------------------------------
+Estos son los elementos referenciados desde apex_columna_estilo
+*/
+
+/*-- Numericos */
+
+TD.col-num-p1 {
+	color: %col_sp_1%;
+	background-color: %col_sn_6%;
+	padding: 2;
+	text-align: right;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+TD.col-num-p2 {
+	color: %col_sp_1%;
+	background-color: %col_sp_6%;
+	text-align: right;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+TD.col-num-p3 {
+	color: %col_sp_1%;
+	background-color: %col_ss_6%;
+	text-align: right;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+TD.col-num-p4 {
+	color: %col_sp_1%; 
+	background-color: %col_ss_2%; 
+	padding: 2;
+	text-align: right;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+/*-- Texto */
+
+TD.col-tex-p1 {
+	color: %col_sn_1%;
+	background-color: %col_sn_6%;
+	text-align: left;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+
+TD.col-tex-p2 {
+	color: %col_ss_1%;
+	background-color: %col_sn_6%;
+	font-weight: bold; 
+	text-align: left;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+TD.col-tex-p3 {
+	color: %col_sp_1%;
+	background-color: %col_sp_5%;
+	padding: 2;
+	text-align: left;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+/*-- Especiales (centradas) */
+
+TD.col-cen-s1 {
+	color: %col_sp_1%;
+	background-color: %col_ss_2%;
+	text-align: center;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+
+TD.col-cen-s2 {
+	color: %col_ss_5%;
+	background-color: %col_sp_3%;
+	text-align: center;
+	padding: 2;
+	border-top: 1px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 1px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+/*----------------------------------------------------------------------*/
+
+TD.objeto-editores {
+	background-color: %col_sp_4%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.objeto-editores-reflexivo {
+	background-color: %col_ss_3%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.objeto-barra-seccion {
+	font-weight: bold;
+	font-size: 11px;
+	color: %col_sn_6%;
+	background-color: %col_sp_3%;
+	text-align: left;
+	padding: 3px 3px 3px 3px ;
+	border-top: 2px solid %col_sp_2%;
+	border-left: 1px solid %col_sp_2%;
+	border-bottom: 2px solid %col_sp_2%;
+	border-right: 1px solid %col_sp_2%;
+}
+
+TD.objeto-barra-superior {
+	font-weight: bold;
+	font-size: 11px;
+	color: %col_ss_6%;
+	background-color: %col_sp_2%;
+	text-align: left;
+	padding: 3px 3px 3px 3px ;
+/*	border-top: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;*/
+}
+
+TD.objeto-barra-superior-botones {
+	font-weight: bold;
+	font-size: 11px;
+	color: %col_ss_6%;
+	background-color: %col_sp_1%;
+	text-align: left;
+	padding: 3px 3px 3px 3px ;
+	border-top: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;
+}
+
+TABLE.objeto-base {
+	text-align: center;
+	align: center;
+	border-collapse: collapse;
+	background-color: %col_sp_1%;
+/*	empty-cells: show; */
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	font-size: 10px;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}

@@ -1,0 +1,14 @@
+//Metodologia de desarrollo del SIU-TOBA
+
+	function codificar_toba()
+	{
+		conceptualizar_mejoras();
+		destruir_codigo_viejo();
+		escribir_codigo_nuevo();
+		codificar_toba();
+		entregar_version();
+		irse_de_vacaciones();
+	}
+	
+	
+	

@@ -1,0 +1,61 @@
+--UPDATE "pg_class" SET "reltriggers" = 0 WHERE "relname" = 'toba_dimension';
+--UPDATE pg_class SET reltriggers = (SELECT count(*) FROM pg_trigger where pg_class.oid = tgrelid) WHERE relname = 'toba_dimension';
+--
+--UPDATE toba_dimension
+--SET fuente_datos_proyecto = 'toba'
+--WHERE fuente_datos = 'toba';
+
+----
+--SELECT fuente_datos, fuente_datos_proyecto FROM toba_dimension
+--WHERE fuente_datos <> 'comdoc2';
+
+
+--INSERT INTO apex_objeto_abms_ef (
+--objeto_abms_proyecto    , --	NOT NULL,  
+--objeto_abms             , --   NOT NULL,  
+--identificador          	, --   NOT NULL,  
+--columnas                , --   NOT NULL,  
+----clave_primaria          , --   NULL,			
+----obligatorio             , --   NULL,			
+--elemento_formulario     , --   NOT NULL,  
+--inicializacion          , --   NOT NULL,  
+--orden                   , --   NOT NULL,  
+--etiqueta                , --   NULL,      
+--descripcion              --   NULL,      
+----desactivado            --   NULL,      
+--)
+--SELECT 
+--   objeto_abms_proyecto   ,
+--   objeto_abms            ,
+--   columna                ,
+--   columna                ,
+--   elemento_formulario    ,
+--   ef_ini                 ,
+--   orden                 ,
+--   etiqueta               ,
+--   descripcion            
+--FROM apex_objeto_abms_item;
+
+--SELECT count(*) FROM apex_objeto_abms_item;
+
+--UPDATE apex_objeto_abms_ef SET clave_primaria = 1 WHERE elemento_formulario = 'ef_invisible';
+
+--UPDATE apex_objeto_abms_ef SET elemento_formulario = 'ef_oculto' WHERE elemento_formulario = 'ef_invisible';
+
+
+--UPDATE apex_objeto_abms_ef
+--SET inicializacion =  'tamano: ' || inicializacion || ';'
+--WHERE elemento_formulario = 'ef_editable';
+
+--UPDATE apex_objeto_abms_ef
+--SET inicializacion =   substring(inicializacion,0,char_length(inicializacion)-2) || '
+--'
+--WHERE elemento_formulario = 'ef_combo_db'
+--AND inicializacion !~* '\",\"';
+----
+
+SELECT elemento_formulario, inicializacion
+FROM apex_objeto_abms_ef
+WHERE elemento_formulario = 'ef_combo_db'
+AND inicializacion ~* '\",\"'
+ORDER BY inicializacion;

@@ -1,0 +1,148 @@
+/*
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2004 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * File Name: fck_contextmenu.css
+ * 	Styles used by the context menu and panels.
+ * 
+ * Version:  2.0 Beta 2
+ * Modified: 2004-08-20 16:19:52
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+ */
+
+.CM_ContextMenu, .CM_ContextMenu *
+{
+	font-size: 11px;
+	font-family: 'Microsoft Sans Serif' , Tahoma, Arial, Verdana, Sans-Serif;
+}
+
+.CM_ContextMenu
+{
+	border: 1px solid #8f8f73;
+	padding: 2px;
+	background-color: #ffffff;
+}
+
+.CM_Option, .CM_Over, .CM_Disabled
+{
+	padding: 0px 3px;
+	height: 18px;
+	cursor: default;
+}
+
+.CM_Option, .CM_Over
+{
+	cursor: hand;
+}
+
+.CM_Option .CM_Icon, .CM_Disabled .CM_Icon, .CM_Separator .CM_Icon
+{
+	background-color: #e3e3c7;
+}
+
+.CM_Option .CM_Icon IMG
+{
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.70;
+}
+
+.CM_Disabled .CM_Icon IMG, .CM_Disabled .CM_Label
+{
+	filter: gray() alpha(opacity=30);
+	-moz-opacity: 0.30;
+}
+
+.CM_Option .CM_Label, .CM_Over .CM_Label
+{
+	padding: 1px 10px 1px 3px;
+}
+
+.CM_Over
+{
+	color: #fff;
+	background-color: #8f8f73;
+}
+
+.CM_Over .CM_Icon
+{
+	background-color: #737357;
+}
+
+.CM_Separator TD
+{
+	height: 3px;
+}
+
+.CM_Separator .CM_Label DIV
+{
+	border-top: #b9b99d 1px solid;
+	margin-left: 2px;
+	margin-right: 3px;
+}
+
+/*
+	### Panel Styles
+*/
+
+.FCK_Panel
+{
+	border: #8f8f73 1px solid;
+	float: left;
+	padding: 2px;
+	background-color: #ffffff;
+	position: absolute ;
+}
+
+.FCK_Panel, .FCK_Panel TD
+{
+	font-family: 'Microsoft Sans Serif', Tahoma, Arial, Verdana, Sans-Serif;
+	font-size: 11px;
+}
+
+/*
+	### Color Selector Panel
+*/
+
+.ColorBoxBorder
+{
+	border: #808080 1px solid;
+	clear: none;
+	position: static;
+}
+
+.ColorBox
+{
+	clear: none;
+	font-size: 1px;
+	width: 10px;
+	position: static;
+	height: 10px;
+}
+
+.ColorDeselected, .ColorSelected
+{
+	cursor: default;
+}
+
+.ColorDeselected
+{
+	border: #ffffff 1px solid;
+	padding: 2px;
+	float: left;
+}
+
+.ColorSelected
+{
+	border: #330066 1px solid;
+	padding: 2px;
+	float: left;
+	background-color: #c4cdd6;
+}

@@ -1,0 +1,525 @@
+/*---------------------------- CABECERA -------------------------*/
+
+TD.lista-pag-bot {
+	font-size: 11px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: right;
+	padding: 2px 2px 2px 2px ;
+}
+
+TABLE.listado-base {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+TD.listado-barra-superior {
+	background-color: %col_sp_1%;
+	text-align: right;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+TD.listado-barra-superior-tabn {
+	font-size: 11px;
+	color: %col_sp_5%;
+	text-align: center;
+	padding: 2px 8px 2px 8px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_2%;
+	border-top: 1px solid %col_sp_3%;
+	border-right: 1px solid %col_sp_3%;
+	border-left: 1px solid %col_sp_3%;
+	border-bottom: 1px solid %col_sp_3%;
+}
+
+TD.listado-barra-superior-tabn-m {
+	font-size: 11px;
+	color: %col_sp_3%;
+	text-align: center;
+	padding: 2px 8px 2px 8px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_ss_3%;
+	border-top: 1px solid %col_sp_3%;
+	border-right: 1px solid %col_sp_3%;
+	border-left: 1px solid %col_sp_3%;
+	border-bottom: 1px solid %col_sp_3%;
+}
+
+/* celda tipo icono */
+TD.listado-barra-superior-tabi {
+	font-size: 11px;
+	color: %col_sp_3%;
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 2px 2px 2px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_2%;
+	border-top: 1px solid %col_sp_3%;
+	border-right: 1px solid %col_sp_3%;
+	border-left: 1px solid %col_sp_3%;
+	border-bottom: 1px solid %col_sp_3%;
+}
+
+TD.listado-barra-superior-tabi2 {
+	font-size: 11px;
+	color: %col_sp_3%;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_2%;
+}
+
+/* celda tipo icono */
+TD.listado-barra-superior-tabi {
+	font-size: 11px;
+	color: %col_sp_3%;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px 2px 0px 2px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_2%;
+	border-top: 1px solid %col_sp_3%;
+	border-right: 1px solid %col_sp_3%;
+	border-left: 1px solid %col_sp_3%;
+	border-bottom: 1px solid %col_sp_3%;
+}
+
+TD.listado-linea {
+	background-color: %col_sp_3%;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+TD.listado-vacia {
+	text-align: right;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+A.listado-tabn-l {
+	text-decoration: none; 
+	color: none; 
+}
+
+/* celda tipo nombre */
+TD.listado-tabn {
+	font-size: 10px;
+	color: %col_sp_3%;
+	text-align: center;
+	padding: 2px 2px 2px 2px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_2%;
+	border-top: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+}
+
+TD.listado-tabn-m {
+	font-size: 10px;
+	color: %col_sp_3%;
+	text-align: center;
+	padding: 2px 2px 2px 2px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_1%;
+	border-top: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+}
+
+/* celda tipo icono */
+TD.listado-tabi {
+	font-size: 11px;
+	color: %col_sp_3%;
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 2px 2px 2px ;
+	margin: 0px 0px 0px 0px ;
+	background-color: %col_sp_3%;
+	border-top: 1px solid %col_sp_4%;
+	border-right: 1px solid %col_sp_4%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_4%;
+}
+
+TD.listado-normal {
+	font-size: 11px;
+	color: %col_sp_6%;
+	background-color: %col_sp_2%;
+	text-align: center;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	/*border-top: 1px solid %col_sp_4%;
+	border-right: 2px solid %col_sp_4%;
+	border-left: 2px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_1%;*/
+}
+
+TD.lista-parametro {
+	font-size: 10px;
+	color: %col_sp_1%;
+	background-color: %col_ss_4%;
+	/*font-weight: bold;*/
+	text-align: right;
+	padding: 2px 5px 2px 5px ;
+	border-bottom: 1px dotted %col_sp_2%;
+/*
+	border-top: 2px solid %col_sp_4%;
+	border-left: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+*/
+}
+
+
+/*---------------------------- LISTADO DE ITEMS -------------------------*/
+
+A.cat-item {
+	text-decoration: none; 
+	color: %col_sp_1%; 
+}	
+
+TABLE.cat-item {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TABLE.cat-item2 {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	border-top: 2px solid %col_sp_1%;
+	border-left: 2px solid %col_sp_1%;
+	border-bottom: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+}
+
+TD.cat-item-opcion {
+	text-align: left;
+	font-size: 10px;
+	color: %col_ss_5%;
+	background-color: %col_sp_1%;
+	border-top: 1px solid %col_ss_5%;
+}
+
+TD.cat-item-titulo {
+	font-size: 12px;
+	color: %col_sp_6%;
+	background-color: %col_sp_2%;
+	font-weight: bold;
+	text-align: center;
+	border-top: 2px solid %col_sp_1%;
+	border-left: 2px solid %col_sp_1%;
+	border-bottom: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+}
+
+TD.cat-item-botones {
+	background-color: %col_sp_3%;
+	border-top: 1px inset %col_sp_1%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.cat-item-botones2 {
+	background-color: %col_sp_4%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.cat-item-categ1 {
+	text-align: left;
+	font-size: 11px;
+	color: %col_sp_1%;
+	background-color: %col_ss_3%;
+	padding: 2px 5px 2px 5px ;
+}
+
+TD.cat-item-titcol {
+	font-size: 10px;
+	color: %col_sp_6%;
+	font-weight: bold;
+	background-color: %col_sp_2%;
+	text-align: center;
+	border-top: 2px solid %col_sp_1%;
+	border-left: 2px solid %col_sp_1%;
+	border-bottom: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+}
+
+TD.cat-item-dato1 {
+	font-size: 9px;
+	color: %col_sp_1%;
+	background-color: %col_sp_6%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato1-nb {
+	font-size: 9px;
+	color: %col_sp_1%;
+	background-color: %col_sp_6%;
+	text-align: left;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato2 {
+	font-size: 9px;
+	color: %col_sp_6%;
+	background-color: %col_sp_3%;
+	font-weight: bold;
+	text-align: left;
+	border-top: 1px outset %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato3 {
+	font-size: 9px;
+	color: %col_sn_1%;
+	background-color: %col_sn_6%;
+	text-align: right;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato4 {
+	font-size: 9px;
+	color: %col_ss_1%;
+	background-color: %col_ss_4%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato4-nb {
+	font-size: 9px;
+	color: %col_ss_1%;
+	background-color: %col_ss_4%;
+	text-align: left;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato5 {
+	font-size: 9px;
+	color: %col_sn_6%;
+	background-color: %col_ss_3%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-item-dato5-nb {
+	font-size: 9px;
+	color: %col_sn_6%;
+	background-color: %col_ss_3%;
+	text-align: left;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+
+TD.cat-arbol-carpeta {
+	background-color: %col_sp_3%;
+	border-top: 4px outset %col_sp_1%;
+	border-left: 1px solid %col_sp_2%;
+	/*border-bottom: 1px solid %col_sn_1%;*/
+}
+
+TD.cat-arbol-carpeta-info {
+	font-size: 10px;
+	color: %col_sn_6%;
+	background-color: %col_sp_3%;
+	font-weight: bold;
+	text-align: left;
+	border-top: 4px outset %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.cat-arbol-item {
+	background-color: %col_sp_4%;
+	border-bottom: 1px solid %col_sn_1%;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+}
+
+
+TD.cat-arbol {
+	background-color: %col_sp_3%;
+	/*border-right: 1px solid %col_sp_6%;*/
+	border-left: 2px solid %col_sp_1%;
+	/* border-bottom: 1px solid %col_ss_2%; */
+}
+
+/*---------------------------- LISTADO DE OBJETOS -------------------------*/
+
+A.list-obj {
+	text-decoration: none; 
+	color: %col_sp_6%; 
+}	
+
+TABLE.lista-obj {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	border-top: 0px solid %col_sp_1%;
+	border-left: 0px solid %col_sp_1%;
+	border-bottom: 0px solid %col_sp_1%;
+	border-right: 0px solid %col_sp_1%;
+}
+
+TABLE.lista-obj2 {
+	border-collapse: collapse;
+	empty-cells: show;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+	border-top: 1px solid %col_sp_1%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+	border-right: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-opcion {
+	text-align: left;
+	font-size: 10px;
+	color: %col_ss_5%;
+	background-color: %col_sp_1%;
+	border-top: 1px solid %col_ss_5%;
+}
+
+TD.lista-obj-titulo {
+	font-size: 11px;
+	color: %col_ss_5%;
+	background-color: %col_ss_2%;
+	text-align: center;
+	padding: 3px 3px 4px 1px ;
+}
+
+TD.lista-obj-botones {
+	background-color: %col_sp_4%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.lista-obj-botonesb {
+	background-color: %col_sp_2%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.lista-obj-botones2 {
+	background-color: %col_sp_2%;
+	border-bottom: 1px solid %col_sn_1%;
+}
+
+TD.lista-obj-categ1 {
+	text-align: left;
+	font-size: 10px;
+	color: %col_ss_5%;
+	background-color: %col_sp_1%;
+	padding: 5px 5px 5px 5px ;
+	border-top: 1px solid %col_ss_5%;
+}
+
+TD.lista-obj-titcol {
+	font-size: 10px;
+	color: %col_sp_6%;
+	font-weight: bold;
+	background-color: %col_sp_2%;
+	text-align: center;
+	border-top: 2px solid %col_sp_1%;
+	border-left: 2px solid %col_sp_1%;
+	border-bottom: 2px solid %col_sp_1%;
+	border-right: 2px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato1 {
+	font-size: 9px;
+	text-align: left;
+	color: %col_sp_2%;
+	background-color: %col_sn_6%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato1b {
+	font-size: 9px;
+	text-align: left;
+	color: %col_ss_2%;
+	background-color: %col_ss_5%;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+
+TD.lista-obj-dato2 {
+	font-size: 9px;
+	color: %col_sp_1%;
+	background-color: %col_sp_5%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato2b {
+	font-size: 9px;
+	color: %col_sp_1%;
+	background-color: %col_sp_4%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato3 {
+	font-size: 9px;
+	color: %col_sp_3%;
+	background-color: %col_sn_6%;
+	text-align: right;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato3b {
+	font-size: 9px;
+	color: %col_ss_2%;
+	background-color: %col_ss_5%;
+	text-align: right;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato4 {
+	font-size: 9px;
+	color: %col_sp_1%;
+	background-color: %col_ss_4%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-dato5 {
+	font-size: 9px;
+	color: %col_sn_5%;
+	background-color: %col_ss_2%;
+	text-align: left;
+	border-left: 1px solid %col_sp_1%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+TD.lista-obj-clase {
+	font-size: 9px;
+	text-align: left;
+	color: %col_sp_1%;
+	background-color: %col_sp_3%;
+	border-left: 1px solid %col_sp_4%;
+	border-bottom: 1px solid %col_sp_1%;
+}
+
+

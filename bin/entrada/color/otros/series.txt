@@ -1,0 +1,43 @@
+<?
+
+// Incluyendo este archivo se pueden acceder a la lista de 
+// colores y tipografias utilizadas por los estilos
+// en forma directa desde el codigo PHP. (son variables globales)
+// (Esto es util para las cosa que no pueden usar estilo:
+// 	como los graficos, el menu milonic, etc... )
+
+//SERIES de colores
+//-----------------
+
+$color_serie["p"][1] = "%col_sp_1%";  
+$color_serie["p"][2] = "%col_sp_2%";
+$color_serie["p"][3] = "%col_sp_3%";  
+$color_serie["p"][4] = "%col_sp_4%";    
+$color_serie["p"][5] = "%col_sp_5%";  
+$color_serie["p"][6] = "%col_sp_6%";  
+
+$color_serie["s"][1] = "%col_ss_1%";  
+$color_serie["s"][2] = "%col_ss_2%"; 
+$color_serie["s"][3] = "%col_ss_3%";  
+$color_serie["s"][4] = "%col_ss_4%";  
+$color_serie["s"][5] = "%col_ss_5%";  
+$color_serie["s"][6] = "%col_ss_6%";  
+
+$color_serie["n"][1] = "%col_sn_1%";  
+$color_serie["n"][2] = "%col_sn_2%";  
+$color_serie["n"][3] = "%col_sn_3%";  
+$color_serie["n"][4] = "%col_sn_4%";  
+$color_serie["n"][5] = "%col_sn_5%";  
+$color_serie["n"][6] = "%col_sn_6%";
+
+$color_serie["e"][1] = "%col_ex_1%";  
+$color_serie["e"][2] = "%col_ex_2%";  
+$color_serie["e"][3] = "%col_ex_3%";
+
+//SERIES de TIPOGRAFIAS
+//---------------------
+
+$tipografia_serie[1] = "%f_1%";
+$tipografia_serie[2] = "%f_2%";
+
+?>

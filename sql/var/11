@@ -1,0 +1,1 @@
+INSERT INTO apex_elemento_infra_input (elemento_infra, datos) VALUES ('item','N;') 

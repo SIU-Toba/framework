@@ -1,0 +1,229 @@
+#!/bin/bash
+#
+. i_config
+
+# Funcionalidad no implementada
+#==> * el plan de ACTUALIZACION esta harcodeado
+#==> * LAS TALBAS NECESITAN UN ESPACIO ATRAS DEL 'create table' PARA QUE ESTO LAS PARSEE BIEN
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Generar de planes de DUMP y scripts de ELIMINACION y VACIADO"
+
+##***********************************************************************************************##
+## Parsea el script buscando las definiciones de tablas
+##***********************************************************************************************##
+#@ sql tab SCRIPT-SQL                          -- Lista TABLAS declaradas en SCRIPT
+
+elif [ "$1" = "tab" ]
+then
+	if [ -z $3 ]
+	then
+#		cat $2 | egrep "^CREATE TABLE" | awk '{ print $3 }'
+		awk '/^CREATE TABLE/ {print $3}' $2 
+	else
+#		cat $2 | egrep "^CREATE TABLE" | egrep "$3" | awk '{ print $3 }'
+		 egrep "$3" $2 | awk '/^CREATE TABLE/ {print $3}'
+	fi
+	
+##***********************************************************************************************##
+## Busca las definiciones de tablas y revierte el orden de aparicion (para DEL,DROP)
+##***********************************************************************************************##
+#@ sql tab_i SCRIPT-SQL                        -- Lista invertida de TABLAS declaradas en SCRIPT 
+
+elif [ "$1" = "tab_i" ]
+then
+
+	sql tab $2 "$3" | tac
+#	sql tab $2 "$3" | cat -n | sort -r | awk '{ print $2 }'
+	
+##***********************************************************************************************##
+## Genera el SCRIPT de BORRADO
+##***********************************************************************************************##
+#@ sql tab_drop SCRIPT-SQL                     -- Genera el script de ELIMINACION de TABLAS
+
+elif [ "$1" = "tab_drop" ]
+then
+
+	if [ -z $3 ]
+	then
+		for i in `(sql tab_i $2 $3)`
+		do
+			echo "DROP TABLE  $i;"
+		done
+	else
+		for i in `(sql tab_i $2)`
+		do
+			echo "DROP TABLE  $i;"
+		done
+	fi
+		
+##***********************************************************************************************##
+##	Genera el SCRIPT de VACIADO de la infraestructura
+##***********************************************************************************************##
+#@ sql tab_del SCRIPT-SQL                      -- Genera el script de VACIADO de TABLAS
+
+elif [ "$1" = "tab_del" ]
+then
+
+	for i in `sql tab_i $2 $3`
+	do
+		echo "DELETE FROM $i ;"
+	done
+	
+##***********************************************************************************************##
+## Lista de sequencias en orden de aparicion
+##***********************************************************************************************##
+#@ sql seq SCRIPT-SQL                          -- Lista SECUENCIAS declaradas en SCRIPT
+
+elif [ "$1" = "seq" ]
+then
+
+	cat $2 | egrep "^CREATE SEQUENCE" | awk '{ print $3 }'
+	
+##***********************************************************************************************##
+## Genera el SCRIPT de BORRADO de las sequencias
+##***********************************************************************************************##
+#@ sql seq_drop SCRIPT-SQL                     -- Genera el script de ELIMINACION de SECUENCIAS
+
+elif [ "$1" = "seq_drop" ]
+then
+
+	for i in `sql seq $2`
+	do
+		echo "DROP SEQUENCE $i ;"
+	done
+	
+##***********************************************************************************************##
+## Genera el SCRIPT de VACUUM
+##***********************************************************************************************##
+#@ sql tab_vac SCRIPT-SQL                      -- Genera el script VACUUM FULL ANALYSE de TABLAS
+
+elif [ "$1" = "tab_vac" ]
+then
+
+	if [ -z $3 ]
+	then
+		for i in `(sql tab_i $2 $3)`
+		do
+			echo "VACUUM FULL ANALYSE  $i;"
+		done
+	else
+		for i in `(sql tab_i $2)`
+		do
+			echo "VACUUM FULL ANALYSE  $i;"
+		done
+	fi
+
+##***********************************************************************************************##
+## Actualiza los scripts SQL que pueden deducirse del de creacion
+##***********************************************************************************************##
+#@ sql juntar NIVEL                            -- Unifica los "pgsql_[a|z][0-9]_*.sql" de carpeta
+
+elif [ "$1" = "juntar" ]
+then
+
+	# Junta archivos de un nivel, estara siempre ordenado alfanumericamente?
+	cat ${s_sql_ini}$2*${s_sql_fin}		> __sql_$2.sql 
+
+##***********************************************************************************************##
+## Actualiza los scripts SQL que pueden deducirse del de creacion
+##***********************************************************************************************##
+#@ sql adm                                     -- Crea SCRIPTS segun "pgsql_[a|z][0-9]_*.sql" de carpeta
+
+elif [ "$1" = "adm" ]
+then
+
+	rm -f __drop.sql	
+	rm -f __del.sql
+	rm -f __del-his.sql
+	rm -f __vac.sql
+	rm -f __plan-dump.txt
+
+#----> Orden Descendente (Borrado, Eliminacion)
+
+	echo "--> Generacion de SQL de borrado, eliminacion y vacuum"
+	for a in `ls -lr pgsql_a*.sql  | awk '{ print $9 }'`
+	do
+		echo "procesando archivo: $a"
+
+		echo "-- Archivo: $a --" >> __drop.sql
+		sql tab_drop	$a	>> __drop.sql
+		sql seq_drop	$a >> __drop.sql
+	
+		echo "-- Archivo: $a --" >> __del.sql
+		sql tab_del $a >> __del.sql
+	
+		echo "-- Archivo: $a --" >> __del-his.sql
+		sql tab_del $a %%his >> __del-his.sql
+	done
+
+#----> Orden Ascendente (Dumpeo)
+
+	echo "--> Generacion de Planes de DUMPEO"
+	for a in `ls -l pgsql_a*.sql  | awk '{ print $9 }'`
+	do
+		echo "procesando archivo: $a"
+		sql tab $a >> __plan-dump.txt
+#		echo >> __plan-dump.txt
+
+		echo "-- Archivo: $a --" >> __vac.sql
+		sql tab_vac $a >> __vac.sql
+
+	done
+
+##############################################  TRADUCTORES #######################################
+
+##***********************************************************************************************##
+## Migra los SCRIPTS SQL a otros motores.
+##***********************************************************************************************##
+#@ sql migrar MOTOR                            -- Migra SQL a otro MOTOR (hasta ahora solo informix)
+elif [ "$1" = "migrar" ]
+then
+
+	if [ -z "$2" ]
+	then
+		echo "Expecifique el MOTOR - Destino. (informix)"
+	else
+		case "$2" in
+			"informix") #---> Migro el SQL de generacion a ------------- > INFORMIX
+							# Esto trabaja desde el directorio actual.
+							
+				#------ 1) Migro los scripts de creacion
+					for a in `ls -l ${s_sql_ini}a${s_sql_fin}  | awk '{ print $9 }'`
+					do
+						sed -f $d_entrada/multidb/informix_creacion.sed $a > informix/$a
+						#sql tab_drop $a > informix/${a}_drop.sql
+					done
+				#------ 2) Migro los datos
+					for a in `ls -l ${s_sql_datos}${s_sql_fin}  | awk '{ print $9 }'`
+					do
+						#echo "HOLA: " $a
+						sed -f $d_entrada/multidb/informix_datos.sed $a > informix/$a
+						#sql tab_drop $a > informix/${a}_drop.sql
+					done
+					;;
+			*) 	echo "Motor destino incorrecto.";;
+		esac
+	fi
+
+
+
+##***********************************************************************************************##
+## Ver Cosas Pendientes
+##***********************************************************************************************##
+elif [ "$1" = "pendiente" ]
+then
+	pendiente $0
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi
