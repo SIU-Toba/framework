@@ -339,14 +339,12 @@ class objeto_ci_me extends objeto_ci
 	{
 		if(trim($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_procesar"])==""){
 			$disabled = " disabled ";
-/* SI!
 			if(trim($this->info_ci['activacion_procesar'])!=""){
 				$metodo = $this->info_ci['activacion_procesar'];
 				if($this->cn->$metodo()){
 					$disabled = "";
 				}
 			}
-*/
 		}else{
 			$disabled = "";
 		}
