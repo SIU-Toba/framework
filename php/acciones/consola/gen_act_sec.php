@@ -47,10 +47,11 @@ include_once("nucleo/lib/buffer_i.php");
 		$metadatos = $db[$fuente][apex_db]->obtener_metadatos( $tabla );
 		foreach($metadatos as $columnas){
 			foreach($columnas as $columna){
+				//2)Chequeo que la tabla contenga una secuencia
 				if(isset($columna['default'])){
 					if(preg_match("/nextval/",$columna['default'])){
 						if(preg_match("/.*\"(.*)\".*/", $columna['default'], $matches)){
-							//echo "TABLA: $tabla COLUMNA: {$columna['columna']} SEQ: {$matches[1]}\n";
+							//echo "TABLA: $tabla COLUMNA: {$columna['columna']} SEQ: {$columna['columna']}";
 							echo "SELECT setval('{$matches[1]}', {$columna['columna']}) FROM $tabla";
 							echo "\n";
 						}	
