@@ -49,9 +49,10 @@ include_once("nucleo/lib/buffer_i.php");
 			foreach($columnas as $columna){
 				if(isset($columna['default'])){
 					if(preg_match("/nextval/",$columna['default'])){
-						if(preg_match(".*?(\"[^"]*\").*", $columna['default'])){
-							echo "TABLA: $tabla COLUMNA: {$columna['columna']} SEQ: {$columna['default']}\n";
-						}		
+						if(preg_match("/.*\"(.*)\".*/", $columna['default'], $matches)){
+							echo "TABLA: $tabla COLUMNA: {$columna['columna']} SEQ: {$matches[1]}\n";
+						}	
+						//SELECT setval('$sq', $columna['columna']) FROM $tabla;
 					}			
 				}
 			}
