@@ -13,4 +13,10 @@ def.constructor = ef_checkbox;
 		if (! this.input().onclick)	//Para no romper scripts hechos ad-hoc
 			this.input().onclick = callback;	
 	}
-	
+
+	def.valor = function() {
+		if (this.input().checked)
+			return this.input().value;
+		else
+			return null;
+	}	

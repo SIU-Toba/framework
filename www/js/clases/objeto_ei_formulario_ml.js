@@ -84,18 +84,20 @@ def.constructor = objeto_ei_formulario_ml;
 	}
 
 	def.intercambiar_filas = function (pos_a, pos_b) {
-			//Reemplazo en el DOM
+		//Reemplazo en el DOM
 		var nodo_padre = document.getElementById(this.instancia + '_fila' + this.filas[pos_a]);
 		var nodo_selecc = document.getElementById(this.instancia + '_fila' + this.filas[pos_b]);
-		nodo_selecc.swapNode(nodo_padre);
-			//Reemplazo de los tabs index
+		intercambiar_nodos(nodo_selecc, nodo_padre);
+		
+		//Reemplazo de los tabs index
 		for (id_ef in this.efs) {
 			var tab_a = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).tab();
 			var tab_b = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).tab();
 			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).cambiar_tab(tab_b);
 			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).cambiar_tab(tab_a);			
 		}
-			//Reemplazo interno
+		
+		//Reemplazo interno
 		var temp = this.filas[pos_a];
 		this.filas[pos_a] = this.filas[pos_b];
 		this.filas[pos_b] = temp;
@@ -287,15 +289,35 @@ def.constructor = objeto_ei_formulario_ml;
 		return true;
 	}
 
-
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM
-if (!ie) {	//Función similar al swapNode del IE
+if (!ie) {
 	Node.prototype.swapNode = function (node) {
-	  var nextSibling = this.nextSibling;
-	  var parentNode = this.parentNode;
-	  node.parentNode.replaceChild(this, node);
-	  parentNode.insertBefore(node, nextSibling);  
+		var nextSibling = this.nextSibling;
+		var parentNode = this.parentNode;
+		node.parentNode.replaceChild(this, node);
+		parentNode.insertBefore(node, nextSibling);  
+	}
+}
+
+function intercambiar_nodos(nodo1, nodo2) {
+	if (ie) {
+		var intercambio_vals = new Array();
+		var inputs = document.getElementsByTagName('input');
+		for (var i=0; i < inputs.length; i++) {
+			if (inputs[i].type.toLowerCase() == 'checkbox' && inputs[i].id.indexOf('__fila__') == -1) {
+				intercambio_vals.push( new Array(inputs[i].id, inputs[i].checked));
+			}
+		}	
+	}
+
+	nodo1.swapNode(nodo2);
+
+	if (ie) {
+		for (i=0; i < intercambio_vals.length; i++) {
+			var check = intercambio_vals[i];
+			document.getElementById(check[0]).checked = check[1];
+		}
 	}
 }
 
