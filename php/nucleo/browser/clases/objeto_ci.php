@@ -272,7 +272,9 @@ class objeto_ci extends objeto
 	{
 		//Se dispara el procesamiento del controlador de negocio
 		$this->cn->procesar();
-		$this->borrar_memoria();
+		if( $this->cn->get_estado_proceso() ){
+			$this->borrar_memoria();
+		}
 	}
 
 	//-------------------------------------------------------------------------------

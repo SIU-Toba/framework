@@ -1,6 +1,9 @@
 <?php
 require_once("buffer_db.php");
+/*
 
+
+*/
 class buffer_db_mt extends buffer_db
 {
 	function __construct($id, $definicion, $fuente)
