@@ -1,19 +1,12 @@
--------------------------------------------------
---- TRABAJO en el TOBA 
-	-> 			Pendiente
-	› 			En desarrollo
-	º 			Terminado, para revisar
-	-D			Dialogo!
-	??			Explicar más
---------------------------------------------------
-	Pendientes de charla:
-		- Prototipo de declaración de eventos en form
+	---------------------------------------------------------------------------
+
+							TRABAJO pendiente en el TOBA
 
 	---------------------------------------------------------------------------
 	-------------------------  ELEMENTOS DE INTERFACE -------------------------
+	---------------------------------------------------------------------------
 
 	*** EF:
-
 		-> VALIDACION
 			-> SERVER: Excepciones.
 			-> CLIENTE: No disparar un ALERT, disparar una exepción. Elaborar una forma distinta de señalar el origen.
@@ -25,13 +18,16 @@
 				-> ef_vinculo
 				-> ef_template
 !			-> ef_moneda con conversión (simbolo $ por defecto) (máscara) (validación de decimales)
-			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
-			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
+			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. 
+					Hay que decidir donde poner esta ventana)
+			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros 
+				(Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
 			-> ef_multi_selecccion 
 				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
 				-> Utilizando un conjunto de checkbox (muy explicito, ideal para conjunto chico de datos)
 				-> Utilizando dos <SELECT> pasando los datos de uno a otro (muy gráfico)
-				-> Hay que buscar uno para conjunto grandes de datos ej: quiero seleccionar 5 clientes de un total de 20.000, basado en el popup
+				-> Hay que buscar uno para conjunto grandes de datos 
+					(ej: quiero seleccionar 5 clientes de un total de 20.000, basado en el popup)
 		-> Refactoring de los actuales:
 			› Migración del JS suelto a las clases (esto incluye el código cascada)
 			› Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
@@ -67,12 +63,14 @@
 !			-> Extender la declaración de botones
 		-> Utilización de shotcuts para acceder a los efs (por ejemplo N&ombre se dispara con ALT + o)
 		-> Personalización del layout de los efs. Idear una forma de agruparlos con un label
-		-> Cuando una cascada sale a buscar una respuesta al server, el submit del form se deberia desactivar hasta que vuelva
+		-> Cuando una cascada sale a buscar una respuesta al server, el submit del form se deberia desactivar 
+			hasta que vuelva
 		-> El submit se debe poder correr una sola vez
 
 	*** ML: 
 		-> Procesamiento de filas:
-!			-> Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar eventos al prototipo.
+!			-> Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar 
+				eventos al prototipo.
 			-> Respetar el formato del EF en el resultado del proceso
 !		-> Agregar y eliminar filas: Parametrizar comandos disponibles (agregar_eliminar, mover, ver_numero_fila)
 		› Mejorar el disparo de eventos (relación con buffer)
@@ -97,25 +95,9 @@
 !		-> Analizar
 		-> Cortes de control fácil de crear y entender	
 
-	--------------------------------------------------------------------------------
-	-------------------------  DESARROLLO SOBRE EL MODELO  -------------------------
-
-	*** objeto_filtro
-		-> 	Flag que indique el cambio de where
-		->	Unificar la jerarquia con el ei_form para soportar cascadas
-		->	(perfil de datos)Implementar las dimensiones restringidas por comparacion
-
-	*** objeto_mt_abms
-		->	Terminar de sintetizar la jerarquia de herencia (heredar del CI, usar un UT_FORM)		
-		->	Hacer que los botones sean dinamicos
-		->	Mecanismo para tener columnas que funciones en la cascada pero no se graben en la tabla
-	
-	*** objeto_cuadro
-		-> Paginar, con ordenamiento total	
-		-> Boton ocultar de siu-quilmes
-		
 	-------------------------------------------------------------------------
 	-------------------------  DESARROLLO EN CAPAS  -------------------------
+	-------------------------------------------------------------------------
 
 	*** CI
 		-> PROBLEMAS de NAVEGACION
@@ -148,22 +130,35 @@
 		-> Filtrado de registros
 		-> Multitabla de con correspondencia debil
 
-	*** JS General
-		-> Clase toba en js: 
-			-> Colgar eventos al onload
-		-> Encadenacion standard de eventos
+	--------------------------------------------------------------------------------
+	-------------------------  DESARROLLO SOBRE EL MODELO  -------------------------
+	---------------------------------------------------------------------------
 
+	*** objeto_filtro
+		-> 	Flag que indique el cambio de where
+		->	Unificar la jerarquia con el ei_form para soportar cascadas
+		->	(perfil de datos)Implementar las dimensiones restringidas por comparacion
+
+	*** objeto_mt_abms
+		->	Terminar de sintetizar la jerarquia de herencia (heredar del CI, usar un UT_FORM)		
+		->	Hacer que los botones sean dinamicos
+		->	Mecanismo para tener columnas que funciones en la cascada pero no se graben en la tabla
+	
+	*** objeto_cuadro
+		-> Paginar, con ordenamiento total	
+		-> Boton ocultar de siu-quilmes
+		
 	-------------------------------------------------------------
 	-------------------------  GENERAL  -------------------------
-
-	**** GENERAL
+	-------------------------------------------------------------
 
 		-> Foco automatico
 		-> HTML y CSS
 			-> Empezar a utilizar el DOCTYPE, va a pasar al IE de modo compatible a modo CSS, se ven mal algunas cosas
 				Sin el DOCTYPE no se puede validar el documento y no funcionan cosas avanzadas de CSS (ej. tablas con scroll)
 !!		->	Implementar como clases los includes iniciales (menú, etc) para permitir una mejor customizacion
-				- El menu actual consume demasiados recursos del navegador, tiene que haber una forma simple de elegir entre varios menues.
+				- El menu actual consume demasiados recursos del navegador, tiene que haber una forma simple de 
+					elegir entre varios menues.
 		->	Jerarquia de excepciones (diferenciar excepciones de tiempo de ejecución de las de tiempo de definicion)
 		->	Carga de objetos toba
 			- Lugar unificado de carga (actualmente solicitud y objeto)
@@ -181,31 +176,47 @@
 			-	Cuando se crea un proyecto hay que crear en forma optativa un manejador de usuarios para el mismo
 		->	Multimotor
 		-> 	Refactorizar el manejo de la fuente de datos
-		->	Separacion de las tablas de metadatos por dominios (para distribuirlas entre instancias, reemplazar algunas por PHP compilado, etc.)
-		->	Hacer una migracion completa a PHP5 (migrar: constructores, visibilidad de metodos y propiedades, usar interfaces, eliminar referencias globales)
+		->	Separacion de las tablas de metadatos por dominios (para distribuirlas entre instancias, reemplazar algunas por 
+			PHP compilado, etc.)
+		->	Hacer una migracion completa a PHP5 (migrar: constructores, visibilidad de metodos y propiedades, usar interfaces, 
+			eliminar referencias globales)
 		->	Completar el esquema de ayuda online
 		-> Las entidades mas complejas necesitan una forma de persistir datos durante la sesion (recordar su estado inicial).
 		-> mantener_estado_sesion no respeta el no acceso al hilo
 		-> Modificación de los tooltips
+		-> Seguridad
+			-> Encriptar las claves de usuarios y de logueo a otros motores en la DB
+			-> Aplicar una politica de no declarar parametros de conexion en la fuente de datos 
+				(hacer siempre link al archivo de instancias)
+
+	*** JS General
+		-> Clase toba en js: 
+			-> Colgar eventos al onload
+		-> Encadenacion standard de eventos
 
 	--------------------------------------------------------------------
 	-------------------------  ADMINISTRACION  -------------------------
+	--------------------------------------------------------------------
 
 	*** Inteface ADMINISTRATIVA
 
-	-> CI: mostrar plan de ruteo y de carga
-	-> CI: clonar bien (incluir dependencias...)
-	-> Separar objetos por modulos
-	-> Eliminar items completos
-	-> Eliminar carpetas completas
-	-> Exportar/importar items
+		-> CI: mostrar plan de ruteo y de carga
+		-> CI: clonar bien (incluir dependencias...)
+		-> Separar objetos por modulos
+		-> Eliminar items completos
+		-> Eliminar carpetas completas
+		-> Exportar/importar items
 	
 	*** Interface CONSOLA
 	
-	-> Los scripts de dumpeo tienen que estar preparados para manejar N instancias
-	-> Hay que mejorar el generador de BUFFERS
+		-> Los scripts de dumpeo tienen que estar preparados para manejar N instancias
+		-> Hay que mejorar el generador de BUFFERS
+		-> Script que haga que los scripts de consola sean funcionales en linux
 
-	*** DOCUMENTACION
+
+	--------------------------------------------------------------------
+	-------------------------  DOCUMENTACION  --------------------------
+	--------------------------------------------------------------------
 	
 	->	Plan de capacitacion
 	->	WIKI
@@ -217,4 +228,14 @@
 		->	Convenciones 
 	->	Glosario
 	
+	--------------------------------------------------------------------
+	REFERENCIAS
+	--------------------------------------------------------------------
+	-> 			Pendiente
+	› 			En desarrollo
+	º 			Terminado, para revisar
+	-D			Dialogo!
+	??			Explicar más
+!				Prioridad avanzada
+	--------------------------------------------------------------------
 	
