@@ -36,26 +36,28 @@ class buffer
 */
 {
 	protected $log;						//Referencia al LOGGER
-	protected $solicitud;					//Referencia a la solicitud
+	protected $solicitud;				//Referencia a la solicitud
 	protected $definicion;				//Definicion que indica la construccion del BUFFER
 	protected $fuente;					//Fuente de datos utilizada
-	protected $identificador;				//Identificador del registro
+	protected $identificador;			//Identificador del registro
 	protected $campos;					//Campos del BUFFER
 	protected $campos_secuencia;		
 	protected $campos_manipulables;		
-	protected $where;						//Condicion utilizada para cargar datos - WHERE
-	protected $from;						//Condicion utilizada para cargar datos - FROM
-	protected $control = array();			//Estructura de control
+	protected $where;					//Condicion utilizada para cargar datos - WHERE
+	protected $from;					//Condicion utilizada para cargar datos - FROM
+	protected $control = array();		//Estructura de control
 	protected $datos = array();			//Datos cargados en el BUFFER
-	protected $datos_orig = array();		//Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proximo_registro = 0;		//Posicion del proximo registro en el array de datos
-	protected $control_sincro_db;			//Se activa el control de sincronizacion con la DB?
-	protected $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
+	protected $datos_orig = array();	//Datos tal cual salieron de la DB (Control de SINCRO)
+	protected $proximo_registro = 0;	//Posicion del proximo registro en el array de datos
+	protected $control_sincro_db;		//Se activa el control de sincronizacion con la DB?
+	protected $posicion_finalizador;	//Posicion del objeto en el array de finalizacion
 	protected $sql;						//Array de SQLs ejecutados
+	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 
 	function buffer($id, $definicion, $fuente)
 	{
 		$this->log = toba::get_logger();
+		$this->solicitud = toba::get_solicitud();
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
@@ -75,7 +77,13 @@ class buffer
 		$this->inicializar_definicion_campos();
 		//-- Si el BUFFER fue creado en el request previo, lo recargo
 		if( $this->existe_instanciacion_previa() ){
-			$this->cargar_datos_sesion();
+			//Si vengo del menu, no lo recargo.
+			if( $this->solicitud->hilo->verificar_acceso_menu() ){
+				$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - ".
+									" Acceso desde el MENU: no se recargan los datos");
+			}else{
+				$this->cargar_datos_sesion();
+			}
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -164,23 +172,23 @@ class buffer
 	{
 		if(!isset($this->where)){
 			if(isset($where)){
-				$this->log->debug("BUFFER {$this->identificador} - Control WHERE: No existe");
+				$this->log->debug("BUFFER " . get_class($this). " [{$this->identificador}] - Control WHERE: No existe");
 				return false;	
 			}
 		}else{
 			for($a=0;$a<count($this->where);$a++){
 				if(!isset($where[$a])){
-					$this->log->debug("BUFFER {$this->identificador} - Control WHERE: nuevo mas corto"); 
+					$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: nuevo mas corto"); 
 					return false;
 				}else{
 					if($where[$a] !== $this->where[$a]){
-						$this->log->debug("BUFFER {$this->identificador} - Control WHERE: nuevo distinto"); 
+						$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: nuevo distinto"); 
 						return false;	
 					}
 				}
 			}
 		}
-		$this->log->debug("BUFFER {$this->identificador} - Control WHERE: OK!");
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: OK!");
 		return true;
 	}
 	//-------------------------------------------------------------------------------
@@ -189,7 +197,7 @@ class buffer
 	//Cargo los BUFFERS con datos de la DB
 	//ATENCION: Los datos solo se cargan si se le pasa como parametro un WHERE
 	{
-		$this->log->debug("BUFFER {$this->identificador} - Cargar de DB");
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
@@ -228,15 +236,14 @@ class buffer
 	//Cargo los BUFFERS con datos de la DB
 	//Los datos son 
 	{
-		global $db, $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+		$db = toba::get_fuente($this->fuente);
 		$sql = $this->generar_sql_select();
 		//echo $sql . "<br>";
 		//-- Intento cargar el BUFFER
-		$rs = $db[$this->fuente][apex_db_con]->Execute($sql);
+		$rs = $db[apex_db_con]->Execute($sql);
 		if((!$rs)){
 			monitor::evento("bug","[BUFFER: {$this->identificador} ] Error cargando DATOS'. $sql . "
-						.$db[$this->fuente][apex_db_con]->ErrorMsg());
+						.$db[apex_db_con]->ErrorMsg());
 		}
 		if($rs->EOF){
 			if($carga_estricta){
@@ -262,9 +269,8 @@ class buffer
 	function cargar_datos_sesion()
 	//Cargo el BUFFER desde la sesion
 	{
-		$this->log->debug("BUFFER {$this->identificador} - Cargar de SESION");
-		global $solicitud;
-		$datos = $solicitud->hilo->recuperar_dato_global($this->identificador);
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Cargar de SESION");
+		$datos = $this->solicitud->hilo->recuperar_dato_global($this->identificador);
 		//Traera un problema el pasaje por referencia
 		$this->datos = $datos['datos'];
 		$this->datos_orig = $datos['datos_orig'];
@@ -278,30 +284,27 @@ class buffer
 	function guardar_datos_sesion()
 	//Guardo datos en la sesion
 	{
-		global $solicitud;
 		$datos['where'] = $this->where;
 		$datos['from'] = $this->from;
 		$datos['datos'] = $this->datos;
 		$datos['datos_orig'] = $this->datos_orig;
 		$datos['control'] = $this->control;
 		$datos['proximo_registro'] = $this->proximo_registro;
-		$solicitud->hilo->persistir_dato_global($this->identificador, $datos, true);
+		$this->solicitud->hilo->persistir_dato_global($this->identificador, $datos, true);
 	}
 	//-------------------------------------------------------------------------------
 	
 	function existe_instanciacion_previa()
 	{
-		global $solicitud;
-		return $solicitud->hilo->existe_dato_global($this->identificador);
+		return $this->solicitud->hilo->existe_dato_global($this->identificador);
 	}
 	//-------------------------------------------------------------------------------
 
 	function resetear()
 	{
-		$this->log->debug("BUFFER {$this->identificador} - RESET");
+		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - RESET");
 		if($this->existe_instanciacion_previa()){
-			global $solicitud;
-			return $solicitud->hilo->eliminar_dato_global($this->identificador);
+			return $this->solicitud->hilo->eliminar_dato_global($this->identificador);
 		}
 		$this->datos = array();
 		$this->datos_orig = array();
@@ -368,7 +371,9 @@ class buffer
 	function modificar_registro($registro, $id)
 	{
 		if(!isset($this->datos[$id])){
-			throw new excepcion_toba("BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)");
+			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
+			$this->log->info($mensaje);
+			throw new excepcion_toba($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_buffer_clave])) unset($registro[apex_buffer_clave]);
@@ -389,7 +394,9 @@ class buffer
 	function eliminar_registro($id=null)
 	{
 		if(!isset($this->datos[$id])){
-			throw new excepcion_toba("BUFFER: ELIMINAR. No existe un registro con el INDICE indicado ($id)");
+			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
+			$this->log->info($mensaje);
+			throw new excepcion_toba($mensaje);
 		}
 		if($this->control[$id]['estado']=="i"){
 			unset($this->control[$id]);
@@ -450,8 +457,6 @@ class buffer
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	//throw new excepcion_toba("BUFFER: ERROR de validacion. " . $resultado[1]);
-
 	function validar_registro($registro, $id=null)
 	//Valida el registro
 	{
@@ -469,7 +474,11 @@ class buffer
 			//en las secuencias...
 			if( !((in_array($campo, $this->campos_manipulables)) ||
 				(in_array($campo,$this->campos_secuencia)) ) ){
-					throw new excepcion_toba("BUFFER: ERROR de validacion. El campo '$campo' no existe.");
+					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+							" El registro tiene una estructura incorrecta: El campo '$campo' ". 
+							" se encuentra definido y no existe en el registro.");
+					$this->log->debug( debug_backtrace() );
+					throw new excepcion_toba("El elemento posee una estructura incorrecta");
 			}
 		}
 	}
@@ -490,8 +499,11 @@ class buffer
 			if(is_array($valores_columna)){
 				//Controlo que el nuevo valor no exista
 				if(in_array($registro[$campo], $valores_columna)){
-					throw new excepcion_toba("BUFFER: El valor '".$registro[$campo]
-											."' crea un duplicado en el campo '" . $campo . "'.");
+					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+									" El valor '".$registro[$campo] ."' crea un duplicado " .
+									" en el campo '" . $campo . "', definido como no_duplicado");
+					$this->log->debug( debug_backtrace() );
+					throw new excepcion_toba("El elemento ya se encuentra definido");
 				}
 			}
 		}
@@ -501,15 +513,18 @@ class buffer
 	function control_nulos($registro)
 	//Controla que los valores obligatorios existan
 	{
+		$mensaje_usuario = "El elemento poser valores incompletos";
+		$mensaje_programador = "BUFFER " . get_class($this). " [{$this->identificador}] - 
+					Es necesario especificar un valor para el campo: ";
 		foreach($this->campos_no_nulo as $campo){
 			if(isset($registro[$campo])){
 				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
-					throw new excepcion_toba("BUFFER: ERROR de validacion. El campo '". 
-					$campo ."' no admite valores NULOS.");
+					$this->log->info($mensaje_programador . $campo);
+					throw new excepcion_toba($mensaje_usuario);
 				}
 			}else{
-				throw new excepcion_toba("BUFFER: ERROR de validacion. Es necesario 
-						especificar un valor para el campo '". $campo ."'.");
+					$this->log->info($mensaje_programador . $campo);
+					throw new excepcion_toba($mensaje_usuario);
 			}
 		}
 	}
@@ -589,21 +604,24 @@ class buffer
 	function ejecutar_sql($sql,$controlar_ar=true)
 	//ATENCION!!!!! los update fallan y el error no se reporta!!!
 	{
-		global $db, $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		
+		$db = toba::get_fuente($this->fuente);
 		//if($db[$this->fuente][apex_db_con]->Execute($sql) === true){
-		if(!$db[$this->fuente][apex_db_con]->Execute($sql)){
-			throw new excepcion_toba("BUFFER: Ejecutar SQL de sincronizacion." 
-							.$db[$this->fuente][apex_db_con]->ErrorMsg() . " SQL: " . $sql);
+		if( !$db[apex_db_con]->Execute($sql)){
+			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+							" Error en la sincronizacion a la DB. "
+							. $db[apex_db_con]->ErrorMsg() . 
+							" [ SQL: " . $sql . " ]");
+			throw new excepcion_toba($this->msg_error_sincro);
 		}else{
 			if($controlar_ar){
-				$registros_afectados = $db[$this->fuente][apex_db_con]->affected_rows();
+				$registros_afectados = $db[apex_db_con]->affected_rows();
 				//echo "REGISTROS: " . $registros_afectados;
 				if($registros_afectados === 1){
 					$this->sql[] = $sql;
 				}else{
-					throw new excepcion_toba("BUFFER: EJECUTAR SQL: No hay registros afectados.");
+					$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+									"	EJECUTAR SQL: No hay registros afectados.");
+					throw new excepcion_toba($this->msg_error_sincro);
 				}
 			}else{
 				$this->sql[] = $sql;
@@ -614,17 +632,20 @@ class buffer
 
 	function recuperar_secuencia($secuencia)
 	{
-		global $db, $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+		$db = toba::get_fuente($this->fuente);
 		$sql = "SELECT currval('$secuencia') as seq;";
-		$rs = $db[$this->fuente][apex_db_con]->Execute($sql);
+		$rs = $db[apex_db_con]->Execute($sql);
 		//print $sql;
 		if((!$rs)){
-			throw new excepcion_toba("BUFFER: Recuperar SECUENCIA '$secuencia': SQL mal formado."
-											.$db[$this->fuente][apex_db_con]->ErrorMsg());
+			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - ".
+										" Recuperar SECUENCIA '$secuencia': SQL mal formado."
+										. $db[apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba($this->msg_error_sincro);
 		}
 		if($rs->EOF){
-			throw new excepcion_toba("BUFFER: Recuperar SECUENCIA '$secuencia': No existen datos.");
+			$this->log->info("BUFFER " . get_class($this). " [{$this->identificador}] - " .
+									" Recuperar SECUENCIA '$secuencia': No existen datos.");
+			throw new excepcion_toba($this->msg_error_sincro);
 		}else{
 			$datos =& $rs->getArray();
 			return $datos[0]['seq'];

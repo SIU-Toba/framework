@@ -301,7 +301,7 @@ class objeto_ci extends objeto
 						}
 					}catch (excepcion_toba $e)
 					{
-						$this->solicitud->log->registrar_excepcion($e);
+						$this->solicitud->log->debug($e);
 					}
 				}else{
 					//Este evento no esta mapeado

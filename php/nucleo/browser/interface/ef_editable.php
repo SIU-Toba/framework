@@ -295,7 +295,7 @@ if( !( (formulario.". $this->id_form .".value >= 0) &&  (formulario.". $this->id
 	
 	function obtener_input()
 	{
-		return "<span style='white-space:nowrap'>".parent::obtener_input()."%</span>";
+		return "<table class='tabla-0'><tr><td>".parent::obtener_input()."</td><td>%</td></tr></table>";
 	}	
 }
 

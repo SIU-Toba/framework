@@ -35,7 +35,7 @@ class toba
 		return $solicitud->cola_mensajes;
 	}
 
-	function get_fuente($id, $ado=null)
+	function get_fuente($fuente, $ado=null)
 	{
 		global $db, $ADODB_FETCH_MODE;	
 		if(isset($ado)){

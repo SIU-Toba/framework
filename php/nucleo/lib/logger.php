@@ -52,36 +52,32 @@ class logger
 	*/
 	{
         if (is_object($mensaje)) {
-            if (method_exists($mensaje, 'getMessage')) {
+            if (method_exists($mensaje, 'get_log_info')) {
+				//Excepciones!
+                $mensaje = $mensaje->get_log_info();
+            } else if (method_exists($mensaje, 'getMessage')) {
                 $mensaje = $mensaje->getMessage();
             } else if (method_exists($mensaje, 'tostring')) {
                 $mensaje = $mensaje->toString();
             } else if (method_exists($mensaje, '__tostring')) {
                 $mensaje = (string)$mensaje;
             } else {
-                $mensaje = print_r($mensaje, true);
+                $mensaje = var_export($mensaje, true);
             }
         } else if (is_array($mensaje)) {
-            $mensaje = print_r($mensaje, true);
+            $mensaje = var_export($mensaje, true);
         }
 		return $mensaje;
-	}
-
-	/*------   Esto hay que sacarlo   ----------*/
-	
-	function registrar_excepcion($excepcion)
-	{
-		ei_arbol($excepcion->obtener_resumen(),"Excepcion");
-	}
-
-	function verificar_datos_registrados()
-	{
-		return $this->datos_registrados;	
 	}
 
 	//------------------------------------------------------------------
 	//------ Entradas para los distintos tipos de error
 	//------------------------------------------------------------------
+
+	function trace()
+	{
+		$this->$nivel( debug_backtrace() );
+	}
 
     function emerg($mensaje)
     {
@@ -138,7 +134,14 @@ class logger
     }
 
 	//------------------------------------------------------------------
-	//---- Metodos de registro
+	//---- GUARDAR o MOSTRAR el contenido del LOGGER
+	//------------------------------------------------------------------
+
+	function verificar_datos_registrados()
+	//Informa si se guardo la informacion
+	{
+		return $this->datos_registrados;	
+	}
 	//------------------------------------------------------------------
 
 	function guardar()
@@ -204,6 +207,8 @@ class logger
 	{
 		if(apex_pa_log_pantalla){
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+			echo "<table width='90%'><tr><td>";
+			echo "<pre class='texto-ss'>";
 			for($a=0; $a<count($this->mensajes); $a++)
 			{
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
@@ -212,6 +217,7 @@ class logger
 							" - " . $this->mensajes[$a] . "<br>";
 				}			
 			}
+			echo "</pre></td></tr></table>";
 		}
 	}
 	//------------------------------------------------------------------

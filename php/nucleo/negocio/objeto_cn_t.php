@@ -134,8 +134,9 @@ class objeto_cn_t extends objeto_cn
 			$this->procesar_especifico();
 			$this->finalizar_transaccion();
 		}catch(excepcion_toba $e){
-			$this->abortar_transaccion();			
-			$this->solicitud->log->registrar_excepcion($e);
+			$this->abortar_transaccion();
+			$this->informar_msg($e->getMessage(), "error");
+			//$this->solicitud->log->debug( $e );
 		}
 	}
 

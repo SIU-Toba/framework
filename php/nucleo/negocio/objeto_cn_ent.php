@@ -55,51 +55,67 @@ class objeto_cn_ent extends objeto_cn_t
 	public function del($parametros)
 	{
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
-			de un array de parametros en el ruteo de eventos del CI");			
+			$this->informar_msg("Error INTERNO","error");
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la " .
+							" definicion de un array de parametros en el ruteo de eventos del CI");			
 		}
 		$elemento = $parametros[0];
 		if(!isset($this->seleccion[$elemento])){
+			$this->informar_msg("Error INTERNO","error");
 			throw new excepcion_toba("No existe un marcador del registro a eliminar");			
 		}
-		$this->entidad->acc_elemento($elemento, "del", $this->seleccion[$elemento]);
-		unset($this->seleccion[$elemento]);	
+		try{
+			$this->entidad->acc_elemento($elemento, "del", $this->seleccion[$elemento]);
+			unset($this->seleccion[$elemento]);	
+		}catch(excepcion_toba $e){
+			$this->informar_msg($e->getMessage(),"info");
+		}
 	}
 	//-------------------------------------------------------------------------------
 	
 	public function upd($datos, $parametros)
 	{
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
-			de un array de parametros en el ruteo de eventos del CI");			
+			$this->informar_msg("Error INTERNO","error");
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la " .
+							" definicion de un array de parametros en el ruteo de eventos del CI");			
 		}
 		$elemento = $parametros[0];
 		if(!isset($this->seleccion[$elemento])){
+			$this->informar_msg("Error INTERNO","error");
 			throw new excepcion_toba("No existe un marcador del registro a modificar");			
 		}
 		$temp['id'] = $this->seleccion[$elemento];
 		$temp['registro'] = $datos;
-		$this->entidad->acc_elemento($elemento, "upd", $temp);
-		unset($this->seleccion[$elemento]);	
+		try{
+			$this->entidad->acc_elemento($elemento, "upd", $temp);
+			unset($this->seleccion[$elemento]);	
+		}catch(excepcion_toba $e){
+			$this->informar_msg($e->getMessage(),"info");
+		}
 	}
 	//-------------------------------------------------------------------------------
 	
 	public function set($datos, $parametros)
 	{
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
-			de un array de parametros en el ruteo de eventos del CI");			
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la " .
+							" definicion de un array de parametros en el ruteo de eventos del CI");			
 		}
 		$elemento = $parametros[0];
-		$this->entidad->acc_elemento($elemento, "set", $datos);
+		try{
+			$this->entidad->acc_elemento($elemento, "set", $datos);
+		}catch(excepcion_toba $e){
+			$this->informar_msg($e->getMessage(),"info");
+		}
 	}
 	//-------------------------------------------------------------------------------
 	
 	public function get($parametros)
 	{
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
-			de un array de parametros en el ruteo de eventos del CI");			
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la " .
+							" definicion de un array de parametros en el ruteo de eventos del CI");			
 		}
 		$elemento = $parametros[0];
 		return $this->entidad->acc_elemento($elemento, "get", null);
@@ -109,8 +125,8 @@ class objeto_cn_ent extends objeto_cn_t
 	public function get_x($parametros)
 	{
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la definicion
-			de un array de parametros en el ruteo de eventos del CI");			
+			throw new excepcion_toba("La funcion generica de acceso a entidades requiere la " .
+							" definicion de un array de parametros en el ruteo de eventos del CI");			
 		}
 		$elemento = $parametros[0];
 		if(isset($this->seleccion[$elemento])){
@@ -127,8 +143,8 @@ class objeto_cn_ent extends objeto_cn_t
 		//ei_arbol($datos,"DATOS");
 		//ei_arbol($parametros,"PARAMETROS");
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores
-			necesita definir el elemento de la entidad a mantener.");
+			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores " .
+			" necesita definir el elemento de la entidad a mantener.");
 		}
 		//Existe el elemento de la ENTIDAD?
 		$elemento = $parametros[0];
@@ -147,8 +163,8 @@ class objeto_cn_ent extends objeto_cn_t
 		//ei_arbol($datos,"DATOS");
 		//ei_arbol($parametros,"PARAMETROS");
 		if(!is_array($parametros)){
-			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores
-			necesita definir el elemento de la entidad a mantener.");
+			throw new excepcion_toba("La funcion generica de mantenimiento de marcadores " .
+			" necesita definir el elemento de la entidad a mantener.");
 		}
 		//Existe el elemento de la ENTIDAD?
 		$elemento = $parametros[0];

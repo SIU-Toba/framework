@@ -7,7 +7,7 @@ class excepcion_toba extends Exception
 		parent::__construct($mensaje);
 	}
 
-	function obtener_resumen()
+	function get_log_info()
 	{
 		$temp["mensaje"]=parent::getMessage();
 		$temp["codigo"]=parent::getCode();
@@ -15,7 +15,8 @@ class excepcion_toba extends Exception
 		$temp["linea"]=parent::getLine();
 		//$temp["trace_s"]=parent::getTraceAsString();
 		$temp["trace"]=parent::getTrace();
-		return $temp;
+		$x = "EXCEPCION!\n" . var_export( $temp, true );
+		return $x;
 	}
 }
 
