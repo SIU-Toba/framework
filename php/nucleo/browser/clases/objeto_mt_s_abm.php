@@ -83,7 +83,7 @@ class objeto_mt_abms extends objeto_mt_s
  	@@desc: Procesa la transaccion. Determina en que etapa esta y ejecuta los pasos adecuados para resolverla
 	@@param: array | CLAVE del registro del MAESTRO que se desea cargar
 */
-    {
+    {	
 		//El flag de no propagacion del estado, lleva al MT al estado inicial
 		if($this->solicitud->hilo->obtener_parametro($this->flag_no_propagacion))
 		{
@@ -217,6 +217,7 @@ class objeto_mt_abms extends objeto_mt_s
     {
         $this->etapa_actual = "PA";
         $this->cargar_post();
+		$this->dependencias["formulario"]->procesar_dependencias();
 		$this->pre_insert();
         if( $this->validar_estado() ) // Validacion OK
         {
