@@ -259,10 +259,10 @@ require("3ros/adodb340/adodb.inc.php");
 	}
 //-------------------------------------------------------------------------------------
 
-	function recuperar_secuencia($secuencia)
+	function recuperar_secuencia($secuencia, $fuente="instancia")
 	{
 		$sql = "SELECT currval('$secuencia') as seq;";
-		$datos = consultar_fuente($sql,com_fuente_datos);
+		$datos = consultar_fuente($sql,$fuente);
 		return $datos[0]['seq'];		
 	}
 //-------------------------------------------------------------------------------------
