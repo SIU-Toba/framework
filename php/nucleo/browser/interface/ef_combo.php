@@ -87,6 +87,11 @@ class ef_combo extends ef
 		}
 	}
 
+	function obtener_valores()
+	{
+		return $this->valores;	
+	}
+
 	//-----------------------------------------------
 	//-------------- DEPENDENCIAS -------------------
 	//-----------------------------------------------
@@ -334,12 +339,47 @@ class ef_combo_dao extends ef_combo
 		Esto es realmente feo... pero tuvo que salir...
 	*/
 	{
+		if($this->modo =="estatico" ){
+			$valores = $this->recuperar_datos_estaticos();
+		}
+		$this->adjuntar_datos($valores);
+	}
+
+	function cargar_datos_master_ok()
+	//Si el master esta cargado, el EF procede a cargar sus registros
+	{
+		$parametros = array();
+		for($a=0;$a<count($this->dependencias);$a++){
+			$parametros[] = $this->dependencias_datos[$this->dependencias[$a]];
+		}
+		$param = implode(",", $parametros);
 		if($this->modo =="estatico" )
 		{
-			include_once($this->include);
-			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."();";
-			eval($sentencia);//echo $sentencia;
+			$valores = $this->recuperar_datos_estaticos($param);
+			if(isset($valores)){
+				$this->adjuntar_datos($valores);	
+				$this->input_extra = "";
+			}else{
+				//La idea de la linea comentada era lograr el mismo efecto que provoca
+				//la carga desde el server de un valor NULL (en blanco con la longitud del no_seteado)
+				//$desc = str_repeat(count($this->no_seteado),"&nbsp");
+				$this->valores[apex_ef_no_seteado] = "";
+			}
+		}else{
+			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
 		}
+	}
+
+	function recuperar_datos_estaticos($param=null)
+	{
+		include_once($this->include);
+		$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."(\$param);";
+		eval($sentencia);//echo $sentencia;
+		return $valores;
+	}
+
+	function adjuntar_datos($valores)
+	{
 		//Incluyo el valor no seteado
 		if(isset($this->no_seteado)){
 			$this->valores[apex_ef_no_seteado] = $this->no_seteado;
@@ -358,33 +398,6 @@ class ef_combo_dao extends ef_combo
 		}
 	}
 
-	function cargar_datos_master_ok()
-	//Si el master esta cargado, el EF procede a cargar sus registros
-	{
-		$parametros = array();
-		for($a=0;$a<count($this->dependencias);$a++){
-			$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]]."'";
-		}
-		$param = implode(",", $parametros);
-		if($this->modo =="estatico" )
-		{
-			include_once($this->include);
-			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."($param);";
-			//Esto es para que quede el no_seteado en los casos en que no se devuelven valores
-			eval($sentencia);//echo $sentencia;
-			if(isset($valores)){
-				$this->valores = $valores;	
-				$this->input_extra = "";
-			}else{
-				//La idea de la linea comentada era lograr el mismo efecto que provoca
-				//la carga desde el server de un valor NULL (en blanco con la longitud del no_seteado)
-				//$desc = str_repeat(count($this->no_seteado),"&nbsp");
-				$this->valores[apex_ef_no_seteado] = "";
-			}
-		}else{
-			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
-		}
-	}
 }
 //########################################################################################################
 //########################################################################################################

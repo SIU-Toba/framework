@@ -1,16 +1,11 @@
 <?
 require_once("nucleo/browser/interface/ef.php");
-
 //Necesario para no eliminar los datos de los multietapa
 $this->hilo->desactivar_reciclado();
 
-/*
-	PENSADO para EFs que consultan datos a travez de SQL
-*/
 	if(isset($_POST['parametros']))
 	{
 		//---[ 0 ]- Recuperacion de parametros enviados por las DEPENDENCIAS
-	
 		$parametros = $_POST['parametros'];
 		$temp = explode("|",$parametros);
 		//Identificacion del EF: PROYECTO, OBJETO, EF
@@ -28,15 +23,14 @@ $this->hilo->desactivar_reciclado();
 				$dependencias[$valores[0]] = $valor;
 			}
 		}
-
  		try{
 			//---[ 1 ]- Busco la definicion del EF
-		
 			$datos = array();
 			$sql = "SELECT 	o.fuente_datos_proyecto as fp, 
 							o.fuente_datos as f,
 							u.inicializacion as i,
-							u.elemento_formulario as ef
+							u.elemento_formulario as ef,
+							u.columnas as col
 					FROM 	apex_objeto o,
 							apex_objeto_ut_formulario_ef u
 					WHERE	u.objeto_ut_formulario = o.objeto
@@ -45,91 +39,45 @@ $this->hilo->desactivar_reciclado();
 					AND o.proyecto = '{$referencia_ef[0]}'
 					AND u.identificador = '{$referencia_ef[2]}';"; //echo $sql;
 			$data = consultar_fuente($sql); //print_r($data);
-			$i = parsear_propiedades($data[0]['i']);
-
 			//Abro la fuente de datos
 			$fp = $data[0]['fp'];
 			$f = $data[0]['f'];
 			abrir_fuente_datos($f, $fp);
+			$i = parsear_propiedades($data[0]['i']);
 
-			//---[ 2 ]- BUSCO los VALORES
-			$es_dao = (($data[0]['ef'] == "ef_combo_dao") || isset($i['dao']));
-			if ($es_dao)		//-------------- DAO
-			{
-				if(isset($i["dao"])){
-					$dao = $i["dao"];
-				}
-				if(isset($i["include"])){
-					$include = $i["include"];
-				}
-				if(isset($i["clase"])){
-					$clase = $i["clase"];
-				}
-				if(isset($include) && isset($clase) )
-				{
-					//Preparo los parametros recibidos
-					$param = "'" . implode("', '",$dependencias) . "'";
-					include_once($include);
-					$sentencia = "\$datos_pre = " .  $clase . "::" . $dao ."($param);";
-					try{
-						eval($sentencia);//echo $sentencia;
-						//$datos = ppg::get_p_principales_cr('5833');
-						//$datos = ppg::get_incisos();
-						//$datos["llamada"] = $sentencia;
-						//$datos["includeo"] = $include;
-
-						//Tengo que incluir ACA los valores NO_SETEADOS!
-
-						//Formateo los datos para que los pueda levantar en COMBO
-						$clave = explode(",",$i['clave']);
-						$valor = $i['valor'];
-						if(count($clave)>1){
-							$datos['1'] = "LA CLAVE ES MULTIPLE, Culpar a Juan";
-						}else{
-							//La clave es unica
-							$id = $clave[0];
-							for($a=0;$a<count($datos_pre);$a++){
-								//Determino la clave
-								$datos[ $datos_pre[$a][$id] ] = $datos_pre[$a][$valor];
-							}
-						}
-					}catch(excepcion_toba $e){
-						$datos['1'] = "Excepcion: " . $e->getMessage();
-					}
-					
-				}else{
-					$datos['hola'] = "";
-				}
-				//$datos['1'] = "HOLA";
-				responder($datos);					
-
-			}else 										//----------------- COMBOS comunes
-			{
-				$sql_ef = $i['sql']; //echo $sql_ef;
-				if(isset($i['no_seteado'])){
-					$datos[apex_ef_no_seteado]=$i['no_seteado'];	
-				}
-				$mascara = "%";
-				foreach( $dependencias as $dep => $valor ){
-					if ($valor != apex_ef_no_seteado)
-						$sql_ef = ereg_replace( $mascara.$dep.$mascara, $valor, $sql_ef );
-					else
-						$sql_ef = ereg_replace( $mascara.$dep.$mascara, 'NULL', $sql_ef );
-				}
-				//---[ 3 ]- Busco los datos del EF, los organizo y los devuelvo
-				
-				$data = consultar_fuente( $sql_ef, $f, ADODB_FETCH_NUM ); //print_r($data);
-				for($a=0;$a<count($data);$a++){
-					$datos[$data[$a][0]] = $data[$a][1];
-				}
-				//$datos[] = "$parametros";
-				responder($datos);
+			//---[ 2 ] -- Controlo casos aun no soportados
+			if(($data[0]['ef'] == "ef_combo_dao") && !(isset($i['dao']))){
+				throw new exception("Los DAOS dinamicos no estan soportados");
 			}
+			//---[ 3 ]- Creo el EF  ------------------
+			//- a) Preparo Datos manejados
+			if(ereg(",",$data[0]["col"])){
+				$dato = explode(",", $data[0]["col"] );
+				for($d=0;$d<count($dato);$d++){
+					//Elimino espacios en las	claves
+					$dato[$d]=trim($dato[$d]);
+				}
+			}else{
+				 $dato = $data[0]["col"];
+			}
+			//- b) Creo la clase EF
+			$sentencia_creacion_ef = "\$ef = new {$data[0]["ef"]}('id','form','identif','etiq','descrip',\$dato,'oblig',\$i);";
+			//echo $sentencia_creacion_ef	. "<br>";
+			eval($sentencia_creacion_ef);
+
+			//---[ 4 ]- Devuelvo los datos del EF  ------------------
+			$ef->cargar_datos_dependencias($dependencias);
+			//ATENCION, le estoy diciendo al EF que todas sus dependencias estan seteadas...
+			//	Esto es asi??? Hay que ver si en el caso de dependencias parciales se hace igual la llamada al server...
+			$ef->cargar_datos_master_ok();
+			$datos = $ef->obtener_valores();
+			responder($datos);					
+
 		}catch(excepcion_toba $e){
+			echo "<pre>". $e->get_log_info();
 			responder( array( 	'x' => 'Excepcion!!!',
 								'y' => addslashes($e->getMessage()) ) );			
 		}
-		
 	}else{
 		responder( array( '0' => 'No hay PARAMETROS') );
 	}
