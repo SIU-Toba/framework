@@ -4,8 +4,9 @@
 var def = objeto_ei_formulario_ml.prototype;
 
 	//----Construcción
-	function objeto_ei_formulario_ml(instancia, cant_filas, con_agregar) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, cant_filas, con_agregar) {
 		this.instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
+		this.rango_tabs = rango_tabs;
 		this.con_agregar = con_agregar;			//¿Permite agregar/quitar filas?
 		this.filas = new Array();				//Carga inicial de las filas
 		for (var i=0 ; i < cant_filas ; i++) {
@@ -23,7 +24,13 @@ var def = objeto_ei_formulario_ml.prototype;
 			this.efs[ef.id()] = ef;
 		}
 	}
-
+	
+	def.iniciar = function () {
+		for (fila in this.filas) {
+			this.agregar_tab_index(this.filas[fila]);
+		}
+	}
+	
 	//----Submit
 	def.submit = function() {
 		if (!this.validar())
@@ -129,16 +136,20 @@ var def = objeto_ei_formulario_ml.prototype;
 			//Crea la fila internamente
 		this.ultimo_id = this.ultimo_id + 1;	//Busca un nuevo ID
 		this.filas.push(this.ultimo_id);
+
 			//Crea la fila en el DOM
 		var fila_template = document.getElementById(this.instancia + '_fila__fila__');
 		nuevo_nodo = fila_template.cloneNode(true);
 		cambiar_atributos_en_arbol(nuevo_nodo, '__fila__', this.ultimo_id);
 		nuevo_nodo.style.display = '';
 		fila_template.parentNode.appendChild(nuevo_nodo);
+
 			//Refresca la interface
+		this.agregar_tab_index(this.ultimo_id);
 		this.refrescar_eventos(this.ultimo_id);
 		this.refrescar_numeracion_filas();
 		this.seleccionar(this.ultimo_id);
+		this.refrescar_foco();
 	}
 	
 	def.deshacer = function() {
@@ -233,12 +244,28 @@ var def = objeto_ei_formulario_ml.prototype;
 		}
 	}
 	
+	def.refrescar_foco = function () {
+		for (id_ef in this.efs) {
+			if (this.efs[id_ef].posicionarse_en_fila(this.seleccionada).seleccionar())
+				break;
+		}
+	}
+	
 	def.refrescar_eventos = function (fila) {
 		for (id_ef in this.efs) {
 			if (this.efs_totalizar[id_ef]) {		
 				this.agregar_totalizacion_fila(id_ef, fila);
 			}
 		}		
+	}
+	
+	
+	//----Tab
+	def.agregar_tab_index = function (fila) {
+		for (id_ef in this.efs) {
+			this.efs[id_ef].posicionarse_en_fila(fila).cambiar_tab(this.rango_tabs[0]);
+			this.rango_tabs[0]++;
+		}
 	}
 	
 	//----Validación

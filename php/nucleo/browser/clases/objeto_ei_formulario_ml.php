@@ -29,6 +29,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		parent::__construct($id);
 		$this->objeto_js = "objeto_{$id[1]}";
+		$this->rango_tabs = array(1, 1000);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -127,8 +128,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	// Como es la interaccion de un ML con un buffer?
 	{
 
-		if($this->controlar_modificacion())
-		{
+		if($this->controlar_modificacion()) {
 			return "modificacion";
 		}
 		return null;
@@ -376,20 +376,31 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Botonera de agregar
 		if ($this->info_formulario['filas_agregar']) {
 			echo "<div style='text-align: left;'>";
-			echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), "onclick='{$this->objeto_js}.subir_seleccionada();' disabled");
-			echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true), "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled");
-			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), "onclick='{$this->objeto_js}.crear_fila();'");
-			echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), "onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled");
+			$tab = ($this->rango_tabs[1] - 10);
+			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
+									"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
+			echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
+									"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
 			$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-			echo form::button_html("{$this->objeto_js}_deshacer", $html, " onclick='{$this->objeto_js}.deshacer();' disabled");
+			echo form::button_html("{$this->objeto_js}_deshacer", $html, 
+									" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
+			echo "&nbsp;";
+			echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
+									"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
+			echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
+									"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
 			echo "</div>\n";
-		}				
-		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "500";
+		}
+		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		//SCROLL???
 		if($this->info_formulario["scroll"]){
-			$alto = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
-			echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
+			$alto_maximo = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
+			if ($ancho != 'auto')
+				echo "<div style='overflow: auto; width: $ancho; border: 1px inset; margin: 0px; padding: 0px;'>";
+			else
+				echo "<div>";
 		}else{
+			$alto_maximo = "auto";
 			echo "<div>";
 		}
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
@@ -398,12 +409,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//------ TITULOS -----
 		echo "<thead>\n<tr>\n";
 		if ($this->info_formulario['filas_agregar']) {
-			echo "<td class='abm-columna'>&nbsp;</td>\n";
+			echo "<th class='abm-columna'>&nbsp;</th>\n";
 		}
 		foreach ($this->lista_ef_post	as	$ef){
-			echo "<td  class='abm-columna'>\n";
+			echo "<th class='abm-columna'>\n";
 			echo $this->elemento_formulario[$ef]->envoltura_ei_ml();
-			echo "</td>\n";
+			echo "</th>\n";
 		}
 		echo "</tr>\n</thead>\n";
 
@@ -430,7 +441,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		//------ FILAS ------
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
-		echo "<tbody>";
+		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo';>";
 		for($a=0; $a <  count($this->datos) + 1; $a++) {
 			if ($a < count($this->datos)) {
 				$fila = $a;
@@ -442,7 +453,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$this->cargar_registro_a_ef($fila);
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
 			echo "\n<!-- FILA $fila ------------->\n\n";
-			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
+			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-fila-ml'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
@@ -466,9 +477,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		echo js::abrir();
 		//Creación de los objetos javascript de los objetos
+		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', {$this->cantidad_lineas()}, $con_agregar);\n";
-		foreach ($this->lista_ef_post	as	$ef){
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
+		foreach ($this->lista_ef_post as $ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()});\n";
 		}
 		//Agregado de callbacks para calculo de totales
@@ -480,6 +492,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 			}
 		}		
+		echo "{$this->objeto_js}.iniciar();\n";
 		echo js::cerrar();
 	}
 	

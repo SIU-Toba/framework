@@ -36,14 +36,23 @@ def.constructor = ef;
 		return document.getElementById(this.id_form);
 	}
 	
+	def.cambiar_tab = function(tab_index) {
+		this.input().tabIndex = tab_index;
+	}
+	
 	def.cuando_cambia_valor = function(callback) { 
 		if (! this.input().onchange)	//Para no romper scripts hechos ad-hoc
 			this.input().onchange = callback;	
 	}
 	
 	def.seleccionar = function () {
-		this.input().focus();
-		this.input().select();
+		try {
+			this.input().focus();
+			this.input().select();
+			return true;
+		} catch(e) {
+			return false;
+		}
 	}
 
 	def.validar = function () {

@@ -2,7 +2,7 @@
 --- TRABAJO en el TOBA 
 	-> 			Pendiente
 	› 			En desarrollo
-	º 			Para revisar
+	º 			Terminado, para revisar
 	-D			Dialogo!
 	??			Explicar más
 --------------------------------------------------
@@ -19,10 +19,10 @@
 	
 		º Sistematizar la generacion de totales
 		º Validacion de EFs en cliente 
-		-> Validación de EFs en servidor
+		º Validación de EFs en servidor
 		› Facilidades en la extension del JS
 		º Agregar y eliminar filas
-		º Mejorar el disparo de eventos
+		› Mejorar el disparo de eventos
 			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron?
 				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
 				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
@@ -43,10 +43,14 @@
 -D						sabe más que la posición de las filas, una solución sería agregar un flag a cada fila (N, M) y ¿las borradas?
 -D						Si se brinda este servicio desde el negocio vos dirías "A las modificadas hacer UPDATE a las nuevas INSERT y las borradas DELETE"
 -D						Igualmente no me queda claro como se haría en los ME
- 		-> TAB ORDER
-		-> Agregado automático de líneas (TAB en el último EF de la última línea crea línea nueva)
-		-> Enter. podemos guardar con ALT + S o ALT + G, está piola (Me encanto!!)
-		-> Hay que pensar bien la relacion de este componente y el buffer
+ 		º TAB ORDER: Se implementa dando un rango a cada objeto, este lo distribuye a gusto y placer. En el caso del ml (el único implementado)
+ 					 lo distribuye entre los EFs con el objeto javascript asociado (no desordena el código PHP y permite cambiar el taborder de las
+ 					 nuevas líneas).
+		º Agregado automático de líneas. TAB + enter (o espaciadora) en el último EF de la última línea crea línea nueva y posiciona
+		  en el primer ef de la línea nueva.
+		º Accesos de teclado. Los CI ejecutan por defecto con ALT + s y cancela con ALT + c, cada instancia lo cambia a gusto (Ej. P&rocesar)
+		?? Hay que pensar bien la relacion de este componente y el buffer
+-D					s: Hay que empezar YA a definir que es cada cosa, ¿que es un buffer? (creo saberlo pero da a confusión) en cuanto este el wiki empezamos.
 		-> Selección múltiple de líneas, Hoy se puede seleccionar una unica fila y realizar operaciones sobre ella (por ahora sólo borrar,
 		   subir y bajar en el posicionamiento). Para hacer borrados multiples o reposicionamientos multiples estaría piola poder seleccionar
 		   varias filas con CTRL por ejemplo. 
