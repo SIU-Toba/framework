@@ -41,9 +41,13 @@ class objeto_ei_cuadro extends objeto_cuadro
 		//-----------------------------------------------------------------------------------
 		//--------------------- Hardcodeo esto para que tenga scroll ------------------------
 		//-----------------------------------------------------------------------------------
-		$this->info_formulario["scroll"] = 0;
-		$this->info_formulario["ancho"] = 500;
-		$this->info_formulario["alto"] = "auto";
+		
+		// Falta editar el objeto cuadro para hacerlo configurable desde toba, ya carga
+		// estos datos en el método obtener_definicion_db.
+		
+		//$this->info_cuadro["scroll"] = 0;
+		//$this->info_cuadro["ancho"] = 500;
+		//$this->info_cuadro["alto"] = "auto";
 		
 		
     }
@@ -57,6 +61,8 @@ class objeto_ei_cuadro extends objeto_cuadro
 		$sql = parent::obtener_definicion_db();
 		//------------- Cuadro ----------------
 		$sql["info_cuadro"]["sql"] = "SELECT	titulo as titulo,		
+								c.scroll						as	scroll,
+								c.scroll_alto					as	alto,
 								c.subtitulo						as	subtitulo,		
 								c.sql							as	sql,			
 								c.columnas_clave				as	columnas_clave,		 
@@ -192,13 +198,15 @@ class objeto_ei_cuadro extends objeto_cuadro
             
 	        //Compruebo si tiene scroll ////////////////////////////////////////////////
 	        
-	        if($this->info_formulario["scroll"]){
-				$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "500";
-				$alto = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
+	        //ei_arbol( $this->info_formulario["scroll"]);
+	        
+	        if($this->info_cuadro["scroll"]){
+				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
+				$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
 				echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
 			//	echo "<table class='tabla-0'>\n";
 			}else{
-				$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "100";
+				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
 			//	echo "<table width='$ancho' class='tabla-0'>\n";
 			}
             
@@ -305,7 +313,7 @@ class objeto_ei_cuadro extends objeto_cuadro
             echo "</table>\n";
             
 			//Y por cierto......... si esto tenia scroll, cierro el div !!!
-			if($this->info_formulario["scroll"]){
+			if($this->info_cuadro["scroll"]){
 				echo "</div>";
 			}
 		            
