@@ -50,6 +50,44 @@
 	}
 //-------------------------------------------------------------------------------------
 	
+	function sql_agregar_ordenamiento($sql, $columnas)
+/*
+ 	@@acceso: actividad
+	@@desc: Concatena columnas a la clausula WHERE de un SQL 
+	@@param: string | cadena SQL que hay que editar
+	@@param: array | Matriz de columna, tipo. Donde tipo es asc o des
+	@@retorno: string | Sentencia SQL modificada
+*/	
+	{
+		if (count($columnas) > 0)
+		{
+			//Busca la ultima ocurrencia de ORDER BY en el SQL
+			$buscado = 'ORDER BY';
+			$ultima_pos = strripos($sql, $buscado);
+			if ($ultima_pos) {	//Si la encuentra
+				$anexo = "";
+				$parte_inicial = substr($sql, 0, $ultima_pos + strlen($buscado));
+				$parte_final = ", ".substr($sql, $ultima_pos + strlen($buscado), strlen($sql));
+			} else {
+				$anexo = "\nORDER BY ";
+				$parte_inicial = $sql;
+				$parte_final = '';
+			}
+			foreach ($columnas as $columna){
+				switch ($columna[1]){
+					case 'asc': $tipo_orden = 'ASC';break;
+					case 'des': $tipo_orden = 'DESC';break;
+					default: $tipo_orden = '';
+				}
+				$anexo .= " {$columna[0]} $tipo_orden, " ;
+			}
+			$anexo = substr($anexo, 0, -2); //Se le saca la ultima coma	
+			$sql = $parte_inicial.$anexo.$parte_final;
+		}
+		return $sql;
+	}
+//-------------------------------------------------------------------------------------
+	
 	function sql_array_a_insert($tabla, $datos)
 /*
  	@@acceso: actividad
