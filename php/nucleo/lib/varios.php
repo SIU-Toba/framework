@@ -80,7 +80,7 @@
 	function version_svn($dir="")
 	//Busca la revision de a la que corresponde el TOBA
 	{
-		$dir="F:/toba";
+		$dir="c:/toba";
 		$archivo = "$dir/.svn/entries";
 		//$fd = fopen($archivo, "r");
    		//$contenido = fread($fd, filesize($archivo));
