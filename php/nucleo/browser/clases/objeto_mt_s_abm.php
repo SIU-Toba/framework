@@ -224,10 +224,9 @@ class objeto_mt_abms extends objeto_mt_s
             {
                 //-[1]- Inserto el MAESTRO
                 $sql = $this->dependencias["formulario"]->obtener_sql("insert");
-                $this->on_insert($sql);
                 
                 //ei_arbol($sql,"Datos maestro");
-                if( $this->ejecutar_sql($sql) ){//MAESTRO OK
+                if($this->on_insert($sql) && $this->ejecutar_sql($sql) ){//MAESTRO OK
                     $this->post_insert();
                     //Recupero secuencias en el maestro
                     $this->dependencias["formulario"]->actualizacion_post_insert();
@@ -279,10 +278,9 @@ class objeto_mt_abms extends objeto_mt_s
                 {
                     $this->pre_update();
                     $sql = $this->dependencias["formulario"]->obtener_sql("update");
-                    $this->on_update($sql);
       
                     //---Empieza la ejecucion
-                    if( $this->ejecutar_sql($sql) ){
+                    if($this->on_update($sql) && $this->ejecutar_sql($sql) ){
                         $clave = $this->dependencias["formulario"]->obtener_clave();
                         $this->memoria["clave"] = $clave;
 						$this->post_update();
@@ -325,9 +323,8 @@ class objeto_mt_abms extends objeto_mt_s
             {
                 $this->pre_delete();
                 $sql = $this->dependencias["formulario"]->obtener_sql("delete");
-                $this->on_delete($sql);
                 
-                if( $this->ejecutar_sql($sql) ){ //OK
+                if($this->on_delete($sql) && $this->ejecutar_sql($sql) ){ //OK
                     $this->finalizar_transaccion();// Fin TRANSACCION
                     $this->estado_proceso = "OK";//-------------> Termino todo OK
                     $this->dependencias["formulario"]->limpiar_interface();
@@ -495,7 +492,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones previas a la insercion... se debe redefinir en los hijos.
 */
     {
-        return;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -506,7 +503,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones posteriores a la insercion... se debe redefinir en los hijos.
 */
     {
-        return;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -517,7 +514,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones posteriores a la insercion... se debe redefinir en los hijos.
 */
     {
-        return;
+        return true;
     }
     
     //-------------------------------------------------------------------------------
@@ -528,7 +525,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones previas a la eliminacion... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -539,7 +536,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones posteriores a la modificacion ... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -550,7 +547,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones durante la eliminacion... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
     
     //-------------------------------------------------------------------------------
@@ -561,7 +558,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones previas a la modificacion... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -572,7 +569,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones posteriores a la modificacion ... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
 
     //-------------------------------------------------------------------------------
@@ -583,7 +580,7 @@ class objeto_mt_abms extends objeto_mt_s
     @@desc: Realiza operaciones durante la modificacion ... se debe redefinir en los hijos.
 */
     {
-        return false;
+        return true;
     }
  	
 }
