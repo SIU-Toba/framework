@@ -25,18 +25,32 @@ then
 
 elif [ "$1" = "generar" ]
 then
+
+	archivo_xsl=$toba_dir/var/docbook/XSL/fo/docbook.xsl;
 	
 	a=temp.xml 								#archivo original																		
 	b=temp.fo								#archivo FO																		
 	c=manual.pdf								#archivo PDF (final)																		
+	
+	echo 
+	echo "Iniciando generador de Manual...."
 	item /doc/docbook1 > $a
+	
+	echo
+	echo "validando DTD...."
 	xmllint --valid --noout --encode encoding $a
 	controlar "VALIDACION DE XML_DOCBOOK"
+
+	echo
+	echo "transformando a XSL-FO...."
 	xsltproc --stringparam fop.extensions 1 \
 	--output $b \
-	http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl \
+	$archivo_xsl \
 	$a
 	controlar "TRANSFORMACION XML -> XSL-FO"
+	
+	echo
+	echo "transformando a PDF...."
 	fop.bat $b $c
 	controlar "TRANSFORMACION XSL-FO -> PDF"
 	rm -f $a
