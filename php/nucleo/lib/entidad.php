@@ -142,11 +142,14 @@ class entidad
 
 	public function descargar()
 	{
-		
+		foreach(array_keys($this->elemento) as $elemento)
+		{
+			$temp[$elemento] = $this->elemento[$elemento]['buffer']->resetear();
+		}
 	}
 	//-------------------------------------------------------
 	
-		public function sincronizar_db()
+	public function sincronizar_db()
 	//Sincroniza la entidad contra la base de datos
 	//Esto lee un plan y lo ejecuta. Si la entidad tiene una regla de grabacion
 	//muy complicada, deberia redefinir esta funcion

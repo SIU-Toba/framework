@@ -14,6 +14,7 @@ class solicitud_browser extends solicitud
 	var $vinculador;	//Objeto encargado de generar nuevas solicitudes
 	var $zona;			//Objeto que representa una zona que vincula varios items
 	var $zona_cargada;
+	var $cola_mensajes;
 	
 	function solicitud_browser()
 	{
@@ -43,7 +44,9 @@ class solicitud_browser extends solicitud
 			eval($sentencia_creacion);//Creo la ZONA
 		}
         //Creo el vinculador
-		$this->vinculador =& new vinculador($this);
+		$this->vinculador = new vinculador($this);
+		//Creo la cola de mensajes
+		$this->cola_mensajes = new cola_mensajes($this);
 		//Le pregunto al HILO si se solicito cronometrar la PAGINA
 		if($this->hilo->usuario_solicita_cronometrar()){
 			$this->registrar_db = true;

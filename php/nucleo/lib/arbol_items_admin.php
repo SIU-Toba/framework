@@ -80,7 +80,7 @@ class arbol_items_admin extends arbol_items
         }
 ?>
           <td  class='cat-arbol-item'  width='2%'>
-			<a href="<? echo $this->solicitud->vinculador->generar_solicitud("toba","/admin/items/propiedades",array( apex_hilo_qs_zona => $item['item_proyecto'] .apex_qs_separador. $item["item"]))?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
+			<a href="<? echo $this->solicitud->vinculador->generar_solicitud("toba","/admin/items/propiedades",array( apex_hilo_qs_zona => $item['item_proyecto'] .apex_qs_separador. $item["item"])) ?>" target="<? echo  apex_frame_centro ?>"  class='cat-item'>
 			<? echo recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM") ?></a>
 		  </td>
 
@@ -91,7 +91,7 @@ class arbol_items_admin extends arbol_items
 		echo recurso::imagen_apl("solic_wddx.gif",true,null,null,"Solicitud WDDX");
 	}else {
 ?>
-		 	<a href="<? echo $this->solicitud->vinculador->generar_solicitud($item['item_proyecto'], $item["item"]) ?>" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo $this->solicitud->vinculador->generar_solicitud($item['item_proyecto'], $item["item"], null,false,false,null,true) ?>" target="<? echo  apex_frame_centro ?>">
 				<? echo recurso::imagen_apl("items/instanciar.gif",true,null,null,"Ejecutar el ITEM") ?></a>
 <? } ?>
 		  </td>

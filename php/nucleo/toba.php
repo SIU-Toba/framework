@@ -29,9 +29,10 @@ class toba
 		return $solicitud->logger;
 	}
 
-	function get_
+	function get_cola_mensajes()
 	{
-		
+		global $solicitud;
+		return $solicitud->cola_mensajes;
 	}
 
 	function get_fuente($id, $ado=null)

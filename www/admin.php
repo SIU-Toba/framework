@@ -64,6 +64,27 @@ define("apex_pa_administrador","jbordon@siu.edu.ar");
 # Acceso directo de OBJETOS a sus EDITORES
 define("apex_pa_acceso_directo_editor",1);//Los OBJETOS muestran LINKs a sus EDITORES
 #-------------------------------------------------------------------------------
+#----<  LOGGER  >----------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Indica el nivel de ERRORES que se va a registrar
+# 0 - EMERG
+# 1 - ALERT
+# 2 - CRIT
+# 3 - ERROR
+# 4 - WARNING
+# 5 - NOTICE
+# 6 - INFO
+# 7 - DEBUG
+# Nivel de log a ARCHVO
+define("apex_pa_log_archivo",1);
+define("apex_pa_log_archivo_nivel",2);
+# Nivel de log a la DB
+define("apex_pa_log_db",1);
+define("apex_pa_log_db_nivel",2);
+# Nivel de log a la pantalla
+define("apex_pa_log_pantalla",1);
+define("apex_pa_log_pantalla_nivel",2);
+#-------------------------------------------------------------------------------
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 define("apex_pa_estilo","violeta1");

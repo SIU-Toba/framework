@@ -295,14 +295,14 @@ class buffer
 	}
 	//-------------------------------------------------------------------------------
 
-/*	function resetear()
+	function resetear()
 	{
 		if($this->existe_instanciacion_previa()){
 			global $solicitud;
 			return $solicitud->hilo->eliminar_dato_global($this->identificador);
 		}
 	}
-*/
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------  Primitivas de ACCESO y MODIFICACION de REGISTROS   -------------------

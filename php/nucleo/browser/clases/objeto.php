@@ -289,8 +289,19 @@ class objeto
 	}
 
 //*******************************************************************************************
-//****************************<  Acceso al MODULO de MENSAJES   >****************************
+//**********************<  Comunicacion de informacion al USUARIO   >************************
 //*******************************************************************************************	
+
+	function informar_msg($mensaje)
+	{
+		$this->solicitud->cola_mensajes->agregar($mensaje);	
+	}
+	
+	function informar($indice, $parametros=null)
+	{
+		$mensaje = $this->obtener_mensaje($indice, $parametros);
+		$this->informar_msg($mensaje);
+	}
 
 	function obtener_mensaje($indice, $parametros=null)
 	{
