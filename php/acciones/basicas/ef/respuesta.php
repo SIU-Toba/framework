@@ -44,6 +44,9 @@ $this->hilo->desactivar_reciclado();
 			$f = $data[0]['f'];
 			abrir_fuente_datos($f, $fp);
 			$i = parsear_propiedades($data[0]['i']);
+			if(isset($i["sql"]) && !isset($i["fuente"])){
+				$i["fuente"]= $f;
+			}			
 
 			//---[ 2 ] -- Controlo casos aun no soportados
 			if(($data[0]['ef'] == "ef_combo_dao") && !(isset($i['dao']))){
