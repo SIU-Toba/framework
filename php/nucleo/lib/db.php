@@ -27,7 +27,7 @@ define("apex_db_link_id",8);
 require("3ros/adodb340/adodb.inc.php");
 //--------------------------------
 
-	function abrir_base($id, $parm)
+	function abrir_base($id,$parm)
 /*
  	@@acceso: actividad
 	@@desc: Agrega una conexion al array de bases GLOBAL $db
@@ -59,7 +59,7 @@ require("3ros/adodb340/adodb.inc.php");
 			//Creo la conexion solicitada
 			}else{
 				if( $db[$id][apex_db_con] =& ADONewConnection($parm[apex_db_motor]) ){
-					$ok = @$db[$id][apex_db_con]->NConnect($parm[apex_db_profile],$parm[apex_db_usuario],$parm[apex_db_clave],$parm[apex_db_base]);
+					$ok = $db[$id][apex_db_con]->NConnect($parm[apex_db_profile],$parm[apex_db_usuario],$parm[apex_db_clave],$parm[apex_db_base]);
 					if( $ok ){
 						//Dejo guardados los parametros de conexion
 						$db[$id][apex_db_motor] = $parm[apex_db_motor];
@@ -71,10 +71,10 @@ require("3ros/adodb340/adodb.inc.php");
 						//echo $sentencia;
 						eval($sentencia);
 					}else{
-						throw new excepcion_toba("No es posible crear el objeto conexion");
+						return false;
 					}
 				}else{		//Se creo la conexion?
-					throw new excepcion_toba("No es posible conectarse a la isntancia '$id'");
+					return false;
 				}
 			}
 		}
