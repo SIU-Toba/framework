@@ -256,6 +256,12 @@ class objeto_ei_cuadro extends objeto_cuadro
                             //Formateo el valor
                             $valor = $funcion($valor);
                         }
+                        //Hay que hacer un formateo externo
+                        if(trim($this->info_cuadro_columna[$a]["valor_proceso_parametros"])!=""){
+                            $funcion = $this->info_cuadro_columna[$a]["valor_proceso_parametros"];
+                            //Formateo el valor
+                            $valor = $funcion($valor);
+                        }
                     }elseif(isset($this->info_cuadro_columna[$a]["valor_fijo"])){
                         $valor = $this->info_cuadro_columna[$a]["valor_fijo"];
                     }else{

@@ -306,8 +306,9 @@ class objeto_ci_me extends objeto_ci
 */
 	{
 		//-[2]- Genero la SALIDA
-		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "10%";
-		echo "<table width='$ancho' class='tabla-0'>\n";
+		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "100%";
+		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
+		echo "<table width='$ancho' $alto class='tabla-0'>\n";
 		//Tabs
 		echo "<tr><td class='celda-vacia'>";
 		$this->obtener_barra_navegacion();

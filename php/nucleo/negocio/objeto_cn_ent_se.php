@@ -25,9 +25,11 @@ class objeto_cn_ent_se extends objeto_cn_ent
 	{
 		if( $this->existe_entidad_cargada() )
 		{
+			//echo "CARGADA";
 			return 2;
 		}elseif( $this->etapa == "ALTA")
 		{
+			//echo "ALTA";
 			return 2;
 		}else		
 		{
@@ -41,9 +43,9 @@ class objeto_cn_ent_se extends objeto_cn_ent
 		{
 			$opciones[0]['etiqueta'] = "Eliminar";
 			$opciones[0]['metodo'] = "eliminar_entidad";
+			$opciones[0]['metodo_param'] = "eliminar";
 			$opciones[1]['etiqueta'] = "Modificar";
 			$opciones[1]['metodo'] = "procesar";
-			$opciones[1]['metodo_param'] = "eliminar";
 			$opciones[2]['etiqueta'] = "Cancelar";
 			$opciones[2]['metodo'] = "cancelar";
 		}
@@ -74,18 +76,31 @@ class objeto_cn_ent_se extends objeto_cn_ent
 	
 	function cancelar()
 	{
+		$this->etapa = null;
 		$this->descargar();
+	}
+
+	function cargar($id)
+	{
+		$this->entidad_id = $id;
+		$this->entidad->cargar($id);
+		$this->etapa = null;
 	}
 	
 	function procesar_especifico($parametros=null)
 	{
 		if($parametros=="eliminar"){
-			echo "ELIMINAR!!!";
 			$this->entidad->eliminar();
 		}else{
-			echo "PROCESAR!!!";
 			$this->entidad->sincronizar_db();
 		}
+		$this->etapa = null;
+		$this->descargar();
+	}
+	
+	function get_info_proceso()
+	{
+		return "La operacion fue realizada con exito";			
 	}
 }
 ?>

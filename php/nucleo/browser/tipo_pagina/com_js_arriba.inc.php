@@ -6,7 +6,7 @@
 			echo " datos = new Object();\n";
 			foreach($respuesta as $id => $valor)
 			{
-				echo "datos['$id'] = '$valor';\n";	
+				echo "datos['$id'] = \"$valor\";\n";	
 			}
 			echo " responder_consulta(datos);\n";
 		}else{

@@ -309,6 +309,8 @@ class objeto_ci extends objeto
 					}else{
 						$this->cn->$metodo();
 					}
+					//ATENCION: Esto aparentemente es temporal
+					$this->borrar_memoria();
 				}
 			}
 		}

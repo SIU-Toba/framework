@@ -200,7 +200,7 @@ class objeto_cn_ent extends objeto_cn_t
 	
 	function descargar()
 	{
-		$this->entidad_id = null;
+		unset($this->entidad_id);
 		$this->entidad->descargar();	
 	}
 	//-------------------------------------------------------------------------------
