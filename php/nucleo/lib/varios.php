@@ -58,6 +58,7 @@
 		return $php;
 	}
 	//-----------------------------------------------------------------
+
 	function dump_array_javascript($array, $nombre, $es_objeto=false)
 	{
 		$js = "";
@@ -74,4 +75,23 @@
 		}
 		return $js;
 	}
+	//-----------------------------------------------------------------
+
+	function version_svn($dir="")
+	//Busca la revision de a la que corresponde el TOBA
+	{
+		$dir="F:/toba";
+		$archivo = "$dir/.svn/entries";
+		//$fd = fopen($archivo, "r");
+   		//$contenido = fread($fd, filesize($archivo));
+		$contenido = file_get_contents ( $archivo );
+		$captura = array();
+		if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
+			//ei_arbol($captura);	
+			return $captura[1];
+		}else{
+			return "DESCONOCIDA";	
+		}
+	}
+	//-----------------------------------------------------------------
 ?>
