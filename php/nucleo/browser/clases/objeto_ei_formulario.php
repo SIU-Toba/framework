@@ -290,7 +290,6 @@ class objeto_ei_formulario extends objeto
 
 	function obtener_evento()
 	{
-		$evento = null;
 		if($this->controlar_agregar())
 		{
 			return "alta";
@@ -310,6 +309,7 @@ class objeto_ei_formulario extends objeto
 			unset($this->memoria['datos']);
 			return "modificacion";
 		}
+		return null;
 	}
 	//-------------------------------------------------------------------------------
 

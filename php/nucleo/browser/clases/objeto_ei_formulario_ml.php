@@ -405,7 +405,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//------ FILAS ------
 		if($this->existen_datos_cargados())
 		{
-			for($a=0;$a<count($this->datos);$a++)
+			//ATENCION: esto se cuelga con un array asociativo como parametro!
+			for($a=0;$a < count($this->datos);$a++)
 			{
 				$this->cargar_registro_a_ef($a);
 				echo "\n<!-- FILA $a ------------->\n\n";
