@@ -1,35 +1,65 @@
 <?php
+// --------------------------------------------------------------
+// -------- Pruebas SOAP ----------------------------------------
+// --------------------------------------------------------------
 
-//Pruebas SOAP
+require_once 'SOAP/Server.php';
+require_once("nucleo/lib/comunicador_soap.php");
 
-	require_once("nucleo/lib/comunicador_soap.php");
+// Your class
+class HelloServer {
+    var $__dispatch_map = array();
 
-	$mensaje["texto1"] = "111 - Texto del mensaje";
-	$mensaje["texto2"] = "222 - Texto del mensaje";
-	$mensaje["texto3"] = "333 - Texto del mensaje";
+    function HelloServer() {
+        // Define the signature of the dispatch map
+        $this->__dispatch_map['sayHello'] =
+            array('in' => array('inputString' => 'string'),
+                  'out' => array('outputString' => 'string'),
+                  );
+    }
 
-	//$ip = "168.83.60.146";
-	//$puerto = 3333;
-	//$ip = "192.168.0.10";
-	//$puerto = 3333;
-	//$ip = "168.83.60.212";
-	//$puerto = 8080;
-	$punto_acceso = "/toba/soap.php";
+    // Required function by SOAP_Server
+    function __dispatch($methodname) {
+        if (isset($this->__dispatch_map[$methodname]))
+            return $this->__dispatch_map[$methodname];
+        return NULL;
+    }
 
+    // Your function
+    function sayHello($inputString)
+    {
+        return '<b>Webservice: '.$inputString.'</b>';
+    }
+}
 
-	$instancia =& new comunicador_soap($wsdl_url, $punto_acceso);
-	
-	$item = array("toba","/red/echo");//Item al que quiero enviar informacion
-	//$item = array("toba","/red/hola");//Item al que quiero enviar informacion
-	
-	if( $instancia->transmitir($mensaje, $item) ){
-		//ei_arbol($instancia->obtener_headers(),"RESPONSE - HEADERS");
-		//ei_arbol($instancia->obtener_body(),"RESPONSE - BODY");
-		ei_arbol( $instancia->obtener_datos(),"RESPONSE - DATOS");
-	}else{
-		echo "No se pudo enviar el MENSAJE";
-		ei_arbol($instancia->obtener_headers(),"RESPONSE - HEADERS");
-	}
+// Fire up PEAR::SOAP_Server
+$server = new SOAP_Server;
+
+// Fire up your class
+$helloServer = new HelloServer();
+
+// Add your object to SOAP server (note namespace)
+$server->addObjectMap($helloServer,'urn:HelloServer');
+
+// Handle SOAP requests coming is as POST data
+if (isset($_SERVER['REQUEST_METHOD']) &&
+    $_SERVER['REQUEST_METHOD']=='POST') {
+    $server->service($HTTP_RAW_POST_DATA);
+} else {
+    // Deal with WSDL / Disco here
+    require_once 'SOAP/Disco.php';
+
+    // Create the Disco server
+    $disco = new SOAP_DISCO_Server($server,'HelloServer');
+    header("Content-type: text/xml");
+    if (isset($_SERVER['QUERY_STRING']) &&
+        strcasecmp($_SERVER['QUERY_STRING'],'wsdl')==0) {
+        echo $disco->getWSDL(); // if we're talking http://www.example.com/index.php?wsdl
+    } else {
+        echo $disco->getDISCO();
+    }
+    exit;
+}
 
 //---------------------------------------------------
 ?>

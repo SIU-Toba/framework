@@ -65,12 +65,7 @@ class comunicador_soap
 	//Implementacion de una comunicacion SIMPLE
 	//(request-response) via soap
 	{
-		
-		
-		
-		$wsdl_url = 'http://localhost:8080/wsdl/hello_server.php?wsdl';
-		$client = new SoapClient($wsdl_url);
-		
+		$client = new SoapClient($this->wsdl_url);
 		$temp = $client->sayHello($datos);
 		
 		
