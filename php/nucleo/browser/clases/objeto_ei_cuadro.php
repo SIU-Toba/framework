@@ -37,19 +37,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 		}else{
 			$this->ev_seleccion = false;
 		}
-		
-		//-----------------------------------------------------------------------------------
-		//--------------------- Hardcodeo esto para que tenga scroll ------------------------
-		//-----------------------------------------------------------------------------------
-		
-		// Falta editar el objeto cuadro para hacerlo configurable desde toba, ya carga
-		// estos datos en el método obtener_definicion_db.
-		
-		//$this->info_cuadro["scroll"] = 0;
-		//$this->info_cuadro["ancho"] = 500;
-		//$this->info_cuadro["alto"] = "auto";
-		
-		
+	
     }
 
 	function obtener_definicion_db()
@@ -61,8 +49,6 @@ class objeto_ei_cuadro extends objeto_cuadro
 		$sql = parent::obtener_definicion_db();
 		//------------- Cuadro ----------------
 		$sql["info_cuadro"]["sql"] = "SELECT	titulo as titulo,		
-								c.scroll						as	scroll,
-								c.scroll_alto					as	alto,
 								c.subtitulo						as	subtitulo,		
 								c.sql							as	sql,			
 								c.columnas_clave				as	columnas_clave,		 
@@ -73,6 +59,8 @@ class objeto_ei_cuadro extends objeto_cuadro
 								c.exportar_rtf					as	exportar_pdf,		 
 								c.paginar						as	paginar,			
 								c.tamano_pagina					as	tamano_pagina,
+								c.scroll						as	scroll,
+								c.scroll_alto					as	alto,
 								c.eof_invisible					as	eof_invisible,		 
 								c.eof_customizado				as	eof_customizado,
 								c.pdf_respetar_paginacion		as	pdf_respetar_paginacion,	
@@ -120,11 +108,14 @@ class objeto_ei_cuadro extends objeto_cuadro
 	function recuperar_interaccion()
 	{
 		//El usuario presiono un BOTON?
+		//ATENCION!! Esto no funciona para las claves compuestas
 		foreach (array_keys($_POST) as $post)
         {
 			if(preg_match("/".$this->submit.".*_x/", $post)){
 				$sobra = strlen($this->submit);
 				$clave = substr($post, $sobra, (strlen($post) - $sobra - 2 ));
+				//PHP convierte los "." es "_" en los botones de submit.
+				$clave = ereg_replace("_",".",$clave);//echo $partida;
 				$this->clave_seleccionada = $clave;
 			}
 		}
@@ -196,10 +187,7 @@ class objeto_ei_cuadro extends objeto_cuadro
             if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
             //echo "<br>\n";
             
-	        //Compruebo si tiene scroll ////////////////////////////////////////////////
-	        
-	        //ei_arbol( $this->info_formulario["scroll"]);
-	        
+			//--Scroll       
 	        if($this->info_cuadro["scroll"]){
 				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
 				$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
@@ -250,6 +238,11 @@ class objeto_ei_cuadro extends objeto_cuadro
 			//-------------------------------------------------------------------------
             for ($f=0; $f< $this->filas; $f++)
             {
+				$resaltado = "";
+				$clave_fila = $this->obtener_clave_fila($f);
+				//$this->clave_seleccionada
+				//$resaltado = "_s";
+				
                 echo "<tr>\n";
                 for ($a=0;$a< $this->cantidad_columnas;$a++)
                 {
@@ -290,7 +283,7 @@ class objeto_ei_cuadro extends objeto_cuadro
                         }
                     }
                     //*** 4) Genero el HTML
-                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]."'>\n";
+                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado . "'>\n";
                     echo $valor;
                     echo "</td>\n";
                     //----------> Termino la CELDA!!
@@ -298,8 +291,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 	            //-- Evento FIJO de seleccion
 				if($this->ev_seleccion){
 					echo "<td class='lista-col-titulo'>\n";
-					$registro = $this->obtener_clave_fila($f);
-					echo form::image($this->submit.$registro,recurso::imagen_apl("doc.gif"));
+					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"));
 	            	echo "</td>\n";
 	            }
 				//----------------------------
