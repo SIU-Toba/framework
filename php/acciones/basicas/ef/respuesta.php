@@ -1,5 +1,9 @@
 <?
 require_once("nucleo/browser/interface/ef.php");
+
+//Necesario para no eliminar los datos de los multietapa
+$this->hilo->desactivar_reciclado();
+
 /*
 	PENSADO para EFs que consultan datos a travez de SQL
 */
