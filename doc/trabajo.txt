@@ -1,0 +1,101 @@
+-------------------------------------------------
+--- TRABAJO en el TOBA
+--------------------------------------------------
+
+	*** ML: 
+	
+		- Sistematizar la generacion de totales
+		- Validacion de EFs en cliente y servidor
+		- Facilidades en la extension del JS
+		- Agregar y eliminar filas
+		- Mejorar el disparo de eventos
+			-> Puede utilizarse la clase homolaga de javascript para saber en el server que lineas se modificaron??
+				Si es asi, puede devolver solo las filas comprometidas en la modificacion cuando el CI rutea el evento...
+				(ahora en un multilinea no se diferencia lo modificado de lo no modificado)
+		- TAB ORDER
+		- Enter
+		- Hay que pensar bien la relacion de este componente y el buffer
+
+	*** EF:
+
+		-> VALIDACION
+			-> SERVER: Excepciones
+			-> CLIENTE: No disparar un ALERT, devolver algo que pueda ser interpretado tanto por la funcion validadora del form 
+						como por algo externo... (esto deja la ventana abierta para testear las interfaces con JS)
+			(relacionado, pero sobre el ei_form )
+				- Cuando salta una validacion de server, se muestra un estilo que marca el error, esto podria pasar tambien en el cliente
+		-> El ef_editable_numero tiene que ponerse disabled en vez del truco del onblur.
+		-> cascada no seteada no obligatorio
+		-> NULL?? (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
+		-> Nuevos:
+			- ef_nota (cuando pasas el mouse por encima muestra un mensaje)
+			- ef_upload (hay que razonarlo junto a una ventana de codigo en el server. Hay que decidir donde poner esta ventana)
+			- ef_vinculo?
+			- ef_template?
+			- ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros (Hay uno hecho por Leo que no se metio)
+		---------------------
+		- COMBO DAO que maneje mas de una columna
+		- Los COMBO DAO necesitan un valor NO SETEADO (para disparar el onchange)
+		- EL EF POPUP tiene que tener un valor de inicializacion a travez de un DAO!
+			
+
+	*** EI_CUADRO
+
+->		- Claves de mas de una columna
+		- Encriptacion de claves... el mecanismo es distinto que el del GET
+		- Evento ELIMINACION (con popup preguntando...)
+		- sistematizar totales
+		- Mostrar fila seleccionada
+		- Paginar
+
+	*** EI_FORM
+
+		- FORM JS no nulo salta en modificaciones estrictas
+		- BOTONES
+			(casos)
+			- COMPROMISO: Cancelar en modo alta
+			- COMPROMISO RECT: Las nuevas se eliminan, las otras no
+			- Form reutilizado con distintas botoneras
+
+	*** CI
+		
+		- PROBLEMAS de NAVEGACION
+			- Orden cuadro?
+			- agregar: despues del proceso el boton queda mapeado a otra cosa
+			- modificar: el CI recuerda el TAB
+			- Manejo post procesar
+		- Controlar el Metodo de salida y entrada a ETAPAS
+		- Un CN tiene que tener una forma de mandar a un CI multitab a un tab (falla validacion server)
+		- ME_TAB con secuencia estricta
+		- Tabs verticales
+		- Barra superior igual a la inferior optativa.
+		- La forma de renderizar la cola de mensajes tiene que ser optativa
+		- Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
+			Pensar en este punto la relacion CI --> CN...
+
+	**** CN
+	
+		- Derechos 
+		- Controles configurables 
+
+	*** GENERAL
+
+->		- Metodo de eliminacion en ENTIDADES y OBJETO_CN_ENT
+		- Las entidades mas complejas necesitan una forma de persistir datos.
+		- mantener_estado_sesion no respeta el no acceso al hilo
+		- Foco automatico vs. hidden
+
+	*** Inteface ADMINISTRATIVA
+
+	- CI: mostrar plan de ruteo y de carga
+	- CI: clonar bien
+	- Separar objetos por modulos
+	- Eliminar items completos
+	- Eliminar carpetas completas
+	- Exportar/importar items
+
+	*** Interface CONSOLA
+	
+	- Los scripts de dumpeo tienen que estar preparados para manejar N instancias
+	- Hay que mejorar el generador de BUFFERS
+	

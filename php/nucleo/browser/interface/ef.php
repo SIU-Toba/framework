@@ -16,7 +16,6 @@ require_once("ef_editable.php");	//EF de tipo Editable (INPUT)
 require_once("ef_oculto.php");		//EF de tipo OCULTO
 require_once("ef_popup.php");		//Ef de tipo POPUP
 require_once("ef_varios.php");		//Varios
-require_once("ef_cascada.php");		//Combos en cascada
 require_once("ef_multi_seleccion.php");
 require_once("ef_sin_estado.php");	//EF de tipo COMBO
 //require_once("ef_sin_estado.php");		//EF de que no poseen estado
