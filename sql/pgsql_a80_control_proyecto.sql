@@ -18,7 +18,6 @@ CREATE TABLE apex_cp_entregables (
        dificultad           INTEGER NOT NULL,
 		item_proyecto		varchar(15)		NOT NULL,
 		item				varchar(60)		NOT NULL,
-		nombre				varchar(8)
        CONSTRAINT XPKapex_cp_entregables 
               PRIMARY KEY (id_entregable), 
        CONSTRAINT R_5
@@ -36,7 +35,7 @@ CREATE TABLE apex_cp_responsables (
        id_responsable        INTEGER NOT NULL,
        Nombre               VARCHAR(32) NOT NULL,
        CONSTRAINT XPKapex_cp_responsables 
-              PRIMARY KEY (id_reponsable)
+              PRIMARY KEY (id_responsable)
 );
 
 CREATE SEQUENCE apex_cp_estados_sq;
