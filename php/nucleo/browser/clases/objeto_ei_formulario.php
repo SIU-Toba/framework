@@ -507,6 +507,20 @@ class objeto_ei_formulario extends objeto
 		}
 		return $dao;
 	}
+	//-------------------------------------------------------------------------------
+	
+	function deshabilitar_efs($efs)
+	//Establece el grupo de EFs especificados como SOLO LECTURA
+	{
+		foreach ($efs as $ef){
+			if(isset($this->elemento_formulario[$ef])){
+				$this->elemento_formulario[$ef]->establecer_solo_lectura();						
+			}else{
+				$log = toba::get_logger();
+				$log->error("DESABILITAR EF: el EF '$ef' no existe");
+			}
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------

@@ -216,10 +216,14 @@ class ef_combo extends ef
 //########################################################################################################
 
 class ef_combo_dao extends ef_combo
+/*
+	El DAO estatico no deberia ser una clase separada?
+*/
 {
 	private $dao;
 	private $include;
 	private $clase;
+	private $modo; 		//Carga estatica o a travez del CN
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -235,26 +239,59 @@ class ef_combo_dao extends ef_combo
 		}
 		if(isset($this->include) && isset($this->clase) )
 		{
-			//Desabilito el consumo por CN
-			//Busco los datos
-			include_once($this->include);
-			$sentencia = "\$datos = " .  $this->clase . "::" . $this->dao ."();";
-			eval($sentencia);//echo $sentencia;
-		$parametros['valores'] = $datos;
-			$this->dao = null;
+			$this->modo = "estatico";
+		}else{
+			$this->modo = "cn";	
 		}
 		unset($parametros["dao"]);//Este valor no significa nada para el padre
+		unset($parametros["clase"]);
+		unset($parametros["include"]);
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		//Si el elemento no posee dependencias lo puedo cargar ahora...
+		//Sino hay que esperar que la carga se llame explicitamente una vez que el padre se encuentre cargado
+		
+		//El modo estatico puede funcionar con cascadas
+		if($this->modo == "estatico"){
+			if(is_array($this->dependencias)){
+				$this->valores = array();
+			}else{
+				$this->cargar_datos();
+			}
+		}
 	}
 	
 	function obtener_dao()
 	/*
-		SI no se especifican CLASE e INCLUDE, se solicita la funcion al CN asociado,
-		si, esos parametros existen, se consulta al DAO directamente ACA
+		De esta manera, el COMBO avisa que necesita informacion del CN
+		indicandole cual es el metodo del mismo que hay que ejecutar para recibir la informacion
+		Esto se desactiva si el dao depende de una clase estatica.
 	*/
 	{
-		return $this->dao;	
+		if( $this->modo == "estatico" )
+		{
+			return null;
+		}else{
+			return $this->dao;		
+		}
 	}
+
+	function cargar_datos($valores=null)
+	/*
+		Si el DAO esta a a cargo del CN, el CN lo carga a travez de este metodo.
+		Si el DAO se carga a travez de una clase estatica, el mismo obtiene los
+		datos directamente de la misma, obviando los parametros
+	*/
+	{
+		if($this->modo =="estatico" )
+		{
+			include_once($this->include);
+			$sentencia = "\$this->valores = " .  $this->clase . "::" . $this->dao ."();";
+			eval($sentencia);//echo $sentencia;
+		}else{
+			$this->valores = $valores;
+		}
+	}
+
 }
 //########################################################################################################
 //########################################################################################################

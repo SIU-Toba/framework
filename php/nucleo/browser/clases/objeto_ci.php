@@ -125,6 +125,7 @@ class objeto_ci extends objeto
 		$this->cargar_daos();
 
 		// 5 - Cargo las interfaces de los EI
+		//Esto deberia estar en un metodo aparte
 		$this->cargar_datos_dependencias();
 	}
 	//-------------------------------------------------------------------------------
@@ -181,19 +182,30 @@ class objeto_ci extends objeto
 			if($info = $this->consultar_info_dependencia($dep,"parametros_b") )
 			{
 				$temp = explode(",", $info);
+				//-- Metodo a llamar en el CN
 				$metodo = trim($temp[0]);
-				//Parametros al metodo de carga
+				//-- Parametros al metodo del CN
 				if(isset($temp[1])){
 					$parametros = explode("|",$temp[1]);
 					$parametros = array_map("trim",$parametros);
 				}else{
 					$parametros = null;
 				}
+				//-- Hay que llamar un metodo distinto del "CARGAR_DATOS"	en el EI
+				if( isset($temp[2])){
+					if (trim($temp[2]) != ""){
+						$metodo_ei = $temp[2];					
+					}else{
+						$metodo_ei = "cargar_datos";
+					}
+				}else{
+					$metodo_ei = "cargar_datos";
+				}
 				//echo "Cargando dependencia : $dep";
 				//SI el CN me devuelve un DATO para la dependencia
 				if( $dato = $this->cn->$metodo($parametros) ){
 					//ei_arbol($dato, $dep);
-					$this->dependencias[$dep]->cargar_datos( $dato );
+					$this->dependencias[$dep]->$metodo_ei( $dato );
 					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- LLAMADA CN -- \nMETODO: $metodo \nPARAMETROS:\n" . var_export($parametros,true) . "\n\n");
 					//$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- DATOS RECIBIDOS -- \n" . var_export($dato,true) . "\n\n");
 				}
