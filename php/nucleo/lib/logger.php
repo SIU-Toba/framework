@@ -14,25 +14,36 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 	ATENCION: 	esta clase compite con los metodos de registro de la solicitud
 				y con el monitor... hay que pasar lo montado en esos elementos
 				sobre este.
+				
 */
 class logger
 {
+	private $ref_niveles;
 	private $solicitud;
 	private $mensajes;
 	private $niveles;
 	private $proximo = 0;
 	private $datos_registrados = false;
+
 	
 	function __construct($solicitud)
 	{
 		$this->solicitud = $solicitud;
+		$this->ref_niveles[0] = "EMERGENCY";
+		$this->ref_niveles[1] = "ALERT";
+		$this->ref_niveles[2] = "CRITICAL";
+		$this->ref_niveles[3] = "ERROR";
+		$this->ref_niveles[4] = "WARNING";
+		$this->ref_niveles[5] = "NOTICE";
+		$this->ref_niveles[6] = "INFO";
+		$this->ref_niveles[7] = "DEBUG";
 	}	
 
 	function registrar_mensaje($mensaje, $nivel)
 	{
-		$this->mensajes[$proximo] = $this->extraer_mensaje($mensaje);
-		$this->niveles[$proximo] = $nivel;
-		$proximo++;
+		$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje);
+		$this->niveles[$this->proximo] = $nivel;
+		$this->proximo++;
 	}
 
 	function extraer_mensaje($mensaje)
@@ -166,6 +177,7 @@ class logger
 	//Guardar LOG en archivo
 	{
 /*
+		Tiene que haber un metodo para que el log en la DB se haga con un objeto asociado
 		Esto tiene que pisar una tabla del TOBA
 	
 		$archivo = $this->solicitud->hilo->obtener_proyecto_path() . "/log_sistema.txt";
@@ -190,15 +202,17 @@ class logger
 
 	function mostrar_pantalla()
 	{
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-		for($a=0; $a<count($this->mensajes); $a++)
-		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
+		if(apex_pa_log_pantalla){
+			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+			for($a=0; $a<count($this->mensajes); $a++)
 			{
-				fwrite($a, $this->mensajes[$a]);
-			}			
+				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
+				{
+					echo $this->ref_niveles[$this->niveles[$a]] . 
+							" - " . $this->mensajes[$a] . "<br>";
+				}			
+			}
 		}
-		fclose($a);		
 	}
 	//------------------------------------------------------------------
 }

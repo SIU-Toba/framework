@@ -67,6 +67,9 @@ class solicitud_browser extends solicitud
         	$cronometro->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
 		}
 		parent::procesar();
+		//--- Dumpeo informacion del LOGGER
+		flush();
+		$this->log->mostrar_pantalla();
 		//--- HTML automatico ---
 		if(trim($this->info["item_include_abajo"]!= "")){
 			include_once($this->info["item_include_abajo"]);

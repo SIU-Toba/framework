@@ -83,7 +83,7 @@ define("apex_pa_log_db",1);
 define("apex_pa_log_db_nivel",2);
 # Nivel de log a la pantalla
 define("apex_pa_log_pantalla",1);
-define("apex_pa_log_pantalla_nivel",2);
+define("apex_pa_log_pantalla_nivel",7);
 #-------------------------------------------------------------------------------
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------

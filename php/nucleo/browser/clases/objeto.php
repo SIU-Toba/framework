@@ -33,8 +33,8 @@ class objeto
 	@@desc: Constructor de la clase
 */
 	{
-		global $solicitud;
-		$this->solicitud =& $solicitud;
+		$this->solicitud = toba::get_solicitud();
+		$this->log = $this->solicitud->log;
 		if(!($this->id = $id)) monitor::evento("bug","[objeto]: ERROR, no se indico el ID del objeto a crear");
 		$this->exportacion_archivo = "nucleo/definiciones/objetos/".$this->id[1].".php";
 		$this->exportacion_path = $this->solicitud->hilo->obtener_path(). "/php/". $this->exportacion_archivo;
@@ -291,19 +291,12 @@ class objeto
 //*******************************************************************************************
 //**********************<  Comunicacion de informacion al USUARIO   >************************
 //*******************************************************************************************	
-
-	function informar_msg($mensaje)
-	{
-		$this->solicitud->cola_mensajes->agregar($mensaje);	
-	}
-	
-	function informar($indice, $parametros=null)
-	{
-		$mensaje = $this->obtener_mensaje($indice, $parametros);
-		$this->informar_msg($mensaje);
-	}
-
+/*
+	Falta pensar el tema de las transacciones necesitan una reafirmacion despues
+	de mostrar la cola de mensajes
+*/
 	function obtener_mensaje($indice, $parametros=null)
+	//Obtiene un mensaje del repositorio de mensajes
 	{
 		//Busco el mensaje del OBJETO
 		if($mensaje = mensaje::get_objeto($this->id[1], $indice, $parametros)){
@@ -313,6 +306,24 @@ class objeto
 			//Busco el INDICE global
 			return mensaje::get($indice, $parametros);
 		}
+	}
+
+	function informar_msg($mensaje, $nivel=null)
+	//Guarda un  mensaje en la cola de mensajes
+	{
+		$this->solicitud->cola_mensajes->agregar($mensaje,$nivel);	
+	}
+	
+	function informar($indice, $parametros=null,$nivel=null)
+	//Obtiene un mensaje del repositorio y lo guarda en la cola de mensajes
+	{
+		$mensaje = $this->obtener_mensaje($indice, $parametros);
+		$this->informar_msg($mensaje,$nivel);
+	}
+
+	function mostrar_informacion()
+	{
+		$this->solicitud->cola_mensajes->mostrar();	
 	}
 
 //*******************************************************************************************

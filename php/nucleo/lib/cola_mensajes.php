@@ -24,16 +24,22 @@ class cola_mensajes
 		$this->nivel_gravedad = $nivel_gravedad;
 	}
 
-	public function agregar($mensaje)
+	public function agregar($mensaje, $nivel=null)
 	{
 		$this->mensajes[] = $mensaje;
 		//Agrego el mensaje mostrado al usuario al logger como DEBUG
-		$this->solicitur->logger->debug("Mensaje al usuario: ".$mensaje);
+		$this->solicitud->log->debug("[usuario] ".$mensaje);
+		if(isset($nivel)){
+			$this->set_nivel_gravedad($nivel);
+		}
 	}
 
-	public function agregar_id($indice, $parametros=null)
+	public function agregar_id($indice, $parametros=null, $nivel=null)
 	{
-		$this->mensajes[] = mensaje::get($indice, $parametros=null);
+		$this->mensajes[] = mensaje::get($indice, $parametros);
+		if(isset($nivel)){
+			$this->set_nivel_gravedad($nivel);
+		}
 	}
 
 	public function verificar_mensajes()
@@ -47,7 +53,7 @@ class cola_mensajes
 	public function mostrar()
 	{
 		$temp = "";
-		foreach($this->mensaje as $mensaje){
+		foreach($this->mensajes as $mensaje){
 			$temp .= $mensaje . " <br>";
 		}
 		echo ei_mensaje($temp, $this->nivel_gravedad);

@@ -6,15 +6,38 @@ class mensaje
 {
 	function get($indice, $parametros=null)
 	//Obtiene un MENSAJE
+	//Escala del proyecto actual al TOBA si no lo encuentra en el primero
 	{
 		if($mensaje = self::get_proyecto($indice, $parametros)){
-			return $mensaje;	
+			return $mensaje;
 		}else{
 			return self::get_toba($indice, $parametros);
 		}
 	}
 	//-----------------------------------------------------
 
+	function get_toba($indice, $parametros=null)
+	//Obtiene un mensaje GLOBAL del proyecto toba
+	//Esto es para errores genericos del motor, etc
+	{
+		$sql = "SELECT mensaje_customizable as m
+				FROM apex_msg 
+				WHERE indice = '$indice'
+				AND proyecto = 'toba';";
+		$datos = consultar_fuente($sql);
+		if(!is_array($datos)){
+			$mensaje = "El mensaje solicitado no EXISTE";
+		}else{
+			if(trim($datos[0]['m'])==""){
+				$mensaje = "El mensaje solicitado EXISTE, pero se encuentra VACIO";	
+			}else{
+				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+			}
+		}
+		return $mensaje;		
+	}
+	//-----------------------------------------------------
+	
 	function get_proyecto($indice, $parametros=null)
 	//Obtiene un mensaje GLOBAL del proyecto
 	{
@@ -29,31 +52,17 @@ class mensaje
 		if(!is_array($datos)){
 			$mensaje = null;
 		}else{
-			$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+			if(trim($datos[0]['m'])==""){
+				$mensaje = null;	
+			}else{
+				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+			}
 		}
 		return $mensaje;
 	}
 	//-----------------------------------------------------
-	
-	function get_toba()
-	//Obtiene un mensaje GLOBAL del proyecto toba
-	//Esto es para errores genericos del motor, etc
-	{
-		$sql = "SELECT mensaje_customizable as m
-				FROM apex_msg 
-				WHERE indice = '$indice'
-				AND proyecto = 'toba';";
-		$datos = consultar_fuente($sql);
-		if(!is_array($datos)){
-			$mensaje = "El mensaje solicitado no EXISTE";
-		}else{
-			$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
-		}
-		return $mensaje;		
-	}
-	//-----------------------------------------------------
-	
-	function get_objeto($objeto, $indice, $parametros)
+
+	function get_objeto($objeto, $indice, $parametros=null)
 	//Obtiene el mensaje asociado a un OBJETO
 	{
 		$hilo = toba::get_hilo();
@@ -68,7 +77,11 @@ class mensaje
 			//Retorna null para que siga la busqueda al GLOBAL
 			$mensaje = null;
 		}else{
-			$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+			if(trim($datos[0]['m'])==""){
+				$mensaje = null;	
+			}else{
+				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+			}
 		}
 		return $mensaje;		
 	}
@@ -84,6 +97,8 @@ class mensaje
 			for($a=0;$a<count($parametros);$a++){
 				$mensaje = ereg_replace("%".($a+1)."%", $parametros[$a], $mensaje);
 			}
+			//Por si todavia quedan comodines
+			$mensaje = ereg_replace("%[^ 	]*%","",$mensaje);
 		}else{
 			//No hay parametros: elimino los comodines.
 			$mensaje = ereg_replace("%[^ 	]*%","",$mensaje);
