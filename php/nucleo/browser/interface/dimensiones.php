@@ -263,7 +263,7 @@ class dimension_fecha_lapso extends ef_editable_fecha
 			$mensaje_inicial = ($estado_inicial === true)? "" : "Fecha Inicial: ".$estado_inicial[1];
 			$mensaje_final = ($estado_final === true)? "" : "Fecha Final: ".$estado_final[1];			
 			$mensaje = array(false, $mensaje_inicial."<br>".$mensaje_final);
-			var_dump($mensaje);
+//			var_dump($mensaje);
 			return $mensaje;
 		}
 	
