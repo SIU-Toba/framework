@@ -775,15 +775,27 @@ TD.abm-fila
 	margin: 0px 0px 0px 0px ;
 }
 
-TD.abm-fila-ml
+TD.abm-fila-ml, TD.abm-fila-ml-selec
 {
 	font-size: 8px;
 	color: #660000;
-	background-color: #F0F1FF;
 	text-align: center;
 	padding: 0px 0px 0px 0px ;
 	margin: 0px 0px 0px 0px ;
 	/* border-right: 1px solid #cc6666; */
+}
+
+TD.abm-fila-ml 
+{
+	background-color: #F0F1FF;
+}	
+
+TD.abm-fila-ml-selec 
+{ 
+	background-color: #ff6666;
+	border-collapse:collapse;
+	border-top: 1px solid #993333;
+	border-bottom: 1px solid #993333;	
 }
 
 TD.abm-columna
@@ -1488,6 +1500,7 @@ TD.ef-zonainput
 /*------------------ ELEMENTOS de INTERFACE --------------------*/
 
 TD.ei-cuerpo {
+	vertical-align: top;
 	font-size: 10px;
 	color: #ffcccc;
 	background-color: #993333;
@@ -1586,6 +1599,11 @@ TD.lista-pag-bot {
 	background-color: #ff6666;
 	text-align: right;
 	padding: 2px 2px 2px 2px ;
+}
+
+.lista-pag-descr {
+	font-size: 9px;
+	font-weight:lighter;
 }
 
 TABLE.listado-base {

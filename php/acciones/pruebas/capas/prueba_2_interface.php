@@ -32,26 +32,6 @@ class objeto_ei_formulario_ml_asignar extends objeto_ei_formulario_ml
 	{
 		parent::__construct($id);
 	}
-
-	function obtener_funciones_javascript()
-	//Devuelve las funciones javascript del formulario
-	{
-		parent::obtener_funciones_javascript();
-		//Recupero los nombres de los EF
-		$ef = $this->obtener_nombres_ef(); //ei_arbol($ef);
-		echo " <script>\nfunction sumarizar(formulario) {\n";
-		echo " var total = 0.0; \n";
-		//Por cada fila del formulario
-		for($a=0;$a< $this->memoria["filas"];$a++){
-			echo " if( formulario.{$ef['seleccion']}$a.checked ){\n";
-			echo " total = total + parseFloat(formulario.".$ef['valor'].$a.".value);";
-			echo "}\n";
-		}
-		echo "formulario.{$ef['valor']}s.value = total\n";
-		echo " }\n";
-		echo "sumarizar(document.{$this->nombre_formulario});\n";
-		echo "</script>\n";
-	}
 }
 
 //-------------------------------------------------------------------------------

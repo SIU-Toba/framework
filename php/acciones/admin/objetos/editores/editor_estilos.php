@@ -60,20 +60,6 @@
 <script language="javascript" type="text/javascript">
 	var frame_editado = top.<?=apex_frame_centro?>; 
 	
-	//----Utilidades
-	function replaceAll(oldStr,findStr,repStr) {
-	  var srchNdx = 0; 
-	  var newStr = ""; 
-	  while (oldStr.indexOf(findStr,srchNdx) != -1)  
-	  {
-	    newStr += oldStr.substring(srchNdx,oldStr.indexOf(findStr,srchNdx));
-	    newStr += repStr;
-	    srchNdx = (oldStr.indexOf(findStr,srchNdx) + findStr.length);
-	  }
-	  newStr += oldStr.substring(srchNdx,oldStr.length);
-	  return newStr;
-	}	
-
 	//----Recorrido del DOM
 	function recorrer_nodo(nodo)
 	{
@@ -197,7 +183,7 @@
 		   } 
 		 }
 		document.getElementById('elem_nombre_clase').innerHTML = clase;
-		document.getElementById('elem_editor').value = replaceAll(texto_css, '; ', ';\n');
+		document.getElementById('elem_editor').value = reemplazar(texto_css, '; ', ';\n');
 		document.getElementById('elem_aplicar').disabled = false;
 		document.getElementById('elem_aceptar').disabled = false;		
 		document.getElementById('elem_cancelar').disabled = false;
