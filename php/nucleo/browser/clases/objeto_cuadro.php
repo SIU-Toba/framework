@@ -237,11 +237,20 @@ class objeto_cuadro extends objeto
             if($this->pag_cantidad_registros > 0){
                 // 2) Calculo la cantidad de paginas
                 $this->pag_cantidad_paginas = ceil($this->pag_cantidad_registros/$this->pag_tamano);
-                //echo "PAGINAS: " . $this->pag_cantidad_paginas;
+               // echo "PAGINAS: " . $this->pag_cantidad_paginas;
+               // echo "PAGINA ACTUAL: ".$this->pag_actual;
+                if ($this->pag_actual > $this->pag_cantidad_paginas) 
+                {
+                    $this->pag_actual = 1;
+//                    $this->memoria[$this->propagador_pagina]= $this->pag_actual;
+//                    $this->memorizar();
+                }
+                
                 $sql = $this->obtener_sql_paginado($sql);
-            }else{
-                $this->pag_cantidad_paginas = 0;
-         	}
+            }else
+            {
+                $this->pag_cantidad_paginas = 0;            
+            }
         }
         $this->sql = $sql;
         $rs = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
