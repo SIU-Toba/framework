@@ -181,14 +181,8 @@ class objeto_cn_ent extends objeto_cn_t
 	function procesar_especifico()
 	{
 		$this->entidad->sincronizar_db();
-		$this->proceso_ok = true;
 	}
 	
-	function verificar_estado_proceso()
-	{
-		return $this->proceso_ok;
-	}
-
 	//-------------------------------------------------------------------------------
 	//----- Carga y descarga de entidades
 	//-------------------------------------------------------------------------------

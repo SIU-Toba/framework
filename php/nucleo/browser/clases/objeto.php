@@ -477,7 +477,6 @@ class objeto
 	function guardar_dato($indice, $dato)
 	//El indice no puede ser "x_propiedades_persistidas"
 	{
-		$this->solicitud->hilo->registrar_objeto($this->id_ses_g);
 		$_SESSION["global"][$this->id_ses_g][$indice] = $dato;
 	}
 	
@@ -525,14 +524,15 @@ class objeto
 	//Guardo propiedades en la sesion
 	{
 		//Busco las propiedades que se desea persistir entre las sesiones
-		$persistir = $this->mantener_estado_sesion();
-		if(count($persistir)>0){
+		$propiedades_a_persistir = $this->mantener_estado_sesion();
+		if(count($propiedades_a_persistir)>0){
 			$propiedades = get_object_vars($this);
-			for($a=0;$a<count($persistir);$a++){
+			for($a=0;$a<count($propiedades_a_persistir);$a++){
 				//Existe la propiedad
-				if(in_array($persistir[$a],$propiedades)){
-					if(isset($this->$persistir[$a])){
-						$temp[$persistir[$a]] = $this->$persistir[$a];
+				if(in_array($propiedades_a_persistir[$a],$propiedades)){
+					//Si la propiedad no es NULL
+					if(isset($this->$propiedades_a_persistir[$a])){
+						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
 					}
 				}
 			}
@@ -541,6 +541,15 @@ class objeto
 				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp, true);
 			}
 		}
+	}
+
+	function eliminar_estado_sesion()
+	{
+		$propiedades_a_persistir = $this->mantener_estado_sesion();
+		for($a=0;$a<count($propiedades_a_persistir);$a++){
+			unset($this->$propiedades_a_persistir[$a]);
+		}
+		$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
 	}
 	
 //*******************************************************************************************

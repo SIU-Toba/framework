@@ -51,7 +51,13 @@ class objeto_ci_flujo extends objeto_ci_me
 				$this->disparar_salida();
 			}
 
-			//-[2]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
+			//-[2]- Procesamiento de la <<< OPERACION >>>
+			if($this->controlar_activacion()){ //Procesar el Marco transaccional
+				//$this->cargar_dependencias_inactivas();
+				$this->procesar_operacion();
+			}
+
+			//-[3]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
 			$this->evaluar_etapa_actual();
 			$this->cargar_dependencias_actuales();
 			$this->disparar_entrada();
@@ -60,11 +66,6 @@ class objeto_ci_flujo extends objeto_ci_me
 		{
 			$this->cargar_etapa_anterior();
 			echo ei_mensaje($e->getMessage(), 'error');
-		}
-		//-[3]- Procesamiento de la <<< OPERACION >>>
-		if($this->controlar_activacion()){ //Procesar el Marco transaccional
-			//$this->cargar_dependencias_inactivas();
-			$this->procesar_operacion();
 		}
 	}
 	//-------------------------------------------------------------------------------
