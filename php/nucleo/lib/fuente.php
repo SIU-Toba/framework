@@ -77,7 +77,7 @@ class fuente_datos_postgres7 extends fuente_datos
 	function obtener_tablas_prefijo($prefijo="")
 	//Buscar tablas con un prefijo determinado
 	{
-		//if (($prefijo = "") || ($prefijo == NULL)) $prefijo = "^.*";
+		if (($prefijo = "") || ($prefijo == NULL)) $prefijo = "^.*";
 		global $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = " SELECT relname 
