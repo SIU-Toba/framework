@@ -124,7 +124,6 @@ class ef_fijo extends ef
     	}else{
 	    	$this->estado = "";
     	}
-
     	if(isset( $parametros["estilo"])){
 	    	$this->estilo = $parametros["estilo"];
     	}else{
@@ -143,7 +142,8 @@ class ef_fijo extends ef
     
      function obtener_input()
     {
-		$html = "<div class='{$this->estilo}' id='{$this->id_form}'>".$this->estado."</div>";
+		$estado = (isset($this->estado)) ? $this->estado : null;
+		$html = "<div class='{$this->estilo}' id='{$this->id_form}'>".$estado."</div>";
 		return $html;
 	}
 }

@@ -277,6 +277,12 @@ class ef //Clase abstracta, padre de todos los EF
 	{
 		return $this->id_form_orig;
 	}
+	
+	function parametros_js()
+	{
+		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
+		return "'{$this->id_form_orig}', '{$this->etiqueta}', $obligatorio";	
+	}
 
 	function obtener_javascript_input()
 	//Javascript acoplable al INPUT,

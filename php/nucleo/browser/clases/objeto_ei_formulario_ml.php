@@ -237,7 +237,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 */
 	{
 		//Valida	el	estado de los ELEMENTOS	de	FORMULARIO
-		  $status =	true;
+		$status = true;
 		foreach ($this->lista_ef as $ef){
 			$temp	= $this->elemento_formulario[$ef]->validar_estado();
 				if(!$temp[0]){
@@ -386,7 +386,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function generar_formulario()
 	{
 		//ATENCION: revisar la logica de cantidad de filas actuales
-		$cant_filas = $this->existen_datos_cargados() ? count($this->datos) : $this->info_formulario["filas"];
+		if ($this->existen_datos_cargados()) {
+			$cant_filas = count($this->datos);
+		} else {
+			$cant_filas = is_numeric($this->info_formulario["filas"]) ? $this->info_formulario["filas"] : 0;
+		}
 		echo "<script language='javascript' type='text/javascript'>\n";
 		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml(document.{$this->nombre_formulario}, $cant_filas);\n";
 		foreach ($this->lista_ef_post	as	$ef){
@@ -464,10 +468,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					$objeto_js_ef = $this->elemento_formulario[$ef]->objeto_js();
 					$id_form_total = $this->elemento_formulario[$ef]->obtener_id_form();
 					echo "
+						<div id='$id_form_total' class='abm-total'>&nbsp;</div>					
 						<script language='javascript' type='text/javascript'>
 							{$this->objeto_js}.agregar_totalizacion('$objeto_js_ef', '{$this->objeto_js}');
-						</script>
-						<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
+						</script>";
 				}else{
 					echo "&nbsp;";
 				}
@@ -492,5 +496,19 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$consumos[] = 'clases/objeto_ei_formulario_ml';
 		return $consumos;
 	}
+	
+	function obtener_javascript()
+/*
+	@@acceso: interno
+	@@desc: devuelve JAVASCRIPT que se ejecuta en el onSUBMIT del FORMULARIO
+*/
+	{
+		echo "	
+			if ({$this->objeto_js}) {
+				if (! {$this->objeto_js}.validar())
+					return false;
+			}
+		";
+	}	
 }
 ?>

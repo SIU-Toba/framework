@@ -33,6 +33,7 @@ class js
 				//--> Codigo necesario para los ef_fecha
 				case 'fecha':
 					echo "\n\n<SCRIPT language='javascript' src='".recurso::js("calendario_es.js")."'></SCRIPT>\n";
+					echo "\n\n<SCRIPT language='javascript' src='".recurso::js("validacion_fecha.js")."'></SCRIPT>\n";
 					echo "<SCRIPT language='javascript'>document.write(getCalendarStyles());</SCRIPT>\n";
 					echo "<SCRIPT language='javascript'>var calendario = new CalendarPopup('div_calendario');calendario.showYearNavigation();calendario.showYearNavigationInput();</SCRIPT>\n";
 					echo "<DIV id='div_calendario'  style='VISIBILITY: hidden; POSITION: absolute; BACKGROUND-COLOR: white; layer-background-color: white'></DIV>\n";

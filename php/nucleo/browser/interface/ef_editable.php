@@ -155,12 +155,12 @@ class ef_editable extends ef
 
 	function crear_objeto_js()
 	{
-		return "new ef_editable('{$this->id_form}')";
-	}
+		return "new ef_editable({$this->parametros_js()})";
+	}	
 	
 	function obtener_consumo_javascript()
 	{
-		$consumos = array('interface/ef_editable');
+		$consumos = array('interface/ef','interface/ef_editable');
         if($this->obligatorio){
 		//Consumo la expresion regular que machea campos nulos
 			$consumos[] = "ereg_nulo";
@@ -277,7 +277,7 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 	
 	function crear_objeto_js()
 	{
-		return "new ef_editable_numero('{$this->id_form}')";
+		return "new ef_editable_numero({$this->parametros_js()})";
 	}	
 }
 //########################################################################################################
@@ -329,6 +329,11 @@ if( !( (formulario.". $this->id_form .".value >= 0) &&  (formulario.". $this->id
 	{
 		return "<table class='tabla-0'><tr><td>".parent::obtener_input()."</td><td>%</td></tr></table>";
 	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_editable_porcentaje({$this->parametros_js()})";
+	}	
 }
 
 //########################################################################################################
@@ -371,6 +376,11 @@ if( formulario.". $this->id_form .".value != formulario.". $this->id_form ."_tes
 		$html .= "</table>\n";
 		return $html;
 	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_editable_clave({$this->parametros_js()})";
+	}		
 }
 //########################################################################################################
 //########################################################################################################
@@ -499,7 +509,11 @@ class ef_editable_fecha extends ef_editable
 			return $val_padre;
 		}
    }
-
+   
+	function crear_objeto_js()
+	{
+		return "new ef_editable_fecha({$this->parametros_js()})";
+	}		   
 }
 //########################################################################################################
 //########################################################################################################

@@ -1,4 +1,3 @@
-  <script language='javascript'>
         var ER_NUM = /^\-?\d+$/;
         function cal_error (str_message) 
         {
@@ -36,4 +35,3 @@
         
             return true;
         }
-        </script>
