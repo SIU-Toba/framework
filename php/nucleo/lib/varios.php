@@ -77,21 +77,27 @@
 	}
 	//-----------------------------------------------------------------
 
-	function version_svn($dir="")
+	function revision_svn($dir)
 	//Busca la revision de a la que corresponde el TOBA
 	{
-		$dir="c:/toba";
 		$archivo = "$dir/.svn/entries";
-		//$fd = fopen($archivo, "r");
-   		//$contenido = fread($fd, filesize($archivo));
-		$contenido = file_get_contents ( $archivo );
-		$captura = array();
-		if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
-			//ei_arbol($captura);	
-			return $captura[1];
+		if(file_exists($archivo))
+		{
+			//$fd = fopen($archivo, "r");
+	   		//$contenido = fread($fd, filesize($archivo));
+			$contenido = file_get_contents ( $archivo );
+			$captura = array();
+			if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
+				//ei_arbol($captura);	
+				return $captura[1];
+			}else{
+				return "DESCONOCIDA";	
+			}
 		}else{
 			return "DESCONOCIDA";	
 		}
 	}
 	//-----------------------------------------------------------------
+
+
 ?>

@@ -205,6 +205,9 @@ require("3ros/adodb340/adodb.inc.php");
 		}else{
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		}
+		if(!isset($db[$fuente])){
+			throw new excepcion_toba("La fuente de datos no se encuentra disponible. " );
+		}
 		$rs = $db[$fuente][apex_db_con]->Execute($sql);
 		if(!$rs){
 			throw new excepcion_toba("No se genero el Recordset. " . $db[$fuente][apex_db_con]->ErrorMsg() );

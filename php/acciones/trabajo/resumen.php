@@ -4,11 +4,17 @@
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
 	
-	
+			
+	//Mostrar la instancia y revision utilizada
 	echo "<pre>
-		
-		REVISION: " . version_svn() ."
-		INSTANCIA: " . apex_pa_instancia;
+
+		INSTANCIA: " . apex_pa_instancia . "
+		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() );
+		$proyecto  = $this->hilo->obtener_proyecto();
+		if( $proyecto != "toba" ){
+			echo "\n		revision SVN $proyecto: " . revision_svn($this->hilo->obtener_proyecto_path() );
+		}
+
 		
 /*
 	echo "<pre>";
