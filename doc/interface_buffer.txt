@@ -1,0 +1,51 @@
+BUFFER
+
+CICLO de VIDA
+
+	function buffer($id, $definicion, $fuente)
+	function inicializar_definicion_campos()
+	function finalizar()
+	function desregistrar_finalizacion()
+	function info($mostrar_datos=false)
+	function cargar_datos($where=null, $from=null)
+	function controlar_conservacion_where($where)
+	function cargar_datos_db($where=null, $from=null)
+	function cargar_db($carga_estricta=false)
+	function cargar_datos_sesion()
+	function guardar_datos_sesion()
+	function existe_instanciacion_previa()
+	function resetear()
+
+ I/O
+
+	function obtener_registros($condiciones=null)
+	function obtener_registro($id)
+	function agregar_registro($registro)
+	function modificar_registro($registro, $id)
+	function eliminar_registro($id=null)
+	function cantidad_registros()
+	function obtener_registro_valor($id, $columna)
+
+	function obtener_columna_valores($columna)
+	function establecer_valor_columna($columna, $valor)
+
+VALIDACION
+
+	function validar_registro($registro, $id=null)
+	function control_estructura_registro($registro)
+	function control_valores_unicos($registro, $id=null)
+	function control_nulos($registro)
+
+SINCRO
+
+	function sincronizar_db()
+	function ejecutar_sql($sql,$controlar_ar=true)
+	function recuperar_secuencia($secuencia)
+	function obtener_sql_ejecutado()
+	function generar_sql_select()
+	function generar_sql_insert($id_registro)
+	function generar_sql_update($id_registro)
+	function generar_sql_delete($id_registro)
+	function controlar_alteracion_db_array()
+	function controlar_alteracion_db_timestamp()
+	function obtener_definicion()
