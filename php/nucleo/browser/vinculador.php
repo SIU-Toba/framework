@@ -271,7 +271,7 @@ class vinculador
 											$this->info[$v]['destino_item'],
 											$parametros,$zona,$cronometrar);
 			if($escribir_tag){
-				return $this->generar_html_vinculo($url,$v,$texto);
+				return $this->generar_html_vinculo($url,$v,'lista-link',$texto);
 			}else{
 				return $url;
 			}
