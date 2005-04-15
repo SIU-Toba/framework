@@ -1,0 +1,37 @@
+<?php
+require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php');
+
+class ml extends objeto_ei_formulario_ml
+{
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.procesar_checkbox = function () {
+				var total = 0;	
+				var filas = this.filas();
+				for (fila in filas)	{
+					if (this.ef('checkbox').ir_a_fila(filas[fila]).chequeado()) {
+						this.ef('editable_numero').ir_a_fila(filas[fila]).activar();
+						valor = this.ef('editable_numero').ir_a_fila(filas[fila]).valor();
+						valor = (valor=='' || isNaN(valor)) ? 0 : valor;
+						total += valor
+					}
+					else { //desactivar el campo numero
+						this.ef('editable_numero').ir_a_fila(filas[fila]).desactivar();			
+				 	}
+				}
+				total = Math.round(total * 100)/100;
+				this.cambiar_total('editable_numero', total);
+				return total;
+			}
+
+			{$this->objeto_js}.procesar_editable_numero = function () {
+				this.procesar_checkbox();
+			}			
+		";
+	}
+}
+
+
+
+?>

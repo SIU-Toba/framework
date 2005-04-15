@@ -1,0 +1,170 @@
+<?php
+require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+
+class cuadro extends objeto_ei_cuadro
+{
+
+    function obtener_html($mostrar_cabecera=true, $titulo=null)
+    //Genera el HTML del cuadro
+    {
+		//Reproduccion del titulo
+		if(isset($titulo)){
+			$this->memoria["titulo"] = $titulo;
+			$this->memorizar();
+		}else{
+			if(isset($this->memoria["titulo"])){
+				$titulo = $this->memoria["titulo"];
+				$this->memorizar();
+			}
+		}
+		//Manejo del EOF
+        if($this->filas == 0){
+            //La consulta no devolvio datos!
+            if ($this->info_cuadro["eof_invisible"]!=1){
+                if(trim($this->info_cuadro["eof_customizado"])!=""){
+                    echo ei_mensaje($this->info_cuadro["eof_customizado"]);
+                }else{
+                    echo ei_mensaje("La consulta no devolvio datos!");
+                }
+            }
+        }else{
+            if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
+            //echo "<br>\n";
+            
+			//--Scroll       
+	        if($this->info_cuadro["scroll"]){
+				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
+				$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
+				echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
+			//	echo "<table class='tabla-0'>\n";
+			}else{
+				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
+			//	echo "<table width='$ancho' class='tabla-0'>\n";
+			}
+            
+            echo "<table class='objeto-base' width='$ancho'>\n\n\n";
+
+            if($mostrar_cabecera){
+                echo "<tr><td>";
+                $this->barra_superior(null, true,"objeto-ei-barra-superior");
+                echo "</td></tr>\n";
+            }
+            if($this->info_cuadro["subtitulo"]<>""){
+                echo"<tr><td class='lista-subtitulo'>". $this->info_cuadro["subtitulo"] ."</td></tr>\n";
+            }
+            $this->generar_html_barra_paginacion();
+
+            echo "<tr><td>";
+            echo "<TABLE width='100%' class='tabla-0'>";
+            //------------------------ Genero los titulos
+            echo "<tr>\n";
+            for ($a=0;$a<$this->cantidad_columnas;$a++)
+            {
+                if(isset($this->info_cuadro_columna[$a]["ancho"])){
+                    $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
+                }else{
+                    $ancho = "";
+                }
+                echo "<td class='lista-col-titulo' $ancho>\n";
+                $this->cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
+                                            $this->info_cuadro_columna[$a]["valor_sql"],
+                                            $a );
+                echo "</td>\n";
+            }
+            //-- Evento FIJO de seleccion
+			if($this->ev_seleccion){
+				echo "<td class='lista-col-titulo'>\n";
+	            echo "</td>\n";
+	            echo "</tr>\n";
+			}
+			//-------------------------------------------------------------------------
+            //----------------------- Genero VALORES del CUADRO -----------------------
+			//-------------------------------------------------------------------------
+            for ($f=0; $f< $this->filas; $f++)
+            {
+				$resaltado = "";
+				$clave_fila = $this->obtener_clave_fila($f);
+				//$this->clave_seleccionada
+				//$resaltado = "_s";
+				
+                echo "<tr>\n";
+                for ($a=0;$a< $this->cantidad_columnas;$a++)
+                {
+                    //----------> Comienzo una CELDA!!
+                    //*** 1) Recupero el VALOR
+                    if(isset($this->info_cuadro_columna[$a]["valor_sql"])){
+                        $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["valor_sql"]];
+                        //Hay que formatear?
+                        if(isset($this->info_cuadro_columna[$a]["valor_sql_formato"])){
+                            $funcion = "formato_" . $this->info_cuadro_columna[$a]["valor_sql_formato"];
+                            //Formateo el valor
+                            $valor = $funcion($valor);
+                        }
+                        //Hay que hacer un formateo externo
+                        if(trim($this->info_cuadro_columna[$a]["valor_proceso_parametros"])!=""){
+                            $funcion = $this->info_cuadro_columna[$a]["valor_proceso_parametros"];
+                            //Formateo el valor
+                            $valor = $funcion($valor);
+                        }
+                    }elseif(isset($this->info_cuadro_columna[$a]["valor_fijo"])){
+                        $valor = $this->info_cuadro_columna[$a]["valor_fijo"];
+                    }else{
+                        $valor = "";
+                    }
+                    //*** 2) PRoceso la columna
+                    //Esto no se utiliza desde el instanciador
+                    if(!$this->solicitud->hilo->entorno_instanciador()){
+                        if(isset($this->info_cuadro_columna[$a]["valor_proceso"])){
+                            $metodo_procesamiento = $this->info_cuadro_columna[$a]["valor_proceso"];
+                            $valor = $this->$metodo_procesamiento($f, $valor);
+                        }
+                    }
+                    //*** 3) Generacion de VINCULOS!
+                    if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
+                        $id_fila = $this->obtener_clave_fila($f);
+                        //Genero el VINCULO
+                        $vinculo = $this->solicitud->vinculador->obtener_vinculo_de_objeto( $this->id,
+                                                                                $this->info_cuadro_columna[$a]["vinculo_indice"],
+                                                                                $id_fila, true, $valor);
+                        //El vinculador puede no devolver nada en dos casos: 
+                        //No hay permisos o el indice no existe
+                        if(isset($vinculo)){
+                            $valor = $vinculo;
+                        }
+                    }
+                    //*** 4) Genero el HTML
+                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado . "'>\n";
+                    echo $valor;
+                    echo "</td>\n";
+                    //----------> Termino la CELDA!!
+                }
+	            //-- Evento FIJO de seleccion
+				if($this->ev_seleccion){
+					echo "<td class='lista-col-titulo'>\n";
+					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"), 
+									"onClick='seleccionar(\"$clave_fila\", \"{$this->datos[$f]['descripcion']}\")';");
+	            	echo "</td>\n";
+	            }
+				//----------------------------
+                echo "</tr>\n";
+            }
+            //----------------------- Genero totales??
+			$this->generar_html_totales();
+            echo "</table>\n";
+            echo "</td></tr>\n";
+            $this->generar_html_barra_paginacion();
+            echo "</table>\n";
+            
+			//Y por cierto......... si esto tenia scroll, cierro el div !!!
+			if($this->info_cuadro["scroll"]){
+				echo "</div>";
+			}
+		            
+            //echo "<br>\n";
+        }
+    }
+
+}
+
+
+?>
