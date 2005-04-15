@@ -1,0 +1,218 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <title>JsUnit Test</title>
+    <link rel="stylesheet" type="text/css" href="../jsunit/css/jsUnitStyle.css">
+
+<script language="JavaScript1.4" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../basico.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/mascaras.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_checkbox.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_editable.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario_ml.js"></script>
+<SCRIPT  language='JavaScript1.4' type='text/javascript'>
+ ereg_nulo = /^\s*$/;
+</SCRIPT>
+<script language="JavaScript1.4" type="text/javascript">
+
+//--------------------------------------------------------------------
+var formu;	//Formualrio utilizado en las pruebas
+
+function setUp() {
+	//Crea un formulario con una fila inicial
+	formu = new objeto_ei_formulario_ml('formu', null, new Array(51, 5050), 2, true);
+	formu.agregar_ef(new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
+	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', false, ''), 'mi_moneda');
+}
+
+function test_creacion_seleccion_borrado_filas() {
+	formu.iniciar();	//Inicialmente tiene dos filas
+	//Crea dos filas
+	formu.crear_fila();
+	formu.crear_fila();
+	assertEquals(4, formu.filas().length);	
+
+	//Las selecciona y las borra
+	formu.seleccionar(4);
+	formu.eliminar_seleccionada();
+	formu.seleccionar(3);
+	formu.eliminar_seleccionada();
+	assertEquals(2, formu.filas().length);		
+}
+
+function test_deshacer() {
+	formu.iniciar();
+	formu.seleccionar(1);
+	formu.eliminar_seleccionada();
+	assertEquals(1, formu.filas().length);
+	
+	formu.deshacer();
+	assertEquals(2, formu.filas().length);	
+}
+
+//--- Validaciones particulares
+function test_validador_nuevo() {
+	//Crea un formulario con una fila inicial
+	formu = new objeto_ei_formulario_ml('formu', null, new Array(51, 5050), 2, true);
+	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
+	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio 
+	formu._silencioso = true;
+	formu.iniciar();
+
+	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');	//Lo pone vacio 
+	this.assertFalse(formu.validar());
+
+	//Una validacion nueva, si no esta chequeado pasar por alto la validacion de esa fila
+	formu.validar = function() {
+		var filas = this.filas();
+		for (fila in filas) {
+			if ( this.ef('mi_check').ir_a_fila(filas[fila]).chequeado()) {
+				if (! this.validar_fila(fila) )
+					return false;
+			}
+		}
+		return true;
+	}
+
+	//El check de la primer fila esta sin chequear y el editable esta vacio, no hay que aceptar
+	formu.ef('mi_check').ir_a_fila(0).chequear(false);
+	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');
+	this.assertTrue(formu.validar());
+
+	//El check de la segunda fila esta chequeado y el editable esta vacio, hay que rechazar
+	formu.ef('mi_check').ir_a_fila(1).chequear(true);
+	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor('');
+	this.assertFalse(formu.validar());	
+}
+
+
+
+//---Procesamiento
+function test_totalizacion_estandar() {
+	formu.agregar_procesamiento('mi_moneda');
+	formu.iniciar();
+	this.assertEquals(0, formu.procesar('mi_moneda'));
+	
+	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor(504.34);
+	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(506.12);
+	this.assertEquals(1010.46, formu.procesar('mi_moneda'));
+
+	formu.refrescar_procesamientos(); //Solmente Estetico
+}
+
+function test_procesamiento_extendido() {
+	//Consiste en usar un ef como disparador del procesamiento y otro como objeto y contenedor del resultado del mismo
+	//En este caso el cambio de valor del checkbox dispara la suma de las monedas seleccionadas
+	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor(1301.12);
+	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(0.52);	
+
+	//Extension del procesamiento del ef mi_check
+	formu.procesar_mi_check = function () {
+		var total = 0;	
+		var filas = this.filas();
+		for (fila in filas)	{
+			if (this.ef('mi_check').ir_a_fila(filas[fila]).chequeado()) {
+				this.ef('mi_moneda').ir_a_fila(filas[fila]).activar();
+				valor = this.ef('mi_moneda').ir_a_fila(filas[fila]).valor();
+				valor = (valor=='' || isNaN(valor)) ? 0 : valor;
+				total += valor
+			}
+			else { //desactivar el campo moneda
+				this.ef('mi_moneda').ir_a_fila(filas[fila]).desactivar();			
+			}
+		}
+		total = Math.round(total * 100)/100;
+		this.cambiar_total('mi_moneda', total);
+		return total;
+	}	
+	
+	//Se extiende el procesamiento de la moneda para que re-procesarse si se cambia algun importe
+	formu.procesar_mi_moneda = function () {
+		return this.procesar_mi_check();
+	}
+	formu.iniciar();
+
+	//Inicialmente la suma debe ser 0
+	formu.ef('mi_check').ir_a_fila(0).chequear(false);
+	formu.ef('mi_check').ir_a_fila(1).chequear(false);
+	this.assertEquals(0, formu.procesar('mi_check'));
+
+	//Chequea solamente el primero la suma debe ser 1301.12
+	formu.ef('mi_check').ir_a_fila(0).chequear(true);
+	formu.ef('mi_check').ir_a_fila(1).chequear(false);	
+	this.assertEquals(1301.12, formu.procesar('mi_check'));
+	
+	//Cheque solamente el segundo la suma debe ser 0.52
+	formu.ef('mi_check').ir_a_fila(0).chequear(false);
+	formu.ef('mi_check').ir_a_fila(1).chequear(true);
+	this.assertEquals(0.52, formu.procesar('mi_check'));
+	
+	//Chequea los dos la suma debe ser 1301.64
+	formu.ef('mi_check').ir_a_fila(0).chequear(true);
+	formu.ef('mi_check').ir_a_fila(1).chequear(true);
+	this.assertEquals(1301.64, formu.procesar('mi_check'));
+	
+	formu.refrescar_procesamientos(); //Solmente Estetico	
+	
+}
+
+</script>
+</head>
+<body>
+<table class='objeto-base'> 
+	<tr> 
+		<td><div style='text-align: left'> 
+				<button type='button' name='formu_agregar'  id='formu_agregar'  value='' class='ef-boton' tabindex='5040' accesskey='+' title="Crea una nueva fila [ALT +]" onclick='formu.crear_fila();'><img border='0' src='http://localhost/toba/img/ml/agregar.gif' style='margin: 0px 0px 0px 0px;'></button> 
+				<button type='button' name='formu_eliminar' id='formu_eliminar' value='' class='ef-boton' tabindex='5041' accesskey='-' title="Elimina la fila seleccionada [ALT -]" onclick='formu.eliminar_seleccionada();' disabled><img border='0' src='http://localhost/toba/img/ml/borrar.gif' style='margin: 0px 0px 0px 0px;'></button> 
+				<button type='button' name='formu_deshacer' id='formu_deshacer' value='' class='ef-boton' tabindex='5042' accesskey='z' title="Deshace la �a acci򬟛ALT z]"  onclick='formu.deshacer();' disabled><img border='0' src='http://localhost/toba/img/ml/deshacer.gif' style='margin: 0px 0px 0px 0px;'><span id='formu_deshacer_cant'  style='font-size: 8px;'></span></button> 
+				<button type='button' name='formu_subir' id='formu_subir' value='' class='ef-boton' tabindex='5043' accesskey='<' title="Sube una posici򬟬a fila seleccionada [ALT <]" onclick='formu.subir_seleccionada();' disabled><img border='0' src='http://localhost/toba/img/ml/subir.gif' style='margin: 0px 0px 0px 0px;'></button> 
+				<button type='button' name='formu_bajar' id='formu_bajar' value='' class='ef-boton' tabindex='5044' accesskey='>' title="Baja una posici򬟬a fila seleccionada [ALT >]" onclick='formu.bajar_seleccionada();' disabled><img border='0' src='http://localhost/toba/img/ml/bajar.gif' style='margin: 0px 0px 0px 0px;'></button> 
+			</div> 
+			<div> 
+				<input name='formu_listafilas' id='formu_listafilas' type='hidden' value='' > 
+				<table width='auto' class='tabla-0'> 
+					<thead> 
+						<tr> 
+							<th class='abm-columna'>&nbsp;</th> 
+							<th class='abm-columna'> <div class='ef-etiqueta'>EF</div></th> 
+						</tr> 
+					</thead> 
+					<!--Totales--> 
+					<tfoot> 
+						<tr> 
+							<td class='abm-total'>&nbsp;</td> 
+							<td  class='abm-total'> <div id='CI_11471105checkboxs' class='abm-total'>&nbsp;</div></td> 
+							<td  class='abm-total'> <div id='CI_11471105mi_monedas' class='abm-total'>&nbsp;</div></td> 							
+						</tr> 
+					</tfoot> 
+					<tbody class='tabla-con-scroll'> 
+						<tr id='formu_fila0' onFocus='formu.seleccionar(0)' onClick='formu.seleccionar(0)'> 
+							<td class='abm-fila-ml'><span id='formu_numerofila0'>1</span></td> 
+							<td class='abm-fila-ml'><input name='CI_11471105checkbox0' id='CI_11471105checkbox0' type='checkbox' value='1' class=''></td> 
+							<td  class='abm-fila-ml'><INPUT type='text' name='CI_11471105mi_moneda0' id='CI_11471105mi_moneda0' maxlength='10' size='10' class='ef-input-numero'></td>
+						</tr>
+						<!--FILA 1--> 
+						<tr id='formu_fila1' onFocus='formu.seleccionar(1)' onClick='formu.seleccionar(1)'> 
+							<td class='abm-fila-ml'><span id='formu_numerofila1'>2</span></td> 
+							<td class='abm-fila-ml'><input name='CI_11471105checkbox1' id='CI_11471105checkbox1' type='checkbox' value='1' class=''></td> 
+							<td  class='abm-fila-ml'><INPUT type='text' name='CI_11471105mi_moneda1' id='CI_11471105mi_moneda1' maxlength='10' size='10' class='ef-input-numero'></td>
+						</tr>						
+						<!--FILA __fila__--> 
+						<tr style='display:none;' id='formu_fila__fila__' onFocus='formu.seleccionar(__fila__)' onClick='formu.seleccionar(__fila__)'> 
+							<td class='abm-fila-ml'><span id='formu_numerofila__fila__'>3</span></td> 
+							<td class='abm-fila-ml'><input name='CI_11471105checkbox__fila__' id='CI_11471105checkbox__fila__' type='checkbox' value='1'  class='' ></td> 
+							<td  class='abm-fila-ml'><INPUT type='text' name='CI_11471105mi_moneda__fila__' id='CI_11471105mi_moneda__fila__' maxlength='10' size='10' class='ef-input-numero'></td>
+
+						</tr>
+					</tbody> 
+				</table> 
+			</div></td> 
+	</tr> 
+</table>
+</body>
+</html>

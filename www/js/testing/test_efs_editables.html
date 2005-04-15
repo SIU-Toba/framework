@@ -1,0 +1,271 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <title>JsUnit Test</title>
+    <link rel="stylesheet" type="text/css" href="../jsunit/css/jsUnitStyle.css">
+
+<script language="JavaScript1.4" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../basico.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/mascaras.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../validacion_fecha.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_editable.js"></script>
+<script language='javascript'> ereg_nulo = /^\s*$/;</script>
+<script language="JavaScript1.4" type="text/javascript">
+
+function test_editable_texto() {
+	//Obligatorio sin mascara
+	var ef = new ef_editable('formulario1148editable', 'Editable', true, '');
+	ef.iniciar('el_editable');
+	
+	//Consultas basicas
+	assertEquals('el_editable', ef.id());
+	ef.cambiar_tab(18);
+	assertEquals(18, ef.tab());
+
+	//No tiene que validar porque es obligatorio y esta vacio
+	assertEquals('', ef.valor());
+	assertFalse(ef.validar()); 
+	assertTrue(ef.error() != '');
+	
+	ef.resetear_error();
+	ef.cambiar_valor('Nuevo Valor');
+	assertEquals(true, ef.validar()); 
+	assertTrue(ef.error() != '');
+}
+
+function test_editable_numero() {
+	//No obligatorio con mascara por defecto
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '');
+	ef.iniciar();
+
+	//Numero decimal
+	ef.cambiar_valor(1150.254);
+	assertEquals(1150.25, ef.valor());
+	assertEquals('1.150,25', ef.valor_formateado());	
+	assertTrue(ef.validar());
+	ef.submit();
+	assertEquals('1150.25', ef.input().value);
+	
+	//Entero
+	ef.cambiar_valor(1234567);
+	assertEquals(1234567, ef.valor());
+	assertEquals('1.234.567', ef.valor_formateado());	
+	assertTrue(ef.validar());
+	ef.submit();
+	assertEquals('1234567', ef.input().value);
+
+	//No es numero!!
+	ef.cambiar_valor('Esta cadena no contiene n&uacute;meros');
+	assertEquals(ef.valor(), '');
+}
+
+function test_editable_moneda() {
+	//No obligatorio con mascara por defecto
+	var ef = new ef_editable_moneda('formulario1148numero', 'Moneda', false, '');
+	ef.iniciar();
+
+	//Numero decimal
+	ef.cambiar_valor(1150.2);
+	assertEquals(1150.2, ef.valor());
+	assertEquals('$ 1.150,20', ef.valor_formateado());	
+	assertTrue(ef.validar());
+	ef.submit();
+	assertEquals('1150.2', ef.input().value);
+	
+	//Entero
+	ef.cambiar_valor(1234567);
+	assertEquals(1234567, ef.valor());
+	assertEquals('$ 1.234.567,00', ef.valor_formateado());	
+	assertTrue(ef.validar());
+	ef.submit();
+	assertEquals('1234567', ef.input().value);
+}
+
+function test_editable_porcentaje() {
+	var ef = new ef_editable_porcentaje('formulario1148porcentaje', 'Porcentaje', false, '');
+	ef.iniciar();
+	ef.cambiar_valor(50.3);
+	assertTrue(ef.validar());
+	ef.cambiar_valor(150.3);
+	assertFalse(ef.validar());
+	ef.cambiar_valor(-0.3);
+	assertFalse(ef.validar());
+}
+
+function test_editable_clave() {
+	var ef = new  ef_editable_clave('formulario1148clave', 'Clave', false, '');
+	ef.iniciar();
+	//Es invalido por los datos iniciales que tiene
+	assertFalse(ef.validar());
+	
+	ef.cambiar_valor('nuevo');
+	assertTrue(ef.validar());
+}
+
+function test_ef_fecha() {
+	var ef = new ef_editable_fecha('formulario1148fecha', 'fecha', false, 'dd/mm/yyyy');
+	ef.iniciar();
+
+	ef.cambiar_valor('23/12/2008');
+	assertTrue(ef.validar());
+	ef.cambiar_valor('1/1/1');
+	assertTrue(ef.validar());
+	ef.cambiar_valor('32/12/2008');
+	assertFalse(ef.validar());
+	ef.cambiar_valor('29/02/2008');
+	assertTrue(ef.validar());
+	ef.cambiar_valor('29/02/2005');
+	assertFalse(ef.validar());
+}
+</script>
+</head>
+<body>
+
+ <table class='objeto-base'> 
+  <tr> 
+    <td></td> 
+  </tr> 
+  <tr> 
+    <td><table class='tabla-0'  width=''> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148editable_div' name='formulario1148editable_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta-obligatorio'>&nbsp;Editable (*)</td> 
+                  <td class='ef-etiqueta-obligatorio'>&nbsp;</td> 
+                  <td class='ef-zonainput'><INPUT type='text' name='formulario1148editable' id='formulario1148editable' maxlength='20' size='20' value='' class='ef-input' > </td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148clave_div' name='formulario1148clave_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta'>&nbsp;Clave </td> 
+                  <td class='ef-etiqueta'>&nbsp;</td> 
+                  <td class='ef-zonainput'><table class='tabla-0' width='100%'> 
+                      <tr> 
+                        <td > <INPUT type='password' name='formulario1148clave' id='formulario1148clave' value='distinto' class='ef-input'> </td> 
+                      </tr> 
+                      <tr> 
+                        <td > <INPUT type='password' name='formulario1148clave_test' id='formulario1148clave_test' value='distint' class='ef-input'> </td> 
+                      </tr> 
+                    </table></td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148fecha_div' name='formulario1148fecha_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta'>&nbsp;fecha </td> 
+                  <td class='ef-etiqueta'>&nbsp;</td> 
+                  <td class='ef-zonainput'><table class='tabla-0'> 
+                      <tr> 
+                        <td> <INPUT type='text' name='formulario1148fecha' id='formulario1148fecha' maxlength='10' size='10' value='' class='ef-input' > </td> 
+                        <td> <a id='link_formulario1148fecha'  onclick='calendario.select(document.formulario.formulario1148fecha,"link_formulario1148fecha","dd/MM/yyyy");return false;'  href='#' name='link_formulario1148fecha'></A> </td> 
+                      </tr> 
+                    </table></td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148texto_div' name='formulario1148texto_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta'>&nbsp;texto </td> 
+                  <td class='ef-etiqueta'>&nbsp;</td> 
+                  <td class='ef-zonainput'><textarea class='ef-textarea' name='formulario1148texto' id='formulario1148texto' rows='6' cols='40'  ></textarea> </td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148numero_div' name='formulario1148numero_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta'>&nbsp;numero </td> 
+                  <td class='ef-etiqueta'>&nbsp;</td> 
+                  <td class='ef-zonainput'><INPUT type='text' name='formulario1148numero' id='formulario1148numero' maxlength='25' size='25' class='ef-input-numero' > </td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='abm-fila'> <div id='formulario1148porcentaje_div' name='formulario1148porcentaje_div'> 
+              <table border='0' width='150' cellpadding='0' cellspacing='0'> 
+                <tr> 
+                  <td >&nbsp;</td> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td></td> 
+                </tr> 
+                <tr> 
+                  <td class='ef-etiqueta'>&nbsp;Porcentaje </td> 
+                  <td class='ef-etiqueta'>&nbsp;</td> 
+                  <td class='ef-zonainput'><table class='tabla-0'> 
+                      <tr> 
+                        <td><INPUT type='text' name='formulario1148porcentaje' id='formulario1148porcentaje' maxlength='5' size='5' class='ef-input-numero' > </td> 
+                        <td>%</td> 
+                      </tr> 
+                    </table></td> 
+                </tr> 
+              </table> 
+            </div></td> 
+        </tr> 
+        <tr> 
+          <td class='ei-base'> <table class='tabla-0' align='center' width='100%'> 
+              <tr> 
+                <td align='right'><input name='ei_form1148' id='ei_form1148' type='hidden' value='' > 
+                  <button type='submit' name='ei_form1148_agr' id='ei_form1148_agr' value='' class='abm-input' tabindex='0' accesskey='A' title=" [ALT A]"  onclick='objeto_1148.set_evento("A", "&Agregar")'><u>A</u>gregar</button></td> 
+              </tr> 
+            </table></td> 
+        </tr> 
+      </table></td> 
+  </tr> 
+</table>
+</body>
+</html>

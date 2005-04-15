@@ -1,0 +1,114 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <title>JsUnit Test</title>
+    <link rel="stylesheet" type="text/css" href="../jsunit/css/jsUnitStyle.css">
+
+<script language="JavaScript1.4" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../basico.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_combo.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_popup.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../interface/ef_checkbox.js"></script>
+<script language='javascript'> ereg_nulo = /^\s*$/;</script>
+<script language="JavaScript1.4" type="text/javascript">
+
+function test_combo() {
+	//Requerido
+	var ef = new ef_combo('formulario1148combo', 'Combo', true);
+	ef.iniciar();
+	this.assertFalse(ef.validar());
+	//Valor Existente
+	ef.cambiar_valor('a');
+	this.assertTrue(ef.validar());	
+
+	//Valor no existente
+	ef.cambiar_valor(apex_ef_no_seteado);
+	this.assertFalse(ef.validar());	
+	try {
+		ok = true
+		ef.cambiar_valor('z');
+	} catch (e) {
+		var ok = false
+	}
+	this.assertFalse(ok);
+	this.assertFalse(ef.validar());	
+
+	//No Requerido
+	var ef = new ef_combo('formulario1148combo', 'Combo', false);
+	ef.iniciar();
+	//Valor no existente
+	ef.cambiar_valor(apex_ef_no_seteado);
+	this.assertTrue(ef.validar());	
+}
+
+function test_checkbox() {
+	var ef = new ef_checkbox('formulario1148checkbox', 'Checkbox', false);
+	ef.iniciar();
+	this.assertEquals(ef.valor(), null);
+	ef.chequear(true);
+	this.assertEquals(ef.valor(), '1');
+	ef.chequear(false);
+	this.assertEquals(ef.valor(), null);		
+}
+
+function test_popup() {
+	//Campo obligatorio
+	var ef = new ef_popup('formulario1148popup', 'Popup', true);
+	ef.iniciar();
+	this.assertFalse(ef.validar());
+}
+
+</script>
+</head>
+<body>
+<table>
+<!-- COMBO -->
+<tr> 
+	<td class='abm-fila'> <div id='formulario1148combo_div'> 
+			<table border='0' width='150' cellpadding='0' cellspacing='0'> 
+				<tr> 
+					<td class='ef-etiqueta'>&nbsp;Combo </td> 
+					<td class='ef-etiqueta'></td> 
+					<td class='ef-zonainput'> <select name='formulario1148combo' id='formulario1148combo' class='ef-combo' > 
+							<option value='nopar' selected>---seleccione---</option> 
+							<option value='a'>a</option> 
+							<option value='b'>b</option> 
+							<option value='c'>c</option> 
+							<option value='d'>d</option> 
+						</select> </td> 
+				</tr> 
+			</table> 
+		</div></td> 
+</tr> 
+<!--- CHECKBOX -->
+<tr> 
+	<td class='abm-fila'> <div id='formulario1148checkbox_div'> 
+			<table border='0' width='150' cellpadding='0' cellspacing='0'> 
+				<tr> 
+					<td class='ef-etiqueta'>&nbsp;Checkbox </td> 
+					<td class='ef-etiqueta'></td> 
+					<td class='ef-zonainput'><input name='formulario1148checkbox' id='formulario1148checkbox' type='checkbox' value='1'  class='' > </td> 
+				</tr> 
+			</table> 
+		</div></td> 
+</tr> 
+<!--- POPUP -->
+<tr> 
+	<td class='abm-fila'> <div id='formulario1148popup_div'> 
+			<table border='0' width='150' cellpadding='0' cellspacing='0'> 
+				<tr> 
+					<td class='ef-etiqueta'>&nbsp;Popup </td> 
+					<td class='ef-etiqueta'></a></td> 
+					<td class='ef-zonainput'><INPUT type='text' name='' id='' maxlength='' size='20' value='' class='ef-input' disabled> 
+						<input name='formulario1148popup' id='formulario1148popup' type='hidden' value=''> </td> 
+				</tr> 
+			</table> 
+		</div></td> 
+</tr>
+</table>
+</body>
+</html>

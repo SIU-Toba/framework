@@ -1,3 +1,6 @@
+var ie=document.all;
+var ns6=document.getElementById && !document.all;
+
 //---STRING
 //----------------------------------------------------------
 
@@ -34,8 +37,7 @@ String.prototype.quote_exp_reg = function () {
 String.prototype.reemplazar = function (buscado, nuevo) {
 	var srchNdx = 0; 
 	var newStr = ""; 
-	while (this.indexOf(buscado,srchNdx) != -1)  
-	{
+	while (this.indexOf(buscado,srchNdx) != -1) {
 	  newStr += this.substring(srchNdx,this.indexOf(buscado,srchNdx));
 	  newStr += nuevo;
 	  srchNdx = (this.indexOf(buscado,srchNdx) + buscado.length);
@@ -44,24 +46,69 @@ String.prototype.reemplazar = function (buscado, nuevo) {
 	return newStr;
 }
 
+String.prototype.intercambiar_caracteres = function(c1, c2) {
+	var car_template = '_^_';
+	var v1 = this.reemplazar(c2, car_template);
+	var v2 = v1.reemplazar(c1, c2);
+	var v3 = v2.reemplazar(car_template, c1);
+	return v3;
+}
+
+String.prototype.trim = function() {
+    return this.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
+}
+
 //---ARRAY
 //----------------------------------------------------------
-Array.prototype.contiene = function (elemento) {
-	for (var i=0 ; i < this.length; i++) {
-		if (this[i] == elemento)
+function in_array (arreglo, elemento) {
+	for (var i=0 ; i < arreglo.length; i++) {
+		if (arreglo[i] == elemento)
 			return true;
 	}
 	return false;
 }
 
+//---Eventos
+//--------------------------------------------
+
+// define the addEvent(oElement, sEvent, sCmd, bAppend) function
+function addEvent(o, _e, c, _b){
+	var e = _e.toLowerCase();
+	var b = (typeof _b == "boolean") ? _b : true;
+	var x = (o[e]) ? o[e].toString() : "";
+
+	// strip out the body of the function
+	x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));
+	x = ((b) ? (x + c) : (c + x)) + "\n";
+	return o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+}
+
+
+//---- DOM
+//Muestra u oculta un nodo
+function toggle_nodo(o) {
+	o.style.display = (o.style.display == 'none') ? '' : 'none';
+	return true;
+}
+
 //----Varios
 //--------------------------------------------
 
-function ei_arbol(arreglo)
-{
+function ei_arbol(arreglo) {
 	var salida = '';
 	for (dim in arreglo) {
 		salida = salida + dim + ' => ' + arreglo[dim] + '\n';
 	}
 	alert(salida);
 }
+
+
+function logger(mensaje, separador) {
+	separador = (separador) ? separador : "<br>";
+	if (div = document.getElementById('logger_salida')) {
+		div.innerHTML += mensaje + separador;
+	}
+}
+
+
+

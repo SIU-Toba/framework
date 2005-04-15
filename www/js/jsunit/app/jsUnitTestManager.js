@@ -223,7 +223,7 @@ jsUnitTestManager.prototype.calculateProgressBarProportion = function ()
 
 jsUnitTestManager.prototype._cleanUp = function () 
 {
-  this.containerController.setTestPage('./app/emptyPage.html');
+//  this.containerController.setTestPage('./app/emptyPage.html');
   this.finalize();
   top.tracer.finalize();
 }
