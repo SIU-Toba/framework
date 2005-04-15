@@ -175,10 +175,8 @@ class ef_multi_seleccion extends ef
 	
 	function validar_seleccionados()
 	{
-		foreach ($this->estado as $seleccionado)
-		{
-			if (! array_key_exists($seleccionado, $this->valores) )
-			{
+		foreach ($this->estado as $seleccionado) {
+			if (! array_key_exists($seleccionado, $this->valores) )	{
 				$this->validacion = false;
                 return array(false, "El elemento seleccionado no pertenece a los datos de entrada.");
 			}

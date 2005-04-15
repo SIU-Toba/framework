@@ -1,41 +1,111 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_formulario_ml
+//Clase objeto_ei_formulario_ml 
 objeto_ei_formulario_ml.prototype = new objeto_ei_formulario;
 var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
-	//----Construcción
-	function objeto_ei_formulario_ml(instancia, rango_tabs, cant_filas, con_agregar) {
-		this.instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
-		this.rango_tabs = rango_tabs;
-		this.con_agregar = con_agregar;			//¿Permite agregar/quitar filas?
-		this.filas = new Array();				//Carga inicial de las filas
-		for (var i=0 ; i < cant_filas ; i++) {
-			this.filas.push(i);
-		}
-		this.ultimo_id = i;
-
-		this.efs = new Array();					//Lista de objeto_ef contenidos
-		this.pila_deshacer = new Array();		//Pila de acciones a deshacer
-		this.efs_totalizar = new Array();		///ID de los ef's que poseen totalizacion
+	//----Construcción 
+	function objeto_ei_formulario_ml(instancia, ci, rango_tabs, cant_filas, con_agregar) {
+		this._instancia = instancia;			//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
+		this._ci = ci;							//Referencia al CI contenedor
+		this._rango_tabs = rango_tabs;
+		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
+		this._filas = new Array();				//Carga inicial de las filas
+		for (var i=0 ; i < cant_filas ; i++)
+			this._filas.push(i);
+		this._ultimo_id = i;
+		this._efs = new Array();				//Lista de objeto_ef contenidos
+		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
+		this._efs_procesar = new Array();		//ID de los ef's que poseen procesamiento
 	}
 
 	def.iniciar = function () {
-		for (fila in this.filas) {
-			this.agregar_tab_index(this.filas[fila]);
+		for (fila in this._filas)
+			this.iniciar_fila(this._filas[fila]);
+		this.agregar_procesamientos();
+		this.refrescar_procesamientos(true);
+	}
+
+	def.iniciar_fila = function (fila) {
+		for (id_ef in this._efs) {
+			var ef = this._efs[id_ef].ir_a_fila(fila);
+			ef.iniciar(id_ef);
+			ef.cambiar_tab(this._rango_tabs[0]);
+			this._rango_tabs[0]++;
 		}
+	}	
+		
+	//----Consultas 
+	def.filas = function () { return this._filas };
+	
+	def.procesar = function (id_ef, es_inicial) {
+		if (this.hay_procesamiento_particular_ef(id_ef))
+			return this['procesar_' + id_ef](es_inicial);		 //Procesamiento particular
+		else
+			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
+	}
+
+	//Función de calculo de procesamento por defecto, suma el valor de cada filas	
+	def.total = function (id_ef) {
+		var total = 0;	
+		for (fila in this._filas) {
+			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).valor();
+			valor = (valor == '' || isNaN(valor)) ? 0 : valor;
+			total += valor;
+		}
+		return total;
 	}
 	
-	//----Submit
-	def.submit = function() {
-		if (!this.validar())
-			return false;
-		var lista_filas = this.filas.join('_');
-		document.getElementById(this.instancia + '_listafilas').value = lista_filas;
+	//----Validación 
+	def.validacion_defecto = function() {
+		for (fila in this._filas) {
+			if (! this.validar_fila(fila))
+				return false;
+		}
 		return true;
 	}
 	
-	//----Selección
+	def.validar_fila = function(fila) {
+		for (id_ef in this._efs) {
+			if (! this.validar_fila_ef(fila, id_ef))
+				return false;
+		}
+		return true;
+	}
+	
+	def.validar_fila_ef = function(fila, id_ef) {
+		var ef = this._efs[id_ef].ir_a_fila(this._filas[fila]);
+		if (! ef.validar()) {
+			if (! this._silencioso) {
+				this.seleccionar(this._filas[fila]);
+				ef.seleccionar();
+				alert(ef.error());
+				ef.resetear_error();
+			}
+			return false;
+		}		
+		return true;
+	}
+	
+	//----Submit 
+	def.submit = function() {
+		//Si no es parte de un submit general, dispararlo
+		if (this._ci && !this._ci.en_submit())
+			return this._ci.submit();
+
+		if (!this.validar())
+			return false;
+		for (fila in this._filas) {
+			for (id_ef in this._efs) {
+				this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
+			}
+		}
+		var lista_filas = this._filas.join('_');
+		document.getElementById(this._instancia + '_listafilas').value = lista_filas;
+		return true;
+	}
+	
+	//----Selección 
 	def.seleccionar = function(fila) {
 		if  (fila != this.seleccionada) {
 			this.deseleccionar_actual();
@@ -46,7 +116,7 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.deseleccionar_actual = function() {
 		if (this.seleccionada != null) {	//Deselecciona el anterior
-			cambiar_clase(document.getElementById(this.instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml');			
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml');			
 			delete(this.seleccionada);
 		}
 	}
@@ -54,8 +124,8 @@ def.constructor = objeto_ei_formulario_ml;
 	def.subir_seleccionada = function () {
 		//Busco las posiciones a intercambiar
 		var pos_anterior = null;
-		for (posicion in this.filas) {
-			if (this.seleccionada == this.filas[posicion]) {
+		for (posicion in this._filas) {
+			if (this.seleccionada == this._filas[posicion]) {
 				pos_selec = posicion;
 				break;
 			}
@@ -70,8 +140,8 @@ def.constructor = objeto_ei_formulario_ml;
 	def.bajar_seleccionada = function () {
 		//Busco las posiciones a intercambiar
 		var pos_siguiente = null;
-		for (posicion = this.filas.length - 1; posicion >= 0; posicion--) {
-			if (this.seleccionada == this.filas[posicion]) {
+		for (posicion = this._filas.length - 1; posicion >= 0; posicion--) {
+			if (this.seleccionada == this._filas[posicion]) {
 				pos_selec = posicion;
 				break;
 			}
@@ -85,25 +155,25 @@ def.constructor = objeto_ei_formulario_ml;
 
 	def.intercambiar_filas = function (pos_a, pos_b) {
 		//Reemplazo en el DOM
-		var nodo_padre = document.getElementById(this.instancia + '_fila' + this.filas[pos_a]);
-		var nodo_selecc = document.getElementById(this.instancia + '_fila' + this.filas[pos_b]);
+		var nodo_padre = document.getElementById(this._instancia + '_fila' + this._filas[pos_a]);
+		var nodo_selecc = document.getElementById(this._instancia + '_fila' + this._filas[pos_b]);
 		intercambiar_nodos(nodo_selecc, nodo_padre);
 		
 		//Reemplazo de los tabs index
-		for (id_ef in this.efs) {
-			var tab_a = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).tab();
-			var tab_b = this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).tab();
-			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_a]).cambiar_tab(tab_b);
-			this.efs[id_ef].posicionarse_en_fila(this.filas[pos_b]).cambiar_tab(tab_a);			
+		for (id_ef in this._efs) {
+			var tab_a = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).tab();
+			var tab_b = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).tab();
+			this._efs[id_ef].ir_a_fila(this._filas[pos_a]).cambiar_tab(tab_b);
+			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).cambiar_tab(tab_a);			
 		}
 		
-		//Reemplazo interno
-		var temp = this.filas[pos_a];
-		this.filas[pos_a] = this.filas[pos_b];
-		this.filas[pos_b] = temp;
+		//Reemplazo interno 
+		var temp = this._filas[pos_a];
+		this._filas[pos_a] = this._filas[pos_b];
+		this._filas[pos_b] = temp;
 	}
 
-	//---ABM
+	//---ABM 
 	def.eliminar_seleccionada = function() {
 		var fila = this.seleccionada;
 		anterior = this.eliminar_fila(fila);
@@ -116,182 +186,144 @@ def.constructor = objeto_ei_formulario_ml;
 	//Elimina una fila y retorna la fila más cercana
 	def.eliminar_fila = function(fila) {
 			//'Elimina' la fila en el DOM
-		var id_fila = this.instancia + '_fila' + fila;
-		var id_deshacer = this.instancia + '_deshacer';
+		var id_fila = this._instancia + '_fila' + fila;
+		var id_deshacer = this._instancia + '_deshacer';
 		cambiar_clase(document.getElementById(id_fila).cells, 'abm-fila-ml');
 		document.getElementById(id_fila).style.display = 'none';
 			//Elimina la fila en la lista interna
-		for (i in this.filas) { 
-			if (this.filas[i] == fila) {
-				this.filas.splice(i, 1); 
+		for (i in this._filas) { 
+			if (this._filas[i] == fila) {
+				this._filas.splice(i, 1); 
 				break;
 			}
-			var anterior = this.filas[i];		
+			var anterior = this._filas[i];		
 		}
 			//Crea función de deshacer
-		this.pila_deshacer.push(new Function (
+		this._pila_deshacer.push(new Function (
 								'document.getElementById("' + id_fila + '").style.display = ""\n' +
-								this.instancia + '.filas.splice(' + i + ',0,"' + fila + '")\n'
+								this._instancia + '._filas.splice(' + i + ',0,"' + fila + '")\n'
 								));
 		return anterior;
 	}
 	
 	def.crear_fila = function() {
 			//Crea la fila internamente
-		this.ultimo_id = this.ultimo_id + 1;	//Busca un nuevo ID
-		this.filas.push(this.ultimo_id);
+		this._ultimo_id = this._ultimo_id + 1;	//Busca un nuevo ID
+		this._filas.push(this._ultimo_id);
 
 			//Crea la fila en el DOM
-		var fila_template = document.getElementById(this.instancia + '_fila__fila__');
+		var fila_template = document.getElementById(this._instancia + '_fila__fila__');
 		nuevo_nodo = fila_template.cloneNode(true);
-		cambiar_atributos_en_arbol(nuevo_nodo, '__fila__', this.ultimo_id);
+		cambiar_atributos_en_arbol(nuevo_nodo, '__fila__', this._ultimo_id);
 		nuevo_nodo.style.display = '';
 		fila_template.parentNode.appendChild(nuevo_nodo);
 
 			//Refresca la interface
-		this.agregar_tab_index(this.ultimo_id);
-		this.refrescar_eventos(this.ultimo_id);
+		this.iniciar_fila(this._ultimo_id);
+		this.refrescar_eventos_procesamiento(this._ultimo_id);
 		this.refrescar_numeracion_filas();
-		this.seleccionar(this.ultimo_id);
+		this.refrescar_procesamientos();		
+		this.seleccionar(this._ultimo_id);
 		this.refrescar_foco();
 	}
 	
 	def.deshacer = function() {
-		if (this.pila_deshacer.length > 0) {
-			var funcion = this.pila_deshacer.pop();
+		if (this._pila_deshacer.length > 0) {
+			var funcion = this._pila_deshacer.pop();
 			funcion();
 		}
 		this.refrescar_todo();
 	}
 
-	//----Totalización
-	def.totalizar_columna = function (id_ef) {
-		total = this.get_total_columna(id_ef);
-		document.getElementById(id_ef + 's').innerHTML = total;
-	}
-
-	def.get_total_columna = function (id_ef) {
-		var total = 0;	
-		for (fila in this.filas)	{
-			valor = this.efs[id_ef].posicionarse_en_fila(this.filas[fila]).valor();
-			valor = (valor == '' || isNaN(valor)) ? 0 : valor;
-			total += valor
-		}
+	//----Procesamiento
+	def.cambiar_total = function (id_ef, total) {
+		var elemento = this._efs[id_ef].ir_a_fila('s');
+		document.getElementById(elemento._id_form).innerHTML = elemento.formato_texto(total);
 		return total;
 	}
-		
-	def.agregar_totalizacion = function (id_ef) {
-		if (this.efs[id_ef]) {
-			this.efs_totalizar[id_ef] = true;
-			for (fila in this.filas) {
-				this.agregar_totalizacion_fila(id_ef, this.filas[fila]);
+	
+	def.agregar_procesamiento = function (id_ef) {
+		if (this._efs[id_ef]) {
+			this._efs_procesar[id_ef] = true;
+			for (fila in this._filas) {
+				this.agregar_procesamiento_fila(id_ef, this._filas[fila]);
 			}
-			this.totalizar_columna(id_ef);
 		}
 	}
 	
-	def.agregar_totalizacion_fila = function (id_ef, fila) {
-		var callback = new Function (this.instancia + '.totalizar_columna("' + id_ef + '")');
-		this.efs[id_ef].posicionarse_en_fila(fila).cuando_cambia_valor(callback);
+	def.agregar_procesamiento_fila = function (id_ef, fila) {
+		var callback = this._instancia + '.procesar("' + id_ef + '")';
+		this._efs[id_ef].ir_a_fila(fila).cuando_cambia_valor(callback);
 	}
 
 
-	//----Refresco Grafico
+	//----Refresco Grafico 
 	def.refrescar_todo = function () {
-		this.refrescar_totales();
+		this.refrescar_procesamientos();
 		this.refrescar_numeracion_filas();
 		this.refrescar_deshacer();
 		this.refrescar_seleccion();
 	}
 	
-	def.refrescar_totales = function () {
-		for (id_ef in this.efs) {
-			if (this.efs_totalizar[id_ef]) {		
-				this.totalizar_columna(id_ef);
-			}
-		}
-	}
-	
+	//Recorre todas las filas y las vuelve a numerara comenzando desde 1
 	def.refrescar_numeracion_filas = function () {
 		var nro = 1;
-		for (fila in this.filas) {
-			document.getElementById(this.instancia + '_numerofila' + this.filas[fila]).innerHTML = nro;
+		for (fila in this._filas) {
+			document.getElementById(this._instancia + '_numerofila' + this._filas[fila]).innerHTML = nro;
 			nro++;
 		}
 	}
 	
+	//Actualiza el botón deshacer
 	def.refrescar_deshacer = function () {
-		var tamanio = this.pila_deshacer.length;
+		var tamanio = this._pila_deshacer.length;
 		if (tamanio == 0) {
-			document.getElementById(this.instancia + '_deshacer').disabled = true;
-			document.getElementById(this.instancia + '_deshacer_cant').innerHTML = '';
+			document.getElementById(this._instancia + '_deshacer').disabled = true;
+			document.getElementById(this._instancia + '_deshacer_cant').innerHTML = '';
 		} else {
-			document.getElementById(this.instancia + '_deshacer').disabled = false;
-			document.getElementById(this.instancia + '_deshacer_cant').innerHTML = '(' + tamanio + ')';			
+			document.getElementById(this._instancia + '_deshacer').disabled = false;
+			document.getElementById(this._instancia + '_deshacer_cant').innerHTML = '(' + tamanio + ')';			
 		}		
 	}
 	
+	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
 		if (this.seleccionada != null) {
-			cambiar_clase(document.getElementById(this.instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml-selec');
-			if (this.con_agregar) {
-				document.getElementById(this.instancia + '_eliminar').disabled = false;
-				document.getElementById(this.instancia + '_subir').disabled = false;
-				document.getElementById(this.instancia + '_bajar').disabled = false;			
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml-selec');
+			if (this._con_agregar) {
+				document.getElementById(this._instancia + '_eliminar').disabled = false;
+				document.getElementById(this._instancia + '_subir').disabled = false;
+				document.getElementById(this._instancia + '_bajar').disabled = false;			
 			}
 		} else {
-			if (this.con_agregar) {
-				document.getElementById(this.instancia + '_eliminar').disabled = true;
-				document.getElementById(this.instancia + '_subir').disabled = true;
-				document.getElementById(this.instancia + '_bajar').disabled = true;
+			if (this._con_agregar) {
+				document.getElementById(this._instancia + '_eliminar').disabled = true;
+				document.getElementById(this._instancia + '_subir').disabled = true;
+				document.getElementById(this._instancia + '_bajar').disabled = true;
 			}
 		}
 	}
 	
+	//Toma la fila seleccionada y le pone foco al primer ef que se la banque.
 	def.refrescar_foco = function () {
-		for (id_ef in this.efs) {
-			if (this.efs[id_ef].posicionarse_en_fila(this.seleccionada).seleccionar())
+		for (id_ef in this._efs) {
+			if (this._efs[id_ef].ir_a_fila(this.seleccionada).seleccionar())
 				break;
 		}
 	}
 	
-	def.refrescar_eventos = function (fila) {
-		for (id_ef in this.efs) {
-			if (this.efs_totalizar[id_ef]) {		
-				this.agregar_totalizacion_fila(id_ef, fila);
+	//Toma una fila y le refresca los listeners de procesamiento
+	def.refrescar_eventos_procesamiento = function (fila) {
+		for (id_ef in this._efs) {
+			if (this._efs_procesar[id_ef]) {		
+				this.agregar_procesamiento_fila(id_ef, fila);
 			}
 		}		
 	}
-	
-	
-	//----Tab
-	def.agregar_tab_index = function (fila) {
-		for (id_ef in this.efs) {
-			this.efs[id_ef].posicionarse_en_fila(fila).cambiar_tab(this.rango_tabs[0]);
-			this.rango_tabs[0]++;
-		}
-	}
-	
-	//----Validación
-	def.validar = function() {
-		for (fila in this.filas) {
-			for (id_ef in this.efs) {
-				var ef = this.efs[id_ef].posicionarse_en_fila(this.filas[fila]);
-				if (! ef.validar()) {
-					this.seleccionar(this.filas[fila]);
-					ef.seleccionar();
-					alert(ef.obtener_error());
-					ef.resetear_error();
-					return false;
-				}
-			}
-		}
-		return true;
-	}
 
 //--------------------------------------------------------------------------------	
-//Utilidades sobre arbol DOM
-if (!ie) {
+//Utilidades sobre arbol DOM 
+if (! ie) {
 	Node.prototype.swapNode = function (node) {
 		var nextSibling = this.nextSibling;
 		var parentNode = this.parentNode;
@@ -310,9 +342,7 @@ function intercambiar_nodos(nodo1, nodo2) {
 			}
 		}	
 	}
-
 	nodo1.swapNode(nodo2);
-
 	if (ie) {
 		for (i=0; i < intercambio_vals.length; i++) {
 			var check = intercambio_vals[i];
@@ -343,7 +373,7 @@ function cambiar_atributos_en_arbol(arbol, id_orig, nuevo_id) {
 			var valor = arbol.attributes[a].value;
 			var nombre = arbol.attributes[a].name;
 			if (valor && valor.toString().indexOf(id_orig) != -1) {
-				var nuevo_valor = reemplazar(valor, id_orig, nuevo_id);
+				var nuevo_valor = valor.reemplazar(id_orig, nuevo_id);
 				if (ie && es_evento(nombre)) { //Para solucionar caso particular en IE con los eventos
 					arbol.setAttribute(arbol.attributes[a].name, new Function(nuevo_valor));	
 				} else {

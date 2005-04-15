@@ -449,7 +449,7 @@ class objeto_ei_formulario extends objeto
 	@@desc: Resetea los elementos	de	formulario
 */
 	{
-		foreach ($this->lista_ef as $ef){
+		foreach ($this->lista_ef as $ef) {
 			$this->elemento_formulario[$ef]->resetear_estado();
 		}
 	}
@@ -719,16 +719,30 @@ class objeto_ei_formulario extends objeto
 	function obtener_funciones_javascript()
 	{
 		echo js::abrir();
-		//Creación de los objetos javascript de los objetos
-		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$evento_def = ($this->modelo_eventos == 'multi') ? "null" : "M";	//Si no hay eventos definidos, siempre es modificación
-		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}', '$evento_def');\n";
-		foreach ($this->lista_ef_post as $ef){
-			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()});\n";
-		}
-		echo "{$this->objeto_js}.iniciar();\n";
+		$this->crear_objeto_js();
+		$this->extender_objeto_js();
+		$this->iniciar_objeto_js();		
 		echo js::cerrar();
 	}	
+	
+	function crear_objeto_js()
+	{
+		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
+		$evento_def = ($this->modelo_eventos == 'multi') ? "" : "M";	//Si no hay eventos definidos, siempre es modificación
+		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', null, $rango_tabs, '{$this->submit}', '$evento_def');\n";
+		foreach ($this->lista_ef_post as $ef){
+			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+		}
+	}
+	
+	function extender_objeto_js()
+	{
+	}
+	
+	function iniciar_objeto_js()
+	{
+		echo "{$this->objeto_js}.iniciar();\n";	
+	}
 
  	//-------------------------------------------------------------------------------
 

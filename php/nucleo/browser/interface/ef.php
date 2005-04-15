@@ -514,7 +514,7 @@ function ef_mostrar_{$this->id_form}()
 </script>
 ";
 }
-		echo "<div id='{$this->id_form}_div' name='{$this->id_form}_div'>";
+		echo "<div id='{$this->id_form}_div'>";
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
 		echo "<tr><td >".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";

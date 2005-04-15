@@ -11,8 +11,8 @@ def.constructor = ef_popup;
 	}
 
 	def.validar = function () {
-		if (this.obligatorio && ereg_nulo.test(this.valor())) {
-			this.error = 'El campo ' + this.etiqueta + ' es obligatorio.';
+		if (this._obligatorio && ereg_nulo.test(this.valor())) {
+			this._error = 'El campo ' + this._etiqueta + ' es obligatorio.';
 		    return false;
 		}
 		return true;
@@ -35,7 +35,7 @@ def.constructor = ef_popup;
 	
 	
 	def.vinculo = function () {
-		return document.getElementById(this.id_form + '_vinculo');		
+		return document.getElementById(this._id_form + '_vinculo');		
 	}
 
 	//ATENCION: Redefinir cuando_cambia_valor (disparar_callback)

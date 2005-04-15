@@ -9,13 +9,33 @@ def.constructor = ef_combo;
 	}
 
 	def.seleccionar = function () {
-		this.input().focus();
+		try {
+			this.input().focus();
+			return true;
+		} catch(e) {
+			return false;
+		}
 	}	
+	
+	def.cambiar_valor = function(nuevo) {
+		var opciones = this.input().options;
+		var ok = false;
+		for (var i =0 ; i < opciones.length; i++) {
+			if (opciones[i].value == nuevo) {
+				opciones[i].selected = true;
+				ok = true;
+			}
+		}
+		if (!ok) {
+			var msg = 'El combo no tiene a ' + nuevo + ' entre sus elementos.'
+			throw new Error(msg, msg);
+		}
+	}
 	
 	def.validar = function () {
 		var valor = this.valor();
-		if (this.obligatorio && (valor == apex_ef_no_seteado || valor == '')) {
-			this.error = 'El campo ' + this.etiqueta + ' es obligatorio.';
+		if (this._obligatorio && (valor == apex_ef_no_seteado || valor == '')) {
+			this._error = 'El campo ' + this.etiqueta + ' es obligatorio.';
 		    return false;
 		}
 		return true;

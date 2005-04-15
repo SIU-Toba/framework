@@ -9,7 +9,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	- Registro de modificacion en el cliente
 	- Array de modificacion para alguien que lo mapee en un buffer
-	- Validacion en el cargar_post
 	- Flag de agregar filas
 	
 	Un formulario tiene que saber que si viene del post, para dejar cargase datos o no???
@@ -137,9 +136,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//ATENCION: Esto hay que mejorarlo
 	{
 		if(acceso_post()){
-			if($this->existio_memoria_previa()){
+			//ATENCION: La memoria no se está cargando
+//			if($this->existio_memoria_previa()){
 				return true;
-			}
+//			}
 		}
 		return false;
 	}
@@ -195,6 +195,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				//1) Cargo los EFs
 				foreach ($this->lista_ef as $ef){
 					$this->elemento_formulario[$ef]->establecer_id_form($fila);
+					$this->elemento_formulario[$ef]->resetear_estado();
 					$x	= $this->elemento_formulario[$ef]->cargar_estado();
 					//La validación del estado no se hace aquí porque interrumpiría la carga
 				}
@@ -318,7 +319,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			//Aplano el estado del EF en un array
 			$dato	= $this->elemento_formulario[$ef]->obtener_dato();
 			$estado = $this->elemento_formulario[$ef]->obtener_estado();
-			if(is_array($dato)){	//El EF maneja	DATO COMPUESTO
+			if (is_array($dato)) {	//El EF maneja	DATO COMPUESTO
 				if((count($dato))!=(count($estado))){//Error	de	consistencia interna	del EF
 					echo ei_mensaje("obtener_datos: Error de consistencia	interna en el EF etiquetado: ".
 										$this->elemento_formulario[$ef]->obtener_etiqueta(),"error");
@@ -345,8 +346,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 */
 	{
 		$datos = (isset($this->datos[$id_registro])) ? $this->datos[$id_registro] : array();
-		foreach ($this->lista_ef as $ef)
-		{
+		foreach ($this->lista_ef as $ef) {
 			//Seteo el ID-formulario del EF para que referencie al registro actual
 			$this->elemento_formulario[$ef]->establecer_id_form($id_registro);
 			$this->elemento_formulario[$ef]->resetear_estado();
@@ -374,7 +374,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		//Botonera de agregar
 		if ($this->info_formulario['filas_agregar']) {
-			echo "<div style='text-align: left;'>";
+			echo "<div style='text-align: left'>";
 			$tab = ($this->rango_tabs[1] - 10);	
 			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
 									"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
@@ -419,20 +419,16 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		//------ Totales ------
 		if(count($this->lista_ef_totales)>0){
-			echo "\n<!-- TOTALES ------------->\n\n";
+			echo "\n<!-- TOTALES -->\n\n";
 			echo "<tfoot>\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
 			}			
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
-				if(in_array($ef, $this->lista_ef_totales)){
 					$this->elemento_formulario[$ef]->establecer_id_form("s");
 					$id_form_total = $this->elemento_formulario[$ef]->obtener_id_form();
 					echo "<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
-				}else{
-					echo "&nbsp;";
-				}
 				echo "</td>\n";
 			}
 			echo "</tr>\n</tfoot>\n";
@@ -451,7 +447,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 			$this->cargar_registro_a_ef($fila);
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
-			echo "\n<!-- FILA $fila ------------->\n\n";
+			echo "\n<!-- FILA $fila -->\n\n";
 			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-fila-ml'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
@@ -472,27 +468,23 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_funciones_javascript()
+	function crear_objeto_js()
 	{
-		echo js::abrir();
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', null, $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
 		foreach ($this->lista_ef_post as $ef){
-			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()});\n";
+			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		//Agregado de callbacks para calculo de totales
 		if(count($this->lista_ef_totales)>0) {
 			foreach ($this->lista_ef_post as $ef) {
 				if(in_array($ef, $this->lista_ef_totales)){
-					$objeto_js_ef = $this->elemento_formulario[$ef]->objeto_js();
-					echo "{$this->objeto_js}.agregar_totalizacion('$objeto_js_ef');\n";
+					echo "{$this->objeto_js}.agregar_procesamiento('$ef');\n";
 				}
 			}
-		}		
-		echo "{$this->objeto_js}.iniciar();\n";
-		echo js::cerrar();
+		}
 	}
 	
 	function consumo_javascript_global()

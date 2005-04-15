@@ -1,5 +1,7 @@
 //--------------------------------------------------------------------------------
 //Clase ef_checkbox
+//	El checkbox tiene un valor que depende si esta chequeao o no, por eso cambiar_valor no afecta al check sino sólo a su value
+//	Para cambiar el check usar chequear(boolean) 
 ef_checkbox.prototype = new ef;
 var def = ef_checkbox.prototype;
 def.constructor = ef_checkbox;
@@ -9,14 +11,23 @@ def.constructor = ef_checkbox;
 	}
 
 	//cuando_cambia_valor (disparar_callback)
-	def.cuando_cambia_valor = function(callback) { 
-		if (! this.input().onclick)	//Para no romper scripts hechos ad-hoc
-			this.input().onclick = callback;	
+	def.cuando_cambia_valor = function(callback) {
+		addEvent(this.input(), 'onclick', callback);
 	}
 
 	def.valor = function() {
-		if (this.input().checked)
+		if (this.chequeado())
 			return this.input().value;
 		else
 			return null;
+	}
+	
+	def.chequear = function(valor) {
+		if (typeof valor != 'boolean')
+			valor = true;
+		this.input().checked = valor;
+	}
+	
+	def.chequeado = function() {
+		return this.input().checked;
 	}	

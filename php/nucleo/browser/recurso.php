@@ -86,7 +86,8 @@ class recurso {
 		$x = ""; $y = ""; $a="";$m="";
 		if(isset($ancho)) $x = " width='$ancho' ";
 		if(isset($alto)) $y = " height='$alto' ";
-		if(isset($alt)) $a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
+//		if(isset($alt)) $a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
+		if(isset($alt)) $a = " title='$alt' ";
 		if(isset($mapa)) $m = " usemap='$mapa'";
 		return "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px;'>";
 	}

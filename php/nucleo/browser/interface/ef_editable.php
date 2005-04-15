@@ -27,12 +27,13 @@ class ef_editable extends ef
 	var $estado;
     var $fuente;
 	var $estilo="ef-input";
+	var $mascara;
 	
 	function ef_editable($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//Solo Lectura
 		if((isset($parametros["solo_lectura"]))&&($parametros["solo_lectura"]==1)){
-			$this->solo_lectura = true;		
+			$this->solo_lectura = true;
 		}else{
 			$this->solo_lectura = false;
 		}
@@ -52,7 +53,10 @@ class ef_editable extends ef
 		}else{
 			$this->maximo = $this->tamano;
 		}
-
+		//Mascara
+		if(isset($parametros["mascara"])) {
+			$this->mascara = $parametros["mascara"];		
+		}
         //Determino la FUENTE
         if((isset($parametros["fuente"]))&&(trim($parametros["fuente"])!="")){
             $this->fuente = $parametros["fuente"];
@@ -60,13 +64,11 @@ class ef_editable extends ef
     	}else{
     	    $this->fuente = "instancia"; //La instancia por defecto es la CENTRAL
         }
-
         //Determino la ESTILO
         if((isset($parametros["estilo"]))&&(trim($parametros["estilo"])!="")){
             $this->estilo = $parametros["estilo"];
             unset($parametros["estilo"]);
     	}
-        
 		//Setear el estado del editable con un SQL
 		if(isset($parametros["sql"])){
 			if($parametros["sql"]!=""){
@@ -153,14 +155,9 @@ class ef_editable extends ef
 		return $html;
 	}
 
-	function crear_objeto_js()
-	{
-		return "new ef_editable({$this->parametros_js()})";
-	}	
-	
 	function obtener_consumo_javascript()
 	{
-		$consumos = array('interface/ef','interface/ef_editable');
+		$consumos = array('interface/mascaras', 'interface/ef', 'interface/ef_editable');
         if($this->obligatorio){
 		//Consumo la expresion regular que machea campos nulos
 			$consumos[] = "ereg_nulo";
@@ -200,7 +197,18 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 			return (trim(master_get_estado_{$this->id_form}()) != '');
 		}
 		";		
+	}
+	
+	function parametros_js()
+	{
+		return parent::parametros_js().", '{$this->mascara}'";
 	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_editable({$this->parametros_js()})";
+	}	
+		
 }
 //########################################################################################################
 //########################################################################################################
@@ -246,15 +254,15 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 	//Validacion en el servidor. El campo es numerico?
 	{
 		$val_padre = parent::validar_estado();//Obligatorio nulo?
-        if($val_padre[0] &&  isset($this->estado)) {
-			if((is_numeric($this->estado))||(trim($this->estado)=="")){//Numerico?
+        if ($val_padre[0] &&  isset($this->estado)) {
+			if((is_numeric($this->estado))||(trim($this->estado)=="")) {//Numerico?
 				$this->validacion = true;
 				return array(true,"");
-			}else{
+			} else {
 				$this->validacion = false;
                 return array(false,"El campo es numerico.");
 			}
-		}else{
+		} else {
 			return $val_padre;
 		}
 	}
@@ -270,7 +278,8 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		}else{
 			$estado = null;
 		}
-		return form::text($this->id_form,$estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,$this->javascript);
+		$html = form::text($this->id_form,$estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo);
+		return $html;
 	}
 	
 	function crear_objeto_js()
@@ -281,12 +290,24 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 //########################################################################################################
 //########################################################################################################
 
+class ef_editable_moneda extends ef_editable_numero
+{
+	function crear_objeto_js()
+	{
+		return "new ef_editable_moneda({$this->parametros_js()})";
+	}	
+}
+
+//########################################################################################################
+//########################################################################################################
+
 
 class ef_editable_numero_porcentaje extends ef_editable_numero
 {
 	function ef_editable_numero_porcentaje($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$parametros["cifras"] = 4;
+		if (! isset($parametros["cifras"]))
+			$parametros["cifras"]= 4;
 		parent::ef_editable_numero($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
@@ -431,7 +452,6 @@ class ef_editable_fecha extends ef_editable
 	function obtener_consumo_javascript()
 	{
 		$consumo = parent::obtener_consumo_javascript();
-		//Consumo la expresion regular que machea numeros.
 		$consumo[] = "fecha";
 		return $consumo;
 	}

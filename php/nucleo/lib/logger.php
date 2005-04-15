@@ -206,18 +206,25 @@ class logger
 	function mostrar_pantalla()
 	{
 		if(apex_pa_log_pantalla){
+			$hay_salida = false;
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-			echo "<table width='90%'><tr><td>";
-			echo "<pre class='texto-ss'>";
+			$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
+			$html .= "<pre class='texto-ss'>";
 			for($a=0; $a<count($this->mensajes); $a++)
 			{
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 				{
-					echo "*** " . $this->ref_niveles[$this->niveles[$a]] . 
-						" ***  " . $this->mensajes[$a] . "<br>";
+					$hay_salida = true;
+					$html .= "*** " . $this->ref_niveles[$this->niveles[$a]] . 
+							" ***  " . $this->mensajes[$a] . "<br>";
 				}			
 			}
-			echo "</pre></td></tr></table>";
+			$html .= "</pre></td></tr></table></div>";
+			if ($hay_salida) {
+				echo "<div style='text-align:left;'>
+						<a href='#logger_salida' onclick='return toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
+						$html</div>";
+			}
 		}
 	}
 	//------------------------------------------------------------------

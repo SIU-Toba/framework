@@ -1,17 +1,3 @@
-function intercambiar_puntos(valor, es_carga) {
-	return valor;
-	if (es_carga) {
-		var ultimo = valor.lastIndexOf('.');
-		if (ultimo == valor.length - 1) {
-			valor = valor.substring(0, ultimo) + ',';
-		}
-	}
-	var v1 = reemplazar(valor, ',', '^');
-	var v2 = reemplazar(v1, '.', ',');
-	var v3 = reemplazar(v2, '^', '.');
-	return v3;
-}
-
 function _MaskAPI(){
 	this.version = "0.4a-mod";
 	this.instances = 0;
@@ -20,6 +6,9 @@ function _MaskAPI(){
 MaskAPI = new _MaskAPI();
 
 
+/*************************************
+*			MASCARA
+**************************************/
 function mascara(m, t, param){
 	this._mascara = m;
 	this.type = (typeof t == "string") ? t : "string";
@@ -30,57 +19,447 @@ function mascara(m, t, param){
 	this.allowPartial = false;
 	this.id = MaskAPI.instances++;
 	this.ref = "MaskAPI.objects['" + this.id + "']";
-	this.comp_numero = ['#', '0', '+', '-', '+', ')', '(']; 			//Componentes disponibles para mascaras numericas
 	this.param = param;
 	MaskAPI.objects[this.id] = this;
 }
 
-// define the attach(oElement) function
 mascara.prototype.attach = function (o){
-	$addEvent(o, "onkeydown", "return " + this.ref + ".isAllowKeyPress(event, this);", true);
-	$addEvent(o, "onkeyup", "return " + this.ref + ".getKeyPress(event, this);", true);
-	$addEvent(o, "onblur", "this.value = " + this.ref + ".format(this.value);", true);
-}
-
-mascara.prototype.isAllowKeyPress = function (e, o){
-	if( this.type != "string" ) return true;
-	var xe = new qEvent(e);
-	if( ((xe.keyCode > 47) && (o.value.length >= this._mascara.length)) && !xe.ctrlKey ) return false;
-	return true;
+	addEvent(o, "onkeydown", "return " + this.ref + ".pre_evento_tecla(event, this);", true);	
+	addEvent(o, "onkeyup", "return " + this.ref + ".getKeyPress(event, this);", true);
+	addEvent(o, "onblur", "this.value = " + this.ref + ".format(this.value);", true);
 }
 
 mascara.prototype.getKeyPress = function (e, o, _u){
 	this.allowPartial = true;
 	var xe = new qEvent(e);
-
 //	var k = String.fromCharCode(xe.keyCode);
-
 	if( (xe.keyCode > 47) || (_u == true) || (xe.keyCode == 8 || xe.keyCode == 46) ){
-		var borro =( xe.keyCode == 8 || xe.keyCode == 46 )
-
-		if( this.type == "number" ) this.value = this.format(o.value, borro);
-		else if( this.type == "date" ) this.value = this.format(o.value, borro);
-		else this.value = this.setGeneric(o.value, d);
-
+		this.onKeyPress(o.value, xe.isDelete());
 		o.value = this.value;
 	}
 	this.allowPartial = false;
 	return true;
 }
 
-mascara.prototype.format = function (s){
-	this.value = this.setGeneric(s);
-	return this.value;
+//Permite ajustar el valor previo a la ejecución al key press
+mascara.prototype.pre_evento_tecla = function (evento, objeto) {
+	return true;
 }
 
-mascara.prototype.throwError = function (c, e, v){
+mascara.prototype.throwError = function (c, e, v) {
 	this.error[this.error.length] = e;
 	this.errorCodes[this.errorCodes.length] = c;
 	if( typeof v == "string" ) return v;
 	return true;
 }
 
-mascara.prototype.setGeneric = function (_v, _d){
+mascara.prototype.ok = function () {
+	return this.error.length == 0;
+}
+
+mascara.prototype.valor_sin_formato = function () {
+	return this.strippedValue;
+}
+
+
+/*************************************
+*		MASCARA NUMERO
+**************************************/
+
+mascara_numero.prototype = new mascara;
+var def = mascara_numero.prototype;
+def.constructor = mascara_numero;
+
+function mascara_numero (_mascara, modelo) {
+	mascara.prototype.constructor.call(this, _mascara, 'number');
+	this.modelo = (modelo) ? modelo : "ar";
+	if (this.modelo == 'ar') {
+		this._mascara = this._mascara.intercambiar_caracteres(',', '.');
+	}
+	this.dec = '.';														//Simbolo Decimal
+	this.componentes = ['#', '0', '+', '-', ')', '(']; 			//Componentes disponibles para mascaras numericas	
+	this.moneda = this.get_moneda();
+//	this.validar_mascara();
+}
+
+def.get_moneda = function () {
+	var inicio_num = this._mascara.primer_ocurrencia(this.componentes);
+	if (this._mascara.substring(0, inicio_num) != '') 
+		return this._mascara.substring(0, inicio_num);
+	else
+		return null;
+}
+
+def.format = function (s, d, inicial){
+	s = s.toString();
+	if (inicial)
+		s = s.intercambiar_caracteres(',', '.');
+	this.value = this.setNumber(s, d);
+	return this.value;
+}
+
+
+//Permite ajustar el valor previo a la ejecución al key press
+def.pre_evento_tecla = function (evento, objeto) {
+	var xe = new qEvent(evento);
+	if (! xe.isDelete()) {
+		objeto.value = this.ajustar_puntuacion(objeto.value);
+	}
+	return true;
+}
+
+def.ajustar_puntuacion = function(valor) {
+	var nuevo_valor = valor;
+	if (this.modelo == 'ar') {
+		//Se toma el ultimo punto como una coma
+		var ultimo = valor.lastIndexOf('.');
+		var primer = valor.indexOf('.');
+		if (ultimo > -1 && ultimo == valor.length - 1) {
+			nuevo_valor = valor.substring(0, ultimo) + ',';
+		} 
+		else if (primer == 0) {
+			nuevo_valor = ',' + valor.substring(1, valor.length);
+		}
+	}
+	return nuevo_valor;
+}
+
+
+def.onKeyPress = function(valor, borro) {
+	this.value = this.format(valor, borro);
+}
+
+def.validar_mascara = function() {
+	var er_mask = new RegExp('^[\\' + this.moneda + ']?((\\' + this.moneda + '?[\\+-]?([0#]{1,3},)?[0#]*(\\' + this.dec + '[0#]*)?)|([\\+-]?\\([\\+-]?([0#]{1,3},)?[0#]*(\\' + this.dec + '[0#]*)?\\)))$');
+	if( ! er_mask.test(this._mascara) ) {
+		return this.throwError(1, "Máscara inválida.");
+	}
+}
+
+def.setNumber = function(_v, _d){
+	//Intercambio inicial del punto y la coma
+	var nuevo_valor = this.ajustar_puntuacion(_v);
+	
+	if (this.modelo == 'ar') {
+		nuevo_valor = nuevo_valor.intercambiar_caracteres(',', '.')	
+	}
+
+	//Se limpia el valor
+	var v = String(nuevo_valor).replace(/[^\d.-]*/gi, "");
+	//Asegura que solamente hay un punto decimal
+	v = v.replace(new RegExp('\\' + this.dec), "d").replace(new RegExp('\\' + this.dec, 'g'), "").replace(/d/, this.dec);
+
+	//¿Se borro?
+	if( (_d == true) && (v.length == this.strippedValue.length) ) 
+		v = v.substring(0, v.length-1);
+
+	if( this.allowPartial && (v.replace(/[^0-9]/, "").length == 0) ) 
+		return v;
+	this.strippedValue = v;
+
+	//¿Es un número?
+	if( v.length == 0 )	//Si es vacío, retornar vacío
+		return v;
+	var vn = Number(v);
+	if( isNaN(vn) ) {
+		this.strippedValue = NaN;
+		return this.throwError(2, "The value entered was not a number.", _v);
+	}
+
+	// get the value before the decimal point
+	var v_antes_decimal = String(Math.abs((v.indexOf(this.dec) > -1 ) ? v.split(this.dec)[0] : v));
+	// get the value after the decimal point
+	var v_despues_decimal = (v.indexOf(this.dec) > -1) ? v.split(this.dec)[1] : "";
+	var _vd = v_despues_decimal;
+
+	var isNegative = (vn != 0 && Math.abs(vn)*-1 == vn);
+
+	// check for masking operations
+	var show = {
+		"$" : (this.moneda != null),
+		"(": (isNegative && (this._mascara.indexOf("(") > -1)),
+		"+" : ( (this._mascara.indexOf("+") != -1) && !isNegative )
+	}
+	show["-"] = (isNegative && (!show["("] || (this._mascara.indexOf("-") != -1)));
+	
+	// replace all non-place holders from the mask
+	masc_limpia = this._mascara.replace(/[^#0.,]*/gi, "");
+
+	/*
+		make sure there are the correct number of decimal places
+	*/
+	// get number of digits after decimal point in mask
+	var dm = (masc_limpia.indexOf(this.dec) > -1 ) ? masc_limpia.split(this.dec)[1] : "";
+	if( dm.length == 0 ){
+		v_antes_decimal = String(Math.round(Number(v_antes_decimal)));
+		v_despues_decimal = "";
+	} else {
+		// find the last zero, which indicates the minimum number
+		// of decimal places to show
+		var md = dm.lastIndexOf("0")+1;
+		// if the number of decimal places is greater than the mask, then round off
+		if( v_despues_decimal.length > dm.length ) 
+			v_despues_decimal = String(Math.round(Number(v_despues_decimal.substring(0, dm.length + 1))/10));
+		// otherwise, pad the string w/the required zeros
+		else {
+			while( v_despues_decimal.length < md ) 
+				v_despues_decimal += "0";
+		}
+	}
+
+	/*
+		pad the int with any necessary zeros
+	*/
+	// get number of digits before decimal point in mask
+	var dig_antes_dec = (masc_limpia.indexOf(this.dec) > -1 ) ? masc_limpia.split(this.dec)[0] : masc_limpia;
+	dig_antes_dec = dig_antes_dec.replace(/[^0#]+/gi, "");
+	// find the first zero, which indicates the minimum length
+	// that the value must be padded w/zeros
+	var mv = dig_antes_dec.indexOf("0")+1;
+	// if there is a zero found, make sure it's padded
+	if( mv > 0 ){
+		mv = dig_antes_dec.length - mv + 1;
+		while( v_antes_decimal.length < mv ) v_antes_decimal = "0" + v_antes_decimal;
+	}
+
+	//¿Necesita poner puntos en los miles?
+	if( /[#0]+,[#0]{3}/.test(masc_limpia) ){
+		// add the commas as the place holder
+		var x = [], i=0, n=Number(v_antes_decimal);
+		while( n > 999 ){
+			x[i] = "00" + String(n%1000);
+			x[i] = x[i].substring(x[i].length - 3);
+			n = Math.floor(n/1000);
+			i++;
+		}
+		x[i] = String(n%1000);
+		v_antes_decimal = x.reverse().join(",");
+	}
+
+	//Combinar los valores
+	if( (v_despues_decimal.length > 0 && !this.allowPartial) || ((dm.length > 0) && this.allowPartial && (v.indexOf(this.dec) > -1) && (_vd.length >= v_despues_decimal.length)) ){
+		v = v_antes_decimal + "." + v_despues_decimal;
+	} else if( (dm.length > 0) && this.allowPartial && (v.indexOf(this.dec) > -1) && (_vd.length < v_despues_decimal.length) ){
+		v = v_antes_decimal + this.dec + _vd;
+	} else {
+		v = v_antes_decimal;
+	}
+
+	var er_curr = new RegExp('(^[\\' + this.moneda + '])(.+)', 'gi');
+	if( show["$"] ) v = this._mascara.replace(er_curr, this.moneda) + v;
+	if( show["+"] ) v = "+" + v;
+	if( show["-"] ) v = "-" + v
+	if( show["("] ) v = "(" + v + ")";
+	
+	//Itercambio final del punto y la coma
+	if (this.modelo == 'ar') {	
+		v = v.intercambiar_caracteres('.', ',');
+	}
+	return v.trim();
+}
+
+/*************************************
+*		MASCARA FECHA
+**************************************/
+
+mascara_fecha.prototype = new mascara;
+mascara_fecha.prototype.constructor = mascara_fecha;
+function mascara_fecha (_mascara) {
+	mascara.prototype.constructor.call(this, _mascara, 'date');
+}
+
+mascara_fecha.prototype.format = function (s, d){
+	this.value = this.setDate(s, d);
+	return this.value;
+}
+
+mascara_fecha.prototype.onKeyPress = function(valor, borro) {
+
+	this.value = this.setDateKeyPress(valor, borro);
+}
+
+mascara_fecha.prototype.setDate = function (_v){
+	var v = _v, m = this._mascara;
+	var a, e, mm, dd, yy, x, s;
+
+	// split mask into array, to see position of each day, month & year
+	a = m.split(/[^mdy]+/);
+	// split mask into array, to get delimiters
+	s = m.split(/[mdy]+/);
+	// convert the string into an array in which digits are together
+	e = v.split(/[^0-9]/);
+	
+	if( s[0].length == 0 ) s.splice(0, 1);
+
+	for( var i=0; i < a.length; i++ ){
+		x = a[i].charAt(0).toLowerCase();
+		if( x == "m" ) mm = parseInt(e[i], 10)-1;
+		else if( x == "d" ) dd = parseInt(e[i], 10);
+		else if( x == "y" ) yy = parseInt(e[i], 10);
+	}
+
+	// if year is abbreviated, guess at the year
+	if( String(yy).length < 3 ){
+		yy = 2000 + yy;
+		if( (new Date()).getFullYear()+20 < yy ) yy = yy - 100;
+	}
+
+	// create date object
+	var d = new Date(yy, mm, dd);
+	if( d.getDate() != dd ) return this.throwError(1, "An invalid day was entered.", _v);
+	else if( d.getMonth() != mm ) return this.throwError(2, "An invalid month was entered.", _v);
+
+	var nv = "";
+
+	for( i=0; i < a.length; i++ ){
+		x = a[i].charAt(0).toLowerCase();
+		if( x == "m" ){
+			mm++;
+			if( a[i].length == 2 ){
+				mm = "0" + mm;
+				mm = mm.substring(mm.length-2);
+			}
+			nv += mm;
+		} else if( x == "d" ){
+			if( a[i].length == 2 ){
+				dd = "0" + dd;
+				dd = dd.substring(dd.length-2);
+			}
+			nv += dd;
+		} else if( x == "y" ){
+			if( a[i].length == 2 ) nv += d.getYear();
+			else nv += d.getFullYear();
+		}
+		if( i < a.length-1 ) nv += s[i];
+	}
+	this.strippedValue = nv;
+	return nv;
+}
+
+//Parte un fecha solo conteniendo los digitos, en reemplazo del erroneo e = v.split(/[^0-9]/);
+mascara_fecha.prototype.partir_fecha = function(fecha) {
+	var res = new Array();
+	var acumulado = '';
+	for (i=0; i<fecha.length; i++) {
+		if (isNaN(parseInt(fecha.charAt(i)))) {		//¿Es numero?
+			if (acumulado != '') {
+				res.push(acumulado);
+				acumulado = '';
+			}
+		} else {
+			acumulado += fecha.charAt(i);
+		}
+	}
+	if (acumulado != '')
+		res.push(acumulado);
+	return res;
+}
+
+mascara_fecha.prototype.setDateKeyPress = function (_v, _d){
+	var v = _v, m = this._mascara, k = v.charAt(v.length-1);
+	var a, e, c, ml, vl, mm = "", dd = "", yy = "", x, p, z;
+
+	if( _d == true ){
+		while( (/[^0-9]/gi).test(v.charAt(v.length-1)) ) v = v.substring(0, v.length-1);
+		if( (/[^0-9]/gi).test(this.strippedValue.charAt(this.strippedValue.length-1)) ) v = v.substring(0, v.length-1);
+		if( v.length == 0 ) return "";
+	}
+
+	// split mask into array, to see position of each day, month & year
+	a = m.split(/[^mdy]/);
+	// split mask into array, to get delimiters
+	s = m.split(/[mdy]+/);
+	// mozilla wants to add an empty array element which needs removed
+	if( s[0].length == 0 ) s.splice(0,1);
+	// convert the string into an array in which digits are together
+	e = this.partir_fecha(v);
+	// position in mask
+	p = (e.length > 0) ? e.length-1 : 0;
+	// determine what mask value the user is currently entering
+	c = a[p].charAt(0);
+	// determine the length of the current mask value
+	ml = a[p].length;
+	for( var i=0; i < e.length; i++ ){
+		x = a[i].charAt(0).toLowerCase();
+		if( x == "m" ) mm = parseInt(e[i], 10)-1;
+		else if( x == "d" ) dd = parseInt(e[i], 10);
+		else if( x == "y" ) yy = parseInt(e[i], 10);
+	}
+	
+	var nv = "";
+	var j=0;
+
+	for( i=0; i < e.length; i++ ){
+		x = a[i].charAt(0).toLowerCase();
+	
+		if( x == "m" ){
+			z = ((/[^0-9]/).test(k) && c == "m");
+			mm++;
+			if( (e[i].length == 2 && mm < 10) || (a[i].length == 2 && c != "m") || (mm > 1 && c == "m") || (z && a[i].length == 2) ){
+				mm = "0" + mm;
+				mm = mm.substring(mm.length-2);
+			}
+			vl = String(mm).length;
+			ml = 2;
+			nv += mm;
+		} else if( x == "d" ){
+			z = ((/[^0-9]/).test(k) && c == "d");
+			if( (e[i].length == 2 && dd < 10) || (a[i].length == 2 && c != "d") || (dd > 3 && c == "d") || (z && a[i].length == 2) ){
+				dd = "0" + dd;
+				dd = dd.substring(dd.length-2);
+			}
+			vl = String(dd).length;
+			ml = 2;
+			nv += dd;
+		} else if( x == "y" ){
+			z = ((/[^0-9]/).test(k) && c == "y");
+			if( c == "y" ) yy = String(yy);
+			else {
+				if( a[i].length == 2 ) yy = d.getYear();
+				else yy = d.getFullYear();
+			}
+			if( (e[i].length == 2 && yy < 10) || (a[i].length == 2 && c != "y") || (z && a[i].length == 2) ){
+				yy = "0" + yy;
+				yy = yy.substring(yy.length-2);
+			}
+			ml = a[i].length;
+			vl = String(yy).length;
+			nv += yy;
+		}
+
+		if( ((ml == vl || z) && (x == c) && (i < s.length)) || (i < s.length && x != c ) ) nv += s[i];
+	}
+
+	if( nv.length > m.length ) nv = nv.substring(0, m.length);
+	this.strippedValue = (nv == "NaN") ? "" : nv;
+	return this.strippedValue;
+}
+
+/*************************************
+*		MASCARA GENERICA
+**************************************/
+
+mascara_generica.prototype = new mascara;
+mascara_generica.prototype.constructor = mascara_generica;
+function mascara_generica (_mascara) {
+	mascara.prototype.constructor.call(this, _mascara);
+}
+
+mascara_generica.prototype.format = function (s, d){
+	this.value = this.setGeneric(s, d);
+	return this.value;
+}
+
+mascara_generica.prototype.pre_evento_tecla = function (e, o){
+	var xe = new qEvent(e);
+	return ( ((xe.keyCode > 47) && (o.value.length >= this._mascara.length)) && !xe.ctrlKey )
+}
+
+mascara_generica.prototype.onKeyPress = function(valor, borro) {
+	this.value = this.setGeneric(o.value, d);
+}
+
+mascara_generica.prototype.setGeneric = function (_v, _d){
 	var v = _v, m = this._mascara;
 	var r = "x#*", rt = [], nv = "", t, x, a = [], j=0, rx = {"x": "A-Za-z", "#": "0-9", "*": "A-Za-z0-9" };
 
@@ -129,307 +508,6 @@ mascara.prototype.setGeneric = function (_v, _d){
 	return nv;
 }
 
-mascara.prototype.simbolo_decimal = function() {
-	return '.';
-}
-
-mascara.prototype.setNumber = function(_v, _d){
-	//Intercambio inicial del punto y la coma
-	_v = intercambiar_puntos(_v, true);
-	var dec = this.simbolo_decimal();
-	var millar = ',';
-	
-	var v = String(_v).replace(/[^\d.-]*/gi, ""), m = this._mascara;
-
-	//Solamente hay un punto decimal
-	v = v.replace(new RegExp('/\\' + dec + '/'), "d").replace(new RegExp('/\\' + dec + '/g'), "").replace(/d/, dec);
-
-	//¿Cual es la moneda de la mascara?
-	var inicio_num = this._mascara.primer_ocurrencia(this.comp_numero);
-	var curr = (this._mascara.substring(0, inicio_num) != '') ? this._mascara.substring(0, inicio_num) : '$';
-	
-	//¿Es válida la máscara?
-	var curr_esc = curr.quote_exp_reg();
-	var er_mask = new RegExp('^[' + curr_esc + ']?((' + curr_esc + '?[\\+-]?([0#]{1,3},)?[0#]*(\\' + dec + '[0#]*)?)|([\\+-]?\\([\\+-]?([0#]{1,3},)?[0#]*(\\' + dec + '[0#]*)?\\)))$');
-	if( ! er_mask.test(m) )
-		return this.throwError(1, "An invalid mask was specified for the \nMask constructor.", _v);
-
-	if( (_d == true) && (v.length == this.strippedValue.length) ) v = v.substring(0, v.length-1);
-
-	if( this.allowPartial && (v.replace(/[^0-9]/, "").length == 0) ) return v;
-	this.strippedValue = v;
-
-	if( v.length == 0 ) v = NaN;
-	var vn = Number(v);
-	if( isNaN(vn) ) return this.throwError(2, "The value entered was not a number.", _v);
-
-	// if no mask, stop processing
-	if( m.length == 0 ) return v;
-
-	// get the value before the decimal point
-	var vi = String(Math.abs((v.indexOf(dec) > -1 ) ? v.split(dec)[0] : v));
-	// get the value after the decimal point
-	var vd = (v.indexOf(dec) > -1) ? v.split(dec)[1] : "";
-	var _vd = vd;
-
-	var isNegative = (vn != 0 && Math.abs(vn)*-1 == vn);
-
-	// check for masking operations
-	var er_curr = new RegExp('^[\\' + curr + ']');
-	var show = {
-		"$" : er_curr.test(m),
-		"(": (isNegative && (m.indexOf("(") > -1)),
-		"+" : ( (m.indexOf("+") != -1) && !isNegative )
-	}
-	show["-"] = (isNegative && (!show["("] || (m.indexOf("-") != -1)));
-
-	// replace all non-place holders from the mask
-	m = m.replace(/[^#0.,]*/gi, "");
-
-	/*
-		make sure there are the correct number of decimal places
-	*/
-	// get number of digits after decimal point in mask
-	var dm = (m.indexOf(dec) > -1 ) ? m.split(dec)[1] : "";
-	if( dm.length == 0 ){
-		vi = String(Math.round(Number(vi)));
-		vd = "";
-	} else {
-		// find the last zero, which indicates the minimum number
-		// of decimal places to show
-		var md = dm.lastIndexOf("0")+1;
-		// if the number of decimal places is greater than the mask, then round off
-		if( vd.length > dm.length ) vd = String(Math.round(Number(vd.substring(0, dm.length + 1))/10));
-		// otherwise, pad the string w/the required zeros
-		else while( vd.length < md ) vd += "0";
-	}
-
-	/*
-		pad the int with any necessary zeros
-	*/
-	// get number of digits before decimal point in mask
-	var im = (m.indexOf(dec) > -1 ) ? m.split(dec)[0] : m;
-	im = im.replace(/[^0#]+/gi, "");
-	// find the first zero, which indicates the minimum length
-	// that the value must be padded w/zeros
-	var mv = im.indexOf("0")+1;
-	// if there is a zero found, make sure it's padded
-	if( mv > 0 ){
-		mv = im.length - mv + 1;
-		while( vi.length < mv ) vi = "0" + vi;
-	}
-
-	/*
-		check to see if we need commas in the thousands place holder
-	*/
-	if( /[#0]+,[#0]{3}/.test(m) ){
-		// add the commas as the place holder
-		var x = [], i=0, n=Number(vi);
-		while( n > 999 ){
-			x[i] = "00" + String(n%1000);
-			x[i] = x[i].substring(x[i].length - 3);
-			n = Math.floor(n/1000);
-			i++;
-		}
-		x[i] = String(n%1000);
-		vi = x.reverse().join(",");
-	}
-
-
-	/*
-		combine the new value together
-	*/
-	if( (vd.length > 0 && !this.allowPartial) || ((dm.length > 0) && this.allowPartial && (v.indexOf(dec) > -1) && (_vd.length >= vd.length)) ){
-		v = vi + "." + vd;
-	} else if( (dm.length > 0) && this.allowPartial && (v.indexOf(dec) > -1) && (_vd.length < vd.length) ){
-		v = vi + dec + _vd;
-	} else {
-		v = vi;
-	}
-
-	var er_curr = new RegExp('(^[\\' + curr + '])(.+)', 'gi');
-	if( show["$"] ) v = this._mascara.replace(er_curr, curr) + v;
-	if( show["+"] ) v = "+" + v;
-	if( show["-"] ) v = "-" + v;
-	if( show["("] ) v = "(" + v + ")";
-	//Itercambio final del punto y la coma
-	v = intercambiar_puntos(v);
-	return v;
-}
-
-mascara.prototype.setDate = function (_v){
-	var v = _v, m = this._mascara;
-	var a, e, mm, dd, yy, x, s;
-
-	// split mask into array, to see position of each day, month & year
-	a = m.split(/[^mdy]+/);
-	// split mask into array, to get delimiters
-	s = m.split(/[mdy]+/);
-	// convert the string into an array in which digits are together
-	e = v.split(/[^0-9]/);
-	
-	if( s[0].length == 0 ) s.splice(0, 1);
-
-	for( var i=0; i < a.length; i++ ){
-		x = a[i].charAt(0).toLowerCase();
-		if( x == "m" ) mm = parseInt(e[i], 10)-1;
-		else if( x == "d" ) dd = parseInt(e[i], 10);
-		else if( x == "y" ) yy = parseInt(e[i], 10);
-	}
-
-	// if year is abbreviated, guess at the year
-	if( String(yy).length < 3 ){
-		yy = 2000 + yy;
-		if( (new Date()).getFullYear()+20 < yy ) yy = yy - 100;
-	}
-
-	// create date object
-	var d = new Date(yy, mm, dd);
-
-	if( d.getDate() != dd ) return this.throwError(1, "An invalid day was entered.", _v);
-	else if( d.getMonth() != mm ) return this.throwError(2, "An invalid month was entered.", _v);
-
-	var nv = "";
-
-	for( i=0; i < a.length; i++ ){
-		x = a[i].charAt(0).toLowerCase();
-		if( x == "m" ){
-			mm++;
-			if( a[i].length == 2 ){
-				mm = "0" + mm;
-				mm = mm.substring(mm.length-2);
-			}
-			nv += mm;
-		} else if( x == "d" ){
-			if( a[i].length == 2 ){
-				dd = "0" + dd;
-				dd = dd.substring(dd.length-2);
-			}
-			nv += dd;
-		} else if( x == "y" ){
-			if( a[i].length == 2 ) nv += d.getYear();
-			else nv += d.getFullYear();
-		}
-
-		if( i < a.length-1 ) nv += s[i];
-	}
-
-	return nv;
-}
-
-mascara.prototype.setDateKeyPress = function (_v, _d){
-	var v = _v, m = this._mascara, k = v.charAt(v.length-1);
-	var a, e, c, ml, vl, mm = "", dd = "", yy = "", x, p, z;
-
-	if( _d == true ){
-		while( (/[^0-9]/gi).test(v.charAt(v.length-1)) ) v = v.substring(0, v.length-1);
-		if( (/[^0-9]/gi).test(this.strippedValue.charAt(this.strippedValue.length-1)) ) v = v.substring(0, v.length-1);
-		if( v.length == 0 ) return "";
-	}
-
-	// split mask into array, to see position of each day, month & year
-	a = m.split(/[^mdy]/);
-	// split mask into array, to get delimiters
-	s = m.split(/[mdy]+/);
-	// mozilla wants to add an empty array element which needs removed
-	if( s[0].length == 0 ) s.splice(0,1);
-	// convert the string into an array in which digits are together
-	e = v.split(/[^0-9]/);
-	// position in mask
-	p = (e.length > 0) ? e.length-1 : 0;
-	// determine what mask value the user is currently entering
-	c = a[p].charAt(0);
-	// determine the length of the current mask value
-	ml = a[p].length;
-
-	for( var i=0; i < e.length; i++ ){
-		x = a[i].charAt(0).toLowerCase();
-		if( x == "m" ) mm = parseInt(e[i], 10)-1;
-		else if( x == "d" ) dd = parseInt(e[i], 10);
-		else if( x == "y" ) yy = parseInt(e[i], 10);
-	}
-	
-	
-	var nv = "";
-	var j=0;
-
-	for( i=0; i < e.length; i++ ){
-		x = a[i].charAt(0).toLowerCase();
-	
-		if( x == "m" ){
-			z = ((/[^0-9]/).test(k) && c == "m");
-			mm++;
-			if( (e[i].length == 2 && mm < 10) || (a[i].length == 2 && c != "m") || (mm > 1 && c == "m") || (z && a[i].length == 2) ){
-				mm = "0" + mm;
-				mm = mm.substring(mm.length-2);
-			}
-			vl = String(mm).length;
-			ml = 2;
-			nv += mm;
-		} else if( x == "d" ){
-			z = ((/[^0-9]/).test(k) && c == "d");
-			if( (e[i].length == 2 && dd < 10) || (a[i].length == 2 && c != "d") || (dd > 3 && c == "d") || (z && a[i].length == 2) ){
-				dd = "0" + dd;
-				dd = dd.substring(dd.length-2);
-			}
-			vl = String(dd).length;
-			ml = 2;
-			nv += dd;
-		} else if( x == "y" ){
-			z = ((/[^0-9]/).test(k) && c == "y");
-			if( c == "y" ) yy = String(yy);
-			else {
-				if( a[i].length == 2 ) yy = d.getYear();
-				else yy = d.getFullYear();
-			}
-			if( (e[i].length == 2 && yy < 10) || (a[i].length == 2 && c != "y") || (z && a[i].length == 2) ){
-				yy = "0" + yy;
-				yy = yy.substring(yy.length-2);
-			}
-			ml = a[i].length;
-			vl = String(yy).length;
-			nv += yy;
-		}
-
-		if( ((ml == vl || z) && (x == c) && (i < s.length)) || (i < s.length && x != c ) ) nv += s[i];
-	}
-
-	if( nv.length > m.length ) nv = nv.substring(0, m.length);
-
-	this.strippedValue = (nv == "NaN") ? "" : nv;
-
-	return this.strippedValue;
-}
-
-/*************************************
-*		MASCARA NUMERO
-**************************************/
-
-mascara_numero.prototype = new mascara;
-mascara_numero.prototype.constructor = mascara_numero;
-function mascara_numero (_mascara) {
-	mascara.prototype.constructor.call(this, _mascara, 'number');
-}
-
-mascara_numero.prototype.format = function (s, d){
-	this.value = this.setNumber(s, d);
-	return this.value;
-}
-
-/*************************************
-*		MASCARA FECHA
-**************************************/
-
-mascara_fecha.prototype = new mascara;
-mascara_fecha.prototype.constructor = mascara_fecha;
-function mascara_fecha (_mascara) {
-	mascara.prototype.constructor.call(this, _mascara, 'date');
-}
-
-mascara_fecha.prototype.format = function (s, d){
-	this.value = this.setDate(s, d);
-	return this.value;
-}
 
 
 /*************************************
@@ -576,11 +654,6 @@ qEvent.prototype.setKeyPressed = function (i){
 	return this.setKP(i);
 }
 
-// define the addEvent(oElement, sEvent, sCmd, bAppend) function
-function $addEvent(o, _e, c, _b){
-	var e = _e.toLowerCase(), b = (typeof _b == "boolean") ? _b : true, x = (o[e]) ? o[e].toString() : "";
-	// strip out the body of the function
-	x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));
-	x = ((b) ? (x + c) : (c + x)) + "\n";
-	return o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+qEvent.prototype.isDelete = function() {
+	return( this.keyCode == 8 || this.keyCode == 46 )
 }
