@@ -73,7 +73,7 @@ function dots($info){
 // (defaults to legal)
 // this code has been modified to use ezpdf.
 
-//$pdf = new Cezpdf('a4','portrait');
+//$pdf = new Cezpdf('a4','portrait'); 
 $pdf = new Creport('a4','portrait');
 
 $pdf -> ezSetMargins(50,70,50,50);

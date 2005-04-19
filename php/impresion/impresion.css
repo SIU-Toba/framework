@@ -1,0 +1,122 @@
+td
+{
+   margin: 0px 0px 0px 0px;
+   padding: 1px 1px 1px 1px;
+   border-collapse: collapse;
+}
+
+tr
+{
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 0px;
+   border-collapse: collapse;
+}
+
+table
+{
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 0px;
+   border-collapse: collapse;
+}
+
+.tabla_doc 
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #ffffff;
+	border: 0px none;
+    margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+.tabla_hoja
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #eeeeee;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;
+}
+
+.tabla_encabezado
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #dddddd;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;
+}
+
+.tabla_cuerpo
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #cccccc;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;
+}
+
+.tabla_pie
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #bbbbbb;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;
+}
+
+.tabla_bloque
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #aaaaaa;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;	
+}
+
+.tabla_etiqueta
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #999999;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;	
+}
+
+.tabla_grafico
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	background-color: #888888;
+	border-top: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+	border-left: 0px solid #000000;
+    margin: 0px;	
+}
