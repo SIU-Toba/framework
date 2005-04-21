@@ -215,8 +215,8 @@ class logger
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 				{
 					$hay_salida = true;
-					$html .= "*** " . $this->ref_niveles[$this->niveles[$a]] . 
-							" ***  " . $this->mensajes[$a] . "<br>";
+					$html .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
+							" *  " . $this->mensajes[$a] . "<br>";
 				}			
 			}
 			$html .= "</pre></td></tr></table></div>";

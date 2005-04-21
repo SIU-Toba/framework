@@ -5,29 +5,74 @@ class objeto_cn_t extends objeto_cn
 {
 	protected $transaccion_abierta;			// privado | boolean | Indica si la transaccion se encuentra en proceso
 	protected $estado_transaccion;			// privado | boolean | Indica el estado de la ultima ejecucio de SQL
-	protected $posicion_finalizador;		//Posicion del objeto en el array de finalizacion
 
-	function __construct($id, $resetear=false)
-/*
- 	@@acceso: nucleo
-	@@desc: Muestra la definicion del OBJETO
-*/
+	function __construct($id)
 	{
-		parent::__construct($id, $resetear);
+		parent::__construct($id);
 		$this->transaccion_abierta = false;
+		$this->evt__inicializar();		
+	}
+
+	function evt__inicializar()
+	{
+		//Esto hay que redeclararlo en los HIJOS	
+	}	
+
+	function evt__limpieza_memoria($no_borrar=null)
+	{
+		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]");
+		//$this->borrar_memoria();
+		$this->eliminar_estado_sesion($no_borrar);
+		$this->evt__inicializar();
 	}
 
 	//-------------------------------------------------------------------------------
+	//------------------  PROCESAMIENTO  --------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function cancelar()
+	{
+		$this->log->debug( $this->get_txt() . "[ cancelar ]");
+		$this->evt__limpieza_memoria();
+	}
+	//-------------------------------------------------------------------------------
+
+	function procesar($parametros=null)
+	//ATENCION: ignore_user_abort() //Esto puede ser importante!!!!
+	{
+		$this->log->debug( $this->get_txt() . "[ procesar ]");
+		try {
+			//ignore_user_abort();				//------> ?????
+			$this->iniciar_transaccion();
+			$this->evt__validar_datos();
+			$this->evt__procesar_especifico($parametros);
+			$this->finalizar_transaccion();
+			$this->evt__limpieza_memoria();
+		}
+		catch(excepcion_toba $e){
+			$this->abortar_transaccion();
+			$this->log->debug($e);	
+			throw new excepcion_toba( $e->getMessage() );
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function evt__validar_datos()
+	{
+		//Esto hay que redeclararlo en los HIJOS	
+	}
+	//-------------------------------------------------------------------------------
+
+	function evt__procesar_especifico()
+	{
+		//Esto hay que redeclararlo en los HIJOS	
+	}
+
 	//-------------------------------------------------------------------------------
 	//------------------  Manejo de TRANSACCIONES  ----------------------------------
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 
 	function iniciar_transaccion()
-/*
- 	@@acceso: interno
-	@@desc: Inicia una TRANSACCION
-*/
 	{
 		global $db;
 		$this->transaccion_abierta = true;
@@ -42,10 +87,6 @@ class objeto_cn_t extends objeto_cn
 	//-------------------------------------------------------------------------------
 	
 	function finalizar_transaccion($mensaje=null)
-/*
- 	@@acceso: interno
-	@@desc: Finaliza una TRANSACCION
-*/
 	{
 		global $db;
 		$sql = "COMMIT TRANSACTION";
@@ -65,10 +106,6 @@ class objeto_cn_t extends objeto_cn
 	//-------------------------------------------------------------------------------
 	
 	function abortar_transaccion($mensaje=null)
-/*
- 	@@acceso: interno
-	@@desc: Aborta una TRANSACCION
-*/
 	{
 		global $db;
 		$this->transaccion_abierta = false;
@@ -86,12 +123,6 @@ class objeto_cn_t extends objeto_cn
 	//-------------------------------------------------------------------------------
 
 	function ejecutar_sql($sentencias_sql, $registrar_error=true)
-/*
- 	@@acceso: interno
-	@@desc: Ejecuta un conjunto de sentencias SQL. Corta la ejecucion con el primer error
-	@@param: mixed | Array con sentencias SQL a procesar o String con un sola sentencia
-	@@retorno: boolean | Estado de la ejecucion
-*/
 	{
 		if($this->transaccion_abierta){
 			global $db;
@@ -122,30 +153,6 @@ class objeto_cn_t extends objeto_cn
 			return false;
 		}
 	}
-	//-------------------------------------------------------------------------------
-
-	function procesar($parametros=null)
-	//Esto hay que redeclararlo en los HIJOS
-	{
-		try
-		{
-			//ignore_user_abort();				//------> ?????
-			$this->iniciar_transaccion();
-			$this->validar_datos();
-			$this->procesar_especifico($parametros);
-			$this->finalizar_transaccion();
-			$this->proceso_ok = true;
-		}
-		catch(exception $e){
-			$this->abortar_transaccion();
-			$this->informar_msg($e->getMessage(), "error");
-			$this->solicitud->log->debug( $e );
-		}
-	}
-
-	function procesar_especifico(){  }
-	function validar_datos(){  }
-	
 	//-------------------------------------------------------------------------------
 }
 ?>

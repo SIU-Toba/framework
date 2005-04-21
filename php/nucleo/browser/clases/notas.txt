@@ -1,0 +1,77 @@
+
+	(ideas sobre la carga de info de negocio en los CI)
+	---------------------------------------------------
+	
+	** Opcion A (carga activa):
+
+		-> Se dispara un metodo en el CN que cargue datos (busca en las clases de negocio y carga)
+		-> Se dispara un metodo en el CI que dispare recursivamente la carga en los CIs de la info que recupero el CN
+			-> los metodos cargadores llaman a la funcion del CN que les corresponda
+		
+		problemas:
+			- Necesito toda la lista de CIs hijos, los tengo que instanciar a todos y cargar su estado
+			- En el CI externo, tengo que disparar explicitamente la carga de datos (cuando haya un catalogo de CIs, esto se soluciona)
+
+		ventajas:
+			- La memoria de la sesion queda restringida al CI
+			- Existe un metodo prefijado para la carga de datos
+			- El mecanismo es explicito y se parece a lo que conceptualmente sucede ("Ahora cargate.")
+				Es un esquema mas "eventoso"
+
+	** Opcion B (carga pasiva):
+	
+		-> Se dispara un metodo en el CN que cargue datos (busca en las clases de negocio y carga)
+		-> Todos los CI, en su metodo "configurar_gi" chequean SIEMPRE que no haya datos seteados si 
+			el CN tiene datos para darle, si es asi los carga en sus propiedades internas.
+		
+		problemas:
+			- La memoria se mantiene en el CN y en el CI (el CN la tiene que guardar asi porque no sabe cuando la van a buscar)
+			- No existe un procedimiento de carga, queda diluido en la carga individual de cada elemento
+
+		ventajas:
+			- No hay que instanciar todos los CI para cargarlos, ellos se encargan del tema internamente
+			- No hay que disparar explicitamente la carga, 
+		
+
+	(Esquema de eventos)
+	--------------------
+
+	- Que el evento de un CI o EI, siempre sea una llamada de javascript!
+		-> Esto simplifica la creacion de un nuevo evento, sea de boton o de lo que sea
+		
+	- Que la confirmacion de un evento no este en el onsubmit sino en el ruteo del mismo 
+		(Pasaria a ser parte de la definicion del evento)
+		(La llamada al seteo del evento tiene que hacer internamente el submit, 
+			el submit no lo tiene que hacer el boton)
+		-> Esto hace que definir un evento no implique tocar el onsubmit
+		-> Como hago con las cosas que no puedo pasar a la definicion ???
+			(ej: algunos eventos necesitan validar datos, otros no...)
+			
+	- La captura del evento no tiene que hacerse en base a un set conocido, sino que tiene
+		que ser de un grupo dinamico no definido de entrada.
+			(Esto implica un problema de seguridad o la existencia o no de la funcion que atrapa
+				ya alcanza para reconocer que es lo que esta pasando???)
+
+	- En el caso de los eventos globales, el cancelar no tiene que disparar los eventos de las 
+		dependencias y los demas si... como se resuelve esto sin que los que definen un nuevo
+		evento global tengan que saber que tienen que disparar los eventos de las dependencias
+		
+
+	agregar en TRABAJO.TXT
+	----------------------
+	
+	- Orden cuadro en esquema CI? [ esto no esta con POST, asi el cronometro ]
+	- Cambiar la forma de ensamblar una operacion
+	- Poner teclas de acceso para los ITEMS que se esta probando
+	- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
+	- Separar todo por modulos
+	- Link al codigo PHP de una subclase desde la instanciacion
+	- Ver el orden de los parametros en el button_html
+	- Relacion ML->buffer
+	- Buffers con filtrado de registro
+	- Se necesita la administracion de consumos js? no puede ir todo como un include?		
+	- Lugar centralizado donde se reserven teclas de acceso rapido
+
+	
+	
+	

@@ -23,6 +23,24 @@ class objeto_ei_filtro extends objeto_ei_formulario
 		$this->oculto = "filtro_" . $this->id[1];
 	}
 
+	function disparar_eventos()
+	{
+		$this->recuperar_interaccion();
+		if( $evento = $this->obtener_evento() ){
+			foreach(array_keys($this->observadores) as $id){
+				if( ($evento=="filtrar") ){
+					$this->validar_estado();
+					$parametros = $this->obtener_datos();
+				}else{
+					$parametros = null;
+				}
+				//Disparo el evento
+				$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
+			}
+			$this->limpiar_interface();
+		}
+	}
+
 	function inicializar_especifico()
 	{
 		//Filtrar

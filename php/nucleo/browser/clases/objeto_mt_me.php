@@ -218,7 +218,6 @@ class objeto_mt_me extends objeto_mt
 			$this->etapa_actual = $this->info_mt_me_etapa[0]["posicion"];
 		}
 		$this->memoria["etapa"] = $this->etapa_actual;
-		$this->memorizar();
 	}
 	//-------------------------------------------------------------------------------
 

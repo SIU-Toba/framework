@@ -29,7 +29,7 @@ TD.arbol-cuerpo {
 TD.arbol-etiqueta1 {
 	BORDER-RIGHT: #231f20 4px solid;
 	 PADDING-RIGHT: 5px;
-	 BORDER-TOP: #231f20 1px solid;
+	 BORDER-TOP: #000000 2px solid;
 	 PADDING-LEFT: 5px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
@@ -38,22 +38,22 @@ TD.arbol-etiqueta1 {
 	 COLOR: #231f20;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #231f20 1px solid;
-	 BACKGROUND-COLOR: #a7a5a6;
+	 BACKGROUND-COLOR: #fffc10;
 	 TEXT-ALIGN: left
 }
 TD.arbol-etiqueta2 {
 	BORDER-RIGHT: #231f20 4px solid;
 	 PADDING-RIGHT: 5px;
-	 BORDER-TOP: #231f20 1px solid;
+	 BORDER-TOP: #000000 2px solid;
 	 PADDING-LEFT: 5px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 2px;
 	 BORDER-LEFT: #231f20 1px solid;
-	 COLOR: #e9e8e8;
+	 COLOR: #000000;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #231f20 1px solid;
-	 BACKGROUND-COLOR: #7b7979;
+	 BACKGROUND-COLOR: #ffeb10;
 	 TEXT-ALIGN: left
 }
 TD.arbol-valor {
@@ -64,7 +64,7 @@ TD.arbol-valor {
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
 	 BORDER-LEFT: #231f20 1px solid;
-	 COLOR: #231f20;
+	 COLOR: #000000;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #231f20 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
@@ -73,17 +73,16 @@ TD.arbol-valor {
 TD.arbol-valor-array {
 	BORDER-RIGHT: #231f20 1px solid;
 	 PADDING-RIGHT: 3px;
-	 BORDER-TOP: #231f20 2px solid;
+	 BORDER-TOP: #231f20 1px solid;
 	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 3px;
+	 PADDING-BOTTOM: 0px;
 	 BORDER-LEFT: #231f20 1px solid;
-	 COLOR: #231f20;
-	 PADDING-TOP: 3px;
+	 COLOR: #000000;
+	 PADDING-TOP: 1px;
 	 BORDER-BOTTOM: #231f20 1px solid;
-	 BACKGROUND-COLOR: #a7a5a6;
-	 TEXT-ALIGN: center
+	 BACKGROUND-COLOR: #ff0000;
+	 TEXT-ALIGN: left
 }
 TD.arbol-valor-objeto {
 	BORDER-RIGHT: #231f20 1px solid;
@@ -93,10 +92,10 @@ TD.arbol-valor-objeto {
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
 	 BORDER-LEFT: #231f20 1px solid;
-	 COLOR: #e9e8e8;
+	 COLOR: #000000;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #231f20 1px solid;
-	 BACKGROUND-COLOR: #4f4c4d;
+	 BACKGROUND-COLOR: #ffffff;
 	 TEXT-ALIGN: left
 }
 TD.arbol-valor-null {
@@ -107,10 +106,10 @@ TD.arbol-valor-null {
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 0px;
 	 BORDER-LEFT: #231f20 1px solid;
-	 COLOR: #e9e8e8;
+	 COLOR: #ffffff;
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #231f20 1px solid;
-	 BACKGROUND-COLOR: #231f20;
+	 BACKGROUND-COLOR: #555555;
 	 TEXT-ALIGN: left
 }
 TD.barra-0 {
@@ -435,6 +434,7 @@ TD.celda-vacia {
 	 PADDING-LEFT: 0px;
 	 PADDING-BOTTOM: 0px;
 	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
 	 PADDING-TOP: 0px
 }
 TABLE.tabla-1 {
@@ -765,7 +765,7 @@ TD.objeto-ei-barra-superior {
 	 COLOR: #ffffff;
 	 PADDING-TOP: 3px;
 	 BORDER-BOTTOM: #a7a5a6 1px;
-	 BACKGROUND-COLOR: #514a84;
+	 BACKGROUND-COLOR: #808080;
 	 TEXT-ALIGN: left
 }
 TABLE.objeto-base {
@@ -842,17 +842,21 @@ TD.abm-fila-ml {
 	 PADDING-LEFT: 3px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
 	 MARGIN: 0px;
-	 COLOR: #660000;
-	 BACKGROUND-COLOR: #d4d0c8
+	 COLOR: #ffffff;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #d4d0c8;
 }
 TD.abm-fila-ml-selec {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
 	 MARGIN: 0px;
 	 COLOR: #ffffff;
+	 PADDING-TOP: 0px;
 	 BACKGROUND-COLOR: #a4a098
 }
 TD.abm-columna {
@@ -1464,7 +1468,8 @@ TD.ef-zonainput {
 }
 .ef-boton {
 	FONT-SIZE: 10px;
-	 COLOR: #231f20
+	 COLOR: #231f20;
+	 BACKGROUND-COLOR: #ffffff
 }
 .ef-input {
 	BORDER-RIGHT: #d4d0c8 2px solid;
@@ -1485,12 +1490,8 @@ TD.ef-zonainput {
 	 TEXT-ALIGN: left
 }
 .ef-input-numero {
-	BORDER-RIGHT: #d4d0c8 2px solid;
-	 BORDER-TOP: #404040 2px solid;
-	 FONT-SIZE: 10px;
-	 BORDER-LEFT: #404040 2px solid;
+	FONT-SIZE: 10px;
 	 COLOR: #231f20;
-	 BORDER-BOTTOM: #d4d0c8 2px solid;
 	 BACKGROUND-COLOR: #fffdf9;
 	 TEXT-ALIGN: right
 }
@@ -1551,6 +1552,21 @@ TD.ei-cuerpo {
 	 COLOR: #f0f1ff;
 	 PADDING-TOP: 2px;
 	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: left
+}
+TD.objeto-ci-barra-superior {
+	BORDER-RIGHT: #a7a5a6 1px;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #a7a5a6 1px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #a7a5a6 1px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #a7a5a6 1px;
+	 BACKGROUND-COLOR: #514a84;
 	 TEXT-ALIGN: left
 }
 TD.ci-cuerpo {
@@ -2158,7 +2174,7 @@ TD.tabs-solapa-sel {
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
 }
-INPUT.tabs-boton {
+.tabs-boton {
 	BORDER-RIGHT: medium none;
 	 PADDING-RIGHT: 2px;
 	 BORDER-TOP: medium none;
@@ -2172,7 +2188,7 @@ INPUT.tabs-boton {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d7d4cf
 }
-INPUT.tabs-boton-sel {
+.tabs-boton-sel {
 	BORDER-RIGHT: medium none;
 	 PADDING-RIGHT: 2px;
 	 BORDER-TOP: medium none;
@@ -2187,7 +2203,7 @@ INPUT.tabs-boton-sel {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8
 }
-TD.tabs-solapa-hueco {
+.tabs-solapa-hueco {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
 	 PADDING-BOTTOM: 0px;
@@ -2195,7 +2211,7 @@ TD.tabs-solapa-hueco {
 	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #ffffff 2px solid
 }
-TD.tabs-contenedor {
+.tabs-contenedor {
 	BORDER-RIGHT: #808080 2px solid;
 	 PADDING-RIGHT: 7px;
 	 PADDING-LEFT: 7px;
@@ -2206,7 +2222,7 @@ TD.tabs-contenedor {
 	 PADDING-TOP: 10px;
 	 BORDER-BOTTOM: #808080 2px solid;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: left
 }
 TABLE.objeto-base-3d {
 	BORDER-RIGHT: #666677 2px solid;

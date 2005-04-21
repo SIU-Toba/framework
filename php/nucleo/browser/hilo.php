@@ -2,7 +2,7 @@
 //Tamaño del HILO (Unidades de memoria independientes por solicitud)
 //Esto determina la cantidad de "BACK" que se puede hacer el browser sin
 //Perder el estado de sesion de cada request.
-define("apex_hilo_tamano","6");
+define("apex_hilo_tamano","1");
 
 //----------------------------------------------------------------
 //-------------------- QUERYSTRING Basico ------------------------
@@ -495,7 +495,7 @@ class hilo
 	function dato_global_reciclable($indice)
 	//Se reporta que un dato global se va a reciclar
 	{
-		if(!in_array($indice,$_SESSION["reciclables"])){
+		if( !$this->existe_dato_reciclable($indice) ){
 			$_SESSION["reciclables"][] = $indice;
 			$this->dato_global_activo($indice);
 		}
@@ -503,9 +503,13 @@ class hilo
 	//----------------------------------------------------------------	
 	
 	function dato_global_activo($indice)
+	//Indica que el dato reciclable fue activado
 	{
-		if(!in_array($indice,$_SESSION["reciclables_activos"])){
-			$_SESSION["reciclables_activos"][] = $indice;
+		//Puede ser llamado por fuera
+		if( $this->existe_dato_reciclable($indice) ){
+			if(!in_array($indice,$_SESSION["reciclables_activos"])){
+				$_SESSION["reciclables_activos"][] = $indice;
+			}
 		}
 	}
 

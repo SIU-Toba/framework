@@ -111,8 +111,6 @@ class objeto_mt_mds extends objeto_mt_s
                 }
             }
         }
-        //Memorizo el estado para la proxima instanciacion
-        $this->memorizar();
     }
 
     //-------------------------------------------------------------------------------
@@ -334,7 +332,6 @@ class objeto_mt_mds extends objeto_mt_s
                 }
             }
         }
-        $this->memorizar();
         return $status;
     }
 

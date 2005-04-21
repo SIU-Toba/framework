@@ -1,56 +1,50 @@
 <?php
-require_once("objeto_ci.php");	//Ancestro de todos los OE
-/*
-	//ATENCION Ordenar los eventos antes de rutearlos... (seleccion ultimos)
-*/
+require_once("objeto_ci.php");
 
 class objeto_ci_me extends objeto_ci
-/*
- 	@@acceso: nucleo
-	@@desc: Descripcion
-*/
 {
-	//Etapas
-	var $indice_etapas;
-	var $etapa_actual;
-	var $etapa_previa;
-	//Dependencias
-	var $dependencias_previas;
-
-	function objeto_ci_me($id)
 /*
- 	@@acceso: nucleo
-	@@desc: Muestra la definicion del OBJETO
+	- Considerar el nombre del metodo:  get_etapa_actual
+	- Le falta un subtitulo que cambie con la etapa
+	- ATENCION: controlar si el metodo de memorizacion de la etapa es el adecuado 
+		(no puede afectar en el caso de los multietapa en multietapa)
+	- A los eventos por defecto les falta la activacion GENERAL
+	- ASERCION para ver si la etapa este definida y sea correcta
 */
+
+	var $indice_etapas;
+	var $etapa_gi;			// Etapa a utilizar para generar la interface
+
+	function __construct($id)
 	{
-		parent::objeto_ci($id);
-		//Inicializo informacion
+		parent::__construct($id);
+		//Indice de etapas
 		for($a = 0; $a<count($this->info_ci_me_etapa);$a++){
-			//Preparo el nombre del SUBMIT de cada etapa
-			$this->info_ci_me_etapa[$a]["submit"] = $this->submit."_".$this->info_ci_me_etapa[$a]["posicion"];
-			//Indice de acceso por etapas
-			$this->indice_etapas[$this->info_ci_me_etapa[$a]["posicion"]] = $a;
+			$this->indice_etapas[ $this->info_ci_me_etapa[$a]["posicion"] ] = $a;
 		}
+		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
+		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
+		$this->set_etapa_gi( $this->get_etapa_inicial() );
+	}
+	//-------------------------------------------------------------------------------
+
+	function destruir()
+	{
+		$this->memoria['etapa_gi'] = $this->etapa_gi;
+		parent::destruir();
 	}
 	//-------------------------------------------------------------------------------
 
 	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
 	{
 		$sql = parent::obtener_definicion_db();
 		//-- CI - Multiples etapas --------------
-		$sql["info_ci_me_etapa"]["sql"] = "SELECT	posicion			  as posicion,
-													etiqueta			  as etiqueta,
-													descripcion			  as descripcion,
-													objetos				  as objetos,
-													objetos_adhoc		as	objetos_adhoc,
-													pre_condicion		as	pre_condicion,	
-													post_condicion	    as	post_condicion,	
-													ev_procesar		    as	ev_procesar,
-													ev_cancelar			as ev_cancelar
+		$sql["info_ci_me_etapa"]["sql"] = "SELECT	posicion			  	as posicion,
+													etiqueta			  	as etiqueta,
+													descripcion			  	as descripcion,
+													objetos				  	as objetos,
+													ev_procesar		   		as ev_procesar,
+													ev_cancelar				as ev_cancelar
 										FROM	apex_objeto_mt_me_etapa
 										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
 										AND	objeto_mt_me = '".$this->id[1]."'
@@ -60,102 +54,24 @@ class objeto_ci_me extends objeto_ci
 		return $sql;
 	}
 
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//---------------------  Manejo de DEPENDENCIAS  --------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
+	//--  Primitivas de manejo de etapas  --------------------------------------------------
 
-	function obtener_dependencias( $etapa )
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve las dependencias asociadas especificamente con el ME
-*/
+	function get_etapa_inicial()
 	{
-		$dependencias = array();
-		if( trim( $this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos_adhoc"] )!="" )
-		{
-			$metodo = $this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos_adhoc"];
-			//ATENCION: hay que controlar que las DEPENDENCIAS existan...
-			$dependencias = $this->cn->$metodo();
-		}
-		elseif( trim($this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"])!="" )
-		{
-			$dependencias = explode(",",$this->info_ci_me_etapa[$this->indice_etapas[$etapa]]["objetos"]);
-			$dependencias = array_map("trim",$dependencias);
-		}
-		return $dependencias;
-		/*
-		else{
-			//Todas las etapas
-			for($a=0;$a<count($this->info_ci_me_etapa);$a++)
-			{
-				$temp = null;
-				if(isset($this->info_ci_me_etapa[$a]["objetos"])){
-					$temp = explode(",",$this->info_ci_me_etapa[$a]["objetos"]);
-					$temp = array_map("trim",$temp);
-				}
-				if(is_array($temp)) $dependencias = array_merge($dependencias, $temp) ;
-			}
-		}*/
+		return $this->info_ci_me_etapa[0]["posicion"];
 	}
-	//-------------------------------------------------------------------------------
-
-	function cargar_dependencias_activas()
+	
+	function get_etapa_actual()
+	//Esta funcion PROPONE la etapa ACTUAL (la etapa a la que se deberia ingresar en este request)
+	// La etapa DEBE ser una etapa VALIDA!
 	{
-		$this->cargar_dependencias_actuales();
-		$this->cargar_dependencias_previas();
-	}
-	//-------------------------------------------------------------------------------
+		$this->log->warning( $this->get_txt() . "Para establecer un esquema de navegacion es necesario definir el metodo 'get_etapa_actual'");
+		return $this->get_etapa_inicial();		
+	}	
 
-	function cargar_dependencias_previas()
+	function set_etapa_gi($etapa)
 	{
-		if(isset($this->etapa_previa)){
-			$this->dependencias_previa = $this->obtener_dependencias($this->etapa_previa);
-			$dependencias = null;
-			foreach($this->dependencias_previa as $dep){
-				if(!isset($this->dependencias[$dep])){
-					$dependencias[] = $dep;
-				}
-			}
-			if(isset($dependencias)){
-				$this->cargar_dependencias($this->dependencias_previa);
-			}
-		}		
-	}
-
-	function cargar_dependencias_actuales()
-	{
-		$this->dependencias_actual = $this->obtener_dependencias($this->etapa_actual);	
-		//Controlo no volver a cargar una dependencia
-		$dependencias = null;
-		foreach($this->dependencias_actual as $dep){
-			if(!isset($this->dependencias[$dep])){
-				$dependencias[] = $dep;
-			}
-		}
-		if(isset($dependencias)){
-			$this->cargar_dependencias($dependencias);
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function cargar_dependencias_inactivas()
-/*
- 	@@acceso: interno
-	@@desc: Carga las dependencias
-*/
-	{
-		//Cargo todas las dependencias (Las instanciadas no se repiten)
-		$dependencias_activas = array_keys($this->dependencias);
-		//$dependencias = $this->lista_dependencias;
-		$dependencias = $this->obtener_dependencias();
-		foreach($dependencias as $dep){
-			if(!(in_array($dep, $dependencias_activas))){
-				$dependencias_inactivas[] = $dep;
-			}
-		}
-		$this->cargar_dependencias($dependencias_inactivas);
+		$this->etapa_gi	= $etapa;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -164,213 +80,129 @@ class objeto_ci_me extends objeto_ci
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function evaluar_etapa()
+	function disparar_eventos()
 	{
-		$this->etapa_actual = null;
-		$this->etapa_previa = null;
-        $navegando_tabs = false;     //Indica que se esta navegando por el objeto_ci
-
-        for($a=0;$a<count($this->info_ci_me_etapa);$a++)
-        {
-            if(isset($_POST[$this->info_ci_me_etapa[$a]["submit"]])){
-            	$this->etapa_actual = $this->info_ci_me_etapa[$a]["posicion"];
-            	$this->etapa_previa = $this->memoria["etapa"];
-                $navegando_tabs = true;
-   				//echo "Etapa " . $this->etapa_actual;
-            	break;			
-            }
-        } 
-
-		//Toda la navegacion interna es por POST
-		if(!$navegando_tabs){
-			//Navegacion de TABS: en que etapa entre
-			//Se activo un subelemento, mantengo la etapa
-			if(isset($this->memoria["etapa"])){
-				$this->etapa_actual = $this->memoria["etapa"];
-				$this->etapa_previa = $this->memoria["etapa"];
-			}else{
-				//--> Entrada a la ETAPA inicial!!
-				//echo "Estado INICIAL";
-				//$this->limpiar_memoria_global();
-				$this->etapa_actual = $this->get_etapa_inicial();
-				//$this->cn->reset();
-			}
-		}
-		$this->memoria["etapa"] = $this->etapa_actual;
+		$this->definir_etapa_gi_pre_eventos();
+		parent::disparar_eventos(); //Si se dispara una excepcion, el codigo que sigue no se ejecuta
+		$this->definir_etapa_gi_post_eventos();
 	}
 	//-------------------------------------------------------------------------------
 
-	function get_etapa_inicial()
+	function definir_etapa_gi_pre_eventos()
+	//Define la etapa de Generacion de Interface del request ANTERIOR
 	{
-		return $this->info_ci_me_etapa[0]["posicion"];
-	}
-	//-------------------------------------------------------------------------------
-	
-
-	function procesar()
-	{
-		$this->determinar_modelo_opciones();
-		//Veo en que etapa estoy.
-		$this->evaluar_etapa();
-		if( ! $this->controlar_cancelacion() )
-		{
-			try{
-				//-[1]- Procesamiento de la <<< SALIDA de la etapa PREVIA >>>
-				if(isset($this->etapa_previa)){
-					$this->disparar_salida();
-				}
-				//-[2]- Procesamiento de la <<< ENTRADA a etapa ACTUAL >>>
-				$this->disparar_entrada();
-
-				//-[3]- Se activo una orden de procesamiento?
-				if( $this->controlar_procesamiento() ){
-					$this->cargar_etapa_inicial();					
-				}
-			} catch(excepcion_toba $e) 
-			{
-				$this->cargar_etapa_anterior();
-				$this->informar_msg($e->getMessage(), 'error');
-			}
-		}
-		else{
-			//El usuario cancelo la operacion
-			$this->cargar_etapa_inicial();					
-		}
-	}
-	//-------------------------------------------------------------------------------
-	
-	function disparar_salida()
-	{
-		//Creo las dependencias de esta etapa
-		$this->cargar_dependencias_previas();
-		$proceso_salida_especifico = "procesar_salida_" . $this->etapa_previa;
-		if(method_exists($this, $proceso_salida_especifico)){
-			return $this->$proceso_salida_especifico();
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_pre_eventos ]");
+		if( isset($this->memoria['etapa_gi']) ){
+			// Habia una etapa anterior
+			$this->set_etapa_gi( $this->memoria['etapa_gi'] );
+			// 
 		}else{
-			//Utilizo el procesamiento generico
-			return $this->procesar_salida();
+			// Request inicial
+			// Esto no deberia pasar nunca, porque en el request inicial no se disparan los eventos
+			// porque el CI no se encuentra entre las dependencias previas
+			$this->set_etapa_gi( $this->get_etapa_inicial() );
 		}
+		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}");
 	}
 	//-------------------------------------------------------------------------------
 
-	function procesar_salida()
-	//Salida GENERICA a una ETAPA
+	function definir_etapa_gi_post_eventos()
+	//Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL
+	//ATENCION: esto se esta ejecutando despues de los eventos propios... 
+	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
-		//echo "SALIDA<br>";
-		$this->controlar_eventos($this->dependencias_previa);
-		//--> controlo que se cumplo la POST-Condicion!!!
-		if($metodo = $this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_previa]]["post_condicion"]){
-			return $this->cn->$metodo();
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
+		// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
+		// Esto no lo tengo que subir al metodo anterior?
+		if( isset($this->memoria['etapa_gi']) ){
+			// Habia una etapa anterior
+			$evento_salida = apex_ci_evento . apex_ci_separador . "salida" . apex_ci_separador . $this->memoria['etapa_gi'];
+			//Evento SALIDA
+			if(method_exists($this, $evento_salida)){
+				$this->$evento_salida();
+			}
+		}	
+		// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+		$etapa_actual = $this->get_etapa_actual();
+		$evento_entrada = apex_ci_evento . apex_ci_separador . "entrada" . apex_ci_separador . $etapa_actual;
+		if(method_exists($this, $evento_entrada)){
+			$this->$evento_entrada();
 		}
-		return true;	
+		// -[ 3 ]-  Seteo la etapa PROPUESTA
+		$this->set_etapa_gi($etapa_actual);
+		$this->log->debug( $this->get_txt() . "etapa_gi_POST_eventos: {$this->etapa_gi}");
 	}
 	//-------------------------------------------------------------------------------
 
-	function disparar_entrada()
-	//Dispara la entrada a una etapa
+	function evt__post_recuperar_interaccion()
+	//Despues de recuperar la interaccion con el usuario
 	{
-		//Creo las dependencias de esta etapa
-		$this->cargar_dependencias_actuales();
-		$proceso_entrada_especifico = "procesar_entrada_" . $this->etapa_actual;
-		if(method_exists($this, $proceso_entrada_especifico)){
-			return $this->$proceso_entrada_especifico();
-		}else{
-			//Utilizo el procesamiento generico
-			return $this->procesar_entrada();
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function procesar_entrada()
-	//Entrada GENERICA a una ETAPA
-	{
-		//echo "ENTRADA<br>";
-		//Controlo la PRE-Condicion
-		if($metodo = $this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["pre_condicion"]){
-			$this->cn->$metodo();
-		}
-		// Cargo los elementos de interface
-		$this->cargar_datos_dependencias();
-		// Cargar de los DAOS
-		$this->cargar_daos();
-		return true;	
-	}
-	//-------------------------------------------------------------------------------
-
-	function cargar_etapa_anterior()
-	//Carga la etapa anterior a la actual
-	{
-		$this->etapa_actual = $this->etapa_previa;
-		$this->memoria["etapa"] = $this->etapa_actual;
-		$this->disparar_entrada();
-	}
-	//-------------------------------------------------------------------------------
-	
-	function cargar_etapa_inicial()
-	//Carga la etapa inicial de la operacion
-	{
-		$this->etapa_actual = $this->get_etapa_inicial();
-		$this->memoria["etapa"] = $this->etapa_actual;
-		$this->disparar_entrada();
+		/*	En este caso la validacion global "evt__validar_datos" no tiene sentido porque
+			puede referirse a elementos que se encuentres en otra etapa distinta.
+			Rutear a una especifica [evt__validar_datos__"numero"] tampoco porque se puede
+			usar una ventana parecida con las [evt__salida__"numero"]. 
+			Entonces solo desactivo	el funcionamiento del padre
+		*/ 
 	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//--------------------------------  SALIDA  HTML --------------------------------
+	//--------   Generacion de la INTERFACE GRAFICA  ( ETAPA ACTUAL ) ---------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_interface()
-/*
- 	@@acceso: interno
-	@@desc: Genera la INTERFACE de la transaccion.
-*/
+	function obtener_html_contenido()
 	{
-		//-[2]- Genero la SALIDA
-		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "100%";
-		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-		echo "<table width='$ancho' $alto class='tabla-0'>\n";
-		//Tabs
-		echo "<tr><td class='celda-vacia'>";
-		$this->obtener_barra_navegacion();
-		echo "</td></tr>\n";
-		//Interface de la etapa correspondiente
-		echo "<tr><td class='tabs-contenedor'>";
-		//Las hijas cambian la forma de mostrar la interface para una etapa?
-		$interface_especifica = "obtener_interface_" . $this->etapa_actual;
+		$interface_especifica = "obtener_html_contenido_" . $this->etapa_gi;
 		if(method_exists($this, $interface_especifica)){
 			$this->$interface_especifica();
 		}else{
-			$this->interface_estandar();
+			parent::obtener_html_contenido();
 		}
-		echo "</td></tr>\n";
-		echo "</table>\n";
 	}
 	//-------------------------------------------------------------------------------
 
-	function interface_estandar()
+	function get_lista_ei()
 	{
-		parent::obtener_interface();
+		//Existe una definicion especifica para esta etapa?
+		$metodo_especifico = "get_lista_ei" . apex_ci_separador . $this->etapa_gi;
+		if(method_exists($this, $metodo_especifico)){
+			return $this->$metodo_especifico();	
+		}		
+		//Busco la definicion standard para la etapa
+		$objetos = trim( $this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["objetos"] );
+		if( $objetos != "" ){
+			return array_map("trim", explode(",", $objetos ) );
+		}else{
+			throw new excepcion_toba("No es posible determinar que dependencias cargar");
+		}
 	}
 	//-------------------------------------------------------------------------------
-	
-	function generar_opciones_estandar()
-/*
- 	@@acceso: interno
-	@@desc: Genera los BOTONES del Marco Transaccional
-*/
+
+	function get_lista_eventos()
 	{
-		if($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_procesar"]){
-			$acceso = tecla_acceso($this->submit_etiq);
-			echo form::submit($this->submit,$acceso[0],"abm-input", '', $acceso[1]);
+		$eventos = array();
+		//Evento PROCESAR
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar'])
+		{
+			if($this->info_ci['ev_procesar_etiq']){
+				$eventos['procesar']['etiqueta'] = $this->info_ci['ev_procesar_etiq'];
+			}else{
+				$eventos['procesar']['etiqueta'] = "Proce&sar";
+			}
 		}
-		if($this->info_ci_me_etapa[$this->indice_etapas[$this->etapa_actual]]["ev_cancelar"]){
-			$acceso = tecla_acceso($this->cancelar_etiq);
-			echo "&nbsp;" . form::button("boton", $acceso[0], 
-				  "onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"",
-				  "abm-input", $acceso[1]);
+		//Evento CANCELAR
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])
+		{
+			//$eventos['cancelar']['confirm'] = "Esta seguro que desea cancelar?";
+			if($this->info_ci['ev_cancelar_etiq']){
+				$eventos['cancelar']['etiqueta'] = $this->info_ci['ev_cancelar_etiq'];
+			}else{
+				$eventos['cancelar']['etiqueta'] = "&Cancelar";
+			}
 		}
-	}																		
+		return $eventos;
+	}
 	//-------------------------------------------------------------------------------
 }
 ?>

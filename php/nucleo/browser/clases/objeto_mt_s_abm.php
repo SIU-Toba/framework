@@ -66,6 +66,7 @@ class objeto_mt_abms extends objeto_mt_s
 	{
 		$this->dependencias["formulario"] =& new objeto_ut_formulario($this->id);
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
+		$parametro['id'] = "formulario";
 		$this->dependencias["formulario"]->inicializar($parametro);
 	}
 

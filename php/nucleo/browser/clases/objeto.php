@@ -16,6 +16,7 @@ class objeto
 	var $dependencias = array();							//Array de sub-OBJETOS
 	var $memoria;
 	var $memoria_existencia_previa = false;
+	var $interface_existencia_previa = false;
 	var $observaciones;
 	var $canal;										// Canal por el que recibe datos 
 	var $canal_recibido;							// Datos recibidos por el canal
@@ -27,7 +28,7 @@ class objeto
 	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	var $exportacion_archivo;
 	var $exportacion_path;
-	
+
 	function objeto($id)
 /*
  	@@acceso: nucleo
@@ -46,10 +47,11 @@ class objeto
 		$this->canal_recibidos = $this->solicitud->hilo->obtener_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
-		//Escuchar un solicitud de recompilacion. --> que es esto??
 		//Manejo transparente de memoria
-		//$this->cargar_memoria();			//RECUPERO Memoria sincronizada
+		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		//$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
+		$this->evaluar_existencia_interface_anterior();
+		$this->log->debug( $this->get_txt() . "[ __construct ]");
 	}
 //--------------------------------------------------------------------------------------------
 
@@ -65,7 +67,7 @@ class objeto
 	{
 		//echo "Me estoy destruyendo " . $this->id[1] . "<br>";
 		//Persisto informacion
-		//$this->memorizar();					//GUARDO Memoria sincronizada
+		$this->memorizar();						//GUARDO Memoria sincronizada
 		//$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 		//Llamo a los destructores de los OBJETOS anidados
 		foreach(array_keys($this->dependencias) as $dependencia){
@@ -164,6 +166,11 @@ class objeto
 	}
 //--------------------------------------------------------------------------------------------
 
+	function get_clave_memoria_global()
+	{
+		return $this->id_ses_grec;
+	}
+
 	function info_estado()
 /*
  	@@acceso: actividad
@@ -233,6 +240,11 @@ class objeto
 		ei_arbol($this->info_definicion());
 	}	
 
+	function get_txt()
+	{
+		return "objeto[". $this->id[1] . "] < ". get_class($this). " > ";	
+	}
+	
 //*******************************************************************************************
 //****************************************<  SOPORTE   >*************************************
 //*******************************************************************************************	
@@ -433,7 +445,7 @@ class objeto
 */
 	{
 		if( $this->solicitud->hilo->verificar_acceso_menu() ){
-			$this->log->debug("OBJETO ". get_class($this) . " [". $this->id[1] . "] El estado de la memoria no es regenerado porque el acceso proviene del MENU");
+			//$this->log->debug($this->get_txt() . " El estado de la memoria no es regenerado porque el acceso proviene del MENU");
 		}else{
 			if($this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1])){
 				$this->memoria_existencia_previa = true;
@@ -464,6 +476,7 @@ class objeto
 	}
 
 	function existio_memoria_previa()
+	//Atencion, para que esto funcione antes hay que cargar la memoria
 	{
 		return $this->memoria_existencia_previa;
 	}
@@ -517,7 +530,7 @@ class objeto
 	{
 		if($this->solicitud->hilo->existe_dato_global($this->id_ses_grec)){
 			if( $this->solicitud->hilo->verificar_acceso_menu() ){
-				$this->log->debug("OBJETO ". get_class($this) . " [". $this->id[1] . "] El estado de las propiedades no es regenerado porque el acceso proviene del MENU");
+				//$this->log->debug($this->get_txt() . " El estado de las propiedades no es regenerado porque el acceso proviene del MENU");
 			}else{
 				//Recupero las propiedades de la sesion
 				$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
@@ -541,18 +554,25 @@ class objeto
 					//Si la propiedad no es NULL
 					if(isset($this->$propiedades_a_persistir[$a])){
 						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+					}else{
+						//$this->log->error($this->get_txt() . " Se solocito mantener el estado de una propiedad inexistente: '{$propiedades_a_persistir[$a]}' ");
+						//echo $this->get_txt() . " guardar_estado_sesion '{$propiedades_a_persistir[$a]}' == NULL <br>";
 					}
 				}
 			}
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp, true);
+			}else{
+				//Si existia y las propiedades pasaron a null, hay que borrarlo
+				$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
 			}
 		}
 	}
 
-	function eliminar_estado_sesion($no_eliminar=array())
+	function eliminar_estado_sesion($no_eliminar=null)
 	{
+		if(!isset($no_eliminar))$no_eliminar=array();
 		$propiedades_a_persistir = $this->mantener_estado_sesion();
 		for($a=0;$a<count($propiedades_a_persistir);$a++){
 			if(!in_array($propiedades_a_persistir[$a], $no_eliminar)){
@@ -571,7 +591,7 @@ class objeto
 				//Existe la propiedad
 				if(in_array($propiedades_a_persistir[$a],$propiedades)){
 					//Si la propiedad no es NULL
-					if(isset($this->$propiedades_a_persistir[$a])){
+					if(isset( $this->$propiedades_a_persistir[$a]) ){
 						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
 					}
 				}
@@ -711,10 +731,6 @@ class objeto
 //--------------------------------------------------------------------------------------------
 
 	function consultar_info_dependencia($dep,$dato=null)
-/*
- 	@@acceso: interno
-	@@desc: 
-*/
 	{
 		if(isset($dato)){
 			if(isset($this->info_dependencias[$this->indice_dependencias[$dep]][$dato])){
@@ -733,16 +749,49 @@ class objeto
 //--------------------------------------------------------------------------------------------
 
 	function info_definicion_dependencias()
-/*
- 	@@acceso:
-	@@desc: 
-*/
 	{
 		return $this->info_dependencias;
 	}
+//--------------------------------------------------------------------------------------------
+
+	function get_dependencias_clase($ereg_busqueda)
+	//Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
+	{
+		$ok = array();
+		for($a=0;$a<count($this->info_dependencias);$a++){
+			if( preg_match($ereg_busqueda, $this->info_dependencias[$a]['clase']) ){
+				$ok[] = $this->info_dependencias[$a]["identificador"];
+			}
+		}
+		return $ok;
+	}
+	
 	
 //*******************************************************************************************
 //***********************************<  INTERFACE GRAFICA  >*********************************
+//*******************************************************************************************
+
+	protected function evaluar_existencia_interface_anterior()
+	{
+		if(isset($this->memoria["generacion_interface"]))
+		{
+			if( $this->memoria["generacion_interface"] == 1 ){
+				$this->interface_existencia_previa = true;
+			}
+		}
+		$this->memoria["generacion_interface"] = 0;		
+	}
+
+	protected function existio_interface_previa()
+	{
+		return $this->interface_existencia_previa;
+	}
+
+	protected function registrar_generacion_interface()
+	{
+		$this->memoria["generacion_interface"] = 1;		
+	}
+
 //*******************************************************************************************
 
 	function barra_superior_especifica(){}
@@ -759,6 +808,8 @@ class objeto
 */
 	//Muestra la barra del objeto
 	{
+		//Marco la existencia de una interface previa
+		$this->registrar_generacion_interface();
 		if($control_titulo_vacio){
 			if(trim($this->info["titulo"])==""){
 				return;	

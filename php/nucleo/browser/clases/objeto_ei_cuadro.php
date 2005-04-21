@@ -14,6 +14,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 {
  	var $submit;
 	var $clave_seleccionada;
+	var $id_en_padre;
  
     function objeto_ei_cuadro($id)
 /*
@@ -86,7 +87,29 @@ class objeto_ei_cuadro extends objeto_cuadro
 //###########################                         ############################
 //################################################################################
     
-	function inicializar(){}
+
+	function inicializar($parametros)
+	{
+		$this->id_en_padre = $parametros['id'];		
+	}
+//--------------------------------------------------------------------------
+
+	public function agregar_observador($observador)
+	{
+		$this->observadores[] = $observador;
+	}
+
+	function eliminar_observador($observador){}
+
+	function disparar_eventos()
+	{
+		$this->recuperar_interaccion();
+		if( $evento = $this->obtener_evento() ){
+			foreach(array_keys($this->observadores) as $id){
+				$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $this->obtener_clave() );
+			}
+		}
+	}
 //--------------------------------------------------------------------------
 
 	function obtener_evento()
@@ -152,14 +175,6 @@ class objeto_ei_cuadro extends objeto_cuadro
     }
 //--------------------------------------------------------------------------
 
-	function obtener_consumo_dao()
-	//Lo EI no acceden a sus daos sino a travez del CI para el cual trabajan
-	{
-		$dao = null;
-		return $dao;
-	}
-//--------------------------------------------------------------------------
-
     function cargar_datos($datos=null,$memorizar=true)
 /*
     @@acceso: publico
@@ -196,11 +211,9 @@ class objeto_ei_cuadro extends objeto_cuadro
 		//Reproduccion del titulo
 		if(isset($titulo)){
 			$this->memoria["titulo"] = $titulo;
-			$this->memorizar();
 		}else{
 			if(isset($this->memoria["titulo"])){
 				$titulo = $this->memoria["titulo"];
-				$this->memorizar();
 			}
 		}
 		//Manejo del EOF

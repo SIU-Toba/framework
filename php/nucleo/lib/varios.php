@@ -1,5 +1,16 @@
 <?php
 
+	function array_no_nulo($array)
+	//Controla que el array tiene todas sus entradas en NULL
+	{
+		$x = false;
+		foreach( array_keys($array) as $id ){
+			if( isset($array[$id]) ) return true;
+		}
+		return $x;
+	}
+	//-----------------------------------------------------------------
+
 	function salto_linea()
 	//Salto de linea dependiente de la plataforma
 	{
@@ -10,8 +21,10 @@
 		}	
 	}
 	//-----------------------------------------------------------------
+
 	function sl(){ return salto_linea(); }
 	//-----------------------------------------------------------------
+
 	function tecla_acceso($etiqueta)
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
@@ -20,6 +33,7 @@
 		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1))
 			return array($etiqueta, null);
 		else {
+			//ATENCION!! creo que esta forma de acceder un string esta deprecada!
 			$tecla = $etiqueta[$pos_guia + 1];
 			$nueva_etiqueta = str_replace("&$tecla", "<u>$tecla</u>", $etiqueta);
 			return array($nueva_etiqueta, $tecla);

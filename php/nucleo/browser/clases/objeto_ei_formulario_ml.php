@@ -30,12 +30,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 	//-------------------------------------------------------------------------------
 
-	function inicializar($parametros)
-	{
-		parent::inicializar($parametros);
-	}
-	//-------------------------------------------------------------------------------
-
 	function inicializar_especifico()
 	{
 		for($a=0;$a<count($this->info_formulario_ef);$a++)
@@ -136,10 +130,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//ATENCION: Esto hay que mejorarlo
 	{
 		if(acceso_post()){
-			//ATENCION: La memoria no se está cargando
-//			if($this->existio_memoria_previa()){
+			if( $this->existio_interface_previa() ){
 				return true;
-//			}
+			}
 		}
 		return false;
 	}

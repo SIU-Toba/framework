@@ -81,8 +81,8 @@ class objeto_esquema_db extends objeto_esquema
             }
         }
 		//
-		if($memorizar){
-	   	     $this->memorizar();
+		if(!$memorizar){
+	   	     $this->borrar_memoria();
 		}
 
         //Concateno el WHERE y el FROM pasado por el consumidor

@@ -2,33 +2,19 @@
 require_once("nucleo/browser/clases/objeto.php");	//Ancestro de todos los OE
 
 class objeto_cn extends objeto
-/*
- 	@@acceso: nucleo
-	@@desc: Descripcion
-
-
-*/
 {
 	protected $indice_reglas;				//Indice de reglas de negocio
-	protected $proceso_ok;
 	
-	function __construct($id, $resetear=false)
-/*
- 	@@acceso: nucleo
-	@@desc: Muestra la definicion del OBJETO
-*/
+	function __construct($id)
 	{
 		parent::objeto($id);
-		$this->proceso_ok = false;
-		if(!$resetear){
-			$this->recuperar_estado_sesion();
-			//ATENCION: Esta bien que en este mismo request despues se guarde el 
-			//Estado de la sesion en el DESTRUIR??
-		}
+		$this->recuperar_estado_sesion();
 		//Armo un indice de las reglas
-	/*	for($a = 0; $a<count($this->info_negocio_regla); $a++){
-			$this->indice_reglas[$this->info_negocio_regla[$a]["nombre"]] = $a;
-		}*/
+		/*	
+			for($a = 0; $a<count($this->info_negocio_regla); $a++){
+				$this->indice_reglas[$this->info_negocio_regla[$a]["nombre"]] = $a;
+			}
+		*/
 	}
 
 	function destruir()
@@ -37,26 +23,27 @@ class objeto_cn extends objeto
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 	}
 
-	function __call($metodo, $argumentos)
-	{
-		ei_arbol($argumentos, "Llamada al metodo no implementado: " . $metodo);
-	}
-
-	function get_estado_proceso()
-	{
-		return $this->proceso_ok;
-	}
-
 	function establecer_tiempo_maximo($tiempo="30")
-/*
- 	@@acceso: interno
-	@@desc: Establece el tiempo maximo de ejecucion de la SOLICITUD
-	@@param: string | tiempo en segundo (0=indeterminado) | 30
-*/
 	{
 		ini_set("max_execution_time",$tiempo);
 	}
 
+/*
+	function __call($metodo, $argumentos)
+	{
+		ei_arbol($argumentos, "Llamada al metodo no implementado: " . $metodo);
+	}
+*/
+
+	//-------------------------------------------------------------------------------
+	//------------------------------   Procesamiento   ------------------------------
+	//-------------------------------------------------------------------------------
+
+	function procesar()
+	//Esto hay que redeclararlo en los HIJOS
+	{
+		$this->log->debug( $this->get_txt() . "[ procesar ] No definido!");
+	}
 
 	//-------------------------------------------------------------------------------
 	//------  MANEJO de DERECHOS
@@ -73,6 +60,7 @@ class objeto_cn extends objeto
 	
 	function posee_derecho($derecho)
 	{
+		//return true
 		return in_array($derecho, $this->derechos);
 	}
 
@@ -80,8 +68,6 @@ class objeto_cn extends objeto
 	//------  MANEJO de CONTROLES configurables
 	//-------------------------------------------------------------------------------
 
-
-	//-------------------------------------------------------------------------------
 
 
 /*
@@ -114,9 +100,7 @@ class objeto_cn extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//----------------------------   MANEJO de REGLAS   -----------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function controlar_regla($regla, $parametros)
@@ -156,28 +140,7 @@ class objeto_cn extends objeto
 	}
 */
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------------------------   Procesamiento   ------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function procesar()
-	//Esto hay que redeclararlo en los HIJOS
-	{
-		//ignore_user_abort() //Esto puede ser importante
-		$this->proceso_ok = true;
-		echo ei_mensaje("TRANSACCION cn padre!!!");
-	}
-
-	function cancelar()
-	//Esto hay que redeclararlo en los HIJOS
-	{
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//------------------------------------------   TESTEO   -------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	/*
 		Estas funciones proveen un marco para registrar el testeo de los CN.

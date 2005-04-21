@@ -3,75 +3,73 @@ require_once("objeto.php");
 require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
-
+define("apex_ci_evento","evt");
+define("apex_ci_separador","__");
+/*
+	- Forma en que se genera el HTML (algo anda mal con los consumos JS)
+	- En general la seccion de generar la interface esta menos depurada que la de procesar eventos
+*/
 class objeto_ci extends objeto
-/*
- 	@@acceso: nucleo
-	@@desc: Descripcion
-
-	ATENCION: Falta el control del estado en el servidor
-*/
 {
-	protected $cn;							// Controlador de negocio asociado
-	protected $nombre_formulario;			// privado | string | Nombre del <form> del MT
-	protected $submit;						// Boton de SUBMIT
-	protected $submit_etiq;					// Etiqueta del boton SUBMIT
-	protected $cancelar_etiq;
-	protected $estado_cancelar = false;	
-	protected $flag_cancelar_operacion;		//Flag de GET que cancela la operacion
-	protected $dependencias_actual = array();
-	protected $modelo_opciones;				//Modelo de opciones de navegacion en la operacon
-	protected $opciones_anteriores;			//Opciones ofrecidas en el REQUEST anterior
-	protected $opcion_cancelar;				//Indica cual es la opcion de cancelar
-	protected $submit_especifico;			//Prefijo del SUBMIT de las opciones especificas
+	protected $cn;									// Controlador de negocio asociado
+	protected $nombre_formulario;					// privado | string | Nombre del <form> del MT
+	protected $submit;								// Boton de SUBMIT
+	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
+	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
+	protected $dependencias_gi;						// Dependencias utilizadas para la generacion de la interface
+	protected $eventos;								// Lista de eventos que expone el CI
+	protected $evento_actual;						// Evento propio recuperado de la interaccion
+	protected $observadores = array();				// Objetos que observan los eventos de este CI
+	protected $id_en_padre;							// Id que posee este CI en su padre
+	protected $posicion_botonera;					// Posicion de la botonera en la interface
+	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
+	protected $validacion_js;						// Nombre de la funcion que valida el formulario resultante
 	
-	function objeto_ci($id)
-/*
- 	@@acceso: nucleo
-	@@desc: Muestra la definicion del OBJETO
-*/
+	function __construct($id)
 	{
 		parent::objeto($id);
-		//Inicializo VARIOS
 		$this->nombre_formulario = "CI_" . $this->id[1] ;//Cargo el nombre del <form>
-		$this->submit = $this->nombre_formulario . "_submit";
-  		$this->cargar_memoria(); 			//Cargo la MEMORIA sincronizada
-		$this->flag_no_propagacion = "no_prop" . $this->id[1];
-		//Cargo las DEPENDENCIAS
+		$this->submit = "CI_" . $this->id[1] . "_submit";
+		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
 		$this->cargar_info_dependencias();
+		$this->posicion_botonera = "abajo"; //arriba, abajo, ambos
 	}
 
 	function destruir()
 	{
+		if( $this->gi ){
+			//Guardo INFO sobre la interface generada
+			$this->memoria['dependencias_interface'] = $this->dependencias_gi;
+			$this->memoria['eventos'] = array_keys($this->eventos);
+		}
+		//Matenimiento en memoria de los CIs que no se instancian
+		//Armo la lista GLOBAL de dependencias de tipo CI
+		if(isset($this->dependencias_ci_globales)){
+			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
+			foreach($this->dependencias_ci_globales as $dep){
+				$this->solicitud->hilo->dato_global_activo($dep);
+			}
+		}
 		parent::destruir();
-		$this->memorizar();					//GUARDO Memoria sincronizada
+		$this->guardar_estado_sesion();		//GUARDO Memoria NO sincronizada
 	}
 
-	function asignar_controlador_negocio( $controlador )
+	function mantener_estado_sesion()
 	{
-		$this->cn = $controlador;
+		$estado = parent::mantener_estado_sesion();
+		$estado[] = "dependencias_ci_globales";
+		return $estado;
 	}
-
+	
 	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
 	{
 		$sql = parent::obtener_definicion_db();
-		//-- CI ----------------------
 		$sql["info_ci"]["sql"] = "SELECT		incremental	as	incremental,
-												debug_eventos 			as	debug_eventos,
 												ev_procesar				as	ev_procesar,
 												ev_procesar_etiq		as	ev_procesar_etiq,
-												activacion_procesar		as	activacion_procesar,
-												activacion_cancelar		as	activacion_cancelar,
-												metodo_despachador		as	metodo_despachador,
 												ev_cancelar				as	ev_cancelar,
 												ev_cancelar_etiq		as	ev_cancelar_etiq,
 												objetos					as	objetos,
-												post_procesar			as	post_procesar,
-												-- metodo_opciones			as  metodo_opciones,
 												ancho					as	ancho,			
 												alto					as	alto
 										FROM	apex_objeto_mt_me
@@ -82,470 +80,623 @@ class objeto_ci extends objeto
 		return $sql;
 	}
 
-	function determinar_modelo_opciones()
-	//Determino el modelo de OPCIONES de navegacion
+	function inicializar($parametro=null)
 	{
-		//ATENCION!!!
-		//Hay que usar "metodo_opciones"...
-		if(trim($this->info_ci['activacion_procesar'])=="")
+		if(isset($parametro)){
+			$this->nombre_formulario = $parametro["nombre_formulario"];
+			$this->id_en_padre = $parametro['id'];
+		}else{
+			$this->id_en_padre = "no_aplicable";
+		}
+		$this->validacion_js = "validar_ci_" . $this->nombre_formulario;
+		$this->evt__inicializar();
+	}
+
+	function evt__inicializar()
+	//Antes que todo
+	{
+	}
+
+	function asignar_controlador_negocio( $controlador )
+	{
+		$this->cn = $controlador;
+	}
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-----------------   PRIMITIVAS   ----------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function inicializar_dependencias( $dependencias )
+	//Carga las dependencias y las inicializar
+	{
+		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true));
+		//Parametros a generales
+		$parametro["nombre_formulario"] = $this->nombre_formulario;
+		foreach($dependencias as $dep)
 		{
-			//-- A -- El modelo ESTANDAR implica un boton de PROCESAR, y uno de CANCELAR
-			$this->modelo_opciones = "estandar";
-			//Boton SUBMIT
-			if($this->info_ci['ev_procesar_etiq']){
-				$this->submit_etiq = $this->info_ci['ev_procesar_etiq'];
+			if(isset($this->dependencias[$dep])){
+				//La dependencia ya se encuentra cargada
+				continue;
+			}
+			//-[0]- Creo la dependencia
+			$this->cargar_dependencia($dep);		
+			//-[1]- La inicializo
+			$parametro['id'] = $dep;
+			//-- Si es un CI --
+			if($this->dependencias[$dep] instanceof objeto_ci ){
+				//Guardo la clave de memoria de la dependencia para no perder su memoria cuando no se instancie
+				$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
+				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
+				$this->dependencias[$dep]->inicializar($parametro);
+				$this->dependencias[$dep]->agregar_observador($this);
 			}else{
-				$this->submit_etiq = "Proce&sar";
-			}
-			//Boton CANCELAR
-			if($this->info_ci['ev_cancelar_etiq']){
-				$this->cancelar_etiq = $this->info_ci['ev_cancelar_etiq'];
-			}else{
-				$this->cancelar_etiq = "&Cancelar";
-			}
-			$this->flag_cancelar_operacion = "ci_canop". $this->id[1];
-		}else
-		{
-			//-- B -- El modelo ESPECIFICO es determinado por el CN
-			//DEvuelve un ARRAY de opciones y los metodos que hay que llamar para cada una
-			$this->modelo_opciones = "especifico";
-			$this->submit_especifico = $this->nombre_formulario . "_submit_especifico";
-			//IMPORTANTE, este metodo es llamado antes de rutear los eventos de la interface,
-			//por lo tanto el estado del CN es el de la finalizacion del request ANTERIOR.
-			//Esta lista corresponde entonces a las opciones que tenia la pantalla anterior
-			$this->opciones_anteriores = $this->get_opciones_especificas();
-			$this->opcion_cancelar = null;
-			//SI un boton cumple el rol de CANCELAR la operacion, esto se avisa explicitamente.
-			//(la cancelacion tiene algunas consideraciones especiales: se ejecuta antes de rutear eventos y borra la memoria)
-			foreach($this->opciones_anteriores  as $id => $opcion){
-				if(isset($opcion['rol'])){
-					if($opcion['rol'] == "cancelar") $this->opcion_cancelar = $id;
-					break;
-				}
+				$this->dependencias[$dep]->inicializar($parametro);
+				$this->dependencias[$dep]->agregar_observador($this);
 			}
 		}
 	}
 
-	function get_opciones_especificas()
-	//Acceso a las opciones especificas de la operacion
+	function get_dependencias_ci()
+	//Avisa que dependencias son CI, si hay una regla ad-hoc que define que CIs cargar
+	// hay que redeclarar este metodo para que devuelva el conjunto correcto de CIs utilizados
 	{
-		//ATENCION!!!
-		//Hay que usar "metodo_opciones"...
-		$metodo = trim($this->info_ci['activacion_procesar']);
-		$opciones = $this->cn->$metodo();
-		if(! is_array($opciones) ){
-			throw new excepcion_toba("El metodo de generacion de OPCIONES especificas debe devolver un array");
-		}
-		return $opciones;		
+		//ATENCION, esto presupone que la clase cumple con esta regla de nomenclatura
+		return $this->get_dependencias_clase("_ci_");
 	}
 
-	function set_nombre_formulario($nombre)
+	//--------------------------------------------------------
+	//---------  Limpieza de MEMORIA -------------------------
+	//--------------------------------------------------------
+		
+	function disparar_limpieza_memoria()
+	//Borra la memoria de todos los CI
 	{
-		$this->nombre_formulario = $nombre;
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//----------------------------  PROCESO   ----------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function procesar()
-	/*
-		ATENCION: Esta clase ahora se puede llamar desde otro CI, por lo tanto
-		no hay que confiar siempre en que la interface siempre estuvo cargada!!!
-	*/
-	{
-		$this->determinar_modelo_opciones();
-
-		// 0 - Cargo las dependencias
-		$this->determinar_dependencias();
-		$this->cargar_dependencias( $this->dependencias_actual );
-
-		//En el request anterior, se genero salida?
-		//Si es asi tengo que recuperar la informacion proveniente de la interaccion
-		if(isset($this->memoria["generacion_interface"]))
-		{
-			if( $this->memoria["generacion_interface"] == 1 ){
-				// 1 - Cancelar la operacion?
-				if( ! $this->controlar_cancelacion() ){
-					try{
-						// 2 - Busco eventos en los EI
-						$this->controlar_eventos($this->dependencias_actual);
-				
-						// 3 - Proceso la operacion
-						$this->controlar_procesamiento();
-					}catch(excepcion_toba $e) 
-					{
-						$this->informar_msg($e->getMessage(), 'error');
-					}
-				}
+		$this->log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]");
+		foreach($this->dependencias_ci_globales as $dep => $x){
+			if( !isset($this->dependencias[$dep]) ){
+				$this->inicializar_dependencias(array($dep));
 			}
-			// 4 - En el caso en que las dependencias se determinen ad-hoc,
-			//		Los eventos pueden haber influido en la lista a cargar
-			$this->determinar_dependencias();
-			$this->cargar_dependencias( $this->dependencias_actual );
+			$this->dependencias[$dep]->disparar_limpieza_memoria();
 		}
-		// 5- Cargo los DAOS //Seba, lo saque del if anterior
-		$this->cargar_daos();
-		// 6 - Cargo las interfaces de los EI
-		//Esto deberia estar en un metodo aparte???
-		$this->cargar_datos_dependencias();
-		//Por ahora no se genero ninguna interface
-		$this->memoria["generacion_interface"] = 0;
+		$this->evt__limpieza_memoria();
 	}
-	//-------------------------------------------------------------------------------
 	
-	function determinar_dependencias()
+	function evt__limpieza_memoria($no_borrar=null)
+	//Borra la memoria de este CI, despues vuelve a inicializar los elementos
 	{
-		if(trim($this->info_ci["activacion_cancelar"])!="")
+		$this->borrar_memoria();
+		$this->eliminar_estado_sesion($no_borrar);
+		$this->evt__inicializar();
+	}
+
+	//--------------------------------------------------------
+	//---------  Relacion con el CN --------------------------
+	//--------------------------------------------------------
+
+	//--  ENTRADA  ----
+
+	function disparar_obtencion_datos_cn()
+	{
+		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
+		$this->evt__obtener_datos_cn();
+		$deps = $this->get_dependencias_ci();
+		foreach( $deps as $dep ){
+			if( !isset($this->dependencias[$dep]) ){
+				$this->inicializar_dependencias(array($dep));
+			}
+			$this->dependencias[$dep]->disparar_obtencion_datos_cn();
+		}
+	}
+
+	function evt__obtener_datos_cn()
+	{
+		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
+		$this->log->warning($this->get_txt() . "[ evt__obtener_datos_cn ] No fue redefinido!");
+	}
+
+	//--  SALIDA  ----
+
+	function disparar_entrega_datos_cn()
+	{
+		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]");
+		//DUDA: Validar aca es redundante?
+		$this->evt__validar_datos();
+		$this->evt__entregar_datos_cn();
+		$deps = $this->get_dependencias_ci();
+		foreach( $deps as $dep ){
+			if( !isset($this->dependencias[$dep]) ){
+				$this->inicializar_dependencias(array($dep));
+			}
+			$this->dependencias[$dep]->disparar_entrega_datos_cn();
+		}
+	}
+
+	function evt__entregar_datos_cn()
+	{
+		//Esta funcion hay que redefinirla en un hijo para ENTREGAR datos
+		$this->log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
+	}
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-----------------   PROCESAMIENTO de EVENTOS   --------------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	//----  Codigo MASTER  -----
+	
+	function procesar_eventos()
+	//Gatillo del procesamiento de eventos desde el nivel exterior
+	{
+		$this->log->debug($this->get_txt() . "_____________________________________________________[ procesar_eventos ]");
+		try{
+			$this->inicializar();
+			$this->disparar_eventos();
+		}catch(excepcion_toba $e){
+			$this->log->debug($e);			
+			$this->informar_msg($e->getMessage(), 'error');
+		}
+	}
+
+	protected function disparar_eventos()
+	// Se les ordena a las dependencias que gatillen sus eventos
+	// Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.
+	//  Esto es fuerte porque hace que cuando se detecta el primer error, no se sigan procesando las cosas
+	{
+		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]");
+		$this->controlar_eventos_propios();
+		//El evento CANCELAR tiene que controlarse antes
+		if( $this->evento_actual == "cancelar"){
+			$this->disparar_evento_propio();
+		}else{
+			//Disparo los eventos de las dependencias
+			foreach( $this->get_dependencias_interface_previa() as $dep)
+			{
+				//El try/catch deberia estar aca?
+				$this->dependencias[$dep]->disparar_eventos();
+			}
+			$this->disparar_evento_propio();
+			$this->evt__post_recuperar_interaccion();
+		}
+	}
+
+	function controlar_eventos_propios()
+	//Indica si se ejecuto un evento propio
+	{
+		$this->evento_actual = "";
+		if(isset($_POST[$this->submit])){
+			$evento = $_POST[$this->submit];
+			//La opcion seleccionada estaba entre las ofrecidas?
+			if(isset(  $this->memoria['eventos'] )){
+				if(in_array( $evento, $this->memoria['eventos'])){
+					$this->evento_actual = $evento;
+				}	
+			}
+		}
+	}
+
+	function disparar_evento_propio()
+	//Dispara un evento propio
+	{
+		if($this->evento_actual != "")
 		{
-			//EL CN determina que dependencias hay que cargar
-			//ATENCION: hay que usar otro campo de la base, use este porque estaba vacio...
-			$metodo = $this->info_ci["activacion_cancelar"];
-			$deps = $this->cn->$metodo();
-			//ATENCION: hay que controlar que las DEPENDENCIAS existan...
-			$this->dependencias_actual = $deps;
-		}elseif(trim($this->info_ci["objetos"])!="")
+			$metodo = apex_ci_evento . apex_ci_separador . $this->evento_actual;
+			if(method_exists($this, $metodo)){
+				//Ejecuto el metodo que implementa al evento
+				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]");
+				$this->$metodo();
+				//Comunico el evento al contenedor
+				$this->reportar_evento( $this->evento_actual );
+			}else{
+				$this->log->warning($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado");
+			}
+		}
+	}
+
+	protected function get_dependencias_interface_previa()
+	//Devuelve la lista de dependencias que se utlizaron para general la interface anterior
+	{
+		//Memoria sobre dependencias que fueron a la interface
+		if( isset($this->memoria['dependencias_interface']) ){
+			$dependencias = $this->memoria['dependencias_interface'];
+			//Necesito cargar los daos dinamicos?
+			//Esto es posible si los EF chequean que su valor se encuentre entre los posibles
+			$this->inicializar_dependencias( $dependencias );
+			return $dependencias;
+		}else{
+			return array();
+		}
+	}
+
+	public function registrar_evento($id, $evento, $parametros=null)
+	//Se disparan eventos dentro del nivel actual
+	{
+		$metodo = apex_ci_evento . apex_ci_separador . $id . apex_ci_separador . $evento;
+		if(method_exists($this, $metodo)){
+			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
+			$this->$metodo( $parametros );
+		}else{
+			$this->log->warning($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
+			//Puede implementarse un metodo generico de manejo de eventos? 
+		}
+	}
+
+	//---- EVENTOS BASICOS ------
+
+	function evt__cancelar()
+	{
+		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
+		$this->cn->cancelar();
+		$this->disparar_limpieza_memoria();
+	}
+
+	function evt__procesar()
+	{
+		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
+		$this->disparar_entrega_datos_cn();
+		$this->cn->procesar();
+		$this->disparar_limpieza_memoria();
+	}
+	
+	function evt__post_recuperar_interaccion()
+	//Despues de recuperar la interaccion con el usuario
+	{
+		$this->evt__validar_datos();
+	}
+
+	function evt__validar_datos()
+	//Validar el estado interno, dispara una excepcion si falla
+	{
+	}
+
+	function evt__error_proceso_hijo( $dependencia )
+	//Disparada cuando un hijo falla en su procesamiento
+	{
+		$this->error_proceso_hijo[] = $dependencia;
+	}
+
+	//------  Codigo SLAVE -----
+
+	public function agregar_observador($observador)
+	{
+		$this->observadores[] = $observador;
+	}
+
+	function eliminar_observador($observador){}
+
+	private function reportar_evento($evento, $parametros=null)
+	//Registro un evento en todos mis observadores
+	{
+		foreach(array_keys($this->observadores) as $id){
+			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
+		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-----------------   Generacion de la INTERFACE GRAFICA   ----------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function generar_interface_grafica()
+	//Esta funcion dispara la generacion de TODA la interface.
+	//Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'
+	{
+		$this->log->debug($this->get_txt() . "____________________________________________[ generar_interface_grafica ]");
+		try{
+			//Cargar todos los EI que componen la interface
+			$this->cargar_dependencias_gi();
+			$this->obtener_html_base();
+		}catch(excepcion_toba $e){
+			$this->log->debug($e);
+			$this->informar_msg($e->getMessage(), 'error');
+			$this->solicitud->cola_mensajes->mostrar();
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function cargar_dependencias_gi()
+	//Cargar las depedencias a utilizar para generar la interface
+	{
+		$this->log->debug($this->get_txt() . "[ cargar_dependencias_gi ]");
+		//Busco la lista de las dependencias que necesito para cargar esta interface
+		$this->dependencias_gi = $this->get_lista_ei();
+		//Creo las dependencias
+		$this->inicializar_dependencias( $this->dependencias_gi );
+		$this->evt__pre_cargar_datos_dependencias();
+		$this->cargar_datos_dependencias();
+	}
+	//-------------------------------------------------------------------------------
+
+	function get_lista_ei()
+	{
+		if( trim($this->info_ci["objetos"]) != "" )
 		{
 			//Se escribio una lista de objetos a cargar
 			$dependencias = explode(",",$this->info_ci["objetos"]);
-			$this->dependencias_actual = array_map("trim",$dependencias);
+			return array_map("trim", $dependencias);
 		}else{
 			throw new excepcion_toba("No es posible determinar que dependencias cargar");
 		}
 	}
-
 	//-------------------------------------------------------------------------------
 
-	function cargar_dependencias($dependencias)
-	//Hay logica para subir al padre
+	function evt__pre_cargar_datos_dependencias()
+	//Antes de cargar las dependencias
 	{
-		$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] <<*** CREAR dependencias ***>> \n" . var_export($dependencias, true));
-		//Parametros a los formularios
-		$parametro["nombre_formulario"] = $this->nombre_formulario;
-		//Cargo dependencias
-		foreach($dependencias as $dep){
-			if(isset($this->dependencias[$dep])){
-				//La dependencia ya se encuentra cargada
-				
-				continue;
-			}
-			//Creo la dependencia
-			$this->cargar_dependencia($dep);		
-			if($this->dependencias[$dep] instanceof objeto_ci ){
-				//-- CI! --
-				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
-				$this->dependencias[$dep]->set_nombre_formulario($this->nombre_formulario);
-				$this->dependencias[$dep]->procesar();
-			}else{
-				// Inicializar
-				$this->dependencias[$dep]->inicializar($parametro);
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
-	
-	function cargar_daos()
-	{
-		//Manejo de DAOS
-		//Los daos solo tienen que ejecutarse sobre las depedencias actuales
-		foreach($this->dependencias_actual as $dep)
-		{			
-			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||	
-				$this->dependencias[$dep] instanceof objeto_ei_cuadro )
-			{
-				if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
-					//ei_arbol($dao_form,"DAO");
-					//Por cada elemento de formulario que necesita DAOS
-					foreach($dao_form as $ef => $dao){
-						$sentencia = "\$datos = \$this->cn->{$dao}();";
-						//echo $sentencia;
-						eval($sentencia);
-						//ei_arbol($datos,"DATOS $ef");
-						//El cuadro carga sus daos de otra forma
-						$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
-					}
-				}
-			}
-		}
 	}
 	//-------------------------------------------------------------------------------
 
 	function cargar_datos_dependencias()
-	//Carga los datos de las dependencias actuales
 	{
-		foreach($this->dependencias_actual as $dep)
-		{			
-			//En el PARAMETRO B de la dependencia se especifica el metodo
-			//Del controlador de negocio que carga a la dependencia
-			if($info = $this->consultar_info_dependencia($dep,"parametros_b") )
-			{
-				$temp = explode(",", $info);
-				//-- Metodo a llamar en el CN
-				$metodo = trim($temp[0]);
-				//-- Parametros al metodo del CN
-				if(isset($temp[1])){
-					$parametros = explode("|",$temp[1]);
-					$parametros = array_map("trim",$parametros);
-				}else{
-					$parametros = null;
-				}
-				//-- Hay que llamar un metodo distinto del "CARGAR_DATOS"	en el EI
-				if( isset($temp[2])){
-					if (trim($temp[2]) != ""){
-						$metodo_ei = $temp[2];					
-					}else{
-						$metodo_ei = "cargar_datos";
-					}
-				}else{
-					$metodo_ei = "cargar_datos";
-				}
-				//echo "Cargando dependencia : $dep";
-				//SI el CN me devuelve un DATO para la dependencia
-				$dato = $this->cn->$metodo($parametros);
-				//ei_arbol($dato, $dep);
-				$this->dependencias[$dep]->$metodo_ei( $dato );
-				$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- LLAMADA CN -- \nMETODO: $metodo \nPARAMETROS:\n" . var_export($parametros,true) . "\n\n");
-				//$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (cargar_dependencia: $dep)\n -- DATOS RECIBIDOS -- \n" . var_export($dato,true) . "\n\n");
-			}
-			//ei_arbol($this->dependencias[$dependencia]->info_estado());
-		}			
-	}
-
-	function borrar_memoria()
-	{
-		//Falta borrar ciclicamente la memoria de los hijos
-		unset($this->memoria);
-		$this->solicitud->hilo->persistir_dato("obj_".$this->id[1],null);
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//---------------------  PROCESAMIENTO de EVENTOS  ------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-/*
-	- ATENCION: el orden de los eventos no es indiferente:
-		- ej: 	cuadro -> seleccion registro
-				form -> modificar registro
-			Si se selecciona un registro distinto, antes de modificar se modifica una incorrecto		
-*/
-	function controlar_eventos( $dependencias )
-	{
-		//-[ 1 ]- Escanea las dependencias buscando eventos
-		foreach($dependencias as $dep)
+		//Disparo la carga de dependencias en los CI que me componen
+		foreach($this->dependencias_gi as $dep)
 		{
-			//-- ! CI! --
-			if( ! ($this->dependencias[$dep] instanceof objeto_ci ) )
-			{
-				//-[1]- Cargo la actividad del usuario
-				$this->dependencias[$dep]->recuperar_interaccion();
-				//-[3]- Controlo los eventos
-				if($evento = $this->dependencias[$dep]->obtener_evento() ){
-					//-[3.1]- Valido el ESTADO
-					if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
-						$this->dependencias[$dep]->validar_estado();
-					}
-					$this->procesar_evento($dep, $evento);
-				}
-				//Se proceso el evento... si es un formulario limpio la interface
-				if($this->dependencias[$dep] instanceof objeto_ei_formulario ){
-					$this->dependencias[$dep]->limpiar_interface();
-				}
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function procesar_evento($dep, $evento)
-	{
-		//Busco un plan de ruteo para el evento reportado
-		if($temp = $this->consultar_info_dependencia($dep,"parametros_a") ){
-			if($plan_ruteo = parsear_propiedades_array($temp))
-			{
-				if(isset($plan_ruteo[$evento])){
-					//FALTAN CONTROLES de SINTAXIS!!
-					$metodo_dep = trim($plan_ruteo[$evento][0]);//echo "Mdep: $metodo_dep";
-					$metodo_cn = trim($plan_ruteo[$evento][1]);//echo "Mcn: $metodo_cn";	
-					//Tomo el resto de los valores como parametros}
-					if(count($plan_ruteo[$evento])>2){
-						$temp = trim($plan_ruteo[$evento][2]);
-						$parametros = explode("|",$temp);
-						$parametros = array_map("trim",$parametros);
-					}else{
-						$parametros = null;
-					}
-					try
-					{
-						if($metodo_dep=="null"){
-							$ruteo_eventos[$dep]["CN"] = $metodo_cn;
-							$ruteo_eventos[$evento]["CN"]["parametros"] = $parametros;
-							$evento = var_export($ruteo_eventos, true);
-							$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep)\n -- EVENTO! -- \n$evento");
-							$this->cn->$metodo_cn($parametros);
-						}else{
-							$datos_evento = $this->dependencias[$dep]->$metodo_dep();
-							//LOG: mejorar la descripcion
-							$ruteo_eventos[$evento]["EI"]["metodo"] = $metodo_dep;
-							$ruteo_eventos[$evento]["EI"]["retorno"] = $datos_evento;
-							$ruteo_eventos[$evento]["CN"]["metodo"] = $metodo_cn;
-							$ruteo_eventos[$evento]["CN"]["parametros"] = $parametros;
-							$evento = var_export($ruteo_eventos, true);
-							$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep)\n -- EVENTO! -- \n$evento");
-							$this->cn->$metodo_cn( $datos_evento, $parametros );
-						}
-					}catch (excepcion_toba $e)
-					{
-						$this->solicitud->log->debug($e);
-					}
-				}else{
-					//Este evento no esta mapeado
-					$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) No hay plan para el evento '$evento'");
-				}
+			if(	$this->dependencias[$dep] instanceof objeto_ci ){
+				//CI
+				//	Hago que cargue sus dependencias
+				$this->dependencias[$dep]->cargar_dependencias_gi();
 			}else{
-				$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) Mapeo INVALIDO");
-			}
-		}else{
-			$this->log->debug("CI ". get_class($this) . " [". $this->id[1] . "] (procesar_evento: $dep) No hay plan de ruteo para la dependencia (evento: $evento)");
-		}
-
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------------  Modelo de OPCIONES ESTANDAR   -----------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-/*
-	El modelo de opciones el el mecanismo que se utiliza para presentar opciones de 
-	navegacion dentro de la operacion al usuario
-*/
-
-	function controlar_cancelacion()
-	//FALTA LLAMAR A LA CANCELACION DE CIs HIJOS
-	{
-		if($this->modelo_opciones=="especifico"){
-			if( isset($_POST[ $this->submit_especifico . $this->opcion_cancelar ]) ){
-				//Se selecciono una opcion, llamo al metodo del CN indicado
-				$opcion = $this->opciones_anteriores[$this->opcion_cancelar];
-				$metodo = $opcion["metodo"];
-				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] INVOCACION a CANCELAR: *** $metodo ***");
-				if(isset($opcion['metodo_param'])){
-					$this->cn->$metodo( $opcion['metodo_param'] );
-				}else{
-					$this->cn->$metodo();
-				}
-				$this->estado_cancelar = true;
-				$this->borrar_memoria();
-				return true;
-			}
-		}else{
-			if($this->solicitud->hilo->obtener_parametro( $this->flag_cancelar_operacion )){
-				//Se dispara la cancelacion en el controlador de negocio
-				$this->cn->cancelar();
-				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] *** CANCELAR ESTANDAR ***");
-				$this->estado_cancelar = true;
-				$this->borrar_memoria();
-				return true;
-			}
-		}
-		return false;
-	}
-	//-------------------------------------------------------------------------------
-
-	function controlar_procesamiento()
-/*
- 	@@acceso: interno
-	@@desc: Determina si se activo este marco transaccional (si el submit se disparo desde el formulario HTML del mismo)
-*/
-	{
-		if($this->modelo_opciones=="especifico"){
-			//Me fijo si se eligio una opcion
-			foreach( $this->opciones_anteriores as $id => $opcion)
-			{
-				if($id !== $this->opcion_cancelar ){
-					if( isset($_POST[$this->submit_especifico . $id]) ){
-						//Se selecciono una opcion, llamo al metodo del CN indicado
-						$metodo = $opcion["metodo"];
-						$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] INVOCACION a PROCESAR: *** $metodo ***");
-						if(isset($opcion['metodo_param'])){
-							$this->cn->$metodo( $opcion['metodo_param'] );
-						}else{
-							$this->cn->$metodo();
+				//EI
+				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
+					//-- EI_FORM --
+					//	Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
+					if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
+						//ei_arbol($dao_form,"DAO");
+						//Por cada elemento de formulario que necesita DAOS
+						foreach($dao_form as $ef => $dao){
+							$datos = $this->$dao();
+							//ei_arbol($datos,"DATOS $ef");
+							$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
 						}
 					}
 				}
-			}
-		}else{
-			if(isset($_POST[$this->submit])){
-				//Apretaron el SUBMIT de este FORM
-				$this->log->debug( "OBJETO " . get_class($this). " [{$this->id[1]}] *** PROCESAR ESTANDAR ***");
-				$this->cn->procesar();
+				//-- Inyecto DATOS en los EIs, si es que existe un metodo para cargarlos --
+				$metodo = apex_ci_evento . apex_ci_separador . $dep . apex_ci_separador . "carga";
+				if(method_exists($this, $metodo)){
+					$this->dependencias[$dep]->cargar_datos( $this->$metodo() );
+					$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dep' -> [ $metodo ] ");
+				}else{
+					$this->log->warning($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dep' no fue cargada");
+					//Puede implementarse un metodo generico de manejo de eventos? 
+				}
 			}
 		}
-		if( $this->cn->get_estado_proceso() ){
-			$this->borrar_memoria();
-			//Tengo que borrar la memoria de las dependencias cargadas que sean CI...
-			return true;		
-		}else{
-			return false;
-		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//--------------------------------  SALIDA --------------------------------------
-	//-------------------------------------------------------------------------------
+	}	
 	//-------------------------------------------------------------------------------
 
-	function acc_editor_depencencias($dep)
+	function obtener_html_base()
 	{
-		//if($this->solicitud->hilo->entorno_instanciador() )
-		if(apex_pa_acceso_directo_editor)
-		{
-			//-[ 1 ]- RUTEO DE EVENTOS
-			$msg = $this->consultar_info_dependencia($dep,"parametros_a");
-			$msg = ereg_replace("\n"," -- ",$msg);
-			//echo recurso::imagen_apl("eventos_ruteo.gif",true,null,null,$msg);
-
-			//-[ 2 ]-Acceso al PLAN de ruteo de EVENTOS de la DEPENDENCIA
-			//Vinculo al EDITOR del OBJETO. Hay que controlar que el objeto no se CI
-			$zona = implode(apex_qs_separador,$this->id);
-			//Armo la clave a enviar por el CANAL del FORM de edicion de deps
-			$temp = $this->id; 
-			$temp[] = $dep; 
-			$ei = implode(apex_qs_separador, $temp);
-			//Esta es una llamada harcodeada al FORM de propiedades de la dependencia
-			$id_objeto_formulario =  151;
-			$vinc_ruteo= $this->solicitud->vinculador->obtener_vinculo_a_item(
-						"toba","/admin/objetos/dependencias",
-						array(	apex_hilo_qs_zona => $zona,
-								apex_hilo_qs_canal_obj .$id_objeto_formulario => $ei ),
-						true);   
-	
-			if($vinc_ruteo){
-	            echo $vinc_ruteo;
-			}
-
-			//-[ 3 ]- Metodo de CARGA
-			$msg = $this->consultar_info_dependencia($dep,"parametros_b");
-			$msg = ereg_replace("\n"," -- ",$msg);
-			//echo recurso::imagen_apl("objetos/negocio.gif",true,null,null,$msg);
-
-		}
+		$this->get_info_post_proceso();
+		//-[1]- Muestro la cola de mensajes
+		$this->solicitud->cola_mensajes->mostrar();
+		//-[2]- Genero la SALIDA
+		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
+		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
+		$this->obtener_javascript_global_consumido();
+		echo "<br>\n";
+		$javascript_submit = " onSubmit='return ".$this->validacion_js."(this)' ";
+		echo form::abrir($this->nombre_formulario, $vinculo, $javascript_submit);
+		echo "<div align='center'>\n";
+		$this->obtener_html();
+		echo "</div>\n";
+		echo form::cerrar();
+		$this->obtener_javascript_validador_form();
+		echo "<br>\n";
+		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		
 	}
-
 	//-------------------------------------------------------------------------------
-	//---- HTML ---------------------------------------------------------------------
+
+	function get_info_post_proceso()
+	{
+		return "";		
+	}
 	//-------------------------------------------------------------------------------
 
 	function obtener_html()
+	{
+		$this->eventos = $this->get_lista_eventos();
+		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
+		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
+		echo "<table $ancho $alto class='objeto-base'>\n";
+		//--> Barra SUPERIOR
+		echo "<tr><td class='celda-vacia'>";
+		$this->barra_superior(null,true,"objeto-ci-barra-superior");
+		echo "</td></tr>\n";
+
+		//--> Botonera
+		if( count($this->eventos) > 0){
+			if( ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
+				echo "<tr><td class='abm-zona-botones'>";
+				$this->generar_botonera();
+				echo "</td></tr>\n";
+			}
+		}
+		//--> Cuerpo del CI
+		echo "<tr><td  class='ci-cuerpo' height='100%'>";
+		$this->obtener_html_contenido();
+		echo "</td></tr>\n";
+
+		//--> Botonera
+		if( count($this->eventos) > 0){
+			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
+				echo "<tr><td class='abm-zona-botones'>";
+				$this->generar_botonera();
+				echo "</td></tr>\n";
+			}
+		}
+
+		echo "</table>\n";
+		$this->gi = true;
+	}
+	//-------------------------------------------------------------------------------
+
+	function generar_botonera()
+	{
+		//-[ 0 ]- Javascript que setea el evento y hace el submit del FORM
+
+		$funcion = "set_evento_" . $this->submit;
+		echo form::hidden($this->submit, '');		
+		echo js::abrir();
+		echo "	function $funcion(evento, confirmacion, validar){
+		if ( confirmacion != ''){
+			if (!confirm( confirmacion )) {
+				return false;
+			}
+		}
+		document.{$this->nombre_formulario}.{$this->submit}.value = evento;
+		if( validar ){
+			if( {$this->validacion_js}( document.{$this->nombre_formulario} ) ){
+				document.{$this->nombre_formulario}.submit();
+			}
+		}else{
+			document.{$this->nombre_formulario}.submit();
+		}
+		//return true;
+	}";
+		echo js::cerrar();
+
+		//-[ 1 ]- Botonera propiamente dicha
+
+		echo "<table class='tabla-0' align='center' width='100%'>\n";
+		echo "<tr><td align='right'>";
+		foreach($this->eventos as $id => $evento )
+		{
+			$tip = '';
+			$clase = 'ef-boton';
+			$tab_order = 0;
+			$acceso = tecla_acceso( $evento["etiqueta"] );
+			$html = $acceso[0]; //Falta concatenar la imagen
+			$tecla = $acceso[1];
+			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
+			$js = "onclick=\"$funcion('$id',$js_confirm, $js_validar )\"";
+			echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+		}
+		echo "</td></tr>\n";
+		echo "</table>\n";
+	}
+	//-------------------------------------------------------------------------------
+
+	function get_lista_eventos()
+	{
+		$eventos = array();
+		//Evento PROCESAR
+		if($this->info_ci['ev_procesar'])
+		{
+			$eventos = array_merge($eventos,  $this->get_boton_procesar($this->info_ci['ev_procesar_etiq']) );		
+		}
+		//Evento CANCELAR
+		if($this->info_ci['ev_cancelar'])
+		{
+			$eventos = array_merge($eventos,  $this->get_boton_cancelar($this->info_ci['ev_cancelar_etiq']) );		
+		}
+		return $eventos;
+	}
+
+	function get_boton_cancelar($etiqueta=null)
+	{
+		$evento['cancelar']['etiqueta'] = isset($etiqueta) ? $etiqueta : "&Cancelar";
+		$evento['cancelar']['validar'] = "false";
+		//$evento['cancelar']['confirmacion'] = "¿Esta seguro que desea cancelar?";
+		return $evento;
+	}
+
+	function get_boton_procesar($etiqueta=null)
+	{
+		$evento['procesar']['etiqueta'] = isset($etiqueta) ? $etiqueta : "Proce&sar";
+		return $evento;
+	}
+	//-------------------------------------------------------------------------------
+
+	protected function obtener_html_contenido()
+	//Genera el HTML de las dependencias
+	{
+		$existe_previo = 0;
+		foreach($this->dependencias_gi as $dep)
+		{
+			if($existe_previo){ //Separador
+				echo "<hr>\n";
+			}
+			//echo "<tr><td class='celda-vacia'>";
+			$this->dependencias[$dep]->obtener_html();	
+			//echo "</td></tr>\n";
+			$existe_previo = 1;
+		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//---- JAVASCRIPT ---------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function obtener_javascript_global_consumido()
 /*
  	@@acceso: interno
-	@@desc: Devuelve la interface del Marco Transaccional
+	@@desc: Genera el javascript GLOBAL que se consumen los EF. El javascript GLOBAL esta compuesto
+	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
 */
 	{
+		js::cargar_consumos_globales($this->consumo_javascript_global());
+	}
+	//-------------------------------------------------------------------------------
+
+	function consumo_javascript_global()
+/*
+ 	@@acceso: interno
+	@@desc: Javascript global requerido por los HIJOS de este CI
+*/
+	{
+		$consumo_js = array();
+		foreach($this->dependencias_gi as $dep){
+			//Es un formulario?
+			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
+				$this->dependencias[$dep] instanceof objeto_ci )
+			{
+				$temp = $this->dependencias[$dep]->consumo_javascript_global();
+				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
+			}else{
+					//echo "no es un formulario";
+			}
+		}
+		return $consumo_js;
+	}
+	//-------------------------------------------------------------------------------
+	
+	function obtener_javascript_validador_form()
+/*
+ 	@@acceso: interno
+	@@desc: Javascript asociado al SUBMIT del FROM
+*/
+	{
+		//-[2]- Incluyo el JAVASCRIPT de CONTROLA el FORM
+		echo "\n<script language='javascript'>\n";
+		echo "//----------- Funcion VALIDADORA del FORM ----------\n";
+		echo "function {$this->validacion_js}(formulario){\n";
+//		echo "alert(\"estoy aca!!\");return false;\n";
+		$this->obtener_javascript();
+		echo "\n\nreturn true;\n";//Todo OK, salgo de la validacion del formulario
+		echo "}\n</script>\n\n";
+	}
+	//-------------------------------------------------------------------------------
+
+	function obtener_javascript()
+	//Javascript que los HIJOS incorporan en la validacion del formulario
+	{
+		foreach($this->dependencias_gi as $dep)
+		{
+			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
+				$this->dependencias[$dep] instanceof objeto_ci )
+			{
+				echo $this->dependencias[$dep]->obtener_javascript();
+			}
+		}
+	}
+	//-------------------------------------------------------------------------------
+}
+
+/*
 		//-[0]- Si el CN tiene 
 		if( $this->cn->get_estado_proceso() ){
 			if(trim($this->info_ci['post_procesar'])!="")
@@ -582,177 +733,6 @@ class objeto_ci extends objeto
 				}
 			}
 		}
-		//-[1]- Muestro la cola de mensajes
-		$this->solicitud->cola_mensajes->mostrar();
-		//-[2]- Genero la SALIDA
-		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
-		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
-		$this->obtener_javascript_global_consumido();
-		echo "<br>\n";
-		$javascript_submit = " onSubmit='return validar_ci_".$this->nombre_formulario."(this)' ";
-		echo form::abrir($this->nombre_formulario, $vinculo, $javascript_submit);
-		echo "<div align='center'>\n";
-		$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "500";
-		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-		echo "<table width='$ancho' $alto class='objeto-base'>\n";
-		//--> Barra SUPERIOR
-		echo "<tr><td>";
-		$this->barra_superior();
-		echo "</td></tr>\n";
-		//--> Interface especifica del CI
-		echo "<tr><td class='ci-cuerpo' height='100%'>";
-		$this->obtener_interface();
-		echo "</td></tr>\n";
-		//--> Pie del CI
-		echo "<tr><td class='abm-zona-botones'>";
-		$this->obtener_pie();
-		echo "</td></tr>\n";
-		echo "</table>\n";
-		echo "</div>\n";
-		echo form::cerrar();
-		$this->obtener_javascript_validador_form();
-		echo "<br>\n";
-		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
-	}
-	//-------------------------------------------------------------------------------
-
-	function obtener_interface()
-	{
-		$existe_previo = 0;
-		echo "<table class='tabla-0'  width='100%'>\n";
-		foreach($this->dependencias_actual as $dep)
-		{
-			if($existe_previo){
-				//Separador
-				echo "<tr><td class='celda-vacia'><hr></td></tr>\n";
-			}
-			echo "<tr><td class='celda-vacia'>";
-			if( $this->dependencias[$dep] instanceof objeto_ci )
-			// -- CI! --
-			{
-				//HTML del CI
-				$this->dependencias[$dep]->obtener_interface();
-			}else{
-				//Acceso al editor
-				$this->acc_editor_depencencias($dep);
-				//HTML de la DEPENDENCIA
-				$this->dependencias[$dep]->obtener_html();	
-			}
-			echo "</td></tr>\n";
-			$existe_previo = 1;
-		}
-		echo "</table>\n";
-		$this->memoria["generacion_interface"] = 1;
-	}
-	//-------------------------------------------------------------------------------
-
-	function obtener_pie()
-/*
- 	@@acceso: interno
-	@@desc: Genera los BOTONES del Marco Transaccional
 */
-	{
-		if($this->modelo_opciones=="estandar"){
-			$this->generar_opciones_estandar();			
-		}elseif($this->modelo_opciones="especifico"){
-			$this->generar_opciones_especificas();			
-		}
-	}
-	//-------------------------------------------------------------------------------
 
-	function generar_opciones_estandar()
-	//Modelo ESTANDAR de manejar las opciones de USUARIO
-	{
-		if($this->info_ci['ev_procesar']){
-			$acceso = tecla_acceso($this->submit_etiq);
-			echo form::submit($this->submit,$acceso[0],"abm-input", '', $acceso[1]);
-		}
-		if($this->info_ci['ev_cancelar']){
-			$acceso = tecla_acceso($this->cancelar_etiq);
-			echo "&nbsp;" . form::button("boton", $acceso[0] ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_cancelar_operacion=>1),true)."';\"",
-										"abm-input", $acceso[1]);
-		}
-	}
-	//-------------------------------------------------------------------------------
-	
-	function generar_opciones_especificas()
-	{
-		//Como esto se llama despues del ruteo de EVENTOS, es posible que no devuelva lo mismo 
-		//que la llamada al mismo metodo en el constructor
-		$opciones = $this->get_opciones_especificas();
-		foreach($opciones as $id => $opcion)
-		{
-			$clave = $this->submit_especifico . $id;
-			echo "&nbsp;" . form::submit($clave,$opcion["etiqueta"],"abm-input");
-		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//---- JAVASCRIPT ---------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function obtener_javascript_global_consumido()
-/*
- 	@@acceso: interno
-	@@desc: Genera el javascript GLOBAL que se consumen los EF. El javascript GLOBAL esta compuesto
-	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
-*/
-	{
-		js::cargar_consumos_globales($this->consumo_javascript_global());
-	}
-	//-------------------------------------------------------------------------------
-
-	function consumo_javascript_global()
-/*
- 	@@acceso: interno
-	@@desc: Javascript global requerido por los HIJOS de este CI
-*/
-	{
-		$consumo_js = array();
-		foreach($this->dependencias_actual as $dep){
-			//Es un formulario?
-			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
-				$this->dependencias[$dep] instanceof objeto_ci )
-			{
-				$temp = $this->dependencias[$dep]->consumo_javascript_global();
-				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
-			}else{
-					//echo "no es un formulario";
-			}
-		}
-		return $consumo_js;
-	}
-	//-------------------------------------------------------------------------------
-	
-	function obtener_javascript_validador_form()
-/*
- 	@@acceso: interno
-	@@desc: Javascript asociado al SUBMIT del FROM
-*/
-	{
-		//-[2]- Incluyo el JAVASCRIPT de CONTROLA el FORM
-		echo "\n<script language='javascript'>\n";
-		echo "//----------- Funcion VALIDADORA del FORM ----------\n";
-		echo "function validar_ci_{$this->nombre_formulario}(formulario){\n";
-//		echo "alert(\"estoy aca!!\");return false;\n";
-		$this->obtener_javascript();
-		echo "\n\nreturn true;\n";//Todo OK, salgo de la validacion del formulario
-		echo "}\n</script>\n\n";
-	}
-	//-------------------------------------------------------------------------------
-
-	function obtener_javascript()
-	//Javascript que los HIJOS incorporan en la validacion del formulario
-	{
-		foreach($this->dependencias_actual as $dep)
-		{
-			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
-				$this->dependencias[$dep] instanceof objeto_ci )
-			{
-				echo $this->dependencias[$dep]->obtener_javascript();
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
-}
 ?>

@@ -60,7 +60,6 @@ class objeto_cuadro extends objeto
         //----------------------------------------------------------------------
         //----------------> Manejo de INFORMACION autopropagada <---------------
         //----------------------------------------------------------------------
-        $this->cargar_memoria();        //Cargo la memoria
 
         //**************** Parametros ORDENAMIENTO ***********************
         //Cargo el ORDEN_COLUMNA de vinculo o memoria
@@ -94,7 +93,6 @@ class objeto_cuadro extends objeto
         }else{
             $this->memoria[$this->propagador_pagina]=$this->pag_actual;
         }
-        $this->memorizar();     //Cargo la memoria
 
         //----------------------------------------------------------------
         //-------------------------> INICIALIZACION <---------------------
@@ -221,9 +219,8 @@ class objeto_cuadro extends objeto
                 $from = $this->memoria["from"];
             }
         }
-		//
-		if($memorizar){
-	   	     $this->memorizar();
+		if(!$memorizar){
+	   	     $this->borrar_memoria();
 		}
 
         //Concateno el WHERE y el FROM pasado por el consumidor
@@ -244,7 +241,6 @@ class objeto_cuadro extends objeto
                 {
                     $this->pag_actual = 1;
 //                    $this->memoria[$this->propagador_pagina]= $this->pag_actual;
-//                    $this->memorizar();
                 }
                 
                 $sql = $this->obtener_sql_paginado($sql);
@@ -415,11 +411,9 @@ class objeto_cuadro extends objeto
 		//Reproduccion del titulo
 		if(isset($titulo)){
 			$this->memoria["titulo"] = $titulo;
-			$this->memorizar();
 		}else{
 			if(isset($this->memoria["titulo"])){
 				$titulo = $this->memoria["titulo"];
-				$this->memorizar();
 			}
 		}
 		//Manejo del EOF

@@ -14,21 +14,24 @@ class objeto_ei_formulario extends objeto
 	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
 */
 {
-	var $elemento_formulario;		//	interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
-	var $nombre_formulario;			//	interno | string | Nombre del	FORMULARIO en el cliente
-	var $prefijo;						//Prefijo de todos los objetos creados por este FORMs
-	var $lista_ef = array();		//	interno | array |	Lista	completa	de	a los	EF
-	var $lista_ef_post = array();	//	interno | array |	Lista	de	elementos que se reciben por POST
-	var $lista_ef_dao = array();
-	var $lista_ef_ocultos = array();
-	var $nombre_ef_cli = array(); // interno | array | ID html de los elementos
-	var $parametros;
-	var $modelo_eventos;
-	var $flag_out = false;			//indica si el formulario genero output
-	var $evento_mod_estricto;		// Solo dispara la modificacion si se apreto el boton procesar
-	var $rango_tabs;				//Rango de números disponibles para asignar al taborder
-	var $objeto_js;	
-	
+	protected $elemento_formulario;		//	interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
+	protected $nombre_formulario;			//	interno | string | Nombre del	FORMULARIO en el cliente
+	protected $prefijo;						//Prefijo de todos los objetos creados por este FORMs
+	protected $lista_ef = array();		//	interno | array |	Lista	completa	de	a los	EF
+	protected $lista_ef_post = array();	//	interno | array |	Lista	de	elementos que se reciben por POST
+	protected $lista_ef_dao = array();
+	protected $lista_ef_ocultos = array();
+	protected $nombre_ef_cli = array(); // interno | array | ID html de los elementos
+	protected $parametros;
+	protected $modelo_eventos;
+	protected $flag_out = false;			//indica si el formulario genero output
+	protected $evento_mod_estricto;		// Solo dispara la modificacion si se apreto el boton procesar
+	protected $rango_tabs;				//Rango de números disponibles para asignar al taborder
+	protected $objeto_js;	
+
+	protected $observadores;
+	protected $id_en_padre;
+
 	function __construct($id)
 /*
 	@@acceso: nucleo
@@ -39,20 +42,12 @@ class objeto_ei_formulario extends objeto
 		//Elementos basicos del formulario
 		$this->etapa = "agregar";
 		$this->submit = "ei_form".$this->id[1];
-  		$this->cargar_memoria(); 			//Cargo la MEMORIA sincronizada
 		//Nombre de los botones de javascript
 		$this->js_eliminar = "eliminar_ei_{$this->id[1]}";
 		$this->js_agregar = "agregar_ei_{$this->id[1]}";
 		$this->evento_mod_estricto = true;
 		$this->objeto_js = "objeto_{$id[1]}";		
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);		
-	}
-	//-------------------------------------------------------------------------------
-
-	function destruir()
-	{
-		parent::destruir();
-		$this->memorizar();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -105,6 +100,7 @@ class objeto_ei_formulario extends objeto
 	{
 		$this->parametros = $parametros;
 		$this->nombre_formulario =	$parametros["nombre_formulario"];
+		$this->id_en_padre = $parametros['id'];
 		$this->prefijo = $this->nombre_formulario . "_" . $this->id[1];
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();
@@ -293,6 +289,37 @@ class objeto_ei_formulario extends objeto
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	public function agregar_observador($observador)
+	{
+		$this->observadores[] = $observador;
+	}
+
+	function eliminar_observador($observador){}
+
+	function disparar_eventos()
+	{
+		$this->recuperar_interaccion();
+		if( $evento = $this->obtener_evento() ){
+			if( ($evento=="alta") || ($evento=="modificacion")){
+				$this->validar_estado();
+				$parametros = $this->obtener_datos();
+			}else{
+				$parametros = null;
+			}
+			//Disparo el evento
+			$this->reportar_evento( $evento, $parametros );
+			$this->limpiar_interface();
+		}
+	}
+
+	private function reportar_evento($evento, $parametros=null)
+	//Registro un evento en todos mis observadores
+	{
+		foreach(array_keys($this->observadores) as $id){
+			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
+		}
+	}
+
 	function obtener_evento()
 	{
 		if($this->controlar_agregar())
@@ -360,8 +387,11 @@ class objeto_ei_formulario extends objeto
 		}else{
 			//----> MODO OMNI <-------
 			if(acceso_post()){
-				return true;
+				if( $this->existio_interface_previa() ){
+					return true;
+				}
 			}
+			return false;
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -711,6 +741,8 @@ class objeto_ei_formulario extends objeto
 		echo "</td></tr>\n";
 		echo "</table>\n";
 	}
+	
+	
 
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------

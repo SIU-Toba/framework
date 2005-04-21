@@ -234,7 +234,6 @@ class objeto_filtro extends objeto
 	function recuperar_estado()
 	//Carga el estado del filtro con la informacion de la memoria
 	{
-		$this->cargar_memoria();
         if(is_array($this->memoria))
         {
     	    foreach($this->memoria as $clave => $valor)
@@ -266,7 +265,6 @@ class objeto_filtro extends objeto
             }
 		}
         //ei_arbol($this->memoria,"PERSISTENCIA FILTRO");
-        $this->memorizar();
     }
     //----------------------------------------------------------------------------------------
 

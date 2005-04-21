@@ -55,9 +55,13 @@ class cola_mensajes
 		$temp = "";
 		foreach($this->mensajes as $mensaje){
 			$temp .= $mensaje . " <br>";
+//			$temp .= $mensaje . " \n";
 		}
 		if(trim($temp)!=""){
 			echo ei_mensaje($temp, $this->nivel_gravedad);			
+//			echo js::abrir();
+//			echo "alert(\"HOLA\");";
+//			echo js::cerrar();
 		}
 		//$this->vaciar();		
 	}
