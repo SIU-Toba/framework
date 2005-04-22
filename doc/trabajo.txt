@@ -100,15 +100,6 @@
 	-------------------------------------------------------------------------
 
 	*** CI
-		-> PROBLEMAS de NAVEGACION
-			-> Orden cuadro?
-			-> agregar: despues del proceso el boton queda mapeado a otra cosa
-			-> modificar: el CI recuerda el TAB
-			-> Manejo post procesar
-			-> El cancelar esta disparando validaciones
-		-> El metodo que permite modificar la lista de EI a mostrar, puede competir con el rastreador de eventos
-		-> En la generacion de botones, algunos necesitan un confirm de javascript
-		-> Controlar el Metodo de salida y entrada a ETAPAS
 		-> Un CN tiene que tener una forma de mandar a un CI multitab a un tab (falla validacion server)
 		-> ME_TAB con secuencia estricta
 		-> Tabs verticales
@@ -117,8 +108,6 @@
 			(y cuando tenga una clase JS, que lo haga de una manera unificada)
 		-> La forma de renderizar la cola de mensajes tiene que poder customizarse
 		-> Layout??
-		-> Se necesita una forma standart rapida para generar una pantalla dentro de un CI (herencia el ci??)
-			Pensar en este punto la relacion CI ->->> CN...
 
 	**** CN
 	

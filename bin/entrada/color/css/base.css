@@ -61,8 +61,16 @@ A.basico {
 /************************** ELEMENTOS BASICOS ******************************/
 /***************************************************************************/
 
-
-
+.txt-info {
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 PADDING-BOTTOM: 5px;
+	 PADDING-TOP: 5px;
+	 FONT-SIZE: 11px;
+	 COLOR: %col_sn_0%;
+	 BACKGROUND-COLOR: %col_sn_6%;
+	 TEXT-ALIGN: left
+}
 /*-------------------------------- MENU -----------------------------*/
 
 TD.menu-0 {

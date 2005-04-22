@@ -1,3 +1,14 @@
+.txt-info {
+	PADDING-RIGHT: 5px;
+	PADDING-LEFT: 5px;
+	PADDING-BOTTOM: 5px;
+	PADDING-TOP: 5px;
+	FONT-SIZE: 11px;
+	COLOR: #222222;
+	BACKGROUND-COLOR: #ffffff;
+	TEXT-ALIGN: left;
+}
+
 TD.arbol-titulo {
 	BORDER-RIGHT: #231f20 1px solid;
 	 PADDING-RIGHT: 4px;

@@ -153,6 +153,12 @@ class objeto_ci_me extends objeto_ci
 
 	function obtener_html_contenido()
 	{
+		if(trim($this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"])!=""){
+			$descripcion = 	$this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"];
+			$imagen = recurso::imagen_apl("info_chico.gif",true);
+			echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
+			echo "<hr>\n";
+		}
 		$interface_especifica = "obtener_html_contenido_" . $this->etapa_gi;
 		if(method_exists($this, $interface_especifica)){
 			$this->$interface_especifica();
