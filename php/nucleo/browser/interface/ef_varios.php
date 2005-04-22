@@ -880,15 +880,28 @@ class ef_html extends ef
 	function obtener_input()
 	{
 		if(isset($this->estado)){
-			$estado = addslashes($this->estado);
+			$estado = $this->estado;
 		}else{
 			$estado = "";
 		}
-		$html = "<script type='text/javascript'>
-  var oFCKeditor = new FCKeditor('{$this->id_form}','{$this->ancho}','{$this->alto}','{$this->botonera}','{$estado}' ) ;
-  oFCKeditor.BasePath = 'js/fckeditor/';
-  oFCKeditor.Create() ;
-</script>";
+
+		if ($this->solo_lectura) {
+			$html = "<div style='font-family: Arial, Verdana, Sans-Serif;
+								 font-size: 12px;
+								 padding: 5px 5px 5px 5px;
+								 margin: 0px;
+								 border-style: none;
+								 background-color: #ffffff;'>
+								$estado
+								</div>";
+		} else {
+			$estado = addslashes($estado);
+			$html = "<script type='text/javascript'>
+						  var oFCKeditor = new FCKeditor('{$this->id_form}','{$this->ancho}','{$this->alto}','{$this->botonera}','{$estado}' ) ;
+						  oFCKeditor.BasePath = 'js/fckeditor/';
+						  oFCKeditor.Create() ;
+					 </script>";
+		}
 		return $html;
 	}
 }
