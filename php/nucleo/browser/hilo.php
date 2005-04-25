@@ -2,7 +2,7 @@
 //Tamaño del HILO (Unidades de memoria independientes por solicitud)
 //Esto determina la cantidad de "BACK" que se puede hacer el browser sin
 //Perder el estado de sesion de cada request.
-define("apex_hilo_tamano","1");
+define("apex_hilo_tamano","3");
 
 //----------------------------------------------------------------
 //-------------------- QUERYSTRING Basico ------------------------

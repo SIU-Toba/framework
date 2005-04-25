@@ -11,7 +11,7 @@ En realidad esto deberia convertirse en toda la logica de negocio del toba
 
 */
 
-class elemento_toba
+class elemento
 {
 	protected $tipo;			
 	protected $tablas;
@@ -21,7 +21,7 @@ class elemento_toba
 
 	function __construct()
 	{
-		//Cargar la definicion del elemento TOBA (tablas por donde esta distribuido)
+		//Cargar la definicion del elemento TOBA correspondiente				----> Que tablas?
 		$sql = " SELECT elemento_infra			as	elemento_infra,	
 					tabla					as	tabla					,	
 					columna_clave_proyecto	as	columna_clave_proyecto	,	
@@ -67,7 +67,7 @@ class elemento_toba
 	function cargar_db($proyecto, $elemento)
 	//Prepara las sentencias para cargar un ITEM
 	{
-		//Cargo las tablas en las que esta definido el elemento
+		//Cargo las tablas en las que esta definido el elemento						----> Que columnas ?
 		for($a=0;$a<count($this->tablas);$a++)
 		{
 			$tabla = $this->tablas[$a]['tabla'];
@@ -86,7 +86,7 @@ class elemento_toba
 					" FROM " . $tabla .
 					" WHERE  ( {$this->tablas[$a]['columna_clave_proyecto']} = '$proyecto' ) 
 					AND ({$this->tablas[$a]['columna_clave']} = '$elemento' ) ;";
-			//echo $sql . enter();
+			echo $sql . enter();
 			//Cargo los datos
 			if(!($temp = consultar_fuente($sql))){
 				if($this->tablas[$a]['obligatoria']==1){
@@ -94,7 +94,7 @@ class elemento_toba
 					throw new excepcion_toba("No se cargo una tabla obligatoria ($tabla)");
 				}
 			}else{
-				$this->datos[$tabla]=$temp;
+				$this->datos[$tabla]=$temp;			//							----> recien aca cargo los DATOS... mmmm
 			}
 		}
 		//Cargo la definicion de los SUBELEMENTOS
@@ -185,139 +185,4 @@ class elemento_toba
 		return $php;
 	}
 }
-//######################################################################
-//######################################################################
-
-class elemento_toba_item extends elemento_toba
-{
-	
-	function __construct()
-	{
-		$this->tipo = "item";	
-		parent::__construct();
-	}
-	
-	function cargar_db_subelementos()
-	{
-		//Si hay objetos asociados...
-		if(isset($this->datos['apex_item_objeto']))
-		{
-			for($a=0;$a<count($this->datos['apex_item_objeto']);$a++)
-			{
-				//Los cargo en el array de subcomponentes
-				$this->subelementos[$a]= new elemento_toba_objeto();
-				$proyecto = $this->datos['apex_item_objeto'][$a]['proyecto'];
-				$objeto = $this->datos['apex_item_objeto'][$a]['objeto'];
-				$this->subelementos[$a]->cargar_db($proyecto, $objeto);
-			}
-		}
-	}
-	
-	function obtener_docbook()
-	{
-		$docbook = "";
-		if(isset($this->datos['apex_item_info'][0]['descripcion_larga'])){
-			$docbook .= $this->datos['apex_item_info'][0]['descripcion_larga'];
-		}else{
-			$docbook .= "<para></para>";
-		}
-		/*
-		for($a=0;$a<count($this->subelementos);$a++)
-		{
-			$docbook .= $this->subelementos[$a]->obtener_docbook();
-		}
-		*/
-		return $docbook;
-	}
-	
-	function obtener_php()
-	{
-		//Devuelve el PHP asociado al ITEM	
-	}
-}
-//######################################################################
-//######################################################################
-
-class elemento_toba_objeto extends elemento_toba
-{
-	function __construct()
-	{
-		$this->tipo = "objeto";	
-		parent::__construct();
-	}
-		
-	function cargar_db($proyecto, $elemento)
-	//Amplio la definicion de las tablas
-	{
-		//busco las tablas que dependen del tipo de clase
-		$sql = "SELECT c.plan_dump_objeto as plan
-				FROM apex_clase c,
-				apex_objeto o
-				WHERE (o.clase_proyecto = c.proyecto)
-				AND (o.clase = c.clase)
-				AND (o.objeto = '$elemento')
-				AND (o.proyecto = '$proyecto')";
-		$temp = consultar_fuente($sql,"instancia",null,true);
-		$plan_dumpeo = parsear_propiedades( $temp[0]['plan'] );
-		//Las agrego en la lista de tablas a dumpear
-		$indice = count($this->tablas);
-		foreach($plan_dumpeo as $tabla => $clave)
-		{
-			$temp['tabla'] = $tabla;
-			$temp['columna_clave_proyecto'] = $clave . "_proyecto";
-			$temp['columna_clave'] = $clave;
-			$temp['obligatoria'] = "1";
-			$this->tablas[$indice]=$temp;
-			$indice++;
-		}
-		//Llamo al padre para que cargue los datos
-		parent::cargar_db($proyecto, $elemento);
-	}
-
-	function cargar_db_subelementos()
-	{
-		//Si hay objetos asociados...
-		if(isset($this->datos['apex_objeto_dependencias']))
-		{
-			for($a=0;$a<count($this->datos['apex_objeto_dependencias']);$a++)
-			{
-				//Los cargo en el array de subcomponentes
-				$this->subelementos[$a]= new elemento_toba_objeto();
-				$proyecto = $this->datos['apex_objeto_dependencias'][$a]['proyecto'];
-				$objeto = $this->datos['apex_objeto_dependencias'][$a]['objeto_proveedor'];
-				$this->subelementos[$a]->cargar_db($proyecto, $objeto);
-			}
-			
-		}
-	}
-
-	function obtener_docbook()
-	{
-		
-	}
-}
-//######################################################################
-//######################################################################
-
-class elemento_toba_clase extends elemento_toba
-{
-	function __construct()
-	{
-		$this->tipo = "clase";	
-		parent::__construct();
-	}
-}
-//######################################################################
-//######################################################################
-
-class elemento_toba_patron extends elemento_toba
-{
-	function __construct()
-	{
-		$this->tipo = "patron";	
-		parent::__construct();
-	}
-}
-//######################################################################
-//######################################################################
 ?>

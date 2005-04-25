@@ -20,6 +20,12 @@
 	$parametros = array(apex_hilo_qs_zona=> $this->info["item_proyecto"] . apex_qs_separador . $this->info["item"]);
 	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/propiedades",$parametros,true);
 	echo "&nbsp;</td>";
+
+	//- 1.5 - Link al editor tipo arbol del ITEM...
+	echo "<td  class='barra-0-edit' width='1'>";
+	$parametros = array("proyecto"=>$this->info["item_proyecto"],"item"=>$this->info["item"]);
+	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/estructura",$parametros,true);
+	echo "&nbsp;</td>";
 	
 	//- 2 - Link al editor de la ayuda del item
 	echo "<td  class='barra-0-edit' width='1'>";

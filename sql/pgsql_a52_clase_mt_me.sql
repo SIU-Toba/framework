@@ -54,16 +54,20 @@ CREATE TABLE apex_objeto_mt_me_etapa
 	posicion							smallint			NOT NULL,
 	etiqueta							varchar(80)			NOT NULL,
 	descripcion							varchar(255)		NULL,
-	objetos								varchar(80)			NULL, 	-- ATENCION: TEMPORAL!!!
-	objetos_adhoc						varchar(80)			NULL, 	-- ATENCION: TEMPORAL!!!
-	pre_condicion						varchar(40)			NULL,	--> CN: Metodo a llamar cuando se entra en una etapa
-	post_condicion						varchar(40)			NULL,	--> CN: Metodo a llamar cuando se sale de una etapa
-	gen_interface_pre					varchar(40)			NULL,	--> CN: Metodo a llamar para generar interface PRE objetos
-	gen_interface_post					varchar(40)			NULL,	--> CN: Metodo a llamar para generar interface POST objetos
-	ev_procesar							smallint			NULL, -- Esta etapa muestra el boton procesar
-	ev_cancelar							smallint			NULL, -- Esta etapa muestra el boton cancelar
+	tip									varchar(80)			NULL,
+	imagen_recurso_origen				varchar(10)			NULL,
+	imagen								varchar(60)			NULL,
+	objetos								varchar(80)			NULL, 	-- ya no se usan!
+	objetos_adhoc						varchar(80)			NULL, 	-- ya no se usan!
+	pre_condicion						varchar(40)			NULL,	-- ya no se usan!
+	post_condicion						varchar(40)			NULL,	-- ya no se usan!
+	gen_interface_pre					varchar(40)			NULL,	-- ya no se usan!
+	gen_interface_post					varchar(40)			NULL,	-- ya no se usan!
+	ev_procesar							smallint			NULL, 	-- Esta etapa muestra el boton procesar
+	ev_cancelar							smallint			NULL, 	-- Esta etapa muestra el boton cancelar
 	CONSTRAINT	"apex_mt_me__pk" PRIMARY KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion"),
-	CONSTRAINT	"apex_mt_me__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me") REFERENCES	"apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_mt_me__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me") REFERENCES	"apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
