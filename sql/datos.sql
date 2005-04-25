@@ -116,6 +116,9 @@ INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta,
 
 -----------  apex_elemento_formulario  ------------------------
 
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef',NULL,'Ancestro de todos los elementos de formulario','dependencias: Dependencias del EF, separadas por comas (,): opcional;
+javascript: Javascript asociado al EF, la notacion es evento,codigo: opcional;','toba',NULL);
+
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_barra_divisora','ef','La Barra divisiora es un componente sin estado, solo sirve para separar visualmente bloques de EFs',NULL,'toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_cascada_fl','ef','Cascada de un combo en rol de filtro y otro en rol de lista.',NULL,'toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_checkbox','ef','Campo Checkbox (Ausencia o presencia de una propiedad)','valor: Valor de la propiedad cuando esta seteada (DB): obligatorio;
@@ -190,8 +193,6 @@ columnas: Cantidad de columnas en el TEXTAREA de inicializacion:opcional;','toba
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_oculto_proyecto','ef_oculto','Elemento invisible que maneja la clave de proyecto del registro. Solo permite editar registros del proyecto ACTIVO',NULL,'toba','1');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_oculto_secuencia','ef_oculto','Elemento oculto que maneja una secuencia',NULL,'toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_oculto_usuario','ef_oculto','Se completa con el usuario que realizo la solicitud',NULL,'toba',NULL);
-INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef',NULL,'Ancestro de todos los elementos de formulario','dependencias: Dependencias del EF, separadas por comas (,): opcional;
-javascript: Javascript asociado al EF, la notacion es evento,codigo: opcional;','toba',NULL);
 
 -----------  apex_solicitud_obs_tipo  ------------------------
 

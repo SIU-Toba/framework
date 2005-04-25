@@ -45,16 +45,18 @@ class estructura_objeto
 		
 	function generar_html()
 	{
+		$clase = isset($this->datos['subclase'])? $this->datos['subclase'] . "\nEXTENDS: " . $this->datos['clase'] : $this->datos['clase'];
+		$imagen = recurso::imagen_apl($this->datos['icono'],true,null,null,"ID: [" . $this->datos['objeto'] . "]\nCLASE: $clase");
 		echo "<table class='tabla-0' width='100%'>";
-		$imagen = recurso::imagen_apl($this->datos['icono'],true);
-		echo "<tr><td   class='barra-obj-leve' > $imagen [" . $this->datos['objeto'] . "] - ".  $this->datos['subclase'] . "</td></tr>";
-		echo "<tr><td  class='barra-obj-link' >";
+		echo "<td    class='barra-obj-leve' >";
 
 		echo "<table class='tabla-0' width='100%'>";
-		echo "<tr><td>";
+		echo "<tr>";
+		echo "<td width='1%'> $imagen </td>";
+		echo "<td  width='1%'>";
 		echo $this->generar_acceso_editores();
 		echo "</td>";
-		echo "<td>";
+		echo "<td class='ef-etiqueta'  width='99%'>";
 		echo $this->datos['nombre'];
 		echo "</td></tr>";
 		echo "</table>";

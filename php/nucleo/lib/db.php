@@ -236,11 +236,18 @@ require("3ros/adodb340/adodb.inc.php");
 	}
 //-------------------------------------------------------------------------------------
 
-	function ejecutar_sql($sql, $fuente="instancia")
+	function ejecutar_sql($sql, $fuente=null)
 	//Dispara una execpcion si algo salio mal
 	//El codigo de la excepsion deberia ser el SQLSTATE
 	//Deberia buscarla en la FUENTE para descubrir el SQLSTATE
 	{
+		if($fuente==null){
+			if( defined(fuente_datos_defecto) ){
+				$fuente = fuente_datos_defecto;
+			}else{
+				$fuente = "instancia";
+			}
+		}
 		global $db;	
 		if(!isset($db[$fuente])){
 			throw new excepcion_toba("La fuente de datos no se encuentra disponible." );
