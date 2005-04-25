@@ -209,9 +209,16 @@ require("3ros/adodb340/adodb.inc.php");
 
 //-------------------------------------------------------------------------------------
 
-	function consultar_fuente($sql, $fuente="instancia", $ado=null, $obligatorio=false)
+	function consultar_fuente($sql, $fuente=null, $ado=null, $obligatorio=false)
 	//Dispara una execpcion si algo salio mal
 	{
+		if($fuente==null){
+			if( defined("fuente_datos_defecto") ){
+				$fuente = fuente_datos_defecto;
+			}else{
+				$fuente = "instancia";
+			}
+		}
 		global $db, $ADODB_FETCH_MODE;	
 		if(isset($ado)){
 			$ADODB_FETCH_MODE = $ado;
@@ -226,7 +233,7 @@ require("3ros/adodb340/adodb.inc.php");
 			throw new excepcion_toba("No se genero el Recordset. " . $db[$fuente][apex_db_con]->ErrorMsg() );
 		}elseif($rs->EOF){
 			if($obligatorio){
-				throw new excepcion_toba("La consulta no devolvio datos. " );
+				throw new excepcion_toba("La consulta no devolvio datos.");
 			}else{
 				return null;
 			}
@@ -242,7 +249,7 @@ require("3ros/adodb340/adodb.inc.php");
 	//Deberia buscarla en la FUENTE para descubrir el SQLSTATE
 	{
 		if($fuente==null){
-			if( defined(fuente_datos_defecto) ){
+			if( defined("fuente_datos_defecto") ){
 				$fuente = fuente_datos_defecto;
 			}else{
 				$fuente = "instancia";
