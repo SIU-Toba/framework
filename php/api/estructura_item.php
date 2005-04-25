@@ -53,7 +53,7 @@ class estructura_item
 		echo "</td>\n";
 		
 		echo "<td  class='barra-obj-id' width='1%'>";
-		echo "<a  target='$target'  href='" . toba::get_vinculador()->generar_solicitud($this->datos["proyecto"],$this->datos["item"]) ."'>".
+		echo "<a  target='$target'  href='" . toba::get_vinculador()->generar_solicitud($this->datos["proyecto"],$this->datos["item"],null,false,false,null,true) ."'>".
 			recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
 		echo "</td>\n";		
 		//------------ PROPIEDADES ---------------------

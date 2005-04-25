@@ -554,9 +554,12 @@ class objeto_ei_formulario extends objeto
 	}
 	//-------------------------------------------------------------------------------
 	
-	function deshabilitar_efs($efs)
+	function deshabilitar_efs($efs=null)
 	//Establece el grupo de EFs especificados como SOLO LECTURA
 	{
+		if(!isset($efs)){
+			$efs = $this->lista_ef_post;
+		}
 		foreach ($efs as $ef){
 			if(isset($this->elemento_formulario[$ef])){
 				$this->elemento_formulario[$ef]->establecer_solo_lectura();						
