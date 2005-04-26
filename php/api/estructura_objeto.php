@@ -32,14 +32,14 @@ class estructura_objeto
 					AND		( c.proyecto = o.clase_proyecto )
 					AND		( o.proyecto = '$proyecto' ) 
 					AND 	( o.objeto = '$objeto' ) ;";
-		$this->datos = current (consultar_fuente($sql));
+		$this->datos = current (consultar_fuente($sql,"instancia"));
 		$sql = "	SELECT 	proyecto, 
 							objeto_proveedor, 
 							identificador
 					FROM 	apex_objeto_dependencias 
 					WHERE 	( proyecto = '$proyecto' ) 
 					AND 	(objeto_consumidor = '$objeto' ) ;";
-		$this->dependencias = consultar_fuente($sql);
+		$this->dependencias = consultar_fuente($sql,"instancia");
 	}
 	//----------------------------------------------------------------------------
 		
@@ -52,13 +52,21 @@ class estructura_objeto
 
 		echo "<table class='tabla-0' width='100%'>";
 		echo "<tr>";
-		echo "<td width='1%'> $imagen </td>";
+		echo "<td width='1%' class='barra-obj-id'> $imagen </td>";
 		echo "<td  width='1%'>";
 		echo $this->generar_acceso_editores();
 		echo "</td>";
-		echo "<td class='ef-etiqueta'  width='99%'>";
-		echo $this->datos['nombre'];
-		echo "</td></tr>";
+		if(preg_match("/_ci/",$this->datos['clase']))
+		{
+			echo "<td  class='barra-obj-id'   width='99%'>";
+			echo $this->datos['nombre'];
+			echo "</td></tr>";
+			
+		}else{
+			echo "<td class='ef-etiqueta'  width='99%'>";
+			echo $this->datos['nombre'];
+			echo "</td></tr>";
+		}
 		echo "</table>";
 
 
@@ -67,7 +75,7 @@ class estructura_objeto
 		if(isset($this->dependencias))
 		{
 			echo "<tr><td>";
-			echo "<table   class='tabla-0' width='100%'>";
+			echo "<table  class='tabla-1' width='100%'>";
 			foreach($this->dependencias as $dep)
 			{
 				echo "<tr><td class='barra-obj-tit'> {$dep['identificador']} </td>";
@@ -95,14 +103,29 @@ class estructura_objeto
 										.apex_qs_separador. $this->datos["objeto"]) ) ."'>".
 			recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 		echo "</td>\n";
-		echo "<td  class='barra-obj-id' width='5'>";
-		echo "<a  target='$target' href='" . toba::get_vinculador()->generar_solicitud(
-									$this->datos["editor_proyecto"],
-									$this->datos["editor_item"],
-									array(apex_hilo_qs_zona=>$this->datos["proyecto"]
-										 .apex_qs_separador. $this->datos["objeto"]) ) ."'>".
-			recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
-		echo "</td>\n";
+
+		if(isset($this->datos["editor_proyecto"]))
+		{
+			echo "<td  class='barra-obj-id' width='5'>";
+			echo "<a  target='$target' href='" . toba::get_vinculador()->generar_solicitud(
+										$this->datos["editor_proyecto"],
+										$this->datos["editor_item"],
+										array(apex_hilo_qs_zona=>$this->datos["proyecto"]
+											 .apex_qs_separador. $this->datos["objeto"]) ) ."'>".
+				recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+			echo "</td>\n";
+		}
+
+		if(isset($this->datos["subclase_archivo"]))
+		{
+			echo "<td  class='barra-obj-id' width='5'>";
+			echo "<a  target='$target' href='" . 
+				toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php",
+										array(apex_hilo_qs_zona=>$this->datos["proyecto"]
+											 .apex_qs_separador. $this->datos["objeto"]) ) ."'>".
+				recurso::imagen_apl("php.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+			echo "</td>\n";
+		}
 /*
 		echo "<td  class='barra-obj-id' width='5'>";
 		echo "<a  target='$target' href='" . toba::get_vinculador()->generar_solicitud(

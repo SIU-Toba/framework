@@ -29,13 +29,13 @@ class estructura_item
 					FROM 	apex_item 
 					WHERE 	( proyecto = '$proyecto' ) 
 					AND 	(item = '$item' ) ;";
-		$this->datos = current( consultar_fuente($sql) );
+		$this->datos = current( consultar_fuente($sql,"instancia") );
 		$sql = "	SELECT 	proyecto, 
 							objeto
 					FROM	apex_item_objeto 
 					WHERE 	( proyecto = '$proyecto' ) 
 					AND 	(item = '$item' ) ;";
-		$this->dependencias = consultar_fuente($sql);
+		$this->dependencias = consultar_fuente($sql,"instancia");
 	}
 		
 	function generar_html()
