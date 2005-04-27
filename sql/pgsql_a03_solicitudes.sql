@@ -48,7 +48,7 @@ CREATE TABLE apex_sesion_browser
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	sesion_browser				int4			DEFAULT nextval('"apex_log_sesion_seq"'::text) NOT NULL, 
+	sesion_browser				int4			DEFAULT nextval('"apex_sesion_browser_seq"'::text) NOT NULL, 
 	proyecto					varchar(15)		NOT NULL,
 	usuario						varchar(20) 	NOT NULL,
 	ingreso						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,

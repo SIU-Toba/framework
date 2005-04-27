@@ -17,7 +17,7 @@
 				-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
 				-> ef_vinculo
 				-> ef_template
-!			-> ef_moneda con conversión (simbolo $ por defecto) (máscara) (validación de decimales)
+!			º ef_moneda con conversión (simbolo $ por defecto) (máscara) (validación de decimales)
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. 
 					Hay que decidir donde poner esta ventana)
 			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros 
@@ -46,10 +46,10 @@
 		-> Método general para plegar y desplegar
 		
 	*** JS en EI
-!		-> Facilidades en la extension del JS: 
-			-> Documentar forma de extensión.
-			-> Modificar metodos de extension en PHP. Función crear_objeto_js y extender_objeto_js
-!		-> Explicar nuevas caracteristicas y funcionamiento.
+!		º  Facilidades en la extension del JS: 
+			º Documentar forma de extensión. (extension_js_formularios.txt.php)
+			º Modificar metodos de extension en PHP. Función crear_objeto_js y extender_objeto_js
+!		º Explicar nuevas caracteristicas y funcionamiento.
 		-> Chequear version de JS, consumo de memoria, browser soportados.
 !		-> Inventario de consumo de js concreto
 
@@ -68,10 +68,10 @@
 		-> El submit se debe poder correr una sola vez
 
 	*** ML: 
-		-> Procesamiento de filas:
-!			-> Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar 
+		º Procesamiento de filas:
+!			º Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar 
 				eventos al prototipo.
-			-> Respetar el formato del EF en el resultado del proceso
+			º Respetar el formato del EF en el resultado del proceso
 !		-> Agregar y eliminar filas: Parametrizar comandos disponibles (agregar_eliminar, mover, ver_numero_fila)
 		› Mejorar el disparo de eventos (relación con buffer)
 			-> A: Clase JS indica los cambios puntuales al ei, con una extensión sepa manejar un buffer.

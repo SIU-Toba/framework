@@ -201,7 +201,7 @@ class zona_item extends zona
 			}else{
 				echo "El ITEM no consume OBJETOS.";
 			}
-		echo "</td></tr>";
+		echo "</td></tr></table>";
 	}
 }
 ?>
