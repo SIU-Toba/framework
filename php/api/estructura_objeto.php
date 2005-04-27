@@ -48,7 +48,7 @@ class estructura_objeto
 		$clase = isset($this->datos['subclase'])? $this->datos['subclase'] . "\nEXTENDS: " . $this->datos['clase'] : $this->datos['clase'];
 		$imagen = recurso::imagen_apl($this->datos['icono'],true,null,null,"ID: [" . $this->datos['objeto'] . "]\nCLASE: $clase");
 		echo "<table class='tabla-0' width='100%'>";
-		echo "<td    class='barra-obj-leve' >";
+		echo "<td    class='barra-obj-leve' colspan='2'>";
 
 		echo "<table class='tabla-0' width='100%'>";
 		echo "<tr>";
@@ -74,12 +74,15 @@ class estructura_objeto
 		//--- DEPENDENCIAS ---
 		if(isset($this->dependencias))
 		{
-			echo "<tr><td>";
+
+			echo "<tr><td width='10'  class='barra-obj-id'>".gif_nulo(10,1)."</td>";
+
+			echo "<td>";
 			echo "<table  class='tabla-1' width='100%'>";
 			foreach($this->dependencias as $dep)
 			{
-				echo "<tr><td class='barra-obj-tit'> {$dep['identificador']} </td>";
-				echo "<td>";
+				echo "<tr><td class='barra-obj-tit'> {$dep['identificador']} </td></tr>";
+				echo "<tr><td>";
 				$objeto = new estructura_objeto($dep['proyecto'],$dep['objeto_proveedor']);
 				$objeto->generar_html();
 				echo "</td></tr>";

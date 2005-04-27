@@ -64,17 +64,14 @@ class estructura_item
 		echo "</tr>";
 		if(isset($this->dependencias))
 		{
-			$a=1;
 			echo "<tr><td  class='barra-obj-link' colspan='3'>";
 			echo "<table  class='tabla-0' width='100%'>";
 			foreach($this->dependencias as $dep)
 			{
-				echo "<tr><td  class='barra-obj-tit' width='20'> $a </td>";
-				echo "<td>";
+				echo "<tr><td>";
 				$objeto = new estructura_objeto($dep['proyecto'],$dep['objeto']);
 				$objeto->generar_html();
 				echo "</td></tr>";
-				$a++;
 			}
 			echo "</td></tr>";
 			echo "</table>";

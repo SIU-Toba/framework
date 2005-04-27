@@ -13,7 +13,12 @@
 		}
 		if(file_exists($archivo_real)){
 			ei_separador("ARCHIVO: ". $archivo);
+			
+			echo "<div class='php'>";
 			highlight_file($archivo_real);
+			echo "</div>";
+			
+			
 		}else{
 			echo ei_mensaje("ATENCION: el archivo <b>'$archivo_real'</b> no existe.","error");
 		}
