@@ -8,7 +8,7 @@
 		echo "<div align='center'>\n";
 		echo "<table class='objeto-base' width='100'>\n";
 		echo "<tr><td>";
-		$form->inicializar(array("nombre_formulario"=>"formulario"));
+		$form->inicializar(array("nombre_formulario"=>"formulario", 'id' => 'id'));
 		$form->obtener_html();
 		echo "</td></tr>\n";
 		echo "</table>\n";

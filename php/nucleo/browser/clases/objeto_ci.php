@@ -143,7 +143,7 @@ class objeto_ci extends objeto
 	// hay que redeclarar este metodo para que devuelva el conjunto correcto de CIs utilizados
 	{
 		//ATENCION, esto presupone que la clase cumple con esta regla de nomenclatura
-		return $this->get_dependencias_clase("_ci_");
+		return $this->get_dependencias_clase("ci_");
 	}
 
 	//--------------------------------------------------------
@@ -186,6 +186,7 @@ class objeto_ci extends objeto
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
+			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
 			$this->dependencias[$dep]->disparar_obtencion_datos_cn();
 		}
 	}

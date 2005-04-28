@@ -759,7 +759,7 @@ class objeto
 	{
 		$ok = array();
 		for($a=0;$a<count($this->info_dependencias);$a++){
-			if( preg_match($ereg_busqueda, $this->info_dependencias[$a]['clase']) ){
+			if( preg_match("/".$ereg_busqueda."/", $this->info_dependencias[$a]['clase']) ){
 				$ok[] = $this->info_dependencias[$a]["identificador"];
 			}
 		}

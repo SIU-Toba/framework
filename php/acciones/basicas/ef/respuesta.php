@@ -38,7 +38,7 @@ $this->hilo->desactivar_reciclado();
 					AND o.objeto = '{$referencia_ef[1]}' 
 					AND o.proyecto = '{$referencia_ef[0]}'
 					AND u.identificador = '{$referencia_ef[2]}';"; //echo $sql;
-			$data = consultar_fuente($sql); //print_r($data);
+			$data = consultar_fuente($sql,"instancia"); //print_r($data);
 			//Abro la fuente de datos
 			$fp = $data[0]['fp'];
 			$f = $data[0]['f'];
