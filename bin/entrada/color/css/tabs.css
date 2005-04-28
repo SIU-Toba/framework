@@ -12,7 +12,7 @@ TD.tabs-solapa {
 	margin: 0px 0px 0px 0px ;
 }
 
-INPUT.tabs-boton
+.tabs-boton
 {
 	white-space: nowrap;
 	font-size: 11px;
@@ -38,7 +38,7 @@ TD.tabs-solapa-sel {
 	margin: 0px 0px 0px 0px ;
 }
 
-INPUT.tabs-boton-sel
+.tabs-boton-sel
 {
 	white-space: nowrap;
 	font-weight: bold; 

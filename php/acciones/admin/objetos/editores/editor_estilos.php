@@ -183,7 +183,7 @@
 		   } 
 		 }
 		document.getElementById('elem_nombre_clase').innerHTML = clase;
-		document.getElementById('elem_editor').value = reemplazar(texto_css, '; ', ';\n');
+		document.getElementById('elem_editor').value = texto_css.reemplazar('; ', ';\n');
 		document.getElementById('elem_aplicar').disabled = false;
 		document.getElementById('elem_aceptar').disabled = false;		
 		document.getElementById('elem_cancelar').disabled = false;

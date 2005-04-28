@@ -33,7 +33,7 @@ class objeto_ci_test extends objeto_ci_me
 	//EJ: que borre todo menos el estado del filtro...
 	{
 		//Indicar una lista de propiedades que no se tienen que borrar
-		parent::evt__limpieza_memoria($propiedades)
+		parent::evt__limpieza_memoria($propiedades);
 	}
 
 
@@ -118,7 +118,7 @@ class objeto_ci_test extends objeto_ci_me
 	function evt__doc__modificacion(){}
 	function evt__doc__baja(){}
 	function evt__doc__limpiar(){}
-	function evt__doc__cargar(){ 
+	function evt__doc__carga(){ 
 		$datos_carga = array("Datos que cargan el EI");
 		return $datos_carga; 
 	}

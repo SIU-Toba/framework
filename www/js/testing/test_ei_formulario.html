@@ -118,6 +118,7 @@ function test_eventos_limpiar_ef_sin_error() {
 	formu.set_evento('L', 'limpiar')
 	this.assertTrue(formu.submit());
 	assert_llamado_submit(false);
+	this.assertEquals('limpiar', document.getElementById(formu._input_submit).value);
 }
 
 function test_eventos_eliminar_ef_con_error() {
@@ -128,6 +129,7 @@ function test_eventos_eliminar_ef_con_error() {
 	formu.iniciar();
 	formu.set_evento('E', 'eliminar')
 	this.assertTrue(formu.submit());	
+	this.assertEquals('eliminar', document.getElementById(formu._input_submit).value);
 }
 
 function test_eventos_modificar_ef_con_error() {
@@ -151,7 +153,9 @@ function test_eventos_modificar_ef_sin_error() {
 	formu.set_evento('M', 'modificar')
 	this.assertTrue(formu.submit());
 	assert_llamado_submit(true);	
+	this.assertEquals('modificar', document.getElementById(formu._input_submit).value);
 }
+
 
 //--- Validaciones particulares
 function test_validador__nuevo() {

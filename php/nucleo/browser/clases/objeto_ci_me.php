@@ -159,7 +159,7 @@ class objeto_ci_me extends objeto_ci
 			echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
 			echo "<hr>\n";
 		}
-		$interface_especifica = "obtener_html_contenido_" . $this->etapa_gi;
+		$interface_especifica = "obtener_html_contenido". apex_ci_separador . $this->etapa_gi;
 		if(method_exists($this, $interface_especifica)){
 			$this->$interface_especifica();
 		}else{
@@ -180,7 +180,7 @@ class objeto_ci_me extends objeto_ci
 		if( $objetos != "" ){
 			return array_map("trim", explode(",", $objetos ) );
 		}else{
-			throw new excepcion_toba("No es posible determinar que dependencias cargar");
+			return array();
 		}
 	}
 	//-------------------------------------------------------------------------------

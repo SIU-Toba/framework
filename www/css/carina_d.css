@@ -310,8 +310,16 @@ A.basico {
 /************************** ELEMENTOS BASICOS ******************************/
 /***************************************************************************/
 
-
-
+.txt-info {
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 PADDING-BOTTOM: 5px;
+	 PADDING-TOP: 5px;
+	 FONT-SIZE: 11px;
+	 COLOR: %col_sn_0%;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
+}
 /*-------------------------------- MENU -----------------------------*/
 
 TD.menu-0 {
@@ -1516,6 +1524,19 @@ TD.ei-base {
 	padding: 4px 4px 4px 4px ;
 }
 
+TD.objeto-ci-barra-superior {
+	font-weight: bold;
+	font-size: 11px;
+	color: #FFFFF1;
+	background-color: #4F4C4D;
+	text-align: left;
+	padding: 3px 3px 3px 3px ;
+/*	border-top: 1px solid #A7A5A6;
+	border-left: 1px solid #A7A5A6;
+	border-bottom: 1px solid #A7A5A6;
+	border-right: 1px solid #A7A5A6;*/
+}
+
 TD.ci-cuerpo {
 	font-size: 10px;
 	color: #ffffff;
@@ -2139,7 +2160,7 @@ TD.tabs-solapa {
 	margin: 0px 0px 0px 0px ;
 }
 
-INPUT.tabs-boton
+.tabs-boton
 {
 	white-space: nowrap;
 	font-size: 11px;
@@ -2165,7 +2186,7 @@ TD.tabs-solapa-sel {
 	margin: 0px 0px 0px 0px ;
 }
 
-INPUT.tabs-boton-sel
+.tabs-boton-sel
 {
 	white-space: nowrap;
 	font-weight: bold; 

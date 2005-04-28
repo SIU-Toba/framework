@@ -41,7 +41,7 @@ def.constructor = objeto_ei_formulario;
 		//Si no es parte de un submit general, dispararlo
 		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
-			
+		
 		var evento_actual = this._evento;
 		this._evento = this._evento_defecto;
 		switch (evento_actual) {
@@ -143,7 +143,7 @@ def.constructor = objeto_ei_formulario;
 	}
 
 	def.evento_limpiar = function() {
-		return this.evento_ninguno();
+		return true;
 	}
 	
 	def.evento_ninguno = function() {

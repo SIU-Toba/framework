@@ -418,7 +418,7 @@ class objeto_ci extends objeto
 			$dependencias = explode(",",$this->info_ci["objetos"]);
 			return array_map("trim", $dependencias);
 		}else{
-			throw new excepcion_toba("No es posible determinar que dependencias cargar");
+			return array();
 		}
 	}
 	//-------------------------------------------------------------------------------
