@@ -177,21 +177,21 @@ class objeto_ci extends objeto
 
 	//--  ENTRADA  ----
 
-	function disparar_obtencion_datos_cn()
+	function disparar_obtencion_datos_cn( $modo=null )
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
-		$this->evt__obtener_datos_cn();
+		$this->evt__obtener_datos_cn( $modo );
 		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
 			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'");
-			$this->dependencias[$dep]->disparar_obtencion_datos_cn();
+			$this->dependencias[$dep]->disparar_obtencion_datos_cn( $modo );
 		}
 	}
 
-	function evt__obtener_datos_cn()
+	function evt__obtener_datos_cn( $modo=null )
 	{
 		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
 		$this->log->warning($this->get_txt() . "[ evt__obtener_datos_cn ] No fue redefinido!");

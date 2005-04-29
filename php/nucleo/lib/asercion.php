@@ -21,6 +21,11 @@ class asercion
 			throw new excepcion_toba($texto);
 		}
 	}
+
+	function error($texto="Estado de error")
+	{
+		
+	}
 }		
 /*		
 		else{
