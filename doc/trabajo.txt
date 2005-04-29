@@ -49,7 +49,6 @@
 !		º  Facilidades en la extension del JS: 
 			º Documentar forma de extensión. (extension_js_formularios.txt.php)
 			º Modificar metodos de extension en PHP. Función crear_objeto_js y extender_objeto_js
-!		º Explicar nuevas caracteristicas y funcionamiento.
 		-> Chequear version de JS, consumo de memoria, browser soportados.
 !		-> Inventario de consumo de js concreto
 
@@ -69,9 +68,6 @@
 
 	*** ML: 
 		º Procesamiento de filas:
-!			º Extensión del método de procesamiento. Utilizar id para referencias a los ef y permitir agregar 
-				eventos al prototipo.
-			º Respetar el formato del EF en el resultado del proceso
 !		-> Agregar y eliminar filas: Parametrizar comandos disponibles (agregar_eliminar, mover, ver_numero_fila)
 		› Mejorar el disparo de eventos (relación con buffer)
 			-> A: Clase JS indica los cambios puntuales al ei, con una extensión sepa manejar un buffer.
@@ -195,6 +191,7 @@
 		-> Eliminar items completos
 		-> Eliminar carpetas completas
 		-> Exportar/importar items
+		-> Cuando se modifica la fuente de datos, testear que la base exista (o poner un combo con las bases) 
 	
 	*** Interface CONSOLA
 	

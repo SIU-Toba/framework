@@ -9,6 +9,11 @@
 		}
 		return $x;
 	}
+	//-----------------------------------------------------------------	
+	function pasar_a_unica_linea($string)
+	{
+		return  preg_replace("/\r\n|\n/", "\\n", $string);
+	}
 	//-----------------------------------------------------------------
 
 	function salto_linea()

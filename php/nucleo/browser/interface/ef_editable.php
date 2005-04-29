@@ -605,6 +605,7 @@ class ef_editable_multilinea extends ef_editable
 	var $wrap;
 	var $clase;
 	var $no_margen;
+	var $ajustable;
 	
 	function ef_editable_multilinea($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -621,6 +622,7 @@ class ef_editable_multilinea extends ef_editable
 			$this->resaltar = 0;
 		}
 		$parametros["tamano"] = isset($parametros["columnas"]) ? $parametros["columnas"] : 40;
+		$this->ajustable = isset($parametros["ajustable"]) ? $parametros["ajustable"] : false;
 		unset($parametros["filas"]);
 		unset($parametros["columnas"]);
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
@@ -637,8 +639,18 @@ class ef_editable_multilinea extends ef_editable
 	}
 	//---------------------------------------------------------
 
-	function obtener_input()
+	function obtener_consumo_javascript()
 	{
+		$consumo = parent::obtener_consumo_javascript();
+		//Consumo la clase para hacer resize de los textarea
+		if ($this->ajustable)
+			$consumo[] = "interface/resizeTa";
+		return $consumo;
+	}	
+	//---------------------------------------------------------
+
+	function obtener_input()
+	{	
 		if(!isset($this->estado) || $this->estado=="NULL") $this->estado="";
 		$html = "";
 		if($this->resaltar){
@@ -646,6 +658,11 @@ class ef_editable_multilinea extends ef_editable
 			$html .= form::button($this->id_form . "_res", "Seleccionar", $javascript );
 		}
 		$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript );
+		if ($this->ajustable) {
+			$html .= js::abrir();
+			$html .= "resizeTa.agregar_elemento(document.getElementById('{$this->id_form}'));";
+			$html .= js::cerrar();
+		}
 		return $html;
 	}
 }

@@ -91,6 +91,26 @@ function toggle_nodo(o) {
 	return true;
 }
 
+
+//----Mediciones de Performance
+var mediciones = 
+{
+	res: new Array(),
+	marcar: function(descripcion) {
+		mediciones.res.push([new Date(), descripcion]);
+	},
+	
+	resultados: function() {
+		var html = '';
+		for (var i=0 ; i < mediciones.res.length; i++) {
+			if (i > 0) {
+				var ms = mediciones.res[i][0] - mediciones.res[i-1][0];
+				html += '[' + mediciones.res[i-1][1] + ' - ' + mediciones.res[i][1] + '] = ' + ms + 'ms.<br>';
+			}
+		}
+		return html;
+	}
+}
 //----Varios
 //--------------------------------------------
 
@@ -107,6 +127,7 @@ function logger(mensaje, separador) {
 	separador = (separador) ? separador : "<br>";
 	if (div = document.getElementById('logger_salida')) {
 		div.innerHTML += mensaje + separador;
+		div.style.display = '';
 	}
 }
 

@@ -342,8 +342,8 @@ CREATE TABLE apex_elemento_formulario
 (	
 	elemento_formulario				varchar(30)		NOT NULL,
 	padre							varchar(30)		NULL,
-	descripcion						varchar(255)	NOT NULL,
-	parametros						varchar			NULL,	--	Descripcion	de	los parametros	que recibe este EF
+	descripcion						text			NOT NULL,
+	parametros						varchar			NULL,	--	Lista de los parametros	que recibe este EF
 	proyecto						varchar(15)		NOT NULL,
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_elform_pk" PRIMARY KEY ("elemento_formulario"),

@@ -280,8 +280,16 @@ class ef_elemento_ini extends ef
 			return $ok;
         }
      }
-    
-     function obtener_input()
+
+	function obtener_consumo_javascript()
+	{
+		$consumo = parent::obtener_consumo_javascript();
+		//Consumo la clase para hacer resize de los textarea
+		$consumo[] = "interface/resizeTa";
+		return $consumo;
+	}
+	 
+	function obtener_input()
     {
          // Informacion al usuario sobre el elemento: AYUDA y PARAMETROS
         $html = "
@@ -290,7 +298,9 @@ class ef_elemento_ini extends ef
 		ef = document.{$this->nombre_formulario}.{$this->id_form}_elem.value;
 		switch(ef){\n";
          foreach ($this->datos as $fila){
-             $html .= "\t\tcase '{$fila['identificador']}':\n\t\t\talert('" . addslashes($fila[$this->pos_ayuda]) . "');\n\t\t\tbreak;\n";
+             $html .= "\t\tcase '{$fila['identificador']}':\n\t\t\talert('";
+			 $html .= pasar_a_unica_linea(addslashes($fila[$this->pos_ayuda]));
+			 $html .= "');\n\t\t\tbreak;\n";
              }
          $html .= "		}
 	}
@@ -300,7 +310,7 @@ class ef_elemento_ini extends ef
 		switch(ef){\n";
          foreach ($this->datos as $fila){
              $html .= "\t\tcase '{$fila['identificador']}':\n\t\t\talert('";
-             $html .= preg_replace("/\r\n|\n/", "\\n", addslashes($fila[$this->pos_parametros]));
+             $html .= pasar_a_unica_linea(addslashes($fila[$this->pos_parametros]));
             // $html .= addslashes($fila[3])
             $html .= "');\n\t\t\tbreak;\n";
              }
@@ -326,6 +336,9 @@ class ef_elemento_ini extends ef
          $html .= form :: textarea($this->id_form . "_ini", $txt, $this->filas, $this->columnas);
          $html .= "</td></tr>\n";
          $html .= "</table>\n";
+		$html .= js::abrir();
+		$html .= "resizeTa.agregar_elemento(document.getElementById('{$this->id_form}_ini'));";
+		$html .= js::cerrar();
          return $html;
          }
     }
