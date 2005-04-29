@@ -217,12 +217,36 @@ class ef_editable_numero extends ef_editable
 // Solo acepta numeros... NO TERMINADO!
 //PARAMETROS ADICIONALES:
 //"cifras": Cantidad de caracteres
+//"rango: Intervalo de números permitidos (ej [0..100))": 
 {
+	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
+	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
+	protected $mensaje_defecto;
+	
 	function ef_editable_numero($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-input-numero";
         $parametros["tamano"] = (isset($parametros["cifras"])) ? $parametros["cifras"] : 5;
         unset($parametros["cifras"]);
+		if (isset($parametros['rango'])) {
+			//Parseo del rango
+			$limitadores = array('[', ']', '(', ')');
+			$partes = explode(',', $parametros['rango'], 2);
+
+			//Rango
+			$rango = trim($partes[0]);
+			list($inferior, $superior) = explode('..',  str_replace($limitadores, '', $rango));
+			$this->rango_inferior['limite'] = trim($inferior);
+			if (strpos($rango, '(') !== false)
+				$this->rango_inferior['incluido'] = 0;
+			$this->rango_superior['limite']	= trim($superior);
+			if (strpos($rango, ')') !== false)
+				$this->rango_superior['incluido'] = 0;
+
+			//Descripción
+			if (isset($partes[1]))
+				$this->mensaje_defecto = $partes[1];
+		}
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
@@ -250,14 +274,51 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		return $javascript;
     }
 	
+	function mensaje_validacion_rango()
+	{
+		if (isset($this->mensaje_defecto))
+			return $this->mensaje_defecto;
+		$inferior = "";
+		$superior = "";
+		if ($this->rango_inferior['limite'] != '*')
+			$inferior .= (($this->rango_inferior['incluido']) ? " mayor o igual a " : " mayor a ").$this->rango_inferior['limite'];
+		if ($this->rango_superior['limite'] != '*')
+			$superior .= (($this->rango_superior['incluido']) ? " menor o igual a " : " menor a ").$this->rango_superior['limite'];
+		$nexo = ($inferior != "" && $superior != "") ? " y" : "";
+		return " debe ser$inferior$nexo$superior.";
+	}
+	
+	function validar_rango()
+	{
+		$ok = true;
+		if ($this->rango_inferior['limite'] != '*') {
+			if ($this->rango_inferior['incluido'])
+				$ok = ($this->estado >= $this->rango_inferior['limite']);
+			else
+				$ok = ($this->estado > $this->rango_inferior['limite']);			
+		}
+		if ($ok && $this->rango_superior['limite'] != '*') {
+			if ($this->rango_superior['incluido'])
+				$ok = ($this->estado <= $this->rango_superior['limite']);
+			else
+				$ok = ($this->estado < $this->rango_superior['limite']);			
+		}
+		if ($ok || trim($this->estado)=="") {
+			$this->validacion = true;
+			return array(true, '');
+		} else {
+			$this->validacion = false;
+			return array(false, $this->mensaje_validacion_rango());
+		}
+	}
+
     function validar_estado()
 	//Validacion en el servidor. El campo es numerico?
 	{
 		$val_padre = parent::validar_estado();//Obligatorio nulo?
         if ($val_padre[0] &&  isset($this->estado)) {
 			if((is_numeric($this->estado))||(trim($this->estado)=="")) {//Numerico?
-				$this->validacion = true;
-				return array(true,"");
+				return $this->validar_rango();
 			} else {
 				$this->validacion = false;
                 return array(false,"El campo es numerico.");
@@ -282,6 +343,13 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		return $html;
 	}
 	
+	function parametros_js()
+	{
+		$inferior = "new Array('{$this->rango_inferior['limite']}', {$this->rango_inferior['incluido']})";
+		$superior = "new Array('{$this->rango_superior['limite']}', {$this->rango_superior['incluido']})";
+		return parent::parametros_js().", [$inferior, $superior], '{$this->mensaje_validacion_rango()}'";
+	}		
+	
 	function crear_objeto_js()
 	{
 		return "new ef_editable_numero({$this->parametros_js()})";
@@ -292,6 +360,9 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 
 class ef_editable_moneda extends ef_editable_numero
 {
+	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
+	protected $mensaje_defecto = ' debe ser un importe positivo.';
+	
 	function crear_objeto_js()
 	{
 		return "new ef_editable_moneda({$this->parametros_js()})";
@@ -304,6 +375,10 @@ class ef_editable_moneda extends ef_editable_numero
 
 class ef_editable_numero_porcentaje extends ef_editable_numero
 {
+	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
+	protected $rango_superior = array('limite' => '100', 'incluido' => 1);
+	protected $mensaje_defecto = ' debe estar entre 0% y 100%.';
+	
 	function ef_editable_numero_porcentaje($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if (! isset($parametros["cifras"]))
@@ -325,23 +400,6 @@ if( !( (formulario.". $this->id_form .".value >= 0) &&  (formulario.". $this->id
 }";
 		//Validacion del padre (numero)
 		return $javascript;
-    }
-	
-    function validar_estado()
-	//Validacion en el servidor. El campo es numerico?
-	{
-		$val_padre = parent::validar_estado();
-        if($val_padre[0] && $this->activado()){
-			if( ($this->estado >= 0) && ($this->estado <= 100) ){
-				$this->validacion = true;
-				return array(true,"");
-			}else{
-				$this->validacion = false;
-                return array(false,"El porcentaje esta fuera de rango.");
-			}
-		}else{
-			return $val_padre;
-		}
     }
 	
 	function obtener_input()

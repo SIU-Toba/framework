@@ -73,12 +73,14 @@ ef_editable_numero.prototype = new ef_editable;
 var def = ef_editable_numero.prototype;
 def.constructor = ef_editable_numero;
 
-	function ef_editable_numero(id_form, etiqueta, obligatorio, masc) {
+	function ef_editable_numero(id_form, etiqueta, obligatorio, masc, rango, mensaje) {
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
 		if (masc)
 			this._forma_mascara = (masc.trim().toLowerCase() != 'no') ? masc : null;
 		else
 			this._forma_mascara = '###.###,##';
+		this._rango = rango;					//[0] => inferior [1] => superior
+		this._mensaje = mensaje;				//Mensaje a mostrar cuando no se valida el número
 	}
 	
 	def.iniciar = function(id) { 
@@ -94,12 +96,29 @@ def.constructor = ef_editable_numero;
 		var valor = ef_editable.prototype.valor.call(this);
 		return (valor == '') ? '' : parseFloat(valor);
 	}
+
+	def.validar_rango = function() {
+		//this._rango[0-1][0] es limite [0-1][1] determina inclusive
+		var ok = true;
+		valor = this.valor();
+		if (typeof valor != 'number')
+			return true;
+		if (this._rango[0][0] != '*')
+			ok = (this._rango[0][1]) ? (valor >= this._rango[0][0]) : (valor > this._rango[0][0]);
+		if (ok && this._rango[1][0] != '*')
+			ok = (this._rango[1][1]) ? (valor <= this._rango[1][0]) : (valor < this._rango[1][0]);
+		return ok;
+	}	
 	
 	def.validar = function() {
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
 		if (isNaN(this.valor())) {
-			this._error = 'El campo ' + this._etiqueta + ' debe ser numérico.';
+			this._error = 'El campo ' + this._etiqueta + ' debe ser numerico.';
+		    return false;
+		}
+		if (!this.validar_rango()) {
+			this._error = 'El campo ' + this._etiqueta + this._mensaje;
 		    return false;
 		}
 		return true;
@@ -109,8 +128,8 @@ def.constructor = ef_editable_numero;
 //Clase ef_editable_moneda hereda de ef_editable_numero
 ef_editable_moneda.prototype = new ef_editable_numero();
 var def = ef_editable_moneda.prototype;
-	function ef_editable_moneda(id_form, etiqueta, obligatorio, masc)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_editable_moneda(id_form, etiqueta, obligatorio, masc, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, masc, rango, mensaje);
 		this._forma_mascara = (masc) ? masc : '$ ###.###,00';		
 	}
 
@@ -118,19 +137,8 @@ var def = ef_editable_moneda.prototype;
 //Clase ef_editable_porcentaje hereda de ef_editable_numero
 ef_editable_porcentaje.prototype = new ef_editable_numero();
 var def = ef_editable_porcentaje.prototype;
-	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, masc)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, masc);
-	}
-	
-	def.validar = function() {
-		if (! ef_editable_numero.prototype.validar.call(this))
-			return false;
-		var valor = this.valor();
-		if (valor != '' && (valor < 0 || valor > 100)) {
-			this._error = 'El campo ' + this._etiqueta + ' posee un porcentaje fuera de rango.';
-		    return false;
-		}
-		return true;
+	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, masc, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, masc, rango, mensaje);
 	}
 	
 	def.formato_texto = function(valor) {

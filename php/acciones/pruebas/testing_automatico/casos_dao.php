@@ -22,6 +22,7 @@ class casos_dao
 					'test_arbol_items' => array('nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
 					
 					//EF
+					'test_editable_numero' => array('nombre' => 'EF Editable Número', 'categoria' => 'ef'),
 					'test_multi_seleccion' => array('nombre' => 'EF Multi-selección', 'categoria' => 'ef')
 				);	
 		
