@@ -15,6 +15,7 @@ require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA
 require_once("nucleo/lib/logger.php");				//Logger
 require_once("nucleo/lib/mensaje.php");				//Modulo de mensajes parametrizables
 require_once("nucleo/lib/cola_mensajes.php");		//Cola de mensajes utilizada durante la EJECUCION
+require_once("nucleo/lib/asercion.php");       	   	//Aserciones
 require_once("nucleo/toba.php");					//Obtencion de referencias a los objetos CENTRALES
 require_once("instancias.php");                     //(NO SVN) Listado de INSTANCIAS...
 //require_once("configuracion.php");                  //(NO SVN) Configuracion de la instalacion

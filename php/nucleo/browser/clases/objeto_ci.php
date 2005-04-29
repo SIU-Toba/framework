@@ -186,7 +186,7 @@ class objeto_ci extends objeto
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
+			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'");
 			$this->dependencias[$dep]->disparar_obtencion_datos_cn();
 		}
 	}
@@ -210,6 +210,7 @@ class objeto_ci extends objeto
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
+			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'");
 			$this->dependencias[$dep]->disparar_entrega_datos_cn();
 		}
 	}
