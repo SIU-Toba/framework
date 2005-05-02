@@ -96,6 +96,11 @@ function toggle_nodo(o) {
 var mediciones = 
 {
 	res: new Array(),
+
+	limpiar : function() {
+		this.res = new Array();
+	},
+	
 	marcar: function(descripcion) {
 		mediciones.res.push([new Date(), descripcion]);
 	},

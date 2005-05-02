@@ -33,11 +33,18 @@
 	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/info",$parametros,true);
 	echo "&nbsp;</td>";
 
-
+	//-- Link al editor de estilos CSS
 	echo "<td  class='barra-0-edit' width='1'>";
 	$parametros = array('plantilla' => recurso::css());
 	echo "<a href='".$this->vinculador->generar_solicitud('toba','/admin/objetos/editores/editor_estilos', $parametros)."' target='".apex_frame_lista."'>".
 	recurso::imagen_apl("css.gif",true,null,null,"Editar los estilos del ítem.")."</a>";
+	echo "&nbsp;</td>";
+
+	//-- Link a la consola JS
+	echo "<td  class='barra-0-edit' width='1'>";	
+	$direccion = recurso::path_apl()."/js/utilidades/consola.htm";
+	echo "<a href='#' onclick=\"solicitar_item_popup('$direccion', 500, 300, 'yes', 'yes');\">"; 
+	echo recurso::imagen_apl("solic_consola.gif",true,null,null,"Abre una consola JS asociada al ítem actual.")."</a>";
 	echo "&nbsp;</td>";
 	
 	//- 3 - Boton que dispara la cronometracion

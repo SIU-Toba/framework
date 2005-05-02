@@ -26,7 +26,6 @@ agregar_elemento: function (elemento) {
 },
 
 pageload: function (aEvent){
-	mediciones.marcar('Inicio ResizeTA');
 	resizeTa.doc = document;
 	resizeTa.TA = document.getElementsByTagName('TEXTAREA');
     resizeTa.TAlength = resizeTa.TA.length;
@@ -42,9 +41,7 @@ pageload: function (aEvent){
 	           resizeTa.newdiv('10','10','gripX_',i,'se');
 			}
 		}
-		mediciones.marcar('Flechas cargadas');		
         resizeTa.newdiv('0','0','showCursor','','w');
-		mediciones.marcar('Cursor cargado');
         CursorDiv = resizeTa.doc.getElementById('showCursor');
 		CursorDiv.mousedown = '';
         CursorDiv.style.left = '0px';
@@ -52,22 +49,16 @@ pageload: function (aEvent){
         resizeTa.posdivs();
 		window.resize = resizeTa.posdivs;
 	}
-	mediciones.marcar('Fin ResizeTA');	
-	logger(mediciones.resultados());
 },
 
 newdiv: function (w,h,id,nr,cu){
-	mediciones.marcar('Crear DIV');		
-	if (ie) {	//ATENCION: CAMBIAR!!
-		var grip = document.createElement("<div id='" + id+nr + "' style='position:absolute;width:"+w+"px;height:"+h+"px;cursor:"+cu+"-resize' onmousedown='return resizeTa.activate()'></div>");	
-	}
-	else {		
-	    var grip = resizeTa.doc.createElement("div");
-		grip.setAttribute("ID", id+nr);
-		grip.id = id+nr;
-		grip.setAttribute("STYLE", "position:absolute;width:"+w+"px;height:"+h+"px;cursor:"+cu+"-resize");
-		grip.onmousedown = resizeTa.activate;
-    }
+    var grip = resizeTa.doc.createElement("div");
+	grip.id = id+nr;
+	grip.style.position = 'absolute';
+	grip.style.width = w+"px";
+	grip.style.height = h+"px";
+	grip.style.cursor = cu+"-resize";
+	grip.onmousedown = resizeTa.activate;
 	resizeTa.rootElem.appendChild(grip);
 },
 

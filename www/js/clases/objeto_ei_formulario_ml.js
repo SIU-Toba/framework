@@ -320,10 +320,10 @@ def.constructor = objeto_ei_formulario_ml;
 			}
 		}		
 	}
-
+	
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 
-if (! ie) {
+if (self.Node && ! self.Node.prototype.swapNode) {
 	Node.prototype.swapNode = function (node) {
 		var nextSibling = this.nextSibling;
 		var parentNode = this.parentNode;
@@ -333,7 +333,7 @@ if (! ie) {
 }
 
 function intercambiar_nodos(nodo1, nodo2) {
-	if (ie) {
+	if (ie) {	//BUG del IE para mantener el estado de los checkbox
 		var intercambio_vals = new Array();
 		var inputs = document.getElementsByTagName('input');
 		for (var i=0; i < inputs.length; i++) {
