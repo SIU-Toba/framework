@@ -57,7 +57,12 @@ class objeto_ei_formulario extends objeto
 		$this->memoria["eventos"] = array();
 		if(isset($this->eventos)){
 			foreach($this->eventos as $id => $evento ){
-				$this->memoria["eventos"][$id] = $evento['validar'];
+				if(isset($evento['validar'])){
+					$val = $evento['validar'];
+				}else{
+					$val = "true";	
+				}
+				$this->memoria["eventos"][$id] = $val;
 			}
 		}
 		//ei_arbol($this->memoria);

@@ -33,7 +33,7 @@
 		{
 			//--[ 1 ]-- Recupero datos ACTUALES del OBJETO
 
-			//Para la CABECERA
+			//Para la CABECERA del OBJETO
 			$temp = obtener_select_tabla("toba","apex_objeto");
 			if( $temp[0] ){
 				//SQL que dumpea a la CABECERA de OBJETOS
@@ -49,6 +49,23 @@
 					echo ei_mensaje("CLONAR OBJETO: Error al recuperar la informacion del objeto  -- SQL: {$sql_base}");
 				}
 				$datos_base[0] = current($rs->getArray());
+
+				//---- PARA las dependencias del objeto				
+
+				$deps = obtener_select_tabla("toba","apex_objeto_dependencias");
+				$where_deps[] = "( objeto_consumidor = '". $this->zona->editable_info["objeto"]. "')";
+				$where_deps[] = "( proyecto = '". $this->zona->editable_info["proyecto"]. "')";
+				$sql_deps = sql_agregar_clausulas_where($deps[1], $where_deps);
+				//echo $sql_deps;
+				$rs = $db["instancia"][apex_db_con]->Execute($sql_deps);
+				if(!$rs){
+					monitor::evento("bug","CLONAR OBJETO: No se genero el recordset. ". $db["instancia"][apex_db_con]->ErrorMsg()." -- SQL: {$sql_deps} -- ");
+				}
+				if($rs->EOF){
+					echo ei_mensaje("CLONAR OBJETO: Error al recuperar la informacion del objeto  -- SQL: {$sql_deps}");
+				}
+				$datos_deps = $rs->getArray();
+				//----------------------------------
 				
 				//echo ei_mensaje($sql_base, "SQL BASE");
 				//ei_arbol( $datos_base, "DATOS BASE" );
@@ -76,7 +93,11 @@
 					}
 				}
 				//ei_arbol( $sql_especifico, "SQL especificos" );
+
+				//ei_arbol($datos_deps);
 				//ei_arbol( $datos_especificos, "DATOS especificos" );
+
+	//----------------------- Levantar datos VIEJOS -------------------------------
 	
 				//--[ 2 ]-- Recuperar NUEVO ID de la secuencia de OBJETOS
 	
@@ -95,6 +116,11 @@
 				$datos_base[0]["objeto"] = $clon;
 				$datos_base[0]["creacion"] = null; //QUe use el DEFAULT de la base
 				$datos_base[0]["nombre"] = "* COPIA de " . $datos_base[0]["nombre"];
+
+				//Modificar los valores de las dependencias
+				foreach( array_keys($datos_deps) as $dep ){
+					$datos_deps[$dep]["objeto_consumidor"] = $clon;
+				}
 
 				//Tablas ESPECIFICAS
 				foreach(array_keys($datos_especificos) as $tabla)
@@ -123,6 +149,13 @@
 						$sql_inserts[] = sql_array_a_insert($tabla, $datos_especificos[$tabla][$registro]);
 					}
 				}
+				//Tabla de DEPENDENCIAS
+				foreach( array_keys($datos_deps) as $dep ){
+					$sql_inserts[] = sql_array_a_insert("apex_objeto_dependencias", $datos_deps[$dep] );
+				}
+
+				//ei_arbol($sql_inserts);
+				
 				//--[ 5 ]-- Ejecutar TRANSACCION			
 
 				$estado = ejecutar_transaccion( $sql_inserts );

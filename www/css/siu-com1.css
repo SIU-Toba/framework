@@ -1,30 +1,26 @@
-CODE{
+CODE {
 	FONT-SIZE: 11px;
-	BACKGROUND-COLOR: #ffffff;
+	 BACKGROUND-COLOR: #ffffff
 }
-
-.php
-{
+.php {
 	PADDING-RIGHT: 5px;
-	PADDING-LEFT: 5px;
-	PADDING-BOTTOM: 5px;
-	PADDING-TOP: 5px;
-	FONT-SIZE: 10px;
-	BACKGROUND-COLOR: #ffffff;
-	TEXT-ALIGN: left;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 5px;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 .txt-info {
 	PADDING-RIGHT: 5px;
-	PADDING-LEFT: 5px;
-	PADDING-BOTTOM: 5px;
-	PADDING-TOP: 5px;
-	FONT-SIZE: 11px;
-	COLOR: #222222;
-	BACKGROUND-COLOR: #ffffff;
-	TEXT-ALIGN: left;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #222222;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 TD.arbol-titulo {
 	BORDER-RIGHT: #231f20 1px solid;
 	 PADDING-RIGHT: 4px;
@@ -300,7 +296,6 @@ TD.barra-item-link2 {
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 TEXT-ALIGN: right
 }
-
 BODY {
 	FONT-SIZE: 10px;
 	 FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
@@ -874,7 +869,7 @@ TD.abm-fila-ml {
 	 MARGIN: 0px;
 	 COLOR: #ffffff;
 	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #d4d0c8;
+	 BACKGROUND-COLOR: #d4d0c8
 }
 TD.abm-fila-ml-selec {
 	PADDING-RIGHT: 3px;
@@ -1598,13 +1593,13 @@ TD.objeto-ci-barra-superior {
 	 TEXT-ALIGN: left
 }
 TD.ci-cuerpo {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
 	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 10px;
+	 PADDING-BOTTOM: 2px;
 	 VERTICAL-ALIGN: top;
 	 COLOR: #f0f1ff;
-	 PADDING-TOP: 10px;
+	 PADDING-TOP: 2px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
@@ -2241,13 +2236,13 @@ TD.tabs-solapa-sel {
 }
 .tabs-contenedor {
 	BORDER-RIGHT: #808080 2px solid;
-	 PADDING-RIGHT: 7px;
-	 PADDING-LEFT: 7px;
-	 PADDING-BOTTOM: 10px;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 6px;
+	 PADDING-BOTTOM: 6px;
 	 MARGIN: 0px;
 	 VERTICAL-ALIGN: top;
 	 BORDER-LEFT: #ffffff 2px solid;
-	 PADDING-TOP: 10px;
+	 PADDING-TOP: 6px;
 	 BORDER-BOTTOM: #808080 2px solid;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
