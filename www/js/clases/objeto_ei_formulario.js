@@ -1,16 +1,16 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_formulario 
-function objeto_ei_formulario(instancia, ci, rango_tabs, input_submit, evento_defecto) {
+function objeto_ei_formulario(instancia, ci, rango_tabs, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._ci = ci;								//Referencia al CI contenedor
 	this._rango_tabs = rango_tabs;
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
-	this._evento_defecto = evento_defecto;		//Evento por defecto del submit
 	
 	this._efs = new Array();					//Lista de objeto_ef contenidos
 	this._efs_procesar = new Array();			//ID de los ef's que poseen procesamiento
-	this._evento = this._evento_defecto;
 	this._silencioso = false;					//¿Mostrar confirmaciones y alertas?
+
+	this.reset_evento();
 }
 
 var def = objeto_ei_formulario.prototype;
@@ -41,20 +41,47 @@ def.constructor = objeto_ei_formulario;
 		//Si no es parte de un submit general, dispararlo
 		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
-		
-		var evento_actual = this._evento;
-		this._evento = this._evento_defecto;
-		switch (evento_actual) {
-			case 'E':
-				return this.evento_eliminar(); break;
-			case 'A':			
-				return this.evento_agregar(); break;
-			case 'M':
-				return this.evento_modificar(); break;
-			case 'L':
-				return this.evento_limpiar(); break;
-			default:
-				return this.evento_ninguno();
+		/*
+			SEBA (borrar):
+			Esto seria una forma estandar para todos los eventos
+			La idea es que a este componente solo le importa si hay que validar, 
+			confirmar o llamar a una ventana de control y no el "sentido" del mismo,
+			que cobra valor mas arriba.
+		*/
+		if(this._evento_id != "") //Si hay un evento seteado...
+		{
+			//- 1 - Hay que confirmar la ejecucion del evento?
+			//La confirmacion se solicita escribiendo el texto de la misma
+			if(this._evento_confirmar != "") {
+				//this._silencioso ??
+				if (!(confirm(this._evento_confirmar))){
+					this.reset_evento();
+					return false;
+				}
+			}
+			//- 2 - Hay que llamar a una ventana de control especifica para este evento?
+			if(this.existe_funcion("evt__" + this._evento_id)){
+				if(! ( this["evt__" + this._evento_id]() ) ){
+					this.reset_evento();
+					return false;
+				}
+			}
+			//- 3 - Hay que realizar las validaciones?
+			if(this._evento_validar) {
+				if( this.validar() ){
+					this.submit_efs();
+				}else{
+					this.reset_evento();
+					return false;	
+				}
+			}
+			//- 4 - El EVENTO se proceso correctamente!
+			//Marco la ejecucion del evento para que la clase PHP lo reconozca
+			//alert('SE disparo el evento: ' + this._evento_id );
+			document.getElementById(this._input_submit).value = this._evento_id;
+			return true;
+		}else{
+			return true;
 		}
 	}
 	
@@ -115,42 +142,27 @@ def.constructor = objeto_ei_formulario;
 		return false;
 	}	
 
-	
+	def.existe_funcion = function(f) {
+		for (funcion in this) {
+			if (funcion == f && typeof(this[funcion])=="function")
+				return true;
+		}		
+		return false;
+	}
+
 	//---Eventos	
-	def.set_evento = function(evento, huella) {
-		this._evento = evento;
-		document.getElementById(this._input_submit).value = huella;		//Deja la huella del evento
+	def.set_evento = function(evento, validar, confirmar) {
+		this._evento_id = evento;
+		this._evento_validar = validar;
+		this._evento_confirmar = confirmar;
 	}
 	
-	def.evento_agregar = function() {
-		return this.evento_modificar();	
+	def.reset_evento = function() {
+		this._evento_id = "";
+		this._evento_validar = false;
+		this._evento_confirmar = "";
 	}
 
-	def.evento_modificar = function() {
-		if (this.validar()) {
-			this.submit_efs();
-			return true;
-		} else {
-			return false
-		}
-	}
-	
-	def.evento_eliminar = function() {
-		if (this._silencioso || confirm('¿Desea ELIMINAR el registro?'))
-			return true;
-		else
-			return false;
-	}
-
-	def.evento_limpiar = function() {
-		return true;
-	}
-	
-	def.evento_ninguno = function() {
-		document.getElementById(this._input_submit).value = '';	//Borra la huella del evento anterior 	
-		return true;
-	}
-		
 	//---Refresco Grafico
 	def.refrescar_todo = function () {
 		this.refrescar_procesamientos();

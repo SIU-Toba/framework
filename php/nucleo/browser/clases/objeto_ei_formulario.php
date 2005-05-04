@@ -29,6 +29,7 @@ class objeto_ei_formulario extends objeto
 	protected $rango_tabs;				//Rango de números disponibles para asignar al taborder
 	protected $objeto_js;	
 
+	protected $eventos;
 	protected $observadores;
 	protected $id_en_padre;
 
@@ -49,6 +50,20 @@ class objeto_ei_formulario extends objeto
 		$this->objeto_js = "objeto_{$id[1]}";		
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);		
 	}
+	//-------------------------------------------------------------------------------
+
+	function destruir()
+	{
+		$this->memoria["eventos"] = array();
+		if(isset($this->eventos)){
+			foreach($this->eventos as $id => $evento ){
+				$this->memoria["eventos"][$id] = $evento['validar'];
+			}
+		}
+		//ei_arbol($this->memoria);
+		parent::destruir();
+	}
+
 	//-------------------------------------------------------------------------------
 
 	function obtener_definicion_db()
@@ -173,40 +188,6 @@ class objeto_ei_formulario extends objeto
 
 	function inicializar_especifico()
 	{
-		//---------- Nombre de botones ---------------------
-		//Agregar
-		if($this->info_formulario['ev_agregar_etiq']){
-			$this->submit_agregar = $this->info_formulario['ev_agregar_etiq'];
-		}else{
-			$this->submit_agregar = "&Agregar";
-		}
-		//Modificar
-		if($this->info_formulario['ev_mod_modificar_etiq']){
-			$this->submit_modificar = $this->info_formulario['ev_mod_modificar_etiq'];
-		}else{
-			$this->submit_modificar = "&Modificar";
-		}
-		//Eliminar
-		if($this->info_formulario['ev_mod_eliminar_etiq']){
-			$this->submit_eliminar = $this->info_formulario['ev_mod_eliminar_etiq'];
-		}else{
-			$this->submit_eliminar = "&Eliminar";
-		}
-		//Limpiar
-		if($this->info_formulario['ev_mod_limpiar_etiq']){
-			$this->submit_limpiar = $this->info_formulario['ev_mod_limpiar_etiq'];
-		}else{
-			$this->submit_limpiar = "&Limpiar";
-		}
-
-		//Defino del modo de manejo de EVENTOS
-		//Opciones: 1) Trabaja con un listado (ML), recibe eventos precisos: MULTI
-		//				2) Trabaja solo, envia eventos de modificacion siempre: OMNI
-		if($this->info_formulario['ev_agregar']){
-			$this->modelo_eventos = "multi";
-		}else{
-			$this->modelo_eventos = "omni";
-		}
 	}
 
 	//-------------------------------------------------------------------------------
@@ -296,23 +277,7 @@ class objeto_ei_formulario extends objeto
 
 	function eliminar_observador($observador){}
 
-	function disparar_eventos()
-	{
-		$this->recuperar_interaccion();
-		if( $evento = $this->obtener_evento() ){
-			if( ($evento=="alta") || ($evento=="modificacion")){
-				$this->validar_estado();
-				$parametros = $this->obtener_datos();
-			}else{
-				$parametros = null;
-			}
-			//Disparo el evento
-			$this->reportar_evento( $evento, $parametros );
-			$this->limpiar_interface();
-		}
-	}
-
-	private function reportar_evento($evento, $parametros=null)
+	protected function reportar_evento($evento, $parametros=null)
 	//Registro un evento en todos mis observadores
 	{
 		foreach(array_keys($this->observadores) as $id){
@@ -320,108 +285,37 @@ class objeto_ei_formulario extends objeto
 		}
 	}
 
-	function obtener_evento()
+	function disparar_eventos()
 	{
-		if($this->controlar_agregar())
-		{
-			return "alta";
-		}
-		if($this->controlar_eliminar())
-		{
-			unset($this->memoria['datos']);
-			return "baja";
-		}
-		if($this->controlar_limpiar())
-		{
-			unset($this->memoria['datos']);
-			return "limpiar";
-		}
-		if($this->controlar_modificacion())
-		{
-			unset($this->memoria['datos']);
-			return "modificacion";
-		}
-		return null;
-	}
-	//-------------------------------------------------------------------------------
-
-	function controlar_modificacion()
-	{
-		if($this->modelo_eventos=="multi")
-		{	
-			//----> MODO MULTI <------
-			//Se apreto el boton?
-			if(isset($_POST[$this->submit])){
-				if( $_POST[$this->submit]==$this->submit_modificar ){
-					 return true;
-				}
-			}
-			//SI la modificacion se mapea en forma estricta, salgo porque no se apreto el boton
-			if($this->evento_mod_estricto){
-				return false;	
-			}
-			//Se modificaron datos (y la navegacion se dio por otro boton??)
-			if(isset($this->memoria['datos'])){
-				if(is_array($this->memoria['datos'])){
-					$datos_actuales = $this->obtener_datos();
-					foreach($datos_actuales as $clave => $dato){
-						//ATENCION: Comportamiento erroneo EF
-						if(isset($this->memoria['datos'][$clave])){
-							if($this->memoria['datos'][$clave]=="NULL"){
-								$this->memoria['datos'][$clave] = null;	
-							}
-							if( $this->memoria['datos'][$clave] != $dato){
-								return true;
-							}
-						}else{
-							if(trim($dato)!="") return true;
-						}
-					}
-					//ei_arbol( $datos_actuales, "INTERFACE" );
-					//ei_arbol( $this->memoria["datos"], "MEMORIA" );
+		$this->recuperar_interaccion();
+		//Veo si se devolvio algun evento!
+		if($_POST[$this->submit]!=""){
+			$evento = $_POST[$this->submit];
+			//La opcion seleccionada estaba entre las ofrecidas?
+			if(isset($this->memoria['eventos'][$evento]) ){
+				//Me fijo si el evento requiere validacion
+				$validar = $this->memoria['eventos'][$evento];
+				if($validar == "true"){
+					$this->validar_estado();					
+					$parametros = $this->obtener_datos();
 				}else{
-					return false;
+					//ATENCION: Si no requiere validacion es porque tampoco maneja datos
+					$parametros = null;
 				}
+				//El evento es valido, lo reporto al contenedor
+				$this->reportar_evento( $evento, $parametros );
+				$this->limpiar_interface();
 			}
-			return false;
-		}else{
-			//----> MODO OMNI <-------
-			if(acceso_post()){
-				if( $this->existio_interface_previa() ){
-					return true;
-				}
-			}
-			return false;
 		}
-	}
-	//-------------------------------------------------------------------------------
-	
-	function controlar_agregar()
-	{
-		if(isset($_POST[$this->submit])){
-			return ( trim($_POST[$this->submit]) == trim($this->submit_agregar) );
-		}
-		return false;
-	}
-	//-------------------------------------------------------------------------------
-	
-	function controlar_eliminar()
-	{
-		if(isset($_POST[$this->submit])){
-			return ($_POST[$this->submit]==$this->submit_eliminar);
-		}
-		return false;
-	}
-	//-------------------------------------------------------------------------------
-	
-	function controlar_limpiar()
-	{
-		if(isset($_POST[$this->submit])){
-			return ($_POST[$this->submit]==$this->submit_limpiar);
-		}
-		return false;
 	}
 
+/*
+	if(acceso_post()){
+		if( $this->existio_interface_previa() ){
+			return true;
+		}
+	}
+*/
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//--------------------------------	PROCESOS  -----------------------------------
@@ -644,7 +538,7 @@ class objeto_ei_formulario extends objeto
 			//Memorizo que clave cargue de la base
 			//guardo los datos en la memoria
 			//para compararlos y saber si se modificaron
-			$this->memoria["datos"] = $datos;
+			//$this->memoria["datos"] = $datos;
 			$this->etapa = "modificar";
 			$this->procesar_dependencias();
 		}
@@ -712,41 +606,88 @@ class objeto_ei_formulario extends objeto
 
 	function obtener_botones()
 /*
- 	@@acceso: interno
-	@@desc: Genera los botones de ABM
+	Seba, la adaptacion con los objetos JS queda en tus manos...
 */
 	{
+		$this->eventos = $this->get_lista_eventos();
 		//----------- Generacion
+		echo form::hidden($this->submit, '');
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td align='right'>";
-		echo form::hidden($this->submit, '');
-		if($this->etapa=="agregar"){
-			if($this->info_formulario['ev_agregar']){
-				$acceso = tecla_acceso($this->submit_agregar);	
-				echo form::submit($this->submit."_agr" ,$acceso[0],"abm-input"," onclick='{$this->objeto_js}.set_evento(\"A\", \"{$this->submit_agregar}\")'", $acceso[1]);
-			}
-		}elseif($this->etapa=="modificar"){
-			if($this->info_formulario['ev_mod_eliminar']){
-				$acceso = tecla_acceso($this->submit_eliminar);
-				echo form::submit($this->submit."_eli",$acceso[0],"abm-input"," onclick='{$this->objeto_js}.set_evento(\"E\",\"{$this->submit_eliminar}\")'", $acceso[1]);
-			}
-			if($this->info_formulario['ev_mod_modificar']){
-				$acceso = tecla_acceso($this->submit_modificar);
-				echo form::submit($this->submit."_mod", $acceso[0],"abm-input", "onclick='{$this->objeto_js}.set_evento(\"M\",\"{$this->submit_modificar}\")'", $acceso[1]);
-			}
-			if($this->info_formulario['ev_mod_limpiar']){
-				$acceso = tecla_acceso($this->submit_limpiar);
-				echo form::submit($this->submit."_lim",$acceso[0],"abm-input", "onclick='{$this->objeto_js}.set_evento(\"L\",\"{$this->submit_limpiar}\")'", $acceso[1]);
-			}
-		}else{
-			echo "Atencion: la proxima etapa no se encuentra definida!";
+		foreach($this->eventos as $id => $evento )
+		{
+			$tip = '';
+			$clase = isset( $evento['estilo'] ) ? "{$evento['estilo']}" : "'ef_boton'";
+			$tab_order = 0;//Esto esta MAAL!!!
+			$acceso = tecla_acceso( $evento["etiqueta"] );
+			$html = $acceso[0]; //Falta concatenar la imagen
+			$tecla = $acceso[1];
+			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
+			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+			$js = "onclick=\"{$this->objeto_js}.set_evento('$id',$js_validar, $js_confirm )\"";
+			echo "&nbsp;" . form::button_html( $this->submit ."_". $id, $html, $js, $tab_order, $tecla, $tip, 'submit', '', $clase);
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
 	}
 	
+	function get_lista_eventos()
+	/*
+		Los eventos standard estan relacionados con el consumo del formulario en un ABM
+	*/
+	{
+		$evento = array();
+		if($this->etapa=="agregar")
+		//El formulario esta VACIO
+		{
+			if($this->info_formulario['ev_agregar']){
+				//Evento ALTA
+				if($this->info_formulario['ev_agregar_etiq']){
+					$evento['alta']['etiqueta'] = $this->info_formulario['ev_agregar_etiq'];
+				}else{
+					$evento['alta']['etiqueta'] = "&Agregar";
+				}
+				$evento['alta']['validar'] = "true";
+				$evento['alta']['estilo'] = "abm-input";
+			}
+		}elseif($this->etapa=="modificar")
+		//El formulario fue cargado con datos
+		{
+			if($this->info_formulario['ev_mod_eliminar']){
+				//Evento BAJA
+				if($this->info_formulario['ev_mod_eliminar_etiq']){
+					$evento['baja']['etiqueta'] = $this->info_formulario['ev_mod_eliminar_etiq'];
+				}else{
+					$evento['baja']['etiqueta'] = "&Eliminar";
+				}
+				$evento['baja']['confirmacion'] = "¿Desea ELIMINAR el registro?";
+				$evento['baja']['validar'] = "false";
+				$evento['baja']['estilo'] = "abm-input";
+			}
+			if($this->info_formulario['ev_mod_modificar']){
+				//Evento MODIFICACION
+				if($this->info_formulario['ev_mod_modificar_etiq']){
+					$evento['modificacion']['etiqueta'] = $this->info_formulario['ev_mod_modificar_etiq'];
+				}else{
+					$evento['modificacion']['etiqueta'] = "&Modificar";
+				}
+				$evento['modificacion']['validar'] = "true";
+				$evento['modificacion']['estilo'] = "abm-input";
+			}
+			if($this->info_formulario['ev_mod_limpiar']){
+				//Evento LIMPIAR
+				if($this->info_formulario['ev_mod_limpiar_etiq']){
+					$evento['limpiar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
+				}else{
+					$evento['limpiar']['etiqueta'] = "&Limpiar";
+				}
+				$evento['limpiar']['validar'] = "false";
+				$evento['limpiar']['estilo'] = "abm-input";
+			}
+		}
+		return $evento;
+	}
 	
-
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -763,8 +704,7 @@ class objeto_ei_formulario extends objeto
 	function crear_objeto_js()
 	{
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$evento_def = ($this->modelo_eventos == 'multi') ? "" : "M";	//Si no hay eventos definidos, siempre es modificación
-		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', null, $rango_tabs, '{$this->submit}', '$evento_def');\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', null, $rango_tabs, '{$this->submit}');\n";
 		foreach ($this->lista_ef_post as $ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
@@ -777,6 +717,13 @@ class objeto_ei_formulario extends objeto
 	function iniciar_objeto_js()
 	{
 		echo "{$this->objeto_js}.iniciar();\n";	
+		//-- EVENTO por DEFECTO --
+		//Si no hay eventos, el componente debe disparar el evento modificacion
+		if(count($this->eventos) == 0){
+			echo "{$this->objeto_js}.set_evento(\"modificacion\", true, \"\" )";
+			//Para que en la proxima vuelta el evento sea reconocido...
+			$this->eventos['modificacion']['validar'] = "true";
+		}
 	}
 
  	//-------------------------------------------------------------------------------
@@ -794,7 +741,6 @@ class objeto_ei_formulario extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	
 	function obtener_javascript()
 /*
 	@@acceso: interno

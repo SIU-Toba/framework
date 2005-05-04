@@ -114,6 +114,22 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function disparar_eventos()
+	{
+		$this->recuperar_interaccion();
+		if( $evento = $this->obtener_evento() ){
+			if( ($evento=="modificacion") ){
+				$this->validar_estado();
+				$parametros = $this->obtener_datos();
+			}else{
+				$parametros = null;
+			}
+			//Disparo el evento
+			$this->reportar_evento( $evento, $parametros );
+			$this->limpiar_interface();
+		}
+	}
+
 	function obtener_evento()
 	//ATENCION: esto hay que pensarlo. Que eventos se necesitan??
 	// Como es la interaccion de un ML con un buffer?
