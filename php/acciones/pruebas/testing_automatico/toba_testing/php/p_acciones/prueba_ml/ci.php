@@ -7,6 +7,7 @@ class ci extends objeto_ci_me_tab
 	protected $datos_formulario;
 	protected $datos_formulario_abm = array();	
 	protected $registro_actual;
+	protected $datos_filtro;
 
     function __construct($id) 
     { 
@@ -20,6 +21,7 @@ class ci extends objeto_ci_me_tab
         $propiedades[] = "datos_formulario";
         $propiedades[] = "datos_formulario_abm";
         $propiedades[] = "registro_actual";		
+        $propiedades[] = "datos_filtro";
         return $propiedades; 
     } 	
 
@@ -119,13 +121,45 @@ class ci extends objeto_ci_me_tab
 	//------------------------------------
 	function evt__cuadro_abm__carga()
 	{
-		return array_values($this->datos_formulario_abm);
+		//Filtra los elementos
+		$candidatos = array_values($this->datos_formulario_abm);
+		if (! isset($this->datos_filtro['editable'])) {
+			return $candidatos;
+		}
+		$cuadro = array();
+		foreach ($candidatos as $i => $candidato) {
+			if (stripos($candidato['editable'], $this->datos_filtro['editable']) !== false) {	//Esta filtrado
+				$cuadro[] = $candidato;
+			}
+		}
+		return $cuadro;
 	}
 
 	function evt__cuadro_abm__seleccion($seleccion)
 	{
 		$this->registro_actual = $seleccion;
 	}
+
+	//------------------------------------
+	//		FILTRO en ABM
+	//------------------------------------
+	function evt__filtro_abm__carga()
+	{
+		if (isset($this->datos_filtro))
+			return $this->datos_filtro;
+		else
+			return array();
+	}
+	
+	function evt__filtro_abm__filtrar($datos)
+	{
+		$this->datos_filtro = $datos;
+	}
+	
+	function evt__filtro_abm__limpiar()
+	{
+		unset($this->datos_filtro);
+	}	
 
 	//------------------------------------
 	//		PROCESO

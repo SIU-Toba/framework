@@ -3,6 +3,22 @@ require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 
 class cuadro extends objeto_ei_cuadro
 {
+    function obtener_clave_pura_fila($fila)
+	//Genero la CLAVE
+    {
+        $id_fila = "";
+        foreach($this->columnas_clave as $clave){
+            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+        }
+        $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
+		if(apex_pa_encriptar_qs)
+		{
+			$encriptador = toba::get_encriptador();
+			//ATENCION: me faltaria ponerle un uniqid("") para que sea mas robusto;
+			$id_fila = $encriptador->cifrar($id_fila);
+		}
+        return $id_fila;
+    }
 
     function obtener_html($mostrar_cabecera=true, $titulo=null)
     //Genera el HTML del cuadro
@@ -142,7 +158,7 @@ class cuadro extends objeto_ei_cuadro
 				if($this->ev_seleccion){
 					echo "<td class='lista-col-titulo'>\n";
 					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"), 
-									"onClick='seleccionar(\"$clave_fila\", \"{$this->datos[$f]['descripcion']}\")';");
+									"onClick='seleccionar(\"{$this->datos[$f]['id']}\", \"{$this->datos[$f]['descripcion']}\")';");
 	            	echo "</td>\n";
 	            }
 				//----------------------------

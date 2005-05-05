@@ -43,8 +43,8 @@
 	//-- Link a la consola JS
 	echo "<td  class='barra-0-edit' width='1'>";	
 	$direccion = recurso::path_apl()."/js/utilidades/consola.htm";
-	echo "<a href='#' onclick=\"solicitar_item_popup('$direccion', 500, 300, 'yes', 'yes');\">"; 
-	echo recurso::imagen_apl("solic_consola.gif",true,null,null,"Abre una consola JS asociada al ítem actual.")."</a>";
+	echo "<a href='#' accesskey='/' onclick=\"solicitar_item_popup('$direccion', 500, 300, 'yes', 'yes');\">"; 
+	echo recurso::imagen_apl("solic_consola.gif",true,null,null,"Abre una consola JS asociada al ítem actual [ALT /].")."</a>";
 	echo "&nbsp;</td>";
 	
 	//- 3 - Boton que dispara la cronometracion
