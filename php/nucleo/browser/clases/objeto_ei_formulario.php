@@ -48,7 +48,7 @@ class objeto_ei_formulario extends objeto
 		$this->js_eliminar = "eliminar_ei_{$this->id[1]}";
 		$this->js_agregar = "agregar_ei_{$this->id[1]}";
 		$this->evento_mod_estricto = true;
-		$this->objeto_js = "objeto_{$id[1]}";		
+		$this->objeto_js = "objeto_form_{$id[1]}";
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);		
 	}
 	//-------------------------------------------------------------------------------
@@ -570,7 +570,7 @@ class objeto_ei_formulario extends objeto
 			foreach ($this->lista_ef_ocultos as $ef) {
 				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
 			}
-			echo "<table class='objeto-base'>";
+			echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";
@@ -578,10 +578,6 @@ class objeto_ei_formulario extends objeto
 			$this->generar_formulario();	
 			echo "</td></tr>\n";
 			echo "</table>\n";
-			//Funciones que necesita este form
-			echo "\n<!-- ------------ Funciones JAVASCRIPT (". $this->id[1] .")	--------------	-->\n\n";
-			$this->obtener_funciones_javascript();	
-			echo "\n<!-- ****************** Fin EI FORMULARIO (". $this->id[1] .") ******************** -->\n\n";
 			$this->flag_out = true;
 		}
 	}
@@ -628,9 +624,9 @@ class objeto_ei_formulario extends objeto
 			$acceso = tecla_acceso( $evento["etiqueta"] );
 			$html = $acceso[0]; //Falta concatenar la imagen
 			$tecla = $acceso[1];
-			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
 			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-			$js = "onclick=\"{$this->objeto_js}.set_evento('$id',$js_validar, $js_confirm )\"";
+			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
+			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('$id',$js_validar, $js_confirm))\"";
 			echo "&nbsp;" . form::button_html( $this->submit ."_". $id, $html, $js, $tab_order, $tecla, $tip, 'submit', '', $clase);
 		}
 		echo "</td></tr>\n";
@@ -707,22 +703,15 @@ class objeto_ei_formulario extends objeto
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_funciones_javascript()
-	{
-		echo js::abrir();
-		$this->crear_objeto_js();
-		$this->extender_objeto_js();
-		$this->iniciar_objeto_js();		
-		echo js::cerrar();
-	}	
-	
 	function crear_objeto_js()
 	{
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', null, $rango_tabs, '{$this->submit}');\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
 		foreach ($this->lista_ef_post as $ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
+		//Se agrega al objeto al singleton toba
+		echo "toba.agregar_objeto({$this->objeto_js});\n";
 	}
 	
 	function extender_objeto_js()
@@ -731,14 +720,14 @@ class objeto_ei_formulario extends objeto
 	
 	function iniciar_objeto_js()
 	{
-		echo "{$this->objeto_js}.iniciar();\n";	
 		//-- EVENTO por DEFECTO --
 		//Si no hay eventos, el componente debe disparar el evento modificacion
 		if(count($this->eventos) == 0){
-			echo "{$this->objeto_js}.set_evento(\"modificacion\", true, \"\" )";
+			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
 			//Para que en la proxima vuelta el evento sea reconocido...
 			$this->eventos['modificacion']['validar'] = "true";
 		}
+		echo "{$this->objeto_js}.iniciar();\n";	
 	}
 
  	//-------------------------------------------------------------------------------
@@ -758,11 +747,15 @@ class objeto_ei_formulario extends objeto
 
 	function obtener_javascript()
 /*
-	@@acceso: interno
-	@@desc: devuelve JAVASCRIPT que se ejecuta en el onSUBMIT del FORMULARIO
+	@@acceso: Actividad
+	@@desc: Construye la clase javascript asociada al objeto
 */
 	{
-		echo "\nif (! {$this->objeto_js}.submit()) return false;";
+		echo "\n\n//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		$this->crear_objeto_js();
+		$this->extender_objeto_js();
+		$this->iniciar_objeto_js();
+		return $this->objeto_js;
 	}	
 }
 ?>

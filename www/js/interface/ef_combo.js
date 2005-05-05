@@ -35,7 +35,7 @@ def.constructor = ef_combo;
 	def.validar = function () {
 		var valor = this.valor();
 		if (this._obligatorio && (valor == apex_ef_no_seteado || valor == '')) {
-			this._error = 'El campo ' + this.etiqueta + ' es obligatorio.';
+			this._error = 'El campo ' + this._etiqueta + ' es obligatorio.';
 		    return false;
 		}
 		return true;

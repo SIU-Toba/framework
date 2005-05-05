@@ -33,12 +33,13 @@ def.constructor = ef_popup;
 			this.vinculo().tabIndex = tab_index;
 	}	
 	
+	def.valor_formateado = function() {
+		return document.getElementById(this._id_form + '_desc').value;
+	}
 	
 	def.vinculo = function () {
 		return document.getElementById(this._id_form + '_vinculo');		
 	}
-
-	//ATENCION: Redefinir cuando_cambia_valor (disparar_callback)
 
 //--------------------------------------------------------------------------------
 //Funciones varias
@@ -71,6 +72,7 @@ function popup_abrir_item(url, indice, elemento_cod, elemento_desc, parametros_v
 			popup_hija = window.open( url , 'popup_hija', vars);
 		}
 	}
+	return popup_hija;
 }
 
 function popup_callback(indice, clave, desc)

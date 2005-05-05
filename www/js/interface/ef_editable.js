@@ -195,7 +195,11 @@ var def = ef_editable_fecha.prototype;
 	def.validar = function() {
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
-		var valida = validar_fecha(this.valor(), false);
+		try {
+			var valida = validar_fecha(this.valor(), false);
+		} catch (e) {
+			valida = "No es una fecha válida";
+		}
 		if (valida != true) {
 			this._error = valida;
 		    return false;

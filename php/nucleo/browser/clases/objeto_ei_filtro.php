@@ -15,92 +15,36 @@ require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
 
 class objeto_ei_filtro extends objeto_ei_formulario
 {
-	protected $oculto;
-	
-	function __construct($id)
-	{
-		parent::__construct($id);
-		$this->oculto = "filtro_" . $this->id[1];
-	}
 
-	function disparar_eventos()
+	function get_lista_eventos()
 	{
-		$this->recuperar_interaccion();
-		if( $evento = $this->obtener_evento() ){
-			foreach(array_keys($this->observadores) as $id){
-				if( ($evento=="filtrar") ){
-					$this->validar_estado();
-					$parametros = $this->obtener_datos();
-				}else{
-					$parametros = null;
-				}
-				//Disparo el evento
-				$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
-			}
-			$this->limpiar_interface();
-		}
-	}
-
-	function inicializar_especifico()
-	{
+		$evento = array();
 		//Filtrar
-		if($this->info_formulario['ev_agregar_etiq']){
-			$this->submit_filtrar = $this->info_formulario['ev_agregar_etiq'];
-		}else{
-			$this->submit_filtrar = "Filtrar";
+		if($this->info_formulario['ev_agregar']){
+			//Evento ALTA
+			if($this->info_formulario['ev_agregar_etiq']){
+				$evento['filtrar']['etiqueta'] = $this->info_formulario['ev_agregar_etiq'];
+			}else{
+				$evento['filtrar']['etiqueta'] = "&Filtrar";
+			}
+			$evento['filtrar']['validar'] = "true";
+			$evento['filtrar']['estilo'] = "abm-input-eliminar";
 		}
 		//Limpiar
-		if($this->info_formulario['ev_mod_limpiar_etiq']){
-			$this->submit_limpiar = $this->info_formulario['ev_mod_limpiar_etiq'];
-		}else{
-			$this->submit_limpiar = "Limpiar";
-		}
-	}
-	
-	function obtener_evento()
-	{
-		//Se presiono el boton FILTRAR?
-		if(isset($_POST[$this->submit])){
-			if( trim($_POST[$this->submit]) == trim($this->submit_filtrar) ){
-				return "filtrar";	
+		if($this->info_formulario['ev_mod_limpiar']){
+			//Evento LIMPIAR
+			if($this->info_formulario['ev_mod_limpiar_etiq']){
+				$evento['limpiar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
+			}else{
+				$evento['limpiar']['etiqueta'] = "&Limpiar";
 			}
+			$evento['limpiar']['validar'] = "false";
+			$evento['limpiar']['estilo'] = "abm-input-eliminar";
 		}
-		//Se presiono el boton LIMPIAR?
-		if(isset($_POST[$this->submit])){
-			if( trim($_POST[$this->submit]) == trim($this->submit_limpiar) ){
-				return "limpiar";	
-			}
-		}
-		//Se activo el filtrado por JAVASCRIPT?
-		if(isset($_POST[$this->oculto])){
-			if( trim($_POST[$this->oculto]) == "ok" ){
-				return "filtrar";	
-			}
-		}
-		return null;
-	}
-
-	function obtener_botones()
-	{
-		//----------- Generacion
-		echo "<table class='tabla-0' align='center' width='100%'>\n";
-		echo "<tr><td align='right'>";
-		if($this->etapa=="modificar"){
-			if($this->info_formulario['ev_mod_limpiar']){
-				echo form::submit($this->submit,$this->submit_limpiar,"abm-input");
-			}
-		}
-		if($this->info_formulario['ev_agregar']){
-			echo form::submit($this->submit,$this->submit_filtrar,"abm-input-eliminar");
-		}
-		echo "</td></tr>\n";
-		echo "</table>\n";
+		return $evento;
 	}
 
 	function generar_formulario()
-/*
-	Esto lo tengo que redefinir porque
-*/
 	{
 		//Genero	la	interface
 		if($this->estado_proceso!="INFRACCION")
@@ -116,41 +60,23 @@ class objeto_ei_filtro extends objeto_ei_formulario
 				echo "</td></tr>\n";
 			}
 			echo "<tr><td class='ei-base'>\n";
-			echo form::hidden($this->oculto,"");
 			$this->obtener_botones();
 			echo "</td></tr>\n";
 			echo "</table>\n";
-			echo "\n<!-- ------------ Funciones JAVASCRIPT (". $this->id[1] .")	--------------	-->\n\n";
 		}
 	}
-
-	function obtener_funciones_javascript()
-	//Funcion de validacion de los EFs
+	
+	function iniciar_objeto_js()
 	{
-		echo "<script>\n";
-		echo "//-------- Validacion del ei_formulario --------\n";
-		echo "\nfunction validacion_ei_form_{$this->id[1]}(formulario) {\n";
-		//Si no existe evento agregar, lo tengo que chequear siempre
-		echo "//-------- Validacion especifica EF --------\n";
-		foreach ($this->lista_ef_post	as	$ef){
-			echo $this->elemento_formulario[$ef]->obtener_javascript();
+		//-- EVENTO por DEFECTO: FILTRAR--
+		//Si no hay eventos, el componente debe disparar el evento filtrar
+		if(count($this->eventos) == 0){
+			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('filtrar', true, ''));\n";
+			//Para que en la proxima vuelta el evento sea reconocido...
+			$this->eventos['filtrar']['validar'] = "true";
 		}
-		echo "\nreturn true;\n\n}\n";
-		echo "	
-			function submit_filtro(form)
-			{
-				form.{$this->oculto}.value='ok';
-				form.submit();
-			}";
-		echo "</script>\n";
+		echo "{$this->objeto_js}.iniciar();\n";	
 	}
 
-	function obtener_javascript()
-	//Incluir javascript en la validacion del formulario
-	{
-		echo "if(!validacion_ei_form_{$this->id[1]}(formulario)){\n";
-		echo "return false;\n";
-		echo " }\n";			
-	}
 }
 ?>

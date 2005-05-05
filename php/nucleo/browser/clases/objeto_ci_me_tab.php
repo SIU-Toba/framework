@@ -15,7 +15,6 @@ class objeto_ci_me_tab extends objeto_ci_me
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->submit_tab = $this->submit . "_tab";
 		$this->display = "arriba"; //arriba, izquierda
 	}
 
@@ -35,20 +34,21 @@ class objeto_ci_me_tab extends objeto_ci_me
 	
 	function get_etapa_actual()
 	{
-		if(isset($_POST[$this->submit_tab])){
-			$tab = $_POST[$this->submit_tab];
-			if(trim($tab!="")){
-				if(in_array($tab, $this->memoria['tabs'])){
-					//El usuario selecciono un tab
-					return $tab;
-				}else{
-					$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
-					//Error, voy a etapa inicial
-					return $this->get_etapa_inicial();
-				}
-			}elseif(isset( $this->memoria['etapa_gi'] )){
-				//El post fue generado por otro componente
-				return $this->memoria['etapa_gi'];
+		if (isset($_POST[$this->submit])) {
+			$submit = $_POST[$this->submit];
+			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
+		}
+		else
+			$tab = false;
+		
+		if($tab !== false) { //Pidio cambiar de tab
+			if(in_array($tab, $this->memoria['tabs'])){
+				//El usuario selecciono un tab
+				return $tab;
+			}else{
+				$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
+				//Error, voy a etapa inicial
+				return $this->get_etapa_inicial();
 			}
 		}elseif(isset( $this->memoria['etapa_gi'] )){
 			//El post fue generado por otro componente
@@ -83,21 +83,6 @@ class objeto_ci_me_tab extends objeto_ci_me
 
 	function obtener_barra_navegacion()
 	{
-		//-[ 0 ]- Javascript que setea el TAB y hace el submit del FORM
-
-		$funcion = "set_tab_" . $this->submit;
-		echo form::hidden($this->submit_tab, '');		
-		echo js::abrir();
-		echo "	function $funcion(tab){
-		document.{$this->nombre_formulario}.{$this->submit_tab}.value = tab;
-		if( {$this->validacion_js}(document.{$this->nombre_formulario}) ){
-			document.{$this->nombre_formulario}.submit();
-		}
-	}";
-		echo js::cerrar();
-
-		// -[1]- TABS
-		
 		$this->lista_tabs = $this->get_lista_tabs();
 		echo "<table width='100%' class='tabla-0'>\n";
 		echo "<tr>";
@@ -111,7 +96,7 @@ class objeto_ci_me_tab extends objeto_ci_me
 			$html = $acceso[0]; //Falta concatenar la imagen
 			if(isset($tab['imagen'])) $html = $tab['imagen'] . "&nbsp;&nbsp;" . $html;
 			$tecla = $acceso[1];
-			$js = "onclick=\"$funcion('$id')\"";
+			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
 			if( $this->etapa_gi == $id ){
 				//TAB actual
 				echo "<td class='tabs-solapa-sel'>";
@@ -120,7 +105,7 @@ class objeto_ci_me_tab extends objeto_ci_me
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}else{
 				echo "<td class='tabs-solapa'>";
-				echo form::button_html( $this->submit_tab .$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+				echo form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 				echo "</td>\n";
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}
@@ -143,5 +128,19 @@ class objeto_ci_me_tab extends objeto_ci_me
 		return $tab;
 	}
 	//-------------------------------------------------------------------------------
+	
+	function get_lista_eventos()
+	/*
+		Cada tab califica como un evento que no se muestra en la botonera estandar
+	*/
+	{
+		$eventos = parent::get_lista_eventos();
+		foreach ($this->get_lista_tabs() as $id => $tab) {
+			$eventos['cambiar_tab_'.$id]['validar'] = "true";
+			$eventos['cambiar_tab_'.$id]['en_botonera'] = false;			
+		}
+		return $eventos;
+	}
+	//-------------------------------------------------------------------------------	
 }
 ?>	

@@ -463,8 +463,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo "</span></td>\n";
 			}
 			foreach ($this->lista_ef_post as $ef){
-				echo "<td  class='abm-fila-ml'>\n";
-				echo $this->elemento_formulario[$ef]->establecer_id_form($fila);
+				$this->elemento_formulario[$ef]->establecer_id_form($fila);
+				$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
+				echo "<td  class='abm-fila-ml' id='cont_$id_form'>\n";
 				echo $this->elemento_formulario[$ef]->obtener_input();
 				echo "</td>\n";
 			}
@@ -482,7 +483,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', null, $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
 		foreach ($this->lista_ef_post as $ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
@@ -494,6 +495,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 			}
 		}
+		//Se agrega al objeto al singleton toba
+		echo "toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 	
 	function consumo_javascript_global()
@@ -502,14 +505,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$consumos[] = 'clases/objeto_ei_formulario_ml';
 		return $consumos;
 	}
-	
-	function obtener_javascript()
-/*
-	@@acceso: interno
-	@@desc: devuelve JAVASCRIPT que se ejecuta en el onSUBMIT del FORMULARIO
-*/
-	{
-		echo "\nif (! {$this->objeto_js}.submit()) return false;";
-	}	
+
 }
 ?>

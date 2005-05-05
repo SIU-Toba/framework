@@ -9,7 +9,7 @@
 	*** EF:
 		-> VALIDACION
 			-> SERVER: Excepciones.
-			-> CLIENTE: No disparar un ALERT, disparar una exepción. Elaborar una forma distinta de señalar el origen.
+			› CLIENTE: No disparar un ALERT, disparar una exepción. Elaborar una forma distinta de señalar el origen.
 						Validación 'poco ruidosa' particular de un ef cuando cambia el estado
 		-> 'NULL' cambiar por NULL (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
@@ -17,7 +17,6 @@
 				-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
 				-> ef_vinculo
 				-> ef_template
-!			º ef_moneda con conversión (simbolo $ por defecto) (máscara) (validación de decimales)
 			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. 
 					Hay que decidir donde poner esta ventana)
 			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros 

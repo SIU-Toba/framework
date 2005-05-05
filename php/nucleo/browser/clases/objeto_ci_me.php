@@ -194,23 +194,12 @@ class objeto_ci_me extends objeto_ci
 	{
 		$eventos = array();
 		//Evento PROCESAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar'])
-		{
-			if($this->info_ci['ev_procesar_etiq']){
-				$eventos['procesar']['etiqueta'] = $this->info_ci['ev_procesar_etiq'];
-			}else{
-				$eventos['procesar']['etiqueta'] = "Proce&sar";
-			}
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar']) {
+			$eventos = array_merge($eventos, $this->get_boton_procesar($this->info_ci['ev_procesar_etiq']));
 		}
 		//Evento CANCELAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])
-		{
-			//$eventos['cancelar']['confirm'] = "Esta seguro que desea cancelar?";
-			if($this->info_ci['ev_cancelar_etiq']){
-				$eventos['cancelar']['etiqueta'] = $this->info_ci['ev_cancelar_etiq'];
-			}else{
-				$eventos['cancelar']['etiqueta'] = "&Cancelar";
-			}
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])	{
+			$eventos = array_merge($eventos,  $this->get_boton_cancelar($this->info_ci['ev_cancelar_etiq']));
 		}
 		return $eventos;
 	}

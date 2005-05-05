@@ -527,10 +527,10 @@ function ef_mostrar_{$this->id_form}()
 		//Acceso directo al EDITOR del ABM 
 		//(con el editor de columnas cargado en ESTA!)
 		if(apex_pa_acceso_directo_editor){
+		echo "<td class='$estilo' >";
 			if( ($this->padre[0]) == $solicitud->hilo->obtener_proyecto() &&
 			(isset($item_editor_padre)) )
 			{
-				echo "<td class='$estilo'>";
 				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
 				$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
 				echo $solicitud->vinculador->obtener_vinculo_a_item(
@@ -538,10 +538,11 @@ function ef_mostrar_{$this->id_form}()
 							array( apex_hilo_qs_zona => $clave_abm_registro_padre,
 									apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio ),
 							true);
-				echo "</td>\n";
+
 			}
+		echo "</td>\n";
 		}
-		echo "<td class='ef-zonainput'>$elemento_formulario</td></tr>\n";
+		echo "<td class='ef-zonainput' id='cont_{$this->id_form}'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";
 		echo "</div>";
 	}

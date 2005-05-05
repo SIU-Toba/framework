@@ -52,6 +52,12 @@ class js
 				case 'fck_editor':
 					echo js::incluir(recurso::js("fckeditor/fckeditor.js"));
 					break;
+				case 'interface/ef':
+					$warn = recurso::imagen_apl('error.gif', false);
+					echo "<img id='ef_warning' src='$warn' style='margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
+					echo js::incluir(recurso::js("$consumo.js"));
+					break;
+					
 				//--> Por defecto carga el archivo del consumo
 				default:
 					echo js::incluir(recurso::js("$consumo.js"));

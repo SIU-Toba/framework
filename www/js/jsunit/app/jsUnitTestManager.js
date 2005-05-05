@@ -477,8 +477,10 @@ jsUnitTestManager.prototype._setTextOnLayer = function (layerName, str)
   html += str;
   html += '<\/div><\/body>';
   html += '<\/html>';
-  this.uiFrames[layerName].document.write(html);
-  this.uiFrames[layerName].document.close();
+  if (this.uiFrames[layerName].document) {
+	  this.uiFrames[layerName].document.write(html);
+	  this.uiFrames[layerName].document.close();
+  }
 }
 
 jsUnitTestManager.prototype.setStatus = function (str)

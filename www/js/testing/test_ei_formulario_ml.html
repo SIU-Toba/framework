@@ -13,6 +13,7 @@
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_checkbox.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_editable.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ci.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario_ml.js"></script>
 <SCRIPT  language='JavaScript1.4' type='text/javascript'>
@@ -25,7 +26,7 @@ var formu;	//Formualrio utilizado en las pruebas
 
 function setUp() {
 	//Crea un formulario con una fila inicial
-	formu = new objeto_ei_formulario_ml('formu', null, new Array(51, 5050), 2, true);
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 2, true);
 	formu.agregar_ef(new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', false, ''), 'mi_moneda');
 }
@@ -58,7 +59,7 @@ function test_deshacer() {
 //--- Validaciones particulares
 function test_validador_nuevo() {
 	//Crea un formulario con una fila inicial
-	formu = new objeto_ei_formulario_ml('formu', null, new Array(51, 5050), 2, true);
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 2, true);
 	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio 
 	formu._silencioso = true;

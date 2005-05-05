@@ -204,7 +204,13 @@ blink : function blink(node)
   if (node.nodeType == null)     throw("blink: argument must be a node.");
   if (node.nodeType == 3)        throw("blink: argument must not be a text node");
   if (node.documentElement)      throw("blink: argument must not be the document object");
-
+  var anterior = node.border;
+  
+  function setBorde(b) {
+  	return function() {
+		node.style.border = b
+	}
+  }
   function setOutline(o) { 
     return function() {
       if (node.style.outline != node.style.bogusProperty) {
@@ -239,6 +245,7 @@ blink : function blink(node)
 
   setTimeout(focusIt(window), 800);
   setTimeout(focusIt(_in), 810);
+  setTimeout(setBorde(anterior), 1000);
 },
 
 scope : function scope(sc)
@@ -598,6 +605,8 @@ function printError(er)
 
 function go(s)
 {
+  if (! _win.Shell)
+    init();
   _in.value = question = s ? s : _in.value;
 
   if (question == "")

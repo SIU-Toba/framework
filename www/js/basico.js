@@ -91,6 +91,21 @@ function toggle_nodo(o) {
 	return true;
 }
 
+function getElementPosition(offsetTrail) {
+    var offsetLeft = 0;
+    var offsetTop = 0;
+    while (offsetTrail) {
+        offsetLeft += offsetTrail.offsetLeft;
+        offsetTop += offsetTrail.offsetTop;
+        offsetTrail = offsetTrail.offsetParent;
+    }
+    if (navigator.userAgent.indexOf("Mac") != -1 && 
+        typeof document.body.leftMargin != "undefined") {
+        offsetLeft += document.body.leftMargin;
+        offsetTop += document.body.topMargin;
+    }
+    return {left:offsetLeft, top:offsetTop};
+}
 
 //----Mediciones de Performance
 var mediciones = 
@@ -116,15 +131,41 @@ var mediciones =
 		return html;
 	}
 }
+
+//----Reflexion
+//--------------------------------------------
+
+function getObjectClass(obj)
+{
+    if (obj && obj.constructor && obj.constructor.toString) {
+        var arr = obj.constructor.toString().match(/function\s*(\w+)/);
+        return arr && arr.length == 2 ? arr[1] : undefined;
+    } else {
+        return undefined;
+    }
+}
+
+function existe_funcion(obj, f) {
+	for (funcion in obj) {
+		if (funcion == f && typeof(obj[funcion])=="function")
+			return true;
+	}		
+	return false;
+}
+
 //----Varios
 //--------------------------------------------
 
-function ei_arbol(arreglo) {
-	var salida = '';
-	for (dim in arreglo) {
-		salida = salida + dim + ' => ' + arreglo[dim] + '\n';
-	}
-	alert(salida);
+function ei_arbol(variable, ret) {
+	DumperIndentText = "&nbsp";
+	DumperNewline = "<br>";
+	DumperSepPre = "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";
+	DumperSepPos = "</span>";		
+	DumperMaxDepth = 6;
+	if (ret)
+		return Dumper(variable);
+	else
+		DumperPopup(variable);
 }
 
 
@@ -134,6 +175,10 @@ function logger(mensaje, separador) {
 		div.innerHTML += mensaje + separador;
 		div.style.display = '';
 	}
+}
+
+function logger_limpiar() {
+	document.getElementById('logger_salida').innerHTML = "";
 }
 
 

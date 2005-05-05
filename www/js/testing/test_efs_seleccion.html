@@ -55,16 +55,30 @@ function test_checkbox() {
 	this.assertEquals(ef.valor(), null);		
 }
 
-function test_popup() {
+function test_popup_validar() {
 	//Campo obligatorio
 	var ef = new ef_popup('formulario1148popup', 'Popup', true);
 	ef.iniciar();
 	this.assertFalse(ef.validar());
 }
 
+//Abre un popup y le retorna un valor
+function test_popup_valor() {
+	var ef = new ef_popup('formulario1148popup', 'Popup', true);
+	ef.iniciar();
+	ef.vinculo().onclick();
+	var clave = 25;
+	var descripcion = "Descripcion";
+	ventana.opener.popup_callback('formulario1148popup', clave, descripcion);
+	ventana.close();
+	this.assertEquals('25', ef.valor());
+	this.assertEquals('Descripcion', ef.valor_formateado());
+}
+var ventana = null;
 </script>
 </head>
 <body>
+<form name='formulario'>
 <table>
 <!-- COMBO -->
 <tr> 
@@ -103,12 +117,14 @@ function test_popup() {
 				<tr> 
 					<td class='ef-etiqueta'>&nbsp;Popup </td> 
 					<td class='ef-etiqueta'></a></td> 
-					<td class='ef-zonainput'><INPUT type='text' name='' id='' maxlength='' size='20' value='' class='ef-input' disabled> 
+					<td class='ef-zonainput'><INPUT type='text' name='formulario1148popup_desc' id='formulario1148popup_desc' maxlength='' size='20' value='' class='ef-input' disabled> 
 						<input name='formulario1148popup' id='formulario1148popup' type='hidden' value=''> </td> 
+						<a id='formulario1148popup_vinculo' name='formulario1148popup_vinculo' onclick="ventana= popup_abrir_item('about:blank', 'formulario1148popup', document.formulario.formulario1148popup, document.formulario.formulario1148popup_desc, null)"href='#' name='formulario1148popup_vinculo'><img border='0' src='http://localhost/toba/img/doc.gif'  width='16'   height='16'   title='Selecionar un elemento' alt='Selecionar un elemento'    style='margin: 0px 0px 0px 0px;'></a>
 				</tr> 
 			</table> 
 		</div></td> 
 </tr>
 </table>
+</form>
 </body>
 </html>

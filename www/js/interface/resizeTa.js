@@ -63,19 +63,8 @@ newdiv: function (w,h,id,nr,cu){
 },
 
 getposition: function (i){
-	var curElem = resizeTa.TA[i];
-	var curX = curElem.offsetLeft;
-	while (curElem.offsetParent) {
-        curX += curElem.offsetParent.offsetLeft;
-        curElem = curElem.offsetParent;
-	}
-	curElem = resizeTa.TA[i];
-	var curY = curElem.offsetTop;
-	while (curElem.offsetParent) {
-        curY += curElem.offsetParent.offsetTop;
-        curElem = curElem.offsetParent;
-	}
-    return [curX,curY]
+	var pos = getElementPosition(resizeTa.TA[i]);
+    return [pos['left'],pos['top']]
 },
 
 posdivs: function (){

@@ -1,22 +1,23 @@
-//--------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------- 
 //Clase objeto_ei_formulario_ml 
 objeto_ei_formulario_ml.prototype = new objeto_ei_formulario;
 var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, ci, rango_tabs, cant_filas, con_agregar) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, cant_filas, con_agregar) {
 		this._instancia = instancia;			//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
-		this._ci = ci;							//Referencia al CI contenedor
 		this._rango_tabs = rango_tabs;
 		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
+		this._ci = null;						//Referencia al CI contenedor
 		this._filas = new Array();				//Carga inicial de las filas
 		for (var i=0 ; i < cant_filas ; i++)
 			this._filas.push(i);
 		this._ultimo_id = i;
-		this._efs = new Array();				//Lista de objeto_ef contenidos
+		this._efs = new Object();				//Lista de objeto_ef contenidos
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
-		this._efs_procesar = new Array();		//ID de los ef's que poseen procesamiento
+		this._efs_procesar = new Object();		//ID de los ef's que poseen procesamiento 
+		this._evento_defecto = new evento_ei('modificacion', true, ''); 	//Por defecto está en modificación con validación 
 	}
 
 	def.iniciar = function () {
@@ -24,6 +25,7 @@ def.constructor = objeto_ei_formulario_ml;
 			this.iniciar_fila(this._filas[fila]);
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
+		this.reset_evento();
 	}
 
 	def.iniciar_fila = function (fila) {
@@ -31,6 +33,7 @@ def.constructor = objeto_ei_formulario_ml;
 			var ef = this._efs[id_ef].ir_a_fila(fila);
 			ef.iniciar(id_ef);
 			ef.cambiar_tab(this._rango_tabs[0]);
+			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '")');			
 			this._rango_tabs[0]++;
 		}
 	}	
@@ -58,53 +61,53 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	//----Validación 
 	def.validacion_defecto = function() {
-		for (fila in this._filas) {
-			if (! this.validar_fila(fila))
-				return false;
+		var ok = true;
+		for (id_fila in this._filas) {
+			ok = this.validar_fila(id_fila) && ok;
 		}
-		return true;
+		return ok;
 	}
 	
-	def.validar_fila = function(fila) {
+	def.validar_fila = function(id_fila) {
+		ok = true;
 		for (id_ef in this._efs) {
-			if (! this.validar_fila_ef(fila, id_ef))
-				return false;
+			ok = this.validar_fila_ef(this._filas[id_fila], id_ef) && ok;
 		}
-		return true;
+		return ok;
 	}
 	
 	def.validar_fila_ef = function(fila, id_ef) {
-		var ef = this._efs[id_ef].ir_a_fila(this._filas[fila]);
+		var ef = this._efs[id_ef].ir_a_fila(fila);
 		if (! ef.validar()) {
 			if (! this._silencioso) {
-				this.seleccionar(this._filas[fila]);
-				ef.seleccionar();
-				alert(ef.error());
+//				this.seleccionar(this._filas[fila]);
+				ef.resaltar(ef.error(), 6);
 				ef.resetear_error();
 			}
 			return false;
 		}		
+		ef.no_resaltar();
 		return true;
 	}
 	
 	//----Submit 
 	def.submit = function() {
 		//Si no es parte de un submit general, dispararlo
-		if (this._ci && !this._ci.en_submit())
+		if (this._ci && !this._ci.en_submit)
 			return this._ci.submit();
 
-		if (!this.validar())
-			return false;
-		for (fila in this._filas) {
-			for (id_ef in this._efs) {
-				this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
+		if (this._evento) {
+			for (fila in this._filas) {
+				for (id_ef in this._efs) {
+					this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
+				}
 			}
+			var lista_filas = this._filas.join('_');
+			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
+			return true;
 		}
-		var lista_filas = this._filas.join('_');
-		document.getElementById(this._instancia + '_listafilas').value = lista_filas;
-		return true;
 	}
-	
+
 	//----Selección 
 	def.seleccionar = function(fila) {
 		if  (fila != this.seleccionada) {

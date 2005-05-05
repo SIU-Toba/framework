@@ -23,7 +23,7 @@ class objeto_ci extends objeto
 	protected $id_en_padre;							// Id que posee este CI en su padre
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
 	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
-	protected $validacion_js;						// Nombre de la funcion que valida el formulario resultante
+	protected $objeto_js;							// Nombre del objeto js asociado
 	
 	function __construct($id)
 	{
@@ -33,6 +33,7 @@ class objeto_ci extends objeto
 		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
 		$this->cargar_info_dependencias();
 		$this->posicion_botonera = "abajo"; //arriba, abajo, ambos
+		$this->objeto_js = "objeto_ci_{$id[1]}";		
 	}
 
 	function destruir()
@@ -88,7 +89,6 @@ class objeto_ci extends objeto
 		}else{
 			$this->id_en_padre = "no_aplicable";
 		}
-		$this->validacion_js = "validar_ci_" . $this->nombre_formulario;
 		$this->evt__inicializar();
 	}
 
@@ -479,13 +479,15 @@ class objeto_ci extends objeto
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
 		$this->obtener_javascript_global_consumido();
 		echo "<br>\n";
-		$javascript_submit = " onSubmit='return ".$this->validacion_js."(this)' ";
+		$javascript_submit = " onSubmit='return {$this->objeto_js}.submit();' ";
 		echo form::abrir($this->nombre_formulario, $vinculo, $javascript_submit);
 		echo "<div align='center'>\n";
 		$this->obtener_html();
 		echo "</div>\n";
 		echo form::cerrar();
-		$this->obtener_javascript_validador_form();
+		echo js::abrir();
+		$this->obtener_javascript();
+		echo js::cerrar();
 		echo "<br>\n";
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		
 	}
@@ -502,14 +504,18 @@ class objeto_ci extends objeto
 		$this->eventos = $this->get_lista_eventos();
 		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
 		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-		echo "<table $ancho $alto class='objeto-base'>\n";
+		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
 		//--> Barra SUPERIOR
 		echo "<tr><td class='celda-vacia'>";
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
 		echo "</td></tr>\n";
-
-		//--> Botonera
+		//-->Listener de eventos
 		if( count($this->eventos) > 0){
+			echo form::hidden($this->submit, '');
+		}
+		//--> Botonera
+		$con_botonera = $this->hay_eventos_de_botonera();
+		if($con_botonera){
 			if( ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
 				echo "<tr><td class='abm-zona-botones'>";
 				$this->generar_botonera();
@@ -522,7 +528,7 @@ class objeto_ci extends objeto
 		echo "</td></tr>\n";
 
 		//--> Botonera
-		if( count($this->eventos) > 0){
+		if($con_botonera){
 			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
 				echo "<tr><td class='abm-zona-botones'>";
 				$this->generar_botonera();
@@ -534,48 +540,35 @@ class objeto_ci extends objeto
 		$this->gi = true;
 	}
 	//-------------------------------------------------------------------------------
-
+	function hay_eventos_de_botonera() 
+	{
+		foreach($this->eventos as $id => $evento ) {	
+			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//-------------------------------------------------------------------------------
 	function generar_botonera()
 	{
-		//-[ 0 ]- Javascript que setea el evento y hace el submit del FORM
-
-		$funcion = "set_evento_" . $this->submit;
-		echo form::hidden($this->submit, '');		
-		echo js::abrir();
-		echo "	function $funcion(evento, confirmacion, validar){
-		if ( confirmacion != ''){
-			if (!confirm( confirmacion )) {
-				return false;
-			}
-		}
-		document.{$this->nombre_formulario}.{$this->submit}.value = evento;
-		if( validar ){
-			if( {$this->validacion_js}( document.{$this->nombre_formulario} ) ){
-				document.{$this->nombre_formulario}.submit();
-			}
-		}else{
-			document.{$this->nombre_formulario}.submit();
-		}
-		//return true;
-	}";
-		echo js::cerrar();
-
-		//-[ 1 ]- Botonera propiamente dicha
-
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td align='right'>";
 		foreach($this->eventos as $id => $evento )
 		{
-			$tip = '';
-			$clase = 'ef-boton';
-			$tab_order = 0;
-			$acceso = tecla_acceso( $evento["etiqueta"] );
-			$html = $acceso[0]; //Falta concatenar la imagen
-			$tecla = $acceso[1];
-			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
-			$js = "onclick=\"$funcion('$id',$js_confirm, $js_validar )\"";
-			echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+				$tip = '';
+				$clase = 'ef-boton';
+				$tab_order = 0;
+				$acceso = tecla_acceso( $evento["etiqueta"] );
+				$html = $acceso[0]; //Falta concatenar la imagen
+				$tecla = $acceso[1];
+				$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+				$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
+				$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('$id', $js_validar, $js_confirm));\"";
+				echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			}
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
@@ -650,7 +643,7 @@ class objeto_ci extends objeto
 	@@desc: Javascript global requerido por los HIJOS de este CI
 */
 	{
-		$consumo_js = array();
+		$consumo_js = array('clases/objeto_ci');
 		foreach($this->dependencias_gi as $dep){
 			//Es un formulario?
 			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
@@ -665,37 +658,54 @@ class objeto_ci extends objeto
 		return $consumo_js;
 	}
 	//-------------------------------------------------------------------------------
-	
-	function obtener_javascript_validador_form()
+
+	function obtener_javascript()
 /*
- 	@@acceso: interno
-	@@desc: Javascript asociado al SUBMIT del FROM
+	@@acceso: Actividad
+	@@desc: Construye la clase javascript asociada al objeto
 */
 	{
-		//-[2]- Incluyo el JAVASCRIPT de CONTROLA el FORM
-		echo "\n<script language='javascript'>\n";
-		echo "//----------- Funcion VALIDADORA del FORM ----------\n";
-		echo "function {$this->validacion_js}(formulario){\n";
-//		echo "alert(\"estoy aca!!\");return false;\n";
-		$this->obtener_javascript();
-		echo "\n\nreturn true;\n";//Todo OK, salgo de la validacion del formulario
-		echo "}\n</script>\n\n";
+		$this->crear_objeto_js();
+		$this->extender_objeto_js();
+		$this->iniciar_objeto_js();		
+		return $this->objeto_js;
 	}
 	//-------------------------------------------------------------------------------
 
-	function obtener_javascript()
-	//Javascript que los HIJOS incorporan en la validacion del formulario
+	function crear_objeto_js()
 	{
+		echo "\n\n//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		//Crea le objeto CI
+		echo "var {$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
+
+		//Crea los objetos hijos
+		$objetos = array();
 		foreach($this->dependencias_gi as $dep)
 		{
 			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
 				$this->dependencias[$dep] instanceof objeto_ci )
 			{
-				echo $this->dependencias[$dep]->obtener_javascript();
+				$objetos[] = $this->dependencias[$dep]->obtener_javascript();
 			}
 		}
+
+		echo "\n\n//-----------------------------------------------------------------  \n";		
+		//Agrega a los objetos hijos
+		//ATENCION: Esto no permite tener el mismo formulario instanciado dos veces
+		foreach ($objetos as $objeto) {
+			echo "{$this->objeto_js}.agregar_objeto($objeto);\n";
+		}
+		echo "toba.agregar_objeto({$this->objeto_js});\n";		
 	}
-	//-------------------------------------------------------------------------------
+	
+	function extender_objeto_js()
+	{
+	}
+	
+	function iniciar_objeto_js()
+	{
+		echo "{$this->objeto_js}.iniciar();\n";	
+	}
 }
 
 /*
