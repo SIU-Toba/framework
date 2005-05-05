@@ -14,22 +14,23 @@ class objeto_ei_formulario extends objeto
 	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
 */
 {
-	protected $elemento_formulario;		//	interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
-	protected $nombre_formulario;			//	interno | string | Nombre del	FORMULARIO en el cliente
-	protected $prefijo;						//Prefijo de todos los objetos creados por este FORMs
-	protected $lista_ef = array();		//	interno | array |	Lista	completa	de	a los	EF
-	protected $lista_ef_post = array();	//	interno | array |	Lista	de	elementos que se reciben por POST
+	protected $elemento_formulario;			// interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
+	protected $nombre_formulario;			// interno | string | Nombre del	FORMULARIO en el cliente
+	protected $prefijo;						// Prefijo de todos los objetos creados por este FORMs
+	protected $lista_ef = array();			// interno | array |	Lista	completa	de	a los	EF
+	protected $lista_ef_post = array();		// interno | array |	Lista	de	elementos que se reciben por POST
 	protected $lista_ef_dao = array();
 	protected $lista_ef_ocultos = array();
-	protected $nombre_ef_cli = array(); // interno | array | ID html de los elementos
+	protected $nombre_ef_cli = array(); 	// interno | array | ID html de los elementos
 	protected $parametros;
 	protected $modelo_eventos;
-	protected $flag_out = false;			//indica si el formulario genero output
-	protected $evento_mod_estricto;		// Solo dispara la modificacion si se apreto el boton procesar
-	protected $rango_tabs;				//Rango de números disponibles para asignar al taborder
+	protected $flag_out = false;			// indica si el formulario genero output
+	protected $evento_mod_estricto;			// Solo dispara la modificacion si se apreto el boton procesar
+	protected $rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $objeto_js;	
 
 	protected $eventos;
+	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
 	protected $id_en_padre;
 
@@ -636,11 +637,20 @@ class objeto_ei_formulario extends objeto
 		echo "</table>\n";
 	}
 	
+	function set_eventos($eventos)
+	{
+		$this->eventos_ext = $eventos;
+	}
+	
 	function get_lista_eventos()
 	/*
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
+		//Se se definieron eventos por fuera, se utilizan esos
+		if(isset($this->eventos_ext)){
+			return $this->eventos_ext;	
+		}
 		$evento = array();
 		if($this->etapa=="agregar")
 		//El formulario esta VACIO
