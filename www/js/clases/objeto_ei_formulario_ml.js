@@ -5,19 +5,14 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, cant_filas, con_agregar) {
-		this._instancia = instancia;			//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
-		this._rango_tabs = rango_tabs;
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, cant_filas, con_agregar) {
+		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
 		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
-		this._ci = null;						//Referencia al CI contenedor
 		this._filas = new Array();				//Carga inicial de las filas
 		for (var i=0 ; i < cant_filas ; i++)
 			this._filas.push(i);
 		this._ultimo_id = i;
-		this._efs = new Object();				//Lista de objeto_ef contenidos
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
-		this._efs_procesar = new Object();		//ID de los ef's que poseen procesamiento 
-		this._evento_defecto = new evento_ei('modificacion', true, ''); 	//Por defecto está en modificación con validación 
 	}
 
 	def.iniciar = function () {
@@ -80,7 +75,6 @@ def.constructor = objeto_ei_formulario_ml;
 		var ef = this._efs[id_ef].ir_a_fila(fila);
 		if (! ef.validar()) {
 			if (! this._silencioso) {
-//				this.seleccionar(this._filas[fila]);
 				ef.resaltar(ef.error(), 6);
 				ef.resetear_error();
 			}
@@ -104,6 +98,8 @@ def.constructor = objeto_ei_formulario_ml;
 			}
 			var lista_filas = this._filas.join('_');
 			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
+			//Marco la ejecucion del evento para que la clase PHP lo reconozca
+			document.getElementById(this._input_submit).value = this._evento.id;
 			return true;
 		}
 	}

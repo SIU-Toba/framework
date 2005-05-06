@@ -110,53 +110,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//--------------------------------	EVENTOS  -----------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function disparar_eventos()
-	{
-		$this->recuperar_interaccion();
-		if( $evento = $this->obtener_evento() ){
-			if( ($evento=="modificacion") ){
-				$this->validar_estado();
-				$parametros = $this->obtener_datos();
-			}else{
-				$parametros = null;
-			}
-			//Disparo el evento
-			$this->reportar_evento( $evento, $parametros );
-			$this->limpiar_interface();
-		}
-	}
-
-	function obtener_evento()
-	//ATENCION: esto hay que pensarlo. Que eventos se necesitan??
-	// Como es la interaccion de un ML con un buffer?
-	{
-
-		if($this->controlar_modificacion()) {
-			return "modificacion";
-		}
-		return null;
-	}
-	//-------------------------------------------------------------------------------
-
-	function controlar_modificacion()
-	//ATENCION: Esto hay que mejorarlo
-	{
-		if(acceso_post()){
-			if( $this->existio_interface_previa() ){
-				return true;
-			}
-		}
-		return false;
-	}
-	//-------------------------------------------------------------------------------
-	
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//--------------------------------	PROCESOS  -----------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -428,10 +381,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		//------ Totales ------
 		if(count($this->lista_ef_totales)>0){
+			$colspan = count($this->lista_ef_post);
 			echo "\n<!-- TOTALES -->\n\n";
 			echo "<tfoot>\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
+				$colspan++;
 			}			
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
@@ -440,7 +395,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					echo "<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
 				echo "</td>\n";
 			}
-			echo "</tr>\n</tfoot>\n";
+			echo "</tr>\n";
+			echo "<tr><td class='ei-base' colspan='$colspan'>\n";
+			$this->obtener_botones();
+			echo "</td></tr>\n";			
+			echo "</tfoot>\n";
 		}		
 
 		//------ FILAS ------
@@ -474,6 +433,25 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "</tbody>\n</table>\n</div>";
 	}
 
+	function get_lista_eventos()
+	/*
+		Los eventos standard estan relacionados con el consumo del formulario en un ABM
+	*/
+	{
+		$evento = array();
+		if($this->info_formulario['ev_mod_modificar']){
+			//Evento MODIFICACION
+			if($this->info_formulario['ev_mod_modificar_etiq']){
+				$evento['modificacion']['etiqueta'] = $this->info_formulario['ev_mod_modificar_etiq'];
+			}else{
+				$evento['modificacion']['etiqueta'] = "&Modificar";
+			}
+			$evento['modificacion']['validar'] = "true";
+			$evento['modificacion']['estilo'] = "abm-input";
+		}
+		return $evento;
+	}
+
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -483,7 +461,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, {$this->cantidad_lineas()}, $con_agregar);\n";
+		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', {$this->cantidad_lineas()}, $con_agregar);\n";
 		foreach ($this->lista_ef_post as $ef){
 			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
