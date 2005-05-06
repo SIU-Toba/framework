@@ -364,6 +364,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$alto_maximo = "auto";
 			echo "<div>";
 		}
+		//Defino la cantidad de columnas
+		$colspan = count($this->lista_ef_post);
+		if ($this->info_formulario['filas_agregar']) {
+			$colspan++;
+		}			
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
 		echo "<table width='$ancho' class='tabla-0'>\n";
 
@@ -381,12 +386,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		//------ Totales ------
 		if(count($this->lista_ef_totales)>0){
-			$colspan = count($this->lista_ef_post);
 			echo "\n<!-- TOTALES -->\n\n";
 			echo "<tfoot>\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
-				$colspan++;
 			}			
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
@@ -396,9 +399,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo "</td>\n";
 			}
 			echo "</tr>\n";
-			echo "<tr><td class='ei-base' colspan='$colspan'>\n";
-			$this->obtener_botones();
-			echo "</td></tr>\n";			
 			echo "</tfoot>\n";
 		}		
 
@@ -430,6 +430,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 			echo "</tr>\n";
 		}
+		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
+		$this->obtener_botones();
+		echo "</td></tr>\n";			
 		echo "</tbody>\n</table>\n</div>";
 	}
 
