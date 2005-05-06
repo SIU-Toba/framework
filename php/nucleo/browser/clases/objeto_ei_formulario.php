@@ -691,15 +691,15 @@ class objeto_ei_formulario extends objeto
 			if($this->info_formulario['ev_mod_limpiar']){
 				//Evento LIMPIAR
 				if($this->info_formulario['ev_mod_limpiar_etiq']){
-					$evento['limpiar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
+					$evento['cancelar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
 				}else{
-					$evento['limpiar']['etiqueta'] = "&Limpiar";
+					$evento['cancelar']['etiqueta'] = "&Limpiar";
 				}
-				$evento['limpiar']['validar'] = "false";
-				$evento['limpiar']['estilo'] = "abm-input";
-			}
-		}
-		return $evento;
+				$evento['cancelar']['validar'] = "false";
+				$evento['cancelar']['estilo'] = "abm-input";
+			}             
+		}                  
+		return $evento;     
 	}
 	
 	//-------------------------------------------------------------------------------
