@@ -384,10 +384,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		echo "</tr>\n</thead>\n";
 
-		//------ Totales ------
+		//------ Totales y Eventos------
+		echo "<tfoot>\n";
 		if(count($this->lista_ef_totales)>0){
 			echo "\n<!-- TOTALES -->\n\n";
-			echo "<tfoot>\n<tr>\n";
+			echo "\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
 			}			
@@ -399,8 +400,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo "</td>\n";
 			}
 			echo "</tr>\n";
-			echo "</tfoot>\n";
 		}		
+		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
+		$this->obtener_botones();
+		echo "</td></tr>\n";		
+		echo "</tfoot>\n";
 
 		//------ FILAS ------
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
@@ -430,9 +434,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 			echo "</tr>\n";
 		}
-		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
-		$this->obtener_botones();
-		echo "</td></tr>\n";			
 		echo "</tbody>\n</table>\n</div>";
 	}
 
