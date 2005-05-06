@@ -1,0 +1,37 @@
+
+
+	*** Declaracion de EVENTOS en el formulario
+	
+	estandar (en base a los metadatos del toba)
+	--------
+	
+		- alta
+		- baja
+		- modificacion
+		- cancelar
+		
+	customizacion de eventos
+	------------------------
+
+	- SINTAXIS de declaracion de un evento
+
+		$evento['id']['etiqueta'] = "";
+		$evento['id']['estilo'] = "";
+		$evento['id']['confirmacion'] = "";
+		$evento['id']['validar'] = "";
+		$evento['id']['tip'] = "";
+		$evento['id']['imagen'] = "";
+
+	- CONFIGURACION
+	
+	HERENCIA
+		- Extender el formulario redeclarar el metodo "get_lista_eventos()"
+			y hacer que retorne una lista de eventos.
+
+	DEPENDENCIAS
+		- Setearlo desde el CI que controla la instancia del formulario
+			$this->dependencias['formulario']->set_eventos($eventos);
+
+	
+	*** Captura
+	
