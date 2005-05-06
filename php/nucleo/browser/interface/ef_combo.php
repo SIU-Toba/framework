@@ -69,6 +69,9 @@ class ef_combo extends ef
 	function establecer_solo_lectura()
 	{
 		//Elimino los valores distintos al seleccionado
+		/* 
+			Esto genera errores cuando se deshabilita el combo antes de
+			de establecer el valor
 		if(isset($this->estado)){
 			foreach(array_keys($this->valores) as $valor){
 				if($valor != $this->estado){
@@ -76,6 +79,7 @@ class ef_combo extends ef
 				}	
 			}
 		}
+		*/
         $this->solo_lectura = true;
 	}
 

@@ -19,7 +19,20 @@ class objeto_ei_filtro extends objeto_ei_formulario
 	function get_lista_eventos()
 	{
 		$evento = array();
-		//Filtrar
+		//--- Limpiar
+		if($this->etapa=="modificar"){
+			if($this->info_formulario['ev_mod_limpiar']){
+				//Evento LIMPIAR
+				if($this->info_formulario['ev_mod_limpiar_etiq']){
+					$evento['limpiar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
+				}else{
+					$evento['limpiar']['etiqueta'] = "&Limpiar";
+				}
+				$evento['limpiar']['validar'] = "false";
+				$evento['limpiar']['estilo'] = "abm-input";
+			}
+		}
+		//--- Filtrar
 		if($this->info_formulario['ev_agregar']){
 			//Evento ALTA
 			if($this->info_formulario['ev_agregar_etiq']){
@@ -29,17 +42,6 @@ class objeto_ei_filtro extends objeto_ei_formulario
 			}
 			$evento['filtrar']['validar'] = "true";
 			$evento['filtrar']['estilo'] = "abm-input-eliminar";
-		}
-		//Limpiar
-		if($this->info_formulario['ev_mod_limpiar']){
-			//Evento LIMPIAR
-			if($this->info_formulario['ev_mod_limpiar_etiq']){
-				$evento['limpiar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
-			}else{
-				$evento['limpiar']['etiqueta'] = "&Limpiar";
-			}
-			$evento['limpiar']['validar'] = "false";
-			$evento['limpiar']['estilo'] = "abm-input-eliminar";
 		}
 		return $evento;
 	}

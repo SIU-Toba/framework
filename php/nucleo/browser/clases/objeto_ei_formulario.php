@@ -3,8 +3,11 @@ require_once("objeto.php");	//Ancestro de todos los	OE
 require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 
 /*
-	Los EF deberian cargar su estado en el momento de obtener la
+	- Los EF deberian cargar su estado en el momento de obtener la
 	interface, no en su creacion.
+
+	- En la definicion de EVENTOS, en vez de hablar de "validar"
+	hay que hablar de que el evento maneja datos
 
 */
 
@@ -310,9 +313,9 @@ class objeto_ei_formulario extends objeto
 				}
 				//El evento es valido, lo reporto al contenedor
 				$this->reportar_evento( $evento, $parametros );
-				$this->limpiar_interface();
 			}
 		}
+		$this->limpiar_interface();
 	}
 
 /*
