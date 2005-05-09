@@ -1,3 +1,95 @@
+.est-item-link {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: right
+}
+.est-item-lateral {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #cccccc;
+	 TEXT-ALIGN: right
+}
+.est-item-nombre {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: left
+}
+.est-objeto-link {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: right
+}
+.est-objeto-lateral {
+	
+}
+.est-objeto-deps {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 4px;
+	 PADDING-BOTTOM: 0px;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #cccccc
+}
+.est-objeto-iddep {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 6px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 1px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #4f4c4d;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #666666 2px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
+}
+.est-objeto-nombre {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
+.est-objeto-nombre-ci {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #000000;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
 CODE {
 	FONT-SIZE: 11px;
 	 BACKGROUND-COLOR: #ffffff
@@ -177,12 +269,15 @@ TD.barra-obj-id {
 }
 TD.barra-obj-leve {
 	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 0px;
 	 BORDER-TOP: #4f4c4d 1px solid;
-	 FONT-SIZE: 11px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
 	 BORDER-LEFT: #4f4c4d 1px solid;
 	 COLOR: #4f4c4d;
+	 PADDING-TOP: 0px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 BACKGROUND-COLOR: #d3d2d2;
+	 BACKGROUND-COLOR: #e9e8e8;
 	 TEXT-ALIGN: left
 }
 TD.barra-separador {

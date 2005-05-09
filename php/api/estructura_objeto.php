@@ -48,47 +48,44 @@ class estructura_objeto
 		$clase = isset($this->datos['subclase'])? $this->datos['subclase'] . "\nEXTENDS: " . $this->datos['clase'] : $this->datos['clase'];
 		$imagen = recurso::imagen_apl($this->datos['icono'],true,null,null,"ID: [" . $this->datos['objeto'] . "]\nCLASE: $clase");
 		echo "<table class='tabla-0' width='100%'>";
-		echo "<td    class='barra-obj-leve' colspan='2'>";
+		echo "<tr><td class='celda-vacia' colspan='2'>";
 
 		echo "<table class='tabla-0' width='100%'>";
 		echo "<tr>";
-		echo "<td width='1%' class='barra-obj-id'> $imagen </td>";
+		echo "<td width='1%' class='est-objeto-nombre'> $imagen </td>";
 		echo "<td  width='1%'>";
 		echo $this->generar_acceso_editores();
 		echo "</td>";
 		if(preg_match("/_ci/",$this->datos['clase']))
 		{
-			echo "<td  class='barra-obj-id'   width='99%'>";
+			echo "<td  class='est-objeto-nombre-ci'   width='99%'>";
 			echo $this->datos['nombre'];
 			echo "</td></tr>";
 			
 		}else{
-			echo "<td class='ef-etiqueta'  width='99%'>";
+			echo "<td class='est-objeto-nombre'  width='99%'>";
 			echo $this->datos['nombre'];
 			echo "</td></tr>";
 		}
 		echo "</table>";
-
-
 		echo "</td></tr>";
+
 		//--- DEPENDENCIAS ---
 		if(isset($this->dependencias))
 		{
-
-			echo "<tr><td width='10'  class='barra-obj-id'>".gif_nulo(10,1)."</td>";
-
-			echo "<td>";
-			echo "<table  class='tabla-1' width='100%'>";
+			echo "<tr><td width='10' class='est-objeto-lateral'>".gif_nulo(15,1)."</td>";
+			echo "<td width='100%'>";
+			echo "<table  class='tabla-0' width='100%'>";
 			foreach($this->dependencias as $dep)
 			{
-				echo "<tr><td class='barra-obj-tit'> {$dep['identificador']} </td></tr>";
-				echo "<tr><td>";
+				echo "<tr><td class='est-objeto-iddep'> {$dep['identificador']} </td></tr>";
+				echo "<tr><td class='est-objeto-deps'>";
 				$objeto = new estructura_objeto($dep['proyecto'],$dep['objeto_proveedor']);
 				$objeto->generar_html();
 				echo "</td></tr>";
 			}
-			echo "</td></tr>";
 			echo "</table>";
+			echo "</td></tr>";
 		}
 		echo "</table>";
 	}
@@ -99,7 +96,7 @@ class estructura_objeto
 		$target = apex_frame_centro;//apex_frame_lista
 		echo "<table   class='tabla-0'>";
 		echo "<tr>";
-		echo "<td  class='barra-obj-id' width='5'>";
+		echo "<td  class='est-objeto-link' width='5'>";
 		echo "<a target='$target' href='" . toba::get_vinculador()->generar_solicitud(
 									"toba","/admin/objetos/propiedades",
 									array(apex_hilo_qs_zona=>$this->datos["proyecto"]
@@ -109,7 +106,7 @@ class estructura_objeto
 
 		if(isset($this->datos["editor_proyecto"]))
 		{
-			echo "<td  class='barra-obj-id' width='5'>";
+			echo "<td  class='est-objeto-link' width='5'>";
 			echo "<a  target='$target' href='" . toba::get_vinculador()->generar_solicitud(
 										$this->datos["editor_proyecto"],
 										$this->datos["editor_item"],
@@ -121,7 +118,7 @@ class estructura_objeto
 
 		if(isset($this->datos["subclase_archivo"]))
 		{
-			echo "<td  class='barra-obj-id' width='5'>";
+			echo "<td  class='est-objeto-link' width='5'>";
 			echo "<a  target='$target' href='" . 
 				toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php",
 										array(apex_hilo_qs_zona=>$this->datos["proyecto"]

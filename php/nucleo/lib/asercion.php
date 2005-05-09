@@ -17,7 +17,7 @@ class asercion
 
 	function es_array($array, $texto="ATENCION, el elemento no es un ARRAY")
 	{
-		if(!is_array($instancia)){
+		if(!is_array($array)){
 			throw new excepcion_toba($texto);
 		}
 	}

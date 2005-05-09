@@ -111,6 +111,7 @@ class objeto_ci extends objeto
 	function inicializar_dependencias( $dependencias )
 	//Carga las dependencias y las inicializar
 	{
+		asercion::es_array($dependencias,"No hay dependencias definidas");
 		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true));
 		//Parametros a generales
 		$parametro["nombre_formulario"] = $this->nombre_formulario;

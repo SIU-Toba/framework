@@ -44,7 +44,7 @@ class estructura_item
 		echo "<table class='tabla-0' width='100%'>";
 		echo "<tr>";
 		//------------- ACCESO A EDITORES ---------------
-		echo "<td  class='barra-obj-id' width='1%'>";
+		echo "<td  class='est-item-link' width='1%'>";
 		echo "<a  target='$target'  href='" . toba::get_vinculador()->generar_solicitud(
 									"toba","/admin/items/propiedades",
 									array(apex_hilo_qs_zona=>$this->datos["proyecto"]
@@ -52,29 +52,29 @@ class estructura_item
 			recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
 		echo "</td>\n";
 		
-		echo "<td  class='barra-obj-id' width='1%'>";
+		echo "<td  class='est-item-link' width='1%'>";
 		echo "<a  target='$target'  href='" . toba::get_vinculador()->generar_solicitud($this->datos["proyecto"],$this->datos["item"],null,false,false,null,true) ."'>".
 			recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
 		echo "</td>\n";		
 		//------------ PROPIEDADES ---------------------
-		echo "<td class='barra-obj-io' width='100%'>";
+		echo "<td class='est-item-nombre' width='100%'>";
 		echo $this->datos['nombre'];
 		echo "</td>";
-		//------------ DEPENDENCIAS ---------------------
 		echo "</tr>";
+		//------------ DEPENDENCIAS ---------------------
 		if(isset($this->dependencias))
 		{
-			echo "<tr><td  class='barra-obj-link' colspan='3'>";
+			echo "<tr><td  class='est-item-lateral' colspan='3'>";
 			echo "<table  class='tabla-0' width='100%'>";
 			foreach($this->dependencias as $dep)
 			{
-				echo "<tr><td>";
+				echo "<tr><td class='est-objeto-deps'>";
 				$objeto = new estructura_objeto($dep['proyecto'],$dep['objeto']);
 				$objeto->generar_html();
 				echo "</td></tr>";
 			}
-			echo "</td></tr>";
 			echo "</table>";
+			echo "</td></tr>";
 		}
 		echo "</table>";
 	}
