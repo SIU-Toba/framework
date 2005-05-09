@@ -7,63 +7,28 @@
 	---------------------------------------------------------------------------
 
 	*** EF:
-		-> VALIDACION
-			-> SERVER: Excepciones.
-			› CLIENTE: No disparar un ALERT, disparar una exepción. Elaborar una forma distinta de señalar el origen.
-						Validación 'poco ruidosa' particular de un ef cuando cambia el estado
 		-> 'NULL' cambiar por NULL (por ahora el ei_formulario lo resuelve en el obtener_datos y el cargar_datos)
 		-> Nuevos:
 			Para Multilinea:
 				-> ef_nota (cuando pasas el mouse por encima muestra un mensaje)
 				-> ef_vinculo
 				-> ef_template
-			-> ef_upload (hay que razonarlo junto a una ventana de codigo en el server. 
-					Hay que decidir donde poner esta ventana)
-			-> ef_ini_sintaxis	Ef que chequea sintaxis de inicializacion de parametros 
-				(Hay uno hecho por Leo que esta terminado y no se asocio al editor de EFs...)
-			-> ef_multi_selecccion 
-				º Utilizando <SELECT> (conjunto muy chicos de datos, en general es un componente difícil de entender)
-				-> Utilizando un conjunto de checkbox (muy explicito, ideal para conjunto chico de datos)
-				-> Utilizando dos <SELECT> pasando los datos de uno a otro (muy gráfico)
-				-> Hay que buscar uno para conjunto grandes de datos 
-					(ej: quiero seleccionar 5 clientes de un total de 20.000, basado en el popup)
-		-> Refactoring de los actuales:
-			› Migración del JS suelto a las clases (esto incluye el código cascada)
-			› Factor común en el arbol de herencia, tomando en cuenta la fuente de los datos (DAO, SQL, array..)
-			-> Construir las etiquetas usando <label for> con atajos de teclado
-			-> Seguridad 
-		->Cascadas
-			-> Hay que integrar el manejo de CASCADAS con los combos que manejan mas de un VALOR!!!!		
-			-> cascada no seteada no obligatorio. Relajar las validaciones obligatorias si el padre no se cargo.
-			-> Distribución de responsabilidades con el form
-		-> Los proyectos deberian tener un repositorio de EFs instanciados 
-			(Un nuevo lugar del administrador para definir EFs que se usan en muchos ei_form)
 		-> Migración de visibilidad de interfaces
-		-> Método comparar estado (para determinar si se modifico o no el form)
-
-	*** EIs
-		-> Método general para plegar y desplegar
-		
 	*** JS en EI
 !		º  Facilidades en la extension del JS: 
 			º Documentar forma de extensión. (extension_js_formularios.txt.php)
 			º Modificar metodos de extension en PHP. Función crear_objeto_js y extender_objeto_js
-		-> Chequear version de JS, consumo de memoria, browser soportados.
 !		-> Inventario de consumo de js concreto
 
 	*** EI_FORM
-		-> Mejorar el disparo de eventos (Analizar si la modificación afecto el set de datos)
-		-> Pensar forma de agregar nuevos eventos
 		-> Eventos
 			-> Form reutilizado con distintos eventos
 !			-> Homologar con los botones actuales
 !			-> Seprar la generación de botones de la descripcion de cuales van
 !			-> Extender la declaración de botones
-		-> Utilización de shotcuts para acceder a los efs (por ejemplo N&ombre se dispara con ALT + o)
-		-> Personalización del layout de los efs. Idear una forma de agruparlos con un label
+
 		-> Cuando una cascada sale a buscar una respuesta al server, el submit del form se deberia desactivar 
 			hasta que vuelva
-		-> El submit se debe poder correr una sola vez
 
 	*** ML: 
 		º Procesamiento de filas:
