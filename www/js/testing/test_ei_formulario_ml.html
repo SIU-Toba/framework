@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -30,6 +30,7 @@ function setUp() {
 	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
 	formu.agregar_ef(new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', false, ''), 'mi_moneda');
+	formu.set_evento_defecto(new evento_ei('modificacion', true, false));
 }
 
 function test_creacion_seleccion_borrado_filas() {
@@ -57,12 +58,29 @@ function test_deshacer() {
 	assertEquals(2, formu.filas().length);	
 }
 
+function test_validacion_con_sin_evento() {
+	//Crea un formulario que no deberia validar, pero como no hay evento, valida bien   
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
+	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
+	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio  
+	formu._silencioso = true;
+	formu.iniciar();
+
+	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');	//Lo pone vacio  
+	this.assertTrue(formu.validar());
+	
+	formu.set_evento(new evento_ei('modificar', true, ''));	//Hay un evento, no valida  
+	this.assertFalse(formu.validar());
+	
+}
+
 //--- Validaciones particulares
 function test_validador_nuevo() {
 	//Crea un formulario con una fila inicial
 	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
 	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio 
+	formu.set_evento_defecto( new evento_ei('modificar', true, ''));
 	formu._silencioso = true;
 	formu.iniciar();
 
@@ -91,8 +109,6 @@ function test_validador_nuevo() {
 	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor('');
 	this.assertFalse(formu.validar());	
 }
-
-
 
 //---Procesamiento
 function test_totalizacion_estandar() {

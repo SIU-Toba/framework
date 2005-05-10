@@ -57,8 +57,10 @@ def.constructor = objeto_ei_formulario_ml;
 	//----Validación 
 	def.validacion_defecto = function() {
 		var ok = true;
-		for (id_fila in this._filas) {
-			ok = this.validar_fila(id_fila) && ok;
+		if(this._evento && this._evento.validar) {
+			for (id_fila in this._filas) {
+				ok = this.validar_fila(id_fila) && ok;
+			}
 		}
 		return ok;
 	}

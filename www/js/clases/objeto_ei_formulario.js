@@ -111,15 +111,13 @@ def.constructor = objeto_ei_formulario;
 	}
 	
 	def.validacion_defecto = function() {
+		var ok = true;
 		if(this._evento && this._evento.validar) {
-			var ok = true;
 			for (id_ef in this._efs) {
 				ok = this.validar_ef(id_ef) && ok;
 			}
-			return ok;
-		} else {
-			return true;
 		}
+		return ok;
 	}
 	
 	def.validar_ef = function(id_ef) {
