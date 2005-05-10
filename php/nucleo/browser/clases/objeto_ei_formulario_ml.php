@@ -442,6 +442,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
+		if(isset($this->eventos_ext)){
+			return $this->eventos_ext;	
+		}
 		$evento = array();
 		if($this->info_formulario['ev_mod_modificar']){
 			//Evento MODIFICACION
