@@ -103,6 +103,15 @@ class objeto_hoja extends objeto
 		$temp["columna_entrada"] = $this->info_hoja["columna_entrada"];
 		return $temp;
     }
+
+    //----------------------------------------------------------------------------------
+	function crear_sql($where=null,$from=null)
+	{
+		$sql = sql_agregar_clausulas_where($this->info_hoja['sql'],$where);
+		$sql = sql_agregar_tablas_from($sql, $from);
+		return $sql;
+	}	
+
     //----------------------------------------------------------------------------------
 	
 	function cargar_datos($where=null,$from=null)
@@ -114,14 +123,12 @@ class objeto_hoja extends objeto
     	global $db,$ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
-		$sql = sql_agregar_clausulas_where($this->info_hoja['sql'],$where);
-        $sql = sql_agregar_tablas_from($sql, $from);
-        //dump_SQL($sql);return false;
-        
+		$sql = $this->crear_sql($where, $from);
 		if(!isset($db[$this->info["fuente_datos"]][apex_db_con])){
 			$this->registrar_info_proceso("La conexion necesaria para utilizar el objeto [".$this->info["fuente_datos"]."] NO EXISTE - id[". ($this->id) ."]","error");
 			return false;
 		}
+		$db[$this->info["fuente_datos"]][apex_db_con]->SetFetchMode(ADODB_FETCH_NUM);
 		$rs = $db[$this->info["fuente_datos"]][apex_db_con]->Execute($sql);
 		if(!$rs){
 			$this->registrar_info_proceso("La consulta definida en la HOJA de DATOS no genero un RECORDSET - id[". ($this->id) ."] -- " . $db[$this->info["fuente_datos"]][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ","error");
@@ -132,7 +139,6 @@ class objeto_hoja extends objeto
 			return false;
 		}
 		$datos = $rs->getArray();
-		//dump_arbol($datos);
 		$rs->close();
 		include_once("objeto_hoja_contenido.php");
 		$this->contenido =& new objeto_hoja_contenido($datos, $this->info_hoja, $this->info_hoja_dir,$this->navegar,$this);

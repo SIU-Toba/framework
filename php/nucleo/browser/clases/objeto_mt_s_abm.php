@@ -157,15 +157,11 @@ class objeto_mt_abms extends objeto_mt_s
 	function procesar_daos()
 	{
 		if( $dao_form = $this->dependencias["formulario"]->obtener_consumo_dao() ){
-			/*
 			foreach($dao_form as $ef => $dao){
-				$sentencia = "\$datos = \$this->cn->{$dao}();";
-				//echo $sentencia;
-				eval($sentencia);
-				//ei_arbol($datos,"DATOS $ef");
+				$datos = $dao();		
 				//El cuadro carga sus daos de otra forma
-				$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
-			}*/
+				$this->dependencias["formulario"]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+			}
 		}		
 	}
 

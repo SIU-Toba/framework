@@ -178,6 +178,14 @@ class objeto_cuadro extends objeto
 //###########################                         ############################
 //################################################################################
     
+	 function crear_sql($where=null,$from=null)
+	 {
+        //Concateno el WHERE y el FROM pasado por el consumidor
+        $sql = sql_agregar_clausulas_where( stripslashes($this->info_cuadro["sql"]),$where);
+        $sql = sql_agregar_tablas_from($sql,$from);
+		  return $sql;	 
+	 }
+	 
     function cargar_datos($where=null,$from=null,$saltear_paginacion=false,$memorizar=true)
 /*
     @@acceso: publico
@@ -224,8 +232,8 @@ class objeto_cuadro extends objeto
 		}
 
         //Concateno el WHERE y el FROM pasado por el consumidor
-        $sql = sql_agregar_clausulas_where( stripslashes($this->info_cuadro["sql"]),$where);
-        $sql = sql_agregar_tablas_from($sql,$from);     
+		$sql = $this->crear_sql($where, $from);
+
         //----------------- PAGINACION ----------------
 		$this->saltear_paginacion = $saltear_paginacion;
         if(($this->info_cuadro["paginar"]) && !($this->saltear_paginacion)){

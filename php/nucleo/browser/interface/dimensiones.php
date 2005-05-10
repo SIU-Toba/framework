@@ -202,6 +202,13 @@ class dimension_mes_lapso extends ef
 		$this->mes_f->cargar_estado($estado);
 	}
 
+	function obtener_estado()
+	{
+		$inicial = $this->mes_i->obtener_estado();
+		$final = $this->mes_f->obtener_estado();
+		return array('inicial' => $inicial, 'final' =>$final);
+	}
+	
 	function activado()
 	{
 		return $this->mes_i->activado() || $this->mes_f->activado();
