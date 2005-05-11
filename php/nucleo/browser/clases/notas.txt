@@ -55,23 +55,4 @@
 	- En el caso de los eventos globales, el cancelar no tiene que disparar los eventos de las 
 		dependencias y los demas si... como se resuelve esto sin que los que definen un nuevo
 		evento global tengan que saber que tienen que disparar los eventos de las dependencias
-		
-
-	agregar en TRABAJO.TXT
-	----------------------
-	
-	- Orden cuadro en esquema CI? [ esto no esta con POST, asi el cronometro ]
-	- Cambiar la forma de ensamblar una operacion
-	- Poner teclas de acceso para los ITEMS que se esta probando
-	- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
-	- Separar todo por modulos
-	- Link al codigo PHP de una subclase desde la instanciacion
-	- Ver el orden de los parametros en el button_html
-	- Relacion ML->buffer
-	- Buffers con filtrado de registro
-	- Se necesita la administracion de consumos js? no puede ir todo como un include?		
-	- Lugar centralizado donde se reserven teclas de acceso rapido
-
-	
-	
-	
+			

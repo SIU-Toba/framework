@@ -47,6 +47,10 @@ def.constructor = ef;
 		return document.getElementById(this._id_form);
 	}
 	
+	def.nodo = function() {
+		return document.getElementById('cont_' + this._id_form);			
+	}
+
 	def.tab = function () {
 		return this.input().tabIndex;
 	}
@@ -69,9 +73,9 @@ def.constructor = ef;
 			return false;
 		}
 	}
-	
+
 	def.resaltar = function(texto, izq) {
-		var cont = document.getElementById('cont_' + this._id_form);
+		var cont = this.nodo();
 		var warn = document.getElementById('ef_warning_' + this._id_form);
 		var clon = document.getElementById('ef_warning').cloneNode(true);
 		izq = (typeof izq == 'number') ? izq : 18;
@@ -96,7 +100,15 @@ def.constructor = ef;
 			window.status = '';
 		}
 	}
+
+	def.ocultar = function() {
+		this.nodo().style.display = 'none';	
+	}
 	
+	def.mostrar = function() {
+		this.nodo().style.display = '';	
+	}
+
 	def.activo = function() {
 		return !(this.input().disabled);
 	}
