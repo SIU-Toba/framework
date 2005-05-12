@@ -6,44 +6,29 @@
 	-------------------------  ELEMENTOS DE INTERFACE -------------------------
 	---------------------------------------------------------------------------
 
+	- ABM:	
+		- ventanas de I,D,U							1h
+		- ABM simple
+	- Explicacion JS								1h
+	- OPERACION COMECHINGONES						1h
+	- Revision de tareas y organizacion				2h
 
-	ABM												ju
-
-		- como implementarlo
-		- tipos
-		- ventanas de I,D,U
-		- CN?
-		- relacion (BUFFER?)
-		
-	EVENTOS											vi
-	
+	Charla tema EVENTOS								2h
 		- Revision general
 		- incorporar cuadros
 		- heredar todo del EI
 		- Validacion JS (display grafico)
 		
-	- Display del CI (anidaciones)	
-		
-	- OPERACION COMECHINGONES						ju (mi?)
-
-	- Explicacion JS								ju
-
-	- JAIIO											mi
-	- Revision de tareas y organizacion				vi
-	
-	
-	{
 	
 		NUEVOS tickects?
 		----------------
 
 		COSAS
 
-
+		- Display del CI (anidaciones)	
 		- El uso de tabs en los CI es herencia??? pensar
-
 		- permisos dentro de operaciones
-		
+	
 		- PROYECTO de ejemplo
 		- Pasar las cascadas a XML-RPC
 
