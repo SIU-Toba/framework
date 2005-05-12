@@ -40,7 +40,7 @@ class db_tablas
 	//------ Interface de EXTERNA
 	//-------------------------------------------------------
 
-	public function acc_elemento($elemento, $accion, $parametros)
+	public function acc_elemento($elemento, $accion, $parametros=null)
 	//Entrada a la modificacion de los buffers
 	{
 		//ei_arbol($parametros, "ELEMENTO: " . $elemento . " - ACCION: " . $accion);
@@ -59,7 +59,7 @@ class db_tablas
 	
 	public function existe_elemento($elemento)
 	{
-		return ($this->elemento[$elemento]['buffer'] instanceof buffer_db);
+		return ($this->elemento[$elemento]['buffer'] instanceof db_registros);
 	}
 
 	//-------------------------------------------------------

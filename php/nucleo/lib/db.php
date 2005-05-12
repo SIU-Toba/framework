@@ -171,9 +171,56 @@ require("3ros/adodb340/adodb.inc.php");
 	}
 //-------------------------------------------------------------------------------------
 	
-	function abrir_transaccion($db){}
-	function abortar_transaccion($db){}
-	function cerrar_transaccion($db){}
+	function abrir_transaccion($fuente=null)
+	{
+		global $db;
+		if($fuente==null){
+			if( defined("fuente_datos_defecto") ){
+				$fuente = fuente_datos_defecto;
+			}else{
+				$fuente = "instancia";
+			}
+		}
+		$sql = "BEGIN TRANSACTION";
+		$status = $db[$fuente][apex_db_con]->Execute($sql);
+		if(!$status){
+			throw new excepcion_toba ("No es posible ABRIR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
+		}
+	}
+	
+	function abortar_transaccion($fuente=null)
+	{
+		global $db;
+		if($fuente==null){
+			if( defined("fuente_datos_defecto") ){
+				$fuente = fuente_datos_defecto;
+			}else{
+				$fuente = "instancia";
+			}
+		}
+		$sql = "ROLLBACK TRANSACTION";
+		$status = $db[$fuente][apex_db_con]->Execute($sql);
+		if(!$status){
+			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
+		}
+	}
+	
+	function cerrar_transaccion($fuente=null)
+	{
+		global $db;
+		if($fuente==null){
+			if( defined("fuente_datos_defecto") ){
+				$fuente = fuente_datos_defecto;
+			}else{
+				$fuente = "instancia";
+			}
+		}
+		$sql = "COMMIT TRANSACTION";
+		$status = $db[$fuente][apex_db_con]->Execute($sql);
+		if(!$status){
+			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
+		}
+	}
 
 //-------------------------------------------------------------------------------------
 

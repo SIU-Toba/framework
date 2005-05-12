@@ -47,17 +47,17 @@ class ci_abm_nav extends objeto_ci_me
 			$evento['agregar']['tip']="Agregar un nuevo registro";
 		}else{
 			//Edicion de la entidad
-			$evento['cancelar']['etiqueta'] = "&Cancelar";
-			$evento['cancelar']['estilo']="abm-input";
-			//$evento['cancelar']['confirmacion'] = "¿Desea descartar los cambios?";
-			$evento['cancelar']['tip']="Descarta los cambios realizados";
-			$evento['guardar']['etiqueta'] = "&Guardar";
-			$evento['guardar']['estilo']="abm-input";
-			$evento['guardar']['tip']="Guardar cambios";
 			$evento['eliminar']['etiqueta'] = "&Eliminar";
 			$evento['eliminar']['confirmacion'] = "¿Desea eliminar los datos?";
 			$evento['eliminar']['estilo']="abm-input-eliminar";
 			$evento['eliminar']['tip']="Eliminar los datos";
+			$evento['guardar']['etiqueta'] = "&Guardar";
+			$evento['guardar']['estilo']="abm-input";
+			$evento['guardar']['tip']="Guardar cambios";
+			$evento['cancelar']['etiqueta'] = "&Cancelar";
+			$evento['cancelar']['estilo']="abm-input";
+			//$evento['cancelar']['confirmacion'] = "¿Desea descartar los cambios?";
+			$evento['cancelar']['tip']="Descarta los cambios realizados";
 		}
 		return $evento;
 	}
@@ -70,7 +70,7 @@ class ci_abm_nav extends objeto_ci_me
 	}
 
 	//--------------------------------------------------------------
-	//                  EVENTOS Dependencias
+	//--  EVENTOS Dependencias
 	//--------------------------------------------------------------
 	
 	function evt__filtro__filtrar($datos)
@@ -98,21 +98,13 @@ class ci_abm_nav extends objeto_ci_me
 		
 	}
 
-	function evt__cuadro__carga()
-	{
-		include_once("p_nucleo/anexas/dao_anx.php");
-		return dao_anx::get_personas();		
-	}
-
+	//--------------------------------------------------------------
+	//-- EVENTOS del CI  -------------------------------------------
 	//--------------------------------------------------------------
 
 	function evt__agregar()
 	{
 		$this->nueva_entidad = true;
-	}
-
-	function evt__entrada__2()
-	{
 	}
 
 	function evt__cancelar()
@@ -122,12 +114,14 @@ class ci_abm_nav extends objeto_ci_me
 	
 	function evt__guardar()
 	{
-		
+		$this->dependencias["entidad"]->guardar();
+		$this->disparar_limpieza_memoria();
 	}
 	
 	function evt__eliminar()
 	{
-		
+		$this->dependencias["entidad"]->eliminar();
+		$this->disparar_limpieza_memoria();
 	}
 	//--------------------------------------------------------------
 

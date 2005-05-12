@@ -676,7 +676,7 @@ class objeto_ei_formulario extends objeto
 				}
 				$evento['baja']['confirmacion'] = "¿Desea ELIMINAR el registro?";
 				$evento['baja']['validar'] = "false";
-				$evento['baja']['estilo'] = "abm-input";
+				$evento['baja']['estilo'] = "abm-input-eliminar";
 			}
 			if($this->info_formulario['ev_mod_modificar']){
 				//Evento MODIFICACION

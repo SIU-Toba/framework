@@ -3,6 +3,12 @@ require_once("nucleo/browser/clases/objeto_ci_me_tab.php");
 
 class ci_abm_dbt extends objeto_ci_me_tab
 {
+/*
+	FALTA: 
+			- La transaccion hay que meterla en el DB_TABLAS
+			- Hay que implementar un caso que use filtros
+*/
+
 	protected $clave;
 	protected $selecciones;
 	private $db_tablas;
@@ -30,36 +36,85 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		return $estado;
 	}
 
+	function evt__limpieza_memoria()
+	{
+		$this->db_tablas->descargar();
+	}
+
 	//------------------------------------------------------------------------
-	//--  traduzco los EVENTOS al DB_TABLAS
+	//--  traduzco los EVENTOS de la INTERFACE al DB_TABLAS
 	//------------------------------------------------------------------------
 
+	private function inspeccionar_dependencia($dependencia)
+	{
+		$e = explode("_",$dependencia);
+		if($e[0] == "c"){
+			$dep['tipo_ei'] = "ei_cuadro";
+		}elseif( $e[0] == "f"){
+			$dep['tipo_ei'] = "ei_formulario";
+		}
+		$dep['elemento'] = $e[1];
+		$dep['cantidad_registros'] = $this->db_tablas->obtener_cardinalidad($dep['elemento']);
+		return $dep;
+	}
+	
 	public function registrar_evento($id, $evento, $parametros=null)
 	//Se disparan eventos dentro del nivel actual
 	{
-		$e = explode("_",$id);
-		$tipo_ei = $e[0];
-		$elemento = $e[1];
-		if($tipo_ei == "c"){					//-- Cuadro
-			//Los cuadros solo seleccionan
-			$this->selecciones[$elemento] = $parametros;
-		}elseif($tipo == "f"){					//-- Formulario
-			//Obtengo el elemento manejado
-			//Obtengo la cantidad de registro que maneja db_registros
-			$cr = $this->db_tablas->obtener_cardinalidad();
-			if($cr == 1){
+		$dep = $this->inspeccionar_dependencia($id);
+		if($dep['tipo_ei'] == "ei_cuadro")								//-- Cuadro
+		{	
+			$this->selecciones[$dep['elemento']] = $parametros;
+		}
+		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
+		{	
+			if($dep['cantidad_registros'] == 1){
 				//El elemento maneja un registro
-				ei_arbol($parametros, $id . " - " .$evento);
+				$this->db_tablas->acc_elemento($dep['elemento'],"set",$parametros);	
 			}else{
-				//El elemento maneja mas de un registro
-				ei_arbol($parametros, $id . " - " .$evento);
+				if($evento=="alta"){
+					$this->db_tablas->acc_elemento($dep['elemento'],"ins",$parametros);	
+				}elseif($evento=="cancelar"){
+					unset($this->selecciones[$dep['elemento']]);
+				}else{
+					//Hay una seleccion?
+					if(isset($this->selecciones[$dep['elemento']])){
+						if($evento=="modificacion"){
+							//Modifico el registro
+							$reg['registro'] = $parametros;
+							$reg['id'] = $this->selecciones[$dep['elemento']];
+							$this->db_tablas->acc_elemento($dep['elemento'],"upd", $reg);	
+						}elseif($evento=="baja"){
+							//Elimino el registro
+							$this->db_tablas->acc_elemento($dep['elemento'], "del", $this->selecciones[$dep['elemento']]);	
+						}
+						unset($this->selecciones[$dep['elemento']]);
+					}else{
+						asercion::error();
+					}
+				}
 			}
 		}
 	}
 
-	function proveer_datos_dependencias($dependencia)
+	function proveer_datos_dependencias($id)
 	{
-		echo "CONTENIDO DE : $dependencia";		
+		$dep = $this->inspeccionar_dependencia($id);	
+		if($dep['tipo_ei'] == "ei_cuadro")								//-- Cuadro
+		{	
+			return $this->db_tablas->acc_elemento($dep['elemento'],"get");	
+		}
+		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
+		{
+			if($dep['cantidad_registros'] == 1){
+				return $this->db_tablas->acc_elemento($dep['elemento'],"get");	
+			}else{
+				//El elemento maneja N registros, si se selecciono uno lo devuelvo
+				if(isset($this->selecciones[$dep['elemento']])){
+					return $this->db_tablas->acc_elemento($dep['elemento'],"get_x",$this->selecciones[$dep['elemento']]);
+				}
+			}
+		}	
 	}
 
 	//------------------------------------------------------------------------
@@ -72,9 +127,30 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		$this->db_tablas->cargar($clave);
 	}
 	
+	function guardar()
+	{
+		try{
+			abrir_transaccion();
+			$this->db_tablas->sincronizar_db();			
+			cerrar_transaccion();
+		}catch(excepcion_toba $e){
+			abortar_transaccion();
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}
+	}
+	
 	function eliminar()
 	{
-		// Eliminar el DBTABLA
+		try{
+			abrir_transaccion();
+			$this->db_tablas->eliminar();
+			cerrar_transaccion();
+		}catch(excepcion_toba $e){
+			abortar_transaccion();
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}
 	}
 	//------------------------------------------------------------------------
 }

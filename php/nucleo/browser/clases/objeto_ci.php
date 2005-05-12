@@ -566,7 +566,7 @@ class objeto_ci extends objeto
 		{
 			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
 				$tip = '';
-				$clase = 'ef-boton';
+				$clase = isset( $evento['estilo'] ) ? "{$evento['estilo']}" : "'ef_boton'";
 				$tab_order = 0;
 				$acceso = tecla_acceso( $evento["etiqueta"] );
 				$html = $acceso[0]; //Falta concatenar la imagen
