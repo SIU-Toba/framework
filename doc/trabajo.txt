@@ -6,16 +6,84 @@
 	-------------------------  ELEMENTOS DE INTERFACE -------------------------
 	---------------------------------------------------------------------------
 
+
+	ABM												ju
+
+		- como implementarlo
+		- tipos
+		- ventanas de I,D,U
+		- CN?
+		- relacion (BUFFER?)
+		
+	EVENTOS											vi
+	
+		- Revision general
+		- incorporar cuadros
+		- heredar todo del EI
+		- Validacion JS (display grafico)
+		
+	- Display del CI (anidaciones)	
+		
+	- OPERACION COMECHINGONES						ju (mi?)
+
+	- Explicacion JS								ju
+
+	- JAIIO											mi
+	- Revision de tareas y organizacion				vi
 	
 	
-	--------------------------------------------------------------------
-	REFERENCIAS
-	--------------------------------------------------------------------
-	-> 			Pendiente
-	› 			En desarrollo
-	º 			Terminado, para revisar
-	-D			Dialogo!
-	??			Explicar más
-!				Prioridad avanzada
-	--------------------------------------------------------------------
+	{
 	
+		NUEVOS tickects?
+		----------------
+
+		COSAS
+
+
+		- El uso de tabs en los CI es herencia??? pensar
+
+		- permisos dentro de operaciones
+		
+		- PROYECTO de ejemplo
+		- Pasar las cascadas a XML-RPC
+
+		- Manejar los CSS por proyecto		
+		- Orden cuadro en esquema CI? [ esto no esta con POST, asi el cronometro ]
+		- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
+		- Se necesita la administracion de consumos js? no puede ir todo como un include?		
+		- Relacion ML->buffer
+		- Buffers con filtrado de registro
+		- Lugar centralizado donde se reserven teclas de acceso rapido (asi como se reservan TABS)
+	
+		ADMINISTRADOR 
+	
+		- Cambiar la forma de ensamblar una operacion
+		- Poner teclas de acceso para los ITEMS que se esta probando
+		- Separar todo por modulos
+		- Link al codigo PHP de una subclase desde la instanciacion (para entender operaciones)	
+
+		(comechingones)
+	
+		- BASICOS
+	
+			- Ver logica ABM (entidad y buffer)											1d
+			- Persistencia de BUFFERS en memoria cuando son consumidos desde CIs.		1/2
+			- Colapsar objetos standard a demanda										1/2
+			- CUADROS																	2 horas
+				- Mostrar total
+				- Mostrar fila seleccionada
+			- Metodo INFO post proceso 
+			- Cambiar la forma de display de la cola de mensajes (alert)
+			- Dejar el modulo de mensajes online
+			- Ocultar EFs.
+	
+		- Opcionales
+			- Estetica de la anidacion de CIs
+			- DEFINIR la JERARQUIA DE EXCEPCIONES (eventos, definicion, etc)
+			- ignore_user_abort()
+			- Definir aserciones en los puntos estrategicos
+			- Diagrama de secuencia
+			- Reservar tab-order
+			- Imagenes en botones
+			- Unir CN y CN_T	
+	}		

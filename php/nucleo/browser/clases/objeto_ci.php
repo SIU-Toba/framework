@@ -11,7 +11,7 @@ define("apex_ci_separador","__");
 */
 class objeto_ci extends objeto
 {
-	protected $cn;									// Controlador de negocio asociado
+	protected $cn=null;								// Controlador de negocio asociado
 	protected $nombre_formulario;					// privado | string | Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
 	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
@@ -457,17 +457,23 @@ class objeto_ci extends objeto
 					}
 				}
 				//-- Inyecto DATOS en los EIs, si es que existe un metodo para cargarlos --
-				$metodo = apex_ci_evento . apex_ci_separador . $dep . apex_ci_separador . "carga";
-				if(method_exists($this, $metodo)){
-					$this->dependencias[$dep]->cargar_datos( $this->$metodo() );
-					$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dep' -> [ $metodo ] ");
-				}else{
-					$this->log->warning($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dep' no fue cargada");
-					//Puede implementarse un metodo generico de manejo de eventos? 
-				}
+				$this->dependencias[$dep]->cargar_datos( $this->proveer_datos_dependencias($dep) );
 			}
 		}
 	}	
+	//-------------------------------------------------------------------------------
+
+	function proveer_datos_dependencias($dependencia)
+	{
+		$metodo = apex_ci_evento . apex_ci_separador . $dependencia . apex_ci_separador . "carga";
+		if(method_exists($this, $metodo)){
+			$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dependencia' -> [ $metodo ] ");
+			return $this->$metodo();
+		}else{
+			$this->log->warning($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada");
+			return null;
+		}
+	}
 	//-------------------------------------------------------------------------------
 
 	function obtener_html_base()

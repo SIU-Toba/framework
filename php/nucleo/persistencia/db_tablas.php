@@ -1,5 +1,5 @@
 <?
-require_once('nucleo/lib/buffer_db.php');
+require_once('nucleo/persistencia/db_registros.php');
 /*
 Una entidad posee un conjunto de buffers y conoce la logica de persistencia entre los mismos
 Definir un nuevo tipo de entidad deberia implicar:
@@ -9,7 +9,7 @@ Definir un nuevo tipo de entidad deberia implicar:
 	- reescribir las primitivas (sincro, upd) si hace algo muy especifico	
 
 */
-class entidad
+class db_tablas
 {
 	protected $log;
 	protected $elemento;
@@ -29,6 +29,11 @@ class entidad
 			$temp[$elemento] = $this->elemento[$elemento]['buffer']->info(true);
 		}
 		return $temp;
+	}
+	
+	function obtener_cardinalidad($elemento)
+	{
+		return $this->elemento[$elemento]['registros'];
 	}
 	
 	//-------------------------------------------------------

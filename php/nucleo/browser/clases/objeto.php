@@ -148,7 +148,10 @@ class objeto
 									d.base as					fuente_base,
 									d.link_instancia as			fuente_link_instancia,
 									d.instancia_id as			fuente_link_instancia_id,
-									oi.objeto as				objeto_existe_ayuda
+									oi.objeto as				objeto_existe_ayuda,
+									o.parametro_a as			parametro_a,
+									o.parametro_b as			parametro_b,
+									o.parametro_c as			parametro_c
 							FROM	apex_objeto o
 										LEFT OUTER JOIN apex_objeto_info oi 
 											ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto),
