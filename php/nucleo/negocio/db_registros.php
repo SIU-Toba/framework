@@ -5,7 +5,7 @@
 	Solo provee los metodos para alterar el conjunto de registros y mantenerlos en la sesion.
 */
 define("apex_buffer_separador","%");
-class buffer_db
+class db_registros
 {
 	protected $log;						//Referencia al LOGGER
 	protected $solicitud;				//Referencia a la solicitud

@@ -1,5 +1,5 @@
 <?php
-require_once("buffer_db.php");
+require_once("db_registros.php");
 /*
 	Buffer DB SIMPLE. Maneja una unica tabla
 
@@ -34,7 +34,7 @@ require_once("buffer_db.php");
  -> Es realmente necesario fijar la clave interna a los registros??
 
 */
-class buffer_db_s extends buffer_db
+class db_registros_s extends db_registros
 {
 	function __construct($id, $definicion, $fuente)
 	{

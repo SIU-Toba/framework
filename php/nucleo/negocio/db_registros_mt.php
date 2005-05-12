@@ -1,12 +1,15 @@
 <?php
-require_once("buffer_db.php");
+require_once("db_registros.php");
 /*
-	Atencion, el buffer multitabla no funca con las columnas disjuntas.
+	1)
 		1 -> 1		: todo BIEN
-		1 -> 0 ó 1	: todo MAL
+		1 -> 0		: todo MAL
+		
+	2)
+		Cuando las dos tablas tienen el mismo nombre falla
 */
 
-class buffer_db_mt extends buffer_db
+class db_registros_mt extends db_registros
 {
 	function __construct($id, $definicion, $fuente)
 	{
