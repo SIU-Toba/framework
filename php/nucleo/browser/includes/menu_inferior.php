@@ -20,22 +20,15 @@
  */
 
 //Si cambia el formato de los frames, la cabecera puede direccionar a lugares erroneos.
-/*<script language='javascript'>
-	if(self.name==top.cabecera.redireccion)
-	{
-		top.cabecera.closeallmenus();//Queda el boton activado
-	}else{
-		//alert('Error! la cabecera redirecciona a:' + top.cabecera.redireccion);
-		top.cabecera.location.href='<? echo $this->vinculador->generar_solicitud("toba","/basicos/cabecera") ?>&frame='+self.name;
-	}
-</script>*/
 ?>
+
 <SCRIPT language="JavaScript">
-/*
-if(top.cabecera.load_ok == '1'){
-	top.cabecera.closeallmenus();	
+if(top.cabecera.load_ok){
+	if(top.cabecera.load_ok == '1'){
+		top.cabecera.closeallmenus();	
+	}
 }
-*/
+
 menunum=0;menus=new Array();_d=document;function addmenu(){menunum++;menus[menunum]=menu;}function dumpmenus(){mt="<script language=javascript>";for(a=1;a<menus.length;a++){mt+=" menu"+a+"=menus["+a+"];"}mt+="<\/script>";_d.write(mt)}
 
 // Special effect string for IE5.5 or above please visit http://www.milonic.co.uk/menu/filters_sample.php for more filters
@@ -58,25 +51,25 @@ Frames_Top_Offset=0 		// Frames Page Adjustment for Top
 Frames_Left_Offset=-50		// Frames Page Adjustment for Left
 
 style1=[			// style1 is an array of properties. You can have as many property arrays as you need. This means that menus can have their own style.
-'<? echo $color_serie["p"][1] ?>',			// Mouse Off Font Color
+'#000000',			// Mouse Off Font Color
 '<? echo $color_serie["p"][4] ?>',			// Mouse Off Background Color
-'<? echo $color_serie["p"][4] ?>',			// Mouse On Font Color
+'#FFFFFF',			// Mouse On Font Color
 '<? echo $color_serie["p"][1] ?>',			// Mouse On Background Color
-'<? echo $color_serie["p"][1] ?>',			// Menu Border Color 
+'#000000',			// Menu Border Color 
 11,						// Font Size in pixels
 'normal',				// Font Style (italic or normal)
 'normal',				// Font Weight (bold or normal)
 "<? echo $tipografia_serie[1] ?>",					// Font Name
 5,							// Menu Item Padding
 '',						// Sub Menu Image (Leave this blank if not needed)
-0,							// 3D Border & Separator bar
-'<? echo $color_serie["p"][6] ?>',			// 3D High Color
+1,							// 3D Border & Separator bar
+'#FFFFFF',			// 3D High Color
 '<? echo $color_serie["p"][2] ?>',			// 3D Low Color
-'<? echo $color_serie["p"][4] ?>',			// Current Page Item Font Color (leave this blank to disable)
-'<? echo $color_serie["p"][4] ?>',			// Current Page Item Background Color (leave this blank to disable)
+'',			// Current Page Item Font Color (leave this blank to disable)
+'',			// Current Page Item Background Color (leave this blank to disable)
 '',						// Top Bar image (Leave this blank to disable)
-'<? echo $color_serie["n"][6] ?>',			// Menu Header Font Color (Leave blank if headers are not needed)
-'<? echo $color_serie["p"][2] ?>',			// Menu Header Background Color (Leave blank if headers are not needed)
+'',			// Menu Header Font Color (Leave blank if headers are not needed)
+'',			// Menu Header Background Color (Leave blank if headers are not needed)
 ]
 
 <?
@@ -110,14 +103,17 @@ style1=[			// style1 is an array of properties. You can have as many property ar
 			if($rs->fields["carpeta"]==1){
 				// Agrego CARPETAS al menu
 				//ej: ,"News&nbsp;sites&nbsp;&nbsp;","show-menu=news",,"",1		
-				echo ",'<img src=\"".recurso::imagen_apl('menu_nodo.gif')."\" border=\"0\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "','show-menu=" . trim($rs->fields["item"]) . "',,'',1\n";
+				echo ",'<span class=\"menu-texto\">&nbsp;&nbsp;"
+					.trim($rs->fields["nombre"])
+					."</span><span class=\"menu-icono\">&nbsp;<img src=\"".recurso::imagen_pro('menu_nodo.gif')
+					."\" border=\"0\"></span>','show-menu=" 
+					.trim($rs->fields["item"]) . "',,'',1\n";
 			} else {
 				// Agrego ITEMS al menu
 				//ej: ,"ABC News","http://www.abcnews.com",,,0
 				//ej llamada JS: echo ",'<img src=img/menu_item.gif border=0>&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "',\"javascript:jumpto(". trim($rs->fields["menu"]) . ")\",,'',1\n";
-				echo ",'<img src=\"".recurso::imagen_apl('menu_item.gif')."\" border=\"0\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "','".
-					$this->vinculador->generar_solicitud( $rs->fields["proyecto"], $rs->fields["item"],null,false,false,null,true )
-					. " target=$frame_destino',,'',1\n";
+				echo ",'<span class=\"menu-texto\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "</span>','".$this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"], null, false, false, null, true).
+					 " target=$frame_destino',,'',1\n";
 			}
 			$rs->movenext();
 		}

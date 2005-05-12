@@ -208,8 +208,8 @@ class logger
 		if(apex_pa_log_pantalla){
 			$hay_salida = false;
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-			$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
-			$html .= "<pre class='texto-ss'>";
+			//$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
+			$html = "<pre class='texto-ss'>";
 			for($a=0; $a<count($this->mensajes); $a++)
 			{
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
@@ -219,12 +219,15 @@ class logger
 							" *  " . $this->mensajes[$a] . "<br>";
 				}			
 			}
+			if ($hay_salida) echo $html;
+/*
 			$html .= "</pre></td></tr></table></div>";
 			if ($hay_salida) {
 				echo "<div style='text-align:left;'>
 						<a href='#logger_salida' onclick='return toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
 						$html</div>";
 			}
+*/
 		}
 	}
 	//------------------------------------------------------------------
