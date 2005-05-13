@@ -159,8 +159,17 @@ class db_tablas
 	public function sincronizar_db()
 	//Sincroniza la entidad contra la base de datos
 	//Esto deberia leer un plan y ejecutarlo. Si la entidad tiene una regla de grabacion
-	//muy complicada, deberia redefinir esta funcion
+	//muy complicada, deberia redefinir la ejecucion del plan
 	{
+		try{
+			abrir_transaccion();
+			$this->sincronizar_plan();
+			cerrar_transaccion();			
+		}catch(excepcion_toba $e){
+			abortar_transaccion();
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}					
 	}
 	//-------------------------------------------------------
 

@@ -64,10 +64,10 @@ def.constructor = objeto_ci;
 	
 	//Intenta realizar el submit de todos los objetos asociados
 	def.submit = function() {
-		if (this._ci_padre && !this._ci_padre.en_submit)
-			return this._ci_padre.submit();
+		if (this._ci_padre && !this._ci_padre.en_submit())
+				return this._ci_padre.submit();
 
-		this.en_submit = true;
+		this._en_submit = true;
 		if (this.puede_submit()) {
 			for (obj in this._objetos) {
 				this._objetos[obj].submit();
@@ -80,8 +80,12 @@ def.constructor = objeto_ci;
 			}
 			return true;
 		}
-		this.en_submit = false;
+		this._en_submit = false;
 		return false;
+	}
+	
+	def.en_submit = function() {
+		return this._en_submit;		
 	}
 	
 	//Chequea si es posible realiza el submit de todos los objetos asociados

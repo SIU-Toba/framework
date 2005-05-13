@@ -48,7 +48,7 @@ def.constructor = ef;
 	}
 	
 	def.nodo = function() {
-		return document.getElementById('cont_' + this._id_form);			
+		return document.getElementById('nodo_' + this._id_form);			
 	}
 
 	def.tab = function () {
@@ -75,7 +75,7 @@ def.constructor = ef;
 	}
 
 	def.resaltar = function(texto, izq) {
-		var cont = this.nodo();
+		var cont = document.getElementById('cont_' + this._id_form);
 		var warn = document.getElementById('ef_warning_' + this._id_form);
 		var clon = document.getElementById('ef_warning').cloneNode(true);
 		izq = (typeof izq == 'number') ? izq : 18;

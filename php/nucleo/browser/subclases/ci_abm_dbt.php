@@ -5,7 +5,6 @@ class ci_abm_dbt extends objeto_ci_me_tab
 {
 /*
 	FALTA: 
-			- La transaccion hay que meterla en el DB_TABLAS
 			- Hay que implementar un caso que use filtros
 */
 
@@ -129,28 +128,12 @@ class ci_abm_dbt extends objeto_ci_me_tab
 	
 	function guardar()
 	{
-		try{
-			abrir_transaccion();
-			$this->db_tablas->sincronizar_db();			
-			cerrar_transaccion();
-		}catch(excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}
+		$this->db_tablas->sincronizar_db();
 	}
 	
 	function eliminar()
 	{
-		try{
-			abrir_transaccion();
-			$this->db_tablas->eliminar();
-			cerrar_transaccion();
-		}catch(excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}
+		$this->db_tablas->eliminar();
 	}
 	//------------------------------------------------------------------------
 }
