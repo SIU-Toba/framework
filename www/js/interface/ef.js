@@ -59,6 +59,10 @@ def.constructor = ef;
 		return this._error;
 	}
 	
+	def.set_error = function(error) {
+		this._error = error;
+	}
+	
 	//---Comandos 
 	def.resetear_error = function() {
 		delete(this._error);

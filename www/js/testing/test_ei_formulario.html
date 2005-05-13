@@ -254,7 +254,7 @@ function test_procesar_submit() {
 	formu.submit = function () {
 		llamado = true;
 	}
-	formu.procesar_el_combo = function (es_inicial) {
+	formu.evt__el_combo__procesar = function (es_inicial) {
 		if (! es_inicial) {
 			this.set_evento(new evento_ei('modificar', true, 'confirmacion'));
 			this.submit();
@@ -274,7 +274,7 @@ function test_procesar_ocultar() {
 	formu.agregar_ef(new ef_editable('formulario1148editable', 'Editable', true, ''), 'el_editable');
 	
 	//Extension del procesamiento del ef el_check
-	formu.procesar_el_check = function () {
+	formu.evt__el_check__procesar = function () {
 		if (this.ef('el_check').chequeado())
 			this.ef('el_editable').activar();
 		else

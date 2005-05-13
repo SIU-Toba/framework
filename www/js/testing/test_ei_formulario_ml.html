@@ -130,7 +130,7 @@ function test_procesamiento_extendido() {
 	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(0.52);	
 
 	//Extension del procesamiento del ef mi_check
-	formu.procesar_mi_check = function () {
+	formu.evt__mi_check__procesar = function () {
 		var total = 0;	
 		var filas = this.filas();
 		for (fila in filas)	{
@@ -150,8 +150,8 @@ function test_procesamiento_extendido() {
 	}	
 	
 	//Se extiende el procesamiento de la moneda para que re-procesarse si se cambia algun importe
-	formu.procesar_mi_moneda = function () {
-		return this.procesar_mi_check();
+	formu.evt__mi_moneda__procesar = function () {
+		return this.evt__mi_check__procesar();
 	}
 	formu.iniciar();
 

@@ -38,7 +38,7 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef))
-			return this['procesar_' + id_ef](es_inicial);		 //Procesamiento particular
+			return this['evt__' + id_ef + '__procesar'](es_inicial);		 //Procesamiento particular
 		else
 			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 	}
@@ -75,7 +75,13 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.validar_fila_ef = function(fila, id_ef) {
 		var ef = this._efs[id_ef].ir_a_fila(fila);
-		if (! ef.validar()) {
+		var validacion_particular = 'evt__' + id_ef + '__validar';
+		var $ok = true;
+		
+		if (existe_funcion(this, validacion_particular))
+			$ok = this[validacion_particular](fila);
+			
+		if (! ef.validar() || !$ok) { //no valida
 			if (! this._silencioso) {
 				ef.resaltar(ef.error(), 6);
 				ef.resetear_error();

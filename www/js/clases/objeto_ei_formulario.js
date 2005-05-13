@@ -136,7 +136,7 @@ def.constructor = objeto_ei_formulario;
 	//---Procesamiento 
 	def.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef))
-			return this['procesar_' + id_ef](es_inicial);					  //Procesamiento particular, no hay proceso por defecto
+			return this['evt__' + id_ef + '__procesar'](es_inicial);					  //Procesamiento particular, no hay proceso por defecto
 	}
 			
 	//Hace reflexion sobre la clase en busqueda de extensiones	
@@ -156,7 +156,7 @@ def.constructor = objeto_ei_formulario;
 	}	
 	
 	def.hay_procesamiento_particular_ef = function(id_ef) {
-		return existe_funcion(this, 'procesar_' + id_ef);
+		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
 	}	
 
 	//---Refresco Grafico
