@@ -60,6 +60,8 @@ class ci_abm_dbt extends objeto_ci_me_tab
 	public function registrar_evento($id, $evento, $parametros=null)
 	//Se disparan eventos dentro del nivel actual
 	{
+
+
 		$dep = $this->inspeccionar_dependencia($id);
 		if($dep['tipo_ei'] == "ei_cuadro")								//-- Cuadro
 		{	

@@ -410,6 +410,7 @@ class objeto_ci extends objeto
 		$this->inicializar_dependencias( $this->dependencias_gi );
 		$this->evt__pre_cargar_datos_dependencias();
 		$this->cargar_datos_dependencias();
+		$this->evt__post_cargar_datos_dependencias();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -458,6 +459,7 @@ class objeto_ci extends objeto
 				}
 				//-- Inyecto DATOS en los EIs, si es que existe un metodo para cargarlos --
 				$this->dependencias[$dep]->cargar_datos( $this->proveer_datos_dependencias($dep) );
+				$this->dependencias[$dep]->definir_eventos();
 			}
 		}
 	}	
@@ -473,6 +475,12 @@ class objeto_ci extends objeto
 			$this->log->warning($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada");
 			return null;
 		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function evt__post_cargar_datos_dependencias()
+	//Despues de cargar las dependencias
+	{
 	}
 	//-------------------------------------------------------------------------------
 
@@ -547,6 +555,7 @@ class objeto_ci extends objeto
 		$this->gi = true;
 	}
 	//-------------------------------------------------------------------------------
+
 	function hay_eventos_de_botonera() 
 	{
 		foreach($this->eventos as $id => $evento ) {	
@@ -566,7 +575,7 @@ class objeto_ci extends objeto
 		{
 			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
 				$tip = '';
-				$clase = isset( $evento['estilo'] ) ? "{$evento['estilo']}" : "'ef_boton'";
+				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
 				$tab_order = 0;
 				$acceso = tecla_acceso( $evento["etiqueta"] );
 				$html = $acceso[0]; //Falta concatenar la imagen

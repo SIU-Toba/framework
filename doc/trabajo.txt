@@ -6,22 +6,39 @@
 	-------------------------  ELEMENTOS DE INTERFACE -------------------------
 	---------------------------------------------------------------------------
 
-	- ABM:	
-		- ventanas de I,D,U							1h
-		- ABM simple
-	- Explicacion JS								1h
-	- OPERACION COMECHINGONES						1h
-	- Revision de tareas y organizacion				2h
+	- HOY:	
+
+		- ABM simple aunque extiende CI
+
 
 	Charla tema EVENTOS								2h
-		- Revision general
+
 		- incorporar cuadros
+		- BOTONES
+*			- esquema de modificar botones
+			- separacion entre boton y evento
+			- consumir botonera por composicion
+		- Un formulario cargado debe tener un modificar por defecto
 		- heredar todo del EI
-		- Validacion JS (display grafico)
+
+		- cambios de nombre
+			- limpiar por cancelar
+			- validar por maneja_datos
+			- get_lista_eventos por construir_eventos_defecto
+
+	JS:
+		- ventana de eventos de validacion especifica de efs en el formulario comun
+		- bug explorer
 		
 	
 		NUEVOS tickects?
 		----------------
+
+		- CIs sin CNs
+		- El uso de tabs u otros metodos de cambiar etapas no deberia implementarse con herencia
+		- 
+		
+
 
 		COSAS
 
@@ -71,4 +88,3 @@
 			- Reservar tab-order
 			- Imagenes en botones
 			- Unir CN y CN_T	
-	}		

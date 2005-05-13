@@ -5,7 +5,6 @@ class ci_abms extends objeto_ci
 {
 	protected $filtro;
 	protected $seleccion;
-	protected $nueva_entidad=false;
 	protected $dbr;
 		
 	function __construct($id)
@@ -18,7 +17,6 @@ class ci_abms extends objeto_ci
 		$estado = parent::mantener_estado_sesion();
 		$estado[] = "filtro";
 		$estado[] = "seleccion";
-		$estado[] = "nueva_entidad";
 		return $estado;
 	}
 
@@ -38,10 +36,15 @@ class ci_abms extends objeto_ci
 	{
 		parent::evt__limpieza_memoria(array("filtro"));
 	}
-
+/*
+	function evt__post_cargar_datos_depedencias()
+	{
+	}
+*/
 	//--------------------------------------------------------------
 	//--  EVENTOS Filtro
 	//--------------------------------------------------------------
+
 	function evt__filtro__filtrar($datos)
 	{
 		$this->filtro = $datos;
@@ -62,13 +65,12 @@ class ci_abms extends objeto_ci
 	//--------------------------------------------------------------
 	//--  EVENTOS Cuadro
 	//--------------------------------------------------------------
-/*		
+/*	
 	function evt__cuadro__carga()
 	{
-
+		
 	}
 */	
-	
 	function evt__cuadro__seleccion($id)
 	{
 		$this->seleccion = $id;
@@ -111,6 +113,8 @@ class ci_abms extends objeto_ci
 	
 	function evt__formulario__modificacion($registro)
 	{
+		$this->transaccionar($dbr->modificar_registro($registro, 0));
+		
 		$dbr = $this->obtener_dbr();
 		try {
 			abrir_transaccion();

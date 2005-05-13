@@ -614,7 +614,6 @@ class objeto_ei_formulario extends objeto
 	Seba, la adaptacion con los objetos JS queda en tus manos...
 */
 	{
-		$this->eventos = $this->get_lista_eventos();
 		//----------- Generacion
 		echo form::hidden($this->submit, '');
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
@@ -622,7 +621,7 @@ class objeto_ei_formulario extends objeto
 		foreach($this->eventos as $id => $evento )
 		{
 			$tip = '';
-			$clase = isset( $evento['estilo'] ) ? "{$evento['estilo']}" : "'ef_boton'";
+			$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
 			$tab_order = 0;//Esto esta MAAL!!!
 			$acceso = tecla_acceso( $evento["etiqueta"] );
 			$html = $acceso[0]; //Falta concatenar la imagen
@@ -636,20 +635,25 @@ class objeto_ei_formulario extends objeto
 		echo "</table>\n";
 	}
 	
+	//-------------------------------------------------------------------------------
+	//---- EVENTOS ------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
 	function set_eventos($eventos)
 	{
-		$this->eventos_ext = $eventos;
+		$this->eventos = $eventos;
 	}
-	
+
+	function definir_eventos()
+	{
+		$this->eventos = $this->get_lista_eventos();
+	}
+
 	function get_lista_eventos()
 	/*
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
-		//Se se definieron eventos por fuera, se utilizan esos
-		if(isset($this->eventos_ext)){
-			return $this->eventos_ext;	
-		}
 		$evento = array();
 		if($this->etapa=="agregar")
 		//El formulario esta VACIO
@@ -693,7 +697,7 @@ class objeto_ei_formulario extends objeto
 				if($this->info_formulario['ev_mod_limpiar_etiq']){
 					$evento['cancelar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
 				}else{
-					$evento['cancelar']['etiqueta'] = "&Limpiar";
+					$evento['cancelar']['etiqueta'] = "&Cancelar";
 				}
 				$evento['cancelar']['validar'] = "false";
 				$evento['cancelar']['estilo'] = "abm-input";
@@ -727,8 +731,6 @@ class objeto_ei_formulario extends objeto
 		//Si no hay eventos, el componente debe disparar el evento modificacion
 		if(count($this->eventos) == 0){
 			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
-			//Para que en la proxima vuelta el evento sea reconocido...
-			$this->eventos['modificacion']['validar'] = "true";
 		}
 		echo "{$this->objeto_js}.iniciar();\n";	
 	}

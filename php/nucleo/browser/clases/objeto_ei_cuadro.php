@@ -102,6 +102,10 @@ class objeto_ei_cuadro extends objeto_cuadro
 
 	function eliminar_observador($observador){}
 
+	function definir_eventos()
+	{
+	}
+
 	function disparar_eventos()
 	{
 		$this->recuperar_interaccion();
