@@ -63,7 +63,6 @@ def.constructor = objeto_ei_formulario;
 	def.submit = function() {
 		if (this._ci && !this._ci.en_submit)
 			return this._ci.submit();
-		
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs
 			for (id_ef in this._efs) {

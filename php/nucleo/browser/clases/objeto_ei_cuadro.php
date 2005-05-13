@@ -71,6 +71,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 								c.dao_nucleo_proyecto			as  dao_nucleo_proyecto,	
 								c.dao_nucleo					as  dao_clase,			
 								c.dao_metodo					as  dao_metodo,
+								c.dao_parametros				as  dao_parametros,
 								n.archivo 						as	dao_archivo
 					 FROM		apex_objeto_cuadro c
 					 			LEFT OUTER JOIN	apex_nucleo n
@@ -192,7 +193,8 @@ class objeto_ei_cuadro extends objeto_cuadro
 			if(trim($this->info_cuadro['dao_metodo'])!=""){
 				include_once($this->info_cuadro['dao_archivo']);
 				$sentencia = "\$this->datos = " . $this->info_cuadro['dao_clase'] 
-											. "::" .  $this->info_cuadro['dao_metodo'] . "();";
+											. "::" .  $this->info_cuadro['dao_metodo']
+											. "(".$this->info_cuadro['dao_parametros'].");";
 				eval($sentencia);//echo $sentencia;
 			}
 		}

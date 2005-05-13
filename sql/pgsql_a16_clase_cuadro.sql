@@ -39,6 +39,7 @@ CREATE TABLE apex_objeto_cuadro
 	dao_nucleo_proyecto			varchar(15)		NULL,
 	dao_nucleo					varchar(60)		NULL,
 	dao_metodo					varchar(80)		NULL,
+	dao_parametros					varchar(150)		NULL,
 	desplegable					smallint		NULL,
 	desplegable_activo			smallint		NULL,
 	scroll						smallint		NULL,
