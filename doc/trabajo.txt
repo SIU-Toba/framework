@@ -25,6 +25,8 @@
 			- limpiar por cancelar
 			- validar por maneja_datos
 			- get_lista_eventos por construir_eventos_defecto
+		- Cambiar todos los button para que no hagan submit
+			pasar un segundo parametro a "set_evento" indicando si
 
 	JS:
 		- ventana de eventos de validacion especifica de efs en el formulario comun

@@ -22,8 +22,8 @@ class ci_abm_dbt extends objeto_ci_me_tab
 
 	function destruir()
 	{
-		ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
-		//ei_arbol($this->db_tablas->info());
+		//ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
+		ei_arbol($this->db_tablas->info());
 		parent::destruir();	
 	}
 

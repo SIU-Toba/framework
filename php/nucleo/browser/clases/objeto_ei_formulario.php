@@ -629,7 +629,7 @@ class objeto_ei_formulario extends objeto
 			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
 			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
 			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('$id',$js_validar, $js_confirm))\"";
-			echo "&nbsp;" . form::button_html( $this->submit ."_". $id, $html, $js, $tab_order, $tecla, $tip, 'submit', '', $clase);
+			echo "&nbsp;" . form::button_html( $this->submit ."_". $id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
@@ -731,6 +731,8 @@ class objeto_ei_formulario extends objeto
 		//Si no hay eventos, el componente debe disparar el evento modificacion
 		if(count($this->eventos) == 0){
 			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
+			//Para que en la proxima vuelta el evento sea reconocido...
+			$this->eventos['modificacion']['validar'] = "true";
 		}
 		echo "{$this->objeto_js}.iniciar();\n";	
 	}

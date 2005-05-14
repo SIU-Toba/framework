@@ -76,6 +76,7 @@ def.constructor = objeto_ci;
 				document.getElementById(this._input_submit).value = this._evento.id;
 			}
 			if (! this._ci_padre) {  //Sólo el CI raiz es el encargado de hacer submit
+				//alert(this._instancia);
 				document[this._form].submit();			
 			}
 			return true;

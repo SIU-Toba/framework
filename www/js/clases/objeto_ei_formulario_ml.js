@@ -95,7 +95,7 @@ def.constructor = objeto_ei_formulario_ml;
 	//----Submit 
 	def.submit = function() {
 		//Si no es parte de un submit general, dispararlo
-		if (this._ci && !this._ci.en_submit)
+		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
 
 		if (this._evento) {

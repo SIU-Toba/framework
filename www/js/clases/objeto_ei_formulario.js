@@ -49,6 +49,7 @@ def.constructor = objeto_ei_formulario;
 	//---Eventos	
 	def.set_evento = function(evento) {
 		this._evento = evento;
+		this.submit();
 	}
 
 	def.set_evento_defecto = function(evento) {
@@ -61,7 +62,7 @@ def.constructor = objeto_ei_formulario;
 	
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit)
+		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs

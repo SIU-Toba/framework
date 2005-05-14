@@ -80,7 +80,7 @@ class ci_abm_nav extends objeto_ci_me
 		//}
 	}
 	
-	function evt__filtro__limpiar($datos)
+	function evt__filtro__cancelar($datos)
 	{
 		unset( $this->filtro );
 	}
@@ -95,7 +95,21 @@ class ci_abm_nav extends objeto_ci_me
 	function evt__cuadro__seleccion($registro)
 	{
 		$this->seleccion = $registro;
-		
+	}
+
+	function evt__cuadro__carga()
+	{
+		if( !isset($this->info["parametro_a"]) || !isset($this->info["parametro_b"]) || !isset($this->info["parametro_c"]) ){
+			throw new excepcion_toba("Los parametros del OBJETO estan MAL. Fijarse ejemplo de 'personas'... me fui de vacaciones.");	
+		}
+		require_once($this->info["parametro_a"]);
+		if(isset($this->filtro)){
+			$clase = $this->info["parametro_b"];
+			$metodo = $this->info["parametro_c"];
+			$x = "\$temp = $clase::$metodo(\$this->filtro);";
+			eval($x);
+			return $temp;
+		}
 	}
 
 	//--------------------------------------------------------------

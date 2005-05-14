@@ -494,8 +494,7 @@ class objeto_ci extends objeto
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
 		$this->obtener_javascript_global_consumido();
 		echo "<br>\n";
-		$javascript_submit = " onSubmit='return {$this->objeto_js}.submit();' ";
-		echo form::abrir($this->nombre_formulario, $vinculo, $javascript_submit);
+		echo form::abrir($this->nombre_formulario, $vinculo);
 		echo "<div align='center'>\n";
 		$this->obtener_html();
 		echo "</div>\n";
