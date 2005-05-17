@@ -82,5 +82,5 @@ function retornar_info(datos)
 <?/*****************************************************************************/?>
 </script>
 <?php 
-js::cargar_consumos_globales(array('basico', 'clases/toba', 'utilidades/datadumper'));
+js::cargar_consumos_globales(array('basico', 'cola_mensajes', 'clases/toba', 'utilidades/datadumper'));
 ?>

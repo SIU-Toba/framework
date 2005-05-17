@@ -57,7 +57,29 @@ class js
 					echo "<img id='ef_warning' src='$warn' style='margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
 					echo js::incluir(recurso::js("$consumo.js"));
 					break;
-					
+				case 'subModal':
+					$img_error = recurso::imagen_apl('error.gif', true);
+					$img_info = recurso::imagen_apl('info_chico.gif', true);
+					$img_cerrar = recurso::imagen_apl('modal/cerrar.gif', true);
+					echo "
+						<div style='display: none' id='icono_error'>$img_error</div>
+						<div style='display: none' id='icono_info'>$img_info</div>						
+						<div id='popupMask'>&nbsp;</div>
+						<div id='popupContainer'>
+							<div id='popupInner'>
+								<div id='popupTitleBar'>
+									<div id='popupTitle'></div>
+									<div id='popupControls'>
+									<button class='abm-input' onclick='hidePopWin(false)'>$img_cerrar</button>
+									</div>
+								</div>
+								<div style='width:100%;height:80%;background-color:transparent;' scrolling='auto' allowtransparency='true' id='popupFrame' name='popupFrame'></div>
+								<div style='width:100%;height:20%;text-align:center;' id='popupBotonera'></div>
+							</div>
+						</div>
+					";
+					echo js::incluir(recurso::js("$consumo.js"));					
+					break;
 				//--> Por defecto carga el archivo del consumo
 				default:
 					echo js::incluir(recurso::js("$consumo.js"));

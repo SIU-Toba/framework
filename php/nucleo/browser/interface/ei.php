@@ -408,6 +408,7 @@
 	{
 		global $color_serie;
 		if(isset($estilo_body)) $estilo_body = "class='$estilo_body'";
+		//<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 ?>		
 <HTML>
 <HEAD>

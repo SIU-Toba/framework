@@ -42,7 +42,11 @@ def.constructor = ef;
 	def.formato_texto = function (valor) {
 		return valor;
 	}
-	
+
+	def.activo = function() {
+		return !(this.input().disabled);
+	}
+		
 	def.input = function() {
 		return document.getElementById(this._id_form);
 	}
@@ -59,11 +63,11 @@ def.constructor = ef;
 		return this._error;
 	}
 	
+	//---Comandos 
 	def.set_error = function(error) {
 		this._error = error;
 	}
 	
-	//---Comandos 
 	def.resetear_error = function() {
 		delete(this._error);
 	}
@@ -113,10 +117,6 @@ def.constructor = ef;
 		this.nodo().style.display = '';	
 	}
 
-	def.activo = function() {
-		return !(this.input().disabled);
-	}
-	
 	def.desactivar = function () {
 		this.input().disabled = true;
 	}

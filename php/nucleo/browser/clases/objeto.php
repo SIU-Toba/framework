@@ -843,6 +843,14 @@ class objeto
 			echo $this->solicitud->vinculador->obtener_vinculo_a_item("toba","/basicos/ayuda_obj",$parametros,true);
 			echo "</td>\n";
 		}
+		//Barra de mensajeria
+		if (isset($this->objeto_js)) {
+			echo "<td class='$estilo' id='barra_{$this->objeto_js}' style='display:none'>";
+			echo "<a href='javascript: cola_mensajes.mostrar({$this->objeto_js})'>";
+			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
+			echo "</a>";
+			echo "</td>\n";
+		};
 		//Barra especifica dependiente de la clase
 		echo "<td class='$estilo'>";
 		echo $this->barra_superior_especifica();

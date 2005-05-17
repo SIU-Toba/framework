@@ -28,7 +28,7 @@ def.constructor = objeto_ei_formulario;
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef);
 			this._efs[id_ef].cambiar_tab(this._rango_tabs[0]);
-			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '")');
+			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
 			this._rango_tabs[0]++;
 		}
 		this.agregar_procesamientos();
@@ -107,24 +107,34 @@ def.constructor = objeto_ei_formulario;
 
 	//----Validación 
 	def.validar = function() {
-		return this.validacion_defecto();
-	}
-	
-	def.validacion_defecto = function() {
 		var ok = true;
+		var validacion_particular = 'evt__validar_datos';		
 		if(this._evento && this._evento.validar) {
+			if (existe_funcion(this, validacion_particular))
+				ok = this[validacion_particular]();		
 			for (id_ef in this._efs) {
 				ok = this.validar_ef(id_ef) && ok;
 			}
+		} else {
+			this.resetear_errores();
 		}
+		if (!ok)
+			this.reset_evento();
 		return ok;
 	}
 	
-	def.validar_ef = function(id_ef) {
-		var ef = this._efs[id_ef]
+	def.validar_ef = function(id_ef, es_online) {
+		var ef = this._efs[id_ef];
+		var validacion_particular = 'evt__' + id_ef + '__validar';
+		var ok = true;
+		if (existe_funcion(this, validacion_particular)) {
+			ok = this[validacion_particular]();
+		}				
 		if (! ef.validar()) {
 			if (! this._silencioso)
 				ef.resaltar(ef.error());
+			if (! es_online)
+				cola_mensajes.agregar(ef.error());
 			ef.resetear_error();
 			return false
 		}
@@ -132,12 +142,20 @@ def.constructor = objeto_ei_formulario;
 			ef.no_resaltar();
 		return true;
 	}
-
+	
+	def.resetear_errores = function() {
+		if (! this._silencioso)	 {
+			for (id_ef in this._efs) {
+				if (! this._silencioso)
+					this._efs[id_ef].no_resaltar();		
+			}	
+		}
+	}
 
 	//---Procesamiento 
 	def.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef))
-			return this['evt__' + id_ef + '__procesar'](es_inicial);					  //Procesamiento particular, no hay proceso por defecto
+			return this['evt__' + id_ef + '__procesar'](es_inicial);	//Procesamiento particular, no hay proceso por defecto
 	}
 			
 	//Hace reflexion sobre la clase en busqueda de extensiones	

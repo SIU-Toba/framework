@@ -28,7 +28,7 @@ def.constructor = objeto_ei_formulario_ml;
 			var ef = this._efs[id_ef].ir_a_fila(fila);
 			ef.iniciar(id_ef);
 			ef.cambiar_tab(this._rango_tabs[0]);
-			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '")');			
+			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
 			this._rango_tabs[0]++;
 		}
 	}	
@@ -55,9 +55,12 @@ def.constructor = objeto_ei_formulario_ml;
 	}
 	
 	//----Validación 
-	def.validacion_defecto = function() {
+	def.validar = function() {
 		var ok = true;
+		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
+			if (existe_funcion(this, validacion_particular))
+				ok = this[validacion_particular]();
 			for (id_fila in this._filas) {
 				ok = this.validar_fila(id_fila) && ok;
 			}
@@ -73,24 +76,34 @@ def.constructor = objeto_ei_formulario_ml;
 		return ok;
 	}
 	
-	def.validar_fila_ef = function(fila, id_ef) {
+	def.validar_fila_ef = function(fila, id_ef, es_online) {
 		var ef = this._efs[id_ef].ir_a_fila(fila);
 		var validacion_particular = 'evt__' + id_ef + '__validar';
-		var $ok = true;
-		
-		if (existe_funcion(this, validacion_particular))
-			$ok = this[validacion_particular](fila);
-			
-		if (! ef.validar() || !$ok) { //no valida
-			if (! this._silencioso) {
+		var ok = true;
+		if (existe_funcion(this, validacion_particular)) {
+			ok = this[validacion_particular](fila);
+		}
+		if (! ef.validar() || !ok) { //no valida
+			if (! this._silencioso)
 				ef.resaltar(ef.error(), 6);
-				ef.resetear_error();
-			}
+			if (! es_online)
+				cola_mensajes.agregar(ef.error());
+			ef.resetear_error();
 			return false;
 		}		
 		ef.no_resaltar();
 		return true;
 	}
+	
+	def.resetear_errores = function() {
+		if (! this._silencioso)	 {
+			for (fila in this._filas) {
+				for (id_ef in this._efs) {
+					this._efs[id_ef].ir_a_fila(this._filas[fila]).no_resaltar();
+				}
+			}
+		}
+	}	
 	
 	//----Submit 
 	def.submit = function() {

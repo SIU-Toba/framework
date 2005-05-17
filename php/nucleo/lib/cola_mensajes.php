@@ -10,7 +10,6 @@ class cola_mensajes
 {
 	private $solicitud;
 	private $mensajes = array();
-	private $nivel_gravedad="info";		//info, error
 	
 	function __construct($solicitud)
 	{
@@ -19,27 +18,16 @@ class cola_mensajes
 	
 	//--------------------------------------------------------------
 
-	public function set_nivel_gravedad($nivel_gravedad)
+	public function agregar($mensaje, $nivel='error')
 	{
-		$this->nivel_gravedad = $nivel_gravedad;
-	}
-
-	public function agregar($mensaje, $nivel=null)
-	{
-		$this->mensajes[] = $mensaje;
+		$this->mensajes[] = array($mensaje, $nivel);
 		//Agrego el mensaje mostrado al usuario al logger como DEBUG
 		$this->solicitud->log->debug("[usuario] ".$mensaje);
-		if(isset($nivel)){
-			$this->set_nivel_gravedad($nivel);
-		}
 	}
 
-	public function agregar_id($indice, $parametros=null, $nivel=null)
+	public function agregar_id($indice, $parametros=null, $nivel='error')
 	{
-		$this->mensajes[] = mensaje::get($indice, $parametros);
-		if(isset($nivel)){
-			$this->set_nivel_gravedad($nivel);
-		}
+		$this->agregar(mensaje::get($indice, $parametros), $nivel);
 	}
 
 	public function verificar_mensajes()
@@ -52,18 +40,11 @@ class cola_mensajes
 	
 	public function mostrar()
 	{
-		$temp = "";
+		echo js::abrir();
 		foreach($this->mensajes as $mensaje){
-			$temp .= $mensaje . " <br>";
-//			$temp .= $mensaje . " \n";
+			echo "cola_mensajes.agregar('{$mensaje[0]}' + '\\n', '{$mensaje[1]}');\n";
 		}
-		if(trim($temp)!=""){
-			echo ei_mensaje($temp, $this->nivel_gravedad);			
-//			echo js::abrir();
-//			echo "alert(\"HOLA\");";
-//			echo js::cerrar();
-		}
-		//$this->vaciar();		
+		echo js::cerrar();
 	}
 	
 	public function vaciar()

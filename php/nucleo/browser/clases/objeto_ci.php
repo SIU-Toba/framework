@@ -501,6 +501,7 @@ class objeto_ci extends objeto
 		echo form::cerrar();
 		echo js::abrir();
 		$this->obtener_javascript();
+		echo "cola_mensajes.mostrar({$this->objeto_js});\n";
 		echo js::cerrar();
 		echo "<br>\n";
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		

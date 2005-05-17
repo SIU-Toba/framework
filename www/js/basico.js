@@ -161,7 +161,7 @@ function ei_arbol(variable, ret) {
 	DumperNewline = "<br>";
 	DumperSepPre = "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";
 	DumperSepPos = "</span>";		
-	DumperMaxDepth = 6;
+	DumperMaxDepth = 8;
 	if (ret)
 		return Dumper(variable);
 	else

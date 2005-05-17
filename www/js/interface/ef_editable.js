@@ -27,7 +27,7 @@ def.constructor = ef_editable;
 	
 	def.validar = function () {
 		if (this._obligatorio && ereg_nulo.test(this.valor())) {
-			this._error = 'El campo ' + this._etiqueta + ' es obligatorio.';
+			this._error = this._etiqueta + ' es obligatorio.';
 		    return false;
 		}
 		return true;
@@ -114,11 +114,11 @@ def.constructor = ef_editable_numero;
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
 		if (isNaN(this.valor())) {
-			this._error = 'El campo ' + this._etiqueta + ' debe ser numerico.';
+			this._error = this._etiqueta + ' debe ser numérico.';
 		    return false;
 		}
 		if (!this.validar_rango()) {
-			this._error = 'El campo ' + this._etiqueta + this._mensaje;
+			this._error = this._etiqueta + this._mensaje;
 		    return false;
 		}
 		return true;
@@ -161,7 +161,7 @@ var def = ef_editable_clave.prototype;
 		var test = document.getElementById(this._id_form + '_test');
 		if (orig.value != test.value)
 		{
-			this.error = 'El campo ' + this._etiqueta + ': Las contraseñas no coinciden.';
+			this._error = this._etiqueta + ': Las contraseñas no coinciden.';
 		    return false;
 		}		
 		return true;
@@ -198,10 +198,10 @@ var def = ef_editable_fecha.prototype;
 		try {
 			var valida = validar_fecha(this.valor(), false);
 		} catch (e) {
-			valida = "No es una fecha válida";
+			valida = "no es una fecha válida";
 		}
 		if (valida != true) {
-			this._error = valida;
+			this._error = this._etiqueta + ': ' + valida;
 		    return false;
 		}		
 		return true;

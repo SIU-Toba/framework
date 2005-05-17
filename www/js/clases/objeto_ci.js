@@ -57,32 +57,37 @@ def.constructor = objeto_ci;
 
 	//---SUBMIT
 	//El proceso de SUBMIT se divide en partes:
-	//1- Analiza si se puede hacer submit
-	//	1.1- Se valida el CI y sus hijos
-	//	1.2- Los hijos analizan si pueden hacer submit
+	//1- Se sube hasta el CI raiz
+	//2- El raiz analiza si puede hacerlo (recorriendo los hijos)
 	//2-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)
-	
 	//Intenta realizar el submit de todos los objetos asociados
 	def.submit = function() {
-		if (this._ci_padre && !this._ci_padre.en_submit())
-				return this._ci_padre.submit();
+		if (this._ci_padre && !this._ci_padre.en_submit()) //Primero debe consultar si su padre está en proceso
+			return this._ci_padre.submit();
 
-		this._en_submit = true;
-		if (this.puede_submit()) {
-			for (obj in this._objetos) {
-				this._objetos[obj].submit();
+		this._en_submit = true;				
+		if (! this._ci_padre) { //Si es el padre de todos, borrar las notificaciones
+			cola_mensajes.limpiar();
+			if (this.puede_submit()) {
+				this.submit_recursivo();
+				document[this._form].submit();
+			} else {
+				cola_mensajes.mostrar(this);		
 			}
-			if (this._evento.id != '') {
-				document.getElementById(this._input_submit).value = this._evento.id;
-			}
-			if (! this._ci_padre) {  //Sólo el CI raiz es el encargado de hacer submit
-				//alert(this._instancia);
-				document[this._form].submit();			
-			}
-			return true;
+		} else {
+			this.submit_recursivo();
 		}
 		this._en_submit = false;
-		return false;
+	}
+	
+	def.submit_recursivo = function()
+	{
+		for (obj in this._objetos) {
+			this._objetos[obj].submit();
+		}
+		if (this._evento.id != '') {
+			document.getElementById(this._input_submit).value = this._evento.id;
+		}
 	}
 	
 	def.en_submit = function() {
@@ -93,7 +98,7 @@ def.constructor = objeto_ci;
 	def.puede_submit = function() {
 		if (this._evento) {
 			//- 1 - Hay que realizar las validaciones y preguntarle a los hijos si pueden hacer submit
-			if(! this.validar() || !this.objetos_pueden_submit()) {
+			if(!this.objetos_pueden_submit()) {
 				this.reset_evento();
 				return false;
 			} 
@@ -126,8 +131,16 @@ def.constructor = objeto_ci;
 			}
 			return ok;			
 		} else {
+			this.resetear_errores();
 			return true;
 		}
+	}
+	
+	def.resetear_errores = function() {
+		for (obj in this._objetos) {
+			this._objetos[obj].resetear_errores();
+		}
+		this.notificar(false);
 	}
 	
 	//---VALIDACION
@@ -143,6 +156,13 @@ def.constructor = objeto_ci;
 		}
 	}
 	
-	//---DEBUG
-	def.debug_recuadrar = function() {
+	//---Notificaciones
+	def.notificar = function(mostrar) {
+		var barra = document.getElementById('barra_' + this._instancia);
+		if (barra) {
+			if (mostrar)
+				barra.style.display = '';
+			else
+				barra.style.display = 'none';
+		}
 	}
