@@ -372,10 +372,12 @@ class dimension_texto_operador extends ef_editable
     var $operador;
 	var $pre_string;
 	var $post_string;
+	var $buscar_subcadenas;
 	
 	function dimension_texto_operador($padre, $nombre_formulario, $id, $etiqueta, $descripcion,$columna,$obligatorio,$parametros)
 	{
 		$this->operador = $parametros['operador'];
+		$this->buscar_subcadenas = isset($parametros['buscar_subcadenas']) ? $parametros['buscar_subcadenas'] : false;
 		$this->pre_string = isset($parametros['pre_string']) ? $parametros['pre_string'] : "";
 		$this->post_string = isset($parametros['post_string']) ? $parametros['post_string'] : "";
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$columna,$obligatorio,$parametros);
@@ -390,7 +392,20 @@ class dimension_texto_operador extends ef_editable
 	function obtener_where()
 	{
 		if($this->activado()){
-			return " ({$this->dato} {$this->operador} '{$this->pre_string}{$this->estado}{$this->post_string}') ";
+			if ($this->buscar_subcadenas) {
+				$palabras = explode(' ', $this->estado);
+				$sentencias = '(';
+				foreach ($palabras as $palabra) {
+					$palabra = trim($palabra);
+					if ($palabra != '')
+						$sentencias .= " {$this->dato} {$this->operador} '{$this->pre_string}$palabra{$this->post_string}' OR ";
+				}
+				$sentencias = substr($sentencias, 0, -3); //Se le saca el OR
+				$sentencias .= ')';
+				return $sentencias;		
+			} else { 
+				return " ({$this->dato} {$this->operador} '{$this->pre_string}{$this->estado}{$this->post_string}') ";
+			}
 		}else{
 			return null;
 		}
@@ -602,5 +617,6 @@ class dimension_numero_rango extends ef
 		return array(true, "");
 	}
 }
+
 
 ?>
