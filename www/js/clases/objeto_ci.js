@@ -6,6 +6,9 @@ function evento_ei(id, validar, confirmar) {
 	this.confirmar = confirmar;
 }
 
+objeto_ci.prototype = new objeto;
+var def = objeto_ci.prototype;
+def.constructor = objeto_ci;
 //--------------------------------------------------------------------------------
 //Clase objeto_ci 
 function objeto_ci(instancia, form, input_submit) {
@@ -19,9 +22,6 @@ function objeto_ci(instancia, form, input_submit) {
 	this._evento_defecto = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
 	this.reset_evento();
 }
-
-var def = objeto_ci.prototype;
-def.constructor = objeto_ci;
 
 	def.agregar_objeto = function(objeto) {
 		objeto.set_ci(this);

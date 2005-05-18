@@ -2,6 +2,40 @@
 class js
 //Clase para funciones javascript.
 {
+	//--- SINGLETON
+	private static $instancia;
+	protected $nivel_identado = 0;
+	
+	function instancia() 
+	{
+		if (! isset(self::$instancia)) {
+			self::$instancia = new js();
+		}
+		return self::$instancia;
+	}
+
+	/**
+	*	Retorna el string de identado actual para el código JS
+	*/
+	function identado()
+	{
+		$tabs = '';
+		for ($i=0; $i<$this->nivel_identado; $i++) {
+			$tabs .= "\t";
+		}
+		return $tabs;
+	}
+	
+	/**
+	*	Cambia el nivel de identado agregando $nivel
+	*/	
+	function identar($nivel)
+	{
+		$this->nivel_identado += $nivel;
+		return $this->identado();
+	}
+	
+	//--- SERVICIOS ESTATICOS
 	function version()
 	{
 		return "1.4";
@@ -58,12 +92,7 @@ class js
 					echo js::incluir(recurso::js("$consumo.js"));
 					break;
 				case 'subModal':
-					$img_error = recurso::imagen_apl('error.gif', true);
-					$img_info = recurso::imagen_apl('info_chico.gif', true);
-					$img_cerrar = recurso::imagen_apl('modal/cerrar.gif', true);
 					echo "
-						<div style='display: none' id='icono_error'>$img_error</div>
-						<div style='display: none' id='icono_info'>$img_info</div>						
 						<div id='popupMask'>&nbsp;</div>
 						<div id='popupContainer'>
 							<div id='popupInner'>
@@ -80,6 +109,18 @@ class js
 					";
 					echo js::incluir(recurso::js("$consumo.js"));					
 					break;
+				case 'clases/toba': 
+					echo js::incluir(recurso::js("$consumo.js"));
+					$img_error = recurso::imagen_apl('error.gif', false);
+					$img_info = recurso::imagen_apl('info_chico.gif', false);
+					$img_max = recurso::imagen_apl('sentido_des_sel.gif', false);
+					$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
+					$imagenes = array('error' => $img_error, 'info' => $img_info, 'maximizar' => $img_max, 'minimizar' => $img_min);
+					echo js::abrir();
+					echo dump_array_javascript($imagenes, 'lista_imagenes');
+					echo js::cerrar();
+					break;
+				break;					
 				//--> Por defecto carga el archivo del consumo
 				default:
 					echo js::incluir(recurso::js("$consumo.js"));

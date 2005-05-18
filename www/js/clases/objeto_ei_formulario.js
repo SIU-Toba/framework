@@ -1,5 +1,9 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_formulario 
+objeto_ei_formulario.prototype = new objeto;
+var def = objeto_ei_formulario.prototype;
+def.constructor = objeto_ei_formulario;
+
 function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._rango_tabs = rango_tabs;
@@ -11,13 +15,6 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = null;				//No hay evento prefijado
 }
-
-var def = objeto_ei_formulario.prototype;
-def.constructor = objeto_ei_formulario;
-
-	def.set_ci = function(ci) {
-		this._ci = ci;
-	}
 
 	def.agregar_ef  = function (ef, identificador) {
 		if (ef)
@@ -46,20 +43,6 @@ def.constructor = objeto_ei_formulario;
 		return this._efs[id];
 	}
 
-	//---Eventos	
-	def.set_evento = function(evento) {
-		this._evento = evento;
-		this.submit();
-	}
-
-	def.set_evento_defecto = function(evento) {
-		this._evento_defecto = evento;
-	}	
-	
-	def.reset_evento = function() {
-		this._evento = this._evento_defecto;
-	}
-	
 	//---Submit 
 	def.submit = function() {
 		if (this._ci && !this._ci.en_submit())
@@ -99,10 +82,8 @@ def.constructor = objeto_ei_formulario;
 					return false;
 				}
 			}
-			return true;
-		}else{
-			return true;
 		}
+		return true;
 	}
 
 	//----Validación 

@@ -28,7 +28,9 @@ class objeto
 	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	var $exportacion_archivo;
 	var $exportacion_path;
-
+	var $colapsable = true;					//El elemento puede colapsarse
+	var $colapsado = false;					//El elemento sólo mantiene su título
+	
 	function objeto($id)
 /*
  	@@acceso: nucleo
@@ -824,14 +826,23 @@ class objeto
 		echo "<table class='tabla-0' width='100%'><tr>\n";
 		//Vinculo a los EDITORES	
 		if(apex_pa_acceso_directo_editor){ 
-			if( ($this->id[0]) == $this->solicitud->hilo->obtener_proyecto() )
-			{
+			if( ($this->id[0]) == $this->solicitud->hilo->obtener_proyecto() ) {
 				echo "<td class='$estilo'>";
 				$this->vinculo_editor();
 				echo "</td>\n";
 			}
 		}
-		echo "<td class='$estilo' width='99%'>&nbsp;$titulo&nbsp;</td>\n";
+		//Barra de colapsado
+		$colapsado = "";
+		if ($this->colapsable && isset($this->objeto_js)) {
+			$colapsado = "style='cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+			echo "<td class='$estilo'>";
+			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
+			echo "<img id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
+			echo "</td>\n";
+		}
+		//Titulo
+		echo "<td class='$estilo' width='99%'><span $colapsado>$titulo</span></td>\n";
 		if(trim($this->info["descripcion"])!=""){
 			echo "<td class='$estilo'>\n";
 			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
@@ -843,18 +854,18 @@ class objeto
 			echo $this->solicitud->vinculador->obtener_vinculo_a_item("toba","/basicos/ayuda_obj",$parametros,true);
 			echo "</td>\n";
 		}
-		//Barra de mensajeria
+		//Barra especifica dependiente de la clase
+		echo "<td class='$estilo'>";
+		echo $this->barra_superior_especifica();
+		echo "</td>\n";
 		if (isset($this->objeto_js)) {
+			//Barra de mensajeria
 			echo "<td class='$estilo' id='barra_{$this->objeto_js}' style='display:none'>";
 			echo "<a href='javascript: cola_mensajes.mostrar({$this->objeto_js})'>";
 			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 			echo "</a>";
 			echo "</td>\n";
-		};
-		//Barra especifica dependiente de la clase
-		echo "<td class='$estilo'>";
-		echo $this->barra_superior_especifica();
-		echo "</td>\n";
+		}
 		echo "</tr></table>";
 	}
 //-----------------------------------------------------------------------------
@@ -949,5 +960,61 @@ class objeto
 		}
 	}
 //--------------------------------------------------------------------------------------------
+//					SERVICIOS GRAFICOS
+//ATENCION: Estos métodos se deberían pasar a una clase intermedia objeto_ei
+//--------------------------------------------------------------------------------------------
+
+	function colapsar()
+	{
+		$this->colapsado = true;
+		$this->colapsable = true;
+	}
+	
+	function set_colapsable($colapsable)
+	{
+		$this->colapsable = $colapsable;
+	}
+	
+	function consumo_javascript_global()
+	{
+		return array('clases/objeto');
+	}
+	
+	
+	function obtener_javascript()
+/*
+	@@acceso: Actividad
+	@@desc: Construye la clase javascript asociada al objeto
+*/
+	{
+		$identado = js::instancia()->identado();
+		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		$this->crear_objeto_js();
+		$this->extender_objeto_js();
+		$this->iniciar_objeto_js();
+		echo "$identado//-----------------------------------------------------------------  \n";		
+		return $this->objeto_js;
+	}	
+	
+	function crear_objeto_js()
+	{
+		$identado = js::instancia()->identado();
+		echo $identado."var {$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
+	}
+	
+	function extender_objeto_js()
+	{
+
+	}
+	
+	function iniciar_objeto_js()
+	{
+		$identado = js::instancia()->identado();
+		if ($this->colapsado)
+			echo $identado."{$this->objeto_js}.colapsar();\n";
+		echo $identado."{$this->objeto_js}.iniciar();\n";			
+	}
+	
+	
 }
 ?>

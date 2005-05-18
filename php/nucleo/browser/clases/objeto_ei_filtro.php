@@ -70,14 +70,16 @@ class objeto_ei_filtro extends objeto_ei_formulario
 	
 	function iniciar_objeto_js()
 	{
+		$identado = js::instancia()->identado();	
 		//-- EVENTO por DEFECTO: FILTRAR--
 		//Si no hay eventos, el componente debe disparar el evento filtrar
+		//ATENCION: Esto se choca con la clase padre, ver #88
 		if(count($this->eventos) == 0){
-			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('filtrar', true, ''));\n";
+			echo $identado."{$this->objeto_js}.set_evento_defecto(new evento_ei('filtrar', true, ''));\n";
 			//Para que en la proxima vuelta el evento sea reconocido...
 			$this->eventos['modificacion']['validar'] = "true";
 		}
-		echo "{$this->objeto_js}.iniciar();\n";	
+		parent::iniciar_objeto_js();
 	}
 
 }

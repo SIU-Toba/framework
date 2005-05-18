@@ -465,23 +465,24 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function crear_objeto_js()
 	{
+		$identado = js::instancia()->identado();
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', {$this->cantidad_lineas()}, $con_agregar);\n";
+		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', {$this->cantidad_lineas()}, $con_agregar);\n";
 		foreach ($this->lista_ef_post as $ef){
-			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		//Agregado de callbacks para calculo de totales
 		if(count($this->lista_ef_totales)>0) {
 			foreach ($this->lista_ef_post as $ef) {
 				if(in_array($ef, $this->lista_ef_totales)){
-					echo "{$this->objeto_js}.agregar_procesamiento('$ef');\n";
+					echo $identado."{$this->objeto_js}.agregar_procesamiento('$ef');\n";
 				}
 			}
 		}
 		//Se agrega al objeto al singleton toba
-		echo "toba.agregar_objeto({$this->objeto_js});\n";		
+		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 	
 	function consumo_javascript_global()

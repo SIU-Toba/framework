@@ -37,16 +37,13 @@
 		----------------
 
 		- CIs sin CNs
-		- El uso de tabs u otros metodos de cambiar etapas no deberia implementarse con herencia
-		- 
+- 
 		
 
 
 		COSAS
 
 		- Display del CI (anidaciones)	
-		- El uso de tabs en los CI es herencia??? pensar
-		- permisos dentro de operaciones
 	
 		- PROYECTO de ejemplo
 		- Pasar las cascadas a XML-RPC

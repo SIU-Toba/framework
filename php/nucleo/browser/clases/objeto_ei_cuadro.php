@@ -38,7 +38,7 @@ class objeto_ei_cuadro extends objeto_cuadro
 		}else{
 			$this->ev_seleccion = false;
 		}
-	
+		$this->objeto_js = "objeto_cuadro_{$id[1]}";		
     }
 
 	function obtener_definicion_db()
@@ -260,7 +260,7 @@ class objeto_ei_cuadro extends objeto_cuadro
             $this->generar_html_barra_paginacion();
 
             echo "<tr><td>";
-            echo "<TABLE width='100%' class='tabla-0'>";
+            echo "<TABLE width='100%' class='tabla-0'  id='cuerpo_{$this->objeto_js}'>";
             //------------------------ Genero los titulos
             echo "<tr>\n";
             for ($a=0;$a<$this->cantidad_columnas;$a++)

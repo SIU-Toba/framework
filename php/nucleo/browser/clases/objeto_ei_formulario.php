@@ -577,9 +577,11 @@ class objeto_ei_formulario extends objeto
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";
+			echo "<tbody id='cuerpo_{$this->objeto_js}' style='filter:blendTrans(duration=1);'>\n";
 			echo "<tr><td>";
 			$this->generar_formulario();	
 			echo "</td></tr>\n";
+			echo "</tbody>\n";
 			echo "</table>\n";
 			$this->flag_out = true;
 		}
@@ -712,57 +714,42 @@ class objeto_ei_formulario extends objeto
 
 	function crear_objeto_js()
 	{
+		$identado = js::instancia()->identado();
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		echo "var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
+		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
 		foreach ($this->lista_ef_post as $ef){
-			echo "{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		//Se agrega al objeto al singleton toba
-		echo "toba.agregar_objeto({$this->objeto_js});\n";
+		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";
 	}
-	
-	function extender_objeto_js()
-	{
-	}
-	
+
 	function iniciar_objeto_js()
 	{
 		//-- EVENTO por DEFECTO --
 		//Si no hay eventos, el componente debe disparar el evento modificacion
 		if(count($this->eventos) == 0){
-			echo "{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
+			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
 			//Para que en la proxima vuelta el evento sea reconocido...
 			$this->eventos['modificacion']['validar'] = "true";
 		}
-		echo "{$this->objeto_js}.iniciar();\n";	
+		parent::iniciar_objeto_js();
 	}
 
- 	//-------------------------------------------------------------------------------
+
+	//-------------------------------------------------------------------------------
 
 	function consumo_javascript_global()
 	{
+		$consumo = parent::consumo_javascript_global();
+		$consumo[] = 'clases/objeto_ei_formulario';
 		//Busco las	dependencias
-		$consumo = array('clases/objeto_ei_formulario');
 		foreach ($this->lista_ef_post	as	$ef){
 			$temp	= $this->elemento_formulario[$ef]->obtener_consumo_javascript();
 			if(isset($temp)) $consumo = array_merge($consumo, $temp);
 		}
 		$consumo = array_unique($consumo);//Elimino los	duplicados
 		return $consumo;
-	}
-	//-------------------------------------------------------------------------------
-
-	function obtener_javascript()
-/*
-	@@acceso: Actividad
-	@@desc: Construye la clase javascript asociada al objeto
-*/
-	{
-		echo "\n\n//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
-		$this->crear_objeto_js();
-		$this->extender_objeto_js();
-		$this->iniciar_objeto_js();
-		return $this->objeto_js;
 	}	
 }
 ?>

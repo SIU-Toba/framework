@@ -528,6 +528,7 @@ class objeto_ci extends objeto
 		if( count($this->eventos) > 0){
 			echo form::hidden($this->submit, '');
 		}
+		echo "<tbody id='cuerpo_{$this->objeto_js}'>\n";
 		//--> Botonera
 		$con_botonera = $this->hay_eventos_de_botonera();
 		if($con_botonera){
@@ -550,7 +551,7 @@ class objeto_ci extends objeto
 				echo "</td></tr>\n";
 			}
 		}
-
+		echo "</tbody>\n";
 		echo "</table>\n";
 		$this->gi = true;
 	}
@@ -659,7 +660,8 @@ class objeto_ci extends objeto
 	@@desc: Javascript global requerido por los HIJOS de este CI
 */
 	{
-		$consumo_js = array('clases/objeto_ci');
+		$consumo_js = parent::consumo_javascript_global();
+		$consumo_js[] = 'clases/objeto_ci';
 		foreach($this->dependencias_gi as $dep){
 			//Es un formulario?
 			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
@@ -675,52 +677,26 @@ class objeto_ci extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	function obtener_javascript()
-/*
-	@@acceso: Actividad
-	@@desc: Construye la clase javascript asociada al objeto
-*/
-	{
-		$this->crear_objeto_js();
-		$this->extender_objeto_js();
-		$this->iniciar_objeto_js();		
-		return $this->objeto_js;
-	}
-	//-------------------------------------------------------------------------------
-
 	function crear_objeto_js()
 	{
-		echo "\n\n//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		$identado = js::instancia()->identado();	
 		//Crea le objeto CI
-		echo "var {$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
+		echo $identado."var {$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();
-		foreach($this->dependencias_gi as $dep)
-		{
-			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
-				$this->dependencias[$dep] instanceof objeto_ci )
-			{
-				$objetos[] = $this->dependencias[$dep]->obtener_javascript();
-			}
+		js::instancia()->identar(1);		
+		foreach($this->dependencias_gi as $dep)	{
+			$objetos[] = $this->dependencias[$dep]->obtener_javascript();
 		}
-
-		echo "\n\n//-----------------------------------------------------------------  \n";		
+		$identado = js::instancia()->identar(-1);		
 		//Agrega a los objetos hijos
 		//ATENCION: Esto no permite tener el mismo formulario instanciado dos veces
+		echo "\n";
 		foreach ($objetos as $objeto) {
-			echo "{$this->objeto_js}.agregar_objeto($objeto);\n";
+			echo $identado."{$this->objeto_js}.agregar_objeto($objeto);\n";
 		}
-		echo "toba.agregar_objeto({$this->objeto_js});\n";		
-	}
-	
-	function extender_objeto_js()
-	{
-	}
-	
-	function iniciar_objeto_js()
-	{
-		echo "{$this->objeto_js}.iniciar();\n";	
+		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 }
 

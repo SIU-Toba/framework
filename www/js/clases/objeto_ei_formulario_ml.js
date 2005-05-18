@@ -110,7 +110,6 @@ def.constructor = objeto_ei_formulario_ml;
 		//Si no es parte de un submit general, dispararlo
 		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
-
 		if (this._evento) {
 			for (fila in this._filas) {
 				for (id_ef in this._efs) {

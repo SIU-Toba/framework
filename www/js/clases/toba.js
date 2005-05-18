@@ -3,6 +3,7 @@
 var toba = 
 {
 	_objetos: new Array(), 
+	_imagenes: new Object(),
 	
 	agregar_objeto : function(o) {
 		this._objetos.push(o);
@@ -15,10 +16,12 @@ var toba =
 			nombres.push(this._objetos[o]._instancia + ' [' + clase + ']');
 		}
 		return nombres.join(', ');
+	},
+	
+	
+	imagen : function (nombre) {
+		return lista_imagenes[nombre];
 	}
-	
-	
-	
 	
 }
 
