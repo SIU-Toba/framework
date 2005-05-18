@@ -462,30 +462,31 @@ class ef_combo_dao extends ef_combo
 		if( $this->cantidad_claves > 1){
 		//**** CC!
 	   		if(isset($estado)){								
-				//El estado tiene el formato adecuado?
-				if(count($estado) <> $this->cantidad_claves){
-					echo ei_mensaje("ERROR: la cantidad de claves no coinciden");
-					return false;
-				}
-				//Si el estado es nulo tengo que manejarlo de una forma especial
-				$valores = "";
-				foreach($estado as $valor){
-					$valores .= $valor;
-				}
-				if(trim($valores)==""){									//Valor NULO
-					$this->estado = $this->estado_nulo;
-					$this->opcion_seleccionada = apex_ef_no_seteado;
-				}else{													//Valor seteado
-		    		$this->estado=$estado;
-					//Deduzco la opcion seleccionada del estado
-					$opcion = "";
-	    	        foreach($this->dato as $dato){//Sigo el orden de las columnas
-	        	        $opcion .= $this->estado[$dato] . apex_ef_separador;
-		            }
-	    	        //Saca el ultimo apex_ef_separador
-					$this->opcion_seleccionada = substr($opcion,0,strlen($opcion)-strlen(apex_ef_separador));
-				}
-				return true;
+					//El estado tiene el formato adecuado?
+					if(count($estado) <> $this->cantidad_claves){
+						echo ei_mensaje("ERROR: la cantidad de claves no coinciden");
+						return false;
+					}
+					//Si el estado es nulo tengo que manejarlo de una forma especial
+					$valores = "";
+					foreach($estado as $valor){
+						$valores .= $valor;
+					}
+					if(trim($valores)==""){									//Valor NULO
+						$this->estado = $this->estado_nulo;
+						$this->opcion_seleccionada = apex_ef_no_seteado;
+					}else{													//Valor seteado
+			    		$this->estado=$estado;
+						//Deduzco la opcion seleccionada del estado
+						$opcion = "";
+		    	        foreach($this->dato as $dato){//Sigo el orden de las columnas
+		        	        $opcion .= $this->estado[$dato] . apex_ef_separador;
+			            }
+		    	       //Saca el ultimo apex_ef_separador
+						$opcion = substr($opcion, 0, -1 * strlen(apex_ef_separador));
+						$this->opcion_seleccionada = $opcion;
+					}
+					return true;
 			}elseif(isset($_POST[$this->id_form])){
 	            //Deduzco el estado de la opcion seleccionada
 	   			$this->opcion_seleccionada=$_POST[$this->id_form];
@@ -558,9 +559,8 @@ class ef_combo_dao extends ef_combo
 					}	
 				}
 			}
-		}else{
-			parent::establecer_solo_lectura();
 		}
+		parent::establecer_solo_lectura();		
 	}
 
 }
