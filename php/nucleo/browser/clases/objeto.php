@@ -28,7 +28,6 @@ class objeto
 	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	var $exportacion_archivo;
 	var $exportacion_path;
-	var $colapsable = true;					//El elemento puede colapsarse
 	var $colapsado = false;					//El elemento sólo mantiene su título
 	
 	function objeto($id)
@@ -834,7 +833,7 @@ class objeto
 		}
 		//Barra de colapsado
 		$colapsado = "";
-		if ($this->colapsable && isset($this->objeto_js)) {
+		if ($this->info['colapsable'] && isset($this->objeto_js)) {
 			$colapsado = "style='cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 			echo "<td class='$estilo'>";
 			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
@@ -967,12 +966,12 @@ class objeto
 	function colapsar()
 	{
 		$this->colapsado = true;
-		$this->colapsable = true;
+		$this->info['colapsable'] = true;
 	}
 	
 	function set_colapsable($colapsable)
 	{
-		$this->colapsable = $colapsable;
+		$this->info['colapsable'] = $colapsable;
 	}
 	
 	function consumo_javascript_global()

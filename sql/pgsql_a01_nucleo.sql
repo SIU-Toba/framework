@@ -980,6 +980,7 @@ CREATE TABLE apex_objeto
 	objeto_categoria					varchar(30)		NULL,
 	nombre								varchar(80)		NOT NULL,
 	titulo								varchar(80)		NULL,
+	colapsable							smallint		NULL,
 	descripcion							varchar(255)	NULL,
 	fuente_datos_proyecto				varchar(15)		NOT NULL,
 	fuente_datos						varchar(20)		NOT NULL,
