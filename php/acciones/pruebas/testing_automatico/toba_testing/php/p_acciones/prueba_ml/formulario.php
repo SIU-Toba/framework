@@ -11,8 +11,7 @@ class formulario extends objeto_ei_formulario
 					this.set_evento('modificar', true, '¿Esta seguro que desea enviar esta información?');
 					this.submit();
 				}
-			}
-		";
+			}\n";
 	}
 
 

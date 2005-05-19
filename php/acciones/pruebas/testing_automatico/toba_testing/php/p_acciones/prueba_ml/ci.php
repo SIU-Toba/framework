@@ -34,13 +34,27 @@ class ci extends objeto_ci_me_tab
 	
 	function get_lista_eventos()
 	{
-		$evento = parent::get_lista_eventos();
-		$evento['reiniciar']['etiqueta'] = "Reiniciar";
-		$evento['reiniciar']['imagen'] = "";
-		$evento['reiniciar']['confirmacion'] = "";
-		$evento['reiniciar']['estilo']="";
-		$evento['reiniciar']['tip']="Retorna la operación a su estado inicial";		
-		return $evento;
+		$eventos = parent::get_lista_eventos();
+		$eventos['reiniciar']['etiqueta'] = "Reiniciar";
+		$eventos['reiniciar']['imagen'] = "";
+		$eventos['reiniciar']['confirmacion'] = "";
+		$eventos['reiniciar']['estilo']="";
+		$eventos['reiniciar']['tip']="Retorna la operación a su estado inicial";		
+		return $eventos;
+	}	
+	
+	function evt__post_cargar_datos_dependencias()
+	{
+		if (isset($this->dependencias['formulario'])) {
+			$eventos = $this->dependencias['formulario']->get_lista_eventos();
+			$eventos += eventos::evento_estandar('otro_evento', 'Otro Evento');
+			$this->dependencias['formulario']->set_eventos($eventos);
+		}
+		if (isset($this->dependencias['cuadro_abm'])) {
+			$eventos = $this->dependencias['cuadro_abm']->get_lista_eventos();
+			$eventos += eventos::cancelar();
+			$this->dependencias['cuadro_abm']->set_eventos($eventos);
+		}		
 	}	
 	
 	function evt__reiniciar()
@@ -78,6 +92,7 @@ class ci extends objeto_ci_me_tab
 	//------------------------------------
 	function evt__formulario_abm__carga()
 	{
+		$this->dependencias['formulario_abm']->set_colapsable(false);
 		if (isset($this->registro_actual)) {
 			foreach ($this->datos_formulario_abm as $registro) {
 				if ($this->registro_actual == $registro['editable']) {
@@ -102,9 +117,10 @@ class ci extends objeto_ci_me_tab
 			throw new excepcion_toba('EL ABM no contiene un registro en edición');
 	}	
 
-	function evt__formulario_abm__limpiar()
+	function evt__formulario_abm__cancelar()
 	{
 		unset($this->registro_actual);
+		$this->dependencias['cuadro_abm']->deseleccionar();	
 	}	
 
 
@@ -140,11 +156,17 @@ class ci extends objeto_ci_me_tab
 		$this->registro_actual = $seleccion;
 	}
 
+	function evt__cuadro_abm__cancelar()
+	{
+		$this->evt__formulario_abm__cancelar();
+	}	
+
 	//------------------------------------
 	//		FILTRO en ABM
 	//------------------------------------
 	function evt__filtro_abm__carga()
 	{
+		$this->dependencias['filtro_abm']->colapsar();
 		if (isset($this->datos_filtro))
 			return $this->datos_filtro;
 		else
@@ -156,7 +178,7 @@ class ci extends objeto_ci_me_tab
 		$this->datos_filtro = $datos;
 	}
 	
-	function evt__filtro_abm__limpiar()
+	function evt__filtro_abm__cancelar()
 	{
 		unset($this->datos_filtro);
 	}	

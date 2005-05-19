@@ -1423,6 +1423,10 @@ TD.lista-e2 {
 	 BACKGROUND-COLOR: #7b7979;
 	 TEXT-ALIGN: center
 }
+TD.lista-seleccion {
+	background-color: #E2E2E2;
+}
+
 TD.doc-archivo {
 	PADDING-RIGHT: 5px;
 	 PADDING-LEFT: 15px;

@@ -1239,6 +1239,10 @@ TD.lista-e2 {
 	border-left: 1px solid #993333;
 	border-bottom: 1px solid #993333;
 	border-right: 1px solid #993333
+}
+
+TD.lista-seleccion {
+	background-color: #cc6666;
 }/*-----------  CABECERA ------------*/
 
 TD.doc-archivo {

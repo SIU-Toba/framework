@@ -1,7 +1,7 @@
 
 -----------  apex_proyecto  ------------------------
 
-INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std) VALUES ('toba_testing','Proyecto destinado a contener elementos disponibles a los casos de test automáticos.','Toba - Testing','siu-com1',NULL,NULL,NULL,'1',NULL,NULL);
+INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std) VALUES ('toba_testing','Proyecto destinado a contener elementos disponibles a los casos de test automáticos.','Toba - Testing','carina_b2',NULL,NULL,NULL,'1',NULL,NULL);
 
 -----------  apex_fuente_datos  ------------------------
 
@@ -74,6 +74,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, usuario, creacion) VALUES ('toba_testing','1189',NULL,NULL,'toba','objeto_ei_formulario','formulario','p_acciones/prueba_ml/formulario.php',NULL,NULL,'Prueba Formulario en ABM','Formulario',NULL,'toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, usuario, creacion) VALUES ('toba_testing','1190',NULL,NULL,'toba','objeto_ei_cuadro',NULL,NULL,NULL,NULL,'Prueba Cuadro en ABM','Cuadro',NULL,'toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-04-28 09:40:40');
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, usuario, creacion) VALUES ('toba_testing','1191',NULL,NULL,'toba','objeto_ei_filtro',NULL,NULL,NULL,NULL,'Prueba Filtro','Filtro','Es el filtro','toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-05-05 09:45:13');
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, usuario, creacion) VALUES ('toba_testing','1206',NULL,NULL,'toba','objeto_ei_filtro',NULL,NULL,NULL,NULL,'* COPIA de Prueba Filtro','Filtro','Es el filtro','toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, usuario, creacion) VALUES ('toba_testing','1207',NULL,NULL,'toba','objeto_filtro',NULL,NULL,NULL,NULL,'Prueba objeto_filtro','Prueba objeto_filtro',NULL,'toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-05-17 11:22:27');
 
 -----------  apex_objeto_dependencias  ------------------------
 
@@ -112,6 +114,18 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_testing','documentacion',NULL,'/pruebas_item/item_con_dos_grupos');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_testing','plano',NULL,'');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_testing','plano',NULL,'/pruebas_item');
+
+-----------  apex_dimension  ------------------------
+
+INSERT INTO apex_dimension (proyecto, dimension, dimension_tipo_proyecto, dimension_tipo, dimension_grupo_proyecto, dimension_grupo, nombre, descripcion, inicializacion, fuente_datos_proyecto, fuente_datos, tabla_ref, tabla_ref_clave, tabla_ref_desc, tabla_restric) VALUES ('toba_testing','prueba_multicolumna_2','toba','texto_operador',NULL,NULL,'prueba_multicolumna_2','prueba_multicolumna_2','tamano: 30;
+operador: ILIKE;
+pre_string: %;
+post_string: %;
+buscar_subcadenas: 1;','toba_testing','instancia',NULL,NULL,NULL,NULL);
+
+-----------  apex_objeto_filtro  ------------------------
+
+INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba_testing','1207','toba_testing','prueba_multicolumna_2','Persona',NULL,'(apellido || \' \' || nombres || \' \' || domicilio)','0',NULL,NULL,NULL);
 
 -----------  apex_objeto_cuadro  ------------------------
 

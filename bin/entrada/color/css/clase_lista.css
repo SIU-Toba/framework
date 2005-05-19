@@ -129,3 +129,7 @@ TD.lista-e2 {
 	border-bottom: 1px solid %col_sp_2%;
 	border-right: 1px solid %col_sp_2%
 }
+
+TD.lista-seleccion {
+	background-color: %col_sp_3%;
+}
