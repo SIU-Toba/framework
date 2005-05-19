@@ -1,4 +1,5 @@
-<?
+<?php
+
 class js
 //Clase para funciones javascript.
 {
@@ -6,7 +7,7 @@ class js
 	private static $instancia;
 	protected $nivel_identado = 0;
 	
-	function instancia() 
+	static function instancia() 
 	{
 		if (! isset(self::$instancia)) {
 			self::$instancia = new js();
@@ -36,32 +37,32 @@ class js
 	}
 	
 	//--- SERVICIOS ESTATICOS
-	function version()
+	static function version()
 	{
 		return "1.4";
 	}
 	//-------------------------------------------------------------------------------------
-	function abrir()
+	static function abrir()
 	{
 		return "<SCRIPT  language='JavaScript".js::version()."' type='text/javascript'>\n";
 	}
 	//-------------------------------------------------------------------------------------
-	function cerrar()
+	static function cerrar()
 	{
 		return "\n</SCRIPT>\n";
 	}
 	//-------------------------------------------------------------------------------------	
-	function incluir($archivo) 
+	static function incluir($archivo) 
 	{
 		return "\n<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";
 	}
 	//-------------------------------------------------------------------------------------
-	function ejecutar($codigo) 
+	static function ejecutar($codigo) 
 	{
 		return js::abrir().$codigo.js::cerrar();
 	}
 	//-------------------------------------------------------------------------------------
-	function cargar_consumos_globales($consumos)
+	static function cargar_consumos_globales($consumos)
 	{
 		$consumos = array_unique($consumos);
 		foreach ($consumos as $consumo)	{
@@ -126,6 +127,13 @@ class js
 					echo js::incluir(recurso::js("$consumo.js"));
 	        }
 		}
+	}
+	//----------------------------------------------------------------------------------
+	//						CONVERSION DE TIPOS
+	//----------------------------------------------------------------------------------	
+	static function bool($bool)
+	{
+		return ($bool) ? "true" : "false";
 	}
 }
 ?>

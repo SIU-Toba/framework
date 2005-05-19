@@ -18,32 +18,21 @@ class objeto_ei_filtro extends objeto_ei_formulario
 
 	function get_lista_eventos()
 	{
-		$evento = array();
+		$eventos = array();
 		//--- Limpiar
 		if($this->etapa=="modificar"){
-			if($this->info_formulario['ev_mod_limpiar']){
-				//Evento LIMPIAR
-				if($this->info_formulario['ev_mod_limpiar_etiq']){
-					$evento['cancelar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
-				}else{
-					$evento['cancelar']['etiqueta'] = "&Cancelar";
-				}
-				$evento['cancelar']['validar'] = "false";
-				$evento['cancelar']['estilo'] = "abm-input";
-			}
+			$eventos += eventos::cancelar($this->info_formulario['ev_mod_limpiar_etiq']);
 		}
 		//--- Filtrar
 		if($this->info_formulario['ev_agregar']){
-			//Evento ALTA
-			if($this->info_formulario['ev_agregar_etiq']){
-				$evento['filtrar']['etiqueta'] = $this->info_formulario['ev_agregar_etiq'];
-			}else{
-				$evento['filtrar']['etiqueta'] = "&Filtrar";
-			}
-			$evento['filtrar']['validar'] = "true";
-			$evento['filtrar']['estilo'] = "abm-input-eliminar";
+			$eventos += eventos::filtrar($this->info_formulario['ev_agregar_etiq']);		
 		}
-		return $evento;
+		//En caso que no se definan eventos, filtrar n es el por defecto y no se incluye como botón
+		if (count($eventos) == 0) {
+			$eventos += eventos::filtrar(null, false);		
+			$this->set_evento_defecto('filtrar');
+		}
+		return $eventos;
 	}
 
 	function generar_formulario()
@@ -68,19 +57,5 @@ class objeto_ei_filtro extends objeto_ei_formulario
 		}
 	}
 	
-	function iniciar_objeto_js()
-	{
-		$identado = js::instancia()->identado();	
-		//-- EVENTO por DEFECTO: FILTRAR--
-		//Si no hay eventos, el componente debe disparar el evento filtrar
-		//ATENCION: Esto se choca con la clase padre, ver #88
-		if(count($this->eventos) == 0){
-			echo $identado."{$this->objeto_js}.set_evento_defecto(new evento_ei('filtrar', true, ''));\n";
-			//Para que en la proxima vuelta el evento sea reconocido...
-			$this->eventos['modificacion']['validar'] = "true";
-		}
-		parent::iniciar_objeto_js();
-	}
-
 }
 ?>

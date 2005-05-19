@@ -14,6 +14,7 @@ def.constructor = objeto;
 		this._ci = ci;
 	}
 	
+	//----------------------------------------------------------------
 	//---Eventos	
 	def.set_evento = function(evento) {
 		this._evento = evento;
@@ -40,7 +41,7 @@ def.constructor = objeto;
 	}	
 
 	//----------------------------------------------------------------
-	//---SERVICIOS GRAFICOS 
+	//---Servicios graficos
 	def.cuerpo = function() {
 		return document.getElementById('cuerpo_' + this._instancia);	
 	}

@@ -1,4 +1,5 @@
 <?php
+include_once('eventos.php');
 
 class objeto
 /*
@@ -28,7 +29,8 @@ class objeto
 	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	var $exportacion_archivo;
 	var $exportacion_path;
-	var $colapsado = false;					//El elemento sólo mantiene su título
+	var $colapsado = false;						//El elemento sólo mantiene su título
+	var $evento_por_defecto;					//Evento disparado cuando no hay una orden explicita
 	
 	function objeto($id)
 /*
@@ -959,28 +961,39 @@ class objeto
 		}
 	}
 //--------------------------------------------------------------------------------------------
-//					SERVICIOS GRAFICOS
-//ATENCION: Estos métodos se deberían pasar a una clase intermedia objeto_ei
+//  ATENCION: Estos métodos se deberían pasar a una clase intermedia objeto_ei
 //--------------------------------------------------------------------------------------------
 
-	function colapsar()
+	//---Eventos
+	public function set_eventos($eventos)
+	{
+		$this->eventos = $eventos;
+	}
+	
+	public function set_evento_defecto($id)
+	{
+		$this->evento_por_defecto = $id;
+	}
+	
+	//---SERVICIOS GRAFICOS
+	public function colapsar()
 	{
 		$this->colapsado = true;
 		$this->info['colapsable'] = true;
 	}
 	
-	function set_colapsable($colapsable)
+	public function set_colapsable($colapsable)
 	{
 		$this->info['colapsable'] = $colapsable;
 	}
 	
-	function consumo_javascript_global()
+	public function consumo_javascript_global()
 	{
 		return array('clases/objeto');
 	}
 	
 	
-	function obtener_javascript()
+	protected function obtener_javascript()
 /*
 	@@acceso: Actividad
 	@@desc: Construye la clase javascript asociada al objeto
@@ -995,25 +1008,31 @@ class objeto
 		return $this->objeto_js;
 	}	
 	
-	function crear_objeto_js()
+	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
 		echo $identado."var {$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
 	}
 	
-	function extender_objeto_js()
+	protected function extender_objeto_js()
 	{
 
 	}
 	
-	function iniciar_objeto_js()
+	protected function iniciar_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		if ($this->colapsado)
+		//-- EVENTO por DEFECTO --
+		if($this->evento_por_defecto != null && isset($this->eventos[$this->evento_por_defecto])){
+			$evento = eventos::a_javascript($this->evento_por_defecto, $this->eventos[$this->evento_por_defecto]);
+			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_defecto($evento);\n";
+		}
+		if ($this->colapsado) {
 			echo $identado."{$this->objeto_js}.colapsar();\n";
-		echo $identado."{$this->objeto_js}.iniciar();\n";			
+		}
+		echo $identado."{$this->objeto_js}.iniciar();\n";		
 	}
-	
+
 	
 }
 ?>

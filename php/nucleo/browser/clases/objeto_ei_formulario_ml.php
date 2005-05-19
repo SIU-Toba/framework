@@ -336,24 +336,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		//Botonera de agregar
 		if ($this->info_formulario['filas_agregar']) {
-			echo "<div style='text-align: left'>";
-			$tab = ($this->rango_tabs[1] - 10);	
-			echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
-									"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
-			echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
-									"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
-			$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-			echo form::button_html("{$this->objeto_js}_deshacer", $html, 
-									" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
-			echo "&nbsp;";
-			echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
-									"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
-			echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
-									"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
-			echo "</div>\n";
+			$this->botonera_manejo_filas();
 		}
+		//Ancho y Scroll
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
-		//SCROLL???
 		if($this->info_formulario["scroll"]){
 			$alto_maximo = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
 			if ($ancho != 'auto')
@@ -437,6 +423,25 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "</tbody>\n</table>\n</div>";
 	}
 
+	function botonera_manejo_filas()
+	{
+		echo "<div style='text-align: left'>";
+		$tab = ($this->rango_tabs[1] - 10);	
+		echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
+								"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
+		echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
+								"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
+		$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
+		echo form::button_html("{$this->objeto_js}_deshacer", $html, 
+								" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
+		echo "&nbsp;";
+		echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
+								"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
+		echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
+								"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
+		echo "</div>\n";
+	}
+
 	function get_lista_eventos()
 	/*
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
@@ -445,18 +450,17 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if(isset($this->eventos_ext)){
 			return $this->eventos_ext;	
 		}
-		$evento = array();
+		$eventos = array();
 		if($this->info_formulario['ev_mod_modificar']){
 			//Evento MODIFICACION
-			if($this->info_formulario['ev_mod_modificar_etiq']){
-				$evento['modificacion']['etiqueta'] = $this->info_formulario['ev_mod_modificar_etiq'];
-			}else{
-				$evento['modificacion']['etiqueta'] = "&Modificar";
-			}
-			$evento['modificacion']['validar'] = "true";
-			$evento['modificacion']['estilo'] = "abm-input";
+			$eventos += eventos::modificacion($this->info_formulario['ev_mod_modificar_etiq']);
 		}
-		return $evento;
+		//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
+		if (count($eventos) == 0) {
+			$eventos += eventos::modificacion(null, false);		
+			$this->set_evento_defecto('modificacion');
+		}		
+		return $eventos;
 	}
 
 	//-------------------------------------------------------------------------------

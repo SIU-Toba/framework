@@ -5,10 +5,6 @@ require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 /*
 	- Los EF deberian cargar su estado en el momento de obtener la
 	interface, no en su creacion.
-
-	- En la definicion de EVENTOS, en vez de hablar de "validar"
-	hay que hablar de que el evento maneja datos
-
 */
 
 class objeto_ei_formulario extends objeto
@@ -61,15 +57,14 @@ class objeto_ei_formulario extends objeto
 		$this->memoria["eventos"] = array();
 		if(isset($this->eventos)){
 			foreach($this->eventos as $id => $evento ){
-				if(isset($evento['validar'])){
-					$val = $evento['validar'];
+				if(isset($evento['maneja_datos'])){
+					$val = $evento['maneja_datos'];
 				}else{
-					$val = "true";	
+					$val = true;	
 				}
 				$this->memoria["eventos"][$id] = $val;
 			}
 		}
-		//ei_arbol($this->memoria);
 		parent::destruir();
 	}
 
@@ -303,12 +298,11 @@ class objeto_ei_formulario extends objeto
 			//La opcion seleccionada estaba entre las ofrecidas?
 			if(isset($this->memoria['eventos'][$evento]) ){
 				//Me fijo si el evento requiere validacion
-				$validar = $this->memoria['eventos'][$evento];
-				if($validar == "true"){
+				$maneja_datos = $this->memoria['eventos'][$evento];
+				if($maneja_datos){
 					$this->validar_estado();					
 					$parametros = $this->obtener_datos();
 				}else{
-					//ATENCION: Si no requiere validacion es porque tampoco maneja datos
 					$parametros = null;
 				}
 				//El evento es valido, lo reporto al contenedor
@@ -318,13 +312,6 @@ class objeto_ei_formulario extends objeto
 		$this->limpiar_interface();
 	}
 
-/*
-	if(acceso_post()){
-		if( $this->existio_interface_previa() ){
-			return true;
-		}
-	}
-*/
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//--------------------------------	PROCESOS  -----------------------------------
@@ -612,9 +599,6 @@ class objeto_ei_formulario extends objeto
 	//-------------------------------------------------------------------------------
 
 	function obtener_botones()
-/*
-	Seba, la adaptacion con los objetos JS queda en tus manos...
-*/
 	{
 		//----------- Generacion
 		echo form::hidden($this->submit, '');
@@ -622,16 +606,17 @@ class objeto_ei_formulario extends objeto
 		echo "<tr><td align='right'>";
 		foreach($this->eventos as $id => $evento )
 		{
-			$tip = '';
-			$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
-			$tab_order = 0;//Esto esta MAAL!!!
-			$acceso = tecla_acceso( $evento["etiqueta"] );
-			$html = $acceso[0]; //Falta concatenar la imagen
-			$tecla = $acceso[1];
-			$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-			$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
-			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('$id',$js_validar, $js_confirm))\"";
-			echo "&nbsp;" . form::button_html( $this->submit ."_". $id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+				$tip = '';
+				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
+				$tab_order = 0;//Esto esta MAAL!!!
+				$acceso = tecla_acceso( $evento["etiqueta"] );
+				$html = $acceso[0]; //Falta concatenar la imagen
+				$tecla = $acceso[1];
+				$evento_js = eventos::a_javascript($id, $evento);				
+				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+				echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			}
 		}
 		echo "</td></tr>\n";
 		echo "</table>\n";
@@ -640,11 +625,6 @@ class objeto_ei_formulario extends objeto
 	//-------------------------------------------------------------------------------
 	//---- EVENTOS ------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
-	function set_eventos($eventos)
-	{
-		$this->eventos = $eventos;
-	}
 
 	function definir_eventos()
 	{
@@ -656,63 +636,39 @@ class objeto_ei_formulario extends objeto
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
-		$evento = array();
+		$eventos = array();
 		if($this->etapa=="agregar")
 		//El formulario esta VACIO
 		{
-			if($this->info_formulario['ev_agregar']){
-				//Evento ALTA
-				if($this->info_formulario['ev_agregar_etiq']){
-					$evento['alta']['etiqueta'] = $this->info_formulario['ev_agregar_etiq'];
-				}else{
-					$evento['alta']['etiqueta'] = "&Agregar";
-				}
-				$evento['alta']['validar'] = "true";
-				$evento['alta']['estilo'] = "abm-input";
+			if($this->info_formulario['ev_agregar']) {
+				$eventos += eventos::alta($this->info_formulario['ev_agregar_etiq']);
 			}
-		}elseif($this->etapa=="modificar")
+		} elseif($this->etapa=="modificar")
 		//El formulario fue cargado con datos
 		{
 			if($this->info_formulario['ev_mod_eliminar']){
-				//Evento BAJA
-				if($this->info_formulario['ev_mod_eliminar_etiq']){
-					$evento['baja']['etiqueta'] = $this->info_formulario['ev_mod_eliminar_etiq'];
-				}else{
-					$evento['baja']['etiqueta'] = "&Eliminar";
-				}
-				$evento['baja']['confirmacion'] = "¿Desea ELIMINAR el registro?";
-				$evento['baja']['validar'] = "false";
-				$evento['baja']['estilo'] = "abm-input-eliminar";
+				$eventos += eventos::baja($this->info_formulario['ev_mod_eliminar_etiq']);
 			}
 			if($this->info_formulario['ev_mod_modificar']){
-				//Evento MODIFICACION
-				if($this->info_formulario['ev_mod_modificar_etiq']){
-					$evento['modificacion']['etiqueta'] = $this->info_formulario['ev_mod_modificar_etiq'];
-				}else{
-					$evento['modificacion']['etiqueta'] = "&Modificar";
-				}
-				$evento['modificacion']['validar'] = "true";
-				$evento['modificacion']['estilo'] = "abm-input";
+				$eventos += eventos::modificacion($this->info_formulario['ev_mod_modificar_etiq']);
 			}
 			if($this->info_formulario['ev_mod_limpiar']){
-				//Evento LIMPIAR
-				if($this->info_formulario['ev_mod_limpiar_etiq']){
-					$evento['cancelar']['etiqueta'] = $this->info_formulario['ev_mod_limpiar_etiq'];
-				}else{
-					$evento['cancelar']['etiqueta'] = "&Cancelar";
-				}
-				$evento['cancelar']['validar'] = "false";
-				$evento['cancelar']['estilo'] = "abm-input";
-			}             
-		}                  
-		return $evento;     
+				$eventos += eventos::cancelar($this->info_formulario['ev_mod_limpiar_etiq']);
+			}
+		}
+		//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
+		if (count($eventos) == 0) {
+			$eventos += eventos::modificacion(null, false);		
+			$this->set_evento_defecto('modificacion');
+		}
+		return $eventos;     
 	}
 	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function crear_objeto_js()
+	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
@@ -724,22 +680,9 @@ class objeto_ei_formulario extends objeto
 		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";
 	}
 
-	function iniciar_objeto_js()
-	{
-		//-- EVENTO por DEFECTO --
-		//Si no hay eventos, el componente debe disparar el evento modificacion
-		if(count($this->eventos) == 0){
-			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_defecto(new evento_ei('modificacion', true, ''));\n";
-			//Para que en la proxima vuelta el evento sea reconocido...
-			$this->eventos['modificacion']['validar'] = "true";
-		}
-		parent::iniciar_objeto_js();
-	}
-
-
 	//-------------------------------------------------------------------------------
 
-	function consumo_javascript_global()
+	public function consumo_javascript_global()
 	{
 		$consumo = parent::consumo_javascript_global();
 		$consumo[] = 'clases/objeto_ei_formulario';

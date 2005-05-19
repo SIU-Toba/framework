@@ -136,8 +136,7 @@ class objeto_ci_me_tab extends objeto_ci_me
 	{
 		$eventos = parent::get_lista_eventos();
 		foreach ($this->get_lista_tabs() as $id => $tab) {
-			$eventos['cambiar_tab_'.$id]['validar'] = "true";
-			$eventos['cambiar_tab_'.$id]['en_botonera'] = false;			
+			$eventos += eventos::ci_cambiar_tab($id);
 		}
 		return $eventos;
 	}

@@ -581,9 +581,8 @@ class objeto_ci extends objeto
 				$acceso = tecla_acceso( $evento["etiqueta"] );
 				$html = $acceso[0]; //Falta concatenar la imagen
 				$tecla = $acceso[1];
-				$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-				$js_validar = isset( $evento['validar'] ) ? "{$evento['validar']}" : "true";
-				$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('$id', $js_validar, $js_confirm));\"";
+				$evento_js = eventos::a_javascript($id, $evento);
+				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 				echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 			}
 		}
@@ -596,30 +595,24 @@ class objeto_ci extends objeto
 	{
 		$eventos = array();
 		//Evento PROCESAR
-		if($this->info_ci['ev_procesar'])
-		{
-			$eventos = array_merge($eventos,  $this->get_boton_procesar($this->info_ci['ev_procesar_etiq']) );		
+		if($this->info_ci['ev_procesar']) {
+			$eventos += $this->get_boton_procesar($this->info_ci['ev_procesar_etiq']);
 		}
 		//Evento CANCELAR
-		if($this->info_ci['ev_cancelar'])
-		{
-			$eventos = array_merge($eventos,  $this->get_boton_cancelar($this->info_ci['ev_cancelar_etiq']) );		
+		if($this->info_ci['ev_cancelar']) {
+			$eventos += $this->get_boton_cancelar($this->info_ci['ev_cancelar_etiq']);		
 		}
 		return $eventos;
 	}
 
 	function get_boton_cancelar($etiqueta=null)
 	{
-		$evento['cancelar']['etiqueta'] = isset($etiqueta) ? $etiqueta : "&Cancelar";
-		$evento['cancelar']['validar'] = "false";
-		//$evento['cancelar']['confirmacion'] = "¿Esta seguro que desea cancelar?";
-		return $evento;
+		return eventos::ci_cancelar($etiqueta);
 	}
 
 	function get_boton_procesar($etiqueta=null)
 	{
-		$evento['procesar']['etiqueta'] = isset($etiqueta) ? $etiqueta : "Proce&sar";
-		return $evento;
+		return eventos::ci_procesar($etiqueta);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -663,15 +656,9 @@ class objeto_ci extends objeto
 		$consumo_js = parent::consumo_javascript_global();
 		$consumo_js[] = 'clases/objeto_ci';
 		foreach($this->dependencias_gi as $dep){
-			//Es un formulario?
-			if(	$this->dependencias[$dep] instanceof objeto_ei_formulario ||
-				$this->dependencias[$dep] instanceof objeto_ci )
-			{
-				$temp = $this->dependencias[$dep]->consumo_javascript_global();
-				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
-			}else{
-					//echo "no es un formulario";
-			}
+			$temp = $this->dependencias[$dep]->consumo_javascript_global();
+			if(isset($temp))
+				$consumo_js = array_merge($consumo_js, $temp);
 		}
 		return $consumo_js;
 	}

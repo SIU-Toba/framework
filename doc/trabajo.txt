@@ -43,6 +43,8 @@
 
 		COSAS
 
+		- (muy baja prioridad) Es necesario un ABM que modifique un array en un archivo, o constantes!, útil para hacer configuraciones fuera
+		   de la BD. Las configuraciones en BD complican las actualizaciones de datos...
 		- Display del CI (anidaciones)	
 	
 		- PROYECTO de ejemplo
