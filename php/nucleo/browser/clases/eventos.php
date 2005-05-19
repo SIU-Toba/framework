@@ -7,11 +7,12 @@ class eventos
 	/**
 	* 	Toma la definición de un evento y la pasa a su homonimo js
 	**/
-	static function a_javascript($id, $evento)
+	static function a_javascript($id, $evento, $parametro = null)
 	{
 		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
 		$js_validar = isset( $evento['maneja_datos'] ) ? js::bool($evento['maneja_datos']) : "true";
-		return "new evento_ei('$id', $js_validar, $js_confirm)";
+		$param = (isset($parametro)) ? ", '$parametro'" : '';
+		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
 	}
 	
 	static function evento_estandar($id, $etiqueta = null, $en_botonera = true)
@@ -85,6 +86,15 @@ class eventos
 		$evento['filtrar']['estilo'] = "abm-input-eliminar";
 		return $evento;	
 	}
+	
+	//---------------------------------------------------
+	//---Eventos de Cuadro	
+	static function seleccion()
+	{
+		$evento = self::evento_estandar('seleccion', null, false);
+		$evento['seleccion']['maneja_datos'] = false;
+		return $evento;	
+	}	
 
 }
 

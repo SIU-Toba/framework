@@ -360,23 +360,6 @@ class objeto_ci extends objeto
 		$this->error_proceso_hijo[] = $dependencia;
 	}
 
-	//------  Codigo SLAVE -----
-
-	public function agregar_observador($observador)
-	{
-		$this->observadores[] = $observador;
-	}
-
-	function eliminar_observador($observador){}
-
-	private function reportar_evento($evento, $parametros=null)
-	//Registro un evento en todos mis observadores
-	{
-		foreach(array_keys($this->observadores) as $id){
-			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
-		}
-	}
-
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------   Generacion de la INTERFACE GRAFICA   ----------------------
@@ -530,7 +513,7 @@ class objeto_ci extends objeto
 		}
 		echo "<tbody id='cuerpo_{$this->objeto_js}'>\n";
 		//--> Botonera
-		$con_botonera = $this->hay_eventos_de_botonera();
+		$con_botonera = $this->hay_botones();
 		if($con_botonera){
 			if( ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
 				echo "<tr><td class='abm-zona-botones'>";
@@ -555,18 +538,7 @@ class objeto_ci extends objeto
 		echo "</table>\n";
 		$this->gi = true;
 	}
-	//-------------------------------------------------------------------------------
 
-	function hay_eventos_de_botonera() 
-	{
-		foreach($this->eventos as $id => $evento ) {	
-			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	//-------------------------------------------------------------------------------
 	function generar_botonera()
 	{
@@ -683,7 +655,6 @@ class objeto_ci extends objeto
 		foreach ($objetos as $objeto) {
 			echo $identado."{$this->objeto_js}.agregar_objeto($objeto);\n";
 		}
-		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 }
 

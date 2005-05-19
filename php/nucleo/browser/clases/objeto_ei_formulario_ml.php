@@ -355,9 +355,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if ($this->info_formulario['filas_agregar']) {
 			$colspan++;
 		}			
+		//Campo de comunicacion con JS
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
+		
 		echo "<table width='$ancho' class='tabla-0'>\n";
-
 		//------ TITULOS -----
 		echo "<thead>\n<tr>\n";
 		if ($this->info_formulario['filas_agregar']) {
@@ -485,8 +486,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 			}
 		}
-		//Se agrega al objeto al singleton toba
-		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 	
 	function consumo_javascript_global()

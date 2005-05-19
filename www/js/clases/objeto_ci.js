@@ -1,11 +1,3 @@
-//--------------------------------------------------------------------------------
-//Clase evento_ci
-function evento_ei(id, validar, confirmar) {
-	this.id = id;
-	this.validar = validar;
-	this.confirmar = confirmar;
-}
-
 objeto_ci.prototype = new objeto;
 var def = objeto_ci.prototype;
 def.constructor = objeto_ci;
@@ -15,7 +7,7 @@ function objeto_ci(instancia, form, input_submit) {
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
-	this._ci_padre = null;									//CI contenedor
+	this._ci = null;									//CI contenedor
 	this._objetos = new Array();						//Listado de objetos js asociados al CI
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
@@ -32,10 +24,6 @@ function objeto_ci(instancia, form, input_submit) {
 		this._input_submit_tab = input;
 	}
 	
-	def.set_ci = function(ci) {
-		this._ci_padre = ci;
-	}
-
 	def.iniciar = function() {
 	}
 	
@@ -62,11 +50,11 @@ function objeto_ci(instancia, form, input_submit) {
 	//2-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)
 	//Intenta realizar el submit de todos los objetos asociados
 	def.submit = function() {
-		if (this._ci_padre && !this._ci_padre.en_submit()) //Primero debe consultar si su padre está en proceso
-			return this._ci_padre.submit();
+		if (this._ci && !this._ci.en_submit()) //Primero debe consultar si su padre está en proceso
+			return this._ci.submit();
 
 		this._en_submit = true;				
-		if (! this._ci_padre) { //Si es el padre de todos, borrar las notificaciones
+		if (! this._ci) { //Si es el padre de todos, borrar las notificaciones
 			cola_mensajes.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();

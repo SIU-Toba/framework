@@ -1,3 +1,11 @@
+//--------------------------------------------------------------------------------
+//Clase evento_ci
+function evento_ei(id, validar, confirmar, parametros) {
+	this.id = id;
+	this.validar = validar;
+	this.confirmar = confirmar;
+	this.parametros = parametros;
+}
 
 //--------------------------------------------------------------------------------
 //Clase objeto
@@ -31,6 +39,8 @@ def.constructor = objeto;
 		
 	//---Submit
 	def.submit = function() {
+		if (this._ci && !this._ci.en_submit()) //Primero debe consultar si su padre está en proceso
+			return this._ci.submit();
 	}
 	
 	def.puede_submit = function() {

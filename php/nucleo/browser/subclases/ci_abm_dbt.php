@@ -40,6 +40,20 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		$this->db_tablas->descargar();
 	}
 
+	/**
+	*	Retorna la referencia al cuadro actual si es que existe
+	**/
+	function cuadro()
+	{
+		foreach ($this->dependencias as $id => $dep) {
+			$insp = $this->inspeccionar_dependencia($id);
+			if ($insp['tipo_ei'] == 'ei_cuadro') {
+				return $dep;
+			}
+		}
+		return null;
+	}
+	
 	//------------------------------------------------------------------------
 	//--  traduzco los EVENTOS de la INTERFACE al DB_TABLAS
 	//------------------------------------------------------------------------
@@ -47,9 +61,9 @@ class ci_abm_dbt extends objeto_ci_me_tab
 	private function inspeccionar_dependencia($dependencia)
 	{
 		$e = explode("_",$dependencia);
-		if($e[0] == "c"){
+		if($e[0] == "c") {
 			$dep['tipo_ei'] = "ei_cuadro";
-		}elseif( $e[0] == "f"){
+		}elseif( $e[0] == "f") {
 			$dep['tipo_ei'] = "ei_formulario";
 		}
 		$dep['elemento'] = $e[1];
@@ -60,8 +74,6 @@ class ci_abm_dbt extends objeto_ci_me_tab
 	public function registrar_evento($id, $evento, $parametros=null)
 	//Se disparan eventos dentro del nivel actual
 	{
-
-
 		$dep = $this->inspeccionar_dependencia($id);
 		if($dep['tipo_ei'] == "ei_cuadro")								//-- Cuadro
 		{	
@@ -76,6 +88,9 @@ class ci_abm_dbt extends objeto_ci_me_tab
 				if($evento=="alta"){
 					$this->db_tablas->acc_elemento($dep['elemento'],"ins",$parametros);	
 				}elseif($evento=="cancelar"){
+					$cuadro = $this->cuadro();
+					if ($cuadro)
+						$cuadro->deseleccionar();
 					unset($this->selecciones[$dep['elemento']]);
 				}else{
 					//Hay una seleccion?

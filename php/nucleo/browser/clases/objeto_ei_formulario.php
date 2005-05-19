@@ -274,35 +274,20 @@ class objeto_ei_formulario extends objeto
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function agregar_observador($observador)
-	{
-		$this->observadores[] = $observador;
-	}
-
-	function eliminar_observador($observador){}
-
-	protected function reportar_evento($evento, $parametros=null)
-	//Registro un evento en todos mis observadores
-	{
-		foreach(array_keys($this->observadores) as $id){
-			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
-		}
-	}
-
 	function disparar_eventos()
 	{
 		$this->recuperar_interaccion();
 		//Veo si se devolvio algun evento!
-		if($_POST[$this->submit]!=""){
+		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
 			$evento = $_POST[$this->submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
 			if(isset($this->memoria['eventos'][$evento]) ){
 				//Me fijo si el evento requiere validacion
 				$maneja_datos = $this->memoria['eventos'][$evento];
-				if($maneja_datos){
-					$this->validar_estado();					
+				if($maneja_datos) {
+					$this->validar_estado();
 					$parametros = $this->obtener_datos();
-				}else{
+				} else {
 					$parametros = null;
 				}
 				//El evento es valido, lo reporto al contenedor
@@ -556,6 +541,8 @@ class objeto_ei_formulario extends objeto
 		if($this->estado_proceso!="INFRACCION")
 		{
 			echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
+			//Campo de sincroniacion con JS
+			echo form::hidden($this->submit, '');
 			//A los ocultos se les deja incluir javascript
 			foreach ($this->lista_ef_ocultos as $ef) {
 				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
@@ -596,40 +583,10 @@ class objeto_ei_formulario extends objeto
 			echo "</table>\n";
 		}
 	}
-	//-------------------------------------------------------------------------------
 
-	function obtener_botones()
-	{
-		//----------- Generacion
-		echo form::hidden($this->submit, '');
-		echo "<table class='tabla-0' align='center' width='100%'>\n";
-		echo "<tr><td align='right'>";
-		foreach($this->eventos as $id => $evento )
-		{
-			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
-				$tip = '';
-				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
-				$tab_order = 0;//Esto esta MAAL!!!
-				$acceso = tecla_acceso( $evento["etiqueta"] );
-				$html = $acceso[0]; //Falta concatenar la imagen
-				$tecla = $acceso[1];
-				$evento_js = eventos::a_javascript($id, $evento);				
-				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-				echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
-			}
-		}
-		echo "</td></tr>\n";
-		echo "</table>\n";
-	}
-	
 	//-------------------------------------------------------------------------------
 	//---- EVENTOS ------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
-	function definir_eventos()
-	{
-		$this->eventos = $this->get_lista_eventos();
-	}
 
 	function get_lista_eventos()
 	/*
@@ -673,11 +630,9 @@ class objeto_ei_formulario extends objeto
 		$identado = js::instancia()->identado();
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
-		foreach ($this->lista_ef_post as $ef){
+		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
-		//Se agrega al objeto al singleton toba
-		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";
 	}
 
 	//-------------------------------------------------------------------------------

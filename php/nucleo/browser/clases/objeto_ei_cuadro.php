@@ -22,8 +22,8 @@ class objeto_ei_cuadro extends objeto_cuadro
     @@desc: 
 */
     {
-        parent::objeto_cuadro($id);
-        $this->submit = "ei_cuadro_" . $this->id[1] ."_";
+        parent::__construct($id);
+        $this->submit = "ei_cuadro" . $this->id[1];
 		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_buffer_clave );
@@ -38,9 +38,30 @@ class objeto_ei_cuadro extends objeto_cuadro
 		}else{
 			$this->ev_seleccion = false;
 		}
-		$this->objeto_js = "objeto_cuadro_{$id[1]}";		
-    }
-
+		$this->objeto_js = "objeto_cuadro_{$id[1]}";
+	}
+	//-------------------------------------------------------------------------------
+	
+	function destruir()
+	{
+		$this->memoria["eventos"] = array();
+		if(isset($this->eventos)){
+			foreach($this->eventos as $id => $evento ){
+				if(isset($evento['maneja_datos'])){
+					$val = $evento['maneja_datos'];
+				}else{
+					$val = true;	
+				}
+				$this->memoria["eventos"][$id] = $val;
+			}
+		}
+		if (isset($this->clave_seleccionada)) {
+			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
+		}
+		parent::destruir();
+	}
+	//-------------------------------------------------------------------------------
+	
 	function obtener_definicion_db()
 /*
  	@@acceso:
@@ -102,29 +123,28 @@ class objeto_ei_cuadro extends objeto_cuadro
 
 	function eliminar_observador($observador){}
 
-	function definir_eventos()
+	function get_lista_eventos()
 	{
+		$eventos = array();
+		if($this->ev_seleccion){
+			$eventos += eventos::seleccion();
+		}
+		return $eventos;
 	}
 
 	function disparar_eventos()
 	{
 		$this->recuperar_interaccion();
-		if( $evento = $this->obtener_evento() ){
-			foreach(array_keys($this->observadores) as $id){
-				$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $this->obtener_clave() );
+		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
+			$evento = $_POST[$this->submit];		
+			$parametros = $this->clave_seleccionada;
+			//La opcion seleccionada estaba entre las ofrecidas?
+			if(isset($this->memoria['eventos'][$evento]) ) {
+				$this->reportar_evento( $evento, $parametros );
 			}
 		}
 	}
-//--------------------------------------------------------------------------
 
-	function obtener_evento()
-	{
-		if(isset($this->clave_seleccionada)){
-			return "seleccion";
-		}else{
-			return null;
-		}
-	}
 //--------------------------------------------------------------------------
 
 	function obtener_clave()
@@ -135,23 +155,16 @@ class objeto_ei_cuadro extends objeto_cuadro
 
 	function recuperar_interaccion()
 	{
-		//Si se presiono un boton, busco la clave
-		foreach (array_keys($_POST) as $post)
-        {
-			if(preg_match("/".$this->submit.".*_x/", $post)){
-				$sobra = strlen($this->submit);
-				$clave = substr($post, $sobra, (strlen($post) - $sobra - 2 ));
-				//PHP convierte los "." es "_" en los botones de submit (Es raro, pero es asi)
-				//$clave = ereg_replace("_",".",$clave);//echo $partida;
-				if(apex_pa_encriptar_qs){
-					$encriptador = toba::get_encriptador();
-					$clave = $encriptador->descifrar( $clave );
-				}
+		if (isset($this->memoria['clave_seleccionada']))
+			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
+		if(isset($_POST[$this->submit."__seleccion"])) {
+			$clave = $_POST[$this->submit."__seleccion"];
+			if ($clave != '') {
 				if(count($this->columnas_clave) > 1 )
 				{
 					//La clave es un array, devuelvo un array asociativo con el nombre de las claves
 					$clave = explode(apex_qs_separador, $clave);
-					for($a=0;$a<count($clave);$a++){
+					for($a=0;$a<count($clave);$a++) {
 						$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
 					}
 				}else{
@@ -160,6 +173,12 @@ class objeto_ei_cuadro extends objeto_cuadro
 			}
 		}
 	}
+//--------------------------------------------------------------------------
+	function deseleccionar()
+	{
+		$this->clave_seleccionada = null;
+	}
+
 //--------------------------------------------------------------------------
 
     function obtener_clave_fila($fila)
@@ -170,13 +189,7 @@ class objeto_ei_cuadro extends objeto_cuadro
             $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
         }
         $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
-		if(apex_pa_encriptar_qs)
-		{
-			$encriptador = toba::get_encriptador();
-			//ATENCION: me faltaria ponerle un uniqid("") para que sea mas robusto;
-			$id_fila = $encriptador->cifrar($id_fila);
-		}
-        return $this->submit . $id_fila;
+        return $id_fila;
     }
 //--------------------------------------------------------------------------
 
@@ -214,6 +227,9 @@ class objeto_ei_cuadro extends objeto_cuadro
     function obtener_html($mostrar_cabecera=true, $titulo=null)
     //Genera el HTML del cuadro
     {
+		//Campo de comunicación con JS
+		echo form::hidden($this->submit, '');
+		echo form::hidden($this->submit."__seleccion", '');		
 		//Reproduccion del titulo
 		if(isset($titulo)){
 			$this->memoria["titulo"] = $titulo;
@@ -232,8 +248,15 @@ class objeto_ei_cuadro extends objeto_cuadro
                     echo ei_mensaje("La consulta no devolvio datos!");
                 }
             }
+			//De todas formas incluir los botones si hay
+			if ($this->hay_botones()) {
+				$this->obtener_botones();
+			}			
         }else{
             if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
+			$cant_eventos = ($this->ev_seleccion) ? 0 : 1;
+			$colspan = $this->cantidad_columnas + $cant_eventos;
+				
             //echo "<br>\n";
             
 			//--Scroll       
@@ -289,9 +312,8 @@ class objeto_ei_cuadro extends objeto_cuadro
             {
 				$resaltado = "";
 				$clave_fila = $this->obtener_clave_fila($f);
-				//$this->clave_seleccionada
-				//$resaltado = "_s";
-				
+				$esta_seleccionada = ($clave_fila == $this->clave_seleccionada);
+				$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
                 echo "<tr>\n";
                 for ($a=0;$a< $this->cantidad_columnas;$a++)
                 {
@@ -338,15 +360,20 @@ class objeto_ei_cuadro extends objeto_cuadro
                         }
                     }
                     //*** 4) Genero el HTML
-                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado . "'>\n";
+                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
                     echo $valor;
                     echo "</td>\n";
                     //----------> Termino la CELDA!!
                 }
-	            //-- Evento FIJO de seleccion
-				if($this->ev_seleccion){
+	            //-- Eventos aplicados a una fila
+				if (isset($this->eventos['seleccion'])) {
 					echo "<td class='lista-col-titulo'>\n";
-					echo form::image( $this->obtener_clave_fila($f) ,recurso::imagen_apl("doc.gif"));
+					$src = recurso::imagen_apl("doc.gif");
+					$evento_js = eventos::a_javascript('seleccion', $this->eventos['seleccion'], $this->obtener_clave_fila($f));
+					$js = "{$this->objeto_js}.set_evento($evento_js);";
+					$alt = 'Seleccionar la fila';
+					$ayuda = "title='$alt' onmouseover='window.status=\"$alt\"' onmouseout='window.status=\"\"'";
+					echo "<img border='0' src='$src' $ayuda style='cursor: pointer' onclick=\"$js\">\n";
 	            	echo "</td>\n";
 	            }
 				//----------------------------
@@ -357,6 +384,11 @@ class objeto_ei_cuadro extends objeto_cuadro
             echo "</table>\n";
             echo "</td></tr>\n";
             $this->generar_html_barra_paginacion();
+			echo "<td class='ei-base' colspan='$colspan'>\n";
+			if ($this->hay_botones()) {
+				$this->obtener_botones();
+			}
+			echo "</td>\n";
             echo "</table>\n";
             
 			//Y por cierto......... si esto tenia scroll, cierro el div !!!
@@ -367,6 +399,71 @@ class objeto_ei_cuadro extends objeto_cuadro
             //echo "<br>\n";
         }
     }
-//--------------------------------------------------------------------------
+
+	//--------------------------------------------------------------------------
+    function cabecera_columna($titulo,$columna,$indice)
+    //Genera la cabecera de una columna
+    {
+        //Solo son ordenables las columnas extraidas del recordse!!!
+        //Las generadas de otra forma llegan con el nombre vacio
+        if(trim($columna)!=""){
+            if($this->info_cuadro["ordenar"])
+            {
+                if($this->info_cuadro_columna[$indice]["no_ordenar"]!=1)
+                {
+                    $sentido[0][0]="asc";
+                    $sentido[0][1]="Orden ascendente";
+                    $sentido[1][0]="des";
+                    $sentido[1][1]="Orden descendente";
+
+                    echo  "<table class='tabla-0'>\n";
+                    echo  "<tr>\n";
+                    echo  "<td width='95%' align='center' class='lista-col-titulo'>&nbsp;" . $titulo . "&nbsp;</td>\n";
+                    echo  "<td width='5%'>";
+                    foreach($sentido as $sen){
+                        $sel="";
+                        if (($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) $sel = "_sel";//orden ACTIVO
+                        $imagen = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif", true, null, null,$sen[1]);
+                        echo $this->autovinculacion(array($this->propagador_orden_sentido=>$sen[0],
+                                                        $this->propagador_orden_columna=>$columna),$imagen);
+                    }
+                    echo  "</td>\n";        
+                    echo  "</tr>\n";
+                    echo  "</table>\n";
+                }else{
+                    echo $titulo;
+                }
+            }else{
+                echo $titulo;
+            }
+        }
+        else            //Modificacion para que muestre los titulos de los vinculos
+        {
+            if(trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="")
+            {           
+                echo $titulo;
+            }
+        }
+    }
+	//--------------------------------------------------------------------------
+	
+	//-------------------------------------------------------------------------------
+	//---- JAVASCRIPT ---------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	protected function crear_objeto_js()
+	{
+		$identado = js::instancia()->identado();
+		echo $identado."var {$this->objeto_js} = new objeto_ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
+	}
+
+	//-------------------------------------------------------------------------------
+
+	public function consumo_javascript_global()
+	{
+		$consumo = parent::consumo_javascript_global();
+		$consumo[] = 'clases/objeto_ei_cuadro';
+		return $consumo;
+	}	
 
 }

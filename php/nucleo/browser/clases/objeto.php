@@ -965,6 +965,11 @@ class objeto
 //--------------------------------------------------------------------------------------------
 
 	//---Eventos
+	public function definir_eventos()
+	{
+		$this->eventos = $this->get_lista_eventos();
+	}
+		
 	public function set_eventos($eventos)
 	{
 		$this->eventos = $eventos;
@@ -974,6 +979,54 @@ class objeto
 	{
 		$this->evento_por_defecto = $id;
 	}
+	
+	public function agregar_observador($observador)
+	{
+		$this->observadores[] = $observador;
+	}
+
+	function eliminar_observador($observador){}
+
+	protected function reportar_evento($evento, $parametros=null)
+	//Registro un evento en todos mis observadores
+	{
+		foreach(array_keys($this->observadores) as $id){
+			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
+		}
+	}
+	
+	function hay_botones() 
+	{
+		foreach($this->eventos as $id => $evento ) {	
+			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+				return true;
+			}
+		}
+		return false;
+	}	
+
+	function obtener_botones()
+	{
+		//----------- Generacion
+		echo "<table class='tabla-0' align='center' width='100%'>\n";
+		echo "<tr><td align='right'>";
+		foreach($this->eventos as $id => $evento )
+		{
+			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+				$tip = '';
+				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
+				$tab_order = 0;//Esto esta MAAL!!!
+				$acceso = tecla_acceso( $evento["etiqueta"] );
+				$html = $acceso[0]; //Falta concatenar la imagen
+				$tecla = $acceso[1];
+				$evento_js = eventos::a_javascript($id, $evento);
+				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+				echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			}
+		}
+		echo "</td></tr>\n";
+		echo "</table>\n";
+	}	
 	
 	//---SERVICIOS GRAFICOS
 	public function colapsar()
@@ -1030,7 +1083,9 @@ class objeto
 		if ($this->colapsado) {
 			echo $identado."{$this->objeto_js}.colapsar();\n";
 		}
-		echo $identado."{$this->objeto_js}.iniciar();\n";		
+		echo $identado."{$this->objeto_js}.iniciar();\n";
+		//Se agrega al objeto al singleton toba
+		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}
 
 	
