@@ -24,6 +24,8 @@ class objeto_ei_cuadro extends objeto_cuadro
     {
         parent::__construct($id);
         $this->submit = "ei_cuadro" . $this->id[1];
+		$this->submit_orden_columna = $this->submit."__orden_columna";
+		$this->submit_orden_sentido = $this->submit."__orden_sentido";
 		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_buffer_clave );
@@ -47,17 +49,26 @@ class objeto_ei_cuadro extends objeto_cuadro
 		$this->memoria["eventos"] = array();
 		if(isset($this->eventos)){
 			foreach($this->eventos as $id => $evento ){
-				if(isset($evento['maneja_datos'])){
-					$val = $evento['maneja_datos'];
-				}else{
-					$val = true;	
-				}
-				$this->memoria["eventos"][$id] = $val;
+				$this->memoria["eventos"][$id] = true;
 			}
 		}
+		//Seleccion
 		if (isset($this->clave_seleccionada)) {
 			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
+		} else {
+			unset($this->memoria['clave_seleccionada']);
 		}
+		//Ordenamiento
+		if (isset($this->orden_columna)) {
+			$this->memoria['orden_columna']= $this->orden_columna;
+		} else {
+			unset($this->memoria['orden_columna']);
+		}
+		if (isset($this->orden_sentido)) {
+			$this->memoria['orden_sentido']= $this->orden_sentido;
+		} else {
+			unset($this->memoria['orden_sentido']);
+		}		
 		parent::destruir();
 	}
 	//-------------------------------------------------------------------------------
@@ -129,6 +140,9 @@ class objeto_ei_cuadro extends objeto_cuadro
 		if($this->ev_seleccion){
 			$eventos += eventos::seleccion();
 		}
+		if($this->info_cuadro["ordenar"]) { 
+			$eventos += eventos::ordenar();		
+		}
 		return $eventos;
 	}
 
@@ -137,9 +151,12 @@ class objeto_ei_cuadro extends objeto_cuadro
 		$this->recuperar_interaccion();
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];		
-			$parametros = $this->clave_seleccionada;
-			//La opcion seleccionada estaba entre las ofrecidas?
+			//El evento estaba entre los ofrecidos?
 			if(isset($this->memoria['eventos'][$evento]) ) {
+				if ($evento == 'ordenar')
+					$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+				else
+					$parametros = $this->clave_seleccionada;
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
@@ -155,23 +172,8 @@ class objeto_ei_cuadro extends objeto_cuadro
 
 	function recuperar_interaccion()
 	{
-		if (isset($this->memoria['clave_seleccionada']))
-			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
-		if(isset($_POST[$this->submit."__seleccion"])) {
-			$clave = $_POST[$this->submit."__seleccion"];
-			if ($clave != '') {
-				if(count($this->columnas_clave) > 1 )
-				{
-					//La clave es un array, devuelvo un array asociativo con el nombre de las claves
-					$clave = explode(apex_qs_separador, $clave);
-					for($a=0;$a<count($clave);$a++) {
-						$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
-					}
-				}else{
-					$this->clave_seleccionada = $clave;			
-				}
-			}
-		}
+		$this->cargar_seleccion();
+		$this->cargar_ordenamiento();		
 	}
 //--------------------------------------------------------------------------
 	function deseleccionar()
@@ -216,20 +218,71 @@ class objeto_ei_cuadro extends objeto_cuadro
 			}
 		}
         //ei_arbol($this->datos,"DATOS");
-        if($this->ordenar_datos){
+        if($this->hay_ordenamiento()){
             $this->ordenar();
         }
 		$this->filas = count($this->datos);
         return true;
     }
+
+//--------------------------------------------------------------------------	
+	function cargar_seleccion()
+	{
+		$this->clave_seleccionada = null;
+		if (isset($this->memoria['clave_seleccionada']))
+			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
+		if(isset($_POST[$this->submit."__seleccion"])) {
+			$clave = $_POST[$this->submit."__seleccion"];
+			if ($clave != '') {
+				if(count($this->columnas_clave) > 1 )
+				{
+					//La clave es un array, devuelvo un array asociativo con el nombre de las claves
+					$clave = explode(apex_qs_separador, $clave);
+					for($a=0;$a<count($clave);$a++) {
+						$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
+					}
+				}else{
+					$this->clave_seleccionada = $clave;			
+				}
+			}
+		}	
+	}
+	
+//--------------------------------------------------------------------------	
+	function cargar_ordenamiento()
+	{
+		//Estado inicial
+		unset($this->orden_columna);
+		unset($this->orden_sentido);
+
+		//¿Viene seteado de la memoria?
+        if(isset($this->memoria['orden_columna']))
+			$this->orden_columna = $this->memoria['orden_columna'];
+		if(isset($this->memoria['orden_sentido']))
+			$this->orden_sentido = $this->memoria['orden_sentido'];
+
+		//¿Lo cargo el usuario?
+		if (isset($_POST[$this->submit_orden_columna]) && $_POST[$this->submit_orden_columna] != '')
+			$this->orden_columna = $_POST[$this->submit_orden_columna];
+		if (isset($_POST[$this->submit_orden_sentido]) && $_POST[$this->submit_orden_sentido] != '')
+			$this->orden_sentido = $_POST[$this->submit_orden_sentido];
+	}
+//--------------------------------------------------------------------------	
+	function hay_ordenamiento()
+	{
+        return (isset($this->orden_sentido) && isset($this->orden_columna));
+	}
 //--------------------------------------------------------------------------
 
     function obtener_html($mostrar_cabecera=true, $titulo=null)
     //Genera el HTML del cuadro
     {
-		//Campo de comunicación con JS
+		//Campos de comunicación con JS
 		echo form::hidden($this->submit, '');
-		echo form::hidden($this->submit."__seleccion", '');		
+		echo form::hidden($this->submit."__seleccion", '');
+		echo form::hidden($this->submit."__orden_columna", '');
+		echo form::hidden($this->submit."__orden_sentido", '');
+		
 		//Reproduccion del titulo
 		if(isset($titulo)){
 			$this->memoria["titulo"] = $titulo;
@@ -366,16 +419,16 @@ class objeto_ei_cuadro extends objeto_cuadro
                     //----------> Termino la CELDA!!
                 }
 	            //-- Eventos aplicados a una fila
-				if (isset($this->eventos['seleccion'])) {
-					echo "<td class='lista-col-titulo'>\n";
-					$src = recurso::imagen_apl("doc.gif");
-					$evento_js = eventos::a_javascript('seleccion', $this->eventos['seleccion'], $this->obtener_clave_fila($f));
-					$js = "{$this->objeto_js}.set_evento($evento_js);";
-					$alt = 'Seleccionar la fila';
-					$ayuda = "title='$alt' onmouseover='window.status=\"$alt\"' onmouseout='window.status=\"\"'";
-					echo "<img border='0' src='$src' $ayuda style='cursor: pointer' onclick=\"$js\">\n";
-	            	echo "</td>\n";
-	            }
+				foreach ($this->eventos as $id => $evento) {
+					if ($evento['sobre_fila']) {
+						echo "<td class='lista-col-titulo'>\n";
+						$evento_js = eventos::a_javascript($id, $evento, $this->obtener_clave_fila($f));
+						$js = "{$this->objeto_js}.set_evento($evento_js);";
+						echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
+											"onclick=\"$js\"", 'cursor: pointer');
+		            	echo "</td>\n";
+					}
+				}
 				//----------------------------
                 echo "</tr>\n";
             }
@@ -407,32 +460,40 @@ class objeto_ei_cuadro extends objeto_cuadro
         //Solo son ordenables las columnas extraidas del recordse!!!
         //Las generadas de otra forma llegan con el nombre vacio
         if(trim($columna)!=""){
-            if($this->info_cuadro["ordenar"])
-            {
-                if($this->info_cuadro_columna[$indice]["no_ordenar"]!=1)
-                {
-                    $sentido[0][0]="asc";
-                    $sentido[0][1]="Orden ascendente";
-                    $sentido[1][0]="des";
-                    $sentido[1][1]="Orden descendente";
+			if (isset($this->eventos['ordenar'])) {
+				$sentido[0][0]="asc";
+				$sentido[0][1]="Ordenar ascendente";
+				$sentido[1][0]="des";
+				$sentido[1][1]="Ordenar descendente";
+				if($this->info_cuadro_columna[$indice]["no_ordenar"]!=1)
+				{							
+					echo  "<table class='tabla-0'>\n";
+					echo  "<tr>\n";
+					echo  "<td width='95%' align='center' class='lista-col-titulo'>&nbsp;" . $titulo . "&nbsp;</td>\n";
+					echo  "<td width='5%'>";
+					foreach($sentido as $sen){
+					    $sel="";
+					    if ($this->hay_ordenamiento() && ($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) 
+							$sel = "_sel";//orden ACTIVO
 
-                    echo  "<table class='tabla-0'>\n";
-                    echo  "<tr>\n";
-                    echo  "<td width='95%' align='center' class='lista-col-titulo'>&nbsp;" . $titulo . "&nbsp;</td>\n";
-                    echo  "<td width='5%'>";
-                    foreach($sentido as $sen){
-                        $sel="";
-                        if (($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) $sel = "_sel";//orden ACTIVO
-                        $imagen = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif", true, null, null,$sen[1]);
-                        echo $this->autovinculacion(array($this->propagador_orden_sentido=>$sen[0],
-                                                        $this->propagador_orden_columna=>$columna),$imagen);
-                    }
-                    echo  "</td>\n";        
-                    echo  "</tr>\n";
-                    echo  "</table>\n";
-                }else{
-                    echo $titulo;
-                }
+						//Comunicación del evento
+						$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
+						$evento_js = eventos::a_javascript('ordenar', $this->eventos['ordenar'], $parametros);
+						$js = "{$this->objeto_js}.set_evento($evento_js);";
+					    $src = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif");
+						echo recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer');
+					}
+					echo  "</td>\n";        
+					echo  "</tr>\n";
+					echo  "</table>\n";
+				}else{
+				    echo $titulo;
+				}				
+				
+				
+				echo "<td class='lista-col-titulo'>\n";
+				$src = recurso::imagen_apl("doc.gif");
+            	echo "</td>\n";
             }else{
                 echo $titulo;
             }

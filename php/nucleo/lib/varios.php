@@ -9,6 +9,36 @@
 		}
 		return $x;
 	}
+	//-----------------------------------------------------------------		
+	function array_renombrar_llave($arreglo,$nueva_llave)
+	//Renombra todas las llaves de primer nivel de $arreglo por la $nueva_llave
+	{
+		$llaves = array_keys($arreglo);
+		$cambios = array();
+		foreach ($llaves as $llave) {
+			$cambios += array($llave => $nueva_llave);
+		}
+		return array_renombrar_llaves($arreglo, $cambios, false);
+	}
+	
+	function array_renombrar_llaves($arreglo, $cambios, $recursivo = true)
+	//Toma un conjunto de $cambios ("original" => "reemplazo") y los aplica a $arreglo
+	{
+		if (is_array($arreglo)) {
+			foreach($arreglo as $k => $v) {
+				if (isset($cambios[$k]) && strlen($cambios[$k])>0) {
+					unset($arreglo[$k]);
+					$k=$cambios[$k];
+				}
+				if (is_array($v) && $recursivo) {
+					$arreglo[$k]= array_renombrar_llaves($v, $cambios);
+				} else {
+					$arreglo[$k]=$v;
+				}
+			}
+		}
+		return $arreglo;
+	}	
 	//-----------------------------------------------------------------	
 	function pasar_a_unica_linea($string)
 	{

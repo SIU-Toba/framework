@@ -8,16 +8,38 @@ function objeto_ei_cuadro(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
-
+	
 	//---Submit 
 	def.submit = function() {
 		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
 		if (this._evento) {
-			//Marco la fila seleccionada
-			if (this._evento.parametros)
-				document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+			//Si es un ordenamiento paso los parametros
+			if (this._evento.id == 'ordenar') {
+				document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
+				document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
+			} else {
+				//Si es una seleccion marco la fila
+				if (this._evento.parametros)
+					document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
 	}
+
+	//Chequea si es posible realiza el submit de todos los objetos asociados	
+	def.puede_submit = function() {
+		if(this._evento) //Si hay un evento seteado...
+		{
+			//- 1 - Hay que confirmar la ejecucion del evento?
+			//La confirmacion se solicita escribiendo el texto de la misma
+			if(this._evento.confirmar != "") {
+				if (!this._silencioso && !(confirm(this._evento.confirmar))){
+					this.reset_evento();
+					return false;
+				}
+			}
+		}
+		return true;
+	}	

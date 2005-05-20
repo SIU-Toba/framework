@@ -71,7 +71,7 @@ class recurso {
 		}
 	}
 	
-	function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa="")
+	function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa="", $js='', $estilo='')
 /*
  	@@acceso: interno
 	@@desc: Genera la URL de un recurso de tipo imagen. Funcion utilizada por imagen_apl e imagen_pro
@@ -80,6 +80,8 @@ class recurso {
 	@@param: int | Alto de la imagen | null
 	@@param: string | Tooltip de la imagen | null
 	@@param: string | Agregar un MAPA de navegacion | null
+	@@param: string | Eventos js | null
+	@@param: string | estilos extra | null
  	@@retorno: string | URL del recurso o TAG 'img' generado
 */
 	{
@@ -92,7 +94,7 @@ class recurso {
 			$a = " title='$alt' onmouseover='window.status=\"$alt\"' onmouseout='window.status=\"\"'";
 		}
 		if(isset($mapa)) $m = " usemap='$mapa'";
-		return "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px;'>";
+		return "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js>";
 	}
 
 	//------------   ACCESO A OTROS   --------------

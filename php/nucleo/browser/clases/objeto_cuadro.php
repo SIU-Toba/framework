@@ -270,7 +270,7 @@ class objeto_cuadro extends objeto
         }
         $this->datos = $rs->getArray();
         //ei_arbol($this->datos,"DATOS");
-        if($this->ordenar_datos){
+        if($this->hay_ordenamiento()){
             $this->ordenar();
         }
 		$this->filas = count($this->datos);
@@ -297,7 +297,12 @@ class objeto_cuadro extends objeto
         }
     }
 //--------------------------------------------------------------------------
-
+	function hay_ordenamiento()
+	{
+        return $this->ordenar_datos;
+	}
+	
+//--------------------------------------------------------------------------
     function obtener_datos()
     {
         return $this->datos;    

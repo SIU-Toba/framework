@@ -4,27 +4,38 @@
 **/
 class eventos
 {
-	/**
-	* 	Toma la definición de un evento y la pasa a su homonimo js
-	**/
-	static function a_javascript($id, $evento, $parametro = null)
-	{
-		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-		$js_validar = isset( $evento['maneja_datos'] ) ? js::bool($evento['maneja_datos']) : "true";
-		$param = (isset($parametro)) ? ", '$parametro'" : '';
-		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
-	}
-	
 	static function evento_estandar($id, $etiqueta = null, $en_botonera = true)
+	//Retorna un evento estandar listo para modificar
 	{
 		$evento[$id]['etiqueta'] = $etiqueta;
 		$evento[$id]['maneja_datos'] = true;
+		$evento[$id]['sobre_fila'] = false;			//Propiedad particular que entiende el cuadro (y el ML debería tambien)
 		$evento[$id]['confirmacion'] = '';
 		$evento[$id]['estilo'] = "";
+		$evento[$id]['imagen'] = "";		
 		$evento[$id]['en_botonera'] = $en_botonera;	
+		$evento[$id]['ayuda'] = '';
 		return $evento;
 	}
 	
+	static function duplicar($evento, $nuevo_id)
+	{
+		return array_renombrar_llave($evento, $nuevo_id);
+	}
+
+	static function a_javascript($id, $evento, $parametros = null)
+	// Toma la definición de un evento y la pasa a su homonimo js
+	{
+		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+		$js_validar = isset( $evento['maneja_datos'] ) ? js::bool($evento['maneja_datos']) : "true";
+		if (is_array($parametros))
+			$param = ", ".js::arreglo($parametros, true);
+		else		
+			$param = (isset($parametros)) ? ", '$parametros'" : '';
+		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
+	}
+	
+
 	//-------------------------------------------------
 	//---EVENTOS De CI
 	static function ci_cancelar($etiqueta=null, $en_botonera=true)
@@ -93,8 +104,18 @@ class eventos
 	{
 		$evento = self::evento_estandar('seleccion', null, false);
 		$evento['seleccion']['maneja_datos'] = false;
+		$evento['seleccion']['sobre_fila'] = true;					//Propiedad particular que entiende el cuadro (y el ML debería tambien)
+		$evento['seleccion']['ayuda'] = 'Seleccionar la fila';
+		$evento['seleccion']['imagen'] = recurso::imagen_apl('doc.gif');
 		return $evento;	
 	}	
+	
+	static function ordenar()
+	{
+		$evento = self::evento_estandar('ordenar', null, false);
+		$evento['ordenar']['maneja_datos'] = false;
+		return $evento;	
+	}
 
 }
 

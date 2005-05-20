@@ -51,8 +51,15 @@ class ci extends objeto_ci_me_tab
 			$this->dependencias['formulario']->set_eventos($eventos);
 		}
 		if (isset($this->dependencias['cuadro_abm'])) {
+			//Se le agrega un botón cancelar
 			$eventos = $this->dependencias['cuadro_abm']->get_lista_eventos();
 			$eventos += eventos::cancelar();
+			//Se le agrega un evento seleccion_borrar a cada fila
+			$borra = eventos::duplicar(eventos::seleccion(), 'seleccion_borrar');
+			$borra['seleccion_borrar']['imagen'] = recurso::imagen_apl('borrar.gif');
+			$borra['seleccion_borrar']['confirmacion'] = '¿Está seguro que quiere borrar la fila?';
+			$borra['seleccion_borrar']['ayuda'] = 'Borra la fila';
+			$eventos += $borra;
 			$this->dependencias['cuadro_abm']->set_eventos($eventos);
 		}		
 	}	
@@ -160,6 +167,18 @@ class ci extends objeto_ci_me_tab
 	{
 		$this->evt__formulario_abm__cancelar();
 	}	
+	
+	function evt__cuadro_abm__seleccion_borrar($id)
+	{
+		$this->informar_msg("Se quiere borrar la fila $id", 'info');	
+	}
+	
+	function evt__cuadro_abm__ordenar($param)
+	{
+		$columna = $param['columna'];
+		$sentido = $param['sentido'];
+		$this->informar_msg("Se quiere ordenar la columna $columna en orden $sentido", 'info');
+	}
 
 	//------------------------------------
 	//		FILTRO en ABM

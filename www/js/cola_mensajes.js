@@ -40,19 +40,25 @@ var cola_mensajes =
 		}
 		mensaje += '</div>';
 		showPopWin(null, mensaje, 400, 100, [['Cerrar','hidePopWin(false)']]);
-	// new Array(new Array('Cerrar', 'hidePopWin(false)'))		
 	},
 	
 	ventana_alert: function() {
-		var mensaje = 'Se han encontrado los siguientes problemas:\n\n';
+		var mensaje = '';
+		var hay_error = false;
+		var hay_info = false;
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad;
-			if (this._mensajes[i][1] == 'error')
+			if (this._mensajes[i][1] == 'error') {
 				gravedad = '- ';
-			else
-				gravedad = '[información]: ';
+				hay_error = true;
+			}
+			else {
+				gravedad = '- ';
+				hay_info = true;
+			}
 			mensaje += gravedad + this._mensajes[i][0] + '\n';
 		}
-		alert(mensaje);
+		var encabezado = (hay_error) ? 'Se han encontrado los siguientes problemas:\n\n' : 'Atención:\n\n';
+		alert(encabezado + mensaje);
 	}
 }

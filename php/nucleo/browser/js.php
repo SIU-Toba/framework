@@ -135,5 +135,31 @@ class js
 	{
 		return ($bool) ? "true" : "false";
 	}
+	
+	static function arreglo($arreglo, $es_assoc)
+	{
+		$js = "";
+		if ($es_assoc) {
+			if (count($arreglo) > 0) {
+				$js .= "{";
+				foreach($arreglo as $id => $valor) {
+					$js .= "$id: '$valor', ";
+				}
+				$js = substr($js, 0, -2);
+				$js .= "}";
+			} else {
+				$js = 'new Object()';
+			}
+		} else {	//No asociativo
+			$js .="[";
+			foreach($arreglo as $valor) {
+				$js .= "$valor, ";
+			}
+			$js = substr($js, 0, -2);
+			$js .= "]";
+		}
+		return $js;		
+	}	
+
 }
 ?>
