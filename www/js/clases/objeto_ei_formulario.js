@@ -59,7 +59,6 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
 	def.puede_submit = function() {
-		//Si no es parte de un submit general, dispararlo
 		if(this._evento) //Si hay un evento seteado...
 		{
 			//- 1 - Hay que realizar las validaciones
@@ -89,7 +88,7 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	//----Validación 
 	def.validar = function() {
 		var ok = true;
-		var validacion_particular = 'evt__validar_datos';		
+		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
 			if (existe_funcion(this, validacion_particular))
 				ok = this[validacion_particular]();		

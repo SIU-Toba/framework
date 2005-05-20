@@ -119,7 +119,8 @@ class objeto_ei_formulario extends objeto
 	{
 		$this->parametros = $parametros;
 		$this->nombre_formulario =	$parametros["nombre_formulario"];
-		$this->id_en_padre = $parametros['id'];
+		if (isset($parametros['id']))
+			$this->id_en_padre = $parametros['id'];
 		$this->prefijo = $this->nombre_formulario . "_" . $this->id[1];
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();

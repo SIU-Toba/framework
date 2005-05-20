@@ -201,6 +201,20 @@ class ci extends objeto_ci_me_tab
 	{
 		unset($this->datos_filtro);
 	}	
+	
+	//------------------------------------
+	//		JAVASCRIPT
+	//------------------------------------	
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.evt__validar_datos = function() {
+				if (this._evento.id == 'procesar') {
+					cola_mensajes.agregar('Esta es una validación particular del CI para que no procese.');
+					return false;
+				}
+			}\n";
+	}
 
 	//------------------------------------
 	//		PROCESO

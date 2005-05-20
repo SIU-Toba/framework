@@ -358,7 +358,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Campo de comunicacion con JS
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
 		
-		echo "<table width='$ancho' class='tabla-0'>\n";
+		echo "<table class='tabla-0' style='width: $ancho'>\n";
 		//------ TITULOS -----
 		echo "<thead>\n<tr>\n";
 		if ($this->info_formulario['filas_agregar']) {
@@ -372,9 +372,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "</tr>\n</thead>\n";
 
 		//------ Totales y Eventos------
+		echo "\n<!-- TOTALES -->\n";
 		echo "<tfoot>\n";
 		if(count($this->lista_ef_totales)>0){
-			echo "\n<!-- TOTALES -->\n\n";
 			echo "\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
@@ -395,7 +395,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		//------ FILAS ------
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
-		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo';>";
+		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo'>";
 		for($a=0; $a <  count($this->datos) + 1; $a++) {
 			if ($a < count($this->datos)) {
 				$fila = $a;

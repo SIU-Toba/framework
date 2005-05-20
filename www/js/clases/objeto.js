@@ -5,6 +5,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 	this.validar = validar;
 	this.confirmar = confirmar;
 	this.parametros = parametros;
+	this._silencioso = false;
 }
 
 //--------------------------------------------------------------------------------

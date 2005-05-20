@@ -489,11 +489,6 @@ class objeto_ei_cuadro extends objeto_cuadro
 				}else{
 				    echo $titulo;
 				}				
-				
-				
-				echo "<td class='lista-col-titulo'>\n";
-				$src = recurso::imagen_apl("doc.gif");
-            	echo "</td>\n";
             }else{
                 echo $titulo;
             }

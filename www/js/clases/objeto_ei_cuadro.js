@@ -30,8 +30,7 @@ function objeto_ei_cuadro(instancia, input_submit) {
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
 	def.puede_submit = function() {
-		if(this._evento) //Si hay un evento seteado...
-		{
+		if(this._evento) { //Si hay un evento seteado...
 			//- 1 - Hay que confirmar la ejecucion del evento?
 			//La confirmacion se solicita escribiendo el texto de la misma
 			if(this._evento.confirmar != "") {

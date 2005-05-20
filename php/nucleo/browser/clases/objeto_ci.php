@@ -499,7 +499,11 @@ class objeto_ci extends objeto
 
 	function obtener_html()
 	{
+		//-->Listener de eventos
 		$this->eventos = $this->get_lista_eventos();
+		if( count($this->eventos) > 0){
+			echo form::hidden($this->submit, '');
+		}
 		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
 		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
 		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
@@ -507,10 +511,6 @@ class objeto_ci extends objeto
 		echo "<tr><td class='celda-vacia'>";
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
 		echo "</td></tr>\n";
-		//-->Listener de eventos
-		if( count($this->eventos) > 0){
-			echo form::hidden($this->submit, '');
-		}
 		echo "<tbody id='cuerpo_{$this->objeto_js}'>\n";
 		//--> Botonera
 		$con_botonera = $this->hay_botones();
@@ -544,8 +544,7 @@ class objeto_ci extends objeto
 	{
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td align='right'>";
-		foreach($this->eventos as $id => $evento )
-		{
+		foreach($this->eventos as $id => $evento ) {
 			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
 				$tip = '';
 				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
