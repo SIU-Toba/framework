@@ -1,17 +1,22 @@
 <?
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
-require_once("objeto_cuadro.php");                     //Ancestro de todos los OE
 
-class objeto_ei_cuadro extends objeto_cuadro
+class objeto_ei_cuadro extends objeto
 /*
     @@acceso: publico
     @@desc: Esta clase implementa un listado ordenable y paginable.
     
 	Cosas para una interface: obtener_consumo_dao, set_dao, obtener_evento
 	Falta un metodo que devuelva el ID del registro que se eligio...
-    
 */
 {
+    var $cantidad_columnas;                 //protegido | int | Cantidad de columnas a mostrar
+	var $filas;
+    var $orden_columna;                     //protegido | int | Columna utilizada para realizar el orden
+    var $orden_sentido;                     //protegido | string | Sentido del orden ('asc' / 'desc')
+    var $datos;                             //protegido | array | Los datos que constituyen el contenido del cuadro
+    var $columnas_clave;                    //protegido | 
+
  	var $submit;
 	var $clave_seleccionada;
 	var $id_en_padre;
@@ -23,13 +28,24 @@ class objeto_ei_cuadro extends objeto_cuadro
 */
     {
         parent::__construct($id);
+		$this->cantidad_columnas = count($this->info_cuadro_columna);		
         $this->submit = "ei_cuadro" . $this->id[1];
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
+		$this->cantidad_columnas = count($this->info_cuadro_columna);
+		
+        //---------  Manejo de CLAVES  -----------------------------------------
+        if(isset($this->info_cuadro["columnas_clave"])){
+            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);
+            $this->columnas_clave = array_map("trim",$this->columnas_clave);
+        }else{
+            $this->columnas_clave = null;
+        }		
 		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_buffer_clave );
 		}
+        //---------  EVENTOS POR DEFECTO  -----------------------------------------		
 		//El cuadro posee un evento de seleccion por defecto?
 		if(isset($this->info_cuadro["ev_seleccion"])){
 			if($this->info_cuadro["ev_seleccion"]=="1"){
@@ -111,6 +127,39 @@ class objeto_ei_cuadro extends objeto_cuadro
 					 			AND c.dao_nucleo = n.nucleo
 					 WHERE	objeto_cuadro_proyecto='".$this->id[0]."'	
 					 AND		objeto_cuadro='".$this->id[1]."';";
+		$sql["info_cuadro"]["estricto"]="1";
+		$sql["info_cuadro"]["tipo"]="1";
+		//------------ Columnas ----------------
+		$sql["info_cuadro_columna"]["sql"] = "SELECT	c.orden	as orden,		
+								c.titulo						as titulo,		
+								e.css							as estilo,	 
+								c.columna_ancho					as ancho,	 
+								c.valor_sql						as valor_sql,		
+								f.funcion						as valor_sql_formato,	 
+								c.valor_fijo					as valor_fijo,	 
+								c.valor_proceso_esp				as valor_proceso,
+								c.valor_proceso_parametros		as valor_proceso_parametros,								
+								c.vinculo_indice				as vinculo_indice,	
+								c.par_dimension_proyecto		as par_dimension_proyecto,	 
+								c.par_dimension					as par_dimension,
+								c.par_tabla						as par_tabla,		
+								c.par_columna					as par_columna,
+								c.no_ordenar					as no_ordenar,
+								c.mostrar_xls					as	mostrar_xls,
+								c.mostrar_pdf					as	mostrar_pdf,
+								c.pdf_propiedades				as	pdf_propiedades,
+								c.total							as total
+					 FROM		apex_columna_estilo e,
+								apex_objeto_cuadro_columna	c
+								LEFT OUTER JOIN apex_columna_formato f	
+								ON	f.columna_formato	= c.valor_sql_formato
+					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
+					 AND		objeto_cuadro = '".$this->id[1]."'
+					 AND		c.columna_estilo = e.columna_estilo	
+					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
+					 ORDER BY orden;";
+		$sql["info_cuadro_columna"]["tipo"]="x";
+		$sql["info_cuadro_columna"]["estricto"]="1";		
 		return $sql;
 	}
   
@@ -274,6 +323,27 @@ class objeto_ei_cuadro extends objeto_cuadro
 	}
 //--------------------------------------------------------------------------
 
+    function ordenar()
+    //Ordenamiento de array de dos dimensiones
+    {
+        //echo "ordenar: " . $this->orden_columna;
+        foreach ($this->datos as $fila) { 
+            $ordenamiento[] = $fila[$this->orden_columna]; 
+        }
+        //Ordeno segun el sentido
+        if($this->orden_sentido == "asc"){
+            array_multisort($ordenamiento, SORT_ASC , $this->datos);
+        } elseif ($this->orden_sentido == "des"){
+            array_multisort($ordenamiento, SORT_DESC , $this->datos);
+        }
+    }
+//--------------------------------------------------------------------------
+    function obtener_datos()
+    {
+        return $this->datos;    
+    }	
+	
+//--------------------------------------------------------------------------
     function obtener_html($mostrar_cabecera=true, $titulo=null)
     //Genera el HTML del cuadro
     {
@@ -333,8 +403,6 @@ class objeto_ei_cuadro extends objeto_cuadro
             if($this->info_cuadro["subtitulo"]<>""){
                 echo"<tr><td class='lista-subtitulo'>". $this->info_cuadro["subtitulo"] ."</td></tr>\n";
             }
-            $this->generar_html_barra_paginacion();
-
             echo "<tr><td>";
             echo "<TABLE width='100%' class='tabla-0'  id='cuerpo_{$this->objeto_js}'>";
             //------------------------ Genero los titulos
@@ -433,10 +501,8 @@ class objeto_ei_cuadro extends objeto_cuadro
                 echo "</tr>\n";
             }
             //----------------------- Genero totales??
-			$this->generar_html_totales();
             echo "</table>\n";
             echo "</td></tr>\n";
-            $this->generar_html_barra_paginacion();
 			echo "<td class='ei-base' colspan='$colspan'>\n";
 			if ($this->hay_botones()) {
 				$this->obtener_botones();

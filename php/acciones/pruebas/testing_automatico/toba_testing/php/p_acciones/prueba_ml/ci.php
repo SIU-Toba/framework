@@ -213,6 +213,7 @@ class ci extends objeto_ci_me_tab
 					cola_mensajes.agregar('Esta es una validación particular del CI para que no procese.');
 					return false;
 				}
+				return true;
 			}\n";
 	}
 

@@ -88,7 +88,7 @@ function objeto_ci(instancia, form, input_submit) {
 			//- 1 - Hay que realizar las validaciones y preguntarle a los hijos si pueden hacer submit
 			//		La validación no es recursiva para evitar doble chequeos en los hijos
 			var ok = this.validar(false);
-			ok = ok && !this.objetos_pueden_submit();
+			ok = ok && this.objetos_pueden_submit();
 			if(!ok) {
 				this.reset_evento();
 				return false;
@@ -143,17 +143,14 @@ function objeto_ci(instancia, form, input_submit) {
 		var ok = true;
 		if(this._evento && this._evento.validar) {
 			if (existe_funcion(this, validacion_particular))
-				ok = this[validacion_particular]();	
-	
+				ok = ok && this[validacion_particular]();	
 			if (recursivo) {
 				for (obj in this._objetos) {
-					ok = this._objetos[obj].validar(true) && ok;
+					ok = ok && this._objetos[obj].validar(recursivo);
 				}
 			}
-			return ok;
-		} else {
-			return true;
 		}
+		return ok;
 	}
 	
 	//---Notificaciones
