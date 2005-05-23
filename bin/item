@@ -80,7 +80,7 @@ then
 ##***********************************************************************************************##
 #@ toba [<I>] ITEM [parametros]                -- Genera una SOLICITUD al TOBA en <I>
 else
-	#Permitir ejecutar items de otros proyecto, notandolo como "proyecto||item"
+	#Permitir ejecutar items de otros proyecto, notandolo como "proyecto||item" (notar las comillas)
 	proyecto=`echo $1 | awk -F'|' '{print $1}'`
 	item=`echo $1 | awk -F'|' '{print $3}'`
 	if [ "$item" != "" ]

@@ -88,9 +88,7 @@ class ci_abm_dbt extends objeto_ci_me_tab
 				if($evento=="alta"){
 					$this->db_tablas->acc_elemento($dep['elemento'],"ins",$parametros);	
 				}elseif($evento=="cancelar"){
-					$cuadro = $this->cuadro();
-					if ($cuadro)
-						$cuadro->deseleccionar();
+					$this->deseleccionar_cuadro();
 					unset($this->selecciones[$dep['elemento']]);
 				}else{
 					//Hay una seleccion?
@@ -99,12 +97,13 @@ class ci_abm_dbt extends objeto_ci_me_tab
 							//Modifico el registro
 							$reg['registro'] = $parametros;
 							$reg['id'] = $this->selecciones[$dep['elemento']];
-							$this->db_tablas->acc_elemento($dep['elemento'],"upd", $reg);	
+							$this->db_tablas->acc_elemento($dep['elemento'],"upd", $reg);
 						}elseif($evento=="baja"){
 							//Elimino el registro
 							$this->db_tablas->acc_elemento($dep['elemento'], "del", $this->selecciones[$dep['elemento']]);	
 						}
 						unset($this->selecciones[$dep['elemento']]);
+						$this->deseleccionar_cuadro();
 					}else{
 						asercion::error();
 					}
@@ -118,6 +117,10 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		$dep = $this->inspeccionar_dependencia($id);	
 		if($dep['tipo_ei'] == "ei_cuadro")								//-- Cuadro
 		{	
+			//Si hay algo seleccionado, hay que marcarlo en el cuadro
+			if (isset($this->selecciones[$dep['elemento']])) {
+				$this->dependencias[$id]->seleccionar($this->selecciones[$dep['elemento']]);
+			}
 			return $this->db_tablas->acc_elemento($dep['elemento'],"get");	
 		}
 		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
@@ -131,6 +134,14 @@ class ci_abm_dbt extends objeto_ci_me_tab
 				}
 			}
 		}	
+	}
+	
+	
+	function deseleccionar_cuadro()
+	{
+		$cuadro = $this->cuadro();
+		if ($cuadro)
+			$cuadro->deseleccionar();	
 	}
 
 	//------------------------------------------------------------------------

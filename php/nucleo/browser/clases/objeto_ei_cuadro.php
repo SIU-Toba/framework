@@ -231,6 +231,12 @@ class objeto_ei_cuadro extends objeto
 	}
 
 //--------------------------------------------------------------------------
+	function seleccionar($clave)
+	{
+		$this->clave_seleccionada = $clave;
+	}
+	
+//--------------------------------------------------------------------------
 
     function obtener_clave_fila($fila)
 	//Genero la CLAVE
@@ -276,7 +282,7 @@ class objeto_ei_cuadro extends objeto
 
 //--------------------------------------------------------------------------	
 	function cargar_seleccion()
-	{
+	{	
 		$this->clave_seleccionada = null;
 		if (isset($this->memoria['clave_seleccionada']))
 			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
