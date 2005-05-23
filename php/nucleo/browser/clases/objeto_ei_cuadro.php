@@ -501,6 +501,7 @@ class objeto_ei_cuadro extends objeto
                 echo "</tr>\n";
             }
             //----------------------- Genero totales??
+			$this->generar_html_totales();			
             echo "</table>\n";
             echo "</td></tr>\n";
 			echo "<td class='ei-base' colspan='$colspan'>\n";
@@ -519,6 +520,50 @@ class objeto_ei_cuadro extends objeto
         }
     }
 
+	//--------------------------------------------------------------------------
+	
+	function generar_html_totales()
+	{
+		//Selecciono registros a sumarizar
+		$total = array();
+		for ($a=0;$a<$this->cantidad_columnas;$a++){
+		    if(isset($this->info_cuadro_columna[$a]["total"])){
+				$total[$this->info_cuadro_columna[$a]["valor_sql"]]=0;
+				$pie_columna[$a] =& $total[$this->info_cuadro_columna[$a]["valor_sql"]];
+				$pie_columna_estilo[$a] = $this->info_cuadro_columna[$a]["estilo"];
+				if(isset($this->info_cuadro_columna[$a]["valor_sql_formato"])){
+					$total_funcion[$this->info_cuadro_columna[$a]["valor_sql"]] =
+						$this->info_cuadro_columna[$a]["valor_sql_formato"];
+				}
+		    }else{
+		    	$pie_columna[$a] = "&nbsp;";
+		    	$pie_columna_estilo[$a] = 'lista-col-titulo';
+			}
+		}		
+		if(count($total)==0) return;
+		//Sumarizo
+		for ($f=0; $f< $this->filas; $f++){
+			foreach(array_keys($total) as $columna){
+				$total[$columna] +=  $this->datos[$f][$columna];
+			}
+		}
+		//Aplico el formato de la columna a la sumarizacion
+		if(isset($total_funcion) && is_array($total_funcion)){
+			foreach(array_keys($total_funcion) as $tot){
+				$funcion = "formato_" . $total_funcion[$tot];
+				$total[$tot] = $funcion($total[$tot]);
+			}		
+		}
+		//Genero el HTML
+		echo "<tr>\n";
+		for($a=0; $a<count($pie_columna);$a++){
+			echo "<td class='".$pie_columna_estilo[$a]."'><strong>\n";
+			echo $pie_columna[$a];
+			echo "</strong></td>\n";
+		}
+		echo "</tr>\n";
+	}
+	
 	//--------------------------------------------------------------------------
     function cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna
@@ -561,8 +606,7 @@ class objeto_ei_cuadro extends objeto
         }
         else            //Modificacion para que muestre los titulos de los vinculos
         {
-            if(trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="")
-            {           
+            if(trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
                 echo $titulo;
             }
         }
