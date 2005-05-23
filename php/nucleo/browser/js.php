@@ -160,6 +160,12 @@ class js
 		}
 		return $js;		
 	}	
+	
+	static function string($cadena)
+	//Reemplaza los strings multilinea por cadenas válidas en JS
+	{
+		return pasar_a_unica_linea($cadena);
+	}
 
 }
 ?>

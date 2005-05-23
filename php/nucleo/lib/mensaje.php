@@ -20,7 +20,8 @@ class mensaje
 	//Obtiene un mensaje GLOBAL del proyecto toba
 	//Esto es para errores genericos del motor, etc
 	{
-		$sql = "SELECT mensaje_customizable as m
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = 'toba';";
@@ -44,7 +45,8 @@ class mensaje
 		$hilo = toba::get_hilo();
 		$proyecto_actual = $hilo->obtener_proyecto();
 
-		$sql = "SELECT mensaje_customizable as m
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = '$proyecto_actual';";
@@ -67,7 +69,8 @@ class mensaje
 	{
 		$hilo = toba::get_hilo();
 		$proyecto_actual = $hilo->obtener_proyecto();
-		$sql = "SELECT mensaje_customizable as m
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
 				FROM apex_objeto_msg 
 				WHERE indice = '$indice'
 				AND objeto_proyecto = '$proyecto_actual'
@@ -106,5 +109,6 @@ class mensaje
 		return $mensaje;
 	}
 	//-----------------------------------------------------
+
 }
 ?>

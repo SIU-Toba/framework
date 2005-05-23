@@ -43,6 +43,7 @@ class cola_mensajes
 		echo js::abrir();
 		foreach($this->mensajes as $mensaje){
 			$texto = str_replace("'", "\\'", $mensaje[0]);
+			$texto = js::string($texto);
 			echo "cola_mensajes.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
 		}
 		echo js::cerrar();

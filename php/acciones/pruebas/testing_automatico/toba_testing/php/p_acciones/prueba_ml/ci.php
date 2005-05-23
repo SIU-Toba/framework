@@ -207,10 +207,19 @@ class ci extends objeto_ci_me_tab
 	//------------------------------------	
 	function extender_objeto_js()
 	{
+		//Mensaje del objeto
+		$mensaje = "A continuación un mensaje del objeto, uno de toba y otro del proyecto:\n";
+		$mensaje .= $this->obtener_mensaje('no_procesar');
+		$mensaje .= "\n";
+		//Mensaje de Toba
+		$mensaje .= mensaje::get('db_22000');
+		$mensaje .= "\n";
+		$mensaje .= mensaje::get('proyecto', array('proyecto', 'toba_testing'));
+		$mensaje = $texto = js::string($mensaje);
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this._evento.id == 'procesar') {
-					cola_mensajes.agregar('Esta es una validación particular del CI para que no procese.');
+					cola_mensajes.agregar('$mensaje');
 					return false;
 				}
 				return true;
