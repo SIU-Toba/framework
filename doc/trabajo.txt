@@ -6,57 +6,31 @@
 	-------------------------  ELEMENTOS DE INTERFACE -------------------------
 	---------------------------------------------------------------------------
 
-	- HOY:	
-
-		- ABM simple aunque extiende CI
-
 
 	Charla tema EVENTOS								2h
 
-		- incorporar cuadros
-		- BOTONES
-*			- esquema de modificar botones
-			- separacion entre boton y evento
-			- consumir botonera por composicion
-		- Un formulario cargado debe tener un modificar por defecto
 		- heredar todo del EI
 
 		- cambios de nombre
 			- limpiar por cancelar
-			- validar por maneja_datos
 			- get_lista_eventos por construir_eventos_defecto
-		- Cambiar todos los button para que no hagan submit
-			pasar un segundo parametro a "set_evento" indicando si
 
-	JS:
-		- ventana de eventos de validacion especifica de efs en el formulario comun
-		- bug explorer
-		
 	
 		NUEVOS tickects?
 		----------------
 
-		- CIs sin CNs
-- 
-		
-
 
 		COSAS
 
-		- (muy baja prioridad) Es necesario un ABM que modifique un array en un archivo, o constantes!, útil para hacer configuraciones fuera
-		   de la BD. Las configuraciones en BD complican las actualizaciones de datos...
 		- Display del CI (anidaciones)	
-	
+
 		- PROYECTO de ejemplo
 		- Pasar las cascadas a XML-RPC
 
 		- Manejar los CSS por proyecto		
-		- Orden cuadro en esquema CI? [ esto no esta con POST, asi el cronometro ]
+		- el cronometro no esta con POST (¿?)
 		- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
-		- Se necesita la administracion de consumos js? no puede ir todo como un include?		
-		- Relacion ML->buffer
 		- Buffers con filtrado de registro
-		- Lugar centralizado donde se reserven teclas de acceso rapido (asi como se reservan TABS)
 	
 		ADMINISTRADOR 
 	
@@ -71,14 +45,8 @@
 	
 			- Ver logica ABM (entidad y buffer)											1d
 			- Persistencia de BUFFERS en memoria cuando son consumidos desde CIs.		1/2
-			- Colapsar objetos standard a demanda										1/2
-			- CUADROS																	2 horas
-				- Mostrar total
-				- Mostrar fila seleccionada
 			- Metodo INFO post proceso 
-			- Cambiar la forma de display de la cola de mensajes (alert)
-			- Dejar el modulo de mensajes online
-			- Ocultar EFs.
+			- Dejar el modulo de mensajes online (¿?)
 	
 		- Opcionales
 			- Estetica de la anidacion de CIs
@@ -86,6 +54,5 @@
 			- ignore_user_abort()
 			- Definir aserciones en los puntos estrategicos
 			- Diagrama de secuencia
-			- Reservar tab-order
 			- Imagenes en botones
 			- Unir CN y CN_T	
