@@ -254,6 +254,24 @@ then
 	fi
 
 ##***********************************************************************************************##
+## Documentacion de TRAC
+##***********************************************************************************************##
+#@ cod trac                                   -- Crea la documentacion de interfaces para TRAC
+elif [ "$1" = "trac" ]
+then
+		#Ejecuto el PHP
+		php $d_bin/php/doc_trac.php "$toba_dir"
+		resultado=$?
+		#echo $resultado
+		if [ $resultado = "100" ]
+		then
+			echo "OK!!!"
+		elif [ $resultado != "200" ]
+		then 
+			echo " ATENCION: Error ejecutando el PHP"
+		fi
+
+##***********************************************************************************************##
 ## Ver Cosas Pendientes
 ##***********************************************************************************************##
 elif [ "$1" = "pendiente" ]
