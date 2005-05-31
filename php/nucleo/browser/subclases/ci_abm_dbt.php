@@ -60,7 +60,7 @@ class ci_abm_dbt extends objeto_ci_me_tab
 
 	private function inspeccionar_dependencia($dependencia)
 	{
-		$e = explode("_",$dependencia);
+		$e = explode("__",$dependencia);
 		if($e[0] == "c") {
 			$dep['tipo_ei'] = "ei_cuadro";
 		}elseif( $e[0] == "f") {
