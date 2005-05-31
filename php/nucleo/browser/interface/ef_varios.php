@@ -139,7 +139,7 @@ class ef_fijo extends ef
     	if(isset( $parametros["estilo"])){
 	    	$this->estilo = $parametros["estilo"];
     	}else{
-	    	$this->estilo = "abm-input";
+	    	$this->estilo = "ef-fijo";
     	}
 	}
     

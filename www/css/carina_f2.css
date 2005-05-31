@@ -1509,6 +1509,12 @@ TD.ef-zonainput
 	background-color: #F5E8F0;
 }
 
+.ef-fijo {
+	text-align: left;
+	font-size: 12px;
+	white-space: nowrap;
+	padding: 2px;
+}
 /*------------------ ELEMENTOS de INTERFACE --------------------*/
 
 TD.ei-cuerpo {
