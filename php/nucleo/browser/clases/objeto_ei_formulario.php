@@ -28,7 +28,6 @@ class objeto_ei_formulario extends objeto
 	protected $rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $objeto_js;	
 
-	protected $eventos;
 	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
 	protected $id_en_padre;
@@ -181,7 +180,7 @@ class objeto_ei_formulario extends objeto
 														"'" .	$this->nombre_formulario ."',	'". 
 														$this->info_formulario_ef[$a]["identificador"] ."', '". 
 														$this->info_formulario_ef[$a]["etiqueta"]	."', '".	
-														$this->info_formulario_ef[$a]["descripcion"]	."', ". 
+														addslashes($this->info_formulario_ef[$a]["descripcion"])	."', ". 
 														"\$dato,	'". 
 														$this->info_formulario_ef[$a]["obligatorio"]	."', ".
 														"\$parametros);";

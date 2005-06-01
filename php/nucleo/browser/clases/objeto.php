@@ -31,6 +31,7 @@ class objeto
 	var $exportacion_path;
 	var $colapsado = false;						//El elemento sólo mantiene su título
 	var $evento_por_defecto;					//Evento disparado cuando no hay una orden explicita
+	protected $eventos = array();
 	
 	function objeto($id)
 /*

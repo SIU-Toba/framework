@@ -9,7 +9,6 @@ class objeto_ci_me_tab extends objeto_ci_me
 	Entrada de JS para inhabilitar TABS desde el cliente
 */
 	protected $lista_tabs;
-	protected $submit_tab;
 	protected $display;
 
 	function __construct($id)
@@ -25,13 +24,12 @@ class objeto_ci_me_tab extends objeto_ci_me
 			parent::destruir();
 		}
 	}
-	
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------   PROCESAMIENTO de EVENTOS   --------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	
 	function get_etapa_actual()
 	{
 		if (isset($_POST[$this->submit])) {

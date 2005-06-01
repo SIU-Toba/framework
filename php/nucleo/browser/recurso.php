@@ -91,7 +91,8 @@ class recurso {
 //		if(isset($alt)) $a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
 		if(isset($alt)) {
 			$alt = str_replace(array("\n", "\r"), '', $alt);
-			$a = " title='$alt' onmouseover='window.status=\"$alt\"' onmouseout='window.status=\"\"'";
+			$alt = str_replace(array("'"), "`", $alt);			
+			$a = " title='$alt' onmouseover='window.status=this.title' onmouseout='window.status=\"\"'";
 		}
 		if(isset($mapa)) $m = " usemap='$mapa'";
 		return "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js>";
