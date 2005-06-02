@@ -18,7 +18,8 @@ def.constructor = ef_combo;
 	}	
 	
 	def.cambiar_valor = function(nuevo) {
-		var opciones = this.input().options;
+		var input = this.input();
+		var opciones = input.options;
 		var ok = false;
 		for (var i =0 ; i < opciones.length; i++) {
 			if (opciones[i].value == nuevo) {
@@ -30,6 +31,8 @@ def.constructor = ef_combo;
 			var msg = 'El combo no tiene a ' + nuevo + ' entre sus elementos.'
 			throw new Error(msg, msg);
 		}
+		if (input.onchange)
+			input.onchange();
 	}
 	
 	def.validar = function () {

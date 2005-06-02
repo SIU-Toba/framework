@@ -132,6 +132,8 @@ def.constructor = ef;
 	
 	def.cambiar_valor = function(nuevo) {
 		this.input().value = nuevo;
+		if (this.input().onchange)
+			this.input().onchange();
 	}
 	
 	//cuando_cambia_valor (disparar_callback)

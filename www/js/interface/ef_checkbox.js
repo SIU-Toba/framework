@@ -9,7 +9,7 @@ def.constructor = ef_checkbox;
 	function ef_checkbox(id_form, etiqueta, obligatorio) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
 	}
-
+	
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) {
 		addEvent(this.input(), 'onclick', callback);
@@ -25,7 +25,10 @@ def.constructor = ef_checkbox;
 	def.chequear = function(valor) {
 		if (typeof valor != 'boolean')
 			valor = true;
-		this.input().checked = valor;
+		var input = this.input();
+		input.checked = valor;
+		if (input.onclick)
+			input.onclick();
 	}
 	
 	def.chequeado = function() {

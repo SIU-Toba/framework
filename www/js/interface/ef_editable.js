@@ -58,7 +58,10 @@ def.constructor = ef_editable;
 		if (this._mascara)
 			this.input().value = this._mascara.format(nuevo, false, true);
 		else
-			return ef.prototype.cambiar_valor.call(this, nuevo);		
+			return ef.prototype.cambiar_valor.call(this, nuevo);	
+		if (this.input().onblur) {
+			this.input().onblur();
+		}
 	}	
 	
 	//cuando_cambia_valor (disparar_callback)
@@ -168,8 +171,11 @@ var def = ef_editable_clave.prototype;
 	}
 	
 	def.cambiar_valor = function (nuevo) {
-		this.input().value = nuevo;
+		var input = this.input();
+		input.value = nuevo;
 		document.getElementById(this._id_form + '_test').value = nuevo;
+		if (input.onblur)
+			input.onblur();
 	}
 	
 //--------------------------------------------------------------------------------
@@ -190,7 +196,15 @@ var def = ef_editable_fecha.prototype;
 	
 	def.valor = function() {
 		return this.input().value;
-	}	
+	}
+	
+	def.fecha = function() {
+		if (this.validar()) {
+			var arr = this.valor().split('/');
+			return fecha = new Date(arr[2], arr[1] - 1, arr[0]);
+		}
+		return null;
+	}
 	
 	def.validar = function() {
 		if (! ef_editable.prototype.validar.call(this))

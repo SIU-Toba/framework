@@ -68,7 +68,6 @@ class cuadro extends objeto_ei_cuadro
             if($this->info_cuadro["subtitulo"]<>""){
                 echo"<tr><td class='lista-subtitulo'>". $this->info_cuadro["subtitulo"] ."</td></tr>\n";
             }
-            $this->generar_html_barra_paginacion();
 
             echo "<tr><td>";
             echo "<TABLE width='100%' class='tabla-0'>";
@@ -168,7 +167,6 @@ class cuadro extends objeto_ei_cuadro
 			$this->generar_html_totales();
             echo "</table>\n";
             echo "</td></tr>\n";
-            $this->generar_html_barra_paginacion();
             echo "</table>\n";
             
 			//Y por cierto......... si esto tenia scroll, cierro el div !!!

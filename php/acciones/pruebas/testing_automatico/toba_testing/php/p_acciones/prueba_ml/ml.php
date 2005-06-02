@@ -6,7 +6,7 @@ class ml extends objeto_ei_formulario_ml
 	function extender_objeto_js()
 	{
 		echo "
-			{$this->objeto_js}.procesar_checkbox = function () {
+			{$this->objeto_js}.evt__checkbox__procesar = function () {
 				var total = 0;	
 				var filas = this.filas();
 				for (fila in filas)	{
@@ -25,8 +25,8 @@ class ml extends objeto_ei_formulario_ml
 				return total;
 			}
 
-			{$this->objeto_js}.procesar_editable_numero = function () {
-				this.procesar_checkbox();
+			{$this->objeto_js}.evt__editable_numero__procesar = function () {
+				this.evt__checkbox__procesar();
 			}			
 		";
 	}

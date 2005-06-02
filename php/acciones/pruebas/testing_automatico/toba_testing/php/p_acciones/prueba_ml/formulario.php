@@ -6,10 +6,9 @@ class formulario extends objeto_ei_formulario
 	function extender_objeto_js()
 	{
 		echo "
-			{$this->objeto_js}.procesar_combo = function (es_inicial) {
+			{$this->objeto_js}.evt__combo__procesar = function (es_inicial) {
 				if (! es_inicial && this.ef('combo').valor() != apex_ef_no_seteado) {
-					this.set_evento('modificar', true, '¿Esta seguro que desea enviar esta información?');
-					this.submit();
+					this.set_evento(new evento_ei('modificacion', true, '¿Esta seguro que desea enviar esta información?'));
 				}
 			}\n";
 	}

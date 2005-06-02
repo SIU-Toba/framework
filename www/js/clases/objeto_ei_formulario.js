@@ -106,11 +106,11 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	def.validar_ef = function(id_ef, es_online) {
 		var ef = this._efs[id_ef];
 		var validacion_particular = 'evt__' + id_ef + '__validar';
-		var ok = true;
+		var ok = ef.validar()
 		if (existe_funcion(this, validacion_particular)) {
-			ok = this[validacion_particular]();
-		}				
-		if (! ef.validar()) {
+			ok = this[validacion_particular]() && ok;
+		}
+		if (!ok) {
 			if (! this._silencioso)
 				ef.resaltar(ef.error());
 			if (! es_online)

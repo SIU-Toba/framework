@@ -13,11 +13,18 @@ def.constructor = objeto_ei_formulario_ml;
 			this._filas.push(i);
 		this._ultimo_id = i;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
+		this._ef_con_totales = new Object();		//Lisa de efs que quieren sumarizar
 	}
 
 	def.iniciar = function () {
-		for (fila in this._filas)
+		//Iniciar las filas
+		for (fila in this._filas) {
 			this.iniciar_fila(this._filas[fila]);
+		}
+		//Agregar totales
+		for (var id_ef in this._ef_con_totales) {
+			this.agregar_procesamiento(id_ef);
+		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
 		this.reset_evento();
@@ -32,14 +39,18 @@ def.constructor = objeto_ei_formulario_ml;
 			this._rango_tabs[0]++;
 		}
 	}	
+	
+	def.agregar_total = function (ef) {
+		this._ef_con_totales[ef] = true;
+	}
 		
 	//----Consultas 
 	def.filas = function () { return this._filas };
 	
-	def.procesar = function (id_ef, es_inicial) {
+	def.procesar = function (id_ef, fila, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef))
-			return this['evt__' + id_ef + '__procesar'](es_inicial);		 //Procesamiento particular
-		else
+			this['evt__' + id_ef + '__procesar'](es_inicial, fila);		 //Procesamiento particular
+		if (id_ef in this._ef_con_totales)
 			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 	}
 
@@ -77,13 +88,14 @@ def.constructor = objeto_ei_formulario_ml;
 	}
 	
 	def.validar_fila_ef = function(fila, id_ef, es_online) {
+
 		var ef = this._efs[id_ef].ir_a_fila(fila);
 		var validacion_particular = 'evt__' + id_ef + '__validar';
-		var ok = true;
+		var es_valido = ef.validar();
 		if (existe_funcion(this, validacion_particular)) {
-			ok = this[validacion_particular](fila);
+			es_valido = this[validacion_particular](fila) && es_valido;
 		}
-		if (! ef.validar() || !ok) { //no valida
+		if (!es_valido) {
 			if (! this._silencioso)
 				ef.resaltar(ef.error(), 6);
 			if (! es_online)
@@ -256,22 +268,30 @@ def.constructor = objeto_ei_formulario_ml;
 
 	//----Procesamiento
 	def.cambiar_total = function (id_ef, total) {
+		//Se mantiene el id anterior, porque se multiplexa hacia otra fila y esto puede estar en el medio de otro proceso
+		var id_ant = this._efs[id_ef]._id_form;
+		//Se cambia el total
 		var elemento = this._efs[id_ef].ir_a_fila('s');
 		document.getElementById(elemento._id_form).innerHTML = elemento.formato_texto(total);
+		//Se restaura el id
+		this._efs[id_ef]._id_form = id_ant;
 		return total;
 	}
 	
 	def.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
-			this._efs_procesar[id_ef] = true;
-			for (fila in this._filas) {
-				this.agregar_procesamiento_fila(id_ef, this._filas[fila]);
+			//¿Ya se agrego el procesamiento anteriormente?
+			if (! this._efs_procesar[id_ef]) {
+				this._efs_procesar[id_ef] = true;
+				for (var fila in this._filas) {
+					this.agregar_procesamiento_fila(id_ef, this._filas[fila]);
+				}
 			}
 		}
 	}
 	
 	def.agregar_procesamiento_fila = function (id_ef, fila) {
-		var callback = this._instancia + '.procesar("' + id_ef + '")';
+		var callback = this._instancia + '.procesar("' + id_ef + '", ' + fila + ')';
 		this._efs[id_ef].ir_a_fila(fila).cuando_cambia_valor(callback);
 	}
 
@@ -330,6 +350,16 @@ def.constructor = objeto_ei_formulario_ml;
 				break;
 		}
 	}
+	
+	def.refrescar_procesamientos = function (es_inicial) {
+		for (id_ef in this._efs) {
+			for (id_fila in this._filas) {
+				if (this._efs_procesar[id_ef]) {
+					this.procesar(id_ef, this._filas[id_fila], es_inicial);
+				}
+			}
+		}
+	}	
 	
 	//Toma una fila y le refresca los listeners de procesamiento
 	def.refrescar_eventos_procesamiento = function (fila) {

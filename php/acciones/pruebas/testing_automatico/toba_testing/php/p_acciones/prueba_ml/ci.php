@@ -74,7 +74,14 @@ class ci extends objeto_ci_me_tab
 	//------------------------------------
 	function evt__ml__carga()
 	{
-		return $this->datos_ml;
+		if (isset($this->datos_ml))
+			return $this->datos_ml;
+		else {
+			return array(
+				array('oculto' => 123), 
+				array('oculto' => 456), 				
+			);
+		}
 	}	
 
 	function evt__ml__modificacion($datos)
@@ -87,11 +94,16 @@ class ci extends objeto_ci_me_tab
 	//------------------------------------
 	function evt__formulario__modificacion($datos)
 	{
+		if ($datos['editable'] == 'asd')
+			throw new excepcion_toba('El editable no puede ser \'asd\'.');
 		$this->datos_formulario = $datos;
 	}
 
 	function evt__formulario__carga(){ 
-		return $this->datos_formulario;
+		if (isset($this->datos_formulario))
+			return $this->datos_formulario;
+		else
+			return array('oculto' => 'oculto!!');
 	}	
 	
 	//------------------------------------

@@ -481,8 +481,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Agregado de callbacks para calculo de totales
 		if(count($this->lista_ef_totales)>0) {
 			foreach ($this->lista_ef_post as $ef) {
-				if(in_array($ef, $this->lista_ef_totales)){
-					echo $identado."{$this->objeto_js}.agregar_procesamiento('$ef');\n";
+				if(in_array($ef, $this->lista_ef_totales)) {
+					echo $identado."{$this->objeto_js}.agregar_total('$ef');\n";
 				}
 			}
 		}
