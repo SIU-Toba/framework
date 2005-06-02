@@ -1,5 +1,6 @@
 <?
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
+require_once("objeto.php");
 
 class objeto_ei_cuadro extends objeto
 /*

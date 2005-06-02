@@ -20,25 +20,15 @@ class ef_oculto extends ef
 //Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
 //La propagacion de su estado a travez de solicitudes se lleva a cabo impementado MEMORIA
 
-	var $clave_memoria;
-
 	function ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		global $solicitud;
-		$this->clave_memoria = "obj_" . $padre[1] . "_ef_" . $id;
 		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-		//1: Si tengo estado en la memoria, lo recupero
-		$temp = $solicitud->hilo->recuperar_dato($this->clave_memoria);
-		if(isset($temp)){
-			$this->estado = $temp;
-			//Tengo que memorizar el estado para la proxima instanciacion
-			$solicitud->hilo->persistir_dato($this->clave_memoria, $this->estado);
-		}else{
-			//2: Estado directo
-			if(isset($parametros["estado"])){
-				$this->estado = $parametros["estado"];
-			}
-		}
+		//Estado directo
+		if(isset($parametros["estado"])){
+			$this->estado = $parametros["estado"];
+		}		
+		$this->cargar_estado();
 	}
 
 	function establecer_id_form($agregado="")
@@ -46,26 +36,35 @@ class ef_oculto extends ef
 		//Aca hay que regenerar la clave de persistencia
 		$this->id_form = $this->id_form_orig . $agregado;
 	}
+	
+	function clave_memoria()
+	{
+		return "obj_" . $this->padre[1] . "_ef_" . $this->id_form;
+	}
 
 	function cargar_estado($estado=null)
 	//Desabilito la carga via POST y utilizo memoria
 	{
-		if(isset($estado)){
+		global $solicitud;
+		if(isset($estado)) {	//Carga el estado a partir del parametro
 			$this->estado = $estado;
-			//Cargo el estado en la memoria
-			global $solicitud;
-			$solicitud->hilo->persistir_dato($this->clave_memoria, $this->estado);
-			return true;
+			$solicitud->hilo->persistir_dato($this->clave_memoria(), $this->estado);
+		} else { //Intenta cargar el estado a partir del hilo
+			$temp = $solicitud->hilo->recuperar_dato($this->clave_memoria());
+			if(isset($temp)){
+				$this->estado = $temp;
+				//Tengo que memorizar el estado para la proxima instanciacion
+				$solicitud->hilo->persistir_dato($this->clave_memoria(), $this->estado);
+			}
 		}
-		return true;//Atencion!!
-		//return false;
+		return true;
 	}
 
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
 		global $solicitud;
-		$solicitud->hilo->eliminar_dato($this->clave_memoria);
+		$solicitud->hilo->eliminar_dato($this->clave_memoria());
 		if(isset($this->estado)){
 			unset($this->estado);
 		}
