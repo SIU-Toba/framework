@@ -39,7 +39,7 @@ class objeto
 	@@desc: Constructor de la clase
 */
 	{
-		$this->solicitud = toba::get_solicitud();
+	$this->solicitud = toba::get_solicitud();
 		$this->log = $this->solicitud->log;
 		if(!($this->id = $id)) monitor::evento("bug","[objeto]: ERROR, no se indico el ID del objeto a crear");
 		$this->exportacion_archivo = "nucleo/definiciones/objetos/".$this->id[1].".php";
@@ -1057,6 +1057,7 @@ class objeto
 		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
 		$this->crear_objeto_js();
 		$this->extender_objeto_js();
+		echo "\n";
 		$this->iniciar_objeto_js();
 		echo "$identado//-----------------------------------------------------------------  \n";		
 		return $this->objeto_js;
