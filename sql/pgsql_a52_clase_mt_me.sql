@@ -4,6 +4,23 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
+CREATE TABLE apex_objeto_mt_me_tipo_nav
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: proyecto
+--: dump_order_by: tipo_navegacion
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	tipo_navegacion							varchar(10)			NOT NULL,
+	descripcion								varchar(30)			NOT	NULL,
+	CONSTRAINT	"apex_objeto_mt_me_tn_pk" PRIMARY	KEY ("tipo_navegacion")
+);
+--###################################################################################################
+
 CREATE TABLE apex_objeto_mt_me
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -18,22 +35,25 @@ CREATE TABLE apex_objeto_mt_me
 (
 	objeto_mt_me_proyecto					varchar(15)			NOT NULL,
 	objeto_mt_me							int4				NOT NULL,
+	ev_procesar_etiq						varchar(30)			NULL,
+	ev_cancelar_etiq						varchar(30)			NULL,
+	ancho									varchar(20)			NULL,
+	alto									varchar(20)			NULL,
+	tipo_navegacion							varchar(10)			NULL,
+
 	incremental								smallint			NULL,
 	debug_eventos							smallint			NULL,
 	activacion_procesar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar
 	activacion_cancelar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar
 	ev_procesar								smallint			NULL,
-	ev_procesar_etiq						varchar(30)			NULL,
 	ev_cancelar								smallint			NULL,
-	ev_cancelar_etiq						varchar(30)			NULL,
 	objetos									varchar(80)			NULL,	
 	post_procesar							varchar(40)			NULL, --> CN: Informacion posterior al proceso
-	ancho									varchar(20)			NULL,
-	alto									varchar(20)			NULL,
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
 	metodo_opciones							varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion
 	CONSTRAINT	"apex_objeto_mt_me_pk" PRIMARY	KEY ("objeto_mt_me_proyecto","objeto_mt_me"),
-	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"obj_objeto_mt_me_fk_tnav" FOREIGN	KEY ("tipo_navegacion")	REFERENCES "apex_objeto_mt_me_tipo_nav" ("tipo_navegacion") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -52,7 +72,7 @@ CREATE TABLE apex_objeto_mt_me_etapa
 	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
 	objeto_mt_me						int4				NOT NULL,
 	posicion							smallint			NOT NULL,
-	etiqueta							varchar(80)			NOT NULL,
+	etiqueta							varchar(80)			NULL,
 	descripcion							varchar(255)		NULL,
 	tip									varchar(80)			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,

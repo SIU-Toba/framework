@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_comechingones
 
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
 VACUUM VACUUM FULL ANALYSE apex_objeto_html;
@@ -8,6 +8,7 @@ VACUUM VACUUM FULL ANALYSE apex_objeto_negocio_regla;
 VACUUM VACUUM FULL ANALYSE apex_objeto_negocio;
 VACUUM VACUUM FULL ANALYSE apex_objeto_mt_me_etapa;
 VACUUM VACUUM FULL ANALYSE apex_objeto_mt_me;
+VACUUM VACUUM FULL ANALYSE apex_objeto_mt_me_tipo_nav;
 VACUUM VACUUM FULL ANALYSE apex_objeto_multicheq;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario_ef;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario;

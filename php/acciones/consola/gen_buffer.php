@@ -1,6 +1,6 @@
 <?
 include_once("nucleo/consola/emular_web.php");
-include_once("nucleo/lib/buffer_db_s_i.php");
+include_once("nucleo/persistencia/db_registros_s_i.php");
 
 /*
 	Atencion: los campos que son secuencias no tienen que aparecer 
@@ -44,31 +44,43 @@ include_once("nucleo/lib/buffer_db_s_i.php");
 	{
 		//1)Busco la definicion
 		$tabla = $tabla_x['relname'];
-		$buffer =& new buffer_db_s_i("x",$tabla,$fuente);
+		$buffer =& new db_registros_s_i("x",$tabla,$fuente);
 		$definicion_buffer = $buffer->obtener_definicion();
 		
 		//2)Creo el PHP de buffer 
 		$php = "<?
 //Generacion: ". date("j-m-Y H:i:s") ."
 //Fuente de datos: '$fuente'
-require_once('nucleo/lib/buffer_db_s.php');
+require_once('nucleo/persistencia/db_registros_s.php');
 
-class buffer_$tabla extends buffer_db_s
-//buffer especifico de la tabla '$tabla'
+class dbr_$tabla extends db_registros_s
+//db_registros especifico de la tabla '$tabla'
 {
-	function buffer_$tabla(\$id, \$fuente)
+	function __construct(\$id, \$fuente, \$tope_registros=null, \$utilizar_transaccion=null, \$memoria_autonoma=null)
 	{
 ";
 		$php .= dump_array_php($definicion_buffer,"		\$definicion");
-		$php .= "		parent::__construct(\$id, \$definicion, \$fuente);
+		$php .= "		parent::__construct(\$id, \$definicion, \$fuente, \$tope_registros, \$utilizar_transaccion, \$memoria_autonoma);
 	}	
+	
+	function cargar_datos_clave(\$id)
+	{
+		/*
+			LEER y BORRAR
+			-------------
+			El proposito de este metodo es utilizar el parametro \$id para generar un array de sentencias WHERE de SQL
+			que cargan a este db_registros. De esta manerase puede ocultar la utilizacion de SQL por fuera del mismo.
+			Lo que sigue es un ejemplo:
+		*/
+		\$where[] = \"xxxxxxx = '\$id'\";
+		\$this->cargar_datos(\$where);
+	}
 }
-?>
-";
+?>";
 		//echo $php;
 		//2)Genero el archivo
-		$nombre = "buffer_$tabla.php";
-		echo "Generando buffer '" . $nombre . "' para la tabla '$tabla'.\n";
+		$nombre = "dbr_$tabla.php";
+		echo "Generando db_registros '" . $nombre . "' para la tabla '$tabla'.\n";
 		$pa = fopen($nombre,"w");
 		fwrite($pa,$php);
 		fclose($pa);

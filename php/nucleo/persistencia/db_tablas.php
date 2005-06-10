@@ -1,12 +1,11 @@
 <?
 require_once('nucleo/persistencia/db_registros.php');
 /*
-Una entidad posee un conjunto de buffers y conoce la logica de persistencia entre los mismos
-Definir un nuevo tipo de entidad deberia implicar:
 
-	- decir que buffers posee
-	- explicar la relacion entre los mismos
-	- reescribir las primitivas (sincro, upd) si hace algo muy especifico	
+	PROBLEMAS NO RESUELTOS
+	----------------------
+
+		- Servicio que pueda leer un plan y construir los planes de sincro, carga y eliminacion	
 
 */
 class db_tablas
@@ -14,152 +13,77 @@ class db_tablas
 	protected $log;
 	protected $elemento;
 	protected $cargado;
+	protected $fuente;
 	
-	function __construct()
+	function __construct($fuente=null)
 	{
 		//Llevar el plan a una estructura de control concreta?
 		$this->cargado = false;
 		$this->log = toba::get_logger();
+		$this->fuente = $fuente;
 	}
-	
+
 	function info()
 	{
 		foreach(array_keys($this->elemento) as $elemento)
 		{
-			$temp[$elemento] = $this->elemento[$elemento]['buffer']->info(true);
+			$temp[$elemento] = $this->elemento[$elemento]->info(true);
 		}
 		return $temp;
 	}
-	
-	function obtener_cardinalidad($elemento)
-	{
-		return $this->elemento[$elemento]['registros'];
-	}
-	
-	//-------------------------------------------------------
-	//------ Interface de EXTERNA
-	//-------------------------------------------------------
 
-	public function acc_elemento($elemento, $accion, $parametros=null)
-	//Entrada a la modificacion de los buffers
+	public function elemento($elemento)
+	//Devuelve una referencia a un db_registros
 	{
-		//ei_arbol($parametros, "ELEMENTO: " . $elemento . " - ACCION: " . $accion);
-		//--[ 1 ]-- Controlo que el elemento exista
-		if( ! ($this->existe_elemento($elemento)) ){
-			throw new excepcion_toba("El elemento '$elemento' no forma parte de la entidad");	
-		}
-		//--[ 2 ]-- Controlo que la accion solicitada exista.
-		if(! method_exists($this, $accion) ){
-			throw new excepcion_toba("La accion solicitada sobre el elemento '$elemento' no esta definida");	
-		}
-		//Disparo la accion
-		return $this->$accion($elemento, $parametros);
+		if($this->existe_elemento($elemento)) return $this->elemento[$elemento];
 	}
-	//-------------------------------------------------------
-	
+
 	public function existe_elemento($elemento)
 	{
-		return ($this->elemento[$elemento]['buffer'] instanceof db_registros);
+		return ($this->elemento[$elemento] instanceof db_registros);
 	}
 
-	//-------------------------------------------------------
-	//------ Interface interna con los BUFFERS
-	//-------------------------------------------------------	
-
-	protected function get($elemento)
+	public function registrar_evento($elemento, $evento, $parametros)
 	{
-		if($this->elemento[$elemento]['registros']=="1"){
-			return $this->elemento[$elemento]['buffer']->obtener_registro(0);
-		}else{
-			return $this->elemento[$elemento]['buffer']->obtener_registros();
-		}
+		//Ver si se implemento un evento		
 	}
-	//-------------------------------------------------------
 
-	protected function get_x($elemento, $id)
-	//parametros = 
+	protected function log($txt)
 	{
-		if($this->elemento[$elemento]['registros']=="n"){
-			return $this->elemento[$elemento]['buffer']->obtener_registro($id);
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD.
-				El buffer no maneja multiples registros");	
-		}
+		$this->log->debug("db_tablas  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
 	}
-	//-------------------------------------------------------
 
-	protected function set($elemento, $registro)
+	public function check_carga()
 	{
-		if($this->elemento[$elemento]['registros']=="1"){
-			if( $this->elemento[$elemento]['buffer']->cantidad_registros() > 0 ){
-				$this->elemento[$elemento]['buffer']->modificar_registro($registro, 0);
-			}else{
-				$this->elemento[$elemento]['buffer']->agregar_registro($registro);
-			}
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD. 
-			El metodo SET es para BUFFERS que manejan un solo registro");	
-		}
-	}
-	//-------------------------------------------------------
-
-	protected function ins($elemento, $registro)
-	{
-		if($this->elemento[$elemento]['registros']=="n"){
-			//echo "Estoy aca!";
-			$this->elemento[$elemento]['buffer']->agregar_registro($registro);
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros.");	
-		}
-	}
-	//-------------------------------------------------------
-
-	protected function upd($elemento, $parametros)
-	{
-		$registro = $parametros['registro'];
-		$id = $parametros['id'];
-		if($this->elemento[$elemento]['registros']=="n"){
-			$this->elemento[$elemento]['buffer']->modificar_registro($registro, $id);
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros");	
-		}
-	}
-	//-------------------------------------------------------
-
-	protected function del($elemento, $id)
-	{
-		if($this->elemento[$elemento]['registros']=="n"){
-			$this->elemento[$elemento]['buffer']->eliminar_registro($id);
-		}else{
-			throw new excepcion_toba("Error en la definicion de la ENTIDAD. El buffer posee N registros");	
-		}
+		return $this->cargado;	
 	}
 
 	//-------------------------------------------------------
-	//------ Interface de sincronizacion
-	//-------------------------------------------------------
-
-	public function descargar()
-	{
-		foreach(array_keys($this->elemento) as $elemento)
-		{
-			$this->elemento[$elemento]['buffer']->resetear();
-		}
-	}
+	//------ Interface de con la DB
 	//-------------------------------------------------------
 
 	public function cargar($id)
-	//Carga un instanciacion de la entidad
+	/*
+			Recibe el conjunto de valores que se consideren la clave del db_tablas, luego
+	 		por cada db_registros se construye el WHERE sql que carga al mismo con esa clave (si usa
+	 		cargar_datos) o la clave que le corresponde (si usa cargar_datos_clave). 
+	*/
 	{
-		//Armo los WHERE y cargo
-		//a los BUFFERS
+		//Si se desea preguntar si la carga fue exitosa, hay que setear esta variable
+		$this->cargado = true;
 	}
 	//-------------------------------------------------------
 
-	public function sincronizar_db()
-	//Sincroniza la entidad contra la base de datos
-	//Esto deberia leer un plan y ejecutarlo. Si la entidad tiene una regla de grabacion
-	//muy complicada, deberia redefinir la ejecucion del plan
+	public function reset()
+	{
+		foreach(array_keys($this->elemento) as $elemento){
+			$this->elemento[$elemento]->resetear();
+		}
+		$this->cargado = false;
+	}
+	//-------------------------------------------------------
+
+	public function sincronizar()
 	{
 		try{
 			abrir_transaccion();
@@ -171,11 +95,30 @@ class db_tablas
 			throw new excepcion_toba($e->getMessage());
 		}					
 	}
+
+	protected function sincronizar_plan()
+	{
+		$this->log("No existe un plan de SINCRONIZACION!");
+	}
 	//-------------------------------------------------------
 
 	public function eliminar()
-	//Elimina el contenido de los BUFFERs y los sincroniza
+	//Elimina el contenido de los DB_REGISTROS y los sincroniza
 	{
+		try{
+			abrir_transaccion();
+			$this->eliminar_plan();
+			cerrar_transaccion();			
+		}catch(excepcion_toba $e){
+			abortar_transaccion();
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}		
+	}
+
+	protected function eliminar_plan()
+	{
+		$this->log("No existe un plan de ELIMINACION!");
 	}
 	//-------------------------------------------------------
 }

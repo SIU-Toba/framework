@@ -1,7 +1,7 @@
 <?
 require_once("nucleo/browser/clases/objeto_ci.php");
 
-class ci_abms extends objeto_ci
+class ci_abm_dbr extends objeto_ci
 {
 	protected $filtro;
 	protected $seleccion;
@@ -23,10 +23,9 @@ class ci_abms extends objeto_ci
 	function obtener_dbr()
 	{
 		if (! isset($this->dbr)) {
-			include_once( $this->info["parametro_a"]);
-			$clase = $this->info['parametro_b'];
-			//ATENCION: No se para que sirve el primer parametro de dbr
-			$this->dbr = new $clase("dbr_".$this->id, $this->info['fuente']);
+			include_once( $this->info["parametro_d"]);
+			$clase = $this->info['parametro_e'];
+			$this->dbr = new $clase("dbr_".$this->id, $this->info['fuente'], 1, true);
 		}
 		return $this->dbr;
 	}
@@ -50,7 +49,7 @@ class ci_abms extends objeto_ci
 		$this->filtro = $datos;
 	}
 	
-	function evt__filtro__limpiar($datos)
+	function evt__filtro__cancelar()
 	{
 		unset( $this->filtro );
 	}
@@ -65,12 +64,23 @@ class ci_abms extends objeto_ci
 	//--------------------------------------------------------------
 	//--  EVENTOS Cuadro
 	//--------------------------------------------------------------
-/*	
+
 	function evt__cuadro__carga()
 	{
-		
+		//if(isset($this->filtro)){
+			require_once($this->info["parametro_a"]);
+			$clase = $this->info["parametro_b"];
+			$metodo = $this->info["parametro_c"];
+			if(isset($this->filtro)){
+				$x = "\$temp = $clase::$metodo(\$this->filtro);";
+			}else{
+				$x = "\$temp = $clase::$metodo();";
+			}
+			eval($x);
+			return $temp;
+		//}
 	}
-*/	
+
 	function evt__cuadro__seleccion($id)
 	{
 		$this->seleccion = $id;
@@ -80,7 +90,6 @@ class ci_abms extends objeto_ci
 	//--  EVENTOS Formulario
 	//--------------------------------------------------------------
 	
-		
 	function evt__formulario__cancelar()
 	{
 		unset($this->seleccion);
@@ -90,58 +99,31 @@ class ci_abms extends objeto_ci
 	{
 		if (isset($this->seleccion)) {
 			$dbr = $this->obtener_dbr();
-			$dbr->cargar_registro_por_clave($this->seleccion);
+			$dbr->cargar_datos_clave($this->seleccion);
 			return $dbr->obtener_registro(0);
 		}
 	}
 	
-	
 	function evt__formulario__alta($registro)
 	{
 		$dbr = $this->obtener_dbr();
-		try {
-			abrir_transaccion();
-			$dbr->agregar_registro($registro);
-			$dbr->sincronizar_db();
-			cerrar_transaccion();
-		}catch(excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}		
+		$dbr->set($registro);
+		$dbr->sincronizar();
 	}
 	
 	function evt__formulario__modificacion($registro)
 	{
-		$this->transaccionar($dbr->modificar_registro($registro, 0));
-		
 		$dbr = $this->obtener_dbr();
-		try {
-			abrir_transaccion();
-			$dbr->modificar_registro($registro, 0);
-			$dbr->sincronizar_db();
-			cerrar_transaccion();
-		} catch (excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}			
+		$dbr->set($registro);
+		$dbr->sincronizar();
 	}
 
 	function evt__formulario__baja()
 	{
 		$dbr = $this->obtener_dbr();
-		try {
-			abrir_transaccion();
-			$dbr->eliminar_registro(0);
-			$dbr->sincronizar_db();
-			cerrar_transaccion();
-		} catch (excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}			
-	}	
-	
+		$dbr->eliminar_registro(0);
+		$dbr->sincronizar();
+	}
+	//--------------------------------------------------------------
 }
 ?>

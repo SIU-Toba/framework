@@ -24,24 +24,15 @@ require_once("db_registros.php");
 	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, externa y no_nulo )
 	tienen que tener como valor valores existentes en los arrays "columna" o "clave" )
 
-	*** PENDIENTE ***
-
- -> Valores unicos producto de varias columnas...
- -> Obtencion y mapeo de informacion de COSMETICA...
- -> Metodo para controlar la perdida de sincronizacion por TIMESTAMP??
- -> Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
- -> Es necesario implementar UPDATES que solo incluyan columnas afectadas??
- -> Es realmente necesario fijar la clave interna a los registros??
-
 */
 class db_registros_s extends db_registros
 {
-	function __construct($id, $definicion, $fuente)
+	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
 		if( !isset($definicion['columna'] )){
 			$definicion['columna'] = array();
 		}
-		parent::__construct($id, $definicion, $fuente);
+		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -83,99 +74,9 @@ class db_registros_s extends db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function sincronizar_db()
-	//Sincroniza las modificaciones del BUFFER con la DB
-	//ATENCION, mejorar control de errores
+	function insertar($id_registro)
 	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - SINCRONIZACION!"); 
-		if($this->control_sincro_db){
-			$ok = $this->controlar_alteracion_db();
-		}
-		//-<1>- Crear ARRAYS de SQLs de SINCRONIZACION
-		$sql_i=array(); $sql_d=array(); $sql_u=array();
-		foreach(array_keys($this->control) as $registro){
-			switch($this->control[$registro]['estado']){
-				case "d":
-					$sql_d[$registro] = $this->generar_sql_delete($registro);
-					break;
-				case "i":
-					$sql_i[$registro] = $this->generar_sql_insert($registro);
-					break;
-				case "u":
-					$sql_u[$registro] = $this->generar_sql_update($registro);
-					break;
-			}
-		}
-		//-[1]- EJECUTO SQL
-		//-- INSERT --
-		foreach(array_keys($sql_i) as $registro)
-		{
-			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_i[$registro]); 
-			ejecutar_sql( $sql_i[$registro], $this->fuente);
-			if(count($this->campos_secuencia)>0){
-				foreach($this->definicion['secuencia'] as $secuencia){
-					//Actualizo el valor
-					$this->datos[$registro][$secuencia['col']] = recuperar_secuencia($secuencia['seq'], $this->fuente);
-				}
-			}
-		}
-		//-- DELETE --
-		foreach(array_keys($sql_d) as $registro){
-			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_d[$registro]); 
-			ejecutar_sql($sql_d[$registro], $this->fuente);
-		}
-		//-- UPDATE --
-		foreach(array_keys($sql_u) as $registro){
-			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql_u[$registro]); 
-			ejecutar_sql($sql_u[$registro], $this->fuente);
-		}
-		
-		//-[2]- Todo bien, actualizo los METADATOS del BUFFER
-
-		//-- INSERT --
-		foreach(array_keys($sql_i) as $registro)
-		{
-			//Actualizo el valor del array de control
-			$this->control[$registro]['estado'] = "db";
-		}
-		//-- DELETE --
-		foreach(array_keys($sql_d) as $registro){
-			unset($this->control[$registro]);
-			unset($this->datos[$registro]);
-		}
-		//-- UPDATE --
-		foreach(array_keys($sql_u) as $registro){
-			$this->control[$registro]['estado'] = "db";
-		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------  GENERADORES de SQL  ---------------------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function generar_sql_select()
-	{
-		//Campos utilizados
-		if(isset($this->definicion['externa'])){
-			$campos_select = array_diff($this->campos, $this->definicion['externa']);
-		}else{
-			$campos_select = $this->campos;
-		}
-		$sql =	" SELECT	a." . implode(",	a.",$campos_select) . 
-				" FROM "	. $this->definicion["tabla"] . " a ";
-		if(isset($this->from)){
-			$sql .= ", " . implode(",",$this->from);
-		}
-		$sql .= " WHERE " .	implode(" AND ",$this->where) .";";
-		return $sql;
-	}
-	//-------------------------------------------------------------------------------
-
-	function generar_sql_insert($id_registro)
-	//Genera sentencia de INSERT
-	{
+		//- 1 - Armo el SQL
 		//Campos utilizados
 		if(isset($this->definicion['externa'])){
 			$campos_insert = array_diff($this->campos_manipulables, $this->definicion['externa']);
@@ -194,14 +95,22 @@ class db_registros_s extends db_registros
 		$sql = "INSERT INTO " . $this->definicion["tabla"] .
 				" ( " . implode(", ",$campos_insert) . " ) ".
 				" VALUES (" . implode(", ", $valores) . ");";
-		//Formateo NULOS
+		//- 2 - Ejecutar el SQL
+		$this->log("registro: $id_registro - " . $sql); 
+		ejecutar_sql( $sql, $this->fuente);
+		if(count($this->campos_secuencia)>0){
+			foreach($this->definicion['secuencia'] as $secuencia){
+				//Actualizo el valor
+				$this->datos[$id_registro][$secuencia['col']] = recuperar_secuencia($secuencia['seq'], $this->fuente);
+			}
+		}
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
-
-	function generar_sql_update($id_registro)
-	//Genera sentencia de UPDATE
+	
+	function modificar($id_registro)
 	{
+		//- 1 - Armo el SQL
 		//Campos utilizados
 		if(isset($this->definicion['externa'])){
 			$campos_update = array_diff($this->campos_manipulables, 
@@ -227,23 +136,55 @@ class db_registros_s extends db_registros
 		$sql = "UPDATE " . $this->definicion["tabla"] . " SET ".
 				implode(", ",$set) .
 				" WHERE " . implode(" AND ",$sql_where) .";";
+		//- 2 - Ejecutar el SQL
+		$this->log("registro: $id_registro - " . $sql); 
+		ejecutar_sql( $sql, $this->fuente);
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
 
-	function generar_sql_delete($id_registro)
-	//Genera sentencia de DELETE
+	function eliminar($id_registro)
 	{
+		//- 0 - Genero el WHERE
 		$registro = $this->datos[$id_registro];
-		//Genero el WHERE
 		foreach($this->definicion["clave"] as $clave){
 			$sql_where[] =	"( $clave = '{$registro[$clave]}')";
 		}
-		$sql = "DELETE FROM " . $this->definicion["tabla"] .
-				" WHERE " . implode(" AND ",$sql_where) .";";
+		//- 1 - Armo el SQL
+		if($this->baja_logica){
+			$sql = "UPDATE " . $this->definicion["tabla"] .
+					" SET " . $this->baja_logica_columna . " = '". $this->baja_logica_valor ."' " .
+					" WHERE " . implode(" AND ",$sql_where) .";";
+		}else{
+			$sql = "DELETE FROM " . $this->definicion["tabla"] .
+					" WHERE " . implode(" AND ",$sql_where) .";";
+		}
+		//- 2 - Ejecutar el SQL
+		$this->log("registro: $id_registro - " . $sql); 
+		ejecutar_sql( $sql, $this->fuente);
+		return $sql;
+	}
+
+	//-------------------------------------------------------------------------------
+	//------------  GENERADORES de SQL  ---------------------------------------------
+	//-------------------------------------------------------------------------------
+	
+	function generar_sql_select()
+	{
+		//Campos utilizados
+		if(isset($this->definicion['externa'])){
+			$campos_select = array_diff($this->campos, $this->definicion['externa']);
+		}else{
+			$campos_select = $this->campos;
+		}
+		$sql =	" SELECT	a." . implode(",	a.",$campos_select) . 
+				" FROM "	. $this->definicion["tabla"] . " a ";
+		if(isset($this->from)){
+			$sql .= ", " . implode(",",$this->from);
+		}
+		$sql .= " WHERE " .	implode(" AND ",$this->where) .";";
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
-
 }
 ?>

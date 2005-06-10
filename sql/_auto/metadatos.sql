@@ -1,10 +1,10 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_comechingones
 
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a00_revision.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a00_revision.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -16,7 +16,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a01_nucleo.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a01_nucleo.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -159,8 +159,8 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_elemento_formulario', 'pgsql_a01_nucleo.sql', 18, 'multiproyecto', NULL, NULL, 'padre, elemento_formulario', NULL, NULL, 'Elementos de formulario soportados', '1.0', NULL, NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'elemento_formulario', 1, 'varchar(30)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'padre', 2, 'varchar(30)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'descripcion', 3, 'varchar(255)	NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'parametros', 4, 'varchar			NULL,	--	Descripcion	de	los parametros	que recibe este EF');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'descripcion', 3, 'text			NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'parametros', 4, 'varchar			NULL,	--	Lista de los parametros	que recibe este EF');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'proyecto', 5, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_elemento_formulario', 'exclusivo_toba', 6, 'smallint		NULL,');
 
@@ -446,17 +446,21 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'objeto_categoria', 10, 'varchar(30)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'nombre', 11, 'varchar(80)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'titulo', 12, 'varchar(80)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'descripcion', 13, 'varchar(255)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'fuente_datos_proyecto', 14, 'varchar(15)		NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'fuente_datos', 15, 'varchar(20)		NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_registrar', 16, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_obj_obs_tipo', 17, 'varchar(20)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_obj_observacion', 18, 'varchar(255)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_a', 19, 'varchar(100)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_b', 20, 'varchar(100)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_c', 21, 'varchar(100)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'usuario', 22, 'varchar(20)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'creacion', 23, 'timestamp(0)	without time zone	DEFAULT current_timestamp NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'colapsable', 13, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'descripcion', 14, 'varchar(255)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'fuente_datos_proyecto', 15, 'varchar(15)		NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'fuente_datos', 16, 'varchar(20)		NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_registrar', 17, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_obj_obs_tipo', 18, 'varchar(20)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'solicitud_obj_observacion', 19, 'varchar(255)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_a', 20, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_b', 21, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_c', 22, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_d', 23, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_e', 24, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'parametro_f', 25, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'usuario', 26, 'varchar(20)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto', 'creacion', 27, 'timestamp(0)	without time zone	DEFAULT current_timestamp NULL,');
 
 ------  'apex_objeto_info'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_info', 'pgsql_a01_nucleo.sql', 44, 'multiproyecto', NULL, '(	objeto_proyecto =	\'%%\' )', 'objeto', NULL, NULL, '', '1.0', NULL, NULL);
@@ -560,7 +564,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_n
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a021_prototipacion.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a021_prototipacion.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -662,7 +666,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a02_dimensiones.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a02_dimensiones.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -739,7 +743,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a03_solicitudes.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a03_solicitudes.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -756,7 +760,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 ------  'apex_sesion_browser'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_sesion_browser', 'pgsql_a03_solicitudes.sql', 70, 'multiproyecto', NULL, NULL, 'sesion_browser', NULL, NULL, '', '1.0', '1', '1');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_sesion_browser', 'sesion_browser', 1, 'int4			DEFAULT nextval(\'\"apex_log_sesion_seq\"\'::text) NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_sesion_browser', 'sesion_browser', 1, 'int4			DEFAULT nextval(\'\"apex_sesion_browser_seq\"\'::text) NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_sesion_browser', 'proyecto', 2, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_sesion_browser', 'usuario', 3, 'varchar(20) 	NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_sesion_browser', 'ingreso', 4, 'timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,');
@@ -847,7 +851,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_l
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a04_notas.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a04_notas.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -950,7 +954,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_n
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a05_mensajes.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a05_mensajes.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1035,7 +1039,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_o
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a06_mod_datos.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a06_mod_datos.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1101,7 +1105,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a07_admin_proy.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a07_admin_proy.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1163,7 +1167,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_a
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a08_tareas_programadas.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a08_tareas_programadas.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1190,7 +1194,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_t
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a09_entorno_trabajo.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a09_entorno_trabajo.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1220,7 +1224,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a10_clase_hoja.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a10_clase_hoja.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1266,7 +1270,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a11_clase_filtro.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a11_clase_filtro.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1287,7 +1291,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a14_clase_lista.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a14_clase_lista.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1310,7 +1314,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a15_clase_grafico.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a15_clase_grafico.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1325,7 +1329,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a16_clase_cuadro.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a16_clase_cuadro.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1354,10 +1358,11 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'dao_nucleo_proyecto', 21, 'varchar(15)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'dao_nucleo', 22, 'varchar(60)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'dao_metodo', 23, 'varchar(80)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'desplegable', 24, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'desplegable_activo', 25, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'scroll', 26, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'scroll_alto', 27, 'varchar(10)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'dao_parametros', 24, 'varchar(150)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'desplegable', 25, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'desplegable_activo', 26, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'scroll', 27, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro', 'scroll_alto', 28, 'varchar(10)		NULL,');
 
 ------  'apex_objeto_cuadro_columna'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_cuadro_columna', 'pgsql_a16_clase_cuadro.sql', 119, 'multiproyecto', NULL, '( objeto_cuadro_proyecto = \'%%\' )', 'objeto_cuadro, orden', NULL, NULL, '', '1.0', '0', NULL);
@@ -1389,7 +1394,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a17_clase_mapa.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a17_clase_mapa.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1403,7 +1408,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a20_clase_plan.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a20_clase_plan.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1460,7 +1465,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_o
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a50_clase_ut_formulario.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a50_clase_ut_formulario.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1468,7 +1473,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_o
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_ut_formulario', 'pgsql_a50_clase_ut_formulario.sql', 126, 'multiproyecto', NULL, '( objeto_ut_formulario_proyecto = \'%%\' )', 'objeto_ut_formulario', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'objeto_ut_formulario_proyecto', 1, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'objeto_ut_formulario', 2, 'int4  			NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'tabla', 3, 'varchar(40)    	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'tabla', 3, 'varchar(100)   	NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'titulo', 4, 'varchar(80)    	NULL,       -- Titulo de la interface');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ev_agregar', 5, 'smallint		NULL,		-- Proponer agregar si no hay estado');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ev_agregar_etiq', 6, 'varchar(30)		NULL,');
@@ -1518,7 +1523,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a51_clase_ut_multicheq.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a51_clase_ut_multicheq.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
@@ -1535,35 +1540,41 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a52_clase_mt_me.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a52_clase_mt_me.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
+------  'apex_objeto_mt_me_tipo_nav'  -----------------------------------
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_mt_me_tipo_nav', 'pgsql_a52_clase_mt_me.sql', 129, 'proyecto', NULL, NULL, 'tipo_navegacion', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_tipo_nav', 'tipo_navegacion', 1, 'varchar(10)			NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_tipo_nav', 'descripcion', 2, 'varchar(30)			NOT	NULL,');
+
 ------  'apex_objeto_mt_me'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_mt_me', 'pgsql_a52_clase_mt_me.sql', 129, 'multiproyecto', NULL, '(	objeto_mt_me_proyecto =	\'%%\' )', 'objeto_mt_me', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_mt_me', 'pgsql_a52_clase_mt_me.sql', 130, 'multiproyecto', NULL, '(	objeto_mt_me_proyecto =	\'%%\' )', 'objeto_mt_me', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'objeto_mt_me_proyecto', 1, 'varchar(15)			NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'objeto_mt_me', 2, 'int4				NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'incremental', 3, 'smallint			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'debug_eventos', 4, 'smallint			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'activacion_procesar', 5, 'varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'activacion_cancelar', 6, 'varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_procesar', 7, 'smallint			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_procesar_etiq', 8, 'varchar(30)			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_cancelar', 9, 'smallint			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_cancelar_etiq', 10, 'varchar(30)			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'objetos', 11, 'varchar(80)			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'post_procesar', 12, 'varchar(40)			NULL, --> CN: Informacion posterior al proceso');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ancho', 13, 'varchar(20)			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'alto', 14, 'varchar(20)			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'metodo_despachador', 15, 'varchar(40)			NULL,  --> CN: Indica la etapa activa');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'metodo_opciones', 16, 'varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_procesar_etiq', 3, 'varchar(30)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_cancelar_etiq', 4, 'varchar(30)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ancho', 5, 'varchar(20)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'alto', 6, 'varchar(20)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'tipo_navegacion', 7, 'varchar(10)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'incremental', 8, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'debug_eventos', 9, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'activacion_procesar', 10, 'varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'activacion_cancelar', 11, 'varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_procesar', 12, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'ev_cancelar', 13, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'objetos', 14, 'varchar(80)			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'post_procesar', 15, 'varchar(40)			NULL, --> CN: Informacion posterior al proceso');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'metodo_despachador', 16, 'varchar(40)			NULL,  --> CN: Indica la etapa activa');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me', 'metodo_opciones', 17, 'varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion');
 
 ------  'apex_objeto_mt_me_etapa'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'pgsql_a52_clase_mt_me.sql', 130, 'multiproyecto', NULL, '(	objeto_mt_me_proyecto =	\'%%\' )', 'objeto_mt_me,	posicion', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'pgsql_a52_clase_mt_me.sql', 131, 'multiproyecto', NULL, '(	objeto_mt_me_proyecto =	\'%%\' )', 'objeto_mt_me,	posicion', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'objeto_mt_me_proyecto', 1, 'varchar(15)			NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'objeto_mt_me', 2, 'int4				NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'posicion', 3, 'smallint			NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'etiqueta', 4, 'varchar(80)			NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'etiqueta', 4, 'varchar(80)			NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'descripcion', 5, 'varchar(255)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'tip', 6, 'varchar(80)			NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_mt_me_etapa', 'imagen_recurso_origen', 7, 'varchar(10)			NULL,');
@@ -1580,18 +1591,18 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a53_clase_negocio.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a53_clase_negocio.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
 ------  'apex_objeto_negocio'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_negocio', 'pgsql_a53_clase_negocio.sql', 131, 'multiproyecto', NULL, '( objeto_negocio_proyecto = \'%%\' )', 'objeto_negocio', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_negocio', 'pgsql_a53_clase_negocio.sql', 132, 'multiproyecto', NULL, '( objeto_negocio_proyecto = \'%%\' )', 'objeto_negocio', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio', 'objeto_negocio_proyecto', 1, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio', 'objeto_negocio', 2, 'int4			NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio', 'descripcion', 3, 'varchar(255)    NOT NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar');
 
 ------  'apex_objeto_negocio_regla'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_negocio_regla', 'pgsql_a53_clase_negocio.sql', 132, 'multiproyecto', NULL, '( objeto_negocio_proyecto = \'%%\' )', 'objeto_negocio, nombre', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_negocio_regla', 'pgsql_a53_clase_negocio.sql', 133, 'multiproyecto', NULL, '( objeto_negocio_proyecto = \'%%\' )', 'objeto_negocio, nombre', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio_regla', 'objeto_negocio_proyecto', 1, 'varchar(15)   	NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio_regla', 'objeto_negocio', 2, 'int4          	NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_negocio_regla', 'nombre', 3, 'varchar(80)    	NOT NULL,');
@@ -1603,12 +1614,12 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a66_clase_esquema.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a66_clase_esquema.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
 ------  'apex_objeto_esquema'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_esquema', 'pgsql_a66_clase_esquema.sql', 133, 'multiproyecto', NULL, '( objeto_esquema_proyecto = \'%%\' )', 'objeto_esquema', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_esquema', 'pgsql_a66_clase_esquema.sql', 134, 'multiproyecto', NULL, '( objeto_esquema_proyecto = \'%%\' )', 'objeto_esquema', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_esquema', 'objeto_esquema_proyecto', 1, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_esquema', 'objeto_esquema', 2, 'int4			NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_esquema', 'parser', 3, 'varchar(30)  	NULL, -- NEATO, DOT, ETC');
@@ -1626,12 +1637,12 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a67_clase_html.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a67_clase_html.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
 ------  'apex_objeto_html'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_html', 'pgsql_a67_clase_html.sql', 134, 'multiproyecto', NULL, '( objeto_html_proyecto = \'%%\' )', 'objeto_html', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_html', 'pgsql_a67_clase_html.sql', 135, 'multiproyecto', NULL, '( objeto_html_proyecto = \'%%\' )', 'objeto_html', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_html', 'objeto_html_proyecto', 1, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_html', 'objeto_html', 2, 'int4			NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_html', 'html', 3, 'varchar			NULL,');
@@ -1639,12 +1650,12 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a99_perfiles.sql -  FECHA: April 25, 2005, 3:55 am
+--####    ARCHIVO:  pgsql_a99_perfiles.sql -  FECHA: June 8, 2005, 7:42 pm
 --####
 --######################################################################################
 
 ------  'apex_dim_restric_soltipo'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_dim_restric_soltipo', 'pgsql_a99_perfiles.sql', 135, 'proyecto', NULL, NULL, 'solicitud_tipo, usuario_perfil_datos', NULL, NULL, '', '1.0', '0', NULL);
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_dim_restric_soltipo', 'pgsql_a99_perfiles.sql', 136, 'proyecto', NULL, NULL, 'solicitud_tipo, usuario_perfil_datos', NULL, NULL, '', '1.0', '0', NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_dim_restric_soltipo', 'solicitud_tipo', 1, 'varchar(20)    NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_dim_restric_soltipo', 'usuario_perfil_datos_proyecto', 2, 'varchar(15)    NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_dim_restric_soltipo', 'usuario_perfil_datos', 3, 'varchar(20)    NOT NULL,');

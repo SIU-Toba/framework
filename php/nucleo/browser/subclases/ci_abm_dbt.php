@@ -1,11 +1,15 @@
 <?
-require_once("nucleo/browser/clases/objeto_ci_me_tab.php");
+require_once("nucleo/browser/clases/objeto_ci.php");
+require_once("interface_abm.php");
 
-class ci_abm_dbt extends objeto_ci_me_tab
+class ci_abm_dbt extends objeto_ci implements interface_abm
 {
 /*
-	FALTA: 
-			- Hay que implementar un caso que use filtros
+	PROBLEMAS NO RESUELTOS
+	----------------------
+
+		- Hay que llamar a una ventana de eventos del ancestro
+		- Hay que hacer que dibuje solo su layout, que no sea necesario crear las etapas en el administrador
 */
 
 	protected $clave;
@@ -23,7 +27,7 @@ class ci_abm_dbt extends objeto_ci_me_tab
 	function destruir()
 	{
 		//ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
-		ei_arbol($this->db_tablas->info());
+		//ei_arbol($this->db_tablas->info());
 		parent::destruir();	
 	}
 
@@ -37,7 +41,8 @@ class ci_abm_dbt extends objeto_ci_me_tab
 
 	function evt__limpieza_memoria()
 	{
-		$this->db_tablas->descargar();
+		$this->reset();
+		parent::evt__limpieza_memoria();		
 	}
 
 	/**
@@ -67,7 +72,7 @@ class ci_abm_dbt extends objeto_ci_me_tab
 			$dep['tipo_ei'] = "ei_formulario";
 		}
 		$dep['elemento'] = $e[1];
-		$dep['cantidad_registros'] = $this->db_tablas->obtener_cardinalidad($dep['elemento']);
+		$dep['cantidad_registros'] = $this->db_tablas->elemento($dep['elemento'])->get_tope_registros();
 		return $dep;
 	}
 	
@@ -83,24 +88,23 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		{	
 			if($dep['cantidad_registros'] == 1){
 				//El elemento maneja un registro
-				$this->db_tablas->acc_elemento($dep['elemento'],"set",$parametros);	
+				$this->db_tablas->elemento($dep['elemento'])->set($parametros);	
 			}else{
 				if($evento=="alta"){
-					$this->db_tablas->acc_elemento($dep['elemento'],"ins",$parametros);	
+					$this->db_tablas->elemento($dep['elemento'])->agregar_registro( $parametros );	
 				}elseif($evento=="cancelar"){
 					$this->deseleccionar_cuadro();
 					unset($this->selecciones[$dep['elemento']]);
 				}else{
 					//Hay una seleccion?
 					if(isset($this->selecciones[$dep['elemento']])){
+						$registro_seleccionado = $this->selecciones[$dep['elemento']];
 						if($evento=="modificacion"){
 							//Modifico el registro
-							$reg['registro'] = $parametros;
-							$reg['id'] = $this->selecciones[$dep['elemento']];
-							$this->db_tablas->acc_elemento($dep['elemento'],"upd", $reg);
+							$this->db_tablas->elemento($dep['elemento'])->modificar_registro($parametros, $registro_seleccionado);
 						}elseif($evento=="baja"){
 							//Elimino el registro
-							$this->db_tablas->acc_elemento($dep['elemento'], "del", $this->selecciones[$dep['elemento']]);	
+							$this->db_tablas->elemento($dep['elemento'])->eliminar_registro( $registro_seleccionado );	
 						}
 						unset($this->selecciones[$dep['elemento']]);
 						$this->deseleccionar_cuadro();
@@ -121,21 +125,20 @@ class ci_abm_dbt extends objeto_ci_me_tab
 			if (isset($this->selecciones[$dep['elemento']])) {
 				$this->dependencias[$id]->seleccionar($this->selecciones[$dep['elemento']]);
 			}
-			return $this->db_tablas->acc_elemento($dep['elemento'],"get");	
+			return $this->db_tablas->elemento($dep['elemento'])->obtener_registros();	
 		}
 		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
 		{
 			if($dep['cantidad_registros'] == 1){
-				return $this->db_tablas->acc_elemento($dep['elemento'],"get");	
+				return $this->db_tablas->elemento($dep['elemento'])->get();	
 			}else{
 				//El elemento maneja N registros, si se selecciono uno lo devuelvo
 				if(isset($this->selecciones[$dep['elemento']])){
-					return $this->db_tablas->acc_elemento($dep['elemento'],"get_x",$this->selecciones[$dep['elemento']]);
+					return $this->db_tablas->elemento($dep['elemento'])->obtener_registro($this->selecciones[$dep['elemento']]);
 				}
 			}
 		}	
 	}
-	
 	
 	function deseleccionar_cuadro()
 	{
@@ -154,9 +157,15 @@ class ci_abm_dbt extends objeto_ci_me_tab
 		$this->db_tablas->cargar($clave);
 	}
 	
+	function reset()
+	{
+		unset($this->clave);
+		$this->db_tablas->reset();
+	}
+	
 	function guardar()
 	{
-		$this->db_tablas->sincronizar_db();
+		$this->db_tablas->sincronizar();
 	}
 	
 	function eliminar()

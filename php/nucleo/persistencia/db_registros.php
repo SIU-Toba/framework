@@ -1,12 +1,40 @@
 <?
-/*
-	Esta clase mantiene un conjunto de registros.
-	No tiene implementada la carga ni la sincronizacion.
-	Solo provee los metodos para alterar el conjunto de registros y mantenerlos en la sesion.
-*/
 define("apex_buffer_separador","%");
+
 class db_registros
 {
+/*
+	PROBLEMAS NO RESUELTOS
+	----------------------
+	
+		- Que la subclase provea un metodo de carga por id, tipo db_tablas. (abm y problema mt duplic.)
+	
+		- Cambiar la nota del log	
+	
+		- Usar el tope de registros para forzar la interface
+
+		- Reveer el nombre de las interfaces
+			( Alguna relacionadas a eventos reportados a controladores )
+
+		- Ver la forma de persistir el buffer en la memoria
+			( la actual podria denominarse "autonoma", pero deberia haber una que
+				funcione con el metodo "mantener_estado_sesion" para relacionarse de una
+				manera mas fluida con el esquema de CIs
+
+		- La funcion cosmetica tambien tiene que trabajar con DAOS
+
+		- validaciones
+			- El control de valores duplicados no es multicolumna, cuando las claves son compuestas no sirve
+			- El control de nulos deberia desactivarse si la columna es una secuencia
+
+		- Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
+
+		- Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
+
+		- Es necesario implementar UPDATES que solo incluyan columnas afectadas??
+
+ 		- Hay una alternativa para las claves internas de cada registro?
+*/
 	protected $log;						//Referencia al LOGGER
 	protected $solicitud;				//Referencia a la solicitud
 	protected $definicion;				//Definicion que indica la construccion del BUFFER
@@ -23,17 +51,25 @@ class db_registros
 	protected $proximo_registro = 0;	//Posicion del proximo registro en el array de datos
 	protected $control_sincro_db;		//Se activa el control de sincronizacion con la DB?
 	protected $posicion_finalizador;	//Posicion del objeto en el array de finalizacion
-	protected $sql;						//Array de SQLs ejecutados
-	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
+	protected $msg_error_sincro = 		"Error interno. Los datos no fueron guardados.";
+	protected $baja_logica = false;		// Baja logica. (delete = update de una columna a un valor)
+	protected $baja_logica_columna;		// Columna de la baja logica
+	protected $baja_logica_valor;		// Valor de la baja logica
+	protected $controlador = null;		// referencia al db_tablas del cual forma parte, si se aplica
+	protected $utilizar_transaccion;	// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $memoria_autonoma;		// Se persiste en la sesion por si mismo
+	protected $tope_registros;			// Cantidad de registros permitida. 0 = n registros
 
-
-	function __construct($id, $definicion, $fuente)
+	function __construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
 	{
 		$this->solicitud = toba::get_solicitud();
 		$this->log = toba::get_logger();		
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
+		$this->tope_registros = $tope_registros;
+		$this->utilizar_transaccion = $utilizar_transaccion;
+		$this->memoria_autonoma = $memoria_autonoma;
 		//la interaccion con la interface?
 		if(isset($this->definicion["control_sincro"])){
 			if($this->definicion["control_sincro"]=="1"){	
@@ -53,8 +89,7 @@ class db_registros
 		if( $this->existe_instanciacion_previa() ){
 			//Si vengo del menu, no lo recargo.
 			if( $this->solicitud->hilo->verificar_acceso_menu() ){
-				$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - ".
-									" Acceso desde el MENU: no se recargan los datos");
+				$this->log("Acceso desde el MENU: no se recargan los datos");
 			}else{
 				$this->cargar_datos_sesion();
 			}
@@ -82,7 +117,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function info($mostrar_datos=false)
+	public function info($mostrar_datos=false)
 	//Informacion del buffer
 	{
 		$estado['control']=$this->control;
@@ -93,11 +128,41 @@ class db_registros
 		return $estado;
 	}
 
+	public function registrar_controlador($controlador)
+	{
+		$this->controlador = $controlador;
+	}
+
+	public function set_baja_logica($columna, $valor)
+	{
+		$this->baja_logica = true;
+		$this->baja_logica_columna = $columna;
+		$this->baja_logica_valor = $valor;	
+	}
+
+	public function get_tope_registros()
+	{
+		return $this->tope_registros;	
+	}
+
+	protected function log($txt)
+	{
+		$this->log->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------  Manejo GENERAL de DATOS  ---------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
+
+	function cargar_datos_clave($id)
+	{
+		/*
+			Esta funcion deberia mapear un ID expresado como un array
+			y transformarlo en un WHERE
+		*/		
+	}
 
 	function cargar_datos($where=null, $from=null)
 	//Cargar datos en el BUFFER (DB o SESION). 
@@ -107,7 +172,6 @@ class db_registros
 				throw new excepcion_toba("El WHERE debe ser un array");
 			}	
 		}
-		
 		if( $this->existe_instanciacion_previa() ){
 			//Es posible que el usuario haya cambiado de WHERE
 			if( !($this->controlar_conservacion_where($where)) ){
@@ -125,23 +189,23 @@ class db_registros
 	{
 		if(!isset($this->where)){
 			if(isset($where)){
-				$this->log->debug("BUFFER " . get_class($this). " [{$this->identificador}] - Control WHERE: No existe");
+				$this->log("Control WHERE: No existe");
 				return false;	
 			}
 		}else{
 			for($a=0;$a<count($this->where);$a++){
 				if(!isset($where[$a])){
-					$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: nuevo mas corto"); 
+					$this->log("Control WHERE: nuevo mas corto"); 
 					return false;
 				}else{
 					if($where[$a] !== $this->where[$a]){
-						$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: nuevo distinto"); 
+						$this->log("Control WHERE: nuevo distinto"); 
 						return false;	
 					}
 				}
 			}
 		}
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Control WHERE: OK!");
+		$this->log("Control WHERE: OK!");
 		return true;
 	}
 	//-------------------------------------------------------------------------------
@@ -150,7 +214,7 @@ class db_registros
 	//Cargo los BUFFERS con datos de la DB
 	//ATENCION: Los datos solo se cargan si se le pasa como parametro un WHERE
 	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Cargar de DB");
+		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
@@ -225,7 +289,7 @@ class db_registros
 	function cargar_datos_sesion()
 	//Cargo el BUFFER desde la sesion
 	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - Cargar de SESION");
+		$this->log("Cargar de SESION");
 		$datos = $this->solicitud->hilo->recuperar_dato_global($this->identificador);
 		//Traera un problema el pasaje por referencia
 		$this->datos = $datos['datos'];
@@ -258,7 +322,7 @@ class db_registros
 
 	function resetear()
 	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - RESET!!");
+		$this->log("RESET!!");
 		if($this->existe_instanciacion_previa()){
 			$this->solicitud->hilo->eliminar_dato_global($this->identificador);
 		}
@@ -272,11 +336,11 @@ class db_registros
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//-------  Primitivas de ACCESO y MODIFICACION de REGISTROS   -------------------
+	//-------  Primitivas de ACCESO a REGISTROS   -----------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_registros($condiciones=null)
+	public function obtener_registros($condiciones=null)
 	{
 		$datos = null;
 		foreach(array_keys($this->control) as $registro){
@@ -289,7 +353,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 	
-	function obtener_registro($id)
+	public function obtener_registro($id)
 	{
 		if(isset($this->datos[$id])){
 			return  $this->datos[$id];
@@ -299,8 +363,31 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
+	public function obtener_registro_valor($id, $columna)
+	{
+		if(isset($this->datos[$id][$columna])){
+			return  $this->datos[$id][$columna];
+		}else{
+			return null;
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	public function cantidad_registros()
+	{
+		return count($this->datos);
+	}
+
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-------  Primitivas de MODIFICACION de REGISTROS   ----------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
 	function agregar_registro($registro)
 	{
+		$this->evt__agregar_registro($registro);
+		$this->notificar_controlador("ins", $registro);
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_buffer_clave])) unset($registro[apex_buffer_clave]);
 		$this->validar_registro($registro);
@@ -320,6 +407,8 @@ class db_registros
 			$this->log->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
+		$this->evt__modificar_registro($registro, $id);
+		$this->notificar_controlador("upd", $registro, $id);
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_buffer_clave])) unset($registro[apex_buffer_clave]);
 		$this->validar_registro($registro, $id);
@@ -345,6 +434,8 @@ class db_registros
 			$this->log->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
+		$this->evt__eliminar_registro($id);
+		$this->notificar_controlador("del", $id);
 		if($this->control[$id]['estado']=="i"){
 			unset($this->control[$id]);
 			unset($this->datos[$id]);
@@ -357,6 +448,7 @@ class db_registros
 	function eliminar_registros()
 	//Elimina todos los registros
 	{
+		$this->evt__eliminar_registros();
 		foreach(array_keys($this->control) as $registro)
 		{
 			if($this->control[$registro]['estado']=="i"){
@@ -377,40 +469,6 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function obtener_registro_valor($id, $columna)
-	{
-		if(isset($this->datos[$id][$columna])){
-			return  $this->datos[$id][$columna];
-		}else{
-			return null;
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function cantidad_registros()
-	{
-		return count($this->datos);
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//-------  Primitivas de ACCESO y MODIFICACION de COLUMNAS   --------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function obtener_columna_valores($columna)
-	//Obtiene una columna
-	{
-		$datos_columna = null;
-		foreach(array_keys($this->control) as $registro){
-			if($this->control[$registro]['estado']!="d"){
-				$datos_columna[$registro] = $this->datos[$registro][$columna];
-			}
-		}
-		return $datos_columna;
-	}
-	//-------------------------------------------------------------------------------
-
 	function establecer_valor_columna($columna, $valor)
 	//Setea todas las columnas con un valor
 	{
@@ -419,6 +477,54 @@ class db_registros
 				$this->datos[$registro][$columna] = $valor;
 			}
 		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//Simplificacion para los buffers que manejan un solo registro. solo manejan el registro "0"
+		
+	function set($registro)
+	{
+		if($this->cantidad_registros() === 0){
+			$this->agregar_registro($registro);
+		}else{
+			$this->modificar_registro($registro, 0);
+		}
+	}
+	
+	function get()
+	{
+		return $this->obtener_registro(0);
+	}
+
+	//-------------------------------------------------------------------------------
+	//------  EVENTOS disparados durante la ejecucion normal la ejecucion  ----------
+	//-------------------------------------------------------------------------------
+	/*
+		Este es el lugar para meter validaciones, 
+		si algo sale mal se deberia disparar una excepcion	
+	*/
+
+	function notificar_controlador($evento, $param1=null, $param2=null)
+	{
+		if(isset($this->controlador)){
+			$this->controlador->registrar_evento($this->id, $evento, $param1, $param2);
+		}
+	}
+
+	function evt__agregar_registro($registro)
+	{
+	}
+	
+	function evt__modificar_registro($registro, $id)
+	{
+	}
+	
+	function evt__eliminar_registro($id)
+	{	
+	}
+
+	function evt__eliminar_registros()
+	{	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -444,8 +550,7 @@ class db_registros
 			//en las secuencias...
 			if( !((in_array($campo, $this->campos_manipulables)) ||
 				(in_array($campo,$this->campos_secuencia)) ) ){
-					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
-							" El registro tiene una estructura incorrecta: El campo '$campo' ". 
+					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
 							" se encuentra definido y no existe en el registro.");
 					//$this->log->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento posee una estructura incorrecta");
@@ -469,8 +574,7 @@ class db_registros
 			if(is_array($valores_columna)){
 				//Controlo que el nuevo valor no exista
 				if(in_array($registro[$campo], $valores_columna)){
-					$this->log->error("BUFFER " . get_class($this). " [{$this->identificador}] - ".
-									" El valor '".$registro[$campo] ."' crea un duplicado " .
+					$this->log("El valor '".$registro[$campo] ."' crea un duplicado " .
 									" en el campo '" . $campo . "', definido como no_duplicado");
 					//$this->log->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento ya se encuentra definido");
@@ -552,16 +656,127 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function sincronizar_db()
-	//Sincronizo los datos contra la base
+	function sincronizar()
+	//Sincroniza las modificaciones del BUFFER con la DB
 	{
-		//********* HIJOS!
+		$this->log("Inicio SINCRONIZACION!"); 
+		$this->controlar_alteracion_db();
+		// No puedo ejecutar los cambios en cualguier orden
+		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
+		$inserts = array(); $deletes = array();	$updates = array();
+		foreach(array_keys($this->control) as $registro){
+			switch($this->control[$registro]['estado']){
+				case "d":
+					$deletes[] = $registro;
+					break;
+				case "i":
+					$inserts[] = $registro;
+					break;
+				case "u":
+					$updates[] = $registro;
+					break;
+			}
+		}
+		try{
+			if($this->utilizar_transaccion) abrir_transaccion();
+			$this->evt__pre_sincronizacion();
+			//-- DELETE --
+			foreach($deletes as $registro){
+				$this->evt__pre_delete($registro);
+				$this->eliminar($registro);
+				$this->evt__post_delete($registro);
+			}
+			//-- INSERT --
+			foreach($inserts as $registro){
+				$this->evt__pre_insert($registro);
+				$this->insertar($registro);
+				$this->evt__post_insert($registro);
+			}
+			//-- UPDATE --
+			foreach($updates as $registro){
+				$this->evt__pre_update($registro);
+				$this->modificar($registro);
+				$this->evt__post_update($registro);
+			}
+			$this->evt__post_sincronizacion();
+			if($this->utilizar_transaccion) cerrar_transaccion();
+			//Actualizo la estructura interna que mantiene el estado de los registros
+			$this->actualizar_estructuras_control();
+		}catch(excepcion_toba $e){
+			if($this->utilizar_transaccion) abortar_transaccion();
+			$this->log->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}
 	}
-	//-------------------------------------------------------------------------------
 
-	function obtener_sql_ejecutado()
+	function insertar($id_registro)
 	{
-		return $this->sql;	
+	}
+	
+	function modificar($id_registro)
+	{
+	}
+
+	function eliminar($id_registro)
+	{
+	}
+
+	function actualizar_estructuras_control()
+	{
+		foreach(array_keys($this->control) as $registro){
+			switch($this->control[$registro]['estado']){
+				case "d":	//DELETE
+					unset($this->control[$registro]);
+					unset($this->datos[$registro]);
+					break;
+				case "i":	//INSERT
+					$this->control[$registro]['estado'] = "db";
+					break;
+				case "u":	//UPDATE
+					$this->control[$registro]['estado'] = "db";
+					break;
+			}
+		}
+	}
+	
+	//-------------------------------------------------------------------------------
+	//------  EVENTOS de SINCRONIZACION  --------------------------------------------
+	//-------------------------------------------------------------------------------
+	/*
+		Este es el lugar para meter validaciones, 
+		si algo sale mal se deberia disparar una excepcion	
+	*/
+
+	function evt__pre_sincronizacion()
+	{
+	}
+	
+	function evt__post_sincronizacion()
+	{
+	}
+
+	function evt__pre_insert($id)
+	{
+	}
+	
+	function evt__post_insert($id)
+	{
+	}
+	
+	function evt__pre_update($id)
+	{
+	}
+	
+	function evt__post_update($id)
+	{
+	}
+
+	function evt__pre_delete($id)
+	{
+	}
+	
+	function evt__post_delete($id)
+	{
 	}
 
 	//-------------------------------------------------------------------------------
@@ -569,6 +784,14 @@ class db_registros
 	//------------  Control de SINCRONISMO  -----------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
+
+	function controlar_alteracion_db()
+	//Controla que los datos
+	{
+		/*
+			Esto hay que pensarlo bien
+		*/
+	}
 
 	function controlar_alteracion_db_array()
 	//Soporte al manejo transaccional OPTIMISTA

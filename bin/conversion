@@ -1,0 +1,39 @@
+#!/bin/bash
+
+. i_config
+
+	out=conversion.sql
+	cd $d_bin/entrada/conversion/01
+
+if [ "$1" = "01" ]
+then
+
+	#-- 1 -- Armo el script de conversion
+
+	echo "BEGIN TRANSACTION;" > $out
+	echo >> $out
+	echo "----------------------------------------------------------------------------------" >> $out
+	echo "-- 1) Agregar pantallas a los CI comunes                                          " >> $out
+	echo "----------------------------------------------------------------------------------" >> $out
+	echo >> $out
+	psql -v ON_ERROR_STOP= -f generar_inserts.sql -U $db_usuario -h $db_host -p $db_puerto -d $2 | grep "INSERT" >> $out
+	echo >> $out
+	cat actualizacion.sql >> $out
+	echo >> $out
+	echo "COMMIT TRANSACTION;" >> $out
+
+	#-- 2 -- Ejecuto el script de conversion
+
+	echo "Se ha generado el archivo $out, escriba 'conversion run $2' para ejecutarlo"	
+	
+elif [ "$1" = "run" ]
+then	
+	
+	psql -v ON_ERROR_STOP= -f $out -U $db_usuario -h $db_host -p $db_puerto -d $2
+
+
+elif [ "$1" = "mostrar" ]
+then	
+	
+	cat $out
+fi

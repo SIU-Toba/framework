@@ -186,6 +186,7 @@ require("3ros/adodb340/adodb.inc.php");
 		if(!$status){
 			throw new excepcion_toba ("No es posible ABRIR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
 		}
+		toba::get_logger()->debug("************ ABRIR transaccion ****************"); 
 	}
 	
 	function abortar_transaccion($fuente=null)
@@ -203,6 +204,7 @@ require("3ros/adodb340/adodb.inc.php");
 		if(!$status){
 			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
 		}
+		toba::get_logger()->debug("************ ABORTAR transaccion ****************"); 
 	}
 	
 	function cerrar_transaccion($fuente=null)
@@ -220,6 +222,7 @@ require("3ros/adodb340/adodb.inc.php");
 		if(!$status){
 			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
 		}
+		toba::get_logger()->debug("************ CERRAR transaccion ****************"); 
 	}
 
 //-------------------------------------------------------------------------------------

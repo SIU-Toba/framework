@@ -10,11 +10,5 @@ interface ei
     //public function validar_estado();			//Valida su estado interno
 }
 
-interface ci
-{
-	public function inicializar();
-	public function procesar_eventos();
-	public function registrar_evento($id, $evento, $parametros);
-}
 
 ?>

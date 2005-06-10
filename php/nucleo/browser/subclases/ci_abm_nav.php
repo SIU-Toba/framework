@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/browser/clases/objeto_ci_me.php");
+require_once("nucleo/browser/clases/objeto_ci.php");
 
-class ci_abm_nav extends objeto_ci_me
+class ci_abm_nav extends objeto_ci
 {
 	protected $filtro;
 	protected $seleccion;

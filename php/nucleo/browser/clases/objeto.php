@@ -155,7 +155,10 @@ class objeto
 									oi.objeto as				objeto_existe_ayuda,
 									o.parametro_a as			parametro_a,
 									o.parametro_b as			parametro_b,
-									o.parametro_c as			parametro_c
+									o.parametro_c as			parametro_c,
+									o.parametro_d as			parametro_d,
+									o.parametro_e as			parametro_e,
+									o.parametro_f as			parametro_f
 							FROM	apex_objeto o
 										LEFT OUTER JOIN apex_objeto_info oi 
 											ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto),
@@ -687,6 +690,7 @@ class objeto
 		}
 		//-[1]- El indice es valido?
 		if(!isset($this->indice_dependencias[$identificador])){
+			throw new excepcion_toba("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
 			$this->observar("error","OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].",false,true,true);
 			$this->obtener_info_dependencias();
 			return -1;

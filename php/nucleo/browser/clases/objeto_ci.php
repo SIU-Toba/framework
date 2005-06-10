@@ -6,11 +6,64 @@ require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 define("apex_ci_evento","evt");
 define("apex_ci_separador","__");
 /*
-	- Forma en que se genera el HTML (algo anda mal con los consumos JS)
-	- En general la seccion de generar la interface esta menos depurada que la de procesar eventos
+	COSAS sin RESOLVER
+	------------------
+
+		- Hay que dar un servicio para manejar el estado de EIs que tengan una relacion de 1 a 1 con las variables de la sesion
+		- Tiene que pensarse un mecanismo estandar de comunicacion en una jerarquia de CIs
+		- Entrada de JS para inhabilitar TABS desde el cliente
+		
+	REFACTORIZACION
+	---------------
+	
+		- EDITOR de CIs:
+		----------------
+
+			* Definicion BASICA
+
+				- Si tiene mas de una pantalla, se puede definir un metodo standard de navegacion
+					( tabs verticales, tabs horizontales, wizard )
+
+			* Definicion de PANTALLAS
+			
+				- ei 1) Lista de pantallas: ei_cuadro / ei_formulario_ml (editor basico)
+				- ei 2) Editor especifico de la pantalla: ei_formulario
+				- ei 3) Asociador de dependencias a pantallas. ei_formulario_ml
+					- Tiene una cascada por: tipo de clase -> objeto
+					- Si la SUBLACE del CI tiene una definicion de dependencias:
+						- Ya hay una fila por cada IDS esperado
+						- El padre de la cascada esta seteado de acuerdo a los tipos permitidos
+					- Una pantalla podria tener algo distinto, por ejemplo un mensaje
+
+			* Definicion especifica segun SUBCLASE de CI
+
+				 Una subclase del CI tiene que poder agregar un editor propio al tradicional
+				( 	puede agregarse un TAB, con un CI que sea que posea el editor de la sublclase 
+						-> una clase deberia poder usar un editor comun, pero señalar que CI especifico va a agregar )
+					NECESIDAD: 
+						uno un CI que sabe relacionarse con un DB_R define cual es el mismo,
+						Un ABM define su DB_T, el DAO que le provee el cuadro, etc.
+
+			* Administrador de codigo PHP
+
+				* Vista simplificada de los que esta pasando a nivel EVENTOS (parsear y resumir)
+				* Autogenerador de codigo, que cree automaticamente la clase con los eventos necesarios para los EI.
+					Tendria que tener en la base la lista de eventos que tengo por EI.
+
+			* Declaracion de eventos del CI?
+			* Definicion de dependencias inexitentes que las cree?
+
+		- IMPLETENCION
+		--------------
+			
+			- La ETAPA pasan a ser una PANTALLA
+			- A nivel interno un CI tiene 1 o mas pantallas.
+				(las llamadas sin "__etapa", son un shortcut a una definida por defecto)
+
 */
 class objeto_ci extends objeto
 {
+	// General
 	protected $cn=null;								// Controlador de negocio asociado
 	protected $nombre_formulario;					// privado | string | Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
@@ -24,7 +77,12 @@ class objeto_ci extends objeto
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
 	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
 	protected $objeto_js;							// Nombre del objeto js asociado
-	
+	// Pantalla
+	protected $indice_etapas;
+	protected $etapa_gi;			// Etapa a utilizar para generar la interface
+	// Navegacion
+	protected $lista_tabs;
+
 	function __construct($id)
 	{
 		parent::objeto($id);
@@ -34,6 +92,15 @@ class objeto_ci extends objeto
 		$this->cargar_info_dependencias();
 		$this->posicion_botonera = "abajo"; //arriba, abajo, ambos
 		$this->objeto_js = "objeto_ci_{$id[1]}";		
+		//-- PANTALLAS
+		//Indice de etapas
+		for($a = 0; $a<count($this->info_ci_me_etapa);$a++){
+			$this->indice_etapas[ $this->info_ci_me_etapa[$a]["posicion"] ] = $a;
+		}
+		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
+		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
+		$this->set_etapa_gi( $this->get_etapa_inicial() );
+
 	}
 
 	function destruir()
@@ -42,6 +109,12 @@ class objeto_ci extends objeto
 			//Guardo INFO sobre la interface generada
 			$this->memoria['dependencias_interface'] = $this->dependencias_gi;
 			$this->memoria['eventos'] = array_keys($this->eventos);
+			//Etapa utilizada para crear la interface
+			$this->memoria['etapa_gi'] = $this->etapa_gi;
+		}
+		//Memorizo la lista de tabs enviados
+		if( isset($this->lista_tabs) ){
+			$this->memoria['tabs'] = array_keys($this->lista_tabs);
 		}
 		//Matenimiento en memoria de los CIs que no se instancian
 		//Armo la lista GLOBAL de dependencias de tipo CI
@@ -65,19 +138,31 @@ class objeto_ci extends objeto
 	function obtener_definicion_db()
 	{
 		$sql = parent::obtener_definicion_db();
-		$sql["info_ci"]["sql"] = "SELECT		incremental	as	incremental,
-												ev_procesar				as	ev_procesar,
-												ev_procesar_etiq		as	ev_procesar_etiq,
-												ev_cancelar				as	ev_cancelar,
-												ev_cancelar_etiq		as	ev_cancelar_etiq,
-												objetos					as	objetos,
-												ancho					as	ancho,			
-												alto					as	alto
-										FROM	apex_objeto_mt_me
-										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
-										AND	objeto_mt_me='".$this->id[1]."';";
+		//-- Info BASICA --------------
+		$sql["info_ci"]["sql"] = "		SELECT		ev_procesar_etiq		as	ev_procesar_etiq,
+													ev_cancelar_etiq		as	ev_cancelar_etiq,
+													objetos					as	objetos,
+													ancho					as	ancho,			
+													alto					as	alto,
+													tipo_navegacion			as	tipo_navegacion
+											FROM	apex_objeto_mt_me
+											WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
+											AND	objeto_mt_me='".$this->id[1]."';";
 		$sql["info_ci"]["tipo"]="1";
 		$sql["info_ci"]["estricto"]="1";
+		//-- PANTALLAS --------------
+		$sql["info_ci_me_etapa"]["sql"] = "SELECT	posicion			  	as posicion,
+													etiqueta			  	as etiqueta,
+													descripcion			  	as descripcion,
+													objetos				  	as objetos,
+													ev_procesar		   		as ev_procesar,
+													ev_cancelar				as ev_cancelar
+										FROM	apex_objeto_mt_me_etapa
+										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
+										AND	objeto_mt_me = '".$this->id[1]."'
+										ORDER	BY	posicion;";
+		$sql["info_ci_me_etapa"]["tipo"]="x";
+		$sql["info_ci_me_etapa"]["estricto"]="1";
 		return $sql;
 	}
 
@@ -95,11 +180,6 @@ class objeto_ci extends objeto
 	function evt__inicializar()
 	//Antes que todo
 	{
-	}
-
-	function asignar_controlador_negocio( $controlador )
-	{
-		$this->cn = $controlador;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -125,17 +205,17 @@ class objeto_ci extends objeto
 			$this->cargar_dependencia($dep);		
 			//-[1]- La inicializo
 			$parametro['id'] = $dep;
-			//-- Si es un CI --
-			if($this->dependencias[$dep] instanceof objeto_ci ){
-				//Guardo la clave de memoria de la dependencia para no perder su memoria cuando no se instancie
-				$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
-				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
-				$this->dependencias[$dep]->inicializar($parametro);
-				$this->dependencias[$dep]->agregar_observador($this);
-			}else{
-				$this->dependencias[$dep]->inicializar($parametro);
-				$this->dependencias[$dep]->agregar_observador($this);
-			}
+			$this->inicializar_dependencia($dep, $parametro);
+		}
+	}
+
+	function inicializar_dependencia($dep, $parametro)
+	{
+		$this->dependencias[$dep]->inicializar($parametro);
+		$this->dependencias[$dep]->agregar_observador($this);
+		if($this->dependencias[$dep] instanceof objeto_ci ){
+			//Guardo la clave de memoria de la dependencia para no perder su memoria cuando no se instancie
+			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
 		}
 	}
 
@@ -173,53 +253,97 @@ class objeto_ci extends objeto
 	}
 
 	//--------------------------------------------------------
-	//---------  Relacion con el CN --------------------------
+	//--  MANEJO de PANTALLAS  -------------------------------
 	//--------------------------------------------------------
 
-	//--  ENTRADA  ----
-
-	function disparar_obtencion_datos_cn( $modo=null )
+	function get_etapa_inicial()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
-		$this->evt__obtener_datos_cn( $modo );
-		$deps = $this->get_dependencias_ci();
-		foreach( $deps as $dep ){
-			if( !isset($this->dependencias[$dep]) ){
-				$this->inicializar_dependencias(array($dep));
+		return $this->info_ci_me_etapa[0]["posicion"];
+	}
+
+	function get_etapa_actual()
+	/*
+		ATENCION, este metodo hay que revisarlo
+	*/
+	{
+		if (isset($_POST[$this->submit])) {
+			$submit = $_POST[$this->submit];
+			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
+		}
+		else
+			$tab = false;
+		
+		if($tab !== false) { //Pidio cambiar de tab
+			if(in_array($tab, $this->memoria['tabs'])){
+				//El usuario selecciono un tab
+				return $tab;
+			}else{
+				$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
+				//Error, voy a etapa inicial
+				return $this->get_etapa_inicial();
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'");
-			$this->dependencias[$dep]->disparar_obtencion_datos_cn( $modo );
+		}elseif(isset( $this->memoria['etapa_gi'] )){
+			//El post fue generado por otro componente
+			return $this->memoria['etapa_gi'];
+		}else{
+			//Etapa inicial
+			return $this->get_etapa_inicial();
 		}
 	}
 
-	function evt__obtener_datos_cn( $modo=null )
+	function set_etapa_gi($etapa)
 	{
-		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
-		$this->log->warning($this->get_txt() . "[ evt__obtener_datos_cn ] No fue redefinido!");
+		$this->etapa_gi	= $etapa;
 	}
 
-	//--  SALIDA  ----
-
-	function disparar_entrega_datos_cn()
+	function get_etapa_gi()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]");
-		//DUDA: Validar aca es redundante?
-		$this->evt__validar_datos();
-		$this->evt__entregar_datos_cn();
-		$deps = $this->get_dependencias_ci();
-		foreach( $deps as $dep ){
-			if( !isset($this->dependencias[$dep]) ){
-				$this->inicializar_dependencias(array($dep));
-			}
-			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'");
-			$this->dependencias[$dep]->disparar_entrega_datos_cn();
+		return $this->etapa_gi;	
+	}
+
+	function definir_etapa_gi_pre_eventos()
+	//Define la etapa de Generacion de Interface del request ANTERIOR
+	{
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_pre_eventos ]");
+		if( isset($this->memoria['etapa_gi']) ){
+			// Habia una etapa anterior
+			$this->set_etapa_gi( $this->memoria['etapa_gi'] );
+			// 
+		}else{
+			// Request inicial
+			// Esto no deberia pasar nunca, porque en el request inicial no se disparan los eventos
+			// porque el CI no se encuentra entre las dependencias previas
+			$this->set_etapa_gi( $this->get_etapa_inicial() );
 		}
+		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}");
 	}
+	//-------------------------------------------------------------------------------
 
-	function evt__entregar_datos_cn()
+	function definir_etapa_gi_post_eventos()
+	//Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL
+	//ATENCION: esto se esta ejecutando despues de los eventos propios... 
+	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
-		//Esta funcion hay que redefinirla en un hijo para ENTREGAR datos
-		$this->log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
+		// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
+		// Esto no lo tengo que subir al metodo anterior?
+		if( isset($this->memoria['etapa_gi']) ){
+			// Habia una etapa anterior
+			$evento_salida = apex_ci_evento . apex_ci_separador . "salida" . apex_ci_separador . $this->memoria['etapa_gi'];
+			//Evento SALIDA
+			if(method_exists($this, $evento_salida)){
+				$this->$evento_salida();
+			}
+		}	
+		// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+		$etapa_actual = $this->get_etapa_actual();
+		$evento_entrada = apex_ci_evento . apex_ci_separador . "entrada" . apex_ci_separador . $etapa_actual;
+		if(method_exists($this, $evento_entrada)){
+			$this->$evento_entrada();
+		}
+		// -[ 3 ]-  Seteo la etapa PROPUESTA
+		$this->set_etapa_gi($etapa_actual);
+		$this->log->debug( $this->get_txt() . "etapa_gi_POST_eventos: {$this->etapa_gi}");
 	}
 
 	//-------------------------------------------------------------------------------
@@ -249,6 +373,10 @@ class objeto_ci extends objeto
 	//  Esto es fuerte porque hace que cuando se detecta el primer error, no se sigan procesando las cosas
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]");
+
+		//PANTALLA
+		$this->definir_etapa_gi_pre_eventos();
+
 		$this->controlar_eventos_propios();
 		//El evento CANCELAR tiene que controlarse antes
 		if( $this->evento_actual == "cancelar"){
@@ -263,6 +391,9 @@ class objeto_ci extends objeto
 			$this->disparar_evento_propio();
 			$this->evt__post_recuperar_interaccion();
 		}
+
+		//PANTALLA
+		$this->definir_etapa_gi_post_eventos();
 	}
 
 	function controlar_eventos_propios()
@@ -328,25 +459,12 @@ class objeto_ci extends objeto
 
 	//---- EVENTOS BASICOS ------
 
-	function evt__cancelar()
-	{
-		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
-		$this->cn->cancelar();
-		$this->disparar_limpieza_memoria();
-	}
-
-	function evt__procesar()
-	{
-		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
-		$this->disparar_entrega_datos_cn();
-		$this->cn->procesar();
-		$this->disparar_limpieza_memoria();
-	}
-	
 	function evt__post_recuperar_interaccion()
 	//Despues de recuperar la interaccion con el usuario
 	{
+		/*
 		$this->evt__validar_datos();
+		*/
 	}
 
 	function evt__validar_datos()
@@ -399,11 +517,15 @@ class objeto_ci extends objeto
 
 	function get_lista_ei()
 	{
-		if( trim($this->info_ci["objetos"]) != "" )
-		{
-			//Se escribio una lista de objetos a cargar
-			$dependencias = explode(",",$this->info_ci["objetos"]);
-			return array_map("trim", $dependencias);
+		//Existe una definicion especifica para esta etapa?
+		$metodo_especifico = "get_lista_ei" . apex_ci_separador . $this->etapa_gi;
+		if(method_exists($this, $metodo_especifico)){
+			return $this->$metodo_especifico();	
+		}		
+		//Busco la definicion standard para la etapa
+		$objetos = trim( $this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["objetos"] );
+		if( $objetos != "" ){
+			return array_map("trim", explode(",", $objetos ) );
 		}else{
 			return array();
 		}
@@ -493,7 +615,6 @@ class objeto_ci extends objeto
 
 	function get_info_post_proceso()
 	{
-		return "";		
 	}
 	//-------------------------------------------------------------------------------
 
@@ -523,7 +644,7 @@ class objeto_ci extends objeto
 		}
 		//--> Cuerpo del CI
 		echo "<tr><td  class='ci-cuerpo' height='100%'>";
-		$this->obtener_html_contenido();
+		$this->obtener_html_pantalla();
 		echo "</td></tr>\n";
 
 		//--> Botonera
@@ -540,6 +661,7 @@ class objeto_ci extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
+
 	function generar_botonera()
 	{
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
@@ -566,29 +688,83 @@ class objeto_ci extends objeto
 	{
 		$eventos = array();
 		//Evento PROCESAR
-		if($this->info_ci['ev_procesar']) {
-			$eventos += $this->get_boton_procesar($this->info_ci['ev_procesar_etiq']);
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar']) {
+			$eventos += eventos::ci_procesar($this->info_ci['ev_procesar_etiq']);
 		}
 		//Evento CANCELAR
-		if($this->info_ci['ev_cancelar']) {
-			$eventos += $this->get_boton_cancelar($this->info_ci['ev_cancelar_etiq']);		
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])	{
+			$eventos += eventos::ci_cancelar($this->info_ci['ev_cancelar_etiq']);
+		}
+		// Eventos de TABS
+		if(	$this->info_ci['tipo_navegacion'] == "tab_h" 
+			|| $this->info_ci['tipo_navegacion'] == "tab_v" )
+		{
+			foreach ($this->get_lista_tabs() as $id => $tab) {
+				$eventos += eventos::ci_cambiar_tab($id);
+			}
 		}
 		return $eventos;
 	}
+	//-------------------------------------------------------------------------------
 
-	function get_boton_cancelar($etiqueta=null)
+	private function obtener_html_pantalla()
 	{
-		return eventos::ci_cancelar($etiqueta);
-	}
-
-	function get_boton_procesar($etiqueta=null)
-	{
-		return eventos::ci_procesar($etiqueta);
+		switch($this->info_ci['tipo_navegacion'])
+		{
+			case "tab_h":									//*** TABs horizontales
+				echo "<table class='tabla-0' width='100%'>\n";
+				//Tabs
+				echo "<tr><td class='celda-vacia'>";
+				$this->obtener_tabs_horizontales();
+				echo "</td></tr>\n";
+				//Interface de la etapa correspondiente
+				echo "<tr><td class='tabs-contenedor' height='100%'>";
+				$this->obtener_html_pantalla_contenido();
+				echo "</td></tr>\n";
+				echo "</table>\n";
+				break;				
+			case "tab_v": 									//*** TABs verticales
+				$this->obtener_html_pantalla_contenido();
+				break;				
+			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
+				$this->obtener_html_pantalla_contenido();
+				break;				
+			default:										//*** Sin mecanismo de navegacion
+				$this->obtener_html_pantalla_contenido();
+		}
 	}
 	//-------------------------------------------------------------------------------
 
-	protected function obtener_html_contenido()
+	protected function obtener_html_pantalla_contenido()
 	//Genera el HTML de las dependencias
+	{
+		/*
+			Descripcion de la PANTALLA
+		*/
+		if(trim($this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"])!=""){
+			$descripcion = 	$this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"];
+			$imagen = recurso::imagen_apl("info_chico.gif",true);
+			echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
+			echo "<hr>\n";
+		}
+		/*
+			Controla la existencia de una funcion que redeclare
+			la generacion de una PANTALLA puntual
+		*/
+		$interface_especifica = "obtener_html_contenido". apex_ci_separador . $this->etapa_gi;
+		if(method_exists($this, $interface_especifica)){
+			$this->$interface_especifica();
+		}else{
+			/*
+				Solicita el HTML de todas las dependencias que forman parte
+				de la generacion de la interface
+			*/
+			$this->obtener_html_dependencias();
+		}
+	}
+	//-------------------------------------------------------------------------------
+	
+	function obtener_html_dependencias()
 	{
 		$existe_previo = 0;
 		foreach($this->dependencias_gi as $dep)
@@ -596,11 +772,61 @@ class objeto_ci extends objeto
 			if($existe_previo){ //Separador
 				echo "<hr>\n";
 			}
-			//echo "<tr><td class='celda-vacia'>";
 			$this->dependencias[$dep]->obtener_html();	
-			//echo "</td></tr>\n";
 			$existe_previo = 1;
 		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//---- Mecanismos de NAVEGACION
+	//-------------------------------------------------------------------------------
+
+	function obtener_tabs_horizontales()
+	{
+		$this->lista_tabs = $this->get_lista_tabs();
+		echo "<table width='100%' class='tabla-0'>\n";
+		echo "<tr>";
+		//echo "<td width='1'  class='tabs-solapa-hueco'>".gif_nulo(6,1)."</td>";
+		foreach( $this->lista_tabs as $id => $tab )
+		{
+			$tip = $tab["tip"];
+			$clase = 'tabs-boton';
+			$tab_order = 0;
+			$acceso = tecla_acceso( $tab["etiqueta"] );
+			$html = $acceso[0]; //Falta concatenar la imagen
+			if(isset($tab['imagen'])) $html = $tab['imagen'] . "&nbsp;&nbsp;" . $html;
+			$tecla = $acceso[1];
+			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
+			if( $this->etapa_gi == $id ){
+				//TAB actual
+				echo "<td class='tabs-solapa-sel'>";
+				echo form::button_html( "actual", $html, '', $tab_order, null, '', 'button', '', "tabs-boton-sel");
+				echo "</td>\n";
+				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
+			}else{
+				echo "<td class='tabs-solapa'>";
+				echo form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+				echo "</td>\n";
+				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
+			}
+		}
+		echo "<td width='90%'  class='tabs-solapa-hueco'>".gif_nulo()."</td>\n";
+		echo "</tr>";
+		echo "</table>\n";
+	}
+	//-------------------------------------------------------------------------------
+
+	function get_lista_tabs()
+	{
+		$tab = array();
+		for($a = 0; $a<count($this->info_ci_me_etapa);$a++)
+		{
+			$id = $this->info_ci_me_etapa[$a]["posicion"];
+			$tab[$id]['etiqueta'] = $this->info_ci_me_etapa[$a]["etiqueta"];
+			$tab[$id]['tip'] = $this->info_ci_me_etapa[$a]["descripcion"];
+			//$tab[$id]['imagen'] = recurso::imagen_apl('doc.gif',true);
+		}
+		return $tab;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -656,44 +882,4 @@ class objeto_ci extends objeto
 		}
 	}
 }
-
-/*
-		//-[0]- Si el CN tiene 
-		if( $this->cn->get_estado_proceso() ){
-			if(trim($this->info_ci['post_procesar'])!="")
-			{
-				$metodo = $this->info_ci['post_procesar'];
-				if( defined("apex_pa_ci_mensaje") )
-				{
-					if( apex_pa_ci_mensaje == "pantalla")
-					{
-						//Pantalla de POST procesamiento. Si las cosas no salieron ok, no se llega aca
-						echo "<br>\n";
-						echo "<div align='center'>\n";
-						$ancho = isset($this->info_ci["ancho"]) ? $this->info_ci["ancho"] : "500";
-						$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-						echo "<table width='$ancho' $alto class='objeto-base'>\n";
-						echo "<tr><td>";
-						$this->barra_superior();
-						echo "</td></tr>\n";
-						echo "<tr><td class='ci-cuerpo' height='100%'>";
-						$metodo = $this->info_ci['post_procesar'];
-						echo ei_mensaje( $this->cn->$metodo() );
-						echo "</td></tr>\n";
-						echo "<tr><td class='abm-zona-botones'>";
-						echo form::button("boton", "Volver a comenzar" ,"onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true)."';\"","abm-input");
-						echo "</td></tr>\n";		
-						echo "</table>\n";
-						echo "</div>\n";		
-						return;					
-					}
-					elseif(apex_pa_ci_mensaje == "mensaje")
-					{
-						$this->informar_msg( $this->cn->$metodo() );
-					}
-				}
-			}
-		}
-*/
-
 ?>

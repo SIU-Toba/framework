@@ -1,17 +1,54 @@
 <?php
 require_once("db_registros.php");
 /*
-	1)
-		1 -> 1		: todo BIEN
-		1 -> 0		: todo MAL
-		
-	2)
-		Cuando las dos tablas tienen el mismo nombre falla
-*/
+	PROBLEMAS NO RESUELTOS
+	----------------------
 
+	1) Colision de columnas
+	
+		Que pasa si dos tablas tienen una columna con el mismo nombre (ej: descripcion)
+		En el caso de las claves, esto pasa siempre, e impacta directamente en la generacion del WHERE
+
+	2) Cardinalidad variable entre tablas
+	
+		No siempre la relacion entre las tablas de un MT tienen una cardinalidad de 1->1
+		Existen casos en que la misma es 1->0
+			
+			PRIMITIVAS necesarias
+			
+				A: Clasificacion de tablas esclavas en comprometidas y no comprometidas:
+					- Escaneo:
+						a) Si alguna tabla tiene un no_nulo, puedo usarlo para ver si se agregaron cosas en ella
+						b) recorro todos los campos de la tabla, si ninguno esta seteado, no esta comprometida
+					- Genero una estructura global que lean los procesos subsiguientes
+		
+			PROCESOS
+
+			- CREAR registros:  Que tablas hay que llenar?
+				Dos opciones validas segun la necesidad
+					a) Uso a [A] y ejecuto INSERTS en las tablas comprometidas
+					b) Inserto en todas las tablas siempre
+				
+			- MODIFICAR registros:
+				- Cuando me cargo ejecuto [A], (Necesito una carga diferenciada!!!)
+					- UPDATE: decido entre update o insert
+					- DELETE: decido entre un delete o nada
+					
+			- Carga: 
+				el query que carga al MT tiene que construirse con OUTER JOINS
+
+			- La actualizacion del estado del buffer posterior a la sincronizacion es diferencial!
+
+	3) Acceso separado a cada tabla
+	
+		Tiene que existir un conjunto de metodos que permitan acceder a la porcion de una tabla, dentro del buffer
+		Esto sirve para el caso de las interfaces que necesitan manejar a las dos cosas por separado
+
+	4) Como se implementa un MT con baja logica?
+*/
 class db_registros_mt extends db_registros
 {
-	function __construct($id, $definicion, $fuente)
+	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
 		foreach($definicion['tabla'] as $tabla)
 		{
@@ -19,7 +56,7 @@ class db_registros_mt extends db_registros
 				$definicion[$tabla]['columna'] = array();
 			}			
 		}
-		parent::__construct($id, $definicion, $fuente);
+		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -68,69 +105,10 @@ class db_registros_mt extends db_registros
 		}
 	}
 
-
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------  SINCRONIZACION con la DB   -----------------------------------
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function sincronizar_db()
-	//Sincroniza las modificaciones del BUFFER con la DB
-	//ATENCION, mejorar control de errores
-	{
-		$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - SINCRONIZACION!"); 
-		if($this->control_sincro_db){
-			$ok = $this->controlar_alteracion_db();
-		}
-		//-[0]- Planifico
-		$deletes=array(); $inserts=array(); $updates=array();
-		foreach(array_keys($this->control) as $registro){
-			switch($this->control[$registro]['estado']){
-				case "d":
-					$deletes[] = $registro;
-					break;
-				case "i":
-					$inserts[] = $registro;
-					break;
-				case "u":
-					$updates[] = $registro;
-					break;
-			}
-		}
-		//-[1]- Ejecuto
-		//-- INSERT --
-		foreach($inserts as $registro){
-			$this->insertar($registro);
-		}
-		//-- DELETE --
-		foreach($deletes as $registro){
-			$this->eliminar($registro);
-		}
-		//-- UPDATE --
-		foreach($updates as $registro){
-			$this->modificar($registro);
-		}
-
-		//-[2]- Actualizo los METADATOS del BUFFER
-		//-- INSERT --
-		foreach($inserts as $registro){
-			//Actualizo el valor del array de control
-			$this->control[$registro]['estado'] = "db";
-		}
-		//-- DELETE --
-		foreach($deletes as $registro){
-			unset($this->control[$registro]);
-			unset($this->datos[$registro]);
-		}
-		//-- UPDATE --
-		foreach($updates as $registro){
-			$this->control[$registro]['estado'] = "db";
-		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//----------   SINCRONIZADORES  -------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function insertar($id_registro)
@@ -165,7 +143,7 @@ class db_registros_mt extends db_registros
 			$sql = "INSERT INTO " . $tabla .
 					" ( " . implode(", ",$campos) . " ) ".
 					" VALUES (" . implode(" ,", $valores) . ");";
-			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
+			$this->log("registro: $id_registro - tabla: $t - " . $sql); 
 			ejecutar_sql($sql, $this->fuente);
 			//REcupero el valor de las secuencias
 			if(isset($this->definicion[$tabla]['secuencia']))
@@ -212,8 +190,8 @@ class db_registros_mt extends db_registros
 				$sql = "UPDATE $tabla SET ".
 						implode(", ",$set) .
 						" WHERE " . implode(" AND ",$sql_where) .";";
-				$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
 				//Ejecuto el SQL
+				$this->log("registro: $id_registro - tabla: $t - " . $sql); 
 				ejecutar_sql($sql, $this->fuente);
 			}
 		}
@@ -223,6 +201,9 @@ class db_registros_mt extends db_registros
 	function eliminar($id_registro)
 	//Elimina los registros.
 	{
+		if($this->baja_logica){
+			throw new excepcion_toba("No esta implementada la baja logica en MT");	
+		}
 		//Primero las secundarias, despues las principales
 		for( $t= count($this->definicion['tabla']) - 1; $t >= 0 ;$t--)
 		{
@@ -234,7 +215,7 @@ class db_registros_mt extends db_registros
 				$sql_where[] =	"( $clave = '{$registro[$clave]}')";
 			}
 			$sql = "DELETE FROM $tabla WHERE " . implode(" AND ",$sql_where) .";";
-			$this->log->debug("BUFFER  " . get_class($this). " [{$this->identificador}] - " . $sql); 
+			$this->log("registro: $id_registro - tabla: $t - " . $sql); 
 			ejecutar_sql($sql, $this->fuente);
 		}
 	}
@@ -287,7 +268,5 @@ class db_registros_mt extends db_registros
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
-
-
 }
 ?>
