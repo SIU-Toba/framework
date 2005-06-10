@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/browser/clases/objeto_ci_me_tab.php");
+require_once("nucleo/browser/clases/objeto_ci.php");
 
-class ci extends objeto_ci_me_tab 
+class ci extends objeto_ci
 { 
 	protected $datos_ml;
 	protected $datos_formulario;
