@@ -90,7 +90,7 @@ else
 	 	item=$1
 	fi
 	shift
-	php.exe -f $pa_archivo $instancia $pa_usuario $pa_proyecto $item $*			
+	php -f $pa_archivo $instancia $pa_usuario $pa_proyecto $item $*			
 	controlar "Ejecucion del ITEM" $*
  	
 fi
