@@ -27,10 +27,10 @@ class mensaje
 				AND proyecto = 'toba';";
 		$datos = consultar_fuente($sql);
 		if(!is_array($datos)){
-			$mensaje = "El mensaje solicitado no EXISTE";
+			throw new excepcion_toba("El mensaje $indice no EXISTE.");
 		}else{
 			if(trim($datos[0]['m'])==""){
-				$mensaje = "El mensaje solicitado EXISTE, pero se encuentra VACIO";	
+				throw new excepcion_toba("El mensaje $indice, existe pero está vacío.");
 			}else{
 				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
 			}
