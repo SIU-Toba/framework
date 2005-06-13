@@ -430,7 +430,7 @@ class ef_combo_dao extends ef_combo
 		if(isset($this->no_seteado)){
 			$this->valores[apex_ef_no_seteado] = $this->no_seteado;
 		}
-		//ei_arbol($valores);
+		//ei_arbol($valores, $this->id);
 		//-[ 1 ]- Armo los valores...
 		if( $this->cantidad_claves > 1){
 			//**** CC!
@@ -438,6 +438,11 @@ class ef_combo_dao extends ef_combo
 			for($a=0;$a<count($valores);$a++){
 				//Determino la clave
 				//Este algoritmo podria ser mejor...
+				/*
+					ATENCION, este es un punto en el que puede aparecer un error de tiempo de
+					definicion... hay que pensar un esquema en el cual puedan ponerse controles
+					sin afectar el tiempo de ejecucion cuando el sistema este en produccion...	
+				*/
 				$id = "";
 				for($c=0;$c<count($this->clave);$c++){
 					$id .= $valores[$a][$this->clave[$c]] . apex_ef_separador;
@@ -461,11 +466,12 @@ class ef_combo_dao extends ef_combo
 	{
 		if( $this->cantidad_claves > 1){
 		//**** CC!
-	   		if(isset($estado)){								
+	   		if(isset($estado) && ( count($estado) > 0 ))
+	   		{								
 					//El estado tiene el formato adecuado?
 					if(count($estado) <> $this->cantidad_claves){
-						echo ei_mensaje("ERROR: la cantidad de claves no coinciden");
-						return false;
+						throw new excepcion_toba("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
+										" se esperaban {$this->cantidad_claves} claves, pero se utilizaron: ". count($estado) . ".");
 					}
 					//Si el estado es nulo tengo que manejarlo de una forma especial
 					$valores = "";

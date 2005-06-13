@@ -1,6 +1,9 @@
 <?
 require_once("nucleo/browser/clases/objeto_ci.php");
+/*
+	Se necesitan distintos comportamientos de filtrado
 
+*/
 class ci_abm_dbr extends objeto_ci
 {
 	protected $filtro;
@@ -57,6 +60,7 @@ class ci_abm_dbr extends objeto_ci
 	function evt__filtro__carga()
 	{
 		if(isset($this->filtro)){
+			//ei_arbol($this->filtro);
 			return $this->filtro;
 		}
 	}
