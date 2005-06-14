@@ -9,11 +9,13 @@
 
 <script language="JavaScript1.4" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../basico.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../cola_mensajes.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../utilidades/datadumper.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/mascaras.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_checkbox.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_editable.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../clases/objeto.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ci.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario_ml.js"></script>
@@ -112,7 +114,7 @@ function test_validador_nuevo() {
 
 //---Procesamiento
 function test_totalizacion_estandar() {
-	formu.agregar_procesamiento('mi_moneda');
+	formu.agregar_total('mi_moneda');
 	formu.iniciar();
 	this.assertEquals(0, formu.procesar('mi_moneda'));
 	
@@ -129,6 +131,7 @@ function test_procesamiento_extendido() {
 	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor(1301.12);
 	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(0.52);	
 
+	var resultado = -1; //Variable donde se va a almacenar el resultado del procesamiento
 	//Extension del procesamiento del ef mi_check
 	formu.evt__mi_check__procesar = function () {
 		var total = 0;	
@@ -146,7 +149,7 @@ function test_procesamiento_extendido() {
 		}
 		total = Math.round(total * 100)/100;
 		this.cambiar_total('mi_moneda', total);
-		return total;
+		resultado = total;
 	}	
 	
 	//Se extiende el procesamiento de la moneda para que re-procesarse si se cambia algun importe
@@ -158,22 +161,22 @@ function test_procesamiento_extendido() {
 	//Inicialmente la suma debe ser 0
 	formu.ef('mi_check').ir_a_fila(0).chequear(false);
 	formu.ef('mi_check').ir_a_fila(1).chequear(false);
-	this.assertEquals(0, formu.procesar('mi_check'));
+	this.assertEquals(0, resultado);
 
 	//Chequea solamente el primero la suma debe ser 1301.12
 	formu.ef('mi_check').ir_a_fila(0).chequear(true);
 	formu.ef('mi_check').ir_a_fila(1).chequear(false);	
-	this.assertEquals(1301.12, formu.procesar('mi_check'));
+	this.assertEquals(1301.12, resultado);
 	
 	//Cheque solamente el segundo la suma debe ser 0.52
 	formu.ef('mi_check').ir_a_fila(0).chequear(false);
 	formu.ef('mi_check').ir_a_fila(1).chequear(true);
-	this.assertEquals(0.52, formu.procesar('mi_check'));
+	this.assertEquals(0.52, resultado);
 	
 	//Chequea los dos la suma debe ser 1301.64
 	formu.ef('mi_check').ir_a_fila(0).chequear(true);
 	formu.ef('mi_check').ir_a_fila(1).chequear(true);
-	this.assertEquals(1301.64, formu.procesar('mi_check'));
+	this.assertEquals(1301.64, resultado);
 	
 	formu.refrescar_procesamientos(); //Solmente Estetico	
 	

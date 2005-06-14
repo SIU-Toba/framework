@@ -9,10 +9,12 @@
 
 <script language="JavaScript1.4" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../basico.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../cola_mensajes.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_checkbox.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_editable.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../interface/ef_combo.js"></script>
+<script language="JavaScript1.4" type="text/javascript" src="../clases/objeto.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ci.js"></script>
 <script language="JavaScript1.4" type="text/javascript" src="../clases/objeto_ei_formulario.js"></script>
 <SCRIPT  language='JavaScript1.4' type='text/javascript'>
@@ -36,6 +38,7 @@ var clase_ef_ok = function(test) {
 	this.no_resaltar = function() {};
 	this.resaltar = function() {};	
 	this.validar = function() { return true; }
+	this.error = function() {};
 }
 
 //Mock de un ef que siempre valida mal
@@ -51,6 +54,7 @@ var clase_ef_error = function(test) {
 	this.no_resaltar = function() {};
 	this.resaltar = function() {};	
 	this.validar = function() { return false; }
+	this.error = function() {};
 }
 
 //--------------------------------------------------------------------
@@ -68,7 +72,7 @@ function test_validacion_y_tabs() {
 	formu._silencioso = true;	
 	formu.agregar_ef( new clase_ef_ok(this), 'el_ok');
 	formu.iniciar();
-	formu.set_evento(new evento_ei("modificacion", true, ""));
+	formu.set_evento(new evento_ei("modificacion", true, ""), false);
 	this.assertTrue(formu.validar());
 	
 	//2do caso un ef correcto y uno erroneo
@@ -77,7 +81,7 @@ function test_validacion_y_tabs() {
 	formu.agregar_ef( new clase_ef_ok(this), 'el_ok');
 	formu.agregar_ef( new clase_ef_error(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei("modificacion", true, ""));
+	formu.set_evento(new evento_ei("modificacion", true, ""), false);
 	this.assertFalse(formu.validar());
 }
 
@@ -88,7 +92,7 @@ function test_eventos_siempre_modifica_con_error() {
 	var formu = new objeto_ei_formulario('form', new Array(9, 50), 'ei_form1148');
 	formu._silencioso = true;
 	formu.agregar_ef( new clase_ef_error(this), 'el_ef');
-	formu.set_evento_defecto(new evento_ei("modificacion", true, ""));
+	formu.set_evento_defecto(new evento_ei("modificacion", true, ""), false);
 	formu.iniciar();
 	this.assertFalse(formu.puede_submit());
 }
@@ -100,7 +104,7 @@ function test_eventos_siempre_modifica_sin_error() {
 	llamado_submit = false;
 	formu.agregar_ef( new clase_ef_ok(this), 'el_ef');
 	formu.iniciar();
-	formu.set_evento(new evento_ei("modificacion", true, ""));
+	formu.set_evento(new evento_ei("modificacion", true, ""), false);
 	this.assertTrue(formu.puede_submit());
 }
 
@@ -119,7 +123,7 @@ function test_eventos_limpiar_ef_sin_error() {
 	formu._silencioso = true;
 	formu.agregar_ef( new clase_ef_ok(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei('limpiar', false, 'hola'))
+	formu.set_evento(new evento_ei('limpiar', false, 'hola'), false)
 	this.assertTrue(formu.puede_submit());
 }
 
@@ -129,7 +133,7 @@ function test_eventos_eliminar_ef_con_error() {
 	formu._silencioso = true;
 	formu.agregar_ef( new clase_ef_error(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei('baja', false, 'hola'))
+	formu.set_evento(new evento_ei('baja', false, 'hola'), false)
 	this.assertTrue(formu.puede_submit());	
 }
 
@@ -140,7 +144,7 @@ function test_eventos_modificar_ef_con_error() {
 	formu._silencioso = true;
 	formu.agregar_ef( new clase_ef_error(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	this.assertFalse(formu.puede_submit());
 }
 
@@ -151,7 +155,7 @@ function test_eventos_modificar_ef_sin_error() {
 	formu._silencioso = true;
 	formu.agregar_ef( new clase_ef_ok(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	this.assertTrue(formu.puede_submit());
 }
 
@@ -161,7 +165,7 @@ function test_eventos_pide_confirmacion() {
 	var formu = new objeto_ei_formulario('form', new Array(8, 50), 'ei_form1148');
 	formu.agregar_ef( new clase_ef_ok(this), 'el_error');
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'PRESIONE OK!!'))
+	formu.set_evento(new evento_ei('modificar', true, 'PRESIONE OK!!'), false)
 	this.assertTrue(formu.puede_submit());
 }
 
@@ -174,7 +178,7 @@ function test_validador_nuevo() {
 	formu.agregar_ef(new ef_checkbox('formulario1148checkbox', 'Checkbox', false), 'el_check');
 	formu.agregar_ef(new ef_editable('formulario1148editable', 'Editable', true, ''), 'el_editable');	//Editable obligatorio
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	
 	formu.ef('el_editable').cambiar_valor('');	//Lo pone vacio 
 	this.assertFalse(formu.validar());
@@ -204,7 +208,7 @@ function test_puede_submit_nuevo() {
 		}
 	}
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	formu.puede_submit();
 	this.assertTrue(llamado);
 }
@@ -224,7 +228,7 @@ function test_validacion_en_agregar() {
 	}
 	
 	formu.iniciar();	
-	formu.set_evento(new evento_ei('alta', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('alta', true, 'confirmacion'), false)
 	formu.ef('el_editable').cambiar_valor('87');	//Lo pone impar
 	this.assertFalse(formu.puede_submit());
 
@@ -256,7 +260,7 @@ function test_procesar_submit() {
 	}
 	formu.evt__el_combo__procesar = function (es_inicial) {
 		if (! es_inicial) {
-			this.set_evento(new evento_ei('modificar', true, 'confirmacion'));
+			this.set_evento(new evento_ei('modificar', true, 'confirmacion'), false);
 			this.submit();
 		}
 	}
@@ -281,7 +285,7 @@ function test_procesar_ocultar() {
 			this.ef('el_editable').desactivar();
 	}
 	formu.iniciar();
-	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'))
+	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	
 	this.assertFalse(formu.ef('el_editable').activo());
 	formu.ef('el_check').chequear();	
@@ -333,7 +337,7 @@ function test_procesar_ocultar() {
 	</tr> 
 </table>
 	<input name='ei_form1148' id='ei_form1148' type='hidden' value='' > 
-	<button type='submit' name='ei_form1148_agr' id='ei_form1148_agr' value='' class='abm-input' tabindex='0' accesskey='A' title=" [ALT A]"  onclick='formu.set_evento(new evento_ei("alta", true, ""))'><u>A</u>gregar</button>	
+	<button type='submit' name='ei_form1148_agr' id='ei_form1148_agr' value='' class='abm-input' tabindex='0' accesskey='A' title=" [ALT A]"  onclick='formu.set_evento(new evento_ei("alta", true, ""), false)'><u>A</u>gregar</button>	
 </form>
 </body>
 </html>
