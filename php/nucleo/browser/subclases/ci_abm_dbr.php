@@ -37,6 +37,8 @@ class ci_abm_dbr extends objeto_ci
 	function evt__limpieza_memoria()
 	{
 		parent::evt__limpieza_memoria(array("filtro"));
+		$dbr = $this->obtener_dbr();
+		$dbr->resetear();
 	}
 /*
 	function evt__post_cargar_datos_depedencias()
@@ -113,6 +115,7 @@ class ci_abm_dbr extends objeto_ci
 		$dbr = $this->obtener_dbr();
 		$dbr->set($registro);
 		$dbr->sincronizar();
+		$dbr->resetear();
 	}
 	
 	function evt__formulario__modificacion($registro)
@@ -120,6 +123,7 @@ class ci_abm_dbr extends objeto_ci
 		$dbr = $this->obtener_dbr();
 		$dbr->set($registro);
 		$dbr->sincronizar();
+		$dbr->resetear();
 	}
 
 	function evt__formulario__baja()
@@ -127,6 +131,7 @@ class ci_abm_dbr extends objeto_ci
 		$dbr = $this->obtener_dbr();
 		$dbr->eliminar_registro(0);
 		$dbr->sincronizar();
+		$dbr->resetear();
 	}
 	//--------------------------------------------------------------
 }
