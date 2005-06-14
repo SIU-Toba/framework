@@ -7,33 +7,29 @@ class db_registros
 	PROBLEMAS NO RESUELTOS
 	----------------------
 	
-		- Que la subclase provea un metodo de carga por id, tipo db_tablas. (abm y problema mt duplic.)
-	
-		- Cambiar la nota del log	
-	
-		- Usar el tope de registros para forzar la interface
+		1) Usar el tope de registros para forzar la interface
 
-		- Reveer el nombre de las interfaces
+		2) Reveer el nombre de las interfaces
 			( Alguna relacionadas a eventos reportados a controladores )
 
-		- Ver la forma de persistir el buffer en la memoria
+		3) Ver la forma de persistir el buffer en la memoria
 			( la actual podria denominarse "autonoma", pero deberia haber una que
 				funcione con el metodo "mantener_estado_sesion" para relacionarse de una
 				manera mas fluida con el esquema de CIs
 
-		- La funcion cosmetica tambien tiene que trabajar con DAOS
+		4) La funcion cosmetica tambien tiene que trabajar con DAOS
 
-		- validaciones
+		5) validaciones
 			- El control de valores duplicados no es multicolumna, cuando las claves son compuestas no sirve
 			- El control de nulos deberia desactivarse si la columna es una secuencia
 
-		- Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
+		6) Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
 
-		- Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
+		7) Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
 
-		- Es necesario implementar UPDATES que solo incluyan columnas afectadas??
+		8) Es necesario implementar UPDATES que solo incluyan columnas afectadas??
 
- 		- Hay una alternativa para las claves internas de cada registro?
+ 		9) Hay una alternativa para las claves internas de cada registro?
 */
 	protected $log;						//Referencia al LOGGER
 	protected $solicitud;				//Referencia a la solicitud
@@ -231,13 +227,7 @@ class db_registros
 				$this->datos_orig = $this->datos;
 			}
 		}
-		//Genero la estructura de control
-		$this->control = array();
-		for($a=0;$a<count($this->datos);$a++){
-			$this->control[$a]['estado']="db";
-			//Creo la columna que referencia a la posicion del registro en el BUFFER
-			$this->datos[$a][apex_buffer_clave]=$a;
-		}
+		$this->generar_estructura_control();
 		//Le saco los caracteres de escape a los valores traidos de la DB
 		for($a=0;$a<count($this->datos);$a++){
 			foreach(array_keys($this->datos[$a]) as $columna){
@@ -248,6 +238,43 @@ class db_registros
 		$this->proximo_registro = count($this->datos);	
 		//Lleno las columnas basadas en valores EXTERNOS
 		$this->actualizar_campos_externos();
+	}
+	//-------------------------------------------------------------------------------
+	//-- Uso de la estructura de control
+	//-------------------------------------------------------------------------------
+
+	function generar_estructura_control()
+	{
+		//Genero la estructura de control
+		$this->control = array();
+		for($a=0;$a<count($this->datos);$a++){
+			$this->control[$a]['estado']="db";
+			//Creo la columna que referencia a la posicion del registro en el BUFFER
+			$this->datos[$a][apex_buffer_clave]=$a;
+		}
+	}
+	
+	function actualizar_estructura_control($registro, $estado)
+	{
+		$this->control[$registro] = $estado;
+	}
+
+	function sincronizar_estructura_control()
+	{
+		foreach(array_keys($this->control) as $registro){
+			switch($this->control[$registro]['estado']){
+				case "d":	//DELETE
+					unset($this->control[$registro]);
+					unset($this->datos[$registro]);
+					break;
+				case "i":	//INSERT
+					$this->control[$registro]['estado'] = "db";
+					break;
+				case "u":	//UPDATE
+					$this->control[$registro]['estado'] = "db";
+					break;
+			}
+		}
 	}
 	//-------------------------------------------------------------------------------
 
@@ -393,7 +420,7 @@ class db_registros
 		$this->validar_registro($registro);
 		$registro[apex_buffer_clave]=$this->proximo_registro;
 		$this->datos[$this->proximo_registro] = $registro;
-		$this->control[$this->proximo_registro]['estado'] = "i";
+		$this->actualizar_estructura_control($this->proximo_registro,"i");
 		//Actualizo los valores externos
 		$this->actualizar_campos_externos_registro( $this->proximo_registro, "agregar");
 		$this->proximo_registro++;
@@ -416,7 +443,7 @@ class db_registros
 			$this->datos[$id] = $registro;
 			$this->datos[$id][apex_buffer_clave] = $id; 
 		}else{
-			$this->control[$id]['estado']="u";
+			$this->actualizar_estructura_control($id,"u");
 			foreach(array_keys($registro) as $clave){
 				$this->datos[$id][$clave] = $registro[$clave];
 			}
@@ -440,7 +467,7 @@ class db_registros
 			unset($this->control[$id]);
 			unset($this->datos[$id]);
 		}else{
-			$this->control[$id]['estado']="d";
+			$this->actualizar_estructura_control($id,"d");
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -455,7 +482,7 @@ class db_registros
 				unset($this->control[$registro]);
 				unset($this->datos[$registro]);
 			}else{
-				$this->control[$registro]['estado']="d";
+				$this->actualizar_estructura_control($registro,"d");
 			}
 		}
 	}
@@ -701,7 +728,7 @@ class db_registros
 			$this->evt__post_sincronizacion();
 			if($this->utilizar_transaccion) cerrar_transaccion();
 			//Actualizo la estructura interna que mantiene el estado de los registros
-			$this->actualizar_estructuras_control();
+			$this->sincronizar_estructura_control();
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion();
 			$this->log->debug($e);
@@ -721,24 +748,6 @@ class db_registros
 	{
 	}
 
-	function actualizar_estructuras_control()
-	{
-		foreach(array_keys($this->control) as $registro){
-			switch($this->control[$registro]['estado']){
-				case "d":	//DELETE
-					unset($this->control[$registro]);
-					unset($this->datos[$registro]);
-					break;
-				case "i":	//INSERT
-					$this->control[$registro]['estado'] = "db";
-					break;
-				case "u":	//UPDATE
-					$this->control[$registro]['estado'] = "db";
-					break;
-			}
-		}
-	}
-	
 	//-------------------------------------------------------------------------------
 	//------  EVENTOS de SINCRONIZACION  --------------------------------------------
 	//-------------------------------------------------------------------------------

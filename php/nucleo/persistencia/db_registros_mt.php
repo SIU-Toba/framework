@@ -48,6 +48,8 @@ require_once("db_registros.php");
 */
 class db_registros_mt extends db_registros
 {
+	protected $control_tablas;			//Informacion agregada sobre la distribucion de registros por tablas
+	
 	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
 		foreach($definicion['tabla'] as $tabla)
@@ -67,6 +69,10 @@ class db_registros_mt extends db_registros
 
 		for($t=0;$t<count($this->definicion['tabla']);$t++)
 		{
+			//Es necesario escribir un ALIAS para cada tabla utilizada
+			if(!isset($this->definicion['tabla_alias'][$t])){
+				throw new exception_toba("Atencion, es necesario definir un alias para la tabla " . $this->definicion['tabla'][$t] );	
+			}
 			$tabla = $this->definicion['tabla'][$t];
 			//---- CAMPOS: (columnas + claves) ----
 			$this->campos = array_merge(	$this->campos, 
@@ -103,6 +109,55 @@ class db_registros_mt extends db_registros
 			//Solo hay que trabajar sobre los manipulables
 			$this->definicion['externa'] = array();
 		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Las estructuras de control del db_registros MT son ligeramente distintas
+	//-------------------------------------------------------------------------------
+
+	function identificar_tablas_comprometidas($registro)
+	{
+		/*
+			Devuelve un array con las tablas comprometidas en un registro puntual	
+			El array debe ser asociativo, con el nombre de la tabla y un 1 o un 0 indicando la utilizacion
+			Se busca que al menos una columna o clave que no sea compartida por la tabla principal este seteada
+		*/
+		for($t=1;$t<count($this->definicion['tabla']);$t++)
+		{
+			
+		}		
+	}
+
+	function generar_estructura_control()
+	{
+		parent::generar_estructura_control();
+		//$this->identificar_tablas_comprometidas($registro);
+	}
+	
+	function actualizar_estructura_control($registro, $estado)
+	{
+		parent::actualizar_estructura_control($registro, $estado);
+	}
+
+	function sincronizar_estructura_control()
+	{
+/*
+		foreach(array_keys($this->control) as $registro){
+			switch($this->control[$registro]['estado']){
+				case "d":	//DELETE
+					unset($this->control[$registro]);
+					unset($this->datos[$registro]);
+					break;
+				case "i":	//INSERT
+					$this->control[$registro]['estado'] = "db";
+					break;
+				case "u":	//UPDATE
+					$this->control[$registro]['estado'] = "db";
+					break;
+			}
+		}
+*/
+		parent::sincronizar_estructura_control();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -226,13 +281,28 @@ class db_registros_mt extends db_registros
 
 	function generar_sql_select()
 	{
-		$prefijo_alias = "xt_";
+		$alias_padre = $this->definicion['tabla_alias'][0];
 		for($t=0;$t<count($this->definicion['tabla']);$t++)
 		{
-			$alias = $prefijo_alias . $t; //Alias de la tabla
 			$tabla = $this->definicion['tabla'][$t];
+			$alias = $this->definicion['tabla_alias'][$t];
 			//-- FROM
-			$tablas_from[] = "$tabla $alias";
+			if($t > 0){
+				//Tablas asociadas
+				if(is_array($this->definicion['relacion'][$tabla]))
+				{
+					$join = "";
+					foreach($this->definicion['relacion'][$tabla] as $relacion ){
+						$join .= $alias . "." . $relacion['pk'] . " = " . $alias_padre .".". $relacion['fk'] . "\n";
+					}
+				}else{
+					throw new excepcion_toba("Las relaciones de la tabla '$tabla' no se encuentran definidas");
+				}
+				$tablas_outer[] = "  LEFT OUTER JOIN $tabla $alias ON $join";
+			}else{
+				//Tabla principal
+				$tablas_from[] = "$tabla $alias";
+			}
 			//Armo la lista de campos por tabla
 			//-- COLUMNAS
 			$campos = array_merge( $this->definicion[$tabla]['columna'], $this->definicion[$tabla]['clave'] );
@@ -244,26 +314,22 @@ class db_registros_mt extends db_registros
 				//Los campos duplicados los comprimo
 				$campos_select[$campo] = "$alias.$campo as $campo";
 			}
-			//-- WHERE
-			if($t > 0){	//Relaciones de las tablas hijas con la maestra
-				foreach($this->definicion['relacion'][$tabla] as $relacion ){
-					$where[] = $alias . "." . $relacion['pk'] . " = " . $prefijo_alias . "0." . $relacion['fk'];
-				}
-			}
 		}
 		//Concateno el SQL de la carga de datos
 		if(isset($this->from)){
 			$tablas_from = array_merge($tablas_from, $this->from);
 		}
 		if(isset($this->where)){
-			$where = array_merge($where, $this->where);
+			$where = " WHERE " . implode(" \nAND ", $this->where);
+		}else{
+			$where = "";
 		}
 		//ei_arbol($campos_select,"CAMPOS");
 		//ei_arbol($tablas_from,"TABLAS");
 		//ei_arbol($where,"WHERE");
 		$sql =	" SELECT	" . implode(" ,\n ",$campos_select) . "\n" .
-				" FROM "	. implode(" ,\n",$tablas_from) .
-				" WHERE " .	implode(" \nAND ",$where) .";";
+				" FROM "	. implode(" ,\n",$tablas_from) . "\n" .
+							 implode(" ,\n",$tablas_outer) . $where .";";
 		//echo "<pre>" . $sql;
 		return $sql;
 	}
