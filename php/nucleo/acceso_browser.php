@@ -33,6 +33,7 @@ require_once("nucleo/lib/parseo.php");			       	//Funciones de parseo
 			$solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
 		}catch( Exception $e ){
 			//Si una excepcion no fue atrapada en ningun lado, se atrapa aca!
+			echo "</script>";	//Por si estaba un tag abierto
 			echo ei_mensaje("ATENCION, la excepcion no fue atrapada!");
 			$solicitud->log->debug($e);
 			$solicitud->log->mostrar_pantalla();

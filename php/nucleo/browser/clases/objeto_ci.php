@@ -262,9 +262,11 @@ class objeto_ci extends objeto
 	}
 
 	function get_etapa_actual()
-	/*
-		ATENCION, este metodo hay que revisarlo
-	*/
+	{
+		return $this->get_pantalla_actual();
+	}
+	
+	function get_pantalla_actual()
 	{
 		if (isset($_POST[$this->submit])) {
 			$submit = $_POST[$this->submit];
@@ -324,22 +326,25 @@ class objeto_ci extends objeto
 	//ATENCION: esto se esta ejecutando despues de los eventos propios... 
 	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
-		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
-		// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
-		// Esto no lo tengo que subir al metodo anterior?
-		if( isset($this->memoria['etapa_gi']) ){
-			// Habia una etapa anterior
-			$evento_salida = apex_ci_evento . apex_ci_separador . "salida" . apex_ci_separador . $this->memoria['etapa_gi'];
-			//Evento SALIDA
-			if(method_exists($this, $evento_salida)){
-				$this->$evento_salida();
-			}
-		}	
-		// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+		$etapa_previa = (isset($this->memoria['etapa_gi'])) ? $this->memoria['etapa_gi'] : null;
 		$etapa_actual = $this->get_etapa_actual();
-		$evento_entrada = apex_ci_evento . apex_ci_separador . "entrada" . apex_ci_separador . $etapa_actual;
-		if(method_exists($this, $evento_entrada)){
-			$this->$evento_entrada();
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
+		if($etapa_previa !== $etapa_actual){ //¿Se cambio de etapa?
+			// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
+			// Esto no lo tengo que subir al metodo anterior?
+			if( isset($this->memoria['etapa_gi']) ){
+				// Habia una etapa anterior
+				$evento_salida = apex_ci_evento . apex_ci_separador . "salida" . apex_ci_separador . $this->memoria['etapa_gi'];
+				//Evento SALIDA
+				if(method_exists($this, $evento_salida)){
+					$this->$evento_salida();
+				}
+			}	
+			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+			$evento_entrada = apex_ci_evento . apex_ci_separador . "entrada" . apex_ci_separador . $etapa_actual;
+			if(method_exists($this, $evento_entrada)){
+				$this->$evento_entrada();
+			}
 		}
 		// -[ 3 ]-  Seteo la etapa PROPUESTA
 		$this->set_etapa_gi($etapa_actual);
@@ -477,6 +482,20 @@ class objeto_ci extends objeto
 	{
 		$this->error_proceso_hijo[] = $dependencia;
 	}
+	
+	function evt__cancelar()
+	{
+		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
+		$this->disparar_limpieza_memoria();
+	}
+
+	function evt__procesar()
+	{
+		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
+		$this->disparar_limpieza_memoria();
+	}	
+	
+	//-----------------------------------------------------------	
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -817,6 +836,7 @@ class objeto_ci extends objeto
 	//-------------------------------------------------------------------------------
 
 	function get_lista_tabs()
+	//Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante
 	{
 		$tab = array();
 		for($a = 0; $a<count($this->info_ci_me_etapa);$a++)

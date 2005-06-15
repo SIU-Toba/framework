@@ -227,7 +227,7 @@ class ci extends objeto_ci
 		$mensaje .= mensaje::get('db_22000');
 		$mensaje .= "\n";
 		$mensaje .= mensaje::get('proyecto', array('proyecto', 'toba_testing'));
-		$mensaje = $texto = js::string($mensaje);
+		$mensaje .= js::string($mensaje);
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this._evento.id == 'procesar') {

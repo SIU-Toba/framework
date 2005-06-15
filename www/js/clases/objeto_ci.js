@@ -20,10 +20,6 @@ function objeto_ci(instancia, form, input_submit) {
 		this._objetos.push(objeto);
 	}
 	
-	def.set_input_tab = function(input) {
-		this._input_submit_tab = input;
-	}
-	
 	def.iniciar = function() {
 	}
 	
@@ -162,4 +158,10 @@ function objeto_ci(instancia, form, input_submit) {
 			else
 				barra.style.display = 'none';
 		}
+	}
+
+	def.habilitar_tab = function(tab, habilitado) {
+		var boton = document.getElementById(this._input_submit + tab);
+		if (boton)
+			boton.disabled = ! habilitado;
 	}
