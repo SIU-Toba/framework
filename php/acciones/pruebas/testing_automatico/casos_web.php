@@ -3,7 +3,7 @@ require_once("nucleo/browser/interface/form.php");
 require_once('test_toba.php');
 require_once('3ros/simpletest/reporter.php');
 require_once('nucleo/browser/js.php');
-require_once('casos_dao.php');
+require_once('lista_casos.php');
 
 //Definición de los casos
 

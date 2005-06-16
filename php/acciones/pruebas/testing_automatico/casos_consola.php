@@ -2,7 +2,7 @@
 include_once("nucleo/consola/emular_web.php");
 require_once('test_toba.php');
 require_once('3ros/simpletest/reporter.php');
-require_once('casos_dao.php');
+require_once('lista_casos.php');
 
 $this->registrar_parametros();
 
