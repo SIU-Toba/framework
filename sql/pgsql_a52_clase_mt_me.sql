@@ -91,3 +91,27 @@ CREATE TABLE apex_objeto_mt_me_etapa
 );
 --###################################################################################################
 
+CREATE TABLE apex_objeto_mt_me_etapa_dep
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto_mt_me,	posicion, objeto_consumidor
+--: dump_where: (	objeto_mt_me_proyecto =	'%%' )
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
+	objeto_mt_me						int4				NOT NULL,
+	posicion							smallint			NOT NULL,
+	proyecto							varchar(15)			NOT NULL,
+	objeto_consumidor					int4				NOT NULL,
+	identificador						varchar(20)			NOT NULL,
+	CONSTRAINT	"apex_mt_me_dep__pk" PRIMARY KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion","proyecto","objeto_consumidor","identificador"),
+	CONSTRAINT	"apex_mt_me_dep__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion") REFERENCES	"apex_objeto_mt_me_etapa" ("objeto_mt_me_proyecto","objeto_mt_me","posicion") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_mt_me_dep__fk_dep" FOREIGN KEY ("proyecto","objeto_consumidor","identificador") REFERENCES	"apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+);
+--###################################################################################################
+

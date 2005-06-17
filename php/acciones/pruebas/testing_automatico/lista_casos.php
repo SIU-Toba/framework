@@ -8,22 +8,25 @@ class casos_dao
 		return array(apex_ef_no_seteado => 'Todas', 
 					 'items' => 'Items', 
 					 'ef' => "Ef's", 
+					 'persistencia' => 'Persistencia',
 					 'varios' => 'Varios');
 	}
 	
 	function get_casos($categoria = apex_ef_no_seteado)
 	{
 		$casos = array(
-					//Varios
-					'test_parseo_etiquetas' => array('nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
-					
 					//Items
 					'test_item' => array('nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
 					'test_arbol_items' => array('nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
-					
+
 					//EF
 					'test_editable_numero' => array('nombre' => 'EF Editable Número', 'categoria' => 'ef'),
-					'test_multi_seleccion' => array('nombre' => 'EF Multi-selección', 'categoria' => 'ef')
+					'test_multi_seleccion' => array('nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
+
+					'test_db_tablas_cd' => array('nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
+
+					//Varios
+					'test_parseo_etiquetas' => array('nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
 				);	
 		
 		if ($categoria == apex_ef_no_seteado)

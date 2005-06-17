@@ -74,7 +74,7 @@ class db_tablas
 	}
 	//-------------------------------------------------------
 
-	public function reset()
+	public function resetear()
 	{
 		foreach(array_keys($this->elemento) as $elemento){
 			$this->elemento[$elemento]->resetear();

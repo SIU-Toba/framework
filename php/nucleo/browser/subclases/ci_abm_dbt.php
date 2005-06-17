@@ -41,7 +41,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 
 	function evt__limpieza_memoria()
 	{
-		$this->reset();
+		$this->resetear();
 		parent::evt__limpieza_memoria();		
 	}
 

@@ -1,11 +1,12 @@
 
---- Utilizando instancia: toba_comechingones
+--- Utilizando instancia: toba_desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_objeto_html ;
 DELETE FROM apex_objeto_esquema ;
 DELETE FROM apex_objeto_negocio_regla ;
 DELETE FROM apex_objeto_negocio ;
+DELETE FROM apex_objeto_mt_me_etapa_dep ;
 DELETE FROM apex_objeto_mt_me_etapa ;
 DELETE FROM apex_objeto_mt_me ;
 DELETE FROM apex_objeto_mt_me_tipo_nav ;

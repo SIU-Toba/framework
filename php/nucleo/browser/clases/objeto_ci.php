@@ -5,62 +5,8 @@ require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 define("apex_ci_evento","evt");
 define("apex_ci_separador","__");
-/*
-	COSAS sin RESOLVER
-	------------------
 
-		- Hay que dar un servicio para manejar el estado de EIs que tengan una relacion de 1 a 1 con las variables de la sesion
-		- Tiene que pensarse un mecanismo estandar de comunicacion en una jerarquia de CIs
-		- Entrada de JS para inhabilitar TABS desde el cliente
-		
-	REFACTORIZACION
-	---------------
-	
-		- EDITOR de CIs:
-		----------------
 
-			* Definicion BASICA
-
-				- Si tiene mas de una pantalla, se puede definir un metodo standard de navegacion
-					( tabs verticales, tabs horizontales, wizard )
-
-			* Definicion de PANTALLAS
-			
-				- ei 1) Lista de pantallas: ei_cuadro / ei_formulario_ml (editor basico)
-				- ei 2) Editor especifico de la pantalla: ei_formulario
-				- ei 3) Asociador de dependencias a pantallas. ei_formulario_ml
-					- Tiene una cascada por: tipo de clase -> objeto
-					- Si la SUBLACE del CI tiene una definicion de dependencias:
-						- Ya hay una fila por cada IDS esperado
-						- El padre de la cascada esta seteado de acuerdo a los tipos permitidos
-					- Una pantalla podria tener algo distinto, por ejemplo un mensaje
-
-			* Definicion especifica segun SUBCLASE de CI
-
-				 Una subclase del CI tiene que poder agregar un editor propio al tradicional
-				( 	puede agregarse un TAB, con un CI que sea que posea el editor de la sublclase 
-						-> una clase deberia poder usar un editor comun, pero señalar que CI especifico va a agregar )
-					NECESIDAD: 
-						uno un CI que sabe relacionarse con un DB_R define cual es el mismo,
-						Un ABM define su DB_T, el DAO que le provee el cuadro, etc.
-
-			* Administrador de codigo PHP
-
-				* Vista simplificada de los que esta pasando a nivel EVENTOS (parsear y resumir)
-				* Autogenerador de codigo, que cree automaticamente la clase con los eventos necesarios para los EI.
-					Tendria que tener en la base la lista de eventos que tengo por EI.
-
-			* Declaracion de eventos del CI?
-			* Definicion de dependencias inexitentes que las cree?
-
-		- IMPLETENCION
-		--------------
-			
-			- La ETAPA pasan a ser una PANTALLA
-			- A nivel interno un CI tiene 1 o mas pantallas.
-				(las llamadas sin "__etapa", son un shortcut a una definida por defecto)
-
-*/
 class objeto_ci extends objeto
 {
 	// General

@@ -98,6 +98,19 @@ class db_registros
 		return $this->definicion;
 	}
 	//-------------------------------------------------------------------------------
+
+	function get_clave()
+	{
+		return $this->definicion['clave'];
+	}
+	
+	function get_clave_valor($id_registro)
+	{
+		foreach( $this->definicion['clave'] as $clave ){
+			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+		}	
+		return $temp;
+	}
 	
 	function finalizar()
 	//Finaliza la ejecucion del buffer

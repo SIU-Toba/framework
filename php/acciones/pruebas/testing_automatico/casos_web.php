@@ -4,7 +4,7 @@ require_once('test_toba.php');
 require_once('3ros/simpletest/reporter.php');
 require_once('nucleo/browser/js.php');
 require_once('lista_casos.php');
-
+/*
 //Definición de los casos
 
 $formulario = $this->cargar_objeto("objeto_ei_formulario", 0);
@@ -43,6 +43,10 @@ if ($this->objetos[$formulario]->controlar_agregar()) {
 		die(ei_mensaje($e->getMessage(), "error"));
 	}
 }
-
+*/
+	$test = new GroupTest('Casos de TEST');
+	require_once("persistencia/test_db_tablas_cd.php");
+	$test->addTestCase(new test_db_tablas_cd());
+	$test->run(new HtmlReporter());
 
 ?>
