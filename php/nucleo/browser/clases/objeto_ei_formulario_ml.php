@@ -7,18 +7,20 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	@@acceso: actividad
 	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
 
-	- Registro de modificacion en el cliente
-	- Array de modificacion para alguien que lo mapee en un buffer
 	- Flag de agregar filas
 	
 	Un formulario tiene que saber que si viene del post, para dejar cargase datos o no???
 	Cual es la solucion para esta competencia??
-	
 */
 {
-	var $datos;		//Datos que tiene el formulario
-	var $lista_ef_totales = array();
-	
+	protected $datos;
+	protected $lista_ef_totales = array();
+	protected $siguiente_id_fila;				//Autoincremental que se va a asociar al ef que identifica una fila
+	protected $filas_enviadas;					//Lista de filas enviadas al cliente
+	protected $filas_recibidas;					//Lista de filas recibidas desde el cliente	
+	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
+	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
+
 	function __construct($id)
 /*
 	@@acceso: nucleo
@@ -27,18 +29,38 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		parent::__construct($id);
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(5000);
+		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156000;
+		$this->filas_enviadas = isset($this->memoria['filas_enviadas']) ? $this->memoria['filas_enviadas'] : array();
 	}
 	//-------------------------------------------------------------------------------
 
+	function destruir()
+	{
+		$this->memoria['siguiente_id_fila'] = $this->siguiente_id_fila;
+		$this->memoria['filas_enviadas'] = $this->filas_enviadas;
+		parent::destruir();
+	}	
+	//-------------------------------------------------------------------------------
+		
 	function inicializar_especifico()
 	{
+		//Se incluyen los totales
 		for($a=0;$a<count($this->info_formulario_ef);$a++)
 		{
 			if($this->info_formulario_ef[$a]["total"]){
 				$this->lista_ef_totales[] = $this->info_formulario_ef[$a]["identificador"];
 			}
 		}
-		$this->modelo_eventos = "omni";
+		//Se determina el metodo de analisis de cambios
+		switch ($this->info_formulario['analisis_cambios'])
+		{
+			case 'LINEA':
+				$this->analizar_diferencias = true;
+				break;
+			case 'EVENTOS':
+				$this->eventos_granulares = true;
+				break;
+		}
 	}
 	//-------------------------------------------------------------------------------
 
@@ -52,6 +74,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										alto as						alto,
 										filas as					filas,
 										filas_agregar as			filas_agregar,
+										analisis_cambios		as	analisis_cambios,
 										ev_agregar				as 	ev_agregar,				
 										ev_agregar_etiq			as 	ev_agregar_etiq,
 										ev_mod_modificar		as 	ev_mod_modificar,		
@@ -86,7 +109,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$sql["info_formulario_ef"]["estricto"]="1";
 		return $sql;
 	}
-
+	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------------------	INFORMACION	 -----------------------------------
@@ -114,6 +137,59 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function disparar_eventos()
+	{
+		$this->recuperar_interaccion();
+		//Veo si se devolvio algun evento!
+		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
+			$evento = $_POST[$this->submit];
+			//La opcion seleccionada estaba entre las ofrecidas?
+			if(isset($this->memoria['eventos'][$evento]) ){
+				$maneja_datos = $this->memoria['eventos'][$evento];
+				
+				//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
+				if ($this->eventos_granulares && $maneja_datos) {
+					$this->disparar_eventos_granulares();
+				} else {
+					//Me fijo si el evento requiere validacion
+					if($maneja_datos) {
+						$this->validar_estado();
+						$parametros = $this->obtener_datos($this->analizar_diferencias);
+					} else {
+						$parametros = null;
+					}
+					//El evento es valido, lo reporto al contenedor
+					$this->reportar_evento( $evento, $parametros );
+				}
+			}
+		}
+		$this->limpiar_interface();
+	}	
+	//-------------------------------------------------------------------------------
+		
+	function disparar_eventos_granulares()
+	{
+		$this->validar_estado();
+		$datos = $this->obtener_datos(true);
+		foreach ($datos as $fila => $dato) {
+			$analisis = $dato[apex_ei_analisis_fila];
+			unset($dato[apex_ei_analisis_fila]);			
+			switch ($analisis)
+			{
+				case 'A': 
+					$this->reportar_evento( 'registro_alta', $dato, $fila);
+					break;
+				case 'M':
+					$this->reportar_evento( 'registro_modificacion', $dato, $fila);
+					break;				
+				case 'B':
+					$this->reportar_evento( 'registro_baja', $fila );
+					break;			
+			}
+		}	
+	}
+	//-------------------------------------------------------------------------------
+		
 	function recuperar_interaccion()
 	{
 		if(! $this->cargar_post())
@@ -131,12 +207,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$this->datos = array();
 			if ($this->info_formulario["filas"] > 0 ) {
 				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
-					$this->datos[$i] = array();
+					//A cada fila se le brinda un id único
+					$this->datos[$this->siguiente_id_fila] = array();
 				}
 			}
-		}	
+		}
 	}
-	
+	//-------------------------------------------------------------------------------
+		
 	function cargar_post()
 	{
 /*
@@ -148,12 +226,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		$this->datos = array();			
 		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
+		$this->filas_recibidas = array();
 		if ($lista_filas != '') {
-			$filas = explode('_', $lista_filas);
+			$this->filas_recibidas = explode('_', $lista_filas);
 			//Por cada fila
-			$i = 0;
-			foreach ($filas as $fila)
+			foreach ($this->filas_recibidas as $fila)
 			{
+				if ($fila >= $this->siguiente_id_fila)
+					$this->siguiente_id_fila = $fila + 1;
 				//1) Cargo los EFs
 				foreach ($this->lista_ef as $ef){
 					$this->elemento_formulario[$ef]->establecer_id_form($fila);
@@ -162,8 +242,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					//La validación del estado no se hace aquí porque interrumpiría la carga
 				}
 				//2) Seteo el registro
-				$this->cargar_ef_a_registro($i);
-				$i++;
+				$this->cargar_ef_a_registro($fila);
 			}
 		}
 		return true;
@@ -180,10 +259,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual
 		//de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden
 		//ver las modificaciones hechas, sería deseable poder verlos.
-		foreach ($this->datos as $registro => $datos_registro) {
-			$this->cargar_registro_a_ef($registro);
+		foreach ($this->datos as $id_fila => $datos_registro) {
+			$this->cargar_registro_a_ef($id_fila, $datos_registro);
 			foreach ($this->lista_ef as $ef){
-				$this->elemento_formulario[$ef]->establecer_id_form($registro);
+				$this->elemento_formulario[$ef]->establecer_id_form($id_fila);
 				$temp = $this->elemento_formulario[$ef]->validar_estado();
 				if(!$temp[0]){
 					$mensaje = "Error en el elemento de formulario '" . $this->elemento_formulario[$ef]->obtener_etiqueta() ."' - ". $temp[1];
@@ -235,17 +314,40 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		return count($this->datos);
 	}
+	
 	//-------------------------------------------------------------------------------	
-	function obtener_datos()
+	function obtener_datos($analizar_diferencias = false)
 	{
-		return $this->datos;
+		if ($analizar_diferencias) {
+			//Analizo la procedencia del registro: es alta o modificación
+			$datos = $this->datos;
+			foreach (array_keys($datos) as $id_fila) {
+				if (in_array($id_fila, $this->filas_enviadas))
+					$datos[$id_fila][apex_ei_analisis_fila] = 'M';
+				else
+					$datos[$id_fila][apex_ei_analisis_fila] = 'A';
+			}
+			
+			//Se buscan los registros borrados
+			foreach ($this->filas_enviadas as $enviada) {
+				if (! in_array($enviada, $this->filas_recibidas)) {
+					$datos[$enviada] = array(apex_ei_analisis_fila => 'B');
+				}
+			}
+		} else {	//Hay que sacar la información extra
+			$datos = array_values($this->datos);
+		}
+		return $datos;
 	}
-	//-------------------------------------------------------------------------------
 
+	//-------------------------------------------------------------------------------
 	function cargar_datos($datos = null)
 	{
-		$this->datos = $datos;
-		$this->carga_inicial();
+		if ($datos !== null) {
+			$this->datos = $datos;
+		} else {
+			$this->carga_inicial();
+		}
 	}
 	//-------------------------------------------------------------------------------
 
@@ -300,17 +402,17 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 	//-------------------------------------------------------------------------------
 
-	function cargar_registro_a_ef($id_registro)
+	function cargar_registro_a_ef($id_fila, $datos_registro)
 /*
 	@@acceso: actividad
 	@@desc: Carga un REGISTRO en el array de EFs
 	@@retorno: array | estado de cada elemento de formulario
 */
 	{
-		$datos = (isset($this->datos[$id_registro])) ? $this->datos[$id_registro] : array();
+		$datos = $datos_registro;
 		foreach ($this->lista_ef as $ef) {
 			//Seteo el ID-formulario del EF para que referencie al registro actual
-			$this->elemento_formulario[$ef]->establecer_id_form($id_registro);
+			$this->elemento_formulario[$ef]->establecer_id_form($id_fila);
 			$this->elemento_formulario[$ef]->resetear_estado();
 			$dato = $this->elemento_formulario[$ef]->obtener_dato();
 			if(is_array($dato)){	//El EF maneja	 *** DATO COMPUESTO
@@ -378,7 +480,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
-			}			
+			}
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
 					$this->elemento_formulario[$ef]->establecer_id_form("s");
@@ -394,17 +496,20 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "</tfoot>\n";
 
 		//------ FILAS ------
-		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
+		$this->filas_enviadas = array();
 		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo'>";
-		for($a=0; $a <  count($this->datos) + 1; $a++) {
-			if ($a < count($this->datos)) {
-				$fila = $a;
-				$estilo = "'";
+		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
+		$this->datos["__fila__"] = array();
+		$a = 0;
+		foreach ($this->datos as $fila =>$dato) {
+			if ($fila !== "__fila__") {
+				$this->filas_enviadas[] = $fila;
+				$estilo = "";
 			} else {
-				$fila = "__fila__";
-				$estilo = "style='display:none;'";
+					$estilo = "style='display:none;'";
 			}
-			$this->cargar_registro_a_ef($fila);
+			$this->cargar_registro_a_ef($fila, $dato);
+			
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
 			echo "\n<!-- FILA $fila -->\n\n";
 			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
@@ -420,6 +525,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo "</td>\n";
 			}
 			echo "</tr>\n";
+			$a++;
 		}
 		echo "</tbody>\n</table>\n</div>";
 	}
@@ -474,8 +580,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
-		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', {$this->cantidad_lineas()}, $con_agregar);\n";
-		foreach ($this->lista_ef_post as $ef){
+		$filas = js::arreglo($this->filas_enviadas);
+		$ultimo_id = $this->siguiente_id_fila - 1;
+		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, $ultimo_id, $con_agregar);\n";
+		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		//Agregado de callbacks para calculo de totales

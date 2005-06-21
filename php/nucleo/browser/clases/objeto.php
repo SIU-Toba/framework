@@ -1,4 +1,6 @@
 <?php
+define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
+
 include_once('eventos.php');
 
 class objeto
@@ -992,11 +994,14 @@ class objeto
 
 	function eliminar_observador($observador){}
 
-	protected function reportar_evento($evento, $parametros=null)
+	protected function reportar_evento($evento)
 	//Registro un evento en todos mis observadores
 	{
+		$parametros = func_get_args();
+		$parametros	= array_merge(array($this->id_en_padre), $parametros);
 		foreach(array_keys($this->observadores) as $id){
-			$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );
+			//$this->observadores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );			
+			call_user_func_array(array($this->observadores[$id], 'registrar_evento'), $parametros);
 		}
 	}
 	

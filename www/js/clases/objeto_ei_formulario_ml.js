@@ -5,15 +5,13 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, cant_filas, con_agregar) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, ultimo_id, con_agregar) {
 		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
 		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
-		this._filas = new Array();				//Carga inicial de las filas
-		for (var i=0 ; i < cant_filas ; i++)
-			this._filas.push(i);
-		this._ultimo_id = i;
+		this._filas = filas;					//Carga inicial de las filas
+		this._ultimo_id = ultimo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
-		this._ef_con_totales = new Object();		//Lisa de efs que quieren sumarizar
+		this._ef_con_totales = new Object();	//Lisa de efs que quieren sumarizar
 	}
 
 	def.iniciar = function () {

@@ -395,13 +395,15 @@ class objeto_ci extends objeto
 		}
 	}
 
-	public function registrar_evento($id, $evento, $parametros=null)
+	public function registrar_evento($id, $evento) //Puede recibir N parametros adicionales
 	//Se disparan eventos dentro del nivel actual
 	{
+		$parametros	= func_get_args();
+		array_splice($parametros, 0 , 2);
 		$metodo = apex_ci_evento . apex_ci_separador . $id . apex_ci_separador . $evento;
 		if(method_exists($this, $metodo)){
 			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
-			$this->$metodo( $parametros );
+			call_user_func_array(array($this, $metodo), $parametros);
 		}else{
 			$this->log->warning($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
 			//Puede implementarse un metodo generico de manejo de eventos? 

@@ -1,5 +1,10 @@
-//--------------------------------------------------------------------------------
-//Clase evento_ci
+/**
+ * Representa un evento que será consumido por un CI
+ * @param id Identificador del evento, ej: 'modificar'
+ * @param validar ¿Se debe validar antes de hacer submit?
+ * @param confirmar ¿Se debe confirmar antes de hacer submit?
+ * @constructor 
+ */
 function evento_ei(id, validar, confirmar, parametros) {
 	this.id = id;
 	this.validar = validar;
@@ -8,8 +13,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 	this._silencioso = false;
 }
 
-//--------------------------------------------------------------------------------
-//Clase objeto
+
 function objeto(instancia) {
 	this._instancia = instancia;
 }
@@ -24,10 +28,13 @@ def.constructor = objeto;
 	}
 	
 	//----------------------------------------------------------------
-	//---Eventos	
-	def.set_evento = function(evento) {
+	//---Eventos	 
+	def.set_evento = function(evento, hacer_submit) {
+		if (typeof hacer_submit == 'undefined')
+			hacer_submit = true;
 		this._evento = evento;
-		this.submit();
+		if (hacer_submit)
+			this.submit();
 	}
 
 	def.set_evento_defecto = function(evento) {
@@ -40,7 +47,8 @@ def.constructor = objeto;
 		
 	//---Submit
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit()) //Primero debe consultar si su padre está en proceso
+		var padre_esta_en_proceso = this._ci && !this._ci.en_submit();
+		if (padre_esta_en_proceso)
 			return this._ci.submit();
 	}
 	
@@ -51,8 +59,8 @@ def.constructor = objeto;
 	def.resetear_errores = function() {
 	}	
 
-	//----------------------------------------------------------------
-	//---Servicios graficos
+	//----------------------------------------------------------------  
+	//---Servicios graficos 
 	def.cuerpo = function() {
 		return document.getElementById('cuerpo_' + this._instancia);	
 	}
@@ -65,7 +73,7 @@ def.constructor = objeto;
 	}
 	
 	def.colapsar = function() {
-		boton = document.getElementById('colapsar_boton_' + this._instancia);
+		boton = this.obtener_boton_colapsar();
 		if (boton) {
 			boton.src = toba.imagen('maximizar');
 		}
@@ -73,9 +81,13 @@ def.constructor = objeto;
 	}
 	
 	def.descolapsar = function() {
-		boton = document.getElementById('colapsar_boton_' + this._instancia);
+		boton = this.obtener_boton_colapsar();
 		if (boton) {
 			boton.src = toba.imagen('minimizar');
 		}
 		this.cuerpo().style.display= 'block';
+	}
+	
+	def.obtener_boton_colapsar = function() {
+		return document.getElementById('colapsar_boton_' + this._instancia);
 	}

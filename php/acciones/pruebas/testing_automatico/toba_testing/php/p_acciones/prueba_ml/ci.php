@@ -86,8 +86,28 @@ class ci extends objeto_ci
 
 	function evt__ml__modificacion($datos)
 	{
+		foreach ($datos as $id => $dato) {
+			if ($dato[apex_ei_analisis_fila] == 'B')
+				unset($datos[$id]);
+		}
 		$this->datos_ml = $datos;
-	}	
+	}
+
+	//--- Eventos granulares
+	function evt__ml__registro_alta($registro, $id)
+	{
+		$this->datos_ml[$id] = $registro;
+	}
+	
+	function evt__ml__registro_modificacion($registro, $id)
+	{
+		$this->datos_ml[$id] = $registro;
+	}		
+	
+	function evt__ml__registro_baja($id)
+	{
+		unset($this->datos_ml[$id]);
+	}
 	
 	//------------------------------------
 	//			FORMULARIO
@@ -220,14 +240,9 @@ class ci extends objeto_ci
 	function extender_objeto_js()
 	{
 		//Mensaje del objeto
-		$mensaje = "A continuación un mensaje del objeto, uno de toba y otro del proyecto:\n";
+		$mensaje = "A continuación un mensaje del objeto:\n";
 		$mensaje .= $this->obtener_mensaje('no_procesar');
-		$mensaje .= "\n";
-		//Mensaje de Toba
-		$mensaje .= mensaje::get('db_22000');
-		$mensaje .= "\n";
-		$mensaje .= mensaje::get('proyecto', array('proyecto', 'toba_testing'));
-		$mensaje .= js::string($mensaje);
+		$mensaje = pasar_a_unica_linea($mensaje);
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this._evento.id == 'procesar') {

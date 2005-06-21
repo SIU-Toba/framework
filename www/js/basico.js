@@ -68,6 +68,15 @@ function in_array (arreglo, elemento) {
 	return false;
 }
 
+function array_maximo(arreglo) {
+	var maximo = 0;
+	for (var i=0 ; i < arreglo.length; i++) {
+		if (arreglo[i] > maximo)
+			maximo = arreglo[i];
+	}
+	return maximo;
+}
+
 //---Eventos
 //--------------------------------------------
 

@@ -136,7 +136,7 @@ class js
 		return ($bool) ? "true" : "false";
 	}
 	
-	static function arreglo($arreglo, $es_assoc)
+	static function arreglo($arreglo, $es_assoc = false)
 	{
 		$js = "";
 		if ($es_assoc) {
@@ -151,12 +151,12 @@ class js
 				$js = 'new Object()';
 			}
 		} else {	//No asociativo
-			$js .="[";
+			$js .="[ ";
 			foreach($arreglo as $valor) {
-				$js .= "$valor, ";
+				$js .= "$valor,";
 			}
-			$js = substr($js, 0, -2);
-			$js .= "]";
+			$js = substr($js, 0, -1);
+			$js .= " ]";
 		}
 		return $js;		
 	}	

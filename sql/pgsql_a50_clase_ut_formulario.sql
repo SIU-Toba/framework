@@ -42,9 +42,10 @@ CREATE TABLE apex_objeto_ut_formulario
 	scroll								smallint		NULL,
 	filas								smallint       	NULL,
 	filas_agregar						smallint       	NULL,
---	filas_undo							smallint		NULL,
---	filas_ordenar						smallint		NULL,
+	filas_undo							smallint		NULL,
+	filas_ordenar						smallint		NULL,
 	alto								varchar(10)		NULL,
+	analisis_cambios					varchar(10)		NULL,
 	CONSTRAINT  "apex_objeto_ut_f_pk" PRIMARY KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario"),
 	CONSTRAINT	"apex_objeto_ut_f_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_ut_f_fk_objeto" FOREIGN KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
