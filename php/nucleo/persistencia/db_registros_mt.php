@@ -71,7 +71,7 @@ class db_registros_mt extends db_registros
 		{
 			//Es necesario escribir un ALIAS para cada tabla utilizada
 			if(!isset($this->definicion['tabla_alias'][$t])){
-				throw new exception_toba("Atencion, es necesario definir un alias para la tabla " . $this->definicion['tabla'][$t] );	
+				throw new excepcion_toba("Atencion, es necesario definir un alias para la tabla " . $this->definicion['tabla'][$t] );	
 			}
 			$tabla = $this->definicion['tabla'][$t];
 			//---- CAMPOS: (columnas + claves) ----
