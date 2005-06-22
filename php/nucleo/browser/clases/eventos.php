@@ -4,7 +4,7 @@
 **/
 class eventos
 {
-	static function evento_estandar($id, $etiqueta = null, $en_botonera = true)
+	static function evento_estandar($id, $etiqueta = null, $en_botonera = true, $imagen = '')
 	//Retorna un evento estandar listo para modificar
 	{
 		$evento[$id]['etiqueta'] = $etiqueta;
@@ -12,7 +12,7 @@ class eventos
 		$evento[$id]['sobre_fila'] = false;			//Propiedad particular que entiende el cuadro (y el ML debería tambien)
 		$evento[$id]['confirmacion'] = '';
 		$evento[$id]['estilo'] = "";
-		$evento[$id]['imagen'] = "";		
+		$evento[$id]['imagen'] = $imagen;		
 		$evento[$id]['en_botonera'] = $en_botonera;	
 		$evento[$id]['ayuda'] = '';
 		return $evento;

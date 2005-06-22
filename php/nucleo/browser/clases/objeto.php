@@ -1027,7 +1027,10 @@ class objeto
 				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
 				$tab_order = 0;//Esto esta MAAL!!!
 				$acceso = tecla_acceso( $evento["etiqueta"] );
-				$html = $acceso[0]; //Falta concatenar la imagen
+				$html = '';
+				if ($evento['imagen'])
+					$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+				$html .= $acceso[0];
 				$tecla = $acceso[1];
 				$evento_js = eventos::a_javascript($id, $evento);
 				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";

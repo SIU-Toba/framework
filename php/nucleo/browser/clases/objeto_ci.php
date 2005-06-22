@@ -605,7 +605,7 @@ class objeto_ci extends objeto
 		if($con_botonera){
 			if( ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
 				echo "<tr><td class='abm-zona-botones'>";
-				$this->generar_botonera();
+				$this->obtener_botones();
 				echo "</td></tr>\n";
 			}
 		}
@@ -618,7 +618,7 @@ class objeto_ci extends objeto
 		if($con_botonera){
 			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
 				echo "<tr><td class='abm-zona-botones'>";
-				$this->generar_botonera();
+				$this->obtener_botones();
 				echo "</td></tr>\n";
 			}
 		}
@@ -627,31 +627,6 @@ class objeto_ci extends objeto
 		$this->gi = true;
 	}
 
-	//-------------------------------------------------------------------------------
-
-	function generar_botonera()
-	{
-		echo "<table class='tabla-0' align='center' width='100%'>\n";
-		echo "<tr><td align='right'>";
-		foreach($this->eventos as $id => $evento ) {
-			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
-				$tip = '';
-				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
-				$tab_order = 0;
-				$acceso = tecla_acceso( $evento["etiqueta"] );
-				$html = '';
-				if ($evento['imagen'])
-					$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
-				$html .= $acceso[0]; //Falta concatenar la imagen
-				$tecla = $acceso[1];
-				$evento_js = eventos::a_javascript($id, $evento);
-				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-				echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
-			}
-		}
-		echo "</td></tr>\n";
-		echo "</table>\n";
-	}
 	//-------------------------------------------------------------------------------
 
 	function get_lista_eventos()
