@@ -1,49 +1,48 @@
 <?php
 include_once('nucleo/browser/interface/ef.php');
 
-class casos_dao
+class lista_casos
 {
-	function get_categorias()
+	static function get_categorias()
 	{
-		return array(apex_ef_no_seteado => 'Todas', 
-					 'items' => 'Items', 
-					 'ef' => "Ef's", 
-					 'persistencia' => 'Persistencia',
-					 'varios' => 'Varios');
+		return array(
+					array('id' => 'todas', 'nombre' => 'Todas'),
+					array('id' => 'items', 'nombre' => 'Items'),
+					array('id' => 'ef', 'nombre' => "Ef's"),
+					array('id' => 'persistencia', 'nombre' => 'Persistencia'),
+					array('id' => 'varios', 'nombre' => 'Varios')
+				);
 	}
 	
-	function get_casos($categoria = apex_ef_no_seteado)
+	static function get_casos($categoria = apex_ef_no_seteado)
 	{
 		$casos = array(
 					//Items
-					'test_item' => array('nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
-					'test_arbol_items' => array('nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
+					array('id' => 'test_item', 'nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
+					array('id' => 'test_arbol_items', 'nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
 
 					//EF
-					'test_editable_numero' => array('nombre' => 'EF Editable Número', 'categoria' => 'ef'),
-					'test_multi_seleccion' => array('nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
+					array('id' => 'test_editable_numero', 'nombre' => 'EF Editable Número', 'categoria' => 'ef'),
+					array('id' => 'test_multi_seleccion', 'nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
 
-					'test_db_tablas_cd' => array('nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
-
+					//Persistencia
+					array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
+					
 					//Varios
-					'test_parseo_etiquetas' => array('nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
-				);	
-		
-		if ($categoria == apex_ef_no_seteado)
+					array('id' =>  'test_parseo_etiquetas', 'nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
+				);
+
+		if ($categoria == 'todas' || $categoria == apex_ef_no_seteado)
 			return $casos;
 		else {
 			$casos_selecc = array();
-			foreach ($casos as $clase => $caso) {
-				if ($caso['categoria'] == $categoria)
-					$casos_selecc[$clase] = $caso;
+			foreach ($casos as $caso) {
+				if ($caso['categoria'] == $categoria) {
+					$casos_selecc[] = $caso;
+				}
 			}
 			return $casos_selecc;
 		}
-	}
-	
-	function get_casos_para_form($categoria = apex_ef_no_seteado)
-	{
-		return aplanar_matriz(casos_dao::get_casos($categoria), 'nombre');	
 	}
 }
 

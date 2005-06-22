@@ -14,6 +14,8 @@ class ef_multi_seleccion extends ef
 	protected $dao;
 	protected $include;
 	protected $clase;
+	protected $clave = 0;
+	protected $valor = 1;
 	protected $sql;
 	protected $fuente;
 		
@@ -41,6 +43,16 @@ class ef_multi_seleccion extends ef
 			$this->cant_minima = $parametros['cant_minima'];
 			unset($parametros['cant_minima']);
 		}
+		
+		if (isset($parametros["clave"])) {
+			$this->clave = $parametros["clave"];
+			unset($parametros["clave"]);
+		}
+		
+		if (isset($parametros["valor"])) {
+			$this->valor = $parametros["valor"];
+			unset($parametros["valor"]);
+		}		
 		
 		//Se carga a partir de un DAO?
 		if(isset($parametros["dao"])){
@@ -78,11 +90,11 @@ class ef_multi_seleccion extends ef
 		$this->cargar_datos();
 	}
 
-	function cargar_datos_dao()
+	function cargar_datos_dao($parametros = array())
 	{
 		include_once($this->include);
-		$sentencia = "\$this->valores = " .  $this->clase . "::" . $this->dao ."();";
-		eval($sentencia);//echo $sentencia;
+		$valores = call_user_func_array(array($this->clase, $this->dao), $parametros);
+		$this->valores = $this->preparar_valores($valores);
 	}
 	
 	function cargar_datos_db()
@@ -114,7 +126,7 @@ class ef_multi_seleccion extends ef
     {
 		$valores = null;
 		foreach ($datos_recordset as $fila){
-            $valores[$fila[0]] = $fila[1];
+            $valores[$fila[$this->clave]] = $fila[$this->valor];
 		}
         return $valores;
     }
@@ -135,9 +147,9 @@ class ef_multi_seleccion extends ef
 		return $this->valores;
 	}
 	
-	function cargar_estado()
+	function cargar_estado($estado = null)
 	{
-		if (!parent::cargar_estado())
+		if (!parent::cargar_estado($estado))
 			$this->resetear_estado();
 	}
 	
@@ -225,25 +237,17 @@ class ef_multi_seleccion extends ef
 	{
 		$parametros = array();
 		for($a=0;$a<count($this->dependencias);$a++){
-			$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]]."'";
+			$parametros[] = $this->dependencias_datos[$this->dependencias[$a]];
 		}
 		$param = implode(",", $parametros);
-		if($this->modo =="estatico" )
-		{
-			include_once($this->include);
-			$sentencia = "\$valores = " .  $this->clase . "::" . $this->dao ."($param);";
-			//Esto es para que quede el no_seteado en los casos en que no se devuelven valores
-			eval($sentencia);//echo $sentencia;
-			if(isset($valores)){
-				$this->valores = $valores;	
-				$this->input_extra = "";
-			}else{
-				//La idea de la linea comentada era lograr el mismo efecto que provoca
-				//la carga desde el server de un valor NULL (en blanco con la longitud del no_seteado)
-				//$desc = str_repeat(count($this->no_seteado),"&nbsp");
-				$this->valores[apex_ef_no_seteado] = "";
-			}
+		if($this->modo_carga == carga_dao_estatico ) {
+			$this->cargar_datos_dao(array($param));
 		}
+	}	
+	
+	function obtener_valores()
+	{
+		return $this->valores;	
 	}	
 }
 

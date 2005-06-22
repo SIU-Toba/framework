@@ -509,7 +509,14 @@ class objeto_ei_formulario extends objeto
 					}
 				}else{					//El EF maneja	un	DATO SIMPLE
 					if(isset($datos[$dato])){
-						$temp = stripslashes($datos[$dato]);
+						if (is_string($datos[$dato]))
+							$temp = stripslashes($datos[$dato]);
+						elseif (is_array($datos[$dato])) { //ATENCION: Este es el caso para el multi-seleccion, hay que mejorarlo
+							$temp = array();
+							foreach ($datos[$dato] as $string) {
+								$temp[] = stripslashes($string);
+							}
+						}
 					}
 				}
 				if(isset($temp)){

@@ -126,7 +126,7 @@ class objeto_mt_abms_item_vinculo extends objeto_mt_abms
 			if ($datos['inicializacion'] != "NULL")
 			{
 				$inic = explode(",",$datos['inicializacion']);
-				if (count($inic) != 3){
+				if (count($inic) != 3 && count($inic) != 4) {
 				$this->registrar_info_proceso("$prefijo Si el tipo de vinculo es Popup, 
 												debe completar el campo Inicializacion Popup como lo 
 												indica la ayuda (tamaño en X, tamaño en Y, scroll)","error");
@@ -160,7 +160,7 @@ class objeto_mt_abms_item_vinculo extends objeto_mt_abms
 			{
 				var inic = formulario.{$nombre_ef['inicializacion']}.value; 
 				miArray  = inic.split(',');
-				if(miArray.length != 3){
+				if(miArray.length != 3 && miArray.length != 4){
 					alert('Debe completar correctamente el campo Incializacion POPUP (Ver ayuda)');
 					formulario.{$nombre_ef['inicializacion']}.focus();
 					return false;

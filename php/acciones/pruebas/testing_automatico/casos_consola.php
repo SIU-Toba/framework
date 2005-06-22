@@ -6,33 +6,39 @@ require_once('lista_casos.php');
 
 $this->registrar_parametros();
 
-if(isset($this->parametros["-c"]) || isset($this->parametros["-t"])) {
-	//Selecciono una categoria
-	if (isset($this->parametros["-c"])) {
-		$seleccionados = array_keys(casos_dao::get_casos($this->parametros["-c"]));
-	}
-	//Selecciono un test particular
+//Selecciono una categoria
+if (isset($this->parametros["-c"]))
+	$seleccionados = lista_casos::get_casos($this->parametros["-c"]);
+else
+	$seleccionados = lista_casos::get_casos();
+
+	
+if(isset($this->parametros["-t"])) {
+	//Seleccion de un test particular
 	if (isset($this->parametros["-t"])) {
-		$seleccionados = array($this->parametros["-t"]);
+		$particular = false;
+		foreach ($seleccionados as $caso) {
+			if ($caso['id'] == $this->parametros["-t"]) {
+				$particular = $caso;
+			}
+		}
+		if ($particular)
+			$seleccionados = array($particular);
+		else
+			$seleccionados = array();
 	}	
-} else {
-	//Si no selecciona nada, son todos los casos
-	$seleccionados = array_keys(casos_dao::get_casos());
-}
+} 
 
 
 try {
 	$test = new GroupTest('Casos de TEST');
-    foreach (casos_dao::get_casos() as $clase =>$caso) {
-	    if (in_array($clase, $seleccionados)) {
-	        require_once($caso['categoria']."/".$clase.".php");
-	        $test->addTestCase(new $clase($caso['nombre']));
-	    }
+    foreach ($seleccionados as $caso) {
+        require_once($caso['categoria']."/".$caso['id'].".php");
+        $test->addTestCase(new $caso['id']($caso['nombre']));
 	}
 	
 	//Termina la ejecución con 0 o 1 para que pueda comunicarse con al consola
 	exit ($test->run(new TextReporter()) ? 0 : 1);
-	
 	
 } catch (Exception $e) {
 	die(ei_mensaje($e->getMessage(), "error"));
