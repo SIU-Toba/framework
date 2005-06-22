@@ -1028,7 +1028,7 @@ class objeto
 				$tab_order = 0;//Esto esta MAAL!!!
 				$acceso = tecla_acceso( $evento["etiqueta"] );
 				$html = '';
-				if ($evento['imagen'])
+				if (isset($evento['imagen']) && $evento['imagen'])
 					$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
 				$html .= $acceso[0];
 				$tecla = $acceso[1];
