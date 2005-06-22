@@ -12,27 +12,20 @@ class db_registros
 		2) Reveer el nombre de las interfaces
 			( Alguna relacionadas a eventos reportados a controladores )
 
-		3) Ver la forma de persistir el buffer en la memoria
-			( la actual podria denominarse "autonoma", pero deberia haber una que
-				funcione con el metodo "mantener_estado_sesion" para relacionarse de una
-				manera mas fluida con el esquema de CIs
+		3) La funcion cosmetica tambien tiene que trabajar con DAOS
 
-		4) La funcion cosmetica tambien tiene que trabajar con DAOS
-
-		5) validaciones
+		4) validaciones
 			- El control de valores duplicados no es multicolumna, cuando las claves son compuestas no sirve
 			- El control de nulos deberia desactivarse si la columna es una secuencia
 
-		6) Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
+		5) Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
 
-		7) Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
+		6) Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
 
-		8) Es necesario implementar UPDATES que solo incluyan columnas afectadas??
+		7) Es necesario implementar UPDATES que solo incluyan columnas afectadas??
 
- 		9) Hay una alternativa para las claves internas de cada registro?
+ 		8) Hay una alternativa para las claves internas de cada registro?
 */
-	protected $log;						//Referencia al LOGGER
-	protected $solicitud;				//Referencia a la solicitud
 	protected $definicion;				//Definicion que indica la construccion del BUFFER
 	protected $fuente;					//Fuente de datos utilizada
 	protected $identificador;			//Identificador del registro
@@ -58,8 +51,6 @@ class db_registros
 
 	function __construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
 	{
-		$this->solicitud = toba::get_solicitud();
-		$this->log = toba::get_logger();		
 		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
@@ -76,15 +67,32 @@ class db_registros
 		}else{
 			$this->control_sincro_db = false;
 		}
+		//Inicializar la estructura de campos
+		$this->inicializar_definicion_campos();
+		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
+		if($this->memoria_autonoma){
+			$this->inicializar_memoria_autonoma();
+		}
+	}
+	
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//-- Memoria AUTONOMA -- Candidato a desaparecer
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	/*
+		El buffer se encarga solo de que su estado se mantenga en la sesion
+	*/
+	
+	function inicializar_memoria_autonoma()
+	{
+		$this->log("Se esta utilizando la memoria autonoma.");
 		//Registro la finalizacion del objeto
 		$this->posicion_finalizador = registrar_finalizacion( $this );
-		//Inicializar la estructura de campos
-		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
-		$this->inicializar_definicion_campos();
 		//-- Si el BUFFER fue creado en el request previo, lo recargo
 		if( $this->existe_instanciacion_previa() ){
 			//Si vengo del menu, no lo recargo.
-			if( $this->solicitud->hilo->verificar_acceso_menu() ){
+			if( toba::get_hilo()->verificar_acceso_menu() ){
 				$this->log("Acceso desde el MENU: no se recargan los datos");
 			}else{
 				$this->cargar_datos_sesion();
@@ -93,11 +101,61 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
+	function finalizar()
+	//Finaliza la ejecucion del buffer
+	{
+		$this->guardar_datos_sesion();
+	}
+	//-------------------------------------------------------------------------------
+
+	function desregistrar_finalizacion()
+	//Desregistrar el destructor, por si se necesita eliminar un objeto registrado
+	{
+		desregistar_finalizacion($this->posicion_finalizador);
+	}
+	//-------------------------------------------------------------------------------
+
+	function cargar_datos_sesion()
+	//Cargo el BUFFER desde la sesion
+	{
+		$this->log("Cargar de SESION");
+		$datos = toba::get_hilo()->recuperar_dato_global($this->identificador);
+		//Traera un problema el pasaje por referencia
+		$this->datos = $datos['datos'];
+		$this->datos_orig = $datos['datos_orig'];
+		$this->control = $datos['control'];
+		$this->proximo_registro = $datos['proximo_registro'];
+		$this->where = $datos['where'];
+		$this->from = $datos['from'];
+	}
+	//-------------------------------------------------------------------------------
+
+	function guardar_datos_sesion()
+	//Guardo datos en la sesion
+	{
+		$datos['where'] = $this->where;
+		$datos['from'] = $this->from;
+		$datos['datos'] = $this->datos;
+		$datos['datos_orig'] = $this->datos_orig;
+		$datos['control'] = $this->control;
+		$datos['proximo_registro'] = $this->proximo_registro;
+		toba::get_hilo()->persistir_dato_global($this->identificador, $datos, true);
+	}
+	//-------------------------------------------------------------------------------
+	
+	function existe_instanciacion_previa()
+	{
+		return toba::get_hilo()->existe_dato_global($this->identificador);
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Preguntas basicas
+	//-------------------------------------------------------------------------------
+
 	function obtener_definicion()
 	{
 		return $this->definicion;
 	}
-	//-------------------------------------------------------------------------------
 
 	function get_clave()
 	{
@@ -111,18 +169,10 @@ class db_registros
 		}	
 		return $temp;
 	}
-	
-	function finalizar()
-	//Finaliza la ejecucion del buffer
-	{
-		$this->guardar_datos_sesion();
-	}
-	//-------------------------------------------------------------------------------
 
-	function desregistrar_finalizacion()
-	//Desregistrar el destructor, por si se necesita eliminar un objeto registrado
+	public function get_tope_registros()
 	{
-		desregistar_finalizacion($this->posicion_finalizador);
+		return $this->tope_registros;	
 	}
 	//-------------------------------------------------------------------------------
 
@@ -139,7 +189,13 @@ class db_registros
 
 	public function registrar_controlador($controlador)
 	{
-		$this->controlador = $controlador;
+		/*
+			ATENCION, el manejo de controladores debe ser consistente con
+						el mecanismo de serializacion, ya que hay que evitar las referencias
+						circulares porque van a destruir la memoria
+			-->	Hacer una implementacion con __sleep y __wakeup
+		*/
+		//$this->controlador = $controlador;
 	}
 
 	public function set_baja_logica($columna, $valor)
@@ -149,14 +205,9 @@ class db_registros
 		$this->baja_logica_valor = $valor;	
 	}
 
-	public function get_tope_registros()
-	{
-		return $this->tope_registros;	
-	}
-
 	protected function log($txt)
 	{
-		$this->log->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
+		toba::get_logger()->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -181,14 +232,7 @@ class db_registros
 				throw new excepcion_toba("El WHERE debe ser un array");
 			}	
 		}
-		if( $this->existe_instanciacion_previa() ){
-			//Es posible que el usuario haya cambiado de WHERE
-			if( !($this->controlar_conservacion_where($where)) ){
-				$this->cargar_datos_db($where, $from);
-			}
-		}else{
-			$this->cargar_datos_db($where, $from);
-		}
+		$this->cargar_datos_db($where, $from);
 	}
 	//-------------------------------------------------------------------------------
 	
@@ -300,13 +344,13 @@ class db_registros
 		//-- Intento cargar el BUFFER
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
-			$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
+			toba::get_logger()->error("BUFFER  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
 			throw new excepcion_toba("Error cargando datos en el buffer. Verifique la definicion. $sql");
 		}
 		if($rs->EOF){
 			if($carga_estricta){
-				$this->log->error("BUFFER  " . get_class($this). " [{$this->identificador}] - " .
+				toba::get_logger()->error("BUFFER  " . get_class($this). " [{$this->identificador}] - " .
 								"No se recuperarron DATOS. Se solicito carga estricta");
 			}
 			return null;
@@ -326,52 +370,21 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function cargar_datos_sesion()
-	//Cargo el BUFFER desde la sesion
-	{
-		$this->log("Cargar de SESION");
-		$datos = $this->solicitud->hilo->recuperar_dato_global($this->identificador);
-		//Traera un problema el pasaje por referencia
-		$this->datos = $datos['datos'];
-		$this->datos_orig = $datos['datos_orig'];
-		$this->control = $datos['control'];
-		$this->proximo_registro = $datos['proximo_registro'];
-		$this->where = $datos['where'];
-		$this->from = $datos['from'];
-	}
-	//-------------------------------------------------------------------------------
-
-	function guardar_datos_sesion()
-	//Guardo datos en la sesion
-	{
-		$datos['where'] = $this->where;
-		$datos['from'] = $this->from;
-		$datos['datos'] = $this->datos;
-		$datos['datos_orig'] = $this->datos_orig;
-		$datos['control'] = $this->control;
-		$datos['proximo_registro'] = $this->proximo_registro;
-		$this->solicitud->hilo->persistir_dato_global($this->identificador, $datos, true);
-	}
-	//-------------------------------------------------------------------------------
-	
-	function existe_instanciacion_previa()
-	{
-		return $this->solicitud->hilo->existe_dato_global($this->identificador);
-	}
-	//-------------------------------------------------------------------------------
-
 	function resetear()
 	{
 		$this->log("RESET!!");
-		if($this->existe_instanciacion_previa()){
-			$this->solicitud->hilo->eliminar_dato_global($this->identificador);
-		}
 		$this->datos = array();
 		$this->datos_orig = array();
 		$this->control = array();
 		$this->proximo_registro = 0;
 		$this->where = null;
 		$this->from = null;
+		if($this->memoria_autonoma){
+			//Borro informacion de la sesion
+			if($this->existe_instanciacion_previa()){
+				toba::get_hilo()->eliminar_dato_global($this->identificador);
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------
@@ -383,16 +396,30 @@ class db_registros
 	public function obtener_registros($condiciones=null)
 	{
 		$datos = null;
-		foreach(array_keys($this->control) as $registro){
-			//Si no esta eliminado, lo devuelvo
-			if($this->control[$registro]['estado']!="d"){
-				$datos[] = $this->datos[$registro];
+		if(isset($condiciones)){		//Recuperacion con condiciones
+			foreach( $this->obtener_id_registro_condicion() as $id_registro ){
+				$datos[] = $this->datos[$id_registro];
+			}
+		}else{
+			foreach(array_keys($this->control) as $id_registro){
+				//Si no esta eliminado lo devuelvo
+				if($this->control[$id_registro]['estado']!="d"){
+					$datos[] = $this->datos[$id_registro];
+				}
 			}
 		}
 		return $datos;
 	}
 	//-------------------------------------------------------------------------------
 	
+	public function obtener_id_registro_condicion($condiciones)
+	//Devuelve los registros que cumplen una condicion
+	{	
+		echo "La busqueda por condiciones no esta implementada!";
+		return array();
+	}
+	//-------------------------------------------------------------------------------
+
 	public function obtener_registro($id)
 	{
 		if(isset($this->datos[$id])){
@@ -444,7 +471,7 @@ class db_registros
 	{
 		if(!isset($this->datos[$id])){
 			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			$this->log->error($mensaje);
+			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
 		$this->evt__modificar_registro($registro, $id);
@@ -471,7 +498,7 @@ class db_registros
 	{
 		if(!isset($this->datos[$id])){
 			$mensaje = "BUFFER: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			$this->log->error($mensaje);
+			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
 		$this->evt__eliminar_registro($id);
@@ -496,6 +523,34 @@ class db_registros
 				unset($this->datos[$registro]);
 			}else{
 				$this->actualizar_estructura_control($registro,"d");
+			}
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function procesar_registros($registros)
+	{
+		//Controlo estructura
+		foreach(array_keys($registros) as $id){
+			if(!isset($registros[$id][apex_ei_analisis_fila])){
+				throw new excepcion_toba("Para procesar un conjunto de registros es necesario indicar el estado ".
+									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'");
+			}
+		}
+		//Proceso las modificaciones sobre el buffer
+		foreach(array_keys($registros) as $id){
+			$accion = $registros[$id][apex_ei_analisis_fila];
+			unset($registros[$id][apex_ei_analisis_fila]);
+			switch($accion){
+				case "A":
+					$this->agregar_registro($registro);
+					break;	
+				case "B":
+					$this->modificar_registro($registro, $id);
+					break;	
+				case "M":
+					$this->eliminar_registro($id);
+					break;	
 			}
 		}
 	}
@@ -592,7 +647,7 @@ class db_registros
 				(in_array($campo,$this->campos_secuencia)) ) ){
 					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
 							" se encuentra definido y no existe en el registro.");
-					//$this->log->debug( debug_backtrace() );
+					//toba::get_logger()->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento posee una estructura incorrecta");
 			}
 		}
@@ -616,7 +671,7 @@ class db_registros
 				if(in_array($registro[$campo], $valores_columna)){
 					$this->log("El valor '".$registro[$campo] ."' crea un duplicado " .
 									" en el campo '" . $campo . "', definido como no_duplicado");
-					//$this->log->debug( debug_backtrace() );
+					//toba::get_logger()->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento ya se encuentra definido");
 				}
 			}
@@ -633,11 +688,11 @@ class db_registros
 		foreach($this->campos_no_nulo as $campo){
 			if(isset($registro[$campo])){
 				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
-					$this->log->error($mensaje_programador . $campo);
+					toba::get_logger()->error($mensaje_programador . $campo);
 					throw new excepcion_toba($mensaje_usuario);
 				}
 			}else{
-					$this->log->error($mensaje_programador . $campo);
+					toba::get_logger()->error($mensaje_programador . $campo);
 					throw new excepcion_toba($mensaje_usuario);
 			}
 		}
@@ -744,7 +799,7 @@ class db_registros
 			$this->sincronizar_estructura_control();
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion();
-			$this->log->debug($e);
+			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
 		}
 	}

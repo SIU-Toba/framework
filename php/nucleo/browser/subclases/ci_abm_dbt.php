@@ -14,26 +14,34 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 
 	protected $clave;
 	protected $selecciones;
-	private $db_tablas;
-		
+	protected $db_tablas;
+
 	function __construct($id)
 	{
 		parent::__construct($id);
-		include_once( $this->info["parametro_a"]);
-		$clase = $this->info['parametro_b'];
-		$this->db_tablas = new $clase($this->info['fuente']);
 	}
-
+		
 	function destruir()
 	{
 		//ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
-		//ei_arbol($this->db_tablas->info());
+		//ei_arbol($this->obtener_dbt()->info());
 		parent::destruir();	
+	}
+
+	function obtener_dbt()
+	{
+		if (! isset($this->db_tablas)) {
+			include_once( $this->info["parametro_a"]);
+			$clase = $this->info['parametro_b'];
+			$this->db_tablas = new $clase($this->info['fuente']);
+		}
+		return $this->db_tablas;
 	}
 
 	function mantener_estado_sesion()
 	{
 		$estado = parent::mantener_estado_sesion();
+		//$estado[] = "db_tablas";
 		$estado[] = "clave";
 		$estado[] = "selecciones";
 		return $estado;
@@ -41,7 +49,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 
 	function evt__limpieza_memoria()
 	{
-		$this->resetear();
+		$this->obtener_dbt()->resetear();
 		parent::evt__limpieza_memoria();		
 	}
 
@@ -72,7 +80,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 			$dep['tipo_ei'] = "ei_formulario";
 		}
 		$dep['elemento'] = $e[1];
-		$dep['cantidad_registros'] = $this->db_tablas->elemento($dep['elemento'])->get_tope_registros();
+		$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_registros();
 		return $dep;
 	}
 	
@@ -88,10 +96,10 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 		{	
 			if($dep['cantidad_registros'] == 1){
 				//El elemento maneja un registro
-				$this->db_tablas->elemento($dep['elemento'])->set($parametros);	
+				$this->obtener_dbt()->elemento($dep['elemento'])->set($parametros);	
 			}else{
 				if($evento=="alta"){
-					$this->db_tablas->elemento($dep['elemento'])->agregar_registro( $parametros );	
+					$this->obtener_dbt()->elemento($dep['elemento'])->agregar_registro( $parametros );	
 				}elseif($evento=="cancelar"){
 					$this->deseleccionar_cuadro();
 					unset($this->selecciones[$dep['elemento']]);
@@ -101,10 +109,10 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 						$registro_seleccionado = $this->selecciones[$dep['elemento']];
 						if($evento=="modificacion"){
 							//Modifico el registro
-							$this->db_tablas->elemento($dep['elemento'])->modificar_registro($parametros, $registro_seleccionado);
+							$this->obtener_dbt()->elemento($dep['elemento'])->modificar_registro($parametros, $registro_seleccionado);
 						}elseif($evento=="baja"){
 							//Elimino el registro
-							$this->db_tablas->elemento($dep['elemento'])->eliminar_registro( $registro_seleccionado );	
+							$this->obtener_dbt()->elemento($dep['elemento'])->eliminar_registro( $registro_seleccionado );	
 						}
 						unset($this->selecciones[$dep['elemento']]);
 						$this->deseleccionar_cuadro();
@@ -125,16 +133,16 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 			if (isset($this->selecciones[$dep['elemento']])) {
 				$this->dependencias[$id]->seleccionar($this->selecciones[$dep['elemento']]);
 			}
-			return $this->db_tablas->elemento($dep['elemento'])->obtener_registros();	
+			return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros();	
 		}
 		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
 		{
 			if($dep['cantidad_registros'] == 1){
-				return $this->db_tablas->elemento($dep['elemento'])->get();	
+				return $this->obtener_dbt()->elemento($dep['elemento'])->get();	
 			}else{
 				//El elemento maneja N registros, si se selecciono uno lo devuelvo
 				if(isset($this->selecciones[$dep['elemento']])){
-					return $this->db_tablas->elemento($dep['elemento'])->obtener_registro($this->selecciones[$dep['elemento']]);
+					return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registro($this->selecciones[$dep['elemento']]);
 				}
 			}
 		}	
@@ -153,24 +161,26 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 
 	function cargar($clave)
 	{
-		$this->clave = $clave;
-		$this->db_tablas->cargar($clave);
+		if(!isset($this->clave)){
+			$this->clave = $clave;
+			$this->obtener_dbt()->cargar($clave);
+		}
 	}
 	
 	function reset()
 	{
 		unset($this->clave);
-		$this->db_tablas->reset();
+		$this->obtener_dbt()->reset();
 	}
 	
 	function guardar()
 	{
-		$this->db_tablas->sincronizar();
+		$this->obtener_dbt()->sincronizar();
 	}
 	
 	function eliminar()
 	{
-		$this->db_tablas->eliminar();
+		$this->obtener_dbt()->eliminar();
 	}
 	//------------------------------------------------------------------------
 }

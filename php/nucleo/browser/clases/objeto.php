@@ -33,6 +33,7 @@ class objeto
 	var $exportacion_path;
 	var $colapsado = false;						//El elemento sólo mantiene su título
 	var $evento_por_defecto;					//Evento disparado cuando no hay una orden explicita
+	protected $observadores;
 	protected $eventos = array();
 	
 	function objeto($id)
@@ -546,9 +547,34 @@ class objeto
 			}else{
 				//Recupero las propiedades de la sesion
 				$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
-				foreach($temp as $propiedad => $valor){
-					$this->$propiedad = $valor;
-				}	
+				if(isset($temp["__indice_de_objetos_serializados"]))	//El objeto persistio otros objetos
+				{
+					/*
+						PERSISTENCIA de OBJETOS 
+						-----------------------
+						Hay una forma de no hacer este IF: 
+							Que en el consumo de "mantener_estado_sesion" se indique que propiedades son objetos.
+							Hay comprobar si la burocracia justifica el tiempo extra que implica este mecanismo o no.
+					*/
+					$objetos = $temp["__indice_de_objetos_serializados"];
+					unset($temp["__indice_de_objetos_serializados"]);
+					foreach(array_keys($temp) as $propiedad)
+					{
+						if(in_array($propiedad,$objetos)){
+							//La propiedad es un OBJETO!
+							$this->$propiedad = unserialize($temp[$propiedad]);
+						}else{
+							$this->$propiedad = $temp[$propiedad];
+						}
+					}
+				}
+				else //El objeto solo persistio variables
+				{
+					foreach(array_keys($temp) as $propiedad)
+					{
+						$this->$propiedad = $temp[$propiedad];
+					}
+				}
 			}
 		}		
 	}
@@ -565,7 +591,28 @@ class objeto
 				if(in_array($propiedades_a_persistir[$a],$propiedades)){
 					//Si la propiedad no es NULL
 					if(isset($this->$propiedades_a_persistir[$a])){
-						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+						if(is_object($this->$propiedades_a_persistir[$a])){
+							/*
+								PERSISTENCIA de OBJETOS 
+								-----------------------
+								Esta es la forma mas sencilla de implementar esto para el caso en el que
+								el elemento persistidor permanece inactivo durante n request y luego vuelve
+								a la actividad. Lo malo es que que hay que saber que propiedades son objetos 
+								y cuales no.
+								ATENCION: 
+									Hay que tener mucho cuidado con las referencias circulares:
+									ej: 	un db_tablas posee un por composicion db_registros y
+											el db_registros posee una referencia a su controlador 	
+											que es el mismo el db_tablas...
+									En casos como este es necesario definir __sleep en el objeto hijo, para
+										anular el controlador y __wakeup en el padre para restablecerlo
+							*/
+							$temp[$propiedades_a_persistir[$a]] = serialize($this->$propiedades_a_persistir[$a]);
+							//Dejo la marca de que serialize un OBJETO.
+							$temp["__indice_de_objetos_serializados"][] = $propiedades_a_persistir[$a];
+						}else{
+							$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+						}
 					}else{
 						//$this->log->error($this->get_txt() . " Se solocito mantener el estado de una propiedad inexistente: '{$propiedades_a_persistir[$a]}' ");
 						//echo $this->get_txt() . " guardar_estado_sesion '{$propiedades_a_persistir[$a]}' == NULL <br>";
