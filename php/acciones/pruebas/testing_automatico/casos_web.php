@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php');
 require_once('test_toba.php');
-require_once('3ros/simpletest/reporter.php');
+require_once('reporter_toba.php');
 require_once('lista_casos.php');
 
 class casos_web extends objeto_ci
@@ -33,6 +33,9 @@ class casos_web extends objeto_ci
 					break;
 			case 2:
 				$eventos += eventos::duplicar(eventos::ci_cancelar("<-- &Volver"), 'volver');				
+				$refrescar = eventos::duplicar(eventos::ci_procesar("R&efrescar"), 'ejecutar');	
+				$refrescar['ejecutar']['imagen'] = recurso::imagen_apl('refrescar.gif');
+				$eventos += $refrescar;
 					break;
 		}
 		return $eventos;
@@ -76,9 +79,12 @@ class casos_web extends objeto_ci
 			        $test->addTestCase(new $caso['id']($caso['nombre']));
 			    }
 			}
-			$test->run(new HtmlReporter());
+			$test->run(new reporter_toba());
 		} catch (Exception $e) {
-			echo ei_mensaje($e->getMessage(), "error");
+			if (method_exists($e, 'mensaje_web'))
+				echo ei_mensaje($e->mensaje_web(), 'error');
+			else
+				echo $e;
 		}
 	}
 }

@@ -77,7 +77,7 @@ $this->hilo->desactivar_reciclado();
 			responder($datos);					
 
 		}catch(excepcion_toba $e){
-			echo "<pre>". $e->get_log_info();
+			echo $e->mensaje_web();
 			responder( array( 	'x' => 'Excepcion!!!',
 								'y' => addslashes($e->getMessage()) ) );			
 		}

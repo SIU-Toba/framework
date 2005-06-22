@@ -124,7 +124,7 @@ class ef_multi_seleccion extends ef
 
     function preparar_valores($datos_recordset)
     {
-		$valores = null;
+		$valores = array();
 		foreach ($datos_recordset as $fila){
             $valores[$fila[$this->clave]] = $fila[$this->valor];
 		}

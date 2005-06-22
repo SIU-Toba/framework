@@ -52,9 +52,9 @@ class logger
 	*/
 	{
         if (is_object($mensaje)) {
-            if (method_exists($mensaje, 'get_log_info')) {
+            if (method_exists($mensaje, 'mensaje_web')) {
 				//Excepciones!
-                $mensaje = $mensaje->get_log_info();
+                $mensaje = $mensaje->mensaje_web();
             } else if (method_exists($mensaje, 'getMessage')) {
                 $mensaje = $mensaje->getMessage();
             } else if (method_exists($mensaje, 'tostring')) {

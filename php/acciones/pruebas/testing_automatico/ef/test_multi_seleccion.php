@@ -38,10 +38,10 @@ class test_multi_seleccion extends test_toba
 		$this->assertEqualArray($ef->get_valores(), $retorno_dao);
 		
 		//Conjunto completo de datos de entrada
-		$retorno_dao = array('a' => 'AAAAaa', '0' => '010101', 'otro' => 'B');
+		$retorno_dao = array(array('a', 'AAAAaa'), array('0', '010101'), array('otro', 'B'));
+		$buscado = array('a' => 'AAAAaa', '0' => '010101', 'otro' => 'B');
 		$ef = $this->get_ef($parametros);
-		$ef->cargar_datos();
-		$this->assertEqualArray($ef->get_valores(), $retorno_dao);
+		$this->assertEqualArray($ef->get_valores(), $buscado);
 	}
 /*	
 	function test_cargar_desde_sql()

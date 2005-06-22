@@ -41,7 +41,10 @@ try {
 	exit ($test->run(new TextReporter()) ? 0 : 1);
 	
 } catch (Exception $e) {
-	die(ei_mensaje($e->getMessage(), "error"));
+	if (method_exists($e, 'mensaje_consola'))
+		echo $e->mensaje_consola();
+	else
+		echo $e;
 }
 
 
