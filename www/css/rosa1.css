@@ -2158,7 +2158,7 @@ TD.lista-obj-clase {
 
 /*------------------------ ELEMENTOS de FORMULARIO ----------------------*/
 
-TD.tabs-solapa {
+.tabs-solapa {
 	background-color: #d599c5; 
 	text-align: center;
 	border-bottom: 2px solid #e4bfda;
@@ -2170,6 +2170,34 @@ TD.tabs-solapa {
 	margin: 0px 0px 0px 0px ;
 }
 
+.tabs-solapa-sel {
+	background-color: #d599c5; 
+	text-align: center;
+	border-top: 2px solid #e4bfda;
+	border-right: 2px solid #e4bfda;
+	border-left: 2px solid #96006e;
+	border-bottom: 2px solid #d599c5;
+	white-space: nowrap;
+	padding: 0px 0px 0px 0px ;
+	margin: 0px 0px 0px 0px ;
+}
+
+.tabs-v-solapa {
+	text-align: left;
+	border-right: 1px solid #e4bfda;
+	white-space: nowrap;
+	padding: 2px 10px 2px 2px ;
+}
+
+.tabs-v-solapa-sel {
+	background-color: #d599c5; 
+	text-align: left;
+	border-top: 1px solid #e4bfda;
+	border-left: 1px solid #e4bfda;
+	border-bottom: 1px solid #96006e;	
+	white-space: nowrap;
+	padding: 0px 10px 0px 3px;
+}
 .tabs-boton
 {
 	white-space: nowrap;
@@ -2181,19 +2209,6 @@ TD.tabs-solapa {
 	border-bottom: 1px solid #d599c5;
 	border-right: 1px solid #d599c5;
 	padding: 3px 0px 0px 0px ;
-}
-
-
-TD.tabs-solapa-sel {
-	background-color: #d599c5; 
-	text-align: center;
-	border-top: 2px solid #e4bfda;
-	border-right: 2px solid #e4bfda;
-	border-left: 2px solid #96006e;
-	border-bottom: 2px solid #d599c5;
-	white-space: nowrap;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
 }
 
 .tabs-boton-sel
@@ -2210,6 +2225,26 @@ TD.tabs-solapa-sel {
 	padding: 3px 0px 0px 0px ;
 }
 
+.tabs-v-boton {
+	line-height: 15px;	
+	text-decoration: none;	
+	padding: 3px 2px 12px 2px ;	
+	font-size: 10px;
+	white-space: nowrap;
+}
+.tabs-v-boton:hover {
+	text-decoration: underline;
+}
+
+.tabs-v-boton-sel {
+	font-weight: bold;
+	font-size: 11px;
+	COLOR: #000000;
+	padding: 3px 2px 2px 2px;
+	white-space: nowrap;	
+	background-color: #d599c5;
+}
+
 TD.tabs-solapa-hueco {
 	border-bottom: 2px solid #e4bfda;
 	padding: 0px 0px 0px 0px ;
@@ -2224,6 +2259,16 @@ TD.tabs-contenedor {
 	border-bottom: 2px solid #96006e;
 	padding: 10px 7px 10px 7px ;
 	margin: 0px 0px 0px 0px ;
+	vertical-align: top;
+}
+
+.tabs-v-contenedor {
+	background-color: #d599c5; 
+	text-align: center;
+	border-right: 2px solid #e4bfda;
+	border-bottom: 2px solid #96006e;
+	padding: 6px 2px 6px 6px ;
+	vertical-align: top;
 }
 
 TABLE.objeto-base-3d {

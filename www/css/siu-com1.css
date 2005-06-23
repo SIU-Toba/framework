@@ -2283,7 +2283,7 @@ TD.lista-obj-clase {
 	 BACKGROUND-COLOR: #7b7979;
 	 TEXT-ALIGN: left
 }
-TD.tabs-solapa {
+.tabs-solapa {
 	BORDER-RIGHT: #808080 2px solid;
 	 BORDER-TOP: #ffffff 2px solid;
 	 BORDER-LEFT: #ffffff 2px solid;
@@ -2292,7 +2292,7 @@ TD.tabs-solapa {
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
 }
-TD.tabs-solapa-sel {
+.tabs-solapa-sel {
 	BORDER-RIGHT: #808080 2px solid;
 	 BORDER-TOP: #ffffff 2px solid;
 	 BORDER-LEFT: #ffffff 2px solid;
@@ -2300,6 +2300,26 @@ TD.tabs-solapa-sel {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
+}
+.tabs-v-solapa {
+	BORDER-RIGHT: #ffffff 1px solid;
+	PADDING-RIGHT: 10px;	
+	PADDING-LEFT: 2px;
+	PADDING-TOP: 2px;
+	PADDING-BOTTOM: 2px;		 
+	WHITE-SPACE: nowrap;
+	BACKGROUND-COLOR: #d4d0c8;
+	TEXT-ALIGN: left
+}
+.tabs-v-solapa-sel {
+	PADDING-RIGHT: 10px;	
+	PADDING-LEFT: 3px;
+	BORDER-TOP: #ffffff 1px solid;
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-BOTTOM: #808080 1px solid;	 
+	WHITE-SPACE: nowrap;
+	BACKGROUND-COLOR: #d4d0c8;
+	TEXT-ALIGN: left
 }
 .tabs-boton {
 	BORDER-RIGHT: medium none;
@@ -2330,6 +2350,35 @@ TD.tabs-solapa-sel {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8
 }
+.tabs-v-boton {
+	line-height: 15px;	
+	text-decoration: none;	
+	PADDING-RIGHT: 2px;	
+	PADDING-LEFT: 2px;	 
+	PADDING-BOTTOM: 12px;
+	PADDING-TOP: 3px;	 
+	FONT-SIZE: 10px;
+	WHITE-SPACE: nowrap;
+}
+.tabs-v-boton:hover {
+	text-decoration: underline;
+}
+
+.tabs-v-boton-sel {
+	BORDER-RIGHT: medium none;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: medium none;
+	PADDING-LEFT: 2px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 11px;
+	PADDING-BOTTOM: 2px;
+	BORDER-LEFT: medium none;
+	COLOR: #000000;
+	PADDING-TOP: 3px;
+	BORDER-BOTTOM: medium none;
+	WHITE-SPACE: nowrap;
+	BACKGROUND-COLOR: #d4d0c8
+}
 .tabs-solapa-hueco {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
@@ -2350,6 +2399,19 @@ TD.tabs-solapa-sel {
 	 BORDER-BOTTOM: #808080 2px solid;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
+}
+.tabs-v-contenedor {
+	BORDER-RIGHT: #808080 2px solid;
+	PADDING-RIGHT: 2px;
+	PADDING-LEFT: 6px;
+	PADDING-BOTTOM: 6px;
+	MARGIN: 0px;
+	VERTICAL-ALIGN: top;
+	PADDING-TOP: 6px;
+	BORDER-TOP: #ffffff 1px solid;
+	BORDER-BOTTOM: #808080 2px solid;
+	BACKGROUND-COLOR: #d4d0c8;
+	TEXT-ALIGN: left
 }
 TABLE.objeto-base-3d {
 	BORDER-RIGHT: #666677 2px solid;

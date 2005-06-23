@@ -162,6 +162,13 @@ function objeto_ci(instancia, form, input_submit) {
 
 	def.habilitar_tab = function(tab, habilitado) {
 		var boton = document.getElementById(this._input_submit + tab);
-		if (boton)
-			boton.disabled = ! habilitado;
+		if (! habilitado) {
+			boton.disabled = true;
+			boton.onclick_viejo = boton.onclick;
+			boton.onclick = '';
+		} else {
+			boton.disabled = false;
+			if (boton.onclick_viejo != '')
+				boton.onclick = boton.onclick_viejo;
+		}
 	}

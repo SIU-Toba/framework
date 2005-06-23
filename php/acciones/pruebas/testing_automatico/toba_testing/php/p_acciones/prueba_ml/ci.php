@@ -239,14 +239,11 @@ class ci extends objeto_ci
 	//------------------------------------	
 	function extender_objeto_js()
 	{
-		//Mensaje del objeto
-		$mensaje = "A continuación un mensaje del objeto:\n";
-		$mensaje .= $this->obtener_mensaje('no_procesar');
-		$mensaje = pasar_a_unica_linea($mensaje);
+
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this._evento.id == 'procesar') {
-					cola_mensajes.agregar('$mensaje');
+					cola_mensajes.agregar('No se puede procesar!');
 					return false;
 				}
 				return true;

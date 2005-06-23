@@ -100,6 +100,8 @@ class objeto_ci extends objeto
 		$sql["info_ci_me_etapa"]["sql"] = "SELECT	posicion			  	as posicion,
 													etiqueta			  	as etiqueta,
 													descripcion			  	as descripcion,
+													imagen_recurso_origen	as imagen_recurso_origen,
+													imagen					as imagen,
 													objetos				  	as objetos,
 													ev_procesar		   		as ev_procesar,
 													ev_cancelar				as ev_cancelar
@@ -669,7 +671,15 @@ class objeto_ci extends objeto
 				echo "</table>\n";
 				break;				
 			case "tab_v": 									//*** TABs verticales
+				echo "<table class='tabla-0' width='100%'>\n";
+				//Tabs
+				echo "<tr><td class='celda-vacia'  height='100%'>";
+				$this->obtener_tabs_verticales();
+				echo "</td>";
+				echo "<td class='tabs-v-contenedor' height='100%'>";
 				$this->obtener_html_pantalla_contenido();
+				echo "</td></tr>\n";
+				echo "</table>\n";
 				break;				
 			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
 				$this->obtener_html_pantalla_contenido();
@@ -738,8 +748,10 @@ class objeto_ci extends objeto
 			$clase = 'tabs-boton';
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
-			$html = $acceso[0]; //Falta concatenar la imagen
-			if(isset($tab['imagen'])) $html = $tab['imagen'] . "&nbsp;&nbsp;" . $html;
+			$html = '';
+			if(isset($tab['imagen'])) 
+				$html = recurso::imagen($tab['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+			$html .= $acceso[0];
 			$tecla = $acceso[1];
 			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
 			if( $this->etapa_gi == $id ){
@@ -761,6 +773,35 @@ class objeto_ci extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
+	function obtener_tabs_verticales()
+	{
+		$this->lista_tabs = $this->get_lista_tabs();
+		echo "<div  class='tabs-v-solapa' style='height:20px'> </div>";
+		foreach( $this->lista_tabs as $id => $tab )
+		{
+			$clase = 'tabs-boton';
+			$tab_order = 0;
+			$acceso = tecla_acceso( $tab["etiqueta"] );
+			$tip = $tab["tip"];
+			$html = '';
+			if(isset($tab['imagen'])) 
+				$html = recurso::imagen($tab['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+			$html .= $acceso[0];
+			$tecla = $acceso[1];
+			$js = "onclick=\"{$this->objeto_js}.set_evento( new evento_ei('cambiar_tab_$id', true, ''));\"";
+			if ( $this->etapa_gi == $id ) {
+				echo "<div class='tabs-v-solapa-sel'><div class='tabs-v-boton-sel'>$html</div></div>";
+			} else {
+				$atajo = form::acceso($tecla, $tip);
+				echo "<div class='tabs-v-solapa'>";
+				echo "<a id='".$this->submit.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
+				echo "</div>";
+			}
+		}
+		echo "<div class='tabs-v-solapa' style='height:100%'> </div>";
+	}
+	//-------------------------------------------------------------------------------	
+	
 	function get_lista_tabs()
 	//Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante
 	{
@@ -770,7 +811,12 @@ class objeto_ci extends objeto
 			$id = $this->info_ci_me_etapa[$a]["posicion"];
 			$tab[$id]['etiqueta'] = $this->info_ci_me_etapa[$a]["etiqueta"];
 			$tab[$id]['tip'] = $this->info_ci_me_etapa[$a]["descripcion"];
-			//$tab[$id]['imagen'] = recurso::imagen_apl('doc.gif',true);
+			if ($this->info_ci_me_etapa[$a]["imagen_recurso_origen"]) {
+				if ($this->info_ci_me_etapa[$a]["imagen_recurso_origen"] == 'apex') 
+					$tab[$id]['imagen'] = recurso::imagen_apl($this->info_ci_me_etapa[$a]["imagen"], false);
+				else
+					$tab[$id]['imagen'] = recurso::imagen_pro($this->info_ci_me_etapa[$a]["imagen"], false);
+			}
 		}
 		return $tab;
 	}
