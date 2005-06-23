@@ -20,7 +20,7 @@ class ci_abm_dbr extends objeto_ci
 		$estado = parent::mantener_estado_sesion();
 		$estado[] = "filtro";
 		$estado[] = "seleccion";
-		//$estado[] = "dbr";
+		$estado[] = "dbr";
 		return $estado;
 	}
 
