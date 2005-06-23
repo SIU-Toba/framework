@@ -1,13 +1,6 @@
 <?
 require_once('nucleo/persistencia/db_registros.php');
-/*
 
-	PROBLEMAS NO RESUELTOS
-	----------------------
-
-		- Servicio que pueda leer un plan y construir los planes de sincro, carga y eliminacion	
-
-*/
 class db_tablas
 {
 	protected $log;

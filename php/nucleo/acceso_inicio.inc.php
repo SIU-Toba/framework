@@ -20,8 +20,6 @@ require_once("nucleo/toba.php");					//Obtencion de referencias a los objetos CE
 require_once("instancias.php");                     //(NO SVN) Listado de INSTANCIAS...
 //require_once("configuracion.php");                  //(NO SVN) Configuracion de la instalacion
 //-------------------------------------------------------------------------
-define("apex_buffer_clave","x_buffer_clave");		//Clave interna de los BUFFERS
-
 
 	#-[1]- Creacion del cronometro y encriptador
 	$cronometro =& new cronometro();	//Creo el cronometro;

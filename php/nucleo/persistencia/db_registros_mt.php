@@ -49,6 +49,7 @@ require_once("db_registros.php");
 class db_registros_mt extends db_registros
 {
 	protected $control_tablas;			//Informacion agregada sobre la distribucion de registros por tablas
+	protected $tipo_relacion = "estricta";
 	
 	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
@@ -59,6 +60,16 @@ class db_registros_mt extends db_registros
 			}			
 		}
 		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+	}
+
+	function establecer_relacion_estricta()
+	{
+		$this->tipo_relacion = "estricta";
+	}
+	
+	function establecer_relacion_debil()
+	{
+		$this->tipo_relacion = "debil";
 	}
 	//-------------------------------------------------------------------------------
 
@@ -281,30 +292,46 @@ class db_registros_mt extends db_registros
 
 	function generar_sql_select()
 	{
+		$where = array();
 		$alias_padre = $this->definicion['tabla_alias'][0];
 		for($t=0;$t<count($this->definicion['tabla']);$t++)
 		{
 			$tabla = $this->definicion['tabla'][$t];
 			$alias = $this->definicion['tabla_alias'][$t];
-			//-- FROM
-			if($t > 0){
-				//Tablas asociadas
-				if(is_array($this->definicion['relacion'][$tabla]))
-				{
-					$join = "";
-					foreach($this->definicion['relacion'][$tabla] as $relacion ){
-						$join .= $alias . "." . $relacion['pk'] . " = " . $alias_padre .".". $relacion['fk'] . "\n";
-					}
-				}else{
-					throw new excepcion_toba("Las relaciones de la tabla '$tabla' no se encuentran definidas");
-				}
-				$tablas_outer[] = "  LEFT OUTER JOIN $tabla $alias ON $join";
-			}else{
-				//Tabla principal
+			if($this->tipo_relacion == "estricta")				// Relacion ESTRICTA
+			{
+				//-- *** FROM ***
 				$tablas_from[] = "$tabla $alias";
+				//Armo la lista de campos por tabla
+				//-- *** WHERE ***
+				if($t > 0){	//Relaciones de las tablas hijas con la maestra
+					foreach($this->definicion['relacion'][$tabla] as $relacion ){
+						$where[] = $alias_padre . "." . $relacion['pk'] . " = " . $alias . "." . $relacion['fk'];
+					}
+				}
 			}
+			else												// Relacion DEBIL
+			{
+				//-- *** FROM ***
+				if($t > 0){
+					//Tablas asociadas
+					if(is_array($this->definicion['relacion'][$tabla]))
+					{
+						$join = "";
+						foreach($this->definicion['relacion'][$tabla] as $relacion ){
+							$join .= $alias_padre . "." . $relacion['pk'] . " = " . $alias .".". $relacion['fk'] . "\n";
+						}
+					}else{
+						throw new excepcion_toba("Las relaciones de la tabla '$tabla' no se encuentran definidas");
+					}
+					$tablas_outer[] = "  LEFT OUTER JOIN $tabla $alias ON $join";
+				}else{
+					//Tabla principal
+					$tablas_from[] = "$tabla $alias";
+				}
+			}
+			//-- *** COLUMNAS ***
 			//Armo la lista de campos por tabla
-			//-- COLUMNAS
 			$campos = array_merge( $this->definicion[$tabla]['columna'], $this->definicion[$tabla]['clave'] );
 			//Elimino campos NO SQL
 			if(isset($this->definicion['tabla']['externa'])){
@@ -316,20 +343,23 @@ class db_registros_mt extends db_registros
 			}
 		}
 		//Concateno el SQL de la carga de datos
+		//FROM
 		if(isset($this->from)){
 			$tablas_from = array_merge($tablas_from, $this->from);
 		}
+		//WHERE
 		if(isset($this->where)){
-			$where = " WHERE " . implode(" \nAND ", $this->where);
-		}else{
-			$where = "";
+			$where = array_merge($where, $this->where);
 		}
 		//ei_arbol($campos_select,"CAMPOS");
 		//ei_arbol($tablas_from,"TABLAS");
 		//ei_arbol($where,"WHERE");
 		$sql =	" SELECT	" . implode(" ,\n ",$campos_select) . "\n" .
-				" FROM "	. implode(" ,\n",$tablas_from) . "\n" .
-							 implode(" ,\n",$tablas_outer) . $where .";";
+				" FROM "	. implode(" ,\n",$tablas_from) . "\n";
+		if($this->tipo_relacion == "debil"){
+			$sql .= implode(" ,\n",$tablas_outer) . "\n";
+		}
+		$sql .= " WHERE " .	implode(" \nAND ",$where) .";";
 		//echo "<pre>" . $sql;
 		return $sql;
 	}

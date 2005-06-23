@@ -21,7 +21,7 @@ class db_tablas_cd extends db_tablas
 	{
 		$this->elemento[$this->cabecera]->sincronizar();
 		//Se obtiene el id de la cabecera
-		$valores = $this->elemento[$this->cabecera]->get_clave_valor();
+		$valores = $this->elemento[$this->cabecera]->get_clave_valor(0);
 		//Se asigna cada valor al detalle
 		foreach( $this->detalles as $id => $columna_clave ){
 			$i = 0;

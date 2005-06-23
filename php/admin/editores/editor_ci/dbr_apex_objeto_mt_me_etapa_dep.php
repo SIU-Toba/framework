@@ -46,8 +46,8 @@ class dbr_apex_objeto_mt_me_etapa_dep extends db_registros_mt
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "xt_0.proyecto = '{$id['proyecto']}'";
-		$where[] = "xt_0.objeto_consumidor = '{$id['objeto']}'";
+		$where[] = "dep.proyecto = '{$id['proyecto']}'";
+		$where[] = "dep.objeto_consumidor = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }

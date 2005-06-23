@@ -1,5 +1,6 @@
 <?php
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
+define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
 
 include_once('eventos.php');
 

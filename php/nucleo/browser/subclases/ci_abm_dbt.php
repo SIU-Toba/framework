@@ -41,7 +41,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 	function mantener_estado_sesion()
 	{
 		$estado = parent::mantener_estado_sesion();
-		//$estado[] = "db_tablas";
+		$estado[] = "db_tablas";
 		$estado[] = "clave";
 		$estado[] = "selecciones";
 		return $estado;
@@ -133,7 +133,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 			if (isset($this->selecciones[$dep['elemento']])) {
 				$this->dependencias[$id]->seleccionar($this->selecciones[$dep['elemento']]);
 			}
-			return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros();	
+			return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros();
 		}
 		elseif($dep['tipo_ei'] == "ei_formulario")						//-- Formulario
 		{
@@ -170,7 +170,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 	function reset()
 	{
 		unset($this->clave);
-		$this->obtener_dbt()->reset();
+		$this->obtener_dbt()->resetear();
 	}
 	
 	function guardar()

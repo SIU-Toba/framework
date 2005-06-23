@@ -56,7 +56,7 @@ require_once('nucleo/persistencia/db_registros_s.php');
 class dbr_$tabla extends db_registros_s
 //db_registros especifico de la tabla '$tabla'
 {
-	function __construct(\$id, \$fuente, \$tope_registros=null, \$utilizar_transaccion=null, \$memoria_autonoma=null)
+	function __construct(\$id, \$fuente, \$tope_registros=0, \$utilizar_transaccion=false, \$memoria_autonoma=false)
 	{
 ";
 		$php .= dump_array_php($definicion_buffer,"		\$definicion");

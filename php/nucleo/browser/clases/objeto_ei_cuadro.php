@@ -44,7 +44,7 @@ class objeto_ei_cuadro extends objeto
         }		
 		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
-			$this->columnas_clave = array( apex_buffer_clave );
+			$this->columnas_clave = array( apex_db_registros_clave );
 		}
         //---------  EVENTOS POR DEFECTO  -----------------------------------------		
 		//El cuadro posee un evento de seleccion por defecto?
