@@ -158,12 +158,7 @@ class db_registros
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
-		if(isset($where)){
-			//ei_arbol($where,"WHERE con datos");
-			$this->datos = $this->cargar_db();
-		}else{
-			$this->datos = array();
-		}
+		$this->datos = $this->cargar_db();
 		//ei_arbol($this->datos);
 		//Se solicita control de SINCRONIA a la DB?
 		if(isset($this->definicion["control_sincro"])){

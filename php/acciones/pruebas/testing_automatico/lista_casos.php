@@ -27,6 +27,8 @@ class lista_casos
 
 					//Persistencia
 					array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_s', 'nombre' => 'db_registros SIMPLE', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt', 'nombre' => 'db_registros MULTI TABLA', 'categoria' => 'persistencia'),
 					
 					//Varios
 					array('id' =>  'test_parseo_etiquetas', 'nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 

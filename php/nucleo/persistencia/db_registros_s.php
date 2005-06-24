@@ -182,7 +182,10 @@ class db_registros_s extends db_registros
 		if(isset($this->from)){
 			$sql .= ", " . implode(",",$this->from);
 		}
-		$sql .= " WHERE " .	implode(" AND ",$this->where) .";";
+		if(isset($this->where)){
+			$sql .= " WHERE " .	implode(" AND ",$this->where) .";";
+		}
+		$this->log("SQL de carga - " . $sql); 
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------

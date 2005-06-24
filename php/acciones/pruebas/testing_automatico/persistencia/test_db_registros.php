@@ -12,7 +12,7 @@ class test_db_registros extends test_toba
 
 	function TearDown()
 	{
-		//$this->eliminar_tablas();	
+		$this->eliminar_tablas();	
 		//abortar_transaccion();
 	}
 
@@ -77,24 +77,23 @@ class test_db_registros extends test_toba
 		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
 				VALUES ('3','Manzanas','Las manzanas son ricas.');";
 		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
-				VALUES ('0','Peras','Las peras son ricas.');"
+				VALUES ('0','Peras','Las peras son ricas.');";
 		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
-				VALUES ('2','Mandarinas','Las mandarinas son ricas.');"
+				VALUES ('2','Mandarinas','Las mandarinas son ricas.');";
 		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
-				VALUES ('1','Naranjas','Las naranjas son ricas.');"
+				VALUES ('1','Naranjas','Las naranjas son ricas.');";
 		//-- Tabla 02
 		$sql[] = "INSERT INTO test_db_registros_02 (id, extra)
-					VALUES ('3','Vienen de Chipoletti');"
+					VALUES ('3','Vienen de Chipoletti');";
 		$sql[] = "INSERT INTO test_db_registros_02 (id, extra)
-					VALUES ('2','Aparecen en el otoño');"
+					VALUES ('2','Aparecen en el otoño');";
 		ejecutar_sql($sql);
 	}
 
 	function eliminar_tablas()
 	{
-		$sql = "DROP TABLE test_db_registros_02;";
-		ejecutar_sql($sql);
-		$sql = "DROP TABLE test_db_registros_02;";
+		$sql[] = "DROP TABLE test_db_registros_02;";
+		$sql[] = "DROP TABLE test_db_registros_01;";
 		ejecutar_sql($sql);
 	}
 }

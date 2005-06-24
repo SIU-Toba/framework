@@ -360,7 +360,7 @@ class db_registros_mt extends db_registros
 			$sql .= implode(" ,\n",$tablas_outer) . "\n";
 		}
 		$sql .= " WHERE " .	implode(" \nAND ",$where) .";";
-		//echo "<pre>" . $sql;
+		$this->log("SQL de carga - " . $sql); 
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
