@@ -128,3 +128,36 @@ TABLE.objeto-base-3d {
 	border-right: 2px solid %col_sn_4%;
 }
 
+.wizard-encabezado {
+	padding-right: 5px;
+	padding-left: 15px;
+	font-size: 11px;
+	padding-bottom: 5px;
+	color: #222222;
+	padding-top: 5px;
+	background-color: #ffffff;
+	text-align: left	
+}
+.wizard-titulo {
+	font-weight: bold;
+}
+.wizard-descripcion {
+	padding-left: 15px;	
+}
+.wizard-pantallas {
+	vertical-align: middle;
+	text-align: left;	
+	white-space:nowrap;
+	padding: 15px 10px 5px 0px;
+	margin-left: 30px;
+	font-size: 10px;	
+}
+.wizard-pantallas-pasada {
+ 	color:gray;
+}
+.wizard-pantallas-futuro {
+ 	color:gray;
+}
+.wizard-pantallas-actual {
+	font-weight: bold;
+}

@@ -1,3 +1,4 @@
+
 <?php
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
@@ -1068,6 +1069,13 @@ class objeto
 		//----------- Generacion
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td align='right'>";
+		$this->obtener_botones_eventos();
+		echo "</td></tr>\n";
+		echo "</table>\n";
+	}	
+	
+	function obtener_botones_eventos()
+	{
 		foreach($this->eventos as $id => $evento )
 		{
 			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
@@ -1085,9 +1093,7 @@ class objeto
 				echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 			}
 		}
-		echo "</td></tr>\n";
-		echo "</table>\n";
-	}	
+	}
 	
 	//---SERVICIOS GRAFICOS
 	public function colapsar()

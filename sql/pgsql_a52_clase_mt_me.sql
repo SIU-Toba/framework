@@ -41,6 +41,7 @@ CREATE TABLE apex_objeto_mt_me
 	alto									varchar(20)			NULL,
 	posicion_botonera						varchar(10)			NULL,
 	tipo_navegacion							varchar(10)			NULL,
+	con_toc									smallint			NULL,
 	incremental								smallint			NULL,
 	debug_eventos							smallint			NULL,
 	activacion_procesar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando procesar

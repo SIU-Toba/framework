@@ -65,12 +65,14 @@
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
 	{
 		$pos_guia = strpos($etiqueta, '&');
-		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1))
+		if ($pos_guia === false || ($pos_guia ==  strlen($etiqueta) - 1)) {
+			$etiqueta = htmlspecialchars($etiqueta);
 			return array($etiqueta, null);
-		else {
-			//ATENCION!! creo que esta forma de acceder un string esta deprecada!
-			$tecla = $etiqueta[$pos_guia + 1];
-			$nueva_etiqueta = str_replace("&$tecla", "<u>$tecla</u>", $etiqueta);
+		} else {
+			$tecla = $etiqueta{$pos_guia + 1};
+			$nueva_etiqueta = str_replace("&$tecla", "%_%$tecla%_%", $etiqueta);
+			$nueva_etiqueta = htmlspecialchars($nueva_etiqueta);
+			$nueva_etiqueta = str_replace("%_%$tecla%_%", "<u>$tecla</u>", $nueva_etiqueta);			
 			return array($nueva_etiqueta, $tecla);
 		}
 	}

@@ -118,6 +118,40 @@ CODE {
 	 BACKGROUND-COLOR: #ffffff;
 	 TEXT-ALIGN: left
 }
+.wizard-encabezado {
+	PADDING-RIGHT: 5px;
+	PADDING-LEFT: 15px;
+	FONT-SIZE: 11px;
+	PADDING-BOTTOM: 5px;
+	COLOR: #222222;
+	PADDING-TOP: 5px;
+	BACKGROUND-COLOR: #ffffff;
+	TEXT-ALIGN: left	
+}
+.wizard-titulo {
+	font-weight: bold;
+}
+.wizard-descripcion {
+	PADDING-LEFT: 15px;	
+}
+.wizard-pantallas {
+	vertical-align: middle;
+	TEXT-ALIGN: left;	
+	white-space:nowrap;
+	padding: 15px 10px 5px 0px;
+	margin-left: 30px;
+	FONT-SIZE: 10px;	
+}
+.wizard-pantallas-pasada {
+ 	color:gray;
+}
+.wizard-pantallas-futuro {
+ 	color:gray;
+}
+.wizard-pantallas-actual {
+	COLOR: #222222;	
+	font-weight: bold;
+}
 TD.arbol-titulo {
 	BORDER-RIGHT: #231f20 1px solid;
 	 PADDING-RIGHT: 4px;

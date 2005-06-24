@@ -91,7 +91,8 @@ class objeto_ci extends objeto
 													ancho					as	ancho,			
 													alto					as	alto,
 													posicion_botonera		as  posicion_botonera,
-													tipo_navegacion			as	tipo_navegacion
+													tipo_navegacion			as	tipo_navegacion,
+													con_toc					as  con_toc
 											FROM	apex_objeto_mt_me
 											WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
 											AND	objeto_mt_me='".$this->id[1]."';";
@@ -644,13 +645,22 @@ class objeto_ci extends objeto
 			$eventos += eventos::ci_cancelar($this->info_ci['ev_cancelar_etiq']);
 		}
 		// Eventos de TABS
-		if(	$this->info_ci['tipo_navegacion'] == "tab_h" 
-			|| $this->info_ci['tipo_navegacion'] == "tab_v" )
+		switch($this->info_ci['tipo_navegacion'])
 		{
-			foreach ($this->get_lista_tabs() as $id => $tab) {
-				$eventos += eventos::ci_cambiar_tab($id);
-			}
-		}
+			case "tab_h":
+			case "tab_v":
+				foreach ($this->get_lista_tabs() as $id => $tab) {
+					$eventos += eventos::ci_cambiar_tab($id);
+				}
+				break;
+			case "wizard":
+				list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
+				if ($anterior !== false)
+					$eventos += eventos::ci_cambiar_tab($anterior);
+				if ($siguiente !== false)
+					$eventos += eventos::ci_cambiar_tab($siguiente);
+				break;
+		}		
 		return $eventos;
 	}
 	//-------------------------------------------------------------------------------
@@ -673,8 +683,7 @@ class objeto_ci extends objeto
 				break;				
 			case "tab_v": 									//*** TABs verticales
 				echo "<table class='tabla-0' width='100%'>\n";
-				//Tabs
-				echo "<tr><td class='celda-vacia'  height='100%'>";
+				echo "<tr><td   height='100%'>";
 				$this->obtener_tabs_verticales();
 				echo "</td>";
 				echo "<td class='tabs-v-contenedor' height='100%'>";
@@ -683,7 +692,16 @@ class objeto_ci extends objeto
 				echo "</table>\n";
 				break;				
 			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
+				echo "<table class='tabla-0' >\n";
+				echo "<tr><td class='celda-vacia'  height='100%'>";
+				if ($this->info_ci['con_toc']) {
+					$this->wizard_mostrar_toc();
+				}
+				echo "</td>";
+				echo "<td width='100%' class='tabs-contenedor' height='100%'>";
 				$this->obtener_html_pantalla_contenido();
+				echo "</td></tr>\n";
+				echo "</table>\n";
 				break;				
 			default:										//*** Sin mecanismo de navegacion
 				$this->obtener_html_pantalla_contenido();
@@ -697,10 +715,18 @@ class objeto_ci extends objeto
 		/*
 			Descripcion de la PANTALLA
 		*/
-		if(trim($this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"])!=""){
-			$descripcion = 	$this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"];
+		$descripcion = trim($this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"]);
+		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
+		if($descripcion !="" || $es_wizard) {
 			$imagen = recurso::imagen_apl("info_chico.gif",true);
-			echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
+			if ($es_wizard) {
+				$html = "<div class='wizard-encabezado'><div class='wizard-titulo'>";
+				$html .= $this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["etiqueta"];
+				$html .= "</div><div class='wizard-descripcion'>$descripcion</div></div>";
+				echo $html;
+			} else {
+				echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
+			}
 			echo "<hr>\n";
 		}
 		/*
@@ -732,11 +758,103 @@ class objeto_ci extends objeto
 			$existe_previo = 1;
 		}
 	}
+	//-------------------------------------------------------------------------------
+	function hay_botones() 
+	{
+		list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
+		if ($anterior !== false || $siguiente !== false)
+			return true;
+		else
+			return parent::hay_botones();
+	}	
 
 	//-------------------------------------------------------------------------------
-	//---- Mecanismos de NAVEGACION
+	function obtener_botones_eventos()
+	{
+		if ($this->info_ci['tipo_navegacion'] == 'wizard') {
+				$this->obtener_botones_wizard();
+		}		
+		parent::obtener_botones_eventos();
+	}		
+
+	//-------------------------------------------------------------------------------
+	//----  NAVEGACION tipo WIZARD
 	//-------------------------------------------------------------------------------
 
+	function pantallas_navegables_wizard()
+	{
+		$this->lista_tabs = $this->get_lista_tabs();
+		//Se determina la etapa anterior y la siguiente
+		$pantalla = current($this->lista_tabs);
+		$anterior = false;
+		$siguiente = false;
+		while ($pantalla !== false) {
+			if (key($this->lista_tabs) == $this->etapa_gi) {  //Es la etapa actual?
+				if (next($this->lista_tabs) !== false)
+					$siguiente = key($this->lista_tabs);
+				else
+					$siguiente = false;
+				break;
+			}
+			$anterior = key($this->lista_tabs);
+			$pantalla = next($this->lista_tabs);
+		}
+		return array($anterior, $siguiente);	
+	}
+	
+	function boton_wizard($id, $evento, $etiqueta)
+	{
+		$tip = $evento["etiqueta"];
+		$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
+		$html = '';
+		if (isset($evento['imagen']) && $evento['imagen'])
+			$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+		$acceso = tecla_acceso($etiqueta);
+		$html .= $acceso[0];
+		$tecla = $acceso[1];
+		$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
+		echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, null, $tecla, $tip, 'button', '', $clase);	
+	}
+	
+	function obtener_botones_wizard()
+	{
+		list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
+		//Muestro anterior
+		if ($anterior !== false) {
+			$this->boton_wizard($anterior, $this->lista_tabs[$anterior], "< &Anterior");
+		}
+		//Muestro siguiente
+		if ($siguiente !== false) {
+			$this->boton_wizard($siguiente, $this->lista_tabs[$siguiente], "&Siguiente >");
+		}
+		echo "&nbsp;&nbsp;&nbsp;";
+	}
+	
+	function wizard_mostrar_toc()
+	{
+		$this->lista_tabs = $this->get_lista_tabs();
+		echo "<ol class='wizard-pantallas'>";
+		$pasada = true;
+		foreach ($this->lista_tabs as $id => $pantalla) {
+			if ($pasada)
+				$clase = 'wizard-pantallas-pasada';
+			else
+				$clase = 'wizard-pantallas-futuro';			
+			if ($id == $this->etapa_gi) {
+				$clase = 'wizard-pantallas-actual';
+				$pasada = false;
+			}
+			echo "<li class='$clase'>";
+			echo $pantalla['etiqueta'];
+			echo "</li>";
+		}		
+		echo "</ol>";
+	}
+	
+	//-------------------------------------------------------------------------------
+	//----  NAVEGACION con TABS
+	//-------------------------------------------------------------------------------
+	
 	function obtener_tabs_horizontales()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
