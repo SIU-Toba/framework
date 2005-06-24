@@ -36,7 +36,7 @@ class objeto_ci extends objeto
 		$this->submit = "CI_" . $this->id[1] . "_submit";
 		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
 		$this->cargar_info_dependencias();
-		$this->posicion_botonera = "abajo"; //arriba, abajo, ambos
+		$this->posicion_botonera = ($this->info_ci['posicion_botonera'] != '') ? $this->info_ci['posicion_botonera'] : 'abajo';
 		$this->objeto_js = "objeto_ci_{$id[1]}";		
 		//-- PANTALLAS
 		//Indice de etapas
@@ -90,6 +90,7 @@ class objeto_ci extends objeto
 													objetos					as	objetos,
 													ancho					as	ancho,			
 													alto					as	alto,
+													posicion_botonera		as  posicion_botonera,
 													tipo_navegacion			as	tipo_navegacion
 											FROM	apex_objeto_mt_me
 											WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
