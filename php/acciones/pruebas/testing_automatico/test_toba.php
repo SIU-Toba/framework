@@ -27,13 +27,22 @@ class test_toba extends UnitTestCase
 		}	
 	}
 	
+	function run(&$reporter)
+    {
+		$this->pre_run();
+		parent::run($reporter);
+		$this->post_run();
+    }
+       
+    function pre_run(){}
+    function post_run(){}
+    
     function assertEqualArray($first, $second, $message = "%s") {
         return $this->assertExpectation(
                 new EqualArrayExpectation($first),
                 $second,
                 $message);
     }	
-
 }
 
 class EqualArrayExpectation extends SimpleExpectation

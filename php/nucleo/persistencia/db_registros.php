@@ -257,7 +257,7 @@ class db_registros
 	
 	function actualizar_estructura_control($registro, $estado)
 	{
-		$this->control[$registro] = $estado;
+		$this->control[$registro]['estado'] = $estado;
 	}
 
 	function sincronizar_estructura_control()
@@ -278,6 +278,11 @@ class db_registros
 		}
 	}
 
+	function get_estructura_control()
+	{
+		return $this->control;	
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- Preguntas basicas
 	//-------------------------------------------------------------------------------
@@ -384,7 +389,13 @@ class db_registros
 
 	public function cantidad_registros()
 	{
-		return count($this->datos);
+		$a = 0;
+		foreach(array_keys($this->control) as $id_registro){
+			if($this->control[$id_registro]['estado']!="d"){	// Excluir los eliminados
+				$a++;
+			}
+		}
+		return $a;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -717,28 +728,33 @@ class db_registros
 		try{
 			if($this->utilizar_transaccion) abrir_transaccion();
 			$this->evt__pre_sincronizacion();
+			$modificaciones = 0;
 			//-- DELETE --
 			foreach($deletes as $registro){
 				$this->evt__pre_delete($registro);
 				$this->eliminar($registro);
 				$this->evt__post_delete($registro);
+				$modificaciones ++;
 			}
 			//-- INSERT --
 			foreach($inserts as $registro){
 				$this->evt__pre_insert($registro);
 				$this->insertar($registro);
 				$this->evt__post_insert($registro);
+				$modificaciones ++;
 			}
 			//-- UPDATE --
 			foreach($updates as $registro){
 				$this->evt__pre_update($registro);
 				$this->modificar($registro);
 				$this->evt__post_update($registro);
+				$modificaciones ++;
 			}
 			$this->evt__post_sincronizacion();
 			if($this->utilizar_transaccion) cerrar_transaccion();
 			//Actualizo la estructura interna que mantiene el estado de los registros
 			$this->sincronizar_estructura_control();
+			return $modificaciones;
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion();
 			toba::get_logger()->debug($e);
