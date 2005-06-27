@@ -53,6 +53,12 @@ def.constructor = objeto;
 	}
 	
 	def.puede_submit = function() {
+		if(this._evento && existe_funcion(this, "evt__" + this._evento.id)){
+			if(! ( this["evt__" + this._evento.id]() ) ){
+				this.reset_evento();
+				return false;
+			}
+		}
 		return true;
 	}
 
