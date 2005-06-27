@@ -55,6 +55,15 @@ class eventos
 		return self::evento_estandar('cambiar_tab_'.$id, '', false);		
 	}
 	
+	static function ci_pantalla_siguiente()
+	{
+		return self::evento_estandar('cambiar_tab__siguiente', '&Siguiente >', true);
+	}
+	
+	static function ci_pantalla_anterior()
+	{
+		return self::evento_estandar('cambiar_tab__anterior', '< &Anterior', true);
+	}	
 	//---------------------------------------------------
 	//---Eventos de FORMULARIO
 	static function alta($etiqueta=null, $en_botonera=true)

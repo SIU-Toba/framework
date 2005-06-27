@@ -3,9 +3,9 @@ require_once("objeto.php");
 require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+
 define("apex_ci_evento","evt");
 define("apex_ci_separador","__");
-
 
 class objeto_ci extends objeto
 {
@@ -218,24 +218,20 @@ class objeto_ci extends objeto
 	
 	function get_pantalla_actual()
 	{
+		//¿Se pidio un cambio de pantalla al CI? 
 		if (isset($_POST[$this->submit])) {
 			$submit = $_POST[$this->submit];
+			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
 			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
+			if ($tab == '_siguiente' || $tab == '_anterior') {
+				return $this->ir_a_limitrofe($tab);
+			} 
+			if ($tab !== false && $this->puede_ir_a_pantalla($tab))
+				return $this->ir_a_pantalla($tab);
 		}
-		else
-			$tab = false;
 		
-		if($tab !== false) { //Pidio cambiar de tab
-			if(in_array($tab, $this->memoria['tabs'])){
-				//El usuario selecciono un tab
-				return $tab;
-			}else{
-				$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
-				//Error, voy a etapa inicial
-				return $this->get_etapa_inicial();
-			}
-		}elseif(isset( $this->memoria['etapa_gi'] )){
-			//El post fue generado por otro componente
+		//El post fue generado por otro componente ??
+		if(isset( $this->memoria['etapa_gi'] )){
 			return $this->memoria['etapa_gi'];
 		}else{
 			//Etapa inicial
@@ -243,6 +239,70 @@ class objeto_ci extends objeto
 		}
 	}
 
+	function puede_ir_a_pantalla($tab)
+	{
+		$evento_mostrar = apex_ci_evento . apex_ci_separador . "puede_mostrar_pantalla";
+		if(method_exists($this, $evento_mostrar)){
+			return $this->$evento_mostrar($tab);
+		}
+		return true;
+	}
+	
+	/*
+	*  Recorre las pantallas en un sentido buscando una válida para mostrar
+	*/
+	function ir_a_limitrofe($sentido)
+	{
+		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior
+		$candidato = $this->memoria['etapa_gi'];
+		while ($candidato !== false) {
+			$limitrofes = $this->pantallas_limitrofes($candidato);
+			$candidato = $limitrofes[$indice];
+			if ($this->puede_ir_a_pantalla($candidato))
+				return $candidato;
+		}
+		//Si no se encuentra ninguno, no se cambia
+		return $this->memoria['etapa_gi'];
+	}
+	
+	//-------------------------------------------------------------------------------	
+	function ir_a_pantalla($tab)
+	{
+		if(in_array($tab, $this->memoria['tabs'])){
+			return $tab;
+		}else{
+			$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
+			//Error, voy a etapa inicial
+			return $this->get_etapa_inicial();
+		}
+	}	
+	
+	//-------------------------------------------------------------------------------
+	/*
+	*	Determina la etapa anterior y siguiente a la dada 
+	*/
+	function pantallas_limitrofes($actual)
+	{
+		$this->lista_tabs = $this->get_lista_tabs();
+		reset($this->lista_tabs);
+		$pantalla = current($this->lista_tabs);
+		$anterior = false;
+		$siguiente = false;
+		while ($pantalla !== false) {
+			if (key($this->lista_tabs) == $actual) {  //Es la etapa actual?
+				if (next($this->lista_tabs) !== false)
+					$siguiente = key($this->lista_tabs);
+				else
+					$siguiente = false;
+				break;
+			}
+			$anterior = key($this->lista_tabs);
+			$pantalla = next($this->lista_tabs);
+		}
+		return array($anterior, $siguiente);	
+	}	
+
+	//-------------------------------------------------------------------------------	
 	function set_etapa_gi($etapa)
 	{
 		$this->etapa_gi	= $etapa;
@@ -636,14 +696,6 @@ class objeto_ci extends objeto
 	function get_lista_eventos()
 	{
 		$eventos = array();
-		//Evento PROCESAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar']) {
-			$eventos += eventos::ci_procesar($this->info_ci['ev_procesar_etiq']);
-		}
-		//Evento CANCELAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])	{
-			$eventos += eventos::ci_cancelar($this->info_ci['ev_cancelar_etiq']);
-		}
 		// Eventos de TABS
 		switch($this->info_ci['tipo_navegacion'])
 		{
@@ -654,13 +706,21 @@ class objeto_ci extends objeto
 				}
 				break;
 			case "wizard":
-				list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
+				list($anterior, $siguiente) = $this->pantallas_limitrofes($this->etapa_gi);
 				if ($anterior !== false)
-					$eventos += eventos::ci_cambiar_tab($anterior);
+					$eventos += eventos::ci_pantalla_anterior($anterior);
 				if ($siguiente !== false)
-					$eventos += eventos::ci_cambiar_tab($siguiente);
+					$eventos += eventos::ci_pantalla_siguiente($siguiente);
 				break;
 		}		
+		//Evento PROCESAR
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar']) {
+			$eventos += eventos::ci_procesar($this->info_ci['ev_procesar_etiq']);
+		}
+		//Evento CANCELAR
+		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])	{
+			$eventos += eventos::ci_cancelar($this->info_ci['ev_cancelar_etiq']);
+		}
 		return $eventos;
 	}
 	//-------------------------------------------------------------------------------
@@ -758,78 +818,12 @@ class objeto_ci extends objeto
 			$existe_previo = 1;
 		}
 	}
-	//-------------------------------------------------------------------------------
-	function hay_botones() 
-	{
-		list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
-		if ($anterior !== false || $siguiente !== false)
-			return true;
-		else
-			return parent::hay_botones();
-	}	
 
-	//-------------------------------------------------------------------------------
-	function obtener_botones_eventos()
-	{
-		if ($this->info_ci['tipo_navegacion'] == 'wizard') {
-				$this->obtener_botones_wizard();
-		}		
-		parent::obtener_botones_eventos();
-	}		
-
+	
 	//-------------------------------------------------------------------------------
 	//----  NAVEGACION tipo WIZARD
 	//-------------------------------------------------------------------------------
 
-	function pantallas_navegables_wizard()
-	{
-		$this->lista_tabs = $this->get_lista_tabs();
-		//Se determina la etapa anterior y la siguiente
-		$pantalla = current($this->lista_tabs);
-		$anterior = false;
-		$siguiente = false;
-		while ($pantalla !== false) {
-			if (key($this->lista_tabs) == $this->etapa_gi) {  //Es la etapa actual?
-				if (next($this->lista_tabs) !== false)
-					$siguiente = key($this->lista_tabs);
-				else
-					$siguiente = false;
-				break;
-			}
-			$anterior = key($this->lista_tabs);
-			$pantalla = next($this->lista_tabs);
-		}
-		return array($anterior, $siguiente);	
-	}
-	
-	function boton_wizard($id, $evento, $etiqueta)
-	{
-		$tip = $evento["etiqueta"];
-		$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
-		$html = '';
-		if (isset($evento['imagen']) && $evento['imagen'])
-			$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
-		$acceso = tecla_acceso($etiqueta);
-		$html .= $acceso[0];
-		$tecla = $acceso[1];
-		$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
-		echo "&nbsp;" . form::button_html( $this->submit.$id, $html, $js, null, $tecla, $tip, 'button', '', $clase);	
-	}
-	
-	function obtener_botones_wizard()
-	{
-		list($anterior, $siguiente) = $this->pantallas_navegables_wizard();
-		//Muestro anterior
-		if ($anterior !== false) {
-			$this->boton_wizard($anterior, $this->lista_tabs[$anterior], "< &Anterior");
-		}
-		//Muestro siguiente
-		if ($siguiente !== false) {
-			$this->boton_wizard($siguiente, $this->lista_tabs[$siguiente], "&Siguiente >");
-		}
-		echo "&nbsp;&nbsp;&nbsp;";
-	}
-	
 	function wizard_mostrar_toc()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
@@ -881,7 +875,7 @@ class objeto_ci extends objeto
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}else{
 				echo "<td class='tabs-solapa'>";
-				echo form::button_html( $this->submit.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+				echo form::button_html( $this->submit.'_cambiar_tab_'.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 				echo "</td>\n";
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}
@@ -913,7 +907,7 @@ class objeto_ci extends objeto
 			} else {
 				$atajo = form::acceso($tecla, $tip);
 				echo "<div class='tabs-v-solapa'>";
-				echo "<a id='".$this->submit.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
+				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
 				echo "</div>";
 			}
 		}

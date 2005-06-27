@@ -160,8 +160,9 @@ function objeto_ci(instancia, form, input_submit) {
 		}
 	}
 
+	//---Navegación 
 	def.habilitar_tab = function(tab, habilitado) {
-		var boton = document.getElementById(this._input_submit + tab);
+		var boton = document.getElementById(this._input_submit + '_cambiar_tab_' + tab);
 		if (! habilitado) {
 			boton.disabled = true;
 			boton.onclick_viejo = boton.onclick;
@@ -172,3 +173,17 @@ function objeto_ci(instancia, form, input_submit) {
 				boton.onclick = boton.onclick_viejo;
 		}
 	}
+
+	def.ir_a_pantalla = function(pantalla) {
+		var boton = document.getElementById(this._input_submit + '_cambiar_tab_' + pantalla);
+		boton.onclick();
+	}
+	
+	def.ir_a_anterior = function() {
+		this.ir_a_pantalla('_anterior');	
+	}	
+		
+	def.ir_a_siguiente = function() {
+		this.ir_a_pantalla('_siguiente');
+	}
+	
