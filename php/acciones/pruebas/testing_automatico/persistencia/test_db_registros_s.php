@@ -4,8 +4,6 @@ require_once("test_db_registros.php");
 	FALTA
 	-----
 
-	- modificacion por acceso via columnas
-
 	- reset
 	
 	- sincronizacion con la base
@@ -32,6 +30,26 @@ class test_db_registros_s extends test_db_registros
 	{
 		parent::__construct();
 		$this->dbr_a_utilizar = "01_s";
+	}
+
+	//-------------------------------------------------------------
+	//--- Definicion
+	//-------------------------------------------------------------
+
+	function test_recuperar_claves()
+	{
+		$this->assertEqualArray( $this->dbr->get_clave(), array("id") );
+	}
+
+	function test_recuperar_tope_registros()
+	{
+		$this->assertEqual( $this->dbr->get_tope_registros(), 0 );
+	}
+	
+	function test_recuperar_clave_valor()
+	{
+		$this->dbr->cargar_datos_clave(0);
+		$this->assertEqual( $this->dbr->get_clave_valor(0), array("id"=>0) );
 	}
 
 	//-------------------------------------------------------------
@@ -66,7 +84,20 @@ class test_db_registros_s extends test_db_registros
 		$this->AssertEqual($control[2]['estado'], "db");
 	}
 
-	function test_obtencion_datos()
+	function test_carga_registros_clave()
+	/*
+		Carga completa de registros con WHERE
+	*/
+	{
+		$this->dbr->cargar_datos_clave(1);
+		$this->AssertEqual($this->dbr->cantidad_registros(), 1);
+		$registro = $this->dbr->obtener_registro(0);		
+		$this->AssertEqual($registro['nombre'], "Naranjas");
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "db");
+	}
+
+	function test_obtencion_registros()
 	/*
 		Obtener los registros cargados
 	*/
@@ -75,6 +106,63 @@ class test_db_registros_s extends test_db_registros
 		$this->dbr->cargar_datos($where);
 		$datos = $this->dbr->obtener_registros();
 		$this->AssertEqual( count($datos), 3);
+		//Vino la columna que indica el ID interno
+		for($a=0;$a<count($datos);$a++){
+			$this->AssertTrue( isset($datos[$a][apex_db_registros_clave] ) );
+		}
+	}
+
+	function test_obtencion_registro()
+	/*
+		Obtener un registro
+	*/
+	{
+		$where[] = "id IN (0,1,2)";
+		$this->dbr->cargar_datos($where);
+		$datos = $this->dbr->obtener_registro(0);
+		$this->AssertTrue( is_array($datos) );
+		$this->AssertTrue( isset($datos[apex_db_registros_clave]) );
+	}
+
+	function test_obtencion_registro_valor()
+	/*
+		Obtener un registro
+	*/
+	{
+		$this->dbr->cargar_datos_clave(1);
+		$this->AssertEqual($this->dbr->obtener_registro_valor(0,"nombre"), "Naranjas");
+	}
+
+	function test_obtencion_registro_inexistente()
+	/*
+		Obtener un registro
+	*/
+	{
+		$where[] = "id IN (0,1,2)";
+		$this->dbr->cargar_datos($where);
+		try{
+			$datos = $this->dbr->obtener_registro(4);
+			$this->fail();
+		}catch(excepcion_toba $e){
+			$this->pass();		
+		}
+	}
+
+	function test_obtencion_registro_id_interno()
+	/*
+		Obtener los registros cargados
+	*/
+	{
+		$where[] = "id IN (0,1,2)";
+		$this->dbr->cargar_datos($where);
+		$datos = $this->dbr->obtener_registros(null, true);
+		$this->AssertEqual( count($datos), 3);
+		$control = $this->dbr->get_estructura_control();
+		foreach(array_keys($datos) as $id){
+			if(!isset($control[$id])){
+				$this->fail();	
+			}
+		}
 	}
 
 	function test_obtencion_datos_filtro()
@@ -298,6 +386,29 @@ class test_db_registros_s extends test_db_registros
 		$datos_dbr = $this->dbr->obtener_registro( 0 );
 		unset($datos_dbr[apex_db_registros_clave]);
 		$this->assertEqualArray($datos, $datos_dbr);
+	}
+
+	function test_modificar_registro_valor_puntual()
+	{
+		$this->dbr->cargar_datos();
+		$this->dbr->establecer_registro_valor( 0, "nombre", "pizza" );
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "u");
+		$registro = $this->dbr->obtener_registros(array("nombre"=>"pizza"));
+		$this->AssertEqual( count($registro), 1);
+	}
+	
+	function test_modificar_columnas()
+	{
+		$this->dbr->cargar_datos();
+		$this->dbr->establecer_valor_columna("nombre", "pizza");
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "u");
+		$this->AssertEqual($control[1]['estado'], "u");
+		$this->AssertEqual($control[2]['estado'], "u");
+		$this->AssertEqual($control[3]['estado'], "u");
+		$registro = $this->dbr->obtener_registros(array("nombre"=>"pizza"));
+		$this->AssertEqual( count($registro), 4);
 	}
 
 	//-------------------------------------------------------------

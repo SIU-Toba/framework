@@ -17,10 +17,11 @@ class objeto_ei_cuadro extends objeto
     var $orden_sentido;                     //protegido | string | Sentido del orden ('asc' / 'desc')
     var $datos;                             //protegido | array | Los datos que constituyen el contenido del cuadro
     var $columnas_clave;                    //protegido | 
-
+	
  	var $submit;
 	var $clave_seleccionada;
 	var $id_en_padre;
+ 	var $indice_columnas;
  
     function objeto_ei_cuadro($id)
 /*
@@ -33,7 +34,6 @@ class objeto_ei_cuadro extends objeto
         $this->submit = "ei_cuadro" . $this->id[1];
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
-		$this->cantidad_columnas = count($this->info_cuadro_columna);
 		
         //---------  Manejo de CLAVES  -----------------------------------------
         if(isset($this->info_cuadro["columnas_clave"])){
@@ -58,6 +58,10 @@ class objeto_ei_cuadro extends objeto
 			$this->ev_seleccion = false;
 		}
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
+        //---------  Indice de columnas  -----------------------------------------		
+		for($a=0;$a<count($this->info_cuadro_columna);$a++){
+			$this->indice_columnas[ $this->info_cuadro_columna[$a]['valor_sql'] ] = $a;
+		}
 	}
 	//-------------------------------------------------------------------------------
 	
@@ -169,7 +173,11 @@ class objeto_ei_cuadro extends objeto
 //###########################         UTILERIA        ############################
 //###########################                         ############################
 //################################################################################
-    
+
+	function set_titulo_columna($id_columna, $titulo)
+	{
+		$this->info_cuadro_columna[ $this->indice_columnas[$id_columna] ]["titulo"] = $titulo;
+	}    
 
 	function inicializar($parametros)
 	{

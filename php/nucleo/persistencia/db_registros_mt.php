@@ -1,51 +1,6 @@
 <?php
 require_once("db_registros.php");
-/*
-	PROBLEMAS NO RESUELTOS
-	----------------------
 
-	1) Colision de columnas
-	
-		Que pasa si dos tablas tienen una columna con el mismo nombre (ej: descripcion)
-		En el caso de las claves, esto pasa siempre, e impacta directamente en la generacion del WHERE
-
-	2) Cardinalidad variable entre tablas
-	
-		No siempre la relacion entre las tablas de un MT tienen una cardinalidad de 1->1
-		Existen casos en que la misma es 1->0
-			
-			PRIMITIVAS necesarias
-			
-				A: Clasificacion de tablas esclavas en comprometidas y no comprometidas:
-					- Escaneo:
-						a) Si alguna tabla tiene un no_nulo, puedo usarlo para ver si se agregaron cosas en ella
-						b) recorro todos los campos de la tabla, si ninguno esta seteado, no esta comprometida
-					- Genero una estructura global que lean los procesos subsiguientes
-		
-			PROCESOS
-
-			- CREAR registros:  Que tablas hay que llenar?
-				Dos opciones validas segun la necesidad
-					a) Uso a [A] y ejecuto INSERTS en las tablas comprometidas
-					b) Inserto en todas las tablas siempre
-				
-			- MODIFICAR registros:
-				- Cuando me cargo ejecuto [A], (Necesito una carga diferenciada!!!)
-					- UPDATE: decido entre update o insert
-					- DELETE: decido entre un delete o nada
-					
-			- Carga: 
-				el query que carga al MT tiene que construirse con OUTER JOINS
-
-			- La actualizacion del estado del buffer posterior a la sincronizacion es diferencial!
-
-	3) Acceso separado a cada tabla
-	
-		Tiene que existir un conjunto de metodos que permitan acceder a la porcion de una tabla, dentro del buffer
-		Esto sirve para el caso de las interfaces que necesitan manejar a las dos cosas por separado
-
-	4) Como se implementa un MT con baja logica?
-*/
 class db_registros_mt extends db_registros
 {
 	protected $control_tablas;			//Informacion agregada sobre la distribucion de registros por tablas
@@ -359,7 +314,9 @@ class db_registros_mt extends db_registros
 		if($this->tipo_relacion == "debil"){
 			$sql .= implode(" ,\n",$tablas_outer) . "\n";
 		}
-		$sql .= " WHERE " .	implode(" \nAND ",$where) .";";
+		if(count($where) > 0 ){
+			$sql .= " WHERE " .	implode(" \nAND ",$where) .";";
+		}
 		$this->log("SQL de carga - " . $sql); 
 		return $sql;
 	}

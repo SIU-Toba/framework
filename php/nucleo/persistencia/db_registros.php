@@ -3,28 +3,6 @@ define("apex_db_registros_separador","%");
 
 class db_registros
 {
-/*
-	PROBLEMAS NO RESUELTOS
-	----------------------
-	
-		1) Usar el tope de registros para forzar la interface
-
-		2) Reveer el nombre de las interfaces
-			( Alguna relacionadas a eventos reportados a controladores )
-
-		3) La funcion cosmetica tambien tiene que trabajar con DAOS
-
-		4) validaciones
-			- El control de valores duplicados no es multicolumna, cuando las claves son compuestas no sirve
-			- El control de nulos deberia desactivarse si la columna es una secuencia
-
-		5) Control de perdida de sincronizacion (asistencia a un modelo optimista de transaccion)			
-
-		6) Manejo de datos por referencia para disminuir la cantidad de memoria utilizada??
-
-		7) Es necesario implementar UPDATES que solo incluyan columnas afectadas??
-
-*/
 	protected $definicion;				//Definicion que indica la construccion del db_registros
 	protected $fuente;					//Fuente de datos utilizada
 	protected $identificador;			//Identificador del registro
@@ -251,7 +229,7 @@ class db_registros
 		for($a=0;$a<count($this->datos);$a++){
 			$this->control[$a]['estado']="db";
 			//Creo la columna que referencia a la posicion del registro en el db_registros
-			$this->datos[$a][apex_db_registros_clave]=$a;
+			//$this->datos[$a][apex_db_registros_clave]=$a;
 		}
 	}
 	
@@ -316,51 +294,62 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function obtener_registros($condiciones=null)
+	public function obtener_registros($condiciones=null, $usar_id_registro=false)
+	//Las condiciones permiten filtrar la lista de registros que se devuelves
+	//Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
 	{
 		$datos = null;
-		if(isset($condiciones)){		//Recuperacion con condiciones
-			foreach( $this->obtener_id_registro_condicion($condiciones) as $id_registro ){
-				$datos[] = $this->datos[$id_registro];
+		$a = 0;
+		foreach( $this->obtener_id_registro_condicion($condiciones) as $id_registro )
+		{
+			if($usar_id_registro){
+				$datos[$id_registro] = $this->datos[$id_registro];
+			}else{
+				$datos[$a] = $this->datos[$id_registro];
+				//esta columna indica cual fue la clave del registro
+				$datos[$a][apex_db_registros_clave] = $a;
 			}
-		}else{
-			foreach(array_keys($this->control) as $id_registro){
-				if($this->control[$id_registro]['estado']!="d"){	// Excluir los eliminados
-					$datos[] = $this->datos[$id_registro];
-				}
-			}
+			$a++;
 		}
 		return $datos;
 	}
 	//-------------------------------------------------------------------------------
 	
-	public function obtener_id_registro_condicion($condiciones)
+	public function obtener_id_registro_condicion($condiciones=null)
 	/*
 		Devuelve los registros que cumplen una condicion.
 		Solo se chequea la condicion de igualdad.
 		El parametro es un array asociativo de campo => valor.
-		ATENCION, como se utiliza chequeo de tipos, valor tiene que ser un STRING
+		ATENCION, NO se utiliza chequeo de tipos
 	*/
 	{	
-		//Controlo que todas los campos que se utilizan para el filtrado existan
-		foreach( array_keys($condiciones) as $campo){
-			if(!in_array($campo, $this->campos)){
-				throw new excepcion_toba("El campo '$campo' no existe. No es posible filtrar por dicho campo");
-			}
-		}
-		//Busco coincidencias
 		$coincidencias = array();
-		foreach(array_keys($this->control) as $id_registro){
-			if($this->control[$id_registro]['estado']!="d"){	// Excluir los eliminados
-				//Verifico las condiciones
-				$ok = true;
-				foreach( array_keys($condiciones) as $campo){
-					if( $condiciones[$campo] !== $this->datos[$id_registro][$campo] ){
-						$ok = false;
-						break;	
-					}
+		if(!isset($condiciones)){
+			foreach(array_keys($this->control) as $id_registro){
+				if($this->control[$id_registro]['estado']!="d"){
+					$coincidencias[] = $id_registro;
 				}
-				if( $ok ) $coincidencias[] = $id_registro;
+			}
+		}else{
+			//Controlo que todas los campos que se utilizan para el filtrado existan
+			foreach( array_keys($condiciones) as $campo){
+				if(!in_array($campo, $this->campos)){
+					throw new excepcion_toba("El campo '$campo' no existe. No es posible filtrar por dicho campo");
+				}
+			}
+			//Busco coincidencias
+			foreach(array_keys($this->control) as $id_registro){
+				if($this->control[$id_registro]['estado']!="d"){	// Excluir los eliminados
+					//Verifico las condiciones
+					$ok = true;
+					foreach( array_keys($condiciones) as $campo){
+						if( $condiciones[$campo] != $this->datos[$id_registro][$campo] ){
+							$ok = false;
+							break;	
+						}
+					}
+					if( $ok ) $coincidencias[] = $id_registro;
+				}
 			}
 		}
 		return $coincidencias;
@@ -370,9 +359,12 @@ class db_registros
 	public function obtener_registro($id)
 	{
 		if(isset($this->datos[$id])){
-			return  $this->datos[$id];
+			$temp = $this->datos[$id];
+			$temp[apex_db_registros_clave] = $id;	//incorporo el ID del dbr
+			return $temp;
 		}else{
-			return null;
+			//return null;
+			throw new excepcion_toba("Se solicito un registro incorrecto");
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -391,9 +383,7 @@ class db_registros
 	{
 		$a = 0;
 		foreach(array_keys($this->control) as $id_registro){
-			if($this->control[$id_registro]['estado']!="d"){	// Excluir los eliminados
-				$a++;
-			}
+			if($this->control[$id_registro]['estado']!="d")	$a++;
 		}
 		return $a;
 	}
@@ -411,7 +401,7 @@ class db_registros
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);
 		$this->validar_registro($registro);
-		$registro[apex_db_registros_clave]=$this->proximo_registro;
+		//$registro[apex_db_registros_clave]=$this->proximo_registro;
 		$this->datos[$this->proximo_registro] = $registro;
 		$this->actualizar_estructura_control($this->proximo_registro,"i");
 		//Actualizo los valores externos
@@ -434,13 +424,13 @@ class db_registros
 		$this->validar_registro($registro, $id);
 		if($this->control[$id]['estado']=="i"){
 			$this->datos[$id] = $registro;
-			$this->datos[$id][apex_db_registros_clave] = $id; 
+			//$this->datos[$id][apex_db_registros_clave] = $id; 
 		}else{
 			$this->actualizar_estructura_control($id,"u");
 			foreach(array_keys($registro) as $clave){
 				$this->datos[$id][$clave] = $registro[$clave];
 			}
-			$this->datos[$id][apex_db_registros_clave] = $id; 
+			//$this->datos[$id][apex_db_registros_clave] = $id; 
 		}
 		//Actualizo los valores externos
 		$this->actualizar_campos_externos_registro($id,"modificar");
@@ -481,6 +471,47 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
+	function establecer_registro_valor($id, $columna, $valor)
+	{
+		if(isset($this->datos[$id][$columna])){
+			$this->datos[$id][$columna] = $valor;
+			if($this->control[$id]['estado']!="i"){
+				$this->actualizar_estructura_control($id,"u");
+			}		
+		}
+	}
+	//-------------------------------------------------------------------------------
+
+	function establecer_valor_columna($columna, $valor)
+	//Setea todas las columnas con un valor
+	{
+		foreach(array_keys($this->control) as $registro){
+			if($this->control[$registro]['estado']!="d"){
+				$this->datos[$registro][$columna] = $valor;
+				if($this->control[$registro]['estado']!="i"){
+					$this->actualizar_estructura_control($registro,"u");
+				}		
+			}
+		}
+	}
+	//-------------------------------------------------------------------------------
+	//Simplificacion para los db_registross que manejan un solo registro. solo manejan el registro "0"
+		
+	function set($registro)
+	{
+		if($this->cantidad_registros() === 0){
+			$this->agregar_registro($registro);
+		}else{
+			$this->modificar_registro($registro, 0);
+		}
+	}
+	
+	function get()
+	{
+		return $this->obtener_registro(0);
+	}
+	//-------------------------------------------------------------------------------
+
 	function procesar_registros($registros)
 	{
 		//Controlo estructura
@@ -506,42 +537,6 @@ class db_registros
 					break;	
 			}
 		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function establecer_registro_valor($id, $columna, $valor)
-	{
-		if(isset($this->datos[$id][$columna])){
-			$this->datos[$id][$columna] = $valor;
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	function establecer_valor_columna($columna, $valor)
-	//Setea todas las columnas con un valor
-	{
-		foreach(array_keys($this->control) as $registro){
-			if($this->control[$registro]['estado']!="d"){
-				$this->datos[$registro][$columna] = $valor;
-			}
-		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//Simplificacion para los db_registross que manejan un solo registro. solo manejan el registro "0"
-		
-	function set($registro)
-	{
-		if($this->cantidad_registros() === 0){
-			$this->agregar_registro($registro);
-		}else{
-			$this->modificar_registro($registro, 0);
-		}
-	}
-	
-	function get()
-	{
-		return $this->obtener_registro(0);
 	}
 
 	//-------------------------------------------------------------------------------

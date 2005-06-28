@@ -79,11 +79,7 @@ class test_db_registros extends test_toba
 					  id SMALLINT NOT NULL, 
 					  extra VARCHAR(20) NOT NULL, 
 					  CONSTRAINT test_db_registros_02_pkey PRIMARY KEY(id), 
-					  FOREIGN KEY (id)
-					    REFERENCES test_db_registros_01(id)
-					    ON DELETE NO ACTION
-					    ON UPDATE NO ACTION
-					    NOT DEFERRABLE
+					  FOREIGN KEY (id) REFERENCES test_db_registros_01(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
 					);";	
 		ejecutar_sql($sql);
 	}
@@ -126,7 +122,8 @@ class test_db_registros extends test_toba
 
 	function vaciar_tablas()
 	{
-		foreach($this->tablas_utilizadas as $tabla)
+		rsort($this->tablas_utilizadas);
+		foreach( $this->tablas_utilizadas as $tabla)
 		{
 			$this->vaciar_tabla($tabla);	
 		}			
