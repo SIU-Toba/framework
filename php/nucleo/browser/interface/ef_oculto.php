@@ -31,12 +31,6 @@ class ef_oculto extends ef
 		$this->cargar_estado();
 	}
 
-	function establecer_id_form($agregado="")
-	{
-		//Aca hay que regenerar la clave de persistencia
-		$this->id_form = $this->id_form_orig . $agregado;
-	}
-	
 	function clave_memoria()
 	{
 		return "obj_" . $this->padre[1] . "_ef_" . $this->id_form;

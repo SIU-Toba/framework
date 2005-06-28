@@ -28,6 +28,7 @@ class lista_casos
 					//EF
 					array('id' => 'test_editable_numero', 'nombre' => 'EF Editable Número', 'categoria' => 'ef'),
 					array('id' => 'test_multi_seleccion', 'nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
+					array('id' => 'test_fijos', 'nombre' => 'EF Fijos', 'categoria' => 'ef'),					
 
 					//Persistencia
 					array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),

@@ -1,5 +1,6 @@
 <?
 require_once("nucleo/browser/interface/ef.php"); // Elementos de interface
+require_once("nucleo/browser/interface/ef_oculto.php");
 
 
 /**
@@ -123,36 +124,21 @@ class ef_checkbox extends ef
 // ########################################################################################################
 // PARAMETROS ADICIONALES:
 // "estado": Valor que tiene que tomar el elemento
-class ef_fijo extends ef
+class ef_fijo extends ef_oculto
 {
 	var $estilo;
 	
-     function ef_fijo($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
-         parent :: ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
-
-    	if(isset( $parametros["estado"])){
-	    	$this->estado = $parametros["estado"];
-    	}else{
-	    	$this->estado = "";
-    	}
-    	if(isset( $parametros["estilo"])){
-	    	$this->estilo = $parametros["estilo"];
-    	}else{
-	    	$this->estilo = "ef-fijo";
-    	}
+		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
+		if(isset( $parametros["estilo"])){
+			$this->estilo = $parametros["estilo"];
+		}else{
+			$this->estilo = "ef-fijo";
+		}
 	}
     
-     function cargar_estado($estado = "")
-     { // Desabilito la carga via POST
-        if(isset($estado)){
-             $this->estado = $estado;
-             return true;
-             }
-         return false;
-         }
-    
-     function obtener_input()
+	function obtener_input()
     {
 		$estado = (isset($this->estado)) ? $this->estado : null;
 		$html = "<div class='{$this->estilo}' id='{$this->id_form}'>".$estado."</div>";
