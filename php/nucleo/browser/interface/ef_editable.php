@@ -16,7 +16,6 @@ require_once("nucleo/browser/interface/ef.php");// Elementos de interface
 * 					+----> ef_editable_multilinea
 * 
 */
-
 class ef_editable extends ef
 // Editbox de texto
 //PARAMETROS ADICIONALES:
@@ -28,6 +27,7 @@ class ef_editable extends ef
     var $fuente;
 	var $estilo="ef-input";
 	var $mascara;
+	private $requiere_instancia = false;	
 	
 	function ef_editable($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -69,16 +69,100 @@ class ef_editable extends ef
             $this->estilo = $parametros["estilo"];
             unset($parametros["estilo"]);
     	}
-		//Setear el estado del editable con un SQL
+		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+
+		//Carga a partir de SQL
 		if(isset($parametros["sql"])){
 			if($parametros["sql"]!=""){
 				$this->sql = stripslashes($parametros["sql"]);
-				$this->cargar_datos_db();
+				if(is_array($this->dependencias)){
+					$this->valores = array();
+				}else{
+					$this->cargar_datos_db();
+				}
 			}
 		}
-		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		
+		//Carga a partir de DAO
+		if(isset($parametros["dao"])){
+			$this->dao = $parametros["dao"];
+		}
+		if(isset($parametros["include"])){
+			$this->include = $parametros["include"];
+		}
+		if(isset($parametros["clase"])){
+			$this->clase = $parametros["clase"];
+		}
+		if(isset($parametros["instanciable"])){
+			if( $parametros["instanciable"] == "1" ){
+				$this->requiere_instancia = true;
+			}
+		}
+		if(isset($this->include) && isset($this->clase) )
+		{
+			$this->modo = "estatico";
+		}else{
+			$this->modo = "cn";	
+		}
+		unset($parametros["dao"]);
+		unset($parametros["clase"]);
+		unset($parametros["include"]);		
+		//Si el elemento no posee dependencias lo puedo cargar ahora...
+		//Sino hay que esperar que la carga se llame explicitamente una vez que el padre se encuentre cargado
+		//El modo estatico puede funcionar con cascadas
+		if($this->modo == "estatico"){
+			if(is_array($this->dependencias)){
+				//$this->establecer_solo_lectura();
+				//$this->valores = array();
+				$this->input_extra = " disabled ";
+			}else{
+				$this->cargar_datos();
+			}
+		}		
 	}
 
+	function obtener_dao()
+	/*
+		De esta manera, el COMBO avisa que necesita informacion del CN
+		indicandole cual es el metodo del mismo que hay que ejecutar para recibir la informacion
+		Esto se desactiva si el dao depende de una clase estatica.
+	*/
+	{
+		if( $this->modo == "estatico" ) {
+			return null;
+		}else{
+			return $this->dao;		
+		}
+	}
+	
+	function recuperar_datos_dao($param=null)
+	//ATENCION: los parametros son codigo PHP a evaluar, no son un array...
+	{
+		include_once($this->include);
+		if($this->requiere_instancia){
+			$sentencia = "\$c = new {$this->clase}();
+							\$valor = \$c->{$this->dao}($param);";
+		}else{
+			$sentencia = "\$valor = " .  $this->clase . "::" . $this->dao ."($param);";
+		}
+		eval($sentencia);//echo $sentencia;
+		return $valor;
+	}	
+	
+	function cargar_datos_dao($valor)
+	/*
+		Si el DAO esta a a cargo del CN, el CN lo carga a travez de este metodo.
+		Si el DAO se carga a travez de una clase estatica, el mismo obtiene los
+		datos directamente de la misma, obviando los parametros
+		Esto hay que pensarlo un poco mejor
+	*/
+	{
+		if($this->modo =="estatico" ){
+			$valor = $this->recuperar_datos_dao();
+		}
+		return $valor;
+	}		
+	
 	function cargar_datos_db()
 	{
 		global $ADODB_FETCH_MODE, $db;
@@ -93,6 +177,34 @@ class ef_editable extends ef
 		$this->estado = $rs->fields[0];
 	}
 
+	function cargar_datos_master_ok()
+	//Si el master esta cargado, el EF procede a cargar sus registros
+	{
+		if(isset($this->sql)){
+			//1) Reescribo el SQL con los datos de las dependencias	
+			foreach($this->dependencias_datos as $dep => $valor){
+				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->sql);
+			}
+			//echo $this->id . " - " . $this->sql;
+			//2) Regenero la consulta a la base
+			$this->cargar_datos_db();
+		}
+		if (isset($this->dao)) {
+			$parametros = array();
+			for($a=0;$a<count($this->dependencias);$a++){
+				$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]] . "'";
+			}
+			$param = implode(", ", $parametros);
+			if($this->modo =="estatico" )
+			{
+				$valor = $this->recuperar_datos_dao($param);
+				$this->cargar_estado($valor);
+			}else{
+				echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
+			}		
+		}
+	}	
+	
 	function cargar_estado($estado=null)
 	//Carga el estado interno
 	{
@@ -177,6 +289,61 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 }";
         }
     }
+
+	function parametros_js()
+	{
+		return parent::parametros_js().", '{$this->mascara}'";
+	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_editable({$this->parametros_js()})";
+	}	
+	
+	//-----------------------------------------------
+	//-------------- DEPENDENCIAS -------------------
+	//-----------------------------------------------
+	
+	function obtener_valores()
+	{
+		$estado = $this->obtener_estado();
+		return ($estado !== 'NULL') ? $estado : null;
+	}
+	
+	function javascript_slave_recargar_datos()
+	{
+		return "
+		function recargar_slave_{$this->id_form}(dato)
+		{
+			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			s_.value = dato;
+			s_.disabled = false;
+			s_.focus();
+			atender_proxima_consulta();
+		}
+		";	
+	}
+	//-----------------------------------------------
+
+	function javascript_slave_reset()
+	{		
+		$js = "
+		function reset_{$this->id_form}()
+		{
+			s_ = document.{$this->nombre_formulario}.{$this->id_form};
+			s_.disabled = true;
+			s_.value = '';\n";
+			
+		//Reseteo las dependencias	
+		if(isset($this->dependientes)){
+			foreach($this->dependientes as $dependiente){
+				$js .= " reset_{$dependiente}();\n";
+			}
+		}
+		$js .= "}\n";
+		//Hay que resetear a los DEPENDIENTES
+		return $js;
+	}
 	
 	function javascript_master_get_estado()
 	{
@@ -197,16 +364,6 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 			return (trim(master_get_estado_{$this->id_form}()) != '');
 		}
 		";		
-	}
-	
-	function parametros_js()
-	{
-		return parent::parametros_js().", '{$this->mascara}'";
-	}	
-	
-	function crear_objeto_js()
-	{
-		return "new ef_editable({$this->parametros_js()})";
 	}	
 		
 }
@@ -457,7 +614,7 @@ if( formulario.". $this->id_form .".value != formulario.". $this->id_form ."_tes
 	function crear_objeto_js()
 	{
 		return "new ef_editable_clave({$this->parametros_js()})";
-	}		
+	}
 }
 //########################################################################################################
 //########################################################################################################
