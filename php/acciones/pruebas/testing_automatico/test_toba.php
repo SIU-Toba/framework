@@ -1,13 +1,10 @@
 <?php
 require_once('3ros/simpletest/unit_tester.php');
+require_once('3ros/simpletest/mock_objects.php');
+require_once('acciones/pruebas/testing_automatico/mocks/hilo_version_test.php');
 
 class test_toba extends UnitTestCase
 {
-	function __construct()
-	{
-
-	}
-	
 	function tearDown()
 	{
 		$this->restaurar_estado($this->sentencias_restauracion());	
@@ -37,6 +34,21 @@ class test_toba extends UnitTestCase
     function pre_run(){}
     function post_run(){}
     
+	///---------- MOCK del HILO
+	function mentir_hilo()
+	{
+		global $solicitud;
+		$this->hilo_orig = $solicitud->hilo;
+		$solicitud->hilo = new hilo_version_test();	
+	}	
+	
+	function restaurar_hilo()
+	{
+		global $solicitud;
+		$solicitud->hilo = $this->hilo_orig;	
+	}
+	
+	
     function assertEqualArray($first, $second, $message = "%s") {
         return $this->assertExpectation(
                 new EqualArrayExpectation($first),

@@ -5,11 +5,11 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, ultimo_id, con_agregar) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, con_agregar) {
 		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
 		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
 		this._filas = filas;					//Carga inicial de las filas
-		this._ultimo_id = ultimo_id;
+		this._proximo_id = proximo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
 		this._ef_con_totales = new Object();	//Lisa de efs que quieren sumarizar
 	}
@@ -237,23 +237,23 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.crear_fila = function() {
 			//Crea la fila internamente
-		this._ultimo_id = this._ultimo_id + 1;	//Busca un nuevo ID
-		this._filas.push(this._ultimo_id);
+		this._filas.push(this._proximo_id);
 
 			//Crea la fila en el DOM
 		var fila_template = document.getElementById(this._instancia + '_fila__fila__');
 		nuevo_nodo = fila_template.cloneNode(true);
-		cambiar_atributos_en_arbol(nuevo_nodo, '__fila__', this._ultimo_id);
+		cambiar_atributos_en_arbol(nuevo_nodo, '__fila__', this._proximo_id);
 		nuevo_nodo.style.display = '';
 		fila_template.parentNode.appendChild(nuevo_nodo);
 
 			//Refresca la interface
-		this.iniciar_fila(this._ultimo_id);
-		this.refrescar_eventos_procesamiento(this._ultimo_id);
+		this.iniciar_fila(this._proximo_id);
+		this.refrescar_eventos_procesamiento(this._proximo_id);
 		this.refrescar_numeracion_filas();
 		this.refrescar_procesamientos();		
-		this.seleccionar(this._ultimo_id);
+		this.seleccionar(this._proximo_id);
 		this.refrescar_foco();
+		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
 	}
 	
 	def.deshacer = function() {

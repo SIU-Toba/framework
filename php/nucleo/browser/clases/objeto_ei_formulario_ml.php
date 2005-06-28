@@ -52,15 +52,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 		}
 		//Se determina el metodo de analisis de cambios
-		switch ($this->info_formulario['analisis_cambios'])
-		{
-			case 'LINEA':
-				$this->analizar_diferencias = true;
-				break;
-			case 'EVENTOS':
-				$this->eventos_granulares = true;
-				break;
-		}
+		$this->set_metodo_analisis($this->info_formulario['analisis_cambios']);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -108,6 +100,19 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$sql["info_formulario_ef"]["tipo"]="x";
 		$sql["info_formulario_ef"]["estricto"]="1";
 		return $sql;
+	}
+	
+	function set_metodo_analisis($metodo)
+	{
+		switch ($metodo)
+		{
+			case 'LINEA':
+				$this->analizar_diferencias = true;
+				break;
+			case 'EVENTOS':
+				$this->eventos_granulares = true;
+				break;
+		}	
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -209,6 +214,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
 					//A cada fila se le brinda un id único
 					$this->datos[$this->siguiente_id_fila] = array();
+					$this->siguiente_id_fila++;
 				}
 			}
 		}
@@ -344,6 +350,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function cargar_datos($datos = null)
 	{
 		if ($datos !== null) {
+			$this->filas_recibidas = array_keys($datos);
 			$this->datos = $datos;
 		} else {
 			$this->carga_inicial();
@@ -461,8 +468,23 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
 		
 		echo "<table class='tabla-0' style='width: $ancho'>\n";
-		//------ TITULOS -----
-		echo "<thead>\n<tr>\n";
+		echo "<thead>\n";
+		$this->generar_formulario_encabezado();
+		echo "</thead>\n";
+		echo "<tfoot>\n";
+		$this->generar_formulario_pie($colspan);
+		echo "</tfoot>\n";	
+		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo'>";		
+		$this->generar_formulario_cuerpo();
+		echo "</tbody>\n";		
+		echo "\n</table>\n</div>";
+		
+	}
+	
+	function generar_formulario_encabezado()
+	{
+		//------ TITULOS -----	
+		echo "<tr>\n";
 		if ($this->info_formulario['filas_agregar']) {
 			echo "<th class='abm-columna'>&nbsp;</th>\n";
 		}
@@ -471,11 +493,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo $this->elemento_formulario[$ef]->envoltura_ei_ml();
 			echo "</th>\n";
 		}
-		echo "</tr>\n</thead>\n";
-
+		echo "</tr>\n";
+	}
+	
+	function generar_formulario_pie($colspan)
+	{
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
-		echo "<tfoot>\n";
 		if(count($this->lista_ef_totales)>0){
 			echo "\n<tr>\n";
 			if ($this->info_formulario['filas_agregar']) {
@@ -492,12 +516,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}		
 		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
 		$this->obtener_botones();
-		echo "</td></tr>\n";		
-		echo "</tfoot>\n";
-
+		echo "</td></tr>\n";
+	}
+	
+	function generar_formulario_cuerpo()
+	{
 		//------ FILAS ------
 		$this->filas_enviadas = array();
-		echo "<tbody class='tabla-con-scroll' style='max-height: $alto_maximo'>";
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
 		$this->datos["__fila__"] = array();
 		$a = 0;
@@ -527,7 +552,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "</tr>\n";
 			$a++;
 		}
-		echo "</tbody>\n</table>\n</div>";
 	}
 
 	function botonera_manejo_filas()
@@ -581,8 +605,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
 		$filas = js::arreglo($this->filas_enviadas);
-		$ultimo_id = $this->siguiente_id_fila - 1;
-		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, $ultimo_id, $con_agregar);\n";
+		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml";
+		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $con_agregar);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

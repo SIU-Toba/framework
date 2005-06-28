@@ -71,21 +71,27 @@ class casos_web extends objeto_ci
 	function obtener_html_contenido__2()
 	{
 		try {
-			$test = new GroupTest('Casos de TEST');
-		    foreach (lista_casos::get_casos() as $caso) {
-			    if (in_array($caso['id'], $this->selecciones['casos']))
-			    {
-			        require_once($caso['categoria']."/".$caso['id'].".php");
-			        $test->addTestCase(new $caso['id']($caso['nombre']));
-			    }
+			//Se construye un suite por categoria que tenga test seleccionados
+			foreach (lista_casos::get_categorias() as $categoria) {
+				$test = new GroupTest($categoria['nombre']);
+				$hay_uno = false;
+			    foreach (lista_casos::get_casos() as $caso) {
+				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $this->selecciones['casos'])) {
+						$hay_uno = true;
+				        require_once($caso['categoria']."/".$caso['id'].".php");
+				        $test->addTestCase(new $caso['id']($caso['nombre']));
+				    }
+				}		
+				if ($hay_uno)	
+					$test->run(new reporter_toba());			
 			}
-			$test->run(new reporter_toba());
 		} catch (Exception $e) {
 			if (method_exists($e, 'mensaje_web'))
 				echo ei_mensaje($e->mensaje_web(), 'error');
 			else
 				echo $e;
 		}
+	
 	}
 }
 

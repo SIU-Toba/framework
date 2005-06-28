@@ -23,6 +23,8 @@ def.constructor = ef;
 	}	
 	
 	def.submit = function () {
+		if (this.input().disabled)
+			this.input().disabled = false;
 	}		
 	
 	//---Consultas	

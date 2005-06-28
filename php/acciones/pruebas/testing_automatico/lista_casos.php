@@ -8,6 +8,7 @@ class lista_casos
 		return array(
 					array('id' => 'todas', 'nombre' => 'Todas'),
 					array('id' => 'items', 'nombre' => 'Items'),
+					array('id' => 'objetos', 'nombre' => 'Objetos'),
 					array('id' => 'ef', 'nombre' => "Ef's"),
 					array('id' => 'persistencia', 'nombre' => 'Persistencia'),
 					array('id' => 'varios', 'nombre' => 'Varios')
@@ -20,6 +21,9 @@ class lista_casos
 					//Items
 					array('id' => 'test_item', 'nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
 					array('id' => 'test_arbol_items', 'nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
+					
+					//Objetos
+					array('id' => 'test_ei_formulario_ml', 'nombre' => 'ei_formulario_ml', 'categoria' => 'objetos'),
 
 					//EF
 					array('id' => 'test_editable_numero', 'nombre' => 'EF Editable Número', 'categoria' => 'ef'),

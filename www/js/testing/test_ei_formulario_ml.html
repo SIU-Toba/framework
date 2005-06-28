@@ -29,7 +29,7 @@ var formu;	//Formualrio utilizado en las pruebas
 
 function setUp() {
 	//Crea un formulario con una fila inicial
-	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', new Array(0,1), 2, true);
 	formu.agregar_ef(new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', false, ''), 'mi_moneda');
 	formu.set_evento_defecto(new evento_ei('modificacion', true, false));
@@ -43,9 +43,9 @@ function test_creacion_seleccion_borrado_filas() {
 	assertEquals(4, formu.filas().length);	
 
 	//Las selecciona y las borra
-	formu.seleccionar(4);
-	formu.eliminar_seleccionada();
 	formu.seleccionar(3);
+	formu.eliminar_seleccionada();
+	formu.seleccionar(2);
 	formu.eliminar_seleccionada();
 	assertEquals(2, formu.filas().length);		
 }
@@ -62,7 +62,7 @@ function test_deshacer() {
 
 function test_validacion_con_sin_evento() {
 	//Crea un formulario que no deberia validar, pero como no hay evento, valida bien   
-	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', new Array(0,1), 1, true);
 	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio  
 	formu._silencioso = true;
@@ -79,7 +79,7 @@ function test_validacion_con_sin_evento() {
 //--- Validaciones particulares
 function test_validador_nuevo() {
 	//Crea un formulario con una fila inicial
-	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', 2, true);
+	formu = new objeto_ei_formulario_ml('formu', new Array(51, 5050), 'formu_submit', new Array(0,1), 1, true);
 	formu.agregar_ef( new ef_checkbox('CI_11471105checkbox', 'checkbox', false), 'mi_check');
 	formu.agregar_ef(new ef_editable_moneda('CI_11471105mi_moneda', 'numero', true, ''), 'mi_moneda');	//Obligatorio 
 	formu.set_evento_defecto( new evento_ei('modificar', true, ''));

@@ -16,8 +16,16 @@ class test_parseo_etiquetas extends test_toba
 	{
 		$etiqueta = "Etiqueta&";
 		$res = tecla_acceso($etiqueta);
-		$this->AssertEqual($res[0], "Etiqueta&");
+		$this->AssertEqual($res[0], "Etiqueta&amp;");
 		$this->AssertEqual($res[1], null);	
+	}
+	
+	function test_acceso_con_tags()
+	{
+		$etiqueta = "< Etiqu&eta";
+		$res = tecla_acceso($etiqueta);
+		$this->AssertEqual($res[0], "&lt; Etiqu<u>e</u>ta");
+		$this->AssertEqual($res[1], 'e');	
 	}
 
 	function test_acceso_inicio()

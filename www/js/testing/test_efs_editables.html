@@ -17,6 +17,16 @@
 <script language="JavaScript1.4" type="text/javascript">
 var rangos_defecto = [ ['*', 1], ['*', 1]];
 
+function test_editable_solo_lectura()
+{
+	var ef = new ef_editable('formulario1148editable', 'Editable', false, '');
+	ef.iniciar('el_editable');
+	ef.desactivar();
+	assertTrue(ef.input().disabled);
+	ef.submit();
+	assertFalse(ef.input().disabled);	
+}
+
 function test_editable_texto() {
 	//Obligatorio sin mascara
 	var ef = new ef_editable('formulario1148editable', 'Editable', true, '');

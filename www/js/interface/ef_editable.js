@@ -23,6 +23,7 @@ def.constructor = ef_editable;
 		if (this._mascara) {
 			this.input().value = this.valor();
 		}
+		ef.prototype.submit.call(this);
 	}
 	
 	def.validar = function () {
