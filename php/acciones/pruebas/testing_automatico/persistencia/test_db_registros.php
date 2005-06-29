@@ -61,6 +61,16 @@ class test_db_registros extends test_toba
 		$this->vaciar_tablas();
 	}
 
+	function dump_control()
+	{
+		ei_arbol($this->dbr->get_estructura_control(),"Estructura CONTROL");	
+	}
+
+	function dump_datos()
+	{
+		ei_arbol($this->dbr->obtener_registros(null, true),"Registros");	
+	}
+
 	//----------------------------------------------
 	//--  Base de Datos  ---------------------------
 	//----------------------------------------------

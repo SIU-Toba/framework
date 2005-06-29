@@ -5,6 +5,8 @@ require_once("test_db_registros.php");
 	-----
 
 	- reset
+
+	- Preservacion de campos que ya existian pero no se entregaron en una modificacion
 	
 	- sincronizacion con la base
 		- alta

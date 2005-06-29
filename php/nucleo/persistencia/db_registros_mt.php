@@ -3,8 +3,10 @@ require_once("db_registros.php");
 
 class db_registros_mt extends db_registros
 {
-	protected $control_tablas;			//Informacion agregada sobre la distribucion de registros por tablas
+	protected $tablas_anexas;
 	protected $tipo_relacion = "estricta";
+	protected $columnas_convertidas;	//Columnas convertidas por tabla
+
 	
 	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
@@ -75,34 +77,98 @@ class db_registros_mt extends db_registros
 			//Solo hay que trabajar sobre los manipulables
 			$this->definicion['externa'] = array();
 		}
+		
+		//tablas anexas
+		for($t=1;$t<count($this->definicion['tabla']);$t++){
+			$this->tablas_anexas[] = $this->definicion['tabla'][$t];
+		}
 	}
 
 	//-------------------------------------------------------------------------------
 	//-- Las estructuras de control del db_registros MT son ligeramente distintas
 	//-------------------------------------------------------------------------------
+	/*
+		Esto puede ser mas eficiente
+	*/
 
-	function identificar_tablas_comprometidas($registro)
+	function identificar_tablas_comprometidas($registro, $testigos, $valor_si=1, $valor_no=0)
 	{
-		/*
-			Devuelve un array con las tablas comprometidas en un registro puntual	
-			El array debe ser asociativo, con el nombre de la tabla y un 1 o un 0 indicando la utilizacion
-			Se busca que al menos una columna o clave que no sea compartida por la tabla principal este seteada
-		*/
-		for($t=1;$t<count($this->definicion['tabla']);$t++)
+		$plan = array();
+		foreach($testigos as $tabla => $testigo)
 		{
-			
+			if(isset($this->datos[$registro][$testigo])){
+				$plan[$tabla] = $valor_si;
+			}else{
+				$plan[$tabla] = $valor_no;
+			}
 		}		
+		return $plan;
 	}
 
-	function generar_estructura_control()
+	function generar_estructura_control_post_carga()
 	{
-		parent::generar_estructura_control();
-		//$this->identificar_tablas_comprometidas($registro);
+		if($this->tipo_relacion == "debil")
+		{
+			//Creo las columnas testigo para cada tabla
+			//ATENCION!! esto se basa en un proceso realizado en la generacion del SELECT
+			foreach($this->tablas_anexas as $tabla)
+			{
+				$col_testigo = $this->definicion[$tabla]['clave'][0];
+				if(isset($this->columnas_convertidas[$tabla][$col_testigo])){
+					$col_testigo = $this->columnas_convertidas[$tabla][$col_testigo];
+				}
+				$testigos[$tabla] = $col_testigo;
+			}
+			//Genero la estructura del control		
+			for($a=0;$a<count($this->datos);$a++){
+				$this->control[$a]['estado']="db";
+				$this->control[$a]['tablas']=$this->identificar_tablas_comprometidas($a, $testigos, "db", "null");
+			}
+		}else{
+			parent::generar_estructura_control_post_carga();
+		}
 	}
 	
 	function actualizar_estructura_control($registro, $estado)
 	{
 		parent::actualizar_estructura_control($registro, $estado);
+		if($this->tipo_relacion == "debil")
+		{
+			/*
+				ATENCION!, esto puede estar mal, tal vez se inserta un campo que no se completo
+							en una tabla anexa. Esto pasa cada vez que se las setea como "i"
+							sin controlar lo que realmente paso
+			*/
+			switch($estado){
+				case "i":
+					foreach($this->tablas_anexas as $tabla){
+						$this->control[$registro]['tablas'][$tabla] = "i";						//Falta control EXISTENCIA
+					}
+					break;
+				case "u":
+					//Si el campo es nuevo, no tengo nada que hacer
+					if($this->control[$registro]['estado']=="i") return;
+					foreach($this->tablas_anexas as $tabla){
+						if( $this->control[$registro]['tablas'][$tabla] == "db" ){
+							$this->control[$registro]['tablas'][$tabla] = "u";
+						}elseif( $this->control[$registro]['tablas'][$tabla] == "null" ){
+							$this->control[$registro]['tablas'][$tabla] = "i";					//Falta control EXISTENCIA
+						}
+					}
+					break;
+				case "d":
+					if(isset($this->control[$registro]['estado'])) //Si era un "i" se elimino directamente
+					{
+						foreach($this->tablas_anexas as $tabla){
+							if( $this->control[$registro]['tablas'][$tabla] == "db" ){
+								$this->control[$registro]['tablas'][$tabla] = "d";
+							}elseif( $this->control[$registro]['tablas'][$tabla] == "u" ){
+								$this->control[$registro]['tablas'][$tabla] = "d";
+							}
+						}
+					}
+			}
+		}
 	}
 
 	function sincronizar_estructura_control()
@@ -293,10 +359,17 @@ class db_registros_mt extends db_registros
 				$campos = array_diff( $campos, $this->definicion[$tabla]['externa'] );
 			}
 			foreach($campos as $campo){
-				//Los campos duplicados los comprimo
-				$campos_select[$campo] = "$alias.$campo as $campo";
+				//Si el campo ya existe, le cambio el nombre
+				if(isset($campos_select[$campo])){
+					$nuevo_nombre = $alias."_".$campo;
+					$campos_select[$alias.".".$campo] = "$alias.$campo as $nuevo_nombre";
+					$this->columnas_convertidas[$tabla][$campo] = $nuevo_nombre;
+				}else{
+					$campos_select[$campo] = "$alias.$campo as $campo";
+				}
 			}
-		}
+		}//fin del ciclo por tabla
+		
 		//Concateno el SQL de la carga de datos
 		//FROM
 		if(isset($this->from)){

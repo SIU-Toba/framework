@@ -75,7 +75,7 @@ class db_registros
 		toba::get_logger()->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
 	}
 	
-	function resetear()
+	public function resetear()
 	{
 		$this->log("RESET!!");
 		$this->datos = array();
@@ -109,7 +109,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function cargar_datos_clave($id)
+	public function cargar_datos_clave($id)
 	{
 		/*
 			Esta funcion deberia mapear un ID expresado como un array
@@ -117,21 +117,13 @@ class db_registros
 		*/		
 	}
 
-	function cargar_datos($where=null, $from=null)
-	//Cargar datos en el db_registros (DB o SESION). 
+	public function cargar_datos($where=null, $from=null)
 	{
 		if(isset($where)){
 			if(!is_array($where)){
 				throw new excepcion_toba("El WHERE debe ser un array");
 			}	
 		}
-		$this->cargar_datos_db($where, $from);
-	}
-	
-	function cargar_datos_db($where=null, $from=null)
-	//Cargo los db_registrosS con datos de la DB
-	//ATENCION: Los datos solo se cargan si se le pasa como parametro un WHERE
-	{
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
@@ -144,7 +136,7 @@ class db_registros
 				$this->datos_orig = $this->datos;
 			}
 		}
-		$this->generar_estructura_control();
+		$this->generar_estructura_control_post_carga();
 		//Le saco los caracteres de escape a los valores traidos de la DB
 		for($a=0;$a<count($this->datos);$a++){
 			foreach(array_keys($this->datos[$a]) as $columna){
@@ -157,7 +149,7 @@ class db_registros
 		$this->actualizar_campos_externos();
 	}
 
-	function cargar_db($carga_estricta=false)
+	private function cargar_db($carga_estricta=false)
 	//Cargo los db_registrosS con datos de la DB
 	//Los datos son 
 	{
@@ -191,7 +183,7 @@ class db_registros
 		}
 	}
 
-	function controlar_conservacion_where($where)
+	private function controlar_conservacion_where($where)
 	/*
 		El uso de este metodo ya no tiene sentido
 	*/
@@ -222,23 +214,21 @@ class db_registros
 	//-- Mantenimiento de la estructura de control ----------------------------------
 	//-------------------------------------------------------------------------------
 
-	function generar_estructura_control()
+	protected function generar_estructura_control_post_carga()
 	{
 		//Genero la estructura de control
 		$this->control = array();
 		for($a=0;$a<count($this->datos);$a++){
 			$this->control[$a]['estado']="db";
-			//Creo la columna que referencia a la posicion del registro en el db_registros
-			//$this->datos[$a][apex_db_registros_clave]=$a;
 		}
 	}
 	
-	function actualizar_estructura_control($registro, $estado)
+	protected function actualizar_estructura_control($registro, $estado)
 	{
 		$this->control[$registro]['estado'] = $estado;
 	}
 
-	function sincronizar_estructura_control()
+	protected function sincronizar_estructura_control()
 	{
 		foreach(array_keys($this->control) as $registro){
 			switch($this->control[$registro]['estado']){
@@ -256,7 +246,7 @@ class db_registros
 		}
 	}
 
-	function get_estructura_control()
+	public function get_estructura_control()
 	{
 		return $this->control;	
 	}
@@ -265,17 +255,17 @@ class db_registros
 	//-- Preguntas basicas
 	//-------------------------------------------------------------------------------
 
-	function obtener_definicion()
+	public function obtener_definicion()
 	{
 		return $this->definicion;
 	}
 
-	function get_clave()
+	public function get_clave()
 	{
 		return $this->definicion['clave'];
 	}
 	
-	function get_clave_valor($id_registro)
+	public function get_clave_valor($id_registro)
 	{
 		foreach( $this->definicion['clave'] as $clave ){
 			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
@@ -387,6 +377,17 @@ class db_registros
 		}
 		return $a;
 	}
+	
+	public function existe_registro($id)
+	{
+		if(! isset($this->datos[$id]) ){
+			return false;			
+		}
+		if($this->control[$id]['estado']=="d"){
+			return false;
+		}
+		return true;
+	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -394,9 +395,8 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function agregar_registro($registro)
+	public function agregar_registro($registro)
 	{
-		$this->evt__agregar_registro($registro);
 		$this->notificar_controlador("ins", $registro);
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);
@@ -410,14 +410,13 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function modificar_registro($registro, $id)
+	public function modificar_registro($registro, $id)
 	{
-		if(!isset($this->datos[$id])){
+		if(!$this->existe_registro($id)){
 			$mensaje = "db_registros: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->evt__modificar_registro($registro, $id);
 		$this->notificar_controlador("upd", $registro, $id);
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);
@@ -437,14 +436,13 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function eliminar_registro($id=null)
+	public function eliminar_registro($id=null)
 	{
-		if(!isset($this->datos[$id])){
+		if(!$this->existe_registro($id)){
 			$mensaje = "db_registros: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->evt__eliminar_registro($id);
 		$this->notificar_controlador("del", $id);
 		if($this->control[$id]['estado']=="i"){
 			unset($this->control[$id]);
@@ -455,23 +453,24 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function eliminar_registros()
+	public function eliminar_registros()
 	//Elimina todos los registros
 	{
-		$this->evt__eliminar_registros();
 		foreach(array_keys($this->control) as $registro)
 		{
 			if($this->control[$registro]['estado']=="i"){
 				unset($this->control[$registro]);
 				unset($this->datos[$registro]);
 			}else{
-				$this->actualizar_estructura_control($registro,"d");
+				if($this->existe_registro($registro)){
+					$this->actualizar_estructura_control($registro,"d");
+				}
 			}
 		}
 	}
 	//-------------------------------------------------------------------------------
 
-	function establecer_registro_valor($id, $columna, $valor)
+	public function establecer_registro_valor($id, $columna, $valor)
 	{
 		if(isset($this->datos[$id][$columna])){
 			$this->datos[$id][$columna] = $valor;
@@ -482,7 +481,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function establecer_valor_columna($columna, $valor)
+	public function establecer_valor_columna($columna, $valor)
 	//Setea todas las columnas con un valor
 	{
 		foreach(array_keys($this->control) as $registro){
@@ -497,7 +496,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//Simplificacion para los db_registross que manejan un solo registro. solo manejan el registro "0"
 		
-	function set($registro)
+	public function set($registro)
 	{
 		if($this->cantidad_registros() === 0){
 			$this->agregar_registro($registro);
@@ -506,13 +505,13 @@ class db_registros
 		}
 	}
 	
-	function get()
+	public function get()
 	{
 		return $this->obtener_registro(0);
 	}
 	//-------------------------------------------------------------------------------
 
-	function procesar_registros($registros)
+	public function procesar_registros($registros)
 	{
 		//Controlo estructura
 		foreach(array_keys($registros) as $id){
@@ -547,27 +546,11 @@ class db_registros
 		si algo sale mal se deberia disparar una excepcion	
 	*/
 
-	function notificar_controlador($evento, $param1=null, $param2=null)
+	private function notificar_controlador($evento, $param1=null, $param2=null)
 	{
 		if(isset($this->controlador)){
 			$this->controlador->registrar_evento($this->id, $evento, $param1, $param2);
 		}
-	}
-
-	function evt__agregar_registro($registro)
-	{
-	}
-	
-	function evt__modificar_registro($registro, $id)
-	{
-	}
-	
-	function evt__eliminar_registro($id)
-	{	
-	}
-
-	function evt__eliminar_registros()
-	{	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -576,7 +559,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function validar_registro($registro, $id=null)
+	public function validar_registro($registro, $id=null)
 	//Valida el registro
 	{
 		$this->control_estructura_registro($registro);
@@ -585,7 +568,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function control_estructura_registro($registro)
+	private function control_estructura_registro($registro)
 	//Controla que los campos del registro existan
 	{
 		foreach($registro as $campo => $valor){
@@ -602,7 +585,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function control_valores_unicos($registro, $id=null)
+	private function control_valores_unicos($registro, $id=null)
 	//Controla que no se dupliquen valores unicos del db_registros
 	{
 		foreach($this->campos_no_duplicados as $campo)
@@ -627,7 +610,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 	
-	function control_nulos($registro)
+	private function control_nulos($registro)
 	//Controla que los valores obligatorios existan
 	{
 		$mensaje_usuario = "El elemento posee valores incompletos";
@@ -652,7 +635,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function actualizar_campos_externos()
+	private function actualizar_campos_externos()
 	//Actualiza los campos externos despues de cargar el db_registros
 	{
 		foreach(array_keys($this->control) as $registro)
@@ -661,7 +644,7 @@ class db_registros
 		}	
 	}
 	
-	function actualizar_campos_externos_registro($id_registro, $evento=null)
+	private function actualizar_campos_externos_registro($id_registro, $evento=null)
 	{
 		//Itero planes de carga externa
 		if(isset($this->definicion['carga_externa'])){
@@ -699,7 +682,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function sincronizar()
+	public function sincronizar()
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
 		$this->log("Inicio SINCRONIZACION!"); 
@@ -757,15 +740,15 @@ class db_registros
 		}
 	}
 
-	function insertar($id_registro)
+	protected function insertar($id_registro)
 	{
 	}
 	
-	function modificar($id_registro)
+	protected function modificar($id_registro)
 	{
 	}
 
-	function eliminar($id_registro)
+	protected function eliminar($id_registro)
 	{
 	}
 
@@ -777,35 +760,35 @@ class db_registros
 		si algo sale mal se deberia disparar una excepcion	
 	*/
 
-	function evt__pre_sincronizacion()
+	protected function evt__pre_sincronizacion()
 	{
 	}
 	
-	function evt__post_sincronizacion()
+	protected function evt__post_sincronizacion()
 	{
 	}
 
-	function evt__pre_insert($id)
+	protected function evt__pre_insert($id)
 	{
 	}
 	
-	function evt__post_insert($id)
+	protected function evt__post_insert($id)
 	{
 	}
 	
-	function evt__pre_update($id)
+	protected function evt__pre_update($id)
 	{
 	}
 	
-	function evt__post_update($id)
+	protected function evt__post_update($id)
 	{
 	}
 
-	function evt__pre_delete($id)
+	protected function evt__pre_delete($id)
 	{
 	}
 	
-	function evt__post_delete($id)
+	protected function evt__post_delete($id)
 	{
 	}
 
@@ -815,7 +798,7 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function controlar_alteracion_db()
+	public function controlar_alteracion_db()
 	//Controla que los datos
 	{
 		/*
@@ -823,7 +806,7 @@ class db_registros
 		*/
 	}
 
-	function controlar_alteracion_db_array()
+	private function controlar_alteracion_db_array()
 	//Soporte al manejo transaccional OPTIMISTA
 	//Indica si los datos iniciales extraidos de la base difieren de
 	//los datos existentes en el momento de realizar la transaccion
@@ -859,7 +842,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function controlar_alteracion_db_timestamp()
+	private function controlar_alteracion_db_timestamp()
 	//Esto tiene que basarse en una forma generica de trabajar sobre tablas
 	//(Una columna que posea el timestamp, y triggers que los actualicen)
 	{
@@ -874,7 +857,7 @@ class db_registros
 		El db_registros se encarga solo de que su estado se mantenga en la sesion
 	*/
 	
-	function inicializar_memoria_autonoma()
+	private function inicializar_memoria_autonoma()
 	{
 		$this->log("Se esta utilizando la memoria autonoma.");
 		//Registro la finalizacion del objeto
@@ -891,21 +874,21 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function finalizar()
+	private	function finalizar()
 	//Finaliza la ejecucion del db_registros
 	{
 		$this->guardar_datos_sesion();
 	}
 	//-------------------------------------------------------------------------------
 
-	function desregistrar_finalizacion()
+	private function desregistrar_finalizacion()
 	//Desregistrar el destructor, por si se necesita eliminar un objeto registrado
 	{
 		desregistar_finalizacion($this->posicion_finalizador);
 	}
 	//-------------------------------------------------------------------------------
 
-	function cargar_datos_sesion()
+	private function cargar_datos_sesion()
 	//Cargo el db_registros desde la sesion
 	{
 		$this->log("Cargar de SESION");
@@ -920,7 +903,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	function guardar_datos_sesion()
+	private function guardar_datos_sesion()
 	//Guardo datos en la sesion
 	{
 		$datos['where'] = $this->where;
@@ -933,7 +916,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 	
-	function existe_instanciacion_previa()
+	private function existe_instanciacion_previa()
 	{
 		return toba::get_hilo()->existe_dato_global($this->identificador);
 	}
