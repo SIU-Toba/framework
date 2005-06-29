@@ -8,6 +8,7 @@ class test_editable_numero extends test_toba
 		(minimo..maximo] donde 
 			-'(' o ')' indica no incluido y '[' o ']' indica incluido
 			-minimo y maximo pueden ser '*' indicando un 'no importa'
+	- Este parametro puede cambiarse en ejecución
 */
 {
 	protected $parametros;
@@ -123,6 +124,22 @@ class test_editable_numero extends test_toba
 		$ef = $this->get_ef(array());
 		$this->validar_correctos( $ef, array(0, 1, 99.9, 100));
 		$this->validar_incorrectos($ef, array(-10, 100.00001, 200));	
+	}
+	
+	function test_validacion_rango_cambia_en_ejecucion()
+	{
+		//Definición estática
+		$parametros = array(
+			'rango' => '0..*'
+		);
+		$ef = $this->get_ef($parametros);
+		$this->validar_correctos($ef, array(0, 0.1, 123));
+		$this->validar_incorrectos($ef, array(-1000, -0.2));
+
+		//Cambio en ejecución
+		$ef->cambiar_rango('(*..0)');
+		$this->validar_correctos($ef, array(-1000, -0.2));
+		$this->validar_incorrectos($ef, array(0, 0.1, 123));
 	}
 }
 

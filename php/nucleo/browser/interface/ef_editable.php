@@ -116,7 +116,7 @@ class ef_editable extends ef
 				//$this->valores = array();
 				$this->input_extra = " disabled ";
 			}else{
-				$this->cargar_datos();
+				$this->cargar_datos_dao();
 			}
 		}		
 	}
@@ -149,7 +149,7 @@ class ef_editable extends ef
 		return $valor;
 	}	
 	
-	function cargar_datos_dao($valor)
+	function cargar_datos_dao()
 	/*
 		Si el DAO esta a a cargo del CN, el CN lo carga a travez de este metodo.
 		Si el DAO se carga a travez de una clase estatica, el mismo obtiene los
@@ -160,7 +160,7 @@ class ef_editable extends ef
 		if($this->modo =="estatico" ){
 			$valor = $this->recuperar_datos_dao();
 		}
-		return $valor;
+		$this->estado = $valor;
 	}		
 	
 	function cargar_datos_db()
@@ -386,23 +386,7 @@ class ef_editable_numero extends ef_editable
         $parametros["tamano"] = (isset($parametros["cifras"])) ? $parametros["cifras"] : 5;
         unset($parametros["cifras"]);
 		if (isset($parametros['rango'])) {
-			//Parseo del rango
-			$limitadores = array('[', ']', '(', ')');
-			$partes = explode(',', $parametros['rango'], 2);
-
-			//Rango
-			$rango = trim($partes[0]);
-			list($inferior, $superior) = explode('..',  str_replace($limitadores, '', $rango));
-			$this->rango_inferior['limite'] = trim($inferior);
-			if (strpos($rango, '(') !== false)
-				$this->rango_inferior['incluido'] = 0;
-			$this->rango_superior['limite']	= trim($superior);
-			if (strpos($rango, ')') !== false)
-				$this->rango_superior['incluido'] = 0;
-
-			//Descripción
-			if (isset($partes[1]))
-				$this->mensaje_defecto = $partes[1];
+			$this->cambiar_rango($parametros['rango']);
 		}
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -430,6 +414,27 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		//Le concateno lo generado en el padre (control obligatorio)
 		return $javascript;
     }
+	
+	function cambiar_rango($rango)
+	{
+		//Parseo del rango
+		$limitadores = array('[', ']', '(', ')');
+		$partes = explode(',', $rango, 2);
+
+		//Determinación de límites
+		$rango = trim($partes[0]);
+		list($inferior, $superior) = explode('..',  str_replace($limitadores, '', $rango));
+		$this->rango_inferior['limite'] = trim($inferior);
+		if (strpos($rango, '(') !== false)
+			$this->rango_inferior['incluido'] = 0;
+		$this->rango_superior['limite']	= trim($superior);
+		if (strpos($rango, ')') !== false)
+			$this->rango_superior['incluido'] = 0;
+
+		//Descripción
+		if (isset($partes[1]))
+			$this->mensaje_defecto = $partes[1];	
+	}
 	
 	function mensaje_validacion_rango()
 	{

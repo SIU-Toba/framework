@@ -26,7 +26,8 @@ class lista_casos
 					array('id' => 'test_ei_formulario_ml', 'nombre' => 'ei_formulario_ml', 'categoria' => 'objetos'),
 
 					//EF
-					array('id' => 'test_editable_numero', 'nombre' => 'EF Editable Número', 'categoria' => 'ef'),
+					array('id' => 'test_editable', 'nombre' => 'EF Editable', 'categoria' => 'ef'),
+					array('id' => 'test_editable_numero', 'nombre' => 'EF Número', 'categoria' => 'ef'),
 					array('id' => 'test_multi_seleccion', 'nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
 					array('id' => 'test_fijos', 'nombre' => 'EF Fijos', 'categoria' => 'ef'),					
 

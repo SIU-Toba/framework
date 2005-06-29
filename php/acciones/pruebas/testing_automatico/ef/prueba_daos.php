@@ -11,6 +11,8 @@ class prueba_daos
 	
 	
 	function dao_multi_seleccion() { return prueba_daos::get_valor(); }
+	
+	function dao_editable() { return prueba_daos::get_valor(); }
 
 }
 

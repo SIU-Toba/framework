@@ -4,14 +4,10 @@
 		$this->zona->obtener_html_barra_superior();
 
 		
-		require_once("nucleo/browser/clases/objeto_ci_me_tab.php");
-		require_once("nucleo/lib/objeto_vacio.php");
-		$cn = new objeto_vacio("Controlador de Negocio");
-		$mt = new objeto_ci_me_tab($editable);
-		$mt->asignar_controlador_negocio( $cn );
-		$mt->procesar();
-		$mt->obtener_html();
-		//$mt->mostrar_memoria();
+		require_once("nucleo/browser/clases/objeto_ci.php");
+		$mt = new objeto_ci($editable);
+		$mt->procesar_eventos();
+		$mt->generar_interface_grafica();	
 		enter();
 
 		$this->zona->obtener_html_barra_inferior();
