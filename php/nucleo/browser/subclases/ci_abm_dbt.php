@@ -73,6 +73,11 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 
 	private function inspeccionar_dependencia($dependencia)
 	{
+		/*
+			$dep['tipo_ei'] = $this->consultar_info_dependencia($dependencia,"clase");
+			$dep['elemento'] = $this->consultar_info_dependencia($dependencia,"parametros_a");
+			$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_registros();
+		*/
 		$e = explode("__",$dependencia);
 		if($e[0] == "c") {
 			$dep['tipo_ei'] = "ei_cuadro";

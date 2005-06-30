@@ -1,8 +1,8 @@
 <?
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
-require_once("objeto.php");
+require_once("objeto_ei.php");
 
-class objeto_ei_cuadro extends objeto
+class objeto_ei_cuadro extends objeto_ei
 /*
     @@acceso: publico
     @@desc: Esta clase implementa un listado ordenable y paginable.

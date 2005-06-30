@@ -1,13 +1,10 @@
 <?php
-require_once("objeto.php");
+require_once("objeto_ei.php");
 require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 
-define("apex_ci_evento","evt");
-define("apex_ci_separador","__");
-
-class objeto_ci extends objeto
+class objeto_ci extends objeto_ei
 {
 	// General
 	protected $cn=null;								// Controlador de negocio asociado
@@ -18,7 +15,6 @@ class objeto_ci extends objeto
 	protected $dependencias_gi;						// Dependencias utilizadas para la generacion de la interface
 	protected $eventos;								// Lista de eventos que expone el CI
 	protected $evento_actual;						// Evento propio recuperado de la interaccion
-	protected $observadores = array();				// Objetos que observan los eventos de este CI
 	protected $id_en_padre;							// Id que posee este CI en su padre
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
 	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
@@ -162,7 +158,7 @@ class objeto_ci extends objeto
 	function inicializar_dependencia($dep, $parametro)
 	{
 		$this->dependencias[$dep]->inicializar($parametro);
-		$this->dependencias[$dep]->agregar_observador($this);
+		$this->dependencias[$dep]->agregar_controlador($this);
 		if($this->dependencias[$dep] instanceof objeto_ci ){
 			//Guardo la clave de memoria de la dependencia para no perder su memoria cuando no se instancie
 			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
@@ -241,7 +237,7 @@ class objeto_ci extends objeto
 
 	function puede_ir_a_pantalla($tab)
 	{
-		$evento_mostrar = apex_ci_evento . apex_ci_separador . "puede_mostrar_pantalla";
+		$evento_mostrar = apex_ei_evento . apex_ei_separador . "puede_mostrar_pantalla";
 		if(method_exists($this, $evento_mostrar)){
 			return $this->$evento_mostrar($tab);
 		}
@@ -344,14 +340,14 @@ class objeto_ci extends objeto
 			// Esto no lo tengo que subir al metodo anterior?
 			if( isset($this->memoria['etapa_gi']) ){
 				// Habia una etapa anterior
-				$evento_salida = apex_ci_evento . apex_ci_separador . "salida" . apex_ci_separador . $this->memoria['etapa_gi'];
+				$evento_salida = apex_ei_evento . apex_ei_separador . "salida" . apex_ei_separador . $this->memoria['etapa_gi'];
 				//Evento SALIDA
 				if(method_exists($this, $evento_salida)){
 					$this->$evento_salida();
 				}
 			}	
 			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
-			$evento_entrada = apex_ci_evento . apex_ci_separador . "entrada" . apex_ci_separador . $etapa_actual;
+			$evento_entrada = apex_ei_evento . apex_ei_separador . "entrada" . apex_ei_separador . $etapa_actual;
 			if(method_exists($this, $evento_entrada)){
 				$this->$evento_entrada();
 			}
@@ -374,6 +370,7 @@ class objeto_ci extends objeto
 	{
 		$this->log->debug($this->get_txt() . "_____________________________________________________[ procesar_eventos ]");
 		try{
+			$this->controlador = $this;
 			$this->inicializar();
 			$this->disparar_eventos();
 		}catch(excepcion_toba $e){
@@ -385,7 +382,7 @@ class objeto_ci extends objeto
 	protected function disparar_eventos()
 	// Se les ordena a las dependencias que gatillen sus eventos
 	// Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.
-	//  Esto es fuerte porque hace que cuando se detecta el primer error, no se sigan procesando las cosas
+	// 		Esto esta bien? --> cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]");
 
@@ -400,7 +397,6 @@ class objeto_ci extends objeto
 			//Disparo los eventos de las dependencias
 			foreach( $this->get_dependencias_interface_previa() as $dep)
 			{
-				//El try/catch deberia estar aca?
 				$this->dependencias[$dep]->disparar_eventos();
 			}
 			$this->disparar_evento_propio();
@@ -412,7 +408,7 @@ class objeto_ci extends objeto
 	}
 
 	function controlar_eventos_propios()
-	//Indica si se ejecuto un evento propio
+	//Reconoce que evento del CI se ejecuto
 	{
 		$this->evento_actual = "";
 		if(isset($_POST[$this->submit])){
@@ -431,7 +427,7 @@ class objeto_ci extends objeto
 	{
 		if($this->evento_actual != "")
 		{
-			$metodo = apex_ci_evento . apex_ci_separador . $this->evento_actual;
+			$metodo = apex_ei_evento . apex_ei_separador . $this->evento_actual;
 			if(method_exists($this, $metodo)){
 				//Ejecuto el metodo que implementa al evento
 				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]");
@@ -459,12 +455,13 @@ class objeto_ci extends objeto
 		}
 	}
 
-	public function registrar_evento($id, $evento) //Puede recibir N parametros adicionales
-	//Se disparan eventos dentro del nivel actual
+	public function registrar_evento($id, $evento) 
+	// Se disparan eventos dentro del nivel actual
+	// Puede recibir N parametros adicionales
 	{
 		$parametros	= func_get_args();
 		array_splice($parametros, 0 , 2);
-		$metodo = apex_ci_evento . apex_ci_separador . $id . apex_ci_separador . $evento;
+		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if(method_exists($this, $metodo)){
 			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
 			call_user_func_array(array($this, $metodo), $parametros);
@@ -506,8 +503,6 @@ class objeto_ci extends objeto
 		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
 		$this->disparar_limpieza_memoria();
 	}	
-	
-	//-----------------------------------------------------------	
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -549,7 +544,7 @@ class objeto_ci extends objeto
 	function get_lista_ei()
 	{
 		//Existe una definicion especifica para esta etapa?
-		$metodo_especifico = "get_lista_ei" . apex_ci_separador . $this->etapa_gi;
+		$metodo_especifico = "get_lista_ei" . apex_ei_separador . $this->etapa_gi;
 		if(method_exists($this, $metodo_especifico)){
 			return $this->$metodo_especifico();	
 		}		
@@ -603,7 +598,7 @@ class objeto_ci extends objeto
 
 	function proveer_datos_dependencias($dependencia)
 	{
-		$metodo = apex_ci_evento . apex_ci_separador . $dependencia . apex_ci_separador . "carga";
+		$metodo = apex_ei_evento . apex_ei_separador . $dependencia . apex_ei_separador . "carga";
 		if(method_exists($this, $metodo)){
 			$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dependencia' -> [ $metodo ] ");
 			return $this->$metodo();
@@ -793,7 +788,7 @@ class objeto_ci extends objeto
 			Controla la existencia de una funcion que redeclare
 			la generacion de una PANTALLA puntual
 		*/
-		$interface_especifica = "obtener_html_contenido". apex_ci_separador . $this->etapa_gi;
+		$interface_especifica = "obtener_html_contenido". apex_ei_separador . $this->etapa_gi;
 		if(method_exists($this, $interface_especifica)){
 			$this->$interface_especifica();
 		}else{

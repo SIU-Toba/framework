@@ -2,6 +2,11 @@
 require_once("db_registros.php");
 
 class db_registros_mt extends db_registros
+/*
+	Queda un caso por resolver:
+		- Relacion debil entre tablas que en la que solo se graban las cosas comprometidas.
+			
+*/
 {
 	protected $tablas_anexas;
 	protected $tipo_relacion = "estricta";
@@ -77,8 +82,7 @@ class db_registros_mt extends db_registros
 			//Solo hay que trabajar sobre los manipulables
 			$this->definicion['externa'] = array();
 		}
-		
-		//tablas anexas
+		//---- tablas anexas ----
 		for($t=1;$t<count($this->definicion['tabla']);$t++){
 			$this->tablas_anexas[] = $this->definicion['tabla'][$t];
 		}

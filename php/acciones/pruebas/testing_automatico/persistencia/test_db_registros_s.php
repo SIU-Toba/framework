@@ -144,12 +144,10 @@ class test_db_registros_s extends test_db_registros
 	{
 		$where[] = "id IN (0,1,2)";
 		$this->dbr->cargar_datos($where);
-		try{
-			$datos = $this->dbr->obtener_registro(4);
+		if($dato = $this->dbr->obtener_registro(4)){
 			$this->fail();
-		}catch(excepcion_toba $e){
-			$this->pass();		
 		}
+		$this->pass();
 	}
 
 	function test_obtencion_registro_id_interno()

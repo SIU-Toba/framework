@@ -1,5 +1,5 @@
 <?
-require_once("objeto.php");	//Ancestro de todos los	OE
+require_once("objeto_ei.php");	//Ancestro de todos los	OE
 require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 
 /*
@@ -7,7 +7,7 @@ require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 	interface, no en su creacion.
 */
 
-class objeto_ei_formulario extends objeto
+class objeto_ei_formulario extends objeto_ei
 /*
 	@@acceso: actividad
 	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
