@@ -1,0 +1,134 @@
+<?php
+
+class archivo_php
+{
+	protected $nombre;
+	protected $fp = null;
+	protected $contenido = '';
+	
+	function __construct($nombre)
+	{
+		$this->nombre = $nombre;	
+	}
+	
+	static function es_windows()
+	{
+		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+	}	
+	
+	static function path_a_windows($nombre)
+	{
+		return str_replace('/', "\\", $nombre);	
+	}
+
+	static function path_a_unix($nombre)
+	{
+		return str_replace('\\', "/", $nombre);	
+	}	
+	
+	function nombre()
+	{
+		return $this->nombre;
+	}
+	
+	function existe()
+	{
+		return file_exists($this->nombre);
+	}
+
+	function mostrar()
+	{
+		highlight_file($this->nombre);
+	}
+	
+	function abrir()
+	{
+		if ($this->es_windows()) {
+			$archivo = $this->path_a_windows($this->nombre);
+			exec("start $archivo");
+		}
+	}
+	
+	function incluir()
+	{
+		//Verifica que no se haya incluido previamente
+		$ya_incluido = false;
+		foreach (get_included_files() as $archivo_incluido) {
+			$nombre_incluido = str_replace('\\', '/', $archivo_incluido);
+			if (strcasecmp($this->nombre, $nombre_incluido) == 0)
+				$ya_incluido = true;
+		}
+		if (!$ya_incluido)
+			include_once($this->nombre);
+	}	
+	
+	function crear_basico()
+	{
+		$this->edicion_inicio();
+		$this->contenido = "<?php?>";
+		$this->edicion_fin();
+	}
+	
+	//--------------------------------------------------------------------------------
+	//-------------------------EDITAR EL ARCHIVO -------------------------------------
+	//--------------------------------------------------------------------------------
+	
+	function edicion_inicio()
+	{
+		if (file_exists($this->nombre))
+			$this->contenido = file_get_contents($this->nombre);
+		else
+			$this->contenido = '';
+	}
+	
+	function edicion_fin()
+	{
+/*		echo "Contenido: <pre>";
+		echo htmlentities($this->contenido);
+		echo "</pre>";
+*/
+		file_put_contents($this->nombre, $this->contenido);
+	}	
+	
+	function contenido()
+	{
+		return $this->contenido;
+	}
+	
+	function insertar_al_inicio($codigo)
+	{
+		$pos = strpos($this->contenido, '<?php');
+		if ($pos !== false) {
+			$inicio = "<?php";
+			$final = substr($this->contenido, $pos + 5);
+		} else {
+			$pos = strpos($this->contenido, '<?');
+			if ($pos !== false) {
+				$inicio = "<?";
+				$final = substr($this->contenido, $pos + 2);
+			} else
+				throw new excepcion_toba("El archivo no contiene las marcas PHP de inicio de archivo");
+		}
+		$this->contenido = $inicio."\n".$codigo."\n".$final;
+	}
+	
+	function insertar_al_final($codigo)
+	{
+		$pos = strrpos($this->contenido, '?>');
+		if ($pos !== false) {
+			$final = "?>";
+			$inicio = substr($this->contenido, 0, $pos);
+		} else {
+			throw new excepcion_toba("El archivo no contiene las marcas PHP de fin de archivo");
+		}
+		$this->contenido = $inicio."\n".$codigo."\n".$final;	
+	}
+
+}
+
+
+
+
+
+
+?>

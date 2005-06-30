@@ -1,63 +1,68 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php');
+require_once('nucleo/lib/reflexion/archivo_php.php');
+require_once('nucleo/lib/reflexion/clase_php.php');
 
 class ci_editor_php extends objeto_ci
 {
 	protected $datos;
+	protected $archivo_php;
 
+	function set_datos($datos)
+	{
+		$this->datos = $datos;
+		$archivo = $this->datos['archivo'];
+		$proyecto = $this->datos['proyecto'];
+		if($proyecto == "toba")
+			$path = $_SESSION["path_php"] . "/" . $archivo;
+		else
+			$path = $_SESSION["path"] . "/proyectos/$proyecto/php/" . $archivo;
+		$this->archivo_php = new archivo_php($path);
+		$this->clase_php = new clase_php(	$this->datos['subclase'], $this->archivo_php, 
+											$this->datos['clase'], $this->datos['clase_archivo']);
+	}
+	
 	//--- EVENTOS
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();
-		if(file_exists($this->archivo())) {
-			$eventos += eventos::evento_estandar('abrir', '&Abrir Archivo');
+		if($this->archivo_php->existe()) {
+			$eventos += eventos::evento_estandar('abrir', '&Abrir', true, 
+												  recurso::imagen_apl('reflexion/abrir.gif'),
+												  'Intenta abrir el archivo en el servidor con el editor asociado');
+			$this->archivo_php->incluir();
+			if (! class_exists($this->datos['subclase']))
+				$eventos += eventos::evento_estandar('crear_clase', '&Crear Subclase');
 		} else {
-			$eventos += eventos::evento_estandar('crear_archivo', '&Crear Archivo');		
+			$eventos += eventos::evento_estandar('crear_archivo', '&Crear Archivo y Subclase');		
 		}
 		return $eventos;
 	}
 	
 	function evt__abrir()
 	{
-		$archivo = str_replace('/', "\\", $this->archivo());
-		exec("start $archivo");
+		$this->archivo_php->abrir();
 	}
 	
 	function evt__crear_archivo()
 	{
-		$require = "require_once('{$this->datos['clase_archivo']}');";
-		$clase = "class {$this->datos['subclase']}\n{\n}";
-		$template = "<?php\n$require\n\n$clase\n\n?>";
-		$fp = fopen($this->archivo(), 'x');
-		fwrite($fp, $template);
-		fclose($fp);
+		$this->archivo_php->crear_basico();
+		$this->evt__crear_clase();
 	}
 	
-	//--- VARIOS
-	function set_datos($datos)
+	function evt__crear_clase()
 	{
-		$this->datos = $datos;
-	}
-	
-	function archivo()
-	{
-		$archivo = $this->datos['archivo'];
-		$proyecto = $this->datos['proyecto'];
-		if($proyecto == "toba")
-			return $_SESSION["path_php"] . "/" . $archivo;
-		else
-			return $_SESSION["path"] . "/proyectos/$proyecto/php/" . $archivo;
+		$this->clase_php->generar();
 	}
 	
 
 	//--- Archivo Plano	
 	function obtener_html_contenido__1()
 	{
-		$archivo = $this->archivo();
-		if(file_exists($archivo)){
-			ei_separador("ARCHIVO: ". $archivo);
+		if($this->archivo_php->existe()){
+			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
 			echo "<div style='padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
-			highlight_file($archivo);
+			$this->archivo_php->mostrar();
 			echo "</div>";
 		}
 	}
@@ -65,53 +70,13 @@ class ci_editor_php extends objeto_ci
 	//--- Análisis de la clase
 	function obtener_html_contenido__2()
 	{
-		$archivo = $this->archivo();
-		if(file_exists($archivo)){
-			ei_separador("ARCHIVO: ". $archivo);
-			include_once($archivo);
-			$clase = new ReflectionClass($this->datos['subclase']);
-			$metodos = $clase->getMethods();
-			
-			echo "<h3>Clase ".$clase->getName()."</h3>";
-			echo "<ul>";
-			//Métodos propios
-			$this->analizar_metodos('propios', $clase, $metodos, true);
-			$padre = $clase->getParentClass();
-			while ($padre != null) {
-				$titulo = "heredados de {$padre->getName()}";
-				$this->analizar_metodos($titulo, $padre, $metodos, false);
-				$padre = $padre->getParentClass();
-			}
-			echo "</ul>";
+		if($this->archivo_php->existe()){
+			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
+			$this->archivo_php->incluir();
+			$this->clase_php->analizar();
 		}
 	}	
 	
-	function analizar_metodos($titulo, $clase, $metodos, $mostrar=true)
-	{
-		$display = ($mostrar) ? "" : "style='display: none'";
-		echo "<li><a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">";
-		echo "Métodos $titulo</a></li>";
-		echo "<ul $display >";
-		foreach ($metodos as $metodo) {
-			if ($metodo->getDeclaringClass() == $clase) {
-				$img_evt = recurso::imagen_apl('reflexion/evento.gif');
-				$estilo = $this->es_evento($metodo) ? "list-style-image: url($img_evt)" : "";
-				echo "<li style='padding-right: 10px; $estilo'>&nbsp;";
-				echo $metodo->getName();
-				echo "</li>\n";
-			}
-		}	
-		echo "</ul></li>";	
-	}
-	
-	function es_evento($metodo)
-	{
-		if (strstr($metodo->getName(), 'evt__'))
-			return true;
-		else
-			return false;
-	}
-
 }
 
 

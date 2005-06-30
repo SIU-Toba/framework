@@ -4,7 +4,7 @@
 **/
 class eventos
 {
-	static function evento_estandar($id, $etiqueta = null, $en_botonera = true, $imagen = '')
+	static function evento_estandar($id, $etiqueta = null, $en_botonera = true, $imagen = '', $ayuda = '')
 	//Retorna un evento estandar listo para modificar
 	{
 		$evento[$id]['etiqueta'] = $etiqueta;
@@ -14,7 +14,7 @@ class eventos
 		$evento[$id]['estilo'] = "";
 		$evento[$id]['imagen'] = $imagen;		
 		$evento[$id]['en_botonera'] = $en_botonera;	
-		$evento[$id]['ayuda'] = '';
+		$evento[$id]['ayuda'] = $ayuda;
 		return $evento;
 	}
 	

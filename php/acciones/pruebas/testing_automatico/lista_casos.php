@@ -6,10 +6,11 @@ class lista_casos
 	static function get_categorias()
 	{
 		return array(
-					array('id' => 'todas', 'nombre' => 'Todas'),
+					array('id' => 'todas', 'nombre' => '-- Todas --'),
+					array('id' => 'administrador', 'nombre' => 'Administrador Toba'),
+					array('id' => 'ef', 'nombre' => "Ef's"),
 					array('id' => 'items', 'nombre' => 'Items'),
 					array('id' => 'objetos', 'nombre' => 'Objetos'),
-					array('id' => 'ef', 'nombre' => "Ef's"),
 					array('id' => 'persistencia', 'nombre' => 'Persistencia'),
 					array('id' => 'varios', 'nombre' => 'Varios')
 				);
@@ -35,6 +36,8 @@ class lista_casos
 					array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_s', 'nombre' => 'db_registros SIMPLE', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_mt', 'nombre' => 'db_registros MULTI TABLA', 'categoria' => 'persistencia'),
+					
+					array('id' => 'test_reflexion', 'nombre' => 'Reflexión sobre archivos y clases PHP', 'categoria' => 'administrador'),
 					
 					//Varios
 					array('id' =>  'test_parseo_etiquetas', 'nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 
