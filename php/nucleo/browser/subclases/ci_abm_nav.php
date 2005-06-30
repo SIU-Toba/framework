@@ -12,6 +12,12 @@ class ci_abm_nav extends objeto_ci
 		parent::__construct($id);
 	}
 
+	function destruir()
+	{
+		parent::destruir();
+		//ei_arbol($this->get_estado_sesion(),"MEMORIA");
+	}
+
 	function mantener_estado_sesion()
 	{
 		$estado = parent::mantener_estado_sesion();
@@ -23,7 +29,8 @@ class ci_abm_nav extends objeto_ci
 
 	function evt__limpieza_memoria()
 	{
-		parent::evt__limpieza_memoria(array("filtro"));
+		$no_limpiar = isset($this->filtro) ? array("filtro") : null;
+		parent::evt__limpieza_memoria($no_limpiar);
 	}
 
 	//--------------------------------------------------------------
@@ -99,11 +106,20 @@ class ci_abm_nav extends objeto_ci
 
 	function evt__cuadro__carga()
 	{
-		if( !isset($this->info["parametro_a"]) || !isset($this->info["parametro_b"]) || !isset($this->info["parametro_c"]) ){
-			throw new excepcion_toba("Los parametros del OBJETO estan MAL. Fijarse ejemplo de 'personas'... me fui de vacaciones.");	
+		$mostrar_cuadro = true;
+		if($this->existe_dependencia("filtro")){
+			//controlo la definicion
+			if(!isset($this->filtro)){
+				$mostrar_cuadro = false;
+			}
 		}
-		require_once($this->info["parametro_a"]);
-		if(isset($this->filtro)){
+		if($mostrar_cuadro)
+		{
+			// Cargo los datos del DAO
+			if( !isset($this->info["parametro_a"]) || !isset($this->info["parametro_b"]) || !isset($this->info["parametro_c"]) ){
+				throw new excepcion_toba("Los parametros del OBJETO estan MAL. Fijarse ejemplo de 'personas'... me fui de vacaciones.");	
+			}
+			require_once($this->info["parametro_a"]);
 			$clase = $this->info["parametro_b"];
 			$metodo = $this->info["parametro_c"];
 			$x = "\$temp = $clase::$metodo(\$this->filtro);";

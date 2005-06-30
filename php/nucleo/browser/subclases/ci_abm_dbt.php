@@ -78,6 +78,8 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 			$dep['tipo_ei'] = "ei_cuadro";
 		}elseif( $e[0] == "f") {
 			$dep['tipo_ei'] = "ei_formulario";
+		}elseif( $e[0] == "ml") {
+			$dep['tipo_ei'] = "ei_formulario_ml";
 		}
 		$dep['elemento'] = $e[1];
 		$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_registros();
@@ -121,6 +123,9 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 					}
 				}
 			}
+		}elseif($dep['tipo_ei'] == "ei_formulario_ml")						//-- Formulario
+		{	
+			$this->obtener_dbt()->elemento($dep['elemento'])->procesar_registros($parametros);
 		}
 	}
 
@@ -145,6 +150,9 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 					return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registro($this->selecciones[$dep['elemento']]);
 				}
 			}
+		}elseif($dep['tipo_ei'] == "ei_formulario_ml")						//-- Formulario ML
+		{	
+			return  $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros(null, true);
 		}	
 	}
 	

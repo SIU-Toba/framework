@@ -790,7 +790,13 @@ class objeto
 		$this->dependencias[$identificador]->conectar_fuente();
 		return true;
 	}
-//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
+
+	function existe_dependencia($id)
+	{
+		return isset($this->dependencias[$id]);
+	}
+	//--------------------------------------------------------------------------------------------
 
 	function consultar_info_dependencia($dep,$dato=null)
 	{
@@ -808,13 +814,13 @@ class objeto
 			}
 		}
 	}
-//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
 
 	function info_definicion_dependencias()
 	{
 		return $this->info_dependencias;
 	}
-//--------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------
 
 	function get_dependencias_clase($ereg_busqueda)
 	//Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro

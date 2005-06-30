@@ -18,7 +18,7 @@ class ci_abm_dbr extends objeto_ci
 	function mantener_estado_sesion()
 	{
 		$estado = parent::mantener_estado_sesion();
-		$estado[] = "filtro";
+		if($this->existe_dependencia("filtro")) $estado[] = "filtro";
 		$estado[] = "seleccion";
 		$estado[] = "dbr";
 		return $estado;
@@ -36,15 +36,12 @@ class ci_abm_dbr extends objeto_ci
 		
 	function evt__limpieza_memoria()
 	{
-		parent::evt__limpieza_memoria(array("filtro"));
+		$no_limpiar = isset($this->filtro) ? array("filtro") : null;
+		parent::evt__limpieza_memoria($no_limpiar);
 		$dbr = $this->obtener_dbr();
 		$dbr->resetear();
 	}
-/*
-	function evt__post_cargar_datos_depedencias()
-	{
-	}
-*/
+
 	//--------------------------------------------------------------
 	//--  EVENTOS Filtro
 	//--------------------------------------------------------------
@@ -73,7 +70,13 @@ class ci_abm_dbr extends objeto_ci
 
 	function evt__cuadro__carga()
 	{
-		//if(isset($this->filtro)){
+		$mostrar_cuadro = true;
+		if($this->existe_dependencia("filtro")){
+			if(!isset($this->filtro)){
+				$mostrar_cuadro = false;
+			}
+		}
+		if($mostrar_cuadro){
 			require_once($this->info["parametro_a"]);
 			$clase = $this->info["parametro_b"];
 			$metodo = $this->info["parametro_c"];
@@ -84,7 +87,7 @@ class ci_abm_dbr extends objeto_ci
 			}
 			eval($x);
 			return $temp;
-		//}
+		}
 	}
 
 	function evt__cuadro__seleccion($id)

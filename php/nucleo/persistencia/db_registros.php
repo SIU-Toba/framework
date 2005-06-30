@@ -353,8 +353,8 @@ class db_registros
 			$temp[apex_db_registros_clave] = $id;	//incorporo el ID del dbr
 			return $temp;
 		}else{
-			//return null;
-			throw new excepcion_toba("Se solicito un registro incorrecto");
+			return null;
+			//throw new excepcion_toba("Se solicito un registro incorrecto");
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -421,15 +421,12 @@ class db_registros
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);
 		$this->validar_registro($registro, $id);
-		if($this->control[$id]['estado']=="i"){
-			$this->datos[$id] = $registro;
-			//$this->datos[$id][apex_db_registros_clave] = $id; 
-		}else{
+		//Actualizo los valores
+		foreach(array_keys($registro) as $clave){
+			$this->datos[$id][$clave] = $registro[$clave];
+		}
+		if($this->control[$id]['estado']!="i"){
 			$this->actualizar_estructura_control($id,"u");
-			foreach(array_keys($registro) as $clave){
-				$this->datos[$id][$clave] = $registro[$clave];
-			}
-			//$this->datos[$id][apex_db_registros_clave] = $id; 
 		}
 		//Actualizo los valores externos
 		$this->actualizar_campos_externos_registro($id,"modificar");
@@ -526,13 +523,13 @@ class db_registros
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->agregar_registro($registro);
+					$this->agregar_registro($registros[$id]);
 					break;	
 				case "B":
-					$this->modificar_registro($registro, $id);
+					$this->eliminar_registro($id);
 					break;	
 				case "M":
-					$this->eliminar_registro($id);
+					$this->modificar_registro($registros[$id], $id);
 					break;	
 			}
 		}

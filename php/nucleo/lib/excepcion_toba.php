@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Error interno de toba
 */
@@ -16,8 +15,14 @@ class excepcion_toba extends Exception
 		$html .= "<strong style='color:red;'>EXCEPCION:</strong><br>";
 		$html .= parent::getMessage()."<br><br>";
 		$html .= "Archivo \"".parent::getFile()."\", línea ".parent::getLine()."<br>";
-		$html .= "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">
-				Ver Traza</a><ul style='display: none'>";
+		$html .= "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">[detalle]</a>";
+		$html .= "<ul style='display: none'>";
+		$html .= "-------------------------------------------\n";
+		$html .= parent::getTraceAsString() ."\n";
+		$html .= "-------------------------------------------\n";
+/*
+	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
+
 		foreach (parent::getTrace() as $paso) {
 			$clase = '';
 			if (isset($paso['class']))
@@ -37,6 +42,7 @@ class excepcion_toba extends Exception
 			} 
 			$html .= "</li>";
 		}
+*/
 		$html .= "</ul></div>";
 		return $html;
 	}

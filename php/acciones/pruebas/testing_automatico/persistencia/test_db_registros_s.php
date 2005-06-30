@@ -15,6 +15,8 @@ require_once("test_db_registros.php");
 	
 	- columnas cosmeticas
 
+	- procesar registros
+
 	- Se llama a los eventos
 
 	-- SACAR FACTOR COMUN de con las pruebas del MT!!!

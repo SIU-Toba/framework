@@ -181,6 +181,14 @@ class test_db_registros extends test_toba
 		$datos[1][4]['id']="xxx";
 		$datos[1][4]['nombre']="Hola";
 		$datos[1][4]['descripcion']="Este es un Perro";
+
+		$datos[2][0]['id']="10";
+		$datos[2][0]['nombre']="Cosa";
+		$datos[2][0]['descripcion']="Esta es un cosa";
+		$datos[2][0]['extra']="Este es un campo extra";
+		
+
+
 		if(isset($datos[$tabla][$registro])){
 			return 	$datos[$tabla][$registro];
 		}else{
