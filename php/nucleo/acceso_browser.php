@@ -15,6 +15,7 @@ require_once("nucleo/browser/interface/formateo.php"); 	//Funciones de formateo 
 require_once("nucleo/browser/interface/ei.php");		//Elementos de interface
 require_once("nucleo/browser/logica.php");				//Elementos de logica
 require_once("nucleo/lib/parseo.php");			       	//Funciones de parseo
+require_once("nucleo/lib/configuracion.php");	      	//Acceso a la configuracion del sistema
 //-------------------------------------------------------------------------
 
     http::headers_standart();//Antes de la sesion, si o si.

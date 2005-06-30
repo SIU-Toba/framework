@@ -1,8 +1,6 @@
 .menu-texto {
-/*	white-space:nowrap; */
-	width: 95%;
+	WIDTH: 95%
 }
-
 .est-item-link {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 2px;
@@ -117,40 +115,6 @@ CODE {
 	 PADDING-TOP: 5px;
 	 BACKGROUND-COLOR: #ffffff;
 	 TEXT-ALIGN: left
-}
-.wizard-encabezado {
-	PADDING-RIGHT: 5px;
-	PADDING-LEFT: 15px;
-	FONT-SIZE: 11px;
-	PADDING-BOTTOM: 5px;
-	COLOR: #222222;
-	PADDING-TOP: 5px;
-	BACKGROUND-COLOR: #ffffff;
-	TEXT-ALIGN: left	
-}
-.wizard-titulo {
-	font-weight: bold;
-}
-.wizard-descripcion {
-	PADDING-LEFT: 15px;	
-}
-.wizard-pantallas {
-	vertical-align: middle;
-	TEXT-ALIGN: left;	
-	white-space:nowrap;
-	padding: 15px 10px 5px 0px;
-	margin-left: 30px;
-	FONT-SIZE: 10px;	
-}
-.wizard-pantallas-pasada {
- 	color:gray;
-}
-.wizard-pantallas-futuro {
- 	color:gray;
-}
-.wizard-pantallas-actual {
-	COLOR: #222222;	
-	font-weight: bold;
 }
 TD.arbol-titulo {
 	BORDER-RIGHT: #231f20 1px solid;
@@ -780,6 +744,8 @@ TD.col-tex-p1 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
+	 FONT-FAMILY: courier;
+	 FONT-SIZE: 11px;
 	 TEXT-ALIGN: left
 }
 TD.col-tex-p2 {
@@ -1351,12 +1317,14 @@ TD.lista-col-titulo {
 	BORDER-RIGHT: #231f20 1px;
 	 BORDER-TOP: #231f20 1px;
 	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
 	 VERTICAL-ALIGN: bottom;
 	 BORDER-LEFT: #231f20 1px;
 	 COLOR: #000000;
 	 BORDER-BOTTOM: #231f20 1px;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: left;
+	 FONT-FAMILY: courier;
 }
 TD.lista-fila-titulo {
 	BORDER-RIGHT: #231f20 1px;
@@ -1458,9 +1426,8 @@ TD.lista-e2 {
 	 TEXT-ALIGN: center
 }
 TD.lista-seleccion {
-	background-color: #E2E2E2;
+	BACKGROUND-COLOR: #e2e2e2
 }
-
 TD.doc-archivo {
 	PADDING-RIGHT: 5px;
 	 PADDING-LEFT: 15px;
@@ -2317,7 +2284,7 @@ TD.lista-obj-clase {
 	 BACKGROUND-COLOR: #7b7979;
 	 TEXT-ALIGN: left
 }
-.tabs-solapa {
+TD.tabs-solapa {
 	BORDER-RIGHT: #808080 2px solid;
 	 BORDER-TOP: #ffffff 2px solid;
 	 BORDER-LEFT: #ffffff 2px solid;
@@ -2326,7 +2293,7 @@ TD.lista-obj-clase {
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
 }
-.tabs-solapa-sel {
+TD.tabs-solapa-sel {
 	BORDER-RIGHT: #808080 2px solid;
 	 BORDER-TOP: #ffffff 2px solid;
 	 BORDER-LEFT: #ffffff 2px solid;
@@ -2334,26 +2301,6 @@ TD.lista-obj-clase {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
-}
-.tabs-v-solapa {
-	BORDER-RIGHT: #ffffff 1px solid;
-	PADDING-RIGHT: 10px;	
-	PADDING-LEFT: 2px;
-	PADDING-TOP: 2px;
-	PADDING-BOTTOM: 2px;		 
-	WHITE-SPACE: nowrap;
-	BACKGROUND-COLOR: #d4d0c8;
-	TEXT-ALIGN: left
-}
-.tabs-v-solapa-sel {
-	PADDING-RIGHT: 10px;	
-	PADDING-LEFT: 3px;
-	BORDER-TOP: #ffffff 1px solid;
-	BORDER-LEFT: #ffffff 1px solid;
-	BORDER-BOTTOM: #808080 1px solid;	 
-	WHITE-SPACE: nowrap;
-	BACKGROUND-COLOR: #d4d0c8;
-	TEXT-ALIGN: left
 }
 .tabs-boton {
 	BORDER-RIGHT: medium none;
@@ -2384,35 +2331,6 @@ TD.lista-obj-clase {
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8
 }
-.tabs-v-boton {
-	line-height: 15px;	
-	text-decoration: none;	
-	PADDING-RIGHT: 2px;	
-	PADDING-LEFT: 2px;	 
-	PADDING-BOTTOM: 12px;
-	PADDING-TOP: 3px;	 
-	FONT-SIZE: 10px;
-	WHITE-SPACE: nowrap;
-}
-.tabs-v-boton:hover {
-	text-decoration: underline;
-}
-
-.tabs-v-boton-sel {
-	BORDER-RIGHT: medium none;
-	PADDING-RIGHT: 2px;
-	BORDER-TOP: medium none;
-	PADDING-LEFT: 2px;
-	FONT-WEIGHT: bold;
-	FONT-SIZE: 11px;
-	PADDING-BOTTOM: 2px;
-	BORDER-LEFT: medium none;
-	COLOR: #000000;
-	PADDING-TOP: 3px;
-	BORDER-BOTTOM: medium none;
-	WHITE-SPACE: nowrap;
-	BACKGROUND-COLOR: #d4d0c8
-}
 .tabs-solapa-hueco {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
@@ -2433,19 +2351,6 @@ TD.lista-obj-clase {
 	 BORDER-BOTTOM: #808080 2px solid;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
-}
-.tabs-v-contenedor {
-	BORDER-RIGHT: #808080 2px solid;
-	PADDING-RIGHT: 2px;
-	PADDING-LEFT: 6px;
-	PADDING-BOTTOM: 6px;
-	MARGIN: 0px;
-	VERTICAL-ALIGN: top;
-	PADDING-TOP: 6px;
-	BORDER-TOP: #ffffff 1px solid;
-	BORDER-BOTTOM: #808080 2px solid;
-	BACKGROUND-COLOR: #d4d0c8;
-	TEXT-ALIGN: left
 }
 TABLE.objeto-base-3d {
 	BORDER-RIGHT: #666677 2px solid;

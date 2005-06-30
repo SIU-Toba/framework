@@ -65,7 +65,7 @@ CREATE TABLE apex_objeto_cuadro_columna
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
 	objeto_cuadro                 	int4       		NOT NULL,
 	orden				            float      		NOT NULL,
-	titulo                        	varchar(40)		NOT NULL,
+	titulo                        	varchar(100)		NOT NULL,
 	columna_estilo    				int4		    NOT NULL,	-- Estilo de la columna
 	columna_ancho					varchar(10)		NULL,			-- Ancho de columna para RTF
 	ancho_html						varchar(10)		NULL,

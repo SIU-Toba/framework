@@ -99,9 +99,17 @@ class ci_abm_dbr extends objeto_ci
 	//--  EVENTOS Formulario
 	//--------------------------------------------------------------
 	
+	function deseleccionar_registro()
+	{
+		$dbr = $this->obtener_dbr();
+		unset($this->seleccion);
+		$this->dependencias["cuadro"]->deseleccionar();				
+		$dbr->resetear();
+	}
+
 	function evt__formulario__cancelar()
 	{
-		unset($this->seleccion);
+		$this->deseleccionar_registro();
 	}	
 	
 	function evt__formulario__carga()
@@ -126,7 +134,7 @@ class ci_abm_dbr extends objeto_ci
 		$dbr = $this->obtener_dbr();
 		$dbr->set($registro);
 		$dbr->sincronizar();
-		$dbr->resetear();
+		$this->deseleccionar_registro();
 	}
 
 	function evt__formulario__baja()
@@ -134,7 +142,7 @@ class ci_abm_dbr extends objeto_ci
 		$dbr = $this->obtener_dbr();
 		$dbr->eliminar_registro(0);
 		$dbr->sincronizar();
-		$dbr->resetear();
+		$this->deseleccionar_registro();
 	}
 	//--------------------------------------------------------------
 }

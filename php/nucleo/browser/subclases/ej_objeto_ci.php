@@ -182,20 +182,9 @@ class objeto_ci_test extends objeto_ci_me
  		return $tab;
 	}
 
-	function get_info_post_proceso()
-	//Mostrar una pantalla cuando se termino el proceso OK.
-	{
-		return "Mensaje a mostrar despues del procesamiento";	
-	}
-
 	//-----------------------------------------------
 	//------- Generacion de interface CRUDA ---------
 	//-----------------------------------------------
-
-	function obtener_html_contenido()
-	//Reescibir ad-hoc la constuccion de la pantalla
-	{
-	}
 
 	function obtener_html_contenido__0()			//ME (etapa == 0)
 	//Reescibir ad-hoc la constuccion de la pantalla en una etapa puntual de un ME
