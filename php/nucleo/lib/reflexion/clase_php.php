@@ -33,12 +33,15 @@ class clase_php
 		$this->archivo->edicion_fin();		
 	}
 	
-	function analizar()
+	function analizar($proyecto, $objeto)
 	{
 		try {
 			$clase = new ReflectionClass($this->nombre);
 			$metodos = $clase->getMethods();
 			
+			$this->elemento_toba = call_user_func(array($this->nombre, 'elemento_toba'));
+			$this->elemento_toba->cargar_db($proyecto, $objeto);
+						
 			echo "<div style='text-align: left;'><h3>Clase ".$clase->getName()."</h3>";
 			echo "<ul>";
 			//Métodos propios
@@ -49,7 +52,7 @@ class clase_php
 				$this->analizar_metodos($titulo, $padre, $metodos, false);
 				$padre = $padre->getParentClass();
 			}
-			echo "</ul></div>";	
+			echo "</ul></div>";
 		} catch (Exception $e) {
 			echo ei_mensaje("No se encuentra la clase {$this->nombre} en este archivo.", "error");
 		}
@@ -63,8 +66,17 @@ class clase_php
 		echo "<ul $display >";
 		foreach ($metodos as $metodo) {
 			if ($metodo->getDeclaringClass() == $clase) {
-				$img_evt = recurso::imagen_apl('reflexion/evento.gif');
-				$estilo = $this->es_evento($metodo) ? "list-style-image: url($img_evt)" : "";
+				$estilo = '';
+				if ($this->elemento_toba->es_evento($metodo->getName())) {
+					$tipo = recurso::imagen_apl('reflexion/evento.gif');
+					if (! $this->elemento_toba->es_evento_valido($metodo->getName())) {
+						$tipo = recurso::imagen_apl('reflexion/problema.gif');
+					}
+					if ($this->elemento_toba->es_evento_sospechoso($metodo->getName())) {
+						$tipo = recurso::imagen_apl('warning.gif');
+					}
+					$estilo =  "list-style-image: url($tipo)";					
+				} 
 				echo "<li style='padding-right: 10px; $estilo'>&nbsp;";
 				echo $metodo->getName();
 				echo "</li>\n";

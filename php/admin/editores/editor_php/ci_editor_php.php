@@ -36,6 +36,7 @@ class ci_editor_php extends objeto_ci
 		} else {
 			$eventos += eventos::evento_estandar('crear_archivo', '&Crear Archivo y Subclase');		
 		}
+		$eventos += eventos::evento_estandar('refrescar', '&Refrescar', true, recurso::imagen_apl('refrescar.gif'));
 		return $eventos;
 	}
 	
@@ -73,7 +74,7 @@ class ci_editor_php extends objeto_ci
 		if($this->archivo_php->existe()){
 			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
 			$this->archivo_php->incluir();
-			$this->clase_php->analizar();
+			$this->clase_php->analizar($this->datos['proyecto'], $this->datos['objeto']);
 		}
 	}	
 	
