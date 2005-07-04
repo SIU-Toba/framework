@@ -73,7 +73,7 @@ CREATE TABLE apex_objeto_ut_formulario_ef
 	elemento_formulario     			varchar(30)    	NOT NULL,
 	inicializacion          			varchar        	NULL,
 	orden                   			float       	NOT NULL,
-	etiqueta                			varchar(40)    	NULL,
+	etiqueta                			varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
 	desactivado             			smallint       	NULL,
 	no_sql								smallint		NULL,

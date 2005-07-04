@@ -7,7 +7,11 @@ class db_tablas
 	protected $elemento;
 	protected $cargado;
 	protected $fuente;
+	//Manejo de relaciones cabecera-detalle
+	protected $cabecera;
+	protected $detalles;
 	
+		
 	function __construct($fuente=null)
 	{
 		//Llevar el plan a una estructura de control concreta?
@@ -36,6 +40,15 @@ class db_tablas
 		return ($this->elemento[$elemento] instanceof db_registros);
 	}
 
+	public function agregar_elemento($id, $db_registros)
+	{
+		if(!isset($this->elemento[$id])){
+			$this->elemento[$id] = $db_registros;
+		}else{
+			throw new excepcion_toba("db_tablas: ya existe un elemento con el ID '$id'.");
+		}
+	}
+
 	public function registrar_evento($elemento, $evento, $parametros)
 	{
 		//Ver si se implemento un evento		
@@ -56,13 +69,11 @@ class db_tablas
 	//-------------------------------------------------------
 
 	public function cargar($id)
-	/*
-			Recibe el conjunto de valores que se consideren la clave del db_tablas, luego
-	 		por cada db_registros se construye el WHERE sql que carga al mismo con esa clave (si usa
-	 		cargar_datos) o la clave que le corresponde (si usa cargar_datos_clave). 
-	*/
 	{
-		//Si se desea preguntar si la carga fue exitosa, hay que setear esta variable
+		$this->elemento[$this->cabecera]->cargar_datos_clave($id);
+		foreach( array_keys($this->detalles) as $detalle ) {
+			$this->elemento[$detalle]->cargar_datos_clave($id);
+		}
 		$this->cargado = true;
 	}
 	//-------------------------------------------------------
@@ -89,9 +100,20 @@ class db_tablas
 		}					
 	}
 
-	protected function sincronizar_plan()
+	public function sincronizar_plan()
 	{
-		$this->log("No existe un plan de SINCRONIZACION!");
+		$this->elemento[$this->cabecera]->sincronizar();
+		//Se obtiene el id de la cabecera
+		$valores = $this->elemento[$this->cabecera]->get_clave_valor(0);
+		//Se asigna cada valor al detalle
+		foreach( $this->detalles as $id => $columna_clave ){
+			$i = 0;
+			foreach ($valores as $valor){
+				$this->elemento[$id]->establecer_valor_columna( $columna_clave[$i] , $valor);
+				$i++;
+			}
+			$this->elemento[$id]->sincronizar();
+		}
 	}
 	//-------------------------------------------------------
 
@@ -109,9 +131,15 @@ class db_tablas
 		}		
 	}
 
-	protected function eliminar_plan()
+	public function eliminar_plan()
 	{
-		$this->log("No existe un plan de ELIMINACION!");
+		$detalles = array_reverse(array_keys($this->detalles));
+		foreach( $detalles as $detalle ) {
+			$this->elemento[$detalle]->eliminar_registros();
+			$this->elemento[$detalle]->sincronizar();
+		}
+		$this->elemento[$this->cabecera]->eliminar_registros();
+		$this->elemento[$this->cabecera]->sincronizar();		
 	}
 	//-------------------------------------------------------
 }

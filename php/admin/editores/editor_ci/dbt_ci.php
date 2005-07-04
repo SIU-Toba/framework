@@ -1,12 +1,12 @@
 <?
-require_once("nucleo/persistencia/db_tablas_cd.php");
+require_once("nucleo/persistencia/db_tablas.php");
 require_once("admin/editores/dbr_apex_objeto.php");
-require_once("admin/editores/dbr_apex_objeto_dependencias.php");
+require_once("dbr_apex_objeto_dependencias.php");
 require_once("dbr_apex_objeto_mt_me.php");
 require_once("dbr_apex_objeto_mt_me_etapa.php");
 require_once("dbr_apex_objeto_mt_me_etapa_dep.php");
 
-class dbt_edt extends db_tablas_cd
+class dbt_ci extends db_tablas
 {
 	function __construct($fuente)
 	{
