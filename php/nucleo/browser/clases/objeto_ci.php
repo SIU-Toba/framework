@@ -44,6 +44,12 @@ class objeto_ci extends objeto_ei
 		$this->set_etapa_gi( $this->get_etapa_inicial() );
 
 	}
+	
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_ci.php');
+		return new elemento_objeto_ci();
+	}
 
 	function destruir()
 	{

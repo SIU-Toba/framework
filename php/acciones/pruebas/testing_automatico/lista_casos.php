@@ -37,6 +37,8 @@ class lista_casos
 					array('id' => 'test_db_registros_s', 'nombre' => 'db_registros SIMPLE', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_mt', 'nombre' => 'db_registros MULTI TABLA', 'categoria' => 'persistencia'),
 					
+					//Administrador
+					array('id' => 'test_elemento_toba', 'nombre' => 'Elementos Toba', 'categoria' => 'administrador'),
 					array('id' => 'test_reflexion', 'nombre' => 'Reflexión sobre archivos y clases PHP', 'categoria' => 'administrador'),
 					
 					//Varios

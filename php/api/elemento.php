@@ -17,7 +17,9 @@ class elemento
 	protected $tablas;
 	protected $indice_tablas;
 	protected $datos;
-	protected $subelementos;
+	protected $subelementos = array();
+	protected $consumidor = null;				//elemento_toba que consume el elemento
+	protected $rol_en_consumidor = null;		//Rol que cumple elemento en el consumidor
 
 	function __construct()
 	{
@@ -51,7 +53,7 @@ class elemento
 		if($definicion){
 			ei_arbol($this->tablas,"TABLAS que conforman al componente");
 		}
-		ei_arbol($this->datos,"ELEMENO CARGADO");
+		ei_arbol($this->datos, get_class($this));
 		//Cargo los datos de los subelementos
 		for($a=0;$a<count($this->subelementos);$a++)
 		{
@@ -86,7 +88,7 @@ class elemento
 					" FROM " . $tabla .
 					" WHERE  ( {$this->tablas[$a]['columna_clave_proyecto']} = '$proyecto' ) 
 					AND ({$this->tablas[$a]['columna_clave']} = '$elemento' ) ;";
-			echo $sql . enter();
+//			echo $sql . enter();
 			//Cargo los datos
 			if(!($temp = consultar_fuente($sql))){
 				if($this->tablas[$a]['obligatoria']==1){
@@ -104,6 +106,12 @@ class elemento
 	function cargar_db_subelementos()
 	{ 
 		$this->subelementos = array();
+	}
+	
+	function set_consumidor($consumidor, $rol)
+	{
+		$this->consumidor = $consumidor;
+		$this->rol_en_consumidor = $rol;
 	}
 
 	function elemento_cargado()

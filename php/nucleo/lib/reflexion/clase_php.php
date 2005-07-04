@@ -8,6 +8,8 @@ class clase_php
 	protected $padre_nombre;
 	protected $archivo_padre_nombre;
 	
+	protected $elemento_toba;			//Elemento toba asociado a la clase (ej. ei_formulario, ci, etc)
+	
 	function __construct($nombre, $archivo, $clase_padre_nombre, $archivo_padre_nombre)
 	{
 		$this->nombre = $nombre;
@@ -19,12 +21,9 @@ class clase_php
 	function generar()
 	{		
 		$this->archivo->edicion_inicio();
-		$inclusion = "_once('{$this->archivo_padre_nombre}');";
-		$inclusion_comillas = "_once(\"{$this->archivo_padre_nombre}\");";		
 		//¿Está incluido la clase padre en el archivo
-		if (strpos($this->archivo->contenido(), $inclusion) === false && 
-			strpos($this->archivo->contenido(), $inclusion_comillas) === false) {
-			$this->archivo->insertar_al_inicio("require$inclusion");
+		if (strpos($this->archivo->contenido(), $this->archivo_padre_nombre) === false) {
+			$this->archivo->insertar_al_inicio("require_once('{$this->archivo_padre_nombre}');");
 		}
 		
 		//Incluir el código que hace la subclase
@@ -76,13 +75,7 @@ class clase_php
 	
 	//--------------------------------------------------------------------------
 	
-	function es_evento($metodo)
-	{
-		if (strstr($metodo->getName(), 'evt__'))
-			return true;
-		else
-			return false;
-	}
+
 		
 }		
 

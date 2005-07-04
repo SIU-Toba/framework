@@ -58,6 +58,13 @@ class objeto
 		$this->log->debug( $this->get_txt() . "[ __construct ]");
 	}
 //--------------------------------------------------------------------------------------------
+	
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto.php');
+		return new elemento_objeto();		
+	}
+
 
 /*	function establecer_solicitud($solicitud)
 	//Esto evita usar la referencia global

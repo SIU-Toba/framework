@@ -51,6 +51,12 @@ class objeto_ei_formulario extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_ei_formulario.php');
+		return new elemento_objeto_ei_formulario();
+	}	
+	
 	function destruir()
 	{
 		$this->memoria["eventos"] = array();
