@@ -1040,6 +1040,7 @@
         function _createHandlerCode($class, $base, $methods) {
             $code = "";
             $methods = array_merge($methods, get_class_methods($class));
+			$methods = array_unique($methods);
             foreach ($methods as $method) {
                 if (Stub::_isSpecialMethod($method)) {
                     continue;

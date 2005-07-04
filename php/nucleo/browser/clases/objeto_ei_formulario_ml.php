@@ -7,8 +7,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	@@acceso: actividad
 	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
 
-	- Flag de agregar filas
-	
 	Un formulario tiene que saber que si viene del post, para dejar cargase datos o no???
 	Cual es la solucion para esta competencia??
 */
@@ -66,6 +64,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										alto as						alto,
 										filas as					filas,
 										filas_agregar as			filas_agregar,
+										filas_ordenar as			filas_ordenar,
+										filas_numerar as 			filas_numerar,
+										ev_seleccion as 			ev_seleccion,
 										analisis_cambios		as	analisis_cambios,
 										ev_agregar				as 	ev_agregar,				
 										ev_agregar_etiq			as 	ev_agregar_etiq,
@@ -108,10 +109,15 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		{
 			case 'LINEA':
 				$this->analizar_diferencias = true;
+				$this->eventos_granulares = false;				
 				break;
 			case 'EVENTOS':
+				$this->analizar_diferencias = true;
 				$this->eventos_granulares = true;
 				break;
+			default:
+				$this->analizar_diferencias = false;
+				$this->eventos_granulares = false;
 		}	
 	}
 	
@@ -144,29 +150,41 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function disparar_eventos()
 	{
-		$this->recuperar_interaccion();
 		//Veo si se devolvio algun evento!
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
 			$evento = $_POST[$this->submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
 			if(isset($this->memoria['eventos'][$evento]) ){
 				$maneja_datos = $this->memoria['eventos'][$evento];
-				
+				$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
+
+				//Me fijo si el evento envia datos modificados
+				if ($maneja_datos) {
+					$this->cargar_post();
+					$this->validar_estado();
+				}
+
 				//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
 				if ($this->eventos_granulares && $maneja_datos) {
 					$this->disparar_eventos_granulares();
-				} else {
-					//Me fijo si el evento requiere validacion
-					if($maneja_datos) {
-						$this->validar_estado();
-						$parametros = $this->obtener_datos($this->analizar_diferencias);
-					} else {
-						$parametros = null;
-					}
-					//El evento es valido, lo reporto al contenedor
-					$this->reportar_evento( $evento, $parametros );
+				}
+				//Si Tiene parametros, es uno a nivel de fila
+				if ($parametros != '') {
+					//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
+					if ($maneja_datos && !$this->eventos_granulares)
+						$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );
+					//Reporto el evento a nivel de fila
+					$this->reportar_evento( $evento, $this->obtener_clave_fila($parametros));
+				} elseif (!$this->eventos_granulares) {
+					//Si no tiene parametros particulares, ellos son los valores de las filas
+					if ($maneja_datos)
+						$this->reportar_evento( $evento, $this->obtener_datos($this->analizar_diferencias) );
+					else
+						$this->reportar_evento( $evento, null );
 				}
 			}
+		} else {	//Es la primera carga
+			$this->cargar_inicial();
 		}
 		$this->limpiar_interface();
 	}	
@@ -193,13 +211,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 		}	
 	}
-	//-------------------------------------------------------------------------------
-		
-	function recuperar_interaccion()
-	{
-		if(! $this->cargar_post())
-			$this->carga_inicial();
-	}
+
 	//-------------------------------------------------------------------------------
 
 	function carga_inicial()
@@ -346,6 +358,28 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		return $datos;
 	}
 
+	/*
+	*	Retorna la posicion en el arreglo de datos donde se ubica un id interno de fila
+	*   Esta posicion puede ser el mismo id interno en caso de que las diferencias se analizen online
+	*   o puede ser el posicionamiento simple si no hay analisis
+	*/
+	protected function obtener_clave_fila($fila)
+	{
+		if ($this->analizar_diferencias) {
+			if (isset($this->datos[$fila]))
+				return $fila;
+		} else {
+			$i = 0;
+			foreach (array_keys($this->datos) as $id_fila) {
+				if ($fila == $id_fila)
+					return $i;
+				$i++;
+			}
+			return $fila;
+		}
+		
+	}
+	
 	//-------------------------------------------------------------------------------
 	function cargar_datos($datos = null)
 	{
@@ -443,10 +477,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
-		//Botonera de agregar
-		if ($this->info_formulario['filas_agregar']) {
-			$this->botonera_manejo_filas();
-		}
+		//Botonera de agregar y ordenar
+		$this->botonera_manejo_filas();
 		//Ancho y Scroll
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		if($this->info_formulario["scroll"]){
@@ -461,11 +493,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		//Defino la cantidad de columnas
 		$colspan = count($this->lista_ef_post);
-		if ($this->info_formulario['filas_agregar']) {
+		if ($this->info_formulario['filas_numerar']) {
 			$colspan++;
 		}			
 		//Campo de comunicacion con JS
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
+		echo form::hidden("{$this->objeto_js}__parametros", '');
 		
 		echo "<table class='tabla-0' style='width: $ancho'>\n";
 		echo "<thead>\n";
@@ -485,7 +518,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		//------ TITULOS -----	
 		echo "<tr>\n";
-		if ($this->info_formulario['filas_agregar']) {
+		if ($this->info_formulario['filas_numerar']) {
 			echo "<th class='abm-columna'>&nbsp;</th>\n";
 		}
 		foreach ($this->lista_ef_post	as	$ef){
@@ -493,6 +526,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo $this->elemento_formulario[$ef]->envoltura_ei_ml();
 			echo "</th>\n";
 		}
+        //-- Eventos sobre fila
+		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
+		if($cant_sobre_fila > 0){
+			echo "<th class='abm-columna' colspan='$cant_sobre_fila'>\n";
+            echo "</th>\n";
+		}		
 		echo "</tr>\n";
 	}
 	
@@ -502,7 +541,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "\n<!-- TOTALES -->\n";
 		if(count($this->lista_ef_totales)>0){
 			echo "\n<tr>\n";
-			if ($this->info_formulario['filas_agregar']) {
+			if ($this->info_formulario['filas_numerar']) {
 				echo "<td class='abm-total'>&nbsp;</td>\n";
 			}
 			foreach ($this->lista_ef_post as $ef){
@@ -511,6 +550,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					$id_form_total = $this->elemento_formulario[$ef]->obtener_id_form();
 					echo "<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
 				echo "</td>\n";
+			}
+	        //-- Eventos sobre fila
+			$cant_sobre_fila = $this->cant_eventos_sobre_fila();
+			if($cant_sobre_fila > 0){
+				echo "<td colspan='$cant_sobre_fila'>\n";
+	            echo "</td>\n";
 			}
 			echo "</tr>\n";
 		}		
@@ -538,7 +583,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
 			echo "\n<!-- FILA $fila -->\n\n";
 			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
-			if ($this->info_formulario['filas_agregar']) {
+			if ($this->info_formulario['filas_numerar']) {
 				echo "<td class='abm-fila-ml'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}
@@ -549,6 +594,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo $this->elemento_formulario[$ef]->obtener_input();
 				echo "</td>\n";
 			}
+            //-- Eventos aplicados a una fila
+			//Para el caso particular del ML, aquellos que manejan datos disparan un modificacion tambien (si es que lo hay)
+			foreach ($this->eventos as $id => $evento) {
+				if ($evento['sobre_fila']) {
+					echo "<td class='abm-fila-ml'>\n";
+					$evento_js = eventos::a_javascript($id, $evento, $fila);
+					$js = "{$this->objeto_js}.set_evento($evento_js);";
+					echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
+										"onclick=\"$js\"", 'cursor: pointer');
+	            	echo "</td>\n";
+				}
+			}			
 			echo "</tr>\n";
 			$a++;
 		}
@@ -556,21 +613,29 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function botonera_manejo_filas()
 	{
-		echo "<div style='text-align: left'>";
-		$tab = ($this->rango_tabs[1] - 10);	
-		echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
-								"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
-		echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
-								"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
-		$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-		echo form::button_html("{$this->objeto_js}_deshacer", $html, 
-								" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
-		echo "&nbsp;";
-		echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
-								"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
-		echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
-								"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
-		echo "</div>\n";
+		$agregar = $this->info_formulario['filas_agregar'];
+		$ordenar = $this->info_formulario['filas_ordenar'];
+		if ($agregar || $ordenar) {
+			echo "<div style='text-align: left'>";
+			$tab = ($this->rango_tabs[1] - 10);
+			if ($agregar) {
+				echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
+										"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
+				echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
+										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
+				$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
+				echo form::button_html("{$this->objeto_js}_deshacer", $html, 
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
+				echo "&nbsp;";
+			}
+			if ($ordenar) {
+				echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
+										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
+				echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
+										"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
+			}
+			echo "</div>\n";
+		}
 	}
 
 	function get_lista_eventos()
@@ -585,12 +650,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if($this->info_formulario['ev_mod_modificar']){
 			//Evento MODIFICACION
 			$eventos += eventos::modificacion($this->info_formulario['ev_mod_modificar_etiq']);
-		}
-		//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
-		if (count($eventos) == 0) {
-			$eventos += eventos::modificacion(null, false);		
+		} else {
+			//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
+			$eventos += eventos::modificacion(null, false);
 			$this->set_evento_defecto('modificacion');
-		}		
+		}
+		if ($this->info_formulario['ev_seleccion']) {
+			$eventos += eventos::seleccion(true);
+		}
 		return $eventos;
 	}
 

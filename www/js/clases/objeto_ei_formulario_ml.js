@@ -5,9 +5,8 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, con_agregar) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id) {
 		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
-		this._con_agregar = con_agregar;		//¿Permite agregar/quitar filas?
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
@@ -126,6 +125,9 @@ def.constructor = objeto_ei_formulario_ml;
 					this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
 				}
 			}
+			//Si tiene parametros los envia
+			if (this._evento.parametros)
+				document.getElementById(this._instancia + '__parametros').value = this._evento.parametros;			
 			var lista_filas = this._filas.join('_');
 			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
@@ -293,7 +295,27 @@ def.constructor = objeto_ei_formulario_ml;
 		this._efs[id_ef].ir_a_fila(fila).cuando_cambia_valor(callback);
 	}
 
-
+	//----Botonera
+	def.boton_eliminar = function() {
+		return document.getElementById(this._instancia + '_eliminar');
+	}
+	
+	def.boton_deshacer = function() {
+		return document.getElementById(this._instancia + '_deshacer');
+	}
+	
+	def.boton_deshacer_cant = function() {
+		return document.getElementById(this._instancia + '_deshacer_cant');
+	}	
+	
+	def.boton_subir = function() {
+		return document.getElementById(this._instancia + '_subir');
+	}
+	
+	def.boton_bajar = function() {
+		return document.getElementById(this._instancia + '_bajar');
+	}
+	
 	//----Refresco Grafico 
 	def.refrescar_todo = function () {
 		this.refrescar_procesamientos();
@@ -306,37 +328,43 @@ def.constructor = objeto_ei_formulario_ml;
 	def.refrescar_numeracion_filas = function () {
 		var nro = 1;
 		for (fila in this._filas) {
-			document.getElementById(this._instancia + '_numerofila' + this._filas[fila]).innerHTML = nro;
+			var nro_fila = document.getElementById(this._instancia + '_numerofila' + this._filas[fila]);
+			if (nro_fila)
+				nro_fila.innerHTML = nro;
 			nro++;
 		}
 	}
 	
 	//Actualiza el botón deshacer
 	def.refrescar_deshacer = function () {
-		var tamanio = this._pila_deshacer.length;
-		if (tamanio == 0) {
-			document.getElementById(this._instancia + '_deshacer').disabled = true;
-			document.getElementById(this._instancia + '_deshacer_cant').innerHTML = '';
-		} else {
-			document.getElementById(this._instancia + '_deshacer').disabled = false;
-			document.getElementById(this._instancia + '_deshacer_cant').innerHTML = '(' + tamanio + ')';			
-		}		
+		if (this.boton_deshacer()) {
+			var tamanio = this._pila_deshacer.length;
+			if (tamanio == 0) {
+				this.boton_deshacer().disabled = true;
+				this.boton_deshacer_cant().innerHTML = '';
+			} else {
+				this.boton_deshacer().disabled = false;
+				this.boton_deshacer_cant().innerHTML = '(' + tamanio + ')';			
+			}
+		}
 	}
 	
 	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
 		if (this.seleccionada != null) {
 			cambiar_clase(document.getElementById(this._instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml-selec');
-			if (this._con_agregar) {
-				document.getElementById(this._instancia + '_eliminar').disabled = false;
-				document.getElementById(this._instancia + '_subir').disabled = false;
-				document.getElementById(this._instancia + '_bajar').disabled = false;			
+			if (this.boton_eliminar())
+				this.boton_eliminar().disabled = false;
+			if (this.boton_subir()) {
+				this.boton_subir().disabled = false;
+				this.boton_bajar().disabled = false;			
 			}
 		} else {
-			if (this._con_agregar) {
-				document.getElementById(this._instancia + '_eliminar').disabled = true;
-				document.getElementById(this._instancia + '_subir').disabled = true;
-				document.getElementById(this._instancia + '_bajar').disabled = true;
+			if (this.boton_eliminar())
+				this.boton_eliminar().disabled = true;
+			if (this.boton_subir()) {
+				this.boton_subir().disabled = true;
+				this.boton_bajar().disabled = true;
 			}
 		}
 	}

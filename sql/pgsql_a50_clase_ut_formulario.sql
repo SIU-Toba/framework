@@ -44,6 +44,8 @@ CREATE TABLE apex_objeto_ut_formulario
 	filas_agregar						smallint       	NULL,
 	filas_undo							smallint		NULL,
 	filas_ordenar						smallint		NULL,
+	filas_numerar						smallint 		NULL,
+	ev_seleccion						smallint		NULL,
 	alto								varchar(10)		NULL,
 	analisis_cambios					varchar(10)		NULL,
 	CONSTRAINT  "apex_objeto_ut_f_pk" PRIMARY KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario"),

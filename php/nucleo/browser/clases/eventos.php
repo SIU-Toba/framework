@@ -108,11 +108,11 @@ class eventos
 	}
 	
 	//---------------------------------------------------
-	//---Eventos de Cuadro	
-	static function seleccion()
+	//---Eventos sobre datos tabulares
+	static function seleccion($maneja_datos = false)
 	{
 		$evento = self::evento_estandar('seleccion', null, false);
-		$evento['seleccion']['maneja_datos'] = false;
+		$evento['seleccion']['maneja_datos'] = $maneja_datos;
 		$evento['seleccion']['sobre_fila'] = true;					//Propiedad particular que entiende el cuadro (y el ML debería tambien)
 		$evento['seleccion']['ayuda'] = 'Seleccionar la fila';
 		$evento['seleccion']['imagen'] = recurso::imagen_apl('doc.gif');

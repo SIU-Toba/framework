@@ -46,17 +46,7 @@ class objeto_ei_cuadro extends objeto_ei
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_db_registros_clave );
 		}
-        //---------  EVENTOS POR DEFECTO  -----------------------------------------		
-		//El cuadro posee un evento de seleccion por defecto?
-		if(isset($this->info_cuadro["ev_seleccion"])){
-			if($this->info_cuadro["ev_seleccion"]=="1"){
-				$this->ev_seleccion = true;
-			}else{
-				$this->ev_seleccion = false;
-			}
-		}else{
-			$this->ev_seleccion = false;
-		}
+        //---------  JS---------------  -----------------------------------------			
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
         //---------  Indice de columnas  -----------------------------------------		
 		for($a=0;$a<count($this->info_cuadro_columna);$a++){
@@ -195,7 +185,7 @@ class objeto_ei_cuadro extends objeto_ei
 	function get_lista_eventos()
 	{
 		$eventos = array();
-		if($this->ev_seleccion){
+		if ($this->info_cuadro["ev_seleccion"]) {
 			$eventos += eventos::seleccion();
 		}
 		if($this->info_cuadro["ordenar"]) { 
@@ -342,6 +332,7 @@ class objeto_ei_cuadro extends objeto_ei
     //Ordenamiento de array de dos dimensiones
     {
         //echo "ordenar: " . $this->orden_columna;
+		$ordenamiento = array();
         foreach ($this->datos as $fila) { 
             $ordenamiento[] = $fila[$this->orden_columna]; 
         }
@@ -392,8 +383,7 @@ class objeto_ei_cuadro extends objeto_ei
 			}			
         }else{
             if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
-			$cant_eventos = ($this->ev_seleccion) ? 0 : 1;
-			$colspan = $this->cantidad_columnas + $cant_eventos;
+			$colspan = $this->cantidad_columnas + $this->cant_eventos_sobre_fila();
 				
             //echo "<br>\n";
             
@@ -435,12 +425,13 @@ class objeto_ei_cuadro extends objeto_ei
                                             $a );
                 echo "</td>\n";
             }
-            //-- Evento FIJO de seleccion
-			if($this->ev_seleccion){
-				echo "<td class='lista-col-titulo'>\n";
+            //-- Eventos sobre fila
+			$cant_sobre_fila = $this->cant_eventos_sobre_fila();
+			if($cant_sobre_fila > 0){
+				echo "<td class='lista-col-titulo' colspan='$cant_sobre_fila'>\n";
 	            echo "</td>\n";
-	            echo "</tr>\n";
 			}
+            echo "</tr>\n";
 			//-------------------------------------------------------------------------
             //----------------------- Genero VALORES del CUADRO -----------------------
 			//-------------------------------------------------------------------------
@@ -504,7 +495,7 @@ class objeto_ei_cuadro extends objeto_ei
 	            //-- Eventos aplicados a una fila
 				foreach ($this->eventos as $id => $evento) {
 					if ($evento['sobre_fila']) {
-						echo "<td class='lista-col-titulo'>\n";
+						echo "<td>\n";
 						$evento_js = eventos::a_javascript($id, $evento, $this->obtener_clave_fila($f));
 						$js = "{$this->objeto_js}.set_evento($evento_js);";
 						echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
@@ -576,6 +567,12 @@ class objeto_ei_cuadro extends objeto_ei
 			echo $pie_columna[$a];
 			echo "</strong></td>\n";
 		}
+        //-- Eventos sobre fila
+		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
+		if($cant_sobre_fila > 0){
+			echo "<td colspan='$cant_sobre_fila'>\n";
+            echo "</td>\n";
+		}		
 		echo "</tr>\n";
 	}
 	

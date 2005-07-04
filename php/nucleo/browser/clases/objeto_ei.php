@@ -43,6 +43,16 @@ class objeto_ei extends objeto
 	{
 		$this->evento_por_defecto = $id;
 	}
+
+	function cant_eventos_sobre_fila()
+	{
+		$cant = 0;
+		foreach ($this->eventos as $evento) {
+			if ($evento['sobre_fila'])
+				$cant++;
+		}
+		return $cant;
+	}
 	
 	function hay_botones() 
 	{
@@ -53,7 +63,7 @@ class objeto_ei extends objeto
 		}
 		return false;
 	}	
-
+	
 	function obtener_botones()
 	{
 		//----------- Generacion

@@ -27,7 +27,7 @@ class objeto_ci extends objeto_ei
 
 	function __construct($id)
 	{
-		parent::objeto($id);
+		parent::__construct($id);
 		$this->nombre_formulario = "CI_" . $this->id[1] ;//Cargo el nombre del <form>
 		$this->submit = "CI_" . $this->id[1] . "_submit";
 		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
