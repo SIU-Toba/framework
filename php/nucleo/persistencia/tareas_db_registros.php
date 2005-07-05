@@ -1,4 +1,15 @@
 
+	HILO
+	----
+	
+		- Refactorizar definicion MT
+		- refac. constructor
+		- Migrar db_registros
+		- refac. interface servicios
+		- completar test
+		- completar funcionalidad
+		- ver MT con relacion debil
+
 	Modificaciones definicion db_registros
 
 	__construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
@@ -19,7 +30,6 @@
 		
 	__construct($definicion, $fuente, $max_registros=0, $min_registros=0)
 	
-
 	Primitivas que controlan los registros
 	
 ->		set_max_registros()									//tope superior de registros
@@ -29,31 +39,6 @@
 
 ->		set_order_by( array("col_1","col_2") )				//Indica cual es el orden de 
 
-/*
-	Buffer DB SIMPLE. Maneja una unica tabla
-
-	*** DEFINICION *** (array asociativo con las siguientes entradas)
-	
-	-- tabla (string):			Nombre de la tabla
-	-- control_sincro (0/1): 	Controlar que los datos no se modifiquen durante la transaccion
-	-- clave (array): 			Claves de la tabla (no incluirlas en columna)
-	-- columna (array): 		Columnas de la tabla
-	-- orden (array): 			claves o columnas que se usan para ordenar los registros
-					 			(facilita el algoritmo de control de sincro)
-	-- secuencia (array[2]):	claves o columnas que son secuencias en la DB
-								(Los valores son un array("col"=>"X", seq=>"Y")).
-								Atencion: las columnas especificadas como secuencias no tienen que 
-								figurar en los arrays 'no_duplicado' y 'no_nulo', porque esos
-								campos solo indican controles en las columnas MANIPULABLES y
-								la secuencia no lo es...
-	-- no_duplicado (array): 	claves o columnas que son UNIQUE en la DB
-	-- no_nulo (array):			columnas que no pueden ser ""
-	-- externa (array):			columnas que no se utilizan para operaciones SQL
-
-	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, externa y no_nulo )
-	tienen que tener como valor valores existentes en los arrays "columna" o "clave" )
-
-*/___________________________________________________________________________________________________
 <?
 		//-- Definicion db_registros --
 
@@ -81,7 +66,7 @@
 		//Carga de las columnas externas
 		//Atencion: las columnas devueltas tiene que ser iguales a las enumeradas en "col"
 		//			y las columnas del where iguales a las enumeradas en "llave"
-		$definicion['carga_externa'][0]['eventos_iu'] = true; //Hay que dispararla despues de un ALTA o MODIFIACION?
+		$definicion['carga_externa'][0]['sincro_continua'] = true; //Hay que dispararla despues de un ALTA o MODIFIACION?
 		$definicion['carga_externa'][0]['sql'] = "
 					SELECT h.codigo || ' - ' || h.nombre 	as elemento_nombre,
 					       p.elemento 					as elemento_padre,
@@ -90,10 +75,12 @@
 					sau_np_elementos p
 					WHERE h.elemento_padre = p.elemento
 					AND h.elemento = %elemento%;";
-		$definicion['carga_externa'][0]['llave'][0] = "elemento";
-		$definicion['carga_externa'][0]['col'][0] = "elemento_nombre";
-		$definicion['carga_externa'][0]['col'][1] = "elemento_padre";
-		$definicion['carga_externa'][0]['col'][2] = "elemento_padre_nombre";
+		$definicion['carga_externa'][0]['col_parametros'][0] = "elemento";
+		$definicion['carga_externa'][0]['col_resultado'][0] = "elemento_nombre";
+		$definicion['carga_externa'][0]['col_resultado'][1] = "elemento_padre";
+		$definicion['carga_externa'][0]['col_resultado'][2] = "elemento_padre_nombre";
+
+		
 
 //___________________________________________________________________________________________________
 		//-- Definicion db_registros_mt --
@@ -131,33 +118,5 @@
 		$definicion['relacion']['anx_personas_domicilios'][0]['fk'] = 'domicilio';
 
 //___________________________________________________________________________________________________
-
-
-		$sql[] = "CREATE TEMPORARY TABLE test_db_registros_02b (
-					  id_2 SMALLINT NOT NULL, 
-					  extra VARCHAR(20) NOT NULL, 
-					  CONSTRAINT test_db_registros_02b_pkey PRIMARY KEY(id_2), 
-					  FOREIGN KEY (id_2) REFERENCES test_db_registros_01(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
-					);";	
-
-
-		$sql[] = "DROP TABLE test_db_registros_02b;";
-
-
-				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
-							VALUES ('3','Vienen de Chipoletti');";
-				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
-							VALUES ('2','Aparecen en el otoño');";
-				$this->tablas_utilizadas[] = 3;
-				break;	
-			case "5":
-				//-- Tabla 02 MITAD
-				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
-							VALUES ('0','Peras!!');";
-				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
-							VALUES ('1','Increibles');";
-
-
-				$sql[] = "DELETE FROM test_db_registros_02b;";
 
 ?>

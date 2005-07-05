@@ -1,37 +1,50 @@
 <?
 define("apex_db_registros_separador","%");
 /*
-
 	PENDIENTE:
 
 		- Validacion de la definicion
-
+		- El manejo de la secuencia esta basado en Postgresql
+		- Registrar controlador
+		- Definir la nomenclatura: campo/columna
+		- Control valores UNICOS
 */
 class db_registros
 {
-	protected $definicion;				//Definicion que indica la construccion del db_registros
-	protected $fuente;					//Fuente de datos utilizada
-	protected $identificador;			//Identificador del registro
-	protected $campos;					//Campos del db_registros
-	protected $campos_secuencia;		
-	protected $campos_manipulables;		
-	protected $where;					//Condicion utilizada para cargar datos - WHERE
-	protected $from;					//Condicion utilizada para cargar datos - FROM
-	protected $control = array();		//Estructura de control
-	protected $datos = array();			//Datos cargados en el db_registros
-	protected $datos_orig = array();	//Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proximo_registro = 0;	//Posicion del proximo registro en el array de datos
-	protected $control_sincro_db;		//Se activa el control de sincronizacion con la DB?
-	protected $posicion_finalizador;	//Posicion del objeto en el array de finalizacion
-	protected $msg_error_sincro = 		"Error interno. Los datos no fueron guardados.";
-	protected $baja_logica = false;		// Baja logica. (delete = update de una columna a un valor)
-	protected $baja_logica_columna;		// Columna de la baja logica
-	protected $baja_logica_valor;		// Valor de la baja logica
-	protected $controlador = null;		// referencia al db_tablas del cual forma parte, si se aplica
-	protected $utilizar_transaccion;	// La sincronizacion con la DB se ejecuta dentro de una transaccion
-	protected $memoria_autonoma;		// Se persiste en la sesion por si mismo
-	protected $tope_registros;			// Cantidad de registros permitida. 0 = n registros
+	// Definicion asociada a la TABLA
+	protected $tabla;							// Tablas manejadas
+	protected $clave;							// Columnas que constituyen la clave de la tabla
+	protected $campos;							// Campos del db_registros
+	protected $campos_manipulables;				// Campos utilizados para generar SQL
+	protected $campos_no_nulo;					// Campos que no admiten el valor NULL
+	protected $campos_select;
+	protected $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
+	protected $campos_externa;
+	// Definicion general
+	protected $tope_registros;					// Cantidad de registros permitida. 0 = n registros
+	protected $fuente;							// Fuente de datos utilizada
+	protected $definicion;						// Definicion que indica la construccion del db_registros
+	protected $where;							// Condicion utilizada para cargar datos - WHERE
+	protected $from;							// Condicion utilizada para cargar datos - FROM
+	// Estructuras CORE
+	protected $control = array();				// Estructura de control
+	protected $datos = array();					// Datos cargados en el db_registros
+	protected $datos_orig = array();			// Datos tal cual salieron de la DB (Control de SINCRO)
+	protected $proximo_registro = 0;			// Posicion del proximo registro en el array de datos
+	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
+	protected $controlador = null;				// referencia al db_tablas del cual forma parte, si se aplica
+	// Servicios activados por metodos
+	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
 	protected $flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
+	protected $proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
+	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
+	protected $baja_logica_columna;				// Columna de la baja logica
+	protected $baja_logica_valor;				// Valor de la baja logica
+	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	// Memoria autonoma
+	protected $memoria_autonoma;				// Se persiste en la sesion por si mismo
+	protected $identificador;					// Identificador del registro
+	protected $posicion_finalizador;			// Posicion del objeto en el array de finalizacion
 
 	function __construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
 	{
@@ -41,16 +54,6 @@ class db_registros
 		$this->tope_registros = $tope_registros;
 		$this->utilizar_transaccion = $utilizar_transaccion;
 		$this->memoria_autonoma = $memoria_autonoma;
-		//la interaccion con la interface?
-		if(isset($this->definicion["control_sincro"])){
-			if($this->definicion["control_sincro"]=="1"){	
-				$this->control_sincro_db = true;
-			}else{
-				$this->control_sincro_db = false;
-			}
-		}else{
-			$this->control_sincro_db = false;
-		}
 		//Inicializar la estructura de campos
 		$this->inicializar_definicion_campos();
 		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
@@ -107,6 +110,18 @@ class db_registros
 		return $estado;
 	}
 
+	public function info_definicion()
+	//Informacion del buffer
+	{
+		$estado['tabla'] = $this->tabla;              
+		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
+		$estado['campos'] = $this->campos;
+		$estado['campos_manipulables'] = isset($this->campos_manipulables) ? $this->campos_manipulables: null;
+		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
+		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
+		return $estado;
+	}
+
 	public function obtener_definicion()
 	{
 		return $this->definicion;
@@ -114,12 +129,12 @@ class db_registros
 
 	public function get_clave()
 	{
-		return $this->definicion['clave'];
+		return $this->clave;
 	}
 	
 	public function get_clave_valor($id_registro)
 	{
-		foreach( $this->definicion['clave'] as $clave ){
+		foreach( $this->clave as $clave ){
 			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
 		}	
 		return $temp;
@@ -131,7 +146,7 @@ class db_registros
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Especificacion de servicios
+	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
 
 	public function activar_baja_logica($columna, $valor)
@@ -141,6 +156,36 @@ class db_registros
 		$this->baja_logica_valor = $valor;	
 	}
 
+	public function activar_control_sincro()
+	{
+		$this->control_sincro_db = true;
+	}
+
+	public function desactivar_control_sincro()
+	{
+		$this->control_sincro_db = false;
+	}
+
+	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
+	{
+		$proximo = count($this->proceso_carga_externa);
+		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
+		$this->proceso_carga_externa[$proximo]["sql"] = $sql;
+		$this->proceso_carga_externa[$proximo]["col_parametros"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+	}
+	
+	public function activar_proceso_carga_externa_dao($dao, $col_parametros, $col_resultado, $sincro_continua=true)
+	{
+		$proximo = count($this->proceso_carga_externa);
+		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
+		$this->proceso_carga_externa[$proximo]["dao"] = $dao;
+		$this->proceso_carga_externa[$proximo]["col_parametros"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------------------  Manejo de DATOS  -------------------------------
@@ -169,10 +214,8 @@ class db_registros
 		$this->datos = $this->cargar_db();
 		//ei_arbol($this->datos);
 		//Se solicita control de SINCRONIA a la DB?
-		if(isset($this->definicion["control_sincro"])){
-			if($this->definicion["control_sincro"]=="1"){	
-				$this->datos_orig = $this->datos;
-			}
+		if($this->control_sincro_db){
+			$this->datos_orig = $this->datos;
 		}
 		$this->generar_estructura_control_post_carga();
 		//Le saco los caracteres de escape a los valores traidos de la DB
@@ -210,8 +253,8 @@ class db_registros
 			$datos =& $rs->getArray();
 			//ei_arbol($datos);
 			//Los campos NO SQL deberian estar metidos en el array
-			if(isset($this->definicion['externa'])){
-				foreach($this->definicion['externa'] as $externa){
+			if(isset($this->campos_externa)){
+				foreach($this->campos_externa as $externa){
 					for($a=0;$a<count($datos);$a++){
 						$datos[$a][$externa] = "";
 					}
@@ -581,10 +624,8 @@ class db_registros
 	//Controla que los campos del registro existan
 	{
 		foreach($registro as $campo => $valor){
-			//SI el registro no esta en la lista de manipulables o 
-			//en las secuencias...
-			if( !((in_array($campo, $this->campos_manipulables)) ||
-				(in_array($campo,$this->campos_secuencia)) ) ){
+			//SI el registro no esta en la lista de manipulables o en las secuencias...
+			if( !(in_array($campo, $this->campos))  ){
 					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
 							" se encuentra definido y no existe en el registro.");
 					//toba::get_logger()->debug( debug_backtrace() );
@@ -597,6 +638,8 @@ class db_registros
 	private function control_valores_unicos($registro, $id=null)
 	//Controla que no se dupliquen valores unicos del db_registros
 	{
+		return;
+		//ATENCION! esto hay que implementarlo bien
 		foreach($this->campos_no_duplicados as $campo)
 		{
 			//Busco los valores existentes en la columna
@@ -640,7 +683,7 @@ class db_registros
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//---------------  Columnas cosmeticas   ----------------------------------------
+	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
@@ -656,31 +699,36 @@ class db_registros
 	private function actualizar_campos_externos_registro($id_registro, $evento=null)
 	{
 		//Itero planes de carga externa
-		if(isset($this->definicion['carga_externa'])){
-			foreach(array_keys($this->definicion['carga_externa']) as $carga)
+		if(isset($this->proceso_carga_externa)){
+			foreach(array_keys($this->proceso_carga_externa) as $carga)
 			{
 				//SI entre por un evento, tengo que controlar que la carga este
 				//Activada para eventos, si no esta activada paso al siguiente
 				if(isset($evento)){
-					if(! $this->definicion['carga_externa'][$carga]['eventos_iu'] ){	
+					if(! $this->proceso_carga_externa[$carga]['sincro_continua'] ){	
 						continue;
 					}
 				}
-				// - 1 - Obtengo el query
-				$sql = $this->definicion['carga_externa'][$carga]['sql'];
-				// - 2 - Reemplazo valores llave
-				foreach($this->definicion['carga_externa'][$carga]['llave'] as $col_llave ){
-					$valor_llave = $this->datos[$id_registro][$col_llave];
-					$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
+				if($this->proceso_carga_externa[$carga]['tipo']=="dao")
+				{
+					// - 1 - Obtengo el query
+					$sql = $this->proceso_carga_externa[$carga]['sql'];
+					// - 2 - Reemplazo valores llave
+					foreach($this->proceso_carga_externa[$carga]['col_parametro'] as $col_llave ){
+						$valor_llave = $this->datos[$id_registro][$col_llave];
+						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
+					}
+					//echo "<pre>SQL: "  . $sql . "<br>";
+					// - 3 - Ejecuto SQL
+					$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
+					// - 4 - Seteo los valores recuperados en el registro
+					//ei_arbol($this->datos);
+				}elseif($this->proceso_carga_externa[$carga]['tipo']=="dao"){
+					throw new excepcion_toba("Las columnas externas con DAO no estan implementadas");					
 				}
-				//echo "<pre>SQL: "  . $sql . "<br>";
-				// - 3 - Ejecuto SQL
-				$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
-				// - 4 - Seteo los valores recuperados en el registro
-				foreach($this->definicion['carga_externa'][$carga]['col'] as $columna_externa ){
+				foreach($this->proceso_carga_externa[$carga]['col_resultado'] as $columna_externa ){
 					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
 				}
-				//ei_arbol($this->datos);
 			}
 		}
 	}

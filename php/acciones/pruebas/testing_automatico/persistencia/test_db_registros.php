@@ -6,6 +6,7 @@ require_once("test_db_registros.php");
 
 	PENDIENTE:
 
+		- Columnas externas
 		- carga de columnas externas
 		- procesar registros
 		- llamada a eventos de controlador
@@ -46,6 +47,11 @@ class test_db_registros extends test_toba
 	function dump($mensaje="Info")
 	{
 		ei_arbol($this->dbr->info(true),$mensaje);	
+	}
+
+	function dump_definicion($mensaje="Info DEFINICION")
+	{
+		ei_arbol($this->dbr->info_definicion(),$mensaje);	
 	}
 
 	function dump_control($mensaje="Estructura CONTROL")
