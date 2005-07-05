@@ -8,18 +8,21 @@ class test_db_registros_std_s_2_dbr extends db_registros_s
 {
 	function __construct($id, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=false)
 	{
-		$definicion['tabla']='test_maestro';
-		$definicion['columna'][0]['nombre']='id1';
-		$definicion['columna'][0]['clave']=1;
-		$definicion['columna'][0]['no_nulo']=1;
-		$definicion['columna'][1]['nombre']='id2';
-		$definicion['columna'][1]['clave']=1;
-		$definicion['columna'][1]['no_nulo']=1;
-		$definicion['columna'][2]['nombre']='nombre';
-		$definicion['columna'][2]['no_nulo']=1;
-		$definicion['columna'][3]['nombre']='descripcion';
-
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+		$def = array(	
+				'tabla' => 'test_maestro',
+				'columna' => array( 
+						array( 	'nombre'=>'id1',
+								'pk'=>1, 
+								'no_nulo'=>1 ),
+						array( 	'nombre'=>'id2',
+								'pk'=>1, 
+								'no_nulo'=>1 ),
+						array( 	'nombre'=>'nombre',
+								'no_nulo'=>1 ),
+						array( 	'nombre'=>'descripcion' )
+					)
+				);
+		parent::__construct($id, $def, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
 	}	
 	
 	function cargar_datos_clave($id)

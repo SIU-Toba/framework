@@ -3,10 +3,10 @@ define("apex_db_registros_separador","%");
 /*
 	PENDIENTE:
 
+		- Definir la nomenclatura: campo/columna (pega feo en 'externa')
 		- Validacion de la definicion
 		- El manejo de la secuencia esta basado en Postgresql
 		- Registrar controlador
-		- Definir la nomenclatura: campo/columna
 		- Control valores UNICOS
 */
 class db_registros
@@ -116,7 +116,8 @@ class db_registros
 		$estado['tabla'] = $this->tabla;              
 		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
 		$estado['campos'] = $this->campos;
-		$estado['campos_manipulables'] = isset($this->campos_manipulables) ? $this->campos_manipulables: null;
+		$estado['campos_sql'] = isset($this->campos_sql) ? $this->campos_sql : null;
+		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select: null;
 		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
 		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
 		return $estado;
@@ -127,19 +128,6 @@ class db_registros
 		return $this->definicion;
 	}
 
-	public function get_clave()
-	{
-		return $this->clave;
-	}
-	
-	public function get_clave_valor($id_registro)
-	{
-		foreach( $this->clave as $clave ){
-			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
-		}	
-		return $temp;
-	}
-
 	public function get_tope_registros()
 	{
 		return $this->tope_registros;	
@@ -148,13 +136,6 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
-
-	public function activar_baja_logica($columna, $valor)
-	{
-		$this->baja_logica = true;
-		$this->baja_logica_columna = $columna;
-		$this->baja_logica_valor = $valor;	
-	}
 
 	public function activar_control_sincro()
 	{

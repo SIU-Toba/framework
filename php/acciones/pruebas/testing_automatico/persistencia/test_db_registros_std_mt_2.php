@@ -1,9 +1,9 @@
 <?php
-require_once("test_db_registros.php");
+require_once("test_db_registros_std_mt.php");
 /*
 	Multitabla ESTRICTO con clave SIMPLE COMPUESTA.
 */
-class test_db_registros_std_mt_2 extends test_db_registros_std
+class test_db_registros_std_mt_2 extends test_db_registros_std_mt
 {
 	function get_sql_tablas()
 	{

@@ -21,6 +21,16 @@ class test_db_registros_std extends test_db_registros
 	//--- A. Recuperacion de la definicion
 	//-------------------------------------------------------------
 
+	function test_dump()
+	{
+		$this->dump_definicion_externa();
+		$this->dump_definicion();
+		return;	
+		$this->dump();
+		$this->dump_control();
+		$this->dump_datos();
+	}
+
 	function test_recuperar_claves()
 	{
 		$this->assertEqualArray( $this->dbr->get_clave(), $this->get_clave_test() );

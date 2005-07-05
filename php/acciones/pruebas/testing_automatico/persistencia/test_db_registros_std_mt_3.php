@@ -1,9 +1,9 @@
 <?php
-require_once("test_db_registros.php");
+require_once("test_db_registros_mt.php");
 /*
 	TEST de la relacion debil
 */
-class test_db_registros_std_mt_3 extends test_db_registros_std
+class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 {
 	function __construct()
 	{

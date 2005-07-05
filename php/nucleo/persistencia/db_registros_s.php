@@ -3,41 +3,35 @@ require_once("db_registros.php");
 
 class db_registros_s extends db_registros
 {
-	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
-	{
-		if( !isset($definicion['columna'] )){
-			$definicion['columna'] = array();
-		}
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
-	}
-	//-------------------------------------------------------------------------------
-
 	function inicializar_definicion_campos()
 	{
 		/*
-			DEFINICION BASE (Extraida de $this->definicion)
-		
-			$this->tabla
-			$this->campos					* TODOS
-			$this->claves					* clave = 1
-			$this->campos_manipulables		* TODOS - secuencias - externos (para insert y delete)
-			$this->campos_select			* TODOS - externos (para insert y delete)
-			$this->campos_no_nulo			* no es nulo
-			$this->campos_secuencia			* Secuencas (columna/secuencia)
-			$this->campos_externa			* externos
+			Generacion de la DEFINICION BASE sobre la que despues trabaja el DBR.
+				(Se basa es $this->definicion, provista por el consumidor en la creacion)
+					
+				$this->tabla					- Nombre de la tabla
+				(*) $this->campos				- TODOS los campos
+				(*) $this->clave				- 'pk'=1
+				(*) $this->campos_no_nulo		- 'no_nulo'=1
+				(*) $this->campos_externa		- 'externa'=1
+				$this->campos_secuencia			- 'secuencas'=1 (asociativo columna/secuencia)
+				$this->campos_sql				- TODOS - secuencias - externos (para insert y update)
+				$this->campos_sql_select		- TODOS - externos (para buscar registros en la DB)
+			
+			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
 		*/
 		$this->tabla = $this->definicion["tabla"];
 		foreach(array_keys($this->definicion['columna']) as $col)
 		{
 			$es_secuencia = isset($this->definicion['columna'][$col]['secuencia']) && ($this->definicion['columna'][$col]['secuencia'] == 1);
-			$es_clave = isset($this->definicion['columna'][$col]['clave']) && ($this->definicion['columna'][$col]['clave'] == 1);
+			$es_clave = isset($this->definicion['columna'][$col]['pk']) && ($this->definicion['columna'][$col]['pk'] == 1);
 			$es_no_nulo = isset($this->definicion['columna'][$col]['no_nulo']) && ($this->definicion['columna'][$col]['no_nulo'] == 1);
 			$es_externa = isset($this->definicion['columna'][$col]['externa']) && ($this->definicion['columna'][$col]['externa'] == 1) ;
 			$campo = $this->definicion['columna'][$col]['nombre'];
 			$this->campos[] = $campo;
 			if( $es_clave ) $this->clave[] = $campo;
-			if( !$es_secuencia && !$es_externa ) $this->campos_manipulables[] = $campo;
-			if( !$es_externa ) $this->campos_select[] = $campo;
+			if( !$es_secuencia && !$es_externa ) $this->campos_sql[] = $campo;
+			if( !$es_externa ) $this->campos_sql_select[] = $campo;
 			if( $es_externa ) $this->campos_externa[] = $campo;
 			if( !$es_secuencia && $es_no_nulo ) $this->campos_no_nulo[] = $campo;
 			if( $es_secuencia ) $this->campos_secuencia[$nombre] = $this->definicion['columna'][$col]['secuencia'];
@@ -45,8 +39,32 @@ class db_registros_s extends db_registros
 	}
 
 	//-------------------------------------------------------------------------------
+	//-- Preguntas BASICAS
+	//-------------------------------------------------------------------------------
+
+	public function get_clave()
+	{
+		return $this->clave;
+	}
+	
+	public function get_clave_valor($id_registro)
+	{
+		foreach( $this->clave as $clave ){
+			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+		}	
+		return $temp;
+	}
+
+	//-------------------------------------------------------------------------------
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
+
+	public function activar_baja_logica($columna, $valor)
+	{
+		$this->baja_logica = true;
+		$this->baja_logica_columna = $columna;
+		$this->baja_logica_valor = $valor;	
+	}
 
 	public function activar_modificacion_clave()
 	{
@@ -63,7 +81,7 @@ class db_registros_s extends db_registros
 	{
 		//- 1 - Armo el SQL
 		//Campos utilizados
-		$campos_insert = $this->campos_manipulables;
+		$campos_insert = $this->campos_sql;
 		$registro = $this->datos[$id_registro];
 		//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
 		foreach($campos_insert as $id_campo => $campo){
@@ -93,7 +111,7 @@ class db_registros_s extends db_registros
 	{
 		//- 1 - Armo el SQL
 		//Campos a utilizar
-		$campos_update = $this->campos_manipulables;
+		$campos_update = $this->campos_sql;
 		if(! $this->flag_modificacion_clave ){		//Extraigo las claves
 			$campos_update = array_diff( $campos_update, $this->clave);
 		}
@@ -148,7 +166,7 @@ class db_registros_s extends db_registros
 	
 	function generar_sql_select()
 	{
-		$sql =	" SELECT	a." . implode(",	a.",$this->campos_select) . 
+		$sql =	" SELECT	a." . implode(",	a.",$this->campos_sql_select) . 
 				" FROM "	. $this->tabla . " a ";
 		if(isset($this->from)){
 			$sql .= ", " . implode(",",$this->from);

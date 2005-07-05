@@ -5,27 +5,38 @@ class db_registros_mt extends db_registros
 /*
 	Queda un caso por resolver:
 		- Relacion debil entre tablas que en la que solo se graban las cosas comprometidas.
-			
+
 */
 {
 	protected $tabla_maestra;
 	protected $tablas_anexas;
 	protected $tipo_relacion = "estricta";
-	protected $columnas_convertidas;	//Columnas convertidas por tabla
-
-	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
-	{
-		foreach($definicion['tabla'] as $tabla)
-		{
-			if(! isset($definicion[$tabla]['columna'] )){
-				$definicion[$tabla]['columna'] = array();
-			}			
-		}
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
-	}
+	protected $columnas_convertidas;			//Columnas convertidas por tabla
 
 	function inicializar_definicion_campos()
 	{
+		/*
+			Generacion de la DEFINICION BASE sobre la que despues trabaja el DBR.
+				(Se basa es $this->definicion, provista por el consumidor en la creacion)
+				$this->tabla					- Nombre de la tabla
+				(*) $this->campos				- TODOS los campos			// Se respetan los ALIAS
+				(*) $this->clave				- 'pk'=1
+				(*) $this->campos_no_nulo		- 'no_nulo'=1
+				(*) $this->campos_externa		- 'externa'=1
+				$this->campos_alias				- 'alias'=1
+				$this->campos_secuencia			- 'secuencas'=1 (asociativo columna/secuencia)
+				$this->campos_sql				- TODOS - secuencias - externos (para insert y update)
+				$this->campos_sql_select		- TODOS - externos (para buscar registros en la DB)
+			
+			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
+		*/
+		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		$this->tabla;
+		return;
+		
+
+
+
 		$this->campos = array();
 		$this->campos_secuencia = array();
 		$no_nulo = array();
@@ -106,6 +117,10 @@ class db_registros_mt extends db_registros
 		return $temp;
 	}
 
+	//-------------------------------------------------------------------------------
+	//-- Especificacion de SERVICIOS
+	//-------------------------------------------------------------------------------
+
 	function activar_relacion_estricta()
 	{
 		$this->tipo_relacion = "estricta";
@@ -115,15 +130,9 @@ class db_registros_mt extends db_registros
 	{
 		$this->tipo_relacion = "debil";
 	}
-	//-------------------------------------------------------------------------------
-
-	public function activar_modificacion_clave()
-	{
-		throw new excepcion_toba("No esta implementada la modificacion de claves en los 'db_registros_mt'");
-	}
 
 	//-------------------------------------------------------------------------------
-	//-- Las estructuras de control del db_registros MT son ligeramente distintas
+	//-- Estructura de control 
 	//-------------------------------------------------------------------------------
 	/*
 		Esto puede ser mas eficiente
