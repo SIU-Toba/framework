@@ -8,11 +8,11 @@ class db_registros_mt extends db_registros
 			
 */
 {
+	protected $tabla_maestra;
 	protected $tablas_anexas;
 	protected $tipo_relacion = "estricta";
 	protected $columnas_convertidas;	//Columnas convertidas por tabla
 
-	
 	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
 	{
 		foreach($definicion['tabla'] as $tabla)
@@ -24,22 +24,11 @@ class db_registros_mt extends db_registros
 		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
 	}
 
-	function establecer_relacion_estricta()
-	{
-		$this->tipo_relacion = "estricta";
-	}
-	
-	function establecer_relacion_debil()
-	{
-		$this->tipo_relacion = "debil";
-	}
-	//-------------------------------------------------------------------------------
-
 	function inicializar_definicion_campos()
 	{
 		$this->campos = array();
 		$this->campos_secuencia = array();
-
+		$no_nulo = array();
 		for($t=0;$t<count($this->definicion['tabla']);$t++)
 		{
 			//Es necesario escribir un ALIAS para cada tabla utilizada
@@ -58,8 +47,11 @@ class db_registros_mt extends db_registros
 					$this->campos_secuencia_tabla[$tabla][] = $this->definicion[$tabla]['secuencia'][$a]['col'];
 				}
 			}
+			if(isset($this->definicion[$tabla]['no_nulo'])){
+				$no_nulo = array_merge($no_nulo, $this->definicion[$tabla]['no_nulo']);
+			}			
 		}
-		array_unique($this->campos);
+		$this->campos = array_unique($this->campos);
 		//---- CAMPOS_MANIPULABLES ----
 		$this->campos_manipulables = array_diff($this->campos, $this->campos_secuencia);
 		//$this->campos_manipulables = $this->campos;
@@ -71,9 +63,10 @@ class db_registros_mt extends db_registros
 			$this->campos_no_duplicados = array();
 		}
 		//---- CAMPOS no NULOS ----
-		if(isset($this->definicion['no_nulo'])){
+		$no_nulo = array_unique($no_nulo);
+		if(isset($no_nulo)){
 			//Solo hay que trabajar sobre los manipulables
-			$this->campos_no_nulo = array_diff($this->definicion['no_nulo'], $this->campos_secuencia);
+			$this->campos_no_nulo = array_diff($no_nulo, $this->campos_secuencia);
 		}else{
 			$this->campos_no_nulo = array();
 		}
@@ -82,10 +75,51 @@ class db_registros_mt extends db_registros
 			//Solo hay que trabajar sobre los manipulables
 			$this->definicion['externa'] = array();
 		}
+		//---- tabla maestra ----
+		$this->tabla_maestra = $this->definicion['tabla'][0];
 		//---- tablas anexas ----
 		for($t=1;$t<count($this->definicion['tabla']);$t++){
 			$this->tablas_anexas[] = $this->definicion['tabla'][$t];
 		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Interface BASICA
+	//-------------------------------------------------------------------------------
+
+	public function get_clave()
+	{
+		return $this->definicion[$this->tabla_maestra]['clave'];
+	}
+
+	public function get_clave_valor($id_registro)
+	{
+		return $this->get_clave_valor_tabla($id_registro, $this->tabla_maestra);
+	}
+
+	private function get_clave_valor_tabla($id_registro, $tabla)
+	// Trae los valores de las claves de una tabla anexa
+	{
+		foreach( $this->definicion[$tabla]['clave'] as $clave ){
+			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+		}	
+		return $temp;
+	}
+
+	function activar_relacion_estricta()
+	{
+		$this->tipo_relacion = "estricta";
+	}
+	
+	function activar_relacion_debil()
+	{
+		$this->tipo_relacion = "debil";
+	}
+	//-------------------------------------------------------------------------------
+
+	public function activar_modificacion_clave()
+	{
+		throw new excepcion_toba("No esta implementada la modificacion de claves en los 'db_registros_mt'");
 	}
 
 	//-------------------------------------------------------------------------------
@@ -129,7 +163,14 @@ class db_registros_mt extends db_registros
 				$this->control[$a]['tablas']=$this->identificar_tablas_comprometidas($a, $testigos, "db", "null");
 			}
 		}else{
-			parent::generar_estructura_control_post_carga();
+			//Estructura de control de la relacion estricta
+			for($a=0;$a<count($this->datos);$a++){
+				$this->control[$a]['estado']="db";
+				for($t=0;$t<count($this->definicion['tabla']);$t++){
+					$tabla = $this->definicion['tabla'][$t];
+					$this->control[$a]['clave'][ $tabla ] = $this->get_clave_valor_tabla($a, $tabla);
+				}
+			}
 		}
 	}
 	
@@ -266,7 +307,7 @@ class db_registros_mt extends db_registros
 				//Genero el WHERE
 				$sql_where = array();
 				foreach($this->definicion[$tabla]["clave"] as $clave){
-					$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+					$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$tabla][$clave] ."')";
 				}
 				//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
 				$set = array();
@@ -303,7 +344,7 @@ class db_registros_mt extends db_registros
 			//Genero el WHERE
 			$sql_where = array();
 			foreach($this->definicion[$tabla]["clave"] as $clave){
-				$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+				$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$tabla][$clave] ."')";
 			}
 			$sql = "DELETE FROM $tabla WHERE " . implode(" AND ",$sql_where) .";";
 			$this->log("registro: $id_registro - tabla: $t - " . $sql); 
@@ -365,9 +406,9 @@ class db_registros_mt extends db_registros
 			foreach($campos as $campo){
 				//Si el campo ya existe, le cambio el nombre
 				if(isset($campos_select[$campo])){
-					$nuevo_nombre = $alias."_".$campo;
-					$campos_select[$alias.".".$campo] = "$alias.$campo as $nuevo_nombre";
-					$this->columnas_convertidas[$tabla][$campo] = $nuevo_nombre;
+					//$nuevo_nombre = $alias."_".$campo;
+					//$campos_select[$alias.".".$campo] = "$alias.$campo as $nuevo_nombre";
+					//$this->columnas_convertidas[$tabla][$campo] = $nuevo_nombre;
 				}else{
 					$campos_select[$campo] = "$alias.$campo as $campo";
 				}

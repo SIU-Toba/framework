@@ -1,30 +1,6 @@
 <?php
 require_once("db_registros.php");
-/*
-	Buffer DB SIMPLE. Maneja una unica tabla
 
-	*** DEFINICION *** (array asociativo con las siguientes entradas)
-	
-	-- tabla (string):			Nombre de la tabla
-	-- control_sincro (0/1): 	Controlar que los datos no se modifiquen durante la transaccion
-	-- clave (array): 			Claves de la tabla (no incluirlas en columna)
-	-- columna (array): 		Columnas de la tabla
-	-- orden (array): 			claves o columnas que se usan para ordenar los registros
-					 			(facilita el algoritmo de control de sincro)
-	-- secuencia (array[2]):	claves o columnas que son secuencias en la DB
-								(Los valores son un array("col"=>"X", seq=>"Y")).
-								Atencion: las columnas especificadas como secuencias no tienen que 
-								figurar en los arrays 'no_duplicado' y 'no_nulo', porque esos
-								campos solo indican controles en las columnas MANIPULABLES y
-								la secuencia no lo es...
-	-- no_duplicado (array): 	claves o columnas que son UNIQUE en la DB
-	-- no_nulo (array):			columnas que no pueden ser ""
-	-- externa (array):			columnas que no se utilizan para operaciones SQL
-
-	( ATENCION!!: Las entradas (orden, secuencia, no_duplicado, externa y no_nulo )
-	tienen que tener como valor valores existentes en los arrays "columna" o "clave" )
-
-*/
 class db_registros_s extends db_registros
 {
 	function __construct($id, $definicion, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
@@ -66,6 +42,11 @@ class db_registros_s extends db_registros
 		}else{
 			$this->campos_no_nulo = array();
 		}
+	}
+
+	public function activar_modificacion_clave()
+	{
+		$this->flag_modificacion_clave = true;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -111,19 +92,18 @@ class db_registros_s extends db_registros
 	function modificar($id_registro)
 	{
 		//- 1 - Armo el SQL
-		//Campos utilizados
-		if(isset($this->definicion['externa'])){
-			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['externa'],
-										$this->definicion['clave']);
-		}else{
-			$campos_update = array_diff($this->campos_manipulables, 
-										$this->definicion['clave']);
+		//Campos a utilizar
+		$campos_update = $this->campos_manipulables;
+		if(isset($this->definicion['externa'])){	//Extraigo campos externos
+			$campos_update = array_diff( $campos_update, $this->definicion['externa']);
+		}
+		if(! $this->flag_modificacion_clave ){		//Extraigo las claves
+			$campos_update = array_diff( $campos_update, $this->definicion['clave']);
 		}
 		$registro = $this->datos[$id_registro];
 		//Genero el WHERE
 		foreach($this->definicion["clave"] as $clave){
-			$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+			$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$clave] ."')";
 		}
 		//Escapo los caracteres que forman parte de la sintaxis SQL
 		foreach($campos_update as $campo){
@@ -148,7 +128,7 @@ class db_registros_s extends db_registros
 		//- 0 - Genero el WHERE
 		$registro = $this->datos[$id_registro];
 		foreach($this->definicion["clave"] as $clave){
-			$sql_where[] =	"( $clave = '{$registro[$clave]}')";
+			$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$clave] ."')";
 		}
 		//- 1 - Armo el SQL
 		if($this->baja_logica){

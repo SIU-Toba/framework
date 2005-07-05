@@ -91,7 +91,9 @@ class db_tablas
 	{
 		try{
 			abrir_transaccion();
+			$this->evt__pre_sincronizacion();
 			$this->sincronizar_plan();
+			$this->evt__post_sincronizacion();
 			cerrar_transaccion();			
 		}catch(excepcion_toba $e){
 			abortar_transaccion();
@@ -122,7 +124,9 @@ class db_tablas
 	{
 		try{
 			abrir_transaccion();
+			$this->evt__pre_eliminacion();
 			$this->eliminar_plan();
+			$this->evt__post_eliminacion();
 			cerrar_transaccion();			
 		}catch(excepcion_toba $e){
 			abortar_transaccion();
@@ -140,6 +144,23 @@ class db_tablas
 		}
 		$this->elemento[$this->cabecera]->eliminar_registros();
 		$this->elemento[$this->cabecera]->sincronizar();		
+	}
+	//-------------------------------------------------------
+
+	protected function evt__pre_sincronizacion()
+	{
+	}
+	
+	protected function evt__post_sincronizacion()
+	{
+	}
+
+	protected function evt__pre_eliminacion()
+	{
+	}
+	
+	protected function evt__post_eliminacion()
+	{
 	}
 	//-------------------------------------------------------
 }

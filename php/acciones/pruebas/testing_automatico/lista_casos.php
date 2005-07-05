@@ -33,9 +33,10 @@ class lista_casos
 					array('id' => 'test_fijos', 'nombre' => 'EF Fijos', 'categoria' => 'ef'),					
 
 					//Persistencia
-					array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
+					//array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_s', 'nombre' => 'db_registros SIMPLE', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_mt', 'nombre' => 'db_registros MULTI TABLA', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt_1', 'nombre' => 'db_registros MULTI TABLA (claves iguales)', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt_2', 'nombre' => 'db_registros MULTI TABLA (claves distintas)', 'categoria' => 'persistencia'),
 					
 					//Administrador
 					array('id' => 'test_elemento_toba', 'nombre' => 'Elementos Toba', 'categoria' => 'administrador'),

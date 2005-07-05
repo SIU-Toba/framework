@@ -25,6 +25,7 @@ class db_registros
 	protected $utilizar_transaccion;	// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $memoria_autonoma;		// Se persiste en la sesion por si mismo
 	protected $tope_registros;			// Cantidad de registros permitida. 0 = n registros
+	protected $flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
 
 	function __construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
 	{
@@ -63,13 +64,6 @@ class db_registros
 		//$this->controlador = $controlador;
 	}
 
-	public function set_baja_logica($columna, $valor)
-	{
-		$this->baja_logica = true;
-		$this->baja_logica_columna = $columna;
-		$this->baja_logica_valor = $valor;	
-	}
-
 	protected function log($txt)
 	{
 		toba::get_logger()->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
@@ -92,6 +86,10 @@ class db_registros
 		}
 	}
 	
+	//-------------------------------------------------------------------------------
+	//-- Preguntas BASICAS
+	//-------------------------------------------------------------------------------
+
 	public function info($mostrar_datos=false)
 	//Informacion del buffer
 	{
@@ -101,6 +99,40 @@ class db_registros
 		$estado['from']=$this->from;
 		if($mostrar_datos) $estado['datos']=$this->datos;
 		return $estado;
+	}
+
+	public function obtener_definicion()
+	{
+		return $this->definicion;
+	}
+
+	public function get_clave()
+	{
+		return $this->definicion['clave'];
+	}
+	
+	public function get_clave_valor($id_registro)
+	{
+		foreach( $this->definicion['clave'] as $clave ){
+			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+		}	
+		return $temp;
+	}
+
+	public function get_tope_registros()
+	{
+		return $this->tope_registros;	
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Especificacion de servicios
+	//-------------------------------------------------------------------------------
+
+	public function activar_baja_logica($columna, $valor)
+	{
+		$this->baja_logica = true;
+		$this->baja_logica_columna = $columna;
+		$this->baja_logica_valor = $valor;	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -220,6 +252,7 @@ class db_registros
 		$this->control = array();
 		for($a=0;$a<count($this->datos);$a++){
 			$this->control[$a]['estado']="db";
+			$this->control[$a]['clave']= $this->get_clave_valor($a);
 		}
 	}
 	
@@ -249,33 +282,6 @@ class db_registros
 	public function get_estructura_control()
 	{
 		return $this->control;	
-	}
-	
-	//-------------------------------------------------------------------------------
-	//-- Preguntas basicas
-	//-------------------------------------------------------------------------------
-
-	public function obtener_definicion()
-	{
-		return $this->definicion;
-	}
-
-	public function get_clave()
-	{
-		return $this->definicion['clave'];
-	}
-	
-	public function get_clave_valor($id_registro)
-	{
-		foreach( $this->definicion['clave'] as $clave ){
-			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
-		}	
-		return $temp;
-	}
-
-	public function get_tope_registros()
-	{
-		return $this->tope_registros;	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -682,7 +688,7 @@ class db_registros
 	public function sincronizar()
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
-		$this->log("Inicio SINCRONIZACION!"); 
+		$this->log("Inicio SINCRONIZACION"); 
 		$this->controlar_alteracion_db();
 		// No puedo ejecutar los cambios en cualguier orden
 		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
@@ -729,6 +735,7 @@ class db_registros
 			if($this->utilizar_transaccion) cerrar_transaccion();
 			//Actualizo la estructura interna que mantiene el estado de los registros
 			$this->sincronizar_estructura_control();
+			$this->log("Fin SINCRONIZACION: $modificaciones."); 
 			return $modificaciones;
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion();

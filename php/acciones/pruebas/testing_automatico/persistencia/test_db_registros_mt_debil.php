@@ -1,7 +1,7 @@
 <?php
 require_once("test_db_registros.php");
 
-class test_db_registros_mt extends test_db_registros
+class test_db_registros_mt_debil extends test_db_registros
 {
 	function __construct()
 	{
