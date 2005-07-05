@@ -65,7 +65,7 @@ class archivo_php
 	function crear_basico()
 	{
 		$this->edicion_inicio();
-		$this->contenido = "<?php?>";
+		$this->contenido = "<?php ?>";
 		$this->edicion_fin();
 	}
 	

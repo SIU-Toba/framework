@@ -429,6 +429,7 @@ TABLE.tabla-0 {
 TD.celda-vacia {
 	padding: 0px 0px 0px 0px ;
 	margin: 0px 0px 0px 0px ;
+	vertical-align: top;
 }
 
 TABLE.tabla-1 {
@@ -2303,7 +2304,7 @@ TABLE.objeto-base-3d {
 	padding-left: 15px;	
 }
 .wizard-pantallas {
-	vertical-align: middle;
+	vertical-align: top;
 	text-align: left;	
 	white-space:nowrap;
 	padding: 15px 10px 5px 0px;

@@ -180,6 +180,7 @@ TABLE.tabla-0 {
 TD.celda-vacia {
 	padding: 0px 0px 0px 0px ;
 	margin: 0px 0px 0px 0px ;
+	vertical-align: top;
 }
 
 TABLE.tabla-1 {

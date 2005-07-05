@@ -6,46 +6,27 @@ require_once('lista_casos.php');
 
 class casos_web extends objeto_ci
 {
-	protected $etapa = 1;
 	protected $selecciones;
-	
-	function __construct($id)
-	{
-		parent::__construct($id);
-	}
-	
 	
 	function mantener_estado_sesion()
 	{
 		$atributos = parent::mantener_estado_sesion();
-		$atributos[] = "etapa";
 		$atributos[] = "selecciones";
 		return $atributos;
 	}
-
+	
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();
-		switch ($this->get_etapa_actual())
+		if ($this->get_etapa_actual() == 2)
 		{
-			case 1:
-				$eventos += eventos::duplicar(eventos::ci_procesar("&Ejecutar -->"), 'ejecutar');
-					break;
-			case 2:
-				$eventos += eventos::duplicar(eventos::ci_cancelar("<-- &Volver"), 'volver');				
-				$refrescar = eventos::duplicar(eventos::ci_procesar("R&efrescar"), 'ejecutar');	
-				$refrescar['ejecutar']['imagen'] = recurso::imagen_apl('refrescar.gif');
-				$eventos += $refrescar;
-					break;
+			$refrescar = eventos::duplicar(eventos::ci_procesar("Refre&scar"), 'ejecutar');	
+			$refrescar['ejecutar']['imagen'] = recurso::imagen_apl('refrescar.gif');
+			$eventos += $refrescar;
 		}
 		return $eventos;
-	}
-	
-	function get_etapa_actual()
-	{
-		return $this->etapa;
-	}
-	
+	}	
+
 	function evt__seleccion__modificacion($selecciones)
 	{
 		$this->selecciones = $selecciones;
@@ -57,19 +38,9 @@ class casos_web extends objeto_ci
 			return $this->selecciones;
 	}	
 	
-	//Ejecutar los casos de test
-	function evt__ejecutar()
-	{
-		$this->etapa = 2;
-	}
-	
-	function evt__volver()
-	{
-		$this->etapa = 1;
-	}	
-	
 	function obtener_html_contenido__2()
 	{
+		echo "<div style='background-color: white; border: 1px solid black; text-align: left; padding: 15px'>";
 		try {
 			//Se construye un suite por categoria que tenga test seleccionados
 			foreach (lista_casos::get_categorias() as $categoria) {
@@ -82,8 +53,9 @@ class casos_web extends objeto_ci
 				        $test->addTestCase(new $caso['id']($caso['nombre']));
 				    }
 				}		
-				if ($hay_uno)	
+				if ($hay_uno) {
 					$test->run(new reporter_toba());			
+				}
 			}
 		} catch (Exception $e) {
 			if (method_exists($e, 'mensaje_web'))
@@ -91,6 +63,7 @@ class casos_web extends objeto_ci
 			else
 				echo $e;
 		}
+		echo "</div>";		
 	
 	}
 }

@@ -39,6 +39,19 @@ class test_reflexion extends test_toba
 		fclose($fp);
 	}
 	
+	function generar_todo()
+	{
+		return array(
+			'constructor' => 1,
+			'basicos' => 1,
+			'eventos' => 2,
+			'nivel_comentarios' => 3
+		);	
+	}
+	
+	//--------------------------------------------------------------------------------
+	//---------------GENERACION DEL ARCHIVO Y SUBCLASE BASICA-------------------------
+	//--------------------------------------------------------------------------------
 	function test_creacion_archivo_y_generacion_clase()
 	// El archivo no existe en absoluto
 	{
@@ -52,7 +65,7 @@ class test_reflexion extends test_toba
 		//Se genera la subclase
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
-		$clase->generar(); 
+		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente
 		$padre->incluir();
@@ -89,7 +102,7 @@ class test_reflexion extends test_toba
 		$archivo = new archivo_php($this->path_hijo());
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
-		$clase->generar(); 
+		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente
 		$padre->incluir();
@@ -119,7 +132,7 @@ class test_reflexion extends test_toba
 		$archivo = new archivo_php($this->path_hijo());
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
-		$clase->generar(); 
+		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente
 		$padre->incluir();
@@ -131,6 +144,31 @@ class test_reflexion extends test_toba
 		$this->AssertEqual($cantidad, 1);
 	}	
 	
+	//--------------------------------------------------------------------------------
+	//---------------CUERPO DE LA SUBCLASE EN BASE AL ELEMENTO-TOBA-------------------
+	//--------------------------------------------------------------------------------	
+	function test_generacion_ci_con_metodos()
+	{
+		$nombre_clase = 'mi_ci';
+		$clase = new clase_php($nombre_clase, '', 'objeto_ci', '');
+		$clase->set_objeto('toba_testing', '1323');
+		$opciones = array(
+			'constructor' => 1,
+			'basicos' => 1,
+			'eventos' => 2,
+			'nivel_comentarios' => 3
+		);
+		$codigo = $clase->generar_clase($this->generar_todo());
+//		highlight_string("<?php\n $codigo \n");
+		eval($codigo);
+		
+		//Pruebas 
+		$mi_ci = new ReflectionClass($nombre_clase);		
+		//-- Asegura que se haya heredado el constructor
+		$this->AssertEqual($mi_ci->getConstructor()->getDeclaringClass(), $mi_ci);	
+		//-- El mantener_estado_sesion debe estar heredado
+		$this->AssertEqual($mi_ci->getMethod('mantener_estado_sesion')->getDeclaringClass(), $mi_ci);			
+	}
 }
 
 

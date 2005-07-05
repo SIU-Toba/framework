@@ -25,24 +25,24 @@ class ef_checkbox extends ef
     var $valor;
     var $valor_no_seteado;
     var $valor_info;
+	var $predeterminado="";
     
-     function ef_checkbox($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+    function ef_checkbox($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
-			//VAlor FIJO
-			if(isset($parametros["estado"])){
-				$this->estado = $parametros["estado"];		
-			}
-
-         if (isset($parametros["valor"])){
-             $this->valor = $parametros["valor"];
-             }
-         if (isset($parametros["valor_info"])){
-             $this->valor_info = $parametros["valor_info"];
-             }
-         if (isset($parametros["valor_no_seteado"])){
-             $this->valor_no_seteado = $parametros["valor_no_seteado"];
+		//VAlor FIJO
+		if(isset($parametros["estado"])){
+			$this->predeterminado= $parametros["estado"];		
 		}
-         parent :: ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
+		if (isset($parametros["valor"])){
+		    $this->valor = $parametros["valor"];
+		    }
+		if (isset($parametros["valor_info"])){
+		    $this->valor_info = $parametros["valor_info"];
+		    }
+		if (isset($parametros["valor_no_seteado"])){
+		    $this->valor_no_seteado = $parametros["valor_no_seteado"];
+		}
+		parent :: ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
     }
     
      function obtener_info()
@@ -55,7 +55,8 @@ class ef_checkbox extends ef
     
      function obtener_input()
     {
-         if(!isset($this->estado) || $this->estado == "NULL") $this->estado = "";
+         if(!isset($this->estado) || $this->estado == "NULL")
+			$this->estado = $this->predeterminado;
          
          if ($this->solo_lectura) 
          {
@@ -101,9 +102,9 @@ class ef_checkbox extends ef
     		if(isset($this->valor_no_seteado)){
 	    		$this->estado = $this->valor_no_seteado;
 	    		return true;
-    		}else{
-    			$this->estado = null;
-    		}
+			} else {
+    			$this->estado = null;			
+			}
     	}
 		return false;
 	}

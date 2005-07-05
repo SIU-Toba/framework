@@ -70,7 +70,7 @@ class elemento_objeto extends elemento
 	}
 
 	
-	//---- MANEJO DE EVENTOS
+	//---- Manejo de eventos
 	function es_evento($metodo)
 	{
 		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
@@ -141,7 +141,75 @@ class elemento_objeto extends elemento
 				return true;
 		}			
 		return false;		
-	}	
+	}
+	
+	//---- Generación de código	
+	function set_nivel_comentarios($nivel)
+	{
+		$this->nivel_comentarios = $nivel;	
+	}
+	
+	function filtrar_comentarios($metodos)
+	//Elimina aquellos niveles de comentarios superiores al dado
+	//nivel 0: ninguno
+	//nivel 1: recomendados
+	//nivel 2: explicativos
+	//nivel 3: charlatanes
+	{
+		if (is_array($metodos)) {
+			$nuevos = array();
+			foreach ($metodos as $metodo) {
+				$nuevos[] = $this->filtrar_comentarios_metodo($metodo);
+			}
+			return $nuevos;
+		} else { //es un único metodo
+			return $this->filtrar_comentarios_metodo($metodos);
+		}
+	}
+	
+	function filtrar_comentarios_metodo($metodo)
+	{
+		$nivel_maximo = 3;
+		//Sacar las marcas de los inferiores
+		for ($i = 0; $i <= $this->nivel_comentarios; $i++) {
+			$metodo = str_replace("!#c$i", "", $metodo);
+		}
+		$lineas = '';
+		foreach( explode("\n", $metodo) as $linea) {
+			//Eliminar las lineas donde estan los superiores
+			$eliminada = false;
+			for ($i = $this->nivel_comentarios+1; $i<=$nivel_maximo; $i++) {
+				if (strpos($linea, "!#c$i") !== false)
+					$eliminada = true;
+			}
+			if (!$eliminada)
+				$lineas .= $linea."\n";
+		}
+		//Se elimina un salto
+		$lineas = substr($lineas, 0, -1);
+		return $lineas;
+	}
+	
+	function generar_metodos_basicos()
+	{
+		return array();
+	}
+	
+	function generar_constructor()
+	{
+		$constructor = 
+'	function __construct($id)
+	{
+		parent::__construct($id);
+	}
+';
+		return $this->filtrar_comentarios($constructor);
+	}
+	
+	function generar_eventos()
+	{
+		return array();
+	}
 
 }
 ?>
