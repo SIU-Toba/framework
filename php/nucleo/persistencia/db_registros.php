@@ -1,6 +1,12 @@
 <?
 define("apex_db_registros_separador","%");
+/*
 
+	PENDIENTE:
+
+		- Validacion de la definicion
+
+*/
 class db_registros
 {
 	protected $definicion;				//Definicion que indica la construccion del db_registros

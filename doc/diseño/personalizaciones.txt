@@ -23,7 +23,7 @@
 			- El usuario es responsable mantener esa definicion en un catalogo propio.
 			- El usuario debe encargarse de que sus definiciones impacten 
 				en el sistema despues de un cambio de version (ejecutar SQL).
-			- El usuario es responsable de verificar si el objeto que el sobreescribio sufrio algun cambio en la nueva version.
+			- El usuario es responsable de verificar si el objeto que sobreescribio sufrio algun cambio en la nueva version.
 				( El SIU provee una lista de modificaciones realizadas en la nueva version )
 			
 		2.2 Comportamientos ( UserObjects, Windows)
@@ -74,3 +74,8 @@
 		- Existen parametros que defienen el comportamiento general del sistema.
 		- Existe una interface grafica que permite realizar esta configuracion.		
 					
+	E. Mensajes del sistema
+	-----------------------
+	
+		- El usuario puede modificar los mensajes del sistema.
+		- como?

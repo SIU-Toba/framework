@@ -34,10 +34,13 @@ class lista_casos
 
 					//Persistencia
 					//array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_s', 'nombre' => 'db_registros SIMPLE', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_mt_1', 'nombre' => 'db_registros MULTI TABLA (claves iguales)', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_mt_2', 'nombre' => 'db_registros MULTI TABLA (claves distintas)', 'categoria' => 'persistencia'),
-					
+					array('id' => 'test_db_registros_s_1', 'nombre' => 'db_registros_s -[ 1 ]- (clave simple)', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_s_2', 'nombre' => 'db_registros_s -[ 2 ]- (clave multiple)', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt_1', 'nombre' => 'db_registros_mt -[ 1 ]- (relacion estricta / clave simple identica)', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt_2', 'nombre' => 'db_registros_mt -[ 2 ]- (relacion estricta / clave compuesta identica)', 'categoria' => 'persistencia'),
+					//array('id' => 'test_db_registros_mt_1', 'nombre' => 'db_registros_mt (relacion clave simple identica)', 'categoria' => 'persistencia'),
+					//array('id' => 'test_db_registros_mt_2', 'nombre' => db_registros_mt (relacion clave simple distinta)', 'categoria' => 'persistencia'),
+
 					//Administrador
 					array('id' => 'test_elemento_toba', 'nombre' => 'Elementos Toba', 'categoria' => 'administrador'),
 					array('id' => 'test_reflexion', 'nombre' => 'Reflexión sobre archivos y clases PHP', 'categoria' => 'administrador'),

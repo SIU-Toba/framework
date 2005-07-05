@@ -131,4 +131,33 @@
 		$definicion['relacion']['anx_personas_domicilios'][0]['fk'] = 'domicilio';
 
 //___________________________________________________________________________________________________
+
+
+		$sql[] = "CREATE TEMPORARY TABLE test_db_registros_02b (
+					  id_2 SMALLINT NOT NULL, 
+					  extra VARCHAR(20) NOT NULL, 
+					  CONSTRAINT test_db_registros_02b_pkey PRIMARY KEY(id_2), 
+					  FOREIGN KEY (id_2) REFERENCES test_db_registros_01(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
+					);";	
+
+
+		$sql[] = "DROP TABLE test_db_registros_02b;";
+
+
+				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
+							VALUES ('3','Vienen de Chipoletti');";
+				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
+							VALUES ('2','Aparecen en el otoño');";
+				$this->tablas_utilizadas[] = 3;
+				break;	
+			case "5":
+				//-- Tabla 02 MITAD
+				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
+							VALUES ('0','Peras!!');";
+				$sql[] = "INSERT INTO test_db_registros_02 (id_2, extra)
+							VALUES ('1','Increibles');";
+
+
+				$sql[] = "DELETE FROM test_db_registros_02b;";
+
 ?>

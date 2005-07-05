@@ -1,8 +1,8 @@
 <?php
 require_once("test_db_registros.php");
 /*
-
-	TEST de db_registros LINEALES ('db_registro_s' y 'db_registro_mt' de relacion estricta)
+	Test de la interface BASICA de un db_registros
+	----------------------------------------------
 
 	PENDIENTE:
 
@@ -32,25 +32,30 @@ class test_db_registros extends test_toba
 	function SetUp()
 	{
 		ejecutar_sql( $this->get_sql_juego_datos() );
-		$this->instanciar_dbr();
+		$this->dbr = $this->get_dbr();
 	}
 
 	function TearDown()
 	{
 		ejecutar_sql( $this->get_sql_eliminar_juego_datos() );
 		$this->dbr->resetear();
-		unset($this->dbr);	
+		unset($this->dbr);
 	}
 	//----------------------------------------------
 
-	function dump_control()
+	function dump($mensaje="Info")
 	{
-		ei_arbol($this->dbr->get_estructura_control(),"Estructura CONTROL");	
+		ei_arbol($this->dbr->info(true),$mensaje);	
 	}
 
-	function dump_datos()
+	function dump_control($mensaje="Estructura CONTROL")
 	{
-		ei_arbol($this->dbr->obtener_registros(null, true),"Registros");	
+		ei_arbol($this->dbr->get_estructura_control(),$mensaje);	
+	}
+
+	function dump_datos($mensaje="Registros")
+	{
+		ei_arbol($this->dbr->obtener_registros(null, true),$mensaje);	
 	}
 
 	//-------------------------------------------------------------
@@ -59,7 +64,7 @@ class test_db_registros extends test_toba
 
 	function test_recuperar_claves()
 	{
-		$this->assertEqualArray( $this->dbr->get_clave(), array("id") );
+		$this->assertEqualArray( $this->dbr->get_clave(), $this->get_clave_test() );
 	}
 
 	function test_recuperar_tope_registros()
@@ -69,8 +74,8 @@ class test_db_registros extends test_toba
 	
 	function test_recuperar_clave_valor()
 	{
-		$this->dbr->cargar_datos_clave(0);
-		$this->assertEqual( $this->dbr->get_clave_valor(0), array("id"=>0) );
+		$this->dbr->cargar_datos_clave( $this->get_id_registro_test() );
+		$this->assertEqual( $this->dbr->get_clave_valor(0), $this->get_clave_valor_test() );
 	}
 
 	//-------------------------------------------------------------
@@ -110,7 +115,7 @@ class test_db_registros extends test_toba
 		Carga completa de registros con WHERE
 	*/
 	{
-		$this->dbr->cargar_datos_clave(1);
+		$this->dbr->cargar_datos_clave( $this->get_id_registro_test() );
 		$this->AssertEqual($this->dbr->cantidad_registros(), 1);
 		$registro = $this->dbr->obtener_registro(0);		
 		$this->AssertEqual($registro['nombre'], "Naranjas");
@@ -150,7 +155,7 @@ class test_db_registros extends test_toba
 		Obtener un registro
 	*/
 	{
-		$this->dbr->cargar_datos_clave(1);
+		$this->dbr->cargar_datos_clave( $this->get_id_registro_test() );
 		$this->AssertEqual($this->dbr->obtener_registro_valor(0,"nombre"), "Naranjas");
 	}
 
@@ -191,9 +196,8 @@ class test_db_registros extends test_toba
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$condicion["id"] = "0";
 		$this->AssertEqual($this->dbr->cantidad_registros(), 3);
-		$datos = $this->dbr->obtener_registros($condicion);
+		$datos = $this->dbr->obtener_registros( $this->get_condicion_filtro_test() );
 		$this->AssertEqual(count($datos), 1);
 	}
 

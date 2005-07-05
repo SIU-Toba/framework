@@ -1,25 +1,16 @@
 <?php
 require_once("test_db_registros.php");
-
-class test_db_registros_mt_debil extends test_db_registros
+/*
+	TEST de la relacion debil
+*/
+class test_db_registros_mt_3 extends test_db_registros
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->dbr_a_utilizar = "01_mt";
 	}
 	
-	function test_carga_estricta()
-	{
-		$this->dbr->establecer_relacion_estricta();
-		$this->dbr->cargar_datos();
-		$this->assertEqual( $this->dbr->cantidad_registros(), 2 );
-		$control = $this->dbr->get_estructura_control();
-		$this->AssertEqual($control[0]['estado'], "db");
-		$this->AssertEqual($control[1]['estado'], "db");
-	}
-
-	function test_carga_debil()
+	function test_carga()
 	{
 		$this->dbr->establecer_relacion_debil();
 		$this->dbr->cargar_datos();
@@ -30,7 +21,7 @@ class test_db_registros_mt_debil extends test_db_registros
 	// Modificacion de registros en la relacion DEBIL
 	//----------------------------------------------------------
 
-	function test_debil_agregar_registro_dbr_vacio()
+	function test_agregar_registro_dbr_vacio()
 	{
 		$this->dbr->establecer_relacion_debil();
 		$datos = $this->get_tabla_registro(1,0);
@@ -41,7 +32,7 @@ class test_db_registros_mt_debil extends test_db_registros
 		$this->AssertEqual($control[0]['tablas']['test_db_registros_02'], "i");
 	}
 	
-	function test_debil_agregar_registro()
+	function test_agregar_registro()
 	{
 		$this->dbr->establecer_relacion_debil();
 		$this->dbr->cargar_datos();
@@ -53,7 +44,7 @@ class test_db_registros_mt_debil extends test_db_registros
 		$this->AssertEqual($control[4]['tablas']['test_db_registros_02'], "i");
 	}
 
-	function test_debil_modificar_registro_db_inner()
+	function test_modificar_registro_db_inner()
 	{
 		$this->dbr->establecer_relacion_debil();
 		$this->dbr->cargar_datos_clave(2);
@@ -66,7 +57,7 @@ class test_db_registros_mt_debil extends test_db_registros
 		$this->AssertEqual($control[0]['tablas']['test_db_registros_02'], "u");
 	}
 
-	function test_debil_modificar_registro_db_outer()
+	function test_modificar_registro_db_outer()
 	{
 		$this->dbr->establecer_relacion_debil();
 		$this->dbr->cargar_datos_clave(0);
@@ -77,6 +68,5 @@ class test_db_registros_mt_debil extends test_db_registros
 		$this->AssertEqual($control[0]['estado'], "u");
 		$this->AssertEqual($control[0]['tablas']['test_db_registros_02'], "i");
 	}
-
 }
 ?>
