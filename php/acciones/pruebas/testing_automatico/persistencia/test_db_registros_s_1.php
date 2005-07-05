@@ -1,12 +1,12 @@
 <?php
 require_once("test_db_registros_lineal.php");
 /*
-
 	PENDIENTE:
+
 		- Modificacion de claves ( $this->dbr->activar_modificacion_clave() )
 
 */
-class test_db_registros_s extends test_db_registros_lineal
+class test_db_registros_s_1 extends test_db_registros_lineal
 {
 	function __construct()
 	{
@@ -19,6 +19,37 @@ class test_db_registros_s extends test_db_registros_lineal
 		return	array("id IN (0,1,2)");
 	}
 
+	function get_tablas()
+	{
+		$sql[] = "CREATE TEMPORARY TABLE test_db_registros_01 (
+					  id 				SMALLINT 		NOT NULL, 
+					  nombre			VARCHAR(20) 	NOT NULL, 
+					  descripcion 		VARCHAR(80), 
+					  CONSTRAINT test_db_registros_01_pkey PRIMARY KEY(id)
+					);";
+		return $sql;		
+	}
+
+	function get_registros()
+	{
+		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
+				VALUES ('3','Manzanas','Las manzanas son ricas.');";
+		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
+				VALUES ('0','Peras','Las peras son ricas.');";
+		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
+				VALUES ('2','Mandarinas','Las mandarinas son ricas.');";
+		$sql[] = "INSERT INTO test_db_registros_01 (id, nombre, descripcion)
+				VALUES ('1','Naranjas','Las naranjas son ricas.');";
+		return $sql;
+	}
+
+
+	function get_id()
+	{
+	
+	}
+	
+	
 	function get_registro_test($concepto)
 	//Registros para insertar en las tablas
 	{
