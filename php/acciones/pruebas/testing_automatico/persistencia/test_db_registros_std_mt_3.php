@@ -3,7 +3,7 @@ require_once("test_db_registros.php");
 /*
 	TEST de la relacion debil
 */
-class test_db_registros_mt_3 extends test_db_registros
+class test_db_registros_std_mt_3 extends test_db_registros_std
 {
 	function __construct()
 	{

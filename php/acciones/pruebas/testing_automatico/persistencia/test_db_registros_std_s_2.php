@@ -1,9 +1,9 @@
 <?php
-require_once("test_db_registros_s.php");
+require_once("test_db_registros_std_s.php");
 /*
 	DB_REGISTRO SIMPLE con clave COMPUESTA.
 */
-class test_db_registros_s_2 extends test_db_registros_s
+class test_db_registros_std_s_2 extends test_db_registros_std_s
 {
 	function get_sql_tablas()
 	{
@@ -40,8 +40,8 @@ class test_db_registros_s_2 extends test_db_registros_s
 	
 	function get_dbr()
 	{
-		require_once("test_db_registros_s_2_dbr.php");
-		return new test_db_registros_s_2_dbr("simple","instancia",0);
+		require_once("test_db_registros_std_s_2_dbr.php");
+		return new test_db_registros_std_s_2_dbr("simple","instancia",0);
 	}
 
 	function get_where_test()

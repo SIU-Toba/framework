@@ -3,7 +3,7 @@ require_once("test_db_registros.php");
 /*
 	Multitabla ESTRICTO con clave SIMPLE COMPUESTA.
 */
-class test_db_registros_mt_2 extends test_db_registros
+class test_db_registros_std_mt_2 extends test_db_registros_std
 {
 	function get_sql_tablas()
 	{
@@ -53,8 +53,8 @@ class test_db_registros_mt_2 extends test_db_registros
 	
 	function get_dbr()
 	{
-		require_once("test_db_registros_mt_2_dbr.php");
-		return new test_db_registros_mt_2_dbr("multi","instancia",0);
+		require_once("test_db_registros_std_mt_2_dbr.php");
+		return new test_db_registros_std_mt_2_dbr("multi","instancia",0);
 	}
 
 	function get_where_test()

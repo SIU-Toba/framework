@@ -1,9 +1,9 @@
 <?php
-require_once("test_db_registros.php");
+require_once("test_db_registros_std_s.php");
 /*
 	Multitabla ESTRICTO con clave SIMPLE IDENTICA.
 */
-class test_db_registros_mt_1 extends test_db_registros
+class test_db_registros_std_s_1 extends test_db_registros_std_s
 {
 	function get_sql_tablas()
 	{
@@ -13,18 +13,11 @@ class test_db_registros_mt_1 extends test_db_registros
 					  descripcion 		VARCHAR(80), 
 					  CONSTRAINT test_maestro_pkey PRIMARY KEY(id)
 					);";
-		$sql[] = "CREATE TEMPORARY TABLE test_detalle (
-					  id 				SMALLINT		NOT NULL, 
-					  extra 			VARCHAR(20)		NOT NULL, 
-					  CONSTRAINT test_detalle_pkey PRIMARY KEY(id), 
-					  FOREIGN KEY (id) REFERENCES test_maestro(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
-					);";	
 		return $sql;
 	}
 	
 	function get_sql_eliminar_tablas()
 	{
-		$sql[] = "DROP TABLE test_detalle;";
 		$sql[] = "DROP TABLE test_maestro;";
 		return $sql;
 	}
@@ -35,29 +28,24 @@ class test_db_registros_mt_1 extends test_db_registros
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('1','Naranjas','Las naranjas son ricas.');";
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('2','Mandarinas','Las mandarinas son ricas.');";
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('3','Manzanas','Las manzanas son ricas.');";
-		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('0','Peras!!');";
-		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('1','Increibles');";
-		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('2','Aparecen en el otoño');";
-		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('3','Vienen de Chipoletti');";
 		return $sql;
 	}
 
 	function get_sql_eliminar_juego_datos()
 	{
-		$sql[] = "DELETE FROM test_detalle;";
 		$sql[] = "DELETE FROM test_maestro;";
 		return $sql;
 	}
 	
 	function get_dbr()
 	{
-		require_once("test_db_registros_mt_1_dbr.php");
-		return new test_db_registros_mt_1_dbr("multi","instancia",0);
+		require_once("test_db_registros_std_s_1_dbr.php");
+		return new test_db_registros_std_s_1_dbr("simple","instancia",0);
 	}
 
 	function get_where_test()
 	{
-		return	array("maestro.id IN (0,1,2)");
+		return	array("id IN (0,1,2)");
 	}
 	
 	function get_clave_test()
@@ -75,12 +63,11 @@ class test_db_registros_mt_1 extends test_db_registros
 		return array("id"=>1);
 	}
 
-
 	function get_condicion_filtro_test()
 	{
 		return array("id"=>"0");
 	}
-
+	
 	function get_registro_test($concepto)
 	//Registros para insertar en las tablas
 	{
@@ -89,13 +76,12 @@ class test_db_registros_mt_1 extends test_db_registros
 		$datos['valido_1']['id']="10";
 		$datos['valido_1']['nombre']="TOMATE";
 		$datos['valido_1']['descripcion']="Esta es una cosa";
-		$datos['valido_1']['extra']="Cossaaaaa!";
 
 		$datos['valido_2']['id']="20";
 		$datos['valido_2']['nombre']="TOMATE";
 		$datos['valido_2']['descripcion']="Este es un Hola";
-		$datos['valido_2']['extra']="Hollaaaa!";
-		//- Registro invalido (nombre y extra NULL)
+
+		//- Registro invalido (nombre NULL)
 		$datos['invalido_null']['id']="450";
 		$datos['invalido_null']['descripcion']="Este es un Perro";
 		//$datos['invalido_null']['nombre']="Hola";
@@ -104,14 +90,12 @@ class test_db_registros_mt_1 extends test_db_registros
 		$datos['invalido_col_inexistente']['id']="220";
 		$datos['invalido_col_inexistente']['nombre']="Hola";
 		$datos['invalido_col_inexistente']['descripcion']="Este es un Perro";
-		$datos['invalido_col_inexistente']['extra']="Hollaaaa!";
 		$datos['invalido_col_inexistente']['columna_invalida']="Todo mal";
 
 		//- Registro invalido para la DB (El ID es un string)
 		$datos['invalido_db']['id']="xxx";
 		$datos['invalido_db']['nombre']="Hola";
 		$datos['invalido_db']['descripcion']="Este es un Perro";
-		$datos['invalido_db']['extra']="Hollaaaa!";
 
 		if(isset($datos[$concepto])){
 			return 	$datos[$concepto];

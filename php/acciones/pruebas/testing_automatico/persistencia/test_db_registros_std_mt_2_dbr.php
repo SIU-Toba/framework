@@ -1,7 +1,7 @@
 <?
 require_once('nucleo/persistencia/db_registros_mt.php');
 
-class test_db_registros_mt_2_dbr extends db_registros_mt
+class test_db_registros_std_mt_2_dbr extends db_registros_mt
 {
 	function __construct($id, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=false)
 	{
