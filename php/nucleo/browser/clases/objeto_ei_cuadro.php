@@ -495,7 +495,7 @@ class objeto_ei_cuadro extends objeto_ei
 	            //-- Eventos aplicados a una fila
 				foreach ($this->eventos as $id => $evento) {
 					if ($evento['sobre_fila']) {
-						echo "<td>\n";
+						echo "<td class='lista-col-titulo'>\n";
 						$evento_js = eventos::a_javascript($id, $evento, $this->obtener_clave_fila($f));
 						$js = "{$this->objeto_js}.set_evento($evento_js);";
 						echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 

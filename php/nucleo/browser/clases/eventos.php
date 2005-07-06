@@ -125,9 +125,33 @@ class eventos
 		$evento['ordenar']['maneja_datos'] = false;
 		return $evento;	
 	}
+	
+	//---------------------------------------------------
+	//---Eventos de Calendario	
+	static function seleccionar_dia()
+	{
+		$evento = self::evento_estandar('seleccionar_dia', null, false);
+		$evento['seleccionar_dia']['maneja_datos'] = false;
+		$evento['seleccionar_dia']['ayuda'] = 'Seleccionar el día';
+		return $evento;	
+	}	
+	
+	static function seleccionar_semana()
+	{
+		$evento = self::evento_estandar('seleccionar_semana', null, false);
+		$evento['seleccionar_semana']['maneja_datos'] = false;
+		$evento['seleccionar_semana']['ayuda'] = 'Seleccionar la semana';
+		return $evento;	
+	}	
+	
+	static function cambiar_mes()
+	{
+		$evento = self::evento_estandar('cambiar_mes', null, false);
+		$evento['cambiar_mes']['maneja_datos'] = false;
+		$evento['cambiar_mes']['ayuda'] = 'Cambiar de mes';
+		return $evento;	
+	}	
 
 }
-
-
 
 ?>

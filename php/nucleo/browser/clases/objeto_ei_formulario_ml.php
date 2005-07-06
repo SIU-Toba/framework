@@ -184,7 +184,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 			}
 		} else {	//Es la primera carga
-			$this->cargar_inicial();
+			$this->carga_inicial();
 		}
 		$this->limpiar_interface();
 	}	
