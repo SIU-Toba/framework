@@ -147,6 +147,9 @@ class elemento_objeto extends elemento
 	function set_nivel_comentarios($nivel)
 	{
 		$this->nivel_comentarios = $nivel;	
+		foreach ($this->subelementos as $elemento) {
+			$elemento->set_nivel_comentarios($nivel);
+		}					
 	}
 	
 	function filtrar_comentarios($metodos)
@@ -206,7 +209,7 @@ class elemento_objeto extends elemento
 		return $this->filtrar_comentarios($constructor);
 	}
 	
-	function generar_eventos()
+	function generar_eventos($solo_basicos)
 	{
 		return array();
 	}

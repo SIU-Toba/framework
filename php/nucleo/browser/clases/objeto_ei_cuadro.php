@@ -54,7 +54,12 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 	//-------------------------------------------------------------------------------
-	
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_ei_cuadro.php');
+		return new elemento_objeto_ei_cuadro();
+	}	
+
 	function destruir()
 	{
 		$this->memoria["eventos"] = array();

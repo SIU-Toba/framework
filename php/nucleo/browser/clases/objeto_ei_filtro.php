@@ -16,6 +16,12 @@ require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
 class objeto_ei_filtro extends objeto_ei_formulario
 {
 
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_ei_filtro.php');
+		return new elemento_objeto_ei_filtro();
+	}
+
 	function get_lista_eventos()
 	{
 		$eventos = array();

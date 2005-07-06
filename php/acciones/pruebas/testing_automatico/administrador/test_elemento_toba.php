@@ -1,8 +1,24 @@
 <?php
 require_once('api/elemento_objeto_ci.php');
+require_once('nucleo/lib/reflexion/clase_php.php');
 
 class test_elemento_toba extends test_toba
 {
+
+	function generar_todo()
+	{
+		return array(
+			'constructor' => 1,
+			'basicos' => 1,
+			'eventos' => 2,
+			'nivel_comentarios' => 3
+		);	
+	}	
+	
+
+	//-----------------------------------------------------
+	//---------------ANALISIS DE EVENTOS-------------------
+	//-----------------------------------------------------	
 	
 	function asertar_eventos($elemento, $predefinidos, $invalidos, $desconocidos, $sospechosos)
 	{
@@ -31,7 +47,6 @@ class test_elemento_toba extends test_toba
 		}		
 	}
 	
-	
 	function test_eventos_ci_simple()
 	{
 		$predefinidos= array('evt__procesar', 'evt__cancelar');
@@ -47,13 +62,73 @@ class test_elemento_toba extends test_toba
 	function test_eventos_ci_con_dependencias()
 	{
 		//Un formulario como dependencia que no tiene el 'baja' entre los predefinidos
-		$predefinidos= array(	'evt__formulario__alta', 'evt__formulario__modificacion', 'evt__formulario__cancelar');
+		$predefinidos= array('evt__formulario__alta', 'evt__formulario__modificacion', 'evt__formulario__cancelar');
 		$desconocidos = array('evt__formulario__observar', 'evt__formulario__baja');
 		$sospechosos = array('evt__formulario___otro', 'evt__formulario_alta');
 		
 		$et_ci = new elemento_objeto_ci();
 		$et_ci->cargar_db('toba_testing', 1323);
 		$this->asertar_eventos($et_ci, $predefinidos, array(), $desconocidos, $sospechosos);		
+	}	
+	
+	
+	//--------------------------------------------------------------------------------
+	//---------------CUERPO DE LA SUBCLASE EN BASE AL ELEMENTO-TOBA-------------------
+	//--------------------------------------------------------------------------------	
+
+	function test_generacion_ci_con_metodos()
+	{
+		$nombre_clase = 'mi_ci';
+		$clase = new clase_php($nombre_clase, '', 'objeto_ci', '');
+		$clase->set_objeto('toba_testing', '1323');
+		$codigo = $clase->generar_clase($this->generar_todo());
+//		highlight_string("<?php\n $codigo \n");
+		eval($codigo);
+		
+		//Pruebas 
+		$mi_ci = new ReflectionClass($nombre_clase);		
+		//-- Asegura que se haya heredado el constructor
+		$this->AssertEqual($mi_ci->getConstructor()->getDeclaringClass(), $mi_ci);	
+		//-- El mantener_estado_sesion debe estar heredado
+		$this->AssertEqual($mi_ci->getMethod('mantener_estado_sesion')->getDeclaringClass(), $mi_ci);
+
+		//-- Los listeners de eventos procesar y cancelar
+		$this->AssertEqual($mi_ci->getMethod('evt__procesar')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__cancelar')->getDeclaringClass(), $mi_ci);	
+
+		//-- Los listeners de carga, alta, modificacion y cancelar del formulario	
+		$this->AssertEqual($mi_ci->getMethod('evt__formulario__carga')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__formulario__alta')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__formulario__modificacion')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__formulario__cancelar')->getDeclaringClass(), $mi_ci);
+		//-- No debio generar el listener de baja porque no esta en la definición
+		try { 
+			$mi_ci->getMethod('evt__formulario__baja');
+			$this->fail();
+		}
+		catch (Exception $e) { 
+			$this->pass();
+		};
+		
+		//-- Los listeners de carga y seleccion del cuadro
+		$this->AssertEqual($mi_ci->getMethod('evt__cuadro__carga')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__cuadro__seleccion')->getDeclaringClass(), $mi_ci);
+		
+		//--Los listeners de carga, modificacion y seleccion del ML sin analisis
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_sin_analisis__carga')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_sin_analisis__modificacion')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_sin_analisis__seleccion')->getDeclaringClass(), $mi_ci);
+		
+		//--Los listeners de carga, modificacion y seleccion del ML con analisis por eventos
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_eventos__carga')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_eventos__registro_alta')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_eventos__registro_baja')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__ml_eventos__registro_modificacion')->getDeclaringClass(), $mi_ci);		
+		
+		//--Listeners de carga, filtrar y cancelar del filtro		
+		$this->AssertEqual($mi_ci->getMethod('evt__filtro__carga')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__filtro__cancelar')->getDeclaringClass(), $mi_ci);
+		$this->AssertEqual($mi_ci->getMethod('evt__filtro__filtrar')->getDeclaringClass(), $mi_ci);
 	}	
 }
 

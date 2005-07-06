@@ -38,11 +38,21 @@ class elemento_objeto_ci extends elemento_objeto
 		return $this->filtrar_comentarios($basicos);
 	}
 
-	function generar_eventos()
+	function generar_eventos($solo_basicos)
 	{
-		$eventos = parent::generar_eventos();
+		$eventos = parent::generar_eventos($solo_basicos);
+		if (!$solo_basicos) {
+			foreach ($this->eventos_predefinidos() as $evento) {
+				$funcion = "\tfunction evt__$evento()\n\t{\n\t}\n";
+				$eventos['Propios'][] = $this->filtrar_comentarios($funcion);
+			}
+		}
+		//ATENCION: Cuando puedan definirse nuevos eventos en el administrador incluirlos aquí
 		
-				
+		//Se incluyen los eventos de los hijos
+		foreach ($this->subelementos as $elemento) {
+			$eventos += $elemento->generar_eventos($solo_basicos);
+		}		
 		return $eventos;
 	}	
 }

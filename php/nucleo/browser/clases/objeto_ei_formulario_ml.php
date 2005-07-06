@@ -32,6 +32,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 	//-------------------------------------------------------------------------------
 
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_ei_formulario_ml.php');
+		return new elemento_objeto_ei_formulario_ml();
+	}	
+	
 	function destruir()
 	{
 		$this->memoria['siguiente_id_fila'] = $this->siguiente_id_fila;

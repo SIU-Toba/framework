@@ -912,7 +912,7 @@ class objeto_ci extends objeto_ei
 				echo "</div>";
 			}
 		}
-		echo "<div class='tabs-v-solapa' style='height:100%'> </div>";
+		echo "<div class='tabs-v-solapa' style='height:99%'> </div>";
 	}
 	//-------------------------------------------------------------------------------	
 	

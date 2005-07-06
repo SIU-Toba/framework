@@ -22,8 +22,10 @@ class clase_php
 	function set_objeto($proyecto, $objeto)
 	{
 		//Carga el elemento toba con este objeto
-		$this->elemento_toba = call_user_func(array($this->padre_nombre, 'elemento_toba'));
-		$this->elemento_toba->cargar_db($proyecto, $objeto);		
+		if (class_exists($this->padre_nombre)) {
+			$this->elemento_toba = call_user_func(array($this->padre_nombre, 'elemento_toba'));
+			$this->elemento_toba->cargar_db($proyecto, $objeto);		
+		}
 	}
 	
 	//--Generación de clases	
@@ -53,8 +55,7 @@ class clase_php
 	{
 		if (!isset($this->elemento_toba))
 			return '';
-
-		$this->elemento_toba->set_nivel_comentarios($opciones['nivel_comentarios']);			
+		$this->elemento_toba->set_nivel_comentarios($opciones['nivel_comentarios']);
 		$cuerpo = '';
 		if ($opciones['constructor']) {
 			$cuerpo .= $this->elemento_toba->generar_constructor()."\n";
@@ -65,7 +66,8 @@ class clase_php
 			}
 		}
 		if ($opciones['eventos']) {
-			$grupo_eventos = $this->elemento_toba->generar_eventos($opciones['eventos']);
+			$solo_basicos = ($opciones['eventos'] == 1);
+			$grupo_eventos = $this->elemento_toba->generar_eventos($solo_basicos);
 			if (count($grupo_eventos) > 0) {
 				$cuerpo .= $this->separador_seccion_grande('Eventos');
 				foreach ($grupo_eventos as $seccion =>$eventos) {
@@ -87,13 +89,14 @@ class clase_php
 
 	protected function separador_seccion_chica($nombre='')
 	{
-		return "\t//------------------------------$nombre------------------------------\n";	
+		return "\t//----------------------------- $nombre -----------------------------\n";	
 	}	
 	
 	protected function separador_seccion_grande($nombre)
 	{
 		return  "\t//-------------------------------------------------------------------\n".
-				"\t//---$nombre\n";	
+				"\t//--- $nombre\n".
+				"\t//-------------------------------------------------------------------\n\n";
 	}	
 		
 	

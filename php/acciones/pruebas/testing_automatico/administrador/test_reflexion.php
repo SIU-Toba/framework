@@ -7,10 +7,6 @@ class test_reflexion extends test_toba
 	protected $padre;
 	protected $hijo;
 
-	function setUp()
-	{
-	}
-	
 	function tearDown()
 	{
 		$this->borrar_archivo();
@@ -143,32 +139,7 @@ class test_reflexion extends test_toba
 		str_replace('once', '', file_get_contents($this->path_hijo()), $cantidad);
 		$this->AssertEqual($cantidad, 1);
 	}	
-	
-	//--------------------------------------------------------------------------------
-	//---------------CUERPO DE LA SUBCLASE EN BASE AL ELEMENTO-TOBA-------------------
-	//--------------------------------------------------------------------------------	
-	function test_generacion_ci_con_metodos()
-	{
-		$nombre_clase = 'mi_ci';
-		$clase = new clase_php($nombre_clase, '', 'objeto_ci', '');
-		$clase->set_objeto('toba_testing', '1323');
-		$opciones = array(
-			'constructor' => 1,
-			'basicos' => 1,
-			'eventos' => 2,
-			'nivel_comentarios' => 3
-		);
-		$codigo = $clase->generar_clase($this->generar_todo());
-//		highlight_string("<?php\n $codigo \n");
-		eval($codigo);
-		
-		//Pruebas 
-		$mi_ci = new ReflectionClass($nombre_clase);		
-		//-- Asegura que se haya heredado el constructor
-		$this->AssertEqual($mi_ci->getConstructor()->getDeclaringClass(), $mi_ci);	
-		//-- El mantener_estado_sesion debe estar heredado
-		$this->AssertEqual($mi_ci->getMethod('mantener_estado_sesion')->getDeclaringClass(), $mi_ci);			
-	}
+
 }
 
 

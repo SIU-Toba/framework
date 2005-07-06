@@ -38,7 +38,13 @@ class archivo_php
 
 	function mostrar()
 	{
-		highlight_file($this->nombre);
+		require_once("3ros/PHP_Highlight.php");
+		$h = new PHP_Highlight(false);
+		$h->loadFile($this->nombre);		
+		$formato_linea = "<span style='background-color:#D4D0C8; color: black; font-size: 10px;".
+						" padding-top: 2px; padding-right: 2px; margin-left: -4px; width: 20px; text-align: right;'>".
+						"%2d</span>&nbsp;&nbsp;";
+		$h->toHtml(false, true, $formato_linea, true);
 	}
 	
 	function abrir()
