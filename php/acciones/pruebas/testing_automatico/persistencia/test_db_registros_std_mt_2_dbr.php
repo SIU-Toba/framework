@@ -3,12 +3,11 @@ require_once('nucleo/persistencia/db_registros_mt.php');
 
 class test_db_registros_std_mt_2_dbr extends db_registros_mt
 {
-	function __construct($id, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=false)
+	function __construct($fuente=null, $max_registros=0, $min_registros=0)
 	{
 		$def = 	array(	
 					array (
 						'nombre' => 'test_maestro',
-						'alias' => 'maestro',
 						'columna' => array( 
 							array( 	'nombre'=>'id1',
 									'pk'=>1, 
@@ -23,7 +22,6 @@ class test_db_registros_std_mt_2_dbr extends db_registros_mt
 					),
 					array (
 						'nombre' => 'test_detalle',
-						'alias' => 'detalle',
 						'columna' => array( 
 							array( 	'nombre'=>'id1',
 									'pk'=>1, 
@@ -38,13 +36,13 @@ class test_db_registros_std_mt_2_dbr extends db_registros_mt
 						)
 					)
 				);
-		parent::__construct($id, $def, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+		parent::__construct($def, $fuente, $max_registros, $min_registros);
 	}	
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "maestro.id1 = '{$id['id1']}'";
-		$where[] = "maestro.id2 = '{$id['id2']}'";
+		$where[] = "test_maestro.id1 = '{$id['id1']}'";
+		$where[] = "test_maestro.id2 = '{$id['id2']}'";
 		$this->cargar_datos($where);
 	}
 }

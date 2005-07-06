@@ -22,16 +22,9 @@ class asercion
 		}
 	}
 
-	function error($texto="Estado de error")
+	function error($texto)
 	{
-		
+		throw new excepcion_toba($texto);
 	}
 }		
-/*		
-		else{
-			if(count($array)==0){
-				throw new excepcion_toba($texto);
-			}
-		}
-*/
 ?>

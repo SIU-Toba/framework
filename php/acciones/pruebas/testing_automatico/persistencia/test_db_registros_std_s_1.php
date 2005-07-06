@@ -40,7 +40,7 @@ class test_db_registros_std_s_1 extends test_db_registros_std_s
 	function get_dbr()
 	{
 		require_once("test_db_registros_std_s_1_dbr.php");
-		return new test_db_registros_std_s_1_dbr("simple","instancia",0);
+		return new test_db_registros_std_s_1_dbr("instancia");
 	}
 
 	function get_where_test()

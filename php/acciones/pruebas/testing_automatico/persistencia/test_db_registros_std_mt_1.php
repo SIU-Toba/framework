@@ -52,12 +52,12 @@ class test_db_registros_std_mt_1 extends test_db_registros_std_mt
 	function get_dbr()
 	{
 		require_once("test_db_registros_std_mt_1_dbr.php");
-		return new test_db_registros_std_mt_1_dbr("multi","instancia",0);
+		return new test_db_registros_std_mt_1_dbr("instancia");
 	}
 
 	function get_where_test()
 	{
-		return	array("maestro.id IN (0,1,2)");
+		return	array("test_maestro.id IN (0,1,2)");
 	}
 	
 	function get_clave_test()

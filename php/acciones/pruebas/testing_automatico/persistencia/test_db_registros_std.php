@@ -4,7 +4,7 @@ require_once("test_db_registros.php");
 	Test de la interface BASICA de un db_registros
 	----------------------------------------------
 
-	PENDIENTE:
+	PRUEBAS PENDIENTE:
 
 		- Columnas externas
 		- carga de columnas externas
@@ -13,6 +13,13 @@ require_once("test_db_registros.php");
 		- topes de registros
 		- reset
 		- Preservacion de campos que ya existian pero no se entregaron en una modificacion
+
+	CASOS
+	
+		- claves distintas
+		- 3 tablas
+		- secuencias
+		- relacion debil
 
 */
 class test_db_registros_std extends test_db_registros
@@ -23,11 +30,11 @@ class test_db_registros_std extends test_db_registros
 
 	function test_dump()
 	{
-		$this->dump_definicion_externa();
-		$this->dump_definicion();
 		return;	
-		$this->dump();
 		$this->dump_control();
+		$this->dump_definicion();
+		$this->dump_definicion_externa();
+		$this->dump();
 		$this->dump_datos();
 	}
 
@@ -38,7 +45,8 @@ class test_db_registros_std extends test_db_registros
 
 	function test_recuperar_tope_registros()
 	{
-		$this->assertEqual( $this->dbr->get_tope_registros(), 0 );
+		$this->assertEqual( $this->dbr->get_tope_max_registros(), 0 );
+		$this->assertEqual( $this->dbr->get_tope_min_registros(), 0 );
 	}
 	
 	function test_recuperar_clave_valor()

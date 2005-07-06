@@ -1,24 +1,12 @@
 <?
 define("apex_db_registros_separador","%");
-/*
-	PENDIENTE:
 
-		- Definir la nomenclatura: campo/columna (pega feo en 'externa')
-		- Validacion de la definicion
-		- El manejo de la secuencia esta basado en Postgresql
-		- Registrar controlador
-		- Control valores UNICOS
-*/
 class db_registros
 {
 	// Definicion asociada a la TABLA
-	protected $tabla;							// Tablas manejadas
 	protected $clave;							// Columnas que constituyen la clave de la tabla
 	protected $campos;							// Campos del db_registros
-	protected $campos_manipulables;				// Campos utilizados para generar SQL
 	protected $campos_no_nulo;					// Campos que no admiten el valor NULL
-	protected $campos_select;
-	protected $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
 	protected $campos_externa;
 	// Definicion general
 	protected $tope_registros;					// Cantidad de registros permitida. 0 = n registros
@@ -42,18 +30,16 @@ class db_registros
 	protected $baja_logica_valor;				// Valor de la baja logica
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	// Memoria autonoma
-	protected $memoria_autonoma;				// Se persiste en la sesion por si mismo
+	protected $memoria_autonoma = false;		// Se persiste en la sesion por si mismo
 	protected $identificador;					// Identificador del registro
 	protected $posicion_finalizador;			// Posicion del objeto en el array de finalizacion
 
-	function __construct($id, $definicion, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=true)
+	function __construct($definicion, $fuente=null, $tope_max_registros=0, $tope_min_registros=0)
 	{
-		$this->identificador = $id; //ID unico, para buscarse en la sesion
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
-		$this->tope_registros = $tope_registros;
-		$this->utilizar_transaccion = $utilizar_transaccion;
-		$this->memoria_autonoma = $memoria_autonoma;
+		$this->tope_max_registros = $tope_max_registros;
+		$this->tope_min_registros = $tope_min_registros;
 		//Inicializar la estructura de campos
 		$this->inicializar_definicion_campos();
 		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
@@ -78,29 +64,13 @@ class db_registros
 		toba::get_logger()->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
 	}
 	
-	public function resetear()
-	{
-		$this->log("RESET!!");
-		$this->datos = array();
-		$this->datos_orig = array();
-		$this->control = array();
-		$this->proximo_registro = 0;
-		$this->where = null;
-		$this->from = null;
-		if($this->memoria_autonoma){
-			//Borro informacion de la sesion
-			if($this->existe_instanciacion_previa()){
-				toba::get_hilo()->eliminar_dato_global($this->identificador);
-			}
-		}
-	}
-	
+
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
 
 	public function info($mostrar_datos=false)
-	//Informacion del buffer
+	//Informacion del estado del db_registros
 	{
 		$estado['control']=$this->control;
 		$estado['proximo_registro']=$this->proximo_registro;
@@ -111,13 +81,10 @@ class db_registros
 	}
 
 	public function info_definicion()
-	//Informacion del buffer
+	//Info sobre la definicion del db_registros
 	{
-		$estado['tabla'] = $this->tabla;              
 		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
 		$estado['campos'] = $this->campos;
-		$estado['campos_sql'] = isset($this->campos_sql) ? $this->campos_sql : null;
-		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select: null;
 		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
 		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
 		return $estado;
@@ -128,14 +95,29 @@ class db_registros
 		return $this->definicion;
 	}
 
-	public function get_tope_registros()
+	public function get_tope_max_registros()
 	{
-		return $this->tope_registros;	
+		return $this->tope_max_registros;	
 	}
 
+	public function get_tope_min_registros()
+	{
+		return $this->tope_min_registros;	
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
+
+	public function activar_transaccion()		
+	{
+		$this->utilizar_transaccion = true;
+	}
+
+	public function desactivar_transaccion()		
+	{
+		$this->utilizar_transaccion = false;
+	}
 
 	public function activar_control_sincro()
 	{
@@ -166,12 +148,35 @@ class db_registros
 		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
+
+	public function activar_memoria_autonoma($id)
+	{
+		$this->memoria_autonoma = true;
+		$this->identificador = $id; 		//Tiene que ser UNICO en la sesion
+	}
 	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------------------  Manejo de DATOS  -------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
+
+	public function resetear()
+	{
+		$this->log("RESET!!");
+		$this->datos = array();
+		$this->datos_orig = array();
+		$this->control = array();
+		$this->proximo_registro = 0;
+		$this->where = null;
+		$this->from = null;
+		if($this->memoria_autonoma){
+			//Borro informacion de la sesion
+			if($this->existe_instanciacion_previa()){
+				toba::get_hilo()->eliminar_dato_global($this->identificador);
+			}
+		}
+	}
 
 	public function cargar_datos_clave($id)
 	{
@@ -207,6 +212,12 @@ class db_registros
 		}
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proximo_registro = count($this->datos);	
+		//Controlo que no se haya excedido el tope de registros
+		if( $this->tope_max_registros != 0){
+			if( ( $this->cantidad_registros() > $this->proximo_registro) ){
+				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
+			}
+		}
 		//Lleno las columnas basadas en valores EXTERNOS
 		$this->actualizar_campos_externos();
 	}
@@ -433,6 +444,11 @@ class db_registros
 
 	public function agregar_registro($registro)
 	{
+		if( $this->tope_max_registros != 0){
+			if( !($this->cantidad_registros() < $this->tope_max_registros) ){
+				throw new excepcion_toba("No es posible agregar registros (TOPE MAX.)");
+			}
+		}
 		$this->notificar_controlador("ins", $registro);
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);

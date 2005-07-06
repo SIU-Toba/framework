@@ -83,11 +83,11 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 				$dep['tipo_ei'] = "objeto_ei_formulario_ml";
 			}
 			$dep['elemento'] = $e[1];
-			$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_registros();
+			$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
 		*/
 		$dep['tipo_ei'] = $this->consultar_info_dependencia($dependencia,"clase");
 		$dep['elemento'] = $this->consultar_info_dependencia($dependencia,"parametros_a");
-		$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_registros();
+		$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
 		return $dep;
 	}
 	

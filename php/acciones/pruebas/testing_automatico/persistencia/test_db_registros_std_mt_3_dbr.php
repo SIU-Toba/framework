@@ -1,7 +1,7 @@
 <?
 require_once('nucleo/persistencia/db_registros_mt.php');
 
-class test_db_registros_std_mt_1_dbr extends db_registros_mt
+class test_db_registros_std_mt_3_dbr extends db_registros_mt
 {
 	function __construct($fuente=null, $max_registros=0, $min_registros=0)
 	{
@@ -22,15 +22,15 @@ class test_db_registros_std_mt_1_dbr extends db_registros_mt
 						'columna' => array( 
 							array( 	'nombre'=>'id',
 									'pk'=>1, 
-								//	'alias'=>'pepe', 
+									'alias'=>'pepe', 
 									'no_nulo'=>1,
 									'join'=>'id' ),
-							array( 'nombre'=>'extra',
-									'no_nulo'=>1 )
+							array( 'nombre'=>'extra')
 						)
 					)
 				);
 		parent::__construct($def, $fuente, $max_registros, $min_registros);
+		$this->activar_outer_join();
 	}	
 	
 	function cargar_datos_clave($id)

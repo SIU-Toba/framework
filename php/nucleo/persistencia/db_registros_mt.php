@@ -2,105 +2,127 @@
 require_once("db_registros.php");
 
 class db_registros_mt extends db_registros
-/*
-	Queda un caso por resolver:
-		- Relacion debil entre tablas que en la que solo se graban las cosas comprometidas.
-
-*/
 {
-	protected $tabla_maestra;
-	protected $tablas_anexas;
-	protected $tipo_relacion = "estricta";
-	protected $columnas_convertidas;			//Columnas convertidas por tabla
+	private $tabla;							// Tablas manejadas
+	private $tabla_clave;					// Campos que conforman la clave de cada tabla
+	private $tabla_maestra;					// Tabla principal
+	private $tipo_join = "inner";			// Tipo de JOIN a usar
+	private $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
+	private $campos_sql_select;				// Campos utilizados para generar SQL SELECT
+	private $campos_sql_insert;				// Campos utilizados para generar SQL INSERT
+	private $campos_sql_update;				// Campos utilizados para generar SQL UPDATE
+	private $join;							// SQL de joins entre las tablas
 
-	function inicializar_definicion_campos()
+	public function validar_definicion()
 	{
 		/*
-			Generacion de la DEFINICION BASE sobre la que despues trabaja el DBR.
-				(Se basa es $this->definicion, provista por el consumidor en la creacion)
-				$this->tabla					- Nombre de la tabla
+			- Tienen que haber por lo menos 2 tablas
+			- Las tablas tienen que estar relacionadas
+			- Un alias no puede llamarse como una columna que ya existe
+			- Una tabla debe poseer una CLAVE
+		*/
+		foreach(array_keys($this->definicion) as $n_tab)
+		{
+			if(!isset($this->definicion[$n_tab]['nombre'])){
+				throw new excepcion_toba("La tabla descripta en la posicicion $n_tab no posee un atributo 'nombre'");
+			}
+		}
+	}
+
+	protected function inicializar_definicion_campos()
+	{
+		/*
+			Generacion de la DEFINICION OPERATIVA. (Se basa es $this->definicion, provista por el consumidor en la creacion)
+
 				(*) $this->campos				- TODOS los campos			// Se respetan los ALIAS
 				(*) $this->clave				- 'pk'=1
 				(*) $this->campos_no_nulo		- 'no_nulo'=1
 				(*) $this->campos_externa		- 'externa'=1
-				$this->campos_alias				- 'alias'=1
-				$this->campos_secuencia			- 'secuencas'=1 (asociativo columna/secuencia)
-				$this->campos_sql				- TODOS - secuencias - externos (para insert y update)
-				$this->campos_sql_select		- TODOS - externos (para buscar registros en la DB)
+
+				$this->tabla					- Nombre de la tabla
+				$this->campos_sql_select		- TODOS - externos (para buscar registros en la DB)			
+				$this->campos_sql_insert		- TODOS - secuencias - externos 							(x tabla)
+				$this->campos_sql_update		- TODOS - secuencias - externos - claves					(x tabla)
+				$this->campos_secuencia			- 'secuencas'=1 (asociativo columna/secuencia)				(x tabla)
+				$this->join						- JOINS
+				$this->campos_alias				- Alias a los que fueron convertidos los campos
 			
 			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
 		*/
-		for($t=0;$t<count($this->definicion['tabla']);$t++)
-		$this->tabla;
-		return;
-		
-
-
-
-		$this->campos = array();
-		$this->campos_secuencia = array();
-		$no_nulo = array();
-		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		$this->tabla_maestra = $this->definicion[0]['nombre'];
+		foreach(array_keys($this->definicion) as $n_tab)
 		{
-			//Es necesario escribir un ALIAS para cada tabla utilizada
-			if(!isset($this->definicion['tabla_alias'][$t])){
-				throw new excepcion_toba("Atencion, es necesario definir un alias para la tabla " . $this->definicion['tabla'][$t] );	
-			}
-			$tabla = $this->definicion['tabla'][$t];
-			//---- CAMPOS: (columnas + claves) ----
-			$this->campos = array_merge(	$this->campos, 
-											$this->definicion[$tabla]['clave'],
-											$this->definicion[$tabla]['columna'] );
-			//---- CAMPOS_SECUENCIA ----
-			if(isset($this->definicion[$tabla]['secuencia'])){
-				for($a=0;$a<count($this->definicion[$tabla]['secuencia']);$a++){
-					$this->campos_secuencia[] = $this->definicion[$tabla]['secuencia'][$a]['col'];
-					$this->campos_secuencia_tabla[$tabla][] = $this->definicion[$tabla]['secuencia'][$a]['col'];
+			$tabla = $this->definicion[$n_tab]['nombre'];
+			$this->tabla[] = $tabla;
+			foreach(array_keys($this->definicion[$n_tab]['columna']) as $col)
+			{
+				$es_secuencia = isset($this->definicion[$n_tab]['columna'][$col]['secuencia']) && ($this->definicion[$n_tab]['columna'][$col]['secuencia'] == 1);
+				$es_clave = isset($this->definicion[$n_tab]['columna'][$col]['pk']) && ($this->definicion[$n_tab]['columna'][$col]['pk'] == 1);
+				$es_no_nulo = isset($this->definicion[$n_tab]['columna'][$col]['no_nulo']) && ($this->definicion[$n_tab]['columna'][$col]['no_nulo'] == 1);
+				$es_externa = isset($this->definicion[$n_tab]['columna'][$col]['externa']) && ($this->definicion[$n_tab]['columna'][$col]['externa'] == 1) ;
+				$posee_alias = isset($this->definicion[$n_tab]['columna'][$col]['alias']) && trim($this->definicion[$n_tab]['columna'][$col]['alias'] != "") ;
+				$posee_join = isset($this->definicion[$n_tab]['columna'][$col]['join']) && trim($this->definicion[$n_tab]['columna'][$col]['join'] != "") ;
+				$campo = $this->definicion[$n_tab]['columna'][$col]['nombre'];
+				//Para mi ancestro
+				if( $es_clave && $n_tab == 0) $this->clave[] = $campo;	//La clave general es la de la tabla principal
+				if( $es_clave ) $this->tabla_clave[$tabla][] = $campo;
+				if( $es_externa ) $this->campos_externa[] = $campo;
+				if( !$es_secuencia && $es_no_nulo ) $this->campos_no_nulo[] = $campo;
+				//Campos de referencia para el ancestro
+				if( $posee_alias ){
+					$this->campos[] = $this->definicion[$n_tab]['columna'][$col]['alias'];
+				}else{
+					$this->campos[] = $campo;
 				}
+				//JOINs
+				if( $posee_join ){
+					//Este campo relaciona a la tabla con la tabla maestra
+					$this->join[$tabla][] = $this->tabla_maestra .".". $this->definicion[$n_tab]['columna'][$col]['join']. " = ". $tabla .".". $campo;
+				}
+				//Campos para el SELECT. 
+				//  Por defecto las columnas iguales se aplanan, 
+				//  si este efecto es indeseado se define un ALIAS
+				if( !$es_externa ){
+					if( $posee_alias ){
+						$alias = $this->definicion[$n_tab]['columna'][$col]['alias'];
+						$this->campos_sql_select[$alias] = $tabla . "." . $campo . " as " . $alias;
+						$this->campos_alias[$tabla][$campo]=$alias;
+					}else{
+						//Solo lo incluyo si no existia
+						if(!isset($this->campos_sql_select[$campo])) $this->campos_sql_select[$campo] = $tabla .".". $campo ." as ". $campo;
+					}
+				}
+				//Campos INSERT
+				if( !$es_secuencia && !$es_externa ) $this->campos_sql_insert[$tabla][] = $campo;
+				//Campos UPDATE
+				if( !$es_secuencia && !$es_externa && !$es_clave ) $this->campos_sql_update[$tabla][] = $campo;
+				//Secuencias
+				if( $es_secuencia ) $this->campos_secuencia[$tabla][$campo] = $this->definicion[$n_tab]['columna'][$col]['secuencia'];				
 			}
-			if(isset($this->definicion[$tabla]['no_nulo'])){
-				$no_nulo = array_merge($no_nulo, $this->definicion[$tabla]['no_nulo']);
-			}			
 		}
 		$this->campos = array_unique($this->campos);
-		//---- CAMPOS_MANIPULABLES ----
-		$this->campos_manipulables = array_diff($this->campos, $this->campos_secuencia);
-		//$this->campos_manipulables = $this->campos;
-		//----- CAMPOS no DUPLICADOS ----
-		if(isset($this->definicion['no_duplicado'])){
-			//Solo hay que trabajar sobre los manipulables
-			$this->campos_no_duplicados = array_diff($this->definicion['no_duplicado'], $this->campos_secuencia);
-		}else{
-			$this->campos_no_duplicados = array();
-		}
-		//---- CAMPOS no NULOS ----
-		$no_nulo = array_unique($no_nulo);
-		if(isset($no_nulo)){
-			//Solo hay que trabajar sobre los manipulables
-			$this->campos_no_nulo = array_diff($no_nulo, $this->campos_secuencia);
-		}else{
-			$this->campos_no_nulo = array();
-		}
-		//---- Columnas EXTERNAS ----
-		if(!isset($this->definicion['externa'])){
-			//Solo hay que trabajar sobre los manipulables
-			$this->definicion['externa'] = array();
-		}
-		//---- tabla maestra ----
-		$this->tabla_maestra = $this->definicion['tabla'][0];
-		//---- tablas anexas ----
-		for($t=1;$t<count($this->definicion['tabla']);$t++){
-			$this->tablas_anexas[] = $this->definicion['tabla'][$t];
-		}
+		//unset($this->definicion); Como viene la memoria??? 
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Interface BASICA
+	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
+
+	public function info_definicion()
+	//Informacion del buffer
+	{
+		$estado = parent::info_definicion();
+		$estado['tabla'] = $this->tabla;  
+		$estado['campos_sql_insert'] = isset($this->campos_sql_insert) ? $this->campos_sql_insert : null;
+		$estado['campos_sql_update'] = isset($this->campos_sql_update) ? $this->campos_sql_update : null;
+		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select : null;
+		$estado['join'] = isset($this->join) ? $this->join : null;
+		return $estado;
+	}
 
 	public function get_clave()
 	{
-		return $this->definicion[$this->tabla_maestra]['clave'];
+		return $this->clave;
 	}
 
 	public function get_clave_valor($id_registro)
@@ -111,7 +133,7 @@ class db_registros_mt extends db_registros
 	private function get_clave_valor_tabla($id_registro, $tabla)
 	// Trae los valores de las claves de una tabla anexa
 	{
-		foreach( $this->definicion[$tabla]['clave'] as $clave ){
+		foreach( $this->tabla_clave[$tabla] as $clave ){
 			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
 		}	
 		return $temp;
@@ -121,14 +143,14 @@ class db_registros_mt extends db_registros
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
 
-	function activar_relacion_estricta()
+	public function activar_inner_join()
 	{
-		$this->tipo_relacion = "estricta";
+		$this->tipo_join = "inner";
 	}
 	
-	function activar_relacion_debil()
+	public function activar_outer_join()
 	{
-		$this->tipo_relacion = "debil";
+		$this->tipo_join = "outer";
 	}
 
 	//-------------------------------------------------------------------------------
@@ -138,7 +160,7 @@ class db_registros_mt extends db_registros
 		Esto puede ser mas eficiente
 	*/
 
-	function identificar_tablas_comprometidas($registro, $testigos, $valor_si=1, $valor_no=0)
+	private function identificar_tablas_comprometidas($registro, $testigos, $valor_si=1, $valor_no=0)
 	{
 		$plan = array();
 		foreach($testigos as $tabla => $testigo)
@@ -152,10 +174,11 @@ class db_registros_mt extends db_registros
 		return $plan;
 	}
 
-	function generar_estructura_control_post_carga()
+	protected function generar_estructura_control_post_carga()
 	{
-		if($this->tipo_relacion == "debil")
+		if($this->tipo_join == "outer")
 		{
+/*
 			//Creo las columnas testigo para cada tabla
 			//ATENCION!! esto se basa en un proceso realizado en la generacion del SELECT
 			foreach($this->tablas_anexas as $tabla)
@@ -171,28 +194,29 @@ class db_registros_mt extends db_registros
 				$this->control[$a]['estado']="db";
 				$this->control[$a]['tablas']=$this->identificar_tablas_comprometidas($a, $testigos, "db", "null");
 			}
-		}else{
-			//Estructura de control de la relacion estricta
-			for($a=0;$a<count($this->datos);$a++){
-				$this->control[$a]['estado']="db";
-				for($t=0;$t<count($this->definicion['tabla']);$t++){
-					$tabla = $this->definicion['tabla'][$t];
-					$this->control[$a]['clave'][ $tabla ] = $this->get_clave_valor_tabla($a, $tabla);
+*/
+		}elseif($this->tipo_join == "inner"){
+			//Estructura de control INNER join
+			$this->control = array();
+			for($r=0;$r<count($this->datos);$r++){
+				$this->control[$r]['estado']="db";
+				foreach($this->tabla as $tabla){
+					$this->control[$r]['clave'][ $tabla ] = $this->get_clave_valor_tabla($r, $tabla);
 				}
 			}
 		}
 	}
 	
-	function actualizar_estructura_control($registro, $estado)
+	protected function actualizar_estructura_control($registro, $estado)
 	{
 		parent::actualizar_estructura_control($registro, $estado);
-		if($this->tipo_relacion == "debil")
+		/*
+		if($this->tipo_join == "outer")
 		{
 			/*
 				ATENCION!, esto puede estar mal, tal vez se inserta un campo que no se completo
 							en una tabla anexa. Esto pasa cada vez que se las setea como "i"
 							sin controlar lo que realmente paso
-			*/
 			switch($estado){
 				case "i":
 					foreach($this->tablas_anexas as $tabla){
@@ -222,12 +246,13 @@ class db_registros_mt extends db_registros
 						}
 					}
 			}
-		}
+		}*/
 	}
 
-	function sincronizar_estructura_control()
+	protected function sincronizar_estructura_control()
 	{
-/*
+		parent::sincronizar_estructura_control();
+		/*
 		foreach(array_keys($this->control) as $registro){
 			switch($this->control[$registro]['estado']){
 				case "d":	//DELETE
@@ -242,8 +267,7 @@ class db_registros_mt extends db_registros
 					break;
 			}
 		}
-*/
-		parent::sincronizar_estructura_control();
+		*/
 	}
 
 	//-------------------------------------------------------------------------------
@@ -252,29 +276,19 @@ class db_registros_mt extends db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function insertar($id_registro)
-	//Ejecuto los INSERTS en orden ascendente
-	//MAL: estoy creando el plan de cada tabla por cada registro...
+	protected function insertar($id_registro)
 	{
-		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		foreach( $this->tabla as $tabla)
 		{
-			$tabla = $this->definicion['tabla'][$t];
-			//Armo la lista de campos
-			$campos = array();
-			$campos = array_merge(	$this->definicion[$tabla]['clave'],
-									$this->definicion[$tabla]['columna'] );
-			//Extraigo las secuencias de la tabla y las columnas externas
-			if(isset($this->campos_secuencia_tabla[$tabla])){
-				$campos = array_diff ( $campos, $this->definicion['externa'], $this->campos_secuencia_tabla[$tabla] );
-			}else{
-				$campos = array_diff ( $campos, $this->definicion['externa'] );
-			}
-			//Busco el registro
 			$registro = $this->datos[$id_registro];
-			//Escapo los caracteres que forman parte de la sintaxis SQL
 			$valores = array();
-			foreach($campos as $id => $col){
-				if( !isset($registro[$col]) || (trim($registro[$col]) == "") ){
+			foreach( $this->campos_sql_insert[$tabla] as $id => $col)
+			{
+				//Si la columna fue redeclarada con un ALIAS, tengo buscar en el registro con el mismo
+				if(isset($this->campos_alias[$tabla][$col])){
+					$col = $this->campos_alias[$tabla][$col];
+				}
+				if( !isset($registro[$col])  ){		//|| (trim($registro[$col]) == "")  que se hace con el string vacio?
 					$valores[$id] = "NULL";
 				}else{
 					$valores[$id] = "'" . addslashes(trim($registro[$col])) . "'";	
@@ -282,46 +296,45 @@ class db_registros_mt extends db_registros
 			}
 			//Armo el INSERT
 			$sql = "INSERT INTO " . $tabla .
-					" ( " . implode(", ",$campos) . " ) ".
+					" ( " . implode(", ",$this->campos_sql_insert[$tabla]) . " ) ".
 					" VALUES (" . implode(" ,", $valores) . ");";
-			$this->log("registro: $id_registro - tabla: $t - " . $sql); 
+			$this->log("registro: $id_registro - tabla: $tabla - " . $sql); 
 			ejecutar_sql($sql, $this->fuente);
-			//REcupero el valor de las secuencias
-			if(isset($this->definicion[$tabla]['secuencia']))
+			//Recupero el valor de las secuencias
+			if(isset($this->campos_secuencia[$tabla]))
 			{
-				foreach($this->definicion[$tabla]['secuencia'] as $sec)
+				foreach($this->campos_secuencia[$tabla] as $col => $sec)
 				{
-					$this->datos[$id_registro][ $sec['col'] ] = recuperar_secuencia( $sec['seq'], $this->fuente );
+					$this->datos[$id_registro][ $col ] = recuperar_secuencia( $sec, $this->fuente );
 				}
 			}
 		}
 	}
 	//-------------------------------------------------------------------------------
 
-	function modificar($id_registro)
+	protected function modificar($id_registro)
 	//Genera sentencia de UPDATE
 	{
-		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		foreach( $this->tabla as $tabla)
 		{
-			$tabla = $this->definicion['tabla'][$t];
-			//Armo la lista de campos
-			$campos_update = array();
-			$campos_update = array_diff(	$this->definicion[$tabla]['columna'],
-											$this->campos_secuencia, 
-											$this->definicion['externa'] );
-			if(count($campos_update) > 0)
+			if(count($this->campos_sql_update[$tabla]) > 0)
 			{
 				//Busco el registro
 				$registro = $this->datos[$id_registro];
 				//Genero el WHERE
 				$sql_where = array();
-				foreach($this->definicion[$tabla]["clave"] as $clave){
+				foreach($this->tabla_clave[$tabla] as $clave){
 					$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$tabla][$clave] ."')";
 				}
 				//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
 				$set = array();
-				foreach($campos_update as $campo){
-					if( ( !isset($registro[$campo])) || (trim($registro[$campo]) == "") ){
+				foreach($this->campos_sql_update[$tabla] as $campo)
+				{
+					//Si la columna fue redeclarada con un ALIAS, tengo buscar en el registro con el mismo
+					if(isset($this->campos_alias[$tabla][$campo])){
+						$campo = $this->campos_alias[$tabla][$campo];
+					}
+					if( ( !isset($registro[$campo]))  ){	//|| (trim($registro[$campo]) == "")
 						$set[] = " $campo = NULL ";
 					}else{
 						$set[] = " $campo = '". addslashes(trim($registro[$campo])) . "' ";
@@ -332,27 +345,26 @@ class db_registros_mt extends db_registros
 						implode(", ",$set) .
 						" WHERE " . implode(" AND ",$sql_where) .";";
 				//Ejecuto el SQL
-				$this->log("registro: $id_registro - tabla: $t - " . $sql); 
+				$this->log("registro: $id_registro - tabla: $tabla - " . $sql); 
 				ejecutar_sql($sql, $this->fuente);
 			}
 		}
 	}
 	//-------------------------------------------------------------------------------
 
-	function eliminar($id_registro)
+	protected function eliminar($id_registro)
 	//Elimina los registros.
 	{
 		if($this->baja_logica){
 			throw new excepcion_toba("No esta implementada la baja logica en MT");	
 		}
 		//Primero las secundarias, despues las principales
-		for( $t= count($this->definicion['tabla']) - 1; $t >= 0 ;$t--)
+
+		for($t=(count($this->tabla)-1); $t >= 0; $t--)
 		{
-			$tabla = $this->definicion['tabla'][$t];
-			$registro = $this->datos[$id_registro];
-			//Genero el WHERE
+			$tabla = $this->tabla[$t];
 			$sql_where = array();
-			foreach($this->definicion[$tabla]["clave"] as $clave){
+			foreach($this->tabla_clave[$tabla] as $clave){
 				$sql_where[] =	"( $clave = '" . $this->control[$id_registro]['clave'][$tabla][$clave] ."')";
 			}
 			$sql = "DELETE FROM $tabla WHERE " . implode(" AND ",$sql_where) .";";
@@ -365,88 +377,43 @@ class db_registros_mt extends db_registros
 	//------------  GENERADORES de SQL  ---------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function generar_sql_select()
+	protected function generar_sql_select()
 	{
-		$where = array();
-		$alias_padre = $this->definicion['tabla_alias'][0];
-		for($t=0;$t<count($this->definicion['tabla']);$t++)
+		$sql =	"\n SELECT	" . implode(" ,\n ",$this->campos_sql_select) . "\n";
+		if($this->tipo_join == "inner")		// INNER!
 		{
-			$tabla = $this->definicion['tabla'][$t];
-			$alias = $this->definicion['tabla_alias'][$t];
-			if($this->tipo_relacion == "estricta")				// Relacion ESTRICTA
-			{
-				//-- *** FROM ***
-				$tablas_from[] = "$tabla $alias";
-				//Armo la lista de campos por tabla
-				//-- *** WHERE ***
-				if($t > 0){	//Relaciones de las tablas hijas con la maestra
-					foreach($this->definicion['relacion'][$tabla] as $relacion ){
-						$where[] = $alias_padre . "." . $relacion['pk'] . " = " . $alias . "." . $relacion['fk'];
-					}
-				}
+			if(isset($this->from)){
+				$tablas_from = array_merge($this->tabla, $this->from);
+			}else{
+				$tablas_from = $this->tabla;
 			}
-			else												// Relacion DEBIL
-			{
-				//-- *** FROM ***
-				if($t > 0){
-					//Tablas asociadas
-					if(is_array($this->definicion['relacion'][$tabla]))
-					{
-						$join = "";
-						foreach($this->definicion['relacion'][$tabla] as $relacion ){
-							$join .= $alias_padre . "." . $relacion['pk'] . " = " . $alias .".". $relacion['fk'] . "\n";
-						}
-					}else{
-						throw new excepcion_toba("Las relaciones de la tabla '$tabla' no se encuentran definidas");
-					}
-					$tablas_outer[] = "  LEFT OUTER JOIN $tabla $alias ON $join";
-				}else{
-					//Tabla principal
-					$tablas_from[] = "$tabla $alias";
-				}
+			$sql .=	" FROM " . implode(" ,\n ",$tablas_from ) . "\n";
+			foreach($this->join as $join_tabla){
+				$where[] = $join_tabla;
 			}
-			//-- *** COLUMNAS ***
-			//Armo la lista de campos por tabla
-			$campos = array_merge( $this->definicion[$tabla]['columna'], $this->definicion[$tabla]['clave'] );
-			//Elimino campos NO SQL
-			if(isset($this->definicion['tabla']['externa'])){
-				$campos = array_diff( $campos, $this->definicion[$tabla]['externa'] );
+			$sql .= " WHERE " . implode(" \n AND ",$join_tabla ) . "\n";
+	
+			if(isset($this->where)){
+				$sql .= " AND " . implode(" \n AND ",$this->where) . "\n";
 			}
-			foreach($campos as $campo){
-				//Si el campo ya existe, le cambio el nombre
-				if(isset($campos_select[$campo])){
-					//$nuevo_nombre = $alias."_".$campo;
-					//$campos_select[$alias.".".$campo] = "$alias.$campo as $nuevo_nombre";
-					//$this->columnas_convertidas[$tabla][$campo] = $nuevo_nombre;
-				}else{
-					$campos_select[$campo] = "$alias.$campo as $campo";
-				}
-			}
-		}//fin del ciclo por tabla
-		
-		//Concateno el SQL de la carga de datos
-		//FROM
-		if(isset($this->from)){
-			$tablas_from = array_merge($tablas_from, $this->from);
+			$sql .= "\n;";
 		}
-		//WHERE
-		if(isset($this->where)){
-			$where = array_merge($where, $this->where);
+		elseif($this->tipo_join == "outer")	// OUTER!
+		{
+			/*
+				ATENCION, falta concatenar el WHERE y el FROM ********************************
+			*/
+			$sql .=	" FROM " . $this->tabla_maestra . "\n";
+			foreach($this->join as $tabla => $join){
+				$sql .=	" LEFT OUTER JOIN $tabla ON  " . implode(" \nAND ",$join ) . "\n";
+			}
 		}
-		//ei_arbol($campos_select,"CAMPOS");
-		//ei_arbol($tablas_from,"TABLAS");
-		//ei_arbol($where,"WHERE");
-		$sql =	" SELECT	" . implode(" ,\n ",$campos_select) . "\n" .
-				" FROM "	. implode(" ,\n",$tablas_from) . "\n";
-		if($this->tipo_relacion == "debil"){
-			$sql .= implode(" ,\n",$tablas_outer) . "\n";
-		}
-		if(count($where) > 0 ){
-			$sql .= " WHERE " .	implode(" \nAND ",$where) .";";
+		else{
+			asercion::error("El tipo de JOIN debe ser INNER o OUTER");
 		}
 		$this->log("SQL de carga - " . $sql); 
 		return $sql;
-	}
-	//-------------------------------------------------------------------------------
+	}		
+//-------------------------------------------------------------------------------
 }
 ?>
