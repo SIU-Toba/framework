@@ -4,9 +4,20 @@
 	HILO
 	----
 
-		- Rearmar el generados de db_registros
+		- Cambio de nomenclatura en la interface de la clase
+
+				obtener_registro_valor        	get_registro_valor
+				obtener_registros             	get_registros
+				obtener_registro              	get_registro
+				obtener_definicion            	get_definicion															
+				obtener_id_registro_condicion 	get_id_registro_condicion
+				cantidad_registros            	get_cantidad_registros
+				establecer_registro_valor     	set_registro_valor
+				establecer_valor_columna      	set_valor_columna
+		
 		- Migrar db_registros del comechingones
 		- completar funcionalidad
+		- Carga tickets
 		- ver MT con relacion debil
 
 	PENDIENTE
@@ -172,7 +183,7 @@
 
 	public function info($mostrar_datos=false)
 	public function info_definicion()
-	public function get_definicion()															obtener_definicion()
+	public function get_definicion()															EX obtener_definicion()
 	public function validar_definicion()
 	public function get_tope_max_registros()
 	public function get_tope_min_registros()
@@ -182,11 +193,11 @@
 	public function cargar_datos_clave($id)
 	public function resetear()
 
-	public function obtener_registros($condiciones=null, $usar_id_registro=false)				obtener_registros
-	public function obtener_id_registro_condicion($condiciones=null)							obtener_id_registro_condicion
-	public function obtener_registro($id)														obtener_registro
-	public function obtener_registro_valor($id, $columna)										obtener_registro_valor
-	public function cantidad_registros()														cantidad_registros
+	public function get_registros($condiciones=null, $usar_id_registro=false)					EX obtener_registros
+	public function get_id_registro_condicion($condiciones=null)								EX obtener_id_registro_condicion
+	public function get_registro($id)															EX obtener_registro
+	public function get_registro_valor($id, $columna)											EX obtener_registro_valor
+	public function get_cantidad_registros()													EX cantidad_registros
 	public function existe_registro($id)
 
 	public function agregar_registro($registro)
@@ -194,8 +205,8 @@
 	public function eliminar_registro($id=null)
 	public function eliminar_registros()
 
-	public function establecer_registro_valor($id, $columna, $valor)							establecer_registro_valor
-	public function establecer_valor_columna($columna, $valor)									establecer_valor_columna
+	public function set_registro_valor($id, $columna, $valor)									EX establecer_registro_valor
+	public function set_valor_columna($columna, $valor)											EX establecer_valor_columna
 	public function set($registro)
 	public function get()
 	public function procesar_registros($registros)
@@ -213,11 +224,8 @@
 		protected function evt__post_delete($id)
 
 
-	FLAGS que modifican el comportamiento
+	*** modificadores del comportamiento ***
 
-	db_registros
-	------------
-	
 	public function activar_transaccion()		
 	public function desactivar_transaccion()		
 	public function activar_control_sincro()
@@ -237,5 +245,4 @@
 
 	function activar_inner_join()
 	function activar_outer_join()
-	
 ?>

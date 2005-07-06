@@ -56,11 +56,12 @@ require_once('nucleo/persistencia/db_registros_s.php');
 class dbr_$tabla extends db_registros_s
 //db_registros especifico de la tabla '$tabla'
 {
-	function __construct(\$id, \$fuente, \$tope_registros=0, \$utilizar_transaccion=false, \$memoria_autonoma=false)
+	function __construct(\$fuente=null, \$max_registros=0, \$min_registros=0)
 	{
 ";
-		$php .= dump_array_php($definicion_buffer,"		\$definicion");
-		$php .= "		parent::__construct(\$id, \$definicion, \$fuente, \$tope_registros, \$utilizar_transaccion, \$memoria_autonoma);
+		$php .= dump_array_php($definicion_buffer,"		\$def");
+		//$php .= var_export($definicion_buffer,true);
+		$php .= "		parent::__construct( \$def, \$fuente, \$max_registros, \$min_registros);
 	}	
 	
 	function cargar_datos_clave(\$id)
