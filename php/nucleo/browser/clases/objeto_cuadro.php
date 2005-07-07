@@ -23,7 +23,7 @@ class objeto_cuadro extends objeto
 	var $datos_pdf;							//protegido | array | Los datos que constituyen el contenido del PDF
 	var $propiedades_pdf;					//protegido | array | Los datos que constituyen las propiedades del cuadro
     //Paginacion
-    var $pag_cantidad_registros;    
+    var $pag_get_cantidad_registros;    
     var $pag_cantidad_paginas;
     var $pag_tamano;
     var $pag_actual;
@@ -238,11 +238,11 @@ class objeto_cuadro extends objeto
 		$this->saltear_paginacion = $saltear_paginacion;
         if(($this->info_cuadro["paginar"]) && !($this->saltear_paginacion)){
             // 1) Calculo la cantidad de registros
-            $this->pag_cantidad_registros = $this->calcular_cantidad_registros($where, $from);
-            //echo "REGISTROS: " . $this->pag_cantidad_registros;
-            if($this->pag_cantidad_registros > 0){
+            $this->pag_get_cantidad_registros = $this->calcular_get_cantidad_registros($where, $from);
+            //echo "REGISTROS: " . $this->pag_get_cantidad_registros;
+            if($this->pag_get_cantidad_registros > 0){
                 // 2) Calculo la cantidad de paginas
-                $this->pag_cantidad_paginas = ceil($this->pag_cantidad_registros/$this->pag_tamano);
+                $this->pag_cantidad_paginas = ceil($this->pag_get_cantidad_registros/$this->pag_tamano);
                // echo "PAGINAS: " . $this->pag_cantidad_paginas;
                // echo "PAGINA ACTUAL: ".$this->pag_actual;
                 if ($this->pag_actual > $this->pag_cantidad_paginas) 
@@ -314,7 +314,7 @@ class objeto_cuadro extends objeto
         return $this->sql;    
     }
 //--------------------------------------------------------------------------
-    function calcular_cantidad_registros($where, $from)
+    function calcular_get_cantidad_registros($where, $from)
 /*
     @@acceso: protegido
     @@desc: Calcular la cantidad de registros
@@ -346,13 +346,13 @@ class objeto_cuadro extends objeto
 	        //echo "SQL para calcular registros: " . $sql . "<br>";
 	        $rs = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
 	        if(!$rs){//SQL mal formado
-	            $this->observar("error","OBJETO CUADRO [calcular_cantidad_registros] - No se genero un recordset [SQL] $sql - [ERROR] " . 
+	            $this->observar("error","OBJETO CUADRO [calcular_get_cantidad_registros] - No se genero un recordset [SQL] $sql - [ERROR] " . 
 	                            $db[$this->info["fuente"]][apex_db_con]->ErrorMsg(),true,true,true);
 	            return -1;
 	        }
 	        if($rs->EOF){//NO existe el registro
 /*
-	            $this->observar("error","OBJETO CUADRO [calcular_cantidad_registros] - EOF [SQL] $sql - [ERROR] " . 
+	            $this->observar("error","OBJETO CUADRO [calcular_get_cantidad_registros] - EOF [SQL] $sql - [ERROR] " . 
 	                            $db[$this->info["fuente"]][apex_db_con]->ErrorMsg(),true,true,true);
 */
 	            return -1;
@@ -629,7 +629,7 @@ class objeto_cuadro extends objeto
     //Barra para navegar la paginacion
     //Por ahora solo conoce la sintaxis de PostgreSQL para paginar
     {
-        if( !($this->pag_tamano >= $this->pag_cantidad_registros) ){
+        if( !($this->pag_tamano >= $this->pag_get_cantidad_registros) ){
             //Calculo los posibles saltos
             //Primero y Anterior
             if($this->pag_actual == 1){
@@ -686,8 +686,8 @@ class objeto_cuadro extends objeto
 				{
 					$rango_inicial = ($this->pag_tamano * ($this->pag_actual - 1)) + 1;
 					$rango_final_teorico = ($rango_inicial + $this->pag_tamano) - 1;
-					$rango_final = ($this->pag_actual != $this->pag_cantidad_paginas) ? $rango_final_teorico : $this->pag_cantidad_registros;
-					echo "<div class='lista-pag-descr'>Resultados $rango_inicial al $rango_final de {$this->pag_cantidad_registros}</div>";
+					$rango_final = ($this->pag_actual != $this->pag_cantidad_paginas) ? $rango_final_teorico : $this->pag_get_cantidad_registros;
+					echo "<div class='lista-pag-descr'>Resultados $rango_inicial al $rango_final de {$this->pag_get_cantidad_registros}</div>";
 				}
                 echo "</td></tr>\n\n\n";
 

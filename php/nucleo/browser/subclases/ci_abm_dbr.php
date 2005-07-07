@@ -117,7 +117,7 @@ class ci_abm_dbr extends objeto_ci
 		if (isset($this->seleccion)) {
 			$dbr = $this->obtener_dbr();
 			$dbr->cargar_datos_clave($this->seleccion);
-			return $dbr->obtener_registro(0);
+			return $dbr->get_registro(0);
 		}
 	}
 	

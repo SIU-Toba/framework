@@ -111,7 +111,7 @@ class db_tablas
 		foreach( $this->detalles as $id => $columna_clave ){
 			$i = 0;
 			foreach ($valores as $valor){
-				$this->elemento[$id]->establecer_valor_columna( $columna_clave[$i] , $valor);
+				$this->elemento[$id]->set_valor_columna( $columna_clave[$i] , $valor);
 				$i++;
 			}
 			$this->elemento[$id]->sincronizar();

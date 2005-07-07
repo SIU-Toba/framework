@@ -42,7 +42,6 @@ class db_registros_s_i extends db_registros_s
 			}
 			//-<2>- SECUENCIAS
 			if(preg_match("/nextval/",$metadatos['columnas'][$a]['default'])){
-				$definicion['secuencia'][$secuencia]['col']=$metadatos['columnas'][$a]['columna'];
 				$temp = preg_split("|\"|", $metadatos['columnas'][$a]['default']);
 				$definicion['columna'][$a]['secuencia'] = $temp[1];
 			}

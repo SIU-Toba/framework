@@ -83,11 +83,11 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 				$dep['tipo_ei'] = "objeto_ei_formulario_ml";
 			}
 			$dep['elemento'] = $e[1];
-			$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
+			$dep['get_cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
 		*/
 		$dep['tipo_ei'] = $this->consultar_info_dependencia($dependencia,"clase");
 		$dep['elemento'] = $this->consultar_info_dependencia($dependencia,"parametros_a");
-		$dep['cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
+		$dep['get_cantidad_registros'] = $this->obtener_dbt()->elemento($dep['elemento'])->get_tope_max_registros();
 		return $dep;
 	}
 	
@@ -101,7 +101,7 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 		}
 		elseif($dep['tipo_ei'] == "objeto_ei_formulario")						//-- Formulario
 		{	
-			if($dep['cantidad_registros'] == 1){
+			if($dep['get_cantidad_registros'] == 1){
 				//El elemento maneja un registro
 				$this->obtener_dbt()->elemento($dep['elemento'])->set($parametros);	
 			}else{
@@ -143,21 +143,21 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 			if (isset($this->selecciones[$dep['elemento']])) {
 				$this->dependencias[$id]->seleccionar($this->selecciones[$dep['elemento']]);
 			}
-			return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros();
+			return $this->obtener_dbt()->elemento($dep['elemento'])->get_registros();
 		}
 		elseif($dep['tipo_ei'] == "objeto_ei_formulario")						//-- Formulario
 		{
-			if($dep['cantidad_registros'] == 1){
+			if($dep['get_cantidad_registros'] == 1){
 				return $this->obtener_dbt()->elemento($dep['elemento'])->get();	
 			}else{
 				//El elemento maneja N registros, si se selecciono uno lo devuelvo
 				if(isset($this->selecciones[$dep['elemento']])){
-					return $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registro($this->selecciones[$dep['elemento']]);
+					return $this->obtener_dbt()->elemento($dep['elemento'])->get_registro($this->selecciones[$dep['elemento']]);
 				}
 			}
 		}elseif($dep['tipo_ei'] == "objeto_ei_formulario_ml")						//-- Formulario ML
 		{	
-			return  $this->obtener_dbt()->elemento($dep['elemento'])->obtener_registros(null, true);
+			return  $this->obtener_dbt()->elemento($dep['elemento'])->get_registros(null, true);
 		}	
 	}
 	

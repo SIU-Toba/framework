@@ -17,11 +17,11 @@ class test_db_tablas_cd extends test_toba
 	
 	function assert_dbt_esta_vacio()
 	{
-		$this->AssertEqual($this->dbt->elemento('basico')->cantidad_registros(), 0);
-		$this->AssertEqual($this->dbt->elemento('basico_dep')->cantidad_registros(), 0);
-		$this->AssertEqual($this->dbt->elemento('especifico')->cantidad_registros(), 0);
-		$this->AssertEqual($this->dbt->elemento('etapas')->cantidad_registros(), 0);
-		$this->AssertEqual($this->dbt->elemento('etapas_dep')->cantidad_registros(), 0);	
+		$this->AssertEqual($this->dbt->elemento('basico')->get_cantidad_registros(), 0);
+		$this->AssertEqual($this->dbt->elemento('basico_dep')->get_cantidad_registros(), 0);
+		$this->AssertEqual($this->dbt->elemento('especifico')->get_cantidad_registros(), 0);
+		$this->AssertEqual($this->dbt->elemento('etapas')->get_cantidad_registros(), 0);
+		$this->AssertEqual($this->dbt->elemento('etapas_dep')->get_cantidad_registros(), 0);	
 	}
 	
 	function test_dependencia_no_existe()
@@ -33,11 +33,11 @@ class test_db_tablas_cd extends test_toba
 	function test_dependencia_global_carga()
 	{
 		$this->cargar_dependencia_global();
-		$this->AssertEqual($this->dbt->elemento('basico')->cantidad_registros(), 1);
-		$this->AssertEqual($this->dbt->elemento('basico_dep')->cantidad_registros(), 2);
-		$this->AssertEqual($this->dbt->elemento('especifico')->cantidad_registros(), 1);
-		$this->AssertEqual($this->dbt->elemento('etapas')->cantidad_registros(), 2);
-		$this->AssertEqual($this->dbt->elemento('etapas_dep')->cantidad_registros(), 0);
+		$this->AssertEqual($this->dbt->elemento('basico')->get_cantidad_registros(), 1);
+		$this->AssertEqual($this->dbt->elemento('basico_dep')->get_cantidad_registros(), 2);
+		$this->AssertEqual($this->dbt->elemento('especifico')->get_cantidad_registros(), 1);
+		$this->AssertEqual($this->dbt->elemento('etapas')->get_cantidad_registros(), 2);
+		$this->AssertEqual($this->dbt->elemento('etapas_dep')->get_cantidad_registros(), 0);
 	}
 	
 	function test_dependencia_global_eliminar_etapas()
@@ -66,7 +66,7 @@ class test_db_tablas_cd extends test_toba
 		$this->dbt->sincronizar_plan();
 		$this->dbt->resetear();
 		$this->cargar_dependencia_global();
-		$this->AssertEqual($this->dbt->elemento('etapas_dep')->cantidad_registros(), 1);
+		$this->AssertEqual($this->dbt->elemento('etapas_dep')->get_cantidad_registros(), 1);
 		abortar_transaccion();
 	}	
 }

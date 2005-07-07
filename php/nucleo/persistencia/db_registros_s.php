@@ -73,7 +73,7 @@ class db_registros_s extends db_registros
 	public function get_clave_valor($id_registro)
 	{
 		foreach( $this->clave as $clave ){
-			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+			$temp[$clave] = $this->get_registro_valor($id_registro, $clave);
 		}	
 		return $temp;
 	}

@@ -205,7 +205,7 @@ class objeto_cn extends objeto
 			echo "<pre>";
 			//Dumpeo los BUFFERS
 			foreach(array_keys($buffers) as $buffer){
-				$registros = $buffers[$buffer]->obtener_registros();
+				$registros = $buffers[$buffer]->get_registros();
 				echo "//------   $buffer   -----\n\n";
 				echo dump_array_php($registros, "\$".$buffer);
 			}

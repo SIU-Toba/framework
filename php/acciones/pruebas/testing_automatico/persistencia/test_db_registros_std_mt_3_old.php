@@ -14,7 +14,7 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 	{
 		$this->dbr->establecer_relacion_debil();
 		$this->dbr->cargar_datos();
-		$this->assertEqual( $this->dbr->cantidad_registros(), 4 );
+		$this->assertEqual( $this->dbr->get_cantidad_registros(), 4 );
 	}
 
 	//----------------------------------------------------------
@@ -26,7 +26,7 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 		$this->dbr->establecer_relacion_debil();
 		$datos = $this->get_tabla_registro(1,0);
 		$this->dbr->agregar_registro( $datos );
-		$this->assertEqual( $this->dbr->cantidad_registros(), 1 );
+		$this->assertEqual( $this->dbr->get_cantidad_registros(), 1 );
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "i");
 		$this->AssertEqual($control[0]['tablas']['test_db_registros_02'], "i");
@@ -38,7 +38,7 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 		$this->dbr->cargar_datos();
 		$datos = $this->get_tabla_registro(1,0);
 		$this->dbr->agregar_registro( $datos );
-		$this->assertEqual( $this->dbr->cantidad_registros(), 5 );
+		$this->assertEqual( $this->dbr->get_cantidad_registros(), 5 );
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[4]['estado'], "i");
 		$this->AssertEqual($control[4]['tablas']['test_db_registros_02'], "i");

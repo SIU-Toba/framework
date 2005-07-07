@@ -45,7 +45,7 @@ include_once("nucleo/persistencia/db_registros_s_i.php");
 		//1)Busco la definicion
 		$tabla = $tabla_x['relname'];
 		$buffer =& new db_registros_s_i("x",$tabla,$fuente);
-		$definicion_buffer = $buffer->obtener_definicion();
+		$definicion_buffer = $buffer->get_definicion();
 		
 		//2)Creo el PHP de buffer 
 		$php = "<?

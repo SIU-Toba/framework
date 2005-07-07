@@ -6,7 +6,7 @@ require_once('nucleo/persistencia/db_registros_s.php');
 class test_db_registros_std_s_2_dbr extends db_registros_s
 //db_registros especifico de la tabla 'test_db_registros_01'
 {
-	function __construct($fuente=null, $max_registros=0, $min_registros=0)
+	function __construct($fuente=null, $min_registros=0, $max_registros=0)
 	{
 		$def = array(	
 				'tabla' => 'test_maestro',
@@ -22,7 +22,7 @@ class test_db_registros_std_s_2_dbr extends db_registros_s
 						array( 	'nombre'=>'descripcion' )
 					)
 				);
-		parent::__construct($def, $fuente, $max_registros, $min_registros);
+		parent::__construct($def, $fuente, $min_registros, $max_registros);
 	}	
 	
 	function cargar_datos_clave($id)

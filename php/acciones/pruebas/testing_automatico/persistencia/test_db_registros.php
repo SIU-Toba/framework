@@ -35,7 +35,7 @@ class test_db_registros extends test_toba
 
 	function dump_definicion_externa($mensaje="definicion EXTERNA")
 	{
-		ei_arbol($this->dbr->obtener_definicion(),$mensaje);	
+		ei_arbol($this->dbr->get_definicion(),$mensaje);	
 	}
 
 	function dump_definicion($mensaje="Info DEFINICION")
@@ -50,7 +50,7 @@ class test_db_registros extends test_toba
 
 	function dump_datos($mensaje="Registros")
 	{
-		ei_arbol($this->dbr->obtener_registros(null, true),$mensaje);	
+		ei_arbol($this->dbr->get_registros(null, true),$mensaje);	
 	}
 }
 ?>

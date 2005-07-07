@@ -64,8 +64,8 @@ class objeto_cn_buffer extends objeto_cn_t
 	
 	public function get()
 	{
-		if($this->buffer->cantidad_registros() > 0){
-			return $this->buffer->obtener_registro(0);			
+		if($this->buffer->get_cantidad_registros() > 0){
+			return $this->buffer->get_registro(0);			
 		}		
 	}
 	//-------------------------------------------------------------------------------

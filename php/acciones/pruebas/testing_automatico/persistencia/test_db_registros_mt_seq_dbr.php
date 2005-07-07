@@ -1,7 +1,7 @@
 <?
 require_once('nucleo/persistencia/db_registros_mt.php');
 
-class test_db_registros_std_mt_1_dbr extends db_registros_mt
+class test_db_registros_mt_seq_dbr extends db_registros_mt
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0)
 	{
@@ -11,7 +11,7 @@ class test_db_registros_std_mt_1_dbr extends db_registros_mt
 						'columna' => array( 
 							array( 	'nombre'=>'id',
 									'pk'=>1, 
-									'no_nulo'=>1 ),
+									'secuencia'=>1 ),
 							array( 	'nombre'=>'nombre',
 									'no_nulo'=>1 ),
 							array( 'nombre'=>'descripcion' )
@@ -22,8 +22,6 @@ class test_db_registros_std_mt_1_dbr extends db_registros_mt
 						'columna' => array( 
 							array( 	'nombre'=>'id',
 									'pk'=>1, 
-								//	'alias'=>'pepe', 
-									'no_nulo'=>1,
 									'join'=>'id' ),
 							array( 'nombre'=>'extra',
 									'no_nulo'=>1 )

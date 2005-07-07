@@ -4,17 +4,7 @@
 	HILO
 	----
 
-		- Cambio de nomenclatura en la interface de la clase
-
-				obtener_registro_valor        	get_registro_valor
-				obtener_registros             	get_registros
-				obtener_registro              	get_registro
-				obtener_definicion            	get_definicion															
-				obtener_id_registro_condicion 	get_id_registro_condicion
-				cantidad_registros            	get_cantidad_registros
-				establecer_registro_valor     	set_registro_valor
-				establecer_valor_columna      	set_valor_columna
-		
+		- Arreglar el generador		
 		- Migrar db_registros del comechingones
 		- completar funcionalidad
 		- Carga tickets
@@ -196,7 +186,7 @@
 	public function get_registros($condiciones=null, $usar_id_registro=false)					EX obtener_registros
 	public function get_id_registro_condicion($condiciones=null)								EX obtener_id_registro_condicion
 	public function get_registro($id)															EX obtener_registro
-	public function get_registro_valor($id, $columna)											EX obtener_registro_valor
+	public function get_registro_valor($id, $columna)											EX get_registro_valor
 	public function get_cantidad_registros()													EX cantidad_registros
 	public function existe_registro($id)
 
@@ -245,4 +235,18 @@
 
 	function activar_inner_join()
 	function activar_outer_join()
+
+//___________________________________________________________________________________________________
+
+		- Cambio de nomenclatura en la interface de la clase
+
+	obtener_registro_valor     		get_registro_valor
+	obtener_registros             	get_registros
+	obtener_registro              	get_registro
+	obtener_definicion            	get_definicion															
+	obtener_id_registro_condicion 	get_id_registro_condicion
+	cantidad_registros            	get_cantidad_registros
+	establecer_registro_valor     	set_registro_valor
+	establecer_valor_columna      	set_valor_columna
+
 ?>

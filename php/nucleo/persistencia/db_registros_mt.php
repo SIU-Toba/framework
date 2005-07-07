@@ -32,6 +32,12 @@ class db_registros_mt extends db_registros
 	protected function inicializar_definicion_campos()
 	{
 		/*
+		
+			Cosas a prevenir:
+			
+				- Si en una tabla declaro ID como sequencia (evita no_nulo) 
+					y en otra tablo declaro ID como no_nulo. La definicion va a considerar el no_nulo.
+		
 			Generacion de la DEFINICION OPERATIVA. (Se basa es $this->definicion, provista por el consumidor en la creacion)
 
 				(*) $this->campos				- TODOS los campos			// Se respetan los ALIAS
@@ -49,10 +55,10 @@ class db_registros_mt extends db_registros
 			
 			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
 		*/
-		$this->tabla_maestra = $this->definicion[0]['nombre'];
+		$this->tabla_maestra = $this->definicion[0]['tabla'];
 		foreach(array_keys($this->definicion) as $n_tab)
 		{
-			$tabla = $this->definicion[$n_tab]['nombre'];
+			$tabla = $this->definicion[$n_tab]['tabla'];
 			$this->tabla[] = $tabla;
 			foreach(array_keys($this->definicion[$n_tab]['columna']) as $col)
 			{
@@ -134,7 +140,7 @@ class db_registros_mt extends db_registros
 	// Trae los valores de las claves de una tabla anexa
 	{
 		foreach( $this->tabla_clave[$tabla] as $clave ){
-			$temp[$clave] = $this->obtener_registro_valor($id_registro, $clave);
+			$temp[$clave] = $this->get_registro_valor($id_registro, $clave);
 		}	
 		return $temp;
 	}

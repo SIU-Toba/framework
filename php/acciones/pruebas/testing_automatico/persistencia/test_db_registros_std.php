@@ -65,7 +65,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "db");
 		$this->AssertEqual($control[1]['estado'], "db");
@@ -80,7 +80,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 3);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 3);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "db");
 		$this->AssertEqual($control[1]['estado'], "db");
@@ -93,8 +93,8 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos_clave( $this->get_id_registro_test() );
-		$this->AssertEqual($this->dbr->cantidad_registros(), 1);
-		$registro = $this->dbr->obtener_registro(0);		
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 1);
+		$registro = $this->dbr->get_registro(0);		
 		$this->AssertEqual($registro['nombre'], "Naranjas");
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "db");
@@ -107,7 +107,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$datos = $this->dbr->obtener_registros();
+		$datos = $this->dbr->get_registros();
 		$this->AssertEqual( count($datos), 3);
 		//Vino la columna que indica el ID interno
 		for($a=0;$a<count($datos);$a++){
@@ -122,7 +122,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$datos = $this->dbr->obtener_registro(0);
+		$datos = $this->dbr->get_registro(0);
 		$this->AssertTrue( is_array($datos) );
 		$this->AssertTrue( isset($datos[apex_db_registros_clave]) );
 	}
@@ -133,7 +133,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos_clave( $this->get_id_registro_test() );
-		$this->AssertEqual($this->dbr->obtener_registro_valor(0,"nombre"), "Naranjas");
+		$this->AssertEqual($this->dbr->get_registro_valor(0,"nombre"), "Naranjas");
 	}
 
 	function test_obtencion_registro_inexistente()
@@ -143,7 +143,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		if($dato = $this->dbr->obtener_registro(4)){
+		if($dato = $this->dbr->get_registro(4)){
 			$this->fail();
 		}
 		$this->pass();
@@ -156,7 +156,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$datos = $this->dbr->obtener_registros(null, true);
+		$datos = $this->dbr->get_registros(null, true);
 		$this->AssertEqual( count($datos), 3);
 		$control = $this->dbr->get_estructura_control();
 		foreach(array_keys($datos) as $id){
@@ -173,8 +173,8 @@ class test_db_registros_std extends test_db_registros
 	{
 		$where = $this->get_where_test();
 		$this->dbr->cargar_datos($where);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 3);
-		$datos = $this->dbr->obtener_registros( $this->get_condicion_filtro_test() );
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 3);
+		$datos = $this->dbr->get_registros( $this->get_condicion_filtro_test() );
 		$this->AssertEqual(count($datos), 1);
 	}
 
@@ -191,7 +191,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
-		$this->AssertEqual($this->dbr->cantidad_registros(), 2);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 2);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "i");
 		$this->AssertEqual($control[1]['estado'], "i");
@@ -205,7 +205,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->cargar_datos();
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
-		$this->AssertEqual($this->dbr->cantidad_registros(), 6);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 6);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "db");
 		$this->AssertEqual($control[1]['estado'], "db");
@@ -226,7 +226,7 @@ class test_db_registros_std extends test_db_registros
 			$this->fail();
 		}catch( excepcion_toba $e ){
 			$this->pass();	
-			$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+			$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 			$this->AssertEqual( count( $this->dbr->get_estructura_control() ), 0);
 		}
 	}
@@ -241,7 +241,7 @@ class test_db_registros_std extends test_db_registros
 			$this->fail();
 		}catch( excepcion_toba $e ){
 			$this->pass();	
-			$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+			$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 			$this->AssertEqual( count( $this->dbr->get_estructura_control() ), 0);
 		}
 	}
@@ -253,7 +253,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$datos = $this->get_registro_test("valido_1");
 		$this->dbr->agregar_registro( $datos );
-		$datos_dbr = $this->dbr->obtener_registro( 0 );
+		$datos_dbr = $this->dbr->get_registro( 0 );
 		unset($datos_dbr[apex_db_registros_clave]);
 		$this->assertEqualArray($datos, $datos_dbr);
 	}
@@ -267,7 +267,7 @@ class test_db_registros_std extends test_db_registros
 	{
 		$this->dbr->cargar_datos();
 		$this->dbr->eliminar_registros();		
-		$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "d");
 		$this->AssertEqual($control[1]['estado'], "d");
@@ -283,7 +283,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->cargar_datos();
 		$this->dbr->eliminar_registro(0);		
 		$this->dbr->eliminar_registro(1);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 2);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 2);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "d");
 		$this->AssertEqual($control[1]['estado'], "d");
@@ -300,7 +300,7 @@ class test_db_registros_std extends test_db_registros
 			$this->dbr->eliminar_registro( 0 );
 			$this->fail();
 		}catch( excepcion_toba $e ){
-			$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+			$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 			$this->AssertEqual( count( $this->dbr->get_estructura_control() ), 0);
 			$this->pass();	
 		}
@@ -333,7 +333,7 @@ class test_db_registros_std extends test_db_registros
 			$this->fail();
 		}catch( excepcion_toba $e ){
 			$this->pass();	
-			$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+			$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 			$this->AssertEqual( count( $this->dbr->get_estructura_control() ), 0);
 		}
 	}
@@ -384,7 +384,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->cargar_datos();
 		$datos = $this->get_registro_test("valido_1");
 		$this->dbr->modificar_registro( $datos, 0 );
-		$datos_dbr = $this->dbr->obtener_registro( 0 );
+		$datos_dbr = $this->dbr->get_registro( 0 );
 		foreach(array_keys($datos) as $dato){
 			if(!isset($datos_dbr[$dato])){
 				$this->fail();	
@@ -402,23 +402,23 @@ class test_db_registros_std extends test_db_registros
 	function test_modificar_registro_valor_puntual()
 	{
 		$this->dbr->cargar_datos();
-		$this->dbr->establecer_registro_valor( 0, "nombre", "pizza" );
+		$this->dbr->set_registro_valor( 0, "nombre", "pizza" );
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "u");
-		$registro = $this->dbr->obtener_registros(array("nombre"=>"pizza"));
+		$registro = $this->dbr->get_registros(array("nombre"=>"pizza"));
 		$this->AssertEqual( count($registro), 1);
 	}
 	
 	function test_modificar_valor_columna()
 	{
 		$this->dbr->cargar_datos();
-		$this->dbr->establecer_valor_columna("nombre", "pizza");
+		$this->dbr->set_valor_columna("nombre", "pizza");
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "u");
 		$this->AssertEqual($control[1]['estado'], "u");
 		$this->AssertEqual($control[2]['estado'], "u");
 		$this->AssertEqual($control[3]['estado'], "u");
-		$registro = $this->dbr->obtener_registros(array("nombre"=>"pizza"));
+		$registro = $this->dbr->get_registros(array("nombre"=>"pizza"));
 		$this->AssertEqual( count($registro), 4);
 	}
 
@@ -434,7 +434,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
 		$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
 		$control = $this->dbr->get_estructura_control();
@@ -448,7 +448,7 @@ class test_db_registros_std extends test_db_registros
 		//Compruebo que los nuevos registros existan en la DB
 		$this->dbr->resetear();
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 6);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 6);
 	}
 
 	function test_sync_insertar_registros_error_db()
@@ -477,7 +477,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 		$this->dbr->eliminar_registros();
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "d");
@@ -489,7 +489,7 @@ class test_db_registros_std extends test_db_registros
 		//Compruebo que los nuevos registros existan en la DB
 		$this->dbr->resetear();
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 0);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 0);
 	}
 
 	function test_sync_eliminar_registro_puntual()
@@ -498,7 +498,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 		$this->dbr->eliminar_registro(0);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "d");
@@ -510,7 +510,7 @@ class test_db_registros_std extends test_db_registros
 		//Compruebo que los nuevos registros existan en la DB
 		$this->dbr->resetear();
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 3);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 3);
 	}
 
 	//**** MODIFICAR ************************************************************
@@ -521,7 +521,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 		$this->dbr->modificar_registro($this->get_registro_test("valido_1"), 0);
 		$this->dbr->modificar_registro($this->get_registro_test("valido_2"), 1);
 		$control = $this->dbr->get_estructura_control();
@@ -535,7 +535,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->resetear();
 		$where[] =  "nombre = 'TOMATE'";
 		$this->dbr->cargar_datos($where);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 2);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 2);
 	}
 	
 	function test_sync_modificar_registro_valor_puntual()
@@ -544,7 +544,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->dbr->establecer_registro_valor( 0, "nombre", "pizza" );
+		$this->dbr->set_registro_valor( 0, "nombre", "pizza" );
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "u");
 		$this->AssertEqual($control[1]['estado'], "db");
@@ -556,7 +556,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->resetear();
 		$where[] =  "nombre = 'pizza'";
 		$this->dbr->cargar_datos($where);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 1);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 1);
 	}
 	
 	function test_sync_modificar_columnas()
@@ -565,7 +565,7 @@ class test_db_registros_std extends test_db_registros
 	*/
 	{
 		$this->dbr->cargar_datos();
-		$this->dbr->establecer_valor_columna("nombre", "pizza");
+		$this->dbr->set_valor_columna("nombre", "pizza");
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "u");
 		$this->AssertEqual($control[1]['estado'], "u");
@@ -577,7 +577,7 @@ class test_db_registros_std extends test_db_registros
 		$this->dbr->resetear();
 		$where[] =  "nombre = 'pizza'";
 		$this->dbr->cargar_datos($where);
-		$this->AssertEqual($this->dbr->cantidad_registros(), 4);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 4);
 	}
 
 	//-------------------------------------------------------------

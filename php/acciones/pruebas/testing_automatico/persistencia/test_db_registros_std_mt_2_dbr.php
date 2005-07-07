@@ -3,11 +3,11 @@ require_once('nucleo/persistencia/db_registros_mt.php');
 
 class test_db_registros_std_mt_2_dbr extends db_registros_mt
 {
-	function __construct($fuente=null, $max_registros=0, $min_registros=0)
+	function __construct($fuente=null, $min_registros=0, $max_registros=0)
 	{
 		$def = 	array(	
 					array (
-						'nombre' => 'test_maestro',
+						'tabla' => 'test_maestro',
 						'columna' => array( 
 							array( 	'nombre'=>'id1',
 									'pk'=>1, 
@@ -21,7 +21,7 @@ class test_db_registros_std_mt_2_dbr extends db_registros_mt
 						)
 					),
 					array (
-						'nombre' => 'test_detalle',
+						'tabla' => 'test_detalle',
 						'columna' => array( 
 							array( 	'nombre'=>'id1',
 									'pk'=>1, 
@@ -36,7 +36,7 @@ class test_db_registros_std_mt_2_dbr extends db_registros_mt
 						)
 					)
 				);
-		parent::__construct($def, $fuente, $max_registros, $min_registros);
+		parent::__construct($def, $fuente, $min_registros, $max_registros);
 	}	
 	
 	function cargar_datos_clave($id)

@@ -34,7 +34,7 @@ class db_registros
 	protected $identificador;					// Identificador del registro
 	protected $posicion_finalizador;			// Posicion del objeto en el array de finalizacion
 
-	function __construct($definicion, $fuente=null, $tope_max_registros=0, $tope_min_registros=0)
+	function __construct($definicion, $fuente=null, $tope_min_registros=0, $tope_max_registros=0)
 	{
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
@@ -61,7 +61,7 @@ class db_registros
 
 	protected function log($txt)
 	{
-		toba::get_logger()->debug("db_registros  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
+		toba::get_logger()->debug("db_registros  '" . get_class($this). "' " . $txt);
 	}
 	
 
@@ -90,7 +90,7 @@ class db_registros
 		return $estado;
 	}
 
-	public function obtener_definicion()
+	public function get_definicion()
 	{
 		return $this->definicion;
 	}
@@ -214,7 +214,7 @@ class db_registros
 		$this->proximo_registro = count($this->datos);	
 		//Controlo que no se haya excedido el tope de registros
 		if( $this->tope_max_registros != 0){
-			if( ( $this->cantidad_registros() > $this->proximo_registro) ){
+			if( ( $this->get_cantidad_registros() > $this->proximo_registro) ){
 				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
@@ -331,13 +331,13 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function obtener_registros($condiciones=null, $usar_id_registro=false)
+	public function get_registros($condiciones=null, $usar_id_registro=false)
 	//Las condiciones permiten filtrar la lista de registros que se devuelves
 	//Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
 	{
 		$datos = null;
 		$a = 0;
-		foreach( $this->obtener_id_registro_condicion($condiciones) as $id_registro )
+		foreach( $this->get_id_registro_condicion($condiciones) as $id_registro )
 		{
 			if($usar_id_registro){
 				$datos[$id_registro] = $this->datos[$id_registro];
@@ -352,7 +352,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 	
-	public function obtener_id_registro_condicion($condiciones=null)
+	public function get_id_registro_condicion($condiciones=null)
 	/*
 		Devuelve los registros que cumplen una condicion.
 		Solo se chequea la condicion de igualdad.
@@ -393,7 +393,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	public function obtener_registro($id)
+	public function get_registro($id)
 	{
 		if(isset($this->datos[$id])){
 			$temp = $this->datos[$id];
@@ -406,7 +406,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	public function obtener_registro_valor($id, $columna)
+	public function get_registro_valor($id, $columna)
 	{
 		if(isset($this->datos[$id][$columna])){
 			return  $this->datos[$id][$columna];
@@ -416,7 +416,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	public function cantidad_registros()
+	public function get_cantidad_registros()
 	{
 		$a = 0;
 		foreach(array_keys($this->control) as $id_registro){
@@ -445,7 +445,7 @@ class db_registros
 	public function agregar_registro($registro)
 	{
 		if( $this->tope_max_registros != 0){
-			if( !($this->cantidad_registros() < $this->tope_max_registros) ){
+			if( !($this->get_cantidad_registros() < $this->tope_max_registros) ){
 				throw new excepcion_toba("No es posible agregar registros (TOPE MAX.)");
 			}
 		}
@@ -519,7 +519,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	public function establecer_registro_valor($id, $columna, $valor)
+	public function set_registro_valor($id, $columna, $valor)
 	{
 		if(isset($this->datos[$id][$columna])){
 			$this->datos[$id][$columna] = $valor;
@@ -530,7 +530,7 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	public function establecer_valor_columna($columna, $valor)
+	public function set_valor_columna($columna, $valor)
 	//Setea todas las columnas con un valor
 	{
 		foreach(array_keys($this->control) as $registro){
@@ -547,7 +547,7 @@ class db_registros
 		
 	public function set($registro)
 	{
-		if($this->cantidad_registros() === 0){
+		if($this->get_cantidad_registros() === 0){
 			$this->agregar_registro($registro);
 		}else{
 			$this->modificar_registro($registro, 0);
@@ -556,7 +556,7 @@ class db_registros
 	
 	public function get()
 	{
-		return $this->obtener_registro(0);
+		return $this->get_registro(0);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -665,15 +665,17 @@ class db_registros
 		$mensaje_usuario = "El elemento posee valores incompletos";
 		$mensaje_programador = "db_registros " . get_class($this). " [{$this->identificador}] - ".
 					" Es necesario especificar un valor para el campo: ";
-		foreach($this->campos_no_nulo as $campo){
-			if(isset($registro[$campo])){
-				if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
-					toba::get_logger()->error($mensaje_programador . $campo);
-					throw new excepcion_toba($mensaje_usuario);
+		if(isset($this->campos_no_nulo)){
+			foreach($this->campos_no_nulo as $campo){
+				if(isset($registro[$campo])){
+					if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
+						toba::get_logger()->error($mensaje_programador . $campo);
+						throw new excepcion_toba($mensaje_usuario . " ('$campo' se encuentra vacio)");
+					}
+				}else{
+						toba::get_logger()->error($mensaje_programador . $campo);
+						throw new excepcion_toba($mensaje_usuario . " ('$campo' se encuentra vacio)");
 				}
-			}else{
-					toba::get_logger()->error($mensaje_programador . $campo);
-					throw new excepcion_toba($mensaje_usuario);
 			}
 		}
 	}

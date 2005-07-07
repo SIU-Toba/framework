@@ -3,7 +3,7 @@
 //Fuente de datos: 'comechingones'
 require_once('nucleo/persistencia/db_registros_s.php');
 
-class test_db_registros_std_s_1_dbr extends db_registros_s
+class test_db_registros_s_seq_dbr extends db_registros_s
 //db_registros especifico de la tabla 'test_db_registros_01'
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
@@ -12,8 +12,8 @@ class test_db_registros_std_s_1_dbr extends db_registros_s
 				'tabla' => 'test_maestro',
 				'columna' => array( 
 						array( 	'nombre'=>'id',
-								'pk'=>1, 
-								'no_nulo'=>1 ),
+								'secuencia'=>1, 
+								'pk'=>1 ),
 						array( 	'nombre'=>'nombre',
 								'no_nulo'=>1 ),
 						array( 	'nombre'=>'descripcion' )

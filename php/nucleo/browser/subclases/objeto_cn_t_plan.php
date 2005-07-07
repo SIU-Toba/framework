@@ -113,7 +113,7 @@ class objeto_cn_t_plan extends objeto_cn_t
 
     function get_propiedades()
     {
-		return $this->buffer['propiedades']->obtener_registro(0);
+		return $this->buffer['propiedades']->get_registro(0);
     }
 
     //-------------------------------------------------------------
@@ -122,7 +122,7 @@ class objeto_cn_t_plan extends objeto_cn_t
 
     function obtener_lista_actividades()
     {
-		return $this->buffer['actividades']->obtener_registros();
+		return $this->buffer['actividades']->get_registros();
     }
     //-------------------------------------------------------------
 
@@ -135,7 +135,7 @@ class objeto_cn_t_plan extends objeto_cn_t
     function obtener_actividad_actual()
     {
 		if(isset($this->actividad_actual)){
-			return $this->buffer['actividades']->obtener_registro($this->actividad_actual);
+			return $this->buffer['actividades']->get_registro($this->actividad_actual);
 		}
     }
     //-------------------------------------------------------------
@@ -182,7 +182,7 @@ class objeto_cn_t_plan extends objeto_cn_t
 
     function obtener_lista_hitos()
     {
-		return $this->buffer['hitos']->obtener_registros();
+		return $this->buffer['hitos']->get_registros();
     }
     //-------------------------------------------------------------
 
@@ -195,7 +195,7 @@ class objeto_cn_t_plan extends objeto_cn_t
     function obtener_hito_actual()
     {
 		if(isset($this->hito_actual)){
-			return $this->buffer['hitos']->obtener_registro($this->hito_actual);
+			return $this->buffer['hitos']->get_registro($this->hito_actual);
 		}
     }
     //-------------------------------------------------------------
@@ -233,7 +233,7 @@ class objeto_cn_t_plan extends objeto_cn_t
 
     function obtener_lista_lineas()
     {
-		return $this->buffer['lineas']->obtener_registros();
+		return $this->buffer['lineas']->get_registros();
 	}
     //-------------------------------------------------------------
 
@@ -246,7 +246,7 @@ class objeto_cn_t_plan extends objeto_cn_t
     function obtener_linea_actual()
     {
 		if(isset($this->linea_actual)){
-			return $this->buffer['lineas']->obtener_registro($this->linea_actual);
+			return $this->buffer['lineas']->get_registro($this->linea_actual);
 		}
     }
     //-------------------------------------------------------------
