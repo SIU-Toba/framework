@@ -6,7 +6,7 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 
 	function eventos_predefinidos()
 	{
-		$eventos = array();
+		$eventos = array('carga');
 		//Si no selecciono ningun evento, la modificación es por defecto				
 		if ($this->hay_filtrar() || !$this->hay_eventos_seleccionados()) 
 			$eventos[] = 'filtrar';

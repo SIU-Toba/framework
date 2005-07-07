@@ -5,12 +5,14 @@ class elemento_objeto_ei_formulario_ml extends elemento_objeto
 {
 	function eventos_predefinidos()
 	{
-		$eventos = array();
+		$eventos = array('carga');
 		//Si no selecciono ningun evento, la modificación es por defecto				
 		if ($this->hay_seleccion()) 
 			$eventos[] = 'seleccion';
 		if ($this->tipo_analisis() == 'EVENTOS') {
-			$eventos += array('registro_alta', 'registro_baja', 'registro_modificacion');
+			$eventos[] ='registro_alta';
+			$eventos[] ='registro_baja';
+			$eventos[] ='registro_modificacion';
 		} else {
 			$eventos[] = 'modificacion';
 		}

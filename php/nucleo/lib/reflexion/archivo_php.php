@@ -31,6 +31,16 @@ class archivo_php
 		return $this->nombre;
 	}
 	
+	function esta_vacio()
+	{
+		$this->edicion_inicio();
+		if (trim($this->contenido) == '')
+			return true;
+		else
+			return false;
+	
+	}
+	
 	function existe()
 	{
 		return file_exists($this->nombre);
@@ -112,10 +122,11 @@ class archivo_php
 			if ($pos !== false) {
 				$inicio = "<?";
 				$final = substr($this->contenido, $pos + 2);
-			} else
+			} else {
 				throw new excepcion_toba("El archivo no contiene las marcas PHP de inicio de archivo");
+			}
 		}
-		$this->contenido = $inicio."\n".$codigo."\n".$final;
+		$this->contenido = $inicio."\n".$codigo.$final;
 	}
 	
 	function insertar_al_final($codigo)

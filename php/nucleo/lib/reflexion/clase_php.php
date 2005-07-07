@@ -22,6 +22,7 @@ class clase_php
 	function set_objeto($proyecto, $objeto)
 	{
 		//Carga el elemento toba con este objeto
+		require_once($this->archivo_padre_nombre);
 		if (class_exists($this->padre_nombre)) {
 			$this->elemento_toba = call_user_func(array($this->padre_nombre, 'elemento_toba'));
 			$this->elemento_toba->cargar_db($proyecto, $objeto);		
@@ -30,7 +31,9 @@ class clase_php
 	
 	//--Generación de clases	
 	function generar($opciones)
-	{		
+	{
+		if ($this->archivo->esta_vacio())
+			$this->archivo->crear_basico();
 		$this->archivo->edicion_inicio();
 		//¿Está incluido la clase padre en el archivo
 		if (strpos($this->archivo->contenido(), $this->archivo_padre_nombre) === false) {
@@ -133,12 +136,15 @@ class clase_php
 			if ($metodo->getDeclaringClass() == $clase) {
 				$estilo = '';
 				if ($this->elemento_toba->es_evento($metodo->getName())) {
-					$tipo = recurso::imagen_apl('reflexion/evento.gif');
+					$tipo = recurso::imagen_apl('reflexion/desconocido.gif');
 					if (! $this->elemento_toba->es_evento_valido($metodo->getName())) {
 						$tipo = recurso::imagen_apl('reflexion/problema.gif');
 					}
 					if ($this->elemento_toba->es_evento_sospechoso($metodo->getName())) {
 						$tipo = recurso::imagen_apl('warning.gif');
+					}
+					if ($this->elemento_toba->es_evento_predefinido($metodo->getName())) {
+						$tipo = recurso::imagen_apl('reflexion/evento.gif');
 					}
 					$estilo =  "list-style-image: url($tipo)";					
 				} 

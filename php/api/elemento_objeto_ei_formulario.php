@@ -3,10 +3,31 @@ require_once('api/elemento_objeto.php');
 
 class elemento_objeto_ei_formulario extends elemento_objeto
 {
+	
+	//---Preguntas
+	function hay_alta() {
+		return $this->datos['apex_objeto_ut_formulario'][0]['ev_agregar'];
+	}
+	
+	function hay_baja() {
+		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_eliminar'];
+	}
+	
+	function hay_modificacion() {
+		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_modificar'];
+	}
+	
+	function hay_cancelar() {
+		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_limpiar'];
+	}
+	
+	function hay_eventos_seleccionados() {
+		return $this->hay_alta() || $this->hay_baja() || $this->hay_modificacion() || $this->hay_cancelar();
+	}
 
 	function eventos_predefinidos()
 	{
-		$eventos = array();
+		$eventos = array('carga');
 		//Si no selecciono ningun evento, la modificación es por defecto				
 		if ($this->hay_modificacion() || !$this->hay_eventos_seleccionados()) 
 			$eventos[] = 'modificacion';
@@ -19,6 +40,8 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		return $eventos;
 	}
 	
+	
+	//---- Generación de código	
 	function generar_eventos($solo_basicos)
 	{
 		$eventos = parent::generar_eventos($solo_basicos);
@@ -73,27 +96,12 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		return $eventos;
 	}		
 
-	//---Preguntas
-	function hay_alta() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_agregar'];
+	function generar_metodos_basicos()
+	{
+		$basicos = parent::generar_metodos_basicos();
+
+		return $this->filtrar_comentarios($basicos);
 	}
 	
-	function hay_baja() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_eliminar'];
-	}
-	
-	function hay_modificacion() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_modificar'];
-	}
-	
-	function hay_cancelar() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_limpiar'];
-	}
-	
-	function hay_eventos_seleccionados() {
-		return $this->hay_alta() || $this->hay_baja() || $this->hay_modificacion() || $this->hay_cancelar();
-	}
 }
-
-
 ?>

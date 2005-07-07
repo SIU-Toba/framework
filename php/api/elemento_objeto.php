@@ -195,7 +195,26 @@ class elemento_objeto extends elemento
 	
 	function generar_metodos_basicos()
 	{
-		return array();
+		$basicos = array();
+		$basicos[] = "\t".
+'function mantener_estado_sesion()
+	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
+	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		!#c1//$propiedades[] = "nombre_de_la_propiedad_a_persistir";
+		return $propiedades;
+	}
+';
+		$basicos[] = "\t".
+'function extender_objeto_js()
+	!#c3//Se puede cambiar el comportamiento de una pantalla redefiniendo métodos en el javascript asociado a este objeto
+	!#c2//La sintaxis para redefinir métodos javascript es:
+	!#c2//	echo "{$this->objeto_js}.metodo = function(parametros) { cuerpo }";
+	{
+	}
+';
+		return $this->filtrar_comentarios($basicos);
 	}
 	
 	function generar_constructor()

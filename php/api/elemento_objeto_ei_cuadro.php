@@ -11,7 +11,9 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 		if ($this->hay_seleccion()) 
 			$eventos[] = 'seleccion';
 		if ($this->hay_baja()) 
-			$eventos[] = 'baja';			
+			$eventos[] = 'baja';		
+		if ($this->hay_ordenar())
+			$eventos[] = 'ordenar';
 		return $eventos;
 	}
 	
