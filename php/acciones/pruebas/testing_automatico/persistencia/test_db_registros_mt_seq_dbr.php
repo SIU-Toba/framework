@@ -11,7 +11,7 @@ class test_db_registros_mt_seq_dbr extends db_registros_mt
 						'columna' => array( 
 							array( 	'nombre'=>'id',
 									'pk'=>1, 
-									'secuencia'=>1 ),
+									'secuencia'=>'seq_maestro' ),
 							array( 	'nombre'=>'nombre',
 									'no_nulo'=>1 ),
 							array( 'nombre'=>'descripcion' )

@@ -22,6 +22,16 @@ class asercion
 		}
 	}
 
+	function es_array_o_null($array, $texto="ATENCION, el elemento no es un ARRAY y no es NULO")
+	{
+		if(is_null($array)){
+			return;
+		}
+		if(!is_array($array)){
+			throw new excepcion_toba($texto);
+		}
+	}
+
 	function error($texto)
 	{
 		throw new excepcion_toba($texto);

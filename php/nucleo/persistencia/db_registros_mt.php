@@ -20,6 +20,9 @@ class db_registros_mt extends db_registros
 			- Las tablas tienen que estar relacionadas
 			- Un alias no puede llamarse como una columna que ya existe
 			- Una tabla debe poseer una CLAVE
+			- Si en una tabla declaro ID como sequencia (evita no_nulo) 
+				y en otra tablo declaro ID como no_nulo. La definicion va a considerar el no_nulo.
+			- Una columna con JOIN no deberia ser no_nulo, porque en general se basa en la principal
 		*/
 		foreach(array_keys($this->definicion) as $n_tab)
 		{
@@ -35,8 +38,6 @@ class db_registros_mt extends db_registros
 		
 			Cosas a prevenir:
 			
-				- Si en una tabla declaro ID como sequencia (evita no_nulo) 
-					y en otra tablo declaro ID como no_nulo. La definicion va a considerar el no_nulo.
 		
 			Generacion de la DEFINICION OPERATIVA. (Se basa es $this->definicion, provista por el consumidor en la creacion)
 
@@ -62,12 +63,12 @@ class db_registros_mt extends db_registros
 			$this->tabla[] = $tabla;
 			foreach(array_keys($this->definicion[$n_tab]['columna']) as $col)
 			{
-				$es_secuencia = isset($this->definicion[$n_tab]['columna'][$col]['secuencia']) && ($this->definicion[$n_tab]['columna'][$col]['secuencia'] == 1);
 				$es_clave = isset($this->definicion[$n_tab]['columna'][$col]['pk']) && ($this->definicion[$n_tab]['columna'][$col]['pk'] == 1);
 				$es_no_nulo = isset($this->definicion[$n_tab]['columna'][$col]['no_nulo']) && ($this->definicion[$n_tab]['columna'][$col]['no_nulo'] == 1);
 				$es_externa = isset($this->definicion[$n_tab]['columna'][$col]['externa']) && ($this->definicion[$n_tab]['columna'][$col]['externa'] == 1) ;
 				$posee_alias = isset($this->definicion[$n_tab]['columna'][$col]['alias']) && trim($this->definicion[$n_tab]['columna'][$col]['alias'] != "") ;
 				$posee_join = isset($this->definicion[$n_tab]['columna'][$col]['join']) && trim($this->definicion[$n_tab]['columna'][$col]['join'] != "") ;
+				$es_secuencia = isset($this->definicion[$n_tab]['columna'][$col]['secuencia']) && trim($this->definicion[$n_tab]['columna'][$col]['secuencia'] != "");
 				$campo = $this->definicion[$n_tab]['columna'][$col]['nombre'];
 				//Para mi ancestro
 				if( $es_clave && $n_tab == 0) $this->clave[] = $campo;	//La clave general es la de la tabla principal
@@ -122,6 +123,7 @@ class db_registros_mt extends db_registros
 		$estado['campos_sql_insert'] = isset($this->campos_sql_insert) ? $this->campos_sql_insert : null;
 		$estado['campos_sql_update'] = isset($this->campos_sql_update) ? $this->campos_sql_update : null;
 		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select : null;
+		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
 		$estado['join'] = isset($this->join) ? $this->join : null;
 		return $estado;
 	}
@@ -294,7 +296,8 @@ class db_registros_mt extends db_registros
 				if(isset($this->campos_alias[$tabla][$col])){
 					$col = $this->campos_alias[$tabla][$col];
 				}
-				if( !isset($registro[$col])  ){		//|| (trim($registro[$col]) == "")  que se hace con el string vacio?
+				//ATENCION: esto tiene algo raro, no se pueden definir STRING NULOS
+				if( !isset($registro[$col]) || (trim($registro[$col]) == "")  ){		
 					$valores[$id] = "NULL";
 				}else{
 					$valores[$id] = "'" . addslashes(trim($registro[$col])) . "'";	
@@ -323,7 +326,7 @@ class db_registros_mt extends db_registros
 	{
 		foreach( $this->tabla as $tabla)
 		{
-			if(count($this->campos_sql_update[$tabla]) > 0)
+			if( isset($this->campos_sql_update[$tabla]) && count($this->campos_sql_update[$tabla]) > 0)
 			{
 				//Busco el registro
 				$registro = $this->datos[$id_registro];
@@ -340,7 +343,7 @@ class db_registros_mt extends db_registros
 					if(isset($this->campos_alias[$tabla][$campo])){
 						$campo = $this->campos_alias[$tabla][$campo];
 					}
-					if( ( !isset($registro[$campo]))  ){	//|| (trim($registro[$campo]) == "")
+					if( ( !isset($registro[$campo])) || (trim($registro[$campo]) == "") ){
 						$set[] = " $campo = NULL ";
 					}else{
 						$set[] = " $campo = '". addslashes(trim($registro[$campo])) . "' ";

@@ -34,10 +34,10 @@ class db_registros_s extends db_registros
 		$this->tabla = $this->definicion["tabla"];
 		foreach(array_keys($this->definicion['columna']) as $col)
 		{
-			$es_secuencia = isset($this->definicion['columna'][$col]['secuencia']) && ($this->definicion['columna'][$col]['secuencia'] == 1);
 			$es_clave = isset($this->definicion['columna'][$col]['pk']) && ($this->definicion['columna'][$col]['pk'] == 1);
 			$es_no_nulo = isset($this->definicion['columna'][$col]['no_nulo']) && ($this->definicion['columna'][$col]['no_nulo'] == 1);
 			$es_externa = isset($this->definicion['columna'][$col]['externa']) && ($this->definicion['columna'][$col]['externa'] == 1) ;
+			$es_secuencia = isset($this->definicion['columna'][$col]['secuencia']) && trim($this->definicion['columna'][$col]['secuencia'] != "");
 			$campo = $this->definicion['columna'][$col]['nombre'];
 			//Para mi ancestro
 			$this->campos[] = $campo;
@@ -61,6 +61,7 @@ class db_registros_s extends db_registros
 		$estado = parent::info_definicion();
 		$estado['tabla'] = $this->tabla;              
 		$estado['campos_sql'] = isset($this->campos_sql) ? $this->campos_sql : null;
+		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
 		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select: null;
 		return $estado;
 	}

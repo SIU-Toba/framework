@@ -86,7 +86,6 @@ class db_registros
 		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
 		$estado['campos'] = $this->campos;
 		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
-		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
 		return $estado;
 	}
 

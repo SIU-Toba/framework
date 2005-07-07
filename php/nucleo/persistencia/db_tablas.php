@@ -20,14 +20,37 @@ class db_tablas
 		$this->fuente = $fuente;
 	}
 
+	//-------------------------------------------------------------------------------
+	//-- Preguntas BASICAS
+	//-------------------------------------------------------------------------------
+
 	function info()
 	{
-		foreach(array_keys($this->elemento) as $elemento)
-		{
+		foreach(array_keys($this->elemento) as $elemento){
 			$temp[$elemento] = $this->elemento[$elemento]->info(true);
 		}
 		return $temp;
 	}
+
+	function info_definicion()
+	{
+		foreach(array_keys($this->elemento) as $elemento){
+			$temp[$elemento] = $this->elemento[$elemento]->info_definicion();
+		}
+		return $temp;
+	}
+
+	function info_control()
+	{
+		foreach(array_keys($this->elemento) as $elemento){
+			$temp[$elemento] = $this->elemento[$elemento]->get_estructura_control();
+		}
+		return $temp;
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Servicios basicos
+	//-------------------------------------------------------------------------------
 
 	public function elemento($elemento)
 	//Devuelve una referencia a un db_registros
@@ -76,7 +99,6 @@ class db_tablas
 		}
 		$this->cargado = true;
 	}
-	//-------------------------------------------------------
 
 	public function resetear()
 	{
@@ -103,6 +125,7 @@ class db_tablas
 	}
 
 	public function sincronizar_plan()
+	//Por defecto supone una relacion MAESTRO - DETALLE
 	{
 		$this->elemento[$this->cabecera]->sincronizar();
 		//Se obtiene el id de la cabecera
@@ -136,6 +159,7 @@ class db_tablas
 	}
 
 	public function eliminar_plan()
+	//Por defecto supone una relacion MAESTRO-DETALLE
 	{
 		$detalles = array_reverse(array_keys($this->detalles));
 		foreach( $detalles as $detalle ) {

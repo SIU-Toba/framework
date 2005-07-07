@@ -27,6 +27,15 @@
 		- Wrapper de un buffer para realizar procesos
 		- El dbr debe poder crear el modelo de datos que representa
 		
+	TICKETS
+	-------
+	
+		- El buffer pierde algo de su estado cuando falla una sincronizacion
+		- El db_tablas en la relacion maestro detalle, setea la clave del maestro aunque los registros no se hayan modificado
+			Esto hace que se disparen modificaciones cuando no se necesitan
+		- El buffer transforma los strings vacios en un NULL de la DB.
+			Lo ideal seria que el buffer no realice esta conversion, sino que los EI devuelvan NULL en vez de ""
+		
 //___________________________________________________________________________________________________
 
 

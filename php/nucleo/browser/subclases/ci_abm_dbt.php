@@ -24,8 +24,10 @@ class ci_abm_dbt extends objeto_ci implements interface_abm
 	function destruir()
 	{
 		parent::destruir();	
-		//objeto_ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
-		//objeto_ei_arbol($this->obtener_dbt()->info());
+		//ei_arbol($this->obtener_dbt()->info_definicion());
+		//ei_arbol($this->get_estado_sesion(),"ESTADO Interno");
+		//ei_arbol($this->obtener_dbt()->info());
+		//ei_arbol($this->obtener_dbt()->info_control());
 	}
 
 	function obtener_dbt()

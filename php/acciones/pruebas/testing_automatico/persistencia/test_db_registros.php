@@ -3,8 +3,21 @@ class test_db_registros extends test_toba
 {
 	protected $dbr;
 
+	//----------------------------------------------
+	//-- Configuracion general de todos los TESTs
+	//----------------------------------------------
+
 	function pre_run()
 	{
+		//Si el test fallo, los objetos de la base no se borraron...
+		foreach( $this->get_sql_eliminar_tablas() as $sql ){
+			try{
+				ejecutar_sql($sql);
+			}catch(excepcion_toba $e){
+				//todo bien! el elemento no existia
+			}
+		}
+		//Creo los elementos		
 		ejecutar_sql( $this->get_sql_tablas() );
 	}
 	
@@ -12,7 +25,6 @@ class test_db_registros extends test_toba
 	{
 		ejecutar_sql( $this->get_sql_eliminar_tablas() );
 	}
-	//----------------------------------------------
 
 	function SetUp()
 	{
@@ -26,6 +38,9 @@ class test_db_registros extends test_toba
 		$this->dbr->resetear();
 		unset($this->dbr);
 	}
+
+	//----------------------------------------------
+	//-- Mostrar Informacion
 	//----------------------------------------------
 
 	function dump($mensaje="Info")
@@ -52,5 +67,20 @@ class test_db_registros extends test_toba
 	{
 		ei_arbol($this->dbr->get_registros(null, true),$mensaje);	
 	}
+	
+	function dump_tabla($tabla)
+	{
+		ei_arbol( $this->get_datos($tabla),"Datos TABLA: $tabla" );		
+	}
+
+	//----------------------------------------------
+	//-- Herramientas
+	//----------------------------------------------
+
+	function get_datos($tabla)
+	{
+		return consultar_fuente( "SELECT * FROM $tabla;" );	
+	}
+	//----------------------------------------------
 }
 ?>

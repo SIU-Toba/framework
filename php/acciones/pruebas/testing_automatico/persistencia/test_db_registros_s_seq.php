@@ -7,10 +7,9 @@ class test_db_registros_s_seq extends test_db_registros
 {
 	function get_sql_tablas()
 	{
-		//$sql[] = "DROP SEQUENCE seq_maestro;";
 		$sql[] = "CREATE SEQUENCE seq_maestro INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;";
-		$sql[] = "CREATE TEMPORARY TABLE test_maestro (
-					  id 				int4			DEFAULT nextval('\"seq_maestro\"'::text)	NOT NULL, 
+		$sql[] = "CREATE TABLE test_maestro (
+					  id 				int4			DEFAULT nextval('\"seq_maestro\"'::text) NOT NULL, 
 					  nombre			VARCHAR(20) 	NOT NULL, 
 					  descripcion 		VARCHAR(80), 
 					  CONSTRAINT test_maestro_pkey PRIMARY KEY(id)
@@ -27,6 +26,7 @@ class test_db_registros_s_seq extends test_db_registros
 
 	function get_sql_juego_datos()
 	{
+		$sql[] = "SELECT setval('seq_maestro', 1, false);";
 		$sql[] = "INSERT INTO test_maestro (nombre, descripcion) VALUES ('Peras','Las peras son ricas.');";
 		$sql[] = "INSERT INTO test_maestro (nombre, descripcion) VALUES ('Naranjas','Las naranjas son ricas.');";
 		$sql[] = "INSERT INTO test_maestro (nombre, descripcion) VALUES ('Mandarinas','Las mandarinas son ricas.');";
@@ -66,10 +66,28 @@ class test_db_registros_s_seq extends test_db_registros
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
 
-	function test_insert()
+	function test_info()
 	{
-		$this->dump_definicion();		
+		//$this->dump_definicion_externa();
+		//$this->dump_definicion();		
+		//$this->dump_tabla("test_maestro");
 	}
 
+	function test_insert()
+	{
+		$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+		$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "i");
+		$this->AssertEqual($control[1]['estado'], "i");
+		$diff = $this->dbr->sincronizar();
+		$this->AssertEqual($diff, 2);
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "db");
+		$this->AssertEqual($control[1]['estado'], "db");
+		$datos = $this->dbr->get_registros();
+		$this->AssertEqual($datos[0]['id'], 5);
+		$this->AssertEqual($datos[1]['id'], 6);
+	}
 }
 ?>

@@ -12,7 +12,7 @@ class test_db_registros_s_seq_dbr extends db_registros_s
 				'tabla' => 'test_maestro',
 				'columna' => array( 
 						array( 	'nombre'=>'id',
-								'secuencia'=>1, 
+								'secuencia'=>'seq_maestro', 
 								'pk'=>1 ),
 						array( 	'nombre'=>'nombre',
 								'no_nulo'=>1 ),
