@@ -87,11 +87,9 @@ class cuadro extends objeto_ei_cuadro
                 echo "</td>\n";
             }
             //-- Evento FIJO de seleccion
-			if($this->ev_seleccion){
-				echo "<td class='lista-col-titulo'>\n";
-	            echo "</td>\n";
-	            echo "</tr>\n";
-			}
+			echo "<td class='lista-col-titulo'>\n";
+            echo "</td>\n";
+            echo "</tr>\n";
 			//-------------------------------------------------------------------------
             //----------------------- Genero VALORES del CUADRO -----------------------
 			//-------------------------------------------------------------------------
@@ -154,12 +152,10 @@ class cuadro extends objeto_ei_cuadro
                     //----------> Termino la CELDA!!
                 }
 	            //-- Evento FIJO de seleccion
-				if($this->ev_seleccion){
 					echo "<td class='lista-col-titulo'>\n";
 					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"), 
 									"onClick='seleccionar(\"{$this->datos[$f]['id']}\", \"{$this->datos[$f]['descripcion']}\")';");
 	            	echo "</td>\n";
-	            }
 				//----------------------------
                 echo "</tr>\n";
             }
