@@ -744,9 +744,7 @@ TD.col-tex-p1 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
-	 FONT-FAMILY: courier;
-	 FONT-SIZE: 11px;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: center	 
 }
 TD.col-tex-p2 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -774,6 +772,21 @@ TD.col-tex-p3 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #d3d2d2;
+	 TEXT-ALIGN: left
+}
+TD.columna-monoespacio {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 4px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #000011;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 FONT-FAMILY: courier;
+	 FONT-SIZE: 11px;
 	 TEXT-ALIGN: left
 }
 TD.col-cen-s1 {
@@ -1314,6 +1327,18 @@ TD.lista-subtitulo {
 	 TEXT-ALIGN: left
 }
 TD.lista-col-titulo {
+	BORDER-RIGHT: #231f20 1px;
+	 BORDER-TOP: #231f20 1px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 VERTICAL-ALIGN: bottom;
+	 BORDER-LEFT: #231f20 1px;
+	 COLOR: #000000;
+	 BORDER-BOTTOM: #231f20 1px;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: center;
+}
+TD.titulo-monoespacio{
 	BORDER-RIGHT: #231f20 1px;
 	 BORDER-TOP: #231f20 1px;
 	 FONT-WEIGHT: bold;
