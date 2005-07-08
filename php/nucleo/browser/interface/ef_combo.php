@@ -390,6 +390,11 @@ class ef_combo_dao extends ef_combo
 	function cargar_datos_master_ok()
 	//Si el master esta cargado, el EF procede a cargar sus registros
 	{
+		/*
+			ATENCION: Esto que sigue es extraño, al DAO hay que pasarle en array
+			de	"$this->dependencias_datos". No se hace ahora para soportar 
+			compatibilidad con el comechingones...
+		*/
 		$parametros = array();
 		for($a=0;$a<count($this->dependencias);$a++){
 			$parametros[] = "'" . $this->dependencias_datos[$this->dependencias[$a]] . "'";
@@ -405,7 +410,7 @@ class ef_combo_dao extends ef_combo
 				$this->valores[apex_ef_no_seteado] = $this->no_seteado;
 			}
 		}else{
-			echo ei_mensaje("Las cascadas de DAO no estan preparadas para metodos no estaticos");
+			throw new excepcion_toba("Las cascadas de DAO no estan preparadas para metodos no estaticos");
 		}
 	}
 

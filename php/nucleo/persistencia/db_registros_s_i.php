@@ -34,6 +34,7 @@ class db_registros_s_i extends db_registros_s
 		$secuencia = 0;
 		for($a=0;$a<count($metadatos['columnas']);$a++)
 		{
+			$seq = false;
 			//Nombre columna
 			$definicion['columna'][$a]['nombre'] = $metadatos['columnas'][$a]['columna'];
 			if(in_array($metadatos['columnas'][$a]['num_col'], $num_col_pk)){
@@ -42,11 +43,12 @@ class db_registros_s_i extends db_registros_s
 			}
 			//-<2>- SECUENCIAS
 			if(preg_match("/nextval/",$metadatos['columnas'][$a]['default'])){
+				$seq = true;
 				$temp = preg_split("|\"|", $metadatos['columnas'][$a]['default']);
 				$definicion['columna'][$a]['secuencia'] = $temp[1];
 			}
 			//-<3>- NO DUPLICADOS
-			if($metadatos['columnas'][$a]['not_null']=="t"){
+			if( !$seq && $metadatos['columnas'][$a]['not_null']=="t" ){
 				$definicion['columna'][$a]['no_nulo'] = 1;
 			}
 		}

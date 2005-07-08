@@ -667,7 +667,7 @@ class db_registros
 		if(isset($this->campos_no_nulo)){
 			foreach($this->campos_no_nulo as $campo){
 				if(isset($registro[$campo])){
-					if((trim($registro[$campo]==""))||(trim($registro[$campo]=="NULL"))){
+					if((trim($registro[$campo])=="")||(trim($registro[$campo])=='NULL')){
 						toba::get_logger()->error($mensaje_programador . $campo);
 						throw new excepcion_toba($mensaje_usuario . " ('$campo' se encuentra vacio)");
 					}

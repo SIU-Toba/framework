@@ -235,6 +235,8 @@ class ef //Clase abstracta, padre de todos los EF
 	//dependencias (los maestros) de este EF. Si estan todos completos, puede
 	//proceder a cargar sus datos
 	{
+		//asercion::es_array($datos);
+		//ei_arbol($datos);
 		if(count($datos)>0)
 		{
 			$this->dependencias_datos = $datos;

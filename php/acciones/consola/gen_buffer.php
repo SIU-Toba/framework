@@ -56,26 +56,32 @@ require_once('nucleo/persistencia/db_registros_s.php');
 class dbr_$tabla extends db_registros_s
 //db_registros especifico de la tabla '$tabla'
 {
-	function __construct(\$fuente=null, \$max_registros=0, \$min_registros=0)
+	function __construct(\$fuente=null, \$min_registros=0, \$max_registros=0 )
 	{
 ";
 		$php .= dump_array_php($definicion_buffer,"		\$def");
 		//$php .= var_export($definicion_buffer,true);
-		$php .= "		parent::__construct( \$def, \$fuente, \$max_registros, \$min_registros);
+		$php .= "		parent::__construct( \$def, \$fuente, \$min_registros, \$max_registros);
 	}	
 	
 	function cargar_datos_clave(\$id)
 	{
-		/*
-			LEER y BORRAR
-			-------------
-			El proposito de este metodo es utilizar el parametro \$id para generar un array de sentencias WHERE de SQL
-			que cargan a este db_registros. De esta manerase puede ocultar la utilizacion de SQL por fuera del mismo.
-			Lo que sigue es un ejemplo:
-		*/
-		\$where[] = \"xxxxxxx = '\$id'\";
-		\$this->cargar_datos(\$where);
+";
+	$claves = $buffer->get_clave();
+	
+	if(count($claves)==0){
+		echo("La tabla no tiene clave... este 'db_registros' tiene un futuro incierto\n");
+	}elseif(count($claves)==1){
+		$id = $claves[0];
+		$php .= "		\$where[] = \"$id = '\$id'\";\n";
+		$php .= "		\$this->cargar_datos(\$where);\n";
+	}else{
+		foreach($claves as $clave){
+			$php .= "		\$where[] = \"$clave = '{\$id['$clave']}'\";\n";
+		}
+		$php .= "		\$this->cargar_datos(\$where);\n";
 	}
+		$php .= "	}
 }
 ?>";
 		//echo $php;

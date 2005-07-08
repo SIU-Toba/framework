@@ -188,8 +188,8 @@ class db_registros_s extends db_registros
 	
 	protected function generar_sql_select()
 	{
-		$sql =	" SELECT	a." . implode(",	a.",$this->campos_sql_select) . 
-				" FROM "	. $this->tabla . " a ";
+		$sql =	" SELECT	" . implode(",	",$this->campos_sql_select) . 
+				" FROM "	. $this->tabla ;
 		if(isset($this->from)){
 			$sql .= ", " . implode(",",$this->from);
 		}

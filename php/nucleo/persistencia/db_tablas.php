@@ -94,8 +94,10 @@ class db_tablas
 	public function cargar($id)
 	{
 		$this->elemento[$this->cabecera]->cargar_datos_clave($id);
-		foreach( array_keys($this->detalles) as $detalle ) {
-			$this->elemento[$detalle]->cargar_datos_clave($id);
+		if(count($this->detalles)>0){
+			foreach( array_keys($this->detalles) as $detalle ) {
+				$this->elemento[$detalle]->cargar_datos_clave($id);
+			}
 		}
 		$this->cargado = true;
 	}
@@ -161,10 +163,12 @@ class db_tablas
 	public function eliminar_plan()
 	//Por defecto supone una relacion MAESTRO-DETALLE
 	{
-		$detalles = array_reverse(array_keys($this->detalles));
-		foreach( $detalles as $detalle ) {
-			$this->elemento[$detalle]->eliminar_registros();
-			$this->elemento[$detalle]->sincronizar();
+		if(count($this->detalles)>0){
+			$detalles = array_reverse(array_keys($this->detalles));
+			foreach( $detalles as $detalle ) {
+				$this->elemento[$detalle]->eliminar_registros();
+				$this->elemento[$detalle]->sincronizar();
+			}
 		}
 		$this->elemento[$this->cabecera]->eliminar_registros();
 		$this->elemento[$this->cabecera]->sincronizar();		

@@ -29,7 +29,7 @@ class ci_abm_dbr extends objeto_ci
 		if (! isset($this->dbr)) {
 			include_once( $this->info["parametro_d"]);
 			$clase = $this->info['parametro_e'];
-			$this->dbr = new $clase("dbr_".$this->id, $this->info['fuente'], 1, true);
+			$this->dbr = new $clase($this->info['fuente']);
 		}
 		return $this->dbr;
 	}
