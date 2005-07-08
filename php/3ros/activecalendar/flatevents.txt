@@ -1,0 +1,18 @@
+This is a simple events flat file which 'feeds' the Active Calendar
+Please run the flatevents.php included to see the results
+
+First item: event year
+Second item: event month
+Third item: event day
+Fourth item: event content (accepts valid html tags as well)
+Fifth item: event link
+
+-----------------------------------------------------------------------------------------
+2005~4~18~ActiveCalendar<br />freshmeat.net~http://freshmeat.net/projects/activecalendar/
+2005~4~19~ActiveCalendar<br />phpclasses.org~http://freshmeat.net/redir/activecalendar/53267/url_homepage/1870.html
+2005~4~20~ActiveCalendar<br />Online~http://freshmeat.net/redir/activecalendar/53267/url_demo/index.html
+2005~4~21~ActiveCalendar<br />Changelog~http://freshmeat.net/redir/activecalendar/53267/url_changelog/log.html
+2005~4~22~ActiveCalendar<br />Source tar.gz~http://freshmeat.net/redir/activecalendar/53267/url_tgz/activecalendar.tar.gz
+2005~4~22~ActiveCalendar<br />Source zip~http://freshmeat.net/redir/activecalendar/53267/url_zip/activecalendar.zip
+2005~4~23~ActiveCalendar<br />Subscription~http://freshmeat.net/subscribe/49733/?url=%2Fprojects%2Factivecalendar%2F
+-----------------------------------------------------------------------------------------

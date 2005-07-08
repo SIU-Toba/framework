@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE activecalendar [
+<!ELEMENT activecalendar (eventcontent+, event+)>
+<!ELEMENT eventcontent (contentyear, contentmonth, contentday, contents, contentlink)>
+<!ELEMENT contentyear (#PCDATA)>
+<!ELEMENT contentmonth (#PCDATA)>
+<!ELEMENT contentday (#PCDATA)>
+<!ELEMENT contents (item+)>
+<!ELEMENT item (#PCDATA)>
+<!ELEMENT contentlink (#PCDATA)>
+<!ELEMENT event (eventyear, eventmonth, eventday, eventstyle, eventlink)>
+<!ELEMENT eventyear (#PCDATA)>
+<!ELEMENT eventmonth (#PCDATA)>
+<!ELEMENT eventday (#PCDATA)>
+<!ELEMENT eventstyle (#PCDATA)>
+<!ELEMENT eventlink (#PCDATA)>
+]>
+<activecalendar>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>20</contentday>
+		<contents>
+			<item>I am an </item>
+			<item>array with</item>
+			<item>link</item>
+		</contents>
+		<contentlink>xmlevents.php</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>28</contentday>
+		<contents>
+<!-- All HTML Tags should be included as comments, so that the xml document remains valid. The xmlevents.php will extract the HTML Tags out of the comments. -->
+			<item><!--<font color="red">I accept HTML tags to become red</font>--></item>
+		</contents>
+		<contentlink></contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>26</contentday>
+		<contents>
+			<item>I am a string without a link</item>
+		</contents>
+		<contentlink></contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>3</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+			<item>freshmeat.net</item>
+		</contents>
+		<contentlink>http://freshmeat.net/projects/activecalendar/</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>4</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+			<item>phpclasses.org</item>
+		</contents>
+		<contentlink>http://freshmeat.net/redir/activecalendar/53267/url_homepage/1870.html</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>5</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+			<item>Online</item>
+		</contents>
+		<contentlink>http://freshmeat.net/redir/activecalendar/53267/url_demo/index.html</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>6</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+			<item>Changelog</item>
+		</contents>
+		<contentlink>http://freshmeat.net/redir/activecalendar/53267/url_changelog/log.html</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>7</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+		</contents>
+		<contentlink></contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>7</contentday>
+		<contents>
+			<item>Source tar.gz</item>
+		</contents>
+		<contentlink>http://freshmeat.net/redir/activecalendar/53267/url_tgz/activecalendar.tar.gz</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>7</contentday>
+		<contents>
+			<item>Source zip</item>
+		</contents>
+		<contentlink>http://freshmeat.net/redir/activecalendar/53267/url_zip/activecalendar.zip</contentlink>
+	</eventcontent>
+	<eventcontent>
+		<contentyear>2005</contentyear>
+		<contentmonth>10</contentmonth>
+		<contentday>8</contentday>
+		<contents>
+			<item>ActiveCalendar</item>
+			<item>Subscription</item>
+		</contents>
+		<contentlink>http://freshmeat.net/subscribe/49733/?url=%2Fprojects%2Factivecalendar%2F</contentlink>
+	</eventcontent>
+	<event>
+		<eventyear>2005</eventyear>
+		<eventmonth>10</eventmonth>
+		<eventday>10</eventday>
+		<eventstyle>event</eventstyle>
+		<eventlink></eventlink>
+	</event>
+	<event>
+		<eventyear>2005</eventyear>
+		<eventmonth>10</eventmonth>
+		<eventday>15</eventday>
+		<eventstyle>event</eventstyle>
+		<eventlink></eventlink>
+	</event>
+</activecalendar>
