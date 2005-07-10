@@ -68,6 +68,11 @@ class test_db_registros_std_s_1 extends test_db_registros_std_s
 		return array("id"=>"0");
 	}
 	
+	function get_constraint_no_duplicado()
+	{
+		return array("id");	
+	}
+
 	function get_registro_test($concepto)
 	//Registros para insertar en las tablas
 	{

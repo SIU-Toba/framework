@@ -29,6 +29,7 @@ class db_registros
 	protected $baja_logica_columna;				// Columna de la baja logica
 	protected $baja_logica_valor;				// Valor de la baja logica
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $no_duplicados;					// Combinacines de columnas que no pueden duplicarse
 	// Memoria autonoma
 	protected $memoria_autonoma = false;		// Se persiste en la sesion por si mismo
 	protected $identificador;					// Identificador del registro
@@ -38,8 +39,8 @@ class db_registros
 	{
 		$this->definicion = $definicion;
 		$this->fuente = $fuente;
-		$this->tope_max_registros = $tope_max_registros;
-		$this->tope_min_registros = $tope_min_registros;
+		$this->set_tope_max_registros($tope_max_registros);
+		$this->set_tope_min_registros($tope_min_registros);
 		//Inicializar la estructura de campos
 		$this->inicializar_definicion_campos();
 		//ATENCION, hay que analizar si no es mas eficiente dejarlo en la sesion
@@ -86,6 +87,7 @@ class db_registros
 		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
 		$estado['campos'] = $this->campos;
 		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
+		$estado['no_duplicado'] = isset($this->no_duplicado) ? $this->no_duplicado: null;
 		return $estado;
 	}
 
@@ -103,11 +105,61 @@ class db_registros
 	{
 		return $this->tope_min_registros;	
 	}
-	
+
+	public function get_cantidad_registros_a_sincronizar()
+	{
+		$cantidad = 0;
+		foreach(array_keys($this->control) as $registro){
+			if( ($this->control[$registro]['estado'] == "d") ||
+				($this->control[$registro]['estado'] == "i") ||
+				($this->control[$registro]['estado'] == "u") ){
+				$cantidad++;
+			}
+		}
+		return $cantidad;
+	}
+
+	public function get_id_registros_a_sincronizar()
+	{
+		$ids = null;
+		foreach(array_keys($this->control) as $registro){
+			if( ($this->control[$registro]['estado'] == "d") ||
+				($this->control[$registro]['estado'] == "i") ||
+				($this->control[$registro]['estado'] == "u") ){
+				$ids[] = $registro;
+			}
+		}
+		return $ids;
+	}
+
 	//-------------------------------------------------------------------------------
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
 
+	public function set_tope_max_registros($cantidad)
+	{
+		if(is_numeric($cantidad) && $cantidad >= 0){
+			$this->tope_max_registros = $cantidad;	
+		}else{
+			throw new excepcion_toba("El valor especificado en el TOPE MAXIMO de registros es incorrecto");
+		}
+	}
+
+	public function set_tope_min_registros($cantidad)
+	{
+		if(is_numeric($cantidad) && $cantidad >= 0){
+			$this->tope_min_registros = $cantidad;
+		}else{
+			throw new excepcion_toba("El valor especificado en el TOPE MINIMO de registros es incorrecto");
+		}
+	}
+
+	public function set_no_duplicado( $columnas )
+	//Indica una combinacion de columnas que no debe duplicarse
+	{
+		$this->no_duplicado = $columnas;
+	}
+	
 	public function activar_transaccion()		
 	{
 		$this->utilizar_transaccion = true;
@@ -197,6 +249,15 @@ class db_registros
 		$this->from = $from;
 		//Obtengo los datos de la DB
 		$this->datos = $this->cargar_db();
+		//Controlo que no se haya excedido el tope de registros
+		if( $this->tope_max_registros != 0){
+			if( $this->tope_max_registros < count( $this->datos ) ){
+				//Hay mas datos que los que permite el tope, todo mal
+				$this->datos = null;
+				$this->log("Se sobrepaso el tope maximo de registros en carga: " . count( $this->datos ) . " registros" );
+				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
+			}
+		}
 		//ei_arbol($this->datos);
 		//Se solicita control de SINCRONIA a la DB?
 		if($this->control_sincro_db){
@@ -214,6 +275,7 @@ class db_registros
 		//Controlo que no se haya excedido el tope de registros
 		if( $this->tope_max_registros != 0){
 			if( ( $this->get_cantidad_registros() > $this->proximo_registro) ){
+				$this->log("Se sobrepaso el tope maximo de registros mientras se agregaba un registro" );
 				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
@@ -457,7 +519,8 @@ class db_registros
 		$this->actualizar_estructura_control($this->proximo_registro,"i");
 		//Actualizo los valores externos
 		$this->actualizar_campos_externos_registro( $this->proximo_registro, "agregar");
-		$this->proximo_registro++;
+		return $this->proximo_registro++;
+		
 	}
 	//-------------------------------------------------------------------------------
 
@@ -607,12 +670,12 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function validar_registro($registro, $id=null)
-	//Valida el registro
+	private function validar_registro($registro, $id=null)
+	//Valida un registro durante el procesamiento
 	{
 		$this->control_estructura_registro($registro);
 		$this->control_nulos($registro);
-		$this->control_valores_unicos($registro, $id);
+		$this->control_valores_unicos_registro($registro, $id);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -631,35 +694,39 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
-	private function control_valores_unicos($registro, $id=null)
-	//Controla que no se dupliquen valores unicos del db_registros
+	private function control_valores_unicos_registro($registro, $id=null)
+	//Controla que un registro no duplique los valores existentes
 	{
-		return;
-		//ATENCION! esto hay que implementarlo bien
-		foreach($this->campos_no_duplicados as $campo)
-		{
-			//Busco los valores existentes en la columna
-			$valores_columna = $this->obtener_columna_valores($campo);
-			//Si esto es llamado desde un MODIFICAR, 
-			//tengo que sacar de la lista al propio registro
-			if(isset($id)){
-				unset($valores_columna[$id]);
-			}
-			if(is_array($valores_columna)){
-				//Controlo que el nuevo valor no exista
-				if(in_array($registro[$campo], $valores_columna)){
-					$this->log("El valor '".$registro[$campo] ."' crea un duplicado " .
-									" en el campo '" . $campo . "', definido como no_duplicado");
-					//toba::get_logger()->debug( debug_backtrace() );
-					throw new excepcion_toba("El elemento ya se encuentra definido");
-				}
+		if(isset($this->no_duplicados)){
+			foreach($this->no_duplicados as $columnas)
+			{
+				//$regla es un conjunto de columnas que no se deben duplicar
+				
 			}
 		}
 	}
+	/*
+		//Busco los valores existentes en la columna
+		$valores_columna = $this->get_columna_valores($campo);
+		//Si esto es llamado desde un MODIFICAR,  
+		//tengo que sacar de la lista al propio registro
+		if(isset($id)){
+			unset($valores_columna[$id]);
+		}
+		if(is_array($valores_columna)){
+			//Controlo que el nuevo valor no exista
+			if(in_array($registro[$campo], $valores_columna)){
+				$this->log("El valor '".$registro[$campo] ."' crea un duplicado " .
+								" en el campo '" . $campo . "', definido como no_duplicado");
+				//toba::get_logger()->debug( debug_backtrace() );
+				throw new excepcion_toba("El elemento ya se encuentra definido");
+			}
+		}
+	*/
 	//-------------------------------------------------------------------------------
 	
 	private function control_nulos($registro)
-	//Controla que los valores obligatorios existan
+	//Controla que un registro posea los valores OBLIGATORIOS
 	{
 		$mensaje_usuario = "El elemento posee valores incompletos";
 		$mensaje_programador = "db_registros " . get_class($this). " [{$this->identificador}] - ".
@@ -741,6 +808,12 @@ class db_registros
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
 		$this->log("Inicio SINCRONIZACION"); 
+		if( $this->tope_min_registros != 0){
+			if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
+				$this->log("No se cumplio con el tope minimo de registros necesarios" );
+				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+			}
+		}
 		$this->controlar_alteracion_db();
 		// No puedo ejecutar los cambios en cualguier orden
 		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual

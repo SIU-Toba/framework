@@ -81,6 +81,11 @@ class test_db_registros_std_mt_2 extends test_db_registros_std_mt
 	{
 		return 	array("id1"=>0, "id2"=>2);
 	}
+
+	function get_constraint_no_duplicado()
+	{
+		return array("id1","id2");	
+	}
 	
 	function get_registro_test($concepto)
 	//Registros para insertar en las tablas

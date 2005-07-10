@@ -19,12 +19,19 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 					  CONSTRAINT test_detalle_pkey PRIMARY KEY(id), 
 					  FOREIGN KEY (id) REFERENCES test_maestro(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
 					);";	
+		$sql[] = "CREATE TEMPORARY TABLE test_detalle_2 (
+					  id 				SMALLINT		NOT NULL, 
+					  variacion			VARCHAR(40)		NOT NULL, 
+					  CONSTRAINT test_detalle_2_pkey PRIMARY KEY(id), 
+					  FOREIGN KEY (id) REFERENCES test_maestro(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
+					);";	
 		return $sql;
 	}
 	
 	function get_sql_eliminar_tablas()
 	{
 		$sql[] = "DROP TABLE test_detalle;";
+		$sql[] = "DROP TABLE test_detalle_2;";
 		$sql[] = "DROP TABLE test_maestro;";
 		return $sql;
 	}
@@ -37,11 +44,18 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('3','Manzanas','Las manzanas son ricas.');";
 		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('0','Peras!!');";
 		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('1','Increibles');";
+		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('2','Aparecen en el otoño');";
+		$sql[] = "INSERT INTO test_detalle (id, extra) VALUES ('3','Vienen de Chipoletti');";
+		$sql[] = "INSERT INTO test_detalle_2 (id, variacion) VALUES ('0','22Peras!!');";
+		$sql[] = "INSERT INTO test_detalle_2 (id, variacion) VALUES ('1','22Increibles');";
+		$sql[] = "INSERT INTO test_detalle_2 (id, variacion) VALUES ('2','22Aparecen en el otoño');";
+		$sql[] = "INSERT INTO test_detalle_2 (id, variacion) VALUES ('3','22Vienen de Chipoletti');";
 		return $sql;
 	}
 
 	function get_sql_eliminar_juego_datos()
 	{
+		$sql[] = "DELETE FROM test_detalle_2;";
 		$sql[] = "DELETE FROM test_detalle;";
 		$sql[] = "DELETE FROM test_maestro;";
 		return $sql;
@@ -55,7 +69,7 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 
 	function get_where_test()
 	{
-		return	array("maestro.id IN (0,1,2)");
+		return	array("test_maestro.id IN (0,1,2)");
 	}
 	
 	function get_clave_test()
@@ -73,10 +87,14 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 		return array("id"=>1);
 	}
 
-
 	function get_condicion_filtro_test()
 	{
 		return array("id"=>"0");
+	}
+
+	function get_constraint_no_duplicado()
+	{
+		return array("id");	
 	}
 
 	function get_registro_test($concepto)
@@ -88,11 +106,13 @@ class test_db_registros_std_mt_3 extends test_db_registros_std_mt
 		$datos['valido_1']['nombre']="TOMATE";
 		$datos['valido_1']['descripcion']="Esta es una cosa";
 		$datos['valido_1']['extra']="Cossaaaaa!";
+		$datos['valido_1']['variacion']="__Cossaaaaa!";
 
 		$datos['valido_2']['id']="20";
 		$datos['valido_2']['nombre']="TOMATE";
 		$datos['valido_2']['descripcion']="Este es un Hola";
 		$datos['valido_2']['extra']="Hollaaaa!";
+		$datos['valido_2']['variacion']="__Holla!";
 		//- Registro invalido (nombre y extra NULL)
 		$datos['invalido_null']['id']="450";
 		$datos['invalido_null']['descripcion']="Este es un Perro";

@@ -1,6 +1,10 @@
 <?php
 class test_db_registros extends test_toba
 {
+/*
+	En realidad no es necesario borrar e insertar los registros entre cada test.
+	Si se pone muy lento se puede reemplazar abortando transacciones.
+*/
 	protected $dbr;
 
 	//----------------------------------------------

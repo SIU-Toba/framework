@@ -22,15 +22,23 @@ class test_db_registros_std_mt_3_dbr extends db_registros_mt
 						'columna' => array( 
 							array( 	'nombre'=>'id',
 									'pk'=>1, 
-									'alias'=>'pepe', 
 									'no_nulo'=>1,
 									'join'=>'id' ),
 							array( 'nombre'=>'extra')
 						)
+					),
+					array (
+						'tabla' => 'test_detalle_2',
+						'columna' => array( 
+							array( 	'nombre'=>'id',
+									'pk'=>1, 
+									'no_nulo'=>1,
+									'join'=>'id' ),
+							array( 'nombre'=>'variacion')
+						)
 					)
 				);
 		parent::__construct($def, $fuente, $min_registros, $max_registros);
-		$this->activar_outer_join();
 	}	
 	
 	function cargar_datos_clave($id)

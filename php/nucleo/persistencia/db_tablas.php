@@ -132,14 +132,18 @@ class db_tablas
 		$this->elemento[$this->cabecera]->sincronizar();
 		//Se obtiene el id de la cabecera
 		$valores = $this->elemento[$this->cabecera]->get_clave_valor(0);
-		//Se asigna cada valor al detalle
+		//Se asigna cada valor a los registros del detalle que tienen que sincronizarse con la DB
 		foreach( $this->detalles as $id => $columna_clave ){
-			$i = 0;
-			foreach ($valores as $valor){
-				$this->elemento[$id]->set_valor_columna( $columna_clave[$i] , $valor);
-				$i++;
+			if($registros_a_sincronizar = $this->elemento[$id]->get_id_registros_a_sincronizar()){
+				foreach($registros_a_sincronizar as $registro){
+					$i = 0;
+					foreach ($valores as $valor){
+						$this->elemento[$id]->set_registro_valor( $registro, $columna_clave[$i] , $valor);
+						$i++;
+					}
+					$this->elemento[$id]->sincronizar();
+				}
 			}
-			$this->elemento[$id]->sincronizar();
 		}
 	}
 	//-------------------------------------------------------

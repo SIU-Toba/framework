@@ -5,22 +5,14 @@ require_once("test_db_registros.php");
 	----------------------------------------------
 
 	PRUEBAS PENDIENTE:
-
-		- Columnas externas
-		- carga de columnas externas
-		- procesar registros
-		- llamada a eventos de controlador
-		- topes de registros
-		- reset
-		- Preservacion de campos que ya existian pero no se entregaron en una modificacion
-
-	CASOS
 	
-		- claves distintas
-		- 3 tablas
-		- secuencias
-		- relacion debil
-
+	* Columnas externas
+	* carga de columnas externas
+	* procesar registros en bloque
+	* llamada a eventos de controlador
+	* reset
+	* Preservacion de campos que ya existian pero no se entregaron en una modificacion
+	* Casos con claves distintas
 */
 class test_db_registros_std extends test_db_registros
 {
@@ -189,8 +181,10 @@ class test_db_registros_std extends test_db_registros
 		Insertar registros
 	*/
 	{
-		$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
-		$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+		$id = $this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+		$this->AssertEqual($id, 0);
+		$id = $this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+		$this->AssertEqual($id, 1);
 		$this->AssertEqual($this->dbr->get_cantidad_registros(), 2);
 		$control = $this->dbr->get_estructura_control();
 		$this->AssertEqual($control[0]['estado'], "i");
@@ -584,6 +578,88 @@ class test_db_registros_std extends test_db_registros
 	//--- Varios
 	//-------------------------------------------------------------
 
+	//-- TOPES de REGISTROS
+
+	function test_tope_maximo_registros_carga()
+	/*
+		No se deben cargar de la DB mas registros que los que el tope basico permite
+	*/
+	{
+		$this->dbr->set_tope_max_registros(3);
+		try{
+			$this->dbr->cargar_datos();	//Hay 4 registros
+			$this->fail("Se sobrepaso el tope de registros en la carga");
+		}catch( excepcion_toba $e ){
+			$this->pass();	
+		}
+	}
+
+	function test_tope_maximo_registros_agregar()
+	/*
+		No se puede agregar mas registros que los que permite el tope
+	*/
+	{
+		$this->dbr->set_tope_max_registros(5);
+		$this->dbr->cargar_datos();	//Hay 4 registros
+		try{
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+			$this->pass("No se supero el tope ahun");	
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+			$this->fail("Se sobrepaso el tope de registros agregando un registro");
+		}catch( excepcion_toba $e ){
+			$this->pass();	
+		}
+	}
+
+	function test_tope_minimo_registros_sincronizar()
+	/*
+		No se pueden sincronizar menos registros que los que el tope minimo permite
+	*/
+	{
+		$this->dbr->set_tope_min_registros(2);
+		try{
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+			$this->dbr->sincronizar();
+			$this->fail("No se cumplio con el tope minimo de registros");
+		}catch( excepcion_toba $e ){
+			$this->pass();	
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+			$this->dbr->sincronizar();
+			$this->pass();	
+		}
+	}
+
+	//-- CONSTRAINTS
+	
+	function test_control_no_duplicado_agregar()
+	/*
+		Manejo de REGLAS UNIQUE cuando se agregan registros
+	*/
+	{
+		$this->dbr->set_no_duplicado( $this->get_constraint_no_duplicado() );
+		try{
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+			$this->fail("Se rompio un CONSTRAINT UNIQUE");
+		}catch( excepcion_toba $e ){
+			$this->pass();	
+		}
+	}
+
+	function test_control_no_duplicado_modificar()
+	/*
+		Manejo de REGLAS UNIQUE cuando se agregan registros
+	*/
+	{
+		$this->dbr->set_no_duplicado( $this->get_constraint_no_duplicado() );
+		$this->dbr->cargar_datos();
+		try{
+			$this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+			$this->dbr->modificar_registro( $this->get_registro_test("valido_1"),0 );
+			$this->fail("Se rompio un CONSTRAINT UNIQUE");
+		}catch( excepcion_toba $e ){
+			$this->pass();	
+		}
+	}
 }
-//ei_arbol($this->dbr->info(true),"db_registros");
 ?>

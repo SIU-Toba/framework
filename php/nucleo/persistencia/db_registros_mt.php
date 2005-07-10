@@ -397,10 +397,11 @@ class db_registros_mt extends db_registros
 				$tablas_from = $this->tabla;
 			}
 			$sql .=	" FROM " . implode(" ,\n ",$tablas_from ) . "\n";
+			$where = array();
 			foreach($this->join as $join_tabla){
-				$where[] = $join_tabla;
+				$where = array_merge($where, $join_tabla);
 			}
-			$sql .= " WHERE " . implode(" \n AND ",$join_tabla ) . "\n";
+			$sql .= " WHERE " . implode(" \n AND ",$where ) . "\n";
 	
 			if(isset($this->where)){
 				$sql .= " AND " . implode(" \n AND ",$this->where) . "\n";

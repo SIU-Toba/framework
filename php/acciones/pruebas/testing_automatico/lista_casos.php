@@ -39,7 +39,7 @@ class lista_casos
 					array('id' => 'test_db_registros_std_s_2', 'nombre' =>  'Test estandard DBR -- db_registros_s -[ 2 ]- (clave multiple)', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_std_mt_1', 'nombre' => 'Test estandard DBR -- db_registros_mt -[ 1 ]- ( 2 tablas / INNER join / clave simple identica)', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_std_mt_2', 'nombre' => 'Test estandard DBR -- db_registros_mt -[ 2 ]- ( 2 tablas / INNER join / clave compuesta identica)', 'categoria' => 'persistencia'),
-					//array('id' => 'test_db_registros_std_mt_3', 'nombre' => 'Test estandard DBR -- db_registros_mt -[ 3 ]- ( 2 tablas / OUTER join / clave simple identica)', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_std_mt_3', 'nombre' => 'Test estandard DBR -- db_registros_mt -[ 3 ]- ( 3 tablas / INNER join / clave simple identica)', 'categoria' => 'persistencia'),
 					//array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
 
 					//Administrador
