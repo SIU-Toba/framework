@@ -29,7 +29,7 @@ class db_registros
 	protected $baja_logica_columna;				// Columna de la baja logica
 	protected $baja_logica_valor;				// Valor de la baja logica
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
-	protected $no_duplicados;					// Combinacines de columnas que no pueden duplicarse
+	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
 	// Memoria autonoma
 	protected $memoria_autonoma = false;		// Se persiste en la sesion por si mismo
 	protected $identificador;					// Identificador del registro
@@ -157,7 +157,7 @@ class db_registros
 	public function set_no_duplicado( $columnas )
 	//Indica una combinacion de columnas que no debe duplicarse
 	{
-		$this->no_duplicado = $columnas;
+		$this->no_duplicado[] = $columnas;
 	}
 	
 	public function activar_transaccion()		
@@ -697,32 +697,35 @@ class db_registros
 	private function control_valores_unicos_registro($registro, $id=null)
 	//Controla que un registro no duplique los valores existentes
 	{
-		if(isset($this->no_duplicados)){
-			foreach($this->no_duplicados as $columnas)
-			{
-				//$regla es un conjunto de columnas que no se deben duplicar
-				
+		if(isset($this->no_duplicado))	
+		{	//La iteracion de afuera es por cada constraint, 
+			//si hay muchos es ineficiente, pero en teoria hay pocos (en general 1)
+			foreach($this->no_duplicado as $columnas){
+				foreach(array_keys($this->control) as $id_registro)	{
+					//a) La operacion es una modificacion y estoy comparando con el registro contra su original
+					if( isset($id) && ($id_registro == $id)) continue; //Sigo con el proximo
+					//b) Comparo contra otro registro, que no este eliminado
+					if($this->control[$id_registro]['estado']!="d"){
+						$combinacion_existente = true;
+						foreach($columnas as $columna)
+						{
+							if(!isset($registro[$columna])){
+								//Si las columnas del constraint no estan completas, fuera
+								return;
+							}else{
+								if($registro[$columna] != $this->datos[$id_registro][$columna]){
+									$combinacion_existente = false;
+								}
+							}
+						}
+						if($combinacion_existente){
+							throw new excepcion_toba("Error de valores repetidos");
+						}
+					}
+				}				
 			}
 		}
 	}
-	/*
-		//Busco los valores existentes en la columna
-		$valores_columna = $this->get_columna_valores($campo);
-		//Si esto es llamado desde un MODIFICAR,  
-		//tengo que sacar de la lista al propio registro
-		if(isset($id)){
-			unset($valores_columna[$id]);
-		}
-		if(is_array($valores_columna)){
-			//Controlo que el nuevo valor no exista
-			if(in_array($registro[$campo], $valores_columna)){
-				$this->log("El valor '".$registro[$campo] ."' crea un duplicado " .
-								" en el campo '" . $campo . "', definido como no_duplicado");
-				//toba::get_logger()->debug( debug_backtrace() );
-				throw new excepcion_toba("El elemento ya se encuentra definido");
-			}
-		}
-	*/
 	//-------------------------------------------------------------------------------
 	
 	private function control_nulos($registro)
