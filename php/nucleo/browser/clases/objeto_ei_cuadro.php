@@ -116,6 +116,7 @@ class objeto_ei_cuadro extends objeto_ei
 								c.pdf_propiedades				as	pdf_propiedades,
 								c.asociacion_columnas			as	asociacion_columnas,
 								c.ev_seleccion					as	ev_seleccion,
+								c.ev_eliminar					as  ev_eliminar,
 								c.dao_nucleo_proyecto			as  dao_nucleo_proyecto,	
 								c.dao_nucleo					as  dao_clase,			
 								c.dao_metodo					as  dao_metodo,
@@ -192,6 +193,14 @@ class objeto_ei_cuadro extends objeto_ei
 		$eventos = array();
 		if ($this->info_cuadro["ev_seleccion"]) {
 			$eventos += eventos::seleccion();
+		}
+		if ($this->info_cuadro["ev_eliminar"]) {
+			//Se agrega un evento 'borrar' al lado de cada fila
+			$baja= eventos::duplicar( eventos::seleccion(), 'baja');
+			$baja['baja']['imagen'] = recurso::imagen_apl('borrar.gif');
+			$baja['baja']['ayuda'] = 'Borra el contenido de la fila actual';
+			$baja['baja']['confirmacion'] = '¿Está seguro que desea ELIMINAR la fila?';
+			$eventos += $baja;			
 		}
 		if($this->info_cuadro["ordenar"]) { 
 			$eventos += eventos::ordenar();		
