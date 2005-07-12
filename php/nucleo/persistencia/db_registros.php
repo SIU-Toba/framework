@@ -35,9 +35,9 @@ class db_registros
 	protected $identificador;					// Identificador del registro
 	protected $posicion_finalizador;			// Posicion del objeto en el array de finalizacion
 
-	function __construct($definicion, $fuente=null, $tope_min_registros=0, $tope_max_registros=0)
+	function __construct($definicion_tabla, $fuente=null, $tope_min_registros=0, $tope_max_registros=0)
 	{
-		$this->definicion = $definicion;
+		$this->definicion = $definicion_tabla;
 		$this->fuente = $fuente;
 		$this->set_tope_max_registros($tope_max_registros);
 		$this->set_tope_min_registros($tope_min_registros);
