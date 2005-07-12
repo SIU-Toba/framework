@@ -98,7 +98,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										clave_primaria	as			clave_primaria,
 										orden	as					orden,
 										total as 					total,
-										lista_columna_estilo as		columna_estilo
+										lista_columna_estilo as		columna_estilo,
+										colapsado as 				colapsado
 								FROM	apex_objeto_ut_formulario_ef
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
 								AND	objeto_ut_formulario='".$this->id[1]."'
