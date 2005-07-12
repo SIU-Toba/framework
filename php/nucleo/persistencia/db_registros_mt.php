@@ -1,6 +1,9 @@
 <?php
 require_once("db_registros.php");
+/*
+	El problema del alias en los casos en los que where necesita otra tabla no esta implemtado
 
+*/
 class db_registros_mt extends db_registros
 {
 	private $tabla;							// Tablas manejadas

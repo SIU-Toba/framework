@@ -4,6 +4,7 @@ require_once("db_registros.php");
 class db_registros_s extends db_registros
 {
 	private $tabla;							// Tablas manejadas
+	private $alias;							// Alias de la tabla
 	private $campos_sql;					// Campos utilizados para generar SQL
 	private $campos_sql_select;				// Lista de campos utilizada para realizar el SELECT
 	private $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
@@ -32,6 +33,7 @@ class db_registros_s extends db_registros
 			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
 		*/
 		$this->tabla = $this->definicion["tabla"];
+		$this->alias = isset($this->definicion["alias"]) ? $this->definicion["alias"] : null;
 		foreach(array_keys($this->definicion['columna']) as $col)
 		{
 			$es_clave = isset($this->definicion['columna'][$col]['pk']) && ($this->definicion['columna'][$col]['pk'] == 1);
@@ -46,7 +48,14 @@ class db_registros_s extends db_registros
 			if( !$es_secuencia && $es_no_nulo ) $this->campos_no_nulo[] = $campo;
 			//Para mi
 			if( !$es_secuencia && !$es_externa ) $this->campos_sql[] = $campo;
-			if( !$es_externa ) $this->campos_sql_select[] = $campo;
+			if( !$es_externa ){
+				//Hay que evitar que los nombre colapsen si se pone un FROM en cargar_datos.
+				if(isset($this->alias)){	
+					$this->campos_sql_select[] = $this->alias . "." .$campo ." as $campo";
+				}else{
+					$this->campos_sql_select[] = $this->tabla . "." .$campo ." as $campo";
+				}
+			}
 			if( $es_secuencia ) $this->campos_secuencia[$campo] = $this->definicion['columna'][$col]['secuencia'];
 		}
 	}
@@ -188,8 +197,12 @@ class db_registros_s extends db_registros
 	
 	protected function generar_sql_select()
 	{
-		$sql =	" SELECT	" . implode(",	",$this->campos_sql_select) . 
-				" FROM "	. $this->tabla ;
+		$sql =	" SELECT	" . implode(",	",$this->campos_sql_select); 
+		if(isset($this->alias)){	
+			$sql .= " FROM "	. $this->tabla  . " " . $this->alias;
+		}else{
+			$sql .= " FROM "	. $this->tabla;
+		}
 		if(isset($this->from)){
 			$sql .= ", " . implode(",",$this->from);
 		}
