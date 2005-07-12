@@ -19,7 +19,7 @@ var rangos_defecto = [ ['*', 1], ['*', 1]];
 
 function test_editable_solo_lectura()
 {
-	var ef = new ef_editable('formulario1148editable', 'Editable', false, '');
+	var ef = new ef_editable('formulario1148editable', 'Editable', false, false, '');
 	ef.iniciar('el_editable');
 	ef.desactivar();
 	assertTrue(ef.input().disabled);
@@ -29,7 +29,7 @@ function test_editable_solo_lectura()
 
 function test_editable_texto() {
 	//Obligatorio sin mascara
-	var ef = new ef_editable('formulario1148editable', 'Editable', true, '');
+	var ef = new ef_editable('formulario1148editable', 'Editable', true, false, '');
 	ef.iniciar('el_editable');
 	
 	//Consultas basicas
@@ -50,7 +50,7 @@ function test_editable_texto() {
 
 function test_editable_numero() {
 	//No obligatorio con mascara por defecto
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rangos_defecto);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false, '', rangos_defecto);
 	ef.iniciar();
 
 	//Numero decimal
@@ -99,7 +99,7 @@ function validar_incorrectos(ef, numeros)
 function test_validacion_intervalo_defecto()
 {
 	rango = [ ['*', 1], ['*', 1]]; //*..*
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false,'', rango);
 	ef.iniciar();
 	validar_correctos(ef, [-1000, -0.2, 0, 0.132, 123]);
 }
@@ -107,7 +107,7 @@ function test_validacion_intervalo_defecto()
 function test_validacion_negativo_no_estricto()
 {
 	rango = [ ['*', 1], ['0', 1]]; //*..0
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango, 'debe ser negativo');
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false, '', rango, 'debe ser negativo');
 	ef.iniciar();
 	validar_correctos(ef, [-1000, -0.2, 0]);
 	validar_incorrectos(ef, [0.1, 123]);
@@ -116,7 +116,7 @@ function test_validacion_negativo_no_estricto()
 function test_validacion_negativo_estricto()
 {
 	rango = [ ['*', 1], ['0', 0]]; //*..0)
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false, '', rango);
 	ef.iniciar();
 	validar_correctos(ef, [-1000, -0.2]);
 	validar_incorrectos(ef, [0, 123]);
@@ -125,7 +125,7 @@ function test_validacion_negativo_estricto()
 function test_validacion_positivo_no_estricto()
 {
 	rango = [ ['0', 1], ['*', 1]]; //0..*)
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false,'', rango);
 	ef.iniciar();
 	validar_correctos(ef, [0, 0.1, 123]);
 	validar_incorrectos(ef, [-1000, -0.2]);
@@ -134,7 +134,7 @@ function test_validacion_positivo_no_estricto()
 function test_validacion_positivo_estricto()
 {
 	rango = [ ['0', 0], ['*', 1]]; //(0..*)
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false,'', rango);
 	ef.iniciar();
 	validar_correctos(ef, [0.1, 123]);
 	validar_incorrectos(ef, [-1000, -0.2, 0]);
@@ -144,7 +144,7 @@ function test_validacion_positivo_estricto()
 function test_validacion_rango_no_estricto()
 {
 	rango = [ ['-10', 1], ['10', 1]]; //[-10..10] 
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, '', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false,'', rango);
 	ef.iniciar();
 	validar_correctos(ef, [-10, -4, 0, 1, 5, 10]);
 	validar_incorrectos(ef, [-11, 11]);	
@@ -153,7 +153,7 @@ function test_validacion_rango_no_estricto()
 function test_validacion_rango_estricto()
 {
 	rango = [ ['-10', 0], ['10.12', 0]]; //(-10..10.12) 
-	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, 'no', rango);
+	var ef = new ef_editable_numero('formulario1148numero', 'Numero', false, false,'no', rango);
 	ef.iniciar();
 	validar_correctos(ef, [-9.99999999,-4, 0, 1, 5,9.9999999,10.11999]);
 	validar_incorrectos(ef, [-10,-11, 11, 10.12]);	
@@ -163,7 +163,7 @@ function test_validacion_rango_estricto()
 
 function test_editable_moneda() {
 	//No obligatorio con mascara por defecto
-	var ef = new ef_editable_moneda('formulario1148numero', 'Moneda', false, '', rangos_defecto);
+	var ef = new ef_editable_moneda('formulario1148numero', 'Moneda', false, false,'', rangos_defecto);
 	ef.iniciar();
 
 	//Numero decimal
@@ -185,7 +185,7 @@ function test_editable_moneda() {
 
 function test_editable_porcentaje() {
 	rango = [ ['0', 1], ['100', 1]]; //[0..100] 
-	var ef = new ef_editable_porcentaje('formulario1148porcentaje', 'Porcentaje', false, '', rango);
+	var ef = new ef_editable_porcentaje('formulario1148porcentaje', 'Porcentaje', false, false, '', rango);
 	ef.iniciar();
 	ef.cambiar_valor(50.3);
 	assertTrue(ef.validar());
@@ -196,7 +196,7 @@ function test_editable_porcentaje() {
 }
 
 function test_editable_clave() {
-	var ef = new  ef_editable_clave('formulario1148clave', 'Clave', false, '');
+	var ef = new  ef_editable_clave('formulario1148clave', 'Clave', false, false, '');
 	ef.iniciar();
 	//Es invalido por los datos iniciales que tiene
 	assertFalse(ef.validar());
@@ -206,7 +206,7 @@ function test_editable_clave() {
 }
 
 function test_ef_fecha() {
-	var ef = new ef_editable_fecha('formulario1148fecha', 'fecha', false, 'dd/mm/yyyy');
+	var ef = new ef_editable_fecha('formulario1148fecha', 'fecha', false,false, 'dd/mm/yyyy');
 	ef.iniciar();
 
 	ef.cambiar_valor('23/12/2008');

@@ -3,7 +3,6 @@
 var toba = 
 {
 	_objetos: new Array(), 
-	_imagenes: new Object(),
 	
 	agregar_objeto : function(o) {
 		this._objetos.push(o);

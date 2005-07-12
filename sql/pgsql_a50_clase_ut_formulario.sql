@@ -77,6 +77,7 @@ CREATE TABLE apex_objeto_ut_formulario_ef
 	orden                   			float       	NOT NULL,
 	etiqueta                			varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
+	colapsado							smallint		NULL,
 	desactivado             			smallint       	NULL,
 	no_sql								smallint		NULL,
 -- ATENCION: exclusivo EI_FORMULARIO_ML        

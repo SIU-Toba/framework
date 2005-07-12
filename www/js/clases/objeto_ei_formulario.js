@@ -9,11 +9,12 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	this._rango_tabs = rango_tabs;
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 
-	this._ci = null;								//Referencia al CI contenedor	
+	this._ci = null;							//Referencia al CI contenedor	
 	this._efs = new Object();					//Lista de objeto_ef contenidos
 	this._efs_procesar = new Object();			//ID de los ef's que poseen procesamiento
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = null;				//No hay evento prefijado
+	this._expandido = false;					//El formulario comienza sin expandirse
 }
 
 	def.agregar_ef  = function (ef, identificador) {
@@ -33,14 +34,14 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 		this.reset_evento();
 	}
 
-	//Retorna el nodo DOM donde se muestra el componente
-	def.nodo = function() {
-		return document.getElementById(this._instancia + '_cont');	
-	}
-	
 	//---Consultas
 	def.ef = function(id) {
 		return this._efs[id];
+	}
+
+	//Retorna el nodo DOM donde se muestra el componente
+	def.nodo = function() {
+		return document.getElementById(this._instancia + '_cont');	
 	}
 
 	//---Submit 
@@ -125,7 +126,7 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	
 	def.resetear_errores = function() {
 		if (! this._silencioso)	 {
-			for (id_ef in this._efs) {
+			for (var id_ef in this._efs) {
 				if (! this._silencioso)
 					this._efs[id_ef].no_resaltar();		
 			}	
@@ -158,13 +159,23 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
 	}	
 
+	//---Cambios graficos
+	def.cambiar_expansion = function() {
+		this._expandido = ! this._expandido;
+		for (var id_ef in this._efs) {
+			this._efs[id_ef].cambiar_expansion(this._expandido);
+		}
+		var img = document.getElementById(this._instancia + '_cambiar_expansion');
+		img.src = (this._expandido) ? toba.imagen('contraer') : toba.imagen('expandir');
+	}
+	
 	//---Refresco Grafico
 	def.refrescar_todo = function () {
 		this.refrescar_procesamientos();
 	}		
 	
 	def.refrescar_procesamientos = function (es_inicial) {
-		for (id_ef in this._efs) {
+		for (var id_ef in this._efs) {
 			if (this._efs_procesar[id_ef]) {
 				this.procesar(id_ef, es_inicial);
 			}

@@ -71,6 +71,7 @@ class	objeto_ut_formulario	extends objeto_ei_formulario
 										lista_cabecera as				lista_cabecera,
 										lista_valor_sql as			lista_valor_sql,
 										lista_orden as					lista_orden,
+										colapsado as 					colapsado,
 										no_sql as						no_sql
 								FROM	apex_objeto_ut_formulario_ef
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'

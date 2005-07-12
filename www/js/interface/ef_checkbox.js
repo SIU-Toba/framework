@@ -6,8 +6,8 @@ ef_checkbox.prototype = new ef;
 var def = ef_checkbox.prototype;
 def.constructor = ef_checkbox;
 
-	function ef_checkbox(id_form, etiqueta, obligatorio) {
-		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_checkbox(id_form, etiqueta, obligatorio, colapsado) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 	
 	//cuando_cambia_valor (disparar_callback)

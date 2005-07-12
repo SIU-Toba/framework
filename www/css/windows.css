@@ -995,6 +995,9 @@ TD.abm-fila {
 	 COLOR: #660000;
 	 BACKGROUND-COLOR: #d4d0c8
 }
+.abm-fila-oculta {
+	background-color: #E7E4E0;
+}
 TD.abm-fila-ml {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
@@ -1596,14 +1599,12 @@ TD.ef-etiqueta-obligatorio {
 	 PADDING-LEFT: 4px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
-	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TD.ef-etiqueta {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
-	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TD.ef-etiqueta-error {

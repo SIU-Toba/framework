@@ -4,8 +4,8 @@ ef_popup.prototype = new ef;
 var def = ef_popup.prototype;
 def.constructor = ef_popup;
 
-	function ef_popup(id_form, etiqueta, obligatorio) {
-		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_popup(id_form, etiqueta, obligatorio, colapsado) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this.elementos = new Array();
 		this.elementos_cant = 0;		
 	}

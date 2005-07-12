@@ -2,13 +2,14 @@ var apex_ef_no_seteado = 'nopar';
 
 //--------------------------------------------------------------------------------
 //Clase ef
-function ef(id_form, etiqueta, obligatorio) {
+function ef(id_form, etiqueta, obligatorio, colapsable) {
 	this._id = null;						//El id lo asigna el formulario cuando lo inicia
 	this._id_form = id_form;				//El id_form es la clave que permite identificarlo univocamente
 	this._id_form_orig = this._id_form;
 	this._etiqueta = etiqueta;
 	this._obligatorio = obligatorio;
 	this._error = null;
+	this._colapsable = colapsable;
 }
 var def = ef.prototype;
 def.constructor = ef;
@@ -66,6 +67,15 @@ def.constructor = ef;
 	}
 	
 	//---Comandos 
+	def.cambiar_expansion = function(expandir) {
+		if (this._colapsable) {
+			if (expandir) 
+				this.nodo().style.display = '';
+			else
+				this.nodo().style.display = 'none';
+		}
+	}
+	
 	def.set_error = function(error) {
 		this._error = error;
 	}

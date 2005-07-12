@@ -112,11 +112,13 @@ class js
 					break;
 				case 'clases/toba': 
 					echo js::incluir(recurso::js("$consumo.js"));
-					$img_error = recurso::imagen_apl('error.gif', false);
-					$img_info = recurso::imagen_apl('info_chico.gif', false);
-					$img_max = recurso::imagen_apl('sentido_des_sel.gif', false);
-					$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
-					$imagenes = array('error' => $img_error, 'info' => $img_info, 'maximizar' => $img_max, 'minimizar' => $img_min);
+					$imagenes = array(	'error' => recurso::imagen_apl('error.gif', false), 
+										'info' => recurso::imagen_apl('info_chico.gif', false), 
+										'maximizar' => recurso::imagen_apl('sentido_des_sel.gif', false), 
+										'minimizar' => recurso::imagen_apl('sentido_asc_sel.gif', false),
+										'expandir'  => recurso::imagen_apl('expandir_vert.gif', false),
+										'contraer'  => recurso::imagen_apl('contraer_vert.gif', false)
+										);
 					echo js::abrir();
 					echo dump_array_javascript($imagenes, 'lista_imagenes');
 					echo js::cerrar();

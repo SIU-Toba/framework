@@ -17,7 +17,7 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?echo recurso::imagen_apl("expander.gif",false);?>';
+		imagen.src = '<?echo recurso::imagen_apl("expandir.gif",false);?>';
 		frame_admin.cols = '8,*';
 		expandido = false;
 	} else {

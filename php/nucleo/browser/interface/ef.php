@@ -37,6 +37,7 @@ class ef //Clase abstracta, padre de todos los EF
 	var $ocultable = false;		// Indica si el EF provee una interface para ocultarlo y mostrarlo
 	var $javascript="";			// Javascript del elemento de formulario
 	var $input_extra = "";		// Parametros adicionales
+	var $expandido = true;
 	//--- DEPENDENCIAS ---
 	var $dependencias;			// Array de DEPENDENCIAS (Ids de EFs MAESTROS)
 	var $maestros;				// Array de id_form de Maestros
@@ -270,7 +271,7 @@ class ef //Clase abstracta, padre de todos los EF
 	function crear_objeto_js()
 	//Retorna la sentencia de creación del objeto javascript que representa al EF
 	{
-		return "false";
+		return "new ef({$this->parametros_js()})";
 	}
 	
 	function objeto_js()
@@ -283,7 +284,8 @@ class ef //Clase abstracta, padre de todos los EF
 	function parametros_js()
 	{
 		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
-		return "'{$this->id_form_orig}', '{$this->etiqueta}', $obligatorio";	
+		$colapsable = ( $this->expandido ) ? "false" : "true";
+		return "'{$this->id_form_orig}', '{$this->etiqueta}', $obligatorio, $colapsable";
 	}
 
 	function obtener_javascript_input()
@@ -357,6 +359,16 @@ class ef //Clase abstracta, padre de todos los EF
 	{
         $this->solo_lectura = false;
     }
+	
+	function set_expandido($expandido)
+	{
+		$this->expandido = $expandido;
+	}
+	
+	function esta_expandido()
+	{
+		return $this->expandido;
+	}
 
 	function obtener_id()
 	//Devuelve el ID de un elemento de interface
@@ -478,8 +490,8 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-
-		echo "<div id='nodo_{$this->id_form}'>";
+		$clase = ($this->esta_expandido()) ? "" : "style='display:none' class='abm-fila-oculta'";
+		echo "<div id='nodo_{$this->id_form}' $clase>";
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
 		echo "<tr><td >".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
@@ -492,7 +504,7 @@ class ef //Clase abstracta, padre de todos los EF
 		//Acceso directo al EDITOR del ABM 
 		//(con el editor de columnas cargado en ESTA!)
 		if(apex_pa_acceso_directo_editor){
-		echo "<td class='$estilo' >";
+			echo "<td class='$estilo' >";
 			if( ($this->padre[0]) == $solicitud->hilo->obtener_proyecto() &&
 			(isset($item_editor_padre)) )
 			{
@@ -505,7 +517,7 @@ class ef //Clase abstracta, padre de todos los EF
 							true);
 
 			}
-		echo "</td>\n";
+			echo "</td>\n";
 		}
 		echo "<td class='ef-zonainput' id='cont_{$this->id_form}'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";

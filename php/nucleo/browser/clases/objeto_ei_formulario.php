@@ -97,14 +97,15 @@ class objeto_ei_formulario extends objeto_ei
 		$sql["info_formulario"]["estricto"]="1";
 		//EF
 		$sql["info_formulario_ef"]["sql"] = "SELECT	identificador as identificador,
-										columnas						as		columnas,
+										columnas					as		columnas,
 										obligatorio					as		obligatorio,
 										elemento_formulario 		as		elemento_formulario,
 										inicializacion				as		inicializacion,
-										etiqueta						as		etiqueta,
+										etiqueta					as		etiqueta,
 										descripcion					as		descripcion,
 										clave_primaria				as		clave_primaria,
-										orden							as		orden
+										orden						as		orden,
+										colapsado					as 		colapsado
 								FROM	apex_objeto_ut_formulario_ef
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
 								AND	objeto_ut_formulario='".$this->id[1]."'
@@ -181,17 +182,17 @@ class objeto_ei_formulario extends objeto_ei
 				 $dato =	$this->info_formulario_ef[$a]["columnas"];
 			}
 			//Nombre	del formulario.
-			$sentencia_creacion_ef = "\$this->elemento_formulario['".$this->info_formulario_ef[$a]["identificador"]."']	=&	new ".
-														$this->info_formulario_ef[$a]["elemento_formulario"] ."(	\$this->id,	".
-														"'" .	$this->nombre_formulario ."',	'". 
-														$this->info_formulario_ef[$a]["identificador"] ."', '". 
-														$this->info_formulario_ef[$a]["etiqueta"]	."', '".	
-														addslashes($this->info_formulario_ef[$a]["descripcion"])	."', ". 
-														"\$dato,	'". 
-														$this->info_formulario_ef[$a]["obligatorio"]	."', ".
-														"\$parametros);";
-			//echo $sentencia_creacion_ef	. "<br>";
-			eval($sentencia_creacion_ef);
+			$id_ef = $this->info_formulario_ef[$a]["identificador"];
+			$this->elemento_formulario[$id_ef] = new $this->info_formulario_ef[$a]["elemento_formulario"](
+																		$this->id, 
+																		$this->nombre_formulario,
+																		$this->info_formulario_ef[$a]["identificador"],
+																		$this->info_formulario_ef[$a]["etiqueta"],
+																		addslashes($this->info_formulario_ef[$a]["descripcion"]),
+																		$dato,
+																		$this->info_formulario_ef[$a]["obligatorio"],
+																		$parametros);
+			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
 		}	
 	}
 	//-------------------------------------------------------------------------------
@@ -582,12 +583,23 @@ class objeto_ei_formulario extends objeto_ei
 */
 	{
 		//Genero	la	interface
-		if($this->estado_proceso!="INFRACCION")
+		if($this->estado_proceso!="INFRACCION") 
 		{
-			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
+			echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
+			$hay_colapsado = false;
 			foreach ($this->lista_ef_post	as	$ef){
+				if (! $this->elemento_formulario[$ef]->esta_expandido()) {
+					$hay_colapsado = true;
+				}
 				echo "<tr><td class='abm-fila'>\n";
 				$this->elemento_formulario[$ef]->obtener_interface_ei();
+				echo "</td></tr>\n";
+			}
+			if ($hay_colapsado) {
+				$img = recurso::imagen_apl('expandir_vert.gif', false);
+				$colapsado = "style='cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
+				echo "<tr><td class='abm-fila' style='text-align:center'>";
+				echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 				echo "</td></tr>\n";
 			}
 			echo "<tr><td class='ei-base'>\n";

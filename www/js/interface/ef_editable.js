@@ -4,8 +4,8 @@ ef_editable.prototype = new ef;
 var def = ef_editable.prototype;
 def.constructor = ef_editable;
 
-	function ef_editable(id_form, etiqueta, obligatorio, masc) {
-		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_editable(id_form, etiqueta, obligatorio, colapsado, masc) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._forma_mascara = (masc && masc.trim().toLowerCase() != 'no') ? masc : null;
 		this._mascara = null;
 	}
@@ -77,8 +77,8 @@ ef_editable_numero.prototype = new ef_editable;
 var def = ef_editable_numero.prototype;
 def.constructor = ef_editable_numero;
 
-	function ef_editable_numero(id_form, etiqueta, obligatorio, masc, rango, mensaje) {
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje) {
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		if (masc)
 			this._forma_mascara = (masc.trim().toLowerCase() != 'no') ? masc : null;
 		else
@@ -132,8 +132,8 @@ def.constructor = ef_editable_numero;
 //Clase ef_editable_moneda hereda de ef_editable_numero
 ef_editable_moneda.prototype = new ef_editable_numero();
 var def = ef_editable_moneda.prototype;
-	function ef_editable_moneda(id_form, etiqueta, obligatorio, masc, rango, mensaje)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, masc, rango, mensaje);
+	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje);
 		this._forma_mascara = (masc) ? masc : '$ ###.###,00';		
 	}
 
@@ -141,8 +141,8 @@ var def = ef_editable_moneda.prototype;
 //Clase ef_editable_porcentaje hereda de ef_editable_numero
 ef_editable_porcentaje.prototype = new ef_editable_numero();
 var def = ef_editable_porcentaje.prototype;
-	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, masc, rango, mensaje)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, masc, rango, mensaje);
+	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje);
 	}
 	
 	def.formato_texto = function(valor) {
@@ -154,8 +154,8 @@ var def = ef_editable_porcentaje.prototype;
 ef_editable_clave.prototype = new ef_editable;
 var def = ef_editable_clave.prototype;
 
-	function ef_editable_clave(id_form, etiqueta, obligatorio)	{
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_editable_clave(id_form, etiqueta, obligatorio, colapsado)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}	
 
 	def.validar = function() {
@@ -184,8 +184,8 @@ var def = ef_editable_clave.prototype;
 ef_editable_fecha.prototype = new ef_editable;
 var def = ef_editable_fecha.prototype;
 
-	function ef_editable_fecha(id_form, etiqueta, obligatorio, masc)	{
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable);
 		this._forma_mascara = (masc) ? masc : 'dd/mm/yyyy';
 	}	
 	

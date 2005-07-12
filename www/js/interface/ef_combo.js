@@ -4,8 +4,8 @@ ef_combo.prototype = new ef;
 var def = ef_combo.prototype;
 def.constructor = ef_combo;
 
-	function ef_combo(id_form, etiqueta, obligatorio) {
-		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio);
+	function ef_combo(id_form, etiqueta, obligatorio, colapsado) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
 	def.seleccionar = function () {
