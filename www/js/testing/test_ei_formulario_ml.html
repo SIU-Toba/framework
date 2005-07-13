@@ -50,6 +50,30 @@ function test_creacion_seleccion_borrado_filas() {
 	assertEquals(2, formu.filas().length);		
 }
 
+
+function test_borrado_condicional_de_filas() {
+	//Logica de cuando borrar o no una fila
+	formu.evt__baja = function (fila) {
+		if (fila == 2)	//La 2 no se puede borrar
+			return false;
+		else
+			return true;
+	}
+	formu.iniciar();	//Inicialmente tiene dos filas
+	//Crea dos filas
+	formu.crear_fila();	//Fila 2 no se permite borrar
+	formu.crear_fila(); //Fila 3 se permite borrar
+	assertEquals(4, formu.filas().length);	
+
+	//Las selecciona y las borra
+	formu.seleccionar(3);
+	formu.eliminar_seleccionada();
+	assertEquals(3, formu.filas().length);	
+	formu.seleccionar(2);
+	formu.eliminar_seleccionada();
+	assertEquals(3, formu.filas().length);	//No se borro
+}
+
 function test_deshacer() {
 	formu.iniciar();
 	formu.seleccionar(1);

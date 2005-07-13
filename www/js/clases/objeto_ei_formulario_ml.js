@@ -207,6 +207,11 @@ def.constructor = objeto_ei_formulario_ml;
 	//---ABM 
 	def.eliminar_seleccionada = function() {
 		var fila = this.seleccionada;
+		if(existe_funcion(this, "evt__baja")){
+			if(! ( this["evt__baja"](fila) ) ){
+				return false;
+			}
+		}	
 		anterior = this.eliminar_fila(fila);
 		delete(this.seleccionada);
 		if (anterior != null)
