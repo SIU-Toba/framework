@@ -236,7 +236,7 @@ then
 ##***********************************************************************************************##
 ## Recupera los datos de un proyecto
 ##***********************************************************************************************##
-#@ proyecto [<I>] cargar PROYECTO              -- Cargar un PROYECTO en un <I>
+#@ proyecto [<I>] cargar PROYECTO [act_seq]    -- Cargar un PROYECTO en una <I>, opcionalmente actualiza las secuencias
 
 elif [ "$1" = "cargar" ]
 then
@@ -275,6 +275,14 @@ then
 		echo "CARGAR Informacion de la INSTANCIA asociada al proyecto"
 		pgsql_ejecutar $archivo_datos_i
 		controlar "Cargar datos de INSTANCIA del proyecto \"$2\""  
+	fi
+
+	#Actualiza las secuencias	
+	if [ "$3" = "act_seq" ]
+	then
+		echo "Actualizando las secuencias"
+		cd $toba_dir/sql		
+		pgsql_ejecutar pgsql_z02_nucleo_act_seq.sql
 	fi
 	
 ##***********************************************************************************************##

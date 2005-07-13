@@ -48,6 +48,19 @@ class test_reflexion extends test_toba
 	//--------------------------------------------------------------------------------
 	//---------------GENERACION DEL ARCHIVO Y SUBCLASE BASICA-------------------------
 	//--------------------------------------------------------------------------------
+	function test_creacion_archivo_y_directorio()
+	{
+		$path = dirname(__FILE__)."/dir1/dir2/archivo.php";
+		$archivo = new archivo_php($path);
+		$archivo->crear_basico();
+		$this->assertTrue(file_exists($path));
+		
+		//Limpiar el resultado
+		unlink($path);
+		rmdir(dirname(__FILE__)."/dir1/dir2");
+		rmdir(dirname(__FILE__)."/dir1");		
+	}
+	
 	function test_creacion_archivo_y_generacion_clase()
 	// El archivo no existe en absoluto
 	{

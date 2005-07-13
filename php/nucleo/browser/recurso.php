@@ -10,7 +10,8 @@ class recurso {
 		}else{
 			$protocolo = "http://";
 		}
-		return $protocolo . $_SERVER["HTTP_HOST"];
+		if (isset($_SERVER['HTTP_HOST']))	//Necesario para ejecutar los test desde consola
+			return $protocolo . $_SERVER["HTTP_HOST"];
 	}
 
 	//------------   PATH a las carpetas de recursos   --------------
