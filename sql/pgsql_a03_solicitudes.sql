@@ -228,6 +228,33 @@ CREATE TABLE apex_solicitud_obj_observacion
 --	CONSTRAINT	"apex_sol_obj_obs_fk_sol" FOREIGN KEY ("solicitud") REFERENCES "apex_solicitud" ("solicitud") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
+--###################################################################################################
+
+CREATE SEQUENCE apex_log_objeto_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_log_objeto
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: log_objeto
+--: dump_where: objeto_proyecto ='%%'
+--: zona: solicitud
+--: desc:
+--: instancia:	1
+--: historica: 1
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	log_objeto							int4			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
+	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
+	usuario								varchar(20) 	NULL,
+	objeto_proyecto          			varchar(15)  	NOT NULL,
+	objeto								int4			NOT NULL,
+	observacion							varchar			NULL,
+	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto"),
+	CONSTRAINT	"apex_log_sis_fk_usuario" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_log_objeto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+
 --##################################################################################################
 --##################################################################################################
 --##################################  Monitoreo y control  #########################################

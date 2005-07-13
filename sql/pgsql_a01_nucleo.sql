@@ -1050,6 +1050,35 @@ CREATE TABLE apex_objeto_dependencias
 );
 --#################################################################################################
 
+CREATE TABLE apex_objeto_eventos
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto, identificador
+--: dump_where:
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)			NOT NULL,
+	objeto								int4				NOT NULL,
+	identificador						varchar(20)			NOT NULL,
+	etiqueta							varchar(60)			NOT NULL,
+	maneja_datos						smallint			NULL,
+	sobre_fila							smallint			NULL,
+	confirmacion						varchar(60)			NULL,
+	estilo								varchar(40)			NULL,
+	imagen_recurso_origen				varchar(10)			NULL,
+	imagen								varchar(60)			NULL,
+	en_botonera							smallint			NULL,
+	ayuda								varchar(60)			NULL,
+	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","objeto","identificador"),
+	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+);
+--#################################################################################################
+
 CREATE TABLE apex_item_objeto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
