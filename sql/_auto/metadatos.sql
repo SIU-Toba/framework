@@ -1,302 +1,10 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
-
-Strict Standards: Assigning the return value of new by reference is deprecated in f:\toba\php\nucleo\acceso_consola.php on line 57
-
-Strict Standards: Assigning the return value of new by reference is deprecated in f:\toba\php\nucleo\acceso_consola.php on line 70
-
-Strict Standards: Assigning the return value of new by reference is deprecated in f:\toba\php\nucleo\acceso_inicio.inc.php on line 25
-
-Strict Standards: Assigning the return value of new by reference is deprecated in f:\toba\php\nucleo\acceso_inicio.inc.php on line 26
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 14
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 15
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 16
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 17
-
-Strict Standards: Assigning the return value of new by reference is deprecated in f:\toba\php\nucleo\solicitud_especifica.php on line 24
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 100
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 101
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 241
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 242
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 243
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud_especifica.php on line 244
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 5
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 6
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 7
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 8
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 9
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 10
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 11
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 12
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 13
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 14
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 15
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 16
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 17
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 18
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\solicitud.php on line 19
-
-Strict Standards: Declaration of solicitud_browser::registrar() should be compatible with that of solicitud::registrar() in f:\toba\php\nucleo\solicitud_especifica.php on line 12
-
-Strict Standards: Declaration of solicitud_wddx::registrar() should be compatible with that of solicitud::registrar() in f:\toba\php\nucleo\solicitud_especifica.php on line 239
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\cronometro.php on line 11
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\cronometro.php on line 12
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\fuente.php on line 5
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\fuente.php on line 6
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 177
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 178
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 179
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 182
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 186
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 188
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 219
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 220
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 221
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 222
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 223
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 224
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 256
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 258
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 259
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 260
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 261
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 262
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 263
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 264
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 265
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 266
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb.inc.php on line 267
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 34
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 35
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 36
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 37
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 38
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 39
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 40
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 41
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 42
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 43
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 44
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 45
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 46
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 47
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 48
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 49
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 51
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 52
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 53
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 54
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 55
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 56
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 57
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 58
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 60
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 61
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 62
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 63
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 64
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 65
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 66
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 67
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 69
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 70
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 71
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 72
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 73
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 74
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 75
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 76
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 77
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 78
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 80
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 81
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 82
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 83
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 88
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 89
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 90
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 91
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 94
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 96
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 97
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 98
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 99
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 100
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-connection.inc.php on line 102
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 25
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 26
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 27
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 29
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 30
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 31
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 33
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 34
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 35
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 36
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 38
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 39
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 40
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 44
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 45
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 46
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 47
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 48
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 49
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 50
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 51
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 53
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 54
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 55
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 56
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 57
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\3ros\adodb340\adodb-recordset.inc.php on line 58
-
-Strict Standards: Declaration of ADORecordSet_array::FetchField() should be compatible with that of ADORecordSet::FetchField() in f:\toba\php\3ros\adodb340\adodb.inc.php on line 254
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\encriptador.php on line 7
-
-Strict Standards: var: Deprecated. Please use the public/private/protected modifiers in f:\toba\php\nucleo\lib\encriptador.php on line 8
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a00_revision.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a00_revision.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -308,7 +16,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a01_nucleo.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a01_nucleo.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -871,7 +579,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_n
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a021_prototipacion.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a021_prototipacion.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -973,7 +681,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a02_dimensiones.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a02_dimensiones.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1050,7 +758,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a03_solicitudes.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a03_solicitudes.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1168,7 +876,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_l
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a04_notas.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a04_notas.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1271,7 +979,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_n
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a05_mensajes.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a05_mensajes.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1356,7 +1064,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_o
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a06_mod_datos.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a06_mod_datos.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1422,7 +1130,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a07_admin_proy.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a07_admin_proy.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1484,7 +1192,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_a
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a08_tareas_programadas.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a08_tareas_programadas.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1511,7 +1219,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_t
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a09_entorno_trabajo.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a09_entorno_trabajo.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1541,7 +1249,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a10_clase_hoja.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a10_clase_hoja.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1587,7 +1295,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a11_clase_filtro.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a11_clase_filtro.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1608,7 +1316,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a14_clase_lista.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a14_clase_lista.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1631,7 +1339,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a15_clase_grafico.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a15_clase_grafico.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1646,7 +1354,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a16_clase_cuadro.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a16_clase_cuadro.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1711,7 +1419,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a17_clase_mapa.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a17_clase_mapa.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1725,7 +1433,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a20_clase_plan.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a20_clase_plan.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1782,7 +1490,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_o
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a50_clase_ut_formulario.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a50_clase_ut_formulario.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1846,7 +1554,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a51_clase_ut_multicheq.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a51_clase_ut_multicheq.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1863,7 +1571,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a52_clase_mt_me.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a52_clase_mt_me.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1926,7 +1634,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a53_clase_negocio.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a53_clase_negocio.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1949,7 +1657,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a66_clase_esquema.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a66_clase_esquema.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1972,7 +1680,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a67_clase_html.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a67_clase_html.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
@@ -1985,7 +1693,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 --######################################################################################
 --####
---####    ARCHIVO:  pgsql_a99_perfiles.sql -  FECHA: July 13, 2005, 4:09 am
+--####    ARCHIVO:  pgsql_a99_perfiles.sql -  FECHA: July 14, 2005, 9:28 am
 --####
 --######################################################################################
 
