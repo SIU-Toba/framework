@@ -1,51 +1,53 @@
 <?
-//Generacion: 4-07-2005 00:43:11
+//Generacion: 14-07-2005 17:04:53
 //Fuente de datos: 'instancia'
 require_once('nucleo/persistencia/db_registros_s.php');
 
 class dbr_apex_objeto_cuadro extends db_registros_s
 //db_registros especifico de la tabla 'apex_objeto_cuadro'
 {
-	function __construct($id, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=false)
+	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
 	{
-		$definicion['tabla']='apex_objeto_cuadro';
-		$definicion['clave'][0]='objeto_cuadro_proyecto';
-		$definicion['clave'][1]='objeto_cuadro';
-		$definicion['no_nulo'][0]='objeto_cuadro_proyecto';
-		$definicion['no_nulo'][1]='objeto_cuadro';
-		$definicion['columna'][0]='titulo';
-		$definicion['columna'][1]='subtitulo';
-		$definicion['columna'][2]='sql';
-		$definicion['columna'][3]='columnas_clave';
-		$definicion['columna'][4]='archivos_callbacks';
-		$definicion['columna'][5]='ancho';
-		$definicion['columna'][6]='ordenar';
-		$definicion['columna'][7]='paginar';
-		$definicion['columna'][8]='tamano_pagina';
-		$definicion['columna'][9]='eof_invisible';
-		$definicion['columna'][10]='eof_customizado';
-		$definicion['columna'][11]='exportar';
-		$definicion['columna'][12]='exportar_rtf';
-		$definicion['columna'][13]='pdf_propiedades';
-		$definicion['columna'][14]='pdf_respetar_paginacion';
-		$definicion['columna'][15]='asociacion_columnas';
-		$definicion['columna'][16]='ev_seleccion';
-		$definicion['columna'][17]='ev_eliminar';
-		$definicion['columna'][18]='dao_nucleo_proyecto';
-		$definicion['columna'][19]='dao_nucleo';
-		$definicion['columna'][20]='dao_metodo';
-		$definicion['columna'][21]='dao_parametros';
-		$definicion['columna'][22]='desplegable';
-		$definicion['columna'][23]='desplegable_activo';
-		$definicion['columna'][24]='scroll';
-		$definicion['columna'][25]='scroll_alto';
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+		$def['tabla']='apex_objeto_cuadro';
+		$def['columna'][0]['nombre']='objeto_cuadro_proyecto';
+		$def['columna'][0]['pk']='1';
+		$def['columna'][0]['no_nulo']='1';
+		$def['columna'][1]['nombre']='objeto_cuadro';
+		$def['columna'][1]['pk']='1';
+		$def['columna'][1]['no_nulo']='1';
+		$def['columna'][2]['nombre']='titulo';
+		$def['columna'][3]['nombre']='subtitulo';
+		$def['columna'][4]['nombre']='sql';
+		$def['columna'][5]['nombre']='columnas_clave';
+		$def['columna'][6]['nombre']='archivos_callbacks';
+		$def['columna'][7]['nombre']='ancho';
+		$def['columna'][8]['nombre']='ordenar';
+		$def['columna'][9]['nombre']='paginar';
+		$def['columna'][10]['nombre']='tamano_pagina';
+		$def['columna'][11]['nombre']='eof_invisible';
+		$def['columna'][12]['nombre']='eof_customizado';
+		$def['columna'][13]['nombre']='exportar';
+		$def['columna'][14]['nombre']='exportar_rtf';
+		$def['columna'][15]['nombre']='pdf_propiedades';
+		$def['columna'][16]['nombre']='pdf_respetar_paginacion';
+		$def['columna'][17]['nombre']='asociacion_columnas';
+		$def['columna'][18]['nombre']='ev_seleccion';
+		$def['columna'][19]['nombre']='ev_eliminar';
+		$def['columna'][20]['nombre']='dao_nucleo_proyecto';
+		$def['columna'][21]['nombre']='dao_nucleo';
+		$def['columna'][22]['nombre']='dao_metodo';
+		$def['columna'][23]['nombre']='dao_parametros';
+		$def['columna'][24]['nombre']='desplegable';
+		$def['columna'][25]['nombre']='desplegable_activo';
+		$def['columna'][26]['nombre']='scroll';
+		$def['columna'][27]['nombre']='scroll_alto';
+		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_cuadro = '{$id['objeto']}'";
-		$where[] = "objeto_cuadro_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_cuadro_proyecto = '{$id['objeto_cuadro_proyecto']}'";
+		$where[] = "objeto_cuadro = '{$id['objeto_cuadro']}'";
 		$this->cargar_datos($where);
 	}
 }

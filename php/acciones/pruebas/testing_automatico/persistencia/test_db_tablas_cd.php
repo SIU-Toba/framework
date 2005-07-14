@@ -12,7 +12,8 @@ class test_db_tablas_cd extends test_toba
 
 	function cargar_dependencia_global()
 	{
-		$this->dbt->cargar(array('proyecto'=> 'toba_testing', 'objeto' =>1315));	
+		$this->dbt->cargar(array( 	'proyecto'=>'toba_testing',
+									'objeto' =>1315 ));
 	}
 	
 	function assert_dbt_esta_vacio()

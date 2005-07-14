@@ -1,37 +1,37 @@
 <?
-//Generacion: 17-06-2005 12:51:56
+//Generacion: 14-07-2005 17:04:53
 //Fuente de datos: 'instancia'
 require_once('nucleo/persistencia/db_registros_s.php');
 
 class dbr_apex_objeto_dependencias extends db_registros_s
 //db_registros especifico de la tabla 'apex_objeto_dependencias'
 {
-	function __construct($id, $fuente, $tope_registros=null, $utilizar_transaccion=null, $memoria_autonoma=null)
+	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
 	{
-		$definicion['tabla']='apex_objeto_dependencias';
-		$definicion['clave'][0]='proyecto';
-		$definicion['clave'][1]='objeto_consumidor';
-		$definicion['clave'][2]='identificador';
-		$definicion['no_nulo'][0]='proyecto';
-		$definicion['no_nulo'][1]='objeto_consumidor';
-		$definicion['no_nulo'][2]='objeto_proveedor';
-		$definicion['no_nulo'][3]='identificador';
-		$definicion['columna'][0]='objeto_proveedor';
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+		$def['tabla']='apex_objeto_dependencias';
+		$def['columna'][0]['nombre']='proyecto';
+		$def['columna'][0]['pk']='1';
+		$def['columna'][0]['no_nulo']='1';
+		$def['columna'][1]['nombre']='objeto_consumidor';
+		$def['columna'][1]['pk']='1';
+		$def['columna'][1]['no_nulo']='1';
+		$def['columna'][2]['nombre']='objeto_proveedor';
+		$def['columna'][2]['no_nulo']='1';
+		$def['columna'][3]['nombre']='identificador';
+		$def['columna'][3]['pk']='1';
+		$def['columna'][3]['no_nulo']='1';
+		$def['columna'][4]['nombre']='parametros_a';
+		$def['columna'][5]['nombre']='parametros_b';
+		$def['columna'][6]['nombre']='parametros_c';
+		$def['columna'][7]['nombre']='inicializar';
+		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	
 	function cargar_datos_clave($id)
 	{
 		$where[] = "proyecto = '{$id['proyecto']}'";
-		$where[] = "objeto_consumidor = '{$id['objeto']}'";
-		$where[] = "identificador NOT IN (
-							SELECT identificador
-							FROM apex_objeto_mt_me_etapa_dep dep
-							WHERE 
-								dep.objeto_mt_me_proyecto = '{$id['proyecto']}' AND
-								dep.objeto_mt_me = '{$id['objeto']}' AND
-								dep.identificador = identificador
-						)";
+		$where[] = "objeto_consumidor = '{$id['objeto_consumidor']}'";
+		$where[] = "identificador = '{$id['identificador']}'";
 		$this->cargar_datos($where);
 	}
 }

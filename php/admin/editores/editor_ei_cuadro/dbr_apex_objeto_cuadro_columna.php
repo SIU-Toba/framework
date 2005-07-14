@@ -1,50 +1,54 @@
 <?
-//Generacion: 4-07-2005 00:43:11
+//Generacion: 14-07-2005 17:04:53
 //Fuente de datos: 'instancia'
 require_once('nucleo/persistencia/db_registros_s.php');
 
 class dbr_apex_objeto_cuadro_columna extends db_registros_s
 //db_registros especifico de la tabla 'apex_objeto_cuadro_columna'
 {
-	function __construct($id, $fuente, $tope_registros=0, $utilizar_transaccion=false, $memoria_autonoma=false)
+	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
 	{
-		$definicion['tabla']='apex_objeto_cuadro_columna';
-		$definicion['clave'][0]='objeto_cuadro_proyecto';
-		$definicion['clave'][1]='objeto_cuadro';
-		$definicion['clave'][2]='orden';
-		$definicion['no_nulo'][0]='objeto_cuadro_proyecto';
-		$definicion['no_nulo'][1]='objeto_cuadro';
-		$definicion['no_nulo'][2]='orden';
-		$definicion['no_nulo'][3]='titulo';
-		$definicion['no_nulo'][4]='columna_estilo';
-		$definicion['columna'][0]='titulo';
-		$definicion['columna'][1]='columna_estilo';
-		$definicion['columna'][2]='columna_ancho';
-		$definicion['columna'][3]='ancho_html';
-		$definicion['columna'][4]='total';
-		$definicion['columna'][5]='valor_sql';
-		$definicion['columna'][6]='valor_sql_formato';
-		$definicion['columna'][7]='valor_fijo';
-		$definicion['columna'][8]='valor_proceso';
-		$definicion['columna'][9]='valor_proceso_esp';
-		$definicion['columna'][10]='valor_proceso_parametros';
-		$definicion['columna'][11]='vinculo_indice';
-		$definicion['columna'][12]='par_dimension_proyecto';
-		$definicion['columna'][13]='par_dimension';
-		$definicion['columna'][14]='par_tabla';
-		$definicion['columna'][15]='par_columna';
-		$definicion['columna'][16]='no_ordenar';
-		$definicion['columna'][17]='mostrar_xls';
-		$definicion['columna'][18]='mostrar_pdf';
-		$definicion['columna'][19]='pdf_propiedades';
-		$definicion['columna'][20]='desabilitado';
-		parent::__construct($id, $definicion, $fuente, $tope_registros, $utilizar_transaccion, $memoria_autonoma);
+		$def['tabla']='apex_objeto_cuadro_columna';
+		$def['columna'][0]['nombre']='objeto_cuadro_proyecto';
+		$def['columna'][0]['pk']='1';
+		$def['columna'][0]['no_nulo']='1';
+		$def['columna'][1]['nombre']='objeto_cuadro';
+		$def['columna'][1]['pk']='1';
+		$def['columna'][1]['no_nulo']='1';
+		$def['columna'][2]['nombre']='orden';
+		$def['columna'][2]['pk']='1';
+		$def['columna'][2]['no_nulo']='1';
+		$def['columna'][3]['nombre']='titulo';
+		$def['columna'][3]['no_nulo']='1';
+		$def['columna'][4]['nombre']='columna_estilo';
+		$def['columna'][4]['no_nulo']='1';
+		$def['columna'][5]['nombre']='columna_ancho';
+		$def['columna'][6]['nombre']='ancho_html';
+		$def['columna'][7]['nombre']='total';
+		$def['columna'][8]['nombre']='valor_sql';
+		$def['columna'][9]['nombre']='valor_sql_formato';
+		$def['columna'][10]['nombre']='valor_fijo';
+		$def['columna'][11]['nombre']='valor_proceso';
+		$def['columna'][12]['nombre']='valor_proceso_esp';
+		$def['columna'][13]['nombre']='valor_proceso_parametros';
+		$def['columna'][14]['nombre']='vinculo_indice';
+		$def['columna'][15]['nombre']='par_dimension_proyecto';
+		$def['columna'][16]['nombre']='par_dimension';
+		$def['columna'][17]['nombre']='par_tabla';
+		$def['columna'][18]['nombre']='par_columna';
+		$def['columna'][19]['nombre']='no_ordenar';
+		$def['columna'][20]['nombre']='mostrar_xls';
+		$def['columna'][21]['nombre']='mostrar_pdf';
+		$def['columna'][22]['nombre']='pdf_propiedades';
+		$def['columna'][23]['nombre']='desabilitado';
+		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_cuadro = '{$id['objeto']}'";
-		$where[] = "objeto_cuadro_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_cuadro_proyecto = '{$id['objeto_cuadro_proyecto']}'";
+		$where[] = "objeto_cuadro = '{$id['objeto_cuadro']}'";
+		$where[] = "orden = '{$id['orden']}'";
 		$this->cargar_datos($where);
 	}
 }
