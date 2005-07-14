@@ -46,6 +46,7 @@ class lista_casos
 					//Administrador
 					array('id' => 'test_elemento_toba', 'nombre' => 'Elementos Toba', 'categoria' => 'administrador'),
 					array('id' => 'test_reflexion', 'nombre' => 'Creación de archivos y clases PHP', 'categoria' => 'administrador'),
+					array('id' => 'test_motor_wiki', 'nombre' => 'Motor Wiki', 'categoria' => 'administrador'),
 					
 					//Varios
 					array('id' =>  'test_parseo_etiquetas', 'nombre' => 'Parseo de etiquetas', 'categoria' => 'varios'), 

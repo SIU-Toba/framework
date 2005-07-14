@@ -1,4 +1,5 @@
 <?php
+require_once("nucleo/lib/motor_wiki.php");
 
 class recurso {
 
@@ -86,17 +87,32 @@ class recurso {
  	@@retorno: string | URL del recurso o TAG 'img' generado
 */
 	{
+		$wiki = false;
 		$x = ""; $y = ""; $a="";$m="";
 		if(isset($ancho)) $x = " width='$ancho' ";
 		if(isset($alto)) $y = " height='$alto' ";
-//		if(isset($alt)) $a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
-		if(isset($alt)) {
-			$alt = str_replace(array("\n", "\r"), '', $alt);
-			$alt = str_replace(array("'"), "`", $alt);			
-			$a = " title='$alt' onmouseover='window.status=this.title' onmouseout='window.status=\"\"'";
+/*		if(isset($alt)) {
+			$a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
 		}
-		if(isset($mapa)) $m = " usemap='$mapa'";
-		return "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js>";
+*/
+		if(isset($alt)) {
+			if (motor_wiki::tiene_wiki($alt)) {
+				$ayuda = motor_wiki::formato_texto($alt);
+				$wiki = motor_wiki::link_wiki($alt);
+			} else {
+				$ayuda = $alt;
+			}
+			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
+			$ayuda = str_replace(array("'"), "`", $ayuda);			
+			$a = " title='$ayuda' onmouseover='window.status=this.title' onmouseout='window.status=\"\"'";
+		}
+		if(isset($mapa)) 
+			$m = " usemap='$mapa'";
+		$img = "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js>";
+		if (! $wiki)
+			return $img;
+		else
+			return "<a href='{$wiki[0]}' target='_blank'>$img</a>";
 	}
 
 	//------------   ACCESO A OTROS   --------------
