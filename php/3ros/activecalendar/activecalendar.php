@@ -384,7 +384,6 @@ PUBLIC view_event_contents()
 function viewEventContents()
 {
 	$this->showEvents = true;
-	$this->cssMonthTitle = "monthnameevents";
 	$this->cssMonthDay = "monthdayevents";
 	$this->cssWeek = "weeknumberevents";
 	$this->cssNoMonthDay = "nomonthdayevents";

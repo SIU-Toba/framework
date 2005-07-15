@@ -392,7 +392,7 @@ class calendario extends activecalendar
 					$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
 				else
 					$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
-			} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday) {
+			} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $this->getSelectedDay() < 0 && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssToday."\">".$var.$content."</td>";
 				else

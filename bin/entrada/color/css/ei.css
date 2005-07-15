@@ -53,32 +53,18 @@ TD.objeto-ei-barra-superior {
 
 /*------------------ CALENDARIO --------------------*/
 
-.year {
+.year, .month {
 	border-style: outset;
-	border-width: 1px;
 	background-color: #e4e4e4;
 	text-align: center;
 }
-.month {
-	border-style: none;
-	background-color: #e4e4e4;
-	text-align: center;
-}
+.year {	border-width: 1px; }
 .yearname {
 	text-align: center;
 	font-size: 18px;
 	font-weight: bold;
 }
 .monthname {
-	text-align: center;
-	font-size: 14px;
-	font-weight: bold;
-	background-color: #DADADA;
-	color: #5D5D5D;
-	border-style: outset;
-	border-width:1px
-}
-.monthnameevents {
 	text-align: center;
 	font-size: 14px;
 	font-weight: bold;
@@ -108,17 +94,11 @@ TD.objeto-ei-barra-superior {
 .monthnavigation {
 	font-family: Tahoma, Arial, sans-serif;
 }
-.monthpicker {
-	font-size: 11px;
-	background-color: #eeeeee;
-}
-.yearpicker {
+.monthpicker, .yearpicker, .pickerbutton {
 	font-size: 11px;
 	background-color: #eeeeee;
 }
 .pickerbutton {
-	font-size: 11px;
-	background-color: #eeeeee;
 	border-style: solid;
 	border-color: #000000;
 	border-width: 1px;
@@ -131,133 +111,102 @@ TD.objeto-ei-barra-superior {
 	height:60px;
 	width:60px;
 }
-.monthday {
+.monthday, .weeknumber {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
-	background-color: #E4E4E4;
 	color: #384955;
 	height:20px;
 	width:20px;
 }
-.weeknumber {
+.monthday {	background-color: #E4E4E4; }
+.weeknumber { background-color: #f0f1ff; }
+.monthdayevents, .weeknumberevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
-	background-color: #f0f1ff;
-	color: #384955;
-	height:20px;
-	width:20px;
-}
-.monthdayevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	background-color: #E4E4E4;
 	color: #384955;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.weeknumberevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	background-color: #f0f1ff;
-	color: #384955;
-	height:60px;
-	width:60px;
-	vertical-align: top;
-}
-.today {
+.monthdayevents { background-color: #E4E4E4; }
+.weeknumberevents { background-color: #f0f1ff; }
+.today, .todayevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 	border: 1px solid #441177;
 	color:#384955;
+}
+.today {
 	height:20px;
 	width:20px;
 }
 .todayevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	border: 1px ridge #441177;
-	color: #384955;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.selectedday {
+.selectedday, .selecteddayevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 	border: 1px solid #441177;
 	background-color:#d9dbff;
+}
+.selectedday {	
 	height:20px;
 	width:20px;
 }
 .selecteddayevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	border: 1px solid #441177;
-	background-color: #d9dbff;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.sunday {
+.sunday, .sundayevents {
 	text-align: center;
 	font-size: 11px;
 	color: #667171;
+}
+.sunday {
 	height:20px;
 	width:20px;
 }
 .sundayevents {
-	text-align: center;
-	font-size: 11px;
-	color: #667171;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.sunday a {
+.sunday a, .saturday a {
 	color: #667171;
 }
-.saturday {
+.saturday, .saturdayevents {
 	text-align: center;
 	font-size: 11px;
 	color: #667171;
+}
+.saturday{
 	height:20px;
 	width:20px;
 }
 .saturdayevents {
-	text-align: center;
-	font-size: 11px;
-	color: #667171;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.saturday a {
-	color: #667171;
-}
-.event {
+.event, .eventevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 	color: red;
 	background-color: #ffff99;
+}
+.event {
 	height:20px;
 	width:20px;
 }
 .eventevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	color: red;
-	background-color: #ffff99;
 	height:60px;
 	width:60px;
 	vertical-align: top;
@@ -266,21 +215,18 @@ TD.objeto-ei-barra-superior {
 	background-color: #ffff99;
 	color: red;
 }
-.selectedevent {
+.selectedevent, .selectedeventevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 	color: red;
 	background-color: #ffff99;
+}
+.seelctedevent {
 	height:20px;
 	width:20px;
 }
 .selectedeventevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	color: red;
-	background-color: #ffff99;
 	height:60px;
 	width:60px;
 	vertical-align: top;
@@ -289,21 +235,18 @@ TD.objeto-ei-barra-superior {
 	background-color: #ffff99;
 	color: red;
 }
-.todayevent {
+.todayevent, .todayeventevents {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 	color: red;
 	background-color: #ffff99;
+}
+.todayevent {
 	height:20px;
 	width:20px;
 }
 .todayeventevents {
-	text-align: center;
-	font-size: 11px;
-	font-weight: bold;
-	color: red;
-	background-color: #ffff99;
 	height:60px;
 	width:60px;
 	vertical-align: top;
