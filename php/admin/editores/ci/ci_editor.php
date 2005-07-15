@@ -59,7 +59,7 @@ class ci_editor extends objeto_ci
 
 	function llenar_combo_dependencias()
 	{
-		
+		return null;		
 	}
 
 /*

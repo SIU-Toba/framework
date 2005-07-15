@@ -466,7 +466,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			if(is_array($dato)){	//El EF maneja	 *** DATO COMPUESTO
 				$temp = array();
 				for($x=0;$x<count($dato);$x++){
-					$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+					if(isset($datos[$dato[$x]])){
+						$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+					}else{
+						$temp[$dato[$x]] = null;
+					}
 				}
 			}else{					//El EF maneja	un	*** DATO SIMPLE
 				$temp = (isset($datos[$dato])) ? stripslashes($datos[$dato]) : null;
