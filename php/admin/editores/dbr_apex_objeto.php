@@ -11,16 +11,13 @@ class dbr_apex_objeto extends db_registros_s
 		$def['tabla']='apex_objeto';
 		$def['columna'][0]['nombre']='proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto';
 		$def['columna'][1]['pk']='1';
 		$def['columna'][1]['secuencia']='apex_objeto_seq';
 		$def['columna'][2]['nombre']='anterior';
 		$def['columna'][3]['nombre']='reflexivo';
 		$def['columna'][4]['nombre']='clase_proyecto';
-		$def['columna'][4]['no_nulo']='1';
 		$def['columna'][5]['nombre']='clase';
-		$def['columna'][5]['no_nulo']='1';
 		$def['columna'][6]['nombre']='subclase';
 		$def['columna'][7]['nombre']='subclase_archivo';
 		$def['columna'][8]['nombre']='objeto_categoria_proyecto';
@@ -37,6 +34,7 @@ class dbr_apex_objeto extends db_registros_s
 		$def['columna'][16]['nombre']='solicitud_registrar';
 		$def['columna'][17]['nombre']='solicitud_obj_obs_tipo';
 		$def['columna'][18]['nombre']='solicitud_obj_observacion';
+/*
 		$def['columna'][19]['nombre']='parametro_a';
 		$def['columna'][20]['nombre']='parametro_b';
 		$def['columna'][21]['nombre']='parametro_c';
@@ -45,6 +43,7 @@ class dbr_apex_objeto extends db_registros_s
 		$def['columna'][24]['nombre']='parametro_f';
 		$def['columna'][25]['nombre']='usuario';
 		$def['columna'][26]['nombre']='creacion';
+*/
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

@@ -1,2322 +1,2336 @@
 TD.arbol-titulo {
-	font-size: 12px;
-	color: #F0F1FF;
-	font-weight: bold;
-	background-color: #441177;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-	padding: 8,4,4,10;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 4px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 4px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 8px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.arbol-cuerpo {
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: center;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-	padding: 1,1,1,1;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 1px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 1px;
+	 PADDING-BOTTOM: 1px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 1px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.arbol-etiqueta1 {
-	padding: 0,5,2,5;
-	font-weight: bold;	
-	font-size: 10px;
-	text-align: left;
-	color: #441177;
-	background-color: #BBBBFF;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 4px solid #441177;
-}
-
-TD.arbol-etiqueta2 {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	font-weight: bold;
-	color: #F0F1FF;
-	background-color: #867ADA;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 4px solid #441177;
-}
-
-TD.arbol-valor {
-	padding: 0,3,0,3;
-	font-size: 10px;
-	color: #441177;
-	background-color: #ffffff;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-}
-
-TD.arbol-valor-array {
-	padding: 3,3,3,3;
-	font-size: 10px;
-	color: #441177;
-	font-weight: bold;
-	background-color: #FFDDBB;
-	text-align: center;
-	border-top: 2px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-}
-
-
-TD.arbol-valor-objeto {
-	padding: 0,3,0,3;
-	font-size: 10px;
-	color: #F0F1FF;
-	background-color: #D65932;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-}
-
-
-TD.arbol-valor-null {
-	padding: 0,3,0,3;
-	font-size: 10px;
-	color: #F0F1FF;
-	background-color: #441177;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-}/*------------------ BARRA principal (ITEM) --------------------*/
-
-TD.barra-0 {
-	font-size: 10px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: right;
-}
-
-TD.barra-0-edit {
-	font-size: 10px;
-	font-weight: bold;
-	background-color: #441177;
-	padding: 2px 2px 2px 2px ;
-	text-align: right;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-0-tit {
-	font-weight: bold;
-	font-size: 12px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: right;
-}
-
-/*-------------- sub BARRA EDICION Objetos --------------------*/
-
-
-TD.barra-obj-id {
-	font-size: 12px;
-	color: #441177;
-	font-weight: bold;
-	background-color: #FE9B6B;
-	padding: 2px 2px 2px 2px ;
-	text-align: right;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-obj-leve {
-	font-size: 11px;
-	color: #553DA1;
-	background-color: #D9DBFF;
-	text-align: left;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-separador {
-	font-size: 11px;
-	color: #441177;
-	background-color: #D9DBFF;
-	font-weight: bold;
-	text-align: left;
-	padding: 5px 5px 5px 5px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-obj-tit1 {
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	padding: 0px 0px 0px 0px;
-	font-size: 12px;
-	color: #553DA1;
-	background-color: #BBBBFF;
-	text-align: left;
-}
-
-TD.barra-obj-tit {
-	font-size: 11px;
-	color: #553DA1;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-obj-link {
-	font-size: 10px;
-	color: #441177;
-	background-color: #F0F1FF;
-	padding: 2px 2px 2px 2px ;
-	text-align: left;
-	border-bottom: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-}
-
-TD.barra-obj-io {
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	font-weight: bold;
-	padding: 6px 10px 6px 10px;
-	font-size: 12px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: left;
-}
-
-/*---------------- sub BARRA EDICION Items --------------------*/
-
-TD.barra-item-id {
-	font-size: 11px;
-	color: #441177;
-	font-weight: bold;
-	background-color: #FE9B6B;
-	padding: 2px 2px 2px 2px ;
-	text-align: left;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-item-tit {
-	font-size: 11px;
-	color: #441177;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-}
-
-TD.barra-item-link {
-	font-size: 10px;
-	color: #F0F1FF;
-	padding: 2px 2px 2px 2px ;
-	text-align: right;
-	border-bottom: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-}
-
-TD.barra-item-link2 {
-	font-size: 10px;
-	color: #D65932;
-	padding: 2px 2px 2px 2px ;
-	text-align: right;
-	border-bottom: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-}
-/*----------------------------------------------------------------*//***************************************************************************/
-/********************************   GENERAL   ******************************/
-/***************************************************************************/
-
-
-body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	background-color: #F0F1FF;
-}
-
-body.lista {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	background-color: #553DA1;
-}
-
-
-body.control {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	background-color: #441177;
-}
-
-/*----------------------------< tipo de ALINEACION >------------------------*/
-
-A.basico {
-	text-decoration: none; 
-	color: #441177; 
-/*	font-size: 10px;*/
-}	
-
-
-/*----------------------------< tipo de ALINEACION >------------------------*/
-
-.num {	text-align: right;	}
-.tex { 	text-align: left;		}
-.cen {	text-align: center;	}
-
-/*------------------------------< tipo de BORDE >---------------------------*/
-
-.borde-0 {
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-}
-
-.borde-1 {
-	border-top: 2px solid #553DA1;
-	border-left: 2px solid #553DA1;
-	border-bottom: 2px solid #553DA1;
-	border-right: 2px solid #553DA1;
-}
-
-.borde-especial {
-	border-top: 1px dashed #553DA1;
-	border-left: 1px dashed #553DA1;
-	border-bottom: 1px dashed #553DA1;
-	border-right: 1px dashed #553DA1;
-}
-
-/***************************************************************************/
-/************************** ELEMENTOS BASICOS ******************************/
-/***************************************************************************/
-
-.txt-info {
-	PADDING-RIGHT: 5px;
+	BORDER-RIGHT: #441177 4px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
 	 PADDING-LEFT: 5px;
-	 PADDING-BOTTOM: 5px;
-	 PADDING-TOP: 5px;
-	 FONT-SIZE: 11px;
-	 COLOR: %col_sn_0%;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
+}
+TD.arbol-etiqueta2 {
+	BORDER-RIGHT: #441177 4px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
+}
+TD.arbol-valor {
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
 	 TEXT-ALIGN: left
 }
-/*-------------------------------- MENU -----------------------------*/
-
+TD.arbol-valor-array {
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #441177 2px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: center
+}
+TD.arbol-valor-objeto {
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: left
+}
+TD.arbol-valor-null {
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
+}
+TD.barra-0 {
+	FONT-SIZE: 10px;
+	 COLOR: #f0f1ff;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: right
+}
+TD.barra-0-edit {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: right
+}
+TD.barra-0-tit {
+	FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 COLOR: #f0f1ff;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: right
+}
+TD.barra-obj-id {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: right
+}
+TD.barra-obj-leve {
+	BORDER-RIGHT: #553da1 1px solid;
+	 BORDER-TOP: #553da1 1px solid;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #553da1;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
+}
+TD.barra-separador {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 5px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
+}
+TD.barra-obj-tit1 {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #553da1;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
+}
+TD.barra-obj-tit {
+	BORDER-RIGHT: #553da1 1px solid;
+	 BORDER-TOP: #553da1 1px solid;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #553da1;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
+}
+TD.barra-obj-link {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 TEXT-ALIGN: left
+}
+TD.barra-obj-io {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 10px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 6px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 6px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
+}
+TD.barra-item-id {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
+}
+TD.barra-item-tit {
+	FONT-SIZE: 11px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
+}
+TD.barra-item-link {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 TEXT-ALIGN: right
+}
+TD.barra-item-link2 {
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #d65932;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 TEXT-ALIGN: right
+}
+BODY {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #f0f1ff
+}
+BODY.lista {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #553da1
+}
+BODY.control {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #441177
+}
+A.basico {
+	COLOR: #441177;
+	 TEXT-DECORATION: none
+}
+.num {
+	TEXT-ALIGN: right
+}
+.tex {
+	TEXT-ALIGN: left
+}
+.cen {
+	TEXT-ALIGN: center
+}
+.borde-0 {
+	BORDER-RIGHT: #553da1 1px solid;
+	 BORDER-TOP: #553da1 1px solid;
+	 BORDER-LEFT: #553da1 1px solid;
+	 BORDER-BOTTOM: #553da1 1px solid
+}
+.borde-1 {
+	BORDER-RIGHT: #553da1 2px solid;
+	 BORDER-TOP: #553da1 2px solid;
+	 BORDER-LEFT: #553da1 2px solid;
+	 BORDER-BOTTOM: #553da1 2px solid
+}
+.borde-especial {
+	BORDER-RIGHT: #553da1 1px dashed;
+	 BORDER-TOP: #553da1 1px dashed;
+	 BORDER-LEFT: #553da1 1px dashed;
+	 BORDER-BOTTOM: #553da1 1px dashed
+}
+.txt-info {
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
+}
 TD.menu-0 {
-	font-size: 10px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: left;
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
 TD.menu-1 {
-	font-size: 10px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: right;
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: right
 }
-
-/*-------------------------------- MENSAJES -----------------------------*/
-
-/*--------- info -------*/
-
 TABLE.mensaje-info {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
-	border-top: 3px solid #441177;
-	border-left: 3px solid #441177;
-	border-bottom: 3px solid #441177;
-	border-right: 3px solid #441177;
+	BORDER-RIGHT: #441177 3px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 3px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 3px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 3px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.mensaje-titulo-info {
-	font-size: 12px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: right;
-	font-weight: bold;
-	padding: 5px 10px 3px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 3px;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: right
 }
-
 TD.mensaje-subtitulo-info {
-	font-size: 11px;
-	color: #BBBBFF;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 0px 0px 5px 5px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #bbbbff;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.mensaje-cuerpo-info {
-	font-size: 12px;
-	color: #441177;
-	background-color: #ffffff;
-	text-align: left;
-	padding: 15px 10px 15px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 15px;
+	 COLOR: #441177;
+	 PADDING-TOP: 15px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
-/*--------- error -------*/
-
 TABLE.mensaje-error {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
-	border-top: 3px solid #990000;
-	border-left: 3px solid #990000;
-	border-bottom: 3px solid #990000;
-	border-right: 3px solid #990000;
+	BORDER-RIGHT: #990000 3px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #990000 3px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #990000 3px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #990000 3px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.mensaje-titulo-error {
-	font-size: 12px;
-	color: #ffffff;
-	background-color: #FF411B;
-	text-align: right;
-	font-weight: bold;
-	padding: 5px 10px 3px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 3px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ff411b;
+	 TEXT-ALIGN: right
 }
-
 TD.mensaje-subtitulo-error {
-	font-size: 11px;
-	color: #CCCCDD;
-	background-color: #FF411B;
-	text-align: left;
-	padding: 0px 0px 5px 5px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #ccccdd;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #ff411b;
+	 TEXT-ALIGN: left
 }
-
 TD.mensaje-cuerpo-error {
-	font-size: 12px;
-	color: #990000;
-	background-color: #ffffff;
-	text-align: center;
-	padding: 15px 10px 15px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 15px;
+	 COLOR: #990000;
+	 PADDING-TOP: 15px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: center
 }
-
-/*------------------------------< tipo de TABLA >---------------------------*/
-
 TABLE.tabla-0 {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.celda-vacia {
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	vertical-align: top;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
+	 PADDING-TOP: 0px
 }
-
 TABLE.tabla-1 {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 11px;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TABLE.tabla-2 {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 12px;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
-/*------------------------------< PORTADA >---------------------------*/
-
 TD.portada-titulo {
-	font-size: 18px;
-	color: #553DA1;
-	text-align: center;
-	font-weight: bold;
-	padding: 5px 10px 5px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 18px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #553da1;
+	 PADDING-TOP: 5px;
+	 TEXT-ALIGN: center
 }
-
 TD.portada-comentario {
-	font-size: 10px;
-	color: #867ADA;
-	text-align: center;
+	FONT-SIZE: 10px;
+	 COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
-/*-----------------------------<  PARRAFO  >-------------------------------*/
-
 .texto-ss {
- 	font-family: Courier,Courier New,  mono;
- 	text-align: left;		
-	font-size: 9px;
+	FONT-SIZE: 9px;
+	 FONT-FAMILY: Courier,Courier New,  mono;
+	 TEXT-ALIGN: left
 }
-
 .texto {
-	color: #441177;
- 	text-align: left;		
-	font-size: 12px;
+	FONT-SIZE: 12px;
+	 COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 .texto-2 {
-	color: #990000;
- 	text-align: left;		
-	font-size: 12px;
+	FONT-SIZE: 12px;
+	 COLOR: #990000;
+	 TEXT-ALIGN: left
 }
-
-/*-----------------------------<  CRONOMETRO  >-------------------------------*/
-
-
 TD.cron-base {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #BBBBFF; 
-	text-align: left;
-	padding: 2px 1px 2px 0px ;
-	border-bottom: 1px dashed #F0F1FF;
+	PADDING-RIGHT: 1px;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #f0f1ff 1px dashed;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
 TD.cron-nucleo {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #D65932; 
-	text-align: left;
-	border-top: 1px solid #F0F1FF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #f0f1ff 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: left
 }
-
 TD.cron-objeto {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #FE9B6B; 
-	text-align: left;
-	border-top: 1px solid #F0F1FF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #f0f1ff 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
 }
-
 TD.cron-item {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #990000; 
-	text-align: left;
-	border-top: 1px solid #F0F1FF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #f0f1ff 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #990000;
+	 TEXT-ALIGN: left
 }
-
 TD.cron-lib {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #FFDDBB; 
-	text-align: left;
-	border-top: 1px solid #F0F1FF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #f0f1ff 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
 }
-
 TD.cron-basura {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #BBBBFF; 
-	text-align: left;
-	border-top: 1px solid #F0F1FF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #f0f1ff 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
-/*---------------------------------------------------------------------------------------
-----------------------------------< Estilos de columnas >----------------------------
----------------------------------------------------------------------------------------
-Estos son los elementos referenciados desde apex_columna_estilo
-*/
-
-/*-- Numericos */
-
 TD.col-num-p1 {
-	color: #441177;
-	background-color: #ffffff;
-	padding: 2;
-	text-align: right;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: right
 }
-
 TD.col-num-p2 {
-	color: #441177;
-	background-color: #F0F1FF;
-	text-align: right;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 TEXT-ALIGN: right
 }
-
 TD.col-num-p3 {
-	color: #441177;
-	background-color: #FFFFF1;
-	text-align: right;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #fffff1;
+	 TEXT-ALIGN: right
 }
-
 TD.col-num-p4 {
-	color: #441177; 
-	background-color: #D65932; 
-	padding: 2;
-	text-align: right;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: right
 }
-
-/*-- Texto */
-
 TD.col-tex-p1 {
-	color: #000011;
-	background-color: #ffffff;
-	text-align: left;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #000011;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
-
 TD.col-tex-p2 {
-	color: #990000;
-	background-color: #ffffff;
-	font-weight: bold; 
-	text-align: left;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #990000;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 TD.col-tex-p3 {
-	color: #441177;
-	background-color: #D9DBFF;
-	padding: 2;
-	text-align: left;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
 }
-
-/*-- Especiales (centradas) */
-
 TD.col-cen-s1 {
-	color: #441177;
-	background-color: #D65932;
-	text-align: center;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: center
 }
-
-
 TD.col-cen-s2 {
-	color: #FEFFDF;
-	background-color: #867ADA;
-	text-align: center;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #feffdf;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
-/*----------------------------------------------------------------------*/
-
 TD.objeto-editores {
-	background-color: #BBBBFF;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #bbbbff
 }
-
 TD.objeto-editores-reflexivo {
-	background-color: #FE9B6B;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b
 }
-
 TD.objeto-barra-seccion {
-	font-weight: bold;
-	font-size: 11px;
-	color: #ffffff;
-	background-color: #867ADA;
-	text-align: left;
-	padding: 3px 3px 3px 3px ;
-	border-top: 2px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 2px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #553da1 2px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #553da1 2px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
 TD.objeto-barra-superior {
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 3px 3px 3px 3px ;
-/*	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;*/
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 3px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.objeto-barra-superior-botones {
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #441177;
-	text-align: left;
-	padding: 3px 3px 3px 3px ;
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TABLE.objeto-base {
-	text-align: center;
-	align: center;
-	border-collapse: collapse;
-	background-color: #441177;
-/*	empty-cells: show; */
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BORDER-COLLAPSE: collapse;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: center;
+	 align: center
 }
-
 TABLE.abm {
-	background-color: #F0F1FF;
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 2px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BORDER-COLLAPSE: collapse;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 empty-cells: show
 }
-
-TD.abm-titulo
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 5px 5px 5px 5px ;
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
+TD.abm-titulo {
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 5px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
-TD.abm-zona-botones
-{
-	font-weight: bold;
-	font-size: 8px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: right;
-	padding: 3px 3px 3px 3px ;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+TD.abm-zona-botones {
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 8px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: right
 }
-
-TD.abm-fila
-{
-	font-size: 8px;
-	color: #441177;
-	background-color: #FFFFF1;
-	text-align: left;
-	padding: 0px 3px 0px 3px ;
-	margin: 0px 0px 0px 0px ;
+TD.abm-fila {
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 3px;
+	 FONT-SIZE: 8px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #fffff1;
+	 TEXT-ALIGN: left
 }
-
-TD.abm-fila-ml, TD.abm-fila-ml-selec
-{
-	font-size: 8px;
-	color: #441177;
-	text-align: center;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	/* border-right: 1px solid #867ADA; */
+TD.abm-fila-ml {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 8px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: center
 }
-
-TD.abm-fila-ml 
-{
-	background-color: #FFFFF1;
-}	
-
-TD.abm-fila-ml-selec 
-{ 
-	background-color: #F0F1FF;
-	border-collapse:collapse;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;	
+TD.abm-fila-ml-selec {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 8px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: center
 }
-
-.abm-columna
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: center;
-	padding: 2px 2px 4px 2px ;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #867ADA;
+TD.abm-fila-ml {
+	BACKGROUND-COLOR: #fffff1
 }
-
-TD.abm-total
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #D9DBFF;
-	text-align: center;
-	padding: 2px 0px 2px 0px ;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
+TD.abm-fila-ml-selec {
+	BORDER-TOP: #553da1 1px solid;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BORDER-COLLAPSE: collapse;
+	 BACKGROUND-COLOR: #f0f1ff
 }
-
-.abm-input-eliminar
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #553DA1;
-	background-color: #FE9B6B;
-/*
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
-*/
+.abm-columna {
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 4px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: center
 }
-
-.abm-input
-{
-	font-size: 11px;
-	color: #441177;
-	background-color: #ffffff;
-/*	border-top: 1px solid #BBBBFF;	border-left: 1px solid #BBBBFF;	border-bottom: 1px solid #BBBBFF;	border-right: 1px solid #BBBBFF;*/
+TD.abm-total {
+	PADDING-RIGHT: 0px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: center
 }
-/*  ------------------------------ FILTRO -------------------------  */
-
+.abm-input-eliminar {
+	FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 COLOR: #553da1;
+	 BACKGROUND-COLOR: #fe9b6b
+}
+.abm-input {
+	FONT-SIZE: 11px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #ffffff
+}
 .parametro-item {
-	FONT-WEIGHT: bold; 
-	FONT-SIZE: 10px; 
-	COLOR: #553DA1; 
-	BACKGROUND-COLOR: #BBBBFF; 
-	TEXT-ALIGN: left;
-	border: 1px inset #441177;
+	BORDER-RIGHT: #441177 1px inset;
+	 BORDER-TOP: #441177 1px inset;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #441177 1px inset;
+	 COLOR: #553da1;
+	 BORDER-BOTTOM: #441177 1px inset;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
 .parametro-item-activado {
-	FONT-WEIGHT: bold; 
-	FONT-SIZE: 10px; 
-	COLOR: #441177;
-	BACKGROUND-COLOR: #FE9B6B; 
-	TEXT-ALIGN: left;
-	border: 1px inset #441177;
+	BORDER-RIGHT: #441177 1px inset;
+	 BORDER-TOP: #441177 1px inset;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #441177 1px inset;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px inset;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
 }
 .parametro-tabla {
 	FONT-SIZE: 12px;
-	COLOR: #000011;
-	BACKGROUND-COLOR: #9999AA;
-	TEXT-ALIGN: center;
+	 COLOR: #000011;
+	 BACKGROUND-COLOR: #9999aa;
+	 TEXT-ALIGN: center
 }
 .parametro-fila {
 	FONT-SIZE: 12px;
-	COLOR: #000011;
-	BACKGROUND-COLOR: #9999AA;
-	TEXT-ALIGN: left;
+	 COLOR: #000011;
+	 BACKGROUND-COLOR: #9999aa;
+	 TEXT-ALIGN: left
 }
-.filtro-titulo
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 5px 5px 5px 5px ;
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
+.filtro-titulo {
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 5px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
 .filtro-item {
-	color: #FFFFF1;
-	background-color: #FFFFF1;
-	text-align: left;
-	padding: 0px 0px 0px 0px ;
-	border-top: 1px solid #BBBBFF;
+	PADDING-RIGHT: 0px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #fffff1;
+	 TEXT-ALIGN: left
 }
-
-input.parametros_boton
-{
-    font-size: 10px;
-    color: #BBBBFF;
+INPUT.parametros_boton {
+	FONT-SIZE: 10px;
+	 COLOR: #bbbbff
 }
-input.parametros
-{
-    border: #666677 2px solid;
-    font-size: 10px;
-    color: #666677;
-    font-family: verdana, arial;
-    background-color: #D9DBFF
-	 TEXT-ALIGN: right;
+INPUT.parametros {
+	BORDER-RIGHT: #666677 2px solid;
+	 BORDER-TOP: #666677 2px solid;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #666677 2px solid;
+	 COLOR: #666677;
+	 BORDER-BOTTOM: #666677 2px solid;
+	 FONT-FAMILY: verdana, arial
 }
-select.parametros
-{
-    font-size: 10px;
-    color: #441177;
-    background-color: #BBBBFF;
-    border-bottom: #9999AA 1px solid;
-    border-left: #9999AA 1px solid;
-    border-right: #9999AA 1px solid;
-    border-top: #9999AA 1px solid;
+SELECT.parametros {
+	BORDER-RIGHT: #9999aa 1px solid;
+	 BORDER-TOP: #9999aa 1px solid;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #9999aa 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #9999aa 1px solid;
+	 BACKGROUND-COLOR: #bbbbff
 }
-/*  ------------------------------------------------------------  
-    ------------------------------ HOJA ------------------------- 
-    -------------------------------------------------------------  */
-
 A.hoja-drill {
-	text-decoration: none; 
-	color: #441177;
-	font-weight: bold; 
-	text-align: left;
-	padding: 2;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 TEXT-ALIGN: left;
+	 TEXT-DECORATION: none
 }
-
 TABLE.hoja-tabla {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
-/*----------------------------- TITULOS -------------------------*/
-
-.hoja-titulo
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 5px 5px 5px 5px ;
+.hoja-titulo {
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.hoja-serie-nombre {
-	font-weight: bold; 
-	color: #FEFFDF; 
-	background-color: #867ADA; 
-	text-align: center;
+	FONT-WEIGHT: bold;
+	 COLOR: #feffdf;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 TD.hoja-serie-nombre-b {
-	font-weight: bold; 
-	color: #FEFFDF; 
-	background-color: #867ADA; 
-	text-align: center;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #441177 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #feffdf;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 TD.hoja-titulo-col {
-	color: #441177; 
-	background-color: #D9DBFF; 
-	text-align: center;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 BORDER-TOP: #553da1 1px solid;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: center
 }
-
-/*------------------------------- DATOS ----------------------------*/
-
 TD.hoja-dato-desc {
-	color: #441177;
-	background-color: #BBBBFF;
-	font-weight: bold; 
-	text-align: left;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
 TD.hoja-dato-desc2 {
-	color: #441177;
-	background-color: #BBBBFF;
-	font-weight: bold; 
-	text-align: center;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: center
 }
-
 TD.hoja-dato-0 {
-	color: #441177; 
-	background-color: #ffffff; 
-	padding: 2;
-	text-align: right;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: right
 }
-
 TD.hoja-dato-1 {
-	color: #441177;
-	background-color: #FEFFDF;
-	padding: 2;
-	text-align: right;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #feffdf;
+	 TEXT-ALIGN: right
 }
-
 TD.hoja-dato-2 {
-	color: #441177;
-	background-color: #867ADA;
-	text-align: right;
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: right
 }
-
-/*--------------------------------- TOTAL -----------------------------*/
-
 TD.hoja-total-desc {
-	color: #FEFFDF;
-	background-color: #553DA1;
-	text-align: left;
-	font-weight: bold; 
-	padding: 2;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #feffdf;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.hoja-total-desc2 {
-	color: #FEFFDF;
-	background-color: #553DA1;
-	text-align: center;
-	font-weight: bold; 
-	padding: 2;
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #feffdf;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.hoja-total-0 {
-	color: #441177;
-	background-color: #FFDDBB;
-	text-align: right;	
-	border-top: 1px solid #990000;
-	border-left: 1px solid #990000;
-	border-bottom: 1px solid #990000;
-	border-right: 1px solid #990000;
+	BORDER-RIGHT: #990000 1px solid;
+	 BORDER-TOP: #990000 1px solid;
+	 BORDER-LEFT: #990000 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #990000 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: right
 }
-
 TD.hoja-total-1 {
-	color: #441177;
-	background-color: #FE9B6B;
-	font-weight: bold; 
-	text-align: right;
-	border-top: 1px solid #990000;
-	border-left: 1px solid #990000;
-	border-bottom: 1px solid #990000;
-	border-right: 1px solid #990000;
+	BORDER-RIGHT: #990000 1px solid;
+	 BORDER-TOP: #990000 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #990000 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #990000 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: right
 }
-
-/*----------------------------------------------------------------------*/
-
 .hoja-texto-0 {
 	FONT-WEIGHT: normal;
-	FONT-SIZE: 11px;
-	COLOR: #441177;
-	TEXT-ALIGN: right;
+	 FONT-SIZE: 11px;
+	 COLOR: #441177;
+	 TEXT-ALIGN: right
 }
-
 .hoja-titulo {
 	FONT-WEIGHT: normal;
-	FONT-SIZE: 18px;
-	COLOR: #441177;
-	TEXT-ALIGN: right;
+	 FONT-SIZE: 18px;
+	 COLOR: #441177;
+	 TEXT-ALIGN: right
 }
-
-/*  ------------------------------ lista -------------------------  */
-
 TABLE.lista-tabla {
-	border-collapse: collapse;
-	background-color: #441177;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	font-size: 10px;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 2px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BORDER-COLLAPSE: collapse;
+	 BACKGROUND-COLOR: #441177;
+	 empty-cells: show
 }
-
 A.lista-link {
-	text-decoration: none; 
-	color: #441177; 
+	COLOR: #441177;
+	 TEXT-DECORATION: none
 }
-
 TD.lista-titulo {
-	font-size: 12px;
-	font-weight: bold; 
-	color: #ffffff; 
-	background-color: #553DA1; 
-	text-align: left;
-	padding: 10,10,5,10;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 10px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-subtitulo {
-	font-size: 10px;
-	color: #ffffff; 
-	background-color: #553DA1; 
-	text-align: left;
-	padding: 5,5,5,10;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 10px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-col-titulo {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #867ADA; 
-	text-align: center;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #441177 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-fila-titulo {
-	font-weight: bold; 
-	color: #FFFFF1; 
-	background-color: #867ADA; 
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-	white-space: nowrap;
+	BORDER-RIGHT: #441177 1px solid;
+	 BORDER-TOP: #441177 1px solid;
+	 FONT-WEIGHT: bold;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #fffff1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-vinculo {
-	color: #441177; 
-	background-color: #D9DBFF; 
-	padding: 2;
-	text-align: center;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-c {
-	color: #441177; 
-	background-color: #ffffff; 
-	padding: 2;
-	text-align: center;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-t {
-	color: #441177; 
-	background-color: #ffffff; 
-	padding: 2;
-	text-align: left;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-n {
-	color: #441177; 
-	background-color: #ffffff; 
-	padding: 2;
-	text-align: right;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: right
 }
-
 TD.lista-e {
-	color: #441177; 
-	background-color: #FFDDBB; 
-	padding: 2;
-	text-align: center;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-e2 {
-	color: #441177; 
-	background-color: #FE9B6B; 
-	padding: 2;
-	text-align: center;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1
+	BORDER-RIGHT: #553da1 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-seleccion {
-	background-color: #867ADA;
-}/*-----------  CABECERA ------------*/
-
+	BACKGROUND-COLOR: #867ada
+}
 TD.doc-archivo {
-	padding: 10,5,2,15;
-	font-size: 12px;
-	color: #441177;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 15px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 10px;
+	 TEXT-ALIGN: left
 }
-
 TD.doc-archivo-tipo {
-	padding: 0,5,2,15;
-	font-size: 10px;
-	color: #441177;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 15px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-
-/*-----------  CLASES ------------*/
-
 DIV.doc-clase-nombre {
-	padding: 0,5,15,0;
-	font-size:22px;
-	font-weight: bold;
-	color: #990000;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 22px;
+	 PADDING-BOTTOM: 15px;
+	 COLOR: #990000;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-
 DIV.doc-clase-desc {
-	padding: 0,5,10,20;
-	font-size:11px;
-	color: #441177;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 20px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 10px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-
 DIV.doc-clase-seccion {
-	padding: 0,5,10,0;
-	font-size:14px;
-	font-weight: bold;
-	color: #441177;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 14px;
+	 PADDING-BOTTOM: 10px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-/*-----------  FUNCIONES ------------*/
-
 TD.doc-func-nombre {
-	padding: 0,5,2,5;
-	font-size: 18px;
-	color: #441177;
-	background-color: #D9DBFF;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 18px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
 }
-
 TD.doc-func-etiqueta {
-	padding: 0,5,2,5;
-	font-size: 11px;
-	color: #990000;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #990000;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
 }
-
 TD.doc-func-valor {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	color: #441177;
-	background-color: #ffffff;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 TD.doc-func-acceso {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	font-weight: bold;
-	color: #990000;
-	background-color: #ffffff;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #990000;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 OL.doc-func-lista {
-	padding: 0,5,2,5;
-	margin-bottom:0;
-	margin-top:0;
+	PADDING-RIGHT: 5px;
+	 MARGIN-TOP: 0px;
+	 PADDING-LEFT: 5px;
+	 MARGIN-BOTTOM: 0px;
+	 PADDING-BOTTOM: 2px;
+	 PADDING-TOP: 0px
 }
-
 DIV.doc-func-param-opcional {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	color: #D65932;
-	text-align: left;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #d65932;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-
 DIV.doc-func-param-obligatorio {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	color: #441177;
-	text-align: left;
-}/*------------------------ ELEMENTOS de FORMULARIO ----------------------*/
-
-TD.ef-etiqueta-obligatorio
-{
-	font-weight: bold; 
-	font-size: 10px;
-	color: #990000;
-	background-color: #BBBBFF;
-	text-align: left;
-	padding: 0px 2px 0px 4px ;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-
-/*
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: left
 }
-
-
-TD.ef-etiqueta
-{
-/*	font-weight: bold; */
-	font-size: 10px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: left;
-	padding: 0px 2px 0px 4px ;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-
-/*
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+TD.ef-etiqueta-obligatorio {
+	PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 COLOR: #990000;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
-TD.ef-etiqueta-error
-{
-/*	font-weight: bold; */
-	font-size: 10px;
-	color: #ffffff;
-	background-color: #FF411B;
-	text-align: left;
-	padding: 0px 2px 0px 4px ;
-	border-top: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-
-/*
-	border-left: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+TD.ef-etiqueta {
+	PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 COLOR: #441177;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
-
-TD.ef-zonainput
-{
-	font-weight: bold;
-	font-size: 10px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: left;
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
+TD.ef-etiqueta-error {
+	PADDING-RIGHT: 2px;
+	 BORDER-TOP: #553da1 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #ff411b;
+	 TEXT-ALIGN: left
 }
-
-.ef-boton
-{
-	font-size: 10px;
-	color: #441177;
+TD.ef-zonainput {
+	BORDER-RIGHT: #553da1 1px solid;
+	 BORDER-TOP: #553da1 1px solid;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #553da1 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #553da1 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
-.ef-input
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1;
-/*
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+.ef-boton {
+	FONT-SIZE: 10px;
+	 COLOR: #441177
 }
-
-.ef-input-file
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1;
-/*
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+.ef-input {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #fffff1
 }
-
-.ef-input-numero
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1;
-	text-align: right;
-/*
-	border-top: 1px solid #553DA1;
-	border-left: 1px solid #553DA1;
-	border-bottom: 1px solid #553DA1;
-	border-right: 1px solid #553DA1;
-*/
+.ef-input-file {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #fffff1
 }
-
-.ef-input-numero-2
-{
-	font-size: 10px;
-	color: #D65932;
-	background-color: #FEFFDF;
-	text-align: right;
+.ef-input-numero {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #fffff1;
+	 TEXT-ALIGN: right
 }
-
-.ef-input-numero-3
-{
-	font-size: 10px;
-/*	font-weight: bold; */
-	color: #441177;
-	background-color: #FEFFDF;
-	text-align: right;
+.ef-input-numero-2 {
+	FONT-SIZE: 10px;
+	 COLOR: #d65932;
+	 BACKGROUND-COLOR: #feffdf;
+	 TEXT-ALIGN: right
 }
-
-.ef-textarea
-{
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1
+.ef-input-numero-3 {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #feffdf;
+	 TEXT-ALIGN: right
 }
-
-.ef-combo
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1;
-	border-top: 0px solid #553DA1;
-	border-left: 0px solid #553DA1;
-	border-bottom: 0px solid #553DA1;
-	border-right: 0px solid #553DA1;
+.ef-textarea {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #fffff1
 }
-
-.ef-checkbox
-{
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFFFF1;
+.ef-combo {
+	BORDER-RIGHT: #553da1 0px solid;
+	 BORDER-TOP: #553da1 0px solid;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #553da1 0px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #553da1 0px solid;
+	 BACKGROUND-COLOR: #fffff1
 }
-
+.ef-checkbox {
+	FONT-SIZE: 10px;
+	 COLOR: #441177;
+	 BACKGROUND-COLOR: #fffff1
+}
 .ef-fijo {
-	text-align: left;
-	font-size: 12px;
-	white-space: nowrap;
-	padding: 2px;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 PADDING-TOP: 2px;
+	 WHITE-SPACE: nowrap;
+	 TEXT-ALIGN: left
 }
-/*------------------ ELEMENTOS de INTERFACE --------------------*/
-
 TD.ei-cuerpo {
-	vertical-align: top;
-	font-size: 10px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 2px 2px 2px 2px ;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 VERTICAL-ALIGN: top;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 2px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.ei-base {
-	font-size: 10px;
-	color: #D9DBFF;
-	background-color: #D9DBFF;
-	text-align: left;
-	padding: 4px 4px 4px 4px ;
+	PADDING-RIGHT: 4px;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 4px;
+	 COLOR: #d9dbff;
+	 PADDING-TOP: 4px;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
 }
-
 TD.objeto-ci-barra-superior {
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 3px 3px 3px 3px ;
-/*	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;*/
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 3px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.ci-cuerpo {
-	font-size: 10px;
-	color: #441177;
-	background-color: #F0F1FF;
-	text-align: left;
-	padding: 10px 10px 10px 10px ;
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 10px;
+	 COLOR: #441177;
+	 PADDING-TOP: 10px;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 TEXT-ALIGN: left
 }
-
 TD.objeto-ei-barra-superior {
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFF1;
-	background-color: #553DA1;
-	text-align: left;
-	padding: 3px 3px 3px 3px ;
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 COLOR: #fffff1;
+	 PADDING-TOP: 3px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 .tabla-con-scroll {
-	overflow: auto;
+	OVERFLOW: auto
 }
-/*----------------------------------------------------------------*/TD.grafico-titulo {
-	font-size: 12px;
-	color: #F0F1FF;
-	font-weight: bold;
-	background-color: #441177;
-	text-align: left;
-	padding: 8,4,4,10;
+TD.grafico-titulo {
+	PADDING-RIGHT: 4px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 4px;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 8px;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.grafico-subtitulo {
-	font-size: 12px;
-	color: #F0F1FF;
-	font-weight: bold;
-	background-color: #441177;
-	text-align: left;
-	padding: 8,4,4,10;
+	PADDING-RIGHT: 4px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 4px;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 8px;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.grafico-vacio {
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: center;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
-	padding: 0,0,0,0;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.grafico-leyenda-muestra {
-	border-top: 1px solid #000011;
-	border-left: 1px solid #000011;
-	border-bottom: 1px solid #000011;
-	border-right: 1px solid #000011;
+	BORDER-RIGHT: #000011 1px solid;
+	 BORDER-TOP: #000011 1px solid;
+	 BORDER-LEFT: #000011 1px solid;
+	 BORDER-BOTTOM: #000011 1px solid
 }
-
 TD.grafico-leyenda-texto {
-	padding: 0,5,2,5;
-	font-size: 10px;
-	text-align: left;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 0px solid #441177;
+	BORDER-RIGHT: #441177 0px solid;
+	 PADDING-RIGHT: 5px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: left
 }
-
 TD.grafico-objeto {
-	padding: 0,0,0,0;
-	font-size: 10px;
-	font-weight: bold;
-	color: #F0F1FF;
-	background-color: #867ADA;
-	text-align: left;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 4px solid #441177;
-}/*---------------------------- CABECERA -------------------------*/
-
+	BORDER-RIGHT: #441177 4px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
+}
 TD.lista-pag-bot {
-	font-size: 11px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: right;
-	padding: 2px 2px 2px 2px ;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: right
 }
-
 .lista-pag-descr {
-	font-size: 9px;
-	font-weight:lighter;
+	FONT-WEIGHT: lighter;
+	 FONT-SIZE: 9px
 }
-
 TABLE.listado-base {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.listado-barra-superior {
-	background-color: #441177;
-	text-align: right;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: right
 }
-
 TD.listado-barra-superior-tabn {
-	font-size: 11px;
-	color: #D9DBFF;
-	text-align: center;
-	padding: 2px 8px 2px 8px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #553DA1;
-	border-top: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 8px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 8px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #d9dbff;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.listado-barra-superior-tabn-m {
-	font-size: 11px;
-	color: #867ADA;
-	text-align: center;
-	padding: 2px 8px 2px 8px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #FE9B6B;
-	border-top: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 8px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 8px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: center
 }
-
-/* celda tipo icono */
 TD.listado-barra-superior-tabi {
-	font-size: 11px;
-	color: #867ADA;
-	font-weight: bold;
-	text-align: center;
-	padding: 2px 2px 2px 2px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #553DA1;
-	border-top: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.listado-barra-superior-tabi2 {
-	font-size: 11px;
-	color: #867ADA;
-	font-weight: bold;
-	text-align: center;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #553DA1;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 COLOR: #867ada;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
-/* celda tipo icono */
 TD.listado-barra-superior-tabi {
-	font-size: 11px;
-	color: #867ADA;
-	font-weight: bold;
-	text-align: center;
-	padding: 0px 2px 0px 2px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #553DA1;
-	border-top: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.listado-linea {
-	background-color: #867ADA;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #867ada
 }
-
 TD.listado-vacia {
-	text-align: right;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 TEXT-ALIGN: right
 }
-
 A.listado-tabn-l {
-	text-decoration: none; 
-	color: none; 
+	TEXT-DECORATION: none
 }
-
-/* celda tipo nombre */
 TD.listado-tabn {
-	font-size: 10px;
-	color: #867ADA;
-	text-align: center;
-	padding: 2px 2px 2px 2px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #553DA1;
-	border-top: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.listado-tabn-m {
-	font-size: 10px;
-	color: #867ADA;
-	text-align: center;
-	padding: 2px 2px 2px 2px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #441177;
-	border-top: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: center
 }
-
-/* celda tipo icono */
 TD.listado-tabi {
-	font-size: 11px;
-	color: #867ADA;
-	font-weight: bold;
-	text-align: center;
-	padding: 2px 2px 2px 2px ;
-	margin: 0px 0px 0px 0px ;
-	background-color: #867ADA;
-	border-top: 1px solid #BBBBFF;
-	border-right: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #BBBBFF;
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #867ada;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #bbbbff 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 TD.listado-normal {
-	font-size: 11px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	text-align: center;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	/*border-top: 1px solid #BBBBFF;
-	border-right: 2px solid #BBBBFF;
-	border-left: 2px solid #BBBBFF;
-	border-bottom: 1px solid #441177;*/
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 COLOR: #f0f1ff;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-parametro {
-	font-size: 10px;
-	color: #441177;
-	background-color: #FFDDBB;
-	/*font-weight: bold;*/
-	text-align: right;
-	padding: 2px 5px 2px 5px ;
-	border-bottom: 1px dotted #553DA1;
-/*
-	border-top: 2px solid #BBBBFF;
-	border-left: 2px solid #441177;
-	border-right: 2px solid #441177;
-*/
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #553da1 1px dotted;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: right
 }
-
-
-/*---------------------------- LISTADO DE ITEMS -------------------------*/
-
 A.cat-item {
-	text-decoration: none; 
-	color: #441177; 
-}	
-
+	COLOR: #441177;
+	 TEXT-DECORATION: none
+}
 TABLE.cat-item {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TABLE.cat-item2 {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 2px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.cat-item-opcion {
-	text-align: left;
-	font-size: 10px;
-	color: #FEFFDF;
-	background-color: #441177;
-	border-top: 1px solid #FEFFDF;
+	BORDER-TOP: #feffdf 1px solid;
+	 FONT-SIZE: 10px;
+	 COLOR: #feffdf;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-titulo {
-	font-size: 12px;
-	color: #F0F1FF;
-	background-color: #553DA1;
-	font-weight: bold;
-	text-align: center;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 BORDER-TOP: #441177 2px solid;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 BORDER-LEFT: #441177 2px solid;
+	 COLOR: #f0f1ff;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.cat-item-botones {
-	background-color: #867ADA;
-	border-top: 1px inset #441177;
-	border-bottom: 1px solid #000011;
+	BORDER-TOP: #441177 1px inset;
+	 BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #867ada
 }
-
 TD.cat-item-botones2 {
-	background-color: #BBBBFF;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #bbbbff
 }
-
 TD.cat-item-categ1 {
-	text-align: left;
-	font-size: 11px;
-	color: #441177;
-	background-color: #FE9B6B;
-	padding: 2px 5px 2px 5px ;
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #441177;
+	 PADDING-TOP: 2px;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-titcol {
-	font-size: 10px;
-	color: #F0F1FF;
-	font-weight: bold;
-	background-color: #553DA1;
-	text-align: center;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 BORDER-TOP: #441177 2px solid;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #441177 2px solid;
+	 COLOR: #f0f1ff;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.cat-item-dato1 {
-	font-size: 9px;
-	color: #441177;
-	background-color: #F0F1FF;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato1-nb {
-	font-size: 9px;
-	color: #441177;
-	background-color: #F0F1FF;
-	text-align: left;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #f0f1ff;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato2 {
-	font-size: 9px;
-	color: #F0F1FF;
-	background-color: #867ADA;
-	font-weight: bold;
-	text-align: left;
-	border-top: 1px outset #441177;
-	border-bottom: 1px solid #441177;
+	BORDER-TOP: #441177 1px outset;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 9px;
+	 COLOR: #f0f1ff;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato3 {
-	font-size: 9px;
-	color: #000011;
-	background-color: #ffffff;
-	text-align: right;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #000011;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: right
 }
-
 TD.cat-item-dato4 {
-	font-size: 9px;
-	color: #990000;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #990000;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato4-nb {
-	font-size: 9px;
-	color: #990000;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 COLOR: #990000;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato5 {
-	font-size: 9px;
-	color: #ffffff;
-	background-color: #FE9B6B;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #ffffff;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-item-dato5-nb {
-	font-size: 9px;
-	color: #ffffff;
-	background-color: #FE9B6B;
-	text-align: left;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 COLOR: #ffffff;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #fe9b6b;
+	 TEXT-ALIGN: left
 }
-
-
 TD.cat-arbol-carpeta {
-	background-color: #867ADA;
-	border-top: 4px outset #441177;
-	border-left: 1px solid #553DA1;
-	/*border-bottom: 1px solid #000011;*/
+	BORDER-TOP: #441177 4px outset;
+	 BORDER-LEFT: #553da1 1px solid;
+	 BACKGROUND-COLOR: #867ada
 }
-
 TD.cat-arbol-carpeta-info {
-	font-size: 10px;
-	color: #ffffff;
-	background-color: #867ADA;
-	font-weight: bold;
-	text-align: left;
-	border-top: 4px outset #441177;
-	border-bottom: 1px solid #441177;
+	BORDER-TOP: #441177 4px outset;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 COLOR: #ffffff;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
 TD.cat-arbol-item {
-	background-color: #BBBBFF;
-	border-bottom: 1px solid #000011;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
+	BORDER-TOP: #441177 1px solid;
+	 BORDER-LEFT: #441177 1px solid;
+	 BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #bbbbff
 }
-
-
 TD.cat-arbol {
-	background-color: #867ADA;
-	/*border-right: 1px solid #F0F1FF;*/
-	border-left: 2px solid #441177;
-	/* border-bottom: 1px solid #D65932; */
+	BORDER-LEFT: #441177 2px solid;
+	 BACKGROUND-COLOR: #867ada
 }
-
-/*---------------------------- LISTADO DE OBJETOS -------------------------*/
-
 A.list-obj {
-	text-decoration: none; 
-	color: #F0F1FF; 
-}	
-
+	COLOR: #f0f1ff;
+	 TEXT-DECORATION: none
+}
 TABLE.lista-obj {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	border-top: 0px solid #441177;
-	border-left: 0px solid #441177;
-	border-bottom: 0px solid #441177;
-	border-right: 0px solid #441177;
+	BORDER-RIGHT: #441177 0px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 0px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 0px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 0px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TABLE.lista-obj2 {
-	border-collapse: collapse;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
-	border-top: 1px solid #441177;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
-	border-right: 1px solid #441177;
+	BORDER-RIGHT: #441177 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 1px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 1px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
 }
-
 TD.lista-obj-opcion {
-	text-align: left;
-	font-size: 10px;
-	color: #FEFFDF;
-	background-color: #441177;
-	border-top: 1px solid #FEFFDF;
+	BORDER-TOP: #feffdf 1px solid;
+	 FONT-SIZE: 10px;
+	 COLOR: #feffdf;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-titulo {
-	font-size: 11px;
-	color: #FEFFDF;
-	background-color: #D65932;
-	text-align: center;
-	padding: 3px 3px 4px 1px ;
+	PADDING-RIGHT: 3px;
+	 PADDING-LEFT: 1px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 4px;
+	 COLOR: #feffdf;
+	 PADDING-TOP: 3px;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-obj-botones {
-	background-color: #BBBBFF;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #bbbbff
 }
-
 TD.lista-obj-botonesb {
-	background-color: #553DA1;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #553da1
 }
-
 TD.lista-obj-botones2 {
-	background-color: #553DA1;
-	border-bottom: 1px solid #000011;
+	BORDER-BOTTOM: #000011 1px solid;
+	 BACKGROUND-COLOR: #553da1
 }
-
 TD.lista-obj-categ1 {
-	text-align: left;
-	font-size: 10px;
-	color: #FEFFDF;
-	background-color: #441177;
-	padding: 5px 5px 5px 5px ;
-	border-top: 1px solid #FEFFDF;
+	PADDING-RIGHT: 5px;
+	 BORDER-TOP: #feffdf 1px solid;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #feffdf;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-titcol {
-	font-size: 10px;
-	color: #F0F1FF;
-	font-weight: bold;
-	background-color: #553DA1;
-	text-align: center;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	border-right: 2px solid #441177;
+	BORDER-RIGHT: #441177 2px solid;
+	 BORDER-TOP: #441177 2px solid;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 BORDER-LEFT: #441177 2px solid;
+	 COLOR: #f0f1ff;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #553da1;
+	 TEXT-ALIGN: center
 }
-
 TD.lista-obj-dato1 {
-	font-size: 9px;
-	text-align: left;
-	color: #553DA1;
-	background-color: #ffffff;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #553da1;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-dato1b {
-	font-size: 9px;
-	text-align: left;
-	color: #D65932;
-	background-color: #FEFFDF;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #d65932;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #feffdf;
+	 TEXT-ALIGN: left
 }
-
-
 TD.lista-obj-dato2 {
-	font-size: 9px;
-	color: #441177;
-	background-color: #D9DBFF;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #d9dbff;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-dato2b {
-	font-size: 9px;
-	color: #441177;
-	background-color: #BBBBFF;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #bbbbff;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-dato3 {
-	font-size: 9px;
-	color: #867ADA;
-	background-color: #ffffff;
-	text-align: right;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #867ada;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: right
 }
-
 TD.lista-obj-dato3b {
-	font-size: 9px;
-	color: #D65932;
-	background-color: #FEFFDF;
-	text-align: right;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #d65932;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #feffdf;
+	 TEXT-ALIGN: right
 }
-
 TD.lista-obj-dato4 {
-	font-size: 9px;
-	color: #441177;
-	background-color: #FFDDBB;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #ffddbb;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-dato5 {
-	font-size: 9px;
-	color: #ECECF0;
-	background-color: #D65932;
-	text-align: left;
-	border-left: 1px solid #441177;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #441177 1px solid;
+	 COLOR: #ececf0;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #d65932;
+	 TEXT-ALIGN: left
 }
-
 TD.lista-obj-clase {
-	font-size: 9px;
-	text-align: left;
-	color: #441177;
-	background-color: #867ADA;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #441177;
+	FONT-SIZE: 9px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 COLOR: #441177;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
-
-/*------------------------ ELEMENTOS de FORMULARIO ----------------------*/
-
 .tabs-solapa {
-	background-color: #867ADA; 
-	text-align: center;
-	border-bottom: 2px solid #BBBBFF;
-	border-top: 2px solid #BBBBFF;
-	border-right: 2px solid #BBBBFF;
-	border-left: 2px solid #441177;
-	white-space: nowrap;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	BORDER-RIGHT: #bbbbff 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #bbbbff 2px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #bbbbff 2px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 .tabs-solapa-sel {
-	background-color: #867ADA; 
-	text-align: center;
-	border-top: 2px solid #BBBBFF;
-	border-right: 2px solid #BBBBFF;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #867ADA;
-	white-space: nowrap;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	BORDER-RIGHT: #bbbbff 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #bbbbff 2px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #867ada 2px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 .tabs-v-solapa {
-	text-align: left;
-	border-right: 1px solid #BBBBFF;
-	white-space: nowrap;
-	padding: 2px 10px 2px 2px ;
+	BORDER-RIGHT: #bbbbff 1px solid;
+	 PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 2px;
+	 PADDING-BOTTOM: 2px;
+	 PADDING-TOP: 2px;
+	 WHITE-SPACE: nowrap;
+	 TEXT-ALIGN: left
 }
-
 .tabs-v-solapa-sel {
-	background-color: #867ADA; 
-	text-align: left;
-	border-top: 1px solid #BBBBFF;
-	border-left: 1px solid #BBBBFF;
-	border-bottom: 1px solid #441177;	
-	white-space: nowrap;
-	padding: 0px 10px 0px 3px;
+	PADDING-RIGHT: 10px;
+	 BORDER-TOP: #bbbbff 1px solid;
+	 PADDING-LEFT: 3px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #bbbbff 1px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #441177 1px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-.tabs-boton
-{
-	white-space: nowrap;
-	font-size: 11px;
-	color: #441177;
-	background-color: #867ADA;
-	border-top: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	padding: 3px 0px 0px 0px ;
+.tabs-boton {
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada
 }
-
-.tabs-boton-sel
-{
-	white-space: nowrap;
-	font-weight: bold; 
-	font-size: 11px;
-	color: #441177;
-	background-color: #867ADA;
-	border-top: 1px solid #867ADA;
-	border-left: 1px solid #867ADA;
-	border-bottom: 1px solid #867ADA;
-	border-right: 1px solid #867ADA;
-	padding: 3px 0px 0px 0px ;
+.tabs-boton-sel {
+	BORDER-RIGHT: #867ada 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #867ada 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #867ada 1px solid;
+	 COLOR: #441177;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #867ada 1px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada
 }
-
 .tabs-v-boton {
-	line-height: 15px;	
-	text-decoration: none;	
-	padding: 3px 2px 12px 2px ;	
-	font-size: 10px;
-	white-space: nowrap;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 12px;
+	 LINE-HEIGHT: 15px;
+	 PADDING-TOP: 3px;
+	 WHITE-SPACE: nowrap;
+	 TEXT-DECORATION: none
 }
 .tabs-v-boton:hover {
-	text-decoration: underline;
+	TEXT-DECORATION: underline
 }
-
 .tabs-v-boton-sel {
-	font-weight: bold;
-	font-size: 11px;
-	COLOR: #000000;
-	padding: 3px 2px 2px 2px;
-	white-space: nowrap;	
-	background-color: #867ADA;
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #000000;
+	 PADDING-TOP: 3px;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #867ada
 }
-
 TD.tabs-solapa-hueco {
-	border-bottom: 2px solid #BBBBFF;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 0px 0px ;
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #bbbbff 2px solid
 }
-
 TD.tabs-contenedor {
-	background-color: #867ADA; 
-	text-align: center;
-	border-right: 2px solid #BBBBFF;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #441177;
-	padding: 10px 7px 10px 7px ;
-	margin: 0px 0px 0px 0px ;
-	vertical-align: top;
+	BORDER-RIGHT: #bbbbff 2px solid;
+	 PADDING-RIGHT: 4px;
+	 PADDING-LEFT: 4px;
+	 PADDING-BOTTOM: 10px;
+	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 10px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: left
 }
-
 .tabs-v-contenedor {
-	background-color: #867ADA; 
-	text-align: center;
-	border-right: 2px solid #BBBBFF;
-	border-bottom: 2px solid #441177;
-	padding: 6px 2px 6px 6px ;
-	vertical-align: top;
+	BORDER-RIGHT: #bbbbff 2px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 6px;
+	 PADDING-BOTTOM: 6px;
+	 VERTICAL-ALIGN: top;
+	 PADDING-TOP: 6px;
+	 BORDER-BOTTOM: #441177 2px solid;
+	 BACKGROUND-COLOR: #867ada;
+	 TEXT-ALIGN: center
 }
-
 TABLE.objeto-base-3d {
-	text-align: center;
-	align: center;
-	border-collapse: collapse;
-	background-color: #441177;
-	empty-cells: show;
-	padding: 0px 0px 0px 0px ;
-	margin: 0px 0px 5px 0px ;
-	font-size: 10px;
-	border-top: 2px solid #441177;
-	border-left: 2px solid #441177;
-	border-bottom: 2px solid #666677;
-	border-right: 2px solid #CCCCDD;
+	BORDER-RIGHT: #ccccdd 2px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #441177 2px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px 0px 5px;
+	 BORDER-LEFT: #441177 2px solid;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #666677 2px solid;
+	 BORDER-COLLAPSE: collapse;
+	 BACKGROUND-COLOR: #441177;
+	 TEXT-ALIGN: center;
+	 empty-cells: show;
+	 align: center
 }
-
 .wizard-encabezado {
-	padding-right: 5px;
-	padding-left: 15px;
-	font-size: 11px;
-	padding-bottom: 5px;
-	color: #222222;
-	padding-top: 5px;
-	background-color: #ffffff;
-	text-align: left	
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 15px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #222222;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
 }
 .wizard-titulo {
-	font-weight: bold;
+	FONT-WEIGHT: bold
 }
 .wizard-descripcion {
-	padding-left: 15px;	
+	PADDING-LEFT: 15px
 }
 .wizard-pantallas {
-	vertical-align: top;
-	text-align: left;	
-	white-space:nowrap;
-	padding: 15px 10px 5px 0px;
-	margin-left: 30px;
-	font-size: 10px;	
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 5px;
+	 MARGIN-LEFT: 30px;
+	 VERTICAL-ALIGN: top;
+	 PADDING-TOP: 15px;
+	 WHITE-SPACE: nowrap;
+	 TEXT-ALIGN: left
 }
 .wizard-pantallas-pasada {
- 	color:gray;
+	COLOR: gray
 }
 .wizard-pantallas-futuro {
- 	color:gray;
+	COLOR: gray
 }
 .wizard-pantallas-actual {
-	font-weight: bold;
+	FONT-WEIGHT: bold
 }
