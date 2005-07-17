@@ -72,6 +72,11 @@ class test_db_registros extends test_toba
 		ei_arbol($this->dbr->get_registros(null, true),$mensaje);	
 	}
 	
+	function dump_datos_col($mensaje="Registros")
+	{
+		ei_arbol($this->dbr->get_registros(),$mensaje);	
+	}
+	
 	function dump_tabla($tabla)
 	{
 		ei_arbol( $this->get_datos($tabla),"Datos TABLA: $tabla" );		

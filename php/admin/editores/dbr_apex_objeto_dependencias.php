@@ -11,10 +11,10 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 		$def['tabla']='apex_objeto_dependencias';
 		$def['columna'][0]['nombre']='proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto_consumidor';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='objeto_proveedor';
 		$def['columna'][2]['no_nulo']='1';
 		$def['columna'][3]['nombre']='identificador';
@@ -24,6 +24,8 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 		$def['columna'][5]['nombre']='parametros_b';
 		$def['columna'][6]['nombre']='parametros_c';
 		$def['columna'][7]['nombre']='inicializar';
+		$def['columna'][8]['nombre']='clase';
+		$def['columna'][8]['externo']='1';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

@@ -55,12 +55,21 @@ class db_tablas
 	public function elemento($elemento)
 	//Devuelve una referencia a un db_registros
 	{
-		if($this->existe_elemento($elemento)) return $this->elemento[$elemento];
+		if($this->existe_elemento($elemento)){
+			return $this->elemento[$elemento];
+		}else{
+			throw new excepcion_toba("db_tablas: El db_registros '$elemento' solicitado no existe.");
+		}
 	}
 
 	public function existe_elemento($elemento)
 	{
-		return ($this->elemento[$elemento] instanceof db_registros);
+		if(isset($this->elemento[$elemento])){
+			if($this->elemento[$elemento] instanceof db_registros){
+				return true;	
+			}
+		}
+		return false;
 	}
 
 	public function agregar_elemento($id, $db_registros)

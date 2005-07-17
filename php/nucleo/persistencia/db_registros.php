@@ -405,7 +405,7 @@ class db_registros
 			}else{
 				$datos[$a] = $this->datos[$id_registro];
 				//esta columna indica cual fue la clave del registro
-				$datos[$a][apex_db_registros_clave] = $a;
+				$datos[$a][apex_db_registros_clave] = $id_registro;
 			}
 			$a++;
 		}
@@ -624,6 +624,7 @@ class db_registros
 
 	public function procesar_registros($registros)
 	{
+		asercion::es_array($registros,"db_registros - El parametro no es un array.");
 		//Controlo estructura
 		foreach(array_keys($registros) as $id){
 			if(!isset($registros[$id][apex_ei_analisis_fila])){

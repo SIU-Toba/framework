@@ -13,6 +13,17 @@ require_once("test_db_registros.php");
 	* reset
 	* Preservacion de campos que ya existian pero no se entregaron en una modificacion
 	* Casos con claves distintas
+
+	--- Funciones informativas sobre $this->dbr ------
+
+	function dump($mensaje="Info")
+	function dump_definicion_externa($mensaje="definicion EXTERNA")
+	function dump_definicion($mensaje="Info DEFINICION")
+	function dump_control($mensaje="Estructura CONTROL")
+	function dump_datos($mensaje="Registros")
+	function dump_datos_col($mensaje="Registros")
+
+	--------------------------------------------------
 */
 class test_db_registros_std extends test_db_registros
 {
@@ -298,6 +309,27 @@ class test_db_registros_std extends test_db_registros
 			$this->AssertEqual( count( $this->dbr->get_estructura_control() ), 0);
 			$this->pass();	
 		}
+	}
+
+	function test_eliminar_conservacion_claves_internas()
+	/*
+		Conservacion de claves internas en la eliminacion
+	*/
+	{
+		$id = $this->dbr->agregar_registro( $this->get_registro_test("valido_1") );
+		$this->AssertEqual($id, 0);
+		$id = $this->dbr->agregar_registro( $this->get_registro_test("valido_2") );
+		$this->AssertEqual($id, 1);
+		$this->AssertEqual($this->dbr->get_cantidad_registros(), 2);
+		$control = $this->dbr->get_estructura_control();
+		$this->AssertEqual($control[0]['estado'], "i");
+		$this->AssertEqual($control[1]['estado'], "i");
+		$this->dbr->eliminar_registro(0);
+		$datos = $this->dbr->get_registros();
+		$this->AssertEqual($datos[0][apex_db_registros_clave], 1, "Conservacion de clave como columna");
+		$datos = $this->dbr->get_registros(null,true);
+		$id = array_keys($datos);
+		$this->AssertEqual($id[0], 1, "Conservacion de clave como llave");
 	}
 
 	//**** MODIFICAR ************************************************************
