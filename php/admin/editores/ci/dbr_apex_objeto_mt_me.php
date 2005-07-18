@@ -25,8 +25,8 @@ class dbr_apex_objeto_mt_me extends db_registros_s
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_mt_me_proyecto = '{$id['objeto_mt_me_proyecto']}'";
-		$where[] = "objeto_mt_me = '{$id['objeto_mt_me']}'";
+		$where[] = "objeto_mt_me_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_mt_me = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }

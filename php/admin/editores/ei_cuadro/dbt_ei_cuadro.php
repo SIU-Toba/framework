@@ -1,10 +1,10 @@
 <?
-require_once("nucleo/persistencia/db_tablas.php");
+require_once("admin/editores/dbt_objeto_toba.php");
 require_once("admin/editores/dbr_apex_objeto.php");
 require_once("dbr_apex_objeto_cuadro.php");
 require_once("dbr_apex_objeto_cuadro_columna.php");
 
-class dbt_ei_cuadro extends db_tablas
+class dbt_ei_cuadro extends dbt_objeto_toba
 {
 	function __construct($fuente)
 	{

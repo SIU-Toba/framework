@@ -11,10 +11,10 @@ class dbr_apex_objeto_cuadro extends db_registros_s
 		$def['tabla']='apex_objeto_cuadro';
 		$def['columna'][0]['nombre']='objeto_cuadro_proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto_cuadro';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='titulo';
 		$def['columna'][3]['nombre']='subtitulo';
 		$def['columna'][4]['nombre']='sql';
@@ -46,8 +46,8 @@ class dbr_apex_objeto_cuadro extends db_registros_s
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_cuadro_proyecto = '{$id['objeto_cuadro_proyecto']}'";
-		$where[] = "objeto_cuadro = '{$id['objeto_cuadro']}'";
+		$where[] = "objeto_cuadro_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_cuadro = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }
