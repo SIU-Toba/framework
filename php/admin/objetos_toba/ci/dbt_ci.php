@@ -1,7 +1,7 @@
 <?
-require_once("admin/editores/dbt_objeto_toba.php");
-require_once("admin/editores/dbr_apex_objeto.php");
-require_once("admin/editores/dbr_apex_objeto_dependencias.php");
+require_once("admin/objetos_toba/dbt_objeto_toba.php");
+require_once("admin/objetos_toba/dbr_apex_objeto.php");
+require_once("admin/objetos_toba/dbr_apex_objeto_dependencias.php");
 require_once("dbr_apex_objeto_mt_me.php");
 require_once("dbr_apex_objeto_mt_me_etapa.php");
 require_once("dbr_apex_objeto_mt_me_etapa_dep.php");

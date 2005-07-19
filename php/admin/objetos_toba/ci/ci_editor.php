@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("admin/editores/autoload.php");
+require_once("admin/objetos_toba/autoload.php");
 
 class ci_editor extends objeto_ci
 {
