@@ -39,6 +39,16 @@ class objeto_ei extends objeto
 		$this->eventos = $eventos;
 	}
 	
+	function agregar_evento($evento, $establecer_como_predeterminado=false)
+	{
+		asercion::es_array_dimension($evento,1);
+		$this->eventos = array_merge($this->eventos, $evento);
+		if($establecer_como_predeterminado){
+			$id = key($evento);
+			$this->set_evento_defecto($id);
+		}
+	}
+	
 	public function set_evento_defecto($id)
 	{
 		$this->evento_por_defecto = $id;

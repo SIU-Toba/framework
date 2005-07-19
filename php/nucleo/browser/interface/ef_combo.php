@@ -819,7 +819,6 @@ class ef_combo_db_proyecto extends ef_combo_db
 			//El estado tiene el formato adecuado?
 			if(count($estado)<>2){
 				echo ei_mensaje("ef_combo_proyecto: Error en el elemento '{$this->id}'. Se esperaba un array con 2 subindices!");
-				return false;
 			}
 			//Si el estado es nulo tengo que manejarlo de una forma especial
 			$valores = "";

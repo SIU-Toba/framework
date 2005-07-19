@@ -505,14 +505,11 @@ class objeto_ei_formulario extends objeto_ei
 				$temp = null;
 				$dato = $this->elemento_formulario[$ef]->obtener_dato();
 				if(is_array($dato)){	//El EF maneja	DATO COMPUESTO
-					$temp = array();
+					$temp = null;
 					for($x=0;$x<count($dato);$x++){
 						if(isset($datos[$dato[$x]])){
 							$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
 						}
-					}
-					if(count($temp)>0){
-						
 					}
 				}else{					//El EF maneja	un	DATO SIMPLE
 					if(isset($datos[$dato])){

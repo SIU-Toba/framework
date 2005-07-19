@@ -5,21 +5,14 @@ require_once("admin/objetos_toba/autoload.php");
 class ci_editor extends objeto_ci
 {
 	protected $db_tablas;
-	protected $seleccion_pantalla;
-	protected $seleccion_pantalla_anterior;
-
-/*
-	function __construct($id)
-	{
-		parent::__construct($id);	
-		$this->db_tablas = $this->get_dbt();
-	}
-*/
+	protected $seleccion_columna;
+	protected $seleccion_columna_anterior;
+	private $id_intermedio_columna;
 
 	function destruir()
 	{
 		parent::destruir();
-		ei_arbol($this->get_dbt()->elemento('pantallas')->info(true),"PANTALLAS");
+		ei_arbol($this->get_dbt()->elemento('columnas')->info(true),"COLUMNAS");
 		ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
@@ -27,8 +20,8 @@ class ci_editor extends objeto_ci
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "db_tablas";
-		$propiedades[] = "seleccion_pantalla";
-		$propiedades[] = "seleccion_pantalla_anterior";
+		$propiedades[] = "seleccion_columna";
+		$propiedades[] = "seleccion_columna_anterior";
 		return $propiedades;
 	}
 
@@ -36,7 +29,7 @@ class ci_editor extends objeto_ci
 	//Acceso al db_tablas
 	{
 		if (! isset($this->db_tablas)) {
-			$this->db_tablas = new dbt_ci($this->info['fuente']);
+			$this->db_tablas = new dbt_ei_cuadro($this->info['fuente']);
 		}
 		return $this->db_tablas;
 	}
@@ -65,54 +58,88 @@ class ci_editor extends objeto_ci
 	function evt__prop_basicas__modificacion($datos)
 	{
 		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+		
 	}
 
-	//******************  DEPENDENCIAS  ***********************************
-
-	function evt__dependencias__modificacion($datos)
-	{
-		$this->get_dbt()->elemento('dependencias')->procesar_registros($datos);
-	}
-
-	function evt__dependencias__carga()
-	{
-		return  $this->get_dbt()->elemento('dependencias')->get_registros(null,true);	
-	}
-
-	//*******************  PANTALLAS  *************************************
+	//*******************  COLUMNAS  *************************************
 	
 	function get_lista_ei__2()
 	{
-		$ei[] = "pantallas_lista";
-		if( isset($this->seleccion_pantalla) ){
-			$ei[] = "pantallas";
-			$ei[] = "pantallas_ei";
+		$ei[] = "columnas_lista";
+		if( $this->mostrar_columna_detalle() ){
+			$ei[] = "columnas";
 		}
 		return $ei;	
 	}
 	
-	//-- Lista
-	
-	function evt__pantallas_lista__modificacion($datos)
+	function evt__salida__2()
 	{
-		//Establesco la 'posicion' de la fila segun el orden de aparicion
-		$a=1;
-		foreach(array_keys($datos) as $id){
-			$datos[$id]['posicion'] = $a;
-			$a++;
+		unset($this->seleccion_columna);
+		unset($this->seleccion_columna_anterior);
+	}
+
+	function evt__post_cargar_datos_dependencias()
+	{
+		if( $this->get_etapa_gi() == 2){
+			if( $this->mostrar_columna_detalle() ){
+				//Protejo la columna seleccionada de la eliminacion
+				$this->dependencias["columnas_lista"]->set_fila_protegida($this->seleccion_columna_anterior);
+				//Agrego el evento "modificacion" y lo establezco como predeterminado
+				$this->dependencias["columnas"]->agregar_evento( eventos::modificacion(null, false), true );
+			}
 		}
-		//ei_arbol($datos,"DATOS a guardar");
-		$this->get_dbt()->elemento('pantallas')->procesar_registros($datos);		
+	}
+
+	function mostrar_columna_detalle()
+	{
+		if( isset($this->seleccion_columna) ){
+			return true;	
+		}
+		return false;
+	}
+
+	//-------------------------------
+	//---- EI: Lista de columnas ----
+	//-------------------------------
+	
+	function evt__columnas_lista__modificacion($registros)
+	{
+		/*
+			Como en el mismo request es posible dar una columna de alta y seleccionarla,
+			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
+			porque ese es el que se pasa como parametro en la seleccion
+		*/
+		$dbr = $this->get_dbt()->elemento("columnas");
+		$orden = 1;
+		foreach(array_keys($registros) as $id)
+		{
+			//Creo el campo orden basado en el orden real de las filas
+			$registros[$id]['orden'] = $orden;
+			$orden++;
+			$accion = $registros[$id][apex_ei_analisis_fila];
+			unset($registros[$id][apex_ei_analisis_fila]);
+			switch($accion){
+				case "A":
+					$this->id_intermedio_columna[$id] = $dbr->agregar_registro($registros[$id]);
+					break;	
+				case "B":
+					$dbr->eliminar_registro($id);
+					break;	
+				case "M":
+					$dbr->modificar_registro($registros[$id], $id);
+					break;	
+			}
+		}
 	}
 	
-	function evt__pantallas_lista__carga()
+	function evt__columnas_lista__carga()
 	{
-		if($datos_dbr = $this->get_dbt()->elemento('pantallas')->get_registros() )
+		if($datos_dbr = $this->get_dbt()->elemento('columnas')->get_registros() )
 		{
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
 			for($a=0;$a<count($datos_dbr);$a++){
-				$orden[] = $datos_dbr[$a]['posicion'];
+				$orden[] = $datos_dbr[$a]['orden'];
 			}
 			array_multisort($orden, SORT_ASC , $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
@@ -128,125 +155,42 @@ class ci_editor extends objeto_ci
 		}
 	}
 
-	function evt__pantallas_lista__seleccion($id)
+	function evt__columnas_lista__seleccion($id)
 	{
-		$this->seleccion_pantalla = $id;
+		if(isset($this->id_intermedio_columna[$id])){
+			$id = $this->id_intermedio_columna[$id];
+		}
+		$this->seleccion_columna = $id;
 	}
 
-	//-- Info pantalla
+	//-----------------------------------------
+	//---- EI: Info detalla de una COLUMNA ----
+	//-----------------------------------------
 
-	function evt__pantallas__modificacion($datos)
+	function evt__columnas__modificacion($datos)
 	{
-		ei_arbol($datos, "hola" . $this->seleccion_pantalla_anterior);
-		$this->get_dbt()->elemento('pantallas')->modificar_registro($datos, $this->seleccion_pantalla_anterior);
+		$this->get_dbt()->elemento('columnas')->modificar_registro($datos, $this->seleccion_columna_anterior);
 	}
 	
-	function evt__pantallas__carga()
+	function evt__columnas__carga()
 	{
-		$this->seleccion_pantalla_anterior = $this->seleccion_pantalla;
-		return $this->get_dbt()->elemento('pantallas')->get_registro($this->seleccion_pantalla_anterior);
+		$this->seleccion_columna_anterior = $this->seleccion_columna;
+		return $this->get_dbt()->elemento('columnas')->get_registro($this->seleccion_columna_anterior);
 	}
 
-	function combo_dependencias()
+	function evt__columnas__cancelar()
 	{
-		return null;		
+		unset($this->seleccion_columna);
+		unset($this->seleccion_columna_anterior);
 	}
 
-	//Atencion, las dependencias tambien necesitan ORDEN!
-	
-	
-	
-	
+	//-------------------------------------------------------------------
+	//--- Procesamiento general
+	//-------------------------------------------------------------------
+
 	function evt__procesar()
 	{
 	}
-	
-	
-	
-	
-/*
-
-
-	function evt__cancelar()
-	{
-	}
-
-	function evt__inicializar()
-	{
-	}
-
-	function evt__limpieza_memoria()
-	{
-	}
-
-	function evt__post_recuperar_interaccion()
-	{
-	}
-
-	function evt__validar_datos()
-	{
-	}
-
-	function evt__error_proceso_hijo()
-	{
-	}
-
-	function evt__pre_cargar_datos_dependencias()
-	{
-	}
-
-	function evt__post_cargar_datos_dependencias()
-	{
-	}
-
-	//----------------------------- base -----------------------------
-
-	function evt__dependencias__carga()
-	{
-		//if isset($this->datos_dependencias)
-		//	return $this->datos_dependencias;
-	}
-
-	//----------------------------- pantallas -----------------------------
-	function evt__pantallas__carga()
-	{
-		//if isset($this->datos_pantallas)
-		//	return $this->datos_pantallas;
-	}
-
-	function evt__pantallas__baja()
-	{
-	}
-
-	function evt__pantallas__cancelar()
-	{
-	}
-
-	//----------------------------- pantallas_ei -----------------------------
-	function evt__pantallas_ei__carga()
-	{
-		//if isset($this->datos_pantallas_ei)
-		//	return $this->datos_pantallas_ei;
-	}
-
-	function evt__pantallas_ei__modificacion($registros)
-	{
-		//$this->datos_pantallas_ei = $registros;	
-	}
-
-	//----------------------------- pantallas_lista -----------------------------
-	function evt__pantallas_lista__carga()
-	{
-		//if isset($this->datos_pantallas_lista)
-		//	return $this->datos_pantallas_lista;
-	}
-
-	function evt__pantallas_lista__modificacion($registros)
-	{
-		//$this->datos_pantallas_lista = $registros;	
-	}
-
-	//----------------------------- prop_basicas -----------------------------
-*/
+	//-------------------------------------------------------------------
 }
 ?>

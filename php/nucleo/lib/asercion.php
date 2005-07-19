@@ -22,6 +22,18 @@ class asercion
 		}
 	}
 
+	function es_array_dimension($array, $dimension, $texto="ERROR: ")
+	{
+		if(!is_array($array)){
+			throw new excepcion_toba($texto . "el elemento no es un ARRAY");
+		}else{
+			$dim_real = count($array);
+			if($dim_real!=$dimension){
+				throw new excepcion_toba($texto . "El tamaño del array es incorrecto: $dim_real (Esperado: $dimension).");
+			}
+		}
+	}
+
 	function es_array_o_null($array, $texto="ATENCION, el elemento no es un ARRAY y no es NULO")
 	{
 		if(is_null($array)){
