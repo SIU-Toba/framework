@@ -1,4 +1,5 @@
 <?php
+require_once("3ros/adodb464/adodb.inc.php");
 require_once("fuente.php");
 /*
 	Notas de ADOdb
@@ -23,8 +24,6 @@ define("apex_db_con",5);//Conexion concreta ( Indice a la variable de tipo RECUR
 define("apex_db_link",6);
 define("apex_db",7);
 define("apex_db_link_id",8);
-//--------------------------------
-require("3ros/adodb340/adodb.inc.php");
 //--------------------------------
 
 	function abrir_base($id,$parm)
