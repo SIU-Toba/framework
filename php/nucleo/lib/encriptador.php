@@ -1,5 +1,5 @@
 <?php
-require_once("3ros/adodb340/crypt.inc.php");
+require_once("3ros/adodb464/session/crypt.inc.php");
 //------------------------------------------
 
 class encriptador
