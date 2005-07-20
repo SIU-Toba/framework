@@ -116,6 +116,18 @@ class solicitud_consola extends solicitud
 	function procesar()
 	//Atrapo las llamadas a la ayuda... sino proceso
 	{
+		//Si el item no es del proyecto toba se debe incluir el proyecto en el include path e invocar a inicializacion.php
+		$proyecto = $this->info["item_proyecto"];		
+		if ($proyecto != "toba") {
+			$actual = __FILE__;
+			$dir_toba = substr($actual,0,strpos($actual,"toba")). "toba"; 	//Borra todo desde "toba" 
+			$dir_toba = str_replace("\\", "/", $dir_toba);					//Cambia limitadores a formato unix
+	
+			$dir_proyecto = $dir_toba."/proyectos/$proyecto/php";
+			$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+			ini_set("include_path", ini_get("include_path"). $separador . $dir_proyecto);
+			include_once("inicializacion.php");
+		}
 		parent::procesar();
 	}
 //--------------------------------------------------------------------------------------------
