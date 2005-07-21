@@ -2,7 +2,7 @@
 require_once("elemento.php");
 require_once("elemento_objeto.php");
 
-class elemento_item extends elemento
+class elemento_item extends elemento implements recorrible_como_arbol
 {
 	
 	function __construct()
@@ -18,11 +18,9 @@ class elemento_item extends elemento
 		{
 			for($a=0;$a<count($this->datos['apex_item_objeto']);$a++)
 			{
-				//Los cargo en el array de subcomponentes
-				$this->subelementos[$a]= new elemento_objeto();
 				$proyecto = $this->datos['apex_item_objeto'][$a]['proyecto'];
 				$objeto = $this->datos['apex_item_objeto'][$a]['objeto'];
-				$this->subelementos[$a]->cargar_db($proyecto, $objeto);
+				$this->subelementos[$a] = $this->construir_objeto($proyecto, $objeto);
 			}
 		}
 	}
@@ -47,6 +45,47 @@ class elemento_item extends elemento
 	function obtener_php()
 	{
 		//Devuelve el PHP asociado al ITEM	
+	}
+	
+	///------------ Recorrible como arbol
+	function hijos()
+	{
+		return $this->subelementos;
+	}
+	
+	function es_hoja()
+	{
+		return (count($this->subelementos) == 0);
+	}
+
+	function tiene_propiedades()
+	{
+		return false;
+	}	
+	
+	function nombre_corto()
+	{
+		return $this->datos['apex_item'][0]['nombre'];
+	}
+	
+	function nombre_largo()
+	{
+		return $this->nombre_corto();
+	}
+	
+	function id()
+	{
+		return $this->datos['apex_item'][0]['item_id'];	
+	}
+	
+	function iconos()
+	{
+		return array();
+	}
+	
+	function utilerias()
+	{
+		return array();	
 	}
 }
 ?>

@@ -1,13 +1,20 @@
 <?
 require_once("elemento.php");
 
-class elemento_objeto extends elemento
+class elemento_objeto extends elemento implements recorrible_como_arbol
 {
+	
+	protected $datos_clase;		//Información relacionada con la clase del objeto
 	
 	function __construct()
 	{
 		$this->tipo = "objeto";	
 		parent::__construct();
+	}
+	
+	function set_datos_clase($datos_clase)
+	{
+		$this->datos_clase = $datos_clase;
 	}
 		
 	function cargar_db($proyecto, $elemento)
@@ -43,32 +50,109 @@ class elemento_objeto extends elemento
 		//Si hay objetos asociados...
 		if(isset($this->datos['apex_objeto_dependencias']))	{
 			for($a=0;$a<count($this->datos['apex_objeto_dependencias']);$a++) {
-				$this->subelementos[$a]= $this->construir_subelemento($this->datos['apex_objeto_dependencias'][$a]);
+				$proyecto = $this->datos['apex_objeto_dependencias'][$a]['proyecto'];
+				$objeto = $this->datos['apex_objeto_dependencias'][$a]['objeto_proveedor'];
+				$this->subelementos[$a]= $this->construir_objeto($proyecto, $objeto);
+				$this->subelementos[$a]->set_consumidor($this, $this->datos['apex_objeto_dependencias'][$a]);				
 			}
 		}
 	}
 	
-	function construir_subelemento($datos)
+	function id_objeto()
 	{
-		//ATENCION: la clase del objeto se debería conocer antes para poder crear la clase asociada a la clase (!)
-		$sql = "
-			SELECT 
-				c.clase,
-				c.archivo
-			FROM apex_clase c,
-				apex_objeto o
-			WHERE (o.clase_proyecto = c.proyecto)
-				AND (o.clase = c.clase)
-				AND (o.objeto = '{$datos['objeto_proveedor']}')
-				AND (o.proyecto = '{$datos['proyecto']}')";
-		$rs = consultar_fuente($sql,"instancia",null,true);
-		require_once($rs[0]['archivo']);
-		$elemento = call_user_func(array($rs[0]['clase'], 'elemento_toba'));
-		$elemento->cargar_db($datos['proyecto'], $datos['objeto_proveedor']);
-		$elemento->set_consumidor($this, $datos);
-		return $elemento;
+		return $this->datos['apex_objeto'][0]['objeto'];
 	}
+	
+	function id_proyecto()
+	{
+		return $this->datos['apex_objeto'][0]['proyecto'];	
+	}
+	
+	function rol_en_consumidor()
+	{
+		return $this->rol_en_consumidor['identificador'];
+	}
+	
+	//---- Recorrido como arbol
+	function hijos()
+	{
+		return $this->subelementos;
+	}
+	
+	function es_hoja()
+	{
+		return (count($this->subelementos) == 0);
+	}
+	
+	function tiene_propiedades()
+	{
+		return false;
+	}
+	
+	function nombre_corto()
+	{
+		$nombre_objeto = $this->datos['apex_objeto'][0]['nombre'];
+		if (isset($this->rol_en_consumidor['identificador']))
+			$nombre = $this->rol_en_consumidor['identificador'];
+		else
+			$nombre = $nombre_objeto; 
+		return $nombre;
+	}
+	
+	function nombre_largo()
+	{
+		$nombre_objeto = $this->datos['apex_objeto'][0]['nombre'];
+		if (isset($this->rol_en_consumidor['identificador']))
+			$nombre = "$nombre_objeto\nRol: ".$this->rol_en_consumidor['identificador'];
+		else
+			$nombre = $nombre_objeto; 
+		return $nombre;
+	}
+	
+	function id()
+	{
+		return $this->datos['apex_objeto'][0]['objeto'];	
+	}
+	
+	function iconos()
+	{
+		$iconos = array();
+		$iconos[] = array(
+			'imagen' => recurso::imagen_apl($this->datos_clase['icono'], false),
+			'ayuda' => $this->datos_clase['descripcion_corta'],
+			);	
 
+		return $iconos;
+	}
+	
+	function utilerias()
+	{
+		$iconos = array();
+		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
+		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("php.gif", false),
+				'ayuda' => "Ver detalles de la extensión",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores)
+			);
+		}		
+		$iconos[] = array(
+			'imagen' => recurso::imagen_apl("objetos/objeto.gif", false),
+			'ayuda' => "Editar propiedades BASICAS del OBJETO",
+			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/propiedades", $param_editores)
+		);
+		if(isset($this->datos_clase["editor_proyecto"])) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+				'ayuda' => "Editar propiedades ESPECIFICAS del OBJETO",
+				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos_clase["editor_proyecto"],
+																		$this->datos_clase["editor_item"], $param_editores)
+			);
+		}
+
+		return $iconos;	
+	}	
+	
 	
 	//---- Manejo de eventos
 	function es_evento($metodo)

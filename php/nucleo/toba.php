@@ -1,4 +1,6 @@
 <?
+require_once('nucleo/browser/clases/interfaces.php');
+
 /*
 	Obtencion de referencias a los objetos centrales del TOBA
 */

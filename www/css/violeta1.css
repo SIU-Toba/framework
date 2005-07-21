@@ -2335,3 +2335,26 @@ TABLE.objeto-base-3d {
 .wizard-pantallas-actual {
 	FONT-WEIGHT: bold
 }
+.ei_arbol-rama {
+	list-style-type: none; 
+	margin-left: 20px;
+	padding-left: 0px;
+	padding-top: 5px;
+	white-space: nowrap;
+}
+.ei_arbol-raiz {
+	list-style-type: none; 
+	white-space: nowrap;
+	width: 345px;
+	margin:0px; 
+	padding: 0px;
+}
+.ei_arbol-ver-prop {
+	text-decoration: none;
+}
+.ei_arbol-ver-prop:hover {
+	text-decoration: underline;
+}
+.ei_arbol-nodo {
+
+}

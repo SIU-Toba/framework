@@ -85,7 +85,6 @@ class arbol_items
 		}
 	}
 	
-	
 	function dejar_grupo_acceso($grupo)
 	/*
 		Del conjunto de items disponibles, sólo mantiene aquellos que tiene grupo de acceso $grupo
@@ -97,9 +96,63 @@ class arbol_items
 			if (!in_array($grupo, $item->grupos_acceso())) 
 				unset($this->items[$posicion]);
 		}
+	}	
+	
+	function filtrar_items_en_menu($en_menu)
+	{
+		$encontrados = array();
+		foreach ($this->items as $posicion => $item) {
+			$es_raiz = ($item->id() == '');
+			if ($es_raiz || $item->es_de_menu() == $en_menu) 
+				$encontrados[] = $item;
+		}
+		$this->dejar_ramas_con_items($encontrados);
 	}
 	
-	protected function buscar_carpeta_inicial()
+	function dejar_items_con_nombre($nombre)
+	{
+		$encontrados = array();
+		foreach ($this->items as $posicion => $item) {
+			if (stripos($item->nombre(),$nombre) !== false) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);	
+	}	
+	
+	function dejar_items_con_id($id)
+	{
+		$encontrados = array();
+		foreach ($this->items as $posicion => $item) {
+			if (stripos($item->id(),$id) !== false) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);
+	}
+	
+	protected function dejar_ramas_con_items($items)
+	{
+		//Selecciona las carpetas que pertenecen a las ramas
+		$seleccionados = $items;
+		foreach ($items as $item) {
+			$padre = $item->get_padre();
+			while ($padre != null) {
+				$seleccionados[] = $padre;
+				$padre = $padre->get_padre();
+			}
+		}
+		foreach ($this->items as $pos => $item) {
+			if (!in_array($item, $seleccionados)) {
+				$padre = $item->get_padre();
+				if ($padre != null)
+					$padre->quitar_hijo($item);
+			}
+		}
+
+	}
+
+	function buscar_carpeta_inicial()
 	{
 		foreach ($this->items as $item) {
 			if ($item->id() == $this->carpeta_inicial)
@@ -112,6 +165,15 @@ class arbol_items
 
 	
 	//---------------------------------------------------------------------	
+	function resetear()
+	{
+		foreach ($this->items as $item)
+		{
+			$item->set_padre(null);
+			$item->set_sin_hijos();
+		}
+	}
+	
 	/**
 	*	Recorrido en profundidad del arbol
 	* 	Se muestran primero la caperta y luego los items ordenados por posición en menú
@@ -135,6 +197,8 @@ class arbol_items
 		foreach ($this->items as $item) {
 			if ($item->es_hijo_de($carpeta)) {
 				$item->set_camino($this->camino);
+				$item->set_padre($carpeta);
+				$carpeta->agregar_hijo($item);
 				if ($item->es_carpeta()) //Caso recursivo
 					$items = array_merge($items, $this->ordenar_recursivo($item, $nivel + 1));
 				else {

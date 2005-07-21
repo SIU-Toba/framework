@@ -36,6 +36,10 @@ if (!$tipo_vista = $this->hilo->obtener_parametro("tipo_vista")) {
 	echo "<a href='" . $this->vinculador->generar_solicitud("toba",null,array("tipo_vista" =>"portafolio")) . "' class='basico'>"; 
 	echo recurso::imagen_apl('portafolio.gif',true,null,null,"Vista Portafolio"); 
 	echo "</a>&nbsp;";
+	echo "<a href='" . $this->vinculador->generar_solicitud("toba","/admin/items/catalogo_unificado",array()) . "' class='basico'>"; 
+	echo recurso::imagen_apl('doc.gif',true,null,null,"Vista Unificada (en construcción)"); 
+	echo "</a>&nbsp;";	
+	
 ?>          
         </td></tr> 
         </table> 

@@ -117,9 +117,14 @@ class js
 										'maximizar' => recurso::imagen_apl('sentido_des_sel.gif', false), 
 										'minimizar' => recurso::imagen_apl('sentido_asc_sel.gif', false),
 										'expandir'  => recurso::imagen_apl('expandir_vert.gif', false),
-										'contraer'  => recurso::imagen_apl('contraer_vert.gif', false)
+										'contraer'  => recurso::imagen_apl('contraer_vert.gif', false),
+										'expandir_nodo' => recurso::imagen_apl('arbol/expandir.gif', false),
+										'contraer_nodo' => recurso::imagen_apl('arbol/contraer.gif', false)
 										);
 					echo js::abrir();
+					echo "var toba_prefijo_vinculo=\"".toba::get_hilo()->prefijo_vinculo()."\";\n";
+					echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
+					echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 					echo dump_array_javascript($imagenes, 'lista_imagenes');
 					echo js::cerrar();
 					break;
@@ -155,7 +160,10 @@ class js
 		} else {	//No asociativo
 			$js .="[ ";
 			foreach($arreglo as $valor) {
-				$js .= "$valor,";
+				if (is_numeric($valor))
+					$js .= "$valor,";
+				else
+					$js .= "'$valor',";
 			}
 			$js = substr($js, 0, -1);
 			$js .= " ]";

@@ -1,11 +1,13 @@
 <?php
 
-class item
+class item implements recorrible_como_arbol
 {
-	protected $datos;			//Datos básicos
-	protected $nivel;			//Nivel del item en el arbol de items
-	protected $grupos_acceso;	//Grupos que pueden acceder al item
-	protected $camino;			//Arreglo de carpetas que componen la rama en donde pertenece el item
+	protected $datos;					//Datos básicos
+	protected $nivel;					//Nivel del item en el arbol de items
+	protected $grupos_acceso;			//Grupos que pueden acceder al item
+	protected $camino;					//Arreglo de carpetas que componen la rama en donde pertenece el item
+	protected $items_hijos=array();		//Arreglo de hijos 
+	protected $padre=null;				//Objeto item padre
 	
 	function __construct($datos = array())
 	{
@@ -90,7 +92,7 @@ class item
 			return false;
 		return $this->datos['padre'] == $carpeta->id();
 	}
-
+	
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------
 	
 	function set_nivel($nivel) { $this->nivel = $nivel; }	
@@ -107,6 +109,155 @@ class item
 			throw new excepcion_toba("Ha ocurrido un error CREANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
 	}
 
+	//------------------------------------RECORRIDOS--------------------------------------------------------	
+	function nombre_corto() { 
+		return $this->nombre();
+	}
+
+	function nombre_largo() { 
+		return $this->nombre();
+	}	
+
+	function es_hoja()
+	{
+		return count($this->items_hijos) == 0;
+	}
+	
+	function tiene_propiedades()
+	{
+		return !$this->es_carpeta();
+	}
+	
+	function agregar_hijo($item)
+	{
+		$this->items_hijos[$item->id()] = $item;
+	}
+	
+	function quitar_hijo($item)
+	{
+		unset($this->items_hijos[$item->id()]);
+	}
+	
+	function set_padre($carpeta)
+	{
+		$this->padre = $carpeta;
+	}
+	
+	function get_padre()
+	{
+		return $this->padre;
+	}
+	
+	function hijos()
+	{
+		return $this->items_hijos;
+	}
+	
+	function iconos()
+	{
+		$iconos = array();
+		if ($this->es_carpeta()) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("items/carpeta.gif", false),
+				'ayuda' => "Editar propiedades de la carpeta",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades",
+								array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()))
+				);
+
+		} else {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("items/item.gif", false),
+				'ayuda' => "Editar propiedades del ITEM",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/propiedades",
+									array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()))
+				);
+				
+			if ($this->tipo_solicitud() == "consola") {
+				$iconos[] = array(
+								'imagen' => recurso::imagen_apl("solic_consola.gif",false),
+								'ayuda' => 'Solicitud de Consola'
+							);
+			} elseif($this->tipo_solicitud()=="wddx") {
+				$iconos[] = array(
+								'imagen' => recurso::imagen_apl("solic_wddx.gif",false),
+								'ayuda' => 'Solicitud WDDX'
+							);
+			} else {
+				$iconos[] = array(
+								'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
+								'ayuda' => 'Ejecutar el ITEM',
+								'vinculo' => toba::get_vinculador()->generar_solicitud($this->proyecto(), $this->id(), 
+												null,false,false,null,true)
+							);
+			}
+		}
+		return $iconos;
+	}
+	
+	function utilerias()
+	{
+		$utilerias = array();
+		if ($this->es_carpeta()) {	
+			if($this->es_de_menu()) {
+				$utilerias[] = array(
+					'imagen' => recurso::imagen_apl("items/menu.gif",false),
+					'ayuda' => "La CARPETA esta incluido en el MENU del PROYECTO",
+					'vinculo' => null
+				);
+			}
+			// Ordenamiento, Nueva carpeta, nuevo item
+/*			$utilerias[] = array(
+				'imagen' => recurso::imagen_apl("items/carpeta_ordenar.gif", false),
+				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_ordenar", 
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+			);*/
+			$utilerias[] = array(
+				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
+				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades", 
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+			);
+			$utilerias[] = array(
+				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
+				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/propiedades", 
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+			);			
+
+		} else { //Es un item común
+			if($this->crono()){		
+				$utilerias[] = array(
+					'imagen' => recurso::imagen_apl("cronometro.gif", false),
+					'ayuda'=> "El ITEM se cronometra"
+				);			
+			}
+			if($this->es_publico()){
+				$utilerias[] = array(
+					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
+					'ayuda'=> "ITEM público"
+				);				
+			}
+			if($this->registra_solicitud() == 1){
+				$utilerias[] = array(
+					'imagen' => recurso::imagen_apl("solicitudes.gif", false),
+					'ayuda'=> "El ITEM se registra"
+				);				
+			}
+			if ($this->es_de_menu()) {
+				$utilerias[] = array(
+					'imagen' => recurso::imagen_apl("items/menu.gif", false),
+					'ayuda'=> "El ITEM esta incluido en el MENU del PROYECTO"
+				);	
+			}
+/*			//ID del objeto
+			$utilerias[] = array(
+				'imagen' => recurso::imagen_apl("nota.gif", false),
+				'ayuda' => $this->id()
+			);*/
+		}
+		return $utilerias;
+	}
 	
 	//------------------------------------DEFINICION ESTATICA--------------------------------------------------------	
 	static function definicion_campos()

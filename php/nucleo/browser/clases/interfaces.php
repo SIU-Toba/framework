@@ -1,5 +1,20 @@
 <?
 
+interface recorrible_como_arbol
+{
+	public function hijos();
+	public function es_hoja();
+	
+	public function iconos();
+	public function utilerias();
+	
+	public function nombre_corto();
+	public function nombre_largo();	
+	public function id();
+	public function tiene_propiedades();
+	
+}
+
 interface ei
 {
 	public function inicializar();				//Inicializa al elemento

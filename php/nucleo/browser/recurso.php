@@ -73,7 +73,7 @@ class recurso {
 		}
 	}
 	
-	function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa="", $js='', $estilo='')
+	function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa=null, $js='', $estilo='')
 /*
  	@@acceso: interno
 	@@desc: Genera la URL de un recurso de tipo imagen. Funcion utilizada por imagen_apl e imagen_pro

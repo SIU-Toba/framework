@@ -38,6 +38,7 @@ class eventos
 
 	//-------------------------------------------------
 	//---EVENTOS De CI
+
 	static function ci_cancelar($etiqueta=null, $en_botonera=true)
 	{
 		$evento = self::evento_estandar('cancelar', isset($etiqueta) ? $etiqueta : "&Cancelar", $en_botonera);
@@ -151,7 +152,24 @@ class eventos
 		$evento['cambiar_mes']['ayuda'] = 'Cambiar de mes';
 		return $evento;	
 	}	
+	
+	//---------------------------------------------------
+	//---Eventos del ei_Arbol
+	static function ver_propiedades()
+	{
+		$evento = self::evento_estandar('ver_propiedades', null, false);
+		return $evento;	
+	}
 
+	//----------------------------------------------------
+	//---Varios
+	static function refrescar()
+	{
+		$refrescar = eventos::duplicar(eventos::ci_procesar("&Refrescar"), 'refrescar');	
+		$refrescar['refrescar']['imagen'] = recurso::imagen_apl('refrescar.gif');	
+		return $refrescar;
+	}
+	
 }
 
 ?>

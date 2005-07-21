@@ -39,7 +39,7 @@ class elemento
 				WHERE elemento_infra = '{$this->tipo}'
 				AND dependiente <> 1
 				ORDER BY orden";
-		$this->tablas = consultar_fuente($sql);
+		$this->tablas = consultar_fuente($sql, "instancia");
 		//Completo la definicion de las tablas a guardar
 		for($a=0;$a<count($this->tablas);$a++){
 			$this->indice_tablas[$this->tablas[$a]['tabla']] = $a;
@@ -78,7 +78,7 @@ class elemento
 					FROM apex_mod_datos_tabla_columna
 					WHERE tabla_proyecto = 'toba' AND tabla = '$tabla'
 					ORDER BY orden";
-			$temp = consultar_fuente($sql);
+			$temp = consultar_fuente($sql, "instancia");
 			//Formateo columnas
 			$columnas = array();
 			for($b=0;$b<count($temp);$b++){
@@ -90,7 +90,7 @@ class elemento
 					AND ({$this->tablas[$a]['columna_clave']} = '$elemento' ) ;";
 //			echo $sql . enter();
 			//Cargo los datos
-			if(!($temp = consultar_fuente($sql))){
+			if (!($temp = consultar_fuente($sql, "instancia"))) {
 				if($this->tablas[$a]['obligatoria']==1){
 					//No se cargaron datos y la tabla es obligatoria
 					throw new excepcion_toba("No se cargo una tabla obligatoria ($tabla)");
@@ -119,6 +119,29 @@ class elemento
 	{
 		return (count($this->datos)>0);
 	}
+	
+	/*
+	*	Construye la un elemento_toba asociado a un objeto
+	*/
+	function construir_objeto($proyecto, $objeto)
+	{
+		//ATENCION: la clase del objeto se debería conocer antes para poder crear la clase asociada a la clase (!)
+		$sql = "
+			SELECT 
+				c.*
+			FROM apex_clase c,
+				apex_objeto o
+			WHERE (o.clase_proyecto = c.proyecto)
+				AND (o.clase = c.clase)
+				AND (o.objeto = '$objeto')
+				AND (o.proyecto = '$proyecto')";
+		$rs = consultar_fuente($sql,"instancia",null,true);
+		require_once($rs[0]['archivo']);
+		$elemento = call_user_func(array($rs[0]['clase'], 'elemento_toba'));
+		$elemento->cargar_db($proyecto, $objeto);
+		$elemento->set_datos_clase($rs[0]);
+		return $elemento;
+	}		
 
 	//--------------------------------------------------------------
 	//-----  Procesar el ELEMENTO  ---------------------------------

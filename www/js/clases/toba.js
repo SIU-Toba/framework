@@ -20,6 +20,10 @@ var toba =
 	
 	imagen : function (nombre) {
 		return lista_imagenes[nombre];
+	},
+	
+	crear_vinculo : function(destino) { 	//array(proyecto, item)
+		return toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + destino[0] + toba_hilo_separador + destino[1];		
 	}
 	
 }

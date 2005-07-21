@@ -1,8 +1,43 @@
 <?php
 require_once('api/elemento_objeto.php');
+require_once('api/elemento_objeto_ci_pantalla.php');
 
 class elemento_objeto_ci extends elemento_objeto
 {
+	function nombre_corto()
+	{
+		$nombre = parent::nombre_corto();
+		return "CI - $nombre";
+	}
+	
+	//---- Recorrido como arbol
+	function hijos()
+	{
+		//Las dependencias son sus hijos
+		//Hay una responsabilidad no bien limitada
+		//Este objeto tiene las dependencias, cada pantalla debería poder sacar las que les concierne
+		//Pero tambien este objeto debería saber cuales no son utilizadas por las pantallas
+		$pantallas = array();
+		if (isset($this->datos['apex_objeto_mt_me_etapa'])) {
+			foreach ($this->datos['apex_objeto_mt_me_etapa'] as $pantalla) {
+				$pantallas[] = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
+			}
+		}
+		//Busca Dependencias libres
+		$dependencias_libres = array();
+		foreach ($this->subelementos as $dependencia) {
+			$libre = true;
+			foreach ($pantallas as $pantalla) {
+				if ($pantalla->tiene_dependencia($dependencia))
+					$libre = false;
+			}
+			if ($libre) {
+				$dependencias_libres[] = $dependencia;
+			}
+		}
+		return $pantallas + $dependencias_libres;
+	}	
+
 	function eventos_predefinidos()
 	{
 		$eventos = array('procesar', 'cancelar', 'inicializar', 'limpieza_memoria', 'post_recuperar_interaccion', 'validar_datos',
