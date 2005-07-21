@@ -72,7 +72,8 @@ CREATE TABLE apex_objeto_mt_me_etapa
 (
 	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
 	objeto_mt_me						int4				NOT NULL,
-	posicion							smallint			NOT NULL,
+	posicion							varchar(20)			NOT NULL,
+	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,
 	descripcion							varchar(255)		NULL,
 	tip									varchar(80)			NULL,

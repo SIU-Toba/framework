@@ -1,5 +1,5 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_objeto_html ;

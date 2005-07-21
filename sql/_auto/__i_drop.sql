@@ -1,5 +1,5 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DROP TABLE apex_dim_restric_soltipo ;
 DROP TABLE apex_objeto_html ;
@@ -141,7 +141,7 @@ DROP TABLE apex_elemento_infra_tabla ;
 DROP TABLE apex_elemento_infra ;
 DROP TABLE apex_revision ;
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DROP SEQUENCE apex_elemento_infra_input_seq;
 DROP SEQUENCE apex_columna_estilo_seq;

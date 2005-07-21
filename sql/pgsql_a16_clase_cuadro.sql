@@ -22,6 +22,7 @@ CREATE TABLE apex_objeto_cuadro
 	subtitulo               	varchar(80) 	NULL,
 	sql                     	varchar     	NULL,       -- SQL que arma el cuadro que permite elegir un registro a modificar
 	columnas_clave				varchar(255)	NULL,   -- Columnas que poseen la clave, separadas por comas
+	clave_dbr					smallint		NULL,
 	archivos_callbacks      	varchar(100)	NULL,			-- Archivos donde estan las callbacks llamadas en las columnas
 	ancho                   	varchar(10) 	NULL,
 	ordenar                 	smallint    	NULL,
