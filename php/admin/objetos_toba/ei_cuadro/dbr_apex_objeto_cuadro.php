@@ -41,6 +41,7 @@ class dbr_apex_objeto_cuadro extends db_registros_s
 		$def['columna'][25]['nombre']='desplegable_activo';
 		$def['columna'][26]['nombre']='scroll';
 		$def['columna'][27]['nombre']='scroll_alto';
+		$def['columna'][28]['nombre']='clave_dbr';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

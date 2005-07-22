@@ -376,7 +376,7 @@ class objeto_ci extends objeto_ei
 	{
 		$this->log->debug($this->get_txt() . "_____________________________________________________[ procesar_eventos ]");
 		try{
-			$this->controlador = $this;
+			$this->controlador = $this;	//El CI exterior es su propio controlador
 			$this->inicializar();
 			$this->disparar_eventos();
 		}catch(excepcion_toba $e){
@@ -567,6 +567,11 @@ class objeto_ci extends objeto_ei
 	function evt__pre_cargar_datos_dependencias()
 	//Antes de cargar las dependencias
 	{
+		//Existe una definicion especifica para esta etapa?
+		$metodo_especifico = "evt__pre_cargar_datos_dependencias" . apex_ei_separador . $this->etapa_gi;
+		if(method_exists($this, $metodo_especifico)){
+			$this->$metodo_especifico();	
+		}		
 	}
 	//-------------------------------------------------------------------------------
 
@@ -618,6 +623,11 @@ class objeto_ci extends objeto_ei
 	function evt__post_cargar_datos_dependencias()
 	//Despues de cargar las dependencias
 	{
+		//Existe una definicion especifica para esta etapa?
+		$metodo_especifico = "evt__post_cargar_datos_dependencias" . apex_ei_separador . $this->etapa_gi;
+		if(method_exists($this, $metodo_especifico)){
+			$this->$metodo_especifico();	
+		}		
 	}
 	//-------------------------------------------------------------------------------
 

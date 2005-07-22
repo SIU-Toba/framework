@@ -13,6 +13,7 @@ class dbt_ei_cuadro extends dbt_objeto_toba
 		$this->elemento['base'] = new dbr_apex_objeto($fuente, 1,1);
 		$this->elemento['prop_basicas'] = new dbr_apex_objeto_cuadro($fuente, 1,1);
 		$this->elemento['columnas'] = new dbr_apex_objeto_cuadro_columna($fuente, 1,0);
+		$this->elemento['eventos'] = new dbr_apex_objeto_eventos($fuente, 0,0);
 		//Relaciones
 		$this->cabecera = 'base';
 		$this->detalles = array(
