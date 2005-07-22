@@ -150,8 +150,8 @@ class db_tablas
 						$this->elemento[$id]->set_registro_valor( $registro, $columna_clave[$i] , $valor);
 						$i++;
 					}
-					$this->elemento[$id]->sincronizar();
 				}
+				$this->elemento[$id]->sincronizar();
 			}
 		}
 	}

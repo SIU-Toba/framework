@@ -66,7 +66,7 @@ CREATE TABLE apex_objeto_cuadro_columna
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
 	objeto_cuadro                 	int4       		NOT NULL,
 	orden				            float      		NOT NULL,
-	titulo                        	varchar(100)		NOT NULL,
+	titulo                        	varchar(100)	NOT NULL,
 	columna_estilo    				int4		    NOT NULL,	-- Estilo de la columna
 	columna_ancho					varchar(10)		NULL,			-- Ancho de columna para RTF
 	ancho_html						varchar(10)		NULL,
@@ -95,3 +95,66 @@ CREATE TABLE apex_objeto_cuadro_columna
 	CONSTRAINT  "apex_obj_cuadro_fk_estilo" FOREIGN KEY ("columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+
+CREATE SEQUENCE apex_obj_ei_cuadro_col_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_ei_cuadro_columna
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto_cuadro, orden
+--: dump_where: ( objeto_cuadro_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
+	objeto_cuadro                 	int4       		NOT NULL,
+	objeto_cuadro_col				int4			DEFAULT nextval('"apex_obj_ei_cuadro_col_seq"'::text) NOT NULL, 
+	clave          					varchar(40)    	NOT NULL,		
+	orden				            float      		NOT NULL,
+	titulo                        	varchar(100)	NOT NULL,
+	estilo    						int4		    NOT NULL,	
+	ancho							varchar(10)		NULL,		
+	formateo   						int4		    NULL,		
+	vinculo_indice	      			varchar(20) 	NULL,       
+	no_ordenar						smallint		NULL,		
+	mostrar_xls						smallint		NULL,
+	mostrar_pdf						smallint		NULL,
+	pdf_propiedades          		varchar			NULL,
+	desabilitado					smallint		NULL,
+	total							smallint		NULL,		
+	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_col"),
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+
+-- TRANSFORMACION REALIZADA en la migracion de ei_cuadro
+
+-- agregar:
+
+-- 	objeto_cuadro_col	
+
+-- modificar:
+
+-- 	columna_estilo    	x	estilo
+-- 	columna_ancho		x	ancho
+-- 	valor_sql           x	clave
+-- 	valor_sql_formato   x	formateo
+
+-- eliminar:	
+
+--	valor_fijo              
+-- 	valor_proceso			
+-- 	valor_proceso_esp		
+-- 	valor_proceso_parametros
+-- 	ancho_html				
+-- 	par_dimension_proyecto   
+-- 	par_dimension            
+-- 	par_tabla                
+-- 	par_columna              	
+
+--###################################################################################################
+

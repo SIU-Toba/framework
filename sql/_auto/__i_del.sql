@@ -19,6 +19,7 @@ DELETE FROM apex_objeto_plan_activ_usu ;
 DELETE FROM apex_objeto_plan_activ ;
 DELETE FROM apex_objeto_plan ;
 DELETE FROM apex_objeto_mapa ;
+DELETE FROM apex_objeto_ei_cuadro_columna ;
 DELETE FROM apex_objeto_cuadro_columna ;
 DELETE FROM apex_objeto_cuadro ;
 DELETE FROM apex_objeto_grafico ;

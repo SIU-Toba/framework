@@ -19,6 +19,7 @@ VACUUM VACUUM FULL ANALYSE apex_objeto_plan_activ_usu;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_activ;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan;
 VACUUM VACUUM FULL ANALYSE apex_objeto_mapa;
+VACUUM VACUUM FULL ANALYSE apex_objeto_ei_cuadro_columna;
 VACUUM VACUUM FULL ANALYSE apex_objeto_cuadro_columna;
 VACUUM VACUUM FULL ANALYSE apex_objeto_cuadro;
 VACUUM VACUUM FULL ANALYSE apex_objeto_grafico;

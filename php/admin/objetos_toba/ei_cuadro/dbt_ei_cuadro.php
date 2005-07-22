@@ -18,9 +18,17 @@ class dbt_ei_cuadro extends dbt_objeto_toba
 		$this->cabecera = 'base';
 		$this->detalles = array(
 								'prop_basicas'=>array('objeto_cuadro_proyecto','objeto_cuadro'),
-								'columnas'=>array('objeto_cuadro_proyecto','objeto_cuadro')
+								'columnas'=>array('objeto_cuadro_proyecto','objeto_cuadro'),
+								'eventos'=>array('proyecto','objeto')
 							);
 		parent::__construct($fuente);
+	}
+
+	function evt__pre_sincronizacion()
+	{
+		parent::evt__pre_sincronizacion();
+		$this->elemento['base']->set_registro_valor(0,"clase_proyecto", "toba" );
+		$this->elemento['base']->set_registro_valor(0,"clase", "objeto_ei_cuadro" );
 	}
 }
 ?>

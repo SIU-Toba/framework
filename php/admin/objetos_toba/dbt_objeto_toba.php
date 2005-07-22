@@ -3,11 +3,9 @@ require_once("nucleo/persistencia/db_tablas.php");
 
 class dbt_objeto_toba extends db_tablas
 {
-	protected $objeto_procesado = null;
-
-	function set_objeto_procesado($id)
+	function evt__pre_sincronizacion()
 	{
-		$this->objeto_procesado = $id;	
+		$this->elemento['base']->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 	}
 
 	function evt__post_sincronizacion()
@@ -15,13 +13,10 @@ class dbt_objeto_toba extends db_tablas
 		Log de modificacion de un OBJETO TOBA
 	*/	
 	{
-		if(!isset($this->objeto_procesado))
-			throw new excepcion_toba("Es necesario indicar el objeto que se edito en el DBT hijo");
+		$clave = $this->elemento['base']->get_clave_valor(0);
 		$usuario = toba::get_hilo()->obtener_usuario();
-		$proyecto = $this->objeto_procesado['proyecto'];
-		$objeto = $this->objeto_procesado['objeto'];
 		$sql = "INSERT INTO apex_log_objeto (usuario, objeto_proyecto, objeto, observacion)
-				VALUES ('$usuario','$proyecto','$objeto',NULL)";
+				VALUES ('$usuario','{$clave['proyecto']}','{$clave['objeto']}',NULL)";
 		ejecutar_sql( $sql, $this->fuente);		
 	}
 }

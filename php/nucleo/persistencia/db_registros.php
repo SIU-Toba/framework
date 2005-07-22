@@ -583,11 +583,13 @@ class db_registros
 
 	public function set_registro_valor($id, $columna, $valor)
 	{
-		if(isset($this->datos[$id][$columna])){
+		if( in_array($columna, $this->campos) ){
 			$this->datos[$id][$columna] = $valor;
 			if($this->control[$id]['estado']!="i"){
 				$this->actualizar_estructura_control($id,"u");
 			}		
+		}else{
+			throw new excepcion_toba("La columna '$columna' no es valida");
 		}
 	}
 	//-------------------------------------------------------------------------------

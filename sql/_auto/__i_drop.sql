@@ -19,6 +19,7 @@ DROP TABLE apex_objeto_plan_activ_usu ;
 DROP TABLE apex_objeto_plan_activ ;
 DROP TABLE apex_objeto_plan ;
 DROP TABLE apex_objeto_mapa ;
+DROP TABLE apex_objeto_ei_cuadro_columna ;
 DROP TABLE apex_objeto_cuadro_columna ;
 DROP TABLE apex_objeto_cuadro ;
 DROP TABLE apex_objeto_grafico ;
@@ -176,5 +177,6 @@ DROP SEQUENCE apex_ap_tarea_tema_seq;
 DROP SEQUENCE apex_ap_tarea_seq;
 DROP SEQUENCE apex_tp_tarea_tipo_seq;
 DROP SEQUENCE apex_tp_tarea_seq;
+DROP SEQUENCE apex_obj_ei_cuadro_col_seq;
 DROP SEQUENCE apex_objeto_plan_linea_seq;
 

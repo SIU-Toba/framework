@@ -29,6 +29,7 @@ class dbr_apex_objeto_eventos extends db_registros_s
 		$def['columna'][10]['nombre']='en_botonera';
 		$def['columna'][11]['nombre']='ayuda';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
+		$this->set_no_duplicado( array("identificador") );
 	}	
 	
 	function cargar_datos_clave($id)

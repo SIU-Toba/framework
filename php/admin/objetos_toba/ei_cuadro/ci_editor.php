@@ -37,8 +37,18 @@ class ci_editor extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = new dbt_ei_cuadro($this->info['fuente']);
+			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1382') );
 		}
 		return $this->db_tablas;
+	}
+
+	function get_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "seleccion";
+		$evento[0]['etiqueta'] = "";
+		$evento[0]['imagen_recurso_origen'] = "apex";
+		$evento[0]['imagen'] = "doc.gif";	
+		return $evento;
 	}
 
 	//*******************************************************************
@@ -218,6 +228,8 @@ class ci_editor extends objeto_ci
 
 	function evt__post_cargar_datos_dependencias__3()
 	{
+		$evt = eventos::evento_estandar("init","Cargar EVENTOS estandar",true,null,null,true);
+		$this->dependencias["eventos_lista"]->agregar_evento( $evt );
 		if( $this->mostrar_evento_detalle() ){
 			//Protejo la evento seleccionada de la eliminacion
 			$this->dependencias["eventos_lista"]->set_fila_protegida($this->seleccion_evento_anterior);
@@ -237,6 +249,9 @@ class ci_editor extends objeto_ci
 			tengo que guardar el ID intermedio que el ML asigna en las eventos NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
+
+		//FALT CONTROL : (Etiqueta o imagen) completa
+
 		$dbr = $this->get_dbt()->elemento("eventos");
 		foreach(array_keys($registros) as $id)
 		{
@@ -268,6 +283,18 @@ class ci_editor extends objeto_ci
 			$id = $this->id_intermedio_evento[$id];
 		}
 		$this->seleccion_evento = $id;
+	}
+	
+	function evt__eventos_lista__init()
+	{
+		foreach($this->get_eventos_estandar() as $evento)
+		{
+			try{
+				$this->get_dbt()->elemento("eventos")->agregar_registro($evento);
+			}catch(excepcion_toba $e){
+				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+			}
+		}
 	}
 
 	//-----------------------------------------
@@ -303,6 +330,7 @@ class ci_editor extends objeto_ci
 				Hay que controlar que la clave este incluida entre las columnas,
 				en el caso en que no se este utilizando un db_registros.
 		*/
+		$this->get_dbt()->sincronizar();
 	}
 	//-------------------------------------------------------------------
 }
