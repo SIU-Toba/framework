@@ -900,7 +900,7 @@ class objeto
 		//Barra de colapsado
 		$colapsado = "";
 		if ($this->info['colapsable'] && isset($this->objeto_js)) {
-			$colapsado = "style='cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+			$colapsado = "style='cursor: hand; cursor: pointer;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 			echo "<td class='$estilo'>";
 			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
 			echo "<img id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";

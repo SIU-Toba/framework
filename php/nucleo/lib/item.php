@@ -28,11 +28,19 @@ class item implements recorrible_como_arbol
 	
 	function tipo_solicitud() { return $this->datos["solicitud_tipo"]; }
 	
-	function crono() { return $this->datos['crono'] == 1; }
+	function crono() 
+	{ 
+		if (isset($this->datos['crono']))
+			return $this->datos['crono'] == 1; 
+	}
 	
 	function objetos() { return $this->datos["objetos"]; }
 	
-	function registra_solicitud() { return $this->datos["registrar"]; }
+	function registra_solicitud()
+	{ 
+		if (isset($this->datos['registrar']))
+			return $this->datos["registrar"]; 
+	}
 	
 	function propietario() { return $this->datos['usuario']; }
 

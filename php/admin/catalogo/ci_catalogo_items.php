@@ -13,6 +13,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function __construct($id)
 	{
+		logger::ocultar();
 		$this->foto_seleccionada = array();
 		parent::__construct($id);
 		$this->catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
@@ -73,6 +74,12 @@ class ci_catalogo_items extends objeto_ci
 			return $this->opciones;
 	}
 	
+	function evt__filtro__cancelar()
+	{
+		unset($this->opciones);
+		$this->dependencias['fotos']->deseleccionar();
+	}
+	
 	function evt__filtro__filtrar($datos)
 	{
 		$this->opciones = $datos;
@@ -80,6 +87,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__items__carga()
 	{
+		$this->dependencias['items']->set_frame_destino(apex_frame_centro);
 		$this->dependencias['items']->set_item_propiedades(array('toba','/admin/items/composicion_item'));
 		//¿Hay foto seleccionada?
 		if (isset($this->foto_seleccionada)) {
@@ -118,6 +126,9 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__objetos__carga()
 	{
+		$this->dependencias['objetos']->set_frame_destino(apex_frame_centro);
+		$this->dependencias['objetos']->set_puede_sacar_foto(false);
+		$this->dependencias['objetos']->set_nivel_apertura(3);		
 		$item = new elemento_item();
 //		$this->item->cargar_db('comechingones', '803');
 		$item->cargar_db(toba::get_hilo()->obtener_proyecto(), $this->item_seleccionado);	
@@ -155,6 +166,13 @@ class ci_catalogo_items extends objeto_ci
 		$this->catalogador->borrar_foto($nombre);
 	}
 
+	function obtener_html_dependencias()
+	{
+		foreach($this->dependencias_gi as $dep)
+		{
+			$this->dependencias[$dep]->obtener_html();	
+		}
+	}
 }
 
 ?>

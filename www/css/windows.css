@@ -2474,3 +2474,30 @@ TD.separador_izquierda {
 TD.separador_derecha {
 	BORDER-RIGHT: #000000 2px solid
 }
+/*-----------------------------objeto_ei_arbol-----------------------------------*/
+.ei_arbol-rama {
+	list-style-type: none; 
+	margin-left: 20px;
+	padding-left: 0px;
+	padding-top: 5px;
+	white-space: nowrap;
+}
+.ei_arbol-raiz {
+	list-style-type: none; 
+	white-space: nowrap;
+	width: 345px;
+	margin:0px; 
+	padding: 0px;
+}
+.ei_arbol-ver-prop {
+	text-decoration: none;
+}
+.ei_arbol-ver-prop:hover {
+	text-decoration: underline;
+}
+.ei_arbol-nodo {
+}
+.ei_arbol-exp-contr {
+	cursor: hand;
+	cursor: pointer;
+}

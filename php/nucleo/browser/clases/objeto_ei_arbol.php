@@ -9,6 +9,7 @@ class objeto_ei_arbol extends objeto_ei
 	protected $nivel_apertura = 1;
 	protected $puede_sacar_foto = true;
 	protected $foto_seleccionada = array();
+	protected $frame_destino = null;
 
     function __construct($id)
     {
@@ -28,7 +29,6 @@ class objeto_ei_arbol extends objeto_ei
 		parent::destruir();
 	}
 
-
 	function inicializar($parametros)
 	{
 		$this->id_en_padre = $parametros['id'];		
@@ -44,9 +44,24 @@ class objeto_ei_arbol extends objeto_ei
 		$this->foto_seleccionada = $datos_foto;
 	}
 	
+	function set_nivel_apertura($nivel)
+	{
+		$this->nivel_apertura = $nivel;
+	}
+	
+	function set_puede_sacar_foto($puede)
+	{
+		$this->puede_sacar_foto = $puede;
+	}
+	
 	function set_mostrar_raiz($mostrar)
 	{
 		$this->mostrar_raiz = $mostrar;
+	}
+	
+	function set_frame_destino($frame)
+	{
+		$this->frame_destino = $frame;
 	}
 	
     function cargar_datos($nodo=null, $memorizar=true)
@@ -72,7 +87,7 @@ class objeto_ei_arbol extends objeto_ei
 			if(isset($this->memoria['eventos'][$evento]) ) {
 				//Se selecciono algo??
 				$parametros = null;
-				if ($evento == 'seleccion' && isset($_POST[$this->submit."__seleccion"])) {
+				if ($evento == 'ver_propiedades' && isset($_POST[$this->submit."__seleccion"])) {
 					$this->reportar_evento( $evento, $_POST[$this->submit."__seleccion"] );
 				}
 				if ($evento=='sacar_foto'
@@ -100,9 +115,11 @@ class objeto_ei_arbol extends objeto_ei
 		if ($this->puede_sacar_foto) {
 			$salida .= form::hidden($this->submit."__foto_nombre", '');
 			$salida .= form::hidden($this->submit."__foto_datos", '');
+			$salida .= "<span style='float:right'>";
 			$salida .= "<a href='#' onclick='{$this->objeto_js}.sacar_foto()' 
 									title='Saca una foto para poder recrear el estado del árbol'>".
 									recurso::imagen_apl('arbol/foto.gif', true)."</a>";
+			$salida .= "</span>";
 			$salida .= "<br><br>";
 		}
 		if ($this->nodo_inicial != null) {
@@ -128,7 +145,7 @@ class objeto_ei_arbol extends objeto_ei
 				$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
 							 class='ei_arbol-exp-contr'> ";
 			} else {
-				$salida .= gif_nulo(16,1);
+				$salida .= gif_nulo(14,1);
 			}
 			$salida .= $this->mostrar_iconos($nodo);
 			
@@ -173,7 +190,7 @@ class objeto_ei_arbol extends objeto_ei
 		foreach ($nodo->iconos() as $icono) {
 			$img = recurso::imagen($icono['imagen'], null, null, $icono['ayuda']);
 			if (isset($icono['vinculo'])) {
-				$salida .= "<a href='".$icono['vinculo']."'>$img</a>\n";
+				$salida .= "<a target='{$this->frame_destino}' href='".$icono['vinculo']."'>$img</a>\n";
 			} else {
 				$salida .= $img."\n";
 			}
@@ -187,7 +204,7 @@ class objeto_ei_arbol extends objeto_ei
 		foreach ($nodo->utilerias() as $utileria) {
 			$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
 			if (isset($utileria['vinculo'])) {
-				$salida .= "<a href='".$utileria['vinculo']."'>$img</a>\n";
+				$salida .= "<a target='{$this->frame_destino}' href='".$utileria['vinculo']."'>$img</a>\n";
 			} else {
 				$salida .= $img;
 			}

@@ -45,7 +45,10 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 	
 	function nombre_corto()
 	{
-		return str_replace('&', '', $this->datos['etiqueta']);
+		if ($this->datos['etiqueta'] != '')
+			return str_replace('&', '', $this->datos['etiqueta']);
+		else
+			return $this->id();
 	}
 	
 	function nombre_largo()

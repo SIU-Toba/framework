@@ -24,7 +24,12 @@ class logger
 	private $niveles;
 	private $proximo = 0;
 	private $datos_registrados = false;
+	static $ocultar = false;
 
+	static function ocultar()
+	{
+		self::$ocultar = true;
+	}
 	
 	function __construct($solicitud)
 	{
@@ -205,7 +210,7 @@ class logger
 
 	function mostrar_pantalla()
 	{
-		if(apex_pa_log_pantalla){
+		if(apex_pa_log_pantalla && ! self::$ocultar){
 			$hay_salida = false;
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
 			$html = "<div id='logger_salida'> <table width='90%'><tr><td>";

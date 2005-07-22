@@ -1,9 +1,11 @@
 <?
 require_once("elemento.php");
 require_once("elemento_objeto.php");
+require_once("nucleo/lib/item.php");
 
 class elemento_item extends elemento implements recorrible_como_arbol
 {
+	protected $item;
 	
 	function __construct()
 	{
@@ -13,6 +15,9 @@ class elemento_item extends elemento implements recorrible_como_arbol
 	
 	function cargar_db_subelementos()
 	{
+		//Cableado de apis de items
+		$this->item = new item($this->datos['apex_item'][0]);
+	
 		//Si hay objetos asociados...
 		if(isset($this->datos['apex_item_objeto']))
 		{
@@ -80,12 +85,12 @@ class elemento_item extends elemento implements recorrible_como_arbol
 	
 	function iconos()
 	{
-		return array();
+		return $this->item->iconos();
 	}
 	
 	function utilerias()
 	{
-		return array();	
+		return $this->item->utilerias();	
 	}
 }
 ?>

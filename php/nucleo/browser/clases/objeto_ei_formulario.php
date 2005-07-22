@@ -562,11 +562,9 @@ class objeto_ei_formulario extends objeto_ei
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";
-			echo "<tbody id='cuerpo_{$this->objeto_js}' style='filter:blendTrans(duration=1);'>\n";
-			echo "<tr><td>";
+			echo "<tr><td><div id='cuerpo_{$this->objeto_js}'>";
 			$this->generar_formulario();	
-			echo "</td></tr>\n";
-			echo "</tbody>\n";
+			echo "</div></td></tr>\n";
 			echo "</table>\n";
 			$this->flag_out = true;
 		}
