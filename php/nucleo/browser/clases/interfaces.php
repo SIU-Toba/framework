@@ -1,18 +1,19 @@
 <?
 
+//Nodo de un arbol
 interface recorrible_como_arbol
 {
-	public function hijos();
-	public function es_hoja();
-	
-	public function iconos();
-	public function utilerias();
-	
-	public function nombre_corto();
-	public function nombre_largo();	
-	public function id();
-	public function tiene_propiedades();
-	
+	public function es_hoja();				//¿Posee algún hijo?
+	public function hijos();			 	//Arreglo con los hijos recorrible_como_arbol
+	public function tiene_propiedades();	//¿El nodo tiene propiedades extra a mostrar?
+	public function id();					//Forma de identificar al nodo
+	public function nombre_corto();			//Nombre corto del nodo
+	public function nombre_largo();			//Nombre largo sólo disponible para ayudas o vistas mas directas
+	public function iconos(); 				//Arreglo de iconos asociados al nodo
+	public function utilerias();			//Arreglo de utilerias (similares a los iconos pero secundarios
+	//Formato de nodos y utilerias:
+	//	array('imagen' => , 'ayuda' => ,  'vinculo' => )
+									
 }
 
 interface ei

@@ -163,10 +163,11 @@ class eventos
 
 	//----------------------------------------------------
 	//---Varios
-	static function refrescar()
+	static function refrescar($etiqueta = "&Refrescar")
 	{
-		$refrescar = eventos::duplicar(eventos::ci_procesar("&Refrescar"), 'refrescar');	
+		$refrescar = eventos::duplicar(eventos::ci_procesar($etiqueta), 'refrescar');	
 		$refrescar['refrescar']['imagen'] = recurso::imagen_apl('refrescar.gif');	
+		$refrescar['refrescar']['ayuda'] = 'Refrescar';
 		return $refrescar;
 	}
 	

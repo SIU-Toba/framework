@@ -1179,6 +1179,31 @@ CREATE TABLE apex_usuario_grupo_acc_item
 	CONSTRAINT	"apex_usu_item_fk_us_gru_acc"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
   
+--#################################################################################################
+
+CREATE TABLE apex_arbol_items_fotos
+
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: usuario, foto_nombre
+--: dump_where:
+--: zona: usuario
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)		NOT NULL, 
+	usuario								varchar(20)		NOT NULL,
+	foto_nombre							varchar(100)	NOT NULL,
+	foto_nodos_visibles					varchar			NULL,
+	foto_opciones						varchar			NULL,
+  CONSTRAINT "apex_arbol_items_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre"),
+  CONSTRAINT "apex_arbol_items_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
+    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+
  
 --**************************************************************************************************
 --**************************************************************************************************

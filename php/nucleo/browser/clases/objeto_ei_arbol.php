@@ -6,6 +6,9 @@ class objeto_ei_arbol extends objeto_ei
 	protected $nodo_inicial;
 	protected $item_propiedades = array();
 	protected $mostrar_raiz = true;
+	protected $nivel_apertura = 1;
+	protected $puede_sacar_foto = true;
+	protected $foto_seleccionada = array();
 
     function __construct($id)
     {
@@ -36,6 +39,11 @@ class objeto_ei_arbol extends objeto_ei
 		$this->item_propiedades = $id_item;
 	}
 	
+	function set_foto($datos_foto)	//$datos_foto = array('id_nodo' => boolean, ...)
+	{
+		$this->foto_seleccionada = $datos_foto;
+	}
+	
 	function set_mostrar_raiz($mostrar)
 	{
 		$this->mostrar_raiz = $mostrar;
@@ -46,30 +54,40 @@ class objeto_ei_arbol extends objeto_ei
 		$this->nodo_inicial = $nodo;
 	}
 	
-	function recuperar_interaccion()
-	{
-	}
-
 	function get_lista_eventos()
 	{
 		$eventos = array();
 		$eventos += eventos::ver_propiedades();
+		if ($this->puede_sacar_foto) {
+			$eventos += eventos::evento_estandar('sacar_foto', '', true);
+		}
 		return $eventos;
 	}
 	
 	function disparar_eventos()
 	{
-		$this->recuperar_interaccion();
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];	
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->memoria['eventos'][$evento]) ) {
 				//Se selecciono algo??
 				$parametros = null;
-				if (isset($_POST[$this->submit."__seleccion"])) {
-					$parametros = $_POST[$this->submit."__seleccion"];
+				if ($evento == 'seleccion' && isset($_POST[$this->submit."__seleccion"])) {
+					$this->reportar_evento( $evento, $_POST[$this->submit."__seleccion"] );
 				}
-				$this->reportar_evento( $evento, $parametros );
+				if ($evento=='sacar_foto'
+								&& isset($_POST[$this->submit."__foto_nombre"]) 
+								&& isset($_POST[$this->submit."__foto_datos"])) {
+					$nombre = $_POST[$this->submit."__foto_nombre"];
+					$datos = $_POST[$this->submit."__foto_datos"];
+					$pares = explode("||", $datos);
+					$nodos = array();
+					foreach ($pares as $par) {
+						list($id, $visible) = explode("=", $par);
+						$nodos[$id] = $visible;
+					}
+					$this->reportar_evento( $evento, $nombre, $nodos );
+				}
 			}
 		}
 	}
@@ -79,47 +97,41 @@ class objeto_ei_arbol extends objeto_ei
 		$salida = "";
 		$salida .= form::hidden($this->submit, '');
 		$salida .= form::hidden($this->submit."__seleccion", '');
+		if ($this->puede_sacar_foto) {
+			$salida .= form::hidden($this->submit."__foto_nombre", '');
+			$salida .= form::hidden($this->submit."__foto_datos", '');
+			$salida .= "<a href='#' onclick='{$this->objeto_js}.sacar_foto()' 
+									title='Saca una foto para poder recrear el estado del árbol'>".
+									recurso::imagen_apl('arbol/foto.gif', true)."</a>";
+			$salida .= "<br><br>";
+		}
 		if ($this->nodo_inicial != null) {
-	//		$salida .= "<span style='float:right'>Niveles:<select><option>1</option><option>2</option></select></span>";
-			$salida .= "<ul class='ei_arbol-raiz' style=''>";
+			$salida .= "<ul id='{$this->objeto_js}_nodo_raiz' class='ei_arbol-raiz'>";
 			$salida .= $this->recorrer_recursivo($this->nodo_inicial, true);		
 			$salida .= "</ul>";
 		}
 		echo $salida;
 	}
 	
-	function recorrer_recursivo(recorrible_como_arbol $nodo, $es_raiz = false)
+	protected function recorrer_recursivo(recorrible_como_arbol $nodo, $es_raiz = false, $nivel = 0)
 	{
+		//Determina si el nodo es visible en la foto
+		$es_visible = $this->nodo_es_visible($nodo, $nivel);
 		$salida = "<li class='ei_arbol-nodo'>";
 		if (!$es_raiz || $this->mostrar_raiz) {
-			//Barra de utileria
-			$salida .= "<span style='float: right'>";
-			foreach ($nodo->utilerias() as $utileria) {
-				$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
-				if (isset($utileria['vinculo'])) {
-					$salida .= "<a href='".$utileria['vinculo']."'>$img</a>\n";
-				} else {
-					$salida .= $img;
-				}
-			}
-			$salida .= "</span>";
-			//Expandir / Contraer
+			$salida .= $this->mostrar_utilerias($nodo);
 			if (! $nodo->es_hoja()) {
-				$salida .= "<img src='".recurso::imagen_apl('arbol/contraer.gif', false)."' 
-						onclick='{$this->objeto_js}.cambiar_expansion(this);' style='cursor:hand'> ";
+				if ($es_visible)
+					$img_exp_contr = recurso::imagen_apl('arbol/contraer.gif', false); 
+				else
+					$img_exp_contr = recurso::imagen_apl('arbol/expandir.gif', false);
+				$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
+							 class='ei_arbol-exp-contr'> ";
 			} else {
 				$salida .= gif_nulo(16,1);
 			}
-				
-			//Barra de Iconos
-			foreach ($nodo->iconos() as $icono) {
-				$img = recurso::imagen($icono['imagen'], null, null, $icono['ayuda']);
-				if (isset($icono['vinculo'])) {
-					$salida .= "<a href='".$icono['vinculo']."'>$img</a>\n";
-				} else {
-					$salida .= $img."\n";
-				}
-			}
+			$salida .= $this->mostrar_iconos($nodo);
+			
 			//Nombre
 			$corto = $this->acortar_nombre($nodo->nombre_corto());
 			$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
@@ -133,9 +145,11 @@ class objeto_ei_arbol extends objeto_ei
 		}
 		//Recursividad
 		if (! $nodo->es_hoja()) {
-			$salida .= "<ul class='ei_arbol-rama'>";
+			$estilo =  ($es_visible) ? "" : "style='display:none'";
+			$salida .= "<ul id_nodo='{$nodo->id()}' class='ei_arbol-rama' $estilo>";
+			$nivel = $nivel + 1;
 			foreach ($nodo->hijos() as $nodo_hijo) {
-				$salida .= $this->recorrer_recursivo($nodo_hijo);
+				$salida .= $this->recorrer_recursivo($nodo_hijo, false, $nivel);
 			}
 			$salida .= "</ul>";
 		}
@@ -143,8 +157,46 @@ class objeto_ei_arbol extends objeto_ei
 		return $salida;
 	}
 	
+	protected function nodo_es_visible($nodo, $nivel)
+	//Determina si un nodo es visible viendo en la foto
+	{
+		if (isset($this->foto_seleccionada[$nodo->id()])) {
+			return $this->foto_seleccionada[$nodo->id()];
+		}
+		//Si no esta en la foto se determina por el nivel de apertura estandar
+		return ($nivel < $this->nivel_apertura);
+	}
+	
+	protected function mostrar_iconos($nodo)
+	{
+		$salida = '';
+		foreach ($nodo->iconos() as $icono) {
+			$img = recurso::imagen($icono['imagen'], null, null, $icono['ayuda']);
+			if (isset($icono['vinculo'])) {
+				$salida .= "<a href='".$icono['vinculo']."'>$img</a>\n";
+			} else {
+				$salida .= $img."\n";
+			}
+		}	
+		return $salida;
+	}
+	
+	protected function mostrar_utilerias($nodo)
+	{
+		$salida = "<span style='float: right'>";
+		foreach ($nodo->utilerias() as $utileria) {
+			$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
+			if (isset($utileria['vinculo'])) {
+				$salida .= "<a href='".$utileria['vinculo']."'>$img</a>\n";
+			} else {
+				$salida .= $img;
+			}
+		}
+		$salida .= "</span>";
+		return $salida;
+	}
 
-	function acortar_nombre($nombre) 
+	protected function acortar_nombre($nombre) 
 	{
 		$limite = 30;
 		if (strlen($nombre) <= $limite)

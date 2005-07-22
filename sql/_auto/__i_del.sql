@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_objeto_html ;
@@ -91,6 +91,7 @@ DELETE FROM apex_item_proto ;
 DELETE FROM apex_nucleo_info ;
 DELETE FROM apex_nucleo ;
 DELETE FROM apex_nucleo_tipo ;
+DELETE FROM apex_arbol_items_fotos ;
 DELETE FROM apex_usuario_grupo_acc_item ;
 DELETE FROM apex_vinculo ;
 DELETE FROM apex_vinculo_tipo ;

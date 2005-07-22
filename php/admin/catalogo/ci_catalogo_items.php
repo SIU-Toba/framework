@@ -9,9 +9,11 @@ class ci_catalogo_items extends objeto_ci
 	protected $catalogador; 
 	protected $opciones;
 	protected $item_seleccionado;
+	protected $foto_seleccionada;
 	
 	function __construct($id)
 	{
+		$this->foto_seleccionada = array();
 		parent::__construct($id);
 		$this->catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
 		$this->catalogador->ordenar();
@@ -21,6 +23,8 @@ class ci_catalogo_items extends objeto_ci
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "item_seleccionado";
+		$propiedades[] = "foto_seleccionada";
+		$propiedades[] = "opciones";
 		return $propiedades;
 	}
 	
@@ -64,10 +68,9 @@ class ci_catalogo_items extends objeto_ci
 
 	function evt__filtro__carga()
 	{
+		$this->dependencias['filtro']->colapsar();
 		if (isset($this->opciones))
 			return $this->opciones;
-		else
-			$this->dependencias['filtro']->colapsar();
 	}
 	
 	function evt__filtro__filtrar($datos)
@@ -78,6 +81,11 @@ class ci_catalogo_items extends objeto_ci
 	function evt__items__carga()
 	{
 		$this->dependencias['items']->set_item_propiedades(array('toba','/admin/items/composicion_item'));
+		//¿Hay foto seleccionada?
+		if (isset($this->foto_seleccionada)) {
+			$this->dependencias['items']->set_foto($this->foto_seleccionada);
+		}
+		//Aplicación de los filtros
 		if (isset($this->opciones)) {
 			if (isset($this->opciones['inicial'])) {
 				$this->catalogador->set_carpeta_inicial($this->opciones['inicial']);
@@ -115,7 +123,37 @@ class ci_catalogo_items extends objeto_ci
 		$item->cargar_db(toba::get_hilo()->obtener_proyecto(), $this->item_seleccionado);	
 //		$this->dependencias['objetos']->set_mostrar_raiz(false);
 		return $item;
-	}	
+	}
+	
+	function evt__items__sacar_foto($nombre, $datos_foto)
+	{
+		$this->catalogador->agregar_foto($nombre, $datos_foto, $this->opciones);
+		$this->evt__fotos__seleccion($nombre);
+	}
+	
+	function evt__fotos__carga()
+	{
+		$fotos = $this->catalogador->fotos();
+		if (count($fotos) > 0) {
+			$this->dependencias['fotos']->colapsar();
+			return $fotos;
+		}
+	}
+	
+	function evt__fotos__seleccion($foto_nombre)
+	{
+		foreach ($this->catalogador->fotos() as $foto) {
+			if ($foto['foto_nombre'] == $foto_nombre) {
+				$this->foto_seleccionada = $foto['foto_nodos_visibles'];
+				$this->opciones = $foto['foto_opciones'];
+			}
+		}
+	}
+	
+	function evt__fotos__baja($nombre)
+	{
+		$this->catalogador->borrar_foto($nombre);
+	}
 
 }
 

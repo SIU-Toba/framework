@@ -20,6 +20,10 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 			if (this._evento.id == 'ver_propiedades') {
 				document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
 			}
+			if (this._evento.id == 'sacar_foto') {
+				document.getElementById(this._input_submit + '__foto_nombre').value = this._evento.parametros[0];
+				document.getElementById(this._input_submit + '__foto_datos').value = this._evento.parametros[1];				
+			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;			
 		}		
@@ -53,6 +57,42 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 		requester.onreadystatechange = stateHandler;*/
 	}
 
+	def.sacar_foto = function() {
+		var nombre = prompt('Nombre de la foto', 'nombre de la foto');
+		if (nombre != null && nombre != '') {
+			datos_foto = this.datos_foto();
+			var datos_join = [];
+			for (id in datos_foto) {
+				valor = id;
+				if (datos_foto[id])
+					valor += '=1';
+				else
+					valor += '=0';
+				datos_join.push(valor);
+			}
+			var datos_foto_join = datos_join.join('||');
+			this.set_evento( new evento_ei('sacar_foto', true, '', [nombre, datos_foto_join]));
+		}
+	}
+	
+	def.datos_foto = function() {
+		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
+		var datos = new Object();
+		this.datos_foto_recursivo(raiz, datos);
+		return datos;
+	}
+	
+	def.datos_foto_recursivo = function(nodo, datos) {
+		if (nodo.id_nodo) {
+			datos[nodo.id_nodo] = (nodo.style.display != 'none');
+		}
+		//Recorre los <ul> de este nodo
+		for (var i=0; i < nodo.childNodes.length; i++) {
+			var hijo = nodo.childNodes[i];
+			if (hijo.tagName == 'UL' || hijo.tagName =='LI')
+				this.datos_foto_recursivo(hijo, datos);
+		}			
+	}
 	
 	def.cambiar_expansion = function(nodo) {
 		ul = this.buscar_primer_ul(nodo.parentNode);

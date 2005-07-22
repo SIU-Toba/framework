@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
 VACUUM VACUUM FULL ANALYSE apex_objeto_html;
@@ -91,6 +91,7 @@ VACUUM VACUUM FULL ANALYSE apex_item_proto;
 VACUUM VACUUM FULL ANALYSE apex_nucleo_info;
 VACUUM VACUUM FULL ANALYSE apex_nucleo;
 VACUUM VACUUM FULL ANALYSE apex_nucleo_tipo;
+VACUUM VACUUM FULL ANALYSE apex_arbol_items_fotos;
 VACUUM VACUUM FULL ANALYSE apex_usuario_grupo_acc_item;
 VACUUM VACUUM FULL ANALYSE apex_vinculo;
 VACUUM VACUUM FULL ANALYSE apex_vinculo_tipo;

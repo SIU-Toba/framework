@@ -90,6 +90,8 @@ class objeto_ei extends objeto
 		{
 			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
 				$tip = '';
+				if (isset($evento['ayuda']))
+					$tip = $evento['ayuda'];
 				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
 				$tab_order = 0;//Esto esta MAAL!!!
 				$acceso = tecla_acceso( $evento["etiqueta"] );
