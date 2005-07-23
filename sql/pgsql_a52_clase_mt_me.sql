@@ -72,7 +72,7 @@ CREATE TABLE apex_objeto_mt_me_etapa
 (
 	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
 	objeto_mt_me						int4				NOT NULL,
-	posicion							varchar(20)			NOT NULL,
+	posicion							smallint			NOT NULL,
 	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,
 	descripcion							varchar(255)		NULL,
@@ -92,29 +92,73 @@ CREATE TABLE apex_objeto_mt_me_etapa
 	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+--###################################################################################################
 
-CREATE TABLE apex_objeto_mt_me_etapa_dep
+CREATE SEQUENCE apex_obj_ci_pantalla_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_ci_pantalla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: objeto_mt_me,	posicion, objeto_consumidor
---: dump_where: (	objeto_mt_me_proyecto =	'%%' )
+--: dump_order_by: objeto_ci_proyecto, objeto_ci, pantalla
+--: dump_where: (	objeto_ci_proyecto =	'%%' )
 --: zona: objeto
 --: desc:
 --: historica:	0
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
-	objeto_mt_me						int4				NOT NULL,
-	posicion							smallint			NOT NULL,
+	objeto_ci_proyecto					varchar(15)			NOT NULL,
+	objeto_ci							int4				NOT NULL,
+	pantalla							int4				DEFAULT nextval('"apex_obj_ci_pantalla_seq"'::text) NOT NULL, 
+	identificador						varchar(20)			NOT NULL,
+	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
+	etiqueta							varchar(80)			NULL,
+	descripcion							varchar(255)		NULL,
+	tip									varchar(80)			NULL,
+	imagen_recurso_origen				varchar(10)			NULL,
+	imagen								varchar(60)			NULL,
+	objetos								varchar(80)			NULL, 	-- ya no se usan!
+	ev_procesar							smallint			NULL, 	-- Esta etapa muestra el boton procesar
+	ev_cancelar							smallint			NULL, 	-- Esta etapa muestra el boton cancelar
+	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("objeto_ci_proyecto","objeto_ci","pantalla"),
+	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
+
+-- 	pantalla
+
+-- 	posicion x identificador
+
+--	objetos_adhoc						varchar(80)			NULL, 	-- ya no se usan!
+--	pre_condicion						varchar(40)			NULL,	-- ya no se usan!
+--	post_condicion						varchar(40)			NULL,	-- ya no se usan!
+--	gen_interface_pre					varchar(40)			NULL,	-- ya no se usan!
+--	gen_interface_post					varchar(40)			NULL,	-- ya no se usan!
+
+--###################################################################################################
+
+CREATE TABLE apex_objeto_ci_pantalla_dep
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto_ci_proyecto, objeto_ci, pantalla
+--: dump_where: (	objeto_ci_proyecto =	'%%' )
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_ci_proyecto					varchar(15)			NOT NULL,
+	objeto_ci							int4				NOT NULL,
+	pantalla							int4				NOT NULL, 
 	proyecto							varchar(15)			NOT NULL,
 	objeto_consumidor					int4				NOT NULL,
 	identificador						varchar(20)			NOT NULL,
 	orden								float				NOT NULL,
-	CONSTRAINT	"apex_mt_me_dep__pk" PRIMARY KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion","proyecto","objeto_consumidor","identificador"),
-	CONSTRAINT	"apex_mt_me_dep__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion") REFERENCES	"apex_objeto_mt_me_etapa" ("objeto_mt_me_proyecto","objeto_mt_me","posicion") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_mt_me_dep__fk_dep" FOREIGN KEY ("proyecto","objeto_consumidor","identificador") REFERENCES	"apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_obj_ci_pan_dep__pk" PRIMARY KEY ("objeto_ci_proyecto","objeto_ci","pantalla","proyecto","objeto_consumidor","identificador"),
+	CONSTRAINT	"apex_obj_ci_pan_dep__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci","pantalla") REFERENCES	"apex_objeto_mt_me_etapa" ("objeto_mt_me_proyecto","objeto_mt_me","posicion") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_obj_ci_pan_dep__fk_dep" FOREIGN KEY ("proyecto","objeto_consumidor","identificador") REFERENCES	"apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
 );
 --###################################################################################################
-

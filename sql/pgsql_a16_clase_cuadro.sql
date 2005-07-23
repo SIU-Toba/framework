@@ -101,7 +101,7 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: objeto_cuadro, orden
+--: dump_order_by: objeto_cuadro, objeto_cuadro_col
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto
 --: desc:

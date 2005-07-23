@@ -99,8 +99,62 @@ CREATE TABLE apex_objeto_ut_formulario_ef
 	CONSTRAINT  "apex_ut_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+--###################################################################################################
 
+CREATE SEQUENCE apex_obj_ei_form_fila_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_ei_formulario_ef
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto_ut_formulario, identificador
+--: dump_where: ( objeto_ut_formulario_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_ei_formulario_proyecto    	varchar(15)		NOT NULL,
+	objeto_ei_formulario             	int4			NOT NULL,
+	objeto_ei_formulario_fila			int4			DEFAULT nextval('"apex_obj_ei_form_fila_seq"'::text) NOT NULL, 
+	identificador      					varchar(30)    	NOT NULL,
+	elemento_formulario     			varchar(30)    	NOT NULL,
+	columnas                			varchar(255)   	NOT NULL,
+	obligatorio             			smallint       	NULL,			
+	inicializacion          			varchar        	NULL,
+	orden                   			float       	NOT NULL,
+	etiqueta                			varchar(80)    	NULL,
+	descripcion             			varchar        	NULL,
+	colapsado							smallint		NULL,
+	desactivado             			smallint       	NULL,
+	estilo   				 			int4		    NULL,		
+	total								smallint		NULL,		
+	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario","objeto_ei_formulario_fila"),
+	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
 
+-- agregar:
 
+--	objeto_ei_formulario_fila
 
+-- modificar:
 
+--	objeto_ut_formulario_proyecto    x	objeto_ei_formulario_proyecto    
+--	objeto_ut_formulario             x	objeto_ei_formulario             
+--  lista_columna_estilo  x estilo
+
+-- eliminar:
+
+-- 	clave_primaria          			smallint       	NULL,			-- El contenido de este EF es parte de una clave primaria?
+--	listar		           				smallint       	NULL,
+--	lista_cabecera          			varchar(40)    	NULL,			-- Titulo del campo en la lista
+--	lista_orden							float       	NULL,
+--	lista_valor_sql         			varchar(40)    	NULL,			-- Campo SQL alternativo
+--	lista_valor_sql_formato    			int4		    NULL,			-- El valor del debe ser formateado
+--	lista_valor_sql_esp					varchar(40)	    NULL,			-- El valor del debe ser formateado CUSTOM
+--	lista_ancho							varchar(10)		NULL,
+--	clave_primaria_padre    			smallint       	NULL,			-- El contenido de este EF es parte de una clave primaria?
+--	no_sql								smallint		NULL,
