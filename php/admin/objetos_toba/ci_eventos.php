@@ -1,21 +1,19 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once("admin/db/autoload.php");
-
-class ci_editor extends objeto_ci
+/*
+	El controlador tiene que implementar 2 metodos:
+	
+		- get_dbr_eventos()
+		- get_eventos_estandar()		
+*/
+class ci_eventos extends objeto_ci
 {
 	//Eventos
 	private $db_registros;
 	protected $seleccion_evento;
 	protected $seleccion_evento_anterior;
 	private $id_intermedio_evento;
-
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($this->get_dbt()->elemento('columnas')->info(true),"COLUMNAS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
-	}
 
 	function mantener_estado_sesion()
 	{
@@ -28,19 +26,10 @@ class ci_editor extends objeto_ci
 	function get_dbr()
 	//Acceso al db_tablas
 	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = new dbt_objeto_ei_cuadro($this->info['fuente']);
+		if (! isset($this->db_registros)) {
+			$this->db_registros = $this->controlador->get_dbr_eventos();
 		}
-		return $this->db_tablas;
-	}
-
-	function get_eventos_estandar()
-	{
-		$evento[0]['identificador'] = "seleccion";
-		$evento[0]['etiqueta'] = "";
-		$evento[0]['imagen_recurso_origen'] = "apex";
-		$evento[0]['imagen'] = "doc.gif";	
-		return $evento;
+		return $this->db_registros;
 	}
 
 	//*******************************************************************
@@ -55,7 +44,7 @@ class ci_editor extends objeto_ci
 		return false;
 	}
 
-	function get_lista_ei__3()
+	function get_lista_ei()
 	{
 		$ei[] = "eventos_lista";
 		if( $this->mostrar_evento_detalle() ){
@@ -64,13 +53,13 @@ class ci_editor extends objeto_ci
 		return $ei;	
 	}
 	
-	function evt__salida__3()
+	function limpiar_seleccion()
 	{
 		unset($this->seleccion_evento);
 		unset($this->seleccion_evento_anterior);
 	}
-
-	function evt__post_cargar_datos_dependencias__3()
+	
+	function evt__post_cargar_datos_dependencias()
 	{
 		$evt = eventos::evento_estandar("init","Cargar EVENTOS estandar",true,null,null,true);
 		$this->dependencias["eventos_lista"]->agregar_evento( $evt );
@@ -96,7 +85,7 @@ class ci_editor extends objeto_ci
 
 		//FALT CONTROL : (Etiqueta o imagen) completa
 
-		$dbr = $this->get_dbt()->elemento("eventos");
+		$dbr = $this->get_dbr();
 		foreach(array_keys($registros) as $id)
 		{
 			//Creo el campo orden basado en el orden real de las filas
@@ -118,7 +107,7 @@ class ci_editor extends objeto_ci
 	
 	function evt__eventos_lista__carga()
 	{
-		return $this->get_dbt()->elemento('eventos')->get_registros(null, true);
+		return $this->get_dbr()->get_registros(null, true);
 	}
 
 	function evt__eventos_lista__seleccion($id)
@@ -131,10 +120,11 @@ class ci_editor extends objeto_ci
 	
 	function evt__eventos_lista__init()
 	{
-		foreach($this->get_eventos_estandar() as $evento)
+		$eventos = $this->controlador->get_eventos_estandar();
+		foreach($eventos as $evento)
 		{
 			try{
-				$this->get_dbt()->elemento("eventos")->agregar_registro($evento);
+				$this->get_dbr()->agregar_registro($evento);
 			}catch(excepcion_toba $e){
 				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
 			}
@@ -147,13 +137,13 @@ class ci_editor extends objeto_ci
 
 	function evt__eventos__modificacion($datos)
 	{
-		$this->get_dbt()->elemento('eventos')->modificar_registro($datos, $this->seleccion_evento_anterior);
+		$this->get_dbr()->modificar_registro($datos, $this->seleccion_evento_anterior);
 	}
 	
 	function evt__eventos__carga()
 	{
 		$this->seleccion_evento_anterior = $this->seleccion_evento;
-		return $this->get_dbt()->elemento('eventos')->get_registro($this->seleccion_evento_anterior);
+		return $this->get_dbr()->get_registro($this->seleccion_evento_anterior);
 	}
 
 	function evt__eventos__cancelar()
@@ -161,5 +151,6 @@ class ci_editor extends objeto_ci
 		unset($this->seleccion_evento);
 		unset($this->seleccion_evento_anterior);
 	}
+	//-----------------------------------------
 }
 ?>
