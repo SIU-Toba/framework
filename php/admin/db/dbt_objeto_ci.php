@@ -1,12 +1,12 @@
 <?
-require_once("admin/objetos_toba/dbt_objeto_toba.php");
-require_once("admin/objetos_toba/dbr_apex_objeto.php");
-require_once("admin/objetos_toba/dbr_apex_objeto_dependencias.php");
-require_once("dbr_apex_objeto_mt_me.php");
-require_once("dbr_apex_objeto_mt_me_etapa.php");
-require_once("dbr_apex_objeto_mt_me_etapa_dep.php");
+require_once("dbt_objeto.php");
+require_once("db_registros/dbr_apex_objeto.php");
+require_once("db_registros/dbr_apex_objeto_dependencias.php");
+require_once("db_registros/dbr_apex_objeto_mt_me.php");
+require_once("db_registros/dbr_apex_objeto_mt_me_etapa.php");
+require_once("db_registros/dbr_apex_objeto_mt_me_etapa_dep.php");
 
-class dbt_ci extends dbt_objeto_toba
+class dbt_objeto_ci extends dbt_objeto
 {
 	function __construct($fuente)
 	{

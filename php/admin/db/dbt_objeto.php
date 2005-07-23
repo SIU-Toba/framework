@@ -1,7 +1,7 @@
 <?
 require_once("nucleo/persistencia/db_tablas.php");
 
-class dbt_objeto_toba extends db_tablas
+class dbt_objeto extends db_tablas
 {
 	function evt__pre_sincronizacion()
 	{

@@ -11,19 +11,19 @@ class dbr_apex_objeto_ci_pantalla_dep extends db_registros_s
 		$def['tabla']='apex_objeto_ci_pantalla_dep';
 		$def['columna'][0]['nombre']='objeto_ci_proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto_ci';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='pantalla';
 		$def['columna'][2]['pk']='1';
-		$def['columna'][2]['no_nulo']='1';
+		//$def['columna'][2]['no_nulo']='1';
 		$def['columna'][3]['nombre']='proyecto';
 		$def['columna'][3]['pk']='1';
-		$def['columna'][3]['no_nulo']='1';
+		//$def['columna'][3]['no_nulo']='1';
 		$def['columna'][4]['nombre']='objeto_consumidor';
 		$def['columna'][4]['pk']='1';
-		$def['columna'][4]['no_nulo']='1';
+		//$def['columna'][4]['no_nulo']='1';
 		$def['columna'][5]['nombre']='identificador';
 		$def['columna'][5]['pk']='1';
 		$def['columna'][5]['no_nulo']='1';
@@ -34,12 +34,8 @@ class dbr_apex_objeto_ci_pantalla_dep extends db_registros_s
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_ci_proyecto = '{$id['objeto_ci_proyecto']}'";
-		$where[] = "objeto_ci = '{$id['objeto_ci']}'";
-		$where[] = "pantalla = '{$id['pantalla']}'";
-		$where[] = "proyecto = '{$id['proyecto']}'";
-		$where[] = "objeto_consumidor = '{$id['objeto_consumidor']}'";
-		$where[] = "identificador = '{$id['identificador']}'";
+		$where[] = "objeto_ci_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_ci = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }

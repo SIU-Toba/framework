@@ -106,8 +106,8 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: objeto_ut_formulario, identificador
---: dump_where: ( objeto_ut_formulario_proyecto = '%%' )
+--: dump_order_by: objeto_ei_formulario, identificador
+--: dump_where: ( objeto_ei_formulario_proyecto = '%%' )
 --: zona: objeto
 --: desc:
 --: historica: 0

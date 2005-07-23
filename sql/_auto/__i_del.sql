@@ -1,16 +1,18 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_objeto_html ;
 DELETE FROM apex_objeto_esquema ;
 DELETE FROM apex_objeto_negocio_regla ;
 DELETE FROM apex_objeto_negocio ;
-DELETE FROM apex_objeto_mt_me_etapa_dep ;
+DELETE FROM apex_objeto_ci_pantalla_dep ;
+DELETE FROM apex_objeto_ci_pantalla ;
 DELETE FROM apex_objeto_mt_me_etapa ;
 DELETE FROM apex_objeto_mt_me ;
 DELETE FROM apex_objeto_mt_me_tipo_nav ;
 DELETE FROM apex_objeto_multicheq ;
+DELETE FROM apex_objeto_ei_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario ;
 DELETE FROM apex_objeto_plan_linea ;

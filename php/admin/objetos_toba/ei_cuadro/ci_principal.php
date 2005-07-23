@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("admin/objetos_toba/autoload.php");
+require_once("admin/db/autoload.php");
 
 class ci_editor extends objeto_ci
 {
@@ -36,8 +36,8 @@ class ci_editor extends objeto_ci
 	//Acceso al db_tablas
 	{
 		if (! isset($this->db_tablas)) {
-			$this->db_tablas = new dbt_ei_cuadro($this->info['fuente']);
-			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1382') );
+			$this->db_tablas = new dbt_objeto_ei_cuadro($this->info['fuente']);
+			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1384') );
 		}
 		return $this->db_tablas;
 	}

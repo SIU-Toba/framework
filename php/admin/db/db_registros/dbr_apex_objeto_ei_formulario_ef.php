@@ -11,10 +11,10 @@ class dbr_apex_objeto_ei_formulario_ef extends db_registros_s
 		$def['tabla']='apex_objeto_ei_formulario_ef';
 		$def['columna'][0]['nombre']='objeto_ei_formulario_proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto_ei_formulario';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='objeto_ei_formulario_fila';
 		$def['columna'][2]['pk']='1';
 		$def['columna'][2]['secuencia']='apex_obj_ei_form_fila_seq';
@@ -39,9 +39,8 @@ class dbr_apex_objeto_ei_formulario_ef extends db_registros_s
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "objeto_ei_formulario_proyecto = '{$id['objeto_ei_formulario_proyecto']}'";
-		$where[] = "objeto_ei_formulario = '{$id['objeto_ei_formulario']}'";
-		$where[] = "objeto_ei_formulario_fila = '{$id['objeto_ei_formulario_fila']}'";
+		$where[] = "objeto_ei_formulario_proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_ei_formulario = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }

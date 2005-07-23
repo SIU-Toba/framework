@@ -3,7 +3,7 @@
 //Fuente de datos: 'instancia'
 require_once('nucleo/persistencia/db_registros_s.php');
 
-class dbr_apex_objeto_cuadro_columna extends db_registros_s
+class dbr_apex_objeto_ei_cuadro_columna extends db_registros_s
 //db_registros especifico de la tabla 'apex_objeto_cuadro_columna'
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
