@@ -3,11 +3,11 @@ require_once("db_registros.php");
 
 class db_registros_s extends db_registros
 {
-	private $tabla;							// Tablas manejadas
-	private $alias;							// Alias de la tabla
-	private $campos_sql;					// Campos utilizados para generar SQL
-	private $campos_sql_select;				// Lista de campos utilizada para realizar el SELECT
-	private $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
+	protected $tabla;							// Tablas manejadas
+	protected $alias;							// Alias de la tabla
+	protected $campos_sql;					// Campos utilizados para generar SQL
+	protected $campos_sql_select;				// Lista de campos utilizada para realizar el SELECT
+	protected $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
 
 	public function validar_definicion()
 	{
