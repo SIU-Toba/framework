@@ -7,6 +7,11 @@ class toba_dbt
 	{
 		return new dbt_objeto_ei_cuadro("instancia");	
 	}
+
+	function objeto_ei_formulario_ml()
+	{
+		return new dbt_objeto_ei_formulario_ml("instancia");	
+	}
 	
 }
 ?>

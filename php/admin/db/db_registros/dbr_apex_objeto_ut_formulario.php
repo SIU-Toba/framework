@@ -11,10 +11,11 @@ class dbr_apex_objeto_ut_formulario extends db_registros_s
 		$def['tabla']='apex_objeto_ut_formulario';
 		$def['columna'][0]['nombre']='objeto_ut_formulario_proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto_ut_formulario';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
+/*
 		$def['columna'][2]['nombre']='tabla';
 		$def['columna'][3]['nombre']='titulo';
 		$def['columna'][4]['nombre']='ev_agregar';
@@ -29,8 +30,9 @@ class dbr_apex_objeto_ut_formulario extends db_registros_s
 		$def['columna'][13]['nombre']='clase_proyecto';
 		$def['columna'][14]['nombre']='clase';
 		$def['columna'][15]['nombre']='auto_reset';
-		$def['columna'][16]['nombre']='ancho';
 		$def['columna'][17]['nombre']='campo_bl';
+*/
+		$def['columna'][16]['nombre']='ancho';
 		$def['columna'][18]['nombre']='scroll';
 		$def['columna'][19]['nombre']='filas';
 		$def['columna'][20]['nombre']='filas_agregar';
