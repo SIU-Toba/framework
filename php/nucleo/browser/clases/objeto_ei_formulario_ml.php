@@ -13,6 +13,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 {
 	protected $datos;
 	protected $lista_ef_totales = array();
+	protected $clave_seleccionada;					//Id de la fila seleccionada
 	protected $siguiente_id_fila;				//Autoincremental que se va a asociar al ef que identifica una fila
 	protected $filas_enviadas;					//Lista de filas enviadas al cliente
 	protected $filas_recibidas;					//Lista de filas recibidas desde el cliente	
@@ -110,6 +111,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		return $sql;
 	}
 	
+//--------------------------------------------------------------------------	
 	function set_metodo_analisis($metodo)
 	{
 		switch ($metodo)
@@ -127,6 +129,19 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				$this->eventos_granulares = false;
 		}	
 	}
+	
+//--------------------------------------------------------------------------
+	function deseleccionar()
+	{
+		unset($this->clave_seleccionada);
+	}
+
+//--------------------------------------------------------------------------
+	function seleccionar($clave)
+	{
+		$this->clave_seleccionada = $clave;
+	}
+		
 	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -178,10 +193,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				//Si Tiene parametros, es uno a nivel de fila
 				if ($parametros != '') {
 					//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
-					if ($maneja_datos && !$this->eventos_granulares)
+					if ($maneja_datos && !$this->eventos_granulares) {
 						$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );
+					}
 					//Reporto el evento a nivel de fila
-					$this->reportar_evento( $evento, $this->obtener_clave_fila($parametros));
+					$this->clave_seleccionada = $this->obtener_clave_fila($parametros);
+					$this->reportar_evento( $evento, $this->clave_seleccionada);
 				} elseif (!$this->eventos_granulares) {
 					//Si no tiene parametros particulares, ellos son los valores de las filas
 					if ($maneja_datos)
@@ -312,6 +329,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 	function cargar_estado_ef($array_ef)
 	{
+		throw new excepcion_toba("No esta implementado en el multilínea");
 		//ATENCION: En un multilinea esto es distinto. FALTA
 	}
 	//-------------------------------------------------------------------------------
@@ -583,11 +601,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$this->datos["__fila__"] = array();
 		$a = 0;
 		foreach ($this->datos as $fila =>$dato) {
+			//Si la fila es el template ocultarla
 			if ($fila !== "__fila__") {
 				$this->filas_enviadas[] = $fila;
 				$estilo = "";
 			} else {
 					$estilo = "style='display:none;'";
+			}
+			//Determinar el estilo de la fila
+			if (isset($this->clave_seleccionada) && $fila == $this->clave_seleccionada) {
+				$estilo_fila = "abm-fila-ml-selec";				
+			} else {
+				$estilo_fila = "abm-fila-ml";
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
 			
@@ -595,13 +620,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "\n<!-- FILA $fila -->\n\n";
 			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->info_formulario['filas_numerar']) {
-				echo "<td class='abm-fila-ml'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
+				echo "<td class='$estilo_fila'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}
 			foreach ($this->lista_ef_post as $ef){
 				$this->elemento_formulario[$ef]->establecer_id_form($fila);
 				$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
-				echo "<td  class='abm-fila-ml' id='cont_$id_form'>\n";
+				echo "<td  class='$estilo_fila' id='cont_$id_form'>\n";
 				echo $this->elemento_formulario[$ef]->obtener_input();
 				echo "</td>\n";
 			}
@@ -609,7 +634,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			//Para el caso particular del ML, aquellos que manejan datos disparan un modificacion tambien (si es que lo hay)
 			foreach ($this->eventos as $id => $evento) {
 				if ($evento['sobre_fila']) {
-					echo "<td class='abm-fila-ml'>\n";
+					echo "<td class='$estilo_fila'>\n";
 					$evento_js = eventos::a_javascript($id, $evento, $fila);
 					$js = "{$this->objeto_js}.set_evento($evento_js);";
 					echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
@@ -681,10 +706,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$identado = js::instancia()->identado();
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$con_agregar = ($this->info_formulario['filas_agregar']) ? "true" : "false";
 		$filas = js::arreglo($this->filas_enviadas);
+		$seleccionada = (isset($this->clave_seleccionada)) ? $this->clave_seleccionada : "null";
 		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml";
-		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $con_agregar);\n";
+		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

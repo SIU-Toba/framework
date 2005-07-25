@@ -24,8 +24,9 @@ def.constructor = ef;
 	}	
 	
 	def.submit = function () {
-		if (this.input().disabled)
-			this.input().disabled = false;
+		var input = this.input();
+		if (input && input.disabled)
+			input.disabled = false;
 	}		
 	
 	//---Consultas	
@@ -139,7 +140,8 @@ def.constructor = ef;
 	
 	
 	def.cambiar_tab = function(tab_index) {
-		this.input().tabIndex = tab_index;
+		if (this.input())
+			this.input().tabIndex = tab_index;
 	}
 	
 	def.cambiar_valor = function(nuevo) {
@@ -150,7 +152,8 @@ def.constructor = ef;
 	
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
-		addEvent(this.input(), 'onchange', callback);
+		if (this.input())
+			addEvent(this.input(), 'onchange', callback);
 	}
 
 	//Multiplexacion, permite tener varias instancias del ef

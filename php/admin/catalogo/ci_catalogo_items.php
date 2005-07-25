@@ -13,6 +13,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function __construct($id)
 	{
+		toba::get_hilo()->desactivar_reciclado();
 		logger::ocultar();
 		$this->foto_seleccionada = array();
 		parent::__construct($id);
@@ -130,9 +131,7 @@ class ci_catalogo_items extends objeto_ci
 		$this->dependencias['objetos']->set_puede_sacar_foto(false);
 		$this->dependencias['objetos']->set_nivel_apertura(3);		
 		$item = new elemento_item();
-//		$this->item->cargar_db('comechingones', '803');
 		$item->cargar_db(toba::get_hilo()->obtener_proyecto(), $this->item_seleccionado);	
-//		$this->dependencias['objetos']->set_mostrar_raiz(false);
 		return $item;
 	}
 	

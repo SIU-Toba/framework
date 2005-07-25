@@ -141,7 +141,7 @@ class ef_combo extends ef
 		//Reseteo las dependencias	
 		if(isset($this->dependientes)){
 			foreach($this->dependientes as $dependiente){
-				$js .= " reset_{$dependiente}();\n";
+				$js .= " reset_{$dependiente}{$this->agregado_form}();\n";
 			}
 		}
 		$js .= "}\n";

@@ -20,7 +20,10 @@ class elemento_objeto_ci extends elemento_objeto
 		$pantallas = array();
 		if (isset($this->datos['apex_objeto_mt_me_etapa'])) {
 			foreach ($this->datos['apex_objeto_mt_me_etapa'] as $pantalla) {
-				$pantallas[] = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
+				$pantalla = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
+				//Una pantalla que no tiene nada no interesa en la vista de arbol
+				if (! $pantalla->es_hoja())
+					$pantallas[] = $pantalla;
 			}
 		}
 		//Busca Dependencias libres
@@ -28,14 +31,15 @@ class elemento_objeto_ci extends elemento_objeto
 		foreach ($this->subelementos as $dependencia) {
 			$libre = true;
 			foreach ($pantallas as $pantalla) {
-				if ($pantalla->tiene_dependencia($dependencia))
+				if ($pantalla->tiene_dependencia($dependencia)) {
 					$libre = false;
+				}
 			}
 			if ($libre) {
 				$dependencias_libres[] = $dependencia;
 			}
 		}
-		return $pantallas + $dependencias_libres;
+		return array_merge($pantallas, $dependencias_libres);
 	}	
 
 	function eventos_predefinidos()

@@ -15,6 +15,7 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 	protected function asociar_dependencias($posibles)
 	{
 		$eis = explode(',', $this->datos['objetos']);
+		$eis = array_map('trim', $eis);
 		foreach ($posibles as $posible) {
 			if (in_array($posible->rol_en_consumidor(), $eis)) {
 				$this->dependencias[] = $posible;

@@ -1790,7 +1790,6 @@ TD.objeto-ei-barra-superior {
 .ei_arbol-raiz {
 	list-style-type: none; 
 	white-space: nowrap;
-	width: 345px;
 	margin:0px; 
 	padding: 0px;
 }

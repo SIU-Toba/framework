@@ -5,12 +5,13 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, seleccionada) {
 		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
 		this._ef_con_totales = new Object();	//Lisa de efs que quieren sumarizar
+		this._seleccionada = seleccionada;
 	}
 
 	def.iniciar = function () {
@@ -138,17 +139,17 @@ def.constructor = objeto_ei_formulario_ml;
 
 	//----Selección 
 	def.seleccionar = function(fila) {
-		if  (fila != this.seleccionada) {
+		if  (fila != this._seleccionada) {
 			this.deseleccionar_actual();
-			this.seleccionada = fila;
+			this._seleccionada = fila;
 			this.refrescar_seleccion();
 		}
 	}
 	
 	def.deseleccionar_actual = function() {
-		if (this.seleccionada != null) {	//Deselecciona el anterior
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml');			
-			delete(this.seleccionada);
+		if (this._seleccionada != null) {	//Deselecciona el anterior
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'abm-fila-ml');			
+			delete(this._seleccionada);
 		}
 	}
 	
@@ -156,7 +157,7 @@ def.constructor = objeto_ei_formulario_ml;
 		//Busco las posiciones a intercambiar
 		var pos_anterior = null;
 		for (posicion in this._filas) {
-			if (this.seleccionada == this._filas[posicion]) {
+			if (this._seleccionada == this._filas[posicion]) {
 				pos_selec = posicion;
 				break;
 			}
@@ -172,7 +173,7 @@ def.constructor = objeto_ei_formulario_ml;
 		//Busco las posiciones a intercambiar
 		var pos_siguiente = null;
 		for (posicion = this._filas.length - 1; posicion >= 0; posicion--) {
-			if (this.seleccionada == this._filas[posicion]) {
+			if (this._seleccionada == this._filas[posicion]) {
 				pos_selec = posicion;
 				break;
 			}
@@ -206,14 +207,14 @@ def.constructor = objeto_ei_formulario_ml;
 
 	//---ABM 
 	def.eliminar_seleccionada = function() {
-		var fila = this.seleccionada;
+		var fila = this._seleccionada;
 		if(existe_funcion(this, "evt__baja")){
 			if(! ( this["evt__baja"](fila) ) ){
 				return false;
 			}
 		}	
 		anterior = this.eliminar_fila(fila);
-		delete(this.seleccionada);
+		delete(this._seleccionada);
 		if (anterior != null)
 			this.seleccionar(anterior);
 		this.refrescar_todo();
@@ -356,8 +357,8 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
-		if (this.seleccionada != null) {
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this.seleccionada).cells, 'abm-fila-ml-selec');
+		if (this._seleccionada != null) {
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'abm-fila-ml-selec');
 			if (this.boton_eliminar())
 				this.boton_eliminar().disabled = false;
 			if (this.boton_subir()) {
@@ -377,7 +378,7 @@ def.constructor = objeto_ei_formulario_ml;
 	//Toma la fila seleccionada y le pone foco al primer ef que se la banque.
 	def.refrescar_foco = function () {
 		for (id_ef in this._efs) {
-			if (this._efs[id_ef].ir_a_fila(this.seleccionada).seleccionar())
+			if (this._efs[id_ef].ir_a_fila(this._seleccionada).seleccionar())
 				break;
 		}
 	}
