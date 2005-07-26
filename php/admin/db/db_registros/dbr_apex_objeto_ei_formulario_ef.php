@@ -21,7 +21,7 @@ class dbr_apex_objeto_ei_formulario_ef extends db_registros_s
 		$def['columna'][3]['nombre']='identificador';
 		//$def['columna'][3]['no_nulo']='1';
 		$def['columna'][4]['nombre']='elemento_formulario';
-		$def['columna'][4]['no_nulo']='1';
+		//$def['columna'][4]['no_nulo']='1';
 		$def['columna'][5]['nombre']='columnas';
 		//$def['columna'][5]['no_nulo']='1';
 		$def['columna'][6]['nombre']='obligatorio';

@@ -29,7 +29,13 @@ class ef_radio extends ef
 	var $valores;				//Array con valores de la lista
 	var $predeterminado;		//Si el combo tiene predeterminados, tengo que inicializarlo
 	
-	
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         $this->valores = array();

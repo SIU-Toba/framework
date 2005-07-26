@@ -10,6 +10,11 @@ define("apex_ef_dependenca","%");//Mascara para
 #################################      ELEMENTOS de FORMULARIO      ####################################
 ########################################################################################################
 ########################################################################################################
+
+	Averiguar si se usan:
+		
+		ef_editable_clave
+
 */
 require_once("ef_combo.php");		//EF de tipo COMBO
 require_once("ef_editable.php");	//EF de tipo Editable (INPUT)
@@ -91,6 +96,13 @@ class ef //Clase abstracta, padre de todos los EF
 		if(isset($parametros['ocultable'])){
 			$this->ocultable = true;
 		}
+	}
+
+	static function get_parametros()
+	{
+		$parametros["dependencias"]["descripcion"]="";
+		$parametros["dependencias"]["opcional"]="";	
+		return $parametros;
 	}
 
 //-----------------------------------------------------

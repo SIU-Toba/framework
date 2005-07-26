@@ -28,7 +28,32 @@ class ef_editable extends ef
 	var $estilo="ef-input";
 	var $mascara;
 	private $requiere_instancia = false;	
-	
+
+	static function get_parametros()
+	{
+		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["tamano"]["opcional"]=1;	
+		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a 'tamano').";
+		$parametros["maximo"]["opcional"]=1;	
+		$parametros["mascara"]["descripcion"]="Mascara del elemento.";
+		$parametros["mascara"]["opcional"]=1;	
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//Solo Lectura
@@ -379,7 +404,30 @@ class ef_editable_numero extends ef_editable
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
 	protected $mensaje_defecto;
-	
+
+	static function get_parametros()
+	{
+		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["cifras"]["opcional"]=1;	
+		$parametros["rango"]["descripcion"]="Rango valido de valores.";
+		$parametros["rango"]["opcional"]=1;	
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable_numero($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-input-numero";
@@ -525,6 +573,29 @@ class ef_editable_moneda extends ef_editable_numero
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
 	protected $mensaje_defecto = ' debe ser un importe positivo.';
 	
+	static function get_parametros()
+	{
+		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["cifras"]["opcional"]=1;	
+		$parametros["rango"]["descripcion"]="Rango valido de valores.";
+		$parametros["rango"]["opcional"]=1;	
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function crear_objeto_js()
 	{
 		return "new ef_editable_moneda({$this->parametros_js()})";
@@ -541,6 +612,29 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 	protected $rango_superior = array('limite' => '100', 'incluido' => 1);
 	protected $mensaje_defecto = ' debe estar entre 0% y 100%.';
 	
+	static function get_parametros()
+	{
+		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["cifras"]["opcional"]=1;	
+		$parametros["rango"]["descripcion"]="Rango valido de valores.";
+		$parametros["rango"]["opcional"]=1;	
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable_numero_porcentaje($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if (! isset($parametros["cifras"]))
@@ -580,6 +674,15 @@ if( !( (formulario.". $this->id_form .".value >= 0) &&  (formulario.". $this->id
 
 class ef_editable_clave extends ef_editable
 {
+	static function get_parametros()
+	{
+		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["tamano"]["opcional"]=1;	
+		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a 'tamano').";
+		$parametros["maximo"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable_clave($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
@@ -627,6 +730,25 @@ if( formulario.". $this->id_form .".value != formulario.". $this->id_form ."_tes
 class ef_editable_fecha extends ef_editable
 //Campo que maneja fechas
 {
+	static function get_parametros()
+	{
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable_fecha($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$parametros['tamano'] = "10";//Esto deberia depender del tipo de fecha
@@ -769,6 +891,43 @@ class ef_editable_multilinea extends ef_editable
 	var $no_margen;
 	var $ajustable;
 	
+	static function get_parametros()
+	{
+		$parametros["lineas"]["descripcion"]="Cantidad de lineas";
+		$parametros["lineas"]["opcional"]=1;	
+		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
+		$parametros["columnas"]["opcional"]=1;	
+		$parametros["wrap"]["descripcion"]="";
+		$parametros["wrap"]["opcional"]=1;	
+/*
+		ATENCION! colapsan la clase PHP y la clase CSS
+	
+		$parametros["css"]["descripcion"]="Clase CSS a aplicar sobre el EF.";
+		$parametros["css"]["opcional"]=1;	
+*/
+		$parametros["resaltar"]["descripcion"]="Se incorpora un boton para resaltar el texto";
+		$parametros["resaltar"]["opcional"]=1;	
+		$parametros["ajustable"]["descripcion"]="???";
+		$parametros["ajustable"]["opcional"]=1;	
+		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
+		$parametros["sql"]["opcional"]=1;	
+		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado"]["opcional"]=1;	
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["no_margen"]["descripcion"]="Indica que no se utilice etiqueta";
+		$parametros["no_margen"]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_editable_multilinea($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//Esta conversion es para no modificar ahora las definiciones, CAMBIAR!

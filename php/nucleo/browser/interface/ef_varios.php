@@ -27,6 +27,13 @@ class ef_checkbox extends ef
     var $valor_info;
 	var $predeterminado="";
     
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
     function ef_checkbox($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		//VAlor FIJO
@@ -128,7 +135,14 @@ class ef_checkbox extends ef
 class ef_fijo extends ef_oculto
 {
 	var $estilo;
-	
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
      function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -166,6 +180,13 @@ class ef_elemento_ini extends ef
      var $pos_ayuda;
      var $pos_parametros;
     
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
      function ef_elemento_ini($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		 // ei_arbol($parametros);
@@ -338,11 +359,19 @@ class ef_elemento_ini_cheq extends ef_elemento_ini
 // el SQL tiene que devolver las siguientes columnas: id, texto_a_mostrar, ayuda_elemento, parametros_elemento
 // ATENCION: los datos (columnas, etc) que maneja el combo tienen que definirse en este orde: ID del elemento
 { // (sea la cantidad de valores que sea) y despues el campo de inicializacion
+
      function ef_elemento_ini_cheq($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
          parent :: ef_elemento_ini($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
          }
     
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
      function obtener_input()
     {
          // Informacion al usuario sobre el elemento: AYUDA y PARAMETROS
@@ -563,6 +592,14 @@ class ef_elemento_ini_cheq extends ef_elemento_ini
 // ########################################################################################################
 class ef_elemento_ini_proyecto extends ef_elemento_ini
 { // Inicializador de elementos cuya lista muestra elementos AISLADOS por proyecto
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
     function ef_elemento_ini_proyecto($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
          parent :: ef_elemento_ini($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
@@ -592,6 +629,13 @@ class ef_combo_editable extends ef
      var $ef_editable;
      var $dato;
     
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
      function ef_combo_editable($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
          if(count($dato) != 2){
@@ -665,6 +709,13 @@ class ef_ini_cheq extends ef
  	 var $claves;
      var $dato;
 	 
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
      function ef_ini_cheq($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
      {
          // ei_arbol($parametros);
@@ -853,6 +904,13 @@ class ef_html extends ef
 	var $alto;
 	var $botonera;
 
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_html($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		$this->ancho = (isset($parametros["ancho"]))? $parametros["ancho"] : "100%";
@@ -913,6 +971,13 @@ class ef_php extends ef
 {
 	var $ancho;
 	var $alto;
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
 
 	function ef_php($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {

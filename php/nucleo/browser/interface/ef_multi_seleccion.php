@@ -23,6 +23,13 @@ class ef_multi_seleccion extends ef
 	protected $cant_maxima;
 	protected $cant_minima;
 	
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         $this->valores = array();
@@ -258,6 +265,13 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 {
 	protected $mostrar_utilidades;
 	
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if (isset($parametros['mostrar_utilidades'])) {

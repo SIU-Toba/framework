@@ -26,9 +26,9 @@ class dbr_apex_objeto_ci_pantalla_dep extends db_registros_s
 		//$def['columna'][4]['no_nulo']='1';
 		$def['columna'][5]['nombre']='identificador';
 		$def['columna'][5]['pk']='1';
-		$def['columna'][5]['no_nulo']='1';
+		//$def['columna'][5]['no_nulo']='1';
 		$def['columna'][6]['nombre']='orden';
-		$def['columna'][6]['no_nulo']='1';
+		//$def['columna'][6]['no_nulo']='1';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

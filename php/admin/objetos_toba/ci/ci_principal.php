@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("admin/objetos_toba/autoload.php");
+require_once("admin/db/toba_dbt.php");
 
 class ci_editor extends objeto_ci
 {
@@ -19,8 +19,8 @@ class ci_editor extends objeto_ci
 	function destruir()
 	{
 		parent::destruir();
-		ei_arbol($this->get_dbt()->elemento('pantallas')->info(true),"PANTALLAS");
-		ei_arbol($this->get_estado_sesion(),"Estado sesion");
+		//ei_arbol($this->get_dbt()->elemento('pantallas')->info(true),"PANTALLAS");
+		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
 	function mantener_estado_sesion()
@@ -36,7 +36,7 @@ class ci_editor extends objeto_ci
 	//Acceso al db_tablas
 	{
 		if (! isset($this->db_tablas)) {
-			$this->db_tablas = new dbt_ci($this->info['fuente']);
+			$this->db_tablas = toba_dbt::objeto_ci();
 		}
 		return $this->db_tablas;
 	}

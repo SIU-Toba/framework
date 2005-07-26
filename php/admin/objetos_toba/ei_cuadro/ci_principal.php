@@ -23,8 +23,6 @@ class ci_principal extends objeto_ci
 		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_columna";
 		$propiedades[] = "seleccion_columna_anterior";
-		$propiedades[] = "seleccion_evento";
-		$propiedades[] = "seleccion_evento_anterior";
 		return $propiedades;
 	}
 

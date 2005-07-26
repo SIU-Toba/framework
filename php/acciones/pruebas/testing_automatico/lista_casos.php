@@ -31,6 +31,7 @@ class lista_casos
 					array('id' => 'test_editable_numero', 'nombre' => 'EF Número', 'categoria' => 'ef'),
 					array('id' => 'test_multi_seleccion', 'nombre' => 'EF Multi-selección', 'categoria' => 'ef'),
 					array('id' => 'test_fijos', 'nombre' => 'EF Fijos', 'categoria' => 'ef'),					
+					array('id' => 'test_entrega_parametros', 'nombre' => 'EF * - Entrega de parametros', 'categoria' => 'ef'),
 
 					//Persistencia
 					array('id' => 'test_db_registros_std_s_1', 'nombre' =>  'Test estandard DBR -- db_registros_s -[ 1 ]- (clave simple)', 'categoria' => 'persistencia'),

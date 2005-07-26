@@ -27,8 +27,14 @@ class ef_combo extends ef
 	var $valores;				//Array con valores de la lista
 	var $predeterminado;		//Si el combo tiene predeterminados, tengo que inicializarlo
 	var $no_seteado;
-
 	
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         $this->valores = array();
@@ -280,6 +286,13 @@ class ef_combo_dao extends ef_combo
 	private $opcion_seleccionada;
 	private $estado_nulo;
 	private $cantidad_claves;
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -583,6 +596,13 @@ class ef_combo_lista extends ef_combo
 // "lista": La lista representada como un STRING con los elementos separados por COMAS
 // "no_seteado": Valor que representa el estado de NO activado
 {
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_combo_lista($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if(isset($parametros["lista"])){
@@ -607,6 +627,13 @@ class ef_combo_lista_c extends ef_combo
 // 			la clave y el valor separados por ","
 // "no_seteado": Valor que representa el estado de NO activado
 {
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_combo_lista_c($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$elementos = explode("/",$parametros["lista"]);
@@ -630,6 +657,13 @@ class ef_combo_db extends ef_combo
 {
 	var $sql;
 	var $fuente;
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
 
 	function ef_combo_db($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -722,7 +756,14 @@ class ef_combo_db_proyecto extends ef_combo_db
 {
    var $opcion_seleccionada;
 	var $estado_nulo;
-	
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_combo_db_proyecto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         global $solicitud;
@@ -889,6 +930,13 @@ class ef_combo_db_ayuda extends ef_combo_db
 	var $sql;
 	var $fuente;
 	var $ayuda;
+
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
 
 	function ef_combo_db_ayuda($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{

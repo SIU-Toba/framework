@@ -6,6 +6,13 @@ class ef_popup extends ef_editable
     var $item_destino;
     var $ventana;
     
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_popup($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros)
 	{ 
         if(isset($parametros["columna_clave"])){

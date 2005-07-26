@@ -20,6 +20,13 @@ class ef_oculto extends ef
 //Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
 //La propagacion de su estado a travez de solicitudes se lleva a cabo impementado MEMORIA
 
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		global $solicitud;
@@ -97,6 +104,13 @@ class ef_oculto_proyecto extends ef_oculto
 //Este elemento de formulario tienen propositos de seguridad:
 //HAce que no se pueda editar un elemento de un proyecto cuando uno se encuentra logueado en otro
 {
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_oculto_proyecto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         global $solicitud;
@@ -143,6 +157,13 @@ class ef_oculto_proyecto extends ef_oculto
 class ef_oculto_secuencia extends ef_oculto
 //Este elemento maneja un campo ques una secuencia
 {
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_oculto_secuencia($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
@@ -154,6 +175,13 @@ class ef_oculto_secuencia extends ef_oculto
 class ef_oculto_usuario extends ef_oculto
 //Este elemento maneja un campo ques una secuencia
 {
+	static function get_parametros()
+	{
+		$parametros[""]["descripcion"]="";
+		$parametros[""]["opcional"]=1;	
+		return $parametros;
+	}
+
 	function ef_oculto_usuario($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		global $solicitud;
