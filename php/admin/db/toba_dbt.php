@@ -28,5 +28,15 @@ class toba_dbt
 	{
 		return new dbt_objeto_ei_filtro("instancia");	
 	}
+
+	function objeto_db_registros()
+	{
+		return new dbt_objeto_db_registros("instancia");	
+	}
+
+	function objeto_db_tablas()
+	{
+		return new dbt_objeto_db_tablas("instancia");	
+	}
 }
 ?>

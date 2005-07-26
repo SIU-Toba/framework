@@ -15,6 +15,9 @@ DROP TABLE apex_objeto_multicheq ;
 DROP TABLE apex_objeto_ei_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario ;
+DROP TABLE apex_objeto_db_registros_col ;
+DROP TABLE apex_tipo_datos ;
+DROP TABLE apex_objeto_db_registros ;
 DROP TABLE apex_objeto_plan_linea ;
 DROP TABLE apex_objeto_plan_hito ;
 DROP TABLE apex_objeto_plan_activ_usu ;
@@ -182,6 +185,7 @@ DROP SEQUENCE apex_tp_tarea_tipo_seq;
 DROP SEQUENCE apex_tp_tarea_seq;
 DROP SEQUENCE apex_obj_ei_cuadro_col_seq;
 DROP SEQUENCE apex_objeto_plan_linea_seq;
+DROP SEQUENCE apex_objeto_dbr_columna_seq;
 DROP SEQUENCE apex_obj_ei_form_fila_seq;
 DROP SEQUENCE apex_obj_ci_pantalla_seq;
 

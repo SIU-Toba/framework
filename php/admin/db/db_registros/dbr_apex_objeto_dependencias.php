@@ -33,7 +33,6 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 	{
 		$where[] = "proyecto = '{$id['proyecto']}'";
 		$where[] = "objeto_consumidor = '{$id['objeto_consumidor']}'";
-		$where[] = "identificador = '{$id['identificador']}'";
 		$this->cargar_datos($where);
 	}
 }
