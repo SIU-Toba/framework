@@ -33,19 +33,19 @@ class ef_editable extends ef
 	{
 		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["tamano"]["opcional"]=1;	
-		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a 'tamano').";
+		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
 		$parametros["maximo"]["opcional"]=1;	
 		$parametros["mascara"]["descripcion"]="Mascara del elemento.";
 		$parametros["mascara"]["opcional"]=1;	
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	

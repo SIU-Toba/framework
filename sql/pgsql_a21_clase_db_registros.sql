@@ -38,7 +38,7 @@ CREATE TABLE apex_tipo_datos
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	tipo							smallint			NOT NULL,
+	tipo							varchar(1)			NOT NULL,
 	descripcion						varchar(30)			NOT	NULL,
 	CONSTRAINT	"apex_tipo_datos_pk" PRIMARY	KEY ("tipo")
 );
@@ -60,10 +60,11 @@ CREATE TABLE apex_objeto_db_registros_col
 	proyecto    			    	varchar(15)		NOT NULL,
 	objeto 		                	int4       		NOT NULL,
 	col_id							int4			DEFAULT nextval('"apex_objeto_dbr_columna_seq"'::text) 		NOT NULL, 
-	columna		    				varchar(15)		NOT NULL, 
-	tipo							smallint		NULL,
+	columna		    				varchar(40)		NOT NULL, 
+	tipo							varchar(1)		NULL,
 	pk								smallint 		NULL,
-	secuencia		    			varchar(15)		NULL, 
+	secuencia		    			varchar(60)		NULL, 
+	largo							smallint		NULL,
 	no_nulo							smallint 		NULL,
 	no_nulo_db						smallint 		NULL,
 	CONSTRAINT  "apex_obj_dbr_col_pk" PRIMARY KEY ("proyecto","objeto","col_id"),

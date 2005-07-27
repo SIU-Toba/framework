@@ -3,7 +3,7 @@ require_once("dbt_objeto.php");
 require_once("db_registros/dbr_apex_objeto.php");
 require_once("db_registros/dbr_apex_objeto_dependencias.php");
 
-class dbt_objeto_ci extends dbt_objeto
+class dbt_objeto_db_tablas extends dbt_objeto
 {
 	function __construct($fuente)
 	{

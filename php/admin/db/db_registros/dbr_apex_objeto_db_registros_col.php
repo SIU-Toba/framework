@@ -3,7 +3,7 @@
 //Fuente de datos: 'instancia'
 require_once('nucleo/persistencia/db_registros_s.php');
 
-class dbr_apex_objeto_db_registros_columna extends db_registros_s
+class dbr_apex_objeto_db_registros_col extends db_registros_s
 //db_registros especifico de la tabla 'apex_objeto_db_registros_columna'
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
@@ -25,7 +25,9 @@ class dbr_apex_objeto_db_registros_columna extends db_registros_s
 		$def['columna'][6]['nombre']='secuencia';
 		$def['columna'][7]['nombre']='no_nulo';
 		$def['columna'][8]['nombre']='no_nulo_db';
+		$def['columna'][9]['nombre']='largo';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
+		$this->set_no_duplicado( array("columna") );		
 	}	
 	
 	function cargar_datos_clave($id)

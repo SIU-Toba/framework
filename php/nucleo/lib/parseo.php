@@ -26,6 +26,17 @@
     }
 	//-------------------------------------------------------------------------------
 
+	function empaquetar_propiedades($array)
+	{
+		foreach($array as $clave => $valor){
+			$filas[] = "$clave : $valor";			
+		}
+		$texto = implode(";\n",$filas);
+		return $texto;
+	}
+
+	//-------------------------------------------------------------------------------
+
 	function parsear_propiedades_array($texto)
 	//Parsea cadenas que poseen el nombre del atributo, ":" y depues
 	//una lista de elementos separados por comas que conforman un array

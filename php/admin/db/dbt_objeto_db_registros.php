@@ -4,7 +4,7 @@ require_once("db_registros/dbr_apex_objeto.php");
 require_once("db_registros/dbr_apex_objeto_db_registros.php");
 require_once("db_registros/dbr_apex_objeto_db_registros_col.php");
 
-class dbt_objeto_ei_formulario_ml extends dbt_objeto
+class dbt_objeto_db_registros extends dbt_objeto
 {
 	function __construct($fuente)
 	{
@@ -15,8 +15,8 @@ class dbt_objeto_ei_formulario_ml extends dbt_objeto
 		//Relaciones
 		$this->cabecera = 'base';
 		$this->detalles = array(
-								'prop_basicas'=>array('objeto_ut_formulario_proyecto','objeto_ut_formulario'),
-								'columnas'=>array('objeto_ei_formulario_proyecto','objeto_ei_formulario')
+								'prop_basicas'=>array('proyecto','objeto'),
+								'columnas'=>array('proyecto','objeto')
 							);
 		parent::__construct($fuente);
 	}

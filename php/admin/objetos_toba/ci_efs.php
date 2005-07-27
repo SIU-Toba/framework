@@ -164,21 +164,43 @@ class ci_efs extends objeto_ci
 
 	function evt__efs_ini__carga()
 	{
-		$this->seleccion_efs;
+		$imagen_ayuda = recurso::imagen_pro("descripcion.gif",true);
 		$registro = $this->get_dbr()->get_registro($this->seleccion_efs_anterior);
 		$ef = $registro['elemento_formulario'];
+
+		if(isset($registro['inicializacion'])){
+			$inicializacion = parsear_propiedades($registro['inicializacion']);
+		}
+
 		$parametros = call_user_func(array($ef,"get_parametros"));
 		$temp = array();
 		$a=0;
 		foreach($parametros as $clave => $desc){
 			$temp[$a]['clave'] = $clave;
-			$temp[$a]['valor'] = "111";
-			$temp[$a]['ayuda'] = "";
-			//$desc['descripcion'];
+			$temp[$a]['valor'] = "";
+			$temp[$a]['ayuda'] = "<a href='#' onMouseover=\"ddrivetip('".
+									"<span class=titulo_nota>{$desc['descripcion']}</span>".
+										"')\"
+							onMouseout=\"hideddrivetip()\"> $imagen_ayuda </a>";
 			$a++;	
 		}
 		return $temp;
 	}
+	
+	function evt__efs_ini__modificacion($datos)
+	{
+		$temp = array();
+		foreach($datos as $parametro){
+			if(trim($parametro['valor'])!=""){
+				$temp[$parametro['clave']] = $parametro['valor'];
+			}
+		}
+		if(count($temp)>0){
+			$resultado = empaquetar_propiedades($temp);
+			ei_arbol($resultado);
+		}
+	}
+	
 	//-------------------------------------------------------------------
 }
 ?>
