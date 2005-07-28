@@ -33,24 +33,34 @@ class ef_editable extends ef
 	{
 		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["tamano"]["opcional"]=1;	
+		$parametros["tamano"]["etiqueta"]="Tamaño Campo";
 		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
 		$parametros["maximo"]["opcional"]=1;	
+		$parametros["maximo"]["etiqueta"]="Max. Caract.";
 		$parametros["mascara"]["descripcion"]="Mascara del elemento.";
 		$parametros["mascara"]["opcional"]=1;	
+		$parametros["mascara"]["etiqueta"]="Descripcion";
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
 		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
 		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
 		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		return $parametros;
 	}
 
@@ -409,22 +419,31 @@ class ef_editable_numero extends ef_editable
 	{
 		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
+		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
 		$parametros["rango"]["descripcion"]="Rango valido de valores.";
 		$parametros["rango"]["opcional"]=1;	
+		$parametros["rango"]["etiqueta"]="Rango de valores";
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		return $parametros;
 	}
 
@@ -577,22 +596,31 @@ class ef_editable_moneda extends ef_editable_numero
 	{
 		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
+		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
 		$parametros["rango"]["descripcion"]="Rango valido de valores.";
 		$parametros["rango"]["opcional"]=1;	
+		$parametros["rango"]["etiqueta"]="Rango de valores";
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		return $parametros;
 	}
 
@@ -616,22 +644,31 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 	{
 		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
+		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
 		$parametros["rango"]["descripcion"]="Rango valido de valores.";
 		$parametros["rango"]["opcional"]=1;	
+		$parametros["rango"]["etiqueta"]="Rango de valores";
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		return $parametros;
 	}
 
@@ -678,8 +715,10 @@ class ef_editable_clave extends ef_editable
 	{
 		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
 		$parametros["tamano"]["opcional"]=1;	
-		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a 'tamano').";
+		$parametros["tamano"]["etiqueta"]="Tamaño Campo";
+		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
 		$parametros["maximo"]["opcional"]=1;	
+		$parametros["maximo"]["etiqueta"]="Max. Caract.";
 		return $parametros;
 	}
 
@@ -734,18 +773,25 @@ class ef_editable_fecha extends ef_editable
 	{
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		return $parametros;
 	}
 
@@ -893,38 +939,51 @@ class ef_editable_multilinea extends ef_editable
 	
 	static function get_parametros()
 	{
-		$parametros["lineas"]["descripcion"]="Cantidad de lineas";
-		$parametros["lineas"]["opcional"]=1;	
-		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
-		$parametros["columnas"]["opcional"]=1;	
-		$parametros["wrap"]["descripcion"]="";
-		$parametros["wrap"]["opcional"]=1;	
 /*
-		ATENCION! colapsan la clase PHP y la clase CSS
+		ATENCIOooooooN! colapsan la clase PHP y la clase CSS
 	
 		$parametros["css"]["descripcion"]="Clase CSS a aplicar sobre el EF.";
 		$parametros["css"]["opcional"]=1;	
 */
+		$parametros["lineas"]["descripcion"]="Cantidad de lineas";
+		$parametros["lineas"]["opcional"]=1;	
+		$parametros["lineas"]["etiqueta"]="Lineas";	
+		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
+		$parametros["columnas"]["opcional"]=1;	
+		$parametros["columnas"]["etiqueta"]="Largo";	
+		$parametros["wrap"]["descripcion"]="";
+		$parametros["wrap"]["opcional"]=1;	
+		$parametros["wrap"]["etiqueta"]="Wrap";	
 		$parametros["resaltar"]["descripcion"]="Se incorpora un boton para resaltar el texto";
 		$parametros["resaltar"]["opcional"]=1;	
+		$parametros["resaltar"]["etiqueta"]="Seleccionable";	
 		$parametros["ajustable"]["descripcion"]="???";
 		$parametros["ajustable"]["opcional"]=1;	
+		$parametros["ajustable"]["etiqueta"]="Ajustable?";	
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe 'sql') Fuente a utilizar para ejecutar el SQL.";
+		$parametros["sql"]["etiqueta"]="Carga SQL: select";
+		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
+		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
 		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
 		$parametros["dao"]["opcional"]=1;	
-		$parametros["clase"]["descripcion"]="(Util solo si existe 'dao') Nombre de la clase que posee el metodo.";
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
 		$parametros["clase"]["opcional"]=1;	
-		$parametros["include"]["descripcion"]="(Util solo si existe 'dao') Archivo que posee la definicion de la clase.";
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
 		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
+		$parametros["estado"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		$parametros["no_margen"]["descripcion"]="Indica que no se utilice etiqueta";
 		$parametros["no_margen"]["opcional"]=1;	
+		$parametros["no_margen"]["etiqueta"]="No margen";	
 		return $parametros;
 	}
 

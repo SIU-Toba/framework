@@ -3,9 +3,14 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 require_once("admin/db/toba_dbt.php");
 require_once("nucleo/browser/interface/ef.php");
 /*
-	El controlador tiene que implementar:
-
-		- get_dbr_efs()
+	ATENCION: 
+		El controlador tiene que implementar "get_dbr_efs()" 
+		para que este CI puede obtener el DBR que utiliza para trabajar
+	
+	NOTAS:
+		Lo ideal para la definicion de EFs seria que el metodo estatico get_parametros
+		devuleva como el ef instanciado que permite cargar los valores de si mismo,
+		esto permitiria lograr una mejor validacion
 */
 class ci_efs extends objeto_ci
 {
@@ -94,6 +99,8 @@ class ci_efs extends objeto_ci
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
+					//Por defecto el campo 'columnas' es igual a 'identificador'
+					$registros[$id]['columnas'] = $registros[$id]['identificador'];
 					$this->id_intermedio_efs[$id] = $this->get_dbr()->agregar_registro($registros[$id]);
 					break;	
 				case "B":
@@ -164,20 +171,24 @@ class ci_efs extends objeto_ci
 
 	function evt__efs_ini__carga()
 	{
-		$imagen_ayuda = recurso::imagen_pro("descripcion.gif",true);
-		$registro = $this->get_dbr()->get_registro($this->seleccion_efs_anterior);
-		$ef = $registro['elemento_formulario'];
-
-		if(isset($registro['inicializacion'])){
-			$inicializacion = parsear_propiedades($registro['inicializacion']);
+		/*
+			Se podria usar el conocimiento de los obligatorios para 
+			cambiarle el estilo a la linea del ML
+		*/
+		$parametros = $this->get_definicion_parametros();
+		//Inicializacion del EF actual
+		$x = $this->get_dbr()->get_registro_valor($this->seleccion_efs_anterior,"inicializacion");
+		if(isset($x)){
+			$inicializacion = parsear_propiedades($x);
 		}
-
-		$parametros = call_user_func(array($ef,"get_parametros"));
+		//Armo la lista
 		$temp = array();
 		$a=0;
+		$imagen_ayuda = recurso::imagen_pro("descripcion.gif",true);
 		foreach($parametros as $clave => $desc){
 			$temp[$a]['clave'] = $clave;
-			$temp[$a]['valor'] = "";
+			$temp[$a]['etiqueta'] = $desc['etiqueta'];
+			$temp[$a]['valor'] = isset($inicializacion[$clave]) ? $inicializacion[$clave] : null;
 			$temp[$a]['ayuda'] = "<a href='#' onMouseover=\"ddrivetip('".
 									"<span class=titulo_nota>{$desc['descripcion']}</span>".
 										"')\"
@@ -189,6 +200,9 @@ class ci_efs extends objeto_ci
 	
 	function evt__efs_ini__modificacion($datos)
 	{
+		/*
+			ATENCION: Falta la validacion de que los campos obligatorios esten seteados
+		*/
 		$temp = array();
 		foreach($datos as $parametro){
 			if(trim($parametro['valor'])!=""){
@@ -196,11 +210,20 @@ class ci_efs extends objeto_ci
 			}
 		}
 		if(count($temp)>0){
-			$resultado = empaquetar_propiedades($temp);
-			ei_arbol($resultado);
+			$resultado = empaquetar_propiedades($temp); //echo "<pre> $resultado </pre>";
+			//Tengo que validar que los obligatorios existan
+			$this->get_dbr()->set_registro_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
 		}
 	}
 	
+	function get_definicion_parametros()
+	//Recupero la informacion de los parametros de un EF puntual
+	{
+		$ef = $this->get_dbr()->get_registro_valor( $this->seleccion_efs_anterior , "elemento_formulario");
+		$parametros = call_user_func(array($ef,"get_parametros"));
+		return $parametros;
+	}
+
 	//-------------------------------------------------------------------
 }
 ?>

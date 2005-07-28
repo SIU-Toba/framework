@@ -29,9 +29,9 @@
 	function empaquetar_propiedades($array)
 	{
 		foreach($array as $clave => $valor){
-			$filas[] = "$clave : $valor";			
+			$filas[] = "$clave: $valor";
 		}
-		$texto = implode(";\n",$filas);
+		$texto = implode(";\n",$filas) . ";\n";
 		return $texto;
 	}
 

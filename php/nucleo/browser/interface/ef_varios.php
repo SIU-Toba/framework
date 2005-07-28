@@ -134,25 +134,45 @@ class ef_checkbox extends ef
 // "estado": Valor que tiene que tomar el elemento
 class ef_fijo extends ef_oculto
 {
-	var $estilo;
+	private $estilo;
+	private $maneja_datos;
+	
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["estilo"]["descripcion"]="Estilo CSS del campo";
+		$parametros["estilo"]["opcional"]=1;	
+		$parametros["sin_datos"]["descripcion"]="Si el valor es 1, indica que el elemento no maneja datos (es solo informativo)";
+		$parametros["sin_datos"]["opcional"]=1;	
 		return $parametros;
 	}
 
-     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
+	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
-		if(isset( $parametros["estilo"])){
-			$this->estilo = $parametros["estilo"];
+		$this->estilo = isset($parametros["estilo"]) ? $parametros["estilo"] : "ef-fijo";
+		if(isset($parametros["sin_datos"]) && $parametros["sin_datos"] == 1){
+			$this->maneja_datos = false;
 		}else{
-			$this->estilo = "ef-fijo";
+			$this->maneja_datos = true;
+		}
+		
+	}
+   
+	function cargar_estado($estado=null)
+	{
+		/*
+			Si el EF maneja datos utilizo la logica de persistencia del padre
+		*/
+		if($this->maneja_datos){
+			return parent::cargar_estado($estado);
+		}else{
+			if(isset($estado)) {
+				$this->estado = $estado;
+			}		
 		}
 	}
-    
+
 	function obtener_input()
     {
 		$estado = (isset($this->estado)) ? $this->estado : null;
