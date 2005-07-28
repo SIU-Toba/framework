@@ -185,17 +185,19 @@ class db_registros
 		$proximo = count($this->proceso_carga_externa);
 		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
 		$this->proceso_carga_externa[$proximo]["sql"] = $sql;
-		$this->proceso_carga_externa[$proximo]["col_parametros"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
 		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
 	
-	public function activar_proceso_carga_externa_dao($dao, $col_parametros, $col_resultado, $sincro_continua=true)
+	public function activar_proceso_carga_externa_dao($metodo, $clase, $include, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
 		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
-		$this->proceso_carga_externa[$proximo]["dao"] = $dao;
-		$this->proceso_carga_externa[$proximo]["col_parametros"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["metodo"] = $metodo;
+		$this->proceso_carga_externa[$proximo]["clase"] = $clase;
+		$this->proceso_carga_externa[$proximo]["include"] = $include;
+		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
 		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
@@ -768,6 +770,11 @@ class db_registros
 	}
 	
 	private function actualizar_campos_externos_registro($id_registro, $evento=null)
+	/*
+		Recuperacion de valores para las columnas externas.
+		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
+			cuyas claves asociativas se correspondan con la columna que se quiere
+	*/
 	{
 		//Itero planes de carga externa
 		if(isset($this->proceso_carga_externa)){
@@ -780,24 +787,36 @@ class db_registros
 						continue;
 					}
 				}
-				if($this->proceso_carga_externa[$carga]['tipo']=="dao")
+				//-[ 1 ]- Recupero valores correspondientes al registro
+				$parametros = $this->proceso_carga_externa[$carga];
+				if($parametros['tipo']=="sql")											//--- carga SQL!!
 				{
 					// - 1 - Obtengo el query
-					$sql = $this->proceso_carga_externa[$carga]['sql'];
-					// - 2 - Reemplazo valores llave
-					foreach($this->proceso_carga_externa[$carga]['col_parametro'] as $col_llave ){
+					$sql = $parametros['sql'];
+					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
+					foreach( $parametros['col_parametro'] as $col_llave ){
 						$valor_llave = $this->datos[$id_registro][$col_llave];
 						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
 					}
 					//echo "<pre>SQL: "  . $sql . "<br>";
 					// - 3 - Ejecuto SQL
 					$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
-					// - 4 - Seteo los valores recuperados en el registro
 					//ei_arbol($this->datos);
-				}elseif($this->proceso_carga_externa[$carga]['tipo']=="dao"){
-					throw new excepcion_toba("Las columnas externas con DAO no estan implementadas");					
 				}
-				foreach($this->proceso_carga_externa[$carga]['col_resultado'] as $columna_externa ){
+				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
+				{
+					// - 1 - Armo los parametros para el DAO
+					foreach( $parametros['col_parametro'] as $col_llave ){
+						$param_dao[] = $this->datos[$id_registro][$col_llave];
+					}
+					//ei_arbol($param_dao,"Parametros para el DAO");
+					// - 2 - Recupero datos
+					include_once($parametros['include']);
+					$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
+				}
+				//ei_arbol($datos,"datos");
+				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
+				foreach( $parametros['col_resultado'] as $columna_externa ){
 					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
 				}
 			}

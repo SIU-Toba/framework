@@ -72,7 +72,7 @@ $this->hilo->desactivar_reciclado();
 			$ef->cargar_datos_dependencias($dependencias);
 			//ATENCION, le estoy diciendo al EF que todas sus dependencias estan seteadas...
 			//	Esto es asi??? Hay que ver si en el caso de dependencias parciales se hace igual la llamada al server...
-			$ef->cargar_datos_master_ok();
+			//$ef->cargar_datos_master_ok();
 			$datos = $ef->obtener_valores();
 			responder($datos);					
 

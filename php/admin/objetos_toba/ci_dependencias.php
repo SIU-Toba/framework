@@ -1,0 +1,87 @@
+<?php
+require_once('nucleo/browser/clases/objeto_ci.php'); 
+/*
+	El controlador tiene que implementar:
+	
+		- get_dbr_dependencias()
+*/
+class ci_dependencias extends objeto_ci
+{
+	private $db_registros;
+	protected $seleccion_dependencia;
+	protected $seleccion_dependencia_anterior;
+
+	function destruir()
+	{
+		parent::destruir();
+		//ei_arbol($this->get_dbr()->info(true));
+	}
+
+	function mantener_estado_sesion()
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "seleccion_dependencia";
+		$propiedades[] = "seleccion_dependencia_anterior";
+		return $propiedades;
+	}
+
+	function get_dbr()
+	//Acceso al db_tablas
+	{
+		if (! isset($this->db_registros)) {
+			$this->db_registros = $this->controlador->get_dbr_dependencias();
+		}
+		return $this->db_registros;
+	}
+
+	//-------------------------------------------------------------
+	//-- Formulario
+	//-------------------------------------------------------------
+
+	function evt__formulario__alta($datos)
+	{
+		$this->get_dbr()->agregar_registro($datos);
+	}
+	
+	function evt__formulario__baja()
+	{
+		$this->get_dbr()->eliminar_registro($this->seleccion_dependencia_anterior);
+		$this->evt__formulario__cancelar();
+	}
+	
+	function evt__formulario__modificacion($datos)
+	{
+		$this->get_dbr()->modificar_registro($this->seleccion_dependencia_anterior, $datos);
+		$this->evt__formulario__cancelar();
+	}
+	
+	function evt__formulario__carga()
+	{
+		if(isset($this->seleccion_dependencia)){
+			$this->seleccion_dependencia_anterior = $this->seleccion_dependencia;
+			return $this->get_dbr()->get_registro($this->seleccion_dependencia_anterior);
+		}
+	}
+
+	function evt__formulario__cancelar()
+	{
+		unset($this->seleccion_dependencia_anterior);
+		unset($this->seleccion_dependencia);
+	}
+
+	//-------------------------------------------------------------
+	//-- Cuadro
+	//-------------------------------------------------------------
+
+	function evt__cuadro__seleccion($id)
+	{
+		$this->seleccion_dependencia = $id;
+	}
+
+	function evt__cuadro__carga()
+	{
+		return $this->get_dbr()->get_registros();
+	}
+	//-------------------------------------------------------------
+}
+?>

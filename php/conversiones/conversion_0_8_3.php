@@ -27,6 +27,14 @@ class conversion_0_8_3 extends conversion_toba
 	{
 		
 	}
+
+	function cambio_ei_cuadro_clave_dbr()
+	{
+		/*
+			Existe una suposicion respecto de cuando se usan claves de db_registros
+			(creo que cuando se marca el evento seleccion pero no se especifica una clave)
+		*/
+	}
 	
 	function cambio_db_registros()
 	{

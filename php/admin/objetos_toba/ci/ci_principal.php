@@ -8,14 +8,6 @@ class ci_editor extends objeto_ci
 	protected $seleccion_pantalla;
 	protected $seleccion_pantalla_anterior;
 
-/*
-	function __construct($id)
-	{
-		parent::__construct($id);	
-		$this->db_tablas = $this->get_dbt();
-	}
-*/
-
 	function destruir()
 	{
 		parent::destruir();
@@ -41,11 +33,9 @@ class ci_editor extends objeto_ci
 		return $this->db_tablas;
 	}
 
-	//-------------------------------------------------------------------
-	//--- Comportamiento de las pantallas
-	//-------------------------------------------------------------------
-
-	//*****************  PROPIEDADES BASICAS  ***************************
+	// *******************************************************************
+	// *******************  PROPIEDADES BASICAS  *************************
+	// *******************************************************************
 
 	function evt__base__carga()
 	{
@@ -67,19 +57,9 @@ class ci_editor extends objeto_ci
 		$this->get_dbt()->elemento("prop_basicas")->set($datos);
 	}
 
-	//******************  DEPENDENCIAS  ***********************************
-
-	function evt__dependencias__modificacion($datos)
-	{
-		$this->get_dbt()->elemento('dependencias')->procesar_registros($datos);
-	}
-
-	function evt__dependencias__carga()
-	{
-		return  $this->get_dbt()->elemento('dependencias')->get_registros(null,true);	
-	}
-
-	//*******************  PANTALLAS  *************************************
+	// *******************************************************************
+	// *******************  PANTALLAS  ***********************************
+	// *******************************************************************
 	
 	function get_lista_ei__2()
 	{
@@ -95,10 +75,10 @@ class ci_editor extends objeto_ci
 	
 	function evt__pantallas_lista__modificacion($datos)
 	{
-		//Establesco la 'posicion' de la fila segun el orden de aparicion
+		//Establesco la 'orden' de la fila segun el orden de aparicion
 		$a=1;
 		foreach(array_keys($datos) as $id){
-			$datos[$id]['posicion'] = $a;
+			$datos[$id]['orden'] = $a;
 			$a++;
 		}
 		//ei_arbol($datos,"DATOS a guardar");
@@ -112,7 +92,7 @@ class ci_editor extends objeto_ci
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
 			for($a=0;$a<count($datos_dbr);$a++){
-				$orden[] = $datos_dbr[$a]['posicion'];
+				$orden[] = $datos_dbr[$a]['orden'];
 			}
 			array_multisort($orden, SORT_ASC , $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
@@ -152,101 +132,51 @@ class ci_editor extends objeto_ci
 		return null;		
 	}
 
-	//Atencion, las dependencias tambien necesitan ORDEN!
+	// *******************************************************************
+	// *******************  EVENTOS  ************************************
+	// *******************************************************************
+	/*
+		Metodos necesarios para que el CI de eventos funcione
+	*/
+
+	function get_dbr_dependencias()
+	{
+		return $this->get_dbt()->elemento('dependencias');
+	}
 	
+	// *******************************************************************
+	// *******************  DEPENDENCIAS  ********************************
+	// *******************************************************************
+	/*
+		Metodos necesarios para que el CI de eventos funcione
+	*/
+
+	function get_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "seleccion";
+		$evento[0]['etiqueta'] = "";
+		$evento[0]['imagen_recurso_origen'] = "apex";
+		$evento[0]['imagen'] = "doc.gif";	
+		return $evento;
+	}
+
+	function evt__salida__3()
+	{
+		$this->dependencias['eventos']->limpiar_seleccion();
+	}
+
+	function get_dbr_eventos()
+	{
+		return $this->get_dbt()->elemento('eventos');
+	}
 	
-	
+	// *******************************************************************
+	// *******************  PROCESAMIENTO  *******************************
+	// *******************************************************************
 	
 	function evt__procesar()
 	{
 	}
-	
-	
-	
-	
-/*
-
-
-	function evt__cancelar()
-	{
-	}
-
-	function evt__inicializar()
-	{
-	}
-
-	function evt__limpieza_memoria()
-	{
-	}
-
-	function evt__post_recuperar_interaccion()
-	{
-	}
-
-	function evt__validar_datos()
-	{
-	}
-
-	function evt__error_proceso_hijo()
-	{
-	}
-
-	function evt__pre_cargar_datos_dependencias()
-	{
-	}
-
-	function evt__post_cargar_datos_dependencias()
-	{
-	}
-
-	//----------------------------- base -----------------------------
-
-	function evt__dependencias__carga()
-	{
-		//if isset($this->datos_dependencias)
-		//	return $this->datos_dependencias;
-	}
-
-	//----------------------------- pantallas -----------------------------
-	function evt__pantallas__carga()
-	{
-		//if isset($this->datos_pantallas)
-		//	return $this->datos_pantallas;
-	}
-
-	function evt__pantallas__baja()
-	{
-	}
-
-	function evt__pantallas__cancelar()
-	{
-	}
-
-	//----------------------------- pantallas_ei -----------------------------
-	function evt__pantallas_ei__carga()
-	{
-		//if isset($this->datos_pantallas_ei)
-		//	return $this->datos_pantallas_ei;
-	}
-
-	function evt__pantallas_ei__modificacion($registros)
-	{
-		//$this->datos_pantallas_ei = $registros;	
-	}
-
-	//----------------------------- pantallas_lista -----------------------------
-	function evt__pantallas_lista__carga()
-	{
-		//if isset($this->datos_pantallas_lista)
-		//	return $this->datos_pantallas_lista;
-	}
-
-	function evt__pantallas_lista__modificacion($registros)
-	{
-		//$this->datos_pantallas_lista = $registros;	
-	}
-
-	//----------------------------- prop_basicas -----------------------------
-*/
+	// *******************************************************************
 }
 ?>

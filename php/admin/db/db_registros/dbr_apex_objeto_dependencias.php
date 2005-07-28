@@ -26,7 +26,16 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 		$def['columna'][7]['nombre']='inicializar';
 		$def['columna'][8]['nombre']='clase';
 		$def['columna'][8]['externo']='1';
+		$def['columna'][9]['nombre']='nombre_objeto';
+		$def['columna'][9]['externo']='1';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
+		//Activo la carga de columnas externas
+		$this->activar_proceso_carga_externa_dao(	"get_info_dependencia",
+													"dao_editores",
+													"admin/db/dao_editores.php", 
+													array('proyecto','objeto_proveedor'), 
+													array('clase','nombre_objeto')	);
+		$this->set_no_duplicado( array("identificador") );
 	}	
 	
 	function cargar_datos_clave($id)
