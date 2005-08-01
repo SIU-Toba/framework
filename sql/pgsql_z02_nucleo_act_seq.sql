@@ -28,4 +28,8 @@
 	SELECT setval('apex_clase_msg_seq', max(clase_msg)) FROM apex_clase_msg;
 	SELECT setval('apex_objeto_msg_seq', max(objeto_msg)) FROM apex_objeto_msg;
 	SELECT setval('apex_msg_seq', max(msg)) FROM apex_msg;
-
+	SELECT setval('apex_objeto_dbr_columna_seq' ,max(col_id)) FROM apex_objeto_db_registros_col;
+	SELECT setval('apex_obj_ei_cuadro_col_seq'	,max(objeto_cuadro_col)) FROM apex_objeto_ei_cuadro_columna;	
+	SELECT setval('apex_obj_ci_pantalla_seq'	,max(pantalla)) FROM apex_objeto_ci_pantalla;
+	SELECT setval('apex_obj_ei_form_fila_seq'	,max(objeto_ei_formulario_fila)) FROM apex_objeto_ei_formulario_ef;
+	SELECT setval('apex_log_objeto_seq'  		,max(log_objeto)) FROM apex_log_objeto;

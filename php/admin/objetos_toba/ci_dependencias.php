@@ -34,6 +34,13 @@ class ci_dependencias extends objeto_ci
 		return $this->db_registros;
 	}
 
+	function limpiar_seleccion()
+	{
+		unset($this->seleccion_dependencia_anterior);
+		unset($this->seleccion_dependencia);
+		$this->dependencias["cuadro"]->deseleccionar();
+	}
+
 	//-------------------------------------------------------------
 	//-- Formulario
 	//-------------------------------------------------------------
@@ -65,8 +72,7 @@ class ci_dependencias extends objeto_ci
 
 	function evt__formulario__cancelar()
 	{
-		unset($this->seleccion_dependencia_anterior);
-		unset($this->seleccion_dependencia);
+		$this->limpiar_seleccion();
 	}
 
 	//-------------------------------------------------------------

@@ -79,7 +79,16 @@ class elemento_objeto_ci extends elemento_objeto
 			$eventos += $elemento->generar_eventos($solo_basicos);
 		}		
 		return $eventos;
-	}	
+	}
+	
+	static function get_lista_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "procesar";
+		$evento[0]['etiqueta'] = "Proce&sar";
+		$evento[1]['identificador'] = "cancelar";
+		$evento[1]['etiqueta'] = "&Cancelar";
+		return $evento;		
+	}
 }
 
 

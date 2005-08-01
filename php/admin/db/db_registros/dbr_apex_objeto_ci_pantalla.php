@@ -38,5 +38,31 @@ class dbr_apex_objeto_ci_pantalla extends db_registros_s
 		$where[] = "objeto_ci = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
+
+	//--- Manejo de la relacion con las dependencias
+
+	function set_dependencias_pantalla($pantalla, $dependencias)
+	//Setea las dependencias asociadas a una pantalla		
+	{
+		$deps = implode(",", $dependencias);
+		$this->set_registro_valor($pantalla, 'objetos', $deps);
+	}
+	
+	function get_dependencias_pantalla($pantalla)
+	//Devuelve las dependencias asociadas a una pantalla
+	{
+		$out = null;
+		$deps = $this->get_registro_valor($pantalla, 'objetos');
+		if(trim($deps)!=""){
+			$out = array_map("trim", explode(",", $deps ) );		
+		}
+		return $out;
+	}
+
+	function eliminar_dependencia($dependencia)
+	//Elimino una dependencia de todas las pantallas donde este
+	{
+		
+	}
 }
 ?>

@@ -25,9 +25,9 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 		$def['columna'][6]['nombre']='parametros_c';
 		$def['columna'][7]['nombre']='inicializar';
 		$def['columna'][8]['nombre']='clase';
-		$def['columna'][8]['externo']='1';
+		$def['columna'][8]['externa']='1';
 		$def['columna'][9]['nombre']='nombre_objeto';
-		$def['columna'][9]['externo']='1';
+		$def['columna'][9]['externa']='1';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 		//Activo la carga de columnas externas
 		$this->activar_proceso_carga_externa_dao(	"get_info_dependencia",
@@ -41,7 +41,7 @@ class dbr_apex_objeto_dependencias extends db_registros_s
 	function cargar_datos_clave($id)
 	{
 		$where[] = "proyecto = '{$id['proyecto']}'";
-		$where[] = "objeto_consumidor = '{$id['objeto_consumidor']}'";
+		$where[] = "objeto_consumidor = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}
 }

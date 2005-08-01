@@ -44,6 +44,13 @@ class ci_eventos extends objeto_ci
 		return false;
 	}
 
+	function get_lista_eventos()
+	{
+		$eventos = parent::get_lista_eventos();
+		$eventos = array_merge($eventos, eventos::evento_estandar("init","Cargar EVENTOS estandar",true,null,null));
+		return $eventos;
+	}
+
 	function get_lista_ei()
 	{
 		$ei[] = "eventos_lista";
@@ -52,7 +59,20 @@ class ci_eventos extends objeto_ci
 		}
 		return $ei;	
 	}
-	
+
+	function evt__init()
+	{
+		$eventos = $this->controlador->get_eventos_estandar();
+		foreach($eventos as $evento)
+		{
+			try{
+				$this->get_dbr()->agregar_registro($evento);
+			}catch(excepcion_toba $e){
+				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+			}
+		}
+	}
+		
 	function limpiar_seleccion()
 	{
 		unset($this->seleccion_evento);
@@ -61,8 +81,6 @@ class ci_eventos extends objeto_ci
 	
 	function evt__post_cargar_datos_dependencias()
 	{
-		$evt = eventos::evento_estandar("init","Cargar EVENTOS estandar",true,null,null,true);
-		$this->dependencias["eventos_lista"]->agregar_evento( $evt );
 		if( $this->mostrar_evento_detalle() ){
 			//Protejo la evento seleccionada de la eliminacion
 			$this->dependencias["eventos_lista"]->set_fila_protegida($this->seleccion_evento_anterior);
@@ -118,19 +136,6 @@ class ci_eventos extends objeto_ci
 		$this->seleccion_evento = $id;
 	}
 	
-	function evt__eventos_lista__init()
-	{
-		$eventos = $this->controlador->get_eventos_estandar();
-		foreach($eventos as $evento)
-		{
-			try{
-				$this->get_dbr()->agregar_registro($evento);
-			}catch(excepcion_toba $e){
-				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
-			}
-		}
-	}
-
 	//-----------------------------------------
 	//---- EI: Info detalla de un EVENTO ------
 	//-----------------------------------------
@@ -148,8 +153,7 @@ class ci_eventos extends objeto_ci
 
 	function evt__eventos__cancelar()
 	{
-		unset($this->seleccion_evento);
-		unset($this->seleccion_evento_anterior);
+		$this->limpiar_seleccion();
 	}
 	//-----------------------------------------
 }

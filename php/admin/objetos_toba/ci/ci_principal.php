@@ -7,6 +7,8 @@ class ci_editor extends objeto_ci
 	protected $db_tablas;
 	protected $seleccion_pantalla;
 	protected $seleccion_pantalla_anterior;
+	protected $dependencias_asoc = array();
+	private $id_intermedio_pantalla;	
 
 	function destruir()
 	{
@@ -21,6 +23,7 @@ class ci_editor extends objeto_ci
 		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_pantalla";
 		$propiedades[] = "seleccion_pantalla_anterior";
+		$propiedades[] = "dependencias_asoc";
 		return $propiedades;
 	}
 
@@ -29,12 +32,13 @@ class ci_editor extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_ci();
+			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1415') );
 		}
 		return $this->db_tablas;
 	}
 
 	// *******************************************************************
-	// *******************  PROPIEDADES BASICAS  *************************
+	// ******************* tab PROPIEDADES BASICAS  **********************
 	// *******************************************************************
 
 	function evt__base__carga()
@@ -58,7 +62,32 @@ class ci_editor extends objeto_ci
 	}
 
 	// *******************************************************************
-	// *******************  PANTALLAS  ***********************************
+	// *******************  tab DEPENDENCIAS  ****************************
+	// *******************************************************************
+	/*
+		Metodos necesarios para que el CI de eventos funcione
+	*/
+	function evt__salida__1()
+	{
+		// Armo la lista de dependencias disponibles para asociar a las pantallas
+		$this->dependencias_asoc = array();
+		if($registros = $this->get_dbt()->elemento('dependencias')->get_registros())
+		{
+			foreach($registros as $reg){
+				$this->dependencias_asoc[ $reg['identificador'] ] = $reg['identificador'];
+			}
+		}
+		// Si hay una seleccion, la anulo
+		$this->dependencias['dependencias']->limpiar_seleccion();
+	}
+
+	function get_dbr_dependencias()
+	{
+		return $this->get_dbt()->elemento('dependencias');
+	}
+	
+	// *******************************************************************
+	// ******************* tab PANTALLAS  ********************************
 	// *******************************************************************
 	
 	function get_lista_ei__2()
@@ -66,23 +95,59 @@ class ci_editor extends objeto_ci
 		$ei[] = "pantallas_lista";
 		if( isset($this->seleccion_pantalla) ){
 			$ei[] = "pantallas";
-			$ei[] = "pantallas_ei";
+			if(count($this->dependencias_asoc)>0){
+				$ei[] = "pantallas_ei";			
+			}
 		}
 		return $ei;	
 	}
-	
-	//-- Lista
-	
-	function evt__pantallas_lista__modificacion($datos)
+
+	function evt__post_cargar_datos_dependencias__2()
 	{
-		//Establesco la 'orden' de la fila segun el orden de aparicion
-		$a=1;
-		foreach(array_keys($datos) as $id){
-			$datos[$id]['orden'] = $a;
-			$a++;
+		if( isset($this->seleccion_pantalla) ){
+			//Agrego el evento "modificacion" y lo establezco como predeterminado
+			$this->dependencias["pantallas"]->agregar_evento( eventos::modificacion(null, false), true );
 		}
-		//ei_arbol($datos,"DATOS a guardar");
-		$this->get_dbt()->elemento('pantallas')->procesar_registros($datos);		
+	}
+
+	function evt__salida__2()
+	{
+		unset($this->seleccion_pantalla_anterior);
+		unset($this->seleccion_pantalla);
+	}
+
+	//----------------------------------------------------------
+	//-- Lista -------------------------------------------------
+	//----------------------------------------------------------
+	
+	function evt__pantallas_lista__modificacion($registros)
+	{
+		/*
+			Como en el mismo request es posible dar una columna de alta y seleccionarla,
+			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
+			porque ese es el que se pasa como parametro en la seleccion
+		*/
+		$dbr = $this->get_dbt()->elemento("pantallas");
+		$orden = 1;
+		foreach(array_keys($registros) as $id)
+		{
+			//Creo el campo orden basado en el orden real de las filas
+			$registros[$id]['orden'] = $orden;
+			$orden++;
+			$accion = $registros[$id][apex_ei_analisis_fila];
+			unset($registros[$id][apex_ei_analisis_fila]);
+			switch($accion){
+				case "A":
+					$this->id_intermedio_pantalla[$id] = $dbr->agregar_registro($registros[$id]);
+					break;	
+				case "B":
+					$dbr->eliminar_registro($id);
+					break;	
+				case "M":
+					$dbr->modificar_registro($registros[$id], $id);
+					break;	
+			}
+		}		
 	}
 	
 	function evt__pantallas_lista__carga()
@@ -96,7 +161,7 @@ class ci_editor extends objeto_ci
 			}
 			array_multisort($orden, SORT_ASC , $datos_dbr);
 			//EL formulario_ml necesita necesita que el ID sea la clave del array
-			//No se solicita asi del DBR porque array_multisort no conserva claves numericas
+			// No se solicita asi del DBR porque array_multisort no conserva claves numericas
 			// y las claves internas del DBR lo son
 			for($a=0;$a<count($datos_dbr);$a++){
 				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
@@ -110,14 +175,18 @@ class ci_editor extends objeto_ci
 
 	function evt__pantallas_lista__seleccion($id)
 	{
+		if(isset($this->id_intermedio_pantalla[$id])){
+			$id = $this->id_intermedio_pantalla[$id];
+		}
 		$this->seleccion_pantalla = $id;
 	}
 
-	//-- Info pantalla
+	//------------------------------------------------------
+	//-- Informacion extendida de la pantalla  -------------
+	//------------------------------------------------------
 
 	function evt__pantallas__modificacion($datos)
 	{
-		ei_arbol($datos, "hola" . $this->seleccion_pantalla_anterior);
 		$this->get_dbt()->elemento('pantallas')->modificar_registro($datos, $this->seleccion_pantalla_anterior);
 	}
 	
@@ -127,38 +196,59 @@ class ci_editor extends objeto_ci
 		return $this->get_dbt()->elemento('pantallas')->get_registro($this->seleccion_pantalla_anterior);
 	}
 
-	function combo_dependencias()
+	function evt__pantallas__cancelar()
 	{
-		return null;		
+		unset($this->seleccion_pantalla_anterior);
+		unset($this->seleccion_pantalla);
 	}
 
-	// *******************************************************************
-	// *******************  EVENTOS  ************************************
-	// *******************************************************************
-	/*
-		Metodos necesarios para que el CI de eventos funcione
-	*/
+	//------------------------------------------------------
+	//--- Asociacion de dependencias a pantallas  ----------
+	//------------------------------------------------------
 
-	function get_dbr_dependencias()
+	function evt__pantallas_ei__modificacion($datos)
 	{
-		return $this->get_dbt()->elemento('dependencias');
+		$deps = array();
+		foreach($datos as $dato){
+			$deps[] = $dato['dependencia'];
+		}
+		$this->get_dbt()->elemento('pantallas')->set_dependencias_pantalla($this->seleccion_pantalla_anterior, $deps);
 	}
 	
+	function evt__pantallas_ei__carga()
+	{
+		/*
+			Falta validar que todas las dependencias recuperadas aun existan
+			sino, hay que eliminarlas
+		*/
+		if( $datos = $this->get_dbt()->elemento('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
+		{
+			$a=0;
+			foreach($datos as $datos){
+				$deps[$a]['dependencia'] = $datos;
+				$a++;	
+			}
+			return $deps;
+		}
+	}
+
+	function combo_dependencias()
+	{
+		$a=0;
+		foreach( $this->dependencias_asoc as $dep => $info){
+			$datos[$a]['id'] = $dep; 
+			$datos[$a]['desc'] = $info; 
+			$a++;
+		}
+		return $datos;
+	}
+
 	// *******************************************************************
-	// *******************  DEPENDENCIAS  ********************************
+	// *******************  tab EVENTOS  *********************************
 	// *******************************************************************
 	/*
 		Metodos necesarios para que el CI de eventos funcione
 	*/
-
-	function get_eventos_estandar()
-	{
-		$evento[0]['identificador'] = "seleccion";
-		$evento[0]['etiqueta'] = "";
-		$evento[0]['imagen_recurso_origen'] = "apex";
-		$evento[0]['imagen'] = "doc.gif";	
-		return $evento;
-	}
 
 	function evt__salida__3()
 	{
@@ -169,13 +259,20 @@ class ci_editor extends objeto_ci
 	{
 		return $this->get_dbt()->elemento('eventos');
 	}
-	
+
+	function get_eventos_estandar()
+	{
+		require_once('api/elemento_objeto_ci.php');
+		return elemento_objeto_ci::get_lista_eventos_estandar();
+	}
+
 	// *******************************************************************
 	// *******************  PROCESAMIENTO  *******************************
 	// *******************************************************************
 	
 	function evt__procesar()
 	{
+		$this->get_dbt()->sincronizar();		
 	}
 	// *******************************************************************
 }
