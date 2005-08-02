@@ -5,7 +5,7 @@
 	API de los elementos toba
 	-------------------------
 
-		- ...
+		- Distribuir responsabilidades de una forma adecuada entre los elementos acoplados
 	
 	Edicion de elementos
 	--------------------
@@ -35,7 +35,7 @@
 			- dbr -> ci
 			- array -> form + cuadro + $seleccion
 
-		- Mejorar la forma de declarar eventos ad-hoc
+		- Mejorar la forma de declarar eventos ad-hoc (esto no tiene ningun tipo de prioridad)
 			- Es incomodo definir eventos para pantallas puntuales
 			- Hay que propagar eventos del ancestro
 
@@ -60,12 +60,16 @@
 			- Interaccion entre el editor y PHP
 				- Si se crea un metodo que modifica el comportamiento, que interactue con los forms 
 					(ej: la asociacion de dependencias a pantalla podria desaparecer)
-				- Mostrar eventos declarados en la pantalla que corresponda (Ej: configuracion de eventos en el tab de eventos)
+				- Mostrar eventos declarados en la pantalla que corresponda 
+					(Ej: configuracion de eventos en el tab de eventos)
 			- Hay que mostrar las operaciones a las que un objeto participa.
-			- Cargar la lista completa de parametros de efs (a futuro se pueden devolver efs para hacer un ei_formulario y no un ML).
+			- Cargar la lista completa de parametros de efs 
+				(a futuro se pueden devolver efs para hacer un ei_formulario y no un ML).
 			- Validaciones de efs.
-			- Tiene sentido asignar en la asociacion de dependencias nombrar una funcion que responda si un ei se utiliza o no?
-				- Esto puede simplificar la definicion de eis a utilizar... (y puede ser el mecanismo para olvidarse que que objetos son CI!)
+			- Tiene sentido asignar en la asociacion de dependencias nombrar una funcion que 
+					responda si un ei se utiliza o no?
+				- Esto puede simplificar la definicion de eis a utilizar... 
+				(y puede ser el mecanismo para olvidarse que que objetos son CI!)
 		- objetos toba que que no poseen editor:
 			- Editor ci_cn (combo?)
 			- Editor de ci_abms_dbr (falta que el objeto_db_registros)
@@ -77,70 +81,32 @@
 	Otros
 	-----
 
+		- Customizacion de layout
 		- ZONA?
 		- Personalizaciones. Como hacer algo que implemente el esquema concreto que usa el SIU?
-		- Preguntarle a seba sobre layout sin tablas
-		- Ajustar el cronograma de tickets
+			- Personalizacion en toba como ejemplo
+				- hacer reportes
+				- personalizarlos para algun proyecto
+				- integrar las personalizaciones a un esquema que suponga al svn
+				- iniciar una instancia con un set de personalizaciones
 		- Mecanismo de reconfirmacion
 		- Esquema de VERSIONADO inherente alos dbrs?
+		- El toba tiene que pasar a ser un proyecto
+		- Ajustar el cronograma de tickets
+		- Refactorizacion de las fuentes de datos
+		- Memoria:
+			- necesidad de espacios de memoria no reciclados, y no recicladores para el administrador
+			- Pensar las implicancias del acceso a un CI de una forma no visual (AJAX)
+				- Un ML reporta que se inserto un registro
+				- Una cascada dinamica
+				- Un EI pide una subparte al server (arbol)
 
-	Bugs
-	----
+	Tareas concretas
+	----------------
 
 		- Editor CSS
 		- El ML recuerda el estado
-
-**************************************************************************************************
-** Borrador para el contenido de la presentacion del TOBA 
-**************************************************************************************************
-
-	(Se dispone de 20 min. para las dos presentaciones (SIU, SADIO?)
-
-	- Parte 1 (5 min.): Explicar los principios de la herramienta de una forma simple.
-	- Parte 2 (5 min.): Mostrar el tipo de interaces que se pueden lograr con ejemplos.
-	- Parte 3 (5 min.): Comentar algunos detalles interesantes.
-	- Parte 4 (5 min.): Hablar sobre el esquema de trabajo (mostrar ejemplos).
-
-	- 1) Inicio
-
-		- Intro:
-			- El toba es una herramienta para hacer aplicaciones compuestas por operaciones
-			- Una operacion representa una accion atomica sobre un elemento del sistema.
-			- Se define una operacion componiendo partes. 
-		
-		- Objetivo:
-			- Permite enfocar el desarrollo en la logica de negocio y no en la infraestructura
-				- no se necesita un arquitecto.
-				- el grupo queda esta mas orientado a concretar los requerientos de la aplicacion.
-			- Apunta a lograr un balance adecuado entre tiempo de desarrollo y calidad del producto.
-		
-
-		- Se crean componentes visuales (EI), se los juntado y se les asigna un comportamiento
-		 	(Ver la composicion de una operacion)
-		- balance datos/codigo 
-			- Utilizar la parte PHP de los editores
-			- Explicar la relacion PHP/JS.
-		- Las operaciones se publican en un menu y se les asigna permisos.
-
-
-	- 2) Ejemplos de interfaces complejas
-		- Formas de navegacion
-		- Colapsado, resumen y ocultamiento
-		- Formularios ML
-
-	- 3) Temas, cosas interesantes
-		
-		- Ventana transaccional
-		- Editor de CSS
-		- Debug Javascript
-		- Seguridad
-
-	- 4) Esquema de trabajo 
-		- (el equipo esta distribuido)
-		- svn
-		- integracion continua
-		- testing automatico
-		- trac
+		- Eliminar el parametro cifras del ef_numero (se deduce del rango)
 
 **************************************************************************************************
 **************************************************************************************************

@@ -131,10 +131,9 @@ then
 elif [ "$1" = "regenerar" ]
 then
 
-	cd $toba_dir/sql
-	adm $instancia borrar
+	instancia $instancia eliminar
 	controlar "<1> ELIMINAR instancia: $instancia"
-	instancia $instancia cargar
+	instancia $instancia iniciar
 	controlar "<2> RECUPERAR instancia: $instancia"
 
 ##***********************************************************************************************##
