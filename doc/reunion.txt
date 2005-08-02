@@ -101,8 +101,20 @@
 	- Parte 3 (5 min.): Comentar algunos detalles interesantes.
 	- Parte 4 (5 min.): Hablar sobre el esquema de trabajo (mostrar ejemplos).
 
-	- 1) El toba es una herramienta para hacer aplicaciones.
-		- Se define una operacion componiendo partes. 
+	- 1) Inicio
+
+		- Intro:
+			- El toba es una herramienta para hacer aplicaciones compuestas por operaciones
+			- Una operacion representa una accion atomica sobre un elemento del sistema.
+			- Se define una operacion componiendo partes. 
+		
+		- Objetivo:
+			- Permite enfocar el desarrollo en la logica de negocio y no en la infraestructura
+				- no se necesita un arquitecto.
+				- el grupo queda esta mas orientado a concretar los requerientos de la aplicacion.
+			- Apunta a lograr un balance adecuado entre tiempo de desarrollo y calidad del producto.
+		
+
 		- Se crean componentes visuales (EI), se los juntado y se les asigna un comportamiento
 		 	(Ver la composicion de una operacion)
 		- balance datos/codigo 
@@ -110,12 +122,14 @@
 			- Explicar la relacion PHP/JS.
 		- Las operaciones se publican en un menu y se les asigna permisos.
 
+
 	- 2) Ejemplos de interfaces complejas
 		- Formas de navegacion
 		- Colapsado, resumen y ocultamiento
 		- Formularios ML
 
 	- 3) Temas, cosas interesantes
+		
 		- Ventana transaccional
 		- Editor de CSS
 		- Debug Javascript
