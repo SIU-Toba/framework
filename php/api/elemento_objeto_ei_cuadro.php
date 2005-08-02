@@ -78,8 +78,14 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 	function hay_ordenar() {
 		return $this->datos['apex_objeto_cuadro'][0]['ordenar'];
 	}
-
+	
+	static function get_lista_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "seleccion";
+		$evento[0]['etiqueta'] = "";
+		$evento[0]['imagen_recurso_origen'] = "apex";
+		$evento[0]['imagen'] = "doc.gif";	
+		return $evento;
+	}
 }
-
-
 ?>

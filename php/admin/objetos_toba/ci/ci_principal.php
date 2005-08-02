@@ -42,11 +42,11 @@ class ci_editor extends objeto_ci
 
 	function get_lista_eventos()
 	{
-		$eventos = array();
+		$eventos = parent::get_lista_eventos();
 		if( isset($this->seleccion_pantalla) ){
 			$eventos += eventos::evento_estandar('cancelar_pantalla',"Cancelar la edicion de la pantalla");
 		}		
-		if( true ){
+		if( false ){	//Como se va a menejar la eliminacion (dbt y zona!)
 			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
 		}		
 		$eventos += eventos::ci_procesar();

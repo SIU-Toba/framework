@@ -102,6 +102,11 @@ class elemento_objeto_ei_formulario_ml extends elemento_objeto
 	function tipo_analisis() {
 		return $this->datos['apex_objeto_ut_formulario'][0]['analisis_cambios'];
 	}
+
+	static function get_lista_eventos_estandar()
+	{
+		return array();
+	}
 }
 
 

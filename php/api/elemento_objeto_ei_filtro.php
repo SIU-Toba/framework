@@ -67,7 +67,16 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 	function hay_eventos_seleccionados() {
 		return $this->hay_filtrar() || $this->hay_cancelar();
 	}
+
+	static function get_lista_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "filtrar";
+		$evento[0]['etiqueta'] = "&Filtrar";
+		$evento[0]['estilo'] = "abm-input-eliminar";
+		$evento[1]['identificador'] = "cancelar";
+		$evento[1]['etiqueta'] = "Ca&ncelar";
+		$evento[1]['estilo'] = "abm-input";
+		return $evento;		
+	}
 }
-
-
 ?>

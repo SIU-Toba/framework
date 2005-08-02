@@ -193,11 +193,8 @@ class ci_principal extends objeto_ci
 
 	function get_eventos_estandar()
 	{
-		$evento[0]['identificador'] = "seleccion";
-		$evento[0]['etiqueta'] = "";
-		$evento[0]['imagen_recurso_origen'] = "apex";
-		$evento[0]['imagen'] = "doc.gif";	
-		return $evento;
+		require_once('api/elemento_objeto_ei_cuadro.php');
+		return elemento_objeto_ei_cuadro::get_lista_eventos_estandar();
 	}
 
 	function evt__salida__3()

@@ -27,9 +27,19 @@ class ci_principal extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_ei_formulario_ml();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1387') );
+			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1418') );
 		}
 		return $this->db_tablas;
+	}
+
+	function get_lista_eventos()
+	{
+		$eventos = parent::get_lista_eventos();
+		if( false ){	//Como se va a menejar la eliminacion (dbt y zona!)
+			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
+		}		
+		$eventos += eventos::ci_procesar();
+		return $eventos;
 	}
 
 	//*******************************************************************
@@ -78,11 +88,8 @@ class ci_principal extends objeto_ci
 
 	function get_eventos_estandar()
 	{
-		$evento[0]['identificador'] = "seleccion";
-		$evento[0]['etiqueta'] = "";
-		$evento[0]['imagen_recurso_origen'] = "apex";
-		$evento[0]['imagen'] = "doc.gif";	
-		return $evento;
+		require_once('api/elemento_objeto_ei_formulario_ml.php');
+		return elemento_objeto_ei_formulario_ml::get_lista_eventos_estandar();
 	}
 
 	function evt__salida__3()

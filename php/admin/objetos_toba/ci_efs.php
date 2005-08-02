@@ -52,6 +52,20 @@ class ci_efs extends objeto_ci
 		return false;
 	}
 
+	function get_lista_eventos()
+	{
+		$eventos = parent::get_lista_eventos();
+		if( $this->mostrar_efs_detalle() ){
+			$eventos += eventos::evento_estandar('cancelar_edicion',"C&ancelar");
+		}		
+		return $eventos;
+	}
+
+	function evt__cancelar_edicion()
+	{
+		$this->limpiar_seleccion();	
+	}
+
 	function get_lista_ei()
 	{
 		$ei[] = "efs_lista";

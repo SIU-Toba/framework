@@ -103,5 +103,22 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		return $this->filtrar_comentarios($basicos);
 	}
 	
+	static function get_lista_eventos_estandar()
+	{
+		$evento[0]['identificador'] = "alta";
+		$evento[0]['etiqueta'] = "&Alta";
+		$evento[0]['estilo'] = "abm-input-eliminar";
+		$evento[1]['identificador'] = "baja";
+		$evento[1]['etiqueta'] = "&Eliminar";
+		$evento[1]['estilo'] = "abm-input-eliminar";
+		$evento[1]['confirmacion'] = "¿Desea ELIMINAR el registro?";
+		$evento[2]['identificador'] = "modificacion";
+		$evento[2]['etiqueta'] = "&Modificacion";
+		$evento[2]['estilo'] = "abm-input";
+		$evento[3]['identificador'] = "cancelar";
+		$evento[3]['etiqueta'] = "Ca&ncelar";
+		$evento[3]['estilo'] = "abm-input";		
+		return $evento;		
+	}
 }
 ?>
