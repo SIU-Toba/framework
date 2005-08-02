@@ -11,7 +11,7 @@ class eiform_abm_detalle extends objeto_ei_formulario_ml
 		$this->fila_protegida = $fila;	
 	}
 
-		/*
+//		/*
 	function extender_objeto_js()
 	{
 		if(isset($this->fila_protegida)){
@@ -26,6 +26,6 @@ class eiform_abm_detalle extends objeto_ei_formulario_ml
 ";
 		}
 	}
-		*/
+//		*/
 }
 ?>

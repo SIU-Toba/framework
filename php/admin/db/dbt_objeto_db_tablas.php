@@ -17,12 +17,5 @@ class dbt_objeto_db_tablas extends dbt_objeto
 							);
 		parent::__construct($fuente);
 	}
-
-	function evt__pre_sincronizacion()
-	{
-		parent::evt__pre_sincronizacion();
-		$this->elemento['base']->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->elemento['base']->set_registro_valor(0,"clase", "objeto_db_registros" );
-	}	
 }
 ?>

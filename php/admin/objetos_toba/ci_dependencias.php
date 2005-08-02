@@ -52,7 +52,10 @@ class ci_dependencias extends objeto_ci
 	
 	function evt__formulario__baja()
 	{
+		$id_dep = $this->get_dbr()->get_registro_valor($this->seleccion_dependencia_anterior,"identificador");
 		$this->get_dbr()->eliminar_registro($this->seleccion_dependencia_anterior);
+		//Se dispara un evento que indica cual es la DEPENDENCIA que se elimino (para que el controlador actualize su estado)
+		$this->reportar_evento( "del_dep", $id_dep );
 		$this->evt__formulario__cancelar();
 	}
 	

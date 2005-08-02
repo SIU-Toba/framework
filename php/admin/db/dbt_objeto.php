@@ -3,11 +3,6 @@ require_once("nucleo/persistencia/db_tablas.php");
 
 class dbt_objeto extends db_tablas
 {
-	function evt__pre_sincronizacion()
-	{
-		$this->elemento['base']->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-	}
-
 	function evt__post_sincronizacion()
 	/*
 		Log de modificacion de un OBJETO TOBA

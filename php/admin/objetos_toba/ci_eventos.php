@@ -100,7 +100,6 @@ class ci_eventos extends objeto_ci
 			tengo que guardar el ID intermedio que el ML asigna en las eventos NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
-
 		//FALT CONTROL : (Etiqueta o imagen) completa
 
 		$dbr = $this->get_dbr();
@@ -114,7 +113,10 @@ class ci_eventos extends objeto_ci
 					$this->id_intermedio_evento[$id] = $dbr->agregar_registro($registros[$id]);
 					break;	
 				case "B":
+					//Tengo que reportarle al contenedor la eliminacion del evento
+					$id_evento = $dbr->get_registro_valor($id,"identificador");
 					$dbr->eliminar_registro($id);
+					$this->reportar_evento( "del_evento", $id_evento );
 					break;	
 				case "M":
 					$dbr->modificar_registro($registros[$id], $id);

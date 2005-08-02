@@ -27,11 +27,12 @@ class dbt_objeto_ci extends dbt_objeto
 		parent::__construct($fuente);
 	}
 
-	function evt__pre_sincronizacion()
+	function eliminar_dependencia($dependencia)
 	{
-		parent::evt__pre_sincronizacion();
-		$this->elemento['base']->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->elemento['base']->set_registro_valor(0,"clase", "objeto_ci" );
+		//Elimino el elemento del DBR de dependencias
+		
+		//Elimino el elemento de las pantallas
+		$this->elemento['pantallas']->eliminar_dependencia($dependencia);
 	}
 }
 ?>

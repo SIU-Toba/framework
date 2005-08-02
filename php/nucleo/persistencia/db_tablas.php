@@ -180,11 +180,11 @@ class db_tablas
 			$detalles = array_reverse(array_keys($this->detalles));
 			foreach( $detalles as $detalle ) {
 				$this->elemento[$detalle]->eliminar_registros();
-				$this->elemento[$detalle]->sincronizar();
+				$this->elemento[$detalle]->sincronizar(false);
 			}
 		}
 		$this->elemento[$this->cabecera]->eliminar_registros();
-		$this->elemento[$this->cabecera]->sincronizar();		
+		$this->elemento[$this->cabecera]->sincronizar(false);		
 	}
 	//-------------------------------------------------------
 

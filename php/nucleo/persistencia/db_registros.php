@@ -479,6 +479,19 @@ class db_registros
 	}
 	//-------------------------------------------------------------------------------
 
+	public function get_valores_columna($columna)
+	//Retorna una columna de valores
+	{
+		$temp = null;
+		foreach(array_keys($this->control) as $registro){
+			if($this->control[$registro]['estado']!="d"){
+				$temp[] = $this->datos[$registro][$columna];
+			}
+		}
+		return $temp;
+	}
+	//-------------------------------------------------------------------------------
+	
 	public function get_cantidad_registros()
 	{
 		$a = 0;
@@ -587,7 +600,7 @@ class db_registros
 	{
 		if( in_array($columna, $this->campos) ){
 			$this->datos[$id][$columna] = $valor;
-			if($this->control[$id]['estado']!="i"){
+			if($this->control[$id]['estado']!="i" && $this->control[$id]['estado']!="d"){
 				$this->actualizar_estructura_control($id,"u");
 			}		
 		}else{
@@ -829,14 +842,16 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function sincronizar()
+	public function sincronizar($control_tope_minimo=true)
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
 		$this->log("Inicio SINCRONIZACION"); 
-		if( $this->tope_min_registros != 0){
-			if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
-				$this->log("No se cumplio con el tope minimo de registros necesarios" );
-				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+		if($control_tope_minimo){
+			if( $this->tope_min_registros != 0){
+				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
+					$this->log("No se cumplio con el tope minimo de registros necesarios" );
+					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+				}
 			}
 		}
 		$this->controlar_alteracion_db();

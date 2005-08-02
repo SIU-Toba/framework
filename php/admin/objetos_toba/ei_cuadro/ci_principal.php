@@ -222,8 +222,12 @@ class ci_principal extends objeto_ci
 				Hay que controlar que la clave este incluida entre las columnas,
 				en el caso en que no se este utilizando un db_registros.
 		*/
-		$this->get_dbt()->sincronizar();
-	}
+		//Seteo los datos asociados al uso de este editor
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_ei_cuadro" );
+		//Sincronizo el DBT
+		$this->get_dbt()->sincronizar();		}
 	//-------------------------------------------------------------------
 }
 ?>

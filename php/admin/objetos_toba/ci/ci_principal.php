@@ -7,13 +7,15 @@ class ci_editor extends objeto_ci
 	protected $db_tablas;
 	protected $seleccion_pantalla;
 	protected $seleccion_pantalla_anterior;
-	protected $dependencias_asoc = array();
+	protected $pantalla_dep_asoc;
+	protected $pantalla_evt_asoc;
 	private $id_intermedio_pantalla;	
 
 	function destruir()
 	{
 		parent::destruir();
 		//ei_arbol($this->get_dbt()->elemento('pantallas')->info(true),"PANTALLAS");
+		//ei_arbol($this->get_dbt()->elemento('eventos')->info(true),"PANTALLAS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
@@ -23,7 +25,8 @@ class ci_editor extends objeto_ci
 		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_pantalla";
 		$propiedades[] = "seleccion_pantalla_anterior";
-		$propiedades[] = "dependencias_asoc";
+		$propiedades[] = "pantalla_dep_asoc";
+		$propiedades[] = "pantalla_evt_asoc";
 		return $propiedades;
 	}
 
@@ -32,9 +35,22 @@ class ci_editor extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_ci();
-			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1415') );
+			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1417') );
 		}
 		return $this->db_tablas;
+	}
+
+	function get_lista_eventos()
+	{
+		$eventos = array();
+		if( isset($this->seleccion_pantalla) ){
+			$eventos += eventos::evento_estandar('cancelar_pantalla',"Cancelar la edicion de la pantalla");
+		}		
+		if( true ){
+			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
+		}		
+		$eventos += eventos::ci_procesar();
+		return $eventos;
 	}
 
 	// *******************************************************************
@@ -69,15 +85,6 @@ class ci_editor extends objeto_ci
 	*/
 	function evt__salida__1()
 	{
-		// Armo la lista de dependencias disponibles para asociar a las pantallas
-		$this->dependencias_asoc = array();
-		if($registros = $this->get_dbt()->elemento('dependencias')->get_registros())
-		{
-			foreach($registros as $reg){
-				$this->dependencias_asoc[ $reg['identificador'] ] = $reg['identificador'];
-			}
-		}
-		// Si hay una seleccion, la anulo
 		$this->dependencias['dependencias']->limpiar_seleccion();
 	}
 
@@ -86,17 +93,46 @@ class ci_editor extends objeto_ci
 		return $this->get_dbt()->elemento('dependencias');
 	}
 	
+	function evt__dependencias__del_dep($id)
+	{
+		//El ci de dependencias avisa que se borro la dependencias $id
+		$this->get_dbt()->elemento('pantallas')->eliminar_dependencia($id);
+	}
+	
 	// *******************************************************************
 	// ******************* tab PANTALLAS  ********************************
 	// *******************************************************************
 	
+	function evt__entrada__2()
+	{
+		//--- Armo la lista de DEPENDENCIAS disponibles
+		$this->pantalla_dep_asoc = array();
+		if($registros = $this->get_dbt()->elemento('dependencias')->get_registros())
+		{
+			foreach($registros as $reg){
+				$this->pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
+			}
+		}
+		//--- Armo la lista de EVENTOS disponibles
+		$this->pantalla_evt_asoc = array();
+		if($registros = $this->get_dbt()->elemento('eventos')->get_registros())
+		{
+			foreach($registros as $reg){
+				$this->pantalla_evt_asoc[ $reg['identificador'] ] = $reg['identificador'];
+			}
+		}
+	}
+
 	function get_lista_ei__2()
 	{
 		$ei[] = "pantallas_lista";
 		if( isset($this->seleccion_pantalla) ){
 			$ei[] = "pantallas";
-			if(count($this->dependencias_asoc)>0){
+			if( isset($this->pantalla_dep_asoc) ){
 				$ei[] = "pantallas_ei";			
+			}
+			if( isset($this->pantalla_evt_asoc) ){
+				$ei[] = "pantallas_evt";			
 			}
 		}
 		return $ei;	
@@ -105,12 +141,18 @@ class ci_editor extends objeto_ci
 	function evt__post_cargar_datos_dependencias__2()
 	{
 		if( isset($this->seleccion_pantalla) ){
-			//Agrego el evento "modificacion" y lo establezco como predeterminado
-			$this->dependencias["pantallas"]->agregar_evento( eventos::modificacion(null, false), true );
+			//Protejo la evento seleccionada de la eliminacion
+			$this->dependencias["pantallas_lista"]->set_fila_protegida( $this->seleccion_pantalla );
 		}
 	}
 
 	function evt__salida__2()
+	{
+		unset($this->seleccion_pantalla_anterior);
+		unset($this->seleccion_pantalla);
+	}
+
+	function evt__cancelar_pantalla()
 	{
 		unset($this->seleccion_pantalla_anterior);
 		unset($this->seleccion_pantalla);
@@ -196,15 +238,25 @@ class ci_editor extends objeto_ci
 		return $this->get_dbt()->elemento('pantallas')->get_registro($this->seleccion_pantalla_anterior);
 	}
 
-	function evt__pantallas__cancelar()
-	{
-		unset($this->seleccion_pantalla_anterior);
-		unset($this->seleccion_pantalla);
-	}
+	//------------------------------------------------------
+	//--- Asociacion de DEPENDENCIAS a pantallas  ----------
+	//------------------------------------------------------
 
-	//------------------------------------------------------
-	//--- Asociacion de dependencias a pantallas  ----------
-	//------------------------------------------------------
+	function evt__pantallas_ei__carga()
+	{
+		if( $deps = $this->get_dbt()->elemento('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
+		{
+			$a=0;
+			$datos = null;
+			foreach($deps as $dep){
+				if(in_array($dep, $this->pantalla_dep_asoc)){
+					$datos[$a]['dependencia'] = $dep;
+					$a++;	
+				}
+			}
+			return $datos;
+		}
+	}
 
 	function evt__pantallas_ei__modificacion($datos)
 	{
@@ -214,33 +266,50 @@ class ci_editor extends objeto_ci
 		}
 		$this->get_dbt()->elemento('pantallas')->set_dependencias_pantalla($this->seleccion_pantalla_anterior, $deps);
 	}
-	
-	function evt__pantallas_ei__carga()
-	{
-		/*
-			Falta validar que todas las dependencias recuperadas aun existan
-			sino, hay que eliminarlas
-		*/
-		if( $datos = $this->get_dbt()->elemento('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
-		{
-			$a=0;
-			foreach($datos as $datos){
-				$deps[$a]['dependencia'] = $datos;
-				$a++;	
-			}
-			return $deps;
-		}
-	}
 
 	function combo_dependencias()
 	{
 		$a=0;
-		foreach( $this->dependencias_asoc as $dep => $info){
+		foreach( $this->pantalla_dep_asoc as $dep => $info){
 			$datos[$a]['id'] = $dep; 
 			$datos[$a]['desc'] = $info; 
 			$a++;
 		}
 		return $datos;
+	}
+
+	//------------------------------------------------------
+	//--- Asociacion de EVENTOS a pantallas  ---------------
+	//------------------------------------------------------
+
+	function evt__pantallas_evt__carga()
+	{
+		$eventos_asociados = $this->get_dbt()->elemento('pantallas')->get_eventos_pantalla($this->seleccion_pantalla_anterior);
+		$datos = null;
+		$a=0;
+		foreach( $this->pantalla_evt_asoc as $dep){
+			$datos[$a]['evento'] = $dep; 
+			if(is_array($eventos_asociados)){
+				if(in_array($dep, $eventos_asociados)){
+					$datos[$a]['asociar'] = 1;
+				}else{
+					$datos[$a]['asociar'] = 0;
+				}
+			}else{
+				$datos[$a]['asociar'] = 0;
+			}
+			$a++;
+		}
+		return $datos;
+	}
+
+	function evt__pantallas_evt__modificacion($datos)
+	{
+		$eventos = array();
+		foreach($datos as $dato){
+			if($dato['asociar'] == "1")	$eventos[] = $dato['evento'];
+		}
+		$this->get_dbt()->elemento('pantallas')->set_eventos_pantalla($this->seleccion_pantalla_anterior, $eventos);
 	}
 
 	// *******************************************************************
@@ -266,13 +335,29 @@ class ci_editor extends objeto_ci
 		return elemento_objeto_ci::get_lista_eventos_estandar();
 	}
 
+	function evt__eventos__del_evento($id)
+	{
+		//El ci de EVENTOS avisa que se borro el evento $id
+		$this->get_dbt()->elemento('pantallas')->eliminar_evento($id);
+	}
+
 	// *******************************************************************
 	// *******************  PROCESAMIENTO  *******************************
 	// *******************************************************************
 	
 	function evt__procesar()
 	{
+		//Seteo los datos asociados al uso de este editor
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_ci" );
+		//Sincronizo el DBT
 		$this->get_dbt()->sincronizar();		
+	}
+
+	function evt__eliminar()
+	{
+		$this->get_dbt()->eliminar();
 	}
 	// *******************************************************************
 }

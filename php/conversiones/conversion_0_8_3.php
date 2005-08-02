@@ -10,22 +10,31 @@ class conversion_0_8_3 extends conversion_toba
 
 	function cambio_migrar_definicion_eventos_ei_cuadro()
 	{
-		
+	/*
+		Crear los eventos que esten seleccionados 
+	*/
 	}
 	
 	function cambio_migrar_definicion_eventos_ei_filtro()
 	{
-		
+	/*
+		Crear los eventos que esten seleccionados 
+	*/
 	}
 
 	function cambio_migrar_definicion_eventos_ei_formulario()
 	{
-		
+	/*
+		Crear los eventos que esten seleccionados 
+	*/
 	}
 
 	function cambio_migrar_definicion_eventos_ci()
 	{
-		
+	/*
+		Crear los eventos que esten seleccionados 
+		Migrar la asociacion de eventos a pantallas
+	*/
 	}
 
 	function cambio_ei_cuadro_clave_dbr()
