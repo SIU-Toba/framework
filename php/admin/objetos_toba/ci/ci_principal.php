@@ -4,12 +4,20 @@ require_once("admin/db/toba_dbt.php");
 
 class ci_editor extends objeto_ci
 {
+	protected $id_objeto;
 	protected $db_tablas;
 	protected $seleccion_pantalla;
 	protected $seleccion_pantalla_anterior;
 	protected $pantalla_dep_asoc;
 	protected $pantalla_evt_asoc;
 	private $id_intermedio_pantalla;	
+
+	function __construct($id)
+	{
+		parent::__construct($id);	
+		$this->set_objeto( 	array(	'proyecto'=>'toba', 
+									'objeto'=>'1354') );	//metaeditor!
+	}
 
 	function destruir()
 	{
@@ -30,12 +38,19 @@ class ci_editor extends objeto_ci
 		return $propiedades;
 	}
 
+	function set_objeto($id)
+	{
+		$this->id_objeto = 	$id;
+	}
+
 	function get_dbt()
 	//Acceso al db_tablas
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_ci();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1417') );
+			if(isset($this->id_objeto)){
+				$this->db_tablas->cargar( $this->id_objeto );
+			}
 		}
 		return $this->db_tablas;
 	}
@@ -128,10 +143,10 @@ class ci_editor extends objeto_ci
 		$ei[] = "pantallas_lista";
 		if( isset($this->seleccion_pantalla) ){
 			$ei[] = "pantallas";
-			if( isset($this->pantalla_dep_asoc) ){
+			if( count($this->pantalla_dep_asoc) > 0 ){
 				$ei[] = "pantallas_ei";			
 			}
-			if( isset($this->pantalla_evt_asoc) ){
+			if( count($this->pantalla_evt_asoc) > 0 ){
 				$ei[] = "pantallas_evt";			
 			}
 		}
@@ -269,6 +284,7 @@ class ci_editor extends objeto_ci
 
 	function combo_dependencias()
 	{
+		$datos = null;
 		$a=0;
 		foreach( $this->pantalla_dep_asoc as $dep => $info){
 			$datos[$a]['id'] = $dep; 
@@ -340,7 +356,46 @@ class ci_editor extends objeto_ci
 		//El ci de EVENTOS avisa que se borro el evento $id
 		$this->get_dbt()->elemento('pantallas')->eliminar_evento($id);
 	}
+	
+	// *******************************************************************
+	// *******************  tab PHP  *************************************
+	// *******************************************************************
 
+	function obtener_html_contenido__4()
+	{	
+		require_once('nucleo/lib/reflexion/archivo_php.php');
+		require_once('nucleo/lib/reflexion/clase_php.php');
+		require_once('admin/db/dao_editores.php');
+
+		$registro = $this->get_dbt()->elemento('base')->get();
+		
+		$subclase = $registro['subclase'];
+		$subclase_archivo = $registro['subclase_archivo'];
+		$clase = $registro['clase'];
+		$clase_archivo = dao_editores::get_clase_archivo($registro['clase_proyecto'], $clase );
+		$proyecto = $this->id_objeto['proyecto'];
+
+		if($proyecto == "toba")
+		    $path = $_SESSION["path_php"] . "/" . $subclase_archivo;
+		else
+		    $path = $_SESSION["path"] . "/proyectos/$proyecto/php/" . $subclase_archivo;
+		//Manejo de archivos            
+		$archivo_php = new archivo_php($path);
+		//Manejo de clases
+		$clase_php = new clase_php($subclase, $archivo_php, $clase, $clase_archivo);
+		$clase_php->set_objeto( $this->id_objeto['proyecto'], $this->id_objeto['objeto']);
+		if($archivo_php->existe()){	
+			ei_separador("ARCHIVO: ".	$archivo_php->nombre());
+			$archivo_php->incluir();
+			$clase_php->analizar();	
+		}	
+	}		
+
+	// *******************************************************************
+	// *******************  tab COMPOSICION  *****************************
+	// *******************************************************************
+	
+	
 	// *******************************************************************
 	// *******************  PROCESAMIENTO  *******************************
 	// *******************************************************************

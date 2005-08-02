@@ -1,0 +1,54 @@
+
+	CI: Metodos que pueden declararse en los hijos ordenados segun el orden de ejecucion del request
+
+	* evt__inicializar()
+
+		Lugar para meter codigo de inicializacion
+
+	//--------- Procesamiento de eventos ---------------
+
+	- Eventos de las dependencias
+	
+		* evt__[dependencia]__[evento]()
+		
+	- Eventos propios
+	
+		* evt__[evento]()
+		
+	* evt__post_recuperar_interaccion()
+	
+		Hacer algo global despues de que se recibieron los eventos
+		
+	* get_etapa_actual()
+	
+		evt__salida__[etapa_anterior]()
+		evt__entrada__[etapa_actual]()
+
+	//--------- Generacion de interface ---------------
+	
+	* get_lista_ei()
+			-> 	get_lista_ei__[etapa_actual]() 
+
+		 Se decide que EIs hay que mostrar
+
+
+	* evt__pre_cargar_datos_dependencias();
+			-> 	evt__pre_cargar_datos_dependencias[etapa_actual]() 
+	
+		-- Carga de los DAOS dinamicos de los formularios
+	
+		evt__[dependencia]__carga()
+	
+	* evt__post_cargar_datos_dependencias();
+			-> 	evt__post_cargar_datos_dependencias[etapa_actual]() 
+
+		- Este es el lugar para agregar eventos
+
+	* get_lista_eventos
+
+	* get_lista_tabs
+	
+	* obtener_html_contenido__[etapa_actual]()
+	
+
+	

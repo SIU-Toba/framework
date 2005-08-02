@@ -30,6 +30,17 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}	
 
+	static function get_clase_archivo($proyecto, $clase)
+	{
+		$sql = "SELECT 	archivo
+				FROM apex_clase 
+				WHERE 	clase = '$clase'
+				AND		proyecto = '$proyecto'";
+		$temp = consultar_fuente($sql, "instancia");
+		if(is_array($temp)){
+			return $temp[0]['archivo'];
+		}
+	}
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------
