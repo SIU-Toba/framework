@@ -12,9 +12,9 @@
 		
 		foreach($sqls as $sql)
 		{
-			pre( $sql );
+			$x .= $sql . "\n";
 		}
-		
+		echo $x;
 		$this->zona->obtener_html_barra_inferior();
 	}else{
 		echo ei_mensaje("No se explicito el ELEMENTO a editar","error");
