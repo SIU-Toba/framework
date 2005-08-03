@@ -1,7 +1,7 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");						//Ancestro de todos los OE
 
-class objeto_html extends objeto
+class objeto_html extends objeto_ei
 /*
 	@@acceso: publico
 	@@desc: Permite representar planeamientos en el eje del tiempo
@@ -21,8 +21,22 @@ class objeto_html extends objeto
 */
 	{
 		parent::objeto($id);
+		$this->objeto_js = "objeto_cuadro_{$id[1]}";
 	}
 
+	/* TODO ESTO TIENE QUE IR A EI!!!!!!!!!! */
+
+	function inicializar($parametros)
+	{
+		$this->id_en_padre = $parametros['id'];		
+	}
+	function cargar_datos(){}
+	function get_lista_eventos(){
+		 return array();
+	}
+	function disparar_eventos(){}
+	/*----------------------------------------*/
+	
 	function obtener_definicion_db()
 /*
  	@@acceso:
