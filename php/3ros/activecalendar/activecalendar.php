@@ -1,5 +1,5 @@
 <?php
-include('3ros/adodb340/adodb.inc.php');
+//include('3ros/adodb340/adodb.inc.php');
 /*
 * @class: activeCalendar
 * @project: Active Calendar Class
@@ -105,6 +105,7 @@ var $cssPickerYear="yearpicker"; // select tag: year picker
 var $cssPickerButton="pickerbutton"; // input (submit) tag: date picker button
 var $cssMonthDay="monthday"; // td tag: days, that belong to the current month
 var $cssWeek="weeknumber"; // td tag: weeks, that belong to the current month
+var $cssWeekNoSelec = "weeknoselec";
 var $cssNoMonthDay="monthday"; // td tag: days, that do not belong to the current month
 var $cssToday="today"; // td tag: the current day
 var $cssSelecDay="selectedday"; // td tag: the selected day
@@ -161,8 +162,8 @@ function activeCalendar($week=false,$year=false,$month=false,$day=false,$GMTDiff
 	{
 		$this->selectedweek = $week;
 		$semana = $this->semana($week, $year);
-		$day = $this->mkActiveGMDate("j", $semana);
-		$month = $this->mkActiveGMDate("n", $semana);
+		$day = $this->mkActiveGMDate("d", $semana);
+		$month = $this->mkActiveGMDate("m", $semana);
 	}
 	else
 		$this->selectedweek = -1;
@@ -177,9 +178,9 @@ function activeCalendar($week=false,$year=false,$month=false,$day=false,$GMTDiff
 	$h = $this->mkActiveGMDate("H");
 	$m = $this->mkActiveGMDate("i");
 	$s = $this->mkActiveGMDate("s");
-	$d = $this->mkActiveGMDate("j");
+	$d = $this->mkActiveGMDate("d");
 	$W = $this->mkActiveGMDate("W");
-	$mo = $this->mkActiveGMDate("n");
+	$mo = $this->mkActiveGMDate("m");
 	$y = $this->mkActiveGMDate("Y");
 	$is_dst = $this->mkActiveDate("I");
 	if ($GMTDiff != "none")
@@ -190,20 +191,20 @@ function activeCalendar($week=false,$year=false,$month=false,$day=false,$GMTDiff
 	if ($this->unixtime == -1 || !$year)
 		$this->unixtime = $this->timetoday;
 		
-	$this->daytoday = $this->mkActiveDate("j");
-	$this->monthtoday = $this->mkActiveDate("n");
+	$this->daytoday = $this->mkActiveDate("d");
+	$this->monthtoday = $this->mkActiveDate("m");
 	$this->yeartoday = $this->mkActiveDate("Y");
 	$this->weektoday = $this->mkActiveDate("W");
 	
 	if (!$day)
 		$this->actday = $this->daytoday;
 	else
-		$this->actday = $this->mkActiveDate("j",$this->unixtime);
+		$this->actday = $this->mkActiveDate("d",$this->unixtime);
 		
 	if (!$month)
 		$this->actmonth = $this->monthtoday;
 	else
-		$this->actmonth = $this->mkActiveDate("n",$this->unixtime);
+		$this->actmonth = $this->mkActiveDate("m",$this->unixtime);
 		
 	if (!$year)
 		$this->actyear = $this->yeartoday;
@@ -386,6 +387,7 @@ function viewEventContents()
 	$this->showEvents = true;
 	$this->cssMonthDay = "monthdayevents";
 	$this->cssWeek = "weeknumberevents";
+	$this->cssWeekNoSelec = "weeknoselecevents";
 	$this->cssNoMonthDay = "nomonthdayevents";
 	$this->cssToday = "todayevents";
 	$this->cssSelecDay = "selecteddayevents";
@@ -577,7 +579,9 @@ PRIVATE mkMonthHead() -> creates the month table tag
 */
 function mkMonthHead()
 {
-	return "<table class=\"".$this->cssMonthTable."\">\n";
+	$out = "<div align='center'>";
+	$out .= "<table class=\"".$this->cssMonthTable."\">\n";
+	return $out;
 }
 /*
 ********************************************************************************
@@ -827,7 +831,7 @@ PRIVATE mkMonthFoot() -> closes the month table
 */
 function mkMonthFoot()
 {
-	return "</table>\n";
+	return "</table>\n</div>";
 }
 /*
 ********************************************************************************
@@ -1027,6 +1031,7 @@ function hasEventContent($var)
 			}
 		}
 	}
+
 	return $hasContent;
 }
 /*

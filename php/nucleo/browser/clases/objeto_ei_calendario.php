@@ -18,8 +18,8 @@ class objeto_ei_calendario extends objeto_ei
 */
     {
         parent::__construct($id);
-		$dia = date("j");
-		$mes = date("n");
+		$dia = date("d");
+		$mes = date("m");
 		$anio = date("Y");
 		$semana = date("W");
 		$this->semana_seleccionada = array("semana" => $semana, "anio" => $anio);
@@ -73,19 +73,11 @@ class objeto_ei_calendario extends objeto_ei
 */
     {
 		if ($datos)
-		{
 			foreach ($datos as $dato)
 			{
 				if (isset($dato["dia"]))
-				{
-					$dia = explode("-", $dato["dia"]);
-					$anio = $dia[0];
-					$mes = $dia[1];
-					$dia = $dia[2];
-					$this->calendario->setEventContent($anio, $mes, $dia, $dato["contenido"]);
-				}
+					$this->calendario->setEventContent($dato["dia"], $dato["contenido"]);
 			}
-		}
 	}
 	
 	function set_ver_contenidos($ver)
@@ -206,6 +198,22 @@ class objeto_ei_calendario extends objeto_ei
 		echo $out;
 	}
 	
+	function getActYear()
+	{
+		return $this->calendario->actyear;
+	}
+	
+	function getActMonth()
+	{
+		return $this->calendario->actmonth;
+	}
+	
+	function get_contenido($dia)
+	{
+		$datos = $this->calendario->getEventContent($dia);
+		return $datos;
+	}
+
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -226,7 +234,6 @@ class objeto_ei_calendario extends objeto_ei
 	}	
 
 }
-
 
 class calendario extends activecalendar
 {
@@ -256,10 +263,55 @@ class calendario extends activecalendar
 	
 		$this->firstday = $this->mkActiveDate("w", $this->mkActiveTime(0,0,1,$this->actmonth,1,$this->actyear)); 
 		$this->firstdate = $this->mkActiveTime(0,0,1,$this->actmonth,1,$this->actyear);
-
+	}
+	
+	function setEventContent($day, $content)
+	{
+		$eventContent[$day] = $content;
+		$this->calEventContent[] = $eventContent;
 	}
 
+	function getEventContent($day)
+	{
+		return $this->content($day);
+	}
 	
+	function mkEventContent($var)
+	{
+		$day = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear));
+		$hasContent = $this->content($day);
+		$out="";
+		if ($hasContent)
+		{
+			foreach($hasContent as $content)
+			{
+				$out.="<table class=\"".$this->cssEventContent."\">";
+				$out.="<tr><td>".$content."</td></tr></table>";
+			}
+		}
+		return $out;
+	}
+	
+	function content($var)
+	{
+		$hasContent = false;
+	
+		if ($this->calEventContent)
+		{
+			for ($x=0; $x<count($this->calEventContent); $x++)
+			{
+				$eventContent = $this->calEventContent[$x];
+				foreach($eventContent as $eventTime => $eventContent)
+				{
+					if ($eventTime == $var)
+						$hasContent[] = $eventContent;
+				}
+			}
+		}
+		
+		return $hasContent;
+	}
+
 	function showMonth($objeto_js, $eventos)
 	{
 		$out = $this->mkMonthHead();
@@ -277,10 +329,11 @@ class calendario extends activecalendar
 		if ($this->datePicker)
 		{
 			$out="<tr><td class=\"".$this->cssPicker."\" colspan=\"".$pickerSpan."\">\n";
-			$out.="<form name=\"".$this->cssPickerForm."\" class=\"".$this->cssPickerForm."\" action=\"".$this->urlPicker."\" method=\"get\">\n";
 			$out.="<select name=\"".$this->monthID."\" id=\"".$this->monthID."\" class=\"".$this->cssPickerMonth."\">\n";
 			for ($z=1;$z<=12;$z++)
 			{
+				if ($z <= 9)
+					$z = "0$z";
 				if ($z==$this->actmonth)
 					$out.="<option value=\"".$z."\" selected=\"selected\">".$this->getMonthName($z)."</option>\n";
 				else
@@ -299,13 +352,11 @@ class calendario extends activecalendar
 			$evento_js = eventos::a_javascript('cambiar_mes', $eventos["cambiar_mes"]);
 			$js = "{$objeto_js}.set_evento($evento_js);";
 			$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer' onclick=\"$js\"></input>\n";
-			$out.="</form>\n";
 			$out.="</td></tr>\n";
 		}
 		return $out;
 	}
 
-	
 	function mkMonthBody($objeto_js, $eventos)
 	{
 		$out="<tr>";
@@ -348,46 +399,80 @@ class calendario extends activecalendar
 		}
 		return $out;
 	}
+	
+	function viernes($semana, $anio)
+	{
+		$anio_actual = $this->mkActiveTime(0, 0, 0, 1, 1, $anio); 
+		$sabado = $anio_actual + (60*60*24*7*$semana);
+		$viernes = $sabado - (60*60*24);
+		return $viernes; 
+	}
 
 	
+	function compare_week($week, $year)
+	{
+		$viernes = $this->viernes($week, $year);
+		$viernes = $this->mkActiveDate("d", $viernes);
+		return $this->compare_date($viernes);
+	}
+
 	function mkWeek($date, $objeto_js, $eventos)
 	{
 		$week = $this->weekNumber($date);
 		$year = $this->mkActiveDate("Y",$date);
 		
-		if (!$this->weekLinks)
-		{
+		if (!$this->weekLinks) {
 			if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear())
 				$out = "<td class=\"".$this->cssSelecDay."\">".$this->weekNumber($date)."</td>\n";
 			else
 				$out = "<td class=\"".$this->cssWeek."\">".$this->weekNumber($date)."</td>\n";
-		}
-		else
-		{
-			$evento_js = eventos::a_javascript('seleccionar_semana', $eventos["seleccionar_semana"], "{$this->weekNumber($date)}||{$this->mkActiveDate('Y',$date)}");
-			$js = "{$objeto_js}.set_evento($evento_js);";
-			
-			if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear())
-				$out = "<td class=\"".$this->cssSelecDay."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
-			else
-				$out = "<td class=\"".$this->cssWeek."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
+		} else {
+			if ($this->compare_week($this->weekNumber($date),$this->actyear) == 1) 
+				$out = "<td class=\"".$this->cssWeekNoSelec."\">".$this->weekNumber($date)."</td>\n";	
+			else {	
+				$evento_js = eventos::a_javascript('seleccionar_semana', $eventos["seleccionar_semana"], "{$this->weekNumber($date)}||{$this->mkActiveDate('Y',$date)}");
+				$js = "{$objeto_js}.set_evento($evento_js);";
+				
+				if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear())
+					$out = "<td class=\"".$this->cssSelecDay."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
+				else
+					$out = "<td class=\"".$this->cssWeek."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
+			}		
 		}	
-	
 		return $out;
+	}
+	
+	function compare_date($day)
+	{
+		$fecha_comp = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->actmonth,$day,$this->actyear));
+		$fecha_hoy = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday));
+		
+		if ($fecha_comp < $fecha_hoy)
+			return -1;
+		elseif ($fecha_comp > $fecha_hoy)
+			return 1;
+		else
+			return 0;	
 	}
 	
 	function mkDay($var, $objeto_js, $eventos)
 	{
+		if ($var <= 9)
+			$day = "0$var";
+		else
+			$day = $var;	
+
 		$eventContent = $this->mkEventContent($var);
 		$content = ($this->showEvents) ? $eventContent : "";
 		
-		$evento_js = eventos::a_javascript('seleccionar_dia', $eventos["seleccionar_dia"], "{$var}||{$this->actmonth}||{$this->actyear}");
+		$evento_js = eventos::a_javascript('seleccionar_dia', $eventos["seleccionar_dia"], "{$day}||{$this->actmonth}||{$this->actyear}");
 		$js = "{$objeto_js}.set_evento($evento_js);";
 
-		if (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
-			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
-		else {
-			if ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
+			if ($this->compare_date($var) == 1)
+				$out="<td class=\"".$this->cssSunday."\">".$var."</td>";		
+			elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
+				$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
+			elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
 				else
@@ -413,7 +498,6 @@ class calendario extends activecalendar
 				else
 					$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
 			}		
-		}
 
 		return $out;
 	}

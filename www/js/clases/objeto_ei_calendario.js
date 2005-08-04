@@ -31,6 +31,7 @@ function objeto_ei_calendario(instancia, input_submit) {
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
+		return true;
 	}
 
 	

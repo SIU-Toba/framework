@@ -77,7 +77,7 @@ TD.objeto-ei-barra-superior {
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;
-	background-color: #441177;
+	background-color: #553da1;
 	color: #ffffff;
 	border-style: outset;
 	border-width:1px
@@ -111,27 +111,41 @@ TD.objeto-ei-barra-superior {
 	height:60px;
 	width:60px;
 }
-.monthday, .weeknumber {
+.monthday, .weeknumber, .weeknoselec {
 	text-align: center;
 	font-size: 11px;
-	font-weight: bold;
 	color: #384955;
-	height:20px;
+	height:20px;									
 	width:20px;
 }
-.monthday {	background-color: #E4E4E4; }
-.weeknumber { background-color: #f0f1ff; }
-.monthdayevents, .weeknumberevents {
+.monthday {	
+	background-color: #E4E4E4; 
+	font-weight: bold;
+}
+.weeknumber {
+	background-color: #f0f1ff; 
+	font-weight: bold;
+}
+.weeknoselec {
+	background-color: #f0f1ff; 
+}
+.monthdayevents, .weeknumberevents, .weeknoselecevents {
 	text-align: center;
 	font-size: 11px;
-	font-weight: bold;
 	color: #384955;
 	height:60px;
 	width:60px;
 	vertical-align: top;
 }
-.monthdayevents { background-color: #E4E4E4; }
-.weeknumberevents { background-color: #f0f1ff; }
+.weeknoselecevents { background-color: #f0f1ff; }
+.monthdayevents { 
+	background-color: #E4E4E4;
+	font-weight: bold; 
+}
+.weeknumberevents {
+	background-color: #f0f1ff;
+	font-weight: bold;
+}
 .today, .todayevents {
 	text-align: center;
 	font-size: 11px;
