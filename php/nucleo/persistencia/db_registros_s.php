@@ -112,6 +112,22 @@ class db_registros_s extends db_registros
 
 	protected function insertar($id_registro)
 	{
+		//- 2 - Ejecutar el SQL
+		$sql = $this->generar_sql_insert($id_registro);
+		$this->log("registro: $id_registro - " . $sql); 
+		ejecutar_sql( $sql, $this->fuente);
+		if(count($this->campos_secuencia)>0){
+			foreach($this->campos_secuencia as $columna => $secuencia){
+				//Actualizo el valor
+				$this->datos[$id_registro][$columna] = recuperar_secuencia($secuencia, $this->fuente);
+			}
+		}
+		return $sql;
+	}
+	//-------------------------------------------------------------------------------
+	
+	protected function generar_sql_insert($id_registro)
+	{
 		//- 1 - Armo el SQL
 		//Campos utilizados
 		$registro = $this->datos[$id_registro];
@@ -126,19 +142,9 @@ class db_registros_s extends db_registros
 		$sql = "INSERT INTO " . $this->tabla .
 				" ( " . implode(", ",$this->campos_sql) . " ) ".
 				" VALUES (" . implode(", ", $valores) . ");";
-		//- 2 - Ejecutar el SQL
-		$this->log("registro: $id_registro - " . $sql); 
-		ejecutar_sql( $sql, $this->fuente);
-		if(count($this->campos_secuencia)>0){
-			foreach($this->campos_secuencia as $columna => $secuencia){
-				//Actualizo el valor
-				$this->datos[$id_registro][$columna] = recuperar_secuencia($secuencia, $this->fuente);
-			}
-		}
 		return $sql;
 	}
-	//-------------------------------------------------------------------------------
-	
+
 	protected function modificar($id_registro)
 	{
 		//- 1 - Armo el SQL

@@ -5,7 +5,7 @@ require_once("db_registros/dbr_apex_objeto_eventos.php");
 require_once("db_registros/dbr_apex_objeto_ut_formulario.php");
 require_once("db_registros/dbr_apex_objeto_ei_formulario_ef.php");
 
-class dbt_objeto_ei_formulario_ml extends dbt_objeto
+class dbt_objeto_ei_filtro extends dbt_objeto
 {
 	function __construct($fuente)
 	{

@@ -1,4 +1,6 @@
 <?
+require_once("admin/db/toba_dbt.php");
+
 /*
 Mecanismo de exportacion de elementos del toba.
 Orientado al intercambio de componentes entre instancias.
@@ -20,6 +22,9 @@ class elemento
 	protected $subelementos = array();
 	protected $consumidor = null;				//elemento_toba que consume el elemento
 	protected $rol_en_consumidor = null;		//Rol que cumple elemento en el consumidor
+
+	protected $proyecto;
+	protected $id;
 
 	function __construct()
 	{
@@ -69,6 +74,8 @@ class elemento
 	function cargar_db($proyecto, $elemento)
 	//Prepara las sentencias para cargar un ITEM
 	{
+		$this->proyecto = $proyecto;
+		$this->id = $elemento;
 		//Cargo las tablas en las que esta definido el elemento						----> Que columnas ?
 		for($a=0;$a<count($this->tablas);$a++)
 		{

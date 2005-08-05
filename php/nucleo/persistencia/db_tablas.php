@@ -96,6 +96,15 @@ class db_tablas
 		return $this->cargado;	
 	}
 
+	function get_sql_inserts()
+	{
+		$sql = array();
+		foreach($this->elemento as $elemento ) {
+			$sql = array_merge($sql, $elemento->get_sql_inserts());
+		}
+		return $sql;
+	}
+
 	//-------------------------------------------------------
 	//------ Interface de con la DB
 	//-------------------------------------------------------

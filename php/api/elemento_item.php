@@ -52,6 +52,22 @@ class elemento_item extends elemento implements recorrible_como_arbol
 		//Devuelve el PHP asociado al ITEM	
 	}
 	
+	//-------------------------------------------
+	
+	function exportar_sql()
+	{
+		$cabecera = "-- Exportacion: ". date("d/M/Y") . "\n";
+		$car_invalidos = array("*", "?", "/", ">", "<", "\"", "'");
+		$nombre_item = str_replace($car_invalidos, "-", $this->id);
+		$dbt = toba_dbt::item();
+		$dbt->cargar(array( "proyecto"=>$this->proyecto, "item"=>$this->id));
+		$sql = $dbt->get_sql_inserts();
+		$data = $cabecera . implode("\n",$sql);
+		//ATENCION: El path se debe diferenciar por proyecto		
+		$path = toba::get_hilo()->obtener_proyecto_path() . "/sql/exportacion/items/$nombre_item.sql";
+		manejador_archivos::crear_archivo_con_datos($path, $data);
+	}	
+	
 	///------------ Recorrible como arbol
 	function hijos()
 	{

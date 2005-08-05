@@ -1,4 +1,5 @@
 <?php
+require_once('nucleo/lib/manejador_archivos.php');
 
 class archivo_php
 {
@@ -103,18 +104,7 @@ class archivo_php
 		echo htmlentities($this->contenido);
 		echo "</pre>";
 */		
-		if (! file_exists($this->nombre)) {
-			//Verifica que todos los subdirectorios existan
-			$directorios = explode("/", dirname($this->nombre));
-			$path_acumulado = '';
-			foreach ($directorios as $directorio) {
-				$path_acumulado .= $directorio."/";
-				if (! file_exists($path_acumulado)) {	//El path no existe, intenta crearlo
-					if (! mkdir($path_acumulado))
-						throw new excepcion_toba("No es posible crear el directorio $path_acumulado");
-				}
-			}
-		}
+		archivos::crear_arbol_directorios(dirname($this->nombre));
 		file_put_contents($this->nombre, $this->contenido);
 	}	
 	

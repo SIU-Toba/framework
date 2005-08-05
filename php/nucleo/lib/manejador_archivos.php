@@ -14,6 +14,29 @@ class manejador_archivos
 	var $limite_bytes_cliente;
 	var $nombre_input;
 	var $nombre_archivo;
+
+	static function crear_arbol_directorios($path)
+	{
+		//Verifica que todos los subdirectorios existan
+		$directorios = explode("/", $path);
+		$path_acumulado = '';
+		foreach ($directorios as $directorio) {
+			$path_acumulado .= $directorio."/";
+			if (! file_exists($path_acumulado)) {	//El path no existe, intenta crearlo
+				if (! mkdir($path_acumulado))
+					throw new excepcion_toba("No es posible crear el directorio $path_acumulado");
+			}
+		}
+	}
+	
+	static function crear_archivo_con_datos($nombre, $datos)
+	{
+		if (! file_exists($nombre)) {
+			self::crear_arbol_directorios(dirname($nombre));
+		}
+		file_put_contents($nombre, $datos);		
+	}	
+	
 	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)
 	{

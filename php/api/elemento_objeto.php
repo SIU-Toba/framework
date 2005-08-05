@@ -1,5 +1,6 @@
 <?
 require_once("elemento.php");
+require_once("nucleo/lib/manejador_archivos.php");
 
 class elemento_objeto extends elemento implements recorrible_como_arbol
 {
@@ -58,6 +59,23 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		}
 	}
 	
+	//-------------------------------------------
+	
+	function exportar_sql()
+	{
+		$cabecera = "-- Exportacion: ". date("d/M/Y") . "\n";
+		$clase = $this->datos['apex_objeto'][0]['clase'];
+		$dbt = call_user_func(array("toba_dbt",$clase));
+		$dbt->cargar(array( "proyecto"=>$this->proyecto, "objeto"=>$this->id));
+		$sql = $dbt->get_sql_inserts();
+		$data = $cabecera . implode("\n",$sql);
+		//ATENCION: El path se debe diferenciar por proyecto
+		$path = toba::get_hilo()->obtener_proyecto_path() . "/sql/exportacion/$clase/{$this->id}.sql";
+		manejador_archivos::crear_archivo_con_datos($path, $data);
+	}
+	
+
+	//ATENCION: Ahora estan como variables locales, sacar los metodos
 	function id_objeto()
 	{
 		return $this->datos['apex_objeto'][0]['objeto'];
@@ -130,6 +148,13 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		$iconos = array();
 		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
 		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
+			$param_abrir_php = $param_editores;
+			$param_abrir_php['evento'] = "abrir";
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("reflexion/abrir.gif", false),
+				'ayuda' => "Abrir la extensión",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php)
+			);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("php.gif", false),
 				'ayuda' => "Ver detalles de la extensión",

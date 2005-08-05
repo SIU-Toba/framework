@@ -8,6 +8,7 @@ class ci_editor_php extends objeto_ci
 	protected $datos;
 	protected $archivo_php;
 
+	//Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
 	function set_datos($datos)
 	{
 		$this->datos = $datos;
@@ -25,6 +26,12 @@ class ci_editor_php extends objeto_ci
 		$this->clase_php = new clase_php(	$this->datos['subclase'], $this->archivo_php, 
 											$this->datos['clase'], $this->datos['clase_archivo']);
 		$this->clase_php->set_objeto($this->datos['proyecto'], $this->datos['objeto']);
+		
+		//Se escucha el hilo para saber si se pidio algun evento desde afuera
+		$evento = toba::get_hilo()->obtener_parametro("evento");
+		if ($evento == 'abrir') {
+			$this->evt__abrir();
+		}
 	}
 	
 	//--- EVENTOS

@@ -79,7 +79,6 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
 		var datos = new Object();
 		this.datos_foto_recursivo(raiz, datos);
-		ei_arbol(datos);
 		return datos;
 	}
 	

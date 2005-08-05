@@ -3,6 +3,10 @@ require_once("admin/db/autoload.php");
 
 class toba_dbt
 {
+	function item()
+	{
+		return new dbt_item("instancia");
+	}
 
 	function objeto_ci()
 	{
@@ -37,6 +41,21 @@ class toba_dbt
 	function objeto_db_tablas()
 	{
 		return new dbt_objeto_db_tablas("instancia");	
+	}
+
+	function objeto_ei_arbol()
+	{
+		return new dbt_objeto_ei_arbol("instancia");	
+	}
+
+	function objeto_ei_archivos()
+	{
+		return new dbt_objeto_ei_archivos("instancia");	
+	}
+
+	function objeto_ei_calendario()
+	{
+		return new dbt_objeto_ei_calendario("instancia");	
 	}
 }
 ?>
