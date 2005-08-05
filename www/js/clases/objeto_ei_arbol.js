@@ -79,12 +79,13 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
 		var datos = new Object();
 		this.datos_foto_recursivo(raiz, datos);
+		ei_arbol(datos);
 		return datos;
 	}
 	
 	def.datos_foto_recursivo = function(nodo, datos) {
-		if (nodo.id_nodo) {
-			datos[nodo.id_nodo] = (nodo.style.display != 'none');
+		if (nodo.getAttribute('id_nodo')) {
+			datos[nodo.getAttribute('id_nodo')] = (nodo.style.display != 'none');
 		}
 		//Recorre los <ul> de este nodo
 		for (var i=0; i < nodo.childNodes.length; i++) {
