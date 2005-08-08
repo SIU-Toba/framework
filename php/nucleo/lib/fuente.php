@@ -133,6 +133,35 @@ class fuente_datos_postgres7 extends fuente_datos
 	}
 	//------------------------------------------------------------------------
 
+	function obtener_definicion_columnas($tabla)
+	{
+		$a=0;
+		$columnas = $this->conexion->MetaColumns($tabla,false);
+		if(!$columnas){
+			throw new excepcion_toba("La tabla '$tabla' no existe");	
+		}
+		//echo "<pre>"; print_r($columnas);
+		foreach( $columnas as $col ){
+			$definicion[$a]['columna'] = $col->name;
+			$definicion[$a]['tipo'] = $this->get_tipo_datos_generico($col->type);
+			if(($definicion[$a]['tipo'])=="C")
+				if(isset($col->max_length)) 
+					$definicion[$a]['largo'] = $col->max_length;
+			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
+			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
+			//Secuencias
+			if(isset($col->default_value)){
+				if(preg_match("/nextval/",$col->default_value)){
+					$seq = true;
+					$temp = preg_split("|\"|", $col->default_value);
+					$definicion[$a]['secuencia'] = $temp[1];
+				}			
+			}
+			$a++;
+		}
+		return $definicion;
+	}
+
 	function obtener_metadatos($tabla)
 	{
 		global $ADODB_FETCH_MODE;

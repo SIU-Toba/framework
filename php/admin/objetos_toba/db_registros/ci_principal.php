@@ -27,7 +27,7 @@ class ci_principal extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_db_registros();
-			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1400') );
+			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1400') );
 		}
 		return $this->db_tablas;
 	}
@@ -103,33 +103,12 @@ class ci_principal extends objeto_ci
 		$proyecto = $reg['fuente_datos_proyecto'];
 		$id_fuente = $reg['fuente_datos'];
 		abrir_fuente_datos($id_fuente, $proyecto);
-		$fuente = toba::get_fuente($id_fuente);
-		$a=0;
-		$columnas = $fuente[apex_db_con]->MetaColumns($tabla,false);
-		if(!$columnas){
-			toba::get_cola_mensajes()->agregar("La tabla '$tabla' no existe");
-			return;
+		$fuente = toba::get_fuente_datos($id_fuente);
+		try{
+			return $fuente->obtener_definicion_columnas($tabla);
+		}catch(excepcion_toba $e){
+			toba::get_cola_mensajes()->agregar( $e->getMessagge() );
 		}
-		//echo "<pre>"; print_r($columnas);
-		foreach( $columnas as $col ){
-			$definicion[$a]['columna'] = $col->name;
-			$definicion[$a]['tipo'] = $fuente[apex_db]->get_tipo_datos_generico($col->type);
-			if(($definicion[$a]['tipo'])=="C")
-				if(isset($col->max_length)) 
-					$definicion[$a]['largo'] = $col->max_length;
-			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
-			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
-			//Secuencias
-			if(isset($col->default_value)){
-				if(preg_match("/nextval/",$col->default_value)){
-					$seq = true;
-					$temp = preg_split("|\"|", $col->default_value);
-					$definicion[$a]['secuencia'] = $temp[1];
-				}			
-			}
-			$a++;
-		}
-		return $definicion;
 	}	
 
 	//*******************************************************************
@@ -139,7 +118,8 @@ class ci_principal extends objeto_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_db_registros" );
 		//Sincronizo el DBT

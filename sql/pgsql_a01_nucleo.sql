@@ -843,6 +843,7 @@ CREATE TABLE apex_clase
 	parametro_c						varchar(255)	NULL,
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
+	CONSTRAINT	"apex_clase_uq" UNIQUE	("clase"),
 	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,

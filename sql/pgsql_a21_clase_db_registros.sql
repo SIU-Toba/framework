@@ -21,7 +21,10 @@ CREATE TABLE apex_objeto_db_registros
 (
 	proyecto  						varchar(15)		NOT NULL,
 	objeto      	    	 		int4			NOT NULL,
-	tabla 							varchar(60)		NOT NULL,
+	tabla 							varchar(60)		NULL,
+	alias 							varchar(60)		NULL,
+	max_registros					smallint		NULL,
+	min_registros					smallint		NULL,
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("proyecto","objeto"),
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
