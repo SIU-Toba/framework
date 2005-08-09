@@ -1,7 +1,7 @@
 <?php
-require_once("objeto_emd_db.php");
+require_once("objeto_mdc_db.php");
 
-class objeto_db_registros extends objeto_emd_db
+class objeto_db_registros extends objeto_mdc_db
 {
 	//Interno
 	protected $tabla;							// Tablas manejadas
@@ -137,7 +137,6 @@ class objeto_db_registros extends objeto_emd_db
 		}
 		return $sql;
 	}
-	//-------------------------------------------------------------------------------
 	
 	protected function generar_sql_insert($id_registro)
 	{
@@ -157,6 +156,7 @@ class objeto_db_registros extends objeto_emd_db
 				" VALUES (" . implode(", ", $valores) . ");";
 		return $sql;
 	}
+	//-------------------------------------------------------------------------------
 
 	protected function modificar($id_registro)
 	{
