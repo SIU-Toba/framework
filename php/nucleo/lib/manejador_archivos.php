@@ -37,6 +37,20 @@ class manejador_archivos
 		file_put_contents($nombre, $datos);		
 	}	
 	
+	static function es_windows()
+	{
+		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+	}	
+	
+	static function path_a_windows($nombre)
+	{
+		return str_replace('/', "\\", $nombre);	
+	}
+
+	static function path_a_unix($nombre)
+	{
+		return str_replace('\\', "/", $nombre);	
+	}	
 	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)
 	{

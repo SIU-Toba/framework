@@ -5,11 +5,15 @@ class ef_popup extends ef_editable
     var $descripcion_estado;
     var $item_destino;
     var $ventana;
+	protected $editable;
     
 	static function get_parametros()
 	{
 		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros[""]["opcional"]=1;
+		$parametros["editable"]["descripcion"]="El valor es editable libremente por parte del usuario,".
+								" notar que la clave debe ser igual que el valor. La ventana de popup funciona sólo como una forma rápida de carga.";
+		$parametros["editable"]["opcional"]=1;		
 		return $parametros;
 	}
 
@@ -18,12 +22,10 @@ class ef_popup extends ef_editable
         if(isset($parametros["columna_clave"])){
             $this->columna_clave = $parametros["columna_clave"];
         }
-
         if(isset($parametros["sql"])){
             $this->sql = stripslashes($parametros["sql"]); 
             unset($parametros['sql']);
         }
-
         if(isset($parametros["ventana"])){
             $this->ventana = explode(",",$parametros["ventana"]); 
 			if(count($this->ventana)!=3){
@@ -38,6 +40,12 @@ class ef_popup extends ef_editable
         	$this->ventana = null;
     	}
 		
+		$this->editable = false;
+		if (isset($parametros["editable"])) {
+			$this->editable = $parametros["editable"];
+			unset($parametros["editable"]);
+		}
+		
         if (isset($parametros["item_destino"])){
 			$this->item_destino = $parametros["item_destino"];
             unset($parametros['item_destino']);
@@ -49,11 +57,12 @@ class ef_popup extends ef_editable
 
 	function obtener_input()
 	{
+		if(!isset($this->estado)) $this->estado="";	
         if (isset($this->item_destino)) {
             $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(toba::get_hilo()->obtener_proyecto(), 
-										$this->item_destino, array("ef_popup" => $this->id_form), false);
+										$this->item_destino,
+										array("ef_popup" => $this->id_form, "ef_popup_valor" => $this->estado), false);
         }
-		if(!isset($this->estado)) $this->estado="";	
 		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
 		if($this->solo_lectura || $vinculo_item == NULL){
 			$r = form::text("", $this->estado,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);

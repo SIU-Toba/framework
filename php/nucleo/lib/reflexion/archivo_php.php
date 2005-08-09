@@ -12,21 +12,6 @@ class archivo_php
 		$this->nombre = $nombre;	
 	}
 	
-	static function es_windows()
-	{
-		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
-	}	
-	
-	static function path_a_windows($nombre)
-	{
-		return str_replace('/', "\\", $nombre);	
-	}
-
-	static function path_a_unix($nombre)
-	{
-		return str_replace('\\', "/", $nombre);	
-	}	
-	
 	function nombre()
 	{
 		return $this->nombre;
@@ -60,8 +45,8 @@ class archivo_php
 	
 	function abrir()
 	{
-		if ($this->es_windows()) {
-			$archivo = $this->path_a_windows($this->nombre);
+		if (manejador_archivos::es_windows()) {
+			$archivo = manejador_archivos::path_a_windows($this->nombre);
 			exec("start $archivo");
 		}
 	}
@@ -104,7 +89,7 @@ class archivo_php
 		echo htmlentities($this->contenido);
 		echo "</pre>";
 */		
-		archivos::crear_arbol_directorios(dirname($this->nombre));
+		manejador_archivos::crear_arbol_directorios(dirname($this->nombre));
 		file_put_contents($this->nombre, $this->contenido);
 	}	
 	
