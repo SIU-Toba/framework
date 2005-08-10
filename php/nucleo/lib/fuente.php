@@ -462,9 +462,9 @@ class fuente_datos_postgres7 extends fuente_datos
 
 class fuente_datos_mysql extends fuente_datos
 {
-	function fuente_datos_mysql()
+	function fuente_datos_mysql($con)
 	{
-		parent::fuente_datos("mysql");
+		parent::fuente_datos("mysql", $con);
 	}
 }
 

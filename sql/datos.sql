@@ -162,6 +162,7 @@ sql: SQL que carga los valores del ef;
 columna_clave: Columna clave de la tabla;
 item_destino: Item que se invoca;
 ventana: ancho, alto, scroll (yes | no);','toba',NULL);
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_upload','ef','Permite subir un archivo desde el cliente a un directorio temporal en el servidor.',NULL,'toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_combo_dao','ef_combo','Este combo se inicializa en base a un DAO (Data Access Object)','dao: Nombre del DAO a utilizar: opcional;
 claves: Cantidad de claves (por defecto 1): opcional;
 no_seteado: Etiqueta que representa el valor NULL: opcional;','toba',NULL);
@@ -2411,16 +2412,16 @@ INSERT INTO apex_objeto_proto (objeto_proyecto, objeto, descripcion, logica) VAL
 
 -----------  apex_objeto_proto_metodo  ------------------------
 
+INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_actividad','2',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_lista_actividades','3',NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 
 -----------  apex_objeto_proto_propiedad  ------------------------
 
+INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','hito','2',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','linea','3',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','propiedades','0',NULL,NULL);
-INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 
 -----------  apex_dimension_tipo_perfil  ------------------------
 
@@ -4315,11 +4316,11 @@ date_part(\'year\',s.momento) %-%
 date_part(\'month\',s.momento) %-%
 date_part(\'year\',s.momento)','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','453','toba','tiempo','Tiempo ejecucion',NULL,'tiempo_respuesta','3',NULL,NULL,NULL);
+INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_prioridad',NULL,NULL,'t.tarea_prioridad','2',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tema',NULL,NULL,'t.tarea_tema','3',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tipo',NULL,NULL,'t.tarea_tipo','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','version',NULL,NULL,'t.version_proyecto %-% t.version','0',NULL,NULL,NULL);
-INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 
 -----------  apex_objeto_lista  ------------------------
 

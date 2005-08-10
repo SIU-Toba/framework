@@ -23,6 +23,7 @@ require_once("ef_popup.php");		//Ef de tipo POPUP
 require_once("ef_varios.php");		//Varios
 require_once("ef_multi_seleccion.php");
 require_once("ef_sin_estado.php");	//EF de tipo COMBO
+require_once("ef_upload.php");	//EF de tipo UPLOAD
 //require_once("ef_sin_estado.php");		//EF de que no poseen estado
 
 class ef //Clase abstracta, padre de todos los EF
