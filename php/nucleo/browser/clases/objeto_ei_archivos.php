@@ -1,6 +1,7 @@
 <?php
 require_once("objeto.php");
 require_once("objeto_ei.php");
+require_once("nucleo/lib/manejador_archivos.php");
 
 class objeto_ei_archivos extends objeto_ei
 {
@@ -59,10 +60,11 @@ class objeto_ei_archivos extends objeto_ei
 			if (isset($this->memoria['eventos'][$evento]) ) {
 				$parametros = $_POST[$this->submit."__seleccion"];
 				$seleccion = $this->dir_actual."/$parametros";
-				if ($evento == 'ir_a_carpeta')
-					$this->dir_actual = realpath($seleccion);
-				else
+				if ($evento == 'ir_a_carpeta') {
+					$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));
+				} else {
 					$this->reportar_evento( $evento, $seleccion );
+				}
 			}
 		}
 	}
@@ -128,7 +130,7 @@ class objeto_ei_archivos extends objeto_ei
 		sort($archivos);
 		sort($carpetas);
 		$this->barra_superior($this->dir_actual, false,"objeto-ei-barra-superior");
-		echo "<div>\n";
+		echo "<div style='width:300px'>\n";
 		if ($hay_padre) {
 			$img_subir = recurso::imagen_apl('archivos/subir.gif', true);
 			echo "<div><a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"..\")' 

@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/browser/clases/objeto.php");						//Ancestro de todos los OE
+require_once("nucleo/browser/clases/objeto_ei.php");						//Ancestro de todos los OE
 
 class objeto_html extends objeto_ei
 /*
