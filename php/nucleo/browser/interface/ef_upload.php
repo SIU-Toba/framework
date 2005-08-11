@@ -41,7 +41,6 @@ class ef_upload extends ef
 	{
 		switch($id){
 			case UPLOAD_ERR_NO_FILE:
-				var_dump($this->obligatorio);
 				if (isset($this->obligatorio) AND $this->obligatorio == 1)
 					throw new excepcion_toba("No se envio un archivo");
 				break;
@@ -55,6 +54,17 @@ class ef_upload extends ef
 				throw new excepcion_toba("Ha ocurrido un error cargando el archivo");
 				break;
 		}
+	}
+	
+	function obtener_consumo_javascript()
+	{
+		$consumos = array('interface/ef','interface/ef_upload');
+		return $consumos;
+	}
+	
+	function crear_objeto_js()
+	{
+		return "new ef_upload({$this->parametros_js()})";
 	}	
 	
 }

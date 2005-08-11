@@ -337,7 +337,7 @@ class ef //Clase abstracta, padre de todos los EF
 	//codigo javascript necesario para su correcto funcionamiento (generalmente javascript:
 	//expresiones regulares comunes a varios EF, includes de manejo de fechas, etc...
 	{
-		return null;
+		return array("interface/ef");
 	}
 	//-----------------------------------------------------
 	
