@@ -1,26 +1,24 @@
 <?
-define("apex_db_registros_separador","%");
+require_once("nucleo/browser/clases/objeto.php");
 
-class objeto_datos_tabla
+class objeto_datos_tabla extends objeto
 {
 	// Definicion asociada a la TABLA
 	protected $clave;							// Columnas que constituyen la clave de la tabla
 	protected $campos;							// Campos del db_registros
-	protected $campos_no_nulo;					// Campos que no admiten el valor NULL
-	protected $campos_externa;
+	//Constraints
+	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
 	// Definicion general
-	protected $tope_registros;					// Cantidad de registros permitida. 0 = n registros
+	protected $tope_max_registros;				// Cantidad de maxima de datos permitida.
+	protected $tope_min_registros;				// Cantidad de minima de datos permitida.
 	protected $fuente;							// Fuente de datos utilizada
-	protected $definicion;						// Definicion que indica la construccion del db_registros
-	// Estructuras CORE
-	protected $control = array();				// Estructura de control
+	// Estructuras Centrales
+	protected $cambios = array();				// Estructura de control
 	protected $datos = array();					// Datos cargados en el db_registros
-	protected $datos_orig = array();			// Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proximo_registro = 0;			// Posicion del proximo registro en el array de datos
-	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
+	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
+	protected $proximo_dato = 0;				// Posicion del proximo registro en el array de datos
 	protected $controlador = null;				// referencia al db_tablas del cual forma parte, si se aplica
 	// Servicios activados por metodos
-	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
 
 	function __construct($id)
 	{
@@ -37,7 +35,7 @@ class objeto_datos_tabla
 	{
 		$sql = parent::obtener_definicion_db();
 		//------------- Info base de la estructura ----------------
-		$sql["info_basica"]["sql"] = "SELECT		tabla,
+		$sql["info_basica"]["sql"] = "SELECT			tabla,
 														alias,
 														min_registros,
 														max_registros
@@ -255,11 +253,6 @@ class objeto_datos_tabla
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function set_datos()
-	{
-		
-	}
-	
 	public function resetear()
 	{
 		$this->log("RESET!!");
@@ -269,34 +262,12 @@ class objeto_datos_tabla
 		$this->proximo_registro = 0;
 		$this->where = null;
 		$this->from = null;
-		if($this->memoria_autonoma){
-			//Borro informacion de la sesion
-			if($this->existe_instanciacion_previa()){
-				toba::get_hilo()->eliminar_dato_global($this->identificador);
-			}
-		}
 	}
 
-	public function cargar_datos_clave($id)
+	function set_datos($datos)
 	{
-		/*
-			Esta funcion deberia mapear un ID expresado como un array
-			y transformarlo en un WHERE
-		*/		
-	}
-
-	public function cargar_datos($where=null, $from=null)
-	{
-		if(isset($where)){
-			if(!is_array($where)){
-				throw new excepcion_toba("El WHERE debe ser un array");
-			}	
-		}
-		$this->log("Cargar de DB");
-		$this->where = $where;
-		$this->from = $from;
-		//Obtengo los datos de la DB
-		$this->datos = $this->cargar_db();
+		$this->log("Carga de datos");
+		$this->datos = $datos;
 		//Controlo que no se haya excedido el tope de registros
 		if( $this->tope_max_registros != 0){
 			if( $this->tope_max_registros < count( $this->datos ) ){
@@ -306,8 +277,7 @@ class objeto_datos_tabla
 				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
-		//ei_arbol($this->datos);
-		//Se solicita control de SINCRONIA a la DB?
+		
 		if($this->control_sincro_db){
 			$this->datos_orig = $this->datos;
 		}
@@ -318,78 +288,10 @@ class objeto_datos_tabla
 				$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
 			}	
 		}
+
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proximo_registro = count($this->datos);	
-		//Controlo que no se haya excedido el tope de registros
-		if( $this->tope_max_registros != 0){
-			if( ( $this->get_cantidad_registros() > $this->proximo_registro) ){
-				$this->log("Se sobrepaso el tope maximo de registros mientras se agregaba un registro" );
-				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
-			}
-		}
-		//Lleno las columnas basadas en valores EXTERNOS
-		$this->actualizar_campos_externos();
-	}
 
-	private function cargar_db($carga_estricta=false)
-	//Cargo los db_registrosS con datos de la DB
-	//Los datos son 
-	{
-		$db = toba::get_fuente($this->fuente);
-		$sql = $this->generar_sql_select();//echo $sql . "<br>";
-		//-- Intento cargar el db_registros
-		$rs = $db[apex_db_con]->Execute($sql);
-		if(!is_object($rs)){
-			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
-									$sql . " - " . $db[apex_db_con]->ErrorMsg());
-			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $sql");
-		}
-		if($rs->EOF){
-			if($carga_estricta){
-				toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - " .
-								"No se recuperarron DATOS. Se solicito carga estricta");
-			}
-			return null;
-		}else{
-			$datos =& $rs->getArray();
-			//ei_arbol($datos);
-			//Los campos NO SQL deberian estar metidos en el array
-			if(isset($this->campos_externa)){
-				foreach($this->campos_externa as $externa){
-					for($a=0;$a<count($datos);$a++){
-						$datos[$a][$externa] = "";
-					}
-				}
-			}
-			return $datos; 
-		}
-	}
-
-	private function controlar_conservacion_where($where)
-	/*
-		El uso de este metodo ya no tiene sentido
-	*/
-	{
-		if(!isset($this->where)){
-			if(isset($where)){
-				$this->log("Control WHERE: No existe");
-				return false;	
-			}
-		}else{
-			for($a=0;$a<count($this->where);$a++){
-				if(!isset($where[$a])){
-					$this->log("Control WHERE: nuevo mas corto"); 
-					return false;
-				}else{
-					if($where[$a] !== $this->where[$a]){
-						$this->log("Control WHERE: nuevo distinto"); 
-						return false;	
-					}
-				}
-			}
-		}
-		$this->log("Control WHERE: OK!");
-		return true;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -427,11 +329,6 @@ class objeto_datos_tabla
 					break;
 			}
 		}
-	}
-
-	public function get_estructura_control()
-	{
-		return $this->control;	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -730,7 +627,7 @@ class objeto_datos_tabla
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//---------------  VALIDACION de REGISTROS   ------------------------------------
+	//---------------  VALIDACION de DATOS   ----------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
@@ -738,7 +635,6 @@ class objeto_datos_tabla
 	//Valida un registro durante el procesamiento
 	{
 		$this->control_estructura_registro($registro);
-		$this->control_nulos($registro);
 		$this->control_valores_unicos_registro($registro, $id);
 	}
 	//-------------------------------------------------------------------------------
@@ -790,8 +686,11 @@ class objeto_datos_tabla
 			}
 		}
 	}
+
 	//-------------------------------------------------------------------------------
-	
+	//-----  Controles previos a la sincronizacion  ---------------------------------
+	//-------------------------------------------------------------------------------
+
 	private function control_nulos($registro)
 	//Controla que un registro posea los valores OBLIGATORIOS
 	{
@@ -813,6 +712,20 @@ class objeto_datos_tabla
 		}
 	}
 
+	function control_tope_minimo_registros()
+	{
+		$control_tope_minimo=true;
+		$this->log("Inicio SINCRONIZACION"); 
+		if($control_tope_minimo){
+			if( $this->tope_min_registros != 0){
+				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
+					$this->log("No se cumplio con el tope minimo de registros necesarios" );
+					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+				}
+			}
+		}
+	}
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------  EVENTOS de SINCRONIZACION con la DB   ------------------------
@@ -825,16 +738,6 @@ class objeto_datos_tabla
 
 	protected function evt__pre_sincronizacion()
 	{
-		$control_tope_minimo=true;
-		$this->log("Inicio SINCRONIZACION"); 
-		if($control_tope_minimo){
-			if( $this->tope_min_registros != 0){
-				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
-					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
-				}
-			}
-		}
 	}
 	
 	protected function evt__post_sincronizacion()
@@ -864,7 +767,6 @@ class objeto_datos_tabla
 	protected function evt__post_delete($id)
 	{
 	}
-
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 }

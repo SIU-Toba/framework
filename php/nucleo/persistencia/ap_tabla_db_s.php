@@ -2,19 +2,12 @@
 require_once("ap_tabla_db.php");
 
 class ap_tabla_db_s extends ap_tabla_db
+/*
+	Administrador de persistencia a DB con mapeo SIMPLE
+	Supone que la tabla de datos se va a mapear a una tabla del modelo de datos
+*/
 {
-	protected $tabla;							// Tablas manejadas
-	protected $alias;							// Alias de la tabla
-	protected $campos_sql;					// Campos utilizados para generar SQL
-	protected $campos_sql_select;				// Lista de campos utilizada para realizar el SELECT
-	protected $campos_secuencia;				// Campos que poseen secuencias (asociativo: columna/secuencia)
-
-	public function validar_definicion()
-	{
-		/*
-			- Una tabla debe poseer una clave
-		*/
-	}
+	protected $campos_sql;		// Habria que precargar las definiciones de campos para UPDATES y INSERTS
 
 	protected function inicializar_definicion_campos()
 	{

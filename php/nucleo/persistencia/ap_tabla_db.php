@@ -1,9 +1,16 @@
 <?
 require_once("ap.php");
 define("apex_db_registros_separador","%");
-
+/*
+	Administrador de persistencia a DB
+	Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
+*/
 class ap_tabla_db extends ap
 {
+	protected $objeto_tabla;					// Referencia al objeto
+	protected $columnas;
+	protected $cambios;
+	protected $datos;	
 	protected $fuente;
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
@@ -13,6 +20,7 @@ class ap_tabla_db extends ap
 	//-------------------------------
 	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	//-------------------------------
 	protected $where;							// Condicion utilizada para cargar datos - WHERE
 	protected $from;							// Condicion utilizada para cargar datos - FROM
@@ -23,10 +31,17 @@ class ap_tabla_db extends ap
 
 	function set_objeto_tabla($ot)
 	{
-		parent::set_objeto_tabla($ot);
+		$this->objeto_tabla = $ot;
+		$this->columnas = $this->datos_tabla->get_columnas();
 		$this->fuente = $this->datos_tabla->get_fuente_datos();
 	}
 
+	function get_datos_tabla()
+	{
+		$this->cambios = $this->datos_tabla->get_cambios();
+		$this->datos = $this->datos_tabla->get_datos();
+	}
+	
 	//-------------------------------------------------------------------------------
 	//------  Configuracion  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -99,57 +114,13 @@ class ap_tabla_db extends ap
 
 	public function cargar_datos($where=null, $from=null)
 	{
-		if(isset($where)){
-			if(!is_array($where)){
-				throw new excepcion_toba("El WHERE debe ser un array");
-			}	
-		}
+		asercion::array($where,"El WHERE debe ser un array");
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
-		//Obtengo los datos de la DB
-		$datos = $this->cargar_db();
-		
-		
-		
-		//Controlo que no se haya excedido el tope de registros
-		if( $this->tope_max_registros != 0){
-			if( $this->tope_max_registros < count( $this->datos ) ){
-				//Hay mas datos que los que permite el tope, todo mal
-				$this->datos = null;
-				$this->log("Se sobrepaso el tope maximo de registros en carga: " . count( $this->datos ) . " registros" );
-				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
-			}
-		}
-		//ei_arbol($this->datos);
-		//Se solicita control de SINCRONIA a la DB?
-		if($this->control_sincro_db){
-			$this->datos_orig = $this->datos;
-		}
-		$this->generar_estructura_control_post_carga();
-		//Le saco los caracteres de escape a los valores traidos de la DB
-		for($a=0;$a<count($this->datos);$a++){
-			foreach(array_keys($this->datos[$a]) as $columna){
-				$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
-			}	
-		}
-		//Actualizo la posicion en que hay que incorporar al proximo registro
-		$this->proximo_registro = count($this->datos);	
-		//Controlo que no se haya excedido el tope de registros
-		if( $this->tope_max_registros != 0){
-			if( ( $this->get_cantidad_registros() > $this->proximo_registro) ){
-				$this->log("Se sobrepaso el tope maximo de registros mientras se agregaba un registro" );
-				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
-			}
-		}
-		//Lleno las columnas basadas en valores EXTERNOS
-		$this->actualizar_campos_externos();
-	}
-
-	private function cargar_db($carga_estricta=false)
-	//Cargo los db_registrosS con datos de la DB
-	//Los datos son 
-	{
+		/*
+			Cargo los datos de la base
+		*/
 		$db = toba::get_fuente($this->fuente);
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
 		//-- Intento cargar el db_registros
@@ -164,7 +135,6 @@ class ap_tabla_db extends ap
 				toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - " .
 								"No se recuperarron DATOS. Se solicito carga estricta");
 			}
-			return null;
 		}else{
 			$datos =& $rs->getArray();
 			//ei_arbol($datos);
@@ -176,33 +146,10 @@ class ap_tabla_db extends ap
 					}
 				}
 			}
-			return $datos; 
 		}
+		$this->datos_tabla->set_datos($datos);
 	}
 
-	private function controlar_conservacion_where($where)
-	{
-		if(!isset($this->where)){
-			if(isset($where)){
-				$this->log("Control WHERE: No existe");
-				return false;	
-			}
-		}else{
-			for($a=0;$a<count($this->where);$a++){
-				if(!isset($where[$a])){
-					$this->log("Control WHERE: nuevo mas corto"); 
-					return false;
-				}else{
-					if($where[$a] !== $this->where[$a]){
-						$this->log("Control WHERE: nuevo distinto"); 
-						return false;	
-					}
-				}
-			}
-		}
-		$this->log("Control WHERE: OK!");
-		return true;
-	}
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
@@ -428,6 +375,5 @@ class ap_tabla_db extends ap
 	//(Una columna que posea el timestamp, y triggers que los actualicen)
 	{
 	}
-
 }
 ?>

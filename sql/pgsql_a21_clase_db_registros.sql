@@ -4,8 +4,25 @@
 --**************************************************************************************************
 --**************************************************************************************************
 --	
---	Falta: FKs, columnas no duplicables, baja logica, y mas
---
+CREATE SEQUENCE apex_admin_persistencia_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_admin_persistencia
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: proyecto
+--: dump_order_by: id
+--: zona: objeto
+--: desc:
+--: historica:	0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	ap								int4				DEFAULT nextval('"apex_admin_persistencia_seq"'::text) 		NOT NULL, 
+	clase							varchar(60)			NOT	NULL,
+	archivo							varchar(60)			NOT	NULL,
+	descripcion						varchar(60)			NOT	NULL,
+	CONSTRAINT	"apex_admin_persistencia_pk" PRIMARY	KEY ("ap")
+);
+--###################################################################################################
 
 CREATE TABLE apex_objeto_db_registros
 ---------------------------------------------------------------------------------------------------
@@ -21,11 +38,16 @@ CREATE TABLE apex_objeto_db_registros
 (
 	proyecto  						varchar(15)		NOT NULL,
 	objeto      	    	 		int4			NOT NULL,
-	tabla 							varchar(60)		NULL,
-	alias 							varchar(60)		NULL,
 	max_registros					smallint		NULL,
 	min_registros					smallint		NULL,
+--	Configuracion del administrador de persistencia
+	ap								int4			NULL,
+	ap_clase						varchar(60)		NULL,
+	ap_archivo						varchar(60)		NULL,
+	tabla 							varchar(60)		NULL,
+	alias 							varchar(60)		NULL,
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("proyecto","objeto"),
+	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
