@@ -12,8 +12,6 @@ class objeto_datos_tabla
 	protected $tope_registros;					// Cantidad de registros permitida. 0 = n registros
 	protected $fuente;							// Fuente de datos utilizada
 	protected $definicion;						// Definicion que indica la construccion del db_registros
-	protected $where;							// Condicion utilizada para cargar datos - WHERE
-	protected $from;							// Condicion utilizada para cargar datos - FROM
 	// Estructuras CORE
 	protected $control = array();				// Estructura de control
 	protected $datos = array();					// Datos cargados en el db_registros
@@ -22,18 +20,98 @@ class objeto_datos_tabla
 	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	protected $controlador = null;				// referencia al db_tablas del cual forma parte, si se aplica
 	// Servicios activados por metodos
-	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
-	protected $flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
-	protected $proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
-	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
-	protected $baja_logica_columna;				// Columna de la baja logica
-	protected $baja_logica_valor;				// Valor de la baja logica
-	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
-	// Memoria autonoma
-	protected $memoria_autonoma = false;		// Se persiste en la sesion por si mismo
-	protected $identificador;					// Identificador del registro
-	protected $posicion_finalizador;			// Posicion del objeto en el array de finalizacion
+
+	function __construct($id)
+	{
+		parent::objeto($id);		
+		if(trim($this->info_estructura['max_registros']!="")){
+			$this->set_tope_max_registros( $this->info_estructura['max_registros'] );
+		}
+		if(trim($this->info_estructura['min_registros']!="")){
+			$this->set_tope_max_registros( $this->info_estructura['min_registros'] );
+		}
+	}
+
+	function obtener_definicion_db()
+	{
+		$sql = parent::obtener_definicion_db();
+		//------------- Info base de la estructura ----------------
+		$sql["info_basica"]["sql"] = "SELECT		tabla,
+														alias,
+														min_registros,
+														max_registros
+					 FROM		apex_objeto_db_registros
+					 WHERE	proyecto='".$this->id[0]."'	
+					 AND		objeto='".$this->id[1]."';";
+		$sql["info_basica"]["estricto"]="1";
+		$sql["info_basica"]["tipo"]="1";
+		//------------ Columnas ----------------
+		$sql["info_columnas"]["sql"] = "SELECT	proyecto,
+						objeto 			,	
+						col_id			,	
+						columna			,	
+						tipo			,	
+						pk				,	
+						secuencia		,
+						largo			,	
+						no_nulo			,	
+						no_nulo_db	
+					 FROM		apex_objeto_db_registros_col 
+					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
+					 AND		objeto_cuadro = '".$this->id[1]."'
+					 ORDER BY orden;";
+		$sql["info_columnas"]["tipo"]="x";
+		$sql["info_columnas"]["estricto"]="1";		
+		$sql = parent::obtener_definicion_db();
+		return $sql;
+	}
+	
+	//-------------------------------------------------------------------------------
+	//------  API de persistencia  --------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function get_persistidor()
+	{
+		require_once("ap_tabla_db_s.php");
+		$ap =  new ap_tabla_db_s();
+		$ap->set_datos_tabla($this);
+		return $ap;
+	}
+	/*
+		Tiene sentido que exista una configuracion que use el persistidor por composicion
+		(para no tener que perdir el AP y ejecutar metodos en el)
+	*/
+
+	//-------------------------------------------------------------------------------
+	//------  Servicios al PERSISTIDOR  ------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function get_datos()
+	{
+		
+	}
+
+	function get_cambios()
+	{
+		
+	}
+
+	function get_columnas()
+	{
+		
+	}
+	
+	function get_fuente()
+	{
+		$this->info["fuente"];
+	}
+
+	function get_tabla()
+	{
+		$this->info_estructura['tabla'];
+		
+	}
 
 	//----------------------------------------------------------------
 	//---------  Cumplir la interface que reclama el CI -------------
@@ -51,57 +129,6 @@ class objeto_datos_tabla
 	//----------------------------------------------------------------
 	//----------------------------------------------------------------
 
-	function __construct($id)
-	{
-		parent::objeto($id);		
-		$this->fuente = $this->info["fuente"];
-		//Inicializar la estructura de campos
-		$this->inicializar_definicion_campos();
-		
-		
-		$this->tabla = $this->info_estructura['tabla'];
-		if(trim($this->info_estructura['max_registros']!="")){
-			$this->set_tope_max_registros( $this->info_estructura['max_registros'] );
-		}
-		if(trim($this->info_estructura['min_registros']!="")){
-			$this->set_tope_max_registros( $this->info_estructura['min_registros'] );
-		}
-	}
-
-	function obtener_definicion_db()
-	{
-		$sql = parent::obtener_definicion_db();
-		//------------- Info base de la estructura ----------------
-		$sql["info_estructura"]["sql"] = "SELECT		tabla,
-														alias,
-														min_registros,
-														max_registros
-					 FROM		apex_objeto_db_registros
-					 WHERE	proyecto='".$this->id[0]."'	
-					 AND		objeto='".$this->id[1]."';";
-		$sql["info_estructura"]["estricto"]="1";
-		$sql["info_estructura"]["tipo"]="1";
-		//------------ Columnas ----------------
-		$sql["info_estructura_columnas"]["sql"] = "SELECT	proyecto,
-						objeto 			,	
-						col_id			,	
-						columna			,	
-						tipo			,	
-						pk				,	
-						secuencia		,
-						largo			,	
-						no_nulo			,	
-						no_nulo_db	
-					 FROM		apex_objeto_db_registros_col 
-					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
-					 AND		objeto_cuadro = '".$this->id[1]."'
-					 ORDER BY orden;";
-		$sql["info_estructura_columnas"]["tipo"]="x";
-		$sql["info_estructura_columnas"]["estricto"]="1";		
-		$sql = parent::obtener_definicion_db();
-		return $sql;
-	}
-	
 	public function registrar_controlador($controlador)
 	{
 		/*
@@ -123,7 +150,7 @@ class objeto_datos_tabla
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
 
-	public function info($mostrar_datos=false)
+/*	public function info($mostrar_datos=false)
 	//Informacion del estado del db_registros
 	{
 		$estado['control']=$this->control;
@@ -142,11 +169,19 @@ class objeto_datos_tabla
 		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
 		$estado['no_duplicado'] = isset($this->no_duplicado) ? $this->no_duplicado: null;
 		return $estado;
-	}
+	}*/
 
-	public function get_definicion()
+	public function get_clave()
 	{
-		return $this->definicion;
+		return $this->clave;
+	}
+	
+	public function get_clave_valor($id_registro)
+	{
+		foreach( $this->clave as $clave ){
+			$temp[$clave] = $this->get_registro_valor($id_registro, $clave);
+		}	
+		return $temp;
 	}
 
 	public function get_tope_max_registros()
@@ -158,6 +193,7 @@ class objeto_datos_tabla
 	{
 		return $this->tope_min_registros;	
 	}
+
 
 	public function get_cantidad_registros_a_sincronizar()
 	{
@@ -186,7 +222,7 @@ class objeto_datos_tabla
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Especificacion de SERVICIOS
+	//-- Configuracion
 	//-------------------------------------------------------------------------------
 
 	public function set_tope_max_registros($cantidad)
@@ -213,60 +249,17 @@ class objeto_datos_tabla
 		$this->no_duplicado[] = $columnas;
 	}
 	
-	public function activar_transaccion()		
-	{
-		$this->utilizar_transaccion = true;
-	}
-
-	public function desactivar_transaccion()		
-	{
-		$this->utilizar_transaccion = false;
-	}
-
-	public function activar_control_sincro()
-	{
-		$this->control_sincro_db = true;
-	}
-
-	public function desactivar_control_sincro()
-	{
-		$this->control_sincro_db = false;
-	}
-
-	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
-	{
-		$proximo = count($this->proceso_carga_externa);
-		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
-		$this->proceso_carga_externa[$proximo]["sql"] = $sql;
-		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
-		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
-		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
-	}
-	
-	public function activar_proceso_carga_externa_dao($metodo, $clase, $include, $col_parametros, $col_resultado, $sincro_continua=true)
-	{
-		$proximo = count($this->proceso_carga_externa);
-		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
-		$this->proceso_carga_externa[$proximo]["metodo"] = $metodo;
-		$this->proceso_carga_externa[$proximo]["clase"] = $clase;
-		$this->proceso_carga_externa[$proximo]["include"] = $include;
-		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
-		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
-		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
-	}
-
-	public function activar_memoria_autonoma($id)
-	{
-		$this->memoria_autonoma = true;
-		$this->identificador = $id; 		//Tiene que ser UNICO en la sesion
-	}
-	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-----------------------------  Manejo de DATOS  -------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function set_datos()
+	{
+		
+	}
+	
 	public function resetear()
 	{
 		$this->log("RESET!!");
@@ -822,82 +815,17 @@ class objeto_datos_tabla
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
+	//---------------  EVENTOS de SINCRONIZACION con la DB   ------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
-	private function actualizar_campos_externos()
-	//Actualiza los campos externos despues de cargar el db_registros
-	{
-		foreach(array_keys($this->control) as $registro)
-		{
-			$this->actualizar_campos_externos_registro($registro);
-		}	
-	}
-	
-	private function actualizar_campos_externos_registro($id_registro, $evento=null)
 	/*
-		Recuperacion de valores para las columnas externas.
-		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
-			cuyas claves asociativas se correspondan con la columna que se quiere
+		Este es el lugar para meter validaciones, 
+		si algo sale mal se deberia disparar una excepcion	
 	*/
-	{
-		//Itero planes de carga externa
-		if(isset($this->proceso_carga_externa)){
-			foreach(array_keys($this->proceso_carga_externa) as $carga)
-			{
-				//SI entre por un evento, tengo que controlar que la carga este
-				//Activada para eventos, si no esta activada paso al siguiente
-				if(isset($evento)){
-					if(! $this->proceso_carga_externa[$carga]['sincro_continua'] ){	
-						continue;
-					}
-				}
-				//-[ 1 ]- Recupero valores correspondientes al registro
-				$parametros = $this->proceso_carga_externa[$carga];
-				if($parametros['tipo']=="sql")											//--- carga SQL!!
-				{
-					// - 1 - Obtengo el query
-					$sql = $parametros['sql'];
-					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
-					foreach( $parametros['col_parametro'] as $col_llave ){
-						$valor_llave = $this->datos[$id_registro][$col_llave];
-						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
-					}
-					//echo "<pre>SQL: "  . $sql . "<br>";
-					// - 3 - Ejecuto SQL
-					$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
-					//ei_arbol($this->datos);
-				}
-				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
-				{
-					// - 1 - Armo los parametros para el DAO
-					foreach( $parametros['col_parametro'] as $col_llave ){
-						$param_dao[] = $this->datos[$id_registro][$col_llave];
-					}
-					//ei_arbol($param_dao,"Parametros para el DAO");
-					// - 2 - Recupero datos
-					include_once($parametros['include']);
-					$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
-				}
-				//ei_arbol($datos,"datos");
-				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
-				foreach( $parametros['col_resultado'] as $columna_externa ){
-					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
-				}
-			}
-		}
-	}
 
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//---------------  SINCRONIZACION con la DB   -----------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	public function sincronizar($control_tope_minimo=true)
-	//Sincroniza las modificaciones del db_registros con la DB
+	protected function evt__pre_sincronizacion()
 	{
+		$control_tope_minimo=true;
 		$this->log("Inicio SINCRONIZACION"); 
 		if($control_tope_minimo){
 			if( $this->tope_min_registros != 0){
@@ -907,83 +835,6 @@ class objeto_datos_tabla
 				}
 			}
 		}
-		$this->controlar_alteracion_db();
-		// No puedo ejecutar los cambios en cualguier orden
-		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
-		$inserts = array(); $deletes = array();	$updates = array();
-		foreach(array_keys($this->control) as $registro){
-			switch($this->control[$registro]['estado']){
-				case "d":
-					$deletes[] = $registro;
-					break;
-				case "i":
-					$inserts[] = $registro;
-					break;
-				case "u":
-					$updates[] = $registro;
-					break;
-			}
-		}
-		try{
-			if($this->utilizar_transaccion) abrir_transaccion();
-			$this->evt__pre_sincronizacion();
-			$modificaciones = 0;
-			//-- DELETE --
-			foreach($deletes as $registro){
-				$this->evt__pre_delete($registro);
-				$this->eliminar($registro);
-				$this->evt__post_delete($registro);
-				$modificaciones ++;
-			}
-			//-- INSERT --
-			foreach($inserts as $registro){
-				$this->evt__pre_insert($registro);
-				$this->insertar($registro);
-				$this->evt__post_insert($registro);
-				$modificaciones ++;
-			}
-			//-- UPDATE --
-			foreach($updates as $registro){
-				$this->evt__pre_update($registro);
-				$this->modificar($registro);
-				$this->evt__post_update($registro);
-				$modificaciones ++;
-			}
-			$this->evt__post_sincronizacion();
-			if($this->utilizar_transaccion) cerrar_transaccion();
-			//Actualizo la estructura interna que mantiene el estado de los registros
-			$this->sincronizar_estructura_control();
-			$this->log("Fin SINCRONIZACION: $modificaciones."); 
-			return $modificaciones;
-		}catch(excepcion_toba $e){
-			if($this->utilizar_transaccion) abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}
-	}
-
-	protected function insertar($id_registro)
-	{
-	}
-	
-	protected function modificar($id_registro)
-	{
-	}
-
-	protected function eliminar($id_registro)
-	{
-	}
-
-	//-------------------------------------------------------------------------------
-	//------  EVENTOS de SINCRONIZACION  --------------------------------------------
-	//-------------------------------------------------------------------------------
-	/*
-		Este es el lugar para meter validaciones, 
-		si algo sale mal se deberia disparar una excepcion	
-	*/
-
-	protected function evt__pre_sincronizacion()
-	{
 	}
 	
 	protected function evt__post_sincronizacion()
@@ -1015,144 +866,6 @@ class objeto_datos_tabla
 	}
 
 	//-------------------------------------------------------------------------------
-
-	public function get_sql_inserts()
-	{
-		$sql = array();
-		foreach(array_keys($this->control) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
-		}
-		return $sql;
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------  Control de SINCRONISMO  -----------------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	public function controlar_alteracion_db()
-	//Controla que los datos
-	{
-		/*
-			Esto hay que pensarlo bien
-		*/
-	}
-
-	private function controlar_alteracion_db_array()
-	//Soporte al manejo transaccional OPTIMISTA
-	//Indica si los datos iniciales extraidos de la base difieren de
-	//los datos existentes en el momento de realizar la transaccion
-	{
-		$ok = true;
-		$datos_actuales = $this->cargar_db();
-		//Hay datos?
-		if(is_array($datos_actuales)){
-			//La cantidad de filas es la misma?
-			if(count($datos_actuales) == count($this->datos_orig)){
-				for($a=0;$a<count($this->datos_orig);$a++){
-					//Existe la fila?
-					if(isset($datos_actuales[$a])){
-						foreach(array_keys($this->datos_orig[$a]) as $columna){
-							//El valor de las columnas coincide?
-							if($this->datos_orig[$a][$columna] !== $datos_actuales[$a][$columna]){
-								$ok = false;
-								break 2;
-							}
-						}
-					}else{
-						$ok = false;
-						break 1;
-					}
-				}
-			}else{
-				$ok = false;
-			}
-		}else{
-			$ok = false;
-		}
-		return $ok;
-	}
-	//-------------------------------------------------------------------------------
-
-	private function controlar_alteracion_db_timestamp()
-	//Esto tiene que basarse en una forma generica de trabajar sobre tablas
-	//(Una columna que posea el timestamp, y triggers que los actualicen)
-	{
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//-- Memoria AUTONOMA -- Candidato a desaparecer
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	/*
-		El db_registros se encarga solo de que su estado se mantenga en la sesion
-	*/
-	
-	private function inicializar_memoria_autonoma()
-	{
-		$this->log("Se esta utilizando la memoria autonoma.");
-		//Registro la finalizacion del objeto
-		$this->posicion_finalizador = registrar_finalizacion( $this );
-		//-- Si el db_registros fue creado en el request previo, lo recargo
-		if( $this->existe_instanciacion_previa() ){
-			//Si vengo del menu, no lo recargo.
-			if( toba::get_hilo()->verificar_acceso_menu() ){
-				$this->log("Acceso desde el MENU: no se recargan los datos");
-			}else{
-				$this->cargar_datos_sesion();
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
-
-	private	function finalizar()
-	//Finaliza la ejecucion del db_registros
-	{
-		$this->guardar_datos_sesion();
-	}
-	//-------------------------------------------------------------------------------
-
-	private function desregistrar_finalizacion()
-	//Desregistrar el destructor, por si se necesita eliminar un objeto registrado
-	{
-		desregistar_finalizacion($this->posicion_finalizador);
-	}
-	//-------------------------------------------------------------------------------
-
-	private function cargar_datos_sesion()
-	//Cargo el db_registros desde la sesion
-	{
-		$this->log("Cargar de SESION");
-		$datos = toba::get_hilo()->recuperar_dato_global($this->identificador);
-		//Traera un problema el pasaje por referencia
-		$this->datos = $datos['datos'];
-		$this->datos_orig = $datos['datos_orig'];
-		$this->control = $datos['control'];
-		$this->proximo_registro = $datos['proximo_registro'];
-		$this->where = $datos['where'];
-		$this->from = $datos['from'];
-	}
-	//-------------------------------------------------------------------------------
-
-	private function guardar_datos_sesion()
-	//Guardo datos en la sesion
-	{
-		$datos['where'] = $this->where;
-		$datos['from'] = $this->from;
-		$datos['datos'] = $this->datos;
-		$datos['datos_orig'] = $this->datos_orig;
-		$datos['control'] = $this->control;
-		$datos['proximo_registro'] = $this->proximo_registro;
-		toba::get_hilo()->persistir_dato_global($this->identificador, $datos, true);
-	}
-	//-------------------------------------------------------------------------------
-	
-	private function existe_instanciacion_previa()
-	{
-		return toba::get_hilo()->existe_dato_global($this->identificador);
-	}
 	//-------------------------------------------------------------------------------
 }
 ?>

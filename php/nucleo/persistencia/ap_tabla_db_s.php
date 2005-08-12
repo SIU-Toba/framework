@@ -60,49 +60,7 @@ class ap_tabla_db_s extends ap_tabla_db
 		}
 	}
 
-	//-------------------------------------------------------------------------------
-	//-- Preguntas BASICAS
-	//-------------------------------------------------------------------------------
-
-	public function info_definicion()
-	//Informacion del buffer
-	{
-		$estado = parent::info_definicion();
-		$estado['tabla'] = $this->tabla;              
-		$estado['campos_sql'] = isset($this->campos_sql) ? $this->campos_sql : null;
-		$estado['campos_secuencia']	= isset($this->campos_secuencia) ? $this->campos_secuencia: null;
-		$estado['campos_sql_select'] = isset($this->campos_sql_select) ? $this->campos_sql_select: null;
-		return $estado;
-	}
 	
-	public function get_clave()
-	{
-		return $this->clave;
-	}
-	
-	public function get_clave_valor($id_registro)
-	{
-		foreach( $this->clave as $clave ){
-			$temp[$clave] = $this->get_registro_valor($id_registro, $clave);
-		}	
-		return $temp;
-	}
-
-	//-------------------------------------------------------------------------------
-	//-- Especificacion de SERVICIOS
-	//-------------------------------------------------------------------------------
-
-	public function activar_baja_logica($columna, $valor)
-	{
-		$this->baja_logica = true;
-		$this->baja_logica_columna = $columna;
-		$this->baja_logica_valor = $valor;	
-	}
-
-	public function activar_modificacion_clave()
-	{
-		$this->flag_modificacion_clave = true;
-	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -115,16 +73,15 @@ class ap_tabla_db_s extends ap_tabla_db
 		//- 2 - Ejecutar el SQL
 		$sql = $this->generar_sql_insert($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
-		ejecutar_sql( $sql, $this->fuente);
+		$this->ejecutar_sql( $sql );
+		//Actualizo las secuencias
 		if(count($this->campos_secuencia)>0){
 			foreach($this->campos_secuencia as $columna => $secuencia){
-				//Actualizo el valor
 				$this->datos[$id_registro][$columna] = recuperar_secuencia($secuencia, $this->fuente);
 			}
 		}
 		return $sql;
 	}
-	//-------------------------------------------------------------------------------
 	
 	protected function generar_sql_insert($id_registro)
 	{
@@ -144,6 +101,7 @@ class ap_tabla_db_s extends ap_tabla_db
 				" VALUES (" . implode(", ", $valores) . ");";
 		return $sql;
 	}
+	//-------------------------------------------------------------------------------
 
 	protected function modificar($id_registro)
 	{

@@ -4,14 +4,89 @@ define("apex_db_registros_separador","%");
 
 class ap_tabla_db extends ap
 {
-	// Definicion general
+	protected $fuente;
+	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
+	protected $baja_logica_columna;				// Columna de la baja logica
+	protected $baja_logica_valor;				// Valor de la baja logica
+	protected $flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
+	protected $proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
+	//-------------------------------
+	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
+	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	//-------------------------------
 	protected $where;							// Condicion utilizada para cargar datos - WHERE
 	protected $from;							// Condicion utilizada para cargar datos - FROM
-	
+
 	//-------------------------------------------------------------------------------
+	//------  Relacion con el objeto_datos_tabla  que va a persistir  ---------------
+	//-------------------------------------------------------------------------------
+
+	function set_objeto_tabla($ot)
+	{
+		parent::set_objeto_tabla($ot);
+		$this->fuente = $this->datos_tabla->get_fuente_datos();
+	}
+
+	//-------------------------------------------------------------------------------
+	//------  Configuracion  ----------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	public function activar_baja_logica($columna, $valor)
+	{
+		$this->baja_logica = true;
+		$this->baja_logica_columna = $columna;
+		$this->baja_logica_valor = $valor;	
+	}
+
+	public function activar_modificacion_clave()
+	{
+		$this->flag_modificacion_clave = true;
+	}
+
+	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
+	{
+		$proximo = count($this->proceso_carga_externa);
+		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
+		$this->proceso_carga_externa[$proximo]["sql"] = $sql;
+		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+	}
+	
+	public function activar_proceso_carga_externa_dao($metodo, $clase, $include, $col_parametros, $col_resultado, $sincro_continua=true)
+	{
+		$proximo = count($this->proceso_carga_externa);
+		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
+		$this->proceso_carga_externa[$proximo]["metodo"] = $metodo;
+		$this->proceso_carga_externa[$proximo]["clase"] = $clase;
+		$this->proceso_carga_externa[$proximo]["include"] = $include;
+		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+	}
+
+	public function activar_transaccion()		
+	{
+		$this->utilizar_transaccion = true;
+	}
+
+	public function desactivar_transaccion()		
+	{
+		$this->utilizar_transaccion = false;
+	}
+
+	public function activar_control_sincro()
+	{
+		$this->control_sincro_db = true;
+	}
+
+	public function desactivar_control_sincro()
+	{
+		$this->control_sincro_db = false;
+	}
+
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	public function cargar_datos_clave($id)
@@ -33,7 +108,10 @@ class ap_tabla_db extends ap
 		$this->where = $where;
 		$this->from = $from;
 		//Obtengo los datos de la DB
-		$this->datos = $this->cargar_db();
+		$datos = $this->cargar_db();
+		
+		
+		
 		//Controlo que no se haya excedido el tope de registros
 		if( $this->tope_max_registros != 0){
 			if( $this->tope_max_registros < count( $this->datos ) ){
@@ -103,9 +181,6 @@ class ap_tabla_db extends ap
 	}
 
 	private function controlar_conservacion_where($where)
-	/*
-		El uso de este metodo ya no tiene sentido
-	*/
 	{
 		if(!isset($this->where)){
 			if(isset($where)){
@@ -128,6 +203,74 @@ class ap_tabla_db extends ap
 		$this->log("Control WHERE: OK!");
 		return true;
 	}
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	private function actualizar_campos_externos()
+	//Actualiza los campos externos despues de cargar el db_registros
+	{
+		foreach(array_keys($this->control) as $registro)
+		{
+			$this->actualizar_campos_externos_registro($registro);
+		}	
+	}
+	
+	private function actualizar_campos_externos_registro($id_registro, $evento=null)
+	/*
+		Recuperacion de valores para las columnas externas.
+		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
+			cuyas claves asociativas se correspondan con la columna que se quiere
+	*/
+	{
+		//Itero planes de carga externa
+		if(isset($this->proceso_carga_externa)){
+			foreach(array_keys($this->proceso_carga_externa) as $carga)
+			{
+				//SI entre por un evento, tengo que controlar que la carga este
+				//Activada para eventos, si no esta activada paso al siguiente
+				if(isset($evento)){
+					if(! $this->proceso_carga_externa[$carga]['sincro_continua'] ){	
+						continue;
+					}
+				}
+				//-[ 1 ]- Recupero valores correspondientes al registro
+				$parametros = $this->proceso_carga_externa[$carga];
+				if($parametros['tipo']=="sql")											//--- carga SQL!!
+				{
+					// - 1 - Obtengo el query
+					$sql = $parametros['sql'];
+					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
+					foreach( $parametros['col_parametro'] as $col_llave ){
+						$valor_llave = $this->datos[$id_registro][$col_llave];
+						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
+					}
+					//echo "<pre>SQL: "  . $sql . "<br>";
+					// - 3 - Ejecuto SQL
+					$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
+					//ei_arbol($this->datos);
+				}
+				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
+				{
+					// - 1 - Armo los parametros para el DAO
+					foreach( $parametros['col_parametro'] as $col_llave ){
+						$param_dao[] = $this->datos[$id_registro][$col_llave];
+					}
+					//ei_arbol($param_dao,"Parametros para el DAO");
+					// - 2 - Recupero datos
+					include_once($parametros['include']);
+					$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
+				}
+				//ei_arbol($datos,"datos");
+				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
+				foreach( $parametros['col_resultado'] as $columna_externa ){
+					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
+				}
+			}
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -135,6 +278,12 @@ class ap_tabla_db extends ap
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	function ejecutar_sql( $sql )
+	{
+		/* Aca no es necesario usar adodb */
+		ejecutar_sql( $sql, $this->fuente);			
+	}
+	
 	public function sincronizar($control_tope_minimo=true)
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
@@ -202,58 +351,17 @@ class ap_tabla_db extends ap
 		}
 	}
 
-	protected function insertar($id_registro)
+	abstract function insertar($id_registro)
 	{
 	}
 	
-	protected function modificar($id_registro)
+	abstract function modificar($id_registro)
 	{
 	}
 
-	protected function eliminar($id_registro)
+	abstract function eliminar($id_registro)
 	{
 	}
-
-	//-------------------------------------------------------------------------------
-	//------  EVENTOS de SINCRONIZACION  --------------------------------------------
-	//-------------------------------------------------------------------------------
-	/*
-		Este es el lugar para meter validaciones, 
-		si algo sale mal se deberia disparar una excepcion	
-	*/
-
-	protected function evt__pre_sincronizacion()
-	{
-	}
-	
-	protected function evt__post_sincronizacion()
-	{
-	}
-
-	protected function evt__pre_insert($id)
-	{
-	}
-	
-	protected function evt__post_insert($id)
-	{
-	}
-	
-	protected function evt__pre_update($id)
-	{
-	}
-	
-	protected function evt__post_update($id)
-	{
-	}
-
-	protected function evt__pre_delete($id)
-	{
-	}
-	
-	protected function evt__post_delete($id)
-	{
-	}
-
 	//-------------------------------------------------------------------------------
 
 	public function get_sql_inserts()
