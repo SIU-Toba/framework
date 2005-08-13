@@ -18,6 +18,7 @@ VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario;
 VACUUM VACUUM FULL ANALYSE apex_objeto_db_registros_col;
 VACUUM VACUUM FULL ANALYSE apex_tipo_datos;
 VACUUM VACUUM FULL ANALYSE apex_objeto_db_registros;
+VACUUM VACUUM FULL ANALYSE apex_admin_persistencia;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_linea;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_hito;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_activ_usu;

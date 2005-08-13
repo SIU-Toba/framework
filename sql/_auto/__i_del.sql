@@ -18,6 +18,7 @@ DELETE FROM apex_objeto_ut_formulario ;
 DELETE FROM apex_objeto_db_registros_col ;
 DELETE FROM apex_tipo_datos ;
 DELETE FROM apex_objeto_db_registros ;
+DELETE FROM apex_admin_persistencia ;
 DELETE FROM apex_objeto_plan_linea ;
 DELETE FROM apex_objeto_plan_hito ;
 DELETE FROM apex_objeto_plan_activ_usu ;

@@ -27,7 +27,7 @@ class ci_principal extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_db_registros();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1400') );
+			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1410') );
 		}
 		return $this->db_tablas;
 	}
@@ -121,7 +121,7 @@ class ci_principal extends objeto_ci
 		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_db_registros" );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_tabla" );
 		//Sincronizo el DBT
 		$this->get_dbt()->sincronizar();	
 	}

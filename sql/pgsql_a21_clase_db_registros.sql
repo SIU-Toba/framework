@@ -9,7 +9,7 @@ CREATE TABLE apex_admin_persistencia
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: proyecto
---: dump_order_by: id
+--: dump_order_by: ap
 --: zona: objeto
 --: desc:
 --: historica:	0
@@ -40,12 +40,13 @@ CREATE TABLE apex_objeto_db_registros
 	objeto      	    	 		int4			NOT NULL,
 	max_registros					smallint		NULL,
 	min_registros					smallint		NULL,
---	Configuracion del administrador de persistencia
+--	Configuracion del AP
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(60)		NULL,
 	tabla 							varchar(60)		NULL,
 	alias 							varchar(60)		NULL,
+--	Fin configuracion del AP
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("proyecto","objeto"),
 	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
