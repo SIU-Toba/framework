@@ -254,7 +254,7 @@ class objeto
 */
 	{
 		ei_arbol($this->info_estado());
-		ei_arbol($this->info_definicion());
+		//ei_arbol($this->info_definicion());
 	}	
 
 	function get_txt()

@@ -151,9 +151,7 @@ class ap_tabla_db extends ap
 	}
 
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	private function actualizar_campos_externos()
@@ -220,9 +218,20 @@ class ap_tabla_db extends ap
 	}
 
 	//-------------------------------------------------------------------------------
+	//------ Servicios de generacion de SQL   ---------------------------------------
+	//-------------------------------------------------------------------------------
+
+	public function get_sql_inserts()
+	{
+		$sql = array();
+		foreach(array_keys($this->control) as $registro){
+			$sql[] = $this->generar_sql_insert($registro);
+		}
+		return $sql;
+	}
+
 	//-------------------------------------------------------------------------------
 	//------  SINCRONIZACION  -------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function ejecutar_sql( $sql )
@@ -309,21 +318,49 @@ class ap_tabla_db extends ap
 	abstract function eliminar($id_registro)
 	{
 	}
-	//-------------------------------------------------------------------------------
 
-	public function get_sql_inserts()
+	//-------------------------------------------------------------------------------
+	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------
+	//-------------------------------------------------------------------------------
+	/*
+		Este es el lugar para meter validaciones, 
+		si algo sale mal se deberia disparar una excepcion	
+	*/
+
+	protected function evt__pre_sincronizacion()
 	{
-		$sql = array();
-		foreach(array_keys($this->control) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
-		}
-		return $sql;
+	}
+	
+	protected function evt__post_sincronizacion()
+	{
+	}
+
+	protected function evt__pre_insert($id)
+	{
+	}
+	
+	protected function evt__post_insert($id)
+	{
+	}
+	
+	protected function evt__pre_update($id)
+	{
+	}
+	
+	protected function evt__post_update($id)
+	{
+	}
+
+	protected function evt__pre_delete($id)
+	{
+	}
+	
+	protected function evt__post_delete($id)
+	{
 	}
 
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//------------  Control de SINCRONISMO  -----------------------------------------
-	//-------------------------------------------------------------------------------
+	//--  Control de VERSIONES  -----------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	public function controlar_alteracion_db()
@@ -375,5 +412,7 @@ class ap_tabla_db extends ap
 	//(Una columna que posea el timestamp, y triggers que los actualicen)
 	{
 	}
+	//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
 }
 ?>

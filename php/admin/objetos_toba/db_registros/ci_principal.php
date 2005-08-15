@@ -27,7 +27,7 @@ class ci_principal extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_db_registros();
-			$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1410') );
+			$this->db_tablas->cargar( array('proyecto'=>'toba_testing', 'objeto'=>'1424') );
 		}
 		return $this->db_tablas;
 	}

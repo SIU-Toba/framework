@@ -23,9 +23,10 @@ class lista_casos
 					array('id' => 'test_item', 'nombre' => 'Comportamiento básico del ítem', 'categoria' => 'items'),
 					array('id' => 'test_arbol_items', 'nombre' => 'Manejo del árbol de ítems', 'categoria' => 'items'),
 					
-					//Objetos
-					array('id' => 'test_ei_formulario_ml', 'nombre' => 'ei_formulario_ml', 'categoria' => 'objetos'),
-					array('id' => 'test_db_registros', 'nombre' =>  'db_registros', 'categoria' => 'objetos'),
+					//Objetos EIS
+					array('id' => 'test_ei_formulario_ml', 'nombre' => 'OBJETO ei_formulario_ml', 'categoria' => 'objetos'),
+					//Objetos DATOS
+					array('id' => 'test_datos_tabla', 'nombre' =>  'OBJETO datos_tabla', 'categoria' => 'objetos'),
 
 					//EF
 					array('id' => 'test_editable', 'nombre' => 'EF Editable', 'categoria' => 'ef'),
@@ -40,9 +41,9 @@ class lista_casos
 					array('id' => 'test_db_registros_std_mt_1', 'nombre' => 'DBR Estandard -- db_registros_mt -[ 1 ]- ( 2 tablas / INNER join / clave simple identica)', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_std_mt_2', 'nombre' => 'DBR Estandard -- db_registros_mt -[ 2 ]- ( 2 tablas / INNER join / clave compuesta identica)', 'categoria' => 'persistencia'),
 					array('id' => 'test_db_registros_std_mt_3', 'nombre' => 'DBR Estandard -- db_registros_mt -[ 3 ]- ( 3 tablas / INNER join / clave simple identica)', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_s_seq', 'nombre' =>  'SEQ db_registros_s', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_mt_seq', 'nombre' =>  'SEQ db_registros_ml', 'categoria' => 'persistencia'),
-					array('id' => 'test_db_registros_s_alias', 'nombre' =>  'ALIAS db_registros_s', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_s_seq', 'nombre' =>  'DBR SEQ db_registros_s', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_mt_seq', 'nombre' =>  'DBR SEQ db_registros_ml', 'categoria' => 'persistencia'),
+					array('id' => 'test_db_registros_s_alias', 'nombre' =>  'DBR ALIAS db_registros_s', 'categoria' => 'persistencia'),
 					//array('id' => 'test_db_tablas_cd', 'nombre' => 'DB Tablas Cabecera-Detalle', 'categoria' => 'persistencia'),
 
 					//Administrador

@@ -13,7 +13,7 @@ class objeto_datos_tabla extends objeto
 	protected $tope_min_registros;				// Cantidad de minima de datos permitida.
 	protected $fuente;							// Fuente de datos utilizada
 	// Estructuras Centrales
-	protected $cambios = array();				// Estructura de control
+	protected $control = array();				// Estructura de control
 	protected $datos = array();					// Datos cargados en el db_registros
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proximo_dato = 0;				// Posicion del proximo registro en el array de datos
@@ -35,15 +35,15 @@ class objeto_datos_tabla extends objeto
 	{
 		$sql = parent::obtener_definicion_db();
 		//------------- Info base de la estructura ----------------
-		$sql["info_basica"]["sql"] = "SELECT			tabla,
+		$sql["info_estructura"]["sql"] = "SELECT			tabla,
 														alias,
 														min_registros,
 														max_registros
 					 FROM		apex_objeto_db_registros
 					 WHERE	proyecto='".$this->id[0]."'	
 					 AND		objeto='".$this->id[1]."';";
-		$sql["info_basica"]["estricto"]="1";
-		$sql["info_basica"]["tipo"]="1";
+		$sql["info_estructura"]["estricto"]="1";
+		$sql["info_estructura"]["tipo"]="1";
 		//------------ Columnas ----------------
 		$sql["info_columnas"]["sql"] = "SELECT	proyecto,
 						objeto 			,	
@@ -56,12 +56,10 @@ class objeto_datos_tabla extends objeto
 						no_nulo			,	
 						no_nulo_db	
 					 FROM		apex_objeto_db_registros_col 
-					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
-					 AND		objeto_cuadro = '".$this->id[1]."'
-					 ORDER BY orden;";
+					 WHERE		proyecto = '".$this->id[0]."'
+					 AND		objeto = '".$this->id[1]."';";
 		$sql["info_columnas"]["tipo"]="x";
 		$sql["info_columnas"]["estricto"]="1";		
-		$sql = parent::obtener_definicion_db();
 		return $sql;
 	}
 	
@@ -69,7 +67,7 @@ class objeto_datos_tabla extends objeto
 	//------  API de persistencia  --------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function get_persistidor()
+	function get_persistidor_por_defecto()
 	{
 		require_once("ap_tabla_db_s.php");
 		$ap =  new ap_tabla_db_s();
@@ -147,27 +145,6 @@ class objeto_datos_tabla extends objeto
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
-
-/*	public function info($mostrar_datos=false)
-	//Informacion del estado del db_registros
-	{
-		$estado['control']=$this->control;
-		$estado['proximo_registro']=$this->proximo_registro;
-		$estado['where']=$this->where;
-		$estado['from']=$this->from;
-		if($mostrar_datos) $estado['datos']=$this->datos;
-		return $estado;
-	}
-
-	public function info_definicion()
-	//Info sobre la definicion del db_registros
-	{
-		$estado['clave'] = isset($this->clave) ? $this->clave : null;				
-		$estado['campos'] = $this->campos;
-		$estado['campos_no_nulo'] = isset($this->campos_no_nulo) ? $this->campos_no_nulo: null;
-		$estado['no_duplicado'] = isset($this->no_duplicado) ? $this->no_duplicado: null;
-		return $estado;
-	}*/
 
 	public function get_clave()
 	{
@@ -724,48 +701,6 @@ class objeto_datos_tabla extends objeto
 				}
 			}
 		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//---------------  EVENTOS de SINCRONIZACION con la DB   ------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	/*
-		Este es el lugar para meter validaciones, 
-		si algo sale mal se deberia disparar una excepcion	
-	*/
-
-	protected function evt__pre_sincronizacion()
-	{
-	}
-	
-	protected function evt__post_sincronizacion()
-	{
-	}
-
-	protected function evt__pre_insert($id)
-	{
-	}
-	
-	protected function evt__post_insert($id)
-	{
-	}
-	
-	protected function evt__pre_update($id)
-	{
-	}
-	
-	protected function evt__post_update($id)
-	{
-	}
-
-	protected function evt__pre_delete($id)
-	{
-	}
-	
-	protected function evt__post_delete($id)
-	{
 	}
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------

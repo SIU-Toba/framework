@@ -40,7 +40,7 @@ CREATE TABLE apex_objeto_db_registros
 	objeto      	    	 		int4			NOT NULL,
 	max_registros					smallint		NULL,
 	min_registros					smallint		NULL,
---	Configuracion del AP
+--	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(60)		NULL,
