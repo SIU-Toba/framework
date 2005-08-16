@@ -82,6 +82,7 @@ function array_maximo(arreglo) {
 
 // define the addEvent(oElement, sEvent, sCmd, bAppend) function
 function addEvent(o, _e, c, _b){
+	if (!o) return;		
 	var e = _e.toLowerCase();
 	var b = (typeof _b == "boolean") ? _b : true;
 	var x = (o[e]) ? o[e].toString() : "";
