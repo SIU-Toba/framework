@@ -48,7 +48,11 @@ class ef_checkbox extends ef
 		    }
 		if (isset($parametros["valor_no_seteado"])){
 		    $this->valor_no_seteado = $parametros["valor_no_seteado"];
+		}		
+		if (isset($parametros["solo_lectura"])){
+		    $this->solo_lectura = $parametros["solo_lectura"];
 		}
+		
 		parent :: ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
     }
     
@@ -83,6 +87,8 @@ class ef_checkbox extends ef
             return $html_devuelto;   
          }else
          {
+         	//$extra = "DISABLED" . $this->javascript;
+         	//echo ei_mensaje($extra);
             return form :: checkbox($this->id_form, $this->estado, $this->valor,null,$this->javascript);
          }            
     }
