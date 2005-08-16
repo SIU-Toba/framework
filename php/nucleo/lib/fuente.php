@@ -71,22 +71,22 @@ class fuente_datos
 		'BOOLEAN' => 'L', 
 		'BIT' => 'L',
 		'L' => 'L',
+		# SERIAL... se tratan como enteros#
+		'COUNTER' => 'E',
+		'E' => 'E',
+		'SERIAL' => 'E', // ifx
+		'INT IDENTITY' => 'E',
 		##
-		'COUNTER' => 'R',
-		'R' => 'R',
-		'SERIAL' => 'R', // ifx
-		'INT IDENTITY' => 'R',
-		##
-		'INT' => 'I',
-		'INT2' => 'I',
-		'INT4' => 'I',
-		'INT8' => 'I',
-		'INTEGER' => 'I',
-		'INTEGER UNSIGNED' => 'I',
-		'SHORT' => 'I',
-		'TINYINT' => 'I',
-		'SMALLINT' => 'I',
-		'I' => 'I',
+		'INT' => 'E',
+		'INT2' => 'E',
+		'INT4' => 'E',
+		'INT8' => 'E',
+		'INTEGER' => 'E',
+		'INTEGER UNSIGNED' => 'E',
+		'SHORT' => 'E',
+		'TINYINT' => 'E',
+		'SMALLINT' => 'E',
+		'E' => 'E',
 		##
 		'LONG' => 'N', // interbase is numeric, oci8 is blob
 		'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
@@ -103,9 +103,9 @@ class fuente_datos
 		'MONEY' => 'N',
 		
 		## informix 9.2
-		'SQLINT' => 'I', 
-		'SQLSERIAL' => 'I', 
-		'SQLSMINT' => 'I', 
+		'SQLINT' => 'E', 
+		'SQLSERIAL' => 'E', 
+		'SQLSMINT' => 'E', 
 		'SQLSMFLOAT' => 'N', 
 		'SQLFLOAT' => 'N', 
 		'SQLMONEY' => 'N', 
@@ -215,7 +215,7 @@ class fuente_datos_postgres7 extends fuente_datos
 		$sql = " SELECT relname 
 				FROM pg_class 
 				WHERE relname ~* '$prefijo'
-				AND relkind = 'r'
+				AND relkind = 'E'
 				ORDER BY relname;";
 		$rs =& $this->conexion->Execute($sql);
 		if((!$rs)){
@@ -299,7 +299,7 @@ class fuente_datos_postgres7 extends fuente_datos
    {
       $consulta = "SELECT COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as com_tabla
                    FROM pg_class c
-                   WHERE c.relkind = 'r'
+                   WHERE c.relkind = 'E'
                    AND (c.relname='$tabla' OR c.relname = lower('$tabla'))";
       $rs = $conexion->Execute($consulta);
       if(! $rs->EOF)
@@ -317,7 +317,7 @@ class fuente_datos_postgres7 extends fuente_datos
       $consulta = "SELECT a.attname as campo, t.typname as tipo, a.attnum as orden, 
                          COALESCE(col_description(c.oid, a.attnum), a.attname) as com_campo
                    FROM pg_class c, pg_attribute a, pg_type t
-                   WHERE relkind = 'r'
+                   WHERE relkind = 'E'
                    AND (c.relname='$tabla' OR c.relname = lower('$tabla')) " .
                    ($campo == ''? '': "AND a.attname = '$campo' ") . 
                   "AND a.attnum > 0
@@ -348,12 +348,12 @@ class fuente_datos_postgres7 extends fuente_datos
                           t.conkey as clave_local,
                           t.confkey as clave_foranea
                    FROM pg_class c, pg_constraint t, pg_class r
-                   WHERE c.relkind = 'r'
+                   WHERE c.relkind = 'E'
                    AND (c.relname='$tabla' OR 
                         c.relname = lower('$tabla'))
                    AND c.oid = t.conrelid
                    AND t.conname = '$fk'
-                   AND r.relkind = 'r'
+                   AND r.relkind = 'E'
                    AND r.oid = t.confrelid";
       $rs = $conexion->Execute($consulta);
       if(! $rs->EOF)
@@ -416,7 +416,7 @@ class fuente_datos_postgres7 extends fuente_datos
                           t.conkey as clave_local,
                           c.relname as tabla
                    FROM pg_class c, pg_constraint t
-                   WHERE c.relkind = 'r'
+                   WHERE c.relkind = 'E'
                    AND c.oid = t.conrelid
                    AND t.conname = '$pk'
                    AND t.contype = 'p'";

@@ -1,7 +1,18 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
 define("apex_datos_clave_fila","dt_clave");
+/*
+	Tipos de dato (apex_tipo_datos)
 
+	E    Entero                         
+	N    Numero                         
+	C    Caracter                       
+	F    Fecha                          
+	T    Timestamp                      
+	L    Logico                         
+	X    Caracter largo    
+	B    Binario                        
+*/
 class objeto_datos_tabla extends objeto
 {
 	// Definicion asociada a la TABLA
@@ -63,7 +74,8 @@ class objeto_datos_tabla extends objeto
 						secuencia		,
 						largo			,	
 						no_nulo			,	
-						no_nulo_db	
+						no_nulo_db		,
+						externa
 					 FROM		apex_objeto_db_registros_col 
 					 WHERE		proyecto = '".$this->id[0]."'
 					 AND		objeto = '".$this->id[1]."';";
@@ -80,6 +92,17 @@ class objeto_datos_tabla extends objeto
 		toba::get_logger()->debug("db_filas  '" . get_class($this). "' " . $txt);
 	}
 	
+	public function resetear()
+	{
+		$this->log("RESET!!");
+		$this->datos = array();
+		$this->datos_originales = array();
+		$this->cambios = array();
+		$this->proxima_fila = 0;
+		$this->where = null;
+		$this->from = null;
+	}
+
 	//----------------------------------------------------------------
 	//---------  Cumplir la interface que reclama el CI -------------
 	//----------------------------------------------------------------
@@ -585,21 +608,43 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- MANEJO de DATOS  -----------------------------------------------------------
+	//-- PERSISTENCIA  -------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function resetear()
+	function get_persistidor()
+	//Devuelve el persistidor por defecto
 	{
-		$this->log("RESET!!");
-		$this->datos = array();
-		$this->datos_originales = array();
-		$this->cambios = array();
-		$this->proxima_fila = 0;
-		$this->where = null;
-		$this->from = null;
+		require_once("ap_tabla_db_s.php");
+		return new ap_tabla_db_s( $this );
 	}
 
-	function set_datos($datos)
+	/*
+		Acceso al AP interno
+		--------------------
+		
+			Tiene sentido encapsular al persistidor?
+			(¿O es mejor que el cliente lo solicite y trabaje directamente sobre el?)
+	*/
+
+	function cargar_datos($where=null, $from=null)
+	{
+		$ap = $this->get_persistidor();
+		//ei_arbol($ap->info());
+		$ap->cargar_datos($where, $from);
+	}
+
+	function sincronizar()
+	{
+		$ap = $this->get_persistidor();
+		return $ap->sincronizar();
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- API para el persitidor
+	//-------------------------------------------------------------------------------
+
+	public function set_datos($datos)
+	//El AP entrega un conjunto de datos al objeto_datos_tabla
 	{
 		$this->log("Carga de datos");
 		$this->datos = $datos;
@@ -612,27 +657,65 @@ class objeto_datos_tabla extends objeto
 				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
-		
-		if(false){
+		if(false){	// Hay que pensar este esquema...
 			$this->datos_originales = $this->datos;
 		}
-		$this->generar_estructura_control_post_carga();
+		$this->generar_estructura_cambios();
 		//Le saco los caracteres de escape a los valores traidos de la DB
 		for($a=0;$a<count($this->datos);$a++){
 			foreach(array_keys($this->datos[$a]) as $columna){
 				$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
 			}	
 		}
-
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proxima_fila = count($this->datos);	
+	}
+
+	public function get_datos()
+	{
+		return $this->datos;
+	}
+
+	public function get_cambios()
+	{
+		return $this->cambios;	
+	}
+
+	public function get_datos_originales()
+	{
+		return $this->datos_originales;
+	}
+
+	public function get_columnas()
+	{
+		return $this->info_columnas;
+	}
+	
+	public function get_indice_columnas()
+	{
+		return $this->indice_columnas;
+	}
+
+	public function get_fuente()
+	{
+		return $this->info["fuente"];
+	}
+
+	public function get_tabla()
+	{
+		return $this->info_estructura['tabla'];
+	}
+
+	public function get_alias()
+	{
+		return $this->info_estructura['alias'];
 	}
 
 	//-------------------------------------------------------------------------------
 	//-- Mantenimiento de la estructura de control ----------------------------------
 	//-------------------------------------------------------------------------------
 
-	protected function generar_estructura_control_post_carga()
+	protected function generar_estructura_cambios()
 	{
 		//Genero la estructura de control
 		$this->cambios = array();
@@ -646,79 +729,6 @@ class objeto_datos_tabla extends objeto
 	{
 		$this->cambios[$fila]['estado'] = $estado;
 	}
-
-	protected function sincronizar_estructura_control()
-	{
-		foreach(array_keys($this->cambios) as $fila){
-			switch($this->cambios[$fila]['estado']){
-				case "d":	//DELETE
-					unset($this->cambios[$fila]);
-					unset($this->datos[$fila]);
-					break;
-				case "i":	//INSERT
-					$this->cambios[$fila]['estado'] = "db";
-					break;
-				case "u":	//UPDATE
-					$this->cambios[$fila]['estado'] = "db";
-					break;
-			}
-		}
-	}
-
 	//-------------------------------------------------------------------------------
-	//-- PERSISTENCIA  -------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function get_persistidor()
-	//Devuelve el persistidor por defecto
-	{
-		require_once("ap_tabla_db_s.php");
-		return new ap_tabla_db_s( $this );
-	}
-	/*
-		¿¿¿Tiene sentido que exista una configuracion que use el persistidor por composicion
-		(para no tener que perdir el AP y ejecutar metodos en el) ???
-	*/
-
-	function cargar_datos()
-	{
-		$ap = $this->get_persistidor();
-		//ei_arbol($ap->info());
-		$ap->cargar_datos();
-	}
-
-	//-------------------------------------------------------------------------------
-	//-- API para el persitidor
-	//-------------------------------------------------------------------------------
-
-	public function get_datos()
-	{
-		return $this->datos;
-	}
-
-	public function get_datos_originales()
-	{
-		return $this->datos_originales;
-	}
-
-	public function get_cambios()
-	{
-		return $this->cambios;	
-	}
-
-	public function get_columnas()
-	{
-		return $this->info_columnas;
-	}
-	
-	public function get_fuente()
-	{
-		return $this->info["fuente"];
-	}
-
-	public function get_tabla()
-	{
-		return $this->info_estructura['tabla'];
-	}
 }
 ?>

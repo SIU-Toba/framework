@@ -1,8 +1,6 @@
 <?php
 require_once("test_datos_tabla.php");
-/*
-	Multitabla ESTRICTO con clave SIMPLE IDENTICA.
-*/
+
 class test_datos_tabla_1 extends test_datos_tabla
 {
 	function get_dt()
@@ -43,39 +41,7 @@ class test_datos_tabla_1 extends test_datos_tabla
 		return $sql;
 	}
 
-	function get_clave_test()
-	{
-		return array("id");
-	}
-
-	//********** limite de lo utilizado ************
-	
-	function get_where_test()
-	{
-		return	array("id IN (0,1,2)");
-	}
-	
-	function get_id_registro_test()
-	{
-		return 1;
-	}
-
-	function get_clave_valor_test()
-	{
-		return array("id"=>1);
-	}
-
-	function get_condicion_filtro_test()
-	{
-		return array("id"=>"0");
-	}
-	
-	function get_constraint_no_duplicado()
-	{
-		return array("id");	
-	}
-
-	function get_fila($concepto)
+	function get_fila_test($concepto)
 	//Registros para insertar en las tablas
 	{
 		static $datos;
@@ -109,6 +75,40 @@ class test_datos_tabla_1 extends test_datos_tabla
 		}else{
 			throw new exception_toba("Se solicito una FILA inexistente");
 		}
+	}
+
+	function get_clave_test()
+	{
+		return array("id");
+	}
+
+	function get_where_test()
+	{
+		return	array("id IN (0,1,2)");
+	}
+
+	//——————————————————————————————————————————————————————————————————————————————————————————————
+	//—————————————————   LIMITE de lo UTILIZADO  ——————————————————————————————————————————————————
+	//——————————————————————————————————————————————————————————————————————————————————————————————
+	
+	function get_id_registro_test()
+	{
+		return 1;
+	}
+
+	function get_clave_valor_test()
+	{
+		return array("id"=>1);
+	}
+
+	function get_condicion_filtro_test()
+	{
+		return array("id"=>"0");
+	}
+	
+	function get_constraint_no_duplicado()
+	{
+		return array("id");	
 	}
 }
 ?>

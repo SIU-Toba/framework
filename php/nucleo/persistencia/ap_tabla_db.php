@@ -4,14 +4,24 @@ define("apex_db_registros_separador","%");
 /*
 	Administrador de persistencia a DB
 	Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
+
+	PENDIENTE
+
+	- Como se implementa la carga de columnas externas??
+	- Donde se hacen los controles pre-sincronizacion??
+	- Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
+	- Esta clase no deberia utilizar ADOdb!!!
+
 */
 class ap_tabla_db extends ap
 {
-	protected $objeto_tabla;					// Referencia al objeto
+	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
+	protected $columnas;						// DATOS_TABLA: Estructura del objeto
+	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
+	protected $cambios;							// DATOS_TABLA: Estado de los cambios
 	protected $tabla;
-	protected $columnas;
-	protected $cambios;
-	protected $datos;	
+	protected $alias;
+	protected $clave;
 	protected $fuente;
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
@@ -30,13 +40,22 @@ class ap_tabla_db extends ap
 	{
 		$this->objeto_tabla = $datos_tabla;
 		$this->tabla = $this->objeto_tabla->get_tabla();
+		$this->alias = $this->objeto_tabla->get_alias();
+		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
+		$this->indice_columnas = $this->objeto_tabla->get_indice_columnas();
 		$this->fuente = $this->objeto_tabla->get_fuente_datos();
 	}
 
+	function get_estado_datos_tabla()
+	{
+		$this->cambios = $this->objeto_tabla->get_cambios();
+		$this->datos = $this->objeto_tabla->get_datos();
+	}
+	
 	protected function log($txt)
 	{
-		toba::get_logger()->debug("AP: " . get_class($this). " TABLA: ". get_class($this). " -- " .$txt);
+		toba::get_logger()->debug("AP: " . get_class($this). " DATOS: ". get_class($this->objeto_tabla). " -- " .$txt);
 	}
 
 	public function info()
@@ -44,16 +63,6 @@ class ap_tabla_db extends ap
 		return get_object_vars($this);
 	}
 
-	//-------------------------------------------------------------------------------
-	//------  Relacion con el objeto_datos_tabla  que va a persistir  ---------------
-	//-------------------------------------------------------------------------------
-
-	function get_datos_tabla()
-	{
-		$this->cambios = $this->datos_tabla->get_cambios();
-		$this->datos = $this->datos_tabla->get_datos();
-	}
-	
 	//-------------------------------------------------------------------------------
 	//------  Configuracion  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -116,14 +125,6 @@ class ap_tabla_db extends ap
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function cargar_datos_clave($id)
-	{
-		/*
-			Esta funcion deberia mapear un ID expresado como un array
-			y transformarlo en un WHERE
-		*/		
-	}
-
 	public function cargar_datos($where=null, $from=null)
 	{
 		asercion::es_array_o_null($where,"El WHERE debe ser un array");
@@ -162,6 +163,117 @@ class ap_tabla_db extends ap
 		$this->objeto_tabla->set_datos($datos);
 	}
 
+	public function cargar_datos_clave($id)
+	{
+		/*
+			Esta funcion deberia mapear un ID expresado como un array
+			y transformarlo en un WHERE
+		*/		
+	}
+
+	//-------------------------------------------------------------------------------
+	//------  SINCRONIZACION  -------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	public function sincronizar($control_tope_minimo=true)
+	//Sincroniza las modificaciones del db_registros con la DB
+	{
+		$this->log("Inicio SINCRONIZACION");
+		$this->get_estado_datos_tabla();
+/*
+		if($control_tope_minimo){
+			if( $this->tope_min_registros != 0){
+				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
+					$this->log("No se cumplio con el tope minimo de registros necesarios" );
+					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+				}
+			}
+		}
+*/
+		//$this->controlar_alteracion_db();
+		// No puedo ejecutar los cambios en cualguier orden
+		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
+		$inserts = array(); $deletes = array();	$updates = array();
+		foreach(array_keys($this->cambios) as $registro){
+			switch($this->cambios[$registro]['estado']){
+				case "d":
+					$deletes[] = $registro;
+					break;
+				case "i":
+					$inserts[] = $registro;
+					break;
+				case "u":
+					$updates[] = $registro;
+					break;
+			}
+		}
+		try{
+			if($this->utilizar_transaccion) abrir_transaccion();
+			$this->evt__pre_sincronizacion();
+			$modificaciones = 0;
+			//-- DELETE --
+			foreach($deletes as $registro){
+				$this->evt__pre_delete($registro);
+				$this->eliminar($registro);
+				$this->evt__post_delete($registro);
+				$modificaciones ++;
+			}
+			//-- INSERT --
+			foreach($inserts as $registro){
+				$this->evt__pre_insert($registro);
+				$this->insertar($registro);
+				$this->evt__post_insert($registro);
+				$modificaciones ++;
+			}
+			//-- UPDATE --
+			foreach($updates as $registro){
+				$this->evt__pre_update($registro);
+				$this->modificar($registro);
+				$this->evt__post_update($registro);
+				$modificaciones ++;
+			}
+			$this->evt__post_sincronizacion();
+			if($this->utilizar_transaccion) cerrar_transaccion();
+
+			//Devuelvo los DATOS sincronizados al objeto
+			$this->objeto_tabla->resetear();
+			$this->objeto_tabla->set_datos($this->datos);
+
+			$this->log("Fin SINCRONIZACION: $modificaciones."); 
+			return $modificaciones;
+		}catch(excepcion_toba $e){
+			if($this->utilizar_transaccion) abortar_transaccion();
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}
+	}
+
+	protected function insertar($id_registro){}	
+	protected function modificar($id_registro){}
+	protected function eliminar($id_registro){}
+
+	function ejecutar_sql( $sql )
+	{
+		/* Aca no es necesario usar adodb */
+		ejecutar_sql( $sql, $this->fuente);			
+	}
+
+	//-------------------------------------------------------------------------------
+	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------
+	//-------------------------------------------------------------------------------
+	/*
+		Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
+	*/
+
+	protected function evt__pre_sincronizacion(){}
+	protected function evt__post_sincronizacion(){}
+	protected function evt__pre_insert($id){}
+	protected function evt__post_insert($id){}
+	protected function evt__pre_update($id){}
+	protected function evt__post_update($id){}
+	protected function evt__pre_delete($id){}
+	protected function evt__post_delete($id){}
+
 	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
 	//-------------------------------------------------------------------------------
@@ -169,7 +281,7 @@ class ap_tabla_db extends ap
 	private function actualizar_campos_externos()
 	//Actualiza los campos externos despues de cargar el db_registros
 	{
-		foreach(array_keys($this->control) as $registro)
+		foreach(array_keys($this->cambios) as $registro)
 		{
 			$this->actualizar_campos_externos_registro($registro);
 		}	
@@ -235,132 +347,12 @@ class ap_tabla_db extends ap
 
 	public function get_sql_inserts()
 	{
+		$this->get_estado_datos_tabla();
 		$sql = array();
-		foreach(array_keys($this->control) as $registro){
+		foreach(array_keys($this->cambios) as $registro){
 			$sql[] = $this->generar_sql_insert($registro);
 		}
 		return $sql;
-	}
-
-	//-------------------------------------------------------------------------------
-	//------  SINCRONIZACION  -------------------------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function ejecutar_sql( $sql )
-	{
-		/* Aca no es necesario usar adodb */
-		ejecutar_sql( $sql, $this->fuente);			
-	}
-	
-	public function sincronizar($control_tope_minimo=true)
-	//Sincroniza las modificaciones del db_registros con la DB
-	{
-		$this->log("Inicio SINCRONIZACION"); 
-		if($control_tope_minimo){
-			if( $this->tope_min_registros != 0){
-				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
-					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
-				}
-			}
-		}
-		$this->controlar_alteracion_db();
-		// No puedo ejecutar los cambios en cualguier orden
-		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
-		$inserts = array(); $deletes = array();	$updates = array();
-		foreach(array_keys($this->control) as $registro){
-			switch($this->control[$registro]['estado']){
-				case "d":
-					$deletes[] = $registro;
-					break;
-				case "i":
-					$inserts[] = $registro;
-					break;
-				case "u":
-					$updates[] = $registro;
-					break;
-			}
-		}
-		try{
-			if($this->utilizar_transaccion) abrir_transaccion();
-			$this->evt__pre_sincronizacion();
-			$modificaciones = 0;
-			//-- DELETE --
-			foreach($deletes as $registro){
-				$this->evt__pre_delete($registro);
-				$this->eliminar($registro);
-				$this->evt__post_delete($registro);
-				$modificaciones ++;
-			}
-			//-- INSERT --
-			foreach($inserts as $registro){
-				$this->evt__pre_insert($registro);
-				$this->insertar($registro);
-				$this->evt__post_insert($registro);
-				$modificaciones ++;
-			}
-			//-- UPDATE --
-			foreach($updates as $registro){
-				$this->evt__pre_update($registro);
-				$this->modificar($registro);
-				$this->evt__post_update($registro);
-				$modificaciones ++;
-			}
-			$this->evt__post_sincronizacion();
-			if($this->utilizar_transaccion) cerrar_transaccion();
-			//Actualizo la estructura interna que mantiene el estado de los registros
-			$this->sincronizar_estructura_control();
-			$this->log("Fin SINCRONIZACION: $modificaciones."); 
-			return $modificaciones;
-		}catch(excepcion_toba $e){
-			if($this->utilizar_transaccion) abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}
-	}
-
-	protected function insertar($id_registro){}	
-	protected function modificar($id_registro){}
-	protected function eliminar($id_registro){}
-
-	//-------------------------------------------------------------------------------
-	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------
-	//-------------------------------------------------------------------------------
-	/*
-		Este es el lugar para meter validaciones, 
-		si algo sale mal se deberia disparar una excepcion	
-	*/
-
-	protected function evt__pre_sincronizacion()
-	{
-	}
-	
-	protected function evt__post_sincronizacion()
-	{
-	}
-
-	protected function evt__pre_insert($id)
-	{
-	}
-	
-	protected function evt__post_insert($id)
-	{
-	}
-	
-	protected function evt__pre_update($id)
-	{
-	}
-	
-	protected function evt__post_update($id)
-	{
-	}
-
-	protected function evt__pre_delete($id)
-	{
-	}
-	
-	protected function evt__post_delete($id)
-	{
 	}
 
 	//-------------------------------------------------------------------------------
@@ -416,7 +408,6 @@ class ap_tabla_db extends ap
 	//(Una columna que posea el timestamp, y triggers que los actualicen)
 	{
 	}
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 }
 ?>

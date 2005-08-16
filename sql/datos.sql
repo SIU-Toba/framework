@@ -5367,7 +5367,6 @@ INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('E','Entero');
 INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('F','Fecha');
 INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('L','Logico');
 INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('N','Numero');
-INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('R','Serial');
 INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('T','Timestamp');
 INSERT INTO apex_tipo_datos (tipo, descripcion) VALUES ('X','Caracter largo');
 

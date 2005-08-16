@@ -49,7 +49,7 @@ class casos_web extends objeto_ci
 			    foreach (lista_casos::get_casos() as $caso) {
 				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $this->selecciones['casos'])) {
 						$hay_uno = true;
-				        require_once($caso['categoria']."/".$caso['id'].".php");
+				        require_once("test_".$caso['categoria']."/".$caso['id'].".php");
 				        $test->addTestCase(new $caso['id']($caso['nombre']));
 				    }
 				}		

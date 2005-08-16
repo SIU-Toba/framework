@@ -26,6 +26,7 @@ class dbr_apex_objeto_db_registros_col extends db_registros_s
 		$def['columna'][7]['nombre']='no_nulo';
 		$def['columna'][8]['nombre']='no_nulo_db';
 		$def['columna'][9]['nombre']='largo';
+		$def['columna'][10]['nombre']='externa';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 		$this->set_no_duplicado( array("columna") );		
 	}	
