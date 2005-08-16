@@ -9,7 +9,7 @@ class ap_tabla_db_s extends ap_tabla_db
 {
 	protected $campos_sql;		// Habria que precargar las definiciones de campos para UPDATES y INSERTS
 
-	protected function inicializar_definicion_campos()
+/*	protected function inicializar_definicion_campos()
 	{
 		/*
 			Generacion de la DEFINICION OPERATIVA. (Se basa es $this->definicion, provista por el consumidor en la creacion)
@@ -24,7 +24,7 @@ class ap_tabla_db_s extends ap_tabla_db
 				$this->campos_sql_select		- TODOS - externos (para buscar registros en la DB)
 			
 			Los que tienen (*) Se acceden desde el ancestro para la funcionalidad ESTANDAR
-		*/
+/		/
 		$this->tabla = $this->definicion["tabla"];
 		$this->alias = isset($this->definicion["alias"]) ? $this->definicion["alias"] : null;
 		foreach(array_keys($this->definicion['columna']) as $col)
@@ -51,7 +51,7 @@ class ap_tabla_db_s extends ap_tabla_db
 			}
 			if( $es_secuencia ) $this->campos_secuencia[$campo] = $this->definicion['columna'][$col]['secuencia'];
 		}
-	}
+	}*/
 
 	
 
@@ -154,7 +154,10 @@ class ap_tabla_db_s extends ap_tabla_db
 	
 	protected function generar_sql_select()
 	{
-		$sql =	" SELECT	" . implode(",	",$this->campos_sql_select); 
+		foreach($this->columnas as $col){
+			$columnas[] = $col['columna'];
+		}
+		$sql =	" SELECT	" . implode(",	",$columnas); 
 		if(isset($this->alias)){	
 			$sql .= " FROM "	. $this->tabla  . " " . $this->alias;
 		}else{

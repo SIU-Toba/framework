@@ -46,6 +46,8 @@ class test_db_registros_std extends test_db_registros
 		$this->assertEqualArray( $this->dbr->get_clave(), $this->get_clave_test() );
 	}
 
+/**  Se reprodujo el test en objeto_datos_tabla hasta aca **/
+
 	function test_recuperar_tope_registros()
 	{
 		$this->assertEqual( $this->dbr->get_tope_max_registros(), 0 );

@@ -17,6 +17,12 @@ class dbr_apex_objeto_db_registros extends db_registros_s
 		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='tabla';
 		//$def['columna'][2]['no_nulo']='1';
+		$def['columna'][3]['nombre']='ap';
+		$def['columna'][4]['nombre']='ap_clase';
+		$def['columna'][5]['nombre']='ap_archivo';
+		$def['columna'][6]['nombre']='alias';
+		$def['columna'][7]['nombre']='max_registros';
+		$def['columna'][8]['nombre']='min_registros';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

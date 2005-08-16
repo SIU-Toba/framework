@@ -8,6 +8,7 @@ define("apex_db_registros_separador","%");
 class ap_tabla_db extends ap
 {
 	protected $objeto_tabla;					// Referencia al objeto
+	protected $tabla;
 	protected $columnas;
 	protected $cambios;
 	protected $datos;	
@@ -25,16 +26,27 @@ class ap_tabla_db extends ap
 	protected $where;							// Condicion utilizada para cargar datos - WHERE
 	protected $from;							// Condicion utilizada para cargar datos - FROM
 
+	function __construct($datos_tabla)
+	{
+		$this->objeto_tabla = $datos_tabla;
+		$this->tabla = $this->objeto_tabla->get_tabla();
+		$this->columnas = $this->objeto_tabla->get_columnas();
+		$this->fuente = $this->objeto_tabla->get_fuente_datos();
+	}
+
+	protected function log($txt)
+	{
+		toba::get_logger()->debug("AP: " . get_class($this). " TABLA: ". get_class($this). " -- " .$txt);
+	}
+
+	public function info()
+	{
+		return get_object_vars($this);
+	}
+
 	//-------------------------------------------------------------------------------
 	//------  Relacion con el objeto_datos_tabla  que va a persistir  ---------------
 	//-------------------------------------------------------------------------------
-
-	function set_objeto_tabla($ot)
-	{
-		$this->objeto_tabla = $ot;
-		$this->columnas = $this->datos_tabla->get_columnas();
-		$this->fuente = $this->datos_tabla->get_fuente_datos();
-	}
 
 	function get_datos_tabla()
 	{
@@ -114,7 +126,7 @@ class ap_tabla_db extends ap
 
 	public function cargar_datos($where=null, $from=null)
 	{
-		asercion::array($where,"El WHERE debe ser un array");
+		asercion::es_array_o_null($where,"El WHERE debe ser un array");
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
@@ -147,7 +159,7 @@ class ap_tabla_db extends ap
 				}
 			}
 		}
-		$this->datos_tabla->set_datos($datos);
+		$this->objeto_tabla->set_datos($datos);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -307,17 +319,9 @@ class ap_tabla_db extends ap
 		}
 	}
 
-	abstract function insertar($id_registro)
-	{
-	}
-	
-	abstract function modificar($id_registro)
-	{
-	}
-
-	abstract function eliminar($id_registro)
-	{
-	}
+	protected function insertar($id_registro){}	
+	protected function modificar($id_registro){}
+	protected function eliminar($id_registro){}
 
 	//-------------------------------------------------------------------------------
 	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------

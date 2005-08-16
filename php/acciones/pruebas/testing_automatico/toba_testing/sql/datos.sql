@@ -84,6 +84,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_testing','1329',NULL,NULL,'toba','objeto_ei_formulario_ml',NULL,NULL,NULL,NULL,'elemento_toba - ci con dependencias - eventos',NULL,NULL,NULL,'toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-07-06 13:12:16');
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_testing','1330',NULL,NULL,'toba','objeto_ei_filtro','subclase_filtro','p_acciones/administrador/test_elemento_toba.php',NULL,NULL,'elemento_toba - ci con dependencias',NULL,NULL,NULL,'toba_testing','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-07-06 17:16:21');
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_testing','1424',NULL,NULL,'toba','objeto_datos_tabla',NULL,NULL,NULL,NULL,'dbr_apex_proyecto',NULL,NULL,NULL,'toba','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-08-08 15:37:15');
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_testing','1427',NULL,NULL,'toba','objeto_datos_tabla',NULL,NULL,NULL,NULL,'TEST datos_tabla - 1',NULL,NULL,NULL,'toba','instancia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2005-08-15 15:51:08');
 
 -----------  apex_objeto_dependencias  ------------------------
 
@@ -158,6 +159,7 @@ INSERT INTO apex_objeto_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, o
 -----------  apex_objeto_db_registros  ------------------------
 
 INSERT INTO apex_objeto_db_registros (proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias) VALUES ('toba_testing','1424',NULL,NULL,NULL,NULL,NULL,'apex_proyecto',NULL);
+INSERT INTO apex_objeto_db_registros (proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias) VALUES ('toba_testing','1427',NULL,NULL,'1',NULL,NULL,'test_1',NULL);
 
 -----------  apex_objeto_db_registros_col  ------------------------
 
@@ -171,6 +173,9 @@ INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tip
 INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1424','12','listar_multiproyecto','I',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1424','13','orden',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1424','14','palabra_vinculo_std','C',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1427','15','id','N','1',NULL,NULL,NULL,'1');
+INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1427','16','nombre','C',NULL,NULL,'20',NULL,NULL);
+INSERT INTO apex_objeto_db_registros_col (proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db) VALUES ('toba_testing','1427','17','descripcion','C',NULL,NULL,'80',NULL,NULL);
 
 -----------  apex_objeto_ut_formulario  ------------------------
 

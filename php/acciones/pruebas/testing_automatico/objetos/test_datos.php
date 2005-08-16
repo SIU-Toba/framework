@@ -5,7 +5,7 @@ class test_datos extends test_toba
 	En realidad no es necesario borrar e insertar los registros entre cada test.
 	Si se pone muy lento se puede reemplazar abortando transacciones.
 */
-	protected $dbr;
+	protected $dt;
 
 	//----------------------------------------------
 	//-- Configuracion general de todos los TESTs
@@ -33,14 +33,14 @@ class test_datos extends test_toba
 	function SetUp()
 	{
 		ejecutar_sql( $this->get_sql_juego_datos() );
-		$this->dbr = $this->get_dbr();
+		$this->dt = $this->get_dt();
 	}
 
 	function TearDown()
 	{
 		ejecutar_sql( $this->get_sql_eliminar_juego_datos() );
-		$this->dbr->resetear();
-		unset($this->dbr);
+		$this->dt->resetear();
+		unset($this->dt);
 	}
 
 	//----------------------------------------------
@@ -49,7 +49,12 @@ class test_datos extends test_toba
 
 	function dump($mensaje="Info")
 	{
-		$this->dbr->info(true),$mensaje;
+		$this->dt->info();
+	}
+
+	function dump_cambios($mensaje="Cambios")
+	{
+		ei_arbol($this->dt->get_cambios());
 	}
 }
 ?>

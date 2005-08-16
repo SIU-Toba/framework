@@ -32,3 +32,7 @@ INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egr
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('84','toba_testing','toba','2005-05-19 16:12:54','2005-05-19 17:18:35',NULL,'5c48580a68ef29784ea9584d2381b073','127.0.0.1',NULL);
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('87','toba_testing','toba','2005-05-19 17:18:35',NULL,NULL,'5c48580a68ef29784ea9584d2381b073','127.0.0.1',NULL);
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('126','toba_testing','toba','2005-08-14 03:00:43',NULL,NULL,'4f9518f7d45247c3ea5d061bfd9490c4','192.168.0.10',NULL);
+
+-----------  apex_log_objeto  ------------------------
+
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('1','2005-08-15 15:51:08','toba','toba_testing','1427',NULL);

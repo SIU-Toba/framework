@@ -26,7 +26,7 @@ class lista_casos
 					//Objetos EIS
 					array('id' => 'test_ei_formulario_ml', 'nombre' => 'OBJETO ei_formulario_ml', 'categoria' => 'objetos'),
 					//Objetos DATOS
-					array('id' => 'test_datos_tabla', 'nombre' =>  'OBJETO datos_tabla', 'categoria' => 'objetos'),
+					array('id' => 'test_datos_tabla_1', 'nombre' =>  'OBJETO datos_tabla', 'categoria' => 'objetos'),
 
 					//EF
 					array('id' => 'test_editable', 'nombre' => 'EF Editable', 'categoria' => 'ef'),

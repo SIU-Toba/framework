@@ -27,7 +27,7 @@ class ci_principal extends objeto_ci
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_db_registros();
-			$this->db_tablas->cargar( array('proyecto'=>'toba_testing', 'objeto'=>'1424') );
+			//$this->db_tablas->cargar( array('proyecto'=>'toba_testing', 'objeto'=>'1424') );
 		}
 		return $this->db_tablas;
 	}
@@ -118,7 +118,7 @@ class ci_principal extends objeto_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_tabla" );
