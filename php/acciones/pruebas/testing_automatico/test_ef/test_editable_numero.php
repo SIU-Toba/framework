@@ -15,6 +15,11 @@ class test_editable_numero extends test_toba
 	protected $id_form = 'nombre_formnombre_padreid';
 	protected $clase;
 	
+	function get_descripcion()
+	{
+		return "EF Número";
+	}	
+
 	function SetUp()
 	{
 		$this->clase = 'ef_editable_numero';

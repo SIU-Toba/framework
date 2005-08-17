@@ -27,6 +27,12 @@ require_once("test_db_registros.php");
 */
 class test_db_registros_std extends test_db_registros
 {
+
+	function get_descripcion()
+	{
+		return "";
+	}	
+
 	//-------------------------------------------------------------
 	//--- A. Recuperacion de la definicion
 	//-------------------------------------------------------------

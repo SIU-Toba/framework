@@ -10,6 +10,11 @@ class test_fijos extends test_toba
 	protected $parametros;
 	protected $id_form = 'nombre_formnombre_padreid';
 	protected $clase;
+	
+	function get_descripcion()
+	{
+		return "EF Fijos";
+	}	
 
 	function SetUp()
 	{

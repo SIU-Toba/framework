@@ -22,6 +22,11 @@ class test_db_registros_std_s_1_dbr extends db_registros_s
 		parent::__construct($def, $fuente, $min_registros, $max_registros );
 	}	
 	
+	function get_descripcion()
+	{
+		return "";
+	}	
+	
 	function cargar_datos_clave($id)
 	{
 		$where[] = "id = '$id'";

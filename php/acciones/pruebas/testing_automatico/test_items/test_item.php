@@ -3,6 +3,12 @@ require_once('nucleo/lib/item.php');
 
 class test_item extends test_toba
 {
+
+	function get_descripcion()
+	{
+		return "Comportamiento básico del ítem";
+	}	
+
 	function sentencias_restauracion()
 	{
 		$sentencias[] = "DELETE FROM apex_usuario_grupo_acc_item WHERE proyecto='toba_testing' AND item='/pruebas_item/item_sin_permisos'";

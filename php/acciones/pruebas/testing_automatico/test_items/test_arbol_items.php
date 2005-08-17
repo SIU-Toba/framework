@@ -3,6 +3,12 @@ require_once('nucleo/lib/arbol_items.php');
 
 class test_arbol_items extends test_toba
 {
+
+	function get_descripcion()
+	{
+		return "Manejo del árbol de ítems";
+	}	
+
 	function sentencias_restauracion()
 	{
 		$sentencias[] = "DELETE FROM apex_usuario_grupo_acc_item 

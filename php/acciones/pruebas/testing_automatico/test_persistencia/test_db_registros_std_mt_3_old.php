@@ -1,15 +1,20 @@
 <?php
-require_once("test_db_registros_mt.php");
+//require_once("test_db_registros_mt.php");
 /*
 	TEST de la relacion debil
 */
-class test_db_registros_std_mt_3 extends test_db_registros_std_mt
+class test_db_registros_std_mt_3_old extends test_db_registros_std_mt
 {
 	function __construct()
 	{
 		parent::__construct();
 	}
 	
+	function get_descripcion()
+	{
+		return "";
+	}	
+
 	function test_carga()
 	{
 		$this->dbr->establecer_relacion_debil();

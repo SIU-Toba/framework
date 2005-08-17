@@ -9,7 +9,9 @@ require_once("test_db_registros_std.php");
 */
 class test_db_registros_std_s extends test_db_registros_std
 {
-	
-
+	function get_descripcion()
+	{
+		return "";
+	}	
 }
 ?>

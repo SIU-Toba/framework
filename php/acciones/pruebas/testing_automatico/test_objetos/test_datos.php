@@ -6,6 +6,11 @@ class test_datos extends test_toba
 	Si se pone muy lento se puede reemplazar abortando transacciones.
 */
 	protected $dt;
+	
+	function get_descripcion()
+	{
+		return "";
+	}	
 
 	//----------------------------------------------
 	//-- Configuracion general de todos los TESTs

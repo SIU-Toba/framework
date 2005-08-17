@@ -7,6 +7,11 @@ Mock::generate('objeto_ci');
 class test_ei_formulario_ml extends test_toba
 {
 
+	function get_descripcion()
+	{
+		return "OBJETO ei_formulario_ml";
+	}	
+
 	function SetUp()
 	{
 		$this->mentir_hilo();

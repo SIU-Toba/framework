@@ -6,6 +6,11 @@ class test_db_registros extends test_toba
 	Si se pone muy lento se puede reemplazar abortando transacciones.
 */
 	protected $dbr;
+	
+	function get_descripcion()
+	{
+		return "";
+	}	
 
 	//----------------------------------------------
 	//-- Configuracion general de todos los TESTs

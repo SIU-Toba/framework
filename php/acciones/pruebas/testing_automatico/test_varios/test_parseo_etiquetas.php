@@ -4,6 +4,11 @@ include_once('nucleo/lib/varios.php');
 class test_parseo_etiquetas extends test_toba
 {
 
+	function get_descripcion()
+	{
+		return "Parseo de etiquetas";
+	}	
+
 	function test_sin_acceso()
 	{
 		$etiqueta = "Etiqueta";

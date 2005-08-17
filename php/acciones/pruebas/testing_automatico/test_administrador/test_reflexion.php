@@ -6,6 +6,11 @@ class test_reflexion extends test_toba
 {
 	protected $padre;
 	protected $hijo;
+	
+	function get_descripcion()
+	{
+		return "Creación de archivos y clases PHP";
+	}	
 
 	function tearDown()
 	{

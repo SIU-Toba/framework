@@ -133,10 +133,14 @@ function mostrar_ocultar_frame() {
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		<td class='listado-tabi' width='2%'><? echo recurso::imagen_apl("dimension.gif",true) ?></td>
- 		 <td  class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
-		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">DIMEN</a>
+		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
+			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">&nbsp;<? echo recurso::imagen_apl("dimension.gif",true) ?></a>
 		</td>
+		
+		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
+			<a href="<? echo $this->vinculador->generar_solicitud("toba","/pruebas/testing_automatico_web") ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
+		</td>
+
 
 		<td><? echo gif_nulo(3,1) ?></td>
 

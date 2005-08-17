@@ -5,6 +5,12 @@ require_once("test_db_registros.php");
 */
 class test_db_registros_s_alias extends test_db_registros
 {
+
+	function get_descripcion()
+	{
+		return "DBR ALIAS db_registros_s";
+	}	
+
 	function get_sql_tablas()
 	{
 		$sql[] = "CREATE TEMPORARY TABLE test (

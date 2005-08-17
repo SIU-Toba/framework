@@ -1,9 +1,15 @@
 <?php
 require_once("test_datos.php");
-require_once('nucleo/persistencia/objeto_datos_tabla.php');
+//require_once('nucleo/persistencia/objeto_datos_tabla.php');
 
 class test_datos_tabla extends test_datos
 {
+
+	function get_descripcion()
+	{
+		return "";
+	}	
+
 	//-------------------------------------------------------------
 	// Herramientas
 	//-------------------------------------------------------------

@@ -13,6 +13,11 @@ class test_elemento_toba extends test_toba
 			'eventos' => 2,
 			'nivel_comentarios' => 3
 		);	
+	}
+	
+	function get_descripcion()
+	{
+		return "Elementos Toba";
 	}	
 
 	//-----------------------------------------------------

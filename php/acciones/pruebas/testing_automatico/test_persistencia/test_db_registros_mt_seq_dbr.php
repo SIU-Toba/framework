@@ -31,6 +31,11 @@ class test_db_registros_mt_seq_dbr extends db_registros_mt
 		parent::__construct($def, $fuente, $min_registros, $max_registros);
 	}	
 	
+	function get_descripcion()
+	{
+		return "";
+	}	
+
 	function cargar_datos_clave($id)
 	{
 		$where[] = "test_maestro.id = '$id'";

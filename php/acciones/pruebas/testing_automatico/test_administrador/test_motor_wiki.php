@@ -3,6 +3,12 @@ require_once('nucleo/lib/motor_wiki.php');
 
 class test_motor_wiki extends test_toba
 {
+
+	function get_descripcion()
+	{
+		return "Motor Wiki";
+	}	
+
 	function test_separacion_pagina_descripcion()
 	{
 		$texto = "Esta es mi [wiki:Referencia/PaginaWiki Página Wiki], por favor revisarla";

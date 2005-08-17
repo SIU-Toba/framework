@@ -2,6 +2,12 @@
 
 class test_entrega_parametros extends test_toba
 {
+
+	function get_descripcion()
+	{
+		return "EF * - Entrega de parametros";
+	}	
+
 	function test_entrega_parametros()
 	{
 		require_once("nucleo/browser/interface/ef.php");

@@ -5,6 +5,12 @@ require_once("test_db_registros_std_s.php");
 */
 class test_db_registros_std_s_1 extends test_db_registros_std_s
 {
+
+	function get_descripcion()
+	{
+		return "DBR Estandard -- db_registros_s -[ 1 ]- (clave simple)";
+	}	
+
 	function get_sql_tablas()
 	{
 		$sql[] = "CREATE TEMPORARY TABLE test_maestro (

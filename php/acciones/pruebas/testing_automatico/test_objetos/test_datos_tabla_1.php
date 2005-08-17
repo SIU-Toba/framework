@@ -3,6 +3,12 @@ require_once("test_datos_tabla.php");
 
 class test_datos_tabla_1 extends test_datos_tabla
 {
+
+	function get_descripcion()
+	{
+		return "OBJETO datos_tabla";
+	}	
+
 	function get_dt()
 	{
 		$dt = new objeto_datos_tabla(array('toba_testing','1427'));

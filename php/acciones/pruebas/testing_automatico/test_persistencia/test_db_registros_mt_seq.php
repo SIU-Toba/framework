@@ -5,6 +5,12 @@ require_once("test_db_registros.php");
 */
 class test_db_registros_mt_seq extends test_db_registros
 {
+
+	function get_descripcion()
+	{
+		return "DBR SEQ db_registros_ml";
+	}	
+
 	function get_sql_tablas()
 	{
 		$sql[] = "CREATE SEQUENCE seq_maestro INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;";		

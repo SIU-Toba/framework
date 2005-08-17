@@ -10,6 +10,11 @@ class test_editable extends test_toba
 	protected $parametros;
 	protected $id_form = 'nombre_formnombre_padreid';
 	
+	function get_descripcion()
+	{
+		return "EF Editable";
+	}	
+
 	function get_ef($parametros)
 	{
 		$padre = array(1=> 'nombre_padre');
