@@ -4,7 +4,7 @@ require_once("nucleo/browser/clases/objeto_ci.php");
 	Se necesitan distintos comportamientos de filtrado
 
 */
-class ci_abm_dbr extends objeto_ci
+class objeto_ci_abm extends objeto_ci
 {
 	protected $filtro;
 	protected $seleccion;

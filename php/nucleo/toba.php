@@ -58,12 +58,6 @@ class toba
 	}
 
 	function get_fuente_datos($fuente)
-	/* 
-		Devuelve el objeto que representa la fuente de datos dentro del sistema
-		este es el objeto que responde consultas sobre metadatos, etc.
-		(el que suplantaria la conexion en el caso en que ado deje de existir,
-		P: seba, me comentaste que gonzalo trabajo en algo relacionado con esto, no?)
-	*/
 	{
 		$fuente = toba::get_fuente($fuente);
 		return $fuente[apex_db];

@@ -60,12 +60,12 @@ class objeto_datos_tabla extends objeto
 														min_registros,
 														max_registros
 					 FROM		apex_objeto_db_registros
-					 WHERE	proyecto='".$this->id[0]."'	
+					 WHERE		objeto_proyecto='".$this->id[0]."'	
 					 AND		objeto='".$this->id[1]."';";
 		$sql["info_estructura"]["estricto"]="1";
 		$sql["info_estructura"]["tipo"]="1";
 		//------------ Columnas ----------------
-		$sql["info_columnas"]["sql"] = "SELECT	proyecto,
+		$sql["info_columnas"]["sql"] = "SELECT	objeto_proyecto,
 						objeto 			,	
 						col_id			,	
 						columna			,	
@@ -77,7 +77,7 @@ class objeto_datos_tabla extends objeto
 						no_nulo_db		,
 						externa
 					 FROM		apex_objeto_db_registros_col 
-					 WHERE		proyecto = '".$this->id[0]."'
+					 WHERE		objeto_proyecto = '".$this->id[0]."'
 					 AND		objeto = '".$this->id[1]."';";
 		$sql["info_columnas"]["tipo"]="x";
 		$sql["info_columnas"]["estricto"]="1";		

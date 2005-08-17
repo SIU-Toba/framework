@@ -13,7 +13,7 @@ if (!$tipo_vista = $this->hilo->obtener_parametro("tipo_vista_obj")) {
 		if(!$rs->EOF){
 			$tipo_vista = $rs->fields["listado_obj_pref"];
 		}else{
-			$tipo_vista = "general";
+			$tipo_vista = "capas";
 		}
 	}
 }

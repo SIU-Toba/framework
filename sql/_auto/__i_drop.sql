@@ -2,6 +2,7 @@
 --- Utilizando instancia: desarrollo
 
 DROP TABLE apex_dim_restric_soltipo ;
+DROP TABLE apex_test_paises ;
 DROP TABLE apex_objeto_html ;
 DROP TABLE apex_objeto_esquema ;
 DROP TABLE apex_objeto_negocio_regla ;

@@ -2,6 +2,7 @@
 --- Utilizando instancia: desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
+DELETE FROM apex_test_paises ;
 DELETE FROM apex_objeto_html ;
 DELETE FROM apex_objeto_esquema ;
 DELETE FROM apex_objeto_negocio_regla ;

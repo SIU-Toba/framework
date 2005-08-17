@@ -2,6 +2,7 @@
 --- Utilizando instancia: desarrollo
 
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
+VACUUM VACUUM FULL ANALYSE apex_test_paises;
 VACUUM VACUUM FULL ANALYSE apex_objeto_html;
 VACUUM VACUUM FULL ANALYSE apex_objeto_esquema;
 VACUUM VACUUM FULL ANALYSE apex_objeto_negocio_regla;
