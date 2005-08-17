@@ -11,7 +11,6 @@ define("apex_db_registros_separador","%");
 	- Donde se hacen los controles pre-sincronizacion??
 	- Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
 	- Esta clase no deberia utilizar ADOdb!!!
-
 */
 class ap_tabla_db extends ap
 {
@@ -19,10 +18,10 @@ class ap_tabla_db extends ap
 	protected $columnas;						// DATOS_TABLA: Estructura del objeto
 	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
 	protected $cambios;							// DATOS_TABLA: Estado de los cambios
-	protected $tabla;
-	protected $alias;
-	protected $clave;
-	protected $fuente;
+	protected $tabla;							// DATOS_TABLA: Tabla
+	protected $alias;							// DATOS_TABLA: Alias
+	protected $clave;							// DATOS_TABLA: Clave
+	protected $fuente;							// DATOS_TABLA: Fuente de datos
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
 	protected $baja_logica_valor;				// Valor de la baja logica
@@ -164,11 +163,18 @@ class ap_tabla_db extends ap
 	}
 
 	public function cargar_datos_clave($id)
+	/*
+		La clave tiene que ser un array asociativo con el nombre de la columna
+	*/
 	{
-		/*
-			Esta funcion deberia mapear un ID expresado como un array
-			y transformarlo en un WHERE
-		*/		
+		assercion::es_array($id,"La carga por clave debe realizarse a travez de un array");
+		foreach($this->clave as $clave){
+			if(!isset($id[$clave])){
+				throw new exception_toba("La carga por clave tiene que ser a travez de un array 
+									asociativo cuyas claves sean identicas a las CLAVES del OBJETO");
+			}
+			$where[] = " $clave = ";
+		}
 	}
 
 	//-------------------------------------------------------------------------------

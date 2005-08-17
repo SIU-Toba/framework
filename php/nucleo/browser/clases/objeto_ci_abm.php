@@ -10,26 +10,19 @@ class objeto_ci_abm extends objeto_ci
 	protected $seleccion;
 	protected $dbr;
 		
-	function __construct($id)
-	{
-		parent::__construct($id);
-	}
-
 	function mantener_estado_sesion()
 	{
 		$estado = parent::mantener_estado_sesion();
 		if($this->existe_dependencia("filtro")) $estado[] = "filtro";
 		$estado[] = "seleccion";
-		$estado[] = "dbr";
 		return $estado;
 	}
 
 	function obtener_dbr()
 	{
 		if (! isset($this->dbr)) {
-			include_once( $this->info["parametro_d"]);
-			$clase = $this->info['parametro_e'];
-			$this->dbr = new $clase($this->info['fuente']);
+			$this->cargar_dependencia("datos");
+			$this->dbr = $this->dependencias["datos"];
 		}
 		return $this->dbr;
 	}
@@ -77,9 +70,11 @@ class objeto_ci_abm extends objeto_ci
 			}
 		}
 		if($mostrar_cuadro){
+
 			require_once($this->info["parametro_a"]);
 			$clase = $this->info["parametro_b"];
 			$metodo = $this->info["parametro_c"];
+			
 			if(isset($this->filtro)){
 				$x = "\$temp = $clase::$metodo(\$this->filtro);";
 			}else{

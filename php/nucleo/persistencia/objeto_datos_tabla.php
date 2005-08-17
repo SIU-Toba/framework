@@ -106,7 +106,7 @@ class objeto_datos_tabla extends objeto
 	//----------------------------------------------------------------
 	//---------  Cumplir la interface que reclama el CI -------------
 	//----------------------------------------------------------------
-
+/*
 	function agregar_controlador(){}
 	function inicializar($parametros)
 	{
@@ -117,7 +117,7 @@ class objeto_datos_tabla extends objeto
 		 return array();
 	}
 	function disparar_eventos(){}
-
+*/
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
@@ -456,7 +456,7 @@ class objeto_datos_tabla extends objeto
 			unset($filas[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->agregar_fila($filas[$id]);
+					$this->nueva_fila($filas[$id]);
 					break;	
 				case "B":
 					$this->eliminar_fila($id);
@@ -474,7 +474,7 @@ class objeto_datos_tabla extends objeto
 	public function set($fila)
 	{
 		if($this->get_cantidad_filas() === 0){
-			$this->agregar_fila($fila);
+			$this->nueva_fila($fila);
 		}else{
 			$this->modificar_fila($fila, 0);
 		}
@@ -631,6 +631,12 @@ class objeto_datos_tabla extends objeto
 		$ap = $this->get_persistidor();
 		//ei_arbol($ap->info());
 		$ap->cargar_datos($where, $from);
+	}
+
+	function cargar_datos_clave($id)
+	{
+		$ap = $this->get_persistidor();
+		$ap->cargar_datos_clave($id);
 	}
 
 	function sincronizar()
