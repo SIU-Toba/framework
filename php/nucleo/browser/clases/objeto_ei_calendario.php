@@ -412,8 +412,13 @@ class calendario extends activecalendar
 	function compare_week($week, $year)
 	{
 		$viernes = $this->viernes($week, $year);
-		$viernes = $this->mkActiveDate("d", $viernes);
-		return $this->compare_date($viernes);
+		$fecha_hoy = $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday);
+		if ($viernes < $fecha_hoy)
+			return -1;
+		elseif ($viernes > $fecha_hoy)
+			return 1;
+		else
+			return 0;	
 	}
 
 	function mkWeek($date, $objeto_js, $eventos)
