@@ -42,6 +42,9 @@ class logger
 		$this->ref_niveles[5] = "NOTICE";
 		$this->ref_niveles[6] = "INFO";
 		$this->ref_niveles[7] = "DEBUG";
+		if (!defined('apex_pa_log_archivo_nivel')) {
+			define('apex_pa_log_archivo_nivel', 10);
+		}	
 	}	
 
 	function registrar_mensaje($mensaje, $nivel)
@@ -73,6 +76,11 @@ class logger
             $mensaje = var_export($mensaje, true);
         }
 		return $mensaje;
+	}
+	
+	function mensajes()
+	{
+		return $this->mensajes;
 	}
 
 	//------------------------------------------------------------------
@@ -164,21 +172,34 @@ class logger
 	function guardar_archivo()
 	//Guardar LOG en archivo
 	{
-		$archivo = $this->solicitud->hilo->obtener_proyecto_path() . "/log_sistema.txt";
+		$this->guardar_en_archivo("sistema.log");
+	}
+	
+	//------------------------------------------------------------------
+	function directorio_logs()
+	{
+		return toba_dir()."/logs";
+	}	
+	
+	//------------------------------------------------------------------
+	function guardar_en_archivo($archivo)
+	{
 		//Abro el archivo
-		$a = fopen($archivo,"a");
-		fwrite($a, "--------- INICIO ---------\n");
+		$a = fopen($this->directorio_logs()."/".$archivo,"a");
+		$fecha = date('r');
+		fwrite($a, "\n--------- $fecha ---------\n");
 		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
-		for($a=0; $a<count($this->mensajes); $a++)
+		for($i=0; $i<count($this->mensajes); $i++)
 		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
+			if( $mascara_ok & $this->mascara( $this->niveles[$i] ) )
 			{
-				fwrite($a, $this->mensajes[$a]);
+				fwrite($a, $this->mensajes[$i]);
 			}			
 		}
+		fwrite($a, "\n");
 		fclose($a);		
 	}
-
+	
 	//------------------------------------------------------------------
 	
 	function guardar_db()

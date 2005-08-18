@@ -2,7 +2,6 @@ DELETE FROM apex_objeto_html  WHERE  (( objeto_html_proyecto = 'toba_testing' ))
 DELETE FROM apex_objeto_esquema  WHERE  (( objeto_esquema_proyecto = 'toba_testing' )) ;
 DELETE FROM apex_objeto_negocio_regla  WHERE  (( objeto_negocio_proyecto = 'toba_testing' )) ;
 DELETE FROM apex_objeto_negocio  WHERE  (( objeto_negocio_proyecto = 'toba_testing' )) ;
-DELETE FROM apex_objeto_ci_pantalla_dep  WHERE  ((	objeto_ci_proyecto =	'toba_testing' )) ;
 DELETE FROM apex_objeto_ci_pantalla  WHERE  ((	objeto_ci_proyecto =	'toba_testing' )) ;
 DELETE FROM apex_objeto_mt_me_etapa  WHERE  ((	objeto_mt_me_proyecto =	'toba_testing' )) ;
 DELETE FROM apex_objeto_mt_me  WHERE  ((	objeto_mt_me_proyecto =	'toba_testing' )) ;

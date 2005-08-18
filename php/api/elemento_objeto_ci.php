@@ -18,8 +18,8 @@ class elemento_objeto_ci extends elemento_objeto
 		//Este objeto tiene las dependencias, cada pantalla debería poder sacar las que les concierne
 		//Pero tambien este objeto debería saber cuales no son utilizadas por las pantallas
 		$pantallas = array();
-		if (isset($this->datos['apex_objeto_mt_me_etapa'])) {
-			foreach ($this->datos['apex_objeto_mt_me_etapa'] as $pantalla) {
+		if (isset($this->datos['apex_objeto_ci_pantalla'])) {
+			foreach ($this->datos['apex_objeto_ci_pantalla'] as $pantalla) {
 				$pantalla = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
 				//Una pantalla que no tiene nada no interesa en la vista de arbol
 				if (! $pantalla->es_hoja())

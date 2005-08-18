@@ -918,7 +918,7 @@ TABLE.objeto-base {
 	 BORDER-COLLAPSE: collapse;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center;
-	 empty-cells: show
+	 empty-cells: show;
 }
 TABLE.abm {
 	BORDER-RIGHT: #231f20 2px solid;
@@ -973,6 +973,7 @@ TD.abm-fila {
 	 COLOR: #660000;
 	 BACKGROUND-COLOR: #d4d0c8
 }
+
 TD.abm-fila-ml {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
@@ -1596,7 +1597,8 @@ TD.ef-etiqueta {
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
+	 FONT-WEIGHT: normal;	 
 }
 TD.ef-etiqueta-error {
 	PADDING-RIGHT: 2px;
@@ -1731,34 +1733,35 @@ TD.ci-cuerpo {
 	 COLOR: #f0f1ff;
 	 PADDING-TOP: 2px;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
 }
-/*-----------------------------objeto_ei_arbol-----------------------------------*/
-.ei_arbol-rama {
+/*-----------------------------objeto_ei-arbol-----------------------------------*/
+.ei-arbol-rama {
 	list-style-type: none; 
 	margin-left: 20px;
 	padding-left: 0px;
 	padding-top: 5px;
 	white-space: nowrap;
 }
-.ei_arbol-raiz {
+.ei-arbol-raiz {
 	list-style-type: none; 
 	white-space: nowrap;
 	margin:0px; 
 	padding: 0px;
 }
-.ei_arbol-ver-prop {
+.ei-arbol-ver-prop {
 	text-decoration: none;
 }
-.ei_arbol-ver-prop:hover {
+.ei-arbol-ver-prop:hover {
 	text-decoration: underline;
 }
-.ei_arbol-nodo {
+.ei-arbol-nodo {
+	clear: right;
 }
-.ei_arbol-nombre {
+.ei-arbol-nombre {
 	 COLOR: #000000;
 }
-.ei_arbol-exp-contr {
+.ei-arbol-exp-contr {
 	cursor: hand;
 	cursor: pointer;
 }
@@ -2406,7 +2409,7 @@ TD.tabs-solapa-sel {
 	 PADDING-TOP: 6px;
 	 BORDER-BOTTOM: #808080 2px solid;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
 }
 TABLE.objeto-base-3d {
 	BORDER-RIGHT: #666677 2px solid;

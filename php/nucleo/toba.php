@@ -77,5 +77,6 @@ class toba
 		}
 		return $instancia[$id];
 	}
+	
 }
 ?>

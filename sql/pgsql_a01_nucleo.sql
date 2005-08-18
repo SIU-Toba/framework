@@ -1055,7 +1055,7 @@ CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: objeto, identificador
+--: dump_order_by: objeto, orden, identificador
 --: dump_where:
 --: zona: central
 --: desc:
@@ -1074,6 +1074,7 @@ CREATE TABLE apex_objeto_eventos
 	imagen								varchar(60)			NULL,
 	en_botonera							smallint			NULL,
 	ayuda								varchar(60)			NULL,
+	orden								smallint			NULL,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","objeto","identificador"),
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE

@@ -1,8 +1,0 @@
--- Estos ei_cuadros estan mal...
---SELECT o.nombre, x.*
---FROM apex_objeto o,
---apex_objeto_cuadro_columna x                       
---WHERE o.objeto = x.objeto_cuadro                       
---AND o.proyecto = x.objeto_cuadro_proyecto               
---AND x.valor_sql IS NULL                       
---AND o.clase = 'objeto_ei_cuadro';                       

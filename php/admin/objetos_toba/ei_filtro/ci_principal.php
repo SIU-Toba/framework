@@ -1,10 +1,9 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/objetos_toba/ci_editores_toba.php'); 
 require_once("admin/db/toba_dbt.php");
 
-class ci_principal extends objeto_ci
+class ci_principal extends ci_editores_toba
 {
-	protected $db_tablas;
 	//efss
 	private $id_intermedio_efs;
 
@@ -15,12 +14,7 @@ class ci_principal extends objeto_ci
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
-		return $propiedades;
-	}
+
 
 	function get_dbt()
 	//Acceso al db_tablas
@@ -29,6 +23,9 @@ class ci_principal extends objeto_ci
 			$this->db_tablas = toba_dbt::objeto_ei_formulario_ml();
 			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1387') );
 		}
+		if($this->cambio_objeto){	
+			$this->db_tablas->cargar( $this->id_objeto );
+		}		
 		return $this->db_tablas;
 	}
 

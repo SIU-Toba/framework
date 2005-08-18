@@ -26,11 +26,23 @@ class recurso {
 	function path_apl()
 	//#@desc: Genera un vinculo a un elemento general (comun a todos los proyectos).
 	{
-		return recurso::preambulo()."/toba";
+		if (defined('apex_pa_toba_alias'))
+			$alias = apex_pa_toba_alias;
+		else
+			$alias = "toba";
+		return recurso::preambulo(). "/". $alias;
 	}
 
 	//------------   ACCESO A IMAGENES   --------------
 
+	function imagen_de_origen($nombre, $origen)
+	{
+		if ($origen == 'apex')
+			return self::imagen_apl($nombre);
+		else
+			return self::imagen_pro($nombre);
+	}
+	
 	function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$alt=null,$mapa=null)
 /*	
     @@acceso: actividad
@@ -96,23 +108,24 @@ class recurso {
 		}
 */
 		if(isset($alt)) {
+			$wiki_entrar = "";
+			$wiki_salir = "";
 			if (motor_wiki::tiene_wiki($alt)) {
-				$ayuda = motor_wiki::formato_texto($alt);
+				$ayuda = motor_wiki::formato_texto($alt)."\n Presione una tecla para ver más ayuda";
 				$wiki = motor_wiki::link_wiki($alt);
+				$wiki_entrar = "url_wiki=\"{$wiki[0]}\"";
+				$wiki_salir = "url_wiki=null";
 			} else {
 				$ayuda = $alt;
 			}
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-			$ayuda = str_replace(array("'"), "`", $ayuda);			
-			$a = " title='$ayuda' onmouseover='window.status=this.title' onmouseout='window.status=\"\"'";
+			$ayuda = str_replace(array("'"), "`", $ayuda);	
+			$a = " title='$ayuda' onmouseover='window.status=this.title; $wiki_entrar' onmouseout='window.status=\"\"; $wiki_salir'";
 		}
 		if(isset($mapa)) 
 			$m = " usemap='$mapa'";
-		$img = "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js>";
-		if (! $wiki)
-			return $img;
-		else
-			return "<a href='{$wiki[0]}' target='_blank'>$img</a>";
+		$img = "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js/>";
+		return $img;
 	}
 
 	//------------   ACCESO A OTROS   --------------

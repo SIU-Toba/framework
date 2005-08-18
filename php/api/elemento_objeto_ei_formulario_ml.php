@@ -96,7 +96,7 @@ class elemento_objeto_ei_formulario_ml extends elemento_objeto
 	
 	//---Preguntas
 	function hay_seleccion() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_seleccion'];
+		return $this->hay_evento('seleccion');	
 	}	
 	
 	function tipo_analisis() {

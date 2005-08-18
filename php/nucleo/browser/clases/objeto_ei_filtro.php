@@ -24,15 +24,7 @@ class objeto_ei_filtro extends objeto_ei_formulario
 
 	function get_lista_eventos()
 	{
-		$eventos = array();
-		//--- Limpiar
-		if($this->etapa=="modificar"){
-			$eventos += eventos::cancelar($this->info_formulario['ev_mod_limpiar_etiq']);
-		}
-		//--- Filtrar
-		if($this->info_formulario['ev_agregar']){
-			$eventos += eventos::filtrar($this->info_formulario['ev_agregar_etiq']);		
-		}
+		$eventos = parent::get_lista_eventos();
 		//En caso que no se definan eventos, filtrar n es el por defecto y no se incluye como botón
 		if (count($eventos) == 0) {
 			$eventos += eventos::filtrar(null, false);		

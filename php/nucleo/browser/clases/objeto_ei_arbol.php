@@ -123,7 +123,7 @@ class objeto_ei_arbol extends objeto_ei
 			$salida .= "<br><br>";
 		}
 		if ($this->nodo_inicial != null) {
-			$salida .= "<ul id='{$this->objeto_js}_nodo_raiz' class='ei_arbol-raiz'>";
+			$salida .= "\n<ul id='{$this->objeto_js}_nodo_raiz' class='ei-arbol-raiz'>";
 			$salida .= $this->recorrer_recursivo($this->nodo_inicial, true);		
 			$salida .= "</ul>";
 		}
@@ -134,7 +134,7 @@ class objeto_ei_arbol extends objeto_ei
 	{
 		//Determina si el nodo es visible en la foto
 		$es_visible = $this->nodo_es_visible($nodo, $nivel);
-		$salida = "<li class='ei_arbol-nodo'>";
+		$salida = "\n\t<li class='ei-arbol-nodo'>";
 		if (!$es_raiz || $this->mostrar_raiz) {
 			$salida .= $this->mostrar_utilerias($nodo);
 			if (! $nodo->es_hoja()) {
@@ -143,7 +143,7 @@ class objeto_ei_arbol extends objeto_ei
 				else
 					$img_exp_contr = recurso::imagen_apl('arbol/expandir.gif', false);
 				$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
-							 class='ei_arbol-exp-contr'> ";
+							 class='ei-arbol-exp-contr'> ";
 			} else {
 				$salida .= gif_nulo(14,1);
 			}
@@ -152,10 +152,10 @@ class objeto_ei_arbol extends objeto_ei
 			//Nombre
 			$corto = $this->acortar_nombre($nodo->nombre_corto());
 			$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
-			$nombre= "<span class='ei_arbol-nombre' $title>$corto</span>";
+			$nombre= "<span class='ei-arbol-nombre' $title>$corto</span>";
 			if ($nodo->tiene_propiedades()) {
-				$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' 
-						class='ei_arbol-ver-prop' $title>$nombre</a>";			
+				$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
+							"class='ei-arbol-ver-prop' $title>$nombre</a>";			
 			} else {
 				$salida .= $nombre;
 			}
@@ -163,7 +163,7 @@ class objeto_ei_arbol extends objeto_ei
 		//Recursividad
 		if (! $nodo->es_hoja()) {
 			$estilo =  ($es_visible) ? "" : "style='display:none'";
-			$salida .= "<ul id_nodo='{$nodo->id()}' class='ei_arbol-rama' $estilo>";
+			$salida .= "\n<ul id_nodo='{$nodo->id()}' class='ei-arbol-rama' $estilo>";
 			$nivel = $nivel + 1;
 			foreach ($nodo->hijos() as $nodo_hijo) {
 				$salida .= $this->recorrer_recursivo($nodo_hijo, false, $nivel);
@@ -200,17 +200,20 @@ class objeto_ei_arbol extends objeto_ei
 	
 	protected function mostrar_utilerias($nodo)
 	{
-		$salida = "<span style='float: right'>";
-		foreach ($nodo->utilerias() as $utileria) {
-			$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
-			if (isset($utileria['vinculo'])) {
-				$salida .= "<a target='{$this->frame_destino}' href='".$utileria['vinculo']."'>$img</a>\n";
-			} else {
-				$salida .= $img;
+		$utilerias = $nodo->utilerias();
+		if (count($utilerias) > 0) {
+			$salida = "<span style='float: right'>";
+			foreach ($utilerias as $utileria) {
+				$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
+				if (isset($utileria['vinculo'])) {
+					$salida .= "<a target='{$this->frame_destino}' href='".$utileria['vinculo']."'>$img</a>\n";
+				} else {
+					$salida .= $img;
+				}
 			}
+			$salida .= "</span>";
+			return $salida;
 		}
-		$salida .= "</span>";
-		return $salida;
 	}
 
 	protected function acortar_nombre($nombre) 

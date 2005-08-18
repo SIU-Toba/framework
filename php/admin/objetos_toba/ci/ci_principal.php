@@ -1,23 +1,16 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/objetos_toba/ci_editores_toba.php');
 require_once("admin/db/toba_dbt.php");
 
-class ci_editor extends objeto_ci
+class ci_editor extends ci_editores_toba
 {
-	protected $id_objeto;
-	protected $db_tablas;
+
 	protected $seleccion_pantalla;
 	protected $seleccion_pantalla_anterior;
 	protected $pantalla_dep_asoc;
 	protected $pantalla_evt_asoc;
-	private $id_intermedio_pantalla;	
-
-	function __construct($id)
-	{
-		parent::__construct($id);	
-		$this->set_objeto( 	array(	'proyecto'=>'toba', 
-									'objeto'=>'1354') );	//metaeditor!
-	}
+	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
+	private $id_intermedio_pantalla;
 
 	function destruir()
 	{
@@ -30,7 +23,6 @@ class ci_editor extends objeto_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_pantalla";
 		$propiedades[] = "seleccion_pantalla_anterior";
 		$propiedades[] = "pantalla_dep_asoc";
@@ -38,20 +30,16 @@ class ci_editor extends objeto_ci
 		return $propiedades;
 	}
 
-	function set_objeto($id)
-	{
-		$this->id_objeto = 	$id;
-	}
 
 	function get_dbt()
 	//Acceso al db_tablas
 	{
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_ci();
-			if(isset($this->id_objeto)){
-				$this->db_tablas->cargar( $this->id_objeto );
-			}
 		}
+		if($this->cambio_objeto){	
+			$this->db_tablas->cargar( $this->id_objeto );
+		}			
 		return $this->db_tablas;
 	}
 
@@ -64,7 +52,6 @@ class ci_editor extends objeto_ci
 		if( false ){	//Como se va a menejar la eliminacion (dbt y zona!)
 			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
 		}		
-		$eventos += eventos::ci_procesar();
 		return $eventos;
 	}
 

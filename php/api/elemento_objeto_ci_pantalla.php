@@ -62,7 +62,7 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 	
 	function id()
 	{
-		return "Pantalla ".$this->datos['posicion'];
+		return "Pantalla ".$this->datos['identificador'];
 	}
 	
 	function iconos()

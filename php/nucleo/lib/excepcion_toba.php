@@ -8,6 +8,11 @@ class excepcion_toba extends Exception
 	{
 		parent::__construct($mensaje);
 	}
+	
+	function agregar_mensaje($mensaje)
+	{
+		$this->message .= $mensaje;
+	}
 
 	function mensaje_web()
 	{

@@ -110,7 +110,7 @@ class ci_eventos extends objeto_ci
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->id_intermedio_evento[$id] = $dbr->agregar_registro($registros[$id]);
+					$this->id_intermedio_evento[$id] = $dbr->agregar_registro($registros[$id], $id);
 					break;	
 				case "B":
 					//Tengo que reportarle al contenedor la eliminacion del evento

@@ -68,11 +68,11 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 
 	//---Preguntas
 	function hay_seleccion() {
-		return $this->datos['apex_objeto_cuadro'][0]['ev_seleccion'];
+		return $this->hay_evento('seleccion');	
 	}
 	
 	function hay_baja() {
-		return $this->datos['apex_objeto_cuadro'][0]['ev_eliminar'];	
+		return $this->hay_evento('baja');	
 	}
 	
 	function hay_ordenar() {

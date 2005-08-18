@@ -73,16 +73,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										filas_agregar as			filas_agregar,
 										filas_ordenar as			filas_ordenar,
 										filas_numerar as 			filas_numerar,
-										ev_seleccion as 			ev_seleccion,
-										analisis_cambios		as	analisis_cambios,
-										ev_agregar				as 	ev_agregar,				
-										ev_agregar_etiq			as 	ev_agregar_etiq,
-										ev_mod_modificar		as 	ev_mod_modificar,		
-										ev_mod_modificar_etiq	as 	ev_mod_modificar_etiq,
-										ev_mod_eliminar         as 	ev_mod_eliminar,
-										ev_mod_eliminar_etiq	as 	ev_mod_eliminar_etiq,
-										ev_mod_limpiar	        as 	ev_mod_limpiar,
-										ev_mod_limpiar_etiq		as 	ev_mod_limpiar_etiq										
+										analisis_cambios		as	analisis_cambios
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
 								AND		objeto_ut_formulario='".$this->id[1]."';";
@@ -96,14 +87,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										inicializacion	as			inicializacion,
 										etiqueta	as				etiqueta,
 										descripcion	as				descripcion,
-										clave_primaria	as			clave_primaria,
 										orden	as					orden,
 										total as 					total,
-										lista_columna_estilo as		columna_estilo,
+										estilo as					columna_estilo,
 										colapsado as 				colapsado
-								FROM	apex_objeto_ut_formulario_ef
-								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
-								AND	objeto_ut_formulario='".$this->id[1]."'
+								FROM	apex_objeto_ei_formulario_ef
+								WHERE	objeto_ei_formulario_proyecto='".$this->id[0]."'
+								AND	objeto_ei_formulario='".$this->id[1]."'
 								AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";
 		$sql["info_formulario_ef"]["tipo"]="x";
@@ -637,7 +627,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					echo "<td class='$estilo_fila'>\n";
 					$evento_js = eventos::a_javascript($id, $evento, $fila);
 					$js = "{$this->objeto_js}.set_evento($evento_js);";
-					echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
+					if (isset($evento['imagen_recurso_origen']))
+						$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
+					else
+						$img = $evento['imagen'];
+					echo recurso::imagen($img, null, null, $evento['ayuda'], '', 
 										"onclick=\"$js\"", 'cursor: pointer');
 	            	echo "</td>\n";
 				}
@@ -679,20 +673,16 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
-		if(isset($this->eventos_ext)){
-			return $this->eventos_ext;	
+		$eventos = parent::get_lista_eventos();
+		$hay_botonera = false;
+		foreach ($eventos as $evento) {
+			if ($evento['en_botonera'])
+				$hay_botonera = true;
 		}
-		$eventos = array();
-		if($this->info_formulario['ev_mod_modificar']){
-			//Evento MODIFICACION
-			$eventos += eventos::modificacion($this->info_formulario['ev_mod_modificar_etiq']);
-		} else {
-			//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
+		if(! $hay_botonera) {
+				//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
 			$eventos += eventos::modificacion(null, false);
 			$this->set_evento_defecto('modificacion');
-		}
-		if ($this->info_formulario['ev_seleccion']) {
-			$eventos += eventos::seleccion(true);
 		}
 		return $eventos;
 	}

@@ -36,9 +36,18 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		foreach($plan_dumpeo as $tabla => $clave)
 		{
 			$temp['tabla'] = $tabla;
-			$temp['columna_clave_proyecto'] = $clave . "_proyecto";
+			//Parche para que funcione la tabla apex_objeto_eventos
+			if ($clave != 'objeto')
+				$temp['columna_clave_proyecto'] = $clave . "_proyecto";
+			else
+				$temp['columna_clave_proyecto'] = "proyecto";
 			$temp['columna_clave'] = $clave;
-			$temp['obligatoria'] = "1";
+			
+			//Parche para que funcione la tabla apex_objeto_eventos			
+			if ($tabla != 'apex_objeto_eventos')
+				$temp['obligatoria'] = "1";
+			else
+				$temp['obligatoria'] = "0";
 			$this->tablas[$indice]=$temp;
 			$indice++;
 		}
@@ -146,13 +155,14 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	function utilerias()
 	{
 		$iconos = array();
-		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
+		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto(),
+								'proyecto'=>$this->id_proyecto(), 'objeto'=>$this->id_objeto());
 		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
 			$param_abrir_php = $param_editores;
 			$param_abrir_php['evento'] = "abrir";
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("reflexion/abrir.gif", false),
-				'ayuda' => "Abrir la extensión",
+				'ayuda' => "Abrir la [wiki:Referencia/Objetos/Extension#Abrirlaextensi%C3%B3n extensión PHP] en el editor del sistema.", 
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php)
 			);
 			$iconos[] = array(
@@ -161,15 +171,10 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores)
 			);
 		}		
-		$iconos[] = array(
-			'imagen' => recurso::imagen_apl("objetos/objeto.gif", false),
-			'ayuda' => "Editar propiedades BASICAS del OBJETO",
-			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/propiedades", $param_editores)
-		);
 		if(isset($this->datos_clase["editor_proyecto"])) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
-				'ayuda' => "Editar propiedades ESPECIFICAS del OBJETO",
+				'ayuda' => "Editar propiedades del OBJETO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos_clase["editor_proyecto"],
 																		$this->datos_clase["editor_item"], $param_editores)
 			);
@@ -183,6 +188,16 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	function es_evento($metodo)
 	{
 		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
+	}	
+	
+	protected function hay_evento($nombre)
+	{
+		foreach ($this->datos['apex_objeto_eventos'] as $evento) {
+			if ($evento['identificador'] == $nombre) {
+				return true;
+			}
+		}
+		return false;	
 	}	
 	
 	function eventos_predefinidos()

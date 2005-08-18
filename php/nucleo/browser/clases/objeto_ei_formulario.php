@@ -80,16 +80,7 @@ class objeto_ei_formulario extends objeto_ei
 		$sql = parent::obtener_definicion_db();
 		//Formulario
 		$sql["info_formulario"]["sql"] = "SELECT	auto_reset as	auto_reset,						
-										ancho 						as		ancho,
-										ev_agregar					as 	ev_agregar,				
-										ev_agregar_etiq			as 	ev_agregar_etiq,
-										ev_mod_modificar			as 	ev_mod_modificar,		
-										ev_mod_modificar_etiq	as 	ev_mod_modificar_etiq,
-										ev_mod_eliminar         as 	ev_mod_eliminar,
-										ev_mod_eliminar_etiq		as 	ev_mod_eliminar_etiq,
-										ev_mod_limpiar	        	as 	ev_mod_limpiar,
-										campo_bl						as		campo_bl,
-										ev_mod_limpiar_etiq		as 	ev_mod_limpiar_etiq
+										ancho 						as		ancho
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
 								AND		objeto_ut_formulario='".$this->id[1]."';";
@@ -103,12 +94,11 @@ class objeto_ei_formulario extends objeto_ei
 										inicializacion				as		inicializacion,
 										etiqueta					as		etiqueta,
 										descripcion					as		descripcion,
-										clave_primaria				as		clave_primaria,
 										orden						as		orden,
 										colapsado					as 		colapsado
-								FROM	apex_objeto_ut_formulario_ef
-								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
-								AND	objeto_ut_formulario='".$this->id[1]."'
+								FROM	apex_objeto_ei_formulario_ef
+								WHERE	objeto_ei_formulario_proyecto='".$this->id[0]."'
+								AND	objeto_ei_formulario='".$this->id[1]."'
 								AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";
 		$sql["info_formulario_ef"]["tipo"]="x";
@@ -613,25 +603,13 @@ class objeto_ei_formulario extends objeto_ei
 		Los eventos standard estan relacionados con el consumo del formulario en un ABM
 	*/
 	{
-		$eventos = array();
-		if($this->etapa=="agregar")
-		//El formulario esta VACIO
-		{
-			if($this->info_formulario['ev_agregar']) {
-				$eventos += eventos::alta($this->info_formulario['ev_agregar_etiq']);
-			}
-		} elseif($this->etapa=="modificar")
-		//El formulario fue cargado con datos
-		{
-			if($this->info_formulario['ev_mod_eliminar']){
-				$eventos += eventos::baja($this->info_formulario['ev_mod_eliminar_etiq']);
-			}
-			if($this->info_formulario['ev_mod_modificar']){
-				$eventos += eventos::modificacion($this->info_formulario['ev_mod_modificar_etiq']);
-			}
-			if($this->info_formulario['ev_mod_limpiar']){
-				$eventos += eventos::cancelar($this->info_formulario['ev_mod_limpiar_etiq']);
-			}
+		$eventos = parent::get_lista_eventos();
+		if($this->etapa != "agregar") {
+			unset($eventos['alta']);
+		} elseif($this->etapa !="modificar") {
+			unset($eventos['baja']);
+			unset($eventos['cancelar']);
+			unset($eventos['modificacion']);
 		}
 		//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
 		if (count($eventos) == 0) {

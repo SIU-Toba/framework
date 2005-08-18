@@ -20,7 +20,7 @@ TD.ef-etiqueta-obligatorio
 
 TD.ef-etiqueta
 {
-/*	font-weight: bold; */
+	font-weight: normal;
 	font-size: 10px;
 	color: %col_sp_1%;
 	background-color: %col_sp_4%;

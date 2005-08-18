@@ -1,6 +1,14 @@
 var ie=document.all;
 var ns6=document.getElementById && !document.all;
 
+var url_wiki = null;
+function mostrar_wiki()
+{
+	if (url_wiki != null) {
+		window.open(url_wiki);
+	}
+}
+document.onkeypress = mostrar_wiki;
 //---STRING
 //----------------------------------------------------------
 

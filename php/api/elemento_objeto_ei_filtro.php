@@ -57,11 +57,11 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 
 	//---Preguntas
 	function hay_filtrar() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_agregar'];
+		return $this->hay_evento('filtrar');		
 	}
 	
 	function hay_cancelar() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_limpiar'];
+		return $this->hay_evento('cancelar');
 	}
 	
 	function hay_eventos_seleccionados() {

@@ -6,19 +6,19 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 	
 	//---Preguntas
 	function hay_alta() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_agregar'];
+		return $this->hay_evento('alta');
 	}
 	
 	function hay_baja() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_eliminar'];
+		return $this->hay_evento('baja');
 	}
 	
 	function hay_modificacion() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_modificar'];
+		return $this->hay_evento('modificacion');
 	}
 	
 	function hay_cancelar() {
-		return $this->datos['apex_objeto_ut_formulario'][0]['ev_mod_limpiar'];
+		return $this->hay_evento('cancelar');	
 	}
 	
 	function hay_eventos_seleccionados() {

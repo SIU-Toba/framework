@@ -503,10 +503,10 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-		$clase = ($this->esta_expandido()) ? "" : "style='display:none' class='abm-fila-oculta'";
-		echo "<div id='nodo_{$this->id_form}' $clase>";
-		echo "<table border='0' width='150' cellpadding='0' cellspacing='0'>\n";
-		echo "<tr><td >".gif_nulo(150,0)."</td>";
+		$clase = ($this->esta_expandido()) ? "" : "display:none";
+		echo "<div id='nodo_{$this->id_form}' style='text-align: left; $clase'>";
+		echo "<table border='0' width='150' cellpadding='0' cellspacing='0' align='left'>\n";
+		echo "<tr><td>".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<tr><td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<tr><td class='$estilo'>";
@@ -522,12 +522,12 @@ class ef //Clase abstracta, padre de todos los EF
 			(isset($item_editor_padre)) )
 			{
 				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
-				$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
-				echo $solicitud->vinculador->obtener_vinculo_a_item(
-							"toba",$item_editor_padre,
-							array( apex_hilo_qs_zona => $clave_abm_registro_padre,
-									apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio ),
-							true);
+				list($proyecto, $objeto) = $this->padre;
+				$param_editor = array( apex_hilo_qs_zona => $clave_abm_registro_padre,
+										'proyecto' => $proyecto,
+										'objeto' => $objeto,
+										'ef' => $this->id );
+				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
 
 			}
 			echo "</td>\n";
@@ -551,7 +551,7 @@ class ef //Clase abstracta, padre de todos los EF
             $estilo = "ef-etiqueta-error";
 			$marca ="";
 		}	
-		$html = "<div class='$estilo'>".$this->obtener_etiqueta()." $marca";
+		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta()." $marca";
 		if(trim($this->descripcion)!=""){
 			$html .= "<br>".recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
 		}
@@ -576,7 +576,7 @@ class ef //Clase abstracta, padre de todos los EF
 	function obtener_interface_ei()
 	{
 		$this->envoltura_std($this->obtener_input(),
-								"/admin/objetos/editores/formulario",
+								"/admin/objetos_toba/editores/ei_formulario",
 								574);
 	}	
 

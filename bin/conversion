@@ -2,38 +2,36 @@
 
 . i_config
 
-	out=conversion.sql
-	cd $d_bin/entrada/conversion/01
-
-if [ "$1" = "01" ]
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+if [ "$1" = "hola" ]
 then
 
-	#-- 1 -- Armo el script de conversion
+	echo " objetivo: Migra metadatos hacia una nueva versión toba"
+	echo "           Las conversiones se corren en la instancia $toba_instancia"
 
-	echo "BEGIN TRANSACTION;" > $out
-	echo >> $out
-	echo "----------------------------------------------------------------------------------" >> $out
-	echo "-- 1) Agregar pantallas a los CI comunes                                          " >> $out
-	echo "----------------------------------------------------------------------------------" >> $out
-	echo >> $out
-	psql -v ON_ERROR_STOP= -f generar_inserts.sql -U $db_usuario -h $db_host -p $db_puerto -d $2 | grep "INSERT" >> $out
-	echo >> $out
-	cat actualizacion.sql >> $out
-	echo >> $out
-	echo "COMMIT TRANSACTION;" >> $out
+#@ conversion listar                -- Lista las posibles migraciones a aplicar en la version actual de toba
+elif [ "$1" = "listar" ]
 
-	#-- 2 -- Ejecuto el script de conversion
+then
+	item /consola/conversiones -l
 
-	echo "Se ha generado el archivo $out, escriba 'conversion run $2' para ejecutarlo"	
+#@ conversion info VERSION          -- Muestra el detalle de cambios incluidos en una migración específica
+elif [ "$1" = "info" ]
+then
+	item /consola/conversiones -v $2 -i
 	
-elif [ "$1" = "run" ]
-then	
+#@ conversion probar VERSION      -- Simula la migración de metadatos hacia una versión específica
+elif [ "$1" = "probar" ]
+then
+	item /consola/conversiones -v $2 -p
 	
-	psql -v ON_ERROR_STOP= -f $out -U $db_usuario -h $db_host -p $db_puerto -d $2
-
-
-elif [ "$1" = "mostrar" ]
-then	
+#@ conversion ejecutar VERSION      -- Ejecuta la migración de metadatos hacia una versión específica
+elif [ "$1" = "ejecutar" ]
+then
+	item /consola/conversiones -v $2
 	
-	cat $out
+else
+	ayuda $0
 fi

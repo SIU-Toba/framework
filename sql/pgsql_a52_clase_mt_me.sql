@@ -124,28 +124,3 @@ CREATE TABLE apex_objeto_ci_pantalla
 	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
-
-CREATE TABLE apex_objeto_ci_pantalla_dep
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: objeto_ci_proyecto, objeto_ci, pantalla
---: dump_where: (	objeto_ci_proyecto =	'%%' )
---: zona: objeto
---: desc:
---: historica:	0
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	objeto_ci_proyecto					varchar(15)			NOT NULL,
-	objeto_ci							int4				NOT NULL,
-	pantalla							int4				NOT NULL, 
-	proyecto							varchar(15)			NOT NULL,
-	objeto_consumidor					int4				NOT NULL,
-	identificador						varchar(20)			NOT NULL,
-	orden								float				NOT NULL,
-	CONSTRAINT	"apex_obj_ci_pan_dep__pk" PRIMARY KEY ("objeto_ci_proyecto","objeto_ci","pantalla","proyecto","objeto_consumidor","identificador"),
-	CONSTRAINT	"apex_obj_ci_pan_dep__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci","pantalla") REFERENCES	"apex_objeto_mt_me_etapa" ("objeto_mt_me_proyecto","objeto_mt_me","posicion") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_obj_ci_pan_dep__fk_dep" FOREIGN KEY ("proyecto","objeto_consumidor","identificador") REFERENCES	"apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
-);
---###################################################################################################

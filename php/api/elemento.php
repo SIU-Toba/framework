@@ -95,14 +95,16 @@ class elemento
 					" FROM " . $tabla .
 					" WHERE  ( {$this->tablas[$a]['columna_clave_proyecto']} = '$proyecto' ) 
 					AND ({$this->tablas[$a]['columna_clave']} = '$elemento' ) ;";
-//			echo $sql . enter();
+			//echo $sql . enter();
 			//Cargo los datos
-			if (!($temp = consultar_fuente($sql, "instancia"))) {
+			$temp = consultar_fuente($sql, "instancia");
+			if (!$temp) {
 				if($this->tablas[$a]['obligatoria']==1){
 					//No se cargaron datos y la tabla es obligatoria
 					throw new excepcion_toba("No se cargo una tabla obligatoria ($tabla)");
 				}
-			}else{
+				$this->datos[$tabla]=array();
+			} else {
 				$this->datos[$tabla]=$temp;			//							----> recien aca cargo los DATOS... mmmm
 			}
 		}

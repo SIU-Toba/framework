@@ -1,5 +1,17 @@
 <?php
 
+	//-----------------------------------------------------------------		
+	function toba_dir()
+	{
+// 		si el proyecto esta en un path que incluye la cadena "toba/toba" se va todo al carajo.	
+//		return substr($archivo,0,strpos($archivo,"toba")). "toba";
+		//ATENCION: Se asume que este archivo no va a cambiar de lugar en referencia a la raiz del proyecto
+		//php/nucleo/lib/varios
+		$dir = dirname(__FILE__);
+		return substr($dir,0, -15);
+	}
+
+	//-----------------------------------------------------------------			
 	function array_no_nulo($array)
 	//Controla que el array tiene todas sus entradas en NULL
 	{

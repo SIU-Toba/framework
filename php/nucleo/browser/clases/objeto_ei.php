@@ -10,6 +10,31 @@ define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REG
 class objeto_ei extends objeto
 {
 	protected $controlador;
+	protected $info_eventos;
+
+	function obtener_definicion_db()
+	/*
+	*	Se redefine para incluir los eventos en la SQL de carga
+	*/
+	{
+		$sql = parent::obtener_definicion_db();
+		$sql["info_eventos"]["sql"] = "SELECT		identificador			as identificador,
+													etiqueta				as etiqueta,
+													maneja_datos			as maneja_datos,
+													sobre_fila				as sobre_fila,
+													confirmacion			as confirmacion,
+													estilo					as estilo,
+													imagen_recurso_origen	as imagen_recurso_origen,
+													imagen					as imagen,
+													en_botonera				as en_botonera,
+													ayuda					as ayuda
+										FROM	apex_objeto_eventos
+										WHERE	proyecto='".$this->id[0]."'
+										AND	objeto = '".$this->id[1]."'";
+		$sql["info_eventos"]["tipo"]="x";
+		$sql["info_eventos"]["estricto"]="0";
+		return $sql;
+	}
 	
 	//--------------------------------------------------------------------
 	//--  EVENTOS   ------------------------------------------------------
@@ -37,6 +62,23 @@ class objeto_ei extends objeto
 	public function set_eventos($eventos)
 	{
 		$this->eventos = $eventos;
+	}
+	
+	public function get_lista_eventos()
+	{
+		return $this->get_lista_eventos_definidos();
+	}
+	
+	protected function get_lista_eventos_definidos()
+	/*
+	*	Obtiene la lista de eventos definidos desde el administrador 
+	*/
+	{
+		$eventos = array();
+		foreach ($this->info_eventos as $evento) {
+			$eventos[$evento['identificador']] = $evento;
+		}
+		return $eventos;
 	}
 	
 	function agregar_evento($evento, $establecer_como_predeterminado=false)
@@ -96,8 +138,13 @@ class objeto_ei extends objeto
 				$tab_order = 0;//Esto esta MAAL!!!
 				$acceso = tecla_acceso( $evento["etiqueta"] );
 				$html = '';
-				if (isset($evento['imagen']) && $evento['imagen'])
-					$html = recurso::imagen($evento['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+				if (isset($evento['imagen']) && $evento['imagen']) {
+					if (isset($evento['imagen_recurso_origen']))
+						$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
+					else
+						$img = $evento['imagen'];
+					$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+				}
 				$html .= $acceso[0];
 				$tecla = $acceso[1];
 				$evento_js = eventos::a_javascript($id, $evento);

@@ -35,6 +35,7 @@ class ci_efs extends objeto_ci
 		return $propiedades;
 	}
 
+	
 	function get_dbr()
 	//Acceso al db_tablas
 	{
@@ -83,6 +84,9 @@ class ci_efs extends objeto_ci
 			$this->dependencias["efs_lista"]->set_fila_protegida($this->seleccion_efs_anterior);
 			//Agrego el evento "modificacion" y lo establezco como predeterminado
 			$this->dependencias["efs"]->agregar_evento( eventos::modificacion(null, false), true );
+		}
+		if (isset($this->seleccion_efs)) {
+			$this->dependencias["efs_lista"]->seleccionar($this->seleccion_efs);
 		}
 	}
 	
@@ -157,6 +161,19 @@ class ci_efs extends objeto_ci
 		}
 		$this->seleccion_efs = $id;
 	}
+	
+	function seleccionar_ef($id)
+	/**
+	*	Selecciona un ef por su identificador real
+	*/
+	{
+		$id_interno = $this->get_dbr()->get_id_registro_condicion(array('identificador'=>$id));
+		if (count($id_interno) == 1) {
+			$this->evt__efs_lista__seleccion($id_interno[0]);
+		} else {
+			throw new excepcion_toba("No se encontro el ef $id.");
+		}
+	}
 
 	//-----------------------------------------
 	//---- EI: Info detalla de un EF ----------
@@ -198,15 +215,12 @@ class ci_efs extends objeto_ci
 		//Armo la lista
 		$temp = array();
 		$a=0;
-		$imagen_ayuda = recurso::imagen_pro("descripcion.gif",true);
 		foreach($parametros as $clave => $desc){
+			$imagen_ayuda = recurso::imagen_apl("descripcion.gif",true, null, null, $desc['descripcion']);
 			$temp[$a]['clave'] = $clave;
 			$temp[$a]['etiqueta'] = $desc['etiqueta'];
 			$temp[$a]['valor'] = isset($inicializacion[$clave]) ? $inicializacion[$clave] : null;
-			$temp[$a]['ayuda'] = "<a href='#' onMouseover=\"ddrivetip('".
-									"<span class=titulo_nota>{$desc['descripcion']}</span>".
-										"')\"
-							onMouseout=\"hideddrivetip()\"> $imagen_ayuda </a>";
+			$temp[$a]['ayuda'] = $imagen_ayuda;
 			$a++;	
 		}
 		return $temp;

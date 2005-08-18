@@ -44,9 +44,7 @@ class sesion {
 				$_SESSION["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
 				$_SESSION["inicio"]=time();
 				//PATHs
-				//ATENCION: si el proyecto esta en un path que incluye la cadena "toba/toba" se va todo al carajo.
-				$archivo = $_SERVER["SCRIPT_FILENAME"];
-				$_SESSION["path"] = substr($archivo,0,strpos($archivo,"toba")). "toba";
+				$_SESSION["path"] = toba_dir();
 				$_SESSION["path_php"] = $_SESSION["path"]. "/php";
 				//-----------------------------> Cargo INFORMACION del USUARIO
 				$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;

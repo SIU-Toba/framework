@@ -518,8 +518,16 @@ class db_registros
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function agregar_registro($registro)
+	public function agregar_registro($registro, $id=null)
+	/*
+	*	Si el $id es nulo, se autogenera
+	*/
 	{
+		
+		if ($id === null) {
+			$id = $this->proximo_registro;
+			$this->proximo_registro++;
+		}
 		if( $this->tope_max_registros != 0){
 			if( !($this->get_cantidad_registros() < $this->tope_max_registros) ){
 				throw new excepcion_toba("No es posible agregar registros (TOPE MAX.)");
@@ -529,12 +537,12 @@ class db_registros
 		//Saco el campo que indica la posicion del registro
 		if(isset($registro[apex_db_registros_clave])) unset($registro[apex_db_registros_clave]);
 		$this->validar_registro($registro);
-		//$registro[apex_db_registros_clave]=$this->proximo_registro;
-		$this->datos[$this->proximo_registro] = $registro;
-		$this->actualizar_estructura_control($this->proximo_registro,"i");
+
+		$this->datos[$id] = $registro;
+		$this->actualizar_estructura_control($id,"i");
 		//Actualizo los valores externos
-		$this->actualizar_campos_externos_registro( $this->proximo_registro, "agregar");
-		return $this->proximo_registro++;
+		$this->actualizar_campos_externos_registro( $id, "agregar");
+		return $id++;
 		
 	}
 	//-------------------------------------------------------------------------------

@@ -50,7 +50,7 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
         //---------  Indice de columnas  -----------------------------------------		
 		for($a=0;$a<count($this->info_cuadro_columna);$a++){
-			$this->indice_columnas[ $this->info_cuadro_columna[$a]['valor_sql'] ] = $a;
+			$this->indice_columnas[ $this->info_cuadro_columna[$a]['clave'] ] = $a;
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -115,8 +115,6 @@ class objeto_ei_cuadro extends objeto_ei
 								c.pdf_respetar_paginacion		as	pdf_respetar_paginacion,	
 								c.pdf_propiedades				as	pdf_propiedades,
 								c.asociacion_columnas			as	asociacion_columnas,
-								c.ev_seleccion					as	ev_seleccion,
-								c.ev_eliminar					as  ev_eliminar,
 								c.dao_nucleo_proyecto			as  dao_nucleo_proyecto,	
 								c.dao_nucleo					as  dao_clase,			
 								c.dao_metodo					as  dao_metodo,
@@ -134,29 +132,22 @@ class objeto_ei_cuadro extends objeto_ei
 		$sql["info_cuadro_columna"]["sql"] = "SELECT	c.orden	as orden,		
 								c.titulo						as titulo,		
 								e.css							as estilo,	 
-								c.columna_ancho					as ancho,	 
-								c.valor_sql						as valor_sql,		
-								f.funcion						as valor_sql_formato,	 
-								c.valor_fijo					as valor_fijo,	 
-								c.valor_proceso_esp				as valor_proceso,
-								c.valor_proceso_parametros		as valor_proceso_parametros,								
+								c.ancho							as ancho,	 
+								c.clave							as clave,		
+								f.funcion						as formateo,	 
 								c.vinculo_indice				as vinculo_indice,	
-								c.par_dimension_proyecto		as par_dimension_proyecto,	 
-								c.par_dimension					as par_dimension,
-								c.par_tabla						as par_tabla,		
-								c.par_columna					as par_columna,
 								c.no_ordenar					as no_ordenar,
-								c.mostrar_xls					as	mostrar_xls,
-								c.mostrar_pdf					as	mostrar_pdf,
-								c.pdf_propiedades				as	pdf_propiedades,
+								c.mostrar_xls					as mostrar_xls,
+								c.mostrar_pdf					as mostrar_pdf,
+								c.pdf_propiedades				as pdf_propiedades,
 								c.total							as total
 					 FROM		apex_columna_estilo e,
-								apex_objeto_cuadro_columna	c
+								apex_objeto_ei_cuadro_columna	c
 								LEFT OUTER JOIN apex_columna_formato f	
-								ON	f.columna_formato	= c.valor_sql_formato
+								ON	f.columna_formato	= c.formateo
 					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
 					 AND		objeto_cuadro = '".$this->id[1]."'
-					 AND		c.columna_estilo = e.columna_estilo	
+					 AND		c.estilo = e.columna_estilo	
 					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
 					 ORDER BY orden;";
 		$sql["info_cuadro_columna"]["tipo"]="x";
@@ -190,18 +181,7 @@ class objeto_ei_cuadro extends objeto_ei
 
 	function get_lista_eventos()
 	{
-		$eventos = array();
-		if ($this->info_cuadro["ev_seleccion"]) {
-			$eventos += eventos::seleccion();
-		}
-		if ($this->info_cuadro["ev_eliminar"]) {
-			//Se agrega un evento 'borrar' al lado de cada fila
-			$baja= eventos::duplicar( eventos::seleccion(), 'baja');
-			$baja['baja']['imagen'] = recurso::imagen_apl('borrar.gif');
-			$baja['baja']['ayuda'] = 'Borra el contenido de la fila actual';
-			$baja['baja']['confirmacion'] = '¿Está seguro que desea ELIMINAR la fila?';
-			$eventos += $baja;			
-		}
+		$eventos = parent::get_lista_eventos();
 		if($this->info_cuadro["ordenar"]) { 
 			$eventos += eventos::ordenar();		
 		}
@@ -273,7 +253,6 @@ class objeto_ei_cuadro extends objeto_ei
     @@retorno: boolean | Estado resultante de la operacion
 */
     {
-        $this->sql = "";
 		if(isset($datos)){
 	        $this->datos = $datos;
 		}else{
@@ -435,7 +414,7 @@ class objeto_ei_cuadro extends objeto_ei
                 }
                 echo "<td class='lista-col-titulo' $ancho>\n";
                 $this->cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
-                                            $this->info_cuadro_columna[$a]["valor_sql"],
+                                            $this->info_cuadro_columna[$a]["clave"],
                                             $a );
                 echo "</td>\n";
             }
@@ -460,34 +439,18 @@ class objeto_ei_cuadro extends objeto_ei
                 {
                     //----------> Comienzo una CELDA!!
                     //*** 1) Recupero el VALOR
-                    if(isset($this->info_cuadro_columna[$a]["valor_sql"])){
-                        $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["valor_sql"]];
+                    if(isset($this->info_cuadro_columna[$a]["clave"])){
+                        $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
                         //Hay que formatear?
-                        if(isset($this->info_cuadro_columna[$a]["valor_sql_formato"])){
-                            $funcion = "formato_" . $this->info_cuadro_columna[$a]["valor_sql_formato"];
+                        if(isset($this->info_cuadro_columna[$a]["formateo"])){
+                            $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
                             //Formateo el valor
                             $valor = $funcion($valor);
                         }
-                        //Hay que hacer un formateo externo
-                        if(trim($this->info_cuadro_columna[$a]["valor_proceso_parametros"])!=""){
-                            $funcion = $this->info_cuadro_columna[$a]["valor_proceso_parametros"];
-                            //Formateo el valor
-                            $valor = $funcion($valor);
-                        }
-                    }elseif(isset($this->info_cuadro_columna[$a]["valor_fijo"])){
-                        $valor = $this->info_cuadro_columna[$a]["valor_fijo"];
                     }else{
                         $valor = "";
                     }
-                    //*** 2) PRoceso la columna
-                    //Esto no se utiliza desde el instanciador
-                    if(!$this->solicitud->hilo->entorno_instanciador()){
-                        if(isset($this->info_cuadro_columna[$a]["valor_proceso"])){
-                            $metodo_procesamiento = $this->info_cuadro_columna[$a]["valor_proceso"];
-                            $valor = $this->$metodo_procesamiento($f, $valor);
-                        }
-                    }
-                    //*** 3) Generacion de VINCULOS!
+                    //*** 2) Generacion de VINCULOS!
                     if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
                         $id_fila = $this->obtener_clave_fila($f);
                         //Genero el VINCULO
@@ -512,8 +475,11 @@ class objeto_ei_cuadro extends objeto_ei
 						echo "<td class='lista-col-titulo'>\n";
 						$evento_js = eventos::a_javascript($id, $evento, $this->obtener_clave_fila($f));
 						$js = "{$this->objeto_js}.set_evento($evento_js);";
-						echo recurso::imagen($evento['imagen'], null, null, $evento['ayuda'], '', 
-											"onclick=\"$js\"", 'cursor: pointer');
+						if (isset($evento['imagen_recurso_origen']))
+							$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
+						else
+							$img = $evento['imagen'];
+						echo recurso::imagen($img, null, null, $evento['ayuda'], '', "onclick=\"$js\"", 'cursor: pointer');
 		            	echo "</td>\n";
 					}
 				}
@@ -548,12 +514,11 @@ class objeto_ei_cuadro extends objeto_ei
 		$total = array();
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
 		    if(isset($this->info_cuadro_columna[$a]["total"])){
-				$total[$this->info_cuadro_columna[$a]["valor_sql"]]=0;
-				$pie_columna[$a] =& $total[$this->info_cuadro_columna[$a]["valor_sql"]];
+				$total[$this->info_cuadro_columna[$a]["clave"]]=0;
+				$pie_columna[$a] =& $total[$this->info_cuadro_columna[$a]["clave"]];
 				$pie_columna_estilo[$a] = $this->info_cuadro_columna[$a]["estilo"];
-				if(isset($this->info_cuadro_columna[$a]["valor_sql_formato"])){
-					$total_funcion[$this->info_cuadro_columna[$a]["valor_sql"]] =
-						$this->info_cuadro_columna[$a]["valor_sql_formato"];
+				if(isset($this->info_cuadro_columna[$a]["formateo"])){
+					$total_funcion[$this->info_cuadro_columna[$a]["clave"]] = $this->info_cuadro_columna[$a]["formateo"];
 				}
 		    }else{
 		    	$pie_columna[$a] = "&nbsp;";

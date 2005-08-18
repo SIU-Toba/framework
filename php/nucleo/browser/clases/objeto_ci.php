@@ -36,8 +36,8 @@ class objeto_ci extends objeto_ei
 		$this->objeto_js = "objeto_ci_{$id[1]}";		
 		//-- PANTALLAS
 		//Indice de etapas
-		for($a = 0; $a<count($this->info_ci_me_etapa);$a++){
-			$this->indice_etapas[ $this->info_ci_me_etapa[$a]["posicion"] ] = $a;
+		for($a = 0; $a<count($this->info_ci_me_pantalla);$a++){
+			$this->indice_etapas[ $this->info_ci_me_pantalla[$a]["identificador"] ] = $a;
 		}
 		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
 		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
@@ -101,20 +101,20 @@ class objeto_ci extends objeto_ei
 		$sql["info_ci"]["tipo"]="1";
 		$sql["info_ci"]["estricto"]="1";
 		//-- PANTALLAS --------------
-		$sql["info_ci_me_etapa"]["sql"] = "SELECT	posicion			  	as posicion,
+		$sql["info_ci_me_pantalla"]["sql"] = "SELECT	
+													identificador			as identificador,
 													etiqueta			  	as etiqueta,
 													descripcion			  	as descripcion,
 													imagen_recurso_origen	as imagen_recurso_origen,
 													imagen					as imagen,
 													objetos				  	as objetos,
-													ev_procesar		   		as ev_procesar,
-													ev_cancelar				as ev_cancelar
-										FROM	apex_objeto_mt_me_etapa
-										WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
-										AND	objeto_mt_me = '".$this->id[1]."'
-										ORDER	BY	posicion;";
-		$sql["info_ci_me_etapa"]["tipo"]="x";
-		$sql["info_ci_me_etapa"]["estricto"]="1";
+													eventos					as eventos
+									 	FROM	apex_objeto_ci_pantalla
+										WHERE	objeto_ci_proyecto='".$this->id[0]."'
+										AND	objeto_ci = '".$this->id[1]."'
+										ORDER	BY	orden;";
+		$sql["info_ci_me_pantalla"]["tipo"]="x";
+		$sql["info_ci_me_pantalla"]["estricto"]="1";
 		return $sql;
 	}
 
@@ -210,7 +210,7 @@ class objeto_ci extends objeto_ei
 
 	function get_etapa_inicial()
 	{
-		return $this->info_ci_me_etapa[0]["posicion"];
+		return $this->info_ci_me_pantalla[0]["identificador"];
 	}
 
 	function get_etapa_actual()
@@ -555,7 +555,7 @@ class objeto_ci extends objeto_ei
 			return $this->$metodo_especifico();	
 		}		
 		//Busco la definicion standard para la etapa
-		$objetos = trim( $this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["objetos"] );
+		$objetos = trim( $this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["objetos"] );
 		if( $objetos != "" ){
 			return array_map("trim", explode(",", $objetos ) );
 		}else{
@@ -669,7 +669,7 @@ class objeto_ci extends objeto_ei
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
 		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
+		echo "<table $ancho $alto class='objeto-base' align='center' id='{$this->objeto_js}_cont'>\n";
 		//--> Barra SUPERIOR
 		echo "<tr><td class='celda-vacia'>";
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
@@ -703,7 +703,24 @@ class objeto_ci extends objeto_ei
 	}
 
 	//-------------------------------------------------------------------------------
+	protected function get_lista_eventos_definidos()
+	/*
+	*	Obtiene la lista de eventos definidos desde el administrador 
+	* 	Se redefine el método para dejar sólo aquellos eventos definidos en esta pantalla
+	*/
+	{
+		$eventos = array();
+		$ev_totales = parent::get_lista_eventos_definidos();
+		$ev_etapa = explode(',', $this->info_ci_me_pantalla[ $this->indice_etapas[$this->etapa_gi] ]['eventos']);
+		foreach ($ev_etapa as $evento) {
+			if (array_key_exists($evento, $ev_totales)) {
+				$eventos[$evento] = $ev_totales[$evento];
+			}
+		}
+		return $eventos;
+	}
 
+	
 	function get_lista_eventos()
 	{
 		$eventos = array();
@@ -723,15 +740,8 @@ class objeto_ci extends objeto_ei
 				if ($siguiente !== false)
 					$eventos += eventos::ci_pantalla_siguiente($siguiente);
 				break;
-		}		
-		//Evento PROCESAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_procesar']) {
-			$eventos += eventos::ci_procesar($this->info_ci['ev_procesar_etiq']);
 		}
-		//Evento CANCELAR
-		if($this->info_ci_me_etapa[ $this->indice_etapas[$this->etapa_gi] ]['ev_cancelar'])	{
-			$eventos += eventos::ci_cancelar($this->info_ci['ev_cancelar_etiq']);
-		}
+		$eventos = array_merge($eventos, parent::get_lista_eventos() );
 		return $eventos;
 	}
 	//-------------------------------------------------------------------------------
@@ -786,13 +796,13 @@ class objeto_ci extends objeto_ei
 		/*
 			Descripcion de la PANTALLA
 		*/
-		$descripcion = trim($this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"]);
+		$descripcion = trim($this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"]);
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if($descripcion !="" || $es_wizard) {
 			$imagen = recurso::imagen_apl("info_chico.gif",true);
 			if ($es_wizard) {
 				$html = "<div class='wizard-encabezado'><div class='wizard-titulo'>";
-				$html .= $this->info_ci_me_etapa[ $this->indice_etapas[ $this->etapa_gi ] ]["etiqueta"];
+				$html .= $this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["etiqueta"];
 				$html .= "</div><div class='wizard-descripcion'>$descripcion</div></div>";
 				echo $html;
 			} else {
@@ -930,16 +940,16 @@ class objeto_ci extends objeto_ei
 	//Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante
 	{
 		$tab = array();
-		for($a = 0; $a<count($this->info_ci_me_etapa);$a++)
+		for($a = 0; $a<count($this->info_ci_me_pantalla);$a++)
 		{
-			$id = $this->info_ci_me_etapa[$a]["posicion"];
-			$tab[$id]['etiqueta'] = $this->info_ci_me_etapa[$a]["etiqueta"];
-			$tab[$id]['tip'] = $this->info_ci_me_etapa[$a]["descripcion"];
-			if ($this->info_ci_me_etapa[$a]["imagen_recurso_origen"]) {
-				if ($this->info_ci_me_etapa[$a]["imagen_recurso_origen"] == 'apex') 
-					$tab[$id]['imagen'] = recurso::imagen_apl($this->info_ci_me_etapa[$a]["imagen"], false);
+			$id = $this->info_ci_me_pantalla[$a]["identificador"];
+			$tab[$id]['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
+			$tab[$id]['tip'] = $this->info_ci_me_pantalla[$a]["descripcion"];
+			if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"]) {
+				if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"] == 'apex') 
+					$tab[$id]['imagen'] = recurso::imagen_apl($this->info_ci_me_pantalla[$a]["imagen"], false);
 				else
-					$tab[$id]['imagen'] = recurso::imagen_pro($this->info_ci_me_etapa[$a]["imagen"], false);
+					$tab[$id]['imagen'] = recurso::imagen_pro($this->info_ci_me_pantalla[$a]["imagen"], false);
 			}
 		}
 		return $tab;

@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
 DROP TABLE apex_dim_restric_soltipo ;
 DROP TABLE apex_test_paises ;
@@ -7,7 +7,6 @@ DROP TABLE apex_objeto_html ;
 DROP TABLE apex_objeto_esquema ;
 DROP TABLE apex_objeto_negocio_regla ;
 DROP TABLE apex_objeto_negocio ;
-DROP TABLE apex_objeto_ci_pantalla_dep ;
 DROP TABLE apex_objeto_ci_pantalla ;
 DROP TABLE apex_objeto_mt_me_etapa ;
 DROP TABLE apex_objeto_mt_me ;
@@ -150,7 +149,7 @@ DROP TABLE apex_elemento_infra_tabla ;
 DROP TABLE apex_elemento_infra ;
 DROP TABLE apex_revision ;
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
 DROP SEQUENCE apex_elemento_infra_input_seq;
 DROP SEQUENCE apex_columna_estilo_seq;

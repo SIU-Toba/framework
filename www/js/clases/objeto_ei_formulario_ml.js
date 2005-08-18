@@ -148,7 +148,8 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.deseleccionar_actual = function() {
 		if (this._seleccionada != null) {	//Deselecciona el anterior
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'abm-fila-ml');			
+			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
+			cambiar_clase(fila.cells, 'abm-fila-ml');			
 			delete(this._seleccionada);
 		}
 	}
