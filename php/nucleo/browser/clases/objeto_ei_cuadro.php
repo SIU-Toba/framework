@@ -432,7 +432,12 @@ class objeto_ei_cuadro extends objeto_ei
             {
 				$resaltado = "";
 				$clave_fila = $this->obtener_clave_fila($f);
-				$esta_seleccionada = ($clave_fila == $this->clave_seleccionada);
+				if (is_array($this->clave_seleccionada)) 
+					$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
+				else
+					$clave_seleccionada = $this->clave_seleccionada;	
+				
+				$esta_seleccionada = ($clave_fila == $clave_seleccionada);
 				$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
                 echo "<tr>\n";
                 for ($a=0;$a< $this->cantidad_columnas;$a++)
