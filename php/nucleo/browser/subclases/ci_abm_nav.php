@@ -65,6 +65,7 @@ class ci_abm_nav extends objeto_ci
 			$evento['cancelar']['estilo']="abm-input";
 			//$evento['cancelar']['confirmacion'] = "¿Desea descartar los cambios?";
 			$evento['cancelar']['tip']="Descarta los cambios realizados";
+			$evento['cancelar']['maneja_datos'] = false;
 		}
 		return $evento;
 	}
