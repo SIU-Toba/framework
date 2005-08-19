@@ -503,9 +503,6 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-		$estilo_nodo = ($this->esta_expandido()) ? "" : "display:none";
-		$clase = ($this->esta_expandido()) ? "" : "class='abm-fila-oculta'";		
-		echo "<div id='nodo_{$this->id_form}' style='text-align: left; $estilo_nodo' $clase>";
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0' align='left'>\n";
 		echo "<tr><td>".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
@@ -518,7 +515,7 @@ class ef //Clase abstracta, padre de todos los EF
 		//Acceso directo al EDITOR del ABM 
 		//(con el editor de columnas cargado en ESTA!)
 		if(apex_pa_acceso_directo_editor){
-			echo "<td class='$estilo' >";
+			echo "<td class='$estilo'>";
 			if( ($this->padre[0]) == $solicitud->hilo->obtener_proyecto() &&
 			(isset($item_editor_padre)) )
 			{
@@ -529,13 +526,11 @@ class ef //Clase abstracta, padre de todos los EF
 										'objeto' => $objeto,
 										'ef' => $this->id );
 				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
-
 			}
 			echo "</td>\n";
 		}
 		echo "<td class='ef-zonainput' id='cont_{$this->id_form}'>$elemento_formulario</td></tr>\n";
 		echo "</table>\n";
-		echo "</div>";
 	}
 	
 	function envoltura_ei_ml()

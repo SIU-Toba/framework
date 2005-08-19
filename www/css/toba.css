@@ -1001,7 +1001,7 @@ TD.abm-zona-botones {
 	 BACKGROUND-COLOR: #808080;
 	 TEXT-ALIGN: right
 }
-TD.abm-fila {
+.abm-fila, .abm-fila-oculta {
 	PADDING-RIGHT: 3px;
 	 PADDING-LEFT: 3px;
 	 FONT-WEIGHT: bold;
@@ -1628,14 +1628,12 @@ TD.ef-etiqueta-obligatorio {
 	 PADDING-LEFT: 4px;
 	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
-	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TD.ef-etiqueta {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 4px;
 	 FONT-SIZE: 10px;
-	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left;
 	 FONT-WEIGHT: normal;	 
 }

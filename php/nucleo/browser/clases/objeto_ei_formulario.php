@@ -573,10 +573,15 @@ class objeto_ei_formulario extends objeto_ei
 			echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
 			$hay_colapsado = false;
 			foreach ($this->lista_ef_post	as	$ef){
+				$clase = 'abm-fila';
+				$estilo_nodo = "";
+				$id_ef = $this->elemento_formulario[$ef]->obtener_id_form();
 				if (! $this->elemento_formulario[$ef]->esta_expandido()) {
 					$hay_colapsado = true;
+					$clase = 'abm-fila-oculta';
+					$estilo_nodo = "display:none";
 				}
-				echo "<tr><td class='abm-fila'>\n";
+				echo "<tr><td class='$clase' style='text-align: left; $estilo_nodo' id='nodo_$id_ef'>\n";
 				$this->elemento_formulario[$ef]->obtener_interface_ei();
 				echo "</td></tr>\n";
 			}

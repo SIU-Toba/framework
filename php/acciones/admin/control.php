@@ -34,9 +34,7 @@ function mostrar_ocultar_frame() {
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a href="javascript: mostrar_ocultar_frame();">
-		 	<img src="<? echo recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'>
-		</a>
+		<a href="javascript: mostrar_ocultar_frame();"><img src="<? echo recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
 		 <a  target="<? echo  apex_frame_lista  ?>" href="<? echo $this->vinculador->generar_solicitud("toba","/red/organizador") ?>">
 		 <? echo recurso::imagen_apl("logo_barra_apex.gif",true,null,null,"Red SIU-Toba")?></a></td>
 

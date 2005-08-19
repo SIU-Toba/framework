@@ -2,6 +2,9 @@
 
 	function __autoload($clase)
 	{
+/*		if (function_exists("__autoload_toba")) {
+			call_user_func_array('__autoload_toba', array($clase));
+		}*/
 		static $definicion;
 		$definicion["dbt_item"] = 						"admin/db/dbt_item.php";		
 		$definicion["dbt_objeto_ci"] = 					"admin/db/dbt_objeto_ci.php";
