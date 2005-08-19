@@ -4,12 +4,13 @@
 		$this->zona->obtener_html_barra_superior();
 		
 		
-		include_once("nucleo/lib/elemento_toba.php");
-		$elemento = new elemento_toba_item();
+		include_once("api/elemento_item.php");
+		$elemento = new elemento_item();
 		$elemento->cargar_db($editable[0], $editable[1]);
 		
 		$sqls = $elemento->exportar_sql_insert();
 		
+		$x="";
 		foreach($sqls as $sql)
 		{
 			$x .= $sql . "\n";
