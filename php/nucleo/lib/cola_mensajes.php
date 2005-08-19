@@ -46,6 +46,7 @@ class cola_mensajes
 			$texto = js::string($texto);
 			echo "cola_mensajes.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
 		}
+		echo "cola_mensajes.mostrar()\n";
 		echo js::cerrar();
 	}
 	

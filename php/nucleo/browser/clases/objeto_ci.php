@@ -635,7 +635,6 @@ class objeto_ci extends objeto_ei
 	{
 		$this->get_info_post_proceso();
 		//-[1]- Muestro la cola de mensajes
-		$this->solicitud->cola_mensajes->mostrar();
 		//-[2]- Genero la SALIDA
 		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
@@ -648,9 +647,9 @@ class objeto_ci extends objeto_ei
 		echo form::cerrar();
 		echo js::abrir();
 		$this->obtener_javascript();
-		echo "cola_mensajes.mostrar({$this->objeto_js});\n";
 		echo js::cerrar();
 		echo "<br>\n";
+		$this->solicitud->cola_mensajes->mostrar();		
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		
 	}
 	//-------------------------------------------------------------------------------
