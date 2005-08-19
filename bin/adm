@@ -132,8 +132,7 @@ then
 			read respuesta
 			if [ $respuesta = "S" ]
 			then
-				pgsql_ejecutar ${c_auto}/__i_drop.sql $2 $3
-				controlar "Eliminar PROYECTO en '$instancia'"
+				pgsql_ejecutar ${c_auto}/__i_drop.sql $2 $3 --noparar
 			else
 				exit 1
 			fi

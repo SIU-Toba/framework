@@ -227,8 +227,7 @@ then
 		echo "El nombre \"toba\" no esta permitido!"
 		exit 2
 	else
-		pgsql_ejecutar $d_proy/$2/sql/_auto/__p_del.sql
-		controlar "Eliminar los registros del proyecto \"$2\""  
+		pgsql_ejecutar $d_proy/$2/sql/_auto/__p_del.sql --noparar
 		echo "Los datos del proyecto han sido eliminados"
 		echo "(si desea eliminar el proyecto por completo, elimine el directorio \"$d_proy/$2\" manualmente )"
 	fi	
