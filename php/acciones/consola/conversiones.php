@@ -9,7 +9,7 @@
 		$mostrar_info = true;
 	}
 	$es_prueba = false;
-	if (isset($this->parametros['-p'])) {
+	if (isset($this->parametros['-t'])) {
 		$es_prueba = true;
 	}
 	if (isset($this->parametros['-l'])) {
@@ -25,6 +25,14 @@
 		fwrite(STDERR, "ERROR: Se debe especificar el número de version destino.\n");
 		exit(4);
 	}
+	if (!$mostrar_info) {
+		if (! isset($this->parametros['-p'])) {
+			fwrite(STDERR, "ERROR: Se debe especificar el proyecto al cual aplicar la conversion.\n");
+			exit(4);
+		}
+		$proyecto = $this->parametros['-p'];
+	}
+
 
 	//La convension es reemplazar . por _ en los nombres de version
 	$version_sin_parsear = $this->parametros['-v'];
@@ -44,7 +52,7 @@
 		$conversion->info();
 	else {
 		try {
-			$conversion->procesar($es_prueba);
+			$conversion->procesar($proyecto, $es_prueba);
 		} catch (excepcion_toba $e) {
 			fwrite(STDERR, $e->getMessage()."\n");
 			exit(4);

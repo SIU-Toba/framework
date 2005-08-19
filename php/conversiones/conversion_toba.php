@@ -12,6 +12,7 @@ class conversion_toba
 	protected $version;
 	protected $log;
 	protected $db;
+	protected $proyecto;		//Proyecto sobre el que se corren las conversiones
 
 	function __construct()
 	{
@@ -69,8 +70,9 @@ class conversion_toba
 		Dispara los metodos que empiezan con "cambio_" dentro de una transaccion
 		Si todo sale ok, deja un log de que los cambios impactaron en el sistema
 	*/
-	public function procesar($es_prueba = false)
+	public function procesar($proyecto=null, $es_prueba = false)
 	{
+		$this->proyecto = $proyecto;
 		$logger = toba::get_logger();
 		$cambios = $this->get_lista_cambios();
 		try {

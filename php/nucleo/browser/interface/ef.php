@@ -503,8 +503,9 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-		$clase = ($this->esta_expandido()) ? "" : "display:none";
-		echo "<div id='nodo_{$this->id_form}' style='text-align: left; $clase'>";
+		$estilo_nodo = ($this->esta_expandido()) ? "" : "display:none";
+		$clase = ($this->esta_expandido()) ? "" : "class='abm-fila-oculta'";		
+		echo "<div id='nodo_{$this->id_form}' style='text-align: left; $estilo_nodo' $clase>";
 		echo "<table border='0' width='150' cellpadding='0' cellspacing='0' align='left'>\n";
 		echo "<tr><td>".gif_nulo(150,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";

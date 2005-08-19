@@ -10,25 +10,27 @@ class conversion_0_8_3 extends conversion_toba
 
 	function pre_cambios()
 	{
-		$sql = "DELETE FROM apex_objeto_ci_pantalla";
+		$sql = "DELETE FROM apex_objeto_ci_pantalla WHERE objeto_ci_proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");		
-		$sql = "DELETE FROM apex_objeto_ei_cuadro_columna";
+		$sql = "DELETE FROM apex_objeto_ei_cuadro_columna WHERE objeto_cuadro_proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");		
-		$sql = "DELETE FROM apex_objeto_ei_formulario_ef";
+		$sql = "DELETE FROM apex_objeto_ei_formulario_ef WHERE objeto_ei_formulario_proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");
-		$sql = "DELETE FROM apex_objeto_eventos";
+		$sql = "DELETE FROM apex_objeto_eventos WHERE proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");
 	}
 	
 	function post_cambios()
 	{	
 
-		$sql = "UPDATE apex_objeto_cuadro SET ev_seleccion = NULL, ev_eliminar = NULL";
+		$sql = "UPDATE apex_objeto_cuadro SET ev_seleccion = NULL, ev_eliminar = NULL
+				WHERE objeto_cuadro_proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");
 		
 		$sql = "UPDATE apex_objeto_ut_formulario SET ev_agregar = NULL, ev_agregar_etiq = NULL, ev_mod_modificar = NULL,
 													ev_mod_modificar_etiq = NULL, ev_mod_eliminar_etiq = NULL, 
-													ev_mod_limpiar_etiq = NULL";
+													ev_mod_limpiar_etiq = NULL
+				WHERE objeto_ut_formulario_proyecto='{$this->proyecto}'";
 		$this->ejecutar_sql($sql,"instancia");
 		
 		//Estos DROP no se pueden hacer sino fallan las meta-consultas posteriores
@@ -108,7 +110,8 @@ class conversion_0_8_3 extends conversion_toba
 			FROM
 				apex_objeto_cuadro c
 			WHERE
-				c.ev_seleccion = 1
+				c.ev_seleccion = 1 AND
+				c.objeto_cuadro_proyecto='{$this->proyecto}'
 		";
 		$this->ejecutar_sql($sql,"instancia");
 		
@@ -147,7 +150,8 @@ class conversion_0_8_3 extends conversion_toba
 			FROM
 				apex_objeto_cuadro c
 			WHERE
-				c.ev_eliminar = 1
+				c.ev_eliminar = 1 AND
+				c.objeto_cuadro_proyecto='{$this->proyecto}'
 		";
 		$this->ejecutar_sql($sql,"instancia");		
 	}
@@ -193,6 +197,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_filtro' AND
@@ -236,6 +241,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND			
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_filtro' AND
@@ -283,6 +289,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_formulario' AND
@@ -327,6 +334,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase IN ('objeto_ei_formulario', 'objeto_ei_formulario_ml') AND
@@ -370,6 +378,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND			
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_formulario' AND
@@ -413,6 +422,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND			
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_formulario' AND
@@ -454,6 +464,7 @@ class conversion_0_8_3 extends conversion_toba
 				apex_objeto_ut_formulario f,
 				apex_objeto o
 			WHERE
+				f.objeto_ut_formulario_proyecto='{$this->proyecto}' AND			
 				f.objeto_ut_formulario_proyecto = o.proyecto AND
 				f.objeto_ut_formulario = o.objeto AND
 				o.clase = 'objeto_ei_formulario_ml' AND
@@ -504,7 +515,9 @@ class conversion_0_8_3 extends conversion_toba
 					x.total			
 				FROM apex_objeto o,
 				apex_objeto_cuadro_columna x                       
-				WHERE o.objeto = x.objeto_cuadro                       
+				WHERE 
+					x.objeto_cuadro_proyecto='{$this->proyecto}'
+				AND o.objeto = x.objeto_cuadro                       
 				AND o.proyecto = x.objeto_cuadro_proyecto               
 				AND x.valor_sql IS NOT NULL
 				AND o.clase = 'objeto_ei_cuadro';";	
@@ -514,6 +527,7 @@ class conversion_0_8_3 extends conversion_toba
 		$sql = "
 				DELETE FROM apex_objeto_cuadro_columna
 				WHERE
+					objeto_cuadro_proyecto='{$this->proyecto}' AND
 					objeto_cuadro IN 
 					(
 						SELECT objeto FROM apex_objeto 
@@ -566,7 +580,8 @@ class conversion_0_8_3 extends conversion_toba
 					x.total								
 				FROM apex_objeto o,
 				apex_objeto_ut_formulario_ef x                       
-				WHERE o.objeto = x.objeto_ut_formulario                       
+				WHERE x.objeto_ut_formulario_proyecto='{$this->proyecto}'
+				AND o.objeto = x.objeto_ut_formulario                       
 				AND o.proyecto = x.objeto_ut_formulario_proyecto               
 				AND o.clase IN ('objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro');";
 		$this->ejecutar_sql($sql,"instancia");		
@@ -576,6 +591,7 @@ class conversion_0_8_3 extends conversion_toba
 		$sql = "
 				DELETE FROM apex_objeto_ut_formulario_ef
 				WHERE 
+				objeto_ut_formulario_proyecto='{$this->proyecto}' AND
 				objeto_ut_formulario IN 
 					(
 						SELECT objeto FROM apex_objeto 
@@ -640,6 +656,7 @@ class conversion_0_8_3 extends conversion_toba
 						ON (ci.objeto_mt_me = pan.objeto_mt_me AND
 							ci.objeto_mt_me_proyecto = pan.objeto_mt_me_proyecto)
              WHERE
+			 	  ci.objeto_mt_me_proyecto='{$this->proyecto}' AND
                   pan.ev_procesar = 1 OR
                   pan.ev_cancelar = 1
 		";
@@ -687,7 +704,8 @@ class conversion_0_8_3 extends conversion_toba
 					END
 				FROM apex_objeto o,
 				apex_objeto_mt_me_etapa x
-				WHERE o.objeto = x.objeto_mt_me
+				WHERE x.objeto_mt_me_proyecto='{$this->proyecto}'
+				AND o.objeto = x.objeto_mt_me
 				AND o.proyecto = x.objeto_mt_me_proyecto
 				AND o.clase IN ('objeto_ci','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav');";
 		$this->ejecutar_sql($sql,"instancia");
@@ -695,6 +713,7 @@ class conversion_0_8_3 extends conversion_toba
 		$sql = "
 			DELETE FROM apex_objeto_mt_me_etapa
 			WHERE 
+				objeto_mt_me_proyecto='{$this->proyecto}' AND
 				objeto_mt_me IN 
 					(
 						SELECT objeto FROM apex_objeto 

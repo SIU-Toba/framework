@@ -11,26 +11,26 @@ then
 	echo " objetivo: Migra metadatos hacia una nueva versión toba"
 	echo "           Las conversiones se corren en la instancia $toba_instancia"
 
-#@ conversion listar                -- Lista las posibles migraciones a aplicar en la version actual de toba
+#@ conversion listar                        -- Lista las posibles migraciones a aplicar
 elif [ "$1" = "listar" ]
 
 then
 	item /consola/conversiones -l
 
-#@ conversion info VERSION          -- Muestra el detalle de cambios incluidos en una migración específica
+#@ conversion info VERSION                  -- Muestra el detalle de cambios incluidos en una migración específica
 elif [ "$1" = "info" ]
 then
 	item /consola/conversiones -v $2 -i
 	
-#@ conversion probar VERSION      -- Simula la migración de metadatos hacia una versión específica
+#@ conversion probar PROYECTO VERSION       -- Simula la migración de metadatos de un proyecto hacia una versión
 elif [ "$1" = "probar" ]
 then
-	item /consola/conversiones -v $2 -p
+	item /consola/conversiones -v $3 -p $2 -t
 	
-#@ conversion ejecutar VERSION      -- Ejecuta la migración de metadatos hacia una versión específica
+#@ conversion ejecutar PROYECTO VERSION     -- Ejecuta la migración de metadatos de un proyecto hacia una versión
 elif [ "$1" = "ejecutar" ]
 then
-	item /consola/conversiones -v $2
+	item /consola/conversiones -v $3 -p $2
 	
 else
 	ayuda $0

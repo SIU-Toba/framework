@@ -1,4 +1,6 @@
 <?
+require_once('manejador_archivos.php');
+
 define('TOBA_LOG_EMERG',    0);     /** System is unusable */
 define('TOBA_LOG_ALERT',    1);     /** Immediate action required */
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
@@ -185,6 +187,7 @@ class logger
 	function guardar_en_archivo($archivo)
 	{
 		//Abro el archivo
+		manejador_archivos::crear_arbol_directorios($this->directorio_logs());
 		$a = fopen($this->directorio_logs()."/".$archivo,"a");
 		$fecha = date('r');
 		fwrite($a, "\n--------- $fecha ---------\n");
