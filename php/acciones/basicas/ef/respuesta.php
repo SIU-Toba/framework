@@ -24,21 +24,44 @@ $this->hilo->desactivar_reciclado();
 			}
 		}
  		try{
-			//---[ 1 ]- Busco la definicion del EF
+			//---[ ]- Busco la definicion del EF
 			$datos = array();
-			$sql = "SELECT 	o.fuente_datos_proyecto as fp, 
-							o.fuente_datos as f,
-							u.inicializacion as i,
-							u.elemento_formulario as ef,
-							u.columnas as col
-					FROM 	apex_objeto o,
-							apex_objeto_ut_formulario_ef u
-					WHERE	u.objeto_ut_formulario = o.objeto
-					AND		u.objeto_ut_formulario_proyecto = o.proyecto
-					AND o.objeto = '{$referencia_ef[1]}' 
-					AND o.proyecto = '{$referencia_ef[0]}'
-					AND u.identificador = '{$referencia_ef[2]}';"; //echo $sql;
-			$data = consultar_fuente($sql,"instancia"); //print_r($data);
+			$sql_es_nuevo = "
+				SELECT clase FROM apex_objeto 
+				WHERE proyecto = '{$referencia_ef[0]}' AND objeto ='{$referencia_ef[1]}'
+			";
+			$res = consultar_fuente($sql_es_nuevo, "instancia");
+			$es_nuevo = in_array($res[0]['clase'], array('objeto_ei_formulario', 'objeto_ei_filtro', 'objeto_ei_formulario_ml'));
+			//Desde 0.8.3 Dependiendo del tipo de objeto hay que buscar en los distintos datos
+			if ($es_nuevo) {
+				$sql = "SELECT 	o.fuente_datos_proyecto as fp, 
+								o.fuente_datos as f,
+								u.inicializacion as i,
+								u.elemento_formulario as ef,
+								u.columnas as col
+						FROM 	apex_objeto o,
+								apex_objeto_ei_formulario_ef u
+						WHERE	u.objeto_ei_formulario = o.objeto
+						AND		u.objeto_ei_formulario_proyecto = o.proyecto
+						AND o.objeto = '{$referencia_ef[1]}' 
+						AND o.proyecto = '{$referencia_ef[0]}'
+						AND u.identificador = '{$referencia_ef[2]}';";
+				$data = consultar_fuente($sql,"instancia"); //print_r($data);
+			} else {
+				$sql = "SELECT 	o.fuente_datos_proyecto as fp, 
+								o.fuente_datos as f,
+								u.inicializacion as i,
+								u.elemento_formulario as ef,
+								u.columnas as col
+						FROM 	apex_objeto o,
+								apex_objeto_ut_formulario_ef u
+						WHERE	u.objeto_ut_formulario = o.objeto
+						AND		u.objeto_ut_formulario_proyecto = o.proyecto
+						AND o.objeto = '{$referencia_ef[1]}' 
+						AND o.proyecto = '{$referencia_ef[0]}'
+						AND u.identificador = '{$referencia_ef[2]}';";
+				$data = consultar_fuente($sql,"instancia"); //print_r($data);
+			}
 			//Abro la fuente de datos
 			$fp = $data[0]['fp'];
 			$f = $data[0]['f'];

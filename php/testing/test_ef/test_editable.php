@@ -27,7 +27,7 @@ class test_editable extends test_toba
 		global $retorno_dao;
 		$parametros = array(
 						'dao' => 'dao_editable',
-						'include' => 'acciones/pruebas/testing_automatico/ef/prueba_daos.php',
+						'include' => 'testing/test_ef/prueba_daos.php',
 						'clase' => 'prueba_daos'
 					  );	
 		

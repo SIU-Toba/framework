@@ -41,8 +41,8 @@ class test_fijos extends test_toba
 		$ef = $this->get_ef($parametros);
 		$html = "<h1>TITULO</h1>";
 		$ef->cargar_estado($html);
-		
 		$ef = $this->get_ef($parametros);
+		$ef->cargar_estado();
 		$this->AssertEqual($ef->obtener_estado(), $html);
 	}
 	

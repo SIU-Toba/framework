@@ -39,7 +39,7 @@ class test_entrega_parametros extends test_toba
 				}
 			}catch(Exception $e){
 				echo("La clase '$clase' no existe.<br>");
-				//$this->fail("La clase '$clase' no existe.");
+//				$this->fail("La clase '$clase' no existe.");
 			}
 		}
 	}

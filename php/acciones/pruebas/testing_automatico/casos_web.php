@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php');
-require_once('test_toba.php');
 require_once('reporter_toba.php');
 require_once('lista_casos.php');
 

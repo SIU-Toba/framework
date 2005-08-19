@@ -1,6 +1,6 @@
 <?php
 include_once('nucleo/browser/interface/ef.php');
-require_once("test_toba.php");
+require_once('testing/test_toba.php');
 
 class lista_casos
 {
@@ -8,9 +8,9 @@ class lista_casos
 	{
 		$proyecto = toba::get_hilo()->obtener_proyecto();
 		if($proyecto == "toba")
-			$path = $_SESSION["path_php"] . "/acciones/pruebas/testing_automatico";
+			$path = toba_dir() . "/php/testing";
 		else
-			$path = $_SESSION["path"] . "/proyectos/$proyecto/php/testing_automatico";
+			$path = toba_dir() . "/proyectos/$proyecto/php/testing";
 		return $path;
 	}
 	
@@ -51,11 +51,10 @@ class lista_casos
 								$pos_punto = strripos($file_interno, "."); 
 								$nombre_clase = substr($file_interno, 0, $pos_punto);
 								require_once("$path_completo/$file_interno");
-								$clase = new $nombre_clase;
-								
-								$nombre = ($clase->get_descripcion() == "")? $nombre_clase : $clase->get_descripcion();
+								$nombre = call_user_func(array($nombre_clase, "get_descripcion"));
+								if ($nombre == '')
+									$nombre = $nombre_clase;
 								$id_categoria = substr($file, 5);
-								
 								$casos[] = array('id' => $nombre_clase, 'nombre' => $nombre, 'categoria' => $id_categoria, 'archivo' => "$path_completo/$file_interno");
 						    }
 						}

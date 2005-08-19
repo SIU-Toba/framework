@@ -32,7 +32,7 @@ class test_multi_seleccion extends test_toba
 						'cant_minima' => 2,
 						'cant_maxima' => 4,
 						'dao' => 'dao_multi_seleccion',
-						'include' => 'acciones/pruebas/testing_automatico/ef/prueba_daos.php',
+						'include' => 'testing/test_ef/prueba_daos.php',
 						'clase' => 'prueba_daos'
 					  );	
 		
