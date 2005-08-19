@@ -1329,6 +1329,11 @@ INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_provee
 INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1500','1416','pantallas_evt',NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1500','1359','pantallas_lista',NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1500','1356','prop_basicas',NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1507','1501','base',NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1507','1502','dependencias',NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1507','1505','eventos',NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1507','1504','pantallas',NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_dependencias (proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar) VALUES ('toba','1507','1503','prop_basicas',NULL,NULL,NULL,NULL);
 
 -----------  apex_objeto_eventos  ------------------------
 
