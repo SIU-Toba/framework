@@ -9,7 +9,7 @@ class dbr_apex_objeto_db_registros extends db_registros_s
 	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
 	{
 		$def['tabla']='apex_objeto_db_registros';
-		$def['columna'][0]['nombre']='proyecto';
+		$def['columna'][0]['nombre']='objeto_proyecto';
 		$def['columna'][0]['pk']='1';
 		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto';

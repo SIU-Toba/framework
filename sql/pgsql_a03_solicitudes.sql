@@ -250,9 +250,9 @@ CREATE TABLE apex_log_objeto
 	objeto_proyecto          			varchar(15)  	NOT NULL,
 	objeto								int4			NOT NULL,
 	observacion							varchar			NULL,
-	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto"),
-	CONSTRAINT	"apex_log_sis_fk_usuario" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_log_objeto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")
+--	CONSTRAINT	"apex_log_sis_fk_usuario" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE,
+--	CONSTRAINT	"apex_log_objeto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --##################################################################################################

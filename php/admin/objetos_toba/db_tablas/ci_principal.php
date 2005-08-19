@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/objetos_toba/ci_editores_toba.php'); 
 require_once("admin/db/toba_dbt.php");
 
-class ci_principal extends objeto_ci
+class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
 	protected $seleccion_dependencia;
@@ -23,6 +23,9 @@ class ci_principal extends objeto_ci
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::objeto_db_tablas();
 			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1400') );
+		}
+		if($this->cambio_objeto){	
+			$this->db_tablas->cargar( $this->id_objeto );
 		}
 		return $this->db_tablas;
 	}
@@ -101,7 +104,7 @@ class ci_principal extends objeto_ci
 		//Seteo los datos asociados al uso de este editor
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_db_tablas" );
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_relacion" );
 		//Sincronizo el DBT
 		$this->get_dbt()->sincronizar();	
 	}

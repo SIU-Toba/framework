@@ -1,7 +1,7 @@
 <?
-require_once('nucleo/persistencia/db_registros.php');
+require_once("nucleo/browser/clases/objeto.php");
 
-class db_tablas
+class objeto_datos_relacion extends objeto
 {
 	protected $log;
 	protected $elemento;
@@ -18,6 +18,12 @@ class db_tablas
 		$this->cargado = false;
 		$this->log = toba::get_logger();
 		$this->fuente = $fuente;
+	}
+
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_datos_relacion.php');
+		return new elemento_objeto_datos_relacion();
 	}
 
 	//-------------------------------------------------------------------------------

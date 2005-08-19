@@ -14,7 +14,9 @@ class dao_editores
 						'objeto_ei_filtro',
 						'objeto_ei_arbol',
 						'objeto_ei_calendario',
-						'objeto_ei_archivos' );
+						'objeto_ei_archivos',
+						'objeto_datos_tabla',
+						'objeto_datos_relacion' );
 	}
 
 	/*

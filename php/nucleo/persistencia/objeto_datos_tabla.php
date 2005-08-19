@@ -51,6 +51,12 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
+	function elemento_toba()
+	{
+		require_once('api/elemento_objeto_datos_tabla.php');
+		return new elemento_objeto_datos_tabla();
+	}
+
 	function obtener_definicion_db()
 	{
 		$sql = parent::obtener_definicion_db();

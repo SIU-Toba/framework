@@ -15,8 +15,8 @@ class dbt_objeto_db_registros extends dbt_objeto
 		//Relaciones
 		$this->cabecera = 'base';
 		$this->detalles = array(
-								'prop_basicas'=>array('proyecto','objeto'),
-								'columnas'=>array('proyecto','objeto')
+								'prop_basicas'=>array('objeto_proyecto','objeto'),
+								'columnas'=>array('objeto_proyecto','objeto')
 							);
 		parent::__construct($fuente);
 	}
