@@ -8,7 +8,7 @@ class test_entrega_parametros extends test_toba
 		return "EF * - Entrega de parametros";
 	}	
 
-	function test_entrega_parametros()
+	function test_entregar_parametros()
 	{
 		require_once("nucleo/browser/interface/ef.php");
 		$metodo_recuperacion = "get_parametros";
@@ -34,14 +34,15 @@ class test_entrega_parametros extends test_toba
 						$this->fail("El metodo de la clase '$clase' no devuelve un array.");
 					}
 				}catch(Exception $e){
-					echo("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.<br>");
-					//$this->fail("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.");
+//					echo("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.<br>");
+					$this->fail("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.");
 				}
 			}catch(Exception $e){
-				echo("La clase '$clase' no existe.<br>");
-//				$this->fail("La clase '$clase' no existe.");
+				//echo("La clase '$clase' no existe.<br>");
+				$this->fail("La clase '$clase' no existe.");
 			}
 		}
 	}
+
 }
 ?>
