@@ -707,7 +707,7 @@ class conversion_0_8_3 extends conversion_toba
 				WHERE x.objeto_mt_me_proyecto='{$this->proyecto}'
 				AND o.objeto = x.objeto_mt_me
 				AND o.proyecto = x.objeto_mt_me_proyecto
-				AND o.clase IN ('objeto_ci','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav');";
+				AND o.clase IN ('objeto_ci','ci_cn','ci_abm_dbr','objeto_ci_abm','ci_abm_dbt','ci_abm_nav');";
 		$this->ejecutar_sql($sql,"instancia");
 		
 		$sql = "
@@ -717,12 +717,12 @@ class conversion_0_8_3 extends conversion_toba
 				objeto_mt_me IN 
 					(
 						SELECT objeto FROM apex_objeto 
-						WHERE clase IN ('objeto_ci','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
+						WHERE clase IN ('objeto_ci','objeto_ci_abm','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
 					) AND
 				objeto_mt_me_proyecto IN
 					(
 						SELECT proyecto FROM apex_objeto 
-						WHERE clase IN ('objeto_ci','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
+						WHERE clase IN ('objeto_ci','objeto_ci_abm','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
 					)";
 		$this->ejecutar_sql($sql,"instancia");		
 	}

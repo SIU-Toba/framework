@@ -1,7 +1,7 @@
 <?
 require_once('nucleo/persistencia/db_registros_s.php');
 
-class test_db_registros_s_alias_dbr extends db_registros_s
+class mock_db_registros_s_alias_dbr extends db_registros_s
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0)
 	{

@@ -1,6 +1,8 @@
 <?
 require_once("ap.php");
-define("apex_db_registros_separador","%");
+if (!defined("apex_db_registros_separador")) {
+	define("apex_db_registros_separador","%"); //Por si ya esta definida en db_registros
+}
 /*
 	Administrador de persistencia a DB
 	Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos

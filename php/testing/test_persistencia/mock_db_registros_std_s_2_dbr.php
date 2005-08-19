@@ -3,7 +3,7 @@
 //Fuente de datos: 'comechingones'
 require_once('nucleo/persistencia/db_registros_s.php');
 
-class test_db_registros_std_s_2_dbr extends db_registros_s
+class mock_db_registros_std_s_2_dbr extends db_registros_s
 //db_registros especifico de la tabla 'test_db_registros_01'
 {
 	function __construct($fuente=null, $min_registros=0, $max_registros=0)

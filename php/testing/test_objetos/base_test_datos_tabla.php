@@ -1,8 +1,8 @@
 <?php
-require_once("test_datos.php");
-//require_once('nucleo/persistencia/objeto_datos_tabla.php');
+require_once("base_test_datos.php");
+require_once('nucleo/persistencia/objeto_datos_tabla.php');
 
-class test_datos_tabla extends test_datos
+class base_test_datos_tabla extends base_test_datos
 {
 
 	function get_descripcion()

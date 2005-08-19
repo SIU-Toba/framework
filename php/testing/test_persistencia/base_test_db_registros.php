@@ -1,5 +1,5 @@
 <?php
-class test_db_registros extends test_toba
+class base_test_db_registros extends test_toba
 {
 /*
 	En realidad no es necesario borrar e insertar los registros entre cada test.

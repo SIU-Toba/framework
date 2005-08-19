@@ -1,9 +1,9 @@
 <?php
-require_once("test_db_registros_std_s.php");
+require_once("base_test_db_registros_std_s.php");
 /*
 	Multitabla ESTRICTO con clave SIMPLE IDENTICA.
 */
-class test_db_registros_std_s_1 extends test_db_registros_std_s
+class test_db_registros_std_s_1 extends base_test_db_registros_std_s
 {
 
 	function get_descripcion()
@@ -45,8 +45,8 @@ class test_db_registros_std_s_1 extends test_db_registros_std_s
 	
 	function get_dbr()
 	{
-		require_once("test_db_registros_std_s_1_dbr.php");
-		return new test_db_registros_std_s_1_dbr("instancia");
+		require_once("mock_db_registros_std_s_1_dbr.php");
+		return new mock_db_registros_std_s_1_dbr("instancia");
 	}
 
 	function get_where_test()

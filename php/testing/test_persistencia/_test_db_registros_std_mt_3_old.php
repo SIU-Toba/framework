@@ -3,7 +3,7 @@
 /*
 	TEST de la relacion debil
 */
-class test_db_registros_std_mt_3_old extends test_db_registros_std_mt
+class test_db_registros_std_mt_3_old extends base_test_db_registros_std_mt
 {
 	function __construct()
 	{

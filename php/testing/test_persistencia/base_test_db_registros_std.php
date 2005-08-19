@@ -1,5 +1,5 @@
 <?php
-require_once("test_db_registros.php");
+require_once("base_test_db_registros.php");
 /*
 	Test de la interface BASICA de un db_registros
 	----------------------------------------------
@@ -25,7 +25,7 @@ require_once("test_db_registros.php");
 
 	--------------------------------------------------
 */
-class test_db_registros_std extends test_db_registros
+class base_test_db_registros_std extends base_test_db_registros
 {
 
 	function get_descripcion()

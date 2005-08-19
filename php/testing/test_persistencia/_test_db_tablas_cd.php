@@ -1,5 +1,5 @@
 <?php
-//require_once('admin/editores/editor_ci/dbt_edt.php');
+require_once('admin/editores/editor_ci/dbt_edt.php');
 
 class test_db_tablas_cd extends test_toba
 {
