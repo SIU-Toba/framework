@@ -37,7 +37,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		{
 			$temp['tabla'] = $tabla;
 			//Parche para que funcione la tabla apex_objeto_eventos
-			if ($clave != 'objeto')
+			if (($clave != 'objeto') || (get_class($this)=="elemento_objeto_datos_tabla") )
 				$temp['columna_clave_proyecto'] = $clave . "_proyecto";
 			else
 				$temp['columna_clave_proyecto'] = "proyecto";

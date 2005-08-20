@@ -33,7 +33,7 @@ class dbr_apex_objeto_db_registros_col extends db_registros_s
 	
 	function cargar_datos_clave($id)
 	{
-		$where[] = "proyecto = '{$id['proyecto']}'";
+		$where[] = "objeto_proyecto = '{$id['proyecto']}'";
 		$where[] = "objeto = '{$id['objeto']}'";
 		$this->cargar_datos($where);
 	}

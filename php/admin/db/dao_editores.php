@@ -101,5 +101,19 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 	//---------------------------------------------------
+
+	static function get_lista_objetos_dt()
+	{
+		$sql = "SELECT 	proyecto, 
+						objeto, 
+						'[' || objeto || '] -- ' || nombre as descripcion
+				FROM apex_objeto 
+				WHERE 	clase = 'objeto_datos_tabla'
+				AND		clase_proyecto = 'toba'
+				AND 	proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				ORDER BY 2";
+		return consultar_fuente($sql, "instancia");
+	}
+
 }
 ?>

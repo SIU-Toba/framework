@@ -30,8 +30,12 @@ class ef_combo extends ef
 	
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo";
+		$parametros["no_seteado"]["opcional"]=1;	
+		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
+		$parametros["predeterminado"]["opcional"]=1;	
+		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";	
 		return $parametros;
 	}
 
@@ -289,8 +293,27 @@ class ef_combo_dao extends ef_combo
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
+		$parametros["dao"]["opcional"]=0;	
+		$parametros["dao"]["etiqueta"]="DAO - Metodo";	
+		$parametros["clase"]["descripcion"]="Nombre de la clase";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["clase"]["etiqueta"]="DAO - Clase";	
+		$parametros["include"]["descripcion"]="Archivo donde se encuentra definida la clase";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="DAO - Include";	
+		$parametros["clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
+		$parametros["clave"]["opcional"]=0;	
+		$parametros["clave"]["etiqueta"]="DAO - resultado: CLAVE";	
+		$parametros["valor"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
+		$parametros["valor"]["opcional"]=0;	
+		$parametros["valor"]["etiqueta"]="DAO - resultado: DESC.";	
+		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo.";
+		$parametros["no_seteado"]["opcional"]=1;	
+		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
+		$parametros["predeterminado"]["opcional"]=1;	
+		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";	
 		return $parametros;
 	}
 
@@ -600,6 +623,7 @@ class ef_combo_lista extends ef_combo
 	{
 		$parametros[""]["descripcion"]="";
 		$parametros[""]["opcional"]=1;	
+		$parametros[""]["etiqueta"]="";	
 		return $parametros;
 	}
 
@@ -631,6 +655,7 @@ class ef_combo_lista_c extends ef_combo
 	{
 		$parametros[""]["descripcion"]="";
 		$parametros[""]["opcional"]=1;	
+		$parametros[""]["etiqueta"]="";	
 		return $parametros;
 	}
 
@@ -662,6 +687,7 @@ class ef_combo_db extends ef_combo
 	{
 		$parametros[""]["descripcion"]="";
 		$parametros[""]["opcional"]=1;	
+		$parametros[""]["etiqueta"]="";	
 		return $parametros;
 	}
 
@@ -761,6 +787,7 @@ class ef_combo_db_proyecto extends ef_combo_db
 	{
 		$parametros[""]["descripcion"]="";
 		$parametros[""]["opcional"]=1;	
+		$parametros[""]["etiqueta"]="";	
 		return $parametros;
 	}
 
@@ -935,6 +962,7 @@ class ef_combo_db_ayuda extends ef_combo_db
 	{
 		$parametros[""]["descripcion"]="";
 		$parametros[""]["opcional"]=1;	
+		$parametros[""]["etiqueta"]="";	
 		return $parametros;
 	}
 

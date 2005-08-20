@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/objetos_toba/ci_editores_toba.php'); 
 require_once("admin/db/toba_dbt.php");
 
-class ci_principal extends objeto_ci
+class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
 	//efss
@@ -29,6 +29,9 @@ class ci_principal extends objeto_ci
 			$this->db_tablas = toba_dbt::objeto_db_registros();
 			//$this->db_tablas->cargar( array('proyecto'=>'toba_testing', 'objeto'=>'1424') );
 		}
+		if($this->cambio_objeto){	
+			$this->db_tablas->cargar( $this->id_objeto );
+		}		
 		return $this->db_tablas;
 	}
 

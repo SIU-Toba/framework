@@ -294,9 +294,9 @@ class db_registros
 		//-- Intento cargar el db_registros
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
-			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
-									$sql . " - " . $db[apex_db_con]->ErrorMsg());
-			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $sql");
+			$error = $db[apex_db_con]->ErrorMsg();
+			toba::get_logger()->error("db_registros  " . get_class($this). " - Error cargando datos: $error - $sql");
+			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $error");
 		}
 		if($rs->EOF){
 			if($carga_estricta){
