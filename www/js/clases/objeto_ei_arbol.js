@@ -20,69 +20,33 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 			if (this._evento.id == 'ver_propiedades') {
 				document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
 			}
-			if (this._evento.id == 'sacar_foto') {
-				document.getElementById(this._input_submit + '__foto_nombre').value = this._evento.parametros[0];
-				document.getElementById(this._input_submit + '__foto_datos').value = this._evento.parametros[1];				
-			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;			
 		}		
+		document.getElementById(this._input_submit + '__apertura_datos').value = this.datos_apertura();
 	}
 
 	def.ver_propiedades = function(id) {
 		this.set_evento( new evento_ei('ver_propiedades', true, '', id));
-/*		try	{
-			var requester = new XMLHttpRequest();
-		} catch (error) {
-			try	{
-			  var requester = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (error)	{
-			  return false;
-			}
-		}
-		var vinculo = toba.crear_vinculo(this._item_propiedades);
-		requester.open("GET", vinculo);
-		requester.send(null);
-		var stateHandler = function()
-		{
-			if (requester.readyState == 4) {
-				if (requester.status == 200) {
-					alert(requester.responseText);
-				}
-				else
-					alert('Error conectando usando XMLHttpRequest');
-			}
-		}
-		
-		requester.onreadystatechange = stateHandler;*/
 	}
 
-	def.sacar_foto = function() {
-		var nombre = prompt('Nombre de la foto', 'nombre de la foto');
-		if (nombre != null && nombre != '') {
-			datos_foto = this.datos_foto();
-			var datos_join = [];
-			for (id in datos_foto) {
-				valor = id;
-				if (datos_foto[id])
-					valor += '=1';
-				else
-					valor += '=0';
-				datos_join.push(valor);
-			}
-			var datos_foto_join = datos_join.join('||');
-			this.set_evento( new evento_ei('sacar_foto', true, '', [nombre, datos_foto_join]));
-		}
-	}
-	
-	def.datos_foto = function() {
+	def.datos_apertura = function() {
 		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
 		var datos = new Object();
-		this.datos_foto_recursivo(raiz, datos);
-		return datos;
+		this.datos_apertura_recursivo(raiz, datos);
+		var datos_join = [];
+		for (id in datos) {
+			valor = id;
+			if (datos[id])
+				valor += '=1';
+			else
+				valor += '=0';
+			datos_join.push(valor);
+		}
+		return datos_join.join('||');
 	}
 	
-	def.datos_foto_recursivo = function(nodo, datos) {
+	def.datos_apertura_recursivo = function(nodo, datos) {
 		if (nodo.getAttribute('id_nodo')) {
 			datos[nodo.getAttribute('id_nodo')] = (nodo.style.display != 'none');
 		}
@@ -90,7 +54,7 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 		for (var i=0; i < nodo.childNodes.length; i++) {
 			var hijo = nodo.childNodes[i];
 			if (hijo.tagName == 'UL' || hijo.tagName =='LI')
-				this.datos_foto_recursivo(hijo, datos);
+				this.datos_apertura_recursivo(hijo, datos);
 		}			
 	}
 	

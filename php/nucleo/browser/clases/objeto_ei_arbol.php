@@ -7,8 +7,7 @@ class objeto_ei_arbol extends objeto_ei
 	protected $item_propiedades = array();
 	protected $mostrar_raiz = true;
 	protected $nivel_apertura = 1;
-	protected $puede_sacar_foto = true;
-	protected $foto_seleccionada = array();
+	protected $datos_apertura;
 	protected $frame_destino = null;
 
     function __construct($id)
@@ -39,19 +38,14 @@ class objeto_ei_arbol extends objeto_ei
 		$this->item_propiedades = $id_item;
 	}
 	
-	function set_foto($datos_foto)	//$datos_foto = array('id_nodo' => boolean, ...)
+	function set_apertura_nodos($datos_apertura)	//$datos_apertura = array('id_nodo' => boolean, ...)
 	{
-		$this->foto_seleccionada = $datos_foto;
+		$this->datos_apertura = $datos_apertura;
 	}
 	
 	function set_nivel_apertura($nivel)
 	{
 		$this->nivel_apertura = $nivel;
-	}
-	
-	function set_puede_sacar_foto($puede)
-	{
-		$this->puede_sacar_foto = $puede;
 	}
 	
 	function set_mostrar_raiz($mostrar)
@@ -73,35 +67,34 @@ class objeto_ei_arbol extends objeto_ei
 	{
 		$eventos = array();
 		$eventos += eventos::ver_propiedades();
-		if ($this->puede_sacar_foto) {
-			$eventos += eventos::evento_estandar('sacar_foto', '', true);
-		}
 		return $eventos;
 	}
 	
 	function disparar_eventos()
 	{
+		//Se guarda el layout del arbol actual				
+		if (isset($_POST[$this->submit."__apertura_datos"])) {
+			$datos_apertura = $_POST[$this->submit."__apertura_datos"];
+			$pares = explode("||", $datos_apertura);
+			$nodos = array();
+			foreach ($pares as $par) {
+				$par = explode("=", $par);
+				if (count($par) == 2) {
+					list($id, $visible) = $par;
+					$nodos[$id] = $visible;
+				}
+			}				
+			$this->datos_apertura = $nodos;
+			//Se reporta el cambio de layout al padre				
+			$this->reportar_evento("cambio_apertura", $this->datos_apertura);
+		}
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];	
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->memoria['eventos'][$evento]) ) {
-				//Se selecciono algo??
 				$parametros = null;
 				if ($evento == 'ver_propiedades' && isset($_POST[$this->submit."__seleccion"])) {
 					$this->reportar_evento( $evento, $_POST[$this->submit."__seleccion"] );
-				}
-				if ($evento=='sacar_foto'
-								&& isset($_POST[$this->submit."__foto_nombre"]) 
-								&& isset($_POST[$this->submit."__foto_datos"])) {
-					$nombre = $_POST[$this->submit."__foto_nombre"];
-					$datos = $_POST[$this->submit."__foto_datos"];
-					$pares = explode("||", $datos);
-					$nodos = array();
-					foreach ($pares as $par) {
-						list($id, $visible) = explode("=", $par);
-						$nodos[$id] = $visible;
-					}
-					$this->reportar_evento( $evento, $nombre, $nodos );
 				}
 			}
 		}
@@ -111,17 +104,8 @@ class objeto_ei_arbol extends objeto_ei
 	{
 		$salida = "";
 		$salida .= form::hidden($this->submit, '');
+		$salida .= form::hidden($this->submit."__apertura_datos", '');
 		$salida .= form::hidden($this->submit."__seleccion", '');
-		if ($this->puede_sacar_foto) {
-			$salida .= form::hidden($this->submit."__foto_nombre", '');
-			$salida .= form::hidden($this->submit."__foto_datos", '');
-			$salida .= "<span style='float:right'>";
-			$salida .= "<a href='#' onclick='{$this->objeto_js}.sacar_foto()' 
-									title='Saca una foto para poder recrear el estado del árbol'>".
-									recurso::imagen_apl('arbol/foto.gif', true)."</a>";
-			$salida .= "</span>";
-			$salida .= "<br><br>";
-		}
 		if ($this->nodo_inicial != null) {
 			$salida .= "\n<ul id='{$this->objeto_js}_nodo_raiz' class='ei-arbol-raiz'>";
 			$salida .= $this->recorrer_recursivo($this->nodo_inicial, true);		
@@ -132,7 +116,7 @@ class objeto_ei_arbol extends objeto_ei
 	
 	protected function recorrer_recursivo(recorrible_como_arbol $nodo, $es_raiz = false, $nivel = 0)
 	{
-		//Determina si el nodo es visible en la foto
+		//Determina si el nodo es visible en la apertura
 		$es_visible = $this->nodo_es_visible($nodo, $nivel);
 		$salida = "\n\t<li class='ei-arbol-nodo'>";
 		if (!$es_raiz || $this->mostrar_raiz) {
@@ -175,12 +159,12 @@ class objeto_ei_arbol extends objeto_ei
 	}
 	
 	protected function nodo_es_visible($nodo, $nivel)
-	//Determina si un nodo es visible viendo en la foto
+	//Determina si un nodo es visible viendo en la apertura de nodos
 	{
-		if (isset($this->foto_seleccionada[$nodo->id()])) {
-			return $this->foto_seleccionada[$nodo->id()];
+		if (isset($this->datos_apertura[$nodo->id()])) {
+			return $this->datos_apertura[$nodo->id()];
 		}
-		//Si no esta en la foto se determina por el nivel de apertura estandar
+		//Si no esta se determina por el nivel de apertura estandar
 		return ($nivel < $this->nivel_apertura);
 	}
 	
@@ -236,7 +220,6 @@ class objeto_ei_arbol extends objeto_ei
 		$item = js::arreglo($this->item_propiedades, false);
 		echo $identado."var {$this->objeto_js} = new objeto_ei_arbol('{$this->objeto_js}',
 												 '{$this->submit}', $item);\n";
-
 	}
 
 	//-------------------------------------------------------------------------------

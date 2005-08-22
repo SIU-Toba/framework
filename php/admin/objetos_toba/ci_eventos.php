@@ -101,10 +101,11 @@ class ci_eventos extends objeto_ci
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
 		//FALT CONTROL : (Etiqueta o imagen) completa
-
+		$orden = 0;
 		$dbr = $this->get_dbr();
 		foreach(array_keys($registros) as $id)
 		{
+			$registros[$id]['orden'] = $orden;
 			//Creo el campo orden basado en el orden real de las filas
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
@@ -122,13 +123,16 @@ class ci_eventos extends objeto_ci
 					$dbr->modificar_registro($registros[$id], $id);
 					break;	
 			}
+			$orden++;
 		}
 	}
 	
 	function evt__eventos_lista__carga()
 	{
-		return $this->get_dbr()->get_registros(null, true);
+		$lista = $this->get_dbr()->get_registros(null, true);
+		return $lista;
 	}
+
 
 	function evt__eventos_lista__seleccion($id)
 	{

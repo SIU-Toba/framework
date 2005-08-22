@@ -228,6 +228,12 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		$this->clave_seleccionada = $clave;
 	}
+
+//--------------------------------------------------------------------------	
+	function hay_seleccion()
+	{
+		return isset($this->clave_seleccionada);
+	}
 	
 //--------------------------------------------------------------------------
 

@@ -42,6 +42,7 @@ class dbr_apex_objeto_ut_formulario extends db_registros_s
 		$def['columna'][24]['nombre']='ev_seleccion';
 		$def['columna'][25]['nombre']='alto';
 		$def['columna'][26]['nombre']='analisis_cambios';
+		$def['columna'][27]['nombre']='columna_orden';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

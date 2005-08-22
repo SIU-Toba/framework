@@ -44,6 +44,7 @@ CREATE TABLE apex_objeto_ut_formulario
 	filas_agregar						smallint       	NULL,
 	filas_undo							smallint		NULL,
 	filas_ordenar						smallint		NULL,
+	columna_orden						varchar(100)	NULL,
 	filas_numerar						smallint 		NULL,
 	ev_seleccion						smallint		NULL,
 	alto								varchar(10)		NULL,

@@ -30,7 +30,8 @@ class objeto_ei extends objeto
 													ayuda					as ayuda
 										FROM	apex_objeto_eventos
 										WHERE	proyecto='".$this->id[0]."'
-										AND	objeto = '".$this->id[1]."'";
+										AND	objeto = '".$this->id[1]."'
+										ORDER BY orden;";
 		$sql["info_eventos"]["tipo"]="x";
 		$sql["info_eventos"]["estricto"]="0";
 		return $sql;

@@ -711,12 +711,12 @@ class objeto_ci extends objeto_ei
 		$eventos = array();
 		$ev_totales = parent::get_lista_eventos_definidos();
 		$ev_etapa = explode(',', $this->info_ci_me_pantalla[ $this->indice_etapas[$this->etapa_gi] ]['eventos']);
-		foreach ($ev_etapa as $evento) {
-			if (array_key_exists($evento, $ev_totales)) {
-				$eventos[$evento] = $ev_totales[$evento];
+		foreach (array_keys($ev_totales) as $id) {
+			if (! in_array($id, $ev_etapa)) {
+				unset($ev_totales[$id]);
 			}
 		}
-		return $eventos;
+		return $ev_totales;
 	}
 
 	

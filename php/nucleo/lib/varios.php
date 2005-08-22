@@ -52,6 +52,16 @@
 		return $arreglo;
 	}	
 	//-----------------------------------------------------------------	
+	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
+	{
+		$rs_columna = array();
+		foreach ($rs as $registro) {
+			$rs_columna[] = $registro[$columna];
+		}
+		array_multisort($rs_columna, $tipo, $rs);
+		return $rs;
+	}
+	//-----------------------------------------------------------------		
 	function pasar_a_unica_linea($string)
 	{
 		return  preg_replace("/\r\n|\n/", "\\n", $string);

@@ -19,6 +19,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	protected $filas_recibidas;					//Lista de filas recibidas desde el cliente	
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
+	protected $ordenes;							//Ordenes de las claves de los datos recibidos
 
 	function __construct($id)
 /*
@@ -73,6 +74,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										filas_agregar as			filas_agregar,
 										filas_ordenar as			filas_ordenar,
 										filas_numerar as 			filas_numerar,
+										columna_orden as 			columna_orden,
 										analisis_cambios		as	analisis_cambios
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
@@ -404,6 +406,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		} else {
 			$this->carga_inicial();
 		}
+		//Ordenar por la columna que se establece
+		if ($this->info_formulario['columna_orden']) {
+			$ordenes = array();
+			foreach ($this->datos as $id => $dato) {
+				$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
+			}
+			asort($ordenes);
+			$this->ordenes = array_keys($ordenes);
+		} else {
+			$this->ordenes = array_keys($this->datos);
+		}
+		
 	}
 	//-------------------------------------------------------------------------------
 
@@ -589,8 +603,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$this->filas_enviadas = array();
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
 		$this->datos["__fila__"] = array();
+		$this->ordenes[] = "__fila__";
 		$a = 0;
-		foreach ($this->datos as $fila =>$dato) {
+		foreach ($this->ordenes as $fila) {
+			$dato = $this->datos[$fila];
 			//Si la fila es el template ocultarla
 			if ($fila !== "__fila__") {
 				$this->filas_enviadas[] = $fila;
