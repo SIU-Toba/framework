@@ -1,5 +1,5 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 VACUUM VACUUM FULL ANALYSE apex_dim_restric_soltipo;
 VACUUM VACUUM FULL ANALYSE apex_test_paises;
@@ -15,9 +15,11 @@ VACUUM VACUUM FULL ANALYSE apex_objeto_multicheq;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ei_formulario_ef;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario_ef;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario;
+VACUUM VACUUM FULL ANALYSE apex_objeto_datos_rel_asoc;
+VACUUM VACUUM FULL ANALYSE apex_objeto_datos_rel;
 VACUUM VACUUM FULL ANALYSE apex_objeto_db_registros_col;
-VACUUM VACUUM FULL ANALYSE apex_tipo_datos;
 VACUUM VACUUM FULL ANALYSE apex_objeto_db_registros;
+VACUUM VACUUM FULL ANALYSE apex_tipo_datos;
 VACUUM VACUUM FULL ANALYSE apex_admin_persistencia;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_linea;
 VACUUM VACUUM FULL ANALYSE apex_objeto_plan_hito;

@@ -1,5 +1,5 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_test_paises ;
@@ -15,9 +15,11 @@ DELETE FROM apex_objeto_multicheq ;
 DELETE FROM apex_objeto_ei_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario ;
+DELETE FROM apex_objeto_datos_rel_asoc ;
+DELETE FROM apex_objeto_datos_rel ;
 DELETE FROM apex_objeto_db_registros_col ;
-DELETE FROM apex_tipo_datos ;
 DELETE FROM apex_objeto_db_registros ;
+DELETE FROM apex_tipo_datos ;
 DELETE FROM apex_admin_persistencia ;
 DELETE FROM apex_objeto_plan_linea ;
 DELETE FROM apex_objeto_plan_hito ;

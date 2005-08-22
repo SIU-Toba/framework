@@ -313,7 +313,10 @@ class ef_combo_dao extends ef_combo
 		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
 		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
 		$parametros["predeterminado"]["opcional"]=1;	
-		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";	
+		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
+		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["dependencias"]["opcional"]=1;	
+		$parametros["dependencias"]["etiqueta"]="Dependencias";		
 		return $parametros;
 	}
 

@@ -110,7 +110,7 @@ class ci_principal extends ci_editores_toba
 		try{
 			return $fuente->obtener_definicion_columnas($tabla);
 		}catch(excepcion_toba $e){
-			toba::get_cola_mensajes()->agregar( $e->getMessagge() );
+			toba::get_cola_mensajes()->agregar( $e->getMessage() );
 		}
 	}	
 

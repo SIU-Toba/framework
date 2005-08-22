@@ -22,11 +22,14 @@ class excepcion_toba extends Exception
 		$html .= "Archivo \"".parent::getFile()."\", línea ".parent::getLine()."<br>";
 		$html .= "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">[detalle]</a>";
 		$html .= "<ul style='display: none'>";
+///*
 		$html .= "-------------------------------------------\n";
 		$html .= parent::getTraceAsString() ."\n";
 		$html .= "-------------------------------------------\n";
+//*/
 /*
-	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
+	//	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
+	//		-> Pasa cuando el error se da a partir de un evento de los EI
 
 		foreach (parent::getTrace() as $paso) {
 			$clase = '';

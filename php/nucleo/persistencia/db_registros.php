@@ -712,7 +712,7 @@ class db_registros
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
 			if( !(in_array($campo, $this->campos))  ){
 					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
-							" se encuentra definido y no existe en el registro.");
+							" no forma parte de la DEFINICION.");
 					//toba::get_logger()->debug( debug_backtrace() );
 					throw new excepcion_toba("El elemento posee una estructura incorrecta");
 			}

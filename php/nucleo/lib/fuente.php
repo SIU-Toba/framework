@@ -215,9 +215,10 @@ class fuente_datos_postgres7 extends fuente_datos
 		$sql = " SELECT relname 
 				FROM pg_class 
 				WHERE relname ~* '$prefijo'
-				AND relkind = 'E'
+				AND relkind = 'r'
 				ORDER BY relname;";
-		$rs =& $this->conexion->Execute($sql);
+		//echo $sql;
+		$rs = $this->conexion->Execute($sql);
 		if((!$rs)){
 			monitor::evento("bug", "Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
 		}

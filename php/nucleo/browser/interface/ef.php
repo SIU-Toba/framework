@@ -103,6 +103,7 @@ class ef //Clase abstracta, padre de todos los EF
 	{
 		$parametros["dependencias"]["descripcion"]="";
 		$parametros["dependencias"]["opcional"]="";	
+		$parametros["dependencias"]["etiqueta"]="";	
 		return $parametros;
 	}
 
@@ -256,20 +257,27 @@ class ef //Clase abstracta, padre de todos los EF
 			$this->dependencias_datos = $datos;
 			//ei_arbol($this->dependencias_datos);
 			//Controlo que todas las dependencias esten cargadas
-			$control_dep = true;
-			foreach($this->dependencias as $dep){
-				if(!array_key_exists($dep, $datos) || trim($datos[$dep])==""){
-					$control_dep = false;
-					break;
-				}
-			}
-			if($control_dep){
+			if($this->control_dependencias_cargadas()){
 				$this->cargar_datos_master_ok();
 			}
 		}
 	}
 	//-----------------------------------------------------
 	
+	function control_dependencias_cargadas()
+	{
+		if(!isset($this->dependencias_datos)) return false;
+		$control_dep = true;
+		foreach($this->dependencias as $dep){
+			if(!array_key_exists($dep, $this->dependencias_datos) || trim($this->dependencias_datos[$dep])==""){
+				$control_dep = false;
+				break;
+			}
+		}
+		return 	$control_dep;
+	}
+	//-----------------------------------------------------
+
 	function estado_dependencias()
 	//Indica el estado del EF respecto de sus despendencias
 	{

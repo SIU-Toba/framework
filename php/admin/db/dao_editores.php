@@ -14,9 +14,7 @@ class dao_editores
 						'objeto_ei_filtro',
 						'objeto_ei_arbol',
 						'objeto_ei_calendario',
-						'objeto_ei_archivos',
-						'objeto_datos_tabla',
-						'objeto_datos_relacion' );
+						'objeto_ei_archivos' );
 	}
 
 	/*
@@ -92,6 +90,7 @@ class dao_editores
 	//Carga externa para un db_registros de dependencias
 	{
 		$sql = "SELECT 	o.clase || ' - ' || '[' || o.objeto || '] - ' || o.nombre as nombre_objeto,
+						'[' || o.objeto || '] - ' || o.nombre as descripcion,
 						o.clase_proyecto || ',' || o.clase as clase
 				FROM 	apex_clase c, apex_objeto o
 				WHERE 	o.clase = c.clase
@@ -103,6 +102,7 @@ class dao_editores
 	//---------------------------------------------------
 
 	static function get_lista_objetos_dt()
+	//Listar objetos que son datos_tabla
 	{
 		$sql = "SELECT 	proyecto, 
 						objeto, 
@@ -114,6 +114,22 @@ class dao_editores
 				ORDER BY 2";
 		return consultar_fuente($sql, "instancia");
 	}
+	//---------------------------------------------------
 
-}
+	static function get_lista_dt_columnas($objeto)
+	/*
+		Lista las columnas de los DATOS_TABLA
+		Esta pregunta hay que hacercela a una clase de dominio (un datos_tabla)
+	*/
+	{
+		$temp = explode(",",$objeto);
+		$objeto = $temp[1];
+		$sql = "SELECT 		columna,
+							col_id
+				FROM apex_objeto_db_registros_col 
+				WHERE 	objeto = $objeto
+				AND 	objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				ORDER BY 2";
+		return consultar_fuente($sql, "instancia");
+	}}
 ?>

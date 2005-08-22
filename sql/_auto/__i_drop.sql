@@ -1,5 +1,5 @@
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DROP TABLE apex_dim_restric_soltipo ;
 DROP TABLE apex_test_paises ;
@@ -15,9 +15,11 @@ DROP TABLE apex_objeto_multicheq ;
 DROP TABLE apex_objeto_ei_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario ;
+DROP TABLE apex_objeto_datos_rel_asoc ;
+DROP TABLE apex_objeto_datos_rel ;
 DROP TABLE apex_objeto_db_registros_col ;
-DROP TABLE apex_tipo_datos ;
 DROP TABLE apex_objeto_db_registros ;
+DROP TABLE apex_tipo_datos ;
 DROP TABLE apex_admin_persistencia ;
 DROP TABLE apex_objeto_plan_linea ;
 DROP TABLE apex_objeto_plan_hito ;
@@ -149,7 +151,7 @@ DROP TABLE apex_elemento_infra_tabla ;
 DROP TABLE apex_elemento_infra ;
 DROP TABLE apex_revision ;
 
---- Utilizando instancia: toba_desarrollo
+--- Utilizando instancia: desarrollo
 
 DROP SEQUENCE apex_elemento_infra_input_seq;
 DROP SEQUENCE apex_columna_estilo_seq;
@@ -188,6 +190,7 @@ DROP SEQUENCE apex_obj_ei_cuadro_col_seq;
 DROP SEQUENCE apex_objeto_plan_linea_seq;
 DROP SEQUENCE apex_admin_persistencia_seq;
 DROP SEQUENCE apex_objeto_dbr_columna_seq;
+DROP SEQUENCE apex_objeto_datos_rel_asoc_seq;
 DROP SEQUENCE apex_obj_ei_form_fila_seq;
 DROP SEQUENCE apex_obj_ci_pantalla_seq;
 

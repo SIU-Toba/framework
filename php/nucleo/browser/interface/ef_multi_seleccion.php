@@ -25,8 +25,36 @@ class ef_multi_seleccion extends ef
 	
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
+		$parametros["dao"]["opcional"]=0;	
+		$parametros["dao"]["etiqueta"]="DAO - Metodo";	
+		$parametros["clase"]["descripcion"]="Nombre de la clase";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["clase"]["etiqueta"]="DAO - Clase";	
+		$parametros["include"]["descripcion"]="Archivo donde se encuentra definida la clase";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="DAO - Include";	
+		$parametros["clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
+		$parametros["clave"]["opcional"]=0;	
+		$parametros["clave"]["etiqueta"]="DAO - resultado: CLAVE";	
+		$parametros["valor"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
+		$parametros["valor"]["opcional"]=0;	
+		$parametros["valor"]["etiqueta"]="DAO - resultado: DESC.";	
+		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo.";
+		$parametros["no_seteado"]["opcional"]=1;	
+		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
+		$parametros["predeterminado"]["opcional"]=1;	
+		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
+		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["dependencias"]["opcional"]=1;	
+		$parametros["dependencias"]["etiqueta"]="Dependencias";		
+		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
+		$parametros["cant_minima"]["opcional"]=1;	
+		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
+		$parametros["tamanio"]["descripcion"]="Tamanio";
+		$parametros["tamanio"]["opcional"]=1;	
+		$parametros["tamanio"]["etiqueta"]="Tamaño";		
 		return $parametros;
 	}
 
@@ -94,7 +122,10 @@ class ef_multi_seleccion extends ef
 
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 
-		$this->cargar_datos();
+		//if( $this->control_dependencias_cargadas() ){
+			$this->cargar_datos();	
+		//}
+
 	}
 
 	function cargar_datos_dao($parametros = array())
@@ -194,6 +225,7 @@ class ef_multi_seleccion extends ef
 	
 	function validar_seleccionados()
 	{
+		//return array(true, "");
 		foreach ($this->estado as $seleccionado) {
 			if (! array_key_exists($seleccionado, $this->valores) )	{
 				$this->validacion = false;
@@ -267,8 +299,39 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["dao"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
+		$parametros["dao"]["opcional"]=0;	
+		$parametros["dao"]["etiqueta"]="DAO - Metodo";	
+		$parametros["clase"]["descripcion"]="Nombre de la clase";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["clase"]["etiqueta"]="DAO - Clase";	
+		$parametros["include"]["descripcion"]="Archivo donde se encuentra definida la clase";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="DAO - Include";	
+		$parametros["clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
+		$parametros["clave"]["opcional"]=0;	
+		$parametros["clave"]["etiqueta"]="DAO - resultado: CLAVE";	
+		$parametros["valor"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
+		$parametros["valor"]["opcional"]=0;	
+		$parametros["valor"]["etiqueta"]="DAO - resultado: DESC.";	
+		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo.";
+		$parametros["no_seteado"]["opcional"]=1;	
+		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
+		$parametros["predeterminado"]["opcional"]=1;	
+		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
+		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["dependencias"]["opcional"]=1;	
+		$parametros["dependencias"]["etiqueta"]="Dependencias";		
+		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
+		$parametros["cant_minima"]["opcional"]=1;	
+		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
+		$parametros["mostrar_utilidades"]["descripcion"]="Mostrar utilidades";
+		$parametros["mostrar_utilidades"]["opcional"]=1;	
+		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidades";		
+		$parametros["tamanio"]["descripcion"]="Tamanio";
+		$parametros["tamanio"]["opcional"]=1;	
+		$parametros["tamanio"]["etiqueta"]="Tamaño";		
 		return $parametros;
 	}
 

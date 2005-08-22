@@ -45,12 +45,56 @@ class ci_principal extends ci_editores_toba
 	}
 
 	//*******************************************************************
-	//**  DB registros  *************************************************
+	//**  DEPENDENCIAS  *************************************************
 	//*******************************************************************
-	
-	function evt__dbr_form__alta($datos)
+
+	function evt__dependencias__carga()
 	{
-		$this->get_dbt()->elemento("dependencias")->agregar_registro($datos);
+		return $this->get_dbt()->elemento('dependencias')->get_registros(null,true);	
+	}
+
+	function evt__dependencias__modificacion($datos)
+	{
+		$this->get_dbt()->elemento('dependencias')->procesar_registros($datos);
+	}
+
+	//*******************************************************************
+	//**  RELACIONEs  *************************************************
+	//*******************************************************************
+
+	/*
+		Esta funcion y su contrapartida en DAO hacen cosas raras relacionadas
+		con la idiosincracia actual del sistema cascadas ( no se soporta que
+		los combos disparen parametros multiples )...
+		
+			La forma ideal de trabajar este tema seria con elementos toba
+			que sepan como estan formados
+	*/
+
+	function get_lista_tablas()
+	{
+		$filas = $this->get_dbt()->elemento('dependencias')->get_registros();
+		for($a=0;$a<count($filas);$a++){
+			$datos[$a]['objeto'] = $filas[$a]['identificador']. "," .$filas[$a]['objeto_proveedor'];
+			$datos[$a]['desc'] = $filas[$a]['descripcion'];
+		}
+		return $datos;
+	}
+	
+	//-------------------------------------------------------------
+	//-- FORM
+	//-------------------------------------------------------------
+
+	function evt__rel_form__alta($datos)
+	{
+		$temp = explode(",",$objeto);
+		$objeto = $temp[1];
+
+		ei_arbol($datos);
+		
+		
+		
+		//$this->get_dbt()->elemento("dependencias")->agregar_registro($datos);
 	}
 	
 	function evt__dbr_form__baja()

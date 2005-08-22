@@ -29,8 +29,12 @@ class ef_checkbox extends ef
     
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["valor"]["descripcion"]="Valor que toma el elemento cuando esta activado.";
+		$parametros["valor"]["opcional"]=0;	
+		$parametros["valor"]["etiqueta"]="Valor ACTIVADO.";	
+		$parametros["valor_no_seteado"]["descripcion"]="Valor que toma el elemento cuando esta desactivado.";
+		$parametros["valor_no_seteado"]["opcional"]=1;	
+		$parametros["valor_no_seteado"]["etiqueta"]="Valor DESACTIVADO";	
 		return $parametros;
 	}
 
