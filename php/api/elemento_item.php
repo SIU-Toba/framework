@@ -96,7 +96,7 @@ class elemento_item extends elemento implements recorrible_como_arbol
 	
 	function id()
 	{
-		return $this->datos['apex_item'][0]['item_id'];	
+		return $this->datos['apex_item'][0]['item'];	
 	}
 	
 	function iconos()

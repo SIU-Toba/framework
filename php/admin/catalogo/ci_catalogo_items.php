@@ -24,6 +24,11 @@ class ci_catalogo_items extends objeto_ci
 		if (!isset($this->opciones) && !isset($this->apertura_items)) {
 			$this->evt__fotos__seleccion($this->nombre_ultima_foto);
 		}
+		//Si se pidio un item especifico, cargarlo
+		$item_selecc = toba::get_hilo()->obtener_parametro('item');
+		if ($item_selecc != null) {
+			$this->item_seleccionado = $item_selecc;
+		}
 	}
 	
 	function mantener_estado_sesion()
@@ -73,6 +78,28 @@ class ci_catalogo_items extends objeto_ci
 	function evt__volver()
 	{
 		unset($this->item_seleccionado);
+	}
+	
+	function evt__sacar_foto($nombre)
+	{
+		$this->catalogador->agregar_foto($nombre, $this->apertura_items, $this->opciones);
+		$this->evt__fotos__seleccion($nombre);
+	}
+		
+	/*
+	*	Agrega al evento sacar_foto una pregunta acerca del nombre de la misma
+	*/
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.evt__sacar_foto = function() {
+				this._parametros = prompt('Nombre de la foto','nombre de la foto');
+				if (this._parametros != '' && this._parametros != null) {
+					return true;
+				}
+				return false;
+			}
+		";
 	}
 		
 	//-------------------------------
@@ -168,12 +195,6 @@ class ci_catalogo_items extends objeto_ci
 		$this->item_seleccionado = $id;
 	}
 	
-	function evt__items__sacar_foto($nombre, $datos_foto)
-	{
-		$this->catalogador->agregar_foto($nombre, $datos_foto, $this->opciones);
-		$this->evt__fotos__seleccion($nombre);
-	}
-	
 	function evt__items__cambio_apertura($datos)
 	{
 		//En cada cambio de apertura se guarda en la base como ultima
@@ -182,7 +203,6 @@ class ci_catalogo_items extends objeto_ci
 		$this->apertura_items = $datos;
 	}
 
-	
 	
 	//------------------------------------------------
 	//---- Listado de objetos asociados a un item ----

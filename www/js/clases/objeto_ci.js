@@ -12,6 +12,7 @@ function objeto_ci(instancia, form, input_submit) {
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
+	this._parametros = "";								//Parametros opcionales que se pasan al server
 	this.reset_evento();
 }
 
@@ -71,6 +72,7 @@ function objeto_ci(instancia, form, input_submit) {
 		}
 		if (this._evento.id != '') {
 			document.getElementById(this._input_submit).value = this._evento.id;
+			document.getElementById(this._input_submit + "__param").value = this._parametros;
 		}
 	}
 	

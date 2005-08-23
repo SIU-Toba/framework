@@ -155,8 +155,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	function utilerias()
 	{
 		$iconos = array();
-		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto(),
-								'proyecto'=>$this->id_proyecto(), 'objeto'=>$this->id_objeto());
+		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
 		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
 			$param_abrir_php = $param_editores;
 			$param_abrir_php['evento'] = "abrir";

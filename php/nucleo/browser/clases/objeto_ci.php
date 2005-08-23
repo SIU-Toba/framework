@@ -15,6 +15,7 @@ class objeto_ci extends objeto_ei
 	protected $dependencias_gi;						// Dependencias utilizadas para la generacion de la interface
 	protected $eventos;								// Lista de eventos que expone el CI
 	protected $evento_actual;						// Evento propio recuperado de la interaccion
+	protected $evento_actual_param;					// Parametros del evento actual
 	protected $id_en_padre;							// Id que posee este CI en su padre
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
 	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
@@ -423,6 +424,7 @@ class objeto_ci extends objeto_ei
 			if(isset(  $this->memoria['eventos'] )){
 				if(in_array( $evento, $this->memoria['eventos'])){
 					$this->evento_actual = $evento;
+					$this->evento_actual_param = $_POST[$this->submit."__param"];
 				}	
 			}
 		}
@@ -437,7 +439,7 @@ class objeto_ci extends objeto_ei
 			if(method_exists($this, $metodo)){
 				//Ejecuto el metodo que implementa al evento
 				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]");
-				$this->$metodo();
+				$this->$metodo($this->evento_actual_param);
 				//Comunico el evento al contenedor
 				$this->reportar_evento( $this->evento_actual );
 			}else{
@@ -665,6 +667,7 @@ class objeto_ci extends objeto_ei
 		$this->eventos = $this->get_lista_eventos();
 		if( count($this->eventos) > 0){
 			echo form::hidden($this->submit, '');
+			echo form::hidden($this->submit."__param", '');
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
 		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";

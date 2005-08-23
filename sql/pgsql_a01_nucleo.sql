@@ -1073,7 +1073,7 @@ CREATE TABLE apex_objeto_eventos
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
 	en_botonera							smallint			NULL,
-	ayuda								varchar(60)			NULL,
+	ayuda								varchar(255)		NULL,
 	orden								smallint			NULL,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","objeto","identificador"),
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,

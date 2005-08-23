@@ -949,20 +949,7 @@ class objeto
 			}else{
 				$estilo = "objeto-editores";
 			}
-	
 	  		echo "<table class='tabla-0' border='1'><tr>\n";
-	        
-			//Vinculo a la CABECERA del OBJETO
-	        $vinc_cabecera = $this->solicitud->vinculador->obtener_vinculo_a_item(
-	        					"toba","/admin/objetos/propiedades",
-	        					array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-	        					true);        
-	        if ($vinc_cabecera){
-	    		echo "<td class='$estilo'>";
-	    		echo $vinc_cabecera;
-	    		echo "</td>\n";
-	        }            
-	
 			//Vinculo al EDITOR del OBJETO
 			$vinc_editor= $this->solicitud->vinculador->obtener_vinculo_a_item(
 						$this->info["clase_editor_proyecto"],$this->info["clase_editor_item"],
@@ -1008,19 +995,6 @@ class objeto
 	            echo $vinc_info;
 	    		echo "</td>\n";
 	        }            
-
-/*
-			//Vinculo al plan de RUTEO de EVENTOS
-			$vinc_info= $this->solicitud->vinculador->obtener_vinculo_a_item(
-						"toba","/admin/objetos/dependencias",
-						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-						true);
-	        if ($vinc_info && ($this->info['clase']) ){
-	    		echo "<td class='$estilo'>";
-	            echo $vinc_info;
-	    		echo "</td>\n";
-	        }            
-*/
 	   		echo "</tr></table>";
 		}
 	}

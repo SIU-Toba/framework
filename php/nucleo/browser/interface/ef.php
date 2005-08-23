@@ -528,10 +528,7 @@ class ef //Clase abstracta, padre de todos los EF
 			(isset($item_editor_padre)) )
 			{
 				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
-				list($proyecto, $objeto) = $this->padre;
-				$param_editor = array( apex_hilo_qs_zona => $clave_abm_registro_padre,
-										'proyecto' => $proyecto,
-										'objeto' => $objeto,
+				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
 										'ef' => $this->id );
 				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
 			}

@@ -9,9 +9,13 @@ abstract class ci_editores_toba extends objeto_ci
 
 	function __construct($id)
 	{
-		parent::__construct($id);	
-		$objeto = toba::get_hilo()->obtener_parametro('objeto');
-		$proyecto = toba::get_hilo()->obtener_parametro('proyecto');
+		parent::__construct($id);
+		//Cargo el editable de la zona		
+		$zona = toba::get_solicitud()->zona();
+		if ($editable = $zona->obtener_editable_propagado()){
+			$zona->cargar_editable(); 
+			list($proyecto, $objeto) = $editable;
+		}		
 		if (isset($objeto) && isset($proyecto)) {
 			$this->cambio_objeto = true;
 			$this->set_objeto( 	array(	'proyecto'=>$proyecto, 'objeto'=>$objeto) );
@@ -32,6 +36,14 @@ abstract class ci_editores_toba extends objeto_ci
 	}
 	
 	abstract function get_dbt();
+	
+	function generar_interface_grafica()
+	{
+		$zona = toba::get_solicitud()->zona();
+		$zona->obtener_html_barra_superior();
+		parent::generar_interface_grafica();
+		$zona->obtener_html_barra_inferior();
+	}
 		
 }
 
