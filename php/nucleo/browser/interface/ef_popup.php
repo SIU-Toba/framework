@@ -9,11 +9,21 @@ class ef_popup extends ef_editable
     
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;
+		$parametros["tamano"]["etiqueta"]="Cantidad Caracteres";
+		$parametros["tamano"]["descripcion"]="";
+		$parametros["tamano"]["opcional"]=1;
+		$parametros["maximo"]["etiqueta"]="Maximo Caracteres";
+		$parametros["maximo"]["descripcion"]="";
+		$parametros["maximo"]["opcional"]=1;		$parametros["item_destino"]["etiqueta"]="Item destino";
+		$parametros["item_destino"]["descripcion"]="";
+		$parametros["item_destino"]["opcional"]=0;
+		$parametros["ventana"]["etiqueta"]="Parametros Ventana";
+		$parametros["ventana"]["descripcion"]="ancho, alto, scroll";
+		$parametros["ventana"]["opcional"]=1;
+		$parametros["editable"]["etiqueta"]="Editable?";		
 		$parametros["editable"]["descripcion"]="El valor es editable libremente por parte del usuario,".
 								" notar que la clave debe ser igual que el valor. La ventana de popup funciona sólo como una forma rápida de carga.";
-		$parametros["editable"]["opcional"]=1;		
+		$parametros["editable"]["opcional"]=1;	
 		return $parametros;
 	}
 

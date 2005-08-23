@@ -2,18 +2,26 @@
 require_once('admin/objetos_toba/ci_editores_toba.php'); 
 require_once("admin/db/toba_dbt.php");
 
+/*
+	Cosas faltantes:
+
+		- Control de que existan dependencias
+		- Borrado de dependencias
+		- Validacion de relaciones
+*/
+
 class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
-	protected $seleccion_dependencia;
-	protected $seleccion_dependencia_anterior;
+	protected $seleccion_relacion;
+	protected $seleccion_relacion_anterior;
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "db_tablas";
-		$propiedades[] = "seleccion_dependencia";
-		$propiedades[] = "seleccion_dependencia_anterior";
+		$propiedades[] = "seleccion_relacion";
+		$propiedades[] = "seleccion_relacion_anterior";
 		return $propiedades;
 	}
 
@@ -44,6 +52,16 @@ class ci_principal extends ci_editores_toba
 		$this->get_dbt()->elemento("base")->set($datos);
 	}
 
+	function evt__prop_basicas__carga()
+	{
+		return $this->get_dbt()->elemento("prop_basicas")->get();
+	}
+
+	function evt__prop_basicas__modificacion($datos)
+	{
+		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+	}
+
 	//*******************************************************************
 	//**  DEPENDENCIAS  *************************************************
 	//*******************************************************************
@@ -55,6 +73,10 @@ class ci_principal extends ci_editores_toba
 
 	function evt__dependencias__modificacion($datos)
 	{
+		/*
+			ATENCION! si se borran dependencias hay que borrar tambien
+			sus relaciones
+		*/
 		$this->get_dbt()->elemento('dependencias')->procesar_registros($datos);
 	}
 
@@ -84,58 +106,98 @@ class ci_principal extends ci_editores_toba
 	//-------------------------------------------------------------
 	//-- FORM
 	//-------------------------------------------------------------
+	
+	function rel_form_a_fila($datos)
+	//Convierte el contenido del form a una fila
+	{
+		$fila['identificador'] = $datos['identificador'];
+		$fila['cascada'] = $datos['cascada'];
+		$fila['orden'] = $datos['orden'];
+		//-- PADRE --
+		$padre = explode(",",$datos['padre']);
+		$fila['padre_id'] = $padre[0];
+		$fila['padre_proyecto'] = toba::get_hilo()->obtener_proyecto();
+		$fila['padre_objeto'] = $padre[1];
+		$fila['padre_clave'] = implode(",",$datos['padre_columnas']);
+		//-- HIJO --
+		$hijo = explode(",",$datos['hija']);
+		$fila['hijo_id'] = $hijo[0];
+		$fila['hijo_proyecto'] = toba::get_hilo()->obtener_proyecto();
+		$fila['hijo_objeto'] = $hijo[1];
+		$fila['hijo_clave'] = implode(",",$datos['hija_columnas']);
+		return $fila;
+	}
+	
+	function rel_fila_a_form($fila)
+	{
+		$datos['padre'] = $fila['padre_id'] . "," . $fila['padre_objeto'];
+		$datos['padre_columnas'] = explode(",", $fila['padre_clave']);
+		$datos['hija'] = $fila['hijo_id'] . "," . $fila['hijo_objeto'];
+		$datos['hija_columnas'] = explode(",", $fila['hijo_clave']);
+		$datos['identificador'] = $fila['identificador'];
+		$datos['cascada'] = $fila['cascada'];
+		$datos['orden'] = $fila['orden'];
+		return $datos;
+	}
+
 
 	function evt__rel_form__alta($datos)
 	{
-		$temp = explode(",",$objeto);
-		$objeto = $temp[1];
-
-		ei_arbol($datos);
-		
-		
-		
-		//$this->get_dbt()->elemento("dependencias")->agregar_registro($datos);
+		$fila = $this->rel_form_a_fila($datos);
+		//-- VALIDACIONES --
+		//Cantidad de claves equivalente
+		//Padre e hijo distinto
+		//Estrella
+		$this->get_dbt()->elemento("relaciones")->agregar_registro($fila);
 	}
 	
-	function evt__dbr_form__baja()
+	function evt__rel_form__carga()
 	{
-		$this->get_dbt()->elemento("dependencias")->eliminar_registro($this->seleccion_dependencia_anterior);
-		$this->evt__dbr_form__cancelar();
-	}
-	
-	function evt__dbr_form__modificacion($datos)
-	{
-		$this->get_dbt()->elemento("dependencias")->modificar_registro($this->seleccion_dependencia_anterior, $datos);
-		$this->evt__dbr_form__cancelar();
-	}
-	
-	function evt__dbr_form__carga()
-	{
-		if(isset($this->seleccion_dependencia)){
-			$this->seleccion_dependencia_anterior = $this->seleccion_dependencia;
-			return $this->get_dbt()->elemento("dependencias")->get_registro($this->seleccion_dependencia_anterior);
+		if(isset($this->seleccion_relacion)){
+			$this->seleccion_relacion_anterior = $this->seleccion_relacion;
+			$fila = $this->get_dbt()->elemento("relaciones")->get_registro($this->seleccion_relacion_anterior);
+			return $this->rel_fila_a_form($fila);
 		}
 	}
 
-	function evt__dbr_form__cancelar()
+	function evt__rel_form__baja()
 	{
-		unset($this->seleccion_dependencia_anterior);
-		unset($this->seleccion_dependencia);
-		$this->dependencias["dbr_cuadro"]->deseleccionar();
+		$this->get_dbt()->elemento("relaciones")->eliminar_registro($this->seleccion_relacion_anterior);
+		$this->evt__rel_form__cancelar();
+	}
+	
+	function evt__rel_form__modificacion($datos)
+	{
+		$fila = $this->rel_form_a_fila($datos);
+		$this->get_dbt()->elemento("relaciones")->modificar_registro($fila, $this->seleccion_relacion_anterior);
+		$this->evt__rel_form__cancelar();
+	}
+	
+	function evt__rel_form__cancelar()
+	{
+		unset($this->seleccion_relacion_anterior);
+		unset($this->seleccion_relacion);
+		$this->dependencias["rel_cuadro"]->deseleccionar();
+	}
+
+	function evt__salida__relacion()
+	{	
+		echo "HOLA";
+		$this->evt__rel_form__cancelar();
 	}
 
 	//-------------------------------------------------------------
 	//-- Cuadro
 	//-------------------------------------------------------------
 
-	function evt__dbr_cuadro__seleccion($id)
+	function evt__rel_cuadro__seleccion($id)
 	{
-		$this->seleccion_dependencia = $id;
+		$this->seleccion_relacion = $id;
 	}
 
-	function evt__dbr_cuadro__carga()
+	function evt__rel_cuadro__carga()
 	{
-		return $this->get_dbt()->elemento("dependencias")->get_registros();
+		return $this->get_dbt()->elemento("relaciones")->get_registros();
 	}
 	//-------------------------------------------------------------
 

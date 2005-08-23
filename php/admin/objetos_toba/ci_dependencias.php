@@ -61,7 +61,7 @@ class ci_dependencias extends objeto_ci
 	
 	function evt__formulario__modificacion($datos)
 	{
-		$this->get_dbr()->modificar_registro($this->seleccion_dependencia_anterior, $datos);
+		$this->get_dbr()->modificar_registro($datos, $this->seleccion_dependencia_anterior);
 		$this->evt__formulario__cancelar();
 	}
 	

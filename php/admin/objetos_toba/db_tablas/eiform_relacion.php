@@ -1,0 +1,77 @@
+<?
+require_once("nucleo/browser/clases/objeto_ei_formulario.php");
+
+/*
+	Faltan controles javascript
+		- La tabla padre e hija no puede ser la misma
+*/
+
+class eiform_relacion extends objeto_ei_formulario
+{
+	function generar_formulario()
+	{
+		echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
+		echo "<tr><td class='abm-fila'>\n";
+		$this->elemento_formulario['identificador']->obtener_interface_ei();    
+		echo "</td></tr>\n";
+		echo "<tr><td class='abm-fila'>\n";
+		$this->elemento_formulario['orden']->obtener_interface_ei();    
+		echo "</td></tr>\n";
+		echo "<tr><td class='abm-fila'>\n";
+		$this->elemento_formulario['cascada']->obtener_interface_ei();    
+		echo "</td></tr>\n";
+		echo "<tr><td class='abm-fila'>\n";
+			echo "<table class='tabla-0'  width='100%'>";
+			echo "<tr><td class='abm-fila'>\n";
+				echo "<fieldset style='padding: 10px'><legend>Tabla MADRE</legend>";
+				echo "<table class='tabla-0'  width='100%'>";
+				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
+				$this->elemento_formulario['padre']->obtener_interface_ei(true);    
+				echo "</td></tr>\n";
+				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
+				$this->elemento_formulario['padre_columnas']->obtener_interface_ei(true);    
+				echo "</td></tr>\n";
+				echo "</table>\n";
+				echo "</fieldset>";
+			echo "</td><td class='abm-fila'>\n";
+				echo "<fieldset style='padding: 10px'><legend>Tabla HIJA</legend>";
+				echo "<table class='tabla-0'  width='100%'>";
+				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
+				$this->elemento_formulario['hija']->obtener_interface_ei(true);    
+				echo "</td></tr>\n";
+				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
+				$this->elemento_formulario['hija_columnas']->obtener_interface_ei(true);    
+				echo "</td></tr>\n";
+				echo "</table>\n";
+				echo "</fieldset>";
+			echo "</td></tr>\n";
+			echo "</table>\n";
+		echo "</td></tr>\n";
+		echo "<tr><td class='ei-base'>\n";
+		$this->obtener_botones();
+		echo "</td></tr>\n";
+		echo "</table>\n";
+	}
+
+	function extender_objeto_js()
+	{
+/*
+		echo "	{$this->objeto_js}.evt__validar_datos = function (){
+				var salida = true;
+				for (elementos in this._efs) {
+					if(this.ef(elementos).activo())
+					{
+						if(this.ef(elementos).valor() == 'nopar')
+						{
+							cola_mensajes.agregar('Debe seleccionar el elemento '+elementos);
+							salida = false;
+						}
+					}
+				}
+				return salida;
+			}
+			";
+*/
+	}
+}
+?>

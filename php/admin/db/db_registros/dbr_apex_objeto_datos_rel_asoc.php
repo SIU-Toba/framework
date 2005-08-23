@@ -11,10 +11,10 @@ class dbr_apex_objeto_datos_rel_asoc extends db_registros_s
 		$def['tabla']='apex_objeto_datos_rel_asoc';
 		$def['columna'][0]['nombre']='proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='asoc_id';
 		$def['columna'][2]['pk']='1';
 		$def['columna'][2]['secuencia']='apex_objeto_datos_rel_asoc_seq';
@@ -34,7 +34,8 @@ class dbr_apex_objeto_datos_rel_asoc extends db_registros_s
 		$def['columna'][10]['nombre']='hijo_id';
 		$def['columna'][10]['no_nulo']='1';
 		$def['columna'][11]['nombre']='hijo_clave';
-		$def['columna'][12]['nombre']='cascade';
+		$def['columna'][12]['nombre']='cascada';
+		$def['columna'][13]['nombre']='orden';
 		parent::__construct( $def, $fuente, $min_registros, $max_registros);
 	}	
 	

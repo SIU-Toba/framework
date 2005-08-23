@@ -11,10 +11,10 @@ class dbr_apex_objeto_datos_rel extends db_registros_s
 		$def['tabla']='apex_objeto_datos_rel';
 		$def['columna'][0]['nombre']='proyecto';
 		$def['columna'][0]['pk']='1';
-		$def['columna'][0]['no_nulo']='1';
+		//$def['columna'][0]['no_nulo']='1';
 		$def['columna'][1]['nombre']='objeto';
 		$def['columna'][1]['pk']='1';
-		$def['columna'][1]['no_nulo']='1';
+		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='clave';
 		$def['columna'][3]['nombre']='ap';
 		$def['columna'][4]['nombre']='ap_clase';

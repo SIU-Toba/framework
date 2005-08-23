@@ -18,6 +18,7 @@ class ef_multi_seleccion extends ef
 	protected $valor = 1;
 	protected $sql;
 	protected $fuente;
+	protected $dependencia_estricta = false;
 		
 	//parametros validación
 	protected $cant_maxima;
@@ -49,6 +50,9 @@ class ef_multi_seleccion extends ef
 		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
 		$parametros["dependencias"]["opcional"]=1;	
 		$parametros["dependencias"]["etiqueta"]="Dependencias";		
+		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
+		$parametros["dependencia_estricta"]["opcional"]=1;	
+		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		
 		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
 		$parametros["cant_minima"]["opcional"]=1;	
 		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
@@ -119,13 +123,18 @@ class ef_multi_seleccion extends ef
 	        }
 			unset($parametros["sql"]);
 		}
-
+		if(isset($parametros["dependencia_estricta"])) {
+			$this->dependencia_estricta = true;
+			unset($parametros['dependencia_estricta']);
+		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-
-		//if( $this->control_dependencias_cargadas() ){
+		if( $this->dependencia_estricta ){
+			if( $this->control_dependencias_cargadas() ){
+				$this->cargar_datos();	
+			}
+		}else{
 			$this->cargar_datos();	
-		//}
-
+		}
 	}
 
 	function cargar_datos_dao($parametros = array())
@@ -225,7 +234,10 @@ class ef_multi_seleccion extends ef
 	
 	function validar_seleccionados()
 	{
-		//return array(true, "");
+		//SI el conjunto inicial es vacio el control falla siempre.
+		if( $this->dependencia_estricta ){
+			return array(true, "");
+		}
 		foreach ($this->estado as $seleccionado) {
 			if (! array_key_exists($seleccionado, $this->valores) )	{
 				$this->validacion = false;
@@ -323,6 +335,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
 		$parametros["dependencias"]["opcional"]=1;	
 		$parametros["dependencias"]["etiqueta"]="Dependencias";		
+		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
+		$parametros["dependencia_estricta"]["opcional"]=1;	
+		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		
 		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
 		$parametros["cant_minima"]["opcional"]=1;	
 		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		

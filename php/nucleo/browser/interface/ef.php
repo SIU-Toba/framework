@@ -541,6 +541,11 @@ class ef //Clase abstracta, padre de todos los EF
 		echo "</table>\n";
 	}
 	
+	function envoltura_simple($elemento_formulario)
+	{
+		echo "<div class='ef-zonainput' id='cont_{$this->id_form}'>$elemento_formulario</div>\n";
+	}
+
 	function envoltura_ei_ml()
 	{
 		if($this->validacion){
@@ -577,11 +582,15 @@ class ef //Clase abstracta, padre de todos los EF
 								411);
 	}	
 	
-	function obtener_interface_ei()
+	function obtener_interface_ei($ef_solo=false)
 	{
-		$this->envoltura_std($this->obtener_input(),
-								"/admin/objetos_toba/editores/ei_formulario",
-								574);
+		if($ef_solo){
+			$this->envoltura_simple($this->obtener_input());
+		}else{
+			$this->envoltura_std($this->obtener_input(),
+									"/admin/objetos_toba/editores/ei_formulario",
+									574);
+		}
 	}	
 
 	function obtener_interface_ei_filtro()
