@@ -353,6 +353,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//-------------------------------------------------------------------------------	
 	function obtener_datos($analizar_diferencias = false)
 	{
+		//Envia el ordenamiento como una columna aparte
+		if ($this->info_formulario['columna_orden']) {
+			$orden = 1;
+			foreach (array_keys($this->datos) as $id) {
+				$this->datos[$id][$this->info_formulario['columna_orden']] = $orden;
+				$orden++;
+			}
+		}
 		if ($analizar_diferencias) {
 			//Analizo la procedencia del registro: es alta o modificación
 			$datos = $this->datos;

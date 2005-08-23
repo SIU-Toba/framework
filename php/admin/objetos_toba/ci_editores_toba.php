@@ -15,10 +15,16 @@ abstract class ci_editores_toba extends objeto_ci
 		if ($editable = $zona->obtener_editable_propagado()){
 			$zona->cargar_editable(); 
 			list($proyecto, $objeto) = $editable;
-		}		
+		}	
+		//Se notifica un objeto y un proyecto	
 		if (isset($objeto) && isset($proyecto)) {
-			$this->cambio_objeto = true;
-			$this->set_objeto( 	array(	'proyecto'=>$proyecto, 'objeto'=>$objeto) );
+			//Se determina si es un nuevo objeto
+			$es_nuevo = (!isset($this->id_objeto) || 
+						($this->id_objeto['proyecto'] != $proyecto || $this->id_objeto['objeto'] != $objeto));
+			if ($es_nuevo) {
+				$this->set_objeto( 	array('proyecto'=>$proyecto, 'objeto'=>$objeto) );
+				$this->cambio_objeto = true;
+			}
 		}
 	}
 	
@@ -40,9 +46,13 @@ abstract class ci_editores_toba extends objeto_ci
 	function generar_interface_grafica()
 	{
 		$zona = toba::get_solicitud()->zona();
-		$zona->obtener_html_barra_superior();
+		if (isset($this->id_objeto)) {
+			$zona->obtener_html_barra_superior();
+		}
 		parent::generar_interface_grafica();
-		$zona->obtener_html_barra_inferior();
+		if (isset($this->id_objeto)) {		
+			$zona->obtener_html_barra_inferior();
+		}
 	}
 		
 }
