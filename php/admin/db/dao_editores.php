@@ -21,7 +21,6 @@ class dao_editores
 		Las clases usan un ID concatenado para que las cascadas
 		las soporten (actualmente pasan un parametro solo)
 	*/
-
 	static function get_lista_clases_toba()
 	{
 		$sql = "SELECT 	proyecto || ',' || clase as clase, 
@@ -43,6 +42,41 @@ class dao_editores
 		if(is_array($temp)){
 			return $temp[0]['archivo'];
 		}
+	}
+	
+	static function get_clases_editores()
+	{
+		$sql = "SELECT
+					c.proyecto,
+					c.clase,
+					c.editor_proyecto,
+					c.editor_item,
+					c.icono,
+					ct.clase_tipo
+				FROM 
+					apex_clase c,
+					apex_clase_tipo ct
+				WHERE
+					c.clase_tipo = ct.clase_tipo AND 
+					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')
+					AND c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				ORDER BY ct.clase_tipo";
+		return consultar_fuente($sql, "instancia");	
+	}
+	
+	static function get_clases_tipos()
+	{
+		$sql = "SELECT DISTINCT
+					ct.clase_tipo,
+					ct.descripcion_corta
+				FROM 
+					apex_clase c,
+					apex_clase_tipo ct
+				WHERE
+					c.clase_tipo = ct.clase_tipo AND 
+					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')
+				ORDER BY ct.clase_tipo";
+		return consultar_fuente($sql, "instancia");
 	}
 
 	//---------------------------------------------------
