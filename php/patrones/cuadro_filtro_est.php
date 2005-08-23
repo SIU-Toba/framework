@@ -14,7 +14,7 @@
 
 			$cuadro = $this->cargar_objeto("objeto_cuadro",0);
 			if($cuadro > -1){
-				$this->objetos[$cuadro]->cargar_datos($where);
+				$this->objetos[$cuadro]->cargar_datos($where,$from);
 				enter();
 				$this->objetos[$cuadro]->obtener_html();
 				enter();
