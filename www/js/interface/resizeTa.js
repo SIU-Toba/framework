@@ -72,12 +72,16 @@ posdivs: function (){
     while(k--){
 		if (resizeTa.elem[resizeTa.TA[k].id]) {
 	        curPos = resizeTa.getposition(k);
+			var altura_hor = resizeTa.TA[k].offsetHeight-8;
+			altura_hor = (altura_hor > 0) ? altura_hor : 0;
+			var ancho_vert = resizeTa.TA[k].offsetWidth -8;
+			ancho_vert = (ancho_vert > 0) ? ancho_vert : 0;			
 	        resizeTa.doc.getElementById('gripH_'+k).style.left   = curPos[0]+resizeTa.TA[k].offsetWidth -3 + "px";
 	        resizeTa.doc.getElementById('gripH_'+k).style.top    = curPos[1]                               + "px";
-	        resizeTa.doc.getElementById('gripH_'+k).style.height =           resizeTa.TA[k].offsetHeight-8 + "px";
+	        resizeTa.doc.getElementById('gripH_'+k).style.height = altura_hor + "px";
 	        resizeTa.doc.getElementById('gripV_'+k).style.left   = curPos[0]                               + "px";
 	        resizeTa.doc.getElementById('gripV_'+k).style.top    = curPos[1]+resizeTa.TA[k].offsetHeight-3 + "px";
-	        resizeTa.doc.getElementById('gripV_'+k).style.width  =           resizeTa.TA[k].offsetWidth -8 + "px";
+	        resizeTa.doc.getElementById('gripV_'+k).style.width  = ancho_vert + "px";
 	        resizeTa.doc.getElementById('gripX_'+k).style.left   = curPos[0]+resizeTa.TA[k].offsetWidth -8 + "px";
 	        resizeTa.doc.getElementById('gripX_'+k).style.top    = curPos[1]+resizeTa.TA[k].offsetHeight-8 + "px";
 		}

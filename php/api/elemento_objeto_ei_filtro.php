@@ -73,9 +73,11 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 		$evento[0]['identificador'] = "filtrar";
 		$evento[0]['etiqueta'] = "&Filtrar";
 		$evento[0]['estilo'] = "abm-input-eliminar";
+		$evento[0]['orden'] = 1;
 		$evento[1]['identificador'] = "cancelar";
 		$evento[1]['etiqueta'] = "Ca&ncelar";
 		$evento[1]['estilo'] = "abm-input";
+		$evento[1]['orden'] = 2;
 		return $evento;		
 	}
 }

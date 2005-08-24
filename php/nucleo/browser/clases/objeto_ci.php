@@ -766,7 +766,7 @@ class objeto_ci extends objeto_ei
 				break;				
 			case "tab_v": 									//*** TABs verticales
 				echo "<table class='tabla-0' width='100%'>\n";
-				echo "<tr><td   height='100%'>";
+				echo "<tr><td  class='celda-vacia' height='100%'>";
 				$this->obtener_tabs_verticales();
 				echo "</td>";
 				echo "<td class='tabs-v-contenedor' height='100%'>";
@@ -934,7 +934,7 @@ class objeto_ci extends objeto_ei
 				echo "</div>";
 			}
 		}
-		echo "<div class='tabs-v-solapa' style='height:99%'> </div>";
+		echo "<div class='tabs-v-solapa' style='height:99%;'></div>";
 	}
 	//-------------------------------------------------------------------------------	
 	

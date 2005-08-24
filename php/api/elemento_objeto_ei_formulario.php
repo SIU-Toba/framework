@@ -108,16 +108,20 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[0]['identificador'] = "alta";
 		$evento[0]['etiqueta'] = "&Alta";
 		$evento[0]['estilo'] = "abm-input-eliminar";
+		$evento[0]['orden'] = 1;
 		$evento[1]['identificador'] = "baja";
 		$evento[1]['etiqueta'] = "&Eliminar";
 		$evento[1]['estilo'] = "abm-input-eliminar";
 		$evento[1]['confirmacion'] = "¿Desea ELIMINAR el registro?";
+		$evento[1]['orden'] = 2;
 		$evento[2]['identificador'] = "modificacion";
 		$evento[2]['etiqueta'] = "&Modificacion";
 		$evento[2]['estilo'] = "abm-input";
+		$evento[2]['orden'] = 3;
 		$evento[3]['identificador'] = "cancelar";
 		$evento[3]['etiqueta'] = "Ca&ncelar";
 		$evento[3]['estilo'] = "abm-input";		
+		$evento[4]['orden'] = 4;		
 		return $evento;		
 	}
 }

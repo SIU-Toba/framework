@@ -10,6 +10,11 @@ class elemento_objeto_ci extends elemento_objeto
 		return "CI - $nombre";
 	}
 	
+	function es_hoja()
+	{
+		return (count($this->hijos()) == 0);
+	}	
+	
 	//---- Recorrido como arbol
 	function hijos()
 	{
@@ -20,10 +25,7 @@ class elemento_objeto_ci extends elemento_objeto
 		$pantallas = array();
 		if (isset($this->datos['apex_objeto_ci_pantalla'])) {
 			foreach ($this->datos['apex_objeto_ci_pantalla'] as $pantalla) {
-				$pantalla = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
-				//Una pantalla que no tiene nada no interesa en la vista de arbol
-				if (! $pantalla->es_hoja())
-					$pantallas[] = $pantalla;
+				$pantallas[] = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
 			}
 		}
 		//Busca Dependencias libres
@@ -85,8 +87,10 @@ class elemento_objeto_ci extends elemento_objeto
 	{
 		$evento[0]['identificador'] = "procesar";
 		$evento[0]['etiqueta'] = "Proce&sar";
+		$evento[0]['orden'] = 0;
 		$evento[1]['identificador'] = "cancelar";
 		$evento[1]['etiqueta'] = "&Cancelar";
+		$evento[1]['orden'] = 1;		
 		return $evento;		
 	}
 }

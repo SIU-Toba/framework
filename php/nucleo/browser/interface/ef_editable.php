@@ -945,9 +945,9 @@ class ef_editable_multilinea extends ef_editable
 		$parametros["css"]["descripcion"]="Clase CSS a aplicar sobre el EF.";
 		$parametros["css"]["opcional"]=1;	
 */
-		$parametros["lineas"]["descripcion"]="Cantidad de lineas";
-		$parametros["lineas"]["opcional"]=1;	
-		$parametros["lineas"]["etiqueta"]="Lineas";	
+		$parametros["filas"]["descripcion"]="Cantidad de lineas";
+		$parametros["filas"]["opcional"]=1;	
+		$parametros["filas"]["etiqueta"]="Lineas";	
 		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
 		$parametros["columnas"]["opcional"]=1;	
 		$parametros["columnas"]["etiqueta"]="Largo";	
@@ -957,9 +957,9 @@ class ef_editable_multilinea extends ef_editable
 		$parametros["resaltar"]["descripcion"]="Se incorpora un boton para resaltar el texto";
 		$parametros["resaltar"]["opcional"]=1;	
 		$parametros["resaltar"]["etiqueta"]="Seleccionable";	
-		$parametros["ajustable"]["descripcion"]="???";
+		$parametros["ajustable"]["descripcion"]="El tamaño gráfico es ajustable";
 		$parametros["ajustable"]["opcional"]=1;	
-		$parametros["ajustable"]["etiqueta"]="Ajustable?";	
+		$parametros["ajustable"]["etiqueta"]="Ajustable";	
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
 		$parametros["sql"]["etiqueta"]="Carga SQL: select";

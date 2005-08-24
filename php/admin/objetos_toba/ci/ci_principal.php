@@ -11,7 +11,25 @@ class ci_editor extends ci_editores_toba
 	protected $pantalla_evt_asoc;
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
 	private $id_intermedio_pantalla;
+	protected $seleccion_externa_pantalla;
 
+	function __construct($id)
+	{
+		parent::__construct($id);
+		$pantalla = toba::get_hilo()->obtener_parametro('pantalla');
+		//¿Se selecciono una pantalla desde afuera?
+		if (isset($pantalla)) {
+			$this->seleccion_externa_pantalla = true;
+			//Se busca cual es el id interno del ML para enviarselo
+			$datos = $this->evt__pantallas_lista__carga();
+			foreach ($datos as $id => $dato) {
+				if ($dato['identificador'] == $pantalla) {
+					$this->evt__pantallas_lista__seleccion($id);
+				}
+			}
+		}
+	}
+	
 	function destruir()
 	{
 		parent::destruir();
@@ -30,6 +48,15 @@ class ci_editor extends ci_editores_toba
 		return $propiedades;
 	}
 
+	function get_etapa_actual()
+	{
+		$pantalla = parent::get_etapa_actual();
+		if (isset($this->seleccion_externa_pantalla)) {
+			return "2";	//Si se selecciono una pantalla desde afuera va hacia ella
+		} 
+		return $pantalla;
+	}
+
 
 	function get_dbt()
 	//Acceso al db_tablas
@@ -39,7 +66,7 @@ class ci_editor extends ci_editores_toba
 		}
 		if($this->cambio_objeto){	
 			$this->db_tablas->cargar( $this->id_objeto );
-		}			
+		}
 		return $this->db_tablas;
 	}
 
@@ -140,6 +167,14 @@ class ci_editor extends ci_editores_toba
 		return $ei;	
 	}
 
+	//Antes de cargar los datos de las pantallas, ver si alguno particular se selecciono desde afuera
+	function evt__pre_cargar_datos_dependencias__2()
+	{
+		if (isset($this->seleccion_pantalla)) {
+			$this->dependencias['pantallas_lista']->seleccionar($this->seleccion_pantalla);
+		}
+	}
+			
 	function evt__post_cargar_datos_dependencias__2()
 	{
 		if( isset($this->seleccion_pantalla) ){

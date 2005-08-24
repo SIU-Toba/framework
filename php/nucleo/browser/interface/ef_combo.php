@@ -688,9 +688,10 @@ class ef_combo_db extends ef_combo
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		$parametros[""]["etiqueta"]="";	
+		$parametros = ef_combo::get_parametros();
+		$parametros["sql"]["descripcion"]="Query que carga al combo";
+		$parametros["sql"]["opcional"]=0;	
+		$parametros["sql"]["etiqueta"]="SQL";	
 		return $parametros;
 	}
 
@@ -788,9 +789,14 @@ class ef_combo_db_proyecto extends ef_combo_db
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		$parametros[""]["etiqueta"]="";	
+		$parametros = ef_combo_db::get_parametros();
+		$parametros["sql"]["descripcion"]="Query que carga al combo. Tiene que devolver 3 columnas (proyecto, id, valor legible)";
+		$parametros["columna_proyecto"]["descripcion"]= "Columna de la tabla que representa el proyecto";
+		$parametros["columna_proyecto"]["opcional"]=0;	
+		$parametros["columna_proyecto"]["etiqueta"]= "Columna del proyecto";
+		$parametros["incluir_toba"]["descripcion"]= "¿Hay que listar a toba entre los proyectos?";
+		$parametros["incluir_toba"]["opcional"]=0;	
+		$parametros["incluir_toba"]["etiqueta"]= "Incluir Toba";		
 		return $parametros;
 	}
 
