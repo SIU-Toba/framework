@@ -49,6 +49,8 @@ class objeto_ei_archivos extends objeto_ei
 		$eventos = array();
 		$eventos['ir_a_carpeta'] = array();
 		$eventos['seleccionar_archivo'] = array();		
+		$eventos['crear_carpeta'] = array();		
+		$eventos['crear_archivo'] = array();
 		return $eventos;
 	}
 	
@@ -60,10 +62,18 @@ class objeto_ei_archivos extends objeto_ei
 			if (isset($this->memoria['eventos'][$evento]) ) {
 				$parametros = $_POST[$this->submit."__seleccion"];
 				$seleccion = $this->dir_actual."/$parametros";
-				if ($evento == 'ir_a_carpeta') {
-					$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));
-				} else {
-					$this->reportar_evento( $evento, $seleccion );
+				switch($evento){
+					case 'ir_a_carpeta':
+						$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));							 
+						break;
+					case 'crear_carpeta': 
+						manejador_archivos::crear_arbol_directorios($seleccion);
+						break;
+					case 'crear_archivo': 
+						manejador_archivos::crear_archivo_con_datos($seleccion, "");
+						break;
+					default:
+						$this->reportar_evento( $evento, $seleccion );
 				}
 			}
 		}
@@ -129,14 +139,27 @@ class objeto_ei_archivos extends objeto_ei
 		closedir($dir);
 		sort($archivos);
 		sort($carpetas);
-		$this->barra_superior($this->dir_actual, false,"objeto-ei-barra-superior");
-		echo "<div style='width:300px'>\n";
+		$path = pathinfo($this->dir_actual);
+		$this->barra_superior("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"objeto-ei-barra-superior");
+		echo "<div style=''>\n";
+		
+		$img_crear_carpeta = recurso::imagen_apl('archivos/carpeta_nueva.gif', true);
+		$img_crear_archivo = recurso::imagen_apl('archivos/archivo_nuevo.gif', true);
+		
+		echo "<span style='float: right'>
+				<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>
+				<a href='#' onclick='{$this->objeto_js}.crear_archivo()' title='Crear archivo'>$img_crear_archivo</a>
+			  </span>\n";			
+		
 		if ($hay_padre) {
 			$img_subir = recurso::imagen_apl('archivos/subir.gif', true);
-			echo "<div><a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"..\")' 
-					 title='Subir de carpeta'>$img_subir</a></div>";
+			echo "<span style='float: left'>
+					<a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"..\")' title='Subir de carpeta'>$img_subir</a>
+				  </span>\n";						
 		}
+
 		$img_carpeta = recurso::imagen_apl('archivos/carpeta.gif', true);
+		echo "<div style='clear:left'>";
 		foreach ($carpetas as $carpeta) {
 			echo "<div class='ei_archivos-carpeta'>$img_carpeta 
 				<a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"$carpeta\")' 
@@ -148,6 +171,7 @@ class objeto_ei_archivos extends objeto_ei
 					<a href='#' onclick='{$this->objeto_js}.seleccionar_archivo(\"$archivo\")' 
 					 title='Seleccionar el archivo'>$archivo</a>\n</div>";
 		}
+		echo "</div>";
 		echo "</div>\n";
 	}
 
