@@ -5,14 +5,7 @@
 
 abstract class ap
 {
-	function cargar_datos()
-	{
-		
-	}
-	
-	function sincronizar()
-	{
-		
-	}	
+	function cargar(){}
+	function sincronizar(){}
 }
 ?>

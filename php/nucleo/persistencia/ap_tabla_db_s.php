@@ -51,7 +51,7 @@ class ap_tabla_db_s extends ap_tabla_db
 				if(!isset($registro[$col])){
 					$valores_sql[$a] = "NULL";
 				}else{
-					if(	$this->es_numerica($columna['tipo']) ){
+					if(	tipo_datos::numero($columna['tipo']) ){
 						$valores_sql[$a] = $registro[$col];
 					}else{
 						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";
@@ -90,7 +90,7 @@ class ap_tabla_db_s extends ap_tabla_db
 				if(!isset($registro[$col])){
 					$set[] = "$col = NULL";
 				}else{
-					if(	$this->es_numerica($columna['tipo']) ){
+					if(	tipo_datos::numero($columna['tipo']) ){
 						$set[] = "$col = " . $registro[$col];
 					}else{
 						$set[] = "$col = '" . addslashes(trim($registro[$col])) . "'";
@@ -130,23 +130,12 @@ class ap_tabla_db_s extends ap_tabla_db
 	//-------------------------------------------------------------------------------
 
 	function generar_sql_where_registro($id_registro)
-	//Genera la sentencia WHERE correspondiente a un registro
+	//Genera la sentencia WHERE correspondiente a la clave de un registro
 	{
-		foreach($this->clave as $clave)
-		{
-			$tipo_dato = $this->columnas[ $this->indice_columnas[ $clave ] ]['tipo'];
-			if( $this->es_numerica($tipo_dato) ){
-				$sql[] = "( $clave = " . $this->cambios[$id_registro]['clave'][$clave] .")";
-			}else{
-				$sql[] = "( $clave = '" . $this->cambios[$id_registro]['clave'][$clave] ."')";		
-			}
+		foreach($this->clave as $clave){
+			$id[$clave] = $this->cambios[$id_registro]['clave'][$clave];
 		}
-		return $sql;
-	}
-
-	function es_numerica($tipo)
-	{
-		return ($tipo == "E") || ($tipo == "N");
+		return $this->generar_clausula_where_lineal($id,false);
 	}
 
 	//-------------------------------------------------------------------------------

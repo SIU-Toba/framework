@@ -32,7 +32,29 @@ INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egr
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('84','toba_testing','toba','2005-05-19 16:12:54','2005-05-19 17:18:35',NULL,'5c48580a68ef29784ea9584d2381b073','127.0.0.1',NULL);
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('87','toba_testing','toba','2005-05-19 17:18:35',NULL,NULL,'5c48580a68ef29784ea9584d2381b073','127.0.0.1',NULL);
 INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('126','toba_testing','toba','2005-08-14 03:00:43',NULL,NULL,'4f9518f7d45247c3ea5d061bfd9490c4','192.168.0.10',NULL);
+INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('137','toba_testing','toba','2005-08-23 20:56:03','2005-08-23 20:56:54',NULL,'492ce12af467a716cf529a734ab92827','192.168.0.10',NULL);
+INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('139','toba_testing','toba','2005-08-23 22:35:10','2005-08-23 22:42:29',NULL,'492ce12af467a716cf529a734ab92827','192.168.0.10',NULL);
+INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('140','toba_testing','toba','2005-08-23 22:48:50','2005-08-23 22:54:38',NULL,'492ce12af467a716cf529a734ab92827','192.168.0.10',NULL);
+INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('143','toba_testing','toba','2005-08-23 22:57:05','2005-08-23 23:03:54',NULL,'98397bbf56a3ef9e97ea8faac746d66c','192.168.0.10',NULL);
+INSERT INTO apex_sesion_browser (sesion_browser, proyecto, usuario, ingreso, egreso, observaciones, php_id, ip, punto_acceso) VALUES ('145','toba_testing','toba','2005-08-24 04:24:32','2005-08-24 04:25:35',NULL,'98397bbf56a3ef9e97ea8faac746d66c','192.168.0.10',NULL);
 
 -----------  apex_log_objeto  ------------------------
 
 INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('1','2005-08-15 15:51:08','toba','toba_testing','1427',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('81','2005-08-23 22:38:50','toba','toba_testing','1513',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('82','2005-08-23 22:40:29','toba','toba_testing','1514',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('83','2005-08-23 22:40:53','toba','toba_testing','1515',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('84','2005-08-23 22:41:27','toba','toba_testing','1427',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('85','2005-08-23 22:41:56','toba','toba_testing','1513',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('86','2005-08-23 22:47:38','toba','toba_testing','1516',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('87','2005-08-23 22:49:09','toba','toba_testing','1514',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('88','2005-08-23 22:49:18','toba','toba_testing','1515',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('89','2005-08-23 22:49:28','toba','toba_testing','1514',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('90','2005-08-23 22:49:33','toba','toba_testing','1513',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('91','2005-08-23 22:53:28','toba','toba_testing','1516',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('92','2005-08-23 23:00:19','toba','toba_testing','1516',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('93','2005-08-23 23:03:40','toba','toba_testing','1516',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('94','2005-08-24 04:24:56','toba','toba_testing','1514',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('95','2005-08-24 04:25:06','toba','toba_testing','1515',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('96','2005-08-24 04:25:17','toba','toba_testing','1515',NULL);
+INSERT INTO apex_log_objeto (log_objeto, momento, usuario, objeto_proyecto, objeto, observacion) VALUES ('97','2005-08-24 04:25:28','toba','toba_testing','1513',NULL);

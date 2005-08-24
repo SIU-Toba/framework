@@ -4,17 +4,45 @@ require_once('nucleo/persistencia/objeto_datos_tabla.php');
 
 class base_test_datos_tabla extends base_test_datos
 {
+	protected $dt;
 
 	function get_descripcion()
 	{
 		return "";
 	}	
 
+	function SetUp()
+	{
+		ejecutar_sql( $this->get_sql_juego_datos() );
+		$this->dt = $this->get_dt();
+	}
+
+	function TearDown()
+	{
+		ejecutar_sql( $this->get_sql_eliminar_juego_datos() );
+		$this->dt->resetear();
+		unset($this->dt);
+	}
+
+	//----------------------------------------------
+	//-- Mostrar Informacion
+	//----------------------------------------------
+
+	function dump($mensaje="Info")
+	{
+		$this->dt->info();
+	}
+
+	function dump_cambios($mensaje="Cambios")
+	{
+		ei_arbol($this->dt->get_cambios());
+	}
+	
 	//-------------------------------------------------------------
 	// Herramientas
 	//-------------------------------------------------------------
 
-	function test_1()
+	function test_info()
 	{
 		return;
 		$this->dump();
@@ -49,9 +77,19 @@ class base_test_datos_tabla extends base_test_datos
 		$resultado = $this->dt->sincronizar();
 		$this->AssertEqual( $resultado, $cantidad_filas);
 	}
+	
+	function cargar($where=null)
+	{
+		$ap = $this->dt->get_persistidor();
+		$ap->cargar_con_clausulas_sql($where);
+	}
+
+	//#############################################################
+	//#    PRUEBAS    
+	//#############################################################
 
 	//-------------------------------------------------------------
-	//--- Primitvas BASICAS
+	//--- Primitvas BASICAS del DT
 	//-------------------------------------------------------------
 
 	function test_recuperar_claves()
@@ -107,14 +145,14 @@ class base_test_datos_tabla extends base_test_datos
 
 	function test_obtencion_datos()
 	{
-		$this->dt->cargar_datos();
+		$this->cargar();
 		$this->control_cambios( array("db","db","db","db") );
 		$this->control_get_fila(4);
 	}
 
 	function test_obtencion_datos_where()
 	{
-		$this->dt->cargar_datos( $this->get_where_test() );
+		$this->cargar( $this->get_where_test() );
 		$this->control_cambios( array("db","db","db") );
 		$this->control_get_fila(3);
 	}
@@ -132,7 +170,7 @@ class base_test_datos_tabla extends base_test_datos
 
 	function test_modificar_db()
 	{
-		$this->dt->cargar_datos();
+		$this->cargar();
 		$this->dt->modificar_fila(0, $this->get_fila_test("valido_1") );
 		$this->dt->modificar_fila(1, $this->get_fila_test("valido_2") );
 		$this->control_cambios( array("u","u","db","db") );
@@ -142,12 +180,13 @@ class base_test_datos_tabla extends base_test_datos
 
 	function test_eliminar_db()
 	{
-		$this->dt->cargar_datos();
+		$this->cargar();
 		$this->dt->eliminar_fila(0);
 		$this->dt->eliminar_fila(1);
 		$this->control_cambios( array("d","d","db","db") );
 		$this->sincronizar(2);
 		$this->control_cambios( array("db","db","db","db") );
 	}
+	//-------------------------------------------------------------
 }
 ?>

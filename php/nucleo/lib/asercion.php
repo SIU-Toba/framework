@@ -22,6 +22,15 @@ class asercion
 		}
 	}
 
+	function arrays_igual_largo($array_1, $array_2, $texto="ATENCION, los arrays no tienen el mismo tamaño")
+	{
+		self::es_array($array_1,$texto . "- El parametro 1 no es un array");
+		self::es_array($array_2,$texto . "- El parametro 2 no es un array");
+		if( count($array_1) != count($array_2) ){
+			throw new excepcion_toba($texto);
+		}		
+	}
+
 	function es_array_dimension($array, $dimension, $texto="ERROR: ")
 	{
 		if(!is_array($array)){

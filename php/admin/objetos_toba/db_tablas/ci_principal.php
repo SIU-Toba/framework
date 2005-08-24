@@ -209,6 +209,7 @@ class ci_principal extends ci_editores_toba
 	{
 		//Seteo los datos asociados al uso de este editor
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
 		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_relacion" );
 		//Sincronizo el DBT

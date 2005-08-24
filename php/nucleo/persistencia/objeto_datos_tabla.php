@@ -1,23 +1,13 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
+require_once("tipo_datos.php");
 define("apex_datos_clave_fila","dt_clave");
-/*
-	Tipos de dato (apex_tipo_datos)
 
-	E    Entero                         
-	N    Numero                         
-	C    Caracter                       
-	F    Fecha                          
-	T    Timestamp                      
-	L    Logico                         
-	X    Caracter largo    
-	B    Binario                        
-*/
 class objeto_datos_tabla extends objeto
 {
 	// Definicion asociada a la TABLA
 	protected $clave;							// Columnas que constituyen la clave de la tabla
-	protected $indice_columnas;
+	protected $columnas;
 	//Constraints
 	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
 	// Definicion general
@@ -35,9 +25,9 @@ class objeto_datos_tabla extends objeto
 	function __construct($id)
 	{
 		parent::objeto($id);
-		//Armo un indice de las definiciones de las columnas y la lista de claves
 		for($a=0; $a<count($this->info_columnas);$a++){
-			$this->indice_columnas[ $this->info_columnas[$a]['columna'] ] = $a;
+			//Armo una propiedad "columnas" para acceder a la definicion mas facil
+			$this->columnas[ $this->info_columnas[$a]['columna'] ] =& $this->info_columnas[$a];
 			if($this->info_columnas[$a]['pk']==1){
 				$this->clave[] = $this->info_columnas[$a]['columna'];
 			}
@@ -61,10 +51,13 @@ class objeto_datos_tabla extends objeto
 	{
 		$sql = parent::obtener_definicion_db();
 		//------------- Info base de la estructura ----------------
-		$sql["info_estructura"]["sql"] = "SELECT			tabla,
-														alias,
-														min_registros,
-														max_registros
+		$sql["info_estructura"]["sql"] = "SELECT	tabla,
+													alias,
+													min_registros,
+													max_registros,
+													ap			,	
+													ap_clase	,	
+													ap_archivo	
 					 FROM		apex_objeto_db_registros
 					 WHERE		objeto_proyecto='".$this->id[0]."'	
 					 AND		objeto='".$this->id[1]."';";
@@ -530,7 +523,7 @@ class objeto_datos_tabla extends objeto
 	{
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
-			if( !(isset($this->indice_columnas[$campo]))  ){
+			if( !(isset($this->columnas[$campo]))  ){
 					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
 							" se encuentra definido y no existe en el registro.");
 					//toba::get_logger()->debug( debug_backtrace() );
@@ -624,25 +617,10 @@ class objeto_datos_tabla extends objeto
 		return new ap_tabla_db_s( $this );
 	}
 
-	/*
-		Acceso al AP interno
-		--------------------
-		
-			Tiene sentido encapsular al persistidor?
-			(¿O es mejor que el cliente lo solicite y trabaje directamente sobre el?)
-	*/
-
-	function cargar_datos($where=null, $from=null)
+	function cargar($id)
 	{
 		$ap = $this->get_persistidor();
-		//ei_arbol($ap->info());
-		$ap->cargar_datos($where, $from);
-	}
-
-	function cargar_datos_clave($id)
-	{
-		$ap = $this->get_persistidor();
-		$ap->cargar_datos_clave($id);
+		$ap->cargar($id);
 	}
 
 	function sincronizar()
@@ -700,14 +678,9 @@ class objeto_datos_tabla extends objeto
 
 	public function get_columnas()
 	{
-		return $this->info_columnas;
+		return $this->columnas;
 	}
 	
-	public function get_indice_columnas()
-	{
-		return $this->indice_columnas;
-	}
-
 	public function get_fuente()
 	{
 		return $this->info["fuente"];

@@ -1,5 +1,7 @@
 <?
 require_once("ap.php");
+require_once("tipo_datos.php");
+
 if (!defined("apex_db_registros_separador")) {
 	define("apex_db_registros_separador","%"); //Por si ya esta definida en db_registros
 }
@@ -44,7 +46,6 @@ class ap_tabla_db extends ap
 		$this->alias = $this->objeto_tabla->get_alias();
 		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
-		$this->indice_columnas = $this->objeto_tabla->get_indice_columnas();
 		$this->fuente = $this->objeto_tabla->get_fuente_datos();
 	}
 
@@ -123,10 +124,44 @@ class ap_tabla_db extends ap
 	}
 
 	//-------------------------------------------------------------------------------
+	//------ Servicios de generacion de SQL   ---------------------------------------
+	//-------------------------------------------------------------------------------
+
+	public function get_sql_inserts()
+	{
+		$this->get_estado_datos_tabla();
+		$sql = array();
+		foreach(array_keys($this->cambios) as $registro){
+			$sql[] = $this->generar_sql_insert($registro);
+		}
+		return $sql;
+	}
+
+	function generar_clausula_where_lineal($clave,$alias=true)
+	//Genera la sentencia WHERE correspondiente a relaciones identicas con columnas
+	//respeta en la expresion el tipo de datos de la columna
+	{
+		if($alias){
+			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
+		}else{
+			$tabla_alias = "";	
+		}
+		foreach($clave as $columna => $valor)
+		{
+			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ){
+				$clausula[] = "( $tabla_alias$columna = $valor )";
+			}else{
+				$clausula[] = "( $tabla_alias$columna = '$valor' )";
+			}
+		}
+		return $clausula;
+	}
+	
+	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function cargar_datos($where=null, $from=null)
+	public function cargar_con_clausulas_sql($where=null, $from=null)
 	{
 		asercion::es_array_o_null($where,"El WHERE debe ser un array");
 		$this->log("Cargar de DB");
@@ -145,7 +180,7 @@ class ap_tabla_db extends ap
 			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $sql");
 		}
 		if($rs->EOF){
-			if($carga_estricta){
+			if(false){
 				toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - " .
 								"No se recuperarron DATOS. Se solicito carga estricta");
 			}
@@ -160,23 +195,14 @@ class ap_tabla_db extends ap
 					}
 				}
 			}
+			$this->objeto_tabla->set_datos($datos);
 		}
-		$this->objeto_tabla->set_datos($datos);
 	}
 
-	public function cargar_datos_clave($id)
-	/*
-		La clave tiene que ser un array asociativo con el nombre de la columna
-	*/
+	public function cargar($clave)
 	{
-		assercion::es_array($id,"La carga por clave debe realizarse a travez de un array");
-		foreach($this->clave as $clave){
-			if(!isset($id[$clave])){
-				throw new exception_toba("La carga por clave tiene que ser a travez de un array 
-									asociativo cuyas claves sean identicas a las CLAVES del OBJETO");
-			}
-			$where[] = " $clave = ";
-		}
+		$where = $this->generar_clausula_where_lineal($clave);
+		$this->cargar_con_clausulas_sql($where);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -347,20 +373,6 @@ class ap_tabla_db extends ap
 				}
 			}
 		}
-	}
-
-	//-------------------------------------------------------------------------------
-	//------ Servicios de generacion de SQL   ---------------------------------------
-	//-------------------------------------------------------------------------------
-
-	public function get_sql_inserts()
-	{
-		$this->get_estado_datos_tabla();
-		$sql = array();
-		foreach(array_keys($this->cambios) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
-		}
-		return $sql;
 	}
 
 	//-------------------------------------------------------------------------------

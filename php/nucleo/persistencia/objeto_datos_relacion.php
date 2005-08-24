@@ -1,23 +1,86 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
 
+/*
+	Las relaciones con los hijos son a travez de un unico ID
+		por cada dependencias, tiene que haber un ID para conectarse a un padre
+		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
+		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extraño
+
+*/
+
 class objeto_datos_relacion extends objeto
 {
-	protected $log;
-	protected $elemento;
-	protected $cargado;
-	protected $fuente;
-	//Manejo de relaciones cabecera-detalle
-	protected $cabecera;
-	protected $detalles;
-	
-		
-	function __construct($fuente=null)
+	protected $relaciones;		//Deberian ser una clase aparte?
+
+	function __construct($id)
 	{
-		//Llevar el plan a una estructura de control concreta?
-		$this->cargado = false;
-		$this->log = toba::get_logger();
-		$this->fuente = $fuente;
+		parent::__construct($id);	
+		$this->cargar_tablas();
+		$this->construir_relaciones();
+	}
+	
+	private function cargar_tablas()
+	{
+		$this->cargar_info_dependencias();
+		foreach( $this->lista_dependencias as $dep){
+			$this->cargar_dependencia($dep);
+		}
+	}
+	
+	private function construir_relaciones()
+	{
+		/*
+			Falta validar que las relaciones coincidan
+		*/
+		for($a=0;$a<count($this->info_relaciones);$a++){
+			$padre = $this->info_relaciones[$a]['padre_id'];
+			$hijo = $this->info_relaciones[$a]['hijo_id'];
+			$this->relaciones['padre'][ $padre ]['hijos'][$hijo] = explode(",",$this->info_relaciones[$a]['hijo_clave']);
+			$this->relaciones['padre'][ $padre ]['clave'] = explode(",",$this->info_relaciones[$a]['padre_clave']);
+			$this->relaciones['hijo'][ $hijo ][] = $padre;
+		}
+		$this->relaciones['raiz'] = array_diff( 	
+										array_keys($this->relaciones['padre']),
+										array_keys($this->relaciones['hijo']));
+	}
+
+	public function obtener_definicion_db()
+	{
+		$sql = parent::obtener_definicion_db();
+		//------------- Info base de la estructura ----------------
+		$sql["info_estructura"]["sql"] = "SELECT	proyecto 	,	
+													objeto      ,	
+													clave		,	
+													ap			,	
+													ap_clase	,	
+													ap_archivo		
+					 FROM		apex_objeto_datos_rel
+					 WHERE		proyecto='".$this->id[0]."'	
+					 AND		objeto='".$this->id[1]."';";
+		$sql["info_estructura"]["estricto"]="1";
+		$sql["info_estructura"]["tipo"]="1";
+		//------------ Columnas ----------------
+		$sql["info_relaciones"]["sql"] = "SELECT	proyecto 		,
+												objeto 		    ,
+												asoc_id			,
+												identificador   ,
+												padre_proyecto	,
+												padre_objeto	,
+												padre_id		,
+												padre_clave		,
+												hijo_proyecto	,
+												hijo_objeto		,
+												hijo_id			,
+												hijo_clave		,
+												cascada			,
+												orden			
+					 FROM		apex_objeto_datos_rel_asoc 
+					 WHERE		proyecto = '".$this->id[0]."'
+					 AND		objeto = '".$this->id[1]."';";
+		$sql["info_relaciones"]["tipo"]="x";
+		$sql["info_relaciones"]["estricto"]="1";		
+		return $sql;
 	}
 
 	function elemento_toba()
@@ -27,64 +90,27 @@ class objeto_datos_relacion extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Preguntas BASICAS
-	//-------------------------------------------------------------------------------
-
-	function info()
-	{
-		foreach(array_keys($this->elemento) as $elemento){
-			$temp[$elemento] = $this->elemento[$elemento]->info(true);
-		}
-		return $temp;
-	}
-
-	function info_definicion()
-	{
-		foreach(array_keys($this->elemento) as $elemento){
-			$temp[$elemento] = $this->elemento[$elemento]->info_definicion();
-		}
-		return $temp;
-	}
-
-	function info_control()
-	{
-		foreach(array_keys($this->elemento) as $elemento){
-			$temp[$elemento] = $this->elemento[$elemento]->get_estructura_control();
-		}
-		return $temp;
-	}
-
-	//-------------------------------------------------------------------------------
 	//-- Servicios basicos
 	//-------------------------------------------------------------------------------
 
-	public function elemento($elemento)
-	//Devuelve una referencia a un db_registros
+	function get_lista_tablas()
 	{
-		if($this->existe_elemento($elemento)){
-			return $this->elemento[$elemento];
+		return array_keys($this->dependencias);	
+	}
+
+	public function tabla($tabla)
+	//Devuelve una referencia a una tabla para trabajar con ella
+	{
+		if($this->existe_tabla($tabla)){
+			return $this->dependencias[$tabla];
 		}else{
-			throw new excepcion_toba("db_tablas: El db_registros '$elemento' solicitado no existe.");
+			throw new excepcion_toba("db_tablas: El db_registros '$tabla' solicitado no existe.");
 		}
 	}
 
-	public function existe_elemento($elemento)
+	public function existe_tabla($tabla)
 	{
-		if(isset($this->elemento[$elemento])){
-			if($this->elemento[$elemento] instanceof db_registros){
-				return true;	
-			}
-		}
-		return false;
-	}
-
-	public function agregar_elemento($id, $db_registros)
-	{
-		if(!isset($this->elemento[$id])){
-			$this->elemento[$id] = $db_registros;
-		}else{
-			throw new excepcion_toba("db_tablas: ya existe un elemento con el ID '$id'.");
-		}
+		return $this->existe_dependencia($tabla);
 	}
 
 	public function registrar_evento($elemento, $evento, $parametros)
@@ -92,132 +118,36 @@ class objeto_datos_relacion extends objeto
 		//Ver si se implemento un evento		
 	}
 
-	protected function log($txt)
+
+	//-------------------------------------------------------------------------------
+	//-- PERSISTENCIA  -------------------------------------------------------------
+	//-------------------------------------------------------------------------------
+
+	function get_persistidor()
+	//Devuelve el persistidor por defecto
 	{
-		$this->log->debug("db_tablas  '" . get_class($this). "' - [{$this->identificador}] - " . $txt);
+		require_once("ap_relacion_db.php");
+		return new ap_relacion_db( $this );
 	}
 
-	public function check_carga()
+	function cargar($clave)
 	{
-		return $this->cargado;	
+		//ATENCION: hay que controlar el formato de la clave
+
+		$ap = $this->get_persistidor();
+		$ap->cargar($clave);
 	}
 
-	function get_sql_inserts()
+	function sincronizar()
 	{
-		$sql = array();
-		foreach($this->elemento as $elemento ) {
-			$sql = array_merge($sql, $elemento->get_sql_inserts());
-		}
-		return $sql;
-	}
-
-	//-------------------------------------------------------
-	//------ Interface de con la DB
-	//-------------------------------------------------------
-
-	public function cargar($id)
-	{
-		$this->elemento[$this->cabecera]->cargar_datos_clave($id);
-		if(count($this->detalles)>0){
-			foreach( array_keys($this->detalles) as $detalle ) {
-				$this->elemento[$detalle]->cargar_datos_clave($id);
-			}
-		}
-		$this->cargado = true;
-	}
-
-	public function resetear()
-	{
-		foreach(array_keys($this->elemento) as $elemento){
-			$this->elemento[$elemento]->resetear();
-		}
-		$this->cargado = false;
-	}
-	//-------------------------------------------------------
-
-	public function sincronizar()
-	{
-		try{
-			abrir_transaccion();
-			$this->evt__pre_sincronizacion();
-			$this->sincronizar_plan();
-			$this->evt__post_sincronizacion();
-			cerrar_transaccion();			
-		}catch(excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}					
-	}
-
-	public function sincronizar_plan()
-	//Por defecto supone una relacion MAESTRO - DETALLE
-	{
-		$this->elemento[$this->cabecera]->sincronizar();
-		//Se obtiene el id de la cabecera
-		$valores = $this->elemento[$this->cabecera]->get_clave_valor(0);
-		//Se asigna cada valor a los registros del detalle que tienen que sincronizarse con la DB
-		foreach( $this->detalles as $id => $columna_clave ){
-			if($registros_a_sincronizar = $this->elemento[$id]->get_id_registros_a_sincronizar()){
-				foreach($registros_a_sincronizar as $registro){
-					$i = 0;
-					foreach ($valores as $valor){
-						$this->elemento[$id]->set_registro_valor( $registro, $columna_clave[$i] , $valor);
-						$i++;
-					}
-				}
-				$this->elemento[$id]->sincronizar();
-			}
-		}
-	}
-	//-------------------------------------------------------
-
-	public function eliminar()
-	//Elimina el contenido de los DB_REGISTROS y los sincroniza
-	{
-		try{
-			abrir_transaccion();
-			$this->evt__pre_eliminacion();
-			$this->eliminar_plan();
-			$this->evt__post_eliminacion();
-			cerrar_transaccion();			
-		}catch(excepcion_toba $e){
-			abortar_transaccion();
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
-		}		
-	}
-
-	public function eliminar_plan()
-	//Por defecto supone una relacion MAESTRO-DETALLE
-	{
-		if(count($this->detalles)>0){
-			$detalles = array_reverse(array_keys($this->detalles));
-			foreach( $detalles as $detalle ) {
-				$this->elemento[$detalle]->eliminar_registros();
-				$this->elemento[$detalle]->sincronizar(false);
-			}
-		}
-		$this->elemento[$this->cabecera]->eliminar_registros();
-		$this->elemento[$this->cabecera]->sincronizar(false);		
-	}
-	//-------------------------------------------------------
-
-	protected function evt__pre_sincronizacion()
-	{
+		$ap = $this->get_persistidor();
+		return $ap->sincronizar();
 	}
 	
-	protected function evt__post_sincronizacion()
-	{
-	}
-
-	protected function evt__pre_eliminacion()
-	{
+	function get_relaciones(){
+		return $this->relaciones;
 	}
 	
-	protected function evt__post_eliminacion()
-	{
-	}
-	//-------------------------------------------------------
+	//-------------------------------------------------------------------------------
 }
 ?>
