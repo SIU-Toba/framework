@@ -25,7 +25,7 @@ class ap_tabla_db_s extends ap_tabla_db
 		}
 	}
 
-	protected function insertar($id_registro)
+	protected function insertar_registro_db($id_registro)
 	{
 		$sql = $this->generar_sql_insert($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
@@ -68,7 +68,7 @@ class ap_tabla_db_s extends ap_tabla_db
 	}
 	//-------------------------------------------------------------------------------
 
-	protected function modificar($id_registro)
+	protected function modificar_registro_db($id_registro)
 	{
 		$sql = $this->generar_sql_update($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
@@ -106,7 +106,7 @@ class ap_tabla_db_s extends ap_tabla_db
 	}
 	//-------------------------------------------------------------------------------
 
-	protected function eliminar($id_registro)
+	protected function eliminar_registro_db($id_registro)
 	{
 		$sql = $this->generar_sql_delete($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 

@@ -1,0 +1,66 @@
+
+	-- Info --
+	
+	public function get_clave()
+	public function get_clave_valor($id_fila)
+	public function get_tope_max_filas()
+	public function get_tope_min_filas()
+
+	-- Configuracion --
+	
+	public function set_tope_max_filas($cantidad)
+	public function set_tope_min_filas($cantidad)
+	public function set_no_duplicado( $columnas )
+
+	-- Recuperacion de FILAS --
+
+	public function get_filas($condiciones=null, $usar_id_fila=false)
+	public function get_id_fila_condicion($condiciones=null)
+	public function get_fila($id)
+	public function get_fila_columna($id, $columna)
+	public function get_valores_columna($columna)
+	public function get_cantidad_filas()
+	public function existe_fila($id)
+
+	-- Edicion de FILAS --
+
+	public function nueva_fila($fila)
+	public function modificar_fila($id, $fila)
+	public function eliminar_fila($id)
+	public function eliminar_filas()
+	public function set_fila_columna_valor($id, $columna, $valor)
+	public function set_columna_valor($columna, $valor)
+	public function procesar_filas($filas)
+	public function set($fila)
+	public function get()
+
+	-- Validaciones
+
+	private function validar_fila($fila, $id=null)
+	public function control_estructura_fila($fila)
+	public function control_tope_minimo_filas()
+
+	-- Consumo del AP para la tareas basicas
+
+	public function cargar($id)
+	public function sincronizar()
+	public function resetear()
+	public function get_persistidor()
+
+	-- Alimentacion al AP
+
+	public function set_datos($datos)
+	public function get_datos()
+	public function get_cambios()
+	public function get_datos_originales()
+	public function get_columnas()
+	public function get_fuente()
+	//-- Preguntas sobre el AP preconfigurado
+	public function get_tabla()
+	public function get_alias()
+
+	-- Avanzadas --
+	
+	public function get_cantidad_filas_a_sincronizar()
+	public function get_id_filas_a_sincronizar()
+	public function registrar_controlador($controlador)

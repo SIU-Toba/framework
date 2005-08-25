@@ -12,7 +12,7 @@ if (!defined("apex_db_registros_separador")) {
 	PENDIENTE
 
 	- Como se implementa la carga de columnas externas??
-	- Donde se hacen los controles pre-sincronizacion??
+	- Donde se hacen los controles pre-sincronizacion (nulos db)??
 	- Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
 	- Esta clase no deberia utilizar ADOdb!!!
 */
@@ -46,7 +46,7 @@ class ap_tabla_db extends ap
 		$this->alias = $this->objeto_tabla->get_alias();
 		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
-		$this->fuente = $this->objeto_tabla->get_fuente_datos();
+		$this->fuente = $this->objeto_tabla->get_fuente();
 	}
 
 	function get_estado_datos_tabla()
@@ -69,16 +69,14 @@ class ap_tabla_db extends ap
 	//------  Configuracion  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function activar_baja_logica($columna, $valor)
+	public function activar_transaccion()		
 	{
-		$this->baja_logica = true;
-		$this->baja_logica_columna = $columna;
-		$this->baja_logica_valor = $valor;	
+		$this->utilizar_transaccion = true;
 	}
 
-	public function activar_modificacion_clave()
+	public function desactivar_transaccion()		
 	{
-		$this->flag_modificacion_clave = true;
+		$this->utilizar_transaccion = false;
 	}
 
 	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
@@ -103,14 +101,16 @@ class ap_tabla_db extends ap
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
 
-	public function activar_transaccion()		
+	public function activar_baja_logica($columna, $valor)
 	{
-		$this->utilizar_transaccion = true;
+		$this->baja_logica = true;
+		$this->baja_logica_columna = $columna;
+		$this->baja_logica_valor = $valor;	
 	}
 
-	public function desactivar_transaccion()		
+	public function activar_modificacion_clave()
 	{
-		$this->utilizar_transaccion = false;
+		$this->flag_modificacion_clave = true;
 	}
 
 	public function activar_control_sincro()
@@ -124,55 +124,32 @@ class ap_tabla_db extends ap
 	}
 
 	//-------------------------------------------------------------------------------
-	//------ Servicios de generacion de SQL   ---------------------------------------
-	//-------------------------------------------------------------------------------
-
-	public function get_sql_inserts()
-	{
-		$this->get_estado_datos_tabla();
-		$sql = array();
-		foreach(array_keys($this->cambios) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
-		}
-		return $sql;
-	}
-
-	function generar_clausula_where_lineal($clave,$alias=true)
-	//Genera la sentencia WHERE correspondiente a relaciones identicas con columnas
-	//respeta en la expresion el tipo de datos de la columna
-	{
-		if($alias){
-			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
-		}else{
-			$tabla_alias = "";	
-		}
-		foreach($clave as $columna => $valor)
-		{
-			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ){
-				$clausula[] = "( $tabla_alias$columna = $valor )";
-			}else{
-				$clausula[] = "( $tabla_alias$columna = '$valor' )";
-			}
-		}
-		return $clausula;
-	}
-	
-	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function cargar_con_clausulas_sql($where=null, $from=null)
+	/**
+		Carga la tabla tomando como parametro el valor de algunas columnas
+	*/
+	public function cargar($clave)
 	{
-		asercion::es_array_o_null($where,"El WHERE debe ser un array");
+		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
+		$where = $this->generar_clausula_where_lineal($clave);
+		$this->cargar_db($where);
+	}
+
+	/**
+		Carga datos de la base a partir de clausulas WHERE y FROM
+		Hay que eliminar a ADOdb de aca...!!!
+	*/
+	public function cargar_db($where=null, $from=null)
+	{
+		asercion::es_array_o_null($where,"AP [$this->tabla] El WHERE debe ser un array");
+		asercion::es_array_o_null($from,"AP [$this->tabla] El FROM debe ser un array");
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
-		/*
-			Cargo los datos de la base
-		*/
 		$db = toba::get_fuente($this->fuente);
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
-		//-- Intento cargar el db_registros
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
 			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
@@ -186,23 +163,16 @@ class ap_tabla_db extends ap
 			}
 		}else{
 			$datos =& $rs->getArray();
-			//ei_arbol($datos);
-			//Los campos NO SQL deberian estar metidos en el array
-			if(isset($this->campos_externa)){
-				foreach($this->campos_externa as $externa){
-					for($a=0;$a<count($datos);$a++){
-						$datos[$a][$externa] = "";
-					}
-				}
+			//Le saco los caracteres de escape a los valores traidos de la DB
+			for($a=0;$a<count($datos);$a++){
+				foreach(array_keys($datos[$a]) as $columna){
+					$datos[$a][$columna] = stripslashes($datos[$a][$columna]);
+				}	
 			}
+			// Lleno la TABLA
 			$this->objeto_tabla->set_datos($datos);
+			//ei_arbol($datos);
 		}
-	}
-
-	public function cargar($clave)
-	{
-		$where = $this->generar_clausula_where_lineal($clave);
-		$this->cargar_con_clausulas_sql($where);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -248,21 +218,21 @@ class ap_tabla_db extends ap
 			//-- DELETE --
 			foreach($deletes as $registro){
 				$this->evt__pre_delete($registro);
-				$this->eliminar($registro);
+				$this->eliminar_registro_db($registro);
 				$this->evt__post_delete($registro);
 				$modificaciones ++;
 			}
 			//-- INSERT --
 			foreach($inserts as $registro){
 				$this->evt__pre_insert($registro);
-				$this->insertar($registro);
+				$this->insertar_registro_db($registro);
 				$this->evt__post_insert($registro);
 				$modificaciones ++;
 			}
 			//-- UPDATE --
 			foreach($updates as $registro){
 				$this->evt__pre_update($registro);
-				$this->modificar($registro);
+				$this->modificar_registro_db($registro);
 				$this->evt__post_update($registro);
 				$modificaciones ++;
 			}
@@ -282,9 +252,9 @@ class ap_tabla_db extends ap
 		}
 	}
 
-	protected function insertar($id_registro){}	
-	protected function modificar($id_registro){}
-	protected function eliminar($id_registro){}
+	protected function insertar_registro_db($id_registro){}	
+	protected function modificar_registro_db($id_registro){}
+	protected function eliminar_registro_db($id_registro){}
 
 	function ejecutar_sql( $sql )
 	{
@@ -307,6 +277,40 @@ class ap_tabla_db extends ap
 	protected function evt__post_update($id){}
 	protected function evt__pre_delete($id){}
 	protected function evt__post_delete($id){}
+
+	//-------------------------------------------------------------------------------
+	//------ Servicios de generacion de SQL   ---------------------------------------
+	//-------------------------------------------------------------------------------
+
+	public function get_sql_inserts()
+	{
+		$this->get_estado_datos_tabla();
+		$sql = array();
+		foreach(array_keys($this->cambios) as $registro){
+			$sql[] = $this->generar_sql_insert($registro);
+		}
+		return $sql;
+	}
+
+	function generar_clausula_where_lineal($clave,$alias=true)
+	//Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
+	//El alias es para cuando se generan SELECTs complejos
+	{
+		if($alias){
+			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
+		}else{
+			$tabla_alias = "";	
+		}
+		foreach($clave as $columna => $valor)
+		{
+			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ){
+				$clausula[] = "( $tabla_alias" . "$columna = $valor )";
+			}else{
+				$clausula[] = "( $tabla_alias" . "$columna = '$valor' )";
+			}
+		}
+		return $clausula;
+	}
 
 	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
@@ -393,7 +397,7 @@ class ap_tabla_db extends ap
 	//los datos existentes en el momento de realizar la transaccion
 	{
 		$ok = true;
-		$datos_actuales = $this->cargar_db();
+		$datos_actuales = $this->cargar_db($this->where, $this->from);
 		//Hay datos?
 		if(is_array($datos_actuales)){
 			//La cantidad de filas es la misma?

@@ -77,16 +77,24 @@ class test_datos_relacion_1 extends base_test_datos_relacion
 		return $sql;
 	}
 
-	function get_tablas_test($concepto)
+	function get_fila_test($tabla, $concepto)
 	//Registros para insertar en las tablas
 	{
 		static $datos;
 		//- Registros validos
-		$datos['valido_1']['id']="10";
-		$datos['valido_1']['nombre']="TOMATE";
-		$datos['valido_1']['descripcion']="Esta es una cosa";
-		if(isset($datos[$concepto])){
-			return 	$datos[$concepto];
+		$datos['maestro']['valido_1']['id']="10";
+		$datos['maestro']['valido_1']['nombre']="TOMATE";
+		$datos['maestro']['valido_1']['descripcion']="Esta es una cosa";
+		$datos['detalle_a']['valido_1']['id']="10";
+		$datos['detalle_a']['valido_1']['nombre']="TOMATE";
+		$datos['detalle_a']['valido_1']['maestro']="0";
+		$datos['detalle_a']['valido_1']['descripcion']="Esta es una cosa";
+		$datos['detalle_b']['valido_1']['id']="10";
+		$datos['detalle_b']['valido_1']['nombre']="TOMATE";
+		$datos['detalle_b']['valido_1']['maestro']="0";
+		$datos['detalle_b']['valido_1']['descripcion']="Esta es una cosa";
+		if(isset($datos[$tabla][$concepto])){
+			return 	$datos[$tabla][$concepto];
 		}else{
 			throw new exception_toba("Se solicito una FILA inexistente");
 		}

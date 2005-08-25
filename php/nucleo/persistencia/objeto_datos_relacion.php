@@ -1,5 +1,6 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
+require_once("relacion_entre_tablas.php");
 
 /*
 	Las relaciones con los hijos son a travez de un unico ID
@@ -7,20 +8,23 @@ require_once("nucleo/browser/clases/objeto.php");
 		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
 		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extraño
 
+	ATENCION: no hay una nomenclatura consistente (padre/hijo; padre/hija; madre/hija)
+
 */
 
 class objeto_datos_relacion extends objeto
 {
-	protected $relaciones;		//Deberian ser una clase aparte?
+	protected $relaciones;		
+	protected $tablas_raiz;
 
 	function __construct($id)
 	{
 		parent::__construct($id);	
-		$this->cargar_tablas();
-		$this->construir_relaciones();
+		$this->crear_tablas();
+		$this->crear_relaciones();
 	}
 	
-	private function cargar_tablas()
+	private function crear_tablas()
 	{
 		$this->cargar_info_dependencias();
 		foreach( $this->lista_dependencias as $dep){
@@ -28,21 +32,21 @@ class objeto_datos_relacion extends objeto
 		}
 	}
 	
-	private function construir_relaciones()
+	private function crear_relaciones()
 	{
-		/*
-			Falta validar que las relaciones coincidan
-		*/
-		for($a=0;$a<count($this->info_relaciones);$a++){
-			$padre = $this->info_relaciones[$a]['padre_id'];
-			$hijo = $this->info_relaciones[$a]['hijo_id'];
-			$this->relaciones['padre'][ $padre ]['hijos'][$hijo] = explode(",",$this->info_relaciones[$a]['hijo_clave']);
-			$this->relaciones['padre'][ $padre ]['clave'] = explode(",",$this->info_relaciones[$a]['padre_clave']);
-			$this->relaciones['hijo'][ $hijo ][] = $padre;
+		for($a=0;$a<count($this->info_relaciones);$a++)
+		{
+			$this->relaciones[] = new relacion_entre_tablas(	$this->info_relaciones[$a]['identificador'],
+																$this->dependencias[ $this->info_relaciones[$a]['padre_id'] ],
+																explode(",",$this->info_relaciones[$a]['padre_clave']),
+																$this->dependencias[ $this->info_relaciones[$a]['hijo_id'] ],
+																explode(",",$this->info_relaciones[$a]['hijo_clave'])
+															);
+			$padres[] = $this->info_relaciones[$a]['padre_id'];
+			$hijos[] = $this->info_relaciones[$a]['hijo_id'];
 		}
-		$this->relaciones['raiz'] = array_diff( 	
-										array_keys($this->relaciones['padre']),
-										array_keys($this->relaciones['hijo']));
+		//Padres sin hijos
+		$this->tablas_raiz = array_diff( array_unique($padres), array_unique($hijos) );
 	}
 
 	public function obtener_definicion_db()
@@ -77,7 +81,8 @@ class objeto_datos_relacion extends objeto
 												orden			
 					 FROM		apex_objeto_datos_rel_asoc 
 					 WHERE		proyecto = '".$this->id[0]."'
-					 AND		objeto = '".$this->id[1]."';";
+					 AND		objeto = '".$this->id[1]."'
+					 ORDER BY 	orden;";
 		$sql["info_relaciones"]["tipo"]="x";
 		$sql["info_relaciones"]["estricto"]="1";		
 		return $sql;
@@ -141,13 +146,18 @@ class objeto_datos_relacion extends objeto
 	function sincronizar()
 	{
 		$ap = $this->get_persistidor();
-		return $ap->sincronizar();
+		$ap->sincronizar();
 	}
 	
-	function get_relaciones(){
-		return $this->relaciones;
+	function get_tablas_raiz()
+	{
+		return $this->tablas_raiz;
 	}
 	
+	public function get_fuente()
+	{
+		return $this->info["fuente"];
+	}
 	//-------------------------------------------------------------------------------
 }
 ?>

@@ -51,8 +51,8 @@ class base_test_datos_relacion extends base_test_datos
 
 	function test_info()
 	{
-		$this->dump_relaciones();
 		return;
+		$this->dump_relaciones();
 		$this->dump_contenido();
 		$this->dump();
 	}
@@ -61,10 +61,22 @@ class base_test_datos_relacion extends base_test_datos
 	//#    PRUEBAS    
 	//#############################################################
 
-	function test_cargar()
+	function test_edicion_completa()
 	{
 		$this->dr->cargar( array("id"=>0) );
-		$this->dump_contenido();
+		//Eliminar e insertar en A
+		$this->dr->tabla('detalle_a')->eliminar_fila(0);
+		$fila_da = $this->get_fila_test("detalle_a", 'valido_1');
+		$this->dr->tabla('detalle_a')->nueva_fila( $fila_da );
+		//Insertar en B
+		$fila_db = $this->get_fila_test("detalle_b", 'valido_1');
+		$this->dr->tabla('detalle_b')->nueva_fila( $fila_db );
+		//Modificar en M
+		$fila_m = $this->dr->tabla('maestro')->get_fila(0);
+		$fila_m['nombre'] = "Repollo";
+		$this->dr->tabla('maestro')->modificar_fila(0, $fila_m );
+		//$this->dump_contenido();
+		$this->dr->sincronizar();
 	}
 
 	//-------------------------------------------------------------

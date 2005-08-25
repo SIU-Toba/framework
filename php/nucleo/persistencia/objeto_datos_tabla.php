@@ -2,7 +2,10 @@
 require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
 define("apex_datos_clave_fila","dt_clave");
-
+/*
+	FALTA:
+		 - Control del FK y PK
+*/
 class objeto_datos_tabla extends objeto
 {
 	// Definicion asociada a la TABLA
@@ -19,9 +22,11 @@ class objeto_datos_tabla extends objeto
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
-	// Controlador
-	protected $controlador = null;				// referencia al db_tablas del cual forma parte, si se aplica
-
+	// Relaciones con el exterior
+	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
+	protected $relaciones_con_padres;			// ARRAY con un objeto RELACION por cada PADRE de la tabla
+	protected $relaciones_con_hijos;			// ARRAY con un objeto RELACION por cada HIJO de la tabla
+			
 	function __construct($id)
 	{
 		parent::objeto($id);
@@ -41,7 +46,7 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
-	function elemento_toba()
+	public function elemento_toba()
 	{
 		require_once('api/elemento_objeto_datos_tabla.php');
 		return new elemento_objeto_datos_tabla();
@@ -83,35 +88,50 @@ class objeto_datos_tabla extends objeto
 		return $sql;
 	}
 
-	protected function log($txt)
-	/*
-		El objeto deberia tener directamente algo asi
-	*/
+	//-------------------------------------------------------------------------------
+	//--  Relacion con otros ELEMENTOS
+	//-------------------------------------------------------------------------------
+
+	public function registrar_contenedor($contenedor)
 	{
-		toba::get_logger()->debug("db_filas  '" . get_class($this). "' " . $txt);
+		$this->contenedor = $contenedor;
+	}
+
+	private function notificar_contenedor($evento, $param1=null, $param2=null)
+	{
+		if(isset($this->contenedor)){
+			$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
+		}
+	}
+
+	function agregar_relacion_con_padre($relacion)
+	{
+		$this->relaciones_con_padres[] = $relacion;
 	}
 	
-	public function resetear()
+	function agregar_relacion_con_hijo($relacion)
 	{
-		$this->log("RESET!!");
-		$this->datos = array();
-		$this->datos_originales = array();
-		$this->cambios = array();
-		$this->proxima_fila = 0;
-		$this->where = null;
-		$this->from = null;
+		$this->relaciones_con_hijos[] = $relacion;
+	}
+
+	function disparar_carga_hijos()
+	//Aviso a la RELACION que el componente PADRE se cargo
+	{
+		for($a=0;$a<count($this->relaciones_con_hijos);$a++){
+			$this->relaciones_con_hijos[$a]->evt__carga_padre();
+		}
 	}
 
 	//----------------------------------------------------------------
 	//---------  Cumplir la interface que reclama el CI -------------
 	//----------------------------------------------------------------
 /*
-	function agregar_controlador(){}
+	function agregar_contenedor(){}
 	function inicializar($parametros)
 	{
 		$this->id_en_padre = $parametros['id'];		
 	}
-	//function cargar_datos(){}
+	function cargar_datos(){}
 	function get_lista_eventos(){
 		 return array();
 	}
@@ -168,11 +188,6 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 		return $ids;
-	}
-
-	function get_fuente_datos()
-	{
-		return $this->info['fuente_datos'];
 	}
 
 	//-------------------------------------------------------------------------------
@@ -336,7 +351,7 @@ class objeto_datos_tabla extends objeto
 				throw new excepcion_toba("No es posible agregar FILAS (TOPE MAX.)");
 			}
 		}
-		$this->notificar_controlador("ins", $fila);
+		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila);
@@ -358,7 +373,7 @@ class objeto_datos_tabla extends objeto
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->notificar_controlador("upd", $fila, $id);
+		$this->notificar_contenedor("upd", $fila, $id);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila, $id);
@@ -384,7 +399,7 @@ class objeto_datos_tabla extends objeto
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->notificar_controlador("del", $id);
+		$this->notificar_contenedor("del", $id);
 		if($this->cambios[$id]['estado']=="i"){
 			unset($this->cambios[$id]);
 			unset($this->datos[$id]);
@@ -485,28 +500,6 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//--  Relacion con el CONTROLADOR
-	//-------------------------------------------------------------------------------
-
-	public function registrar_controlador($controlador)
-	{
-		/*
-			ATENCION, el manejo de controladores debe ser consistente con
-						el mecanismo de serializacion, ya que hay que evitar las referencias
-						circulares porque van a destruir la memoria
-			-->	Hacer una implementacion con __sleep y __wakeup
-		*/
-		//$this->cambiosador = $controlador;
-	}
-
-	private function notificar_controlador($evento, $param1=null, $param2=null)
-	{
-		if(isset($this->cambiosador)){
-			$this->cambiosador->registrar_evento($this->id, $evento, $param1, $param2);
-		}
-	}
-
-	//-------------------------------------------------------------------------------
 	//-- VALIDACION de FILAS   ----------------------------------------
 	//-------------------------------------------------------------------------------
 
@@ -524,10 +517,10 @@ class objeto_datos_tabla extends objeto
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
 			if( !(isset($this->columnas[$campo]))  ){
-					$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
-							" se encuentra definido y no existe en el registro.");
-					//toba::get_logger()->debug( debug_backtrace() );
-					throw new excepcion_toba("El elemento posee una estructura incorrecta");
+				$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
+						" no forma parte de la DEFINICION.");
+				//toba::get_logger()->debug( debug_backtrace() );
+				throw new excepcion_toba("ERROR: La FILA ingresada posee una estructura incorrecta");
 			}
 		}
 	}
@@ -592,7 +585,7 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
-	function control_tope_minimo_filas()
+	public function control_tope_minimo_filas()
 	{
 		$control_tope_minimo=true;
 		$this->log("Inicio SINCRONIZACION"); 
@@ -610,23 +603,34 @@ class objeto_datos_tabla extends objeto
 	//-- PERSISTENCIA  -------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function get_persistidor()
+	public function get_persistidor()
 	//Devuelve el persistidor por defecto
 	{
 		require_once("ap_tabla_db_s.php");
 		return new ap_tabla_db_s( $this );
 	}
 
-	function cargar($id)
+	public function cargar($id)
 	{
 		$ap = $this->get_persistidor();
 		$ap->cargar($id);
 	}
 
-	function sincronizar()
+	public function sincronizar()
 	{
 		$ap = $this->get_persistidor();
 		return $ap->sincronizar();
+	}
+
+	public function resetear()
+	{
+		$this->log("RESET!!");
+		$this->datos = array();
+		$this->datos_originales = array();
+		$this->cambios = array();
+		$this->proxima_fila = 0;
+		$this->where = null;
+		$this->from = null;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -650,15 +654,15 @@ class objeto_datos_tabla extends objeto
 		if(false){	// Hay que pensar este esquema...
 			$this->datos_originales = $this->datos;
 		}
+		//Genero la estructura de control de cambios
 		$this->generar_estructura_cambios();
-		//Le saco los caracteres de escape a los valores traidos de la DB
-		for($a=0;$a<count($this->datos);$a++){
-			foreach(array_keys($this->datos[$a]) as $columna){
-				$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
-			}	
-		}
 		//Actualizo la posicion en que hay que incorporar al proximo registro
-		$this->proxima_fila = count($this->datos);	
+		$this->proxima_fila = count($this->datos);
+		//Disparo la actulizacion con las tablas hijas
+		if(isset($this->relaciones_con_hijos)){
+			$this->disparar_carga_hijos();
+		}
+
 	}
 
 	public function get_datos()
@@ -697,7 +701,7 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Mantenimiento de la estructura de control ----------------------------------
+	//-- Cosas internas
 	//-------------------------------------------------------------------------------
 
 	protected function generar_estructura_cambios()
@@ -714,6 +718,15 @@ class objeto_datos_tabla extends objeto
 	{
 		$this->cambios[$fila]['estado'] = $estado;
 	}
+
+	protected function log($txt)
+	/*
+		El objeto deberia tener directamente algo asi
+	*/
+	{
+		toba::get_logger()->debug("db_filas  '" . get_class($this). "' " . $txt);
+	}
+
 	//-------------------------------------------------------------------------------
 }
 ?>
