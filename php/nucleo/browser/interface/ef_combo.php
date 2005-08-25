@@ -656,9 +656,10 @@ class ef_combo_lista_c extends ef_combo
 {
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		$parametros[""]["etiqueta"]="";	
+		$parametros = ef_combo::get_parametros();
+		$parametros['lista']['descripcion'] = "La clave/valor se separa por ',' y los pares por '/'";
+		$parametros['lista']['opcional'] = 0;
+		$parametros['lista']['etiqueta'] = "Lista de valores";
 		return $parametros;
 	}
 

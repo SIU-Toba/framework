@@ -9,17 +9,15 @@ class dbr_apex_item extends db_registros_s
 	function __construct($fuente=null, $min_registros=0, $max_registros=0 )
 	{
 		$def['tabla']='apex_item';
-		$def['columna'][0]['nombre']='item_id';
-		$def['columna'][0]['secuencia']='apex_item_seq';
 		$def['columna'][1]['nombre']='proyecto';
 		$def['columna'][1]['pk']='1';
 		//$def['columna'][1]['no_nulo']='1';
 		$def['columna'][2]['nombre']='item';
 		$def['columna'][2]['pk']='1';
+		$def['columna'][2]['secuencia']='apex_item_seq';
 		//$def['columna'][2]['no_nulo']='1';
-		$def['columna'][3]['nombre']='padre_id';
 		$def['columna'][4]['nombre']='padre_proyecto';
-		$def['columna'][4]['no_nulo']='1';
+//		$def['columna'][4]['no_nulo']='1';
 		$def['columna'][5]['nombre']='padre';
 		//$def['columna'][5]['no_nulo']='1';
 		$def['columna'][6]['nombre']='carpeta';

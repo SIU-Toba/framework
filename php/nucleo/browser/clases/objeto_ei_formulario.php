@@ -587,7 +587,7 @@ class objeto_ei_formulario extends objeto_ei
 			}
 			if ($hay_colapsado) {
 				$img = recurso::imagen_apl('expandir_vert.gif', false);
-				$colapsado = "style='cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
+				$colapsado = "style='cursor: hand; cursor: pointer;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
 				echo "<tr><td class='abm-fila' style='text-align:center'>";
 				echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 				echo "</td></tr>\n";

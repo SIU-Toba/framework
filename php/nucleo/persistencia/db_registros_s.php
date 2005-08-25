@@ -133,7 +133,7 @@ class db_registros_s extends db_registros
 		$registro = $this->datos[$id_registro];
 		//Escapo los caracteres que forman parte de la sintaxis SQL, seteo NULL
 		foreach($this->campos_sql as $id_campo => $campo){
-			if(!isset($registro[$campo]) || (trim($registro[$campo]) == "") ){
+			if(!isset($registro[$campo]) || ($registro[$campo] === NULL) ){
 				$valores[$id_campo] = "NULL";
 			}else{
 				$valores[$id_campo] = "'" . addslashes(trim($registro[$campo])) . "'";
@@ -159,7 +159,7 @@ class db_registros_s extends db_registros
 		}
 		//Escapo los caracteres que forman parte de la sintaxis SQL
 		foreach($campos_update as $campo){
-			if( (!isset($registro[$campo])) || (trim($registro[$campo]) == "") ){
+			if( (!isset($registro[$campo])) || $registro[$campo] === NULL ){
 				$set[] = " $campo = NULL ";
 			}else{
 				$set[] = " $campo = '". addslashes($registro[$campo]) . "' ";

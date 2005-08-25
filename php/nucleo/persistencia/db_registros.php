@@ -269,7 +269,9 @@ class db_registros
 		//Le saco los caracteres de escape a los valores traidos de la DB
 		for($a=0;$a<count($this->datos);$a++){
 			foreach(array_keys($this->datos[$a]) as $columna){
-				$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
+				if (isset($this->datos[$a][$columna])) {
+					$this->datos[$a][$columna] = stripslashes($this->datos[$a][$columna]);
+				}
 			}	
 		}
 		//Actualizo la posicion en que hay que incorporar al proximo registro

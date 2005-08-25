@@ -7,6 +7,7 @@ class ci_principal extends objeto_ci
 {
 	protected $cambio_item;
 	protected $id_item;
+	protected $db_tablas;
 	
 	function __construct($id)
 	{
@@ -27,8 +28,6 @@ class ci_principal extends objeto_ci
 				$this->cambio_item = true;
 			}
 		}
-		//PRUEBA
-		$this->set_item( array('proyecto'=>'toba', 'item'=>'/pruebas/elemento_toba') );
 	}
 	
 	function mantener_estado_sesion()
@@ -45,7 +44,7 @@ class ci_principal extends objeto_ci
 		if (! isset($this->db_tablas)) {
 			$this->db_tablas = toba_dbt::item();
 		}
-		if($this->cambio_item){	
+		if ($this->cambio_item){
 			$this->db_tablas->cargar( $this->id_item );
 		}
 		return $this->db_tablas;
@@ -75,12 +74,90 @@ class ci_principal extends objeto_ci
 	//----------------------------- prop_basicas -----------------------------
 	function evt__prop_basicas__carga()
 	{
-		return $this->get_dbt()->elemento("base")->get();
+		//Ver si el padre viene por post
+		$padre_i = toba::get_hilo()->obtener_parametro('padre_i');
+		$padre_p = toba::get_hilo()->obtener_parametro('padre_p');
+
+		//¿Es un item nuevo?
+		if (isset($padre_p) && isset($padre_i)) {
+			//Se resetea el dbt para que no recuerde datos anteriores
+			$this->get_dbt()->resetear();
+			//Para el caso del alta el id es asignado automáticamente 
+			$datos = array('item' => "<span style='white-space:nowrap'>A asignar</span>");
+			$datos['padre'] = $padre_i;
+			$datos['padre_proyecto'] = $padre_p;
+
+		} else {
+			$datos = $this->get_dbt()->elemento("base")->get();
+		}
+	
+		//Transfiere los campos accion, buffer y patron a uno comportamiento
+		if (isset($datos['actividad_accion']) && $datos['actividad_accion'] != '') {
+			$datos['comportamiento'] = 'accion';
+		}
+		if (isset($datos['actividad_buffer']) && $datos['actividad_buffer'] != 0) {
+			$datos['comportamiento'] = 'buffer';
+		}
+		if (isset($datos['actividad_patron']) && $datos['actividad_patron'] != 'especifico') {
+			$datos['comportamiento'] = 'patron';
+		}
+		return $datos;
 	}
 
 	function evt__prop_basicas__modificacion($registro)
 	{
+		//El campo comportamiento incide en el buffer, patron y accion
+		switch ($registro['comportamiento'])
+		{
+			case 'accion':
+				$registro['actividad_buffer'] = 0;
+				$registro['actividad_patron'] = 'especifico';
+				break;
+			case 'buffer':
+				$registro['actividad_accion'] = '';
+				$registro['actividad_patron'] = 'especifico';				
+				break;
+			case 'patron':
+				$registro['actividad_buffer'] = 0;
+				$registro['actividad_accion'] = '';
+				break;								
+		}
+		unset($registro['comportamiento']);
+		$this->get_dbt()->elemento("base")->set($registro);
 	}
+	
+	//----------------------------- permisos -----------------------------	
+	function evt__permisos__carga()
+	{
+		$permisos = $this->get_dbt()->elemento('permisos');
+		if (isset($permisos)) {
+			if ($datos = $permisos->get_registros()) {
+				foreach ($datos as $id => $dato) {
+					$datos[$id]['nombre'] = 'COMO ';
+				}
+				ei_arbol($datos);
+			}
+			return $datos;
+		}
+	}
+	
+	// *******************************************************************
+	// *******************  PROCESAMIENTO  *******************************
+	// *******************************************************************
+	
+	function evt__procesar()
+	{
+		//Seteo los datos asociados al uso de este editor
+		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//Sincronizo el DBT
+		$this->get_dbt()->sincronizar();		
+	}
+
+	function evt__eliminar()
+	{
+		$this->get_dbt()->eliminar();
+	}
+	// *******************************************************************	
 
 
 }
