@@ -47,6 +47,13 @@ define("apex_pa_registrar_cronometro","db");//VALORES POSIBLES: nunca, siempre, 
         echo $invocacion;
         exit(2);
     }
+	//-- VALOR DE $TOBA_DIR --
+	$dir_toba = $_ENV['toba_dir'];
+	$dir_toba = "$dir_toba/php";
+	$dir_toba = str_replace("\\", "/", $dir_toba);					//Cambia limitadores a formato unix
+	
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+	ini_set("include_path", ini_get("include_path"). $separador . $dir_toba);
 
 //---------------------------------------------------------------------------
 //--[2]--  Genero la SOLICITUD  ---------------------------------------------
