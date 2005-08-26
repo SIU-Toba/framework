@@ -110,7 +110,7 @@ class elemento_item extends elemento implements recorrible_como_arbol
 		$utilerias[] = array(
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al item",
-			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/selector_tipo_objeto",
+			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
 								array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id))
 		);
 		return $utilerias;

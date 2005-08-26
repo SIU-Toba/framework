@@ -104,5 +104,15 @@
 		return ereg_replace("\n","<br>",$valor);
 	}
 /*----------------------------*/
+	function formato_imagen_toba($valor)
+	{
+		return recurso::imagen_apl($valor, true);
+	}
+/*----------------------------*/
+	function formato_imagen_proyecto($valor)
+	{
+		return recurso::imagen_pro($valor, true);
+	}
+/*----------------------------*/
 
 ?>

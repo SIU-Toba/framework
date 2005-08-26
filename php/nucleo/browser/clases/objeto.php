@@ -729,6 +729,36 @@ class objeto
 			$this->lista_dependencias[] = $this->info_dependencias[$a]["identificador"];
 		}
 	}
+	
+	/**
+	*	Agregar dinámicamente una dependencia
+	*/
+	function agregar_dependencia( $identificador, $proyecto, $objeto )
+	{
+		$sig = count($this->info_dependencias);
+		$sql = "SELECT 
+					'$identificador' 	as identificador,
+					o.proyecto 			as proyecto,
+					o.objeto 			as objeto,
+					o.fuente_datos		as fuente,
+					o.clase				as clase,
+					o.subclase			as subclase,
+					o.subclase_archivo	as subclase_archivo,
+					c.archivo			as clase_archivo
+				FROM
+					apex_objeto o,
+					apex_clase c
+				WHERE
+					o.objeto = '$objeto' AND
+					o.proyecto = '$proyecto' AND
+					o.clase = c.clase AND
+					o.clase_proyecto = c.proyecto
+		";
+		$res = consultar_fuente($sql, "instancia");
+		$this->info_dependencias[$sig] = $res[0];
+		$this->indice_dependencias[$identificador] = $sig;
+		$this->lista_dependencias[] = $identificador;	
+	}
 //--------------------------------------------------------------------------------------------
 
 	function cargar_dependencia($identificador, $parametros=null)

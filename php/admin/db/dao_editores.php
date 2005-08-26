@@ -58,8 +58,9 @@ class dao_editores
 					apex_clase_tipo ct
 				WHERE
 					c.clase_tipo = ct.clase_tipo AND 
-					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')
-					AND c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')	AND
+					c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' AND
+					c.editor_item IS NOT NULL
 				ORDER BY ct.clase_tipo";
 		return consultar_fuente($sql, "instancia");	
 	}
@@ -79,6 +80,26 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 
+	static function get_ci_editor_clase($proyecto, $clase)
+	{
+		$sql = "SELECT 
+				 	o.proyecto,
+					o.objeto
+				FROM
+					apex_clase c,
+					apex_item_objeto io,
+					apex_objeto o
+				WHERE
+					c.clase = '$clase' AND
+					c.proyecto = '$proyecto' AND
+					c.editor_item = io.item AND				-- Se busca el item editor
+					c.editor_proyecto = io.proyecto AND
+					io.objeto = o.objeto AND				-- Se busca el CI del item
+					io.proyecto = o.proyecto AND
+					o.clase = 'objeto_ci'";
+		$res = consultar_fuente($sql, "instancia");
+		return $res[0];
+	}
 	//---------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//---------------------------------------------------

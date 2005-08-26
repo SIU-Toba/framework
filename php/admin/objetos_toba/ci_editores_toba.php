@@ -12,7 +12,7 @@ abstract class ci_editores_toba extends objeto_ci
 		parent::__construct($id);
 		//Cargo el editable de la zona		
 		$zona = toba::get_solicitud()->zona();
-		if ($editable = $zona->obtener_editable_propagado()){
+		if (isset($zona) && $editable = $zona->obtener_editable_propagado()){
 			$zona->cargar_editable(); 
 			list($proyecto, $objeto) = $editable;
 		}	
@@ -46,13 +46,14 @@ abstract class ci_editores_toba extends objeto_ci
 	function generar_interface_grafica()
 	{
 		$zona = toba::get_solicitud()->zona();
-		if (isset($this->id_objeto)) {
+		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_superior();
 		}
 		parent::generar_interface_grafica();
-		if (isset($this->id_objeto)) {		
+		$zona = toba::get_solicitud()->zona();
+		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_inferior();
-		}
+		}	
 	}
 		
 }

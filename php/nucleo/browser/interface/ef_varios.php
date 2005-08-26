@@ -35,6 +35,9 @@ class ef_checkbox extends ef
 		$parametros["valor_no_seteado"]["descripcion"]="Valor que toma el elemento cuando esta desactivado.";
 		$parametros["valor_no_seteado"]["opcional"]=1;	
 		$parametros["valor_no_seteado"]["etiqueta"]="Valor DESACTIVADO";	
+		$parametros["estado"]["descripcion"]="";
+		$parametros["estado"]["opcional"]=0;	
+		$parametros["estado"]["etiqueta"]="Valor por defecto";	
 		return $parametros;
 	}
 
