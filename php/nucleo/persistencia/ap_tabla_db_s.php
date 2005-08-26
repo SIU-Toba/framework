@@ -15,7 +15,6 @@ class ap_tabla_db_s extends ap_tabla_db
 	//-------------------------------------------------------------------------------
 
 	protected function preparar_sincronizacion()
-	//Generacion de estructuras comunes a todo el proceso de sincronizacion	
 	{
 		foreach($this->columnas as $columna)
 		{
@@ -33,7 +32,8 @@ class ap_tabla_db_s extends ap_tabla_db
 		//Actualizo las secuencias
 		if(count($this->secuencias)>0){
 			foreach($this->campos_secuencia as $columna => $secuencia){
-				$this->datos[$id_registro][$columna] = recuperar_secuencia($secuencia, $this->fuente);
+				$valor = recuperar_secuencia($secuencia, $this->fuente);
+				$this->registrar_recuperacion_valor_db( $valor );
 			}
 		}
 	}
@@ -48,7 +48,7 @@ class ap_tabla_db_s extends ap_tabla_db
 			$es_insertable = ($columna['secuencia']=="") && ($columna['externa'] != 1);
 			if( $es_insertable )
 			{
-				if(!isset($registro[$col])){
+				if( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$valores_sql[$a] = "NULL";
 				}else{
 					if(	tipo_datos::numero($columna['tipo']) ){
@@ -72,7 +72,7 @@ class ap_tabla_db_s extends ap_tabla_db
 	{
 		$sql = $this->generar_sql_update($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
-		ejecutar_sql( $sql, $this->fuente);
+		$this->ejecutar_sql( $sql, $this->fuente);
 	}
 	
 	function generar_sql_update($id_registro)
@@ -87,7 +87,7 @@ class ap_tabla_db_s extends ap_tabla_db
 			$es_modificable = ($columna['secuencia']=="") && ($columna['externa'] != 1) 
 							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->flag_modificacion_clave ) );
 			if( $es_modificable ){
-				if(!isset($registro[$col])){
+				if( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$set[] = "$col = NULL";
 				}else{
 					if(	tipo_datos::numero($columna['tipo']) ){
@@ -110,7 +110,7 @@ class ap_tabla_db_s extends ap_tabla_db
 	{
 		$sql = $this->generar_sql_delete($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
-		ejecutar_sql( $sql, $this->fuente);
+		$this->ejecutar_sql( $sql, $this->fuente);
 		return $sql;
 	}
 

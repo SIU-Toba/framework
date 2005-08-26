@@ -26,6 +26,8 @@ class ap_tabla_db extends ap
 	protected $alias;							// DATOS_TABLA: Alias
 	protected $clave;							// DATOS_TABLA: Clave
 	protected $fuente;							// DATOS_TABLA: Fuente de datos
+	protected $columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
+	//-------------------------------
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
 	protected $baja_logica_valor;				// Valor de la baja logica
@@ -152,7 +154,8 @@ class ap_tabla_db extends ap
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
-			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - Error cargando datos, no se genero un RECORDSET" .
+			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - ".
+									"Error cargando datos, no se genero un RECORDSET" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
 			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $sql");
 		}
@@ -166,7 +169,9 @@ class ap_tabla_db extends ap
 			//Le saco los caracteres de escape a los valores traidos de la DB
 			for($a=0;$a<count($datos);$a++){
 				foreach(array_keys($datos[$a]) as $columna){
-					$datos[$a][$columna] = stripslashes($datos[$a][$columna]);
+					if(isset($datos[$a][$columna])){
+						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
+					}
 				}	
 			}
 			// Lleno la TABLA
@@ -184,16 +189,6 @@ class ap_tabla_db extends ap
 	{
 		$this->log("Inicio SINCRONIZACION");
 		$this->get_estado_datos_tabla();
-/*
-		if($control_tope_minimo){
-			if( $this->tope_min_registros != 0){
-				if( ( $this->get_cantidad_registros() < $this->tope_min_registros) ){
-					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
-				}
-			}
-		}
-*/
 		//$this->controlar_alteracion_db();
 		// No puedo ejecutar los cambios en cualguier orden
 		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
@@ -239,9 +234,11 @@ class ap_tabla_db extends ap
 			$this->evt__post_sincronizacion();
 			if($this->utilizar_transaccion) cerrar_transaccion();
 
-			//Devuelvo los DATOS sincronizados al objeto
-			$this->objeto_tabla->resetear();
-			$this->objeto_tabla->set_datos($this->datos);
+			//Seteo en la TABLA los datos generados durante la sincronizacion
+			$this->actualizar_columnas_predeterminadas_db();
+
+			//Regenero la estructura que mantiene los cambios realizados
+			$this->objeto_tabla->notificar_fin_sincronizacion();
 
 			$this->log("Fin SINCRONIZACION: $modificaciones."); 
 			return $modificaciones;
@@ -256,12 +253,27 @@ class ap_tabla_db extends ap
 	protected function modificar_registro_db($id_registro){}
 	protected function eliminar_registro_db($id_registro){}
 
-	function ejecutar_sql( $sql )
-	{
-		/* Aca no es necesario usar adodb */
-		ejecutar_sql( $sql, $this->fuente);			
-	}
+	/*
+		Esquema de recuperacion de valores de COLUMNAS generados por el motor
+			Es para los casos como secuencias, valores predeterminados, etc.
+	*/
 
+	function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
+	{
+		$this->columnas_predeterminadas_db[$id_registro][$columna] = $valor;
+	}
+	
+	function actualizar_columnas_predeterminadas_db()
+	{
+		if(isset($this->columnas_predeterminadas_db)){
+			foreach( $this->columnas_predeterminadas_db as $id_registro => $columnas ){
+				foreach( $columnas as $columna => $valor ){
+					$this->objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
+				}
+			}
+		}
+	}
+	
 	//-------------------------------------------------------------------------------
 	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------
 	//-------------------------------------------------------------------------------
@@ -279,8 +291,14 @@ class ap_tabla_db extends ap
 	protected function evt__post_delete($id){}
 
 	//-------------------------------------------------------------------------------
-	//------ Servicios de generacion de SQL   ---------------------------------------
+	//------ Servicios SQL   --------------------------------------------------------
 	//-------------------------------------------------------------------------------
+
+	function ejecutar_sql( $sql )
+	{
+		/* Aca no es necesario usar adodb */
+		ejecutar_sql( $sql, $this->fuente);			
+	}
 
 	public function get_sql_inserts()
 	{
@@ -386,9 +404,6 @@ class ap_tabla_db extends ap
 	public function controlar_alteracion_db()
 	//Controla que los datos
 	{
-		/*
-			Esto hay que pensarlo bien
-		*/
 	}
 
 	private function controlar_alteracion_db_array()
@@ -396,34 +411,6 @@ class ap_tabla_db extends ap
 	//Indica si los datos iniciales extraidos de la base difieren de
 	//los datos existentes en el momento de realizar la transaccion
 	{
-		$ok = true;
-		$datos_actuales = $this->cargar_db($this->where, $this->from);
-		//Hay datos?
-		if(is_array($datos_actuales)){
-			//La cantidad de filas es la misma?
-			if(count($datos_actuales) == count($this->datos_orig)){
-				for($a=0;$a<count($this->datos_orig);$a++){
-					//Existe la fila?
-					if(isset($datos_actuales[$a])){
-						foreach(array_keys($this->datos_orig[$a]) as $columna){
-							//El valor de las columnas coincide?
-							if($this->datos_orig[$a][$columna] !== $datos_actuales[$a][$columna]){
-								$ok = false;
-								break 2;
-							}
-						}
-					}else{
-						$ok = false;
-						break 1;
-					}
-				}
-			}else{
-				$ok = false;
-			}
-		}else{
-			$ok = false;
-		}
-		return $ok;
 	}
 	//-------------------------------------------------------------------------------
 

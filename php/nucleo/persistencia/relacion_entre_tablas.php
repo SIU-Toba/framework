@@ -4,6 +4,8 @@
 
 	- Las relaciones se arman macheando posicionalmente columnas
 
+	- FALTA la actulizacion dinamica del MAPEO de filas
+
 	- El comportamiento de esta clase varia segun la cantidad de registros 
 		que maneja el padre... con N registros se suma el problema de
 		recuperacion y seteo discrecional de HIJOS
@@ -32,10 +34,8 @@ class relacion_entre_tablas
 		$this->tabla_hijo->agregar_relacion_con_padre( $this );
 	}
 
-	/**
-		Macheo de claves del PADRE y del HIJO
-	*/
 	function mapear_claves()
+	//Macheo claves entre PADRE y HIJO
 	{
 		for($a=0;$a<count($this->tabla_padre_claves);$a++){
 			$this->mapeo_claves[ $this->tabla_padre_claves[$a] ] = $this->tabla_hijo_claves[$a];
@@ -43,10 +43,8 @@ class relacion_entre_tablas
 		//ei_arbol($this->mapeo_claves);
 	}
 
-	/**
-		Este evento de dispara cuando el padre es CARGADO
-	*/
 	function evt__carga_padre()
+	//El elemento PADRE de la relacion notifica que se CARGO
 	{
 		$this->mapear_claves();
 		if( $this->tabla_padre->get_cantidad_filas() == 1)
@@ -58,10 +56,33 @@ class relacion_entre_tablas
 			}
 			//Lo cargo
 			$this->tabla_hijo->cargar($clave);
-			//Tengo que armar el mapeo de filas
+			//Armo el MAPEO de filas
+			
 		}else{
 			echo "TODAVIA no SOPORTADO";
 		}
 	}	
+
+	function evt__sincronizacion_padre()
+	//El elemento PADRE de la relacion notifica que se SINCRONIZO
+	{
+		$this->mapear_claves();
+		if( $this->tabla_padre->get_cantidad_filas() == 1)
+		{
+			$fila = $this->tabla_padre->get_fila(0);
+			//Establezco el valor del padre en el HIJO
+			foreach($this->mapeo_claves as $columna_padre => $columna_hijo){
+				$id_filas = $this->tabla_hijo->get_id_filas_a_sincronizar( array("u","i") );
+				if(isset( $id_filas )){
+					foreach( $id_filas as $id ){
+						$this->tabla_hijo->set_fila_columna_valor($id, $columna_hijo, $fila[$columna_padre]);
+					}
+				}
+			}
+			$this->tabla_hijo->sincronizar();
+		}else{
+			echo "TODAVIA no SOPORTADO";
+		}
+	}
 }
 ?>

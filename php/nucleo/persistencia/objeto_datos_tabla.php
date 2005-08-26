@@ -37,13 +37,6 @@ class objeto_datos_tabla extends objeto
 				$this->clave[] = $this->info_columnas[$a]['columna'];
 			}
 		}
-		//Topes de registros
-		if(trim($this->info_estructura['max_registros']!="")){
-			$this->set_tope_max_filas( $this->info_estructura['max_registros'] );
-		}
-		if(trim($this->info_estructura['min_registros']!="")){
-			$this->set_tope_max_filas( $this->info_estructura['min_registros'] );
-		}
 	}
 
 	public function elemento_toba()
@@ -97,13 +90,6 @@ class objeto_datos_tabla extends objeto
 		$this->contenedor = $contenedor;
 	}
 
-	private function notificar_contenedor($evento, $param1=null, $param2=null)
-	{
-		if(isset($this->contenedor)){
-			$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
-		}
-	}
-
 	function agregar_relacion_con_padre($relacion)
 	{
 		$this->relaciones_con_padres[] = $relacion;
@@ -114,11 +100,34 @@ class objeto_datos_tabla extends objeto
 		$this->relaciones_con_hijos[] = $relacion;
 	}
 
-	function disparar_carga_hijos()
-	//Aviso a la RELACION que el componente PADRE se cargo
+	/*
+		***  Notificaciones  ***
+	*/
+
+	private function notificar_contenedor($evento, $param1=null, $param2=null)
 	{
-		for($a=0;$a<count($this->relaciones_con_hijos);$a++){
-			$this->relaciones_con_hijos[$a]->evt__carga_padre();
+		if(isset($this->contenedor)){
+			$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
+		}
+	}
+
+	function notificar_hijos_carga()
+	//Aviso a la RELACION que el componente PADRE se CARGO
+	{
+		if(isset($this->relaciones_con_hijos)){
+			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
+				$this->relaciones_con_hijos[$a]->evt__carga_padre();
+			}
+		}
+	}
+
+	function notificar_hijos_sincronizacion()
+	//Aviso a la RELACION que el componente PADRE se SINCRONIZO
+	{
+		if(isset($this->relaciones_con_hijos)){
+			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
+				$this->relaciones_con_hijos[$a]->evt__sincronizacion_padre();
+			}
 		}
 	}
 
@@ -177,13 +186,11 @@ class objeto_datos_tabla extends objeto
 		return $cantidad;
 	}
 
-	public function get_id_filas_a_sincronizar()
+	public function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 	{
 		$ids = null;
 		foreach(array_keys($this->cambios) as $fila){
-			if( ($this->cambios[$fila]['estado'] == "d") ||
-				($this->cambios[$fila]['estado'] == "i") ||
-				($this->cambios[$fila]['estado'] == "u") ){
+			if( in_array($this->cambios[$fila]['estado'], $cambios) ){
 				$ids[] = $fila;
 			}
 		}
@@ -261,7 +268,7 @@ class objeto_datos_tabla extends objeto
 		}else{
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			foreach( array_keys($condiciones) as $campo){
-				if(!in_array($campo, $this->campos)){
+				if( !isset($this->columnas[$columna]) ){
 					throw new excepcion_toba("El campo '$campo' no existe. No es posible filtrar por dicho campo");
 				}
 			}
@@ -369,7 +376,7 @@ class objeto_datos_tabla extends objeto
 	public function modificar_fila($id, $fila)
 	{
 		if(!$this->existe_fila($id)){
-			$mensaje = "db_filas: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
+			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
@@ -395,7 +402,7 @@ class objeto_datos_tabla extends objeto
 	public function eliminar_fila($id)
 	{
 		if(!$this->existe_fila($id)){
-			$mensaje = "db_filas: MODIFICAR. No existe un registro con el INDICE indicado ($id)";
+			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
@@ -428,13 +435,17 @@ class objeto_datos_tabla extends objeto
 
 	public function set_fila_columna_valor($id, $columna, $valor)
 	{
-		if( in_array($columna, $this->campos) ){
-			$this->datos[$id][$columna] = $valor;
-			if($this->cambios[$id]['estado']!="i" && $this->cambios[$id]['estado']!="d"){
-				$this->registrar_cambio($id,"u");
-			}		
+		if( $this->existe_fila($id) ){
+			if( isset($this->columnas[$columna]) ){
+				$this->datos[$id][$columna] = $valor;
+				if($this->cambios[$id]['estado']!="i" && $this->cambios[$id]['estado']!="d"){
+					$this->registrar_cambio($id,"u");
+				}		
+			}else{
+				throw new excepcion_toba("La columna '$columna' no es valida");
+			}
 		}else{
-			throw new excepcion_toba("La columna '$columna' no es valida");
+			throw new excepcion_toba("La fila '$id' no es valida");
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -456,7 +467,7 @@ class objeto_datos_tabla extends objeto
 	public function procesar_filas($filas)
 	//Procesamiento de un conjunto de filas
 	{
-		asercion::es_array($filas,"db_filas - El parametro no es un array.");
+		asercion::es_array($filas,"objeto_datos_tabla - El parametro no es un array.");
 		//Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
@@ -464,7 +475,6 @@ class objeto_datos_tabla extends objeto
 									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'");
 			}
 		}
-		//Proceso las modificaciones sobre el db_filas
 		foreach(array_keys($filas) as $id){
 			$accion = $filas[$id][apex_ei_analisis_fila];
 			unset($filas[$id][apex_ei_analisis_fila]);
@@ -563,13 +573,12 @@ class objeto_datos_tabla extends objeto
 		Controles previos a la sincronizacion
 		Esto va a aca o en el AP??
 	*/
-
+/*
 	private function control_nulos($fila)
 	//Controla que un registro posea los valores OBLIGATORIOS
 	{
 		$mensaje_usuario = "El elemento posee valores incompletos";
-		$mensaje_programador = "db_filas " . get_class($this). " [{$this->identificador}] - ".
-					" Es necesario especificar un valor para el campo: ";
+		$mensaje_programador = $this->get_txt() . " Es necesario especificar un valor para el campo: ";
 		if(isset($this->campos_no_nulo)){
 			foreach($this->campos_no_nulo as $campo){
 				if(isset($fila[$campo])){
@@ -584,7 +593,7 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 	}
-
+*/
 	public function control_tope_minimo_filas()
 	{
 		$control_tope_minimo=true;
@@ -618,6 +627,13 @@ class objeto_datos_tabla extends objeto
 
 	public function sincronizar()
 	{
+		//Control de topes
+		if( $this->tope_min_filas != 0){
+			if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
+				$this->log("No se cumplio con el tope minimo de registros necesarios" );
+				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+			}
+		}
 		$ap = $this->get_persistidor();
 		return $ap->sincronizar();
 	}
@@ -634,11 +650,13 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- API para el persitidor
+	//-- Comunicacion con el Administrador de Persistencia
 	//-------------------------------------------------------------------------------
 
+	/*--- Del AP a mi ---*/
+
 	public function set_datos($datos)
-	//El AP entrega un conjunto de datos al objeto_datos_tabla
+	//El AP entrega un conjunto de datos cargados al objeto_datos_tabla
 	{
 		$this->log("Carga de datos");
 		$this->datos = $datos;
@@ -659,11 +677,17 @@ class objeto_datos_tabla extends objeto
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proxima_fila = count($this->datos);
 		//Disparo la actulizacion con las tablas hijas
-		if(isset($this->relaciones_con_hijos)){
-			$this->disparar_carga_hijos();
-		}
-
+		$this->notificar_hijos_carga();
 	}
+
+	public function notificar_fin_sincronizacion()
+	//El AP avisa que termino la sincronizacion
+	{
+		$this->generar_estructura_cambios();
+		$this->notificar_hijos_sincronizacion();
+	}
+
+	/*--- De mi al AP ---*/
 
 	public function get_datos()
 	{
@@ -724,7 +748,7 @@ class objeto_datos_tabla extends objeto
 		El objeto deberia tener directamente algo asi
 	*/
 	{
-		toba::get_logger()->debug("db_filas  '" . get_class($this). "' " . $txt);
+		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
 	}
 
 	//-------------------------------------------------------------------------------

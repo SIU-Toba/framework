@@ -93,6 +93,14 @@ class test_datos_relacion_1 extends base_test_datos_relacion
 		$datos['detalle_b']['valido_1']['nombre']="TOMATE";
 		$datos['detalle_b']['valido_1']['maestro']="0";
 		$datos['detalle_b']['valido_1']['descripcion']="Esta es una cosa";
+		$datos['detalle_a']['valido_2']['id']="10";
+		$datos['detalle_a']['valido_2']['nombre']="TOMATESSSSSSSSs";
+		$datos['detalle_a']['valido_2']['maestro']="0";
+		$datos['detalle_a']['valido_2']['descripcion']="Esta es una cosa";
+		$datos['detalle_b']['valido_2']['id']="10";
+		$datos['detalle_b']['valido_2']['nombre']="TOMATESSSSSSSSS";
+		$datos['detalle_b']['valido_2']['maestro']="0";
+		$datos['detalle_b']['valido_2']['descripcion']="Esta es una cosa";
 		if(isset($datos[$tabla][$concepto])){
 			return 	$datos[$tabla][$concepto];
 		}else{

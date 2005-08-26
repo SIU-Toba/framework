@@ -1,4 +1,9 @@
 <?php
+/*
+	El DEFINE que sigue es para poder usar cada tanto el TRACE posta,
+		el tema es que si se dispara desde un evento se va todo al carajo (call_user_func_array)
+*/
+define("excepcion_toba_display","0");
 /**
 * Error interno de toba
 */
@@ -22,35 +27,34 @@ class excepcion_toba extends Exception
 		$html .= "Archivo \"".parent::getFile()."\", línea ".parent::getLine()."<br>";
 		$html .= "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">[detalle]</a>";
 		$html .= "<ul style='display: none'>";
-///*
-		$html .= "-------------------------------------------\n";
-		$html .= parent::getTraceAsString() ."\n";
-		$html .= "-------------------------------------------\n";
-//*/
-/*
-	//	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
-	//		-> Pasa cuando el error se da a partir de un evento de los EI
-
-		foreach (parent::getTrace() as $paso) {
-			$clase = '';
-			if (isset($paso['class']))
-				$clase .= $paso['class'];
-			if (isset($paso['type']))
-				$clase .= $paso['type'];				
-			$html .= "<li><strong>$clase{$paso['function']}</strong><br>
-					Archivo: {$paso['file']}, línea {$paso['line']}<br>";
-			if (! empty($paso['args'])) {
-				$html .= "Parámetros: <ol>";
-				foreach ($paso['args'] as $arg) {
-					$html .= "<li>";
-					$html .= var_export($arg, true);
-					$html .= "</li>";
-				}
-				$html .= "</ol>";
-			} 
-			$html .= "</li>";
+		if(!excepcion_toba_display)
+		{
+			$html .= "-------------------------------------------\n";
+			$html .= parent::getTraceAsString() ."\n";
+			$html .= "-------------------------------------------\n";
+		}else{
+			//	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
+			//		-> Pasa cuando el error se da a partir de un evento de los EI
+			foreach (parent::getTrace() as $paso) {
+				$clase = '';
+				if (isset($paso['class']))
+					$clase .= $paso['class'];
+				if (isset($paso['type']))
+					$clase .= $paso['type'];				
+				$html .= "<li><strong>$clase{$paso['function']}</strong><br>
+						Archivo: {$paso['file']}, línea {$paso['line']}<br>";
+				if (! empty($paso['args'])) {
+					$html .= "Parámetros: <ol>";
+					foreach ($paso['args'] as $arg) {
+						$html .= "<li>";
+						$html .= var_export($arg, true);
+						$html .= "</li>";
+					}
+					$html .= "</ol>";
+				} 
+				$html .= "</li>";
+			}
 		}
-*/
 		$html .= "</ul></div>";
 		return $html;
 	}
