@@ -31,9 +31,9 @@ class ap_tabla_db_s extends ap_tabla_db
 		$this->ejecutar_sql( $sql );
 		//Actualizo las secuencias
 		if(count($this->secuencias)>0){
-			foreach($this->campos_secuencia as $columna => $secuencia){
+			foreach($this->secuencias as $columna => $secuencia){
 				$valor = recuperar_secuencia($secuencia, $this->fuente);
-				$this->registrar_recuperacion_valor_db( $valor );
+				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
 	}
@@ -45,7 +45,7 @@ class ap_tabla_db_s extends ap_tabla_db
 		foreach($this->columnas as $columna)
 		{
 			$col = $columna['columna'];
-			$es_insertable = ($columna['secuencia']=="") && ($columna['externa'] != 1);
+			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
 			if( $es_insertable )
 			{
 				if( !isset($registro[$col]) || $registro[$col] === NULL ){
@@ -57,9 +57,9 @@ class ap_tabla_db_s extends ap_tabla_db
 						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";
 					}
 				}
+				$columnas_sql[$a] = $col;
+				$a++;
 			}
-			$columnas_sql[$a] = $col;
-			$a++;
 		}
 		$sql = "INSERT INTO " . $this->tabla .
 				" ( " . implode(", ", $columnas_sql) . " ) ".

@@ -49,7 +49,10 @@ class ap_tabla_db extends ap
 		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
 		$this->fuente = $this->objeto_tabla->get_fuente();
+		$this->inicializar();
 	}
+	
+	protected function inicializar(){}
 
 	function get_estado_datos_tabla()
 	{
@@ -59,7 +62,7 @@ class ap_tabla_db extends ap
 	
 	protected function log($txt)
 	{
-		toba::get_logger()->debug("AP: " . get_class($this). " DATOS: ". get_class($this->objeto_tabla). " -- " .$txt);
+		toba::get_logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " .$txt);
 	}
 
 	public function info()
@@ -68,7 +71,7 @@ class ap_tabla_db extends ap
 	}
 
 	//-------------------------------------------------------------------------------
-	//------  Configuracion  ----------------------------------------------------------------
+	//------  Configuracion  --------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	public function activar_transaccion()		
@@ -207,6 +210,7 @@ class ap_tabla_db extends ap
 			}
 		}
 		try{
+			$this->preparar_sincronizacion();
 			if($this->utilizar_transaccion) abrir_transaccion();
 			$this->evt__pre_sincronizacion();
 			$modificaciones = 0;

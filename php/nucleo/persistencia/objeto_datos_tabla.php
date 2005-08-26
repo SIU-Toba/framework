@@ -49,14 +49,17 @@ class objeto_datos_tabla extends objeto
 	{
 		$sql = parent::obtener_definicion_db();
 		//------------- Info base de la estructura ----------------
-		$sql["info_estructura"]["sql"] = "SELECT	tabla,
-													alias,
-													min_registros,
-													max_registros,
-													ap			,	
-													ap_clase	,	
-													ap_archivo	
-					 FROM		apex_objeto_db_registros
+		$sql["info_estructura"]["sql"] = "SELECT	dt.tabla          	as tabla,
+													dt.alias          	as alias,
+													dt.min_registros  	as min_registros,
+													dt.max_registros  	as max_registros,
+													dt.ap				as ap			,	
+													dt.ap_clase			as ap_sub_clase	,	
+													dt.ap_archivo	    as ap_sub_clase_archivo,
+													ap.clase			as ap_clase,
+													ap.archivo			as ap_clase_archivo
+					 FROM		apex_objeto_db_registros as dt
+				 				LEFT OUTER JOIN apex_admin_persistencia ap ON dt.ap = ap.ap
 					 WHERE		objeto_proyecto='".$this->id[0]."'	
 					 AND		objeto='".$this->id[1]."';";
 		$sql["info_estructura"]["estricto"]="1";
@@ -613,7 +616,7 @@ class objeto_datos_tabla extends objeto
 	//-------------------------------------------------------------------------------
 
 	public function get_persistidor()
-	//Devuelve el persistidor por defecto
+	//Devuelve el persistidor predefinido
 	{
 		require_once("ap_tabla_db_s.php");
 		return new ap_tabla_db_s( $this );

@@ -1,9 +1,8 @@
 <?php
-require_once("base_test_datos_relacion.php");
+require_once("base_test_datos_relacion_std.php");
 
-class test_datos_relacion_1 extends base_test_datos_relacion
+class test_datos_relacion_1 extends base_test_datos_relacion_std
 {
-
 	function get_descripcion()
 	{
 		return "OBJETO datos_relacion";
@@ -54,6 +53,7 @@ class test_datos_relacion_1 extends base_test_datos_relacion
 
 	function get_sql_juego_datos()
 	{
+		$sql[] = "SELECT setval('seq_maestro', 4, false);";
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('0','Peras','Las peras.');";
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('1','Naranjas','Las naranjas.');";
 		$sql[] = "INSERT INTO test_maestro (id, nombre, descripcion) VALUES ('2','Mandarinas','Las mandarinas.');";
@@ -89,15 +89,15 @@ class test_datos_relacion_1 extends base_test_datos_relacion
 		$datos['detalle_a']['valido_1']['nombre']="TOMATE";
 		$datos['detalle_a']['valido_1']['maestro']="0";
 		$datos['detalle_a']['valido_1']['descripcion']="Esta es una cosa";
-		$datos['detalle_b']['valido_1']['id']="10";
+		$datos['detalle_b']['valido_1']['id']="11";
 		$datos['detalle_b']['valido_1']['nombre']="TOMATE";
 		$datos['detalle_b']['valido_1']['maestro']="0";
 		$datos['detalle_b']['valido_1']['descripcion']="Esta es una cosa";
-		$datos['detalle_a']['valido_2']['id']="10";
+		$datos['detalle_a']['valido_2']['id']="21";
 		$datos['detalle_a']['valido_2']['nombre']="TOMATESSSSSSSSs";
 		$datos['detalle_a']['valido_2']['maestro']="0";
 		$datos['detalle_a']['valido_2']['descripcion']="Esta es una cosa";
-		$datos['detalle_b']['valido_2']['id']="10";
+		$datos['detalle_b']['valido_2']['id']="22";
 		$datos['detalle_b']['valido_2']['nombre']="TOMATESSSSSSSSS";
 		$datos['detalle_b']['valido_2']['maestro']="0";
 		$datos['detalle_b']['valido_2']['descripcion']="Esta es una cosa";

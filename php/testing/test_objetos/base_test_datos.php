@@ -32,5 +32,12 @@ class base_test_datos extends test_toba
 	{
 		ejecutar_sql( $this->get_sql_eliminar_tablas() );
 	}
+	//----------------------------------------------
+	
+	function get_sql_tablas(){ return array(); }
+	function get_sql_eliminar_tablas(){ return array(); }
+	function get_sql_juego_datos(){ return array(); }
+	function get_sql_eliminar_juego_datos(){ return array(); }
+	//----------------------------------------------
 }
 ?>
