@@ -1,6 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('admin/db/toba_dbt.php');
+require_once('admin/db/dao_editores.php');
 //----------------------------------------------------------------
 
 class ci_principal extends objeto_ci
@@ -68,10 +69,9 @@ class ci_principal extends objeto_ci
 	}	
 	
 	//-------------------------------------------------------------------
-	//--- Eventos
+	//--- PROPIEDADES BASICAS
 	//-------------------------------------------------------------------
 
-	//----------------------------- prop_basicas -----------------------------
 	function evt__prop_basicas__carga()
 	{
 		//Ver si el padre viene por post
@@ -81,6 +81,7 @@ class ci_principal extends objeto_ci
 		//¿Es un item nuevo?
 		if (isset($padre_p) && isset($padre_i)) {
 			//Se resetea el dbt para que no recuerde datos anteriores
+			unset($this->id_item);
 			$this->get_dbt()->resetear();
 			//Para el caso del alta el id es asignado automáticamente 
 			$datos = array('item' => "<span style='white-space:nowrap'>A asignar</span>");
@@ -126,18 +127,74 @@ class ci_principal extends objeto_ci
 		$this->get_dbt()->elemento("base")->set($registro);
 	}
 	
-	//----------------------------- permisos -----------------------------	
+	//----------------------------------------------------------
+	//-- OBJETOS -------------------------------------------------
+	//----------------------------------------------------------
+	
+	//----------------------------------------------------------
+	//-- PERMISOS -------------------------------------------------
+	//----------------------------------------------------------
+	
+	/*
+	*	Toma los permisos actuales, les agrega los grupos faltantes y les pone descripcion
+	*/
 	function evt__permisos__carga()
 	{
-		$permisos = $this->get_dbt()->elemento('permisos');
-		if (isset($permisos)) {
-			if ($datos = $permisos->get_registros()) {
-				foreach ($datos as $id => $dato) {
-					$datos[$id]['nombre'] = 'COMO ';
+		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$asignados = $this->get_dbt()->elemento('permisos')->get_registros();
+		if (!$asignados)
+			$asignados = array();
+		$grupos = dao_editores::get_grupos_acceso(toba::get_hilo()->obtener_proyecto());
+		$datos = array();
+		foreach ($grupos as $grupo) {
+			//El grupo esta asignado al item?
+			$esta_asignado = false;	
+			foreach ($asignados as $asignado) {
+				//Si esta asignado ponerle el nombre del grupo y chequear el checkbox
+				if ($asignado['usuario_grupo_acc'] == $grupo['usuario_grupo_acc']) {
+					$grupo['tiene_permiso'] = 1;
+					$grupo['item'] = $this->id_item['item'];
+					$esta_asignado = true;
 				}
-				ei_arbol($datos);
 			}
-			return $datos;
+			//Si no esta asignado poner el item y deschequear el checkbox
+			if (!$esta_asignado) {
+				$grupo['tiene_permiso'] = 0;
+				$grupo['item'] = $this->id_item['item'];
+			}
+			$datos[] = $grupo;
+		}
+		return $datos;
+		
+	}
+	
+	function evt__permisos__modificacion($grupos)
+	{
+		$dbr = $this->get_dbt()->elemento('permisos');
+		$asignados = $dbr->get_registros(array(), true);
+		if (!$asignados)
+			$asignados = array();		
+//		ei_arbol($asignados, 'asignados');
+//		ei_arbol($grupos, 'nuevos');
+		foreach ($grupos as $grupo)
+		{
+			$estaba_asignado = false;
+			foreach ($asignados as $id => $asignado) {
+				//¿Estaba asignado anteriormente?
+				if ($asignado['usuario_grupo_acc'] == $grupo['usuario_grupo_acc']) {
+					$estaba_asignado = true;
+					if (! $grupo['tiene_permiso']) {
+						//Si estaba asignado, y fue deseleccionado entonces borrar
+						$dbr->eliminar_registro($id);
+					}
+				}
+			}
+			//Si no estaba asignado y ahora se asigna, agregarlo
+			if (!$estaba_asignado && $grupo['tiene_permiso']) {
+				unset($grupo['tiene_permiso']);
+				unset($grupo['nombre']);
+				$dbr->agregar_registro($grupo);
+			}
 		}
 	}
 	

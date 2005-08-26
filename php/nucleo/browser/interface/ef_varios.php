@@ -150,8 +150,10 @@ class ef_fijo extends ef_oculto
 
 	static function get_parametros()
 	{
-		$parametros["estilo"]["descripcion"]="Estilo CSS del campo";
+		$parametros["estilo"]["etiqueta"]="Clase CSS";
+		$parametros["estilo"]["descripcion"]="Clase CSS del campo (tiene que estar incluida en el archivo css del proyecto";
 		$parametros["estilo"]["opcional"]=1;	
+		$parametros["sin_datos"]["etiqueta"]="Sin datos";
 		$parametros["sin_datos"]["descripcion"]="Si el valor es 1, indica que el elemento no maneja datos (es solo informativo)";
 		$parametros["sin_datos"]["opcional"]=1;	
 		return $parametros;
