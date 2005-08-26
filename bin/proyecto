@@ -93,14 +93,13 @@ then
 
 elif [ "$1" = "conf" ]
 then
-
 	cd ${d_proy}/$2                                                               
 	sed "s/%proyecto%/$2/g" _conf/admin.php 					> www/admin.php
 	controlar "  1) _conf/admin.php"    
 	sed "s/%proyecto%/$2/g" _conf/aplicacion.php				> www/aplicacion.php
 	controlar "  2) _conf/aplicacion.php"  
-	sed "s/%proyecto%/$2/g"	_conf/toba.conf					> x.conf
-	sed "s/%toba_dir%/$toba_dir/g" x.conf						> toba.conf
+	sed "s/%proyecto%/$2/g"	_conf/toba.conf						> x.conf
+	sed "s@%toba_dir%@$toba_dir@g" x.conf						> toba.conf
 	rm -f x.conf
 	controlar "  3) _conf/toba.conf 	"  
 	sed "s/%proyecto%/$2/g" _conf/ini.sql						> sql/_auto/ini.sql
@@ -227,6 +226,7 @@ then
 		echo "El nombre \"toba\" no esta permitido!"
 		exit 2
 	else
+		echo $_dproy
 		pgsql_ejecutar $d_proy/$2/sql/_auto/__p_del.sql --noparar
 		echo "Los datos del proyecto han sido eliminados"
 		echo "(si desea eliminar el proyecto por completo, elimine el directorio \"$d_proy/$2\" manualmente )"
