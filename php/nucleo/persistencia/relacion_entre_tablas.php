@@ -4,11 +4,11 @@
 
 	- Las relaciones se arman macheando posicionalmente columnas
 
-	- FALTA la actulizacion dinamica del MAPEO de filas
-
 	- El comportamiento de esta clase varia segun la cantidad de registros 
 		que maneja el padre... con N registros se suma el problema de
 		recuperacion y seteo discrecional de HIJOS
+	- FALTA la actulizacion dinamica del MAPEO de filas
+	- Cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
 */
 
 class relacion_entre_tablas
@@ -44,7 +44,7 @@ class relacion_entre_tablas
 	}
 
 	function evt__carga_padre()
-	//El elemento PADRE de la relacion notifica que se CARGO
+	//El elemento PADRE de la relacion notifica que se CARGO: Se dispara la carga del HIJO
 	{
 		$this->mapear_claves();
 		if( $this->tabla_padre->get_cantidad_filas() == 1)
@@ -64,7 +64,7 @@ class relacion_entre_tablas
 	}	
 
 	function evt__sincronizacion_padre()
-	//El elemento PADRE de la relacion notifica que se SINCRONIZO
+	//El elemento PADRE de la relacion notifica que se SINCRONIZO: Se dispara la sincronizacion del hijo
 	{
 		$this->mapear_claves();
 		if( $this->tabla_padre->get_cantidad_filas() == 1)

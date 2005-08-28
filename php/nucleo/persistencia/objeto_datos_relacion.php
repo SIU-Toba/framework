@@ -3,7 +3,8 @@ require_once("nucleo/browser/clases/objeto.php");
 require_once("relacion_entre_tablas.php");
 
 /*
-	Las relaciones con los hijos son a travez de un unico ID
+	(Sobre las claves)
+		Las relaciones con los hijos son a travez de un unico ID
 		por cada dependencias, tiene que haber un ID para conectarse a un padre
 		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
 		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extraño

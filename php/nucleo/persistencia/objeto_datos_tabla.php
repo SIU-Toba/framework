@@ -8,16 +8,18 @@ define("apex_datos_clave_fila","dt_clave");
 */
 class objeto_datos_tabla extends objeto
 {
+	protected $persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
 	protected $clave;							// Columnas que constituyen la clave de la tabla
 	protected $columnas;
+	protected $posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
 	//Constraints
 	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
 	// Definicion general
 	protected $tope_max_filas;					// Cantidad de maxima de datos permitida.
 	protected $tope_min_filas;					// Cantidad de minima de datos permitida.
 	protected $fuente;							// Fuente de datos utilizada
-	// Estructuras Centrales
+	// ESTADO
 	protected $cambios = array();				// Cambios realizados sobre los datos
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
@@ -36,7 +38,25 @@ class objeto_datos_tabla extends objeto
 			if($this->info_columnas[$a]['pk']==1){
 				$this->clave[] = $this->info_columnas[$a]['columna'];
 			}
+			if($this->info_columnas[$a]['externa']==1){
+				$this->posee_columnas_ext = true;
+			}
 		}
+		$this->recuperar_estado_sesion();		
+	}
+
+	function destruir()
+	{
+		$this->guardar_estado_sesion();		
+	}
+
+	function mantener_estado_sesion()
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "cambios";
+		$propiedades[] = "datos";
+		$propiedades[] = "proxima_fila";
+		return $propiedades;
 	}
 
 	public function elemento_toba()
@@ -365,13 +385,12 @@ class objeto_datos_tabla extends objeto
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila);
+		//SI existen columnas externas, las cargo
+		if($this->posee_columnas_ext){
+			$this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
+		}
 		$this->datos[$this->proxima_fila] = $fila;
 		$this->registrar_cambio($this->proxima_fila,"i");
-		/*
-			¿Como relaciono esto con el AP?
-			//Actualizo los valores externos
-			$this->actualizar_campos_externos_fila( $this->proxima_fila, "agregar");
-		*/
 		return $this->proxima_fila++;
 	}
 	//-------------------------------------------------------------------------------
@@ -387,6 +406,9 @@ class objeto_datos_tabla extends objeto
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila, $id);
+		if($this->posee_columnas_ext){
+			$this->get_persistidor()->completar_campos_externos_fila($fila,"upd");
+		}
 		//Actualizo los valores
 		foreach(array_keys($fila) as $clave){
 			$this->datos[$id][$clave] = $fila[$clave];
@@ -394,11 +416,6 @@ class objeto_datos_tabla extends objeto
 		if($this->cambios[$id]['estado']!="i"){
 			$this->registrar_cambio($id,"u");
 		}
-		/*
-			¿Como relaciono esto con el AP?
-			//Actualizo los valores externos
-			$this->actualizar_campos_externos_fila($id,"modificar");
-		*/
 	}
 	//-------------------------------------------------------------------------------
 
@@ -616,10 +633,23 @@ class objeto_datos_tabla extends objeto
 	//-------------------------------------------------------------------------------
 
 	public function get_persistidor()
-	//Devuelve el persistidor predefinido
+	//Devuelve el persistidor PREDEFINIDO
 	{
-		require_once("ap_tabla_db_s.php");
-		return new ap_tabla_db_s( $this );
+		if(!isset($this->persistidor)){
+			if($this->info_estructura['ap']=='0'){
+				$include = $this->info_estructura['ap_sub_clase_archivo'];
+				$clase = $this->info_estructura['ap_sub_clase'];
+				if( (trim($clase) == "") || (trim($include) == "") ){
+					throw new excepcion_toba( $this->get_txt() . "Error en la definicion");
+				}
+			}else{
+				$include = $this->info_estructura['ap_clase_archivo'];
+				$clase = $this->info_estructura['ap_clase'];
+			}
+			require_once( $include );
+			$this->persistidor = new $clase( $this );
+		}
+		return $this->persistidor;
 	}
 
 	public function cargar($id)
@@ -725,6 +755,11 @@ class objeto_datos_tabla extends objeto
 	public function get_alias()
 	{
 		return $this->info_estructura['alias'];
+	}
+
+	public function posee_columnas_externas()
+	{
+		return $this->posee_columnas_ext;
 	}
 
 	//-------------------------------------------------------------------------------

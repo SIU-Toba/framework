@@ -26,7 +26,9 @@ class ap_tabla_db extends ap
 	protected $alias;							// DATOS_TABLA: Alias
 	protected $clave;							// DATOS_TABLA: Clave
 	protected $fuente;							// DATOS_TABLA: Fuente de datos
+	protected $secuencias;
 	protected $columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
+	protected $posee_columnas_ext;				// Columnas que se cargan de una manera especial (no estan en la tabla)
 	//-------------------------------
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
@@ -49,6 +51,13 @@ class ap_tabla_db extends ap
 		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
 		$this->fuente = $this->objeto_tabla->get_fuente();
+		$this->posee_columnas_ext = $this->objeto_tabla->posee_columnas_externas();
+		//Determino las secuencias de la tabla
+		foreach($this->columnas as $columna){
+			if( $columna['secuencia']!=""){
+				$this->secuencias[$columna['columna']] = $columna['secuencia'];
+			}
+		}
 		$this->inicializar();
 	}
 	
@@ -169,6 +178,12 @@ class ap_tabla_db extends ap
 			}
 		}else{
 			$datos =& $rs->getArray();
+			//Si existen campos externos, los recupero.
+			if($this->posee_columnas_ext){
+				for($a=0;$a<count($datos);$a++){
+					$datos[$a] = $this->completar_campos_externos_fila($datos[$a]);
+				}				
+			}
 			//Le saco los caracteres de escape a los valores traidos de la DB
 			for($a=0;$a<count($datos);$a++){
 				foreach(array_keys($datos[$a]) as $columna){
@@ -210,7 +225,6 @@ class ap_tabla_db extends ap
 			}
 		}
 		try{
-			$this->preparar_sincronizacion();
 			if($this->utilizar_transaccion) abrir_transaccion();
 			$this->evt__pre_sincronizacion();
 			$modificaciones = 0;
@@ -338,33 +352,24 @@ class ap_tabla_db extends ap
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
 	//-------------------------------------------------------------------------------
 
-	private function actualizar_campos_externos()
-	//Actualiza los campos externos despues de cargar el db_registros
-	{
-		foreach(array_keys($this->cambios) as $registro)
-		{
-			$this->actualizar_campos_externos_registro($registro);
-		}	
-	}
-	
-	private function actualizar_campos_externos_registro($id_registro, $evento=null)
+	public function completar_campos_externos_fila($fila, $evento=null)
 	/*
+		ATENCION: Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)
 		Recuperacion de valores para las columnas externas.
+		Se pasa una fila como parametro y se devuelve completa.
 		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
-			cuyas claves asociativas se correspondan con la columna que se quiere
+			cuyas claves asociativas se correspondan con la columna que se quiere llenar
 	*/
 	{
+		//Si se esta completando un campo nuevo, y el mismo esta basado en una secuencia, esto no va a funcionar.
+		//ATENCION: Esto hay que mejorarlo
+		if(isset($evento) && isset($this->secuencias)){
+			return $fila;	
+		}
 		//Itero planes de carga externa
 		if(isset($this->proceso_carga_externa)){
 			foreach(array_keys($this->proceso_carga_externa) as $carga)
 			{
-				//SI entre por un evento, tengo que controlar que la carga este
-				//Activada para eventos, si no esta activada paso al siguiente
-				if(isset($evento)){
-					if(! $this->proceso_carga_externa[$carga]['sincro_continua'] ){	
-						continue;
-					}
-				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
 				$parametros = $this->proceso_carga_externa[$carga];
 				if($parametros['tipo']=="sql")											//--- carga SQL!!
@@ -373,7 +378,7 @@ class ap_tabla_db extends ap
 					$sql = $parametros['sql'];
 					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
 					foreach( $parametros['col_parametro'] as $col_llave ){
-						$valor_llave = $this->datos[$id_registro][$col_llave];
+						$valor_llave = $fila[$col_llave];
 						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
 					}
 					//echo "<pre>SQL: "  . $sql . "<br>";
@@ -385,7 +390,7 @@ class ap_tabla_db extends ap
 				{
 					// - 1 - Armo los parametros para el DAO
 					foreach( $parametros['col_parametro'] as $col_llave ){
-						$param_dao[] = $this->datos[$id_registro][$col_llave];
+						$param_dao[] = $fila[$col_llave];
 					}
 					//ei_arbol($param_dao,"Parametros para el DAO");
 					// - 2 - Recupero datos
@@ -395,10 +400,11 @@ class ap_tabla_db extends ap
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
 				foreach( $parametros['col_resultado'] as $columna_externa ){
-					$this->datos[$id_registro][$columna_externa] = $datos[0][$columna_externa];
+					$fila[$columna_externa] = $datos[0][$columna_externa];
 				}
 			}
 		}
+		return $fila;
 	}
 
 	//-------------------------------------------------------------------------------

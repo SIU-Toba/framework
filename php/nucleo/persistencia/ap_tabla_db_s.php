@@ -8,21 +8,9 @@ require_once("ap_tabla_db.php");
 */
 class ap_tabla_db_s extends ap_tabla_db
 {
-	protected $secuencias;
-
 	//-------------------------------------------------------------------------------
 	//---------------  SINCRONIZACION con la DB   -----------------------------------
 	//-------------------------------------------------------------------------------
-
-	protected function preparar_sincronizacion()
-	{
-		foreach($this->columnas as $columna)
-		{
-			if( $columna['secuencia']!=""){
-				$this->secuencias[$columna['columna']] = $columna['secuencia'];
-			}
-		}
-	}
 
 	protected function insertar_registro_db($id_registro)
 	{
