@@ -12,14 +12,14 @@ class odt_pantallas extends objeto_datos_tabla
 	//Setea las dependencias asociadas a una pantalla		
 	{
 		$deps = implode(",", $dependencias);
-		$this->set_registro_valor($pantalla, 'objetos', $deps);
+		$this->set_fila_columna_valor($pantalla, 'objetos', $deps);
 	}
 	
 	function get_dependencias_pantalla($pantalla)
 	//Devuelve las dependencias asociadas a una pantalla
 	{
 		$out = null;
-		$deps = $this->get_registro_valor($pantalla, 'objetos');
+		$deps = $this->get_fila_columna($pantalla, 'objetos');
 		if(trim($deps)!=""){
 			$out = array_map("trim", explode(",", $deps ) );		
 		}
@@ -51,14 +51,14 @@ class odt_pantallas extends objeto_datos_tabla
 	//Setea las eventos asociadas a una pantalla		
 	{
 		$deps = implode(",", $eventos);
-		$this->set_registro_valor($pantalla, 'eventos', $deps);
+		$this->set_fila_columna_valor($pantalla, 'eventos', $deps);
 	}
 	
 	function get_eventos_pantalla($pantalla)
 	//Devuelve las eventos asociadas a una pantalla
 	{
 		$out = null;
-		$deps = $this->get_registro_valor($pantalla, 'eventos');
+		$deps = $this->get_fila_columna($pantalla, 'eventos');
 		if(trim($deps)!=""){
 			$out = array_map("trim", explode(",", $deps ) );		
 		}

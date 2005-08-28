@@ -1,6 +1,5 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php');
-require_once("admin/db/toba_dbt.php");
 
 class ci_editor extends ci_editores_toba
 {
@@ -33,8 +32,8 @@ class ci_editor extends ci_editores_toba
 	function destruir()
 	{
 		parent::destruir();
-		//ei_arbol($this->get_dbt()->elemento('pantallas')->info(true),"PANTALLAS");
-		//ei_arbol($this->get_dbt()->elemento('eventos')->info(true),"PANTALLAS");
+		//ei_arbol($this->get_entidad()->tabla('pantallas')->info(true),"PANTALLAS");
+		//ei_arbol($this->get_entidad()->tabla('eventos')->info(true),"PANTALLAS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
@@ -57,19 +56,6 @@ class ci_editor extends ci_editores_toba
 		return $pantalla;
 	}
 
-
-	function get_dbt()
-	//Acceso al db_tablas
-	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = toba_dbt::objeto_ci();
-		}
-		if($this->cambio_objeto){	
-			$this->db_tablas->cargar( $this->id_objeto );
-		}
-		return $this->db_tablas;
-	}
-
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();
@@ -88,22 +74,22 @@ class ci_editor extends ci_editores_toba
 
 	function evt__base__carga()
 	{
-		return $this->get_dbt()->elemento("base")->get();
+		return $this->get_entidad()->tabla("base")->get();
 	}
 
 	function evt__base__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("base")->set($datos);
+		$this->get_entidad()->tabla("base")->set($datos);
 	}
 
 	function evt__prop_basicas__carga()
 	{
-		return $this->get_dbt()->elemento("prop_basicas")->get();
+		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 	}
 
 	// *******************************************************************
@@ -119,13 +105,13 @@ class ci_editor extends ci_editores_toba
 
 	function get_dbr_dependencias()
 	{
-		return $this->get_dbt()->elemento('dependencias');
+		return $this->get_entidad()->tabla('dependencias');
 	}
 	
 	function evt__dependencias__del_dep($id)
 	{
 		//El ci de dependencias avisa que se borro la dependencias $id
-		$this->get_dbt()->elemento('pantallas')->eliminar_dependencia($id);
+		$this->get_entidad()->tabla('pantallas')->eliminar_dependencia($id);
 	}
 	
 	// *******************************************************************
@@ -136,7 +122,7 @@ class ci_editor extends ci_editores_toba
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
 		$this->pantalla_dep_asoc = array();
-		if($registros = $this->get_dbt()->elemento('dependencias')->get_registros())
+		if($registros = $this->get_entidad()->tabla('dependencias')->get_filas())
 		{
 			foreach($registros as $reg){
 				$this->pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
@@ -144,7 +130,7 @@ class ci_editor extends ci_editores_toba
 		}
 		//--- Armo la lista de EVENTOS disponibles
 		$this->pantalla_evt_asoc = array();
-		if($registros = $this->get_dbt()->elemento('eventos')->get_registros())
+		if($registros = $this->get_entidad()->tabla('eventos')->get_filas())
 		{
 			foreach($registros as $reg){
 				$this->pantalla_evt_asoc[ $reg['identificador'] ] = $reg['identificador'];
@@ -206,7 +192,7 @@ class ci_editor extends ci_editores_toba
 			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
-		$dbr = $this->get_dbt()->elemento("pantallas");
+		$dbr = $this->get_entidad()->tabla("pantallas");
 		$orden = 1;
 		foreach(array_keys($registros) as $id)
 		{
@@ -217,13 +203,13 @@ class ci_editor extends ci_editores_toba
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->id_intermedio_pantalla[$id] = $dbr->agregar_registro($registros[$id]);
+					$this->id_intermedio_pantalla[$id] = $dbr->nueva_fila($registros[$id]);
 					break;	
 				case "B":
-					$dbr->eliminar_registro($id);
+					$dbr->eliminar_fila($id);
 					break;	
 				case "M":
-					$dbr->modificar_registro($registros[$id], $id);
+					$dbr->modificar_fila( $id, $registros[$id]);
 					break;	
 			}
 		}		
@@ -231,7 +217,7 @@ class ci_editor extends ci_editores_toba
 	
 	function evt__pantallas_lista__carga()
 	{
-		if($datos_dbr = $this->get_dbt()->elemento('pantallas')->get_registros() )
+		if($datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas() )
 		{
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
@@ -266,13 +252,13 @@ class ci_editor extends ci_editores_toba
 
 	function evt__pantallas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento('pantallas')->modificar_registro($datos, $this->seleccion_pantalla_anterior);
+		$this->get_entidad()->tabla('pantallas')->modificar_fila($this->seleccion_pantalla_anterior, $datos);
 	}
 	
 	function evt__pantallas__carga()
 	{
 		$this->seleccion_pantalla_anterior = $this->seleccion_pantalla;
-		return $this->get_dbt()->elemento('pantallas')->get_registro($this->seleccion_pantalla_anterior);
+		return $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla_anterior);
 	}
 
 	//------------------------------------------------------
@@ -281,7 +267,7 @@ class ci_editor extends ci_editores_toba
 
 	function evt__pantallas_ei__carga()
 	{
-		if( $deps = $this->get_dbt()->elemento('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
+		if( $deps = $this->get_entidad()->tabla('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
 		{
 			$a=0;
 			$datos = null;
@@ -301,7 +287,7 @@ class ci_editor extends ci_editores_toba
 		foreach($datos as $dato){
 			$deps[] = $dato['dependencia'];
 		}
-		$this->get_dbt()->elemento('pantallas')->set_dependencias_pantalla($this->seleccion_pantalla_anterior, $deps);
+		$this->get_entidad()->tabla('pantallas')->set_dependencias_pantalla($this->seleccion_pantalla_anterior, $deps);
 	}
 
 	function combo_dependencias()
@@ -322,7 +308,7 @@ class ci_editor extends ci_editores_toba
 
 	function evt__pantallas_evt__carga()
 	{
-		$eventos_asociados = $this->get_dbt()->elemento('pantallas')->get_eventos_pantalla($this->seleccion_pantalla_anterior);
+		$eventos_asociados = $this->get_entidad()->tabla('pantallas')->get_eventos_pantalla($this->seleccion_pantalla_anterior);
 		$datos = null;
 		$a=0;
 		foreach( $this->pantalla_evt_asoc as $dep){
@@ -347,7 +333,7 @@ class ci_editor extends ci_editores_toba
 		foreach($datos as $dato){
 			if($dato['asociar'] == "1")	$eventos[] = $dato['evento'];
 		}
-		$this->get_dbt()->elemento('pantallas')->set_eventos_pantalla($this->seleccion_pantalla_anterior, $eventos);
+		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->seleccion_pantalla_anterior, $eventos);
 	}
 
 	// *******************************************************************
@@ -364,7 +350,7 @@ class ci_editor extends ci_editores_toba
 
 	function get_dbr_eventos()
 	{
-		return $this->get_dbt()->elemento('eventos');
+		return $this->get_entidad()->tabla('eventos');
 	}
 
 	function get_eventos_estandar()
@@ -376,7 +362,7 @@ class ci_editor extends ci_editores_toba
 	function evt__eventos__del_evento($id)
 	{
 		//El ci de EVENTOS avisa que se borro el evento $id
-		$this->get_dbt()->elemento('pantallas')->eliminar_evento($id);
+		$this->get_entidad()->tabla('pantallas')->eliminar_evento($id);
 	}
 	
 	// *******************************************************************
@@ -389,7 +375,7 @@ class ci_editor extends ci_editores_toba
 		require_once('nucleo/lib/reflexion/clase_php.php');
 		require_once('admin/db/dao_editores.php');
 
-		$registro = $this->get_dbt()->elemento('base')->get();
+		$registro = $this->get_entidad()->tabla('base')->get();
 		
 		$subclase = $registro['subclase'];
 		$subclase_archivo = $registro['subclase_archivo'];
@@ -425,16 +411,16 @@ class ci_editor extends ci_editores_toba
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_ci" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ci" );
 		//Sincronizo el DBT
-		$this->get_dbt()->sincronizar();		
+		$this->get_entidad()->sincronizar();		
 	}
 
 	function evt__eliminar()
 	{
-		$this->get_dbt()->eliminar();
+		$this->get_entidad()->eliminar();
 	}
 	// *******************************************************************
 }

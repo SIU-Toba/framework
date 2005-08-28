@@ -14,7 +14,7 @@ require_once("nucleo/browser/interface/ef.php");
 */
 class ci_efs extends objeto_ci
 {
-	protected $db_registros;
+	protected $tabla;
 	protected $seleccion_efs;
 	protected $seleccion_efs_anterior;
 	private $id_intermedio_efs;
@@ -22,27 +22,26 @@ class ci_efs extends objeto_ci
 	function destruir()
 	{
 		parent::destruir();
-		//ei_arbol($this->get_dbr()->elemento('efss')->info(true),"efsS");
+		//ei_arbol($this->get_tabla()->elemento('efss')->info(true),"efsS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_efs";
 		$propiedades[] = "seleccion_efs_anterior";
 		return $propiedades;
 	}
 
 	
-	function get_dbr()
+	function get_tabla()
 	//Acceso al db_tablas
 	{
-		if (! isset($this->db_registros)) {
-			$this->db_registros = $this->controlador->get_dbr_efs();
+		if (! isset($this->tabla)) {
+			$this->tabla = $this->controlador->get_dbr_efs();
 		}
-		return $this->db_registros;
+		return $this->tabla;
 	}
 
 	function mostrar_efs_detalle()
@@ -119,13 +118,13 @@ class ci_efs extends objeto_ci
 				case "A":
 					//Por defecto el campo 'columnas' es igual a 'identificador'
 					$registros[$id]['columnas'] = $registros[$id]['identificador'];
-					$this->id_intermedio_efs[$id] = $this->get_dbr()->agregar_registro($registros[$id]);
+					$this->id_intermedio_efs[$id] = $this->get_tabla()->nueva_fila($registros[$id]);
 					break;	
 				case "B":
-					$this->get_dbr()->eliminar_registro($id);
+					$this->get_tabla()->eliminar_fila($id);
 					break;	
 				case "M":
-					$this->get_dbr()->modificar_registro($registros[$id], $id);
+					$this->get_tabla()->modificar_fila($id, $registros[$id]);
 					break;	
 			}
 		}
@@ -133,7 +132,7 @@ class ci_efs extends objeto_ci
 	
 	function evt__efs_lista__carga()
 	{
-		if($datos_dbr = $this->get_dbr()->get_registros() )
+		if($datos_dbr = $this->get_tabla()->get_filas() )
 		{
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
@@ -167,7 +166,7 @@ class ci_efs extends objeto_ci
 	*	Selecciona un ef por su identificador real
 	*/
 	{
-		$id_interno = $this->get_dbr()->get_id_registro_condicion(array('identificador'=>$id));
+		$id_interno = $this->get_tabla()->get_id_fila_condicion(array('identificador'=>$id));
 		if (count($id_interno) == 1) {
 			$this->evt__efs_lista__seleccion($id_interno[0]);
 		} else {
@@ -181,13 +180,13 @@ class ci_efs extends objeto_ci
 
 	function evt__efs__modificacion($datos)
 	{
-		$this->get_dbr()->modificar_registro($datos, $this->seleccion_efs_anterior);
+		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $datos);
 	}
 	
 	function evt__efs__carga()
 	{
 		$this->seleccion_efs_anterior = $this->seleccion_efs;
-		return $this->get_dbr()->get_registro($this->seleccion_efs_anterior);
+		return $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
 	}
 
 	function evt__efs__cancelar()
@@ -208,7 +207,7 @@ class ci_efs extends objeto_ci
 		*/
 		$parametros = $this->get_definicion_parametros();
 		//Inicializacion del EF actual
-		$x = $this->get_dbr()->get_registro_valor($this->seleccion_efs_anterior,"inicializacion");
+		$x = $this->get_tabla()->get_fila_columna($this->seleccion_efs_anterior,"inicializacion");
 		if(isset($x)){
 			$inicializacion = parsear_propiedades($x);
 		}
@@ -240,14 +239,14 @@ class ci_efs extends objeto_ci
 		if(count($temp)>0){
 			$resultado = empaquetar_propiedades($temp); //echo "<pre> $resultado </pre>";
 			//Tengo que validar que los obligatorios existan
-			$this->get_dbr()->set_registro_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
+			$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
 		}
 	}
 	
 	function get_definicion_parametros()
 	//Recupero la informacion de los parametros de un EF puntual
 	{
-		$ef = $this->get_dbr()->get_registro_valor( $this->seleccion_efs_anterior , "elemento_formulario");
+		$ef = $this->get_tabla()->get_fila_columna( $this->seleccion_efs_anterior , "elemento_formulario");
 		$parametros = call_user_func(array($ef,"get_parametros"));
 		return $parametros;
 	}

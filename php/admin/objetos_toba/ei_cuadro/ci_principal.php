@@ -1,6 +1,5 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php');
-require_once("admin/db/toba_dbt.php");
 
 class ci_principal extends ci_editores_toba
 {
@@ -12,7 +11,7 @@ class ci_principal extends ci_editores_toba
 	function destruir()
 	{
 		parent::destruir();
-		//ei_arbol($this->get_dbt()->elemento('columnas')->info(true),"COLUMNAS");
+		//ei_arbol($this->get_entidad()->tabla('columnas')->info(true),"COLUMNAS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
@@ -24,18 +23,6 @@ class ci_principal extends ci_editores_toba
 		return $propiedades;
 	}
 
-	function get_dbt()
-	//Acceso al db_tablas
-	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = toba_dbt::objeto_ei_cuadro();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1387') );
-		}
-		if($this->cambio_objeto){	
-			$this->db_tablas->cargar( $this->id_objeto );
-		}		
-		return $this->db_tablas;
-	}
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
@@ -43,22 +30,22 @@ class ci_principal extends ci_editores_toba
 
 	function evt__base__carga()
 	{
-		return $this->get_dbt()->elemento("base")->get();
+		return $this->get_entidad()->tabla("base")->get();
 	}
 
 	function evt__base__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("base")->set($datos);
+		$this->get_entidad()->tabla("base")->set($datos);
 	}
 
 	function evt__prop_basicas__carga()
 	{
-		return $this->get_dbt()->elemento("prop_basicas")->get();
+		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 		
 	}
 
@@ -110,7 +97,7 @@ class ci_principal extends ci_editores_toba
 			tengo que guardar el ID intermedio que el ML asigna en las columnas NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
-		$dbr = $this->get_dbt()->elemento("columnas");
+		$dbr = $this->get_entidad()->tabla("columnas");
 		$orden = 1;
 		foreach(array_keys($registros) as $id)
 		{
@@ -121,13 +108,13 @@ class ci_principal extends ci_editores_toba
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->id_intermedio_columna[$id] = $dbr->agregar_registro($registros[$id]);
+					$this->id_intermedio_columna[$id] = $dbr->nueva_fila($registros[$id]);
 					break;	
 				case "B":
-					$dbr->eliminar_registro($id);
+					$dbr->eliminar_fila($id);
 					break;	
 				case "M":
-					$dbr->modificar_registro($registros[$id], $id);
+					$dbr->modificar_fila($id, $registros[$id]);
 					break;	
 			}
 		}
@@ -135,7 +122,7 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__columnas_lista__carga()
 	{
-		if($datos_dbr = $this->get_dbt()->elemento('columnas')->get_registros() )
+		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() )
 		{
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
@@ -170,13 +157,13 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento('columnas')->modificar_registro($datos, $this->seleccion_columna_anterior);
+		$this->get_entidad()->tabla('columnas')->modificar_fila($this->seleccion_columna_anterior, $datos);
 	}
 	
 	function evt__columnas__carga()
 	{
 		$this->seleccion_columna_anterior = $this->seleccion_columna;
-		return $this->get_dbt()->elemento('columnas')->get_registro($this->seleccion_columna_anterior);
+		return $this->get_entidad()->tabla('columnas')->get_fila($this->seleccion_columna_anterior);
 	}
 
 	function evt__columnas__cancelar()
@@ -205,7 +192,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_dbr_eventos()
 	{
-		return $this->get_dbt()->elemento('eventos');
+		return $this->get_entidad()->tabla('eventos');
 	}
 
 	//*******************************************************************
@@ -221,11 +208,11 @@ class ci_principal extends ci_editores_toba
 				en el caso en que no se este utilizando un db_registros.
 		*/
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_ei_cuadro" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ei_cuadro" );
 		//Sincronizo el DBT
-		$this->get_dbt()->sincronizar();		}
+		$this->get_entidad()->sincronizar();		}
 	//-------------------------------------------------------------------
 }
 ?>

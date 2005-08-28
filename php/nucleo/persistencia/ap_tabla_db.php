@@ -364,7 +364,7 @@ class ap_tabla_db extends ap
 		//Si se esta completando un campo nuevo, y el mismo esta basado en una secuencia, esto no va a funcionar.
 		//ATENCION: Esto hay que mejorarlo
 		if(isset($evento) && isset($this->secuencias)){
-			return $fila;	
+			//return $fila;	
 		}
 		//Itero planes de carga externa
 		if(isset($this->proceso_carga_externa)){

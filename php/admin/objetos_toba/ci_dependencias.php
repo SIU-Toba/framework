@@ -7,14 +7,14 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 */
 class ci_dependencias extends objeto_ci
 {
-	private $db_registros;
+	private $tabla;
 	protected $seleccion_dependencia;
 	protected $seleccion_dependencia_anterior;
 
 	function destruir()
 	{
 		parent::destruir();
-		//ei_arbol($this->get_dbr()->info(true));
+		//ei_arbol($this->get_tabla()->info(true));
 	}
 
 	function mantener_estado_sesion()
@@ -25,13 +25,13 @@ class ci_dependencias extends objeto_ci
 		return $propiedades;
 	}
 
-	function get_dbr()
+	function get_tabla()
 	//Acceso al db_tablas
 	{
-		if (! isset($this->db_registros)) {
-			$this->db_registros = $this->controlador->get_dbr_dependencias();
+		if (! isset($this->tabla)) {
+			$this->tabla = $this->controlador->get_dbr_dependencias();
 		}
-		return $this->db_registros;
+		return $this->tabla;
 	}
 
 	function limpiar_seleccion()
@@ -47,13 +47,13 @@ class ci_dependencias extends objeto_ci
 
 	function evt__formulario__alta($datos)
 	{
-		$this->get_dbr()->agregar_registro($datos);
+		$this->get_tabla()->nueva_fila($datos);
 	}
 	
 	function evt__formulario__baja()
 	{
-		$id_dep = $this->get_dbr()->get_registro_valor($this->seleccion_dependencia_anterior,"identificador");
-		$this->get_dbr()->eliminar_registro($this->seleccion_dependencia_anterior);
+		$id_dep = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior,"identificador");
+		$this->get_tabla()->eliminar_fila($this->seleccion_dependencia_anterior);
 		//Se dispara un evento que indica cual es la DEPENDENCIA que se elimino (para que el controlador actualize su estado)
 		$this->reportar_evento( "del_dep", $id_dep );
 		$this->evt__formulario__cancelar();
@@ -61,7 +61,7 @@ class ci_dependencias extends objeto_ci
 	
 	function evt__formulario__modificacion($datos)
 	{
-		$this->get_dbr()->modificar_registro($datos, $this->seleccion_dependencia_anterior);
+		$this->get_tabla()->modificar_fila($this->seleccion_dependencia_anterior, $datos);
 		$this->evt__formulario__cancelar();
 	}
 	
@@ -69,7 +69,7 @@ class ci_dependencias extends objeto_ci
 	{
 		if(isset($this->seleccion_dependencia)){
 			$this->seleccion_dependencia_anterior = $this->seleccion_dependencia;
-			return $this->get_dbr()->get_registro($this->seleccion_dependencia_anterior);
+			return $this->get_tabla()->get_fila($this->seleccion_dependencia_anterior);
 		}
 	}
 
@@ -89,7 +89,7 @@ class ci_dependencias extends objeto_ci
 
 	function evt__cuadro__carga()
 	{
-		return $this->get_dbr()->get_registros();
+		return $this->get_tabla()->get_filas();
 	}
 	//-------------------------------------------------------------
 }

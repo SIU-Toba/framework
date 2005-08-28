@@ -1,7 +1,7 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
-define("apex_datos_clave_fila","dt_clave");
+define("apex_datos_clave_fila","x_dbr_clave");
 /*
 	FALTA:
 		 - Control del FK y PK
@@ -506,7 +506,7 @@ class objeto_datos_tabla extends objeto
 					$this->eliminar_fila($id);
 					break;	
 				case "M":
-					$this->modificar_fila($filas[$id], $id);
+					$this->modificar_fila($id, $filas[$id]);
 					break;	
 			}
 		}
@@ -520,7 +520,7 @@ class objeto_datos_tabla extends objeto
 		if($this->get_cantidad_filas() === 0){
 			$this->nueva_fila($fila);
 		}else{
-			$this->modificar_fila($fila, 0);
+			$this->modificar_fila(0, $fila);
 		}
 	}
 	

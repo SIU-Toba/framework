@@ -1,44 +1,21 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php'); 
-require_once("admin/db/toba_dbt.php");
-
-/*
-	Cosas faltantes:
-
-		- Formulario de APs
-*/
 
 class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
-	//efss
-	private $id_intermedio_efs;
 
 	function destruir()
 	{
 		parent::destruir();
-		//ei_arbol($this->get_dbt()->elemento('efss')->info(true),"efsS");
+		//ei_arbol($this->get_entidad()->tabla('efss')->info(true),"efsS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		return $propiedades;
-	}
-
-	function get_dbt()
-	//Acceso al db_tablas
-	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = toba_dbt::objeto_db_registros();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba_testing', 'objeto'=>'1424') );
-		}
-		if($this->cambio_objeto){	
-			$this->db_tablas->cargar( $this->id_objeto );
-		}		
-		return $this->db_tablas;
 	}
 
 	//*******************************************************************
@@ -47,22 +24,22 @@ class ci_principal extends ci_editores_toba
 
 	function evt__base__carga()
 	{
-		return $this->get_dbt()->elemento("base")->get();
+		return $this->get_entidad()->tabla("base")->get();
 	}
 
 	function evt__base__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("base")->set($datos);
+		$this->get_entidad()->tabla("base")->set($datos);
 	}
 
 	function evt__prop_basicas__carga()
 	{
-		return $this->get_dbt()->elemento("prop_basicas")->get();
+		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 		
 	}
 
@@ -79,12 +56,12 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__columnas__carga()
 	{
-		return $this->get_dbt()->elemento('columnas')->get_registros(null,true);	
+		return $this->get_entidad()->tabla('columnas')->get_filas(null,true);	
 	}
 
 	function evt__columnas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento('columnas')->procesar_registros($datos);
+		$this->get_entidad()->tabla('columnas')->procesar_filas($datos);
 	}
 
 	//-- Generacion automatica de columnas!!
@@ -93,10 +70,10 @@ class ci_principal extends ci_editores_toba
 	{
 		$columnas = $this->obtener_definicion_columnas();
 		//ei_arbol($columnas);		
-		$dbr = $this->get_dbt()->elemento("columnas");
+		$dbr = $this->get_entidad()->tabla("columnas");
 		for($a=0;$a<count($columnas);$a++){
 			try{
-				$dbr->agregar_registro($columnas[$a]);
+				$dbr->nueva_fila($columnas[$a]);
 			}catch(excepcion_toba $e){
 				toba::get_cola_mensajes()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
 			}
@@ -107,8 +84,8 @@ class ci_principal extends ci_editores_toba
 	//Utilizo ADODB para recuperar los metadatos
 	{
 		//-[ 1 ]- Obtengo datos
-		$tabla = $this->get_dbt()->elemento("prop_basicas")->get_registro_valor(0,"tabla");
-		$reg = $this->get_dbt()->elemento("base")->get();
+		$tabla = $this->get_entidad()->tabla("prop_basicas")->get_fila_columna(0,"tabla");
+		$reg = $this->get_entidad()->tabla("base")->get();
 		$proyecto = $reg['fuente_datos_proyecto'];
 		$id_fuente = $reg['fuente_datos'];
 		abrir_fuente_datos($id_fuente, $proyecto);
@@ -127,12 +104,12 @@ class ci_principal extends ci_editores_toba
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_tabla" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto","toba_testing" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_datos_tabla" );
 		//Sincronizo el DBT
-		$this->get_dbt()->sincronizar();	
+		$this->get_entidad()->sincronizar();	
 	}
 	//-------------------------------------------------------------------
 }

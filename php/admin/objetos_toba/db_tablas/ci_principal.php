@@ -1,7 +1,5 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php'); 
-require_once("admin/db/toba_dbt.php");
-
 /*
 	Cosas faltantes:
 
@@ -12,30 +10,15 @@ require_once("admin/db/toba_dbt.php");
 
 class ci_principal extends ci_editores_toba
 {
-	protected $db_tablas;
 	protected $seleccion_relacion;
 	protected $seleccion_relacion_anterior;
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		$propiedades[] = "seleccion_relacion";
 		$propiedades[] = "seleccion_relacion_anterior";
 		return $propiedades;
-	}
-
-	function get_dbt()
-	//Acceso al db_tablas
-	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = toba_dbt::objeto_db_tablas();
-			//$this->db_tablas->cargar( array('proyecto'=>'toba', 'objeto'=>'1400') );
-		}
-		if($this->cambio_objeto){	
-			$this->db_tablas->cargar( $this->id_objeto );
-		}
-		return $this->db_tablas;
 	}
 
 	//*******************************************************************
@@ -44,22 +27,22 @@ class ci_principal extends ci_editores_toba
 
 	function evt__base__carga()
 	{
-		return $this->get_dbt()->elemento("base")->get();
+		return $this->get_entidad()->tabla("base")->get();
 	}
 
 	function evt__base__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("base")->set($datos);
+		$this->get_entidad()->tabla("base")->set($datos);
 	}
 
 	function evt__prop_basicas__carga()
 	{
-		return $this->get_dbt()->elemento("prop_basicas")->get();
+		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_dbt()->elemento("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 	}
 
 	//*******************************************************************
@@ -68,7 +51,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__dependencias__carga()
 	{
-		return $this->get_dbt()->elemento('dependencias')->get_registros(null,true);	
+		return $this->get_entidad()->tabla('dependencias')->get_filas(null,true);	
 	}
 
 	function evt__dependencias__modificacion($datos)
@@ -77,7 +60,7 @@ class ci_principal extends ci_editores_toba
 			ATENCION! si se borran dependencias hay que borrar tambien
 			sus relaciones
 		*/
-		$this->get_dbt()->elemento('dependencias')->procesar_registros($datos);
+		$this->get_entidad()->tabla('dependencias')->procesar_filas($datos);
 	}
 
 	//*******************************************************************
@@ -95,7 +78,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_lista_tablas()
 	{
-		$filas = $this->get_dbt()->elemento('dependencias')->get_registros();
+		$filas = $this->get_entidad()->tabla('dependencias')->get_filas();
 		for($a=0;$a<count($filas);$a++){
 			$datos[$a]['objeto'] = $filas[$a]['identificador']. "," .$filas[$a]['objeto_proveedor'];
 			$datos[$a]['desc'] = $filas[$a]['descripcion'];
@@ -148,28 +131,28 @@ class ci_principal extends ci_editores_toba
 		//Cantidad de claves equivalente
 		//Padre e hijo distinto
 		//Estrella
-		$this->get_dbt()->elemento("relaciones")->agregar_registro($fila);
+		$this->get_entidad()->tabla("relaciones")->nueva_fila($fila);
 	}
 	
 	function evt__rel_form__carga()
 	{
 		if(isset($this->seleccion_relacion)){
 			$this->seleccion_relacion_anterior = $this->seleccion_relacion;
-			$fila = $this->get_dbt()->elemento("relaciones")->get_registro($this->seleccion_relacion_anterior);
+			$fila = $this->get_entidad()->tabla("relaciones")->get_fila($this->seleccion_relacion_anterior);
 			return $this->rel_fila_a_form($fila);
 		}
 	}
 
 	function evt__rel_form__baja()
 	{
-		$this->get_dbt()->elemento("relaciones")->eliminar_registro($this->seleccion_relacion_anterior);
+		$this->get_entidad()->tabla("relaciones")->eliminar_fila($this->seleccion_relacion_anterior);
 		$this->evt__rel_form__cancelar();
 	}
 	
 	function evt__rel_form__modificacion($datos)
 	{
 		$fila = $this->rel_form_a_fila($datos);
-		$this->get_dbt()->elemento("relaciones")->modificar_registro($fila, $this->seleccion_relacion_anterior);
+		$this->get_entidad()->tabla("relaciones")->modificar_fila($this->seleccion_relacion_anterior, $fila);
 		$this->evt__rel_form__cancelar();
 	}
 	
@@ -197,7 +180,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__rel_cuadro__carga()
 	{
-		return $this->get_dbt()->elemento("relaciones")->get_registros();
+		return $this->get_entidad()->tabla("relaciones")->get_filas();
 	}
 	//-------------------------------------------------------------
 
@@ -208,12 +191,12 @@ class ci_principal extends ci_editores_toba
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		//$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto","toba_testing" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase_proyecto", "toba" );
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"clase", "objeto_datos_relacion" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		//$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto","toba_testing" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_datos_relacion" );
 		//Sincronizo el DBT
-		$this->get_dbt()->sincronizar();	
+		$this->get_entidad()->sincronizar();	
 	}
 	//-------------------------------------------------------------------
 }

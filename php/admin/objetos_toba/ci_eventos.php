@@ -10,7 +10,7 @@ require_once("admin/db/autoload.php");
 class ci_eventos extends objeto_ci
 {
 	//Eventos
-	private $db_registros;
+	private $tabla;
 	protected $seleccion_evento;
 	protected $seleccion_evento_anterior;
 	private $id_intermedio_evento;
@@ -23,13 +23,13 @@ class ci_eventos extends objeto_ci
 		return $propiedades;
 	}
 
-	function get_dbr()
+	function get_tabla()
 	//Acceso al db_tablas
 	{
-		if (! isset($this->db_registros)) {
-			$this->db_registros = $this->controlador->get_dbr_eventos();
+		if (! isset($this->tabla)) {
+			$this->tabla = $this->controlador->get_dbr_eventos();
 		}
-		return $this->db_registros;
+		return $this->tabla;
 	}
 
 	//*******************************************************************
@@ -66,7 +66,7 @@ class ci_eventos extends objeto_ci
 		foreach($eventos as $evento)
 		{
 			try{
-				$this->get_dbr()->agregar_registro($evento);
+				$this->get_tabla()->nueva_fila($evento);
 			}catch(excepcion_toba $e){
 				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
 			}
@@ -101,23 +101,23 @@ class ci_eventos extends objeto_ci
 			porque ese es el que se pasa como parametro en la seleccion
 		*/
 		//FALT CONTROL : (Etiqueta o imagen) completa
-		$dbr = $this->get_dbr();
+		$dbr = $this->get_tabla();
 		foreach(array_keys($registros) as $id)
 		{
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->id_intermedio_evento[$id] = $dbr->agregar_registro($registros[$id], $id);
+					$this->id_intermedio_evento[$id] = $dbr->nueva_fila($registros[$id], $id);
 					break;	
 				case "B":
 					//Tengo que reportarle al contenedor la eliminacion del evento
-					$id_evento = $dbr->get_registro_valor($id,"identificador");
-					$dbr->eliminar_registro($id);
+					$id_evento = $dbr->get_fila_columna($id,"identificador");
+					$dbr->eliminar_fila($id);
 					$this->reportar_evento( "del_evento", $id_evento );
 					break;	
 				case "M":
-					$dbr->modificar_registro($registros[$id], $id);
+					$dbr->modificar_fila($id, $registros[$id]);
 					break;	
 			}
 		}
@@ -125,7 +125,7 @@ class ci_eventos extends objeto_ci
 	
 	function evt__eventos_lista__carga()
 	{
-		return $this->get_dbr()->get_registros(null, true);
+		return $this->get_tabla()->get_filas(null, true);
 	}
 
 
@@ -143,13 +143,13 @@ class ci_eventos extends objeto_ci
 
 	function evt__eventos__modificacion($datos)
 	{
-		$this->get_dbr()->modificar_registro($datos, $this->seleccion_evento_anterior);
+		$this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
 	}
 	
 	function evt__eventos__carga()
 	{
 		$this->seleccion_evento_anterior = $this->seleccion_evento;
-		return $this->get_dbr()->get_registro($this->seleccion_evento_anterior);
+		return $this->get_tabla()->get_fila($this->seleccion_evento_anterior);
 	}
 
 	function evt__eventos__cancelar()

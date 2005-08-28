@@ -4,7 +4,6 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 abstract class ci_editores_toba extends objeto_ci
 {
 	protected $id_objeto;
-	protected $db_tablas;
 	protected $cambio_objeto;
 
 	function __construct($id)
@@ -28,10 +27,21 @@ abstract class ci_editores_toba extends objeto_ci
 		}
 	}
 	
+	function get_entidad()
+	//Acceso al DATOS_RELACION
+	{
+		if (! isset($this->dependencias['datos'])) {
+			$this->cargar_dependencia('datos');
+		}
+		if($this->cambio_objeto){	
+			$this->dependencias['datos']->cargar( $this->id_objeto );
+		}		
+		return $this->dependencias['datos'];
+	}
+
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		$propiedades[] = "id_objeto";
 		return $propiedades;
 	}	
@@ -40,8 +50,6 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		$this->id_objeto = 	$id;
 	}
-	
-	abstract function get_dbt();
 	
 	function generar_interface_grafica()
 	{
