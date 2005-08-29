@@ -1,58 +1,13 @@
-	---------------------------------------------------------------------------
 
-							TRABAJO pendiente en el TOBA
+	(El contenido de esto hay que analizarlo y derivarlo al TRAC)
 
-	---------------------------------------------------------------------------
-	-------------------------  ELEMENTOS DE INTERFACE -------------------------
-	---------------------------------------------------------------------------
-
-
-	Charla tema EVENTOS								2h
-
-		- heredar todo del EI
-
-		- cambios de nombre
-			- limpiar por cancelar
-			- get_lista_eventos por construir_eventos_defecto
-
-	
-		NUEVOS tickects?
-		----------------
-
-
-		COSAS
-
-		- Display del CI (anidaciones)	
-
-		- PROYECTO de ejemplo
-		- Pasar las cascadas a XML-RPC
-
-		- Manejar los CSS por proyecto		
-		- el cronometro no esta con POST (¿?)
-		- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
-		- Buffers con filtrado de registro
-	
-		ADMINISTRADOR 
-	
-		- Cambiar la forma de ensamblar una operacion
-		- Poner teclas de acceso para los ITEMS que se esta probando
-		- Separar todo por modulos
-		- Link al codigo PHP de una subclase desde la instanciacion (para entender operaciones)	
-
-		(comechingones)
-	
-		- BASICOS
-	
-			- Ver logica ABM (entidad y buffer)											1d
-			- Persistencia de BUFFERS en memoria cuando son consumidos desde CIs.		1/2
-			- Metodo INFO post proceso 
-			- Dejar el modulo de mensajes online (¿?)
-	
-		- Opcionales
-			- Estetica de la anidacion de CIs
-			- DEFINIR la JERARQUIA DE EXCEPCIONES (eventos, definicion, etc)
-			- ignore_user_abort()
-			- Definir aserciones en los puntos estrategicos
-			- Diagrama de secuencia
-			- Imagenes en botones
-			- Unir CN y CN_T	
+	- Pasar las cascadas a XML-RPC
+	- el cronometro no esta con POST (¿?)
+	- Hacer un metodo en el hilo que avise cuando se rompe la navegacion
+	- Poner teclas de acceso para los ITEMS que se esta probando
+	- Separar todo por modulos
+	- Link al codigo PHP de una subclase desde la instanciacion (para entender operaciones)	
+	- Estetica de la anidacion de CIs
+	- DEFINIR la JERARQUIA DE EXCEPCIONES (eventos, definicion, etc)
+	- ignore_user_abort()
+	- Definir aserciones en los puntos estrategicos
