@@ -35,19 +35,25 @@ class objeto_datos_relacion extends objeto
 	
 	private function crear_relaciones()
 	{
-		for($a=0;$a<count($this->info_relaciones);$a++)
-		{
-			$this->relaciones[] = new relacion_entre_tablas(	$this->info_relaciones[$a]['identificador'],
-																$this->dependencias[ $this->info_relaciones[$a]['padre_id'] ],
-																explode(",",$this->info_relaciones[$a]['padre_clave']),
-																$this->dependencias[ $this->info_relaciones[$a]['hijo_id'] ],
-																explode(",",$this->info_relaciones[$a]['hijo_clave'])
-															);
-			$padres[] = $this->info_relaciones[$a]['padre_id'];
-			$hijos[] = $this->info_relaciones[$a]['hijo_id'];
+		if(count($this->info_relaciones)>0){
+			for($a=0;$a<count($this->info_relaciones);$a++)
+			{
+				$this->relaciones[] = new relacion_entre_tablas(	$this->info_relaciones[$a]['identificador'],
+																	$this->dependencias[ $this->info_relaciones[$a]['padre_id'] ],
+																	explode(",",$this->info_relaciones[$a]['padre_clave']),
+																	$this->dependencias[ $this->info_relaciones[$a]['hijo_id'] ],
+																	explode(",",$this->info_relaciones[$a]['hijo_clave'])
+																);
+				$padres[] = $this->info_relaciones[$a]['padre_id'];
+				$hijos[] = $this->info_relaciones[$a]['hijo_id'];
+			}
+			//Padres sin hijos
+			$this->tablas_raiz = array_diff( array_unique($padres), array_unique($hijos) );
+		}else{
+			//No hay relaciones
+			$this->relaciones = null;
+			$this->tablas_raiz = array_keys($this->dependencias);
 		}
-		//Padres sin hijos
-		$this->tablas_raiz = array_diff( array_unique($padres), array_unique($hijos) );
 	}
 
 	public function obtener_definicion_db()
@@ -85,7 +91,7 @@ class objeto_datos_relacion extends objeto
 					 AND		objeto = '".$this->id[1]."'
 					 ORDER BY 	orden;";
 		$sql["info_relaciones"]["tipo"]="x";
-		$sql["info_relaciones"]["estricto"]="1";		
+		$sql["info_relaciones"]["estricto"]="0";
 		return $sql;
 	}
 
