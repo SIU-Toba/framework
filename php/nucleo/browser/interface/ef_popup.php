@@ -20,7 +20,7 @@ class ef_popup extends ef_editable
 		$parametros["ventana"]["etiqueta"]="Parametros Ventana";
 		$parametros["ventana"]["descripcion"]="ancho, alto, scroll";
 		$parametros["ventana"]["opcional"]=1;
-		$parametros["editable"]["etiqueta"]="Editable?";		
+		$parametros["editable"]["etiqueta"]="Editable";		
 		$parametros["editable"]["descripcion"]="El valor es editable libremente por parte del usuario,".
 								" notar que la clave debe ser igual que el valor. La ventana de popup funciona sólo como una forma rápida de carga.";
 		$parametros["editable"]["opcional"]=1;	
@@ -60,7 +60,7 @@ class ef_popup extends ef_editable
 			$this->item_destino = $parametros["item_destino"];
             unset($parametros['item_destino']);
 		}		
-				
+		
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
 //-------------------- INTERFACE --------------------------
@@ -83,8 +83,13 @@ class ef_popup extends ef_editable
             $recurso_js_desc = "document.{$this->nombre_formulario}.{$this->id_form}_desc";
     		$r .= "<table class='tabla-0'>";
     		$r .= "<tr><td>\n";		
-			$r .= form::hidden($this->id_form, $this->estado, $this->obtener_javascript_input());
-    		$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ". $this->javascript);
+			if ($this->editable) {
+				$r .= form::hidden($this->id_form."_desc", $this->estado, $this->obtener_javascript_input());
+    			$r .= form::text($this->id_form, $this->descripcion_estado ,false, "", $this->tamano, "ef-input", $this->javascript);
+			} else {
+				$r .= form::hidden($this->id_form, $this->estado, $this->obtener_javascript_input());
+    			$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ". $this->javascript);
+			}	
 			$r .= "</td><td>\n";
 			$r .= "<a id='{$this->id_form}_vinculo'";
 			if(!isset($this->ventana)){
