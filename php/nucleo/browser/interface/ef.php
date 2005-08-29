@@ -596,7 +596,7 @@ class ef //Clase abstracta, padre de todos los EF
 	function obtener_interface_ei_filtro()
 	{
 		$this->envoltura_std($this->obtener_input(),
-								"/admin/objetos/editores/ei_filtro",
+								"/admin/objetos_toba/editores/ei_filtro",
 								1088);
 	}
 		

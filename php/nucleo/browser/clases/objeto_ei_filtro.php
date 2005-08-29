@@ -44,7 +44,8 @@ class objeto_ei_filtro extends objeto_ei_formulario
 			}
 			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
 			foreach ($this->lista_ef_post	as	$ef){
-				echo "<tr><td class='abm-fila'>\n";
+				$id_ef = $this->elemento_formulario[$ef]->obtener_id_form();			
+				echo "<tr><td class='abm-fila' id='nodo_$id_ef'>\n";
 				$this->elemento_formulario[$ef]->obtener_interface_ei_filtro();
 				echo "</td></tr>\n";
 			}
