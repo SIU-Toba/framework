@@ -143,11 +143,17 @@ class recurso {
     //Cuando se llama en un momento que no hay sesion (Como en la pantalla de LOGON)
     //hay que llamarlo con un parametro.
 	{
-        if($estilo!=""){
-    		return recurso::path_apl() . "/css/" . $estilo .".css";
-        }else{
+		if($estilo!="")
+			return recurso::path_apl() . "/css/" . $estilo .".css";	
+		else {
             //SI no hay una sesion esto da error.
-            return recurso::path_apl() . "/css/" . apex_proyecto_estilo .".css"; 
+			$proyecto = $_SESSION['proyecto']['nombre'];
+			if($proyecto != "toba") {
+				$path = toba_dir() . "/proyectos/$proyecto/www/css/" . apex_proyecto_estilo . ".css";
+				if (file_exists($path))
+					return recurso::path_pro() . "/css/" . apex_proyecto_estilo .".css";
+			} 
+			return recurso::path_apl() . "/css/" . apex_proyecto_estilo .".css"; 
         }
 	}
 
