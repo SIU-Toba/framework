@@ -130,7 +130,8 @@ class objeto_ei_cuadro extends objeto_ei
 		$sql["info_cuadro"]["tipo"]="1";
 		//------------ Columnas ----------------
 		$sql["info_cuadro_columna"]["sql"] = "SELECT	c.orden	as orden,		
-								c.titulo						as titulo,		
+								c.titulo						as titulo,
+								c.estilo_titulo					as estilo_titulo,		
 								e.css							as estilo,	 
 								c.ancho							as ancho,	 
 								c.clave							as clave,		
@@ -582,7 +583,7 @@ class objeto_ei_cuadro extends objeto_ei
 				{							
 					echo  "<table class='tabla-0'>\n";
 					echo  "<tr>\n";
-					echo  "<td width='95%' align='center' class='lista-col-titulo'>&nbsp;" . $titulo . "&nbsp;</td>\n";
+	                echo  "<td width='95%' align='center' class='".$this->info_cuadro_columna[$indice]["estilo_titulo"]."'>&nbsp;" . $titulo ."&nbsp;</td>\n";
 					echo  "<td width='5%'>";
 					foreach($sentido as $sen){
 					    $sel="";
