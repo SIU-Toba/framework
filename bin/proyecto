@@ -24,7 +24,7 @@ then
 ##***********************************************************************************************##
 ## Crea un proyecto
 ##***********************************************************************************************##
-#@ proyecto [<I>] crear PROYECTO               -- Crear un proyecto
+#@ proyecto [<I>] crear PROYECTO                 -- Crear un proyecto
 
 elif [ "$1" = "crear" ]
 then
@@ -89,7 +89,7 @@ then
 ##***********************************************************************************************##
 ## Configura los archivos creados automaticamente
 ##***********************************************************************************************##
-#@ proyecto [<I>] conf PROYECTO                -- Configura un proyecto recien creado
+#@ proyecto [<I>] conf PROYECTO                  -- Configura un proyecto recien creado
 
 elif [ "$1" = "conf" ]
 then
@@ -108,7 +108,7 @@ then
 ##***********************************************************************************************##
 ## Genera SQL administrativo
 ##***********************************************************************************************##
-#@ proyecto [<I>] sql PROYECTO                 -- Crea SQL admin. del PROYECTO
+#@ proyecto [<I>] sql PROYECTO                   -- Crea SQL admin. del PROYECTO
 
 elif [ "$1" = "sql" ]
 then
@@ -126,7 +126,7 @@ then
 ##***********************************************************************************************##
 ## 
 ##***********************************************************************************************##
-#@ proyecto [<I>] exportar PROYECTO [no_log]   -- Exporta un proyecto de la instancia
+#@ proyecto [<I>] exportar PROYECTO [no_log]     -- Exporta un proyecto de la instancia
 
 elif [ "$1" = "exportar" ]
 then
@@ -174,7 +174,7 @@ then
 ##***********************************************************************************************##
 ## 
 ##***********************************************************************************************##
-#@ proyecto [<I>] exportar_local               -- Exporta la informacion LOCAL del proyecto
+#@ proyecto [<I>] exportar_local                 -- Exporta la informacion LOCAL del proyecto
 
 elif [ "$1" = "exportar_local" ]
 then
@@ -210,7 +210,7 @@ then
 ##***********************************************************************************************##
 ## Borra los registros que conforman el proyecto dentro de la instancia
 ##***********************************************************************************************##
-#@ proyecto [<I>] borrar PROYECTO              -- Elimina un PROYECTO
+#@ proyecto [<I>] borrar PROYECTO                -- Elimina un PROYECTO
 
 elif [ "$1" = "borrar" ]
 then
@@ -235,7 +235,7 @@ then
 ##***********************************************************************************************##
 ## Recupera los datos de un proyecto
 ##***********************************************************************************************##
-#@ proyecto [<I>] cargar PROYECTO [act_seq]    -- Cargar un PROYECTO en una <I>, opcionalmente actualiza las secuencias
+#@ proyecto [<I>] cargar PROYECTO [act_seq]      -- Cargar un PROYECTO en una <I>, opcionalmente actualiza las secuencias
 
 elif [ "$1" = "cargar" ]
 then
@@ -287,7 +287,7 @@ then
 ##***********************************************************************************************##
 ## Empaqueta un proyecto para su distribuicion
 ##***********************************************************************************************##
-#@ proyecto [<I>] empaquetar PROYECTO          -- Cargar un PROYECTO en un <I>
+#@ proyecto [<I>] empaquetar PROYECTO            -- Cargar un PROYECTO en un <I>
 
 elif [ "$1" = "empaquetar" ]
 then
@@ -337,6 +337,57 @@ then
 elif [ "$1" = "pendiente" ]
 then
 	pendiente $0
+	
+##***********************************************************************************************##
+## Ingresar a modo mantenimiento
+##***********************************************************************************************##
+#@ proyecto [<I>] entrar_mantenimiento PROYECTO  -- Setea los puntos de acceso a modo mantenimiento 
+elif [ "$1" = "entrar_mantenimiento" ]
+then
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		dir=$toba_dir/www
+	else	
+		dir=$d_proy/$2/www
+	fi	
+	cd $dir
+	if [ ! -e admin_mantenimiento.php ]
+	then
+		mv admin.php admin_mantenimiento.php
+		cp $toba_dir/bin/php/mantenimiento.php admin.php
+	else
+		echo "  El proyecto $2 se encuentra en modo mantenimiento"
+	fi
+	
+##***********************************************************************************************##
+## Salir de modo mantenimiento
+##***********************************************************************************************##
+#@ proyecto [<I>] salir_mantenimiento PROYECTO   -- Actualiza los puntos de acceso para salir del modo mantenimiento
+elif [ "$1" = "salir_mantenimiento" ]
+then
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe especificar el nombre del proyecto"
+		exit 2
+	elif [ $2 = "toba" ]
+	then
+		dir=$toba_dir/www
+	else
+		dir=$d_proy/$2/www
+	fi
+	cd $dir
+	if [ ! -e admin_mantenimiento.php ]
+	then
+		echo "  El proyecto $2 no se encuentra en modo mantenimiento"
+	else	
+		mv admin_mantenimiento.php admin.php
+	fi	
 
 ##***********************************************************************************************##
 ## Ayuda

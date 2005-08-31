@@ -312,9 +312,55 @@ then
 elif [ "$1" = "testear" ]
 then
 	item /pruebas/testing_automatico_consola $2 $3
+	
+##***********************************************************************************************##
+## Ingresar a modo mantenimiento
+##***********************************************************************************************##
+#@ instancia [<I>] entrar_mantenimiento        -- Setea los puntos de acceso a modo mantenimiento 
+elif [ "$1" = "entrar_mantenimiento" ]
+then
+	echo 
+	echo "-------------------------------------------------------------------------------------"
+	echo
+	echo "  Modificando puntos de acceso para el proyecto: toba"
+	echo
+	proyecto entrar_mantenimiento toba
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo 
+		echo "-------------------------------------------------------------------------------------"
+		echo
+		echo "  Modificando puntos de acceso para el proyecto: $a"
+		echo
+		proyecto entrar_mantenimiento $a $2
+	done
+	
+##***********************************************************************************************##
+## Salir de modo mantenimiento
+##***********************************************************************************************##
+#@ instancia [<I>] salir_mantenimiento         -- Actualiza los puntos de acceso para salir del modo mantenimiento
+elif [ "$1" = "salir_mantenimiento" ]
+then
+	echo
+	echo "-------------------------------------------------------------------------------------"
+	echo
+	echo "  Modificando puntos de acceso para el proyecto: toba"
+	echo
+	proyecto salir_mantenimiento toba
+	cd $d_proy
+	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	do
+		echo 
+		echo "-------------------------------------------------------------------------------------"
+		echo
+		echo "  Modificando puntos de acceso para el proyecto: $a"
+		echo
+		proyecto salir_mantenimiento $a $2
+	done
 
 ##***********************************************************************************************##
-## Ayuda
+## 
 ##***********************************************************************************************##
 else
 	ayuda $0
