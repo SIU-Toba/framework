@@ -127,6 +127,13 @@ class eventos
 		return $evento;	
 	}
 	
+	static function cambiar_pagina()
+	{
+		$evento = self::evento_estandar('cambiar_pagina', null, false);
+		$evento['cambiar_pagina']['maneja_datos'] = false;
+		return $evento;	
+	}
+
 	//---------------------------------------------------
 	//---Eventos de Calendario	
 	static function seleccionar_dia()

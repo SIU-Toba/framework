@@ -19,9 +19,12 @@ function objeto_ei_cuadro(instancia, input_submit) {
 				document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
 				document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 			} else {
-				//Si es una seleccion marco la fila
-				if (this._evento.parametros)
-					document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+				if  (this._evento_id == 'seleccion'){
+					//Si es una seleccion marco la fila
+					if (this._evento.parametros)
+						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+				} else
+					document.getElementById(this._input_submit + '__pagina_actual').value = this._evento.parametros;		
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;

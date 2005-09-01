@@ -22,6 +22,7 @@ class objeto_ei_cuadro extends objeto_ei
 	var $clave_seleccionada;
 	var $id_en_padre;
  	var $indice_columnas;
+	var $pagina_actual;
  
     function objeto_ei_cuadro($id)
 /*
@@ -34,6 +35,7 @@ class objeto_ei_cuadro extends objeto_ei
         $this->submit = "ei_cuadro" . $this->id[1];
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
+        $this->propagador_pagina = $this->id[1] . "pagina";
 		
         //---------  Manejo de CLAVES  -----------------------------------------
         if(isset($this->info_cuadro["columnas_clave"])){
@@ -46,6 +48,18 @@ class objeto_ei_cuadro extends objeto_ei
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_db_registros_clave );
 		}
+       	//---------  Manejo de PAGINADO  -----------------------------------------
+		if(!$this->pagina_actual = $this->solicitud->hilo->obtener_parametro($this->propagador_pagina)){
+			if(isset($this->memoria[$this->propagador_pagina])){
+				$this->pagina_actual = $this->memoria[$this->propagador_pagina];
+			}else{
+				$this->pagina_actual = 1;
+			}
+		}else{
+			$this->memoria[$this->propagador_pagina]=$this->pagina_actual;
+		}
+
+
         //---------  JS---------------  -----------------------------------------			
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
         //---------  Indice de columnas  -----------------------------------------		
@@ -85,6 +99,12 @@ class objeto_ei_cuadro extends objeto_ei
 		} else {
 			unset($this->memoria['orden_sentido']);
 		}		
+		if (isset($this->pagina_actual)) {
+			$this->memoria['pagina_actual']= $this->pagina_actual;
+		} else {
+			unset($this->memoria['pagina_actual']);
+		}		
+
 		parent::destruir();
 	}
 	//-------------------------------------------------------------------------------
@@ -186,6 +206,9 @@ class objeto_ei_cuadro extends objeto_ei
 		if($this->info_cuadro["ordenar"]) { 
 			$eventos += eventos::ordenar();		
 		}
+		if ($this->info_cuadro["paginar"]) {
+			$eventos += eventos::cambiar_pagina();
+		}
 		return $eventos;
 	}
 
@@ -198,8 +221,11 @@ class objeto_ei_cuadro extends objeto_ei
 			if(isset($this->memoria['eventos'][$evento]) ) {
 				if ($evento == 'ordenar')
 					$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+				elseif ($evento == 'cambiar_pagina')
+					$parametros = $this->pagina_actual;
 				else
 					$parametros = $this->clave_seleccionada;
+					
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
@@ -217,6 +243,7 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		$this->cargar_seleccion();
 		$this->cargar_ordenamiento();		
+		$this->cargar_cambio_pagina();
 	}
 //--------------------------------------------------------------------------
 	function deseleccionar()
@@ -271,6 +298,22 @@ class objeto_ei_cuadro extends objeto_ei
 				eval($sentencia);//echo $sentencia;
 			}
 		}
+		//------------- Paginado ----------------		
+        if($this->info_cuadro["paginar"]) {
+            // 1) Calculo la cantidad total de registros
+            $this->total_registros = count($this->datos);
+            if($this->total_registros > 0) {
+                // 2) Calculo la cantidad de paginas
+		        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+                $this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
+                if ($this->pagina_actual > $this->cantidad_paginas) 
+                    $this->pagina_actual = 1;
+                
+                $this->datos = $this->obtener_datos_paginados($this->datos);
+			}	
+		}
+		else
+			$this->cantidad_paginas = 0;
         //ei_arbol($this->datos,"DATOS");
         if($this->hay_ordenamiento()){
             $this->ordenar();
@@ -278,6 +321,12 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->filas = count($this->datos);
         return true;
     }
+	
+	function obtener_datos_paginados($datos)
+	{
+		$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
+		return array_slice($datos, $offset, $this->tamanio_pagina);
+	}
 
 //--------------------------------------------------------------------------	
 	function cargar_seleccion()
@@ -300,6 +349,16 @@ class objeto_ei_cuadro extends objeto_ei
 				}
 			}
 		}	
+	}
+
+//--------------------------------------------------------------------------	
+	function cargar_cambio_pagina()
+	{	
+		$this->pagina_actual = null;
+		if (isset($this->memoria['pagina_actual']))
+			$this->pagina_actual = $this->memoria['pagina_actual'];
+		if(isset($_POST[$this->submit."__pagina_actual"])) 
+			$this->pagina_actual = $_POST[$this->submit."__pagina_actual"];
 	}
 	
 //--------------------------------------------------------------------------	
@@ -358,6 +417,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo form::hidden($this->submit."__seleccion", '');
 		echo form::hidden($this->submit."__orden_columna", '');
 		echo form::hidden($this->submit."__orden_sentido", '');
+		echo form::hidden($this->submit."__pagina_actual", '');
 		
 		//Reproduccion del titulo
 		if(isset($titulo)){
@@ -503,6 +563,7 @@ class objeto_ei_cuadro extends objeto_ei
             echo "</table>\n";
             echo "</td></tr>\n";
 			echo "<td class='ei-base' colspan='$colspan'>\n";
+            $this->generar_html_barra_paginacion();
 			if ($this->hay_botones()) {
 				$this->obtener_botones();
 			}
@@ -519,7 +580,6 @@ class objeto_ei_cuadro extends objeto_ei
     }
 
 	//--------------------------------------------------------------------------
-	
 	function generar_html_totales()
 	{
 		//Selecciono registros a sumarizar
@@ -567,6 +627,60 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</tr>\n";
 	}
 	
+	//--------------------------------------------------------------------------
+	function generar_html_barra_paginacion()
+	//Barra para navegar la paginacion
+	{
+		if( !($this->tamanio_pagina >= $this->total_registros) ) {
+			//Calculo los posibles saltos
+			//Primero y Anterior
+			if($this->pagina_actual == 1) {
+				$anterior = recurso::imagen_apl("paginacion/anterior_deshabilitado.gif",true);
+				$primero = recurso::imagen_apl("paginacion/primero_deshabilitado.gif",true);       
+			} else {
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/anterior.gif");
+				$anterior = recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer');
+			
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/primero.gif");
+				$primero = recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer');
+			}
+			//Ultimo y Siguiente
+			if( $this->pagina_actual == $this->cantidad_paginas ) {
+				$siguiente = recurso::imagen_apl("paginacion/siguiente_deshabilitado.gif",true);
+				$ultimo = recurso::imagen_apl("paginacion/ultimo_deshabilitado.gif",true);     
+			} else {
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/siguiente.gif");
+				$siguiente = recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer');
+				
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/ultimo.gif");
+				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer');
+			}
+			//Creo la barra de paginacion
+			if($this->info_cuadro["paginar"]) {
+				echo "<table class='tabla-0'><tr>";
+				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>$primero</td>";
+				echo "<td  class='lista-pag-bot'>$anterior</td>";
+				echo "<td  class='lista-pag-bot'>&nbsp;Página&nbsp;<b>{$this->pagina_actual}</b>&nbsp;de&nbsp;<b>{$this->cantidad_paginas}</b>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>$siguiente</td>";
+				echo "<td class='lista-pag-bot' >$ultimo</td>";
+				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>";
+				echo "</td>";
+				echo "</tr></table>";
+				echo "</div>";              
+			}
+		}
+	}
+
 	//--------------------------------------------------------------------------
     function cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna

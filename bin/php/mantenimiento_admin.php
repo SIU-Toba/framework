@@ -24,9 +24,10 @@ if (isset($_SERVER['TOBA_DIR'])) {
 <table width="450" border="0" cellspacing="0" cellpadding="0">
 	<tr>
     	<td><div align="center">
-			<span class="style1"><img src="<? echo $_SERVER['TOBA_DIR']."/www/img/mantenimiento/mantenimiento.gif\""?> width="80" height="80"><br><br>
+			<span class="style1">
+				<img src="<? echo "http://" . $_SERVER['SERVER_NAME'] . ereg_replace('/admin.php', '/img/mantenimiento/mantenimiento.gif"', $_SERVER['REQUEST_URI']);?> width="80" height="80"><br><br>
 				Estamos actualizando el sistema.<br>Por favor, intente nuevamente m&aacute;s tarde.<br><br>
-				<img src="<? echo $_SERVER['TOBA_DIR']."/www/img/mantenimiento/logo_siu.gif\""?> width="113" height="80">
+				<img src="<? echo "http://" . $_SERVER['SERVER_NAME'] . ereg_replace('/admin.php', '/img/mantenimiento/logo_siu.gif"', $_SERVER['REQUEST_URI']);?> width="113" height="80">
 			</span>
 		</div></td>
 	</tr>

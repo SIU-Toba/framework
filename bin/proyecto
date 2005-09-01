@@ -359,7 +359,9 @@ then
 	if [ ! -e admin_mantenimiento.php ]
 	then
 		mv admin.php admin_mantenimiento.php
-		cp $toba_dir/bin/php/mantenimiento.php admin.php
+		cp $toba_dir/bin/php/mantenimiento_admin.php admin.php
+		mv aplicacion.php aplicacion_mantenimiento.php
+		cp $toba_dir/bin/php/mantenimiento_aplicacion.php aplicacion.php
 	else
 		echo "  El proyecto $2 se encuentra en modo mantenimiento"
 	fi
@@ -387,6 +389,7 @@ then
 		echo "  El proyecto $2 no se encuentra en modo mantenimiento"
 	else	
 		mv admin_mantenimiento.php admin.php
+		mv aplicacion_mantenimiento.php aplicacion.php
 	fi	
 
 ##***********************************************************************************************##
