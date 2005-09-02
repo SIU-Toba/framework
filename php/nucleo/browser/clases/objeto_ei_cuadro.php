@@ -35,7 +35,8 @@ class objeto_ei_cuadro extends objeto_ei
         $this->submit = "ei_cuadro" . $this->id[1];
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
-        $this->propagador_pagina = $this->id[1] . "pagina";
+		$this->submit_seleccion = $this->submit."__seleccion";
+		$this->submit_paginado = $this->submit."__pagina_actual";
 		
         //---------  Manejo de CLAVES  -----------------------------------------
         if(isset($this->info_cuadro["columnas_clave"])){
@@ -49,16 +50,11 @@ class objeto_ei_cuadro extends objeto_ei
 			$this->columnas_clave = array( apex_db_registros_clave );
 		}
        	//---------  Manejo de PAGINADO  -----------------------------------------
-		if(!$this->pagina_actual = $this->solicitud->hilo->obtener_parametro($this->propagador_pagina)){
-			if(isset($this->memoria[$this->propagador_pagina])){
-				$this->pagina_actual = $this->memoria[$this->propagador_pagina];
-			}else{
-				$this->pagina_actual = 1;
-			}
+		if(isset($this->memoria["pagina_actual"])){
+			$this->pagina_actual = $this->memoria["pagina_actual"];
 		}else{
-			$this->memoria[$this->propagador_pagina]=$this->pagina_actual;
+			$this->pagina_actual = 1;
 		}
-
 
         //---------  JS---------------  -----------------------------------------			
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
@@ -298,7 +294,7 @@ class objeto_ei_cuadro extends objeto_ei
 				eval($sentencia);//echo $sentencia;
 			}
 		}
-		//------------- Paginado ----------------		
+		//------------- Paginado INTERNO ----------------		
         if($this->info_cuadro["paginar"]) {
             // 1) Calculo la cantidad total de registros
             $this->total_registros = count($this->datos);
@@ -309,11 +305,12 @@ class objeto_ei_cuadro extends objeto_ei
                 if ($this->pagina_actual > $this->cantidad_paginas) 
                     $this->pagina_actual = 1;
                 
-                $this->datos = $this->obtener_datos_paginados($this->datos);
-			}	
+				$this->datos = $this->obtener_datos_paginados($this->datos);
+			}
 		}
 		else
-			$this->cantidad_paginas = 0;
+			$this->cantidad_paginas = 1;
+			
         //ei_arbol($this->datos,"DATOS");
         if($this->hay_ordenamiento()){
             $this->ordenar();
@@ -334,8 +331,8 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->clave_seleccionada = null;
 		if (isset($this->memoria['clave_seleccionada']))
 			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
-		if(isset($_POST[$this->submit."__seleccion"])) {
-			$clave = $_POST[$this->submit."__seleccion"];
+		if(isset($_POST[$this->submit_seleccion])) {
+			$clave = $_POST[$this->submit_seleccion];
 			if ($clave != '') {
 				if(count($this->columnas_clave) > 1 )
 				{
@@ -354,11 +351,8 @@ class objeto_ei_cuadro extends objeto_ei
 //--------------------------------------------------------------------------	
 	function cargar_cambio_pagina()
 	{	
-		$this->pagina_actual = null;
-		if (isset($this->memoria['pagina_actual']))
-			$this->pagina_actual = $this->memoria['pagina_actual'];
-		if(isset($_POST[$this->submit."__pagina_actual"])) 
-			$this->pagina_actual = $_POST[$this->submit."__pagina_actual"];
+		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 
+			$this->pagina_actual = $_POST[$this->submit_paginado];
 	}
 	
 //--------------------------------------------------------------------------	
@@ -414,10 +408,10 @@ class objeto_ei_cuadro extends objeto_ei
     {
 		//Campos de comunicación con JS
 		echo form::hidden($this->submit, '');
-		echo form::hidden($this->submit."__seleccion", '');
-		echo form::hidden($this->submit."__orden_columna", '');
-		echo form::hidden($this->submit."__orden_sentido", '');
-		echo form::hidden($this->submit."__pagina_actual", '');
+		echo form::hidden($this->submit_seleccion, '');
+		echo form::hidden($this->submit_orden_columna, '');
+		echo form::hidden($this->submit_orden_sentido, '');
+		echo form::hidden($this->submit_paginado, '');
 		
 		//Reproduccion del titulo
 		if(isset($titulo)){

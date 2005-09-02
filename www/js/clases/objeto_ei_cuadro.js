@@ -14,17 +14,18 @@ function objeto_ei_cuadro(instancia, input_submit) {
 		if (this._ci && !this._ci.en_submit())
 			return this._ci.submit();
 		if (this._evento) {
-			//Si es un ordenamiento paso los parametros
-			if (this._evento.id == 'ordenar') {
-				document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
-				document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
-			} else {
-				if  (this._evento.id == 'seleccion'){
-					//Si es una seleccion marco la fila
+			switch (this._evento.id) {
+				case 'seleccion':
 					if (this._evento.parametros)
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
-				} else
-					document.getElementById(this._input_submit + '__pagina_actual').value = this._evento.parametros;		
+					break;
+				case 'cambiar_pagina':
+					document.getElementById(this._input_submit + '__pagina_actual').value = this._evento.parametros;
+					break;
+				case 'ordenar':
+					document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
+					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
+					break;
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
