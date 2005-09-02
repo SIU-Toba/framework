@@ -563,7 +563,9 @@ class objeto_ei_cuadro extends objeto_ei
             echo "</table>\n";
             echo "</td></tr>\n";
 			echo "<td class='ei-base' colspan='$colspan'>\n";
-            $this->generar_html_barra_paginacion();
+			if ($this->info_cuadro["paginar"]) {
+            	$this->generar_html_barra_paginacion();
+			}
 			if ($this->hay_botones()) {
 				$this->obtener_botones();
 			}
