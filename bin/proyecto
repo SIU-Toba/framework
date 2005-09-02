@@ -341,57 +341,48 @@ then
 ##***********************************************************************************************##
 ## Ingresar a modo mantenimiento
 ##***********************************************************************************************##
-#@ proyecto [<I>] entrar_mantenimiento PROYECTO  -- Setea los puntos de acceso a modo mantenimiento 
-elif [ "$1" = "entrar_mantenimiento" ]
+#@ proyecto [<I>] mantenimiento (entrar|salir) PROYECTO  -- Setea los puntos de acceso a modo mantenimiento 
+elif [ "$1" = "mantenimiento" ]
 then
 	if [ -z "$2" ]
 	then
 		echo
+		echo "ATENCION, Debe indicar si desea entrar o salir de modo mantenimiento"
+		exit 2
+	elif [ -z "$3" ]
+	then
+		echo
 		echo "ATENCION, Debe especificar el nombre del proyecto"
 		exit 2
-	elif [ $2 = "toba" ]
+	elif [ $3 = "toba" ]
 	then
 		dir=$toba_dir/www
 	else	
-		dir=$d_proy/$2/www
+		dir=$d_proy/$3/www
 	fi	
 	cd $dir
-	if [ ! -e admin_mantenimiento.php ]
+	if [ "$2" = "entrar" ]
 	then
-		mv admin.php admin_mantenimiento.php
-		cp $toba_dir/bin/php/mantenimiento_admin.php admin.php
-		mv aplicacion.php aplicacion_mantenimiento.php
-		cp $toba_dir/bin/php/mantenimiento_aplicacion.php aplicacion.php
-	else
-		echo "  El proyecto $2 se encuentra en modo mantenimiento"
-	fi
+		if [ ! -e admin_mantenimiento.php ]
+		then
+			mv admin.php admin_mantenimiento.php
+			cp $toba_dir/bin/php/mantenimiento_admin.php admin.php
+			mv aplicacion.php aplicacion_mantenimiento.php
+			cp $toba_dir/bin/php/mantenimiento_aplicacion.php aplicacion.php
+		else
+			echo "  El proyecto $3 se encuentra en modo mantenimiento"
+		fi
+	elif [ "$2" = "salir" ]
+	then
+		if [ ! -e admin_mantenimiento.php ]
+		then
+			echo "  El proyecto $3 no se encuentra en modo mantenimiento"
+		else		
+			mv admin_mantenimiento.php admin.php
+			mv aplicacion_mantenimiento.php aplicacion.php
+		fi
+	fi		
 	
-##***********************************************************************************************##
-## Salir de modo mantenimiento
-##***********************************************************************************************##
-#@ proyecto [<I>] salir_mantenimiento PROYECTO   -- Actualiza los puntos de acceso para salir del modo mantenimiento
-elif [ "$1" = "salir_mantenimiento" ]
-then
-	if [ -z "$2" ]
-	then
-		echo
-		echo "ATENCION, Debe especificar el nombre del proyecto"
-		exit 2
-	elif [ $2 = "toba" ]
-	then
-		dir=$toba_dir/www
-	else
-		dir=$d_proy/$2/www
-	fi
-	cd $dir
-	if [ ! -e admin_mantenimiento.php ]
-	then
-		echo "  El proyecto $2 no se encuentra en modo mantenimiento"
-	else	
-		mv admin_mantenimiento.php admin.php
-		mv aplicacion_mantenimiento.php aplicacion.php
-	fi	
-
 ##***********************************************************************************************##
 ## Ayuda
 ##***********************************************************************************************##

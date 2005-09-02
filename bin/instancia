@@ -24,7 +24,7 @@ then
 ##***********************************************************************************************##
 ## Muestra la fecha de las exportaciones
 ##***********************************************************************************************##
-#@ instancia [<I>] control_exp                 -- Muestra las fechas de las ultimas exportaciones
+#@ instancia [<I>] control_exp                   -- Muestra las fechas de las ultimas exportaciones
 
 elif [ "$1" = "control_exp" ]
 then
@@ -46,7 +46,7 @@ then
 ##***********************************************************************************************##
 ## Exporta la instancia por proyecto
 ##***********************************************************************************************##
-#@ instancia [<I>] exportar [no_log]           -- Exporta la instancia <I> por PROYECTO
+#@ instancia [<I>] exportar [no_log]             -- Exporta la instancia <I> por PROYECTO
 
 elif [ "$1" = exportar ]
 then
@@ -75,7 +75,7 @@ then
 ##***********************************************************************************************##
 ## Exporta la instancia por proyecto
 ##***********************************************************************************************##
-#@ instancia [<I>] exportar_local              -- Exporta la instancia <I> por PROYECTO
+#@ instancia [<I>] exportar_local                -- Exporta la instancia <I> por PROYECTO
 
 elif [ "$1" = "exportar_local" ]
 then
@@ -100,7 +100,7 @@ then
 ##***********************************************************************************************##
 ## Busca las definiciones de tablas y revierte el orden de aparicion (para DEL,DROP)
 ##***********************************************************************************************##
-#@ instancia [<I>] cargar                      -- Crea la instancia y la carga los DATOS de cada proyecto
+#@ instancia [<I>] cargar                        -- Crea la instancia y la carga los DATOS de cada proyecto
 elif [ "$1" = "cargar" ]
 then
 
@@ -127,7 +127,7 @@ then
 ##***********************************************************************************************##
 ## Regenera una <I>
 ##***********************************************************************************************##
-#@ instancia [<I>] regenerar                   -- Elimina la instancia y la carga
+#@ instancia [<I>] regenerar                     -- Elimina la instancia y la carga
 elif [ "$1" = "regenerar" ]
 then
 
@@ -139,7 +139,7 @@ then
 ##***********************************************************************************************##
 ## Borra los LOGs de una <I>
 ##***********************************************************************************************##
-#@ instancia [<I>] borrar_logs                 -- Elimina la instancia y la carga
+#@ instancia [<I>] borrar_logs                   -- Elimina la instancia y la carga
 elif [ "$1" = "borrar_logs" ]
 then
 
@@ -150,7 +150,7 @@ then
 ##***********************************************************************************************##
 ## Crea SQL administrativo
 ##***********************************************************************************************##
-#@ instancia [<I>] sql                         -- Genera SQL admin. del TOBA (segun METADATOS)
+#@ instancia [<I>] sql                           -- Genera SQL admin. del TOBA (segun METADATOS)
 elif [ "$1" = "sql" ]
 then
 
@@ -163,7 +163,7 @@ then
 ##***********************************************************************************************##
 ## Crea SQL administrativo
 ##***********************************************************************************************##
-#@ instancia [<I>] sql_proy                    -- Genera SQL admin. de los PROYECTOS (segun METADATOS)
+#@ instancia [<I>] sql_proy                      -- Genera SQL admin. de los PROYECTOS (segun METADATOS)
 elif [ "$1" = "sql_proy" ]
 then
 
@@ -177,7 +177,7 @@ then
 ##***********************************************************************************************##
 ## Regeneracion de SQL (metadatos y sql administrativo)
 ##***********************************************************************************************##
-#@ instancia [<I>] sql_full                    -- Regenera METADATOS y crea SQL admin. general
+#@ instancia [<I>] sql_full                      -- Regenera METADATOS y crea SQL admin. general
 elif [ "$1" = "sql_full" ]
 then
 	
@@ -191,7 +191,7 @@ then
 ##***********************************************************************************************##
 ## Elimina una <I>
 ##***********************************************************************************************##
-#@ instancia [<I>] eliminar                    -- Elimina la BASE de <I>
+#@ instancia [<I>] eliminar                      -- Elimina la BASE de <I>
 
 elif [ "$1" = eliminar ]
 then
@@ -203,7 +203,7 @@ then
 ##***********************************************************************************************##
 ## Crea una <I> (base, datos)
 ##***********************************************************************************************##
-#@ instancia [<I>] iniciar                     -- Inicia la instancia <I> (base, datos)
+#@ instancia [<I>] iniciar                       -- Inicia la instancia <I> (base, datos)
 
 elif [ "$1" = iniciar ]
 then
@@ -215,7 +215,7 @@ then
 ##***********************************************************************************************##
 ## Busca las definiciones de tablas y revierte el orden de aparicion (para DEL,DROP)
 ##***********************************************************************************************##
-#@ instancia [<I>] eliminar_proyectos          -- Elimina los datos de los PROYECTOS (no toba)
+#@ instancia [<I>] eliminar_proyectos            -- Elimina los datos de los PROYECTOS (no toba)
 elif [ "$1" = "eliminar_proyectos" ]
 then
 
@@ -240,7 +240,7 @@ then
 ##***********************************************************************************************##
 ## Dumpea la instancia en su totalidad
 ##***********************************************************************************************##
-#@ instancia [<I>] foto                        -- Captura el estado actual de TODA la instancia <I>
+#@ instancia [<I>] foto                          -- Captura el estado actual de TODA la instancia <I>
 
 elif [ "$1" = "foto" ]
 then
@@ -254,7 +254,7 @@ then
 ##***********************************************************************************************##
 ## Recupera una instancia desde la ultima foto
 ##***********************************************************************************************##
-#@ instancia [<I>] recuperar_foto              -- Crea la instancia y carga los datos de la ultima FOTO
+#@ instancia [<I>] recuperar_foto                -- Crea la instancia y carga los datos de la ultima FOTO
 elif [ "$1" = "recuperar_foto" ]
 then
 
@@ -273,7 +273,7 @@ then
 ##***********************************************************************************************##
 ## Regenera una instancia en base a la ultima foto
 ##***********************************************************************************************##
-#@ instancia [<I>] regenerar_foto              -- Elimina la instancia y recupera la ultima FOTO
+#@ instancia [<I>] regenerar_foto                -- Elimina la instancia y recupera la ultima FOTO
 elif [ "$1" = "regenerar_foto" ]
 then
 
@@ -286,7 +286,7 @@ then
 ##***********************************************************************************************##
 ## Regenera una instancia en base a la ultima foto
 ##***********************************************************************************************##
-#@ instancia [<I>] guardar_info_local          -- Elimina la instancia y recupera la ultima FOTO
+#@ instancia [<I>] guardar_info_local            -- Elimina la instancia y recupera la ultima FOTO
 elif [ "$1" = "guardar_info_local" ]
 then
 
@@ -308,7 +308,7 @@ then
 ##***********************************************************************************************##
 ## Testing
 ##***********************************************************************************************##
-#@ instancia [<I>] testear [-c Cat] [-t Caso]  -- Ejecuta la batería de test a la instancia
+#@ instancia [<I>] testear [-c Cat] [-t Caso]    -- Ejecuta la batería de test a la instancia
 elif [ "$1" = "testear" ]
 then
 	item /pruebas/testing_automatico_consola $2 $3
@@ -316,49 +316,39 @@ then
 ##***********************************************************************************************##
 ## Ingresar a modo mantenimiento
 ##***********************************************************************************************##
-#@ instancia [<I>] entrar_mantenimiento        -- Setea los puntos de acceso a modo mantenimiento 
-elif [ "$1" = "entrar_mantenimiento" ]
+#@ instancia [<I>] mantenimiento (entrar|salir)  -- Setea los puntos de acceso a modo mantenimiento 
+elif [ "$1" = "mantenimiento" ]
 then
-	echo 
-	echo "-------------------------------------------------------------------------------------"
-	echo
-	echo "  Modificando puntos de acceso para el proyecto: toba"
-	echo
-	proyecto entrar_mantenimiento toba
-	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
-	do
+	if [ -z "$2" ]
+	then
+		echo
+		echo "ATENCION, Debe indicar si desea entrar o salir de modo mantenimiento"
+		exit 2
+	else
+		if [ "$2" = "entrar" ]
+		then
+			comando="proyecto mantenimiento entrar"
+		else
+			comando="proyecto mantenimiento salir"
+		fi
 		echo 
 		echo "-------------------------------------------------------------------------------------"
 		echo
-		echo "  Modificando puntos de acceso para el proyecto: $a"
+		echo "  Modificando puntos de acceso para el proyecto: toba"
 		echo
-		proyecto entrar_mantenimiento $a $2
-	done
+		$comando toba
+		cd $d_proy
+		for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+		do
+			echo 
+			echo "-------------------------------------------------------------------------------------"
+			echo
+			echo "  Modificando puntos de acceso para el proyecto: $a"
+			echo
+			$comando $a $2
+		done
+	fi	
 	
-##***********************************************************************************************##
-## Salir de modo mantenimiento
-##***********************************************************************************************##
-#@ instancia [<I>] salir_mantenimiento         -- Actualiza los puntos de acceso para salir del modo mantenimiento
-elif [ "$1" = "salir_mantenimiento" ]
-then
-	echo
-	echo "-------------------------------------------------------------------------------------"
-	echo
-	echo "  Modificando puntos de acceso para el proyecto: toba"
-	echo
-	proyecto salir_mantenimiento toba
-	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
-	do
-		echo 
-		echo "-------------------------------------------------------------------------------------"
-		echo
-		echo "  Modificando puntos de acceso para el proyecto: $a"
-		echo
-		proyecto salir_mantenimiento $a $2
-	done
-
 ##***********************************************************************************************##
 ## 
 ##***********************************************************************************************##
