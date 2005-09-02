@@ -19,7 +19,7 @@ function objeto_ei_cuadro(instancia, input_submit) {
 				document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
 				document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 			} else {
-				if  (this._evento_id == 'seleccion'){
+				if  (this._evento.id == 'seleccion'){
 					//Si es una seleccion marco la fila
 					if (this._evento.parametros)
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
