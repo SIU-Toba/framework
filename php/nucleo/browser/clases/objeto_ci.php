@@ -595,9 +595,13 @@ class objeto_ci extends objeto_ei
 						//ei_arbol($dao_form,"DAO");
 						//Por cada elemento de formulario que necesita DAOS
 						foreach($dao_form as $ef => $dao){
-							$datos = $this->$dao();
-							//ei_arbol($datos,"DATOS $ef");
-							$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+							if(method_exists($this, $dao)){
+								$datos = $this->$dao();
+								//ei_arbol($datos,"DATOS $ef");
+								$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+							}else{
+								throw new excepcion_toba_def("El METODO '$dao' ha sido declarado como DAO y no se encuentra en el CI");
+							}
 						}
 					}
 				}

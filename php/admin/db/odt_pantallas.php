@@ -29,7 +29,7 @@ class odt_pantallas extends objeto_datos_tabla
 	function eliminar_dependencia($dependencia)
 	//Elimino una dependencia de todas las pantallas donde este
 	{
-		$ids = $this->get_id_registro_condicion();
+		$ids = $this->get_id_fila_condicion();
 		//Recorro las pantallas
 		foreach($ids as $id){
 			$deps = $this->get_dependencias_pantalla($id);
@@ -68,7 +68,7 @@ class odt_pantallas extends objeto_datos_tabla
 	function eliminar_evento($evento)
 	//Elimino una evento de todas las pantallas donde este
 	{
-		$ids = $this->get_id_registro_condicion();
+		$ids = $this->get_id_fila_condicion();
 		//Recorro las pantallas
 		foreach($ids as $id){
 			$evts = $this->get_eventos_pantalla($id);
