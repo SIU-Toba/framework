@@ -51,7 +51,7 @@ class objeto_ei extends objeto
 	{
 		$parametros = func_get_args();
 		$parametros	= array_merge(array($this->id_en_padre), $parametros);
-		call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
+		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
 		//$this->controladores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );			
 	}
 

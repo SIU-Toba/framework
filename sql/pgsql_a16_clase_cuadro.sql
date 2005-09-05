@@ -27,7 +27,8 @@ CREATE TABLE apex_objeto_cuadro
 	ancho                   	varchar(10) 	NULL,
 	ordenar                 	smallint    	NULL,
 	paginar                 	smallint    	NULL,
-	tamano_pagina           	smallint    	NULL,   
+	tamano_pagina           	smallint    	NULL,
+	tipo_paginado				varchar(1)   		NULL,
 	eof_invisible           	smallint    	NULL,   
 	eof_customizado       		varchar(255)	NULL,
 	exportar		           	smallint       	NULL,		-- Exportar XLS

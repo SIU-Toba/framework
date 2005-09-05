@@ -23,6 +23,8 @@ class objeto_ei_cuadro extends objeto_ei
 	var $id_en_padre;
  	var $indice_columnas;
 	var $pagina_actual;
+	var $tamanio_pagina;
+	var $cantidad_paginas;
  
     function objeto_ei_cuadro($id)
 /*
@@ -55,7 +57,8 @@ class objeto_ei_cuadro extends objeto_ei
 		}else{
 			$this->pagina_actual = 1;
 		}
-
+        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+		
         //---------  JS---------------  -----------------------------------------			
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
         //---------  Indice de columnas  -----------------------------------------		
@@ -69,6 +72,15 @@ class objeto_ei_cuadro extends objeto_ei
 		require_once('api/elemento_objeto_ei_cuadro.php');
 		return new elemento_objeto_ei_cuadro();
 	}	
+	
+	function mantener_estado_sesion()
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "tamanio_pagina";
+		$propiedades[] = "cantidad_paginas";
+		return $propiedades;
+
+	}
 
 	function destruir()
 	{
@@ -124,6 +136,7 @@ class objeto_ei_cuadro extends objeto_ei
 								c.exportar_rtf					as	exportar_pdf,		 
 								c.paginar						as	paginar,			
 								c.tamano_pagina					as	tamano_pagina,
+								c.tipo_paginado					as	tipo_paginado,
 								c.scroll						as	scroll,
 								c.scroll_alto					as	alto,
 								c.eof_invisible					as	eof_invisible,		 
@@ -207,6 +220,16 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 		return $eventos;
 	}
+	
+	function get_tamanio_pagina()
+	{
+		return $this->tamanio_pagina;
+	}
+	
+	function get_pagina_actual()
+	{
+		return $this->pagina_actual;
+	}
 
 	function disparar_eventos()
 	{
@@ -270,7 +293,8 @@ class objeto_ei_cuadro extends objeto_ei
         return $id_fila;
     }
 //--------------------------------------------------------------------------
-
+	
+	
     function cargar_datos($datos=null,$memorizar=true)
 /*
     @@acceso: publico
@@ -293,28 +317,30 @@ class objeto_ei_cuadro extends objeto_ei
 			}
 		}
 		//------------- Paginado INTERNO ----------------		
-        if($this->info_cuadro["paginar"]) {
-            // 1) Calculo la cantidad total de registros
-            $this->total_registros = count($this->datos);
-            if($this->total_registros > 0) {
-                // 2) Calculo la cantidad de paginas
-		        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
-                $this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
-                if ($this->pagina_actual > $this->cantidad_paginas) 
-                    $this->pagina_actual = 1;
-                
+		if($this->info_cuadro["paginar"] && $this->info_cuadro["tipo_paginado"] == 'C') {
+			$this->total_registros = $this->reportar_evento("cant_reg", null);
+			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
+			if ($this->pagina_actual > $this->cantidad_paginas) 
+				$this->pagina_actual = 1;
+		} elseif($this->info_cuadro["paginar"] && $this->info_cuadro["tipo_paginado"] == 'P') {
+			// 1) Calculo la cantidad total de registros
+			$this->total_registros = count($this->datos);
+			if($this->total_registros > 0) {
+				// 2) Calculo la cantidad de paginas
+				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
+				if ($this->pagina_actual > $this->cantidad_paginas) 
+					$this->pagina_actual = 1;
+			
 				$this->datos = $this->obtener_datos_paginados($this->datos);
 			}
-		}
-		else
+		} else
 			$this->cantidad_paginas = 1;
-			
-        //ei_arbol($this->datos,"DATOS");
-        if($this->hay_ordenamiento()){
-            $this->ordenar();
-        }
+		
+		if($this->hay_ordenamiento()){
+			$this->ordenar();
+		}
 		$this->filas = count($this->datos);
-        return true;
+		return true;
     }
 	
 	function obtener_datos_paginados($datos)

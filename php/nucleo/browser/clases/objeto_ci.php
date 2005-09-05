@@ -472,7 +472,7 @@ class objeto_ci extends objeto_ei
 		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if(method_exists($this, $metodo)){
 			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
-			call_user_func_array(array($this, $metodo), $parametros);
+			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
 			$this->log->warning($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
 			//Puede implementarse un metodo generico de manejo de eventos? 

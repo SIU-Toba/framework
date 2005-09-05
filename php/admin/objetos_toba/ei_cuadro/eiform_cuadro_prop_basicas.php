@@ -26,6 +26,19 @@ class eiform_cuadro_prop_basicas extends objeto_ei_formulario
 				this.ef('scroll_alto').ocultar();
 			}
 		}
+		
+		{$this->objeto_js}.evt__paginar__procesar = function (inicial) {
+			var flag;
+			flag = this.ef('paginar').valor();
+			if( flag == 1 ){
+				this.ef('tamano_pagina').mostrar();
+				this.ef('tipo_paginado').mostrar();
+			}else{
+				this.ef('tamano_pagina').ocultar();
+				this.ef('tipo_paginado').ocultar();
+			}
+		}
+
 		";
 	}
 }
