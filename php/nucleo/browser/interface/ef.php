@@ -548,6 +548,20 @@ class ef //Clase abstracta, padre de todos los EF
 
 	function envoltura_ei_ml()
 	{
+		//Editor del ef
+		$editor = "";
+		if(apex_pa_acceso_directo_editor){
+			$item_editor_padre = "/admin/objetos_toba/editores/ei_formulario_ml";
+			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto() && (isset($item_editor_padre)) ) {
+				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
+				$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
+				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
+										'ef' => $this->id );
+				$editor = toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
+
+			}
+		}
+	
 		if($this->validacion){
 	        if($this->obligatorio){
     	        $estilo = "ef-etiqueta-obligatorio";
@@ -560,7 +574,7 @@ class ef //Clase abstracta, padre de todos los EF
             $estilo = "ef-etiqueta-error";
 			$marca ="";
 		}	
-		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta()." $marca";
+		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta()." $marca $editor";
 		if(trim($this->descripcion)!=""){
 			$html .= "<br>".recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
 		}

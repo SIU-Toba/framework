@@ -210,18 +210,23 @@ class objeto_ei_cuadro extends objeto_ei
 
 	function disparar_eventos()
 	{
-		$this->recuperar_interaccion();
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];		
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->memoria['eventos'][$evento]) ) {
-				if ($evento == 'ordenar')
-					$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
-				elseif ($evento == 'cambiar_pagina')
-					$parametros = $this->pagina_actual;
-				else
-					$parametros = $this->clave_seleccionada;
-					
+				switch ($evento) {
+					case 'ordenar':
+						$this->cargar_ordenamiento();
+						$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+						break;
+					case 'cambiar_pagina':
+						$this->cargar_cambio_pagina();
+						$parametros = $this->pagina_actual;
+						break;
+					default:
+						$this->cargar_seleccion();					
+						$parametros = $this->clave_seleccionada;
+				}
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
@@ -233,14 +238,7 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		return $this->clave_seleccionada;
 	}
-//--------------------------------------------------------------------------
 
-	function recuperar_interaccion()
-	{
-		$this->cargar_seleccion();
-		$this->cargar_ordenamiento();		
-		$this->cargar_cambio_pagina();
-	}
 //--------------------------------------------------------------------------
 	function deseleccionar()
 	{

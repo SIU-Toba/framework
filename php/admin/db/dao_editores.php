@@ -29,7 +29,7 @@ class dao_editores
 						clase as descripcion
 				FROM apex_clase 
 				WHERE clase IN ('". implode("','",self::get_clases_validas() ) ."')
-				AND proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				AND (proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR proyecto='toba')
 				ORDER BY 2";
 		return consultar_fuente($sql, "instancia");
 	}	
@@ -61,7 +61,8 @@ class dao_editores
 				WHERE
 					c.clase_tipo = ct.clase_tipo AND 
 					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')	AND
-					c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' AND
+						--El proyecto es Toba o el actual
+					(c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL
 				ORDER BY ct.clase_tipo";
 		return consultar_fuente($sql, "instancia");	

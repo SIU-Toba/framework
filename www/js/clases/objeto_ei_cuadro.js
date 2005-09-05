@@ -15,10 +15,6 @@ function objeto_ei_cuadro(instancia, input_submit) {
 			return this._ci.submit();
 		if (this._evento) {
 			switch (this._evento.id) {
-				case 'seleccion':
-					if (this._evento.parametros)
-						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
-					break;
 				case 'cambiar_pagina':
 					document.getElementById(this._input_submit + '__pagina_actual').value = this._evento.parametros;
 					break;
@@ -26,6 +22,10 @@ function objeto_ei_cuadro(instancia, input_submit) {
 					document.getElementById(this._input_submit + '__orden_columna').value = this._evento.parametros.orden_columna;
 					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 					break;
+				default:
+					if (this._evento.parametros)
+						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+					break;				
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
