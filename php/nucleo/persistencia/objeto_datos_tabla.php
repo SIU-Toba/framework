@@ -385,9 +385,9 @@ class objeto_datos_tabla extends objeto
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila);
-		//SI existen columnas externas, las cargo
+		//SI existen columnas externas, completo la fila con las mismas
 		if($this->posee_columnas_ext){
-			$this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
+			$fila = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
 		}
 		$this->datos[$this->proxima_fila] = $fila;
 		$this->registrar_cambio($this->proxima_fila,"i");

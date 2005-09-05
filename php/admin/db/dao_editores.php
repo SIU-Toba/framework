@@ -171,6 +171,9 @@ class dao_editores
 				AND 	o.objeto = '$objeto'";
 		return consultar_fuente($sql, "instancia");
 	}
+
+	//---------------------------------------------------
+	//-- DATOS TABLA ------------------------------------
 	//---------------------------------------------------
 
 	static function get_lista_objetos_dt()
@@ -190,18 +193,18 @@ class dao_editores
 
 	static function get_lista_dt_columnas($objeto)
 	/*
-		Lista las columnas de los DATOS_TABLA
+		Lista las columnas de los DATOS_TABLA (supone que el objeto pasado como parametro lo es)
 		Esta pregunta hay que hacercela a una clase de dominio (un datos_tabla)
 	*/
 	{
-		$temp = explode(",",$objeto);
-		$objeto = $temp[1];
-		$sql = "SELECT 		columna,
-							col_id
+		$sql = "SELECT 		columna as 	clave,
+							columna as 	descripcion,
+							col_id  as	col_id
 				FROM apex_objeto_db_registros_col 
 				WHERE 	objeto = $objeto
 				AND 	objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
-				ORDER BY 2";
+				ORDER BY 3";
 		return consultar_fuente($sql, "instancia");
-	}}
+	}
+}
 ?>

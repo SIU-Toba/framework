@@ -786,7 +786,7 @@ TD.col-tex-p1 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: center	 
+	 TEXT-ALIGN: left;	 
 }
 TD.col-tex-p2 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -800,7 +800,7 @@ TD.col-tex-p2 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
 }
 TD.col-tex-p3 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -814,7 +814,7 @@ TD.col-tex-p3 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #d3d2d2;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
 }
 TD.columna-monoespacio {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -829,7 +829,7 @@ TD.columna-monoespacio {
 	 BACKGROUND-COLOR: #ffffff;
 	 FONT-FAMILY: courier;
 	 FONT-SIZE: 11px;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
 }
 TD.col-cen-s1 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -841,7 +841,7 @@ TD.col-cen-s1 {
 	 COLOR: #231f20;
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: center;
 }
 TD.col-cen-s2 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -854,7 +854,7 @@ TD.col-cen-s2 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: center;
 }
 TD.col-cen-s3 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -867,7 +867,7 @@ TD.col-cen-s3 {
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 BACKGROUND-COLOR: #e9e8e8;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: center;
 }
 TD.col-cen {
 	BORDER-RIGHT: #4f4c4d 1px solid;
@@ -879,7 +879,7 @@ TD.col-cen {
 	 COLOR: #000000;
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 TEXT-ALIGN: center
+	 TEXT-ALIGN: center;
 }
 TD.objeto-editores {
 	BORDER-BOTTOM: #000011 1px solid;
@@ -959,7 +959,7 @@ TABLE.objeto-base {
 	 BORDER-BOTTOM: #404040 2px solid;
 	 BORDER-COLLAPSE: collapse;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center;
+	 TEXT-ALIGN: left;
 	 empty-cells: show;
 }
 TABLE.abm {
@@ -2527,9 +2527,8 @@ TABLE.objeto-base-3d {
 	 BORDER-BOTTOM: #9999aa 2px solid;
 	 BORDER-COLLAPSE: collapse;
 	 BACKGROUND-COLOR: #441177;
-	 TEXT-ALIGN: center;
+	 TEXT-ALIGN: left;
 	 empty-cells: show;
-	 align: center
 }
 TD.separador_arriba {
 	BORDER-TOP: #000000 2px solid;

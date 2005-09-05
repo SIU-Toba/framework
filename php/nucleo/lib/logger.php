@@ -237,7 +237,7 @@ class logger
 		if(apex_pa_log_pantalla && ! self::$ocultar){
 			$hay_salida = false;
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-			$html = "<div id='logger_salida'> <table width='90%'><tr><td>";
+			$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
 			$html .= "<pre class='texto-ss'>";
 			for($a=0; $a<count($this->mensajes); $a++)
 			{
