@@ -93,6 +93,20 @@ class elemento_objeto_ci extends elemento_objeto
 		$evento[1]['orden'] = 1;		
 		return $evento;		
 	}
+	
+	function utilerias()
+	{
+		$iconos = array();
+		$iconos[] = array(
+			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'ayuda' => "Crear un objeto asociado al controlador",
+			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
+								array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador.
+										$this->id),
+								false, false, null, true)
+		);
+		return array_merge($iconos, parent::utilerias());	
+	}		
 }
 
 

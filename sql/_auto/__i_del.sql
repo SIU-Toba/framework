@@ -1,5 +1,5 @@
 
---- Utilizando instancia: desarrollo
+--- Utilizando instancia: toba_desarrollo
 
 DELETE FROM apex_dim_restric_soltipo ;
 DELETE FROM apex_test_paises ;

@@ -451,7 +451,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		} else {
 			$this->ordenes = array_keys($this->datos);
 		}
-		
 	}
 	//-------------------------------------------------------------------------------
 	/**
@@ -546,6 +545,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			if ($temp !== null)
 				$this->elemento_formulario[$ef]->cargar_estado($temp);
 		}
+		$this->procesar_dependencias();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -650,9 +650,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		//------ FILAS ------
 		$this->filas_enviadas = array();
+
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
-		$this->datos["__fila__"] = array();
-		$this->ordenes[] = "__fila__";
+		if ( $this->info_formulario['filas_agregar_online']) {
+			$this->datos["__fila__"] = array();
+			$this->ordenes[] = "__fila__";
+		}
 		$a = 0;
 		foreach ($this->ordenes as $fila) {
 			$dato = $this->datos[$fila];
@@ -732,6 +735,35 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "</div>\n";
 		}
 	}
+
+	//-------------------------------------------------------------------------------
+	//--------------------------------	DEPENDENCIAS  -------------------------------
+	//-------------------------------------------------------------------------------
+
+	function procesar_dependencias()
+	{
+		foreach ($this->lista_ef as $ef){
+			$dependencias = $this->elemento_formulario[$ef]->obtener_dependencias();
+			if(is_array($dependencias)){
+				$estado = array();
+				foreach( $dependencias as $dep ){
+					//echo "entre $dep<br>";
+					if(is_object($this->elemento_formulario[$dep])){
+						if($temp = $this->elemento_formulario[$dep]->obtener_estado()){
+							if($temp != "NULL") $estado[$dep] = $temp;
+						}
+					}else{
+						echo ei_mensaje("La dependencia '$dep' es invalida");
+					}
+				}
+				$this->elemento_formulario[$ef]->cargar_datos_dependencias($estado);
+			}
+		}
+	}	
+	
+	//-------------------------------------------------------------------------------
+	//--------------------------------	EVENTOS  -------------------------------
+	//-------------------------------------------------------------------------------
 
 	function get_lista_eventos()
 	/*

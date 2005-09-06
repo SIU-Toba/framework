@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/toba_dbt.php');
 require_once('admin/db/dao_editores.php');
 //----------------------------------------------------------------
 
@@ -8,7 +7,6 @@ class ci_principal extends objeto_ci
 {
 	protected $cambio_item;
 	protected $id_item;
-	protected $db_tablas;
 	
 	function __construct($id)
 	{
@@ -34,21 +32,20 @@ class ci_principal extends objeto_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "db_tablas";
 		$propiedades[] = "id_item";
 		return $propiedades;
 	}	
 
-	function get_dbt()
-	//Acceso al db_tablas
+	function get_entidad()
+	//Acceso al DATOS_RELACION
 	{
-		if (! isset($this->db_tablas)) {
-			$this->db_tablas = toba_dbt::item();
+		if (! isset($this->dependencias['datos'])) {
+			$this->cargar_dependencia('datos');
 		}
 		if ($this->cambio_item){
-			$this->db_tablas->cargar( $this->id_item );
+			$this->dependencias['datos']->cargar( $this->id_item );
 		}
-		return $this->db_tablas;
+		return $this->dependencias['datos'];
 	}	
 
 	function set_item($id)
@@ -82,14 +79,14 @@ class ci_principal extends objeto_ci
 		if (isset($padre_p) && isset($padre_i)) {
 			//Se resetea el dbt para que no recuerde datos anteriores
 			unset($this->id_item);
-			$this->get_dbt()->resetear();
+			$this->get_entidad()->resetear();
 			//Para el caso del alta el id es asignado automáticamente 
 			$datos = array('item' => "<span style='white-space:nowrap'>A asignar</span>");
 			$datos['padre'] = $padre_i;
 			$datos['padre_proyecto'] = $padre_p;
 
 		} else {
-			$datos = $this->get_dbt()->elemento("base")->get();
+			$datos = $this->get_entidad()->tabla("base")->get();
 		}
 	
 		//Transfiere los campos accion, buffer y patron a uno comportamiento
@@ -124,12 +121,22 @@ class ci_principal extends objeto_ci
 				break;								
 		}
 		unset($registro['comportamiento']);
-		$this->get_dbt()->elemento("base")->set($registro);
+		$this->get_entidad()->tabla("base")->set($registro);
 	}
 	
 	//----------------------------------------------------------
-	//-- OBJETOS -------------------------------------------------
+	//-- OBJETOS -----------------------------------------------
 	//----------------------------------------------------------
+	function evt__objetos__carga()
+	{
+		$objetos = $this->get_entidad()->tabla('objetos')->get_filas();
+		return $objetos;
+	}
+	
+	function evt__objetos__modificacion($objetos)
+	{
+		ei_arbol($objetos);
+	}
 	
 	//----------------------------------------------------------
 	//-- PERMISOS -------------------------------------------------
@@ -141,7 +148,7 @@ class ci_principal extends objeto_ci
 	function evt__permisos__carga()
 	{
 		$proyecto = toba::get_hilo()->obtener_proyecto();
-		$asignados = $this->get_dbt()->elemento('permisos')->get_registros();
+		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
 		$grupos = dao_editores::get_grupos_acceso(toba::get_hilo()->obtener_proyecto());
@@ -170,8 +177,8 @@ class ci_principal extends objeto_ci
 	
 	function evt__permisos__modificacion($grupos)
 	{
-		$dbr = $this->get_dbt()->elemento('permisos');
-		$asignados = $dbr->get_registros(array(), true);
+		$dbr = $this->get_entidad()->tabla('permisos');
+		$asignados = $dbr->get_filas(array(), true);
 		if (!$asignados)
 			$asignados = array();		
 //		ei_arbol($asignados, 'asignados');
@@ -205,14 +212,14 @@ class ci_principal extends objeto_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_dbt()->elemento('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_entidad()->tabla('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//Sincronizo el DBT
-		$this->get_dbt()->sincronizar();		
+		$this->get_entidad()->sincronizar();		
 	}
 
 	function evt__eliminar()
 	{
-		$this->get_dbt()->eliminar();
+		$this->get_entidad()->eliminar();
 	}
 	// *******************************************************************	
 
