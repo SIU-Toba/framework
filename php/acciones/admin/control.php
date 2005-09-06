@@ -138,8 +138,6 @@ function mostrar_ocultar_frame() {
 		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
 			<a href="<? echo $this->vinculador->generar_solicitud("toba","/pruebas/testing_automatico_web") ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
 		</td>
-
-
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		</tr>
@@ -179,8 +177,11 @@ function mostrar_ocultar_frame() {
 		 <td  class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
 		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">PROYECTO</a>
 		</td>
-
 		<td><? echo gif_nulo(3,1) ?></td>
+		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
+			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos_toba/crear") ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
+		</td>
+
 	</tr>
 	</table>
 </td></tr>

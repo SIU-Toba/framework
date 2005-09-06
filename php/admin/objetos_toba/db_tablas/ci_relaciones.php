@@ -9,7 +9,9 @@ class ci_relaciones extends objeto_ci
 	protected $seleccion_relacion_anterior;
 	private $id_intermedio_relaciones;
 	private $rel_activa_padre;
+	private $rel_activa_padre_claves;
 	private $rel_activa_hijo;
+	private $rel_activa_hijo_claves;
 
 	function destruir()
 	{
@@ -49,11 +51,6 @@ class ci_relaciones extends objeto_ci
 		return $eventos;
 	}
 
-	function evt__cancelar()
-	{
-		$this->limpiar_seleccion();	
-	}
-
 	function get_lista_ei()
 	{
 		$ei[] = "relaciones_lista";
@@ -61,6 +58,13 @@ class ci_relaciones extends objeto_ci
 			$ei[] = "relaciones_columnas";
 		}
 		return $ei;	
+	}
+
+	function evt__pre_cargar_datos_dependencias()
+	{
+		if( $this->mostrar_detalle_relacion() ){
+			$this->get_datos_relacion_activa();
+		}		
 	}
 
 	function evt__post_cargar_datos_dependencias()
@@ -80,6 +84,11 @@ class ci_relaciones extends objeto_ci
 	{
 		unset($this->seleccion_relacion);
 		unset($this->seleccion_relacion_anterior);
+	}
+
+	function evt__cancelar()
+	{
+		$this->limpiar_seleccion();	
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -123,18 +132,9 @@ class ci_relaciones extends objeto_ci
 	
 	function evt__relaciones_lista__modificacion($registros)
 	{
-		/*
-			Como en el mismo request es posible dar una efs de alta y seleccionarla,
-			tengo que guardar el ID intermedio que el ML asigna en las RELACIONES NUEVAS,
-			porque ese es el que se pasa como parametro en la seleccion
-		*/
-		//$orden = 1;
 		$tabla = $this->get_tabla();
 		foreach(array_keys($registros) as $id)
 		{
-			//Creo el campo orden basado en el orden real de las filas
-			//$registros[$id]['orden'] = $orden;
-			//$orden++;
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
 			$fila = $this->conversion_form_a_fila($registros[$id]);
@@ -189,21 +189,18 @@ class ci_relaciones extends objeto_ci
 	//---- DETALLE de la RELACION
 	//-------------------------------------------------------------------------------------
 
- /*
-		$fila['padre_clave'] = implode(",",$datos['padre_columnas']);
-		$fila['hijo_clave'] = implode(",",$datos['hija_columnas']);
-
-		$datos['padre_columnas'] = explode(",", $fila['padre_clave']);
-		$datos['hija_columnas'] = explode(",", $fila['hijo_clave']);
- */
-	function evt__pre_cargar_datos_dependencias()
+	function get_datos_relacion_activa()
 	{
-		if( $this->mostrar_detalle_relacion() ){
-			//Precargo la informacion que necesita el ML inferior
-			$relacion_activa = $this->get_tabla()->get_fila($this->seleccion_relacion);
-			$this->rel_activa_padre = $relacion_activa['padre_objeto'];
-			$this->rel_activa_hijo = $relacion_activa['hijo_objeto'];
+		$relacion_activa = $this->get_tabla()->get_fila($this->seleccion_relacion);
+		$this->rel_activa_padre = $relacion_activa['padre_objeto'];
+		if(isset( $relacion_activa['padre_clave'] )){
+			$this->rel_activa_padre_claves = explode(",",$relacion_activa['padre_clave']);			
 		}
+		$this->rel_activa_hijo = $relacion_activa['hijo_objeto'];
+		if(isset( $relacion_activa['hijo_clave'] )){
+			$this->rel_activa_hijo_claves = explode(",",$relacion_activa['hijo_clave']);
+		}
+		//ei_arbol($relacion_activa);
 	}
 
 	function get_columnas_padre()
@@ -218,16 +215,29 @@ class ci_relaciones extends objeto_ci
 
 	function evt__relaciones_columnas__modificacion($datos)
 	{
-		//for($a=0;$a<count($datos);$a++){
-			
-		//}
-		//$this->get_tabla()->modificar_fila($this->seleccion_relacion_anterior, $datos);
+		if(count($datos)>0){
+			for($a=0;$a<count($datos);$a++){
+				$padre_clave[] = $datos[$a]['columnas_padre'];
+				$hijo_clave[] = $datos[$a]['columnas_hija'];
+			}
+			if(count($padre_clave) != count($hijo_clave) ){
+				throw new excepcion_toba_def("La cantidad de claves tiene que ser simetrica");
+			}
+			$fila['padre_clave'] = implode(",",$padre_clave);
+			$fila['hijo_clave'] = implode(",",$hijo_clave);
+			$this->get_tabla()->modificar_fila($this->seleccion_relacion_anterior, $fila);
+		}
 	}
 	
 	function evt__relaciones_columnas__carga()
 	{
-		//$this->seleccion_relacion_anterior = $this->seleccion_relacion;
-		//return $this->get_tabla()->get_fila($this->seleccion_relacion_anterior);
+		$datos = array();
+		$this->seleccion_relacion_anterior = $this->seleccion_relacion;
+		for($a=0;$a<count($this->rel_activa_hijo_claves);$a++){
+			$datos[$a]['columnas_padre'] = $this->rel_activa_padre_claves[$a];
+			$datos[$a]['columnas_hija'] = $this->rel_activa_hijo_claves[$a];
+		}
+		return $datos;		
 	}
 	//-------------------------------------------------------------------------------------
 }

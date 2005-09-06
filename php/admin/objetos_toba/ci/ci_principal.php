@@ -279,6 +279,7 @@ class ci_editor extends ci_editores_toba
 			}
 			return $datos;
 		}
+		return array();
 	}
 
 	function evt__pantallas_ei__modificacion($datos)
