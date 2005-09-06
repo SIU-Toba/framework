@@ -13,6 +13,13 @@ class form_prop_basicas extends objeto_ei_formulario
 				else
 					this.ef('columna_orden').ocultar();
 			}
+			
+			{$this->objeto_js}.evt__filas_agregar__procesar = function() {
+				if (this.ef('filas_agregar').chequeado())
+					this.ef('filas_agregar_online').mostrar();
+				else
+					this.ef('filas_agregar_online').ocultar();				
+			}
 		";
 	}
 }

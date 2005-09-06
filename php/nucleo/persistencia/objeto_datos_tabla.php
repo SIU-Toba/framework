@@ -292,7 +292,7 @@ class objeto_datos_tabla extends objeto
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			foreach( array_keys($condiciones) as $columna){
 				if( !isset($this->columnas[$columna]) ){
-					throw new excepcion_toba("El campo '$campo' no existe. No es posible filtrar por dicho campo");
+					throw new excepcion_toba("El campo '$columna' no existe. No es posible filtrar por dicho campo");
 				}
 			}
 			//Busco coincidencias

@@ -7,7 +7,33 @@ class ci_principal extends ci_editores_toba
 	protected $seleccion_columna;
 	protected $seleccion_columna_anterior;
 	private $id_intermedio_columna;
+	protected $columna_especifica;
 
+	function __construct($id)
+	{
+		parent::__construct($id);
+		$col = toba::get_hilo()->obtener_parametro('columna');
+		//¿Se selecciono un ef desde afuera?
+		if (isset($col)) {
+			$this->columna_especifica = $col;
+			$id_interno = $this->get_entidad()->tabla("columnas")->get_id_fila_condicion(array('clave'=>$col));
+			if (count($id_interno) == 1) {
+				$this->evt__columnas_lista__seleccion($id_interno[0]);			
+			} else {
+				throw new excepcion_toba("No se encontro la columna $col.");
+			}
+
+		}
+	}	
+	
+	function get_etapa_actual()
+	{
+		if (isset($this->columna_especifica)) {
+			return 2;	//Si se selecciono una columna desde afuera va a la pantalla de edición de las columnas
+		} 
+		return parent::get_etapa_actual();
+	}	
+	
 	function destruir()
 	{
 		parent::destruir();
@@ -84,6 +110,9 @@ class ci_principal extends ci_editores_toba
 			//Agrego el evento "modificacion" y lo establezco como predeterminado
 			$this->dependencias["columnas"]->agregar_evento( eventos::modificacion(null, false), true );
 		}
+		if (isset($this->seleccion_columna)) {
+			$this->dependencias["columnas_lista"]->seleccionar($this->seleccion_columna);
+		}		
 	}
 
 	//-------------------------------
@@ -212,7 +241,8 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ei_cuadro" );
 		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();		}
+		$this->get_entidad()->sincronizar();		
+	}
 	//-------------------------------------------------------------------
 }
 ?>

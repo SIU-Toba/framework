@@ -2,6 +2,7 @@
 require_once('nucleo/browser/clases/objeto_ci.php');
 require_once('reporter_toba.php');
 require_once('lista_casos.php');
+require_once("nucleo/lib/reflexion/archivo_php.php");
 
 class casos_web extends objeto_ci
 {
@@ -26,6 +27,28 @@ class casos_web extends objeto_ci
 		return $eventos;
 	}	
 
+	function evt__lista_archivos__carga()
+	{
+		$this->dependencias['lista_archivos']->colapsar();
+		$lista = array();
+	    foreach (lista_casos::get_casos() as $caso) {
+			if (in_array($caso['id'], $this->selecciones['casos'])) {
+				$lista[] = $caso;
+			}
+		}
+		return $lista;
+	}
+	
+	function evt__lista_archivos__abrir($caso_sel)
+	{
+	    foreach (lista_casos::get_casos() as $caso) {
+			if ($caso['id'] == $caso_sel) {
+				$archivo = new archivo_php($caso['archivo']);
+				$archivo->abrir();
+			}	
+		}	
+	}
+	
 	function evt__seleccion__modificacion($selecciones)
 	{
 		$this->selecciones = $selecciones;
@@ -62,8 +85,8 @@ class casos_web extends objeto_ci
 			else
 				echo $e;
 		}
-		echo "</div>";		
-	
+		echo "</div>";
+		$this->obtener_html_dependencias();
 	}
 }
 

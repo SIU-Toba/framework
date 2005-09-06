@@ -552,13 +552,10 @@ class ef //Clase abstracta, padre de todos los EF
 		$editor = "";
 		if(apex_pa_acceso_directo_editor){
 			$item_editor_padre = "/admin/objetos_toba/editores/ei_formulario_ml";
-			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto() && (isset($item_editor_padre)) ) {
-				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
-				$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
+			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto()) {
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
 										'ef' => $this->id );
 				$editor = toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
-
 			}
 		}
 	

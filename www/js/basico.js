@@ -1,4 +1,5 @@
-var ie=document.all;
+var agt=navigator.userAgent.toLowerCase();
+var ie= ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
 var ns6=document.getElementById && !document.all;
 
 var url_wiki = null;

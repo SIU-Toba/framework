@@ -42,6 +42,7 @@ CREATE TABLE apex_objeto_ut_formulario
 	scroll								smallint		NULL,
 	filas								smallint       	NULL,
 	filas_agregar						smallint       	NULL,
+	filas_agregar_online				smallint		NULL DEFAULT 1,
 	filas_undo							smallint		NULL,
 	filas_ordenar						smallint		NULL,
 	columna_orden						varchar(100)	NULL,

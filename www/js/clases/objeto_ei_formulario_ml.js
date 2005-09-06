@@ -5,13 +5,14 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, seleccionada) {
+	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, seleccionada, en_linea) {
 		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
 		this._ef_con_totales = new Object();	//Lisa de efs que quieren sumarizar
 		this._seleccionada = seleccionada;
+		this._agregado_en_linea = en_linea;
 	}
 
 	def.iniciar = function () {
@@ -245,6 +246,11 @@ def.constructor = objeto_ei_formulario_ml;
 	}
 	
 	def.crear_fila = function() {
+		//¿La fila se agrega en el server?
+		if (! this._agregado_en_linea) {
+			this.set_evento( new evento_ei('pedido_registro_nuevo', true, '', null));
+			return;
+		}
 			//Crea la fila internamente
 		this._filas.push(this._proximo_id);
 
@@ -386,6 +392,8 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.refrescar_procesamientos = function (es_inicial) {
 		for (id_ef in this._efs) {
+			if (id_ef in this._ef_con_totales)
+				this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 			for (id_fila in this._filas) {
 				if (this._efs_procesar[id_ef]) {
 					this.procesar(id_ef, this._filas[id_fila], es_inicial);

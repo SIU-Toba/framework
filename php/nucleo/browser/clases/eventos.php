@@ -109,6 +109,14 @@ class eventos
 	}
 	
 	//---------------------------------------------------
+	//---Eventos del ML
+	static function ml_registro_nuevo()
+	{
+		$evento = self::evento_estandar('pedido_registro_nuevo', "", false);
+		return $evento;	
+	}	
+
+	//---------------------------------------------------
 	//---Eventos sobre datos tabulares
 	static function seleccion($maneja_datos = false)
 	{

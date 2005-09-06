@@ -705,6 +705,16 @@ class objeto_ei_cuadro extends objeto_ei
     function cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna
     {
+		//Editor de la columna
+		$editor = "";
+		if(apex_pa_acceso_directo_editor){
+			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
+			if ( $this->id[0] == toba::get_hilo()->obtener_proyecto() ) {
+				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
+										'columna' => $columna );
+				$editor = " ".toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor, $param_editor, true);
+			}
+		}	
         //Solo son ordenables las columnas extraidas del recordse!!!
         //Las generadas de otra forma llegan con el nombre vacio
         if(trim($columna)!=""){
@@ -747,6 +757,7 @@ class objeto_ei_cuadro extends objeto_ei
                 echo $titulo;
             }
         }
+		echo $editor;
     }
 	//--------------------------------------------------------------------------
 	

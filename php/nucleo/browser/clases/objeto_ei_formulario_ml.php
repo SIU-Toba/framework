@@ -20,6 +20,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $ordenes;							//Ordenes de las claves de los datos recibidos
+	protected $hay_registro_nuevo=false;		//¿La proxima pantalla muestra una linea en blanco?
 
 	function __construct($id)
 /*
@@ -72,6 +73,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										alto as						alto,
 										filas as					filas,
 										filas_agregar as			filas_agregar,
+										filas_agregar_online as 	filas_agregar_online,
 										filas_ordenar as			filas_ordenar,
 										filas_numerar as 			filas_numerar,
 										columna_orden as 			columna_orden,
@@ -165,45 +167,69 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function disparar_eventos()
 	{
 		//Veo si se devolvio algun evento!
-		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
-			$evento = $_POST[$this->submit];
-			//La opcion seleccionada estaba entre las ofrecidas?
-			if(isset($this->memoria['eventos'][$evento]) ){
-				$maneja_datos = $this->memoria['eventos'][$evento];
-				$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
-
-				//Me fijo si el evento envia datos modificados
-				if ($maneja_datos) {
-					$this->cargar_post();
-					$this->validar_estado();
-				}
-
-				//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
-				if ($this->eventos_granulares && $maneja_datos) {
-					$this->disparar_eventos_granulares();
-				}
-				//Si Tiene parametros, es uno a nivel de fila
-				if ($parametros != '') {
-					//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
-					if ($maneja_datos && !$this->eventos_granulares) {
-						$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );
-					}
-					//Reporto el evento a nivel de fila
-					$this->clave_seleccionada = $this->obtener_clave_fila($parametros);
-					$this->reportar_evento( $evento, $this->clave_seleccionada);
-				} elseif (!$this->eventos_granulares) {
-					//Si no tiene parametros particulares, ellos son los valores de las filas
-					if ($maneja_datos)
-						$this->reportar_evento( $evento, $this->obtener_datos($this->analizar_diferencias) );
-					else
-						$this->reportar_evento( $evento, null );
-				}
+		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
+			//La opcion seleccionada estaba entre las ofrecidas?		
+			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {		
+				$this->disparar_eventos_especifico($_POST[$this->submit]);
 			}
 		} else {	//Es la primera carga
 			$this->carga_inicial();
 		}
 		$this->limpiar_interface();
 	}	
+	
+	
+	protected function disparar_eventos_especifico($evento)
+	{
+		$maneja_datos = $this->memoria['eventos'][$evento];
+		$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
+		
+		//Me fijo si el evento envia datos modificados
+		if ($maneja_datos) {
+			$this->cargar_post();
+			$this->validar_estado();
+		}
+		
+		//Si agregar no es online y viene un pedido de agregar, si hay o no registro nuevo y su forma se preguntan al ci
+		//En caso que no responda se asume que si y es vacio
+		//Para no complicar con el resto de la logica se sale del metodo
+		if (! $this->info_formulario['filas_agregar_online'] && $evento == 'pedido_registro_nuevo') {
+			//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion)?
+			if ($this->eventos_granulares && $maneja_datos) {
+				$this->disparar_eventos_granulares();
+			} else {
+				$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );				
+			}
+			$this->hay_registro_nuevo = $this->reportar_evento( $evento, null );
+			return;
+		}
+
+		//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
+		if ($this->eventos_granulares && $maneja_datos) {
+			$this->disparar_eventos_granulares();
+		}
+		
+		//Si Tiene parametros, es uno a nivel de fila
+		if ($parametros != '') {
+			//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
+			if ($maneja_datos && !$this->eventos_granulares) {
+				$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );
+			}
+			//Reporto el evento a nivel de fila
+			$this->clave_seleccionada = $this->obtener_clave_fila($parametros);
+			$this->reportar_evento( $evento, $this->clave_seleccionada);
+		}
+		
+		//Si no tiene parametros particulares, ellos son los valores de las filas
+		if ($parametros == '' && !$this->eventos_granulares) {
+			if ($maneja_datos)
+				$this->reportar_evento( $evento, $this->obtener_datos($this->analizar_diferencias) );
+			elseif ($evento != 'pedido_registro_nuevo')
+				$this->reportar_evento( $evento, null );
+		}
+		
+
+	}
 	//-------------------------------------------------------------------------------
 		
 	function disparar_eventos_granulares()
@@ -242,7 +268,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
 					//A cada fila se le brinda un id único
 					$this->datos[$this->siguiente_id_fila] = array();
-					$this->siguiente_id_fila++;
+					$this->siguiente_id_fila++;	
 				}
 			}
 		}
@@ -428,6 +454,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		
 	}
 	//-------------------------------------------------------------------------------
+	/**
+	*	Agrega un registro nuevo a la matriz
+	*/
+	protected function agregar_registro_nuevo()
+	{	
+		$template = (is_array($this->hay_registro_nuevo)) ? $this->hay_registro_nuevo : array();
+		$this->datos[$this->siguiente_id_fila] = $template;
+		$this->ordenes[] = $this->siguiente_id_fila;
+		$this->siguiente_id_fila++;	
+	}
+
+	//-------------------------------------------------------------------------------
 
 	function existen_datos_cargados()
 	{
@@ -607,6 +645,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	
 	function generar_formulario_cuerpo()
 	{
+		if ($this->hay_registro_nuevo !== false) {
+			$this->agregar_registro_nuevo();
+		}
 		//------ FILAS ------
 		$this->filas_enviadas = array();
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
@@ -698,6 +739,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	*/
 	{
 		$eventos = parent::get_lista_eventos();
+		if (! $this->info_formulario['filas_agregar_online']) {
+			$eventos +=eventos::ml_registro_nuevo();
+		}
 		$hay_botonera = false;
 		foreach ($eventos as $evento) {
 			if ($evento['en_botonera'])
@@ -721,9 +765,10 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Creación de los objetos javascript de los objetos
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
 		$filas = js::arreglo($this->filas_enviadas);
+		$en_linea = js::bool($this->info_formulario['filas_agregar_online']);
 		$seleccionada = (isset($this->clave_seleccionada)) ? $this->clave_seleccionada : "null";
 		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml";
-		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada);\n";
+		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

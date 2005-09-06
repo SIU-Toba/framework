@@ -944,7 +944,8 @@ TD.objeto-ei-barra-superior {
 	 PADDING-TOP: 3px;
 	 BORDER-BOTTOM: #a7a5a6 1px;
 	 BACKGROUND-COLOR: #808080;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: left;
+	 white-space: nowrap;
 }
 TABLE.objeto-base {
 	BORDER-RIGHT: #404040 2px solid;
