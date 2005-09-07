@@ -24,6 +24,7 @@ class objeto_datos_tabla extends objeto
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
+	protected $clave_actual;
 	// Relaciones con el exterior
 	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
 	protected $relaciones_con_padres;			// ARRAY con un objeto RELACION por cada PADRE de la tabla
@@ -56,6 +57,7 @@ class objeto_datos_tabla extends objeto
 		$propiedades[] = "cambios";
 		$propiedades[] = "datos";
 		$propiedades[] = "proxima_fila";
+		$propiedades[] = "clave_actual";
 		return $propiedades;
 	}
 
@@ -402,13 +404,13 @@ class objeto_datos_tabla extends objeto
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->notificar_contenedor("upd", $fila, $id);
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila, $id);
 		if($this->posee_columnas_ext){
 			$this->get_persistidor()->completar_campos_externos_fila($fila,"upd");
 		}
+		$this->notificar_contenedor("pre_modificar", $fila, $id);
 		//Actualizo los valores
 		foreach(array_keys($fila) as $clave){
 			$this->datos[$id][$clave] = $fila[$clave];
@@ -416,6 +418,7 @@ class objeto_datos_tabla extends objeto
 		if($this->cambios[$id]['estado']!="i"){
 			$this->registrar_cambio($id,"u");
 		}
+		$this->notificar_contenedor("post_modificar", $fila, $id);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -426,13 +429,14 @@ class objeto_datos_tabla extends objeto
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->notificar_contenedor("del", $id);
+		$this->notificar_contenedor("pre_eliminar", $id);
 		if($this->cambios[$id]['estado']=="i"){
 			unset($this->cambios[$id]);
 			unset($this->datos[$id]);
 		}else{
 			$this->registrar_cambio($id,"d");
 		}
+		$this->notificar_contenedor("post_eliminar", $id);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -530,15 +534,19 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- VALIDACION de FILAS   ----------------------------------------
+	//-- VALIDACION en LINEA
 	//-------------------------------------------------------------------------------
 
 	private function validar_fila($fila, $id=null)
 	//Valida un registro durante el procesamiento
 	{
+		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
 		$this->control_valores_unicos_fila($fila, $id);
 	}
+
+	protected function evt__validar_ingreso($fila, $id=null){}
+
 	//-------------------------------------------------------------------------------
 
 	public function control_estructura_fila($fila)
@@ -588,6 +596,23 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 	}
+
+	//-------------------------------------------------------------------------------
+	//-- VALIDACION global
+	//-------------------------------------------------------------------------------
+
+	function validar()
+	{
+		$ids = $this->get_id_filas_a_sincronizar( array("u","i") );
+		if(isset($ids)){
+			foreach($ids as $id){
+				//$this->control_nulos($fila);
+				$this->evt__validar_fila( $this->datos[$id] );
+			}
+		}
+	}
+	
+	function evt__validar_fila($fila){}
 
 	/*
 		Controles previos a la sincronizacion
@@ -654,8 +679,10 @@ class objeto_datos_tabla extends objeto
 
 	public function cargar($id)
 	{
+		$this->resetear();
 		$ap = $this->get_persistidor();
 		$ap->cargar($id);
+		$this->clave_actual = $id;
 	}
 
 	public function sincronizar()
@@ -668,7 +695,7 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 		$ap = $this->get_persistidor();
-		return $ap->sincronizar();
+		$modif = $ap->sincronizar();
 	}
 
 	public function resetear()

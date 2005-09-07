@@ -73,14 +73,6 @@ class ap_relacion_db extends ap
 		return $this->cargado;	
 	}
 
-	public function resetear()
-	{
-		foreach($this->dependencias as $dependencia){
-			$dependencia->resetear();
-		}
-		$this->cargado = false;
-	}
-
 	//-------------------------------------------------------------------------------
 	//------  SINCRONIZACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------

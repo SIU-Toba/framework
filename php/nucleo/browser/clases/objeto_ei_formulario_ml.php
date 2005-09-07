@@ -342,6 +342,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		foreach ($this->lista_ef as $ef){
 			$this->elemento_formulario[$ef]->resetear_estado();
 		}
+		unset($this->datos);
+		unset($this->ordenes);
 	}
 	//-------------------------------------------------------------------------------
 

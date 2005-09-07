@@ -130,6 +130,21 @@ class objeto_datos_relacion extends objeto
 		//Ver si se implemento un evento		
 	}
 
+	public function resetear()
+	{
+		foreach($this->dependencias as $dependencia){
+			$dependencia->resetear();
+		}
+	}
+	
+	protected function evt__validar(){}
+
+	public function disparar_validacion_tablas()
+	{
+		foreach($this->dependencias as $dependencia){
+			$dependencia->validar();
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//-- PERSISTENCIA  -------------------------------------------------------------
@@ -145,15 +160,21 @@ class objeto_datos_relacion extends objeto
 	function cargar($clave)
 	{
 		//ATENCION: hay que controlar el formato de la clave
-
 		$ap = $this->get_persistidor();
 		$ap->cargar($clave);
 	}
 
 	function sincronizar()
 	{
+		$this->disparar_validacion_tablas();
+		$this->evt__validar();
 		$ap = $this->get_persistidor();
 		$ap->sincronizar();
+	}
+	
+	function eliminar()
+	{
+		echo ei_mensaje("No estoy implementada (Borrado inverso de tablas)");	
 	}
 	
 	function get_tablas_raiz()
