@@ -7,7 +7,7 @@ require_once("relacion_entre_tablas.php");
 		Las relaciones con los hijos son a travez de un unico ID
 		por cada dependencias, tiene que haber un ID para conectarse a un padre
 		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
-		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extraño
+		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extraï¿½o
 
 	ATENCION: no hay una nomenclatura consistente (padre/hijo; padre/hija; madre/hija)
 
@@ -160,8 +160,10 @@ class objeto_datos_relacion extends objeto
 	function cargar($clave)
 	{
 		//ATENCION: hay que controlar el formato de la clave
+		$this->log('********* Inicio CARGAR **********');
 		$ap = $this->get_persistidor();
 		$ap->cargar($clave);
+		$this->log('********* Fin CARGAR **********');
 	}
 
 	function sincronizar()
@@ -185,6 +187,14 @@ class objeto_datos_relacion extends objeto
 	public function get_fuente()
 	{
 		return $this->info["fuente"];
+	}
+	
+	protected function log($txt)
+	/*
+		El objeto deberia tener directamente algo asi
+	*/
+	{
+		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
 	}
 	//-------------------------------------------------------------------------------
 }

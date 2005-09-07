@@ -679,7 +679,7 @@ class objeto_datos_tabla extends objeto
 
 	public function cargar($id)
 	{
-		$this->resetear();
+		//$this->resetear();
 		$ap = $this->get_persistidor();
 		$ap->cargar($id);
 		$this->clave_actual = $id;

@@ -5,6 +5,7 @@ abstract class ci_editores_toba extends objeto_ci
 {
 	protected $id_objeto;
 	protected $cambio_objeto;
+	private $cargado = false;
 
 	function __construct($id)
 	{
@@ -33,8 +34,10 @@ abstract class ci_editores_toba extends objeto_ci
 		if (! isset($this->dependencias['datos'])) {
 			$this->cargar_dependencia('datos');
 		}
-		if($this->cambio_objeto){	
+		if($this->cambio_objeto && !$this->cargado ){
+			toba::get_logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
 			$this->dependencias['datos']->cargar( $this->id_objeto );
+			$this->cargado = true;
 		}		
 		return $this->dependencias['datos'];
 	}
@@ -63,8 +66,5 @@ abstract class ci_editores_toba extends objeto_ci
 			$zona->obtener_html_barra_inferior();
 		}	
 	}
-		
 }
-
-
 ?>
