@@ -36,7 +36,7 @@ then
 	dato=`ls -l datos.sql | awk '{ print $6 " " $7 " " $8 }'`
 	echo $dato " -- TOBA" 
 	cd $d_proy	
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 	do
 		cd $d_proy/$a/sql
 		dato=`ls -l datos.sql | awk '{ print $6 " " $7 " " $8 }'`
@@ -61,7 +61,7 @@ then
 	proyecto exportar toba $2
 	controlar "EXPORTAR proyecto TOBA"	
 	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 	do
 		echo 
 		echo "-------------------------------------------------------------------------------------"
@@ -86,7 +86,7 @@ then
 	proyecto exportar_local toba $2
 	controlar "EXPORTAR proyecto TOBA"	
 	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 	do
 		echo 
 		echo "-------------------------------------------------------------------------------------"
@@ -113,7 +113,7 @@ then
 	controlar "CARGAR proyecto TOBA en instancia $instancia"	
 	echo "Cargando proyectos"
 	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 	do
 		echo "  cargar proyecto: $a"
 		proyecto $instancia cargar $a
@@ -168,7 +168,7 @@ elif [ "$1" = "sql_proy" ]
 then
 
 	cd $d_proy
-	for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 	do
 		echo "  Gerando SQL ADM del proyecto: $a"
 		proyecto sql $a
@@ -227,7 +227,7 @@ then
 		if [ $respuesta = "S" ]
 		then
 			cd $d_proy
-			for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+			for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 			do
 				echo "  Eliminando metadatos del proyecto: $a"
 				proyecto borrar $a	
@@ -308,7 +308,7 @@ then
 ##***********************************************************************************************##
 ## Testing
 ##***********************************************************************************************##
-#@ instancia [<I>] testear [-c Cat] [-t Caso]    -- Ejecuta la batería de test a la instancia
+#@ instancia [<I>] testear [-c Cat] [-t Caso]    -- Ejecuta la baterï¿½ de test a la instancia
 elif [ "$1" = "testear" ]
 then
 	item /pruebas/testing_automatico_consola $2 $3
@@ -338,7 +338,7 @@ then
 		echo
 		$comando toba
 		cd $d_proy
-		for a in `ls -l | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $9 }'`
+		for a in `ls -1 | egrep "^d|^l" | egrep -v "CVS" | awk '{ print $1 }'`
 		do
 			echo 
 			echo "-------------------------------------------------------------------------------------"

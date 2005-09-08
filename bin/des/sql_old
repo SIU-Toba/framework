@@ -148,7 +148,7 @@ then
 #----> Orden Descendente (Borrado, Eliminacion)
 
 	echo "--> Generacion de SQL de borrado, eliminacion y vacuum"
-	for a in `ls -lr pgsql_a*.sql  | awk '{ print $9 }'`
+	for a in `ls -1r pgsql_a*.sql  | awk '{ print $1 }'`
 	do
 		echo "procesando archivo: $a"
 
@@ -166,7 +166,7 @@ then
 #----> Orden Ascendente (Dumpeo)
 
 	echo "--> Generacion de Planes de DUMPEO"
-	for a in `ls -l pgsql_a*.sql  | awk '{ print $9 }'`
+	for a in `ls -1 pgsql_a*.sql  | awk '{ print $1 }'`
 	do
 		echo "procesando archivo: $a"
 		sql tab $a >> __plan-dump.txt
@@ -195,13 +195,13 @@ then
 							# Esto trabaja desde el directorio actual.
 							
 				#------ 1) Migro los scripts de creacion
-					for a in `ls -l ${s_sql_ini}a${s_sql_fin}  | awk '{ print $9 }'`
+					for a in `ls -1 ${s_sql_ini}a${s_sql_fin}  | awk '{ print $1 }'`
 					do
 						sed -f $d_entrada/multidb/informix_creacion.sed $a > informix/$a
 						#sql tab_drop $a > informix/${a}_drop.sql
 					done
 				#------ 2) Migro los datos
-					for a in `ls -l ${s_sql_datos}${s_sql_fin}  | awk '{ print $9 }'`
+					for a in `ls -1 ${s_sql_datos}${s_sql_fin}  | awk '{ print $1 }'`
 					do
 						#echo "HOLA: " $a
 						sed -f $d_entrada/multidb/informix_datos.sed $a > informix/$a

@@ -26,8 +26,8 @@ then
 
 elif [ "$1" = "nivel" ]
 then
-
-	for a in `ls -l ${s_sql_ini}$2${s_sql_fin}  | awk '{ print $9 }'`
+	
+	for a in `ls -1 ${s_sql_ini}$2${s_sql_fin}  | awk '{ print $1 }'`
 	do
 		pgsql_ejecutar $a $3 $4
 		controlar "Ejecutar SCRIPT $a en la INSTANCIA $instancia"

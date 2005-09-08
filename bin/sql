@@ -66,7 +66,7 @@ then
 							# Esto trabaja desde el directorio actual.
 							
 				#------ 1) Migro los scripts de creacion
-					for a in `ls -l ${s_sql_ini}a${s_sql_fin}  | awk '{ print $9 }'`
+					for a in `ls -1 ${s_sql_ini}a${s_sql_fin}  | awk '{ print $1 }'`
 					do
 						echo "procesando: $a"
 						sed -f $d_entrada/multidb/informix_creacion.sed $a > _auto/migraciones/informix/ifx_$a

@@ -57,7 +57,7 @@ then
 elif [ "$1" = "i" ]
 then
 
-	php $d_bin/php/instancias.php $toba_dir
+	php $d_bin/php/instancias.php $toba_dir -i
 
 ##***********************************************************************************************##
 ## Lista los scripts existentes
@@ -67,7 +67,7 @@ then
 elif [ "$1" = "listar_scripts" ]
 then
 
-	ls -l $d_bin | egrep -v "^d|i_|3_" | awk '{ print $9 }' | egrep -v "^$" | sort
+	ls -1 $d_bin | egrep -v "^d|i_|3_" | awk '{ print $1 }' | egrep -v "^$" | sort
 
 ##***********************************************************************************************##
 ## Introduce los scripts existentes
