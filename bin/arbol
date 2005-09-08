@@ -85,7 +85,7 @@ then
 
 	cd proyectos
 	echo "4) Eliminando proyectos"
-	for a in `ls -l | egrep "^d|^l" | awk '{ print $9 }'`
+	for a in `ls -1 | egrep "^d|^l" | awk '{ print $1 }'`
 	do
 		echo " --> Eliminar PROYECTO: $a"
 		rm -Rf $a

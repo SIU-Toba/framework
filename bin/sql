@@ -72,7 +72,7 @@ then
 						sed -f $d_entrada/multidb/informix_creacion.sed $a > _auto/migraciones/informix/ifx_$a
 					done
 				#------ 2) Migro los datos
-				#	for a in `ls -l ${s_sql_datos}${s_sql_fin}  | awk '{ print $9 }'`
+				#	for a in `ls -1 ${s_sql_datos}${s_sql_fin}  | awk '{ print $1 }'`
 				#	do
 				#		echo "HOLA: " $a
 				#		sed -f $d_entrada/multidb/informix_datos.sed $a > informix/$a
