@@ -118,11 +118,11 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function archivo($nombre,$valor=null,$clase="ef-input-upload")
+    function archivo($nombre,$valor=null,$clase="ef-input-upload",$extra="")
     // Boton de SUBMIT
     {
         if(isset($valor)) $valor = "value='$valor'";
-        return "<INPUT type='file' name='$nombre' id='$nombre' $valor class='$clase'>\n";
+        return "<INPUT type='file' name='$nombre' id='$nombre' $valor $extra class='$clase'>\n";
     }
 //________________________________________________________________________________________________________
 
