@@ -103,17 +103,6 @@ class dao_editores
 		$res = consultar_fuente($sql, "instancia");
 		return $res[0];
 	}
-	//---------------------------------------------------
-	//---------------- ITEMS --------------------------
-	//---------------------------------------------------
-	static function get_ids_items_instancia($proyecto)
-	{
-		$sql = "SELECT 	item 
-				FROM apex_item
-				WHERE proyecto = '$proyecto'
-				ORDER BY 1";
-		return consultar_fuente($sql, "instancia");
-	}
 
 	//---------------------------------------------------
 	//---------------- PERMISOS --------------------------
@@ -133,16 +122,6 @@ class dao_editores
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------
-
-	static function get_ids_objetos_instancia($proyecto)
-	{
-		$sql = "SELECT 	objeto 
-				FROM apex_objeto 
-				WHERE clase IN ('". implode("','",self::get_clases_validas() ) ."')
-				AND proyecto = '$proyecto'
-				ORDER BY 1";
-		return consultar_fuente($sql, "instancia");
-	}
 
 	static function get_lista_objetos_toba($clase)
 	{
