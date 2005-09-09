@@ -169,15 +169,17 @@ class item implements recorrible_como_arbol
 				'imagen' => recurso::imagen_apl("items/carpeta.gif", false),
 				'ayuda' => "Editar propiedades de la carpeta",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades",
-								array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()))
+								array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
+								null, false, false, null, true)
 				);
 
 		} else {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("items/item.gif", false),
 				'ayuda' => "Editar propiedades del ITEM",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/propiedades",
-									array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()))
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items",
+									array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
+									null, false, false, null, true)
 				);
 				
 			if ($this->tipo_solicitud() == "consola") {
@@ -229,7 +231,7 @@ class item implements recorrible_como_arbol
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/propiedades", 
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items", 
 								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
 			);			
 

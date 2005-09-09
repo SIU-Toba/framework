@@ -48,6 +48,8 @@ class archivo_php
 		if (manejador_archivos::es_windows()) {
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
 			exec("start $archivo");
+		} else {
+			`env DISPLAY=A:0.0 \nkwrite`;
 		}
 	}
 	

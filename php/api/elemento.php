@@ -1,6 +1,4 @@
 <?
-require_once("admin/db/toba_dbt.php");
-
 /*
 Mecanismo de exportacion de elementos del toba.
 Orientado al intercambio de componentes entre instancias.

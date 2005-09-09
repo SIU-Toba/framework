@@ -43,6 +43,7 @@ class ci_principal extends objeto_ci
 			$this->cargar_dependencia('datos');
 		}
 		if ($this->cambio_item){
+			toba::get_logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
 			$this->dependencias['datos']->cargar( $this->id_item );
 		}
 		return $this->dependencias['datos'];
@@ -129,13 +130,13 @@ class ci_principal extends objeto_ci
 	//----------------------------------------------------------
 	function evt__objetos__carga()
 	{
-		$objetos = $this->get_entidad()->tabla('objetos')->get_filas();
+		$objetos = $this->get_entidad()->tabla('objetos')->get_filas(null, true);
 		return $objetos;
 	}
 	
 	function evt__objetos__modificacion($objetos)
 	{
-		ei_arbol($objetos);
+		$this->get_entidad()->tabla('objetos')->procesar_filas($objetos);
 	}
 	
 	//----------------------------------------------------------
@@ -172,7 +173,6 @@ class ci_principal extends objeto_ci
 			$datos[] = $grupo;
 		}
 		return $datos;
-		
 	}
 	
 	function evt__permisos__modificacion($grupos)
@@ -212,7 +212,7 @@ class ci_principal extends objeto_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_registro_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();		
 	}

@@ -15,8 +15,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	protected $lista_ef_totales = array();
 	protected $clave_seleccionada;					//Id de la fila seleccionada
 	protected $siguiente_id_fila;				//Autoincremental que se va a asociar al ef que identifica una fila
-	protected $filas_enviadas;					//Lista de filas enviadas al cliente
-	protected $filas_recibidas;					//Lista de filas recibidas desde el cliente	
+	protected $filas_recibidas;					//Lista de filas recibidas desde el ci
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $ordenes;							//Ordenes de las claves de los datos recibidos
@@ -31,7 +30,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		parent::__construct($id);
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(5000);
 		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156000;
-		$this->filas_enviadas = isset($this->memoria['filas_enviadas']) ? $this->memoria['filas_enviadas'] : array();
+		$this->filas_recibidas = isset($this->memoria['filas_recibidas']) ? $this->memoria['filas_recibidas'] : array();
 	}
 	//-------------------------------------------------------------------------------
 
@@ -44,7 +43,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function destruir()
 	{
 		$this->memoria['siguiente_id_fila'] = $this->siguiente_id_fila;
-		$this->memoria['filas_enviadas'] = $this->filas_enviadas;
+		$this->memoria['filas_recibidas'] = $this->filas_recibidas;
 		parent::destruir();
 	}	
 	//-------------------------------------------------------------------------------
@@ -286,11 +285,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		$this->datos = array();			
 		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
-		$this->filas_recibidas = array();
+		$filas_recibidas = array();
 		if ($lista_filas != '') {
-			$this->filas_recibidas = explode('_', $lista_filas);
+			$filas_recibidas = explode('_', $lista_filas);
 			//Por cada fila
-			foreach ($this->filas_recibidas as $fila)
+			foreach ($filas_recibidas as $fila)
 			{
 				if ($fila >= $this->siguiente_id_fila)
 					$this->siguiente_id_fila = $fila + 1;
@@ -393,16 +392,19 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			//Analizo la procedencia del registro: es alta o modificación
 			$datos = $this->datos;
 			foreach (array_keys($datos) as $id_fila) {
-				if (in_array($id_fila, $this->filas_enviadas))
+				//Si la fila que viene desde el POST estaba entra las recibidas del CI en el request anterior
+				//es una fila modificada, sino para el CI es una nueva 
+				if (in_array($id_fila, $this->filas_recibidas))
 					$datos[$id_fila][apex_ei_analisis_fila] = 'M';
 				else
 					$datos[$id_fila][apex_ei_analisis_fila] = 'A';
 			}
 			
 			//Se buscan los registros borrados
-			foreach ($this->filas_enviadas as $enviada) {
-				if (! in_array($enviada, $this->filas_recibidas)) {
-					$datos[$enviada] = array(apex_ei_analisis_fila => 'B');
+			foreach ($this->filas_recibidas as $recibida) {
+				//Si la recibida en el request anterior no vino junto a los datos se borro
+				if (! in_array($recibida, array_keys($datos))) {
+					$datos[$recibida] = array(apex_ei_analisis_fila => 'B');
 				}
 			}
 		} else {	//Hay que sacar la información extra
@@ -463,7 +465,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$template = (is_array($this->hay_registro_nuevo)) ? $this->hay_registro_nuevo : array();
 		$this->datos[$this->siguiente_id_fila] = $template;
 		$this->ordenes[] = $this->siguiente_id_fila;
-		$this->siguiente_id_fila++;	
+		$this->siguiente_id_fila++;
 	}
 
 	//-------------------------------------------------------------------------------

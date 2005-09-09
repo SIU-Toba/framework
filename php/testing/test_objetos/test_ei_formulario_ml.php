@@ -22,13 +22,18 @@ class test_ei_formulario_ml extends test_toba
 		$this->restaurar_hilo();
 	}
 
-	function crear_ml_para_analisis($observador, $generar_form, $datos, $metodo = null)
+	function crear_ml_para_analisis($observador, $generar_form, $datos, $metodo = null, $disparar_eventos = false)
 	{
 		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_ml
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);
-		$ml->cargar_datos($datos);
+		if ($disparar_eventos) {
+			$ml->datos = $datos;
+			$ml->disparar_eventos();
+		} else {
+			$ml->cargar_datos($datos);
+		}
 		if ($generar_form) {
 			ob_start();
 			$ml->generar_formulario();
@@ -65,7 +70,7 @@ class test_ei_formulario_ml extends test_toba
 	//-------------------------------------------------------------------------------
 	//--------------------------------	ANALISIS de los datos ----------------------
 	//-------------------------------------------------------------------------------	
-	function test_sin_analisis()
+	function sin_testsin_analisis()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -90,14 +95,14 @@ class test_ei_formulario_ml extends test_toba
 		$ml = $this->crear_ml_para_analisis($observador, true, $iniciales, null);
 		$ml->destruir();
 		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, null);
+		$ml = $this->crear_ml_para_analisis($observador, false, $finales, null, true);
 		$ml->disparar_eventos();
 		
 		//Chequeos
 		$observador->tally();
 	}
 	
-	function test_analisis_en_linea()
+	function sin_testanalisis_en_linea()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -124,14 +129,13 @@ class test_ei_formulario_ml extends test_toba
 		$ml->destruir();
 
 		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'LINEA');
-		$ml->disparar_eventos();
+		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'LINEA', true);
 		
 		//Chequeos
 		$observador->tally();		
 	}	
 	
-	function test_analisis_mediante_eventos()
+	function sin_testanalisis_mediante_eventos()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -157,8 +161,7 @@ class test_ei_formulario_ml extends test_toba
 		$ml->destruir();
 
 		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'EVENTOS');
-		$ml->disparar_eventos();
+		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'EVENTOS', true);
 		
 		//Chequeos
 		$observador->tally();		
@@ -167,7 +170,7 @@ class test_ei_formulario_ml extends test_toba
 	//---------------------------------------------------------------------------------------------
 	//------------------------ PRUEBA DE EVENTOS A NIVEL DE FILA ----------------------------------	
 	//-------------------------------------------------------------------------------------------
-	function test_evt_de_fila_modificando_sin_analisis()
+	function sin_testevt_de_fila_modificando_sin_analisis()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -194,14 +197,13 @@ class test_ei_formulario_ml extends test_toba
 		$ml = $this->crear_ml_para_seleccion($observador, true, $iniciales, null, $parametros_evt);
 		$ml->destruir();
 		//Retorno de la información
-		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, null, $parametros_evt);
-		$ml->disparar_eventos();
+		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, null, $parametros_evt, true);
 		
 		//Chequeos
 		$observador->tally();	
 	}
 	
-	function test_evt_de_fila_modificando_analisis_en_linea()
+	function sin_testevt_de_fila_modificando_analisis_en_linea()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -236,7 +238,7 @@ class test_ei_formulario_ml extends test_toba
 		$observador->tally();	
 	}	
 	
-	function test_evt_de_fila_modificando_analisis_eventos()
+	function sin_testevt_de_fila_modificando_analisis_eventos()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -266,7 +268,7 @@ class test_ei_formulario_ml extends test_toba
 		$observador->tally();		
 	}
 
-	function test_evt_de_fila_que_no_maneja_datos()
+	function sin_testevt_de_fila_que_no_maneja_datos()
 	{
 		//Expectativas
 		$iniciales = array(

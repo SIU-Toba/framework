@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("admin/db/toba_dbt.php");
 require_once("nucleo/browser/interface/ef.php");
 /*
 	ATENCION: 
