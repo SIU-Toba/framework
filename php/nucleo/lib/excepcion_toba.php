@@ -25,7 +25,7 @@ class excepcion_toba extends Exception
 		$html .= "<strong style='color:red;'>EXCEPCION:</strong><br>";
 		$html .= parent::getMessage()."<br><br>";
 		$html .= "Archivo \"".parent::getFile()."\", línea ".parent::getLine()."<br>";
-		$html .= "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">[detalle]</a>";
+		$html .= "<a href='javascript: var i' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">[detalle]</a>";
 		$html .= "<ul style='display: none'>";
 		if(!excepcion_toba_display)
 		{

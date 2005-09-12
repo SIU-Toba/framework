@@ -26,7 +26,7 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 			$metodos = array();
 			$metodos[] = "\t".
 'function evt__'.$id.'__carga()
-	!#c3//El formato del retorno debe ser array("columna" => valor, ...)
+	!#c3//El formato del retorno debe ser array( array("columna" => valor, ...), ...)
 	{
 		!#c3//	return $this->datos_'.$id.';
 	}

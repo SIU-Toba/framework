@@ -7950,7 +7950,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 valor_no_seteado: 0;
 ','2','Acceso',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1520','1527','usuario_grupo_acc','ef_oculto','usuario_grupo_acc',NULL,NULL,'3','usuario_grupo_acc',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1521','1531','clase','ef_combo_dao','clase','1','dao: get_lista_clases_toba;
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1521','1531','clase','ef_combo_dao','clase','1','dao: get_todas_clases_toba;
 clase: dao_editores;
 include: admin/db/dao_editores.php;
 clave: clase;

@@ -620,7 +620,7 @@ class	objeto_ut_formulario	extends objeto_ei_formulario
 				echo "</td></tr>\n";
 			}
 			echo "</table>\n";
-			echo "\n<!-- ----------------	Fin UT FORMULARIO	(". $this->id[1] .")	--------------	-->\n\n";
+			echo "\n<!--	Fin UT FORMULARIO	(". $this->id[1] .")	-->\n\n";
 		}
 	}
 	//-------------------------------------------------------------------------------

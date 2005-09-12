@@ -439,7 +439,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	function cargar_datos($datos = null)
 	{
 		if ($datos !== null) {
-			$this->filas_recibidas = array_keys($datos);
+			//Para dar un analisis preciso de la accion del ML, es necesario discriminar cuales
+			//filas son a dar de alta y cuales son a modificar
+			$this->filas_recibidas = array();
+			foreach ($datos as $id => $fila) {
+				if (! isset($fila[apex_ei_analisis_fila]) || $fila[apex_ei_analisis_fila] != 'A') {
+					$this->filas_recibidas[] = $id;
+				}
+			}
 			$this->datos = $datos;
 		} else {
 			$this->carga_inicial();

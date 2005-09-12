@@ -19,7 +19,8 @@ class ef_multi_seleccion extends ef
 	protected $sql;
 	protected $fuente;
 	protected $dependencia_estricta = false;
-		
+	protected $serializar = false;	
+	
 	//parametros validación
 	protected $cant_maxima;
 	protected $cant_minima;
@@ -127,6 +128,9 @@ class ef_multi_seleccion extends ef
 			$this->dependencia_estricta = true;
 			unset($parametros['dependencia_estricta']);
 		}
+		if(isset($parametros["serializar"])) {
+			$this->serializar = $parametros["serializar"];
+		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 		if( $this->dependencia_estricta ){
 			if( $this->control_dependencias_cargadas() ){
@@ -196,8 +200,21 @@ class ef_multi_seleccion extends ef
 	
 	function cargar_estado($estado = null)
 	{
+		if ($estado == '')
+			$estado = null;
+		elseif ($this->serializar !== false) {
+			$estado = explode($this->serializar, $estado);
+		}
 		if (!parent::cargar_estado($estado))
 			$this->resetear_estado();
+	}
+	
+	function obtener_estado()
+	{
+		if ($this->serializar !== false) {
+			return implode($this->estado, $this->serializar);	
+		}		
+		return parent::obtener_estado();	
 	}
 	
 	function obtener_info()

@@ -131,6 +131,16 @@ class ci_principal extends objeto_ci
 	function evt__objetos__carga()
 	{
 		$objetos = $this->get_entidad()->tabla('objetos')->get_filas(null, true);
+		//Si no hay objetos tratar de inducir las clases dependientes del patron
+		if (count($objetos) == 0) {
+ 			$basicas =$this->get_entidad()->tabla("base")->get();
+ 			//Es patron?
+ 			if (isset($basicas['actividad_patron']) && $basicas['actividad_patron'] != 'especifico') {
+ 				//Este es el lugar para cargar los objetos del tipo deseado
+				//$objetos[] = array('clase' => 'toba,objeto_ci', apex_ei_analisis_fila => 'A');
+ 			}
+			
+		}
 		return $objetos;
 	}
 	
@@ -192,7 +202,7 @@ class ci_principal extends objeto_ci
 					$estaba_asignado = true;
 					if (! $grupo['tiene_permiso']) {
 						//Si estaba asignado, y fue deseleccionado entonces borrar
-						$dbr->eliminar_registro($id);
+						$dbr->eliminar_fila($id);
 					}
 				}
 			}
@@ -200,7 +210,7 @@ class ci_principal extends objeto_ci
 			if (!$estaba_asignado && $grupo['tiene_permiso']) {
 				unset($grupo['tiene_permiso']);
 				unset($grupo['nombre']);
-				$dbr->agregar_registro($grupo);
+				$dbr->nueva_fila($grupo);
 			}
 		}
 	}
