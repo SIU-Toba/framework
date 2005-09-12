@@ -1067,7 +1067,7 @@ CREATE TABLE apex_objeto_eventos
 	objeto								int4				NOT NULL,
 	identificador						varchar(20)			NOT NULL,
 	etiqueta							varchar(60)			NULL,
-	maneja_datos						smallint			NULL,
+	maneja_datos						smallint			NULL DEFAULT 1,
 	sobre_fila							smallint			NULL,
 	confirmacion						varchar(60)			NULL,
 	estilo								varchar(40)			NULL,

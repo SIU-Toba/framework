@@ -57,7 +57,6 @@ class objeto_ci extends objeto_ei
 		if( $this->gi ){
 			//Guardo INFO sobre la interface generada
 			$this->memoria['dependencias_interface'] = $this->dependencias_gi;
-			$this->memoria['eventos'] = array_keys($this->eventos);
 			//Etapa utilizada para crear la interface
 			$this->memoria['etapa_gi'] = $this->etapa_gi;
 		}
@@ -397,8 +396,9 @@ class objeto_ci extends objeto_ei
 		$this->definir_etapa_gi_pre_eventos();
 
 		$this->controlar_eventos_propios();
-		//El evento CANCELAR tiene que controlarse antes
-		if( $this->evento_actual == "cancelar"){
+		//Los eventos que no manejan dato tienen que controlarse antes
+		if( isset($this->memoria['eventos'][$this->evento_actual]) && 
+				$this->memoria['eventos'][$this->evento_actual] == false ) {
 			$this->disparar_evento_propio();
 		}else{
 			//Disparo los eventos de las dependencias
@@ -421,11 +421,9 @@ class objeto_ci extends objeto_ei
 		if(isset($_POST[$this->submit])){
 			$evento = $_POST[$this->submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
-			if(isset(  $this->memoria['eventos'] )){
-				if(in_array( $evento, $this->memoria['eventos'])){
-					$this->evento_actual = $evento;
-					$this->evento_actual_param = $_POST[$this->submit."__param"];
-				}	
+			if(isset(  $this->memoria['eventos'][$evento] )){
+				$this->evento_actual = $evento;
+				$this->evento_actual_param = $_POST[$this->submit."__param"];
 			}
 		}
 	}
@@ -802,7 +800,7 @@ class objeto_ci extends objeto_ei
 		/*
 			Descripcion de la PANTALLA
 		*/
-		$descripcion = trim($this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["descripcion"]);
+		$descripcion = $this->obtener_descripcion_pantalla($this->etapa_gi);
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if($descripcion !="" || $es_wizard) {
 			$imagen = recurso::imagen_apl("info_chico.gif",true);
@@ -831,6 +829,12 @@ class objeto_ci extends objeto_ei
 			$this->obtener_html_dependencias();
 		}
 	}
+	
+	function obtener_descripcion_pantalla($pantalla)
+	{
+		return trim($this->info_ci_me_pantalla[$this->indice_etapas[$pantalla]]["descripcion"]);
+	}
+	
 	//-------------------------------------------------------------------------------
 	
 	function obtener_html_dependencias()
@@ -950,7 +954,7 @@ class objeto_ci extends objeto_ei
 		{
 			$id = $this->info_ci_me_pantalla[$a]["identificador"];
 			$tab[$id]['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
-			$tab[$id]['tip'] = $this->info_ci_me_pantalla[$a]["descripcion"];
+			$tab[$id]['tip'] = $this->obtener_descripcion_pantalla($this->indice_etapas[$this->etapa_gi]);
 			if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"]) {
 				if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"] == 'apex') 
 					$tab[$id]['imagen'] = recurso::imagen_apl($this->info_ci_me_pantalla[$a]["imagen"], false);

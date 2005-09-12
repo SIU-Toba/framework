@@ -57,21 +57,6 @@ class objeto_ei_formulario extends objeto_ei
 		return new elemento_objeto_ei_formulario();
 	}	
 	
-	function destruir()
-	{
-		$this->memoria["eventos"] = array();
-		if(isset($this->eventos)){
-			foreach($this->eventos as $id => $evento ){
-				if(isset($evento['maneja_datos'])){
-					$val = $evento['maneja_datos'];
-				}else{
-					$val = true;	
-				}
-				$this->memoria["eventos"][$id] = $val;
-			}
-		}
-		parent::destruir();
-	}
 
 	//-------------------------------------------------------------------------------
 

@@ -7,12 +7,22 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 {
 	protected $clase_actual;
 	protected $datos_editor;
+	protected $destino_id;
+	protected $destino_proyecto;
+	protected $destino_tipo;
 	
 	function __construct($id)
 	{
 		parent::__construct($id);
 		if (isset($this->clase_actual)) {
 			$this->cargar_editor();
+		}
+		$destino_tipo = toba::get_hilo()->obtener_parametro('destino_tipo');
+		//
+		if (isset($destino_tipo)) {
+			$this->destino_tipo = $destino_tipo;
+			$this->destino_id = toba::get_hilo()->obtener_parametro('destino_id');
+			$this->destino_proyecto = toba::get_hilo()->obtener_parametro('destino_proyecto');
 		}
 	}
 	
@@ -21,6 +31,9 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 		$prop = parent::mantener_estado_sesion();
 		$prop[] = 'clase_actual';
 		$prop[] = 'datos_editor';
+		$prop[] = 'destino_id';
+		$prop[] = 'destino_proyecto';		
+		$prop[] = 'destino_tipo';
 		return $prop;
 	}
 	
@@ -32,6 +45,14 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 	{
 		return (isset($this->clase_actual)) ? 'construccion' : 'tipos';
 	}	
+	
+	function obtener_descripcion_pantalla($pantalla)
+	{
+		if ($pantalla == 'construccion') {
+			return " Construyendo un <strong>{$this->clase_actual['clase']}</strong>" ;	
+		}
+		return parent::obtener_descripcion_pantalla($pantalla);	
+	}
 	
 	//------------------------------------------------------------
 	//-----------------  TIPOS DE OBJETOS   ----------------------
@@ -52,6 +73,12 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 	//------------------------------------------------------------
 	//-----------------  ETAPA DE CONSTRUCCION   ----------------------
 	//------------------------------------------------------------
+	function evt__volver()
+	{
+		unset($this->clase_actual);
+		unset($this->datos_editor);
+	}
+	
 	/**
 	*	Durante la construcción mostrar el editor
 	*/	

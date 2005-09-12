@@ -416,7 +416,7 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ci" );
 		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();		
+		$this->get_entidad()->sincronizar();
 	}
 
 	function evt__eliminar()
