@@ -7,18 +7,21 @@ define("apex_hilo_tamano","3");
 //----------------------------------------------------------------
 //-------------------- QUERYSTRING Basico ------------------------
 //----------------------------------------------------------------
-
+/*
+	ATENCION, estas claves compiten con posibles claves de los proyectos consumidores
+*/
 //Separador en el caso de que una clave transporte varios valores
 define("apex_qs_separador","||");			//Separador utilizado para diferenciar campos de valores compuestos
 // Claves de querystring utilizadas por la pareja VINCULADOR - HILO
-define("apex_hilo_qs_id","ah");				//ID de Hilo referenciado
-define("apex_hilo_qs_item","ai");			//ITEM de catalogo a solicitar
-define("apex_hilo_qs_parametros","ap");		//zona en la que se va a cargar al ITEM
+define("apex_hilo_qs_id","ah");									//ID de Hilo referenciado
+define("apex_hilo_qs_item","ai");								//ITEM de catalogo a solicitar
+define("apex_hilo_qs_parametros","ap");							//zona en la que se va a cargar al ITEM
 //-- Internos
-define("apex_hilo_qs_canal_obj","can");				//Prefijo de los CANALES de OBJETOS (Para comunicarse con ellos por GET)
-define("apex_hilo_qs_zona","azz");			//CANAL de propagacion de ZONAS
-define("apex_hilo_qs_cronometro","acc");	//CANAL gatillo del cronometro
-define("apex_hilo_qs_menu","mmm");			//Indicador que indica que el vinculo proviene del MENU
+define("apex_hilo_qs_canal_obj","toba-can");					//Prefijo de los CANALES de OBJETOS (Para comunicarse con ellos por GET)
+define("apex_hilo_qs_zona","toba-zona");						//CANAL de propagacion de ZONAS
+define("apex_hilo_qs_cronometro","toba-cron");					//CANAL gatillo del cronometro
+define("apex_hilo_qs_menu","toma-menu");						//Indica que el vinculo proviene del MENU
+define("apex_hilo_qs_celda_memoria","toba-celda-memoria");		//Indicador que indica que el vinculo proviene del MENU
 //-- WDDX
 
 //*********  FRAMES entorno EDICION ************
@@ -43,6 +46,7 @@ class hilo
 	var $hilo_referencia;
 	var $parametros;
 	var $no_reciclar = false;	//Inhabilita el reciclado de la sesion
+	private $celda_memoria_actual = "central";
 	
 	function hilo()
 /*
@@ -70,7 +74,7 @@ class hilo
 				//Dos parametros es OK!
 				$this->item_solicitado = $item;
 			}else{
-				//Errores de formateo lleban al ITEM vacio
+				//Errores de formateo llevan al ITEM vacio
 				$this->item_solicitado = array("toba","/basicos/vacio");
 			}
 		}else{
@@ -90,17 +94,12 @@ class hilo
 			unset($this->parametros[apex_hilo_qs_item]);
 			//FALTA hacer un URL decode!!!
 		}
-		//-[4]- Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
-		if(isset($_SESSION["hilo"])){
-			if(count($_SESSION["hilo"]) > apex_hilo_tamano ){
-				array_shift($_SESSION["hilo"]);
-			}
+		//Averiguo cual es la CELDA de memoria activa para este REQUEST
+		if(isset($this->parametros[apex_hilo_qs_celda_memoria])){
+			$this->celda_memoria_actual = $this->parametros[apex_hilo_qs_celda_memoria];
+			unset($this->parametros[apex_hilo_qs_celda_memoria]);
 		}
-		//-[5]- Vacio los reciclables activos para que se registren ellos.
-		$_SESSION["reciclables_activos"] = array();
-		if(!isset($_SESSION["reciclables"])){
-			$_SESSION["reciclables"] = array();
-		}
+		$this->inicializar_memoria();
  	}
 
 	function destruir()
@@ -109,6 +108,29 @@ class hilo
 		if(!$this->no_reciclar){
 			$this->ejecutar_reciclaje_datos_globales();	
 		}
+	}
+
+	function inicializar_memoria()
+	//Inicializa la memoria
+	{
+		$celda = $this->get_celda_memoria_actual();
+		//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
+		if(isset($_SESSION[$celda]["hilo"])){
+			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
+				array_shift($_SESSION[$celda]["hilo"]);
+			}
+		}
+		//Vacio los reciclables activos para que se registren ellos.
+		$_SESSION[$celda]["reciclables_activos"] = array();
+		if(!isset($_SESSION[$celda]["reciclables"])){
+			$_SESSION[$celda]["reciclables"] = array();
+		}
+	}
+
+	function get_celda_memoria_actual()
+	//Indica cual es la celda de memoria que se utiliza en este REQUEST
+	{
+		return $this->celda_memoria_actual;
 	}
 
 	function desactivar_reciclado()
@@ -351,7 +373,8 @@ class hilo
 	@@desc: Graba un dato en la MEMORIA. El dato solo estara disponible en la solicitud PROXIMA
 */
 	{
-		$_SESSION["hilo"][$this->id][$indice]=$datos;
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
 	}
 	//----------------------------------------------------------------	
 
@@ -361,8 +384,9 @@ class hilo
 	@@desc: Graba un dato en la MEMORIA. El dato solo estara disponible en la solicitud PROXIMA
 */
 	{
-		if(isset($_SESSION["hilo"][$this->id][$indice])){
-			unset($_SESSION["hilo"][$this->id][$indice]);
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
+			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
 		}
 	}
 	//----------------------------------------------------------------		
@@ -373,8 +397,9 @@ class hilo
 	@@desc: Recupera un dato de la MEMORIA solo cuando el dato fue grabado en la solicitud ANTERIOR
 */
 	{
-		if(isset($_SESSION["hilo"][$this->hilo_referencia][$indice])){
-			return $_SESSION["hilo"][$this->hilo_referencia][$indice];
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
+			return $_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice];
 		}else{
 			return null;
 		}
@@ -387,8 +412,9 @@ class hilo
 	@@desc: Muestra el contenido de la MEMORIA
 */
 	{
+		$celda = $this->get_celda_memoria_actual();
 		//Invierto el orden (ultimo primero)
-		$temp = array_reverse($_SESSION["hilo"], true);
+		$temp = array_reverse($_SESSION[$celda]["hilo"], true);
 		ei_arbol($temp,"MEMORIA");
 	}
 	//----------------------------------------------------------------	
@@ -399,7 +425,8 @@ class hilo
 	@@desc: Limpia la MEMORIA
 */
 	{
-		unset($_SESSION["hilo"]);
+		$celda = $this->get_celda_memoria_actual();
+		unset($_SESSION[$celda]["hilo"]);
 	}
 
 	//************************************************************************
@@ -412,7 +439,8 @@ class hilo
 	@@desc: Graba un dato en la SESSION.
 */
 	{
-		return isset($_SESSION["global"][$indice]);
+		$celda = $this->get_celda_memoria_actual();
+		return isset($_SESSION[$celda]["global"][$indice]);
 	}
 	//----------------------------------------------------------------	
 
@@ -422,7 +450,8 @@ class hilo
 	@@desc: Graba un dato en la SESSION.
 */
 	{
-		$_SESSION["global"][$indice]=$datos;
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]["global"][$indice]=$datos;
 		if($reciclable){
 			$this->dato_global_reciclable($indice);
 		}
@@ -435,13 +464,14 @@ class hilo
 	@@desc: Recupera un dato de la SESSION
 */
 	{
-		if(isset($_SESSION["global"][$indice]))
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["global"][$indice]))
 		{
 			//Si accedo a un dato reciclable, lo marco como activo
 			if($this->existe_dato_reciclable($indice)){
 				$this->dato_global_activo($indice);
 			}
-			return $_SESSION["global"][$indice];
+			return $_SESSION[$celda]["global"][$indice];
 		}else{
 			return null;
 		}
@@ -454,19 +484,20 @@ class hilo
 	@@desc: Recupera un dato de la SESSION
 */
 	{
-		if(isset($_SESSION["global"][$indice])){
-			unset($_SESSION["global"][$indice]);
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["global"][$indice])){
+			unset($_SESSION[$celda]["global"][$indice]);
 		}
 		//Si el dato era reciclable, lo saco de las listas de reciclado
 		if($this->existe_dato_reciclable($indice)){
-			foreach(array_keys($_SESSION["reciclables"]) as $reciclable){
-				if($_SESSION["reciclables"][$reciclable]==$indice){
-					unset($_SESSION["reciclables"][$reciclable]);
+			foreach(array_keys($_SESSION[$celda]["reciclables"]) as $reciclable){
+				if($_SESSION[$celda]["reciclables"][$reciclable]==$indice){
+					unset($_SESSION[$celda]["reciclables"][$reciclable]);
 				}
 			}
-			foreach(array_keys($_SESSION["reciclables_activos"]) as $reciclable){
-				if($_SESSION["reciclables_activos"][$reciclable]==$indice){
-					unset($_SESSION["reciclables_activos"][$reciclable]);
+			foreach(array_keys($_SESSION[$celda]["reciclables_activos"]) as $reciclable){
+				if($_SESSION[$celda]["reciclables_activos"][$reciclable]==$indice){
+					unset($_SESSION[$celda]["reciclables_activos"][$reciclable]);
 				}
 			}
 		}
@@ -475,7 +506,8 @@ class hilo
 
 	function limpiar_memoria_global()
 	{
-		unset($_SESSION["global"]);
+		$celda = $this->get_celda_memoria_actual();
+		unset($_SESSION[$celda]["global"]);
 	}
 
 	//----------------------------------------------------------------	
@@ -484,7 +516,8 @@ class hilo
 	
 	function existe_dato_reciclable($indice)
 	{
-		if(in_array($indice,$_SESSION["reciclables"])){
+		$celda = $this->get_celda_memoria_actual();
+		if(in_array($indice,$_SESSION[$celda]["reciclables"])){
 			return true;
 		}else{
 			return false;
@@ -495,8 +528,9 @@ class hilo
 	function dato_global_reciclable($indice)
 	//Se reporta que un dato global se va a reciclar
 	{
+		$celda = $this->get_celda_memoria_actual();
 		if( !$this->existe_dato_reciclable($indice) ){
-			$_SESSION["reciclables"][] = $indice;
+			$_SESSION[$celda]["reciclables"][] = $indice;
 			$this->dato_global_activo($indice);
 		}
 	}
@@ -505,10 +539,11 @@ class hilo
 	function dato_global_activo($indice)
 	//Indica que el dato reciclable fue activado
 	{
+		$celda = $this->get_celda_memoria_actual();
 		//Puede ser llamado por fuera
 		if( $this->existe_dato_reciclable($indice) ){
-			if(!in_array($indice,$_SESSION["reciclables_activos"])){
-				$_SESSION["reciclables_activos"][] = $indice;
+			if(!in_array($indice,$_SESSION[$celda]["reciclables_activos"])){
+				$_SESSION[$celda]["reciclables_activos"][] = $indice;
 			}
 		}
 	}
@@ -517,14 +552,15 @@ class hilo
 
 	function ejecutar_reciclaje_datos_globales()
 	{
+		$celda = $this->get_celda_memoria_actual();
 		//dump_session();
 		//echo "Finalizando el HILO<br>";
-		foreach(array_keys($_SESSION["reciclables"]) as $reciclable){
-			$dato = $_SESSION["reciclables"][$reciclable];
+		foreach(array_keys($_SESSION[$celda]["reciclables"]) as $reciclable){
+			$dato = $_SESSION[$celda]["reciclables"][$reciclable];
 			//Si hay un elemento reciclable que no se activo, lo destruyo
-			if(!in_array($dato,$_SESSION["reciclables_activos"])){
+			if(!in_array($dato,$_SESSION[$celda]["reciclables_activos"])){
 				//echo "elimino: $dato<br>";
-				unset($_SESSION["reciclables"][$reciclable]);
+				unset($_SESSION[$celda]["reciclables"][$reciclable]);
 				$this->eliminar_dato_global($dato);
 			}
 		}

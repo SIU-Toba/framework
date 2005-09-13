@@ -170,7 +170,7 @@ class item implements recorrible_como_arbol
 				'ayuda' => "Editar propiedades de la carpeta",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades",
 								array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
-								null, false, false, null, true)
+								false, false, null, true, "central")
 				);
 
 		} else {
@@ -179,7 +179,7 @@ class item implements recorrible_como_arbol
 				'ayuda' => "Editar propiedades del ITEM",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items",
 									array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
-									null, false, false, null, true)
+									false, false, null, true, "central")
 				);
 				
 			if ($this->tipo_solicitud() == "consola") {
@@ -197,7 +197,7 @@ class item implements recorrible_como_arbol
 								'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
 								'ayuda' => 'Ejecutar el ITEM',
 								'vinculo' => toba::get_vinculador()->generar_solicitud($this->proyecto(), $this->id(), 
-												null,false,false,null,true)
+												null,false,false,null,true, "central")
 							);
 			}
 		}
@@ -226,13 +226,13 @@ class item implements recorrible_como_arbol
 				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades", 
-								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()),false,false,null,true, "central" )
 			);
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items", 
-								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()),false,false,null,true, "central" )
 			);			
 
 		} else { //Es un item común

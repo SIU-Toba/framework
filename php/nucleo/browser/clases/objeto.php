@@ -501,7 +501,9 @@ class objeto
 //*******************************************************************************************
 //**************************************<  Memoria GLOBAL   >********************************
 //*******************************************************************************************
-
+/*
+	ATENCION: Esta forma de persistir datos ya no tiene validez, hay que BORRARLA!!!
+*/
 	function limpiar_memoria_global()
 	{
 		unset($_SESSION["global"][$this->id_ses_g]);

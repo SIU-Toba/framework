@@ -113,7 +113,7 @@ class elemento_item extends elemento implements recorrible_como_arbol
 			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
 								array( 'destino_tipo' => 'item', 'proyecto' => $this->proyecto,
 										'id' => $this->id ),
-								false, false, null, true)
+										false, false, null, true, "central")
 		);
 		return $utilerias;
 	}

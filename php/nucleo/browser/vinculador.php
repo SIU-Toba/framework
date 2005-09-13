@@ -176,7 +176,7 @@ class vinculador
 //##################################################################################
 	
 	function generar_solicitud($item_proyecto="",$item="",$parametros=null,
-								$zona=false,$cronometrar=false,$param_html=null,$menu=null)
+								$zona=false,$cronometrar=false,$param_html=null,$menu=null,$celda_memoria=null)
 /*
  	@@acceso: interno
 	@@desc: Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
@@ -207,6 +207,12 @@ class vinculador
 				}
 			}
 		}
+		//Cual es la celda de memoria del proximo request?
+		if(!isset($celda_memoria)){
+			//Por defecto propago la celda actual del HILO
+			$celda_memoria = toba::get_hilo()->get_celda_memoria_actual();
+		}		
+		$parametros_formateados .= "&". apex_hilo_qs_celda_memoria ."=". $celda_memoria;
 		//La proxima pagina va a CRONOMETRARSE?
 		if($cronometrar){
 			$parametros_formateados .= "&". apex_hilo_qs_cronometro ."=1";
@@ -247,7 +253,8 @@ class vinculador
 //#########  Solicitud INDIRECTA de URLs (Vinculacion a travez de la DB) ###########
 //##################################################################################
 
-	function obtener_vinculo_a_item($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, $cronometrar=false,$texto="",$param_html=null)
+	function obtener_vinculo_a_item($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
+										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
 /*
  	@@acceso: actividad
 	@@desc: Recupera un VINCULO explicitamente. Controla el los permisos de ACCESO
@@ -269,7 +276,7 @@ class vinculador
 			$v = $this->indices_item[$clave];
 			$url = $this->generar_solicitud($this->info[$v]['destino_item_proyecto'],
 											$this->info[$v]['destino_item'],
-											$parametros,$zona,$cronometrar);
+											$parametros,$zona,$cronometrar,$param_html,$menu,$celda_memoria);
 			if($escribir_tag){
 				return $this->generar_html_vinculo($url,$v,'lista-link',$texto);
 			}else{
@@ -283,7 +290,8 @@ class vinculador
 	}
 //-------------------------------------------------------------------------------------
 
-	function obtener_vinculo_a_item_cp($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, $cronometrar=false,$texto="")
+	function obtener_vinculo_a_item_cp($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
+										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
 /*
  	@@acceso: nucleo
 	@@desc: Recupera un VINCULO explicitamente, controlando que el ITEM actual pertenezca el proyecto activo. Controla el los permisos de ACCESO.
@@ -299,7 +307,8 @@ class vinculador
 */
 	{
 		if($this->solicitud->info['item_proyecto'] == $this->solicitud->hilo->obtener_proyecto() ){
-			return $this->obtener_vinculo_a_item($proyecto,$item,$parametros,$escribir_tag,$zona,$cronometrar,$texto);
+			return $this->obtener_vinculo_a_item($proyecto,$item,$parametros,$escribir_tag,$zona,
+													$cronometrar,$texto,$param_html,$menu,$celda_memoria);
 		}else{
 			return null;
 		}

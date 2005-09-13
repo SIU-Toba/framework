@@ -69,9 +69,11 @@ class ef_popup extends ef_editable
 	{
 		if(!isset($this->estado)) $this->estado="";	
         if (isset($this->item_destino)) {
-            $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(toba::get_hilo()->obtener_proyecto(), 
-										$this->item_destino,
-										array("ef_popup" => $this->id_form, "ef_popup_valor" => $this->estado), false);
+            $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(
+					            							toba::get_hilo()->obtener_proyecto(), 
+															$this->item_destino,
+															array("ef_popup" => $this->id_form, "ef_popup_valor" => $this->estado),
+															false, false, null, true, "popup");
         }
 		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
 		if($this->solo_lectura || $vinculo_item == NULL){

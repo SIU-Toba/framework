@@ -163,13 +163,13 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 				'imagen' => recurso::imagen_apl("reflexion/abrir.gif", false),
 				'ayuda' => "Abrir la [wiki:Referencia/Objetos/Extension#Abrirlaextensi%C3%B3n extensión PHP] en el editor del sistema.", 
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php,
-				false, false, null, true)
+																		false, false, null, true, "central")
 			);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("php.gif", false),
 				'ayuda' => "Ver detalles de la extensión",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores,
-																		false, false, null, true)
+																		false, false, null, true, "central")
 			);
 		}		
 		if(isset($this->datos_clase["editor_proyecto"])) {
@@ -178,7 +178,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 				'ayuda' => "Editar propiedades del OBJETO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos_clase["editor_proyecto"],
 																		$this->datos_clase["editor_item"], $param_editores,
-																		false, false, null, true)
+																		false, false, null, true, "central")
 			);
 		}
 
