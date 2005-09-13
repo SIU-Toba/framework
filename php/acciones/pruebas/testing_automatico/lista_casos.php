@@ -14,6 +14,16 @@ class lista_casos
 		return $path;
 	}
 	
+	function comparar($x, $y)
+	{
+		if ( $x["nombre"] == $y["nombre"] )
+			return 0;
+		elseif ( $x["nombre"] < $y["nombre"] )
+			return -1;
+		else
+			return 1;
+	}
+
 	static function get_categorias()
 	{
 		$categorias = array();
@@ -33,7 +43,7 @@ class lista_casos
 			}
 			closedir($handle); 
 		}
-			
+		usort($categorias, array("lista_casos", "comparar"));			
 		return $categorias;
 	}
 	
@@ -64,8 +74,8 @@ class lista_casos
 			closedir($handle); 
 		}
 		
-//		ei_arbol($casos);
-		
+		usort($casos, array("lista_casos", "comparar"));			
+
 		if ($categoria == 'todas' || $categoria == apex_ef_no_seteado)
 			return $casos;
 		else {
