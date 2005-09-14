@@ -136,15 +136,12 @@ class ap_relacion_db extends ap
 	public function eliminar_plan()
 	//Por defecto supone una relacion MAESTRO-DETALLE
 	{
-		if(count($this->detalles)>0){
-			$detalles = array_reverse(array_keys($this->detalles));
-			foreach( $detalles as $detalle ) {
-				$this->elemento[$detalle]->eliminar_registros();
-				$this->elemento[$detalle]->sincronizar(false);
+		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
+		if(is_array($tablas_raiz)){
+			foreach( $tablas_raiz as $tabla ){
+				$this->objeto_relacion->tabla($tabla)->eliminar();
 			}
 		}
-		$this->elemento[$this->cabecera]->eliminar_registros();
-		$this->elemento[$this->cabecera]->sincronizar(false);		
 	}
 
 	/*

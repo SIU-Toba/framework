@@ -156,21 +156,16 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
-	//----------------------------------------------------------------
-	//---------  Cumplir la interface que reclama el CI -------------
-	//----------------------------------------------------------------
-/*
-	function agregar_contenedor(){}
-	function inicializar($parametros)
+	function notificar_hijos_eliminacion()
+	//Aviso a la RELACION que el componente PADRE se esta por eliminar
 	{
-		$this->id_en_padre = $parametros['id'];		
+		if(isset($this->relaciones_con_hijos)){
+			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
+				$this->relaciones_con_hijos[$a]->evt__eliminacion_padre();
+			}
+		}
 	}
-	function cargar_datos(){}
-	function get_lista_eventos(){
-		 return array();
-	}
-	function disparar_eventos(){}
-*/
+
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
@@ -696,6 +691,14 @@ class objeto_datos_tabla extends objeto
 		}
 		$ap = $this->get_persistidor();
 		$modif = $ap->sincronizar();
+		return $modif;
+	}
+
+	public function eliminar()
+	{
+		$this->eliminar_filas();
+		$ap = $this->get_persistidor();
+		$ap->eliminar();
 	}
 
 	public function resetear()

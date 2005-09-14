@@ -201,11 +201,9 @@ class ap_tabla_db extends ap
 	//-------------------------------------------------------------------------------
 	//------  SINCRONIZACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
-	public function sincronizar($control_tope_minimo=true)
-	//Sincroniza las modificaciones del db_registros con la DB
+	
+	private function actualizar_estado_db()
 	{
-		$this->log("Inicio SINCRONIZACION");
 		$this->get_estado_datos_tabla();
 		//$this->controlar_alteracion_db();
 		// No puedo ejecutar los cambios en cualguier orden
@@ -251,20 +249,25 @@ class ap_tabla_db extends ap
 			}
 			$this->evt__post_sincronizacion();
 			if($this->utilizar_transaccion) cerrar_transaccion();
-
-			//Seteo en la TABLA los datos generados durante la sincronizacion
-			$this->actualizar_columnas_predeterminadas_db();
-
-			//Regenero la estructura que mantiene los cambios realizados
-			$this->objeto_tabla->notificar_fin_sincronizacion();
-
-			$this->log("Fin SINCRONIZACION: $modificaciones."); 
 			return $modificaciones;
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion();
 			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
 		}
+
+	}
+
+	public function sincronizar($control_tope_minimo=true)
+	//Sincroniza las modificaciones del db_registros con la DB
+	{
+		$this->log("Inicio SINCRONIZAR");
+		$modificaciones = $this->actualizar_estado_db();
+		//Seteo en la TABLA los datos generados durante la sincronizacion
+		$this->actualizar_columnas_predeterminadas_db();
+		//Regenero la estructura que mantiene los cambios realizados
+		$this->objeto_tabla->notificar_fin_sincronizacion();
+		$this->log("Fin SINCRONIZAR: $modificaciones."); 
 	}
 
 	protected function insertar_registro_db($id_registro){}	
@@ -291,12 +294,10 @@ class ap_tabla_db extends ap
 			}
 		}
 	}
-	
-	//-------------------------------------------------------------------------------
-	//--  EVENTOS de SINCRONIZACION con la DB   -------------------------------------
-	//-------------------------------------------------------------------------------
+
 	/*
-		Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
+		EVENTOS de SINCRONIZACION con la DB
+			Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
 	*/
 
 	protected function evt__pre_sincronizacion(){}
@@ -307,6 +308,20 @@ class ap_tabla_db extends ap
 	protected function evt__post_update($id){}
 	protected function evt__pre_delete($id){}
 	protected function evt__post_delete($id){}
+
+	//-------------------------------------------------------------------------------
+	//------  ELIMINAR  -------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	
+	public function eliminar()
+	{
+		$this->log("Inicio ELIMINAR");
+		//Elimino a mis hijos
+		$this->objeto_tabla->notificar_hijos_eliminacion();
+		//Me elimino a mi
+		$this->actualizar_estado_db();
+		$this->log("Inicio ELIMINAR");
+	}	
 
 	//-------------------------------------------------------------------------------
 	//------ Servicios SQL   --------------------------------------------------------

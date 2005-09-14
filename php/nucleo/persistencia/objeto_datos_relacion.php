@@ -7,7 +7,7 @@ require_once("relacion_entre_tablas.php");
 		Las relaciones con los hijos son a travez de un unico ID
 		por cada dependencias, tiene que haber un ID para conectarse a un padre
 		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
-		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extra�o
+		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extra?o
 
 	ATENCION: no hay una nomenclatura consistente (padre/hijo; padre/hija; madre/hija)
 
@@ -176,7 +176,8 @@ class objeto_datos_relacion extends objeto
 	
 	function eliminar()
 	{
-		echo ei_mensaje("No estoy implementada (Borrado inverso de tablas)");	
+		$ap = $this->get_persistidor();
+		$ap->eliminar();
 	}
 	
 	function get_tablas_raiz()

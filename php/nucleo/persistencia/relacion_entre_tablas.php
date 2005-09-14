@@ -14,9 +14,9 @@
 class relacion_entre_tablas
 {
 	protected $nombre;
-	protected $tabla_padre;
+	protected $tabla_padre;					// Referencia al objeto_datos_tabla PADRE
 	protected $tabla_padre_claves;
-	protected $tabla_hijo;
+	protected $tabla_hijo;					// Referencia al objeto_datos_tabla HIJO
 	protected $tabla_hijo_claves;
 	protected $mapeo_claves;
 	protected $mapeo_filas;
@@ -80,6 +80,17 @@ class relacion_entre_tablas
 				}
 			}
 			$this->tabla_hijo->sincronizar();
+		}else{
+			echo "TODAVIA no SOPORTADO";
+		}
+	}
+
+	function evt__eliminacion_padre()
+	//El elemento PADRE de la relacion notifica que se SINCRONIZO: Se dispara la sincronizacion del hijo
+	{
+		if( $this->tabla_padre->get_cantidad_filas() == 1)
+		{
+			$this->tabla_hijo->eliminar();
 		}else{
 			echo "TODAVIA no SOPORTADO";
 		}
