@@ -932,3 +932,4 @@ class objeto_cuadro extends objeto
 */
 
 }
+?>

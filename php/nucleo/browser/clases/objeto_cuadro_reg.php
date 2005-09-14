@@ -135,3 +135,4 @@ class objeto_cuadro_reg extends objeto_cuadro
 		}
 	}
 }
+?>

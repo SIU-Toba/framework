@@ -781,3 +781,4 @@ class objeto_ei_cuadro extends objeto_ei
 	}	
 
 }
+?>
