@@ -59,6 +59,37 @@ class excepcion_toba extends Exception
 		return $html;
 	}
 	
+	function mensaje_txt()
+	{
+		$texto = parent::getMessage(). "\r\n";
+		$texto .= "Archivo \"".parent::getFile()."\", línea ".parent::getLine()."\n";
+		if(!excepcion_toba_display)
+		{
+			$texto .= "-------------------------------------------\r\n";
+			$texto .= parent::getTraceAsString() ."\r\n";
+			$texto .= "-------------------------------------------\r\n";
+		}else{
+			//	ESTO se cuelga en la 5.0.4 si se usa "call_user_func_array"
+			//		-> Pasa cuando el error se da a partir de un evento de los EI
+			foreach (parent::getTrace() as $paso) {
+				$clase = '';
+				if (isset($paso['class']))
+					$clase .= $paso['class'];
+				if (isset($paso['type']))
+					$clase .= $paso['type'];				
+				$texto .= "$clase{$paso['function']}\r\n
+						Archivo: {$paso['file']}, línea {$paso['line']}\r\n";
+				if (! empty($paso['args'])) {
+					$texto .= "Parámetros: ";
+					foreach ($paso['args'] as $arg) {
+						$texto .= var_export($arg, true);
+					}
+				} 
+			}
+		}
+		return $texto;
+	}
+	
 	function mensaje_consola()
 	{
 		echo $this->__toString();

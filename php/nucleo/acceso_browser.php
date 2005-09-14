@@ -38,6 +38,7 @@ require_once("nucleo/lib/configuracion.php");	      	//Acceso a la configuracion
 			echo ei_mensaje("ATENCION, la excepcion no fue atrapada!");
 			$solicitud->log->debug($e);
 			$solicitud->log->mostrar_pantalla();
+			$solicitud->log->guardar_archivo();
 		}
 		$solicitud->registrar();
 		$solicitud->finalizar_objetos();

@@ -70,6 +70,7 @@ class solicitud_browser extends solicitud
 		//--- Dumpeo informacion del LOGGER
 		flush();
 		$this->log->mostrar_pantalla();
+		$this->log->guardar_archivo();
 		//--- HTML automatico ---
 		if(trim($this->info["item_include_abajo"]!= "")){
 			include_once($this->info["item_include_abajo"]);

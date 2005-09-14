@@ -23,6 +23,7 @@ class logger
 	private $ref_niveles;
 	private $solicitud;
 	private $mensajes;
+	private $mensajes_web;
 	private $niveles;
 	private $proximo = 0;
 	private $datos_registrados = false;
@@ -51,20 +52,24 @@ class logger
 
 	function registrar_mensaje($mensaje, $nivel)
 	{
-		$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje);
+		$this->mensajes_web[$this->proximo] = $this->extraer_mensaje($mensaje, true);
+		$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje, false);
 		$this->niveles[$this->proximo] = $nivel;
 		$this->proximo++;
 	}
-
-	function extraer_mensaje($mensaje)
+	
+	function extraer_mensaje($mensaje, $web)
 	/*
 		Adecuar el mecanismo para meter excepciones
 	*/
 	{
         if (is_object($mensaje)) {
-            if (method_exists($mensaje, 'mensaje_web')) {
+            if ($web && method_exists($mensaje, 'mensaje_web')) {
 				//Excepciones!
                 $mensaje = $mensaje->mensaje_web();
+			} else if (!$web && method_exists($mensaje, 'mensaje_txt')) {
+				//Excepciones!
+                $mensaje = $mensaje->mensaje_txt();
             } else if (method_exists($mensaje, 'getMessage')) {
                 $mensaje = $mensaje->getMessage();
             } else if (method_exists($mensaje, 'tostring')) {
@@ -83,6 +88,11 @@ class logger
 	function mensajes()
 	{
 		return $this->mensajes;
+	}
+	
+	function mensajes_web()
+	{
+		return $this->mensajes_web;
 	}
 
 	//------------------------------------------------------------------
@@ -186,21 +196,31 @@ class logger
 	//------------------------------------------------------------------
 	function guardar_en_archivo($archivo)
 	{
-		//Abro el archivo
-		manejador_archivos::crear_arbol_directorios($this->directorio_logs());
-		$a = fopen($this->directorio_logs()."/".$archivo,"a");
-		$fecha = date('r');
-		fwrite($a, "\n--------- $fecha ---------\n");
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
-		for($i=0; $i<count($this->mensajes); $i++)
-		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$i] ) )
+		if(apex_pa_log_archivo){
+			$hay_salida = false;
+			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+			$time = date("d-m-Y H:i:s");
+			$version = phpversion();
+			$texto = "[$time] - [Versión PHP: $version] [Servidor: {$_SERVER['SERVER_NAME']}] [{$_SERVER['PHP_SELF']}]\r\n";
+			for($a=0; $a<count($this->mensajes); $a++)
 			{
-				fwrite($a, $this->mensajes[$i]);
-			}			
+				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
+				{
+					$hay_salida = true;
+					$texto .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
+							" *  " . $this->mensajes[$a] . "\r\n";
+				}			
+			}
+
+			if ($hay_salida) {
+				$path = $this->directorio_logs();
+				manejador_archivos::crear_arbol_directorios($path);
+				$handle = fopen("$path/$archivo", "a");
+				fwrite($handle, "$texto\r\n");
+				fclose($handle);
+			}
+
 		}
-		fwrite($a, "\n");
-		fclose($a);		
 	}
 	
 	//------------------------------------------------------------------
@@ -239,13 +259,13 @@ class logger
 			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
 			$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
 			$html .= "<pre class='texto-ss'>";
-			for($a=0; $a<count($this->mensajes); $a++)
+			for($a=0; $a<count($this->mensajes_web); $a++)
 			{
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 				{
 					$hay_salida = true;
 					$html .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
-							" *  " . $this->mensajes[$a] . "<br>";
+							" *  " . $this->mensajes_web[$a] . "<br>";
 				}			
 			}
 //			if ($hay_salida) echo $html;
@@ -259,6 +279,15 @@ class logger
 
 		}
 	}
+	
 	//------------------------------------------------------------------
+	//---- Salida a un archivo de logs
+	//------------------------------------------------------------------
+
+	function mostrar_archivo()
+	{
+	}
+	//------------------------------------------------------------------
+
 }
 ?>
