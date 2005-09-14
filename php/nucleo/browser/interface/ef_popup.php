@@ -4,6 +4,7 @@ class ef_popup extends ef_editable
 {
     var $descripcion_estado;
     var $item_destino;
+    private $item_destino_proyecto;
     var $ventana;
 	protected $editable;
     
@@ -49,18 +50,25 @@ class ef_popup extends ef_editable
         }else{
         	$this->ventana = null;
     	}
-		
 		$this->editable = false;
 		if (isset($parametros["editable"])) {
 			$this->editable = $parametros["editable"];
 			unset($parametros["editable"]);
 		}
-		
         if (isset($parametros["item_destino"])){
-			$this->item_destino = $parametros["item_destino"];
+			$destino = explode(',',$parametros['item_destino']);
+			$this->item_destino = $destino[0];
+			if(count($destino)==2){
+				if($destino[1]=='toba'){
+					$this->item_destino_proyecto = $destino[1];
+				}else{
+					throw new excepcion_toba_def("No es posible abrir un popup de un proyecto externo que no sea el administrador.");
+				}
+			}else{
+				$this->item_destino_proyecto = toba::get_hilo()->obtener_proyecto();
+			}
             unset($parametros['item_destino']);
 		}		
-		
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
 //-------------------- INTERFACE --------------------------
@@ -70,7 +78,7 @@ class ef_popup extends ef_editable
 		if(!isset($this->estado)) $this->estado="";	
         if (isset($this->item_destino)) {
             $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(
-					            							toba::get_hilo()->obtener_proyecto(), 
+					            							$this->item_destino_proyecto, 
 															$this->item_destino,
 															array("ef_popup" => $this->id_form, "ef_popup_valor" => $this->estado),
 															false, false, null, true, "popup");
