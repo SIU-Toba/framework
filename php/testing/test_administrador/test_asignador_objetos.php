@@ -1,10 +1,10 @@
 <?php
-require_once('admin/editores/asignador_objetos.php');
+require_once('admin/objetos_toba/asignador_objetos.php');
 require_once('api/elemento_item.php');
 
 class test_asignador_objetos extends test_toba
 {
-	protected $objeto_creado = array('id' => '1563', 'proyecto' => 'toba_testing');
+	protected $objeto_creado = array('id' => '1606', 'proyecto' => 'toba_testing');
 	
 	function get_descripcion()
 	{
@@ -47,7 +47,7 @@ class test_asignador_objetos extends test_toba
 	{
 		//Setup
 		$ci_destino = array('tipo' => 'ci',
-							'id' =>'1564', 
+							'id' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci');
 
@@ -57,9 +57,9 @@ class test_asignador_objetos extends test_toba
 		
 		//Validacion
 		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1564');
+		$obj->cargar_db('toba_testing', '1605');
 		$hijos = $obj->hijos();
-		$this->assertEqual($hijos[2]->id(), '1563');
+		$this->assertEqual($hijos[2]->id(), '1606');
 		
 	}
 	
@@ -70,10 +70,10 @@ class test_asignador_objetos extends test_toba
 	{
 		//Setup
 		$ci_destino = array('tipo' => 'ci_pantalla',
-							'id' =>'1564', 
+							'id' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
-							'pantalla' => '467');
+							'pantalla' => '470');
 
 		//Test
 		$asignador = new asignador_objetos($this->objeto_creado, $ci_destino);
@@ -81,7 +81,7 @@ class test_asignador_objetos extends test_toba
 
 		//Validacion
 		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1564');
+		$obj->cargar_db('toba_testing', '1605');
 		$hijos = $obj->hijos();
 		$this->assertEqual(count($obj->hijos()), 2);		//Tiene dos pantallas
 		$pantalla = $hijos[0];
@@ -96,10 +96,10 @@ class test_asignador_objetos extends test_toba
 	{	
 		//Setup, se le asigna a una pantalla que ya tiene un objeto
 		$ci_destino = array('tipo' => 'ci_pantalla',
-							'id' =>'1564', 
+							'id' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
-							'pantalla' => '468');
+							'pantalla' => '471');
 
 		//Test
 		$asignador = new asignador_objetos( $this->objeto_creado, $ci_destino);
@@ -107,7 +107,7 @@ class test_asignador_objetos extends test_toba
 
 		//Validacion
 		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1564');
+		$obj->cargar_db('toba_testing', '1605');
 		$hijos = $obj->hijos();
 		$this->assertEqual(count($obj->hijos()), 2);		//Tiene dos pantallas
 		$pantalla = $hijos[1];

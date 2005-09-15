@@ -3,10 +3,10 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 require_once('admin/db/dao_editores.php');
 require_once('api/elemento_item.php');
 require_once('api/elemento_objeto.php');
-require_once('admin/editores/asignador_objetos.php');
+require_once('admin/objetos_toba/asignador_objetos.php');
 require_once('admin/admin_util.php');
 //----------------------------------------------------------------
-class ci_seleccion_tipo_objeto extends objeto_ci
+class ci_creador_objeto extends objeto_ci
 {
 	protected $clase_actual;
 	protected $datos_editor;
