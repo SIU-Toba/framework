@@ -461,12 +461,8 @@ class objeto
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		if( $this->solicitud->hilo->verificar_acceso_menu() ){
-			//$this->log->debug($this->get_txt() . " El estado de la memoria no es regenerado porque el acceso proviene del MENU");
-		}else{
-			if($this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1])){
-				$this->memoria_existencia_previa = true;
-			}
+		if($this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1])){
+			$this->memoria_existencia_previa = true;
 		}
 	}
 
@@ -548,41 +544,37 @@ class objeto
 	//Recupera las propiedades guardadas en la sesion
 	{
 		if($this->solicitud->hilo->existe_dato_global($this->id_ses_grec)){
-			if( $this->solicitud->hilo->verificar_acceso_menu() ){
-				//$this->log->debug($this->get_txt() . " El estado de las propiedades no es regenerado porque el acceso proviene del MENU");
-			}else{
-				//Recupero las propiedades de la sesion
-				$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
-				if(isset($temp["__indice_de_objetos_serializados"]))	//El objeto persistio otros objetos
+			//Recupero las propiedades de la sesion
+			$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
+			if(isset($temp["__indice_de_objetos_serializados"]))	//El objeto persistio otros objetos
+			{
+				/*
+					PERSISTENCIA de OBJETOS 
+					-----------------------
+					Hay una forma de no hacer este IF: 
+						Que en el consumo de "mantener_estado_sesion" se indique que propiedades son objetos.
+						Hay comprobar si la burocracia justifica el tiempo extra que implica este mecanismo o no.
+				*/
+				$objetos = $temp["__indice_de_objetos_serializados"];
+				unset($temp["__indice_de_objetos_serializados"]);
+				foreach(array_keys($temp) as $propiedad)
 				{
-					/*
-						PERSISTENCIA de OBJETOS 
-						-----------------------
-						Hay una forma de no hacer este IF: 
-							Que en el consumo de "mantener_estado_sesion" se indique que propiedades son objetos.
-							Hay comprobar si la burocracia justifica el tiempo extra que implica este mecanismo o no.
-					*/
-					$objetos = $temp["__indice_de_objetos_serializados"];
-					unset($temp["__indice_de_objetos_serializados"]);
-					foreach(array_keys($temp) as $propiedad)
-					{
-						if(in_array($propiedad,$objetos)){
-							//La propiedad es un OBJETO!
-							$this->$propiedad = unserialize($temp[$propiedad]);
-						}else{
-							$this->$propiedad = $temp[$propiedad];
-						}
-					}
-				}
-				else //El objeto solo persistio variables
-				{
-					foreach(array_keys($temp) as $propiedad)
-					{
+					if(in_array($propiedad,$objetos)){
+						//La propiedad es un OBJETO!
+						$this->$propiedad = unserialize($temp[$propiedad]);
+					}else{
 						$this->$propiedad = $temp[$propiedad];
 					}
 				}
 			}
-		}		
+			else //El objeto solo persistio variables
+			{
+				foreach(array_keys($temp) as $propiedad)
+				{
+					$this->$propiedad = $temp[$propiedad];
+				}
+			}
+		}
 	}
 	
 	function guardar_estado_sesion()

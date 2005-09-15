@@ -47,6 +47,7 @@ class hilo
 	var $parametros;
 	var $no_reciclar = false;	//Inhabilita el reciclado de la sesion
 	private $celda_memoria_actual = "central";
+	private $acceso_menu;
 	
 	function hilo()
 /*
@@ -94,10 +95,19 @@ class hilo
 			unset($this->parametros[apex_hilo_qs_item]);
 			//FALTA hacer un URL decode!!!
 		}
-		//Averiguo cual es la CELDA de memoria activa para este REQUEST
+		//MEMORIA: Averiguo cual es la CELDA de memoria activa para este REQUEST
 		if(isset($this->parametros[apex_hilo_qs_celda_memoria])){
 			$this->celda_memoria_actual = $this->parametros[apex_hilo_qs_celda_memoria];
 			unset($this->parametros[apex_hilo_qs_celda_memoria]);
+			//ATENCION!!: por como esta ordenada la memoria, si alguien pone un
+			// flag que se llama como algunas de las variables basicas de la 
+			// memoria se va todo al carajo. Esto hay que arreglarlo
+		}
+		//Guardo el FLAG que indica si se accedio por el menu
+		if(isset($_GET[apex_hilo_qs_menu])){
+			$this->acceso_menu = true;
+		}else{
+			$this->acceso_menu = false;
 		}
 		$this->inicializar_memoria();
  	}
@@ -108,29 +118,6 @@ class hilo
 		if(!$this->no_reciclar){
 			$this->ejecutar_reciclaje_datos_globales();	
 		}
-	}
-
-	function inicializar_memoria()
-	//Inicializa la memoria
-	{
-		$celda = $this->get_celda_memoria_actual();
-		//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
-		if(isset($_SESSION[$celda]["hilo"])){
-			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
-				array_shift($_SESSION[$celda]["hilo"]);
-			}
-		}
-		//Vacio los reciclables activos para que se registren ellos.
-		$_SESSION[$celda]["reciclables_activos"] = array();
-		if(!isset($_SESSION[$celda]["reciclables"])){
-			$_SESSION[$celda]["reciclables"] = array();
-		}
-	}
-
-	function get_celda_memoria_actual()
-	//Indica cual es la celda de memoria que se utiliza en este REQUEST
-	{
-		return $this->celda_memoria_actual;
 	}
 
 	function desactivar_reciclado()
@@ -347,21 +334,43 @@ class hilo
 
 	}
 
-	function verificar_acceso_menu()
-	//Indica si el request se genero desde el menu
-	{
-		if(isset($_GET[apex_hilo_qs_menu])){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//-------------------- MEMORIA (persistencia) --------------------
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------	
+
+	function verificar_acceso_menu()
+	//Indica si el request se genero desde el menu
+	{
+		return $this->acceso_menu;
+	}
+
+	function get_celda_memoria_actual()
+	//Indica cual es la celda de memoria que se utiliza en este REQUEST
+	{
+		return $this->celda_memoria_actual;
+	}
+
+	function inicializar_memoria()
+	/*
+		Inicializa el esquema de MEMORIA del TOBA
+
+			El flag de acceso por el menu desencadena el borrado de toda la memoria pensada para
+			utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
+			como "reciclables" y la memoria sincronizada (la alienada al request anterior).
+	*/
+	{
+		if( $this->verificar_acceso_menu() ){
+			$this->limpiar_memoria();						//Memoria Sincronizada
+			$this->limpiar_memoria_global_reciclable();
+			$this->inicializar_esquema_reciclaje_global();
+		}else
+		{
+			$this->reciclar_memoria_sincronizada();
+			$this->inicializar_esquema_reciclaje_global();
+		}
+	}
 
 	//************************************************************************
 	//********  Persistencia EXCLUSIVA para la PROXIMA instanciacion  ********
@@ -376,7 +385,6 @@ class hilo
 		$celda = $this->get_celda_memoria_actual();
 		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
 	}
-	//----------------------------------------------------------------	
 
 	function eliminar_dato($indice)
 /*
@@ -389,7 +397,6 @@ class hilo
 			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
 		}
 	}
-	//----------------------------------------------------------------		
 
 	function recuperar_dato($indice)
 /*
@@ -404,7 +411,6 @@ class hilo
 			return null;
 		}
 	}
-	//----------------------------------------------------------------	
 
 	function dump_memoria()
 /*
@@ -417,7 +423,6 @@ class hilo
 		$temp = array_reverse($_SESSION[$celda]["hilo"], true);
 		ei_arbol($temp,"MEMORIA");
 	}
-	//----------------------------------------------------------------	
 
 	function limpiar_memoria()
 /*
@@ -427,6 +432,17 @@ class hilo
 	{
 		$celda = $this->get_celda_memoria_actual();
 		unset($_SESSION[$celda]["hilo"]);
+	}
+
+	function reciclar_memoria_sincronizada()
+	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"])){
+			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
+				array_shift($_SESSION[$celda]["hilo"]);
+			}
+		}
 	}
 
 	//************************************************************************
@@ -442,7 +458,6 @@ class hilo
 		$celda = $this->get_celda_memoria_actual();
 		return isset($_SESSION[$celda]["global"][$indice]);
 	}
-	//----------------------------------------------------------------	
 
 	function persistir_dato_global($indice, $datos, $reciclable=false)
 /*
@@ -456,7 +471,6 @@ class hilo
 			$this->dato_global_reciclable($indice);
 		}
 	}
-	//----------------------------------------------------------------	
 
 	function recuperar_dato_global($indice)
 /*
@@ -476,7 +490,6 @@ class hilo
 			return null;
 		}
 	}
-	//----------------------------------------------------------------	
 	
 	function eliminar_dato_global($indice)
 /*
@@ -502,7 +515,6 @@ class hilo
 			}
 		}
 	}
-	//----------------------------------------------------------------	
 
 	function limpiar_memoria_global()
 	{
@@ -510,10 +522,30 @@ class hilo
 		unset($_SESSION[$celda]["global"]);
 	}
 
+	function limpiar_memoria_global_reciclable()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		foreach($_SESSION[$celda]["reciclables"] as $reciclable){
+			$this->eliminar_dato_global($reciclable);
+		}
+		unset($_SESSION[$celda]["reciclables"]);
+		unset($_SESSION[$celda]["reciclables_activos"]);
+	}
+
 	//----------------------------------------------------------------	
 	//-------------  RECICLAJE de memoria GLOBAL ---------------------	
 	//----------------------------------------------------------------	
 	
+	function inicializar_esquema_reciclaje_global()
+	//Vacio los reciclables activos para que se registren ellos.
+	{
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]["reciclables_activos"] = array();
+		if(!isset($_SESSION[$celda]["reciclables"])){
+			$_SESSION[$celda]["reciclables"] = array();
+		}
+	}
+
 	function existe_dato_reciclable($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
@@ -523,18 +555,16 @@ class hilo
 			return false;
 		}
 	}
-	//----------------------------------------------------------------	
 
 	function dato_global_reciclable($indice)
 	//Se reporta que un dato global se va a reciclar
 	{
-		$celda = $this->get_celda_memoria_actual();
 		if( !$this->existe_dato_reciclable($indice) ){
+			$celda = $this->get_celda_memoria_actual();
 			$_SESSION[$celda]["reciclables"][] = $indice;
-			$this->dato_global_activo($indice);
 		}
+		$this->dato_global_activo($indice);
 	}
-	//----------------------------------------------------------------	
 	
 	function dato_global_activo($indice)
 	//Indica que el dato reciclable fue activado
@@ -548,13 +578,9 @@ class hilo
 		}
 	}
 
-	//----------------------------------------------------------------	
-
 	function ejecutar_reciclaje_datos_globales()
 	{
 		$celda = $this->get_celda_memoria_actual();
-		//dump_session();
-		//echo "Finalizando el HILO<br>";
 		foreach(array_keys($_SESSION[$celda]["reciclables"]) as $reciclable){
 			$dato = $_SESSION[$celda]["reciclables"][$reciclable];
 			//Si hay un elemento reciclable que no se activo, lo destruyo
@@ -565,6 +591,7 @@ class hilo
 			}
 		}
 	}
+
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//---------------- MANEJO de ARCHIVOS de SESION ------------------
