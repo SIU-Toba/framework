@@ -127,29 +127,6 @@ class elemento
 		return (count($this->datos)>0);
 	}
 	
-	/*
-	*	Construye la un elemento_toba asociado a un objeto
-	*/
-	function construir_objeto($proyecto, $objeto)
-	{
-		//ATENCION: la clase del objeto se debería conocer antes para poder crear la clase asociada a la clase (!)
-		$sql = "
-			SELECT 
-				c.*
-			FROM apex_clase c,
-				apex_objeto o
-			WHERE (o.clase_proyecto = c.proyecto)
-				AND (o.clase = c.clase)
-				AND (o.objeto = '$objeto')
-				AND (o.proyecto = '$proyecto')";
-		$rs = consultar_fuente($sql,"instancia",null,true);
-		require_once($rs[0]['archivo']);
-		$elemento = call_user_func(array($rs[0]['clase'], 'elemento_toba'));
-		$elemento->cargar_db($proyecto, $objeto);
-		$elemento->set_datos_clase($rs[0]);
-		return $elemento;
-	}		
-
 	//--------------------------------------------------------------
 	//-----  Procesar el ELEMENTO  ---------------------------------
 	//--------------------------------------------------------------

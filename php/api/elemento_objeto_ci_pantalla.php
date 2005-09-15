@@ -85,8 +85,10 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado a la pantalla",
 			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
-								array( apex_hilo_qs_zona => $this->datos['objeto_ci_proyecto'] .apex_qs_separador.
-										$this->datos['objeto_ci']),
+								array('destino_tipo' => 'ci_pantalla', 
+										'destino_proyecto' => $this->datos['objeto_ci_proyecto'],
+										'destino_id' => $this->datos['objeto_ci'],
+										'destino_pantalla' => $this->datos['pantalla']),
 										false, false, null, true, "central")
 		);
 

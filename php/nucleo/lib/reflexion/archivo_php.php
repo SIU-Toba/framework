@@ -49,7 +49,9 @@ class archivo_php
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
 			exec("start $archivo");
 		} else {
-			`env DISPLAY=A:0.0 \nkwrite`;
+			$archivo = manejador_archivos::path_a_unix($this->nombre);
+			$fp = popen("export DISPLAY=:0.0;\n kfmclient newTab $archivo application/php", 'r');
+			pclose($fp);
 		}
 	}
 	

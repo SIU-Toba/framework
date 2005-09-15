@@ -4,6 +4,7 @@ require_once('api/elemento_objeto_ci_pantalla.php');
 
 class elemento_objeto_ci extends elemento_objeto
 {
+	
 	function nombre_corto()
 	{
 		$nombre = parent::nombre_corto();
@@ -101,8 +102,9 @@ class elemento_objeto_ci extends elemento_objeto
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
 			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
-								array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador.
-										$this->id),
+								array(	'destino_tipo' => 'ci', 
+										'destino_proyecto' => $this->proyecto,
+										'destino_id' => $this->id),
 										false, false, null, true, "central")
 		);
 		return array_merge($iconos, parent::utilerias());	

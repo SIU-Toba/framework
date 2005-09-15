@@ -25,7 +25,7 @@ class elemento_item extends elemento implements recorrible_como_arbol
 			{
 				$proyecto = $this->datos['apex_item_objeto'][$a]['proyecto'];
 				$objeto = $this->datos['apex_item_objeto'][$a]['objeto'];
-				$this->subelementos[$a] = $this->construir_objeto($proyecto, $objeto);
+				$this->subelementos[$a] = elemento_objeto::get_elemento_objeto($proyecto, $objeto);
 			}
 		}
 	}
@@ -111,8 +111,9 @@ class elemento_item extends elemento implements recorrible_como_arbol
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al item",
 			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
-								array( 'destino_tipo' => 'item', 'proyecto' => $this->proyecto,
-										'id' => $this->id ),
+								array('destino_tipo' =>'item', 
+										'destino_proyecto' => $this->proyecto,
+										'destino_id' => $this->id ),
 										false, false, null, true, "central")
 		);
 		return $utilerias;

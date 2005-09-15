@@ -13,6 +13,29 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		parent::__construct();
 	}
 	
+	/*
+	*	Construye la un elemento_toba asociado a un objeto
+	*/
+	static function get_elemento_objeto($proyecto, $objeto)
+	{
+		//ATENCION: la clase del objeto se debería conocer antes para poder crear la clase asociada a la clase (!)
+		$sql = "
+			SELECT 
+				c.*
+			FROM apex_clase c,
+				apex_objeto o
+			WHERE (o.clase_proyecto = c.proyecto)
+				AND (o.clase = c.clase)
+				AND (o.objeto = '$objeto')
+				AND (o.proyecto = '$proyecto')";
+		$rs = consultar_fuente($sql,"instancia",null,true);
+		require_once($rs[0]['archivo']);
+		$elemento = call_user_func(array($rs[0]['clase'], 'elemento_toba'));
+		$elemento->cargar_db($proyecto, $objeto);
+		$elemento->set_datos_clase($rs[0]);
+		return $elemento;
+	}	
+	
 	function set_datos_clase($datos_clase)
 	{
 		$this->datos_clase = $datos_clase;
@@ -62,7 +85,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 			for($a=0;$a<count($this->datos['apex_objeto_dependencias']);$a++) {
 				$proyecto = $this->datos['apex_objeto_dependencias'][$a]['proyecto'];
 				$objeto = $this->datos['apex_objeto_dependencias'][$a]['objeto_proveedor'];
-				$this->subelementos[$a]= $this->construir_objeto($proyecto, $objeto);
+				$this->subelementos[$a]= elemento_objeto::get_elemento_objeto($proyecto, $objeto);
 				$this->subelementos[$a]->set_consumidor($this, $this->datos['apex_objeto_dependencias'][$a]);				
 			}
 		}
@@ -98,6 +121,14 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	function rol_en_consumidor()
 	{
 		return $this->rol_en_consumidor['identificador'];
+	}
+	
+	function vinculo_editor()
+	{
+		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());		
+		return toba::get_vinculador()->generar_solicitud($this->datos_clase["editor_proyecto"],
+														$this->datos_clase["editor_item"], $param_editores,
+														false, false, null, true, "central");
 	}
 	
 	//---- Recorrido como arbol
@@ -176,9 +207,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
 				'ayuda' => "Editar propiedades del OBJETO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos_clase["editor_proyecto"],
-																		$this->datos_clase["editor_item"], $param_editores,
-																		false, false, null, true, "central")
+				'vinculo' => $this->vinculo_editor()
 			);
 		}
 

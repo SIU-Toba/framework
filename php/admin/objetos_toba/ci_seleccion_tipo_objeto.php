@@ -2,14 +2,16 @@
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('admin/db/dao_editores.php');
 require_once('api/elemento_item.php');
+require_once('api/elemento_objeto.php');
+require_once('admin/editores/asignador_objetos.php');
+require_once('admin/admin_util.php');
 //----------------------------------------------------------------
 class ci_seleccion_tipo_objeto extends objeto_ci
 {
 	protected $clase_actual;
 	protected $datos_editor;
-	protected $destino_id;
-	protected $destino_proyecto;
-	protected $destino_tipo;
+	protected $destino;
+	protected $objeto_construido;
 	
 	function __construct($id)
 	{
@@ -17,12 +19,14 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 		if (isset($this->clase_actual)) {
 			$this->cargar_editor();
 		}
-		$destino_tipo = toba::get_hilo()->obtener_parametro('destino_tipo');
-		//
+		$hilo = toba::get_hilo();
+		$destino_tipo = $hilo->obtener_parametro('destino_tipo');
 		if (isset($destino_tipo)) {
-			$this->destino_tipo = $destino_tipo;
-			$this->destino_id = toba::get_hilo()->obtener_parametro('destino_id');
-			$this->destino_proyecto = toba::get_hilo()->obtener_parametro('destino_proyecto');
+			$this->destino = array();
+			$this->destino['tipo'] = $destino_tipo;
+			$this->destino['id'] = $hilo->obtener_parametro('destino_id');
+			$this->destino['proyecto'] = $hilo->obtener_parametro('destino_proyecto');
+			$this->destino['pantalla'] = $hilo->obtener_parametro('destino_pantalla');
 		}
 	}
 	
@@ -31,9 +35,8 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 		$prop = parent::mantener_estado_sesion();
 		$prop[] = 'clase_actual';
 		$prop[] = 'datos_editor';
-		$prop[] = 'destino_id';
-		$prop[] = 'destino_proyecto';		
-		$prop[] = 'destino_tipo';
+		$prop[] = 'destino';
+		$prop[] = 'objeto_construido';
 		return $prop;
 	}
 	
@@ -43,13 +46,26 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 	*/
 	function get_etapa_actual()
 	{
-		return (isset($this->clase_actual)) ? 'construccion' : 'tipos';
+		if (! isset($this->clase_actual)) {
+			return "tipos";
+		} 
+		if (! isset($this->objeto_construido)) {
+			return "construccion";
+		}
+		if (isset($this->destino)) {
+			return "asignacion";
+		}
+		//Sino es que el objeto se creo y no hay que asignarselo a nadie asi que 
+		//hay que redireccionar
+		$this->redireccionar_a_objeto_creado();
 	}	
 	
 	function obtener_descripcion_pantalla($pantalla)
 	{
 		if ($pantalla == 'construccion') {
-			return " Construyendo un <strong>{$this->clase_actual['clase']}</strong>" ;	
+			return "Construyendo un <strong>{$this->clase_actual['clase']}</strong>" ;	
+		} elseif ($pantalla == 'asignacion') {
+			return "Objeto creado";
 		}
 		return parent::obtener_descripcion_pantalla($pantalla);	
 	}
@@ -96,9 +112,45 @@ class ci_seleccion_tipo_objeto extends objeto_ci
 		$this->agregar_dependencia('editor', $this->datos_editor['proyecto'], $this->datos_editor['objeto']);
 	}
 	
+	/**
+	*	Cuando se procesa este CI es porque el editor contenido ya proceso
+	*	Por lo que se debe extraer la clave del objeto creado para su posterior asignacion
+	*/
 	function evt__editor__procesar()
 	{
-		echo "SI";
+			$valores = $this->dependencias['editor']->get_entidad()->tabla('base')->get();
+			$this->objeto_construido = array('id' => $valores['objeto'], 'proyecto' => $valores['proyecto']);
+			//Si el destino es un item se asigna aqui nomas
+			
+			if (isset($this->destino) && $this->destino['tipo'] == 'item') {
+				$this->evt__asignar();
+			}
+	}
+	
+	//----------------------------------------------------------
+	//-----------------  ETAPA DE ASIGNACION   -----------------
+	//----------------------------------------------------------
+	function evt__info_asignacion__modificacion($datos)
+	{
+		$this->destino['id_dependencia'] = $datos['id_dependencia'];
+	}
+	
+	function evt__asignar()
+	{
+		$asignador = new asignador_objetos($this->objeto_construido, $this->destino);
+		$asignador->asignar();
+		$this->redireccionar_a_objeto_creado();
+	}
+	
+	function redireccionar_a_objeto_creado()
+	{
+		$elem_objeto = elemento_objeto::get_elemento_objeto($this->objeto_construido['proyecto'], 
+														 	$this->objeto_construido['id']);
+		$vinculo = $elem_objeto->vinculo_editor();
+		admin_util::refrescar_editor_item();
+		echo js::abrir();
+		echo "window.location.href='$vinculo'\n";
+		echo js::cerrar();
 	}
 	
 }
