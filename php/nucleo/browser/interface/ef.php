@@ -381,6 +381,16 @@ class ef //Clase abstracta, padre de todos los EF
         $this->solo_lectura = false;
     }
 	
+    function establecer_obligatorio()
+    {
+	    $this->obligatorio = true;
+    }
+    
+    function establecer_no_obligatorio()
+    {
+	    $this->obligatorio = false;
+    }
+    
 	function set_expandido($expandido)
 	{
 		$this->expandido = $expandido;

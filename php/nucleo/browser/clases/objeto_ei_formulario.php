@@ -426,7 +426,25 @@ class objeto_ei_formulario extends objeto_ei
 			}
 		}
 	}
-
+	//-------------------------------------------------------------------------------
+	
+	function set_efs_obligatorios($efs=null)
+	//Establece el grupo de EFs especificados como OBLIGATORIOS
+	{
+		if(!isset($efs)){
+			$efs = $this->lista_ef_post;
+		}
+		foreach ($efs as $ef){
+			if(isset($this->elemento_formulario[$ef])){
+				$this->elemento_formulario[$ef]->establecer_obligatorio();						
+			}else{
+				$log = toba::get_logger();
+				$log->error("DESABILITAR EF: el EF '$ef' no existe");
+			}
+		}
+	}
+	
+	
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------	  MANEJO de DATOS	  -------------------------------
