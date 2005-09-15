@@ -99,9 +99,9 @@ class hilo
 		if(isset($this->parametros[apex_hilo_qs_celda_memoria])){
 			$this->celda_memoria_actual = $this->parametros[apex_hilo_qs_celda_memoria];
 			unset($this->parametros[apex_hilo_qs_celda_memoria]);
-			//ATENCION!!: por como esta ordenada la memoria, si alguien pone un
-			// flag que se llama como algunas de las variables basicas de la 
-			// memoria se va todo al carajo. Esto hay que arreglarlo
+			if($this->celda_memoria_actual == 'toba'){
+				throw new excepcion_toba_def("No puede utilizarse la palabra 'toba' como nombre de celda");
+			}
 		}
 		//Guardo el FLAG que indica si se accedio por el menu
 		if(isset($_GET[apex_hilo_qs_menu])){
@@ -118,11 +118,6 @@ class hilo
 		if(!$this->no_reciclar){
 			$this->ejecutar_reciclaje_datos_globales();	
 		}
-	}
-
-	function desactivar_reciclado()
-	{
-		$this->no_reciclar = true;
 	}
 
 	function info()
@@ -205,7 +200,7 @@ class hilo
 	@@desc: Devuelve el identificador del PROYECTO ACTUAL
 */
 	{
-		return $_SESSION["proyecto"]["nombre"];
+		return $_SESSION['toba']["proyecto"]["nombre"];
 	}
 
 	function obtener_proyecto_descripcion()
@@ -214,7 +209,7 @@ class hilo
 	@@desc: DEvuelve la descripcion del proyecto
 */
 	{
-		return $_SESSION["proyecto"]["descripcion"];
+		return $_SESSION['toba']["proyecto"]["descripcion"];
 	}
 
 	function obtener_path()
@@ -223,7 +218,7 @@ class hilo
 	@@desc: Devuelve el PATH del toba
 */
 	{
-		return $_SESSION["path"];
+		return $_SESSION['toba']["path"];
 	}
 
 	function obtener_proyecto_path()
@@ -232,10 +227,10 @@ class hilo
 	@@desc: Devuelve el PATH del PROYECTO
 */
 	{
-		if($_SESSION["proyecto"]["nombre"]=="toba"){
-			return $_SESSION["path"];
+		if($_SESSION['toba']["proyecto"]["nombre"]=="toba"){
+			return $_SESSION['toba']["path"];
 		}else{
-			return $_SESSION["path_proyecto"];
+			return $_SESSION['toba']["path_proyecto"];
 		}
 	}
 	
@@ -247,14 +242,14 @@ class hilo
 	@@retorno: array | Path real y relativo al browser
 */
 	{
-		if($_SESSION["proyecto"]["nombre"]=="toba"){
-			$path_real = $_SESSION["path"];
+		if($_SESSION['toba']["proyecto"]["nombre"]=="toba"){
+			$path_real = $_SESSION['toba']["path"];
 		}else{
-			$path_real = $_SESSION["path_proyecto"];
+			$path_real = $_SESSION['toba']["path_proyecto"];
 		}
 		$path_real = $path_real . "/www/" . $archivo;
 		$path_browser = recurso::preambulo() . "/" .
-						$_SESSION["proyecto"]["nombre"] . "/" . $archivo;
+						$_SESSION['toba']["proyecto"]["nombre"] . "/" . $archivo;
 		return array(	"real" => $path_real,
 						"browser" => $path_browser);
 	}
@@ -265,7 +260,7 @@ class hilo
 	@@desc: Devuelve el identificador del USUARIO logueado
 */
 	{
-		return $_SESSION["usuario"]["id"];
+		return $_SESSION['toba']["usuario"]["id"];
 	}
     
 	function obtener_usuario_nivel_acceso()
@@ -274,7 +269,7 @@ class hilo
 	@@desc: Notifica el nivel de acceso que posee el usuario
 */
 	{
-		return $_SESSION["usuario"]["nivel_acceso"];
+		return $_SESSION['toba']["usuario"]["nivel_acceso"];
 	}
 
 	function obtener_usuario_grupo_acceso()
@@ -283,7 +278,7 @@ class hilo
 	@@desc: Notifica el GRUPO de ACCESO del usuario
 */
 	{
-		return $_SESSION["usuario"]["grupo_acceso"];
+		return $_SESSION['toba']["usuario"]["grupo_acceso"];
 	}
 
 	function obtener_usuario_perfil_datos()
@@ -292,7 +287,7 @@ class hilo
 	@@desc: Notifica el GRUPO de ACCESO del usuario
 */
 	{
-		return $_SESSION["usuario"]["perfil_datos"];
+		return $_SESSION['toba']["usuario"]["perfil_datos"];
 	}
 	
 	function usuario_solicita_cronometrar()
@@ -525,8 +520,10 @@ class hilo
 	function limpiar_memoria_global_reciclable()
 	{
 		$celda = $this->get_celda_memoria_actual();
-		foreach($_SESSION[$celda]["reciclables"] as $reciclable){
-			$this->eliminar_dato_global($reciclable);
+		if(isset($_SESSION[$celda]["reciclables"])){
+			foreach($_SESSION[$celda]["reciclables"] as $reciclable){
+				$this->eliminar_dato_global($reciclable);
+			}
 		}
 		unset($_SESSION[$celda]["reciclables"]);
 		unset($_SESSION[$celda]["reciclables_activos"]);
@@ -536,6 +533,11 @@ class hilo
 	//-------------  RECICLAJE de memoria GLOBAL ---------------------	
 	//----------------------------------------------------------------	
 	
+	function desactivar_reciclado()
+	{
+		$this->no_reciclar = true;
+	}
+
 	function inicializar_esquema_reciclaje_global()
 	//Vacio los reciclables activos para que se registren ellos.
 	{
@@ -603,8 +605,9 @@ class hilo
 	La eliminacion de estos archivos esta en el evento cerrar de la sesion
 */
 	function registrar_archivo($archivo){
-		if(!in_array("archivos", $_SESSION) || !in_array($archivo, $_SESSION["archivos"])){
-			$_SESSION["archivos"][] = $archivo;
+		if(	!isset($_SESSION['toba']['archivos']) 
+			|| !in_array($archivo, $_SESSION['toba']['archivos'])){
+			$_SESSION['toba']["archivos"][] = $archivo;
 		}
 	}
 	

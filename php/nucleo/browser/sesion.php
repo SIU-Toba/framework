@@ -40,12 +40,12 @@ class sesion {
 			}else{
 				//-----------------------------> Creo la sesion de PHP
 				//BASICOS
-				$_SESSION["id"] = $sesion;
-				$_SESSION["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
-				$_SESSION["inicio"]=time();
+				$_SESSION['toba']["id"] = $sesion;
+				$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
+				$_SESSION['toba']["inicio"]=time();
 				//PATHs
-				$_SESSION["path"] = toba_dir();
-				$_SESSION["path_php"] = $_SESSION["path"]. "/php";
+				$_SESSION['toba']["path"] = toba_dir();
+				$_SESSION['toba']["path_php"] = $_SESSION['toba']["path"]. "/php";
 				//-----------------------------> Cargo INFORMACION del USUARIO
 				$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 				$sql = "SELECT	u.usuario as id,
@@ -74,7 +74,7 @@ class sesion {
 					return array(0,"El usuario intento abrir un proyecto para el cual no posee permisos");					
 				}
 				$temp = $rs->getArray();
-				$_SESSION["usuario"]=$temp[0];
+				$_SESSION['toba']["usuario"]=$temp[0];
 				//-----------------------------> Cargo propiedades del proyecto
 				$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 				$sql = "SELECT	proyecto as nombre,
@@ -84,7 +84,7 @@ class sesion {
 						WHERE	proyecto = '$proyecto';";
 				$rs = $db["instancia"][apex_db_con]->Execute($sql);
 				$temp = $rs->getArray();
-				$_SESSION["proyecto"]=$temp[0];
+				$_SESSION['toba']["proyecto"]=$temp[0];
 
 				//-----------------------------> Manejo inicializacion y tiempo de conexion
 				sesion::actualizar_estado();
@@ -98,21 +98,21 @@ class sesion {
 	//Cierra una sesion de la aplicacion
 	{
 		global $db;
-		if (isset($_SESSION["id"]))
+		if (isset($_SESSION['toba']["id"]))
 		{
 			//Cierro la sesion de la base
 			if($observaciones!=""){
-				$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '".$_SESSION["id"]."';";
+				$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '".$_SESSION['toba']["id"]."';";
 			}else{
-				$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '".$_SESSION["id"]."';";
+				$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '".$_SESSION['toba']["id"]."';";
 			}
 			$db["instancia"][apex_db_con]->Execute($sql);
 			//ATENCION: Tengo que controlar que esto este OK!!!
 			//Destruyo la sesion de PHP
-			if(isset($_SESSION["archivos"]))
+			if(isset($_SESSION['toba']["archivos"]))
 			//Existieron UPLOADS temporales asociados a la sesion
 			{
-				foreach($_SESSION["archivos"] as $archivo)
+				foreach($_SESSION['toba']["archivos"] as $archivo)
 				{
 					//SI puedo ubicar los archivos los elimino
 					if(is_file($archivo)){
@@ -132,7 +132,7 @@ class sesion {
 	//[1] Detalle de la respuesta.
 	{
 		session_start();//Activo el manejo de sesiones
-		if(!isset($_SESSION["id"])){		//****  NO EXISTE sesion  ****
+		if(!isset($_SESSION['toba']["id"])){		//****  NO EXISTE sesion  ****
 			if(apex_pa_validacion)	// Se requiere VALIDACION de usuarios?
 			{
 				//Decido con que proyecto me voy a loguear, o lo extraigo de la interface si es "multi"
@@ -190,7 +190,7 @@ class sesion {
 			//La sesion esta creada, comienzo el control de FALTAS
 			//* Control 1: Fin tiempo de NO interaccion.
 			if(apex_pa_sesion_ventana != 0){ // 0 implica desactivacion
-				$tiempo_desconectado = ((time()-$_SESSION["ultimo_acceso"])/60);//Tiempo desde el ultimo REQUEST
+				$tiempo_desconectado = ((time()-$_SESSION['toba']["ultimo_acceso"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_desconectado >= apex_pa_sesion_ventana){
 					sesion::cerrar("Se exedio la ventana temporal (" . apex_pa_sesion_ventana . " m.)");
 					return array(0,"Usted ha permanecido mas de <b>". apex_pa_sesion_ventana. 
@@ -208,14 +208,14 @@ class sesion {
 			}
 
 			//* Control 3: Cambio de punto de acceso.
-			if(apex_pa_ID!=$_SESSION["apex_pa_ID"]){
-				sesion::cerrar("Cambio de punto de acceso: " . $_SESSION["apex_pa_ID"]. " -> " . apex_pa_ID );
+			if(apex_pa_ID!=$_SESSION['toba']["apex_pa_ID"]){
+				sesion::cerrar("Cambio de punto de acceso: " . $_SESSION['toba']["apex_pa_ID"]. " -> " . apex_pa_ID );
 				return array(0,"El cambio de puntos de acceso no es permitido. Se ha generado un informe");
 			}
 
 			//* Control 4: Tiempo maximo de sesion.
 			if(apex_pa_sesion_maximo != 0){ // 0 implica desactivacion
-				$tiempo_total = ((time()-$_SESSION["inicio"])/60);//Tiempo desde el ultimo REQUEST
+				$tiempo_total = ((time()-$_SESSION['toba']["inicio"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_total >= apex_pa_sesion_maximo){
 					sesion::cerrar("Se exedio el tiempo maximo de sesion (" . apex_pa_sesion_maximo . " m.)");
 					return array(0,"Se ha superado el tiempo de sesion permitido (<b>". apex_pa_sesion_maximo. 
@@ -239,7 +239,7 @@ class sesion {
 			}elseif(isset($_GET[apex_sesion_qs_cambio_proyecto])&&($_GET[apex_sesion_qs_cambio_proyecto]==1)){
                 //Es necesario volver a validar algo aca???
                 //Recupero el indentificador del usuario
-                $usuario_id = $_SESSION["usuario"]["id"];
+                $usuario_id = $_SESSION['toba']["usuario"]["id"];
                 //Cierro la sesion actual
 				sesion::cerrar();
                 if(isset($_POST[apex_sesion_post_proyecto])){//SE paso como parametro el PROYECTO?
@@ -262,11 +262,11 @@ class sesion {
 	function actualizar_estado()
 	{
 		//echo "<body><pre>"; print_r($_SESSION); echo "</pre></body>";
-		$proyecto = $_SESSION["proyecto"]["nombre"];
+		$proyecto = $_SESSION['toba']["proyecto"]["nombre"];
 		//--[1]--  Agrego el proyecto al INCLUDE PATH del proyecto
 		//Esto esta aca porque se puede cambiar de proyecto manteniendo la SESION
 		if($proyecto!="toba"){//Esto es necesario solo si el proyecto no es 'TOBA'
-			$dir_raiz = $_SESSION["path"];
+			$dir_raiz = $_SESSION['toba']["path"];
 			$i_path = ini_get("include_path");
 			if (substr(PHP_OS, 0, 3) == 'WIN'){
 				$i_proy = $dir_raiz . "/proyectos/" . $proyecto;
@@ -277,17 +277,17 @@ class sesion {
 				$i_proy_php = $i_proy . "/php";
 				ini_set("include_path", $i_path . ":.:" . $i_proy_php);
 			}
-			$_SESSION["path_proyecto"] = $i_proy;
-			$_SESSION["path_proyecto_php"] = $i_proy_php;
+			$_SESSION['toba']["path_proyecto"] = $i_proy;
+			$_SESSION['toba']["path_proyecto_php"] = $i_proy_php;
 			//echo "PROYECTO: $proyecto - INCLUDE_PATH= \"" . ini_get("include_path") ."\"";
 			//--[1.2]-- Invoco el archivo de INICIALIZACION del proyecto
 			include_once("inicializacion.php");
 		}
 		//--[2]-- Seteo el estilo que se va a usar
-        define("apex_proyecto_estilo",$_SESSION["proyecto"]["estilo"]);
+        define("apex_proyecto_estilo",$_SESSION['toba']["proyecto"]["estilo"]);
 
 		//--[3]-- Actualizo la variable que guarda el ultimo acceso a la sesion
-		$_SESSION["ultimo_acceso"]=time();//El tiempo que dure la solicitud no se cuenta... no importa.
+		$_SESSION['toba']["ultimo_acceso"]=time();//El tiempo que dure la solicitud no se cuenta... no importa.
 	}
 //-----------------------------------------------------------------------------
 }

@@ -20,7 +20,7 @@ class recurso {
 	function path_pro()
 	//#@desc: Genera un vinculo a un elemento del proyecto.
 	{
-		return recurso::preambulo(). "/". $_SESSION["proyecto"]["nombre"];
+		return recurso::preambulo(). "/". toba::get_hilo()->obtener_proyecto();
 	}
 	
 	function path_apl()
@@ -147,7 +147,7 @@ class recurso {
 			return recurso::path_apl() . "/css/" . $estilo .".css";	
 		else {
             //SI no hay una sesion esto da error.
-			$proyecto = $_SESSION['proyecto']['nombre'];
+			$proyecto = toba::get_hilo()->obtener_proyecto();
 			if($proyecto != "toba") {
 				$path = toba_dir() . "/proyectos/$proyecto/www/css/" . apex_proyecto_estilo . ".css";
 				if (file_exists($path))
