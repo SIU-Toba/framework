@@ -62,12 +62,35 @@ class ci_creador_objeto extends objeto_ci
 	
 	function obtener_descripcion_pantalla($pantalla)
 	{
-		if ($pantalla == 'construccion') {
-			return "Construyendo un <strong>{$this->clase_actual['clase']}</strong>" ;	
-		} elseif ($pantalla == 'asignacion') {
-			return "Objeto creado";
+		switch ($pantalla) {
+			case 'tipos':
+				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de objeto a crear.";
+				switch ($this->destino['tipo']) {
+					case 'item': 
+						$des .= "<br>El objeto construido se asignará automáticamente al 
+								<strong>item</strong> seleccionado.";
+						break;
+					case 'ci':
+						$des .= "<br>El objeto construido se asignará automáticamente al 
+								<strong>CI</strong> seleccionado.";
+						break;		
+					case 'ci_pantalla':
+						$des .= "<br>El objeto construido se asignará automáticamente a la 
+								<strong>pantalla</strong> seleccionada.";
+						break;				
+				}
+				break;
+			case 'construccion':
+				$des = "<strong>Construcción</strong><br>
+						Construyendo un <em>{$this->clase_actual['clase']}</em>";
+				break;			
+			case 'asignacion':
+				$des = "<strong>Asignación</strong><br>Para poder asignarlo necesita indicar con que identificador se conocera el objeto en el CI.";
+				break;
+			default:
+				$des = parent::obtener_descripcion_pantalla($pantalla);
 		}
-		return parent::obtener_descripcion_pantalla($pantalla);	
+		return $des;
 	}
 	
 	//------------------------------------------------------------
