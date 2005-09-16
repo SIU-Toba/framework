@@ -81,7 +81,7 @@ class ef_popup extends ef_editable
 					            							$this->item_destino_proyecto, 
 															$this->item_destino,
 															array("ef_popup" => $this->id_form, "ef_popup_valor" => $this->estado),
-															false, false, null, true, "popup");
+															false, false, false, null, null, true, "popup");
         }
 		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
 		if($this->solo_lectura || $vinculo_item == NULL){

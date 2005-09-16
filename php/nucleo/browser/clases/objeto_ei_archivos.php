@@ -84,7 +84,7 @@ class objeto_ei_archivos extends objeto_ei
 		if (! isset($this->path_relativo_inicial))
 			return $this->dir_actual;
 		$pos = strlen($this->path_relativo_inicial);
-		$relativo = substr($this->dir_actual, $pos + 1);
+		$relativo = substr($this->dir_actual, $pos);
 		return $relativo;
 	}
 	
