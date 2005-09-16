@@ -30,6 +30,12 @@ class objeto_datos_relacion extends objeto
 		$this->cargar_info_dependencias();
 		foreach( $this->lista_dependencias as $dep){
 			$this->cargar_dependencia($dep);
+			//La cantidad minima y maxima se pasan a traves de dos parametros genericos del objeto
+			$posicion = $this->indice_dependencias[$dep];
+			$cant_min = $this->info_dependencias[$posicion]['parametros_a'];
+			$cant_max = $this->info_dependencias[$posicion]['parametros_b'];
+			$this->dependencias[$dep]->set_tope_min_filas($cant_min);
+			$this->dependencias[$dep]->set_tope_max_filas($cant_max);
 		}
 	}
 	

@@ -92,7 +92,6 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	}
 	
 	//-------------------------------------------
-	
 	function exportar_sql()
 	{
 		$cabecera = "-- Exportacion: ". date("d/M/Y") . "\n";
@@ -105,7 +104,6 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		$path = toba::get_hilo()->obtener_proyecto_path() . "/sql/exportacion/$clase/{$this->id}.sql";
 		manejador_archivos::crear_archivo_con_datos($path, $data);
 	}
-	
 
 	//ATENCION: Ahora estan como variables locales, sacar los metodos
 	function id_objeto()

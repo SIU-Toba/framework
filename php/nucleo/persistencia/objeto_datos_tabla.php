@@ -223,6 +223,8 @@ class objeto_datos_tabla extends objeto
 
 	public function set_tope_max_filas($cantidad)
 	{
+		if ($cantidad == '')
+			$cantidad = 0;		
 		if(is_numeric($cantidad) && $cantidad >= 0){
 			$this->tope_max_filas = $cantidad;	
 		}else{
@@ -232,6 +234,8 @@ class objeto_datos_tabla extends objeto
 
 	public function set_tope_min_filas($cantidad)
 	{
+		if ($cantidad == '')
+			$cantidad = 0;
 		if(is_numeric($cantidad) && $cantidad >= 0){
 			$this->tope_min_filas = $cantidad;
 		}else{
@@ -605,6 +609,7 @@ class objeto_datos_tabla extends objeto
 				$this->evt__validar_fila( $this->datos[$id] );
 			}
 		}
+		$this->control_tope_minimo_filas();
 	}
 	
 	function evt__validar_fila($fila){}
@@ -637,12 +642,11 @@ class objeto_datos_tabla extends objeto
 	public function control_tope_minimo_filas()
 	{
 		$control_tope_minimo=true;
-		$this->log("Inicio SINCRONIZACION"); 
 		if($control_tope_minimo){
 			if( $this->tope_min_filas != 0){
 				if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
 					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
 				}
 			}
 		}
