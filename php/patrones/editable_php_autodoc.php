@@ -6,11 +6,8 @@
 		$archivo = $this->zona->editable_info['archivo'];
 		$proyecto = $this->zona->editable_info['proyecto'];
 
-		if($proyecto == "toba"){
-			$archivo_real = $_SESSION["path_php"] . "/" . $archivo;
-		}else{
-			$archivo_real = $_SESSION["path"] . "/proyectos/$proyecto/php/" . $archivo;
-		}
+		$archivo_real = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $archivo;
+
 		if(file_exists($archivo_real)){
 
 			if($flag=$this->hilo->obtener_parametro("interno")){

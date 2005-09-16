@@ -101,6 +101,17 @@ class item implements recorrible_como_arbol
 		return $this->datos['padre'] == $carpeta->id();
 	}
 	
+	function vinculo_editor()
+	{
+		if ($this->es_carpeta())
+			$item_editor = "/admin/items/carpeta_propiedades";
+		else
+			$item_editor = "/admin/items/editor_items";		
+		return toba::get_vinculador()->generar_solicitud("toba", $item_editor,
+						array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
+						false, false, null, true, "central");
+	}
+	
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------
 	
 	function set_nivel($nivel) { $this->nivel = $nivel; }	
@@ -168,18 +179,14 @@ class item implements recorrible_como_arbol
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("items/carpeta.gif", false),
 				'ayuda' => "Editar propiedades de la carpeta",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades",
-								array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
-								false, false, null, true, "central")
+				'vinculo' => $this->vinculo_editor()
 				);
 
 		} else {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("items/item.gif", false),
 				'ayuda' => "Editar propiedades del ITEM",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items",
-									array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
-									false, false, null, true, "central")
+				'vinculo' => $this->vinculo_editor()
 				);
 				
 			if ($this->tipo_solicitud() == "consola") {
@@ -216,12 +223,14 @@ class item implements recorrible_como_arbol
 				);
 			}
 			// Ordenamiento, Nueva carpeta, nuevo item
-/*			$utilerias[] = array(
+/*			
+			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/carpeta_ordenar.gif", false),
 				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_ordenar", 
 								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
-			);*/
+			);
+*/
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",

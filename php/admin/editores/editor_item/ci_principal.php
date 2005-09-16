@@ -1,12 +1,15 @@
 <?php
+require_once('api/elemento_item.php');
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('admin/db/dao_editores.php');
+require_once('admin/admin_util.php');
 //----------------------------------------------------------------
 
 class ci_principal extends objeto_ci
 {
 	protected $cambio_item;
 	protected $id_item;
+	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
 	
 	function __construct($id)
 	{
@@ -82,7 +85,7 @@ class ci_principal extends objeto_ci
 			unset($this->id_item);
 			$this->get_entidad()->resetear();
 			//Para el caso del alta el id es asignado automáticamente 
-			$datos = array('item' => "<span style='white-space:nowrap'>A asignar</span>");
+			$datos = array('item' => $this->id_temporal);
 			$datos['padre'] = $padre_i;
 			$datos['padre_proyecto'] = $padre_p;
 
@@ -158,7 +161,6 @@ class ci_principal extends objeto_ci
 	*/
 	function evt__permisos__carga()
 	{
-		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
@@ -218,19 +220,36 @@ class ci_principal extends objeto_ci
 	// *******************************************************************
 	// *******************  PROCESAMIENTO  *******************************
 	// *******************************************************************
-	
+
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();		
+		$this->get_entidad()->sincronizar();	
+		admin_util::refrescar_editor_item();
+		if (! isset($this->id_item)) {		//Si el item es nuevo
+			$this->redireccionar_a_objeto_creado();		
+		}
 	}
 
 	function evt__eliminar()
 	{
 		$this->get_entidad()->eliminar();
+		admin_util::refrescar_editor_item();		
 	}
+	
+	function redireccionar_a_objeto_creado()
+	{
+		$datos = $this->get_entidad()->tabla("base")->get();
+		$elem_item = new elemento_item();
+		$elem_item->cargar_db($datos['proyecto'], $datos['item']);
+		
+		$vinculo = $elem_item->vinculo_editor();
+		echo js::abrir();
+		echo "window.location.href='$vinculo'\n";
+		echo js::cerrar();
+	}		
 	// *******************************************************************	
 
 

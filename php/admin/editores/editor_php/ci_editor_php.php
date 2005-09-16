@@ -14,10 +14,7 @@ class ci_editor_php extends objeto_ci
 		$this->datos = $datos;
 		$archivo = $this->datos['archivo'];
 		$proyecto = $this->datos['proyecto'];
-		if($proyecto == "toba")
-			$path = $_SESSION["path_php"] . "/" . $archivo;
-		else
-			$path = $_SESSION["path"] . "/proyectos/$proyecto/php/" . $archivo;
+		$path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $archivo;
 			
 		//Manejo de archivos			
 		$this->archivo_php = new archivo_php($path);

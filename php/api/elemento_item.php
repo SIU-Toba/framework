@@ -104,6 +104,11 @@ class elemento_item extends elemento implements recorrible_como_arbol
 		return $this->item->iconos();
 	}
 	
+	function vinculo_editor()
+	{
+		return $this->item->vinculo_editor();	
+	}
+	
 	function utilerias()
 	{
 		$utilerias = $this->item->utilerias();
