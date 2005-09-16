@@ -16,19 +16,24 @@ class relacion_entre_tablas
 	protected $nombre;
 	protected $tabla_padre;					// Referencia al objeto_datos_tabla PADRE
 	protected $tabla_padre_claves;
+	protected $tabla_padre_id;
 	protected $tabla_hijo;					// Referencia al objeto_datos_tabla HIJO
 	protected $tabla_hijo_claves;
+	protected $tabla_hijo_id;
 	protected $mapeo_claves;
 	protected $mapeo_filas;
 
-	function __construct($nombre, $tabla_padre, $tabla_padre_clave, $tabla_hijo, $tabla_hijo_clave)
+	function __construct($nombre, $tabla_padre, $tabla_padre_clave, $tabla_padre_id, 
+							$tabla_hijo, $tabla_hijo_clave, $tabla_hijo_id)
 	{
 		asercion::arrays_igual_largo($tabla_padre_clave, $tabla_hijo_clave);
 		$this->nombre = $nombre;
 		$this->tabla_padre = $tabla_padre;
 		$this->tabla_padre_claves = $tabla_padre_clave;
+		$this->tabla_padre_id = $tabla_padre_id;
 		$this->tabla_hijo = $tabla_hijo;	
 		$this->tabla_hijo_claves = $tabla_hijo_clave;
+		$this->tabla_hijo_id = $tabla_hijo_id;
 		//Notifico la existencia de la relacion a las tablas
 		$this->tabla_padre->agregar_relacion_con_hijo( $this );
 		$this->tabla_hijo->agregar_relacion_con_padre( $this );
@@ -59,7 +64,8 @@ class relacion_entre_tablas
 			//Armo el MAPEO de filas
 			
 		}else{
-			echo "TODAVIA no SOPORTADO";
+			$error = "FILAS padre: ". $this->tabla_padre->get_cantidad_filas() .". Esta relacion no esta soportada\n";
+			throw new excepcion_toba( $this->get_txt_error_base($texto) );
 		}
 	}	
 
@@ -81,19 +87,26 @@ class relacion_entre_tablas
 			}
 			$this->tabla_hijo->sincronizar();
 		}else{
-			echo "TODAVIA no SOPORTADO";
+			$error = "FILAS padre: ". $this->tabla_padre->get_cantidad_filas() .". Esta relacion no esta soportada\n";
+			throw new excepcion_toba( $this->get_txt_error_base($texto) );
 		}
 	}
 
 	function evt__eliminacion_padre()
 	//El elemento PADRE de la relacion notifica que se SINCRONIZO: Se dispara la sincronizacion del hijo
 	{
-		if( $this->tabla_padre->get_cantidad_filas() == 1)
-		{
-			$this->tabla_hijo->eliminar();
-		}else{
-			echo "TODAVIA no SOPORTADO";
-		}
+		$this->tabla_hijo->eliminar();
+	}
+
+	function get_txt_error_base($error="Ha ocurrido un error")
+	{
+		$txt = "RELACION: $this->nombre\n";
+		$txt .= "TABLA padre: " . $this->tabla_padre->get_txt() 
+				. " -- ". $this->tabla_padre_id . " -- [". $this->tabla_padre->get_nombre()  . "]\n";
+		$txt .= "TABLA hijo: " . $this->tabla_hijo->get_txt() 
+				. " -- ". $this->tabla_hijo_id . " -- [". $this->tabla_hijo->get_nombre() . "]\n";
+		$txt .= $error;
+		return $txt;
 	}
 }
 ?>

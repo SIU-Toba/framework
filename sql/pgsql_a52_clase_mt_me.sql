@@ -48,7 +48,7 @@ CREATE TABLE apex_objeto_mt_me
 	activacion_cancelar						varchar(40)			NULL, --> DEPRECADO CN: Indica cuando se puede cancelar
 	ev_procesar								smallint			NULL,
 	ev_cancelar								smallint			NULL,
-	objetos									varchar(80)			NULL,	
+	objetos									varchar(255)		NULL,	
 	post_procesar							varchar(40)			NULL, --> CN: Informacion posterior al proceso
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
 	metodo_opciones							varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion

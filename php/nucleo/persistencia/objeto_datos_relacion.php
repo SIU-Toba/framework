@@ -41,8 +41,10 @@ class objeto_datos_relacion extends objeto
 				$this->relaciones[] = new relacion_entre_tablas(	$this->info_relaciones[$a]['identificador'],
 																	$this->dependencias[ $this->info_relaciones[$a]['padre_id'] ],
 																	explode(",",$this->info_relaciones[$a]['padre_clave']),
+																	$this->info_relaciones[$a]['padre_id'],
 																	$this->dependencias[ $this->info_relaciones[$a]['hijo_id'] ],
-																	explode(",",$this->info_relaciones[$a]['hijo_clave'])
+																	explode(",",$this->info_relaciones[$a]['hijo_clave']),
+																	$this->info_relaciones[$a]['hijo_id']
 																);
 				$padres[] = $this->info_relaciones[$a]['padre_id'];
 				$hijos[] = $this->info_relaciones[$a]['hijo_id'];
@@ -144,6 +146,19 @@ class objeto_datos_relacion extends objeto
 		foreach($this->dependencias as $dependencia){
 			$dependencia->validar();
 		}
+	}
+
+	function get_datos()
+	{
+		foreach($this->dependencias as $id => $dependencia){
+			$datos[$id] = $dependencia->get_datos();
+		}
+		return $datos;		
+	}
+
+	function dump_contenido()
+	{
+		ei_arbol( $this->get_datos() );
 	}
 
 	//-------------------------------------------------------------------------------

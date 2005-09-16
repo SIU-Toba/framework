@@ -1,11 +1,13 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/admin_util.php');
 
 abstract class ci_editores_toba extends objeto_ci
 {
 	protected $id_objeto;
 	protected $cambio_objeto;
-	private $cargado = false;
+	protected $cargado = false;
+	private $elemento_eliminado = false;
 
 	function __construct($id)
 	{
@@ -46,6 +48,7 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "id_objeto";
+		$propiedades[] = "cargado";
 		return $propiedades;
 	}	
 	
@@ -56,6 +59,10 @@ abstract class ci_editores_toba extends objeto_ci
 	
 	function generar_interface_grafica()
 	{
+		if($this->elemento_eliminado){
+			echo ei_mensaje("El elemento ha sido eliminado");
+			return;
+		}
 		$zona = toba::get_solicitud()->zona();
 		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_superior();
@@ -65,6 +72,22 @@ abstract class ci_editores_toba extends objeto_ci
 		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_inferior();
 		}	
+	}
+
+	function get_lista_eventos()
+	{
+		$eventos = parent::get_lista_eventos();
+		if(!$this->cargado){
+			unset($eventos['eliminar']);
+		}
+		return $eventos;
+	}	
+
+	function evt__eliminar()
+	{
+		$this->get_entidad()->eliminar();
+		$this->elemento_eliminado = true;
+		admin_util::refrescar_editor_item();
 	}
 }
 ?>
