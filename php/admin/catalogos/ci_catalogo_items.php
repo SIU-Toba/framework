@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once("nucleo/lib/arbol_items.php");
-require_once('admin/album_fotos.php');
+require_once('admin/catalogos/album_fotos.php');
 require_once('api/elemento_item.php');
 
 //----------------------------------------------------------------
@@ -20,7 +20,7 @@ class ci_catalogo_items extends objeto_ci
 		$this->catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
 		$this->catalogador->ordenar();
 		
-		$this->album_fotos = new album_fotos('items');
+		$this->album_fotos = new album_fotos('cat_item');
 
 		//Si se pidio un item especifico, cargarlo
 		$item_selecc = toba::get_hilo()->obtener_parametro('item');
@@ -80,7 +80,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__sacar_foto($nombre)
 	{
-		$ths->album_fotos->agregar_foto($nombre, $this->apertura_items, $this->opciones);
+		$this->album_fotos->agregar_foto($nombre, $this->apertura_items, $this->opciones);
 		$this->evt__fotos__seleccion($nombre);
 	}
 		
@@ -126,7 +126,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__fotos__baja($nombre)
 	{
-		$this->catalogador->borrar_foto($nombre);
+		$this->album_fotos->borrar_foto($nombre);
 	}	
 	
 	//-------------------------------

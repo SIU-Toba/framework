@@ -99,6 +99,7 @@ DELETE FROM apex_item_proto ;
 DELETE FROM apex_nucleo_info ;
 DELETE FROM apex_nucleo ;
 DELETE FROM apex_nucleo_tipo ;
+DELETE FROM apex_admin_album_fotos ;
 DELETE FROM apex_arbol_items_fotos ;
 DELETE FROM apex_usuario_grupo_acc_item ;
 DELETE FROM apex_vinculo ;

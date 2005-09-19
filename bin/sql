@@ -33,7 +33,6 @@ then
 
 elif [ "$1" = "metadatos" ]
 then
-
 	item $instancia /consola/info_sql pgsql_a* > ${c_auto}/metadatos.sql
 	controlar "Parseo archivos \"pgsql_a*\" del DIRECTORIO"
 	# Falta controlar la existencia del borrador!!!

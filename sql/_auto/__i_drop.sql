@@ -99,6 +99,7 @@ DROP TABLE apex_item_proto ;
 DROP TABLE apex_nucleo_info ;
 DROP TABLE apex_nucleo ;
 DROP TABLE apex_nucleo_tipo ;
+DROP TABLE apex_admin_album_fotos ;
 DROP TABLE apex_arbol_items_fotos ;
 DROP TABLE apex_usuario_grupo_acc_item ;
 DROP TABLE apex_vinculo ;
