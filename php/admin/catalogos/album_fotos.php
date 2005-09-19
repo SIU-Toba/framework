@@ -9,20 +9,81 @@ class album_fotos
 		$this->tipo = $tipo_fotos;
 	}
 
-	public function agregar_foto($nombre, $nodos_visibles, $opciones)
+	public function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
 	{
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
 		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$usuario = toba::get_hilo()->obtener_usuario();
-		$sql = "INSERT INTO apex_admin_album_fotos (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo) VALUES
-					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones', '{$this->tipo}')";
+		$es_pred = ($pred) ? "1" : "0";
+		$sql = "INSERT INTO apex_admin_album_fotos
+					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
+					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones', '{$this->tipo}', $es_pred)";
 		$res = toba::get_db('instancia')->Execute($sql);
 		if (!$res) {
 			$error = toba::get_db('instancia')->ErrorMsg();
 			throw new excepcion_toba("No fue posible guardar la foto.\n$error\n$sql");
 		}
+	}
+	
+	public function set_predeterminada($nombre)
+	{
+		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$usuario = toba::get_hilo()->obtener_usuario();		
+
+		//Actualiza las otras fotos
+		$sql = "UPDATE apex_admin_album_fotos 
+				SET predeterminada = 0 
+				WHERE 
+					proyecto = '$proyecto' AND
+					usuario = '$usuario' AND
+					foto_tipo = '{$this->tipo}'
+		";
+		$res = toba::get_db('instancia')->Execute($sql);
+		if (!$res) {
+			$error = toba::get_db('instancia')->ErrorMsg();
+			throw new excepcion_toba("No fue posible actualizar la foto.\n$error\n$sql");
+		}
+		
+		//Actualiza la nueva predeterminada
+		$sql = "UPDATE apex_admin_album_fotos 
+				SET predeterminada = 1 
+				WHERE 
+					proyecto = '$proyecto' AND
+					usuario = '$usuario' AND
+					foto_tipo = '{$this->tipo}' AND
+					foto_nombre = '$nombre'
+		";
+		$res = toba::get_db('instancia')->Execute($sql);
+		if (!$res) {
+			$error = toba::get_db('instancia')->ErrorMsg();
+			throw new excepcion_toba("No fue posible actualizar la foto.\n$error\n$sql");
+		}
+	}
+	
+	public function get_predeterminada()
+	{
+		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$usuario = toba::get_hilo()->obtener_usuario();
+		$sql = "SELECT 
+					foto_nombre
+				FROM apex_admin_album_fotos fotos
+				WHERE 
+					fotos.proyecto = '$proyecto' AND
+					fotos.usuario = '$usuario' AND
+					fotos.foto_tipo = '{$this->tipo}' AND
+					fotos.predeterminada = 1
+			";
+		$res = toba::get_db('instancia')->Execute($sql);
+		if (!$res) {
+			$error = toba::get_db('instancia')->ErrorMsg();
+			throw new excepcion_toba("No fue posible cargar las fotos.\n$error\n$sql");
+		}
+		if ($res->EOF)
+			return false;
+		else 
+			return $res->fields['foto_nombre'];
 	}
 	
 	public function borrar_foto($nombre)
@@ -43,19 +104,25 @@ class album_fotos
 		}
 	}
 	
-	public function fotos()
+	public function fotos($nombre = null)
 	{
 		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$usuario = toba::get_hilo()->obtener_usuario();
+		$where_nombre = '';
+		if ($nombre !== null) {
+			$where_nombre = " AND fotos.foto_nombre = '$nombre' ";
+		}
 		$sql = "SELECT 
 					foto_nombre, 
 					foto_nodos_visibles,
-					foto_opciones
+					foto_opciones,
+					predeterminada
 				FROM apex_admin_album_fotos fotos
 				WHERE 
 					fotos.proyecto = '$proyecto' AND
 					fotos.usuario = '$usuario' AND
 					fotos.foto_tipo = '{$this->tipo}'
+					$where_nombre
 			";
 		$res = toba::get_db('instancia')->Execute($sql);
 		if (!$res) {
@@ -67,12 +134,21 @@ class album_fotos
 		foreach ($fotos_en_crudo as $foto) {
 			$fotos[] = array('foto_nombre'=> $foto['foto_nombre'],
 							 'foto_nodos_visibles'=> unserialize(stripslashes($foto['foto_nodos_visibles'])),
-							 'foto_opciones' => unserialize(stripslashes($foto['foto_opciones']))
+							 'foto_opciones' => unserialize(stripslashes($foto['foto_opciones'])),
+							 'predeterminada' => $foto['predeterminada']
 							);
 		}
 		return $fotos;
 	}	
 	
+	public function foto($nombre)
+	{
+		$fotos = $this->fotos($nombre);
+		if (count($fotos) == 0)
+			return false;
+		else
+			return $fotos[0];
+	}
 }
 
 ?>

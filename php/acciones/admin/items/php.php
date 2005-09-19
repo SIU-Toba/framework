@@ -47,11 +47,7 @@
         }
 		//Imprimo el archivo
 		if($tipo_actividad!="buffer"){
-			if($proyecto == "toba"){
-				$archivo_real = $_SESSION["path_php"] . "/" . $archivo;
-			}else{
-				$archivo_real = $_SESSION["path_proyecto_php"] . "/" . $archivo;
-			}
+			$archivo_real = toba::get_hilo()->obtener_proyecto_path()."/php/".$archivo;
 			if(file_exists($archivo_real)){
 				highlight_file($archivo_real);
 			}else{

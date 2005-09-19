@@ -1229,6 +1229,7 @@ CREATE TABLE apex_admin_album_fotos
 	foto_nombre							varchar(100)	NOT NULL,
 	foto_nodos_visibles					varchar			NULL,
 	foto_opciones						varchar			NULL,
+	predeterminada							smallint	NULL,
   CONSTRAINT "apex_admin_album_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre", "foto_tipo"),
   CONSTRAINT "apex_admin_album_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
     											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE

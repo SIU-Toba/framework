@@ -1,6 +1,9 @@
 <?php
 require_once("objeto_ei.php");
 
+/**
+*	El objeto_ei_arbol consumo una estructura arbolea que implementa la interfaz recorrible_como_arbol
+*/
 class objeto_ei_arbol extends objeto_ei
 {
 	protected $nodo_inicial;
@@ -114,35 +117,15 @@ class objeto_ei_arbol extends objeto_ei
 		echo $salida;
 	}
 	
-	protected function recorrer_recursivo(recorrible_como_arbol $nodo, $es_raiz = false, $nivel = 0)
+	protected function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0)
 	{
+
 		//Determina si el nodo es visible en la apertura
-		$es_visible = $this->nodo_es_visible($nodo, $nivel);
 		$salida = "\n\t<li class='ei-arbol-nodo'>";
+		$es_visible = false;
 		if (!$es_raiz || $this->mostrar_raiz) {
-			$salida .= $this->mostrar_utilerias($nodo);
-			if (! $nodo->es_hoja()) {
-				if ($es_visible)
-					$img_exp_contr = recurso::imagen_apl('arbol/contraer.gif', false); 
-				else
-					$img_exp_contr = recurso::imagen_apl('arbol/expandir.gif', false);
-				$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
-							 class='ei-arbol-exp-contr'> ";
-			} else {
-				$salida .= gif_nulo(14,1);
-			}
-			$salida .= $this->mostrar_iconos($nodo);
-			
-			//Nombre
-			$corto = $this->acortar_nombre($nodo->nombre_corto());
-			$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
-			$nombre= "<span class='ei-arbol-nombre' $title>$corto</span>";
-			if ($nodo->tiene_propiedades()) {
-				$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
-							"class='ei-arbol-ver-prop' $title>$nombre</a>";			
-			} else {
-				$salida .= $nombre;
-			}
+			$es_visible = $this->nodo_es_visible($nodo, $nivel);
+			$salida .= $this->mostrar_nodo($nodo, $es_visible);
 		}
 		//Recursividad
 		if (! $nodo->es_hoja()) {
@@ -155,6 +138,34 @@ class objeto_ei_arbol extends objeto_ei
 			$salida .= "</ul>";
 		}
 		$salida .= "</li>\n";
+		return $salida;
+	}
+	
+	protected function mostrar_nodo(recorrible_como_arbol $nodo, $es_visible)
+	{
+		$salida .= $this->mostrar_utilerias($nodo);
+		if (! $nodo->es_hoja()) {
+			if ($es_visible)
+				$img_exp_contr = recurso::imagen_apl('arbol/contraer.gif', false); 
+			else
+				$img_exp_contr = recurso::imagen_apl('arbol/expandir.gif', false);
+			$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
+						 class='ei-arbol-exp-contr'> ";
+		} else {
+			$salida .= gif_nulo(14,1);
+		}
+		$salida .= $this->mostrar_iconos($nodo);
+		
+		//Nombre
+		$corto = $this->acortar_nombre($nodo->nombre_corto());
+		$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
+		$nombre= "<span class='ei-arbol-nombre' $title>$corto</span>";
+		if ($nodo->tiene_propiedades()) {
+			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
+						"class='ei-arbol-ver-prop' $title>$nombre</a>";			
+		} else {
+			$salida .= $nombre;
+		}
 		return $salida;
 	}
 	

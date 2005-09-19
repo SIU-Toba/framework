@@ -557,6 +557,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_admin_album_fotos', 'foto_nombre', 4, 'varchar(100)	NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_admin_album_fotos', 'foto_nodos_visibles', 5, 'varchar			NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_admin_album_fotos', 'foto_opciones', 6, 'varchar			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_admin_album_fotos', 'predeterminada', 7, 'smallint	NULL,');
 
 ------  'apex_nucleo_tipo'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_nucleo_tipo', 'pgsql_a01_nucleo.sql', 53, 'proyecto', NULL, NULL, 'nucleo_tipo', NULL, NULL, '', '1.0', NULL, NULL);

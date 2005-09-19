@@ -1,18 +1,13 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('admin/catalogos/ci_catalogo.php'); 
 require_once("nucleo/lib/arbol_items.php");
-require_once('admin/catalogos/album_fotos.php');
 require_once('api/elemento_item.php');
 
 //----------------------------------------------------------------
-class ci_catalogo_items extends objeto_ci
+class ci_catalogo_items extends ci_catalogo
 {
 	protected $catalogador; 
-	protected $opciones;
 	protected $item_seleccionado;
-	protected $apertura_items;				//Ultima apertura de items creada
-	protected $apertura_items_selecc;		//Seleccion explicita de apertura
-	protected $album_fotos;
 	
 	function __construct($id)
 	{
@@ -33,8 +28,6 @@ class ci_catalogo_items extends objeto_ci
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "item_seleccionado";
-		$propiedades[] = "apertura_items";
-		$propiedades[] = "opciones";
 		return $propiedades;
 	}
 
@@ -65,92 +58,11 @@ class ci_catalogo_items extends objeto_ci
 		return $datos;
 	}
 	
-	function obtener_html_dependencias()
-	{
-		foreach($this->dependencias_gi as $dep)
-		{
-			$this->dependencias[$dep]->obtener_html();	
-		}
-	}	
-	
 	function evt__volver()
 	{
 		unset($this->item_seleccionado);
 	}
-	
-	function evt__sacar_foto($nombre)
-	{
-		$this->album_fotos->agregar_foto($nombre, $this->apertura_items, $this->opciones);
-		$this->evt__fotos__seleccion($nombre);
-	}
 		
-	/*
-	*	Agrega al evento sacar_foto una pregunta acerca del nombre de la misma
-	*/
-	function extender_objeto_js()
-	{
-		echo "
-			{$this->objeto_js}.evt__sacar_foto = function() {
-				this._parametros = prompt('Nombre de la foto','nombre de la foto');
-				if (this._parametros != '' && this._parametros != null) {
-					return true;
-				}
-				return false;
-			}
-		";
-	}
-		
-	//-------------------------------
-	//---- Cuadro de fotos ----
-	//-------------------------------
-	
-	function evt__fotos__carga()
-	{
-		$fotos = $this->album_fotos->fotos();
-		if (count($fotos) > 0) {
-			$this->dependencias['fotos']->colapsar();
-			return $fotos;
-		}
-	}
-	
-	function evt__fotos__seleccion($foto_nombre)
-	{
-		foreach ($this->album_fotos->fotos() as $foto) {
-			if ($foto['foto_nombre'] == $foto_nombre) {
-				$this->apertura_items = $foto['foto_nodos_visibles'];
-				$this->apertura_items_selecc = $this->apertura_items;
-				$this->opciones = $foto['foto_opciones'];
-			}
-		}
-	}
-	
-	function evt__fotos__baja($nombre)
-	{
-		$this->album_fotos->borrar_foto($nombre);
-	}	
-	
-	//-------------------------------
-	//---- Filtro de opciones ----
-	//-------------------------------
-	
-	function evt__filtro__carga()
-	{
-		$this->dependencias['filtro']->colapsar();
-		if (isset($this->opciones))
-			return $this->opciones;
-	}
-	
-	function evt__filtro__cancelar()
-	{
-		unset($this->opciones);
-		$this->dependencias['fotos']->deseleccionar();
-	}
-	
-	function evt__filtro__filtrar($datos)
-	{
-		$this->opciones = $datos;
-	}
-	
 	//-------------------------------
 	//---- Listado de items ----
 	//-------------------------------
@@ -160,8 +72,8 @@ class ci_catalogo_items extends objeto_ci
 		$this->dependencias['items']->set_frame_destino(apex_frame_centro);
 		$this->dependencias['items']->set_item_propiedades(array('toba','/admin/items/composicion_item'));
 		//¿Hay apertura seleccionada?
-		if (isset($this->apertura_items)) {
-			$apertura = (isset($this->apertura_items_selecc)) ? $this->apertura_items_selecc : $this->apertura_items;
+		if (isset($this->apertura)) {
+			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->apertura;
 			$this->dependencias['items']->set_apertura_nodos($apertura);
 		}
 		//Aplicación de los filtros
