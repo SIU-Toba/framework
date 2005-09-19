@@ -1,6 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once("nucleo/lib/arbol_items.php");
+require_once('admin/album_fotos.php');
 require_once('api/elemento_item.php');
 
 //----------------------------------------------------------------
@@ -11,19 +12,16 @@ class ci_catalogo_items extends objeto_ci
 	protected $item_seleccionado;
 	protected $apertura_items;				//Ultima apertura de items creada
 	protected $apertura_items_selecc;		//Seleccion explicita de apertura
-	protected $nombre_ultima_foto = "[ Ultima ]";
+	protected $album_fotos;
 	
 	function __construct($id)
 	{
-		toba::get_hilo()->desactivar_reciclado();
-		logger::ocultar();
 		parent::__construct($id);
 		$this->catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
 		$this->catalogador->ordenar();
-		//Si es la primera carga, se carga la foto anterior
-		if (!isset($this->opciones) && !isset($this->apertura_items)) {
-			$this->evt__fotos__seleccion($this->nombre_ultima_foto);
-		}
+		
+		$this->album_fotos = new album_fotos('items');
+
 		//Si se pidio un item especifico, cargarlo
 		$item_selecc = toba::get_hilo()->obtener_parametro('item');
 		if ($item_selecc != null) {
@@ -82,7 +80,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__sacar_foto($nombre)
 	{
-		$this->catalogador->agregar_foto($nombre, $this->apertura_items, $this->opciones);
+		$ths->album_fotos->agregar_foto($nombre, $this->apertura_items, $this->opciones);
 		$this->evt__fotos__seleccion($nombre);
 	}
 		
@@ -108,11 +106,8 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__fotos__carga()
 	{
-		$fotos = $this->catalogador->fotos();
+		$fotos = $this->album_fotos->fotos();
 		if (count($fotos) > 0) {
-			if (! $this->dependencias['fotos']->hay_seleccion()) {
-				$this->dependencias['fotos']->seleccionar($this->nombre_ultima_foto);
-			}
 			$this->dependencias['fotos']->colapsar();
 			return $fotos;
 		}
@@ -120,7 +115,7 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__fotos__seleccion($foto_nombre)
 	{
-		foreach ($this->catalogador->fotos() as $foto) {
+		foreach ($this->album_fotos->fotos() as $foto) {
 			if ($foto['foto_nombre'] == $foto_nombre) {
 				$this->apertura_items = $foto['foto_nodos_visibles'];
 				$this->apertura_items_selecc = $this->apertura_items;
@@ -197,9 +192,6 @@ class ci_catalogo_items extends objeto_ci
 	
 	function evt__items__cambio_apertura($datos)
 	{
-		//En cada cambio de apertura se guarda en la base como ultima
-		$opciones = (isset($this->opciones)) ? $this->opciones : array();
-		$this->catalogador->agregar_foto($this->nombre_ultima_foto, $datos, $opciones);		
 		$this->apertura_items = $datos;
 	}
 

@@ -33,7 +33,8 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 	def.datos_apertura = function() {
 		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
 		var datos = new Object();
-		this.datos_apertura_recursivo(raiz, datos);
+		if (raiz != null)
+			this.datos_apertura_recursivo(raiz, datos);
 		var datos_join = [];
 		for (id in datos) {
 			valor = id;
