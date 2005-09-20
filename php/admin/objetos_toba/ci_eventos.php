@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("admin/db/autoload.php");
 /*
 	El controlador tiene que implementar 2 metodos:
 	
