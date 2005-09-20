@@ -10,7 +10,7 @@ class elemento_objeto_datos_relacion extends elemento_objeto
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
 			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
-								array(	'destino_tipo' => 'ci', 
+								array(	'destino_tipo' => 'datos_relacion', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id),
 										false, false, null, true, "central")

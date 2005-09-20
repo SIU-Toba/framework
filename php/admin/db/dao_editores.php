@@ -19,6 +19,38 @@ class dao_editores
 						'objeto_datos_relacion' );
 	}
 
+	static function get_clases_validas_contenedor($contenedor=null)
+	{
+		//item, ci, ci_pantalla, datos_relacion
+		if(!isset($contenedor)) return self::get_clases_validas();
+		if($contenedor=="item") return array('objeto_ci');
+		if($contenedor=="datos_relacion") return array('objeto_datos_tabla');
+		if($contenedor=="ci"){
+			return array(	'objeto_ci',
+							'objeto_ei_cuadro',
+							'objeto_ei_formulario',
+							'objeto_ei_formulario_ml',
+							'objeto_ei_filtro',
+							'objeto_ei_arbol',
+							'objeto_ei_calendario',
+							'objeto_ei_archivos',
+							'objeto_datos_tabla',
+							'objeto_datos_relacion' );
+		}
+		if($contenedor=="ci_pantalla"){
+			return array(	'objeto_ci',
+							'objeto_ei_cuadro',
+							'objeto_ei_formulario',
+							'objeto_ei_formulario_ml',
+							'objeto_ei_filtro',
+							'objeto_ei_arbol',
+							'objeto_ei_calendario',
+							'objeto_ei_archivos' );
+		}
+		//Por defecto devulevo todo
+		return self::get_clases_validas();
+	}
+
 	/*
 		Las clases usan un ID concatenado para que las cascadas
 		las soporten (actualmente pasan un parametro solo)
@@ -57,7 +89,7 @@ class dao_editores
 		}
 	}
 	
-	static function get_clases_editores()
+	static function get_clases_editores($contenedor=null)
 	{
 		$sql = "SELECT
 					c.proyecto,
@@ -71,7 +103,7 @@ class dao_editores
 					apex_clase_tipo ct
 				WHERE
 					c.clase_tipo = ct.clase_tipo AND 
-					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')	AND
+					c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."')	AND
 						--El proyecto es Toba o el actual
 					(c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL

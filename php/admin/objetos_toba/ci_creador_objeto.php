@@ -99,7 +99,7 @@ class ci_creador_objeto extends objeto_ci
 	
 	function evt__tipos__carga()
 	{
-		return dao_editores::get_clases_editores();
+		return dao_editores::get_clases_editores($this->destino['tipo']);
 	}
 	
 	function evt__tipos__seleccionar($clase)
