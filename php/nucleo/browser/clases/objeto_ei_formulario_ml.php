@@ -169,6 +169,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
 			//La opcion seleccionada estaba entre las ofrecidas?		
 			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {		
+			
 				$this->disparar_eventos_especifico($_POST[$this->submit]);
 			}
 		} else {	//Es la primera carga
@@ -424,11 +425,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			if (isset($this->datos[$fila]))
 				return $fila;
 		} else {
-			$i = 0;
-			foreach (array_keys($this->datos) as $id_fila) {
-				if ($fila == $id_fila)
-					return $i;
-				$i++;
+			if (isset($this->datos)) {
+				$i = 0;
+				foreach (array_keys($this->datos) as $id_fila) {
+					if ($fila == $id_fila)
+						return $i;
+					$i++;
+				}
 			}
 			return $fila;
 		}

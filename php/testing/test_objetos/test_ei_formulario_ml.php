@@ -22,55 +22,73 @@ class test_ei_formulario_ml extends test_toba
 		$this->restaurar_hilo();
 	}
 
-	function crear_ml_para_analisis($observador, $generar_form, $datos, $metodo = null, $disparar_eventos = false)
+	//--------------------------------------------------------------------
+	//--------------------------------	UTILITARIOS ----------------------
+	//--------------------------------------------------------------------		
+	
+	/**
+	*	Crea un formulario_ml y genera la interface para que se cree la sensacion que se fue hasta el cliente
+	*/
+	function crear_ml_para_analisis_gen_interface($datos)
 	{
-		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_ml
+		$ml = new objeto_ei_formulario_ml(array('toba_testing', '1322'));		//test ei_formulario_ml
 		$ml->inicializar(array('nombre_formulario' => ''));
-		$ml->agregar_controlador($observador);
-		$ml->set_metodo_analisis($metodo);
-		if ($disparar_eventos) {
-			$ml->datos = $datos;
-			$ml->disparar_eventos();
-		} else {
-			$ml->cargar_datos($datos);
-		}
-		if ($generar_form) {
-			ob_start();
-			$ml->generar_formulario();
-			ob_clean();
-		}
 		$ml->definir_eventos();
-
-		//Interacción con el usuario
-		$_POST['ei_form1322'] = 'modificacion';		
-		return $ml;
+		$ml->cargar_datos($datos);
+		ob_start();
+		$ml->generar_formulario();
+		ob_clean();
+		$ml->destruir();
 	}
 	
-	function crear_ml_para_seleccion($observador, $generar_form, $datos, $metodo = null, $parametros, $maneja_datos = true)
+	/**
+	*	Crea un formulario_ml, se asignan cosas al post haciendo cuenta que se vuelve del cliente
+	*	Luego se disparan los eventos
+	*/	
+	function crear_ml_para_analisis_disparo_eventos($observador, $metodo, $datos, $evento='modificacion')
 	{
 		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_ml
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);
-		$ml->cargar_datos($datos);
-		if ($generar_form) {
-			ob_start();
-			$ml->generar_formulario();
-			ob_clean();
+		$_POST['ei_form1322'] = $evento;
+		$_POST['objeto_form_1322_listafilas'] = implode('_',array_keys($datos));
+		//Seteo los efs
+		foreach ($datos as $id => $valor) {
+			$_POST["1322lista$id"] = $valor['lista'];
 		}
-		$ml->definir_eventos();
-		$ml->set_eventos( $ml->get_lista_eventos() + eventos::seleccion($maneja_datos));
-		
-		//Interacción con el usuario
-		$_POST['ei_form1322'] = 'seleccion';
-		$_POST['objeto_form_1322__parametros'] = $parametros;		
-		return $ml;
+		$ml->disparar_eventos();
 	}	
-
+	
+	/**
+	* 	Similar al anterior pero se dispara un evento seleccion e implicitamente
+	*	tambien el evento modificacion
+	*/
+	function crear_ml_para_seleccion($observador, $metodo, $datos, $parametros, $evento='seleccion')
+	{
+		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_mL
+		$ml->inicializar(array('nombre_formulario' => ''));
+		$ml->agregar_controlador($observador);
+		$ml->set_metodo_analisis($metodo);
+		$_POST['ei_form1322'] = $evento;
+		$_POST['objeto_form_1322__parametros'] = "$parametros";		
+		$_POST['objeto_form_1322_listafilas'] = implode('_',array_keys($datos));
+		//Seteo los efs
+		foreach ($datos as $id => $valor) {
+			$_POST["1322lista$id"] = $valor['lista'];
+		}
+		$ml->disparar_eventos();
+	}
+	
+	
 	//-------------------------------------------------------------------------------
 	//--------------------------------	ANALISIS de los datos ----------------------
-	//-------------------------------------------------------------------------------	
-	function sin_testsin_analisis()
+	//-------------------------------------------------------------------------------		
+	
+	/**
+	*	No se pide ningún análisis, por lo que debe retornar los datos puros
+	*/
+	function test_sin_analisis()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -79,30 +97,35 @@ class test_ei_formulario_ml extends test_toba
 						147 => array('lista'=> 'c')						
 					 );
 		$finales= array(
-						145 => array('lista' => 'c'),
+						145 => array('lista'=> 'c'),
 						146 => array('lista'=> 'b'),
-						155 => array('lista'=> 'd')
+						155 => array('lista'=> 'd'),
+						190 => array('lista'=> 'f')
 					);		
 		$esperados= array(
-						array('lista' => 'c'),
+						array('lista'=> 'c'),
 						array('lista'=> 'b'),
-						array('lista'=> 'd')
+						array('lista'=> 'd'),
+						array('lista'=> 'f')
 					);							
-		$observador = new Mockobjeto_ci($this);
-		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));
 
+		$observador = new Mockobjeto_ci($this);
+		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));		
+					
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_analisis($observador, true, $iniciales, null);
-		$ml->destruir();
-		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, null, true);
-		$ml->disparar_eventos();
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
+
+		//Carga del estado final		
+		$ml = $this->crear_ml_para_analisis_disparo_eventos($observador, 'NO', $finales);
 		
 		//Chequeos
 		$observador->tally();
-	}
+	}	
 	
-	function sin_testanalisis_en_linea()
+	/**
+	*	Se pide un analisis en linea con los registros, cada uno debe decir que accion sufrio
+	*/
+	function test_analisis_en_linea()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -121,21 +144,21 @@ class test_ei_formulario_ml extends test_toba
 						155 => array('lista'=> 'd',		apex_ei_analisis_fila => 'A'),
 						147 => array(					apex_ei_analisis_fila => 'B')
 					);		
+
 		$observador = new Mockobjeto_ci($this);
-		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));
-
+		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));		
+					
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_analisis($observador, true, $iniciales, 'LINEA');
-		$ml->destruir();
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
 
-		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'LINEA', true);
+		//Carga del estado final		
+		$ml = $this->crear_ml_para_analisis_disparo_eventos($observador, 'LINEA', $finales);
 		
 		//Chequeos
-		$observador->tally();		
-	}	
+		$observador->tally();
+	}		
 	
-	function sin_testanalisis_mediante_eventos()
+	function test_analisis_mediante_eventos()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -156,21 +179,24 @@ class test_ei_formulario_ml extends test_toba
 		$observador->expectArgumentsAt(3, 'registrar_evento', array(null, 'registro_baja', 147));
 		$observador->expectCallCount('registrar_evento', 4);
 
+		
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_analisis($observador, true, $iniciales, 'EVENTOS');
-		$ml->destruir();
-
-		//Retorno de la información
-		$ml = $this->crear_ml_para_analisis($observador, false, $finales, 'EVENTOS', true);
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
+		//Carga del estado final
+		$ml = $this->crear_ml_para_analisis_disparo_eventos($observador, 'EVENTOS', $finales);
 		
 		//Chequeos
 		$observador->tally();		
-	}	
-
+	}		
+	
 	//---------------------------------------------------------------------------------------------
 	//------------------------ PRUEBA DE EVENTOS A NIVEL DE FILA ----------------------------------	
 	//-------------------------------------------------------------------------------------------
-	function sin_testevt_de_fila_modificando_sin_analisis()
+	
+	/**
+	*	Se busca que se dispare un evento a nivel de filas y tambien la modificacion sin analisis
+	*/
+	function test_evt_de_fila_modificando_sin_analisis()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -179,31 +205,37 @@ class test_ei_formulario_ml extends test_toba
 						147 => array('lista'=> 'c')						
 					 );
 		$finales= array(
-						145 => array('lista' => 'c'),
+						145 => array('lista'=> 'c'),
 						146 => array('lista'=> 'b'),
 						155 => array('lista'=> 'd')
 					);		
-/*		$esperados= array(
-						array('lista' => 'c'),
+		$esperados= array(
+						array('lista'=> 'c'),
 						array('lista'=> 'b'),
 						array('lista'=> 'd')
-					);							*/
+					);
 		$observador = new Mockobjeto_ci($this);
-		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
-		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'seleccion', 1));
 
-		$parametros_evt = '146';	//Se seleccione el elemento 'd'
+		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
+		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'modificacion', $esperados));
+		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'seleccion', 1));
+		$observador->expectCallCount('registrar_evento', 2);
+		
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_seleccion($observador, true, $iniciales, null, $parametros_evt);
-		$ml->destruir();
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
+		
 		//Retorno de la información
-		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, null, $parametros_evt, true);
+		//Se seleccione el elemento 'd'
+		$ml = $this->crear_ml_para_seleccion($observador, 'NO', $finales, '146');
 		
 		//Chequeos
-		$observador->tally();	
+		$observador->tally();
 	}
-	
-	function sin_testevt_de_fila_modificando_analisis_en_linea()
+
+	/**
+	*	Se busca que se dispare un evento a nivel de filas y tambien la modificacion con analisis en linea
+	*/
+	function test__evt_de_fila_modificando_analisis_en_linea()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -216,29 +248,34 @@ class test_ei_formulario_ml extends test_toba
 						145 => array('lista'=> 'c'),
 						155 => array('lista'=> 'd')
 					);							 
-/*		$esperados = array(
+		$esperados = array(
 						146 => array('lista'=> 'b', 	apex_ei_analisis_fila => 'M'),
 						145 => array('lista'=> 'c',		apex_ei_analisis_fila => 'M'),
 						155 => array('lista'=> 'd',		apex_ei_analisis_fila => 'A'),
 						147 => array(					apex_ei_analisis_fila => 'B')
-					);		*/
+					);		
+					
 		$observador = new Mockobjeto_ci($this);
+		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'modificacion', $esperados));
 		//Se va a seleccionar el elemento 'd' que esta en el indice 155 del arreglo en la modificacion
 		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'seleccion', '155'));
-
-		$parametros_evt = '155';	//Se seleccione el elemento 'd'
+		$observador->expectCallCount('registrar_evento', 2);
+		
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_seleccion($observador, true, $iniciales, 'LINEA', $parametros_evt);
-		$ml->destruir();
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
+		
 		//Retorno de la información
-		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, 'LINEA', $parametros_evt);
-		$ml->disparar_eventos();
+		//Se seleccione el elemento 'd'
+		$ml = $this->crear_ml_para_seleccion($observador, 'LINEA', $finales, '155');
 	
 		//Chequeos
-		$observador->tally();	
+		$observador->tally();		
 	}	
 	
-	function sin_testevt_de_fila_modificando_analisis_eventos()
+	/**
+	*	Se busca que se dispare un evento a nivel de filas y tambien la modificacion con analisis por eventos
+	*/	
+	function test_evt_de_fila_modificando_analisis_eventos()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -253,22 +290,31 @@ class test_ei_formulario_ml extends test_toba
 					);							 
 
 		$observador = new Mockobjeto_ci($this);
+		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'b'), 146));
+		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'registro_alta', array('lista'=>'d'), 155));
+		$observador->expectArgumentsAt(2, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'c'), 145));
+		$observador->expectArgumentsAt(3, 'registrar_evento', array(null, 'registro_baja', 147));		
 		//Se va a seleccionar el elemento 'd' que esta en el indice 155 del arreglo en la modificacion
 		$observador->expectArgumentsAt(4, 'registrar_evento', array(null, 'seleccion', '155'));		
-
-		$parametros_evt = '155';	//Se seleccione el elemento 'd'
-		//Carga de estado inicial
-		$ml = $this->crear_ml_para_seleccion($observador, true, $iniciales, 'EVENTOS', $parametros_evt);
-		$ml->destruir();
-		//Retorno de la información
-		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, 'EVENTOS', $parametros_evt);
-		$ml->disparar_eventos();		
+		$observador->expectCallCount('registrar_evento', 5);
 		
+		//Carga de estado inicial
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales);
+		
+		//Retorno de la información
+		//Se seleccione el elemento 'd'
+		$ml = $this->crear_ml_para_seleccion($observador, 'EVENTOS', $finales, '155');
+	
 		//Chequeos
 		$observador->tally();		
 	}
+	
 
-	function sin_testevt_de_fila_que_no_maneja_datos()
+	/**
+	*	Se dispara un evento a nivel de filas pero que no maneja datos
+	*	Por lo que el modificar no se tiene que disparar
+	*/
+	function test_evt_de_fila_que_no_maneja_datos()
 	{
 		//Expectativas
 		$iniciales = array(
@@ -279,23 +325,64 @@ class test_ei_formulario_ml extends test_toba
 		//No le debería prestar atención a los finales ya que no se manejan datos
 		$finales= array(
 						234 => array('lista' => 'c'),
-					);		
-		$observador = new Mockobjeto_ci($this);
-		//Se va a seleccionar el elemento 'd' que esta en el indice 146 del arreglo original
-		$observador->expectOnce('registrar_evento', array(null, 'seleccion', '146'));
+					);			
 
-		$parametros_evt = '146';	//Se seleccione el elemento 'd'
+		$observador = new Mockobjeto_ci($this);
+
+		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
+		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'seleccion_sin_datos', '146'));
+		$observador->expectCallCount('registrar_evento', 1);
+		
 		//Carga de estado inicial
-		$ml = $this->crear_ml_para_seleccion($observador, true, $iniciales, null, $parametros_evt, false);
-		$ml->destruir();
+		$ml = $this->crear_ml_para_analisis_gen_interface($iniciales, false);
+		
 		//Retorno de la información
-		$ml = $this->crear_ml_para_seleccion($observador, false, $finales, null, $parametros_evt, false);
-		$ml->disparar_eventos();
+		//Se seleccione el elemento 'd'
+		$ml = $this->crear_ml_para_seleccion($observador, 'NO', $finales, '146', 'seleccion_sin_datos');
 		
 		//Chequeos
-		$observador->tally();	
+		$observador->tally();		
 	}
+
+	//-------------------------------------------------------------------------------------------
+	//------------------------ PRUEBA DE AGREGADO EN EL SERVER ----------------------------------	
+	//-------------------------------------------------------------------------------------------
+	
+	function test_agregado_en_server_con_modificacion_implicita()
+	{
+		//Expectativas
+		$iniciales = array(
+						145 => array('lista'=> 'a'),
+						146 => array('lista'=> 'b'),
+						147 => array('lista'=> 'c')						
+					 );
+		$finales= array(
+						145 => array('lista'=> 'c'),
+						146 => array('lista'=> 'b'),
+						155 => array('lista'=> 'd')
+					);		
+		$esperados= array(
+						array('lista'=> 'c'),
+						array('lista'=> 'b'),
+						array('lista'=> 'd')
+					);
+						
+		$observador = new Mockobjeto_ci($this);
+
+		//Se genera la pantalla
+		$this->crear_ml_para_analisis_gen_interface($iniciales);
 		
+		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
+		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'modificacion', $esperados));
+		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'pedido_registro_nuevo', null));
+		$observador->expectCallCount('registrar_evento', 2);		
+		
+		$this->crear_ml_para_analisis_disparo_eventos($observador, "NO", $finales, "pedido_registro_nuevo");
+	
+		//Chequeos
+		$observador->tally();		
+	}
+	
 	
 }
 
