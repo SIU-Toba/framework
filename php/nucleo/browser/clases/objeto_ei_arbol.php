@@ -143,6 +143,7 @@ class objeto_ei_arbol extends objeto_ei
 	
 	protected function mostrar_nodo(recorrible_como_arbol $nodo, $es_visible)
 	{
+		$salida = '';
 		$salida .= $this->mostrar_utilerias($nodo);
 		if (! $nodo->es_hoja()) {
 			if ($es_visible)

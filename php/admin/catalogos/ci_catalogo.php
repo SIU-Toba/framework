@@ -95,6 +95,8 @@ abstract class ci_catalogo extends objeto_ci
 						$this->opciones = $foto['foto_opciones'];
 					}
 				}
+				else 
+					$fotos[$id]['defecto'] = 'nulo.gif';
 			}
 			return $fotos;
 		}

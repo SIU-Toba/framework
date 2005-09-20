@@ -104,7 +104,7 @@ class ci_catalogo_items extends ci_catalogo
 	
 	function evt__items__cambio_apertura($datos)
 	{
-		$this->apertura_items = $datos;
+		$this->apertura = $datos;
 	}
 
 	

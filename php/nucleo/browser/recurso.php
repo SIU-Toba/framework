@@ -6,7 +6,7 @@ class recurso {
 	function preambulo()
 	//#@desc: Devuelve el preambulo de los links (protocolo utilizado).
 	{
-		if(apex_pa_SSL){
+		if(defined('apex_pa_SSL') && apex_pa_SSL){
 			$protocolo = "https://";
 		}else{
 			$protocolo = "http://";
