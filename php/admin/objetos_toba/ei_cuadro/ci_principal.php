@@ -225,6 +225,32 @@ class ci_principal extends ci_editores_toba
 	}
 
 	//*******************************************************************
+	//*****************  CORTES de CONTROL  *****************************
+	//*******************************************************************
+	
+	function evt__cortes__modificacion($datos)
+	{
+		$this->get_entidad()->tabla('cortes')->procesar_filas($datos);
+	}
+	
+	function evt__cortes__carga()
+	{
+		if($datos_dbr = $this->get_entidad()->tabla('cortes')->get_filas() )
+		{
+			for($a=0;$a<count($datos_dbr);$a++){
+				$orden[] = $datos_dbr[$a]['orden'];
+			}
+			array_multisort($orden, SORT_ASC , $datos_dbr);
+			for($a=0;$a<count($datos_dbr);$a++){
+				$id_dbr = $datos_dbr[$a][apex_db_registros_clave];
+				unset( $datos_dbr[$a][apex_db_registros_clave] );
+				$datos[ $id_dbr ] = $datos_dbr[$a];
+			}
+			return $datos;
+		}
+	}
+
+	//*******************************************************************
 	//*******************  PROCESAMIENTO  *******************************
 	//*******************************************************************
 

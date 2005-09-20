@@ -28,10 +28,6 @@ class objeto
 	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	var $exportacion_archivo;
 	var $exportacion_path;
-	var $colapsado = false;						//El elemento sólo mantiene su título
-	var $evento_por_defecto;					//Evento disparado cuando no hay una orden explicita
-	protected $observadores;
-	protected $eventos = array();
 	
 	function objeto($id)
 /*

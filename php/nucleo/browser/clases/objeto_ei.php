@@ -11,6 +11,9 @@ class objeto_ei extends objeto
 {
 	protected $controlador;
 	protected $info_eventos;
+	protected $colapsado = false;						//El elemento sólo mantiene su título
+	protected $evento_por_defecto;						//Evento disparado cuando no hay una orden explicita
+	protected $eventos = array();
 
 	function obtener_definicion_db()
 	/*
@@ -53,9 +56,18 @@ class objeto_ei extends objeto
 		parent::destruir();
 	}	
 	
+	function inicializar($parametros)
+	{
+		$this->id_en_padre = $parametros['id'];		
+	}
+
+	function cargar_datos(){}
+
 	//--------------------------------------------------------------------
 	//--  EVENTOS   ------------------------------------------------------
 	//--------------------------------------------------------------------
+
+	protected function disparar_eventos(){}
 
 	public function agregar_controlador($controlador)
 	{

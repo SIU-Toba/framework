@@ -24,17 +24,6 @@ class objeto_html extends objeto_ei
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
 	}
 
-	/* TODO ESTO TIENE QUE IR A EI!!!!!!!!!! */
-
-	function inicializar($parametros)
-	{
-		$this->id_en_padre = $parametros['id'];		
-	}
-	function cargar_datos(){}
-	function get_lista_eventos(){
-		 return array();
-	}
-	function disparar_eventos(){}
 	/*----------------------------------------*/
 	
 	function obtener_definicion_db()

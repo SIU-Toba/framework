@@ -28,7 +28,7 @@ CREATE TABLE apex_objeto_cuadro
 	ordenar                 	smallint    	NULL,
 	paginar                 	smallint    	NULL,
 	tamano_pagina           	smallint    	NULL,
-	tipo_paginado				varchar(1)   		NULL,
+	tipo_paginado				varchar(1)  	NULL,
 	eof_invisible           	smallint    	NULL,   
 	eof_customizado       		varchar(255)	NULL,
 	exportar		           	smallint       	NULL,		-- Exportar XLS
@@ -41,7 +41,7 @@ CREATE TABLE apex_objeto_cuadro
 	dao_nucleo_proyecto			varchar(15)		NULL,
 	dao_nucleo					varchar(60)		NULL,
 	dao_metodo					varchar(80)		NULL,
-	dao_parametros					varchar(150)		NULL,
+	dao_parametros				varchar(150)	NULL,
 	desplegable					smallint		NULL,
 	desplegable_activo			smallint		NULL,
 	scroll						smallint		NULL,
@@ -72,6 +72,7 @@ CREATE TABLE apex_objeto_cuadro_columna
 	columna_ancho					varchar(10)		NULL,			-- Ancho de columna para RTF
 	ancho_html						varchar(10)		NULL,
 	total							smallint		NULL,			-- La columna lleva un total al final?
+	total_cc						smallint		NULL,			-- La columna lleva un total al final?
 	valor_sql              			varchar(30)    	NULL,			-- El valor de la columna HAY que tomarlo de RECORDSET
 	valor_sql_formato    			int4		    NULL,			-- El valor del RECORDSET debe ser formateado
 	valor_fijo                    	varchar(30)    	NULL,			-- La columna tomo un valor FIJO
@@ -94,6 +95,32 @@ CREATE TABLE apex_objeto_cuadro_columna
 	CONSTRAINT  "apex_obj_cuadro_fk_formato" FOREIGN KEY ("valor_sql_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_cuadro_fk_proceso" FOREIGN KEY ("valor_proceso") REFERENCES "apex_columna_proceso" ("columna_proceso") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_cuadro_fk_estilo" FOREIGN KEY ("columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
+
+CREATE TABLE apex_objeto_cuadro_cc
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: objeto_cuadro, orden
+--: dump_where: ( objeto_cuadro_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
+	objeto_cuadro                 	int4       		NOT NULL,
+	orden				            float      		NOT NULL,
+	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
+	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
+	identificador					varchar(30)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
+	pie_contar_filas				varchar(10)		NULL,
+	pie_mostrar_titulos				smallint		NULL,		
+	imp_paginar						smallint		NULL,		
+	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","orden"),
+	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -132,31 +159,4 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
 );
-
--- TRANSFORMACION REALIZADA en la migracion de ei_cuadro
-
--- agregar:
-
--- 	objeto_cuadro_col	
-
--- modificar:
-
--- 	columna_estilo    	x	estilo
--- 	columna_ancho		x	ancho
--- 	valor_sql           x	clave
--- 	valor_sql_formato   x	formateo
-
--- eliminar:	
-
---	valor_fijo              
--- 	valor_proceso			
--- 	valor_proceso_esp		
--- 	valor_proceso_parametros
--- 	ancho_html				
--- 	par_dimension_proyecto   
--- 	par_dimension            
--- 	par_tabla                
--- 	par_columna              	
-
 --###################################################################################################
-
