@@ -470,8 +470,14 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 					function multi_seleccion_mostrar(todos)
 					{
 						var elem = document.{$this->nombre_formulario}['{$this->id_form}[]'];
-						for (var i=0; i < elem.length; i++) {
-							elem[i].checked = todos;
+						if (elem.length) {
+							//Si son muchos elementos
+							for (var i=0; i < elem.length; i++) {
+								elem[i].checked = todos;
+							}
+						} else {
+							//Es uno unico
+							elem.checked = todos;
 						}
 					}
 				</script>
