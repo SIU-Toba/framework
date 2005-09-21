@@ -44,8 +44,8 @@ CREATE TABLE apex_tp_tarea
 	fecha						date				NULL,
 	hora						time				NOT NULL,
    	CONSTRAINT  "apex_tp_tarea_pk" PRIMARY KEY ("proyecto","tarea"),
-	CONSTRAINT	"apex_tp_tarea_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-   	CONSTRAINT  "apex_tp_tarea_fk_tt" FOREIGN KEY ("tarea_tipo") REFERENCES "apex_tp_tarea_tipo" ("tarea_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   	CONSTRAINT  "apex_tp_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_tp_tarea_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+   	CONSTRAINT  "apex_tp_tarea_fk_tt" FOREIGN KEY ("tarea_tipo") REFERENCES "apex_tp_tarea_tipo" ("tarea_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_tp_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

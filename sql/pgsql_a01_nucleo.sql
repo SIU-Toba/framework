@@ -46,7 +46,7 @@ CREATE TABLE			apex_elemento_infra_tabla
 	proc_clonar					smallint		NULL,
 	obligatoria					smallint		NULL,
 	CONSTRAINT	"apex_elem_infra_tabla_pk"	PRIMARY KEY	("elemento_infra","tabla","columna_clave_proyecto","columna_clave"),
-	CONSTRAINT	"apex_elem_infra_tabla_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_elem_infra_tabla_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -70,7 +70,7 @@ CREATE TABLE			apex_elemento_infra_input
 	datos2_test					text			NOT NULL,
 	ingreso						timestamp(0) without	time zone	DEFAULT current_timestamp NOT	NULL,
 	CONSTRAINT	"apex_elem_infra_input_pk"	PRIMARY KEY	("entrada"),
-	CONSTRAINT	"apex_elem_infra_input_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_elem_infra_input_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -112,10 +112,10 @@ CREATE TABLE			apex_estilo
 	estilo_paleta_n			varchar(15)		NULL,
 	estilo_paleta_e			varchar(15)		NULL,
 	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo"),
-	CONSTRAINT	"apex_estilo_fk_pal_p" FOREIGN KEY ("estilo_paleta_p") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_s" FOREIGN KEY ("estilo_paleta_s") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_n" FOREIGN KEY ("estilo_paleta_n") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_e" FOREIGN KEY ("estilo_paleta_e") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_estilo_fk_pal_p" FOREIGN KEY ("estilo_paleta_p") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_estilo_fk_pal_s" FOREIGN KEY ("estilo_paleta_s") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_estilo_fk_pal_n" FOREIGN KEY ("estilo_paleta_n") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_estilo_fk_pal_e" FOREIGN KEY ("estilo_paleta_e") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -140,7 +140,7 @@ CREATE TABLE			apex_proyecto
 	orden							float				NULL,
 	palabra_vinculo_std		varchar(30)		NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
-	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -224,8 +224,8 @@ CREATE TABLE apex_fuente_datos
 	instancia_id				varchar(30)	NULL,
 	orden						smallint		NULL,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
-	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -347,8 +347,8 @@ CREATE TABLE apex_elemento_formulario
 	proyecto						varchar(15)		NOT NULL,
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_elform_pk" PRIMARY KEY ("elemento_formulario"),
-	CONSTRAINT	"apex_elform_fk_padre" FOREIGN KEY ("padre") REFERENCES "apex_elemento_formulario"	("elemento_formulario") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_elform_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_elform_fk_padre" FOREIGN KEY ("padre") REFERENCES "apex_elemento_formulario"	("elemento_formulario") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_elform_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -367,7 +367,7 @@ CREATE TABLE apex_solicitud_obs_tipo
 	descripcion						varchar(255)	NOT NULL,
 	criterio						varchar(20)		NOT NULL,
 	CONSTRAINT	"apex_sol_obs_tipo_pk" PRIMARY KEY ("proyecto","solicitud_obs_tipo"),
-	CONSTRAINT	"apex_sol_obs_tipo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_sol_obs_tipo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -389,7 +389,7 @@ CREATE TABLE apex_pagina_tipo
 	exclusivo_toba						smallint			NULL,
 	contexto								varchar(255)	NULL,	--	Establece variables de CONTEXTO?	Cuales?
 	CONSTRAINT	"apex_pagina_tipo_pk" PRIMARY	KEY ("proyecto","pagina_tipo"),
-	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -476,7 +476,7 @@ CREATE TABLE apex_pdf_propiedad
   exclusiva_columna						smallint 		NULL,
   exclusiva_tabla						smallint 		NULL,
   CONSTRAINT apex_pdfprop_pk PRIMARY KEY (pdf_propiedad), 
-  CONSTRAINT apex_pdfprop_fk_proyecto FOREIGN KEY (proyecto) REFERENCES apex_proyecto (proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT apex_pdfprop_fk_proyecto FOREIGN KEY (proyecto) REFERENCES apex_proyecto (proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --**************************************************************************************************
@@ -531,8 +531,8 @@ CREATE TABLE apex_usuario
 	solicitud_obs_tipo				varchar(20)		NULL,
 	solicitud_observacion			varchar(255)	NULL,
 	CONSTRAINT	"apex_usuario_pk"	 PRIMARY	KEY ("usuario"),
-	CONSTRAINT	"apex_usuario_fk_sol_ot" FOREIGN	KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo")	REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usuario_fk_tipodoc" FOREIGN KEY ("usuario_tipodoc") REFERENCES	"apex_usuario_tipodoc" ("usuario_tipodoc") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_usuario_fk_sol_ot" FOREIGN	KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo")	REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usuario_fk_tipodoc" FOREIGN KEY ("usuario_tipodoc") REFERENCES	"apex_usuario_tipodoc" ("usuario_tipodoc") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
 --#################################################################################################
@@ -553,7 +553,7 @@ CREATE TABLE apex_usuario_perfil_datos
 	descripcion						varchar			NULL,
 	listar							smallint			NULL,
 	CONSTRAINT	"apex_usuario_perfil_datos_pk" PRIMARY	KEY ("proyecto","usuario_perfil_datos"),
-	CONSTRAINT	"apex_usuario_perfil_da_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_usuario_perfil_da_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -578,8 +578,8 @@ CREATE TABLE apex_usuario_grupo_acc
 	hora_salida						time(0) without time	zone NULL,
 	listar							smallint			NULL,
 	CONSTRAINT	"apex_usu_g_acc_pk" PRIMARY KEY ("proyecto","usuario_grupo_acc"),
-	CONSTRAINT	"apex_usu_g_acc_fk_niv"	FOREIGN KEY	("nivel_acceso") REFERENCES "apex_nivel_acceso"	("nivel_acceso") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_g_acc_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_usu_g_acc_fk_niv"	FOREIGN KEY	("nivel_acceso") REFERENCES "apex_nivel_acceso"	("nivel_acceso") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usu_g_acc_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -599,10 +599,10 @@ CREATE TABLE apex_usuario_proyecto
 	usuario_grupo_acc				varchar(20)		NOT NULL,
 	usuario_perfil_datos			varchar(20)		NOT NULL,
 	CONSTRAINT	"apex_usu_proy_pk"  PRIMARY KEY ("proyecto","usuario"),
-	CONSTRAINT	"apex_usu_proy_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	CASCADE ON UPDATE	CASCADE NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_fk_grupo_acc" FOREIGN KEY ("proyecto","usuario_grupo_acc") REFERENCES "apex_usuario_grupo_acc" ("proyecto","usuario_grupo_acc") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_usu_proy_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	CASCADE ON UPDATE	CASCADE DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_usu_proy_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usu_proy_fk_grupo_acc" FOREIGN KEY ("proyecto","usuario_grupo_acc") REFERENCES "apex_usuario_grupo_acc" ("proyecto","usuario_grupo_acc") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usu_proy_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 
 --**************************************************************************************************
@@ -629,7 +629,7 @@ CREATE TABLE apex_patron
 	exclusivo_toba			smallint			NULL,
 	autodoc					smallint			NULL,
 	CONSTRAINT	"apex_patron_pk" PRIMARY KEY ("proyecto","patron"),
-	CONSTRAINT	"apex_patron_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_patron_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -649,7 +649,7 @@ CREATE TABLE apex_patron_info
 	descripcion_breve				varchar(255)	NULL,
 	descripcion_larga				text			NULL,
 	CONSTRAINT	"apex_patron_info_pk" PRIMARY	KEY ("patron_proyecto","patron"),
-	CONSTRAINT	"apex_patron_info_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES	"apex_patron" ("proyecto","patron")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_patron_info_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES	"apex_patron" ("proyecto","patron")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -671,7 +671,7 @@ CREATE TABLE apex_buffer
 	cuerpo							text			NULL,
 	archivo_origen					varchar(150)	NULL,
 	CONSTRAINT	"apex_buffer_pk" PRIMARY KEY ("proyecto","buffer"),
-	CONSTRAINT	"apex_buffer_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_buffer_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -692,7 +692,7 @@ CREATE TABLE apex_item_zona
 	archivo							varchar(80)		NOT NULL, -- Archivo	donde	reside la clase que representa la ZONA
 	descripcion						varchar			NULL,
 	CONSTRAINT	"apex_item_zona_pk" PRIMARY KEY ("proyecto","zona"),
-	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -747,18 +747,18 @@ CREATE TABLE apex_item
 	creacion						timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("proyecto","item"),
 	CONSTRAINT	"apex_item_uq_path" UNIQUE	("proyecto","item"),
-	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 --	Como el DUMP devuelve a	los registros desordenadors este	constraint hay	que definirlo al final
---	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_buffer" FOREIGN	KEY ("actividad_buffer_proyecto","actividad_buffer") REFERENCES "apex_buffer"	("proyecto","buffer") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_patron" FOREIGN	KEY ("actividad_patron_proyecto","actividad_patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_solic_tipo" FOREIGN KEY ("solicitud_tipo")	REFERENCES "apex_solicitud_tipo"	("solicitud_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_solic_ot"	FOREIGN KEY	("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo"	("proyecto","solicitud_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_niv_acc" FOREIGN KEY ("nivel_acceso") REFERENCES	"apex_nivel_acceso" ("nivel_acceso") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_pag_tipo"	FOREIGN KEY	("pagina_tipo_proyecto","pagina_tipo")	REFERENCES "apex_pagina_tipo"	("proyecto","pagina_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_zona" FOREIGN KEY ("zona_proyecto","zona")	REFERENCES "apex_item_zona" ("proyecto","zona")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
---	  CONSTRAINT  "apex_item_fk_usuario" FOREIGN	KEY ("usuario") REFERENCES	"apex_usuario"	("usuario")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+--	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_buffer" FOREIGN	KEY ("actividad_buffer_proyecto","actividad_buffer") REFERENCES "apex_buffer"	("proyecto","buffer") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_patron" FOREIGN	KEY ("actividad_patron_proyecto","actividad_patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_solic_tipo" FOREIGN KEY ("solicitud_tipo")	REFERENCES "apex_solicitud_tipo"	("solicitud_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_solic_ot"	FOREIGN KEY	("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo"	("proyecto","solicitud_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_niv_acc" FOREIGN KEY ("nivel_acceso") REFERENCES	"apex_nivel_acceso" ("nivel_acceso") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_pag_tipo"	FOREIGN KEY	("pagina_tipo_proyecto","pagina_tipo")	REFERENCES "apex_pagina_tipo"	("proyecto","pagina_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_zona" FOREIGN KEY ("zona_proyecto","zona")	REFERENCES "apex_item_zona" ("proyecto","zona")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+--	  CONSTRAINT  "apex_item_fk_usuario" FOREIGN	KEY ("usuario") REFERENCES	"apex_usuario"	("usuario")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -779,7 +779,7 @@ CREATE TABLE apex_item_info
 	descripcion_breve				varchar(255)	NULL,
 	descripcion_larga				text				NULL,
 	CONSTRAINT	"apex_item_info_pk"	 PRIMARY	KEY ("item_proyecto","item"),
-	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -845,12 +845,12 @@ CREATE TABLE apex_clase
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
 	CONSTRAINT	"apex_clase_uq" UNIQUE	("clase"),
-	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_ancestro" FOREIGN	KEY ("ancestro_proyecto","ancestro") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_instan" FOREIGN KEY ("instanciador_proyecto","instanciador_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+--	CONSTRAINT	"apex_clase_fk_ancestro" FOREIGN	KEY ("ancestro_proyecto","ancestro") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_instan" FOREIGN KEY ("instanciador_proyecto","instanciador_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -870,7 +870,7 @@ CREATE TABLE apex_clase_info
 	descripcion_breve				varchar(255)	NULL,
 	descripcion_larga				text			NULL,
 	CONSTRAINT	"apex_clase_info_pk"	 PRIMARY	KEY ("clase_proyecto","clase"),
-	CONSTRAINT	"apex_clase_info_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_clase_info_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -892,8 +892,8 @@ CREATE TABLE apex_clase_dependencias
 	clase_proveedora_proyecto	varchar(15)			NOT NULL,	--	Las dependencias pueden	ser de esta	clase	o de una	heredada
 	clase_proveedora				varchar(60)		NOT NULL,
 	CONSTRAINT	"apex_clase_depen_pk" PRIMARY	KEY ("clase_consumidora_proyecto","clase_consumidora","identificador"),
-	CONSTRAINT	"apex_clase_depen_fk_clase_c"	FOREIGN KEY	("clase_consumidora_proyecto","clase_consumidora")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_depen_fk_clase_p"	FOREIGN KEY	("clase_proveedora_proyecto","clase_proveedora") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_clase_depen_fk_clase_c"	FOREIGN KEY	("clase_consumidora_proyecto","clase_consumidora")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_depen_fk_clase_p"	FOREIGN KEY	("clase_proveedora_proyecto","clase_proveedora") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -916,8 +916,8 @@ CREATE TABLE apex_patron_dependencias
 	cantidad_maxima					smallint		NOT NULL,
 	descripcion						varchar(250)	NULL,
 	CONSTRAINT	"apex_patron_depen_pk"	 PRIMARY	KEY ("patron_proyecto","patron","clase_proyecto","clase"),
-	CONSTRAINT	"apex_patron_depen_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_patron_depen_fk_patron"	FOREIGN KEY	("patron_proyecto","patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_patron_depen_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_patron_depen_fk_patron"	FOREIGN KEY	("patron_proyecto","patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################--
 
@@ -935,7 +935,7 @@ CREATE TABLE apex_objeto_categoria
 	objeto_categoria				varchar(30)		NOT NULL,
 	descripcion						varchar(255)	NULL,
 	CONSTRAINT	"apex_obj_categoria_pk"	PRIMARY KEY	("proyecto","objeto_categoria"),
-	CONSTRAINT	"apex_obj_categoria_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_obj_categoria_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -955,7 +955,7 @@ CREATE TABLE apex_solicitud_obj_obs_tipo
 	clase_proyecto						varchar(15)		NULL,
 	clase								varchar(60)		NULL,
 	CONSTRAINT	"apex_sol_obj_obs_tipo_pk"	PRIMARY KEY	("solicitud_obj_obs_tipo"),
-	CONSTRAINT	"apex_sol_obj_obs_tipo_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_obj_obs_tipo_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -998,12 +998,12 @@ CREATE TABLE apex_objeto
 	usuario								varchar(20)		NULL,
 	creacion							timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_objeto_pk"	 PRIMARY	KEY ("proyecto","objeto"),
-	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_solic_ot" FOREIGN KEY ("solicitud_obj_obs_tipo") REFERENCES "apex_solicitud_obj_obs_tipo" ("solicitud_obj_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
---  CONSTRAINT  "apex_objeto_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_categ" FOREIGN KEY ("objeto_categoria_proyecto","objeto_categoria")	REFERENCES "apex_objeto_categoria" ("proyecto","objeto_categoria") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_solic_ot" FOREIGN KEY ("solicitud_obj_obs_tipo") REFERENCES "apex_solicitud_obj_obs_tipo" ("solicitud_obj_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+--  CONSTRAINT  "apex_objeto_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_categ" FOREIGN KEY ("objeto_categoria_proyecto","objeto_categoria")	REFERENCES "apex_objeto_categoria" ("proyecto","objeto_categoria") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -1023,7 +1023,7 @@ CREATE TABLE apex_objeto_info
 	descripcion_breve					varchar(255)		NULL,
 	descripcion_larga					text				NULL,
 	CONSTRAINT	"apex_objeto_info_pk" PRIMARY	KEY ("objeto_proyecto","objeto"),
-	CONSTRAINT	"apex_objeto_info_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_info_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -1047,8 +1047,8 @@ CREATE TABLE apex_objeto_dependencias
 	parametros_c						varchar(255)		NULL,
 	inicializar							smallint			NULL,
 	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","identificador"),
-	CONSTRAINT	"apex_objeto_depen_fk_objeto_c" FOREIGN KEY ("proyecto","objeto_consumidor") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT	DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_depen_fk_objeto_p" FOREIGN KEY ("proyecto","objeto_proveedor") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_depen_fk_objeto_c" FOREIGN KEY ("proyecto","objeto_consumidor") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_depen_fk_objeto_p" FOREIGN KEY ("proyecto","objeto_proveedor") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -1077,8 +1077,8 @@ CREATE TABLE apex_objeto_eventos
 	ayuda								varchar(255)		NULL,
 	orden								smallint			NULL,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","objeto","identificador"),
-	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -1099,8 +1099,8 @@ CREATE TABLE apex_item_objeto
 	orden								smallint		NOT NULL,
 	inicializar							smallint		NULL,
 	CONSTRAINT	"apex_item_consumo_obj_pk"	 PRIMARY	KEY ("proyecto","item","objeto"),
-	CONSTRAINT	"apex_item_consumo_obj_fk_item" FOREIGN KEY ("proyecto","item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_item_consumo_obj_fk_objeto" FOREIGN	KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_item_consumo_obj_fk_item" FOREIGN KEY ("proyecto","item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_consumo_obj_fk_objeto" FOREIGN	KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -1153,12 +1153,12 @@ CREATE TABLE apex_vinculo
 	imagen								varchar(60)		NULL,			--	path a la imagen
 	CONSTRAINT	"apex_vinc_pk"	PRIMARY KEY	("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto"),
 --	  CONSTRAINT  "apex_vinc_pk" UNIQUE	KEY ("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto","indice"),
-	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_d"	FOREIGN KEY	("destino_objeto_proyecto","destino_objeto")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_tipo" FOREIGN KEY ("vinculo_tipo") REFERENCES	"apex_vinculo_tipo" ("vinculo_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_obj_d"	FOREIGN KEY	("destino_objeto_proyecto","destino_objeto")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_tipo" FOREIGN KEY ("vinculo_tipo") REFERENCES	"apex_vinculo_tipo" ("vinculo_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -1178,8 +1178,8 @@ CREATE TABLE apex_usuario_grupo_acc_item
 	item_id								int4				NULL,	
 	item									varchar(60)		NOT NULL,
 	CONSTRAINT	"apex_usu_item_pk" PRIMARY	KEY ("proyecto","usuario_grupo_acc","item"),
-	CONSTRAINT	"apex_usu_item_fk_item"	FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_item_fk_us_gru_acc"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_usu_item_fk_item"	FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usu_item_fk_us_gru_acc"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
   
 --#################################################################################################
@@ -1205,7 +1205,7 @@ CREATE TABLE apex_arbol_items_fotos
 	foto_opciones						varchar			NULL,
   CONSTRAINT "apex_arbol_items_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre"),
   CONSTRAINT "apex_arbol_items_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -1232,7 +1232,7 @@ CREATE TABLE apex_admin_album_fotos
 	predeterminada							smallint	NULL,
   CONSTRAINT "apex_admin_album_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre", "foto_tipo"),
   CONSTRAINT "apex_admin_album_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
  
@@ -1284,8 +1284,8 @@ CREATE TABLE apex_nucleo
 	autodoc								smallint			NULL,
 	orden									float				NULL,
 	CONSTRAINT	"apex_nucleo_pk"	 PRIMARY	KEY ("proyecto","nucleo"),
-	CONSTRAINT	"apex_nucleo_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_nucleo_fk_tipo" FOREIGN	KEY ("nucleo_tipo") REFERENCES "apex_nucleo_tipo" ("nucleo_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_nucleo_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_nucleo_fk_tipo" FOREIGN	KEY ("nucleo_tipo") REFERENCES "apex_nucleo_tipo" ("nucleo_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -1305,6 +1305,6 @@ CREATE TABLE apex_nucleo_info
 	descripcion_breve					varchar(255)	NULL,
 	descripcion_larga					text				NULL,
 	CONSTRAINT	"apex_nucleo_info_pk" PRIMARY	KEY ("nucleo_proyecto","nucleo"),
-	CONSTRAINT	"apex_nucleo_info_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_nucleo_info_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

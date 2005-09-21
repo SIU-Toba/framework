@@ -44,9 +44,9 @@ CREATE TABLE apex_dimension_tipo
 	ventana_editor_y						smallint			NULL,
 	exclusivo_toba							smallint			NULL,
    CONSTRAINT  "apex_dim_tipo_pk" PRIMARY KEY ("proyecto","dimension_tipo"),
-   CONSTRAINT  "apex_dim_tipo_fk_perfil" FOREIGN KEY ("dimension_tipo_perfil") REFERENCES "apex_dimension_tipo_perfil" ("dimension_tipo_perfil") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_tipo_fk_editor" FOREIGN KEY ("item_editor_restric_proyecto","item_editor_restric") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_tipo_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_dim_tipo_fk_perfil" FOREIGN KEY ("dimension_tipo_perfil") REFERENCES "apex_dimension_tipo_perfil" ("dimension_tipo_perfil") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_tipo_fk_editor" FOREIGN KEY ("item_editor_restric_proyecto","item_editor_restric") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_tipo_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -66,7 +66,7 @@ CREATE TABLE apex_dimension_grupo
    descripcion             			varchar(80)    NULL,
    orden                   			float          NULL,
    CONSTRAINT  "apex_dim_grupo_pk" PRIMARY KEY ("proyecto","dimension_grupo"),
-   CONSTRAINT  "apex_dim_grupo_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_dim_grupo_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -96,10 +96,10 @@ CREATE TABLE apex_dimension
    tabla_ref_desc             		varchar(80)    NULL,
    tabla_restric              		varchar(80)    NULL,
    CONSTRAINT  "apex_dim_pk" PRIMARY KEY ("proyecto","dimension"),
-   CONSTRAINT  "apex_dim_fk_grupo" FOREIGN KEY ("dimension_grupo_proyecto","dimension_grupo") REFERENCES "apex_dimension_grupo" ("proyecto","dimension_grupo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_fk_" FOREIGN KEY ("dimension_tipo_proyecto","dimension_tipo") REFERENCES "apex_dimension_tipo" ("proyecto","dimension_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_fk_fuente_datos" FOREIGN KEY ("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_dim_fk_grupo" FOREIGN KEY ("dimension_grupo_proyecto","dimension_grupo") REFERENCES "apex_dimension_grupo" ("proyecto","dimension_grupo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_fk_" FOREIGN KEY ("dimension_tipo_proyecto","dimension_tipo") REFERENCES "apex_dimension_tipo" ("proyecto","dimension_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_fk_fuente_datos" FOREIGN KEY ("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -147,8 +147,8 @@ CREATE TABLE apex_dimension_perfil_datos
    valor_4                 			varchar(30)    NULL, 
    valor_5                 			varchar(30)    NULL, 
    CONSTRAINT  "apex_dim_usu_pk"  PRIMARY KEY ("usuario_perfil_datos_proyecto","usuario_perfil_datos","dimension_proyecto","dimension"),
-   CONSTRAINT  "apex_dim_usu_fk_dimension" FOREIGN KEY ("dimension_proyecto","dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_usu_fk_usuario" FOREIGN KEY ("usuario_perfil_datos_proyecto","usuario_perfil_datos") REFERENCES "apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_usu_fk_comp" FOREIGN KEY ("comparacion") REFERENCES "apex_comparacion" ("comparacion") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_dim_usu_fk_dimension" FOREIGN KEY ("dimension_proyecto","dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_usu_fk_usuario" FOREIGN KEY ("usuario_perfil_datos_proyecto","usuario_perfil_datos") REFERENCES "apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_dim_usu_fk_comp" FOREIGN KEY ("comparacion") REFERENCES "apex_comparacion" ("comparacion") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

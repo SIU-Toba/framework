@@ -19,7 +19,7 @@ CREATE TABLE apex_nota_tipo
    	descripcion                	varchar(255)   	NOT NULL,
    	icono                      	varchar(30)    	NULL,
    	CONSTRAINT  "apex_nota_tipo_pk" PRIMARY KEY ("nota_tipo")
---	CONSTRAINT	"apex_nota_tipo_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY IMMEDIATE
+--	CONSTRAINT	"apex_nota_tipo_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -46,10 +46,10 @@ CREATE TABLE apex_nota
 	bl						smallint		NULL,
 	creacion                timestamp(0)   without time zone DEFAULT current_timestamp NULL,
 	CONSTRAINT  "apex_nota_pk" PRIMARY KEY ("nota"),
-	CONSTRAINT  "apex_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_nota_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION NOT	DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_nota_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -78,10 +78,10 @@ CREATE TABLE apex_patron_nota
 	bl						smallint		NULL,
 	creacion                timestamp(0)   without time zone DEFAULT current_timestamp NULL,
 	CONSTRAINT  "apex_patron_nota_pk" PRIMARY KEY ("patron_nota"),
-	CONSTRAINT  "apex_patron_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_patron_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_patron_nota_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES "apex_patron" ("proyecto","patron") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_patron_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_patron_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_patron_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_patron_nota_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES "apex_patron" ("proyecto","patron") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_patron_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -111,10 +111,10 @@ CREATE TABLE apex_item_nota
 	bl						smallint		NULL,
    	creacion            		   timestamp(0)   without time zone DEFAULT current_timestamp NULL,
    	CONSTRAINT  "apex_item_nota_pk"   PRIMARY KEY ("item_nota"),
-   	CONSTRAINT  "apex_item_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   	CONSTRAINT  "apex_item_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   	CONSTRAINT  "apex_item_nota_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   	CONSTRAINT  "apex_item_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   	CONSTRAINT  "apex_item_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_item_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_item_nota_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_item_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -143,10 +143,10 @@ CREATE TABLE apex_clase_nota
 	leido					smallint		NULL,
    creacion                   timestamp(0)   without time zone DEFAULT current_timestamp NULL,
    CONSTRAINT  "apex_clase_nota_pk"  PRIMARY KEY ("clase_nota"),
-   CONSTRAINT  "apex_clase_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_clase_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_clase_nota_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_clase_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_clase_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_clase_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_clase_nota_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_clase_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -175,10 +175,10 @@ CREATE TABLE apex_objeto_nota
 	leido							smallint		NULL,
 	creacion                		timestamp(0)   without time zone DEFAULT current_timestamp NULL,
 	CONSTRAINT  "apex_objeto_nota_pk" PRIMARY KEY ("objeto_nota"),
-	CONSTRAINT  "apex_objeto_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_nota_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_nota_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -207,9 +207,9 @@ CREATE TABLE apex_nucleo_nota
 	leido					smallint		NULL,
    creacion                		timestamp(0)   without time zone DEFAULT current_timestamp NULL,
    CONSTRAINT  "apex_nucleo_nota_pk" PRIMARY KEY ("nucleo_nota"),
-   CONSTRAINT  "apex_nucleo_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_nucleo_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_nucleo_nota_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES "apex_nucleo" ("proyecto","nucleo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_nucleo_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_nucleo_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_nucleo_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_nucleo_nota_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES "apex_nucleo" ("proyecto","nucleo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_nucleo_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

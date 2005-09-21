@@ -43,8 +43,8 @@ CREATE TABLE apex_msg
    mensaje_customizable          varchar        NULL,
    CONSTRAINT  "apex_msg_pk" PRIMARY KEY ("proyecto","msg"),
 --   CONSTRAINT  "apex_msg_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_msg_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_msg_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -72,8 +72,8 @@ CREATE TABLE apex_patron_msg
    mensaje_customizable          varchar        NULL,
 --   CONSTRAINT  "apex_patron_msg_uk" UNIQUE ("indice"),
    CONSTRAINT  "apex_patron_msg_pk" PRIMARY KEY ("patron_msg", "patron_proyecto"),
-   CONSTRAINT  "apex_patron_msg_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES "apex_patron" ("proyecto","patron") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_patron_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_patron_msg_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES "apex_patron" ("proyecto","patron") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_patron_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -103,8 +103,8 @@ CREATE TABLE apex_item_msg
 	parametro_patron					varchar(100)	NULL,
    CONSTRAINT  "apex_item_msg_pk"   PRIMARY KEY ("item_msg","item_proyecto"),
    CONSTRAINT  "apex_item_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_item_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_item_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -132,8 +132,8 @@ CREATE TABLE apex_clase_msg
    mensaje_customizable          varchar        NULL,
    CONSTRAINT  "apex_clase_msg_pk"  PRIMARY KEY ("clase_msg", "clase_proyecto"),
 --   CONSTRAINT  "apex_clase_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_clase_msg_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_clase_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_clase_msg_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_clase_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -162,7 +162,7 @@ CREATE TABLE apex_objeto_msg
 	parametro_clase					varchar(100)	NULL,
    CONSTRAINT  "apex_objeto_msg_pk" PRIMARY KEY ("objeto_msg", "objeto_proyecto"),
 --   CONSTRAINT  "apex_objeto_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_objeto_msg_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_objeto_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_objeto_msg_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_objeto_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

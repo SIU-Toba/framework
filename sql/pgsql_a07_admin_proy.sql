@@ -22,7 +22,7 @@ CREATE TABLE 			apex_ap_version
 	actual								smallint			NULL,
 	cerrada								smallint			NULL,
    CONSTRAINT  "apex_version_pk" PRIMARY KEY ("proyecto","version"),
-   CONSTRAINT  "apex_ap_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_ap_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -115,12 +115,12 @@ CREATE TABLE apex_ap_tarea
 	version								varchar(15)    		NULL,
 	grado_avance						smallint			NULL,
    CONSTRAINT  "apex_ap_tarea_pk"   PRIMARY KEY ("tarea"),
-   CONSTRAINT  "apex_ap_tarea_fk_tipo" FOREIGN KEY ("tarea_tipo") REFERENCES "apex_ap_tarea_tipo" ("tarea_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_fk_estado" FOREIGN KEY ("tarea_estado") REFERENCES "apex_ap_tarea_estado" ("tarea_estado") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_fk_tema" FOREIGN KEY ("tarea_tema") REFERENCES "apex_ap_tarea_tema" ("tarea_tema") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_fk_priori" FOREIGN KEY ("tarea_prioridad") REFERENCES "apex_ap_tarea_prioridad" ("tarea_prioridad") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_fk_vers" FOREIGN KEY ("version_proyecto","version") REFERENCES "apex_ap_version" ("proyecto","version") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_ap_tarea_fk_tipo" FOREIGN KEY ("tarea_tipo") REFERENCES "apex_ap_tarea_tipo" ("tarea_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_fk_estado" FOREIGN KEY ("tarea_estado") REFERENCES "apex_ap_tarea_estado" ("tarea_estado") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_fk_tema" FOREIGN KEY ("tarea_tema") REFERENCES "apex_ap_tarea_tema" ("tarea_tema") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_fk_priori" FOREIGN KEY ("tarea_prioridad") REFERENCES "apex_ap_tarea_prioridad" ("tarea_prioridad") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_fk_vers" FOREIGN KEY ("version_proyecto","version") REFERENCES "apex_ap_version" ("proyecto","version") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -143,7 +143,7 @@ CREATE TABLE apex_ap_tarea_usuario
 	fecha_fin							date				NULL,
 	observacion  			       	varchar(255)	NULL,
    CONSTRAINT  "apex_ap_tarea_usu_pk"   PRIMARY KEY ("tarea","usuario"),
-   CONSTRAINT  "apex_ap_tarea_usu_fk_tarea" FOREIGN KEY ("tarea") REFERENCES "apex_ap_tarea" ("tarea") ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_ap_tarea_usu_fk_usu" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_ap_tarea_usu_fk_tarea" FOREIGN KEY ("tarea") REFERENCES "apex_ap_tarea" ("tarea") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_ap_tarea_usu_fk_usu" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

@@ -69,8 +69,8 @@ CREATE TABLE apex_objeto_db_registros
 	alias 							varchar(60)		NULL,
 --	Fin configuracion del AP
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("objeto_proyecto","objeto"),
-	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -99,8 +99,8 @@ CREATE TABLE apex_objeto_db_registros_col
 	no_nulo_db						smallint 		NULL,
 	externa							smallint		NULL,
 	CONSTRAINT  "apex_obj_dbr_col_pk" PRIMARY KEY ("objeto_proyecto","objeto","col_id"),
-	CONSTRAINT  "apex_obj_dbr_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_dbr_col_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_dbr_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_dbr_col_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 --**************************************************************************************************
@@ -127,8 +127,8 @@ CREATE TABLE apex_objeto_datos_rel
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(60)		NULL,
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("proyecto","objeto"),
-	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -162,8 +162,8 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	cascada							smallint			NULL,
 	orden							float				NULL,
 	CONSTRAINT  "apex_obj_datos_rel_asoc_pk" PRIMARY KEY ("proyecto","objeto","asoc_id"),
-	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto_datos_rel" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_padre" FOREIGN KEY ("proyecto","objeto","padre_id") REFERENCES "apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_hijo" FOREIGN KEY ("proyecto","objeto","hijo_id") REFERENCES "apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto_datos_rel" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_padre" FOREIGN KEY ("proyecto","objeto","padre_id") REFERENCES "apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_datos_rel_asoc_fk_hijo" FOREIGN KEY ("proyecto","objeto","hijo_id") REFERENCES "apex_objeto_dependencias" ("proyecto","objeto_consumidor","identificador") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

@@ -18,7 +18,7 @@ CREATE TABLE apex_item_proto
 	descripcion							varchar			NULL,
 	logica								varchar			NULL,
 	CONSTRAINT	"apex_item_proto_pk" PRIMARY	KEY ("item_proyecto","item"),
-	CONSTRAINT	"apex_item_proto_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES	"apex_item" ("proyecto","item")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_item_proto_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES	"apex_item" ("proyecto","item")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -41,7 +41,7 @@ CREATE TABLE apex_clase_proto
 	descripcion							varchar			NULL,
 	logica								varchar			NULL,
 	CONSTRAINT	"apex_clase_proto_pk" PRIMARY	KEY ("clase_proyecto","clase"),
-	CONSTRAINT	"apex_clase_proto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_clase_proto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -68,7 +68,7 @@ CREATE TABLE apex_clase_proto_metodo
 	php									varchar			NULL,
 	auto_subclase						smallint		NULL,
 	CONSTRAINT	"apex_clase_promet_pk" PRIMARY	KEY ("clase_proyecto","clase","metodo"),
-	CONSTRAINT	"apex_clase_promet_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_clase_promet_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -90,7 +90,7 @@ CREATE TABLE apex_clase_proto_propiedad
 	tipo								varchar(40)		NULL,
 	descripcion							varchar			NULL,
 	CONSTRAINT	"apex_clase_proprop_pk" PRIMARY	KEY ("clase_proyecto","clase","propiedad"),
-	CONSTRAINT	"apex_clase_proprop_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_clase_proprop_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES	"apex_clase" ("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -113,7 +113,7 @@ CREATE TABLE apex_objeto_proto
 	descripcion							varchar			NULL,
 	logica								varchar			NULL,
 	CONSTRAINT	"apex_objeto_proto_pk" PRIMARY	KEY ("objeto_proyecto","objeto"),
-	CONSTRAINT	"apex_objeto_proto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_proto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -139,7 +139,7 @@ CREATE TABLE apex_objeto_proto_metodo
 	logica								varchar			NULL,
 	php									varchar			NULL,
 	CONSTRAINT	"apex_objeto_promet_pk" PRIMARY	KEY ("objeto_proyecto","objeto","metodo"),
-	CONSTRAINT	"apex_objeto_promet_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_promet_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -161,7 +161,7 @@ CREATE TABLE apex_objeto_proto_propiedad
 	tipo								varchar(40)		NULL,
 	descripcion							varchar			NULL,
 	CONSTRAINT	"apex_objeto_proprop_pk" PRIMARY	KEY ("objeto_proyecto","objeto","propiedad"),
-	CONSTRAINT	"apex_objeto_proprop_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_proprop_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -184,7 +184,7 @@ CREATE TABLE apex_nucleo_proto
 	descripcion							varchar			NULL,
 	logica								varchar			NULL,
 	CONSTRAINT	"apex_nucleo_proto_pk" PRIMARY	KEY ("nucleo_proyecto","nucleo"),
-	CONSTRAINT	"apex_nucleo_proto_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_nucleo_proto_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -210,7 +210,7 @@ CREATE TABLE apex_nucleo_proto_metodo
 	logica								varchar			NULL,
 	php									varchar			NULL,
 	CONSTRAINT	"apex_nucleo_promet_pk" PRIMARY	KEY ("nucleo_proyecto","nucleo","metodo"),
-	CONSTRAINT	"apex_nucleo_promet_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_nucleo_promet_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -232,6 +232,6 @@ CREATE TABLE apex_nucleo_proto_propiedad
 	tipo								varchar(40)		NULL,
 	descripcion							varchar			NULL,
 	CONSTRAINT	"apex_nucleo_proprop_pk" PRIMARY	KEY ("nucleo_proyecto","nucleo","propiedad"),
-	CONSTRAINT	"apex_nucleo_proprop_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_nucleo_proprop_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

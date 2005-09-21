@@ -28,7 +28,7 @@ CREATE TABLE apex_mod_datos_zona
 	zona 					    	varchar(15)    NOT NULL,
 	descripcion  			       	varchar(255)   NULL,
    CONSTRAINT  "apex_md_zona_pk"   PRIMARY KEY ("proyecto","zona"),
-   CONSTRAINT  "apex_md_zona_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_zona_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -75,8 +75,8 @@ CREATE TABLE apex_mod_datos_tabla
 	extra_1								varchar(255)   NULL,
 	extra_2								varchar(255)   NULL,
    CONSTRAINT  "apex_md_tabla_pk"   PRIMARY KEY ("proyecto","tabla"),
-   CONSTRAINT  "apex_md_tabla_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_md_tabla_fk_dump" FOREIGN KEY ("dump") REFERENCES "apex_mod_datos_dump" ("dump") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_tabla_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_md_tabla_fk_dump" FOREIGN KEY ("dump") REFERENCES "apex_mod_datos_dump" ("dump") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -98,7 +98,7 @@ CREATE TABLE apex_mod_datos_tabla_columna
 	dump									smallint			DEFAULT 1   NULL,
 	definicion							varchar		   NULL,
    CONSTRAINT  "apex_md_tabla_col_pk"   PRIMARY KEY ("tabla_proyecto","tabla","columna"),
-   CONSTRAINT  "apex_md_tabla_col_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_tabla_col_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -118,7 +118,7 @@ CREATE TABLE apex_mod_datos_tabla_restric
 	restriccion							varchar(30)    NULL,
 	definicion							varchar		   NULL,
    CONSTRAINT  "apex_md_tabla_cons_pk"   PRIMARY KEY ("tabla_proyecto","tabla","restriccion"),
-   CONSTRAINT  "apex_md_tabla_cons_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_tabla_cons_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -136,7 +136,7 @@ CREATE TABLE apex_mod_datos_secuencia
 	secuencia							varchar(30)    NOT NULL,
 	definicion							varchar(255)    NULL,
    CONSTRAINT  "apex_md_secu_pk"   PRIMARY KEY ("proyecto","secuencia"),
-   CONSTRAINT  "apex_md_secu_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_secu_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -156,7 +156,7 @@ CREATE TABLE apex_mod_datos_zona_tabla
    	tabla_proyecto            		varchar(15)    NOT NULL,
 	tabla            					varchar(30)    NOT NULL,
    CONSTRAINT  "apex_md_zona_tabla_pk"   PRIMARY KEY ("zona_proyecto","zona","tabla_proyecto","tabla"),
-   CONSTRAINT  "apex_md_zona_tabla_fk_zon" FOREIGN KEY ("zona_proyecto","zona") REFERENCES "apex_mod_datos_zona" ("proyecto","zona") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_md_zona_tabla_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_zona_tabla_fk_zon" FOREIGN KEY ("zona_proyecto","zona") REFERENCES "apex_mod_datos_zona" ("proyecto","zona") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_md_zona_tabla_fk_tab" FOREIGN KEY ("tabla_proyecto","tabla") REFERENCES "apex_mod_datos_tabla" ("proyecto","tabla") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

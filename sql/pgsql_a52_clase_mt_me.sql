@@ -53,8 +53,8 @@ CREATE TABLE apex_objeto_mt_me
 	metodo_despachador						varchar(40)			NULL,  --> CN: Indica la etapa activa
 	metodo_opciones							varchar(40)			NULL,  --> CN: Indica los posibles caminos de la operacion
 	CONSTRAINT	"apex_objeto_mt_me_pk" PRIMARY	KEY ("objeto_mt_me_proyecto","objeto_mt_me"),
-	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"obj_objeto_mt_me_fk_tnav" FOREIGN	KEY ("tipo_navegacion")	REFERENCES "apex_objeto_mt_me_tipo_nav" ("tipo_navegacion") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"obj_objeto_mt_me_fk_objeto" FOREIGN	KEY ("objeto_mt_me_proyecto","objeto_mt_me")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"obj_objeto_mt_me_fk_tnav" FOREIGN	KEY ("tipo_navegacion")	REFERENCES "apex_objeto_mt_me_tipo_nav" ("tipo_navegacion") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -88,8 +88,8 @@ CREATE TABLE apex_objeto_mt_me_etapa
 	ev_procesar							smallint			NULL, 	-- Esta etapa muestra el boton procesar
 	ev_cancelar							smallint			NULL, 	-- Esta etapa muestra el boton cancelar
 	CONSTRAINT	"apex_mt_me__pk" PRIMARY KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion"),
-	CONSTRAINT	"apex_mt_me__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me") REFERENCES	"apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_mt_me__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me") REFERENCES	"apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 --###################################################################################################
@@ -120,7 +120,7 @@ CREATE TABLE apex_objeto_ci_pantalla
 	objetos								varchar(80)			NULL,
 	eventos								varchar(80)			NULL,
 	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("objeto_ci_proyecto","objeto_ci","pantalla"),
-	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

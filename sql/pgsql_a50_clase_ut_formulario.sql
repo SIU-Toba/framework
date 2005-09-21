@@ -51,8 +51,8 @@ CREATE TABLE apex_objeto_ut_formulario
 	alto								varchar(10)		NULL,
 	analisis_cambios					varchar(10)		NULL,
 	CONSTRAINT  "apex_objeto_ut_f_pk" PRIMARY KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario"),
-	CONSTRAINT	"apex_objeto_ut_f_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	NOT DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_objeto_ut_f_fk_objeto" FOREIGN KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_objeto_ut_f_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_objeto_ut_f_fk_objeto" FOREIGN KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -95,10 +95,10 @@ CREATE TABLE apex_objeto_ut_formulario_ef
 	lista_valor_sql_esp					varchar(40)	    NULL,			-- El valor del debe ser formateado CUSTOM
 	lista_ancho							varchar(10)		NULL,
 	CONSTRAINT  "apex_ut_f_ef_pk" PRIMARY KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario","identificador"),
-	CONSTRAINT  "apex_ut_f_ef_fk_formato" FOREIGN KEY ("lista_valor_sql_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ut_f_ef_fk_estilo" FOREIGN KEY ("lista_columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ut_f_ef_fk_padre" FOREIGN KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ut_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_ut_f_ef_fk_formato" FOREIGN KEY ("lista_valor_sql_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ut_f_ef_fk_estilo" FOREIGN KEY ("lista_columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ut_f_ef_fk_padre" FOREIGN KEY ("objeto_ut_formulario_proyecto","objeto_ut_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ut_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 --###################################################################################################
@@ -132,9 +132,9 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	estilo   				 			int4		    NULL,		
 	total								smallint		NULL,		
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario","objeto_ei_formulario_fila"),
-	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 

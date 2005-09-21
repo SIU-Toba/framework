@@ -24,6 +24,6 @@ CREATE TABLE apex_objeto_multicheq
 	chequeado					varchar(100)	NULL,
 	forzar_chequeo				smallint		NULL,
    CONSTRAINT  "apex_obj_mul_pk" PRIMARY KEY ("objeto_multicheq_proyecto","objeto_multicheq"),
-   CONSTRAINT  "apex_obj_mul_fk_objeto" FOREIGN KEY ("objeto_multicheq_proyecto","objeto_multicheq") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_obj_mul_fk_objeto" FOREIGN KEY ("objeto_multicheq_proyecto","objeto_multicheq") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

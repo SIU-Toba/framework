@@ -47,8 +47,8 @@ CREATE TABLE apex_objeto_cuadro
 	scroll						smallint		NULL,
 	scroll_alto					varchar(10)		NULL,
 	CONSTRAINT  "apex_objeto_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro"),
-	CONSTRAINT  "apex_objeto_cuadro_fk_objeto"  FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_cuadro_fk_nucleo" FOREIGN KEY ("dao_nucleo_proyecto","dao_nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_cuadro_fk_objeto"  FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_objeto_cuadro_fk_nucleo" FOREIGN KEY ("dao_nucleo_proyecto","dao_nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -90,11 +90,11 @@ CREATE TABLE apex_objeto_cuadro_columna
 	pdf_propiedades          		varchar			NULL,
 	desabilitado					smallint		NULL,
 	CONSTRAINT  "apex_obj_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","orden"),
-	CONSTRAINT  "apex_obj_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_cuadro_fk_dimension" FOREIGN KEY ("par_dimension_proyecto","par_dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_cuadro_fk_formato" FOREIGN KEY ("valor_sql_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_cuadro_fk_proceso" FOREIGN KEY ("valor_proceso") REFERENCES "apex_columna_proceso" ("columna_proceso") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_cuadro_fk_estilo" FOREIGN KEY ("columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_cuadro_fk_dimension" FOREIGN KEY ("par_dimension_proyecto","par_dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_cuadro_fk_formato" FOREIGN KEY ("valor_sql_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_cuadro_fk_proceso" FOREIGN KEY ("valor_proceso") REFERENCES "apex_columna_proceso" ("columna_proceso") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_cuadro_fk_estilo" FOREIGN KEY ("columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -120,7 +120,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 	pie_mostrar_titulos				smallint		NULL,		
 	imp_paginar						smallint		NULL,		
 	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","orden"),
-	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -155,8 +155,8 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	desabilitado					smallint		NULL,
 	total							smallint		NULL,		
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_col"),
-	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_ei_cuadro_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

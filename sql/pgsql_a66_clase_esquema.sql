@@ -32,6 +32,6 @@ CREATE TABLE apex_objeto_esquema
    -- Para el esquema_db
    sql							varchar			NULL,
    CONSTRAINT  "apex_objeto_esquema_pk" PRIMARY KEY ("objeto_esquema_proyecto","objeto_esquema"),
-   CONSTRAINT  "apex_objeto_esquema_fk_objeto"  FOREIGN KEY ("objeto_esquema_proyecto","objeto_esquema") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_objeto_esquema_fk_objeto"  FOREIGN KEY ("objeto_esquema_proyecto","objeto_esquema") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

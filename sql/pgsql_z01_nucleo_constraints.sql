@@ -9,7 +9,7 @@
 	REFERENCES "apex_item" ("item","proyecto")
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION
-	NOT DEFERRABLE
+	DEFERRABLE
 	INITIALLY
 	IMMEDIATE;
 -----------------------------------------------------------------------------------

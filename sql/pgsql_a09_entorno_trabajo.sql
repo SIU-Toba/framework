@@ -21,8 +21,8 @@ CREATE TABLE apex_et_item
 	usuario					varchar(20)	NOT NULL,
 	creacion				timestamp(0) without time zone DEFAULT current_timestamp NOT NULL,
   	CONSTRAINT  "apex_et_item_usu_pk"   PRIMARY KEY ("item","item_proyecto","usuario"),
-  	CONSTRAINT  "apex_et_item_usu_item_fk" FOREIGN KEY ("item","item_proyecto") REFERENCES "apex_item" ("item","proyecto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_et_item_usu_usu_fk" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+  	CONSTRAINT  "apex_et_item_usu_item_fk" FOREIGN KEY ("item","item_proyecto") REFERENCES "apex_item" ("item","proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_et_item_usu_usu_fk" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -43,8 +43,8 @@ CREATE TABLE apex_et_objeto
 	usuario			varchar(20)	NOT NULL,
 	creacion		timestamp(0) without time zone DEFAULT current_timestamp NOT NULL,
   	CONSTRAINT  "apex_et_objeto_usu_pk"   PRIMARY KEY ("objeto_proyecto","objeto","usuario"),
-  	CONSTRAINT  "apex_et_objeto_usu_objeto_fk" FOREIGN KEY ("objeto","objeto_proyecto") REFERENCES "apex_objeto" ("objeto","proyecto") ON DELETE CASCADE ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_et_objeto_usu_usu_fk" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+  	CONSTRAINT  "apex_et_objeto_usu_objeto_fk" FOREIGN KEY ("objeto","objeto_proyecto") REFERENCES "apex_objeto" ("objeto","proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_et_objeto_usu_usu_fk" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -67,6 +67,6 @@ CREATE TABLE apex_et_preferencias
 	item_proyecto			varchar(15)		NOT NULL, -- Item inicial
 	item					varchar(60)   	NOT NULL,
 	CONSTRAINT  		"apex_et_item_prefs_pk"   PRIMARY KEY ("usuario_proyecto","usuario"),
-  	CONSTRAINT  		"apex_et_item_usu_item_fk" FOREIGN KEY ("item","item_proyecto") REFERENCES "apex_item" ("item","proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  		"apex_et_item_prefs_usuario_fk" FOREIGN KEY ("usuario_proyecto","usuario") REFERENCES "apex_usuario_proyecto" ("proyecto","usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+  	CONSTRAINT  		"apex_et_item_usu_item_fk" FOREIGN KEY ("item","item_proyecto") REFERENCES "apex_item" ("item","proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  		"apex_et_item_prefs_usuario_fk" FOREIGN KEY ("usuario_proyecto","usuario") REFERENCES "apex_usuario_proyecto" ("proyecto","usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

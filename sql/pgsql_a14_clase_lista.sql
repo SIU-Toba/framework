@@ -30,6 +30,6 @@ CREATE TABLE apex_objeto_lista
    vinculo_clave           varchar(80)   NULL,       -- Columnas que poseen la clave, separadas por comas
    vinculo_indice				varchar(20)    NULL,       -- Titulo de la columna que tiene
    CONSTRAINT  "apex_objeto_lista_pk" PRIMARY KEY ("objeto_lista_proyecto","objeto_lista"),
-   CONSTRAINT  "apex_objeto_lista_fk_objeto"  FOREIGN KEY ("objeto_lista_proyecto","objeto_lista") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_objeto_lista_fk_objeto"  FOREIGN KEY ("objeto_lista_proyecto","objeto_lista") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

@@ -20,7 +20,7 @@ CREATE TABLE apex_objeto_plan
 	objeto_plan           		int4						NOT NULL,
 	descripcion						varchar(255)			NOT NULL,
 	CONSTRAINT  "apex_objeto_plan_pk" PRIMARY KEY ("objeto_plan_proyecto","objeto_plan"),
-	CONSTRAINT  "apex_objeto_plan_fk_objeto"  FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_plan_fk_objeto"  FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -46,7 +46,7 @@ CREATE TABLE apex_objeto_plan_activ
 	anotacion							varchar(50)			NULL,		
 	altura								float				NULL,
 	CONSTRAINT  "apex_obj_plan_activ_pk" PRIMARY KEY ("objeto_plan_proyecto","objeto_plan","posicion"),
-	CONSTRAINT  "apex_obj_plan_activ_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_plan_activ_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -67,8 +67,8 @@ CREATE TABLE apex_objeto_plan_activ_usu
 	usuario								varchar(20)			NOT NULL,
 	observaciones						varchar				NULL,
 	CONSTRAINT  "apex_obj_plan_activ_usu_pk" PRIMARY KEY ("objeto_plan_proyecto","objeto_plan","posicion","usuario"),
-	CONSTRAINT  "apex_obj_plan_activ_usu_fk_o" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan","posicion") REFERENCES "apex_objeto_plan_activ" ("objeto_plan_proyecto","objeto_plan","posicion") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_obj_plan_activ_usu_fk_u" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_plan_activ_usu_fk_o" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan","posicion") REFERENCES "apex_objeto_plan_activ" ("objeto_plan_proyecto","objeto_plan","posicion") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_plan_activ_usu_fk_u" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -91,7 +91,7 @@ CREATE TABLE apex_objeto_plan_hito
 	fecha								date				NOT NULL,
 	anotacion							varchar(50)			NULL,		
 	CONSTRAINT  "apex_obj_plan_hito_pk" PRIMARY KEY ("objeto_plan_proyecto","objeto_plan","posicion"),
-	CONSTRAINT  "apex_obj_plan_hito_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_plan_hito_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -117,6 +117,6 @@ CREATE TABLE apex_objeto_plan_linea
 	ancho								smallint			NULL,
 	estilo								varchar(20)			NULL,
 	CONSTRAINT  "apex_obj_plan_linea_pk" PRIMARY KEY ("objeto_plan_proyecto","objeto_plan","linea"),
-	CONSTRAINT  "apex_obj_plan_linea_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_obj_plan_linea_fk_op" FOREIGN KEY ("objeto_plan_proyecto","objeto_plan") REFERENCES "apex_objeto_plan" ("objeto_plan_proyecto","objeto_plan") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
