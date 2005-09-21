@@ -4,7 +4,7 @@ define("apex_solicitud_tipo","browser");                //Establezco el tipo de 
 require_once("nucleo/acceso_inicio.inc.php");           //Configuracion comun a todas las solicitudes
 //-------------------------------------------------------------------------
 require_once("nucleo/browser/http.php");				//Genera Encabezados de HTTP
-require_once("nucleo/browser/sesion.php");				//Control de sesiones HTTP 
+require_once("nucleo/browser/sesion.php");				//Control de sesiones HTTP
 require_once("nucleo/browser/usuario_http.php");		//Validador de usuarios
 require_once("nucleo/browser/recurso.php");				//Encapsulamiento de la llamada a recursos
 require_once("nucleo/browser/js.php");					//Encapsulamiento de la utilidades javascript
@@ -31,6 +31,10 @@ require_once("nucleo/lib/configuracion.php");	      	//Acceso a la configuracion
         require_once("nucleo/browser/color/series/".apex_proyecto_estilo.".inc.php");// Array de COLORES
 		$solicitud =& new solicitud_browser();
 		try{
+			if ($solicitud->hilo->obtener_proyecto() != 'toba') {
+				//Invoco el archivo de INICIALIZACION del proyecto
+				include_once("inicializacion.php");
+			}
 			$solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
 		}catch( Exception $e ){
 			//Si una excepcion no fue atrapada en ningun lado, se atrapa aca!

@@ -280,8 +280,6 @@ class sesion {
 			$_SESSION['toba']["path_proyecto"] = $i_proy;
 			$_SESSION['toba']["path_proyecto_php"] = $i_proy_php;
 			//echo "PROYECTO: $proyecto - INCLUDE_PATH= \"" . ini_get("include_path") ."\"";
-			//--[1.2]-- Invoco el archivo de INICIALIZACION del proyecto
-			include_once("inicializacion.php");
 		}
 		//--[2]-- Seteo el estilo que se va a usar
         define("apex_proyecto_estilo",$_SESSION['toba']["proyecto"]["estilo"]);
