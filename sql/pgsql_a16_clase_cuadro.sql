@@ -98,11 +98,12 @@ CREATE TABLE apex_objeto_cuadro_columna
 );
 --###################################################################################################
 
+CREATE SEQUENCE apex_obj_ei_cuadro_cc_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_cuadro_cc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: objeto_cuadro, orden
+--: dump_order_by: objeto_cuadro, objeto_cuadro_cc
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto
 --: desc:
@@ -112,6 +113,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 (
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
 	objeto_cuadro                 	int4       		NOT NULL,
+	objeto_cuadro_cc				int4			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
 	orden				            float      		NOT NULL,
 	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
 	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
@@ -119,7 +121,8 @@ CREATE TABLE apex_objeto_cuadro_cc
 	pie_contar_filas				varchar(10)		NULL,
 	pie_mostrar_titulos				smallint		NULL,		
 	imp_paginar						smallint		NULL,		
-	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","orden"),
+	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_cc"),
+	CONSTRAINT  "apex_obj_cuadro_cc_uq" UNIQUE ("identificador"),
 	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
