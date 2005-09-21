@@ -3,6 +3,10 @@
 	text-align: left;
 	font-weight: normal;
 }
+.ef-multi-check {
+	white-space: nowrap;
+	font-weight: normal;
+}
 .menu-texto {
 	WIDTH: 95%
 }
@@ -1044,7 +1048,6 @@ TD.abm-fila-ml-selec {
 TD.abm-columna {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
 	 FONT-SIZE: 10px;
 	 PADDING-BOTTOM: 4px;
 	 VERTICAL-ALIGN: bottom;

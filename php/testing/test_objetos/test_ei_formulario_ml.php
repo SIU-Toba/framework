@@ -348,6 +348,11 @@ class test_ei_formulario_ml extends test_toba
 	//------------------------ PRUEBA DE AGREGADO EN EL SERVER ----------------------------------	
 	//-------------------------------------------------------------------------------------------
 	
+	/**
+	*	Desde el cliente viene un conjunto de datos y un pedido de crear una nueva fila
+	*	El ML debe procesar las modificaciones de los datos y pedirle al CI el esqueleto de la nueva fila
+	*	(o simplemente la confirmacion)
+	*/
 	function test_agregado_en_server_con_modificacion_implicita()
 	{
 		//Expectativas

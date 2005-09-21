@@ -328,42 +328,10 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	
 	static function get_parametros()
 	{
-		$parametros["dao"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
-		$parametros["dao"]["opcional"]=0;	
-		$parametros["dao"]["etiqueta"]="DAO - Metodo";	
-		$parametros["clase"]["descripcion"]="Nombre de la clase";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="DAO - Clase";	
-		$parametros["include"]["descripcion"]="Archivo donde se encuentra definida la clase";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="DAO - Include";	
-		$parametros["clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
-		$parametros["clave"]["opcional"]=0;	
-		$parametros["clave"]["etiqueta"]="DAO - resultado: CLAVE";	
-		$parametros["valor"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
-		$parametros["valor"]["opcional"]=0;	
-		$parametros["valor"]["etiqueta"]="DAO - resultado: DESC.";	
-		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo.";
-		$parametros["no_seteado"]["opcional"]=1;	
-		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
-		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
-		$parametros["predeterminado"]["opcional"]=1;	
-		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
-		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";		
-		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
-		$parametros["dependencia_estricta"]["opcional"]=1;	
-		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		
-		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
-		$parametros["cant_minima"]["opcional"]=1;	
-		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
+		$parametros = ef_multi_seleccion::get_parametros();
 		$parametros["mostrar_utilidades"]["descripcion"]="Mostrar utilidades";
 		$parametros["mostrar_utilidades"]["opcional"]=1;	
-		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidades";		
-		$parametros["tamanio"]["descripcion"]="Tamanio";
-		$parametros["tamanio"]["opcional"]=1;	
-		$parametros["tamanio"]["etiqueta"]="Tamaño";		
+		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidades";
 		return $parametros;
 	}
 
@@ -464,10 +432,121 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 		//Hay que resetear a los DEPENDIENTES
 		return $js;
 	}	
-
-		
 }
+//########################################################################################################
+//########################################################################################################
 
+class ef_multi_seleccion_check extends ef_multi_seleccion
+{
+	
+	protected $mostrar_utilidades;
+	
+	static function get_parametros()
+	{
+		$parametros = ef_multi_seleccion::get_parametros();
+		$parametros["mostrar_utilidades"]["descripcion"]="Mostrar utilidades";
+		$parametros["mostrar_utilidades"]["opcional"]=1;	
+		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidades";
+		return $parametros;
+	}
+
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		if (isset($parametros['mostrar_utilidades'])) {
+			$this->mostrar_utilidades = $parametros['mostrar_utilidades'];
+		} else { 
+			$this->mostrar_utilidades = false;
+		}
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);		
+	}
+	
+	function obtener_input()
+	{
+		$estado = isset($this->estado) ?  $this->estado : array();
+		$html = $this->obtener_javascript_general() . "\n\n";
+		if ($this->mostrar_utilidades)	{
+			$html .= "
+				<script  type='text/javascript' language='javascript'>
+					function multi_seleccion_mostrar(todos)
+					{
+						var elem = document.{$this->nombre_formulario}['{$this->id_form}[]'];
+						for (var i=0; i < elem.length; i++) {
+							elem[i].checked = todos;
+						}
+					}
+				</script>
+				<div style='float: right; font-size:9px;'>
+					<a href='javascript: multi_seleccion_mostrar(true)'>Todos</a> / 
+					<a href='javascript: multi_seleccion_mostrar(false)'>Ninguno</a></div>
+			";
+		}		
+		$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
+		foreach ($this->valores as $id => $descripcion) {
+			$checkeado = in_array($id, $estado) ? "checked" : "";
+			$html .= "<div class='ef-multi-check'>";
+			$html .= "<input name='{$this->id_form}[]' id='{$this->id_form}[]' type='checkbox' value='$id' $checkeado class='ef-checkbox'>";
+			$html .= "$descripcion</div>\n";
+		}
+		$html .= "</div>";
+		
+		return $html;
+	}	
+	
+	//-----------------------------------------------
+	//-------------- DEPENDENCIAS -------------------
+	//-----------------------------------------------
+	
+	function javascript_slave_recargar_datos()
+	{
+		return "
+		function recargar_slave_{$this->id_form}(datos)
+		{
+			var opciones = document.getElementById('{$this->id_form}_opciones');
+
+			//Creo los OPTIONS recuperados
+			for (id in datos){
+				var nuevo = document.createElement('div');
+				nuevo.className = 'ef-multi-check'; 
+/*				var check = document.createElement('input');
+				check.setAttribute('id', '{$this->id_form}[]',0);
+				check.setAttribute('name', '{$this->id_form}[]',0);				
+				check.type = 'checkbox';
+				check.value = id;
+				check.className = 'ef-checkbox';
+				nuevo.appendChild(check);*/
+				nuevo.innerHTML = \"<input name='{$this->id_form}[]' type='checkbox' value='\" + id + \"' class='ef-checkbox'>\";				
+				nuevo.appendChild(document.createTextNode(datos[id]));
+				opciones.appendChild(nuevo);
+			}
+			atender_proxima_consulta();
+		}
+		";	
+	}	
+	
+	//-----------------------------------------------
+
+	function javascript_slave_reset()
+	{		
+		$js = "
+		function reset_{$this->id_form}()
+		{
+			var opciones = document.getElementById('{$this->id_form}_opciones');
+			while(opciones.childNodes[0]) {
+				opciones.removeChild(opciones.childNodes[0])
+			}
+		";
+
+		//Reseteo las dependencias	
+		if(isset($this->dependientes)){
+			foreach($this->dependientes as $dependiente){
+				$js .= " reset_{$dependiente}();\n";
+			}
+		}
+		$js .= "}\n";
+		//Hay que resetear a los DEPENDIENTES
+		return $js;
+	}		
+}
 
 
 

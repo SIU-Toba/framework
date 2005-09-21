@@ -10,16 +10,16 @@ INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proy
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_info','item_proyecto','item','2','Ayuda','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_nota','item_proyecto','item','3','Notas asociadas','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_objeto','proyecto','item','1','Objetos Asociados','0','1','1','1',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','destino_item_proyecto','destino_item','5','Vinculos Entrantes','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','origen_item_proyecto','origen_item','4','Vinculos Salientes','0','1','1','0',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','destino_item_proyecto','destino_item','5','Vinculos Entrantes','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_item_objeto','proyecto','objeto','7','Servicio a un Item','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto','proyecto','objeto','0','Tabla principal','0','1','1','1',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_consumidor','3','Dependencias','0','1','1','1',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_proveedor','4','Servicio a otro objeto','1','1','0','0',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_consumidor','3','Dependencias','0','1','1','1',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_info','objeto_proyecto','objeto','1','Ayuda','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_nota','objeto_proyecto','objeto','2','Notas asociadas','0','1','1','0',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','destino_objeto_proyecto','destino_objeto','6','Vinculos Entrantes','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','origen_objeto_proyecto','origen_objeto','5','Vinculos Salientes','0','1','1','1',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','destino_objeto_proyecto','destino_objeto','6','Vinculos Entrantes','1','1','0','0',NULL);
 
 -----------  apex_estilo  ------------------------
 
@@ -198,6 +198,7 @@ INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, p
 claves: Indica la cantidad de claves que hay en el SQL:obligatorio;
 filas: Cantidad de filas en el TEXTAREA de inicializacion:opcional;
 columnas: Cantidad de columnas en el TEXTAREA de inicializacion:opcional;','toba','1');
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_multi_seleccion_check','ef_multi_seleccion','Permite seleccionar N elementos usando un conjunto de checkboxes.',NULL,'toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_multi_seleccion_lista','ef_multi_seleccion','Permite seleccionar N elementos en forma de una lista HTML. EN BETA.','mostrar_utilidades: Muestra una pequeña barra de herramientas para facilitar el uso: opcional;
 (Ver los de ef_multi_seleccion también)','toba',NULL);
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_oculto_proyecto','ef_oculto','Elemento invisible que maneja la clave de proyecto del registro. Solo permite editar registros del proyecto ACTIVO',NULL,'toba','1');
@@ -2637,16 +2638,16 @@ INSERT INTO apex_objeto_proto (objeto_proyecto, objeto, descripcion, logica) VAL
 
 -----------  apex_objeto_proto_metodo  ------------------------
 
-INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_actividad','2',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_lista_actividades','3',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 
 -----------  apex_objeto_proto_propiedad  ------------------------
 
-INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','hito','2',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','linea','3',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','propiedades','0',NULL,NULL);
+INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 
 -----------  apex_dimension_tipo_perfil  ------------------------
 
@@ -4587,11 +4588,11 @@ date_part(\'year\',s.momento) %-%
 date_part(\'month\',s.momento) %-%
 date_part(\'year\',s.momento)','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','453','toba','tiempo','Tiempo ejecucion',NULL,'tiempo_respuesta','3',NULL,NULL,NULL);
-INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_prioridad',NULL,NULL,'t.tarea_prioridad','2',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tema',NULL,NULL,'t.tarea_tema','3',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tipo',NULL,NULL,'t.tarea_tipo','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','version',NULL,NULL,'t.version_proyecto %-% t.version','0',NULL,NULL,NULL);
+INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 
 -----------  apex_objeto_lista  ------------------------
 

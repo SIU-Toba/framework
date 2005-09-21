@@ -33,7 +33,7 @@ class arbol_items
 	            AND     i.proyecto = '{$this->proyecto}'
 				AND 	solicitud_tipo <> 'fantasma'
 				$where
-				ORDER BY i.carpeta, i.orden";
+				ORDER BY i.carpeta, i.orden, i.nombre";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs) 
 			throw new excepcion_toba("Catogo de ITEMS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql] $sql");
