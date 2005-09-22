@@ -10,7 +10,7 @@
 	SELECT setval('apex_clase_nota_seq', max(clase_nota)) FROM apex_clase_nota;
 	SELECT setval('apex_patron_nota_seq', max(patron_nota)) FROM apex_patron_nota;
 	SELECT setval('apex_buffer_seq', max(buffer)) FROM apex_buffer;
-	SELECT setval('apex_item_seq', max(item)::integer) FROM apex_item;
+	SELECT setval('apex_item_seq', max(item_id) + 200 ) FROM apex_item;
 	SELECT setval('apex_objeto_seq', max(objeto)) FROM apex_objeto;
 	SELECT setval('apex_log_sistema_seq', max(log_sistema)) FROM apex_log_sistema;
 	SELECT setval('apex_sesion_browser_seq', max(sesion_browser)) FROM apex_sesion_browser;
@@ -33,3 +33,4 @@
 	SELECT setval('apex_obj_ci_pantalla_seq'	,max(pantalla)) FROM apex_objeto_ci_pantalla;
 	SELECT setval('apex_obj_ei_form_fila_seq'	,max(objeto_ei_formulario_fila)) FROM apex_objeto_ei_formulario_ef;
 	SELECT setval('apex_log_objeto_seq'  		,max(log_objeto)) FROM apex_log_objeto;
+	SELECT setval('apex_obj_ei_cuadro_cc_seq'	,max(objeto_cuadro_cc)) FROM apex_objeto_cuadro_cc;	

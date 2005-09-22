@@ -704,7 +704,7 @@ CREATE TABLE apex_item
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	item_id							int4			NULL,		--> No se usa más
+	item_id							int4			DEFAULT nextval('"apex_item_seq"'::text) NULL,
 	proyecto						varchar(15)		NOT NULL,
 	item							varchar(60)		DEFAULT nextval('"apex_item_seq"'::text) NOT NULL,
 	padre_id						int4			NULL,	
