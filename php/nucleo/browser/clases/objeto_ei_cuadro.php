@@ -2,14 +2,11 @@
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
 require_once("objeto_ei.php");
 
-class objeto_ei_cuadro extends objeto_ei
 /*
-    @@acceso: publico
-    @@desc: Esta clase implementa un listado ordenable y paginable.
-    
-	Cosas para una interface: obtener_consumo_dao, set_dao, obtener_evento
-	Falta un metodo que devuelva el ID del registro que se eligio...
+	Falta controlar la estructura del ARREGLO con el cual se carga el cuadro
 */
+
+class objeto_ei_cuadro extends objeto_ei
 {
     var $cantidad_columnas;                 //protegido | int | Cantidad de columnas a mostrar
 	var $filas;
@@ -17,71 +14,67 @@ class objeto_ei_cuadro extends objeto_ei
     var $orden_sentido;                     //protegido | string | Sentido del orden ('asc' / 'desc')
     var $datos;                             //protegido | array | Los datos que constituyen el contenido del cuadro
     var $columnas_clave;                    //protegido | 
-	
  	var $submit;
 	var $clave_seleccionada;
 	var $id_en_padre;
  	var $indice_columnas;
+	//Paginacion
 	var $pagina_actual;
 	var $tamanio_pagina;
 	var $cantidad_paginas;
  
-    function objeto_ei_cuadro($id)
-/*
-    @@acceso: constructor
-    @@desc: 
-*/
+    function __construct($id)
     {
         parent::__construct($id);
-		$this->cantidad_columnas = count($this->info_cuadro_columna);		
+		$this->procesar_definicion();
         $this->submit = "ei_cuadro" . $this->id[1];
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
 		$this->submit_seleccion = $this->submit."__seleccion";
 		$this->submit_paginado = $this->submit."__pagina_actual";
-		
-        //---------  Manejo de CLAVES  -----------------------------------------
-        if(isset($this->info_cuadro["columnas_clave"])){
-            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);
-            $this->columnas_clave = array_map("trim",$this->columnas_clave);
-        }else{
-            $this->columnas_clave = null;
-        }		
-		$this->clave_seleccionada = null;
-		if(!isset($this->columnas_clave)){
-			$this->columnas_clave = array( apex_db_registros_clave );
-		}
-       	//---------  Manejo de PAGINADO  -----------------------------------------
-		if(isset($this->memoria["pagina_actual"])){
-			$this->pagina_actual = $this->memoria["pagina_actual"];
-		}else{
-			$this->pagina_actual = 1;
-		}
-        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
-		
-        //---------  JS---------------  -----------------------------------------			
 		$this->objeto_js = "objeto_cuadro_{$id[1]}";
-        //---------  Indice de columnas  -----------------------------------------		
+		$this->inicializar_manejo_clave();	
+		if($this->existe_paginado())
+			$this->inicializar_paginado();
+	}
+
+	function procesar_definicion()
+	{
+		$this->cantidad_columnas = count($this->info_cuadro_columna);		
+		//Armo una estructura que describa las caracteristicas de los cortes
+		if($this->existen_cortes_control()){
+			for($a=0;$a<count($this->info_cuadro_cortes);$a++){
+				$id_corte = $this->info_cuadro_cortes[$a]['identificador'];						// CAMBIAR !
+				$col_id = explode(',',$this->info_cuadro_cortes[$a]['columnas_id']);
+				$col_id = array_map('trim',$col_id);
+				$this->cortes_def[$id_corte]['col_id'] = $col_id;
+				$col_desc = explode(',',$this->info_cuadro_cortes[$a]['columnas_descripcion']);
+				$col_desc = array_map('trim',$col_desc);
+				$this->cortes_def[$id_corte]['col_desc'] = $col_desc;
+			}
+		}
+		//Procesamiento de columnas
 		for($a=0;$a<count($this->info_cuadro_columna);$a++){
-			$this->indice_columnas[ $this->info_cuadro_columna[$a]['clave'] ] = $a;
+			// Indice de columnas
+			$clave = $this->info_cuadro_columna[$a]['clave'];
+			$this->indice_columnas[ $clave ] = $a;
+			// Sumarizacion de columnas por corte
+			if(isset($this->info_cuadro_columna[$a]['total_cc'])){
+				$cortes = explode(',',$this->info_cuadro_columna[$a]['total_cc']);
+				$cortes = array_map('trim',$cortes);
+				foreach($cortes as $corte){
+					$this->cortes_def[$corte]['total'][] = $clave;	
+				}
+			}
 		}
 	}
-	//-------------------------------------------------------------------------------
+
 	function elemento_toba()
 	{
 		require_once('api/elemento_objeto_ei_cuadro.php');
 		return new elemento_objeto_ei_cuadro();
 	}	
 	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "tamanio_pagina";
-		$propiedades[] = "cantidad_paginas";
-		return $propiedades;
-
-	}
-
 	function destruir()
 	{
 		$this->memoria["eventos"] = array();
@@ -90,38 +83,21 @@ class objeto_ei_cuadro extends objeto_ei
 				$this->memoria["eventos"][$id] = true;
 			}
 		}
-		//Seleccion
-		if (isset($this->clave_seleccionada)) {
-			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
-		} else {
-			unset($this->memoria['clave_seleccionada']);
-		}
-		//Ordenamiento
-		if (isset($this->orden_columna)) {
-			$this->memoria['orden_columna']= $this->orden_columna;
-		} else {
-			unset($this->memoria['orden_columna']);
-		}
-		if (isset($this->orden_sentido)) {
-			$this->memoria['orden_sentido']= $this->orden_sentido;
-		} else {
-			unset($this->memoria['orden_sentido']);
-		}		
-		if (isset($this->pagina_actual)) {
-			$this->memoria['pagina_actual']= $this->pagina_actual;
-		} else {
-			unset($this->memoria['pagina_actual']);
-		}		
-
+		$this->finalizar_seleccion();
+		$this->finalizar_ordenamiento();
+		$this->finalizar_paginado();
 		parent::destruir();
 	}
-	//-------------------------------------------------------------------------------
+
+	function mantener_estado_sesion()								// ATENCION! esto no se esta invocando
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "tamanio_pagina";
+		$propiedades[] = "cantidad_paginas";
+		return $propiedades;
+	}
 	
 	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
 	{
 		$sql = parent::obtener_definicion_db();
 		//------------- Cuadro ----------------
@@ -170,7 +146,8 @@ class objeto_ei_cuadro extends objeto_ei
 								c.mostrar_xls					as mostrar_xls,
 								c.mostrar_pdf					as mostrar_pdf,
 								c.pdf_propiedades				as pdf_propiedades,
-								c.total							as total
+								c.total							as total,
+								c.total_cc						as total_cc
 					 FROM		apex_columna_estilo e,
 								apex_objeto_ei_cuadro_columna	c
 								LEFT OUTER JOIN apex_columna_formato f	
@@ -182,32 +159,26 @@ class objeto_ei_cuadro extends objeto_ei
 					 ORDER BY orden;";
 		$sql["info_cuadro_columna"]["tipo"]="x";
 		$sql["info_cuadro_columna"]["estricto"]="1";		
+		//------------ Cortes de Control ----------------
+		$sql["info_cuadro_cortes"]["sql"] = "SELECT	orden,		
+													columnas_id,	    		
+													columnas_descripcion,	
+													identificador		,	
+													pie_contar_filas	,	
+													pie_mostrar_titulos	,	
+													imp_paginar				
+					 FROM		apex_objeto_cuadro_cc	
+					 WHERE		objeto_cuadro_proyecto = '".$this->id[0]."'
+					 AND		objeto_cuadro = '".$this->id[1]."'
+					 ORDER BY orden;";
+		$sql["info_cuadro_cortes"]["tipo"]="x";
+		$sql["info_cuadro_cortes"]["estricto"]="0";		
 		return $sql;
 	}
   
 //################################################################################
-//###########################                         ############################
-//###########################         UTILERIA        ############################
-//###########################                         ############################
+//############################        EVENTOS        #############################
 //################################################################################
-
-	function set_titulo_columna($id_columna, $titulo)
-	{
-		$this->info_cuadro_columna[ $this->indice_columnas[$id_columna] ]["titulo"] = $titulo;
-	}    
-
-	function inicializar($parametros)
-	{
-		$this->id_en_padre = $parametros['id'];		
-	}
-//--------------------------------------------------------------------------
-
-	public function agregar_observador($observador)
-	{
-		$this->observadores[] = $observador;
-	}
-
-	function eliminar_observador($observador){}
 
 	function get_lista_eventos()
 	{
@@ -221,15 +192,6 @@ class objeto_ei_cuadro extends objeto_ei
 		return $eventos;
 	}
 	
-	function get_tamanio_pagina()
-	{
-		return $this->tamanio_pagina;
-	}
-	
-	function get_pagina_actual()
-	{
-		return $this->pagina_actual;
-	}
 
 	function disparar_eventos()
 	{
@@ -255,101 +217,63 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
-//--------------------------------------------------------------------------
-
-	function obtener_clave()
-	{
-		return $this->clave_seleccionada;
-	}
-
-//--------------------------------------------------------------------------
-	function deseleccionar()
-	{
-		$this->clave_seleccionada = null;
-	}
-
-//--------------------------------------------------------------------------
-	function seleccionar($clave)
-	{
-		$this->clave_seleccionada = $clave;
-	}
-
-//--------------------------------------------------------------------------	
-	function hay_seleccion()
-	{
-		return isset($this->clave_seleccionada);
-	}
-	
-//--------------------------------------------------------------------------
-
-    function obtener_clave_fila($fila)
-	//Genero la CLAVE
-    {
-        $id_fila = "";
-        foreach($this->columnas_clave as $clave){
-            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
-        }
-        $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
-        return $id_fila;
-    }
-//--------------------------------------------------------------------------
-	
-	
     function cargar_datos($datos=null,$memorizar=true)
-/*
-    @@acceso: publico
-    @@desc: Carga los datos del cuadro desde la base
-    @@param: array | sentencias WHERE a acoplar
-    @@param: array | Sentencias FROM a acoplar
-    @@param: boolean | Desactivar la paginacion
-    @@retorno: boolean | Estado resultante de la operacion
-*/
     {
+		// - 1 - Asigno DATOS
 		if(isset($datos)){
 	        $this->datos = $datos;
-		}else{
+		}else{													//ATENCION: Esto tiene sentido?
 			if(trim($this->info_cuadro['dao_metodo'])!=""){
 				include_once($this->info_cuadro['dao_archivo']);
 				$sentencia = "\$this->datos = " . $this->info_cuadro['dao_clase'] 
 											. "::" .  $this->info_cuadro['dao_metodo']
 											. "(".$this->info_cuadro['dao_parametros'].");";
-				eval($sentencia);//echo $sentencia;
+				eval($sentencia);
 			}
 		}
-		//------------- Paginado INTERNO ----------------		
-		if($this->info_cuadro["paginar"] && $this->info_cuadro["tipo_paginado"] == 'C') {
-			$this->total_registros = $this->reportar_evento("cant_reg", null);
-			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
-			if ($this->pagina_actual > $this->cantidad_paginas) 
-				$this->pagina_actual = 1;
-		} elseif($this->info_cuadro["paginar"] && $this->info_cuadro["tipo_paginado"] == 'P') {
-			// 1) Calculo la cantidad total de registros
-			$this->total_registros = count($this->datos);
-			if($this->total_registros > 0) {
-				// 2) Calculo la cantidad de paginas
-				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
-				if ($this->pagina_actual > $this->cantidad_paginas) 
-					$this->pagina_actual = 1;
-			
-				$this->datos = $this->obtener_datos_paginados($this->datos);
-			}
-		} else
-			$this->cantidad_paginas = 1;
-		
+		// - 2 - Paginacion
+		if( $this->existe_paginado() ){
+			$this->generar_paginado();
+		}
+		// - 3 - Ordenamiento
 		if($this->hay_ordenamiento()){
 			$this->ordenar();
+		}
+		// - 4 - Cortes de control
+		if( $this->existen_cortes_control() ){
+			$this->planificar_cortes_control();
 		}
 		$this->filas = count($this->datos);
 		return true;
     }
-	
-	function obtener_datos_paginados($datos)
+
+//################################################################################
+//############################   CLAVE  y  SELECCION   ###########################
+//################################################################################
+
+	function inicializar_manejo_clave()
 	{
-		$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
-		return array_slice($datos, $offset, $this->tamanio_pagina);
+        if(isset($this->info_cuadro["columnas_clave"])){
+            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);
+            $this->columnas_clave = array_map("trim",$this->columnas_clave);
+        }else{
+            $this->columnas_clave = null;
+        }		
+		$this->clave_seleccionada = null;
+		if(!isset($this->columnas_clave)){
+			$this->columnas_clave = array( apex_db_registros_clave );
+		}
 	}
 
-//--------------------------------------------------------------------------	
+	function finalizar_seleccion()
+	{
+		if (isset($this->clave_seleccionada)) {
+			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
+		} else {
+			unset($this->memoria['clave_seleccionada']);
+		}
+	}
+
 	function cargar_seleccion()
 	{	
 		$this->clave_seleccionada = null;
@@ -372,14 +296,197 @@ class objeto_ei_cuadro extends objeto_ei
 		}	
 	}
 
-//--------------------------------------------------------------------------	
+	function deseleccionar()
+	{
+		$this->clave_seleccionada = null;
+	}
+
+	function seleccionar($clave)
+	{
+		$this->clave_seleccionada = $clave;
+	}
+
+	function hay_seleccion()
+	{
+		return isset($this->clave_seleccionada);
+	}
+
+    function obtener_clave_fila($fila)
+	//Genero la CLAVE
+    {
+        $id_fila = "";
+        foreach($this->columnas_clave as $clave){
+            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+        }
+        $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
+        return $id_fila;
+    }
+
+	function obtener_clave()
+	{
+		return $this->clave_seleccionada;
+	}
+
+//################################################################################
+//##############################    PAGINACION    ################################
+//################################################################################
+
+	function existe_paginado()
+	{
+		return $this->info_cuadro["paginar"];
+	}
+
+	function inicializar_paginado()
+	{
+		if(isset($this->memoria["pagina_actual"])){
+			$this->pagina_actual = $this->memoria["pagina_actual"];
+		}else{
+			$this->pagina_actual = 1;
+		}
+        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+	}
+	
+	function finalizar_paginado()
+	{
+		if (isset($this->pagina_actual)) {
+			$this->memoria['pagina_actual']= $this->pagina_actual;
+		} else {
+			unset($this->memoria['pagina_actual']);
+		}		
+	}
+
+	function generar_paginado()
+	{
+		if($this->info_cuadro["tipo_paginado"] == 'C') {
+			$this->total_registros = $this->reportar_evento("cant_reg", null);
+			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
+			if ($this->pagina_actual > $this->cantidad_paginas) 
+				$this->pagina_actual = 1;
+		} elseif($this->info_cuadro["tipo_paginado"] == 'P') {
+			// 1) Calculo la cantidad total de registros
+			$this->total_registros = count($this->datos);
+			if($this->total_registros > 0) {
+				// 2) Calculo la cantidad de paginas
+				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
+				if ($this->pagina_actual > $this->cantidad_paginas) 
+					$this->pagina_actual = 1;
+				$this->datos = $this->obtener_datos_paginados($this->datos);
+			}
+		}else{
+			$this->cantidad_paginas = 1;
+		}
+	}
+
+	function obtener_datos_paginados($datos)
+	{
+		$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
+		return array_slice($datos, $offset, $this->tamanio_pagina);
+	}
+
+	function get_tamanio_pagina()
+	{
+		return $this->tamanio_pagina;
+	}
+	
+	function get_pagina_actual()
+	{
+		return $this->pagina_actual;
+	}
+
 	function cargar_cambio_pagina()
 	{	
 		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 
 			$this->pagina_actual = $_POST[$this->submit_paginado];
 	}
+
+//################################################################################
+//###########################    CORTES de CONTROL    ############################
+//################################################################################
+
+	protected $cortes_def;
+	protected $cortes_control;
+
+	function existen_cortes_control()
+	{
+		return (count($this->info_cuadro_cortes)>0);
+	}
 	
-//--------------------------------------------------------------------------	
+	function planificar_cortes_control()
+	/*
+		Primera pasada por las filas del SET de datos.
+		Creo la estructura de los cortes.
+		Dejo toda la informacion necesaria para que la extension sea simple
+	*/
+	{
+		$this->cortes_niveles = count($this->info_cuadro_cortes);
+		$this->cortes_control = array();
+		foreach(array_keys($this->datos) as $dato)
+		{
+			//Punto de partida desde donde construir el arbol
+			$ref =& $this->cortes_control;
+			$profundidad = 0;
+			foreach(array_keys($this->cortes_def) as $corte)
+			{
+				$clave_array=array();
+				//-- Recupero la clave de la fila en el nivel
+				foreach($this->cortes_def[$corte]['col_id'] as $id_corte){
+					$clave_array[$id_corte] = $this->datos[$dato][$id_corte];
+				}
+				$clave = implode('_|_',$clave_array);
+				//---------- Inicializacion el NODO ----------
+				if(!isset($ref[$clave])){
+					$ref[$clave]=array();
+					$ref[$clave]['corte']=$corte;
+					$ref[$clave]['profundidad']=$profundidad;
+					//Agrego la clave
+					$ref[$clave]['clave']=$clave_array;
+					//Agrego la descripcion
+					foreach($this->cortes_def[$corte]['col_desc'] as $desc_corte){
+						$ref[$clave]['descripcion'][$desc_corte] = $this->datos[$dato][$desc_corte];
+					}
+					//Inicializo el ACUMULADOR de columnas
+					if(isset($this->cortes_def[$corte]['total'])){
+						foreach($this->cortes_def[$corte]['total'] as $columna){
+							$ref[$clave]['acumulador'][$columna] = 0;
+						}
+					}
+					$ref[$clave]['hijos']=null;
+				}
+				//---------- Fin inic. NODO ------------------
+				//Agrego la fila actual a la lista de filas
+				$ref[$clave]['filas'][]=$dato;
+				if(isset($ref[$clave]['acumulador'])){
+					foreach(array_keys($ref[$clave]['acumulador']) as $columna){
+						$ref[$clave]['acumulador'][$columna] += $this->datos[$dato][$columna];
+					}
+				}
+				//Cambio el punto de partida				
+				$ref =& $ref[$clave]['hijos'];
+				$profundidad++;
+			}
+		}
+		ei_arbol($this->cortes_def,"Mapa CORTES");
+		ei_arbol($this->cortes_control,"Estructura CORTES");
+	}
+
+//################################################################################
+//#################################    ORDEN    ##################################
+//################################################################################
+
+	function finalizar_ordenamiento()
+	{
+		if (isset($this->orden_columna)) {
+			$this->memoria['orden_columna']= $this->orden_columna;
+		} else {
+			unset($this->memoria['orden_columna']);
+		}
+		if (isset($this->orden_sentido)) {
+			$this->memoria['orden_sentido']= $this->orden_sentido;
+		} else {
+			unset($this->memoria['orden_sentido']);
+		}		
+	}
+
 	function cargar_ordenamiento()
 	{
 		//Estado inicial
@@ -398,12 +505,11 @@ class objeto_ei_cuadro extends objeto_ei
 		if (isset($_POST[$this->submit_orden_sentido]) && $_POST[$this->submit_orden_sentido] != '')
 			$this->orden_sentido = $_POST[$this->submit_orden_sentido];
 	}
-//--------------------------------------------------------------------------	
+
 	function hay_ordenamiento()
 	{
         return (isset($this->orden_sentido) && isset($this->orden_columna));
 	}
-//--------------------------------------------------------------------------
 
     function ordenar()
     //Ordenamiento de array de dos dimensiones
@@ -420,13 +526,179 @@ class objeto_ei_cuadro extends objeto_ei
             array_multisort($ordenamiento, SORT_DESC , $this->datos);
         }
     }
-//--------------------------------------------------------------------------
-    function obtener_datos()
+
+//################################################################################
+//###############################    API basica    ###############################
+//################################################################################
+
+	public function set_titulo_columna($id_columna, $titulo)
+	{
+		$this->info_cuadro_columna[ $this->indice_columnas[$id_columna] ]["titulo"] = $titulo;
+	}    
+
+    public function obtener_datos()
     {
         return $this->datos;    
     }	
 	
-//--------------------------------------------------------------------------
+//################################################################################
+//#########################    INTERFACE GRAFICA   ###############################
+//################################################################################
+
+	protected $tipo_salida;
+
+	private function generar_salida($tipo)
+	{
+		if(($tipo!="html")&&($tipo!="pdf")){
+			throw new excepcion_toba_def("El tipo de salida '$tipo' es invalida");	
+		}
+		$this->tipo_salida = $tipo;
+		$this->generar_inicio();
+		$this->generar_cabecera();
+		if($this->existen_cortes_control()){
+			//$this->generar_cortes_control();
+		}else{
+			$this->generar_cuadro();	
+		}
+		$this->generar_pie();
+		$this->generar_fin();
+	}
+
+	private function generar_inicio(){
+		$metodo = $this->tipo_salida . '_inicio';
+		$this->$metodo();
+	}
+
+	private function generar_cabecera(){
+		$metodo = $this->tipo_salida . '_cabecera';
+		$this->$metodo();
+	}
+	
+	private function generar_cuadro(){
+		$metodo = $this->tipo_salida . '_cuadro';
+		$this->$metodo();
+	}
+
+	private function generar_pie(){
+		$metodo = $this->tipo_salida . '_pie';
+		$this->$metodo();
+	}
+
+	private function generar_fin(){
+		$metodo = $this->tipo_salida . '_fin';
+		$this->$metodo();
+	}
+
+	//-- Cortes de Control --
+
+	private function generar_cortes_control()
+	{
+		foreach(array_keys($this->cortes_control) as $corte){
+			$this->crear_corte( $this->cortes_control[$corte] );
+		}
+	}
+	
+	private function crear_corte(&$nodo)
+	{
+		//Disparo las functiones de usuario para este corte
+		//-!!!!!
+		//Genero el corte
+		$this->generar_cabecera_nivel($nodo);
+		//Disparo la generacion recursiva de hijos
+		if(isset($nodo['hijos'])){
+			foreach(array_keys($nodo['hijos']) as $corte){
+				$this->crear_corte( $nodo['hijos'][$corte] );
+			}
+		}else{	//Disparo la construccion del ultimo nivel
+			$this->generar_cuadro();
+		}
+		$this->generar_pie_nivel($nodo);
+	}
+
+	private function generar_cabecera_corte_control(&$nodo){
+		$metodo = $this->tipo_salida . '_cabecera_corte_control';
+		$metodo_redeclarado = $metodo . '_' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}
+		$this->$metodo();
+	}
+	
+	private function generar_pie_corte_control(&$nodo){
+		$metodo = $this->tipo_salida . '_pie_corte_control';
+		$metodo_redeclarado = $metodo . '_' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}
+		$this->$metodo();
+	}
+
+//#################################    HTML    #####################################
+
+	private function html_inicio()
+	{
+	}
+
+	protected function html_cabecera()
+	{
+	}
+	
+	private function html_cuadro()
+	{
+	}
+	
+	protected function html_pie()
+	{
+	}
+
+	private function html_fin()
+	{
+	}
+	
+	//-- Cortes de Control --
+
+	protected function html_cabecera_corte_control()
+	{
+	}
+
+	protected function html_pie_corte_control()
+	{
+	}
+
+//#################################    PDF    #####################################
+
+	private function pdf_inicio()
+	{
+	}
+
+	protected function pdf_pie()
+	{
+	}
+
+	private function pdf_cuadro()
+	{
+	}
+
+	private function pdf_fin()
+	{
+	}
+
+	protected function pdf_cabecera()
+	{
+	}
+
+	//-- Cortes de Control --
+
+	protected function pdf_cabecera_corte_control()
+	{
+	}
+
+	protected function pdf_pie_corte_control()
+	{
+	}
+
+//################################################################################
+
     function obtener_html($mostrar_cabecera=true, $titulo=null)
     //Genera el HTML del cuadro
     {
@@ -599,7 +871,6 @@ class objeto_ei_cuadro extends objeto_ei
         }
     }
 
-	//--------------------------------------------------------------------------
 	function generar_html_totales()
 	{
 		//Selecciono registros a sumarizar
@@ -647,11 +918,10 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</tr>\n";
 	}
 	
-	//--------------------------------------------------------------------------
 	function generar_html_barra_paginacion()
 	//Barra para navegar la paginacion
 	{
-		if( !($this->tamanio_pagina >= $this->total_registros) ) {
+		if( isset($this->total_registros) && !($this->tamanio_pagina >= $this->total_registros) ) {
 			//Calculo los posibles saltos
 			//Primero y Anterior
 			if($this->pagina_actual == 1) {
@@ -701,7 +971,6 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
-	//--------------------------------------------------------------------------
     function cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna
     {
@@ -759,7 +1028,6 @@ class objeto_ei_cuadro extends objeto_ei
         }
 		echo $editor;
     }
-	//--------------------------------------------------------------------------
 	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
@@ -771,7 +1039,6 @@ class objeto_ei_cuadro extends objeto_ei
 		echo $identado."var {$this->objeto_js} = new objeto_ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 
-	//-------------------------------------------------------------------------------
 
 	public function consumo_javascript_global()
 	{
@@ -779,6 +1046,6 @@ class objeto_ei_cuadro extends objeto_ei
 		$consumo[] = 'clases/objeto_ei_cuadro';
 		return $consumo;
 	}	
-
 }
+//-------------------------------------------------------------------------------
 ?>
