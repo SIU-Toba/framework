@@ -38,6 +38,14 @@ class eiform_cuadro_prop_basicas extends objeto_ei_formulario
 				this.ef('tipo_paginado').ocultar();
 			}
 		}
+		
+		{$this->objeto_js}.evt__eof_invisible__procesar = function() {
+			if (this.ef('eof_invisible').chequeado()) {
+				this.ef('eof_customizado').ocultar();
+			} else {
+				this.ef('eof_customizado').mostrar();
+			}
+		}
 
 		";
 	}
