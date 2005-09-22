@@ -72,7 +72,7 @@ CREATE TABLE apex_objeto_cuadro_columna
 	columna_ancho					varchar(10)		NULL,			-- Ancho de columna para RTF
 	ancho_html						varchar(10)		NULL,
 	total							smallint		NULL,			-- La columna lleva un total al final?
-	total_cc						smallint		NULL,			-- La columna lleva un total al final?
+	total_cc						varchar(100)	NULL,			-- La columna lleva un total al final?
 	valor_sql              			varchar(30)    	NULL,			-- El valor de la columna HAY que tomarlo de RECORDSET
 	valor_sql_formato    			int4		    NULL,			-- El valor del RECORDSET debe ser formateado
 	valor_fijo                    	varchar(30)    	NULL,			-- La columna tomo un valor FIJO
@@ -114,10 +114,10 @@ CREATE TABLE apex_objeto_cuadro_cc
 	objeto_cuadro_proyecto        	varchar(15)		NOT NULL,
 	objeto_cuadro                 	int4       		NOT NULL,
 	objeto_cuadro_cc				int4			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
+	identificador					varchar(15)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
 	orden				            float      		NOT NULL,
 	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
 	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
-	identificador					varchar(30)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
 	pie_contar_filas				varchar(10)		NULL,
 	pie_mostrar_titulos				smallint		NULL,		
 	imp_paginar						smallint		NULL,		
@@ -157,6 +157,7 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	pdf_propiedades          		varchar			NULL,
 	desabilitado					smallint		NULL,
 	total							smallint		NULL,		
+	total_cc						varchar(100)	NULL,			-- La columna lleva un total al final?
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_col"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

@@ -137,17 +137,17 @@ class ap_tabla_db_s extends ap_tabla_db
 				$columnas[] = $this->tabla  . "." . $col['columna'];
 			}
 		}
-		$sql =	" SELECT	" . implode(",	",$columnas); 
+		$sql =	" SELECT	" . implode(", \n",$columnas); 
 		if(isset($this->alias)){	
-			$sql .= " FROM "	. $this->tabla  . " " . $this->alias;
+			$sql .= "\n FROM "	. $this->tabla  . " " . $this->alias;
 		}else{
-			$sql .= " FROM "	. $this->tabla;
+			$sql .= "\n FROM "	. $this->tabla;
 		}
 		if(isset($this->from)){
 			$sql .= ", " . implode(",",$this->from);
 		}
 		if(isset($this->where)){
-			$sql .= " WHERE " .	implode(" AND ",$this->where) .";";
+			$sql .= "\n WHERE " .	implode("\n AND ",$this->where) .";";
 		}
 		$this->log("SQL de carga - " . $sql); 
 		return $sql;

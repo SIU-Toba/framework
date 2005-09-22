@@ -8,7 +8,8 @@ class ci_principal extends ci_editores_toba
 	protected $seleccion_columna_anterior;
 	private $id_intermedio_columna;
 	protected $columna_especifica;
-
+	protected $cortes_control;
+	
 	function __construct($id)
 	{
 		parent::__construct($id);
@@ -46,6 +47,7 @@ class ci_principal extends ci_editores_toba
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "seleccion_columna";
 		$propiedades[] = "seleccion_columna_anterior";
+		$propiedades[] = "cortes_control";
 		return $propiedades;
 	}
 
@@ -79,6 +81,17 @@ class ci_principal extends ci_editores_toba
 	//*******************  COLUMNAS  *************************************
 	//*******************************************************************
 	
+	function evt__entrada__2()
+	{
+		//--- Armo la lista de DEPENDENCIAS disponibles
+		$this->cortes_control = array();
+		if($registros = $this->get_entidad()->tabla('cortes')->get_filas())
+		{
+			foreach($registros as $reg){
+				$this->cortes_control[ $reg['identificador'] ] = $reg['identificador'];
+			}
+		}
+	}
 	function mostrar_columna_detalle()
 	{
 		if( isset($this->seleccion_columna) ){
@@ -92,6 +105,9 @@ class ci_principal extends ci_editores_toba
 		$ei[] = "columnas_lista";
 		if( $this->mostrar_columna_detalle() ){
 			$ei[] = "columnas";
+			if( count($this->cortes_control) > 0 ){
+				$ei[] = "columna_corte";			
+			}
 		}
 		return $ei;	
 	}
@@ -199,6 +215,40 @@ class ci_principal extends ci_editores_toba
 	{
 		unset($this->seleccion_columna);
 		unset($this->seleccion_columna_anterior);
+	}
+
+	//-----------------------------------------
+	//---- EI: Participacion en los CORTES de CONTROL del cuadro
+	//-----------------------------------------
+
+	function evt__columna_corte__carga()
+	{
+		$cortes_asociados = $this->get_entidad()->tabla('columnas')->get_cortes_columna($this->seleccion_columna_anterior);
+		$datos = null;
+		$a=0;
+		foreach( $this->cortes_control as $corte){
+			$datos[$a]['identificador'] = $corte; 
+			if(is_array($cortes_asociados)){
+				if(in_array($corte, $cortes_asociados)){
+					$datos[$a]['total'] = 1;
+				}else{
+					$datos[$a]['total'] = 0;
+				}
+			}else{
+				$datos[$a]['total'] = 0;
+			}
+			$a++;
+		}
+		return $datos;
+	}
+
+	function evt__columna_corte__modificacion($datos)
+	{
+		$cortes = array();
+		foreach($datos as $dato){
+			if($dato['total'] == "1")	$cortes[] = $dato['identificador'];
+		}
+		$this->get_entidad()->tabla('columnas')->set_cortes_columna($this->seleccion_columna_anterior, $cortes);
 	}
 
 	//*******************************************************************

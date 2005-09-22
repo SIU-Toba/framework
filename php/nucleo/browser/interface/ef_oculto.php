@@ -22,9 +22,7 @@ class ef_oculto extends ef
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
+		return array();
 	}
 
 	function ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -106,11 +104,9 @@ class ef_oculto_proyecto extends ef_oculto
 {
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
+		return array();
 	}
-
+	
 	function ef_oculto_proyecto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
         global $solicitud;
@@ -159,11 +155,9 @@ class ef_oculto_secuencia extends ef_oculto
 {
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
+		return array();
 	}
-
+	
 	function ef_oculto_secuencia($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
@@ -177,11 +171,9 @@ class ef_oculto_usuario extends ef_oculto
 {
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
+		return array();
 	}
-
+	
 	function ef_oculto_usuario($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		global $solicitud;

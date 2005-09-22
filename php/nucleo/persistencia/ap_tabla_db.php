@@ -166,14 +166,15 @@ class ap_tabla_db extends ap
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
 		$rs = $db[apex_db_con]->Execute($sql);
 		if(!is_object($rs)){
-			toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - ".
+			toba::get_logger()->error( get_class($this). "  - ".
 									"Error cargando datos, no se genero un RECORDSET" .
 									$sql . " - " . $db[apex_db_con]->ErrorMsg());
-			throw new excepcion_toba("Error cargando datos en el db_registros. Verifique la definicion. $sql");
+			throw new excepcion_toba("OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n"
+									.$db[apex_db_con]->ErrorMsg(). "\n\nSQL:$sql");
 		}
 		if($rs->EOF){
 			if(false){
-				toba::get_logger()->error("db_registros  " . get_class($this). " [{$this->identificador}] - " .
+				toba::get_logger()->error( get_class($this). " - " .
 								"No se recuperarron DATOS. Se solicito carga estricta");
 			}
 		}else{

@@ -74,6 +74,10 @@
 			    if(preg_match("/^--:/",$buffer))
 	    		{
 		    	    $temp = preg_split("/(\s*):(\s*)/",$buffer);
+					if(!isset($temp[1])||!isset($temp[2])){
+						fwrite(STDERR, "\nError parseando la linea: $buffer\n" );
+						exit();
+					}
 			    	$tablas[$tabla_actual][trim($temp[1])]=trim($temp[2]);
 					//En las secuencias solo me interesa la propiedad proyecto
 					if(trim($temp[1])=="proyecto"){

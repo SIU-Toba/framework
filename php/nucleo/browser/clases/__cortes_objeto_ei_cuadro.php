@@ -59,8 +59,8 @@ class objeto_ei_cuadro extends objeto_ei
 			$clave = $this->info_cuadro_columna[$a]['clave'];
 			$this->indice_columnas[ $clave ] = $a;
 			// Sumarizacion de columnas por corte
-			if(isset($this->info_cuadro_columna[$a]['vinculo_indice'])){
-				$cortes = explode(',',$this->info_cuadro_columna[$a]['vinculo_indice']);
+			if(isset($this->info_cuadro_columna[$a]['total_cc'])){
+				$cortes = explode(',',$this->info_cuadro_columna[$a]['total_cc']);
 				$cortes = array_map('trim',$cortes);
 				foreach($cortes as $corte){
 					$this->cortes_def[$corte]['acumulador_columna'][] = $clave;	
@@ -146,7 +146,8 @@ class objeto_ei_cuadro extends objeto_ei
 								c.mostrar_xls					as mostrar_xls,
 								c.mostrar_pdf					as mostrar_pdf,
 								c.pdf_propiedades				as pdf_propiedades,
-								c.total							as total
+								c.total							as total,
+								c.total_cc						as total_cc
 					 FROM		apex_columna_estilo e,
 								apex_objeto_ei_cuadro_columna	c
 								LEFT OUTER JOIN apex_columna_formato f	
@@ -414,12 +415,12 @@ class objeto_ei_cuadro extends objeto_ei
 	
 	function planificar_cortes_control()
 	{
-		$this->crear_cortes_control();
+		//$this->crear_cortes_control();
 		$this->disparar_sumarizaciones_usuario();
-		ei_arbol($this->cortes_def);
+		ei_arbol($this->cortes_def,"Mapa CORTES");
 		//ei_arbol($this->info_cuadro_cortes);
 		//ei_arbol($this->cortes_estructura);
-		//ei_arbol($this->cortes_control);
+		ei_arbol($this->cortes_control);
 
 	}
 	
@@ -450,8 +451,8 @@ class objeto_ei_cuadro extends objeto_ei
 						$this->cortes_def[$corte]['acumulador_columna'][$columna] += $this->datos[$dato][$columna];
 					}
 				}
-			}
 			*/
+			}
 			//Creo la estructura de cortes para esta fila
 			$php = "\$this->cortes_estructura['" . implode("']['contenido']['",$cortes_fila) . "']['contenido'][]=$dato;";
 			eval($php);//echo "$php<br>";
