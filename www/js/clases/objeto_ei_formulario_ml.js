@@ -284,7 +284,7 @@ def.constructor = objeto_ei_formulario_ml;
 		//Se mantiene el id anterior, porque se multiplexa hacia otra fila y esto puede estar en el medio de otro proceso
 		var id_ant = this._efs[id_ef]._id_form;
 		//Se cambia el total
-		var elemento = this._efs[id_ef].ir_a_fila('s');
+		var elemento = this._efs[id_ef].ir_a_fila(apex_ef_total);
 		document.getElementById(elemento._id_form).innerHTML = elemento.formato_texto(total);
 		//Se restaura el id
 		this._efs[id_ef]._id_form = id_ant;

@@ -1,4 +1,5 @@
 var apex_ef_no_seteado = 'nopar';
+var apex_ef_total = 's';
 
 //--------------------------------------------------------------------------------
 //Clase ef
@@ -166,4 +167,19 @@ def.constructor = ef;
 	def.sin_fila = function() {
 		this._id_form = this._id_form_orig;
 		return this;
+	}	
+
+	
+//--------------------------------------------------------------------------------
+//Clase ef_fijo
+ef_fijo.prototype = new ef;
+var def = ef_fijo.prototype;
+def.constructor = ef_fijo;
+
+	function ef_fijo(id_form, etiqueta, obligatorio, colapsado) {
+		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+	}
+	
+	def.cambiar_valor = function(nuevo) {
+		this.input().innerHTML = nuevo;
 	}	

@@ -194,6 +194,18 @@ class ef_fijo extends ef_oculto
 		$html = "<div class='{$this->estilo}' id='{$this->id_form}'>".$estado."</div>";
 		return $html;
 	}
+	
+	function obtener_consumo_javascript()
+	{
+		$consumos = array('interface/ef');
+		return $consumos;
+	}	
+	
+	function crear_objeto_js()
+	{
+		return "new ef_fijo({$this->parametros_js()})";
+	}	
+			
 }
 
 // ########################################################################################################
