@@ -196,30 +196,31 @@ class logger
 	//------------------------------------------------------------------
 	function guardar_en_archivo($archivo)
 	{
-		if(apex_pa_log_archivo){
-			$hay_salida = false;
-			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-			$time = date("d-m-Y H:i:s");
-			$version = phpversion();
-			$texto = "[$time] - [Versión PHP: $version] [Servidor: {$_SERVER['SERVER_NAME']}] [{$_SERVER['PHP_SELF']}]\r\n";
-			for($a=0; $a<count($this->mensajes); $a++)
+		$hay_salida = false;
+		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
+		$time = date("d-m-Y H:i:s");
+		$version = phpversion();
+		$texto = "[$time] - [Versión PHP: $version] ";
+		if (isset($_SERVER['SERVER_NAME'])) {
+			$texto .= " [Servidor: {$_SERVER['SERVER_NAME']}] [{$_SERVER['PHP_SELF']}]";
+		}
+		$texto .= "\r\n";
+		for($a=0; $a<count($this->mensajes); $a++)
+		{
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 			{
-				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
-				{
-					$hay_salida = true;
-					$texto .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
-							" *  " . $this->mensajes[$a] . "\r\n";
-				}			
-			}
+				$hay_salida = true;
+				$texto .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
+						" *  " . $this->mensajes[$a] . "\r\n";
+			}			
+		}
 
-			if ($hay_salida) {
-				$path = $this->directorio_logs();
-				manejador_archivos::crear_arbol_directorios($path);
-				$handle = fopen("$path/$archivo", "a");
-				fwrite($handle, "$texto\r\n");
-				fclose($handle);
-			}
-
+		if ($hay_salida) {
+			$path = $this->directorio_logs();
+			manejador_archivos::crear_arbol_directorios($path);
+			$handle = fopen("$path/$archivo", "a");
+			fwrite($handle, "$texto\r\n");
+			fclose($handle);
 		}
 	}
 	

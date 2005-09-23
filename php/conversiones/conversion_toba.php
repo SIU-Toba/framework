@@ -80,7 +80,7 @@ class conversion_toba
 			$this->pre_cambios();
 			foreach ($cambios as $cambio) {
 				$cambio->invoke($this);
-				$logger->info($cambio->getName()."...OK\n");
+				$logger->info($cambio->getName()."...OK");
 			}
 			$this->post_cambios();
 			if ($es_prueba)
