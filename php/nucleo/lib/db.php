@@ -308,17 +308,23 @@ define("apex_db_link_id",8);
 		if(!isset($db[$fuente])){
 			throw new excepcion_toba("La fuente de datos no se encuentra disponible." );
 		}
+		$registros_afectadas = 0;
 		if(is_array($sql)){
 			for($a = 0; $a < count($sql);$a++){
 				if ( $db[$fuente][apex_db_con]->Execute($sql[$a]) === false ){
 					throw new excepcion_toba("ERROR ejecutando el SQL. " . $db[$fuente][apex_db_con]->ErrorMsg() . "." );
+				}else{
+					$registros_afectadas += $db[$fuente][apex_db_con]->Affected_Rows();
 				}
 			}
 		}else{
 			if ( $db[$fuente][apex_db_con]->Execute($sql) === false ){
 				throw new excepcion_toba("ERROR ejecutando el SQL. " . $db[$fuente][apex_db_con]->ErrorMsg() . "." );
+			}else{
+				$registros_afectadas = $db[$fuente][apex_db_con]->Affected_Rows();
 			}
 		}
+		return $registros_afectadas;
 	}
 //-------------------------------------------------------------------------------------
 
