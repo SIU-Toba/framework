@@ -229,6 +229,10 @@ class ci_efs extends objeto_ci
 		/*
 			ATENCION: Falta la validacion de que los campos obligatorios esten seteados
 		*/
+		
+		//Primero se borran los parametros anteriores
+		$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion","");
+		
 		$temp = array();
 		foreach($datos as $parametro){
 			if(trim($parametro['valor'])!=""){
