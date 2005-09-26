@@ -1,4 +1,4 @@
-<?php
+ca<?php
 require_once("nucleo/browser/interface/ef.php");// Elementos de interface
 
 define('carga_dao_estatico', '400');
@@ -59,7 +59,10 @@ class ef_multi_seleccion extends ef
 		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
 		$parametros["tamanio"]["descripcion"]="Tamanio";
 		$parametros["tamanio"]["opcional"]=1;	
-		$parametros["tamanio"]["etiqueta"]="Tamaño";		
+		$parametros["tamanio"]["etiqueta"]="Tamaño";	
+		$parametros["sql"]["etiqueta"]="SQL";	
+		$parametros["sql"]["opcional"]=1;
+		$parametros["sql"]["descripcion"]="Query de carga";
 		return $parametros;
 	}
 
@@ -132,13 +135,18 @@ class ef_multi_seleccion extends ef
 			$this->serializar = $parametros["serializar"];
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		if( $this->dependencia_estricta ){
-			if( $this->control_dependencias_cargadas() ){
+		if(is_array($this->dependencias) && !$this->dependencia_estricta){
+			$this->valores = array();
+		}else{
+			if( $this->dependencia_estricta ){
+				if( $this->control_dependencias_cargadas() ){
+					$this->cargar_datos();	
+				}
+			}else{
 				$this->cargar_datos();	
 			}
-		}else{
-			$this->cargar_datos();	
 		}
+				
 	}
 
 	function cargar_datos_dao($parametros = array())
@@ -311,6 +319,15 @@ class ef_multi_seleccion extends ef
 		if($this->modo_carga == carga_dao_estatico ) {
 			$this->cargar_datos_dao(array($param));
 		}
+		if(isset($this->sql)){
+			//1) Reescribo el SQL con los datos de las dependencias	
+			foreach($this->dependencias_datos as $dep => $valor){
+				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->sql);
+			}
+			//echo $this->id . " - " . $this->sql;
+			//2) Regenero la consulta a la base
+			$this->cargar_datos_db();
+		}		
 	}	
 	
 	function obtener_valores()

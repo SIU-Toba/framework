@@ -61,6 +61,9 @@ class ef_editable extends ef
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
+		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["dependencias"]["opcional"]=1;	
+		$parametros["dependencias"]["etiqueta"]="Dependencias";				
 		return $parametros;
 	}
 

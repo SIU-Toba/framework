@@ -208,7 +208,7 @@ class objeto_datos_tabla extends objeto
 
 	public function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 	{
-		$ids = null;
+		$ids = array();
 		foreach(array_keys($this->cambios) as $fila){
 			if( in_array($this->cambios[$fila]['estado'], $cambios) ){
 				$ids[] = $fila;
@@ -257,7 +257,7 @@ class objeto_datos_tabla extends objeto
 	//Las condiciones permiten filtrar la lista de registros que se devuelves
 	//Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
 	{
-		$datos = null;
+		$datos = array();
 		$a = 0;
 		foreach( $this->get_id_fila_condicion($condiciones) as $id_fila )
 		{
@@ -341,7 +341,7 @@ class objeto_datos_tabla extends objeto
 	public function get_valores_columna($columna)
 	//Retorna una columna de valores
 	{
-		$temp = null;
+		$temp = array();
 		foreach(array_keys($this->cambios) as $fila){
 			if($this->cambios[$fila]['estado']!="d"){
 				$temp[] = $this->datos[$fila][$columna];

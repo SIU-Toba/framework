@@ -693,6 +693,9 @@ class ef_combo_db extends ef_combo
 		$parametros["sql"]["descripcion"]="Query que carga al combo";
 		$parametros["sql"]["opcional"]=0;	
 		$parametros["sql"]["etiqueta"]="SQL";	
+		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["dependencias"]["opcional"]=1;	
+		$parametros["dependencias"]["etiqueta"]="Dependencias";			
 		return $parametros;
 	}
 
