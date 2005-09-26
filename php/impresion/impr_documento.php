@@ -223,10 +223,8 @@ class impr_documento
     function generar_documento_para_archivo()
     {
        $dir_actual = getcwd();
-       //$dir_fonts = dirname(dirname($_SERVER["SCRIPT_FILENAME"])) . '/php/impresion';
-
-       $dir_fonts = "c:/toba/php/impresion";
-       chdir($dir_fonts);
+       $dir_fonts = dirname(dirname($_SERVER["SCRIPT_FILENAME"])) . '/php/impresion';
+	   chdir($dir_fonts);
        
        $this->doc_pdf->ezSetMargins(0.0, 0.0, 0.0, 0.0);
        $this->doc_pdf->openHere('Fit');
