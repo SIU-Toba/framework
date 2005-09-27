@@ -472,18 +472,18 @@ class fuente_datos_mysql extends fuente_datos
 //------------------------------------------------------------------------
 class fuente_datos_odbc extends fuente_datos
 {
-	function fuente_datos_odbc()
+	function fuente_datos_odbc($con)
 	{
-		parent::fuente_datos("odbc");
+		parent::fuente_datos("odbc", $con);
 	}
 }
 
 //------------------------------------------------------------------------
 class fuente_datos_informix extends fuente_datos
 {
-	function fuente_datos_informix()
+	function fuente_datos_informix($con)
 	{
-		parent::fuente_datos("informix");
+		parent::fuente_datos("informix", $con);
 	}
 }
 //------------------------------------------------------------------------

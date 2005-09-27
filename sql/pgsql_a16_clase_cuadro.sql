@@ -122,7 +122,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 	pie_mostrar_titulos				smallint		NULL,		
 	imp_paginar						smallint		NULL,		
 	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_cc"),
-	CONSTRAINT  "apex_obj_cuadro_cc_uq" UNIQUE ("identificador"),
+	CONSTRAINT  "apex_obj_cuadro_cc_uq" UNIQUE ("objeto_cuadro_proyecto","objeto_cuadro","identificador"),
 	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

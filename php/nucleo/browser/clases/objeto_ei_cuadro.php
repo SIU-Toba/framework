@@ -1,27 +1,56 @@
 <?
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
 require_once("objeto_ei.php");
-
 /*
-	Falta controlar la estructura del ARREGLO con el cual se carga el cuadro
+	Falta:
+	
+		GENERAL:
+
+		- Encriptar clave
+		- Modificar la clave devuelta (siempre array)
+		- Vinculos?
+		
+		EVENTOS: 
+
+		- Testear la ventana de filtrado segun fila
+
+		CORTES:
+
+		- Colapsado de niveles
+		- Los totales tienen que respetar el formato de la columna
+		- Contar la cantidad de filas
+		- Layout HTML
+			- Sumarizacion por corte (columnas + sum_usuario + filas)
+		- CSS
 */
 
 class objeto_ei_cuadro extends objeto_ei
 {
-    var $cantidad_columnas;                 //protegido | int | Cantidad de columnas a mostrar
-	var $filas;
-    var $orden_columna;                     //protegido | int | Columna utilizada para realizar el orden
-    var $orden_sentido;                     //protegido | string | Sentido del orden ('asc' / 'desc')
-    var $datos;                             //protegido | array | Los datos que constituyen el contenido del cuadro
-    var $columnas_clave;                    //protegido | 
- 	var $submit;
-	var $clave_seleccionada;
-	var $id_en_padre;
- 	var $indice_columnas;
+ 	protected $submit;
+	protected $id_en_padre;
+ 	protected $columnas;
+    protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
+	protected $filas = 0;
+    protected $datos;                             	// Los datos que constituyen el contenido del cuadro
+    protected $columnas_clave;                    	
+	protected $clave_seleccionada;
+	protected $estructura_datos;					// Estructura de datos esperados por el cuadro
+	protected $acumulador;							// Acumulador de totales generales
+	//Orden
+    protected $orden_columna;                     	// Columna utilizada para realizar el orden
+    protected $orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
 	//Paginacion
-	var $pagina_actual;
-	var $tamanio_pagina;
-	var $cantidad_paginas;
+	protected $pagina_actual;
+	protected $tamanio_pagina;
+	protected $cantidad_paginas;
+	//Cortes control
+	protected $cortes_def;
+	protected $cortes_control;
+	protected $sum_usuario;
+	//Salida
+	protected $tipo_salida;
+	//html
+	protected $html_colspan;
  
     function __construct($id)
     {
@@ -36,10 +65,12 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->inicializar_manejo_clave();	
 		if($this->existe_paginado())
 			$this->inicializar_paginado();
+		$this->inspeccionar_sumarizaciones_usuario();
 	}
 
 	function procesar_definicion()
 	{
+		$estructura_datos = array();
 		$this->cantidad_columnas = count($this->info_cuadro_columna);		
 		//Armo una estructura que describa las caracteristicas de los cortes
 		if($this->existen_cortes_control()){
@@ -47,19 +78,26 @@ class objeto_ei_cuadro extends objeto_ei
 				$id_corte = $this->info_cuadro_cortes[$a]['identificador'];						// CAMBIAR !
 				$col_id = explode(',',$this->info_cuadro_cortes[$a]['columnas_id']);
 				$col_id = array_map('trim',$col_id);
-				$this->cortes_def[$id_corte]['col_id'] = $col_id;
+				$this->cortes_def[$id_corte]['clave'] = $col_id;
 				$col_desc = explode(',',$this->info_cuadro_cortes[$a]['columnas_descripcion']);
 				$col_desc = array_map('trim',$col_desc);
-				$this->cortes_def[$id_corte]['col_desc'] = $col_desc;
+				$this->cortes_def[$id_corte]['descripcion'] = $col_desc;
+				$estructura_datos = array_merge($estructura_datos, $col_desc, $col_id);
 			}
 		}
 		//Procesamiento de columnas
 		for($a=0;$a<count($this->info_cuadro_columna);$a++){
 			// Indice de columnas
 			$clave = $this->info_cuadro_columna[$a]['clave'];
-			$this->indice_columnas[ $clave ] = $a;
+			$this->columnas[ $clave ] =& $this->info_cuadro_columna[$a];
+			//Sumarizacion general
+			if(isset($this->info_cuadro_columna[$a]['total'])){
+				$this->acumulador[$clave]=0;
+			}
+			//Estructura de datos
+			$estructura_datos[] = $clave;
 			// Sumarizacion de columnas por corte
-			if(isset($this->info_cuadro_columna[$a]['total_cc'])){
+			if(trim($this->info_cuadro_columna[$a]['total_cc'])!=''){
 				$cortes = explode(',',$this->info_cuadro_columna[$a]['total_cc']);
 				$cortes = array_map('trim',$cortes);
 				foreach($cortes as $corte){
@@ -67,6 +105,45 @@ class objeto_ei_cuadro extends objeto_ei
 				}
 			}
 		}
+		$this->estructura_datos = array_unique($estructura_datos);
+	}
+
+	/**
+		Si el usuario declaro funciones de sumarizacion por algun corte,
+		esta funcion las agrega en la planificacion de la ejecucion.
+	*/
+	private function inspeccionar_sumarizaciones_usuario()
+	{
+		if($this->existen_cortes_control()){
+			$this->sum_usuario = array();
+			$clase = new ReflectionClass(get_class($this));
+			foreach ($clase->getMethods() as $metodo){
+				if (substr($metodo->getName(), 0, 12) == 'sumarizar_cc'){
+					$temp = explode('__', $metodo->getName());
+					if(count($temp)!=3){
+						throw new excepcion_toba_def("La funcion de sumarizacion esta mal definida");	
+					}
+					$id = $temp[2];
+					$corte = $temp[1];
+					if(!isset($this->cortes_def[$corte])){	//El corte esta definido?
+						throw new excepcion_toba_def("La funcion de sumarizacion no esta direccionada a un CORTE existente");	
+					}
+					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
+					$this->sum_usuario[$id]['corte'] = $corte;
+					$desc = $metodo->getDocComment();
+				    $desc = preg_replace("/(^[\\s]*\\/\\*\\*)
+				                                 |(^[\\s]\\*\\/)
+				                                 |(^[\\s]*\\*?\\s)
+				                                 |(^[\\s]*)
+				                                 |(^[\\t]*)/ixm", "", $desc);
+				    $desc = str_replace("\r", "", $desc);
+				    $desc = trim(preg_replace("/([\\t])+/", "\t", $desc));
+					$this->sum_usuario[$id]['descripcion'] = isset($desc)? $desc : 'Descripcion no definida';
+					//Agrego la sumarizacion al corte
+					$this->cortes_def[$corte]['sum_usuario'][]=$id;
+				}
+			}
+		}		
 	}
 
 	function elemento_toba()
@@ -209,7 +286,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$parametros = $this->pagina_actual;
 						break;
 					default:
-						$this->cargar_seleccion();					
+						$this->cargar_seleccion();
 						$parametros = $this->clave_seleccionada;
 				}
 				$this->reportar_evento( $evento, $parametros );
@@ -231,21 +308,65 @@ class objeto_ei_cuadro extends objeto_ei
 				eval($sentencia);
 			}
 		}
-		// - 2 - Paginacion
-		if( $this->existe_paginado() ){
-			$this->generar_paginado();
-		}
-		// - 3 - Ordenamiento
-		if($this->hay_ordenamiento()){
-			$this->ordenar();
-		}
-		// - 4 - Cortes de control
-		if( $this->existen_cortes_control() ){
-			$this->planificar_cortes_control();
-		}
-		$this->filas = count($this->datos);
+		if(isset($this->datos))
+		{
+			$this->validar_estructura_datos();
+			// - 2 - Paginacion
+			if( $this->existe_paginado() ){
+				$this->generar_paginado();
+			}
+			// - 3 - Ordenamiento
+			if($this->hay_ordenamiento()){
+				$this->ordenar();
+			}
+			// - 4 - Cortes de control
+			if( $this->existen_cortes_control() ){
+				$this->planificar_cortes_control();
+			}else{
+				$this->calcular_totales_generales();
+			}
+			//total del filas;
+			$this->filas = count($this->datos);
+		}		
 		return true;
     }
+
+//################################################################################
+//############################   Procesos GENERALES   ############################
+//################################################################################
+
+	private function validar_estructura_datos()
+	{
+		$muestra = $this->datos[0];
+		$error = array();
+		foreach($this->estructura_datos as $columna){
+			if(!isset($muestra[$columna])) $error[] = $columna;
+		}
+		if(count($error)>0){
+			throw new excepcion_toba_def( $this->get_txt() . 
+					" El array provisto para cargar el cuadro posee un formato incorrecto\n" .
+					" Las columnas: '". implode("', '",$error) ."' NO EXISTEN");
+		}
+	}
+
+	private function datos_cargados()
+	{
+		return ($this->filas > 0);
+	}
+
+	private function calcular_totales_generales()
+	//Esto esta duplicado en el calculo de cortes de control por optimizacion
+	{
+		foreach(array_keys($this->datos) as $dato)
+		{
+			//Incremento el acumulador general
+			if(isset($this->acumulador)){
+				foreach(array_keys($this->acumulador) as $columna){
+					$this->acumulador[$columna] += $this->datos[$dato][$columna];
+				}	
+			}
+		}
+	}
 
 //################################################################################
 //############################   CLAVE  y  SELECCION   ###########################
@@ -259,10 +380,14 @@ class objeto_ei_cuadro extends objeto_ei
         }else{
             $this->columnas_clave = null;
         }		
-		$this->clave_seleccionada = null;
 		if(!isset($this->columnas_clave)){
 			$this->columnas_clave = array( apex_db_registros_clave );
 		}
+		//Agrego las columnas de la clave en la definicion de la estructura de datos
+		$estructura_datos = array_merge( $this->columnas_clave, $this->estructura_datos);
+		$this->estructura_datos = array_unique($estructura_datos);
+		//Inicializo la seleccion
+		$this->clave_seleccionada = null;
 	}
 
 	function finalizar_seleccion()
@@ -403,9 +528,6 @@ class objeto_ei_cuadro extends objeto_ei
 //###########################    CORTES de CONTROL    ############################
 //################################################################################
 
-	protected $cortes_def;
-	protected $cortes_control;
-
 	function existen_cortes_control()
 	{
 		return (count($this->info_cuadro_cortes)>0);
@@ -415,7 +537,10 @@ class objeto_ei_cuadro extends objeto_ei
 	/*
 		Primera pasada por las filas del SET de datos.
 		Creo la estructura de los cortes.
-		Dejo toda la informacion necesaria para que la extension sea simple
+			La idea de este proceso es dejar informacion para que la generacion 
+			de customizaciones sea simple. El costo es que se guardan muchos datos
+			que en varios casos son innecesarios, hay que controlar la performance
+			del elemento para ver si se justifica.
 	*/
 	{
 		$this->cortes_niveles = count($this->info_cuadro_cortes);
@@ -429,7 +554,7 @@ class objeto_ei_cuadro extends objeto_ei
 			{
 				$clave_array=array();
 				//-- Recupero la clave de la fila en el nivel
-				foreach($this->cortes_def[$corte]['col_id'] as $id_corte){
+				foreach($this->cortes_def[$corte]['clave'] as $id_corte){
 					$clave_array[$id_corte] = $this->datos[$dato][$id_corte];
 				}
 				$clave = implode('_|_',$clave_array);
@@ -441,7 +566,7 @@ class objeto_ei_cuadro extends objeto_ei
 					//Agrego la clave
 					$ref[$clave]['clave']=$clave_array;
 					//Agrego la descripcion
-					foreach($this->cortes_def[$corte]['col_desc'] as $desc_corte){
+					foreach($this->cortes_def[$corte]['descripcion'] as $desc_corte){
 						$ref[$clave]['descripcion'][$desc_corte] = $this->datos[$dato][$desc_corte];
 					}
 					//Inicializo el ACUMULADOR de columnas
@@ -464,9 +589,13 @@ class objeto_ei_cuadro extends objeto_ei
 				$ref =& $ref[$clave]['hijos'];
 				$profundidad++;
 			}
+			//Incremento el acumulador general
+			if(isset($this->acumulador)){
+				foreach(array_keys($this->acumulador) as $columna){
+					$this->acumulador[$columna] += $this->datos[$dato][$columna];
+				}	
+			}
 		}
-		ei_arbol($this->cortes_def,"Mapa CORTES");
-		ei_arbol($this->cortes_control,"Estructura CORTES");
 	}
 
 //################################################################################
@@ -533,19 +662,29 @@ class objeto_ei_cuadro extends objeto_ei
 
 	public function set_titulo_columna($id_columna, $titulo)
 	{
-		$this->info_cuadro_columna[ $this->indice_columnas[$id_columna] ]["titulo"] = $titulo;
+		$this->columnas[$id_columna]["titulo"] = $titulo;
 	}    
 
     public function obtener_datos()
     {
         return $this->datos;    
     }	
-	
-//################################################################################
-//#########################    INTERFACE GRAFICA   ###############################
-//################################################################################
 
-	protected $tipo_salida;
+	public function set_titulo()
+	{
+	}
+	
+	public function ocultar_cabecera()
+	{
+	}
+	
+	public function get_estructura_datos()
+	{
+		return $this->estructura_datos;		
+	}
+//################################################################################
+//#####################    INTERFACE GRAFICA GENERICA  ###########################
+//################################################################################
 
 	private function generar_salida($tipo)
 	{
@@ -554,14 +693,29 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 		$this->tipo_salida = $tipo;
 		$this->generar_inicio();
-		$this->generar_cabecera();
-		if($this->existen_cortes_control()){
-			//$this->generar_cortes_control();
+		if( $this->datos_cargados() ){
+			//Generacion de contenido
+			if($this->existen_cortes_control()){
+				$this->generar_cortes_control();
+			}else{
+				$filas = array_keys($this->datos);
+				$this->generar_cuadro($filas, $this->acumulador);
+			}
 		}else{
-			$this->generar_cuadro();	
+            if ($this->info_cuadro["eof_invisible"]!=1){
+                if(trim($this->info_cuadro["eof_customizado"])!=""){
+					$texto = $this->info_cuadro["eof_customizado"];
+                }else{
+					$texto = "No se cargaron datos!";
+                }
+				$this->generar_mensaje_cuadro_vacio($texto);
+            }
 		}
-		$this->generar_pie();
 		$this->generar_fin();
+		if( $this->existen_cortes_control() ){
+			//ei_arbol($this->cortes_def,"\$this->cortes_def");
+			//ei_arbol($this->cortes_control,"\$this->cortes_control");
+		}
 	}
 
 	private function generar_inicio(){
@@ -569,19 +723,9 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->$metodo();
 	}
 
-	private function generar_cabecera(){
-		$metodo = $this->tipo_salida . '_cabecera';
-		$this->$metodo();
-	}
-	
-	private function generar_cuadro(){
+	private function generar_cuadro(&$filas, &$totales=null){
 		$metodo = $this->tipo_salida . '_cuadro';
-		$this->$metodo();
-	}
-
-	private function generar_pie(){
-		$metodo = $this->tipo_salida . '_pie';
-		$this->$metodo();
+		$this->$metodo($filas, $totales);
 	}
 
 	private function generar_fin(){
@@ -589,30 +733,49 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->$metodo();
 	}
 
-	//-- Cortes de Control --
+	private function generar_mensaje_cuadro_vacio($texto){
+		$metodo = $this->tipo_salida . '_mensaje_cuadro_vacio';
+		$this->$metodo($texto);
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Cortes de Control
+	//-------------------------------------------------------------------------------
 
 	private function generar_cortes_control()
 	{
+		$this->generar_cc_inicio_nivel();
 		foreach(array_keys($this->cortes_control) as $corte){
 			$this->crear_corte( $this->cortes_control[$corte] );
 		}
+		$this->generar_cc_fin_nivel();
 	}
 	
 	private function crear_corte(&$nodo)
 	{
-		//Disparo las functiones de usuario para este corte
-		//-!!!!!
+		//Disparo las funciones de sumarizacion creadas por el usuario para este corte
+		if(isset($this->cortes_def[$nodo['corte']]['sum_usuario'])){
+			foreach($this->cortes_def[$nodo['corte']]['sum_usuario'] as $sum){
+				$metodo = $this->sum_usuario[$sum]['metodo'];
+				$nodo['sum_usuario'][$sum] = $this->$metodo($nodo['filas']);
+			}
+		}
 		//Genero el corte
-		$this->generar_cabecera_nivel($nodo);
+		$this->generar_cc_inicio_corte();
+		$this->generar_cabecera_corte_control($nodo);
 		//Disparo la generacion recursiva de hijos
 		if(isset($nodo['hijos'])){
+			$this->generar_cc_inicio_nivel();
 			foreach(array_keys($nodo['hijos']) as $corte){
 				$this->crear_corte( $nodo['hijos'][$corte] );
 			}
-		}else{	//Disparo la construccion del ultimo nivel
-			$this->generar_cuadro();
+			$this->generar_cc_fin_nivel();
+		}else{	
+			//Disparo la construccion del ultimo nivel
+			$this->generar_cuadro( $nodo['filas'] );//, $nodo['acumulador']
 		}
-		$this->generar_pie_nivel($nodo);
+		$this->generar_pie_corte_control($nodo);
+		$this->generar_cc_fin_corte();
 	}
 
 	private function generar_cabecera_corte_control(&$nodo){
@@ -620,8 +783,8 @@ class objeto_ei_cuadro extends objeto_ei
 		$metodo_redeclarado = $metodo . '_' . $nodo['corte'];
 		if(method_exists($this, $metodo_redeclarado)){
 			$metodo = $metodo_redeclarado;
-		}
-		$this->$metodo();
+		}		
+		$this->$metodo($nodo);
 	}
 	
 	private function generar_pie_corte_control(&$nodo){
@@ -630,348 +793,315 @@ class objeto_ei_cuadro extends objeto_ei
 		if(method_exists($this, $metodo_redeclarado)){
 			$metodo = $metodo_redeclarado;
 		}
+		$this->$metodo($nodo);
+	}
+
+	private function generar_cc_inicio_nivel(){
+		$metodo = $this->tipo_salida . '_cc_inicio_nivel';
 		$this->$metodo();
 	}
 
-//#################################    HTML    #####################################
-
-	private function html_inicio()
-	{
+	private function generar_cc_fin_nivel(){
+		$metodo = $this->tipo_salida . '_cc_fin_nivel';
+		$this->$metodo();
 	}
 
-	protected function html_cabecera()
-	{
-	}
-	
-	private function html_cuadro()
-	{
-	}
-	
-	protected function html_pie()
-	{
+	private function generar_cc_inicio_corte(){
+		$metodo = $this->tipo_salida . '_cc_inicio_corte';
+		$this->$metodo();
 	}
 
-	private function html_fin()
-	{
-	}
-	
-	//-- Cortes de Control --
-
-	protected function html_cabecera_corte_control()
-	{
+	private function generar_cc_fin_corte(){
+		$metodo = $this->tipo_salida . '_cc_fin_corte';
+		$this->$metodo();
 	}
 
-	protected function html_pie_corte_control()
+	/**
+		Busca el valor correspondiente a un la sumarizacion de un nodo
+	*/
+	private function get_resuldado_sum_usuario($id)
 	{
-	}
-
-//#################################    PDF    #####################################
-
-	private function pdf_inicio()
-	{
-	}
-
-	protected function pdf_pie()
-	{
-	}
-
-	private function pdf_cuadro()
-	{
-	}
-
-	private function pdf_fin()
-	{
-	}
-
-	protected function pdf_cabecera()
-	{
-	}
-
-	//-- Cortes de Control --
-
-	protected function pdf_cabecera_corte_control()
-	{
-	}
-
-	protected function pdf_pie_corte_control()
-	{
+		
 	}
 
 //################################################################################
+//#################################    HTML    ###################################
+//################################################################################
 
-    function obtener_html($mostrar_cabecera=true, $titulo=null)
-    //Genera el HTML del cuadro
-    {
+	public function obtener_html($mostrar_cabecera=true, $titulo=null)
+	{
+		/*	¿Los parametros hay que destruirlos?	*/
+		$this->generar_salida("html");
+	}
+
+	private function html_inicio()
+	{
 		//Campos de comunicación con JS
 		echo form::hidden($this->submit, '');
 		echo form::hidden($this->submit_seleccion, '');
 		echo form::hidden($this->submit_orden_columna, '');
 		echo form::hidden($this->submit_orden_sentido, '');
 		echo form::hidden($this->submit_paginado, '');
-		
-		//Reproduccion del titulo
-		if(isset($titulo)){
-			$this->memoria["titulo"] = $titulo;
+		//-- Scroll       
+        if($this->info_cuadro["scroll"]){
+			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
+			$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
+			echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>\n";
 		}else{
-			if(isset($this->memoria["titulo"])){
-				$titulo = $this->memoria["titulo"];
+			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
+		}
+		//-- Tabla BASE
+		$mostrar_cabecera = true;
+        echo "\n<table class='objeto-base' width='$ancho'>\n";
+        if($mostrar_cabecera){
+            echo "<tr><td>";
+            $this->barra_superior(null, true,"objeto-ei-barra-superior");
+            echo "</td></tr>\n";
+        }
+		//-- INICIO zona COLAPSABLE
+		echo"<tr><td>\n";
+        echo "<TABLE width='100%' class='tabla-0'  id='cuerpo_{$this->objeto_js}'>";
+		// Cabecera
+		echo"<tr><td class='lista-subtitulo'>";
+		$this->html_cabecera();		
+		echo "</td></tr>\n";
+		//--- INICIO CONTENIDO  -----
+		echo "<tr><td class='cuadro-cc-fondo'>\n";
+	}
+
+	private function html_fin()
+	{
+		echo "</td></tr>\n";
+		//--- FIN CONTENIDO  ---------
+		// Pie
+		echo"<tr><td>";
+		$this->html_pie();		
+		echo "</td></tr>\n";
+		//Paginacion
+		if ($this->info_cuadro["paginar"]) {
+			echo"<tr><td>";
+           	$this->html_barra_paginacion();
+			echo "</td></tr>\n";
+		}
+		//Botonera
+		if ($this->hay_botones()) {
+			echo"<tr><td class='lista-subtitulo'>";
+			$this->obtener_botones();
+			echo "</td></tr>\n";
+		}
+		echo "</TABLE>\n";
+		//-- FIN zona COLAPSABLE
+		echo"</td></tr>\n";
+		echo "</table>\n";
+		if($this->info_cuadro["scroll"]){
+			echo "</div>\n";
+		}
+	}
+
+	protected function html_cabecera()
+	{
+        if($this->info_cuadro["subtitulo"]<>""){
+            echo $this->info_cuadro["subtitulo"];
+        }
+	}
+	
+	protected function html_pie()
+	{
+		if( $this->existen_cortes_control() ){
+			if(isset($this->acumulador)){
+				echo "<hr>";
+				foreach($this->acumulador as $col => $total){
+					echo "<p>$col: $total</p>\n";
+				}
+				echo "<hr>";
 			}
 		}
-		//Manejo del EOF
-        if($this->filas == 0){
-            //La consulta no devolvio datos!
-            if ($this->info_cuadro["eof_invisible"]!=1){
-                if(trim($this->info_cuadro["eof_customizado"])!=""){
-                    echo ei_mensaje($this->info_cuadro["eof_customizado"]);
-                }else{
-                    echo ei_mensaje("La consulta no devolvio datos!");
-                }
-            }
-			//De todas formas incluir los botones si hay
-			if ($this->hay_botones()) {
-				$this->obtener_botones();
-			}			
-        }else{
-            if(!($ancho=$this->info_cuadro["ancho"])) $ancho = "80%";
-			$colspan = $this->cantidad_columnas + $this->cant_eventos_sobre_fila();
-				
-            //echo "<br>\n";
-            
-			//--Scroll       
-	        if($this->info_cuadro["scroll"]){
-				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
-				$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
-				echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>";
-			//	echo "<table class='tabla-0'>\n";
-			}else{
-				$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
-			//	echo "<table width='$ancho' class='tabla-0'>\n";
-			}
-            
-            echo "<table class='objeto-base' width='$ancho'>\n\n\n";
+	}
 
-            if($mostrar_cabecera){
-                echo "<tr><td>";
-                $this->barra_superior(null, true,"objeto-ei-barra-superior");
-                echo "</td></tr>\n";
-            }
-            if($this->info_cuadro["subtitulo"]<>""){
-                echo"<tr><td class='lista-subtitulo'>". $this->info_cuadro["subtitulo"] ."</td></tr>\n";
-            }
-            echo "<tr><td>";
-            echo "<TABLE width='100%' class='tabla-0'  id='cuerpo_{$this->objeto_js}'>";
-            //------------------------ Genero los titulos
-            echo "<tr>\n";
-            for ($a=0;$a<$this->cantidad_columnas;$a++)
-            {
-                if(isset($this->info_cuadro_columna[$a]["ancho"])){
-                    $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
-                }else{
-                    $ancho = "";
-                }
-                echo "<td class='lista-col-titulo' $ancho>\n";
-                $this->cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
-                                            $this->info_cuadro_columna[$a]["clave"],
-                                            $a );
-                echo "</td>\n";
-            }
-            //-- Eventos sobre fila
-			$cant_sobre_fila = $this->cant_eventos_sobre_fila();
-			if($cant_sobre_fila > 0){
-				echo "<td class='lista-col-titulo' colspan='$cant_sobre_fila'>\n";
-	            echo "</td>\n";
+	protected function html_mensaje_cuadro_vacio($texto){
+		echo ei_mensaje($texto);
+	}
+	
+	//-------------------------------------------------------------------------------
+	//-- Generacion de los CORTES de CONTROL
+	//-------------------------------------------------------------------------------
+
+	protected function html_cabecera_corte_control(&$nodo)
+	{
+		$ancho = $nodo['profundidad'] + 3;
+		echo "<h$ancho>". implode(", ",$nodo['descripcion']). "</h2>\n";
+	}
+
+	protected function html_pie_corte_control(&$nodo)
+	{
+		//Agrego los Totales por columna
+		if(isset($nodo['acumulador'])){
+			foreach($nodo['acumulador'] as $id => $valor){
+				$desc = $this->columnas[$id]['titulo'];
+				$datos[$desc] = $valor;
 			}
-            echo "</tr>\n";
-			//-------------------------------------------------------------------------
-            //----------------------- Genero VALORES del CUADRO -----------------------
-			//-------------------------------------------------------------------------
-            for ($f=0; $f< $this->filas; $f++)
+		}
+		//Agrego las sumarizaciones ad-hoc
+		if(isset($nodo['sum_usuario'])){
+			foreach($nodo['sum_usuario'] as $id => $valor){
+				$desc = $this->sum_usuario[$id]['descripcion'];
+				$datos[$desc] = $valor;
+			}
+		}
+		$this->html_cuadro_sumarizacion($datos,null,300);
+	}
+
+	private function html_cc_inicio_nivel()
+	{
+		echo "<ul>\n";
+	}
+
+	private function html_cc_fin_nivel()
+	{
+		echo "</ul>\n";
+	}
+
+	private function html_cc_inicio_corte()
+	{
+		echo "<li>\n";
+	}
+
+	private function html_cc_fin_corte()
+	{
+		echo "</li>\n";
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Generacion del CUADRO 
+	//-------------------------------------------------------------------------------
+
+	private function html_cuadro(&$filas, &$totales=null)
+	{
+		if($this->existen_cortes_control()){
+			$estilo = 'cuadro-cc-tabla';
+		}else{
+			$estilo = 'tabla-0';
+		}
+		echo "<TABLE width='100%' class='$estilo' id='cuerpo_{$this->objeto_js}'>";
+		$this->html_cuadro_cabecera_columnas();
+        foreach($filas as $f)
+        {
+			$resaltado = "";
+			$clave_fila = $this->obtener_clave_fila($f);
+			if (is_array($this->clave_seleccionada)) 
+				$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
+			else
+				$clave_seleccionada = $this->clave_seleccionada;	
+			
+			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
+			$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
+            echo "<tr>\n";
+			//------------------------------------
+ 			//--- Creo las CELDAS!!
+			//------------------------------------
+            for ($a=0;$a< $this->cantidad_columnas;$a++)
             {
-				$resaltado = "";
-				$clave_fila = $this->obtener_clave_fila($f);
-				if (is_array($this->clave_seleccionada)) 
-					$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
-				else
-					$clave_seleccionada = $this->clave_seleccionada;	
-				
-				$esta_seleccionada = ($clave_fila == $clave_seleccionada);
-				$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
-                echo "<tr>\n";
-                for ($a=0;$a< $this->cantidad_columnas;$a++)
-                {
-                    //----------> Comienzo una CELDA!!
-                    //*** 1) Recupero el VALOR
-                    if(isset($this->info_cuadro_columna[$a]["clave"])){
-                        $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
-                        //Hay que formatear?
-                        if(isset($this->info_cuadro_columna[$a]["formateo"])){
-                            $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
-                            //Formateo el valor
-                            $valor = $funcion($valor);
-                        }
-                    }else{
-                        $valor = "";
+                //*** 1) Recupero el VALOR
+                if(isset($this->info_cuadro_columna[$a]["clave"])){
+                    $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
+                    //Hay que formatear?
+                    if(isset($this->info_cuadro_columna[$a]["formateo"])){
+                        $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
+                        //Formateo el valor
+                        $valor = $funcion($valor);
                     }
-                    //*** 2) Generacion de VINCULOS!
-                    if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
-                        $id_fila = $this->obtener_clave_fila($f);
-                        //Genero el VINCULO
-                        $vinculo = $this->solicitud->vinculador->obtener_vinculo_de_objeto( $this->id,
-                                                                                $this->info_cuadro_columna[$a]["vinculo_indice"],
-                                                                                $id_fila, true, $valor);
-                        //El vinculador puede no devolver nada en dos casos: 
-                        //No hay permisos o el indice no existe
-                        if(isset($vinculo)){
-                            $valor = $vinculo;
-                        }
-                    }
-                    //*** 4) Genero el HTML
-                    echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
-                    echo $valor;
-                    echo "</td>\n";
-                    //----------> Termino la CELDA!!
+                }else{
+                    $valor = "";
                 }
-	            //-- Eventos aplicados a una fila
-				foreach ($this->eventos as $id => $evento) {
-					if ($evento['sobre_fila']) {
-						echo "<td class='lista-col-titulo'>\n";
-						$evento_js = eventos::a_javascript($id, $evento, $this->obtener_clave_fila($f));
-						$js = "{$this->objeto_js}.set_evento($evento_js);";
+                //*** 2) Generacion de VINCULOS!
+                if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
+                    //Genero el VINCULO
+                    $vinculo = $this->solicitud->vinculador->obtener_vinculo_de_objeto( $this->id,
+                                                                            $this->info_cuadro_columna[$a]["vinculo_indice"],
+                                                                            $clave_fila, true, $valor);
+                    //El vinculador puede no devolver nada en dos casos: 
+                    //No hay permisos o el indice no existe
+                    if(isset($vinculo)){
+                        $valor = $vinculo;
+                    }
+                }
+                //*** 4) Genero el HTML
+                echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
+                echo $valor;
+                echo "</td>\n";
+                //----------> Termino la CELDA!!
+            }
+			//------------------------------------
+ 			//--- Creo los EVENTOS!!
+			//------------------------------------
+			foreach ($this->eventos as $id => $evento) {
+				if ($evento['sobre_fila']) {
+					//Filtrado de eventos por fila
+					$metodo_filtro = 'filtrar_evt__' . $id;
+					if(method_exists($this, $metodo_filtro)){
+						if(! $this->$metodo_filtro ) 
+							continue;
+					}
+					//Creo HTML del EVENTO
+					$tip = '';
+					if (isset($evento['ayuda']))
+						$tip = $evento['ayuda'];
+					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
+					$tab_order = 100;//Esto esta MAAL!!!
+					$acceso = tecla_acceso( $evento["etiqueta"] );
+					$html = '';
+					if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
 						if (isset($evento['imagen_recurso_origen']))
 							$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
 						else
 							$img = $evento['imagen'];
-						echo recurso::imagen($img, null, null, $evento['ayuda'], '', "onclick=\"$js\"", 'cursor: pointer');
-		            	echo "</td>\n";
+						$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 					}
+					$html .= $acceso[0];
+					$tecla = $acceso[1];
+					//Creo JS del EVENTO
+					$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
+					$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+					echo "<td class='lista-col-titulo' width='1%'>\n";
+					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+	            	echo "</td>\n";
 				}
-				//----------------------------
-                echo "</tr>\n";
-            }
-            //----------------------- Genero totales??
-			$this->generar_html_totales();			
-            echo "</table>\n";
-            echo "</td></tr>\n";
-			echo "<td class='ei-base' colspan='$colspan'>\n";
-			if ($this->info_cuadro["paginar"]) {
-            	$this->generar_html_barra_paginacion();
 			}
-			if ($this->hay_botones()) {
-				$this->obtener_botones();
-			}
-			echo "</td>\n";
-            echo "</table>\n";
-            
-			//Y por cierto......... si esto tenia scroll, cierro el div !!!
-			if($this->info_cuadro["scroll"]){
-				echo "</div>";
-			}
-		            
-            //echo "<br>\n";
+			//----------------------------
+            echo "</tr>\n";
         }
-    }
+		if(isset($totales)){
+			$this->html_cuadro_totales_columnas($totales);
+		}
+		echo "</TABLE>";
+	}
 
-	function generar_html_totales()
+	private function html_cuadro_cabecera_columnas()
 	{
-		//Selecciono registros a sumarizar
-		$total = array();
-		for ($a=0;$a<$this->cantidad_columnas;$a++){
-		    if(isset($this->info_cuadro_columna[$a]["total"])){
-				$total[$this->info_cuadro_columna[$a]["clave"]]=0;
-				$pie_columna[$a] =& $total[$this->info_cuadro_columna[$a]["clave"]];
-				$pie_columna_estilo[$a] = $this->info_cuadro_columna[$a]["estilo"];
-				if(isset($this->info_cuadro_columna[$a]["formateo"])){
-					$total_funcion[$this->info_cuadro_columna[$a]["clave"]] = $this->info_cuadro_columna[$a]["formateo"];
-				}
-		    }else{
-		    	$pie_columna[$a] = "&nbsp;";
-		    	$pie_columna_estilo[$a] = 'lista-col-titulo';
-			}
-		}		
-		if(count($total)==0) return;
-		//Sumarizo
-		for ($f=0; $f< $this->filas; $f++){
-			foreach(array_keys($total) as $columna){
-				$total[$columna] +=  $this->datos[$f][$columna];
-			}
-		}
-		//Aplico el formato de la columna a la sumarizacion
-		if(isset($total_funcion) && is_array($total_funcion)){
-			foreach(array_keys($total_funcion) as $tot){
-				$funcion = "formato_" . $total_funcion[$tot];
-				$total[$tot] = $funcion($total[$tot]);
-			}		
-		}
-		//Genero el HTML
-		echo "<tr>\n";
-		for($a=0; $a<count($pie_columna);$a++){
-			echo "<td class='".$pie_columna_estilo[$a]."'><strong>\n";
-			echo $pie_columna[$a];
-			echo "</strong></td>\n";
-		}
+        echo "<tr>\n";
+        for ($a=0;$a<$this->cantidad_columnas;$a++)
+        {
+            if(isset($this->info_cuadro_columna[$a]["ancho"])){
+                $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
+            }else{
+                $ancho = "";
+            }
+            echo "<td class='lista-col-titulo' $ancho>\n";
+            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
+                                        $this->info_cuadro_columna[$a]["clave"],
+                                        $a );
+            echo "</td>\n";
+        }
         //-- Eventos sobre fila
 		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
 		if($cant_sobre_fila > 0){
-			echo "<td colspan='$cant_sobre_fila'>\n";
+			echo "<td class='lista-col-titulo' colspan='$cant_sobre_fila'>\n";
             echo "</td>\n";
-		}		
-		echo "</tr>\n";
-	}
-	
-	function generar_html_barra_paginacion()
-	//Barra para navegar la paginacion
-	{
-		if( isset($this->total_registros) && !($this->tamanio_pagina >= $this->total_registros) ) {
-			//Calculo los posibles saltos
-			//Primero y Anterior
-			if($this->pagina_actual == 1) {
-				$anterior = recurso::imagen_apl("paginacion/anterior_deshabilitado.gif",true);
-				$primero = recurso::imagen_apl("paginacion/primero_deshabilitado.gif",true);       
-			} else {
-				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
-				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = recurso::imagen_apl("paginacion/anterior.gif");
-				$anterior = recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer');
-			
-				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
-				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = recurso::imagen_apl("paginacion/primero.gif");
-				$primero = recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer');
-			}
-			//Ultimo y Siguiente
-			if( $this->pagina_actual == $this->cantidad_paginas ) {
-				$siguiente = recurso::imagen_apl("paginacion/siguiente_deshabilitado.gif",true);
-				$ultimo = recurso::imagen_apl("paginacion/ultimo_deshabilitado.gif",true);     
-			} else {
-				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
-				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = recurso::imagen_apl("paginacion/siguiente.gif");
-				$siguiente = recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer');
-				
-				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
-				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = recurso::imagen_apl("paginacion/ultimo.gif");
-				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer');
-			}
-			//Creo la barra de paginacion
-			if($this->info_cuadro["paginar"]) {
-				echo "<table class='tabla-0'><tr>";
-				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>$primero</td>";
-				echo "<td  class='lista-pag-bot'>$anterior</td>";
-				echo "<td  class='lista-pag-bot'>&nbsp;Página&nbsp;<b>{$this->pagina_actual}</b>&nbsp;de&nbsp;<b>{$this->cantidad_paginas}</b>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>$siguiente</td>";
-				echo "<td class='lista-pag-bot' >$ultimo</td>";
-				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>";
-				echo "</td>";
-				echo "</tr></table>";
-				echo "</div>";              
-			}
 		}
+        echo "</tr>\n";
 	}
 
-    function cabecera_columna($titulo,$columna,$indice)
+	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna
     {
 		//Editor de la columna
@@ -1028,9 +1158,117 @@ class objeto_ei_cuadro extends objeto_ei
         }
 		echo $editor;
     }
-	
+
+	function html_cuadro_totales_columnas($totales)
+	{
+		echo "<tr>\n";
+		for ($a=0;$a<$this->cantidad_columnas;$a++){
+			$clave = $this->info_cuadro_columna[$a]["clave"];
+			//Defino el valor de la columna
+		    if(isset($totales[$clave])){
+				$valor = $totales[$clave];
+				$estilo = $this->info_cuadro_columna[$a]["estilo"];
+				//La columna lleva un formateo?
+				if(isset($this->info_cuadro_columna[$a]["formateo"])){
+					$metodo = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
+					$valor = $metodo($valor);
+				}
+			}else{
+				$valor = '&nbsp;';
+				$estilo = 'lista-col-titulo';
+			}
+			//HTML de la columna
+			echo "<td class='$estilo'><strong>\n";
+			echo $valor;
+			echo "</strong></td>\n";
+		}
+        //-- Eventos sobre fila
+		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
+		if($cant_sobre_fila > 0){
+			echo "<td colspan='$cant_sobre_fila' class='lista-col-titulo'>&nbsp;</td>\n";
+		}		
+		echo "</tr>\n";
+	}
+
 	//-------------------------------------------------------------------------------
-	//---- JAVASCRIPT ---------------------------------------------------------------
+	//-- Sub-generadores
+	//-------------------------------------------------------------------------------
+
+	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null)
+	{
+		if(isset($ancho)) $ancho = "width='$ancho'";
+		echo "<table $ancho class='cuadro-cc-tabla-sum'>";
+		//Titulo
+		if(isset($titulo)){
+			echo "<tr>\n";
+			echo "<td class='lista-col-titulo' colspan='2'>$titulo</td>\n";
+			echo "</tr>\n";
+		}
+		//Datos
+		foreach($datos as $desc => $valor){
+			echo "<tr>\n";
+			echo "<td class='lista-col-titulo'>$desc</td>\n";
+			echo "<td class='col-num-p1'>$valor</td>\n";
+			echo "</tr>\n";
+		}
+		echo "</table>\n";
+	}
+
+	private function html_barra_paginacion()
+	//Barra para navegar la paginacion
+	{
+		if( isset($this->total_registros) && !($this->tamanio_pagina >= $this->total_registros) ) {
+			//Calculo los posibles saltos
+			//Primero y Anterior
+			if($this->pagina_actual == 1) {
+				$anterior = recurso::imagen_apl("paginacion/anterior_deshabilitado.gif",true);
+				$primero = recurso::imagen_apl("paginacion/primero_deshabilitado.gif",true);       
+			} else {
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/anterior.gif");
+				$anterior = recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer');
+			
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/primero.gif");
+				$primero = recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer');
+			}
+			//Ultimo y Siguiente
+			if( $this->pagina_actual == $this->cantidad_paginas ) {
+				$siguiente = recurso::imagen_apl("paginacion/siguiente_deshabilitado.gif",true);
+				$ultimo = recurso::imagen_apl("paginacion/ultimo_deshabilitado.gif",true);     
+			} else {
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/siguiente.gif");
+				$siguiente = recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer');
+				
+				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+				$img = recurso::imagen_apl("paginacion/ultimo.gif");
+				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer');
+			}
+			//Creo la barra de paginacion
+			if($this->info_cuadro["paginar"]) {
+				echo "<table class='tabla-0'><tr>";
+				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>$primero</td>";
+				echo "<td  class='lista-pag-bot'>$anterior</td>";
+				echo "<td  class='lista-pag-bot'>&nbsp;Página&nbsp;<b>{$this->pagina_actual}</b>&nbsp;de&nbsp;<b>{$this->cantidad_paginas}</b>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>$siguiente</td>";
+				echo "<td class='lista-pag-bot' >$ultimo</td>";
+				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
+				echo "<td  class='lista-pag-bot'>";
+				echo "</td>";
+				echo "</tr></table>";
+				echo "</div>";              
+			}
+		}
+	}
+
+	//-------------------------------------------------------------------------------
+	//---- JAVASCRIPT --
 	//-------------------------------------------------------------------------------
 
 	protected function crear_objeto_js()
@@ -1046,6 +1284,50 @@ class objeto_ei_cuadro extends objeto_ei
 		$consumo[] = 'clases/objeto_ei_cuadro';
 		return $consumo;
 	}	
+
+//################################################################################
+//################################    PDF    #####################################
+//################################################################################
+
+	private function pdf_inicio(){
+		$this->pdf_cabecera();		
+	}
+
+	private function pdf_cuadro(&$filas, &$totales){
+	}
+
+	private function pdf_fin(){
+		$this->pdf_pie();
+	}
+
+	protected function pdf_cabecera(){
+	}
+
+	protected function pdf_pie(){
+	}
+
+	protected function pdf_mensaje_cuadro_vacio($texto){
+	}
+
+	//-- Cortes de Control --
+
+	protected function pdf_cabecera_corte_control(){
+	}
+
+	protected function pdf_pie_corte_control(){
+	}
+
+	private function pdf_cc_inicio_nivel(){
+	}
+
+	private function pdf_cc_fin_nivel(){
+	}
+
+	private function pdf_cc_inicio_corte(){
+	}
+
+	private function pdf_cc_fin_corte(){
+	}
 }
-//-------------------------------------------------------------------------------
+//################################################################################
 ?>
