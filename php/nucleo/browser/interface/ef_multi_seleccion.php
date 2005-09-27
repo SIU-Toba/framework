@@ -60,11 +60,19 @@ class ef_multi_seleccion extends ef
 		$parametros["sql"]["etiqueta"]="SQL";	
 		$parametros["sql"]["opcional"]=1;
 		$parametros["sql"]["descripcion"]="Query de carga";
+		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
+		$parametros["solo_lectura"]["opcional"]=1;	
+		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";		
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
+		if((isset($parametros["solo_lectura"]))&&($parametros["solo_lectura"]==1)){
+			$this->solo_lectura = true;
+		}else{
+			$this->solo_lectura = false;
+		}		
         $this->valores = array();
 		if(isset($parametros["valores"])){
 			if(is_array($parametros["valores"])){
@@ -132,18 +140,13 @@ class ef_multi_seleccion extends ef
 			$this->serializar = $parametros["serializar"];
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		if(is_array($this->dependencias) && !$this->dependencia_estricta){
-			$this->valores = array();
-		}else{
-			if( $this->dependencia_estricta ){
-				if( $this->control_dependencias_cargadas() ){
-					$this->cargar_datos();	
-				}
-			}else{
+		if( $this->dependencia_estricta ){
+			if( $this->control_dependencias_cargadas() ){
 				$this->cargar_datos();	
 			}
+		}else{
+			$this->cargar_datos();	
 		}
-				
 	}
 
 	function cargar_datos_dao($parametros = array())
@@ -365,7 +368,7 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	function obtener_input()
 	{
 		$html = "";
-		if ($this->mostrar_utilidades)	{
+		if (!$this->solo_lectura && $this->mostrar_utilidades)	{
 			$html .= "
 				<script  type='text/javascript' language='javascript'>
 					function multi_seleccion_mostrar(todos)
@@ -384,7 +387,8 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->valores);
 		$estado = isset($this->estado) ?  $this->estado : array();
 		$html .= $this->obtener_javascript_general() . "\n\n";
-		$html .= form::multi_select($this->id_form, $estado, $this->valores, $tamanio, 'ef-combo');
+		$extra = ($this->solo_lectura) ? "disabled" : "";
+		$html .= form::multi_select($this->id_form, $estado, $this->valores, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
 	
@@ -481,37 +485,51 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 	{
 		$estado = isset($this->estado) ?  $this->estado : array();
 		$html = $this->obtener_javascript_general() . "\n\n";
-		if ($this->mostrar_utilidades)	{
-			$html .= "
-				<script  type='text/javascript' language='javascript'>
-					function multi_seleccion_mostrar(todos)
-					{
-						var elem = document.{$this->nombre_formulario}['{$this->id_form}[]'];
-						if (elem.length) {
-							//Si son muchos elementos
-							for (var i=0; i < elem.length; i++) {
-								elem[i].checked = todos;
+		if ($this->solo_lectura) {
+			$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
+			foreach ($this->valores as $id => $descripcion) {
+				$checkeado = in_array($id, $estado) ? "checked" : "";
+				$html .= "<div class='ef-multi-check'>";
+				if (in_array($id, $estado)) {
+					$html .= recurso::imagen_apl('checked.gif',true,16,16);
+				} else  {
+					$html .= recurso::imagen_apl('unchecked.gif',true,16,16);
+				}
+				$html .= "$descripcion</div>\n";
+			}
+			$html .= "</div>";			
+		} else {
+			if (count($this->valores) > 0 && $this->mostrar_utilidades)	{
+				$html .= "
+					<script  type='text/javascript' language='javascript'>
+						function multi_seleccion_mostrar(todos)
+						{
+							var elem = document.{$this->nombre_formulario}['{$this->id_form}[]'];
+							if (elem.length) {
+								//Si son muchos elementos
+								for (var i=0; i < elem.length; i++) {
+									elem[i].checked = todos;
+								}
+							} else {
+								//Es uno unico
+								elem.checked = todos;
 							}
-						} else {
-							//Es uno unico
-							elem.checked = todos;
 						}
-					}
-				</script>
-				<div style='float: right; font-size:9px;'>
-					<a href='javascript: multi_seleccion_mostrar(true)'>Todos</a> / 
-					<a href='javascript: multi_seleccion_mostrar(false)'>Ninguno</a></div>
-			";
-		}		
-		$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
-		foreach ($this->valores as $id => $descripcion) {
-			$checkeado = in_array($id, $estado) ? "checked" : "";
-			$html .= "<div class='ef-multi-check'>";
-			$html .= "<input name='{$this->id_form}[]' id='{$this->id_form}[]' type='checkbox' value='$id' $checkeado class='ef-checkbox'>";
-			$html .= "$descripcion</div>\n";
+					</script>
+					<div style='float: right; font-size:9px;white-space:nowrap;'>
+						<a href='javascript: multi_seleccion_mostrar(true)'>Todos</a> / 
+						<a href='javascript: multi_seleccion_mostrar(false)'>Ninguno</a></div>
+				";
+			}		
+			$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
+			foreach ($this->valores as $id => $descripcion) {
+				$checkeado = in_array($id, $estado) ? "checked" : "";
+				$html .= "<div class='ef-multi-check'>";
+				$html .= "<input name='{$this->id_form}[]' id='{$this->id_form}[]' type='checkbox' value='$id' $checkeado class='ef-checkbox'>";
+				$html .= "$descripcion</div>\n";
+			}
+			$html .= "</div>";
 		}
-		$html .= "</div>";
-		
 		return $html;
 	}	
 	
