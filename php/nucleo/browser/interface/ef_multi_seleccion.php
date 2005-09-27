@@ -1,4 +1,4 @@
-ca<?php
+<?php
 require_once("nucleo/browser/interface/ef.php");// Elementos de interface
 
 define('carga_dao_estatico', '400');
@@ -57,9 +57,6 @@ class ef_multi_seleccion extends ef
 		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
 		$parametros["cant_minima"]["opcional"]=1;	
 		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";		
-		$parametros["tamanio"]["descripcion"]="Tamanio";
-		$parametros["tamanio"]["opcional"]=1;	
-		$parametros["tamanio"]["etiqueta"]="Tamaño";	
 		$parametros["sql"]["etiqueta"]="SQL";	
 		$parametros["sql"]["opcional"]=1;
 		$parametros["sql"]["descripcion"]="Query de carga";
@@ -349,6 +346,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 		$parametros["mostrar_utilidades"]["descripcion"]="Mostrar utilidades";
 		$parametros["mostrar_utilidades"]["opcional"]=1;	
 		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidades";
+		$parametros["tamanio"]["descripcion"]="Cantidad de elementos que se visualizan simultáneamente";
+		$parametros["tamanio"]["opcional"]=1;	
+		$parametros["tamanio"]["etiqueta"]="Tamaño";			
 		return $parametros;
 	}
 
