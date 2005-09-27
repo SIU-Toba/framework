@@ -115,4 +115,12 @@
 	}
 /*----------------------------*/
 
+	function formato_superficie($valor)
+	{
+		//Es trucho forzar desde aca, los datos tienen que esta bien
+		//if($valor<0)$valor=0;
+		return "&nbsp;" . number_format($valor,2,',','.') . "&nbsp;" . "Km²";
+	}	
+/*----------------------------*/
+
 ?>

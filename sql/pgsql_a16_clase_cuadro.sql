@@ -46,6 +46,10 @@ CREATE TABLE apex_objeto_cuadro
 	desplegable_activo			smallint		NULL,
 	scroll						smallint		NULL,
 	scroll_alto					varchar(10)		NULL,
+	cc_modo						varchar(1)		NULL,		-- Tipo de cortes de control
+	cc_modo_anidado_colap		smallint		NULL,		-- Tipo anidado: colapsar niveles
+	cc_modo_anidado_totcol		smallint		NULL,		-- Tipo anidado: Desplegar columnas horizontalmente
+	cc_modo_anidado_totcua		smallint		NULL,		-- Tipo anidado: El total del ultimo nivel adosarlo al cuadro
 	CONSTRAINT  "apex_objeto_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro"),
 	CONSTRAINT  "apex_objeto_cuadro_fk_objeto"  FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_cuadro_fk_nucleo" FOREIGN KEY ("dao_nucleo_proyecto","dao_nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -115,6 +119,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 	objeto_cuadro                 	int4       		NOT NULL,
 	objeto_cuadro_cc				int4			DEFAULT nextval('"apex_obj_ei_cuadro_cc_seq"'::text) NOT NULL, 
 	identificador					varchar(15)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte
+	descripcion						varchar(30)		NULL,
 	orden				            float      		NOT NULL,
 	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
 	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
