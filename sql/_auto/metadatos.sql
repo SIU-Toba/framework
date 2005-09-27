@@ -118,7 +118,9 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'administrador', 10, 'varchar(60)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'link_instancia', 11, 'smallint		NULL,	--	En	vez de abrir una conexion,	utilizar	la	conexion	a la intancia');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'instancia_id', 12, 'varchar(30)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'orden', 13, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'subclase_archivo', 13, 'varchar(255) 	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'subclase_nombre', 14, 'varchar(60) 	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_fuente_datos', 'orden', 15, 'smallint		NULL,');
 
 ------  'apex_grafico'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_grafico', 'pgsql_a01_nucleo.sql', 12, 'proyecto', NULL, NULL, 'grafico', NULL, NULL, 'Tipo	de	grafico', '1.0', NULL, NULL);
@@ -306,7 +308,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 
 ------  'apex_item'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_item', 'pgsql_a01_nucleo.sql', 34, 'multiproyecto', NULL, NULL, 'item', NULL, NULL, '', '1.0', NULL, NULL);
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_item', 'item_id', 1, 'int4			NULL,		--> No se usa más');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_item', 'item_id', 1, 'int4			DEFAULT nextval(\'\"apex_item_seq\"\'::text) NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_item', 'proyecto', 2, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_item', 'item', 3, 'varchar(60)		DEFAULT nextval(\'\"apex_item_seq\"\'::text) NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_item', 'padre_id', 4, 'int4			NULL,');

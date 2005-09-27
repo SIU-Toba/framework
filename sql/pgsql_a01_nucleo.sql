@@ -219,6 +219,8 @@ CREATE TABLE apex_fuente_datos
 	administrador				varchar(60)		NULL,
 	link_instancia				smallint		NULL,	--	En	vez de abrir una conexion,	utilizar	la	conexion	a la intancia
 	instancia_id				varchar(30)	NULL,
+	subclase_archivo			varchar(255) 	NULL,
+	subclase_nombre				varchar(60) 	NULL,
 	orden						smallint		NULL,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
