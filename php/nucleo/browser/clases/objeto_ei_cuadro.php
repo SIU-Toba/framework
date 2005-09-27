@@ -308,7 +308,7 @@ class objeto_ei_cuadro extends objeto_ei
 				eval($sentencia);
 			}
 		}
-		if(isset($this->datos))
+		if(isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0) )
 		{
 			$this->validar_estructura_datos();
 			// - 2 - Paginacion
