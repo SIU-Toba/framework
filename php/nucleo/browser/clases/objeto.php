@@ -287,17 +287,7 @@ class objeto
 	@@desc: Crea la conexion que el objeto necesita para trabajar
 */
 	{
-		//global $cronometro;
-		abrir_base( 	$this->info["fuente"], array(
-						apex_db_motor => $this->info["fuente_motor"],
-						apex_db_profile => $this->info["fuente_host"],
-						apex_db_usuario => $this->info["fuente_usuario"],
-						apex_db_clave => $this->info["fuente_clave"],
-						apex_db_base => $this->info["fuente_base"],
-						apex_db_link =>	$this->info["fuente_link_instancia"],
-						apex_db_link_id =>	$this->info["fuente_link_instancia_id"])
-					);
-		//$cronometro->marcar('OBJETO ['.$this->id[1].']: Conectar FUENTE de DATOS',apex_nivel_nucleo);
+		dba::get_db($this->info["fuente"]);
 	}
 	//-------------------------------------------------------------------------------
 

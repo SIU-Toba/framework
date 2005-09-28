@@ -1,5 +1,5 @@
 <?php
-require_once("3ros/adodb464/adodb.inc.php");
+require_once('modelo/dba.php');
 require_once("fuente.php");
 /*
 	Notas de ADOdb
@@ -26,109 +26,38 @@ define("apex_db",7);
 define("apex_db_link_id",8);
 //--------------------------------
 
+	/**
+	*	@deprecated Desde 0.8.3, Usar dba::get_db();
+	*/
 	function abrir_base($id,$parm)
-/*
- 	@@acceso: actividad
-	@@desc: Agrega una conexion al array de bases GLOBAL $db
-	@@param: string | ID de la nueva conexion (referencia asociativa del array global '$db')
-	@@param: array | array con la informacion necesaria para crear la conexion (apex_db_motor, apex_db_profile, apex_db_usuario, apex_db_clave, apex_db_base, apex_db_con, apex_db_link )
-	@@retorno: boolean | true si la conexion pudo abrirse, false en el caso contrario
-*/
 	{
-		//echo "ID: $id <br>"; echo "PARAMETROS: "; print_r($parm); echo "<br>";
-		global $db;
-		if(!isset($db[$id])){//Existe una conexion con ese ID?
-			//La conexion es un LINK a la conexion primaria de la INSTANCIA?
-			if(isset($parm[apex_db_link])){
-				if($parm[apex_db_link]==1){
-					//La fuente solicita un LINK a un elemento del archivo de INSTANCIAS
-					if(isset($parm[apex_db_link_id])){
-						if(trim($parm[apex_db_link_id])!=""){
-							global $instancia;
-							//Existe una descripcion de esa instancia?
-							if(isset($instancia[$parm[apex_db_link_id]])){
-		    					return abrir_base($id,$instancia[$parm[apex_db_link_id]]);
-							}else{
-								throw new excepcion_toba("ABRIR_BASE: no existe el indice en 'instancias.php'");
-							}
-						}
-					}
-					$db[$id] =& $db["instancia"];
-				}
-			//Creo la conexion solicitada
-			}else{
-				if( $db[$id][apex_db_con] =& ADONewConnection($parm[apex_db_motor]) ){
-					$ok = @ $db[$id][apex_db_con]->NConnect($parm[apex_db_profile],$parm[apex_db_usuario],$parm[apex_db_clave],$parm[apex_db_base]);
-					if( $ok ){
-						//Dejo guardados los parametros de conexion
-						$db[$id][apex_db_motor] = $parm[apex_db_motor];
-						$db[$id][apex_db_profile] = $parm[apex_db_profile];
-						$db[$id][apex_db_usuario] = $parm[apex_db_usuario];
-						$db[$id][apex_db_clave] = $parm[apex_db_clave];
-						$db[$id][apex_db_base] = $parm[apex_db_base];
-						$sentencia = "\$db[\$id][apex_db] = new fuente_datos_".$db[$id][apex_db_motor]."( \$db[\$id][apex_db_con] );";
-						//echo $sentencia;
-						eval($sentencia);
-					}else{
-						return false;
-					}
-				}else{		//Se creo la conexion?
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-//-------------------------------------------------------------------------------------
-	
-	function abrir_fuente_datos($id, $proyecto=null)
-/*
- 	@@acceso: actividad
-	@@desc: Abre una conexion con una fuente de datos especifica
-	@@param: string | Identificador de la fuente de datos
-*/
-	{
-		global $db, $ADODB_FETCH_MODE, $solicitud;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		if(isset($proyecto)){
-			$proyecto_fuente = $proyecto;
-		}else{
-			$proyecto_fuente = $solicitud->hilo->obtener_proyecto();
-		}
-		$sql = "SELECT 	*
-				FROM 	apex_fuente_datos
-				WHERE	fuente_datos = '$id'
-				AND		proyecto = '$proyecto_fuente';";
-		//echo $sql;
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			monitor::evento("bug","ABRIR FUENTE: No se genero el recordset. " . $db["instancia"][apex_db_con]->ErrorMsg(). " </b> -- SQL: $sql --");
-		}
-		if($rs->EOF){
-			monitor::evento("bug","ABRIR FUENTE: No hay informacion sobre la FUENTE seleccionada.");
-		}
-		$parm[apex_db_motor] = $rs->fields["fuente_datos_motor"];
-		$parm[apex_db_profile] = $rs->fields["host"];
-		$parm[apex_db_usuario] = $rs->fields["usuario"];
-		$parm[apex_db_clave] = $rs->fields["clave"];
-		$parm[apex_db_base] = $rs->fields["base"];
-		$parm[apex_db_link] = $rs->fields["link_instancia"];
-		$parm[apex_db_link_id] = $rs->fields["instancia_id"];
-		abrir_base($id, $parm);
+		dba::get_db($id);
+		return true;		
 	}
 //-------------------------------------------------------------------------------------
 
-	function existe_conexion($id)
-/*
- 	@@acceso: actividad
-	@@desc: Responde si exite una conexion con un ID especifico
-	@@retorno: boolean | true si la conexion existe
-*/
+	/**
+	*	@deprecated Desde 0.8.3, Usar dba::get_db();
+	*/
+	function abrir_fuente_datos($id, $proyecto=null)
 	{
-		return isset($db[$id]);
+		$db = dba::get_db($id);
+		return $db;
+	}
+//-------------------------------------------------------------------------------------
+
+	/**
+	*	@deprecated Desde 0.8.3, Usar dba::existe_conexion();
+	*/
+	function existe_conexion($id)
+	{
+		return dba::existe_conexion($id);
 	}
 //-------------------------------------------------------------------------------------
 	
+	/**
+	*	@deprecated Desde 0.8.3, Usar dba::get_db();
+	*/
 	function obtener_fuente($id, $ado=null)
 	//Devuelve una referencia a una fuente de datos
 	{
@@ -144,88 +73,46 @@ define("apex_db_link_id",8);
 		}
 	}
 //-------------------------------------------------------------------------------------
-	
+	/**
+	*	@see db::ejecutar_transaccion()
+	*/
 	function ejecutar_transaccion($sentencias_sql, $fuente="instancia")
-/*
- 	@@acceso: actividad
-	@@desc: Ejecuta un ARRAY de sentencias SQL como una transaccion.
-*/
 	{
-		global $db;
-		$sentencia_actual = 1;
-		$db[$fuente][apex_db_con]->Execute("BEGIN TRANSACTION");
-		foreach( $sentencias_sql as $sql )
-		{
-			if( $db[$fuente][apex_db_con]->Execute($sql) === false){
-				$mensaje = "Ha ocurrido un error en la sentencia: $sentencia_actual -- ( " . 
-							$db[$fuente][apex_db_con]->ErrorMsg() . " )";
-				$db[$fuente][apex_db_con]->Execute("ROLLBACK TRANSACTION");
-				return array(0, $mensaje);
-			}
-			$sentencia_actual++;
-		}
-		$db[$fuente][apex_db_con]->Execute("COMMIT TRANSACTION");
+		dba::get_db($fuente)->ejecutar_transaccion($sentencias_sql);
 		$mensaje = "La transaccion se ha realizado satisfactoriamente";
 		return array(1, $mensaje);
 	}
 //-------------------------------------------------------------------------------------
 	
+	/**
+	*	@see db::abrir_transaccion()
+	*/
 	function abrir_transaccion($fuente=null)
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		$sql = "BEGIN TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABRIR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
-		toba::get_logger()->debug("************ ABRIR transaccion ****************"); 
+		dba::get_db($fuente)->abrir_transaccion();
 	}
 	
+	/**
+	*	@see db::abortar_transaccion()
+	*/	
 	function abortar_transaccion($fuente=null)
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		$sql = "ROLLBACK TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
-		toba::get_logger()->debug("************ ABORTAR transaccion ****************"); 
+		dba::get_db($fuente)->abortar_transaccion();
 	}
 	
+	/**
+	*	@see db::cerrar_transaccion()
+	*/	
 	function cerrar_transaccion($fuente=null)
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		$sql = "COMMIT TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
-		toba::get_logger()->debug("************ CERRAR transaccion ****************"); 
+		dba::get_db($fuente)->cerrar_transaccion();
 	}
 
 //-------------------------------------------------------------------------------------
 
+	/**
+	*	@deprecated Desde 0.8.3, usar consultar_fuente() o db::consultar()
+	*/
 	function recuperar_datos($sql, $fuente="instancia", $ado=null)
 /*
 
@@ -257,82 +144,32 @@ define("apex_db_link_id",8);
 	}
 
 //-------------------------------------------------------------------------------------
-
+	/**
+	*	@see db::consultar()
+	*/
 	function consultar_fuente($sql, $fuente=null, $ado=null, $obligatorio=false)
 	//Dispara una execpcion si algo salio mal
 	{
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		global $db, $ADODB_FETCH_MODE;	
-		if(isset($ado)){
-			$ADODB_FETCH_MODE = $ado;
-		}else{
-			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		}
-		if(!isset($db[$fuente])){
-			throw new excepcion_toba("La fuente de datos no se encuentra disponible. " );
-		}
-		$rs = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$rs){
-			throw new excepcion_toba("No se genero el Recordset. " . $db[$fuente][apex_db_con]->ErrorMsg() );
-		}elseif($rs->EOF){
-			if($obligatorio){
-				throw new excepcion_toba("La consulta no devolvio datos.");
-			}else{
-				return null;
-			}
-		}else{
-			return $rs->getArray();
-		}
+		return dba::get_db($fuente)->consultar($sql, $ado, $obligatorio);
 	}
 //-------------------------------------------------------------------------------------
-
+	/**
+	*	@see db::ejecutar_sql()
+	*/
 	function ejecutar_sql($sql, $fuente=null)
 	//Dispara una execpcion si algo salio mal
 	//El codigo de la excepsion deberia ser el SQLSTATE
 	//Deberia buscarla en la FUENTE para descubrir el SQLSTATE
 	{
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		global $db;	
-		if(!isset($db[$fuente])){
-			throw new excepcion_toba("La fuente de datos no se encuentra disponible." );
-		}
-		$registros_afectadas = 0;
-		if(is_array($sql)){
-			for($a = 0; $a < count($sql);$a++){
-				if ( $db[$fuente][apex_db_con]->Execute($sql[$a]) === false ){
-					throw new excepcion_toba("ERROR ejecutando el SQL. " . $db[$fuente][apex_db_con]->ErrorMsg() . "." );
-				}else{
-					$registros_afectadas += $db[$fuente][apex_db_con]->Affected_Rows();
-				}
-			}
-		}else{
-			if ( $db[$fuente][apex_db_con]->Execute($sql) === false ){
-				throw new excepcion_toba("ERROR ejecutando el SQL. " . $db[$fuente][apex_db_con]->ErrorMsg() . "." );
-			}else{
-				$registros_afectadas = $db[$fuente][apex_db_con]->Affected_Rows();
-			}
-		}
-		return $registros_afectadas;
+		return dba::get_db($fuente)->ejecutar_sql($sql);
 	}
 //-------------------------------------------------------------------------------------
-
+	/**
+	*	@see db::recuperar_secuencia()
+	*/
 	function recuperar_secuencia($secuencia, $fuente="instancia")
 	{
-		$sql = "SELECT currval('$secuencia') as seq;";
-		$datos = consultar_fuente($sql,$fuente);
-		return $datos[0]['seq'];		
+		return dba::get_db($fuente)->recuperar_secuencia($secuencia);
 	}
 //-------------------------------------------------------------------------------------
 ?>

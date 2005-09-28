@@ -1,6 +1,7 @@
 <?
 /**
-	Esta clase administra la utilizacion de bases de datos
+*	Administra la utilizacion de bases de datos
+*	Esto es suministrar las conexiones, crear, borrar y consultar su existencia.
 */
 class dba
 {
@@ -17,16 +18,53 @@ class dba
 		$this->bases_conectadas = array();
 	}
 
-	public static function get_db($nombre)
-	//Devuelve una referencia a una CONEXION con una base
+	/**
+	*	Retorna una referencia a una CONEXION con una base
+	*	@param string $nombre Por defecto toma la constante fuente_datos_defecto o la misma base de toba
+	*	@return db
+	*/
+	static function get_db($nombre=null)
 	{
-		//ATENCION:	El nombre NULL deberia buscar la base por defecto
 		$dba = self::get_instancia();
+		if (is_null($nombre)) {
+			$nombre = (defined("fuente_datos_defecto")) ? fuente_datos_defecto : "instancia";
+		}
 		return $dba->get_conexion($nombre);
 	}
+	
 
+	/**
+	*	Fuerza la recarga de los parametros de una conexion y reconecta a la base
+	*/	
+	static function refrescar($nombre)
+	{
+		if (isset(self::$info_bases[$nombre])) {
+			unset(self::$info_bases[$nombre]);
+		}
+		$dba = self::get_instancia();
+		$dba->reconectar($nombre);
+
+		return self::get_db($nombre);
+	}
+	
+	
+	/**
+	*	¿Hay una conexión abierta a la base?
+	*/
+	static function existe_conexion($nombre)
+	{
+		return self::get_instancia()->existe_conexion_privado($nombre);	
+	}
+	
+	private function existe_conexion_privado($nombre)
+	{
+		return isset($this->bases_conectadas[$nombre]);
+	}
+	
+	/**
+	*	Manejo interno de las conexiones realizadas
+	*/
 	private function get_conexion($nombre)
-	//Manejo interno de las conexiones relaizadas
 	{
 		if(!isset($this->bases_conectadas[$nombre])){
 			$parametros = self::get_info_db($nombre);
@@ -34,13 +72,26 @@ class dba
 		}
 		return $this->bases_conectadas[$nombre];
 	}
+	
+	/**
+	*	Fuerza a reconectar en el proximo pedido de bases
+	*/
+	private function reconectar($nombre)
+	{
+		if (isset($this->bases_conectadas[$nombre])) {
+			unset($this->bases_conectadas[$nombre]);
+		}
+	}		
 
 	//------------------------------------------------------------------------
 	// Mantenimiento de BASES de DATOS
 	//------------------------------------------------------------------------
 
-	public static function crear_base_datos($nombre)
-	//Crea una base de datos
+	/**
+	*	Crea la base de datos asociada a la fuente
+	*	@param string $nombre Nombre de la fuente de datos
+	*/
+	static function crear_base_datos($nombre)
 	{
 		$info_db = self::get_info_db($nombre);
 		$base_a_crear = $info_db['base'];
@@ -55,8 +106,11 @@ class dba
 		}
 	}
 
-	public static function borrar_base_datos($nombre)
-	//Crea una base de datos
+	/**
+	*	Borra la base de datos asociada a la fuente
+	*	@param string $nombre Nombre de la fuente de datos
+	*/	
+	static function borrar_base_datos($nombre)
 	{
 		$info_db = self::get_info_db($nombre);
 		$base_a_borrar = $info_db['base'];
@@ -71,7 +125,11 @@ class dba
 		}
 	}
 
-	public static function existe_base_datos($nombre)
+	/**
+	*	Determina si la base de datos de la fuente existe
+	*	@param string $nombre Nombre de la fuente de datos
+	*/
+	static function existe_base_datos($nombre)
 	{
 		try{
 			$db = self::conectar_db( self::get_info_db($nombre) );
@@ -88,26 +146,82 @@ class dba
 
 	private static function get_info_db($nombre)
 	{
-		if (!isset(self::$info_bases)){
-			include_once("../instancias/bases.php");
-			self::$info_bases = $base;
-		}
-		if(!isset( self::$info_bases[$nombre])){
-			throw new excepcion_toba("La base '$nombre' no fue definida");
+		if (!isset(self::$info_bases[$nombre])){
+
+			//-------- MIGRACION 0.8.3 --------------
+			//Se tiene que tener en cuenta que el caso particular de la misma instancia
+			//Ya que no se pude conectar a la BD para averiguar sus paramnetros sino que 
+			//salen de instancias.php
+			if ($nombre == 'instancia') {
+				self::$info_bases[$nombre] = self::parametros_instancia($nombre);
+			} else {
+				$sql = "SELECT 	*, 
+								fuente_datos_motor as motor,
+								host as profile
+						FROM 	apex_fuente_datos
+						WHERE	fuente_datos = '$nombre'
+				";
+				$rs = consultar_fuente($sql);
+				if (!$rs || count($rs) == 0) {
+					throw new excepcion_toba("La base '$nombre' no fue definida");
+				}
+				$datos = $rs[0];
+				//Es un link al archivo de instancias?
+				if ($rs[0]['link_instancia'] == 1) {
+					$id_instancia = (isset($rs[0]['instancia_id'])) ? $rs[0]['instancia_id'] : "instancia";
+					$datos = array_merge($datos, self::parametros_instancia($id_instancia));
+				}
+				self::$info_bases[$nombre] = $datos;
+			}
+			//-------------------------------------------			
+			//Se pospone para un release posterior
+			//include_once("../instancias/bases.php");
 		}
 		return self::$info_bases[$nombre];
 	}
 
+	//--------  MIGRACION 0.8.3 --------------
+	private static function parametros_instancia($nombre)
+	{
+		global $instancia;		
+		$nombre_instancia = ($nombre == 'instancia') ? apex_pa_instancia : $nombre;
+		$datos['profile'] = $instancia[$nombre_instancia][apex_db_profile];
+		$datos['motor'] =  $instancia[$nombre_instancia][apex_db_motor];
+		$datos['usuario'] = $instancia[$nombre_instancia][apex_db_usuario];
+		$datos['clave'] = $instancia[$nombre_instancia][apex_db_clave];
+		$datos['base'] = $instancia[$nombre_instancia][apex_db_base];
+		$datos['fuente_datos'] = $nombre;
+		return $datos;
+	}
+	//-------------------------------------------	
+	
 	private static function conectar_db($parametros)
 	//Fabrica de conexiones
 	{
-			$clase = "db_" . $parametros['motor'];
+		
+		if (isset($parametros['subclase_archivo'])) {
+			$archivo = $parametros['subclase_archivo'];
+		} else {
 			$archivo = "db_" . $parametros['motor'] . ".php";
-			require_once($archivo);
-			return new $clase(	$parametros['profile'],
-								$parametros['usuario'],
-								$parametros['clave'],
-								$parametros['base'] );
+		}
+		if (isset($parametros['subclase_nombre'])) {
+			$clase = $parametros['subclase_nombre'];
+		} else {
+			$clase = "db_" . $parametros['motor'];
+		}		
+
+		require_once($archivo);
+		$objeto_db = new $clase(	$parametros['profile'],
+							$parametros['usuario'],
+							$parametros['clave'],
+							$parametros['base'] );
+		$conexion = $objeto_db->conectar();
+		//--------  MIGRACION 0.8.3 --------------			
+		//Como puente de migracion de versiones anteriores la conexion se almacena como global
+		global $db;
+		$db[$parametros['fuente_datos']][apex_db_con] = $conexion;
+		//-------------------------------------------
+		return $objeto_db;
 	}
 
 	private static function get_instancia()

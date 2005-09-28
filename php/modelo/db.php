@@ -1,6 +1,11 @@
 <?
 require_once("3ros/adodb464/adodb.inc.php");
+define('apex_db_asociativo', ADODB_FETCH_ASSOC);
+define('apex_db_numerico', ADODB_FETCH_NUM);
 
+/**
+*	Representa una conexión a la base de datos utilizando ADODb
+*/
 class db
 {
 	protected $conexion;			//Conexion ADOdb
@@ -16,73 +21,125 @@ class db
 		$this->usuario  = $usuario;
 		$this->clave    = $clave;
 		$this->base     = $base;
+	}
+
+	function destruir()
+	{
+		$this->conexion->close();	
+	}	
+	
+	
+	function __call($nombre, $argumentos)
+	{
+		//-------------- MIGRACION a 0.8.3-----------------
+		if (strtolower($nombre) == 'execute') {
+			toba::get_logger()->notice("El método Execute de ADOdb se debe reemplazar por ejecutar en caso de ser un comando".
+										" o consultar en caso de ser una consulta. Ver cambios en v0.8.3");
+		} else {
+			toba::get_logger()->notice("A partir de 0.8.3 no esta recomendado utilizar llamadas a ADODB (metodo $nombre)");
+		}
+		return call_user_func_array(array($this->conexion, $nombre), $argumentos);
+		//-------------- MIGRACION -----------------		
+	}	
+	
+	function __get($propiedad)
+	{
+		toba::get_logger()->notice("El atributo de ADOdb $propiedad no se debe utilizar. Ver cambios en v0.8.3");
+		return $this->conexion->$propiedad;
+	}
+	
+	/**
+	*	Realiza la conexión a la BD utilizando ADOdb
+	*	La creación de la conexión se encierra entre las llamas pre_conectar y post_conectar
+	*/
+	function conectar()
+	{
+		$this->pre_conectar();
 		$this->conexion = ADONewConnection($this->motor);
 		$status = @$this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
 		if(!$status){
 			throw new excepcion_toba("No es posible realizar la conexion");
 		}
+		$this->post_conectar();
+		return $this->conexion;
 	}
 	
-	function destruir()
-	{
-		$this->conexion->close();	
-	}
+	/**
+	*	Lugar para personalizar las acciones previas a la conexión
+	*/
+	function pre_conectar() {}
+	
+	/**
+	*	Lugar para personalizar las acciones posteriores a la conexión
+	*/
+	function post_conectar() {}
 
+	
+	//-------------------------------------------------------------------------------------	
+
+	/**
+	*	Ejecuta un comando sql o un conjunto de ellos
+	*	@param mixed $sql Comando o arreglo de comandos
+	*	@throws excepcion_toba en caso de que algun comando falle	
+	*/
 	function ejecutar($sql)
 	{
-		if(is_array($sql)){
+		$afectados = 0;
+		if (is_array($sql)) {
 			for($a = 0; $a < count($sql);$a++){
 				if ( $this->conexion->execute($sql[$a]) === false ){
 					throw new excepcion_toba("ERROR ejecutando SQL. ".
 											"-- Mensaje MOTOR: (" . $this->conexion->ErrorMsg() . ")".
 											"-- SQL ejecutado: (" . $sql[$a] . ").");
 				}
+				$afectados += $this->conexion->Affected_Rows();
 			}
-		}else{
+		} else {
 			if ( $this->conexion->execute($sql) === false ){
 				throw new excepcion_toba("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: (" . $this->conexion->ErrorMsg() . ")".
 										"-- SQL ejecutado: (" . $sql . ").");
 			}
+			$afectados += $this->conexion->Affected_Rows();			
 		}
+		return $afectados;		
+	}
+	
+	/**
+	*	@deprecated Desde 0.8.3
+	*	@see ejecutar
+	*/
+	function ejecutar_sql($sql)
+	{
+		$this->ejecutar($sql);
 	}
 
 	//-------------------------------------------------------------------------------------
 
-	//Tengo que responder a las llamadas de AOD
-	function __call($nombre, $argumentos)
-	{
-		echo "me llamaron $nombre";
-	}
-
-
+	/**
+	*	Ejecuta una consulta sql
+	*	@param string $sql Consulta
+	*	@param string $ado Modo Fecth de ADO, por defecto asociativo
+	*	@param boolean $obligatorio Si la consulta no retorna datos lanza una excepcion
+	*	@return array Resultado de la consulta en formato fila-columna
+	*	@throws excepcion_toba en caso de error
+	*/	
 	function consultar($sql, $ado=null, $obligatorio=false)
-	//Dispara una execpcion si algo salio mal
 	{
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
-		global $db, $ADODB_FETCH_MODE;	
+		global $ADODB_FETCH_MODE;	
 		if(isset($ado)){
 			$ADODB_FETCH_MODE = $ado;
 		}else{
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		}
-		if(!isset($db[$fuente])){
-			throw new excepcion_toba("La fuente de datos no se encuentra disponible. " );
-		}
-		$rs = $db[$fuente][apex_db_con]->Execute($sql);
+		$rs = $this->conexion->Execute($sql);
 		if(!$rs){
-			throw new excepcion_toba("No se genero el Recordset. " . $db[$fuente][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("No se genero el Recordset. " . $this->conexion->ErrorMsg() );
 		}elseif($rs->EOF){
 			if($obligatorio){
 				throw new excepcion_toba("La consulta no devolvio datos.");
 			}else{
-				return null;
+				return array();
 			}
 		}else{
 			return $rs->getArray();
@@ -90,118 +147,90 @@ class db
 	}
 //-------------------------------------------------------------------------------------
 
-	function recuperar_secuencia($secuencia, $fuente="instancia")
+	/**
+	*	Recupera el valor actual de una secuencia
+	*	@param string $secuencia Nombre de la secuencia
+	*	@return string Siguiente numero de la secuencia
+	*/	
+	function recuperar_secuencia($secuencia)
 	{
 		$sql = "SELECT currval('$secuencia') as seq;";
-		$datos = consultar_fuente($sql,$fuente);
-		return $datos[0]['seq'];		
+		$datos = $this->consultar($sql);
+		return $datos[0]['seq'];
 	}
 //-------------------------------------------------------------------------------------
 
-	function ejecutar_transaccion($sentencias_sql, $fuente="instancia")
-/*
- 	@@acceso: actividad
-	@@desc: Ejecuta un ARRAY de sentencias SQL como una transaccion.
-*/
+	/**
+	*	Ejecuta un conjunto de comandos dentro de una transacción
+	*	En caso de error en algún comando la aborta
+	*	@param array $sentencias Conjunto de comandos sql
+	*/
+	function ejecutar_transaccion($sentencias_sql)
 	{
 		global $db;
 		$sentencia_actual = 1;
-		$db[$fuente][apex_db_con]->Execute("BEGIN TRANSACTION");
-		foreach( $sentencias_sql as $sql )
-		{
-			if( $db[$fuente][apex_db_con]->Execute($sql) === false){
-				$mensaje = "Ha ocurrido un error en la sentencia: $sentencia_actual -- ( " . 
-							$db[$fuente][apex_db_con]->ErrorMsg() . " )";
-				$db[$fuente][apex_db_con]->Execute("ROLLBACK TRANSACTION");
-				return array(0, $mensaje);
-			}
-			$sentencia_actual++;
+		$this->abrir_transaccion();
+		try {
+			$this->ejecutar($sql);
+		} catch (exception_toba $e) {
+			$this->abortar_transaccion();
+			throw $e;
 		}
-		$db[$fuente][apex_db_con]->Execute("COMMIT TRANSACTION");
-		$mensaje = "La transaccion se ha realizado satisfactoriamente";
-		return array(1, $mensaje);
+		$this->cerrar_transaccion();
 	}
 //-------------------------------------------------------------------------------------
 	
-	function abrir_transaccion($fuente=null)
+	function abrir_transaccion()
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
 		$sql = "BEGIN TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABRIR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
-		toba::get_logger()->debug("************ ABRIR transaccion ****************"); 
+		$this->ejecutar($sql);
+		toba::get_logger()->debug("************ ABRIR transaccion ****************");
 	}
 	
-	function abortar_transaccion($fuente=null)
+	function abortar_transaccion()
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
 		$sql = "ROLLBACK TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
+		$this->ejecutar($sql);		
 		toba::get_logger()->debug("************ ABORTAR transaccion ****************"); 
 	}
 	
-	function cerrar_transaccion($fuente=null)
+	function cerrar_transaccion()
 	{
-		global $db;
-		if($fuente==null){
-			if( defined("fuente_datos_defecto") ){
-				$fuente = fuente_datos_defecto;
-			}else{
-				$fuente = "instancia";
-			}
-		}
 		$sql = "COMMIT TRANSACTION";
-		$status = $db[$fuente][apex_db_con]->Execute($sql);
-		if(!$status){
-			throw new excepcion_toba ("No es posible ABORTAR la TRANSACCION ( " .$db[$fuente][apex_db_con]->ErrorMsg()." )","error");
-		}
+		$this->ejecutar($sql);		
 		toba::get_logger()->debug("************ CERRAR transaccion ****************"); 
 	}
 
 //-------------------------------------------------------------------------------------
 
+	/**
+	*	Ejecuta los comandos disponibles en un archivo
+	*	@param string $archivo Path absoluto del archivo
+	*/
 	function ejecutar_archivo($archivo)
 	//Esta función ejecuta una serie de comandos sql dados en un archivo, contra la BD dada.
 	{
-		$sql = "/".$sql;
-		$str = file_get_contents(dirname(__FILE__).$sql);
-
-		if ($db[$this->id][apex_db_con]->Execute($str) == false) {
-			throw new excepcion_toba("FUENTE_TOBA: Imposible ejecutar comando '{$str}' : ".$db[$this->id][apex_db_con]->ErrorMsg());
-		}
-
+		if (!file_exists($archivo)) {
+			throw new excepcion_toba("Error al ejecutar comandos. El archivo $archivo no existe");
+		}	
+		$str = file_get_contents($archivo);
+		$this->ejecutar($str);
 	}
 	//---------------------------------------------------------------------------------------
 	
+	/**
+	*	Mapea el error de la base al modulo de mensajes del toba
+	*/
 	function obtener_error_toba($codigo, $descripcion)
-	//Esta funcion mapea el error de la base al modulo de mensajes del toba
 	{
 		return array();		
 	}
 
-	function get_tipo_datos_generico($tipo)
-	/*
-		Adaptado de ADOdb.
+	/**
+	*	Mapea un tipo de datos especifico de un motor a uno generico de toba
+	*	Adaptado de ADOdb
 	*/
+	function get_tipo_datos_generico($tipo)
 	{
 		$tipo=strtoupper($tipo);
 	static $typeMap = array(

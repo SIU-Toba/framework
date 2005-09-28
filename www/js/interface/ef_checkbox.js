@@ -22,12 +22,14 @@ def.constructor = ef_checkbox;
 			return null;
 	}
 	
-	def.chequear = function(valor) {
+	def.chequear = function(valor, disparar_eventos) {
+		if (typeof eventos != 'boolean')
+			disparar_eventos = true;
 		if (typeof valor != 'boolean')
 			valor = true;
 		var input = this.input();
 		input.checked = valor;
-		if (input.onclick)
+		if (disparar_eventos && input.onclick)
 			input.onclick();
 	}
 	

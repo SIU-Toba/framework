@@ -25,6 +25,10 @@ class toba
 		return $solicitud->hilo;
 	}
 	
+	/**
+	*	Retorna el logger de eventos de toba
+	*	@return logger
+	*/
 	function get_logger()
 	{
 		global $solicitud;
@@ -53,8 +57,7 @@ class toba
 	
 	function get_db($fuente, $ado=null)
 	{
-		$fuente = toba::get_fuente($fuente, $ado);
-		return $fuente[apex_db_con];
+		return dba::get_db($fuente);
 	}
 
 	function get_fuente_datos($fuente)

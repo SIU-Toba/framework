@@ -40,12 +40,7 @@ else {
     {
 		#-[2]- Abro la conexion a la INSTANCIA
 		try{
-			if (!abrir_base("instancia",$instancia[apex_pa_instancia])) {
-				echo 	"<div align='center'><img src='$imagen'>
-						<h2>No es posible conectarse a la base de datos '{$instancia[apex_pa_instancia][apex_db_base]}' en {$instancia[apex_pa_instancia][apex_db_profile]}</h2>
-						<h3>Por favor, chequee que la base de datos exista y el servidor esté disponible.</h3></div>";	
-				die();
-			}
+			dba::get_db("instancia");
 		}catch(exception $e){
 			echo "No es posible conectarse a la instancia.";
 			//if(apex_pa_validacion_debug) echo "<pre>"; print_r($instancia[apex_pa_instancia]);
