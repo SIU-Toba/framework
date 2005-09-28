@@ -1,27 +1,37 @@
 <?
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
 require_once("objeto_ei.php");
+define("apex_cuadro_cc_tabular","t");
+define("apex_cuadro_cc_anidado","a");
 /*
 	Falta:
 	
-		GENERAL:
+	GENERAL:
 
 		- Encriptar clave
 		- Modificar la clave devuelta (siempre array)
 		- Vinculos?
 		
-		EVENTOS: 
+	EVENTOS: 
 
 		- Testear la ventana de filtrado segun fila
 
-		CORTES:
+	CORTES:
 
+		- Layout tabular
 		- Colapsado de niveles
 		- Los totales tienen que respetar el formato de la columna
 		- Contar la cantidad de filas
 		- Layout HTML
-			- Sumarizacion por corte (columnas + sum_usuario + filas)
+			- Sumarizacion por corte
+				- responder a distintos modos
+				- Agregar titulo
 		- CSS
+		- Interaccion con la paginacion
+
+	IMPRESION:
+		
+		
 */
 
 class objeto_ei_cuadro extends objeto_ei
@@ -30,6 +40,8 @@ class objeto_ei_cuadro extends objeto_ei
 	protected $id_en_padre;
  	protected $columnas;
     protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
+    protected $cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
+    protected $cantidad_columnas_total;            	// Cantidad total de columnas
 	protected $filas = 0;
     protected $datos;                             	// Los datos que constituyen el contenido del cuadro
     protected $columnas_clave;                    	
@@ -47,10 +59,9 @@ class objeto_ei_cuadro extends objeto_ei
 	protected $cortes_def;
 	protected $cortes_control;
 	protected $sum_usuario;
+	protected $cortes_modo;
 	//Salida
 	protected $tipo_salida;
-	//html
-	protected $html_colspan;
  
     function __construct($id)
     {
@@ -71,7 +82,6 @@ class objeto_ei_cuadro extends objeto_ei
 	function procesar_definicion()
 	{
 		$estructura_datos = array();
-		$this->cantidad_columnas = count($this->info_cuadro_columna);		
 		//Armo una estructura que describa las caracteristicas de los cortes
 		if($this->existen_cortes_control()){
 			for($a=0;$a<count($this->info_cuadro_cortes);$a++){
@@ -84,6 +94,7 @@ class objeto_ei_cuadro extends objeto_ei
 				$this->cortes_def[$id_corte]['descripcion'] = $col_desc;
 				$estructura_datos = array_merge($estructura_datos, $col_desc, $col_id);
 			}
+			$this->cortes_modo = $this->info_cuadro['cc_modo'];
 		}
 		//Procesamiento de columnas
 		for($a=0;$a<count($this->info_cuadro_columna);$a++){
@@ -106,6 +117,7 @@ class objeto_ei_cuadro extends objeto_ei
 			}
 		}
 		$this->estructura_datos = array_unique($estructura_datos);
+		
 	}
 
 	/**
@@ -201,7 +213,11 @@ class objeto_ei_cuadro extends objeto_ei
 								c.dao_nucleo					as  dao_clase,			
 								c.dao_metodo					as  dao_metodo,
 								c.dao_parametros				as  dao_parametros,
-								n.archivo 						as	dao_archivo
+								n.archivo 						as	dao_archivo,
+								c.cc_modo						as	cc_modo,						
+								c.cc_modo_anidado_colap			as	cc_modo_anidado_colap,		
+								c.cc_modo_anidado_totcol		as	cc_modo_anidado_totcol,		
+								c.cc_modo_anidado_totcua		as	cc_modo_anidado_totcua		
 					 FROM		apex_objeto_cuadro c
 					 			LEFT OUTER JOIN	apex_nucleo n
 					 			ON c.dao_nucleo_proyecto = n.proyecto
@@ -243,7 +259,8 @@ class objeto_ei_cuadro extends objeto_ei
 													identificador		,	
 													pie_contar_filas	,	
 													pie_mostrar_titulos	,	
-													imp_paginar				
+													imp_paginar,
+													descripcion				
 					 FROM		apex_objeto_cuadro_cc	
 					 WHERE		objeto_cuadro_proyecto = '".$this->id[0]."'
 					 AND		objeto_cuadro = '".$this->id[1]."'
@@ -692,6 +709,7 @@ class objeto_ei_cuadro extends objeto_ei
 			throw new excepcion_toba_def("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->tipo_salida = $tipo;
+		$this->inicializar_generacion();
 		$this->generar_inicio();
 		if( $this->datos_cargados() ){
 			//Generacion de contenido
@@ -716,6 +734,13 @@ class objeto_ei_cuadro extends objeto_ei
 			//ei_arbol($this->cortes_def,"\$this->cortes_def");
 			//ei_arbol($this->cortes_control,"\$this->cortes_control");
 		}
+	}
+
+	function inicializar_generacion()
+	{
+		$this->cantidad_columnas = count($this->info_cuadro_columna);
+		$this->cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
+		$this->cantidad_columnas_total = $this->cantidad_columnas + $this->cantidad_columnas_extra;
 	}
 
 	private function generar_inicio(){
@@ -761,7 +786,6 @@ class objeto_ei_cuadro extends objeto_ei
 			}
 		}
 		//Genero el corte
-		$this->generar_cc_inicio_corte();
 		$this->generar_cabecera_corte_control($nodo);
 		//Disparo la generacion recursiva de hijos
 		if(isset($nodo['hijos'])){
@@ -772,27 +796,18 @@ class objeto_ei_cuadro extends objeto_ei
 			$this->generar_cc_fin_nivel();
 		}else{	
 			//Disparo la construccion del ultimo nivel
-			$this->generar_cuadro( $nodo['filas'] );//, $nodo['acumulador']
+			$this->generar_cuadro( $nodo['filas']); //, $nodo['acumulador']
 		}
 		$this->generar_pie_corte_control($nodo);
-		$this->generar_cc_fin_corte();
 	}
 
 	private function generar_cabecera_corte_control(&$nodo){
 		$metodo = $this->tipo_salida . '_cabecera_corte_control';
-		$metodo_redeclarado = $metodo . '_' . $nodo['corte'];
-		if(method_exists($this, $metodo_redeclarado)){
-			$metodo = $metodo_redeclarado;
-		}		
 		$this->$metodo($nodo);
 	}
 	
 	private function generar_pie_corte_control(&$nodo){
 		$metodo = $this->tipo_salida . '_pie_corte_control';
-		$metodo_redeclarado = $metodo . '_' . $nodo['corte'];
-		if(method_exists($this, $metodo_redeclarado)){
-			$metodo = $metodo_redeclarado;
-		}
 		$this->$metodo($nodo);
 	}
 
@@ -804,24 +819,6 @@ class objeto_ei_cuadro extends objeto_ei
 	private function generar_cc_fin_nivel(){
 		$metodo = $this->tipo_salida . '_cc_fin_nivel';
 		$this->$metodo();
-	}
-
-	private function generar_cc_inicio_corte(){
-		$metodo = $this->tipo_salida . '_cc_inicio_corte';
-		$this->$metodo();
-	}
-
-	private function generar_cc_fin_corte(){
-		$metodo = $this->tipo_salida . '_cc_fin_corte';
-		$this->$metodo();
-	}
-
-	/**
-		Busca el valor correspondiente a un la sumarizacion de un nodo
-	*/
-	private function get_resuldado_sum_usuario($id)
-	{
-		
 	}
 
 //################################################################################
@@ -867,10 +864,17 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='cuadro-cc-fondo'>\n";
+		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
+		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_inicio();
+		}
 	}
 
 	private function html_fin()
 	{
+		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_fin();					
+		}
 		echo "</td></tr>\n";
 		//--- FIN CONTENIDO  ---------
 		// Pie
@@ -926,49 +930,72 @@ class objeto_ei_cuadro extends objeto_ei
 	//-- Generacion de los CORTES de CONTROL
 	//-------------------------------------------------------------------------------
 
-	protected function html_cabecera_corte_control(&$nodo)
+	private function html_cabecera_corte_control(&$nodo)
+	{
+		//Dedusco el metodo que tengo que utilizar para generar el contenido
+		$metodo = 'html_cabecera_cc_contenido';
+		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}		
+		if($this->cortes_modo == apex_cuadro_cc_tabular){
+			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+			$this->$metodo($nodo);
+			echo "</td></tr>\n";
+		}else{
+			echo "<li>\n";
+			$this->$metodo($nodo);
+		}
+	}
+
+	protected function html_cabecera_cc_contenido(&$nodo)
 	{
 		$ancho = $nodo['profundidad'] + 3;
 		echo "<h$ancho>". implode(", ",$nodo['descripcion']). "</h2>\n";
 	}
-
+	
 	protected function html_pie_corte_control(&$nodo)
 	{
-		//Agrego los Totales por columna
-		if(isset($nodo['acumulador'])){
-			foreach($nodo['acumulador'] as $id => $valor){
-				$desc = $this->columnas[$id]['titulo'];
-				$datos[$desc] = $valor;
-			}
+		$metodo = 'html_pie_cc_contenido';
+		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}		
+		if($this->cortes_modo == apex_cuadro_cc_tabular){
+			$this->html_cuadro_totales_columnas($nodo['acumulador']);
+			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+			$this->$metodo($nodo);
+			echo "</td></tr>\n";
+		}else{
+			$this->$metodo($nodo);
+			echo "</li>\n";
 		}
+	}
+
+	protected function html_pie_cc_contenido(&$nodo)
+	{
 		//Agrego las sumarizaciones ad-hoc
 		if(isset($nodo['sum_usuario'])){
 			foreach($nodo['sum_usuario'] as $id => $valor){
 				$desc = $this->sum_usuario[$id]['descripcion'];
 				$datos[$desc] = $valor;
 			}
+			$this->html_cuadro_sumarizacion($datos,null,300);
 		}
-		$this->html_cuadro_sumarizacion($datos,null,300);
 	}
 
 	private function html_cc_inicio_nivel()
 	{
-		echo "<ul>\n";
+		if($this->cortes_modo == apex_cuadro_cc_anidado){
+			echo "<ul>\n";
+		}
 	}
 
 	private function html_cc_fin_nivel()
 	{
-		echo "</ul>\n";
-	}
-
-	private function html_cc_inicio_corte()
-	{
-		echo "<li>\n";
-	}
-
-	private function html_cc_fin_corte()
-	{
-		echo "</li>\n";
+		if($this->cortes_modo == apex_cuadro_cc_anidado){
+			echo "</ul>\n";
+		}
 	}
 
 	//-------------------------------------------------------------------------------
@@ -977,12 +1004,10 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function html_cuadro(&$filas, &$totales=null)
 	{
-		if($this->existen_cortes_control()){
-			$estilo = 'cuadro-cc-tabla';
-		}else{
-			$estilo = 'tabla-0';
+		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
+		if(!($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular )){
+			$this->html_cuadro_inicio();
 		}
-		echo "<TABLE width='100%' class='$estilo' id='cuerpo_{$this->objeto_js}'>";
 		$this->html_cuadro_cabecera_columnas();
         foreach($filas as $f)
         {
@@ -1073,7 +1098,25 @@ class objeto_ei_cuadro extends objeto_ei
 		if(isset($totales)){
 			$this->html_cuadro_totales_columnas($totales);
 		}
-		echo "</TABLE>";
+		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
+		if(!($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular )){
+			$this->html_cuadro_fin();
+		}
+	}
+
+	private function html_cuadro_inicio()
+	{
+		if($this->existen_cortes_control()){
+			$estilo = 'cuadro-cc-tabla';
+		}else{
+			$estilo = 'tabla-0';
+		}
+		echo "<TABLE width='100%' class='$estilo'>\n";
+	}
+	
+	private function html_cuadro_fin()
+	{
+		echo "</TABLE>\n";
 	}
 
 	private function html_cuadro_cabecera_columnas()
@@ -1093,10 +1136,8 @@ class objeto_ei_cuadro extends objeto_ei
             echo "</td>\n";
         }
         //-- Eventos sobre fila
-		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
-		if($cant_sobre_fila > 0){
-			echo "<td class='lista-col-titulo' colspan='$cant_sobre_fila'>\n";
-            echo "</td>\n";
+		if($this->cantidad_columnas_extra > 0){
+			echo "<td class='lista-col-titulo' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
 		}
         echo "</tr>\n";
 	}
@@ -1183,9 +1224,8 @@ class objeto_ei_cuadro extends objeto_ei
 			echo "</strong></td>\n";
 		}
         //-- Eventos sobre fila
-		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
-		if($cant_sobre_fila > 0){
-			echo "<td colspan='$cant_sobre_fila' class='lista-col-titulo'>&nbsp;</td>\n";
+		if($this->cantidad_columnas_extra > 0){
+			echo "<td colspan='$this->cantidad_columnas_extra' class='lista-col-titulo'>&nbsp;</td>\n";
 		}		
 		echo "</tr>\n";
 	}
@@ -1321,12 +1361,6 @@ class objeto_ei_cuadro extends objeto_ei
 	}
 
 	private function pdf_cc_fin_nivel(){
-	}
-
-	private function pdf_cc_inicio_corte(){
-	}
-
-	private function pdf_cc_fin_corte(){
 	}
 }
 //################################################################################
