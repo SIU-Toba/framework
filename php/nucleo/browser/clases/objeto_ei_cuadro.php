@@ -11,6 +11,7 @@ define("apex_cuadro_cc_anidado","a");
 		- Encriptar clave
 		- Modificar la clave devuelta (siempre array)
 		- Vinculos?
+		- Semaforos de color para cuando un valor pasa un tope?
 		
 	EVENTOS: 
 
@@ -56,6 +57,7 @@ class objeto_ei_cuadro extends objeto_ei
 	protected $tamanio_pagina;
 	protected $cantidad_paginas;
 	//Cortes control
+	protected $cortes_indice;
 	protected $cortes_def;
 	protected $cortes_control;
 	protected $sum_usuario;
@@ -86,6 +88,9 @@ class objeto_ei_cuadro extends objeto_ei
 		if($this->existen_cortes_control()){
 			for($a=0;$a<count($this->info_cuadro_cortes);$a++){
 				$id_corte = $this->info_cuadro_cortes[$a]['identificador'];						// CAMBIAR !
+				//Genero el Indice
+				$this->cortes_indice[$id_corte] =& $this->info_cuadro_cortes[$a];
+				//Genero la tabla de definiciones	
 				$col_id = explode(',',$this->info_cuadro_cortes[$a]['columnas_id']);
 				$col_id = array_map('trim',$col_id);
 				$this->cortes_def[$id_corte]['clave'] = $col_id;
@@ -873,6 +878,7 @@ class objeto_ei_cuadro extends objeto_ei
 	private function html_fin()
 	{
 		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_totales_columnas($this->acumulador);
 			$this->html_cuadro_fin();					
 		}
 		echo "</td></tr>\n";
@@ -939,7 +945,8 @@ class objeto_ei_cuadro extends objeto_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			echo "<tr><td  colspan='$this->cantidad_columnas_total' class='cuadro-cc-tit-nivel-$nivel_css'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
 		}else{
@@ -948,13 +955,17 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
+	/**
+		Muestra las columnas seleccionadas como descripcion del corte separadas por comas
+	*/
 	protected function html_cabecera_cc_contenido(&$nodo)
 	{
-		$ancho = $nodo['profundidad'] + 3;
-		echo "<h$ancho>". implode(", ",$nodo['descripcion']). "</h2>\n";
+		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+		$valor = implode(", ",$nodo['descripcion']);
+		echo $descripcion . ': <strong>' . $valor . '</strong>';
 	}
 	
-	protected function html_pie_corte_control(&$nodo)
+	private function html_pie_corte_control(&$nodo)
 	{
 		$metodo = 'html_pie_cc_contenido';
 		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
@@ -962,7 +973,9 @@ class objeto_ei_cuadro extends objeto_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			$this->html_cuadro_totales_columnas($nodo['acumulador']);
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
+			$this->html_cuadro_totales_columnas($nodo['acumulador'], $css);
 			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
@@ -997,6 +1010,12 @@ class objeto_ei_cuadro extends objeto_ei
 			echo "</ul>\n";
 		}
 	}
+	
+	private function get_nivel_css($profundidad)
+	{
+		return ($profundidad > 2) ? 2 : $profundidad;
+	}		
+	
 
 	//-------------------------------------------------------------------------------
 	//-- Generacion del CUADRO 
@@ -1021,9 +1040,7 @@ class objeto_ei_cuadro extends objeto_ei
 			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
 			$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
             echo "<tr>\n";
-			//------------------------------------
- 			//--- Creo las CELDAS!!
-			//------------------------------------
+ 			//---> Creo las CELDAS de una FILA <----
             for ($a=0;$a< $this->cantidad_columnas;$a++)
             {
                 //*** 1) Recupero el VALOR
@@ -1054,11 +1071,9 @@ class objeto_ei_cuadro extends objeto_ei
                 echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
                 echo $valor;
                 echo "</td>\n";
-                //----------> Termino la CELDA!!
+                //Termino la CELDA
             }
-			//------------------------------------
- 			//--- Creo los EVENTOS!!
-			//------------------------------------
+ 			//---> Creo los EVENTOS de la FILA <---
 			foreach ($this->eventos as $id => $evento) {
 				if ($evento['sobre_fila']) {
 					//Filtrado de eventos por fila
@@ -1067,7 +1082,7 @@ class objeto_ei_cuadro extends objeto_ei
 						if(! $this->$metodo_filtro ) 
 							continue;
 					}
-					//Creo HTML del EVENTO
+					//HTML del EVENTO
 					$tip = '';
 					if (isset($evento['ayuda']))
 						$tip = $evento['ayuda'];
@@ -1200,7 +1215,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo $editor;
     }
 
-	function html_cuadro_totales_columnas($totales)
+	function html_cuadro_totales_columnas($totales,$estilo=null)
 	{
 		echo "<tr>\n";
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
@@ -1208,30 +1223,30 @@ class objeto_ei_cuadro extends objeto_ei
 			//Defino el valor de la columna
 		    if(isset($totales[$clave])){
 				$valor = $totales[$clave];
-				$estilo = $this->info_cuadro_columna[$a]["estilo"];
+				if(!isset($estilo)){
+					$estilo = $this->info_cuadro_columna[$a]["estilo"];
+				}
 				//La columna lleva un formateo?
 				if(isset($this->info_cuadro_columna[$a]["formateo"])){
 					$metodo = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
 					$valor = $metodo($valor);
 				}
+				echo "<td class='$estilo'><strong>$valor</strong></td>\n";
 			}else{
-				$valor = '&nbsp;';
-				$estilo = 'lista-col-titulo';
+				echo "<td ></td>\n";
 			}
 			//HTML de la columna
-			echo "<td class='$estilo'><strong>\n";
-			echo $valor;
-			echo "</strong></td>\n";
+
 		}
         //-- Eventos sobre fila
 		if($this->cantidad_columnas_extra > 0){
-			echo "<td colspan='$this->cantidad_columnas_extra' class='lista-col-titulo'>&nbsp;</td>\n";
+			echo "<td colspan='$this->cantidad_columnas_extra'></td>\n";
 		}		
 		echo "</tr>\n";
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Sub-generadores
+	//-- Elementos visuales independientes
 	//-------------------------------------------------------------------------------
 
 	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null)

@@ -74,7 +74,6 @@ class ci_principal extends ci_editores_toba
 	function evt__prop_basicas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla("prop_basicas")->set($datos);
-		
 	}
 
 	//*******************************************************************
@@ -278,6 +277,16 @@ class ci_principal extends ci_editores_toba
 	//*****************  CORTES de CONTROL  *****************************
 	//*******************************************************************
 	
+	function evt__prop_cortes__carga()
+	{
+		return $this->get_entidad()->tabla("prop_basicas")->get();
+	}
+
+	function evt__prop_cortes__modificacion($datos)
+	{
+		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+	}
+
 	function evt__cortes__modificacion($datos)
 	{
 		$this->get_entidad()->tabla('cortes')->procesar_filas($datos);
