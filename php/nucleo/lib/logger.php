@@ -28,6 +28,10 @@ class logger
 	private $datos_registrados = false;
 	static $ocultar = false;
 
+	/**
+	*	Oculta el logger en la pantalla incondicionalemente, esto es util por ejemplo cuando
+	*	la salida no es un html (un pdf por ejemplo)
+	*/
 	static function ocultar()
 	{
 		self::$ocultar = true;

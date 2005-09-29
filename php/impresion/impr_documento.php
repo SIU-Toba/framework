@@ -27,6 +27,7 @@ class impr_documento
     */
     function impr_documento($nombre = null, &$conexion)
     {
+    	toba::get_logger()->ocultar();
        $this->nombre = $nombre;
        $this->conexion =& $conexion;
        $this->hoja_ancho = 210.0;
@@ -191,7 +192,7 @@ class impr_documento
     function generar_documento()
     {
        $dir_actual = getcwd();
-       $dir_fonts = dirname(dirname($_SERVER["SCRIPT_FILENAME"])) . '/php/impresion';
+       $dir_fonts = dirname(__FILE__);
        chdir($dir_fonts);
        $this->doc_pdf->ezSetMargins(0.0, 0.0, 0.0, 0.0);    
        $this->doc_pdf->openHere('Fit');
@@ -223,7 +224,7 @@ class impr_documento
     function generar_documento_para_archivo()
     {
        $dir_actual = getcwd();
-       $dir_fonts = dirname(dirname($_SERVER["SCRIPT_FILENAME"])) . '/php/impresion';
+       $dir_fonts = dirname(__FILE__);
 	   chdir($dir_fonts);
        
        $this->doc_pdf->ezSetMargins(0.0, 0.0, 0.0, 0.0);
