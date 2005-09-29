@@ -99,11 +99,8 @@ class objeto
 			foreach(array_keys($definicion) as $parte)
 			{
 				$this->definicion_partes[] = $parte;
-				$rs = $db["instancia"][apex_db_con]->Execute($definicion[$parte]["sql"]);
-				if((!$rs)){
-					throw new excepcion_toba("Error cargando el OBJETO {$this->id[1]} - $parte - " . $definicion[$parte]["sql"] );
-				}
-				if($rs->EOF){
+				$rs = toba::get_db("instancia")->consultar($definicion[$parte]["sql"]);
+				if(empty($rs)){
 					if($definicion[$parte]["estricto"]=="1"){
 						throw new excepcion_toba("Error cargando el OBJETO {$this->id[1]} - $parte - La informacion es obligatoria" );
 					}else{
@@ -111,7 +108,7 @@ class objeto
 						$this->$parte = array();
 					}
 				}else{
-					$temp = $rs->getArray();
+					$temp = $rs;
 					//Registro UNICO o GRUPO
 					if($definicion[$parte]["tipo"]=="1"){	
 						$this->$parte = $temp[0];
@@ -703,12 +700,7 @@ class objeto
 					AND		d.proyecto='".$this->id[0]."'
 					AND		d.objeto_consumidor='".$this->id[1]."'
 					ORDER BY identificador;";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			monitor::evento("bug","OBJETO: NO se pudo cargar las dependencias: '{$this->id[0]},{$this->id[1]}'. ". $db["instancia"][apex_db_con]->ErrorMsg() );
-		}
-		if($rs->EOF) return;
-		$this->info_dependencias = $rs->getArray();
+		$this->info_dependencias = toba::get_db("instancia")->consultar($sql);
 		for($a=0;$a<count($this->info_dependencias);$a++){
 			$this->indice_dependencias[$this->info_dependencias[$a]["identificador"]] = $a;//Columna de informacion donde esta la definicion
 			$this->lista_dependencias[] = $this->info_dependencias[$a]["identificador"];

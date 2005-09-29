@@ -138,13 +138,10 @@ class vinculador
 						o.proyecto= '".$this->solicitud->info["item_proyecto"]."'
 				AND		(v.destino_item = '/autovinculo');";
 //		echo "<pre> $sql </pre>";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			monitor::evento("bug","VINCULADOR: No se genero el recordset. -- " . $db["instancia"][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ");
-		}
-		if(!$rs->EOF){
+		$rs = toba::get_db("instancia")->consultar($sql);
+		if(! empty($rs)){
 			//Creo el array de vinculos
-			$this->info = $rs->getArray();
+			$this->info = $rs;
 			//Creo el array de indices para accederlos
 			for($a=0;$a<count($this->info);$a++){
 				//Llevo el ID a un string para buscarlos mas facil

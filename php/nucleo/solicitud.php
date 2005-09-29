@@ -57,14 +57,13 @@ class solicitud
 		}	
 				
 		//-[3]- Obtengo el ID de la solicitud
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE	= ADODB_FETCH_NUM;
+
 		$sql = "SELECT	nextval('apex_solicitud_seq'::text);";	
-		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs || $rs->EOF){
+		$rs =	toba::get_db("instancia")->consultar($sql, apex_db_numerico);
+		if (empty($rs)) {
 			monitor::evento("bug","Imposible	determinar el ID de la SOLICITUD: "	.$db["instancia"][apex_db_con]->ErrorMsg(),$usuario);	
 		}
-		$this->id =	$rs->fields[0];
+		$this->id =	$rs[0][0];
 
 		//-[4]- Decido	si	la	solicitud se registra en la base	
 		switch(apex_pa_registrar_solicitud){
@@ -121,8 +120,6 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	function cargar_definicion()
 	{
 		//Cargar informacion de la BASE
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE	= ADODB_FETCH_ASSOC;
 		$sql = "SELECT	i.proyecto as							item_proyecto,	
 						i.item as									item,	
 						i.nombre	as									item_nombre,
@@ -160,17 +157,12 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 				AND		i.proyecto = '{$this->item[0]}'
 				AND		i.item =	'{$this->item[1]}';";
 		//echo($sql)."\n";
-		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			return array(false,"SOLICITUD: No se pudo	obtener el ITEM '{$this->item[0]},{$this->item[1]}' ".$db["instancia"][apex_db_con]->ErrorMsg() );
-		}else{
-			if($rs->EOF){
+		$temp = toba::get_db("instancia")->consultar($sql);
+		if(empty($temp)) {
 				return array(false,"SOLICITUD: El ITEM '{$this->item[0]},{$this->item[1]}' No existe");
-			}else{
-				$temp	= $rs->getArray();
-				$this->info	= $temp[0];	
-				return array(true,"OK!");
-			}
+		} else {
+			$this->info	= $temp[0];	
+			return array(true,"OK!");
 		}
 	}
 //--------------------------------------------------------------------------------------------
@@ -194,15 +186,11 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 					AND	u.usuario =	'{$this->usuario}'
 					AND	ui.proyecto = '{$this->item[0]}'
 					AND	ui.item =	'{$this->item[1]}';";
-		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			return array(false,"SOLICITUD: Error consultando permisos para el ITEM: '{$this->item[0]},{$this->item[1]}' ".$db["instancia"][apex_db_con]->ErrorMsg() );
+		$rs = toba::get_db("instancia")->consultar($sql);
+		if(empty($rs)){
+			return array(false,"EL usuario no posee permisos para acceder al ITEM solicitado");
 		}else{
-			if($rs->EOF){
-				return array(false,"EL usuario no posee permisos para acceder al ITEM solicitado");
-			}else{
-				return array(true,"OK! (el usurio posee permisos)");
-			}
+			return array(true,"OK! (el usurio posee permisos)");
 		}
 	}
 	//--------------------------------------------------------------------------------------------
@@ -481,23 +469,18 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 				AND		io.item = '".$this->info["item"]."'	
 				AND		io.proyecto	= '".$this->info["item_proyecto"]."'
 				ORDER	BY	io.orden;";	
-		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
-		//ei_arbol($rs);
-		if(!$rs){
-			monitor::evento("bug","SOLICITUD: No se pudo	obtener los	OBJETOS asociados	al	ITEM '".$this->info["item_proyecto"].",".$this->info["item"]."'. ".$db["instancia"][apex_db_con]->ErrorMsg());	
+		$rs = toba::get_db("instancia")->consultar($sql);
+		if(empty($rs)){
+			$objetos = null;
+			//No hay	OBJETOS standart asociados	al	item
 		}else{
-			if($rs->EOF){
-				$objetos = null;
-				//No hay	OBJETOS standart asociados	al	item
-			}else{
-				$this->info_objetos = $rs->getArray();	
-				for($a=0;$a<count($this->info_objetos);$a++){
-					$indice = $this->info_objetos[$a]["clase"];
-					$this->indice_objetos[$indice][]=$a;
-					$objetos[] = $this->info_objetos[$a]["objeto"];	
-				}
+			$this->info_objetos = $rs;	
+			for($a=0;$a<count($this->info_objetos);$a++){
+				$indice = $this->info_objetos[$a]["clase"];
+				$this->indice_objetos[$indice][]=$a;
+				$objetos[] = $this->info_objetos[$a]["objeto"];	
 			}
-		}		
+		}
 		$cronometro->marcar('SOLICITUD: Cargar	info OBJETOS',apex_nivel_nucleo);
 		return $objetos;
 	}

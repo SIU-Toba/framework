@@ -129,6 +129,24 @@ class logger
         return $this->registrar_mensaje($mensaje, TOBA_LOG_WARNING);
     }
 
+    /**
+    *	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
+    *	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
+    */
+    function obsoleto($clase, $metodo, $version, $extra=null) 
+    {
+    	//Se saca el archivo que llamo el metodo obsoleto
+    	$traza = debug_backtrace();
+    	$archivo = $traza[2]['file'];
+		$linea = $traza[2]['line']; 	
+    	if ($clase != '')
+    		$unidad = "Método '$clase::$metodo'";
+    	else 
+			$unidad = "Función '$metodo'";
+    	$msg = "OBSOLETO: $unidad desde versión $version. $extra\nArchivo $archivo, linea $linea.";
+    	$this->notice($msg);
+    }
+    
     function notice($mensaje)
     {
         return $this->registrar_mensaje($mensaje, TOBA_LOG_NOTICE);
@@ -265,8 +283,8 @@ class logger
 				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 				{
 					$hay_salida = true;
-					$html .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
-							" *  " . $this->mensajes_web[$a] . "<br>";
+					$estilo = $this->estilo_grafico($this->niveles[$a]);
+					$html .= $estilo. $this->mensajes_web[$a] . "<br>";
 				}			
 			}
 //			if ($hay_salida) echo $html;
@@ -281,6 +299,23 @@ class logger
 		}
 	}
 	
+	private function estilo_grafico($nivel)
+	{
+		$icono = gif_nulo(16,1);
+		$estilo = "";
+		if ($nivel <= TOBA_LOG_WARNING) {
+			$estilo = "font-weight: bold;";
+			$icono = recurso::imagen_apl('warning.gif',true);
+		} elseif ($nivel <= TOBA_LOG_NOTICE) {
+			$estilo = 'font-weight: bold;';			
+		} elseif ($nivel <= TOBA_LOG_INFO) {
+			$icono = recurso::imagen_apl('info_chico.gif',true);
+		} else {
+			$estilo = '';
+		}
+		$salida = "<span style='$estilo'>$icono".$this->ref_niveles[$nivel]." * </span> ";
+		return $salida;
+	}
 	//------------------------------------------------------------------
 	//---- Salida a un archivo de logs
 	//------------------------------------------------------------------

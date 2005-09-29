@@ -32,6 +32,7 @@ define("apex_db_link_id",8);
 	function abrir_base($id,$parm)
 	{
 		dba::get_db($id);
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
 		return true;		
 	}
 //-------------------------------------------------------------------------------------
@@ -41,8 +42,8 @@ define("apex_db_link_id",8);
 	*/
 	function abrir_fuente_datos($id, $proyecto=null)
 	{
-		$db = dba::get_db($id);
-		return $db;
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		return dba::get_db($id);
 	}
 //-------------------------------------------------------------------------------------
 
@@ -51,6 +52,7 @@ define("apex_db_link_id",8);
 	*/
 	function existe_conexion($id)
 	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
 		return dba::existe_conexion($id);
 	}
 //-------------------------------------------------------------------------------------
@@ -61,6 +63,7 @@ define("apex_db_link_id",8);
 	function obtener_fuente($id, $ado=null)
 	//Devuelve una referencia a una fuente de datos
 	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");		
 		if(isset($ado)){
 			global $ADODB_FETCH_MODE;	
 			$ADODB_FETCH_MODE = $ado;
@@ -114,18 +117,8 @@ define("apex_db_link_id",8);
 	*	@deprecated Desde 0.8.3, usar consultar_fuente() o db::consultar()
 	*/
 	function recuperar_datos($sql, $fuente="instancia", $ado=null)
-/*
-
-	ATENCION: Esta funcion hay que dejar de usarla... reemplazarla por la de abajo!
-
- 	@@acceso: actividad
-	@@desc: Recupera un ARRAY con datos a partir de un SQL
-	@@param: string | Sentencia SQL
-	@@param: string | Fuente de datos sobre la que se ejecuta el SQL | 'instancia'
-	@@param: string | Modo de generacion de claves del array en ADODB (ADODB_FETCH_ASSOC o ADODB_FETCH_NUM) | ADODB_FETCH_ASSOC
-	@@retorno: array | Estado en la posicion '0' y descripcion en la posicion '1' si ocurrio un error o los datos si la operacion fue exitosa
-*/
 	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");		
 		global $db, $ADODB_FETCH_MODE;	
 		//Seteo el modo de recuperar registros
 		if(isset($ado)){

@@ -441,7 +441,7 @@ class objeto_ci extends objeto_ei
 				//Comunico el evento al contenedor
 				$this->reportar_evento( $this->evento_actual );
 			}else{
-				$this->log->warning($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado");
+				$this->log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado");
 			}
 		}
 	}
@@ -472,7 +472,7 @@ class objeto_ci extends objeto_ei
 			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
-			$this->log->warning($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
+			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
 			//Puede implementarse un metodo generico de manejo de eventos? 
 		}
 	}
@@ -618,7 +618,7 @@ class objeto_ci extends objeto_ei
 			$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dependencia' -> [ $metodo ] ");
 			return $this->$metodo();
 		}else{
-			$this->log->warning($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada");
+			$this->log->info($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada");
 			return null;
 		}
 	}

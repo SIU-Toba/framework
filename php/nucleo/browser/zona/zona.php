@@ -57,16 +57,7 @@ class zona
 				AND		i.zona_listar = 1
 				ORDER BY 3";;
 //		echo($sql)."\n";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			monitor::evento("bug","ZONA: No se pudo cargar la ZONA '$proyecto,$id' ERROR ".$db["instancia"][apex_db_con]->ErrorMsg());
-		}elseif($rs->EOF){
-			//No hay vecinos		
-			$this->items_vecinos = array();
-		}else{
-			$this->items_vecinos = $rs->getArray();
-			//ei_arbol($this->items_vecinos);
-		}
+		$this->items_vecinos = toba::get_db('instancia')->consultar($sql);
 		$this->editable_cargado = false;
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_propagado = null;

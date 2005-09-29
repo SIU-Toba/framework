@@ -32,12 +32,8 @@ class db
 	function __call($nombre, $argumentos)
 	{
 		//-------------- MIGRACION a 0.8.3-----------------
-		if (strtolower($nombre) == 'execute') {
-			toba::get_logger()->notice("El método Execute de ADOdb se debe reemplazar por ejecutar en caso de ser un comando".
-										" o consultar en caso de ser una consulta. Ver cambios en v0.8.3");
-		} else {
-			toba::get_logger()->notice("A partir de 0.8.3 no esta recomendado utilizar llamadas a ADODB (metodo $nombre)");
-		}
+		toba::get_logger()->obsoleto('adodb',$nombre, "0.8.3");
+
 		return call_user_func_array(array($this->conexion, $nombre), $argumentos);
 		//-------------- MIGRACION -----------------		
 	}	
@@ -111,6 +107,7 @@ class db
 	*/
 	function ejecutar_sql($sql)
 	{
+		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.3", "Usar método ejecutar");
 		$this->ejecutar($sql);
 	}
 

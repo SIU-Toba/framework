@@ -185,6 +185,8 @@ class dba
 	{
 		global $instancia;		
 		$nombre_instancia = ($nombre == 'instancia') ? apex_pa_instancia : $nombre;
+		if (!isset($instancia[$nombre_instancia]))
+			throw new excepcion_toba("La entrada $nombre_instancia no esta definida en el archivo de instancias");
 		$datos['profile'] = $instancia[$nombre_instancia][apex_db_profile];
 		$datos['motor'] =  $instancia[$nombre_instancia][apex_db_motor];
 		$datos['usuario'] = $instancia[$nombre_instancia][apex_db_usuario];
@@ -217,9 +219,9 @@ class dba
 							$parametros['base'] );
 		$conexion = $objeto_db->conectar();
 		//--------  MIGRACION 0.8.3 --------------			
-		//Como puente de migracion de versiones anteriores la conexion se almacena como global
+		//Como puente de migracion de versiones anteriores la bd se almacena como global
 		global $db;
-		$db[$parametros['fuente_datos']][apex_db_con] = $conexion;
+		$db[$parametros['fuente_datos']][apex_db_con] = $objeto_db;
 		//-------------------------------------------
 		return $objeto_db;
 	}
