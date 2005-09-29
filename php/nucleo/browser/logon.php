@@ -118,20 +118,18 @@ function autologin(usuario,clave){
     </tr>
 <? if( apex_pa_validacion_debug ){ 
 
-	global $ADODB_FETCH_MODE;
-	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 	$sql = "SELECT 	u.usuario as usuario, 
 					u.clave as clave,
 					u.nombre as nombre
 			FROM 	apex_usuario u
 			ORDER BY 1;";
-	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
+	$rs = toba::get_db("instancia")->consultar($sql);
 	if(!$rs){
         echo "<tr><td align='center'>";
 		echo ei_mensaje("No es posible acceder a la lista de usuarios.","error");
         echo "</td></tr>";
     }else{
-    	if(!$rs->EOF){
+    	if(count($rs)>0){
 ?>
 <tr><td align="center">
 <table width="300" align="center" class="tabla-0">
@@ -141,15 +139,14 @@ function autologin(usuario,clave){
 	<td class='lista-col-titulo' >Nombre</td>
 </tr>
 <?
-    		while(!$rs->EOF)
-	    	{
-		    	echo "<tr>";
-			    echo "	<td class='lista-e'><a class='basico' href='#' onclick=\"javascript:autologin('".$rs->fields["usuario"]."','".$rs->fields["clave"]."');return false;\">".$rs->fields["usuario"]."</a></td>";
-    			echo "	<td class='lista-t'>&nbsp;".$rs->fields["nombre"]."</td>";
-	    		echo "</tr>";
-		    	$rs->MoveNext();
-    		}
-	    }
+	foreach($rs as $registro)
+	{
+		echo "<tr>";
+	    echo "	<td class='lista-e'><a class='basico' href='#' onclick=\"javascript:autologin('".$registro["usuario"]."','".$registro["clave"]."');return false;\">".$registro["usuario"]."</a></td>";
+		echo "	<td class='lista-t'>&nbsp;".$registro["nombre"]."</td>";
+		echo "</tr>";
+	}
+}
 ?>
 </table>
 </td>

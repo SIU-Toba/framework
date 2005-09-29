@@ -31,8 +31,11 @@ class toba
 	*/
 	function get_logger()
 	{
-		global $solicitud;
-		return $solicitud->log;
+		global $logger;
+		if(!isset($logger)){
+			$logger = new logger();
+		}
+		return $logger;
 	}
 
 	function get_cola_mensajes()
@@ -80,6 +83,5 @@ class toba
 		}
 		return $instancia[$id];
 	}
-	
 }
 ?>

@@ -47,7 +47,7 @@ class monitor
 					}
 				}else{
 						 echo "<HTML><HEAD><title>Error</title>
-								<link href=" . recurso::css() ." rel='stylesheet' type='text/css'></head><body>" .
+								</head><body>" .
 								ei_mensaje($mensaje,"error") . "</body></html>"; 
 				}
 			}

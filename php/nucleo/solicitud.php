@@ -110,8 +110,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 */
 		//-[8]- Cargo los OBJETOS que se encuentran asociados
 		$this->cargar_info_objetos();
-
-		$this->log = new logger($this);
+		$this->log = toba::get_logger();
 		$cronometro->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
 	
 	}

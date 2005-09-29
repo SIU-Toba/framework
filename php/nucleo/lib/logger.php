@@ -21,7 +21,6 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 class logger
 {
 	private $ref_niveles;
-	private $solicitud;
 	private $mensajes;
 	private $mensajes_web;
 	private $niveles;
@@ -34,9 +33,8 @@ class logger
 		self::$ocultar = true;
 	}
 	
-	function __construct($solicitud)
+	function __construct()
 	{
-		$this->solicitud = $solicitud;
 		$this->ref_niveles[0] = "EMERGENCY";
 		$this->ref_niveles[1] = "ALERT";
 		$this->ref_niveles[2] = "CRITICAL";

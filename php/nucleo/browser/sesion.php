@@ -17,79 +17,75 @@ class sesion {
 	function abrir($usuario,$proyecto)
 	//Abre una sesion de la aplicacion
 	{
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+		$db = toba::get_db("instancia");
 		//---------------------------- Controlo que la IP no este bloqueada...
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='{$_SERVER["REMOTE_ADDR"]}'";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if (!$rs->EOF){
+		$rs = $db->consultar($sql, apex_db_numerico);
+		if (count($rs)>0){
 			return array(0,"Ha sido bloqueado el acceso desde la maquina '{$_SERVER["REMOTE_ADDR"]}'. Por favor contáctese con el <a href='mailto:".apex_pa_administrador."'>Administrador</a>.");
 		}
 		//---------------------------- Creo la sesion en la base...
 		$sql = "SELECT nextval('apex_sesion_browser_seq'::text);";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs || $rs->EOF){
+		$rs = $db->consultar($sql, apex_db_numerico);
+		if(!$rs){
 			monitor::evento("bug","sesion: Error consultando la secuencia de sesiones [ ".$db["instancia"][apex_db_con]->ErrorMsg()." ]",$usuario);
 			return array(0,"Imposible determinar el ID de la sesion");
 		}else{
-			$sesion = $rs->fields[0];
+			$sesion = $rs[0][0];
 			$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$_SERVER["REMOTE_ADDR"]."','$proyecto','".session_id()."');";
-			if ($db["instancia"][apex_db_con]->Execute($sql) === false){
-				monitor::evento("bug","sesion: No es posible registrar la sesion [ ".$db["instancia"][apex_db_con]->ErrorMsg()." ]",$usuario);
+			try{
+				$db->ejecutar($sql);
+			}catch(excepcion_toba $e){
+				monitor::evento("bug","sesion: No es posible registrar la sesion [ ".$e->getMessage()." ]",$usuario);
 				return array(0,"No se puede registrar la sesion");
-			}else{
-				//-----------------------------> Creo la sesion de PHP
-				//BASICOS
-				$_SESSION['toba']["id"] = $sesion;
-				$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
-				$_SESSION['toba']["inicio"]=time();
-				//PATHs
-				$_SESSION['toba']["path"] = toba_dir();
-				$_SESSION['toba']["path_php"] = $_SESSION['toba']["path"]. "/php";
-				//-----------------------------> Cargo INFORMACION del USUARIO
-				$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-				$sql = "SELECT	u.usuario as id,
-								u.hora_salida,
-								u.solicitud_registrar as				sol_registrar,
-								u.solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
-								u.solicitud_obs_tipo as					sol_obs_tipo,
-								u.solicitud_observacion as				sol_obs,
-								up.usuario_grupo_acc as 				grupo_acceso,
-								up.usuario_perfil_datos as 			perfil_datos,
-								ga.nivel_acceso as						nivel_acceso
-						FROM 	apex_usuario u,
-								apex_usuario_proyecto up,
-								apex_usuario_grupo_acc ga
-						WHERE	u.usuario = up.usuario
-						AND		up.usuario_grupo_acc = ga.usuario_grupo_acc
-						AND		up.proyecto = ga.proyecto
-						AND		up.usuario = '$usuario'
-						AND		up.proyecto = '$proyecto';";
-				//echo $sql;
-				$rs = $db["instancia"][apex_db_con]->Execute($sql);
-				if($rs->EOF){
-					//Este recordset da vacio, el usuario no tenia permiso 
-					//para ver el proyecto.
-					sesion::cerrar();
-					return array(0,"El usuario intento abrir un proyecto para el cual no posee permisos");					
-				}
-				$temp = $rs->getArray();
-				$_SESSION['toba']["usuario"]=$temp[0];
-				//-----------------------------> Cargo propiedades del proyecto
-				$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-				$sql = "SELECT	proyecto as nombre,
-								descripcion_corta as descripcion,
-								estilo
-						FROM 	apex_proyecto
-						WHERE	proyecto = '$proyecto';";
-				$rs = $db["instancia"][apex_db_con]->Execute($sql);
-				$temp = $rs->getArray();
-				$_SESSION['toba']["proyecto"]=$temp[0];
-
-				//-----------------------------> Manejo inicializacion y tiempo de conexion
-				sesion::actualizar_estado();
-				return array(1,"La sesion ha sido creada!");
 			}
+			//-----------------------------> Creo la sesion de PHP
+			//BASICOS
+			$_SESSION['toba']["id"] = $sesion;
+			$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
+			$_SESSION['toba']["inicio"]=time();
+			//PATHs
+			$_SESSION['toba']["path"] = toba_dir();
+			$_SESSION['toba']["path_php"] = $_SESSION['toba']["path"]. "/php";
+			//-----------------------------> Cargo INFORMACION del USUARIO
+			$sql = "SELECT	u.usuario as id,
+							u.hora_salida,
+							u.solicitud_registrar as				sol_registrar,
+							u.solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
+							u.solicitud_obs_tipo as					sol_obs_tipo,
+							u.solicitud_observacion as				sol_obs,
+							up.usuario_grupo_acc as 				grupo_acceso,
+							up.usuario_perfil_datos as 			perfil_datos,
+							ga.nivel_acceso as						nivel_acceso
+					FROM 	apex_usuario u,
+							apex_usuario_proyecto up,
+							apex_usuario_grupo_acc ga
+					WHERE	u.usuario = up.usuario
+					AND		up.usuario_grupo_acc = ga.usuario_grupo_acc
+					AND		up.proyecto = ga.proyecto
+					AND		up.usuario = '$usuario'
+					AND		up.proyecto = '$proyecto';";
+			//echo $sql;
+			$rs = $db->consultar($sql);
+			if(count($rs)==0){
+				//Este recordset da vacio, el usuario no tenia permiso 
+				//para ver el proyecto.
+				sesion::cerrar();
+				return array(0,"El usuario intento abrir un proyecto para el cual no posee permisos");					
+			}
+			$_SESSION['toba']["usuario"]=$rs[0];
+			//-----------------------------> Cargo propiedades del proyecto
+			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+			$sql = "SELECT	proyecto as nombre,
+							descripcion_corta as descripcion,
+							estilo
+					FROM 	apex_proyecto
+					WHERE	proyecto = '$proyecto';";
+			$rs = $db->consultar($sql);
+			$_SESSION['toba']["proyecto"]=$rs[0];
+			//-----------------------------> Manejo inicializacion y tiempo de conexion
+			sesion::actualizar_estado();
+			return array(1,"La sesion ha sido creada!");
 		}
 	}
 //-----------------------------------------------------------------------------
