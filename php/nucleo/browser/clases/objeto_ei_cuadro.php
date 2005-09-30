@@ -12,6 +12,7 @@ define("apex_cuadro_cc_anidado","a");
 		- Modificar la clave devuelta (siempre array)
 		- Vinculos?
 		- Semaforos de color para cuando un valor pasa un tope?
+		- Se permite no entregar columnas? Se eleva un warning?
 		
 	EVENTOS: 
 
@@ -31,8 +32,7 @@ define("apex_cuadro_cc_anidado","a");
 		- Interaccion con la paginacion
 
 	IMPRESION:
-		
-		
+
 */
 
 class objeto_ei_cuadro extends objeto_ei
@@ -111,7 +111,7 @@ class objeto_ei_cuadro extends objeto_ei
 				$this->acumulador[$clave]=0;
 			}
 			//Estructura de datos
-			$estructura_datos[] = $clave;
+			//$estructura_datos[] = $clave;
 			// Sumarizacion de columnas por corte
 			if(trim($this->info_cuadro_columna[$a]['total_cc'])!=''){
 				$cortes = explode(',',$this->info_cuadro_columna[$a]['total_cc']);
@@ -122,7 +122,6 @@ class objeto_ei_cuadro extends objeto_ei
 			}
 		}
 		$this->estructura_datos = array_unique($estructura_datos);
-		
 	}
 
 	/**
@@ -360,9 +359,12 @@ class objeto_ei_cuadro extends objeto_ei
 	private function validar_estructura_datos()
 	{
 		$muestra = $this->datos[0];
+		//ei_arbol($muestra);
 		$error = array();
 		foreach($this->estructura_datos as $columna){
-			if(!isset($muestra[$columna])) $error[] = $columna;
+			if(!isset($muestra[$columna])){
+				$error[] = $columna;
+			}
 		}
 		if(count($error)>0){
 			throw new excepcion_toba_def( $this->get_txt() . 
@@ -944,13 +946,14 @@ class objeto_ei_cuadro extends objeto_ei
 		if(method_exists($this, $metodo_redeclarado)){
 			$metodo = $metodo_redeclarado;
 		}		
+		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+		$class = "cuadro-cc-tit-nivel-$nivel_css";
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-			echo "<tr><td  colspan='$this->cantidad_columnas_total' class='cuadro-cc-tit-nivel-$nivel_css'>\n";
+			echo "<tr><td  colspan='$this->cantidad_columnas_total' class='$class'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
 		}else{
-			echo "<li>\n";
+			echo "<li class='$class'>\n";
 			$this->$metodo($nodo);
 		}
 	}
@@ -973,9 +976,24 @@ class objeto_ei_cuadro extends objeto_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-			$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
+			$css = $this->get_css_sum_nivel($nodo['profundidad']);
+			//Titulo de Resumen
+			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+				echo "Resumen $descripcion";
+				echo "</td></tr>\n";
+			}
+			//Totales de columna
 			$this->html_cuadro_totales_columnas($nodo['acumulador'], $css);
+			//Contar Filas
+			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+				echo "Cantidad de filas: " . count($nodo['filas']);
+				echo "</td></tr>\n";
+			}
+			//Contenido AD-HOC
 			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
@@ -989,11 +1007,12 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		//Agrego las sumarizaciones ad-hoc
 		if(isset($nodo['sum_usuario'])){
+			$css = $this->get_css_sum_nivel($nodo['profundidad']);
 			foreach($nodo['sum_usuario'] as $id => $valor){
 				$desc = $this->sum_usuario[$id]['descripcion'];
 				$datos[$desc] = $valor;
 			}
-			$this->html_cuadro_sumarizacion($datos,null,300);
+			$this->html_cuadro_sumarizacion($datos,null,300,$css);
 		}
 	}
 
@@ -1015,7 +1034,12 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		return ($profundidad > 2) ? 2 : $profundidad;
 	}		
-	
+
+	private function get_css_sum_nivel($profundidad)
+	{
+		$nivel_css = $this->get_nivel_css($profundidad);
+		return 'cuadro-cc-sum-nivel-'.$nivel_css;
+	}
 
 	//-------------------------------------------------------------------------------
 	//-- Generacion del CUADRO 
@@ -1044,17 +1068,20 @@ class objeto_ei_cuadro extends objeto_ei
             for ($a=0;$a< $this->cantidad_columnas;$a++)
             {
                 //*** 1) Recupero el VALOR
+				$valor = "";
                 if(isset($this->info_cuadro_columna[$a]["clave"])){
-                    $valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
-                    //Hay que formatear?
-                    if(isset($this->info_cuadro_columna[$a]["formateo"])){
-                        $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
-                        //Formateo el valor
-                        $valor = $funcion($valor);
-                    }
-                }else{
-                    $valor = "";
-                }
+					if(isset($this->datos[$f][$this->info_cuadro_columna[$a]["clave"]])){
+						$valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
+					}else{
+						//ATENCION!! hay una columna que no esta disponible!
+					}
+	                //Hay que formatear?
+	                if(isset($this->info_cuadro_columna[$a]["formateo"])){
+	                    $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
+	                    //Formateo el valor
+	                    $valor = $funcion($valor);
+	                }
+	            }
                 //*** 2) Generacion de VINCULOS!
                 if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
                     //Genero el VINCULO
@@ -1249,7 +1276,7 @@ class objeto_ei_cuadro extends objeto_ei
 	//-- Elementos visuales independientes
 	//-------------------------------------------------------------------------------
 
-	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null)
+	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
 		if(isset($ancho)) $ancho = "width='$ancho'";
 		echo "<table $ancho class='cuadro-cc-tabla-sum'>";
@@ -1263,7 +1290,7 @@ class objeto_ei_cuadro extends objeto_ei
 		foreach($datos as $desc => $valor){
 			echo "<tr>\n";
 			echo "<td class='lista-col-titulo'>$desc</td>\n";
-			echo "<td class='col-num-p1'>$valor</td>\n";
+			echo "<td class='$css'>$valor</td>\n";
 			echo "</tr>\n";
 		}
 		echo "</table>\n";
