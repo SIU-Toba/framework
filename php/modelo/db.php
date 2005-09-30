@@ -179,23 +179,23 @@ class db
 	
 	function abrir_transaccion()
 	{
-		$sql = "BEGIN TRANSACTION";
+		$sql = 'BEGIN TRANSACTION';
 		$this->ejecutar($sql);
-		toba::get_logger()->debug("************ ABRIR transaccion ****************");
+		toba::get_logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************");
 	}
 	
 	function abortar_transaccion()
 	{
-		$sql = "ROLLBACK TRANSACTION";
+		$sql = 'ROLLBACK TRANSACTION';
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ ABORTAR transaccion ****************"); 
+		toba::get_logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************"); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION";
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ CERRAR transaccion ****************"); 
+		toba::get_logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************"); 
 	}
 
 //-------------------------------------------------------------------------------------

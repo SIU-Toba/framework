@@ -153,7 +153,6 @@ class ap_tabla_db extends ap
 
 	/**
 		Carga datos de la base a partir de clausulas WHERE y FROM
-		Hay que eliminar a ADOdb de aca...!!!
 	*/
 	public function cargar_db($where=null, $from=null)
 	{
@@ -162,41 +161,32 @@ class ap_tabla_db extends ap
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
-		$db = toba::get_fuente($this->fuente);
+		$db = toba::get_db($this->fuente);
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
-		$rs = $db[apex_db_con]->Execute($sql);
-		if(!is_object($rs)){
-			toba::get_logger()->error( get_class($this). "  - ".
-									"Error cargando datos, no se genero un RECORDSET" .
-									$sql . " - " . $db[apex_db_con]->ErrorMsg());
-			throw new excepcion_toba("OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n"
-									.$db[apex_db_con]->ErrorMsg(). "\n\nSQL:$sql");
+		try{
+			$datos = $db->consultar($sql);
+		}catch(excepcion_toba $e){
+			toba::get_logger()->error( get_class($this). ' - '.
+									'Error cargando datos. ' .$e->getMessage() );
+			throw new excepcion_toba('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
-		if($rs->EOF){
-			if(false){
-				toba::get_logger()->error( get_class($this). " - " .
-								"No se recuperarron DATOS. Se solicito carga estricta");
-			}
-		}else{
-			$datos =& $rs->getArray();
-			//Si existen campos externos, los recupero.
-			if($this->posee_columnas_ext){
-				for($a=0;$a<count($datos);$a++){
-					$datos[$a] = $this->completar_campos_externos_fila($datos[$a]);
-				}				
-			}
-			//Le saco los caracteres de escape a los valores traidos de la DB
+		//Si existen campos externos, los recupero.
+		if($this->posee_columnas_ext){
 			for($a=0;$a<count($datos);$a++){
-				foreach(array_keys($datos[$a]) as $columna){
-					if(isset($datos[$a][$columna])){
-						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
-					}
-				}	
-			}
-			// Lleno la TABLA
-			$this->objeto_tabla->set_datos($datos);
-			//ei_arbol($datos);
+				$datos[$a] = $this->completar_campos_externos_fila($datos[$a]);
+			}				
 		}
+		//Le saco los caracteres de escape a los valores traidos de la DB
+		for($a=0;$a<count($datos);$a++){
+			foreach(array_keys($datos[$a]) as $columna){
+				if(isset($datos[$a][$columna])){
+					$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
+				}
+			}	
+		}
+		// Lleno la TABLA
+		$this->objeto_tabla->set_datos($datos);
+		//ei_arbol($datos);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -224,7 +214,7 @@ class ap_tabla_db extends ap
 			}
 		}
 		try{
-			if($this->utilizar_transaccion) abrir_transaccion();
+			if($this->utilizar_transaccion) abrir_transaccion($this->fuente);
 			$this->evt__pre_sincronizacion();
 			$modificaciones = 0;
 			//-- DELETE --
@@ -249,10 +239,10 @@ class ap_tabla_db extends ap
 				$modificaciones ++;
 			}
 			$this->evt__post_sincronizacion();
-			if($this->utilizar_transaccion) cerrar_transaccion();
+			if($this->utilizar_transaccion) cerrar_transaccion($this->fuente);
 			return $modificaciones;
 		}catch(excepcion_toba $e){
-			if($this->utilizar_transaccion) abortar_transaccion();
+			if($this->utilizar_transaccion) abortar_transaccion($this->fuente);
 			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
 		}
@@ -330,7 +320,6 @@ class ap_tabla_db extends ap
 
 	function ejecutar_sql( $sql )
 	{
-		/* Aca no es necesario usar adodb */
 		ejecutar_sql( $sql, $this->fuente);			
 	}
 

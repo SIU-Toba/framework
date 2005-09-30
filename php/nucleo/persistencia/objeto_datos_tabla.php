@@ -78,6 +78,7 @@ class objeto_datos_tabla extends objeto
 													dt.ap				as ap			,	
 													dt.ap_clase			as ap_sub_clase	,	
 													dt.ap_archivo	    as ap_sub_clase_archivo,
+													dt.modificar_claves as ap_modificar_claves,
 													ap.clase			as ap_clase,
 													ap.archivo			as ap_clase_archivo
 					 FROM		apex_objeto_db_registros as dt
@@ -672,6 +673,9 @@ class objeto_datos_tabla extends objeto
 			}
 			require_once( $include );
 			$this->persistidor = new $clase( $this );
+			if($this->info_estructura['ap_modificar_claves']){
+				$this->persistidor->activar_modificacion_clave();
+			}
 		}
 		return $this->persistidor;
 	}

@@ -154,7 +154,7 @@ define("apex_db_link_id",8);
 	//El codigo de la excepsion deberia ser el SQLSTATE
 	//Deberia buscarla en la FUENTE para descubrir el SQLSTATE
 	{
-		return dba::get_db($fuente)->ejecutar_sql($sql);
+		return dba::get_db($fuente)->ejecutar($sql);
 	}
 //-------------------------------------------------------------------------------------
 	/**

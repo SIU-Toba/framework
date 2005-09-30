@@ -199,6 +199,7 @@ class objeto_datos_relacion extends objeto
 	{
 		$ap = $this->get_persistidor();
 		$ap->eliminar();
+		$this->resetear();
 	}
 	
 	function get_tablas_raiz()
