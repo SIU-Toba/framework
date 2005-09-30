@@ -161,7 +161,7 @@ class dba
 						FROM 	apex_fuente_datos
 						WHERE	fuente_datos = '$nombre'
 				";
-				$rs = consultar_fuente($sql);
+				$rs = consultar_fuente($sql,'instancia');
 				if (!$rs || count($rs) == 0) {
 					throw new excepcion_toba("La base '$nombre' no fue definida");
 				}
