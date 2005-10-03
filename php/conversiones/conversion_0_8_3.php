@@ -523,7 +523,7 @@ class conversion_0_8_3 extends conversion_toba
 				AND o.clase = 'objeto_ei_cuadro';";	
 		$this->ejecutar_sql($sql,"instancia");	
 		
-		//Se borran los registros
+		//Se borran los registros viejos
 		$sql = "
 				DELETE FROM apex_objeto_cuadro_columna
 				WHERE
@@ -531,13 +531,11 @@ class conversion_0_8_3 extends conversion_toba
 					objeto_cuadro IN 
 					(
 						SELECT objeto FROM apex_objeto 
-						WHERE clase IN ('objeto_ei_cuadro')
-					) AND
-					objeto_cuadro_proyecto IN
-					(
-						SELECT proyecto FROM apex_objeto 
-						WHERE clase IN ('objeto_ei_cuadro')
-					)";
+						WHERE 
+							clase IN ('objeto_ei_cuadro') AND
+							proyecto='{$this->proyecto}'
+					)
+		";
 		$this->ejecutar_sql($sql,"instancia");		
 	}
 	
@@ -591,17 +589,16 @@ class conversion_0_8_3 extends conversion_toba
 		$sql = "
 				DELETE FROM apex_objeto_ut_formulario_ef
 				WHERE 
-				objeto_ut_formulario_proyecto='{$this->proyecto}' AND
-				objeto_ut_formulario IN 
-					(
-						SELECT objeto FROM apex_objeto 
-						WHERE clase IN ('objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro')
-					) AND
-				objeto_ut_formulario_proyecto IN
-					(
-						SELECT proyecto FROM apex_objeto 
-						WHERE clase IN ('objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro')
-					)";
+					objeto_ut_formulario_proyecto='{$this->proyecto}' AND
+					objeto_ut_formulario IN 
+						(
+							SELECT objeto FROM apex_objeto 
+							WHERE 
+								clase IN ('objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro') AND
+								proyecto = '{$this->proyecto}'
+							
+						) 
+				";
 		$this->ejecutar_sql($sql,"instancia");					
 	}
 	
@@ -713,17 +710,14 @@ class conversion_0_8_3 extends conversion_toba
 		$sql = "
 			DELETE FROM apex_objeto_mt_me_etapa
 			WHERE 
-				objeto_mt_me_proyecto='{$this->proyecto}' AND
 				objeto_mt_me IN 
 					(
 						SELECT objeto FROM apex_objeto 
-						WHERE clase IN ('objeto_ci','objeto_ci_abm','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
+						WHERE 
+							clase IN ('objeto_ci','objeto_ci_abm','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav') AND
+							proyecto='{$this->proyecto}'
 					) AND
-				objeto_mt_me_proyecto IN
-					(
-						SELECT proyecto FROM apex_objeto 
-						WHERE clase IN ('objeto_ci','objeto_ci_abm','ci_cn','ci_abm_dbr','ci_abm_dbt','ci_abm_nav')
-					)";
+				objeto_mt_me_proyecto='{$this->proyecto}' ";
 		$this->ejecutar_sql($sql,"instancia");		
 	}
 

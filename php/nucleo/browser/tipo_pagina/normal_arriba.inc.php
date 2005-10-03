@@ -24,7 +24,7 @@
 	//- 1.5 - Link al editor tipo arbol del ITEM...
 	echo "<td  class='barra-0-edit' width='1'>";
 	$parametros = array("proyecto"=>$this->info["item_proyecto"],"item"=>$this->info["item"]);
-	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/catalogo_unificado",$parametros,true);
+	echo $this->vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/catalogo_unificado",$parametros,true, false, false, "", null, null, 'lateral');
 	echo "&nbsp;</td>";
 	
 	//- 2 - Link al editor de la ayuda del item
