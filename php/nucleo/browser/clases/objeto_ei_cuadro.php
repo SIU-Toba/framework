@@ -1,4 +1,5 @@
 <?
+define("apex_cuadro_compatible",1);
 require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
 require_once("objeto_ei.php");
 define("apex_cuadro_cc_tabular","t");
