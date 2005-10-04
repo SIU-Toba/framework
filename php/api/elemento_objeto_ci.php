@@ -91,6 +91,7 @@ class elemento_objeto_ci extends elemento_objeto
 		$evento[0]['orden'] = 0;
 		$evento[1]['identificador'] = "cancelar";
 		$evento[1]['etiqueta'] = "&Cancelar";
+		$evento[1]['maneja_datos'] = 0;
 		$evento[1]['orden'] = 1;		
 		return $evento;		
 	}

@@ -28,10 +28,9 @@ class db_postgres7 extends db
 			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
 			//Secuencias
 			if(isset($col->default_value)){
-				if(preg_match("/nextval/",$col->default_value)){
-					$seq = true;
-					$temp = preg_split("|\"|", $col->default_value);
-					$definicion[$a]['secuencia'] = $temp[1];
+				$match = array();
+				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$col->default_value,$match)){
+					$definicion[$a]['secuencia'] = $match[3];
 				}			
 			}
 			$a++;

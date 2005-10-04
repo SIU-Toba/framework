@@ -119,9 +119,10 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[2]['estilo'] = "abm-input";
 		$evento[2]['orden'] = 3;
 		$evento[3]['identificador'] = "cancelar";
+		$evento[3]['maneja_datos'] = 0;
 		$evento[3]['etiqueta'] = "Ca&ncelar";
 		$evento[3]['estilo'] = "abm-input";		
-		$evento[4]['orden'] = 4;		
+		$evento[3]['orden'] = 4;		
 		return $evento;		
 	}
 }

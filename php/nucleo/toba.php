@@ -63,10 +63,12 @@ class toba
 		return dba::get_db($fuente);
 	}
 
+	/**
+		- Esto hay que borrarlo
+	*/
 	function get_fuente_datos($fuente)
 	{
-		$fuente = toba::get_fuente($fuente);
-		return $fuente[apex_db];
+		self::get_db($fuente);
 	}
 
 	function get_encriptador()

@@ -35,13 +35,12 @@ class objeto
 	@@desc: Constructor de la clase
 */
 	{
-	$this->solicitud = toba::get_solicitud();
+		$this->solicitud = toba::get_solicitud();
 		$this->log = $this->solicitud->log;
 		if(!($this->id = $id)) monitor::evento("bug","[objeto]: ERROR, no se indico el ID del objeto a crear");
 		$this->exportacion_archivo = "nucleo/definiciones/objetos/".$this->id[1].".php";
 		$this->exportacion_path = $this->solicitud->hilo->obtener_path(). "/php/". $this->exportacion_archivo;
 		$this->cargar_definicion();
-		$this->conectar_fuente();
 		//Recibi datos por el CANAL?
 		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
 		$this->canal_recibidos = $this->solicitud->hilo->obtener_parametro($this->canal);
@@ -53,8 +52,11 @@ class objeto
 		$this->evaluar_existencia_interface_anterior();
 		$this->log->debug( $this->get_txt() . "[ __construct ]");
 	}
-//--------------------------------------------------------------------------------------------
-	
+
+	function configuracion()
+	{
+	}
+
 	function elemento_toba()
 	{
 		require_once('api/elemento_objeto.php');
@@ -797,6 +799,7 @@ class objeto
 		eval($creacion_objeto);
 		//-[4]- Abro la CONEXION del dependencia este (Si ya existe no se vuelve a abrir)
 		$this->dependencias[$identificador]->conectar_fuente();
+		$this->dependencias[$identificador]->configuracion();
 		return true;
 	}
 	//--------------------------------------------------------------------------------------------

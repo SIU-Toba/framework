@@ -3,7 +3,11 @@ require_once("nucleo/persistencia/objeto_datos_tabla.php");
 
 class odt_pantallas extends objeto_datos_tabla
 {
-
+	function configuracion()
+	{
+		$this->set_no_duplicado(array('identificador'));
+	}
+	
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con las DEPENDENCIAS
 	//-----------------------------------------------------

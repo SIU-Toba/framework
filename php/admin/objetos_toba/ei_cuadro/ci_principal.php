@@ -9,6 +9,7 @@ class ci_principal extends ci_editores_toba
 	private $id_intermedio_columna;
 	protected $columna_especifica;
 	protected $cortes_control;
+	protected $importacion_cols;
 	
 	function __construct($id)
 	{
@@ -48,9 +49,9 @@ class ci_principal extends ci_editores_toba
 		$propiedades[] = "seleccion_columna";
 		$propiedades[] = "seleccion_columna_anterior";
 		$propiedades[] = "cortes_control";
+		$propiedades[] = "importacion_cols";
 		return $propiedades;
 	}
-
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
@@ -107,6 +108,8 @@ class ci_principal extends ci_editores_toba
 			if( count($this->cortes_control) > 0 ){
 				$ei[] = "columna_corte";			
 			}
+		}else{
+			$ei[] = "columnas_importar";
 		}
 		return $ei;	
 	}
@@ -124,6 +127,8 @@ class ci_principal extends ci_editores_toba
 			$this->dependencias["columnas_lista"]->set_fila_protegida($this->seleccion_columna_anterior);
 			//Agrego el evento "modificacion" y lo establezco como predeterminado
 			$this->dependencias["columnas"]->agregar_evento( eventos::modificacion(null, false), true );
+		}else{
+			$this->dependencias["columnas_importar"]->colapsar();
 		}
 		if (isset($this->seleccion_columna)) {
 			$this->dependencias["columnas_lista"]->seleccionar($this->seleccion_columna);
@@ -248,6 +253,36 @@ class ci_principal extends ci_editores_toba
 			if($dato['total'] == "1")	$cortes[] = $dato['identificador'];
 		}
 		$this->get_entidad()->tabla('columnas')->set_cortes_columna($this->seleccion_columna_anterior, $cortes);
+	}
+
+	//---------------------------------
+	//---- EI: IMPORTAR definicion ----
+	//---------------------------------
+
+	function evt__columnas_importar__importar($datos)
+	{
+		$this->importacion_cols = $datos;
+		if(isset($datos['datos_tabla'])){
+			require_once('api/elemento_objeto.php');
+			$dt = elemento_objeto::get_elemento_objeto(toba::get_hilo()->obtener_proyecto(), $datos['datos_tabla']);
+			$datos = $dt->exportar_datos_columnas($datos['pk']);
+			//ei_arbol($datos);
+			$cols = $this->get_entidad()->tabla("columnas");
+			foreach($datos as $col){
+				try{
+					$cols->nueva_fila($col);
+				}catch(excepcion_toba $e){
+					toba::get_cola_mensajes()->agregar("Error agregando la columna '{$col['clave']}'. " . $e->getMessage());
+				}
+			}
+		}
+	}
+
+	function evt__columnas_importar__carga()
+	{
+		if(isset($this->importacion_cols)){
+			return $this->importacion_cols;
+		}
 	}
 
 	//*******************************************************************

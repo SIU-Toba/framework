@@ -16,6 +16,7 @@ class ci_efs extends objeto_ci
 	protected $tabla;
 	protected $seleccion_efs;
 	protected $seleccion_efs_anterior;
+	protected $importacion_efs;
 	private $id_intermedio_efs;
 
 	function destruir()
@@ -30,6 +31,7 @@ class ci_efs extends objeto_ci
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "seleccion_efs";
 		$propiedades[] = "seleccion_efs_anterior";
+		$propiedades[] = "importacion_efs";
 		return $propiedades;
 	}
 
@@ -71,6 +73,8 @@ class ci_efs extends objeto_ci
 		if( $this->mostrar_efs_detalle() ){
 			$ei[] = "efs";
 			$ei[] = "efs_ini";
+		}else{
+			$ei[] = "efs_importar";
 		}
 		return $ei;	
 	}
@@ -82,6 +86,8 @@ class ci_efs extends objeto_ci
 			$this->dependencias["efs_lista"]->set_fila_protegida($this->seleccion_efs_anterior);
 			//Agrego el evento "modificacion" y lo establezco como predeterminado
 			$this->dependencias["efs"]->agregar_evento( eventos::modificacion(null, false), true );
+		}else{
+			$this->dependencias["efs_importar"]->colapsar();
 		}
 		if (isset($this->seleccion_efs)) {
 			$this->dependencias["efs_lista"]->seleccionar($this->seleccion_efs);
@@ -254,6 +260,34 @@ class ci_efs extends objeto_ci
 		return $parametros;
 	}
 
+	//---------------------------------
+	//---- EI: IMPORTAR definicion ----
+	//---------------------------------
+
+	function evt__efs_importar__importar($datos)
+	{
+		$this->importacion_efs = $datos;
+		if(isset($datos['datos_tabla'])){
+			require_once('api/elemento_objeto.php');
+			$dt = elemento_objeto::get_elemento_objeto(toba::get_hilo()->obtener_proyecto(), $datos['datos_tabla']);
+			$datos = $dt->exportar_datos_efs($datos['pk']);
+			//ei_arbol($datos);
+			foreach($datos as $ef){
+				try{
+					$this->get_tabla()->nueva_fila($ef);
+				}catch(excepcion_toba $e){
+					toba::get_cola_mensajes()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
+				}
+			}
+		}
+	}
+
+	function evt__efs_importar__carga()
+	{
+		if(isset($this->importacion_efs)){
+			return $this->importacion_efs;
+		}
+	}
 	//-------------------------------------------------------------------
 }
 ?>

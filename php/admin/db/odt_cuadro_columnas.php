@@ -1,8 +1,13 @@
 <?
 require_once("nucleo/persistencia/objeto_datos_tabla.php");
 
-class odt_columnas extends objeto_datos_tabla
+class odt_cuadro_columnas extends objeto_datos_tabla
 {
+	function configuracion()
+	{
+		$this->set_no_duplicado(array('clave'));
+	}
+
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con los EVENTOS
 	//-----------------------------------------------------

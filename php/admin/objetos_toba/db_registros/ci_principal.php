@@ -88,8 +88,7 @@ class ci_principal extends ci_editores_toba
 		$reg = $this->get_entidad()->tabla("base")->get();
 		$proyecto = $reg['fuente_datos_proyecto'];
 		$id_fuente = $reg['fuente_datos'];
-		abrir_fuente_datos($id_fuente, $proyecto);
-		$fuente = toba::get_fuente_datos($id_fuente);
+		$fuente = toba::get_db($id_fuente);
 		try{
 			return $fuente->obtener_definicion_columnas($tabla);
 		}catch(excepcion_toba $e){

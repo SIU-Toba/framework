@@ -524,6 +524,8 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		$creacion_objeto = "\$this->objetos[$indice] = new {$clase}( array('".$this->info_objetos[$posicion]['objeto_proyecto']."','".$this->info_objetos[$posicion]['objeto']."') ,\$parametros);";
 		//echo $creacion_objeto;
 		eval($creacion_objeto);	
+		$this->objetos[$indice]->conectar_fuente();
+		$this->objetos[$indice]->configuracion();
 		//$this->objetos[$indice]->establecer_solicitud($this);
 		$cronometro->marcar('SOLICITUD: Crear OBJETO	['. $this->info_objetos[$posicion]['objeto']	.']',apex_nivel_nucleo);
 		//--->>>	ATENCION: Tengo que controlar	que todo	esta OK.	------------ FALTA!!!!

@@ -1,5 +1,5 @@
 -- Creo el proyecto
-INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto) VALUES ('%proyecto%','naranja1','%proyecto%','%proyecto%',1);
+INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto) VALUES ('%proyecto%','toba','%proyecto%','%proyecto%',1);
 
 -- Le agrego los items basicos
 INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('%proyecto%','','%proyecto%','','1','0','browser','toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');

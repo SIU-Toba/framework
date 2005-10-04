@@ -84,6 +84,8 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 		$evento[0]['identificador'] = "seleccion";
 		$evento[0]['etiqueta'] = "";
 		$evento[0]['orden'] = 1;
+		$evento[0]['sobre_fila'] = 1;
+		$evento[0]['en_botonera'] = 0;
 		$evento[0]['imagen_recurso_origen'] = "apex";
 		$evento[0]['imagen'] = "doc.gif";	
 		return $evento;
