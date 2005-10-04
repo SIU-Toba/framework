@@ -2,12 +2,26 @@
 require_once("base_test_datos_relacion.php");
 require_once('nucleo/persistencia/objeto_datos_relacion.php');
 
-class base_test_datos_relacion_std extends base_test_datos_relacion
+class base_test_datos_relacion_nn extends base_test_datos_relacion
 {
-	//#############################################################
-	//#    PRUEBAS    
-	//#############################################################
 
+	function test_alta()
+	{
+		$m = $this->dr->tabla('maestro')->nueva_fila( $this->get_fila_test("maestro", 'valido_1') );
+		$this->AssertEqual($m, 0);
+		$a1 = $this->dr->tabla('detalle_a')->nueva_fila( $this->get_fila_test("detalle_a", 'valido_1'), $m );
+		$this->AssertEqual($a1, 0);
+		$a2 = $this->dr->tabla('detalle_a')->nueva_fila( $this->get_fila_test("detalle_a", 'valido_2'), $m );
+		$this->AssertEqual($a2, 1);
+		$b1 = $this->dr->tabla('detalle_b')->nueva_fila( $this->get_fila_test("detalle_b", 'valido_1'), $a1 );
+		$this->AssertEqual($b1, 0);
+		$b2 = $this->dr->tabla('detalle_b')->nueva_fila( $this->get_fila_test("detalle_b", 'valido_2'), $a2 );
+		$this->AssertEqual($b2, 1);
+		$this->dump_contenido();
+	}
+
+
+/*
 	function test_carga()
 	{
 		$this->dr->cargar( array("id"=>0) );
@@ -63,5 +77,6 @@ class base_test_datos_relacion_std extends base_test_datos_relacion
 										"detalle_b" => array("db", "db")));
 	}
 
+*/
 }
 ?>

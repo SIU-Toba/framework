@@ -1,16 +1,16 @@
 <?php
-require_once("base_test_datos_relacion_std.php");
+require_once("base_test_datos_relacion_nn.php");
 
-class test_datos_relacion_1 extends base_test_datos_relacion_std
+class test_datos_relacion_3 extends base_test_datos_relacion_nn
 {
 	function get_descripcion()
 	{
-		return "OBJETO datos_relacion (relacion: N<-1->N)";
+		return "OBJETO datos_relacion (relacion: 1->N->N)";
 	}	
 
 	function get_dr()
 	{
-		$dt = new objeto_datos_relacion(array('toba_testing','1516'));
+		$dt = new objeto_datos_relacion(array('toba_testing','1625'));
 		return $dt;
 	}
 
@@ -37,15 +37,15 @@ class test_datos_relacion_1 extends base_test_datos_relacion_std
 					  	nombre				VARCHAR(20) 	NOT NULL, 
 					  	descripcion 		VARCHAR(80), 
 					  	CONSTRAINT test_b_pkey PRIMARY KEY(id),
-						FOREIGN KEY (maestro) REFERENCES test_maestro(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
+						FOREIGN KEY (maestro) REFERENCES test_detalle_a(id) ON DELETE NO ACTION ON UPDATE NO ACTION NOT DEFERRABLE
 					);";
 		return $sql;
 	}
 	
 	function get_sql_eliminar_tablas()
 	{
-		$sql[] = "DROP TABLE test_detalle_a;";
 		$sql[] = "DROP TABLE test_detalle_b;";
+		$sql[] = "DROP TABLE test_detalle_a;";
 		$sql[] = "DROP TABLE test_maestro;";
 		$sql[] = "DROP SEQUENCE seq_maestro;";
 		return $sql;
@@ -63,7 +63,7 @@ class test_datos_relacion_1 extends base_test_datos_relacion_std
 		$sql[] = "INSERT INTO test_detalle_a (id, maestro, nombre, descripcion) VALUES ('2','1','Mosca','Las mandarinas son ricas.');";
 		$sql[] = "INSERT INTO test_detalle_a (id, maestro, nombre, descripcion) VALUES ('3','2','Rata','Las manzanas son ricas.');";
 		$sql[] = "INSERT INTO test_detalle_b (id, maestro, nombre, descripcion) VALUES ('0','0','Viento','Las peras son ricas.');";
-		$sql[] = "INSERT INTO test_detalle_b (id, maestro, nombre, descripcion) VALUES ('1','2','Fuego','Las naranjas son ricas.');";
+		$sql[] = "INSERT INTO test_detalle_b (id, maestro, nombre, descripcion) VALUES ('1','0','Fuego','Las naranjas son ricas.');";
 		$sql[] = "INSERT INTO test_detalle_b (id, maestro, nombre, descripcion) VALUES ('2','3','Invasion','Las mandarinas son ricas.');";
 		$sql[] = "INSERT INTO test_detalle_b (id, maestro, nombre, descripcion) VALUES ('3','3','Inundacion','Las manzanas son ricas.');";
 		return $sql;
@@ -71,8 +71,8 @@ class test_datos_relacion_1 extends base_test_datos_relacion_std
 
 	function get_sql_eliminar_juego_datos()
 	{
-		$sql[] = "DELETE FROM test_detalle_a;";
 		$sql[] = "DELETE FROM test_detalle_b;";
+		$sql[] = "DELETE FROM test_detalle_a;";
 		$sql[] = "DELETE FROM test_maestro;";
 		return $sql;
 	}
@@ -83,23 +83,23 @@ class test_datos_relacion_1 extends base_test_datos_relacion_std
 		static $datos;
 		//- Registros validos
 		$datos['maestro']['valido_1']['id']="10";
-		$datos['maestro']['valido_1']['nombre']="TOMATE";
+		$datos['maestro']['valido_1']['nombre']="Cajon de frutas";
 		$datos['maestro']['valido_1']['descripcion']="Esta es una cosa";
-		$datos['detalle_a']['valido_1']['id']="10";
-		$datos['detalle_a']['valido_1']['nombre']="TOMATE";
-		$datos['detalle_a']['valido_1']['maestro']="0";
+		$datos['detalle_a']['valido_1']['id']="111";
+		$datos['detalle_a']['valido_1']['nombre']="Naranaja";
+		$datos['detalle_a']['valido_1']['maestro']="10";
 		$datos['detalle_a']['valido_1']['descripcion']="Esta es una cosa";
-		$datos['detalle_b']['valido_1']['id']="11";
-		$datos['detalle_b']['valido_1']['nombre']="TOMATE";
-		$datos['detalle_b']['valido_1']['maestro']="0";
+		$datos['detalle_b']['valido_1']['id']="222";
+		$datos['detalle_b']['valido_1']['nombre']="Semilla naranja";
+		$datos['detalle_b']['valido_1']['maestro']="111";
 		$datos['detalle_b']['valido_1']['descripcion']="Esta es una cosa";
-		$datos['detalle_a']['valido_2']['id']="21";
-		$datos['detalle_a']['valido_2']['nombre']="TOMATESSSSSSSSs";
-		$datos['detalle_a']['valido_2']['maestro']="0";
+		$datos['detalle_a']['valido_2']['id']="555";
+		$datos['detalle_a']['valido_2']['nombre']="Pera";
+		$datos['detalle_a']['valido_2']['maestro']="10";
 		$datos['detalle_a']['valido_2']['descripcion']="Esta es una cosa";
-		$datos['detalle_b']['valido_2']['id']="22";
-		$datos['detalle_b']['valido_2']['nombre']="TOMATESSSSSSSSS";
-		$datos['detalle_b']['valido_2']['maestro']="0";
+		$datos['detalle_b']['valido_2']['id']="333";
+		$datos['detalle_b']['valido_2']['nombre']="Semilla Pera";
+		$datos['detalle_b']['valido_2']['maestro']="555";
 		$datos['detalle_b']['valido_2']['descripcion']="Esta es una cosa";
 		if(isset($datos[$tabla][$concepto])){
 			return 	$datos[$tabla][$concepto];

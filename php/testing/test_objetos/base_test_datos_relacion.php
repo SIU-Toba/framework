@@ -34,10 +34,7 @@ class base_test_datos_relacion extends base_test_datos
 
 	function dump_contenido($mensaje="TABLAS")
 	{
-		foreach($this->dr->get_lista_tablas() as $tabla){
-			$temp[$tabla] = $this->dr->tabla($tabla)->get_cambios();	
-		}
-		ei_arbol($temp, $mensaje);
+		ei_arbol($this->dr->get_datos(), $mensaje);
 	}
 
 	//-------------------------------------------------------------

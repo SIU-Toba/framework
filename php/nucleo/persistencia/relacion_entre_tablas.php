@@ -35,10 +35,10 @@ class relacion_entre_tablas
 		$this->tabla_hijo_claves = $tabla_hijo_clave;
 		$this->tabla_hijo_id = $tabla_hijo_id;
 		//Notifico la existencia de la relacion a las tablas
-		$this->tabla_padre->agregar_relacion_con_hijo( $this );
-		$this->tabla_hijo->agregar_relacion_con_padre( $this );
+		$this->tabla_padre->agregar_relacion_con_hijo( $this, $this->tabla_padre_id );
+		$this->tabla_hijo->agregar_relacion_con_padre( $this, $this->tabla_hijo_id );
 	}
-
+	
 	function mapear_claves()
 	//Macheo claves entre PADRE y HIJO
 	{

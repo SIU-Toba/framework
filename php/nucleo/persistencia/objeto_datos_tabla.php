@@ -116,12 +116,12 @@ class objeto_datos_tabla extends objeto
 		$this->contenedor = $contenedor;
 	}
 
-	function agregar_relacion_con_padre($relacion)
+	function agregar_relacion_con_padre($relacion, $id_padre)
 	{
 		$this->relaciones_con_padres[] = $relacion;
 	}
 	
-	function agregar_relacion_con_hijo($relacion)
+	function agregar_relacion_con_hijo($relacion, $id_hijo)
 	{
 		$this->relaciones_con_hijos[] = $relacion;
 	}
@@ -165,6 +165,15 @@ class objeto_datos_tabla extends objeto
 				$this->relaciones_con_hijos[$a]->evt__eliminacion_padre();
 			}
 		}
+	}
+
+	/*
+		***  Manejo de relaciones  ***
+	*/
+
+	function set_padre($id_fila, $id_fila_padre, $id_padre=null)
+	{
+		
 	}
 
 	//-------------------------------------------------------------------------------
@@ -376,11 +385,12 @@ class objeto_datos_tabla extends objeto
 	//-- ALTERACION de FILAS  ------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function nueva_fila($fila)
+	public function nueva_fila($fila, $padre=null)
 	{
 		if( $this->tope_max_filas != 0){
 			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
-				throw new excepcion_toba("No es posible agregar FILAS (TOPE MAX.)");
+				$info = 'filas: ' . $this->get_cantidad_filas() . ' tope: ' . $this->tope_max_filas;
+				throw new excepcion_toba("No es posible agregar FILAS (TOPE MAX.) $info");
 			}
 		}
 		$this->notificar_contenedor("ins", $fila);
@@ -393,7 +403,12 @@ class objeto_datos_tabla extends objeto
 		}
 		$this->datos[$this->proxima_fila] = $fila;
 		$this->registrar_cambio($this->proxima_fila,"i");
-		return $this->proxima_fila++;
+		$id = $this->proxima_fila++;
+		//Si hay un padre, aviso a la relacion que tiene que crear un macheo
+		if(isset($padre)){
+				
+		}
+		return $id;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -419,6 +434,7 @@ class objeto_datos_tabla extends objeto
 			$this->registrar_cambio($id,"u");
 		}
 		$this->notificar_contenedor("post_modificar", $fila, $id);
+		return $id;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -437,6 +453,7 @@ class objeto_datos_tabla extends objeto
 			$this->registrar_cambio($id,"d");
 		}
 		$this->notificar_contenedor("post_eliminar", $id);
+		return $id;
 	}
 	//-------------------------------------------------------------------------------
 

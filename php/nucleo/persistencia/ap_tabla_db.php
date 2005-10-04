@@ -259,6 +259,7 @@ class ap_tabla_db extends ap
 		//Regenero la estructura que mantiene los cambios realizados
 		$this->objeto_tabla->notificar_fin_sincronizacion();
 		$this->log("Fin SINCRONIZAR: $modificaciones."); 
+		return $modificaciones;
 	}
 
 	protected function insertar_registro_db($id_registro){}	
