@@ -6,82 +6,97 @@
 	DIA 1
 	-----
 	
-		1. Puesta en marcha de un proyecto (30 min.)
+		1. Puesta en marcha de un proyecto (25 min.)
 		----------------------------------
 
 			- Crear proyecto.
-				- comando 'proyecto'
+				- comando 'proyecto crear'
+					- ver carpeta
 				- configuracion apache
-				- setear permiso desde toba y loguearse
-	
+				- Entrar al toba
 			- Crear base y ponerla a disposicion.
 				- comando 'db' (crear base, crear modelo)
 				- mostrar modelo de datos
 				- instancias.php (crear 'curso')
-				- crear fuente de datos
+				- crear fuente de datos (test)
 				- daos
-				- inicializacion.php
-					define('apex_fuente_datos_defecto','curso');
-					require_once('dao_general.php');
+				- inicializacion.php											#1
 
-		2. Items y usuarios (20 min.)
+		2. Items y usuarios (25 min.)
 		-------------------
 	
+			- Concepto de unidad accesible, perfil y usuario
 			- Crear items
 			- Crear usuarios
 			- Ver tema permisos
 			- Publicar en menu
 			- ver acceso desde la aplicacion final
 
-		3. Construccion de operaciones (90 min.)
+		3. Construccion de operaciones (120 min.)
 		------------------------------
 			
 			A. INTRODUCCION			
 
 				+ Modelo Modelo
-E					- capas			
+					- capas	(ver esquema en el proyecto de referencia)
 					- eventos
-				+ Definicion de objetos
+				+ Definicion de objetos (mostrar editores)
 					- metadatos
 					- extension
 																				-[ cafe ]-
 			B. INTERFACE (parte 1)
 
-				+ Crear un CI. Hacer un cuadrado y mostrar
+				+ Crear un CI. Cuadrado gris
 				+ ¿Que son los eventos?
 					- Agregar eventos al CI
 					- Extender la clase (facilidades)
 					- Escuchar eventos
-						- evt__*
-						- ei_arbol de la salida de un DAO
+						->> evt__*()
+							- ei_arbol de la salida de un DAO
 				+ ¿Que son las pantallas?
 					- crear pantallas, diferenciarlas con la descripcion
 					- formas de navegacion
-					- Navagacion ad-hoc
-						- Hacer un ejemplo de navegacion por botones ad-hoc (get_pantalla_actual())
-					- Eventos de cambio de pantalla
 					- Anidar CIs
+					- Navagacion ad-hoc 
+						->> get_pantalla_acual()
+						->> get_lista_tabs()					//Llamar a parent
+					- Eventos de pantalla
+						->> evt__salida__*()
+						->> evt__entrada__*()
 				+ Elementos de interface
-					- ei_formulario
+					- Ver ei_formulario
 						-titulo, colpasable
 						- EFs
 							- obligatorio, descripcion, colapsado
 							- Ver: editables, numeros, moneda, fecha, checkbox, combo_dao
-					- ei_formulario_ml
-					- Concepto de dependencias
-						- Referenciamiento desde pre/post carga (ej: colapsado)
+					- Ver ei_formulario_ml
 					- Eventos en EIs
-						- Definir
-						- escuchar
-					- ei_cuadro
+						- Definicion
+						->> evt__[dependencia]__[evento]()
+					- Seleccion de EIs ad-hoc []
+						->> get_lista_ei()						//Llamar a parent
+						->> get_lista_ei__[pantalla]() 
+					- Ver ei_cuadro
 					- Cargar EIs
+						->> evt__[dependencia]__carga()
 				+ Mantener el ESTADO
 					- explicar problema http
-					- mantener_estado_sesion
+						->> mantener_estado_sesion()			//Llamar a parent
 					- Ver el estado con destruir
-E				+ Ciclo de vida el CI											
+						->> get_estado_sesion()
+				+ Ciclo de vida el CI
+					- Vel el LOG											
+				+ Otros eventos				
+					->> evt__inicializar()
+					->> evt__post_recuperar_interaccion()
+					->> evt__pre_cargar_datos_dependencias();
+					->> evt__pre_cargar_datos_dependencias__[pantalla]() 
+					->> evt__post_cargar_datos_dependencias();
+					->> evt__post_cargar_datos_dependencias__[pantalla]() 		//Ejemplo colapsado
+					->> get_lista_eventos()						//Llamar a parent
+					->> obtener_html_contenido__[pantalla]()
 																				-[ break Almuerzo ]-
-			C. PERSISTENCIA (90 min.)
+			C. PERSISTENCIA (60 min.)
 			
 				+ Datos tabla
 					- Crear metadatos
@@ -112,6 +127,7 @@ E				+ Ciclo de vida el CI
 				- Extender clase y generar logica
 			+ agregar filtro
 			+ separar en dos pasos
+			+ comando proyecto exportar
 
 #####################################################################################
 
@@ -119,7 +135,9 @@ E				+ Ciclo de vida el CI
 	-----
 	
 		- Caso real de ABM complejo
+			- Cascadas
 			- validaciones persistencia
+		- Reportes con filtro
 		- testing automatico
 		- Extender eis														API				
 		- Extension javascript
