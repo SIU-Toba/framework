@@ -13,7 +13,7 @@
 				- Validaciones sobre el conjunto de datos
 				- Presentar interfaces mas orientadas al dominio
 
-					function evt__validar()									- Antes de sincronizar, despues de disparar la validacion de tablas
+					function evt__validar()									- Antes de sincronizar, despues de las tablas
 	**				function evt__[tabla]__pre_agregar()					- En linea con la manipulacion de tablas
 	**				function evt__[tabla]__post_agregar()					- En linea con la manipulacion de tablas
 	**				function evt__[tabla]__pre_modificar()					- En linea con la manipulacion de tablas
@@ -47,7 +47,7 @@
 				- Agregar validaciones sobre las filas
 				- Presentar interfaces mas orientadas al dominio
 
-					function evt__validar_ingreso($fila, $id=null)		- En linea con el ingreso de datos, antes de elevar el evento a la relacion
+					function evt__validar_ingreso($fila, $id=null)		- En linea con el ingreso de datos
 					function evt__validar_fila($fila)					- Validacion "global"
 					function *dominio									- Invocacion explicita
 

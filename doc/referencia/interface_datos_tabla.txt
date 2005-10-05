@@ -1,57 +1,82 @@
+
+	Clases de Persistencia
+	----------------------
+
+	* CLASE objeto_datos_tabla
+
+		Consultar FILAS
+		---------------
 	
-	API del objeto_datos_tabla
+		public function get_filas($condiciones=null, $usar_id_fila=false)
+		public function get_id_fila_condicion($condiciones=null)
+		public function get_fila($id)
+		public function get()
+		public function get_fila_columna($id, $columna)
+		public function get_valores_columna($columna)
+		public function get_cantidad_filas()
+		public function existe_fila($id)
+	
+		Manipular FILAS
+		---------------
+	
+		public function nueva_fila($fila)
+		public function modificar_fila($id, $fila)
+		public function eliminar_fila($id)
+		public function eliminar_filas()
+		public function set($fila)
+		public function set_fila_columna_valor($id, $columna, $valor)
+		public function set_columna_valor($columna, $valor)
+		public function procesar_filas($filas)
+	
+		Ventanas de validacion (para extender)
+		--------------------------------------
+	
+		protected function evt__validar_ingreso($fila, $id=null){}
+		protected function evt__validar_fila($fila){}
+	
+		Manejo del estado
+		-----------------
+	
+		public function cargar($id)
+		public function sincronizar()
+		public function resetear()
+	
+		Configuracion
+		-------------
+	
+		public function set_tope_max_filas($cantidad)
+		public function set_tope_min_filas($cantidad)
+		public function set_no_duplicado( $columnas )
+		public function get_tope_max_filas()
+		public function get_tope_min_filas()
+	
+		Consultas especiales
+		--------------------
+	
+		public function get_clave()
+		public function get_clave_fila($id)											[get_clave_valor]!!!
+		public function get_cantidad_filas_a_sincronizar()
+		public function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 
-	Consultar FILAS
-	---------------
 
-	public function get_filas($condiciones=null, $usar_id_fila=false)
-	public function get_id_fila_condicion($condiciones=null)
-	public function get_fila($id)
-	public function get()
-	public function get_fila_columna($id, $columna)
-	public function get_valores_columna($columna)
-	public function get_cantidad_filas()
-	public function existe_fila($id)
+	* CLASE objeto_datos_relacion
 
-	Manipular FILAS
-	---------------
-
-	public function nueva_fila($fila)
-	public function modificar_fila($id, $fila)
-	public function eliminar_fila($id)
-	public function eliminar_filas()
-	public function set($fila)
-	public function set_fila_columna_valor($id, $columna, $valor)
-	public function set_columna_valor($columna, $valor)
-	public function procesar_filas($filas)
-
-	Ventanas de validacion (para extender)
-	--------------------------------------
-
-	protected function evt__validar_ingreso($fila, $id=null){}
-	protected function evt__validar_fila($fila){}
-
-	Manejo del estado
-	-----------------
-
-	public function cargar($id)
-	public function sincronizar()
-	public function resetear()
-
-	Configuracion
-	-------------
-
-	public function set_tope_max_filas($cantidad)
-	public function set_tope_min_filas($cantidad)
-	public function set_no_duplicado( $columnas )
-	public function get_tope_max_filas()
-	public function get_tope_min_filas()
-
-	Consultas especiales
-	--------------------
-
-	public function get_clave()
-	public function get_clave_fila($id)											[get_clave_valor]!!!
-	public function get_cantidad_filas_a_sincronizar()
-	public function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
-
+		Acceso
+		------
+		
+		public function tabla($tabla)
+	
+		Manejo del estado
+		-----------------
+	
+		public function cargar($id)
+		public function sincronizar()
+		public function eliminar($id)
+		public function resetear()
+	
+		Consultas
+		---------
+	
+		public function get_lista_tablas()
+		public function existe_tabla($tabla)
+	

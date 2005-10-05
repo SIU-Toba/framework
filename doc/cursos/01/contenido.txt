@@ -9,6 +9,10 @@
 		1. Puesta en marcha de un proyecto (25 min.)
 		----------------------------------
 
+			- Conceptos basicos
+				- Instalacion
+				- Instancia
+				- Proyecto
 			- Crear proyecto.
 				- comando 'proyecto crear'
 					- ver carpeta
@@ -70,23 +74,24 @@
 							- obligatorio, descripcion, colapsado
 							- Ver: editables, numeros, moneda, fecha, checkbox, combo_dao
 					- Ver ei_formulario_ml
+					- Seleccion ad-hoc de que EIs mostrar []
+						->> get_lista_ei()						//Llamar a parent
+						->> get_lista_ei__[pantalla]() 
 					- Eventos en EIs
 						- Definicion
 						->> evt__[dependencia]__[evento]()
-					- Seleccion de EIs ad-hoc []
-						->> get_lista_ei()						//Llamar a parent
-						->> get_lista_ei__[pantalla]() 
-					- Ver ei_cuadro
 					- Cargar EIs
 						->> evt__[dependencia]__carga()
+					- Ver ei_cuadro
 				+ Mantener el ESTADO
 					- explicar problema http
 						->> mantener_estado_sesion()			//Llamar a parent
 					- Ver el estado con destruir
 						->> get_estado_sesion()
+-[ break Almuerzo ]-
+
 				+ Ciclo de vida el CI
 					- Vel el LOG											
-				+ Otros eventos				
 					->> evt__inicializar()
 					->> evt__post_recuperar_interaccion()
 					->> evt__pre_cargar_datos_dependencias();
@@ -95,8 +100,8 @@
 					->> evt__post_cargar_datos_dependencias__[pantalla]() 		//Ejemplo colapsado
 					->> get_lista_eventos()						//Llamar a parent
 					->> obtener_html_contenido__[pantalla]()
-																				-[ break Almuerzo ]-
-			C. PERSISTENCIA (60 min.)
+
+			C. PERSISTENCIA (80 min.)
 			
 				+ Datos tabla
 					- Crear metadatos
@@ -112,6 +117,7 @@
 					- Jugar dentro del CI con DAOS (jurisdiccion)
 						- Editar y Sincronizar
 						- Borrar
+				+ Extension de las clases de persistencia
 				+ Clases de negocio propias
 					- Encapsular datos_relacion
 					- Extender datos relacion
