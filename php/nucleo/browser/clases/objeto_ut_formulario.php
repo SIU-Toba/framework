@@ -167,17 +167,11 @@ class	objeto_ut_formulario	extends objeto_ei_formulario
 				" FROM "	. $this->info_formulario["tabla"] .
 				" WHERE " .	implode(" AND ",$sql_where) .";";
 		//Busco el registro en la base
-		global $db,	$ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE	= ADODB_FETCH_ASSOC;
-		$rs =	$db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-		if(!$rs){//SQL	mal formado
-			$this->observar("error","[recuperar_registro_db] -	No	se	genero un recordset [SQL] $sql -	[ERROR] " .	
-							$db[$this->info["fuente"]][apex_db_con]->ErrorMsg(),true,true,true);
-		}
-		if($rs->EOF){//NO	existe el registro
+		$rs = toba::get_db($this->info["fuente"])->consultar($sql);
+		if(empty($rs)) {//NO existe el registro
 			return false;
 		}
-		$datos_db =	current($rs->getArray());//Siempre va a ser un solo registro
+		$datos_db =	current($rs);//Siempre va a ser un solo registro
 		//ei_arbol($datos_db,"DATOS DB");
 		//Seteo los	EF	con el valor recuperado
 		foreach ($this->lista_ef as $ef){	//Tengo que	recorrer	todos	los EF...

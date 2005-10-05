@@ -10,7 +10,7 @@ if (isset($_SERVER['TOBA_DIR'])) {
 	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
 	ini_set("include_path", ini_get("include_path"). $separador . $dir);
 } 
-define("apex_pa_toba_alias", "toba");
+
 #-------------------------------------------------------------------------------
 #----<  ESQUEMA de VALIDACION  >------------------------------------------------
 #-------------------------------------------------------------------------------
@@ -42,6 +42,9 @@ define("apex_pa_encriptar_qs",0);
 #-------------------------------------------------------------------------------
 #----<  Configuracion APEX  >-------------------------------------------------
 #-------------------------------------------------------------------------------
+# apex_pa_toba_alias
+# Alias con el que se conoce al proyecto toba en el web server
+define("apex_pa_toba_alias", "toba");
 # apex_pa_ID: ID de este punto de acceso
 #(Una misma sesion no deberia manejarse desde dos puntos de acceso)
 define("apex_pa_ID",$_SERVER["SCRIPT_FILENAME"]);
