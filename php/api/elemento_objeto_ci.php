@@ -47,8 +47,9 @@ class elemento_objeto_ci extends elemento_objeto
 
 	function eventos_predefinidos()
 	{
-		$eventos = array('procesar', 'cancelar', 'inicializar', 'limpieza_memoria', 'post_recuperar_interaccion', 'validar_datos',
-						'error_proceso_hijo', 'pre_cargar_datos_dependencias', 'post_cargar_datos_dependencias');	
+		$eventos = array('inicializar');	
+		//$eventos = array('procesar', 'cancelar', 'inicializar', 'limpieza_memoria', 'post_recuperar_interaccion', 'validar_datos',
+		//				'error_proceso_hijo', 'pre_cargar_datos_dependencias', 'post_cargar_datos_dependencias');	
 		return $eventos;
 	}
 

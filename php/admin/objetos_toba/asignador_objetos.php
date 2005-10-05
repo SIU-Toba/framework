@@ -34,7 +34,7 @@ class asignador_objetos
 					FROM apex_item_objeto 
 					WHERE item='{$this->destino['id']}' AND proyecto='{$this->destino['proyecto']}'
 			";
-		$res = consultar_fuente($sql);
+		$res = consultar_fuente($sql,'instancia');
 		$orden = $res[0]['maximo'];
 		$sql = "INSERT INTO apex_item_objeto 
 					(proyecto, item, objeto, orden) VALUES (
@@ -44,7 +44,7 @@ class asignador_objetos
 						$orden
 					)
 			";
-		ejecutar_sql($sql);
+		ejecutar_sql($sql,'instancia');
 	}
 	
 	protected function asignar_a_ci()
@@ -57,7 +57,7 @@ class asignador_objetos
 			  			'{$this->destino['id_dependencia']}'
 		  			) 
 		  		";
-		ejecutar_sql($sql);
+		ejecutar_sql($sql,'instancia');
 	}
 	
 	protected function asignar_a_pantalla_ci()
@@ -71,7 +71,7 @@ class asignador_objetos
 					objeto_ci = '{$this->destino['id']}' AND
 					pantalla = {$this->destino['pantalla']}
 			";
-		ejecutar_sql($sql);
+		ejecutar_sql($sql,'instancia');
 	}
 	
 }

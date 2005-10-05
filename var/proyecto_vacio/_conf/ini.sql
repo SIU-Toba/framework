@@ -11,3 +11,6 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 
 -- Creo un perfil de datos
 INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('%proyecto%','no','No posee','');
+
+-- Asocio el usuario toba
+INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos) VALUES ('%proyecto%','toba','admin','no');

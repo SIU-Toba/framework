@@ -42,7 +42,7 @@ class objeto_ci extends objeto_ei
 		}
 		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
 		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
-		$this->set_etapa_gi( $this->get_etapa_inicial() );
+		$this->set_etapa_gi( $this->get_pantalla_actual() );
 
 	}
 	
@@ -327,7 +327,7 @@ class objeto_ci extends objeto_ei
 			// Request inicial
 			// Esto no deberia pasar nunca, porque en el request inicial no se disparan los eventos
 			// porque el CI no se encuentra entre las dependencias previas
-			$this->set_etapa_gi( $this->get_etapa_inicial() );
+			$this->set_etapa_gi( $this->get_pantalla_actual() );
 		}
 		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}");
 	}
