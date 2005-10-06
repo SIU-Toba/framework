@@ -2404,3 +2404,8 @@ TD.separador_izquierda {
 TD.separador_derecha {
 	BORDER-RIGHT: #000000 2px solid
 }
+.ef-fijo {
+	text-align: left;
+	white-space: nowrap;
+	padding: 2px;
+} 
