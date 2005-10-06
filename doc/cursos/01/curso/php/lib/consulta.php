@@ -39,6 +39,17 @@ class consulta
 				ORDER by 2";
 		return consultar_fuente($sql);
 	}
+
+	static function get_jurisdicciones_filtro($filtro)
+	{
+		
+		$sql = "SELECT 	jurisdiccion as			id, 
+						descripcion as			nombre
+				FROM soe_jurisdicciones
+			WHERE descripcion like '%$filtro%'
+				ORDER by 2";
+		return consultar_fuente($sql);
+	}
 	
 	static function get_paises()
 	{
