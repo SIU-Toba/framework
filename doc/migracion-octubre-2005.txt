@@ -1,0 +1,29 @@
+En p_acciones\interfaz_tarjetas\accion_pagofacil.php
+Metodo get_datos_pago_facil. hace un    for($i = 1; $i < $cant_filas; $i++) ¿No deberia ser <=?
+
+No pude probar la parte de moras e interfaz
+No pude probar Gestión > Solicitudes Débito > Registrar Solicitud Débito porque no hay solicitudes
+
+No probe Confirmador Automatico consola
+
+En Act. Académicas > Cambios de Estado > Procesar Cambios Gestión Acad
+	- no hace transacción al procesar
+	- no pude probar llegar a la confirmación
+
+En Act. Académicas > Cambios de Estado > Efectivizar Solicitudes 
+	-abre la transacción tarde al procesar (hace un cambio de estado primero)
+	-no pude probar llegar a la confirmación
+
+Act. Académicas > Cambios de Estado > Forzar Cambio Estado
+	-no pude probar pasar del 1er tab
+	
+Clientes > Cambiar Estados de Clientes
+	-no pude probar pasar del 1er tab
+		
+La operación de ND por cobro incorrecto es parte del sistema?
+
+Act. Académicas > Cambios de Estado > Rechazar Solicitudes
+	-no tiene transaccion
+	
+No probe /consultas/cambios_de_estado/efectivizar_solicitudes_consola	
+No probe   /consultas/cambios_de_estado/procesar_academica_consola 
