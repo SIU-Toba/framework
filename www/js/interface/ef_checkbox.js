@@ -34,5 +34,13 @@ def.constructor = ef_checkbox;
 	}
 	
 	def.chequeado = function() {
+		if (!this.input())	//En caso de setearse solo lectura en el server no hay input
+			return false;
 		return this.input().checked;
+	}	
+	
+	def.activo = function() {
+		if (!this.input())
+			return false;
+		return !(this.input().disabled);
 	}	
