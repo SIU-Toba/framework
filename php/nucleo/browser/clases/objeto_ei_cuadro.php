@@ -851,7 +851,7 @@ class objeto_ei_cuadro extends objeto_ei
         if($this->info_cuadro["scroll"]){
 			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
 			$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
-			echo "<div style='overflow: scroll; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>\n";
+			echo "<div style='overflow: auto; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>\n";
 		}else{
 			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
 		}

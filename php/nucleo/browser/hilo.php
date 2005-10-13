@@ -2,7 +2,7 @@
 //Tamaño del HILO (Unidades de memoria independientes por solicitud)
 //Esto determina la cantidad de "BACK" que se puede hacer el browser sin
 //Perder el estado de sesion de cada request.
-define("apex_hilo_tamano","3");
+define("apex_hilo_tamano","5");
 
 //----------------------------------------------------------------
 //-------------------- QUERYSTRING Basico ------------------------
@@ -45,7 +45,7 @@ class hilo
 	var $item_solicitado;
 	var $hilo_referencia;
 	var $parametros;
-	var $no_reciclar = false;	//Inhabilita el reciclado de la sesion
+	var $reciclar_memoria = true;	//Habilita el reciclado de la memoria en la sesion
 	private $celda_memoria_actual = "central";
 	private $acceso_menu;
 	
@@ -115,7 +115,7 @@ class hilo
 	function destruir()
 	//Destruyo el HILO
 	{
-		if(!$this->no_reciclar){
+		if($this->reciclar_memoria){
 			$this->ejecutar_reciclaje_datos_globales();	
 		}
 	}
@@ -433,7 +433,7 @@ class hilo
 	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
 	{
 		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"])){
+		if(isset($_SESSION[$celda]["hilo"]) && $this->reciclar_memoria){
 			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
 				array_shift($_SESSION[$celda]["hilo"]);
 			}
@@ -535,7 +535,7 @@ class hilo
 	
 	function desactivar_reciclado()
 	{
-		$this->no_reciclar = true;
+		$this->reciclar_memoria = false;
 	}
 
 	function inicializar_esquema_reciclaje_global()

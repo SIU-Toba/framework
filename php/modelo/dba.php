@@ -8,6 +8,7 @@ class dba
 	private static $dba;			// Implementacion del singleton.
 	private static $info_bases;		// Parametros de conexion.
 	private $bases_conectadas;		// Conexiones abiertas
+	private static $instancias;
 
 	//------------------------------------------------------------------------
 	// Administracion de conexiones
@@ -181,19 +182,33 @@ class dba
 	}
 
 	//--------  MIGRACION 0.8.3 --------------
-	private static function parametros_instancia($nombre)
+	static function parametros_instancia($nombre)
 	{
-		global $instancia;		
+		self::get_info_instancias();
 		$nombre_instancia = ($nombre == 'instancia') ? apex_pa_instancia : $nombre;
-		if (!isset($instancia[$nombre_instancia]))
+		if (!isset(self::$instancias[$nombre_instancia]))
 			throw new excepcion_toba("La entrada $nombre_instancia no esta definida en el archivo de instancias");
-		$datos['profile'] = $instancia[$nombre_instancia][apex_db_profile];
-		$datos['motor'] =  $instancia[$nombre_instancia][apex_db_motor];
-		$datos['usuario'] = $instancia[$nombre_instancia][apex_db_usuario];
-		$datos['clave'] = $instancia[$nombre_instancia][apex_db_clave];
-		$datos['base'] = $instancia[$nombre_instancia][apex_db_base];
+		$datos['profile'] = self::$instancias[$nombre_instancia][apex_db_profile];
+		$datos['motor'] =  self::$instancias[$nombre_instancia][apex_db_motor];
+		$datos['usuario'] = self::$instancias[$nombre_instancia][apex_db_usuario];
+		$datos['clave'] = self::$instancias[$nombre_instancia][apex_db_clave];
+		$datos['base'] = self::$instancias[$nombre_instancia][apex_db_base];
 		$datos['fuente_datos'] = $nombre;
 		return $datos;
+	}
+	
+	static function get_info_instancias()
+	{
+		if (!isset(self::$instancias)) { 
+			if (file_exists(toba_dir()."/php/instancias.php")) {
+				require_once("instancias.php");	//(NO SVN) Listado de INSTANCIAS...
+				self::$instancias = $instancia;
+			} else {
+				throw new excepcion_toba("No es posible conectarse a la instancia '" . apex_pa_instancia . "'".
+										" Por favor, chequee que exista el archivo 'instancias.php' en el directorio 'php' de la instalación de Toba.");
+			}
+		}
+		return self::$instancias;	
 	}
 	//-------------------------------------------	
 	

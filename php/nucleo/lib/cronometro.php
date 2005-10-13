@@ -10,11 +10,22 @@ class cronometro
 {
 	var $marcas;
 	var $indice;
-
-	function cronometro(){
+	static private $instancia;
+	
+	private function __construct() {
 		$this->indice = 0;
 		$this->marcar("INICIO");
+		global $cronometro;
+		$cronometro = $this;
 	}
+	
+	static function instancia()
+	{
+		if (!isset(self::$instancia)) {
+			self::$instancia = new cronometro();	
+		}
+		return self::$instancia;	
+	}	
 
 	function marcar($nombre,$nivel="item"){
         $microtime = explode(' ', microtime());

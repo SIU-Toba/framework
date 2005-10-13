@@ -7,12 +7,6 @@ class punto_acceso
 {
 	protected $instancias_disponibles;
 	
-	function __construct()
-	{
-		global $instancia;
-		$this->instancias_disponibles = $instancia;
-	}
-	
 	function cambiar_instancia_actual($nueva)
 	//Cambia la instancia a la que el punto de acceso debe conectarse
 	{
@@ -38,10 +32,6 @@ class punto_acceso
 		return false;
 	}
 	
-	function get_instancias_posibles()
-	{
-		return $this->instancias_disponibles;
-	}
 
 }
 

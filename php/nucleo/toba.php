@@ -1,5 +1,5 @@
 <?
-require_once('nucleo/browser/clases/interfaces.php');
+require_once('nucleo/nucleo_toba.php');
 
 /*
 	Obtencion de referencias a los objetos centrales del TOBA
@@ -7,22 +7,24 @@ require_once('nucleo/browser/clases/interfaces.php');
 
 class toba
 {
+	static function get_nucleo()
+	{
+		return nucleo_toba::instancia();
+	}
+	
 	function get_solicitud()
 	{
-		global $solicitud;
-		return $solicitud;
+		return nucleo_toba::instancia()->get_solicitud();	
 	}
 	
 	function get_vinculador()
 	{
-		global $solicitud;
-		return $solicitud->vinculador;
+		return toba::get_solicitud()->vinculador;
 	}
 	
 	function get_hilo()
 	{
-		global $solicitud;
-		return $solicitud->hilo;
+		return toba::get_solicitud()->hilo;
 	}
 	
 	/**
@@ -31,11 +33,7 @@ class toba
 	*/
 	function get_logger()
 	{
-		global $logger;
-		if(!isset($logger)){
-			$logger = new logger();
-		}
-		return $logger;
+		return logger::instancia();
 	}
 
 	function get_cola_mensajes()
@@ -63,27 +61,15 @@ class toba
 		return dba::get_db($fuente);
 	}
 
-	/**
-		- Esto hay que borrarlo
-	*/
-	function get_fuente_datos($fuente)
-	{
-		self::get_db($fuente);
-	}
-
 	function get_encriptador()
 	{
-		global $encriptador;
-		return $encriptador;	
+		return encriptador::instancia();	
 	}
 
-	function get_info_instancia($id)
+	function get_cronometro()
 	{
-		global $instancia;
-		if(!isset($instancia[$id])){
-			throw new excepcion_toba("La instancia no se encuentra definida." );
-		}
-		return $instancia[$id];
+		return cronometro::instancia();	
 	}
+
 }
 ?>

@@ -20,6 +20,8 @@ class solicitud
 
 	function solicitud($item, $usuario)	
 	{
+		global $solicitud;
+		$solicitud = $this;		//MALLL
 		global $cronometro;
 		$cronometro->marcar('basura',apex_nivel_nucleo);
 		$this->en_tramite = false;

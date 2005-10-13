@@ -20,24 +20,25 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 */
 class logger
 {
+	static private $instancia;
 	private $ref_niveles;
 	private $mensajes;
 	private $mensajes_web;
 	private $niveles;
 	private $proximo = 0;
 	private $datos_registrados = false;
-	static $ocultar = false;
+	private $ocultar = false;
 
 	/**
 	*	Oculta el logger en la pantalla incondicionalemente, esto es util por ejemplo cuando
 	*	la salida no es un html (un pdf por ejemplo)
 	*/
-	static function ocultar()
+	function ocultar()
 	{
-		self::$ocultar = true;
+		$this->ocultar = true;
 	}
 	
-	function __construct()
+	private function __construct()
 	{
 		$this->ref_niveles[0] = "EMERGENCY";
 		$this->ref_niveles[1] = "ALERT";
@@ -51,6 +52,14 @@ class logger
 			define('apex_pa_log_archivo_nivel', 10);
 		}	
 	}	
+	
+	static function instancia()
+	{
+		if (!isset(self::$instancia)) {
+			self::$instancia = new logger();	
+		}
+		return self::$instancia;	
+	}
 
 	function registrar_mensaje($mensaje, $nivel)
 	{
@@ -187,33 +196,26 @@ class logger
 	{
 		return $this->datos_registrados;	
 	}
-	//------------------------------------------------------------------
 
 	function guardar()
 	{
 		$this->datos_registrados = true;
 		if(apex_pa_log_archivo){
-			$this->guardar_archivo();
+			$this->guardar_en_archivo("sistema.log");
 		}
 		if(apex_pa_log_db){
 			$this->guardar_db();
 		}
-	}
-	//------------------------------------------------------------------
-	
-	function guardar_archivo()
-	//Guardar LOG en archivo
-	{
-		$this->guardar_en_archivo("sistema.log");
+		if(apex_pa_log_pantalla && ! $this->ocultar){
+			$this->mostrar_pantalla();
+		}
 	}
 	
-	//------------------------------------------------------------------
 	function directorio_logs()
 	{
 		return toba_dir()."/logs";
 	}	
 	
-	//------------------------------------------------------------------
 	function guardar_en_archivo($archivo)
 	{
 		$hay_salida = false;
@@ -273,31 +275,34 @@ class logger
 	//---- Salida a pantalla
 	//------------------------------------------------------------------
 
-	function mostrar_pantalla()
+	private function mostrar_pantalla()
 	{
-		if(apex_pa_log_pantalla && ! self::$ocultar){
-			$hay_salida = false;
-			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-			$html = "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
-			$html .= "<pre class='texto-ss'>";
-			for($a=0; $a<count($this->mensajes_web); $a++)
+/*
+		}elseif(apex_solicitud_tipo == "consola"){
+			fwrite(STDERR, "\n$mensaje\n\n\n" );
+		}
+*/
+
+		$hay_salida = false;
+		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+		$html = "</script>";	//Por si estaba un tag abierto
+		$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
+		$html .= "<pre class='texto-ss'>";
+		for($a=0; $a<count($this->mensajes_web); $a++)
+		{
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
 			{
-				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
-				{
-					$hay_salida = true;
-					$estilo = $this->estilo_grafico($this->niveles[$a]);
-					$html .= $estilo. $this->mensajes_web[$a] . "<br>";
-				}			
-			}
-//			if ($hay_salida) echo $html;
-
-			$html .= "</pre></td></tr></table></div>";
-			if ($hay_salida) {
-				echo "<div style='text-align:left;'>
-						<a href='#logger_salida' onclick='return toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
-						$html</div>";
-			}
-
+				$hay_salida = true;
+				$estilo = $this->estilo_grafico($this->niveles[$a]);
+				$html .= $estilo. $this->mensajes_web[$a] . "<br>";
+			}			
+		}
+//		if ($hay_salida) echo $html;
+		$html .= "</pre></td></tr></table></div>";
+		if ($hay_salida) {
+			echo "<div style='text-align:left;'>
+					<a href='#logger_salida' onclick='return toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
+					$html</div>";
 		}
 	}
 	

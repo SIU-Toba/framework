@@ -1,0 +1,9 @@
+<?php
+
+class autentificador
+{
+	function 
+	
+}
+
+?>
