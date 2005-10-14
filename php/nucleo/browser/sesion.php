@@ -93,7 +93,6 @@ class sesion {
 	function cerrar($observaciones="")
 	//Cierra una sesion de la aplicacion
 	{
-		global $db;
 		if (isset($_SESSION['toba']["id"]))
 		{
 			//Cierro la sesion de la base
@@ -102,7 +101,7 @@ class sesion {
 			}else{
 				$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '".$_SESSION['toba']["id"]."';";
 			}
-			$db["instancia"][apex_db_con]->Execute($sql);
+			toba::get_db('instancia')->ejecutar($sql);
 			//ATENCION: Tengo que controlar que esto este OK!!!
 			//Destruyo la sesion de PHP
 			if(isset($_SESSION['toba']["archivos"]))

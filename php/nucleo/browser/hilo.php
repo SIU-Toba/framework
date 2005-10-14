@@ -357,6 +357,7 @@ class hilo
 	*/
 	{
 		if( $this->verificar_acceso_menu() ){
+			toba::get_logger()->debug('Se limpio la memoria sincroniza y global reciclable');
 			$this->limpiar_memoria();						//Memoria Sincronizada
 			$this->limpiar_memoria_global_reciclable();
 			$this->inicializar_esquema_reciclaje_global();

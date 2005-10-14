@@ -28,30 +28,28 @@ class usuario_http
 	function autorizar()
 	//Ejecuta los controles y responde con un array(status,descripcion)
 	{
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		//---------------------------- Controlo que la IP no este bloqueada...
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='{$_SERVER["REMOTE_ADDR"]}'";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if (!$rs->EOF){
+		$rs = toba::get_db('instancia')->consultar($sql);
+		if (! empty($rs)) {
 			return array(0,"Ha sido bloqueado el acceso desde la maquina '{$_SERVER["REMOTE_ADDR"]}'. Por favor contáctese con el <a href='mailto:".apex_pa_administrador."'>Administrador</a>.");
 		}
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+
 		$sql = "SELECT * FROM apex_usuario WHERE usuario='{$this->usuario}'";				//1a: usuario/clave 
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);
-		if ($rs->EOF){
+		$rs = toba::get_db('instancia')->consultar($sql);
+		if (empty($rs)){
 			return $this->error_login(1,"La combinación usuario/clave es incorrecta.");
 		}else{
-			if ($this->clave==$rs->fields["clave"]){										//1b: usuario/clave
+			if ($this->clave==$rs[0]["clave"]){										//1b: usuario/clave
 				$estado = $this->validar_proyecto(); 		//1c: acceso al PROYECTO
 				if(!$estado[0])return $estado;
-				$estado = $this->validar_vencimiento($rs->fields["vencimiento"]); 		//2: fecha de vencimiento
+				$estado = $this->validar_vencimiento($rs[0]["vencimiento"]); 		//2: fecha de vencimiento
 				if(!$estado[0])return $estado;
-				$estado = $this->validar_dia($rs->fields["dias"]);			//3: dia de la semana
+				$estado = $this->validar_dia($rs[0]["dias"]);			//3: dia de la semana
 				if(!$estado[0])return $estado;
-				$estado = $this->validar_horario($rs->fields["hora_entrada"],$rs->fields["hora_salida"]); //4: horario de ingreso
+				$estado = $this->validar_horario($rs[0]["hora_entrada"],$rs[0]["hora_salida"]); //4: horario de ingreso
 				if(!$estado[0])return $estado;
-				$estado = $this->validar_ip($rs->fields["ip_permitida"]);//5: ip desde donde se accede	
+				$estado = $this->validar_ip($rs[0]["ip_permitida"]);//5: ip desde donde se accede	
 				if(!$estado[0])return $estado;
 				return array(true,"Validacion OK");
 			}else{

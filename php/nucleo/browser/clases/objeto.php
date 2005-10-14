@@ -609,7 +609,7 @@ class objeto
 			}
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
-				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp);
+				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp, true);
 			}else{
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
 				$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
