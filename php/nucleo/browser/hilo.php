@@ -1,8 +1,9 @@
 <?
-//Tamaño del HILO (Unidades de memoria independientes por solicitud)
-//Esto determina la cantidad de "BACK" que se puede hacer el browser sin
-//Perder el estado de sesion de cada request.
+//Tamaño de la pila de la memoria sincronizada
 define("apex_hilo_tamano","5");
+//Tipos de reciclado de la memoria global
+define('apex_hilo_reciclado_item',0);
+define('apex_hilo_reciclado_acceso',1);
 
 //----------------------------------------------------------------
 //-------------------- QUERYSTRING Basico ------------------------
@@ -55,7 +56,7 @@ class hilo
 	@@desc: Inicializa el HILO
 */	{
 		//dump_session();
-		$this->id = uniqid("");
+		$this->id = uniqid('');
 		$this->url_actual = $_SERVER["PHP_SELF"];
         //-[1]- Busco el ID de referencia de la instanciacion anterior del HILO
 		//		Este ID me permite ubicar la memoria correcta para el request ACTUAL
@@ -113,11 +114,15 @@ class hilo
  	}
 
 	function destruir()
-	//Destruyo el HILO
 	{
+		//Disparo el proceso de reciclaje
 		if($this->reciclar_memoria){
-			$this->ejecutar_reciclaje_datos_globales();	
+			$this->reciclar_datos_globales_acceso();	
+			$this->reciclar_datos_sincronizados();
 		}
+		//Mantengo guardado cual es el item anterior de la celda
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]['item_anterior'] = $_SESSION[$celda]['item'];
 	}
 
 	function info()
@@ -331,245 +336,196 @@ class hilo
 
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
-	//-------------------- MEMORIA (persistencia) --------------------
+	//------------ MEMORIA (persistencia en $_SESSION) ---------------
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------	
 
-	function verificar_acceso_menu()
-	//Indica si el request se genero desde el menu
+	/**
+		Inicializa la memoria
+	*/
+	private function inicializar_memoria()
 	{
-		return $this->acceso_menu;
+		if( $this->verificar_acceso_menu() ){
+			/*
+				El flag de acceso por el menu desencadena el borrado de toda la memoria pensada para
+				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
+				como "reciclables" y la memoria sincronizada (la alienada al request anterior).
+			*/
+			toba::get_logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)');
+			$this->limpiar_memoria_sincronizada();
+			$this->limpiar_memoria_global_reciclable();
+		}
+		$this->inicializar_reciclaje_global();
 	}
 
-	function get_celda_memoria_actual()
+	public function limpiar_memoria()
+	{
+		$this->limpiar_memoria_sincronizada();
+		$this->limpiar_memoria_global();
+	}
+
+	public function dump_memoria()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		$memoria['sincronizada'] = array_reverse($_SESSION[$celda]["hilo"], true);
+		$memoria['global'] = $_SESSION[$celda]['global'];
+		ei_arbol($memoria,"MEMORIA");
+	}
+
+	/**
+		Indica cual es la celda actual
+	*/
+	public function get_celda_memoria_actual()
 	//Indica cual es la celda de memoria que se utiliza en este REQUEST
 	{
 		return $this->celda_memoria_actual;
 	}
 
-	function inicializar_memoria()
-	/*
-		Inicializa el esquema de MEMORIA del TOBA
-
-			El flag de acceso por el menu desencadena el borrado de toda la memoria pensada para
-			utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
-			como "reciclables" y la memoria sincronizada (la alienada al request anterior).
+	/**
+		Indica si se accedio por el menu
 	*/
+	public function verificar_acceso_menu()
+	//Indica si el request se genero desde el menu
 	{
-		if( $this->verificar_acceso_menu() ){
-			toba::get_logger()->debug('Se limpio la memoria sincroniza y global reciclable');
-			$this->limpiar_memoria();						//Memoria Sincronizada
-			$this->limpiar_memoria_global_reciclable();
-			$this->inicializar_esquema_reciclaje_global();
-		}else
-		{
-			$this->reciclar_memoria_sincronizada();
-			$this->inicializar_esquema_reciclaje_global();
-		}
+		return $this->acceso_menu;
 	}
 
-	//************************************************************************
-	//********  Persistencia EXCLUSIVA para la PROXIMA instanciacion  ********
-	//************************************************************************
-		
-	function persistir_dato($indice, $datos)
-/*
- 	@@acceso: actividad
-	@@desc: Graba un dato en la MEMORIA. El dato solo estara disponible en la solicitud PROXIMA
-*/
+	/**
+		Desactiva el reciclado
+	*/
+	public function desactivar_reciclado()
 	{
-		$celda = $this->get_celda_memoria_actual();
-		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
-	}
-
-	function eliminar_dato($indice)
-/*
- 	@@acceso: actividad
-	@@desc: Graba un dato en la MEMORIA. El dato solo estara disponible en la solicitud PROXIMA
-*/
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
-			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
-		}
-	}
-
-	function recuperar_dato($indice)
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un dato de la MEMORIA solo cuando el dato fue grabado en la solicitud ANTERIOR
-*/
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
-			return $_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice];
-		}else{
-			return null;
-		}
-	}
-
-	function dump_memoria()
-/*
- 	@@acceso: actividad
-	@@desc: Muestra el contenido de la MEMORIA
-*/
-	{
-		$celda = $this->get_celda_memoria_actual();
-		//Invierto el orden (ultimo primero)
-		$temp = array_reverse($_SESSION[$celda]["hilo"], true);
-		ei_arbol($temp,"MEMORIA");
-	}
-
-	function limpiar_memoria()
-/*
- 	@@acceso: actividad
-	@@desc: Limpia la MEMORIA
-*/
-	{
-		$celda = $this->get_celda_memoria_actual();
-		unset($_SESSION[$celda]["hilo"]);
-	}
-
-	function reciclar_memoria_sincronizada()
-	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"]) && $this->reciclar_memoria){
-			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
-				array_shift($_SESSION[$celda]["hilo"]);
-			}
-		}
+		$this->reciclar_memoria = false;
 	}
 
 	//************************************************************************
 	//*********  Persistencia GLOBAL (acceso directo a la sesion)  ***********
 	//************************************************************************
 
-	function existe_dato_global($indice)
-/*
- 	@@acceso: actividad
-	@@desc: Graba un dato en la SESSION.
-*/
+	/**
+		Persiste un dato global
+	*/
+	public function persistir_dato_global($indice, $datos, $reciclable=false, $tipo_reciclado=null)
 	{
 		$celda = $this->get_celda_memoria_actual();
-		return isset($_SESSION[$celda]["global"][$indice]);
-	}
-
-	function persistir_dato_global($indice, $datos, $reciclable=false)
-/*
- 	@@acceso: actividad
-	@@desc: Graba un dato en la SESSION.
-*/
-	{
-		$celda = $this->get_celda_memoria_actual();
-		$_SESSION[$celda]["global"][$indice]=$datos;
+		$_SESSION[$celda]['global'][$indice]=$datos;
 		if($reciclable){
-			$this->dato_global_reciclable($indice);
+			//Defino el tipo de reciclado (por defecto se utiliza el de cambio de item)
+			if(!isset($tipo_reciclado)) $tipo_reciclado = apex_hilo_reciclado_item;
+			$this->agregar_dato_global_reciclable($indice, $tipo_reciclado);
 		}
 	}
 
-	function recuperar_dato_global($indice)
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un dato de la SESSION
-*/
+	/**
+		Recupera un dato global
+	*/
+	public function recuperar_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["global"][$indice]))
+		if($this->existe_dato_global($indice))
 		{
-			//Si accedo a un dato reciclable, lo marco como activo
-			if($this->existe_dato_reciclable($indice)){
-				$this->dato_global_activo($indice);
-			}
-			return $_SESSION[$celda]["global"][$indice];
+			//Se avisa que se accedio a un dato global al sistema de reciclado
+			$this->acceso_a_dato_global($indice);
+			return $_SESSION[$celda]['global'][$indice];
 		}else{
 			return null;
 		}
 	}
 	
-	function eliminar_dato_global($indice)
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un dato de la SESSION
-*/
+	/**
+		Elimina un dato global
+	*/
+	public function eliminar_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["global"][$indice])){
-			unset($_SESSION[$celda]["global"][$indice]);
+		if(isset($_SESSION[$celda]['global'][$indice])){
+			unset($_SESSION[$celda]['global'][$indice]);
 		}
-		//Si el dato era reciclable, lo saco de las listas de reciclado
-		if($this->existe_dato_reciclable($indice)){
-			foreach(array_keys($_SESSION[$celda]["reciclables"]) as $reciclable){
-				if($_SESSION[$celda]["reciclables"][$reciclable]==$indice){
-					unset($_SESSION[$celda]["reciclables"][$reciclable]);
-				}
-			}
-			foreach(array_keys($_SESSION[$celda]["reciclables_activos"]) as $reciclable){
-				if($_SESSION[$celda]["reciclables_activos"][$reciclable]==$indice){
-					unset($_SESSION[$celda]["reciclables_activos"][$reciclable]);
-				}
-			}
-		}
+		$this->eliminar_informacion_reciclado($indice);
 	}
 
-	function limpiar_memoria_global()
+	/**
+		Chequea si un dato global existe
+	*/
+	public function existe_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
-		unset($_SESSION[$celda]["global"]);
+		return isset($_SESSION[$celda]['global'][$indice]);
 	}
 
-	function limpiar_memoria_global_reciclable()
+	/**
+		Elimina TODA la informacion global
+	*/
+	public function limpiar_memoria_global()
 	{
 		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["reciclables"])){
-			foreach($_SESSION[$celda]["reciclables"] as $reciclable){
-				$this->eliminar_dato_global($reciclable);
-			}
-		}
-		unset($_SESSION[$celda]["reciclables"]);
-		unset($_SESSION[$celda]["reciclables_activos"]);
+		unset($_SESSION[$celda]['global']);
 	}
 
 	//----------------------------------------------------------------	
 	//-------------  RECICLAJE de memoria GLOBAL ---------------------	
 	//----------------------------------------------------------------	
 	
-	function desactivar_reciclado()
-	{
-		$this->reciclar_memoria = false;
-	}
-
-	function inicializar_esquema_reciclaje_global()
-	//Vacio los reciclables activos para que se registren ellos.
+	/**
+		Inicializa el esquema de reciclado global
+	*/
+	private function inicializar_reciclaje_global()
 	{
 		$celda = $this->get_celda_memoria_actual();
+		//-- Inicializo reciclaje por cambio de item.
+		if(isset($this->item_solicitado)){
+			$_SESSION[$celda]['item'] = implode('|',$this->item_solicitado);
+		}else{
+			$_SESSION[$celda]['item'] = 'inicio';
+		}
+		//-- Inicializo reciclaje por acceso.
+		//		Vacio los reciclables activos para que se registren ellos.
 		$_SESSION[$celda]["reciclables_activos"] = array();
 		if(!isset($_SESSION[$celda]["reciclables"])){
 			$_SESSION[$celda]["reciclables"] = array();
 		}
+		//Disparo el reciclaje por cambio de item
+		$this->reciclar_datos_globales_item();
 	}
 
-	function existe_dato_reciclable($indice)
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(in_array($indice,$_SESSION[$celda]["reciclables"])){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	function dato_global_reciclable($indice)
+	/**
+		Se marca un dato global como reciclable
+	*/
+	private function agregar_dato_global_reciclable($indice, $tipo_reciclado)
 	//Se reporta que un dato global se va a reciclar
 	{
+		if($tipo_reciclado != apex_hilo_reciclado_item && $tipo_reciclado != apex_hilo_reciclado_acceso ){
+			//El tipo de reciclado es invalido!
+			throw new excepcion_toba('El tipo de reciclado solicitado es invalido');
+		}
 		if( !$this->existe_dato_reciclable($indice) ){
 			$celda = $this->get_celda_memoria_actual();
-			$_SESSION[$celda]["reciclables"][] = $indice;
+			$_SESSION[$celda]["reciclables"][$indice] = $tipo_reciclado;
 		}
-		$this->dato_global_activo($indice);
+		if($tipo_reciclado == apex_hilo_reciclado_acceso){
+			//Si el tipo de reciclado es por conteo de accesos, marco al dato como activo
+			$this->dato_global_activo($indice);
+		}
 	}
 	
-	function dato_global_activo($indice)
+	/**
+		Registra el acceso a datos globales para el esquema de reciclado por conteo de accesos
+	*/
+	private function acceso_a_dato_global($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		//Si el tipo de reciclado es por acceso, marco que el elemento fue accedido
+		if( isset($_SESSION[$celda]["reciclables"][$indice]) ){
+			if($_SESSION[$celda]["reciclables"][$indice]== apex_hilo_reciclado_acceso){
+				$this->dato_global_activo();	
+			}
+		}
+	}
+
+	/**
+		Setea un dato reciclable como activo en el esquema de reciclado por conteo de accesos
+	*/
+	private function dato_global_activo($indice)
 	//Indica que el dato reciclable fue activado
 	{
 		$celda = $this->get_celda_memoria_actual();
@@ -581,18 +537,156 @@ class hilo
 		}
 	}
 
-	function ejecutar_reciclaje_datos_globales()
+	/**
+		Reciclado de datos globales por cambio de item.
+		Se debe ejecutar cuando se inicia el request
+			(Si el item de la celda actual cambio, eliminar el contenido)
+	*/
+	private function reciclar_datos_globales_item()
 	{
 		$celda = $this->get_celda_memoria_actual();
-		foreach(array_keys($_SESSION[$celda]["reciclables"]) as $reciclable){
-			$dato = $_SESSION[$celda]["reciclables"][$reciclable];
-			//Si hay un elemento reciclable que no se activo, lo destruyo
-			if(!in_array($dato,$_SESSION[$celda]["reciclables_activos"])){
-				//echo "elimino: $dato<br>";
-				unset($_SESSION[$celda]["reciclables"][$reciclable]);
-				$this->eliminar_dato_global($dato);
+		if(isset($_SESSION[$celda]['item_anterior'])){
+			if($_SESSION[$celda]['item_anterior'] != $_SESSION[$celda]['item']){
+				toba::get_logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM");
+				foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
+					if($tipo == apex_hilo_reciclado_item){
+						$this->eliminar_dato_global($reciclable);
+					}
+				}
 			}
 		}
+	}
+
+	/**
+		Reciclado por control de acceso a los datos guardados
+		Se debe ejecutar cuando termina el request
+			(Si un dato no fue accedido, borrarlo)
+	*/
+	private function reciclar_datos_globales_acceso()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
+			if($tipo == apex_hilo_reciclado_acceso){
+				//Si hay un elemento reciclable que no se activo, lo destruyo
+				if(!in_array($reciclable,$_SESSION[$celda]["reciclables_activos"])){
+					toba::get_logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido");
+					$this->eliminar_dato_global($reciclable);
+				}
+			}
+		}
+	}
+
+	/**
+		Controla si existe un dato reciclabe
+	*/
+	public function existe_dato_reciclable($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		return (isset($_SESSION[$celda]["reciclables"][$indice]));
+	}
+
+	/**
+		Limpia toda la memoria reciclable
+	*/
+	private function limpiar_memoria_global_reciclable()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["reciclables"])){
+			foreach($_SESSION[$celda]["reciclables"] as $reciclable){
+				$this->eliminar_dato_global($reciclable);
+			}
+		}
+		//Esto no deberia ser necesario.
+		unset($_SESSION[$celda]["reciclables"]);
+		unset($_SESSION[$celda]["reciclables_activos"]);
+	}
+
+	/**
+		Elimina la informacion asociada al reciclado de un dato
+	*/
+	private function eliminar_informacion_reciclado($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		//Si el dato era reciclable, lo saco de las listas de reciclado
+		if($this->existe_dato_reciclable($indice)){
+			$tipo = $_SESSION[$celda]["reciclables"][$indice];
+			//Si el reciclado es de tipo 'acceso', tengo que sacarlo de la lista de reciclables activos
+			if($tipo == apex_hilo_reciclado_acceso){
+				foreach(array_keys($_SESSION[$celda]["reciclables_activos"]) as $reciclable){
+					if($_SESSION[$celda]["reciclables_activos"][$reciclable]==$indice){
+						unset($_SESSION[$celda]["reciclables_activos"][$reciclable]);
+					}
+				}
+			}
+			unset($_SESSION[$celda]["reciclables"][$indice]);
+		}
+	}
+
+	//*******************************************************************************
+	//********  Persistencia SINCRONIZADA (Exclusiva para el PROXIMO request ********
+	//*******************************************************************************
+		
+	public function persistir_dato_sincronizado($indice, $datos)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
+	}
+
+	public function recuperar_dato_sincronizado($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
+			return $_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice];
+		}else{
+			return null;
+		}
+	}
+
+	public function eliminar_dato_sincronizado($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
+			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
+		}
+	}
+
+	public function limpiar_memoria_sincronizada()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		unset($_SESSION[$celda]["hilo"]);
+	}
+
+	private function reciclar_datos_sincronizados()
+	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"])){
+			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
+				array_shift($_SESSION[$celda]["hilo"]);
+			}
+		}
+	}
+
+	//*******************************************************************************
+	//** Compatibilidad inversa con la version anterior
+	//*******************************************************************************
+
+	public function persistir_dato($indice, $datos)
+	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		$this->persistir_dato_sincronizado($indice, $datos);
+	}
+
+	public function eliminar_dato($indice)
+	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		$this->eliminar_dato_sincronizado($indice);
+	}
+
+	public function recuperar_dato($indice)
+	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		return $this->recuperar_dato_sincronizado($indice);
 	}
 
 	//----------------------------------------------------------------	

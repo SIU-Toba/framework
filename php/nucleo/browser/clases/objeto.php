@@ -439,7 +439,7 @@ class objeto
 */
 	{
 		if(isset($this->memoria)){
-			$this->solicitud->hilo->persistir_dato("obj_".$this->id[1],$this->memoria);
+			$this->solicitud->hilo->persistir_dato_sincronizado("obj_".$this->id[1],$this->memoria);
 		}else{
 
 		}
@@ -451,7 +451,7 @@ class objeto
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		if($this->memoria = $this->solicitud->hilo->recuperar_dato("obj_".$this->id[1])){
+		if($this->memoria = $this->solicitud->hilo->recuperar_dato_sincronizado("obj_".$this->id[1])){
 			$this->memoria_existencia_previa = true;
 		}
 	}
@@ -475,7 +475,7 @@ class objeto
 */
 	{
 		unset($this->memoria);
-		$this->solicitud->hilo->persistir_dato("obj_".$this->id[1],null);
+		$this->solicitud->hilo->eliminar_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
 	function existio_memoria_previa()
@@ -485,44 +485,8 @@ class objeto
 	}
 	
 //*******************************************************************************************
-//**************************************<  Memoria GLOBAL   >********************************
-//*******************************************************************************************
-/*
-	ATENCION: Esta forma de persistir datos ya no tiene validez, hay que BORRARLA!!!
-*/
-	function limpiar_memoria_global()
-	{
-		unset($_SESSION["global"][$this->id_ses_g]);
-	}
-	
-	function existe_dato($indice)
-	{
-		return isset($_SESSION["global"][$this->id_ses_g][$indice]);
-	}
-
-	function guardar_dato($indice, $dato)
-	//El indice no puede ser "x_propiedades_persistidas"
-	{
-		$_SESSION["global"][$this->id_ses_g][$indice] = $dato;
-	}
-	
-	function recuperar_dato($indice)
-	{
-		return $_SESSION["global"][$this->id_ses_g][$indice];
-	}
-	
-	function eliminar_dato($indice)
-	{
-		unset($_SESSION["global"][$this->id_ses_g][$indice]);
-		if(count($_SESSION["global"][$this->id_ses_g])==0){
-			unset($_SESSION["global"][$this->id_ses_g]);
-		}
-	}
-
-//*******************************************************************************************
 //****************************<  Memorizacion de PROPIEDADES   >*****************************
 //*******************************************************************************************
-//Cuando deja de propagarse por la sesion esto???
 
 	function mantener_estado_sesion()
 	//Esta funcion retorna las propiedades que se desea persistir

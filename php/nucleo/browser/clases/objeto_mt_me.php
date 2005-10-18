@@ -302,6 +302,42 @@ class objeto_mt_me extends objeto_mt
 		echo ei_mensaje("Activacion FINAL");		
 	}
 
+//*******************************************************************************************
+//**************************************<  Memoria GLOBAL   >********************************
+//*******************************************************************************************
+/*
+	Esto se encontraba antes en el ancestro de todos los objeto... pero solo se usaba aca.
+	Se trata de una forma vieja de pensar la persistencia en la memoria, entonces se paso aca.
+*/
+	function limpiar_memoria_global()
+	{
+		unset($_SESSION["global"][$this->id_ses_g]);
+	}
+	
+	function existe_dato($indice)
+	{
+		return isset($_SESSION["global"][$this->id_ses_g][$indice]);
+	}
+
+	function guardar_dato($indice, $dato)
+	//El indice no puede ser "x_propiedades_persistidas"
+	{
+		$_SESSION["global"][$this->id_ses_g][$indice] = $dato;
+	}
+	
+	function recuperar_dato($indice)
+	{
+		return $_SESSION["global"][$this->id_ses_g][$indice];
+	}
+	
+	function eliminar_dato($indice)
+	{
+		unset($_SESSION["global"][$this->id_ses_g][$indice]);
+		if(count($_SESSION["global"][$this->id_ses_g])==0){
+			unset($_SESSION["global"][$this->id_ses_g]);
+		}
+	}
+
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//--------------------------------  SALIDA  HTML --------------------------------

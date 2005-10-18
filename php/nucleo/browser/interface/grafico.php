@@ -89,7 +89,7 @@ FORMATO ACTUAL DEL ARRAY DEFINICION:
 		$this->generar_colores();
         //ei_arbol($this->definicion);
         //1) Se guardan los datos y parametros en la memoria con clave X
-        $solicitud->hilo->persistir_dato($this->id,$this->definicion);		
+        $solicitud->hilo->persistir_dato_sincronizado($this->id,$this->definicion);		
         //2) Se escribe un link al ITEM graficador, se pasa como parametro X
 		$vinculo = $solicitud->vinculador->generar_solicitud("toba","/basicos/graficar",array(apex_int_grafico_get => $this->id));
 

@@ -13,7 +13,7 @@
 		//Entrada INCIAL
 		$etapa = "cabecera";
 	}
-	$this->hilo->persistir_dato("control_etapa",1);	
+	$this->hilo->persistir_dato_sincronizado("control_etapa",1);	
 //---------------------------------------------------------------------------------------	
 	
 	//Creo el ABM cabecera

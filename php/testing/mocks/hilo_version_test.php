@@ -9,7 +9,7 @@ class hilo_version_test extends hilo
 	{
 	}
 	
-	function persistir_dato($indice, $datos)
+	function persistir_dato_sincronizado($indice, $datos)
 	{
 		$this->sincronizada[$indice] = $datos;
 	}

@@ -64,13 +64,9 @@ class objeto_ci extends objeto_ei
 		if( isset($this->lista_tabs) ){
 			$this->memoria['tabs'] = array_keys($this->lista_tabs);
 		}
-		//Matenimiento en memoria de los CIs que no se instancian
 		//Armo la lista GLOBAL de dependencias de tipo CI
 		if(isset($this->dependencias_ci_globales)){
 			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
-			foreach($this->dependencias_ci_globales as $dep){
-				$this->solicitud->hilo->dato_global_activo($dep);
-			}
 		}
 		parent::destruir();
 		$this->guardar_estado_sesion();		//GUARDO Memoria NO sincronizada
@@ -166,17 +162,8 @@ class objeto_ci extends objeto_ei
 		$this->dependencias[$dep]->inicializar($parametro);
 		$this->dependencias[$dep]->agregar_controlador($this);
 		if($this->dependencias[$dep] instanceof objeto_ci ){
-			//Guardo la clave de memoria de la dependencia para no perder su memoria cuando no se instancie
 			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
 		}
-	}
-
-	function get_dependencias_ci()
-	//Avisa que dependencias son CI, si hay una regla ad-hoc que define que CIs cargar
-	// hay que redeclarar este metodo para que devuelva el conjunto correcto de CIs utilizados
-	{
-		//ATENCION, esto presupone que la clase cumple con esta regla de nomenclatura
-		return $this->get_dependencias_clase("ci_");
 	}
 
 	//--------------------------------------------------------

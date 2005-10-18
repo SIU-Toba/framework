@@ -47,13 +47,13 @@ class ef_oculto extends ef
 		global $solicitud;
 		if(isset($estado)) {	//Carga el estado a partir del parametro
 			$this->estado = $estado;
-			$solicitud->hilo->persistir_dato($this->clave_memoria(), $this->estado);
+			$solicitud->hilo->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 		} else { //Intenta cargar el estado a partir del hilo
 			$temp = $solicitud->hilo->recuperar_dato($this->clave_memoria());
 			if(isset($temp)){
 				$this->estado = $temp;
 				//Tengo que memorizar el estado para la proxima instanciacion
-				$solicitud->hilo->persistir_dato($this->clave_memoria(), $this->estado);
+				$solicitud->hilo->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 			}
 		}
 		return true;
@@ -63,7 +63,7 @@ class ef_oculto extends ef
 	//Devuelve el estado interno
 	{
 		global $solicitud;
-		$solicitud->hilo->eliminar_dato($this->clave_memoria());
+		$solicitud->hilo->eliminar_dato_sincronizado($this->clave_memoria());
 		if(isset($this->estado)){
 			unset($this->estado);
 		}
