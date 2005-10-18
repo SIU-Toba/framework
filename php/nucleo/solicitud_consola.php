@@ -6,8 +6,54 @@ class solicitud_consola extends solicitud
 	var $debug;	//Modo debug activado
 	var $estado_proceso;
 
-	function solicitud_consola($item, $usuario)
+	function solicitud_consola()
 	{
+		global $argv;
+		//--[ 1 ]--  Recupero parametros OBLIGATORIOS
+	    //print_r($argv);exit();
+	    $invocacion = " INVOCACION CORRECTA:   ". $argv[0] . " instancia usuario proyecto item [parametros]\n";
+	    //-- INSTANCIA --
+		if(isset($argv[1])){
+	        define("apex_pa_instancia",$argv[1]);
+		}else{
+	        echo " ERROR: Es necesario especificar un INSTANCIA\n";
+			fwrite(STDERR, $invocacion );
+	        exit(3);
+	    }
+	    //-- USUARIO --
+		if(isset($argv[2])){
+	        $usuario = $argv[2];
+		}else{
+	        echo " ERROR: Es necesario especificar un USUARIO\n";
+			fwrite(STDERR, $invocacion );
+	        exit(3);
+	    }
+	    //-- ITEM (proyecto/item) --
+		if((isset($argv[3]))&&(isset($argv[4])))
+		{
+	        $proyecto = $argv[3];
+	        $item[0] = $proyecto;// Proyecto del ITEM
+			$item[1] = $argv[4];// Clave del ITEM
+		}else{  //ITEM por DEFECTO.
+	        echo " ERROR: Es necesario especificar un ITEM\n";
+			fwrite(STDERR, $invocacion );
+	        exit(2);
+	    }
+		//--[ 2 ]-- Si el tipo de solicitud es WEB, emulo el ambiente
+		//if( $this->tipo_solicitud() == "browser" )
+		//{
+			//El item solicitado es de tipo BROWSER.
+			//Emulo el ambiente WEB.
+			//Seria interesante tener un ITEM serializador de sesiones y un 
+			//mecanismo para levantar de esta forma una sesion especifica
+			$_SERVER["REMOTE_ADDR"]="localhost";
+			$_SERVER["REQUEST_METHOD"] = "GET";
+			require_once("nucleo/consola/emular_web_pa.php");
+			require_once("nucleo/consola/emular_web_inc.php");
+			sesion::abrir($usuario, $proyecto);
+			require_once("nucleo/browser/hilo.php");
+			$this->hilo =& new hilo();
+		//}
 		parent::solicitud($item, $usuario);
 		$this->estado_proceso = 0;
 	}
@@ -22,6 +68,7 @@ class solicitud_consola extends solicitud
 	function procesar()
 	//Atrapo las llamadas a la ayuda... sino proceso
 	{
+/*
 		//Si el item no es del proyecto toba se debe incluir el proyecto en el include path e invocar a inicializacion.php
 		$proyecto = $this->info["item_proyecto"];		
 		if ($proyecto != "toba") {
@@ -34,6 +81,7 @@ class solicitud_consola extends solicitud
 			ini_set("include_path", ini_get("include_path"). $separador . $dir_proyecto);
 			include_once("inicializacion.php");
 		}
+*/
 		parent::procesar();
 	}
 //--------------------------------------------------------------------------------------------
@@ -132,7 +180,7 @@ class solicitud_consola extends solicitud
     }
 //--------------------------------------------------------------------------------------------
 
-	function registrar($llamada)
+	function registrar($llamada=null)
 	{
 		global $db;
 		if(isset($llamada)){

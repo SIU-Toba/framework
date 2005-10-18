@@ -13,16 +13,11 @@ require_once("nucleo/lib/mensaje.php");				//Modulo de mensajes parametrizables
 require_once("nucleo/lib/cola_mensajes.php");		//Cola de mensajes utilizada durante la EJECUCION
 require_once("nucleo/lib/asercion.php");       	   	//Aserciones
 require_once("nucleo/browser/recurso.php");			//Obtencion de imágenes de la aplicación
-
-
 /**
 	Servicios independientes del tipo de solicitud
 		- Creacion de componentes internos
 
-
 	salidas no HTML: toba::get_logger()->ocultar();
-
-
 */
 class nucleo_toba
 {
@@ -32,6 +27,7 @@ class nucleo_toba
 	
 	private function __construct()
 	{
+		toba::get_cronometro();
 	}
 	
 	static function instancia()
@@ -50,9 +46,9 @@ class nucleo_toba
 			require_once("nucleo/browser/http.php");				//Genera Encabezados de HTTP
 			require_once("nucleo/browser/sesion.php");				//Control de sesiones HTTP
 			require_once("nucleo/browser/usuario_http.php");		//Validador de usuarios
-			toba::get_cronometro()->marcar('SESION: Controlar STATUS SESION',"nucleo");
 		    http::headers_standart();//Antes de la sesion, si o si.
 			sesion::autorizar(); //Antes del HTML si o si
+			toba::get_cronometro()->marcar('SESION: Controlar STATUS SESION',"nucleo");
 			$this->solicitud = new solicitud_browser();
 			$this->procesar();
 		} catch (excepcion_toba $e) {
@@ -63,10 +59,15 @@ class nucleo_toba
 
 	function acceso_consola()
 	{
-		define("apex_solicitud_tipo","consola");                //Establezco el tipo de solicitud		
-		require_once("nucleo/solicitud_consola.php");
-		$this->solicitud = new solicitud_consola();
-		$this->procesar();		
+		try {
+			define("apex_solicitud_tipo","consola");                //Establezco el tipo de solicitud		
+			require_once("nucleo/solicitud_consola.php");
+			$this->solicitud = new solicitud_consola();
+			$this->procesar();
+			exit( $this->solicitud->obtener_estado_proceso() );
+		} catch (excepcion_toba $e) {
+			ei_mensaje($e->getMessage());
+		}		
 	}
 	
 	function acceso_wddx()
@@ -84,11 +85,9 @@ class nucleo_toba
 	
 	function procesar()
 	{
-		//Empezar a cronometrar
-		toba::get_cronometro();
-		//Conectar a la instancia
 		toba::get_db("instancia");
 		try{
+			//Si el proyecto no es toba, incluyo el archivo de inicializacion
 			if ($this->solicitud->hilo->obtener_proyecto() != 'toba') {
 				//Invoco el archivo de INICIALIZACION del proyecto
 				include_once("inicializacion.php");
@@ -102,9 +101,5 @@ class nucleo_toba
 		toba::get_logger()->guardar();
 		//ATENCION!: dba::cerrar_bases();
 	}
-
 }
-
-
-
 ?>

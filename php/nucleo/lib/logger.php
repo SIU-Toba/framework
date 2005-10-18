@@ -275,23 +275,49 @@ class logger
 	//---- Salida a pantalla
 	//------------------------------------------------------------------
 
-	private function mostrar_pantalla()
+	function mostrar_pantalla()
 	{
-/*
-		}elseif(apex_solicitud_tipo == "consola"){
-			fwrite(STDERR, "\n$mensaje\n\n\n" );
+		if(apex_solicitud_tipo=="consola"){
+			$this->pantalla_consola();
+		}elseif(apex_solicitud_tipo=="browser"){
+			$this->pantalla_browser();			
 		}
-*/
+	}
+	
+	function pantalla_consola()
+	{
+		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+		$txt = '';
+		for($a=0; $a<count($this->mensajes); $a++){
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
+				$txt .= "* " . $this->ref_niveles[$this->niveles[$a]] . " *  " . $this->mensajes[$a] . "\n";
+			}			
+		}
+		if(trim($txt)!=""){
+			$salida = "\n\n";
+			$salida .= "==============================================================================\n";
+			$salida .= "==================================  LOG  =====================================\n";
+			$salida .= "==============================================================================\n";
+			$salida .= "\n";
+			$salida .= $txt;	
+			$salida .= "\n";
+			$salida .= "==============================================================================\n";
+			$salida .= "==============================================================================\n";
+			$salida .= "\n\n";
+			fwrite(STDERR, $salida);
+		}
+	}
+
+	function pantalla_browser()
+	{
 
 		$hay_salida = false;
 		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
 		$html = "</script>";	//Por si estaba un tag abierto
 		$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
 		$html .= "<pre class='texto-ss'>";
-		for($a=0; $a<count($this->mensajes_web); $a++)
-		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
-			{
+		for($a=0; $a<count($this->mensajes_web); $a++){
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
 				$hay_salida = true;
 				$estilo = $this->estilo_grafico($this->niveles[$a]);
 				$html .= $estilo. $this->mensajes_web[$a] . "<br>";
@@ -305,7 +331,7 @@ class logger
 					$html</div>";
 		}
 	}
-	
+
 	private function estilo_grafico($nivel)
 	{
 		$icono = gif_nulo(16,1);
@@ -331,6 +357,5 @@ class logger
 	{
 	}
 	//------------------------------------------------------------------
-
 }
 ?>

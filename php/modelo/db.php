@@ -54,7 +54,7 @@ class db
 		$this->conexion = ADONewConnection($this->motor);
 		$status = @$this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
 		if(!$status){
-			throw new excepcion_toba("No es posible realizar la conexion");
+			throw new excepcion_toba("No es posible realizar la conexion - ERROR: " . $this->conexion->ErrorMsg());
 		}
 		$this->post_conectar();
 		return $this->conexion;
@@ -221,6 +221,41 @@ class db
 	function obtener_error_toba($codigo, $descripcion)
 	{
 		return array();		
+	}
+
+
+	//---------------------------------------------------------------------------------------
+
+	/**
+	*	Busca la definicion de columnas de la base
+	*	ATENCION: Utiliza ADOdb
+	*/
+	function obtener_definicion_columnas($tabla)
+	{
+		$a=0;
+		$columnas = $this->conexion->MetaColumns($tabla,false);
+		if(!$columnas){
+			throw new excepcion_toba("La tabla '$tabla' no existe");	
+		}
+		//echo "<pre>"; print_r($columnas);
+		foreach( $columnas as $col ){
+			$definicion[$a]['columna'] = $col->name;
+			$definicion[$a]['tipo'] = $this->get_tipo_datos_generico($col->type);
+			if(($definicion[$a]['tipo'])=="C")
+				if(isset($col->max_length)) 
+					$definicion[$a]['largo'] = $col->max_length;
+			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
+			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
+			//Secuencias
+			if(isset($col->default_value)){
+				$match = array();
+				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$col->default_value,$match)){
+					$definicion[$a]['secuencia'] = $match[3];
+				}			
+			}
+			$a++;
+		}
+		return $definicion;
 	}
 
 	/**
