@@ -103,7 +103,9 @@ define("apex_pa_estilo","violeta1");
 //MODELO de MENU a utilizar: milonic, milonic_frames
 define("apex_pa_menu","");
 ################################################################################
-//Llamo al script que genera la SOLICITUD!!!
-require_once("nucleo/acceso_browser.php"); 
+
+require_once("nucleo/toba.php");
+toba::get_nucleo()->acceso_web();	
+
 ################################################################################
 ?>

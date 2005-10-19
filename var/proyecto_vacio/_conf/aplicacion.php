@@ -99,8 +99,8 @@ define("apex_pa_menu","milonic");
 
 ################################################################################
 
-//Llamo al script que genera la SOLICITUD!!!
-require_once("nucleo/acceso_browser.php"); 
+require_once("nucleo/toba.php");
+toba::get_nucleo()->acceso_web();	
 
 ################################################################################
 ?>
