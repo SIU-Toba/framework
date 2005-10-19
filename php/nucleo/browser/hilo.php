@@ -367,9 +367,13 @@ class hilo
 	public function dump_memoria()
 	{
 		$celda = $this->get_celda_memoria_actual();
-		$memoria['sincronizada'] = array_reverse($_SESSION[$celda]["hilo"], true);
-		$memoria['global'] = $_SESSION[$celda]['global'];
-		ei_arbol($memoria,"MEMORIA");
+		ei_arbol($_SESSION,"MEMORIA Completa");
+	}
+
+	public function dump_celda_memoria()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		ei_arbol($_SESSION[$celda],"CELDA de MEMORIA: $celda");
 	}
 
 	/**
@@ -592,7 +596,7 @@ class hilo
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]["reciclables"])){
-			foreach($_SESSION[$celda]["reciclables"] as $reciclable){
+			foreach($_SESSION[$celda]["reciclables"] as $reciclable => $tipo){
 				$this->eliminar_dato_global($reciclable);
 			}
 		}

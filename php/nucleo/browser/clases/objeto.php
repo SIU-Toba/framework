@@ -475,7 +475,7 @@ class objeto
 */
 	{
 		unset($this->memoria);
-		$this->solicitud->hilo->eliminar_dato_sincronizado("obj_".$this->id[1],null);
+		$this->solicitud->hilo->persistir_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
 	function existio_memoria_previa()
@@ -500,7 +500,7 @@ class objeto
 		if($this->solicitud->hilo->existe_dato_global($this->id_ses_grec)){
 			//Recupero las propiedades de la sesion
 			$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
-			if(isset($temp["__indice_de_objetos_serializados"]))	//El objeto persistio otros objetos
+			if(isset($temp["toba__indice_objetos_serializados"]))	//El objeto persistio otros objetos
 			{
 				/*
 					PERSISTENCIA de OBJETOS 
@@ -509,8 +509,8 @@ class objeto
 						Que en el consumo de "mantener_estado_sesion" se indique que propiedades son objetos.
 						Hay comprobar si la burocracia justifica el tiempo extra que implica este mecanismo o no.
 				*/
-				$objetos = $temp["__indice_de_objetos_serializados"];
-				unset($temp["__indice_de_objetos_serializados"]);
+				$objetos = $temp["toba__indice_objetos_serializados"];
+				unset($temp["toba__indice_objetos_serializados"]);
 				foreach(array_keys($temp) as $propiedad)
 				{
 					if(in_array($propiedad,$objetos)){
@@ -561,7 +561,7 @@ class objeto
 							*/
 							$temp[$propiedades_a_persistir[$a]] = serialize($this->$propiedades_a_persistir[$a]);
 							//Dejo la marca de que serialize un OBJETO.
-							$temp["__indice_de_objetos_serializados"][] = $propiedades_a_persistir[$a];
+							$temp["toba__indice_objetos_serializados"][] = $propiedades_a_persistir[$a];
 						}else{
 							$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
 						}
@@ -573,6 +573,7 @@ class objeto
 			}
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
+				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
 				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp, true);
 			}else{
 				//Si existia y las propiedades pasaron a null, hay que borrarlo

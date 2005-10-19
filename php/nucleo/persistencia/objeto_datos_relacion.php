@@ -164,7 +164,11 @@ class objeto_datos_relacion extends objeto
 
 	function dump_contenido()
 	{
-		ei_arbol( $this->get_datos() );
+		foreach($this->dependencias as $id => $dependencia){
+			$info[$id]['cambios'] = $dependencia->get_cambios();
+			$info[$id]['datos'] = $dependencia->get_datos();
+		}
+		ei_arbol( $info, 'DATOS_RELACION: ' . $this->info['nombre'], null, true);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -189,10 +193,12 @@ class objeto_datos_relacion extends objeto
 
 	function sincronizar()
 	{
+		//$this->dump_contenido();
 		$this->disparar_validacion_tablas();
 		$this->evt__validar();
 		$ap = $this->get_persistidor();
 		$ap->sincronizar();
+		//$this->dump_contenido();
 	}
 	
 	function eliminar()

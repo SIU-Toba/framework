@@ -219,7 +219,7 @@
 	}
 //----------------------------------------------------------------------------------	
 
-	function ei_arbol($arbol,$identificador="DUMPEO de VALORES",$ancho="50%")
+	function ei_arbol($arbol,$identificador="DUMPEO de VALORES",$ancho="50%",$colapsado=false)
 /*
 	@@acceso: publico
 	@@desc: 
@@ -234,14 +234,30 @@
 			//echo "</pre>";
 			return;
 		}		
-
+		//Javascript de colapsado de niveles (esto no es bello, pero funciona)
+		static $js = 0; // Para que entre una sola vez
+		if($js==0){
+			echo "<script language='javascript'>function ei_arbol_colapsar_nivel(id, img){
+					nodo = document.getElementById(id);
+					if(nodo.style.display == 'none'){
+						//Abrir
+						nodo.style.display = '';
+						img.src = '".recurso::imagen_apl('arbol/contraer.gif', false)."';
+					}else{
+						//Cerrar
+						nodo.style.display = 'none';
+						img.src = '".recurso::imagen_apl('arbol/expandir.gif', false)."';
+					}
+				}</script>";
+		}
+		$js++;
 		//Es un array?
 		if(is_array($arbol)){
 			echo "<div  align='center'><br>";
 			echo "<table class='tabla-0' width='$ancho'>";
 			echo "<tr><td class='arbol-titulo'><b>$identificador</b></td></tr>\n";		
 			echo "<tr><td class='arbol-valor-array'>\n";
-			ei_arbol_nivel($arbol);
+			ei_arbol_nivel($arbol, $colapsado);
 			echo "</td></tr>\n";
 			echo "</table>\n";
 			echo "</div><br>";
@@ -250,10 +266,18 @@
 		}
 	}
 
-	function ei_arbol_nivel($nivel) 
+	function ei_arbol_nivel($nivel, $colapsado) 
 	{
 		$estilo="";
 		static $n = 0;
+		static $id = 0;
+		$id++;
+		$display = ($colapsado)? "style='display:none'" : '';//Mostrar el arbol colapsado de entrada?
+		if($colapsado){
+			$imagen = recurso::imagen_apl('arbol/expandir.gif', false);
+		}else{
+			$imagen = recurso::imagen_apl('arbol/contraer.gif', false); 
+		}
 		echo "<table width='100%' class='tabla-0'>\n";
 		foreach( $nivel as $valor => $contenido )
 		{
@@ -265,11 +289,14 @@
 			echo "<tr><td class='$estilo' width='5%'><b>$valor</b></td>\n";
 			if (is_array($contenido))
 			{
-				echo "<td class='arbol-valor-array'>\n";
+				echo "<td class='arbol-valor-array'>
+				<img src='$imagen' onclick='ei_arbol_colapsar_nivel(\"ei-arbol-$id\", this)'>
+				[". count($contenido) ."]
+				<div id='ei-arbol-$id' $display>";
 				$n++;
-				ei_arbol_nivel($contenido);
+				ei_arbol_nivel($contenido, $colapsado);
 				$n--;
-				echo "</td>\n";
+				echo "</div></td>\n";
 			} else {
 				if(is_object($contenido)){
 					//El elemento es un objeto.
