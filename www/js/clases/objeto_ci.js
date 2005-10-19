@@ -9,6 +9,7 @@ function objeto_ci(instancia, form, input_submit) {
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
 	this._ci = null;									//CI contenedor
 	this._objetos = new Array();						//Listado de objetos js asociados al CI
+	this._deps = new Object();							//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
@@ -16,9 +17,15 @@ function objeto_ci(instancia, form, input_submit) {
 	this.reset_evento();
 }
 
-	def.agregar_objeto = function(objeto) {
+	def.agregar_objeto = function(objeto, identificador) {
 		objeto.set_ci(this);
 		this._objetos.push(objeto);
+		this._deps[identificador] = objeto;
+	}
+
+	def.dependencia = function(identificador) {
+		//Falta controlar que exista la dependencia
+		return this._deps[identificador];
 	}
 	
 	def.iniciar = function() {

@@ -994,14 +994,14 @@ class objeto_ci extends objeto_ei
 		$objetos = array();
 		js::instancia()->identar(1);		
 		foreach($this->dependencias_gi as $dep)	{
-			$objetos[] = $this->dependencias[$dep]->obtener_javascript();
+			$objetos[$dep] = $this->dependencias[$dep]->obtener_javascript();
 		}
 		$identado = js::instancia()->identar(-1);		
 		//Agrega a los objetos hijos
 		//ATENCION: Esto no permite tener el mismo formulario instanciado dos veces
 		echo "\n";
-		foreach ($objetos as $objeto) {
-			echo $identado."{$this->objeto_js}.agregar_objeto($objeto);\n";
+		foreach ($objetos as $id => $objeto) {
+			echo $identado."{$this->objeto_js}.agregar_objeto($objeto, '$id');\n";
 		}
 	}
 }
