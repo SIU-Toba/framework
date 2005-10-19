@@ -178,6 +178,10 @@ function mostrar_ocultar_frame() {
 		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">PROYECTO</a>
 		</td>
 		<td><? echo gif_nulo(3,1) ?></td>
+		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
+			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
+		</td>
+
 	</tr>
 	</table>
 </td></tr>

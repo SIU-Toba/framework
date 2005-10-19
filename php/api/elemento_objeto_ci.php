@@ -25,7 +25,9 @@ class elemento_objeto_ci extends elemento_objeto
 		//Pero tambien este objeto debería saber cuales no son utilizadas por las pantallas
 		$pantallas = array();
 		if (isset($this->datos['apex_objeto_ci_pantalla'])) {
-			foreach ($this->datos['apex_objeto_ci_pantalla'] as $pantalla) {
+			//Se ordena por la columna orden
+			$datos_pantallas = rs_ordenar_por_columna($this->datos['apex_objeto_ci_pantalla'],'orden');
+			foreach ($datos_pantallas as $pantalla) {
 				$pantallas[] = new elemento_objeto_ci_pantalla($pantalla, $this->subelementos);
 			}
 		}

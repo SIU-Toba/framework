@@ -23,6 +23,9 @@ class asignador_objetos
 			case 'ci_pantalla':
 				$this->asignar_a_pantalla_ci();
 				break;
+			case 'datos_relacion':
+				$this->asignar_a_datos_relacion();
+				break;
 			default:
 				throw new excepcion_toba("El destinatario del objeto ('{$this->destino['tipo']}') no es ninguno de los predefinidos");
 		}
@@ -65,7 +68,12 @@ class asignador_objetos
 		$this->asignar_a_ci();
 		$sql = "UPDATE apex_objeto_ci_pantalla
 				SET 
-					objetos = COALESCE(objetos || ',','') || '{$this->destino['id_dependencia']}'
+					objetos =   
+						CASE 
+							WHEN objetos is null THEN ''
+            				WHEN objetos='' THEN ''
+            				ELSE objetos || ','
+       					END || '{$this->destino['id_dependencia']}'
 				WHERE
 					objeto_ci_proyecto = '{$this->destino['proyecto']}' AND
 					objeto_ci = '{$this->destino['id']}' AND
@@ -74,6 +82,21 @@ class asignador_objetos
 		ejecutar_sql($sql,'instancia');
 	}
 	
+	protected function asignar_a_datos_relacion()
+	{
+		$sql = "INSERT INTO apex_objeto_dependencias
+		  			(proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b)
+		  		VALUES (
+		  			'{$this->destino['proyecto']}',
+		  			'{$this->destino['id']}', 
+		  			'{$this->origen['id']}', 
+		  			'{$this->destino['id_dependencia']}',
+		  			'{$this->destino['min_filas']}',
+		  			'{$this->destino['max_filas']}'
+	  			) 
+	  		";
+		ejecutar_sql($sql,'instancia');		
+	}
 }
 
 

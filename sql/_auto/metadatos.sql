@@ -1584,6 +1584,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_db_registros', 'ap_archivo', 7, 'varchar(60)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_db_registros', 'tabla', 8, 'varchar(60)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_db_registros', 'alias', 9, 'varchar(60)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_db_registros', 'modificar_claves', 10, 'smallint		NULL,');
 
 ------  'apex_objeto_db_registros_col'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_db_registros_col', 'pgsql_a21_clase_db_registros.sql', 135, 'multiproyecto', NULL, '( objeto_proyecto = \'%%\' )', 'objeto, col_id', NULL, NULL, '', '1.0', '0', NULL);

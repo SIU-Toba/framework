@@ -53,7 +53,12 @@ class ci_creador_objeto extends objeto_ci
 			return "construccion";
 		}
 		if (isset($this->destino)) {
-			return "asignacion";
+			if ($this->destino['tipo'] == 'datos_relacion') {
+				return "asignacion_dr";
+			} else { //Es un CI
+				return "asignacion";
+			}
+
 		}
 		//Sino es que el objeto se creo y no hay que asignarselo a nadie asi que 
 		//hay que redireccionar
@@ -77,7 +82,10 @@ class ci_creador_objeto extends objeto_ci
 					case 'ci_pantalla':
 						$des .= "<br>El objeto construido se asignará automáticamente a la 
 								<strong>pantalla</strong> seleccionada.";
-						break;				
+						break;		
+					case 'datos_relacion':
+						$des .= "<br>El datos_tabla construido se asignará automáticamente al
+								<strong>datos_relacion</strong> seleccionado.";								
 				}
 				break;
 			case 'construccion':
@@ -86,6 +94,9 @@ class ci_creador_objeto extends objeto_ci
 				break;			
 			case 'asignacion':
 				$des = "<strong>Asignación</strong><br>Para poder asignarlo necesita indicar con que identificador se conocera el objeto en el CI.";
+				break;
+			case 'asignacion_dr':
+				$des = "<strong>Asignación a un datos_relacion</strong><br>Ingrese los datos de la tabla en la relación.";
 				break;
 			default:
 				$des = parent::obtener_descripcion_pantalla($pantalla);
@@ -156,6 +167,16 @@ class ci_creador_objeto extends objeto_ci
 	function evt__info_asignacion__modificacion($datos)
 	{
 		$this->destino['id_dependencia'] = $datos['id_dependencia'];
+	}
+	
+	/**
+	*	Parametros para asignar el objeto a un datos_relacion
+	*/
+	function evt__info_asignacion_dr__modificacion($datos)
+	{
+		$this->destino['id_dependencia'] = $datos['identificador'];
+		$this->destino['min_filas'] = $datos['min_filas'];
+		$this->destino['max_filas'] = $datos['max_filas'];
 	}
 	
 	function evt__asignar()
