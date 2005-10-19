@@ -44,7 +44,6 @@ class objeto_ei_cuadro extends objeto_ei
     protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
     protected $cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
     protected $cantidad_columnas_total;            	// Cantidad total de columnas
-	protected $filas = 0;
     protected $datos;                             	// Los datos que constituyen el contenido del cuadro
     protected $columnas_clave;                    	
 	protected $clave_seleccionada;
@@ -347,8 +346,6 @@ class objeto_ei_cuadro extends objeto_ei
 			}else{
 				$this->calcular_totales_generales();
 			}
-			//total del filas;
-			$this->filas = count($this->datos);
 		}		
 		return true;
     }
@@ -376,7 +373,7 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function datos_cargados()
 	{
-		return ($this->filas > 0);
+		return (count($this->datos) > 0);
 	}
 
 	private function calcular_totales_generales()
@@ -427,20 +424,17 @@ class objeto_ei_cuadro extends objeto_ei
 	function cargar_seleccion()
 	{	
 		$this->clave_seleccionada = null;
+		//La seleccion se inicializa con el del pedido anterior
 		if (isset($this->memoria['clave_seleccionada']))
 			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
+		//La seleccion se actualiza cuando el cliente lo pide explicitamente
 		if(isset($_POST[$this->submit_seleccion])) {
 			$clave = $_POST[$this->submit_seleccion];
 			if ($clave != '') {
-				if(count($this->columnas_clave) > 1 )
-				{
-					//La clave es un array, devuelvo un array asociativo con el nombre de las claves
-					$clave = explode(apex_qs_separador, $clave);
-					for($a=0;$a<count($clave);$a++) {
-						$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
-					}
-				}else{
-					$this->clave_seleccionada = $clave;			
+				$clave = explode(apex_qs_separador, $clave);				
+				//Devuelvo un array asociativo con el nombre de las claves
+				for($a=0;$a<count($clave);$a++) {
+					$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
 				}
 			}
 		}	
@@ -451,6 +445,11 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->clave_seleccionada = null;
 	}
 
+	/**
+	*	Indica al cuadro cual es la clave seleccionada. 
+	*	A la hora de mostrar la grilla se crea un feedback gráfico sobre la fila que posea esta clave
+	*	@param array $clave Arreglo asociativo id_clave => valor_clave
+	*/
 	function seleccionar($clave)
 	{
 		$this->clave_seleccionada = $clave;
@@ -472,7 +471,20 @@ class objeto_ei_cuadro extends objeto_ei
         return $id_fila;
     }
 
+    /**
+    *	@deprecated Desde 0.8.3. Ver obtener_clave_seleccionada
+    */
 	function obtener_clave()
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar obtener_clave_seleccionada");
+		return $this->obtener_clave_seleccionada();
+	}
+	
+    /**
+    *	En caso de existir una fila seleccionada, retorna su clave
+	*	@return array Arreglo asociativo id_clave => valor_clave    
+    */
+	function obtener_clave_seleccionada()
 	{
 		return $this->clave_seleccionada;
 	}

@@ -52,7 +52,7 @@ class solicitud_consola extends solicitud
 			require_once("nucleo/consola/emular_web_inc.php");
 			sesion::abrir($usuario, $proyecto);
 			require_once("nucleo/browser/hilo.php");
-			$this->hilo =& new hilo();
+			$this->hilo = new hilo();
 		//}
 		parent::solicitud($item, $usuario);
 		$this->estado_proceso = 0;

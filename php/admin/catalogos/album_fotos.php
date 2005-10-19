@@ -11,6 +11,7 @@ class album_fotos
 
 	public function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
 	{
+		abrir_transaccion('instancia');
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
@@ -20,18 +21,16 @@ class album_fotos
 		$sql = "INSERT INTO apex_admin_album_fotos
 					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
 					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones', '{$this->tipo}', $es_pred)";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible guardar la foto.\n$error\n$sql");
-		}
+		toba::get_db('instancia')->ejecutar($sql);
+		cerrar_transaccion('instancia');
 	}
 	
 	public function set_predeterminada($nombre)
 	{
 		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$usuario = toba::get_hilo()->obtener_usuario();		
-
+		
+		abrir_transaccion('instancia');
 		//Actualiza las otras fotos
 		$sql = "UPDATE apex_admin_album_fotos 
 				SET predeterminada = 0 
@@ -40,11 +39,7 @@ class album_fotos
 					usuario = '$usuario' AND
 					foto_tipo = '{$this->tipo}'
 		";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible actualizar la foto.\n$error\n$sql");
-		}
+		toba::get_db('instancia')->ejecutar($sql);
 		
 		//Actualiza la nueva predeterminada
 		$sql = "UPDATE apex_admin_album_fotos 
@@ -55,11 +50,8 @@ class album_fotos
 					foto_tipo = '{$this->tipo}' AND
 					foto_nombre = '$nombre'
 		";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible actualizar la foto.\n$error\n$sql");
-		}
+		toba::get_db('instancia')->ejecutar($sql);
+		cerrar_transaccion('instancia');
 	}
 	
 	public function get_predeterminada()
@@ -75,15 +67,12 @@ class album_fotos
 					fotos.foto_tipo = '{$this->tipo}' AND
 					fotos.predeterminada = 1
 			";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible cargar las fotos.\n$error\n$sql");
+		$res = toba::get_db('instancia')->consultar($sql);
+		if (empty($res)) {
+			return false;	
+		} else {
+			return $res[0]['foto_nombre'];	
 		}
-		if ($res->EOF)
-			return false;
-		else 
-			return $res->fields['foto_nombre'];
 	}
 	
 	public function borrar_foto($nombre)
@@ -97,11 +86,7 @@ class album_fotos
 					foto_nombre = '$nombre' AND
 					foto_tipo = '{$this->tipo}'
 				";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible borrar la foto.\n$error\n$sql");
-		}
+		toba::get_db('instancia')->ejecutar($sql);
 	}
 	
 	public function fotos($nombre = null)
@@ -124,12 +109,7 @@ class album_fotos
 					fotos.foto_tipo = '{$this->tipo}'
 					$where_nombre
 			";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible cargar las fotos.\n$error\n$sql");
-		}
-		$fotos_en_crudo = $res->GetArray();
+		$fotos_en_crudo = toba::get_db('instancia')->consultar($sql);
 		$fotos = array();
 		foreach ($fotos_en_crudo as $foto) {
 			$fotos[] = array('foto_nombre'=> $foto['foto_nombre'],

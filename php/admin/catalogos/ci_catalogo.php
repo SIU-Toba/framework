@@ -102,8 +102,9 @@ abstract class ci_catalogo extends objeto_ci
 		}
 	}
 	
-	function evt__fotos__seleccion($foto_nombre)
+	function evt__fotos__seleccion($nombre)
 	{
+		$foto_nombre = $nombre['foto_nombre'];
 		$foto = $this->album_fotos->foto($foto_nombre);
 		if ($foto !== false) {
 			$this->apertura = $foto['foto_nodos_visibles'];
@@ -115,12 +116,12 @@ abstract class ci_catalogo extends objeto_ci
 	
 	function evt__fotos__baja($nombre)
 	{
-		$this->album_fotos->borrar_foto($nombre);
+		$this->album_fotos->borrar_foto($nombre['foto_nombre']);
 	}	
 	
 	function evt__fotos__defecto($nombre)
 	{
-		$this->album_fotos->set_predeterminada($nombre);	
+		$this->album_fotos->set_predeterminada($nombre['foto_nombre']);	
 	}
 	
 	function evt__sacar_foto($nombre)

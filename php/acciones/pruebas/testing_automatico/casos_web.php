@@ -42,7 +42,7 @@ class casos_web extends objeto_ci
 	function evt__lista_archivos__abrir($caso_sel)
 	{
 	    foreach (lista_casos::get_casos() as $caso) {
-			if ($caso['id'] == $caso_sel) {
+			if ($caso['id'] == $caso_sel['id']) {
 				$archivo = new archivo_php($caso['archivo']);
 				$archivo->abrir();
 			}	

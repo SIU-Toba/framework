@@ -17,8 +17,6 @@ class arbol_items
 		else
 			$this->proyecto = $proyecto;
 
-		global $db, $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		if ($menu)
 			$where = "	AND		(i.menu = 1 OR i.item = '')";
 		else
@@ -34,16 +32,10 @@ class arbol_items
 				AND 	solicitud_tipo <> 'fantasma'
 				$where
 				ORDER BY i.carpeta, i.orden, i.nombre";
-		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs) 
-			throw new excepcion_toba("Catogo de ITEMS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql] $sql");
-		if(!$rs->EOF){
-			while (!$rs->EOF) {
-				$this->items[] = new item($rs->fields);
-				$rs->MoveNext();
-			}
-		}else{
-			$this->items = array();
+		$rs = toba::get_db('instancia')->consultar($sql);
+		$this->items = array();
+		foreach ($rs as $fila) {
+			$this->items[] = new item($fila);			
 		}
 		$this->carpeta_inicial = '';//Raiz
 		$this->mensaje = "";
