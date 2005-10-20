@@ -664,7 +664,7 @@ class objeto_datos_tabla extends objeto
 			if( $this->tope_min_filas != 0){
 				if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
 					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
+					throw new excepcion_toba("datos_tabla '".$this->info['nombre']."': Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
 				}
 			}
 		}
@@ -771,7 +771,7 @@ class objeto_datos_tabla extends objeto
 	public function notificar_fin_sincronizacion()
 	//El AP avisa que termino la sincronizacion
 	{
-		$this->generar_estructura_cambios();
+		$this->regenerar_estructura_cambios();
 		$this->notificar_hijos_sincronizacion();
 	}
 
@@ -825,12 +825,23 @@ class objeto_datos_tabla extends objeto
 	{
 		//Genero la estructura de control
 		$this->cambios = array();
-		for($a=0;$a<count($this->datos);$a++){
-			$this->cambios[$a]['estado']="db";
-			$this->cambios[$a]['clave']= $this->get_clave_valor($a);
+		foreach(array_keys($this->datos) as $dato){
+			$this->cambios[$dato]['estado']="db";
+			$this->cambios[$dato]['clave']= $this->get_clave_valor($dato);
 		}
 	}
 	
+	protected function regenerar_estructura_cambios()
+	{
+		//BORRO los datos eliminados
+		foreach(array_keys($this->cambios) as $cambio){
+			if($this->cambios[$cambio]['estado']=='d'){
+				unset($this->datos[$cambio]);
+			}
+		}
+		$this->generar_estructura_cambios();
+	}
+
 	protected function registrar_cambio($fila, $estado)
 	{
 		$this->cambios[$fila]['estado'] = $estado;

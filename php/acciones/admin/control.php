@@ -120,10 +120,6 @@ function mostrar_ocultar_frame() {
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
- 		 <td  class='listado-tabn' <? echo $js_cambiar_color_1 ?>><a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/listado_objetos") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">&nbsp;<? echo recurso::imagen_apl("items/item.gif",true) ?>&nbsp;<? echo recurso::imagen_apl("objetos/objeto.gif",true) ?>&nbsp;</a></td>
-
-		<td><? echo gif_nulo(3,1) ?></td>
-
 		<td class='listado-tabi'><? echo recurso::imagen_apl("usuarios/usuario.gif",true) ?></td>
 		<td class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
 		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">USUARIOS</a>
@@ -159,13 +155,6 @@ function mostrar_ocultar_frame() {
 
 		 <td ><? echo gif_nulo(3,1) ?></td>
 
-		<td class='listado-tabi' width='2%'><? echo recurso::imagen_apl("buffers.gif",true) ?></td>
-		 <td  class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
-		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/buffers/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">PHP</a>
-		</td>
-
-		 <td ><? echo gif_nulo(3,1) ?></td>
-
 		 <td class='listado-tabi'><? echo recurso::imagen_apl("fuente.gif",true) ?></td>
 		 <td  class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
 		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/datos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">DATOS</a>
@@ -181,6 +170,8 @@ function mostrar_ocultar_frame() {
 		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
 			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
 		</td>
+
+		<td><? echo gif_nulo(3,1) ?></td>
 
 	</tr>
 	</table>
