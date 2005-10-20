@@ -173,7 +173,10 @@ class ap_tabla_db extends ap
 		//Si existen campos externos, los recupero.
 		if($this->posee_columnas_ext){
 			for($a=0;$a<count($datos);$a++){
-				$datos[$a] = $this->completar_campos_externos_fila($datos[$a]);
+				$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
+				foreach($campos_externos as $id => $valor){
+					$datos[$a][$id] = $valor;
+				}
 			}				
 		}
 		//Le saco los caracteres de escape a los valores traidos de la DB
@@ -362,22 +365,29 @@ class ap_tabla_db extends ap
 	/*
 		ATENCION: Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)
 		Recuperacion de valores para las columnas externas.
-		Se pasa una fila como parametro y se devuelve completa.
+		Se pasa una fila como parametro y se devuelven los valores recuperados de la DB.
 		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
 			cuyas claves asociativas se correspondan con la columna que se quiere llenar
 	*/
 	{
-		//Si se esta completando un campo nuevo, y el mismo esta basado en una secuencia, esto no va a funcionar.
-		//ATENCION: Esto hay que mejorarlo
-		if(isset($evento) && isset($this->secuencias)){
-			//return $fila;	
-		}
 		//Itero planes de carga externa
+		$valores_recuperados = array();
 		if(isset($this->proceso_carga_externa)){
 			foreach(array_keys($this->proceso_carga_externa) as $carga)
 			{
-				//-[ 1 ]- Recupero valores correspondientes al registro
 				$parametros = $this->proceso_carga_externa[$carga];
+				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
+				foreach( $parametros['col_parametro'] as $col_llave ){
+					if(isset($evento) && isset($this->secuencias[$col_llave])){
+						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
+					}
+					if(!isset($fila[$col_llave])){
+						toba::get_logger()->debug("AP_TABLA_DB: Falta el parametro '$col_llave'");
+						toba::get_logger()->debug($fila);
+						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa');
+					}
+				}
+				//-[ 1 ]- Recupero valores correspondientes al registro
 				if($parametros['tipo']=="sql")											//--- carga SQL!!
 				{
 					// - 1 - Obtengo el query
@@ -406,11 +416,11 @@ class ap_tabla_db extends ap
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
 				foreach( $parametros['col_resultado'] as $columna_externa ){
-					$fila[$columna_externa] = $datos[0][$columna_externa];
+					$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
 				}
 			}
 		}
-		return $fila;
+		return $valores_recuperados;
 	}
 
 	//-------------------------------------------------------------------------------

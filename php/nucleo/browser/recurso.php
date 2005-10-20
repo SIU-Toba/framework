@@ -20,16 +20,26 @@ class recurso {
 	function path_pro()
 	//#@desc: Genera un vinculo a un elemento del proyecto.
 	{
-		return recurso::preambulo(). "/". toba::get_hilo()->obtener_proyecto();
+		if (isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
+			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
+		}else{
+			$alias = toba::get_hilo()->obtener_proyecto();
+		}
+		return recurso::preambulo(). "/". $alias;
 	}
 	
 	function path_apl()
 	//#@desc: Genera un vinculo a un elemento general (comun a todos los proyectos).
 	{
-		if (defined('apex_pa_toba_alias'))
-			$alias = apex_pa_toba_alias;
-		else
-			$alias = "toba";
+		if (isset($_SERVER['TOBA_ALIAS'])) {
+			$alias = $_SERVER['TOBA_ALIAS'];
+		}else{
+			if (defined('apex_pa_toba_alias')){
+				$alias = apex_pa_toba_alias;
+			}else{
+				$alias = "toba";
+			}
+		}
 		return recurso::preambulo(). "/". $alias;
 	}
 

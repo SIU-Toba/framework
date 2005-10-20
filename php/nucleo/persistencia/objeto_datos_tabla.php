@@ -399,7 +399,10 @@ class objeto_datos_tabla extends objeto
 		$this->validar_fila($fila);
 		//SI existen columnas externas, completo la fila con las mismas
 		if($this->posee_columnas_ext){
-			$fila = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
+			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
+			foreach($campos_externos as $id => $valor){
+				$fila[$id] = $valor;
+			}
 		}
 		$this->datos[$this->proxima_fila] = $fila;
 		$this->registrar_cambio($this->proxima_fila,"i");
@@ -422,16 +425,25 @@ class objeto_datos_tabla extends objeto
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila, $id);
-		if($this->posee_columnas_ext){
-			$this->get_persistidor()->completar_campos_externos_fila($fila,"upd");
-		}
 		$this->notificar_contenedor("pre_modificar", $fila, $id);
+		/*
+			Como los campos externos pueden necesitar una campo que no entrego la
+			interface, primero actualizo los valores y despues tomo la fila y la
+			proceso con la actualizacion de campos externos
+		*/
 		//Actualizo los valores
 		foreach(array_keys($fila) as $clave){
 			$this->datos[$id][$clave] = $fila[$clave];
 		}
 		if($this->cambios[$id]['estado']!="i"){
 			$this->registrar_cambio($id,"u");
+		}
+		//Si la tabla posee campos externos, le pido la nueva fila al persistidor
+		if($this->posee_columnas_ext){
+			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->datos[$id],"upd");
+			foreach($campos_externos as $clave => $valor){
+				$this->datos[$id][$clave] = $valor;
+			}
 		}
 		$this->notificar_contenedor("post_modificar", $fila, $id);
 		return $id;

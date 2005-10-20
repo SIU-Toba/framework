@@ -4,8 +4,6 @@ if (isset($_SERVER['TOBA_DIR'])) {
 	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
 	ini_set("include_path", ini_get("include_path"). $separador . $dir);
 }
-
-
 ################################################################################
 ############################> PUNTO de ACCESO <#################################
 ################################################################################
@@ -93,9 +91,7 @@ define("apex_pa_estilo","violeta1");
 define("apex_pa_menu","milonic");
 
 ################################################################################
-
-//Llamo al script que genera la SOLICITUD!!!
-require_once("nucleo/acceso_browser.php"); 
-
+require_once("nucleo/toba.php");
+toba::get_nucleo()->acceso_web();	
 ################################################################################
 ?>
