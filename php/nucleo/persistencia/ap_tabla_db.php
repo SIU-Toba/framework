@@ -405,6 +405,7 @@ class ap_tabla_db extends ap
 				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
 				{
 					// - 1 - Armo los parametros para el DAO
+					$param_dao = array();
 					foreach( $parametros['col_parametro'] as $col_llave ){
 						$param_dao[] = $fila[$col_llave];
 					}
@@ -415,8 +416,10 @@ class ap_tabla_db extends ap
 				}
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
-				foreach( $parametros['col_resultado'] as $columna_externa ){
-					$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
+				if(count($datos)>0){
+					foreach( $parametros['col_resultado'] as $columna_externa ){
+						$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
+					}
 				}
 			}
 		}
