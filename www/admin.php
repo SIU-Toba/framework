@@ -97,8 +97,6 @@ define("apex_pa_log_pantalla_nivel",7);
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 define("apex_pa_estilo","violeta1");
-//MODELO de MENU a utilizar: milonic, milonic_frames
-define("apex_pa_menu","");
 ################################################################################
 
 require_once("nucleo/toba.php");

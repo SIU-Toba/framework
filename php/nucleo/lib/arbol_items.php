@@ -1,5 +1,5 @@
 <?
-require_once("item.php");
+require_once("item_toba.php");
 
 class arbol_items
 {
@@ -23,7 +23,7 @@ class arbol_items
 			$where = "";
 		$sql = "SELECT 	p.proyecto 						as item_proyecto,
 						p.descripcion 					as pro_des,
-						".item::definicion_campos().",
+						".item_toba::definicion_campos().",
 						(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item) as objetos
 				FROM 	apex_item i,
 						apex_proyecto p
@@ -35,7 +35,7 @@ class arbol_items
 		$rs = toba::get_db('instancia')->consultar($sql);
 		$this->items = array();
 		foreach ($rs as $fila) {
-			$this->items[] = new item($fila);			
+			$this->items[] = new item_toba($fila);			
 		}
 		$this->carpeta_inicial = '';//Raiz
 		$this->mensaje = "";

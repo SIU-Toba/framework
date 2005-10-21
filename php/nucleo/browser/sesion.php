@@ -76,11 +76,17 @@ class sesion {
 			$_SESSION['toba']["usuario"]=$rs[0];
 			//-----------------------------> Cargo propiedades del proyecto
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-			$sql = "SELECT	proyecto as nombre,
-							descripcion_corta as descripcion,
-							estilo
-					FROM 	apex_proyecto
-					WHERE	proyecto = '$proyecto';";
+			$sql = "SELECT	p.proyecto as nombre,
+							p.descripcion_corta as descripcion,
+							p.estilo,
+							m.archivo			as menu_archivo,
+							p.con_frames		as con_frames,
+							p.frames_clase		as frames_clase,
+							p.frames_archivo	as frames_archivo
+					FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
+							ON (p.menu = m.menu)
+					WHERE	proyecto = '$proyecto'
+					;";
 			$rs = $db->consultar($sql);
 			$_SESSION['toba']["proyecto"]=$rs[0];
 			//-----------------------------> Manejo inicializacion y tiempo de conexion
@@ -277,6 +283,11 @@ class sesion {
 		}
 		//--[2]-- Seteo el estilo que se va a usar
         define("apex_proyecto_estilo",$_SESSION['toba']["proyecto"]["estilo"]);
+
+        //-- Seteo el menu que se va a usar
+        if (isset($_SESSION['toba']["proyecto"]["menu_archivo"]) && !defined("apex_pa_menu_archivo")) {
+        	define("apex_pa_menu_archivo", $_SESSION['toba']["proyecto"]["menu_archivo"]);
+        }
 
 		//--[3]-- Actualizo la variable que guarda el ultimo acceso a la sesion
 		$_SESSION['toba']["ultimo_acceso"]=time();//El tiempo que dure la solicitud no se cuenta... no importa.

@@ -10,13 +10,16 @@ class encriptador
 	
 	private function __construct() {
 		$this->motor = new MD5Crypt();
+		//ATENCION: se pide la instancia para que parsee el archivo instancias.php
+		//Esto hay que solucionarlo de otra forma
+		toba::get_db('instancia');
 		$this->clave["db"] = apex_clave_db;
 		$this->clave["get"] = apex_clave_get;
 	}
 	
 	static function instancia() {
 		if (!isset(self::$instancia)) {
-			self::$instancia = new nucleo_toba();	
+			self::$instancia = new encriptador();	
 		}
 		return self::$instancia;	
 	}	

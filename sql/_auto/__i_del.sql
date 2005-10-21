@@ -146,6 +146,7 @@ DELETE FROM apex_fuente_datos_motor ;
 DELETE FROM apex_instancia ;
 DELETE FROM apex_log_sistema_tipo ;
 DELETE FROM apex_proyecto ;
+DELETE FROM apex_menu ;
 DELETE FROM apex_estilo ;
 DELETE FROM apex_estilo_paleta ;
 DELETE FROM apex_elemento_infra_input ;

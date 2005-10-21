@@ -75,6 +75,11 @@ class js
 				case 'ereg_numero':
 					echo js::ejecutar(" ereg_numero = /^[1234567890,.-]*$/;"); 
 					break;
+				//--> Tooltips HTML
+				case 'tooltips':
+					echo "<div id='dhtmltooltip'></div>";
+					echo js::incluir(recurso::js("$consumo.js"));
+					break;
 				//--> Codigo necesario para los ef_fecha
 				case 'fecha':
 					echo js::incluir(recurso::js("calendario_es.js"));
@@ -109,6 +114,12 @@ class js
 						</div>
 					";
 					echo js::incluir(recurso::js("$consumo.js"));					
+					break;
+				case 'comunicacion_server':
+					echo js::abrir();
+					echo "var apex_frame_com='".apex_frame_com."'\n";
+					echo js::cerrar();
+					echo js::incluir(recurso::js("$consumo.js"));
 					break;
 				case 'clases/toba': 
 					echo js::incluir(recurso::js("$consumo.js"));

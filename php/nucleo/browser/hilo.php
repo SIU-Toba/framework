@@ -216,6 +216,14 @@ class hilo
 	{
 		return $_SESSION['toba']["proyecto"]["descripcion"];
 	}
+	
+	/**
+	*	Retorna el conjunto de propiedades básicas del proycto actual
+	*/
+	function obtener_proyecto_datos()
+	{
+		return $_SESSION['toba']["proyecto"];
+	}
 
 	function obtener_path()
 /*

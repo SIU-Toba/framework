@@ -1,4 +1,6 @@
-<?	/* Javascript STANDART */ ?>
+<?php	
+toba::get_logger()->obsoleto('','', '0.8.3', 'nucleo/browser/includes/javascript.php se reemplaza por js::cargar_consumos_globales');
+/* Javascript STANDART */ ?>
 <script language='javascript'>
 
 //*******  Funciones para el manejo de strings  ********

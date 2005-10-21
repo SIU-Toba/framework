@@ -146,6 +146,7 @@ DROP TABLE apex_fuente_datos_motor ;
 DROP TABLE apex_instancia ;
 DROP TABLE apex_log_sistema_tipo ;
 DROP TABLE apex_proyecto ;
+DROP TABLE apex_menu ;
 DROP TABLE apex_estilo ;
 DROP TABLE apex_estilo_paleta ;
 DROP TABLE apex_elemento_infra_input ;

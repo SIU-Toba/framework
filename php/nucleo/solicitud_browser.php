@@ -1,15 +1,17 @@
 <?php
 require_once("solicitud.php");
-require_once("nucleo/browser/recurso.php");				//Encapsulamiento de la llamada a recursos
-require_once("nucleo/browser/js.php");					//Encapsulamiento de la utilidades javascript
-require_once("nucleo/browser/debug.php");				//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/browser/vinculador.php");			//Vinculos a otros ITEMS
-require_once("nucleo/browser/hilo.php");				//Canal de comunicacion inter-ejecutable
-require_once("nucleo/browser/interface/formateo.php"); 	//Funciones de formateo de columnas
-require_once("nucleo/browser/interface/ei.php");		//Elementos de interface
-require_once("nucleo/browser/logica.php");				//Elementos de logica
-require_once("nucleo/lib/parseo.php");			       	//Funciones de parseo
-require_once("nucleo/lib/configuracion.php");	      	//Acceso a la configuracion del sistema
+require_once("nucleo/browser/recurso.php");					//Encapsulamiento de la llamada a recursos
+require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades javascript
+require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
+require_once("nucleo/browser/vinculador.php");				//Vinculos a otros ITEMS
+require_once("nucleo/browser/hilo.php");					//Canal de comunicacion inter-ejecutable
+require_once("nucleo/browser/interface/formateo.php"); 		//Funciones de formateo de columnas
+require_once("nucleo/browser/interface/ei.php");			//Elementos de interface
+require_once("nucleo/browser/logica.php");					//Elementos de logica
+require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
+require_once("nucleo/lib/configuracion.php");	      		//Acceso a la configuracion del sistema
+require_once("nucleo/browser/tipo_pagina/tipo_pagina.php");	//Clase base de Tipo de pagina generico
+require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu 
 
 class solicitud_browser extends solicitud
 {
@@ -62,19 +64,37 @@ class solicitud_browser extends solicitud
         //Incluyo el array de colores
         require_once("nucleo/browser/color/series/".apex_proyecto_estilo.".inc.php");// Array de COLORES
     	toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
-		//--- HTML automatico ---
-		if(trim($this->info["item_include_arriba"]!= "")){
-			include_once($this->info["item_include_arriba"]);
-        	toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
+		//--- Tipo de PAGINA
+		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
+		if (isset($this->info['tipo_pagina_archivo'])) {
+			require_once($this->info['tipo_pagina_archivo']);
+		}
+		if (isset($this->info['tipo_pagina_clase'])) {
+			$tipo_pagina = new $this->info['tipo_pagina_clase']($this);
+			$tipo_pagina->encabezado();
+		} else {
+			//--------------- MIGRACION 0.8.3 ----------------
+			if(trim($this->info["item_include_arriba"]!= "")){
+				toba::get_logger()->obsoleto(null, null, "0.8.3", "El tipo de página personalizado se hace con subclases");
+				include_once($this->info["item_include_arriba"]);
+			}			
+			//-----------------------------------------------			
 		}
 		parent::procesar();
 		//--- Dumpeo informacion del LOGGER
 		flush();
-		//--- HTML automatico ---
-		if(trim($this->info["item_include_abajo"]!= "")){
-			include_once($this->info["item_include_abajo"]);
-        	toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (pie) ',apex_nivel_nucleo);
-		}
+		//--- Parte inferior del tipo de página
+		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (pie) ',apex_nivel_nucleo);
+        if (isset($tipo_pagina)) {
+        	$tipo_pagina->pie();
+        } else {
+			//--------------- MIGRACION 0.8.3 ----------------
+			if(trim($this->info["item_include_abajo"]!= "")){
+				toba::get_logger()->obsoleto(null, null, "0.8.3", "El tipo de página personalizado se hace con subclases");	
+				include_once($this->info["item_include_abajo"]);
+			}
+			//-----------------------------------------------					
+        }
 	}
 
 //--------------------------------------------------------------------------------------------
@@ -91,7 +111,7 @@ class solicitud_browser extends solicitud
 		parent::registrar( $this->hilo->obtener_proyecto() );
 		if($this->registrar_db){
 			$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip)
-					VALUES ('$this->id','".$_SESSION["id"]."','".$_SERVER["REMOTE_ADDR"]."');";
+					VALUES ('$this->id','".$_SESSION["toba"]["id"]."','".$_SERVER["REMOTE_ADDR"]."');";
 			if ($db["instancia"][apex_db_con]->Execute($sql) === false){
 				monitor::evento("bug","SOLICITUD BROWSER: No se pudo registrar la solicitud: " .$db["instancia"][apex_db_con]->ErrorMsg());
 			}

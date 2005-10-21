@@ -146,6 +146,7 @@ VACUUM VACUUM FULL ANALYSE apex_fuente_datos_motor;
 VACUUM VACUUM FULL ANALYSE apex_instancia;
 VACUUM VACUUM FULL ANALYSE apex_log_sistema_tipo;
 VACUUM VACUUM FULL ANALYSE apex_proyecto;
+VACUUM VACUUM FULL ANALYSE apex_menu;
 VACUUM VACUUM FULL ANALYSE apex_estilo;
 VACUUM VACUUM FULL ANALYSE apex_estilo_paleta;
 VACUUM VACUUM FULL ANALYSE apex_elemento_infra_input;

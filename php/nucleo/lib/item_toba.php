@@ -1,6 +1,6 @@
 <?php
 
-class item implements recorrible_como_arbol
+class item_toba implements recorrible_como_arbol
 {
 	protected $datos;					//Datos básicos
 	protected $nivel;					//Nivel del item en el arbol de items
@@ -317,6 +317,23 @@ class item implements recorrible_como_arbol
 		else
 			$this->datos = $rs->fields;
 	}	
+	
+	/**
+	*	Crea una rama de items comenzando por la raiz
+	*	Al asumir que los niveles son pocos se hace una consulta por nivel
+	*	Quedan cargado en el objeto los ancestros de la rama
+	*/
+	function cargar_rama($proyecto, $id)
+	{
+		$this->cargar_por_id($proyecto, $id);
+		$item_ancestro = $this;
+		while ($item_ancestro->id_padre() != null) {
+			$nodo = new item_toba();
+			$nodo->cargar_por_id($proyecto, $item_ancestro->id_padre());
+			$item_ancestro->set_padre($nodo);
+			$item_ancestro = $nodo;
+		}
+	}
 	
 }
 

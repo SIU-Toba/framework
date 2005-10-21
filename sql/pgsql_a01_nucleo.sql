@@ -116,6 +116,27 @@ CREATE TABLE			apex_estilo
 );
 --#################################################################################################
 
+--#################################################################################################
+
+CREATE TABLE	apex_menu
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: proyecto
+--: dump_order_by: menu
+--: zona: general
+--: desc: Tipos de menues
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	menu						varchar(15)		NOT NULL,
+	descripcion					varchar(255)	NOT NULL,
+	archivo						varchar(255)	NOT NULL,
+	soporta_frames				smallint		NULL,
+	CONSTRAINT	"apex_menu_pk" PRIMARY	KEY ("menu")
+);
+--#################################################################################################
+
+
 CREATE TABLE			apex_proyecto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -130,6 +151,10 @@ CREATE TABLE			apex_proyecto
 	descripcion					varchar(255)	NOT NULL,
 	descripcion_corta			varchar(40)		NOT NULL, 
 	estilo						varchar(15)		NOT NULL,
+	con_frames					smallint		DEFAULT 1,
+	frames_clase				varchar(40)		NULL,
+	frames_archivo				varchar(255)	NULL,
+	menu						varchar(15)		NULL,
 	path_includes				varchar(255)	NULL,
 	path_browser				varchar(255)	NULL,
 	administrador				varchar(60)		NULL,--NOT
@@ -137,7 +162,8 @@ CREATE TABLE			apex_proyecto
 	orden							float				NULL,
 	palabra_vinculo_std		varchar(30)		NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
-	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_proyecto_fk_menu" FOREIGN KEY ("menu") REFERENCES	"apex_menu" ("menu") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
 );
 --#################################################################################################
 
@@ -380,9 +406,11 @@ CREATE TABLE apex_pagina_tipo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	proyecto								varchar(15)		NOT NULL,
+	proyecto							varchar(15)		NOT NULL,
 	pagina_tipo							varchar(20)		NOT NULL,
 	descripcion							varchar(255)	NOT NULL,
+	clase_nombre						varchar(40)		NULL,
+	clase_archivo						varchar(255)	NULL,
 	include_arriba						varchar(100)	NULL,
 	include_abajo						varchar(100)	NULL,
 	exclusivo_toba						smallint			NULL,

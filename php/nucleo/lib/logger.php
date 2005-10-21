@@ -150,10 +150,13 @@ class logger
     	$traza = debug_backtrace();
     	$archivo = $traza[2]['file'];
 		$linea = $traza[2]['line']; 	
-    	if ($clase != '')
+    	if ($clase != '') {
     		$unidad = "Método '$clase::$metodo'";
-    	else 
+    	} elseif ($metodo != '') {
 			$unidad = "Función '$metodo'";
+    	} else {
+    		$unidad = '';	
+    	}
     	$msg = "OBSOLETO: $unidad desde versión $version. $extra\nArchivo $archivo, linea $linea.";
     	$this->notice($msg);
     }

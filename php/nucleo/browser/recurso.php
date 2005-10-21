@@ -147,29 +147,42 @@ class recurso {
 		return recurso::path_apl() . "/js/" . $javascript;
 	}
 	
-	function css($estilo="")
-	//Genera un vinculo a la hoja de estilos.
-    //Por defecto saca el estilo del proyecto de la sesion.
-    //Cuando se llama en un momento que no hay sesion (Como en la pantalla de LOGON)
-    //hay que llamarlo con un parametro.
+	
+	/**
+	*	Dado el nombre de una plantilla, encuentra la url  si es que existe
+	*	Para esto primero busca en el proyecto y si no lo encuentra lo busca en el mismo toba
+	*/
+	function css($nombre=apex_proyecto_estilo)
 	{
-		if($estilo!="")
-			return recurso::path_apl() . "/css/" . $estilo .".css";	
-		else {
-            //SI no hay una sesion esto da error.
+		//Si es un proyecto particular, buscar primero en el mismo
+		$hilo = toba::get_hilo();
+		if (isset($hilo)) {
 			$proyecto = toba::get_hilo()->obtener_proyecto();
 			if($proyecto != "toba") {
-				$path = toba_dir() . "/proyectos/$proyecto/www/css/" . apex_proyecto_estilo . ".css";
-				if (file_exists($path))
-					return recurso::path_pro() . "/css/" . apex_proyecto_estilo .".css";
+				$path = toba_dir() . "/proyectos/$proyecto/www/css/$nombre.css";
+				if (file_exists($path)) {
+					return recurso::path_pro() . "/css/$nombre.css";
+				}
 			} 
-			return recurso::path_apl() . "/css/" . apex_proyecto_estilo .".css"; 
-        }
+		}
+		//Sino buscarlo en el proyecto toba
+ 		if (file_exists(toba_dir()."/www/css/$nombre.css")) {
+			return recurso::path_apl()."/css/$nombre.css";
+		}
 	}
 
-	function link_css($estilo=apex_proyecto_estilo)
+
+	/**
+	*	Crea el tag <link>
+	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
+	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
+	*/
+	function link_css($estilo=apex_proyecto_estilo,  $rol='screen')
 	{
-		return "<link href='". recurso::css($estilo). "' rel='stylesheet' type='text/css'>";
+		$url = recurso::css($estilo);
+		if ($url != null) {
+			return "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+		}
 	}
 }
 ?>

@@ -12,6 +12,10 @@ function mostrar_wiki()
 document.onkeypress = mostrar_wiki;
 //---STRING
 //----------------------------------------------------------
+function trim(s){
+    return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
+};
+
 
 //Retorna la primer ocurrencia de alguna de estas cadenas
 String.prototype.primer_ocurrencia = function (cadenas) {
@@ -125,6 +129,50 @@ function getElementPosition(offsetTrail) {
     }
     return {left:offsetLeft, top:offsetTop};
 }
+
+function firstFocus()
+{
+	for (var i=0; i< document.forms.length; i++) {
+		var formulario = document.forms[i];
+		for (j=0;j<formulario.length;j++) {
+			var elemento = formulario.elements[j];
+			var display = elemento.style.display;
+			if ((elemento.type=="text") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
+				var error =false
+				try {
+				   elemento.focus();
+				} catch(e) {
+					error = true;
+				}
+			   if (!error) return;
+			}
+		}
+	}
+}
+
+
+//********************  POPUPS  ************************
+
+function solicitar_item_popup( url, tx, ty, scroll, resizable ){
+	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ", resizable=" + resizable + ",dependent=yes";
+	if (!window.ventana_hija){
+		// No fue definida.
+		ventana_hija = window.open( url , 'ventana_hija', vars);
+		ventana_hija.focus();
+	} else {
+		// Ya fue definida.
+		if(!ventana_hija.closed){
+			//Todavia esta abierta
+			ventana_hija.focus();
+			ventana_hija.location.href = url;
+		}else{
+			ventana_hija = window.open( url , 'ventana_hija', vars);
+		}
+	}
+	return false;
+}
+
+
 
 //----Mediciones de Performance
 var mediciones = 

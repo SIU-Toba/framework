@@ -139,7 +139,10 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 						i.solicitud_registrar_cron	as			item_solic_cronometrar,	
 						i.parametro_a as							item_parametro_a,	
 						i.parametro_b as							item_parametro_b,	
-						i.parametro_c as							item_parametro_c,							pt.include_arriba	as						item_include_arriba,	
+						i.parametro_c as							item_parametro_c,
+						pt.clase_nombre	as						tipo_pagina_clase,
+						pt.clase_archivo as						tipo_pagina_archivo,
+						pt.include_arriba	as						item_include_arriba,	
 						pt.include_abajo as						item_include_abajo,	
 						i.zona_proyecto as						item_zona_proyecto,
 						i.zona as									item_zona,
@@ -428,6 +431,19 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	function tipo_solicitud()
 	{
 		return $this->info['item_solic_tipo'];	
+	}
+	
+	/**
+	*	Retorna un arreglo de datos básicos del item que se esta ejecutando
+	*/
+	function get_datos_item()
+	{
+		return $this->info;	
+	}
+	
+	function id()
+	{
+		return $this->id;	
 	}
 
 //*******************************************************************************************

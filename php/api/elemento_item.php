@@ -1,7 +1,7 @@
 <?
 require_once("elemento.php");
 require_once("elemento_objeto.php");
-require_once("nucleo/lib/item.php");
+require_once("nucleo/lib/item_toba.php");
 
 class elemento_item extends elemento implements recorrible_como_arbol
 {
@@ -16,7 +16,7 @@ class elemento_item extends elemento implements recorrible_como_arbol
 	function cargar_db_subelementos()
 	{
 		//Cableado de apis de items
-		$this->item = new item($this->datos['apex_item'][0]);
+		$this->item = new item_toba($this->datos['apex_item'][0]);
 	
 		//Si hay objetos asociados...
 		if(isset($this->datos['apex_item_objeto']))

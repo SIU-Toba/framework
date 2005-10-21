@@ -24,7 +24,8 @@ class toba
 	
 	function get_hilo()
 	{
-		return toba::get_solicitud()->hilo;
+		if (isset(toba::get_solicitud()->hilo))
+			return toba::get_solicitud()->hilo;
 	}
 	
 	/**

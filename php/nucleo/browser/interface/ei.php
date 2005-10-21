@@ -424,15 +424,13 @@
 		echo"  </TABLE>\n";
     }
 //----------------------------------------------------------------------------------		
-		
+
+	/**
+	*	@deprecated Desde 0.8.3, el tipo de pagina es el encarga de definir esto
+	*/
 	function ei_html_cabecera($titulo, $css="", $estilo_body=null)
-/*
-	@@acceso: publico
-	@@desc: 
-	@@param: 
-	@@retorno:
-*/
 	{
+		toba::get_logger()->obsoleto("ei", "ei_html_cabecera","0.8.3", "Se debe definir en el tipo de página");
 		global $color_serie;
 		if(isset($estilo_body)) $estilo_body = "class='$estilo_body'";
 ?>		

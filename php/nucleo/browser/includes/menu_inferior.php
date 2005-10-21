@@ -1,4 +1,5 @@
 <?php
+	toba::get_logger()->obsoleto('', '', '0.8.3', 'El menu pasa a ser una clase utilizada por el tipo de página');
 //##############################################################################################
 //############################  MENU MILONIC (multi_frames)  ###################################
 //##############################################################################################
@@ -86,8 +87,8 @@ style1=[			// style1 is an array of properties. You can have as many property ar
 				AND		(i.proyecto = u.proyecto)
 				AND		(i.padre <> '')
 				AND 	(i.menu = 1)
-				AND		(u.usuario_grupo_acc = '".$this->hilo->obtener_usuario_grupo_acceso()."' )
-				AND		(i.proyecto = '".$this->hilo->obtener_proyecto()."')
+				AND		(u.usuario_grupo_acc = '".toba::get_hilo()->obtener_usuario_grupo_acceso()."' )
+				AND		(i.proyecto = '".toba::get_hilo()->obtener_proyecto()."')
 				ORDER BY i.padre,i.orden;";
 	$rs = $db["instancia"][apex_db_con]->Execute($sql);
 	//echo "/* $sql */";
@@ -112,7 +113,7 @@ style1=[			// style1 is an array of properties. You can have as many property ar
 				// Agrego ITEMS al menu
 				//ej: ,"ABC News","http://www.abcnews.com",,,0
 				//ej llamada JS: echo ",'<img src=img/menu_item.gif border=0>&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "',\"javascript:jumpto(". trim($rs->fields["menu"]) . ")\",,'',1\n";
-				echo ",'<span class=\"menu-texto\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "</span>','".$this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"], null, false, false, null, true).
+				echo ",'<span class=\"menu-texto\">&nbsp;&nbsp;" . trim($rs->fields["nombre"]) . "</span>','".toba::get_vinculador()->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"], null, false, false, null, true).
 					 " target=$frame_destino',,'',1\n";
 			}
 			$rs->movenext();
