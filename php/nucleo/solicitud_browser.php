@@ -61,8 +61,6 @@ class solicitud_browser extends solicitud
 
 	function procesar()
 	{		
-        //Incluyo el array de colores
-        require_once("nucleo/browser/color/series/".apex_proyecto_estilo.".inc.php");// Array de COLORES
     	toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//--- Tipo de PAGINA
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);

@@ -97,6 +97,8 @@ define("apex_pa_log_pantalla_nivel",7);
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 define("apex_pa_estilo","violeta1");
+# Archivo que contiene la subclase del menu a utilizar
+#define("apex_pa_menu_archivo", "");
 ################################################################################
 
 require_once("nucleo/toba.php");

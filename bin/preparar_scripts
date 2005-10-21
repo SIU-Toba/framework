@@ -1,7 +1,6 @@
 herramientas/fromdos -o adm
 herramientas/fromdos -o arbol
 herramientas/fromdos -o  cod
-herramientas/fromdos -o  color
 herramientas/fromdos -o  db
 herramientas/fromdos -o  entorno
 herramientas/fromdos -o  instancia
@@ -11,7 +10,6 @@ herramientas/fromdos -o  sql
 chmod u+x adm
 chmod u+x arbol
 chmod u+x cod
-chmod u+x color
 chmod u+x db
 chmod u+x entorno
 chmod u+x instancia
