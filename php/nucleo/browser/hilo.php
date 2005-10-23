@@ -558,7 +558,12 @@ class hilo
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]['item_anterior'])){
-			if($_SESSION[$celda]['item_anterior'] != $_SESSION[$celda]['item']){
+			//Solucion parcial para que la cascada no borre los datos de la operación
+			$es_item_cascada = ($_SESSION[$celda]['item'] == 'toba|/basicos/ef/respuesta');
+			$vino_item_cascada = ($_SESSION[$celda]['item_anterior'] == 'toba|/basicos/ef/respuesta');
+			
+			$es_distinto_item = ($_SESSION[$celda]['item_anterior'] != $_SESSION[$celda]['item']);
+			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
 				toba::get_logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM");
 				foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){

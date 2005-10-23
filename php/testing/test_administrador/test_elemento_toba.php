@@ -53,7 +53,7 @@ class test_elemento_toba extends test_toba
 	
 	function test_eventos_ci_simple()
 	{
-		$predefinidos= array('evt__procesar', 'evt__cancelar');
+		$predefinidos= array();
 		$invalidos = array('evt_bla', 'evtotro');
 		$desconocidos = array('evt__mirar');
 		$sospechosos = array('evt___otro');
@@ -98,10 +98,6 @@ class test_elemento_toba extends test_toba
 		$this->AssertEqual($mi_ci->getConstructor()->getDeclaringClass(), $mi_ci);	
 		//-- El mantener_estado_sesion debe estar heredado
 		$this->AssertEqual($mi_ci->getMethod('mantener_estado_sesion')->getDeclaringClass(), $mi_ci);
-
-		//-- Los listeners de eventos procesar y cancelar
-		$this->AssertEqual($mi_ci->getMethod('evt__procesar')->getDeclaringClass(), $mi_ci);
-		$this->AssertEqual($mi_ci->getMethod('evt__cancelar')->getDeclaringClass(), $mi_ci);	
 
 		//-- Los listeners de carga, alta, modificacion y cancelar del formulario	
 		$this->AssertEqual($mi_ci->getMethod('evt__formulario__carga')->getDeclaringClass(), $mi_ci);

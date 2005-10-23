@@ -4,7 +4,7 @@ require_once('api/elemento_item.php');
 
 class test_asignador_objetos extends test_toba
 {
-	protected $objeto_creado = array('id' => '1606', 'proyecto' => 'toba_testing');
+	protected $objeto_creado = array('objeto' => '1606', 'proyecto' => 'toba_testing');
 	
 	function get_descripcion()
 	{
@@ -27,7 +27,7 @@ class test_asignador_objetos extends test_toba
 	function test_asignar_a_item()
 	{
 		//Setup
-		$item_destino = array('tipo' => 'item', 'id' =>'1240', 'proyecto' => 'toba_testing');
+		$item_destino = array('tipo' => 'item', 'objeto' =>'1240', 'proyecto' => 'toba_testing');
 		
 
 		//Test
@@ -47,7 +47,7 @@ class test_asignador_objetos extends test_toba
 	{
 		//Setup
 		$ci_destino = array('tipo' => 'ci',
-							'id' =>'1605', 
+							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci');
 
@@ -70,7 +70,7 @@ class test_asignador_objetos extends test_toba
 	{
 		//Setup
 		$ci_destino = array('tipo' => 'ci_pantalla',
-							'id' =>'1605', 
+							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
 							'pantalla' => '470');
@@ -96,7 +96,7 @@ class test_asignador_objetos extends test_toba
 	{	
 		//Setup, se le asigna a una pantalla que ya tiene un objeto
 		$ci_destino = array('tipo' => 'ci_pantalla',
-							'id' =>'1605', 
+							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
 							'pantalla' => '471');

@@ -24,7 +24,7 @@ class ci_creador_objeto extends objeto_ci
 		if (isset($destino_tipo)) {
 			$this->destino = array();
 			$this->destino['tipo'] = $destino_tipo;
-			$this->destino['id'] = $hilo->obtener_parametro('destino_id');
+			$this->destino['objeto'] = $hilo->obtener_parametro('destino_id');
 			$this->destino['proyecto'] = $hilo->obtener_parametro('destino_proyecto');
 			$this->destino['pantalla'] = $hilo->obtener_parametro('destino_pantalla');
 		}
@@ -152,13 +152,12 @@ class ci_creador_objeto extends objeto_ci
 	*/
 	function evt__editor__procesar()
 	{
-			$valores = $this->dependencias['editor']->get_entidad()->tabla('base')->get();
-			$this->objeto_construido = array('id' => $valores['objeto'], 'proyecto' => $valores['proyecto']);
-			//Si el destino es un item se asigna aqui nomas
-			
-			if (isset($this->destino) && $this->destino['tipo'] == 'item') {
-				$this->evt__asignar();
-			}
+		$this->objeto_construido = $this->dependencias['editor']->get_entidad()->tabla('base')->get_clave_valor(0);
+
+				//Si el destino es un item se asigna aqui nomas
+		if (isset($this->destino) && $this->destino['tipo'] == 'item') {
+			$this->evt__asignar();
+		}
 	}
 	
 	//----------------------------------------------------------
@@ -189,7 +188,7 @@ class ci_creador_objeto extends objeto_ci
 	function redireccionar_a_objeto_creado()
 	{
 		$elem_objeto = elemento_objeto::get_elemento_objeto($this->objeto_construido['proyecto'], 
-														 	$this->objeto_construido['id']);
+														 	$this->objeto_construido['objeto']);
 		$vinculo = $elem_objeto->vinculo_editor();
 		admin_util::refrescar_editor_item();
 		echo js::abrir();

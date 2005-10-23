@@ -17,6 +17,7 @@ class objeto_datos_relacion extends objeto
 {
 	protected $relaciones;		
 	protected $tablas_raiz;
+	protected $persistidor;
 
 	function __construct($id)
 	{
@@ -178,8 +179,11 @@ class objeto_datos_relacion extends objeto
 	function get_persistidor()
 	//Devuelve el persistidor por defecto
 	{
-		require_once("ap_relacion_db.php");
-		return new ap_relacion_db( $this );
+		if (!isset($this->persistidor)) {		
+			require_once("ap_relacion_db.php");
+			$this->persistidor = new ap_relacion_db( $this );
+		}
+		return $this->persistidor;
 	}
 
 	function cargar($clave)
@@ -191,6 +195,16 @@ class objeto_datos_relacion extends objeto
 		$this->log('********* Fin CARGAR **********');
 	}
 
+	/**
+	*	Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas
+	*/
+	function forzar_insercion()
+	{
+		foreach($this->dependencias as $id => $dependencia){
+			$dependencia->forzar_insercion();
+		}
+	}
+	
 	function sincronizar()
 	{
 		//$this->dump_contenido();

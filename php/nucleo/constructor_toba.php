@@ -20,17 +20,13 @@ class constructor_toba
 		if(!isset($archivo) || !isset($clase))
 		{
 			//Busco la informacion que necesaria para crearlo
-			$info = self::get_info_objeto($id);
-			if(!isset($info['clase_archivo']) || !isset($info['clase'])){
-				//Utilizo la subclase
-				$archivo = $info['subclase_archivo'];
-				$clase = $info['subclase'];
+			//ATENCION: Esto es ineficiente pero rapido de programar
+			//Hay que optmizar la cantidad de consultas y nunca repetirlas en un pedido de pagina
+			require_once("admin/db/dao_editores.php");
+			if (!isset($clase)) {
+				$clase = dao_editores::get_clase_de_objeto($id);
 			}
-			elseif(!isset($info['clase_archivo']) || !isset($info['clase'])){
-				//Utilizo la clase
-				$archivo = $info['clase_archivo'];
-				$clase = $info['clase'];
-			}
+			$archivo = dao_editores::get_archivo_de_clase($id[0], $clase);
 		}
 		require_once($archivo);
 		$objeto = new $clase($id, $parametros);

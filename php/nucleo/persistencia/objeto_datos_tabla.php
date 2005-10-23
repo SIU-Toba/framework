@@ -469,6 +469,17 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	*	Determina que todas las filas de la tabla son nuevas
+	*/
+	public function forzar_insercion()
+	{
+		foreach(array_keys($this->cambios) as $fila) {
+			$this->registrar_cambio($fila, "i");
+		}
+	}
+	
+	//-------------------------------------------------------------------------------
 	public function eliminar_filas()
 	//Elimina todos los registros
 	{

@@ -77,7 +77,7 @@ class dao_editores
 		return self::get_lista_clases_toba(true);	
 	}
 	
-	static function get_clase_archivo($proyecto, $clase)
+	static function get_archivo_de_clase($proyecto, $clase)
 	{
 		$sql = "SELECT 	archivo
 				FROM apex_clase 
@@ -194,6 +194,53 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 
+	/**
+	*	Retorna el nombre de la clase del objeto
+	*/
+	static function get_clase_de_objeto($id)
+	{
+		$sql = "
+			SELECT 
+				o.clase
+			FROM 
+				apex_objeto o
+			WHERE 
+				(o.objeto = '{$id[1]}') AND 
+				(o.proyecto = '{$id[0]}')
+		";		
+		$datos = consultar_fuente($sql, 'instancia');
+		return $datos[0]['clase'];
+	}
+	
+	//---------------------------------------------------
+	//-- DATOS RELACION----------------------------------
+	//---------------------------------------------------
+	
+	/**
+	*	Retorna el id del objeto datos_relacion asociado a la clase
+	*/
+	static function get_dr_de_clase($clase)
+	{
+		$drs = array(
+			'objeto_datos_relacion' 	=> array('toba', '1532'),
+			'objeto_datos_tabla' 		=> array('toba', '1533'),
+			'objeto_ei_arbol'			=> array('toba', '1537'),
+			'objeto_ei_archivos'		=> array('toba', '1538'),
+			'objeto_ei_calendario'		=> array('toba', '1539'),
+			'objeto_ci' 				=> array('toba', '1507'),
+			'objeto_ei_cuadro' 			=> array('toba', '1531'),
+			'objeto_ei_filtro' 			=> array('toba', '1535'),
+			'objeto_ei_formulario' 		=> array('toba', '1534'),
+			'objeto_ei_formulario_ml' 	=> array('toba', '1536'),			
+			'objeto_ei_arbol' 			=> array('toba', '1610'),			
+		);
+		if (isset($drs[$clase])) {
+			return $drs[$clase];			
+		} else {
+			throw new excepcion_toba("No hay definido un datos_relacion para la clase $clase");
+		}
+	}	
+	
 	//---------------------------------------------------
 	//-- DATOS TABLA ------------------------------------
 	//---------------------------------------------------

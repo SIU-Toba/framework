@@ -35,15 +35,15 @@ class asignador_objetos
 	{
 		$sql = "SELECT COALESCE(MAX(orden),0) as maximo
 					FROM apex_item_objeto 
-					WHERE item='{$this->destino['id']}' AND proyecto='{$this->destino['proyecto']}'
+					WHERE item='{$this->destino['objeto']}' AND proyecto='{$this->destino['proyecto']}'
 			";
 		$res = consultar_fuente($sql,'instancia');
 		$orden = $res[0]['maximo'];
 		$sql = "INSERT INTO apex_item_objeto 
 					(proyecto, item, objeto, orden) VALUES (
 						'{$this->destino['proyecto']}', 
-						'{$this->destino['id']}', 
-						'{$this->origen['id']}', 
+						'{$this->destino['objeto']}', 
+						'{$this->origen['objeto']}', 
 						$orden
 					)
 			";
@@ -55,8 +55,8 @@ class asignador_objetos
 		$sql = "INSERT INTO apex_objeto_dependencias
 		  			(proyecto, objeto_consumidor, objeto_proveedor,  identificador)	VALUES (
 		  				'{$this->destino['proyecto']}',
-		  				'{$this->destino['id']}', 
-			  			'{$this->origen['id']}', 
+		  				'{$this->destino['objeto']}', 
+			  			'{$this->origen['objeto']}', 
 			  			'{$this->destino['id_dependencia']}'
 		  			) 
 		  		";
@@ -76,7 +76,7 @@ class asignador_objetos
        					END || '{$this->destino['id_dependencia']}'
 				WHERE
 					objeto_ci_proyecto = '{$this->destino['proyecto']}' AND
-					objeto_ci = '{$this->destino['id']}' AND
+					objeto_ci = '{$this->destino['objeto']}' AND
 					pantalla = {$this->destino['pantalla']}
 			";
 		ejecutar_sql($sql,'instancia');
@@ -88,8 +88,8 @@ class asignador_objetos
 		  			(proyecto, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b)
 		  		VALUES (
 		  			'{$this->destino['proyecto']}',
-		  			'{$this->destino['id']}', 
-		  			'{$this->origen['id']}', 
+		  			'{$this->destino['objeto']}', 
+		  			'{$this->origen['objeto']}', 
 		  			'{$this->destino['id_dependencia']}',
 		  			'{$this->destino['min_filas']}',
 		  			'{$this->destino['max_filas']}'
