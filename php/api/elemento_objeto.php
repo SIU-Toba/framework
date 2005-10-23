@@ -177,7 +177,17 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 			'imagen' => recurso::imagen_apl($this->datos_clase['icono'], false),
 			'ayuda' => $this->datos_clase['descripcion_corta'],
 			);	
-
+		if(isset($this->datos_clase['instanciador_item'])) {
+			$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());			
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("items/simular.gif", false),
+				'ayuda' => "Simula la ejecución de este ".$this->datos_clase['clase'],
+				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos_clase['instanciador_proyecto'],
+																		$this->datos_clase['instanciador_item'],
+																		$param_editores,
+																		false, false, null, true, "central")
+			);	
+		}
 		return $iconos;
 	}
 	
@@ -186,6 +196,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		$iconos = array();
 		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
 		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
+/*
 			$param_abrir_php = $param_editores;
 			$param_abrir_php['evento'] = "abrir";
 			$iconos[] = array(
@@ -194,13 +205,14 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php,
 																		false, false, null, true, "central")
 			);
+*/
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("php.gif", false),
 				'ayuda' => "Ver detalles de la extensión",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central")
 			);
-		}		
+		}
 		if(isset($this->datos_clase["editor_proyecto"])) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),

@@ -68,7 +68,6 @@ abstract class ci_editores_toba extends objeto_ci
 			$zona->obtener_html_barra_superior();
 		}
 		parent::generar_interface_grafica();
-		$zona = toba::get_solicitud()->zona();
 		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_inferior();
 		}	

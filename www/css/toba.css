@@ -1077,11 +1077,12 @@ TD.abm-total {
 	FONT-WEIGHT: bold;
 	 FONT-SIZE: 11px;
 	 COLOR: #000000;
-	 BACKGROUND-COLOR: #f9c6c6
+	 BACKGROUND-COLOR: #f9c6c6;
 }
 .abm-input {
 	FONT-SIZE: 11px;
 	 COLOR: #231f20;
+	 height: 24px;
 	 BACKGROUND-COLOR: #ffffff
 }
 .parametro-item {

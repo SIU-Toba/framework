@@ -211,8 +211,6 @@
 		}
 	}
 	//-----------------------------------------------------------------
-
-
 	//Clase que otorga rangos para asignación de tabs
 	class manejador_tabs 
 	{
@@ -230,6 +228,27 @@
 			$reserva = array($this->proximo_tab, $this->proximo_tab + $cantidad - 1);
 			$this->proximo_tab = $this->proximo_tab + $cantidad;
 			return $reserva;
+		}
+	}
+	
+	/**
+	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
+	*	Util para simulaciones
+	*/
+	class objeto_de_mentira
+	{
+		function __call($m, $a)
+		{
+			return new objeto_de_mentira();	
+		}	
+		
+		function __set($p, $v)
+		{
+		}
+		
+		function __get($p)
+		{
+			return new objeto_de_mentira();
 		}
 	}
 	
