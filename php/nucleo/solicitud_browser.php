@@ -78,7 +78,9 @@ class solicitud_browser extends solicitud
 			}			
 			//-----------------------------------------------			
 		}
+		
 		parent::procesar();
+		
 		//--- Dumpeo informacion del LOGGER
 		flush();
 		//--- Parte inferior del tipo de página

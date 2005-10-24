@@ -1,4 +1,5 @@
 <?php
+require_once('api/elemento_objeto.php');
 
 /**
 *	Utilidades varias para el administrador Toba
@@ -21,6 +22,15 @@ class admin_util
 		echo js::cerrar();		
 	}
 	
+	function redireccionar_a_editor_objeto($proyecto, $objeto)
+	{
+		$elem_objeto = elemento_objeto::get_elemento_objeto($proyecto, $objeto);
+		$vinculo = $elem_objeto->vinculo_editor();
+		admin_util::refrescar_editor_item();
+		echo js::abrir();
+		echo "window.location.href='$vinculo'\n";
+		echo js::cerrar();		
+	}
 	
 }
 

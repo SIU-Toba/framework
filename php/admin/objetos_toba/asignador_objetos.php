@@ -5,6 +5,10 @@ class asignador_objetos
 	protected $destino;
 	protected $origen;
 	
+	/**
+	*	@param array Claves: objeto
+	*	@param array Claves: tipo,objeto, proyecto,id_dependencia, pantalla, max_filas, min_filas
+	*/
 	function __construct($origen, $destino)
 	{
 		$this->origen = $origen;
@@ -77,7 +81,7 @@ class asignador_objetos
 				WHERE
 					objeto_ci_proyecto = '{$this->destino['proyecto']}' AND
 					objeto_ci = '{$this->destino['objeto']}' AND
-					pantalla = {$this->destino['pantalla']}
+					pantalla = '{$this->destino['pantalla']}'
 			";
 		ejecutar_sql($sql,'instancia');
 	}

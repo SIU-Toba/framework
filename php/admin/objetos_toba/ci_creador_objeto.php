@@ -187,13 +187,8 @@ class ci_creador_objeto extends objeto_ci
 	
 	function redireccionar_a_objeto_creado()
 	{
-		$elem_objeto = elemento_objeto::get_elemento_objeto($this->objeto_construido['proyecto'], 
-														 	$this->objeto_construido['objeto']);
-		$vinculo = $elem_objeto->vinculo_editor();
-		admin_util::refrescar_editor_item();
-		echo js::abrir();
-		echo "window.location.href='$vinculo'\n";
-		echo js::cerrar();
+		admin_util::redireccionar_a_editor_objeto($this->objeto_construido['proyecto'], 
+													$this->objeto_construido['objeto']);
 	}
 	
 }

@@ -1,5 +1,6 @@
 <?php
 require_once("nucleo/browser/zona/zona.php");
+require_once("admin/db/dao_editores.php");
 
 class zona_objeto extends zona
 {
@@ -117,28 +118,22 @@ class zona_objeto extends zona
 		{
 			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/php",null,true) ."'>";
-			echo recurso::imagen_apl("php.gif",true,null,null,"Editar DEPENDECIAS del OBJETO");
+			echo recurso::imagen_apl("php.gif",true,null,null,"Manejo de la subclase");
 			echo "</a></td>";
 		}
 		
 		//Acceso a las dependencias del objeto
-		if( $this->editable_info['clase_dep'] > 0)
+		//Esto es obsoleto para editores nuevos
+		if( $this->editable_info['clase_dep'] > 0 && 
+			!in_array($this->editable_info['clase'], dao_editores::get_clases_validas()))
 		{
 			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/dependencias",null,true) ."'>";
 			echo recurso::imagen_apl("objetos/asociar_objeto.gif",true,null,null,"Editar DEPENDECIAS del OBJETO");
 			echo "</a></td>";
 		}
-/*
-		//Acceso a los VINCULOS
-		if($this->editable_info['clase'] == "objeto_ei_cuadro")
-		{
-			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/editores/cuadro2_eventos",null,true) ."'>";
-			echo recurso::imagen_apl("objetos/fantasma.gif",true,null,null,"Editar EVENTOS del OBJETO");
-			echo "</a>";
-		}
-*/
+
+		
 		if($this->editable_info['clase_vinculos'] == 1)
 		{
 			echo "<td  class='barra-item-link' width='1'>";

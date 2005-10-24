@@ -50,6 +50,14 @@ class dao_editores
 		//Por defecto devulevo todo
 		return self::get_clases_validas();
 	}
+	
+	static function get_clases_contenedoras()
+	{
+		return array(	
+						array('proyecto' => 'toba', 'clase' =>'objeto_ci'),
+						array('proyecto' => 'toba', 'clase' => 'objeto_datos_relacion')
+					);
+	}
 
 	/*
 		Las clases usan un ID concatenado para que las cascadas
@@ -146,10 +154,25 @@ class dao_editores
 		$res = consultar_fuente($sql, "instancia");
 		return $res[0];
 	}
+	
+	static function get_pantallas_de_ci($objeto)
+	{
+		$sql = "SELECT
+					pantalla,
+					identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
+				FROM
+					apex_objeto_ci_pantalla
+				WHERE
+					objeto_ci_proyecto = '". toba::get_hilo()->obtener_proyecto() ."' AND
+					objeto_ci = '$objeto'
+		";
+		return consultar_fuente($sql, "instancia");
+	}
 
 	//---------------------------------------------------
-	//---------------- PERMISOS --------------------------
+	//---------------- PERMISOS -------------------------
 	//---------------------------------------------------
+	
 	static function get_grupos_acceso($proyecto)
 	{
 		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
@@ -161,6 +184,28 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 
+	//-------------------------------------------------
+	//---------------- ITEMS --------------------------
+	//-------------------------------------------------
+
+	/**
+	*	Retorna la lista de todos los items del proyecto actual (no carpetas)
+	*/
+	static function get_lista_items()
+	{
+		$sql = "
+			SELECT 
+				proyecto, 
+				item 						as id, 
+				nombre						as descripcion
+			FROM apex_item 
+			WHERE 
+				(carpeta <> '1' OR carpeta IS NULL) AND
+				proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+			ORDER BY nombre;
+		";
+		return consultar_fuente($sql, "instancia");
+	}
 
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
@@ -171,12 +216,13 @@ class dao_editores
 		$clase = explode(",",$clase);
 		$sql = "SELECT 	proyecto, 
 						objeto, 
+						objeto							   as id,
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
 				WHERE 	clase = '{$clase[1]}'
 				AND		clase_proyecto = '{$clase[0]}'
 				AND 	proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
-				ORDER BY 2";
+				ORDER BY nombre";
 		return consultar_fuente($sql, "instancia");
 	}
 	
