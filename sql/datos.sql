@@ -8213,14 +8213,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4247','ci_pantalla','ef_combo_dao','pantalla',NULL,'dao: get_pantallas_de_ci;
 clase: dao_editores;
 include: admin/db/dao_editores.php;
-clave: identificador;
+clave: pantalla;
 valor: descripcion;
 no_seteado: Ninguna;
 dependencias: objeto_id;','5','Pantalla',NULL,NULL,NULL,NULL,'0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4244','con_destino','ef_checkbox','con_destino',NULL,'valor: 1;
 valor_no_seteado: 0;
 estado: 0;','2','Asignar a otro objeto/item','Una vez clonado el objeto, es posible asignarlo a otro objeto o item existente.',NULL,NULL,NULL,'0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4343','identificador','ef_editable','identificador',NULL,'tamano: 20;
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4343','identificador','ef_editable','id_dependencia',NULL,'tamano: 20;
 maximo: 20;','6','Identificador',NULL,NULL,NULL,NULL,'0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4345','max_filas','ef_editable_numero','max_filas',NULL,NULL,'8','Max. Filas',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1636','4344','min_filas','ef_editable_numero','min_filas',NULL,NULL,'7','Min. Filas',NULL,NULL,NULL,NULL,NULL);
