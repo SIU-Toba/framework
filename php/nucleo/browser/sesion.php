@@ -54,6 +54,9 @@ class sesion {
 							u.solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
 							u.solicitud_obs_tipo as					sol_obs_tipo,
 							u.solicitud_observacion as				sol_obs,
+							u.parametro_a as						parametro_a,
+							u.parametro_b as 						parametro_b,
+							u.parametro_c as						parametro_c,
 							up.usuario_grupo_acc as 				grupo_acceso,
 							up.usuario_perfil_datos as 			perfil_datos,
 							ga.nivel_acceso as						nivel_acceso

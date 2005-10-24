@@ -163,12 +163,70 @@ class objeto_ci extends objeto_ei
 		$this->dependencias[$dep]->agregar_controlador($this);
 		if($this->dependencias[$dep] instanceof objeto_ci ){
 			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
+			if(isset($this->cn)){
+				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
+			}
 		}
 	}
 
-	//--------------------------------------------------------
-	//---------  Limpieza de MEMORIA -------------------------
-	//--------------------------------------------------------
+	//--------------------------------------------------------------
+	//------  Interaccion con un CONTROLADOR de NEGOCIO ------------
+	//--------------------------------------------------------------
+
+	function asignar_controlador_negocio( $controlador )
+	{
+		$this->cn = $controlador;
+	}
+
+	//--  ENTRADA de DATOS ----
+
+	function disparar_obtencion_datos_cn( $modo=null )
+	{
+		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
+		$this->evt__obtener_datos_cn( $modo );
+		$deps = $this->get_dependencias_ci();
+		foreach( $deps as $dep ){
+			if( !isset($this->dependencias[$dep]) ){
+				$this->inicializar_dependencias(array($dep));
+			}
+			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'");
+			$this->dependencias[$dep]->disparar_obtencion_datos_cn( $modo );
+		}
+	}
+
+	function evt__obtener_datos_cn( $modo=null )
+	{
+		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
+		$this->log->warning($this->get_txt() . "[ evt__obtener_datos_cn ] No fue redefinido!");
+	}
+
+	//--  SALIDA de DATOS ----
+
+	function disparar_entrega_datos_cn()
+	{
+		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]");
+		//DUDA: Validar aca es redundante?
+		$this->evt__validar_datos();
+		$this->evt__entregar_datos_cn();
+		$deps = $this->get_dependencias_ci();
+		foreach( $deps as $dep ){
+			if( !isset($this->dependencias[$dep]) ){
+				$this->inicializar_dependencias(array($dep));
+			}
+			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'");
+			$this->dependencias[$dep]->disparar_entrega_datos_cn();
+		}
+	}
+
+	function evt__entregar_datos_cn()
+	{
+		//Esta funcion hay que redefinirla en un hijo para ENTREGAR datos
+		$this->log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
+	}
+
+	//--------------------------------------------------------------
+	//---------  Limpieza de MEMORIA -------------------------------
+	//--------------------------------------------------------------
 		
 	function disparar_limpieza_memoria()
 	//Borra la memoria de todos los CI
@@ -489,11 +547,18 @@ class objeto_ci extends objeto_ei
 	{
 		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
 		$this->disparar_limpieza_memoria();
+		if(isset($this->cn)){
+			$this->cn->cancelar();			
+		}
 	}
 
 	function evt__procesar()
 	{
 		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
+		if(isset($this->cn)){
+			$this->disparar_entrega_datos_cn();
+			$this->cn->procesar();
+		}
 		$this->disparar_limpieza_memoria();
 	}	
 
