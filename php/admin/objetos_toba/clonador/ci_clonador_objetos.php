@@ -112,7 +112,7 @@ class ci_clonador_objetos extends objeto_ci
 		
 		//--- Asignación
 		if (isset($this->destino)) {
-			$asignador = new asignador_objetos($this->id_objeto, $this->destino);
+			$asignador = new asignador_objetos($clon, $this->destino);
 			$asignador->asignar();
 		}
 		cerrar_transaccion("instancia");		
@@ -129,7 +129,7 @@ class ci_clonador_objetos extends objeto_ci
 		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_inferior();
 		}	
-	}	
+	}
 	
 }
 

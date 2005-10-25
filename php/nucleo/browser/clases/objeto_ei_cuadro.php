@@ -719,6 +719,11 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		return $this->estructura_datos;		
 	}
+	
+	public function get_columnas()
+	{
+		return $this->columnas;	
+	}
 //################################################################################
 //#####################    INTERFACE GRAFICA GENERICA  ###########################
 //################################################################################

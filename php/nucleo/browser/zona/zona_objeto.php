@@ -151,6 +151,14 @@ class zona_objeto extends zona
 		echo "</a>";
 		echo "</td>";
 */
+		//Si es un objeto viejo mostrar el el link a las propiedades básicas
+		if (!in_array($this->editable_info['clase'], dao_editores::get_clases_validas())) { 
+			echo "<td  class='barra-item-link' width='1'>";
+			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud('toba','/admin/objetos/propiedades',null,true) ."'>";
+			echo recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Propiedades Básicas del OBJETO");
+			echo "</a></td>";
+		}
+
 		//Acceso al EDITOR del objeto
 		if(isset($this->editable_info['clase_editor']))
 		{

@@ -52,7 +52,9 @@ class ci_catalogo_items extends ci_catalogo
 				}else{
 					$inden = "";
 				}
-				$datos[] =  array('id' => $carpeta->id(), 'nombre' => $inden . $carpeta->nombre());
+				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+									'id' => $carpeta->id(), 
+									'nombre' => $inden . $carpeta->nombre());
 			}
 		}
 		return $datos;

@@ -206,7 +206,30 @@ class dao_editores
 		";
 		return consultar_fuente($sql, "instancia");
 	}
-
+	
+	/**
+	*	Retorna la lista de carpetas en un formato adecuado para un combo
+	*/
+	static function get_carpetas_posibles()
+	{
+		require_once("nucleo/lib/arbol_items.php");
+		$catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
+		$catalogador->ordenar();		
+		foreach($catalogador->items() as $carpeta) {
+			if ($carpeta->es_carpeta()) {
+				$nivel = $carpeta->nivel() - 1;
+				if($nivel >= 0){
+					$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
+				}else{
+					$inden = "";
+				}
+				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+									'id' => $carpeta->id(), 
+									'nombre' => $inden . $carpeta->nombre());
+			}
+		}
+		return $datos;
+	}	
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------
