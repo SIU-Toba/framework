@@ -107,6 +107,14 @@ class objeto_datos_tabla extends objeto
 		return $sql;
 	}
 
+	protected function log($txt)
+	/*
+		El objeto deberia tener directamente algo asi
+	*/
+	{
+		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
+	}
+
 	//-------------------------------------------------------------------------------
 	//--  Relacion con otros ELEMENTOS
 	//-------------------------------------------------------------------------------
@@ -469,17 +477,6 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	/**
-	*	Determina que todas las filas de la tabla son nuevas
-	*/
-	public function forzar_insercion()
-	{
-		foreach(array_keys($this->cambios) as $fila) {
-			$this->registrar_cambio($fila, "i");
-		}
-	}
-	
-	//-------------------------------------------------------------------------------
 	public function eliminar_filas()
 	//Elimina todos los registros
 	{
@@ -724,8 +721,11 @@ class objeto_datos_tabla extends objeto
 	{
 		//$this->resetear();
 		$ap = $this->get_persistidor();
-		$ap->cargar($id);
-		$this->clave_actual = $id;
+		if($ap->cargar($id) === true){
+			$this->clave_actual = $id;
+			return true;
+		}
+		return false;
 	}
 
 	public function sincronizar()
@@ -841,7 +841,7 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Cosas internas
+	//-- Manejo de la estructura de cambios
 	//-------------------------------------------------------------------------------
 
 	protected function generar_estructura_cambios()
@@ -865,19 +865,20 @@ class objeto_datos_tabla extends objeto
 		$this->generar_estructura_cambios();
 	}
 
+	/**
+	*	Determina que todas las filas de la tabla son nuevas
+	*/
+	public function forzar_insercion()
+	{
+		foreach(array_keys($this->cambios) as $fila) {
+			$this->registrar_cambio($fila, "i");
+		}
+	}
+	
 	protected function registrar_cambio($fila, $estado)
 	{
 		$this->cambios[$fila]['estado'] = $estado;
 	}
-
-	protected function log($txt)
-	/*
-		El objeto deberia tener directamente algo asi
-	*/
-	{
-		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
-	}
-
 	//-------------------------------------------------------------------------------
 }
 ?>

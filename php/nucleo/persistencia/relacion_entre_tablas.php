@@ -65,7 +65,7 @@ class relacion_entre_tablas
 			
 		}else{
 			$error = "FILAS padre: ". $this->tabla_padre->get_cantidad_filas() .". Esta relacion no esta soportada\n";
-			throw new excepcion_toba( $this->get_txt_error_base($texto) );
+			throw new excepcion_toba( $this->get_txt_error_base($error) );
 		}
 	}	
 
@@ -88,7 +88,7 @@ class relacion_entre_tablas
 			$this->tabla_hijo->sincronizar();
 		}else{
 			$error = "FILAS padre: ". $this->tabla_padre->get_cantidad_filas() .". Esta relacion no esta soportada\n";
-			throw new excepcion_toba( $this->get_txt_error_base($texto) );
+			throw new excepcion_toba( $this->get_txt_error_base($error) );
 		}
 	}
 

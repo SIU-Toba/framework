@@ -7,6 +7,7 @@ abstract class ci_editores_toba extends objeto_ci
 	protected $id_objeto;
 	protected $cambio_objeto;
 	protected $cargado = false;
+	protected $falla_carga = false;
 	private $elemento_eliminado = false;
 
 	function __construct($id)
@@ -28,6 +29,7 @@ abstract class ci_editores_toba extends objeto_ci
 				$this->cambio_objeto = true;
 			}
 		}
+		//Necesito cargar la entidad antes de mostrar la pantalla
 	}
 	
 	function get_entidad()
@@ -36,10 +38,13 @@ abstract class ci_editores_toba extends objeto_ci
 		if (! isset($this->dependencias['datos'])) {
 			$this->cargar_dependencia('datos');
 		}
-		if($this->cambio_objeto && !$this->cargado ){
+		if($this->cambio_objeto && !$this->cargado && !$this->falla_carga){
 			toba::get_logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
-			$this->dependencias['datos']->cargar( $this->id_objeto );
-			$this->cargado = true;
+			if( $this->dependencias['datos']->cargar( $this->id_objeto ) ){
+				$this->cargado = true;
+			}else{
+				$this->falla_carga = true;	
+			}
 		}		
 		return $this->dependencias['datos'];
 	}
@@ -49,6 +54,7 @@ abstract class ci_editores_toba extends objeto_ci
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "id_objeto";
 		$propiedades[] = "cargado";
+		$propiedades[] = "falla_carga";
 		return $propiedades;
 	}	
 	
@@ -59,8 +65,13 @@ abstract class ci_editores_toba extends objeto_ci
 	
 	function generar_interface_grafica()
 	{
+		$this->get_entidad();
+		if($this->falla_carga === true){
+			echo ei_mensaje("El elemento seleccionado no existe.","error");
+			return;
+		}
 		if($this->elemento_eliminado){
-			echo ei_mensaje("El elemento ha sido eliminado");
+			echo ei_mensaje("El elemento ha sido eliminado.");
 			return;
 		}
 		$zona = toba::get_solicitud()->zona();

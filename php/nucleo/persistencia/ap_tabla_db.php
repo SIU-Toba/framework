@@ -148,7 +148,7 @@ class ap_tabla_db extends ap
 	{
 		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where_lineal($clave);
-		$this->cargar_db($where);
+		return $this->cargar_db($where);
 	}
 
 	/**
@@ -170,26 +170,32 @@ class ap_tabla_db extends ap
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new excepcion_toba('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
-		//Si existen campos externos, los recupero.
-		if($this->posee_columnas_ext){
+		if(count($datos)>0){
+			//Si existen campos externos, los recupero.
+			if($this->posee_columnas_ext){
+				for($a=0;$a<count($datos);$a++){
+					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
+					foreach($campos_externos as $id => $valor){
+						$datos[$a][$id] = $valor;
+					}
+				}				
+			}
+			//Le saco los caracteres de escape a los valores traidos de la DB
 			for($a=0;$a<count($datos);$a++){
-				$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
-				foreach($campos_externos as $id => $valor){
-					$datos[$a][$id] = $valor;
-				}
-			}				
+				foreach(array_keys($datos[$a]) as $columna){
+					if(isset($datos[$a][$columna])){
+						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
+					}
+				}	
+			}
+			// Lleno la TABLA
+			$this->objeto_tabla->set_datos($datos);
+			//ei_arbol($datos);
+			return true;
+		}else{
+			//No se carga nada!
+			return false;
 		}
-		//Le saco los caracteres de escape a los valores traidos de la DB
-		for($a=0;$a<count($datos);$a++){
-			foreach(array_keys($datos[$a]) as $columna){
-				if(isset($datos[$a][$columna])){
-					$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
-				}
-			}	
-		}
-		// Lleno la TABLA
-		$this->objeto_tabla->set_datos($datos);
-		//ei_arbol($datos);
 	}
 
 	//-------------------------------------------------------------------------------

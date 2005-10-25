@@ -415,11 +415,6 @@ class ci_editor extends ci_editores_toba
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
 	}
-
-	function evt__eliminar()
-	{
-		$this->get_entidad()->eliminar();
-	}
 	// *******************************************************************
 }
 ?>

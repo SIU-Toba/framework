@@ -30,7 +30,10 @@ class objeto_ei extends objeto
 													imagen_recurso_origen	as imagen_recurso_origen,
 													imagen					as imagen,
 													en_botonera				as en_botonera,
-													ayuda					as ayuda
+													ayuda					as ayuda,
+													ci_predep,				
+													implicito,				
+													display_datos_cargados  													
 										FROM	apex_objeto_eventos
 										WHERE	proyecto='".$this->id[0]."'
 										AND	objeto = '".$this->id[1]."'

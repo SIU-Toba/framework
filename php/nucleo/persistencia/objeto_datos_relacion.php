@@ -189,10 +189,15 @@ class objeto_datos_relacion extends objeto
 	function cargar($clave)
 	{
 		//ATENCION: hay que controlar el formato de la clave
-		$this->log('********* Inicio CARGAR **********');
+		$this->log('***   Inicio CARGAR ****************************');
 		$ap = $this->get_persistidor();
-		$ap->cargar($clave);
-		$this->log('********* Fin CARGAR **********');
+		if($ap->cargar($clave) === true){
+			$this->log("***   Fin CARGAR (OK) *************************");
+			return true;
+		}else{
+			$this->log("***   Fin CARGAR (No se cargaron datos) ***************");
+			return false;
+		}
 	}
 
 	/**

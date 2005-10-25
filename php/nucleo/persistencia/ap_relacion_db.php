@@ -62,10 +62,14 @@ class ap_relacion_db extends ap
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
 		if(is_array($tablas_raiz)){
 			foreach( $tablas_raiz as $tabla ){
-				$this->objeto_relacion->tabla($tabla)->cargar( $clave );
+				if( $this->objeto_relacion->tabla($tabla)->cargar( $clave ) !== true ){
+					//No se cargo una tabla raiz, cancelo el proceso
+					return false;
+				}
 			}
 			$this->cargado = true;
 		}
+		return true;
 	}
 
 	public function esta_cargado()
