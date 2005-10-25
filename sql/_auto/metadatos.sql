@@ -490,13 +490,14 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 ------  'apex_objeto_dependencias'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_dependencias', 'pgsql_a01_nucleo.sql', 46, 'multiproyecto', NULL, '', 'objeto_consumidor, identificador', NULL, NULL, '', '1.0', NULL, NULL);
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'proyecto', 1, 'varchar(15)			NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'objeto_consumidor', 2, 'int4				NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'objeto_proveedor', 3, 'int4				NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'identificador', 4, 'varchar(20)			NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_a', 5, 'varchar(255)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_b', 6, 'varchar(255)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_c', 7, 'varchar(255)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'inicializar', 8, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'dep_id', 2, 'int4				DEFAULT nextval(\'\"apex_objeto_dep_seq\"\'::text) NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'objeto_consumidor', 3, 'int4				NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'objeto_proveedor', 4, 'int4				NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'identificador', 5, 'varchar(20)			NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_a', 6, 'varchar(255)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_b', 7, 'varchar(255)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'parametros_c', 8, 'varchar(255)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_dependencias', 'inicializar', 9, 'smallint			NULL,');
 
 ------  'apex_objeto_eventos'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_eventos', 'pgsql_a01_nucleo.sql', 47, 'multiproyecto', NULL, '', 'objeto, orden, identificador', NULL, NULL, '', '1.0', NULL, NULL);
@@ -615,6 +616,7 @@ INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_b
 INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_item_seq');
 INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_clase_tipo_seq');
 INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_objeto_seq');
+INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_objeto_dep_seq');
 INSERT INTO apex_mod_datos_secuencia (proyecto,secuencia) VALUES ('toba','apex_nucleo_tipo_seq');
 
 --######################################################################################

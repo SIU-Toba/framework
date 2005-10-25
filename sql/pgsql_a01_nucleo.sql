@@ -874,7 +874,7 @@ CREATE TABLE apex_clase
 	parametro_c						varchar(255)	NULL,
 	exclusivo_toba					smallint		NULL,
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
-	CONSTRAINT	"apex_clase_uq" UNIQUE	("clase"),
+	CONSTRAINT	"apex_clase_uq" UNIQUE 	("clase"),
 	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -1057,6 +1057,7 @@ CREATE TABLE apex_objeto_info
 );
 --#################################################################################################
 
+CREATE SEQUENCE apex_objeto_dep_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_dependencias
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1069,6 +1070,7 @@ CREATE TABLE apex_objeto_dependencias
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)			NOT NULL,
+	dep_id								int4				DEFAULT nextval('"apex_objeto_dep_seq"'::text) NOT NULL, 
 	objeto_consumidor					int4				NOT NULL,
 	objeto_proveedor					int4				NOT NULL,
 	identificador						varchar(20)			NOT NULL,
@@ -1076,7 +1078,9 @@ CREATE TABLE apex_objeto_dependencias
 	parametros_b						varchar(255)		NULL,
 	parametros_c						varchar(255)		NULL,
 	inicializar							smallint			NULL,
-	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","identificador"),
+	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","dep_id"),
+--	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","identificador"),
+	CONSTRAINT	"apex_objeto_depen_uq"	 UNIQUE  ("proyecto","objeto_consumidor","identificador"),
 	CONSTRAINT	"apex_objeto_depen_fk_objeto_c" FOREIGN KEY ("proyecto","objeto_consumidor") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_depen_fk_objeto_p" FOREIGN KEY ("proyecto","objeto_proveedor") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -1185,7 +1189,7 @@ CREATE TABLE apex_vinculo
 	imagen_recurso_origen			varchar(10)		NULL,			--	Lugar	donde	se	guardo la imagen:	toba o proyecto
 	imagen								varchar(60)		NULL,			--	path a la imagen
 	CONSTRAINT	"apex_vinc_pk"	PRIMARY KEY	("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto"),
---	  CONSTRAINT  "apex_vinc_pk" UNIQUE	KEY ("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto","indice"),
+--	  CONSTRAINT  "apex_vinc_pk" UNIQUE	 ("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto","indice"),
 	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,

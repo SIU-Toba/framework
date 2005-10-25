@@ -81,7 +81,7 @@ class ci_editor_php extends objeto_ci
 		echo "<br>";
 		if($this->archivo_php->existe()){
 			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
-			echo "<div style='padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
+			echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
 			$this->archivo_php->mostrar();
 			echo "</div>";
 		}

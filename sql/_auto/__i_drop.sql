@@ -164,6 +164,7 @@ DROP SEQUENCE apex_buffer_seq;
 DROP SEQUENCE apex_item_seq;
 DROP SEQUENCE apex_clase_tipo_seq;
 DROP SEQUENCE apex_objeto_seq;
+DROP SEQUENCE apex_objeto_dep_seq;
 DROP SEQUENCE apex_nucleo_tipo_seq;
 DROP SEQUENCE apex_solicitud_seq;
 DROP SEQUENCE apex_sesion_browser_seq;
