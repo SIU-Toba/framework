@@ -382,6 +382,8 @@ class ap_tabla_db extends ap
 			foreach(array_keys($this->proceso_carga_externa) as $carga)
 			{
 				$parametros = $this->proceso_carga_externa[$carga];
+				//Si la columna no solicito sincro continua, paso a la siguiente.
+				if(isset($evento)&& !($parametros["sincro_continua"])) continue;
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->secuencias[$col_llave])){
