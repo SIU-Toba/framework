@@ -173,7 +173,7 @@ class objeto_mt extends objeto
 					$this->estado_transaccion = false;
 					if($registrar_error){
                   $mensaje_original = $db[$this->info["fuente"]][apex_db_con]->ErrorMsg();
-                  $mensaje = $db[$this->info["fuente"]][apex_db]->obtener_error_toba(
+                  $mensaje = $db[$this->info["fuente"]][apex_db_con]->obtener_error_toba(
          							    $db[$this->info["fuente"]][apex_db_con]->ErrorNo(),
          							    $db[$this->info["fuente"]][apex_db_con]->ErrorMsg());
                   //Si el query-string no está encriptado, entonces consideramos que
