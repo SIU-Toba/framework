@@ -283,7 +283,7 @@ class hilo
 	function obtener_usuario_parametro($parametro)
 	{
 		$param = $this->obtener_usuario_parametros();
-		if(!isset($param[$parametro])){
+		if(($parametro != 'a')&&($parametro != 'b')&&($parametro != 'c')){
 			throw new excepcion_toba("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
 		}
 		return $param[$parametro];
