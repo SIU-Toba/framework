@@ -7,8 +7,11 @@ require_once('admin/admin_util.php');
 
 class ci_principal extends objeto_ci
 {
-	protected $cambio_item;
+	protected $cambio_item = false;
 	protected $id_item;
+	protected $cargado = false;
+	private $falla_carga = false;
+	private $elemento_eliminado = false;
 	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
 	
 	function __construct($id)
@@ -35,6 +38,7 @@ class ci_principal extends objeto_ci
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
+		$propiedades[] = "cargado";
 		$propiedades[] = "id_item";
 		return $propiedades;
 	}	
@@ -45,9 +49,14 @@ class ci_principal extends objeto_ci
 		if (! isset($this->dependencias['datos'])) {
 			$this->cargar_dependencia('datos');
 		}
-		if ($this->cambio_item){
+		if ($this->cambio_item && !$this->falla_carga){
 			toba::get_logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
-			$this->dependencias['datos']->cargar( $this->id_item );
+			if( $this->dependencias['datos']->cargar( $this->id_item ) ){
+				$this->cargado = true;
+				$this->cambio_item = false;
+			}else{
+				$this->falla_carga = true;	
+			}
 		}
 		return $this->dependencias['datos'];
 	}	
@@ -59,6 +68,14 @@ class ci_principal extends objeto_ci
 	
 	function generar_interface_grafica()
 	{
+		if($this->falla_carga === true){
+			echo ei_mensaje("El elemento seleccionado no existe.","error");
+			return;
+		}
+		if($this->elemento_eliminado){
+			echo ei_mensaje("El elemento ha sido eliminado.");
+			return;
+		}
 		$zona = toba::get_solicitud()->zona();
 		if (isset($this->id_item)) {
 			$zona->obtener_html_barra_superior();
@@ -68,7 +85,16 @@ class ci_principal extends objeto_ci
 			$zona->obtener_html_barra_inferior();
 		}
 	}	
-	
+
+	function get_lista_eventos()
+	{
+		$eventos = parent::get_lista_eventos();
+		if(!$this->cargado){
+			unset($eventos['eliminar']);
+		}
+		return $eventos;
+	}	
+
 	//-------------------------------------------------------------------
 	//--- PROPIEDADES BASICAS
 	//-------------------------------------------------------------------
@@ -236,6 +262,7 @@ class ci_principal extends objeto_ci
 	function evt__eliminar()
 	{
 		$this->get_entidad()->eliminar();
+		$this->elemento_eliminado = true;
 		admin_util::refrescar_editor_item();		
 	}
 	

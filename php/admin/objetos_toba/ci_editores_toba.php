@@ -7,7 +7,7 @@ abstract class ci_editores_toba extends objeto_ci
 	protected $id_objeto;
 	protected $cambio_objeto;
 	protected $cargado = false;
-	protected $falla_carga = false;
+	private $falla_carga = false;
 	private $elemento_eliminado = false;
 
 	function __construct($id)
@@ -38,10 +38,11 @@ abstract class ci_editores_toba extends objeto_ci
 		if (! isset($this->dependencias['datos'])) {
 			$this->cargar_dependencia('datos');
 		}
-		if($this->cambio_objeto && !$this->cargado && !$this->falla_carga){
+		if($this->cambio_objeto && !$this->falla_carga){
 			toba::get_logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
 			if( $this->dependencias['datos']->cargar( $this->id_objeto ) ){
 				$this->cargado = true;
+				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
 			}else{
 				$this->falla_carga = true;	
 			}
@@ -54,7 +55,6 @@ abstract class ci_editores_toba extends objeto_ci
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "id_objeto";
 		$propiedades[] = "cargado";
-		$propiedades[] = "falla_carga";
 		return $propiedades;
 	}	
 	
