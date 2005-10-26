@@ -25,6 +25,15 @@ class ef_popup extends ef_editable
 		$parametros["editable"]["descripcion"]="El valor es editable libremente por parte del usuario,".
 								" notar que la clave debe ser igual que el valor. La ventana de popup funciona sólo como una forma rápida de carga.";
 		$parametros["editable"]["opcional"]=1;	
+		$parametros["sql"]["etiqueta"]="SQL recup. descripcion";
+		$parametros["sql"]["descripcion"]="SQL utilizado para recuperar la descripcion en la modificacion del registro.".
+											" (En el alta la descripcion la proveia el POPUP)\n".
+											" ATENCION, el query tiene que devolver ID y DESCRIPCION, en este orden; y tiene que tener la cadena %w%".
+											" en el lugar donde debe insertar el WHERE de filtrado por clave";
+		$parametros["sql"]["opcional"]=1;
+		$parametros["columna_clave"]["etiqueta"]="SQL recup. descripcion (CLAVE)";
+		$parametros["columna_clave"]["descripcion"]="CLAVE del Query utilizado para recuperar la descripcion";
+		$parametros["columna_clave"]["opcional"]=1;
 		return $parametros;
 	}
 
@@ -162,6 +171,12 @@ class ef_popup extends ef_editable
     function cargar_estado($estado=null)
     {
         parent::cargar_estado($estado);
+		/*
+			ATENCION, el hecho de que la obtencion de estado se cargue aca implica que
+			se puede llamar dos veces en el mismo request. Aparentemente no tiene sentido
+			excepto que se relacione con un pisado de la clave ('$this->estado') de mas abajo.
+			Aparentemente no tiene sentido.
+		*/
         $this->obtener_descripcion_estado();                    
     }   
     
@@ -181,7 +196,6 @@ class ef_popup extends ef_editable
             $this->descripcion_estado = ''; 
             return;
         }                                                                              
-
         if (isset($this->sql)) {
             $where_adj = array();
             if (isset($this->columna_clave)) {
@@ -190,26 +204,22 @@ class ef_popup extends ef_editable
             } else {
                 $temp_sql = sql_agregar_clausulas_where($this->sql, "");
 			}
-            
-            global $ADODB_FETCH_MODE, $db;
-            $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-
-            $rs = $db[$this->fuente][apex_db_con]->Execute($temp_sql); 
-            
-            if(!$rs) {   
-                monitor::evento("bug","EF_POPUP: No se genero el recordset. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: {$this->sql} -- ");
-            }
-            if($rs->EOF){
-                echo ei_mensaje("EF etiquetado '" . $this->etiqueta . "'<br>No se obtuvieron registros: ". $this->sql);
-            }
-            $this->estado = $rs->fields[0];  
-            $this->descripcion_estado = $rs->fields[1];
+			try{
+				$datos = consultar_fuente($temp_sql,$this->fuente,ADODB_FETCH_NUM);
+				if(count($datos)>0){
+		            $this->estado = $datos[0][0];  
+					$this->descripcion_estado = $datos[0][1];
+				}else{
+					$this->descripcion_estado = 'ERROR: No se pudo recuperar la DESCRIPCION (No hay registros)';
+				}
+			}catch( excepcion_toba $e){
+				$this->descripcion_estado = 'ERROR SQL' . $e->getMessage();
+			}
         } else {
             $this->descripcion_estado = $this->estado;
         }     
     }
-
-    
+   
 }
 //########################################################################################################
 //########################################################################################################

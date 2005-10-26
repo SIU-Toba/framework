@@ -6,6 +6,7 @@
 			echo " datos = new Object();\n";
 			foreach($respuesta as $id => $valor)
 			{
+				$valor = str_replace("\"","'",$valor);
 				echo "datos['$id'] = \"$valor\";\n";	
 			}
 			echo " responder_consulta(datos);\n";

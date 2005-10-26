@@ -179,6 +179,7 @@
 			$js .= " $nombre = new Object();\n";
 			foreach($array as $id => $valor)
 			{
+				$valor = str_replace("\"","'",$valor);
 				if ($es_objeto)
 					$valor_js = $valor;
 				else
