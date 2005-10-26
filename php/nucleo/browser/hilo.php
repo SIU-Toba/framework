@@ -276,6 +276,30 @@ class hilo
 		return $_SESSION['toba']["usuario"]["id"];
 	}
     
+    /**
+    	Devuelve un parametro del usuario.
+    	Los parametros pueden ser (a,b,c)
+    */
+	function obtener_usuario_parametro($parametro)
+	{
+		$param = $this->obtener_usuario_parametros();
+		if(!isset($param[$parametro])){
+			throw new excepcion_toba("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
+		}
+		return $param[$parametro];
+	}
+	
+	/*
+		Devuelve todos los parametros del usuario
+	*/
+	function obtener_usuario_parametros()
+	{
+		$param['a'] = $_SESSION['toba']["usuario"]["parametro_a"];
+		$param['b'] = $_SESSION['toba']["usuario"]["parametro_b"];
+		$param['c'] = $_SESSION['toba']["usuario"]["parametro_c"];
+		return $param;
+	}
+
 	function obtener_usuario_nivel_acceso()
 /*
  	@@acceso: actividad
