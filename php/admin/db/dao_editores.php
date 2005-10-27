@@ -207,6 +207,32 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 	
+	
+	/**
+	*	Retorna la lista de items en un formato adecuado para un combo
+	*/
+	static function get_items_para_combo()
+	{
+		require_once("nucleo/lib/arbol_items.php");
+		$catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
+		$catalogador->ordenar();		
+		foreach($catalogador->items() as $item) {
+			if (! $item->es_carpeta()) {
+				$nivel = $item->nivel() - 1;
+				if($nivel >= 1){
+					$inden = "&nbsp;" . str_repeat("&nbsp" . str_repeat("&nbsp;",8), $nivel -1) . "|__&nbsp;";
+				}else{
+					$inden = "";
+				}
+				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+									'id' => $item->id(), 
+									'padre' => $item->id_padre(),
+									'descripcion' => $inden . $item->nombre());
+			}
+		}
+		return $datos;		
+	}
+		
 	/**
 	*	Retorna la lista de carpetas en un formato adecuado para un combo
 	*/
@@ -225,6 +251,7 @@ class dao_editores
 				}
 				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
 									'id' => $carpeta->id(), 
+									'padre' => $carpeta->id(),		//Necesario para el macheo por agrupacion
 									'nombre' => $inden . $carpeta->nombre());
 			}
 		}

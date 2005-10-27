@@ -17,17 +17,29 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function select($nombre,$actual,$datos,$clase="ef-combo", $extra="")
+    function select($nombre,$actual,$datos,$clase="ef-combo", $extra="", $categorias=null)
     //Combo STANDART. recibe el listado en un array asociativo
     {
         if(!is_array($datos)){//Si datos no es un array, no puedo seguir
             $datos[""]="";
         }
         $combo = "<select name='$nombre' id='$nombre' class='$clase' $extra>\n";
-        foreach ($datos as $id => $desc){
-            $s = ($id == $actual) ? "selected" : "";
-            $combo .= "<option value='$id' $s>$desc</option>\n";
-        }
+		if (!isset($categorias)) {
+	        foreach ($datos as $id => $desc){
+	            $s = ($id == $actual) ? "selected" : "";
+	            $combo .= "<option value='$id' $s>$desc</option>\n";
+	        }
+		} else {
+			foreach ($categorias as $categoria => $valores) {
+				$combo .= "<optgroup label='$categoria'>\n";
+				foreach ($valores as $id) {
+		            $s = ($id == $actual) ? "selected" : "";
+		            $desc = $datos[$id];
+		            $combo .= "<option value='$id' $s>$desc</option>\n";
+				}
+				$combo .= "</optgroup>\n";
+			}
+		}
         $combo .= "</select>\n";
         return $combo;
     }

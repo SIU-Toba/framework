@@ -60,6 +60,14 @@ class casos_web extends objeto_ci
 			return $this->selecciones;
 	}	
 	
+	function obtener_html_dependencias()
+	{
+		$test_js = toba::get_vinculador()->obtener_vinculo_a_item('toba', '/pruebas/testing_automatico_js',
+																	 null, true);
+		parent::obtener_html_dependencias();
+		echo "<br>".$test_js;
+	}
+	
 	function obtener_html_contenido__2()
 	{
 		echo "<div style='background-color: white; border: 1px solid black; text-align: left; padding: 15px'>";

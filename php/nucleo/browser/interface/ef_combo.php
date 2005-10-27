@@ -27,6 +27,7 @@ class ef_combo extends ef
 	var $valores;				//Array con valores de la lista
 	var $predeterminado;		//Si el combo tiene predeterminados, tengo que inicializarlo
 	var $no_seteado;
+	protected $categorias;
 	
 	static function get_parametros()
 	{
@@ -190,22 +191,21 @@ class ef_combo extends ef
 	{
 		$estado = $this->obtener_estado_input();
 		//ei_arbol($this->valores);
-        if ($this->solo_lectura)
-        {
-				if (count($this->valores) > 0){
-					$valores = $this->valores;
-				}else{
-					$valores = array($this->no_seteado);
-				}
-	        	$input = form::select("",$estado, $valores, "ef-combo", "disabled");	
-				if ($estado == "")
-					$estado = apex_ef_no_seteado;
-				$input .= form::hidden($this->id_form, $estado);
+        if ($this->solo_lectura) {
+			if (count($this->valores) > 0){
+				$valores = $this->valores;
+			}else{
+				$valores = array($this->no_seteado);
+			}
+        	$input = form::select("",$estado, $valores, "ef-combo", "disabled");	
+			if ($estado == "")
+				$estado = apex_ef_no_seteado;
+			$input .= form::hidden($this->id_form, $estado);
             return $input;
-        }else{
-				$html = $this->obtener_javascript_general() . "\n\n";
-				$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() . $this->input_extra );
-				return $html;
+        } else {
+        	$html = $this->obtener_javascript_general() . "\n\n";
+			$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $this->obtener_javascript_input() . $this->input_extra, $this->categorias);
+			return $html;
         }
 	}
 
@@ -293,6 +293,12 @@ class ef_combo_dao extends ef_combo
 	private $opcion_seleccionada;
 	private $estado_nulo;
 	private $cantidad_claves;
+	
+	private $agrupador_clave;
+	private $agrupador_valor;
+	private $agrupador_dao;
+	private $agrupador_clase;
+	private $agrupador_include;
 
 	static function get_parametros()
 	{
@@ -319,13 +325,31 @@ class ef_combo_dao extends ef_combo
 		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
 		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
 		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";		
+		$parametros["dependencias"]["etiqueta"]="Dependencias";	
+
+		$parametros["agrupador_dao"]["descripcion"]="Método de donde se obtienen las distintas categorias para agrupar.";
+		$parametros["agrupador_dao"]["opcional"]=0;	
+		$parametros["agrupador_dao"]["etiqueta"]="Agrupador - Método";	
+		$parametros["agrupador_clase"]["descripcion"]="Nombre de la clase";
+		$parametros["agrupador_clase"]["opcional"]=1;	
+		$parametros["agrupador_clase"]["etiqueta"]="Agrupador - Clase";	
+		$parametros["agrupador_include"]["descripcion"]="Archivo donde se encuentra definida la clase";
+		$parametros["agrupador_include"]["opcional"]=1;	
+		$parametros["agrupador_include"]["etiqueta"]="Agrupador - Include";	
+		$parametros["agrupador_clave"]["descripcion"]="Indica que INDICES de la matriz de grupos se utilizaran como CLAVE (Si son varios separar con comas). ".
+													  "Estas claves tienen que estar presentes tanto en el dao como en el agrupador";
+		$parametros["agrupador_clave"]["opcional"]=0;	
+		$parametros["agrupador_clave"]["etiqueta"]="Agrupador - resultado: CLAVE";	
+		$parametros["agrupador_valor"]["descripcion"]="Indica que INDICE de la matriz de grupos se utilizara como DESCRIPCION";
+		$parametros["agrupador_valor"]["opcional"]=0;	
+		$parametros["agrupador_valor"]["etiqueta"]="Agrupador - resultado: DESC.";
 		return $parametros;
 	}
 
 	function ef_combo_dao($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$parametros['valores'] = array();
+	
 		if(isset($parametros["dao"])){
 			$this->dao = $parametros["dao"];
 		}
@@ -349,6 +373,30 @@ class ef_combo_dao extends ef_combo
 		unset($parametros["dao"]);
 		unset($parametros["clase"]);
 		unset($parametros["include"]);
+		
+		//--- AGRUPADOR
+		if(isset($parametros["agrupador_clave"])){
+			$this->agrupador_clave = explode(',',$parametros["agrupador_clave"]);
+			$this->agrupador_clave = array_map("trim",$this->agrupador_clave);			
+			unset($parametros["agrupador_clave"]);
+		}
+		if(isset($parametros["agrupador_valor"])){
+			$this->agrupador_valor = $parametros["agrupador_valor"];
+			unset($parametros["agrupador_valor"]);
+		}
+		if(isset($parametros["agrupador_dao"])){
+			$this->agrupador_dao = $parametros["agrupador_dao"];
+			unset($parametros["agrupador_dao"]);
+		}
+		if(isset($parametros["agrupador_include"])){
+			$this->agrupador_include = $parametros["agrupador_include"];
+			unset($parametros["agrupador_include"]);
+		}
+		if(isset($parametros["agrupador_clase"])){
+			$this->agrupador_clase = $parametros["agrupador_clase"];
+			unset($parametros["agrupador_clase"]);
+		}		
+		
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 		
 		//---------------------- Manejo de CLAVES compuestas ------------------
@@ -473,6 +521,16 @@ class ef_combo_dao extends ef_combo
 	function adjuntar_datos($valores)
 	//ATENCION: Las claves de los combos, hay que encriptarlas?
 	{
+		if (isset($this->agrupador_dao)) {
+			//Creo las categorias
+			require_once($this->agrupador_include);
+			$grupos = call_user_func(array($this->agrupador_clase, $this->agrupador_dao));
+			$carpetas = dao_editores::get_carpetas_posibles();
+			$this->categorias = array();			
+			foreach ($grupos as $grupo) {
+				$this->categorias[$grupo[$this->agrupador_valor]] = array();
+			}
+		}
 		//-[ 0 ]- Incluyo el valor no seteado
 		if(isset($this->no_seteado)){
 			$this->valores[apex_ef_no_seteado] = $this->no_seteado;
@@ -497,6 +555,23 @@ class ef_combo_dao extends ef_combo
 				$id = substr($id,0,strlen($id)-strlen(apex_ef_separador));
 				//Adjunto los DATOS
 				$this->valores[ $id ] = $valores[$a][$this->valor];
+				
+				//Busco la categoria donde encaja
+				if (isset($grupos)) {
+					foreach ($grupos as $grupo) {
+						//Hace el macheo de claves
+						$igual = true;
+						for($c=0;$c<count($this->agrupador_clave);$c++) {
+							//Si el item pertenece a este grupo lo agrega
+							if ($grupo[$this->agrupador_clave[$c]] != $valores[$a][$this->agrupador_clave[$c]]) {
+								$igual = false;
+							}
+						}
+						if ($igual) {
+							$this->categorias[$grupo[$this->agrupador_valor]][] = $id;
+						}
+					}
+				}
 			}
 		}else{
 			//La clave es SIMPLE
