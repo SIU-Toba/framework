@@ -14,10 +14,10 @@ class hilo_version_test extends hilo
 		$this->sincronizada[$indice] = $datos;
 	}
 	
-	function recuperar_dato($indice)
+	function recuperar_dato_sincronizado($indice)
 	{
-		return $this->sincronizada[$indice];
-	}	
+		return $this->sincronizada[$indice];			
+	}
 	
 
 }

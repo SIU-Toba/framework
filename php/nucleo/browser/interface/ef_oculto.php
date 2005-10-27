@@ -22,7 +22,11 @@ class ef_oculto extends ef
 
 	static function get_parametros()
 	{
-		return array();
+		$parametros = array();
+		$parametros['estado']['descripcion'] = "Valor fijo que toma el ef";
+		$parametros['estado']['opcional'] = 1;
+		$parametros['estado']['etiqueta'] = "Estado";
+		return $parametros;
 	}
 
 	function ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)

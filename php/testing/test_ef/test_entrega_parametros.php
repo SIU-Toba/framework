@@ -23,16 +23,24 @@ class test_entrega_parametros extends test_toba
 			try{
 				$rc = new ReflectionClass($clase);
 				try{
-					$rm = $rc->getMethod($metodo_recuperacion);
-					
-					//$parametros = $rm->invoke($metodo_recuperacion);//No sirve porque no lo invoca estaticamente
-					$sentencia = "\$parametros = $clase::$metodo_recuperacion();";
-					eval($sentencia);
-					if(is_array($parametros)){
-						
-					}else{
-						$this->fail("El metodo de la clase '$clase' no devuelve un array.");
+					$metodos = $rc->getMethods();
+					$encontrado = false;
+					foreach ($metodos as $metodo) {
+						if ($metodo->getName() == $metodo_recuperacion)
+							$encontrado = true;
 					}
+					/*
+					if ($encontrado) {
+						$sentencia = "\$parametros = $clase::$metodo_recuperacion();";
+						eval($sentencia);
+						$parametros = call_user_func(array($clase, $metodo_recuperacion));
+						if(! is_array($parametros)){
+							$this->fail("El metodo de la clase '$clase' no devuelve un array.");
+						}
+					} else {
+						$this->fail("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.");
+					}
+					*/
 				}catch(Exception $e){
 //					echo("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.<br>");
 					$this->fail("El metodo '$metodo_recuperacion' no existe en la clase '$clase' no existe.");

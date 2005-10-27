@@ -10,7 +10,12 @@ class test_dba extends test_toba
 	
 	function SetUp()
 	{
-		abrir_transaccion();	
+		abrir_transaccion("instancia");	
+	}
+	
+	function TearDown()
+	{
+		abortar_transaccion("instancia");	
 	}
 	
 	function test_conexion_fuente_inexistente()

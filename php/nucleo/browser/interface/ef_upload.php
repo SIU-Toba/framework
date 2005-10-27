@@ -8,6 +8,11 @@ class ef_upload extends ef
 		parent :: __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
 	}
     
+	static function get_parametros()
+	{
+		return array();	
+	}
+	
 	function obtener_info()
 	{
 		if($this->activado()){

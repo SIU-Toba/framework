@@ -101,9 +101,7 @@ class ef //Clase abstracta, padre de todos los EF
 
 	static function get_parametros()
 	{
-		$parametros["dependencias"]["descripcion"]="";
-		$parametros["dependencias"]["opcional"]="";	
-		$parametros["dependencias"]["etiqueta"]="";	
+		$parametros = array();
 		return $parametros;
 	}
 

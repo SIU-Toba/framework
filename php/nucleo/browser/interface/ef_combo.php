@@ -33,6 +33,9 @@ class ef_combo extends ef
 		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo";
 		$parametros["no_seteado"]["opcional"]=1;	
 		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros['valores']['descripcion'] = 'Lista de valores estáticos a incluir';
+		$parametros['valores']['opcional'] = 1;
+		$parametros['valores']['etiqueta'] = 'Valores fijos';
 		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
 		$parametros["predeterminado"]["opcional"]=1;	
 		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";	
@@ -965,11 +968,9 @@ class ef_combo_db_ayuda extends ef_combo_db
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		$parametros[""]["etiqueta"]="";	
-		return $parametros;
-	}
+		$parametros = ef_combo_db::get_parametros();
+		$parametros["sql"]["descripcion"]="Query que carga al combo. Tiene que devolver 3 columnas (claves, descripcion, ayuda)";
+		return $parametros;	}
 
 	function ef_combo_db_ayuda($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{

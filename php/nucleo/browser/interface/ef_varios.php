@@ -953,15 +953,22 @@ class ef_html extends ef
 
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
+		$parametros["ancho"]["descripcion"]= "Ancho, especificar medida ej. 450px o 80%";
+		$parametros["ancho"]["opcional"] = 1;	
+		$parametros["ancho"]["etiqueta"] = "Ancho";
+		$parametros["alto"]["descripcion"]= "Alto, especificar medida ej. 450px o 80%";
+		$parametros["alto"]["opcional"] = 1;	
+		$parametros["alto"]["etiqueta"] = "Alto";			
+		$parametros["botonera"]["descripcion"] = "Tipo de botonera (por defecto toba";	
+		$parametros["botonera"]["opcional"] = 1;	
+		$parametros["botonera"]["etiqueta"] = "Botonera";
 		return $parametros;
 	}
 
 	function ef_html($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		$this->ancho = (isset($parametros["ancho"]))? $parametros["ancho"] : "100%";
-		$this->alto = (isset($parametros["alto"]))? $parametros["alto"] : "300";
+		$this->alto = (isset($parametros["alto"]))? $parametros["alto"] : "300px";
 		$this->botonera = (isset($parametros["botonera"]))? $parametros["botonera"] : "Toba";
          parent::ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}

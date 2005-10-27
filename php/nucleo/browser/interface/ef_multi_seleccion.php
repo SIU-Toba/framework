@@ -63,6 +63,9 @@ class ef_multi_seleccion extends ef
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";		
+		$parametros["valores"]["descripcion"] = "Valores que se muestran si no se cargan datos";
+		$parametros["valores"]["opcional"] = 1;	
+		$parametros["valores"]["etiqueta"] = "Valores Estáticos";				
 		return $parametros;
 	}
 

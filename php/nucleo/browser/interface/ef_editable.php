@@ -63,7 +63,10 @@ class ef_editable extends ef
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
 		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";				
+		$parametros["dependencias"]["etiqueta"]="Dependencias";
+		$parametros["estilo"]["descripcion"]="Clase css a aplicar al elemento";
+		$parametros["estilo"]["opcional"]=1;	
+		$parametros["estilo"]["etiqueta"]="Estilo CSS";		
 		return $parametros;
 	}
 
@@ -420,36 +423,15 @@ class ef_editable_numero extends ef_editable
 
 	static function get_parametros()
 	{
-		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
+		$parametros = ef_editable_numero::get_parametros();
+		unset($parametros['tamano']);
+		$parametros["cifras"]["descripcion"]="Cantidad maxima de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
 		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
 		$parametros["rango"]["descripcion"]="Rango valido de valores.";
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores";
-		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
-		$parametros["sql"]["opcional"]=1;	
-		$parametros["sql"]["etiqueta"]="Carga SQL: select";
-		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["fuente"]["opcional"]=1;	
-		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
-		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
-		$parametros["dao"]["opcional"]=1;	
-		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
-		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
-		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="Carga Dao: include";
-		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
-		$parametros["estado"]["opcional"]=1;	
-		$parametros["estado"]["etiqueta"]="Valor defecto";
-		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
-		$parametros["solo_lectura"]["opcional"]=1;	
-		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
 		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00";
-		$parametros["mascara"]["opcional"]=1;
-		$parametros["mascara"]["etiqueta"]="Máscara";
 		return $parametros;
 	}
 
@@ -622,33 +604,7 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 	
 	static function get_parametros()
 	{
-		$parametros["cifras"]["descripcion"]="Cantidad de caracteres.";
-		$parametros["cifras"]["opcional"]=1;	
-		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
-		$parametros["rango"]["descripcion"]="Rango valido de valores.";
-		$parametros["rango"]["opcional"]=1;	
-		$parametros["rango"]["etiqueta"]="Rango de valores";
-		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
-		$parametros["sql"]["opcional"]=1;	
-		$parametros["sql"]["etiqueta"]="Carga SQL: select";
-		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["fuente"]["opcional"]=1;	
-		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
-		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
-		$parametros["dao"]["opcional"]=1;	
-		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
-		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
-		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="Carga Dao: include";
-		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
-		$parametros["estado"]["opcional"]=1;	
-		$parametros["estado"]["etiqueta"]="Valor defecto";
-		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
-		$parametros["solo_lectura"]["opcional"]=1;	
-		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
+		$parametros = ef_editable_numero::get_parametros();
 		return $parametros;
 	}
 
@@ -751,27 +707,8 @@ class ef_editable_fecha extends ef_editable
 {
 	static function get_parametros()
 	{
-		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
-		$parametros["sql"]["opcional"]=1;	
-		$parametros["sql"]["etiqueta"]="Carga SQL: select";
-		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["fuente"]["opcional"]=1;	
-		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
-		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
-		$parametros["dao"]["opcional"]=1;	
-		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
-		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
-		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="Carga Dao: include";
-		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
-		$parametros["estado"]["opcional"]=1;	
-		$parametros["estado"]["etiqueta"]="Valor defecto";
-		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
-		$parametros["solo_lectura"]["opcional"]=1;	
-		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
+		$parametros = ef_editable::get_parametros();
+		unset($parametros['tamano']);
 		return $parametros;
 	}
 
