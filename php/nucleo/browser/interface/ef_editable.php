@@ -545,20 +545,6 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 		}
 	}
 
-	function obtener_input()
-	{
-		if(isset($this->estado)){
-			if($this->estado=="NULL"){
-				$estado="";
-			}else{
-				$estado=$this->estado;
-			}
-		}else{
-			$estado = null;
-		}
-		$html = form::text($this->id_form,$estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo);
-		return $html;
-	}
 	
 	function parametros_js()
 	{
