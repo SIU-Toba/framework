@@ -168,16 +168,12 @@ class ef_multi_seleccion extends ef
 	   		}
 	    	$this->valores[apex_ef_no_seteado] = $this->no_seteado;
         }
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$rs = $db[$this->fuente][apex_db_con]->Execute($this->sql);
-		if(!$rs){
-			monitor::evento("bug","COMBO DB: No se genero el recordset. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: {$this->sql} -- ");
-		}
-		if($rs->EOF){
+
+		$rs = toba::get_db($this->fuente)->consultar($this->sql, apex_db_numerico);
+		if (empty($rs)) {
 			//echo ei_mensaje("EF etiquetado '$etiqueta'<br> No se obtuvieron registros: ". $this->sql);
 		}
-		$temp = $this->preparar_valores($rs->getArray());
+		$temp = $this->preparar_valores($rs);
 		if(is_array($temp)){
 			$this->valores = $this->valores + $temp;
 		}

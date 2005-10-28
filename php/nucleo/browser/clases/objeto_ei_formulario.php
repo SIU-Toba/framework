@@ -31,6 +31,7 @@ class objeto_ei_formulario extends objeto_ei
 	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
 	protected $id_en_padre;
+	protected $etapa;				
 
 	function __construct($id)
 /*
@@ -625,6 +626,15 @@ class objeto_ei_formulario extends objeto_ei
 			$this->set_evento_defecto('modificacion');
 		}
 		return $eventos;     
+	}
+	
+	/**
+	*	Fuerza una etapa específica
+	*	@param string La etapa puede ser 'agregar' o 'modificar'. Esto cambia los eventos que listan
+	*/
+	function set_etapa($etapa)
+	{
+		$this->etapa = $etapa;
 	}
 	
 	//-------------------------------------------------------------------------------

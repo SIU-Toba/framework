@@ -207,16 +207,11 @@ class ef_editable extends ef
 	
 	function cargar_datos_db()
 	{
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		$rs = $db[$this->fuente][apex_db_con]->Execute($this->sql);
-		if(!$rs){
-			monitor::evento("bug","EF_EDITABLE: No se genero el recordset. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: {$this->sql} -- ");
-		}
-		if($rs->EOF){
+		$rs = toba::get_db($this->fuente)->consultar($this->sql, apex_db_numerico);
+		if(empty($rs)){
 			echo ei_mensaje("EF etiquetado '" . $this->etiqueta . "'<br> No se obtuvieron registros: ". $this->sql);
 		}
-		$this->estado = $rs->fields[0];
+		$this->estado = $rs[0][0];
 	}
 
 	function cargar_datos_master_ok()
