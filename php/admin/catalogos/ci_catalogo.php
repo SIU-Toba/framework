@@ -3,6 +3,7 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 require_once('admin/catalogos/album_fotos.php');
 require_once('api/elemento_item.php');
 
+define('apex_foto_inicial', '-- Completo --');
 //----------------------------------------------------------------
 /**
 *	Una clase general para el manejo de catalogo de item/objetos
@@ -13,7 +14,7 @@ abstract class ci_catalogo extends objeto_ci
 	protected $apertura;			//Ultima apertura creada
 	protected $apertura_selecc;		//Seleccion explicita de apertura
 	protected $album_fotos;
-
+	
 	function __construct($id)
 	{
 		parent::__construct($id);
@@ -84,8 +85,12 @@ abstract class ci_catalogo extends objeto_ci
 		$fotos = $this->album_fotos->fotos();
 		if (count($fotos) > 0) {
 			$this->dependencias['fotos']->colapsar();
+			$esta_la_inicial = false;
 			//Se incluyen la imagen de predeterminada
 			foreach ($fotos as $id => $foto) {
+				if ($foto['foto_nombre'] == apex_foto_inicial) {
+					$esta_la_inicial = true;
+				}
 				if ($foto['predeterminada'] == 1) {
 					$fotos[$id]['defecto'] = "home.gif";
 					//Carga la por defecto
@@ -98,9 +103,18 @@ abstract class ci_catalogo extends objeto_ci
 				else 
 					$fotos[$id]['defecto'] = 'nulo.gif';
 			}
+			
+			if (!$esta_la_inicial) {
+				//Si no esta la foto inicial, se agrega y se carga de nuevo
+				$this->agregar_foto_inicial();
+				return $this->evt__fotos__carga();
+			}
+			
 			return $fotos;
 		}
 	}
+	
+	abstract function agregar_foto_inicial();
 	
 	function evt__fotos__seleccion($nombre)
 	{

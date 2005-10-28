@@ -552,7 +552,8 @@ class objeto_ei_formulario extends objeto_ei
 			foreach ($this->lista_ef_ocultos as $ef) {
 				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
 			}
-			echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
+			$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "";
+			echo "<table class='objeto-base' width='$ancho' id='{$this->objeto_js}_cont'>";
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";

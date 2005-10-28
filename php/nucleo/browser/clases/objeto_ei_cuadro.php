@@ -866,11 +866,11 @@ class objeto_ei_cuadro extends objeto_ei
 		echo form::hidden($this->submit_paginado, '');
 		//-- Scroll       
         if($this->info_cuadro["scroll"]){
-			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "500";
+			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
 			$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
 			echo "<div style='overflow: auto; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>\n";
 		}else{
-			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "100";
+			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
 		}
 		//-- Tabla BASE
 		$mostrar_cabecera = true;

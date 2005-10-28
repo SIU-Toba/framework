@@ -64,6 +64,14 @@ class ci_catalogo_items extends ci_catalogo
 	{
 		unset($this->item_seleccionado);
 	}
+	
+	//-------------------------------
+	//---- Fotos --------------------
+	//-------------------------------
+	function agregar_foto_inicial()
+	{
+		$this->album_fotos->agregar_foto(apex_foto_inicial, array(), array(), false);
+	}
 		
 	//-------------------------------
 	//---- Listado de items ----
