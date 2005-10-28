@@ -3,13 +3,32 @@ require_once('admin/objetos_toba/ci_editores_toba.php');
 
 class ci_principal extends ci_editores_toba
 {
-
+	protected $ef_seleccionado;
+	
+	function __construct($id)
+	{
+		parent::__construct($id);
+		$ef = toba::get_hilo()->obtener_parametro('ef');
+		//¿Se selecciono un ef desde afuera?
+		if (isset($ef)) {
+			$this->ef_seleccionado = $ef;
+		}
+	}
+		
 	function destruir()
 	{
 		parent::destruir();
 		//ei_arbol($this->get_entidad()->tabla('efss')->info(true),"efsS");
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
+	
+	function get_etapa_actual()
+	{
+		if (isset($this->ef_seleccionado)) {
+			return 2;	//Si se selecciono un ef desde afuera va a la pantalla de edición de ef
+		} 
+		return parent::get_etapa_actual();
+	}	
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
@@ -39,6 +58,14 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//** Dialogo con el CI de EFs  **************************************
 	//*******************************************************************
+	
+	//Antes de cargar los datos de los efs, ver si alguno particular se selecciono desde afuera
+	function evt__pre_cargar_datos_dependencias__2()
+	{
+		if (isset($this->ef_seleccionado)) {
+			$this->dependencias['efs']->seleccionar_ef($this->ef_seleccionado);
+		}
+	}	
 	
 	function evt__salida__2()
 	{

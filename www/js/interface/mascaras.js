@@ -456,7 +456,7 @@ mascara_generica.prototype.pre_evento_tecla = function (e, o){
 }
 
 mascara_generica.prototype.onKeyPress = function(valor, borro) {
-	this.value = this.setGeneric(o.value, d);
+	this.value = this.setGeneric(valor, borro);
 }
 
 mascara_generica.prototype.setGeneric = function (_v, _d){

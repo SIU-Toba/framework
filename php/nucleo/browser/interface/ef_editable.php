@@ -39,7 +39,7 @@ class ef_editable extends ef
 		$parametros["maximo"]["etiqueta"]="Max. Caract.";
 		$parametros["mascara"]["descripcion"]="Mascara del elemento.";
 		$parametros["mascara"]["opcional"]=1;	
-		$parametros["mascara"]["etiqueta"]="Descripcion";
+		$parametros["mascara"]["etiqueta"]="Máscara";
 		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
 		$parametros["sql"]["opcional"]=1;	
 		$parametros["sql"]["etiqueta"]="Carga SQL: select";
@@ -423,7 +423,7 @@ class ef_editable_numero extends ef_editable
 
 	static function get_parametros()
 	{
-		$parametros = ef_editable_numero::get_parametros();
+		$parametros = ef_editable::get_parametros();
 		unset($parametros['tamano']);
 		$parametros["cifras"]["descripcion"]="Cantidad maxima de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
