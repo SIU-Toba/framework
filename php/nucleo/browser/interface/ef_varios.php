@@ -25,7 +25,6 @@ class ef_checkbox extends ef
     var $valor;
     var $valor_no_seteado;
     var $valor_info;
-	var $predeterminado="";
     
 	static function get_parametros()
 	{
@@ -45,7 +44,8 @@ class ef_checkbox extends ef
     {
 		//VAlor FIJO
 		if(isset($parametros["estado"])){
-			$this->predeterminado= $parametros["estado"];		
+			$this->estado_defecto = $parametros["estado"];		
+			$this->estado = $this->estado_defecto;
 		}
 		if (isset($parametros["valor"])){
 		    $this->valor = $parametros["valor"];
@@ -73,9 +73,6 @@ class ef_checkbox extends ef
     
      function obtener_input()
     {
-         if(!isset($this->estado) || $this->estado == "NULL")
-			$this->estado = $this->predeterminado;
-         
          if ($this->solo_lectura) 
          {
 		 	if ($this->estado != "")

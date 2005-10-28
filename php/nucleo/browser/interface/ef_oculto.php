@@ -35,7 +35,8 @@ class ef_oculto extends ef
 		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
 		//Estado directo
 		if(isset($parametros["estado"])){
-			$this->estado = $parametros["estado"];
+			$this->estado_defecto = $parametros["estado"];
+			$this->estado = $this->estado_defecto;
 		}		
 		$this->cargar_estado();
 	}
@@ -70,6 +71,9 @@ class ef_oculto extends ef
 		$solicitud->hilo->eliminar_dato_sincronizado($this->clave_memoria());
 		if(isset($this->estado)){
 			unset($this->estado);
+		}
+		if (isset($this->estado_defecto)) {
+			$this->estado = $this->estado_defecto;	
 		}
 	}
 

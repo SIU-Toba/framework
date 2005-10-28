@@ -37,6 +37,7 @@ class ef //Clase abstracta, padre de todos los EF
 	var $id_form;	    		// ID a utilizar en el FORM
 	var $dato;          		// NOMBRE del DATO que esta manejando el ELEMENTO (si es un DATO compuesto, es un array)
 	var $estado;	    		// Estado ACTUAL del ELEMETO (Si el DATO es compuesto, es un array)
+	protected $estado_defecto;	
 	var $obligatorio;			// Flag que indica SI se el ELEMENTO representa un valor obligatorio
 	var $validacion=true;		// Flag que indica el estado de la validacion realizada sobre el estado
 	var $solo_lectura;      	// Flag que indica si el objeto se debe deshabilitar cuando se muestra
@@ -483,6 +484,10 @@ class ef //Clase abstracta, padre de todos los EF
 	{
 		if($this->activado()){
 			unset($this->estado);
+		}
+		//En caso que el ef tenga un estado por defecto, se setea
+		if (isset($this->estado_defecto)) {
+			$this->estado = $this->estado_defecto;	
 		}
 	}
 

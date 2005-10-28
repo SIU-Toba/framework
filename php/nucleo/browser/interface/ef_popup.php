@@ -187,6 +187,9 @@ class ef_popup extends ef_editable
 			unset($this->estado);
             unset($this->descripcion_estado);
 		}
+		if (isset($this->estado_defecto)) {
+			$this->estado = $this->estado_defecto;	
+		}
 	}
 
     //Carga la descripcion desde la base de datos en base al estado actual

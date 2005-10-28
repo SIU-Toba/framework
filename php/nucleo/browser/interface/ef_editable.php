@@ -80,7 +80,8 @@ class ef_editable extends ef
 		}
 		//VAlor FIJO
 		if(isset($parametros["estado"])){
-			$this->estado = $parametros["estado"];		
+			$this->estado_defecto = $parametros["estado"];
+			$this->estado = $this->estado_defecto;
 		}
 		//Tamaño del editable
 		$this->tamano = (isset($parametros["tamano"]))? $parametros["tamano"] : 20;
@@ -253,11 +254,12 @@ class ef_editable extends ef
     		$this->estado=trim($estado);
 			return true;
 	    }elseif(isset($_POST[$this->id_form])){
-				if( get_magic_quotes_gpc() ){
-					$this->estado = stripslashes(trim($_POST[$this->id_form]));
-				}else{
-	   				$this->estado = trim($_POST[$this->id_form]);
-				}
+	    	
+			if( get_magic_quotes_gpc() ){
+				$this->estado = stripslashes(trim($_POST[$this->id_form]));
+			}else{
+   				$this->estado = trim($_POST[$this->id_form]);
+			}
 			return true;
     	}
 		return false;

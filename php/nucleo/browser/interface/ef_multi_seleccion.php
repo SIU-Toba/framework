@@ -238,6 +238,9 @@ class ef_multi_seleccion extends ef
 	function resetear_estado()
 	{
 		$this->estado = array();
+		if (isset($this->predeterminado)) {
+			$this->estado = $this->predeterminado;
+		}
 	}
 	
 	function validar_limites()
