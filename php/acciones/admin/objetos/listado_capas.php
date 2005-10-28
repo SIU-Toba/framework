@@ -1,3 +1,6 @@
+<?php
+require_once("admin/db/dao_editores.php");
+?>
 <script language='javascript'>
 	editor='objeto';
 </script>
@@ -161,11 +164,14 @@
            <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_ri"]) ?></td>
           <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_vinc_s"]) ?></td>
           <td width="2%" class='lista-obj-dato3<? echo $clase ?>'><? echo trim($rs->fields["obj_vinc_e"]) ?></td>
+<?php
+if (!in_array($rs->fields['cla_id'], dao_editores::get_clases_validas())) { ?>
           <td width="1%" class='lista-obj-botones<? echo $clase ?>'>
 			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/objetos/propiedades",array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"] ),false,false,null,true)?>" target="<? echo  apex_frame_centro ?>" class='basico'>
 				<? echo recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO") ?>
 			</a>
 		  </td>
+<?php } ?>
           <td width="1%" class='lista-obj-botones<? echo $clase ?>'>
 <? if (isset($rs->fields["cla_editor"])){?>
 			<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["cla_editor_proyecto"],$rs->fields["cla_editor"],array( apex_hilo_qs_zona => $rs->fields['pro_id'] .apex_qs_separador. $rs->fields["obj_id"]),false,false,null,true)?>" target="<? echo  apex_frame_centro ?>" class='basico'>
