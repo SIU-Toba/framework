@@ -121,6 +121,11 @@ class elemento_item extends elemento implements recorrible_como_arbol
 										'destino_id' => $this->id ),
 										false, false, null, true, "central")
 		);
+		$utilerias[] = array(
+			'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+			'ayuda' => "Editar propiedades del ITEM",
+			'vinculo' => $this->item->vinculo_editor()
+			);		
 		return $utilerias;
 	}
 }

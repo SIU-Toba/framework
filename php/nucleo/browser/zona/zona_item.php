@@ -58,7 +58,7 @@ class zona_item extends zona
 		//global $cronometro;
 		//$cronometro->marcar('basura',apex_nivel_nucleo);
 
-		echo "<table  width='100%'  class='tabla-0'><tr>";
+		echo "<table width='100%' class='tabla-0'><tr>";
 
 		//INTERFACE que solicta CRONOMETRAR la PAGINA
 		if($this->solicitud->vinculador->consultar_vinculo("toba","/basicos/cronometro",true))
@@ -72,6 +72,14 @@ class zona_item extends zona
 		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;EDITOR de ITEMS";
 		//echo recurso::imagen_apl("zona/objetos.gif",true);
 		echo "</td>";
+		
+		//Vinculo a la vista lateral
+		echo "<td class='barra-item-link' width='1'>";		
+		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
+ 		echo toba::get_vinculador()->obtener_vinculo_a_item_cp("toba","/admin/items/catalogo_unificado",
+ 																$parametros,true, false, false, "", null, null, 'lateral');
+		echo "</td>";
+		
 		$this->obtener_html_barra_vinculos();
 		$this->obtener_html_barra_especifico();
 		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
@@ -167,13 +175,15 @@ class zona_item extends zona
 						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs->fields["clase"]."\", ".($contador[$rs->fields["clase"]]).")</td>";
-						echo "<td  class='barra-obj-id' width='5'>";
-						echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
+							echo "<td  class='barra-obj-id' width='5'>";
+							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
 													"toba","/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
 														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
-							recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
-						echo "</td>\n";
+								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
+							echo "</td>\n";
+						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($rs->fields["clase_editor"])){
 							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(

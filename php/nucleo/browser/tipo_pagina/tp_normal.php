@@ -135,7 +135,7 @@ class tp_normal extends tp_basico
 		
 		//Etitor Item
 		$parametros = array(apex_hilo_qs_zona=> $info["item_proyecto"] . apex_qs_separador . $info["item"]);
-		$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/propiedades",$parametros,true);
+		$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/editor_items",$parametros,true);
 
 		//Catalogo Unificado
 		$parametros = array("proyecto"=>$info["item_proyecto"],"item"=>$info["item"]);

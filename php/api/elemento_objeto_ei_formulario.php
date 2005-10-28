@@ -109,15 +109,20 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[0]['etiqueta'] = "&Alta";
 		$evento[0]['estilo'] = "abm-input-eliminar";
 		$evento[0]['orden'] = 1;
+		
 		$evento[1]['identificador'] = "baja";
 		$evento[1]['etiqueta'] = "&Eliminar";
 		$evento[1]['estilo'] = "abm-input-eliminar";
+		$evento[1]['imagen_recurso_origen'] = 'apex';
+		$evento[1]['imagen'] = 'borrar.gif';
 		$evento[1]['confirmacion'] = "¿Desea ELIMINAR el registro?";
 		$evento[1]['orden'] = 2;
+		
 		$evento[2]['identificador'] = "modificacion";
 		$evento[2]['etiqueta'] = "&Modificacion";
 		$evento[2]['estilo'] = "abm-input";
 		$evento[2]['orden'] = 3;
+		
 		$evento[3]['identificador'] = "cancelar";
 		$evento[3]['maneja_datos'] = 0;
 		$evento[3]['etiqueta'] = "Ca&ncelar";
