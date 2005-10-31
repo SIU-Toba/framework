@@ -73,6 +73,10 @@ class ef_checkbox extends ef
     
      function obtener_input()
     {
+    	//Esto es para eliminar un notice en php 5.0.4
+    	if (!isset($this->estado))
+    		$this->estado = null;
+    		
          if ($this->solo_lectura) 
          {
 		 	if ($this->estado != "")

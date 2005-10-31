@@ -102,6 +102,16 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('pantallas')->eliminar_dependencia($id);
 	}
 	
+	/**
+	*	El ci de dependencias avisa que una dependencia cambio su identificacion
+	*/
+	function evt__dependencias__mod_id($anterior, $nuevo)
+	{
+		//Este cambio se le notifica a las pantallas
+		$this->get_entidad()->tabla('pantallas')->cambiar_id_dependencia($anterior, $nuevo);
+	}	
+	
+	
 	// *******************************************************************
 	// ******************* tab PANTALLAS  ********************************
 	// *******************************************************************

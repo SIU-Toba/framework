@@ -46,6 +46,26 @@ class odt_pantallas extends objeto_datos_tabla
 			}
 		}
 	}
+	
+	/**
+	*	Cambia el id de una dependencia en todas las pantallas donde este
+	*/
+	function cambiar_id_dependencia($anterior, $nuevo)
+	{
+		$ids = $this->get_id_fila_condicion();
+		//Recorro las pantallas
+		foreach($ids as $id){
+			$deps = $this->get_dependencias_pantalla($id);
+			if (is_array($deps)) {
+				foreach (array_keys($deps) as $dep) {
+					if ($deps[$dep] == $anterior) {
+						$deps[$dep] = $nuevo;	
+					}
+				}
+				$this->set_dependencias_pantalla( $id, $deps );
+			}
+		}		
+	}
 
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con los EVENTOS

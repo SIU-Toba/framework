@@ -56,10 +56,23 @@ class ci_principal extends ci_editores_toba
 
 	function evt__dependencias__modificacion($datos)
 	{
-		/*
-			ATENCION! si se borran dependencias hay que borrar tambien
-			sus relaciones
-		*/
+		foreach ($datos as $id => $dep) {
+			switch ($dep[apex_ei_analisis_fila]) {
+				case 'B':
+					// Si se borra una dependencias hay que borrar antes las relaciones donde participa
+					$id_dep = $this->get_entidad()->tabla('dependencias')->get_fila_columna($id, 'identificador');					
+					$this->eliminar_relaciones_con_dependencia($id_dep);
+					break;
+				case 'M':
+					//Si se modifica el identificador de una dependencia, propagarlo a las relaciones
+					$id_anterior = $this->get_entidad()->tabla('dependencias')->get_fila_columna($id, 'identificador');
+					$id_nuevo = $dep['identificador'];
+					if ($id_anterior != $id_nuevo)
+						$this->modificar_id_en_relaciones($id_anterior, $id_nuevo);
+					break;
+			}
+		}
+		
 		$this->get_entidad()->tabla('dependencias')->procesar_filas($datos);
 	}
 
@@ -88,6 +101,32 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->dependencias['relaciones']->limpiar_seleccion();
 	}
+	
+	/**
+	*	Elimina toda relacion que haga referencia a la dependencia 
+	*/
+	function eliminar_relaciones_con_dependencia($id_dep)
+	{
+		$relaciones = $this->get_entidad()->tabla("relaciones")->get_filas(array(), true);
+		foreach ($relaciones as $id => $relacion) {
+			if ($relacion['hijo_id'] == $id_dep || $relacion['padre_id'] == $id_dep) {
+				$this->get_entidad()->tabla("relaciones")->eliminar_fila($id);
+			}
+		}
+	}
+	
+	function modificar_id_en_relaciones($anterior, $nuevo)
+	{
+		$relaciones = $this->get_entidad()->tabla("relaciones")->get_filas(array(), true);
+		foreach ($relaciones as $id => $relacion) {
+			if ($relacion['hijo_id'] == $anterior) {
+				$this->get_entidad()->tabla('relaciones')->set_fila_columna_valor($id, 'hijo_id', $nuevo);
+			}
+			if ($relacion['padre_id'] == $anterior) {
+				$this->get_entidad()->tabla('relaciones')->set_fila_columna_valor($id, 'padre_id', $nuevo);
+			}
+		}
+	}
 
 	//*******************************************************************
 	//** PROCESAR  ******************************************************
@@ -95,6 +134,9 @@ class ci_principal extends ci_editores_toba
 
 	function evt__procesar()
 	{
+		//Se retrasa el chequeo de constraints para permitir la modificacion de ident. de dependencias
+		$this->get_entidad()->get_persistidor()->retrasar_constraints();
+		
 		//Seteo los datos asociados al uso de este editor
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto","toba_testing" );

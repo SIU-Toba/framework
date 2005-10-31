@@ -271,9 +271,11 @@ class objeto_datos_tabla extends objeto
 	//-- ACCESO a FILAS   -----------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	*	@param array Las condiciones permiten filtrar la lista de registros que se devuelves
+	*	@param boolean Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
+	*/
 	public function get_filas($condiciones=null, $usar_id_fila=false)
-	//Las condiciones permiten filtrar la lista de registros que se devuelves
-	//Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
 	{
 		$datos = array();
 		$a = 0;

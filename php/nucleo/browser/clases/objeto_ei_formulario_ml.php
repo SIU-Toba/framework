@@ -452,6 +452,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 			$this->datos = $datos;
 		} else {
+			$this->filas_recibidas = array();
 			$this->carga_inicial();
 		}
 		//Ordenar por la columna que se establece

@@ -17,6 +17,7 @@ class ap_relacion_db extends ap
 	protected $objeto_relacion;
 	protected $relaciones;
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $retrazar_constraints=false;		// Intenta retrazar el chequeo de claves foraneas hasta el fin de la transacción
 	
 	function __construct($objeto_relacion)
 	{
@@ -41,6 +42,11 @@ class ap_relacion_db extends ap
 	public function desactivar_transaccion()		
 	{
 		$this->utilizar_transaccion = false;
+	}
+	
+	public function retrasar_constraints()
+	{
+		$this->retrazar_constraints = true;	
 	}
 
 	//-------------------------------------------------------------------------------
@@ -85,7 +91,12 @@ class ap_relacion_db extends ap
 	{
 		$fuente = $this->objeto_relacion->get_fuente();
 		try{
-			if($this->utilizar_transaccion) abrir_transaccion($fuente);
+			if($this->utilizar_transaccion) {
+				abrir_transaccion($fuente);
+				if ($this->retrazar_constraints) {
+					toba::get_db($fuente)->retrazar_constraints();
+				}
+			}
 			$this->evt__pre_sincronizacion();
 			$this->proceso_sincronizacion();
 			$this->evt__post_sincronizacion();
@@ -124,14 +135,15 @@ class ap_relacion_db extends ap
 	public function eliminar()
 	//Elimina el contenido de los DB_REGISTROS y los sincroniza
 	{
+		$fuente = $this->objeto_relacion->get_fuente();		
 		try{
-			abrir_transaccion();
+			abrir_transaccion($fuente);
 			$this->evt__pre_eliminacion();
 			$this->eliminar_plan();
 			$this->evt__post_eliminacion();
-			cerrar_transaccion();			
+			cerrar_transaccion($fuente);			
 		}catch(excepcion_toba $e){
-			abortar_transaccion();
+			abortar_transaccion($fuente);
 			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
 		}		

@@ -137,15 +137,16 @@ class ci_relaciones extends objeto_ci
 		{
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
-			$fila = $this->conversion_form_a_fila($registros[$id]);
 			switch($accion){
 				case "A":
+					$fila = $this->conversion_form_a_fila($registros[$id]);
 					$this->id_intermedio_relaciones[$id] = $tabla->nueva_fila($fila);
 					break;	
 				case "B":
 					$tabla->eliminar_fila($id);
 					break;	
 				case "M":
+					$fila = $this->conversion_form_a_fila($registros[$id]);
 					$tabla->modificar_fila($id, $fila);
 					break;	
 			}

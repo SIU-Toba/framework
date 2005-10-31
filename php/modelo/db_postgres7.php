@@ -8,6 +8,12 @@ class db_postgres7 extends db
 		$this->motor = "postgres7";
 		parent::__construct($profile, $usuario, $clave, $base);
 	}
+	
+	function retrazar_constraints()
+	{
+		$this->ejecutar("SET CONSTRAINTS ALL DEFERRED");
+		toba::get_logger()->debug("************ Se retraza el chequeo de constraints ****************");		
+	}
 	//------------------------------------------------------------------------
 
 	function obtener_metadatos($tabla)

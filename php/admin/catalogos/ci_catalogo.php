@@ -83,35 +83,32 @@ abstract class ci_catalogo extends objeto_ci
 	function evt__fotos__carga()
 	{
 		$fotos = $this->album_fotos->fotos();
-		if (count($fotos) > 0) {
-			$this->dependencias['fotos']->colapsar();
-			$esta_la_inicial = false;
-			//Se incluyen la imagen de predeterminada
-			foreach ($fotos as $id => $foto) {
-				if ($foto['foto_nombre'] == apex_foto_inicial) {
-					$esta_la_inicial = true;
-				}
-				if ($foto['predeterminada'] == 1) {
-					$fotos[$id]['defecto'] = "home.gif";
-					//Carga la por defecto
-					if (!isset($this->opciones) && !isset($this->apertura)) { 
-						$this->apertura = $foto['foto_nodos_visibles'];
-						$this->apertura_selecc = $this->apertura;
-						$this->opciones = $foto['foto_opciones'];
-					}
-				}
-				else 
-					$fotos[$id]['defecto'] = 'nulo.gif';
+		$this->dependencias['fotos']->colapsar();
+		$esta_la_inicial = false;
+		//Se incluyen la imagen de predeterminada
+		foreach ($fotos as $id => $foto) {
+			if ($foto['foto_nombre'] == apex_foto_inicial) {
+				$esta_la_inicial = true;
 			}
-			
-			if (!$esta_la_inicial) {
-				//Si no esta la foto inicial, se agrega y se carga de nuevo
-				$this->agregar_foto_inicial();
-				return $this->evt__fotos__carga();
+			if ($foto['predeterminada'] == 1) {
+				$fotos[$id]['defecto'] = "home.gif";
+				//Carga la por defecto
+				if (!isset($this->opciones) && !isset($this->apertura)) { 
+					$this->apertura = $foto['foto_nodos_visibles'];
+					$this->apertura_selecc = $this->apertura;
+					$this->opciones = $foto['foto_opciones'];
+				}
 			}
-			
-			return $fotos;
+			else 
+				$fotos[$id]['defecto'] = 'nulo.gif';
 		}
+		if (!$esta_la_inicial) {
+			//Si no esta la foto inicial, se agrega y se carga de nuevo
+			$this->agregar_foto_inicial();
+			return $this->evt__fotos__carga();
+		}
+		
+		return $fotos;
 	}
 	
 	abstract function agregar_foto_inicial();
