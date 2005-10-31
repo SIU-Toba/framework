@@ -158,32 +158,46 @@ class objeto_ei extends objeto
 		echo "</table>\n";
 	}	
 	
+	/*
+		Genera los botones de todos los eventos marcardos para aparecer en la botonera.
+	*/
 	function obtener_botones_eventos()
 	{
-		foreach($this->eventos as $id => $evento )
+		foreach(array_keys($this->eventos) as $id )
 		{
-			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
-				$tip = '';
-				if (isset($evento['ayuda']))
-					$tip = $evento['ayuda'];
-				$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : "abm-input";
-				$tab_order = 0;//Esto esta MAAL!!!
-				$acceso = tecla_acceso( $evento["etiqueta"] );
-				$html = '';
-				if (isset($evento['imagen']) && $evento['imagen']) {
-					if (isset($evento['imagen_recurso_origen']))
-						$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
-					else
-						$img = $evento['imagen'];
-					$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-				}
-				$html .= $acceso[0];
-				$tecla = $acceso[1];
-				$evento_js = eventos::a_javascript($id, $evento);
-				$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-				echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+			if (!isset($this->eventos[$id]['en_botonera']) || $this->eventos[$id]['en_botonera']) {
+				$this->generar_boton_evento($id);
 			}
 		}
+	}
+
+	/*
+		Genera el HTML del BOTON correspondiente a un evento definido
+	*/
+	function generar_boton_evento($id)
+	{
+		if(!isset($this->eventos[$id])){
+			throw new excepcion_toba("Se solicito la generacion de un boton sobre un evento inexistente: '$id'");
+		}
+		$tip = '';
+		if (isset($this->eventos[$id]['ayuda']))
+			$tip = $this->eventos[$id]['ayuda'];
+		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "abm-input";
+		$tab_order = 0;//Esto esta MAAL!!!
+		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
+		$html = '';
+		if (isset($this->eventos[$id]['imagen']) && $this->eventos[$id]['imagen']) {
+			if (isset($this->eventos[$id]['imagen_recurso_origen']))
+				$img = recurso::imagen_de_origen($this->eventos[$id]['imagen'], $this->eventos[$id]['imagen_recurso_origen']);
+			else
+				$img = $this->eventos[$id]['imagen'];
+			$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+		}
+		$html .= $acceso[0];
+		$tecla = $acceso[1];
+		$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
+		$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+		echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 	}
 	
 	//--------------------------------------------------------------------

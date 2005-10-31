@@ -56,18 +56,6 @@ class ci_editor extends ci_editores_toba
 		return $pantalla;
 	}
 
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		if( isset($this->seleccion_pantalla) ){
-			$eventos += eventos::evento_estandar('cancelar_pantalla',"Cancelar la edicion de la pantalla");
-		}		
-		if( false ){	//Como se va a menejar la eliminacion (dbt y zona!)
-			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
-		}		
-		return $eventos;
-	}
-
 	// *******************************************************************
 	// ******************* tab PROPIEDADES BASICAS  **********************
 	// *******************************************************************
@@ -153,6 +141,41 @@ class ci_editor extends ci_editores_toba
 		return $ei;	
 	}
 
+	/*
+		Hay que mejorar el layout
+	*/
+	function obtener_html_contenido__2()
+	{
+		$this->dependencias['pantallas_lista']->obtener_html();			
+		if( isset($this->seleccion_pantalla) ){
+			$datos = $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla);
+			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
+			echo "<fieldset style='padding: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #333333;'><legend>$nombre_pantalla</legend>";			
+			$this->dependencias['pantallas']->obtener_html();			
+			echo "<table class='tabla-0'  width='100%'>";
+			echo "<tr>\n";
+			if( count($this->pantalla_dep_asoc) > 0 ){
+				echo "<td width='50%' style='vertical-align: top'>\n";
+				echo "<fieldset style='padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Dependencias Asociadas</legend>";			
+				$this->dependencias['pantallas_ei']->obtener_html();			
+				echo "</fieldset>";
+				echo "</td>\n";
+			}
+			if( count($this->pantalla_evt_asoc) > 0 ){
+				echo "<td style='vertical-align: top'>\n";
+				echo "<fieldset style='padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Eventos Asociados</legend>";			
+				$this->dependencias['pantallas_evt']->obtener_html();			
+				echo "</fieldset>";
+				echo "</td>\n";
+			}
+			echo "</tr>\n";
+			echo "</table>";
+			$this->generar_boton_evento('aceptar_pantalla');
+			$this->generar_boton_evento('cancelar_pantalla');
+			echo "</fieldset>";
+		}
+	}
+
 	//Antes de cargar los datos de las pantallas, ver si alguno particular se selecciono desde afuera
 	function evt__pre_cargar_datos_dependencias__2()
 	{
@@ -176,6 +199,12 @@ class ci_editor extends ci_editores_toba
 	}
 
 	function evt__cancelar_pantalla()
+	{
+		unset($this->seleccion_pantalla_anterior);
+		unset($this->seleccion_pantalla);
+	}
+
+	function evt__aceptar_pantalla()
 	{
 		unset($this->seleccion_pantalla_anterior);
 		unset($this->seleccion_pantalla);

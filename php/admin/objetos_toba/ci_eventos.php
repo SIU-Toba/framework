@@ -155,6 +155,13 @@ class ci_eventos extends objeto_ci
 	{
 		$this->limpiar_seleccion();
 	}
+
+	function evt__eventos__aceptar($datos)
+	{
+		$this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
+		$this->limpiar_seleccion();
+	}
+
 	//-----------------------------------------
 }
 ?>
