@@ -197,7 +197,8 @@ class objeto_ei_cuadro extends objeto_ei
 		$sql["info_cuadro"]["sql"] = "SELECT	titulo as titulo,		
 								c.subtitulo						as	subtitulo,		
 								c.sql							as	sql,			
-								c.columnas_clave				as	columnas_clave,		 
+								c.columnas_clave				as	columnas_clave,
+								c.clave_dbr						as	clave_datos_tabla,
 								c.archivos_callbacks			as	archivos_callbacks,		
 								c.ancho							as	ancho,			
 								c.ordenar						as	ordenar,			
@@ -399,15 +400,16 @@ class objeto_ei_cuadro extends objeto_ei
         if(isset($this->info_cuadro["columnas_clave"])){
             $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);
             $this->columnas_clave = array_map("trim",$this->columnas_clave);
+        }elseif($this->info_cuadro["clave_datos_tabla"]){
+			$this->columnas_clave = array( apex_datos_clave_fila );
         }else{
-            $this->columnas_clave = null;
+			$this->columnas_clave = null;
         }		
-		if(!isset($this->columnas_clave)){
-			$this->columnas_clave = array( apex_db_registros_clave );
-		}
 		//Agrego las columnas de la clave en la definicion de la estructura de datos
-		$estructura_datos = array_merge( $this->columnas_clave, $this->estructura_datos);
-		$this->estructura_datos = array_unique($estructura_datos);
+		if(is_array($this->columnas_clave)){
+			$estructura_datos = array_merge( $this->columnas_clave, $this->estructura_datos);
+			$this->estructura_datos = array_unique($estructura_datos);
+		}
 		//Inicializo la seleccion
 		$this->clave_seleccionada = null;
 	}

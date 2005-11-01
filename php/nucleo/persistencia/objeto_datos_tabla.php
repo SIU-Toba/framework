@@ -1,7 +1,6 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
-define("apex_datos_clave_fila","x_dbr_clave");
 /*
 	FALTA:
 		 - Control del FK y PK
@@ -25,6 +24,7 @@ class objeto_datos_tabla extends objeto
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
 	protected $clave_actual;
+	protected $fila_actual = 0;					// Fila marcada como 'actual'
 	// Relaciones con el exterior
 	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
 	protected $relaciones_con_padres;			// ARRAY con un objeto RELACION por cada PADRE de la tabla
@@ -58,6 +58,7 @@ class objeto_datos_tabla extends objeto
 		$propiedades[] = "datos";
 		$propiedades[] = "proxima_fila";
 		$propiedades[] = "clave_actual";
+		$propiedades[] = "fila_actual";
 		return $propiedades;
 	}
 
@@ -337,6 +338,7 @@ class objeto_datos_tabla extends objeto
 
 	public function get_fila($id)
 	{
+		$id = $this->normalizar_id($id);
 		if(isset($this->datos[$id])){
 			$temp = $this->datos[$id];
 			$temp[apex_datos_clave_fila] = $id;	//incorporo el ID del dbr
@@ -350,6 +352,7 @@ class objeto_datos_tabla extends objeto
 
 	public function get_fila_columna($id, $columna)
 	{
+		$id = $this->normalizar_id($id);
 		if(isset($this->datos[$id][$columna])){
 			return  $this->datos[$id][$columna];
 		}else{
@@ -382,6 +385,7 @@ class objeto_datos_tabla extends objeto
 	
 	public function existe_fila($id)
 	{
+		$id = $this->normalizar_id($id);
 		if(! isset($this->datos[$id]) ){
 			return false;			
 		}
@@ -389,6 +393,18 @@ class objeto_datos_tabla extends objeto
 			return false;
 		}
 		return true;
+	}
+
+	function normalizar_id($id)
+	{
+		if(!is_array($id)){
+			return $id;	
+		}else{
+			if(isset($id[apex_datos_clave_fila])){
+				return $id[apex_datos_clave_fila];
+			}
+		}
+		throw new excepcion_toba($this->get_txt() . ' La clave tiene un formato incorrecto.');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -427,6 +443,7 @@ class objeto_datos_tabla extends objeto
 
 	public function modificar_fila($id, $fila)
 	{
+		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
@@ -462,6 +479,7 @@ class objeto_datos_tabla extends objeto
 
 	public function eliminar_fila($id)
 	{
+		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
@@ -498,6 +516,7 @@ class objeto_datos_tabla extends objeto
 
 	public function set_fila_columna_valor($id, $columna, $valor)
 	{
+		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
 			if( isset($this->columnas[$columna]) ){
 				$this->datos[$id][$columna] = $valor;
@@ -557,19 +576,34 @@ class objeto_datos_tabla extends objeto
 
 	//-------------------------------------------------------------------------------
 	// Simplificacion para los casos en que se utiliza una sola fila
+
+	public function set_fila_actual($id)
+	{
+		$id = $this->normalizar_id($id);
+		if( $this->existe_fila($id) ){
+			return $this->fila_actual;	
+		}else{
+			throw new excepcion_toba($this->get_txt() . "La fila '$id' no es valida");
+		}
+	}
+	
+	public function get_fila_actual()
+	{
+		return $this->fila_actual;	
+	}
 		
 	public function set($fila)
 	{
 		if($this->get_cantidad_filas() === 0){
 			$this->nueva_fila($fila);
 		}else{
-			$this->modificar_fila(0, $fila);
+			$this->modificar_fila($this->fila_actual, $fila);
 		}
 	}
 	
 	public function get()
 	{
-		return $this->get_fila(0);
+		return $this->get_fila($this->fila_actual);
 	}
 
 	//-------------------------------------------------------------------------------

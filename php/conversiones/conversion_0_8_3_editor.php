@@ -30,7 +30,15 @@ class conversion_0_8_3_fotos extends conversion_toba
 	/*
 		Migrar eventos:
 			- Si no hay evento en un form, es una modificacion implicita
-			- Poner los flags de mostrar si hay datos cargados en modif, baja y cancelar
+			- Poner los grupos de modif, baja y cancelar
+	*/
+	
+	/*
+		Establecer el menu en los parametros de los proyectos.
+	
 	*/
 
+	/*
+		Si un cuadro no tiene clave definida, seleccionar la clave del DBR
+	*/
 }

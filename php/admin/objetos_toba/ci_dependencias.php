@@ -91,7 +91,7 @@ class ci_dependencias extends objeto_ci
 
 	function evt__cuadro__seleccion($id)
 	{
-		$this->seleccion_dependencia = $id[apex_db_registros_clave];
+		$this->seleccion_dependencia = $id;
 	}
 
 	function evt__cuadro__carga()

@@ -5,7 +5,7 @@ define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna u
 define("apex_ei_evento","evt");
 define("apex_ei_separador","__");
 define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
-
+define("apex_datos_clave_fila","x_dbr_clave");				//Clave interna de los datos_tabla, por compatibilidad es igual.
 
 class objeto_ei extends objeto
 {
@@ -14,6 +14,7 @@ class objeto_ei extends objeto
 	protected $colapsado = false;						//El elemento sólo mantiene su título
 	protected $evento_por_defecto;						//Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();
+	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 
 	function obtener_definicion_db()
 	/*
@@ -31,9 +32,9 @@ class objeto_ei extends objeto
 													imagen					as imagen,
 													en_botonera				as en_botonera,
 													ayuda					as ayuda,
-													ci_predep,				
-													implicito,				
-													display_datos_cargados  													
+													ci_predep				as ci_predep,				
+													implicito				as implicito,					
+													grupo					as grupo
 										FROM	apex_objeto_eventos
 										WHERE	proyecto='".$this->id[0]."'
 										AND	objeto = '".$this->id[1]."'
@@ -98,7 +99,16 @@ class objeto_ei extends objeto
 	
 	public function get_lista_eventos()
 	{
-		return $this->get_lista_eventos_definidos();
+		$eventos = $this->get_lista_eventos_definidos();
+		$grupo = $this->get_grupo_eventos();
+		if(trim($grupo)!=''){ //Si hay un grupo de eventos definido, filtro...
+			foreach(array_keys($eventos) as $id){
+				if($eventos[$id]['grupo']){
+					unset($eventos[$id]);	
+				}
+			}
+		}
+		return $eventos;
 	}
 	
 	protected function get_lista_eventos_definidos()
@@ -198,6 +208,24 @@ class objeto_ei extends objeto
 		$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
 		$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 		echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+	}
+
+	//--- Manejo de grupos de eventos
+	
+	/**
+		Activa un grupo de eventos
+	*/
+	function set_grupo_eventos($grupo)
+	{
+		$this->grupo_eventos_activo = $grupo;
+	}
+	
+	/**
+		Devuelve el grupo de eventos activos
+	*/
+	function get_grupo_eventos()
+	{
+		return $this->grupo_eventos_activo;	
 	}
 	
 	//--------------------------------------------------------------------

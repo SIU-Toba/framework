@@ -1,18 +1,6 @@
 <?
 require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
 
-/*
-	Esta clase hereda del formulario, pero el formulario ya se supune como formulario de carga,
-	El filtro deberia heredar de un formulario sin ninguna suposicion de uso, y esa clase deberia
-	ser tambien el ancestro del formulario de carga.
-	El ancestro deberia estar encargado solo de los EF.
-	Esta refactorizacion queda PENDIENTE
-
-	ATENCION: 	El filtro declara una funcion con un nomnbre coloquial para los EF,
-				esto hace que no pueda haber dos filtros en la misma etapa del CI
-				porque se redeclararia la funcion!
-*/
-
 class objeto_ei_filtro extends objeto_ei_formulario
 {
 
