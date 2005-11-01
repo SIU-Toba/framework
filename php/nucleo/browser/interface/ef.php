@@ -53,6 +53,9 @@ class ef //Clase abstracta, padre de todos los EF
 	var $dep_master = false;	//Soy master?
 	var $dep_slave = false;		//Soy slave?
 	var $agregado_form;			//Número de linea en un form multilinea
+
+	//---
+	protected $ancho_etiqueta = 150;
 	
 	function ef($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -390,6 +393,11 @@ class ef //Clase abstracta, padre de todos los EF
 	    $this->obligatorio = false;
     }
     
+    function set_ancho_etiqueta($ancho)
+    {
+    	$this->ancho_etiqueta = $ancho;	
+    }
+    
 	function set_expandido($expandido)
 	{
 		$this->expandido = $expandido;
@@ -524,8 +532,8 @@ class ef //Clase abstracta, padre de todos los EF
 			$marca ="";
 		}
 		global $solicitud;
-		echo "<table border='0' width='150' cellpadding='0' cellspacing='0' align='left'>\n";
-		echo "<tr><td>".gif_nulo(150,0)."</td>";
+		echo "<table border='0' width='{$this->ancho_etiqueta}' cellpadding='0' cellspacing='0' align='left'>\n";
+		echo "<tr><td>".gif_nulo($this->ancho_etiqueta,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<tr><td>".gif_nulo(1,1)."</td></tr>\n";
 		echo "<tr><td class='$estilo'>";

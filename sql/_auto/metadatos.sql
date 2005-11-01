@@ -517,6 +517,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_eventos', 'ci_predep', 14, 'smallint			NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_eventos', 'implicito', 15, 'smallint			NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_eventos', 'display_datos_cargados', 16, 'smallint			NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_eventos', 'grupo', 17, 'varchar(80)			NULL,');
 
 ------  'apex_item_objeto'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_item_objeto', 'pgsql_a01_nucleo.sql', 48, 'multiproyecto', NULL, NULL, 'item, objeto', NULL, NULL, '', '1.0', NULL, NULL);
@@ -1675,18 +1676,19 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'clase', 15, 'varchar(60)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'auto_reset', 16, 'smallint       	NULL,       -- Se resetea el formulario despues de transaccionar');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ancho', 17, 'varchar(10)    	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'campo_bl', 18, 'varchar(40)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'scroll', 19, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas', 20, 'smallint       	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_agregar', 21, 'smallint       	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_agregar_online', 22, 'smallint		NULL DEFAULT 1,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_undo', 23, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_ordenar', 24, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'columna_orden', 25, 'varchar(100)	NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_numerar', 26, 'smallint 		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ev_seleccion', 27, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'alto', 28, 'varchar(10)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'analisis_cambios', 29, 'varchar(10)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ancho_etiqueta', 18, 'varchar(10)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'campo_bl', 19, 'varchar(40)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'scroll', 20, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas', 21, 'smallint       	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_agregar', 22, 'smallint       	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_agregar_online', 23, 'smallint		NULL DEFAULT 1,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_undo', 24, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_ordenar', 25, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'columna_orden', 26, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'filas_numerar', 27, 'smallint 		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'ev_seleccion', 28, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'alto', 29, 'varchar(10)		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ut_formulario', 'analisis_cambios', 30, 'varchar(10)		NULL,');
 
 ------  'apex_objeto_ut_formulario_ef'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_ut_formulario_ef', 'pgsql_a50_clase_ut_formulario.sql', 140, 'multiproyecto', NULL, '( objeto_ut_formulario_proyecto = \'%%\' )', 'objeto_ut_formulario, identificador', NULL, NULL, '', '1.0', '0', NULL);

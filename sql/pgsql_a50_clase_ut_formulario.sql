@@ -36,6 +36,7 @@ CREATE TABLE apex_objeto_ut_formulario
 	auto_reset							smallint       	NULL,       -- Se resetea el formulario despues de transaccionar
 -- Exclusivo UT_FORMULARIO_ML            	
    ancho                   				varchar(10)    	NULL,	
+   ancho_etiqueta						varchar(10)		NULL,
 -- Exclusivo UT_FORMULARIO_BL
 	campo_bl							varchar(40)		NULL,
 -- Exclusivo EI_FORMULARIO_ML

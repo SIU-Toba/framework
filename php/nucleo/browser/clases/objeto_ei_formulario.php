@@ -64,7 +64,8 @@ class objeto_ei_formulario extends objeto_ei
 		$sql = parent::obtener_definicion_db();
 		//Formulario
 		$sql["info_formulario"]["sql"] = "SELECT	auto_reset as	auto_reset,						
-										ancho 						as		ancho
+										ancho 						as ancho,
+										ancho_etiqueta				as ancho_etiqueta
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
 								AND		objeto_ut_formulario='".$this->id[1]."';";
@@ -167,6 +168,9 @@ class objeto_ei_formulario extends objeto_ei
 																		$this->info_formulario_ef[$a]["obligatorio"],
 																		$parametros);
 			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
+			if (isset( $this->info_formulario['ancho_etiqueta'])) {
+				$this->elemento_formulario[$id_ef]->set_ancho_etiqueta($this->info_formulario['ancho_etiqueta']);
+			}
 		}	
 	}
 	//-------------------------------------------------------------------------------
