@@ -105,21 +105,26 @@ class objeto_ei extends objeto
 	{
 		$eventos = $this->get_lista_eventos_definidos();
 		$grupo = $this->get_grupo_eventos();
-		//Si hay un grupo de eventos definido, filtro los que van a la botonera
-		//Los eventos que no son de la botonera no los filtro.
+		//Si hay un grupo de eventos definido:
+		//	filtro los eventos que:
+		// 		* Van a la botonera
+		//		* Tienen al menos un grupo definido
 		if(trim($grupo)!=''){ 
 			foreach(array_keys($eventos) as $id){
-				$en_botonera =  (trim($this->eventos[$id]['en_botonera'])==1);
+				$en_botonera =  (trim($eventos[$id]['en_botonera'])==1);
 				$pertenece_a_grupo_actual = false;
 				if(trim($eventos[$id]['grupo'])!=''){
 					$asociacion_grupos = array_map('trim',explode(',',$eventos[$id]['grupo']));
 					$pertenece_a_grupo_actual = in_array($grupo, $asociacion_grupos );
+				}else{
+					//Los que no tienen grupo definido no hay que filtrarlos
+					continue;
 				}
 				//En un principio esto se usa solo para FILTRAR la botonera
 				if( $en_botonera && !($pertenece_a_grupo_actual) ){
+					toba::get_logger()->debug("Se filtro el evento: $id");
 					unset($eventos[$id]);
 				}
-
 			}
 		}
 		return $eventos;
