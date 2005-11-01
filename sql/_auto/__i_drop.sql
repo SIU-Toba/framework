@@ -97,6 +97,7 @@ DROP TABLE apex_clase_proto_propiedad ;
 DROP TABLE apex_clase_proto_metodo ;
 DROP TABLE apex_clase_proto ;
 DROP TABLE apex_item_proto ;
+DROP TABLE apex_conversion ;
 DROP TABLE apex_nucleo_info ;
 DROP TABLE apex_nucleo ;
 DROP TABLE apex_nucleo_tipo ;

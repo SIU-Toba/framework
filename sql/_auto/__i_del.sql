@@ -97,6 +97,7 @@ DELETE FROM apex_clase_proto_propiedad ;
 DELETE FROM apex_clase_proto_metodo ;
 DELETE FROM apex_clase_proto ;
 DELETE FROM apex_item_proto ;
+DELETE FROM apex_conversion ;
 DELETE FROM apex_nucleo_info ;
 DELETE FROM apex_nucleo ;
 DELETE FROM apex_nucleo_tipo ;

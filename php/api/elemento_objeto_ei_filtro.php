@@ -74,6 +74,7 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 		$evento[0]['etiqueta'] = "&Filtrar";
 		$evento[0]['estilo'] = "abm-input-eliminar";
 		$evento[0]['orden'] = 1;
+		$evento[0]['en_botonera'] = 1;		
 		$evento[0]['maneja_datos'] = 1;
 		$evento[0]['grupo'] = 'cargado,no_cargado';
 
@@ -81,6 +82,7 @@ class elemento_objeto_ei_filtro extends elemento_objeto
 		$evento[1]['etiqueta'] = "Ca&ncelar";
 		$evento[1]['estilo'] = "abm-input";
 		$evento[1]['orden'] = 2;
+		$evento[1]['en_botonera'] = 1;		
 		$evento[1]['grupo'] = 'cargado';
 		return $evento;		
 	}

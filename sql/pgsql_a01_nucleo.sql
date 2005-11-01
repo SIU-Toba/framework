@@ -1345,3 +1345,22 @@ CREATE TABLE apex_nucleo_info
 	CONSTRAINT	"apex_nucleo_info_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
+
+CREATE TABLE apex_conversion
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)		NOT NULL,
+	conversion_aplicada					varchar(60)		NOT NULL,
+	fecha								timestamp		NOT NULL,
+	CONSTRAINT	"apex_conversion_pk" PRIMARY	KEY ("proyecto","conversion_aplicada"),
+	CONSTRAINT	"apex_conversion_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--#################################################################################################

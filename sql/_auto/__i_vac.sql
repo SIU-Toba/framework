@@ -97,6 +97,7 @@ VACUUM VACUUM FULL ANALYSE apex_clase_proto_propiedad;
 VACUUM VACUUM FULL ANALYSE apex_clase_proto_metodo;
 VACUUM VACUUM FULL ANALYSE apex_clase_proto;
 VACUUM VACUUM FULL ANALYSE apex_item_proto;
+VACUUM VACUUM FULL ANALYSE apex_conversion;
 VACUUM VACUUM FULL ANALYSE apex_nucleo_info;
 VACUUM VACUUM FULL ANALYSE apex_nucleo;
 VACUUM VACUUM FULL ANALYSE apex_nucleo_tipo;

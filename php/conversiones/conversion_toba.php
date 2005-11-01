@@ -83,10 +83,12 @@ class conversion_toba
 				$logger->info($cambio->getName()."...OK");
 			}
 			$this->post_cambios();
-			if ($es_prueba)
+			if ($es_prueba) {
 				$this->ejecutar_sql("ROLLBACK TRANSACTION");
-			else
-				$this->ejecutar_sql("COMMIT TRANSACTION");			
+			} else {
+				$this->cerrar_conversion();
+				$this->ejecutar_sql("COMMIT TRANSACTION");
+			}
 		} catch (excepcion_toba $e) {
 			$this->ejecutar_sql("ROLLBACK TRANSACTION");
 			$e->agregar_mensaje($cambio->getName()."...ERROR\n");
@@ -102,6 +104,32 @@ class conversion_toba
 	
 	protected function post_cambios()
 	{
+	}
+
+	/**
+	*	Marca la conversion como ejecutada para el proyecto actual
+	*	Evitando que se corra dos veces
+	*/
+	protected function cerrar_conversion()
+	{
+		$sql = "INSERT INTO apex_conversion
+					(proyecto, conversion_aplicada, fecha) VALUES
+					('{$this->proyecto}', '{$this->version}', CURRENT_TIMESTAMP)";
+		$this->ejecutar_sql($sql);
+	}
+	
+	public function ejecutada_anteriormente($proyecto)
+	{
+		$sql = "SELECT fecha FROM apex_conversion WHERE
+						proyecto = '$proyecto' AND
+						conversion_aplicada = '{$this->version}'
+		";
+		$rs = $this->db->consultar($sql);
+		if (empty($rs)) {
+			return false;	
+		} else { 
+			return $rs[0]['fecha'];
+		}
 	}
 	
 	/**

@@ -110,6 +110,7 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[0]['maneja_datos'] = 1;
 		$evento[0]['estilo'] = "abm-input-eliminar";
 		$evento[0]['orden'] = 1;
+		$evento[0]['en_botonera'] = 1;		
 		$evento[0]['grupo'] = 'no_cargado';
 		
 		$evento[1]['identificador'] = "baja";
@@ -119,6 +120,7 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[1]['imagen'] = 'borrar.gif';
 		$evento[1]['confirmacion'] = "¿Desea ELIMINAR el registro?";
 		$evento[1]['orden'] = 2;
+		$evento[1]['en_botonera'] = 1;		
 		$evento[1]['grupo'] = 'cargado';
 		
 		$evento[2]['identificador'] = "modificacion";
@@ -126,6 +128,7 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[2]['maneja_datos'] = 1;
 		$evento[2]['estilo'] = "abm-input";
 		$evento[2]['orden'] = 3;
+		$evento[2]['en_botonera'] = 1;		
 		$evento[2]['grupo'] = 'cargado';
 		
 		$evento[3]['identificador'] = "cancelar";
@@ -133,6 +136,7 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		$evento[3]['etiqueta'] = "Ca&ncelar";
 		$evento[3]['estilo'] = "abm-input";		
 		$evento[3]['orden'] = 4;		
+		$evento[3]['en_botonera'] = 1;		
 		$evento[3]['grupo'] = 'cargado';
 
 		return $evento;		

@@ -33,7 +33,6 @@
 		$proyecto = $this->parametros['-p'];
 	}
 
-
 	//La convension es reemplazar . por _ en los nombres de version
 	$version_sin_parsear = $this->parametros['-v'];
 	$version = str_replace(".", "_", $version_sin_parsear);
@@ -52,7 +51,12 @@
 		$conversion->info();
 	else {
 		try {
-			$conversion->procesar($proyecto, $es_prueba);
+			$anterior = $conversion->ejecutada_anteriormente($proyecto);
+			if ($anterior) {
+				echo "La conversion ya fue ejecutada en fecha $anterior\n";
+			} else {
+				$conversion->procesar($proyecto, $es_prueba);
+			}
 		} catch (excepcion_toba $e) {
 			fwrite(STDERR, $e->getMessage()."\n");
 			exit(4);
