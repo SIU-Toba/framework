@@ -789,6 +789,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if (! $this->info_formulario['filas_agregar_online']) {
 			$eventos +=eventos::ml_registro_nuevo();
 		}
+		return $eventos;
+		/*
+		
+		CAMBIO_EVT
+
 		$hay_botonera = false;
 		foreach ($eventos as $evento) {
 			if ($evento['en_botonera'])
@@ -799,7 +804,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$eventos += eventos::modificacion(null, false);
 			$this->set_evento_defecto('modificacion');
 		}
-		return $eventos;
+		*/
 	}
 
 	//-------------------------------------------------------------------------------
@@ -835,6 +840,5 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$consumos[] = 'clases/objeto_ei_formulario_ml';
 		return $consumos;
 	}
-
 }
 ?>

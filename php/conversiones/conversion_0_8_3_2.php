@@ -1,7 +1,7 @@
 <?
 require_once("conversion_toba.php");
 
-class conversion_0_8_3_subclases extends conversion_toba
+class conversion_0_8_3_2 extends conversion_toba
 {
 	function get_version()
 	{

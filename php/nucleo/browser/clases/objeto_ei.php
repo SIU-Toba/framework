@@ -12,7 +12,7 @@ class objeto_ei extends objeto
 	protected $controlador;
 	protected $info_eventos;
 	protected $colapsado = false;						//El elemento sólo mantiene su título
-	protected $evento_por_defecto;						//Evento disparado cuando no hay una orden explicita
+	protected $evento_por_defecto=null;					//Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 
@@ -90,22 +90,36 @@ class objeto_ei extends objeto
 	public function definir_eventos()
 	{
 		$this->eventos = $this->get_lista_eventos();
+		toba::get_logger()->debug($this->get_txt() . "### EVENTOS UTILIZADOS ###");
+		toba::get_logger()->debug($this->eventos);
 	}
 		
 	public function set_eventos($eventos)
 	{
 		$this->eventos = $eventos;
+		toba::get_logger()->debug($this->get_txt() . "*** EVENTOS seteados ***");
+		toba::get_logger()->debug($this->eventos);
 	}
 	
 	public function get_lista_eventos()
 	{
 		$eventos = $this->get_lista_eventos_definidos();
 		$grupo = $this->get_grupo_eventos();
-		if(trim($grupo)!=''){ //Si hay un grupo de eventos definido, filtro...
+		//Si hay un grupo de eventos definido, filtro los que van a la botonera
+		//Los eventos que no son de la botonera no los filtro.
+		if(trim($grupo)!=''){ 
 			foreach(array_keys($eventos) as $id){
-				if($eventos[$id]['grupo']){
-					unset($eventos[$id]);	
+				$en_botonera =  (trim($this->eventos[$id]['en_botonera'])==1);
+				$pertenece_a_grupo_actual = false;
+				if(trim($eventos[$id]['grupo'])!=''){
+					$asociacion_grupos = array_map('trim',explode(',',$eventos[$id]['grupo']));
+					$pertenece_a_grupo_actual = in_array($grupo, $asociacion_grupos );
 				}
+				//En un principio esto se usa solo para FILTRAR la botonera
+				if( $en_botonera && !($pertenece_a_grupo_actual) ){
+					unset($eventos[$id]);
+				}
+
 			}
 		}
 		return $eventos;
@@ -116,10 +130,17 @@ class objeto_ei extends objeto
 	*	Obtiene la lista de eventos definidos desde el administrador 
 	*/
 	{
+		toba::get_logger()->debug($this->get_txt() . "--- EVENTOS definidos ---");
 		$eventos = array();
 		foreach ($this->info_eventos as $evento) {
 			$eventos[$evento['identificador']] = $evento;
+			//Seteo el evento por defecto
+			if($evento['implicito']){
+				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador']);
+				$this->set_evento_defecto($evento['identificador']);
+			}
 		}
+		toba::get_logger()->debug($eventos);
 		return $eventos;
 	}
 	
@@ -151,7 +172,7 @@ class objeto_ei extends objeto
 	function hay_botones() 
 	{
 		foreach($this->eventos as $id => $evento ) {	
-			if (!isset($evento['en_botonera']) || $evento['en_botonera']) {
+			if ( trim($evento['en_botonera'])==1 ) {
 				return true;
 			}
 		}
@@ -175,7 +196,7 @@ class objeto_ei extends objeto
 	{
 		foreach(array_keys($this->eventos) as $id )
 		{
-			if (!isset($this->eventos[$id]['en_botonera']) || $this->eventos[$id]['en_botonera']) {
+			if (trim($this->eventos[$id]['en_botonera'])==1) {
 				$this->generar_boton_evento($id);
 			}
 		}

@@ -31,7 +31,6 @@ class objeto_ei_formulario extends objeto_ei
 	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
 	protected $id_en_padre;
-	protected $etapa;				
 
 	function __construct($id)
 /*
@@ -41,14 +40,13 @@ class objeto_ei_formulario extends objeto_ei
 	{
 		parent::objeto($id);
 		//Elementos basicos del formulario
-		$this->etapa = "agregar";
 		$this->submit = "ei_form".$this->id[1];
 		//Nombre de los botones de javascript
 		$this->js_eliminar = "eliminar_ei_{$this->id[1]}";
 		$this->js_agregar = "agregar_ei_{$this->id[1]}";
 		$this->evento_mod_estricto = true;
 		$this->objeto_js = "objeto_form_{$id[1]}";
-		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);		
+		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -175,6 +173,7 @@ class objeto_ei_formulario extends objeto_ei
 
 	function inicializar_especifico()
 	{
+		$this->set_grupo_eventos('no_cargado');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -525,8 +524,8 @@ class objeto_ei_formulario extends objeto_ei
 			//guardo los datos en la memoria
 			//para compararlos y saber si se modificaron
 			//$this->memoria["datos"] = $datos;
-			$this->etapa = "modificar";
 			$this->procesar_dependencias();
+			$this->set_grupo_eventos('cargado');
 		}
 	}
 
@@ -614,6 +613,11 @@ class objeto_ei_formulario extends objeto_ei
 	*/
 	{
 		$eventos = parent::get_lista_eventos();
+		return $eventos;     
+		/*
+		
+		CAMBIO_EVT
+		
 		if($this->etapa != "agregar") {
 			unset($eventos['alta']);
 		} elseif($this->etapa !="modificar") {
@@ -626,16 +630,7 @@ class objeto_ei_formulario extends objeto_ei
 			$eventos += eventos::modificacion(null, false);		
 			$this->set_evento_defecto('modificacion');
 		}
-		return $eventos;     
-	}
-	
-	/**
-	*	Fuerza una etapa específica
-	*	@param string La etapa puede ser 'agregar' o 'modificar'. Esto cambia los eventos que listan
-	*/
-	function set_etapa($etapa)
-	{
-		$this->etapa = $etapa;
+		*/
 	}
 	
 	//-------------------------------------------------------------------------------

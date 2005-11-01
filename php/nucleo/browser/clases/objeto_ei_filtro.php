@@ -10,15 +10,25 @@ class objeto_ei_filtro extends objeto_ei_formulario
 		return new elemento_objeto_ei_filtro();
 	}
 
+	function inicializar_especifico()
+	{
+		$this->set_grupo_eventos('no_cargado');
+	}
+
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();
+		return $eventos;
+		/*
+
+		CAMBIO_EVT
+
 		//En caso que no se definan eventos, filtrar n es el por defecto y no se incluye como botón
 		if (count($eventos) == 0) {
 			$eventos += eventos::filtrar(null, false);		
 			$this->set_evento_defecto('filtrar');
 		}
-		return $eventos;
+		*/
 	}
 
 	function generar_formulario()
