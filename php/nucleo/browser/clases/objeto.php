@@ -537,38 +537,34 @@ class objeto
 		//Busco las propiedades que se desea persistir entre las sesiones
 		$propiedades_a_persistir = $this->mantener_estado_sesion();
 		if(count($propiedades_a_persistir)>0){
-			$propiedades = get_object_vars($this);
 			for($a=0;$a<count($propiedades_a_persistir);$a++){
 				//Existe la propiedad
-				if(in_array($propiedades_a_persistir[$a],$propiedades)){
-					//Si la propiedad no es NULL
-					if(isset($this->$propiedades_a_persistir[$a])){
-						if(is_object($this->$propiedades_a_persistir[$a])){
-							/*
-								PERSISTENCIA de OBJETOS 
-								-----------------------
-								Esta es la forma mas sencilla de implementar esto para el caso en el que
-								el elemento persistidor permanece inactivo durante n request y luego vuelve
-								a la actividad. Lo malo es que que hay que saber que propiedades son objetos 
-								y cuales no.
-								ATENCION: 
-									Hay que tener mucho cuidado con las referencias circulares:
-									ej: 	un db_tablas posee un por composicion db_registros y
-											el db_registros posee una referencia a su controlador 	
-											que es el mismo el db_tablas...
-									En casos como este es necesario definir __sleep en el objeto hijo, para
-										anular el controlador y __wakeup en el padre para restablecerlo
-							*/
-							$temp[$propiedades_a_persistir[$a]] = serialize($this->$propiedades_a_persistir[$a]);
-							//Dejo la marca de que serialize un OBJETO.
-							$temp["toba__indice_objetos_serializados"][] = $propiedades_a_persistir[$a];
-						}else{
-							$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
-						}
+				if(isset($this->$propiedades_a_persistir[$a])) {
+					if(is_object($this->$propiedades_a_persistir[$a])){
+						/*
+							PERSISTENCIA de OBJETOS 
+							-----------------------
+							Esta es la forma mas sencilla de implementar esto para el caso en el que
+							el elemento persistidor permanece inactivo durante n request y luego vuelve
+							a la actividad. Lo malo es que que hay que saber que propiedades son objetos 
+							y cuales no.
+							ATENCION: 
+								Hay que tener mucho cuidado con las referencias circulares:
+								ej: 	un db_tablas posee un por composicion db_registros y
+										el db_registros posee una referencia a su controlador 	
+										que es el mismo el db_tablas...
+								En casos como este es necesario definir __sleep en el objeto hijo, para
+									anular el controlador y __wakeup en el padre para restablecerlo
+						*/
+						$temp[$propiedades_a_persistir[$a]] = serialize($this->$propiedades_a_persistir[$a]);
+						//Dejo la marca de que serialize un OBJETO.
+						$temp["toba__indice_objetos_serializados"][] = $propiedades_a_persistir[$a];
 					}else{
-						//$this->log->error($this->get_txt() . " Se solocito mantener el estado de una propiedad inexistente: '{$propiedades_a_persistir[$a]}' ");
-						//echo $this->get_txt() . " guardar_estado_sesion '{$propiedades_a_persistir[$a]}' == NULL <br>";
+						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
 					}
+				} else {
+					//$this->log->error($this->get_txt() . " Se solocito mantener el estado de una propiedad inexistente: '{$propiedades_a_persistir[$a]}' ");
+					//echo $this->get_txt() . " guardar_estado_sesion '{$propiedades_a_persistir[$a]}' == NULL <br>";
 				}
 			}
 			if(isset($temp)){

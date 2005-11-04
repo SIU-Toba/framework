@@ -8,11 +8,9 @@
 		1) objeto_datos_relacion
 		
 			Especializacion del comportamiento de la relacion entre datos.
-				(Presisar el sentido de la misma como unidad dentro de la logica de dominio)
-				- Capturar eventos de tablas para mantener la integridad de las relaciones
+ 				- Capturar eventos de tablas para mantener la integridad de las relaciones
 				- Validaciones sobre el conjunto de datos
-				- Presentar interfaces mas orientadas al dominio
-
+ 
 					function evt__validar()									- Antes de sincronizar, despues de las tablas
 	**				function evt__[tabla]__pre_agregar()					- En linea con la manipulacion de tablas
 	**				function evt__[tabla]__post_agregar()					- En linea con la manipulacion de tablas
@@ -20,7 +18,7 @@
 	**				function evt__[tabla]__post_modificar()					- En linea con la manipulacion de tablas
 	**				function evt__[tabla]__pre_eliminar()					- En linea con la manipulacion de tablas
 	**				function evt__[tabla]__post_eliminar()					- En linea con la manipulacion de tablas
-					function *dominio										- Invocacion explicita
+
 		
 		-----------------------------------------------------------
 
@@ -34,6 +32,8 @@
 			
 					protected function evt__pre_eliminacion(){}			- Antes de sincronizar
 					protected function evt__post_eliminacion(){}		- Despues de sincronizar		
+					protected function evt__pre_sincronizacion(){}		- Antes de sincronizar
+					protected function evt__post_sincronizacion(){}		- Despues de sincronizar		
 
 		
 		-----------------------------------------------------------
@@ -45,11 +45,10 @@
 			** Especializacion del comportamiento de la tabla.
 				(Presisar el sentido de la misma como unidad dentro de la logica de dominio)
 				- Agregar validaciones sobre las filas
-				- Presentar interfaces mas orientadas al dominio
 
 					function evt__validar_ingreso($fila, $id=null)		- En linea con el ingreso de datos
 					function evt__validar_fila($fila)					- Validacion "global"
-					function *dominio									- Invocacion explicita
+
 
 		-----------------------------------------------------------
 
@@ -68,8 +67,15 @@
 					protected function evt__pre_update($id){}			- Antes de ejecutar un UPDATE sobre la tabla   
 					protected function evt__post_update($id){}          - Despues de ejecutar un UPDATE sobre la tabla 
 					protected function evt__pre_delete($id){}			- Antes de ejecutar un DELETE sobre la tabla   
-					protected function evt__post_delete($id){}          - Despues de ejecutar un DELETE sobre la tabla 
+					protected function evt__post_delete($id){}          - Despues de ejecutar un DELETE sobre la tabla
+					
+				- Reescribir el SQL
 
+					protected function generar_sql_insert($id)	- Mapeo de un registro a la DB		
+					protected function generar_sql_delete($id)	- Mapeo de un registro a la DB
+					protected function generar_sql_update($id)	- Mapeo de un registro a la DB
+					protected function generar_sql_select($id)	- Carga de un registro
+														
 				- Definicion de carga de columnas "externas"
 			
 					(carga externa)

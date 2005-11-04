@@ -615,7 +615,7 @@
          *    @return mixed              Stored return.
          *    @access protected
          */
-        function &_getReturn($method, $args, $step) {
+        function _getReturn($method, $args, $step) {
             if (isset($this->_return_sequence[$method][$step])) {
                 if ($this->_return_sequence[$method][$step]->isMatch($args)) {
                     return $this->_return_sequence[$method][$step]->findFirstMatch($args);
@@ -862,7 +862,7 @@
          *    @return mixed               Stored return.
          *    @access private
          */
-        function &_invoke($method, $args) {
+        function _invoke($method, $args) {
             $method = strtolower($method);
             $step = $this->getCallCount($method);
             $this->_addCall($method, $args);

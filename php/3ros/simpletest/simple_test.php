@@ -58,7 +58,7 @@
          *    @return SimpleInvoker        Individual test runner.
          *    @access public
          */
-        function &createInvoker() {
+        function createInvoker() {
             return new SimpleErrorTrappingInvoker(new SimpleInvoker($this));
         }
 
@@ -70,7 +70,7 @@
          *    @return SimpleReporter
          *    @access protected
          */
-        function &_createRunner(&$reporter) {
+        function _createRunner(&$reporter) {
             return new SimpleRunner($this, $reporter);
         }
 

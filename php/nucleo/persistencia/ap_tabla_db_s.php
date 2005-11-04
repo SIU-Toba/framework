@@ -155,9 +155,9 @@ class ap_tabla_db_s extends ap_tabla_db
 		if(isset($this->where)){
 			$sql .= "\n WHERE " .	implode("\n AND ",$this->where) .";";
 		}
-		$this->log("SQL de carga - " . $sql); 
 		return $sql;
 	}
 	//-------------------------------------------------------------------------------
+
 }
 ?>

@@ -88,7 +88,7 @@ class nucleo_toba
 		toba::get_db("instancia");
 		try{
 			//Si el proyecto no es toba, incluyo el archivo de inicializacion
-			if ($this->solicitud->hilo->obtener_proyecto() != 'toba') {
+			if (toba::get_hilo()->obtener_proyecto() != 'toba') {
 				//Invoco el archivo de INICIALIZACION del proyecto
 				include_once("inicializacion.php");
 			}

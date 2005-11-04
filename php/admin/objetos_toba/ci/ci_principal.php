@@ -447,10 +447,12 @@ class ci_editor extends ci_editores_toba
 	
 	function evt__procesar()
 	{
-		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ci" );
+		if (!$this->cargado) {
+			//Seteo los datos asociados al uso de este editor
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ci" );
+		}
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
 	}

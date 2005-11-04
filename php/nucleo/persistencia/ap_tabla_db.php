@@ -163,6 +163,7 @@ class ap_tabla_db extends ap
 		$this->from = $from;
 		$db = toba::get_db($this->fuente);
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
+		$this->log("SQL de carga - " . $sql); 
 		try{
 			$datos = $db->consultar($sql);
 		}catch(excepcion_toba $e){
