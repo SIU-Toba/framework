@@ -985,7 +985,11 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
-		echo $descripcion . ': <strong>' . $valor . '</strong>';
+		if (trim($descripcion) != '') {
+			echo $descripcion . ': <strong>' . $valor . '</strong>';			
+		} else {
+			echo '<strong>' . $valor . '</strong>';
+		}
 	}
 	
 	private function html_pie_corte_control(&$nodo)
@@ -1005,7 +1009,9 @@ class objeto_ei_cuadro extends objeto_ei
 				echo "</td></tr>\n";
 			}
 			//Totales de columna
-			$this->html_cuadro_totales_columnas($nodo['acumulador'], $css);
+			if (isset($nodo['acumulador'])) {
+				$this->html_cuadro_totales_columnas($nodo['acumulador'], $css);
+			}
 			//Contar Filas
 			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
 				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
@@ -1183,25 +1189,35 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function html_cuadro_cabecera_columnas()
 	{
-        echo "<tr>\n";
-        for ($a=0;$a<$this->cantidad_columnas;$a++)
-        {
-            if(isset($this->info_cuadro_columna[$a]["ancho"])){
-                $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
-            }else{
-                $ancho = "";
-            }
-            echo "<td class='lista-col-titulo' $ancho>\n";
-            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
-                                        $this->info_cuadro_columna[$a]["clave"],
-                                        $a );
-            echo "</td>\n";
+		//¿Alguna columna tiene título?
+		$alguna_tiene_titulo = false;
+        for ($a=0;$a<$this->cantidad_columnas;$a++) {		
+        	if (trim($this->info_cuadro_columna[$a]["titulo"]) != '') {
+        		$alguna_tiene_titulo = true;
+        		break;
+        	}
         }
-        //-- Eventos sobre fila
-		if($this->cantidad_columnas_extra > 0){
-			echo "<td class='lista-col-titulo' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
-		}
-        echo "</tr>\n";
+        if ($alguna_tiene_titulo) {
+	        echo "<tr>\n";
+	        for ($a=0;$a<$this->cantidad_columnas;$a++)
+	        {
+	            if(isset($this->info_cuadro_columna[$a]["ancho"])){
+	                $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
+	            }else{
+	                $ancho = "";
+	            }
+	            echo "<td class='lista-col-titulo' $ancho>\n";
+	            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
+	                                        $this->info_cuadro_columna[$a]["clave"],
+	                                        $a );
+	            echo "</td>\n";
+	        }
+	        //-- Eventos sobre fila
+			if($this->cantidad_columnas_extra > 0){
+				echo "<td class='lista-col-titulo' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
+			}
+	        echo "</tr>\n";
+        }
 	}
 
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)

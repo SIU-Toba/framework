@@ -75,7 +75,7 @@ function objeto_ci(instancia, form, input_submit) {
 	
 	def.submit_recursivo = function()
 	{
-		for (dep in this._deps) {
+		for (var dep in this._deps) {
 			this._deps[dep].submit();
 		}
 		if (this._evento.id != '') {
@@ -122,8 +122,8 @@ function objeto_ci(instancia, form, input_submit) {
 	
 	def.objetos_pueden_submit = function() {
 		if(this._evento && this._evento.validar) {
-			ok = true;
-			for (dep in this._deps) {
+			var ok = true;
+			for (var dep in this._deps) {
 				ok = this._deps[dep].puede_submit() && ok;
 			}
 			return ok;			
@@ -134,7 +134,7 @@ function objeto_ci(instancia, form, input_submit) {
 	}
 	
 	def.resetear_errores = function() {
-		for (dep in this._deps) {
+		for (var dep in this._deps) {
 			this._deps[dep].resetear_errores();
 		}
 		this.notificar(false);
@@ -151,7 +151,7 @@ function objeto_ci(instancia, form, input_submit) {
 			if (existe_funcion(this, validacion_particular))
 				ok = ok && this[validacion_particular]();	
 			if (recursivo) {
-				for (dep in this._deps) {
+				for (var dep in this._deps) {
 					ok = ok && this._deps[dep].validar(recursivo);
 				}
 			}

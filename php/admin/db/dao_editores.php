@@ -106,7 +106,8 @@ class dao_editores
 					c.editor_proyecto,
 					c.editor_item,
 					c.icono,
-					ct.clase_tipo
+					ct.clase_tipo,
+					ct.descripcion_corta as clase_tipo_desc
 				FROM 
 					apex_clase c,
 					apex_clase_tipo ct
