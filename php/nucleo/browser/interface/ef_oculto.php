@@ -94,7 +94,7 @@ class ef_oculto extends ef
 	
 	function javascript_master_get_estado()
 	{
-		return " function master_get_estado_{$this->id_form}() { return '".apex_ef_valor_oculto."' }\n";		
+		return " function master_get_estado_{$this->id_form}() { return '".$this->estado."' }\n";		
 	}
 	
 	function javascript_master_cargado()

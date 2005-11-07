@@ -8,6 +8,7 @@ class dao_editores
 	static function get_clases_validas()
 	{
 		return array(	'objeto_ci',
+						'objeto_cn',
 						'objeto_ei_cuadro',
 						'objeto_ei_formulario',
 						'objeto_ei_formulario_ml',
@@ -23,7 +24,7 @@ class dao_editores
 	{
 		//item, ci, ci_pantalla, datos_relacion
 		if(!isset($contenedor)) return self::get_clases_validas();
-		if($contenedor=="item") return array('objeto_ci');
+		if($contenedor=="item") return array('objeto_ci', 'objeto_cn');
 		if($contenedor=="datos_relacion") return array('objeto_datos_tabla');
 		if($contenedor=="ci"){
 			return array(	'objeto_ci',

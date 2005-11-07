@@ -119,7 +119,7 @@ class ef_popup extends ef_editable
 				$inicializacion_ventana = "[" . implode(",",$this->ventana) . "]";
 			}
 			$r .= " onclick=\" javascript: popup_abrir_item('$vinculo_item', '{$this->id_form}', $recurso_js_cod, $recurso_js_desc, $inicializacion_ventana)\"";
-            $r .= "href='#' name='{$this->id_form}_vinculo'>".recurso::imagen_apl('doc.gif',true,16,16,"Selecionar un elemento")."</a> ";
+            $r .= "href='#' name='{$this->id_form}_vinculo'>".recurso::imagen_apl('editar.gif',true,16,16,"Selecionar un elemento")."</a> ";
 			$r .= "</td></tr>\n</table>\n";            
         }
 		return $r;

@@ -12,7 +12,8 @@ class conversion_toba
 	protected $version;
 	protected $log;
 	protected $db;
-	protected $proyecto;		//Proyecto sobre el que se corren las conversiones
+	protected $proyecto;			//Proyecto sobre el que se corren las conversiones
+	protected $reg_afectados = 0;	//Cantidad de registros afectados por la conversion
 
 	//-------- STATICAS
 	
@@ -119,6 +120,7 @@ class conversion_toba
 				$this->cerrar_conversion();
 				$this->ejecutar_sql("COMMIT TRANSACTION");
 			}
+			echo "Registros afectados: {$this->reg_afectados}\n";			
 		} catch (excepcion_toba $e) {
 			$this->ejecutar_sql("ROLLBACK TRANSACTION");
 			$e->agregar_mensaje($cambio->getName()."...ERROR\n");
@@ -167,9 +169,8 @@ class conversion_toba
 	*/	
 	protected function ejecutar_sql($sql)
 	{
-		$res = $this->db->Execute($sql);
-		if (!$res)
-			throw new excepcion_toba("Error al ejecutar la conversion: $sql \n ".$this->db->ErrorMsg());
+		$aff =  $this->db->ejecutar($sql);
+		$this->reg_afectados += $aff;
 	}
 }
 ?>
