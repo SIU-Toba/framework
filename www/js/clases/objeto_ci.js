@@ -8,7 +8,6 @@ function objeto_ci(instancia, form, input_submit) {
 	this._form = form									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
 	this._ci = null;									//CI contenedor
-	this._objetos = new Array();						//Listado de objetos js asociados al CI
 	this._deps = new Object();							//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
@@ -19,7 +18,6 @@ function objeto_ci(instancia, form, input_submit) {
 
 	def.agregar_objeto = function(objeto, identificador) {
 		objeto.set_ci(this);
-		this._objetos.push(objeto);
 		this._deps[identificador] = objeto;
 	}
 
@@ -29,6 +27,9 @@ function objeto_ci(instancia, form, input_submit) {
 	}
 	
 	def.iniciar = function() {
+		for (var dep in this._deps) {
+			this._deps[dep].iniciar();
+		}
 	}
 	
 	//Retorna el nodo DOM donde se muestra el componente
@@ -74,8 +75,8 @@ function objeto_ci(instancia, form, input_submit) {
 	
 	def.submit_recursivo = function()
 	{
-		for (obj in this._objetos) {
-			this._objetos[obj].submit();
+		for (dep in this._deps) {
+			this._deps[dep].submit();
 		}
 		if (this._evento.id != '') {
 			document.getElementById(this._input_submit).value = this._evento.id;
@@ -122,8 +123,8 @@ function objeto_ci(instancia, form, input_submit) {
 	def.objetos_pueden_submit = function() {
 		if(this._evento && this._evento.validar) {
 			ok = true;
-			for (obj in this._objetos) {
-				ok = this._objetos[obj].puede_submit() && ok;
+			for (dep in this._deps) {
+				ok = this._deps[dep].puede_submit() && ok;
 			}
 			return ok;			
 		} else {
@@ -133,8 +134,8 @@ function objeto_ci(instancia, form, input_submit) {
 	}
 	
 	def.resetear_errores = function() {
-		for (obj in this._objetos) {
-			this._objetos[obj].resetear_errores();
+		for (dep in this._deps) {
+			this._deps[obj].resetear_errores();
 		}
 		this.notificar(false);
 	}
@@ -150,8 +151,8 @@ function objeto_ci(instancia, form, input_submit) {
 			if (existe_funcion(this, validacion_particular))
 				ok = ok && this[validacion_particular]();	
 			if (recursivo) {
-				for (obj in this._objetos) {
-					ok = ok && this._objetos[obj].validar(recursivo);
+				for (dep in this._deps) {
+					ok = ok && this._deps[dep].validar(recursivo);
 				}
 			}
 		}

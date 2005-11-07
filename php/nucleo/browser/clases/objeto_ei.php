@@ -312,7 +312,6 @@ class objeto_ei extends objeto
 		if ($this->colapsado) {
 			echo $identado."{$this->objeto_js}.colapsar();\n";
 		}
-		echo $identado."{$this->objeto_js}.iniciar();\n";
 		//Se agrega al objeto al singleton toba
 		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
 	}

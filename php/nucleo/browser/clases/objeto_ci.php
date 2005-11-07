@@ -701,9 +701,13 @@ class objeto_ci extends objeto_ei
 		$this->obtener_html();
 		echo "</div>\n";
 		echo form::cerrar();
+		
 		echo js::abrir();
 		$this->obtener_javascript();
+		$identado = js::instancia()->identado();
+		echo $identado."{$this->objeto_js}.iniciar();\n";
 		echo js::cerrar();
+		
 		echo "<br>\n";
 		$this->solicitud->cola_mensajes->mostrar();		
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		

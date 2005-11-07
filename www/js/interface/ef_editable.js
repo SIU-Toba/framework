@@ -56,10 +56,16 @@ def.constructor = ef_editable;
 	}
 	
 	def.cambiar_valor = function(nuevo) {
-		if (this._mascara)
-			this.input().value = this._mascara.format(nuevo, false, true);
-		else
+		if (this._mascara) {
+			var valor = this._mascara.format(nuevo, false, true);
+			this.input().value = valor;
+			var desc = document.getElementById(this._id_form + '_desc');
+			if (desc) {
+				desc.value = valor;
+			}
+		} else {
 			return ef.prototype.cambiar_valor.call(this, nuevo);	
+		}
 		if (this.input().onblur) {
 			this.input().onblur();
 		}
