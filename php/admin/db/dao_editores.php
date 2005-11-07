@@ -116,7 +116,7 @@ class dao_editores
 						--El proyecto es Toba o el actual
 					(c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL
-				ORDER BY ct.clase_tipo";
+				ORDER BY ct.orden DESC";
 		return consultar_fuente($sql, "instancia");	
 	}
 	

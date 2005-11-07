@@ -135,7 +135,7 @@ function objeto_ci(instancia, form, input_submit) {
 	
 	def.resetear_errores = function() {
 		for (dep in this._deps) {
-			this._deps[obj].resetear_errores();
+			this._deps[dep].resetear_errores();
 		}
 		this.notificar(false);
 	}
