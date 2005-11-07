@@ -1,11 +1,16 @@
 <?
 require_once("conversion_toba.php");
 
+/**
+*	----------------------------------------------
+*	 LIMPIEZA Y MIGRACION DE CLASES NO UTILIZADAS
+*	----------------------------------------------
+*/
 class conversion_0_8_3_2 extends conversion_toba
 {
 	function get_version()
 	{
-		return "0.8.3.subclases";	
+		return "0.8.3.2";	
 	}
 
 	function cambio_subclases()

@@ -1,6 +1,11 @@
 <?
 require_once("conversion_toba.php");
 
+/**
+*	-----------------------------------------------------------
+*	 MIGRACION DE EVENTOS POR DEFECTO A EXPLICITOS Y POR GRUPOS
+*	-----------------------------------------------------------
+*/
 class conversion_0_8_3_1 extends conversion_toba
 {
 	function get_version()

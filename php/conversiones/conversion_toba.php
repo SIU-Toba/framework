@@ -14,12 +14,7 @@ class conversion_toba
 	protected $db;
 	protected $proyecto;		//Proyecto sobre el que se corren las conversiones
 
-	function __construct()
-	{
-		$this->version = $this->get_version();
-		$this->db = toba::get_db('instancia');
-//		$this->db->debug = true;
-	}
+	//-------- STATICAS
 	
 	static function existe_conversion($version)
 	{
@@ -27,7 +22,7 @@ class conversion_toba
 		return in_array($version, $conversiones);
 	}
 	
-	static function conversiones_posibles()
+	static function conversiones_posibles($proyecto=null)
 	{
 		$conversiones = array();
 		$dir = opendir(dirname(__FILE__));
@@ -35,15 +30,49 @@ class conversion_toba
 		{  
 			if (ereg("conversion_(.+).php", $archivo, $version)) {
 				if ($version[1] != 'toba') {
-					$conversiones[] = $version[1];
+					$conversiones[] = str_replace("_", ".", $version[1]);
 				}
 			}
 		}		
+		//Si se pide un proyecto, filtra las ya aplicadas 
+		if (isset($proyecto)) {
+			foreach ($conversiones as $id => $version) {
+				if (self::ejecutada_anteriormente($proyecto, $version)) {
+					unset($conversiones[$id]);
+				}
+			}
+		}
 		return $conversiones;
 	}
 	
+	
+	static function ejecutada_anteriormente($proyecto, $version)
+	{
+		$sql = "SELECT fecha FROM apex_conversion WHERE
+						proyecto = '$proyecto' AND
+						conversion_aplicada = '$version'
+		";
+		$rs = toba::get_db('instancia')->consultar($sql);
+		if (empty($rs)) {
+			return false;	
+		} else { 
+			return $rs[0]['fecha'];
+		}
+	}	
+	
+	//--- DINAMICAS
+	
+	function __construct()
+	{
+		$this->version = $this->get_version();
+		$this->db = toba::get_db('instancia');
+//		$this->db->debug = true;
+	}
+		
+	
 	public function info()
 	{
+		echo $this->info_cambio(new ReflectionClass(get_class($this)))."\n";
 		$cambios = $this->get_lista_cambios();
 		foreach ($cambios as $cambio) {
 			$com = $this->info_cambio($cambio);
@@ -63,6 +92,7 @@ class conversion_toba
 	
 	    $com = str_replace("\r", "", $com);
 	    $com = trim(preg_replace("/([\\t])+/", "\t", $com));
+		$com = trim(preg_replace("/\\*\\//", "", $com));	    
 		return $com;
 	}
 	
@@ -116,20 +146,6 @@ class conversion_toba
 					(proyecto, conversion_aplicada, fecha) VALUES
 					('{$this->proyecto}', '{$this->version}', CURRENT_TIMESTAMP)";
 		$this->ejecutar_sql($sql);
-	}
-	
-	public function ejecutada_anteriormente($proyecto)
-	{
-		$sql = "SELECT fecha FROM apex_conversion WHERE
-						proyecto = '$proyecto' AND
-						conversion_aplicada = '{$this->version}'
-		";
-		$rs = $this->db->consultar($sql);
-		if (empty($rs)) {
-			return false;	
-		} else { 
-			return $rs[0]['fecha'];
-		}
 	}
 	
 	/**

@@ -13,9 +13,9 @@
 		$es_prueba = true;
 	}
 	if (isset($this->parametros['-l'])) {
-		$versiones = conversion_toba::conversiones_posibles();
+		$proyecto = $this->parametros['-p'];	
+		$versiones = conversion_toba::conversiones_posibles($proyecto);
 		foreach ($versiones as $version) {
-			$version = str_replace("_", ".", $version);
 			echo $version."\n";
 		}
 		exit();
@@ -37,7 +37,7 @@
 	$version_sin_parsear = $this->parametros['-v'];
 	$version = str_replace(".", "_", $version_sin_parsear);
 	
-	if (! conversion_toba::existe_conversion($version)) {
+	if (! conversion_toba::existe_conversion($version_sin_parsear)) {
 		fwrite(STDERR, "ERROR: No hay una conversion a la version $version_sin_parsear.\n");
 		exit(4);
 	}
@@ -51,7 +51,7 @@
 		$conversion->info();
 	else {
 		try {
-			$anterior = $conversion->ejecutada_anteriormente($proyecto);
+			$anterior = conversion_toba::ejecutada_anteriormente($proyecto, $version_sin_parsear);
 			if ($anterior) {
 				echo "La conversion ya fue ejecutada en fecha $anterior\n";
 			} else {

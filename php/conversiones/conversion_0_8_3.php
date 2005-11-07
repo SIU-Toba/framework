@@ -1,8 +1,14 @@
 <?
 require_once("conversion_toba.php");
 
+/**
+*	--------------------------------------------------------------
+*	 MIGRACION HACIA NUEVO MODELO DE EVENTOS DEFINIDOS EN EL ADMIN
+*	--------------------------------------------------------------
+*/
 class conversion_0_8_3 extends conversion_toba
 {
+
 	function get_version()
 	{
 		return "0.8.3";	
