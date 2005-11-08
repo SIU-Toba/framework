@@ -159,14 +159,14 @@ class objeto_ci extends objeto_ei
 
 	function inicializar_dependencia($dep, $parametro)
 	{
-		$this->dependencias[$dep]->inicializar($parametro);
-		$this->dependencias[$dep]->agregar_controlador($this);
 		if($this->dependencias[$dep] instanceof objeto_ci ){
-			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
+			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();			
 			if(isset($this->cn)){
 				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
 			}
-		}
+		}		
+		$this->dependencias[$dep]->inicializar($parametro);
+		$this->dependencias[$dep]->agregar_controlador($this);
 	}
 
 	//--------------------------------------------------------------
@@ -184,7 +184,7 @@ class objeto_ci extends objeto_ei
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
 		$this->evt__obtener_datos_cn( $modo );
-		$deps = $this->get_dependencias_ci();
+		$deps = $this->get_dependencias_clase("ci_");
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
@@ -208,7 +208,7 @@ class objeto_ci extends objeto_ei
 		//DUDA: Validar aca es redundante?
 		$this->evt__validar_datos();
 		$this->evt__entregar_datos_cn();
-		$deps = $this->get_dependencias_ci();
+		$deps = $this->get_dependencias_clase("ci_");
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
@@ -253,16 +253,21 @@ class objeto_ci extends objeto_ei
 	//--  MANEJO de PANTALLAS  -------------------------------
 	//--------------------------------------------------------
 
-	function get_etapa_inicial()
+	function get_pantalla_inicial()
 	{
 		return $this->info_ci_me_pantalla[0]["identificador"];
 	}
-
-	function get_etapa_actual()
-	{
-		return $this->get_pantalla_actual();
-	}
 	
+	/**
+	*	@deprecated Desde 0.8.3
+	*	@see objeto_ci::get_pantalla_inicial()
+	*/	
+	function get_etapa_inicial()
+	{
+		toba::get_logger()->obsoleto("objeto_ci", "get_etapa_inicial", "0.8.3", "Usar get_pantalla_inicial");
+		return $this->get_pantalla_inicial();
+	}
+
 	function get_pantalla_actual()
 	{
 		//¿Se pidio un cambio de pantalla al CI? 
@@ -281,11 +286,21 @@ class objeto_ci extends objeto_ei
 		if(isset( $this->memoria['etapa_gi'] )){
 			return $this->memoria['etapa_gi'];
 		}else{
-			//Etapa inicial
-			return $this->get_etapa_inicial();
+			//Pantalla inicial
+			return $this->get_pantalla_inicial();
 		}
 	}
-
+	
+	/**
+	*	@deprecated Desde 0.8.3
+	*	@see objeto_ci::get_pantalla_actual()
+	*/
+	function get_etapa_actual()
+	{
+		toba::get_logger()->obsoleto("objeto_ci", "get_etapa_actual", "0.8.3", "Usar get_pantalla_actual");		
+		return $this->get_pantalla_actual();
+	}
+		
 	function puede_ir_a_pantalla($tab)
 	{
 		$evento_mostrar = apex_ei_evento . apex_ei_separador . "puede_mostrar_pantalla";
@@ -320,7 +335,7 @@ class objeto_ci extends objeto_ei
 		}else{
 			$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
 			//Error, voy a etapa inicial
-			return $this->get_etapa_inicial();
+			return $this->get_pantalla_inicial();
 		}
 	}	
 	
@@ -384,7 +399,7 @@ class objeto_ci extends objeto_ei
 	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
 		$etapa_previa = (isset($this->memoria['etapa_gi'])) ? $this->memoria['etapa_gi'] : null;
-		$etapa_actual = $this->get_etapa_actual();
+		$etapa_actual = $this->get_pantalla_actual();
 		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
 		if($etapa_previa !== $etapa_actual){ //¿Se cambio de etapa?
 			// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior

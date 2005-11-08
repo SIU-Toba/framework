@@ -177,7 +177,8 @@ class objeto_ei extends objeto
 	function hay_botones() 
 	{
 		foreach($this->eventos as $id => $evento ) {	
-			if ( trim($evento['en_botonera'])==1 ) {
+			//Se asume que si no se definio nada en el evento, es en botonera			
+			if (!isset($this->eventos[$id]['en_botonera']) || trim($evento['en_botonera'])==1 ) {
 				return true;
 			}
 		}
@@ -201,7 +202,8 @@ class objeto_ei extends objeto
 	{
 		foreach(array_keys($this->eventos) as $id )
 		{
-			if (trim($this->eventos[$id]['en_botonera'])==1) {
+			//Se asume que si no se definio nada en el evento, es en botonera
+			if (!isset($this->eventos[$id]['en_botonera']) || trim($this->eventos[$id]['en_botonera'])==1) {
 				$this->generar_boton_evento($id);
 			}
 		}
