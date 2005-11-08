@@ -97,6 +97,7 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		$this->get_entidad()->eliminar();
 		$this->elemento_eliminado = true;
+		toba::get_solicitud()->zona()->refrescar_listado_editable_apex();
 		admin_util::refrescar_editor_item();
 	}
 }
