@@ -375,6 +375,14 @@ class ci_editor extends ci_editores_toba
 		}
 		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->seleccion_pantalla_anterior, $eventos);
 	}
+	
+	/**
+	*	Se modifica el identificador de un evento, esto afecta a todas las pantallas en la que esta incluído
+	*/
+	function evt__eventos__mod_id($id_anterior, $id_nuevo)
+	{
+		$this->get_entidad()->tabla('pantallas')->cambiar_id_evento($id_anterior, $id_nuevo);
+	}
 
 	// *******************************************************************
 	// *******************  tab EVENTOS  *********************************

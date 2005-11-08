@@ -66,7 +66,7 @@ class odt_pantallas extends objeto_datos_tabla
 			}
 		}		
 	}
-
+	
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con los EVENTOS
 	//-----------------------------------------------------
@@ -105,6 +105,30 @@ class odt_pantallas extends objeto_datos_tabla
 			}
 		}
 	}
+	
+	/**
+	*	Cambia el id de un evento en todas las pantallas donde este
+	*/	
+	function cambiar_id_evento($anterior, $nuevo)
+	{
+		$ids = $this->get_id_fila_condicion();
+		//Recorro las pantallas
+		foreach($ids as $id){
+			$evs = $this->get_eventos_pantalla($id);
+			if (is_array($evs)) {
+				$cambio = false;
+				foreach (array_keys($evs) as $ev) {
+					if ($evs[$ev] == $anterior) {
+						$cambio = true;
+						$evs[$ev] = $nuevo;	
+					}
+				}
+				if ($cambio) {
+					$this->set_eventos_pantalla( $id, $evs );
+				}
+			}
+		}				
+	}	
 	//-----------------------------------------------------
 }
 ?>

@@ -348,17 +348,8 @@ class ci_principal extends ci_editores_toba
 	//*******************  PROCESAMIENTO  *******************************
 	//*******************************************************************
 
-	function validar()
-	{
-		$datos = $this->get_entidad()->tabla('prop_basicas')->get();
-		if( !isset($datos['clave_dbr']) && ( !isset($datos['columnas_clave']) || (trim($datos['columnas_clave'])=="") ) ){
-			throw new excepcion_toba_def("Hay que definir la clave del cuadro");
-		}
-	}
-
 	function evt__procesar()
 	{
-		$this->validar();
 		//Seteo los datos asociados al uso de este editor
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );

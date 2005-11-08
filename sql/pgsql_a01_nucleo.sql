@@ -1086,6 +1086,7 @@ CREATE TABLE apex_objeto_dependencias
 );
 --#################################################################################################
 
+CREATE SEQUENCE apex_objeto_eventos_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1098,6 +1099,7 @@ CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)			NOT NULL,
+	evento_id							int4				DEFAULT nextval('"apex_objeto_eventos_seq"'::text) NOT NULL,
 	objeto								int4				NOT NULL,
 	identificador						varchar(20)			NOT NULL,
 	etiqueta							varchar(60)			NULL,
@@ -1107,14 +1109,15 @@ CREATE TABLE apex_objeto_eventos
 	estilo								varchar(40)			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
-	en_botonera							smallint			NULL,
+	en_botonera							smallint			NULL DEFAULT 1,
 	ayuda								varchar(255)		NULL,
 	orden								smallint			NULL,
 	ci_predep							smallint			NULL, 
 	implicito							smallint			NULL, 
 	display_datos_cargados				smallint			NULL, 
 	grupo								varchar(80)			NULL,
-	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","objeto","identificador"),
+	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","evento_id"),
+	CONSTRAINT	"apex_objeto_eventos_uq" UNIQUE ("proyecto","objeto","identificador"),	
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );

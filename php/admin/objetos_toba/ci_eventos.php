@@ -116,7 +116,13 @@ class ci_eventos extends objeto_ci
 					$this->reportar_evento( "del_evento", $id_evento );
 					break;	
 				case "M":
+					$id_anterior = $dbr->get_fila_columna($id, 'identificador');
+					$id_nuevo = $registros[$id]['identificador'];
 					$dbr->modificar_fila($id, $registros[$id]);
+					//Si se cambio el identificador del evento notificar al controlador de nivel superior
+					if ($id_nuevo != $id_anterior) {
+						$this->reportar_evento("mod_id", $id_anterior, $id_nuevo);
+					}
 					break;	
 			}
 		}
