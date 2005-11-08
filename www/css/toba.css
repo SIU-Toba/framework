@@ -25,10 +25,10 @@
 .cuadro-cc-pie-cab-nivel-0{
 	background-color: #514a84;
 	color: #ffffff;
-	font-size: 14px;
+	font-size: 10px;
 	MARGIN: 4px;
 	padding: 3px;
-	width: 80%;
+	width: auto;
 }
 
 .cuadro-cc-sum-nivel-0 {
@@ -64,12 +64,12 @@
 }
 
 .cuadro-cc-pie-cab-nivel-1{
-	font-size: 12px;
+	font-size: 10px;
 	background-color: #999999;
 	color: #ffffff;
 	MARGIN: 4px;
 	padding: 3px;
-	width: 75%;
+	width: auto;
 }
 
 .cuadro-cc-sum-nivel-1 {
@@ -105,11 +105,11 @@
 }
 
 .cuadro-cc-pie-cab-nivel-2{
-	font-size: 11px;
+	font-size: 10px;
 	background-color: #d4d0c8;
 	color: #000000;
 	MARGIN: 4px;
-	width: 80%;
+	width: auto;
 }
 
 .cuadro-cc-sum-nivel-2 {

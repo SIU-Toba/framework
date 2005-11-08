@@ -960,6 +960,28 @@ class objeto_ei_cuadro extends objeto_ei
 	//-- Generacion de los CORTES de CONTROL
 	//-------------------------------------------------------------------------------
 
+	private function html_cc_inicio_nivel()
+	{
+		if($this->cortes_modo == apex_cuadro_cc_anidado){
+			echo "<ul>\n";
+		}
+	}
+
+	private function html_cc_fin_nivel()
+	{
+		if($this->cortes_modo == apex_cuadro_cc_anidado){
+			echo "</ul>\n";
+		}
+	}
+	
+	private function get_nivel_css($profundidad)
+	{
+		return ($profundidad > 2) ? 2 : $profundidad;
+	}		
+
+	/**
+		Genera la CABECERA del corte de control
+	*/
 	private function html_cabecera_corte_control(&$nodo)
 	{
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
@@ -980,61 +1002,9 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
-	private function html_pie_corte_control(&$nodo)
-	{
-		/*
-			Tendria que existir una ventana para redefinir completamente el pie 
-			y otra para agregar algo?
-			Otra opcion es tener primitivas y un uso general de las mismas
-		*/
-		$metodo = 'html_pie_cc_contenido';
-		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
-		if(method_exists($this, $metodo_redeclarado)){
-			$metodo = $metodo_redeclarado;
-		}		
-		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			/*
-				*** Contenido estandar para el modo tabular ***
-			*/
-			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-			$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
-			$css_pie_cab = 'cuadro-cc-pie-cab-nivel-' . $nivel_css;
-			//Cabecera del PIE
-			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
-				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
-				echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-				echo "<div class='$css_pie_cab'>Resumen $descripcion<div>";
-				echo "</td></tr>\n";
-			}
-			//Totales de columna
-			if (isset($nodo['acumulador'])) {
-				$titulos = false;
-				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
-					$titulos = true;	
-				}
-				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
-													'cuadro-cc-sum-nivel-'.$nivel_css, 
-													$titulos,
-													$css_pie);
-			}
-			//Contenido AD-HOC
-			echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-			$this->$metodo($nodo);
-			echo "</td></tr>\n";
-			//Contar Filas
-			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
-				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-				echo "Cantidad de filas: " . count($nodo['filas']);
-				echo "</td></tr>\n";
-			}
-		}else{
-			$this->$metodo($nodo);
-			echo "</li>\n";
-		}
-	}
-	
 	/**
-		Muestra las columnas seleccionadas como descripcion del corte separadas por comas
+		Genera el COTENIDO de la cabecera del corte de control
+			Muestra las columnas seleccionadas como descripcion del corte separadas por comas
 	*/
 	protected function html_cabecera_cc_contenido(&$nodo)
 	{
@@ -1046,40 +1016,85 @@ class objeto_ei_cuadro extends objeto_ei
 			echo '<strong>' . $valor . '</strong>';
 		}
 	}
-	
-	protected function html_pie_cc_contenido(&$nodo)
+
+	/**
+		Genera el PIE del corte de control
+			Estaria bueno que esto consuma primitivas para:
+				- no pisarse con el contenido anidado.
+				- reutilizar en la regeneracion completa.
+	*/
+	private function html_pie_corte_control(&$nodo)
 	{
-		//Agrego las sumarizaciones ad-hoc
-		if(isset($nodo['sum_usuario'])){
-			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-			$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
-			foreach($nodo['sum_usuario'] as $id => $valor){
-				$desc = $this->sum_usuario[$id]['descripcion'];
-				$datos[$desc] = $valor;
+		$metodo_redeclarado = 'html_pie_cc_contenido__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$this->$metodo_redeclarado($nodo);
+		}else{
+			if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
+				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+				$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
+				$css_pie_cab = 'cuadro-cc-pie-cab-nivel-'.$nivel_css;
+				//-----  Cabecera del PIE --------
+				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
+					$metodo_redeclarado = 'html_cabecera_pie_cc_contenido__' . $nodo['corte'];
+					if(method_exists($this, $metodo_redeclarado)){
+						$descripcion = $this->$metodo_redeclarado($nodo);
+					}else{
+					 	$descripcion = $this->html_cabecera_pie_cc_contenido($nodo);
+					}
+					echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+					echo "<div class='$css_pie_cab'>$descripcion<div>";
+					echo "</td></tr>\n";
+				}
+				//----- Totales de columna -------
+				if (isset($nodo['acumulador'])) {
+					$titulos = false;
+					if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+						$titulos = true;	
+					}
+					$this->html_cuadro_totales_columnas($nodo['acumulador'], 
+														'cuadro-cc-sum-nivel-'.$nivel_css, 
+														$titulos,
+														$css_pie);
+				}
+				//------ Sumarizacion AD-HOC del usuario --------
+				if(isset($nodo['sum_usuario'])){
+					$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+					$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
+					foreach($nodo['sum_usuario'] as $id => $valor){
+						$desc = $this->sum_usuario[$id]['descripcion'];
+						$datos[$desc] = $valor;
+					}
+					echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+					$this->html_cuadro_sumarizacion($datos,null,300,$css);
+					echo "</td></tr>\n";
+				}
+				//----- Contar Filas
+				if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
+					echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+					echo "<em>Cantidad de filas: " . count($nodo['filas']) . "<em>";
+					echo "</td></tr>\n";
+				}
+			}else{																//MODO ANIDADO
+				echo "</li>\n";
 			}
-			$this->html_cuadro_sumarizacion($datos,null,300,$css);
-		}
-	}
-
-	private function html_cc_inicio_nivel()
-	{
-		if($this->cortes_modo == apex_cuadro_cc_anidado){
-			echo "<ul>\n";
-		}
-	}
-
-	private function html_cc_fin_nivel()
-	{
-		if($this->cortes_modo == apex_cuadro_cc_anidado){
-			echo "</ul>\n";
 		}
 	}
 	
-	private function get_nivel_css($profundidad)
+	/**
+		Genera el CONTENIDO de la cabecera del PIE del corte de control
+			Muestra las columnas seleccionadas como descripcion del corte separadas por comas
+	*/
+	protected function html_cabecera_pie_cc_contenido(&$nodo)
 	{
-		return ($profundidad > 2) ? 2 : $profundidad;
-	}		
-
+		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+		$valor = implode(", ",$nodo['descripcion']);
+		if (trim($descripcion) != '') {
+			return 'Resumen ' . $descripcion . ': <strong>' . $valor . '</strong>';			
+		} else {
+			return 'Resumen <strong>' . $valor . '</strong>';
+		}
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- Generacion del CUADRO 
 	//-------------------------------------------------------------------------------
@@ -1290,14 +1305,14 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
 		if($agregar_titulos){
-			echo "<tr $clase_linea>\n";
+			echo "<tr>\n";
 			for ($a=0;$a<$this->cantidad_columnas;$a++){
 				$clave = $this->info_cuadro_columna[$a]["clave"];
 			    if(isset($totales[$clave])){
 					$valor = $this->info_cuadro_columna[$a]["titulo"];
 					echo "<td class='".$this->info_cuadro_columna[$a]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
 				}else{
-					echo "<td ></td>\n";
+					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
 			}
 	        //-- Eventos sobre fila
@@ -1306,7 +1321,7 @@ class objeto_ei_cuadro extends objeto_ei
 			}		
 			echo "</tr>\n";
 		}
-		echo "<tr $clase_linea>\n";
+		echo "<tr>\n";
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
 			$clave = $this->info_cuadro_columna[$a]["clave"];
 			//Defino el valor de la columna
@@ -1322,7 +1337,7 @@ class objeto_ei_cuadro extends objeto_ei
 				}
 				echo "<td class='$estilo'><strong>$valor</strong></td>\n";
 			}else{
-				echo "<td ></td>\n";
+				echo "<td $clase_linea>&nbsp;</td>\n";
 			}
 		}
         //-- Eventos sobre fila

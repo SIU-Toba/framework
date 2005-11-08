@@ -1,9 +1,4 @@
 <?
-if (isset($_SERVER['TOBA_DIR'])) {
-	$dir = $_SERVER['TOBA_DIR']."/php"; 
-	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-	ini_set("include_path", ini_get("include_path"). $separador . $dir);
-}
 ################################################################################
 ############################> PUNTO de ACCESO <#################################
 ################################################################################
@@ -91,6 +86,11 @@ define("apex_pa_estilo","violeta1");
 #define("apex_pa_menu_archivo", "");
 
 ################################################################################
+if (isset($_SERVER['TOBA_DIR'])) {
+	$dir = $_SERVER['TOBA_DIR']."/php"; 
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+	ini_set("include_path", ini_get("include_path"). $separador . $dir);
+}
 require_once("nucleo/toba.php");
 toba::get_nucleo()->acceso_web();	
 ################################################################################
