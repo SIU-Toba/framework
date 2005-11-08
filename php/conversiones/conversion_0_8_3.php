@@ -712,7 +712,6 @@ class conversion_0_8_3 extends conversion_toba
 				AND o.proyecto = x.objeto_mt_me_proyecto
 				AND o.clase IN ('objeto_ci','ci_cn','ci_abm_dbr','objeto_ci_abm','ci_abm_dbt','ci_abm_nav');";
 		$this->ejecutar_sql($sql,"instancia");
-		
 		$sql = "
 			DELETE FROM apex_objeto_mt_me_etapa
 			WHERE 
@@ -725,7 +724,12 @@ class conversion_0_8_3 extends conversion_toba
 					) AND
 				objeto_mt_me_proyecto='{$this->proyecto}' ";
 		$this->ejecutar_sql($sql,"instancia");		
+		//Las etiquetas vacias de las pantallas pasan a llamarse igual que los identificadores
+		$sql = "UPDATE apex_objeto_ci_pantalla
+				SET etiqueta = identificador
+				WHERE etiqueta IS NULL
+				AND objeto_ci_proyecto = '{$this->proyecto}';";
+		$this->ejecutar_sql($sql,"instancia");		
 	}
-
 }
 ?>
