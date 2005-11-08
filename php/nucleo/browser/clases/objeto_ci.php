@@ -42,7 +42,7 @@ class objeto_ci extends objeto_ei
 		}
 		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
 		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
-		$this->set_etapa_gi( $this->get_pantalla_actual() );
+		$this->set_etapa_gi( $this->get_etapa_actual() );
 
 	}
 	
@@ -287,7 +287,7 @@ class objeto_ci extends objeto_ei
 			return $this->memoria['etapa_gi'];
 		}else{
 			//Pantalla inicial
-			return $this->get_pantalla_inicial();
+			return $this->get_etapa_inicial();
 		}
 	}
 	
@@ -335,7 +335,7 @@ class objeto_ci extends objeto_ei
 		}else{
 			$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
 			//Error, voy a etapa inicial
-			return $this->get_pantalla_inicial();
+			return $this->get_etapa_inicial();
 		}
 	}	
 	
@@ -387,7 +387,7 @@ class objeto_ci extends objeto_ei
 			// Request inicial
 			// Esto no deberia pasar nunca, porque en el request inicial no se disparan los eventos
 			// porque el CI no se encuentra entre las dependencias previas
-			$this->set_etapa_gi( $this->get_pantalla_actual() );
+			$this->set_etapa_gi( $this->get_etapa_actual() );
 		}
 		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}");
 	}
@@ -399,7 +399,7 @@ class objeto_ci extends objeto_ei
 	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
 		$etapa_previa = (isset($this->memoria['etapa_gi'])) ? $this->memoria['etapa_gi'] : null;
-		$etapa_actual = $this->get_pantalla_actual();
+		$etapa_actual = $this->get_etapa_actual();
 		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
 		if($etapa_previa !== $etapa_actual){ //¿Se cambio de etapa?
 			// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
