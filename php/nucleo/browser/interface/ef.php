@@ -583,7 +583,7 @@ class ef //Clase abstracta, padre de todos los EF
 		if($this->validacion){
 	        if($this->obligatorio){
     	        $estilo = "ef-etiqueta-obligatorio";
-				$marca = "(*)";
+				$marca = " (*)";
         	}else{
 	            $estilo = "ef-etiqueta";
 				$marca ="";
@@ -592,9 +592,14 @@ class ef //Clase abstracta, padre de todos los EF
             $estilo = "ef-etiqueta-error";
 			$marca ="";
 		}	
-		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta()." $marca $editor";
-		if(trim($this->descripcion)!=""){
-			$html .= "<br>".recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
+		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta().$marca;
+		if (isset($editor)) {
+			$html .= $editor;
+		}
+		if(trim($this->descripcion)!="") {
+			$html .= "<div style='text-align:center'>";
+			$html .= recurso::imagen_apl("descripcion.gif",true,null,null,$this->descripcion);
+			$html .= "</div>";
 		}
 		$html .= "</div>";
 		return $html;

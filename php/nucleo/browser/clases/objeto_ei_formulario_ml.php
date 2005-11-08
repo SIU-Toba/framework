@@ -703,22 +703,41 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo $this->elemento_formulario[$ef]->obtener_input();
 				echo "</td>\n";
 			}
-            //-- Eventos aplicados a una fila
-			//Para el caso particular del ML, aquellos que manejan datos disparan un modificacion tambien (si es que lo hay)
+ 			//---> Creo los EVENTOS de la FILA <---
 			foreach ($this->eventos as $id => $evento) {
 				if ($evento['sobre_fila']) {
-					echo "<td class='$estilo_fila'>\n";
+					//Filtrado de eventos por fila
+					$metodo_filtro = 'filtrar_evt__' . $id;
+					if(method_exists($this, $metodo_filtro)){
+						if(! $this->$metodo_filtro ) 
+							continue;
+					}
+					//HTML del EVENTO
+					$tip = '';
+					if (isset($evento['ayuda']))
+						$tip = $evento['ayuda'];
+					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
+					$tab_order = null;
+					$acceso = tecla_acceso( $evento["etiqueta"] );
+					$html = '';
+					if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
+						if (isset($evento['imagen_recurso_origen']))
+							$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
+						else
+							$img = $evento['imagen'];
+						$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+					}
+					$html .= $acceso[0];
+					$tecla = $acceso[1];
+					//Creo JS del EVENTO
 					$evento_js = eventos::a_javascript($id, $evento, $fila);
-					$js = "{$this->objeto_js}.set_evento($evento_js);";
-					if (isset($evento['imagen_recurso_origen']))
-						$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
-					else
-						$img = $evento['imagen'];
-					echo recurso::imagen($img, null, null, $evento['ayuda'], '', 
-										"onclick=\"$js\"", 'cursor: pointer');
+					$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+					echo "<td class='$estilo_fila'>\n";
+					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 	            	echo "</td>\n";
-				}
-			}			
+				}	
+			}
+			//----------------------------			
 			echo "</tr>\n";
 			$a++;
 		}

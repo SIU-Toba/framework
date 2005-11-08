@@ -187,8 +187,11 @@ class ef_combo extends ef
 	//-----------------------------------------------
 	//-----------------------------------------------	
 
-	function obtener_input()
+	function obtener_input($input_extra=null)
 	{
+		if (isset($input_extra)) {
+			$this->input_extra .= $input_extra;	
+		}
 		$estado = $this->obtener_estado_input();
 		//ei_arbol($this->valores);
         if ($this->solo_lectura) {

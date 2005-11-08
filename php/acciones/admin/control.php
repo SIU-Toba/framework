@@ -60,7 +60,7 @@ function mostrar_ocultar_frame() {
 		$proy =& new ef_combo_db(null,"",apex_sesion_post_proyecto,apex_sesion_post_proyecto,
                                 "Seleccione el proyecto en el que desea ingresar.","","",$parametros);
 		$proy->cargar_estado($this->hilo->obtener_proyecto());//Que el elemento seteado
-		echo $proy->obtener_input();
+		echo $proy->obtener_input(" onchange='multiproyecto.submit();'");
 		echo "</td>";
 		echo "<td class='listado-barra-superior-tabi'>";
         echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false));

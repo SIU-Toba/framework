@@ -11,7 +11,7 @@ class eiform_abm_detalle extends objeto_ei_formulario_ml
 		$this->fila_protegida = $fila;	
 	}
 
-//		/*
+
 	function extender_objeto_js()
 	{
 		if(isset($this->fila_protegida)){
@@ -25,7 +25,22 @@ class eiform_abm_detalle extends objeto_ei_formulario_ml
 				}
 ";
 		}
+		
+		echo "
+			{$this->objeto_js}.evt__implicito__procesar = function(inicial, fila_actual) {
+				if (this.ef('implicito').ir_a_fila(fila_actual).chequeado()) {
+					//Si se selecciona uno implicito, deseleccionar el resto
+					for (var id_fila in this._filas) {
+						if (this._filas[id_fila] != fila_actual) {
+							this.ef('implicito').ir_a_fila(this._filas[id_fila]).chequear(false);
+						}
+					}
+				}
+			}
+		";
 	}
-//		*/
+	
+	
+
 }
 ?>
