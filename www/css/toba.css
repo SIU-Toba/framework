@@ -1,101 +1,130 @@
 /*-- CORTES de CONTROL --*/
 
-/*-- titulos y sumarizacion --*/
+/*-- titulos, cabecera pie y sumarizacion por niveles (x>2=2)--*/
+
+/*-- NIVEL 0 --*/
 
 .cuadro-cc-tit-nivel-0{
-	border-top-width: 1px;
-	color: #ffffff;
-	border-left-width: 1px;
-	font-size: 14px;
-	border-left-color: #231f20;
-	border-bottom-width: 1px;
-	border-bottom-color: #231f20;
-	vertical-align: bottom;
-	border-top-color: #231f20;
+	border-top: #231f20 1px solid;
+	border-left: #231f20 1px solid;
+	border-right: #231f20 1px solid;
+	border-bottom: #231f20 1px solid;
 	background-color: #514a84;
-	text-align: left;
-	border-right-width: 1px;
-	border-right-color: #231f20;
-	padding: 5;
+	color: #ffffff;
+	font-size: 14px;
+	vertical-align: bottom;
+	padding: 5px,5px,5px,5px;
 }
 
-.cuadro-cc-tit-nivel-1{
-font-size: 12px;
-border-left-color: #231f20;
-border-left-width: 1px;
-border-bottom-width: 1px;
-border-bottom-color: #000000;
-border-right-width: 1px;
-border-right-color: #231f20;
-border-top-width: 1px;
-border-top-color: #231f20;
-background-color: #999999;
-text-align: left;
-padding-left: 5;
-color: #ffffff;
+.cuadro-cc-pie-nivel-0{
+	BACKGROUND-COLOR: #FFD87C;
+	COLOR: #231f20;
+	font-size: 10px;
 }
 
-.cuadro-cc-tit-nivel-2
-{
-border-top-width: 1px;
-border-left-width: 1px;
-font-size: 11px;
-border-left-color: #231f20;
-border-bottom-width: 1px;
-border-bottom-color: #000000;
-vertical-align: bottom;
-border-top-color: #231f20;
-background-color: #d4d0c8;
-text-align: left;
-border-right-width: 1px;
-border-right-color: #231f20
-padding: 5;
+.cuadro-cc-pie-cab-nivel-0{
+	background-color: #514a84;
+	color: #ffffff;
+	font-size: 14px;
+	MARGIN: 4px;
+	padding: 3px;
+	width: 80%;
 }
 
 .cuadro-cc-sum-nivel-0 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: #4f4c4d 1px solid;
-	 PADDING-LEFT: 2px;
-	 PADDING-BOTTOM: 2px;
-	 MARGIN: 0px;
-	 BORDER-LEFT: #4f4c4d 1px solid;
+	BORDER-TOP: #4f4c4d 1px solid;
+	BORDER-LEFT: #4f4c4d 1px solid;
+	BORDER-BOTTOM: #4f4c4d 1px solid;
+	BACKGROUND-COLOR: #FFD87C;
+	COLOR: #231f20;
+	MARGIN: 0px;
+	padding: 2px,2px,2px,2px;
+	TEXT-ALIGN: right
+}
+
+/*-- NIVEL 1 --*/
+
+.cuadro-cc-tit-nivel-1{
+	border-top: #000000 1px solid;
+	border-left: #231f20 1px solid;
+	border-bottom: #000000 1px solid;
+	border-right: #231f20 1px solid;
+	font-size: 12px;
+	background-color: #999999;
+	color: #ffffff;
+	MARGIN: 0px;
+	padding: 2px,2px,2px,2px;
+}
+
+.cuadro-cc-pie-nivel-1{
 	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
-	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 BACKGROUND-COLOR: #FFD87C;
-	 TEXT-ALIGN: right
+	 BACKGROUND-COLOR: #FFFAAF;
+	font-size: 10px;
+}
+
+.cuadro-cc-pie-cab-nivel-1{
+	font-size: 12px;
+	background-color: #999999;
+	color: #ffffff;
+	MARGIN: 4px;
+	padding: 3px;
+	width: 75%;
 }
 
 .cuadro-cc-sum-nivel-1 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
-	 PADDING-RIGHT: 2px;
 	 BORDER-TOP: #4f4c4d 1px solid;
-	 PADDING-LEFT: 2px;
-	 PADDING-BOTTOM: 2px;
-	 MARGIN: 0px;
 	 BORDER-LEFT: #4f4c4d 1px solid;
-	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 COLOR: #231f20;
 	 BACKGROUND-COLOR: #FFFAAF;
-	 TEXT-ALIGN: right
+	 MARGIN: 0px;
+	TEXT-ALIGN: right
+}
+
+/*-- NIVEL 2 --*/
+
+.cuadro-cc-tit-nivel-2{
+	border-bottom: #000000  1px solid;
+	border-top: #000000  1px solid;
+	border-left: #231f20 1px solid;
+	border-right: #231f20  1px solid;
+	font-size: 11px;
+	background-color: #d4d0c8;
+	vertical-align: bottom;
+	text-align: left;
+	padding: 5;
+	color: #000000;
+}
+
+.cuadro-cc-pie-nivel-2{
+	 COLOR: #231f20;
+	 BACKGROUND-COLOR: #ffffff;
+	font-size: 10px;
+}
+
+.cuadro-cc-pie-cab-nivel-2{
+	font-size: 11px;
+	background-color: #d4d0c8;
+	color: #000000;
+	MARGIN: 4px;
+	width: 80%;
 }
 
 .cuadro-cc-sum-nivel-2 {
 	BORDER-RIGHT: #4f4c4d 1px solid;
-	 PADDING-RIGHT: 2px;
 	 BORDER-TOP: #4f4c4d 1px solid;
-	 PADDING-LEFT: 2px;
-	 PADDING-BOTTOM: 2px;
-	 MARGIN: 0px;
 	 BORDER-LEFT: #4f4c4d 1px solid;
-	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 COLOR: #231f20;
 	 BACKGROUND-COLOR: #ffffff;
 	 TEXT-ALIGN: right
+	MARGIN: 0px;
+	padding: 2px,2px,2px,2px;
 }
+
+/*-- Generales --*/
 
 .cuadro-evt {
 	FONT-SIZE: 11px;

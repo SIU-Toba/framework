@@ -9,6 +9,7 @@ define("apex_cuadro_cc_anidado","a");
 	
 	GENERAL:
 
+		- Falta la cabecera del TOTAL general y la funcion AD-HOC del mismo
 		- Encriptar clave
 		- Vinculos?
 		- Semaforos de color para cuando un valor pasa un tope?
@@ -981,18 +982,28 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function html_pie_corte_control(&$nodo)
 	{
+		/*
+			Tendria que existir una ventana para redefinir completamente el pie 
+			y otra para agregar algo?
+			Otra opcion es tener primitivas y un uso general de las mismas
+		*/
 		$metodo = 'html_pie_cc_contenido';
 		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
 		if(method_exists($this, $metodo_redeclarado)){
 			$metodo = $metodo_redeclarado;
 		}		
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			$css = $this->get_css_sum_nivel($nodo['profundidad']);
-			//Titulo de Resumen
+			/*
+				*** Contenido estandar para el modo tabular ***
+			*/
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
+			$css_pie_cab = 'cuadro-cc-pie-cab-nivel-' . $nivel_css;
+			//Cabecera del PIE
 			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
 				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
-				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
-				echo "Resumen $descripcion";
+				echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<div class='$css_pie_cab'>Resumen $descripcion<div>";
 				echo "</td></tr>\n";
 			}
 			//Totales de columna
@@ -1001,15 +1012,18 @@ class objeto_ei_cuadro extends objeto_ei
 				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
 					$titulos = true;	
 				}
-				$this->html_cuadro_totales_columnas($nodo['acumulador'], $css, $titulos);
+				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
+													'cuadro-cc-sum-nivel-'.$nivel_css, 
+													$titulos,
+													$css_pie);
 			}
 			//Contenido AD-HOC
-			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+			echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
 			//Contar Filas
 			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
-				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
 				echo "Cantidad de filas: " . count($nodo['filas']);
 				echo "</td></tr>\n";
 			}
@@ -1037,7 +1051,8 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		//Agrego las sumarizaciones ad-hoc
 		if(isset($nodo['sum_usuario'])){
-			$css = $this->get_css_sum_nivel($nodo['profundidad']);
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
 			foreach($nodo['sum_usuario'] as $id => $valor){
 				$desc = $this->sum_usuario[$id]['descripcion'];
 				$datos[$desc] = $valor;
@@ -1064,12 +1079,6 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		return ($profundidad > 2) ? 2 : $profundidad;
 	}		
-
-	private function get_css_sum_nivel($profundidad)
-	{
-		$nivel_css = $this->get_nivel_css($profundidad);
-		return 'cuadro-cc-sum-nivel-'.$nivel_css;
-	}
 
 	//-------------------------------------------------------------------------------
 	//-- Generacion del CUADRO 
@@ -1277,10 +1286,11 @@ class objeto_ei_cuadro extends objeto_ei
 		echo $editor;
     }
 
-	function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false)
+	function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
 	{
+		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
 		if($agregar_titulos){
-			echo "<tr>\n";
+			echo "<tr $clase_linea>\n";
 			for ($a=0;$a<$this->cantidad_columnas;$a++){
 				$clave = $this->info_cuadro_columna[$a]["clave"];
 			    if(isset($totales[$clave])){
@@ -1296,7 +1306,7 @@ class objeto_ei_cuadro extends objeto_ei
 			}		
 			echo "</tr>\n";
 		}
-		echo "<tr>\n";
+		echo "<tr $clase_linea>\n";
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
 			$clave = $this->info_cuadro_columna[$a]["clave"];
 			//Defino el valor de la columna
