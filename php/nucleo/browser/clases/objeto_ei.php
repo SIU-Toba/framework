@@ -174,11 +174,16 @@ class objeto_ei extends objeto
 		return $cant;
 	}
 	
+	protected function evento_es_en_botonera($evento)
+	{
+		//Se asume que si no se definio nada en el evento, es en botonera					
+		return !isset($evento['en_botonera']) ||  trim($evento['en_botonera'])==1;
+	}
+	
 	function hay_botones() 
 	{
-		foreach($this->eventos as $id => $evento ) {	
-			//Se asume que si no se definio nada en el evento, es en botonera			
-			if (!isset($this->eventos[$id]['en_botonera']) || trim($evento['en_botonera'])==1 ) {
+		foreach(array_keys($this->eventos) as $id  ) {	
+			if ($this->evento_es_en_botonera($this->eventos[$id]) ) {
 				return true;
 			}
 		}
@@ -200,10 +205,8 @@ class objeto_ei extends objeto
 	*/
 	function obtener_botones_eventos()
 	{
-		foreach(array_keys($this->eventos) as $id )
-		{
-			//Se asume que si no se definio nada en el evento, es en botonera
-			if (!isset($this->eventos[$id]['en_botonera']) || trim($this->eventos[$id]['en_botonera'])==1) {
+		foreach(array_keys($this->eventos) as $id )	{
+			if ($this->evento_es_en_botonera($this->eventos[$id])) {
 				$this->generar_boton_evento($id);
 			}
 		}

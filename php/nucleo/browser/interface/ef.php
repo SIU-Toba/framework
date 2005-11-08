@@ -553,7 +553,8 @@ class ef //Clase abstracta, padre de todos los EF
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
 									   apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio,				
 										'ef' => $this->id );
-				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
+				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
+																	false, false,"",null, 1);
 
 			}
 			echo "</td>\n";
@@ -576,7 +577,8 @@ class ef //Clase abstracta, padre de todos los EF
 			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto()) {
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
 										'ef' => $this->id );
-				$editor = toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true);
+				$editor = toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
+																	false, false,"",null, 1);				
 			}
 		}
 	
