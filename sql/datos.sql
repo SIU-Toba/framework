@@ -10,16 +10,16 @@ INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proy
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_info','item_proyecto','item','2','Ayuda','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_nota','item_proyecto','item','3','Notas asociadas','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_item_objeto','proyecto','item','1','Objetos Asociados','0','1','1','1',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','origen_item_proyecto','origen_item','4','Vinculos Salientes','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','destino_item_proyecto','destino_item','5','Vinculos Entrantes','1','1','0','0',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('item','apex_vinculo','origen_item_proyecto','origen_item','4','Vinculos Salientes','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_item_objeto','proyecto','objeto','7','Servicio a un Item','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto','proyecto','objeto','0','Tabla principal','0','1','1','1',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_proveedor','4','Servicio a otro objeto','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_consumidor','3','Dependencias','0','1','1','1',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_dependencias','proyecto','objeto_proveedor','4','Servicio a otro objeto','1','1','0','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_info','objeto_proyecto','objeto','1','Ayuda','0','1','1','0',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_objeto_nota','objeto_proyecto','objeto','2','Notas asociadas','0','1','1','0',NULL);
-INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','origen_objeto_proyecto','origen_objeto','5','Vinculos Salientes','0','1','1','1',NULL);
 INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','destino_objeto_proyecto','destino_objeto','6','Vinculos Entrantes','1','1','0','0',NULL);
+INSERT INTO apex_elemento_infra_tabla (elemento_infra, tabla, columna_clave_proyecto, columna_clave, orden, descripcion, dependiente, proc_borrar, proc_exportar, proc_clonar, obligatoria) VALUES ('objeto','apex_vinculo','origen_objeto_proyecto','origen_objeto','5','Vinculos Salientes','0','1','1','1',NULL);
 
 -----------  apex_estilo  ------------------------
 
@@ -2742,16 +2742,16 @@ INSERT INTO apex_objeto_proto (objeto_proyecto, objeto, descripcion, logica) VAL
 
 -----------  apex_objeto_proto_metodo  ------------------------
 
+INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_actividad','2',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','obtener_lista_actividades','3',NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO apex_objeto_proto_metodo (objeto_proyecto, objeto, metodo, orden, acceso, descripcion, parametros, retorno, logica, php) VALUES ('toba','629','agregar_actividad','1',NULL,NULL,NULL,NULL,NULL,NULL);
 
 -----------  apex_objeto_proto_propiedad  ------------------------
 
+INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','hito','2',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','linea','3',NULL,NULL);
 INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','propiedades','0',NULL,NULL);
-INSERT INTO apex_objeto_proto_propiedad (objeto_proyecto, objeto, propiedad, orden, tipo, descripcion) VALUES ('toba','629','actividad','1',NULL,NULL);
 
 -----------  apex_dimension_tipo_perfil  ------------------------
 
@@ -3815,13 +3815,14 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden,
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','columnas_id','7','1','varchar(200)	NOT NULL,		-- Columnas utilizada para cortar');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','descripcion','5','1','varchar(30)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','identificador','4','1','varchar(15)		NULL,			-- Para declarar funciones que redefinan la cabecera o el pie del corte');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','imp_paginar','11','1','smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','imp_paginar','12','1','smallint		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','objeto_cuadro','2','1','int4       		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','objeto_cuadro_cc','3','1','int4			DEFAULT nextval(\'\"apex_obj_ei_cuadro_cc_seq\"\'::text) NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','objeto_cuadro_proyecto','1','1','varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','orden','6','1','float      		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','pie_contar_filas','9','1','varchar(10)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','pie_mostrar_titulos','10','1','smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','pie_mostrar_titular','10','1','smallint		NULL,			-- Cabecera del PIE');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_cc','pie_mostrar_titulos','11','1','smallint		NULL,			-- Repetir los titulos de las columnas');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_columna','ancho_html','7','1','varchar(10)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_columna','columna_ancho','6','1','varchar(10)		NULL,			-- Ancho de columna para RTF');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_cuadro_columna','columna_estilo','5','1','int4		    NOT NULL,	-- Estilo de la columna');
@@ -3911,7 +3912,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden,
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','objeto_cuadro_proyecto','1','1','varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','orden','5','1','float      		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','pdf_propiedades','15','1','varchar			NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','titulo','6','1','varchar(100)	NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','titulo','6','1','varchar(100)	NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','total','17','1','smallint		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','total_cc','18','1','varchar(100)	NULL,			-- La columna lleva un total al final?');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto, tabla, columna, orden, dump, definicion) VALUES ('toba','apex_objeto_ei_cuadro_columna','vinculo_indice','11','1','varchar(20) 	NULL,');
@@ -4738,11 +4739,11 @@ date_part(\'year\',s.momento) %-%
 date_part(\'month\',s.momento) %-%
 date_part(\'year\',s.momento)','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','453','toba','tiempo','Tiempo ejecucion',NULL,'tiempo_respuesta','3',NULL,NULL,NULL);
+INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_prioridad',NULL,NULL,'t.tarea_prioridad','2',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tema',NULL,NULL,'t.tarea_tema','3',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_tipo',NULL,NULL,'t.tarea_tipo','4',NULL,NULL,NULL);
 INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','version',NULL,NULL,'t.version_proyecto %-% t.version','0',NULL,NULL,NULL);
-INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba','471','toba','tarea_estado',NULL,NULL,'t.tarea_estado','1',NULL,NULL,NULL);
 
 -----------  apex_objeto_lista  ------------------------
 
@@ -5710,7 +5711,7 @@ INSERT INTO apex_objeto_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, o
 
 -----------  apex_objeto_cuadro_cc  ------------------------
 
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titulos, imp_paginar) VALUES ('toba','1522','4','clase_tipo',NULL,'1','clase_tipo','clase_tipo_desc','0','0',NULL);
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar) VALUES ('toba','1522','4','clase_tipo',NULL,'1','clase_tipo','clase_tipo_desc','0',NULL,'0',NULL);
 
 -----------  apex_objeto_ei_cuadro_columna  ------------------------
 
@@ -5796,7 +5797,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba','1553',NULL,NULL,'1',NULL,NULL,'apex_item',NULL,'0');
 INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba','1555',NULL,NULL,'1',NULL,NULL,'apex_usuario_grupo_acc_item',NULL,NULL);
 INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba','1558',NULL,NULL,'0','apdb_item_objetos','admin/db/apdb_item_objetos.php','apex_item_objeto',NULL,NULL);
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba','1612',NULL,NULL,'1',NULL,NULL,'apex_objeto_cuadro_cc',NULL,NULL);
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba','1612',NULL,NULL,'1',NULL,NULL,'apex_objeto_cuadro_cc',NULL,'0');
 
 -----------  apex_objeto_db_registros_col  ------------------------
 
@@ -6063,6 +6064,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba','1612','293','imp_paginar','E',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba','1612','294','objeto_cuadro_cc','N','1','apex_obj_ei_cuadro_cc_seq',NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba','1612','300','descripcion','C',NULL,NULL,'30',NULL,NULL,NULL);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba','1612','334','pie_mostrar_titular','E',NULL,NULL,NULL,NULL,NULL,NULL);
 
 -----------  apex_objeto_datos_rel  ------------------------
 
@@ -8227,11 +8229,12 @@ maximo: 30;','2','Descripcion',NULL,NULL,NULL,NULL,'0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1613','1545','identificador','ef_editable','identificador','1','tamano: 15;
 maximo: 15;','1','Identificador',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1613','1548','imp_paginar','ef_checkbox','imp_paginar',NULL,'valor: 1;
-valor_no_seteado: 0;','7','Paginar',NULL,NULL,'1',NULL,NULL);
+valor_no_seteado: 0;','8','Paginar',NULL,NULL,'1',NULL,NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1613','1546','pie_contar_filas','ef_checkbox','pie_contar_filas',NULL,'valor: 1;
-valor_no_seteado: 0;','5','Contar filas',NULL,NULL,NULL,NULL,'0');
+valor_no_seteado: 0;','5','Contar filas','Agrega una cuenta de filas al final del grupo.',NULL,NULL,NULL,'0');
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1613','4369','pie_mostrar_titular','ef_checkbox','pie_mostrar_titular',NULL,'valor: 1;','7','Cab. Pie','Agrega los titulos de las columnas a los totales.',NULL,NULL,NULL,'0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1613','1547','pie_mostrar_titulos','ef_checkbox','pie_mostrar_titulos',NULL,'valor: 1;
-valor_no_seteado: 0;','6','Tit. Result.','Muestra resultados en el pie de página.',NULL,NULL,NULL,'0');
+valor_no_seteado: 0;','6','Tit. Col.','Cenera una cabecera del grupo para el PIE.',NULL,NULL,NULL,'0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1616','1550','identificador','ef_fijo','identificador',NULL,NULL,'1','Corte',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba','1616','1552','promedio','ef_checkbox','promedio',NULL,'valor: 1;
 valor_no_seteado: 0;','3','Promedio',NULL,NULL,'1',NULL,NULL);
@@ -8383,8 +8386,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1354','359','3','4','Eventos',NULL,NULL,'apex','reflexion/evento.gif','eventos','eliminar,procesar');
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','362','1','1','Propiedades basicas',NULL,NULL,'apex','objetos/cuadro_array.gif','base,prop_basicas','procesar,eliminar');
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','363','2','2','Columnas',NULL,NULL,NULL,NULL,'columnas_lista,columnas,columna_corte,columnas_importar','procesar,eliminar');
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','364','3','3','Eventos',NULL,NULL,'apex','reflexion/evento.gif','eventos','procesar,eliminar');
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','474','cortes','4','Cortes Control',NULL,NULL,NULL,NULL,'prop_cortes,cortes','procesar,eliminar');
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','364','3','4','Eventos',NULL,NULL,'apex','reflexion/evento.gif','eventos','procesar,eliminar');
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1363','474','cortes','3','Cortes Control',NULL,NULL,NULL,NULL,'prop_cortes,cortes','procesar,eliminar');
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1381','365','1','1','Items',NULL,NULL,NULL,NULL,'fotos,filtro,items','refrescar,sacar_foto');
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1381','366','2','2','Composición del ítem',NULL,NULL,NULL,NULL,'objetos','refrescar,volver');
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos) VALUES ('toba','1385','367','1','1','Mostrar',NULL,NULL,NULL,NULL,'eventos,eventos_lista','');

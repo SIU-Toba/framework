@@ -10,10 +10,11 @@ define("apex_cuadro_cc_anidado","a");
 	GENERAL:
 
 		- Encriptar clave
-		- Modificar la clave devuelta (siempre array)
 		- Vinculos?
 		- Semaforos de color para cuando un valor pasa un tope?
 		- Se permite no entregar columnas? Se eleva un warning?
+	
+		- Ver que pasa cuando los cuadros no se cargan
 		
 	EVENTOS: 
 
@@ -21,9 +22,7 @@ define("apex_cuadro_cc_anidado","a");
 
 	CORTES:
 
-		- Layout tabular
 		- Colapsado de niveles
-		- Los totales tienen que respetar el formato de la columna
 		- Contar la cantidad de filas
 		- Layout HTML
 			- Sumarizacion por corte
@@ -263,6 +262,7 @@ class objeto_ei_cuadro extends objeto_ei
 													columnas_descripcion,	
 													identificador		,	
 													pie_contar_filas	,	
+													pie_mostrar_titular ,	
 													pie_mostrar_titulos	,	
 													imp_paginar,
 													descripcion				
@@ -736,15 +736,20 @@ class objeto_ei_cuadro extends objeto_ei
 			throw new excepcion_toba_def("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->tipo_salida = $tipo;
-		$this->inicializar_generacion();
-		$this->generar_inicio();
 		if( $this->datos_cargados() ){
+			$this->inicializar_generacion();
+			$this->generar_inicio();
 			//Generacion de contenido
 			if($this->existen_cortes_control()){
 				$this->generar_cortes_control();
 			}else{
 				$filas = array_keys($this->datos);
 				$this->generar_cuadro($filas, $this->acumulador);
+			}
+			$this->generar_fin();
+			if( false && $this->existen_cortes_control() ){
+				ei_arbol($this->cortes_def,"\$this->cortes_def");
+				ei_arbol($this->cortes_control,"\$this->cortes_control");
 			}
 		}else{
             if ($this->info_cuadro["eof_invisible"]!=1){
@@ -755,11 +760,6 @@ class objeto_ei_cuadro extends objeto_ei
                 }
 				$this->generar_mensaje_cuadro_vacio($texto);
             }
-		}
-		$this->generar_fin();
-		if( $this->existen_cortes_control() ){
-			//ei_arbol($this->cortes_def,"\$this->cortes_def");
-			//ei_arbol($this->cortes_control,"\$this->cortes_control");
 		}
 	}
 
@@ -939,6 +939,7 @@ class objeto_ei_cuadro extends objeto_ei
 	
 	protected function html_pie()
 	{
+		return;
 		if( $this->existen_cortes_control() ){
 			if(isset($this->acumulador)){
 				echo "<hr>";
@@ -978,6 +979,46 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
+	private function html_pie_corte_control(&$nodo)
+	{
+		$metodo = 'html_pie_cc_contenido';
+		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
+		if(method_exists($this, $metodo_redeclarado)){
+			$metodo = $metodo_redeclarado;
+		}		
+		if($this->cortes_modo == apex_cuadro_cc_tabular){
+			$css = $this->get_css_sum_nivel($nodo['profundidad']);
+			//Titulo de Resumen
+			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
+				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+				echo "Resumen $descripcion";
+				echo "</td></tr>\n";
+			}
+			//Totales de columna
+			if (isset($nodo['acumulador'])) {
+				$titulos = false;
+				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+					$titulos = true;	
+				}
+				$this->html_cuadro_totales_columnas($nodo['acumulador'], $css, $titulos);
+			}
+			//Contenido AD-HOC
+			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+			$this->$metodo($nodo);
+			echo "</td></tr>\n";
+			//Contar Filas
+			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
+				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
+				echo "Cantidad de filas: " . count($nodo['filas']);
+				echo "</td></tr>\n";
+			}
+		}else{
+			$this->$metodo($nodo);
+			echo "</li>\n";
+		}
+	}
+	
 	/**
 		Muestra las columnas seleccionadas como descripcion del corte separadas por comas
 	*/
@@ -992,43 +1033,6 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 	
-	private function html_pie_corte_control(&$nodo)
-	{
-		$metodo = 'html_pie_cc_contenido';
-		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
-		if(method_exists($this, $metodo_redeclarado)){
-			$metodo = $metodo_redeclarado;
-		}		
-		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			$css = $this->get_css_sum_nivel($nodo['profundidad']);
-			//Titulo de Resumen
-			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
-				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
-				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
-				echo "Resumen $descripcion";
-				echo "</td></tr>\n";
-			}
-			//Totales de columna
-			if (isset($nodo['acumulador'])) {
-				$this->html_cuadro_totales_columnas($nodo['acumulador'], $css);
-			}
-			//Contar Filas
-			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
-				$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
-				echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
-				echo "Cantidad de filas: " . count($nodo['filas']);
-				echo "</td></tr>\n";
-			}
-			//Contenido AD-HOC
-			echo "<tr><td  colspan='$this->cantidad_columnas_total'>\n";
-			$this->$metodo($nodo);
-			echo "</td></tr>\n";
-		}else{
-			$this->$metodo($nodo);
-			echo "</li>\n";
-		}
-	}
-
 	protected function html_pie_cc_contenido(&$nodo)
 	{
 		//Agrego las sumarizaciones ad-hoc
@@ -1174,12 +1178,7 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function html_cuadro_inicio()
 	{
-		if($this->existen_cortes_control()){
-			$estilo = 'cuadro-cc-tabla';
-		}else{
-			$estilo = 'tabla-0';
-		}
-		echo "<TABLE width='100%' class='$estilo'>\n";
+		echo "<TABLE width='100%' class='tabla-0'>\n";
 	}
 	
 	private function html_cuadro_fin()
@@ -1278,8 +1277,25 @@ class objeto_ei_cuadro extends objeto_ei
 		echo $editor;
     }
 
-	function html_cuadro_totales_columnas($totales,$estilo=null)
+	function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false)
 	{
+		if($agregar_titulos){
+			echo "<tr>\n";
+			for ($a=0;$a<$this->cantidad_columnas;$a++){
+				$clave = $this->info_cuadro_columna[$a]["clave"];
+			    if(isset($totales[$clave])){
+					$valor = $this->info_cuadro_columna[$a]["titulo"];
+					echo "<td class='".$this->info_cuadro_columna[$a]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
+				}else{
+					echo "<td ></td>\n";
+				}
+			}
+	        //-- Eventos sobre fila
+			if($this->cantidad_columnas_extra > 0){
+				echo "<td colspan='$this->cantidad_columnas_extra'></td>\n";
+			}		
+			echo "</tr>\n";
+		}
 		echo "<tr>\n";
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
 			$clave = $this->info_cuadro_columna[$a]["clave"];
@@ -1298,8 +1314,6 @@ class objeto_ei_cuadro extends objeto_ei
 			}else{
 				echo "<td ></td>\n";
 			}
-			//HTML de la columna
-
 		}
         //-- Eventos sobre fila
 		if($this->cantidad_columnas_extra > 0){

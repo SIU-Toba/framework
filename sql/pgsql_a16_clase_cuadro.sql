@@ -124,7 +124,8 @@ CREATE TABLE apex_objeto_cuadro_cc
 	columnas_id	    				varchar(200)	NOT NULL,		-- Columnas utilizada para cortar
 	columnas_descripcion			varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte
 	pie_contar_filas				varchar(10)		NULL,
-	pie_mostrar_titulos				smallint		NULL,		
+	pie_mostrar_titular				smallint		NULL,			-- Cabecera del PIE
+	pie_mostrar_titulos				smallint		NULL,			-- Repetir los titulos de las columnas
 	imp_paginar						smallint		NULL,		
 	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_cc"),
 	CONSTRAINT  "apex_obj_cuadro_cc_uq" UNIQUE ("objeto_cuadro_proyecto","objeto_cuadro","identificador"),

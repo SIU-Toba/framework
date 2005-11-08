@@ -1483,8 +1483,9 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'columnas_id', 7, 'varchar(200)	NOT NULL,		-- Columnas utilizada para cortar');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'columnas_descripcion', 8, 'varchar(200)	NOT NULL,		-- Columnas utilizada como titulo del corte');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'pie_contar_filas', 9, 'varchar(10)		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'pie_mostrar_titulos', 10, 'smallint		NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'imp_paginar', 11, 'smallint		NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'pie_mostrar_titular', 10, 'smallint		NULL,			-- Cabecera del PIE');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'pie_mostrar_titulos', 11, 'smallint		NULL,			-- Repetir los titulos de las columnas');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_cuadro_cc', 'imp_paginar', 12, 'smallint		NULL,');
 
 ------  'apex_objeto_ei_cuadro_columna'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'pgsql_a16_clase_cuadro.sql', 127, 'multiproyecto', NULL, '( objeto_cuadro_proyecto = \'%%\' )', 'objeto_cuadro, objeto_cuadro_col', NULL, NULL, '', '1.0', '0', NULL);
@@ -1493,7 +1494,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'objeto_cuadro_col', 3, 'int4			DEFAULT nextval(\'\"apex_obj_ei_cuadro_col_seq\"\'::text) NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'clave', 4, 'varchar(40)    	NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'orden', 5, 'float      		NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'titulo', 6, 'varchar(100)	NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'titulo', 6, 'varchar(100)	NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'estilo_titulo', 7, 'varchar(100)	DEFAULT \'lista-col-titulo\' NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'estilo', 8, 'int4		    NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_objeto_ei_cuadro_columna', 'ancho', 9, 'varchar(10)		NULL,');

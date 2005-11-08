@@ -20,7 +20,8 @@ class conversion_0_8_3_1 extends conversion_toba
 	{
 		//alta = 'no_cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'no_cargado'
+				SET grupo = 'no_cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -30,7 +31,8 @@ class conversion_0_8_3_1 extends conversion_toba
 		$this->ejecutar_sql($sql,"instancia");
 		//modificacion = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'cargado'
+				SET grupo = 'cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -43,7 +45,8 @@ class conversion_0_8_3_1 extends conversion_toba
 		$this->ejecutar_sql($sql,"instancia");
 		//cancelar = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'cargado'
+				SET grupo = 'cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -53,7 +56,8 @@ class conversion_0_8_3_1 extends conversion_toba
 		$this->ejecutar_sql($sql,"instancia");
 		//baja = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'cargado'
+				SET grupo = 'cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -70,7 +74,8 @@ class conversion_0_8_3_1 extends conversion_toba
 	{
 		//filtrar = 'no_cargado,cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'no_cargado,cargado'
+				SET grupo = 'no_cargado,cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -80,7 +85,8 @@ class conversion_0_8_3_1 extends conversion_toba
 		$this->ejecutar_sql($sql,"instancia");
 		//cancelar = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
-				SET grupo = 'cargado'
+				SET grupo = 'cargado',
+					en_botonera = 1
 				FROM apex_objeto 
 				WHERE apex_objeto_eventos.objeto = apex_objeto.objeto
 				AND apex_objeto_eventos.proyecto = apex_objeto.proyecto
@@ -98,7 +104,7 @@ class conversion_0_8_3_1 extends conversion_toba
 	function cambio_eventos_implicitos()
 	{
 		/*
-			Cuando estos EIs no tenian un eventos, se les seteaba un en codigo una MODIFICACION IMPLICITA.
+			Cuando estos EIs no tenian eventos, se les seteaba un en codigo una MODIFICACION IMPLICITA.
 		*/
 		$sql = "INSERT INTO apex_objeto_eventos(
 					objeto,
