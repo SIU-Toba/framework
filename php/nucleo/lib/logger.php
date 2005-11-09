@@ -330,7 +330,7 @@ class logger
 		$html .= "</pre></td></tr></table></div>";
 		if ($hay_salida) {
 			echo "<div style='text-align:left;'>
-					<a href='#logger_salida' onclick='return toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
+					<a href='javascript: toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
 					$html</div>";
 		}
 	}

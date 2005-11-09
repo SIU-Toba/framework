@@ -162,7 +162,7 @@ class objeto_ei_arbol extends objeto_ei
 		$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
 		$nombre= "<span class='ei-arbol-nombre' $title>$corto</span>";
 		if ($nodo->tiene_propiedades()) {
-			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
+			$salida .= "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
 						"class='ei-arbol-ver-prop' $title>$nombre</a>";			
 		} else {
 			$salida .= $nombre;

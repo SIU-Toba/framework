@@ -667,6 +667,11 @@ class ef_combo_dao extends ef_combo
 			return parent::activado();
 		}
 	}
+	
+	function tiene_carga_dao() 
+	{
+		return true;	
+	}
 
 	function obtener_estado_input()
 	{

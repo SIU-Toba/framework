@@ -133,11 +133,7 @@ class objeto_ei_formulario extends objeto_ei
 				case	"ef_oculto_usuario":
 					$this->lista_ef_ocultos[] = $this->info_formulario_ef[$a]["identificador"];
 					break;
-				case "ef_combo_dao":
-					  $this->lista_ef_post[] =	$this->info_formulario_ef[$a]["identificador"];
-					  $this->lista_ef_dao[] =	$this->info_formulario_ef[$a]["identificador"];
-					break;
-				 default:
+				default:
 					  $this->lista_ef_post[] =	$this->info_formulario_ef[$a]["identificador"];
 			}
 			$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"]);
@@ -167,6 +163,9 @@ class objeto_ei_formulario extends objeto_ei
 																		$dato,
 																		$this->info_formulario_ef[$a]["obligatorio"],
 																		$parametros);
+			if ($this->elemento_formulario[$id_ef]->tiene_carga_dao()) {
+					  $this->lista_ef_dao[] =	$this->info_formulario_ef[$a]["identificador"];
+			}			
 			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
 			if (isset( $this->info_formulario['ancho_etiqueta'])) {
 				$this->elemento_formulario[$id_ef]->set_ancho_etiqueta($this->info_formulario['ancho_etiqueta']);

@@ -13,7 +13,7 @@
 	color: #ffffff;
 	font-size: 14px;
 	vertical-align: bottom;
-	padding: 5px,5px,5px,5px;
+	padding: 5px;
 }
 
 .cuadro-cc-pie-nivel-0{
@@ -39,7 +39,7 @@
 	BACKGROUND-COLOR: #FFD87C;
 	COLOR: #231f20;
 	MARGIN: 0px;
-	padding: 2px,2px,2px,2px;
+	padding: 2px;
 	TEXT-ALIGN: right
 }
 
@@ -54,7 +54,7 @@
 	background-color: #999999;
 	color: #ffffff;
 	MARGIN: 0px;
-	padding: 2px,2px,2px,2px;
+	padding: 2px;
 }
 
 .cuadro-cc-pie-nivel-1{
@@ -94,7 +94,7 @@
 	background-color: #d4d0c8;
 	vertical-align: bottom;
 	text-align: left;
-	padding: 5;
+	padding: 5px;
 	color: #000000;
 }
 
@@ -119,9 +119,9 @@
 	 BORDER-BOTTOM: #4f4c4d 1px solid;
 	 COLOR: #231f20;
 	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: right
+	 TEXT-ALIGN: right;
 	MARGIN: 0px;
-	padding: 2px,2px,2px,2px;
+	padding: 2px;
 }
 
 /*-- Generales --*/
@@ -146,7 +146,7 @@
 
 /* Color de fondo */
 .cuadro-cc-fondo {
-	PADDING: 0px, 0px, 0px, 0px;
+	PADDING: 0px;
 	BACKGROUND-COLOR: #f5f5f5; 
 }
 /*-------------------------------------*/
@@ -2350,7 +2350,6 @@ TD.cat-item-dato4 {
 	 BORDER-BOTTOM: #9d9e9d 1px solid;
 	 BACKGROUND-COLOR: #c5c6c5;
 	 TEXT-ALIGN: left;
-	 231F20: 
 }
 TD.cat-item-dato4-nb {
 	FONT-SIZE: 9px;
@@ -2358,8 +2357,6 @@ TD.cat-item-dato4-nb {
 	 BORDER-BOTTOM: #9d9e9d 1px solid;
 	 BACKGROUND-COLOR: #c5c6c5;
 	 TEXT-ALIGN: left;
-	 231F20: ;
-	 A7A5A6: 
 }
 TD.cat-item-dato5 {
 	FONT-SIZE: 9px;

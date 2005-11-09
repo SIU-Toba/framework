@@ -122,7 +122,6 @@ class ef_multi_seleccion extends ef
 			unset($parametros["clase"]);
 			unset($parametros["include"]);		
 		}
-
 		//Se carga a partir de un SQL?
 		if (isset($parametros["sql"])) {
 			$this->modo_carga = carga_sql;
@@ -151,6 +150,23 @@ class ef_multi_seleccion extends ef
 			$this->cargar_datos();	
 		}
 	}
+	
+	function tiene_carga_dao()
+	{
+		return ($this->modo_carga == carga_dao_estatico ||
+				$this->modo_carga == carga_dao_cn);
+	}
+	
+	function obtener_dao()
+	{
+		if( $this->modo_carga == carga_dao_estatico )
+		{
+			return null;
+		}else{
+			return $this->dao;		
+		}
+	}
+	
 
 	function cargar_datos_dao($parametros = array())
 	{
@@ -191,7 +207,9 @@ class ef_multi_seleccion extends ef
 	
 	function cargar_datos($datos = null)
 	{
-		if ($datos !== null) {
+		if ($datos !== null && $this->modo_carga == carga_dao_cn) {
+			$this->valores = $this->preparar_valores($datos);	
+		} elseif ($datos !== null) {
 			$this->valores = $datos;
 		} elseif ($this->modo_carga == carga_dao_estatico) {
 			$this->cargar_datos_dao();
@@ -265,12 +283,14 @@ class ef_multi_seleccion extends ef
 		if( $this->dependencia_estricta ){
 			return array(true, "");
 		}
+		/*	Esta validacion no puede funcionar para casos dinamicos si no se recuerda el estado anterior
 		foreach ($this->estado as $seleccionado) {
 			if (! array_key_exists($seleccionado, $this->valores) )	{
 				$this->validacion = false;
                 return array(false, "El elemento seleccionado no pertenece a los datos de entrada.");
 			}
 		}
+		*/
 		return array(true, "");
 	}
 

@@ -78,10 +78,49 @@ class odt_pantallas extends objeto_datos_tabla
 		$this->set_fila_columna_valor($pantalla, 'eventos', $deps);
 	}
 	
+	/**
+	 * Setea las pantallas en las que esta presente un evento
+	 */
+	function set_pantallas_evento($pant_presentes, $evento)
+	{
+		$filas = $this->get_filas(array(), true);
+		//Se recorre las pantallas
+		foreach ($filas as $id => $pantalla) {
+			$eventos_actuales = $this->get_eventos_pantalla($id);
+			$debe_estar_evento = in_array($pantalla['pantalla'], $pant_presentes);
+			$esta_actualmente = in_array($evento, $eventos_actuales);
+			if ($debe_estar_evento && !$esta_actualmente) {
+				//Hay que agregarlo
+				$eventos_actuales[] = $evento;
+			}
+			if (!$debe_estar_evento && $esta_actualmente) {
+				//Hay que eliminarlo	
+				$pos = array_search($evento, $eventos_actuales);
+				unset($eventos_actuales[$pos]);
+			}
+			$this->set_eventos_pantalla($id, $eventos_actuales);
+		}
+	}
+	/**
+	 * Retorna las pantallas en las que esta incluido el evento
+	 */
+	function get_pantallas_evento($evento)
+	{
+		$filas = $this->get_filas(array(), true);
+		$pantallas = array();
+		//Se recorre las pantallas
+		foreach ($filas as $id => $pantalla) {
+			if (in_array($evento, $this->get_eventos_pantalla($id))) {
+				$pantallas[] = $pantalla['pantalla'];
+			}
+		}
+		return $pantallas;
+	}
+	
 	function get_eventos_pantalla($pantalla)
 	//Devuelve las eventos asociadas a una pantalla
 	{
-		$out = null;
+		$out = array();
 		$deps = $this->get_fila_columna($pantalla, 'eventos');
 		if(trim($deps)!=""){
 			$out = array_map("trim", explode(",", $deps ) );		

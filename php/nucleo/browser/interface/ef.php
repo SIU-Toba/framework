@@ -445,6 +445,15 @@ class ef //Clase abstracta, padre de todos los EF
 			return "{$this->etiqueta}: {$this->estado}";
 		}
 	}
+	
+	/**
+	 * El elemento carga sus valores a partir de un DAO?
+	 *
+	 */
+	function tiene_carga_dao()
+	{
+		return false;
+	}
 
 //-----------------------------------------------------
 //-------------- ACCESO al ESTADO ---------------------

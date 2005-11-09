@@ -5,12 +5,6 @@ require_once('api/elemento_objeto_ci_pantalla.php');
 class elemento_objeto_ci extends elemento_objeto
 {
 	
-	function nombre_corto()
-	{
-		$nombre = parent::nombre_corto();
-		return "CI - $nombre";
-	}
-	
 	function es_hoja()
 	{
 		return (count($this->hijos()) == 0);

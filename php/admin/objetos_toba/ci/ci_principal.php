@@ -419,6 +419,36 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('pantallas')->eliminar_evento($id);
 	}
 	
+	/**
+	 * Se actualiza la aparicion de un evento en todas las pantallas
+	 *
+	 * @param array $pant_presentes Pantallas en las que el evento aparece
+	 * @param string $evento Identificador del evento (ej: procesar)
+	 */
+	function set_pantallas_evento($pant_presentes, $evento)
+	{
+		$this->get_entidad()->tabla('pantallas')->set_pantallas_evento($pant_presentes, $evento);
+	}
+	
+	/**
+	 * Retorna las pantallas en las que esta incluido el evento
+	 */
+	function get_pantallas_evento($evento)
+	{
+		return $this->get_entidad()->tabla('pantallas')->get_pantallas_evento($evento);
+	}
+	
+	function get_pantallas_posibles()
+	{
+		$pantallas = $this->get_entidad()->tabla('pantallas')->get_filas();
+		//Se contruye un nombre mas completo
+		foreach (array_keys($pantallas) as $pant) {
+			$pantallas[$pant]['nombre'] = '('.$pantallas[$pant]['identificador'].') '.
+											$pantallas[$pant]['etiqueta'];
+		}
+		return $pantallas;
+	}
+	
 	// *******************************************************************
 	// *******************  tab PHP  *************************************
 	// *******************************************************************
