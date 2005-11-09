@@ -169,7 +169,7 @@ class sesion {
 							return sesion::abrir($_POST[apex_sesion_post_usuario],$proyecto);
 						}else{
 							session_destroy();//El sesion start del principio deja un archivo de sesion inutil...
-							return $status_usuario;
+							throw new excepcion_toba($status_usuario[1]);
 						}
 					}
 				}else{	//Request inicial
