@@ -145,6 +145,17 @@ define("apex_db_link_id",8);
 	{
 		return dba::get_db($fuente)->consultar($sql, $ado, $obligatorio);
 	}
+
+	/**
+	*	@see db::consultar()
+	*		Compatibilidad con el formato anterior (devolvia NULL)
+	*/
+	function consultar_fuente_obs($sql, $fuente=null, $ado=null, $obligatorio=false)
+	{
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		return dba::get_db($fuente)->consultar($sql, $ado, $obligatorio, true);
+	}
+
 //-------------------------------------------------------------------------------------
 	/**
 	*	@see db::ejecutar_sql()

@@ -121,7 +121,7 @@ class db
 	*	@return array Resultado de la consulta en formato fila-columna
 	*	@throws excepcion_toba en caso de error
 	*/	
-	function consultar($sql, $ado=null, $obligatorio=false)
+	function consultar($sql, $ado=null, $obligatorio=false, $compatibilidad=false)
 	{
 		global $ADODB_FETCH_MODE;	
 		if(isset($ado)){
@@ -136,7 +136,8 @@ class db
 			if($obligatorio){
 				throw new excepcion_toba("La consulta no devolvio datos.");
 			}else{
-				return array();
+				if(!$compatibilidad) return array();
+				return null;
 			}
 		}else{
 			return $rs->getArray();
