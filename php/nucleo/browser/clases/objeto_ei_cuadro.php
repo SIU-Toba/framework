@@ -5,31 +5,19 @@ require_once("objeto_ei.php");
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 /*
-	Falta:
+	Cosas que faltan:
 	
 	GENERAL:
 
 		- Falta la cabecera del TOTAL general y la funcion AD-HOC del mismo
 		- Encriptar clave
-		- Vinculos?
 		- Semaforos de color para cuando un valor pasa un tope?
-		- Se permite no entregar columnas? Se eleva un warning?
-	
-		- Ver que pasa cuando los cuadros no se cargan
-		
-	EVENTOS: 
-
-		- Testear la ventana de filtrado segun fila
+		- Vinculos (eventos)
 
 	CORTES:
 
+		- Modo ANIDADO
 		- Colapsado de niveles
-		- Contar la cantidad de filas
-		- Layout HTML
-			- Sumarizacion por corte
-				- responder a distintos modos
-				- Agregar titulo
-		- CSS
 		- Interaccion con la paginacion
 
 	IMPRESION:
@@ -933,23 +921,13 @@ class objeto_ei_cuadro extends objeto_ei
 
 	protected function html_cabecera()
 	{
-        if($this->info_cuadro["subtitulo"]<>""){
+        if(trim($this->info_cuadro["subtitulo"])<>""){
             echo $this->info_cuadro["subtitulo"];
         }
 	}
 	
 	protected function html_pie()
 	{
-		return;
-		if( $this->existen_cortes_control() ){
-			if(isset($this->acumulador)){
-				echo "<hr>";
-				foreach($this->acumulador as $col => $total){
-					echo "<p>$col: $total</p>\n";
-				}
-				echo "<hr>";
-			}
-		}
 	}
 
 	protected function html_mensaje_cuadro_vacio($texto){
@@ -1025,58 +1003,60 @@ class objeto_ei_cuadro extends objeto_ei
 	*/
 	private function html_pie_corte_control(&$nodo)
 	{
-		$metodo_redeclarado = 'html_pie_cc_contenido__' . $nodo['corte'];
-		if(method_exists($this, $metodo_redeclarado)){
-			$this->$metodo_redeclarado($nodo);
-		}else{
-			if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
-				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-				$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
-				$css_pie_cab = 'cuadro-cc-pie-cab-nivel-'.$nivel_css;
-				//-----  Cabecera del PIE --------
-				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
-					$metodo_redeclarado = 'html_cabecera_pie_cc_contenido__' . $nodo['corte'];
-					if(method_exists($this, $metodo_redeclarado)){
-						$descripcion = $this->$metodo_redeclarado($nodo);
-					}else{
-					 	$descripcion = $this->html_cabecera_pie_cc_contenido($nodo);
-					}
-					echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-					echo "<div class='$css_pie_cab'>$descripcion<div>";
-					echo "</td></tr>\n";
+		if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
+			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+			$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
+			$css_pie_cab = 'cuadro-cc-pie-cab-nivel-'.$nivel_css;
+			//-----  Cabecera del PIE --------
+			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
+				$metodo_redeclarado = 'html_pie_cc_cabecera__' . $nodo['corte'];
+				if(method_exists($this, $metodo_redeclarado)){
+					$descripcion = $this->$metodo_redeclarado($nodo);
+				}else{
+				 	$descripcion = $this->html_cabecera_pie_cc_contenido($nodo);
 				}
-				//----- Totales de columna -------
-				if (isset($nodo['acumulador'])) {
-					$titulos = false;
-					if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
-						$titulos = true;	
-					}
-					$this->html_cuadro_totales_columnas($nodo['acumulador'], 
-														'cuadro-cc-sum-nivel-'.$nivel_css, 
-														$titulos,
-														$css_pie);
-				}
-				//------ Sumarizacion AD-HOC del usuario --------
-				if(isset($nodo['sum_usuario'])){
-					$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-					$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
-					foreach($nodo['sum_usuario'] as $id => $valor){
-						$desc = $this->sum_usuario[$id]['descripcion'];
-						$datos[$desc] = $valor;
-					}
-					echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-					$this->html_cuadro_sumarizacion($datos,null,300,$css);
-					echo "</td></tr>\n";
-				}
-				//----- Contar Filas
-				if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
-					echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-					echo "<em>Cantidad de filas: " . count($nodo['filas']) . "<em>";
-					echo "</td></tr>\n";
-				}
-			}else{																//MODO ANIDADO
-				echo "</li>\n";
+				echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<div class='$css_pie_cab'>$descripcion<div>";
+				echo "</td></tr>\n";
 			}
+			//----- Totales de columna -------
+			if (isset($nodo['acumulador'])) {
+				$titulos = false;
+				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+					$titulos = true;	
+				}
+				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
+													'cuadro-cc-sum-nivel-'.$nivel_css, 
+													$titulos,
+													$css_pie);
+			}
+			//------ Sumarizacion AD-HOC del usuario --------
+			if(isset($nodo['sum_usuario'])){
+				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
+				$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
+				foreach($nodo['sum_usuario'] as $id => $valor){
+					$desc = $this->sum_usuario[$id]['descripcion'];
+					$datos[$desc] = $valor;
+				}
+				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				$this->html_cuadro_sumarizacion($datos,null,300,$css);
+				echo "</td></tr>\n";
+			}
+			//----- Contar Filas
+			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
+				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<em>Cantidad de filas: " . count($nodo['filas']) . "<em>";
+				echo "</td></tr>\n";
+			}
+			//----- Contenido del usuario al final del PIE
+			$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
+			if(method_exists($this, $metodo)){
+				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				$this->$metodo($nodo);
+				echo "</td></tr>\n";
+			}
+		}else{																//MODO ANIDADO
+			echo "</li>\n";
 		}
 	}
 	
@@ -1160,8 +1140,10 @@ class objeto_ei_cuadro extends objeto_ei
 					//Filtrado de eventos por fila
 					$metodo_filtro = 'filtrar_evt__' . $id;
 					if(method_exists($this, $metodo_filtro)){
-						if(! $this->$metodo_filtro ) 
+						if(! $this->$metodo_filtro($f) ){
+							echo "<td class='lista-col-titulo' width='1%'>&nbsp;</td>\n";
 							continue;
+						}
 					}
 					//HTML del EVENTO
 					$tip = '';
