@@ -43,35 +43,17 @@ class ci_eventos extends objeto_ci
 		return false;
 	}
 
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		$eventos = array_merge($eventos, eventos::evento_estandar("init","Cargar EVENTOS estandar",true,null,null));
-		return $eventos;
-	}
-
 	function get_lista_ei()
 	{
 		$ei[] = "eventos_lista";
 		if( $this->mostrar_evento_detalle() ){
 			$ei[] = "eventos";
+		}else{
+			$ei[] = "generador";
 		}
 		return $ei;	
 	}
 
-	function evt__init()
-	{
-		$eventos = $this->controlador->get_eventos_estandar();
-		foreach($eventos as $evento)
-		{
-			try{
-				$this->get_tabla()->nueva_fila($evento);
-			}catch(excepcion_toba $e){
-				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
-			}
-		}
-	}
-		
 	function limpiar_seleccion()
 	{
 		unset($this->seleccion_evento);
@@ -86,6 +68,28 @@ class ci_eventos extends objeto_ci
 			//Agrego el evento "modificacion" y lo establezco como predeterminado
 			$this->dependencias["eventos"]->agregar_evento( eventos::modificacion(null, false), true );
 		}
+	}
+
+	//-------------------------------
+	//---- EI: Generador ------------
+	//-------------------------------
+
+	function evt__generador__cargar($datos)
+	{
+		$eventos = $this->controlador->get_eventos_estandar($datos['modelo']);
+		foreach($eventos as $evento)
+		{
+			try{
+				$this->get_tabla()->nueva_fila($evento);
+			}catch(excepcion_toba $e){
+				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+			}
+		}
+	}
+
+	function get_modelos_evento()
+	{
+		return $this->controlador->get_modelos_evento();
 	}
 
 	//-------------------------------

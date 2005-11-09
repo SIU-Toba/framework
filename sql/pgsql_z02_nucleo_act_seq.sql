@@ -35,6 +35,6 @@
 	SELECT setval('apex_log_objeto_seq'  		,max(log_objeto)) FROM apex_log_objeto;
 	SELECT setval('apex_obj_ei_cuadro_cc_seq'	,max(objeto_cuadro_cc)) FROM apex_objeto_cuadro_cc;	
 	SELECT setval('apex_objeto_dep_seq'	,max(dep_id)) FROM apex_objeto_dependencias;
-	SELECT setval('apex_objeto_dep_seq'	,max(evento_id)) FROM apex_objeto_eventos;
+	SELECT setval('apex_objeto_eventos_seq'	,max(evento_id)) FROM apex_objeto_eventos;
 
 

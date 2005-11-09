@@ -160,20 +160,20 @@ class ci_editor extends ci_editores_toba
 		if( isset($this->seleccion_pantalla) ){
 			$datos = $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla);
 			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
-			echo "<fieldset style='padding: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #333333;'><legend>$nombre_pantalla</legend>";			
+			echo "<fieldset style='margin-top: 10px; padding: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #333333;'><legend>$nombre_pantalla</legend>";			
 			$this->dependencias['pantallas']->obtener_html();			
 			echo "<table class='tabla-0'  width='100%'>";
 			echo "<tr>\n";
 			if( count($this->pantalla_dep_asoc) > 0 ){
 				echo "<td width='50%' style='vertical-align: top'>\n";
-				echo "<fieldset style='padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Dependencias Asociadas</legend>";			
+				echo "<fieldset style='margin: 5px;padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Dependencias Asociadas</legend>";			
 				$this->dependencias['pantallas_ei']->obtener_html();			
 				echo "</fieldset>";
 				echo "</td>\n";
 			}
 			if( count($this->pantalla_evt_asoc) > 0 ){
 				echo "<td style='vertical-align: top'>\n";
-				echo "<fieldset style='padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Eventos Asociados</legend>";			
+				echo "<fieldset style='margin: 5px; padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Eventos Asociados</legend>";			
 				$this->dependencias['pantallas_evt']->obtener_html();			
 				echo "</fieldset>";
 				echo "</td>\n";
@@ -401,10 +401,16 @@ class ci_editor extends ci_editores_toba
 		return $this->get_entidad()->tabla('eventos');
 	}
 
-	function get_eventos_estandar()
+	function get_modelos_evento()
 	{
 		require_once('api/elemento_objeto_ci.php');
-		return elemento_objeto_ci::get_lista_eventos_estandar();
+		return elemento_objeto_ci::get_modelos_evento();
+	}
+
+	function get_eventos_estandar($modelo)
+	{
+		require_once('api/elemento_objeto_ci.php');
+		return elemento_objeto_ci::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__eventos__del_evento($id)

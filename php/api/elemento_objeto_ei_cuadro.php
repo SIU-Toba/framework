@@ -78,16 +78,28 @@ class elemento_objeto_ei_cuadro extends elemento_objeto
 	function hay_ordenar() {
 		return $this->datos['apex_objeto_cuadro'][0]['ordenar'];
 	}
-	
-	static function get_lista_eventos_estandar()
+
+	static function get_modelos_evento()
 	{
-		$evento[0]['identificador'] = "seleccion";
-		$evento[0]['etiqueta'] = "";
-		$evento[0]['orden'] = 1;
-		$evento[0]['sobre_fila'] = 1;
-		$evento[0]['en_botonera'] = 0;
-		$evento[0]['imagen_recurso_origen'] = "apex";
-		$evento[0]['imagen'] = "doc.gif";	
+		$modelo[0]['id'] = 'seleccion';
+		$modelo[0]['nombre'] = 'Seleccion';
+		return $modelo;
+	}
+
+	static function get_lista_eventos_estandar($modelo)
+	{
+		$evento = array();
+		switch($modelo){
+			case 'seleccion':
+				$evento[0]['identificador'] = "seleccion";
+				$evento[0]['etiqueta'] = "";
+				$evento[0]['orden'] = 1;
+				$evento[0]['sobre_fila'] = 1;
+				$evento[0]['en_botonera'] = 0;
+				$evento[0]['imagen_recurso_origen'] = "apex";
+				$evento[0]['imagen'] = "doc.gif";	
+				break;
+		}
 		return $evento;
 	}
 }

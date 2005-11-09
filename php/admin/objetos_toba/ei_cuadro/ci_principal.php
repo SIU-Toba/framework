@@ -292,10 +292,16 @@ class ci_principal extends ci_editores_toba
 		Metodos necesarios para que el CI de eventos funcione
 	*/
 
-	function get_eventos_estandar()
+	function get_modelos_evento()
 	{
 		require_once('api/elemento_objeto_ei_cuadro.php');
-		return elemento_objeto_ei_cuadro::get_lista_eventos_estandar();
+		return elemento_objeto_ei_cuadro::get_modelos_evento();
+	}
+
+	function get_eventos_estandar($modelo)
+	{
+		require_once('api/elemento_objeto_ei_cuadro.php');
+		return elemento_objeto_ei_cuadro::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__salida__3()

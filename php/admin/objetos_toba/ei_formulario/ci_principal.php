@@ -82,10 +82,16 @@ class ci_principal extends ci_editores_toba
 	//** Dialogo con el CI de EVENTOS  **********************************
 	//*******************************************************************
 
-	function get_eventos_estandar()
+	function get_modelos_evento()
 	{
 		require_once('api/elemento_objeto_ei_formulario.php');
-		return elemento_objeto_ei_formulario::get_lista_eventos_estandar();
+		return elemento_objeto_ei_formulario::get_modelos_evento();
+	}
+	
+	function get_eventos_estandar($modelo)
+	{
+		require_once('api/elemento_objeto_ei_formulario.php');
+		return elemento_objeto_ei_formulario::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__salida__3()

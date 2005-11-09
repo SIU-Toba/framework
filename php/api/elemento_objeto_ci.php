@@ -86,21 +86,7 @@ class elemento_objeto_ci extends elemento_objeto
 		}		
 		return $eventos;
 	}
-	
-	static function get_lista_eventos_estandar()
-	{
-		$evento[0]['identificador'] = "procesar";
-		$evento[0]['etiqueta'] = "Proce&sar";
-		$evento[0]['orden'] = 0;
-		$evento[0]['en_botonera'] = 1;
-		$evento[1]['identificador'] = "cancelar";
-		$evento[1]['etiqueta'] = "&Cancelar";
-		$evento[1]['maneja_datos'] = 0;
-		$evento[1]['orden'] = 1;
-		$evento[1]['en_botonera'] = 1;
-		return $evento;		
-	}
-	
+
 	function utilerias()
 	{
 		$iconos = array();
@@ -115,7 +101,31 @@ class elemento_objeto_ci extends elemento_objeto
 		);
 		return array_merge($iconos, parent::utilerias());	
 	}		
+
+	static function get_modelos_evento()
+	{
+		$modelo[0]['id'] = 'proceso';
+		$modelo[0]['nombre'] = 'Proceso';
+		return $modelo;
+	}
+
+	static function get_lista_eventos_estandar($modelo)
+	{
+		$evento = array();
+		switch($modelo){
+			case 'proceso':
+				$evento[0]['identificador'] = "procesar";
+				$evento[0]['etiqueta'] = "Proce&sar";
+				$evento[0]['orden'] = 0;
+				$evento[0]['en_botonera'] = 1;
+				$evento[1]['identificador'] = "cancelar";
+				$evento[1]['etiqueta'] = "&Cancelar";
+				$evento[1]['maneja_datos'] = 0;
+				$evento[1]['orden'] = 1;
+				$evento[1]['en_botonera'] = 1;
+				break;
+		}
+		return $evento;
+	}
 }
-
-
 ?>
