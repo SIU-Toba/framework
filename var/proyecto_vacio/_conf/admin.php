@@ -3,15 +3,6 @@
 ############################> PUNTO de ACCESO <#################################
 ################################################################################
 #-------------------------------------------------------------------------------
-#----<  DETERMINACIÓN DE PATH PARA TOBA  >--------------------------------------
-#-------------------------------------------------------------------------------
-if (isset($_SERVER['TOBA_DIR'])) {
-	$dir = $_SERVER['TOBA_DIR']."/php"; 
-	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-	ini_set("include_path", ini_get("include_path"). $separador . $dir);
-} 
-
-#-------------------------------------------------------------------------------
 #----<  ESQUEMA de VALIDACION  >------------------------------------------------
 #-------------------------------------------------------------------------------
 # Tipo de validacion. Atencion, si se desactiva hay que establecer un usuario anonimo
@@ -42,9 +33,6 @@ define("apex_pa_encriptar_qs",0);
 #-------------------------------------------------------------------------------
 #----<  Configuracion APEX  >-------------------------------------------------
 #-------------------------------------------------------------------------------
-# apex_pa_toba_alias
-# Alias con el que se conoce al proyecto toba en el web server
-define("apex_pa_toba_alias", "toba");
 # apex_pa_ID: ID de este punto de acceso
 #(Una misma sesion no deberia manejarse desde dos puntos de acceso)
 define("apex_pa_ID",$_SERVER["SCRIPT_FILENAME"]);
@@ -88,7 +76,7 @@ define("apex_pa_acceso_directo_editor",1);//Los OBJETOS muestran LINKs a sus EDI
 # 6 - INFO
 # 7 - DEBUG
 # Nivel de log a ARCHVO
-define("apex_pa_log_archivo",1);
+define("apex_pa_log_archivo",0);
 define("apex_pa_log_archivo_nivel",2);
 # Nivel de log a la DB
 define("apex_pa_log_db",1);
@@ -102,9 +90,13 @@ define("apex_pa_log_pantalla_nivel",7);
 define("apex_pa_estilo","violeta1");
 # Archivo que contiene la subclase del menu a utilizar
 #define("apex_pa_menu_archivo", "");
-
 ################################################################################
 
+if (isset($_SERVER['TOBA_DIR'])) {
+	$dir = $_SERVER['TOBA_DIR']."/php"; 
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+	ini_set("include_path", ini_get("include_path"). $separador . $dir);
+} 
 require_once("nucleo/toba.php");
 toba::get_nucleo()->acceso_web();	
 

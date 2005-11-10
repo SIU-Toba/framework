@@ -3,20 +3,8 @@
 ############################> PUNTO de ACCESO <#################################
 ################################################################################
 #-------------------------------------------------------------------------------
-#----<  DETERMINACIÓN DE PATH PARA TOBA  >--------------------------------------
-#-------------------------------------------------------------------------------
-if (isset($_SERVER['TOBA_DIR'])) {
-	$dir = $_SERVER['TOBA_DIR']."/php"; 
-	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-	ini_set("include_path", ini_get("include_path"). $separador . $dir);
-} 
-
-#-------------------------------------------------------------------------------
 #----<  ESQUEMA de VALIDACION  >------------------------------------------------
 #-------------------------------------------------------------------------------
-# apex_pa_toba_alias
-# Alias con el que se conoce a toba en el web server
-define("apex_pa_toba_alias", "toba");
 # Tipo de validacion. Atencion, si se desactiva hay que establecer un usuario anonimo
 define("apex_pa_validacion",1);//Se solicita que los usuarios se logueen?
 # Usuario anonimo. Si no se desee permitir accesos anonimos, dejar vacio ("")
@@ -94,11 +82,16 @@ define("apex_pa_log_pantalla_nivel",7);
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 define("apex_pa_estilo","violeta1");
+# Archivo que contiene la subclase del menu a utilizar
+#define("apex_pa_menu_archivo", "");
 
 ################################################################################
-
+if (isset($_SERVER['TOBA_DIR'])) {
+	$dir = $_SERVER['TOBA_DIR']."/php"; 
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+	ini_set("include_path", ini_get("include_path"). $separador . $dir);
+}
 require_once("nucleo/toba.php");
 toba::get_nucleo()->acceso_web();	
-
 ################################################################################
 ?>

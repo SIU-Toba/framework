@@ -94,15 +94,15 @@ then
 elif [ "$1" = "conf" ]
 then
 	cd ${d_proy}/$2                                                               
-	sed "s/%proyecto%/$2/g" _conf/admin.php 					> www/admin.php
+	sed "s/%proyecto%/$2/g" $toba_dir/var/proyecto_vacio/_conf/admin.php 					> www/admin.php
 	controlar "  1) _conf/admin.php"    
-	sed "s/%proyecto%/$2/g" _conf/aplicacion.php				> www/aplicacion.php
+	sed "s/%proyecto%/$2/g" $toba_dir/var/proyecto_vacio/_conf/aplicacion.php				> www/aplicacion.php
 	controlar "  2) _conf/aplicacion.php"  
-	sed "s/%proyecto%/$2/g"	_conf/toba.conf						> x.conf
+	sed "s/%proyecto%/$2/g"	$toba_dir/var/proyecto_vacio/_conf/toba.conf						> x.conf
 	sed "s@%toba_dir%@$toba_dir@g" x.conf						> toba.conf
 	rm -f x.conf
 	controlar "  3) _conf/toba.conf 	"  
-	sed "s/%proyecto%/$2/g" _conf/ini.sql						> sql/_auto/ini.sql
+	sed "s/%proyecto%/$2/g" $toba_dir/var/proyecto_vacio/_conf/ini.sql						> sql/_auto/ini.sql
 	controlar "  4) _conf/ini.sql"  
             
 ##***********************************************************************************************##
