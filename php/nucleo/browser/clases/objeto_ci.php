@@ -184,7 +184,7 @@ class objeto_ci extends objeto_ei
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
 		$this->evt__obtener_datos_cn( $modo );
-		$deps = $this->get_dependencias_clase('objeto_ci');
+		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
@@ -208,7 +208,7 @@ class objeto_ci extends objeto_ei
 		//DUDA: Validar aca es redundante?
 		$this->evt__validar_datos();
 		$this->evt__entregar_datos_cn();
-		$deps = $this->get_dependencias_clase('objeto_ci');
+		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
@@ -224,6 +224,15 @@ class objeto_ci extends objeto_ei
 		$this->log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
 	}
 
+	function get_dependencias_ci()
+	// Avisa que dependencias son CI, si hay una regla ad-hoc que define que CIs cargar
+	// (se utilizo el metodo 'get_lista_ei' y se selecciono un EI que es CI)
+	// hay que redeclarar este metodo para que devuelva el conjunto correcto de CIs utilizados
+	// por la operacion
+	{
+		return $this->get_dependencias_clase('objeto_ci');
+	}
+	
 	//--------------------------------------------------------------
 	//---------  Limpieza de MEMORIA -------------------------------
 	//--------------------------------------------------------------

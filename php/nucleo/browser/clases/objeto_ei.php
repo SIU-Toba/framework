@@ -99,6 +99,7 @@ class objeto_ei extends objeto
 		$this->eventos = $eventos;
 		toba::get_logger()->debug($this->get_txt() . "*** EVENTOS seteados ***");
 		toba::get_logger()->debug($this->eventos);
+		toba::get_logger()->obsoleto("Definir los eventos en el administrador", __FUNCTION__, "0.8.3");		
 	}
 	
 	public function get_lista_eventos()
