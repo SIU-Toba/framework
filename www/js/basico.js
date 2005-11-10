@@ -111,7 +111,6 @@ function addEvent(o, _e, c, _b){
 //Muestra u oculta un nodo
 function toggle_nodo(o) {
 	o.style.display = (o.style.display == 'none') ? '' : 'none';
-	return true;
 }
 
 function getElementPosition(offsetTrail) {
