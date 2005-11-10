@@ -772,6 +772,7 @@ class ef_combo_db extends ef_combo
 {
 	var $sql;
 	var $fuente;
+	protected $dependencias_opcionales = false;
 
 	static function get_parametros()
 	{
@@ -782,6 +783,9 @@ class ef_combo_db extends ef_combo
 		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
 		$parametros["dependencias"]["opcional"]=1;	
 		$parametros["dependencias"]["etiqueta"]="Dependencias";			
+		$parametros["dependencias_opcionales"]["descripcion"]="(1 o 0) Indica si las dependencias deben estar todas con valores para recargar sus valores";
+		$parametros["dependencias_opcionales"]["opcional"]=1;	
+		$parametros["dependencias_opcionales"]["etiqueta"]="Dependencias son opcional";
 		return $parametros;
 	}
 
@@ -795,6 +799,9 @@ class ef_combo_db extends ef_combo
             unset($parametros["fuente"]);
         }else{
             $this->fuente = "instancia"; //La instancia por defecto es la CENTRAL
+        }
+        if (isset($parametros['dependencias_opcionales'])) {
+        	$this->dependencias_opcionales = $parametros['dependencias_opcionales'];
         }
 //		echo $this->sql . "<br>";
 //     	echo $this->fuente;

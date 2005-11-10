@@ -268,7 +268,12 @@ class ef //Clase abstracta, padre de todos los EF
 	
 	function control_dependencias_cargadas()
 	{
-		if(!isset($this->dependencias_datos)) return false;
+		if (isset($this->dependencias_opcionales) && $this->dependencias_opcionales) {
+			return true;
+		}
+		if(!isset($this->dependencias_datos)) {
+			 return false;
+		}
 		$control_dep = true;
 		foreach($this->dependencias as $dep){
 			if(!array_key_exists($dep, $this->dependencias_datos) || trim($this->dependencias_datos[$dep])==""){

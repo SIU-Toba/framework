@@ -25,7 +25,7 @@ class mensaje
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = 'toba';";
-		$datos = consultar_fuente($sql);
+		$datos = consultar_fuente($sql, "instancia");
 		if(!is_array($datos)){
 			throw new excepcion_toba_def("El mensaje $indice no EXISTE.");
 		}else{
@@ -50,7 +50,7 @@ class mensaje
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = '$proyecto_actual';";
-		$datos = consultar_fuente($sql);
+		$datos = consultar_fuente($sql, "instancia");
 		if(!is_array($datos)){
 			$mensaje = null;
 		}else{
@@ -75,7 +75,7 @@ class mensaje
 				WHERE indice = '$indice'
 				AND objeto_proyecto = '$proyecto_actual'
 				AND objeto = '$objeto';";
-		$datos = consultar_fuente($sql);
+		$datos = consultar_fuente($sql, "instancia");
 		if(!is_array($datos)){
 			//Retorna null para que siga la busqueda al GLOBAL
 			$mensaje = null;

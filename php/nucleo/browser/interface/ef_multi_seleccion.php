@@ -279,10 +279,6 @@ class ef_multi_seleccion extends ef
 	
 	function validar_seleccionados()
 	{
-		//SI el conjunto inicial es vacio el control falla siempre.
-		if( $this->dependencia_estricta ){
-			return array(true, "");
-		}
 		/*	Esta validacion no puede funcionar para casos dinamicos si no se recuerda el estado anterior
 		foreach ($this->estado as $seleccionado) {
 			if (! array_key_exists($seleccionado, $this->valores) )	{

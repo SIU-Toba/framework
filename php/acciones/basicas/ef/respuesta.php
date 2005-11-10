@@ -14,7 +14,9 @@ $this->hilo->desactivar_reciclado();
 		$dependencias = array();
 		foreach($temp as $dep){
 			$valores = explode(";", $dep);
-			$dependencias[$valores[0]] = $valores[1];
+			if (count($valores) == 2) {
+				$dependencias[$valores[0]] = $valores[1];
+			}
 		}
  		try{
 			//---[ ]- Busco la definicion del EF
