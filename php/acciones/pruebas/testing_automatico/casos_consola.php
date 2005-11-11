@@ -5,6 +5,9 @@ require_once('3ros/simpletest/reporter.php');
 
 $this->registrar_parametros();
 
+$proyecto = $this->parametros["-p"];
+lista_casos::$proyecto = $proyecto;
+
 //Selecciono una categoria
 if (isset($this->parametros["-c"]))
 	$seleccionados = lista_casos::get_casos($this->parametros["-c"]);

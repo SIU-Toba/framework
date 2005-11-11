@@ -4,9 +4,15 @@ require_once('testing/test_toba.php');
 
 class lista_casos
 {
+	static $proyecto;
+	
 	static function get_path()
 	{
-		$proyecto = toba::get_hilo()->obtener_proyecto();
+		if (isset(self::$proyecto)) {
+			$proyecto = self::$proyecto;
+		} else {
+			$proyecto = toba::get_hilo()->obtener_proyecto();
+		}
 		if($proyecto == "toba")
 			$path = toba_dir() . "/php/testing";
 		else

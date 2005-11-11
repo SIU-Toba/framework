@@ -308,10 +308,15 @@ then
 ##***********************************************************************************************##
 ## Testing
 ##***********************************************************************************************##
-#@ instancia [<I>] testear [-c Cat] [-t Caso]    -- Ejecuta la bater� de test a la instancia
+#@ instancia [<I>] testear		       -- Ejecuta la bater� de test a la instancia
 elif [ "$1" = "testear" ]
 then
-	item /pruebas/testing_automatico_consola $2 $3
+	cd $d_proy
+	for a in `ls -1 | egrep -v "svn" | awk '{ print $1 }'`
+	do
+		proyecto testear $a	
+	done
+	proyecto testear toba
 	
 ##***********************************************************************************************##
 ## Ingresar a modo mantenimiento
