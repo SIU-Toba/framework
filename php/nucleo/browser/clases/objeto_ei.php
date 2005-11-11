@@ -90,22 +90,22 @@ class objeto_ei extends objeto
 	public function definir_eventos()
 	{
 		$this->eventos = $this->get_lista_eventos();
-		toba::get_logger()->debug($this->get_txt() . "### EVENTOS UTILIZADOS ###");
-		toba::get_logger()->debug($this->eventos);
+		//toba::get_logger()->debug($this->get_txt() . "### EVENTOS UTILIZADOS ###");
+		//toba::get_logger()->debug($this->eventos);
 	}
 		
 	public function set_eventos($eventos)
 	{
 		$this->eventos = $eventos;
-		toba::get_logger()->debug($this->get_txt() . "*** EVENTOS seteados ***");
-		toba::get_logger()->debug($this->eventos);
+		//toba::get_logger()->debug($this->get_txt() . "*** EVENTOS seteados ***");
+		//toba::get_logger()->debug($this->eventos);
 		toba::get_logger()->obsoleto("Definir los eventos en el administrador", __FUNCTION__, "0.8.3");		
 	}
 	
 	public function get_lista_eventos()
 	{
 		$eventos = $this->get_lista_eventos_definidos();
-		$grupo = $this->get_grupo_eventos();
+		$grupo = $this->get_grupo_eventos_activo();
 		//Si hay un grupo de eventos definido:
 		//	filtro los eventos que:
 		// 		* Van a la botonera
@@ -136,7 +136,6 @@ class objeto_ei extends objeto
 	*	Obtiene la lista de eventos definidos desde el administrador 
 	*/
 	{
-		toba::get_logger()->debug($this->get_txt() . "--- EVENTOS definidos ---");
 		$eventos = array();
 		foreach ($this->info_eventos as $evento) {
 			$eventos[$evento['identificador']] = $evento;
@@ -146,7 +145,8 @@ class objeto_ei extends objeto
 				$this->set_evento_defecto($evento['identificador']);
 			}
 		}
-		toba::get_logger()->debug($eventos);
+		//toba::get_logger()->debug($this->get_txt() . "--- EVENTOS definidos ---");
+		//toba::get_logger()->debug($eventos);
 		return $eventos;
 	}
 	
@@ -247,7 +247,7 @@ class objeto_ei extends objeto
 	/**
 		Activa un grupo de eventos
 	*/
-	function set_grupo_eventos($grupo)
+	function set_grupo_eventos_activo($grupo)
 	{
 		$this->grupo_eventos_activo = $grupo;
 	}
@@ -255,7 +255,7 @@ class objeto_ei extends objeto
 	/**
 		Devuelve el grupo de eventos activos
 	*/
-	function get_grupo_eventos()
+	function get_grupo_eventos_activo()
 	{
 		return $this->grupo_eventos_activo;	
 	}

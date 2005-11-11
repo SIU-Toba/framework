@@ -4,25 +4,6 @@ require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formu
 require_once("objeto_ei.php");
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
-/*
-	Cosas que faltan:
-	
-	GENERAL:
-
-		- Falta la cabecera del TOTAL general y la funcion AD-HOC del mismo
-		- Encriptar clave
-		- Semaforos de color para cuando un valor pasa un tope?
-		- Vinculos (eventos)
-
-	CORTES:
-
-		- Modo ANIDADO
-		- Colapsado de niveles
-		- Interaccion con la paginacion
-
-	IMPRESION:
-
-*/
 
 class objeto_ei_cuadro extends objeto_ei
 {
@@ -37,6 +18,8 @@ class objeto_ei_cuadro extends objeto_ei
 	protected $clave_seleccionada;
 	protected $estructura_datos;					// Estructura de datos esperados por el cuadro
 	protected $acumulador;							// Acumulador de totales generales
+	protected $acumulador_sum_usuario;				// Acumulador general de las sumarizaciones del usuario
+	protected $sum_usuario;
 	//Orden
     protected $orden_columna;                     	// Columna utilizada para realizar el orden
     protected $orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
@@ -48,7 +31,6 @@ class objeto_ei_cuadro extends objeto_ei
 	protected $cortes_indice;
 	protected $cortes_def;
 	protected $cortes_control;
-	protected $sum_usuario;
 	protected $cortes_modo;
 	//Salida
 	protected $tipo_salida;
@@ -118,11 +100,13 @@ class objeto_ei_cuadro extends objeto_ei
 	*/
 	private function inspeccionar_sumarizaciones_usuario()
 	{
-		if($this->existen_cortes_control()){
+		//Si soy una subclase
+		if($this->info['subclase']){
 			$this->sum_usuario = array();
 			$clase = new ReflectionClass(get_class($this));
 			foreach ($clase->getMethods() as $metodo){
-				if (substr($metodo->getName(), 0, 12) == 'sumarizar_cc'){
+				$id = null;
+				if (substr($metodo->getName(), 0, 12) == 'sumarizar_cc'){		//** Sumarizacion Corte de control
 					$temp = explode('__', $metodo->getName());
 					if(count($temp)!=3){
 						throw new excepcion_toba_def("La funcion de sumarizacion esta mal definida");	
@@ -132,22 +116,37 @@ class objeto_ei_cuadro extends objeto_ei
 					if(!isset($this->cortes_def[$corte])){	//El corte esta definido?
 						throw new excepcion_toba_def("La funcion de sumarizacion no esta direccionada a un CORTE existente");	
 					}
-					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
-					$this->sum_usuario[$id]['corte'] = $corte;
-					$desc = $metodo->getDocComment();
-				    $desc = preg_replace("/(^[\\s]*\\/\\*\\*)
-				                                 |(^[\\s]\\*\\/)
-				                                 |(^[\\s]*\\*?\\s)
-				                                 |(^[\\s]*)
-				                                 |(^[\\t]*)/ixm", "", $desc);
-				    $desc = str_replace("\r", "", $desc);
-				    $desc = trim(preg_replace("/([\\t])+/", "\t", $desc));
-					$this->sum_usuario[$id]['descripcion'] = isset($desc)? $desc : 'Descripcion no definida';
 					//Agrego la sumarizacion al corte
 					$this->cortes_def[$corte]['sum_usuario'][]=$id;
+				}elseif(substr($metodo->getName(), 0, 11) == 'sumarizar__'){ 	//** Sumarizacion GENERAL
+					$temp = explode('__', $metodo->getName());
+					$id = $temp[1];
+					$corte = 'toba_total';
+					$this->acumulador_sum_usuario[$id] = 0;
+				}
+				if($id){
+					if(isset($this->sum_usuario[$id])){
+						throw new excepcion_toba_def("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");	
+					}
+					// Agrego la sumarizacion en la pila de sumarizaciones.
+					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
+					$this->sum_usuario[$id]['corte'] = $corte;
+					$this->sum_usuario[$id]['descripcion'] = $this->obtener_desc_sumarizacion($metodo->getDocComment());
 				}
 			}
 		}		
+	}
+
+	private function obtener_desc_sumarizacion($texto)
+	{
+	    $desc = preg_replace("/(^[\\s]*\\/\\*\\*)
+	                                 |(^[\\s]\\*\\/)
+	                                 |(^[\\s]*\\*?\\s)
+	                                 |(^[\\s]*)
+	                                 |(^[\\t]*)/ixm", "", $texto);
+	    $desc = str_replace("\r", "", $desc);
+	    $desc = trim(preg_replace("/([\\t])+/", "\t", $desc));
+		return isset($desc)? $desc : 'Descripcion no definida';
 	}
 
 	function elemento_toba()
@@ -737,6 +736,7 @@ class objeto_ei_cuadro extends objeto_ei
 			}
 			$this->generar_fin();
 			if( false && $this->existen_cortes_control() ){
+				ei_arbol($this->sum_usuario,"\$this->sum_usuario");
 				ei_arbol($this->cortes_def,"\$this->cortes_def");
 				ei_arbol($this->cortes_control,"\$this->cortes_control");
 			}

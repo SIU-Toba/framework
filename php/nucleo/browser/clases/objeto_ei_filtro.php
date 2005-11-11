@@ -12,7 +12,7 @@ class objeto_ei_filtro extends objeto_ei_formulario
 
 	function inicializar_especifico()
 	{
-		$this->set_grupo_eventos('no_cargado');
+		$this->set_grupo_eventos_activo('no_cargado');
 	}
 
 	function get_lista_eventos()

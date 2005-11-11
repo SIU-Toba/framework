@@ -176,7 +176,7 @@ class objeto_ei_formulario extends objeto_ei
 
 	function inicializar_especifico()
 	{
-		$this->set_grupo_eventos('no_cargado');
+		$this->set_grupo_eventos_activo('no_cargado');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -528,7 +528,7 @@ class objeto_ei_formulario extends objeto_ei
 			//para compararlos y saber si se modificaron
 			//$this->memoria["datos"] = $datos;
 			$this->procesar_dependencias();
-			$this->set_grupo_eventos('cargado');
+			$this->set_grupo_eventos_activo('cargado');
 		}
 	}
 

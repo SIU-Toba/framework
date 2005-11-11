@@ -226,8 +226,8 @@ class objeto_ci extends objeto_ei
 
 	function get_dependencias_ci()
 	// Avisa que dependencias son CI, si hay una regla ad-hoc que define que CIs cargar
-	// (se utilizo el metodo 'get_lista_ei' y se selecciono un EI que es CI)
-	// hay que redeclarar este metodo para que devuelva el conjunto correcto de CIs utilizados
+	// (osea: si se utilizo el metodo 'get_lista_ei' para dicidir cual de dos dependencias de tipo CI cargar)
+	// hay que redeclarar este metodo con la misma regla utilizada en 
 	// por la operacion
 	{
 		return $this->get_dependencias_clase('objeto_ci');
