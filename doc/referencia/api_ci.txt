@@ -1,0 +1,125 @@
+
+	##############################################################################
+	# API
+	##############################################################################
+
+	Hay que encontrar las palabras que representan bien lo que se uso como 'establecer' y 'configurar'
+	en el cambio de nombre de la derecha.
+
+	//-------------------------------------------------
+	//--------- procesar eventos ----------------------
+	//-------------------------------------------------
+
+	* evt__inicializar()            										// configurar() ver relacion con configurar de objeto
+                                        									
+	* evt__[dependencia]__[evento]()										// evt__[dependencia]__[evento]()
+		                            											
+	* evt__[evento]()               										// evt__[evento]()
+		
+	//-------------------------------------------------
+	//--------- generacion de interface ---------------
+	//-------------------------------------------------
+
+	* get_etapa_inicial()	// get_pantalla_inicial();						// establecer_pantalla_inicial()
+
+##	* evt__post_recuperar_interaccion()										// NO se utiliza: no es igual a 'evt__pre_cargar_datos_dependencias'??
+	
+	* get_etapa_actual()	// get_pantalla_actual() 						// establecer_pantalla_actual()
+	
+	* evt__salida__[pantalla]()												// evt__salida__[pantalla]()
+	* evt__entrada__[pantalla]() 		                                    // evt__entrada__[pantalla]() 
+
+	//-------------------------------------------------
+	//--------- generacion de interface ---------------
+	//-------------------------------------------------
+
+	* get_lista_ei()														// establecer_lista_ei
+		* get_lista_ei__[pantalla]()										// establecer_lista_ei__[pantalla]()
+
+##	* evt__pre_cargar_datos_dependencias();									// configurar_estado_interno
+		*	evt__post_cargar_datos_dependencias__[pantalla]()		 		// configurar_estado_interno__[pantalla]()
+	
+	* evt__[dependencia]__carga()											// establecer_estado__[dependencia]()
+	
+	* evt__post_cargar_datos_dependencias();								// configurar_interface()
+		*	evt__post_cargar_datos_dependencias__[pantalla]()		 		// configurar_interface__[pantalla]()
+
+	* get_lista_eventos														// establecer_lista_eventos()
+		// Es necesaria esta ventana?? no se puede                			
+		// configurar estableciendo el grupo de eventos a mostrar?
+
+	* get_lista_tabs														// establecer_lista_eventos()
+	
+	* obtener_html_contenido__[pantalla]()									// obtener_html_pantalla__[pantalla]()
+
+	----
+	
+	* En mantener estado sesion no hay que llamar al padre.
+	
+	##############################################################################
+	# Pre y post cargar datos
+	##############################################################################
+
+	--- Uso de ventanas de pre y post carga de datos
+
+	#	evt__pre_cargar_datos_dependencias
+
+		$this->datos_gestion['fecha_valor'] = date("Y-m-j");
+
+	(COSAS encontradas que son de la ventana siguiente)
+
+		$this->dependencias["prin"]->set_datos_js( $this->tipo_numerador ); 
+		$this->dependencias['gestion']->deshabilitar_efs($campos);
+		//Esto hay que cambiarlo: se puede pedir una referencia al EF y ejecutar metodos sobre el mismo
+		$this->dependencias['ppg_ajuste']->ejecutar_metodo_ef("importe_anterior" , "establecer_etiqueta", "Preventivo");
+		$this->dependencias['ppg_ajuste']->ejecutar_metodo_ef("no_utilizado" , "establecer_etiqueta", "Preventivo no comprometido");
+		$this->dependencias['ppg_ajuste']->ejecutar_metodo_ef("importe" , "establecer_etiqueta", "Importe");
+
+	#	evt__post_cargar_datos_dependencias
+		
+		//-- Consumo toba
+
+		$this->dependencias['formulario']->deshabilitar_efs( $mascara );
+		$this->dependencias['formulario']->set_eventos( $evento );
+			(Alcanza con el concepto de grupos para filtrar los eventos de las dependencias)
+		$this->dependencias['ppg_hijas_rect']->set_titulo_columna('anterior','Preventivo no Comprometido');	
+		$this->dependencias['formulario']->set_grupo_eventos('no_cargado');
+
+		//-- Cosas propias
+
+		$this->dependencias['formulario']->set_tope( $tope );		
+
+		//-- Cosas complejas
+
+		En algunos casos (ej: ci_gb_ppg_apertura_filtro.php) la configuracion de eventos con el set_eventos()
+		Se hacen con condiciones complejas (como sumar eventos a un array segun condiciones) esto implicaria
+		dar de alta eventos que pertenezcan a muchos grupos.
+
+	##############################################################################
+	# Filtrado de EVENTOS
+	##############################################################################
+		
+		Hay que volver a definir_eventos() despues de set_grupo_eventos()
+			Es necesario definir explicitamente los eventos antes de generar la interface		
+
+		- Los eventos deberian crearse como clases al inicio (se pueden modificar parametros en runtime, como el
+				mensaje de confirmacion de un evento), y soportar despues los mecanismos de filtrado, 
+				para mostrarse al final.
+		- El filtrado no deberia ser sobre el flujo que lleva a los eventos a la interface
+			Esto tiene DESVENTAJAS:
+				-A) Esto hace que sea complicado setear eventos en componentes que no se estan extendiendo
+					(hay que hacer un get_lista_eventos y despues un set_eventos)
+				-B) Hay que llamar al ancestro para filtrar los eventos propios
+			
+			El filtrado habria que hacerlo con aserciones DIRECTAS sobre lo que se quiere.
+			Por defecto se toma la configuracion del administrador, si esto
+			ya sean grupos:	
+				- set_grupo_eventos_activo(string)
+				- set_grupo_eventos_activo(array)
+			o eventos señalados directamente: 
+				- set_eventos_activos(string)
+				- set_eventos_activos(array)
+
+		--> No tiene sentido hacer lo mismo con los elementos de interface, tabs y demas???
+
+	##############################################################################
