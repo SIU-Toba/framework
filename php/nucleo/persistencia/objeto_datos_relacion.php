@@ -155,10 +155,10 @@ class objeto_datos_relacion extends objeto
 		}
 	}
 
-	function get_datos()
+	function get_conjunto_datos_interno()
 	{
 		foreach($this->dependencias as $id => $dependencia){
-			$datos[$id] = $dependencia->get_datos();
+			$datos[$id] = $dependencia->get_conjunto_datos_interno();
 		}
 		return $datos;		
 	}
@@ -167,7 +167,7 @@ class objeto_datos_relacion extends objeto
 	{
 		foreach($this->dependencias as $id => $dependencia){
 			$info[$id]['cambios'] = $dependencia->get_cambios();
-			$info[$id]['datos'] = $dependencia->get_datos();
+			$info[$id]['datos'] = $dependencia->get_conjunto_datos_interno();
 		}
 		ei_arbol( $info, 'DATOS_RELACION: ' . $this->info['nombre'], null, true);
 	}

@@ -17,7 +17,7 @@ class base_test_datos_relacion_nn extends base_test_datos_relacion
 		$this->AssertEqual($b1, 0);
 		$b2 = $this->dr->tabla('detalle_b')->nueva_fila( $this->get_fila_test("detalle_b", 'valido_2'), $a2 );
 		$this->AssertEqual($b2, 1);
-		$this->dump_contenido();
+		//$this->dump_contenido();
 	}
 
 

@@ -836,7 +836,7 @@ class objeto_datos_tabla extends objeto
 
 	/*--- De mi al AP ---*/
 
-	public function get_datos()
+	public function get_conjunto_datos_interno()
 	{
 		return $this->datos;
 	}

@@ -34,7 +34,7 @@ class base_test_datos_relacion extends base_test_datos
 
 	function dump_contenido($mensaje="TABLAS")
 	{
-		ei_arbol($this->dr->get_datos(), $mensaje);
+		ei_arbol($this->dr->get_conjunto_datos_interno(), $mensaje);
 	}
 
 	//-------------------------------------------------------------

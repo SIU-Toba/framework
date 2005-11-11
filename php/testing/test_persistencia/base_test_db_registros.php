@@ -84,14 +84,14 @@ class base_test_db_registros extends test_toba
 	
 	function dump_tabla($tabla)
 	{
-		ei_arbol( $this->get_datos($tabla),"Datos TABLA: $tabla" );		
+		ei_arbol( $this->get_datos_tabla($tabla),"Datos TABLA: $tabla" );		
 	}
 
 	//----------------------------------------------
 	//-- Herramientas
 	//----------------------------------------------
 
-	function get_datos($tabla)
+	function get_datos_tabla($tabla)
 	{
 		return consultar_fuente( "SELECT * FROM $tabla;" );	
 	}

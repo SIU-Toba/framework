@@ -66,7 +66,7 @@ class ap_tabla_db extends ap
 	function get_estado_datos_tabla()
 	{
 		$this->cambios = $this->objeto_tabla->get_cambios();
-		$this->datos = $this->objeto_tabla->get_datos();
+		$this->datos = $this->objeto_tabla->get_conjunto_datos_interno();
 	}
 	
 	protected function log($txt)

@@ -385,11 +385,11 @@ class objeto_ei_cuadro extends objeto_ei
 
 	function inicializar_manejo_clave()
 	{
-        if(isset($this->info_cuadro["columnas_clave"])){
-            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);
-            $this->columnas_clave = array_map("trim",$this->columnas_clave);
-        }elseif($this->info_cuadro["clave_datos_tabla"]){
+        if($this->info_cuadro["clave_datos_tabla"]){										//Clave del DT
 			$this->columnas_clave = array( apex_datos_clave_fila );
+        }elseif(trim($this->info_cuadro["columnas_clave"])!=''){
+            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);		//Clave usuario
+            $this->columnas_clave = array_map("trim",$this->columnas_clave);
         }else{
 			$this->columnas_clave = null;
         }		

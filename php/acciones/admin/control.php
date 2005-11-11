@@ -132,7 +132,7 @@ function mostrar_ocultar_frame() {
 		</td>
 		
 		<td class='listado-tabi' <? echo $js_cambiar_color_1 ?>>
-			<a href="<? echo $this->vinculador->generar_solicitud("toba","/pruebas/testing_automatico_web") ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
+			<a href="<? echo $this->vinculador->generar_solicitud("toba","/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>">&nbsp;<? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
 		</td>
 		<td><? echo gif_nulo(3,1) ?></td>
 
