@@ -94,14 +94,6 @@ class objeto_ei extends objeto
 		//toba::get_logger()->debug($this->eventos);
 	}
 		
-	public function set_eventos($eventos)
-	{
-		$this->eventos = $eventos;
-		//toba::get_logger()->debug($this->get_txt() . "*** EVENTOS seteados ***");
-		//toba::get_logger()->debug($this->eventos);
-		toba::get_logger()->obsoleto("Definir los eventos en el administrador", __FUNCTION__, "0.8.3");		
-	}
-	
 	public function get_lista_eventos()
 	{
 		$eventos = $this->get_lista_eventos_definidos();
@@ -150,21 +142,6 @@ class objeto_ei extends objeto
 		return $eventos;
 	}
 	
-	function agregar_evento($evento, $establecer_como_predeterminado=false)
-	{
-		asercion::es_array_dimension($evento,1);
-		$this->eventos = array_merge($this->eventos, $evento);
-		if($establecer_como_predeterminado){
-			$id = key($evento);
-			$this->set_evento_defecto($id);
-		}
-	}
-	
-	public function set_evento_defecto($id)
-	{
-		$this->evento_por_defecto = $id;
-	}
-
 	function cant_eventos_sobre_fila()
 	{
 		$cant = 0;
@@ -260,6 +237,34 @@ class objeto_ei extends objeto
 		return $this->grupo_eventos_activo;	
 	}
 	
+	//--------------------------------------------------------------------
+	//--  Cosas VIEJAS  --------------------------------------------------
+	//--------------------------------------------------------------------
+
+
+	function agregar_evento($evento, $establecer_como_predeterminado=false)
+	{
+		asercion::es_array_dimension($evento,1);
+		$this->eventos = array_merge($this->eventos, $evento);
+		if($establecer_como_predeterminado){
+			$id = key($evento);
+			$this->set_evento_defecto($id);
+		}
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
+	}
+
+	public function set_eventos($eventos)
+	{
+		$this->eventos = $eventos;
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
+	}
+	
+	public function set_evento_defecto($id)
+	{
+		$this->evento_por_defecto = $id;
+		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
+	}
+
 	//--------------------------------------------------------------------
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------

@@ -65,8 +65,6 @@ class ci_eventos extends objeto_ci
 		if( $this->mostrar_evento_detalle() ){
 			//Protejo la evento seleccionada de la eliminacion
 			$this->dependencias["eventos_lista"]->set_fila_protegida($this->seleccion_evento_anterior);
-			//Agrego el evento "modificacion" y lo establezco como predeterminado
-			$this->dependencias["eventos"]->agregar_evento( eventos::modificacion(null, false), true );
 		}
 	}
 

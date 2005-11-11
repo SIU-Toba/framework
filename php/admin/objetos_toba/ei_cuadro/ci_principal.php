@@ -125,8 +125,6 @@ class ci_principal extends ci_editores_toba
 		if( $this->mostrar_columna_detalle() ){
 			//Protejo la columna seleccionada de la eliminacion
 			$this->dependencias["columnas_lista"]->set_fila_protegida($this->seleccion_columna_anterior);
-			//Agrego el evento "modificacion" y lo establezco como predeterminado
-			$this->dependencias["columnas"]->agregar_evento( eventos::modificacion(null, false), true );
 		}else{
 			$this->dependencias["columnas_importar"]->colapsar();
 		}

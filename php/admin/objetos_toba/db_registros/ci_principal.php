@@ -47,13 +47,6 @@ class ci_principal extends ci_editores_toba
 	//**  COLUMNAS  *****************************************************
 	//*******************************************************************
 	
-	function evt__post_cargar_datos_dependencias__2()
-	{
-		//Agrego el evento de cargar de la DB
-		$evt = eventos::evento_estandar("leer_db","Cargar COLUMNAS tabla",true,null,null,true,false);
-		$this->dependencias["columnas"]->agregar_evento( $evt );
-	}
-	
 	function evt__columnas__carga()
 	{
 		return $this->get_entidad()->tabla('columnas')->get_filas(null,true);	

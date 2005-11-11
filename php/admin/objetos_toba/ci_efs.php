@@ -84,8 +84,6 @@ class ci_efs extends objeto_ci
 		if( $this->mostrar_efs_detalle() ){
 			//Protejo la efs seleccionada de la eliminacion
 			$this->dependencias["efs_lista"]->set_fila_protegida($this->seleccion_efs_anterior);
-			//Agrego el evento "modificacion" y lo establezco como predeterminado
-			$this->dependencias["efs"]->agregar_evento( eventos::modificacion(null, false), true );
 		}else{
 			$this->dependencias["efs_importar"]->colapsar();
 		}

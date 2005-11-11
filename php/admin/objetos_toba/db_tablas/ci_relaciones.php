@@ -72,8 +72,6 @@ class ci_relaciones extends objeto_ci
 		if( $this->mostrar_detalle_relacion() ){
 			//Protejo la efs seleccionada de la eliminacion
 			//ATENCION! - $this->dependencias["relaciones_lista"]->set_fila_protegida($this->seleccion_relacion_anterior);
-			//Agrego el evento "modificacion" y lo establezco como predeterminado
-			$this->dependencias["relaciones_columnas"]->agregar_evento( eventos::modificacion(null, false), true );
 		}
 		if (isset($this->seleccion_relacion)) {
 			$this->dependencias["relaciones_lista"]->seleccionar($this->seleccion_relacion);
