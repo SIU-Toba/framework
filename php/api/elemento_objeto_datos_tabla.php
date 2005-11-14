@@ -8,10 +8,10 @@ class elemento_objeto_datos_tabla extends elemento_objeto
 	{
 		$iconos = array();
 		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
-		if (isset($this->datos['apex_objeto'][0]["subclase_archivo"])) {
+		if (isset($this->datos['apex_objeto_db_registros'][0]["ap_archivo"])) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("php.gif", false),
-				'ayuda' => "Ver detalles de la extensión del AP",
+				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central")
 			);
