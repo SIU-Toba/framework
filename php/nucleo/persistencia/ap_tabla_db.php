@@ -5,17 +5,19 @@ require_once("tipo_datos.php");
 if (!defined("apex_db_registros_separador")) {
 	define("apex_db_registros_separador","%"); //Por si ya esta definida en db_registros
 }
-/*
-	Administrador de persistencia a DB
-	Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
 
-	PENDIENTE
-
-	- Como se implementa la carga de columnas externas??
-	- Donde se hacen los controles pre-sincronizacion (nulos db)??
-	- Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
-	- Esta clase no deberia utilizar ADOdb!!!
-*/
+/**
+ * Administrador de persistencia a DB
+ * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
+ * 
+ * @todo Como se implementa la carga de columnas externas??
+ * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
+ * @todo Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
+ * @todo Esta clase no deberia utilizar ADOdb!!!
+ * @package Objetos
+ * @subpackage Persistencia
+ */
+ */
 class ap_tabla_db extends ap
 {
 	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado

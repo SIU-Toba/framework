@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+. i_config
+
+##***********************************************************************************************##
+## HOLA!
+##***********************************************************************************************##
+
+if [ "$1" = "hola" ]
+then
+
+	echo " objetivo: Administrar la documentación del API."
+
+##***********************************************************************************************##
+## Genera la documentación
+##***********************************************************************************************##
+#@ doc generar                   -- Genera la documentación del api, con salida en $toba_dir/doc/api
+
+elif [ "$1" = "generar" ]
+then	
+	TITLE="Toba"
+	PACKAGES="General"
+	PATH_PROJECT=$toba_dir/php/nucleo/persistencia
+	PATH_PHPDOC=$toba_dir/php/3ros/phpdocumentor/phpdoc
+	PATH_DOCS=$toba_dir/doc/api
+	OUTPUTFORMAT=HTML
+	CONVERTER=frames
+	TEMPLATE=DOM/earthli
+	PRIVATE=off
+	IGNORADOS=db_registros*.php,db_tablas.php
+	if [ -e $PATH_PHPDOC ]
+	then
+		$PATH_PHPDOC -d $PATH_PROJECT -t $PATH_DOCS -ti "$TITLE" -dn $PACKAGES \
+		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS
+	else
+		echo "No está instalado phpDocumentor, vea el archivo $toba_dir/php/3ros/phpDocumentor.txt"
+	fi
+
+##***********************************************************************************************##
+## Ayuda
+##***********************************************************************************************##
+else
+	ayuda $0
+fi

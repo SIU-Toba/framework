@@ -1,10 +1,12 @@
 <?
 require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
-/*
-	FALTA:
-		 - Control del FK y PK
-*/
+
+/**
+ *  @todo Control de FK y PK
+ * @package Objetos
+ * @subpackage Persistencia
+ */
 class objeto_datos_tabla extends objeto
 {
 	protected $persistidor;						// Mantiene el persistidor del OBJETO

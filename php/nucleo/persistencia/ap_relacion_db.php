@@ -1,17 +1,13 @@
 <?
 require_once("ap.php");
-/*
-	Administrador de persistencia a DB
-		Puede cargar y sincronizar un grupo de tablas
 
-	PENDIENTE
-
-		- Hay que cambiar el editor de relaciones para que las claves se emparejen posicionalmente	
-			(Hay que poner un ML por cada relacion)
-			
-		- Cada TABLA tiene una clave de carga (relacion con el ancestro) y una para relacionarse con los hijos
-			En las tablas raiz, las don son la misma
-*/
+/**
+ * 	Administrador de persistencia a DB. Puede cargar y sincronizar un grupo de tablas
+ * 	@todo Hay que cambiar el editor de relaciones para que las claves se emparejen posicionalmente	(Hay que poner un ML por cada relacion)
+ *  @todo Cada TABLA tiene una clave de carga (relacion con el ancestro) y una para relacionarse con los hijos. En las tablas raiz, las don son la misma
+ * 	@package Objetos
+ *  @subpackage Persistencia
+ */
 class ap_relacion_db extends ap
 {
 	protected $objeto_relacion;

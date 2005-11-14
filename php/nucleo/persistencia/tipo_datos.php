@@ -1,5 +1,6 @@
-<?
-/*
+<?php
+
+/**
 	Tipos de dato (apex_tipo_datos)
 
 	E    Entero                         
@@ -10,7 +11,9 @@
 	L    Logico                         
 	X    Caracter largo    
 	B    Binario                        
-*/
+ * @package Objetos
+ * @subpackage Persistencia
+ */
 class tipo_datos
 {
 	static function numero($tipo){

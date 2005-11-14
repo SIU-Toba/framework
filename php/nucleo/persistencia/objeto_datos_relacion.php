@@ -2,17 +2,16 @@
 require_once("nucleo/browser/clases/objeto.php");
 require_once("relacion_entre_tablas.php");
 
-/*
-	(Sobre las claves)
-		Las relaciones con los hijos son a travez de un unico ID
-		por cada dependencias, tiene que haber un ID para conectarse a un padre
-		y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
-		Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extra?o
-
-	ATENCION: no hay una nomenclatura consistente (padre/hijo; padre/hija; madre/hija)
-
-*/
-
+/**
+ * (Sobre las claves)
+ * Las relaciones con los hijos son a travez de un unico ID
+ * por cada dependencias, tiene que haber un ID para conectarse a un padre
+ * y otro para conectarse a un hijo... no hay que definir los IDs por operacion.
+ * Incluso la relacion con dos hijos a travez de dos IDs distintos podrian generar algo extra?o
+ * 	@todo	ATENCION: no hay una nomenclatura consistente (padre/hijo; padre/hija; madre/hija)
+ * 	@package Objetos
+ *  @subpackage Persistencia
+ */
 class objeto_datos_relacion extends objeto
 {
 	protected $relaciones;		
@@ -26,6 +25,9 @@ class objeto_datos_relacion extends objeto
 		$this->crear_relaciones();
 	}
 	
+	/**
+	 * Carga los datos_tabla y les pone los topes mínimos y máximos
+	 */
 	private function crear_tablas()
 	{
 		$this->cargar_info_dependencias();
@@ -39,7 +41,11 @@ class objeto_datos_relacion extends objeto
 			$this->dependencias[$dep]->set_tope_max_filas($cant_max);
 		}
 	}
-	
+
+	/**
+	 * Para cada relación definida crea una relacion_entre_tablas
+	 * Determina cual es la tabla raiz
+	 */
 	private function crear_relaciones()
 	{
 		if(count($this->info_relaciones)>0){
@@ -114,11 +120,20 @@ class objeto_datos_relacion extends objeto
 	//-- Servicios basicos
 	//-------------------------------------------------------------------------------
 
+	/**
+	 *	Retorna los identificadores de los datos_tabla incluídos
+	 * @return array
+	 */
 	function get_lista_tablas()
 	{
 		return array_keys($this->dependencias);	
 	}
 
+	/**
+	 *	Retorna un datos_tabla
+	 * @param string $tabla Id. de la tabla en la relación
+	 * @return objeto_datos_tabla
+	 */
 	public function tabla($tabla)
 	//Devuelve una referencia a una tabla para trabajar con ella
 	{
@@ -129,6 +144,11 @@ class objeto_datos_relacion extends objeto
 		}
 	}
 
+	/**
+	 * Determina si una tabla es parte de la relación
+	 * @param string $tabla Id. de la tabla en la relación
+	 * @return boolean
+	 */
 	public function existe_tabla($tabla)
 	{
 		return $this->existe_dependencia($tabla);
@@ -139,6 +159,9 @@ class objeto_datos_relacion extends objeto
 		//Ver si se implemento un evento		
 	}
 
+	/**
+	 *	Retorna al estado inicial a todas las tablas incluídas
+	 */
 	public function resetear()
 	{
 		foreach($this->dependencias as $dependencia){
@@ -146,8 +169,14 @@ class objeto_datos_relacion extends objeto
 		}
 	}
 	
+	/**
+	 * Lugar para validaciones específicas, se ejecuta justo antes de la sincronización
+	 */
 	protected function evt__validar(){}
 
+	/**
+	 *	Valida cada una de las tablas incluídas en la relación
+	 */
 	public function disparar_validacion_tablas()
 	{
 		foreach($this->dependencias as $dependencia){
@@ -163,6 +192,9 @@ class objeto_datos_relacion extends objeto
 		return $datos;		
 	}
 
+	/**
+	 * Muestra un dump de los datos y los cambios realizados a los mismos desde la carga
+	 */
 	function dump_contenido()
 	{
 		foreach($this->dependencias as $id => $dependencia){
@@ -176,16 +208,35 @@ class objeto_datos_relacion extends objeto
 	//-- PERSISTENCIA  -------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 *  Retorna una referenca al Adm.Persistencia de la relación
+	 * @return ap
+	 */
 	function get_persistidor()
-	//Devuelve el persistidor por defecto
 	{
 		if (!isset($this->persistidor)) {		
-			require_once("ap_relacion_db.php");
-			$this->persistidor = new ap_relacion_db( $this );
+			//Se incluye el archivo
+			$archivo = "ap_relacion_db.php";
+			if (isset($this->info_estructura['ap_archivo'])) {
+				$archivo = $this->info_estructura['ap_archivo'];
+			}
+			require_once($archivo);
+
+			//Se crea la clase		
+			$clase = "ap_relacion_db";
+			if (isset($this->info_estructura['ap_clase'])) {
+				$clase = $this->info_estructura['ap_clase'];
+			}
+			$this->persistidor = new $clase( $this );
 		}
 		return $this->persistidor;
 	}
 
+	/**
+	 *	Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
+	 * @param array $clave Arreglo asociativo campo-valor
+	 * @return boolean Falso, si no se encontraron registros
+	 */
 	function cargar($clave)
 	{
 		//ATENCION: hay que controlar el formato de la clave
@@ -210,6 +261,9 @@ class objeto_datos_relacion extends objeto
 		}
 	}
 	
+	/**
+	 * Sincroniza los cambios con el medio de persistencia
+	 */
 	function sincronizar()
 	{
 		//$this->dump_contenido();
@@ -220,6 +274,9 @@ class objeto_datos_relacion extends objeto
 		//$this->dump_contenido();
 	}
 	
+	/**
+	 * Elimina del medio de persistencia todos los datos cargados en la relación
+	 */
 	function eliminar()
 	{
 		$ap = $this->get_persistidor();
@@ -227,11 +284,19 @@ class objeto_datos_relacion extends objeto
 		$this->resetear();
 	}
 	
+	/**
+	 *	Retorna el id de las tablas que no tienen padres en la relación
+	 * @return array
+	 */
 	function get_tablas_raiz()
 	{
 		return $this->tablas_raiz;
 	}
 	
+	/**
+	 * Fuente de datos que utiliza el objeto y sus dependencias
+	 * @return string
+	 */
 	public function get_fuente()
 	{
 		return $this->info["fuente"];

@@ -1,16 +1,14 @@
 <?
-/*
-	Esta clase representa la relacion entre dos tablas
 
-	- Las relaciones se arman macheando posicionalmente columnas
-
-	- El comportamiento de esta clase varia segun la cantidad de registros 
-		que maneja el padre... con N registros se suma el problema de
-		recuperacion y seteo discrecional de HIJOS
-	- FALTA la actulizacion dinamica del MAPEO de filas
-	- Cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
-*/
-
+/**
+ * Representa la relacion entre dos tablas
+ *  - Las relaciones se arman macheando posicionalmente columnas
+ *  - El comportamiento de esta clase varia segun la cantidad de registros  que maneja el padre... con N registros se suma el problema de recuperacion y seteo discrecional de HIJOS
+ * @todo actualizacion dinamica del MAPEO de filas
+ * @todo cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
+ * @package Objetos
+ * @subpackage Persistencia
+ */
 class relacion_entre_tablas
 {
 	protected $nombre;

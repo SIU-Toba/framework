@@ -1,6 +1,11 @@
 <?
 require_once('nucleo/persistencia/db_registros.php');
 
+/**
+ * @package Objetos
+ * @subpackage Persistencia
+ * @ignore 
+ */
 class db_tablas
 {
 	protected $log;

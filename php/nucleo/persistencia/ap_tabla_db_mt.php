@@ -1,6 +1,10 @@
 <?php
 require_once("ap_tabla_db.php");
 
+/**
+ * 	@package Objetos
+ *  @subpackage Persistencia
+ */
 class ap_tabla_db_mt extends ap_tabla_db
 {
 	private $tabla;							// Tablas manejadas

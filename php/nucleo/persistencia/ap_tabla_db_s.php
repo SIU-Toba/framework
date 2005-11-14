@@ -1,11 +1,12 @@
 <?php
 require_once("ap_tabla_db.php");
 
-/*
-	Administrador de persistencia a DB con mapeo SIMPLE
-	Supone que la tabla de datos se va a mapear a una tabla del modelo de datos
-	y los nombres de las columnas son identicos
-*/
+/**
+ * Administrador de persistencia a DB con mapeo SIMPLE
+ * Supone que la tabla de datos se va a mapear a una tabla del modelo de datos y los nombres de las columnas son identicos
+ * @package Objetos
+ * @subpackage Persistencia
+ */
 class ap_tabla_db_s extends ap_tabla_db
 {
 	//-------------------------------------------------------------------------------
