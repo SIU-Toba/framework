@@ -17,7 +17,7 @@ if (!defined("apex_db_registros_separador")) {
  * @package Objetos
  * @subpackage Persistencia
  */
- */
+ 
 class ap_tabla_db extends ap
 {
 	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
