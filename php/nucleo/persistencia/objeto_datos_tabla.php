@@ -3,7 +3,7 @@ require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
 
 /**
- *  @todo Control de FK y PK
+ * @todo Control de FK y PK
  * @package Objetos
  * @subpackage Persistencia
  */
@@ -782,9 +782,11 @@ class objeto_datos_tabla extends objeto
 
 	public function eliminar()
 	{
+		//Elimino a mis hijos
+		$this->notificar_hijos_eliminacion();
+		//Me elimino a mi
 		$this->eliminar_filas();
-		$ap = $this->get_persistidor();
-		$ap->eliminar();
+		$this->get_persistidor()->eliminar();
 	}
 
 	public function resetear()

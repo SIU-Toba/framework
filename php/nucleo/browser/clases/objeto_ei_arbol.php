@@ -2,7 +2,9 @@
 require_once("objeto_ei.php");
 
 /**
-*	El objeto_ei_arbol consumo una estructura arbolea que implementa la interfaz recorrible_como_arbol
+* Consume una estructura arbolea que implementa la interfaz recorrible_como_arbol
+* @package Objetos
+* @subpackage Ei
 */
 class objeto_ei_arbol extends objeto_ei
 {

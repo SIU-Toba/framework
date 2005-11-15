@@ -4,6 +4,11 @@ require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 
+/**
+ * Controla un flujo de pantallas
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_ci extends objeto_ei
 {
 	// General

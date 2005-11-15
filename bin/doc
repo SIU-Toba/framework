@@ -2,16 +2,20 @@
 #
 . i_config
 
-TITLE="Toba"
-PACKAGES="General"
-PATH_PROJECT=$toba_dir/php/nucleo/persistencia
+TITLE="Toba API"
+PACKAGES="Toba"
+PATH_PROJECT=$toba_dir/php/nucleo/persistencia,$toba_dir/php/nucleo/browser/clases
 PATH_PHPDOC=$toba_dir/php/3ros/phpdocumentor/phpdoc
 PATH_DOCS=$toba_dir/doc/api
 OUTPUTFORMAT=HTML
-CONVERTER=frames
-TEMPLATE=DOM/earthli
+CONVERTER=Smarty
+TEMPLATE=PHP
 PRIVATE=off
-IGNORADOS=db_registros*.php,db_tablas.php
+# IGNORADOS - Persistencia
+IGNORADOS="db_registros*.php,db_tablas.php"
+# IGNORADOS - Clases
+IGNORADOS="$IGNORADOS,__*.php,eventos.php,objeto_ci_abm.php,objeto_cuadro*.php,objeto_esquema*.php,objeto_filtro.php,objeto_grafico.php,objeto_hoja*.php,objeto_mt*.php,objeto_ut*.php,objeto_plan.php,objeto_lista.php,objeto_mapa.php,objeto_ei_multicheq.php"
+
 
 ##***********************************************************************************************##
 ## HOLA!
@@ -34,7 +38,7 @@ then
 	then
 		doc borrar
 		$PATH_PHPDOC -d $PATH_PROJECT -t $PATH_DOCS -ti "$TITLE" -dn $PACKAGES \
-		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS
+		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS -ct "wiki"
 	else
 		echo "No está instalado phpDocumentor, vea el archivo $toba_dir/php/3ros/phpDocumentor.txt"
 	fi

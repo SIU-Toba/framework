@@ -1,6 +1,10 @@
 <?
 
-//Nodo de un arbol
+/**
+ * Se comporta como un nodo dentro de un árbol
+ * @package Objetos
+ * @subpackage Ei
+ */
 interface recorrible_como_arbol
 {
 	public function es_hoja();				//¿Posee algún hijo?
@@ -16,6 +20,10 @@ interface recorrible_como_arbol
 									
 }
 
+/**
+ * @package Objetos
+ * @subpackage Ei
+ */
 interface ei
 {
 	public function inicializar();				//Inicializa al elemento

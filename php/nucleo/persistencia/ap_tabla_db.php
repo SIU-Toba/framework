@@ -7,9 +7,10 @@ if (!defined("apex_db_registros_separador")) {
 }
 
 /**
- * Administrador de persistencia a DB
+ * Administrador de persistencia a DB de un datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  * 
+ * @todo Poder desactivar el control de sincronizacion (¿se necesita esto?)
  * @todo Como se implementa la carga de columnas externas??
  * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
  * @todo Hay que definir el manejo de claves (en base a objeto_datos_relacion)	
@@ -45,6 +46,9 @@ class ap_tabla_db extends ap
 	protected $where;							// Condicion utilizada para cargar datos - WHERE
 	protected $from;							// Condicion utilizada para cargar datos - FROM
 
+	/**
+	 * @param objeto_datos_tabla $datos_tabla Tabla que persiste
+	 */
 	function __construct($datos_tabla)
 	{
 		$this->objeto_tabla = $datos_tabla;
@@ -63,9 +67,12 @@ class ap_tabla_db extends ap
 		$this->inicializar();
 	}
 	
+	/**
+	 * Lugar para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 */
 	protected function inicializar(){}
 
-	function get_estado_datos_tabla()
+	protected function get_estado_datos_tabla()
 	{
 		$this->cambios = $this->objeto_tabla->get_cambios();
 		$this->datos = $this->objeto_tabla->get_conjunto_datos_interno();
@@ -95,6 +102,16 @@ class ap_tabla_db extends ap
 		$this->utilizar_transaccion = false;
 	}
 
+	/**
+	 * Se brinda una query que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
+	 * necesitan mantenerse junto al conjunto de datos.
+	 *
+	 * @param string $sql Query de carga
+	 * @param array $col_parametros Columnas que espera recibir el sql, en la sql necesitan esta el campo entre % (%nombre_campo%)
+	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
+	 */
 	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
@@ -104,7 +121,19 @@ class ap_tabla_db extends ap
 		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
-	
+
+	/**
+	 * Se brinda un DAO que carga una o más columnas denominadas como 'externas'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
+	 * necesitan mantenerse junto al conjunto de datos.
+	 *
+	 * @param string $metodo Método que obtiene los datos
+	 * @param string $clase  Clase a la que pertenece el método
+	 * @param string $include Archivo donde se encuentra la clase
+	 * @param array $col_parametros Columnas que espera recibir el DAO
+	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
+	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
+	 */
 	public function activar_proceso_carga_externa_dao($metodo, $clase, $include, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
@@ -117,6 +146,13 @@ class ap_tabla_db extends ap
 		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
 
+	/**
+	 * Activa el mecanismo de baja lógica
+	 * En este mecanismo en lugar de hacer DELETES actualiza una columna
+	 *
+	 * @param string $columna Columna que determina la baja lógica
+	 * @param mixed $valor Valor que toma la columna al dar de baja un registro
+	 */
 	public function activar_baja_logica($columna, $valor)
 	{
 		$this->baja_logica = true;
@@ -124,6 +160,9 @@ class ap_tabla_db extends ap
 		$this->baja_logica_valor = $valor;	
 	}
 
+	/**
+	 * Permite que las modificaciones puedan cambiar las claves del registro
+	 */
 	public function activar_modificacion_clave()
 	{
 		$this->flag_modificacion_clave = true;
@@ -143,9 +182,13 @@ class ap_tabla_db extends ap
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+
 	/**
-		Carga la tabla tomando como parametro el valor de algunas columnas
-	*/
+	 * Carga el datos_tabla asociado a partir de una clave
+	 *
+	 * @param array $clave Arreglo asociativo campo-valor
+	 * @return unknown
+	 */
 	public function cargar($clave)
 	{
 		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
@@ -154,8 +197,10 @@ class ap_tabla_db extends ap
 	}
 
 	/**
-		Carga datos de la base a partir de clausulas WHERE y FROM
-	*/
+	 * Carga datos de la base a partir de clausulas WHERE y FROM
+	 *
+	 * @return boolean Falso si no se encontro ningún registro
+	 */
 	public function cargar_db($where=null, $from=null)
 	{
 		asercion::es_array_o_null($where,"AP [$this->tabla] El WHERE debe ser un array");
@@ -163,10 +208,20 @@ class ap_tabla_db extends ap
 		$this->log("Cargar de DB");
 		$this->where = $where;
 		$this->from = $from;
-		$db = toba::get_db($this->fuente);
 		$sql = $this->generar_sql_select();//echo $sql . "<br>";
+		return $this->cargar_con_sql($sql);
+	}
+
+	/**
+	 * Carga datos de la base a partir de una query SQL
+	 *
+	 * @return boolean Falso si no se encontro ningún registro
+	 */
+	public function cargar_con_sql($sql)
+	{
 		$this->log("SQL de carga - " . $sql); 
 		try{
+			$db = toba::get_db($this->fuente);			
 			$datos = $db->consultar($sql);
 		}catch(excepcion_toba $e){
 			toba::get_logger()->error( get_class($this). ' - '.
@@ -187,7 +242,7 @@ class ap_tabla_db extends ap
 			for($a=0;$a<count($datos);$a++){
 				foreach(array_keys($datos[$a]) as $columna){
 					if(isset($datos[$a][$columna])){
-						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);				
+						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);
 					}
 				}	
 			}
@@ -205,6 +260,9 @@ class ap_tabla_db extends ap
 	//------  SINCRONIZACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	
+	/**
+	 * Sincronización a nivel de inserts, updates y deletes con la base de datos
+	 */
 	private function actualizar_estado_db()
 	{
 		$this->get_estado_datos_tabla();
@@ -261,7 +319,12 @@ class ap_tabla_db extends ap
 
 	}
 
-	public function sincronizar($control_tope_minimo=true)
+	/**
+	 * Sincroniza los cambios en los registros con la base de datos
+	 *
+	 * @return integer Cantidad de registros modificados
+	 */
+	public function sincronizar()
 	//Sincroniza las modificaciones del db_registros con la DB
 	{
 		$this->log("Inicio SINCRONIZAR");
@@ -278,17 +341,20 @@ class ap_tabla_db extends ap
 	protected function modificar_registro_db($id_registro){}
 	protected function eliminar_registro_db($id_registro){}
 
-	/*
-		Esquema de recuperacion de valores de COLUMNAS generados por el motor
-			Es para los casos como secuencias, valores predeterminados, etc.
-	*/
-
-	function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
+	/**
+	 * Registra el valor generado por el motor de un columna
+	 *
+	 * @param string $id_registro Id. interno del registro
+	 */
+	protected function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
 	{
 		$this->columnas_predeterminadas_db[$id_registro][$columna] = $valor;
 	}
 	
-	function actualizar_columnas_predeterminadas_db()
+	/**
+	 * Actualiza en los registros los valores generados por el motor durante la transacción
+	 */
+	protected function actualizar_columnas_predeterminadas_db()
 	{
 		if(isset($this->columnas_predeterminadas_db)){
 			foreach( $this->columnas_predeterminadas_db as $id_registro => $columnas ){
@@ -299,43 +365,85 @@ class ap_tabla_db extends ap
 		}
 	}
 
-	/*
-		EVENTOS de SINCRONIZACION con la DB
-			Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
-	*/
-
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
+	 * La transacción con la bd ya fue iniciada (si es que esta definida)
+	 */
 	protected function evt__pre_sincronizacion(){}
+	
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
+	 * La transacción con la bd aún no se terminó (si es que esta definida)
+	 */	
 	protected function evt__post_sincronizacion(){}
-	protected function evt__pre_insert($id){}
-	protected function evt__post_insert($id){}
+	
+	/**
+	 * Este es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro a insertar
+	 */	
+	protected function evt__pre_insert($registro){}
+	
+	/**
+	 * Este es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro insertado
+	 */	
+	protected function evt__post_insert($registro){}
+	
+	/**
+	 * Este es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro a actualizar
+	 */		
 	protected function evt__pre_update($id){}
+
+	/**
+	 * Este es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro actualizado
+	 */	
 	protected function evt__post_update($id){}
+
+	/**
+	 * Este es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro a borrar
+	 */
 	protected function evt__pre_delete($id){}
+
+	/**
+	 * Este es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
+	 * @param array $registro Arreglo asociativo campo-valor del registro borrado
+	 */
 	protected function evt__post_delete($id){}
 
 	//-------------------------------------------------------------------------------
 	//------  ELIMINAR  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	
+	/**
+	 * Elimina físicamente los registros de esta tabla
+	 */
 	public function eliminar()
 	{
 		$this->log("Inicio ELIMINAR");
-		//Elimino a mis hijos
-		$this->objeto_tabla->notificar_hijos_eliminacion();
-		//Me elimino a mi
 		$this->actualizar_estado_db();
-		$this->log("Inicio ELIMINAR");
+		$this->log("Fin ELIMINAR");
 	}	
 
 	//-------------------------------------------------------------------------------
 	//------ Servicios SQL   --------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Alias de la función global ejecutar_sql
+	 */
 	function ejecutar_sql( $sql )
 	{
 		ejecutar_sql( $sql, $this->fuente);			
 	}
 
+	/**
+	 * Retorna los sql de insert de cada registro cargado en el datos_tabla
+	 *
+	 * @return array
+	 */
 	public function get_sql_inserts()
 	{
 		$this->get_estado_datos_tabla();
@@ -346,20 +454,23 @@ class ap_tabla_db extends ap
 		return $sql;
 	}
 
+	/**
+	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
+	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
+	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
+	 * @return array Clausulas where
+	 */
 	function generar_clausula_where_lineal($clave,$alias=true)
-	//Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
-	//El alias es para cuando se generan SELECTs complejos
 	{
-		if($alias){
+		if ($alias) {
 			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
-		}else{
+		} else {
 			$tabla_alias = "";	
 		}
-		foreach($clave as $columna => $valor)
-		{
-			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ){
+		foreach($clave as $columna => $valor) {
+			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ) {
 				$clausula[] = "( $tabla_alias" . "$columna = $valor )";
-			}else{
+			} else {
 				$clausula[] = "( $tabla_alias" . "$columna = '$valor' )";
 			}
 		}
@@ -370,14 +481,17 @@ class ap_tabla_db extends ap
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Recuperacion de valores para las columnas externas.
+	 * Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
+	 * cuyas claves asociativas se correspondan con la columna que se quiere llenar
+	 * @param array $fila Fila que toma dereferencia la carga externa
+	 * @param string $evento 
+	 * @return array Se devuelven los valores recuperados de la DB.
+	 * 
+	 * @todo Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)* 
+	 */
 	public function completar_campos_externos_fila($fila, $evento=null)
-	/*
-		ATENCION: Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)
-		Recuperacion de valores para las columnas externas.
-		Se pasa una fila como parametro y se devuelven los valores recuperados de la DB.
-		Para que esto funcione, la consultas realizadas tienen que devolver un solo registro,
-			cuyas claves asociativas se correspondan con la columna que se quiere llenar
-	*/
 	{
 		//Itero planes de carga externa
 		$valores_recuperados = array();
@@ -441,7 +555,7 @@ class ap_tabla_db extends ap
 	//--  Control de VERSIONES  -----------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function controlar_alteracion_db()
+	protected function controlar_alteracion_db()
 	//Controla que los datos
 	{
 	}

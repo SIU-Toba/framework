@@ -1,10 +1,10 @@
 <?php
 
+/**
+ * Padre de todas las clases que definen objetos standart de la aplicacion
+ * @package Objetos
+ */
 class objeto
-/*
- 	@@acceso: nucleo
-	@@desc: Padre de todas las clases que definen objetos standart de la aplicacion
-*/
 {
 	var $solicitud;
 	var $id;

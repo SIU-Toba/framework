@@ -3,6 +3,11 @@ require_once("objeto.php");
 require_once("objeto_ei.php");
 require_once("nucleo/lib/manejador_archivos.php");
 
+/**
+ * Permite navegar el sistema de archivos del servidor bajo una carpeta dada
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_ei_archivos extends objeto_ei
 {
 	protected $dir_actual;

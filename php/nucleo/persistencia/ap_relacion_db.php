@@ -2,7 +2,7 @@
 require_once("ap.php");
 
 /**
- * 	Administrador de persistencia a DB. Puede cargar y sincronizar un grupo de tablas
+ * 	Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
  * 	@todo Hay que cambiar el editor de relaciones para que las claves se emparejen posicionalmente	(Hay que poner un ML por cada relacion)
  *  @todo Cada TABLA tiene una clave de carga (relacion con el ancestro) y una para relacionarse con los hijos. En las tablas raiz, las don son la misma
  * 	@package Objetos
@@ -10,11 +10,13 @@ require_once("ap.php");
  */
 class ap_relacion_db extends ap
 {
-	protected $objeto_relacion;
-	protected $relaciones;
-	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
-	protected $retrazar_constraints=false;		// Intenta retrazar el chequeo de claves foraneas hasta el fin de la transacción
+	protected $objeto_relacion; 				//objeto_datos_relacion que persiste
+	protected $utilizar_transaccion;			//Determina si la sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $retrazar_constraints=false;		//Intenta retrazar el chequeo de claves foraneas hasta el fin de la transacción
 	
+	/**
+	 * @param objeto_datos_relacion $objeto_relacion Relación que persiste
+	 */
 	function __construct($objeto_relacion)
 	{
 		$this->objeto_relacion = $objeto_relacion;
@@ -40,6 +42,9 @@ class ap_relacion_db extends ap
 		$this->utilizar_transaccion = false;
 	}
 	
+	/**
+	 * Intenta retrazar el chequeo de constraints hasta el final de la transacción
+	 */
 	public function retrasar_constraints()
 	{
 		$this->retrazar_constraints = true;	
@@ -49,16 +54,15 @@ class ap_relacion_db extends ap
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Se cargan las tablas RAIZ y de ahí en más se cargan las demás a travez de las RELACIONES
+	 * El formato de la clave del DR ($clave) tiene que ser consitente con las claves de las tablas raiz
+	 * Hay que hacer una correspondencia posicional de la "clave" del DR con las claves hacia hijos de las tablas raiz 
+	 * (porque en ellas se cumple que la clave del link y la propia son iguales)
+	 * @param array $clave
+	 * @return boolean Falso si no se cargo una tabla raiz
+	 */
 	public function cargar($clave)
-	/*
-		El formato de la clave del DR ($clave) tiene que ser consitente con las claves
-		de las tablas raiz. Hay que hacer una correspondencia posicional de la "clave"
-		del DR con las claves hacia hijos de las tablas raiz (porque en ellas se cumple
-		que la clave del link y la propia son iguales)
-
-		La idea es que cargo la tablas RAIZ y de ahi en mas se cargan las
-		demas a travez de las RELACIONES
-	*/
 	{
 		asercion::es_array($clave,"AP objeto_datos_relacion -  ERROR: La clave debe ser un array");
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
@@ -83,6 +87,10 @@ class ap_relacion_db extends ap
 	//------  SINCRONIZACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Sincroniza los cambios con la base de datos
+	 * En caso de error se aborta la transacción (si tiene) y se lanza una excepción
+	 */
 	public function sincronizar()
 	{
 		$fuente = $this->objeto_relacion->get_fuente();
@@ -104,11 +112,10 @@ class ap_relacion_db extends ap
 		}					
 	}
 
-	public function proceso_sincronizacion()
-	/*
-		Sincronizo las tabla de la raiz, de ahi en mas sigue el proceso
-		a travez de las relaciones
-	*/
+	/**
+	 * Sincronizo las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
+	 */
+	protected function proceso_sincronizacion()
 	{
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
 		if(is_array($tablas_raiz)){
@@ -117,36 +124,54 @@ class ap_relacion_db extends ap
 			}
 		}
 	}
-	/*
-		--- EVENTOS de SINCRONIZACION ---
-		Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
-	*/
+	
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar
+	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 */
 	protected function evt__pre_sincronizacion(){}
+	
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización
+	 * La transacción con la bd aún no fue terminada (si es que hay)
+	 */	
 	protected function evt__post_sincronizacion(){}
 
 	//-------------------------------------------------------------------------------
 	//------  ELIMINACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Elimina cada elemento de las tabla de la relación y luego sincroniza con la base
+	 * Todo el proceso se ejecuta dentro de una transacción, si se definio así
+	 */
 	public function eliminar()
-	//Elimina el contenido de los DB_REGISTROS y los sincroniza
+	//
 	{
 		$fuente = $this->objeto_relacion->get_fuente();		
 		try{
-			abrir_transaccion($fuente);
+			if ($this->utilizar_transaccion) {
+				abrir_transaccion($fuente);
+			}
 			$this->evt__pre_eliminacion();
 			$this->eliminar_plan();
 			$this->evt__post_eliminacion();
-			cerrar_transaccion($fuente);			
+			if ($this->utilizar_transaccion) {
+				cerrar_transaccion($fuente);
+			}
 		}catch(excepcion_toba $e){
-			abortar_transaccion($fuente);
+			if($this->utilizar_transaccion) {
+				abortar_transaccion($fuente);
+			}
 			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
 		}		
 	}
 
-	public function eliminar_plan()
-	//Por defecto supone una relacion MAESTRO-DETALLE
+	/**
+	 * Por defecto supone una relacion MAESTRO-DETALLE
+	 */
+	protected function eliminar_plan()
 	{
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
 		if(is_array($tablas_raiz)){
@@ -156,25 +181,17 @@ class ap_relacion_db extends ap
 		}
 	}
 
-	/*
-		--- EVENTOS de ELIMINACION ---
-		Este es el lugar para meter validaciones (disparar una excepcion) o disparar procesos.
-	*/
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación
+	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 */
 	protected function evt__pre_eliminacion(){}
+	
+	/**
+	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación
+	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 */	
 	protected function evt__post_eliminacion(){}
 
-	//-------------------------------------------------------------------------------
-	//------ Servicios de generacion de SQL   ---------------------------------------
-	//-------------------------------------------------------------------------------
-
-	function get_sql_inserts()
-	{
-		$sql = array();
-		foreach($this->elemento as $elemento ) {
-			$sql = array_merge($sql, $elemento->get_sql_inserts());
-		}
-		return $sql;
-	}
-	//-------------------------------------------------------
 }
 ?>

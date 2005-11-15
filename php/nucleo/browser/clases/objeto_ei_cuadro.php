@@ -5,6 +5,11 @@ require_once("objeto_ei.php");
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 
+/**
+ * Un ei_cuadro es una grilla de registros pensados para visualización. 
+ * @package Objetos
+ * @subpackage  Ei
+ */
 class objeto_ei_cuadro extends objeto_ei
 {
  	protected $submit;

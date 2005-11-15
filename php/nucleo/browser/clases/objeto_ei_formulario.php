@@ -2,16 +2,14 @@
 require_once("objeto_ei.php");	//Ancestro de todos los	OE
 require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 
-/*
-	- Los EF deberian cargar su estado en el momento de obtener la
-	interface, no en su creacion.
-*/
-
+/**
+ * Un formulario simple presenta una grilla de campos editables. 
+ * A cada uno de estos campos se los denomina Elementos de Formulario (efs).
+ * @todo Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_ei_formulario extends objeto_ei
-/*
-	@@acceso: actividad
-	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
-*/
 {
 	protected $elemento_formulario;			// interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
 	protected $nombre_formulario;			// interno | string | Nombre del	FORMULARIO en el cliente
@@ -33,10 +31,6 @@ class objeto_ei_formulario extends objeto_ei
 	protected $id_en_padre;
 
 	function __construct($id)
-/*
-	@@acceso: nucleo
-	@@desc: constructor de la clase
-*/
 	{
 		parent::objeto($id);
 		//Elementos basicos del formulario

@@ -1,8 +1,17 @@
 <?php
+/**
+ * @package Objetos
+ * @subpackage Ei
+ */
 require_once("objeto.php");
 require_once("objeto_ei.php");
 require_once('3ros/activecalendar/activecalendar.php');
 
+/**
+ * Calendario para visualizar contenidos diarios y seleccionar días o semanas.
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_ei_calendario extends objeto_ei
 {
 	var $calendario;
@@ -12,10 +21,6 @@ class objeto_ei_calendario extends objeto_ei
 	var $ver_contenidos;
 
     function objeto_ei_calendario($id)
-/*
-    @@acceso: constructor
-    @@desc: 
-*/
     {
         parent::__construct($id);
 		$dia = date("d");
@@ -235,10 +240,16 @@ class objeto_ei_calendario extends objeto_ei
 
 }
 
+
+/**
+ * Clase interna de calendario
+ *
+ * @package Utilerias
+ */
 class calendario extends activecalendar
 {
 	
-	function calendario($week=false,$year=false,$month=false,$day=false,$GMTDiff="none")
+	function __construct($week=false,$year=false,$month=false,$day=false,$GMTDiff="none")
 	{
         parent::__construct($week,$year,$month,$day,$GMTDiff);
 	}

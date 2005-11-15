@@ -2,14 +2,13 @@
 require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
 require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
 
+/**
+ * Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
+ * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+ * @package Objetos
+ * @subpackage Ei
+ */
 class	objeto_ei_formulario_ml	extends objeto_ei_formulario
-/*
-	@@acceso: actividad
-	@@desc: Esta clase contruye la Interface Grafica de un registro de una tabla
-
-	Un formulario tiene que saber que si viene del post, para dejar cargase datos o no???
-	Cual es la solucion para esta competencia??
-*/
 {
 	protected $datos;
 	protected $lista_ef_totales = array();

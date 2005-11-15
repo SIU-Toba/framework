@@ -1,6 +1,11 @@
 <?
 require_once("nucleo/browser/clases/objeto_ei.php");						//Ancestro de todos los OE
 
+/**
+ * Controla un flujo de pantallas
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_html extends objeto_ei
 /*
 	@@acceso: publico
