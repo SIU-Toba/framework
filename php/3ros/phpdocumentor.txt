@@ -1,0 +1,3 @@
+Para utilizar phpdocumentor:
+ - Bajar la última versión (http://www.phpdoc.org) 
+ - Incluirlo en php/3eros/phpdocumentor

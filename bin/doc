@@ -2,6 +2,17 @@
 #
 . i_config
 
+TITLE="Toba"
+PACKAGES="General"
+PATH_PROJECT=$toba_dir/php/nucleo/persistencia
+PATH_PHPDOC=$toba_dir/php/3ros/phpdocumentor/phpdoc
+PATH_DOCS=$toba_dir/doc/api
+OUTPUTFORMAT=HTML
+CONVERTER=frames
+TEMPLATE=DOM/earthli
+PRIVATE=off
+IGNORADOS=db_registros*.php,db_tablas.php
+
 ##***********************************************************************************************##
 ## HOLA!
 ##***********************************************************************************************##
@@ -18,24 +29,29 @@ then
 
 elif [ "$1" = "generar" ]
 then	
-	TITLE="Toba"
-	PACKAGES="General"
-	PATH_PROJECT=$toba_dir/php/nucleo/persistencia
-	PATH_PHPDOC=$toba_dir/php/3ros/phpdocumentor/phpdoc
-	PATH_DOCS=$toba_dir/doc/api
-	OUTPUTFORMAT=HTML
-	CONVERTER=frames
-	TEMPLATE=DOM/earthli
-	PRIVATE=off
-	IGNORADOS=db_registros*.php,db_tablas.php
+
 	if [ -e $PATH_PHPDOC ]
 	then
+		doc borrar
 		$PATH_PHPDOC -d $PATH_PROJECT -t $PATH_DOCS -ti "$TITLE" -dn $PACKAGES \
 		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS
 	else
 		echo "No está instalado phpDocumentor, vea el archivo $toba_dir/php/3ros/phpDocumentor.txt"
 	fi
 
+
+##***********************************************************************************************##
+## Borrar la documentación
+##***********************************************************************************************##
+#@ doc borrar                    -- Borra la documentación del api
+
+elif [ "$1" = "borrar" ]
+then	
+	if [ -e $PATH_DOCS ]
+	then
+		rm -R $PATH_DOCS
+	fi
+	
 ##***********************************************************************************************##
 ## Ayuda
 ##***********************************************************************************************##

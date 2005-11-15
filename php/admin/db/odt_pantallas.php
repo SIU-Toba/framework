@@ -87,7 +87,7 @@ class odt_pantallas extends objeto_datos_tabla
 		//Se recorre las pantallas
 		foreach ($filas as $id => $pantalla) {
 			$eventos_actuales = $this->get_eventos_pantalla($id);
-			$debe_estar_evento = in_array($pantalla['pantalla'], $pant_presentes);
+			$debe_estar_evento = in_array($pantalla['identificador'], $pant_presentes);
 			$esta_actualmente = in_array($evento, $eventos_actuales);
 			if ($debe_estar_evento && !$esta_actualmente) {
 				//Hay que agregarlo
@@ -111,7 +111,7 @@ class odt_pantallas extends objeto_datos_tabla
 		//Se recorre las pantallas
 		foreach ($filas as $id => $pantalla) {
 			if (in_array($evento, $this->get_eventos_pantalla($id))) {
-				$pantallas[] = $pantalla['pantalla'];
+				$pantallas[] = $pantalla['identificador'];
 			}
 		}
 		return $pantallas;
