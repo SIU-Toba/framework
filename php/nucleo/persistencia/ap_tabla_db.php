@@ -43,8 +43,6 @@ class ap_tabla_db extends ap
 	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	//-------------------------------
-	protected $where;							// Condicion utilizada para cargar datos - WHERE
-	protected $from;							// Condicion utilizada para cargar datos - FROM
 
 	/**
 	 * @param objeto_datos_tabla $datos_tabla Tabla que persiste
@@ -68,7 +66,7 @@ class ap_tabla_db extends ap
 	}
 	
 	/**
-	 * Lugar para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
 	 */
 	protected function inicializar(){}
 
@@ -182,38 +180,47 @@ class ap_tabla_db extends ap
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-
 	/**
-	 * Carga el datos_tabla asociado a partir de una clave
-	 *
-	 * @param array $clave Arreglo asociativo campo-valor
-	 * @return unknown
+	 * @see cargar_por_clave
+	 * @deprecated Desde 0.8.4
 	 */
 	public function cargar($clave)
 	{
-		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
-		$where = $this->generar_clausula_where_lineal($clave);
-		return $this->cargar_db($where);
+		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Usar cargar_por_*');
+		return $this->cargar_por_clave($clave);	
 	}
 
 	/**
-	 * Carga datos de la base a partir de clausulas WHERE y FROM
+	 * Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla
+	 *
+	 * @param array $clave Arreglo asociativo campo-valor
+	 * @return boolean Falso si no se encontro ningun registro
+	 */
+	public function cargar_por_clave($clave)
+	{
+		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
+		$where = $this->generar_clausula_where_lineal($clave);
+		return $this->cargar_con_where_from($where);
+	}
+
+	/**
+	 * Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas
+ 	 * @param array $where Clasulas que seran concatenadas con un AND
+	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_db($where=null, $from=null)
+	public function cargar_con_where_from($where=null, $from=null)
 	{
 		asercion::es_array_o_null($where,"AP [$this->tabla] El WHERE debe ser un array");
 		asercion::es_array_o_null($from,"AP [$this->tabla] El FROM debe ser un array");
 		$this->log("Cargar de DB");
-		$this->where = $where;
-		$this->from = $from;
-		$sql = $this->generar_sql_select();//echo $sql . "<br>";
+		$sql = $this->generar_sql_select($where, $from);
 		return $this->cargar_con_sql($sql);
 	}
 
 	/**
-	 * Carga datos de la base a partir de una query SQL
+	 * Carga el datos_tabla asociado CON una query SQL directa
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
@@ -228,6 +235,17 @@ class ap_tabla_db extends ap
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new excepcion_toba('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
+		return $this->cargar_con_datos($datos);
+	}
+	
+	/**
+	 * Carga el datos_tabla asociado CON un conjunto de datos especifico
+	 * @param array $datos Datos a cargar en {@link http://toba.siu.edu.ar/trac/wiki/API/RecordSet formato RecordSet}. No incluye las columnas externas.
+	 *
+	 * @return boolean Falso si no se encontro ningún registro
+	 */	
+	public function cargar_con_datos($datos)
+	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
 			if($this->posee_columnas_ext){
@@ -259,6 +277,23 @@ class ap_tabla_db extends ap
 	//-------------------------------------------------------------------------------
 	//------  SINCRONIZACION  -------------------------------------------------------
 	//-------------------------------------------------------------------------------
+	
+	/**
+	 * Sincroniza los cambios en los registros con la base de datos
+	 * @return integer Cantidad de registros modificados
+	 */
+	public function sincronizar()
+	//Sincroniza las modificaciones del db_registros con la DB
+	{
+		$this->log("Inicio SINCRONIZAR");
+		$modificaciones = $this->actualizar_estado_db();
+		//Seteo en la TABLA los datos generados durante la sincronizacion
+		$this->actualizar_columnas_predeterminadas_db();
+		//Regenero la estructura que mantiene los cambios realizados
+		$this->objeto_tabla->notificar_fin_sincronizacion();
+		$this->log("Fin SINCRONIZAR: $modificaciones."); 
+		return $modificaciones;
+	}	
 	
 	/**
 	 * Sincronización a nivel de inserts, updates y deletes con la base de datos
@@ -320,26 +355,45 @@ class ap_tabla_db extends ap
 	}
 
 	/**
-	 * Sincroniza los cambios en los registros con la base de datos
-	 *
-	 * @return integer Cantidad de registros modificados
+	 * @param mixed $id_registro Clave interna del registro
 	 */
-	public function sincronizar()
-	//Sincroniza las modificaciones del db_registros con la DB
+	protected function insertar_registro_db($id_registro)
 	{
-		$this->log("Inicio SINCRONIZAR");
-		$modificaciones = $this->actualizar_estado_db();
-		//Seteo en la TABLA los datos generados durante la sincronizacion
-		$this->actualizar_columnas_predeterminadas_db();
-		//Regenero la estructura que mantiene los cambios realizados
-		$this->objeto_tabla->notificar_fin_sincronizacion();
-		$this->log("Fin SINCRONIZAR: $modificaciones."); 
-		return $modificaciones;
+		$sql = $this->generar_sql_insert($id_registro);
+		$this->log("registro: $id_registro - " . $sql); 
+		$this->ejecutar_sql( $sql );
+		//Actualizo las secuencias
+		if(count($this->secuencias)>0){
+			foreach($this->secuencias as $columna => $secuencia){
+				$valor = recuperar_secuencia($secuencia, $this->fuente);
+				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
+			}
+		}
 	}
 
-	protected function insertar_registro_db($id_registro){}	
-	protected function modificar_registro_db($id_registro){}
-	protected function eliminar_registro_db($id_registro){}
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */
+	protected function modificar_registro_db($id_registro)
+	{
+		$sql = $this->generar_sql_update($id_registro);
+		if(isset($sql)){
+			$this->log("registro: $id_registro - " . $sql); 
+			$this->ejecutar_sql( $sql, $this->fuente);
+		}
+	}
+	
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */
+
+	protected function eliminar_registro_db($id_registro)
+	{
+		$sql = $this->generar_sql_delete($id_registro);
+		$this->log("registro: $id_registro - " . $sql); 
+		$this->ejecutar_sql( $sql, $this->fuente);
+		return $sql;
+	}
 
 	/**
 	 * Registra el valor generado por el motor de un columna
@@ -378,37 +432,37 @@ class ap_tabla_db extends ap
 	protected function evt__post_sincronizacion(){}
 	
 	/**
-	 * Este es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro a insertar
 	 */	
 	protected function evt__pre_insert($registro){}
 	
 	/**
-	 * Este es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro insertado
 	 */	
 	protected function evt__post_insert($registro){}
 	
 	/**
-	 * Este es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro a actualizar
 	 */		
 	protected function evt__pre_update($id){}
 
 	/**
-	 * Este es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro actualizado
 	 */	
 	protected function evt__post_update($id){}
 
 	/**
-	 * Este es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro a borrar
 	 */
 	protected function evt__pre_delete($id){}
 
 	/**
-	 * Este es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
+	 * Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro borrado
 	 */
 	protected function evt__post_delete($id){}
@@ -440,21 +494,6 @@ class ap_tabla_db extends ap
 	}
 
 	/**
-	 * Retorna los sql de insert de cada registro cargado en el datos_tabla
-	 *
-	 * @return array
-	 */
-	public function get_sql_inserts()
-	{
-		$this->get_estado_datos_tabla();
-		$sql = array();
-		foreach(array_keys($this->cambios) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
-		}
-		return $sql;
-	}
-
-	/**
 	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
 	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
@@ -476,7 +515,147 @@ class ap_tabla_db extends ap
 		}
 		return $clausula;
 	}
+	
+	/**
+	 * @param array $where Clasulas que seran concatenadas con un AND
+	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
+	 * @return string Consulta armada
+	 */
+	protected function generar_sql_select($where=null, $from=null)
+	{
+		foreach($this->columnas as $col){
+			if(!$col['externa']){
+				$columnas[] = $this->tabla  . "." . $col['columna'];
+			}
+		}
+		$sql =	" SELECT	" . implode(", \n",$columnas); 
+		if(isset($this->alias)){	
+			$sql .= "\n FROM "	. $this->tabla  . " " . $this->alias;
+		}else{
+			$sql .= "\n FROM "	. $this->tabla;
+		}
+		if(isset($from)){
+			$sql .= ", " . implode(",",$from);
+		}
+		if(isset($where)){
+			$sql .= "\n WHERE " .	implode("\n AND ",$where) .";";
+		}
+		return $sql;
+	}	
+	
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */
+	protected function generar_sql_insert($id_registro)
+	{
+		$a=0;
+		$registro = $this->datos[$id_registro];
+		foreach($this->columnas as $columna)
+		{
+			$col = $columna['columna'];
+			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
+			if( $es_insertable )
+			{
+				if( !isset($registro[$col]) || $registro[$col] === NULL ){
+					$valores_sql[$a] = "NULL";
+				}else{
+					if(	tipo_datos::numero($columna['tipo']) ){
+						$valores_sql[$a] = $registro[$col];
+					}else{
+						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";
+					}
+				}
+				$columnas_sql[$a] = $col;
+				$a++;
+			}
+		}
+		$sql = "INSERT INTO " . $this->tabla .
+				" ( " . implode(", ", $columnas_sql) . " ) ".
+				" VALUES (" . implode(", ", $valores_sql) . ");";
+		return $sql;
+	}
 
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */	
+	function generar_sql_update($id_registro)
+	// Modificacion de claves
+	{
+		$registro = $this->datos[$id_registro];
+		//Genero las sentencias de la clausula SET para cada columna
+		foreach($this->columnas as $columna){
+			$col = $columna['columna'];
+			//columna modificable: no es secuencia, no es extena, no es PK 
+			//	(excepto que se se declare explicitamente la alteracion de PKs)
+			$es_modificable = ($columna['secuencia']=="") && ($columna['externa'] != 1) 
+							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->flag_modificacion_clave ) );
+			if( $es_modificable ){
+				if( !isset($registro[$col]) || $registro[$col] === NULL ){
+					$set[] = "$col = NULL";
+				}else{
+					if(	tipo_datos::numero($columna['tipo']) ){
+						$set[] = "$col = " . $registro[$col];
+					}else{
+						$set[] = "$col = '" . addslashes(trim($registro[$col])) . "'";
+					}
+				}
+			}
+		}
+		if(!is_array($set)){
+			toba::get_logger()->info('AP - datos_tabla: No hay campos para hacer el UPDATE');
+			return null;	
+		}
+		//Armo el SQL
+		$sql = "UPDATE " . $this->tabla . " SET ".
+				implode(", ",$set) .
+				" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
+		return $sql;		
+	}
+
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */
+	protected function generar_sql_delete($id_registro)
+	{
+		$registro = $this->datos[$id_registro];
+		if($this->baja_logica){
+			$sql = "UPDATE " . $this->tabla .
+					" SET " . $this->baja_logica_columna . " = '". $this->baja_logica_valor ."' " .
+					" WHERE " . implode(" AND ",$sql_where) .";";
+		}else{
+			$sql = "DELETE FROM " . $this->tabla .
+					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
+		}
+		return $sql;
+	}
+
+	/**
+	 * @param mixed $id_registro Clave interna del registro
+	 */	
+	function generar_sql_where_registro($id_registro)
+	//Genera la sentencia WHERE correspondiente a la clave de un registro
+	{
+		foreach($this->clave as $clave){
+			$id[$clave] = $this->cambios[$id_registro]['clave'][$clave];
+		}
+		return $this->generar_clausula_where_lineal($id,false);
+	}
+	
+	/**
+	 * Retorna los sql de insert de cada registro cargado en el datos_tabla, sin importar su estado actual
+	 *
+	 * @return array
+	 */
+	public function get_sql_inserts()
+	{
+		$this->get_estado_datos_tabla();
+		$sql = array();
+		foreach(array_keys($this->cambios) as $registro){
+			$sql[] = $this->generar_sql_insert($registro);
+		}
+		return $sql;
+	}	
+	
 	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------
 	//-------------------------------------------------------------------------------
