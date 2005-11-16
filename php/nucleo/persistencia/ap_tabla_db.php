@@ -509,7 +509,7 @@ class ap_tabla_db extends ap
 					if(!isset($fila[$col_llave])){
 						toba::get_logger()->debug("AP_TABLA_DB: Falta el parametro '$col_llave'");
 						toba::get_logger()->debug($fila);
-						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa');
+						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 					}
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
@@ -522,10 +522,12 @@ class ap_tabla_db extends ap
 						$valor_llave = $fila[$col_llave];
 						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
 					}
-					//echo "<pre>SQL: "  . $sql . "<br>";
 					// - 3 - Ejecuto SQL
-					$datos = consultar_fuente($sql, $this->fuente);//ei_arbol($datos);
-					//ei_arbol($this->datos);
+					$datos = consultar_fuente($sql, $this->fuente);
+					if(!$datos){
+						toba::get_logger()->debug('AP_TABLA_DB: no se recuperaron datos ' . $sql);
+						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+					}
 				}
 				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
 				{
@@ -543,7 +545,20 @@ class ap_tabla_db extends ap
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
 				if(count($datos)>0){
 					foreach( $parametros['col_resultado'] as $columna_externa ){
-						$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
+						if(is_array($columna_externa)){
+							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
+							if(!isset($datos[0][$columna_externa['origen']])){
+								toba::get_logger()->debug("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'");
+								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+							}
+							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
+						}else{
+							if(!isset($datos[0][$columna_externa])){
+								toba::get_logger()->debug("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'");
+								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+							}
+							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
+						}
 					}
 				}
 			}
