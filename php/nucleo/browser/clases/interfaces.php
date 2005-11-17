@@ -34,5 +34,21 @@ interface ei
     //public function validar_estado();			//Valida su estado interno
 }
 
-
+/**
+ * Conoce como es la composicion interna de una clase del ambiente
+ * @package Nucleo
+ */
+interface meta_clase
+{
+	//Generacion de codigo
+	public function set_nivel_comentarios($nivel);
+	public function generar_constructor();
+	public function generar_metodos_basicos();
+	public function generar_eventos($nivel);
+	//Analisis de codigo
+	public function es_evento($metodo);
+	public function es_evento_predefinido($metodo);
+	public function es_evento_valido($metodo);
+	public function es_evento_sospechoso($metodo);
+}
 ?>

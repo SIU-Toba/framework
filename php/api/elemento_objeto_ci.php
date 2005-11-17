@@ -1,8 +1,8 @@
 <?php
-require_once('api/elemento_objeto.php');
+require_once('api/elemento_objeto_ei.php');
 require_once('api/elemento_objeto_ci_pantalla.php');
 
-class elemento_objeto_ci extends elemento_objeto
+class elemento_objeto_ci extends elemento_objeto_ei
 {
 	
 	function es_hoja()
@@ -63,6 +63,22 @@ class elemento_objeto_ci extends elemento_objeto
 
 	}	
 	
+	function generar_metodos_basicos()
+	{
+		$basicos = parent::generar_metodos_basicos();
+		$basicos[] = "\t".
+'function mantener_estado_sesion()
+	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
+	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		!#c1//$propiedades[] = "nombre_de_la_propiedad_a_persistir";
+		return $propiedades;
+	}
+';
+		return $this->filtrar_comentarios($basicos);
+	}
+	
 	function generar_eventos($solo_basicos)
 	{
 		$eventos = parent::generar_eventos($solo_basicos);
@@ -72,8 +88,6 @@ class elemento_objeto_ci extends elemento_objeto
 				$eventos['Propios'][] = $this->filtrar_comentarios($funcion);
 			}
 		}
-		//ATENCION: Cuando puedan definirse nuevos eventos en el administrador incluirlos aquí
-		
 		//Se incluyen los eventos de los hijos
 		foreach ($this->subelementos as $elemento) {
 			$eventos += $elemento->generar_eventos($solo_basicos);

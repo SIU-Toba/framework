@@ -44,7 +44,18 @@ class manejador_archivos
 	
 	static function path_a_windows($nombre)
 	{
-		return str_replace('/', "\\", $nombre);	
+		$nombre = str_replace('/', "\\", $nombre);	
+		//Si algun segmento del PATH tiene espacios, hay que ponerlo entre comillas.
+		if(strpos($nombre,' ')){
+			$segmentos = explode("\\",$nombre);
+			for($a=0;$a<(count($segmentos));$a++){
+				if(strpos($segmentos[$a],' ')){
+					$segmentos[$a] = '"'.$segmentos[$a].'"';
+				}
+			}
+			$nombre = implode("\\",$segmentos);
+		}
+		return $nombre;
 	}
 
 	static function path_a_unix($nombre)

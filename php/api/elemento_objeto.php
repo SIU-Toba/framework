@@ -2,7 +2,7 @@
 require_once("elemento.php");
 require_once("nucleo/lib/manejador_archivos.php");
 
-class elemento_objeto extends elemento implements recorrible_como_arbol
+class elemento_objeto extends elemento implements recorrible_como_arbol, meta_clase
 {
 	
 	protected $datos_clase;		//Información relacionada con la clase del objeto
@@ -224,6 +224,9 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		return $iconos;	
 	}	
 	
+	//---------------------------------------------------------------------	
+	//-- Interface 'meta_clase'
+	//---------------------------------------------------------------------
 	
 	//---- Manejo de eventos
 	function es_evento($metodo)
@@ -309,7 +312,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 	}
 	
 	//---- Generación de código	
-	function set_nivel_comentarios($nivel)
+	public function set_nivel_comentarios($nivel)
 	{
 		$this->nivel_comentarios = $nivel;	
 		foreach ($this->subelementos as $elemento) {
@@ -358,31 +361,12 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		return $lineas;
 	}
 	
-	function generar_metodos_basicos()
+	public function generar_metodos_basicos()
 	{
-		$basicos = array();
-		$basicos[] = "\t".
-'function mantener_estado_sesion()
-	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
-	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		!#c1//$propiedades[] = "nombre_de_la_propiedad_a_persistir";
-		return $propiedades;
-	}
-';
-		$basicos[] = "\t".
-'function extender_objeto_js()
-	!#c3//Se puede cambiar el comportamiento de una pantalla redefiniendo métodos en el javascript asociado a este objeto
-	!#c2//La sintaxis para redefinir métodos javascript es:
-	!#c2//	echo "{$this->objeto_js}.metodo = function(parametros) { cuerpo }";
-	{
-	}
-';
-		return $this->filtrar_comentarios($basicos);
+		return array();
 	}
 	
-	function generar_constructor()
+	public function generar_constructor()
 	{
 		$constructor = 
 '	function __construct($id)
@@ -393,7 +377,7 @@ class elemento_objeto extends elemento implements recorrible_como_arbol
 		return $this->filtrar_comentarios($constructor);
 	}
 	
-	function generar_eventos($solo_basicos)
+	public function generar_eventos($solo_basicos)
 	{
 		return array();
 	}

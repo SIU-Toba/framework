@@ -1,7 +1,7 @@
 <?php
-require_once('api/elemento_objeto.php');
+require_once('api/elemento_objeto_ei.php');
 
-class elemento_objeto_ei_formulario_ml extends elemento_objeto
+class elemento_objeto_ei_formulario_ml extends elemento_objeto_ei
 {
 	function eventos_predefinidos()
 	{

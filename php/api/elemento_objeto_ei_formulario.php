@@ -1,7 +1,7 @@
 <?php
-require_once('api/elemento_objeto.php');
+require_once('api/elemento_objeto_ei.php');
 
-class elemento_objeto_ei_formulario extends elemento_objeto
+class elemento_objeto_ei_formulario extends elemento_objeto_ei
 {
 	
 	//---Preguntas
@@ -25,22 +25,6 @@ class elemento_objeto_ei_formulario extends elemento_objeto
 		return $this->hay_alta() || $this->hay_baja() || $this->hay_modificacion() || $this->hay_cancelar();
 	}
 
-	function eventos_predefinidos()
-	{
-		$eventos = array('carga');
-		//Si no selecciono ningun evento, la modificación es por defecto				
-		if ($this->hay_modificacion() || !$this->hay_eventos_seleccionados()) 
-			$eventos[] = 'modificacion';
-		if ($this->hay_alta())
-			$eventos[] = 'alta';
-		if ($this->hay_baja())
-			$eventos[] = 'baja';
-		if ($this->hay_cancelar())
-			$eventos[] = 'cancelar';
-		return $eventos;
-	}
-	
-	
 	//---- Generación de código	
 	function generar_eventos($solo_basicos)
 	{

@@ -7,6 +7,7 @@ class ci_editor_php extends objeto_ci
 {
 	protected $datos;
 	protected $archivo_php;
+	protected $clase_php;
 
 	//Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
 	function set_datos($datos)
@@ -22,8 +23,13 @@ class ci_editor_php extends objeto_ci
 		//Manejo de clases
 		$this->clase_php = new clase_php(	$this->datos['subclase'], $this->archivo_php, 
 											$this->datos['clase'], $this->datos['clase_archivo']);
-		$this->clase_php->set_objeto($this->datos['proyecto'], $this->datos['objeto']);
-		
+		//Recupero la metaclase del OBJETO seleccionado
+		require_once($this->datos['clase_archivo']);
+		if (class_exists($this->datos['clase'])) {
+			$meta_clase = call_user_func(array($this->datos['clase'], 'elemento_toba'));
+			$meta_clase->cargar_db($this->datos['proyecto'], $this->datos['objeto']);		
+			$this->clase_php->set_meta_clase($meta_clase);
+		}
 		//Se escucha el hilo para saber si se pidio algun evento desde afuera
 		$evento = toba::get_hilo()->obtener_parametro("evento");
 		if ($evento == 'abrir') {
@@ -98,8 +104,5 @@ class ci_editor_php extends objeto_ci
 			$this->clase_php->analizar();
 		}
 	}	
-	
 }
-
-
 ?>

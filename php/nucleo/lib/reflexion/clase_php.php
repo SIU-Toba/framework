@@ -1,14 +1,18 @@
 <?php
 require_once('archivo_php.php');
 
+/**
+*	Representa una CLASE del ambiente. 
+*	Tiene capacidades de generacion y analisis si se le asocia la metaclase correspondiente
+*	a la clase cargada
+*/
 class clase_php
 {		
 	protected $nombre;
 	protected $archivo;
 	protected $padre_nombre;
 	protected $archivo_padre_nombre;
-	
-	protected $elemento_toba;			//Elemento toba asociado a la clase (ej. ei_formulario, ci, etc)
+	protected $meta_clase;				//la clase que conoce el contenido de la clase que se esta editando
 	
 	function __construct($nombre, $archivo, $clase_padre_nombre, $archivo_padre_nombre)
 	{
@@ -18,18 +22,16 @@ class clase_php
 		$this->archivo_padre_nombre = $archivo_padre_nombre;
 	}
 	
-	//Asocia la clase-php al objeto-toba apropiado
-	function set_objeto($proyecto, $objeto)
+	//Asocia la METACLASE
+	function set_meta_clase($meta_clase)
 	{
-		//Carga el elemento toba con este objeto
-		require_once($this->archivo_padre_nombre);
-		if (class_exists($this->padre_nombre)) {
-			$this->elemento_toba = call_user_func(array($this->padre_nombre, 'elemento_toba'));
-			$this->elemento_toba->cargar_db($proyecto, $objeto);		
-		}
+		$this->meta_clase = $meta_clase;
 	}
 	
-	//--Generación de clases	
+	//---------------------------------------------------------------
+	//-- Generacion de codigo
+	//---------------------------------------------------------------
+
 	function generar($opciones)
 	{
 		if ($this->archivo->esta_vacio())
@@ -56,21 +58,21 @@ class clase_php
 	
 	function generar_clase_cuerpo($opciones)
 	{
-		if (!isset($this->elemento_toba))
+		if (!isset($this->meta_clase))
 			return '';
-		$this->elemento_toba->set_nivel_comentarios($opciones['nivel_comentarios']);
+		$this->meta_clase->set_nivel_comentarios($opciones['nivel_comentarios']);
 		$cuerpo = '';
 		if ($opciones['constructor']) {
-			$cuerpo .= $this->elemento_toba->generar_constructor()."\n";
+			$cuerpo .= $this->meta_clase->generar_constructor()."\n";
 		}
 		if ($opciones['basicos']) {
-			foreach ($this->elemento_toba->generar_metodos_basicos() as $metodo_basico) {
+			foreach ($this->meta_clase->generar_metodos_basicos() as $metodo_basico) {
 				$cuerpo .= $metodo_basico."\n";
 			}
 		}
 		if ($opciones['eventos']) {
 			$solo_basicos = ($opciones['eventos'] == 1);
-			$grupo_eventos = $this->elemento_toba->generar_eventos($solo_basicos);
+			$grupo_eventos = $this->meta_clase->generar_eventos($solo_basicos);
 			if (count($grupo_eventos) > 0) {
 				$cuerpo .= $this->separador_seccion_grande('Eventos');
 				foreach ($grupo_eventos as $seccion =>$eventos) {
@@ -102,8 +104,10 @@ class clase_php
 				"\t//-------------------------------------------------------------------\n\n";
 	}	
 		
+	//---------------------------------------------------------------
+	//-- Analisis de codigo
+	//---------------------------------------------------------------
 	
-	//--Analisis
 	function analizar()
 	{
 		try {
@@ -135,19 +139,21 @@ class clase_php
 		foreach ($metodos as $metodo) {
 			if ($metodo->getDeclaringClass() == $clase) {
 				$estilo = '';
-				if ($this->elemento_toba->es_evento($metodo->getName())) {
-					$tipo = recurso::imagen_apl('reflexion/desconocido.gif');
-					if (! $this->elemento_toba->es_evento_valido($metodo->getName())) {
-						$tipo = recurso::imagen_apl('reflexion/problema.gif');
-					}
-					if ($this->elemento_toba->es_evento_sospechoso($metodo->getName())) {
-						$tipo = recurso::imagen_apl('warning.gif');
-					}
-					if ($this->elemento_toba->es_evento_predefinido($metodo->getName())) {
-						$tipo = recurso::imagen_apl('reflexion/evento.gif');
-					}
-					$estilo =  "list-style-image: url($tipo)";					
-				} 
+				if (isset($this->meta_clase)){
+					if ($this->meta_clase->es_evento($metodo->getName())) {
+						$tipo = recurso::imagen_apl('reflexion/desconocido.gif');
+						if (! $this->meta_clase->es_evento_valido($metodo->getName())) {
+							$tipo = recurso::imagen_apl('reflexion/problema.gif');
+						}
+						if ($this->meta_clase->es_evento_sospechoso($metodo->getName())) {
+							$tipo = recurso::imagen_apl('warning.gif');
+						}
+						if ($this->meta_clase->es_evento_predefinido($metodo->getName())) {
+							$tipo = recurso::imagen_apl('reflexion/evento.gif');
+						}
+						$estilo =  "list-style-image: url($tipo)";					
+					} 
+				}
 				echo "<li style='padding-right: 10px; $estilo'>&nbsp;";
 				echo $metodo->getName();
 				echo "</li>\n";
@@ -155,11 +161,6 @@ class clase_php
 		}	
 		echo "</ul></li>";	
 	}
-	
 	//--------------------------------------------------------------------------
-	
-
-		
 }		
-
 ?>
