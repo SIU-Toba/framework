@@ -29,7 +29,7 @@ class objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	
-	function __construct($id)
+	function objeto($id)
 	{
 		$this->solicitud = toba::get_solicitud();
 		$this->log = $this->solicitud->log;
