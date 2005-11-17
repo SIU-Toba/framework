@@ -224,6 +224,11 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		return $iconos;	
 	}	
 	
+	function get_metadatos_subcomponente()
+	{
+		return array();
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Interface 'meta_clase'
 	//---------------------------------------------------------------------

@@ -8,29 +8,48 @@ class ci_editor_php extends objeto_ci
 	protected $datos;
 	protected $archivo_php;
 	protected $clase_php;
+	protected $meta_clase;	//Al CI le sirve para contextualizar el FORM de opciones
 
 	//Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
 	function set_datos($datos)
 	{
 		$this->datos = $datos;
+		$clase = $this->datos['subclase'];
 		$archivo = $this->datos['archivo'];
-		$proyecto = $this->datos['proyecto'];
-		$path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $archivo;
-			
-		//Manejo de archivos			
-		$this->archivo_php = new archivo_php($path);
-		
-		//Manejo de clases
-		$this->clase_php = new clase_php(	$this->datos['subclase'], $this->archivo_php, 
-											$this->datos['clase'], $this->datos['clase_archivo']);
-		//Recupero la metaclase del OBJETO seleccionado
-		require_once($this->datos['clase_archivo']);
-		if (class_exists($this->datos['clase'])) {
-			$meta_clase = call_user_func(array($this->datos['clase'], 'elemento_toba'));
-			$meta_clase->cargar_db($this->datos['proyecto'], $this->datos['objeto']);		
-			$this->clase_php->set_meta_clase($meta_clase);
+		$padre_clase = $this->datos['clase'];
+		$padre_archivo = $this->datos['clase_archivo'];
+		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
+		require_once($padre_archivo);
+		if (class_exists($padre_clase)) {
+			$clase_info = call_user_func(array($padre_clase, 'elemento_toba'));
+			$clase_info->cargar_db($this->datos['proyecto'], $this->datos['objeto']);		
+		}else{
+			throw new exception_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
 		}
-		//Se escucha el hilo para saber si se pidio algun evento desde afuera
+		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
+		// Este mecanismo no es optimo... hay que pensarlo bien.
+		$subcomponente = toba::get_hilo()->obtener_parametro('subcomponente');
+		if ($subcomponente) {
+			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
+			if($mts){
+				$clase = $mts['clase'];
+				$archivo = $mts['archivo'];
+				$padre_clase = $mts['padre_clase'];
+				$padre_archivo = $mts['padre_archivo'];
+				$this->meta_clase = $mts['meta_clase'];
+			}else{
+				throw new exception_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');			
+			}
+		}else{
+			//La metaclase del componente es su CLASE INFO
+			$this->meta_clase = $clase_info;
+		}
+		//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
+		$path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $archivo;
+		$this->archivo_php = new archivo_php($path);
+		$this->clase_php = new clase_php($clase, $this->archivo_php, $padre_clase, $padre_archivo);
+		$this->clase_php->set_meta_clase($this->meta_clase);
+		//- 4 - Se escucha el hilo para saber si se pidio algun evento desde afuera
 		$evento = toba::get_hilo()->obtener_parametro("evento");
 		if ($evento == 'abrir') {
 			$this->evt__abrir();

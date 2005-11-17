@@ -3,14 +3,27 @@ require_once('api/elemento_objeto.php');
 
 class elemento_objeto_datos_tabla extends elemento_objeto
 {
+	function get_metadatos_subcomponente($subcomponente)
+	{
+		$sub['clase'] = $this->datos['apex_objeto_db_registros'][0]["ap_clase"];
+		$sub['archivo'] = $this->datos['apex_objeto_db_registros'][0]["ap_archivo"];
+		//HARCODEO!
+		$sub['padre_clase'] = 'ap_tabla_db';
+		$sub['padre_archivo'] = 'nucleo/persistencia/ap_tabla_db.php';
+		require_once('elemento_ap_tabla_db.php');
+		$mt = new elemento_ap_tabla_db();
+		$sub['meta_clase'] = $mt;
+		return $sub;
+	}
 	
 	function utilerias()
 	{
 		$iconos = array();
-		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto());
+		$param_editores = array(apex_hilo_qs_zona=>$this->id_proyecto().apex_qs_separador.$this->id_objeto(),
+								'subcomponente'=>'ap');
 		if (isset($this->datos['apex_objeto_db_registros'][0]["ap_archivo"])) {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("fuente.gif", false),
+				'imagen' => recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central")
@@ -18,7 +31,7 @@ class elemento_objeto_datos_tabla extends elemento_objeto
 		}
 		return array_merge($iconos, parent::utilerias());	
 	}	
-	
+
 	/**
 	*	Exporta la definicion de una manera entendible para el datos_tabla de la tabla 
 	*		donde se guardan los EFs del ei_formulario
