@@ -263,11 +263,14 @@ class objeto_ei extends objeto
 		$this->eventos = $eventos;
 		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
 	}
-	
+
+	/**
+	 * Fuerza que el evento sea implicito en este objeto (no necesita de intervención del usuario para lanzarse)
+	 * @param string $id Id. del evento
+	 */
 	public function set_evento_defecto($id)
 	{
 		$this->evento_por_defecto = $id;
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
 	}
 
 	//--------------------------------------------------------------------

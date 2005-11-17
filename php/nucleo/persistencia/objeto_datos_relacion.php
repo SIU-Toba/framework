@@ -210,7 +210,7 @@ class objeto_datos_relacion extends objeto
 
 	/**
 	 *  Retorna una referenca al Adm.Persistencia de la relación
-	 * @return ap
+	 * @return ap_relacion
 	 */
 	function get_persistidor()
 	{
@@ -231,9 +231,10 @@ class objeto_datos_relacion extends objeto
 		}
 		return $this->persistidor;
 	}
-
+	
 	/**
-	 *	Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
+	 * Utiliza la carga por clave del administrador de persistencia
+	 * Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso, si no se encontraron registros
 	 */
@@ -242,7 +243,7 @@ class objeto_datos_relacion extends objeto
 		//ATENCION: hay que controlar el formato de la clave
 		$this->log('***   Inicio CARGAR ****************************');
 		$ap = $this->get_persistidor();
-		if($ap->cargar($clave) === true){
+		if($ap->cargar_por_clave($clave) === true){
 			$this->log("***   Fin CARGAR (OK) *************************");
 			return true;
 		}else{
@@ -269,8 +270,7 @@ class objeto_datos_relacion extends objeto
 		//$this->dump_contenido();
 		$this->disparar_validacion_tablas();
 		$this->evt__validar();
-		$ap = $this->get_persistidor();
-		$ap->sincronizar();
+		$this->get_persistidor()->sincronizar();
 		//$this->dump_contenido();
 	}
 	
@@ -279,8 +279,7 @@ class objeto_datos_relacion extends objeto
 	 */
 	function eliminar()
 	{
-		$ap = $this->get_persistidor();
-		$ap->eliminar();
+		$this->get_persistidor()->eliminar();
 		$this->resetear();
 	}
 	

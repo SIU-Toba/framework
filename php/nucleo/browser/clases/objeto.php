@@ -6,34 +6,30 @@
  */
 class objeto
 {
-	var $solicitud;
-	var $id;
-	var $info;
-	var $info_dependencias;						//Definicion de las dependencias
-	var $indice_dependencias;					//Indice que mapea las definiciones de las dependencias con su
-	var $dependencias_indice_actual = 0;	
-	var $lista_dependencias;					//Lista de dependencias disponibles
-	var $dependencias = array();							//Array de sub-OBJETOS
-	var $memoria;
-	var $memoria_existencia_previa = false;
-	var $interface_existencia_previa = false;
-	var $observaciones;
-	var $canal;										// Canal por el que recibe datos 
-	var $canal_recibido;							// Datos recibidos por el canal
-	var $info_proceso = null;					// Estado interno relacionado con el procesamiento llevado a cabo por el objeto
-	var $info_proceso_gravedad = null;		// Array donde se apilan los niveles de gravedad, pada definir que tipo de mensaje se muestra
-	var $info_proceso_indice = 0;
-	var $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
-	var $id_ses_g;									//ID global para la sesion
-	var $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
-	var $exportacion_archivo;
-	var $exportacion_path;
+	protected $solicitud;
+	protected $id;
+	protected $info;
+	protected $info_dependencias;						//Definicion de las dependencias
+	protected $indice_dependencias;					//Indice que mapea las definiciones de las dependencias con su
+	protected $dependencias_indice_actual = 0;	
+	protected $lista_dependencias;					//Lista de dependencias disponibles
+	protected $dependencias = array();							//Array de sub-OBJETOS
+	protected $memoria;
+	protected $memoria_existencia_previa = false;
+	protected $interface_existencia_previa = false;
+	protected $observaciones;
+	protected $canal;										// Canal por el que recibe datos 
+	protected $canal_recibido;							// Datos recibidos por el canal
+	protected $info_proceso = null;					// Estado interno relacionado con el procesamiento llevado a cabo por el objeto
+	protected $info_proceso_gravedad = null;		// Array donde se apilan los niveles de gravedad, pada definir que tipo de mensaje se muestra
+	protected $info_proceso_indice = 0;
+	protected $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
+	protected $id_ses_g;									//ID global para la sesion
+	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
+	protected $exportacion_archivo;
+	protected $exportacion_path;
 	
-	function objeto($id)
-/*
- 	@@acceso: nucleo
-	@@desc: Constructor de la clase
-*/
+	function __construct($id)
 	{
 		$this->solicitud = toba::get_solicitud();
 		$this->log = $this->solicitud->log;

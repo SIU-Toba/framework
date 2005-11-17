@@ -4,10 +4,10 @@
  * Representa la relacion entre dos tablas
  *  - Las relaciones se arman macheando posicionalmente columnas
  *  - El comportamiento de esta clase varia segun la cantidad de registros  que maneja el padre... con N registros se suma el problema de recuperacion y seteo discrecional de HIJOS
- * @todo actualizacion dinamica del MAPEO de filas
- * @todo cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
  * @package Objetos
  * @subpackage Persistencia
+ * @todo actualizacion dinamica del MAPEO de filas
+ * @todo cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
  */
 class relacion_entre_tablas
 {
@@ -37,8 +37,10 @@ class relacion_entre_tablas
 		$this->tabla_hijo->agregar_relacion_con_padre( $this, $this->tabla_hijo_id );
 	}
 	
+	/**
+	 * Macheo de claves entre PADRE e HIJO
+	 */
 	function mapear_claves()
-	//Macheo claves entre PADRE y HIJO
 	{
 		for($a=0;$a<count($this->tabla_padre_claves);$a++){
 			$this->mapeo_claves[ $this->tabla_padre_claves[$a] ] = $this->tabla_hijo_claves[$a];
@@ -46,8 +48,10 @@ class relacion_entre_tablas
 		//ei_arbol($this->mapeo_claves);
 	}
 
+	/**
+	 * El elemento PADRE de la relacion notifica que se CARGO: Se dispara la carga del HIJO
+	 */
 	function evt__carga_padre()
-	//El elemento PADRE de la relacion notifica que se CARGO: Se dispara la carga del HIJO
 	{
 		$this->mapear_claves();
 		if( $this->tabla_padre->get_cantidad_filas() == 1)
@@ -67,8 +71,11 @@ class relacion_entre_tablas
 		}
 	}	
 
+	/**
+	 * El elemento PADRE de la relacion notifica que se SINCRONIZO:
+	 * Se dispara la sincronizacion del hijo
+	 */
 	function evt__sincronizacion_padre()
-	//El elemento PADRE de la relacion notifica que se SINCRONIZO: Se dispara la sincronizacion del hijo
 	{
 		$this->mapear_claves();
 		if( $this->tabla_padre->get_cantidad_filas() == 1)
@@ -90,8 +97,11 @@ class relacion_entre_tablas
 		}
 	}
 
+	/**
+	 * El elemento PADRE de la relacion notifica que se SINCRONIZO: 
+	 * Se dispara la sincronizacion del hijo
+	 */
 	function evt__eliminacion_padre()
-	//El elemento PADRE de la relacion notifica que se SINCRONIZO: Se dispara la sincronizacion del hijo
 	{
 		$this->tabla_hijo->eliminar();
 	}

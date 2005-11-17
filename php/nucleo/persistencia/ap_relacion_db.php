@@ -8,7 +8,7 @@ require_once("ap.php");
  * 	@package Objetos
  *  @subpackage Persistencia
  */
-class ap_relacion_db extends ap
+class ap_relacion_db implements ap_relacion
 {
 	protected $objeto_relacion; 				//objeto_datos_relacion que persiste
 	protected $utilizar_transaccion;			//Determina si la sincronizacion con la DB se ejecuta dentro de una transaccion
@@ -55,6 +55,16 @@ class ap_relacion_db extends ap
 	//-------------------------------------------------------------------------------
 
 	/**
+	 * @see cargar_por_clave
+	 * @deprecated Desde 0.8.4
+	 */
+	function cargar($clave)
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
+		return $this->cargar_por_clave($clave);		
+	}
+	
+	/**
 	 * Se cargan las tablas RAIZ y de ahí en más se cargan las demás a travez de las RELACIONES
 	 * El formato de la clave del DR ($clave) tiene que ser consitente con las claves de las tablas raiz
 	 * Hay que hacer una correspondencia posicional de la "clave" del DR con las claves hacia hijos de las tablas raiz 
@@ -62,7 +72,7 @@ class ap_relacion_db extends ap
 	 * @param array $clave
 	 * @return boolean Falso si no se cargo una tabla raiz
 	 */
-	public function cargar($clave)
+	public function cargar_por_clave($clave)
 	{
 		asercion::es_array($clave,"AP objeto_datos_relacion -  ERROR: La clave debe ser un array");
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();

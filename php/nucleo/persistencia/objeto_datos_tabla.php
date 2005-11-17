@@ -854,10 +854,9 @@ class objeto_datos_tabla extends objeto
 
 	/**
 	 * Retorna el admin. de persistencia que asiste a este objeto
-	 * @return ap 
+	 * @return ap_tabla
 	 */
 	function get_persistidor()
-	//Devuelve el persistidor PREDEFINIDO
 	{
 		if(!isset($this->persistidor)){
 			if($this->info_estructura['ap']=='0'){
@@ -881,12 +880,9 @@ class objeto_datos_tabla extends objeto
 
 	/**
 	 * Carga la tabla restringiendo POR valores especificos de campos
-	 * @see cargar_por_clave
-	 * @deprecated Desde 0.8.4
 	 */
 	function cargar($clave)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Utilizar los métodos de carga del persistidor');
 		return $this->get_persistidor()->cargar_por_clave($clave);
 	}
 
@@ -895,7 +891,6 @@ class objeto_datos_tabla extends objeto
 	 * @param array $datos en formato RecordSet
 	 */
 	function cargar_con_datos($datos)
-	//El AP entrega un conjunto de datos cargados al objeto_datos_tabla
 	{
 		$this->log("Carga de datos");
 		$this->datos = $datos;
@@ -933,11 +928,13 @@ class objeto_datos_tabla extends objeto
 				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
 			}
 		}
-		$ap = $this->get_persistidor();
-		$modif = $ap->sincronizar();
+		$modif = $this->get_persistidor()->sincronizar();
 		return $modif;
 	}
 
+	/**
+	 * Elimina todas las filas de la tabla en memoria y sincroniza con el medio de persistencia
+	 */
 	function eliminar()
 	{
 		//Elimino a mis hijos
@@ -947,6 +944,9 @@ class objeto_datos_tabla extends objeto
 		$this->get_persistidor()->eliminar();
 	}
 
+	/**
+	 * Deja la tabla sin carga alguna, se pierden todos los cambios realizados
+	 */
 	function resetear()
 	{
 		$this->log("RESET!!");
@@ -969,12 +969,14 @@ class objeto_datos_tabla extends objeto
 	 */
 	function set_datos($datos)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Usar cargar_con_datos');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_con_datos');
 		return $this->cargar_con_datos($datos);		
 	}
 
+	/**
+	 * El AP avisa que terminóla sincronización
+	 */
 	function notificar_fin_sincronizacion()
-	//El AP avisa que termino la sincronizacion
 	{
 		$this->regenerar_estructura_cambios();
 		$this->notificar_hijos_sincronizacion();
@@ -1007,6 +1009,9 @@ class objeto_datos_tabla extends objeto
 		return $this->info["fuente"];
 	}
 
+	/**
+	 * Nombre de la tabla que se representa en memoria
+	 */
 	function get_tabla()
 	{
 		return $this->info_estructura['tabla'];

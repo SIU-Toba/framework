@@ -81,7 +81,7 @@ class base_test_datos_tabla extends base_test_datos
 	function cargar($where=null)
 	{
 		$ap = $this->dt->get_persistidor();
-		$ap->cargar_db($where);
+		$ap->cargar_con_where_from($where);
 	}
 
 	//#############################################################

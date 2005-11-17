@@ -19,7 +19,7 @@ if (!defined("apex_db_registros_separador")) {
  * @subpackage Persistencia
  */
  
-class ap_tabla_db extends ap
+class ap_tabla_db implements ap_tabla
 {
 	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
 	protected $columnas;						// DATOS_TABLA: Estructura del objeto
@@ -184,7 +184,7 @@ class ap_tabla_db extends ap
 	 */
 	public function cargar($clave)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Usar cargar_por_*');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
 		return $this->cargar_por_clave($clave);	
 	}
 
@@ -263,7 +263,7 @@ class ap_tabla_db extends ap
 				}	
 			}
 			// Lleno la TABLA
-			$this->objeto_tabla->set_datos($datos);
+			$this->objeto_tabla->cargar_con_datos($datos);
 			//ei_arbol($datos);
 			return true;
 		}else{
@@ -281,7 +281,6 @@ class ap_tabla_db extends ap
 	 * @return integer Cantidad de registros modificados
 	 */
 	public function sincronizar()
-	//Sincroniza las modificaciones del db_registros con la DB
 	{
 		$this->log("Inicio SINCRONIZAR");
 		$modificaciones = $this->actualizar_estado_db();
@@ -471,6 +470,7 @@ class ap_tabla_db extends ap
 	
 	/**
 	 * Elimina físicamente los registros de esta tabla
+	 * En una base de datos, esto implica borrar cada uno de los registros
 	 */
 	public function eliminar()
 	{

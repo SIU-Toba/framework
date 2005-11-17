@@ -278,7 +278,6 @@ class objeto_ci extends objeto_ei
 	*/	
 	function get_etapa_inicial()
 	{
-		toba::get_logger()->obsoleto("objeto_ci", "get_etapa_inicial", "0.8.3", "Usar get_pantalla_inicial");
 		return $this->get_pantalla_inicial();
 	}
 
@@ -311,7 +310,6 @@ class objeto_ci extends objeto_ei
 	*/
 	function get_etapa_actual()
 	{
-		toba::get_logger()->obsoleto("objeto_ci", "get_etapa_actual", "0.8.3", "Usar get_pantalla_actual");		
 		return $this->get_pantalla_actual();
 	}
 		
