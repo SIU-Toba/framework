@@ -3,9 +3,17 @@ require_once("nucleo/browser/clases/objeto.php");
 require_once("tipo_datos.php");
 
 /**
- * @todo Control de FK y PK
+ * Representa una estructura tipo tabla o RecordSet en memoria
+ *
+ * Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.
+ * Una vez en memoria existen primitivas para trabajar sobre estos datos.
+ * Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.
+ * Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la 
+ * transacción de negocios.
+ *
  * @package Objetos
  * @subpackage Persistencia
+ * @todo Control de FK y PK
  */
 class objeto_datos_tabla extends objeto
 {
@@ -15,17 +23,15 @@ class objeto_datos_tabla extends objeto
 	protected $columnas;
 	protected $posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
 	//Constraints
-	protected $no_duplicado;					// Combinacines de columnas que no pueden duplicarse
+	protected $no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
 	// Definicion general
 	protected $tope_max_filas;					// Cantidad de maxima de datos permitida.
 	protected $tope_min_filas;					// Cantidad de minima de datos permitida.
-	protected $fuente;							// Fuente de datos utilizada
 	// ESTADO
 	protected $cambios = array();				// Cambios realizados sobre los datos
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
-	protected $clave_actual;
 	protected $fila_actual = 0;					// Fila marcada como 'actual'
 	// Relaciones con el exterior
 	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
@@ -59,12 +65,11 @@ class objeto_datos_tabla extends objeto
 		$propiedades[] = "cambios";
 		$propiedades[] = "datos";
 		$propiedades[] = "proxima_fila";
-		$propiedades[] = "clave_actual";
 		$propiedades[] = "fila_actual";
 		return $propiedades;
 	}
 
-	public function elemento_toba()
+	function elemento_toba()
 	{
 		require_once('api/elemento_objeto_datos_tabla.php');
 		return new elemento_objeto_datos_tabla();
@@ -110,10 +115,10 @@ class objeto_datos_tabla extends objeto
 		return $sql;
 	}
 
+	/**
+	 * @todo El objeto deberia tener directamente algo asi
+	 */
 	protected function log($txt)
-	/*
-		El objeto deberia tener directamente algo asi
-	*/
 	{
 		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
 	}
@@ -122,7 +127,7 @@ class objeto_datos_tabla extends objeto
 	//--  Relacion con otros ELEMENTOS
 	//-------------------------------------------------------------------------------
 
-	public function registrar_contenedor($contenedor)
+	function registrar_contenedor($contenedor)
 	{
 		$this->contenedor = $contenedor;
 	}
@@ -148,8 +153,10 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
+	/**
+	 * Aviso a las relaciones hijas que el componente PADRE se CARGO
+	 */
 	function notificar_hijos_carga()
-	//Aviso a la RELACION que el componente PADRE se CARGO
 	{
 		if(isset($this->relaciones_con_hijos)){
 			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
@@ -158,8 +165,10 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
+	/**
+	 * Aviso a las relaciones hijas que el componente PADRE se SINCRONIZO
+	 */
 	function notificar_hijos_sincronizacion()
-	//Aviso a la RELACION que el componente PADRE se SINCRONIZO
 	{
 		if(isset($this->relaciones_con_hijos)){
 			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
@@ -168,8 +177,10 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
+	/**
+	 * Aviso a las relaciones hijas que el componente PADRE se esta por eliminar
+	 */
 	function notificar_hijos_eliminacion()
-	//Aviso a la RELACION que el componente PADRE se esta por eliminar
 	{
 		if(isset($this->relaciones_con_hijos)){
 			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
@@ -191,12 +202,19 @@ class objeto_datos_tabla extends objeto
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
 
-	public function get_clave()
+	/**
+	 *	Columnas que son son claves en la tabla
+	 */
+	function get_clave()
 	{
 		return $this->clave;
 	}
 	
-	public function get_clave_valor($id_fila)
+	/**
+	 * @param mixed $id_fila Id. interno de la fila
+	 * @return array Valores de las claves para esta fila, en formato RecordSet
+	 */
+	function get_clave_valor($id_fila)
 	{
 		foreach( $this->clave as $columna ){
 			$temp[$columna] = $this->get_fila_columna($id_fila, $columna);
@@ -204,17 +222,20 @@ class objeto_datos_tabla extends objeto
 		return $temp;
 	}
 
-	public function get_tope_max_filas()
+	function get_tope_max_filas()
 	{
 		return $this->tope_max_filas;	
 	}
 
-	public function get_tope_min_filas()
+	function get_tope_min_filas()
 	{
 		return $this->tope_min_filas;	
 	}
 
-	public function get_cantidad_filas_a_sincronizar()
+	/**
+	 * @return integer Cantidad de filas que sufrieron cambios desde la carga
+	 */
+	function get_cantidad_filas_a_sincronizar()
 	{
 		$cantidad = 0;
 		foreach(array_keys($this->cambios) as $fila){
@@ -227,7 +248,10 @@ class objeto_datos_tabla extends objeto
 		return $cantidad;
 	}
 
-	public function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
+	/**
+	 * @return array Ids. internos de las filas que sufrieron cambios desde la carga
+	 */
+	function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 	{
 		$ids = array();
 		foreach(array_keys($this->cambios) as $fila){
@@ -242,7 +266,7 @@ class objeto_datos_tabla extends objeto
 	//-- Configuracion
 	//-------------------------------------------------------------------------------
 
-	public function set_tope_max_filas($cantidad)
+	function set_tope_max_filas($cantidad)
 	{
 		if ($cantidad == '')
 			$cantidad = 0;		
@@ -253,7 +277,7 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
-	public function set_tope_min_filas($cantidad)
+	function set_tope_min_filas($cantidad)
 	{
 		if ($cantidad == '')
 			$cantidad = 0;
@@ -264,8 +288,10 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
-	public function set_no_duplicado( $columnas )
-	//Indica una combinacion de columnas que no debe duplicarse
+	/**
+	 * Indica una combinacion de columnas que no debe duplicarse
+	 */
+	function set_no_duplicado( $columnas )
 	{
 		$this->no_duplicado[] = $columnas;
 	}
@@ -276,9 +302,10 @@ class objeto_datos_tabla extends objeto
 
 	/**
 	*	@param array Las condiciones permiten filtrar la lista de registros que se devuelves
-	*	@param boolean Usar ID registro hace que las claves del array devuelto sean las claves internas del dbr
+	*	@param boolean Hace que las claves del array devuelto sean las claves internas del dbr
+	*	@param array Formato tipo RecordSet
 	*/
-	public function get_filas($condiciones=null, $usar_id_fila=false)
+	function get_filas($condiciones=null, $usar_id_fila=false)
 	{
 		$datos = array();
 		$a = 0;
@@ -296,14 +323,15 @@ class objeto_datos_tabla extends objeto
 		return $datos;
 	}
 	//-------------------------------------------------------------------------------
-	
-	public function get_id_fila_condicion($condiciones=null)
-	/*
-		Devuelve los registros que cumplen una condicion.
-		Solo se chequea la condicion de igualdad.
-		El parametro es un array asociativo de campo => valor.
-		ATENCION, NO se utiliza chequeo de tipos
-	*/
+
+	/**
+	 * Busca los registros en memoria que cumplen una condicion.
+	 * Solo se chequea la condicion de igualdad.
+	 * No se chequean tipos
+	 * @param array $condiciones Asociativo de campo => valor.
+	 * @return array Ids. internos de las filas
+	 */	
+	function get_id_fila_condicion($condiciones=null)
 	{	
 		$coincidencias = array();
 		if(!isset($condiciones)){
@@ -338,7 +366,10 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function get_fila($id)
+	/**
+	 * @param mixed $id Id. interno de la fila en memoria
+	 */
+	function get_fila($id)
 	{
 		$id = $this->normalizar_id($id);
 		if(isset($this->datos[$id])){
@@ -352,7 +383,11 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function get_fila_columna($id, $columna)
+	/**
+	 * Retorna el valor de una columna en una fila dada
+	 * @param mixed $id Id. interno de la fila
+	 */
+	function get_fila_columna($id, $columna)
 	{
 		$id = $this->normalizar_id($id);
 		if(isset($this->datos[$id][$columna])){
@@ -363,7 +398,12 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function get_valores_columna($columna)
+	/**
+	 * Retorna los valores de una columna específica
+	 * @param string $columna Nombre del campo o columna
+	 * @return array
+	 */
+	function get_valores_columna($columna)
 	//Retorna una columna de valores
 	{
 		$temp = array();
@@ -376,7 +416,10 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 	
-	public function get_cantidad_filas()
+	/**
+	 * Cantidad de filas que tiene la tabla en memoria
+	 */
+	function get_cantidad_filas()
 	{
 		$a = 0;
 		foreach(array_keys($this->cambios) as $id_fila){
@@ -385,7 +428,10 @@ class objeto_datos_tabla extends objeto
 		return $a;
 	}
 	
-	public function existe_fila($id)
+	/**
+	 * @param mixed $id Id. interno de la fila
+	 */
+	function existe_fila($id)
 	{
 		$id = $this->normalizar_id($id);
 		if(! isset($this->datos[$id]) ){
@@ -397,7 +443,11 @@ class objeto_datos_tabla extends objeto
 		return true;
 	}
 
-	function normalizar_id($id)
+	/**
+	 * Valida un id interno y a la vez permite aceptarlo como parte de un arreglo en
+	 * la columna apex_datos_clave_fila
+	 */
+	protected function normalizar_id($id)
 	{
 		if(!is_array($id)){
 			return $id;	
@@ -413,7 +463,14 @@ class objeto_datos_tabla extends objeto
 	//-- ALTERACION de FILAS  ------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function nueva_fila($fila, $padre=null)
+	/**
+	 * Crea una nueva fila en memoria
+	 *
+	 * @param array $fila Asociativo campo->valor a insertar
+	 * @return mixed Id. interno de la fila creada
+	 * @todo Aceptar el parametro padre y machearlo en la relación
+	 */
+	function nueva_fila($fila, $padre=null)
 	{
 		if( $this->tope_max_filas != 0){
 			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
@@ -443,7 +500,14 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function modificar_fila($id, $fila)
+	/**
+	 * Modifica una fila del tabla en memoria
+	 *
+	 * @param mixed $id Id. interno de la fila a modificar
+	 * @param array $fila Contenido de la fila, puede ser incompleto
+	 * @return mixed Id. interno de la fila modificada
+	 */
+	function modificar_fila($id, $fila)
 	{
 		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
@@ -479,7 +543,13 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function eliminar_fila($id)
+	/**
+	 * Elimina una fila de la tabla en memoria
+	 *
+	 * @param mixed $id Id. interno de la fila a eliminar
+	 * @return Id. interno de la fila eliminada
+	 */
+	function eliminar_fila($id)
 	{
 		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
@@ -499,8 +569,10 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function eliminar_filas()
-	//Elimina todos los registros
+	/**
+	 * Elimina todas las filas de la tabla en memoria
+	 */
+	function eliminar_filas()
 	{
 		foreach(array_keys($this->cambios) as $fila)
 		{
@@ -516,7 +588,13 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function set_fila_columna_valor($id, $columna, $valor)
+	/**
+	 * Cambia el valor de una columna de una fila especifica
+	 *
+	 * @param mixed $id Id. interno de la fila de la tabla en memoria
+	 * @param string $columna Columna o campo de la fila
+	 */
+	function set_fila_columna_valor($id, $columna, $valor)
 	{
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
@@ -534,8 +612,10 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function set_columna_valor($columna, $valor)
-	//Setea todas las columnas con un valor
+	/**
+	 * Cambia el valor de una columna en todas las filas
+	 */
+	function set_columna_valor($columna, $valor)
 	{
 		foreach(array_keys($this->cambios) as $fila){
 			if($this->cambios[$fila]['estado']!="d"){
@@ -548,8 +628,15 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
-	public function procesar_filas($filas)
-	//Procesamiento de un conjunto de filas
+	/**
+	 * Procesa los cambios masivos de filas
+	 * 
+	 * Para procesar es necesario indicar el estado
+	 * de cada fila utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'
+	 *
+	 * @param array $filas Filas en formato RecordSet
+	 */
+	function procesar_filas($filas)
 	{
 		asercion::es_array($filas,"objeto_datos_tabla - El parametro no es un array.");
 		//Controlo estructura
@@ -579,22 +666,36 @@ class objeto_datos_tabla extends objeto
 	//-------------------------------------------------------------------------------
 	// Simplificacion para los casos en que se utiliza una sola fila
 
-	public function set_fila_actual($id)
+	/**
+	 * Fija un cursor interno en una fila
+	 *
+	 * @param mixed $id Id. interno de la fila
+	 */
+	function set_fila_actual($id)
 	{
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
-			return $this->fila_actual;	
+			$this->fila_actual = $id;	
 		}else{
 			throw new excepcion_toba($this->get_txt() . "La fila '$id' no es valida");
 		}
 	}
 	
-	public function get_fila_actual()
+	/**
+	 * @return mixed Id. interno de la fila donde se encuentra actualmente el cursor interno
+	 */
+	function get_fila_actual()
 	{
 		return $this->fila_actual;	
 	}
 		
-	public function set($fila)
+	/**
+	 * Cambia el contenido de la fila donde se encuentra el cursor interno
+	 * En caso que no existan filas, se crea una nueva
+	 *
+	 * @param array $fila Contenido total o parcial de la fila
+	 */
+	function set($fila)
 	{
 		if($this->get_cantidad_filas() === 0){
 			$this->nueva_fila($fila);
@@ -603,7 +704,10 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 	
-	public function get()
+	/**
+	 * Retorna el contenido de la fila donde se encuentra posicionado el cursor interno
+	 */
+	function get()
 	{
 		return $this->get_fila($this->fila_actual);
 	}
@@ -612,8 +716,10 @@ class objeto_datos_tabla extends objeto
 	//-- VALIDACION en LINEA
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Valida un registro durante el procesamiento
+	 */
 	private function validar_fila($fila, $id=null)
-	//Valida un registro durante el procesamiento
 	{
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
@@ -624,8 +730,11 @@ class objeto_datos_tabla extends objeto
 
 	//-------------------------------------------------------------------------------
 
-	public function control_estructura_fila($fila)
-	//Controla que los campos del registro existan
+	/**
+	 * 	Controla que los campos del registro existan
+	 */
+	protected function control_estructura_fila($fila)
+
 	{
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
@@ -639,6 +748,9 @@ class objeto_datos_tabla extends objeto
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Controla que un registro no duplique los valores existentes
+	 */
 	private function control_valores_unicos_fila($fila, $id=null)
 	//Controla que un registro no duplique los valores existentes
 	{
@@ -676,6 +788,9 @@ class objeto_datos_tabla extends objeto
 	//-- VALIDACION global
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Validacion de toda la tabla que se produce previo a la sincronización
+	 */
 	function validar()
 	{
 		$ids = $this->get_id_filas_a_sincronizar( array("u","i") );
@@ -688,6 +803,11 @@ class objeto_datos_tabla extends objeto
 		$this->control_tope_minimo_filas();
 	}
 	
+	/**
+	 * Ventana para hacer validaciones particulares previo a la sincronización
+	 * El proceso puede ser abortado con un excepcion_toba, el mensaje se muestra al usuario
+	 * @param array $fila Asociativo clave-valor de la fila a validar
+	 */
 	function evt__validar_fila($fila){}
 
 	/*
@@ -715,7 +835,7 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 */
-	public function control_tope_minimo_filas()
+	protected function control_tope_minimo_filas()
 	{
 		$control_tope_minimo=true;
 		if($control_tope_minimo){
@@ -732,7 +852,11 @@ class objeto_datos_tabla extends objeto
 	//-- PERSISTENCIA  -------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function get_persistidor()
+	/**
+	 * Retorna el admin. de persistencia que asiste a este objeto
+	 * @return ap 
+	 */
+	function get_persistidor()
 	//Devuelve el persistidor PREDEFINIDO
 	{
 		if(!isset($this->persistidor)){
@@ -755,58 +879,22 @@ class objeto_datos_tabla extends objeto
 		return $this->persistidor;
 	}
 
-	public function cargar($id)
+	/**
+	 * Carga la tabla restringiendo POR valores especificos de campos
+	 * @see cargar_por_clave
+	 * @deprecated Desde 0.8.4
+	 */
+	function cargar($clave)
 	{
-		//$this->resetear();
-		$ap = $this->get_persistidor();
-		if($ap->cargar($id) === true){
-			$this->clave_actual = $id;
-			return true;
-		}
-		return false;
+		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Utilizar los métodos de carga del persistidor');
+		return $this->get_persistidor()->cargar_por_clave($clave);
 	}
 
-	public function sincronizar()
-	{
-		//Control de topes
-		if( $this->tope_min_filas != 0){
-			if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
-				$this->log("No se cumplio con el tope minimo de registros necesarios" );
-				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
-			}
-		}
-		$ap = $this->get_persistidor();
-		$modif = $ap->sincronizar();
-		return $modif;
-	}
-
-	public function eliminar()
-	{
-		//Elimino a mis hijos
-		$this->notificar_hijos_eliminacion();
-		//Me elimino a mi
-		$this->eliminar_filas();
-		$this->get_persistidor()->eliminar();
-	}
-
-	public function resetear()
-	{
-		$this->log("RESET!!");
-		$this->datos = array();
-		$this->datos_originales = array();
-		$this->cambios = array();
-		$this->proxima_fila = 0;
-		$this->where = null;
-		$this->from = null;
-	}
-
-	//-------------------------------------------------------------------------------
-	//-- Comunicacion con el Administrador de Persistencia
-	//-------------------------------------------------------------------------------
-
-	/*--- Del AP a mi ---*/
-
-	public function set_datos($datos)
+	/**
+	 * Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)
+	 * @param array $datos en formato RecordSet
+	 */
+	function cargar_con_datos($datos)
 	//El AP entrega un conjunto de datos cargados al objeto_datos_tabla
 	{
 		$this->log("Carga de datos");
@@ -830,8 +918,62 @@ class objeto_datos_tabla extends objeto
 		//Disparo la actulizacion con las tablas hijas
 		$this->notificar_hijos_carga();
 	}
+	
+	/**
+	 * Sincroniza la tabla en memoria con el medio físico a travéz del administrador de persistencia.
+	 *
+	 * @return integer Cantidad de registros modificados en el medio
+	 */
+	function sincronizar()
+	{
+		//Control de topes
+		if( $this->tope_min_filas != 0){
+			if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
+				$this->log("No se cumplio con el tope minimo de registros necesarios" );
+				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
+			}
+		}
+		$ap = $this->get_persistidor();
+		$modif = $ap->sincronizar();
+		return $modif;
+	}
 
-	public function notificar_fin_sincronizacion()
+	function eliminar()
+	{
+		//Elimino a mis hijos
+		$this->notificar_hijos_eliminacion();
+		//Me elimino a mi
+		$this->eliminar_filas();
+		$this->get_persistidor()->eliminar();
+	}
+
+	function resetear()
+	{
+		$this->log("RESET!!");
+		$this->datos = array();
+		$this->datos_originales = array();
+		$this->cambios = array();
+		$this->proxima_fila = 0;
+		$this->where = null;
+		$this->from = null;
+	}
+
+	//-------------------------------------------------------------------------------
+	//-- Comunicacion con el Administrador de Persistencia
+	//-------------------------------------------------------------------------------
+
+	/*--- Del AP a mi ---*/
+
+	/**
+	 * @deprecated desde 0.8.4, usar cargar_con_datos
+	 */
+	function set_datos($datos)
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __FILE__, 'Usar cargar_con_datos');
+		return $this->cargar_con_datos($datos);		
+	}
+
+	function notificar_fin_sincronizacion()
 	//El AP avisa que termino la sincronizacion
 	{
 		$this->regenerar_estructura_cambios();
@@ -840,42 +982,42 @@ class objeto_datos_tabla extends objeto
 
 	/*--- De mi al AP ---*/
 
-	public function get_conjunto_datos_interno()
+	function get_conjunto_datos_interno()
 	{
 		return $this->datos;
 	}
 
-	public function get_cambios()
+	function get_cambios()
 	{
 		return $this->cambios;	
 	}
 
-	public function get_datos_originales()
+	function get_datos_originales()
 	{
 		return $this->datos_originales;
 	}
 
-	public function get_columnas()
+	function get_columnas()
 	{
 		return $this->columnas;
 	}
 	
-	public function get_fuente()
+	function get_fuente()
 	{
 		return $this->info["fuente"];
 	}
 
-	public function get_tabla()
+	function get_tabla()
 	{
 		return $this->info_estructura['tabla'];
 	}
 
-	public function get_alias()
+	function get_alias()
 	{
 		return $this->info_estructura['alias'];
 	}
 
-	public function posee_columnas_externas()
+	function posee_columnas_externas()
 	{
 		return $this->posee_columnas_ext;
 	}
@@ -908,7 +1050,7 @@ class objeto_datos_tabla extends objeto
 	/**
 	*	Determina que todas las filas de la tabla son nuevas
 	*/
-	public function forzar_insercion()
+	function forzar_insercion()
 	{
 		foreach(array_keys($this->cambios) as $fila) {
 			$this->registrar_cambio($fila, "i");

@@ -7,7 +7,7 @@ if (!defined("apex_db_registros_separador")) {
 }
 
 /**
- * Administrador de persistencia a DB de un datos_tabla
+ * Administrador de persistencia a una tabla de DB desde un objeto_datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  * 
  * @todo Poder desactivar el control de sincronizacion (¿se necesita esto?)
@@ -31,7 +31,6 @@ class ap_tabla_db extends ap
 	protected $fuente;							// DATOS_TABLA: Fuente de datos
 	protected $secuencias;
 	protected $columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
-	protected $posee_columnas_ext;				// Columnas que se cargan de una manera especial (no estan en la tabla)
 	//-------------------------------
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
@@ -55,7 +54,6 @@ class ap_tabla_db extends ap
 		$this->clave = $this->objeto_tabla->get_clave();
 		$this->columnas = $this->objeto_tabla->get_columnas();
 		$this->fuente = $this->objeto_tabla->get_fuente();
-		$this->posee_columnas_ext = $this->objeto_tabla->posee_columnas_externas();
 		//Determino las secuencias de la tabla
 		foreach($this->columnas as $columna){
 			if( $columna['secuencia']!=""){
@@ -248,7 +246,7 @@ class ap_tabla_db extends ap
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
-			if($this->posee_columnas_ext){
+			if($this->objeto_tabla->posee_columnas_externas()){
 				for($a=0;$a<count($datos);$a++){
 					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
 					foreach($campos_externos as $id => $valor){
