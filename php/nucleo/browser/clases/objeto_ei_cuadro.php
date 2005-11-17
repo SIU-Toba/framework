@@ -1216,7 +1216,11 @@ class objeto_ei_cuadro extends objeto_ei
 	            }else{
 	                $ancho = "";
 	            }
-	            echo "<td class='lista-col-titulo' $ancho>\n";
+	            $estilo_columna = $this->info_cuadro_columna[$a]["estilo_titulo"];
+	            if(!$estilo_columna){
+	            	$estilo_columna = 'lista-col-titulo';
+	            }
+	            echo "<td class='$estilo_columna' $ancho>\n";
 	            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
 	                                        $this->info_cuadro_columna[$a]["clave"],
 	                                        $a );

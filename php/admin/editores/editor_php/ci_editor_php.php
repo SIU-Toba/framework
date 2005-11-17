@@ -14,28 +14,26 @@ class ci_editor_php extends objeto_ci
 	function set_datos($datos)
 	{
 		$this->datos = $datos;
-		$clase = $this->datos['subclase'];
-		$archivo = $this->datos['archivo'];
-		$padre_clase = $this->datos['clase'];
-		$padre_archivo = $this->datos['clase_archivo'];
 		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
-		require_once($padre_archivo);
-		if (class_exists($padre_clase)) {
-			$clase_info = call_user_func(array($padre_clase, 'elemento_toba'));
+		require_once($this->datos['clase_archivo']);
+		if (class_exists($this->datos['clase'])) {
+			$clase_info = call_user_func(array($this->datos['clase'], 'elemento_toba'));
 			$clase_info->cargar_db($this->datos['proyecto'], $this->datos['objeto']);		
 		}else{
 			throw new exception_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
 		}
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
-		// Este mecanismo no es optimo... hay que pensarlo bien.
+		/* Este mecanismo no es optimo... hay que pensarlo bien.
+			Se ina
+		*/
 		$subcomponente = toba::get_hilo()->obtener_parametro('subcomponente');
 		if ($subcomponente) {
 			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
 			if($mts){
-				$clase = $mts['clase'];
-				$archivo = $mts['archivo'];
-				$padre_clase = $mts['padre_clase'];
-				$padre_archivo = $mts['padre_archivo'];
+				$this->datos['subclase'] = $mts['clase'];
+				$this->datos['archivo'] = $mts['archivo'];
+				$this->datos['clase'] = $mts['padre_clase'];
+				$this->datos['clase_archivo'] = $mts['padre_archivo'];
 				$this->meta_clase = $mts['meta_clase'];
 			}else{
 				throw new exception_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');			
@@ -45,9 +43,9 @@ class ci_editor_php extends objeto_ci
 			$this->meta_clase = $clase_info;
 		}
 		//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
-		$path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $archivo;
+		$path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $this->datos['archivo'];
 		$this->archivo_php = new archivo_php($path);
-		$this->clase_php = new clase_php($clase, $this->archivo_php, $padre_clase, $padre_archivo);
+		$this->clase_php = new clase_php($this->datos['subclase'], $this->archivo_php, $this->datos['clase'], $this->datos['clase_archivo']);
 		$this->clase_php->set_meta_clase($this->meta_clase);
 		//- 4 - Se escucha el hilo para saber si se pidio algun evento desde afuera
 		$evento = toba::get_hilo()->obtener_parametro("evento");
@@ -57,8 +55,7 @@ class ci_editor_php extends objeto_ci
 	}
 	
 	//--- EVENTOS
-	function get_lista_eventos()
-	{
+	function get_lista_eventos(){
 		$eventos = parent::get_lista_eventos();
 		if($this->archivo_php->existe()) {
 			$eventos += eventos::evento_estandar('abrir', '&Abrir', true, 
