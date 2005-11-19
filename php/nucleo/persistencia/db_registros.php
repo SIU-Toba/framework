@@ -460,6 +460,14 @@ class db_registros
 
 	public function get_registro($id)
 	{
+		//Compatibilidad con el pasaje actual de parametros del cuadro.
+		if(is_array($id)){
+			if(isset($id[apex_db_registros_clave])){
+				$id = $id[apex_db_registros_clave];
+			}else{
+				throw new excepcion_toba("Error seleccionando el registro");
+			}
+		}
 		if(isset($this->datos[$id])){
 			$temp = $this->datos[$id];
 			$temp[apex_db_registros_clave] = $id;	//incorporo el ID del dbr

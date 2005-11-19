@@ -41,10 +41,7 @@ interface ei
 interface meta_clase
 {
 	//Generacion de codigo
-	public function set_nivel_comentarios($nivel);
-	public function generar_constructor();
-	public function generar_metodos_basicos();
-	public function generar_eventos($nivel);
+	public function generar_cuerpo_clase($opciones);
 	//Analisis de codigo
 	public function es_evento($metodo);
 	public function es_evento_predefinido($metodo);

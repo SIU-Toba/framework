@@ -28,7 +28,10 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 		return in_array($dep, $this->dependencias);
 	}
 
-	//---- Recorrido como arbol
+	//---------------------------------------------------------------------	
+	//-- Recorrible como ARBOL
+	//---------------------------------------------------------------------
+
 	function hijos()
 	{
 		return $this->dependencias;
@@ -99,10 +102,6 @@ class elemento_objeto_ci_pantalla implements recorrible_como_arbol
 																		false, false, null, true, "central")
 		);
 		return $iconos;	
-	}	
-	
-
+	}
 }
-
-
 ?>

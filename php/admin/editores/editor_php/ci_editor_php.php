@@ -9,6 +9,14 @@ class ci_editor_php extends objeto_ci
 	protected $archivo_php;
 	protected $clase_php;
 	protected $meta_clase;	//Al CI le sirve para contextualizar el FORM de opciones
+	protected $subcomponente;
+
+	function mantener_estado_sesion()
+	{
+		$props = parent::mantener_estado_sesion();
+		$props[] = 'subcomponente';
+		return $props;
+	}
 
 	//Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
 	function set_datos($datos)
@@ -24,12 +32,18 @@ class ci_editor_php extends objeto_ci
 		}
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
 		/* Este mecanismo no es optimo... hay que pensarlo bien.
-			Se ina
+			Se inagura el caso de que un objeto contenga una clase que no sea un objeto.
 		*/
-		$subcomponente = toba::get_hilo()->obtener_parametro('subcomponente');
+		if(isset($this->subcomponente)){
+			//Cargue un subcomponente en un request anterior.
+			$subcomponente = $this->subcomponente;
+		}else{
+			$subcomponente = toba::get_hilo()->obtener_parametro('subcomponente');
+		}
 		if ($subcomponente) {
 			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
 			if($mts){
+				$this->subcomponente = $subcomponente;
 				$this->datos['subclase'] = $mts['clase'];
 				$this->datos['archivo'] = $mts['archivo'];
 				$this->datos['clase'] = $mts['padre_clase'];

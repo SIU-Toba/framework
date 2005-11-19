@@ -15,6 +15,10 @@ class elemento_objeto_datos_tabla extends elemento_objeto
 		$sub['meta_clase'] = $mt;
 		return $sub;
 	}
+
+	//---------------------------------------------------------------------	
+	//-- Recorrible como ARBOL
+	//---------------------------------------------------------------------
 	
 	function utilerias()
 	{
@@ -31,6 +35,10 @@ class elemento_objeto_datos_tabla extends elemento_objeto
 		}
 		return array_merge($iconos, parent::utilerias());	
 	}	
+
+	//---------------------------------------------------------------------	
+	//-- Generacion de METADATOS para otros componentes
+	//---------------------------------------------------------------------
 
 	/**
 	*	Exporta la definicion de una manera entendible para el datos_tabla de la tabla 

@@ -5,12 +5,15 @@ require_once('api/elemento_objeto_ci_pantalla.php');
 class elemento_objeto_ci extends elemento_objeto_ei
 {
 	
+	//---------------------------------------------------------------------	
+	//-- Recorrible como ARBOL
+	//---------------------------------------------------------------------
+
 	function es_hoja()
 	{
 		return (count($this->hijos()) == 0);
 	}	
-	
-	//---- Recorrido como arbol
+
 	function hijos()
 	{
 		//Las dependencias son sus hijos
@@ -41,60 +44,6 @@ class elemento_objeto_ci extends elemento_objeto_ei
 		return array_merge($pantallas, $dependencias_libres);
 	}	
 
-	function eventos_predefinidos()
-	{
-		$eventos = array('inicializar');	
-		//$eventos = array('procesar', 'cancelar', 'inicializar', 'limpieza_memoria', 'post_recuperar_interaccion', 'validar_datos',
-		//				'error_proceso_hijo', 'pre_cargar_datos_dependencias', 'post_cargar_datos_dependencias');	
-		return $eventos;
-	}
-
-	function generar_constructor()
-	{
-		$constructor = 
-'	function __construct($id)
-	{
-		!#c2//Zona apta para inicializaciones por defecto
-		parent::__construct($id);
-		!#c2//Aquí ya se restauraron los valores de las propiedades mantenidas en sesión
-	}
-';			
-		return $this->filtrar_comentarios($constructor);
-
-	}	
-	
-	function generar_metodos_basicos()
-	{
-		$basicos = parent::generar_metodos_basicos();
-		$basicos[] = "\t".
-'function mantener_estado_sesion()
-	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
-	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		!#c1//$propiedades[] = "nombre_de_la_propiedad_a_persistir";
-		return $propiedades;
-	}
-';
-		return $this->filtrar_comentarios($basicos);
-	}
-	
-	function generar_eventos($solo_basicos)
-	{
-		$eventos = parent::generar_eventos($solo_basicos);
-		if (!$solo_basicos) {
-			foreach ($this->eventos_predefinidos() as $evento) {
-				$funcion = "\tfunction evt__$evento()\n\t{\n\t}\n";
-				$eventos['Propios'][] = $this->filtrar_comentarios($funcion);
-			}
-		}
-		//Se incluyen los eventos de los hijos
-		foreach ($this->subelementos as $elemento) {
-			$eventos += $elemento->generar_eventos($solo_basicos);
-		}		
-		return $eventos;
-	}
-
 	function utilerias()
 	{
 		$iconos = array();
@@ -109,6 +58,17 @@ class elemento_objeto_ci extends elemento_objeto_ei
 		);
 		return array_merge($iconos, parent::utilerias());	
 	}		
+
+	//---------------------------------------------------------------------	
+	//-- EVENTOS
+	//---------------------------------------------------------------------
+
+	function eventos_predefinidos()
+	{
+		$eventos = parent::eventos_predefinidos();	
+		/*	Hay que agregar entradas y salidas de pantallas */
+		return $eventos;
+	}
 
 	static function get_modelos_evento()
 	{
@@ -134,6 +94,57 @@ class elemento_objeto_ci extends elemento_objeto_ei
 				break;
 		}
 		return $evento;
+	}
+	
+	//---------------------------------------------------------------------	
+	//-- METACLASE
+	//---------------------------------------------------------------------
+
+	function generar_cuerpo_clase($opciones)
+	{
+		$cuerpo = parent::generar_cuerpo_clase($opciones);
+		if ($opciones['eventos']) {
+/*		
+		Genero mis eventos
+
+			foreach ($this->eventos_predefinidos() as $evento) {
+				$funcion = "\tfunction evt__$evento()\n\t{\n\t}\n";
+			}
+
+		y los de mis dependencias que no son CI 
+
+			foreach ($this->subelementos as $elemento) {
+				$eventos += $elemento->generar_eventos($solo_basicos);
+			}		
+
+		(ademas les agrego una carga)
+
+			$metodos[] = "\t".
+'function evt__'.$id.'__carga()
+	!#c3//El formato del retorno debe ser array( array("columna" => valor, ...), ...)
+	{
+		!#c3//	return $this->datos_'.$id.';
+	}
+';
+*/
+		}
+		return $cuerpo;
+	}
+
+	function generar_metodos_basicos()
+	{
+		$basicos = parent::generar_metodos_basicos();
+		$basicos[] = "\t".
+'function mantener_estado_sesion()
+	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
+	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
+	{
+		$propiedades = parent::mantener_estado_sesion();
+		!#c1//$propiedades[] = \'propiedad_a_persistir\';
+		return $propiedades;
+	}
+';
+		return $this->filtrar_comentarios($basicos);
 	}
 }
 ?>

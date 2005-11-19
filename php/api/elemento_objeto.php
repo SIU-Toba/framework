@@ -1,10 +1,10 @@
 <?
 require_once("elemento.php");
 require_once("nucleo/lib/manejador_archivos.php");
+require_once("nucleo/lib/reflexion/clase_php.php");
 
 class elemento_objeto extends elemento implements recorrible_como_arbol, meta_clase
 {
-	
 	protected $datos_clase;		//Información relacionada con la clase del objeto
 	
 	function __construct()
@@ -91,7 +91,6 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		}
 	}
 	
-	//-------------------------------------------
 	function exportar_sql()
 	{
 		$cabecera = "-- Exportacion: ". date("d/M/Y") . "\n";
@@ -105,7 +104,6 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		manejador_archivos::crear_archivo_con_datos($path, $data);
 	}
 
-	//ATENCION: Ahora estan como variables locales, sacar los metodos
 	function id_objeto()
 	{
 		return $this->datos['apex_objeto'][0]['objeto'];
@@ -128,8 +126,16 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 														$this->datos_clase["editor_item"], $param_editores,
 														false, false, null, true, "central");
 	}
-	
-	//---- Recorrido como arbol
+
+	function get_metadatos_subcomponente()
+	{
+		return array();
+	}
+
+	//---------------------------------------------------------------------	
+	//-- Recorrible como ARBOL
+	//---------------------------------------------------------------------
+
 	function hijos()
 	{
 		return $this->subelementos;
@@ -224,35 +230,36 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		return $iconos;	
 	}	
 	
-	function get_metadatos_subcomponente()
-	{
-		return array();
-	}
-	
 	//---------------------------------------------------------------------	
-	//-- Interface 'meta_clase'
+	//-- EVENTOS
 	//---------------------------------------------------------------------
-	
-	//---- Manejo de eventos
-	function es_evento($metodo)
-	{
-		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
-	}	
-	
-	protected function hay_evento($nombre)
-	{
-		foreach ($this->datos['apex_objeto_eventos'] as $evento) {
-			if ($evento['identificador'] == $nombre) {
-				return true;
-			}
-		}
-		return false;	
-	}	
-	
+
 	function eventos_predefinidos()
 	{
 		return array();
 	}	
+
+	//---------------------------------------------------------------------	
+	//-- METACLASE
+	//---------------------------------------------------------------------
+
+	//---- ANALISIS de EVENTOS
+
+	function es_evento($metodo)
+	{
+		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
+	}	
+
+	function es_evento_valido($metodo)
+	{
+		if (ereg("^evt__(.*)", $metodo))
+			return true; //evt__ seguido de cualquier cosa
+		foreach ($this->subelementos as $elemento) {
+			if ($elemento->es_evento_valido($metodo))
+				return true;
+		}	
+		return false;
+	}
 	
 	function es_evento_predefinido($metodo)
 	{
@@ -276,17 +283,6 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 			if ($elemento->es_evento_predefinido($metodo))
 				return true;
 		}
-		return false;
-	}
-
-	function es_evento_valido($metodo)
-	{
-		if (ereg("^evt__(.*)", $metodo))
-			return true; //evt__ seguido de cualquier cosa
-		foreach ($this->subelementos as $elemento) {
-			if ($elemento->es_evento_valido($metodo))
-				return true;
-		}	
 		return false;
 	}
 
@@ -316,7 +312,27 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		return false;		
 	}
 	
-	//---- Generación de código	
+	//--- GENERACION de PHP ---
+	
+	function generar_cuerpo_clase($opciones)
+	{
+		$this->set_nivel_comentarios($opciones['nivel_comentarios']);
+		$cuerpo = '';
+		if ($opciones['basicos']) {
+			foreach ($this->generar_metodos_basicos() as $metodo_basico) {
+				$cuerpo .= $metodo_basico."\n";
+			}
+		}
+		return $cuerpo;
+	}
+
+	public function generar_metodos_basicos()
+	{
+		return array();
+	}
+	
+	//----  FILTRO de COMENTARIOS  --------------
+
 	public function set_nivel_comentarios($nivel)
 	{
 		$this->nivel_comentarios = $nivel;	
@@ -365,27 +381,5 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		$lineas = substr($lineas, 0, -1);
 		return $lineas;
 	}
-	
-	public function generar_metodos_basicos()
-	{
-		return array();
-	}
-	
-	public function generar_constructor()
-	{
-		$constructor = 
-'	function __construct($id)
-	{
-		parent::__construct($id);
-	}
-';
-		return $this->filtrar_comentarios($constructor);
-	}
-	
-	public function generar_eventos($solo_basicos)
-	{
-		return array();
-	}
-
 }
 ?>

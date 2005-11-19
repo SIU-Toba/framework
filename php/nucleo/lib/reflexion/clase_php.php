@@ -50,60 +50,31 @@ class clase_php
 	{
 		//Incluir el código que hace la subclase
 		$codigo = $this->separador_clases();
-		$cuerpo = $this->generar_clase_cuerpo($opciones);
-		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n$cuerpo\n}\n";
+		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n";
+		$codigo .= $this->meta_clase->generar_cuerpo_clase($opciones) ."\n";		
+		$codigo .= "}\n";
 		return $codigo;
-	
 	}
 	
-	function generar_clase_cuerpo($opciones)
-	{
-		if (!isset($this->meta_clase))
-			return '';
-		$this->meta_clase->set_nivel_comentarios($opciones['nivel_comentarios']);
-		$cuerpo = '';
-		if ($opciones['constructor']) {
-			$cuerpo .= $this->meta_clase->generar_constructor()."\n";
-		}
-		if ($opciones['basicos']) {
-			foreach ($this->meta_clase->generar_metodos_basicos() as $metodo_basico) {
-				$cuerpo .= $metodo_basico."\n";
-			}
-		}
-		if ($opciones['eventos']) {
-			$solo_basicos = ($opciones['eventos'] == 1);
-			$grupo_eventos = $this->meta_clase->generar_eventos($solo_basicos);
-			if (count($grupo_eventos) > 0) {
-				$cuerpo .= $this->separador_seccion_grande('Eventos');
-				foreach ($grupo_eventos as $seccion =>$eventos) {
-					$cuerpo .= $this->separador_seccion_chica($seccion);
-					foreach ($eventos as $evento) {
-						$cuerpo .= $evento."\n";
-					}
-				}
-			}
-		}
-		return $cuerpo;
-	}
-	
-	//--Utilerías de formateo para la generación
-	protected function separador_clases()
+	//----  Utilerías de formateo para la generación  ---------------------------------
+
+	static function separador_clases()
 	{
 		return "//----------------------------------------------------------------\n";	
 	}
 
-	protected function separador_seccion_chica($nombre='')
-	{
+	static function separador_seccion_chica($nombre='')
+	{	
 		return "\t//----------------------------- $nombre -----------------------------\n";	
 	}	
 	
-	protected function separador_seccion_grande($nombre)
+	static function separador_seccion_grande($nombre)
 	{
 		return  "\t//-------------------------------------------------------------------\n".
 				"\t//--- $nombre\n".
 				"\t//-------------------------------------------------------------------\n\n";
 	}	
-		
+
 	//---------------------------------------------------------------
 	//-- Analisis de codigo
 	//---------------------------------------------------------------
@@ -132,10 +103,11 @@ class clase_php
 	
 	function analizar_metodos($titulo, $clase, $metodos, $mostrar=true)
 	{
+		static $id=0;$id++;
 		$display = ($mostrar) ? "" : "style='display: none'";
-		echo "<li><a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\">";
-		echo "Métodos $titulo</a></li>";
-		echo "<ul $display >";
+		echo "<li><a href='#' onclick=\"o = getElementById('_id$id'); o.style.display = (o.style.display == 'none') ? '' : 'none';\">";
+		echo "Métodos $titulo</a></li>\n";
+		echo "<ul id='_id$id' $display>\n";
 		foreach ($metodos as $metodo) {
 			if ($metodo->getDeclaringClass() == $clase) {
 				$estilo = '';
@@ -159,7 +131,7 @@ class clase_php
 				echo "</li>\n";
 			}
 		}	
-		echo "</ul></li>";	
+		echo "</ul></li>\n";	
 	}
 	//--------------------------------------------------------------------------
 }		

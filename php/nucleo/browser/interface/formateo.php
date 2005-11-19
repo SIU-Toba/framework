@@ -85,7 +85,7 @@
 /*----------------------------*/
 
 	function formato_fecha($fecha){
-	    if(isset($fecha)){return cambiar_fecha($fecha,'-','/');} else {return '';};
+	    if(isset($fecha)&&($fecha!='')){return cambiar_fecha($fecha,'-','/');} else {return '';};
 	}
 /*----------------------------*/
    
