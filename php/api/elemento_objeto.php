@@ -319,14 +319,14 @@ class elemento_objeto extends elemento implements recorrible_como_arbol, meta_cl
 		$this->set_nivel_comentarios($opciones['nivel_comentarios']);
 		$cuerpo = '';
 		if ($opciones['basicos']) {
-			foreach ($this->generar_metodos_basicos() as $metodo_basico) {
+			foreach ($this->generar_metodos() as $metodo_basico) {
 				$cuerpo .= $metodo_basico."\n";
 			}
 		}
 		return $cuerpo;
 	}
 
-	public function generar_metodos_basicos()
+	public function generar_metodos()
 	{
 		return array();
 	}

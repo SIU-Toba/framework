@@ -58,14 +58,33 @@ class clase_php
 	
 	//----  Utilerías de formateo para la generación  ---------------------------------
 
+	static function generar_metodo($nombre, $parametros=null, $contenido='',$comentarios='')
+	{
+		//Armo parametros
+		$php_parametros = '';
+		if(is_array($parametros)){
+			for($a=0;$a<count($parametros);$a++){
+				$parametros[$a] = '$' . $parametros[$a];
+			}
+			$php_parametros = implode(', ',$parametros);
+		}
+		//Armo la funcion
+		$funcion = "\tfunction $nombre($php_parametros)";
+		if($comentarios!='') $funcion .= "\n" . $comentarios;
+		$funcion .= "\n\t{\n";
+		$funcion .= $contenido;
+		$funcion .= "\t}\n\n";
+		return $funcion;
+	}
+
 	static function separador_clases()
 	{
-		return "//----------------------------------------------------------------\n";	
+		return "//--------------------------------------------------------------------\n";	
 	}
 
 	static function separador_seccion_chica($nombre='')
 	{	
-		return "\t//----------------------------- $nombre -----------------------------\n";	
+		return "\t//---- $nombre -------------------------------------------------------\n\n";	
 	}	
 	
 	static function separador_seccion_grande($nombre)

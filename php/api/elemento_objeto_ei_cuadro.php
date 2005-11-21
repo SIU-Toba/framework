@@ -11,7 +11,7 @@ class elemento_objeto_ei_cuadro extends elemento_objeto_ei
 	{
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->ordenable()){
-			$eventos['ordenar']['parametros'] = '$columna, $sentido';
+			$eventos['ordenar']['parametros'] = array('columna','sentido');
 			$eventos['ordenar']['comentarios'] = '!#c3//$sentido puede ser "des" o "asc"';
 		}
 		return $eventos;

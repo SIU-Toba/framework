@@ -13,11 +13,11 @@ class elemento_objeto_ei_formulario_ml extends elemento_objeto_ei
 		# Modificar lo que devuelve el cuadro!!
 		#c3//El $id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación
 		if ($this->tipo_analisis() == 'EVENTOS') {
-			$eventos['registro_alta']['parametros'] = '$id_fila, $datos';
+			$eventos['registro_alta']['parametros'] = array('id_fila', 'datos');
 			$eventos['registro_alta']['comentarios'] = '??';
-			$eventos['registro_baja']['parametros'] = '$id_fila';
+			$eventos['registro_baja']['parametros'] = array('id_fila');
 			$eventos['registro_baja']['comentarios'] = '??';
-			$eventos['registro_modificacion']['parametros'] = '$id_fila, $datos';
+			$eventos['registro_modificacion']['parametros'] = array('id_fila', 'datos');
 			$eventos['registro_modificacion']['comentarios'] = '??';
 		}
 		return $eventos;

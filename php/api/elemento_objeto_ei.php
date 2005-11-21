@@ -21,24 +21,36 @@ class elemento_objeto_ei extends elemento_objeto
 	function eventos_predefinidos()
 	{
 		$eventos = parent::eventos_predefinidos();
-		//Si maneja datos pasarle un paratro
-		//Si es sobre fila tambien.
+		foreach ($this->datos['apex_objeto_eventos'] as $evt_db) {
+			//ei_arbol($evt_db);
+			$id = $evt_db['identificador'];
+			$parametros = array();
+			if( $evt_db['sobre_fila'] ){
+				$parametros[] = 'seleccion';		
+			}else{
+				if($evt_db['maneja_datos'])	$parametros[] = 'datos';	
+			}
+			$eventos[$id]['parametros'] = $parametros;
+		}
+		ei_arbol($eventos);
 		return $eventos;
 	}
 	
 	function get_comentario_carga()
 	{
-		//FORM: "id_ef" => valor	
+		//FORM: 
 		//FORM_ML: 	!#c3//El formato debe ser una matriz array("id_fila" => array("id_ef" => valor, ...), ...);
+		//CUADRO: !#c3//El formato del retorno debe ser array( array("columna" => valor, ...), ...)
+		return "	!#c3//El formato del retorno debe ser array('id_ef' => $valor)";
 	}
 	
 	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
-	function generar_metodos_basicos()
+	function generar_metodos()
 	{
-		$basicos = parent::generar_metodos_basicos();
+		$basicos = parent::generar_metodos();
 		$basicos[] = "\t".
 'function extender_objeto_js()
 	!#c3//Se puede cambiar el comportamiento de una pantalla redefiniendo métodos en el javascript asociado a este objeto

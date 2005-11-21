@@ -53,7 +53,12 @@ class nucleo_toba
 			$this->procesar();
 		} catch (excepcion_toba $e) {
 			$mensaje = $e->getMessage();
-			include("nucleo/browser/logon.php");
+			try {
+				include("nucleo/browser/logon.php");
+			}catch(exception $e){
+				//No hay una conexion, salta el combo del logon
+				echo ei_mensaje('No es posible INGRESAR al sistema: ' . $e->getMessage());		
+			}
 		}		
 	}
 

@@ -104,37 +104,35 @@ class elemento_objeto_ci extends elemento_objeto_ei
 	{
 		$cuerpo = parent::generar_cuerpo_clase($opciones);
 		if ($opciones['eventos']) {
-/*		
-		Genero mis eventos
-
-			foreach ($this->eventos_predefinidos() as $evento) {
-				$funcion = "\tfunction evt__$evento()\n\t{\n\t}\n";
+			//Eventos de la clase
+			$cuerpo .= clase_php::separador_seccion_chica('Eventos CI');
+			foreach ($this->eventos_predefinidos() as $evento => $info) {
+				$cuerpo .= clase_php::generar_metodo('evt__' . $evento);
 			}
-
-		y los de mis dependencias que no son CI 
-
-			foreach ($this->subelementos as $elemento) {
-				$eventos += $elemento->generar_eventos($solo_basicos);
-			}		
-
-		(ademas les agrego una carga)
-
-			$metodos[] = "\t".
-'function evt__'.$id.'__carga()
-	!#c3//El formato del retorno debe ser array( array("columna" => valor, ...), ...)
-	{
-		!#c3//	return $this->datos_'.$id.';
-	}
-';
-*/
+			//Eventos de las dependencias
+			if(count($this->subelementos)>0){
+				$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
+				foreach ($this->subelementos as $elemento) {
+					//ATENCION: Hay que controlar que no sea CI!
+					$rol = $elemento->rol_en_consumidor();
+					$cuerpo .= clase_php::separador_seccion_chica($rol);
+					//Eventos predefinidos del elemento
+					foreach($elemento->eventos_predefinidos() as $evento => $info){
+						$cuerpo .= clase_php::generar_metodo('evt__' . $rol . '__' .$evento, $info['parametros']);
+					}
+					//Metodo de CARGA!
+					$comentario_carga = $elemento->get_comentario_carga();
+					$cuerpo .= clase_php::generar_metodo('evt__' . $rol . '__carga', null, null, $comentario_carga);
+				}
+			}
 		}
 		return $cuerpo;
 	}
 
-	function generar_metodos_basicos()
+	function generar_metodos()
 	{
-		$basicos = parent::generar_metodos_basicos();
-		$basicos[] = "\t".
+		$metodos = parent::generar_metodos();
+		$metodos[] = "\t".
 'function mantener_estado_sesion()
 	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
 	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
@@ -144,7 +142,7 @@ class elemento_objeto_ci extends elemento_objeto_ei
 		return $propiedades;
 	}
 ';
-		return $this->filtrar_comentarios($basicos);
+		return $this->filtrar_comentarios($metodos);
 	}
 }
 ?>
