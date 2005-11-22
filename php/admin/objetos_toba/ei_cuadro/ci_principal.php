@@ -207,6 +207,12 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->tabla('columnas')->modificar_fila($this->seleccion_columna_anterior, $datos);
 	}
 	
+	function evt__columnas__aceptar($datos)
+	{
+		$this->get_entidad()->tabla('columnas')->modificar_fila($this->seleccion_columna_anterior, $datos);
+		$this->evt__columnas__cancelar();
+	}
+
 	function evt__columnas__carga()
 	{
 		$this->seleccion_columna_anterior = $this->seleccion_columna;

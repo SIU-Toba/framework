@@ -72,13 +72,10 @@ class ci_editor_php extends objeto_ci
 	function get_lista_eventos(){
 		$eventos = parent::get_lista_eventos();
 		if($this->archivo_php->existe()) {
-			$eventos += eventos::evento_estandar('abrir', '&Abrir', true, 
-												  recurso::imagen_apl('reflexion/abrir.gif'),
-												  'Intenta abrir el archivo en el servidor con el editor asociado');
+			unset($eventos['crear_archivo']);
 		} else {
-			$eventos += eventos::evento_estandar('crear_archivo', '&Crear Archivo');		
+			unset($eventos['abrir']);
 		}
-		$eventos += eventos::evento_estandar('refrescar', '&Refrescar', true, recurso::imagen_apl('refrescar.gif'));
 		return $eventos;
 	}
 	

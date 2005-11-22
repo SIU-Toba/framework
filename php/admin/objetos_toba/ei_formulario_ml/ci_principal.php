@@ -30,17 +30,6 @@ class ci_principal extends ci_editores_toba
 		return parent::get_etapa_actual();
 	}
 	
-
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		if( false ){	//Como se va a menejar la eliminacion (dbt y zona!)
-			$eventos += eventos::evento_estandar('eliminar',"Eliminar");
-		}		
-		$eventos += eventos::ci_procesar();
-		return $eventos;
-	}
-
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************

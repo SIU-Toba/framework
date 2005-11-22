@@ -15,18 +15,6 @@ class casos_web extends objeto_ci
 		return $atributos;
 	}
 	
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		if ($this->get_etapa_actual() == 2)
-		{
-			$refrescar = eventos::duplicar(eventos::ci_procesar("Refre&scar"), 'ejecutar');	
-			$refrescar['ejecutar']['imagen'] = recurso::imagen_apl('refrescar.gif');
-			$eventos += $refrescar;
-		}
-		return $eventos;
-	}	
-
 	function evt__lista_archivos__carga()
 	{
 		$this->dependencias['lista_archivos']->colapsar();

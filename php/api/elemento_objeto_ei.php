@@ -32,7 +32,7 @@ class elemento_objeto_ei extends elemento_objeto
 			}
 			$eventos[$id]['parametros'] = $parametros;
 		}
-		ei_arbol($eventos);
+		//ei_arbol($eventos);
 		return $eventos;
 	}
 	

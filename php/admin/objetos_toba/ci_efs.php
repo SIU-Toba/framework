@@ -56,13 +56,19 @@ class ci_efs extends objeto_ci
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();
-		if( $this->mostrar_efs_detalle() ){
-			$eventos += eventos::evento_estandar('cancelar_edicion',"C&ancelar");
+		if(! $this->mostrar_efs_detalle() ){
+			unset($eventos['cancelar']);
+			unset($eventos['aceptar']);
 		}		
 		return $eventos;
 	}
 
-	function evt__cancelar_edicion()
+	function evt__cancelar()
+	{
+		$this->limpiar_seleccion();	
+	}
+
+	function evt__aceptar()
 	{
 		$this->limpiar_seleccion();	
 	}
