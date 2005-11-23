@@ -1259,7 +1259,11 @@ class objeto_ei_cuadro extends objeto_ei
 				{							
 					echo  "<table class='tabla-0'>\n";
 					echo  "<tr>\n";
-	                echo  "<td width='95%' align='center' class='".$this->info_cuadro_columna[$indice]["estilo_titulo"]."'>&nbsp;" . $titulo ."&nbsp;</td>\n";
+		            $estilo_columna = $this->info_cuadro_columna[$indice]["estilo_titulo"];
+		            if(!$estilo_columna){
+		            	$estilo_columna = 'lista-col-titulo';
+		            }
+	                echo  "<td width='95%' align='center' class='$estilo_columna'>&nbsp;" . $titulo ."&nbsp;</td>\n";
 					echo  "<td width='5%'>";
 					foreach($sentido as $sen){
 					    $sel="";
