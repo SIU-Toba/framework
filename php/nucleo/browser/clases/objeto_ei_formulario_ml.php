@@ -88,6 +88,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										elemento_formulario as		elemento_formulario,
 										inicializacion	as			inicializacion,
 										etiqueta	as				etiqueta,
+										etiqueta_estilo	as			etiqueta_estilo,
 										descripcion	as				descripcion,
 										orden	as					orden,
 										total as 					total,

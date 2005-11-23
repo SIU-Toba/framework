@@ -53,9 +53,8 @@ class ef //Clase abstracta, padre de todos los EF
 	var $dep_master = false;	//Soy master?
 	var $dep_slave = false;		//Soy slave?
 	var $agregado_form;			//Número de linea en un form multilinea
-
-	//---
 	protected $ancho_etiqueta = 150;
+	protected $estilo_etiqueta = '';
 	
 	function ef($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -403,6 +402,11 @@ class ef //Clase abstracta, padre de todos los EF
     	$this->ancho_etiqueta = $ancho;	
     }
     
+    function set_estilo_etiqueta($estilo)
+    {
+    	$this->estilo_etiqueta = $estilo;	
+    }
+
 	function set_expandido($expandido)
 	{
 		$this->expandido = $expandido;
@@ -523,7 +527,7 @@ class ef //Clase abstracta, padre de todos los EF
 //-----------------------------------------------------
 //-------------------- INTERFACE ----------------------
 //-----------------------------------------------------
-    
+
 	function obtener_input()
 	{
 		//Esta funcion se define en cada hijo,
@@ -534,16 +538,21 @@ class ef //Clase abstracta, padre de todos los EF
 	//Envoltura normal
 	{
 		if($this->validacion){
-	        if($this->obligatorio){
-    	        $estilo = "ef-etiqueta-obligatorio";
-				$marca = "(*)";
-        	}else{
-	            $estilo = "ef-etiqueta";
-				$marca ="";
-    	    }
-		}else{
-            $estilo = "ef-etiqueta-error";
-			$marca ="";
+			if($this->estilo_etiqueta=='') {
+		        if ($this->obligatorio) {
+	    	        $estilo = 'ef-etiqueta-obligatorio';
+					$marca = '(*)';
+	        	} else {
+		            $estilo = 'ef-etiqueta';
+					$marca ='';
+	    	    }
+	    	} else {
+	            $estilo = $this->estilo_etiqueta;
+				$marca ='';
+	    	}
+		} else {
+            $estilo = 'ef-etiqueta-error';
+			$marca ='';
 		}
 		global $solicitud;
 		echo "<table border='0' width='{$this->ancho_etiqueta}' cellpadding='0' cellspacing='0' align='left'>\n";
@@ -586,7 +595,7 @@ class ef //Clase abstracta, padre de todos los EF
 	{
 		//Editor del ef
 		$editor = "";
-		if(apex_pa_acceso_directo_editor){
+		if (apex_pa_acceso_directo_editor) {
 			$item_editor_padre = "/admin/objetos_toba/editores/ei_formulario_ml";
 			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto()) {
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
@@ -595,19 +604,23 @@ class ef //Clase abstracta, padre de todos los EF
 																	false, false,"",null, 1);				
 			}
 		}
-	
 		if($this->validacion){
-	        if($this->obligatorio){
-    	        $estilo = "ef-etiqueta-obligatorio";
-				$marca = " (*)";
-        	}else{
-	            $estilo = "ef-etiqueta";
-				$marca ="";
-    	    }
-		}else{
-            $estilo = "ef-etiqueta-error";
-			$marca ="";
-		}	
+			if($this->estilo_etiqueta=='') {
+		        if ($this->obligatorio) {
+	    	        $estilo = 'ef-etiqueta-obligatorio';
+					$marca = '(*)';
+	        	} else {
+		            $estilo = 'ef-etiqueta';
+					$marca ='';
+	    	    }
+	    	} else {
+	            $estilo = $this->estilo_etiqueta;
+				$marca ='';
+	    	}
+		} else {
+            $estilo = 'ef-etiqueta-error';
+			$marca ='';
+		}
 		$html = "<div class='$estilo' style='text-align: left'>".$this->obtener_etiqueta().$marca;
 		if (isset($editor)) {
 			$html .= $editor;

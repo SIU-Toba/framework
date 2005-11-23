@@ -72,6 +72,7 @@ class objeto_ei_formulario extends objeto_ei
 										elemento_formulario 		as		elemento_formulario,
 										inicializacion				as		inicializacion,
 										etiqueta					as		etiqueta,
+										etiqueta_estilo				as		etiqueta_estilo,
 										descripcion					as		descripcion,
 										orden						as		orden,
 										colapsado					as 		colapsado
@@ -163,6 +164,9 @@ class objeto_ei_formulario extends objeto_ei
 			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
 			if (isset( $this->info_formulario['ancho_etiqueta'])) {
 				$this->elemento_formulario[$id_ef]->set_ancho_etiqueta($this->info_formulario['ancho_etiqueta']);
+			}
+			if (isset($this->info_formulario_ef[$a]['etiqueta_estilo'])) {
+				$this->elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->info_formulario_ef[$a]['etiqueta_estilo'] );
 			}
 		}	
 	}

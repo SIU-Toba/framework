@@ -127,6 +127,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	inicializacion          			varchar        	NULL,
 	orden                   			float       	NOT NULL,
 	etiqueta                			varchar(80)    	NULL,
+	etiqueta_estilo            			varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
 	colapsado							smallint		NULL,
 	desactivado             			smallint       	NULL,
@@ -138,26 +139,3 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
-
--- agregar:
-
---	objeto_ei_formulario_fila
-
--- modificar:
-
---	objeto_ut_formulario_proyecto    x	objeto_ei_formulario_proyecto    
---	objeto_ut_formulario             x	objeto_ei_formulario             
---  lista_columna_estilo  x estilo
-
--- eliminar:
-
--- 	clave_primaria          			smallint       	NULL,			-- El contenido de este EF es parte de una clave primaria?
---	listar		           				smallint       	NULL,
---	lista_cabecera          			varchar(40)    	NULL,			-- Titulo del campo en la lista
---	lista_orden							float       	NULL,
---	lista_valor_sql         			varchar(40)    	NULL,			-- Campo SQL alternativo
---	lista_valor_sql_formato    			int4		    NULL,			-- El valor del debe ser formateado
---	lista_valor_sql_esp					varchar(40)	    NULL,			-- El valor del debe ser formateado CUSTOM
---	lista_ancho							varchar(10)		NULL,
---	clave_primaria_padre    			smallint       	NULL,			-- El contenido de este EF es parte de una clave primaria?
---	no_sql								smallint		NULL,
