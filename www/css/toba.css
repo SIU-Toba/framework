@@ -4,6 +4,14 @@
 
 /*-- NIVEL 0 --*/
 
+.cuadro-cabecera{
+	 empty-cells: hide
+}
+
+.cuadro-pie{
+	 empty-cells: hide
+}
+
 .cuadro-cc-tit-nivel-0{
 	border-top: #231f20 1px solid;
 	border-left: #231f20 1px solid;

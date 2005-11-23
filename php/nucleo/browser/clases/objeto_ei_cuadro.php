@@ -880,7 +880,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo"<tr><td>\n";
         echo "<TABLE width='100%' class='tabla-0'  id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
-		echo"<tr><td class='lista-subtitulo'>";
+		echo"<tr><td class='cuadro-cabecera'>";
 		$this->html_cabecera();		
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
@@ -900,7 +900,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</td></tr>\n";
 		//--- FIN CONTENIDO  ---------
 		// Pie
-		echo"<tr><td>";
+		echo"<tr><td class='cuadro-pie'>";
 		$this->html_pie();		
 		echo "</td></tr>\n";
 		//Paginacion
