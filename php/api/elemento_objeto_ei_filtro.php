@@ -7,6 +7,11 @@ class elemento_objeto_ei_filtro extends elemento_objeto_ei
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
+	function get_comentario_carga()
+	{
+		return "	!#c3//El formato del retorno debe ser array('id_ef' => \$valor, ...)";
+	}
+	
 	//-- Generacion de metadatos
 
 	static function get_modelos_evento()

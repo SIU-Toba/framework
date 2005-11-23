@@ -31,6 +31,7 @@ class elemento_objeto_ei extends elemento_objeto
 				if($evt_db['maneja_datos'])	$parametros[] = 'datos';	
 			}
 			$eventos[$id]['parametros'] = $parametros;
+			$eventos[$id]['comentarios'] = '';
 		}
 		//ei_arbol($eventos);
 		return $eventos;
@@ -38,10 +39,7 @@ class elemento_objeto_ei extends elemento_objeto
 	
 	function get_comentario_carga()
 	{
-		//FORM: 
-		//FORM_ML: 	!#c3//El formato debe ser una matriz array("id_fila" => array("id_ef" => valor, ...), ...);
-		//CUADRO: !#c3//El formato del retorno debe ser array( array("columna" => valor, ...), ...)
-		return "	!#c3//El formato del retorno debe ser array('id_ef' => $valor)";
+		return "";
 	}
 	
 	//---------------------------------------------------------------------	

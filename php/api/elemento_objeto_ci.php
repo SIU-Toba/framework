@@ -84,6 +84,7 @@ class elemento_objeto_ci extends elemento_objeto_ei
 			case 'proceso':
 				$evento[0]['identificador'] = "procesar";
 				$evento[0]['etiqueta'] = "Proce&sar";
+				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['orden'] = 0;
 				$evento[0]['en_botonera'] = 1;
 				$evento[1]['identificador'] = "cancelar";
@@ -103,26 +104,33 @@ class elemento_objeto_ci extends elemento_objeto_ei
 	function generar_cuerpo_clase($opciones)
 	{
 		$cuerpo = parent::generar_cuerpo_clase($opciones);
-		if ($opciones['eventos']) {
-			//Eventos de la clase
+		//Eventos de la clase
+		if (count($this->eventos_predefinidos()) > 0) {
 			$cuerpo .= clase_php::separador_seccion_chica('Eventos CI');
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
 				$cuerpo .= clase_php::generar_metodo('evt__' . $evento);
 			}
-			//Eventos de las dependencias
-			if(count($this->subelementos)>0){
-				$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
-				foreach ($this->subelementos as $elemento) {
-					//ATENCION: Hay que controlar que no sea CI!
-					$rol = $elemento->rol_en_consumidor();
-					$cuerpo .= clase_php::separador_seccion_chica($rol);
+		}
+		//Eventos de las dependencias
+		if (count($this->subelementos)>0) {
+			$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
+			foreach ($this->subelementos as $elemento) {
+				$es_ei = ($elemento instanceof elemento_objeto_ei) && !($elemento instanceof elemento_objeto_ci);
+				if ($es_ei) {
 					//Eventos predefinidos del elemento
-					foreach($elemento->eventos_predefinidos() as $evento => $info){
-						$cuerpo .= clase_php::generar_metodo('evt__' . $rol . '__' .$evento, $info['parametros']);
+					if (count($elemento->eventos_predefinidos()) > 0) {
+						$rol = $elemento->rol_en_consumidor();
+						$cuerpo .= clase_php::separador_seccion_chica($rol);
+						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
+							$metodo_evento = clase_php::generar_metodo('evt__' . $rol . '__' .$evento, 
+																			$info['parametros'], null, $info['comentarios'] );
+							$cuerpo .= $this->filtrar_comentarios_metodo($metodo_evento);
+						}
 					}
 					//Metodo de CARGA!
 					$comentario_carga = $elemento->get_comentario_carga();
-					$cuerpo .= clase_php::generar_metodo('evt__' . $rol . '__carga', null, null, $comentario_carga);
+					$metodo_carga = clase_php::generar_metodo('evt__' . $rol . '__carga', null, null, $comentario_carga);
+					$cuerpo .= $this->filtrar_comentarios_metodo($metodo_carga);
 				}
 			}
 		}
