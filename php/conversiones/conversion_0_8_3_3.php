@@ -1,11 +1,11 @@
 <?
 require_once("conversion_toba.php");
 
-class conversion_0_8_3_4 extends conversion_toba
+class conversion_0_8_3_3 extends conversion_toba
 {
 	function get_version()
 	{
-		return "0.8.3.4";	
+		return "0.8.3.3";	
 	}
 
 	/**
