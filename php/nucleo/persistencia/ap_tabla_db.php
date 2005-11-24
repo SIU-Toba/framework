@@ -363,6 +363,8 @@ class ap_tabla_db implements ap_tabla
 		if(count($this->secuencias)>0){
 			foreach($this->secuencias as $columna => $secuencia){
 				$valor = recuperar_secuencia($secuencia, $this->fuente);
+				//El valor es necesario en el evt__post_insert!!
+				$this->datos[$id_registro][$columna] = $valor;
 				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
