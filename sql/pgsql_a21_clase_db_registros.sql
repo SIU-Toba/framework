@@ -18,7 +18,7 @@ CREATE TABLE apex_admin_persistencia
 (
 	ap								int4				DEFAULT nextval('"apex_admin_persistencia_seq"'::text) 		NOT NULL, 
 	clase							varchar(60)			NOT	NULL,
-	archivo							varchar(60)			NOT	NULL,
+	archivo							varchar(120)			NOT	NULL,
 	descripcion						varchar(60)			NOT	NULL,
 	categoria						varchar(20)			NULL,		-- Indica si es un AP de tablas o relaciones
 	CONSTRAINT	"apex_admin_persistencia_pk" PRIMARY	KEY ("ap")
@@ -64,8 +64,8 @@ CREATE TABLE apex_objeto_db_registros
 --	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(60)		NULL,
-	tabla 							varchar(60)		NULL,
+	ap_archivo						varchar(120)		NULL,
+	tabla 							varchar(120)		NULL,
 	alias 							varchar(60)		NULL,
 	modificar_claves				smallint		NULL,
 --	Fin configuracion del AP
@@ -91,10 +91,10 @@ CREATE TABLE apex_objeto_db_registros_col
 	objeto_proyecto    			   	varchar(15)		NOT NULL,
 	objeto 		                	int4       		NOT NULL,
 	col_id							int4			DEFAULT nextval('"apex_objeto_dbr_columna_seq"'::text) 		NOT NULL, 
-	columna		    				varchar(40)		NOT NULL, 
+	columna		    				varchar(120)		NOT NULL, 
 	tipo							varchar(1)		NULL,
 	pk								smallint 		NULL,
-	secuencia		    			varchar(60)		NULL, 
+	secuencia		    			varchar(120)		NULL, 
 	largo							smallint		NULL,
 	no_nulo							smallint 		NULL,
 	no_nulo_db						smallint 		NULL,
@@ -122,11 +122,11 @@ CREATE TABLE apex_objeto_datos_rel
 (
 	proyecto 		 				varchar(15)		NOT NULL,
 	objeto      	    	 		int4			NOT NULL,
-	clave							varchar(60)		NULL,
+	clave							varchar(120)		NULL,
 --	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(60)		NULL,
+	ap_archivo						varchar(120)		NULL,
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("proyecto","objeto"),
 	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
