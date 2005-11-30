@@ -69,7 +69,18 @@ class dba
 	{
 		if(!isset($this->bases_conectadas[$nombre])){
 			$parametros = self::get_info_db($nombre);
-			$this->bases_conectadas[$nombre] = self::conectar_db($parametros);
+			//Si es un link a una instancia, creo una referencia a la conexion.
+			if (isset($parametros['link_instancia']) && $parametros['link_instancia']===1) {
+				$this->bases_conectadas[$nombre] = $this->bases_conectadas['instancia'];
+			} else {
+				$this->bases_conectadas[$nombre] = self::conectar_db($parametros);
+			}
+			//--------  MIGRACION 0.8.3 --------------			
+			//Como puente de migracion de versiones anteriores la bd se almacena como global
+			//Los proyectos viejos usan una referencia global de esta manera.
+			global $db;
+			$db[$nombre][apex_db_con] = $this->bases_conectadas[$nombre];
+			//-------------------------------------------
 		}
 		return $this->bases_conectadas[$nombre];
 	}
@@ -215,7 +226,6 @@ class dba
 	private static function conectar_db($parametros)
 	//Fabrica de conexiones
 	{
-		
 		if (isset($parametros['subclase_archivo'])) {
 			$archivo = $parametros['subclase_archivo'];
 		} else {
@@ -233,11 +243,6 @@ class dba
 							$parametros['clave'],
 							$parametros['base'] );
 		$conexion = $objeto_db->conectar();
-		//--------  MIGRACION 0.8.3 --------------			
-		//Como puente de migracion de versiones anteriores la bd se almacena como global
-		global $db;
-		$db[$parametros['fuente_datos']][apex_db_con] = $objeto_db;
-		//-------------------------------------------
 		return $objeto_db;
 	}
 
