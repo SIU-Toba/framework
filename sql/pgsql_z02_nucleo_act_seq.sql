@@ -36,5 +36,10 @@
 	SELECT setval('apex_obj_ei_cuadro_cc_seq'	,max(objeto_cuadro_cc)) FROM apex_objeto_cuadro_cc;	
 	SELECT setval('apex_objeto_dep_seq'	,max(dep_id)) FROM apex_objeto_dependencias;
 	SELECT setval('apex_objeto_eventos_seq'	,max(evento_id)) FROM apex_objeto_eventos;
-
-
+	SELECT setval('apex_objeto_datos_rel_asoc_seq' ,max(asoc_id)) FROM apex_objeto_datos_rel_asoc;	
+	SELECT setval('apex_admin_persistencia_seq' ,max(ap)) FROM apex_admin_persistencia;
+	SELECT setval('apex_columna_proceso_seq' ,max(columna_proceso)) FROM apex_columna_proceso;
+	SELECT setval('apex_elemento_infra_input_seq' ,max(entrada)) FROM apex_elemento_infra_input;
+	SELECT setval('apex_nucleo_tipo_seq' ,max(nucleo_tipo)) FROM apex_nucleo_tipo;
+	SELECT setval('apex_tp_tarea_seq' ,max(tarea)) FROM apex_tp_tarea;
+	SELECT setval('apex_tp_tarea_tipo_seq' ,max(tarea_tipo)) FROM apex_tp_tarea_tipo;
