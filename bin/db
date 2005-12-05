@@ -75,7 +75,7 @@ then
 
 elif [ "$1" = "crear" ]
 then
-	createdb -U $db_usuario -h $db_host -p $db_puerto $2 
+	createdb -E 'LATIN1' -U $db_usuario -h $db_host -p $db_puerto $2 
 	controlar "Crear base '$2'"
 	if [ "$3" = "postgis" ]
 	then
