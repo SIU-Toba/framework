@@ -246,7 +246,7 @@ class objeto_ci extends objeto_ei
 	//Borra la memoria de todos los CI
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]");
-		foreach($this->dependencias_ci_globales as $dep => $x){
+		foreach($this->get_dependencias_ci() as $dep){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
@@ -258,6 +258,7 @@ class objeto_ci extends objeto_ei
 	function evt__limpieza_memoria($no_borrar=null)
 	//Borra la memoria de este CI, despues vuelve a inicializar los elementos
 	{
+		$this->set_etapa_gi( $this->get_etapa_inicial() );
 		$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->evt__inicializar();
