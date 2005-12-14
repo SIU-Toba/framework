@@ -1015,13 +1015,7 @@ class objeto_datos_tabla extends objeto
 	 */
 	function sincronizar()
 	{
-		//Control de topes
-		if( $this->tope_min_filas != 0){
-			if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
-				$this->log("No se cumplio con el tope minimo de registros necesarios" );
-				throw new excepcion_toba("Los registros cargados no cumplen con el TOPE MINIMO necesario");
-			}
-		}
+		$this->validar();
 		$modif = $this->get_persistidor()->sincronizar();
 		return $modif;
 	}
