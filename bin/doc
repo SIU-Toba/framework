@@ -40,7 +40,7 @@ then
 		$PATH_PHPDOC -d $PATH_PROJECT -t $PATH_DOCS -ti "$TITLE" -dn $PACKAGES \
 		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS -ct "wiki"
 	else
-		echo "No está instalado phpDocumentor, vea el archivo $toba_dir/php/3ros/phpDocumentor.txt"
+		echo "No está instalado phpDocumentor, vea el archivo $toba_dir/php/3ros/phpdocumentor.txt"
 	fi
 
 
