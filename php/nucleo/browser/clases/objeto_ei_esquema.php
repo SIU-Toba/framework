@@ -59,6 +59,8 @@ class objeto_ei_esquema extends objeto_ei
 		//Campo de sincronizacion con JS
 		echo form::hidden($this->submit, '');
 		if (isset($this->contenido)) {
+			//Se arma el archivo .dot
+			toba::get_logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido");
 			$this->generar_esquema($this->contenido, $this->info_esquema['formato'], 
 									$this->info_esquema['dirigido'], $this->ancho,
 									$this->alto);
@@ -119,7 +121,6 @@ class objeto_ei_esquema extends objeto_ei
 		$grafico = manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
 		$salida = manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 		
-		//Se arma el archivo .dot
 		file_put_contents($grafico, $contenido);
 		
 		$comando  = ($es_dirigido) ? "dot" : "neato";
