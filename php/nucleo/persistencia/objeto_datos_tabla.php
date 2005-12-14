@@ -22,6 +22,7 @@ class objeto_datos_tabla extends objeto
 	protected $clave;							// Columnas que constituyen la clave de la tabla
 	protected $columnas;
 	protected $posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
+	protected $nombre_rol;						//Nombre que tiene esta tabla en la relación
 	//Constraints
 	protected $no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
 	// Definicion general
@@ -32,12 +33,14 @@ class objeto_datos_tabla extends objeto
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
-	protected $fila_actual = 0;					// Fila marcada como 'actual'
+	protected $cursor;							// Puntero a una fila específica
+	protected $cargada = false;
 	// Relaciones con el exterior
 	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
-	protected $relaciones_con_padres;			// ARRAY con un objeto RELACION por cada PADRE de la tabla
-	protected $relaciones_con_hijos;			// ARRAY con un objeto RELACION por cada HIJO de la tabla
-			
+	protected $relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
+	protected $relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
+
+	
 	function __construct($id)
 	{
 		parent::objeto($id);
@@ -65,7 +68,8 @@ class objeto_datos_tabla extends objeto
 		$propiedades[] = "cambios";
 		$propiedades[] = "datos";
 		$propiedades[] = "proxima_fila";
-		$propiedades[] = "fila_actual";
+		$propiedades[] = "cursor";
+		$propiedades[] = "cargada";
 		return $propiedades;
 	}
 
@@ -134,12 +138,21 @@ class objeto_datos_tabla extends objeto
 
 	function agregar_relacion_con_padre($relacion, $id_padre)
 	{
-		$this->relaciones_con_padres[] = $relacion;
+		$this->relaciones_con_padres[$id_padre] = $relacion;
+	}
+	
+	/**
+	 * Retorna las relaciones con las tablas padre
+	 * @return relacion_entre_tablas
+	 */
+	function get_relaciones_con_padres()
+	{
+		return $this->relaciones_con_padres;
 	}
 	
 	function agregar_relacion_con_hijo($relacion, $id_hijo)
 	{
-		$this->relaciones_con_hijos[] = $relacion;
+		$this->relaciones_con_hijos[$id_hijo] = $relacion;
 	}
 
 	/*
@@ -154,49 +167,29 @@ class objeto_datos_tabla extends objeto
 	}
 
 	/**
-	 * Aviso a las relaciones hijas que el componente PADRE se CARGO
+	 * Aviso a las relaciones padres que el componente HIJO se CARGO
 	 */
-	function notificar_hijos_carga()
+	function notificar_padres_carga()
 	{
-		if(isset($this->relaciones_con_hijos)){
-			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
-				$this->relaciones_con_hijos[$a]->evt__carga_padre();
+		if(isset($this->relaciones_con_padres)){
+			foreach ($this->relaciones_con_padres as $relacion) {
+				$relacion->evt__carga_hijo();
 			}
 		}
 	}
 
 	/**
-	 * Aviso a las relaciones hijas que el componente PADRE se SINCRONIZO
+	 * Aviso a las relaciones hijas que el componente PADRE sincrozo sus actualizaciones
 	 */
 	function notificar_hijos_sincronizacion()
 	{
 		if(isset($this->relaciones_con_hijos)){
-			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
-				$this->relaciones_con_hijos[$a]->evt__sincronizacion_padre();
+			foreach ($this->relaciones_con_hijos as $relacion) {
+				$relacion->evt__sincronizacion_padre();
 			}
 		}
 	}
 
-	/**
-	 * Aviso a las relaciones hijas que el componente PADRE se esta por eliminar
-	 */
-	function notificar_hijos_eliminacion()
-	{
-		if(isset($this->relaciones_con_hijos)){
-			for($a=0;$a<count($this->relaciones_con_hijos);$a++){
-				$this->relaciones_con_hijos[$a]->evt__eliminacion_padre();
-			}
-		}
-	}
-
-	/*
-		***  Manejo de relaciones  ***
-	*/
-
-	function set_padre($id_fila, $id_fila_padre, $id_padre=null)
-	{
-		
-	}
 
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
@@ -289,6 +282,14 @@ class objeto_datos_tabla extends objeto
 	}
 
 	/**
+	 * Determina el nombre del rol que cumple esta tabla en una relación
+	 */
+	function set_nombre_rol($nombre)
+	{
+		$this->nombre_rol = $nombre;	
+	}
+	
+	/**
 	 * Indica una combinacion de columnas que no debe duplicarse
 	 */
 	function set_no_duplicado( $columnas )
@@ -297,19 +298,64 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
+	//-- MANEJO DEL CURSOR INTERNO---------------------------------------------------
+	//-------------------------------------------------------------------------------
+	
+	/**
+	 * Fija el cursor en una fila dada
+	 * @param mixed $id Id. interno de la fila
+	 */
+	function set_cursor($id)
+	{
+		$id = $this->normalizar_id($id);
+		if( $this->existe_fila($id) ){
+			$this->cursor = $id;	
+		}else{
+			throw new excepcion_toba($this->get_txt() . "La fila '$id' no es valida");
+		}
+	}	
+	
+	/**
+	 * Asegura que el cursor no se encuentre posicionado en ninguna fila específica
+	 */
+	function resetear_cursor()
+	{
+		unset($this->cursor);
+	}
+	
+	/**
+	 * @return mixed Id. interno de la fila donde se encuentra actualmente el cursor de la tabla
+	 */
+	function get_cursor()
+	{
+		return $this->cursor;	
+	}
+
+	/**
+	 * Hay una fila seleccionada por el cursor?
+	 */
+	function hay_cursor()
+	{
+		return isset($this->cursor);
+	}
+	
+	//-------------------------------------------------------------------------------
 	//-- ACCESO a FILAS   -----------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	/**
-	*	@param array Las condiciones permiten filtrar la lista de registros que se devuelves
-	*	@param boolean Hace que las claves del array devuelto sean las claves internas del dbr
-	*	@param array Formato tipo RecordSet
-	*/
-	function get_filas($condiciones=null, $usar_id_fila=false)
+	 * Retorna el conjunto de filas que respeta las condiciones dadas
+	 * Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
+	 * @param array Las condiciones permiten filtrar la lista de registros que se devuelve
+	 * @param boolean Hace que las claves del array devuelto sean las claves internas del dbr
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
+	 * @return array Formato tipo RecordSet
+	 */
+	function get_filas($condiciones=null, $usar_id_fila=false, $usar_cursores=true)
 	{
 		$datos = array();
 		$a = 0;
-		foreach( $this->get_id_fila_condicion($condiciones) as $id_fila )
+		foreach( $this->get_id_fila_condicion($condiciones, $usar_cursores) as $id_fila )
 		{
 			if($usar_id_fila){
 				$datos[$id_fila] = $this->datos[$id_fila];
@@ -322,49 +368,65 @@ class objeto_datos_tabla extends objeto
 		}
 		return $datos;
 	}
-	//-------------------------------------------------------------------------------
-
+	
 	/**
-	 * Busca los registros en memoria que cumplen una condicion.
-	 * Solo se chequea la condicion de igualdad.
-	 * No se chequean tipos
-	 * @param array $condiciones Asociativo de campo => valor.
-	 * @return array Ids. internos de las filas
-	 */	
-	function get_id_fila_condicion($condiciones=null)
-	{	
+	 * Retorna los ids de todas las filas (sin eliminar) de esta tabla
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
+	 * @return array()
+	 * @todo Se podría optimizar este método para no recaer en tantos recorridos
+	 */
+	function get_id_filas($usar_cursores=true)
+	{
 		$coincidencias = array();
-		if(!isset($condiciones)){
-			foreach(array_keys($this->cambios) as $id_fila){
-				if($this->cambios[$id_fila]['estado']!="d"){
-					$coincidencias[] = $id_fila;
+		foreach(array_keys($this->cambios) as $id_fila){
+			if($this->cambios[$id_fila]['estado']!="d"){
+				$coincidencias[] = $id_fila;
+			}
+		}
+		if ($usar_cursores) {
+			//Si algún padre tiene un cursor posicionado, 
+			//se restringe a solo las filas que son hijas de esos cursores
+			foreach ($this->relaciones_con_padres as $id => $rel_padre) {
+				if ($rel_padre->hay_cursor_en_padre()) {
+					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
 				}
 			}
-		}else{
+		}
+		return $coincidencias;		
+	}
+	
+	/**
+	 * Busca los registros en memoria que cumplen una condicion.
+	 * Solo se chequea la condicion de igualdad. No se chequean tipos
+	 * @param array $condiciones Asociativo de campo => valor.
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres* 
+	 * @return array Ids. internos de las filas, pueden no estar numerado correlativamente
+	 */	
+	function get_id_fila_condicion($condiciones=null, $usar_cursores=true)
+	{	
+		//En principio las coincidencias son todas las filas
+		$coincidencias = $this->get_id_filas($usar_cursores);
+		//Si hay condiciones, se filtran estas filas
+		if(isset($condiciones)){
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			foreach( array_keys($condiciones) as $columna){
 				if( !isset($this->columnas[$columna]) ){
 					throw new excepcion_toba("El campo '$columna' no existe. No es posible filtrar por dicho campo");
 				}
 			}
-			//Busco coincidencias
-			foreach(array_keys($this->cambios) as $id_fila){
-				if($this->cambios[$id_fila]['estado']!="d"){	// Excluir los eliminados
-					//Verifico las condiciones
-					$ok = true;
-					foreach( array_keys($condiciones) as $campo){
-						if( $condiciones[$campo] != $this->datos[$id_fila][$campo] ){
-							$ok = false;
-							break;	
-						}
+			foreach($coincidencias as $pos => $id_fila){
+				//Verifico las condiciones
+				foreach( array_keys($condiciones) as $campo){
+					if( $condiciones[$campo] != $this->datos[$id_fila][$campo] ){
+						//Se filtra la fila porque no cumple las condiciones
+						unset($coincidencias[$pos]);
+						break;	
 					}
-					if( $ok ) $coincidencias[] = $id_fila;
 				}
 			}
 		}
 		return $coincidencias;
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
 	 * @param mixed $id Id. interno de la fila en memoria
@@ -381,7 +443,6 @@ class objeto_datos_tabla extends objeto
 			//throw new excepcion_toba("Se solicito un registro incorrecto");
 		}
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
 	 * Retorna el valor de una columna en una fila dada
@@ -396,10 +457,10 @@ class objeto_datos_tabla extends objeto
 			return null;
 		}
 	}
-	//-------------------------------------------------------------------------------
-
+	
 	/**
 	 * Retorna los valores de una columna específica
+	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
 	 * @param string $columna Nombre del campo o columna
 	 * @return array
 	 */
@@ -407,25 +468,19 @@ class objeto_datos_tabla extends objeto
 	//Retorna una columna de valores
 	{
 		$temp = array();
-		foreach(array_keys($this->cambios) as $fila){
-			if($this->cambios[$fila]['estado']!="d"){
-				$temp[] = $this->datos[$fila][$columna];
-			}
+		foreach($this->get_id_filas() as $fila){
+			$temp[] = $this->datos[$fila][$columna];
 		}
 		return $temp;
 	}
-	//-------------------------------------------------------------------------------
 	
 	/**
 	 * Cantidad de filas que tiene la tabla en memoria
+	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
 	 */
 	function get_cantidad_filas()
 	{
-		$a = 0;
-		foreach(array_keys($this->cambios) as $id_fila){
-			if($this->cambios[$id_fila]['estado']!="d")	$a++;
-		}
-		return $a;
+		return count($this->get_id_filas());
 	}
 	
 	/**
@@ -467,10 +522,11 @@ class objeto_datos_tabla extends objeto
 	 * Crea una nueva fila en memoria
 	 *
 	 * @param array $fila Asociativo campo->valor a insertar
+	 * @param mixed $ids_padres Asociativo padre =>id de las filas padres de esta nueva, 
+	 * 						  en caso de que no se brinde, se utilizan las posiciones actuales de estas tablas padres
 	 * @return mixed Id. interno de la fila creada
-	 * @todo Aceptar el parametro padre y machearlo en la relación
 	 */
-	function nueva_fila($fila, $padre=null)
+	function nueva_fila($fila=array(), $ids_padres=null)
 	{
 		if( $this->tope_max_filas != 0){
 			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
@@ -485,23 +541,33 @@ class objeto_datos_tabla extends objeto
 		//SI existen columnas externas, completo la fila con las mismas
 		if($this->posee_columnas_ext){
 			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
-			foreach($campos_externos as $id => $valor){
+			foreach($campos_externos as $id => $valor) {
 				$fila[$id] = $valor;
 			}
 		}
-		$this->datos[$this->proxima_fila] = $fila;
-		$this->registrar_cambio($this->proxima_fila,"i");
-		$id = $this->proxima_fila++;
-		//Si hay un padre, aviso a la relacion que tiene que crear un macheo
-		if(isset($padre)){
-				
+		
+		//Se le asigna un id a la fila
+		$id_nuevo = $this->proxima_fila;	
+		
+		//Se notifica a las relaciones del alta
+		foreach ($this->relaciones_con_padres as $padre => $relacion) {
+			$id_padre = null;
+			if (isset($ids_padres[$padre])) {
+				$id_padre = $ids_padres[$padre];
+			}
+			$relacion->asociar_fila_con_padre($id_nuevo, $id_padre);
 		}
-		return $id;
+		
+		//Se agrega la fila
+		$this->datos[$id_nuevo] = $fila;
+		$this->registrar_cambio($id_nuevo,"i");
+		$this->proxima_fila++;
+		
+		return $id_nuevo;
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
-	 * Modifica una fila del tabla en memoria
+	 * Modifica una fila de la tabla en memoria
 	 *
 	 * @param mixed $id Id. interno de la fila a modificar
 	 * @param array $fila Contenido de la fila, puede ser incompleto
@@ -519,6 +585,12 @@ class objeto_datos_tabla extends objeto
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila, $id);
 		$this->notificar_contenedor("pre_modificar", $fila, $id);
+		
+		//Se actualizan los cambios en la relación
+		foreach ($this->relaciones_con_padres as $rel_padre) {
+			$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
+		}
+		
 		/*
 			Como los campos externos pueden necesitar una campo que no entrego la
 			interface, primero actualizo los valores y despues tomo la fila y la
@@ -541,8 +613,31 @@ class objeto_datos_tabla extends objeto
 		$this->notificar_contenedor("post_modificar", $fila, $id);
 		return $id;
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * Cambia la asociación de una fila con sus padres
+	 *
+	 * @param mixed $id_fila 
+	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parámetros
+	 * 				El resto de los padres sigue con la asociación anterior
+	 */
+	function cambiar_padre_fila($id_fila, $nuevos_padres)
+	{
+		$id = $this->normalizar_id($id_fila);		
+		if (!$this->existe_fila($id)){
+			$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe un registro con el INDICE indicado ($id)";
+			toba::get_logger()->error($mensaje);
+			throw new excepcion_toba($mensaje);
+		}
+		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
+			if (!isset($this->relaciones_con_padres[$tabla_padre])) {
+				$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe una relación padre $tabla_padre.";
+				throw new excepcion_toba($mensaje);
+			}
+			$this->relaciones_con_padres[$tabla_padre]->cambiar_padre($id_fila, $id_padre);
+		}
+	}
+	
 	/**
 	 * Elimina una fila de la tabla en memoria
 	 *
@@ -553,11 +648,18 @@ class objeto_datos_tabla extends objeto
 	{
 		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
-			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
+			$mensaje = $this->get_txt() . " ELIMINAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
 		$this->notificar_contenedor("pre_eliminar", $id);
+		//Se notifica la eliminación a las relaciones
+		foreach ($this->relaciones_con_hijos as $rel) {
+			$rel->evt__eliminacion_fila_padre($id);
+		}
+		foreach ( $this->relaciones_con_padres as $rel) {
+			$rel->evt__eliminacion_fila_hijo($id);			
+		}
 		if($this->cambios[$id]['estado']=="i"){
 			unset($this->cambios[$id]);
 			unset($this->datos[$id]);
@@ -567,10 +669,9 @@ class objeto_datos_tabla extends objeto
 		$this->notificar_contenedor("post_eliminar", $id);
 		return $id;
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
-	 * Elimina todas las filas de la tabla en memoria
+	 * Elimina todas las filas de la tabla en memoria, sin tener en cuenta los cursores de los padres
 	 */
 	function eliminar_filas()
 	{
@@ -586,7 +687,6 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
 	 * Cambia el valor de una columna de una fila especifica
@@ -610,7 +710,6 @@ class objeto_datos_tabla extends objeto
 			throw new excepcion_toba("La fila '$id' no es valida");
 		}
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
 	 * Cambia el valor de una columna en todas las filas
@@ -626,7 +725,6 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 	}
-	//-------------------------------------------------------------------------------
 
 	/**
 	 * Procesa los cambios masivos de filas
@@ -664,52 +762,38 @@ class objeto_datos_tabla extends objeto
 	}
 
 	//-------------------------------------------------------------------------------
-	// Simplificacion para los casos en que se utiliza una sola fila
+	//-- Simplificación sobre una sola línea
+	//-------------------------------------------------------------------------------
 
 	/**
-	 * Fija un cursor interno en una fila
-	 *
-	 * @param mixed $id Id. interno de la fila
-	 */
-	function set_fila_actual($id)
-	{
-		$id = $this->normalizar_id($id);
-		if( $this->existe_fila($id) ){
-			$this->fila_actual = $id;	
-		}else{
-			throw new excepcion_toba($this->get_txt() . "La fila '$id' no es valida");
-		}
-	}
-	
-	/**
-	 * @return mixed Id. interno de la fila donde se encuentra actualmente el cursor interno
-	 */
-	function get_fila_actual()
-	{
-		return $this->fila_actual;	
-	}
-		
-	/**
 	 * Cambia el contenido de la fila donde se encuentra el cursor interno
-	 * En caso que no existan filas, se crea una nueva
+	 * En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella
 	 *
 	 * @param array $fila Contenido total o parcial de la fila
 	 */
 	function set($fila)
 	{
-		if($this->get_cantidad_filas() === 0){
-			$this->nueva_fila($fila);
-		}else{
-			$this->modificar_fila($this->fila_actual, $fila);
+		if($this->hay_cursor()){
+			$this->modificar_fila($this->get_cursor(), $fila);
+		} else {
+			$id = $this->nueva_fila($fila);
+			$this->set_cursor($id);
 		}
 	}
 	
 	/**
 	 * Retorna el contenido de la fila donde se encuentra posicionado el cursor interno
+	 * En caso de que no haya registros retorna NULL
 	 */
 	function get()
 	{
-		return $this->get_fila($this->fila_actual);
+		if ($this->get_cantidad_filas() == 0) {
+			return null;
+		} elseif ($this->hay_cursor()) {
+			return $this->get_fila($this->get_cursor());
+		} else {
+			throw new excepcion_toba("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+		}
 	}
 
 	//-------------------------------------------------------------------------------
@@ -739,10 +823,9 @@ class objeto_datos_tabla extends objeto
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
 			if( !(isset($this->columnas[$campo]))  ){
-				$this->log("El registro tiene una estructura incorrecta: El campo '$campo' ". 
-						" no forma parte de la DEFINICION.");
-				//toba::get_logger()->debug( debug_backtrace() );
-				throw new excepcion_toba("ERROR: La FILA ingresada posee una estructura incorrecta");
+				$mensaje = $this->get_txt() . get_class($this)." El registro tiene una estructura incorrecta: El campo '$campo' ". 
+						" no forma parte de la DEFINICION.";
+				toba::get_logger()->warning($mensaje);
 			}
 		}
 	}
@@ -885,6 +968,11 @@ class objeto_datos_tabla extends objeto
 	{
 		return $this->get_persistidor()->cargar_por_clave($clave);
 	}
+	
+	function esta_cargada()
+	{
+		return $this->cargada;
+	}
 
 	/**
 	 * Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)
@@ -910,8 +998,14 @@ class objeto_datos_tabla extends objeto
 		$this->generar_estructura_cambios();
 		//Actualizo la posicion en que hay que incorporar al proximo registro
 		$this->proxima_fila = count($this->datos);
-		//Disparo la actulizacion con las tablas hijas
-		$this->notificar_hijos_carga();
+		//Marco la tabla como cargada
+		$this->cargada = true;
+		//Si es una unica fila se pone como cursor de la tabla
+		if (count($datos) == 1) {
+			$this->cursor = 0;
+		}
+		//Disparo la actulizacion de los mapeos con las tablas padres
+		$this->notificar_padres_carga();
 	}
 	
 	/**
@@ -935,13 +1029,22 @@ class objeto_datos_tabla extends objeto
 	/**
 	 * Elimina todas las filas de la tabla en memoria y sincroniza con el medio de persistencia
 	 */
-	function eliminar()
+	function eliminar_todo()
 	{
-		//Elimino a mis hijos
-		$this->notificar_hijos_eliminacion();
 		//Me elimino a mi
 		$this->eliminar_filas();
-		$this->get_persistidor()->eliminar();
+		//Sincronizo con la base
+		$this->get_persistidor()->sincronizar_eliminados();
+		$this->resetear();
+	}
+	
+	/**
+	 * @deprecated Desde 0.8.4, usar eliminar_todo()
+	 */
+	function eliminar()
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
+		$this->eliminar_todo();	
 	}
 
 	/**
@@ -956,6 +1059,10 @@ class objeto_datos_tabla extends objeto
 		$this->proxima_fila = 0;
 		$this->where = null;
 		$this->from = null;
+		foreach ($this->relaciones_con_hijos as $rel_hijo) {
+			$rel_hijo->resetear();	
+		}
+		$this->resetear_cursor();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -979,7 +1086,6 @@ class objeto_datos_tabla extends objeto
 	function notificar_fin_sincronizacion()
 	{
 		$this->regenerar_estructura_cambios();
-		$this->notificar_hijos_sincronizacion();
 	}
 
 	/*--- De mi al AP ---*/
@@ -1017,9 +1123,18 @@ class objeto_datos_tabla extends objeto
 		return $this->info_estructura['tabla'];
 	}
 
+	/**
+	 * Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla
+	 */
 	function get_alias()
 	{
-		return $this->info_estructura['alias'];
+		if (isset($this->info_estructura['alias'])) {
+			return $this->info_estructura['alias'];	
+		} elseif (isset($this->nombre_rol)) {
+			return $this->nombre_rol;
+		} else {
+			return $this->get_tabla();
+		}
 	}
 
 	function posee_columnas_externas()

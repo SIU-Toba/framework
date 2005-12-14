@@ -1078,6 +1078,7 @@ CREATE TABLE apex_objeto_dependencias
 	parametros_b						varchar(255)		NULL,
 	parametros_c						varchar(255)		NULL,
 	inicializar							smallint			NULL,
+	orden								smallint			NULL,
 	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","dep_id"),
 --	CONSTRAINT	"apex_objeto_depen_pk"	 PRIMARY	KEY ("proyecto","objeto_consumidor","identificador"),
 	CONSTRAINT	"apex_objeto_depen_uq"	 UNIQUE  ("proyecto","objeto_consumidor","identificador"),

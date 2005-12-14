@@ -31,6 +31,7 @@ class ap_tabla_db implements ap_tabla
 	protected $fuente;							// DATOS_TABLA: Fuente de datos
 	protected $secuencias;
 	protected $columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
+	protected $sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
 	//-------------------------------
 	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $baja_logica_columna;				// Columna de la baja logica
@@ -43,6 +44,7 @@ class ap_tabla_db implements ap_tabla
 	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	//-------------------------------
 
+	
 	/**
 	 * @param objeto_datos_tabla $datos_tabla Tabla que persiste
 	 */
@@ -187,7 +189,8 @@ class ap_tabla_db implements ap_tabla
 		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
 		return $this->cargar_por_clave($clave);	
 	}
-
+	
+	
 	/**
 	 * Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla
 	 *
@@ -197,21 +200,36 @@ class ap_tabla_db implements ap_tabla
 	public function cargar_por_clave($clave)
 	{
 		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
-		$where = $this->generar_clausula_where_lineal($clave);
-		return $this->cargar_con_where_from($where);
+		$where = $this->generar_clausula_where($clave);
+		return $this->cargar_con_where_from_especifico($where);
+	}
+
+
+	/**
+	 * Carga el datos_tabla asociaciado a partir de una clausula where
+	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
+	 * @return boolean Falso si no se encontro ningun registro
+	 */
+	function cargar_con_where($clausula)
+	{
+		$where_basico = $this->generar_clausula_where();
+		if (trim($clausula) != '') {
+			$where_basico[] = $clausula;
+		}
+		return $this->cargar_con_where_from_especifico($where_basico);
 	}
 
 	/**
-	 * Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas
+	 * Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas, el entorno no incide en ellas
  	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_con_where_from($where=null, $from=null)
+	public function cargar_con_where_from_especifico($where=null, $from=null)
 	{
-		asercion::es_array_o_null($where,"AP [$this->tabla] El WHERE debe ser un array");
-		asercion::es_array_o_null($from,"AP [$this->tabla] El FROM debe ser un array");
+		asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
+		asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
 		$this->log("Cargar de DB");
 		$sql = $this->generar_sql_select($where, $from);
 		return $this->cargar_con_sql($sql);
@@ -224,7 +242,7 @@ class ap_tabla_db implements ap_tabla
 	 */
 	public function cargar_con_sql($sql)
 	{
-		$this->log("SQL de carga - " . $sql); 
+		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
 			$db = toba::get_db($this->fuente);			
 			$datos = $db->consultar($sql);
@@ -238,7 +256,7 @@ class ap_tabla_db implements ap_tabla
 	
 	/**
 	 * Carga el datos_tabla asociado CON un conjunto de datos especifico
-	 * @param array $datos Datos a cargar en {@link http://toba.siu.edu.ar/trac/wiki/API/RecordSet formato RecordSet}. No incluye las columnas externas.
+	 * @param array $datos Datos a cargar en formato RecordSet. No incluye las columnas externas.
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
@@ -277,80 +295,99 @@ class ap_tabla_db implements ap_tabla
 	//-------------------------------------------------------------------------------
 	
 	/**
-	 * Sincroniza los cambios en los registros con la base de datos
+	 * Sincroniza los cambios en los registros de esta tabla con la base de datos
+	 * Sólo se utiliza cuando la tabla no está involucrada en algun datos_relacion, sino 
+	 * la sincronización es guiada por ese objeto
 	 * @return integer Cantidad de registros modificados
 	 */
 	public function sincronizar()
 	{
 		$this->log("Inicio SINCRONIZAR");
-		$modificaciones = $this->actualizar_estado_db();
-		//Seteo en la TABLA los datos generados durante la sincronizacion
-		$this->actualizar_columnas_predeterminadas_db();
-		//Regenero la estructura que mantiene los cambios realizados
-		$this->objeto_tabla->notificar_fin_sincronizacion();
-		$this->log("Fin SINCRONIZAR: $modificaciones."); 
-		return $modificaciones;
-	}	
-	
-	/**
-	 * Sincronización a nivel de inserts, updates y deletes con la base de datos
-	 */
-	private function actualizar_estado_db()
-	{
-		$this->get_estado_datos_tabla();
-		//$this->controlar_alteracion_db();
-		// No puedo ejecutar los cambios en cualguier orden
-		// Necesito ejecutar primero los deletes, por si el usuario borra algo y despues inserta algo igual
-		$inserts = array(); $deletes = array();	$updates = array();
-		foreach(array_keys($this->cambios) as $registro){
-			switch($this->cambios[$registro]['estado']){
-				case "d":
-					$deletes[] = $registro;
-					break;
-				case "i":
-					$inserts[] = $registro;
-					break;
-				case "u":
-					$updates[] = $registro;
-					break;
-			}
-		}
 		try{
 			if($this->utilizar_transaccion) abrir_transaccion($this->fuente);
-			$this->evt__pre_sincronizacion();
+			$this->evt__pre_sincronizacion();		
 			$modificaciones = 0;
-			//-- DELETE --
-			foreach($deletes as $registro){
+			$modificaciones += $this->sincronizar_eliminados();
+			$modificaciones += $this->sincronizar_insertados();
+			$modificaciones += $this->sincronizar_actualizados();
+			//Regenero la estructura que mantiene los cambios realizados
+			$this->objeto_tabla->notificar_fin_sincronizacion();
+			$this->evt__post_sincronizacion();
+			$this->log("Fin SINCRONIZAR: $modificaciones."); 
+			return $modificaciones;
+		} catch(excepcion_toba $e) {
+			if($this->utilizar_transaccion) abortar_transaccion($this->fuente);
+			toba::get_logger()->debug($e);
+			throw new excepcion_toba($e->getMessage());
+		}		
+	}		
+	
+	
+	/**
+	 * Sincroniza con la BD los registros borrados en esta tabla
+	 * @return integer Cantidad de modificaciones a la base
+	 */
+	function sincronizar_eliminados()
+	{
+		$this->get_estado_datos_tabla();
+		$modificaciones = 0;
+		foreach(array_keys($this->cambios) as $registro){
+			if ($this->cambios[$registro]['estado'] == 'd') {
 				$this->evt__pre_delete($registro);
 				$this->eliminar_registro_db($registro);
 				$this->evt__post_delete($registro);
 				$modificaciones ++;
 			}
-			//-- INSERT --
-			foreach($inserts as $registro){
+		}
+		return $modificaciones;
+	}
+	
+	
+	/**
+	 * Sincroniza con la BD aquellos registros que suponen altas
+	 * @return integer Cantidad de modificaciones a la base
+	 */
+	function sincronizar_insertados()
+	{
+		$this->get_estado_datos_tabla();
+		$modificaciones = 0;
+		foreach(array_keys($this->cambios) as $registro){
+			if ($this->cambios[$registro]['estado'] == "i") {
 				$this->evt__pre_insert($registro);
 				$this->insertar_registro_db($registro);
 				$this->evt__post_insert($registro);
 				$modificaciones ++;
 			}
-			//-- UPDATE --
-			foreach($updates as $registro){
+		}
+		//Seteo en la TABLA los datos generados durante la sincronizacion
+		$this->actualizar_columnas_predeterminadas_db();
+		return $modificaciones;
+	}
+	
+
+	/**
+	 * Sincroniza con la BD aquellos registros que suponen actualizaciones
+	 * @return integer Cantidad de modificaciones a la base
+	 */
+	function sincronizar_actualizados()
+	{
+		$this->get_estado_datos_tabla();
+		$modificaciones = 0;
+		foreach(array_keys($this->cambios) as $registro){
+			if ($this->cambios[$registro]['estado'] == 'u') {
 				$this->evt__pre_update($registro);
 				$this->modificar_registro_db($registro);
 				$this->evt__post_update($registro);
 				$modificaciones ++;
 			}
-			$this->evt__post_sincronizacion();
-			if($this->utilizar_transaccion) cerrar_transaccion($this->fuente);
-			return $modificaciones;
-		}catch(excepcion_toba $e){
-			if($this->utilizar_transaccion) abortar_transaccion($this->fuente);
-			toba::get_logger()->debug($e);
-			throw new excepcion_toba($e->getMessage());
 		}
+		return $modificaciones;
+	}	
 
-	}
-
+	//-------------------------------------------------------------------------------
+	//------  COMANDOS DE SINCRO------------------------------------------------------
+	//-------------------------------------------------------------------------------
+	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
 	 */
@@ -467,21 +504,6 @@ class ap_tabla_db implements ap_tabla
 	protected function evt__post_delete($id){}
 
 	//-------------------------------------------------------------------------------
-	//------  ELIMINAR  -------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	
-	/**
-	 * Elimina físicamente los registros de esta tabla
-	 * En una base de datos, esto implica borrar cada uno de los registros
-	 */
-	public function eliminar()
-	{
-		$this->log("Inicio ELIMINAR");
-		$this->actualizar_estado_db();
-		$this->log("Fin ELIMINAR");
-	}	
-
-	//-------------------------------------------------------------------------------
 	//------ Servicios SQL   --------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
@@ -493,6 +515,7 @@ class ap_tabla_db implements ap_tabla
 		ejecutar_sql( $sql, $this->fuente);			
 	}
 
+	
 	/**
 	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
@@ -506,6 +529,7 @@ class ap_tabla_db implements ap_tabla
 		} else {
 			$tabla_alias = "";	
 		}
+		$clausula = array();
 		foreach($clave as $columna => $valor) {
 			if( tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ) {
 				$clausula[] = "( $tabla_alias" . "$columna = $valor )";
@@ -514,6 +538,45 @@ class ap_tabla_db implements ap_tabla
 			}
 		}
 		return $clausula;
+	}	
+	
+	/**
+	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
+	 * y las asociaciones con los padres
+	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
+	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
+	 * @return array Clausulas where
+	 */
+	function generar_clausula_where($clave=array())
+	{
+		$clausula = $this->generar_clausula_where_lineal($clave, true);
+		//Si la tabla tiene relaciones con padres
+		//Se hace un subselect con los campos relacionados
+		$padres = $this->objeto_tabla->get_relaciones_con_padres();
+		foreach ($padres as $rel_padre) {
+			$clausula[] = $this->generar_clausula_subselect($rel_padre->tabla_padre()->get_persistidor(), 
+												$rel_padre->get_mapeo_campos());
+
+		}
+		return $clausula;
+	}
+
+	/**
+	 * Retorna una clausula where restringiendo los campos relacionados según un select de una tabla padre
+	 */
+	protected function generar_clausula_subselect($persistidor_padre, $mapeo_campos)
+	{
+		//Campos a comparar con el subselect
+		$where_subselect = '(';
+		foreach ($mapeo_campos as $campo) {
+			$where_subselect .= $this->alias . '.' . $campo . ', ';
+		}
+		$where_subselect = substr($where_subselect, 0, -2);	//Elimina la ultima coma
+				
+		$subselect = $persistidor_padre->get_sql_de_carga(array_keys($mapeo_campos));
+		$subselect = str_replace("\n", "\n\t\t", $subselect);
+		$where_subselect .= ") IN (\n\t\t$subselect )";
+		return $where_subselect;
 	}
 	
 	/**
@@ -521,27 +584,48 @@ class ap_tabla_db implements ap_tabla
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 * @return string Consulta armada
 	 */
-	protected function generar_sql_select($where=null, $from=null)
+	protected function generar_sql_select($where=array(), $from=null, $columnas=null)
 	{
-		foreach($this->columnas as $col){
-			if(!$col['externa']){
-				$columnas[] = $this->tabla  . "." . $col['columna'];
+		//Si no se explicitan las columnas, se asume que son todas
+		if (!isset($columnas)) {
+			$columnas = array();
+			foreach ($this->columnas as $col) {
+				if(!$col['externa']) {
+					$columnas[] = $this->alias  . "." . $col['columna'];
+				}
 			}
 		}
-		$sql =	" SELECT	" . implode(", \n",$columnas); 
-		if(isset($this->alias)){	
-			$sql .= "\n FROM "	. $this->tabla  . " " . $this->alias;
-		}else{
-			$sql .= "\n FROM "	. $this->tabla;
+		//Si no se explicitan los from se asume que es la tabla local
+		if (!isset($from)) {
+			$from = array($this->tabla . ' as '. $this->alias);
 		}
-		if(isset($from)){
-			$sql .= ", " . implode(",",$from);
+
+		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas); 
+		$sql .= "\nFROM\n\t" . implode(", ", $from);
+		if(! empty($where)) {
+			$sql .= "\nWHERE";
+			foreach ($where as $clausula) {
+				$sql .= "\n\t$clausula AND";
+			}
+			$sql = substr($sql, 0, -4); 	//Se saca el ultimo AND
 		}
-		if(isset($where)){
-			$sql .= "\n WHERE " .	implode("\n AND ",$where) .";";
-		}
+		//Se guardan los datos de la carga
+		$this->sql_carga = array('from' => $from, 'where' => $where);
 		return $sql;
 	}	
+	
+	/**
+	 * Retorna la sentencia sql utilizada previamente para la carga de esta tabla, pero seleccionando solo algunos campos
+	 * @param array $campos Columnas que se traen de la carga
+	 */
+	function get_sql_de_carga($campos)
+	{
+		if (isset($this->sql_carga)) {
+			return $this->generar_sql_select($this->sql_carga['where'], $this->sql_carga['from'], $campos);
+		} else {
+			throw new excepcion_toba("AP-TABLA Db: La tabla no ha sido cargada anteriormente");
+		}
+	}
 	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
@@ -583,6 +667,7 @@ class ap_tabla_db implements ap_tabla
 	{
 		$registro = $this->datos[$id_registro];
 		//Genero las sentencias de la clausula SET para cada columna
+		$set = array();
 		foreach($this->columnas as $columna){
 			$col = $columna['columna'];
 			//columna modificable: no es secuencia, no es extena, no es PK 
@@ -601,7 +686,7 @@ class ap_tabla_db implements ap_tabla
 				}
 			}
 		}
-		if(!is_array($set)){
+		if(empty($set)){
 			toba::get_logger()->info('AP - datos_tabla: No hay campos para hacer el UPDATE');
 			return null;	
 		}

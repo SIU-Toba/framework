@@ -710,9 +710,9 @@ class ef_combo_lista extends ef_combo
 {
 	static function get_parametros()
 	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		$parametros[""]["etiqueta"]="";	
+		$parametros["lista"]["descripcion"]="a lista representada como un STRING con los elementos separados por COMAS";
+		$parametros["lista"]["opcional"]=1;	
+		$parametros["lista"]["etiqueta"]="Lista";	
 		return $parametros;
 	}
 
@@ -721,12 +721,13 @@ class ef_combo_lista extends ef_combo
 		if(isset($parametros["lista"])){
 			$temp = explode(",",$parametros["lista"]);
 			foreach($temp as $t){
+				$t = trim($t);
 				$parametros["valores"][$t] = $t;
 			}
 		}else{
 			$parametros["valores"] = array();
 		}
-		 unset($parametros["lista"]);//Este valor no significa nada para el padre
+		unset($parametros["lista"]);//Este valor no significa nada para el padre
 		parent::ef_combo($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 }

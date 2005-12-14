@@ -3,43 +3,6 @@ require_once("tp_basico.php");
 
 class tp_normal extends tp_basico
 {
-	function encabezado()
-	{
-		$this->cabecera_html();
-		$this->comienzo_cuerpo();
-		$this->barra_superior();
-	}
-	
-	function pie()
-	{
-		echo "</BODY>\n";
-		echo "</HTML>\n";
-	}	
-	
-	protected function cabecera_html()
-	{
-		echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
-		echo "<HTML>\n";
-		echo "<HEAD>\n";
-		echo "<title>".$this->titulo_pagina()."</title>\n";
-		$this->plantillas_css();
-		$this->estilos_css();
-		$this->js_basico();
-		echo "</HEAD>\n";
-	}
-	
-	protected function titulo_pagina()
-	{
-		$item = toba::get_solicitud()->get_datos_item();
-		return $item['item_nombre'];
-	}
-
-	protected function plantillas_css()
-	{
-		echo recurso::link_css(apex_proyecto_estilo, "screen");
-		echo recurso::link_css(apex_proyecto_estilo."_impr", "print");		
-	}
-	
 	protected function estilos_css()
 	{
 		global $color_serie;		
@@ -73,13 +36,6 @@ class tp_normal extends tp_basico
 	}
 
 
-	protected function comienzo_cuerpo()
-	{
-		echo "<body onLoad='firstFocus()'>\n";
-		js::cargar_consumos_globales(array('tooltips'));		
-		$this->menu();
-	}
-	
 	protected function menu()
 	{
 		if (defined("apex_pa_menu_archivo")) {

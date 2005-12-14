@@ -64,8 +64,8 @@ CREATE TABLE apex_objeto_db_registros
 --	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(120)		NULL,
-	tabla 							varchar(120)		NULL,
+	ap_archivo						varchar(120)	NULL,
+	tabla 							varchar(120)	NULL,
 	alias 							varchar(60)		NULL,
 	modificar_claves				smallint		NULL,
 --	Fin configuracion del AP
@@ -122,11 +122,15 @@ CREATE TABLE apex_objeto_datos_rel
 (
 	proyecto 		 				varchar(15)		NOT NULL,
 	objeto      	    	 		int4			NOT NULL,
-	clave							varchar(120)		NULL,
+	clave							varchar(60)		NULL,
+	debug							smallint		DEFAULT(0),
 --	Configuracion del AP por defecto
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
-	ap_archivo						varchar(120)		NULL,
+	ap_archivo						varchar(120)	NULL,
+--	Opciones de sincronización
+	sinc_susp_constraints			smallint		DEFAULT(0),
+	sinc_orden_automatico			smallint		DEFAULT(1),
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("proyecto","objeto"),
 	CONSTRAINT  "apex_objeto_datos_rel_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_datos_rel_fk_objeto"  FOREIGN KEY ("proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -149,7 +153,7 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	proyecto 		   			   	varchar(15)			NOT NULL,
 	objeto 		                	int4       			NOT NULL,
 	asoc_id							int4				DEFAULT nextval('"apex_objeto_datos_rel_asoc_seq"'::text) 		NOT NULL, 
-	identificador    				varchar(40)			NOT NULL, 
+	identificador    				varchar(40)			NULL, 
 --	padre --
 	padre_proyecto					varchar(15)			NOT NULL,
 	padre_objeto					int4				NOT NULL,

@@ -1,6 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('admin/db/dao_editores.php');
+require_once('nucleo/persistencia/objeto_datos_relacion.php');
 
 class ci_relaciones extends objeto_ci
 {
@@ -56,6 +57,8 @@ class ci_relaciones extends objeto_ci
 		$ei[] = "relaciones_lista";
 		if( $this->mostrar_detalle_relacion() ){
 			$ei[] = "relaciones_columnas";
+		} else {
+			$ei[] = "relaciones_esquema";	
 		}
 		return $ei;	
 	}
@@ -149,11 +152,22 @@ class ci_relaciones extends objeto_ci
 					break;	
 			}
 		}
+		//Se buscan ciclos
+		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
+		$relaciones = $this->get_tabla()->get_filas();
+		$hay_ciclos = objeto_datos_relacion::hay_ciclos($tablas, $relaciones);
+		if ($hay_ciclos) {
+			$this->informar_msg("El esquema de relaciones actual contiene ciclos. ".
+								"En un esqema con ciclos el mecanismo de sincronización no puede" .
+								" encontrar un orden de sincronización sin violar las constraints de la BD. ".
+								 " El mecanismo de persistencia necesita deshabilitarlas hasta el final de la transacción."
+								 , "info");
+		}
 		//ei_arbol($tabla->get_filas(),"FILAS");
 	}
 	
 	function evt__relaciones_lista__carga()
-	{
+	{	
 		if($datos_tabla = $this->get_tabla()->get_filas() )
 		{
 			for($a=0;$a<count($datos_tabla);$a++){
@@ -199,7 +213,6 @@ class ci_relaciones extends objeto_ci
 		if(isset( $relacion_activa['hijo_clave'] )){
 			$this->rel_activa_hijo_claves = explode(",",$relacion_activa['hijo_clave']);
 		}
-		//ei_arbol($relacion_activa);
 	}
 
 	function get_columnas_padre()
@@ -214,30 +227,66 @@ class ci_relaciones extends objeto_ci
 
 	function evt__relaciones_columnas__modificacion($datos)
 	{
-		if(count($datos)>0){
-			for($a=0;$a<count($datos);$a++){
-				$padre_clave[] = $datos[$a]['columnas_padre'];
-				$hijo_clave[] = $datos[$a]['columnas_hija'];
-			}
-			if(count($padre_clave) != count($hijo_clave) ){
-				throw new excepcion_toba_def("La cantidad de claves tiene que ser simetrica");
-			}
-			$fila['padre_clave'] = implode(",",$padre_clave);
-			$fila['hijo_clave'] = implode(",",$hijo_clave);
-			$this->get_tabla()->modificar_fila($this->seleccion_relacion_anterior, $fila);
+		$padre_clave = array();
+		$hijo_clave = array();
+		for($a=0;$a<count($datos);$a++){
+			$padre_clave[] = $datos[$a]['columnas_padre'];
+			$hijo_clave[] = $datos[$a]['columnas_hija'];
 		}
+		if(count($padre_clave) != count($hijo_clave) ){
+			throw new excepcion_toba_def("La cantidad de claves tiene que ser simetrica");
+		}
+		$fila['padre_clave'] = implode(",",$padre_clave);
+		$fila['hijo_clave'] = implode(",",$hijo_clave);
+		$this->get_tabla()->modificar_fila($this->seleccion_relacion_anterior, $fila);
+	}
+	
+	function evt__relaciones_columnas__aceptar($datos)
+	{
+		$this->evt__relaciones_columnas__modificacion($datos);
+		$this->evt__relaciones_columnas__cancelar();
+	}
+	
+	function evt__relaciones_columnas__cancelar()
+	{
+		$this->limpiar_seleccion();
 	}
 	
 	function evt__relaciones_columnas__carga()
 	{
 		$datos = array();
 		$this->seleccion_relacion_anterior = $this->seleccion_relacion;
-		for($a=0;$a<count($this->rel_activa_hijo_claves);$a++){
-			$datos[$a]['columnas_padre'] = $this->rel_activa_padre_claves[$a];
-			$datos[$a]['columnas_hija'] = $this->rel_activa_hijo_claves[$a];
+		for($a=0;$a<count($this->rel_activa_hijo_claves);$a++) {
+			if ($this->rel_activa_padre_claves[$a] != '') {
+				$datos[$a]['columnas_padre'] = $this->rel_activa_padre_claves[$a];
+			}
+			if ($this->rel_activa_hijo_claves[$a] != '') {
+				$datos[$a]['columnas_hija'] = $this->rel_activa_hijo_claves[$a];
+			}
 		}
-		return $datos;		
+		return $datos;
 	}
+
 	//-------------------------------------------------------------------------------------
+	//---- ESQUEMA de la RELACION
+	//-------------------------------------------------------------------------------------
+	
+	function evt__relaciones_esquema__carga()
+	{
+		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
+		$relaciones = $this->get_tabla()->get_filas();
+		$grafo = objeto_datos_relacion::grafo_relaciones($tablas, $relaciones);
+		$diagrama = "digraph G { \n";
+		foreach ($grafo->getNodes() as $nodo) {
+			$datos = $nodo->getData();
+			$diagrama .=  $datos['identificador']."\n";	
+			foreach ($nodo->getNeighbours() as $nodo_vecino) {
+				$datos_vecino = $nodo_vecino->getData();
+				$diagrama .= $datos['identificador'] . " -> " . $datos_vecino['identificador'] . "\n";
+			}
+		}
+		$diagrama .= "}";
+		return $diagrama;
+	}
 }
 ?>

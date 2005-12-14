@@ -3,7 +3,7 @@
      *	base include file for SimpleTest
      *	@package	SimpleTest
      *	@subpackage	UnitTester
-     *	@version	$Id: scorer.php,v 1.4 2005/01/11 04:03:46 lastcraft Exp $
+     *	@version	$Id: scorer.php,v 1.5 2005/05/07 22:51:25 lastcraft Exp $
      */
     
     /**
@@ -202,7 +202,7 @@
          *    @param mixed $payload      Message or object.
          *    @access public
          */
-        function paintSignal($type, &$payload) {
+        function paintSignal($type, $payload) {
         }
     }
 

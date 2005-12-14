@@ -3,8 +3,6 @@ require_once("ap.php");
 
 /**
  * 	Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
- * 	@todo Hay que cambiar el editor de relaciones para que las claves se emparejen posicionalmente	(Hay que poner un ML por cada relacion)
- *  @todo Cada TABLA tiene una clave de carga (relacion con el ancestro) y una para relacionarse con los hijos. En las tablas raiz, las don son la misma
  * 	@package Objetos
  *  @subpackage Persistencia
  */
@@ -65,27 +63,51 @@ class ap_relacion_db implements ap_relacion
 	}
 	
 	/**
-	 * Se cargan las tablas RAIZ y de ahí en más se cargan las demás a travez de las RELACIONES
-	 * El formato de la clave del DR ($clave) tiene que ser consitente con las claves de las tablas raiz
-	 * Hay que hacer una correspondencia posicional de la "clave" del DR con las claves hacia hijos de las tablas raiz 
-	 * (porque en ellas se cumple que la clave del link y la propia son iguales)
-	 * @param array $clave
-	 * @return boolean Falso si no se cargo una tabla raiz
+	 * Se cargan las tablas de la relación restringiendo por las claves de las tablas raiz
+	 * @param array $clave Asociativo campo=>valor correspondientes a campos de la(s) tabla(s) raiz
+	 * @return boolean Verdadero si al menos se carga una tabla
 	 */
 	public function cargar_por_clave($clave)
 	{
 		asercion::es_array($clave,"AP objeto_datos_relacion -  ERROR: La clave debe ser un array");
+		$this->objeto_relacion->resetear();		
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
-		if(is_array($tablas_raiz)){
-			foreach( $tablas_raiz as $tabla ){
-				if( $this->objeto_relacion->tabla($tabla)->cargar( $clave ) !== true ){
-					//No se cargo una tabla raiz, cancelo el proceso
-					return false;
-				}
+		$tablas = $this->objeto_relacion->orden_carga();		
+		$ok = false;
+		foreach ($tablas as $id_tabla => $tabla) {
+			if (in_array($id_tabla, $tablas_raiz)) {
+				//Si es una tabla raiz se le restringue por los campos pasados
+				$res = $tabla->get_persistidor()->cargar_por_clave($clave);
+			} else {
+				//Sino se hace una carga común (en base a las cargas de los padres)
+				$res = $tabla->get_persistidor()->cargar_por_clave(array());
 			}
-			$this->cargado = true;
+			$ok = $ok || $res;
 		}
-		return true;
+		$this->cargado = $ok;
+		return $ok;
+	}
+	
+	/**
+	 * Carga las tablas de la relación especificando wheres particulares para las distintas tablas
+	 * @param array $wheres Arreglo id_tabla => condicion
+	 * @return boolean Verdadero si al menos se carga una tabla
+	 */
+	function cargar_con_wheres($wheres)
+	{
+		$this->objeto_relacion->resetear();
+		$tablas = $this->objeto_relacion->orden_carga();		
+		$ok = false;
+		foreach ($tablas as $id_tabla => $tabla) {
+			if (isset($wheres[$id_tabla])) {
+				$res = $tabla->get_persistidor()->cargar_con_where($wheres[$id_tabla]);
+			} else {
+				$res = $tabla->get_persistidor()->cargar_por_clave(array());
+			}
+			$ok = $ok || $res;
+		}
+		$this->cargado = $ok;
+		return $ok;
 	}
 
 	public function esta_cargado()
@@ -127,12 +149,24 @@ class ap_relacion_db implements ap_relacion
 	 */
 	protected function proceso_sincronizacion()
 	{
-		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
-		if(is_array($tablas_raiz)){
-			foreach( $tablas_raiz as $tabla ){
-				$this->objeto_relacion->tabla($tabla)->sincronizar();
-			}
+		$tablas = $this->objeto_relacion->orden_sincronizacion();
+
+		//-- [1] Se sincroniza las operaciones de eliminación, en orden inverso
+		foreach (array_reverse($tablas) as $tabla) {
+			$tabla->get_persistidor()->sincronizar_eliminados();
+		}		
+		
+		//-- [2] Se sincroniza las operaciones de actualizacion (insert)
+		foreach ($tablas as $tabla) {
+			$tabla->get_persistidor()->sincronizar_insertados();
+			$tabla->notificar_hijos_sincronizacion();
 		}
+		
+		//-- [3] Se sincroniza las operaciones de actualizacion (update)
+		foreach ($tablas as $tabla) {
+			$tabla->get_persistidor()->sincronizar_actualizados();
+			$tabla->notificar_hijos_sincronizacion();
+		}		
 	}
 	
 	/**
@@ -155,13 +189,15 @@ class ap_relacion_db implements ap_relacion
 	 * Elimina cada elemento de las tabla de la relación y luego sincroniza con la base
 	 * Todo el proceso se ejecuta dentro de una transacción, si se definio así
 	 */
-	public function eliminar()
-	//
+	public function eliminar_todo()
 	{
 		$fuente = $this->objeto_relacion->get_fuente();		
-		try{
+		try {
 			if ($this->utilizar_transaccion) {
 				abrir_transaccion($fuente);
+				if ($this->retrazar_constraints) {
+					toba::get_db($fuente)->retrazar_constraints();
+				}
 			}
 			$this->evt__pre_eliminacion();
 			$this->eliminar_plan();
@@ -169,26 +205,22 @@ class ap_relacion_db implements ap_relacion
 			if ($this->utilizar_transaccion) {
 				cerrar_transaccion($fuente);
 			}
-		}catch(excepcion_toba $e){
+		} catch(excepcion_toba $e) {
 			if($this->utilizar_transaccion) {
 				abortar_transaccion($fuente);
 			}
 			toba::get_logger()->debug($e);
 			throw new excepcion_toba($e->getMessage());
-		}		
+		}
 	}
 
-	/**
-	 * Por defecto supone una relacion MAESTRO-DETALLE
-	 */
 	protected function eliminar_plan()
 	{
-		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
-		if(is_array($tablas_raiz)){
-			foreach( $tablas_raiz as $tabla ){
-				$this->objeto_relacion->tabla($tabla)->eliminar();
-			}
-		}
+		$tablas = $this->objeto_relacion->orden_sincronizacion();		
+		//-- Se elimina las tablas, en orden inverso
+		foreach (array_reverse($tablas) as $tabla) {
+			$tabla->eliminar_todo();
+		}	
 	}
 
 	/**

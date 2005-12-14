@@ -3,13 +3,13 @@
      *	Base include file for SimpleTest.
      *	@package	SimpleTest
      *	@subpackage	WebTester
-     *	@version	$Id: web_tester.php,v 1.92 2005/02/22 02:39:22 lastcraft Exp $
+     *	@version	$Id: web_tester.php,v 1.111 2005/09/11 01:34:06 lastcraft Exp $
      */
 
     /**#@+
      *	include other SimpleTest class files
      */
-    require_once(dirname(__FILE__) . '/simple_test.php');
+    require_once(dirname(__FILE__) . '/test_case.php');
     require_once(dirname(__FILE__) . '/browser.php');
     require_once(dirname(__FILE__) . '/page.php');
     require_once(dirname(__FILE__) . '/expectation.php');
@@ -25,11 +25,12 @@
         
         /**
          *    Sets the field value to compare against.
-         *    @param mixed $value        Test value to match.
+         *    @param mixed $value     Test value to match. Can be an
+         *                            expectation for say pattern matching.
          *    @access public
          */
-        function FieldExpectation($value) {
-            $this->SimpleExpectation();
+        function FieldExpectation($value, $message = '%s') {
+            $this->SimpleExpectation($message);
             if (is_array($value)) {
                 sort($value);
             }
@@ -135,8 +136,10 @@
         /**
          *    Sets the field and value to compare against.
          *    @param string $header   Case insenstive trimmed header name.
-         *    @param string $value    Optional value to compare. If not
-         *                            given then any value will match.
+         *    @param mixed $valu e    Optional value to compare. If not
+         *                            given then any value will match. If
+         *                            an expectation object then that will
+         *                            be used instead.
          */
         function HttpHeaderExpectation($header, $value = false) {
             $this->_expected_header = $this->_normaliseHeader($header);
@@ -198,7 +201,7 @@
          *    @access private
          */
         function _testHeaderLine($line) {
-            if (count($parsed = split(':', $line)) < 2) {
+            if (count($parsed = split(':', $line, 2)) < 2) {
                 return false;
             }
             list($header, $value) = $parsed;
@@ -219,6 +222,9 @@
             if ($expected === false) {
                 return true;
             }
+            if (SimpleExpectation::isExpectation($expected)) {
+                return $expected->test(trim($value));
+            }
             return (trim($value) == trim($expected));
         }
         
@@ -230,14 +236,16 @@
          *    @access public
          */
         function testMessage($compare) {
-            $expectation = $this->_expected_header;
-            if ($this->_expected_value) {
-                $expectation .= ': ' . $this->_expected_header;
+            if (SimpleExpectation::isExpectation($this->_expected_value)) {
+                $message = $this->_expected_value->testMessage($compare);
+            } else {
+                $message = $this->_expected_header .
+                        ($this->_expected_value ? ': ' . $this->_expected_value : '');
             }
             if (is_string($line = $this->_findHeader($compare))) {
-                return "Searching for header [$expectation] found [$line]";
+                return "Searching for header [$message] found [$line]";
             } else {
-                return "Failed to find header [$expectation]";
+                return "Failed to find header [$message]";
             }
         }
     }
@@ -248,7 +256,7 @@
 	 *	  @package SimpleTest
 	 *	  @subpackage WebTester
      */
-    class HttpUnwantedHeaderExpectation extends HttpHeaderExpectation {
+    class NoHttpHeaderExpectation extends HttpHeaderExpectation {
         var $_expected_header;
         var $_expected_value;
         
@@ -256,7 +264,7 @@
          *    Sets the field and value to compare against.
          *    @param string $unwanted   Case insenstive trimmed header name.
          */
-        function HttpUnwantedHeaderExpectation($unwanted) {
+        function NoHttpHeaderExpectation($unwanted) {
             $this->HttpHeaderExpectation($unwanted);
         }
         
@@ -286,42 +294,13 @@
             }
         }
     }
-      
-    /**
-     *    Test for a specific HTTP header within a header block.
-	 *	  @package SimpleTest
-	 *	  @subpackage WebTester
-     */
-    class HttpHeaderPatternExpectation extends HttpHeaderExpectation {
-        
-        /**
-         *    Sets the field and value to compare against.
-         *    @param string $header   Case insenstive header name.
-         *    @param string $pattern  Pattern to compare value against.
-         *    @access public
-         */
-        function HttpHeaderPatternExpectation($header, $pattern) {
-            $this->HttpHeaderExpectation($header, $pattern);
-        }
-        
-        /**
-         *    Tests the value part of the header.
-         *    @param string $value        Value to test.
-         *    @param mixed $pattern       Pattern to test against.
-         *    @return boolean             True if matched.
-         *    @access protected
-         */
-        function _testHeaderValue($value, $expected) {
-            return (boolean)preg_match($expected, trim($value));
-        }
-    }
     
     /**
      *    Test for a text substring.
 	 *	  @package SimpleTest
 	 *	  @subpackage UnitTester
      */
-    class WantedTextExpectation extends SimpleExpectation {
+    class TextExpectation extends SimpleExpectation {
         var $_substring;
         
         /**
@@ -330,7 +309,7 @@
          *    @param string $message    Customised message on failure.
          *    @access public
          */
-        function WantedTextExpectation($substring, $message = '%s') {
+        function TextExpectation($substring, $message = '%s') {
             $this->SimpleExpectation($message);
             $this->_substring = $substring;
         }
@@ -395,7 +374,7 @@
 	 *	  @package SimpleTest
 	 *	  @subpackage UnitTester
      */
-    class UnwantedTextExpectation extends WantedTextExpectation {
+    class NoTextExpectation extends TextExpectation {
         
         /**
          *    Sets the reject pattern
@@ -403,8 +382,8 @@
          *    @param string $message    Customised message on failure.
          *    @access public
          */
-        function UnwantedTextExpectation($substring, $message = '%s') {
-            $this->WantedTextExpectation($substring, $message);
+        function NoTextExpectation($substring, $message = '%s') {
+            $this->TextExpectation($substring, $message);
         }
         
         /**
@@ -438,36 +417,6 @@
     }
     
     /**
-     *    Extension that builds a web browser at the start of each
-     *    test.
-	 *    @package SimpleTest
-	 *    @subpackage WebTester
-     */
-    class WebTestCaseInvoker extends SimpleInvokerDecorator {
-        
-        /**
-         *    Takes in the test case and reporter to mediate between.
-         *    @param SimpleTestCase $test_case  Test case to run.
-         *    @param SimpleScorer $scorer       Reporter to receive events.
-         */
-        function WebTestCaseInvoker(&$invoker) {
-            $this->SimpleInvokerDecorator($invoker);
-        }
-        
-        /**
-         *    Builds the browser and runs the test.
-         *    @param string $method    Test method to call.
-         *    @access public
-         */
-        function invoke($method) {
-            $test = &$this->getTestCase();
-            $test->setBrowser($test->createBrowser());
-            parent::invoke($method);
-            $test->unsetBrowser();
-        }
-    }
-    
-    /**
      *    Test case for testing of web pages. Allows
      *    fetching of pages, parsing of HTML and
      *    submitting forms.
@@ -489,13 +438,23 @@
         }
         
         /**
-         *    Sets the invoker to one that restarts the browser on
-         *    each request.
-         *    @return SimpleInvoker        Invoker for each method.
+         *    Announces the start of the test.
+         *    @param string $method    Test method just started.
          *    @access public
          */
-        function &createInvoker() {
-            return new WebTestCaseInvoker(parent::createInvoker());
+        function before($method) {
+            parent::before($method);
+            $this->setBrowser($this->createBrowser());
+        }
+
+        /**
+         *    Announces the end of the test. Includes private clean up.
+         *    @param string $method    Test method just finished.
+         *    @access public
+         */
+        function after($method) {
+            $this->unsetBrowser();
+            parent::after($method);
         }
         
         /**
@@ -536,7 +495,8 @@
          *    @access public
          */
         function &createBrowser() {
-            return new SimpleBrowser();
+            $browser = &new SimpleBrowser();
+            return $browser;
         }
         
         /**
@@ -580,6 +540,14 @@
          */
         function showSource() {
             $this->dump($this->_browser->getContent());
+        }
+      
+        /**
+         *    Dumps the visible text only for debugging.
+         *    @access public
+         */
+        function showText() {
+            $this->dump(wordwrap($this->_browser->getContentAsText(), 80));
         }
         
         /**
@@ -673,15 +641,11 @@
          *    the base URL reflects the new location.
          *    @param string $url          URL to fetch.
          *    @param hash $parameters     Optional additional GET data.
-         *    @return boolean             True on success.
+         *    @return boolean/string      Raw page on success.
          *    @access public
          */
         function get($url, $parameters = false) {
-            $content = $this->_browser->get($url, $parameters);
-            if ($content === false) {
-                return false;
-            }
-            return true;
+            return $this->_browser->get($url, $parameters);
         }
         
         /**
@@ -691,15 +655,11 @@
          *    the base URL reflects the new location.
          *    @param string $url          URL to fetch.
          *    @param hash $parameters     Optional additional GET data.
-         *    @return boolean             True on success.
+         *    @return boolean/string      Raw page on success.
          *    @access public
          */
         function post($url, $parameters = false) {
-            $content = $this->_browser->post($url, $parameters);
-            if ($content === false) {
-                return false;
-            }
-            return true;
+            return $this->_browser->post($url, $parameters);
         }
         
         /**
@@ -825,12 +785,23 @@
         }
         
         /**
+         *    Clicks a visible text item. Will first try buttons,
+         *    then links and then images.
+         *    @param string $label        Visible text or alt text.
+         *    @return string/boolean      Raw page or false.
+         *    @access public
+         */
+        function click($label) {
+            return $this->_browser->click($label);
+        }
+        
+        /**
          *    Clicks the submit button by label. The owning
          *    form will be submitted by this.
          *    @param string $label    Button label. An unlabeled
          *                            button can be triggered by 'Submit'.
          *    @param hash $additional Additional form values.
-         *    @return boolean/string  Page on success.
+         *    @return boolean/string  Page on success, else false.
          *    @access public
          */
         function clickSubmit($label = 'Submit', $additional = false) {
@@ -947,6 +918,40 @@
         }
         
         /**
+         *    Will trigger a pass if the two parameters have
+         *    the same value only. Otherwise a fail. This
+         *    is for testing hand extracted text, etc.
+         *    @param mixed $first          Value to compare.
+         *    @param mixed $second         Value to compare.
+         *    @param string $message       Message to display.
+         *    @return boolean              True on pass
+         *    @access public
+         */
+        function assertEqual($first, $second, $message = "%s") {
+            return $this->assert(
+                    new EqualExpectation($first),
+                    $second,
+                    $message);
+        }
+        
+        /**
+         *    Will trigger a pass if the two parameters have
+         *    a different value. Otherwise a fail. This
+         *    is for testing hand extracted text, etc.
+         *    @param mixed $first           Value to compare.
+         *    @param mixed $second          Value to compare.
+         *    @param string $message        Message to display.
+         *    @return boolean               True on pass
+         *    @access public
+         */
+        function assertNotEqual($first, $second, $message = "%s") {
+            return $this->assert(
+                    new NotEqualExpectation($first),
+                    $second,
+                    $message);
+        }
+        
+        /**
          *    Tests for the presence of a link label. Match is
          *    case insensitive with normalised space.
          *    @param string $label     Text between the anchor tags.
@@ -1007,14 +1012,26 @@
         }
         
         /**
+         *    Sets all form fields with that label, or name if there
+         *    is no label attached.
+         *    @param string $name    Name of field in forms.
+         *    @param string $value   New value of field.
+         *    @return boolean        True if field exists, otherwise false.
+         *    @access public
+         */
+        function setField($label, $value) {
+            return $this->_browser->setField($label, $value);
+        }
+        
+        /**
          *    Sets all form fields with that name.
          *    @param string $name    Name of field in forms.
          *    @param string $value   New value of field.
          *    @return boolean        True if field exists, otherwise false.
          *    @access public
          */
-        function setField($name, $value) {
-            return $this->_browser->setField($name, $value);
+        function setFieldByName($name, $value) {
+            return $this->_browser->setFieldByName($name, $value);
         }
           
         /**
@@ -1041,18 +1058,27 @@
          *    @return boolean           True if pass.
          *    @access public
          */
-        function assertField($name, $expected = true, $message = "%s") {
-            $value = $this->_browser->getField($name);
-            if ($expected === true) {
-                return $this->assertTrue(
-                        isset($value),
-                        sprintf($message, "Field [$name] should exist"));
-            } else {
-                return $this->assertExpectation(
-                        new FieldExpectation($expected),
-                        $value,
-                        sprintf($message, "Field [$name] should match with [%s]"));
-            }
+        function assertField($label, $expected = true, $message = '%s') {
+            $value = $this->_browser->getField($label);
+            return $this->_assertFieldValue($label, $value, $expected, $message);
+        }
+        
+        /**
+         *    Confirms that the form element is currently set
+         *    to the expected value. A missing form element will always
+         *    fail. If no value is given then only the existence
+         *    of the field is checked.
+         *    @param string $name       Name of field in forms.
+         *    @param mixed $expected    Expected string/array value or
+         *                              false for unset fields.
+         *    @param string $message    Message to display. Default
+         *                              can be embedded with %s.
+         *    @return boolean           True if pass.
+         *    @access public
+         */
+        function assertFieldByName($name, $expected = true, $message = '%s') {
+            $value = $this->_browser->getFieldByName($name);
+            return $this->_assertFieldValue($name, $value, $expected, $message);
         }
          
         /**
@@ -1068,18 +1094,33 @@
          *    @return boolean            True if pass.
          *    @access public
          */
-        function assertFieldById($id, $expected = true, $message = "%s") {
+        function assertFieldById($id, $expected = true, $message = '%s') {
             $value = $this->_browser->getFieldById($id);
+            return $this->_assertFieldValue($id, $value, $expected, $message);
+        }
+        
+        /**
+         *    Tests the field value against the expectation.
+         *    @param string $identifier      Name, ID or label.
+         *    @param mixed $value            Current field value.
+         *    @param mixed $expected         Expected value to match.
+         *    @param string $message         Failure message.
+         *    @return boolean                True if pass
+         *    @access protected
+         */
+        function _assertFieldValue($identifier, $value, $expected, $message) {
             if ($expected === true) {
                 return $this->assertTrue(
                         isset($value),
-                        sprintf($message, "Field of ID [$id] should exist"));
-            } else {
-                return $this->assertExpectation(
-                        new FieldExpectation($expected),
-                        $value,
-                        sprintf($message, "Field of ID [$id] should match with [%s]"));
+                        sprintf($message, "Field [$identifier] should exist"));
             }
+            if (! SimpleExpectation::isExpectation($expected)) {
+                $identifier = str_replace('%', '%%', $identifier);
+                $expected = new FieldExpectation(
+                        $expected,
+                        "Field [$identifier] should match with [%s]");
+            }
+            return $this->assert($expected, $value, $message);
         }
        
         /**
@@ -1160,39 +1201,38 @@
          *    @access public
          */
         function assertRealm($realm, $message = '%s') {
-            $message = sprintf($message, "Expected realm [$realm] got [" .
-                    $this->_browser->getRealm() . "]");
-            return $this->assertTrue(
-                    strtolower($this->_browser->getRealm()) == strtolower($realm),
-                    $message);
+            if (! SimpleExpectation::isExpectation($realm)) {
+                $realm = new EqualExpectation($realm);
+            }
+            return $this->assert(
+                    $realm,
+                    $this->_browser->getRealm(),
+                    "Expected realm -> $message");
         }
         
         /**
          *    Checks each header line for the required value. If no
          *    value is given then only an existence check is made.
          *    @param string $header    Case insensitive header name.
-         *    @param string $value     Case sensitive trimmed string to
-         *                             match against.
+         *    @param mixed $value      Case sensitive trimmed string to
+         *                             match against. An expectation object
+         *                             can be used for pattern matching.
          *    @return boolean          True if pass.
          *    @access public
          */
         function assertHeader($header, $value = false, $message = '%s') {
-            return $this->assertExpectation(
+            return $this->assert(
                     new HttpHeaderExpectation($header, $value),
                     $this->_browser->getHeaders(),
                     $message);
         }
           
         /**
-         *    Checks each header line for the required pattern.
-         *    @param string $header    Case insensitive header name.
-         *    @param string $pattern   Pattern to match value against.
-         *    @return boolean          True if pass.
-         *    @access public
+         *    @deprecated
          */
         function assertHeaderPattern($header, $pattern, $message = '%s') {
-            return $this->assertExpectation(
-                    new HttpHeaderPatternExpectation($header, $pattern),
+            return $this->assert(
+                    new HttpHeaderExpectation($header, new PatternExpectation($pattern)),
                     $this->_browser->getHeaders(),
                     $message);
         }
@@ -1206,26 +1246,32 @@
          *    @return boolean          True if pass.
          *    @access public
          */
-        function assertNoUnwantedHeader($header, $message = '%s') {
-            return $this->assertExpectation(
-                    new HttpUnwantedHeaderExpectation($header),
+        function assertNoHeader($header, $message = '%s') {
+            return $this->assert(
+                    new NoHttpHeaderExpectation($header),
                     $this->_browser->getHeaders(),
                     $message);
+        }
+          
+        /**
+         *    @deprecated
+         */
+        function assertNoUnwantedHeader($header, $message = '%s') {
+            return $this->assertNoHeader($header, $message);
         }
         
         /**
          *    Tests the text between the title tags.
-         *    @param string $title     Expected title or empty
-         *                             if expecting no title.
-         *    @param string $message   Message to display.
-         *    @return boolean          True if pass.
+         *    @param string $title      Expected title.
+         *    @param string $message    Message to display.
+         *    @return boolean           True if pass.
          *    @access public
          */
         function assertTitle($title = false, $message = '%s') {
-            return $this->assertTrue(
-                    $title === $this->_browser->getTitle(),
-                    sprintf($message, "Expecting title [$title] got [" .
-                            $this->_browser->getTitle() . "]"));
+            if (! SimpleExpectation::isExpectation($title)) {
+                $title = new EqualExpectation($title);
+            }
+            return $this->assert($title, $this->_browser->getTitle(), $message);
         }
         
         /**
@@ -1236,11 +1282,18 @@
          *    @return boolean           True if pass.
          *    @access public
          */
-        function assertWantedText($text, $message = '%s') {
-            return $this->assertExpectation(
-                    new WantedTextExpectation($text),
+        function assertText($text, $message = '%s') {
+            return $this->assert(
+                    new TextExpectation($text),
                     $this->_browser->getContentAsText(),
                     $message);
+        }
+        
+        /**
+         *	  @deprecated
+         */
+        function assertWantedText($text, $message = '%s') {
+        	return $this->assertText($text, $message);
         }
         
         /**
@@ -1251,11 +1304,18 @@
          *    @return boolean           True if pass.
          *    @access public
          */
-        function assertNoUnwantedText($text, $message = '%s') {
-            return $this->assertExpectation(
-                    new UnwantedTextExpectation($text),
+        function assertNoText($text, $message = '%s') {
+            return $this->assert(
+                    new NoTextExpectation($text),
                     $this->_browser->getContentAsText(),
                     $message);
+        }
+        
+        /**
+         *	  @deprecated
+         */
+        function assertNoUnwantedText($text, $message = '%s') {
+        	return $this->assertNoText($text, $message);
         }
         
         /**
@@ -1267,11 +1327,18 @@
          *    @return boolean           True if pass.
          *    @access public
          */
-        function assertWantedPattern($pattern, $message = '%s') {
-            return $this->assertExpectation(
-                    new WantedPatternExpectation($pattern),
+        function assertPattern($pattern, $message = '%s') {
+            return $this->assert(
+                    new PatternExpectation($pattern),
                     $this->_browser->getContent(),
                     $message);
+        }
+        
+        /**
+         *	  @deprecated
+         */
+        function assertWantedPattern($pattern, $message = '%s') {
+        	return $this->assertPattern($pattern, $message);
         }
         
         /**
@@ -1283,11 +1350,18 @@
          *    @return boolean           True if pass.
          *    @access public
          */
-        function assertNoUnwantedPattern($pattern, $message = '%s') {
-            return $this->assertExpectation(
-                    new UnwantedPatternExpectation($pattern),
+        function assertNoPattern($pattern, $message = '%s') {
+            return $this->assert(
+                    new NoPatternExpectation($pattern),
                     $this->_browser->getContent(),
                     $message);
+        }
+        
+        /**
+         *	  @deprecated
+         */
+        function assertNoUnwantedPattern($pattern, $message = '%s') {
+        	return $this->assertNoPattern($pattern, $message);
         }
         
         /**
@@ -1302,15 +1376,15 @@
          */
         function assertCookie($name, $expected = false, $message = '%s') {
             $value = $this->getCookie($name);
-            if ($expected) {
-                return $this->assertTrue($value === $expected, sprintf(
-                        $message,
-                        "Expecting cookie [$name] value [$expected], got [$value]"));
-            } else {
+            if (! $expected) {
                 return $this->assertTrue(
                         $value,
                         sprintf($message, "Expecting cookie [$name]"));
             }
+            if (! SimpleExpectation::isExpectation($expected)) {
+                $expected = new EqualExpectation($expected);
+            }
+            return $this->assert($expected, $value, "Expecting cookie [$name] -> $message");
         }
         
         /**

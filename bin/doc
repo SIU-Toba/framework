@@ -9,7 +9,7 @@ PATH_PHPDOC=$toba_dir/php/3ros/phpdocumentor/phpdoc
 PATH_DOCS=$toba_dir/doc/api
 OUTPUTFORMAT=HTML
 CONVERTER=Smarty
-TEMPLATE=PHP
+TEMPLATE=HandS
 PRIVATE=off
 # IGNORADOS - Persistencia
 IGNORADOS="db_registros*.php,db_tablas.php"

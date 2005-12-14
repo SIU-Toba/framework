@@ -63,6 +63,18 @@ class manejador_archivos
 		return str_replace('\\', "/", $nombre);	
 	}	
 	
+	/**
+	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
+	 */
+	static function path_a_plataforma($path)
+	{
+		if (self::es_windows()) {
+			return self::path_a_windows($path);
+		} else {
+			return self::path_a_unix($path);		
+		}
+	}
+	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)
 	{
 		$this->limite_bytes_cliente = $limite * 1024;

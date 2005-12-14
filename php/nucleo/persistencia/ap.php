@@ -8,7 +8,7 @@
 interface ap_tabla
 {
 	/**
-	 * Mecanismo de recuperación de valores para las columnas externas.
+	 * Mecanismo de recuperaciÃ³n de valores para las columnas externas.
 	 * @param array $fila Fila que toma de referencia la carga externa
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados del medio de persistencia
@@ -21,22 +21,29 @@ interface ap_tabla
 	function activar_modificacion_clave();
 	
 	/**
-	 * Obtiene del medio un conjunto de datos a partir de una definición de sus campos clave
+	 * Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se encontro ninguna fila
 	 */
 	function cargar_por_clave($clave);
-
+	
 	/**
 	 * Sincroniza los cambios en la tabla con el medio de persistencia
 	 * @return integer Cantidad de registros modificados
 	 */
 	function sincronizar();
-
+	
 	/**
-	 * Elimina físicamente las filas de esta tabla
+	 * Sincroniza los cambios que suponen inserts o updates
+	 * @return integer Cantidad de registros modificados
 	 */
-	function eliminar();
+	function sincronizar_actualizados();	
+	
+	/**
+	 * Sincroniza los cambios que suponen eliminaciones
+	 * @return integer Cantidad de registros modificados
+	 */
+	function sincronizar_eliminados();		
 }
 
 //-------------------------------------------------------------------------------------
@@ -51,7 +58,7 @@ interface ap_tabla
 interface ap_relacion
 {
 	/**
-	 * Cargar una relación completa a partir de la clave de una de las tablas raiz
+	 * Cargar una relaciÃ³n completa a partir de la clave de una de las tablas raiz
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se cargo la tabla raiz
 	 */
@@ -63,9 +70,8 @@ interface ap_relacion
 	function sincronizar();
 	
 	/**
-	 * Elimina del medio de persistencia toda la relación cargada 
-	 *
+	 * Elimina del medio de persistencia toda la relaciÃ³n cargada 
 	 */
-	function eliminar();
+	function eliminar_todo();
 }
 ?>

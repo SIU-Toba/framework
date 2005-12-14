@@ -34,6 +34,36 @@ class base_test_datos extends test_toba
 	}
 	//----------------------------------------------
 	
+	function control_cambios_dr($estado_esperado)
+	{
+		foreach( $estado_esperado as $tabla => $cambios_esperados ){
+			$cant_esperados = count($cambios_esperados);
+			$cant_actuales = count($this->dr->tabla($tabla)->get_cambios());
+			if ($cant_esperados != $cant_actuales) {
+				$this->fail("Se esperaban $cant_esperados y se obtuvieron $cant_actuales");	
+				break;
+			}
+			$a=0;
+			foreach( $this->dr->tabla($tabla)->get_cambios() as $cambios){
+				$this->AssertEqual($cambios['estado'], $cambios_esperados[$a] );
+				$a++;
+			}
+		}
+	}
+	
+	function control_cambios_dt($estado_esperado)
+	//Se le pasa el estado esperado de la tabla de cambios, ordenados a partir de CERO	
+	{
+		$a=0;
+		foreach( $this->dt->get_cambios() as $cambios)
+		{
+			$this->AssertEqual($cambios['estado'], $estado_esperado[$a] );
+			$a++;
+		}
+	}
+
+	
+	
 	function get_sql_tablas(){ return array(); }
 	function get_sql_eliminar_tablas(){ return array(); }
 	function get_sql_juego_datos(){ return array(); }

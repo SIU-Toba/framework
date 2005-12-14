@@ -21,6 +21,7 @@ class tp_basico extends tipo_pagina
 		echo "<HTML>\n";
 		echo "<HEAD>\n";
 		echo "<title>".$this->titulo_pagina()."</title>\n";
+		$this->encoding();
 		$this->plantillas_css();
 		$this->estilos_css();
 		$this->js_basico();
@@ -31,6 +32,11 @@ class tp_basico extends tipo_pagina
 	{
 		$item = toba::get_solicitud()->get_datos_item();
 		return $item['item_nombre'];
+	}
+	
+	protected function encoding()
+	{
+		echo '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">';
 	}
 
 	protected function plantillas_css()

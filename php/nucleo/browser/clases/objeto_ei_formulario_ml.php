@@ -757,7 +757,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
 				$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
 				echo form::button_html("{$this->objeto_js}_deshacer", $html, 
-										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última acción');
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última eliminación');
 				echo "&nbsp;";
 			}
 			if ($ordenar) {

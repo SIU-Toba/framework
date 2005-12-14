@@ -161,7 +161,12 @@ class js
 			if (count($arreglo) > 0) {
 				$js .= "{";
 				foreach($arreglo as $id => $valor) {
-					$js .= "$id: '$valor', ";
+					if (is_array($valor)) { 
+						//RECURSIVIDAD
+						$js .= "$id: ".self::arreglo($valor, true)." ,";
+					} else {
+						$js .= "$id: '$valor', ";
+					}
 				}
 				$js = substr($js, 0, -2);
 				$js .= "}";
@@ -173,8 +178,12 @@ class js
 			foreach($arreglo as $valor) {
 				if (is_numeric($valor))
 					$js .= "$valor,";
-				else
+				elseif (is_array($valor)) {
+					//RECURSIVIDAD
+					$js .= self::arreglo($valor, true).",";
+				} else {
 					$js .= "'$valor',";
+				}
 			}
 			$js = substr($js, 0, -1);
 			$js .= " ]";

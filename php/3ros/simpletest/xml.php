@@ -3,7 +3,7 @@
      *	base include file for SimpleTest
      *	@package	SimpleTest
      *	@subpackage	UnitTester
-     *	@version	$Id: xml.php,v 1.20 2004/08/04 22:09:39 lastcraft Exp $
+     *	@version	$Id: xml.php,v 1.21 2005/07/02 22:18:19 lastcraft Exp $
      */
 
     /**#@+
@@ -530,9 +530,8 @@
          *    @private
          */
         function _isLeaf($tag) {
-            return in_array(
-                    $tag,
-                    array('NAME', 'PASS', 'FAIL', 'EXCEPTION', 'MESSAGE', 'FORMATTED', 'SIGNAL'));
+            return in_array($tag, array(
+                    'NAME', 'PASS', 'FAIL', 'EXCEPTION', 'MESSAGE', 'FORMATTED', 'SIGNAL'));
         }
 
         /**

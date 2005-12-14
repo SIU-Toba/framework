@@ -27,6 +27,8 @@ abstract class ci_editores_toba extends objeto_ci
 			if ($es_nuevo) {
 				$this->set_objeto( 	array('proyecto'=>$proyecto, 'objeto'=>$objeto) );
 				$this->cambio_objeto = true;
+			} else {
+				$this->cambio_objeto = false;	
 			}
 		}
 		//Necesito cargar la entidad antes de mostrar la pantalla

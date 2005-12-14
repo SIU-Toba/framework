@@ -3,16 +3,16 @@
      *	adapter for SimpleTest to use PEAR PHPUnit test cases
      *	@package	SimpleTest
      *	@subpackage Extensions
-     *	@version	$Id: pear_test_case.php,v 1.4 2005/01/13 01:31:57 lastcraft Exp $
+     *	@version	$Id: pear_test_case.php,v 1.8 2005/08/03 23:25:19 lastcraft Exp $
      */
     
     /**#@+
      * include SimpleTest files
      */
-    require_once dirname(__FILE__) . '/../dumper.php';
-    require_once dirname(__FILE__) . '/../options.php';
-    require_once dirname(__FILE__) . '/../simple_test.php';
-    require_once dirname(__FILE__) . '/../expectation.php';
+    require_once(dirname(__FILE__) . '/../dumper.php');
+    require_once(dirname(__FILE__) . '/../compatibility.php');
+    require_once(dirname(__FILE__) . '/../test_case.php');
+    require_once(dirname(__FILE__) . '/../expectation.php');
 	/**#@-*/
    
     /**
@@ -48,7 +48,7 @@
             } else {
                 $expectation = &new IdenticalExpectation($first);
             }
-            $this->assertExpectation($expectation, $second, $message);
+            $this->assert($expectation, $second, $message);
         }
         
         /**
@@ -141,10 +141,7 @@
          *    @public
          */
         function assertRegExp($pattern, $subject, $message = "%s") {
-            $this->assertExpectation(
-                    new WantedPatternExpectation($pattern),
-                    $subject,
-                    $message);
+            $this->assert(new PatternExpectation($pattern), $subject, $message);
         }
         
         /**

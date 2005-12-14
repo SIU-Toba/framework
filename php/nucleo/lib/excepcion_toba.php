@@ -47,7 +47,11 @@ class excepcion_toba extends Exception
 					$html .= "Parámetros: <ol>";
 					foreach ($paso['args'] as $arg) {
 						$html .= "<li>";
-						$html .= var_export($arg, true);
+						if (is_object($arg)) {
+							$html .= 'Instancia de <em>'.get_class($arg).'</em>';
+						} else {
+							$html .= highlight_string(var_export($arg, true), true);
+						}
 						$html .= "</li>";
 					}
 					$html .= "</ol>";

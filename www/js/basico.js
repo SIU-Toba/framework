@@ -136,7 +136,7 @@ function firstFocus()
 		for (j=0;j<formulario.length;j++) {
 			var elemento = formulario.elements[j];
 			var display = elemento.style.display;
-			if ((elemento.type=="text") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
+			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
 				var error =false
 				try {
 				   elemento.focus();
@@ -225,7 +225,7 @@ function existe_funcion(obj, f) {
 function ei_arbol(variable, ret) {
 	DumperIndentText = "&nbsp";
 	DumperNewline = "<br>";
-	DumperSepPre = "<a href='javascript: ' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";
+	DumperSepPre = "<a href='javascript: ;' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";
 	DumperSepPos = "</span>";		
 	DumperMaxDepth = 8;
 	if (ret)

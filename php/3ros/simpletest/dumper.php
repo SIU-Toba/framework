@@ -3,12 +3,14 @@
      *	base include file for SimpleTest
      *	@package	SimpleTest
      *	@subpackage	UnitTester
-     *	@version	$Id: dumper.php,v 1.22 2005/02/05 04:51:17 lastcraft Exp $
+     *	@version	$Id: dumper.php,v 1.24 2005/04/30 10:30:40 lastcraft Exp $
      */
     /**
      * does type matter
      */
-    define('TYPE_MATTERS', true);
+    if (!defined('TYPE_MATTERS')) {
+        define('TYPE_MATTERS', true);
+    }
     
     /**
      *    Displays variables as text and does diffs.
@@ -221,9 +223,10 @@
             if (is_object($second) || is_array($second)) {
                 return $this->_describeGenericDifference($first, $second);
             }
-            return "because " . $this->describeValue($first) .
+            return "because [" . $this->describeValue($first) .
                     "] differs from [" .
-                    $this->describeValue($second) . "]";
+                    $this->describeValue($second) . "] by " .
+                    abs($first - $second);
         }
         
         /**

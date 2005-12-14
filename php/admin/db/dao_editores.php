@@ -16,6 +16,7 @@ class dao_editores
 						'objeto_ei_arbol',
 						'objeto_ei_calendario',
 						'objeto_ei_archivos',
+						'objeto_ei_esquema',						
 						'objeto_datos_tabla',
 						'objeto_datos_relacion' );
 	}
@@ -35,6 +36,7 @@ class dao_editores
 							'objeto_ei_arbol',
 							'objeto_ei_calendario',
 							'objeto_ei_archivos',
+							'objeto_ei_esquema',
 							'objeto_datos_tabla',
 							'objeto_datos_relacion' );
 		}
@@ -46,7 +48,8 @@ class dao_editores
 							'objeto_ei_filtro',
 							'objeto_ei_arbol',
 							'objeto_ei_calendario',
-							'objeto_ei_archivos' );
+							'objeto_ei_archivos',
+							'objeto_ei_esquema' );
 		}
 		//Por defecto devulevo todo
 		return self::get_clases_validas();

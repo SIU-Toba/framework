@@ -233,7 +233,7 @@ class hilo
 	{
 		return $_SESSION['toba']["path"];
 	}
-
+	
 	function obtener_proyecto_path()
 /*
  	@@acceso: actividad
@@ -265,6 +265,26 @@ class hilo
 						$_SESSION['toba']["proyecto"]["nombre"] . "/" . $archivo;
 		return array(	"real" => $path_real,
 						"browser" => $path_browser);
+	}
+	
+	/**
+	 * Retorna un path donde incluir archivos temporales, el path no es navegable
+	 */
+	function obtener_path_temp()
+	{
+		return toba_dir()."/temp";	
+	}
+	
+	/**
+	 * Retorna un directorio abierto a la navegación donde almacenar archivos temporales
+	 */
+	function obtener_path_temp_www()
+	{
+		$path = $this->obtener_proyecto_path()."/temp/";
+		if (!file_exists($path['real'])) {
+			mkdir($path['real'], 0700);
+		}
+		return $path;
 	}
 	
 	function obtener_usuario()

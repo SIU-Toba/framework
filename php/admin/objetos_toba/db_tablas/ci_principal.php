@@ -92,7 +92,7 @@ class ci_principal extends ci_editores_toba
 		$tablas = $this->get_entidad()->tabla("dependencias")->get_filas();
 		for($a=0;$a<count($tablas);$a++){
 			$datos[$a]['objeto'] = $tablas[$a]['identificador']. "," .$tablas[$a]['objeto_proveedor'];
-			$datos[$a]['desc'] = $tablas[$a]['descripcion'];
+			$datos[$a]['desc'] = $tablas[$a]['identificador'];
 		}
 		return $datos;
 	}
@@ -127,7 +127,21 @@ class ci_principal extends ci_editores_toba
 			}
 		}
 	}
-
+	
+	//---------------------------------------------------------------------------
+	//--------------------    SINCRONIZACION     --------------------------------
+	//---------------------------------------------------------------------------	
+	
+	function evt__opciones__carga()
+	{
+		return $this->get_entidad()->tabla("prop_basicas")->get();
+	}
+	
+	function evt__opciones__modificacion($datos)
+	{
+		return $this->get_entidad()->tabla("prop_basicas")->set($datos);
+	}
+	
 	//*******************************************************************
 	//** PROCESAR  ******************************************************
 	//*******************************************************************
