@@ -16,14 +16,22 @@ class recurso {
 	}
 
 	//------------   PATH a las carpetas de recursos   --------------
-	
-	function path_pro()
-	//#@desc: Genera un vinculo a un elemento del proyecto.
+
+	/**
+	 * Retorna la URL base del proyecto
+	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
+	 * @return string
+	 */
+	function path_pro($proyecto=null)
 	{
 		if (isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
 			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
-		}else{
-			$alias = toba::get_hilo()->obtener_proyecto();
+		} else {
+			if (!isset($proyecto)) {
+				$alias = toba::get_hilo()->obtener_proyecto();
+			} else {
+				$alias = $proyecto;
+			}
 		}
 		return recurso::preambulo(). "/". $alias;
 	}
@@ -154,16 +162,24 @@ class recurso {
 	*/
 	function css($nombre=apex_proyecto_estilo)
 	{
-		//Si es un proyecto particular, buscar primero en el mismo
 		$hilo = toba::get_hilo();
+		//Si esta abierta la sesion
 		if (isset($hilo)) {
 			$proyecto = toba::get_hilo()->obtener_proyecto();
-			if($proyecto != "toba") {
-				$path = toba_dir() . "/proyectos/$proyecto/www/css/$nombre.css";
-				if (file_exists($path)) {
-					return recurso::path_pro() . "/css/$nombre.css";
-				}
-			} 
+		} else {
+			//Si no se trata de buscar el proyecto en el PA
+			if (defined('apex_pa_proyecto')) {
+				$proyecto = apex_pa_proyecto;
+			} else {
+				$proyecto = "toba";	
+			}
+		}
+		//Si es un proyecto particular, buscar primero en el mismo		
+		if($proyecto != "toba") {
+			$path = toba_dir() . "/proyectos/$proyecto/www/css/$nombre.css";
+			if (file_exists($path)) {
+				return recurso::path_pro($proyecto) . "/css/$nombre.css";
+			}
 		}
 		//Sino buscarlo en el proyecto toba
  		if (file_exists(toba_dir()."/www/css/$nombre.css")) {
