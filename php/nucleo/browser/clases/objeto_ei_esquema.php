@@ -106,7 +106,7 @@ class objeto_ei_esquema extends objeto_ei
 			case 'svg':
 				js::cargar_consumos_globales(array("utilidades/svglib"));
 				echo js::abrir();
-				echo "aviso_instalacion_svg()";
+				echo "//aviso_instalacion_svg()";
 				echo js::cerrar();				
 				echo "<embed src='$url' type='image/svg+xml' $ancho $alto palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'>\n";
 				echo "</embed>"; 

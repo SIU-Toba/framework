@@ -3,7 +3,21 @@ require_once('api/elemento_objeto.php');
 
 class elemento_objeto_ei extends elemento_objeto
 {
+	//---------------------------------------------------------------------	
+	//-- MODELOS DE EVENTOS
+	//---------------------------------------------------------------------
 
+	static function get_modelos_evento()
+	{
+		return array();
+	}
+
+	static function get_lista_eventos_estandar($modelo)
+	{
+		$evento = array();
+		return $evento;
+	}	
+	
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------
