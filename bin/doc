@@ -24,19 +24,19 @@ IGNORADOS="$IGNORADOS,__*.php,eventos.php,objeto_ci_abm.php,objeto_cuadro*.php,o
 if [ "$1" = "hola" ]
 then
 
-	echo " objetivo: Administrar la documentación del API."
+	echo " objetivo: Administrar la documentación del API y Wiki."
 
 ##***********************************************************************************************##
-## Genera la documentación
+## Genera la documentación del API
 ##***********************************************************************************************##
-#@ doc generar                   -- Genera la documentación del api, con salida en $toba_dir/doc/api
+#@ doc api                  -- Genera la documentación del api, con salida en $toba_dir/doc/api
 
-elif [ "$1" = "generar" ]
+elif [ "$1" = "api" ]
 then	
 
 	if [ -e $PATH_PHPDOC ]
 	then
-		doc borrar
+		#rm -R --force $PATH_DOCS
 		$PATH_PHPDOC -d $PATH_PROJECT -t $PATH_DOCS -ti "$TITLE" -dn $PACKAGES \
 		-o $OUTPUTFORMAT:$CONVERTER:$TEMPLATE -pp $PRIVATE -i $IGNORADOS -ct "wiki"
 	else
@@ -45,20 +45,20 @@ then
 
 
 ##***********************************************************************************************##
-## Borrar la documentación
+## Generar la documentación del WIKI
 ##***********************************************************************************************##
-#@ doc borrar                    -- Borra la documentación del api
+#@ doc wiki                 -- Baja la documentación online del wiki utilizando httracker
 
-elif [ "$1" = "borrar" ]
+elif [ "$1" = "wiki" ]
 then	
-	if [ -e $PATH_DOCS ]
-	then
-		rm -R $PATH_DOCS
-	fi
-	
+	httrack "http://toba.siu.edu.ar/trac/wiki" -v  -%i  -x %P -O "$toba_dir/doc/wiki" \
+		+*.png +*.gif +*.jpg +*.css +*.js  -*changeset* -*timeline* -*browse* -*roadmap* \
+		-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone*
+
 ##***********************************************************************************************##
 ## Ayuda
 ##***********************************************************************************************##
 else
 	ayuda $0
 fi
+ 

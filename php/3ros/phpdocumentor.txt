@@ -1,3 +1,5 @@
 Para utilizar phpdocumentor:
  - Bajar la última versión (http://www.phpdoc.org) 
  - Incluirlo en php/3eros/phpdocumentor
+
+Incluir el contenido de la carpeta _phpdocumentor en donde corresponda (son modificaciones al paquete original)
