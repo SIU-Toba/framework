@@ -1,6 +1,5 @@
 <?php
 require_once('admin/objetos_toba/asignador_objetos.php');
-require_once('api/elemento_item.php');
 
 class test_asignador_objetos extends test_toba
 {
@@ -35,8 +34,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$item = new elemento_item();
-		$item->cargar_db('toba_testing', '1240');
+		$item = constructor_toba::get_info( array('componente'=>'1240','proyecto'=>'toba_testing')), 'item')
 		$this->assertEqual(count($item->hijos()), 1);
 	}
 	

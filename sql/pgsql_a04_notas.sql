@@ -32,7 +32,6 @@ CREATE TABLE apex_nota
 --: zona: central
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (  
 	nota		            int4           DEFAULT nextval('"apex_nota_seq"'::text) NOT NULL, 
@@ -63,7 +62,6 @@ CREATE TABLE apex_patron_nota
 --: zona: central
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (  
 	patron_nota             int4           DEFAULT nextval('"apex_patron_nota_seq"'::text) NOT NULL, 
@@ -95,7 +93,6 @@ CREATE TABLE apex_item_nota
 --: zona: central
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (  
 	item_nota           		   int4           DEFAULT nextval('"apex_item_nota_seq"'::text) NOT NULL, 
@@ -128,7 +125,6 @@ CREATE TABLE apex_clase_nota
 --: zona: central
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (  
 	clase_nota       		      int4           DEFAULT nextval('"apex_clase_nota_seq"'::text) NOT NULL, 
@@ -160,7 +156,6 @@ CREATE TABLE apex_objeto_nota
 --: zona: central
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (
 	objeto_nota             		int4           DEFAULT nextval('"apex_objeto_nota_seq"'::text) NOT NULL, 
@@ -192,7 +187,6 @@ CREATE TABLE apex_nucleo_nota
 --: zona: nucleo
 --: desc:
 --: version: 1.0
---: instancia:	1
 ---------------------------------------------------------------------------------------------------
 (
    nucleo_nota             		int4           DEFAULT nextval('"apex_nucleo_nota_seq"'::text) NOT NULL, 

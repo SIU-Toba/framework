@@ -1,6 +1,5 @@
 <?php
 require_once('admin/objetos_toba/clonador_objetos.php');
-require_once('api/elemento_objeto.php');
 
 class test_clonador_objetos extends test_toba
 {
@@ -27,8 +26,8 @@ class test_clonador_objetos extends test_toba
 		$clon = $clonador->clonar($nuevo_nombre, false);
 		
 		//--- Verificación
-		$meta_objeto = new elemento_objeto();
-		$meta_objeto->cargar_db($clon['proyecto'], $clon['objeto']);
+		$meta_objeto = contructor_toba::get_info( 	'proyecto' => $clon['proyecto'],
+													'componente'=> $clon['objeto'] );
 		$this->assertEqual($nuevo_nombre, $meta_objeto->nombre_largo());
 		$this->assertTrue(is_numeric($clon['objeto']));
 		$this->assertNotEqual($clon['objeto'], $id);		

@@ -1,5 +1,6 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php');
+require_once('nucleo/componentes/info/info_ci.php');
 
 class ci_editor extends ci_editores_toba
 {
@@ -403,14 +404,12 @@ class ci_editor extends ci_editores_toba
 
 	function get_modelos_evento()
 	{
-		require_once('api/elemento_objeto_ci.php');
-		return elemento_objeto_ci::get_modelos_evento();
+		return info_ci::get_modelos_evento();
 	}
 
 	function get_eventos_estandar($modelo)
 	{
-		require_once('api/elemento_objeto_ci.php');
-		return elemento_objeto_ci::get_lista_eventos_estandar($modelo);
+		return info_ci::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__eventos__del_evento($id)

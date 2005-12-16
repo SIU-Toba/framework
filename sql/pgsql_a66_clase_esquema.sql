@@ -8,7 +8,9 @@
 CREATE TABLE apex_objeto_esquema
 -----------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_esquema_proyecto
+--: dump_clave_componente: objeto_esquema
 --: dump_order_by: objeto_esquema
 --: dump_where: ( objeto_esquema_proyecto = '%%' )
 --: zona: objeto

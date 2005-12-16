@@ -1,0 +1,10 @@
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('1', 'Documentacion');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('2', 'Red Toba');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('3', 'EF');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('4', 'Nucleo');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('5', 'Clases estandar');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('6', 'Transacciones');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('7', 'BASH');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('8', 'No definido');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('9', 'Modelo de datos');
+INSERT INTO apex_ap_tarea_tema (tarea_tema, descripcion) VALUES ('10', 'General');

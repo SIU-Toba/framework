@@ -1,5 +1,4 @@
 <?php
-
 //-------------> Armar niveles de ejecucion
 define("apex_nivel_nucleo","nucleo");
 define("apex_nivel_objeto","objeto");
@@ -8,15 +7,15 @@ define("apex_nivel_lib","lib");
 
 class cronometro
 {
-	var $marcas;
-	var $indice;
+	protected $marcas;
+	protected $indice;
 	static private $instancia;
 	
 	private function __construct() {
 		$this->indice = 0;
-		$this->marcar("INICIO");
 		global $cronometro;
 		$cronometro = $this;
+		$this->marcar("Creacion cronometro.");
 	}
 	
 	static function instancia()
@@ -39,6 +38,21 @@ class cronometro
 		$ultimo = (count($this->marcas)-1);
 		return (($this->marcas[$ultimo]['t']) - ($this->marcas[0]['t']));
     }
+
+	function get_marcas()
+	{
+		$marcas = array();
+		$marca_anterior = $this->marcas[0]['t'];
+		for($f=0;$f<count($this->marcas);$f++)
+		{
+			$marca_actual = $this->marcas[$f]['t'];
+			$marcas[$f]['texto'] = $this->marcas[$f]['n'];
+			$marcas[$f]['tiempo'] = number_format(($marca_actual - $marca_anterior),3,'.','');
+			//$marcas[$f]['nivel'] = $this->marcas[$f]['niv'];
+			$marca_anterior = $marca_actual;
+		}
+		return $marcas;
+	}
 
 	function registrar($solicitud)
 	//Guardar el la base las marcas del CRONOMETRO

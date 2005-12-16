@@ -25,8 +25,8 @@ class ci_editor_php extends objeto_ci
 		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
 		require_once($this->datos['clase_archivo']);
 		if (class_exists($this->datos['clase'])) {
-			$clase_info = call_user_func(array($this->datos['clase'], 'elemento_toba'));
-			$clase_info->cargar_db($this->datos['proyecto'], $this->datos['objeto']);		
+			$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
+			$clase_info = constructor_toba::get_info( $clave, $this->datos['clase']);
 		}else{
 			throw new exception_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
 		}

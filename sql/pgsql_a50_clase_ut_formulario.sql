@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_ut_formulario
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_ut_formulario_proyecto
+--: dump_clave_componente: objeto_ut_formulario
 --: dump_order_by: objeto_ut_formulario
 --: dump_where: ( objeto_ut_formulario_proyecto = '%%' )
 --: zona: objeto
@@ -60,7 +62,9 @@ CREATE TABLE apex_objeto_ut_formulario
 CREATE TABLE apex_objeto_ut_formulario_ef
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_ut_formulario_proyecto
+--: dump_clave_componente: objeto_ut_formulario
 --: dump_order_by: objeto_ut_formulario, identificador
 --: dump_where: ( objeto_ut_formulario_proyecto = '%%' )
 --: zona: objeto
@@ -108,7 +112,9 @@ CREATE SEQUENCE apex_obj_ei_form_fila_seq INCREMENT	1 MINVALUE 1 MAXVALUE 922337
 CREATE TABLE apex_objeto_ei_formulario_ef
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_ei_formulario_proyecto
+--: dump_clave_componente: objeto_ei_formulario
 --: dump_order_by: objeto_ei_formulario, identificador
 --: dump_where: ( objeto_ei_formulario_proyecto = '%%' )
 --: zona: objeto

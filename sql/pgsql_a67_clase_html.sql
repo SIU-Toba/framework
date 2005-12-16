@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_html
 -----------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_html_proyecto
+--: dump_clave_componente: objeto_html
 --: dump_order_by: objeto_html
 --: dump_where: ( objeto_html_proyecto = '%%' )
 --: zona: objeto

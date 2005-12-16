@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_lista
 -----------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_lista_proyecto
+--: dump_clave_componente: objeto_lista 
 --: dump_order_by: objeto_lista
 --: dump_where: ( objeto_lista_proyecto = '%%' )
 --: zona: objeto

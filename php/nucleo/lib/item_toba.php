@@ -1,4 +1,5 @@
 <?php
+require_once('nucleo/componentes/info/interfaces.php');
 
 class item_toba implements recorrible_como_arbol
 {

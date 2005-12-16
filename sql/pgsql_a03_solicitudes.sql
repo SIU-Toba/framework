@@ -16,7 +16,6 @@ CREATE TABLE apex_solicitud
 --: dump: multiproyecto
 --: dump_order_by: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -43,7 +42,6 @@ CREATE TABLE apex_sesion_browser
 --: dump: multiproyecto
 --: dump_order_by: sesion_browser
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -71,7 +69,6 @@ CREATE TABLE apex_solicitud_browser
 --: dump_from: apex_solicitud
 --: dump_where: (apex_solicitud.solicitud = dd.solicitud_browser) AND (apex_solicitud.proyecto ='%%')
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -95,7 +92,6 @@ CREATE TABLE apex_solicitud_wddx
 --: dump_where: ((apex_solicitud.solicitud = dd.solicitud_wddx) AND (apex_solicitud.proyecto ='%%'))
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -124,7 +120,6 @@ CREATE TABLE apex_solicitud_consola
 --: dump_where: ((apex_solicitud.solicitud = dd.solicitud_consola) AND (apex_solicitud.proyecto ='%%'))
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -152,7 +147,6 @@ CREATE TABLE apex_solicitud_cronometro
 --: dump_where: ((apex_solicitud.solicitud = dd.solicitud) AND (apex_solicitud.proyecto ='%%'))
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -180,7 +174,6 @@ CREATE TABLE apex_solicitud_observacion
 --: dump_where: ((apex_solicitud.solicitud = dd.solicitud_observacion) AND (apex_solicitud.proyecto ='%%'))
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -209,7 +202,6 @@ CREATE TABLE apex_solicitud_obj_observacion
 --: dump_where: ((apex_solicitud.solicitud = dd.solicitud) AND (apex_solicitud.proyecto ='%%'))
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -239,7 +231,6 @@ CREATE TABLE apex_log_objeto
 --: dump_where: objeto_proyecto ='%%'
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -269,7 +260,6 @@ CREATE TABLE apex_log_sistema
 --: dump_order_by: log_sistema
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -294,7 +284,6 @@ CREATE TABLE apex_log_error_login
 --: dump_order_by: log_error_login
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -318,7 +307,6 @@ CREATE TABLE apex_log_ip_rechazada
 --: dump_order_by: ip
 --: zona: solicitud
 --: desc:
---: instancia:	1
 --: historica: 1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------

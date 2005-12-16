@@ -1,5 +1,5 @@
 <?php
-require_once('modelo/dba.php');
+require_once('db/dba.php');
 require_once("fuente.php");
 /*
 	Notas de ADOdb

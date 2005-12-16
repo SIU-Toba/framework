@@ -1,5 +1,0 @@
-
-		El objetivo de esta carperta es empezar a juntar los elementos
-	a tomar en cuenta para armar una API del toba.
-		Cada pedazo de PHP de esta carpeta indica una necesidad vigente
-	ese es valor, mas que la logica que lo implementa

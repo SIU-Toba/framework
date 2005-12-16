@@ -668,7 +668,7 @@ CREATE TABLE apex_patron_info
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: patron
---: dump_where: (	patron_proyecto =	'%%' )
+--: dump_where: ( patron_proyecto = '%%' )
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -730,7 +730,9 @@ CREATE SEQUENCE apex_item_seq	INCREMENT 1	MINVALUE	1 MAXVALUE 922337203685477580
 CREATE TABLE apex_item
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: item
 --: dump_order_by: item
 --: zona: central
 --: desc:
@@ -795,7 +797,9 @@ CREATE TABLE apex_item
 CREATE TABLE apex_item_info
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: item_proyecto
+--: dump_clave_componente: item
 --: dump_order_by: item
 --: dump_where: (	item_proyecto = '%%'	)
 --: zona: central
@@ -993,7 +997,9 @@ CREATE SEQUENCE apex_objeto_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775
 CREATE TABLE apex_objeto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto
 --: zona: central
 --: desc:
@@ -1040,7 +1046,9 @@ CREATE TABLE apex_objeto
 CREATE TABLE apex_objeto_info
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto
 --: dump_where: (	objeto_proyecto =	'%%' )
 --: zona: central
@@ -1061,7 +1069,9 @@ CREATE SEQUENCE apex_objeto_dep_seq INCREMENT	1 MINVALUE 1 MAXVALUE 922337203685
 CREATE TABLE apex_objeto_dependencias
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto_consumidor
 --: dump_order_by: objeto_consumidor, identificador
 --: dump_where:
 --: zona: central
@@ -1091,7 +1101,9 @@ CREATE SEQUENCE apex_objeto_eventos_seq INCREMENT	1 MINVALUE 1 MAXVALUE 92233720
 CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto, orden, identificador
 --: dump_where:
 --: zona: central
@@ -1120,14 +1132,16 @@ CREATE TABLE apex_objeto_eventos
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","evento_id"),
 	CONSTRAINT	"apex_objeto_eventos_uq" UNIQUE ("proyecto","objeto","identificador"),	
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
 CREATE TABLE apex_item_objeto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: item
 --: dump_order_by: item, objeto
 --: zona: central
 --: desc:

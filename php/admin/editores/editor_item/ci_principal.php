@@ -1,5 +1,4 @@
 <?php
-require_once('api/elemento_item.php');
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('admin/db/dao_editores.php');
 require_once('admin/admin_util.php');
@@ -269,9 +268,9 @@ class ci_principal extends objeto_ci
 	function redireccionar_a_objeto_creado()
 	{
 		$datos = $this->get_entidad()->tabla("base")->get();
-		$elem_item = new elemento_item();
-		$elem_item->cargar_db($datos['proyecto'], $datos['item']);
-		
+		$clave = array( 'proyecto' => $datos['proyecto'],
+						'componente' => $datos['item'] );
+		$elem_item = constructor_toba::get_info($clave, 'item');
 		$vinculo = $elem_item->vinculo_editor();
 		echo js::abrir();
 		echo "window.location.href='$vinculo'\n";

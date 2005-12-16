@@ -1,5 +1,4 @@
 <?php
-require_once('api/elemento_objeto.php');
 
 /**
 *	Utilidades varias para el administrador Toba
@@ -24,8 +23,8 @@ class admin_util
 	
 	function redireccionar_a_editor_objeto($proyecto, $objeto)
 	{
-		$elem_objeto = elemento_objeto::get_elemento_objeto($proyecto, $objeto);
-		$vinculo = $elem_objeto->vinculo_editor();
+		$clave = array( 'componente'=>$objeto, 'proyecto'=>$proyecto );
+		$vinculo = constructor_toba::get_info($clave)->vinculo_editor();
 		admin_util::refrescar_editor_item();
 		echo js::abrir();
 		echo "window.location.href='$vinculo'\n";
@@ -33,6 +32,4 @@ class admin_util
 	}
 	
 }
-
-
 ?>

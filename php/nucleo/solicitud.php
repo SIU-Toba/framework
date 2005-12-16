@@ -511,53 +511,26 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	{
 		global $cronometro, $db;
 		$cronometro->marcar('basura',apex_nivel_nucleo);
-		  //echo	"INICILIZACION	objeto: " .	$this->objetos_indice_actual . "<br>";	
 		//-[1]- El indice	es	valido?
 		if(!isset($this->indice_objetos[$clase][$posicion])){	
 			$this->observar(array("toba","error"),"SOLICITUD [obtener_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
-			$this->obtener_info_objetos();
 			return -1;
 		}
 		$posicion =	$this->indice_objetos[$clase][$posicion];	
 		$indice = $this->objetos_indice_actual;
 
-		//Decido	si	tengo	que instanciar	una clase o	una subclase
-		$archivo	= "";	
-		if(isset($this->info_objetos[$posicion]['objeto_subclase'])){
-			if(trim($this->info_objetos[$posicion]['objeto_subclase_archivo'])!=""){
-				$archivo	= trim($this->info_objetos[$posicion]['objeto_subclase_archivo']);
-			}
-			$clase =	 $this->info_objetos[$posicion]['objeto_subclase'];
-		}else{
-			$archivo	= $this->info_objetos[$posicion]['clase_archivo'];	
-			$clase =	$this->info_objetos[$posicion]['clase'];
-		}
-		//-[2]- Incluyo el PHP que	tiene	la	descripcion	de	la	CLASE	a la que	este objeto	pertenece
-		if(trim($archivo)!=""){
-			//echo $archivo;
-			include_once($archivo);//Las subclases pueden	incluirse en la ACTIVIDAD,	en	ese caso	no	hay que incluir
-		}
-		//debug_print_backtrace();
-		//-[3]- Creo el objeto standart en cuestion
-		$creacion_objeto = "\$this->objetos[$indice] = new {$clase}( array('".$this->info_objetos[$posicion]['objeto_proyecto']."','".$this->info_objetos[$posicion]['objeto']."') ,\$parametros);";
-		//echo $creacion_objeto;
-		eval($creacion_objeto);	
-		$this->objetos[$indice]->conectar_fuente();
-		$this->objetos[$indice]->configuracion();
-		//$this->objetos[$indice]->establecer_solicitud($this);
+		$clave['proyecto'] = $this->info_objetos[$posicion]['objeto_proyecto'];
+		$clave['componente'] = $this->info_objetos[$posicion]['objeto'];
+		$this->objetos[$indice] = constructor_toba::get_runtime( $clave, $clase );
+
 		$cronometro->marcar('SOLICITUD: Crear OBJETO	['. $this->info_objetos[$posicion]['objeto']	.']',apex_nivel_nucleo);
-		//--->>>	ATENCION: Tengo que controlar	que todo	esta OK.	------------ FALTA!!!!
 		$this->objetos_indice_actual++;
 		return $indice;
-
 	}
-//--------------------------------------------------------------------------------------------
 
 	function obtener_indice_objetos()
 	{
 		return $this->indice_objetos;	
 	}
-//--------------------------------------------------------------------------------------------
-
 }
 ?>

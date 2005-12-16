@@ -8,7 +8,9 @@
 CREATE TABLE apex_objeto_grafico
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_grafico_proyecto
+--: dump_clave_componente: objeto_grafico
 --: dump_order_by: objeto_grafico
 --: dump_where: ( objeto_grafico_proyecto = '%%' )
 --: zona: objeto

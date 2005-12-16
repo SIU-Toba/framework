@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_plan
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_plan_proyecto 
+--: dump_clave_componente: objeto_plan
 --: dump_order_by: objeto_plan
 --: dump_where: ( objeto_plan_proyecto = '%%' )
 --: zona: plan
@@ -27,7 +29,9 @@ CREATE TABLE apex_objeto_plan
 CREATE TABLE apex_objeto_plan_activ
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_plan_proyecto
+--: dump_clave_componente: objeto_plan
 --: dump_order_by: objeto_plan, posicion
 --: dump_where: ( objeto_plan_proyecto = '%%' )
 --: zona: plan
@@ -53,7 +57,9 @@ CREATE TABLE apex_objeto_plan_activ
 CREATE TABLE apex_objeto_plan_activ_usu
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_plan_proyecto
+--: dump_clave_componente: objeto_plan
 --: dump_order_by: objeto_plan, posicion
 --: dump_where: ( objeto_plan_proyecto = '%%' )
 --: zona: plan
@@ -75,7 +81,9 @@ CREATE TABLE apex_objeto_plan_activ_usu
 CREATE TABLE apex_objeto_plan_hito
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_plan_proyecto
+--: dump_clave_componente: objeto_plan
 --: dump_order_by: objeto_plan, posicion
 --: dump_where: ( objeto_plan_proyecto = '%%' )
 --: zona: plan
@@ -99,7 +107,9 @@ CREATE SEQUENCE apex_objeto_plan_linea_seq INCREMENT 1 MINVALUE 1 MAXVALUE 92233
 CREATE TABLE apex_objeto_plan_linea
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_plan_proyecto
+--: dump_clave_componente: objeto_plan
 --: dump_order_by: objeto_plan, linea
 --: dump_where: ( objeto_plan_proyecto = '%%' )
 --: zona: plan

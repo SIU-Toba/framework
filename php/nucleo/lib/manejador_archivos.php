@@ -1,6 +1,9 @@
 <?php
 require_once("nucleo/browser/interface/form.php");
 /*
+	Atencion, esta clase empezo siendo algo relacionado con los UPDLODAS, 
+	y con el tiempo se acerco a una funcionalidad cercana a su nombre.
+
  	SETEOS necesarios en el PHP.INI para que esta clase funcione.
 		- file_uploads
 		- upload_tmp_dir
@@ -11,10 +14,12 @@ require_once("nucleo/browser/interface/form.php");
 class manejador_archivos
 //Maneja el UPLOAD de archivos (hasta ahora el UPLOAD simple)
 {
-	var $limite_bytes_cliente;
-	var $nombre_input;
-	var $nombre_archivo;
-
+	protected $limite_bytes_cliente;
+	protected $nombre_input;
+	protected $nombre_archivo;
+	static private $caracteres_invalidos = array('*', '?', '/', '>', '<', '"', "'", ':', '|');
+	static private $caracteres_reemplazo = array('%', '$', '_', ')', '(', '-',  '.', ';', ',');
+	
 	static function crear_arbol_directorios($path)
 	{
 		//Verifica que todos los subdirectorios existan
@@ -35,7 +40,7 @@ class manejador_archivos
 			self::crear_arbol_directorios(dirname($nombre));
 		}
 		file_put_contents($nombre, $datos);		
-	}	
+	}
 	
 	static function es_windows()
 	{
@@ -64,7 +69,7 @@ class manejador_archivos
 	}	
 	
 	/**
-	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
+	 * Retorna un nombre de archivo valido
 	 */
 	static function path_a_plataforma($path)
 	{
@@ -73,6 +78,14 @@ class manejador_archivos
 		} else {
 			return self::path_a_unix($path);		
 		}
+	}
+	
+	/**
+	 * Retorna un path convertido a la plataforma actual de ejecución (unix o windows)
+	 */
+	static function nombre_valido( $candidato )
+	{
+		return str_replace( self::$caracteres_invalidos, self::$caracteres_reemplazo, $candidato );
 	}
 	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)

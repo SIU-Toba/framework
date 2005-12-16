@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_hoja 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_hoja_proyecto 
+--: dump_clave_componente: objeto_hoja
 --: dump_order_by: objeto_hoja
 --: dump_where: ( objeto_hoja_proyecto = '%%' )
 --: zona: objeto
@@ -60,7 +62,9 @@ CREATE TABLE apex_objeto_hoja_directiva_ti
 CREATE TABLE apex_objeto_hoja_directiva 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_hoja_proyecto 
+--: dump_clave_componente: objeto_hoja
 --: dump_order_by: objeto_hoja, columna
 --: dump_where: ( objeto_hoja_proyecto = '%%' )
 --: zona: objeto

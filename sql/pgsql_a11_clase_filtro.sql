@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_filtro 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_filtro_proyecto
+--: dump_clave_componente: objeto_filtro
 --: dump_order_by: objeto_filtro
 --: dump_where: ( objeto_filtro_proyecto = '%%' )
 --: zona: objeto

@@ -6,6 +6,7 @@ CREATE TABLE			apex_revision
 --: zona: general
 --: desc: Especifica la revision del SVN con que se creo el proyecto
 --: version: 1.0
+--: instancia: 1
 ---------------------------------------------------------------------------------------------------
 (
 	revision					varchar(20)	NOT NULL,

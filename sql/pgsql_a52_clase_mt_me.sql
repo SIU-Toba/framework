@@ -24,7 +24,9 @@ CREATE TABLE apex_objeto_mt_me_tipo_nav
 CREATE TABLE apex_objeto_mt_me
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_mt_me_proyecto
+--: dump_clave_componente: objeto_mt_me
 --: dump_order_by: objeto_mt_me
 --: dump_where: (	objeto_mt_me_proyecto =	'%%' )
 --: zona: objeto
@@ -61,7 +63,9 @@ CREATE TABLE apex_objeto_mt_me
 CREATE TABLE apex_objeto_mt_me_etapa
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_mt_me_proyecto
+--: dump_clave_componente: objeto_mt_me
 --: dump_order_by: objeto_mt_me,	posicion
 --: dump_where: (	objeto_mt_me_proyecto =	'%%' )
 --: zona: objeto
@@ -98,7 +102,9 @@ CREATE SEQUENCE apex_obj_ci_pantalla_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372
 CREATE TABLE apex_objeto_ci_pantalla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_ci_proyecto
+--: dump_clave_componente: objeto_ci
 --: dump_order_by: objeto_ci_proyecto, objeto_ci, pantalla
 --: dump_where: (	objeto_ci_proyecto =	'%%' )
 --: zona: objeto

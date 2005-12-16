@@ -1,5 +1,4 @@
 <?php
-require_once('api/elemento_objeto_ci.php');
 require_once('nucleo/lib/reflexion/clase_php.php');
 
 class test_elemento_toba extends test_toba
@@ -50,7 +49,10 @@ class test_elemento_toba extends test_toba
 			$this->assertTrue($elemento->es_evento_sospechoso($evento), "$evento no es sospechoso");	
 		}		
 	}
-	
+/*
+	ATENCION: despues de la migracion de objetos INFO, no existe una instancia del INFO
+				sin hacer referencia a un componente puntual. Este test esta comoentado por eso.
+
 	function test_eventos_ci_simple()
 	{
 		$predefinidos= array();
@@ -61,7 +63,7 @@ class test_elemento_toba extends test_toba
 		$et_ci = new elemento_objeto_ci();
 		$this->asertar_eventos($et_ci, $predefinidos, $invalidos, $desconocidos, $sospechosos);
 	}
-	
+*/	
 	
 	function test_eventos_ci_con_dependencias()
 	{
@@ -72,9 +74,7 @@ class test_elemento_toba extends test_toba
 					'evt__filtro__filtrar', 'evt__filtro__cancelar');
 		$desconocidos = array('evt__formulario__observar', 'evt__formulario__baja', 'evt__cuadro__baja');
 		$sospechosos = array('evt__formulario___otro', 'evt__formulario_alta', 'evt__filtro_cantar');
-
-		$et_ci = new elemento_objeto_ci();
-		$et_ci->cargar_db('toba_testing', 1323);
+		$et_ci = constructor_toba::get_info( array('proyecto'=>'toba_testing', 'componente'=>1323) );
 		$this->asertar_eventos($et_ci, $predefinidos, array(), $desconocidos, $sospechosos);		
 	}	
 	

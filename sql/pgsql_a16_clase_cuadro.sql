@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_cuadro
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_cuadro_proyecto
+--: dump_clave_componente: objeto_cuadro
 --: dump_order_by: objeto_cuadro
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto
@@ -59,7 +61,9 @@ CREATE TABLE apex_objeto_cuadro
 CREATE TABLE apex_objeto_cuadro_columna
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_cuadro_proyecto
+--: dump_clave_componente: objeto_cuadro
 --: dump_order_by: objeto_cuadro, orden
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto
@@ -106,7 +110,9 @@ CREATE SEQUENCE apex_obj_ei_cuadro_cc_seq INCREMENT	1 MINVALUE 1 MAXVALUE 922337
 CREATE TABLE apex_objeto_cuadro_cc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_cuadro_proyecto
+--: dump_clave_componente: objeto_cuadro
 --: dump_order_by: objeto_cuadro, objeto_cuadro_cc
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto
@@ -137,7 +143,9 @@ CREATE SEQUENCE apex_obj_ei_cuadro_col_seq INCREMENT	1 MINVALUE 1 MAXVALUE 92233
 CREATE TABLE apex_objeto_ei_cuadro_columna
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_cuadro_proyecto
+--: dump_clave_componente: objeto_cuadro
 --: dump_order_by: objeto_cuadro, objeto_cuadro_col
 --: dump_where: ( objeto_cuadro_proyecto = '%%' )
 --: zona: objeto

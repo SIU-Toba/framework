@@ -1,7 +1,6 @@
 <?php
 require_once('admin/catalogos/ci_catalogo.php'); 
 require_once("nucleo/lib/arbol_items.php");
-require_once('api/elemento_item.php');
 
 //----------------------------------------------------------------
 class ci_catalogo_items extends ci_catalogo
@@ -125,12 +124,11 @@ class ci_catalogo_items extends ci_catalogo
 	function evt__objetos__carga()
 	{
 		$this->dependencias['objetos']->set_frame_destino(apex_frame_centro);
-		$this->dependencias['objetos']->set_nivel_apertura(3);		
-		$item = new elemento_item();
-		$item->cargar_db(toba::get_hilo()->obtener_proyecto(), $this->item_seleccionado);	
+		$this->dependencias['objetos']->set_nivel_apertura(3);
+		$clave['componente'] = $this->item_seleccionado;
+		$clave['proyecto'] = toba::get_hilo()->obtener_proyecto();
+		$item = constructor_toba::get_info($clave, 'item');
 		return $item;
 	}	
-
 }
-
 ?>

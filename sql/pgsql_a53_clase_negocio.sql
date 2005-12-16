@@ -7,7 +7,9 @@
 CREATE TABLE apex_objeto_negocio
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_negocio_proyecto
+--: dump_clave_componente: objeto_negocio
 --: dump_order_by: objeto_negocio
 --: dump_where: ( objeto_negocio_proyecto = '%%' )
 --: zona: objeto
@@ -27,7 +29,9 @@ CREATE TABLE apex_objeto_negocio
 CREATE TABLE apex_objeto_negocio_regla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_negocio_proyecto
+--: dump_clave_componente: objeto_negocio
 --: dump_order_by: objeto_negocio, nombre
 --: dump_where: ( objeto_negocio_proyecto = '%%' )
 --: zona: objeto

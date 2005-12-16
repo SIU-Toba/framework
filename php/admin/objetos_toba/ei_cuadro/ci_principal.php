@@ -1,5 +1,6 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php');
+require_once('nucleo/componentes/info/info_ei_cuadro.php');
 
 class ci_principal extends ci_editores_toba
 {
@@ -267,8 +268,9 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->importacion_cols = $datos;
 		if(isset($datos['datos_tabla'])){
-			require_once('api/elemento_objeto.php');
-			$dt = elemento_objeto::get_elemento_objeto(toba::get_hilo()->obtener_proyecto(), $datos['datos_tabla']);
+			$clave = array( 'proyecto' => toba::get_hilo()->obtener_proyecto(),
+							'componente' => $datos['datos_tabla'] );
+			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_columnas($datos['pk']);
 			//ei_arbol($datos);
 			$cols = $this->get_entidad()->tabla("columnas");
@@ -298,14 +300,12 @@ class ci_principal extends ci_editores_toba
 
 	function get_modelos_evento()
 	{
-		require_once('api/elemento_objeto_ei_cuadro.php');
-		return elemento_objeto_ei_cuadro::get_modelos_evento();
+		return info_ei_cuadro::get_modelos_evento();
 	}
 
 	function get_eventos_estandar($modelo)
 	{
-		require_once('api/elemento_objeto_ei_cuadro.php');
-		return elemento_objeto_ei_cuadro::get_lista_eventos_estandar($modelo);
+		return info_ei_cuadro::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__salida__3()

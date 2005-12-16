@@ -48,7 +48,9 @@ CREATE TABLE apex_tipo_datos
 CREATE TABLE apex_objeto_db_registros
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto
 --: dump_where: ( objeto_proyecto = '%%' )
 --: zona: objeto
@@ -79,7 +81,9 @@ CREATE SEQUENCE apex_objeto_dbr_columna_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223
 CREATE TABLE apex_objeto_db_registros_col
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto, col_id
 --: dump_where: ( objeto_proyecto = '%%' )
 --: zona: objeto
@@ -111,7 +115,9 @@ CREATE TABLE apex_objeto_db_registros_col
 CREATE TABLE apex_objeto_datos_rel
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto
 --: dump_where: ( proyecto = '%%' )
 --: zona: objeto
@@ -141,7 +147,9 @@ CREATE SEQUENCE apex_objeto_datos_rel_asoc_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9
 CREATE TABLE apex_objeto_datos_rel_asoc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: objeto
 --: dump_order_by: objeto, asoc_id
 --: dump_where: ( proyecto = '%%' )
 --: zona: objeto

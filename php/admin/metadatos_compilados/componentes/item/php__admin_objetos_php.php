@@ -1,0 +1,72 @@
+<?
+//Generador: compilador_proyecto.php
+
+class php__admin_objetos_php
+{
+	function get_metadatos()
+	{
+		return array (
+  'info' => 
+  array (
+    'item_proyecto' => 'toba',
+    'item' => '/admin/objetos/php',
+    'item_nombre' => 'OBJETOS - Codigo PHP de la subclase',
+    'item_descripcion' => 'Ver codigo PHP de la subclase',
+    'item_act_buffer_proyecto' => 'toba',
+    'item_act_buffer' => '0',
+    'item_act_patron_proyecto' => 'toba',
+    'item_act_patron' => 'editable_php_asoc',
+    'item_act_patron_script' => 'patrones/editable_php.php',
+    'item_act_accion_script' => NULL,
+    'item_solic_tipo' => 'browser',
+    'item_solic_registrar' => NULL,
+    'item_solic_obs_tipo_proyecto' => NULL,
+    'item_solic_obs_tipo' => NULL,
+    'item_solic_observacion' => NULL,
+    'item_solic_cronometrar' => NULL,
+    'item_parametro_a' => NULL,
+    'item_parametro_b' => NULL,
+    'item_parametro_c' => NULL,
+    'tipo_pagina_clase' => 'tp_normal',
+    'tipo_pagina_archivo' => 'nucleo/browser/tipo_pagina/tp_normal.php',
+    'item_include_arriba' => NULL,
+    'item_include_abajo' => NULL,
+    'item_zona_proyecto' => 'toba',
+    'item_zona' => 'zona_objeto',
+    'item_zona_archivo' => 'nucleo/browser/zona/zona_objeto.php',
+    'item_publico' => NULL,
+    'item_existe_ayuda' => NULL,
+    'carpeta' => '0',
+    'menu' => NULL,
+    'orden' => '540',
+    'publico' => NULL,
+    'crono' => NULL,
+    'solicitud_tipo' => 'browser',
+  ),
+  'info_objetos' => 
+  array (
+    0 => 
+    array (
+      'objeto_proyecto' => 'toba',
+      'objeto' => '1321',
+      'objeto_nombre' => 'Editor PHP',
+      'objeto_subclase' => 'ci_editor_php',
+      'objeto_subclase_archivo' => 'admin/editores/editor_php/ci_editor_php.php',
+      'orden' => '0',
+      'clase_proyecto' => 'toba',
+      'clase' => 'objeto_ci',
+      'clase_archivo' => 'nucleo/browser/clases/objeto_ci.php',
+      'fuente_proyecto' => 'toba',
+      'fuente' => 'instancia',
+      'fuente_motor' => 'postgres7',
+      'fuente_host' => NULL,
+      'fuente_usuario' => NULL,
+      'fuente_clave' => NULL,
+      'fuente_base' => 'No aplicable',
+    ),
+  ),
+);
+	}
+
+}
+?>

@@ -1,0 +1,314 @@
+<?
+require_once("interfaces.php");
+require_once("nucleo/lib/manejador_archivos.php");
+require_once("nucleo/lib/reflexion/clase_php.php");
+
+class info_componente implements recorrible_como_arbol, meta_clase
+{
+	protected $datos;
+	protected $consumidor = null;				//elemento_toba que consume el elemento
+	protected $datos_consumidor = null;			//Rol que cumple elemento en el consumidor
+	protected $subelementos = array();
+	protected $proyecto;
+	protected $id;
+	
+	function __construct( $datos )
+	{
+		$this->datos = $datos;
+		$this->cargar_dependencias();
+		$this->id = $this->datos['info']['objeto'];
+		$this->proyecto = $this->datos['info']['proyecto'];
+	}
+
+	function cargar_dependencias()
+	{
+		//Si hay objetos asociados...
+		if(	isset($this->datos['info_dependencias']) && 
+			count($this->datos['info_dependencias']) > 0 )	{
+			for ( $a=0; $a<count($this->datos['info_dependencias']); $a++) {
+				$clave['proyecto'] = $this->datos['info_dependencias'][$a]['proyecto'];
+				$clave['componente'] = $this->datos['info_dependencias'][$a]['objeto'];
+				$this->subelementos[$a]= constructor_toba::get_info( $clave );
+				$this->subelementos[$a]->set_consumidor($this, $this->datos['info_dependencias'][$a] );
+			}
+		}
+	}
+
+	function set_consumidor($consumidor, $datos_consumidor)
+	{
+		$this->consumidor = $consumidor;
+		$this->datos_consumidor = $datos_consumidor;
+	}
+	
+	function rol_en_consumidor()
+	{
+		return $this->datos_consumidor['identificador'];
+	}
+	
+	function get_metadatos_subcomponente()
+	{
+		return array();
+	}
+
+	function acceso_zona()
+	{
+		return array( apex_hilo_qs_zona => $this->proyecto . apex_qs_separador . $this->id);
+	}
+
+	function vinculo_editor()
+	{
+		$editor_item = $this->datos['info']['clase_editor_item'];
+		$editor_proyecto = $this->datos['info']['clase_editor_proyecto'];
+		return toba::get_vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona(),
+															false, false, null, true, 'central');
+	}
+
+	//---------------------------------------------------------------------	
+	//-- Recorrible como ARBOL
+	//---------------------------------------------------------------------
+
+	function id()
+	{
+		return $this->id;	
+	}
+	
+	function hijos()
+	{
+		return $this->subelementos;
+	}
+	
+	function es_hoja()
+	{
+		return (count($this->subelementos) == 0);
+	}
+	
+	function tiene_propiedades()
+	{
+		return false;
+	}
+	
+	function nombre_corto()
+	{
+		$nombre_objeto = $this->datos['info']['nombre'];
+		if (isset($this->rol_en_consumidor['identificador']))
+			$nombre = $this->rol_en_consumidor['identificador'];
+		else
+			$nombre = $nombre_objeto; 
+		return $nombre;
+	}
+	
+	function nombre_largo()
+	{
+		$nombre_objeto = $this->datos['info']['nombre'];
+		if (isset($this->rol_en_consumidor['identificador']))
+			$nombre = "$nombre_objeto\nRol: ".$this->rol_en_consumidor['identificador'];
+		else
+			$nombre = $nombre_objeto; 
+		return $nombre;
+	}
+	
+	function iconos()
+	{
+		$iconos = array();
+		$iconos[] = array(
+			'imagen' => recurso::imagen_apl($this->datos['info']['clase_icono'], false),
+			'ayuda' => $this->datos['info']['descripcion'],
+			);	
+		if(isset($this->datos['info']['instanciador_item'])) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("items/simular.gif", false),
+				'ayuda' => "Simula la ejecución de este ".$this->datos_clase['clase'],
+				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos['info']['clase_instanciador_proyecto'],
+																		$this->datos['info']['clase_instanciador_item'],
+																		$this->acceso_zona(),
+																		false, false, null, true, "central")
+			);	
+		}
+		return $iconos;
+	}
+	
+	function utilerias()
+	{
+		$iconos = array();
+		if (isset($this->datos['info']['subclase_archivo'])) {
+/*
+			$param_abrir_php = $this->acceso_zona();
+			$param_abrir_php['evento'] = "abrir";
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("reflexion/abrir.gif", false),
+				'ayuda' => "Abrir la [wiki:Referencia/Objetos/Extension#Abrirlaextensi%C3%B3n extensión PHP] en el editor del sistema.", 
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php,
+																		false, false, null, true, "central")
+			);
+*/
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl('php.gif', false),
+				'ayuda' => 'Ver detalles de la extensión',
+				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
+																		false, false, null, true, 'central')
+			);
+		}
+		if(isset($this->datos['info']['clase_editor_proyecto'])) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+				'ayuda' => "Editar propiedades del OBJETO",
+				'vinculo' => $this->vinculo_editor()
+			);
+		}
+
+		return $iconos;	
+	}	
+	
+	//---------------------------------------------------------------------	
+	//-- EVENTOS
+	//---------------------------------------------------------------------
+
+	function eventos_predefinidos()
+	{
+		return array();
+	}	
+
+	//---------------------------------------------------------------------	
+	//-- METACLASE
+	//---------------------------------------------------------------------
+
+	//---- ANALISIS de EVENTOS
+
+	function es_evento($metodo)
+	{
+		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
+	}	
+
+	function es_evento_valido($metodo)
+	{
+		if (ereg("^evt__(.*)", $metodo))
+			return true; //evt__ seguido de cualquier cosa
+		foreach ($this->subelementos as $elemento) {
+			if ($elemento->es_evento_valido($metodo))
+				return true;
+		}	
+		return false;
+	}
+	
+	function es_evento_predefinido($metodo)
+	{
+		if (! $this->es_evento_valido($metodo))
+			return false;
+	
+		if (isset($this->rol_en_consumidor['identificador'])) {
+			//Debe buscar cosas de tipo 'evt__id__evento'?
+			$id = $this->rol_en_consumidor['identificador'];
+			ereg("^evt__".$id."__(.*)", $metodo, $detalle);
+			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
+				return true;
+		} else {
+			//Debe buscar cosas de tipo 'evt__evento'		
+			ereg("^evt__(.*)", $metodo, $detalle);
+			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
+				return true;		
+		}
+		//Los hijos lo tienen?
+		foreach ($this->subelementos as $elemento) {
+			if ($elemento->es_evento_predefinido($metodo))
+				return true;
+		}
+		return false;
+	}
+
+	function es_evento_sospechoso($metodo)
+	{
+		//Busca cosas como evt___
+		if (ereg("^evt___(.*)", $metodo)) {	
+			return true;
+		}	
+		if (isset($this->rol_en_consumidor['identificador'])) {
+			$id = $this->rol_en_consumidor['identificador'];
+
+			//Busca cosas como evt__id_evento
+			ereg("^evt__".$id."_([^_].*)", $metodo, $detalle);
+			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
+				return true;
+				
+			//Busca cosas como evt__id___evento
+			ereg("^evt__".$id."__[_*](.*)", $metodo, $detalle);
+			if (count($detalle) == 2)
+				return true;			
+		}
+		foreach ($this->subelementos as $elemento) {
+			if ($elemento->es_evento_sospechoso($metodo))
+				return true;
+		}			
+		return false;		
+	}
+	
+	//--- GENERACION de PHP ---
+	
+	function generar_cuerpo_clase($opciones)
+	{
+		$this->set_nivel_comentarios($opciones['nivel_comentarios']);
+		$cuerpo = '';
+		if ($opciones['basicos']) {
+			foreach ($this->generar_metodos() as $metodo_basico) {
+				$cuerpo .= $metodo_basico."\n";
+			}
+		}
+		return $cuerpo;
+	}
+
+	public function generar_metodos()
+	{
+		return array();
+	}
+	
+	//----  FILTRO de COMENTARIOS  --------------
+
+	public function set_nivel_comentarios($nivel)
+	{
+		$this->nivel_comentarios = $nivel;	
+		foreach ($this->subelementos as $elemento) {
+			$elemento->set_nivel_comentarios($nivel);
+		}					
+	}
+	
+	function filtrar_comentarios($metodos)
+	//Elimina aquellos niveles de comentarios superiores al dado
+	//nivel 0: ninguno
+	//nivel 1: recomendados
+	//nivel 2: explicativos
+	//nivel 3: charlatanes
+	{
+		if (is_array($metodos)) {
+			$nuevos = array();
+			foreach ($metodos as $metodo) {
+				$nuevos[] = $this->filtrar_comentarios_metodo($metodo);
+			}
+			return $nuevos;
+		} else { //es un único metodo
+			return $this->filtrar_comentarios_metodo($metodos);
+		}
+	}
+	
+	function filtrar_comentarios_metodo($metodo)
+	{
+		$nivel_maximo = 3;
+		//Sacar las marcas de los inferiores
+		for ($i = 0; $i <= $this->nivel_comentarios; $i++) {
+			$metodo = str_replace("!#c$i", "", $metodo);
+		}
+		$lineas = '';
+		foreach( explode("\n", $metodo) as $linea) {
+			//Eliminar las lineas donde estan los superiores
+			$eliminada = false;
+			for ($i = $this->nivel_comentarios+1; $i<=$nivel_maximo; $i++) {
+				if (strpos($linea, "!#c$i") !== false)
+					$eliminada = true;
+			}
+			if (!$eliminada)
+				$lineas .= $linea."\n";
+		}
+		//Se elimina un salto
+		$lineas = substr($lineas, 0, -1);
+		return $lineas;
+	}
+}
+?>

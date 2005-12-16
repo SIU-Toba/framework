@@ -1,0 +1,65 @@
+
+===============
+	TAREAS
+===============
+
+	* Hay que chequear el flujo del parametro "instancia"
+	* Necesario para ir a TRUNK
+		* Meter los todos los componentes obsoletos
+	* CONVERSION: ¿¿Adaptar los nombres de las clases en la DB(eliminar 'objeto_') ??
+	* Interprete de consola
+	* Terminar el exportador
+		* Tablas instancia
+		* Eliminacion SVN de componentes
+	* Hacer el importador
+		* Pensar LAYUOT instancia
+		* Usuarios
+		* Secuencias
+		* Alta y baja de proyectos simple
+		* Manejo de multiples instancias
+	* Falta un control de que los metadatos sean correctos adentro de la clase (principalmente en RUNTIME). 
+	* Unir las dos representaciones de una clase PHP
+	* Las clases suponen consola... no se pueden llamar desde la web...
+	* Flag compilacion en el punto de acceso
+	* Documentar clases
+	* El cargador simple no chequea que las tablas obligatorias esten llenas
+	* Hay que extender el esquema de componentes a otros elementos
+		* Solicitud (o ITEM?)
+			* por ahora se puede rutear la llamada de la solicitud al cargador
+				- Mas adelante se puede hacer la carga como un componente comun
+			* PROBLEMA: Si los ITEMS y los OBJETOS son componente del mismo nivel puede haber un problema de colision de IDs.
+				- Esto hace que no pueden existir catalogos unificados, como la tabla componente/tipo
+		* Zona
+			
+===============
+	COSAS
+===============
+	
+	* Exportacion
+		- Hay que decentralizar el proceso de bajada de metadatos.
+	
+		- Seria interesante que se pueda exportar el paquete de metadatos
+		generado en la sesion de trabajo de un usuario.
+		Usando el SVN se pueden hacer commits con un valor conceptual mas fuerte.
+	* Se puede simplificar todo el manejo del tema PROYECTO?
+		- En un request no pueden existir pedidos de distintos proyectos
+			para que se necesita un cargador de componentes multiproyecto???
+		- Las tablas componente / tipo, tienen que tener el nombre del proyecto?
+	* Constructor:  Tabla de objetos creados? 
+		- Tiene sentido pensar algo asi como directorio para resolver la comunicacion entre objeto
+
+	* SIempre que hay que buscar una definicion hay que seleccionar la clase de definicion que se va a usar:
+		- tiene sentido juntar todas en un archiv?
+	* Invetigar flags para que no se cuelgue el SVNcache
+
+	* Asi se usaba el exportador antes
+		-h opcional (logs)
+		item /consola/dump -v -ni -p $2 > $d_proy/$2/sql/datos.sql
+		item /consola/dump $logs -i -v -p $2 > $d_sql/datos_instancia.sql
+
+======================
+	Problemas API
+======================
+
+	* Problema para administrar la memoria en CIs
+	* Ventanas que necesita tandil en el inicio de sesion, etc. 

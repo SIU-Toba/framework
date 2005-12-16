@@ -1,6 +1,4 @@
 require_once("version.php");
-require_once("api/elemento_item.php");
-require_once("api/elemento_objeto.php");
 
 class proyecto
 {

@@ -1,5 +1,6 @@
 <?php
 require_once('admin/objetos_toba/ci_editores_toba.php'); 
+require_once('nucleo/componentes/info/info_ei_filtro.php');
 
 class ci_principal extends ci_editores_toba
 {
@@ -84,14 +85,12 @@ class ci_principal extends ci_editores_toba
 
 	function get_modelos_evento()
 	{
-		require_once('api/elemento_objeto_ei_filtro.php');
-		return elemento_objeto_ei_filtro::get_modelos_evento();
+		return info_ei_filtro::get_modelos_evento();
 	}
 	
 	function get_eventos_estandar($modelo)
 	{
-		require_once('api/elemento_objeto_ei_filtro.php');
-		return elemento_objeto_ei_filtro::get_lista_eventos_estandar($modelo);
+		return info_ei_filtro::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__salida__3()

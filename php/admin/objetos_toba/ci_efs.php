@@ -272,10 +272,10 @@ class ci_efs extends objeto_ci
 	{
 		$this->importacion_efs = $datos;
 		if(isset($datos['datos_tabla'])){
-			require_once('api/elemento_objeto.php');
-			$dt = elemento_objeto::get_elemento_objeto(toba::get_hilo()->obtener_proyecto(), $datos['datos_tabla']);
+			$clave = array( 'proyecto' => toba::get_hilo()->obtener_proyecto(),
+							'componente' => $datos['datos_tabla'] );
+			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_efs($datos['pk']);
-			//ei_arbol($datos);
 			foreach($datos as $ef){
 				try{
 					$this->get_tabla()->nueva_fila($ef);
