@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/browser/clases/objeto_ei.php");						//Ancestro de todos los OE
+require_once("objeto_ei.php");						//Ancestro de todos los OE
 require_once("nucleo/lib/manejador_archivos.php");
 
 class objeto_ei_esquema extends objeto_ei
@@ -12,30 +12,12 @@ class objeto_ei_esquema extends objeto_ei
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->objeto_js = "objeto_esquema_{$id[1]}";	
+		$this->objeto_js = "objeto_esquema_{$this->id[1]}";	
 		$this->submit = "ei_esquema".$this->id[1];	
 		$this->alto = isset($this->info_esquema['alto']) ?  $this->info_esquema['alto'] : null;
 		$this->ancho = isset($this->info_esquema['ancho']) ?  $this->info_esquema['ancho'] : null;
 	}
 
-	function obtener_definicion_db()
-	{
-		$sql = parent::obtener_definicion_db();
-		//---- Plan -----------------------
-		$sql["info_esquema"]["sql"] = "SELECT
-												dirigido,
-												formato,					
-												modelo_ejecucion_cache,	
-												ancho,					
-												alto
-									FROM	apex_objeto_esquema
-									WHERE	objeto_esquema_proyecto='".$this->id[0]."'
-               				AND     objeto_esquema='".$this->id[1]."';";
-		$sql["info_esquema"]["tipo"]="1";
-		$sql["info_esquema"]["estricto"]="1";
-		return $sql;
-	}
-	
 	function cargar_datos($datos)
 	{
 		if (isset($datos)) {

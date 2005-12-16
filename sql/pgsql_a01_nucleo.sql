@@ -1132,7 +1132,7 @@ CREATE TABLE apex_objeto_eventos
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","evento_id"),
 	CONSTRAINT	"apex_objeto_eventos_uq" UNIQUE ("proyecto","objeto","identificador"),	
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE NO CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_objeto_eventos_fk_objeto" FOREIGN KEY ("proyecto","objeto") REFERENCES "apex_objeto"	("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 

@@ -756,7 +756,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
 										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
 				echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
-										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última eliminación');										"onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última eliminación');
 			}
 			echo "</div>\n";
 		}

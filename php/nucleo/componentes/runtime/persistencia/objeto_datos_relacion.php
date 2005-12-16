@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/browser/clases/objeto.php");
+require_once("nucleo/componentes/runtime/objeto.php");
 require_once("relacion_entre_tablas.php");
-require_once("nucleo/browser/clases/objeto_ei_esquema.php");
+require_once("nucleo/componentes/runtime/interface/objeto_ei_esquema.php");
 require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 /**
