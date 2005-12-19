@@ -74,9 +74,9 @@ class php_1508
     'filas' => NULL,
     'filas_agregar' => '1',
     'filas_agregar_online' => '1',
-    'filas_ordenar' => NULL,
-    'filas_numerar' => NULL,
-    'columna_orden' => NULL,
+    'filas_ordenar' => '1',
+    'filas_numerar' => '1',
+    'columna_orden' => 'orden',
     'analisis_cambios' => 'LINEA',
   ),
   'info_formulario_ef' => 

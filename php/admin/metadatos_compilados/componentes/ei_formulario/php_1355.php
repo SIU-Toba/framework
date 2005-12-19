@@ -91,7 +91,7 @@ maximo: 255;',
     array (
       'identificador' => 'fuente_datos',
       'columnas' => 'fuente_datos_proyecto, fuente_datos',
-      'obligatorio' => NULL,
+      'obligatorio' => '1',
       'elemento_formulario' => 'ef_combo_db_proyecto',
       'inicializacion' => 'sql: SELECT proyecto, fuente_datos, descripcion_corta  FROM apex_fuente_datos %w% ORDER BY 2;
 columna_proyecto: proyecto;',

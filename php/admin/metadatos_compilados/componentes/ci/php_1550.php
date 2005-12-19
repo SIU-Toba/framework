@@ -86,7 +86,7 @@ class php_1550
       'descripcion' => NULL,
       'imagen_recurso_origen' => NULL,
       'imagen' => NULL,
-      'objetos' => 'relaciones_lista,relaciones_columnas',
+      'objetos' => 'relaciones_lista,relaciones_columnas,relaciones_esquema',
       'eventos' => '',
       'orden' => '1',
     ),
@@ -107,6 +107,19 @@ class php_1550
       'parametros_b' => NULL,
     ),
     1 => 
+    array (
+      'identificador' => 'relaciones_esquema',
+      'proyecto' => 'toba',
+      'objeto' => '1755',
+      'clase' => 'objeto_ei_esquema',
+      'clase_archivo' => 'nucleo/browser/clases/objeto_ei_esquema.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    2 => 
     array (
       'identificador' => 'relaciones_lista',
       'proyecto' => 'toba',

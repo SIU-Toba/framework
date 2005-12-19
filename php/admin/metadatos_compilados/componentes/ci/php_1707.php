@@ -15,7 +15,7 @@ class php_1707
     'clase_proyecto' => 'toba',
     'clase' => 'objeto_ci',
     'subclase' => 'ci_principal',
-    'subclase_archivo' => 'admin/objetos_toba/ei_arbol/ci_principal.php',
+    'subclase_archivo' => 'admin/objetos_toba/cn/ci_principal.php',
     'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
     'nombre' => 'Editor OBJETO - cn',

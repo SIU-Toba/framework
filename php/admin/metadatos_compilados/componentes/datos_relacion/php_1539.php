@@ -50,7 +50,7 @@ class php_1539
   array (
     'proyecto' => 'toba',
     'objeto' => '1539',
-    'clave' => NULL,
+    'debug' => '0',
     'ap' => '2',
     'ap_clase' => NULL,
     'ap_archivo' => NULL,

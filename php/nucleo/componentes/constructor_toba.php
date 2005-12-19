@@ -54,7 +54,7 @@ class constructor_toba
 	static private function get_metadatos_compilados( $id, $tipo )
 	{
 		$raiz = toba::get_hilo()->obtener_path();
-		$directorio_componentes = $raiz . '/php/admin/metadatos_compilados';		
+		$directorio_componentes = $raiz . '/php/admin/metadatos_compilados/componentes';		
 		$prefijo = 'php_';
 		if ( $tipo == 'item' ) {
 			$nombre = $prefijo . manejador_archivos::nombre_valido( $id['componente'] );

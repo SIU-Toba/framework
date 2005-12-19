@@ -1,7 +1,7 @@
 <?
 //Generador: compilador_proyecto.php
 
-class php__consola_gen_act_sec
+class php_3269
 {
 	function get_metadatos()
 	{
@@ -9,15 +9,15 @@ class php__consola_gen_act_sec
   'info' => 
   array (
     'item_proyecto' => 'toba',
-    'item' => '/consola/gen_act_sec',
-    'item_nombre' => 'Generador de Actualizacion de secuencias',
+    'item' => '3269',
+    'item_nombre' => 'Actualizador de secuencias',
     'item_descripcion' => NULL,
     'item_act_buffer_proyecto' => 'toba',
     'item_act_buffer' => '0',
     'item_act_patron_proyecto' => 'toba',
     'item_act_patron' => 'especifico',
     'item_act_patron_script' => 'NO APLICABLE',
-    'item_act_accion_script' => 'acciones/consola/gen_act_sec.php',
+    'item_act_accion_script' => 'acciones/consola/actualizador_secuencias.php',
     'item_solic_tipo' => 'consola',
     'item_solic_registrar' => NULL,
     'item_solic_obs_tipo_proyecto' => NULL,

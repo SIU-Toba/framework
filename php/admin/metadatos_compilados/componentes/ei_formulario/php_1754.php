@@ -1,7 +1,7 @@
 <?
 //Generador: compilador_proyecto.php
 
-class php_1511
+class php_1754
 {
 	function get_metadatos()
 	{
@@ -9,17 +9,17 @@ class php_1511
   'info' => 
   array (
     'proyecto' => 'toba',
-    'objeto' => '1511',
+    'objeto' => '1754',
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
     'clase' => 'objeto_ei_formulario',
-    'subclase' => 'eiform_ap',
-    'subclase_archivo' => 'admin/objetos_toba/db_tablas/eiform_ap.php',
+    'subclase' => NULL,
+    'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
-    'nombre' => 'OBJETO - DBR - Prop. basicas',
-    'titulo' => 'Administrador de Persistencia PREDETERMINADO',
+    'nombre' => 'OBJETO - ei_esquema - basicas',
+    'titulo' => NULL,
     'colapsable' => NULL,
     'descripcion' => NULL,
     'fuente_proyecto' => 'toba',
@@ -34,7 +34,7 @@ class php_1511
     'parametro_e' => NULL,
     'parametro_f' => NULL,
     'usuario' => NULL,
-    'creacion' => '2005-07-26 23:56:28',
+    'creacion' => '2005-11-28 16:31:08',
     'clase_editor_proyecto' => 'toba',
     'clase_editor_item' => '/admin/objetos_toba/editores/ei_formulario',
     'clase_archivo' => 'nucleo/browser/clases/objeto_ei_formulario.php',
@@ -51,7 +51,7 @@ class php_1511
     0 => 
     array (
       'identificador' => 'modificacion',
-      'etiqueta' => 'Modificacion',
+      'etiqueta' => '&Modificacion',
       'maneja_datos' => '1',
       'sobre_fila' => NULL,
       'confirmacion' => NULL,
@@ -69,63 +69,61 @@ class php_1511
   array (
     'auto_reset' => NULL,
     'ancho' => NULL,
-    'ancho_etiqueta' => NULL,
+    'ancho_etiqueta' => '150px',
   ),
   'info_formulario_ef' => 
   array (
     0 => 
     array (
-      'identificador' => 'clave',
-      'columnas' => 'clave',
+      'identificador' => 'dirigido',
+      'columnas' => 'dirigido',
       'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_editable',
-      'inicializacion' => 'tamano: 40;
-maximo: 60;',
-      'etiqueta' => 'Clave',
+      'elemento_formulario' => 'ef_checkbox',
+      'inicializacion' => 'valor: 1;
+valor_no_seteado: 0;
+estado: 1;',
+      'etiqueta' => 'Dirigido',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'Componentes asociativos de la clave del elemento.',
+      'descripcion' => '¿Las aristas entre los nodos tienen una dirección?',
       'orden' => '1',
       'colapsado' => NULL,
     ),
     1 => 
     array (
-      'identificador' => 'ap',
-      'columnas' => 'ap',
+      'identificador' => 'formato',
+      'columnas' => 'formato',
       'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_combo_db',
-      'inicializacion' => 'sql: SELECT ap, descripcion FROM apex_admin_persistencia
-WHERE categoria = \'R\';',
-      'etiqueta' => 'AP por defecto',
+      'elemento_formulario' => 'ef_combo_lista',
+      'inicializacion' => 'lista: gif,png,svg;',
+      'etiqueta' => 'Formato',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
+      'descripcion' => 'Los formatos png y gif se muestran en un tag <img>, mientras que el svg en uno <object> o <embed>. El formato SVG a pesar de ser un formato estándar requiere un plugin para el IE o firefox 1.5 o superior, la ventaja del formato es que se pueden incluir URLs en los nodos/vertices y más....',
       'orden' => '2',
       'colapsado' => NULL,
     ),
     2 => 
     array (
-      'identificador' => 'ap_clase',
-      'columnas' => 'ap_clase',
+      'identificador' => 'modelo_ejecucion_cac',
+      'columnas' => 'modelo_ejecucion_cache',
       'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_editable',
-      'inicializacion' => 'tamano: 40;
-maximo: 80;',
-      'etiqueta' => 'AP - Clase',
+      'elemento_formulario' => 'ef_checkbox',
+      'inicializacion' => 'valor: 1;
+valor_no_seteado: 0;
+estado: 0;',
+      'etiqueta' => 'Usar cache',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
+      'descripcion' => 'La ejecución sobre cache no regenera el gráfico si ya se genero en la sesión actual (modelo estático), mientras el onTheFly lo regenera siempre.',
       'orden' => '3',
       'colapsado' => NULL,
     ),
     3 => 
     array (
-      'identificador' => 'ap_archivo',
-      'columnas' => 'ap_archivo',
+      'identificador' => 'ancho',
+      'columnas' => 'ancho',
       'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_popup',
-      'inicializacion' => 'tamano: 60;
-maximo: 80;
-item_destino: /admin/objetos_toba/selector_archivo,toba;
-ventana: 400,400,yes;',
-      'etiqueta' => 'AP - Archivo',
+      'elemento_formulario' => 'ef_editable',
+      'inicializacion' => NULL,
+      'etiqueta' => 'Ancho',
       'etiqueta_estilo' => NULL,
       'descripcion' => NULL,
       'orden' => '4',
@@ -133,16 +131,14 @@ ventana: 400,400,yes;',
     ),
     4 => 
     array (
-      'identificador' => 'debug',
-      'columnas' => 'debug',
+      'identificador' => 'alto',
+      'columnas' => 'alto',
       'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_checkbox',
-      'inicializacion' => 'valor: 1;
-valor_no_seteado: 0;
-estado: 0;',
-      'etiqueta' => 'Modo Debug',
+      'elemento_formulario' => 'ef_editable',
+      'inicializacion' => NULL,
+      'etiqueta' => 'Alto',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'En el modo debug el objeto muestra un esquema de las tablas al inicio del pedido de página y otro al final. Al mostrar un esquema utilizando SVG se necesita un plugin de Adobe para el IE o la versión 1.5 o superior de Firefox.',
+      'descripcion' => NULL,
       'orden' => '5',
       'colapsado' => NULL,
     ),

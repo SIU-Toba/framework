@@ -145,6 +145,48 @@ class php_1525
       'no_nulo_db' => NULL,
       'externa' => NULL,
     ),
+    6 => 
+    array (
+      'objeto_proyecto' => 'toba',
+      'objeto' => '1525',
+      'col_id' => '373',
+      'columna' => 'sinc_susp_constraints',
+      'tipo' => 'E',
+      'pk' => NULL,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => NULL,
+      'externa' => NULL,
+    ),
+    7 => 
+    array (
+      'objeto_proyecto' => 'toba',
+      'objeto' => '1525',
+      'col_id' => '374',
+      'columna' => 'sinc_orden_automatico',
+      'tipo' => 'E',
+      'pk' => NULL,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => NULL,
+      'externa' => NULL,
+    ),
+    8 => 
+    array (
+      'objeto_proyecto' => 'toba',
+      'objeto' => '1525',
+      'col_id' => '391',
+      'columna' => 'debug',
+      'tipo' => 'E',
+      'pk' => NULL,
+      'secuencia' => NULL,
+      'largo' => NULL,
+      'no_nulo' => NULL,
+      'no_nulo_db' => NULL,
+      'externa' => NULL,
+    ),
   ),
 );
 	}

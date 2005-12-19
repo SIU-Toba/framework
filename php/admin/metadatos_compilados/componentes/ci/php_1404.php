@@ -102,8 +102,8 @@ class php_1404
       'descripcion' => NULL,
       'imagen_recurso_origen' => 'apex',
       'imagen' => 'objetos/datos_relacion.gif',
-      'objetos' => 'base,prop_basicas',
-      'eventos' => 'procesar,eliminar',
+      'objetos' => 'base,prop_basicas,opciones',
+      'eventos' => 'eliminar,procesar',
       'orden' => '1',
     ),
     1 => 
@@ -115,7 +115,7 @@ class php_1404
       'imagen_recurso_origen' => NULL,
       'imagen' => NULL,
       'objetos' => 'dependencias',
-      'eventos' => 'procesar,eliminar',
+      'eventos' => 'eliminar,procesar',
       'orden' => '2',
     ),
     2 => 
@@ -123,11 +123,11 @@ class php_1404
       'pantalla' => '458',
       'identificador' => 'relaciones',
       'etiqueta' => 'Relaciones',
-      'descripcion' => NULL,
+      'descripcion' => 'Describir las relaciones existentes entre las distintas tablas.',
       'imagen_recurso_origen' => NULL,
       'imagen' => NULL,
       'objetos' => 'relaciones',
-      'eventos' => 'procesar,eliminar',
+      'eventos' => 'eliminar,procesar',
       'orden' => '3',
     ),
   ),
@@ -174,6 +174,19 @@ class php_1404
     ),
     3 => 
     array (
+      'identificador' => 'opciones',
+      'proyecto' => 'toba',
+      'objeto' => '1750',
+      'clase' => 'objeto_ei_formulario',
+      'clase_archivo' => 'nucleo/browser/clases/objeto_ei_formulario.php',
+      'subclase' => NULL,
+      'subclase_archivo' => NULL,
+      'fuente' => 'instancia',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
+    ),
+    4 => 
+    array (
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba',
       'objeto' => '1511',
@@ -185,7 +198,7 @@ class php_1404
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    5 => 
     array (
       'identificador' => 'relaciones',
       'proyecto' => 'toba',

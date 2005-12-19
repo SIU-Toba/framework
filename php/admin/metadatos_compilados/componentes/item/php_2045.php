@@ -51,7 +51,7 @@ class php_2045
       'objeto' => '1707',
       'objeto_nombre' => 'Editor OBJETO - cn',
       'objeto_subclase' => 'ci_principal',
-      'objeto_subclase_archivo' => 'admin/objetos_toba/ei_arbol/ci_principal.php',
+      'objeto_subclase_archivo' => 'admin/objetos_toba/cn/ci_principal.php',
       'orden' => '0',
       'clase_proyecto' => 'toba',
       'clase' => 'objeto_ci',

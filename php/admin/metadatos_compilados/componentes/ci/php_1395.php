@@ -126,7 +126,7 @@ class php_1395
       'descripcion' => NULL,
       'imagen_recurso_origen' => 'apex',
       'imagen' => 'reflexion/evento.gif',
-      'objetos' => 'eventos,ddddddd',
+      'objetos' => 'eventos',
       'eventos' => 'eliminar,procesar',
       'orden' => '3',
     ),
@@ -161,19 +161,6 @@ class php_1395
     ),
     2 => 
     array (
-      'identificador' => 'ddddddd',
-      'proyecto' => 'toba',
-      'objeto' => '1756',
-      'clase' => 'objeto_ei_archivos',
-      'clase_archivo' => 'nucleo/browser/clases/objeto_ei_archivos.php',
-      'subclase' => NULL,
-      'subclase_archivo' => NULL,
-      'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
-    ),
-    3 => 
-    array (
       'identificador' => 'efs',
       'proyecto' => 'toba',
       'objeto' => '1390',
@@ -185,7 +172,7 @@ class php_1395
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    4 => 
+    3 => 
     array (
       'identificador' => 'eventos',
       'proyecto' => 'toba',
@@ -198,7 +185,7 @@ class php_1395
       'parametros_a' => NULL,
       'parametros_b' => NULL,
     ),
-    5 => 
+    4 => 
     array (
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba',

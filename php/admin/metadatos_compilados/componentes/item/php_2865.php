@@ -1,7 +1,7 @@
 <?
 //Generador: compilador_proyecto.php
 
-class php__admin_objetos_toba_editores_ei_archivos
+class php_2865
 {
 	function get_metadatos()
 	{
@@ -9,15 +9,15 @@ class php__admin_objetos_toba_editores_ei_archivos
   'info' => 
   array (
     'item_proyecto' => 'toba',
-    'item' => '/admin/objetos_toba/editores/ei_archivos',
-    'item_nombre' => 'Editor ei_archivos',
+    'item' => '2865',
+    'item_nombre' => 'Editor ei_esquema',
     'item_descripcion' => NULL,
     'item_act_buffer_proyecto' => 'toba',
     'item_act_buffer' => '0',
     'item_act_patron_proyecto' => 'toba',
     'item_act_patron' => 'CI',
     'item_act_patron_script' => 'patrones/ci.php',
-    'item_act_accion_script' => NULL,
+    'item_act_accion_script' => '',
     'item_solic_tipo' => 'browser',
     'item_solic_registrar' => NULL,
     'item_solic_obs_tipo_proyecto' => NULL,
@@ -48,10 +48,10 @@ class php__admin_objetos_toba_editores_ei_archivos
     0 => 
     array (
       'objeto_proyecto' => 'toba',
-      'objeto' => '1449',
-      'objeto_nombre' => 'Editor OBJETO - ei_archivos',
+      'objeto' => '1751',
+      'objeto_nombre' => 'Editor OBJETO - ei_esquema',
       'objeto_subclase' => 'ci_principal',
-      'objeto_subclase_archivo' => 'admin/objetos_toba/ei_archivos/ci_principal.php',
+      'objeto_subclase_archivo' => 'admin/objetos_toba/ei_esquema/ci_principal.php',
       'orden' => '0',
       'clase_proyecto' => 'toba',
       'clase' => 'objeto_ci',

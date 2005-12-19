@@ -105,7 +105,7 @@ class php_1403
       'titulo' => 'Rol',
       'estilo_titulo' => 'lista-col-titulo',
       'estilo' => 'col-tex-p1',
-      'ancho' => '25%',
+      'ancho' => NULL,
       'clave' => 'identificador',
       'formateo' => NULL,
       'vinculo_indice' => NULL,

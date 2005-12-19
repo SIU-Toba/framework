@@ -1,7 +1,7 @@
 <?
 //Generador: compilador_proyecto.php
 
-class php_1406
+class php_1365
 {
 	function get_metadatos()
 	{
@@ -9,19 +9,19 @@ class php_1406
   'info' => 
   array (
     'proyecto' => 'toba',
-    'objeto' => '1406',
+    'objeto' => '1365',
     'anterior' => NULL,
-    'reflexivo' => '0',
+    'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
     'clase' => 'objeto_ei_formulario_ml',
-    'subclase' => NULL,
-    'subclase_archivo' => NULL,
-    'objeto_categoria_proyecto' => 'toba',
+    'subclase' => 'eiform_abm_detalle',
+    'subclase_archivo' => 'admin/objetos_toba/eiform_abm_detalle.php',
+    'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
-    'nombre' => 'OBJETO - Editor datos_relacion - Relaciones',
-    'titulo' => 'RELACION entre TABLAS',
+    'nombre' => 'OBJETO - General - Eventos Lista',
+    'titulo' => NULL,
     'colapsable' => NULL,
-    'descripcion' => 'Asocia objetos a items',
+    'descripcion' => NULL,
     'fuente_proyecto' => 'toba',
     'fuente' => 'instancia',
     'solicitud_registrar' => NULL,
@@ -34,7 +34,7 @@ class php_1406
     'parametro_e' => NULL,
     'parametro_f' => NULL,
     'usuario' => NULL,
-    'creacion' => NULL,
+    'creacion' => '2005-07-19 05:13:13',
     'clase_editor_proyecto' => 'toba',
     'clase_editor_item' => '/admin/objetos_toba/editores/ei_formulario_ml',
     'clase_archivo' => 'nucleo/browser/clases/objeto_ei_formulario_ml.php',
@@ -50,22 +50,6 @@ class php_1406
   array (
     0 => 
     array (
-      'identificador' => 'seleccion',
-      'etiqueta' => NULL,
-      'maneja_datos' => '1',
-      'sobre_fila' => '1',
-      'confirmacion' => NULL,
-      'estilo' => NULL,
-      'imagen_recurso_origen' => 'apex',
-      'imagen' => 'doc.gif',
-      'en_botonera' => '0',
-      'ayuda' => NULL,
-      'ci_predep' => NULL,
-      'implicito' => NULL,
-      'grupo' => NULL,
-    ),
-    1 => 
-    array (
       'identificador' => 'modificacion',
       'etiqueta' => 'Modificacion',
       'maneja_datos' => '1',
@@ -80,10 +64,26 @@ class php_1406
       'implicito' => '1',
       'grupo' => NULL,
     ),
+    1 => 
+    array (
+      'identificador' => 'seleccion',
+      'etiqueta' => NULL,
+      'maneja_datos' => '1',
+      'sobre_fila' => '1',
+      'confirmacion' => '',
+      'estilo' => NULL,
+      'imagen_recurso_origen' => 'apex',
+      'imagen' => 'doc.gif',
+      'en_botonera' => '0',
+      'ayuda' => 'Seleccionar la fila',
+      'ci_predep' => NULL,
+      'implicito' => NULL,
+      'grupo' => NULL,
+    ),
   ),
   'info_formulario' => 
   array (
-    'auto_reset' => '1',
+    'auto_reset' => NULL,
     'scroll' => NULL,
     'ancho' => '500',
     'alto' => NULL,
@@ -91,48 +91,12 @@ class php_1406
     'filas_agregar' => '1',
     'filas_agregar_online' => '1',
     'filas_ordenar' => '1',
-    'filas_numerar' => '1',
+    'filas_numerar' => NULL,
     'columna_orden' => 'orden',
     'analisis_cambios' => 'LINEA',
   ),
   'info_formulario_ef' => 
   array (
-    0 => 
-    array (
-      'identificador' => 'padre',
-      'columnas' => 'padre',
-      'obligatorio' => '1',
-      'elemento_formulario' => 'ef_combo_dao',
-      'inicializacion' => 'dao: get_lista_tablas;
-clave: objeto;
-valor: desc;
-no_seteado: --- SELECCIONAR ---;',
-      'etiqueta' => 'PADRE',
-      'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
-      'orden' => '1',
-      'total' => NULL,
-      'columna_estilo' => '4',
-      'colapsado' => NULL,
-    ),
-    1 => 
-    array (
-      'identificador' => 'hija',
-      'columnas' => 'hija',
-      'obligatorio' => '1',
-      'elemento_formulario' => 'ef_combo_dao',
-      'inicializacion' => 'dao: get_lista_tablas;
-clave: objeto;
-valor: desc;
-no_seteado: --- SELECCIONAR ---;',
-      'etiqueta' => 'HIJO',
-      'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
-      'orden' => '2',
-      'total' => NULL,
-      'columna_estilo' => '0',
-      'colapsado' => NULL,
-    ),
   ),
 );
 	}

@@ -1,7 +1,7 @@
 <?
 //Generador: compilador_proyecto.php
 
-class php_1535
+class php_1752
 {
 	function get_metadatos()
 	{
@@ -9,7 +9,7 @@ class php_1535
   'info' => 
   array (
     'proyecto' => 'toba',
-    'objeto' => '1535',
+    'objeto' => '1752',
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
@@ -18,7 +18,7 @@ class php_1535
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
-    'nombre' => 'OBJETO - EI filtro',
+    'nombre' => 'OBJETO - EI esquema',
     'titulo' => NULL,
     'colapsable' => NULL,
     'descripcion' => NULL,
@@ -34,7 +34,7 @@ class php_1535
     'parametro_e' => NULL,
     'parametro_f' => NULL,
     'usuario' => NULL,
-    'creacion' => '2005-08-28 03:51:37',
+    'creacion' => '2005-11-28 16:17:57',
     'clase_editor_proyecto' => 'toba',
     'clase_editor_item' => '/admin/objetos_toba/editores/db_tablas',
     'clase_archivo' => 'nucleo/persistencia/objeto_datos_relacion.php',
@@ -49,7 +49,7 @@ class php_1535
   'info_estructura' => 
   array (
     'proyecto' => 'toba',
-    'objeto' => '1535',
+    'objeto' => '1752',
     'debug' => '0',
     'ap' => '2',
     'ap_clase' => NULL,
@@ -60,40 +60,24 @@ class php_1535
     0 => 
     array (
       'proyecto' => 'toba',
-      'objeto' => '1535',
-      'asoc_id' => '12',
+      'objeto' => '1752',
+      'asoc_id' => '1',
       'padre_proyecto' => 'toba',
       'padre_objeto' => '1501',
       'padre_id' => 'base',
       'padre_clave' => 'proyecto,objeto',
       'hijo_proyecto' => 'toba',
-      'hijo_objeto' => '1529',
+      'hijo_objeto' => '1753',
       'hijo_id' => 'prop_basicas',
-      'hijo_clave' => 'objeto_ut_formulario_proyecto,objeto_ut_formulario',
-      'cascada' => '0',
+      'hijo_clave' => 'objeto_esquema_proyecto,objeto_esquema',
+      'cascada' => NULL,
       'orden' => '1',
     ),
     1 => 
     array (
       'proyecto' => 'toba',
-      'objeto' => '1535',
-      'asoc_id' => '13',
-      'padre_proyecto' => 'toba',
-      'padre_objeto' => '1529',
-      'padre_id' => 'prop_basicas',
-      'padre_clave' => 'objeto_ut_formulario_proyecto,objeto_ut_formulario',
-      'hijo_proyecto' => 'toba',
-      'hijo_objeto' => '1530',
-      'hijo_id' => 'efs',
-      'hijo_clave' => 'objeto_ei_formulario_proyecto,objeto_ei_formulario',
-      'cascada' => '0',
-      'orden' => '2',
-    ),
-    2 => 
-    array (
-      'proyecto' => 'toba',
-      'objeto' => '1535',
-      'asoc_id' => '14',
+      'objeto' => '1752',
+      'asoc_id' => '4',
       'padre_proyecto' => 'toba',
       'padre_objeto' => '1501',
       'padre_id' => 'base',
@@ -102,8 +86,8 @@ class php_1535
       'hijo_objeto' => '1505',
       'hijo_id' => 'eventos',
       'hijo_clave' => 'proyecto,objeto',
-      'cascada' => '0',
-      'orden' => '3',
+      'cascada' => NULL,
+      'orden' => '2',
     ),
   ),
   'info_dependencias' => 
@@ -123,19 +107,6 @@ class php_1535
     ),
     1 => 
     array (
-      'identificador' => 'efs',
-      'proyecto' => 'toba',
-      'objeto' => '1530',
-      'clase' => 'objeto_datos_tabla',
-      'clase_archivo' => 'nucleo/persistencia/objeto_datos_tabla.php',
-      'subclase' => 'odt_formulario_efs',
-      'subclase_archivo' => 'admin/db/odt_formulario_efs.php',
-      'fuente' => 'instancia',
-      'parametros_a' => '1',
-      'parametros_b' => '0',
-    ),
-    2 => 
-    array (
       'identificador' => 'eventos',
       'proyecto' => 'toba',
       'objeto' => '1505',
@@ -144,14 +115,14 @@ class php_1535
       'subclase' => 'odt_eventos',
       'subclase_archivo' => 'admin/db/odt_eventos.php',
       'fuente' => 'instancia',
-      'parametros_a' => '0',
-      'parametros_b' => '0',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
     ),
-    3 => 
+    2 => 
     array (
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba',
-      'objeto' => '1529',
+      'objeto' => '1753',
       'clase' => 'objeto_datos_tabla',
       'clase_archivo' => 'nucleo/persistencia/objeto_datos_tabla.php',
       'subclase' => NULL,

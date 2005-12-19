@@ -50,22 +50,6 @@ class php_1366
   array (
     0 => 
     array (
-      'identificador' => 'cancelar',
-      'etiqueta' => '&Cancelar',
-      'maneja_datos' => '0',
-      'sobre_fila' => '0',
-      'confirmacion' => '',
-      'estilo' => 'abm-input',
-      'imagen_recurso_origen' => NULL,
-      'imagen' => NULL,
-      'en_botonera' => '1',
-      'ayuda' => '',
-      'ci_predep' => NULL,
-      'implicito' => '0',
-      'grupo' => 'cargado',
-    ),
-    1 => 
-    array (
       'identificador' => 'aceptar',
       'etiqueta' => '&Aceptar',
       'maneja_datos' => '1',
@@ -79,6 +63,22 @@ class php_1366
       'ci_predep' => NULL,
       'implicito' => '0',
       'grupo' => NULL,
+    ),
+    1 => 
+    array (
+      'identificador' => 'cancelar',
+      'etiqueta' => '&Cancelar',
+      'maneja_datos' => '0',
+      'sobre_fila' => '0',
+      'confirmacion' => '',
+      'estilo' => 'abm-input',
+      'imagen_recurso_origen' => NULL,
+      'imagen' => NULL,
+      'en_botonera' => '1',
+      'ayuda' => '',
+      'ci_predep' => NULL,
+      'implicito' => '0',
+      'grupo' => 'cargado',
     ),
     2 => 
     array (
