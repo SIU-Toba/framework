@@ -282,6 +282,7 @@ then
 		echo "Actualizando las secuencias"
 		cd $toba_dir/sql		
 		pgsql_ejecutar pgsql_z02_nucleo_act_seq.sql
+		adm actualizar_secuencias
 	fi
 	
 ##***********************************************************************************************##

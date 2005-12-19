@@ -34,5 +34,8 @@
 #-------------------------------------------------------------------------------
 define("apex_clave_get","x6B2AHNQRqUW9");//Parametros opacos por GET
 define("apex_clave_db","dQFpBmBTJFF+By");//Informacion opaca en la base
+define('apex_id_grupo_desarrollo', 0);		//Identifica univocamente al grupo de desarrollo
+											//Permite que varios grupos trabajen sobre un mismo proyecto en forma remota
+											//si que las secuencias de las tablas de Toba de cada uno entren en conflicto
 #-------------------------------------------------------------------------------
 ?>

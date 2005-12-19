@@ -1,5 +1,5 @@
 <?php
-require_once('modelo/dba.php');
+require_once('nucleo/lib/db/dba.php');
 
 class test_dba extends test_toba 
 {

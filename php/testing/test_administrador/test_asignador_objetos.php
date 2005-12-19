@@ -34,7 +34,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$item = constructor_toba::get_info( array('componente'=>'1240','proyecto'=>'toba_testing')), 'item')
+		$item = constructor_toba::get_info( array('componente'=>'1240','proyecto'=>'toba_testing'), 'item');
 		$this->assertEqual(count($item->hijos()), 1);
 	}
 	

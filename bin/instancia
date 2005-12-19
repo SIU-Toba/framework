@@ -123,6 +123,7 @@ then
 	cd $toba_dir/sql		
 	adm $instancia crear_post
 	controlar "--<3> CREAR POST-CONSTRAINTS en INSTANCIA: $instancia"
+	adm $instancia actualizar_secuencias
 	
 ##***********************************************************************************************##
 ## Regenera una <I>
