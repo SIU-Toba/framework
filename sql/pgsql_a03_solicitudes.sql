@@ -156,8 +156,8 @@ CREATE TABLE apex_solicitud_cronometro
 	nivel_ejecucion				varchar(15)			NOT NULL,
 	texto						varchar(120)		NULL,
 	tiempo						float				NULL,
-	CONSTRAINT	"apex_sol_cron_pk" PRIMARY KEY ("solicitud","marca"),
-	CONSTRAINT	"apex_sol_cron_fk_nivel" FOREIGN KEY ("nivel_ejecucion") REFERENCES "apex_nivel_ejecucion" ("nivel_ejecucion") ON DELETE NO ACTION ON UPDATE NO ACTION  DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_cron_pk" PRIMARY KEY ("solicitud","marca")
+--	CONSTRAINT	"apex_sol_cron_fk_nivel" FOREIGN KEY ("nivel_ejecucion") REFERENCES "apex_nivel_ejecucion" ("nivel_ejecucion") ON DELETE NO ACTION ON UPDATE NO ACTION  DEFERRABLE INITIALLY IMMEDIATE
 --  Este constraint no funcionan porque debe estar tambien el proyecto en esta tabla		
 --	CONSTRAINT	"apex_sol_cron_fk_sol" FOREIGN KEY ("solicitud") REFERENCES "apex_solicitud" ("solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 --	CONSTRAINT	"apex_sol_cron_fk_sol" FOREIGN KEY ("solicitud") REFERENCES "apex_solicitud" ("solicitud") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
