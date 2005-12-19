@@ -78,41 +78,6 @@ class objeto_ci extends objeto_ei
 		return $estado;
 	}
 	
-	function obtener_definicion_db()
-	{
-		$sql = parent::obtener_definicion_db();
-		//-- Info BASICA --------------
-		$sql["info_ci"]["sql"] = "		SELECT		ev_procesar_etiq		as	ev_procesar_etiq,
-													ev_cancelar_etiq		as	ev_cancelar_etiq,
-													objetos					as	objetos,
-													ancho					as	ancho,			
-													alto					as	alto,
-													posicion_botonera		as  posicion_botonera,
-													tipo_navegacion			as	tipo_navegacion,
-													con_toc					as  con_toc
-											FROM	apex_objeto_mt_me
-											WHERE	objeto_mt_me_proyecto='".$this->id[0]."'
-											AND	objeto_mt_me='".$this->id[1]."';";
-		$sql["info_ci"]["tipo"]="1";
-		$sql["info_ci"]["estricto"]="1";
-		//-- PANTALLAS --------------
-		$sql["info_ci_me_pantalla"]["sql"] = "SELECT	
-													identificador			as identificador,
-													etiqueta			  	as etiqueta,
-													descripcion			  	as descripcion,
-													imagen_recurso_origen	as imagen_recurso_origen,
-													imagen					as imagen,
-													objetos				  	as objetos,
-													eventos					as eventos
-									 	FROM	apex_objeto_ci_pantalla
-										WHERE	objeto_ci_proyecto='".$this->id[0]."'
-										AND	objeto_ci = '".$this->id[1]."'
-										ORDER	BY	orden;";
-		$sql["info_ci_me_pantalla"]["tipo"]="x";
-		$sql["info_ci_me_pantalla"]["estricto"]="1";
-		return $sql;
-	}
-
 	function inicializar($parametro=null)
 	{
 		if(isset($parametro)){
