@@ -25,7 +25,8 @@ class test_dt_tabla_minima extends base_test_datos
 
 	function get_dt()
 	{
-		$dt = new objeto_datos_tabla(array('toba_testing','1746'));
+		$dt = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1746'), 
+											'objeto_datos_tabla');		
 		return $dt;
 	}
 

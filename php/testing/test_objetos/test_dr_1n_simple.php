@@ -25,8 +25,9 @@ class test_dr_1n_simple extends base_test_datos
 
 	function get_dr()
 	{
-		$dt = new objeto_datos_relacion(array('toba_testing','1516'));
-		return $dt;
+		$dr = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1516'), 
+											'objeto_datos_relacion');		
+		return $dr;
 	}
 
 	function get_sql_tablas()

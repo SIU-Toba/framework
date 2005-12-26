@@ -2,6 +2,11 @@
 require_once("objeto_ei.php");						//Ancestro de todos los OE
 require_once("nucleo/lib/manejador_archivos.php");
 
+/**
+ * Genera un esquema utilizando GraphViz
+ * @package Objetos
+ * @subpackage Ei
+ */
 class objeto_ei_esquema extends objeto_ei
 {
 	protected $alto;

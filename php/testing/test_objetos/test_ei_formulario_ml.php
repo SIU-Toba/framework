@@ -31,7 +31,8 @@ class test_ei_formulario_ml extends test_toba
 	*/
 	function crear_ml_para_analisis_gen_interface($datos)
 	{
-		$ml = new objeto_ei_formulario_ml(array('toba_testing', '1322'));		//test ei_formulario_ml
+		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
+											'objeto_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->definir_eventos();
 		$ml->cargar_datos($datos);
@@ -47,7 +48,8 @@ class test_ei_formulario_ml extends test_toba
 	*/	
 	function crear_ml_para_analisis_disparo_eventos($observador, $metodo, $datos, $evento='modificacion')
 	{
-		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_ml
+		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
+											'objeto_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);
@@ -66,7 +68,8 @@ class test_ei_formulario_ml extends test_toba
 	*/
 	function crear_ml_para_seleccion($observador, $metodo, $datos, $parametros, $evento='seleccion')
 	{
-		$ml = new objeto_ei_formulario_ml(array('toba_testing','1322'));		//test ei_formulario_mL
+		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
+											'objeto_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);

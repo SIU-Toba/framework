@@ -59,5 +59,17 @@ class info_ei extends info_componente
 ';
 		return $this->filtrar_comentarios($basicos);
 	}
+	
+	static function get_modelos_evento()
+	{
+		$modelo = array();
+		return $modelo;
+	}
+	
+	static function get_lista_eventos_estandar($modelo)
+	{
+		$evento = array();
+		return $evento;
+	}	
 }
 ?>

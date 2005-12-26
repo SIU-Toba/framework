@@ -54,8 +54,8 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1605');
+		$obj = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+											'objeto_ci');		
 		$hijos = $obj->hijos();
 		$this->assertEqual($hijos[2]->id(), '1606');
 		
