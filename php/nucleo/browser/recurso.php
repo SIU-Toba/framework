@@ -121,13 +121,8 @@ class recurso {
 		$x = ""; $y = ""; $a="";$m="";
 		if(isset($ancho)) $x = " width='$ancho' ";
 		if(isset($alto)) $y = " height='$alto' ";
-/*		if(isset($alt)) {
-			$a = " onMouseover=\"ddrivetip('". ereg_replace("/\n|\r/","",$alt) ."')\" onMouseout=\"hideddrivetip()\" ";
-		}
-*/
+
 		if(isset($alt)) {
-			$wiki_entrar = "";
-			$wiki_salir = "";
 			if (motor_wiki::tiene_wiki($alt)) {
 				$ayuda = motor_wiki::formato_texto($alt)."\n Presione una tecla para ver más ayuda";
 				$wiki = motor_wiki::link_wiki($alt);
@@ -138,7 +133,8 @@ class recurso {
 			}
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 			$ayuda = str_replace(array("'"), "`", $ayuda);	
-			$a = " title='$ayuda' onmouseover='window.status=this.title; $wiki_entrar' onmouseout='window.status=\"\"; $wiki_salir'";
+			$a = " title='$ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";'";
+			//$a = " onMouseover=\"fixedtooltip('". ereg_replace("/\n|\r/","",$alt) ."',this,event, '')\" onMouseout=\"delayhidetip()\" ";			
 		}
 		if(isset($mapa)) 
 			$m = " usemap='$mapa'";

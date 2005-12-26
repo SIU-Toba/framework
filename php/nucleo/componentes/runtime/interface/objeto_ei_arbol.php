@@ -161,11 +161,12 @@ class objeto_ei_arbol extends objeto_ei
 		
 		//Nombre
 		$corto = $this->acortar_nombre($nodo->nombre_corto());
-		$title= "title='Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id()."'";
-		$nombre= "<span class='ei-arbol-nombre' $title>$corto</span>";
+		$title= "Nombre: ".$nodo->nombre_largo()."\nId:  ".$nodo->id();
+		
+		$nombre= "<span class='ei-arbol-nombre' title=\"$title\">$corto</span>";
 		if ($nodo->tiene_propiedades()) {
 			$salida .= "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"".$nodo->id()."\");' ".
-						"class='ei-arbol-ver-prop' $title>$nombre</a>";			
+						"class='ei-arbol-ver-prop'>$nombre</a>";			
 		} else {
 			$salida .= $nombre;
 		}

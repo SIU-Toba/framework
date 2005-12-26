@@ -10,16 +10,23 @@ class tp_normal extends tp_basico
 		<style type="text/css">
 			#dhtmltooltip{
 				position: absolute;
-				width: 130px;
-				border: 1px solid <? echo $color_serie["p"][1] ?>;
+				width: 150px;
+				border: 1px solid black;
 				padding: 2px;
-				background-color: <? echo $color_serie["s"][6] ?>;
+				background-color: lightyellow;
 				visibility: hidden;
-				z-index: 1;
-				font-size: 10px;
-				color: <? echo $color_serie["p"][1] ?>;
+				z-index: 100;
+				/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
+				filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
 			}
-		</style>
+			#fixedtipdiv{
+			 position:absolute;
+			 padding: 2px;
+			 border:1px solid black;
+			 line-height:18px;
+			 z-index:100;
+			 }			
+		</style>			
 		<?php
 	}
 	
@@ -32,6 +39,7 @@ class tp_normal extends tp_basico
 		$consumos[] = 'clases/toba';
 		$consumos[] = 'utilidades/datadumper';
 		$consumos[] = 'comunicacion_server';
+		//$consumos[] = 'tooltips';
 		js::cargar_consumos_globales($consumos);
 	}
 

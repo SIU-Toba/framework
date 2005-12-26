@@ -469,39 +469,39 @@ class ap_tabla_db implements ap_tabla
 	
 	/**
 	 * Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro a insertar
+	 * @param mixed $id_registro Clave interna del registro
 	 */	
-	protected function evt__pre_insert($registro){}
+	protected function evt__pre_insert($id_registro){}
 	
 	/**
 	 * Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro insertado
+	 * @param mixed $id_registro Clave interna del registro
 	 */	
-	protected function evt__post_insert($registro){}
+	protected function evt__post_insert($id_registro){}
 	
 	/**
 	 * Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro a actualizar
+	 * @param mixed $id_registro Clave interna del registro
 	 */		
-	protected function evt__pre_update($id){}
+	protected function evt__pre_update($id_registro){}
 
 	/**
 	 * Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 	 * @param array $registro Arreglo asociativo campo-valor del registro actualizado
 	 */	
-	protected function evt__post_update($id){}
+	protected function evt__post_update($id_registro){}
 
 	/**
 	 * Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro a borrar
+	 * @param mixed $id_registro Clave interna del registro
 	 */
-	protected function evt__pre_delete($id){}
+	protected function evt__pre_delete($id_registro){}
 
 	/**
 	 * Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro borrado
+	 * @param mixed $id_registro Clave interna del registro
 	 */
-	protected function evt__post_delete($id){}
+	protected function evt__post_delete($id_registro){}
 
 	//-------------------------------------------------------------------------------
 	//------ Servicios SQL   --------------------------------------------------------
