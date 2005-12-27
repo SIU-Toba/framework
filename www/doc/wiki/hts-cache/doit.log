@@ -1,8 +1,0 @@
-https://desarrollos2.siu.edu.ar/trac/toba/wiki -v -%h -I0 -N100 -x %P -O /usr/local/proyectos/toba_trunk/www/doc/wiki +*.png +*.gif +*.jpg +*.css +*.js -*login* -*changeset* -*timeline* -*browse* -*roadmap* -*report* -*search* -*history* -*format* -*settings* -*about* -*ticket* -*query* -*milestone*
-File generated automatically on Tue, 27 Dec 2005 17:56:52, do NOT edit
-
-To update a mirror, just launch httrack without any parameters
-The existing cache will be used (and modified)
-To have other options, retype all parameters and launch HTTrack
-To continue an interrupted mirror, just launch httrack without any parameters
-
