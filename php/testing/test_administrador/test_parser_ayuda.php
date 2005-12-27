@@ -11,9 +11,12 @@ class test_parser_ayuda extends test_toba
 
 	function test_unico_tag()
 	{
-		$texto = "Esta es mi [wiki:Referencia/PaginaWiki Página Wiki], por favor [wiki:Bla/bla la revisarla] de nuevo";
+		$texto = "Esta es mi [test:Referencia/PaginaWiki Página Wiki], por favor [test:Bla/bla hay que revisarla] de nuevo";
 		$salida = parser_ayuda::parsear($texto);
+		$esperado = "Esta es mi <test id='Referencia/PaginaWiki'>Página Wiki</test>, por favor <test id='Bla/bla'>hay que revisarla</test> de nuevo";
+		$this->assertEqual($salida, $esperado);
 	}
+	
 }
 
 ?>

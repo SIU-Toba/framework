@@ -40,21 +40,32 @@ class usuario_http
 		if (empty($rs)){
 			return $this->error_login(1,"La combinación usuario/clave es incorrecta.");
 		}else{
-			if ($this->clave==$rs[0]["clave"]){										//1b: usuario/clave
-				$estado = $this->validar_proyecto(); 		//1c: acceso al PROYECTO
-				if(!$estado[0])return $estado;
-				$estado = $this->validar_vencimiento($rs[0]["vencimiento"]); 		//2: fecha de vencimiento
-				if(!$estado[0])return $estado;
-				$estado = $this->validar_dia($rs[0]["dias"]);			//3: dia de la semana
-				if(!$estado[0])return $estado;
-				$estado = $this->validar_horario($rs[0]["hora_entrada"],$rs[0]["hora_salida"]); //4: horario de ingreso
-				if(!$estado[0])return $estado;
-				$estado = $this->validar_ip($rs[0]["ip_permitida"]);//5: ip desde donde se accede	
-				if(!$estado[0])return $estado;
-				return array(true,"Validacion OK");
-			}else{
-				return $this->error_login(1,"La combinación usuario/clave es incorrecta.");
+			$ok = false;
+			if ($rs[0]['autentificacion'] == 'md5') {
+				$ok = (md5($this->clave)==$rs[0]["clave"]);
+			} else {
+				//Sin encrptar
+				$ok = ($this->clave==$rs[0]["clave"]);
 			}
+			//Si esta definido el autologin, permite loguearse
+			if (defined('apex_pa_validacion_debug') && apex_pa_validacion_debug) {
+				$ok = true;	
+			}
+			if (!$ok) {
+				return $this->error_login(1,"La combinación usuario/clave es incorrecta.");
+			}			
+			
+			$estado = $this->validar_proyecto(); 		//1c: acceso al PROYECTO
+			if(!$estado[0])return $estado;
+			$estado = $this->validar_vencimiento($rs[0]["vencimiento"]); 		//2: fecha de vencimiento
+			if(!$estado[0])return $estado;
+			$estado = $this->validar_dia($rs[0]["dias"]);			//3: dia de la semana
+			if(!$estado[0])return $estado;
+			$estado = $this->validar_horario($rs[0]["hora_entrada"],$rs[0]["hora_salida"]); //4: horario de ingreso
+			if(!$estado[0])return $estado;
+			$estado = $this->validar_ip($rs[0]["ip_permitida"]);//5: ip desde donde se accede	
+			if(!$estado[0])return $estado;
+			return array(true,"Validacion OK");
 		}	 
 	}
 //----------------------------------------------------------------------------------------	

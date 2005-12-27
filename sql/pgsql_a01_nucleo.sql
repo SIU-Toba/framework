@@ -540,7 +540,7 @@ CREATE TABLE apex_usuario
 ---------------------------------------------------------------------------------------------------
 (	
 	usuario							varchar(20)		NOT NULL,
-	clave							varchar(20)		NOT NULL,
+	clave							varchar(128)	NOT NULL,
 	nombre							varchar(80)		NULL,
 	usuario_tipodoc					varchar(10)		NULL,
 	pre								varchar(2)		NULL,
@@ -560,6 +560,7 @@ CREATE TABLE apex_usuario
 	parametro_a						varchar(100)	NULL,
 	parametro_b						varchar(100)	NULL,
 	parametro_c						varchar(100)	NULL,
+	autentificacion					varchar(10)		DEFAULT('plano'),
 	CONSTRAINT	"apex_usuario_pk"	 PRIMARY	KEY ("usuario"),
 	CONSTRAINT	"apex_usuario_fk_sol_ot" FOREIGN	KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo")	REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_usuario_fk_tipodoc" FOREIGN KEY ("usuario_tipodoc") REFERENCES	"apex_usuario_tipodoc" ("usuario_tipodoc") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

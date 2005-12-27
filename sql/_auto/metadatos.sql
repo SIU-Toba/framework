@@ -237,7 +237,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 ------  'apex_usuario'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_usuario', 'pgsql_a01_nucleo.sql', 27, 'proyecto', NULL, NULL, 'usuario', NULL, NULL, '', '1.0', NULL, '1');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'usuario', 1, 'varchar(20)		NOT NULL,');
-INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'clave', 2, 'varchar(20)		NOT NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'clave', 2, 'varchar(128)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'nombre', 3, 'varchar(80)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'usuario_tipodoc', 4, 'varchar(10)		NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'pre', 5, 'varchar(2)		NULL,');
@@ -257,6 +257,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'parametro_a', 19, 'varchar(100)	NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'parametro_b', 20, 'varchar(100)	NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'parametro_c', 21, 'varchar(100)	NULL,');
+INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_usuario', 'autentificacion', 22, 'varchar(10)	DEFAULT \'plano\'	NULL,');
 
 ------  'apex_usuario_perfil_datos'  -----------------------------------
 INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_usuario_perfil_datos', 'pgsql_a01_nucleo.sql', 28, 'multiproyecto', NULL, NULL, 'usuario_perfil_datos', NULL, NULL, '', '1.0', NULL, NULL);

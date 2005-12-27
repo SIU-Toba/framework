@@ -119,7 +119,6 @@ function autologin(usuario,clave){
 <? if( apex_pa_validacion_debug ){ 
 
 	$sql = "SELECT 	u.usuario as usuario, 
-					u.clave as clave,
 					u.nombre as nombre
 			FROM 	apex_usuario u
 			ORDER BY 1;";
@@ -142,7 +141,7 @@ function autologin(usuario,clave){
 	foreach($rs as $registro)
 	{
 		echo "<tr>";
-	    echo "	<td class='lista-e'><a class='basico' href='#' onclick=\"javascript:autologin('".$registro["usuario"]."','".$registro["clave"]."');return false;\">".$registro["usuario"]."</a></td>";
+	    echo "	<td class='lista-e'><a class='basico' href='#' onclick=\"javascript:autologin('".$registro["usuario"]."','clave');return false;\">".$registro["usuario"]."</a></td>";
 		echo "	<td class='lista-t'>&nbsp;".$registro["nombre"]."</td>";
 		echo "</tr>";
 	}

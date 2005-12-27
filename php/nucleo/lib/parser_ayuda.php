@@ -43,7 +43,10 @@ class parser_ayuda
 		return "<a href='API$id'>$nombre</a>";		
 	}
 	
-	
+	function parsear_test($id, $nombre)
+	{
+		return "<test id='$id'>$nombre</test>";
+	}
 	
 }
 
