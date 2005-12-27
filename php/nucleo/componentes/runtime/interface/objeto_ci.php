@@ -979,7 +979,7 @@ class objeto_ci extends objeto_ei
 			if ( $this->etapa_gi == $id ) {
 				echo "<div class='tabs-v-solapa-sel'><div class='tabs-v-boton-sel'>$html</div></div>";
 			} else {
-				$atajo = form::acceso($tecla, $tip);
+				$atajo = recurso::ayuda($tecla, $tip);
 				echo "<div class='tabs-v-solapa'>";
 				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
 				echo "</div>";

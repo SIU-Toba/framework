@@ -118,7 +118,7 @@ class Structures_Graph_Manipulator_TopologicalSorter {
     * @return	array	 The graph's nodes, sorted by topological order.
     * @access	public
     */
-    function sort(&$graph) {
+    function sort($graph) {
         // We only sort graphs
         if (!is_a($graph, 'Structures_Graph')) 
             throw new Exception('Structures_Graph_Manipulator_TopologicalSorter::sort received an object that is not a Structures_Graph');

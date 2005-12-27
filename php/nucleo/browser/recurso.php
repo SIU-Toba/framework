@@ -1,9 +1,9 @@
 <?php
-require_once("nucleo/lib/motor_wiki.php");
+require_once("nucleo/lib/parser_ayuda.php");
 
 class recurso {
 
-	function preambulo()
+	static function preambulo()
 	//#@desc: Devuelve el preambulo de los links (protocolo utilizado).
 	{
 		if(defined('apex_pa_SSL') && apex_pa_SSL){
@@ -22,7 +22,7 @@ class recurso {
 	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
 	 * @return string
 	 */
-	function path_pro($proyecto=null)
+	static function path_pro($proyecto=null)
 	{
 		if (isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
 			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
@@ -36,8 +36,11 @@ class recurso {
 		return recurso::preambulo(). "/". $alias;
 	}
 	
-	function path_apl()
-	//#@desc: Genera un vinculo a un elemento general (comun a todos los proyectos).
+	/**
+	 * Retorna la URL base de toba
+	 * @return string
+	 */	
+	static function path_apl()
 	{
 		if (isset($_SERVER['TOBA_ALIAS'])) {
 			$alias = $_SERVER['TOBA_ALIAS'];
@@ -53,7 +56,7 @@ class recurso {
 
 	//------------   ACCESO A IMAGENES   --------------
 
-	function imagen_de_origen($nombre, $origen)
+	static function imagen_de_origen($nombre, $origen)
 	{
 		if ($origen == 'apex')
 			return self::imagen_apl($nombre);
@@ -61,7 +64,7 @@ class recurso {
 			return self::imagen_pro($nombre);
 	}
 	
-	function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$alt=null,$mapa=null)
+	static function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$alt=null,$mapa=null)
 /*	
     @@acceso: actividad
     @@desc: Genera un vinculo a las imagenes del proyecto
@@ -82,7 +85,7 @@ class recurso {
 		}
 	}
 	
-	function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
+	static function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
 /*
  	@@acceso: actividad
 	@@desc: Genera la URL de un recurso de tipo imagen (puede crear el TAG 'img')
@@ -103,7 +106,7 @@ class recurso {
 		}
 	}
 	
-	function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa=null, $js='', $estilo='')
+	static function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa=null, $js='', $estilo='')
 /*
  	@@acceso: interno
 	@@desc: Genera la URL de un recurso de tipo imagen. Funcion utilizada por imagen_apl e imagen_pro
@@ -123,28 +126,49 @@ class recurso {
 		if(isset($alto)) $y = " height='$alto' ";
 
 		if(isset($alt)) {
-			if (motor_wiki::tiene_wiki($alt)) {
-				$ayuda = motor_wiki::formato_texto($alt)."\n Presione una tecla para ver más ayuda";
-				$wiki = motor_wiki::link_wiki($alt);
-				$wiki_entrar = "url_wiki=\"{$wiki[0]}\"";
-				$wiki_salir = "url_wiki=null";
-			} else {
-				$ayuda = $alt;
-			}
-			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-			$ayuda = str_replace(array("'"), "`", $ayuda);	
-			$a = " title='$ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";'";
-			//$a = " onMouseover=\"fixedtooltip('". ereg_replace("/\n|\r/","",$alt) ."',this,event, '')\" onMouseout=\"delayhidetip()\" ";			
+			$a = self::ayuda(null, $alt);
 		}
-		if(isset($mapa)) 
+		if(isset($mapa)) {
 			$m = " usemap='$mapa'";
+		}
 		$img = "<img border='0' src='$src' $x $y $a $m  style='margin: 0px 0px 0px 0px; $estilo' $js/>";
 		return $img;
 	}
 
+	/**
+	 * Convierte una ayuda y una tecla de acceso en atributos html adecuados para un TAG
+	 * Parseando los links y el accesskey
+	 */
+	static function ayuda($tecla, $ayuda='')
+	{
+		$ayuda_extra = '';
+		$a = '';
+		if ($tecla !== null) {
+			$ayuda_extra = "[ALT $tecla]";
+			$a = "accesskey='$tecla'";
+		}
+		if ($ayuda != '') {
+			$ayuda .= $ayuda_extra;
+			if (parser_ayuda::es_texto_plano($ayuda)) {
+				//Sacar un title comun y corriente
+				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
+				//$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
+				$a  = " title='$ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";' ";
+			} else {
+				$ayuda = parser_ayuda::parsear($ayuda);
+				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
+				$ayuda = str_replace(array("\"", "'"), "\'", $ayuda);
+				$a = " onmouseover=\"fixedtooltip('$ayuda',this,event, '')\" onmouseout=\"delayhidetip()\" ";
+			}
+		} else {
+			$a .= " title='$ayuda_extra'";
+		}
+		return $a;
+	}	
+	
 	//------------   ACCESO A OTROS   --------------
 	
-	function js($javascript)
+	static function js($javascript)
 	//#@desc: Genera un vinculo a un archivo javascript independiente
 	//@@par archivo (requerido) Archivo javascript que se desea cargar
 	{
@@ -156,7 +180,7 @@ class recurso {
 	*	Dado el nombre de una plantilla, encuentra la url  si es que existe
 	*	Para esto primero busca en el proyecto y si no lo encuentra lo busca en el mismo toba
 	*/
-	function css($nombre=apex_proyecto_estilo)
+	static function css($nombre=apex_proyecto_estilo)
 	{
 		$hilo = toba::get_hilo();
 		//Si esta abierta la sesion
@@ -189,7 +213,7 @@ class recurso {
 	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
 	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
 	*/
-	function link_css($estilo=apex_proyecto_estilo,  $rol='screen')
+	static function link_css($estilo=apex_proyecto_estilo,  $rol='screen')
 	{
 		$url = recurso::css($estilo);
 		if ($url != null) {

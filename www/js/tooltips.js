@@ -80,10 +80,10 @@ document.onmousemove=positiontip;
  
  /////No further editting needed
  
- var ie4=document.all
+ var es_ie4=document.all
  var ns6=document.getElementById&&!document.all
  
- if (ie4||ns6)
+ if (es_ie4||ns6)
  document.write('<div id="fixedtipdiv" onmouseover="tooltip_continuar()" onmouseout="tooltip_terminar()" style="visibility:hidden;width:'+tipwidth+';background-color:'+tipbgcolor+'" ></div>')
  
  function getposOffset(what, offsettype){
@@ -98,7 +98,7 @@ document.onmousemove=positiontip;
  
  
  function showhide(obj, e, visible, hidden, tipwidth){
- if (ie4||ns6)
+ if (es_ie4||ns6)
  dropmenuobj.style.left=dropmenuobj.style.top=-500
  if (tipwidth!=""){
  dropmenuobj.widthobj=dropmenuobj.style
@@ -117,13 +117,13 @@ document.onmousemove=positiontip;
  function clearbrowseredge(obj, whichedge){
  var edgeoffset=(whichedge=="rightedge")? parseInt(horizontal_offset)*-1 : parseInt(vertical_offset)*-1
  if (whichedge=="rightedge"){
- var windowedge=ie4 && !window.opera? iecompattest().scrollLeft+iecompattest().clientWidth-15 : window.pageXOffset+window.innerWidth-15
+ var windowedge=es_ie4 && !window.opera? iecompattest().scrollLeft+iecompattest().clientWidth-15 : window.pageXOffset+window.innerWidth-15
  dropmenuobj.contentmeasure=dropmenuobj.offsetWidth
  if (windowedge-dropmenuobj.x < dropmenuobj.contentmeasure)
  edgeoffset=dropmenuobj.contentmeasure-obj.offsetWidth
  }
  else{
- var windowedge=ie4 && !window.opera? iecompattest().scrollTop+iecompattest().clientHeight-15 : window.pageYOffset+window.innerHeight-18
+ var windowedge=es_ie4 && !window.opera? iecompattest().scrollTop+iecompattest().clientHeight-15 : window.pageYOffset+window.innerHeight-18
  dropmenuobj.contentmeasure=dropmenuobj.offsetHeight
  if (windowedge-dropmenuobj.y < dropmenuobj.contentmeasure)
  edgeoffset=dropmenuobj.contentmeasure+obj.offsetHeight
@@ -137,9 +137,8 @@ document.onmousemove=positiontip;
  clearhidetip()
  dropmenuobj=document.getElementById? document.getElementById("fixedtipdiv") : fixedtipdiv
  dropmenuobj.innerHTML=menucontents
- 
- if (ie4||ns6){
- showhide(dropmenuobj.style, e, "visible", "hidden", tipwidth)
+  if (es_ie4||ns6){
+  showhide(dropmenuobj.style, e, "visible", "hidden", tipwidth)
  dropmenuobj.x=getposOffset(obj, "left")
  dropmenuobj.y=getposOffset(obj, "top")
  dropmenuobj.style.left=dropmenuobj.x-clearbrowseredge(obj, "rightedge")+"px"
@@ -149,13 +148,13 @@ document.onmousemove=positiontip;
  
  function hidetip(e){
  if (typeof dropmenuobj!="undefined"){
- if ((ie4||ns6) && tooltip_ocultar)
+ if ((es_ie4||ns6) && tooltip_ocultar)
  dropmenuobj.style.visibility="hidden"
  }
  }
  
  function delayhidetip(){
- if (ie4||ns6)
+ if (es_ie4||ns6)
  delayhide=setTimeout("hidetip()",disappeardelay)
  }
  

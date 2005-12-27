@@ -5,21 +5,18 @@
  */
 class parser_ayuda
 {
-	protected static $tags = array('wiki', 'api');
+	protected static $tags = array('wiki', 'api', 'test');
 	
-	function es_texto_plano($texto)
+	static function es_texto_plano($texto)
 	{
-		return true;		
+		return ! preg_match(self::exp_reg(), $texto);
 	}
 	
 	static function parsear($texto)
 	{
 		$parseado = "";
-		$tags = implode('|', self::$tags);
-		$exp_reg = '/([^\[]*)\[('.$tags.'):([^\ ]+)[\ ]([^\[]+)\]([^\[]*)/';
-		var_dump($exp_reg);
 		$resultado = array();
-		if (preg_match_all($exp_reg, $texto, $resultado)) {
+		if (preg_match_all(self::exp_reg(), $texto, $resultado)) {
 			for ($i=0; $i< count($resultado[0]); $i++) {
 				$tipo = $resultado[2][$i];
 				$parseado .= $resultado[1][$i];
@@ -27,23 +24,30 @@ class parser_ayuda
 				$parseado .= self::$metodo($resultado[3][$i], $resultado[4][$i]);
 				$parseado .= $resultado[5][$i];
 			}
+		} else {
+			$parseado = $texto;	
 		}
-		ei_arbol($resultado);
-		echo $parseado;
 		return $parseado;
 	}
 	
-	function parsear_wiki($id, $nombre)
+	protected static function exp_reg()
 	{
-		return "<a href='WIKI$id'>$nombre</a>";
+		$tags = implode('|', self::$tags);
+		return  '/([^\[]*)\[('.$tags.'):([^\ ]+)[\ ]([^\[]+)\]([^\[]*)/';
 	}
 	
-	function parsear_api($id, $nombre)
+	protected static function parsear_wiki($id, $nombre)
+	{
+		$url = recurso::path_apl().'/doc/wiki/'.$id;
+		return "<a href='$url' target='blank'>$nombre</a>";
+	}
+	
+	protected static function parsear_api($id, $nombre)
 	{
 		return "<a href='API$id'>$nombre</a>";		
 	}
 	
-	function parsear_test($id, $nombre)
+	protected static function parsear_test($id, $nombre)
 	{
 		return "<test id='$id'>$nombre</test>";
 	}

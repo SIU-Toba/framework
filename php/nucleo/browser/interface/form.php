@@ -1,4 +1,6 @@
 <?php
+require_once("nucleo/browser/recurso.php");
+
 /******************************************************************************************************
 ****************************************** Elementos de Formulario ************************************
 *****************************************************************************************************/
@@ -99,7 +101,7 @@ class form {
     function image($nombre,$src,$extra="", $tecla = null)
     // Boton de SUBMIT
     {
-		$acceso = form::acceso($tecla);
+		$acceso = recurso::ayuda($tecla);
         return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $acceso $extra>\n";
     }
  //________________________________________________________________________________________________________
@@ -117,7 +119,7 @@ class form {
     function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton")
     // Boton con html embebido
     {
-		$acceso = form::acceso($tecla, $tip);
+		$acceso = recurso::ayuda($tecla, $tip);
         return  "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' class='$clase' tabindex='$tab' $acceso $extra>".
 				"$html</button>\n";
     }
@@ -159,10 +161,8 @@ class form {
     }
 
 //________________________________________________________________________________________________________
-	function acceso($tecla, $tip='')
-	{
-		return ($tecla === null) ? "title='$tip'" : "accesskey='$tecla' title=\"$tip [ALT $tecla]\"";		
-	}
+
+
 
 }
 ?>
