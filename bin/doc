@@ -51,9 +51,10 @@ then
 
 elif [ "$1" = "wiki" ]
 then	
-	httrack "https://desarrollos2.siu.edu.ar/trac/toba/wiki" -v  -%i  -x %P -O "$toba_dir/doc/wiki" \
+	httrack "https://desarrollos2.siu.edu.ar/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "$toba_dir/www/doc/wiki" \
 		+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
-		-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone*
+		-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
+		-*WikiMacros* -*RecentChanges*
 
 ##***********************************************************************************************##
 ## Ayuda
