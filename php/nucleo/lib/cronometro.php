@@ -27,7 +27,7 @@ class cronometro
 	}	
 
 	function marcar($nombre,$nivel="item"){
-        $microtime = explode(' ', microtime());
+		$microtime = explode(' ', microtime());
 		$this->marcas[$this->indice]["t"] = $microtime[1] . substr($microtime[0], 1);
 		$this->marcas[$this->indice]["n"] = $nombre;
 		$this->marcas[$this->indice]["niv"] = $nivel;
@@ -59,7 +59,7 @@ class cronometro
 	{
 		global $db;
 		//dump_arbol($this->marcas);
-		$temp = 0;
+		$temp = $this->marcas[0]['t'];
 		for($f=0;$f<count($this->marcas);$f++)
 		{
 			//echo "$f-1 TEMP: $temp<br>";
