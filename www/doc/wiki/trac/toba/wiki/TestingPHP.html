@@ -1,0 +1,123 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TestingPHP by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>TestingPHP - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TestingPHP?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TestingPHP?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / TestingPHP
+</p>
+<h1 id="TestingAutomáticoenPHP">Testing Automático en PHP</h1>
+<p>
+Una de las <a class="missing wiki" href="Metodolog&#xc3;&#xad;a.html" rel="nofollow">metologías recomendadas?</a> es la construcción de testing unitario asociado a los distintos módulos del sistema.  
+</p>
+<h2 id="Libreríautilizada">Librería utilizada</h2>
+<p>
+Actualmente se está utilizando <a class="ext-link" href="../../../external.html?link=http://www.lastcraft.com/simple_test.php"><span class="icon"></span>SimpleTest</a>, un clon de JUnit.
+</p>
+<h2 id="TestingenToba">Testing en Toba</h2>
+<h3 id="Requisitosprevios">Requisitos previos</h3>
+<p>
+Para que los test se ejecuten correctamente, el proyecto <a class="wiki" href="Proyectos/TobaTesting.html">Toba - Testing</a> debe estar en la instancia.
+</p>
+<h3 id="Corriendolostest">Corriendo los test</h3>
+<p>
+Actualmente sólo es posible ejecutar los test desde la consola con el comando:
+</p>
+<pre class="wiki">instancia testear [-c Categoría] [-t Caso de test particular]
+</pre>
+<p>
+Sin parámetros ejecuta todos los test disponibles en la instancia, se puede especificar una categoría específica o un test en particular. Los casos y sus categorías se puede ver en <a class="source" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/acciones/pruebas/testing_automatico/casos_dao.php">source:trunk/acciones/pruebas/testing_automatico/casos_dao.php</a>
+</p>
+<h2 id="Testingensuproyecto">Testing en su proyecto</h2>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TestingPHP?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TestingPHP by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

@@ -1,0 +1,165 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Desarrollo/Persistencia - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / Persistencia
+</p>
+<h1 id="Persistencia">Persistencia</h1>
+<h2 id="Requisitos">Requisitos</h2>
+<h3 id="Puntosqueserianecesarioincluir">Puntos que seria necesario incluir</h3>
+<ul><li>Mantener relaciones entre las filas de dos datos_tabla vinculadas.
+<ul><li>Ahora se manejan las relaciones de las tablas, no de las filas. En el objeto <strong>relacion_entre_tablas</strong> hay que mantener el macheo de filas. El macheo va a necesitar persistencia. Este macheo es el que va a sostener tambien el comportamiento FK: cascadas de eliminacion, integridad, etc.
+</li><li>Esto posibilita manejar relaciones N-&gt;N entre filas de tablas.
+</li><li>Para hacer esto posible hay que resolver 3 problemas:
+<ul><li><strong>API para el consumidor</strong>.
+<ul><li>Establecer el padre sobre el que se esta trabajando: metodo a ejecutar en la tabla padre para definir el macheo de los hijos que se incluyan. Esto se puede ademas para que el puntero al registro activo quede en el DT y no en el CI. Cuando se inserta un hijo se dispara una llamada a las relaciones con padres indicando la insersion en hija. En cada relacion se verifican los padres activos y se almacena el macheo.
+<ul><li>set_registro_activo();
+</li><li>get_registro_activo();
+</li></ul></li><li>Recuperar registros de un padre (puede ser un servicio mas de get_filas() o algo nuevo). Se inspecciona en la relacion que hijos estan macheados con el padre y se devuelven sus filas.
+</li></ul></li><li><strong>Carga</strong>.
+<ul><li>Recuperar registros de la base. El comportamiento por defecto podria cargar padres por clave, generar recursivamentes subquerys anidados para cargar los hijos. Como esto no va a ser performante, hay que proveer un mecanismo para que el conjunto de valores pueda proveerse por el usuario. En el caso en que un hijo tenga dos padres, solo hay que utilizar uno para la carga por la base. Cual utilizar deberia ser un flag de la operacion.
+</li><li>Regenerar el estado inicial de los macheos.
+</li></ul></li><li><strong>Sincronizacion</strong>.
+<ul><li>Hay que recorrer el arbol por registro, respetando un orden ascendente en el caso de la insersion y la modificacion, y un orden inverso para la eliminacion.
+</li></ul></li></ul></li></ul></li></ul><ul><li>Los datos_tabla y datos_relacion necesitan una forma de cargarlos con un conjunto de datos obtenidos por el usuario.
+</li></ul><h3 id="OtrosTemas">Otros Temas</h3>
+<ul><li>Locking (<a class="wiki" href="LockingOptimista.html">Notas</a>).
+<ul><li>UPDATE con WHERE + control affected rows.
+</li><li>Version.
+<ul><li>ID o timestamp.
+</li><li>usuario.
+</li></ul></li></ul></li><li>Baja logica.
+</li><li>Evaluar si es mejor que el DT maneje las claves reales.
+</li></ul><h2 id="Discusión">Discusión</h2>
+<h3 id="CargasAnsiosasyperezosas">Cargas Ansiosas y perezosas</h3>
+<blockquote>
+<p>
+Estaba pensando en dos mecanismos de carga: ansioso y perezoso:
+</p>
+</blockquote>
+<ul><li>En el ansioso el entorno (o la extensión) trata de cargar la relación al inicio de la transacción. (Evita hacer excesivas querys, conocido como problema de N+1 querys)
+</li><li>En el perezoso la carga se realiza a medida que se va necesitando los datos de alguna tabla en la relación. Evita traer demasiados datos, útil por ejemplo cuando en una pantalla tengo para editar las propiedades básicas de 100 cosas y al seleccionar puedo editar sus particularidades. Si todo se edita junto es preferible la ansiosa, si es por separado la perezosa.
+</li></ul><p>
+La elección del método de carga se pondria ¿en la definición de cada tabla en la relación o en cada relación?)
+</p>
+<h3 id="Joinsosubselects">Joins o subselects</h3>
+<p>
+Si por ejemplo quiero traer los empleados y sus tareas de un solo saque... lo más lógico es hacer una sola query con el join de las dos tablas... hacer el subselect para traer las tareas también es posible pero menos natural (y más lento tambien). 
+Si por ejemplo tenemos que las <i>secciones</i> <strong>tiene muchos</strong> <i>empleados</i> y estos <strong>tienen muchas</strong>  <i>tareas':
+</i></p>
+<ul><li>Con una query es imposible traer las tres cosas
+</li><li>Con joins a izquierda es posible traer la primer asociación, pero se complica para la segunda asociacion...
+</li><li>Con subselects es posible hacer tres querys uno para cada tabla en forma incremental.
+</li></ul><h3 id="Deiniciones">Deiniciones</h3>
+<p>
+En cada relación_entre_tablas definida se podria decir que mecanismo de carga implementar (join, subselect, query a mano) y el momento en el que se hace: al inicio (ansiosa o inmediata), a pedido (perezosa)
+</p>
+<p>
+Incluso lo que hoy es topes minimos y máximos quizás tenga más sentido a nivel de relación... Por ejemplo si decis que un empleado puede tener a lo sumo 5 tareas asignadas, no es que la tabla de tareas tiene el tope (podria haber muchos empleados con tareas) sino una asociación específica. Es más, se podría explicitar el tipo de relación y sacar el nombre por ejemplo:
+</p>
+<p>
+<a href="../../attachment/wiki/Desarrollo/Persistencia/Definicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Desarrollo/Persistencia/Definicion.png?format=raw"  style="" /></a>
+</p>
+<hr />
+<p>
+<a href="../../attachment/wiki/Reuniones/2005-11/persistencia_1.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/persistencia_1.jpg?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Reuniones/2005-11/persistencia_2.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/persistencia_2.jpg?format=raw"  style="" /></a>
+</p>
+</div>
+   </div>
+   
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Desarrollo/Persistencia/Definicion.png">Definicion.png</a> (8.9 kB) - added by seba on 11/22/05 09:02:01.</li>
+    </ul>
+  
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

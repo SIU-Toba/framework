@@ -1,0 +1,167 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005 by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Desarrollo/Refactorizaciones/ci_junio_2005 - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Desarrollo.html">Desarrollo</a> / <a href="../Refactorizaciones.html">Refactorizaciones</a> / ci_junio_2005
+</p>
+<h1 id="RefactorizaciondeCIsJunio2005">Refactorizacion de CIs (Junio 2005)</h1>
+<p>
+El motivo principal de la refactorizacion fue evitar las generalizaciones anidadas que se estaban dando dentro de la jerarquia. El comportamiento grafico se habia modelado con herencia y surgieron ramificaciones asociadas con el modulo de persistencia que suponian hijos equivalentes en distintos miembros de la familia.
+La refactorizacion ademas simplifica la futura creacion de editores e instanciadores para las clases.
+</p>
+<p>
+Los que esten interesados en como se desarrollo la refactorizacion: <a class="source" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/branches/ci_abms">source:branches/ci_abms</a>
+</p>
+<p>
+Esta actividad corresponde a una parte del trabajo definido en: <a class="milestone" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/milestone/0.8.2">Ver paquete</a>
+</p>
+<h3 id="Resumendemodificaciones">Resumen de modificaciones</h3>
+<ul><li>Los CI que pertenecian a la clase objeto_ci_me_tab ahora pertenecen a la clase objeto_ci, pero tienen seleccionado en su definicion el tipo de navegacion "TAB horizontal"
+</li><li>Lo que antes era llamado "<strong>etapa</strong>", y era exclusivo de los objeto_ci_me en adelante, ahora se llama "<strong>pantalla</strong>" y existe para todos los CI. Para posicioner un <strong>objeto_ei</strong> graficamente dentro de un CI, es necesario dar de alta una pantalla.
+</li><li>Los CI que estaban asociados a un CN ahora tienen que heredar de la clase "ci_cn", localizada en <strong><a class="source" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/subclases/ci_cn.php">$toba_dir/nucleo/browser/subclases/ci_cn.php</a></strong>
+</li></ul><blockquote>
+<p>
+<div class="system-message">
+ <strong>Error: Macro Image(RefactorizacionCi_Junio_2005/refactorizacion_ci.gif) failed</strong>
+ <pre>Attachment Desarrollo/Refactorizaciones/ci_junio_2005: RefactorizacionCi_Junio_2005/refactorizacion_ci.gif does not exist.</pre>
+</div>
+
+</p>
+</blockquote>
+<h3 id="Conversion">Conversion</h3>
+<p>
+La refactorizacion implica conversion de <strong>metadatos</strong>. Se adjunto un script nuevo "conversion" (Ver <a class="source" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/bin/conversion">script</a>). El mismo funciona de la siguiente manera
+</p>
+<pre class="wiki">conversion 01 toba
+</pre>
+<p>
+Esto crea el script correspondiente a la conversion 01 para la base "toba".
+Si se desea ver el script preparado, hay que ejecutar:
+</p>
+<pre class="wiki">conversion mostrar
+</pre>
+<p>
+Por ultimo:
+</p>
+<pre class="wiki">conversion run toba
+</pre>
+<p>
+ejecuta el script generado sobre la base "toba".
+</p>
+<p>
+La forma de ejecutar la conversion es la siguiente: 
+</p>
+<ol><li><i>Exportar los proyectos a convertir y subirlos a su repositorio.</i>
+</li><li><i>Es recomendable no incluir en la instancia cualquier proyecto de cuya conversión no somos responsables (por ejemplo en mi caso, tengo que borrar comechingones y esperar hasta que el grupo de desarrollo lo convierta). Esto es porque no queremos convertir proyectos de 3eros, puede traer conflictos posteriores. La forma más sencilla de hacerlo es sacar el proyecto del directorio proyectos</i>
+</li><li>Hacer un UPDATE del toba. <i>Tube que regenerar la instancia también.</i>.
+</li><li>Ejecutar el script de conversion sobre la base del proyecto.
+</li><li>Exportar el proyecto.
+</li><li>Regenerar la instancia.
+</li><li>Corregir el codigo PHP del proyecto (extension de clases).
+</li><li>Commit del proyecto.
+</li></ol><p>
+(<strong>NOTA</strong>: Es posible que el sql de conversion generado este mal (no es perfecto, pero el impacto de esta refactorizacion deberia darse sobre tan pocas implementaciones que no lo depure hasta la perfeccion), en ese caso, antes de ejecutar el paso 2, hay que editarlo segun los errores que aparezcan (Los cambios estan en una transaccion, asi que hasta que todo no ande bien, no va a pasar nada). El mismo se encuentra en <strong>$toba_dir/bin/entrada/conversion/01/conversion.sql</strong>)
+</p>
+<p>
+La conversion necesita tambien modificar <strong>codigo fuente</strong>. Como las clases <strong>objeto_ci_me</strong> y <strong>objeto_ci_me_tab</strong> no existen mas, es necesario reemplazar los encabezados de las clases que las extiendan. Las mismas tienen que apuntar a la clase <strong>objeto_ci</strong> o <strong>ci_cn</strong> en el caso que utilice un controlador de negocio.
+</p>
+<h2 id="Comentarios">Comentarios</h2>
+<ul><li>Muy bueno el refactoring!
+</li><li>Los CI simples que no tenian CN se convirtieron a ci_cn, ¿es un error?
+<ul><li>Como hasta ahora todos los CIs suponian un CN, por las dudas los mapee todos al 'ci_cn' para que no haya problemas, era imposible saber si las subclases lo utilizaban o no...
+</li></ul></li><li>¿Porqué 6 parametros en la definición básica de un objeto? ¿Ese formulario tiene que pasar a ser un ML no?
+<ul><li>Las subclases del CI encargadas de manejar db_registros necesitan esa cantidad de parametros (el dao del cuadro y el dbr que utilizan). Es una necesidad urgente un nuevo editor de CIs. Los parametros exclusivos de alguna subclase puntual deberian estar en un tab aparte de la definicion estandard del CI.
+</li></ul></li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005 by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

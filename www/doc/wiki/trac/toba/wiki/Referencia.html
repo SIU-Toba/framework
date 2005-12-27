@@ -1,0 +1,136 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / Referencia
+</p>
+<h1 id="Referencia">Referencia</h1>
+<h2 id="ConceptosTransversales">Conceptos Transversales</h2>
+<p>
+Existen conceptos básicos independientes de la programación particular de las operaciones. 
+</p>
+<p>
+Para utilizar toba se necesita una <strong><a class="wiki" href="Referencia/Instalacion.html">Instalación</a></strong> que es ni mas ni menos el sistema de archivos conteniendo una versión de Toba, dentro de este sistema de archivos se encuentra una serie de <strong><a class="wiki" href="Referencia/Proyecto.html">Proyectos</a></strong> en sus respectivas versiones. Tanto la instalación de toba como los proyectos además de contener el código fuente contienen los metadatos de las operaciones, de esta forma se puede distribuir un proyecto llevando tanto el código como los metadatos a un sistema de producción. 
+</p>
+<p>
+Ahora, modificar estos archivos de metadatos en forma manual es extremadamente difícil, más aún si es un desarrollo grupal, lo mismo le sucede a Toba en la ejecución, para leer estos metadatos es más cómodo si están en una base de datos. Entonces el siguiente paso es pasar estos metadatos desde el sistema de archivos a una base de datos, esta base se denomina una <strong><a class="wiki" href="Referencia/Instancia.html">Instancia Toba</a></strong>. Así el sistema puede tener distintas instancias (producción, desarrollo, testing, pruebas_varias, o cualquier otra que se crea necesaria) aunque siempre es bueno recordar que instalación hay una sola y por lo tanto metadatos en forma de archivo también (al menos por ahora).
+</p>
+<p>
+Hasta acá tenemos una instalación y diferentes instancias, es deseable que cuando se ejecute el sistema se pueda optar cual es la instancia a utilizar, para esto se dispone de diferentes <strong><a class="wiki" href="Referencia/PuntosDeAcceso.html">Puntos de Acceso</a></strong>, que son las páginas iniciales de la ejecución, que entre sus configuraciones básicas dictan que instancia utilizar de las disponibles.
+</p>
+<p>
+Se puede ver un detalle de cómo estos se conceptos se unen en los <strong><a class="wiki" href="Referencia/Deployment.html">casos de uso de deployment</a></strong>.
+(Hay una explicación a medias de la <a class="wiki" href="Referencia/Ejecucion.html">ejecución de toba</a>).<br /><br />
+ 
+</p>
+<h2 id="ProgramacióndeunaOperación">Programación de una Operación</h2>
+<ul><li>Utilizando el <a class="missing wiki" href="Administrador.html" rel="nofollow">Administrador?</a>.
+</li><li>Construyendo un <a class="wiki" href="Referencia/Item.html">Item</a>.
+</li><li><a class="wiki" href="Referencia/MarcoTransaccional.html">Marco transaccional</a> de una operación.
+</li><li>Utilizando los <strong><a class="wiki" href="Referencia/Objetos.html">Objetos Toba</a></strong> y sus <a class="wiki" href="Referencia/Eventos.html">Eventos</a>.
+</li><li>Referenciando a una <a class="wiki" href="Referencia/FuenteDatos.html">Fuente de Datos</a>.
+</li><li>Utilización de <a class="wiki" href="Referencia/Mensajes.html">mensajes y notificaciones</a>.
+</li></ul><h2 id="Administracióndelproyecto">Administración del proyecto</h2>
+<ul><li><a class="wiki" href="Referencia/TipoPagina.html">Tipos de página</a> (incluir en las operaciones encabezados y pies personalizados).
+</li><li><a class="wiki" href="Referencia/Marco.html">Marcos</a> (frames personalizados de la aplicación).
+</li><li><a class="wiki" href="Referencia/Menu.html">Menú de la aplicación</a>.
+</li><li><a class="wiki" href="Referencia/Plantillas.html">Plantillas CSS</a> personalizadas.
+</li><li><a class="wiki" href="Referencia/Consola.html">Consola de administración</a>
+</li><li><a class="missing wiki" href="Referencia/Consola/Comandos.html" rel="nofollow">Lista de comandos de consola útiles?</a>
+</li></ul><h2 id="ProyectosEjemplo">Proyectos Ejemplo</h2>
+<ul><li><a class="wiki" href="Proyectos/Referencia.html">Doc - Referencia</a>: Proyecto que acompaña la documentación de referencia.
+</li><li><a class="wiki" href="Proyectos/TobaTesting.html">Toba - Testing</a>: El proyecto base del testing automático consume distintos aspectos de Toba.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

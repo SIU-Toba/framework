@@ -1,0 +1,175 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracEnvironment by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>TracEnvironment - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracEnvironment?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracEnvironment?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / TracEnvironment
+</p>
+<h1 id="TracStorageTheEnvironment">Trac Storage - The Environment</h1>
+<p>
+Trac uses a directory structure and a database for storing project data.
+</p>
+<h2 id="CreatinganEnvironment">Creating an Environment</h2>
+<p>
+A new Trac environment is created using <a class="wiki" href="TracAdmin.html">trac-admin</a>:
+</p>
+<pre class="wiki">$ trac-admin /path/to/projectenv initenv
+</pre>
+<p>
+<a class="wiki" href="TracAdmin.html">trac-admin</a> will ask you for the name of the project, the
+database connection string (explained below), and where your subversion
+repository is located.
+</p>
+<blockquote>
+<p>
+<i>Note: The web server user will require file system write permission to
+the environment directory and all the files inside. Please remember to set
+the appropriate permissions. The same applies to the Subversion
+repository, although Trac will only require read access as long as you're
+not using the BDB file system.</i>
+</p>
+</blockquote>
+<h2 id="DatabaseConnectionStrings">Database Connection Strings</h2>
+<p>
+Since version 0.9, Trac supports both <a class="ext-link" href="../../../external.html?link=http://sqlite.org/"><span class="icon"></span>SQLite</a> and
+<a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/"><span class="icon"></span>PostgreSQL</a> as database backends.  The default
+is to use SQLite, which is probably sufficient for most projects. The database file
+is then stored in the environment directory, and can easily be
+<a class="wiki" href="TracBackup.html">backed up</a> together with the rest of the environment.
+</p>
+<p>
+The connection string for an embedded SQLite database is:
+</p>
+<pre class="wiki">sqlite:db/trac.db
+</pre>
+<p>
+If you want to use PostgreSQL instead, you'll have to use a different
+connection string. For example, to connect to a database on the same
+machine called <tt>trac</tt>, that allows access to the user <tt>johndoe</tt> with
+the password <tt>letmein</tt>, use:
+</p>
+<pre class="wiki">postgres://johndoe:letmein@localhost/trac
+</pre>
+<p>
+If PostgreSQL is running on a non-standard port (for example 9342), use:
+</p>
+<pre class="wiki">postgres://johndoe:letmein@localhost:9342/trac
+</pre>
+<p>
+Note that with PostgreSQL you will have to create the database before running
+<tt>trac-admin initenv</tt>.
+</p>
+<h2 id="DirectoryStructure">Directory Structure</h2>
+<p>
+An environment directory will usually consist of the following files and directories:
+</p>
+<ul><li><tt>README</tt> - Brief description of the environment.
+</li><li><tt>VERSION</tt> - Contains the environment version identifier.
+</li><li><tt>attachments</tt> - Attachments to wiki pages and tickets are stored here.
+</li><li><tt>conf</tt>
+<ul><li><tt>trac.ini</tt> - Main configuration file. See <a class="wiki" href="TracIni.html">TracIni</a>.
+</li></ul></li><li><tt>db</tt>
+<ul><li><tt>trac.db</tt> - The SQLite database (if you're using SQLite).
+</li></ul></li><li><tt>plugins</tt> - Environment-specific <a class="wiki" href="TracPlugins.html">plugins</a> (Python eggs)
+</li><li><tt>templates</tt> - Custom environment-specific templates.
+<ul><li><tt>site_css.cs</tt> - Custom CSS rules.
+</li><li><tt>site_footer.cs</tt> - Custom page footer.
+</li><li><tt>site_header.cs</tt> - Custom page header.
+</li></ul></li><li><tt>wiki-macros</tt> - Environment-specific <a class="wiki" href="WikiMacros.html">Wiki macros</a>.
+</li></ul><hr />
+<p>
+See also: <a class="wiki" href="TracAdmin.html">TracAdmin</a>, <a class="wiki" href="TracBackup.html">TracBackup</a>, <a class="wiki" href="TracIni.html">TracIni</a>, <a class="wiki" href="TracGuide.html">TracGuide</a>
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracEnvironment?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracEnvironment by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

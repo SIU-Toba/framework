@@ -1,0 +1,184 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/TipoPagina - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / TipoPagina
+</p>
+<h1 id="Tiposdepágina">Tipos de página</h1>
+<p>
+Los tipos de página determinan la salida anterior y posterior a la de una operación. Cada <a class="wiki" href="Item.html">ítem</a> tiene un tipo de página asociado. Crear nuevos tipos de página permite:
+</p>
+<ul><li>Crear encabezados y pie de página personalizados para distintos grupos de operaciones. 
+</li><li>Incluir recursos HTML comunes a un conjunto de operaciones.
+</li><li>Incluir salidas no tradicionales que requieren distintos encabezados HTTP o distintos tags HTML (Por ejemplo mostrar un PDF).
+</li></ul><h2 id="Utilizacióndelostiposdepágina">Utilización de los tipos de página</h2>
+<p>
+Los tipos de página se eligen en la definición del <a class="wiki" href="Item.html">ítem</a>, pudiendo optar entre los predefinidos y aquellos particulares del proyecto.
+</p>
+<h2 id="Creacióndeunnuevotipodepágina">Creación de un nuevo tipo de página</h2>
+<ol><li>Definir el tipo de página en el administrador: Desde el Administrador del proyecto accediendo al menu <strong>EXT</strong>, en la sección <strong>Tipo de página</strong> se puede dar de alta uno nuevo, asociado exclusivamente al proyecto. Allí se debe ingresar la clase y su ubicación dentro del sistema de archivos del proyecto.
+</li><li>Construir el nuevo tipo de página: Los tipos de página necesitan heredar de la clase abstracta tipo_pagina ubicada en la carpeta <i>$toba_dir/nucleo/browser/tipo_pagina</i>. En ese directorio se encuentran distintos tipos de página que se pueden tomar como modelo de extensión (también se encuentran los tipos de página viejos que no son clases).
+</li></ol><h2 id="Tiposdepáginapredefinidos">Tipos de página predefinidos</h2>
+<ul><li><strong>tipo_pagina</strong>: Clase abstracta que contiene los métodos encabezado() y pie() que los distintos tipos de página tienen que definir. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tipo_pagina.php">Ver clase</a>.
+</li><li><strong>tp_basico</strong>: Crea lo mínimo necesario para incluir HTML (javascript básicos, <a class="missing wiki" href="Plantilla.html" rel="nofollow">plantilla css?</a> del proyecto, etc. No es recomendado para la extensión de un tipo de página que quiere incluirse en items de operaciones comunes (no incluye TODO el javascript ni estilos que necesitan los objetos toba). <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_basico.php">Ver clase</a>.
+</li><li> <strong>tp_normal</strong>: Inluye el HTML mínimo que necesita una operación clásica Toba, incluye el menú y una barra superior. Generalmente los proyectos van a hereder de este los tipos de página particulares. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_normal.php">Ver clase</a>.
+</li></ul><h2 id="Ejemplodeextensióndeltipodepágina">Ejemplo de extensión del tipo de página</h2>
+<p>
+El siguiente es un tipo de página extendido utilizado para el proyecto SIU-Quilmes, las modificaciones son:
+</p>
+<ul><li>En el título de página (y por ende en la barra superior) muestra un nombre jerarquico del item (ej Clientes &gt; Formas de Pago &gt; Listado)
+</li><li>Agrega una función particular javascript que permite mostrar un mensaje de espera que se llama antes de entrar en un procesamiento largo.
+</li></ul><div class="code"><pre><span class="code-lang">&lt;?php
+
+</span><span class="code-keyword">require_once(</span><span class="code-string">"nucleo/browser/tipo_pagina/tp_normal.php"</span><span class="code-keyword">);
+require_once(</span><span class="code-string">"nucleo/lib/item_toba.php"</span><span class="code-keyword">);
+
+class </span><span class="code-lang">tp_quilmes </span><span class="code-keyword">extends </span><span class="code-lang">tp_normal
+</span><span class="code-keyword">{
+    protected </span><span class="code-lang">$titulo</span><span class="code-keyword">;
+    
+    function </span><span class="code-lang">titulo_pagina</span><span class="code-keyword">()
+    {
+        if (! isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo</span><span class="code-keyword">)) {
+            </span><span class="code-lang">$info </span><span class="code-keyword">= </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">get_solicitud</span><span class="code-keyword">()-&gt;</span><span class="code-lang">get_datos_item</span><span class="code-keyword">();
+            </span><span class="code-lang">$item </span><span class="code-keyword">= new </span><span class="code-lang">item_toba</span><span class="code-keyword">();
+            </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_rama</span><span class="code-keyword">(</span><span class="code-lang">$info</span><span class="code-keyword">[</span><span class="code-string">'item_proyecto'</span><span class="code-keyword">], </span><span class="code-lang">$info</span><span class="code-keyword">[</span><span class="code-string">'item'</span><span class="code-keyword">]);
+            
+            </span><span class="code-comment">//Se recorre la rama
+            </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">nombre</span><span class="code-keyword">();
+            while (</span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_padre</span><span class="code-keyword">() != </span><span class="code-lang">null</span><span class="code-keyword">) {
+                </span><span class="code-lang">$item </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_padre</span><span class="code-keyword">();
+                </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">nombre</span><span class="code-keyword">() . </span><span class="code-string">" &gt; "</span><span class="code-keyword">.  </span><span class="code-lang">$camino</span><span class="code-keyword">;
+            }
+            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo </span><span class="code-keyword">= </span><span class="code-lang">$camino</span><span class="code-keyword">;
+        }
+        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo</span><span class="code-keyword">;
+    }
+    
+    
+    function </span><span class="code-lang">comienzo_cuerpo</span><span class="code-keyword">()
+    {
+        </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">comienzo_cuerpo</span><span class="code-keyword">();
+        echo </span><span class="code-lang">js</span><span class="code-keyword">::</span><span class="code-lang">abrir</span><span class="code-keyword">();
+        echo </span><span class="code-string">" 
+            function esperar_operacion()
+            {
+                var capa_espera = document.getElementById('capa_espera');
+                if (capa_espera)
+                    capa_espera.style.display = '';
+                return true;
+            }
+        "</span><span class="code-keyword">;
+        echo </span><span class="code-lang">js</span><span class="code-keyword">::</span><span class="code-lang">cerrar</span><span class="code-keyword">();
+</span><span class="code-lang">?&gt;
+</span>        &lt;div id='capa_espera' style=" width:100%;text-align:center; display:none; position:absolute; bottom:0px;"&gt;
+            &lt;div  style=" text-align:center; padding: 3px; border-color: #CCCCCC; border: 1px solid; background-color:#FFFFFF;  z-index: 1000;"&gt;
+                &lt;table style=" width:100%; text-align:center;" class="tabla-0"&gt;
+                    &lt;tr&gt;&lt;td&gt;
+                    <span class="code-lang">&lt;?php </span><span class="code-keyword">echo </span><span class="code-lang">recurso</span><span class="code-keyword">::</span><span class="code-lang">imagen_pro</span><span class="code-keyword">(</span><span class="code-string">'aguarde.gif'</span><span class="code-keyword">, </span><span class="code-lang">true</span><span class="code-keyword">); </span><span class="code-lang">?&gt;
+</span>                    &lt;/td&gt;&lt;/tr&gt;
+                    &lt;tr&gt;&lt;td&gt;
+                    &lt;strong&gt;Por favor aguarde...&lt;/strong&gt;
+                    &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+<span class="code-lang">&lt;?php
+    </span><span class="code-keyword">}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

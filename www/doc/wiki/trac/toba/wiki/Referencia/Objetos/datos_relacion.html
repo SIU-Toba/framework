@@ -1,0 +1,136 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_relacion by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/datos_relacion - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_relacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_relacion?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / datos_relacion
+</p>
+<h1 id="Objetodatos_relacion">Objeto datos_relacion</h1>
+<p>
+Mantiene un conjunto relacionado de <a class="wiki" href="datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia.
+</p>
+<h2 id="TiposdeRelaciones">Tipos de Relaciones</h2>
+<p>
+Entre las tablas se definen relaciones del tipo "tiene como hijo a" (la inversa de "depende de"), esta es la relación que se utiliza para definir las claves foráneas entre las tablas. Por ejemplo si un empleado trabaja en un departamento, el empleado "depende del" departamento (tiene una FK a esta tabla), entonces departamento es la tabla 'padre' y  empleado la tabla 'hijo', esta es la definición de asociaciones 1-N o N-1. Cuando se toma por ejemplo la relación "Un empleado tiene muchas tareas" y las tareas son una entidad en sí mismas ahí se incluye una tercera tabla que es la que permite la relación N-N:
+</p>
+<p>
+(EMPL) 1----&gt;N (EMPL_TAREAS) N&lt;----1 (TAREA)
+</p>
+<p>
+En este caso aunque la relación <i>lógica</i> es entre dos tablas, la normalización requiere la inclusión de una tercera tabla. Como los objetos de persistencia son un reflejo del diseño de tablas también se definen tres tablas y dos relaciones: EMPL es padre de EMPL_TAREAS y TAREA es también padre de EMPL_TAREAS.
+</p>
+<h2 id="Definición">Definición</h2>
+<ul><li>AP por defecto: Administrador de persistencia a utilizar, ver más abajo la función que cumple.
+</li><li>Modo debug: Para facilitar el entendimiento de lo que esta sucediendo en la relación en cualquier punto de la ejecución se brinda un esquema que muestra el contenido actual de cada tabla y las relaciones que existe entre registros particulares. Este modo se puede activar en ejecución (utilizando el método dump_esquema) o en forma estática utilizando esta definición. Si se define en forma estática se muestra el esquema cuando se crea la relacion (al comienzo del request) y otro cuando se destruyo (al final del mismo). El esquema se grafica utilizando el <a class="wiki" href="ei_esquema.html">Objeto ei_esquema</a> en formato SVG (ver requisitos en el objeto).
+</li><li>Suspender Constraints: No siempre se puede asegurar que las restricciones de base de datos se cumplan durante toda la sincronización. Existen situaciones en que el orden en el que se ejecutan las distintas sentencias puede incumplir temporalmente alguna restricción. Para estos casos se pueden suspender <i>temporalmente</i> el chequeo de constraints en la base, hasta el final de la transacción.
+</li><li>Orden Automático: Tanto la carga como la sincronización siguen un orden llamado 'Orden Topológico' de las tablas en base a las relaciones padre-hijo que existen entre ellas. Este orden no es posible definirlo si existe un ciclo en las relaciones (A es padre de B, este es de padre de..... que es padre de A), en este caso o en caso que el orden topológico no sea el deseado se puede definir uno particular. Cuando el orden automático esta desactivado se toma el orden determinado en la definición de las tablas.
+</li><li>Tablas: Se adjuntan los datos tablas que forman parte de la relación, el identificador permite nombrarlas dentro de la relación tanto en la definición como en la definición. Así por ejemplo si se define una tabla 'persona' en la relación, desde el código se la nombre como $relacion-&gt;tabla('persona'). Es posible determinar topes mínimos y máximos de filas que puede tener cada tabla en la relación.
+</li><li>Relaciones: Se definen las relaciones padre-hijo entre las tablas, especificando los campos comunes entre las tablas. 
+</li></ul><h2 id="AdministradordePersistenciaAP">Administrador de Persistencia (AP)</h2>
+<p>
+La idea a futuro de los objetos de persistencia es que puedan manejar distintos mecanismos de persistencia, aunque actualmente sólo están implementado una base de datos relacional. Es por eso que existe el concepto de "Administrador de Persistencia" o AP y se requiere en la definición. Las responsabilidades de una AP de una relación son:
+</p>
+<ul><li>Determinar el orden y la forma de <strong>carga</strong> a partir del medio de persistencia.
+</li><li>Determinar el orden y la forma de <strong>sincronización</strong> con el medio de persistencia.
+</li></ul><p>
+El AP de base de datos para asegurar que las tablas hijos se cargan en base a los datos presentes en los padres, se utiliza el query de la tabla en el subselect. A medida que se aleja de las tablas raices se incluyen los select de la tabla padre. 
+</p>
+<h2 id="Utilización">Utilización</h2>
+<p>
+En general el datos_relación va a estar asociado a un <a class="missing wiki" href="Ci-2.html" rel="nofollow">Objeto CI?</a>, 
+</p>
+<h2 id="Másinfo">Más info</h2>
+<ul><li><a class="wiki" href="Persistencia.html">Introducción a los objetos de persistencia</a>.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_relacion?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_relacion by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

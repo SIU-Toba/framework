@@ -1,0 +1,266 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/ci - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ci
+</p>
+<h1 id="ControladordeInterface">Controlador de Interface</h1>
+<ul><li>Contiene otros objetos de interface como cuadros, filtros, formularios o incluso otros ci.
+</li><li>Permite <a class="wiki" href="../Eventos.html">escuchar eventos</a> de sí mismo y sus objetos contenidos, definiendo así su comportamiento.
+</li><li>Permite construir una operación en distintas <strong>pantallas</strong>.
+</li><li>Mantiene el estado de la operación a través de distintos pedidos de página, utilizando el mecanismo de <a class="wiki" href="PersistenciaSesion.html">persistencia en sesión</a>.
+</li><li>Determina el <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a> de la operación, procesando los cambios al final de una <i>transacción</i> lógica que atraviesa varios pedidos de página.
+</li></ul><p>
+ 
+</p>
+<h2 id="Definición">Definición</h2>
+<p>
+Un CI básico se crea desde la vista de <i>Objetos - Desarrollo en Capas</i> en el Administrador, bajo el nombre <i>objeto_ci</i>. Una vez creado, en las propiedades específicas se pueden definir distintas pantallas, pudiendo cada una contener distintos objetos y eventos. Ya creado el CI, es posible incluirlo en un <a class="wiki" href="../Item.html">ítem</a> utilizando por ejemplo el <a class="wiki" href="../Patron.html">patrón</a> <i>CI</i>.
+</p>
+<h2 id="Pantallas">Pantallas</h2>
+<p>
+Para la construcción de interfaces más flexibles, el CI tiene capacidad de manejar diferentes <i>pantallas</i> en una operación. Así, por ejemplo, reservar una entrada puede pensarse como dos pantallas: una especificando el pago y la otra seleccionando la ubicación. La navegación entre estas pantallas puede ser:
+</p>
+<ul><li>Manejada por Toba, utilizando solapas u algún otro método explícito de transición entre pantallas.
+</li><li>Manejada por el desarrollador extendiendo la clase
+</li></ul><p>
+Independiente de la forma que se comportan, las pantallas tienen una definición uniforme:
+</p>
+<ul><li>Posición: Determina el orden de aparición de la pantalla, sólo se tiene en cuenta cuando la navegación es manejada por Toba.
+</li><li>Etiqueta: Cuando la navegación es manejada por Toba, se utiliza esta etiqueta en el botón o imagen para cambiar a esta pantalla.
+</li><li>Lista EI: Separados por coma se listan los objetos contenidos en esta pantalla particular. Como se verá más adelante, este listado puede modificarse en ejecución.
+</li><li>Botón Procesar - Cancelar: Se puede definir estáticamente si la pantalla tiene el evento procesar o cancelar. Esto es útil cuando de antemano se sabe cual es la última pantalla, por ejemplo una pantalla de confirmación.
+</li></ul><h3 id="Navegaciónconsolapas">Navegación con solapas</h3>
+<ul><li>Barras horizontales: A manera de <i>solapas</i> se presentan las distintas pantallas accesibles.
+</li><li>Barras verticales: Las pantallas accesibles se muestran en una lista vertical, esto es útil cuando la cantidad de pantallas es muy grande.
+</li></ul><h3 id="NavegacióntipoWizard">Navegación tipo Wizard</h3>
+<p>
+En esta navegación sólo se permite navegar hacia la pantalla anterior o la siguiente. Opcionalmente se puede incluir una tabla de contenidos (TOC) mostrando el posicionamiento actual dentro de la navegación. 
+</p>
+<p>
+Muchas veces es necesario saltear ciertas pantallas basado en selecciones anteriores, para esto hay que escuchar el evento <tt>evt__puede_mostrar_pantalla</tt>:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+</span><span class="code-comment">/*
+*    Evita mostrar la quinta pantalla
+*/
+</span><span class="code-keyword">function </span><span class="code-lang">evt__puede_mostrar_pantalla</span><span class="code-keyword">(</span><span class="code-lang">$pantalla</span><span class="code-keyword">)
+{
+    switch (</span><span class="code-lang">$pantalla</span><span class="code-keyword">) 
+    {
+        case </span><span class="code-lang">5</span><span class="code-keyword">:
+            return </span><span class="code-lang">false</span><span class="code-keyword">;
+    }
+    return </span><span class="code-lang">true</span><span class="code-keyword">;
+}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Los cambios de pantalla también son controlados mediante los eventos <tt>cambiar_tab__anterior</tt> y <tt>cambiar_tab__siguiente</tt>, así por ejemplo es posible no incluir estos eventos en circunstancias especiales:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+</span><span class="code-comment">/*
+*    Una vez que se entra en la pantalla 7, no es posible retroceder
+*/
+</span><span class="code-keyword">function </span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">()
+{
+    </span><span class="code-lang">$eventos </span><span class="code-keyword">= </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">();
+    if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_pantalla_actual</span><span class="code-keyword">() == </span><span class="code-lang">7</span><span class="code-keyword">) {
+        unset(</span><span class="code-lang">$eventos</span><span class="code-keyword">[</span><span class="code-string">'cambiar_tab__anterior'</span><span class="code-keyword">]);
+    }
+    return </span><span class="code-lang">$eventos</span><span class="code-keyword">;
+}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h3 id="Navegaciónmanejadaporextensión">Navegación manejada por extensión</h3>
+<p>
+Para poder utilizar una navegación particular entre pantallas es necesario <a class="wiki" href="Extension.html">extender el objeto</a> ci. En esta extensión debemos indicar continuamente cual es la pantalla a mostrar reescribiendo el método <tt>get_pantalla_actual()</tt>:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">get_pantalla_actual</span><span class="code-keyword">()
+    {
+        if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">esta_modificando</span><span class="code-keyword">)
+            return </span><span class="code-lang">2</span><span class="code-keyword">;
+        else
+            return </span><span class="code-lang">1</span><span class="code-keyword">;
+    }     
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Generalmente la lógica de decisión entre pantallas depende del resultado de algún evento particular. La forma de definir estos eventos en cada pantalla se ve más adelante.
+</p>
+<h3 id="Controlandolaentradaylasalida">Controlando la entrada y la salida</h3>
+<p>
+Cuando se entra y sale de una pantalla se dispara un evento que es posible capturar para, por ejemplo, hacer controles:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__entrada__10</span><span class="code-keyword">()
+    </span><span class="code-comment">//Entrada en la pantalla 10
+    </span><span class="code-keyword">{
+        </span><span class="code-lang">$error </span><span class="code-keyword">= </span><span class="code-lang">true</span><span class="code-keyword">;
+        if(</span><span class="code-lang">$error</span><span class="code-keyword">){
+            throw new </span><span class="code-lang">excepcion_toba</span><span class="code-keyword">(</span><span class="code-string">"No es valido ENTRAR en la pantalla 10"</span><span class="code-keyword">);
+        }
+    }                    
+
+    function </span><span class="code-lang">evt__salida__0</span><span class="code-keyword">()
+    </span><span class="code-comment">//Salida de la pantalla 0
+    </span><span class="code-keyword">{
+        </span><span class="code-lang">$error </span><span class="code-keyword">= </span><span class="code-lang">true</span><span class="code-keyword">;
+        if(</span><span class="code-lang">$error</span><span class="code-keyword">){
+            throw new </span><span class="code-lang">excepcion_toba</span><span class="code-keyword">(</span><span class="code-string">"No es valido SALIR en la pantalla 0"</span><span class="code-keyword">);
+        }        
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Una excepción lanzada en estos listeners evita el cambio de pantalla y el mensaje de la excepción es agregado a la cola de mensajes de la operación para ser mostrada al usuario.
+ 
+</p>
+<h3 id="Objetoscontenidos">Objetos contenidos</h3>
+<p>
+Para agregar objetos al CI primero hay que agregar al objeto como dependencia y posteriormente hay que agregarlo a la <i>Lista  EI</i> de la pantalla buscada. El orden que toman en esta lista es el orden gráfico resultante, por defecto uno arriba del otro. Durante la ejecución los CI pueden variar esta lista redefiniendo el método get_lista_ei:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">get_lista_ei__1</span><span class="code-keyword">()
+    </span><span class="code-comment">//Sobreescribir la lista de EIs a mostrar en la pantalla 1    
+    </span><span class="code-keyword">{
+        </span><span class="code-lang">$ei</span><span class="code-keyword">[</span><span class="code-lang">0</span><span class="code-keyword">] = </span><span class="code-string">"mi_formulario"</span><span class="code-keyword">;
+        </span><span class="code-lang">$ei</span><span class="code-keyword">[</span><span class="code-lang">1</span><span class="code-keyword">] = </span><span class="code-string">"mi_cuadro"</span><span class="code-keyword">;
+        return </span><span class="code-lang">$ei</span><span class="code-keyword">;
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Para acceder a un elemento particular se utiliza el arreglo <i>dependencias</i>, es importante notar que este elemento debe estar disponible en la pantalla actual, de lo contrario no hay forma de accederlo. Así, siguiendo el ejemplo, para acceder al <i>formulario</i> desde cualquier método del CI se ejecuta:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'formulario'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">metodo</span><span class="code-keyword">();
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Para definir comportamientos a sus objetos contenidos, se escuchan los <a class="wiki" href="../Eventos.html">Eventos</a> de estos objetos.
+</p>
+<h2 id="Eventos">Eventos</h2>
+<p>
+El mismo CI puede disparar eventos, estos se definen utilizando el administrador pudiendose asignar a pantallas particulares. En ejecución es posible modificar esta lista sacando algunos eventos basados en una condición dinámica:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-comment">/**
+    *    Se saca el evento procesar en forma dinámica
+    */
+    </span><span class="code-keyword">function </span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">()
+    {
+        </span><span class="code-lang">$eventos </span><span class="code-keyword">= </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">();
+        if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">situacion_particular</span><span class="code-keyword">) {
+            unset(</span><span class="code-lang">$eventos</span><span class="code-keyword">[</span><span class="code-string">'procesar'</span><span class="code-keyword">]);
+        }
+        return </span><span class="code-lang">$eventos</span><span class="code-keyword">;
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><blockquote>
+<p>
+Más detalles de como escucharlos en <a class="wiki" href="../Eventos.html">Eventos</a>. En cualquiera de estos eventos se puede incluir una llamada para borrar los datos de la sesión posterior a la ejecución, con el método <i>eliminar_estado_sesion</i>, esto es especialmente útil para los eventos predefinidos <i>procesar</i> y <i>cancelar</i>.
+</p>
+</blockquote>
+<h2 id="Ejemplos">Ejemplos</h2>
+<p>
+Existe un ejemplo en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, ítem <i>Objetos/ci</i>. Allí el ítem tiene asociado un ci llamado <i>ci_pantallas_logicas</i> que cuenta con dos pantallas con navegación definida por extensión:
+</p>
+<ul><li>La primera tiene una breve descripción similar a esta.
+</li><li>La segunda tiene asociada otro CI pero en este caso con navegación por barra horizontal, con tres solapas.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Metodologia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / Metodologia
+</p>
+<h1 id="MetodologíadeTrabajo">Metodología de Trabajo</h1>
+<p>
+La <a class="wiki" href="Tecnologia.html">Tecnología</a> utilizada en Toba condiciona la forma de trabajo. Los proyectos consumiendo este framework también se van a ver envueltos en una metodología de trabajo que deberán manejar para ser productivos.
+</p>
+<h2 id="Lostresgrandes">Los tres grandes</h2>
+<p>
+Uno de nuestros objetivos de desarrollo es llegar a un ambiente de <a class="ext-link" href="../../../external.html?link=http://www.martinfowler.com/articles/continuousIntegration.html"><span class="icon"></span>integración contínua</a> marcado por los llamados <i>tres grandes</i>:
+</p>
+<ul><li>Control de versiones: Permite revertir errores, desarrollos grupales, versionado y visión histórica del SW desarrollado.
+</li><li>Testing unitario automático: Lo que antes era debugging contínuo ahora es una inversión a largo plazo, las pruebas se automatizan, acarreando un costo inicial pero dando muy buenos resultados a largo plazo, mejorando la calidad, acortando tiempos, mejores estimaciones, etc.
+</li><li>Construcciones automatizadas (Automated builds), se asegura que el deployment de nuevas versiones sea sencillo al punto de automatizarse corriéndose a diario.
+</li></ul><p>
+Estos tres grandes no funcionan sólos sino en forma conjunta:
+</p>
+<h3 id="ControldeVersiones">Control de Versiones</h3>
+<p>
+Toba trabaja con SVN, es usual que todos hablen con el lenguaje de <i>commits</i>, <i>update</i>, <i>checkout</i>, <i>revision</i>, <i>branch</i>, <i>tag</i> y demás. Se recomienda dar una lectura al <a class="ext-link" href="../../../external.html?link=http://svnbook.red-bean.com/"><span class="icon"></span>libro de SVN</a> para entender estos conceptos básicos. Todo documento, código, metadato o cualquier otra cosa en formato digital que tiene el proyecto debe pasar por el control de versiones en forma diaria. Parece maníaco pero la única forma de acostumbrase a este tipo de trabajo es imaginarse una persona remota que está consumiendo y desarrollando nuestro proyecto continuamente, no se puede confiar en carpetas compartidas, anotaciones en un papelito o personas con un cerebro gigante que recuerden todo lo sucedido en los últimos meses.<br /><br />
+Más allá del versionado contínuo se puede hacer diferentes ramas de desarrollo y se pueden congelar versiones. Dejar logs adecuados mejora el entendimiento de cambios, y ayuda a la decisión de migrar o no hacia una versión específica.
+</p>
+<h3 id="Testingunitario">Testing unitario</h3>
+<p>
+Estamos bastante prematuros en el testing automático, principalmente el de <a class="wiki" href="Desarrollo/TestingPHP.html">módulos PHP</a>, los <a class="wiki" href="Desarrollo/TestingJS.html">módulos javascript</a> están bastante más avanzados, principalmente porque son menos y más recientes. La idea es lograr un esquema en donde cada versión de Toba <strong>asegure</strong> el correcto funcionamiento de lo que promete, así por ejemplo en cada regeneración de la instancia se correrían los tests. Además del beneficio interno a Toba, que esto trae hay un beneficio grande para los proyectos que lo consumen: sirven como documentación y prueba a la vez. Si una cosa funciona en los test es porque funciona en mi proyecto también, y puedo investigar cómo lo hace y en qué condiciones, y lo más importante puedo saber rápidamente si mañana sigue funcionando.<br /><br />
+Un ideal sería que toda nueva funcionalidad traiga de la mano un test automático, esto requiere una fuerte disciplina y soportar una inversión inicial de tiempo.
+</p>
+<h3 id="Construccionesautomatizadas">Construcciones automatizadas</h3>
+<p>
+Actualmente el deploy de Toba mismo está bastante automatizado, esto no requiere que una persona tenga que realizar largos pasos antes de irse a casa o cuando recién llega:
+</p>
+<ul><li>Antes de irse a casa:
+<pre class="wiki">proyecto exportar mi_proyecto
+svn commit
+</pre>
+</li><li>Como mínimo una vez al día:
+<pre class="wiki">svn update
+instancia regenerar
+</pre>
+</li></ul><p>
+Hay que dedicarle un poco de tiempo a entender el manejo de las <a class="wiki" href="Referencia/Instancia.html">Instancias</a>, especialmente cuando son varios <i>ingenieros</i> con distintos roles (desarrollo, documentación, testing, producción).
+</p>
+<h2 id="Seguimientodelproyectoycomunicación">Seguimiento del proyecto y comunicación</h2>
+<p>
+Todo pedido de cambios y notificación de bugs deben pasar por Trac (<a class="ext-link" href="../../../external.html?link=http://toba.siu.edu.ar/trac"><span class="icon"></span>http://toba.siu.edu.ar/trac</a>), de esta forma es sencillo categorizarlo, encolarlo para una futura versión y hacer un seguimiento detallado del <i>issue</i>. Se pueden indicar metas o <i>milestones</i> a fechas tentativas agregandoles estos <i>issues</i>. Por ahora la documentación también se está manteniendo en Trac por una cuestión de puesta en marcha, a futuro la idea es ir moviendo muchas de estas cosas al administrador toba para una mejor integración con el framework.<br /><br />
+Las notificaciones y discusiones globales deben pasar por la <a class="ext-link" href="../../../external.html?link=http://listas.siu.edu.ar/mailman/listinfo/toba"><span class="icon"></span>lista</a>, así todos toman conocimiento. Discusiones más puntuales o que requieren mayor argumentación se recomienda hacerlas en el <a class="wiki" href="Desarrollo.html">wiki:Desarrollo</a>.
+</p>
+<h2 id="Codificación">Codificación</h2>
+<p>
+El código fuente es una de las fuentes mas grandes del diseño de SW que existe actualmente (sino la <a class="ext-link" href="../../../external.html?link=http://www.developerdotstar.com/mag/articles/reeves_design.html"><span class="icon"></span>única</a>). Creemos en un tratamiento acorde a su importancia:
+</p>
+<h3 id="CódigoNOpropietario">Código NO propietario</h3>
+<p>
+A veces la separación de roles llevada al extremo puede llevar a desarrollos en donde un archivo, operación o módulo sólo lo puede modificar <i>pedro</i> y toda mejora, comentario, visión o entendimiento de esa pieza de software pasa por su cuenta. Al fin del día esta visión se pierde una de las mejores cualidades del trabajo grupal que es la colaboración, por ejemplo para modificar un error de ortografía, gramatical o conceptual de esta documentación hay que apretar "Edit this page", no hay que mandar un mail al responsable para que cuando tenga tiempo vaya y entienda que quiere decir el otro en la corrección... esa burocracia es costosa. Gracias al control de versiones se sabe qué, cuándo y cómo se modificó cada pieza de sw, más allá de que existan responsables y áreas en donde se tiene mayor o menor conocimiento, el proyecto se hace entre todos. El código propietario (el síntoma clásico es "no sé... es el módulo de pedro") lleva a problemas de comunicación y aprendizaje, como ejemplo después de varios meses de desarrollo se dan cuenta que hicieron casi lo mismo, o peor no tienen idea de cómo lo hizo, o directamente no tienen idea de como otros trabajan, lo cual es gravísimo ya que esta ingeniería está en pañales y avanzando a pasos agigantando, así que programar hacia adentro es ponerse las orejeras y estancarse.<br /><br />
+En definitiva los argumentos en contra de esta forma de trabajo es:
+</p>
+<ul><li>Limita el crecimiento individual: nadie se las sabe todas, y generalmente la velocidad de aprendizaje mejora en ambientes colaborativos.
+</li><li>Empeora la comunicación y unidad del grupo: Generalmente no se resuelven ni discuten temas puntuales en conjunto, cada cual tira para su lado y el grupo pasa a ser un conjunto de personas.
+</li><li>Presenta un riesgo al managment: el código ultra-secreto de <i>pedro</i> resulta una pesadilla viviente cuando <i>pedro</i> se va... garantizado.
+</li></ul><h3 id="Dinamismo">Dinamismo</h3>
+<p>
+Haciendo un vistazo a los lenguajes-tecnologías utilizados HTML, Javascript, CSS, PHP, SQL.. todos se interpretan y la mayoría hace coerciones de tipo y no son fuertemente tipados. Así sólo en ejecución se detectan los errores insertados, para aquellos acostumbrados a otras tecnologías esto puede ser raro, ya que cada capa maneja los errores a su manera:
+</p>
+<ul><li>Para HTML y CSS se recomienda utilizar un validador (hay una <a class="ext-link" href="../../../external.html?link=http://users.skynet.be/mgueury/mozilla/"><span class="icon"></span>extensión del firefox</a> muy buena), salvo que el error sea grande, el navegador sigue la ejecución e intenta hacer lo mejor para mostrar la página, por lo que la mayoría de los errores pasan inadvertidos.
+</li><li>Para javascript se recomiendo instalar el <a class="ext-link" href="../../../external.html?link=http://blogs.msdn.com/ie/archive/2004/10/26/247912.aspx"><span class="icon"></span>debug en el IE</a> o usar firefox para estar al tanto de los errores. Cuando se hacen extensiones al js por defecto de Toba, estas se incluyen en el código fuente HTML, por lo que es una buena técnica inicialmente ver este código para verificar que esté incluída la extensión y dónde.
+</li><li>Para PHP programar siempre usando <i>error_reporting = E_ALL</i> como mínimo. Como los errores se listan en la salida HTML en el mismo lugar donde se produce, es posible que se muestre en una sección <i>&lt;script&gt;</i> del HTML, por lo que no se ve a primera vista, sólo prestando atención a los errores javascript y recorriendo el código HTML detectado es posible detectarlos.
+</li><li>Para SQL es recomendable armar las consultas en algún utilitario externo (por ejemplo [<a class="ext-link" href="../../../external.html?link=http://www.sqlmanager.net/products/postgresql/manager"><span class="icon"></span>http://www.sqlmanager.net/products/postgresql/manager</a> EMS PostgreSQL Manager), y siempre chequear el resultado de una inserción o actualización.
+</li></ul><p>
+Otra dificultad con este dinamismo es la <i>debilidad</i> de las interfaces. En cualquier momento algo puede dejar de andar sin previo aviso, con lo que el testing automático otra vez tiene que venir al rescate. Todas estas <i>contras</i> no vienen sin recompensas:   
+</p>
+<ul><li><strong>flexibilidad</strong>: Todo es moldeable en ejecución a nuestras necesidades.
+</li><li><strong>velocidad</strong> y <strong>claridad</strong>: La codificación en estos lenguajes es bastante más rápida y mas concisa, por lo que las soluciones son en general más fáciles de escribir y entender.
+</li></ul><h3 id="Divisiónderesponsabilidades">División de responsabilidades</h3>
+<p>
+Al no existir una ambiente de desarrollo que englobe todos estos lenguajes y tecnologías, es el desarrollador el encargado de decidir cual usar bajo cada circunstancia.
+</p>
+<ul><li>Interface gráfica:
+<ul><li>Código HTML: Mantiene la estructura estática de una pantalla.
+</li><li>Código CSS: Determina la forma en que será presentada esta estructura (colores, margenes, tamaños, etc.)
+</li><li>Javascript: Es el encargado de manejar todo el comportamiento <strong>dentro</strong> de una pantalla. Si el contenido es estático a esa instancia particular de la pantalla no tiene sentido utilizar este lenguaje ya que la estructura es estática por lo que es responsabilidad del lenguaje servidor (en este caso PHP) armarla (ver <a class="wiki" href="Referencia/ExtensionesJavascript.html">extensiones javascript</a>).
+</li></ul></li></ul><ul><li>Lógica de aplicación y de negocio (PHP): Es eslabón entre todos los lenguajes, a nivel de interface <i>informa</i> la estructura estática, la presentación y el comportamiento de una página. La gran polémica es si también es el encargado de manejar la lógica de negocio. Históricamente las decisiones de negocio se encontraron más unidas a la capa de persistencia a través de procedimientos almacenados, siendo esta capa intermedia sólo un lugar de paso y de construcción de una interface. El problema con los procedimientos almacenados es que utilizan código propietario particular de cada motor, imposibilitando la migración hacia otros motores. Por otro lado tener la lógica en PHP da la posibilidad de contar con un <a class="wiki" href="Referencia/MarcoTransaccional.html">marco transaccional Web</a>.
+</li></ul><ul><li>Persistencia (SQL)
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

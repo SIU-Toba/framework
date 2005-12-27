@@ -1,0 +1,145 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LenguajeNoTipado by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Desarrollo/LenguajeNoTipado - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LenguajeNoTipado?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LenguajeNoTipado?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / LenguajeNoTipado
+</p>
+<h1 id="ProblemasAsociadosalaformaenquePHPmanejalostiposdedatos">Problemas Asociados a la forma en que PHP maneja los tipos de datos</h1>
+<p>
+Esto es algo molesto que oculto un bug un tiempo. La interface esperaba un array, pero estaba recibiendo un string. Esto hace pensar que hay que usar aserciones para robustecer un poco las interfaces. Este problema no ocurre si el indice del array es un entero o si $a es un entero. El problema es que "isset($a["xxx"])" devuelve un 1... ¿Alguien sabe porque?
+</p>
+<pre class="wiki">!#php
+&lt;?
+	$a = &#34;Este es un STRING&#34;;
+	if(isset($a[&#34;xxx&#34;])){
+		echo &#34;¿Por que entre aca?&#34;;
+	}
+?&gt;
+</pre>
+<hr />
+<p>
+Al parecer hace una coersión de "xxx" a 0 (capaz es un bug del lenguaje), por que var_dump($a["xxx"]) (o de cualquier clave asociativa) retorna "E", que es $a<a class="report" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report/0">{0}</a>. Habría que preguntar is_array($a).
+</p>
+<p>
+Llendo a las definiciones, PHP no es un lenguaje "No Tipado", ya que tiene tipos. Los 'problemas' son que:
+</p>
+<ul><li>Tiene "Tipado Dinámico", el tipo que toma una variable no se conoce hasta la ejecución:
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">var </span><span class="code-lang">$a</span><span class="code-keyword">;
+    if (</span><span class="code-lang">rand</span><span class="code-keyword">(</span><span class="code-lang">0</span><span class="code-keyword">,</span><span class="code-lang">1</span><span class="code-keyword">)) 
+        </span><span class="code-lang">$a </span><span class="code-keyword">= array();
+    else
+        </span><span class="code-lang">$a </span><span class="code-keyword">= </span><span class="code-lang">8</span><span class="code-keyword">;
+    print(</span><span class="code-lang">$a</span><span class="code-keyword">); </span><span class="code-comment">//El tipo de $a sólo se conoce previo a la ejecución de la sentencia
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></li><li>Es "No fuertemente tipado", esto quiere decir los errores de tipo no se detectan hasta la ejecución (hay varias definiciones de "fuertemente tipado" pero esta es la que mas me quedo!):
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $auto </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">obtener_auto</span><span class="code-keyword">();
+    </span><span class="code-lang">$auto</span><span class="code-keyword">-&gt;</span><span class="code-lang">manejar</span><span class="code-keyword">();    </span><span class="code-comment">//No se puede asegurar que $auto contenga un metodo manejar
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></li><li>Hace "Coersión de tipos", esto quiere decir que se hacen conversiones implicitas de los tipos de las variables, generalmente los lenguajes necesitan que se explicite la conversion (con funciones o haciendo casting), pero en php dependiendo de la operación se hacen coersiones:
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $a </span><span class="code-keyword">= </span><span class="code-string">"5" </span><span class="code-keyword">+ </span><span class="code-lang">4</span><span class="code-keyword">;
+    </span><span class="code-lang">var_dump</span><span class="code-keyword">(</span><span class="code-lang">$a</span><span class="code-keyword">); </span><span class="code-comment">//int(9)
+    </span><span class="code-lang">$entero </span><span class="code-keyword">= </span><span class="code-lang">1</span><span class="code-keyword">;
+    </span><span class="code-lang">$flotante </span><span class="code-keyword">= </span><span class="code-lang">0.5</span><span class="code-keyword">;
+    </span><span class="code-lang">$b </span><span class="code-keyword">=  </span><span class="code-lang">$flotante </span><span class="code-keyword">+ </span><span class="code-string">"8" </span><span class="code-keyword">+ </span><span class="code-lang">$entero</span><span class="code-keyword">;
+    </span><span class="code-lang">var_dump</span><span class="code-keyword">(</span><span class="code-lang">$b</span><span class="code-keyword">); </span><span class="code-comment">//float(9.5)
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LenguajeNoTipado?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LenguajeNoTipado by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

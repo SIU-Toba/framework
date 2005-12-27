@@ -1,0 +1,234 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/ei_formulario - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_formulario
+</p>
+<h1 id="FormularioSimple">Formulario Simple</h1>
+<p>
+Un formulario simple presenta una grilla de campos editables. A cada uno de estos campos se los denomina <a class="wiki" href="../efs.html">Elementos de Formulario (efs)</a>.
+</p>
+<h2 id="Definición">Definición</h2>
+<p>
+En la definición específica del objeto se incluye:
+</p>
+<ul><li>Ancho: Pixeles o porcentaje que ocupa el objeto gráficamente. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
+</li><li>Ancho de etiquetas: Pixeles o porcentaje que ocupan las etiquetas de los campos, por defecto son 150px. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
+</li><li>Efs: Se definen los distintos <a class="wiki" href="../efs.html">efs</a> a incluir en el formulario.
+</li><li>Eventos: Se pueden incluir distintos <a class="wiki" href="../Eventos.html">eventos</a>, tomando como referencia modelos que se detallan abajo.
+</li></ul><h2 id="Modelosdeeventos">Modelos de eventos</h2>
+<p>
+Actualmente se cuenta con dos modelos por defecto de eventos, puede optarse por uno de estos o armar una lista propia de eventos:
+</p>
+<ul><li>Básico: Incluye un solo evento <strong>modificacion</strong> marcado como implícito, es decir se dispara sin necesidad de que lo haga explícitamente el usuario.
+</li><li>ABM: Incluye los eventos clásicos de un formulario tipo ABM (alta, baja, modificacion y cancelar) todos explícitos e incluídos en la botonera.
+</li></ul><p>
+El formulario presenta dos grupos de eventos cargado y no_cargado, para más info sobre lo que es un grupo de eventos ver <a class="wiki" href="../Eventos.html#Propiedades">las propiedades de un evento</a>.
+</p>
+<h2 id="Carga">Carga</h2>
+<p>
+Para establecer los datos a mostrar en el formulario, se dispara un evento <i>carga</i>, desde un <a class="wiki" href="ci.html">CI</a> se debería escuchar este evento:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__formulario__carga</span><span class="code-keyword">()
+    {
+        return array(
+            </span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">null</span><span class="code-keyword">,
+            </span><span class="code-string">'importe' </span><span class="code-keyword">=&gt; </span><span class="code-lang">null</span><span class="code-keyword">,
+            </span><span class="code-string">'descripcion' </span><span class="code-keyword">=&gt; </span><span class="code-string">'Esta descripción se especifica en la carga'</span><span class="code-keyword">,
+            </span><span class="code-string">'tipo' </span><span class="code-keyword">=&gt; </span><span class="code-lang">null
+        </span><span class="code-keyword">);
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+El formulario espera en la carga un arreglo asociativo del tipo <tt> 'id_ef' =&gt; valor </tt>. Cuando no se quiere cargar con datos hay dos opciones: no se escucha el evento, o no se retorna nada en este método.
+</p>
+<h2 id="ValidacionesenPHP">Validaciones en PHP</h2>
+<p>
+Por defecto el formulario posee una validación propia que itera validando cada ef. Esta validación garantiza que los datos ingresados por el usuario corresponden al tipo de campo con el que se definió. Para hacer validaciones particulares relacionadas a la lógica de la operación se utilizan los eventos como punto de entrada. Así por ejemplo para validar la modificación en un formulario se escucharía el evento en el CI contenedor:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-comment">//Valida que un campo 'importe' del formulario sea menor que un tope fijo
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__formulario__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
+    {
+        if (</span><span class="code-lang">$datos</span><span class="code-keyword">[</span><span class="code-string">'importe'</span><span class="code-keyword">] &gt; </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tope </span><span class="code-keyword">)
+            throw new </span><span class="code-lang">excepcion_toba</span><span class="code-keyword">(</span><span class="code-string">'El importe no puede se mayor que '</span><span class="code-keyword">.</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tope</span><span class="code-keyword">);
+        </span><span class="code-lang">ei_arbol</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">, </span><span class="code-string">'Resultado de la modificación'</span><span class="code-keyword">);
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+En este evento, el parámetro (en este caso <i>$datos</i>) contiene un arreglo asociativo similar al que se necesita en la carga. La excepción hace abortar la operación que dio lugar al evento, informándole al usuario el mensaje.
+</p>
+<h2 id="ExtensiónJavascript">Extensión Javascript</h2>
+<p>
+Se puede usar el mecanismo de <a class="wiki" href="../ExtensionesJavascript.html">extensión javascript</a> para agregar comportamientos en el cliente.
+Estas extensiones necesitan ser definidas en una subclase del cuadro, dentro del método <i>extender_objeto_js</i>. De todas las extensiones posibles, las siguientes se identificaron como las más comunes:
+</p>
+<h3 id="Validacióngeneral">Validación general</h3>
+<p>
+Es posible agregar una validación general a todo el formulario, <i>escuchando</i> el evento <i>validar_datos</i>
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-comment">//Valida que dos campos no tengan valor simultáneamente
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        {$this-&gt;objeto_js}.evt__validar_datos = function() {
+            if (this.ef('descripcion').valor() != '' &amp;&amp; this.ef('otra_descripcion').valor() != '' ) {
+                    cola_mensajes.agregar('Sólo puede ingresar una descripción.');
+                    return false;
+            }
+            return true;
+        }
+    "</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+En este caso por ejemplo se quiere validar que dos editables no estén definidos simultáneamente. Una buena medida para decidir extender este método es preguntarse '¿Estoy detectando un error en un ef particular?' Si es así, no es el método adecuado, en cambio si son más de uno los efs que provocan el error, validar_datos es el lugar correcto.
+</p>
+<h3 id="Validacióndeefs">Validación de efs</h3>
+<p>
+Cuando se quiere restringir los valores posibles de un ef, se define el método <tt>evt__id_ef__validar</tt>. Por ejemplo si queremos asegurar que el importe sea menor que un tope definido en otro ef:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        {$this-&gt;objeto_js}.evt__importe__validar = function() {
+            if (this.ef('importe').valor() &lt; 100) {
+                    this.ef('importe').set_error('El importe debe ser mayor que 100');
+                    return false;
+            }
+            return true;
+        }
+    "</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Hay una razón por la que se prefiere la validación de efs por sobre la validación general del formulario (cuando es posible) y es que este tipo de extensiones automáticamente forman parte de la <a class="missing wiki" href="ValidacionEnLinea.html" rel="nofollow">validación en línea?</a> del objeto.
+</p>
+<h3 id="Eventos">Eventos</h3>
+<p>
+Hay una tercera forma de influir en el proceso de submit de un formulario, y es escuchar un evento específico. Retornando falso en el listener de este evento se aborta el mismo. Por ejemplo el evento <i>cancelar</i> se puede escuchar así:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-comment">//Agrega una confirmación al cancelar
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        {$this-&gt;objeto_js}.evt__cancelar = function() {
+            return confirm('¿Esta seguro?');
+        }
+    "</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h3 id="Procesamientodeefs">Procesamiento de efs</h3>
+<p>
+Es posible escuchar los <a class="wiki" href="../efs/Procesamientos.html">procesamientos de efs</a>. Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe un parámetro que indica si el disparo es_inicial o no. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo teniendo un <a class="missing wiki" href="../efs/checkbox.html" rel="nofollow">ef_checkbox?</a> con id 'elige_tipo' se puede habilitar/deshabilitar otro ef con id 'tipo':
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-comment">//Activa un campo en base a un checkbox
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        {$this-&gt;objeto_js}.evt__elige_tipo__procesar = function(es_inicial) {
+            if (this.ef('elige_tipo').chequeado())
+                this.ef('tipo').activar();
+            else
+                this.ef('tipo').desactivar();            
+        }
+    "</span><span class="code-keyword">;    
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h2 id="Ejemplos">Ejemplos</h2>
+<p>
+Existe un ejemplo con estas situaciones en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, ítem <i>Descripción de Elementos/Objetos/Formularios/ei_formulario</i>.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

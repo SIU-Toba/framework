@@ -1,0 +1,148 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Instancia - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Instancia
+</p>
+<h1 id="Instancias">Instancias</h1>
+<p>
+Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo los del mismo <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a> (ya que <a class="wiki" href="../TobaConsumeToba.html">TobaConsumeToba</a>). Por esto recibe el nombre de <strong>instanciación de un proyecto</strong>, ya que un <a class="wiki" href="Proyecto.html">Proyecto</a> puede estar contenido en muchas instancias diferentes.<br /><br />
+<a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png?format=raw" alt="Una instancia contiene distintos proyectos" title="Una instancia contiene distintos proyectos" style="" /></a>
+</p>
+<h2 id="Configuración">Configuración</h2>
+<p>
+Una instancia generalmente se almacena en una base de datos propia. El lugar físico depende de las configuraciones del archivo <i>toba/php/instancias.php</i>. Para armar instancias propias y para la instalación inicial se puede tomar el archivo <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/_instancias.php">source:trunk/php/_instancias.php</a> como base. El nombre de la instancia es la clave del arreglo asociativo, así si se quiere definir una nueva instancia <i>nombre_instancia</i> en la base <i>nombre_base</i>:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_motor</span><span class="code-keyword">] = </span><span class="code-string">"postgres7"</span><span class="code-keyword">;
+    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_profile</span><span class="code-keyword">] = </span><span class="code-string">"localhost"</span><span class="code-keyword">;
+    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_usuario</span><span class="code-keyword">] = </span><span class="code-string">"postgres"</span><span class="code-keyword">;
+    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_clave</span><span class="code-keyword">] = </span><span class="code-string">""</span><span class="code-keyword">;
+    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_base</span><span class="code-keyword">] = </span><span class="code-string">"nombre_base"</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h2 id="Composición">Composición</h2>
+<p>
+<a href="../../attachment/wiki/Referencia/Instancia/composicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/composicion.png?format=raw" align="right" alt="Composición de una instancia" title="Composición de una instancia" style="" /></a>
+Una instancia puede estar formada por distintos proyectos, entre ellos siempre se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee sectores comunes como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definición de estos usuarios se encuentra en el archivo <i>datos_instancia.sql</i> del proyecto toba. Este archivo no se encuentra versionado en Toba por lo que es responsabilidad de cada proyecto mantenerlo.
+</p>
+<h2 id="Creacióndeunainstancia">Creación de una instancia</h2>
+<p>
+La administración de las instancias se realiza bajo la consola. La consola está configurada con una instancia por defecto, la variable de entorno <i>toba_instancia</i>. Para ver la instancia actual ejecutar:
+</p>
+<pre class="wiki">echo $toba_instancia
+</pre>
+<p>
+Luego de definir las configuraciones de la instancia es posible cargar todos los proyectos en una instancia particular. Para esto se utiliza el siguiente comando:
+</p>
+<pre class="wiki">instancia iniciar
+</pre>
+<p>
+En caso de que la instancia se hubiera creado anteriormente, es necesario regenerarla:
+</p>
+<pre class="wiki">instancia regenerar
+</pre>
+<h2 id="Exportacióndelainstancia">Exportación de la instancia</h2>
+<p>
+No es usual exportar la instancia completa, ya que entre los proyectos se encuentra el Administrador, mantenido por el grupo de desarrollo de Toba. Como resultado de esta exportación se va a sobreescribir el archivo <i>datos.sql</i> no sólo del proyecto propio sino también del mismo Toba. En cambio exportar la sección <i>común</i> de la instancia es recomendable para poder mantener en un archivo los datos de usuarios en esta instancia. Como Toba es un <a class="wiki" href="Proyecto.html">proyecto</a> más, basta con exportar la información local del proyecto Toba:
+</p>
+<pre class="wiki">proyecto exportar_local toba
+</pre>
+</div>
+   </div>
+   
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png">instancias_y_proyectos.png</a> (4.9 kB) -<q>Una instancia contiene distintos proyectos</q>, added by seba on 06/04/05 17:02:18.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/composicion.png">composicion.png</a> (5.8 kB) -<q>Composición de una instancia</q>, added by seba on 06/04/05 17:43:31.</li>
+    </ul>
+  
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

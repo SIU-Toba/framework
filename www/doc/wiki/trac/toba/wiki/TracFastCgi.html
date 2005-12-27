@@ -1,0 +1,162 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracFastCgi by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>TracFastCgi - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracFastCgi?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracFastCgi?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / TracFastCgi
+</p>
+<h1 id="TracwithFastCGI">Trac with FastCGI</h1>
+<p>
+Since version 0.9, Trac supports being run through the <a class="ext-link" href="../../../external.html?link=http://www.fastcgi.com/"><span class="icon"></span>FastCGI</a> interface. Like <a class="wiki" href="TracModPython.html">mod_python</a>, this allows Trac to remain resident, and is faster than external CGI interfaces which must start a new process for each request. However, unlike mod_python, it is able to support <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/docs/suexec.html"><span class="icon"></span>SuEXEC</a>. Additionally, it is supported by much wider variety of web servers.
+</p>
+<h2 id="SimpleApacheconfiguration">Simple Apache configuration</h2>
+<pre class="wiki"># Enable fastcgi for .fcgi files
+# (If you're using a distro package for mod_fcgi, something like
+# this is probably already present)
+&lt;IfModule mod_fastcgi.c&gt;
+   AddHandler fastcgi-script .fcgi
+   FastCgiIpcDir /var/lib/apache2/fastcgi 
+&lt;/IfModule&gt;
+LoadModule fastcgi_module /usr/lib/apache2/modules/mod_fastcgi.so
+</pre>
+<p>
+You can either setup the <tt>TRAC_ENV</tt> as an overall default:
+</p>
+<pre class="wiki">FastCgiConfig -initial-env TRAC_ENV=/path/to/env/trac
+</pre>
+<p>
+Or you can serve multiple Trac projects in a directory like:
+</p>
+<pre class="wiki">FastCgiConfig -initial-env TRAC_ENV_PARENT_DIR=/parent/dir/of/projects
+</pre>
+<p>
+Configure <tt>ScriptAlias</tt> or similar options as described in <a class="wiki" href="TracCgi.html">TracCgi</a>, but calling <tt>trac.fcgi</tt> instead of <tt>trac.cgi</tt>.
+</p>
+<h2 id="SimpleLighttpdConfiguration">Simple Lighttpd Configuration</h2>
+<p>
+The FastCGI front-end was developed primarily for use with alternative webservers, such as <a class="ext-link" href="../../../external.html?link=http://www.lighttpd.net/"><span class="icon"></span>lighttpd</a>.
+</p>
+<p>
+lighttpd is a secure, fast, compliant and very flexible web-server that has been optimized for high-performance
+environments.  It has a very low memory footprint compared to other web servers and takes care of CPU load.
+</p>
+<p>
+For using <tt>trac.fcgi</tt> with lighttpd add the following to your lighttpd.conf:
+</p>
+<pre class="wiki">fastcgi.server = (&#34;/trac&#34; =&gt;
+                   (&#34;trac&#34; =&gt;
+                     (&#34;socket&#34; =&gt; &#34;/tmp/trac-fastcgi.sock&#34;,
+                      &#34;bin-path&#34; =&gt; &#34;/path/to/cgi-bin/trac.fcgi&#34;,
+                      &#34;check-local&#34; =&gt; &#34;disable&#34;,
+                      &#34;bin-environment&#34; =&gt;
+                        (&#34;TRAC_ENV&#34; =&gt; &#34;/path/to/projenv&#34;)
+                     )
+                   )
+                 )
+</pre>
+<p>
+Note that you will need to add a new entry to <tt>fastcgi.server</tt> for each separate Trac instance that you wish to run. Alternatively, you may use the <tt>TRAC_ENV_PARENT_DIR</tt> variable instead of <tt>TRAC_ENV</tt> as described  above.
+</p>
+<p>
+Other important information like <a class="ext-link" href="../../../external.html?link=http://trac.lighttpd.net/trac/wiki/TracInstall"><span class="icon"></span>this updated TracInstall page</a>, <a class="wiki" href="TracCgi.html#MappingStaticResources">and this</a> are useful for non-fastcgi specific installation aspects.
+</p>
+<p>
+Relaunch lighttpd, and browse to <tt>http://yourhost.example.org/trac</tt> to access Trac.
+</p>
+<hr />
+<p>
+See also <a class="wiki" href="TracCgi.html">TracCgi</a>, <a class="wiki" href="TracModPython.html">TracModPython</a>, <a class="wiki" href="TracInstall.html">TracInstall</a>, <a class="wiki" href="TracGuide.html">TracGuide</a>
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracFastCgi?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracFastCgi by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

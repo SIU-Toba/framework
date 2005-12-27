@@ -1,0 +1,272 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/db_registros by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/db_registros - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/db_registros?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/db_registros?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / db_registros
+</p>
+<h1 id="db_registros">db_registros</h1>
+<p>
+Esta clase representa una unidad de trabajo realizada sobre un conjunto puntual de registros de una tabla. 
+Brinda servicios para cargar el grupo inicial, modificarlo (agregar, eliminar, borrar, etc.) y sincronizarlo con la base. 
+Como este objeto puede <a class="wiki" href="PersistenciaSesion.html">mantenerse en memoria</a> a lo largo de varios requests, es un elemento util para la contruccion de operaciones que necesiten de un <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a>.
+</p>
+<h2 id="Definicion">Definicion</h2>
+<p>
+A diferencia de otros elementos del toba, actualmente los db_registros no son configurables desde el administrador. Los mismos se configuran a travez de parametros del constructor y la invocacion de metodos.
+Como la funcion basica del db_registros es expresar la relacion con una <strong>tabla</strong> en forma de servicios, la especificacion de la estructura de la  misma es el elemento central de la definicion. La misma se define con un array con la siguiente estructura:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+
+    $def</span><span class="code-keyword">[</span><span class="code-string">'tabla'</span><span class="code-keyword">] = </span><span class="code-string">"nombre"</span><span class="code-keyword">;            </span><span class="code-comment">// Nombre de la tabla
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columnas'</span><span class="code-keyword">] = array();            </span><span class="code-comment">// Array de Definiciones de COLUMNAS
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+La forma de definir una <strong>columna</strong> es la siguiente:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+
+    $columna</span><span class="code-keyword">[</span><span class="code-string">'nombre'</span><span class="code-keyword">] = </span><span class="code-string">"nombre"</span><span class="code-keyword">;                        </span><span class="code-comment">// Nombre de la columna
+    </span><span class="code-lang">$columna</span><span class="code-keyword">[</span><span class="code-string">'pk'</span><span class="code-keyword">] = </span><span class="code-lang">1</span><span class="code-keyword">;                                    </span><span class="code-comment">// Forma parte de la clave de la tabla
+    </span><span class="code-lang">$columna</span><span class="code-keyword">[</span><span class="code-string">'secuencia'</span><span class="code-keyword">] = </span><span class="code-string">"nombre_secuencia"</span><span class="code-keyword">;            </span><span class="code-comment">// El campo esta relacionado con una SECUENCIA
+    </span><span class="code-lang">$columna</span><span class="code-keyword">[</span><span class="code-string">'externa'</span><span class="code-keyword">] = </span><span class="code-lang">1</span><span class="code-keyword">;                            </span><span class="code-comment">// No participa de la actividad SQL
+    </span><span class="code-lang">$columna</span><span class="code-keyword">[</span><span class="code-string">'no_nulo'</span><span class="code-keyword">] = </span><span class="code-lang">1</span><span class="code-keyword">;                            </span><span class="code-comment">// El valor es obligatorio
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+Siguiendo estas reglas, la tabla
+</p>
+<pre class="wiki">CREATE SEQUENCE seq_personas;
+CREATE TABLE personas (
+  persona 			INT4			DEFAULT nextval('&#34;seq_personas&#34;'::text)	NOT NULL,
+  nombre 			VARCHAR(40)		NOT NULL,
+  sexo 				CHAR(1),
+  nacionalidad 		INTEGER,
+  email 			VARCHAR(40),
+  CONSTRAINT personas_pk 	PRIMARY KEY(persona)
+);
+</pre>
+<p>
+se expresaria asi:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $def</span><span class="code-keyword">[</span><span class="code-string">'tabla'</span><span class="code-keyword">]=</span><span class="code-string">'personas'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'persona'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'pk'</span><span class="code-keyword">]=</span><span class="code-string">'1'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'secuencia'</span><span class="code-keyword">]=</span><span class="code-string">'seq_personas'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">1</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'nombre'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">2</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'sexo'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">3</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'nacionalidad'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">4</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'email'</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+El estandard actual para empaquetar una definicion es extender la clase y escribir la inicializacion en el constructor del hijo. Existe un <a class="wiki" href="../ScriptsAdministrativos/GeneracionDBR.html">script de consola</a> que permite generar estos archivos automaticamente tomando una tabla como referencia.
+Notar que un metodo que permite cargar un conjunto de registros ocultando el SQL
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?
+</span><span class="code-keyword">require_once(</span><span class="code-string">'nucleo/persistencia/db_registros_s.php'</span><span class="code-keyword">);
+
+class </span><span class="code-lang">dbr__personas </span><span class="code-keyword">extends </span><span class="code-lang">db_registros_s
+</span><span class="code-keyword">{
+    function </span><span class="code-lang">__construct</span><span class="code-keyword">(</span><span class="code-lang">$fuente</span><span class="code-keyword">=</span><span class="code-lang">null</span><span class="code-keyword">, </span><span class="code-lang">$max_registros</span><span class="code-keyword">=</span><span class="code-lang">0</span><span class="code-keyword">, </span><span class="code-lang">$min_registros</span><span class="code-keyword">=</span><span class="code-lang">0</span><span class="code-keyword">)
+    {
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'tabla'</span><span class="code-keyword">]=</span><span class="code-string">'personas'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'persona'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'pk'</span><span class="code-keyword">]=</span><span class="code-string">'1'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">0</span><span class="code-keyword">][</span><span class="code-string">'secuencia'</span><span class="code-keyword">]=</span><span class="code-string">'seq_personas'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">1</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'nombre'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">2</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'sexo'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">3</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'nacionalidad'</span><span class="code-keyword">;
+    </span><span class="code-lang">$def</span><span class="code-keyword">[</span><span class="code-string">'columna'</span><span class="code-keyword">][</span><span class="code-lang">4</span><span class="code-keyword">][</span><span class="code-string">'nombre'</span><span class="code-keyword">]=</span><span class="code-string">'email'</span><span class="code-keyword">;
+        </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">__construct</span><span class="code-keyword">( </span><span class="code-lang">$def</span><span class="code-keyword">, </span><span class="code-lang">$fuente</span><span class="code-keyword">, </span><span class="code-lang">$max_registros</span><span class="code-keyword">, </span><span class="code-lang">$min_registros</span><span class="code-keyword">);
+    }
+
+    function </span><span class="code-lang">cargar_datos_clave</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">)
+    {
+        </span><span class="code-lang">$where</span><span class="code-keyword">[] = </span><span class="code-string">"persona = $id"</span><span class="code-keyword">;
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_datos</span><span class="code-keyword">(</span><span class="code-lang">$where</span><span class="code-keyword">);
+    }
+}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><pre class="wiki">	
+		INTERFACE db_registros
+	----------------------
+
+*	public function validar_definicion()
+	public function info($mostrar_datos=false)
+	public function info_definicion()
+	public function get_definicion()			EX obtener_definicion()
+	public function get_clave()
+	public function get_clave_valor($id_registro)
+
+	public function get_tope_max_registros()
+	public function get_tope_min_registros()
+	public function get_estructura_control()
+
+	public function cargar_datos($where=null, $from=null)
+	public function cargar_datos_clave($id)
+	public function resetear()
+
+	public function get_registros($condiciones=null, $usar_id_registro=false)					EX obtener_registros
+	public function get_id_registro_condicion($condiciones=null)								EX obtener_id_registro_condicion
+	public function get_registro($id)															EX obtener_registro
+	public function get_registro_valor($id, $columna)											EX get_registro_valor
+	public function get_cantidad_registros()													EX cantidad_registros
+	public function existe_registro($id)
+	public function get_cantidad_registros_a_sincronizar()
+	public function get_id_registros_a_sincronizar()
+
+	public function agregar_registro($registro)
+	public function modificar_registro($registro, $id)
+	public function eliminar_registro($id=null)
+	public function eliminar_registros()
+
+	public function set_registro_valor($id_registro, $columna, $valor)							EX establecer_registro_valor
+	public function set_valor_columna($columna, $valor)											EX establecer_valor_columna
+	public function set($registro)
+	public function get()
+	public function procesar_registros($registros)
+*	public function validar_registros()
+
+	public function sincronizar()
+
+	protected function evt__pre_sincronizacion()
+	protected function evt__post_sincronizacion()
+	protected function evt__pre_insert($id)
+	protected function evt__post_insert($id)
+	protected function evt__pre_update($id)
+	protected function evt__post_update($id)
+	protected function evt__pre_delete($id)
+	protected function evt__post_delete($id)
+
+
+	*** modificadores del comportamiento ***
+
+	public function set_tope_max_registros($cantidad)
+	public function set_tope_min_registros($cantidad)
+*	public function set_no_duplicado( array(&#34;col_1&#34;,col_2&#34;) )
+*	public function set_order_by( array(&#34;col_1&#34;,&#34;col_2&#34;) )	
+	public function activar_transaccion()		
+	public function desactivar_transaccion()		
+*	public function activar_control_sincro()
+*	public function desactivar_control_sincro()
+!t	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
+*	public function activar_proceso_carga_externa_dao($dao, $col_parametros, $col_resultado, $sincro_continua=true)
+*	public function activar_memoria_autonoma($id)
+
+	db_registros_s
+	--------------
+
+!t	public function activar_baja_logica($columna, $valor)
+!t	public function activar_modificacion_clave()
+
+	db_registros_mt
+	---------------
+
+	public function activar_inner_join()
+*	public function activar_outer_join()
+	
+	
+	Referencia
+
+	* 	No implementado
+	!t	No testeado
+	
+	
+</pre>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/db_registros?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/db_registros by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

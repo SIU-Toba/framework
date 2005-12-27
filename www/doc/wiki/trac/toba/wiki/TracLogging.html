@@ -1,0 +1,137 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracLogging by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>TracLogging - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracLogging?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../wiki.html">Start Page</a></li>
+  <li><a href="TitleIndex.html">Title Index</a></li>
+  <li><a href="RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracLogging?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="WikiStart.html">Inicio</a> / TracLogging
+</p>
+<h1 id="TracLogging">Trac Logging</h1>
+<p>
+<div class="wiki-toc"><h4>Table of Contents</h4><ul><li><a href="TracGuide.html">Index</a></li><li><a href="TracInstall.html">Installation</a></li><li><a href="TracUpgrade.html">Upgrading</a></li><li><a href="TracIni.html">Configuration</a></li><li><a href="TracAdmin.html">Administration</a></li><li><a href="TracBackup.html">Backup</a></li><li class="active"><a href="TracLogging.html">Logging</a></li><li><a href="TracPermissions.html">Permissions</a></li><li><a href="TracWiki.html">The Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/WikiFormatting">Wiki Formatting</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracTimeline">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracBrowser">Repository Browser</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracChangeset">Changesets</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracRoadmap">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracTickets">Tickets</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracQuery">Ticket Queries</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracReports">Reports</a></li><li><a href="TracRss.html">RSS Support</a></li><li><a href="TracNotification.html">Notification</a></li><li><a href="TracInterfaceCustomization.html">Customization</a></li><li><a href="TracPlugins.html">Plugins</a></li></ul></div>
+</p>
+<p>
+Trac supports logging of system messages using the standard <a class="ext-link" href="../../../external.html?link=http://docs.python.org/lib/module-logging.html"><span class="icon"></span>logging module</a> that comes with Python.
+</p>
+<p>
+Logging is configured in the <tt>[logging]</tt> section in <a class="wiki" href="TracIni.html">trac.ini</a>.
+</p>
+<h2 id="SupportedLoggingMethods">Supported Logging Methods</h2>
+<p>
+The log method is set using the <tt>log_type</tt> configuration option, which takes any of the following values:
+<dl><dt><strong>none<i></i></strong></dt><dd>Suppress all log messages.
+</dd><dt><strong>file</strong></dt><dd>Log messages to a file, specified with the <tt>log_file</tt> option in <a class="wiki" href="TracIni.html">trac.ini</a>. 
+</dd><dt><strong>stderr</strong></dt><dd>Output all log entries to console (<a class="wiki" href="TracStandalone.html">tracd</a> only).
+</dd><dt><strong>syslog</strong></dt><dd>(UNIX) Send messages to local syslogd via named pipe <tt>/dev/log</tt>.
+</dd><dt><strong>eventlog</strong></dt><dd>(Windows) Use the system's NT eventlog for Trac logging.
+</p>
+</dd></dl>
+<h2 id="LogLevels">Log Levels</h2>
+<p>
+The verbosity level of logged messages can be set using the <i>log_level</i> directive in <a class="wiki" href="TracIni.html">trac.ini</a>. The log level defines the minimum level of urgency required for a message to be logged.
+</p>
+<p>
+The levels are:
+<dl><dt><strong>CRITICAL</strong></dt><dd>Log only the most critical (typically fatal) errors.
+</dd><dt><strong>ERROR</strong></dt><dd>Log failures, bugs and errors. 
+</dd><dt><strong>WARN</strong></dt><dd>Log warnings, non-interrupting events.
+</dd><dt><strong>INFO</strong></dt><dd>Diagnostic information, log information about all processing.
+</dd><dt><strong>DEBUG</strong></dt><dd>Trace messages, profiling, etc.
+</p>
+</dd></dl>
+<hr />
+<p>
+See also: <a class="wiki" href="TracIni.html">TracIni</a>, <a class="wiki" href="TracGuide.html">TracGuide</a>, <a class="wiki" href="TracEnvironment.html">TracEnvironment</a>
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/TracLogging?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/TracLogging by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

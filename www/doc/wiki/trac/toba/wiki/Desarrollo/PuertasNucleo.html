@@ -1,0 +1,131 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PuertasNucleo by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Desarrollo/PuertasNucleo - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PuertasNucleo?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PuertasNucleo?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / PuertasNucleo
+</p>
+<h2 id="AccesoalNucleo">Acceso al Nucleo</h2>
+<p>
+Idea principal: <i>Separar el procesamiento de la solicitud en dos fases</i>
+</p>
+<ul><li><strong>Procesamiento de eventos</strong>
+<ul><li>Se identifica el ITEM
+</li><li>Se crea la ZONA (verifica su canal).
+</li><li>Se regenera el arbol de objetos cargado en el request anterior.
+</li><li>Se dispara el procesamiento de eventos.
+</li></ul></li><li><strong>Generacion de la interface</strong>
+<ul><li>Esta fase NO se ejecuta siempre: Cuando un componete JS dialoga con su homologo PHP por AJAX no es necesaria la generacion global porque el evento responde directamente. En estos casos hay que desabilitar el reciclado de memoria.
+<ul><li>En las cascadas el formulario JS se comunica con el formulario PHP, que le devuelve un conjunto de datos directamente.
+</li><li>En el caso que desde un CI JS se comunique con su contraparte para realizar una validacion en linea.
+</li></ul></li><li>Tipo de pagina SUPERIOR.
+</li><li>Zona SUPERIOR.
+<ul><li>Salida de componentes: switch por tipo de salida (html, pdf, gif, etc) en base a un parametro manejado a nivel global (POST o GET)
+<ul><li>El vinculador tiene que generar vinculos para las distintas salidas.
+</li><li>Los CIs tiene un metodo por tipo de salida existente (primos del obtener_html)
+</li><li>Si el tipo de salida es 'html', la solicitud es responsable de mostrar la zona y el tipo de pagina
+<ul><li>El CI externo pierde sus responsabilidades 'especiales', puede acceder a la zona (para cargarla o descargarla), pero no esta encargado del display de la misma.
+</li></ul></li><li>La zona necesita un metodo para cargarse dentro de un request (antes esto no era necesario: la solicitud se procesaba en una fase y cuando los objetos tomaban el control ya se habia generado el html de la zona).
+</li></ul></li></ul></li><li>Zona INFERIOR.
+</li><li>Tipo de pagina INFERIOR.
+</li></ul></li></ul><hr />
+<p>
+<a href="../../attachment/wiki/Reuniones/2005-11/nucleo_y_cascadas_1.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/nucleo_y_cascadas_1.jpg?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Reuniones/2005-11/nucleo_y_cascadas_2.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/nucleo_y_cascadas_2.jpg?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Reuniones/2005-11/nucleo_conclusiones.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/nucleo_conclusiones.jpg?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Reuniones/2005-11/nucleo_secuencia.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/nucleo_secuencia.jpg?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Reuniones/2005-11/nucleo_tiempos.jpg" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Reuniones/2005-11/nucleo_tiempos.jpg?format=raw"  style="" /></a>
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PuertasNucleo?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PuertasNucleo by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

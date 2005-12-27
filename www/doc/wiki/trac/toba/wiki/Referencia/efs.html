@@ -1,0 +1,154 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/efs - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / efs
+</p>
+<h1 id="ElementosdeFormulario">Elementos de Formulario</h1>
+<p>
+Un elemento de formulario (abreviado <i>ef</i>) es la representación de un campo de edición. Los distintos tipos de ef en general encapsulan los <i>input</i> clásicos de HTML como un combo, un checkbox o un edit.
+</p>
+<h2 id="Definición">Definición</h2>
+<p>
+La definición de un ef siempre está manejada por el objeto contenedor (generalmente un formulario). Los atributos básicos que se incluyen son:
+</p>
+<ul><li><i>Identificador</i>: Es la clave con la que se conoce al ef particular en su objeto contenedor.
+</li><li><i>Datos Manejados</i>: Un único ef puede manejar un conjunto de datos, cuando se sabe de antemano la cantidad de datos se puede especificar los identificadores de estos valores separados por coma. En caso de ser uno único se recomiendo usar el mismo dato que el identificador.
+</li><li><i>Colapsado</i>: El elemento y su etiqueta se muestran colapsados por defecto. 
+</li></ul><h2 id="TiposdeElementos">Tipos de Elementos</h2>
+<p>
+Los efs actualmente se pueden clasificar según la actividad que el usuario realiza:
+</p>
+<ul><li>El usuario <strong>selecciona</strong>:
+<ul><li>Selecciona un único elemento de un conjunto disponible:
+<ul><li><a class="missing wiki" href="efs/checkbox.html" rel="nofollow">checkbox?</a>: Selección entre dos elementos.
+</li><li><a class="missing wiki" href="efs/radios.html" rel="nofollow">radios?</a>: Pensado para conjuntos pequeños.
+</li><li><a class="missing wiki" href="efs/combo.html" rel="nofollow">combo?</a>: Pensado para conjuntos medianos cuyos elementos son fáciles de encontrar por nombre.
+</li><li><a class="missing wiki" href="efs/popup.html" rel="nofollow">popup?</a>: Pensado para conjuntos grandes con métodos de búsqueda complejos
+</li></ul></li><li>Selecciona varios elementos del conjunto:
+<ul><li><a class="missing wiki" href="efs/multi_select.html" rel="nofollow">multi_select?</a>: Usando el componente clásico HTML, difícil de entender para usuarios novatos.
+</li><li><a class="missing wiki" href="efs/multi_cruzar.html" rel="nofollow">multi_cruzar?</a>: Cruzando los elementos de un lado al otro.
+</li><li><a class="missing wiki" href="efs/multi_checkbox.html" rel="nofollow">multi_checkbox?</a>: Grupo de checkbox.
+</li><li><a class="missing wiki" href="efs/multi_popup.html" rel="nofollow">multi_popup?</a>: Va seleccionando usando un popup.
+</li></ul></li></ul></li><li>El usuario <strong>edita</strong>:
+<ul><li><a class="missing wiki" href="efs/editable.html" rel="nofollow">editable?</a>: Una línea de texto.
+</li><li><a class="missing wiki" href="efs/numero.html" rel="nofollow">numero?</a>: Un número.
+</li><li><a class="missing wiki" href="efs/moneda.html" rel="nofollow">moneda?</a>: Un número representando un importe en una moneda específica.
+</li><li><a class="missing wiki" href="efs/porcentaje.html" rel="nofollow">porcentaje?</a>: Un número representando un porcentaje.
+</li><li><a class="missing wiki" href="efs/fecha.html" rel="nofollow">fecha?</a>: Una fecha, con un calendario de ayuda.
+</li><li><a class="missing wiki" href="efs/editable_multilinea.html" rel="nofollow">editable_mulilinea?</a>: Múltiples líneas libremente, sin formato.
+</li><li><a class="missing wiki" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs/editable_formateado" rel="nofollow">editable_formateado?</a>: Edición de texto con formato.
+</li></ul></li><li>El usuario <strong>observa</strong> un contenido estático
+<ul><li><a class="missing wiki" href="efs/fijo.html" rel="nofollow">fijo?</a>: Muestra su valor como HTML.
+</li></ul></li><li>El usuario <strong>sube</strong> un archivo:
+<ul><li><a class="wiki" href="efs/upload.html">upload</a>: Selecciona un archivo de su sistema para que esté disponible en el servidor.
+</li></ul></li><li>Es <strong>invisible</strong> al usuario, pero su valor está disponible para el proceso interno:
+<ul><li><a class="missing wiki" href="efs/oculto.html" rel="nofollow">oculto?</a>: Guarda su valor como variable de sesión.
+</li><li><a class="missing wiki" href="efs/oculto_secuencia.html" rel="nofollow">oculto_secuencia?</a>: Si no tiene valor, este será determinado por la base de datos.
+</li><li><a class="missing wiki" href="efs/oculto_usuario.html" rel="nofollow">oculto_usuario?</a>: Su valor es el id del usuario actualmente logueado.
+</li><li><a class="missing wiki" href="efs/oculto_proyecto.html" rel="nofollow">oculto_proyecto?</a>: Su valor es el id del proyecto actual.
+</li></ul></li></ul><h2 id="Funcionamiento">Funcionamiento</h2>
+<p>
+El funcionamiento de un ef se puede dividir en tres etapas:
+</p>
+<ol><li>Carga del estado: El objeto que lo contiene le especifica un estado antes de mostrarse en pantalla.
+</li><li>Edición en el cliente: El ef, dependiendo de su tipo, muestra y permite al usuario influir en su valor.
+</li><li>Retorno del estado: En el siguiente pedido, el ef deja disponible al objeto que lo utiliza el nuevo estado, si lo hubiera.
+</li></ol><p>
+En la edición en el cliente es posible restringir los valores que pueden tomar los efs utilizando las llamadas <a class="wiki" href="efs/Dependencias.html">dependencias entre efs</a>.<br />
+Otros comportamientos particulares están a cargo del objeto contenedor, generalmente escuchan los <a class="wiki" href="efs/Procesamientos.html">procesamientos de efs</a>.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

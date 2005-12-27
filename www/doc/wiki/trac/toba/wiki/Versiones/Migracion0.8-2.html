@@ -1,0 +1,212 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3 by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Versiones/Migracion0.8.3 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion0.8.3
+</p>
+<h1 id="InstructivodeMigraciónhacia0.8.3">Instructivo de Migración hacia 0.8.3</h1>
+<p>
+<strong>ATENCION:</strong> Cada versión de toba tiene su propio esquemas de includes javascript, por lo que es necesario asegurarse que el browser no los cachea, o bien hay que borrar el cache o directamente desactivarlo (recomendado).
+</p>
+<p>
+La migración se divide en cambios a los metadatos y cambios al código.
+</p>
+<h2 id="Metadatos">Metadatos</h2>
+<p>
+Antes de actualizar el código de toba y convertir los proyectos es recomendable hacer una exportación de metadatos 
+</p>
+<pre class="wiki">proyecto exportar mi_proyecto
+</pre>
+<p>
+y subirlo al svn. 
+Para mantener los usuarios actuales de los proyectos es necesarios exportalos al sistema de archivos:
+</p>
+<pre class="wiki">instancia exportar_local
+</pre>
+<p>
+Luego, una vez hecho el switch al tag, es necesario regenerar la instancia:
+</p>
+<pre class="wiki">instancia regenerar
+</pre>
+<p>
+Para aquellos proyectos ubicados en la versión <a class="wiki" href="0.8-2.html">0.8.2</a> se provee un par de scripts de conversión. Una vez actualizado a esta versión de toba se puede averiguar que conversiones son posibles sobre un proyecto particular:
+</p>
+<pre class="wiki">conversion listar mi_proyecto
+</pre>
+<p>
+A continuación se deben correr las actualizaciones correspondientes a esta versión
+</p>
+<pre class="wiki">conversion ejecutar mi_proyecto 0.8.3
+conversion ejecutar mi_proyecto 0.8.3.1
+conversion ejecutar mi_proyecto 0.8.3.3
+</pre>
+<h2 id="Código">Código</h2>
+<h3 id="Puntosdeacceso">Puntos de acceso</h3>
+<p>
+El cambio a los puntos de acceso se debe a la necesidad de incluir al nuevo núcleo de toba. También es recomendado sacar del php.ini el include_path de toba y dejar que el punto de acceso lo determine solo (esto permite tener varias instalaciones de toba en una máquina). El código que hace esto es:
+</p>
+<pre class="wiki">################################################################################
+if (isset($_SERVER['TOBA_DIR'])) {
+	$dir = $_SERVER['TOBA_DIR'].&#34;/php&#34;; 
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? &#34;;.;&#34; : &#34;:.:&#34;;
+	ini_set(&#34;include_path&#34;, ini_get(&#34;include_path&#34;). $separador . $dir);
+}
+require_once(&#34;nucleo/toba.php&#34;);
+toba::get_nucleo()-&gt;acceso_web();	
+################################################################################
+</pre>
+<p>
+en reemplazo del viejo:
+</p>
+<pre class="wiki">require_once(&#34;nucleo/acceso_browser.php&#34;); 
+</pre>
+<p>
+Se pueden actualizar automáticamente los puntos de acceso de un proyecto con el comando:
+</p>
+<pre class="wiki">proyecto conf mi_proyecto
+</pre>
+<h3 id="ParametrodelosEVENTOSdelcomponenteei_cuadro">Parametro de los EVENTOS del componente ei_cuadro</h3>
+<p>
+Los eventos disparados por el componente <a class="wiki" href="../Referencia/Objetos/ei_cuadro.html">ei_cuadro</a> proveen como parametro el valor de las columnas definidas como ID en la fila que fue seleccionada. En la version anterior, este valor era un <strong>string</strong> si la clave era simple y o un <strong>array asociativo</strong> si la clave era compuesta (EJ: Si el ID estaba formado por los campos 'anio' y 'mes', el parametro tendria el formato: array('anio'=&gt;2005, 'mes'=&gt;11); ). En la version actual se utiliza un array asociativo en todos los casos. 
+Por ejemplo el siguiente fragmento de codigo cambia su comportamiento en la nueva version.
+</p>
+<pre class="wiki">function evt__cuadro__seleccion($id){
+$this-&gt;seleccion = $id;
+}
+</pre>
+<p>
+Para lograr el mismo comportamiento en la version actual, y suponiendo que la clave definida en el cuadro se llama 'identificador' hay que escribir los siguiente.
+</p>
+<pre class="wiki">function evt__cuadro__seleccion($id){
+$this-&gt;seleccion = $id['identificador'];
+}
+</pre>
+<h3 id="Utilizaciondelmetodoconsultar_fuentesqlfuente">Utilizacion del metodo consultar_fuente($sql, $fuente)</h3>
+<p>
+En la version anterior si la consulta no devolvia datos retornaba <strong>NULL</strong>, ahora devuelve un <strong>ARRAY VACIO</strong>. Por ejemplo el siguiente fragmento de codigo cambia su comportamiento en la nueva version.
+</p>
+<pre class="wiki">$a = consultar_fuente($sql);
+if(isset($a)){
+echo &#34;Hay datos&#34;;
+}else{
+echo &#34;No hay datos&#34;;
+}
+</pre>
+<p>
+El siguiente codigo seguiria funcionando igual
+</p>
+<pre class="wiki">$a = consultar_fuente($sql);
+if( $a ){
+echo &#34;Hay datos&#34;;
+}else{
+echo &#34;No hay datos&#34;;
+}
+</pre>
+<p>
+Para poder llevar a cabo una migracion ordenada, se provee el metodo <strong>consultar_fuente_obs()</strong> que posee el mismo comportamiento que la funcion anterior. Este cambio puede hacerse como un reemplazo masivo de texto.
+</p>
+<h3 id="Altoyanchodecomponentes">Alto y ancho de componentes</h3>
+<p>
+Una de las implicaciones de la utilizacion del DOCTYPE HTML (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/38" title="Encabezados HTML (closed)">#38</a>) es que la definicion de los anchos y altos tiene que estar  acompañada de la <strong>unidad de medida</strong> utilizada (Por ejemplo '%' o 'px'). Si se utilizaron valores absolutos, hay que agregarle el sufijo 'px'.
+</p>
+<h3 id="MarcoCabeceraMenúTipodepágina">Marco, Cabecera, Menú, Tipo de página</h3>
+<p>
+Todas estas cosas sufrieron cambios grandes, si había personalizaciones particulares se recomienda chequear la nueva forma de hacerlas:
+</p>
+<ul><li><a class="wiki" href="../Referencia/Marco.html">Marco y cabecera</a>.
+</li><li><a class="wiki" href="../Referencia/Menu.html">Menú</a>.
+</li><li><a class="wiki" href="../Referencia/TipoPagina.html">Tipos de página</a>.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3 by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

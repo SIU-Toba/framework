@@ -1,0 +1,155 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/PuntosDeAcceso - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / PuntosDeAcceso
+</p>
+<h1 id="PuntosdeAcceso">Puntos de Acceso</h1>
+<h2 id="Quéson">¿Qué son?</h2>
+<p>
+Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso tanto al aplicativo de un proyecto como al administrador del mismo. Cada proyecto puede tener varios puntos de acceso, por defecto se proveen dos: una para la aplicación (aplicacion.php) y otro para el administrador (admin.php) y se ubican bajo el directorio <i>www</i> del proyecto.
+</p>
+<h2 id="Cómocrearuno">¿Cómo crear uno?</h2>
+<p>
+Se recomienda tomar como modelo los puntos de acceso que están incluidos en el mismo Toba.
+</p>
+<ul><li>PA de la aplicación: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/aplicacion.php">source:trunk/www/aplicacion.php</a>
+</li></ul><ul><li>PA del administrador: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/admin.php">source:trunk/www/admin.php</a>
+</li></ul><p>
+Luego de modificar las configuraciones particulares es necesario notificar a Apache la existencia del nuevo PA. Para esto es necesario agregar al archivo <i>directorio_apache/conf/toba.conf</i> un alias al punto de acceso:
+</p>
+<pre class="wiki">
+    Alias /mi_proyecto &#34;d:/toba/proyectos/mi_proyecto/www&#34;
+    &lt;Directory &#34;d:/toba/proyectos/mi_proyecto/www&#34;&gt;
+        SetEnv TOBA_DIR d:/toba
+        Options Indexes MultiViews
+            DirectoryIndex aplicacion.php
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+</pre>
+<p>
+Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalación de Toba. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estará en un directorio diferente.
+</p>
+<h2 id="ConfiguracionesImportantes">Configuraciones Importantes</h2>
+<ul><li>Alias: La variable apex_pa_toba_alias debe contener el del alias correspondiente a la instalación de Toba a la cual pertenence la instancia. Esta directiva se puede configurar desde el mismo alias de apache incluyendo <tt>SetEnv TOBA_ALIAS alias</tt>}. Si el alias (en el archivo <i>directorio_apache/conf/toba.conf</i>) tiene asignado el nombre <i>toba_prueba</i>, se define así:
+<pre class="wiki">define(&#34;apex_pa_toba_alias&#34;, &#34;toba_prueba&#34;);
+</pre>
+</li></ul><ul><li>Instancia: La variable apex_pa_instancia debe apuntar a la <a class="wiki" href="Instancia.html">instancia</a> que se quiere acceder, por ejemplo para acceder a una instancia particular <i>toba_prueba</i>:
+<pre class="wiki">define(&#34;apex_pa_instancia&#34;,&#34;toba_prueba&#34;);
+</pre>
+</li></ul><ul><li>Acceso: Para desarrollo es muy práctico evitar pedir un login en cada acceso, para eso se usa la variable apex_pa_validacion_debug. <strong>Importante</strong>: Desactivar esta configuración en deployment.
+</li></ul><pre class="wiki">define(&#34;apex_pa_validacion_debug&#34;,1)
+</pre>
+<ul><li>Encriptación: Para maximizar la seguridad es posible encriptar el <i>querystring</i> seteando la variable apex_pa_encriptar_qs:
+<pre class="wiki">define(&#34;apex_pa_encriptar_qs&#34;,1);
+</pre>
+</li></ul><ul><li>Log: Es posible elegir el medio y el nivel de logging interno de Toba. Esto es útil para hacer trazas de desarrollo.
+<pre class="wiki"># Nivel de log a ARCHIVO
+define(&#34;apex_pa_log_archivo&#34;,1);
+define(&#34;apex_pa_log_archivo_nivel&#34;,2);
+# Nivel de log a la DB
+define(&#34;apex_pa_log_db&#34;,1);
+define(&#34;apex_pa_log_db_nivel&#34;,2);
+# Nivel de log a la pantalla
+define(&#34;apex_pa_log_pantalla&#34;,1);
+define(&#34;apex_pa_log_pantalla_nivel&#34;,7);
+</pre>
+</li></ul><p>
+Ver <a class="missing wiki" href="../TobaSeguridad.html" rel="nofollow">TobaSeguridad?</a> para más información acerca de los mecanismos de seguridad existentes.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

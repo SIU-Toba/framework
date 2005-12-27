@@ -1,0 +1,149 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/nucleo by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Desarrollo/Refactorizaciones/nucleo - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/nucleo?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/nucleo?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Desarrollo.html">Desarrollo</a> / <a href="../Refactorizaciones.html">Refactorizaciones</a> / nucleo
+La idea basica es separar nucleo, modelo y administrador. Esto deberia requerir una reorganizacion de directorios (Parcialmente en <a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/165" title="Administrador como proyecto toba normal (new)">#165</a>)
+</p>
+<p>
+<a href="../../../attachment/wiki/Desarrollo/Refactorizaciones/nucleo/nucleo.png" style="padding:0; border:none"><img src="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Desarrollo/Refactorizaciones/nucleo/nucleo.png?format=raw"  style="" /></a>
+</p>
+<h1 id="Nucleo">Nucleo</h1>
+<p>
+<i>Runtime enviroment, motor, etc. lo que hace que un item se ejecute.</i>
+</p>
+<ul><li>Un item tiene que poder generar distintas salidas, mas alla del HTML.
+<ul><li>AJAX
+<ul><li>DAOS (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/230" title="DAO condicionado por el estado de la operacion (new)">#230</a>)
+</li><li>Validaciones en el server
+</li></ul></li><li>Impresion en PDF
+</li><li>Exportacion XLS
+</li><li>Consola de la operacion (tipo foxpro, para hacer preguntas y demas)
+</li><li>Esto implica una refactorizacion grande de la solicitud. (Temas relacionados: zona y tipo de pagina)
+</li></ul></li><li>Constructor de objetos (<a class="assigned ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/117" title="Constructor de objetos (assigned)">#117</a>)
+<ul><li>Cargadores estaticos de informacion de datos del motor
+</li><li>Cargadores de array
+</li></ul></li><li>No tienen que haber items del core (ejemplo, respuestas genericas a efs).
+</li><li>Deberia ser absolutamente autosuficiente, no necesita al modelo ni al administrador
+</li></ul><h1 id="Modelo">Modelo</h1>
+<p>
+<i>Representacion de todos de todos los elementos que componen al toba</i>
+</p>
+<ul><li>Es consumido por el proyecto administrador y por todos los procesos administrativos (utiliza al nucleo para funcionar)
+</li><li>Crear clases que representen los elementos fundamentales del modelo del toba (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/256" title="refactorizar procesos administrativos creando clases que representen los ... (new)">#256</a>)
+<ul><li>Hay que llegar a definiciones precisas de proyecto, instancia, etc.
+</li></ul></li><li>Repensar los procesos administrativos
+<ul><li>Exportacion granular a SQL (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/58" title="Importacion/Exportación - Hacer un esquema mas granular (new)">#58</a>)
+</li><li>Precompilacion a arrays PHP
+</li><li>Instalacion.
+</li></ul></li><li>Separacion de los metadatos en zonas (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/47" title="Separación de Metadatos (new)">#47</a>)
+</li><li>Api objeto toba (<a class="closed ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/129" title="Construir elemento_toba (closed)">#129</a>)
+</li><li>En la distribucion de directorios, el modelo podria estar un "espacio general" interproyetos. (Un lugar como 'proyectos', limpio a nivel SVN).
+</li></ul><p>
+	
+</p>
+<h1 id="Administrador">Administrador</h1>
+<p>
+<i>Proyecto encargado de administrar metadatos</i>
+</p>
+<ul><li>Corre sobre el nucleo.
+</li><li>trabaja con la ayuda constante del modelo.
+</li><li>Funcionamiento erroneo: utilizando el administrador, el "proyecto actual" es "toba" solo si se edita el administrador mismo. Esto esta mal, el proyecto actual es siempre toba (esto afectaba la apertura del ef_popup dentro del admin, porque tomaba el proyecto por defecto). La forma de saber el proyecto que se esta editando dentro	del administrador deberia ser otra.
+</li></ul></div>
+   </div>
+   
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Desarrollo/Refactorizaciones/nucleo/nucleo.png">nucleo.png</a> (4.1 kB) - added by juan on 10/11/05 15:26:26.</li>
+    </ul>
+  
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/nucleo?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/nucleo by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

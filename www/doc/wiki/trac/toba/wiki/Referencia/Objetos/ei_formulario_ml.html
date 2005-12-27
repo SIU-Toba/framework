@@ -1,0 +1,260 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario_ml by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/ei_formulario_ml - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario_ml?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario_ml?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_formulario_ml
+</p>
+<h1 id="FormularioMultilínea">Formulario Multilínea</h1>
+<p>
+Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. La definición y uso de la grilla de campos es similar al <a class="wiki" href="ei_formulario.html">formulario simple</a> con el agregado de lógica para manejar un número arbitrario de filas.
+</p>
+<h2 id="Definición">Definición</h2>
+<ul><li>Ancho: Pixeles o porcentaje que ocupa el objeto gráficamente. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
+</li><li>Líneas: En la definición se puede incluir una cantidad inicial de filas una  opción permite modificar esta cantidad de filas agregando nuevas o eliminando existentes. Durante la ejecución la cantidad y contenido de cada filas se especifica escuchando el evento <i>carga</i> como es común a todos los objetos.
+</li><li>Agregar/Quitar líneas: Se incluyen dos botones para agregar y quitar líneas. El agregado puede ser <i>en línea</i> utilizando javascript (más dinámico) o llendo al server como un evento más (más seguro para hacer validaciones o para incluír cascadas).
+</li><li>Ordenar líneas: Se incluyen dos controles para que el usuario pueda ordenar las líneas subiendolas o bajandolas. Si se defina una columna, el orden se envía a travez de esta columna sino el orden se refleja en el orden en que se envían estas filas a los eventos.
+</li><li>Numerar filas: A la izquierda de cada fila se incluye una numeración comenzando desde uno, es sólo para uso cosmético.
+</li><li>Análisis de cambios: Se explica más abajo.
+</li><li>EF - Totalizar: Dentro de la definición de un ef se puede marcar la opción <i>Totalizar</i>, esto implica que ante el cambio de un valor, esta columna se totaliza automáticamente (sería un procesamiento por defecto, ver la parte de javascript de este objeto para entender lo que es un procesamiento).
+</li></ul><h2 id="Eventos">Eventos</h2>
+<p>
+El rol gráfico del ML toma comportamientos del formulario común (en definitiva se están editando datos) pero también al cuadro ya que posee una estructura tabular. Es por esto que generalmente se lo utiliza tanto para modificar datos como para seleccionar existentes. El único modelo que se incluye inserta el evento modificación como implícito. Para agregar un evento como el de selección recuerde setearlo como 'A nivel de filas'.
+</p>
+<h3 id="Eventosquemanejandatos">Eventos que manejan datos</h3>
+<p>
+Entran en esta categoría aquellos eventos no declarados a nivel de fila y que manejan datos.
+Los eventos disparados por el ML varía según el tipo de 'Análisis de cambios' seleccionado en la definición del objeto, por defecto ('Sin análisis') maneja un único evento, allí se envian la matriz de filas por columnas, por ejemplo:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__form__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
+    {
+        </span><span class="code-lang">var_export</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
+    }
+</span><span class="code-lang">?&gt;
+</span>array (
+  0 =&gt; array ('fecha' =&gt; '2005-07-04'),
+  1 =&gt; array ('fecha' =&gt; '2005-07-05')
+)
+</span>
+</pre></div><h3 id="Selecciones">Selecciones</h3>
+<p>
+Entran en esta categoría aquellos eventos declarados a nivel de fila. El evento se dispara llevando como parametro una clave que identifica la fila.
+</p>
+<h2 id="MétodosdeAnálisis">Métodos de Análisis</h2>
+<p>
+Muchas veces es necesario poder seguir la traza de las modificaciones en el cliente, que registro se modificaron, cuales se agregaron, cuales se borraron. Para esto se configura el 'Análisis de cambios', este análisis puede ser en línea o mediante eventos.
+</p>
+<h3 id="Análisisenlínea">Análisis en línea</h3>
+<p>
+Cuando es análisis 'en línea' se agrega una columna apex_ei_analisis_fila indicando el tipo de cambio producido. Así mismo cada fila posee un identificador propio como clave del arreglo asociativo. Por ejemplo:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__form__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
+    {
+        </span><span class="code-lang">var_export</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
+    }
+</span><span class="code-lang">?&gt;
+</span>array (
+  12300 =&gt; array('fecha' =&gt; '2005-07-04', apex_ei_analisis_fila =&gt; 'M'),    //Esta fila fue modificada
+  12301 =&gt; array('fecha' =&gt; '2005-07-05', apex_ei_analisis_fila =&gt; 'A'),    //Esta es una fila nueva
+  12302 =&gt; array(apex_ei_analisis_fila =&gt; 'B')                                //Esta es una fila eliminada
+)
+</span>
+</pre></div><h3 id="Análisisporeventos">Análisis por eventos</h3>
+<p>
+Cuando es análisis 'por eventos' se dispara un evento registro_alta, registro_baja o registro_modificacion por línea, conteniendo la clave de la fila y los datos si es que lleva. Por ejemplo el set de datos anterior originaria los siguientes eventos:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__ml__registro_alta</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">, </span><span class="code-lang">$registro</span><span class="code-keyword">)
+    {
+        echo </span><span class="code-string">"Dando de alta el registro $id\n"</span><span class="code-keyword">;
+    }
+
+    function </span><span class="code-lang">evt__ml__registro_baja</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">)
+    {
+        echo </span><span class="code-string">"Dando de baja el registro $id\n"</span><span class="code-keyword">;    
+    }
+
+    function </span><span class="code-lang">evt__ml__registro_modificacion</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">, </span><span class="code-lang">$registro</span><span class="code-keyword">)
+    {
+        echo </span><span class="code-string">"Modificando el registro $id\n"</span><span class="code-keyword">;
+    }        
+</span><span class="code-lang">?&gt;
+</span>Modificando el registro 12300.
+Dando de alta el registro 12301.
+Dando de baja el registro 12302.
+</span>
+</pre></div><h2 id="AgregaryQuitarlíneas">Agregar y Quitar líneas</h2>
+<p>
+Por omisión la función de agregar o quitar líneas se realiza en el cliente utilizando javascript, esto brinda mucho dinamismo a la operación sacrificando la posibilidad de incluir lógica de negocio confiable en el proceso. Cuando la desición de crear o eliminar filas debe pasar por lógica de negocio o cosas que depeden de la base de datos debe transferirse la responsabildad al lado servidor, es por eso que tanto agregar como quitar puede ser parametrizado para que hagan un viaje al servidor.
+</p>
+<h3 id="Agregandounafilaenelserver">Agregando una fila en el server</h3>
+<p>
+Como casi toda interacción con el cliente, el agregado se dispara en el servidor como un evento <strong>pedido_registro_nuevo</strong>. La respuesta de este evento puede ser:
+</p>
+<ul><li>Un booleano (true/false) que indica que esta permitido o no crear una nueva fila.
+</li><li>Un arreglo similar a una dimensión retornada en la carga, representando que sí esta permitido crearla y brindando una fila <i>template</i> para esta creación.
+</li></ul><p>
+ 
+</p>
+<h3 id="Quitandounafilaenelserver">Quitando una fila en el server</h3>
+<h2 id="Carga">Carga</h2>
+<p>
+El ml espera en la carga un matriz con la primer dimensión representando el orden de las filas y la segunda un arreglo asociativo del tipo <tt>'id_ef' =&gt; valor</tt> . Cuando no se quiere cargar con datos hay dos opciones: no se escucha el evento, o no se retorna nada en este método, en este caso se carga el número de filas que se especificó en la definición.
+</p>
+<h2 id="ValidacionesenPHP">Validaciones en PHP</h2>
+<p>
+Ver las validaciones del <a class="wiki" href="ei_formulario.html">formulario simple</a>.
+</p>
+<h2 id="ExtensiónJS">Extensión JS</h2>
+<p>
+La extensión js se basa en la del <a class="wiki" href="ei_formulario.html">formulario simple</a>, con la diferencia que ahora varias filas de estos <a class="wiki" href="../efs.html">efs</a> están involucradas. Así, para direccionar desde javascript a un ef particular se hace referenciando a la fila específica ej: <tt>this.ef('id_ef').ir_a_fila(2).metodo()</tt>. El hecho que lo que era una lista de campos se convierta en un matriz hace que todas las extensiones se vuelvan un poco más complejas. 
+</p>
+<h3 id="Validacióngeneralyeventos">Validación general y eventos</h3>
+<p>
+Tanto la validación general como escuchar un evento particular es identico a la forma que se explica en el formulario simple. 
+</p>
+<h3 id="Validacióndeefs">Validación de efs</h3>
+<p>
+Las validaciones se definen en forma similar al formulario simple, sólo que ahora la validación recibe como parámetro la fila sobre la que se aplica la validación. Con esta fila es posible referenciar directamente al campo en cuestión.
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        //Valida que las fechas, si están seleccionadas, sean un día lunes.
+        {$this-&gt;objeto_js}.evt__fecha__validar = function (fila) {
+            var lunes = 1;
+            var ef_fecha = this.ef('fecha').ir_a_fila(fila);
+            var fecha = ef_fecha.fecha();
+            if (fecha != null &amp;&amp; fecha.getDay() != lunes) {
+                ef_fecha.set_error('Sólo está permitido ingresar días lunes');
+                return false;
+            }
+            return true;
+        }
+    "</span><span class="code-keyword">;
+</span></span>
+</pre></div><h3 id="Procesamientodeefs">Procesamiento de efs</h3>
+<p>
+Es posible escuchar los <a class="wiki" href="../efs/Procesamientos.html">procesamientos de efs</a>. Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe dos parámetros: uno que indica si el disparo es_inicial o no y el otro indica el número de fila donde se inicio el disparo. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo si se cuenta con tres campos: importe, descuento y neto, este último debe cargarse en base a la resta de los primeros dos. En la implementación este cambio se hace escuchando los procesamientos del importe y del descuento:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">echo </span><span class="code-string">"
+        //Cuando se modifica el valor del importe, recalcula el neto
+        {$this-&gt;objeto_js}.evt__importe__procesar = function(es_inicial, fila) {
+            {$this-&gt;objeto_js}.refrescar_importes(es_inicial, fila);
+        }
+        
+        //Cuando se modifica el valor del descuento, recalcula el neto
+        {$this-&gt;objeto_js}.evt__descuento__procesar = function(es_inicial, fila) {
+            {$this-&gt;objeto_js}.refrescar_importes(es_inicial, fila);
+        }
+        
+        {$this-&gt;objeto_js}.refrescar_importes = function(es_inicial, fila) {
+            var importe = this.ef('importe').ir_a_fila(fila).valor();
+            var descuento = this.ef('descuento').ir_a_fila(fila).valor();
+            this.ef('neto').ir_a_fila(fila).cambiar_valor(importe - descuento);
+        }        
+    "</span><span class="code-keyword">;
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+En el formulario multilínea existe un procesamiento opcional que puede ser agregado, es la capacidad de sumarizar una columna. Cuando este totalización esta activada en el ef (utilizando el administrador) en cualquier cambio de valor en esa columna se dispara la sumarización de cada campo. Esto funciona bien sólo para efs numéricos (número, porcentaje, moneda, etc.).
+</p>
+<h2 id="Ejemplos">Ejemplos</h2>
+<p>
+Existe un ejemplo con estas situaciones en el proyecto de Referencia, ítem Descripcion de Elementos/Objetos/Formularios/ei_formulario_ml.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario_ml?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_formulario_ml by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

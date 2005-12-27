@@ -1,0 +1,116 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Instalacion/Encoding - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Instalacion.html">Instalacion</a> / Encoding
+</p>
+<h1 id="CodificaciónEncoding">Codificación (Encoding)</h1>
+<p>
+Para una introducción corta y sencilla acerca de los encoding y en especial sobre Unicode ver <a class="ext-link" href="../../../../external.html?link=http://www.joelonsoftware.com/articles/Unicode.html"><span class="icon"></span>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
+</p>
+<p>
+Actualmente para que los caracteres clásicos utilizados en nuestro lenguaje que superan la barrera del 128 en ASCII (á, ñ, etc.) no se vean como 'cuadraditos', todo el entorno de desarrollo necesita tener un encoding iso88591, esto requiere que:
+</p>
+<ul><li>Apache tenga <tt>AddDefaultCharset ISO-8859-1</tt> en su configuración (para probar que con Unicode no funciona probar cambiar a <tt>AddDefaultCharset UTF-8</tt>, reiniciar el servidor y probar alguna página Toba con acentos. Bajo windows es la configuración por defecto.
+</li><li>El cliente svn baje los archivos utilizando iso88591. Para distribuciones linux-debian esta configuración se cambia ejecutando como superusuario <tt>dpkg-reconfigure locales</tt> y seleccionando es_AR.iso88591 o similar (el comando cambia el archivo /etc/enviroment). Bajo Windows no se necesita cambiar nada porque
+<ul><li>En las versiones 9x no tienen soporte para Unicode
+</li><li>En las versiones XP-200x 'adaptan' el texto para que funcionen los programas no-unicode (colaborando también al desentendimiento general del tema).
+</li></ul></li><li>Tanto el cliente como servidor de PostgreSQL necesitan estar configurados para LATIN1 (alias de iso88591). Bajo linux generalmente el servidor toma el encoding del Sistema Operativo, en caso de instalarse linux utilizando Unicode (muy normal actualmente), se necesita explicitar LATIN1 en el comando sql <tt>CREATE TABLE</tt>, o en el comando de consola <tt>createdb</tt> (el comando de toba <tt>db crear</tt> ya esta adaptado a este encoding). También Existe una configuración que afecta a todo el motor en el archivo postgresql.conf.
+</li><li>PHP no soporta en forma nativa a Unicode (y al parecer va a ser así hasta la version 6)
+</li></ul><h2 id="Másinfo">Más info</h2>
+<ul><li><a class="ext-link" href="../../../../external.html?link=http://intertwingly.net/stories/2004/04/14/i18n.html"><span class="icon"></span>Iñtërnâtiônàlizætiøn</a>.
+</li><li><a class="ext-link" href="../../../../external.html?link=http://www.debian.org/doc/manuals/intro-i18n/"><span class="icon"></span>Introduction to i18n (debian linux)</a>.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

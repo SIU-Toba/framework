@@ -1,0 +1,150 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/MarcoTransaccional - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / MarcoTransaccional
+</p>
+<h1 id="MarcoTransaccional">Marco Transaccional</h1>
+<p>
+Una operación se puede pensar como una transición entre dos estados, atravesando por estados intermedios, internos a la construcción del cual no se toma conocimiento hasta que el producto está terminado, un nuevo estado es construido. La función de la aplicación es guiar al usuario en esta construcción, con suficiente información acerca del estado actual, restringiendo los caminos hacia inconsistencias pero flexibilizando para no entorpecer la capacidad constructiva. Esta construcción toma la forma de una transacción de negocio.
+</p>
+<h2 id="Requisitosdeunatransacción">Requisitos de una transacción</h2>
+<p>
+Una transacción de negocio tiene impuesta generalmente distintos requisitos: los efectos de la misma no serán conocidos en forma parcial (<strong>atomicidad</strong>), ni rompen las reglas preestablecidas (<strong>consistencia</strong>), su desarrollo se basa sobre datos certeros y su resultado no es conocido hasta su finalización (<strong>aislamiento</strong>), finalmente estos resultados perduran en el tiempo (<strong>durabilidad</strong>). Estos requisitos se conocen como ACID en base a las siglas de cada uno.<br />
+</p>
+<p>
+Las bases de datos relacionales, en mayor o menor medida, poseen mecanismos para garantizar estos requisitos simplemente incluyendo la operación dentro de una <i>transacción de base de datos</i>. Hay algunos problemas con esta solución, el primero es la llamada disponibilidad de los datos. Para asegurar la consistencia en general se utilizan bloqueos pesimistas, previniendo que los recursos sean utilizados por otros mientras la transacción está en curso, en una aplicación Web una transacción de negocios puede durar varios minutos, incluso por su naturaleza desconectada, varias horas. Bloquear <i>registros</i> por horas puede traer problemas graves de concurrencia, dejando ramas de operaciones inaplicables por causa del bloqueo. Es por esto que se construyen técnicas a un nivel superior utilizando los llamados <i>bloqueos optimistas</i>, relegando los bloqueos a nivel de base de datos hasta el final de la transacción de negocio y sólo aplicando restricciones a los datos que tienen valor real de negocio. Por ejemplo en los carritos de compras de ventas online, si hay disponible una única unidad de un producto no se previene que dos usuarios lo agreguen simultáneamente a su carrito, dejan los controles hasta el final de la transacción cuando el usuario confirma la adquisición, de lo contrario se pierde un potencial cliente en base a una suposición incorrecta (un alto porcentaje no hace un checkout de la elección).
+</p>
+<p>
+Aún cuando los motores brinden capacidad de bloqueos optimistas, desde el lenguaje de programación (en este caso PHP) se debería mantener abierta una conexión por sesioń en curso (si cerrara la conexión cuando termina el pedido de página automáticamente se abortaría la transacción). Esto actualmente no es técnicamente posible, y si lo fuera sería tremendamente ineficiente para un sistema con mucha carga.
+</p>
+<h2 id="OperacionesenToba">Operaciones en Toba</h2>
+<p>
+Una operación definida en toba traspasa por tres estados principales: un inicio, un desarrollo y un procesamiento final. El progreso se da a manera de turnos entre el lado cliente y el servidor, representados por HTML y PHP respectivamente. Dentro de una operación existen datos transaccionales y otros ordinarios, que no requieren las calidades vistas anteriormente. Estos datos ordinarios serán consultados en cada pedido de página, mientras que los transaccionales serán consultados al inicio de la operación, modificados durante el desarrollo (en forma de variables de sesión) y finalmente sincronizados con la fuente de datos al final de la operación a través de una transacción de base de datos.
+</p>
+<p>
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/MarcoTransaccional/estados.png?format=raw" alt="Progreso de una transacción de negocios" title="Progreso de una transacción de negocios" style="" /></a>
+</p>
+<p>
+El control general de un pedido de página está a cargo de un <a class="wiki" href="Objetos/ci.html">Controlador de interface</a>. Al inicio del pedido se restaura el estado del CI, este estado se persiste entre pedidos utilizando las variables de sesión de PHP, garantizando el <strong>aislamiento</strong> entre las distintas operaciones en ejecución. Por otro lado, desde los elementos de interface (<a class="wiki" href="Objetos.html">ei</a>) se reciben las acciones y datos proporcionados por el usuario. Estas acciones disparan los <a class="wiki" href="Eventos.html">eventos</a> llevando los datos como parámetro, allí es cuando se realizan chequeos y se cambia el estado interno de la operación. Luego del procesamiento de eventos provenientes del pedido anterior, el CI lanza la construcción de la interfaz comenzando con un evento de carga de los elementos de interface. Finalmente el estado del CI vuelve a almacenarse en variables de sesión, listo para continuar el ciclo.
+</p>
+<p>
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/MarcoTransaccional/pedido.png?format=raw" alt="Pedido de página en el medio de una transacción de negocios." title="Pedido de página en el medio de una transacción de negocios." style="" /></a>
+</p>
+<p>
+Por ejemplo si se tratara de una operación que recolectara direcciones de mail para posteriormente enviar un mensaje a esas cuentas, el gráfico anterior estaría instanciado de la siguiente manera:
+</p>
+<p>
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.png?format=raw" alt="Ejemplo de un pedido de página involucrando un formulario de mails." title="Ejemplo de un pedido de página involucrando un formulario de mails." style="" /></a>
+</p>
+<p>
+El ciclo finaliza con un evento (generalmente nombrado como <i>procesar</i>) localizado en el CI de la operación. Este evento es el encargado de sincronizar con la fuente de datos utilizando una transacción de base de datos que garantiza la <strong>atomicidad</strong> y <strong>durabilidad</strong> de la operación. Este evento es un lugar adecuado para realizar los controles finales sobre los datos obtenidos, garantizando así la <strong>consistencia</strong> de los mismos.
+</p>
+<h2 id="Trabajosobredatostabulares">Trabajo sobre datos tabulares</h2>
+<p>
+Cuando la información que se maneja en esta <i>transacción de negocios</i> es un conjunto de datos tabulares cuya carga y sincronización es con una base de datos relacional existen una serie de objetos que facilitan:
+</p>
+<ul><li>La carga de los datos.
+</li><li>El trabajo dentro de la transacción.
+</li><li>La sincronización con el medio de persistencia.
+</li></ul><p>
+Se los conoce como <a class="wiki" href="Objetos/Persistencia.html">Objetos de Persistencia</a>
+</p>
+</div>
+   </div>
+   
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.png">estados.png</a> (5.7 kB) -<q>Progreso de una transacción de negocios</q>, added by seba on 06/06/05 18:06:38.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.png">pedido.png</a> (5.0 kB) -<q>Pedido de página en el medio de una transacción de negocios.</q>, added by seba on 06/06/05 18:07:35.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.png">ejemplo_pedido.png</a> (4.4 kB) -<q>Ejemplo de un pedido de página involucrando un formulario de mails.</q>, added by seba on 06/06/05 18:08:23.</li>
+    </ul>
+  
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

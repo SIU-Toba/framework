@@ -1,0 +1,145 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Objetos/ei_cuadro - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../../wiki.html">Start Page</a></li>
+  <li><a href="../../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_cuadro
+</p>
+<h1 id="CuadroSimple">Cuadro Simple</h1>
+<p>
+Un ei_cuadro es una grilla de registros pensados para visualización. Es común que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <i>seleccionarla</i> a través de eventos.
+</p>
+<h2 id="Definición">Definición</h2>
+<p>
+En la definición del cuadro se incluye:
+</p>
+<ul><li>Columnas clave: Aquí se listan las clave del registro, si es que la tiene. Es de especial utilidad para cuando se desean incluir eventos asociados a los registros (por ejemplo <i>seleccion</i>). A estos eventos se les enviará sólo el contenido de estas columnas en un arreglo, en el caso que sean claves múltiples, o directamente el valor en caso de ser única clave.
+</li><li>Paginar: Establece si el cuadro podrá ser visualizado en varias páginas diferentes, función especialmente útil cuando se espera que el conjunto de datos a mostrar sea extenso.
+</li><li>Ordenar: Indica si el usuario tiene posibilidad de ordenar el conjunto de datos a partir de alguna columna.
+</li><li>EOF: El EOF se muestra cuando no hay ningún registro en la carga, existe un mensaje por defecto asociado, éste puede ser modificado o directamente ocultado al cliente.
+</li></ul><h2 id="Carga">Carga</h2>
+<p>
+Además del <a class="wiki" href="../Eventos.html">evento</a> de carga común a los objetos de interface, existe una forma alternativa de cargar los datos al cuadro especificando un <a class="wiki" href="../Dao.html">DAO</a> en la definición del cuadro, allí se debe incluir:
+</p>
+<ul><li>DAO(nucleo): Indica el nombre del DAO definido en el sección EXT del administrador.
+</li><li>DAO(método): El nombre del método (definido en la clase núcleo del DAO) que cargará los datos en el cuadro.
+</li></ul><h2 id="Paginado">Paginado</h2>
+<p>
+Si en la definición del cuadro se especifica que podrá ser paginado, además del número de registros por página es necesario seleccionar un <strong>tipo de paginado</strong>:
+</p>
+<ul><li><i>Propio</i>: Es la opción más adecuada cuando el conjunto de registros a mostrar es pequeño, y por lo tanto el hecho de que el CI entregue al cuadro el total de los datos no representa una sobrecarga considerable. En este caso la lógica del paginado es propia del cuadro, y por lo tanto no se requieren consideraciones especiales a la hora de aplicarlo.
+</li><li><i>A cargo del CI</i>: Esta alternativa permite que el CI entregue los datos parciales al cuadro, obteniendo el tamaño de página y la página actual mediante las funciones <i>get_tamanio_pagina()</i> y <i>get_pagina_actual()</i>, respectivamente. A partir de estos datos, el evento carga del CI determinará cuál es el subconjunto de registros que espera el cuadro. Además, el propio CI debe agregar un evento <i>cant_reg</i>, que le permitirá al cuadro saber cuál es la cantidad total de registros, para calcular así el número de páginas.
+</li></ul><h2 id="Modelosdeevento">Modelos de evento</h2>
+<p>
+El cuadro posee el modelo de eventos <i>seleccion</i> con un evento con el mismo nombre. El evento selección es uno que se adhiere a nivel de registro, como parámetro envía los valores de las columnas claves del registro seleccionado en forma de arreglo asociativo. Esta selección cambia el estilo visual de la fila seleccionada, es responsabilidad del contenedor el determinar cuando este estilo deja de aplicar (porque por ejemplo se cancelo su edición). Para esto existe un método <strong>deseleccionar</strong> asociado al cuadro.
+</p>
+<p>
+Cuando se agregan eventos particulares se puede especificar que el evento es a nivel de una fila y no global del cuadro con la propiedad 'sobre_fila'. Esto va a permitir que el evento sea lanzado de manera similar al <i>seleccion</i>, es decir con las claves de la fila desde donde se lanzó el evento. A manera gráfica estos eventos van a ser posicionados a un lado de cada fila del cuadro.
+</p>
+<p>
+El cuadro puede poseer además un evento <i>ordenar</i> (definible en las propiedades básicas), ante un ordenamiento explícito del usuario se dispara este evento con un arreglo asociativo conteniendo la <i>columna</i> y el <i>sentido</i> ('des' o 'asc').
+</p>
+<h3 id="Filtradodeeventosporfila">Filtrado de eventos por fila</h3>
+<p>
+La precencia o ausencia de un evento (a nivel de fila y no global) puede depender del contenido de cada fila. Para controlar el comportamiento de este tipo de eventos debe existir un método con el nombre <i>filtrar_evt<span class="underline">nombre_evento</span></i><span class="underline">. El método recibe como parámetro el número de fila en el cuadro y en caso de retornar verdadero se activa el evento sobre la fila en cuestión. 
+</span></p>
+<h2 id="CortesdeControl">Cortes de Control</h2>
+<p>
+<strong>PENDIENTE</strong>
+</p>
+<h2 id="Ejemplos">Ejemplos</h2>
+<ul><li>Existe un ejemplo de un filtro junto a un cuadro en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, ítem <i>Objetos/ei_filtro - ei_cuadro</i>.
+</li><li>Un ejemplo de un cuadro con paginado a cargo del CI puede encontrarse en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, ítem <i>Objetos/ei_cuadro - paginado</i>.
+</li></ul></div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../../external.html?link=http://trac.edgewall.com/"><img src="../../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

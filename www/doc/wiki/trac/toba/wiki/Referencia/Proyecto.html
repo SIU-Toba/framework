@@ -1,0 +1,171 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Referencia/Proyecto - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../RecentChanges.html">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Proyecto
+</p>
+<h1 id="Proyecto">Proyecto</h1>
+<p>
+Un proyecto en Toba incluye definiciones tanto en código como en metadatos. Estos metadatos se almacenan en el sistema de archivos bajo el directorio <i>sql</i> del proyecto. Es importante diferenciar el concepto de metadato de sus <a class="wiki" href="Instancia.html">instancias</a>, un proyecto puede vivir en diferentes instancias permitiendo el trabajo de distintos grupos en forma aislada.
+</p>
+<h2 id="Sistemadearchivos">Sistema de archivos</h2>
+<p>
+El sistema de archivos del proyecto debe estar bajo el directorio <i>proyectos</i> de toba. En este árbol debe tener este layout básico:
+</p>
+<ul><li><i>nombre_proyecto</i>
+<ul><li><i>php</i>: Carpeta que se incluye en el include_path de php, por lo que se recomienda usarlo para contener todas las clases particulares del proyecto.
+<ul><li><i>inicializacion.php</i>: Primer archivo del proyecto en ser ejecutado en todos los pedidos de página. Util para incluir cosas particulares del proyecto, definir constantes, etc.
+</li></ul></li><li><i>sql</i>: Directorio donde se almacenan los metadatos del proyecto (datos.sql) y metadatos asociados con los usuarios (datos_instancia.sql)
+</li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del proyecto.
+</li></ul></li></ul><h2 id="Metadatos">Metadatos</h2>
+<p>
+Los metadatos de los proyectos están definidos en dos archivos:
+</p>
+<ul><li><i>sql/datos_instancia.sql</i>: Mantiene la asociación entre los usuarios y el proyecto junto a sus notas, logs, etc. La separación de este archivo se debe a que los usuarios no pertenecen a un proyecto sino que son globales a la instancia particular. Así con un archivo separado se evita versionarlo, dejando la posibilidad de que las distintas instancias tengan sus usuarios sin afectar el proyecto. En caso de que sea versionado, resolver los conflictos va a ser más sencillo.
+</li><li><i>sql/datos.sql</i>: Mantiene la definición del resto de los metadatos.
+</li></ul><h2 id="Creación">Creación</h2>
+<p>
+Para crear un proyecto vacío es necesario ejecutar el comando:
+</p>
+<pre class="wiki"> proyecto crear mi_proyecto
+</pre>
+<p>
+Esto crea los metadatos, los carga en la instancia, posteriormente crea un sistema de archivos básicos conteniendo estos metadatos y los puntos de acceso por defecto.
+</p>
+<h2 id="CargayExportación">Carga y Exportación</h2>
+<p>
+Para poder modificar y trabajar con un proyecto es necesario cargarlo en una instancia. Hay tres formas distintas de cargarlo:
+</p>
+<ol><li>Si no se cuenta con la instancia, esta se debe iniciar, cargando los distintos proyectos consigo:
+<pre class="wiki"> instancia iniciar 
+</pre>
+</li><li>Si ya se cuenta con la instancia, se ejecuta desde la consola:
+<pre class="wiki"> proyecto cargar mi_proyecto
+</pre>
+</li><li>Si ya se cuenta con la instancia, pero se desea refrescar completa, se ejecuta:
+<pre class="wiki"> instancia regenerar
+</pre>
+</li></ol><p>
+Para hacer el camino inverso (crear los metadatos a partir de la instancia) se debe hacer:
+</p>
+<pre class="wiki">proyecto exportar mi_proyecto
+</pre>
+<p>
+Los metadatos del proyecto vuelven al sistema de archivos listos para ser versionados.
+</p>
+<h2 id="Actualización">Actualización</h2>
+<p>
+Es común recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto basta con borrar la instanciación del proyecto:
+</p>
+<pre class="wiki">proyecto borrar mi_proyecto
+</pre>
+<p>
+Y cargarla posteriormente
+</p>
+<pre class="wiki">proyecto cargar mi_proyecto
+</pre>
+<h2 id="Exportacióndelainformaciónlocal">Exportación de la información local</h2>
+<p>
+En ciertos escenarios sólo se desea exportar el contenido al archivo <i>datos_instancia.sql</i>, conteniendo la información de los usuarios en esta instancia. Para esto existe el comando:
+</p>
+<pre class="wiki">proyecto exportar_local mi_proyecto
+</pre>
+<p>
+Cuando se quiere exportar tanto el <strong>datos_instancia.sql</strong> de toba (conteniendo los usuarios) como los de los proyectos (conteniendo la asociación de los usuarios a los proyectos) se hace:
+</p>
+<pre class="wiki">instancia exportar_local
+</pre>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+
+<!-- Mirrored from desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto by HTTrack Website Copier/3.x [XR&CO'2005], Tue, 27 Dec 2005 20:56:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+
