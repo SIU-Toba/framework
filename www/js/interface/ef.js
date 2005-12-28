@@ -99,13 +99,13 @@ def.constructor = ef;
 	def.resaltar = function(texto, izq) {
 		var cont = document.getElementById('cont_' + this._id_form);
 		var warn = document.getElementById('ef_warning_' + this._id_form);
-		var clon = document.getElementById('ef_warning').cloneNode(true);
-		izq = (typeof izq == 'number') ? izq : 18;
 		if (! warn) {
+			izq = (typeof izq == 'number') ? izq : 14;
+			var clon = document.getElementById('ef_warning').cloneNode(true);
 			clon.id = 'ef_warning_' + this._id_form;
-			clon.style.display = '';
 			var pos = getElementPosition(cont);
-			clon.style.left = pos['left']-izq;
+			clon.style.left = (pos['left']-izq) + 'px';
+			clon.style.display = '';
 			cont.insertBefore(clon, cont.firstChild);
 			warn = document.getElementById('ef_warning_' + this._id_form);
 		}

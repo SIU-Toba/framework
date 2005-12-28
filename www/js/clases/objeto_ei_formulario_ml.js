@@ -96,7 +96,7 @@ def.constructor = objeto_ei_formulario_ml;
 		}
 		if (!es_valido) {
 			if (! this._silencioso)
-				ef.resaltar(ef.error(), 6);
+				ef.resaltar(ef.error(), 8);
 			if (! es_online)
 				cola_mensajes.agregar(ef.error());
 			ef.resetear_error();
