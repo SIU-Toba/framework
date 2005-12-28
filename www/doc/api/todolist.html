@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Todo List</title>
+	<link rel="stylesheet" type="text/css" href="media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Objetos<br /><div class="header-top-right-subpackage">Persistencia</div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="classtrees_Objetos.html" class="menu">class tree: Objetos</a> ]
+		  [ <a href="elementindex_Objetos.html" class="menu">index: Objetos</a> ]
+		  [ <a href="elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Objetos</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="li_Toba.html">Toba</a><br />
+              <a href="li_Objetos.html">Objetos</a><br />
+              <a href="li_Utilerias.html">Utilerias</a><br />
+      	</div>
+      <br />
+                                    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<div align="center"><h1>Todo List</h1></div>
+<h2>Objetos</h2>
+<h3><a href="Objetos/Persistencia/ap_tabla_db.html">ap_tabla_db</a></h3>
+<ul>
+    <li>Esta clase no deberia utilizar ADOdb!!!</li>
+    <li>Hay que definir el manejo de claves (en base a objeto_datos_relacion)</li>
+    <li>Donde se hacen los controles pre-sincronizacion (nulos db)??</li>
+    <li>Como se implementa la carga de columnas externas??</li>
+    <li>Poder desactivar el control de sincronizacion (¿se necesita esto?)</li>
+</ul>
+<h3><a href="Objetos/Persistencia/ap_tabla_db.html#methodcompletar_campos_externos_fila">ap_tabla_db::completar_campos_externos_fila()</a></h3>
+<ul>
+    <li>Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)*</li>
+</ul>
+<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html#methodget_id_filas">objeto_datos_tabla::get_id_filas()</a></h3>
+<ul>
+    <li>Se podría optimizar este método para no recaer en tantos recorridos</li>
+</ul>
+<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html#methodlog">objeto_datos_tabla::log()</a></h3>
+<ul>
+    <li>El objeto deberia tener directamente algo asi</li>
+</ul>
+<h3><a href="Objetos/Persistencia/objeto_datos_relacion.html#methodlog">objeto_datos_relacion::log()</a></h3>
+<ul>
+    <li>El objeto deberia tener directamente algo asi</li>
+</ul>
+<h3><a href="Objetos/Persistencia/objeto_datos_relacion.html">objeto_datos_relacion</a></h3>
+<ul>
+    <li>En el dump_esquema incluir la posición actual de los cursores</li>
+</ul>
+<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html">objeto_datos_tabla</a></h3>
+<ul>
+    <li>Control de FK y PK</li>
+</ul>
+<h3><a href="Objetos/Ei/objeto_ei_formulario.html">objeto_ei_formulario</a></h3>
+<ul>
+    <li>Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.</li>
+</ul>
+<h3><a href="Objetos/Persistencia/relacion_entre_tablas.html">relacion_entre_tablas</a></h3>
+<ul>
+    <li>cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion</li>
+    <li>actualizacion dinamica del MAPEO de filas</li>
+</ul>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Wed, 28 Dec 2005 11:18:45 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
