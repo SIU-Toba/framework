@@ -39,6 +39,11 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$this->consumidor = $consumidor;
 		$this->datos_consumidor = $datos_consumidor;
 	}
+
+	function tiene_consumidor()
+	{
+		return isset($this->datos_consumidor['identificador']);
+	}
 	
 	function rol_en_consumidor()
 	{
@@ -90,8 +95,8 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	function nombre_corto()
 	{
 		$nombre_objeto = $this->datos['info']['nombre'];
-		if (isset($this->rol_en_consumidor['identificador']))
-			$nombre = $this->rol_en_consumidor['identificador'];
+		if ($this->tiene_consumidor())
+			$nombre = $this->rol_en_consumidor();
 		else
 			$nombre = $nombre_objeto; 
 		return $nombre;
@@ -100,8 +105,8 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	function nombre_largo()
 	{
 		$nombre_objeto = $this->datos['info']['nombre'];
-		if (isset($this->rol_en_consumidor['identificador']))
-			$nombre = "$nombre_objeto\nRol: ".$this->rol_en_consumidor['identificador'];
+		if ($this->tiene_consumidor())
+			$nombre = "$nombre_objeto\nRol: ".$this->rol_en_consumidor();
 		else
 			$nombre = $nombre_objeto; 
 		return $nombre;
@@ -195,9 +200,9 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if (! $this->es_evento_valido($metodo))
 			return false;
 	
-		if (isset($this->rol_en_consumidor['identificador'])) {
+		if ($this->tiene_consumidor()) {
 			//Debe buscar cosas de tipo 'evt__id__evento'?
-			$id = $this->rol_en_consumidor['identificador'];
+			$id = $this->rol_en_consumidor();
 			ereg("^evt__".$id."__(.*)", $metodo, $detalle);
 			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
 				return true;
@@ -221,8 +226,8 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if (ereg("^evt___(.*)", $metodo)) {	
 			return true;
 		}	
-		if (isset($this->rol_en_consumidor['identificador'])) {
-			$id = $this->rol_en_consumidor['identificador'];
+		if ($this->tiene_consumidor()) {
+			$id = $this->rol_en_consumidor();
 
 			//Busca cosas como evt__id_evento
 			ereg("^evt__".$id."_([^_].*)", $metodo, $detalle);

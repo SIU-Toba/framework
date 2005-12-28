@@ -67,7 +67,7 @@ class ci_creador_objeto extends objeto_ci
 	{
 		switch ($pantalla) {
 			case 'tipos':
-				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de objeto a crear.";
+				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de [wiki:Referencia/Objetos objeto] a crear.";
 				switch ($this->destino['tipo']) {
 					case 'item': 
 						$des .= "<br>El objeto construido se asignará automáticamente al 
@@ -87,8 +87,9 @@ class ci_creador_objeto extends objeto_ci
 				}
 				break;
 			case 'construccion':
+				$clase_reducida = substr($this->clase_actual['clase'], 7);
 				$des = "<strong>Construcción</strong><br>
-						Construyendo un <em>{$this->clase_actual['clase']}</em>";
+						Construyendo un [wiki:Referencia/Objetos/$clase_reducida {$this->clase_actual['clase']}]";
 				break;			
 			case 'asignacion':
 				$des = "<strong>Asignación</strong><br>Para poder asignarlo necesita indicar con que identificador se conocera el objeto en el CI.";

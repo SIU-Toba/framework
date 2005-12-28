@@ -88,7 +88,7 @@ class zona_objeto extends zona
 			echo "</td>";
 		}
 
-		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;EDITOR de OBJETOS";
+		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;";
 		//echo recurso::imagen_apl("zona/objetos.gif",true);
 		echo "</td>";
 		$this->obtener_html_barra_vinculos();

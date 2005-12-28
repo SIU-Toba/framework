@@ -3,6 +3,7 @@ require_once("objeto_ei.php");
 require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+require_once('nucleo/lib/parser_ayuda.php');
 
 /**
  * Controla un flujo de pantallas
@@ -847,6 +848,7 @@ class objeto_ci extends objeto_ei
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if($descripcion !="" || $es_wizard) {
 			$imagen = recurso::imagen_apl("info_chico.gif",true);
+			$descripcion = parser_ayuda::parsear($descripcion);
 			if ($es_wizard) {
 				$html = "<div class='wizard-encabezado'><div class='wizard-titulo'>";
 				$html .= $this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["etiqueta"];

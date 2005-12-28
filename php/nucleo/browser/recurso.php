@@ -152,7 +152,7 @@ class recurso {
 			if (parser_ayuda::es_texto_plano($ayuda)) {
 				//Sacar un title comun y corriente
 				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-				//$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
+				$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
 				$a  = " title='$ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";' ";
 			} else {
 				$ayuda = parser_ayuda::parsear($ayuda);

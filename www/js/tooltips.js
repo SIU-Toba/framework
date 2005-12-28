@@ -72,7 +72,7 @@ document.onmousemove=positiontip;
  * Visit http://www.dynamicdrive.com/ for full source code
  ***********************************************/
  
- var tipwidth='150px' //default tooltip width
+ var tipwidth='280px' //default tooltip width
  var tipbgcolor='lightyellow' //tooltip bgcolor
  var disappeardelay=250 //tooltip disappear speed onMouseout (in miliseconds)
  var vertical_offset="0px" //horizontal offset of tooltip from anchor link
