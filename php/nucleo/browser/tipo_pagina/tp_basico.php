@@ -61,14 +61,12 @@ class tp_basico extends tipo_pagina
 	protected function comienzo_cuerpo()
 	{
 		echo "<body onLoad='firstFocus()'>\n";
-		js::cargar_consumos_globales(array('tooltips'));		
 		$this->menu();
 	}
 	
 	protected function menu()
 	{
 	}
-		
 	
 	protected function barra_superior()
 	{

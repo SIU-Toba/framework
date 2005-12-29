@@ -19,8 +19,11 @@ class tp_normal extends tp_basico
 				/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
 				filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
 			}
-			#fixedtipdiv{
+			#dhtml_tooltip_div{
 			 position:absolute;
+			 width: 250px;
+			 visibility:hidden;
+			 background-color: lightyellow;			 
 			 padding: 2px;
 			 border:1px solid black;
 			 line-height:18px;
@@ -39,11 +42,15 @@ class tp_normal extends tp_basico
 		$consumos[] = 'clases/toba';
 		$consumos[] = 'utilidades/datadumper';
 		$consumos[] = 'comunicacion_server';
-		//$consumos[] = 'tooltips';
 		js::cargar_consumos_globales($consumos);
 	}
 
-
+	protected function comienzo_cuerpo()
+	{
+		parent::comienzo_cuerpo();
+		js::cargar_consumos_globales(array('dhtml_tooltip'));
+	}
+	
 	protected function menu()
 	{
 		if (defined("apex_pa_menu_archivo")) {
@@ -60,7 +67,6 @@ class tp_normal extends tp_basico
 		}
 	}
 		
-	
 	protected function barra_superior()
 	{
 		echo "<table width='100%' class='tabla-0'><tr>";
@@ -84,7 +90,7 @@ class tp_normal extends tp_basico
 		
 		if (trim($info['item_descripcion']) != '') {
 			echo "<td  class='barra-0-tit' width='1'>";
-			echo recurso::imagen_apl("help.png", true, 22, 22, trim($info['item_descripcion']));
+			echo recurso::imagen_apl("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
 			echo "</td>";
 		}			
 		

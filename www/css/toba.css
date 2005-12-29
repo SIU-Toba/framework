@@ -2711,6 +2711,14 @@ TD.separador_derecha {
 	BORDER-RIGHT: #000000 2px solid
 }
 
+.ayuda {
+	cursor: help;
+}
+
+a  .ayuda {
+	cursor: pointer !important;
+}
+
 /*------------------ CALENDARIO --------------------*/
 
 .year, .month {

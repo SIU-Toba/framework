@@ -153,12 +153,12 @@ class recurso {
 				//Sacar un title comun y corriente
 				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 				$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
-				$a  = " title='$ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";' ";
+				$a  = " title='$ayuda' class='ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";' ";
 			} else {
 				$ayuda = parser_ayuda::parsear($ayuda);
 				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 				$ayuda = str_replace(array("\"", "'"), "\'", $ayuda);
-				$a = " onmouseover=\"fixedtooltip('$ayuda',this,event, '')\" onmouseout=\"delayhidetip()\" ";
+				$a = " class='ayuda' onmouseover=\"return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"return dhtml_tooltip.hide();\" ";
 			}
 		} else {
 			$a .= " title='$ayuda_extra'";
