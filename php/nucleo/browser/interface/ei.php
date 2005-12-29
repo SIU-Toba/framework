@@ -451,6 +451,16 @@
 				/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
 				filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
 			}
+			#dhtml_tooltip_div{
+			 position:absolute;
+			 width: 250px;
+			 visibility:hidden;
+			 background-color: lightyellow;			 
+			 padding: 2px;
+			 border:1px solid black;
+			 line-height:18px;
+			 z-index:100;
+			 }				
 </style>
 </HEAD>
 <BODY style='margin-left: 0px;	margin-top: 0px; margin-right: 0px;	margin-bottom: 0px;' onLoad='firstFocus()' <? echo $estilo_body ?>>
@@ -554,6 +564,7 @@ function firstFocus()
 }
 </script>
 <?
+	js::cargar_consumos_globales(array('dhtml_tooltip'));
 	}
 //----------------------------------------------------------------------------------		
 

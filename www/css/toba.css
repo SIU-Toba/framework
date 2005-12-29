@@ -2715,8 +2715,8 @@ TD.separador_derecha {
 	cursor: help;
 }
 
-a  .ayuda {
-	cursor: pointer !important;
+a > .ayuda {
+	cursor: pointer;
 }
 
 /*------------------ CALENDARIO --------------------*/

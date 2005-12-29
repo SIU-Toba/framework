@@ -106,7 +106,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	{
 		$nombre_objeto = $this->datos['info']['nombre'];
 		if ($this->tiene_consumidor())
-			$nombre = "$nombre_objeto\nRol: ".$this->rol_en_consumidor();
+			$nombre = "$nombre_objeto<br>Rol: ".$this->rol_en_consumidor();
 		else
 			$nombre = $nombre_objeto; 
 		return $nombre;
@@ -114,10 +114,11 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	
 	function iconos()
 	{
+		$clase_corto = substr($this->datos['info']['clase'], 7);		
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => recurso::imagen_apl($this->datos['info']['clase_icono'], false),
-			'ayuda' => $this->datos['info']['descripcion'],
+				'imagen' => recurso::imagen_apl($this->datos['info']['clase_icono'], false),
+				'ayuda' => "Objeto [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
 			);	
 		if(isset($this->datos['info']['instanciador_item'])) {
 			$iconos[] = array(

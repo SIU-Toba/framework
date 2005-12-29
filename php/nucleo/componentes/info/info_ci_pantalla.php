@@ -76,7 +76,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 		$iconos = array();
 		$iconos[] = array(
 			'imagen' => recurso::imagen_apl('objetos/pantalla.gif', false),
-			'ayuda' => 'Pantalla dentro del CI'
+			'ayuda' => 'Pantalla dentro del [wiki:Referencia/Objetos/ci ci]'
 			);	
 		return $iconos;
 	}

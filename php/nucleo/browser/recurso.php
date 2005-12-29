@@ -138,8 +138,12 @@ class recurso {
 	/**
 	 * Convierte una ayuda y una tecla de acceso en atributos html adecuados para un TAG
 	 * Parseando los links y el accesskey
+	 * @param char $tecla Tecla utiliza para acceder a la acción que contiene la ayuda, puede ser nula
+	 * @param string $ayuda Ayuda que se va a incluir en la acción
+	 * @param string $clases_css Clases css que se deben incluir en el tag en donde va la ayuda
+	 * @return unknown
 	 */
-	static function ayuda($tecla, $ayuda='')
+	static function ayuda($tecla, $ayuda='', $clases_css='')
 	{
 		$ayuda_extra = '';
 		$a = '';
@@ -149,17 +153,10 @@ class recurso {
 		}
 		if ($ayuda != '') {
 			$ayuda .= $ayuda_extra;
-			if (parser_ayuda::es_texto_plano($ayuda)) {
-				//Sacar un title comun y corriente
-				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-				$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
-				$a  = " title='$ayuda' class='ayuda' onmouseover='window.status=this.title;' onmouseout='window.status=\"\";' ";
-			} else {
-				$ayuda = parser_ayuda::parsear($ayuda);
-				$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-				$ayuda = str_replace(array("\"", "'"), "\'", $ayuda);
-				$a = " class='ayuda' onmouseover=\"return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"return dhtml_tooltip.hide();\" ";
-			}
+			$ayuda = parser_ayuda::parsear($ayuda);
+			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
+			$ayuda = str_replace(array("\"", "'"), "\'", $ayuda);
+			$a = " class='ayuda $clases_css' onmouseover=\"return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"return dhtml_tooltip.hide();\" ";
 		} else {
 			$a .= " title='$ayuda_extra'";
 		}
