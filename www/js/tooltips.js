@@ -77,11 +77,14 @@ document.onmousemove=positiontip;
  var disappeardelay=250 //tooltip disappear speed onMouseout (in miliseconds)
  var vertical_offset="0px" //horizontal offset of tooltip from anchor link
  var horizontal_offset="-3px" //horizontal offset of tooltip from anchor link
+ var appeardelay=1000 //Cuanto tarda en aparecer el mousein 
  
  /////No further editting needed
  
  var es_ie4=document.all
  var ns6=document.getElementById&&!document.all
+ var delayshow;
+ var evento;
  
  if (es_ie4||ns6)
  document.write('<div id="fixedtipdiv" onmouseover="tooltip_continuar()" onmouseout="tooltip_terminar()" style="visibility:hidden;width:'+tipwidth+';background-color:'+tipbgcolor+'" ></div>')
@@ -105,7 +108,7 @@ document.onmousemove=positiontip;
  dropmenuobj.widthobj.width=tipwidth
  }
  if (e.type=="click" && obj.visibility==hidden || e.type=="mouseover")
- obj.visibility=visible
+  delayshow=setTimeout("mostrar_tip()",appeardelay)
  else if (e.type=="click")
  obj.visibility=hidden
  }
@@ -146,7 +149,16 @@ document.onmousemove=positiontip;
  }
  }
  
+ function mostrar_tip()
+ {
+ 	dropmenuobj.style.visibility="visible"
+ }
+ 
  function hidetip(e){
+  if (typeof delayshow!="undefined") {
+ 	//alert('hola');
+	clearTimeout(delayshow)
+ } 	
  if (typeof dropmenuobj!="undefined"){
  if ((es_ie4||ns6) && tooltip_ocultar)
  dropmenuobj.style.visibility="hidden"
@@ -161,6 +173,10 @@ document.onmousemove=positiontip;
  function clearhidetip(){
  if (typeof delayhide!="undefined")
  clearTimeout(delayhide)
+ if (typeof delayshow!="undefined") {
+ 	//alert('hola');
+	clearTimeout(delayshow)
+ }
  }
  
  var tooltip_ocultar = true;
