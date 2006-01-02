@@ -64,7 +64,7 @@ class ci_eventos extends objeto_ci
 	{
 		if( $this->mostrar_evento_detalle() ){
 			//Protejo la evento seleccionada de la eliminacion
-			$this->dependencias["eventos_lista"]->set_fila_protegida($this->seleccion_evento_anterior);
+			$this->dependencia("eventos_lista")->set_fila_protegida($this->seleccion_evento_anterior);
 		}
 	}
 

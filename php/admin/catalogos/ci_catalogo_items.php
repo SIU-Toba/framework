@@ -78,12 +78,12 @@ class ci_catalogo_items extends ci_catalogo
 
 	function evt__items__carga()
 	{
-		$this->dependencias['items']->set_frame_destino(apex_frame_centro);
-		$this->dependencias['items']->set_item_propiedades(array('toba','/admin/items/composicion_item'));
+		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
+		$this->dependencia('items')->set_item_propiedades(array('toba','/admin/items/composicion_item'));
 		//¿Hay apertura seleccionada?
 		if (isset($this->apertura)) {
 			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->apertura;
-			$this->dependencias['items']->set_apertura_nodos($apertura);
+			$this->dependencia('items')->set_apertura_nodos($apertura);
 		}
 		//Aplicación de los filtros
 		if (isset($this->opciones)) {
@@ -123,8 +123,8 @@ class ci_catalogo_items extends ci_catalogo
 
 	function evt__objetos__carga()
 	{
-		$this->dependencias['objetos']->set_frame_destino(apex_frame_centro);
-		$this->dependencias['objetos']->set_nivel_apertura(3);
+		$this->dependencia('objetos')->set_frame_destino(apex_frame_centro);
+		$this->dependencia('objetos')->set_nivel_apertura(3);
 		$clave['componente'] = $this->item_seleccionado;
 		$clave['proyecto'] = toba::get_hilo()->obtener_proyecto();
 		$item = constructor_toba::get_info($clave, 'item');

@@ -535,6 +535,22 @@ class objeto
 		}
 	}
 
+	
+	/**
+	 * Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
+	 *
+	 * @param string $id Identificador de la dependencia dentro del objeto actual
+	 * @param boolean $cargar_en_demanda En caso de que el objeto no se encuentre cargado en memoria, lo carga
+	 * @return Objeto
+	 */
+	function dependencia($id, $carga_en_demanda = true)
+	{
+		if (! $this->dependencia_cargada($id) && $carga_en_demanda) {
+			$this->cargar_dependencia($id);
+		}
+		return $this->dependencias[$id];
+	}	
+	
 	/**
 	*	Agregar dinámicamente una dependencia
 	*/
@@ -586,9 +602,21 @@ class objeto
 		return true;
 	}
 
-	function existe_dependencia($id)
+	/**
+	 * Retorna verdadero si la dependencia fue cargada en este pedido de página
+	 */
+	function dependencia_cargada($id)
 	{
 		return isset($this->dependencias[$id]);
+	}
+	
+	/**
+	 * @deprecated Desde 0.8.4, usar dependencia_cargada
+	 */
+	function existe_dependencia($id)
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar dependencia_cargada");
+		return $this->dependencia_cargada($id);
 	}
 
 	function consultar_info_dependencia($dep,$dato=null)
@@ -678,6 +706,7 @@ class objeto
 		//Barra de colapsado
 		$colapsado = "";
 		if ($this->info['colapsable'] && isset($this->objeto_js)) {
+		
 			$colapsado = "style='cursor: hand; cursor: pointer;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 			echo "<td class='$estilo'>";
 			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);

@@ -89,7 +89,7 @@ class ci_editor extends ci_editores_toba
 	*/
 	function evt__salida__1()
 	{
-		$this->dependencias['dependencias']->limpiar_seleccion();
+		$this->dependencia('dependencias')->limpiar_seleccion();
 	}
 
 	function get_dbr_dependencias()
@@ -157,25 +157,25 @@ class ci_editor extends ci_editores_toba
 	*/
 	function obtener_html_contenido__2()
 	{
-		$this->dependencias['pantallas_lista']->obtener_html();			
+		$this->dependencia('pantallas_lista')->obtener_html();			
 		if( isset($this->seleccion_pantalla) ){
 			$datos = $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla);
 			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
 			echo "<fieldset style='margin-top: 10px; padding: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #333333;'><legend>$nombre_pantalla</legend>";			
-			$this->dependencias['pantallas']->obtener_html();			
+			$this->dependencia('pantallas')->obtener_html();			
 			echo "<table class='tabla-0'  width='100%'>";
 			echo "<tr>\n";
 			if( count($this->pantalla_dep_asoc) > 0 ){
 				echo "<td width='50%' style='vertical-align: top'>\n";
 				echo "<fieldset style='margin: 5px;padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Dependencias Asociadas</legend>";			
-				$this->dependencias['pantallas_ei']->obtener_html();			
+				$this->dependencia('pantallas_ei')->obtener_html();			
 				echo "</fieldset>";
 				echo "</td>\n";
 			}
 			if( count($this->pantalla_evt_asoc) > 0 ){
 				echo "<td style='vertical-align: top'>\n";
 				echo "<fieldset style='margin: 5px; padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Eventos Asociados</legend>";			
-				$this->dependencias['pantallas_evt']->obtener_html();			
+				$this->dependencia('pantallas_evt')->obtener_html();			
 				echo "</fieldset>";
 				echo "</td>\n";
 			}
@@ -191,7 +191,7 @@ class ci_editor extends ci_editores_toba
 	function evt__pre_cargar_datos_dependencias__2()
 	{
 		if (isset($this->seleccion_pantalla)) {
-			$this->dependencias['pantallas_lista']->seleccionar($this->seleccion_pantalla);
+			$this->dependencia('pantallas_lista')->seleccionar($this->seleccion_pantalla);
 		}
 	}
 			
@@ -199,7 +199,7 @@ class ci_editor extends ci_editores_toba
 	{
 		if( isset($this->seleccion_pantalla) ){
 			//Protejo la evento seleccionada de la eliminacion
-			$this->dependencias["pantallas_lista"]->set_fila_protegida( $this->seleccion_pantalla );
+			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->seleccion_pantalla );
 		}
 	}
 
@@ -394,7 +394,7 @@ class ci_editor extends ci_editores_toba
 
 	function evt__salida__3()
 	{
-		$this->dependencias['eventos']->limpiar_seleccion();
+		$this->dependencia('eventos')->limpiar_seleccion();
 	}
 
 	function get_dbr_eventos()

@@ -99,7 +99,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__salida__relaciones()
 	{
-		$this->dependencias['relaciones']->limpiar_seleccion();
+		$this->dependencia('relaciones')->limpiar_seleccion();
 	}
 	
 	/**

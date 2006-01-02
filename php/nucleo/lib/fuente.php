@@ -239,7 +239,7 @@ class fuente_datos_postgres7 extends fuente_datos
 	{
       global $db;
       
-      //Se crea una conexiï¿½n nueva, ya que la actual queda trabada despuï¿½s del error, 
+      //Se crea una conexión nueva, ya que la actual queda trabada despuós del error, 
       //recuperar los comentarios de tablas y campos.
       $conexion_local =& ADONewConnection('postgres7');
       $conexion_local->SetFetchMode(ADODB_FETCH_ASSOC);
@@ -268,7 +268,7 @@ class fuente_datos_postgres7 extends fuente_datos
 			if(preg_match("/[^\"]*\"(.*)\".*/",$descripcion,$temp)){
 				$respuesta["parametro_tipo"] = "columna";
 				$respuesta["parametro"] = $temp[1];
-            $mensaje = "La columna '{$temp[1]}' no debe quedar vacï¿½a.";
+            $mensaje = "La columna '{$temp[1]}' no debe quedar vacía.";
 			}
 		//-- FOREIGN KEY ---------------------
 		}elseif(strpos($descripcion,"violates foreign key constraint")){
@@ -278,7 +278,7 @@ class fuente_datos_postgres7 extends fuente_datos
 				//ei_arbol($constraint);
 				$respuesta["parametro_tipo"] = "constraint";
 				$respuesta["parametro"] = $temp[1];
-            $mensaje = 'Este registro estï¿½ siendo utilizado.<br><br>' . 
+            $mensaje = 'Este registro está siendo utilizado.<br><br>' . 
                        $this->comentario_fk($conexion_local, $temp[3], $temp[2]);
 			}
 		//-- Respuesta GENERICA ---------------------
@@ -340,7 +340,7 @@ class fuente_datos_postgres7 extends fuente_datos
 
    function comentario_fk(&$conexion, $tabla = '', $fk = '')
    //Retorna un mensaje compuesto a partir de las tablas y campos 
-   //involucrados en un error de clave forï¿½nea.
+   //involucrados en un error de clave foránea.
    {
       $consulta = "SELECT COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as com_tabla,
                           COALESCE(obj_description(t.oid, 'pg_constraint'), t.conname) as com_fk,
@@ -390,7 +390,7 @@ class fuente_datos_postgres7 extends fuente_datos
                         "Los valores de los campos ": "El valor del campo ") . $campos_foranea;
             $retorno .= " de la tabla '" . $com_ftabla . "' ";
             $retorno .= (count($arr_clave_foranea) > 1? 
-                        "aun estï¿½n siendo utilizados por ": "aun estï¿½ siendo utilizado por ");
+                        "aun están siendo utilizados por ": "aun está siendo utilizado por ");
             $retorno .= (count($arr_clave_local) > 1? 
                         "los campos ": "el campo ") . $campos_local;
             $retorno .= " de la tabla '" . $com_tabla . "'.";                        
@@ -398,12 +398,12 @@ class fuente_datos_postgres7 extends fuente_datos
          }
          else
          {
-            return 'Uno o varios campos de esta tabla estï¿½n siendo referenciados en otra.';
+            return 'Uno o varios campos de esta tabla están siendo referenciados en otra.';
          }
       }
       else
       {
-         return 'Uno o varios campos de esta tabla estï¿½n siendo referenciados en otra.';
+         return 'Uno o varios campos de esta tabla están siendo referenciados en otra.';
       }
       return $retorno;
    }
@@ -411,7 +411,7 @@ class fuente_datos_postgres7 extends fuente_datos
    function comentario_pk(&$conexion, $pk = '')
    //Retorna un mensaje compuesto a partir de la tabla y los campos 
    //involucrados en un error de clave duplicada.
-   //Si corresponde a un indice alternativo retorna un mensaje genï¿½rico.
+   //Si corresponde a un indice alternativo retorna un mensaje genérico.
    {
       $consulta = "SELECT COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as com_tabla,
                           t.conkey as clave_local,
@@ -448,13 +448,13 @@ class fuente_datos_postgres7 extends fuente_datos
          }
          else
          {
-            return 'Ya existe un registro con la misma clave o descripciï¿½n.';
+            return 'Ya existe un registro con la misma clave o descripción.';
          }
       }
       else
       {
-         //Mensaje genï¿½rico.
-         return 'Ya existe un registro con la misma clave o descripciï¿½n.';
+         //Mensaje genérico.
+         return 'Ya existe un registro con la misma clave o descripción.';
       }
       return $retorno;
    }

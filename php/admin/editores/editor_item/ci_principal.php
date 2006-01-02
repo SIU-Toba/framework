@@ -45,19 +45,16 @@ class ci_principal extends objeto_ci
 	function get_entidad()
 	//Acceso al DATOS_RELACION
 	{
-		if (! isset($this->dependencias['datos'])) {
-			$this->cargar_dependencia('datos');
-		}
 		if ($this->cambio_item && !$this->falla_carga){
 			toba::get_logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
-			if( $this->dependencias['datos']->cargar( $this->id_item ) ){
+			if( $this->dependencia('datos')->cargar( $this->id_item ) ){
 				$this->cargado = true;
 				$this->cambio_item = false;
 			}else{
 				$this->falla_carga = true;	
 			}
 		}
-		return $this->dependencias['datos'];
+		return $this->dependencia('datos');
 	}	
 
 	function set_item($id)

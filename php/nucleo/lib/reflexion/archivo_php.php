@@ -50,7 +50,7 @@ class archivo_php
 			exec("start $archivo");
 		} else {
 			$archivo = manejador_archivos::path_a_unix($this->nombre);
-			$fp = popen("export DISPLAY=:0.0;\n kfmclient newTab $archivo application/php", 'r');
+			$fp = popen("export HOME=/home/k7k0;export DISPLAY=:0.0;\n kfmclient exec $archivo", 'r');
 			pclose($fp);
 		}
 	}

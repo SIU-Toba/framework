@@ -151,7 +151,7 @@ class ci_creador_objeto extends objeto_ci
 	*/
 	function evt__editor__procesar()
 	{
-		$this->objeto_construido = $this->dependencias['editor']->get_entidad()->tabla('base')->get_clave_valor(0);
+		$this->objeto_construido = $this->dependencia('editor')->get_entidad()->tabla('base')->get_clave_valor(0);
 
 				//Si el destino es un item se asigna aqui nomas
 		if (isset($this->destino) && $this->destino['tipo'] == 'item') {

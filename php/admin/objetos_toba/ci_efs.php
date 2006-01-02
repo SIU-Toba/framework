@@ -89,12 +89,12 @@ class ci_efs extends objeto_ci
 	{
 		if( $this->mostrar_efs_detalle() ){
 			//Protejo la efs seleccionada de la eliminacion
-			$this->dependencias["efs_lista"]->set_fila_protegida($this->seleccion_efs_anterior);
+			$this->dependencia("efs_lista")->set_fila_protegida($this->seleccion_efs_anterior);
 		}else{
-			$this->dependencias["efs_importar"]->colapsar();
+			$this->dependencia("efs_importar")->colapsar();
 		}
 		if (isset($this->seleccion_efs)) {
-			$this->dependencias["efs_lista"]->seleccionar($this->seleccion_efs);
+			$this->dependencia("efs_lista")->seleccionar($this->seleccion_efs);
 		}
 	}
 	

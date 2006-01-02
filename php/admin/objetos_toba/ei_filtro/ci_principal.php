@@ -64,13 +64,13 @@ class ci_principal extends ci_editores_toba
 	function evt__pre_cargar_datos_dependencias__2()
 	{
 		if (isset($this->ef_seleccionado)) {
-			$this->dependencias['efs']->seleccionar_ef($this->ef_seleccionado);
+			$this->dependencia('efs')->seleccionar_ef($this->ef_seleccionado);
 		}
 	}	
 	
 	function evt__salida__2()
 	{
-		$this->dependencias['efs']->limpiar_seleccion();
+		$this->dependencia('efs')->limpiar_seleccion();
 	}
 
 	function get_dbr_efs()
@@ -95,7 +95,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__salida__3()
 	{
-		$this->dependencias['eventos']->limpiar_seleccion();
+		$this->dependencia('eventos')->limpiar_seleccion();
 	}
 
 	function get_dbr_eventos()

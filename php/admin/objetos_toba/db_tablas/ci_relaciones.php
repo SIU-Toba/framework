@@ -77,7 +77,7 @@ class ci_relaciones extends objeto_ci
 			//ATENCION! - $this->dependencias["relaciones_lista"]->set_fila_protegida($this->seleccion_relacion_anterior);
 		}
 		if (isset($this->seleccion_relacion)) {
-			$this->dependencias["relaciones_lista"]->seleccionar($this->seleccion_relacion);
+			$this->dependencia("relaciones_lista")->seleccionar($this->seleccion_relacion);
 		}
 	}
 	

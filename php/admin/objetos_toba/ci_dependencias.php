@@ -38,7 +38,7 @@ class ci_dependencias extends objeto_ci
 	{
 		unset($this->seleccion_dependencia_anterior);
 		unset($this->seleccion_dependencia);
-		$this->dependencias["cuadro"]->deseleccionar();
+		$this->dependencia("cuadro")->deseleccionar();
 	}
 
 	//-------------------------------------------------------------

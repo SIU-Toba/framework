@@ -149,7 +149,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 */
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('php.gif', false),
-				'ayuda' => 'Ver detalles de la extensión',
+				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP].',
 				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central')
 			);

@@ -37,19 +37,16 @@ abstract class ci_editores_toba extends objeto_ci
 	function get_entidad()
 	//Acceso al DATOS_RELACION
 	{
-		if (! isset($this->dependencias['datos'])) {
-			$this->cargar_dependencia('datos');
-		}
 		if($this->cambio_objeto && !$this->falla_carga){
 			toba::get_logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
-			if( $this->dependencias['datos']->cargar( $this->id_objeto ) ){
+			if( $this->dependencia('datos')->cargar( $this->id_objeto ) ){
 				$this->cargado = true;
 				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
 			}else{
 				$this->falla_carga = true;	
 			}
 		}		
-		return $this->dependencias['datos'];
+		return $this->dependencia('datos');
 	}
 
 	function mantener_estado_sesion()

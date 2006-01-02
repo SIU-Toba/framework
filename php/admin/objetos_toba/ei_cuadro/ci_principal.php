@@ -125,12 +125,12 @@ class ci_principal extends ci_editores_toba
 	{
 		if( $this->mostrar_columna_detalle() ){
 			//Protejo la columna seleccionada de la eliminacion
-			$this->dependencias["columnas_lista"]->set_fila_protegida($this->seleccion_columna_anterior);
+			$this->dependencia("columnas_lista")->set_fila_protegida($this->seleccion_columna_anterior);
 		}else{
-			$this->dependencias["columnas_importar"]->colapsar();
+			$this->dependencia("columnas_importar")->colapsar();
 		}
 		if (isset($this->seleccion_columna)) {
-			$this->dependencias["columnas_lista"]->seleccionar($this->seleccion_columna);
+			$this->dependencia("columnas_lista")->seleccionar($this->seleccion_columna);
 		}		
 	}
 
@@ -310,7 +310,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__salida__3()
 	{
-		$this->dependencias['eventos']->limpiar_seleccion();
+		$this->dependencia('eventos')->limpiar_seleccion();
 	}
 
 	function get_dbr_eventos()

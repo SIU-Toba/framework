@@ -31,7 +31,7 @@ abstract class ci_catalogo extends objeto_ci
 	{
 		foreach($this->dependencias_gi as $dep)
 		{
-			$this->dependencias[$dep]->obtener_html();	
+			$this->dependencia($dep)->obtener_html();	
 		}
 	}	
 	
@@ -59,7 +59,7 @@ abstract class ci_catalogo extends objeto_ci
 	
 	function evt__filtro__carga()
 	{
-		$this->dependencias['filtro']->colapsar();
+		$this->dependencia('filtro')->colapsar();
 		if (isset($this->opciones))
 			return $this->opciones;
 	}
@@ -67,7 +67,7 @@ abstract class ci_catalogo extends objeto_ci
 	function evt__filtro__cancelar()
 	{
 		unset($this->opciones);
-		$this->dependencias['fotos']->deseleccionar();
+		$this->dependencia('fotos')->deseleccionar();
 	}
 	
 	function evt__filtro__filtrar($datos)
@@ -82,7 +82,7 @@ abstract class ci_catalogo extends objeto_ci
 	function evt__fotos__carga()
 	{
 		$fotos = $this->album_fotos->fotos();
-		$this->dependencias['fotos']->colapsar();
+		$this->dependencia('fotos')->colapsar();
 		$esta_la_inicial = false;
 		//Se incluyen la imagen de predeterminada
 		foreach ($fotos as $id => $foto) {

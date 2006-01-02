@@ -17,8 +17,8 @@ class ci_catalogo_objetos extends ci_catalogo
 	
 	function evt__listado__carga()
 	{
-		$this->dependencias['listado']->set_frame_destino(apex_frame_centro);
-		$this->dependencias['listado']->set_mostrar_raiz(false);
+		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);
+		$this->dependencia('listado')->set_mostrar_raiz(false);
 		//return $this->objetos;
 		
 	}

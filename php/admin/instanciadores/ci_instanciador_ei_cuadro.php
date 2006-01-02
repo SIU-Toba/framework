@@ -6,8 +6,8 @@ class ci_instanciador_ei_cuadro extends ci_instanciadores
 	function evt__objeto__carga()
 	{
 		//Se insertan un par de filas de prueba
-		$columnas = $this->dependencias['objeto']->get_columnas();
-		$estructura = $this->dependencias['objeto']->get_estructura_datos();
+		$columnas = $this->dependencia('objeto')->get_columnas();
+		$estructura = $this->dependencia('objeto')->get_estructura_datos();
 		$muestra = array();
 		foreach ($columnas as $id => $columna) {
 			$muestra[$id] = $id;

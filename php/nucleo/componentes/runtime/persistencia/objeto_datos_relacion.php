@@ -303,7 +303,7 @@ class objeto_datos_relacion extends objeto
 	 */
 	function existe_tabla($tabla)
 	{
-		return $this->existe_dependencia($tabla);
+		return $this->dependencia_cargada($tabla);
 	}
 
 	function registrar_evento($elemento, $evento, $parametros)

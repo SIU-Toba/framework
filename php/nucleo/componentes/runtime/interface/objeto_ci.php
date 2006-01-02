@@ -722,7 +722,8 @@ class objeto_ci extends objeto_ei
 		echo "<tr><td class='celda-vacia'>";
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
 		echo "</td></tr>\n";
-		echo "<tbody id='cuerpo_{$this->objeto_js}'>\n";
+		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
+		echo "<tbody $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 		//--> Botonera
 		$con_botonera = $this->hay_botones();
 		if($con_botonera){

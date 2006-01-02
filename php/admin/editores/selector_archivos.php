@@ -16,9 +16,9 @@ class ci_selector_archivos extends objeto_ci
 	{
 		$inicial = toba::get_hilo()->obtener_parametro('ef_popup_valor');
 		$relativo = toba::get_hilo()->obtener_proyecto_path()."/php/";
-		$this->dependencias['listado']->set_path_relativo_inicial($relativo);
+		$this->dependencia('listado')->set_path_relativo_inicial($relativo);
 		if ($inicial != null)
-			$this->dependencias['listado']->set_path(dirname($inicial));
+			$this->dependencia('listado')->set_path(dirname($inicial));
 	}
 
 	

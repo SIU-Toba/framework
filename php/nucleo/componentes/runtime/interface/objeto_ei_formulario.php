@@ -547,7 +547,8 @@ class objeto_ei_formulario extends objeto_ei
 			echo "<tr><td>";
 			$this->barra_superior(null, true,"objeto-ei-barra-superior");
 			echo "</td></tr>\n";
-			echo "<tr><td><div id='cuerpo_{$this->objeto_js}'>";
+			$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
+			echo "<tr><td><div $colapsado id='cuerpo_{$this->objeto_js}'>";
 			$this->generar_formulario();	
 			echo "</div></td></tr>\n";
 			echo "</table>\n";
