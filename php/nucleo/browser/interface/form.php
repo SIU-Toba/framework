@@ -8,7 +8,7 @@ require_once("nucleo/browser/recurso.php");
 class form {
 //Clase estatica implementa los elementos de formulario de HTML
 
-    function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
+    static function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
     // EditBox
     {
         $r = "<INPUT type='text' name='$nombre' id='$nombre' maxlength='$len' size='$size' ";
@@ -19,7 +19,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function select($nombre,$actual,$datos,$clase="ef-combo", $extra="", $categorias=null)
+    static function select($nombre,$actual,$datos,$clase="ef-combo", $extra="", $categorias=null)
     //Combo STANDART. recibe el listado en un array asociativo
     {
         if(!is_array($datos)){//Si datos no es un array, no puedo seguir
@@ -46,7 +46,7 @@ class form {
         return $combo;
     }
 	
-    function multi_select($nombre,$actuales,$datos, $tamanio, $clase="ef-combo", $extra="")
+    static function multi_select($nombre,$actuales,$datos, $tamanio, $clase="ef-combo", $extra="")
     {
         if(!is_array($datos)){//Si datos no es un array, no puedo seguir
             $datos[""] = "";
@@ -62,7 +62,7 @@ class form {
 
 //________________________________________________________________________________________________________
 
-    function textarea($nombre,$valor,$filas,$columnas,$clase="ef-textarea",$wrap="",$extra="")
+    static function textarea($nombre,$valor,$filas,$columnas,$clase="ef-textarea",$wrap="",$extra="")
     //TEXTAREA
 //wrap=virtual
     {
@@ -71,7 +71,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function checkbox($nombre,$actual,$valor,$clase="ef-checkbox",$extra="")
+    static function checkbox($nombre,$actual,$valor,$clase="ef-checkbox",$extra="")
     //Checkbox STANDART. recibe el valor y el valor actual
     {
         $s = "";
@@ -81,14 +81,14 @@ class form {
 
 //________________________________________________________________________________________________________
 
-    function hidden($nombre,$valor, $extra="")
+    static function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {
         return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra>\n";
     }
 //________________________________________________________________________________________________________
 
-    function submit($nombre,$valor,$clase="ef-boton",$extra="", $tecla = null)
+    static function submit($nombre,$valor,$clase="ef-boton",$extra="", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
@@ -98,7 +98,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function image($nombre,$src,$extra="", $tecla = null)
+    static function image($nombre,$src,$extra="", $tecla = null)
     // Boton de SUBMIT
     {
 		$acceso = recurso::ayuda($tecla);
@@ -106,7 +106,7 @@ class form {
     }
  //________________________________________________________________________________________________________
 
-    function button($nombre,$valor,$extra="",$clase="ef-boton", $tecla = null)
+    static function button($nombre,$valor,$extra="",$clase="ef-boton", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
@@ -116,7 +116,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton")
+    static function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton")
     // Boton con html embebido
     {
 		$acceso = recurso::ayuda($tecla, $tip);
@@ -125,14 +125,14 @@ class form {
     }
 
 //________________________________________________________________________________________________________
-    function password($nombre,$valor="",$clase="ef-input")
+    static function password($nombre,$valor="",$clase="ef-input")
     // Boton de SUBMIT
     {
         return "<INPUT type='password' name='$nombre' id='$nombre' value='$valor' class='$clase'>\n";
     }
 //________________________________________________________________________________________________________
 
-    function archivo($nombre,$valor=null,$clase="ef-input-upload",$extra="")
+    static function archivo($nombre,$valor=null,$clase="ef-input-upload",$extra="")
     // Boton de SUBMIT
     {
         if(isset($valor)) $valor = "value='$valor'";
@@ -140,7 +140,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function abrir($nombre,$action,$extra="",$method="POST",$upload=true)
+    static function abrir($nombre,$action,$extra="",$method="POST",$upload=true)
     {
         // Dejo el upload por defecto, asi no tengo que dejar una puerta para
         // cuando se necesita en los consumidores (particularmente el MT).
@@ -155,7 +155,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    function cerrar()
+    static function cerrar()
     {
         return  "</form>\n";
     }

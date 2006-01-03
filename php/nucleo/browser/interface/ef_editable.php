@@ -933,15 +933,19 @@ class ef_editable_multilinea extends ef_editable
 	{	
 		if(!isset($this->estado) || $this->estado=="NULL") $this->estado="";
 		$html = "";
-		if($this->resaltar){
-			$javascript = " onclick='javascript: document.".$this->nombre_formulario . "." . $this->id_form.".select()'";
-			$html .= form::button($this->id_form . "_res", "Seleccionar", $javascript );
-		}
-		$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript );
-		if ($this->ajustable) {
-			$html .= js::abrir();
-			$html .= "resizeTa.agregar_elemento(document.getElementById('{$this->id_form}'));";
-			$html .= js::cerrar();
+		if($this->solo_lectura){
+			$html .= form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
+		}else{
+			if($this->resaltar){
+				$javascript = " onclick='javascript: document.".$this->nombre_formulario . "." . $this->id_form.".select()'";
+				$html .= form::button($this->id_form . "_res", "Seleccionar", $javascript );
+			}
+			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript );
+			if ($this->ajustable) {
+				$html .= js::abrir();
+				$html .= "resizeTa.agregar_elemento(document.getElementById('{$this->id_form}'));";
+				$html .= js::cerrar();
+			}
 		}
 		return $html;
 	}
