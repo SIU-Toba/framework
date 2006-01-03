@@ -3,7 +3,7 @@
 
 class tablas_instancia
 {
-	function get_lista_instancia_global()
+	function get_lista_global()
 	{
 		return array (
   0 => 'apex_revision',
@@ -12,7 +12,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_instancia_proyecto()
+	function get_lista_proyecto()
 	{
 		return array (
   0 => 'apex_usuario_proyecto',
@@ -25,7 +25,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_log_proyecto()
+	function get_lista_proyecto_log()
 	{
 		return array (
   0 => 'apex_solicitud',
@@ -40,7 +40,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_log_global()
+	function get_lista_global_log()
 	{
 		return array (
   0 => 'apex_log_sistema',

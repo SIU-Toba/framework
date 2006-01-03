@@ -216,6 +216,7 @@ class tablas_componente
     6 => 'parametros_b',
     7 => 'parametros_c',
     8 => 'inicializar',
+    9 => 'orden',
   ),
 );
 	}

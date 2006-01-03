@@ -134,16 +134,16 @@ class parser_ddl extends proceso_toba
 			if ( $es_instancia ) {
 				$this->plan[ $this->ba_instancia ]['tablas'][] = $id;
 				if ( $dump_proyecto ) {
-					$this->plan[ $this->ba_instancia ]['indices']['get_lista_instancia_proyecto'][] = $id;
+					$this->plan[ $this->ba_instancia ]['indices']['get_lista_proyecto'][] = $id;
 				} elseif ( $dump_nucleo ) {
-					$this->plan[ $this->ba_instancia ]['indices']['get_lista_instancia_global'][] = $id;
+					$this->plan[ $this->ba_instancia ]['indices']['get_lista_global'][] = $id;
 				}
 			} elseif ( $es_log ) {
 				$this->plan[ $this->ba_instancia ]['tablas'][] = $id;
 				if ( $dump_proyecto ) {
-					$this->plan[ $this->ba_instancia ]['indices']['get_lista_log_proyecto'][] = $id;
+					$this->plan[ $this->ba_instancia ]['indices']['get_lista_proyecto_log'][] = $id;
 				} elseif ( $dump_nucleo ) {
-					$this->plan[ $this->ba_instancia ]['indices']['get_lista_log_global'][] = $id;
+					$this->plan[ $this->ba_instancia ]['indices']['get_lista_global_log'][] = $id;
 				}
 			} else {
 				if ( $dump_componente ) {

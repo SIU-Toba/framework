@@ -27,7 +27,8 @@
 		* Solicitud (o ITEM?)
 			* por ahora se puede rutear la llamada de la solicitud al cargador
 				- Mas adelante se puede hacer la carga como un componente comun
-			* PROBLEMA: Si los ITEMS y los OBJETOS son componente del mismo nivel puede haber un problema de colision de IDs.
+			* PROBLEMA: Si los ITEMS y los OBJETOS son componente del mismo nivel puede haber un problema 
+				de colision de IDs.
 				- Esto hace que no pueden existir catalogos unificados, como la tabla componente/tipo
 		* Zona
 			
@@ -37,10 +38,10 @@
 	
 	* Exportacion
 		- Hay que decentralizar el proceso de bajada de metadatos.
-	
 		- Seria interesante que se pueda exportar el paquete de metadatos
 		generado en la sesion de trabajo de un usuario.
 		Usando el SVN se pueden hacer commits con un valor conceptual mas fuerte.
+
 	* Se puede simplificar todo el manejo del tema PROYECTO?
 		- En un request no pueden existir pedidos de distintos proyectos
 			para que se necesita un cargador de componentes multiproyecto???

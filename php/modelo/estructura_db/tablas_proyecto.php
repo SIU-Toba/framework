@@ -63,6 +63,8 @@ class tablas_proyecto
   54 => 'apex_ap_version',
   55 => 'apex_ap_tarea',
   56 => 'apex_tp_tarea',
+  57 => 'apex_objeto_mapa',
+  58 => 'apex_objeto_multicheq',
 );
 	}
 
@@ -1480,6 +1482,53 @@ class tablas_proyecto
     7 => 'tarea_tipo',
     8 => 'fecha',
     9 => 'hora',
+  ),
+);
+	}
+
+	function apex_objeto_mapa()
+	{
+		return array (
+  'archivo' => 'pgsql_a17_clase_mapa.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'objeto_mapa',
+  'dump_where' => '( objeto_mapa_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_mapa_proyecto',
+    1 => 'objeto_mapa',
+    2 => 'sql',
+    3 => 'descripcion',
+  ),
+);
+	}
+
+	function apex_objeto_multicheq()
+	{
+		return array (
+  'archivo' => 'pgsql_a51_clase_ut_multicheq.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'objeto_multicheq',
+  'dump_where' => '( objeto_multicheq_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_multicheq_proyecto',
+    1 => 'objeto_multicheq',
+    2 => 'sql',
+    3 => 'claves',
+    4 => 'descripcion',
+    5 => 'chequeado',
+    6 => 'forzar_chequeo',
   ),
 );
 	}

@@ -4,6 +4,14 @@ require_once("dba.php");
 
 /**
 	Esta clase seria la responsable de administrar una instancia
+
+	Instancia:
+	
+		- Crear una nueva estructura
+		- Validar (info_proyectos, info_bases_modulos)
+		- Exportar la instancia
+		- Importar la instancia
+
 */
 class instancia
 {
