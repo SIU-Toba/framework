@@ -26,7 +26,7 @@ class test_clonador_objetos extends test_toba
 		$clon = $clonador->clonar($nuevo_nombre, false);
 		
 		//--- Verificación
-		$meta_objeto = contructor_toba::get_info( array('proyecto' => $clon['proyecto'],
+		$meta_objeto = constructor_toba::get_info( array('proyecto' => $clon['proyecto'],
 													'componente'=> $clon['objeto']) );
 		$this->assertEqual($nuevo_nombre, $meta_objeto->nombre_largo());
 		$this->assertTrue(is_numeric($clon['objeto']));

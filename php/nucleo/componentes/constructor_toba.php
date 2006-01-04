@@ -7,6 +7,13 @@ define('apex_componentes_compilados__error_buscar_db',true);
 */
 class constructor_toba
 {
+	/**
+	 * Retorna el objeto-php que representa un runtime de un componente-toba
+	 *
+	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
+	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
+	 * @return objeto
+	 */
 	static function get_runtime( $id, $tipo=null )
 	{
 		// Controla la integridad de la clave
@@ -31,6 +38,13 @@ class constructor_toba
 		return new $clase( $datos );		
 	}
 
+	/**
+	 * Retorna el objeto-php que representa un runtime de un componente-toba
+	 *
+	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
+	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
+	 * @return info_componente
+	 */	
 	static function get_info($id, $tipo=null) 
 	{
 		// Controla la integridad de la clave

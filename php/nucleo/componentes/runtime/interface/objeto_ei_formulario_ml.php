@@ -546,8 +546,19 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 						$temp[$dato[$x]] = null;
 					}
 				}
-			}else{					//El EF maneja	un	*** DATO SIMPLE
-				$temp = (isset($datos[$dato])) ? stripslashes($datos[$dato]) : null;
+			} else {					//El EF maneja	un	*** DATO SIMPLE
+				if (isset($datos[$dato])) {
+					if (!is_array($datos[$dato])) {
+						$temp = stripslashes($datos[$dato]);
+					} elseif (is_array($datos[$dato])) { //ATENCION: Este es el caso para el multi-seleccion, hay que mejorarlo
+						$temp = array();
+						foreach ($datos[$dato] as $string) {
+							$temp[] = stripslashes($string);
+						}
+					}
+				} else {
+					$temp = null;	
+				}
 			}
 			if ($temp !== null)
 				$this->elemento_formulario[$ef]->cargar_estado($temp);

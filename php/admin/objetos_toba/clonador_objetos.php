@@ -1,5 +1,6 @@
 <?php
 require_once("admin/db/dao_editores.php");
+require_once("nucleo/componentes/constructor_toba.php");
 
 class clonador_objetos
 {
@@ -14,7 +15,8 @@ class clonador_objetos
 		$id_dr = dao_editores::get_dr_de_clase($clase);
 		
 		//Se construye el objeto datos_relacion
-		$this->datos_relacion = constructor_toba::get_objeto($id_dr);
+		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
+		$this->datos_relacion = constructor_toba::get_runtime($componente);
 		$this->datos_relacion->conectar_fuente();
 		$this->datos_relacion->configuracion();
 		

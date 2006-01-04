@@ -57,7 +57,7 @@ class ci_clonador_objetos extends objeto_ci
 					return dao_editores::get_lista_items();
 					break;
 				default:
-					$tipo = toba::get_hilo()->obtener_proyecto().",".$clase;
+					$tipo = "????,".$clase;
 					return dao_editores::get_lista_objetos_toba($tipo);
 			}
 		}

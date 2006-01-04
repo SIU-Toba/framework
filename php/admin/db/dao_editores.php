@@ -275,7 +275,6 @@ class dao_editores
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
 				WHERE 	clase = '{$clase[1]}'
-				AND		clase_proyecto = '{$clase[0]}'
 				AND 	proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
 				ORDER BY nombre";
 		return consultar_fuente($sql, "instancia");
