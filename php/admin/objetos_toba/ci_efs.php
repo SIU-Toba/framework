@@ -169,15 +169,15 @@ class ci_efs extends objeto_ci
 		}
 		$this->seleccion_efs = $id;
 	}
-	
-	function seleccionar_ef($id)
+
 	/**
 	*	Selecciona un ef por su identificador real
-	*/
+	*/	
+	function seleccionar_ef($id)
 	{
 		$id_interno = $this->get_tabla()->get_id_fila_condicion(array('identificador'=>$id));
 		if (count($id_interno) == 1) {
-			$this->evt__efs_lista__seleccion($id_interno[0]);
+			$this->evt__efs_lista__seleccion(current($id_interno));
 		} else {
 			throw new excepcion_toba("No se encontro el ef $id.");
 		}

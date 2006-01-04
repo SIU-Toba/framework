@@ -1270,7 +1270,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$evento_js = eventos::a_javascript('ordenar', $this->eventos['ordenar'], $parametros);
 						$js = "{$this->objeto_js}.set_evento($evento_js);";
 					    $src = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif");
-						echo recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer');
+						echo recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
 					}
 					echo  "</td>\n";        
 					echo  "</tr>\n";
@@ -1374,12 +1374,12 @@ class objeto_ei_cuadro extends objeto_ei
 				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = recurso::imagen_apl("paginacion/anterior.gif");
-				$anterior = recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer');
+				$anterior = recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			
 				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = recurso::imagen_apl("paginacion/primero.gif");
-				$primero = recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer');
+				$primero = recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			//Ultimo y Siguiente
 			if( $this->pagina_actual == $this->cantidad_paginas ) {
@@ -1389,12 +1389,12 @@ class objeto_ei_cuadro extends objeto_ei
 				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = recurso::imagen_apl("paginacion/siguiente.gif");
-				$siguiente = recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer');
+				$siguiente = recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 				
 				$evento_js = eventos::a_javascript('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = recurso::imagen_apl("paginacion/ultimo.gif");
-				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer');
+				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			//Creo la barra de paginacion
 			if($this->info_cuadro["paginar"]) {

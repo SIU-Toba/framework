@@ -75,6 +75,14 @@ def.constructor = ef_editable;
 	def.cuando_cambia_valor = function(callback) { 
 		addEvent(this.input(), 'onblur', callback);
 	}
+	
+	def.set_solo_lectura = function(solo_lectura) {
+		this.input().readOnly = (typeof solo_lectura != 'undefined' && solo_lectura);
+	}	
+	
+	def.activo = function() {
+		return !(this.input().readOnly);
+	}
 
 	
 //--------------------------------------------------------------------------------
@@ -227,5 +235,16 @@ var def = ef_editable_fecha.prototype;
 		}		
 		return true;
 	}	
+	
+	def.vinculo = function() {
+		return document.getElementById('link_' + this._id_form);
+	}
+	
+	def.set_solo_lectura = function(solo_lectura) {
+		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
+		ef_editable.prototype.set_solo_lectura.call(this, solo_lectura);
+		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
+	}	
+	
 	
 //--------------------------------------------------------------------------------	

@@ -361,7 +361,7 @@ class calendario extends activecalendar
 			$out.="</select>\n";
 			$evento_js = eventos::a_javascript('cambiar_mes', $eventos["cambiar_mes"]);
 			$js = "{$objeto_js}.set_evento($evento_js);";
-			$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer' onclick=\"$js\"></input>\n";
+			$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer;;cursor:hand;' onclick=\"$js\"></input>\n";
 			$out.="</td></tr>\n";
 		}
 		return $out;
@@ -449,9 +449,9 @@ class calendario extends activecalendar
 				$js = "{$objeto_js}.set_evento($evento_js);";
 				
 				if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear())
-					$out = "<td class=\"".$this->cssSelecDay."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
+					$out = "<td class=\"".$this->cssSelecDay."\" style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
 				else
-					$out = "<td class=\"".$this->cssWeek."\" style='cursor: pointer' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
+					$out = "<td class=\"".$this->cssWeek."\" style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$this->weekNumber($date)."</td>\n";	
 			}		
 		}	
 		return $out;
@@ -491,27 +491,27 @@ class calendario extends activecalendar
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
 				else
-					$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
+					$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
 			} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $this->getSelectedDay() < 0 && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssToday."\">".$var.$content."</td>";
 				else
-					$out="<td class=\"".$this->cssToday."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
+					$out="<td class=\"".$this->cssToday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
 			} elseif ($this->getWeekday($var) == 0 && $this->crSunClass){
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssSunday."\">".$var.$content."</td>";
 				else
-					$out="<td class=\"".$this->cssSunday."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
+					$out="<td class=\"".$this->cssSunday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
 			} elseif ($this->getWeekday($var) == 6 && $this->crSatClass) {
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssSaturday."\">".$var.$content."</td>";
 				else	
-					$out="<td class=\"".$this->cssSaturday."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
+					$out="<td class=\"".$this->cssSaturday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
 			} else {
 				if (!$this->dayLinks)
 					$out="<td class=\"".$this->cssMonthDay."\">".$var.$content."</td>";
 				else
-					$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer' onclick=\"$js\">".$var.$content."</td>";
+					$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
 			}		
 
 		return $out;

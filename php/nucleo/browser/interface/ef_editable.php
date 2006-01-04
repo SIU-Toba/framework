@@ -156,7 +156,7 @@ class ef_editable extends ef
 			if(is_array($this->dependencias)){
 				//$this->establecer_solo_lectura();
 				//$this->valores = array();
-				$this->input_extra = " disabled ";
+				$this->input_extra = " readonly ";
 			}else{
 				$this->cargar_datos_dao();
 			}
@@ -295,12 +295,7 @@ class ef_editable extends ef
 	function obtener_input()
 	{
 		if(!isset($this->estado) || $this->estado=="NULL") $this->estado="";
-		if($this->solo_lectura){
-			$html = form::text($this->id_form."_desc", $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,"disabled " . $this->javascript);
-			$html .= form::hidden($this->id_form, $this->estado);
-		}else{
-			$html = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo,$this->javascript);
-		}
+		$html = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript);
 		$html .= $this->obtener_javascript_general() . "\n\n";
 		return $html;
 	}
@@ -749,21 +744,12 @@ class ef_editable_fecha extends ef_editable
 		if(!isset($this->estado) || $this->estado=="NULL") $this->estado="";  
 		$html = "<table class='tabla-0'>";
 		$html .= "<tr><td>\n";
-		if(!($this->solo_lectura))
-		{
-    		$html .= form::text($this->id_form,$this->estado,false,$this->tamano,$this->tamano, $this->estilo);
-			$html .= "</td><td>\n";
-			$html .= "<a id='link_". $this->id_form . "' ";
-			$html .= " onclick='calendario.select(document.".$this->nombre_formulario.".".$this->id_form.",\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
-			$html .= " href='#' name='link_". $this->id_form . "'>".recurso::imagen_apl('cal.gif',true,16,16,"Seleccione la fecha")."</A> ";
-			$html .= "</td></tr>\n";
-		}
-        else
-        {
-    		$html .= form::text("",$this->estado,true,$this->tamano,$this->tamano, $this->estilo, "disabled" . $this->javascript);
-            $html .= form::hidden($this->id_form, $this->estado);
-            $html .= "</td></tr>\n";            
-        } 
+		$html .= form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,$this->tamano, $this->estilo);
+		$html .= "</td><td>\n";
+		$html .= "<a id='link_". $this->id_form . "' ";
+		$html .= " onclick='calendario.select(document.".$this->nombre_formulario.".".$this->id_form.",\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
+		$html .= " href='#' name='link_". $this->id_form . "'>".recurso::imagen_apl('cal.gif',true,16,16,"Seleccione la fecha")."</A> ";
+		$html .= "</td></tr>\n";
 		$html .= "</table>\n";
 		return $html;
 	}

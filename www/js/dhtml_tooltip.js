@@ -14,8 +14,6 @@ var dhtml_tooltip = {
 		this._do_hide();
 		var tooltip = document.getElementById("dhtml_tooltip_div")
 		tooltip.innerHTML = content
-		tooltip.style.left = -500
-		tooltip.style.top = -500
 		if (e.type == "click" && tooltip.style.visibility == 'hidden' || e.type == "mouseover") {
 			this._show_handler = setTimeout("dhtml_tooltip._do_show()", this.delay_appear)
 		} else if (e.type=="click") {
@@ -25,11 +23,13 @@ var dhtml_tooltip = {
 		tooltip.y = this._get_pos_offset(obj, false)
 		tooltip.style.left = tooltip.x - this._clear_browser_edge(obj, true) + "px"
 		tooltip.style.top = tooltip.y - this._clear_browser_edge(obj, false) + obj.offsetHeight + "px"
+		return true;
 	},
 
 	hide : function() {
 		this._must_hide = true;
  		this._hide_handler = setTimeout("dhtml_tooltip._do_hide()", this.delay_disappear)
+ 		return true;
 	},
 	
 	//---Private
@@ -75,7 +75,7 @@ var dhtml_tooltip = {
 			var window_edge = is_ie ? ie_body.scrollTop + ie_body.clientHeight-15 : window.pageYOffset+window.innerHeight-18
 			var content_measure= tooltip.offsetHeight
 			if (window_edge - tooltip.y < content_measure) {
-				edge_offset = tooltip.content_measure + obj.offsetHeight
+				edge_offset = content_measure + obj.offsetHeight
 			}
 		}
 		return edge_offset

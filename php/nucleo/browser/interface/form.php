@@ -13,7 +13,7 @@ class form {
     {
         $r = "<INPUT type='text' name='$nombre' id='$nombre' maxlength='$len' size='$size' ";
         if (isset($actual)) $r .= "value='$actual' ";
-        if ($read_only) $r .= " disabled ";
+        if ($read_only) $r .= " readonly ";
         $r .= "class='$clase' $extra>\n";
         return $r;
     }

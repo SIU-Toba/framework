@@ -402,20 +402,37 @@ class objeto_ei_formulario extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 	
+	/**
+	 * @deprecated Desde 0.8.4, usar establecer_solo_lectura
+	 */
 	function deshabilitar_efs($efs=null)
-	//Establece el grupo de EFs especificados como SOLO LECTURA
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.4", "Usar set_solo_lectura");
+		$this->set_solo_lectura($efs);
+	}
+	
+	/**
+	 * Deshabilita o habilita la edición de un conjunto de efs de este formulario
+	 *
+	 * @param array $efs Conjunto de efs a deshabilitar, si es nulo se asume todos
+	 * @param boolean $readonly Deshabilita la edición (por defecto true)
+	 */
+	function set_solo_lectura($efs=null, $readonly=true)
 	{
 		if(!isset($efs)){
 			$efs = $this->lista_ef_post;
 		}
 		foreach ($efs as $ef){
 			if(isset($this->elemento_formulario[$ef])){
-				$this->elemento_formulario[$ef]->establecer_solo_lectura();						
+				if ($readonly) {
+					$this->elemento_formulario[$ef]->establecer_solo_lectura();
+				} else {
+					$this->elemento_formulario[$ef]->establecer_lectura();
+				}
 			}else{
-				$log = toba::get_logger();
-				$log->error("DESABILITAR EF: el EF '$ef' no existe");
+				throw new excepcion_toba("Deshabilitar EF: El ef '$ef' no existe");
 			}
-		}
+		}		
 	}
 	//-------------------------------------------------------------------------------
 	
@@ -429,8 +446,7 @@ class objeto_ei_formulario extends objeto_ei
 			if(isset($this->elemento_formulario[$ef])){
 				$this->elemento_formulario[$ef]->establecer_obligatorio();						
 			}else{
-				$log = toba::get_logger();
-				$log->error("DESABILITAR EF: el EF '$ef' no existe");
+				throw new excepcion_toba("El ef '$ef' no existe");
 			}
 		}
 	}
@@ -583,7 +599,7 @@ class objeto_ei_formulario extends objeto_ei
 			}
 			if ($hay_colapsado) {
 				$img = recurso::imagen_apl('expandir_vert.gif', false);
-				$colapsado = "style='cursor: hand; cursor: pointer;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
+				$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
 				echo "<tr><td class='abm-fila' style='text-align:center'>";
 				echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 				echo "</td></tr>\n";

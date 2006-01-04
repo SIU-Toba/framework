@@ -40,6 +40,11 @@ def.constructor = ef_popup;
 	def.vinculo = function () {
 		return document.getElementById(this._id_form + '_vinculo');		
 	}
+	
+	def.set_solo_lectura = function(solo_lectura) {
+		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
+		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
+	}	
 
 //--------------------------------------------------------------------------------
 //Funciones varias

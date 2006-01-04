@@ -1881,6 +1881,9 @@ DIV.doc-func-param-obligatorio {
 .ef-input-upload {
 	FONT-SIZE: 10px;
 }
+.ef-upload-desc {
+	white-space: nowrap;
+}
 .ef-textarea {
 	BORDER-RIGHT: #d4d0c8 2px solid;
 	 BORDER-TOP: #404040 2px solid;
@@ -1977,8 +1980,8 @@ TD.ci-cuerpo {
 	 COLOR: #000000;
 }
 .ei-arbol-exp-contr {
-	cursor: hand;
 	cursor: pointer;
+	cursor: hand;	
 }
 /*--------------------------------------*/
 

@@ -98,7 +98,7 @@ class js
 						break;
 					case 'interface/ef':
 						$warn = recurso::imagen_apl('error.gif', false);
-						echo "<img id='ef_warning' src='$warn' style='left: 0;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
+						echo "<img id='ef_warning' src='$warn' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
 						echo js::incluir(recurso::js("$consumo.js"));
 						break;
 					case 'subModal':

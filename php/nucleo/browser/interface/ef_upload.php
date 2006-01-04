@@ -2,7 +2,6 @@
   
 class ef_upload extends ef
 {
-
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
 		parent :: __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -10,7 +9,8 @@ class ef_upload extends ef
     
 	static function get_parametros()
 	{
-		return array();	
+		$parametros = ef::get_parametros();
+		return $parametros;
 	}
 	
 	function obtener_info()
@@ -23,31 +23,31 @@ class ef_upload extends ef
 	function obtener_input()
 	{
 		$estado = $this->obtener_estado_input();
-		
-		if (isset($estado) && $estado[0] != '') 
-		{
-			$salida = "	<script  type='text/javascript' language='javascript'>
-						function cambiar(){
-							if (document.getElementById('{$this->id_form}_check').checked == true) {
-								//Lo va a cambiar
-								document.getElementById('{$this->id_form}_desicion').style.display = 'none';
-								document.getElementById('{$this->id_form}').style.display = '';
-							} else {
-								document.getElementById('{$this->id_form}_desicion').style.display = '';
-								document.getElementById('{$this->id_form}').style.display = 'none';
-							}	
-						}
-						</script>\n";
-			$salida .= form::archivo($this->id_form, null, "ef-input-upload", "style='display:none'");
-			$salida .= 	"<div id='{$this->id_form}_desicion'> $estado[0] </div>";
-			$salida .= 	"<span style='white-space:nowrap'><input name='{$this->id_form}_check' id='{$this->id_form}_check' onclick='cambiar()' type='checkbox' value='1' class='ef-checkbox'>". 
-						"<label for='{$this->id_form}_check' style='font-weight:normal'>Cambiar el Archivo</span></label>";
-		}	
-		else {
-			$salida = form::archivo($this->id_form, $estado[0]);
-			$salida .= form::hidden($this->id_form."_check", 1);
+		if (!  $this->solo_lectura) {
+			if (isset($estado) && $estado != '') {
+				$salida = "	<script  type='text/javascript' language='javascript'>
+							function cambiar(){
+								if (document.getElementById('{$this->id_form}_check').checked == true) {
+									//Lo va a cambiar
+									document.getElementById('{$this->id_form}_desicion').style.display = 'none';
+									document.getElementById('{$this->id_form}').style.display = '';
+								} else {
+									document.getElementById('{$this->id_form}_desicion').style.display = '';
+									document.getElementById('{$this->id_form}').style.display = 'none';
+								}	
+							}
+							</script>\n";
+				$salida .= form::archivo($this->id_form, null, "ef-input-upload", "style='display:none'");
+				$salida .= 	"<div id='{$this->id_form}_desicion' class='ef-upload-desc'> $estado </div>";
+				$salida .= 	"<span style='white-space:nowrap'><input name='{$this->id_form}_check' id='{$this->id_form}_check' onclick='cambiar()' type='checkbox' value='1' class='ef-checkbox'>". 
+							"<label for='{$this->id_form}_check' style='font-weight:normal'>Cambiar el Archivo</span></label>";
+			} else {
+				$salida = form::archivo($this->id_form);
+				$salida .= form::hidden($this->id_form."_check", 1);
+			}
+		} else {
+			$salida .= "<div class='ef-upload-desc'>$estado</div>";
 		}
-		
 		return $salida;
 	}
 	

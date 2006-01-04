@@ -131,12 +131,16 @@ def.constructor = ef;
 		this.nodo().style.display = '';	
 	}
 
-	def.desactivar = function () {
-		this.input().disabled = true;
+	def.set_solo_lectura = function(solo_lectura) {
+		this.input().disabled = (typeof solo_lectura != 'undefined' && solo_lectura);
+	}
+	
+	def.desactivar = function() {
+		this.set_solo_lectura(true);
 	}
 
-	def.activar = function () {
-		this.input().disabled = false;		
+	def.activar = function() {
+		this.set_solo_lectura(false);
 	}
 	
 	

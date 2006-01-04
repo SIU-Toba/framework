@@ -30,6 +30,9 @@ mascara.prototype.attach = function (o){
 }
 
 mascara.prototype.getKeyPress = function (e, o, _u){
+	if (o.readOnly || o.disabled) {
+		return false;	
+	}
 	this.allowPartial = true;
 	var xe = new qEvent(e);
 //	var k = String.fromCharCode(xe.keyCode);

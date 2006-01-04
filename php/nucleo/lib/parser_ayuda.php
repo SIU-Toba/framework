@@ -38,7 +38,7 @@ class parser_ayuda
 	
 	protected static function parsear_wiki($id, $nombre)
 	{
-		$url = recurso::path_apl()."/doc/wiki/trac/toba/wiki/$id";
+		$url = recurso::path_apl()."/doc/wiki/trac/toba/wiki/$id.html";
 		$img = recurso::imagen_apl("wiki.gif", true);
 		return "<span style='white-space: nowrap'><a href='$url'  target='blank'>$nombre</a>$img</span>";
 	}

@@ -155,7 +155,7 @@ class recurso {
 			$ayuda .= $ayuda_extra;
 			$ayuda = parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-			$ayuda = str_replace(array("\"", "'"), "\'", $ayuda);
+			$ayuda = str_replace(array("\"", "'"), "`", $ayuda);
 			$a = " class='ayuda $clases_css' onmouseover=\"return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"return dhtml_tooltip.hide();\" ";
 		} else {
 			$a .= " title='$ayuda_extra'";

@@ -16,12 +16,10 @@ class tp_normal extends tp_basico
 				background-color: lightyellow;
 				visibility: hidden;
 				z-index: 100;
-				/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
-				filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
 			}
 			#dhtml_tooltip_div{
 			 position:absolute;
-			 width: 250px;
+			 width: 200px;
 			 visibility:hidden;
 			 background-color: lightyellow;			 
 			 padding: 2px;

@@ -499,6 +499,17 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);		
 	}
 	
+	function crear_objeto_js()
+	{
+		return "new ef_multi_seleccion_check({$this->parametros_js()})";
+	}	
+	
+	function obtener_consumo_javascript()
+	{
+		$consumos = array('interface/ef', 'interface/ef_multi_seleccion');
+		return $consumos;
+	}	
+	
 	function obtener_input()
 	{
 		$estado = isset($this->estado) ?  $this->estado : array();
@@ -526,11 +537,15 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 							if (elem.length) {
 								//Si son muchos elementos
 								for (var i=0; i < elem.length; i++) {
-									elem[i].checked = todos;
+									if (! elem[i].disabled) {
+										elem[i].checked = todos;
+									}
 								}
 							} else {
 								//Es uno unico
-								elem.checked = todos;
+								if (! elem[i].disabled) {								
+									elem.checked = todos;
+								}
 							}
 						}
 					</script>
