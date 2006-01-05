@@ -1,7 +1,4 @@
 <?
-require_once("includes.php");
-require_once("dba.php");
-
 /**
 	Esta clase seria la responsable de administrar una instancia
 
@@ -11,10 +8,14 @@ require_once("dba.php");
 		- Validar (info_proyectos, info_bases_modulos)
 		- Exportar la instancia
 		- Importar la instancia
-
 */
+
 class instancia
 {
+	const prefijo_dir_instancia = 'i__';
+	const prefijo_dir_proyecto = 'p__';
+	const archivo_datos = 'datos.sql';
+	const archivo_logs = 'logs.sql';
 	private $id;
 	
 	function __construct($identificador)
@@ -24,24 +25,12 @@ class instancia
 	
 	/* Creacion de una instancia TOBA */
 	
-	function crear()
+	static function crear($id, $base, $proyectos)
 	{
-		//dba::crear_base_datos("juan");
-		//dba::borrar_base_datos("juan");
-		if( dba::existe_base_datos("juan") ){
-			echo "TODO OK";	
-		}
+		
+		
+		
 	}
-
-	function get_info()
-	{
-		$bases = array('toba2','toba_agentes','toba2','toba_agentes');
-		foreach($bases as $base){
-			$db = dba::get_db($base);
-		}
-	}
-
-	
 	
 }
 ?>

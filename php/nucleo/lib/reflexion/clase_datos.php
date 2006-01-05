@@ -21,7 +21,7 @@ class clase_datos
 	
 	function agregar_metodo_datos($nombre, $datos)
 	{
-		$php = "\tfunction $nombre()\n\t{\n";
+		$php = "\tstatic function $nombre()\n\t{\n";
 		//$php .= dump_array_php($datos, "\t\t\$datos");
 		//$php .= "\t\treturn \$datos;\n";
 		$php .= "\t\treturn " . var_export( $datos, true) . ";\n";

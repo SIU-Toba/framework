@@ -1,4 +1,5 @@
 <?
+require_once('modelo/instancia.php');
 require_once('modelo/proceso_toba.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('nucleo/lib/manejador_archivos.php');
@@ -9,21 +10,19 @@ require_once('nucleo/lib/manejador_archivos.php');
 */
 class exportador_instancia extends proceso_toba
 {
-	const archivo_datos_instancia = 'datos.sql';
-	const archivo_logs_instancia = 'logs.sql';
 	protected $dir_instancia;
 	protected $lista_proyectos = array();
 	
 	function __construct( $raiz, $instancia )
 	{
 		parent::__construct( $raiz, $instancia );
-		$this->dir_instancia = $this->dir_raiz . '/php/instalacion/i_' . $this->instancia;
+		$this->dir_instancia = $this->dir_raiz . '/instalacion/' . instancia::prefijo_dir_instancia . $this->instancia;
 		if( ! is_dir( $this->dir_instancia ) ) {
 			throw new excepcion_toba("Exportador de Instancia: la carpeta '{$this->dir_instancia}' no existe");
 		}
 		//Recupero la lista de proyectos incluidos en la instancia
-		require_once( $this->dir_instancia . '/info_proyectos.php' );
-		$this->lista_proyectos = info_proyectos::get_lista();
+		require_once( $this->dir_instancia . '/info_instancia.php' );
+		$this->lista_proyectos = info_instancia::get_lista_proyectos();
 	}
 
 	function procesar( $argumentos )
@@ -40,9 +39,9 @@ class exportador_instancia extends proceso_toba
 	function exportar_global()
 	{
 		$this->interface->titulo( "Exportar informacion global" );
-		$this->exportar_tablas( 'get_lista_global', exportador_instancia::archivo_datos_instancia );	
+		$this->exportar_tablas( 'get_lista_global', instancia::archivo_datos );	
 		$this->interface->titulo( "Exportar logs globales" );
-		$this->exportar_tablas( 'get_lista_global_log', exportador_instancia::archivo_logs_instancia );	
+		$this->exportar_tablas( 'get_lista_global_log', instancia::archivo_logs );	
 	}
 
 	function exportar_tablas( $metodo_lista_tablas, $nombre_archivo )
@@ -73,13 +72,13 @@ class exportador_instancia extends proceso_toba
 		}
 		foreach( $proyectos as $proyecto ) {
 			$this->interface->titulo( "Exportar proyecto: $proyecto" );
-			$dir_proyecto = $this->dir_instancia . '/' . $proyecto;
+			$dir_proyecto = $this->dir_instancia . '/' . instancia::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 	'get_lista_proyecto', 
-												$dir_proyecto .'/' . exportador_instancia::archivo_datos_instancia, 
+												$dir_proyecto .'/' . instancia::archivo_datos, 
 												$proyecto );	
 			$this->exportar_tablas_proyecto( 	'get_lista_proyecto_log',
-												$dir_proyecto .'/' . exportador_instancia::archivo_logs_instancia,
+												$dir_proyecto .'/' . instancia::archivo_logs,
 												$proyecto );	
 		}
 	}
@@ -99,9 +98,8 @@ class exportador_instancia extends proceso_toba
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 					" FROM $tabla dd" .
 					" WHERE $where " .
-					//" WHERE {$definicion['dump_clave_proyecto']} = '{$this->proyecto}' " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
-			//$this->interface->mensaje( $sql );
+			$this->interface->mensaje( $sql );
 			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
