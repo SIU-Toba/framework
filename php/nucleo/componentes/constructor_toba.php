@@ -39,7 +39,7 @@ class constructor_toba
 	}
 
 	/**
-	 * Retorna el objeto-php que representa un runtime de un componente-toba
+	 * Retorna un objeto de consultas sobre un componente-toba
 	 *
 	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos

@@ -72,7 +72,26 @@ class casos_web extends objeto_ci
 				    }
 				}		
 				if ($hay_uno) {
-					$test->run(new reporter_toba());			
+					if (function_exists("xdebug_start_code_coverage")) {
+					    xdebug_start_code_coverage();
+					}
+					$test->run(new reporter_toba());
+					if (function_exists("xdebug_start_code_coverage")) {
+						require_once('PHPUnit2/Util/CodeCoverage/Renderer.php');
+						$cubiertos = xdebug_get_code_coverage();
+						//Se limpian las referencias a simpletest
+						$archivos = array();
+						foreach (array_keys($cubiertos) as $archivo) {
+							if (! strpos($archivo, 'simpletest') 
+									&&  ! strpos($archivo, 'PHPUnit')
+									&& ! strpos($archivo,'testing_automatico/')
+									&& ! strpos($archivo, '/test_')) {
+								$archivos[$archivo] = $cubiertos[$archivo];
+							}
+						}
+					    $cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
+					    $cc->renderToFile('cov.html');
+					}
 				}
 			}
 		} catch (Exception $e) {

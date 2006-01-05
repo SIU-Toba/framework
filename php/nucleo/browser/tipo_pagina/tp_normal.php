@@ -23,9 +23,10 @@ class tp_normal extends tp_basico
 			 visibility:hidden;
 			 background-color: lightyellow;			 
 			 padding: 2px;
-			 border:1px solid black;
+			 border: 1px solid black;
 			 line-height:18px;
 			 z-index:100;
+			 white-space: nowrap;
 			 }			
 		</style>			
 		<?php

@@ -79,6 +79,7 @@ class test_reflexion extends test_toba
 		//Se genera la subclase
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
+		$clase->set_meta_clase( new info_componente(array()));
 		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente
@@ -116,6 +117,7 @@ class test_reflexion extends test_toba
 		$archivo = new archivo_php($this->path_hijo());
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
+		$clase->set_meta_clase( new info_componente(array()));		
 		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente
@@ -146,6 +148,7 @@ class test_reflexion extends test_toba
 		$archivo = new archivo_php($this->path_hijo());
 		$padre = new archivo_php($this->path_padre());
 		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
+		$clase->set_meta_clase( new info_componente(array()));		
 		$clase->generar($this->generar_todo()); 
 
 		//Se incluyen y se verifica que funcionan correctamente

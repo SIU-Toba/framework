@@ -114,7 +114,7 @@ class info_ci extends info_ei
 		if (count($this->subelementos)>0) {
 			$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
 			foreach ($this->subelementos as $elemento) {
-				$es_ei = ($elemento instanceof elemento_objeto_ei) && !($elemento instanceof elemento_objeto_ci);
+				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
 				if ($es_ei) {
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {

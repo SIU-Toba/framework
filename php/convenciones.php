@@ -36,7 +36,7 @@ class nombre_clase extends clase_padre
 	}
 	
 	/**
-	 * Descripcion javadoc del método
+	 * Descripción javadoc del método
 	 * @param array $nombre_significativo Descripción del parámetro
 	 * Los parametros obvios no se documentan
 	 * @return boolean Descripción del retorno

@@ -28,7 +28,6 @@ class test_asignador_objetos extends test_toba
 		//Setup
 		$item_destino = array('tipo' => 'item', 'objeto' =>'1240', 'proyecto' => 'toba_testing');
 		
-
 		//Test
 		$asignador = new asignador_objetos($this->objeto_creado, $item_destino);
 		$asignador->asignar();
@@ -43,6 +42,8 @@ class test_asignador_objetos extends test_toba
 	*/	
 	function test_asignar_a_ci()
 	{
+		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+											'objeto_ci');		
 		//Setup
 		$ci_destino = array('tipo' => 'ci',
 							'objeto' =>'1605', 
@@ -54,7 +55,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$obj = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'objeto_ci');		
 		$hijos = $obj->hijos();
 		$this->assertEqual($hijos[2]->id(), '1606');
@@ -66,23 +67,25 @@ class test_asignador_objetos extends test_toba
 	*/		
 	function test_asignar_a_pantalla_ci_sin_objetos_previos()
 	{
+		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+											'objeto_ci');			
 		//Setup
 		$ci_destino = array('tipo' => 'ci_pantalla',
 							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
-							'pantalla' => '470');
+							'pantalla' => '970');
 
 		//Test
 		$asignador = new asignador_objetos($this->objeto_creado, $ci_destino);
 		$asignador->asignar();
 
 		//Validacion
-		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1605');
+		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+											'objeto_ci');			
 		$hijos = $obj->hijos();
 		$this->assertEqual(count($obj->hijos()), 2);		//Tiene dos pantallas
-		$pantalla = $hijos[0];
+		$pantalla = $hijos[1];
 		$this->assertEqual(count($pantalla->hijos()), 1);
 		
 	}
@@ -97,19 +100,19 @@ class test_asignador_objetos extends test_toba
 							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
-							'pantalla' => '471');
+							'pantalla' => '960');
 
 		//Test
 		$asignador = new asignador_objetos( $this->objeto_creado, $ci_destino);
 		$asignador->asignar();
 
 		//Validacion
-		$obj = new elemento_objeto_ci();
-		$obj->cargar_db('toba_testing', '1605');
+		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+											'objeto_ci');
 		$hijos = $obj->hijos();
 		$this->assertEqual(count($obj->hijos()), 2);		//Tiene dos pantallas
-		$pantalla = $hijos[1];
-		$this->assertEqual($pantalla->id(), 'un_objeto');
+		$pantalla = $hijos[0];
+		$this->assertEqual($pantalla->id(), 'pantalla1');
 		$this->assertEqual(count($pantalla->hijos()), 2);		
 	}
 }
