@@ -1,4 +1,4 @@
 @echo off
-set toba_dir=c:\toba_componentes
-cd %toba_dir%\php\nucleo\consola
+rem set toba_dir=c:\toba_trunk
+cd %toba_dir%\php\consola
 php run.php %*

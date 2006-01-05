@@ -4,8 +4,6 @@
 		- Escuchar al usuario o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
 		- interprete
-		- lista de operaciones desdobladas de las clases.
-
 */
 require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
@@ -22,7 +20,7 @@ class consola_toba
 {
 	private $instancia = 'desarrollo';
 	private $proyecto = 'toba';
-	private $ubicacion_procesos = 'modelo/procesos';
+	private $ubicacion_procesos = 'consola/comandos';
 	private $dir_raiz;
 	private $dir_procesos;
 	
@@ -39,42 +37,40 @@ class consola_toba
 		cronometro::instancia()->marcar('Inicio proceso.');
 		if ( count($argumentos) > 0 ) {
 			try {
-				$proceso = $argumentos[0];
-				array_shift($argumentos);
-				$this->invocar_proceso( $proceso, $argumentos );
+				$comando = $argumentos[0];
+				array_shift( $argumentos );
+				$this->invocar_comando( $comando, $argumentos );
 			} catch (excepcion_toba $e ) {
-				echo $e->getMessage();	
+				echo "\n ". $e->getMessage() ."\n\n";	
 				$this->mostrar_menu();
 			}
 		} else {
 			//Aca se tendria que abrir el INTERPRETE
+			echo "\n SIU-TOBA ( Ambiente de desarrollo WEB )\n\n";
 			$this->mostrar_menu();
 		}
 		cronometro::instancia()->marcar('Fin proceso.');
 		$this->mostrar_resumen();
 	}
 
-	function invocar_proceso($id_proceso, $argumentos)
+	function invocar_comando($nombre_comando, $argumentos)
 	{
-		if (in_array($id_proceso, $this->get_procesos_disponibles() )) {
-			require_once( $this->ubicacion_procesos .'/'.$id_proceso.'.php');
-			$proceso = new $id_proceso( $this->dir_raiz, $this->instancia, $this->proyecto );
-			$proceso->set_interface_usuario( $this );
-			try{
-				$proceso->procesar( $argumentos );		
-			} catch (excepcion_toba $e) {
-				echo "Error ejecutando el proceso.\n" . $e->getMessage();	
-			}
+		$clase_comando = 'comando_' . $nombre_comando;
+		if ( in_array( $clase_comando, $this->get_comandos_disponibles() ) ) {
+			require_once( $this->ubicacion_procesos .'/'.$clase_comando.'.php');
+			$comando = new $clase_comando( $this );
+			$comando->set_argumentos( $argumentos );			
+			$comando->procesar();
 		} else {
-			throw new excepcion_toba("ERROR: El PROCESO '$id_proceso' no existe\n");
+			throw new excepcion_toba("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
 
-	function get_procesos_disponibles()
+	function get_comandos_disponibles()
 	{
 		if ($dir = opendir($this->dir_procesos)) {	
 		   while (false	!==	($archivo = readdir($dir)))	{ 
-				if(preg_match('%.*\.php%',$archivo)){
+				if(preg_match('%comando_.*\.php%',$archivo)){
 					$temp = explode('.',$archivo);
 					$procesos[] = $temp[0];
 				}
@@ -82,6 +78,23 @@ class consola_toba
 		   closedir($dir); 
 		}
 		return $procesos;	
+	}
+	
+	function get_info_comandos()
+	{
+		$info = array();
+		$comandos = $this->get_comandos_disponibles();
+		foreach( $comandos as $comando )
+		{
+			require_once( 'comandos/' . $comando . '.php' );
+			$info[$comando] = call_user_func( array( $comando, 'get_info') );
+		}
+		return $info;
+	}
+	
+	function get_dir_raiz()
+	{
+		return $this->dir_raiz;	
 	}
 
 /*
@@ -102,6 +115,12 @@ class consola_toba
 	// Interface grafica
 	//----------------------------------------------
 
+	function separador($texto)
+	{
+		if($texto!="") $texto = "   $texto   ";
+		echo "\n\n===$texto============================================================\n\n";
+	}
+	
 	function titulo( $texto )
 	{
 		echo "=====================================================\n";
@@ -113,11 +132,25 @@ class consola_toba
 	{
 		echo $texto . "\n";
 	}
+
+	function alerta($texto)
+	{
+		echo "*** ATENCION ***  $texto \n";
+	}
 	
 	function mostrar_menu()
 	{
-		echo "TOBA: Comandos disponibles\n";
-		print_r( $this->get_procesos_disponibles() );
+		$maximo_largo_nombre = 30;
+		echo " Comandos disponibles\n";
+		echo " --------------------\n\n";
+		foreach ( $this->get_info_comandos() as $comando => $info ) {
+			$temp = explode('_', $comando);
+			$nombre = $temp[1];
+			echo ' ';
+			echo str_pad( $nombre, $maximo_largo_nombre, ' ' );
+			echo $info;
+			echo "\n";
+		}
 	}
 
 	function mostrar_resumen()
@@ -129,5 +162,21 @@ class consola_toba
 		//echo "=================================\n";
 		//print_r( $c->get_marcas() );
 	}
+	
+	//----------------------------------------------
+	// Interaccion con el usuario
+	//----------------------------------------------
+
+	function dialogo_simple($texto)
+	{
+		echo "$texto (Si o No)\n";
+		do {
+			echo "(s/n):";
+			$respuesta = trim( fgets( STDIN ) );
+			$ok = ($respuesta == 's') || ( $respuesta == 'n');
+		} while ( ! $ok );
+		if( $respuesta == 's') return true;
+		return false;
+	}	
 }
 ?>

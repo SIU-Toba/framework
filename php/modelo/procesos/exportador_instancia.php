@@ -16,7 +16,7 @@ class exportador_instancia extends proceso_toba
 	function __construct( $raiz, $instancia )
 	{
 		parent::__construct( $raiz, $instancia );
-		$this->dir_instancia = $this->dir_raiz . '/instalacion/' . instancia::prefijo_dir_instancia . $this->instancia;
+		$this->dir_instancia = $this->dir_raiz . '/instalacion/' . instalacion::instancia_prefijo . $this->instancia;
 		if( ! is_dir( $this->dir_instancia ) ) {
 			throw new excepcion_toba("Exportador de Instancia: la carpeta '{$this->dir_instancia}' no existe");
 		}
@@ -38,13 +38,15 @@ class exportador_instancia extends proceso_toba
 
 	function exportar_global()
 	{
+		$dir_global = $this->dir_instancia . '/' . instancia::dir_datos_globales;
+		manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->interface->titulo( "Exportar informacion global" );
-		$this->exportar_tablas( 'get_lista_global', instancia::archivo_datos );	
+		$this->exportar_tablas( 'get_lista_global', $dir_global .'/' . instancia::archivo_datos );	
 		$this->interface->titulo( "Exportar logs globales" );
-		$this->exportar_tablas( 'get_lista_global_log', instancia::archivo_logs );	
+		$this->exportar_tablas( 'get_lista_global_log', $dir_global .'/' . instancia::archivo_logs );	
 	}
 
-	function exportar_tablas( $metodo_lista_tablas, $nombre_archivo )
+	function exportar_tablas( $metodo_lista_tablas, $path )
 	{
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$this->interface->mensaje( "Tabla: $tabla." );
@@ -59,7 +61,7 @@ class exportador_instancia extends proceso_toba
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $this->dir_instancia .'/'. $nombre_archivo , $contenido );			
+			file_put_contents( $path  , $contenido );			
 		}
 	}
 

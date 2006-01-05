@@ -15,7 +15,7 @@ if (isset($_SERVER['toba_dir'])) {
 //----------------------------------------------
 // Invoco la consola
 //----------------------------------------------
-require_once('nucleo/consola/consola_toba.php');
+require_once('consola/consola_toba.php');
 $consola = new consola_toba( $_SERVER['toba_dir'] );
 array_shift($argv);
 $consola->run( $argv );

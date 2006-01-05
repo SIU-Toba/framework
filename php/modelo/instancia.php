@@ -12,7 +12,7 @@
 
 class instancia
 {
-	const prefijo_dir_instancia = 'i__';
+	const dir_datos_globales = 'global';
 	const prefijo_dir_proyecto = 'p__';
 	const archivo_datos = 'datos.sql';
 	const archivo_logs = 'logs.sql';
@@ -25,12 +25,7 @@ class instancia
 	
 	/* Creacion de una instancia TOBA */
 	
-	static function crear($id, $base, $proyectos)
-	{
-		
-		
-		
-	}
+
 	
 }
 ?>

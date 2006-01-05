@@ -2,5 +2,5 @@
 #
 #	Disparo la consola!!!
 #
-cd $toba_dir/php/nucleo/consola
+cd $toba_dir/php/consola
 php run.php $*
