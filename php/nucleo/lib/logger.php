@@ -216,7 +216,7 @@ class logger
 	
 	function directorio_logs()
 	{
-		return toba_dir()."/instalacion/logs";
+		return toba_dir()."/logs";
 	}	
 	
 	function guardar_en_archivo($archivo)
