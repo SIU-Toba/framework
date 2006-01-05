@@ -183,7 +183,7 @@
 				if ($es_objeto)
 					$valor_js = $valor;
 				else
-					$valor_js = "'$valor'";
+					$valor_js = "\"$valor\"";
 				$js .= "$nombre"."['$id'] = $valor_js;\n";	
 			}
 		}
