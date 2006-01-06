@@ -247,22 +247,18 @@ class hilo
 		}
 	}
 	
+	/**
+	 * Retorna path real y URL de la carpeta navegable del proyecto actual
+	 * @return array Path 'real' (en el sist.arch.) y 'browser' (URL navegable)
+	 */
 	function obtener_proyecto_path_www($archivo="")
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve el PATH del PROYECTO
-	@@param: string | Subcarpeta que desea ubicarse
-	@@retorno: array | Path real y relativo al browser
-*/
 	{
-		if($_SESSION['toba']["proyecto"]["nombre"]=="toba"){
-			$path_real = $_SESSION['toba']["path"];
-		}else{
-			$path_real = $_SESSION['toba']["path_proyecto"];
-		}
+		$path_real = $this->obtener_path();
 		$path_real = $path_real . "/www/" . $archivo;
-		$path_browser = recurso::preambulo() . "/" .
-						$_SESSION['toba']["proyecto"]["nombre"] . "/" . $archivo;
+		$path_browser = recurso::path_pro();
+		if ($archivo != "") {
+		 	$path_browser .= "/" . $archivo;
+		}
 		return array(	"real" => $path_real,
 						"browser" => $path_browser);
 	}
@@ -280,7 +276,7 @@ class hilo
 	 */
 	function obtener_path_temp_www()
 	{
-		$path = $this->obtener_proyecto_path()."/temp/";
+		$path = $this->obtener_proyecto_path_www("temp");
 		if (!file_exists($path['real'])) {
 			mkdir($path['real'], 0700);
 		}

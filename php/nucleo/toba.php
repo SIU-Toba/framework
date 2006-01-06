@@ -1,10 +1,9 @@
 <?
 require_once('nucleo/nucleo_toba.php');
 
-/*
-	Obtencion de referencias a los objetos centrales del TOBA
-*/
-
+/**
+ * Obtencion de referencias a los objetos centrales del TOBA
+ */
 class toba
 {
 	static function get_nucleo()
@@ -12,38 +11,42 @@ class toba
 		return nucleo_toba::instancia();
 	}
 	
-	function get_solicitud()
+	static function get_solicitud()
 	{
 		return nucleo_toba::instancia()->get_solicitud();	
 	}
 	
-	function get_vinculador()
+	static function get_vinculador()
 	{
 		return toba::get_solicitud()->vinculador;
 	}
 	
-	function get_hilo()
+	/**
+	 * @return hilo
+	 */
+	static function get_hilo()
 	{
-		if (isset(toba::get_solicitud()->hilo))
+		if (isset(toba::get_solicitud()->hilo)) {
 			return toba::get_solicitud()->hilo;
+		}
 	}
 	
 	/**
 	*	Retorna el logger de eventos de toba
 	*	@return logger
 	*/
-	function get_logger()
+	static function get_logger()
 	{
 		return logger::instancia();
 	}
 
-	function get_cola_mensajes()
+	static function get_cola_mensajes()
 	{
 		global $solicitud;
 		return $solicitud->cola_mensajes;
 	}
 
-	function get_fuente($fuente, $ado=null)
+	static function get_fuente($fuente, $ado=null)
 	{
 		global $db, $ADODB_FETCH_MODE;	
 		if(isset($ado)){
@@ -57,17 +60,17 @@ class toba
 		return $db[$fuente];
 	}
 	
-	function get_db($fuente, $ado=null)
+	static function get_db($fuente, $ado=null)
 	{
 		return dba::get_db($fuente);
 	}
 
-	function get_encriptador()
+	static function get_encriptador()
 	{
 		return encriptador::instancia();	
 	}
 
-	function get_cronometro()
+	static function get_cronometro()
 	{
 		return cronometro::instancia();	
 	}

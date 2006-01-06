@@ -72,14 +72,20 @@ class casos_web extends objeto_ci
 				    }
 				}		
 				if ($hay_uno) {
+					
+					//--- COBERTURA DE CODIGO (OPCIONAL) ----					
 					if (function_exists("xdebug_start_code_coverage")) {
 					    xdebug_start_code_coverage();
 					}
+					//-------
+										
 					$test->run(new reporter_toba());
+					
+					//--- COBERTURA DE CODIGO (OPCIONAL) ----
 					if (function_exists("xdebug_start_code_coverage")) {
 						require_once('PHPUnit2/Util/CodeCoverage/Renderer.php');
 						$cubiertos = xdebug_get_code_coverage();
-						//Se limpian las referencias a simpletest
+						//Se limpian las referencias a simpletest y a librerias de testing en gral.
 						$archivos = array();
 						foreach (array_keys($cubiertos) as $archivo) {
 							if (! strpos($archivo, 'simpletest') 
@@ -90,8 +96,12 @@ class casos_web extends objeto_ci
 							}
 						}
 					    $cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
-					    $cc->renderToFile('cov.html');
+					    $path_temp = toba::get_hilo()->obtener_path_temp_www();
+					    $salida = $path_temp['real'] ."/cobertura.html";
+					    $cc->renderToFile($salida);
+					    echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
 					}
+					//-------
 				}
 			}
 		} catch (Exception $e) {
