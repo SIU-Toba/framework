@@ -345,12 +345,16 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 	
 	function javascript_slave_recargar_datos()
 	{
+		$solo_lect = "";
+		if (! $this->solo_lectura) {
+			$solo_lect = "s_.readOnly = false;";
+		}
 		return "
 		function recargar_slave_{$this->id_form}(dato)
 		{
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.value = dato;
-			s_.disabled = false;
+			$solo_lect
 			s_.focus();
 			atender_proxima_consulta();
 		}
@@ -364,7 +368,7 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 		function reset_{$this->id_form}()
 		{
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
-			s_.disabled = true;
+			s_.readOnly = true;
 			s_.value = '';\n";
 			
 		//Reseteo las dependencias	
