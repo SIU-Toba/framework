@@ -1,6 +1,6 @@
 <?php
 
-    function parsear_propiedades($texto)
+    function parsear_propiedades( $texto )
     //Toma como entrada un texto tipo CSS (propiedad: valor;)
     //y devuelve un array asociativo $resultado[propiedad] = valor
     {
@@ -24,9 +24,8 @@
 			return null;
 		}
     }
-	//-------------------------------------------------------------------------------
 
-	function empaquetar_propiedades($array)
+	function empaquetar_propiedades( $array )
 	{
 		foreach($array as $clave => $valor){
 			$filas[] = "$clave: $valor";
@@ -35,9 +34,7 @@
 		return $texto;
 	}
 
-	//-------------------------------------------------------------------------------
-
-	function parsear_propiedades_array($texto)
+	function parsear_propiedades_array( $texto )
 	//Parsea cadenas que poseen el nombre del atributo, ":" y depues
 	//una lista de elementos separados por comas que conforman un array
 	{
@@ -60,5 +57,17 @@
 			return null;
 		}
 	}
-	//-------------------------------------------------------------------------------
+	
+	function parsear_doc_comment( $com )
+	{
+	    $com = preg_replace("/(^[\\s]*\\/\\*\\*)
+	                                 |(^[\\s]\\*\\/)
+	                                 |(^[\\s]*\\*?\\s)
+	                                 |(^[\\s]*)
+	                                 |(^[\\t]*)/ixm", "", $com);
+	    $com = str_replace("\r", "", $com);
+	    $com = trim(preg_replace("/([\\t])+/", "\t", $com));
+		$com = trim(preg_replace("/\\*\\//", "", $com));	    
+		return $com;
+	}
 ?>

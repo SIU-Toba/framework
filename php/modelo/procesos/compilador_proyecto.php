@@ -3,7 +3,7 @@ require_once('modelo/proceso_toba.php');
 require_once('nucleo/componentes/catalogo_toba.php');
 require_once('nucleo/componentes/cargador_toba.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
-require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/manejador_archivos.php');zz
 
 class compilador_proyecto extends proceso_toba
 {

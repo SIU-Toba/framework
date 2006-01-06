@@ -144,14 +144,8 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function obtener_desc_sumarizacion($texto)
 	{
-	    $desc = preg_replace("/(^[\\s]*\\/\\*\\*)
-	                                 |(^[\\s]\\*\\/)
-	                                 |(^[\\s]*\\*?\\s)
-	                                 |(^[\\s]*)
-	                                 |(^[\\t]*)/ixm", "", $texto);
-	    $desc = str_replace("\r", "", $desc);
-	    $desc = trim(preg_replace("/([\\t])+/", "\t", $desc));
-		return isset($desc)? $desc : 'Descripcion no definida';
+	    $desc =  parsear_doc_comment( $texto );
+		return trim($desc != '')? $desc : 'Descripcion no definida';
 	}
 	
 	function destruir()

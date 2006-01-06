@@ -13,23 +13,44 @@ require_once("nucleo/lib/sql.php");					//Libreria de manipulacion del SQL
 require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA
 require_once("nucleo/lib/logger.php");				//Logger
 require_once("nucleo/lib/asercion.php");       	   	//Aserciones
+require_once("nucleo/lib/parseo.php");       	   	//Parseo
+require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
+require_once("interface_usuario.php");
 
 define('apex_pa_instancia','desarrollo');
 
-class consola_toba
+class consola_toba implements interface_usuario
 {
+	const display_ancho = 80;
+	const display_coleccion_espacio_nombre = 25;
+	const display_prefijo_linea = ' ';
+	const ubicacion_comandos = 'consola/comandos';
 	private $instancia = 'desarrollo';
 	private $proyecto = 'toba';
-	private $ubicacion_procesos = 'consola/comandos';
 	private $dir_raiz;
-	private $dir_procesos;
+	private $dir_comandos;
 	
 	function __construct( $dir_raiz )
 	{
 		//Apuntar el include PATH
 		$this->dir_raiz = $dir_raiz;
-		$this->dir_procesos = $this->dir_raiz . '/php/' . $this->ubicacion_procesos;
+		$this->dir_comandos = $this->dir_raiz . '/php/' . self::ubicacion_comandos;
 		cronometro::instancia()->marcar('Consola online');
+	}
+
+	function get_dir_raiz()
+	{
+		return $this->dir_raiz;	
+	}
+
+	function get_instancia()
+	{
+		return $this->instancia;	
+	}
+
+	function get_proyecto()
+	{
+		return $this->proyecto;	
 	}
 	
 	function run( $argumentos )
@@ -41,12 +62,12 @@ class consola_toba
 				array_shift( $argumentos );
 				$this->invocar_comando( $comando, $argumentos );
 			} catch (excepcion_toba $e ) {
-				echo "\n ". $e->getMessage() ."\n\n";	
+				$this->mensaje( $e->getMessage() );	
 				$this->mostrar_menu();
 			}
 		} else {
 			//Aca se tendria que abrir el INTERPRETE
-			echo "\n SIU-TOBA ( Ambiente de desarrollo WEB )\n\n";
+			$this->titulo("SIU-TOBA ( Ambiente de desarrollo WEB )");
 			$this->mostrar_menu();
 		}
 		cronometro::instancia()->marcar('Fin proceso.');
@@ -57,7 +78,7 @@ class consola_toba
 	{
 		$clase_comando = 'comando_' . $nombre_comando;
 		if ( in_array( $clase_comando, $this->get_comandos_disponibles() ) ) {
-			require_once( $this->ubicacion_procesos .'/'.$clase_comando.'.php');
+			require_once( self::ubicacion_comandos .'/'.$clase_comando.'.php');
 			$comando = new $clase_comando( $this );
 			$comando->set_argumentos( $argumentos );			
 			$comando->procesar();
@@ -65,36 +86,43 @@ class consola_toba
 			throw new excepcion_toba("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
-
+	
 	function get_comandos_disponibles()
 	{
-		if ($dir = opendir($this->dir_procesos)) {	
+		if ($dir = opendir( $this->dir_comandos ) ) {	
 		   while (false	!==	($archivo = readdir($dir)))	{ 
 				if(preg_match('%comando_.*\.php%',$archivo)){
 					$temp = explode('.',$archivo);
-					$procesos[] = $temp[0];
+					$comandos[] = $temp[0];
 				}
 		   } 
 		   closedir($dir); 
 		}
-		return $procesos;	
+		return $comandos;	
 	}
 	
 	function get_info_comandos()
 	{
 		$info = array();
-		$comandos = $this->get_comandos_disponibles();
+		$comandos = $this->get_comandos_activos();
 		foreach( $comandos as $comando )
 		{
+			$comando = 'comando_' . $comando;
 			require_once( 'comandos/' . $comando . '.php' );
 			$info[$comando] = call_user_func( array( $comando, 'get_info') );
 		}
 		return $info;
 	}
 	
-	function get_dir_raiz()
+	function get_comandos_activos()
 	{
-		return $this->dir_raiz;	
+		return array(
+						'instancia',
+						'proyecto',
+						'instalacion',
+						'conversion',
+						'nucleo'
+					);	
 	}
 
 /*
@@ -115,52 +143,100 @@ class consola_toba
 	// Interface grafica
 	//----------------------------------------------
 
-	function separador($texto)
-	{
-		if($texto!="") $texto = "   $texto   ";
-		echo "\n\n===$texto============================================================\n\n";
-	}
-	
-	function titulo( $texto )
-	{
-		echo "=====================================================\n";
-		echo "==  $texto\n";
-		echo "=====================================================\n";
-	}
-
-	function mensaje( $texto )
-	{
-		echo $texto . "\n";
-	}
-
-	function alerta($texto)
-	{
-		echo "*** ATENCION ***  $texto \n";
-	}
-	
 	function mostrar_menu()
 	{
-		$maximo_largo_nombre = 30;
-		echo " Comandos disponibles\n";
-		echo " --------------------\n\n";
+		// Armo la coleccion de comandos
+		$comandos = array();
 		foreach ( $this->get_info_comandos() as $comando => $info ) {
 			$temp = explode('_', $comando);
-			$nombre = $temp[1];
-			echo ' ';
-			echo str_pad( $nombre, $maximo_largo_nombre, ' ' );
-			echo $info;
-			echo "\n";
+			$comandos[ $temp[1] ] = $info;
 		}
+		// Muestro la lista
+		$this->subtitulo("Comandos disponibles");
+		$this->coleccion( $comandos );
 	}
 
 	function mostrar_resumen()
 	{
-		echo "\n____________________________________\n";
+		echo "\n";
+		$this->linea_completa( null, '_');
 		$c = cronometro::instancia();
 		$tiempo = number_format($c->tiempo_acumulado(),3,",",".");
-		echo "TIEMPO: $tiempo segundos\n";
-		//echo "=================================\n";
+		$this->mensaje("TIEMPO: $tiempo segundos");
 		//print_r( $c->get_marcas() );
+	}
+
+	//----------------------------------------------
+	// Primitivas de display
+	//----------------------------------------------
+
+	function separador( $texto='' )
+	{
+		if($texto!='') $texto = "--  $texto  ";
+		echo "\n";
+		$this->linea_completa( $texto, '-');
+		echo "\n";
+	}
+
+	function titulo( $texto )
+	{
+		echo "\n";
+		$this->linea_completa( null, '*' );
+		$this->linea_completa( "***  $texto  ", '*' );
+		$this->linea_completa( null, '*' );
+		echo "\n";
+	}
+	
+	function subtitulo( $texto )
+	{
+		echo self::display_prefijo_linea . $texto . "\n";
+		echo self::display_prefijo_linea . str_repeat('-', strlen( $texto ) ) ;
+		echo "\n\n";
+	}
+
+	function mensaje( $texto )
+	{
+		$lineas = separar_texto_lineas( $texto, self::display_ancho );
+		foreach( $lineas as $linea ) {
+			echo self::display_prefijo_linea . $linea . "\n";
+		}
+	}
+
+	/*
+	* Imprime un error en la error estandar
+	*/
+	function error( $texto )
+	{
+		$lineas = separar_texto_lineas( $texto, self::display_ancho );
+		foreach( $lineas as $linea ) {
+			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );
+		}
+	}
+
+	/*
+	* Muestra una lista de elementos con su descripcion
+	* Hay que pasarle un array asociativo elemento/descripcion
+	*/
+	function coleccion( $coleccion )
+	{
+		$espacio_descripcion = self::display_ancho - self::display_coleccion_espacio_nombre 
+								- strlen( self::display_prefijo_linea );
+		foreach( $coleccion as $nombre => $descripcion ) {
+			$lineas = separar_texto_lineas( $descripcion, $espacio_descripcion );
+			$this->mensaje( str_pad( $nombre, self::display_coleccion_espacio_nombre, ' ' ) . array_shift( $lineas ) );
+			foreach( $lineas as $linea ) {
+				$this->mensaje( str_repeat(' ', self::display_coleccion_espacio_nombre ) . $linea );	
+			}
+		}
+	}
+
+	/*
+	* Genera la salida de una linea completando el espacio faltante del display con un caracter
+	*/
+	private function linea_completa( $base='', $caracter_relleno )
+	{
+		echo str_pad( self::display_prefijo_linea . $base, self::display_ancho, $caracter_relleno );
+		echo "\n";
 	}
 	
 	//----------------------------------------------
@@ -178,5 +254,7 @@ class consola_toba
 		if( $respuesta == 's') return true;
 		return false;
 	}	
+
+	//----------------------------------------------
 }
 ?>

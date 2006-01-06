@@ -84,17 +84,7 @@ class conversion_toba
 	
 	protected function info_cambio($cambio)
 	{
-		$com = $cambio->getDocComment();
-	    $com = preg_replace("/(^[\\s]*\\/\\*\\*)
-	                                 |(^[\\s]\\*\\/)
-	                                 |(^[\\s]*\\*?\\s)
-	                                 |(^[\\s]*)
-	                                 |(^[\\t]*)/ixm", "", $com);
-	
-	    $com = str_replace("\r", "", $com);
-	    $com = trim(preg_replace("/([\\t])+/", "\t", $com));
-		$com = trim(preg_replace("/\\*\\//", "", $com));	    
-		return $com;
+		return parsear_doc_comment( $cambio->getDocComment() );
 	}
 	
 	/**

@@ -1,9 +1,10 @@
 <?
-require_once('modelo/proceso_toba.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 
-class parser_ddl extends proceso_toba
+class parser_ddl
 {
+	protected $interface;					// Objeto que maneja la salida de la interface
+	protected $dir_raiz;					// Directorio RAIZ
 	// Directorios de trabajo
 	protected $dir_sql;
 	protected $dir_ddl;
@@ -22,16 +23,16 @@ class parser_ddl extends proceso_toba
 	// Plan de generacion de PHP
 	protected $plan;
 
-	function __construct( $raiz, $instancia, $proyecto=null )    
+	function __construct( $interface_grafica, $directorio_raiz )    
 	{                                                       
-		parent::__construct( $raiz, $instancia, $proyecto );
+		$this->interface = $interface_grafica;
+		$this->dir_raiz = $directorio_raiz;
 		$this->dir_sql = $this->dir_raiz . '/sql';
 		$this->dir_ddl = $this->dir_raiz . '/php/modelo/estructura_db';
 	}
 
-	function procesar( $argumentos )
+	function procesar()
 	{
-		parent::procesar( $argumentos );
 		$this->get_archivos_ddl();
 		$this->parsear_archivos();
 		$this->analizar_tablas();

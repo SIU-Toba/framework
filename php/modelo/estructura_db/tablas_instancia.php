@@ -3,7 +3,7 @@
 
 class tablas_instancia
 {
-	function get_lista_global()
+	static function get_lista_global()
 	{
 		return array (
   0 => 'apex_revision',
@@ -12,7 +12,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_proyecto()
+	static function get_lista_proyecto()
 	{
 		return array (
   0 => 'apex_usuario_proyecto',
@@ -25,7 +25,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_proyecto_log()
+	static function get_lista_proyecto_log()
 	{
 		return array (
   0 => 'apex_solicitud',
@@ -40,7 +40,7 @@ class tablas_instancia
 );
 	}
 
-	function get_lista_global_log()
+	static function get_lista_global_log()
 	{
 		return array (
   0 => 'apex_log_sistema',
@@ -49,7 +49,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_revision()
+	static function apex_revision()
 	{
 		return array (
   'archivo' => 'pgsql_a00_revision.sql',
@@ -68,7 +68,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_instancia()
+	static function apex_instancia()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -93,7 +93,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_usuario()
+	static function apex_usuario()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -131,7 +131,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_usuario_proyecto()
+	static function apex_usuario_proyecto()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -152,7 +152,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_arbol_items_fotos()
+	static function apex_arbol_items_fotos()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -175,7 +175,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_admin_album_fotos()
+	static function apex_admin_album_fotos()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -200,7 +200,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud()
+	static function apex_solicitud()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -224,7 +224,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_sesion_browser()
+	static function apex_sesion_browser()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -249,7 +249,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_browser()
+	static function apex_solicitud_browser()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -270,7 +270,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_wddx()
+	static function apex_solicitud_wddx()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -295,7 +295,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_consola()
+	static function apex_solicitud_consola()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -319,7 +319,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_cronometro()
+	static function apex_solicitud_cronometro()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -343,7 +343,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_observacion()
+	static function apex_solicitud_observacion()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -367,7 +367,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_solicitud_obj_observacion()
+	static function apex_solicitud_obj_observacion()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -392,7 +392,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_log_objeto()
+	static function apex_log_objeto()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -416,7 +416,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_log_sistema()
+	static function apex_log_sistema()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -438,7 +438,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_log_error_login()
+	static function apex_log_error_login()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -463,7 +463,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_log_ip_rechazada()
+	static function apex_log_ip_rechazada()
 	{
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
@@ -482,7 +482,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_ap_tarea_usuario()
+	static function apex_ap_tarea_usuario()
 	{
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
@@ -506,7 +506,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_et_item()
+	static function apex_et_item()
 	{
 		return array (
   'archivo' => 'pgsql_a09_entorno_trabajo.sql',
@@ -528,7 +528,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_et_objeto()
+	static function apex_et_objeto()
 	{
 		return array (
   'archivo' => 'pgsql_a09_entorno_trabajo.sql',
@@ -550,7 +550,7 @@ class tablas_instancia
 );
 	}
 
-	function apex_et_preferencias()
+	static function apex_et_preferencias()
 	{
 		return array (
   'archivo' => 'pgsql_a09_entorno_trabajo.sql',

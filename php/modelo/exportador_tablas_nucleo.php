@@ -1,23 +1,24 @@
 <?
-require_once('modelo/proceso_toba.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
 require_once('nucleo/lib/manejador_archivos.php');
 
-class exportador_nucleo extends proceso_toba
+class exportador_tablas_nucleo
 {
 	const subdir_tablas = 'php/modelo/metadatos';
 
+	protected $interface;					// Objeto que maneja la salida de la interface
+	protected $dir_raiz;					// Directorio RAIZ
 	protected $dir_tablas;
 	
-	function __construct( $raiz, $instancia, $proyecto )
-	{
-		parent::__construct( $raiz, $instancia, $proyecto );
+	function __construct( $interface_grafica, $directorio_raiz )    
+	{                                                       
+		$this->interface = $interface_grafica;
+		$this->dir_raiz = $directorio_raiz;
 		$this->dir_tablas = $this->dir_raiz . '/' . self::subdir_tablas;
 	}
 
-	function procesar( $argumentos )
+	function procesar()
 	{
-		parent::procesar( $argumentos );
 		$this->exportar_tablas();
 	}
 	

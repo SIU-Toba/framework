@@ -3,7 +3,7 @@
 
 class tablas_nucleo
 {
-	function get_lista()
+	static function get_lista()
 	{
 		return array (
   0 => 'apex_elemento_infra',
@@ -46,7 +46,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_elemento_infra()
+	static function apex_elemento_infra()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -64,7 +64,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_elemento_infra_tabla()
+	static function apex_elemento_infra_tabla()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -91,7 +91,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_elemento_infra_input()
+	static function apex_elemento_infra_input()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -115,7 +115,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_estilo_paleta()
+	static function apex_estilo_paleta()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -138,7 +138,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_estilo()
+	static function apex_estilo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -160,7 +160,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_menu()
+	static function apex_menu()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -180,7 +180,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_log_sistema_tipo()
+	static function apex_log_sistema_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -198,7 +198,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_fuente_datos_motor()
+	static function apex_fuente_datos_motor()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -217,7 +217,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_grafico()
+	static function apex_grafico()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -237,7 +237,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_recurso_origen()
+	static function apex_recurso_origen()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -255,7 +255,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_repositorio()
+	static function apex_repositorio()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -273,7 +273,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_nivel_acceso()
+	static function apex_nivel_acceso()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -292,7 +292,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_nivel_ejecucion()
+	static function apex_nivel_ejecucion()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -310,7 +310,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_solicitud_tipo()
+	static function apex_solicitud_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -330,7 +330,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_columna_estilo()
+	static function apex_columna_estilo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -351,7 +351,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_columna_formato()
+	static function apex_columna_formato()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -374,7 +374,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_columna_proceso()
+	static function apex_columna_proceso()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -397,7 +397,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_usuario_tipodoc()
+	static function apex_usuario_tipodoc()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -415,7 +415,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_clase_tipo()
+	static function apex_clase_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -437,7 +437,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_vinculo_tipo()
+	static function apex_vinculo_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -456,7 +456,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_nucleo_tipo()
+	static function apex_nucleo_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
@@ -476,7 +476,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_dimension_tipo_perfil()
+	static function apex_dimension_tipo_perfil()
 	{
 		return array (
   'archivo' => 'pgsql_a02_dimensiones.sql',
@@ -494,7 +494,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_comparacion()
+	static function apex_comparacion()
 	{
 		return array (
   'archivo' => 'pgsql_a02_dimensiones.sql',
@@ -518,7 +518,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_nota_tipo()
+	static function apex_nota_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a04_notas.sql',
@@ -537,7 +537,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_msg_tipo()
+	static function apex_msg_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a05_mensajes.sql',
@@ -556,7 +556,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_mod_datos_dump()
+	static function apex_mod_datos_dump()
 	{
 		return array (
   'archivo' => 'pgsql_a06_mod_datos.sql',
@@ -574,7 +574,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_ap_tarea_tipo()
+	static function apex_ap_tarea_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
@@ -592,7 +592,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_ap_tarea_estado()
+	static function apex_ap_tarea_estado()
 	{
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
@@ -610,7 +610,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_ap_tarea_prioridad()
+	static function apex_ap_tarea_prioridad()
 	{
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
@@ -628,7 +628,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_ap_tarea_tema()
+	static function apex_ap_tarea_tema()
 	{
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
@@ -646,7 +646,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_tp_tarea_tipo()
+	static function apex_tp_tarea_tipo()
 	{
 		return array (
   'archivo' => 'pgsql_a08_tareas_programadas.sql',
@@ -664,7 +664,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_objeto_hoja_directiva_ti()
+	static function apex_objeto_hoja_directiva_ti()
 	{
 		return array (
   'archivo' => 'pgsql_a10_clase_hoja.sql',
@@ -684,7 +684,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_admin_persistencia()
+	static function apex_admin_persistencia()
 	{
 		return array (
   'archivo' => 'pgsql_a21_clase_db_registros.sql',
@@ -706,7 +706,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_tipo_datos()
+	static function apex_tipo_datos()
 	{
 		return array (
   'archivo' => 'pgsql_a21_clase_db_registros.sql',
@@ -725,7 +725,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_objeto_mt_me_tipo_nav()
+	static function apex_objeto_mt_me_tipo_nav()
 	{
 		return array (
   'archivo' => 'pgsql_a52_clase_mt_me.sql',
@@ -744,7 +744,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_test_paises()
+	static function apex_test_paises()
 	{
 		return array (
   'archivo' => 'pgsql_a98_test.sql',
@@ -763,7 +763,7 @@ class tablas_nucleo
 );
 	}
 
-	function apex_dim_restric_soltipo()
+	static function apex_dim_restric_soltipo()
 	{
 		return array (
   'archivo' => 'pgsql_a99_perfiles.sql',

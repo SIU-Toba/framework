@@ -17,21 +17,6 @@ class comando_toba
 		$this->argumentos = $argumentos;		
 	}
 
-	static function get_info()
-	{
-		return 'No definida';
-	}
-	
-	function mostrar_ayuda()
-	{
-		echo "AYUDA";
-		/*
-			Este metodo tiene que inspeccionar la clase,
-			tomar tomaro todos los metodos que empiezen con opcion__,
-			leer su doc, y generar una lista de opciones con parametros
-		*/	
-	}
-
 	function procesar()
 	{
 		if ( count( $this->argumentos ) == 0 ) {
@@ -40,17 +25,38 @@ class comando_toba
 			$opcion = 'opcion__' . $this->argumentos[0];
 			if( method_exists( $this, $opcion ) ) {
 				$this->$opcion();	
+			} else {
+				$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+				$this->mostrar_ayuda();
 			}
 		}
-		/*
-			$proceso = new $id_proceso( $this->dir_raiz, $this->instancia, $this->proyecto );
-			$proceso->set_interface_usuario( $this );
-			try{
-				$proceso->procesar( $argumentos );		
-			} catch (excepcion_toba $e) {
-				echo "Error ejecutando el proceso.\n" . $e->getMessage();	
+	}
+
+	static function get_info()
+	{
+		return 'No definida';
+	}
+	
+	function mostrar_ayuda()
+	{
+		$this->consola->titulo( $this->get_info() );
+		$this->consola->subtitulo( 'Lista de opciones' );
+		$this->consola->coleccion( $this->inspeccionar_opciones() );
+	}
+
+	function inspeccionar_opciones()
+	{
+		$opciones = array();
+		$clase = new ReflectionClass(get_class($this));
+		foreach ($clase->getMethods() as $metodo){
+			if (substr($metodo->getName(), 0, 8) == 'opcion__'){
+				$temp = explode('__', $metodo->getName());
+				$nombre = $temp[1];
+				$info = parsear_doc_comment( $metodo->getDocComment() );
+				$opciones[ $nombre ] = $info;
 			}
-		*/
+		}
+		return $opciones;
 	}
 }
 ?>

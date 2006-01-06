@@ -9,9 +9,8 @@ class proceso_toba
 	protected $instancia;					// Instancia actual
 	protected $proyecto;					// Proyecto actual
 	protected $dir_proyecto;				// Directorio del proyecto actual
-	protected $argumentos;					// Argumentos al comando
 
-	function __construct( $raiz, $instancia, $proyecto=null )
+	function __construct( $raiz, $instancia=null, $proyecto=null )
 	{
 		$this->dir_raiz = $raiz;
 		$this->instancia = $instancia;
@@ -29,12 +28,5 @@ class proceso_toba
 	{
 		$this->interface = $objeto;
 	}
-
-	function procesar( $argumentos )
-	{
-		$this->argumentos = $argumentos;
-	}
-
 }
-
 ?>

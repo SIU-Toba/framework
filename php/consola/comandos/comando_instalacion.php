@@ -6,11 +6,22 @@ class comando_instalacion extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de la INSTALACION';
+		return "Administracion de la INSTALACION. (Trabajo sobre el conjunto que carpetas que conforman al toba)";
 	}
 
 	/**
-	*	Aca se definirian los parametros de la opcion
+	*	Muestra los proyectos existentes dentro de la instalacion
+	*/
+	function opcion__proyectos()
+	{
+		instalacion::set_toba_dir( $this->consola->get_dir_raiz() );
+		$proyectos = instalacion::get_lista_proyectos();
+		print_r( $proyectos );		
+	}
+	
+	/**
+	*	Migracion de definicion de instancias entre las versiones 0.8.3.3 y 0.8.4.
+	*	Esto no esta en el comando conversion porque es pre-conexion.
 	*/
 	function opcion__migrar_definicion()
 	{
@@ -40,7 +51,7 @@ class comando_instalacion extends comando_toba
 			instalacion::crear_info_bases( $bases );
 			$this->consola->mensaje("la definicion de BASES se encuentra ahora en '" . instalacion::archivo_info_bases() . "'");	
 		} else {
-			$this->consola->alerta( "ya existe una archivo '" . instalacion::archivo_info_bases() . "'" );
+			$this->consola->error( "ya existe una archivo '" . instalacion::archivo_info_bases() . "'" );
 		}
 	
 		// *** 2) CLAVES
@@ -50,7 +61,7 @@ class comando_instalacion extends comando_toba
 			instalacion::crear_info_basica( apex_clave_get, apex_clave_db);
 			$this->consola->mensaje("la definicion de CLAVES se encuentra ahora en '" . instalacion::archivo_info_basica() . "'");	
 		} else {
-			$this->consola->alerta( "ya existe una archivo '" . instalacion::archivo_info_basica() . "'" );
+			$this->consola->error( "ya existe una archivo '" . instalacion::archivo_info_basica() . "'" );
 		}
 	
 		// *** 3) INSTANCIAS
@@ -70,7 +81,7 @@ class comando_instalacion extends comando_toba
 				print_r($datos);
 				if ( $this->consola->dialogo_simple("La base '$i' corresponde a una INSTANCIA TOBA?") ) {
 					if( instalacion::existe_carpeta_instancia( $i ) ) {
-						$this->consola->alerta("No es posible crearla instancia '$i'");
+						$this->consola->error("No es posible crearla instancia '$i'");
 						$this->consola->mensaje("Ya exite una carpeta: $path"); 	
 					} else {
 						instalacion::crear_instancia( $i, $i, $proyectos );
