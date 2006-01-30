@@ -1,9 +1,11 @@
 <?
 /*
 	FALTA:
+		- ATENCION: Hay que incluir el directorio de los proyectos.
 		- Escuchar al usuario o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
 		- interprete
+		- Tendria que existir un esquema para extender un comando
 */
 require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
@@ -24,25 +26,37 @@ class consola_toba implements interface_usuario
 	const display_ancho = 80;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
-	const ubicacion_comandos = 'consola/comandos';
+	private $ubicacion_comandos;
 	private $instancia = 'desarrollo';
 	private $proyecto = 'toba';
 	private $dir_raiz;
-	private $dir_comandos;
 	
-	function __construct( $dir_raiz )
+	/**
+	*	dir_raiz: instalacion toba sobre la que se va a trabajar
+	*	ubicacion_comandos: Directorio donde se encuentran los comandos posibles
+	*/
+	function __construct( $dir_raiz, $ubicacion_comandos = null )
 	{
-		//Apuntar el include PATH
 		$this->dir_raiz = $dir_raiz;
-		$this->dir_comandos = $this->dir_raiz . '/php/' . self::ubicacion_comandos;
+		if ( !isset( $ubicacion_comandos ) ) {
+			$this->ubicacion_comandos = 'consola/comandos';
+		} else {
+			$this->ubicacion_comandos = $ubicacion_comandos;
+		}
+		require_once( $this->ubicacion_comandos .'/menu.php');
 		cronometro::instancia()->marcar('Consola online');
 	}
-
+	
 	function get_dir_raiz()
 	{
 		return $this->dir_raiz;	
 	}
 
+	function get_dir_proyecto()
+	{
+		return $this->dir_raiz;	
+	}
+	
 	function get_instancia()
 	{
 		return $this->instancia;	
@@ -67,7 +81,7 @@ class consola_toba implements interface_usuario
 			}
 		} else {
 			//Aca se tendria que abrir el INTERPRETE
-			$this->titulo("SIU-TOBA ( Ambiente de desarrollo WEB )");
+			$this->titulo( menu::get_titulo() );
 			$this->mostrar_menu();
 		}
 		cronometro::instancia()->marcar('Fin proceso.');
@@ -76,9 +90,9 @@ class consola_toba implements interface_usuario
 
 	function invocar_comando($nombre_comando, $argumentos)
 	{
-		$clase_comando = 'comando_' . $nombre_comando;
-		if ( in_array( $clase_comando, $this->get_comandos_disponibles() ) ) {
-			require_once( self::ubicacion_comandos .'/'.$clase_comando.'.php');
+		if ( true ) {																//Atencion! falta control de que el comando exista
+			$clase_comando = 'comando_' . $nombre_comando;
+			require_once( $this->ubicacion_comandos .'/'.$clase_comando.'.php');
 			$comando = new $clase_comando( $this );
 			$comando->set_argumentos( $argumentos );			
 			$comando->procesar();
@@ -87,44 +101,19 @@ class consola_toba implements interface_usuario
 		}
 	}
 	
-	function get_comandos_disponibles()
-	{
-		if ($dir = opendir( $this->dir_comandos ) ) {	
-		   while (false	!==	($archivo = readdir($dir)))	{ 
-				if(preg_match('%comando_.*\.php%',$archivo)){
-					$temp = explode('.',$archivo);
-					$comandos[] = $temp[0];
-				}
-		   } 
-		   closedir($dir); 
-		}
-		return $comandos;	
-	}
-	
 	function get_info_comandos()
 	{
 		$info = array();
-		$comandos = $this->get_comandos_activos();
+		$comandos = menu::get_comandos();
 		foreach( $comandos as $comando )
 		{
-			$comando = 'comando_' . $comando;
-			require_once( 'comandos/' . $comando . '.php' );
-			$info[$comando] = call_user_func( array( $comando, 'get_info') );
+			$clase_comando = 'comando_' . $comando;
+			require_once( $this->ubicacion_comandos .'/'.$clase_comando.'.php');
+			$info[$clase_comando] = call_user_func( array( $clase_comando, 'get_info') );
 		}
 		return $info;
 	}
 	
-	function get_comandos_activos()
-	{
-		return array(
-						'instancia',
-						'proyecto',
-						'instalacion',
-						'conversion',
-						'nucleo'
-					);	
-	}
-
 /*
 	function interprete()
 	{
