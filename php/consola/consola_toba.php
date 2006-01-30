@@ -1,10 +1,12 @@
 <?
 /*
 	FALTA:
-		- ATENCION: Hay que incluir el directorio de los proyectos.
-		- Escuchar al usuario o recibir parametros de la invocacion
+		- Hay que definir el metodo de obtencion de instancias y proyectos:
+			- aca queda mal, hay que hacer una clase 'contexto'?
+		- Si se pide un comando que no existe salta un error
+		- Hay que incluir el directorio de los proyectos!!
+		- Escuchar al usuario con un interprete o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
-		- interprete
 		- Tendria que existir un esquema para extender un comando
 */
 require_once("nucleo/lib/error.php");	    		//Error Handling
@@ -26,10 +28,10 @@ class consola_toba implements interface_usuario
 	const display_ancho = 80;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
+	private $dir_raiz;
 	private $ubicacion_comandos;
 	private $instancia = 'desarrollo';
-	private $proyecto = 'toba';
-	private $dir_raiz;
+	private $proyecto = 'referencia';
 	
 	/**
 	*	dir_raiz: instalacion toba sobre la que se va a trabajar
@@ -38,11 +40,7 @@ class consola_toba implements interface_usuario
 	function __construct( $dir_raiz, $ubicacion_comandos = null )
 	{
 		$this->dir_raiz = $dir_raiz;
-		if ( !isset( $ubicacion_comandos ) ) {
-			$this->ubicacion_comandos = 'consola/comandos';
-		} else {
-			$this->ubicacion_comandos = $ubicacion_comandos;
-		}
+		$this->ubicacion_comandos =	isset( $ubicacion_comandos ) ? $ubicacion_comandos : 'consola/comandos';
 		require_once( $this->ubicacion_comandos .'/menu.php');
 		cronometro::instancia()->marcar('Consola online');
 	}
@@ -52,11 +50,6 @@ class consola_toba implements interface_usuario
 		return $this->dir_raiz;	
 	}
 
-	function get_dir_proyecto()
-	{
-		return $this->dir_raiz;	
-	}
-	
 	function get_instancia()
 	{
 		return $this->instancia;	

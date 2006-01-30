@@ -10,7 +10,7 @@ class proceso_toba
 	protected $proyecto;					// Proyecto actual
 	protected $dir_proyecto;				// Directorio del proyecto actual
 
-	function __construct( $raiz, $instancia=null, $proyecto=null )
+	function __construct( $raiz, $instancia, $proyecto=null )
 	{
 		$this->dir_raiz = $raiz;
 		$this->instancia = $instancia;

@@ -1,4 +1,5 @@
 <?
+require_once('modelo/instalacion.php');
 require_once('modelo/instancia.php');
 require_once('modelo/proceso_toba.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
@@ -23,13 +24,16 @@ class exportador_instancia extends proceso_toba
 		//Recupero la lista de proyectos incluidos en la instancia
 		require_once( $this->dir_instancia . '/info_instancia.php' );
 		$this->lista_proyectos = info_instancia::get_lista_proyectos();
+		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
+		if ( ! in_array( 'toba', $this->lista_proyectos ) ) {
+			$this->lista_proyectos[] = 'toba';	
+		}
 	}
 
-	function procesar( $argumentos )
+	function procesar()
 	{
-		parent::procesar( $argumentos );
 		$this->exportar_global();
-		$this->exportar_proyectos( $argumentos );
+		$this->exportar_proyectos();
 	}
 	
 	//-------------------------------------------------------------------
@@ -65,14 +69,9 @@ class exportador_instancia extends proceso_toba
 		}
 	}
 
-	function exportar_proyectos( $argumentos )
+	function exportar_proyectos()
 	{
-		if ( count( $argumentos ) > 0 ) {
-			$proyectos = $argumentos;
-		} else {
-			$proyectos = $this->lista_proyectos;
-		}
-		foreach( $proyectos as $proyecto ) {
+		foreach( $this->lista_proyectos as $proyecto ) {
 			$this->interface->titulo( "Exportar proyecto: $proyecto" );
 			$dir_proyecto = $this->dir_instancia . '/' . instancia::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
@@ -101,7 +100,7 @@ class exportador_instancia extends proceso_toba
 					" FROM $tabla dd" .
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
-			$this->interface->mensaje( $sql );
+			//$this->interface->mensaje( $sql );
 			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {

@@ -21,9 +21,8 @@ class exportador_proyecto extends proceso_toba
 		$this->dir_tablas = $this->dir_proyecto . '/' . self::subdir_tablas;
 	}
 
-	function procesar( $argumentos )
+	function procesar()
 	{
-		parent::procesar( $argumentos );
 		$this->exportar_tablas();
 		$this->exportar_componentes();
 	}

@@ -6,25 +6,26 @@ class comando_proyecto extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de los METADATOS correspondientes a un PROYECTOS';
+		return 'Administracion de los METADATOS correspondientes a PROYECTOS';
 	}
 
-	/**
-	*	Compila los metadatos del proyecto
-	*/
-	function opcion__compilar()
+	private function get_id_proyecto_actual()
 	{
-		/*
-		
-			Duda: que es mejor?
-				- Manejar los procesos por separado o meterlos todos dentro del comando proyecto??
+		if ( isset( $this->argumentos[1] ) ) {
+			$id = $this->argumentos[1];
+		} else {
+			$id = $this->consola->get_proyecto();
+		}
+		return $id;
+	}
 
-		$proyecto = new proyecto( 	$this->consola->get_dir_raiz(),
+	private function get_proyecto()
+	{
+		$proyecto = new proyecto(	$this->consola->get_dir_raiz(),
 									$this->consola->get_instancia(),
-									$this->consola->get_proyecto() );
+									$this->get_id_proyecto_actual() );
 		$proyecto->set_interface_usuario( $this->consola );
-		$proyecto->compilar();
-		*/
+		return $proyecto;
 	}
 
 	/**
@@ -32,14 +33,15 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__exportar()
 	{
-		/*
-		$proyecto = new proyecto( 	$this->consola->get_dir_raiz(),
-									$this->consola->get_instancia(),
-									$this->consola->get_proyecto() );
-		$proyecto->set_interface_usuario( $this->consola );
-		$proyecto->exportar();
-		*/
+		$this->get_proyecto()->exportar();
 	}
 
+	/**
+	*	Compila los metadatos del proyecto
+	*/
+	function opcion__compilar()
+	{
+		$this->get_proyecto()->compilar();
+	}
 }
 ?>
