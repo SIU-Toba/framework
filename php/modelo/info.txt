@@ -1,8 +1,0 @@
-
-	Todo lo necesario para:
-	
-		- Construir una instancia toba y mantenerla
-
-	 Estas clases no deberian estar en el path de php,
-	 (incluso tienen que estar protegidas del mismo)
-	 	- No deberian ser utilizadas por proyectos que no sean CORE
