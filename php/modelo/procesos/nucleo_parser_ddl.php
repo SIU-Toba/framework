@@ -1,10 +1,9 @@
 <?
+require_once('modelo/lib/proceso.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 
-class parser_ddl
+class nucleo_parser_ddl extends proceso
 {
-	protected $interface;					// Objeto que maneja la salida de la interface
-	protected $dir_raiz;					// Directorio RAIZ
 	// Directorios de trabajo
 	protected $dir_sql;
 	protected $dir_ddl;
@@ -23,14 +22,6 @@ class parser_ddl
 	// Plan de generacion de PHP
 	protected $plan;
 
-	function __construct( $interface_grafica, $directorio_raiz )    
-	{                                                       
-		$this->interface = $interface_grafica;
-		$this->dir_raiz = $directorio_raiz;
-		$this->dir_sql = $this->dir_raiz . '/sql';
-		$this->dir_ddl = $this->dir_raiz . '/php/modelo/estructura_db';
-	}
-
 	function procesar()
 	{
 		$this->get_archivos_ddl();
@@ -41,10 +32,10 @@ class parser_ddl
 	
 	function get_archivos_ddl()
 	{
-		if ($dir = opendir($this->dir_sql)) {	
+		if ($dir = opendir($this->elemento->get_dir_ddl())) {	
 		   while (false	!==	($archivo = readdir($dir)))	{ 
 				if(preg_match('%pgsql_a.*\.sql%',$archivo)){
-					$this->archivos[] = $this->dir_sql . '/' . $archivo;
+					$this->archivos[] = $this->elemento->get_dir_ddl() . '/' . $archivo;
 				}
 		   } 
 		   closedir($dir); 
@@ -176,7 +167,7 @@ class parser_ddl
 				$this->interface->mensaje("Tabla: $tabla");
 				$clase->agregar_metodo_datos( $tabla, $this->tablas[$tabla] );
 			}
-			$clase->guardar( $this->dir_ddl .'/'.$nombre.'.php' );
+			$clase->guardar( $this->elemento->get_dir_estructura_db() .'/'.$nombre.'.php' );
 		}
 	}
 }

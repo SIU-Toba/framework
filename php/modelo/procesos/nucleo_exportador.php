@@ -1,22 +1,10 @@
 <?
+require_once('modelo/lib/proceso.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
 require_once('nucleo/lib/manejador_archivos.php');
 
-class exportador_tablas_nucleo
+class nucleo_exportador extends proceso
 {
-	const subdir_tablas = 'php/modelo/metadatos';
-
-	protected $interface;					// Objeto que maneja la salida de la interface
-	protected $dir_raiz;					// Directorio RAIZ
-	protected $dir_tablas;
-	
-	function __construct( $interface_grafica, $directorio_raiz )    
-	{                                                       
-		$this->interface = $interface_grafica;
-		$this->dir_raiz = $directorio_raiz;
-		$this->dir_tablas = $this->dir_raiz . '/' . self::subdir_tablas;
-	}
-
 	function procesar()
 	{
 		$this->exportar_tablas();
@@ -29,7 +17,7 @@ class exportador_tablas_nucleo
 	function exportar_tablas()
 	{
 		$this->interface->titulo( "Exportacion de tablas del NUCLEO" );
-		manejador_archivos::crear_arbol_directorios( $this->dir_tablas );
+		manejador_archivos::crear_arbol_directorios( $this->elemento->get_dir_metadatos() );
 		foreach ( tablas_nucleo::get_lista() as $tabla ) {
 			$this->interface->mensaje( "Tabla: $tabla." );
 			$definicion = tablas_nucleo::$tabla();
@@ -43,7 +31,7 @@ class exportador_tablas_nucleo
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $this->dir_tablas .'/'. $tabla . '.sql', $contenido );			
+			file_put_contents( $this->elemento->get_dir_metadatos() .'/'. $tabla . '.sql', $contenido );			
 		}
 	}
 }

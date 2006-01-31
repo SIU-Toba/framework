@@ -1,36 +1,29 @@
 <?php
-require_once('modelo/procesos/exportador_proyecto.php');
-require_once('modelo/procesos/compilador_proyecto.php');
-
+require_once('lib/elemento_modelo.php');
+require_once('modelo/procesos/proyecto_exportador.php');
+require_once('modelo/procesos/proyecto_compilador.php');
 /*
 	FALTA:
 		- Control de que se referencia a un proyecto VALIDO
-
 */
-class proyecto
+class proyecto extends elemento_modelo
 {
 	private $instancia;				
-	private $dir_raiz;				
-	private $nombre;				
-	private $interface_usuario;				
+	private $identificador;
+	private $dir;
 
-	public function __construct( $directorio_raiz, $instancia, $nombre )
+	public function __construct( $directorio_raiz, $instancia, $identificador )
 	{
-		$this->dir_raiz = $directorio_raiz;		
+		parent::__construct( $directorio_raiz );
 		$this->instancia = $instancia;
-		$this->nombre = $nombre;
+		$this->identificador = $identificador;
+		if ( $this->identificador == 'toba' ) {
+			$this->dir = $this->dir_raiz . '/php/admin';	
+		} else {
+			$this->dir = $this->dir_raiz . '/proyectos/' . $this->identificador;	
+		}
 	}
 
-	function set_interface_usuario( $interface_usuario )
-	{
-		$this->interface_usuario = $interface_usuario;
-	}
-	
-	static function existe( $nombre )
-	{
-		
-	}
-	
 	static function nombre_valido( $nombre )
 	{
 		if ( trim( $nombre ) == '' ) {
@@ -39,34 +32,62 @@ class proyecto
 	}
 	
 	//-----------------------------------------------------------
-	//	EXPORTAR
+	//	Informacion
+	//-----------------------------------------------------------
+
+	function get_id()
+	{
+		return $this->identificador;
+	}
+	
+	function get_instancia()
+	{
+		return $this->instancia;	
+	}
+
+	function get_dir()
+	{
+		return $this->dir;	
+	}
+
+	function get_dir_componentes()
+	{
+		return $this->dir . '/metadatos/componentes';
+	}
+	
+	function get_dir_tablas()
+	{
+		return $this->dir . '/metadatos/tablas';
+	}
+
+	function get_dir_componentes_compilados()
+	{
+		return $this->dir . '/metadatos_compilados/componentes';
+	}
+
+	//-----------------------------------------------------------
+	//	Procesos
 	//-----------------------------------------------------------
 
 	function exportar()
 	{
 		try {
-			$exportador = new exportador_proyecto( $this->dir_raiz, $this->instancia, $this->nombre );
-			$exportador->set_interface_usuario( $this->interface_usuario );
+			$exportador = new proyecto_exportador( $this );
 			$exportador->procesar();
 		} catch ( excepcion_toba $e ) {
-			$this->interface_usuario->error( 'Ha ocurrido un error durante la exportacion.' );
-			$this->interface_usuario->mensaje( $e->getMessage() );
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
+			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
-
-	//-----------------------------------------------------------
-	//	COMPILAR
-	//-----------------------------------------------------------
 
 	function compilar()
 	{
 		try {
-			$compilador = new compilador_proyecto( $this->dir_raiz, $this->instancia, $this->nombre );
-			$compilador->set_interface_usuario( $this->interface_usuario );
+			$compilador = new proyecto_compilador( $this );
 			$compilador->procesar();
 		} catch ( excepcion_toba $e ) {
-			$this->interface_usuario->error( 'Ha ocurrido un error durante la compilacion.' );
-			$this->interface_usuario->mensaje( $e->getMessage() );
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la compilacion.' );
+			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
 }

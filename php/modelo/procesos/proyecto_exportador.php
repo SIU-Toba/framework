@@ -1,25 +1,14 @@
 <?
-require_once('modelo/proceso_toba.php');
+require_once('modelo/lib/proceso.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('nucleo/componentes/catalogo_toba.php');
 require_once('nucleo/componentes/cargador_toba.php');
 require_once('nucleo/lib/manejador_archivos.php');
 
-class exportador_proyecto extends proceso_toba
+class proyecto_exportador extends proceso
 {
-	const subdir_componentes = 'metadatos/componentes';
-	const subdir_tablas = 'metadatos/tablas';
-	const prefijo_componentes = 'dump_';
 
-	protected $dir_componentes;
-	protected $dir_tablas;
-	
-	function __construct( $raiz, $instancia, $proyecto )
-	{
-		parent::__construct( $raiz, $instancia, $proyecto );
-		$this->dir_componentes = $this->dir_proyecto . '/' . self::subdir_componentes;
-		$this->dir_tablas = $this->dir_proyecto . '/' . self::subdir_tablas;
-	}
+	const prefijo_componentes = 'dump_';
 
 	function procesar()
 	{
@@ -34,21 +23,21 @@ class exportador_proyecto extends proceso_toba
 	function exportar_tablas()
 	{
 		$this->interface->titulo( "Exportacion de tablas" );
-		manejador_archivos::crear_arbol_directorios( $this->dir_tablas );
+		manejador_archivos::crear_arbol_directorios( $this->elemento->get_dir_tablas() );
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
 			$this->interface->mensaje( "Exportando tabla: $tabla." );
 			$definicion = tablas_proyecto::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
        			$w = stripslashes($definicion['dump_where']);
-       			$where = ereg_replace("%%",$this->proyecto, $w);
+       			$where = ereg_replace("%%",$this->elemento->get_id(), $w);
             }else{
-       			$where = " ( proyecto = '{$this->proyecto}')";
+       			$where = " ( proyecto = '".$this->elemento->get_id()."')";
 			}
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .
 					" WHERE $where " .
-					//" WHERE {$definicion['dump_clave_proyecto']} = '{$this->proyecto}' " .
+					//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->elemento->get_id()."}' " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->interface->mensaje( $sql );
 			$contenido = "";
@@ -56,7 +45,7 @@ class exportador_proyecto extends proceso_toba
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $this->dir_tablas .'/'. $tabla . '.sql', $contenido );			
+			file_put_contents( $this->elemento->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 		}
 	}
 
@@ -68,12 +57,12 @@ class exportador_proyecto extends proceso_toba
 	*/
 	function exportar_componentes()
 	{
-		cargador_toba::instancia()->crear_cache_simple( $this->proyecto );
+		cargador_toba::instancia()->crear_cache_simple( $this->elemento->get_id() );
 		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
 			$this->interface->titulo( $tipo );
-			$path = $this->dir_componentes . '/' . $tipo;
+			$path = $this->elemento->get_dir_componentes() . '/' . $tipo;
 			manejador_archivos::crear_arbol_directorios( $path );
-			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->proyecto ) as $id_componente) {
+			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->elemento->get_id() ) as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
 		}
@@ -85,7 +74,7 @@ class exportador_proyecto extends proceso_toba
 	function exportar_componente( $tipo, $id )
 	{
 		$this->interface->mensaje("Exportando: " . $id['componente']);
-		$directorio = $this->dir_componentes . '/' . $tipo;
+		$directorio = $this->elemento->get_dir_componentes() . '/' . $tipo;
 		$archivo = manejador_archivos::nombre_valido( self::prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
 		file_put_contents( $directorio .'/'. $archivo . '.sql', $contenido );

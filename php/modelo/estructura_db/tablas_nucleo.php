@@ -1,5 +1,5 @@
 <?
-//Generador: parser_ddl.php
+//Generador: nucleo_parser_ddl.php
 
 class tablas_nucleo
 {

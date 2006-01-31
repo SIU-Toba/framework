@@ -1,35 +1,12 @@
 <?
+require_once('modelo/lib/proceso.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/instancia.php');
-require_once('modelo/proceso_toba.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('nucleo/lib/manejador_archivos.php');
 
-/*
-	Exporta la informacion local. Si se pasa un proyecto como parametro
-	solo se exporta la informacion general y la del proyecto
-*/
-class exportador_instancia extends proceso_toba
+class instancia_exportador extends proceso
 {
-	protected $dir_instancia;
-	protected $lista_proyectos = array();
-	
-	function __construct( $raiz, $instancia )
-	{
-		parent::__construct( $raiz, $instancia );
-		$this->dir_instancia = $this->dir_raiz . '/instalacion/' . instalacion::instancia_prefijo . $this->instancia;
-		if( ! is_dir( $this->dir_instancia ) ) {
-			throw new excepcion_toba("Exportador de Instancia: la carpeta '{$this->dir_instancia}' no existe");
-		}
-		//Recupero la lista de proyectos incluidos en la instancia
-		require_once( $this->dir_instancia . '/info_instancia.php' );
-		$this->lista_proyectos = info_instancia::get_lista_proyectos();
-		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
-		if ( ! in_array( 'toba', $this->lista_proyectos ) ) {
-			$this->lista_proyectos[] = 'toba';	
-		}
-	}
-
 	function procesar()
 	{
 		$this->exportar_global();
@@ -42,15 +19,15 @@ class exportador_instancia extends proceso_toba
 
 	function exportar_global()
 	{
-		$dir_global = $this->dir_instancia . '/' . instancia::dir_datos_globales;
+		$dir_global = $this->elemento->get_dir() . '/' . instancia::dir_datos_globales;
 		manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->interface->titulo( "Exportar informacion global" );
-		$this->exportar_tablas( 'get_lista_global', $dir_global .'/' . instancia::archivo_datos );	
+		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . instancia::archivo_datos );	
 		$this->interface->titulo( "Exportar logs globales" );
-		$this->exportar_tablas( 'get_lista_global_log', $dir_global .'/' . instancia::archivo_logs );	
+		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/' . instancia::archivo_logs );	
 	}
 
-	function exportar_tablas( $metodo_lista_tablas, $path )
+	function exportar_tablas_global( $metodo_lista_tablas, $path )
 	{
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$this->interface->mensaje( "Tabla: $tabla." );
@@ -71,9 +48,9 @@ class exportador_instancia extends proceso_toba
 
 	function exportar_proyectos()
 	{
-		foreach( $this->lista_proyectos as $proyecto ) {
+		foreach( $this->elemento->get_lista_proyectos() as $proyecto ) {
 			$this->interface->titulo( "Exportar proyecto: $proyecto" );
-			$dir_proyecto = $this->dir_instancia . '/' . instancia::prefijo_dir_proyecto . $proyecto;
+			$dir_proyecto = $this->elemento->get_dir() . '/' . instancia::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 	'get_lista_proyecto', 
 												$dir_proyecto .'/' . instancia::archivo_datos, 

@@ -19,11 +19,11 @@ require_once("nucleo/lib/logger.php");				//Logger
 require_once("nucleo/lib/asercion.php");       	   	//Aserciones
 require_once("nucleo/lib/parseo.php");       	   	//Parseo
 require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
-require_once("interface_usuario.php");
+require_once("modelo/lib/gui.php");
 
 define('apex_pa_instancia','desarrollo');
 
-class consola_toba implements interface_usuario
+class consola_toba implements gui
 {
 	const display_ancho = 80;
 	const display_coleccion_espacio_nombre = 25;

@@ -1,24 +1,15 @@
 <?
-require_once('modelo/proceso_toba.php');
+require_once('modelo/lib/proceso.php');
 require_once('nucleo/componentes/catalogo_toba.php');
 require_once('nucleo/componentes/cargador_toba.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 require_once('nucleo/lib/manejador_archivos.php');
 
-class compilador_proyecto extends proceso_toba
+class proyecto_compilador extends proceso
 {
-	const subdir_componentes = 'metadatos_compilados/componentes';
 	const archivo_referencia = 'tabla_tipos';
 	const prefijo_componentes = 'php_';	
-
 	protected $tabla_tipos;
-	protected $directorio_componentes;
-	
-	function __construct( $raiz, $instancia, $proyecto )
-	{
-		parent::__construct( $raiz, $instancia, $proyecto );
-		$this->directorio_componentes = $this->dir_proyecto . '/' . self::subdir_componentes;
-	}
 	
 	function procesar()
 	{
@@ -33,9 +24,9 @@ class compilador_proyecto extends proceso_toba
 	{
 		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
 			$this->interface->titulo( $tipo );
-			$path = $this->directorio_componentes . '/' . $tipo;
+			$path = $this->elemento->get_dir_componentes_compilados() . '/' . $tipo;
 			manejador_archivos::crear_arbol_directorios( $path );
-			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->proyecto ) as $id_componente) {
+			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->elemento->get_id() ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente );
 			}
 		}
@@ -53,7 +44,7 @@ class compilador_proyecto extends proceso_toba
 		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
-		$directorio = $this->directorio_componentes . '/' . $tipo;
+		$directorio = $this->elemento->get_dir_componentes_compilados() . '/' . $tipo;
 		$path = $directorio .'/'. $nombre . '.php';
 		$clase->guardar( $path );
 		//Creo la tabla de referencia
@@ -74,7 +65,7 @@ class compilador_proyecto extends proceso_toba
 		$clase->agregar_metodo_datos('get_datos',$this->tabla_tipos);
 		//Creo el archivo
 		$archivo = manejador_archivos::nombre_valido( self::archivo_referencia );
-		$path = $this->directorio_componentes .'/'. $archivo . '.php';
+		$path = $this->elemento->get_dir_componentes_compilados() .'/'. $archivo . '.php';
 		$clase->guardar( $path );
 	}
 }

@@ -1,6 +1,6 @@
 <?
 require_once('comando.php');
-require_once('modelo/proyecto.php');
+require_once('modelo/nucleo.php');
 
 class comando_nucleo extends comando_toba
 {
@@ -9,14 +9,19 @@ class comando_nucleo extends comando_toba
 		return 'Administracion de la informacion perteneciente al nucleo del sistema';
 	}
 
+	private function get_elemento()
+	{
+		$nucleo = new nucleo(	$this->consola->get_dir_raiz() );
+		$nucleo->set_manejador_interface( $this->consola );
+		return $nucleo;
+	}
+
 	/**
 	*	Genera la metadata necesaria para los exportadores.
 	*/
 	function opcion__parsear_ddl()
 	{
-		require_once('modelo/parser_ddl.php');
-		$parser = new parser_ddl( $this->consola, $this->consola->get_dir_raiz() );
-		$parser->procesar();
+		$this->get_elemento()->parsear_ddl();
 	}
 
 	/**
@@ -24,10 +29,7 @@ class comando_nucleo extends comando_toba
 	*/
 	function opcion__exportar_datos()
 	{
-		require_once('modelo/exportador_tablas_nucleo.php');
-		$parser = new exportador_tablas_nucleo( $this->consola, $this->consola->get_dir_raiz() );
-		$parser->procesar();
-
+		$this->get_elemento()->exportar();
 	}
 }
 ?>

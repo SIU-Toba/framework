@@ -22,11 +22,11 @@ class comando_instancia extends comando_toba
 		return $id;
 	}
 		
-	private function get_instancia()
+	private function get_elemento()
 	{
 		$instancia = new instancia(	$this->consola->get_dir_raiz(),
 									$this->get_id_instancia_actual() );
-		$instancia->set_interface_usuario( $this->consola );
+		$instancia->set_manejador_interface( $this->consola );
 		return $instancia;
 	}
 	
@@ -35,7 +35,7 @@ class comando_instancia extends comando_toba
 	*/
 	function opcion__exportar()
 	{
-		$this->get_instancia()->exportar();
+		$this->get_elemento()->exportar();
 	}
 
 	/**

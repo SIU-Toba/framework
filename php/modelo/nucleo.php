@@ -1,72 +1,58 @@
 <?php
-require_once('modelo/procesos/exportador_proyecto.php');
-require_once('modelo/procesos/compilador_proyecto.php');
+require_once('lib/elemento_modelo.php');
+require_once('modelo/procesos/nucleo_parser_ddl.php');
+require_once('modelo/procesos/nucleo_exportador.php');
 
-/*
-	FALTA:
-		- Control de que se referencia a un proyecto VALIDO
-
-*/
-class nucleo
+class nucleo extends elemento_modelo
 {
-	private $instancia;				
-	private $dir_raiz;				
-	private $nombre;				
-	private $interface_usuario;				
-
-	public function __construct( $directorio_raiz, $instancia, $nombre )
+	//------------------------------------------------
+	// Informacion
+	//------------------------------------------------
+	
+	function get_dir_ddl()
 	{
-		$this->dir_raiz = $directorio_raiz;		
-		$this->instancia = $instancia;
-		$this->nombre = $nombre;
-	}
-
-	function set_interface_usuario( $interface_usuario )
-	{
-		$this->interface_usuario = $interface_usuario;
+		return $this->dir_raiz . '/php/modelo/ddl';
 	}
 	
-	static function existe( $nombre )
+	function get_dir_estructura_db()
 	{
-		
+		return $this->dir_raiz . '/php/modelo/estructura_db';		
 	}
-	
-	static function nombre_valido( $nombre )
+
+	function get_dir_metadatos()
 	{
-		if ( trim( $nombre ) == '' ) {
-			throw new excepcion_toba("ATENCION: Es necesario definir el proyecto sobre el cual se va a trabajar");	
+		return $this->dir_raiz . '/php/modelo/metadatos';		
+	}
+
+	//------------------------------------------------
+	// Procesos
+	//------------------------------------------------
+
+	/**
+	*	Genera la informacion que describe el modelo de datos para todos los procesos toba
+	*/
+	function parsear_ddl()
+	{
+		try {
+			$parser = new nucleo_parser_ddl( $this );
+			$parser->procesar();
+		} catch ( excepcion_toba $e ) {
+			$this->manejador_interface->error( 'Ha ocurrido un error durante el parseo.' );
+			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
-	
-	//-----------------------------------------------------------
-	//	EXPORTAR
-	//-----------------------------------------------------------
 
+	/*
+	*	Exporta los metadatos correspondientes a las tablas maestras del sistema
+	*/
 	function exportar()
 	{
 		try {
-			$exportador = new exportador_proyecto( $this->dir_raiz, $this->instancia, $this->nombre );
-			$exportador->set_interface_usuario( $this->interface_usuario );
+			$exportador = new nucleo_exportador( $this );
 			$exportador->procesar();
 		} catch ( excepcion_toba $e ) {
-			$this->interface_usuario->error( 'Ha ocurrido un error durante la exportacion.' );
-			$this->interface_usuario->mensaje( $e->getMessage() );
-		}
-	}
-
-	//-----------------------------------------------------------
-	//	COMPILAR
-	//-----------------------------------------------------------
-
-	function compilar()
-	{
-		try {
-			$compilador = new compilador_proyecto( $this->dir_raiz, $this->instancia, $this->nombre );
-			$compilador->set_interface_usuario( $this->interface_usuario );
-			$compilador->procesar();
-		} catch ( excepcion_toba $e ) {
-			$this->interface_usuario->error( 'Ha ocurrido un error durante la compilacion.' );
-			$this->interface_usuario->mensaje( $e->getMessage() );
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
+			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
 }

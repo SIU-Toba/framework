@@ -19,12 +19,12 @@ class comando_proyecto extends comando_toba
 		return $id;
 	}
 
-	private function get_proyecto()
+	private function get_elemento()
 	{
 		$proyecto = new proyecto(	$this->consola->get_dir_raiz(),
 									$this->consola->get_instancia(),
 									$this->get_id_proyecto_actual() );
-		$proyecto->set_interface_usuario( $this->consola );
+		$proyecto->set_manejador_interface( $this->consola );
 		return $proyecto;
 	}
 
@@ -33,7 +33,7 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__exportar()
 	{
-		$this->get_proyecto()->exportar();
+		$this->get_elemento()->exportar();
 	}
 
 	/**
@@ -41,7 +41,7 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__compilar()
 	{
-		$this->get_proyecto()->compilar();
+		$this->get_elemento()->compilar();
 	}
 }
 ?>
