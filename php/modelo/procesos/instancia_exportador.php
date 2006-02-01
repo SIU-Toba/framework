@@ -1,6 +1,5 @@
 <?
 require_once('modelo/lib/proceso.php');
-require_once('modelo/instalacion.php');
 require_once('modelo/instancia.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('nucleo/lib/manejador_archivos.php');

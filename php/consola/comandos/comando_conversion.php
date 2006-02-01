@@ -1,5 +1,5 @@
 <?
-require_once('comando.php');
+require_once('comando_toba.php');
 
 class comando_conversion extends comando_toba
 {

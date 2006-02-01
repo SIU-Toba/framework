@@ -1,10 +1,7 @@
 <?
 /*
 	FALTA:
-		- Hay que definir el metodo de obtencion de instancias y proyectos:
-			- aca queda mal, hay que hacer una clase 'contexto'?
 		- Si se pide un comando que no existe salta un error
-		- Hay que incluir el directorio de los proyectos!!
 		- Escuchar al usuario con un interprete o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
 		- Tendria que existir un esquema para extender un comando
@@ -21,43 +18,21 @@ require_once("nucleo/lib/parseo.php");       	   	//Parseo
 require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
 
-define('apex_pa_instancia','desarrollo');
-
-class consola_toba implements gui
+class consola implements gui
 {
 	const display_ancho = 80;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
-	private $dir_raiz;
 	private $ubicacion_comandos;
-	private $instancia = 'desarrollo';
-	private $proyecto = 'referencia';
 	
-	/**
-	*	dir_raiz: instalacion toba sobre la que se va a trabajar
-	*	ubicacion_comandos: Directorio donde se encuentran los comandos posibles
-	*/
-	function __construct( $dir_raiz, $ubicacion_comandos = null )
+	function __construct( $ubicacion_comandos )
 	{
-		$this->dir_raiz = $dir_raiz;
-		$this->ubicacion_comandos =	isset( $ubicacion_comandos ) ? $ubicacion_comandos : 'consola/comandos';
+		if( ! is_dir( $ubicacion_comandos ) ) {
+			throw new excepcion_toba("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
+		}
+		$this->ubicacion_comandos = $ubicacion_comandos;
 		require_once( $this->ubicacion_comandos .'/menu.php');
 		cronometro::instancia()->marcar('Consola online');
-	}
-	
-	function get_dir_raiz()
-	{
-		return $this->dir_raiz;	
-	}
-
-	function get_instancia()
-	{
-		return $this->instancia;	
-	}
-
-	function get_proyecto()
-	{
-		return $this->proyecto;	
 	}
 	
 	function run( $argumentos )
@@ -152,11 +127,11 @@ class consola_toba implements gui
 	// Primitivas de display
 	//----------------------------------------------
 
-	function separador( $texto='' )
+	function separador( $texto='', $caracter='-' )
 	{
 		if($texto!='') $texto = "--  $texto  ";
 		echo "\n";
-		$this->linea_completa( $texto, '-');
+		$this->linea_completa( $texto, $caracter );
 		echo "\n";
 	}
 
@@ -182,6 +157,11 @@ class consola_toba implements gui
 		foreach( $lineas as $linea ) {
 			echo self::display_prefijo_linea . $linea . "\n";
 		}
+	}
+
+	function enter()
+	{
+		echo "\n";	
 	}
 
 	/*
@@ -236,7 +216,5 @@ class consola_toba implements gui
 		if( $respuesta == 's') return true;
 		return false;
 	}	
-
-	//----------------------------------------------
 }
 ?>

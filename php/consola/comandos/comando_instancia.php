@@ -1,9 +1,9 @@
 <?
-require_once('comando.php');
+require_once('comando_toba.php');
 require_once('modelo/instancia.php');
 
 /**
-*	Publica los servicios de la clase instancia a la consola
+*	Publica los servicios de la clase INSTANCIA a la consola toba
 */
 class comando_instancia extends comando_toba
 {
@@ -12,22 +12,48 @@ class comando_instancia extends comando_toba
 		return 'Administracion de INSTANCIAS.';
 	}
 
+	function mostrar_observaciones()
+	{
+		$this->manejador_interface->mensaje("INVOCACION: toba instancia 'opcion' [id_instancia]");
+		$this->manejador_interface->enter();
+		$this->manejador_interface->mensaje("Si no se indica [id_instancia] se utiliza la variable de entorno 'toba_instancia' ( valor actual: '". $this->get_entorno_id_instancia(). "' ) " );
+		$this->manejador_interface->enter();
+	}
+
+	/**
+	*	Determina la instancia sobre la que se va a trabajar
+	*/
 	private function get_id_instancia_actual()
 	{
 		if ( isset( $this->argumentos[1] ) ) {
 			$id = $this->argumentos[1];
 		} else {
-			$id = $this->consola->get_instancia();
+			$id = $this->get_entorno_id_instancia();
 		}
 		return $id;
 	}
 		
+	/**
+	*	Devuelve una referencia a la INSTANCIA
+	*/
 	private function get_elemento()
 	{
-		$instancia = new instancia(	$this->consola->get_dir_raiz(),
+		$instancia = new instancia(	$this->get_dir_raiz(),
 									$this->get_id_instancia_actual() );
-		$instancia->set_manejador_interface( $this->consola );
+		$instancia->set_manejador_interface( $this->manejador_interface );
 		return $instancia;
+	}
+
+	//-------------------------------------------------------------
+	// Opciones
+	//-------------------------------------------------------------
+	
+	/**
+	*	Informacion basica de la instancia
+	*/
+	function opcion__info()
+	{
+		$this->manejador_interface( $this->get_elemento()->info() );
 	}
 	
 	/**
@@ -43,7 +69,6 @@ class comando_instancia extends comando_toba
 	*/
 	function opcion__iniciar()
 	{
-		
 	}
 	
 	/**

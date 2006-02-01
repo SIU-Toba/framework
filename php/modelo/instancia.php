@@ -1,5 +1,6 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
+require_once('modelo/instalacion.php');
 require_once('modelo/procesos/instancia_exportador.php');
 
 /**
@@ -33,6 +34,9 @@ class instancia extends elemento_modelo
 		$this->dir = $this->dir_raiz . '/instalacion/' . instalacion::instancia_prefijo . $this->identificador;
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("Exportador de Instancia: la carpeta '{$this->dir}' no existe");
+		} else {
+			//Incluyo el archivo de parametros de la instancia
+			require_once( $this->dir . '/info_instancia.php' );
 		}
 	}
 
@@ -59,8 +63,6 @@ class instancia extends elemento_modelo
 	
 	function get_lista_proyectos()
 	{
-		//Recupero la lista de proyectos incluidos en la instancia
-		require_once( $this->dir . '/info_instancia.php' );
 		$lista_proyectos = info_instancia::get_lista_proyectos();
 		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
 		if ( ! in_array( 'toba', $this->lista_proyectos ) ) {
@@ -69,6 +71,16 @@ class instancia extends elemento_modelo
 		return $lista_proyectos;
 	}
 	
+	function get_id_db()
+	{
+		return info_instancia::get_base();		
+	}	
+	
+	function info_db()
+	{
+		
+	}
+
 	//-----------------------------------------------------------
 	//	Procesos
 	//-----------------------------------------------------------
@@ -85,6 +97,37 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
+	}
+
+	/**
+	* Eliminacion de instancias
+	*/
+	function eliminar()
+	{
+			
+	}
+
+	/**
+	* Inicializacion de instancias
+	*/
+	function inicializar()
+	{	
+		/*
+		try {
+			$db->abrir_transaccion();
+			$db->retrazar_constraints();
+			$this->crear_base();
+			$this->crear_tablas();
+			$this->desactivar_constraints();
+			$this->cargar_proyectos();
+			$this->cargar_datos_instancia();
+			$db->cerrar_transaccion();
+		} catch ( excepcion_toba $e ) {
+			$db->abortar_transaccion();
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la inicializacion de la instancia.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
+		*/	
 	}
 }
 ?>

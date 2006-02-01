@@ -2,9 +2,11 @@
 require_once('lib/elemento_modelo.php');
 require_once('modelo/procesos/proyecto_exportador.php');
 require_once('modelo/procesos/proyecto_compilador.php');
-/*
-	FALTA:
-		- Control de que se referencia a un proyecto VALIDO
+/**
+*	Publica los servicios de la clase NUCLEO a la consola toba
+*
+*	FALTA:
+*		- Control de que se referencia a un proyecto VALIDO
 */
 class proyecto extends elemento_modelo
 {

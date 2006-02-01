@@ -1,15 +1,23 @@
 <?
-/*
-*	Ancestro de todos los comandos de consola
-*/
-class comando_toba
+class comando
 {
+	protected $manejador_interface;
 	protected $argumentos;
-	protected $consola;			// Referencia a la consola
 
-	function __construct( $consola )
+	function __construct( gui $manejador_interface )
 	{
-		$this->consola = $consola;	
+		$this->manejador_interface = $manejador_interface;
+	}
+
+	static function get_info(){}
+
+	function mostrar_observaciones(){}
+
+	function get_nombre()
+	{
+		$nombre = get_class( $this );
+		$temp = explode('_', $nombre);
+		return $temp[1];
 	}
 	
 	function set_argumentos( $argumentos )
@@ -26,22 +34,18 @@ class comando_toba
 			if( method_exists( $this, $opcion ) ) {
 				$this->$opcion();	
 			} else {
-				$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+				$this->manejador_interface->mensaje("La opcion '".$this->argumentos[0]."' no existe");
 				$this->mostrar_ayuda();
 			}
 		}
 	}
 
-	static function get_info()
-	{
-		return 'No definida';
-	}
-	
 	function mostrar_ayuda()
 	{
-		$this->consola->titulo( $this->get_info() );
-		$this->consola->subtitulo( 'Lista de opciones' );
-		$this->consola->coleccion( $this->inspeccionar_opciones() );
+		$this->manejador_interface->titulo( $this->get_info() );
+		$this->mostrar_observaciones();
+		$this->manejador_interface->subtitulo( 'Lista de opciones' );
+		$this->manejador_interface->coleccion( $this->inspeccionar_opciones() );
 	}
 
 	function inspeccionar_opciones()

@@ -1,22 +1,28 @@
 <?
 /*
-	Habre una consola del SIU-TOBA (Utiliza $toba_dir).
+	Este script abre una consola del SIU-TOBA 
 */
-//----------------------------------------------
-// Determino el directorio de trabajo
-//----------------------------------------------
-if (isset($_SERVER['toba_dir'])) {
+if ( isset( $_SERVER['toba_dir'] ) ) {
+
+	//----------------------------------------------
+	// Defino el 'include_path'
+	//----------------------------------------------
+
 	$dir = $_SERVER['toba_dir']."/php"; 
-	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-	ini_set("include_path", ini_get("include_path"). $separador . $dir);
+	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ';.;' : ':.:';
+	ini_set('include_path', ini_get('include_path'). $separador . $dir);
+
+	//----------------------------------------------
+	// Invoco la consola
+	//----------------------------------------------
+	
+	require_once('consola/consola.php');
+	$directorio_comandos = $dir . "/consola/comandos";
+	$consola = new consola( $directorio_comandos );
+	array_shift( $argv );
+	$consola->run( $argv );
+
 } else {
-	echo "La variable de entorno 'toba_dir' no esta definida!";	
+	echo "  ATENCION: La variable de entorno 'toba_dir' no esta definida!";	
 }
-//----------------------------------------------
-// Invoco la consola
-//----------------------------------------------
-require_once('consola/consola_toba.php');
-$consola = new consola_toba( $_SERVER['toba_dir'] );
-array_shift($argv);
-$consola->run( $argv );
 ?>
