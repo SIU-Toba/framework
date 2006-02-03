@@ -77,6 +77,7 @@ class sesion {
 				throw new excepcion_toba("El usuario intento abrir un proyecto para el cual no posee permisos");					
 			}
 			$_SESSION['toba']["usuario"]=$rs[0];
+			$_SESSION['toba']['permisos'] = toba::get_permisos()->cargar($proyecto, $rs[0]["grupo_acceso"]);
 			//-----------------------------> Cargo propiedades del proyecto
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 			$sql = "SELECT	p.proyecto as nombre,
@@ -294,6 +295,9 @@ class sesion {
 
 		//--[3]-- Actualizo la variable que guarda el ultimo acceso a la sesion
 		$_SESSION['toba']["ultimo_acceso"]=time();//El tiempo que dure la solicitud no se cuenta... no importa.
+		
+		//--Notifico los permisos del usuario actual
+		toba::get_permisos()->set_permisos($_SESSION['toba']['permisos']);
 	}
 //-----------------------------------------------------------------------------
 }

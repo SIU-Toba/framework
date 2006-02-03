@@ -139,7 +139,7 @@ class recurso {
 	 * Convierte una ayuda y una tecla de acceso en atributos html adecuados para un TAG
 	 * Parseando los links y el accesskey
 	 * @param char $tecla Tecla utiliza para acceder a la acción que contiene la ayuda, puede ser nula
-	 * @param string $ayuda Ayuda que se va a incluir en la acción
+	 * @param string $ayuda Ayuda que se va a incluir en la acción, no debe contener comillas simples sin quotear
 	 * @param string $clases_css Clases css que se deben incluir en el tag en donde va la ayuda
 	 * @return unknown
 	 */
@@ -155,7 +155,6 @@ class recurso {
 			$ayuda .= $ayuda_extra;
 			$ayuda = parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
-			$ayuda = str_replace(array("'"), "\\'", $ayuda);
 			$ayuda = str_replace(array("\""), "`", $ayuda);
 			$a = " class='ayuda $clases_css' onmouseover=\"return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"return dhtml_tooltip.hide();\" ";
 		} else {

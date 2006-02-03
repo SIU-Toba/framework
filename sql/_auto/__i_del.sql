@@ -15,6 +15,8 @@ DELETE FROM apex_objeto_multicheq ;
 DELETE FROM apex_objeto_ei_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario_ef ;
 DELETE FROM apex_objeto_ut_formulario ;
+DELETE FROM apex_permiso_grupo_acc ;
+DELETE FROM apex_permiso ;
 DELETE FROM apex_objeto_datos_rel_asoc ;
 DELETE FROM apex_objeto_datos_rel ;
 DELETE FROM apex_objeto_db_registros_col ;

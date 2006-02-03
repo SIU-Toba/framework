@@ -397,7 +397,7 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 						}
 					}
 				</script>
-				<div style='float: right; font-size:9px;'>
+				<div style='font-size:9px;'>
 					<a href='javascript: multi_seleccion_mostrar(true)'>Todos</a> / 
 					<a href='javascript: multi_seleccion_mostrar(false)'>Ninguno</a></div>
 			";

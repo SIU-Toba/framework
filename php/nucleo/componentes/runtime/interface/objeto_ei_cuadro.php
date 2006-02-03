@@ -447,8 +447,10 @@ class objeto_ei_cuadro extends objeto_ei
 	//Genero la CLAVE
     {
         $id_fila = "";
-        foreach($this->columnas_clave as $clave){
-            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+        if (isset($this->columnas_clave)) {
+	        foreach($this->columnas_clave as $clave){
+	            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+	        }
         }
         $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
         return $id_fila;
@@ -1356,7 +1358,6 @@ class objeto_ei_cuadro extends objeto_ei
 	}
 
 	private function html_barra_paginacion()
-	//Barra para navegar la paginacion
 	{
 		if( isset($this->total_registros) && !($this->tamanio_pagina >= $this->total_registros) ) {
 			//Calculo los posibles saltos
@@ -1390,21 +1391,10 @@ class objeto_ei_cuadro extends objeto_ei
 				$img = recurso::imagen_apl("paginacion/ultimo.gif");
 				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
-			//Creo la barra de paginacion
-			if($this->info_cuadro["paginar"]) {
-				echo "<table class='tabla-0'><tr>";
-				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>$primero</td>";
-				echo "<td  class='lista-pag-bot'>$anterior</td>";
-				echo "<td  class='lista-pag-bot'>&nbsp;Página&nbsp;<b>{$this->pagina_actual}</b>&nbsp;de&nbsp;<b>{$this->cantidad_paginas}</b>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>$siguiente</td>";
-				echo "<td class='lista-pag-bot' >$ultimo</td>";
-				echo "<td  class='lista-pag-bot'>&nbsp;</td>";
-				echo "<td  class='lista-pag-bot'>";
-				echo "</td>";
-				echo "</tr></table>";
-				echo "</div>";              
-			}
+			echo "<div class='lista-pag-bot'>";
+			echo "$primero $anterior Página <strong>{$this->pagina_actual}</strong> de ";
+			echo "<strong>{$this->cantidad_paginas}</strong> $siguiente $ultimo";
+			echo "</div>";
 		}
 	}
 

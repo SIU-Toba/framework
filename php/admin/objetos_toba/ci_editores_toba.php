@@ -7,6 +7,7 @@ abstract class ci_editores_toba extends objeto_ci
 	protected $id_objeto;
 	protected $cambio_objeto;
 	protected $cargado = false;
+	protected $etapa_particular;
 	private $falla_carga = false;
 	private $elemento_eliminado = false;
 
@@ -31,6 +32,7 @@ abstract class ci_editores_toba extends objeto_ci
 				$this->cambio_objeto = false;	
 			}
 		}
+		$this->etapa_particular = toba::get_hilo()->obtener_parametro('etapa');
 		//Necesito cargar la entidad antes de mostrar la pantalla
 	}
 	
@@ -90,7 +92,16 @@ abstract class ci_editores_toba extends objeto_ci
 			unset($eventos['eliminar']);
 		}
 		return $eventos;
-	}	
+	}
+
+	function get_etapa_actual()
+	{
+		if (isset($this->etapa_particular)) {
+			return $this->etapa_particular;	
+		} else {
+			return parent::get_etapa_actual();	
+		}
+	}
 
 	function evt__eliminar()
 	{

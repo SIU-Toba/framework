@@ -2055,15 +2055,8 @@ TD.grafico-objeto {
 	 BACKGROUND-COLOR: #7b7979;
 	 TEXT-ALIGN: left
 }
-TD.lista-pag-bot {
-	PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 2px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: right
+.lista-pag-bot {
+	 text-align: center;
 }
 TABLE.listado-base {
 	PADDING-RIGHT: 0px;

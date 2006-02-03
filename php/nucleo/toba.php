@@ -16,6 +16,9 @@ class toba
 		return nucleo_toba::instancia()->get_solicitud();	
 	}
 	
+	/**
+	 * @return vinculador
+	 */
 	static function get_vinculador()
 	{
 		return toba::get_solicitud()->vinculador;
@@ -39,6 +42,15 @@ class toba
 	{
 		return logger::instancia();
 	}
+	
+	/**
+	 * Retorna la referencia al administrador de permisos particulares
+	 *	@return permisos
+	 */
+	static function get_permisos()
+	{
+		return permisos::instancia();
+	}
 
 	static function get_cola_mensajes()
 	{
@@ -60,6 +72,12 @@ class toba
 		return $db[$fuente];
 	}
 	
+	/**
+	 * Retorna la referencia a la librería que administra las consultas y comandos a la fuente de datos
+	 *
+	 * @param string $fuente
+	 * @return db_postgres7
+	 */
 	static function get_db($fuente, $ado=null)
 	{
 		return dba::get_db($fuente);

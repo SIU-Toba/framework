@@ -18,16 +18,15 @@ class tp_normal extends tp_basico
 				z-index: 100;
 			}
 			#dhtml_tooltip_div{
-			 position:absolute;
-			 width: 200px;
-			 visibility:hidden;
-			 background-color: lightyellow;			 
-			 padding: 2px;
-			 border: 1px solid black;
-			 line-height:18px;
-			 z-index:100;
-			 white-space: nowrap;
-			 }			
+				position:absolute;
+				width: 200px;
+				visibility:hidden;
+				background-color: lightyellow;			 
+				padding: 2px;
+				border: 1px solid black;
+				line-height:18px;
+				z-index:100;
+			}			
 		</style>			
 		<?php
 	}

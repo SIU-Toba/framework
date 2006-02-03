@@ -629,16 +629,8 @@ class objeto_datos_tabla extends objeto
 	 */
 	function eliminar_filas()
 	{
-		foreach(array_keys($this->cambios) as $fila)
-		{
-			if($this->cambios[$fila]['estado']=="i"){
-				unset($this->cambios[$fila]);
-				unset($this->datos[$fila]);
-			}else{
-				if($this->existe_fila($fila)){
-					$this->registrar_cambio($fila,"d");
-				}
-			}
+		foreach(array_keys($this->cambios) as $fila) {
+			$this->eliminar_fila($fila);
 		}
 	}
 

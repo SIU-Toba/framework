@@ -116,4 +116,12 @@ class excepcion_toba_def extends excepcion_toba
 
 }
 
+/**
+ * Excepción producida en tiempo de ejecución cuando el usuario no tiene permitido algún derecho
+ */
+class excepcion_toba_permisos extends excepcion_toba 
+{
+	
+}
+
 ?>

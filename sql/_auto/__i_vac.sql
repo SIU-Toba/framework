@@ -15,6 +15,8 @@ VACUUM VACUUM FULL ANALYSE apex_objeto_multicheq;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ei_formulario_ef;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario_ef;
 VACUUM VACUUM FULL ANALYSE apex_objeto_ut_formulario;
+VACUUM VACUUM FULL ANALYSE apex_permiso_grupo_acc;
+VACUUM VACUUM FULL ANALYSE apex_permiso;
 VACUUM VACUUM FULL ANALYSE apex_objeto_datos_rel_asoc;
 VACUUM VACUUM FULL ANALYSE apex_objeto_datos_rel;
 VACUUM VACUUM FULL ANALYSE apex_objeto_db_registros_col;

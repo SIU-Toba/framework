@@ -15,6 +15,8 @@ DROP TABLE apex_objeto_multicheq ;
 DROP TABLE apex_objeto_ei_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario_ef ;
 DROP TABLE apex_objeto_ut_formulario ;
+DROP TABLE apex_permiso_grupo_acc ;
+DROP TABLE apex_permiso ;
 DROP TABLE apex_objeto_datos_rel_asoc ;
 DROP TABLE apex_objeto_datos_rel ;
 DROP TABLE apex_objeto_db_registros_col ;
@@ -198,6 +200,7 @@ DROP SEQUENCE apex_objeto_plan_linea_seq;
 DROP SEQUENCE apex_admin_persistencia_seq;
 DROP SEQUENCE apex_objeto_dbr_columna_seq;
 DROP SEQUENCE apex_objeto_datos_rel_asoc_seq;
+DROP SEQUENCE apex_permiso_seq;
 DROP SEQUENCE apex_obj_ei_form_fila_seq;
 DROP SEQUENCE apex_obj_ci_pantalla_seq;
 

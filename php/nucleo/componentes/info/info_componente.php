@@ -55,16 +55,17 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return array();
 	}
 
-	function acceso_zona()
+	function acceso_zona($parametros = array())
 	{
-		return array( apex_hilo_qs_zona => $this->proyecto . apex_qs_separador . $this->id);
+		$parametros[apex_hilo_qs_zona] = $this->proyecto . apex_qs_separador . $this->id;
+		return $parametros;
 	}
 
-	function vinculo_editor()
+	function vinculo_editor($parametros = array())
 	{
 		$editor_item = $this->datos['info']['clase_editor_item'];
 		$editor_proyecto = $this->datos['info']['clase_editor_proyecto'];
-		return toba::get_vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona(),
+		return toba::get_vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
 															false, false, null, true, 'central');
 	}
 
@@ -137,21 +138,18 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	{
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
-/*
-			$param_abrir_php = $this->acceso_zona();
-			$param_abrir_php['evento'] = "abrir";
-			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("reflexion/abrir.gif", false),
-				'ayuda' => "Abrir la [wiki:Referencia/Objetos/Extension#Abrirlaextensi%C3%B3n extensión PHP] en el editor del sistema.", 
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_abrir_php,
-																		false, false, null, true, "central")
-			);
-*/
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('php.gif', false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP].',
 				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central')
+			);
+		}
+		if (isset($this->datos['info_eventos'])) {
+			$iconos[] = array(
+				'imagen' => recurso::imagen_apl('reflexion/evento.gif', false),
+				'ayuda' => 'Editar los [wiki:Referencia/Eventos eventos del objeto].',
+				'vinculo' => $this->vinculo_editor(array('etapa' => 3))
 			);
 		}
 		if(isset($this->datos['info']['clase_editor_proyecto'])) {
@@ -161,7 +159,6 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				'vinculo' => $this->vinculo_editor()
 			);
 		}
-
 		return $iconos;	
 	}	
 	

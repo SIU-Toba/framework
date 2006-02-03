@@ -44,5 +44,6 @@ $secuencias['apex_elemento_infra_input_seq'] = array('campo' => 'entrada', 'tabl
 $secuencias['apex_nucleo_tipo_seq'] = array('campo' => 'nucleo_tipo', 'tabla'=> 'apex_nucleo_tipo');
 $secuencias['apex_tp_tarea_seq'] = array('campo' => 'tarea', 'tabla'=> 'apex_tp_tarea');
 $secuencias['apex_tp_tarea_tipo_seq'] = array('campo' => 'tarea_tipo', 'tabla'=> 'apex_tp_tarea_tipo');
+$secuencias['apex_permiso_seq'] = array('campo' => 'permiso', 'tabla' => 'apex_permiso');
 
 ?>

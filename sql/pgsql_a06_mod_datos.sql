@@ -75,8 +75,7 @@ CREATE TABLE apex_mod_datos_tabla
 	extra_1								varchar(255)   NULL,
 	extra_2								varchar(255)   NULL,
    CONSTRAINT  "apex_md_tabla_pk"   PRIMARY KEY ("proyecto","tabla"),
-   CONSTRAINT  "apex_md_tabla_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_md_tabla_fk_dump" FOREIGN KEY ("dump") REFERENCES "apex_mod_datos_dump" ("dump") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_md_tabla_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 

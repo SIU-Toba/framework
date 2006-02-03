@@ -12,10 +12,12 @@ require_once("nucleo/lib/logger.php");						//Logger
 require_once("nucleo/lib/mensaje.php");						//Modulo de mensajes parametrizables
 require_once("nucleo/lib/cola_mensajes.php");				//Cola de mensajes utilizada durante la EJECUCION
 require_once("nucleo/lib/asercion.php");       	   			//Aserciones
+require_once("nucleo/lib/permisos.php");					//Administrador de permisos particulares
 require_once("nucleo/browser/recurso.php");					//Obtencion de imágenes de la aplicación
 require_once("nucleo/componentes/constructor_toba.php");	//Constructor de componentes
 require_once("nucleo/componentes/cargador_toba.php");		//Cargador de componentes
 require_once("nucleo/componentes/catalogo_toba.php");		//Catalogo de componentes
+
 /**
 	Servicios independientes del tipo de solicitud
 		- Creacion de componentes internos
