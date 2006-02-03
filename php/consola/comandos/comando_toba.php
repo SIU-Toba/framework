@@ -69,5 +69,13 @@ class comando_toba extends comando
 	{
 		return catalogo_modelo::get_instalacion( $this->consola );
 	}
+
+	/**
+	*	Devuelve una referencia al NUCLEO
+	*/
+	protected function get_nucleo()
+	{
+		return catalogo_modelo::get_nucleo( $this->consola );
+	}
 }
 ?>

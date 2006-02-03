@@ -42,7 +42,6 @@ class tablas_nucleo
   33 => 'apex_tipo_datos',
   34 => 'apex_objeto_mt_me_tipo_nav',
   35 => 'apex_test_paises',
-  36 => 'apex_dim_restric_soltipo',
 );
 	}
 
@@ -759,26 +758,6 @@ class tablas_nucleo
   array (
     0 => 'pais',
     1 => 'nombre',
-  ),
-);
-	}
-
-	static function apex_dim_restric_soltipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a99_perfiles.sql',
-  'proyecto' => 'toba',
-  'dump' => 'proyecto',
-  'dump_order_by' => 'solicitud_tipo, usuario_perfil_datos',
-  'zona' => 'perfiles',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'solicitud_tipo',
-    1 => 'usuario_perfil_datos_proyecto',
-    2 => 'usuario_perfil_datos',
   ),
 );
 	}

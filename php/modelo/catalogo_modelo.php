@@ -36,5 +36,15 @@ class catalogo_modelo
 		$proyecto->set_manejador_interface( $manejador_interface );
 		return $proyecto;
 	}
+
+	/**
+	*	Crea un manejador de nucleo
+	*/
+	static function get_nucleo( $manejador_interface )
+	{
+		$nucleo = new nucleo();
+		$nucleo->set_manejador_interface( $manejador_interface );
+		return $nucleo;
+	}
 }
 ?>

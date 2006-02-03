@@ -45,11 +45,11 @@ class nucleo extends elemento_modelo
 	/*
 	*	Exporta los metadatos correspondientes a las tablas maestras del sistema
 	*/
-	function exportar()
+	function exportar( $instancia )
 	{
 		try {
 			$exportador = new nucleo_exportador( $this );
-			$exportador->procesar();
+			$exportador->procesar( $instancia->get_db() );
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );

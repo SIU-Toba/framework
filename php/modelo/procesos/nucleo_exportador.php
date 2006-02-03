@@ -5,16 +5,16 @@ require_once('nucleo/lib/manejador_archivos.php');
 
 class nucleo_exportador extends proceso
 {
-	function procesar()
+	function procesar( $db )
 	{
-		$this->exportar_tablas();
+		$this->exportar_tablas( $db );
 	}
 	
 	//-------------------------------------------------------------------
 	// TABLAS
 	//-------------------------------------------------------------------
 
-	function exportar_tablas()
+	function exportar_tablas( $db )
 	{
 		$this->interface->titulo( "Exportacion de tablas del NUCLEO" );
 		manejador_archivos::crear_arbol_directorios( $this->elemento->get_dir_metadatos() );
@@ -27,7 +27,7 @@ class nucleo_exportador extends proceso
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->interface->mensaje( $sql );
 			$contenido = "";
-			$datos = consultar_fuente($sql, 'instancia' );
+			$datos = $db->consultar( $sql );
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}

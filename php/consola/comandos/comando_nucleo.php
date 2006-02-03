@@ -11,16 +11,6 @@ class comando_nucleo extends comando_toba
 		return 'Administracion de la informacion perteneciente al nucleo del sistema';
 	}
 
-	/**
-	*	Devuelve una referencia al NUCLEO
-	*/
-	private function get_elemento()
-	{
-		$nucleo = new nucleo();
-		$nucleo->set_manejador_interface( $this->consola );
-		return $nucleo;
-	}
-
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
@@ -30,7 +20,7 @@ class comando_nucleo extends comando_toba
 	*/
 	function opcion__parsear_ddl()
 	{
-		$this->get_elemento()->parsear_ddl();
+		$this->get_nucleo()->parsear_ddl();
 	}
 
 	/**
@@ -38,7 +28,26 @@ class comando_nucleo extends comando_toba
 	*/
 	function opcion__exportar_datos()
 	{
-		$this->get_elemento()->exportar();
+		//Tomo la referencia a la instancia
+		$instancia = $this->get_instancia();
+		$this->get_nucleo()->exportar( $instancia );
+	}
+
+	//-------------------------------------------------------------
+	// Primitivas internas
+	//-------------------------------------------------------------
+
+	/**
+	*	Determina la instancia sobre la que se va a trabajar
+	*/
+	protected function get_id_instancia_actual()
+	{
+		if ( isset( $this->argumentos[1] ) ) {
+			$id = $this->argumentos[1];
+		} else {
+			$id = $this->get_entorno_id_instancia();
+		}
+		return $id;
 	}
 }
 ?>

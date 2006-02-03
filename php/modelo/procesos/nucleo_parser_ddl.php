@@ -33,7 +33,7 @@ class nucleo_parser_ddl extends proceso
 	function get_archivos_ddl()
 	{
 		$directorio = $this->elemento->get_dir_ddl();
-		$patron = '%pgsql_a.*\.sql%';
+		$patron = '|^pgsql_a.*\.sql|';
 		$this->archivos = manejador_archivos::get_archivos_directorio( $directorio, $patron );
 	}
 
