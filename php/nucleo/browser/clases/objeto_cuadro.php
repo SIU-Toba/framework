@@ -258,7 +258,7 @@ class objeto_cuadro extends objeto
             }
         }
         $this->sql = $sql;
-        $rs = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
+        $rs = toba::get_db($this->info["fuente"])->Execute($sql);
         if(!$rs){//SQL mal formado
             $this->observar("error","OBJETO CUADRO [cargar_datos] - No se genero un recordset [SQL] $sql - [ERROR] " . 
                             $db[$this->info["fuente"]][apex_db_con]->ErrorMsg(),true,true,true);
