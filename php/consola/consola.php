@@ -4,7 +4,6 @@
 		- Si se pide un comando que no existe salta un error
 		- Escuchar al usuario con un interprete o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
-		- Tendria que existir un esquema para extender un comando
 */
 require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
@@ -23,18 +22,20 @@ class consola implements gui
 	const display_ancho = 80;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
-	private $ubicacion_comandos;
+	protected 	$ubicacion_comandos;
+	protected	$menu;
 	
-	function __construct( $ubicacion_comandos )
+	function __construct( $ubicacion_comandos, $clase_menu )
 	{
 		if( ! is_dir( $ubicacion_comandos ) ) {
 			throw new excepcion_toba("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
 		}
 		$this->ubicacion_comandos = $ubicacion_comandos;
-		require_once( $this->ubicacion_comandos .'/menu.php');
+		require_once( $this->ubicacion_comandos ."/$clase_menu.php");
+		$this->menu = new $clase_menu( $this );
 		cronometro::instancia()->marcar('Consola online');
 	}
-	
+
 	function run( $argumentos )
 	{
 		cronometro::instancia()->marcar('Inicio proceso.');
@@ -45,15 +46,13 @@ class consola implements gui
 				$this->invocar_comando( $comando, $argumentos );
 			} catch (excepcion_toba $e ) {
 				$this->mensaje( $e->getMessage() );	
-				$this->mostrar_menu();
 			}
 		} else {
 			//Aca se tendria que abrir el INTERPRETE
-			$this->titulo( menu::get_titulo() );
-			$this->mostrar_menu();
+			$this->menu->mostrar_ayuda_raiz();
 		}
 		cronometro::instancia()->marcar('Fin proceso.');
-		$this->mostrar_resumen();
+		$this->menu->mostrar_resumen();
 	}
 
 	function invocar_comando($nombre_comando, $argumentos)
@@ -68,20 +67,6 @@ class consola implements gui
 			throw new excepcion_toba("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
-	
-	function get_info_comandos()
-	{
-		$info = array();
-		$comandos = menu::get_comandos();
-		foreach( $comandos as $comando )
-		{
-			$clase_comando = 'comando_' . $comando;
-			require_once( $this->ubicacion_comandos .'/'.$clase_comando.'.php');
-			$info[$clase_comando] = call_user_func( array( $clase_comando, 'get_info') );
-		}
-		return $info;
-	}
-	
 /*
 	function interprete()
 	{
@@ -96,31 +81,9 @@ class consola implements gui
 		exit(0); 
 	}
 */
-	//----------------------------------------------
-	// Interface grafica
-	//----------------------------------------------
-
-	function mostrar_menu()
+	function get_ubicacion_comandos()
 	{
-		// Armo la coleccion de comandos
-		$comandos = array();
-		foreach ( $this->get_info_comandos() as $comando => $info ) {
-			$temp = explode('_', $comando);
-			$comandos[ $temp[1] ] = $info;
-		}
-		// Muestro la lista
-		$this->subtitulo("Comandos disponibles");
-		$this->coleccion( $comandos );
-	}
-
-	function mostrar_resumen()
-	{
-		echo "\n";
-		$this->linea_completa( null, '_');
-		$c = cronometro::instancia();
-		$tiempo = number_format($c->tiempo_acumulado(),3,",",".");
-		$this->mensaje("TIEMPO: $tiempo segundos");
-		//print_r( $c->get_marcas() );
+		return $this->ubicacion_comandos;	
 	}
 
 	//----------------------------------------------
@@ -193,9 +156,19 @@ class consola implements gui
 	}
 
 	/*
+	*	Dumpea un ARBOL
+	*/
+	function dump_arbol( $arbol, $titulo )
+	{
+		$this->enter();
+		$this->subtitulo( $titulo );
+		print_r( $arbol );
+	}
+
+	/*
 	* Genera la salida de una linea completando el espacio faltante del display con un caracter
 	*/
-	private function linea_completa( $base='', $caracter_relleno )
+	function linea_completa( $base='', $caracter_relleno )
 	{
 		echo str_pad( self::display_prefijo_linea . $base, self::display_ancho, $caracter_relleno );
 		echo "\n";

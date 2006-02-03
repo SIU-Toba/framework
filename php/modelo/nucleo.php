@@ -9,19 +9,19 @@ class nucleo extends elemento_modelo
 	// Informacion
 	//------------------------------------------------
 	
-	function get_dir_ddl()
+	static function get_dir_ddl()
 	{
-		return $this->dir_raiz . '/php/modelo/ddl';
+		return toba_dir() . '/php/modelo/ddl';
 	}
 	
-	function get_dir_estructura_db()
+	static function get_dir_estructura_db()
 	{
-		return $this->dir_raiz . '/php/modelo/estructura_db';		
+		return toba_dir() . '/php/modelo/estructura_db';		
 	}
 
-	function get_dir_metadatos()
+	static function get_dir_metadatos()
 	{
-		return $this->dir_raiz . '/php/modelo/metadatos';		
+		return toba_dir() . '/php/modelo/metadatos';		
 	}
 
 	//------------------------------------------------

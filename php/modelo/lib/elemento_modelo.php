@@ -4,12 +4,13 @@ require_once('gui.php');
 class elemento_modelo
 {
 	protected $manejador_interface;	
-	protected $dir_raiz;
+	protected $dir_raiz;	
 
-	function __construct( $directorio_raiz )
+	function __construct()
 	{
-		$this->dir_raiz = $directorio_raiz;
+		$this->dir_raiz = toba_dir();
 		if( ! is_dir( $this->dir_raiz ) ) {
+			//Esto no puede pasar nunca, di toba_dir funciona, es porque el include_path existe
 			throw new excepcion_toba("El directorio raiz '{$this->dir_raiz}' no es valido!");
 		}
 	}

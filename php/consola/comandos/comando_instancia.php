@@ -1,7 +1,5 @@
 <?
 require_once('comando_toba.php');
-require_once('modelo/instancia.php');
-
 /**
 *	Publica los servicios de la clase INSTANCIA a la consola toba
 */
@@ -14,46 +12,25 @@ class comando_instancia extends comando_toba
 
 	function mostrar_observaciones()
 	{
-		$this->manejador_interface->mensaje("INVOCACION: toba instancia 'opcion' [id_instancia]");
-		$this->manejador_interface->enter();
-		$this->manejador_interface->mensaje("Si no se indica [id_instancia] se utiliza la variable de entorno 'toba_instancia' ( valor actual: '". $this->get_entorno_id_instancia(). "' ) " );
-		$this->manejador_interface->enter();
-	}
-
-	/**
-	*	Determina la instancia sobre la que se va a trabajar
-	*/
-	private function get_id_instancia_actual()
-	{
-		if ( isset( $this->argumentos[1] ) ) {
-			$id = $this->argumentos[1];
-		} else {
-			$id = $this->get_entorno_id_instancia();
-		}
-		return $id;
-	}
-		
-	/**
-	*	Devuelve una referencia a la INSTANCIA
-	*/
-	private function get_elemento()
-	{
-		$instancia = new instancia(	$this->get_dir_raiz(),
-									$this->get_id_instancia_actual() );
-		$instancia->set_manejador_interface( $this->manejador_interface );
-		return $instancia;
+		$this->consola->mensaje("INVOCACION: toba instancia 'opcion' [id_instancia]");
+		$this->consola->enter();
+		$this->consola->mensaje("Si no se indica [id_instancia] se utiliza la variable de entorno 'toba_instancia' ( valor actual: '". $this->get_entorno_id_instancia(). "' ) " );
+		$this->consola->enter();
 	}
 
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
-	
+
 	/**
 	*	Informacion basica de la instancia
 	*/
 	function opcion__info()
 	{
-		$this->manejador_interface( $this->get_elemento()->info() );
+		$i = $this->get_instancia();
+		$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() );
+		$this->consola->dump_arbol( $i->get_lista_proyectos(), 'PROYECTOS' );
+		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
 	}
 	
 	/**
@@ -61,28 +38,80 @@ class comando_instancia extends comando_toba
 	*/
 	function opcion__exportar()
 	{
-		$this->get_elemento()->exportar();
+		$this->get_instancia()->exportar();
 	}
 
 	/**
-	*	Inicializa una instancia (INC.)
+	*	Exporta la informacion COMPLETA de la instancia (incluyendo proyectos) [NO]
 	*/
-	function opcion__iniciar()
+	function opcion__exportar_full()
 	{
+		$this->get_instancia()->exportar_full();
+	}
+
+	/**
+	*	Inicializa una instancia [NO]
+	*/
+	function opcion__importar()
+	{
+		$this->get_instancia()->importar();
+	}
+
+	/**
+	*	Elimina todas las tablas correspondientes al toba [NO]
+	*/
+	function opcion__regenerar()
+	{
+		$this->opcion__eliminar();
+		$this->get_instancia()->importar();
+	}
+
+	/**
+	*	Crea una instancia nueva.
+	*/
+	function opcion__crear()
+	{
+		$instalacion = $this->get_instalacion();
+		$instalacion->crear_instancia( $this->get_id_instancia_actual() );
+		$instancia = $this->get_instancia();
+		$instancia->iniciar_instancia();
+	}
+
+	/**
+	*	Elimina todas las tablas correspondientes al toba [NO]
+	*/
+	function opcion__eliminar_tablas()
+	{
+		$this->get_instancia()->eliminar_tablas();
+	}
+
+	/**
+	*	Elimina todas las tablas correspondientes al toba [NO]
+	*/
+	function opcion__eliminar()
+	{
+		$i = $this->get_instancia();
+		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
+		if ( $this->consola->dialogo_simple('Desea eliminar la base de datos?') ) {
+			$i->eliminar();
+		}
 	}
 	
+	//-------------------------------------------------------------
+	// Primitivas internas
+	//-------------------------------------------------------------
+
 	/**
-	*	Agrega un proyecto en la instancia (INC.)
+	*	Determina la instancia sobre la que se va a trabajar
 	*/
-	function opcion__agregar_proyecto()
+	protected function get_id_instancia_actual()
 	{
-	}
-	
-	/**
-	*	Elimina un proyecto de la instancia (INC.)
-	*/
-	function opcion__eliminar_proyecto()
-	{
+		if ( isset( $this->argumentos[1] ) ) {
+			$id = $this->argumentos[1];
+		} else {
+			$id = $this->get_entorno_id_instancia();
+		}
+		return $id;
 	}
 }
 ?>

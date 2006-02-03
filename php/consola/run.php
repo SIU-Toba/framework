@@ -18,7 +18,8 @@ if ( isset( $_SERVER['toba_dir'] ) ) {
 	
 	require_once('consola/consola.php');
 	$directorio_comandos = $dir . "/consola/comandos";
-	$consola = new consola( $directorio_comandos );
+	$clase_menu = 'menu_toba';
+	$consola = new consola( $directorio_comandos, $clase_menu );
 	array_shift( $argv );
 	$consola->run( $argv );
 

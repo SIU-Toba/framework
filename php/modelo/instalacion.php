@@ -1,26 +1,18 @@
 <?
+require_once('modelo/lib/elemento_modelo.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 
-class instalacion
+class instalacion extends elemento_modelo
 {
 	const directorio_base = 'instalacion';
 	const info_basica = 'info_instalacion';
 	const info_bases = 'info_bases';
 	const instancia_prefijo = 'i__';
 	const instancia_info = 'info_instancia';
-	private static $toba_dir ='';
 
-	static function set_toba_dir( $toba_dir )
+	function dir_base()
 	{
-		self::$toba_dir = $toba_dir;
-	}
-	
-	static function dir_base()
-	{
-		if (self::$toba_dir == '') {
-			throw new excepcion_toba("Es necesario definir el directorio toba con el metodo 'set_toba_dir( directorio )'");	
-		}
-		return self::$toba_dir .'/'. self::directorio_base .'/';
+		return toba_dir() .'/'. self::directorio_base .'/';
 	}
 
 	/**
@@ -133,16 +125,49 @@ class instalacion
 	}
 
 	//-------------------------------------------------------------
-	//-- Proyectos
+	//-- Informacion general
 	//-------------------------------------------------------------
 		
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	function get_lista_instancias()
+	{
+		$proyectos = array();
+		$directorio_proyectos = toba_dir() . '/proyectos';
+		if( is_dir( $directorio_proyectos ) ) {
+			if ($dir = opendir($directorio_proyectos)) {	
+			   while (false	!==	($archivo = readdir($dir)))	{ 
+					if( is_dir($directorio_proyectos . '/' . $archivo) 
+						&& ($archivo != '.' ) && ($archivo != '..' ) ){
+						$proyectos[] = $archivo;
+					}
+			   } 
+			   closedir($dir); 
+			}
+		}		
+		return $proyectos;
+	}
+
+	/**
+	* Devuelve la lista de las BASES
+	*/
+	function get_lista_bases()
+	{
+		$datos = array();
+		foreach( dba::get_lista_bases_archivo() as $base ) {
+			$datos[ $base ] = dba::get_parametros_base( $base );
+		}
+		return $datos;
+	}
+
 	/**
 	* Devuelve la lista de los proyectos que estan en la carpeta 'proyectos'
 	*/
 	function get_lista_proyectos()
 	{
 		$proyectos = array();
-		$directorio_proyectos = self::$toba_dir . '/proyectos';
+		$directorio_proyectos = toba_dir() . '/proyectos';
 		if( is_dir( $directorio_proyectos ) ) {
 			if ($dir = opendir($directorio_proyectos)) {	
 			   while (false	!==	($archivo = readdir($dir)))	{ 

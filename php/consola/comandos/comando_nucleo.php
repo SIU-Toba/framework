@@ -1,7 +1,6 @@
 <?
 require_once('comando_toba.php');
 require_once('modelo/nucleo.php');
-
 /**
 *	Publica los servicios de la clase NUCLEO a la consola toba
 */
@@ -17,8 +16,8 @@ class comando_nucleo extends comando_toba
 	*/
 	private function get_elemento()
 	{
-		$nucleo = new nucleo(	$this->get_dir_raiz() );
-		$nucleo->set_manejador_interface( $this->manejador_interface );
+		$nucleo = new nucleo();
+		$nucleo->set_manejador_interface( $this->consola );
 		return $nucleo;
 	}
 

@@ -32,14 +32,9 @@ class nucleo_parser_ddl extends proceso
 	
 	function get_archivos_ddl()
 	{
-		if ($dir = opendir($this->elemento->get_dir_ddl())) {	
-		   while (false	!==	($archivo = readdir($dir)))	{ 
-				if(preg_match('%pgsql_a.*\.sql%',$archivo)){
-					$this->archivos[] = $this->elemento->get_dir_ddl() . '/' . $archivo;
-				}
-		   } 
-		   closedir($dir); 
-		}
+		$directorio = $this->elemento->get_dir_ddl();
+		$patron = '%pgsql_a.*\.sql%';
+		$this->archivos = manejador_archivos::get_archivos_directorio( $directorio, $patron );
 	}
 
 	function parsear_archivos()

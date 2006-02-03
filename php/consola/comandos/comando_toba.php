@@ -1,22 +1,18 @@
 <?
+/*
+	FALTA: Tendria que existir un esquema para extender un comando
+			por ejemplo, despues de crear una instancia, un proyecto puede querer
+			agregar mas tablas a la misma
+*/
 require_once('consola/comando.php');
-//define('apex_pa_instancia','desarrollo');
+require_once('modelo/catalogo_modelo.php');
 
 class comando_toba extends comando
 {
-	function get_dir_raiz( $obligatorio = true )
-	{
-		if( !isset( $_SERVER['toba_dir'] ) ) {
-			if( $obligatorio ) {
-				throw new excepcion_toba("COMANDO_TOBA: La variable de entorno 'toba_dir' no esta definida");
-			} else {
-				return null;	
-			}
-		}
-		return $_SERVER['toba_dir'];
-	}
-	
-	function get_entorno_id_instancia( $obligatorio = true )
+	/**
+	*	Acceso a la variable de entorno 'toba_instancia'
+	*/
+	protected function get_entorno_id_instancia( $obligatorio = false )
 	{
 		if( !isset( $_SERVER['toba_instancia'] ) ) {
 			if( $obligatorio ) {
@@ -28,7 +24,10 @@ class comando_toba extends comando
 		return $_SERVER['toba_instancia'];
 	}
 
-	function get_entorno_id_proyecto( $obligatorio = true )
+	/**
+	*	Acceso a la variable de entorno 'toba_instancia'
+	*/
+	protected function get_entorno_id_proyecto( $obligatorio = false )
 	{
 		if( !isset( $_SERVER['toba_proyecto'] ) ) {
 			if( $obligatorio ) {
@@ -38,6 +37,37 @@ class comando_toba extends comando
 			}
 		}
 		return $_SERVER['toba_proyecto'];
+	}
+	
+	//-----------------------------------------------------------
+	// Acceso a los SUJETOS sobre los que actuan los comandos
+	//-----------------------------------------------------------
+
+	/**
+	*	Devuelve una referencia a la INSTANCIA
+	*/
+	protected function get_instancia()
+	{
+		return catalogo_modelo::get_instancia( 	$this->get_id_instancia_actual(), 
+												$this->consola );
+	}
+
+	/**
+	*	Devuelve una referencia al PROYECTO 
+	*/
+	protected function get_proyecto()
+	{
+		return catalogo_modelo::get_proyecto( 	$this->get_id_instancia_actual(),
+												$this->get_id_proyecto_actual(),
+												$this->consola );
+	}
+
+	/**
+	*	Devuelve una referencia al la INSTALACION
+	*/
+	protected function get_instalacion()
+	{
+		return catalogo_modelo::get_instalacion( $this->consola );
 	}
 }
 ?>

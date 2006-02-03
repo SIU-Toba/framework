@@ -1,4 +1,7 @@
 <?
+/**
+	FALTA:  agregarle una libreria que permita pasear argumentos
+*/
 class comando
 {
 	protected $manejador_interface;
@@ -6,7 +9,7 @@ class comando
 
 	function __construct( gui $manejador_interface )
 	{
-		$this->manejador_interface = $manejador_interface;
+		$this->consola = $manejador_interface;
 	}
 
 	static function get_info(){}
@@ -25,6 +28,9 @@ class comando
 		$this->argumentos = $argumentos;		
 	}
 
+	/**
+	*	Ubica el metodo solicitado y los ejecuta
+	*/
 	function procesar()
 	{
 		if ( count( $this->argumentos ) == 0 ) {
@@ -32,9 +38,9 @@ class comando
 		} else {
 			$opcion = 'opcion__' . $this->argumentos[0];
 			if( method_exists( $this, $opcion ) ) {
-				$this->$opcion();	
+				$this->$opcion();
 			} else {
-				$this->manejador_interface->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+				$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
 				$this->mostrar_ayuda();
 			}
 		}
@@ -42,10 +48,10 @@ class comando
 
 	function mostrar_ayuda()
 	{
-		$this->manejador_interface->titulo( $this->get_info() );
+		$this->consola->titulo( $this->get_info() );
 		$this->mostrar_observaciones();
-		$this->manejador_interface->subtitulo( 'Lista de opciones' );
-		$this->manejador_interface->coleccion( $this->inspeccionar_opciones() );
+		$this->consola->subtitulo( 'Lista de opciones' );
+		$this->consola->coleccion( $this->inspeccionar_opciones() );
 	}
 
 	function inspeccionar_opciones()

@@ -2,22 +2,12 @@
 require_once('modelo/lib/elemento_modelo.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/procesos/instancia_exportador.php');
-
 /**
 	FALTA:
 		- Control de que se referencia a una instancia VALIDA
-
-
-	Esta clase seria la responsable de administrar una instancia
-
-	Instancia:
-	
-		- Crear una nueva estructura
-		- Validar (info_proyectos, info_bases_modulos)
-		- Exportar la instancia
-		- Importar la instancia
+		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
+			( se eliminan las tablas o la base en la regeneracion? )
 */
-
 class instancia extends elemento_modelo
 {
 	const dir_datos_globales = 'global';
@@ -26,25 +16,25 @@ class instancia extends elemento_modelo
 	const archivo_logs = 'logs.sql';
 	private $identificador;
 	private $dir;
+	private $db;
 	
-	public function __construct( $directorio_raiz, $identificador )
+	public function __construct( $identificador )
 	{
-		parent::__construct( $directorio_raiz );
+		parent::__construct();
 		$this->identificador = $identificador;
+		define('apex_pa_instancia', $this->identificador);
 		$this->dir = $this->dir_raiz . '/instalacion/' . instalacion::instancia_prefijo . $this->identificador;
 		if( ! is_dir( $this->dir ) ) {
-			throw new excepcion_toba("Exportador de Instancia: la carpeta '{$this->dir}' no existe");
+			throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
 		} else {
 			//Incluyo el archivo de parametros de la instancia
 			require_once( $this->dir . '/info_instancia.php' );
 		}
 	}
 
-	static function existe( $nombre )
+	function get_db()
 	{
-		if ( trim( $nombre ) == '' ) {
-			throw new excepcion_toba("ATENCION: Es necesario definir la INSTANCIA de trabajo");	
-		}
+		return dba::get_db('instancia');
 	}
 
 	//-----------------------------------------------------------
@@ -65,28 +55,23 @@ class instancia extends elemento_modelo
 	{
 		$lista_proyectos = info_instancia::get_lista_proyectos();
 		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
-		if ( ! in_array( 'toba', $this->lista_proyectos ) ) {
+		if ( ! in_array( 'toba', $lista_proyectos ) ) {
 			$lista_proyectos[] = 'toba';	
 		}
 		return $lista_proyectos;
 	}
 	
-	function get_id_db()
+	function get_parametros_db()
 	{
-		return info_instancia::get_base();		
-	}	
-	
-	function info_db()
-	{
-		
+		return dba::get_info_db_instancia();
 	}
-
+	
 	//-----------------------------------------------------------
 	//	Procesos
 	//-----------------------------------------------------------
 
 	/**
-	* Exportacion de instancias
+	* Exportacion de la informacion correspondiente a la instancia (no proyectos)
 	*/
 	function exportar()
 	{
@@ -98,36 +83,84 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
+	
+	/**
+	* Exportacion de TODO lo que hay en una instancia
+	*/
+	function exportar_full()
+	{
+	}	
 
 	/**
-	* Eliminacion de instancias
+	* Importacion completa de una instancia
 	*/
-	function eliminar()
+	function importar()
 	{
+		// Existe la base?
+		$base = info_instancia::get_base();
+		if ( ! dba::existe_base_datos( $base ) ) {
+			dba::crear_base_datos( $base );
+		}
+		//Inicio el proceso de carga
+		try {
+			$this->get_db()->abrir_transaccion();
+			$this->get_db()->retrazar_constraints();
 			
+			$this->crear_modelo_datos_toba();
+
+			$this->get_db()->cerrar_transaccion();
+		} catch ( excepcion_toba $e ) {
+			$this->get_db()->abortar_transaccion();
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la inicializacion de la instancia.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
 	}
 
 	/**
 	* Inicializacion de instancias
 	*/
-	function inicializar()
+	function crear_modelo_datos_toba()
 	{	
-		/*
-		try {
-			$db->abrir_transaccion();
-			$db->retrazar_constraints();
-			$this->crear_base();
-			$this->crear_tablas();
-			$this->desactivar_constraints();
-			$this->cargar_proyectos();
-			$this->cargar_datos_instancia();
-			$db->cerrar_transaccion();
-		} catch ( excepcion_toba $e ) {
-			$db->abortar_transaccion();
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la inicializacion de la instancia.' );
-			$this->manejador_interface->error( $e->getMessage() );
+		$this->crear_tablas();
+		$this->cargar_datos_nucleo();
+	}
+	
+	private function crear_tablas()
+	{
+		$this->manejador_interface->subtitulo('Creando tablas del sistema.');
+		$directorio = nucleo::get_dir_ddl();
+		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '%.*\.sql%' );
+		foreach( $archivos as $archivo ) {
+			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
+			$this->get_db()->ejecutar_archivo( $archivo );
 		}
-		*/	
+	}
+	
+	private function cargar_datos_nucleo()
+	{
+		$this->manejador_interface->subtitulo('Cargando datos del nucleo.');
+		$directorio = nucleo::get_dir_metadatos();
+		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '%.*\.sql%' );
+		foreach( $archivos as $archivo ) {
+			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
+			$this->get_db()->ejecutar_archivo( $archivo );
+		}
+	}
+
+	/**
+	* Eliminacion de la BASE de la instancia
+	*/
+	function eliminar()
+	{
+		$base = info_instancia::get_base();
+		dba::borrar_base_datos( $base );
+	}
+
+	/**
+	* Eliminacion de las tablas de la instancia
+	*/
+	function eliminar_tablas()
+	{
 	}
 }
 ?>

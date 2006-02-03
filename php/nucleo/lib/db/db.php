@@ -32,7 +32,7 @@ class db
 	function __call($nombre, $argumentos)
 	{
 		//-------------- MIGRACION a 0.8.3-----------------
-		toba::get_logger()->obsoleto('adodb',$nombre, "0.8.3");
+		logger::instancia()->obsoleto('adodb',$nombre, "0.8.3");
 
 		return call_user_func_array(array($this->conexion, $nombre), $argumentos);
 		//-------------- MIGRACION -----------------		
@@ -40,7 +40,7 @@ class db
 	
 	function __get($propiedad)
 	{
-		toba::get_logger()->notice("El atributo de ADOdb $propiedad no se debe utilizar. Ver cambios en v0.8.3");
+		logger::instancia()->notice("El atributo de ADOdb $propiedad no se debe utilizar. Ver cambios en v0.8.3");
 		return $this->conexion->$propiedad;
 	}
 	
@@ -107,12 +107,11 @@ class db
 	*/
 	function ejecutar_sql($sql)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.3", "Usar método ejecutar");
+		logger::instancia()->obsoleto(__CLASS__, __METHOD__, "0.8.3", "Usar método ejecutar");
 		$this->ejecutar($sql);
 	}
 
 	//-------------------------------------------------------------------------------------
-
 	/**
 	*	Ejecuta una consulta sql
 	*	@param string $sql Consulta
@@ -182,21 +181,21 @@ class db
 	{
 		$sql = 'BEGIN TRANSACTION';
 		$this->ejecutar($sql);
-		toba::get_logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************");
+		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************");
 	}
 	
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK TRANSACTION';
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************"); 
+		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************"); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION";
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************"); 
+		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************"); 
 	}
 
 //-------------------------------------------------------------------------------------
@@ -209,10 +208,12 @@ class db
 	//Esta función ejecuta una serie de comandos sql dados en un archivo, contra la BD dada.
 	{
 		if (!file_exists($archivo)) {
-			throw new excepcion_toba("Error al ejecutar comandos. El archivo $archivo no existe");
+			throw new excepcion_toba("Error al ejecutar comandos. El archivo '$archivo' no existe");
 		}	
 		$str = file_get_contents($archivo);
-		$this->ejecutar($str);
+		if( trim($str) != '' ) {
+			$this->ejecutar($str);
+		}
 	}
 	//---------------------------------------------------------------------------------------
 	

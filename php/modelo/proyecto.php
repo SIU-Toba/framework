@@ -1,5 +1,6 @@
 <?php
 require_once('lib/elemento_modelo.php');
+require_once('modelo/instancia.php');
 require_once('modelo/procesos/proyecto_exportador.php');
 require_once('modelo/procesos/proyecto_compilador.php');
 /**
@@ -14,9 +15,9 @@ class proyecto extends elemento_modelo
 	private $identificador;
 	private $dir;
 
-	public function __construct( $directorio_raiz, $instancia, $identificador )
+	public function __construct( instancia $instancia, $identificador )
 	{
-		parent::__construct( $directorio_raiz );
+		parent::__construct();
 		$this->instancia = $instancia;
 		$this->identificador = $identificador;
 		if ( $this->identificador == 'toba' ) {
@@ -42,11 +43,6 @@ class proyecto extends elemento_modelo
 		return $this->identificador;
 	}
 	
-	function get_instancia()
-	{
-		return $this->instancia;	
-	}
-
 	function get_dir()
 	{
 		return $this->dir;	
@@ -71,6 +67,18 @@ class proyecto extends elemento_modelo
 	//	Procesos
 	//-----------------------------------------------------------
 
+	function info()
+	{
+		/*
+			Cuantas objetos hay, etc.
+		*/	
+	}
+
+	function importar()
+	{
+		$this->manejador_interface->mensaje( 'Inportando: ' . $this->identificador );
+	}
+
 	function exportar()
 	{
 		try {
@@ -91,6 +99,11 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la compilacion.' );
 			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
+	}
+
+	function eliminar()
+	{
+		$this->manejador_interface->mensaje( 'Eliminando: ' . $this->identificador );
 	}
 }
 ?>
