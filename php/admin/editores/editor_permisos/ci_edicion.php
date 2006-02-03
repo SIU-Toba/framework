@@ -1,0 +1,37 @@
+<?php
+require_once('nucleo/browser/clases/objeto_ci.php'); 
+//--------------------------------------------------------------------
+class ci_edicion extends objeto_ci
+{
+	protected $esta_cargado = false;
+	
+	/**
+	 * @return objeto_datos_relacion
+	 */
+	function get_relacion()	
+	{
+		return $this->controlador->get_relacion();
+	}
+		
+	//-------------------------------------------------------------------
+	//--- DEPENDENCIAS
+	//-------------------------------------------------------------------
+
+	function evt__basicas__carga()
+	{
+		$props = $this->get_relacion()->tabla('permiso')->get();
+		$props['grupos'] = $this->get_relacion()->tabla('grupos')->get_grupos();		
+		return $props;
+	}
+
+	function evt__basicas__modificacion($datos)
+	{
+		$grupos = $datos['grupos'];
+		unset($datos['grupos']);
+		$this->get_relacion()->tabla('permiso')->set($datos);
+		$this->get_relacion()->tabla('grupos')->set_grupos($grupos);
+	}
+
+}
+
+?>
