@@ -25,7 +25,7 @@ CREATE TABLE			apex_elemento_infra_tabla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: proyecto
---: dump_order_by: elemento_infra, tabla
+--: dump_order_by: elemento_infra, tabla, columna_clave_proyecto
 --: zona: general
 --: desc: Representa	una tabla donde se almacena parte del elemento
 --: version: 1.0

@@ -105,6 +105,26 @@ class manejador_archivos
 		return $archivos_ok;
 	}
 	
+	static function get_subdirectorios( $directorio )
+	{
+		$dirs = array();
+		if( ! is_dir( $directorio ) ) {
+			throw new excepcion_toba("Buscando archivos en directorio '$directorio'. El directorio es invalido");
+		} 
+		if ($dir = opendir( $directorio )) {	
+		   while (false	!==	( $archivo = readdir( $dir ) ) )	{ 
+				if( ( $archivo != '.' ) && ( $archivo != '..' ) ) {
+					$path = $directorio . '/' . $archivo;
+					if ( is_dir( $path ) ) {
+						$dirs[] = $path;
+					}
+				}
+		   } 
+		   closedir( $dir );
+		}
+		return $dirs;
+	}
+	
 	//---------------------------------------------------------------------------------
 	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)

@@ -45,7 +45,9 @@ class proyecto_exportador extends proceso
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $this->elemento->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
+			if ( trim( $contenido ) != '' ) {
+				file_put_contents( $this->elemento->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
+			}
 		}
 	}
 
@@ -60,8 +62,6 @@ class proyecto_exportador extends proceso
 		cargador_toba::instancia()->crear_cache_simple( $this->elemento->get_id() );
 		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
 			$this->interface->titulo( $tipo );
-			$path = $this->elemento->get_dir_componentes() . '/' . $tipo;
-			manejador_archivos::crear_arbol_directorios( $path );
 			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->elemento->get_id() ) as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
@@ -75,10 +75,12 @@ class proyecto_exportador extends proceso
 	{
 		$this->interface->mensaje("Exportando: " . $id['componente']);
 		$directorio = $this->elemento->get_dir_componentes() . '/' . $tipo;
+		manejador_archivos::crear_arbol_directorios( $directorio );
 		$archivo = manejador_archivos::nombre_valido( self::prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
-		file_put_contents( $directorio .'/'. $archivo . '.sql', $contenido );
-		//Log
+		//if ( trim( $contenido ) != '' ) {
+			file_put_contents( $directorio .'/'. $archivo . '.sql', $contenido );
+		//}
 	}
 	
 	/*

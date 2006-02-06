@@ -31,7 +31,9 @@ class nucleo_exportador extends proceso
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $this->elemento->get_dir_metadatos() .'/'. $tabla . '.sql', $contenido );			
+			if ( trim( $contenido ) != '' ) {
+				file_put_contents( $this->elemento->get_dir_metadatos() .'/'. $tabla . '.sql', $contenido );			
+			}
 		}
 	}
 }

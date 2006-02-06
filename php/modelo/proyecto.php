@@ -25,15 +25,11 @@ class proyecto extends elemento_modelo
 		} else {
 			$this->dir = $this->dir_raiz . '/proyectos/' . $this->identificador;	
 		}
+		if( ! is_dir( $this->dir ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
+		} 
 	}
 
-	static function nombre_valido( $nombre )
-	{
-		if ( trim( $nombre ) == '' ) {
-			throw new excepcion_toba("ATENCION: Es necesario definir el proyecto sobre el cual se va a trabajar");	
-		}
-	}
-	
 	//-----------------------------------------------------------
 	//	Informacion
 	//-----------------------------------------------------------
@@ -64,7 +60,7 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	Procesos
+	//	Procesos generales
 	//-----------------------------------------------------------
 
 	function info()
@@ -74,13 +70,59 @@ class proyecto extends elemento_modelo
 		*/	
 	}
 
-	function importar()
+	//-----------------------------------------------------------
+	//	IMPORTAR
+	//-----------------------------------------------------------
+	
+	function importar( $transaccion = false )
 	{
-		$this->manejador_interface->mensaje( 'Inportando: ' . $this->identificador );
+		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
+		}
+		try {
+			$db = $this->instancia->get_db();
+			if ( $transaccion ) $db->abrir_transaccion();
+			if ( $transaccion ) $db->retrazar_constraints();
+			$this->importar_tablas();
+			$this->importar_componentes();
+			if ( $transaccion ) $db->cerrar_transaccion();
+		} catch ( excepcion_toba $e ) {
+			if ( $transaccion ) $db->abortar_transaccion();
+			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
 	}
+	
+	private function importar_tablas()
+	{
+		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
+		foreach( $archivos as $archivo ) {
+			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
+			$this->instancia->get_db()->ejecutar_archivo( $archivo );
+		}
+	}
+	
+	private function importar_componentes()
+	{
+		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
+		foreach ( $subdirs as $dir ) {
+			$this->manejador_interface->mensaje( 'Cargando: ' . $dir );
+			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+			foreach( $archivos as $archivo ) {
+				$this->instancia->get_db()->ejecutar_archivo( $archivo );
+			}
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	EXPORTAR
+	//-----------------------------------------------------------
 
 	function exportar()
 	{
+		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+		}
 		try {
 			$exportador = new proyecto_exportador( $this );
 			$exportador->procesar();
@@ -89,6 +131,10 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
+
+	//-----------------------------------------------------------
+	//	COMPILAR
+	//-----------------------------------------------------------
 
 	function compilar()
 	{
@@ -100,6 +146,10 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
+
+	//-----------------------------------------------------------
+	//	ELIMINAR
+	//-----------------------------------------------------------
 
 	function eliminar()
 	{

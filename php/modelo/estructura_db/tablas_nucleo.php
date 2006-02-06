@@ -69,7 +69,7 @@ class tablas_nucleo
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'proyecto',
-  'dump_order_by' => 'elemento_infra, tabla',
+  'dump_order_by' => 'elemento_infra, tabla, columna_clave_proyecto',
   'zona' => 'general',
   'desc' => 'Representa	una tabla donde se almacena parte del elemento',
   'version' => '1.0',

@@ -211,9 +211,9 @@ class db
 			throw new excepcion_toba("Error al ejecutar comandos. El archivo '$archivo' no existe");
 		}	
 		$str = file_get_contents($archivo);
-		if( trim($str) != '' ) {
+		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
 			$this->ejecutar($str);
-		}
+		//}
 	}
 	//---------------------------------------------------------------------------------------
 	

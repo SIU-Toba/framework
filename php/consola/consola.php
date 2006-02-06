@@ -1,7 +1,6 @@
 <?
 /*
 	FALTA:
-		- Si se pide un comando que no existe salta un error
 		- Escuchar al usuario con un interprete o recibir parametros de la invocacion
 			son dos cosas que deberian tener el mismo resultado
 */
@@ -19,7 +18,7 @@ require_once("modelo/lib/gui.php");
 
 class consola implements gui
 {
-	const display_ancho = 80;
+	const display_ancho = 110;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
 	protected 	$ubicacion_comandos;
@@ -57,8 +56,9 @@ class consola implements gui
 
 	function invocar_comando($nombre_comando, $argumentos)
 	{
-		if ( true ) {																//Atencion! falta control de que el comando exista
-			$clase_comando = 'comando_' . $nombre_comando;
+		$clase_comando = 'comando_' . $nombre_comando;
+		$archivo = $this->ubicacion_comandos .'/'.$clase_comando.'.php';
+		if ( file_exists( $archivo ) ) {
 			require_once( $this->ubicacion_comandos .'/'.$clase_comando.'.php');
 			$comando = new $clase_comando( $this );
 			$comando->set_argumentos( $argumentos );			

@@ -32,7 +32,7 @@ class catalogo_modelo
 	static function get_proyecto( $id_instancia, $id_proyecto, $manejador_interface )
 	{
 		$instancia = self::get_instancia( $id_instancia, $manejador_interface );
-		$proyecto = new proyecto( $instancia, $proyecto );
+		$proyecto = new proyecto( $instancia, $id_proyecto );
 		$proyecto->set_manejador_interface( $manejador_interface );
 		return $proyecto;
 	}

@@ -41,7 +41,9 @@ class instancia_exportador extends proceso
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $path  , $contenido );			
+			if ( trim( $contenido ) != '' ) {
+				file_put_contents( $path  , $contenido );			
+			}
 		}
 	}
 
@@ -82,7 +84,9 @@ class instancia_exportador extends proceso
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			file_put_contents( $nombre_archivo, $contenido );			
+			if ( trim( $contenido ) != '' ) {
+				file_put_contents( $nombre_archivo, $contenido );			
+			}
 		}
 	}
 }
