@@ -67,9 +67,7 @@ abstract class menu_recorrido extends menu
 						i.item as 		item,
 						i.nombre as 	nombre
 				FROM 	apex_item i LEFT OUTER JOIN	apex_usuario_grupo_acc_item u ON
-							(	i.item = u.item 
-							AND i.proyecto = u.proyecto
-							)
+							(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE
 					(i.menu = 1)
 				AND	(u.usuario_grupo_acc = '$grupo' OR i.publico = 1)

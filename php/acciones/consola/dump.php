@@ -123,7 +123,7 @@
 		        //Tengo que agregarle un WHERE al SQL que recupera datos
 		        $where_filtrar_registros=array();
 		        $from_filtrar_registros=array();
-		        if($tabla['dump']=="multiproyecto"){
+		        if($tabla['dump']=="multiproyecto" || $tabla['dump']=="componente"){
 		        	if(isset($this->parametros["-p"])){
 				        if($this->parametros["-p"]!="VACIO"){
 		                    //WHERE

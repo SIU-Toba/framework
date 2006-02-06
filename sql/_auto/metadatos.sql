@@ -1676,7 +1676,7 @@ INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,def
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_permiso', 'mensaje_particular', 5, 'varchar			NULL,');
 
 ------  'apex_permiso_grupo_acc'  -----------------------------------
-INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_permiso_grupo_acc', 'pgsql_a22_permisos.sql', 141, 'proyecto', NULL, NULL, 'permiso, usuario_grupo_acc', NULL, NULL, '', '1.0', NULL, '1');
+INSERT INTO apex_mod_datos_tabla (proyecto,tabla,script,orden,dump,dump_from,dump_where,dump_order_by,dump_order_by_from,dump_order_by_where,descripcion,version,historica,instancia) VALUES ('toba', 'apex_permiso_grupo_acc', 'pgsql_a22_permisos.sql', 141, 'multiproyecto', NULL, NULL, 'permiso, usuario_grupo_acc', NULL, NULL, '', '1.0', NULL, '1');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_permiso_grupo_acc', 'proyecto', 1, 'varchar(15)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_permiso_grupo_acc', 'usuario_grupo_acc', 2, 'varchar(20)		NOT NULL,');
 INSERT INTO apex_mod_datos_tabla_columna (tabla_proyecto,tabla,columna,orden,definicion) VALUES ('toba', 'apex_permiso_grupo_acc', 'permiso', 3, 'int4			NOT NULL,');

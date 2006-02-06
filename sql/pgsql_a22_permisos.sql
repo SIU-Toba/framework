@@ -25,7 +25,7 @@ CREATE TABLE apex_permiso
 CREATE TABLE apex_permiso_grupo_acc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: multiproyecto
 --: dump_order_by: permiso, usuario_grupo_acc
 --: zona: usuario
 --: desc:
