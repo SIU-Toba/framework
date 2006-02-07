@@ -22,6 +22,7 @@ class tablas_instancia
   4 => 'apex_et_item',
   5 => 'apex_et_objeto',
   6 => 'apex_et_preferencias',
+  7 => 'apex_permiso_grupo_acc',
 );
 	}
 
@@ -570,6 +571,26 @@ class tablas_instancia
     3 => 'listado_item_pref',
     4 => 'item_proyecto',
     5 => 'item',
+  ),
+);
+	}
+
+	static function apex_permiso_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a22_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'permiso, usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'instancia' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'permiso',
   ),
 );
 	}

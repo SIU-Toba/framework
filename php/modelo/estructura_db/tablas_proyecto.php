@@ -64,7 +64,7 @@ class tablas_proyecto
   55 => 'apex_ap_tarea',
   56 => 'apex_tp_tarea',
   57 => 'apex_objeto_mapa',
-  58 => 'apex_objeto_multicheq',
+  58 => 'apex_permiso',
 );
 	}
 
@@ -1508,27 +1508,23 @@ class tablas_proyecto
 );
 	}
 
-	static function apex_objeto_multicheq()
+	static function apex_permiso()
 	{
 		return array (
-  'archivo' => 'pgsql_a51_clase_ut_multicheq.sql',
+  'archivo' => 'pgsql_a22_permisos.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'objeto_multicheq',
-  'dump_where' => '( objeto_multicheq_proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
+  'dump_order_by' => 'permiso',
+  'zona' => 'general',
   'desc' => '',
-  'historica' => '0',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_multicheq_proyecto',
-    1 => 'objeto_multicheq',
-    2 => 'sql',
-    3 => 'claves',
-    4 => 'descripcion',
-    5 => 'chequeado',
-    6 => 'forzar_chequeo',
+    0 => 'permiso',
+    1 => 'proyecto',
+    2 => 'nombre',
+    3 => 'descripcion',
+    4 => 'mensaje_particular',
   ),
 );
 	}
