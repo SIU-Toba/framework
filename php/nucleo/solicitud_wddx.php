@@ -19,7 +19,7 @@ class solicitud_wddx extends solicitud
 		//Esto esta bien?
 		//Atencion, no se muestran los errores del monitor!!
 		$usuario = apex_pa_usuario_anonimo;
-		parent::solicitud($item,$usuario);
+		parent::__construct($item,$usuario);
 		$this->registrar_db = true;
 	}
 //--------------------------------------------------------------------------------------------

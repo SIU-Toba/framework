@@ -88,6 +88,9 @@ class toba
 		return encriptador::instancia();	
 	}
 
+	/**
+	 * @return cronometro
+	 */
 	static function get_cronometro()
 	{
 		return cronometro::instancia();	

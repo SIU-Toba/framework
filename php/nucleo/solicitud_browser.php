@@ -20,19 +20,20 @@ class solicitud_browser extends solicitud
 	var $zona_cargada;
 	var $cola_mensajes;
 	
-	function solicitud_browser()
+	function __construct()
 	{
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//toba::get_cronometro()->marcar('SOLICITUD BROWSER: Listo para cargar el ITEM',"nucleo");
 		$this->hilo =& new hilo();
 		$item = $this->hilo->obtener_item_solicitado();
-		//Por defecto lo mando al.
 		//ATENCION: esto esjecuta un LOOP recursivo cuando un la pagina inicial es un FRAMSET
 		//que tiene una direccion mal!
 		if (!isset($item)){//-- No se solicito NINGUN ITEM, determino el item por DEFECTO
             $item = explode(apex_qs_separador,apex_pa_item_inicial);
         }
-		parent::solicitud($item,$this->hilo->obtener_usuario());
+        
+		parent::__construct($item,$this->hilo->obtener_usuario());
+		
 		//El elemento de item tiene que ser de tipo browser!
 		if(apex_solicitud_tipo!=$this->info['item_solic_tipo']) {
 			monitor::evento("falta","SOLICITUD BROWSER: El ITEM de item no es de tipo: BROWSER.");
@@ -42,9 +43,9 @@ class solicitud_browser extends solicitud
 			//Hay una zona, tengo que crearla...
 			require_once($this->info['item_zona_archivo']);
 			//Creo la clase
-			$sentencia_creacion = "\$this->zona =& new {$this->info['item_zona']}('{$this->info['item_zona']}','{$this->info['item_zona_proyecto']}',\$this);";
-			//echo($sentencia_creacion);
-			eval($sentencia_creacion);//Creo la ZONA
+			$this->zona = new $this->info['item_zona']($this->info['item_zona'], 
+														$this->info['item_zona_proyecto'],
+														$this);
 		}
         //Creo el vinculador
 		$this->vinculador = new vinculador($this);

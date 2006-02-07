@@ -18,7 +18,7 @@ class solicitud
 	var $cronometrar;					//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
 	var $log;							//Objeto que mantiene el log de la ejecucion
 
-	function solicitud($item, $usuario)	
+	function __construct($item, $usuario)	
 	{
 		global $solicitud;
 		$solicitud = $this;		//MALLL
@@ -452,11 +452,8 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 
 	function	cargar_info_objetos()
 	{
-		global $ADODB_FETCH_MODE, $db, $cronometro;
-		$cronometro->marcar('basura',apex_nivel_nucleo);
+		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//-[1]- Cargo objetos
-		$ADODB_FETCH_MODE	= ADODB_FETCH_ASSOC;	
-		//$cronometro->marcar("SOLICITUD: Listo para	cargar el ITEM:".	$item,"nucleo");
 		$sql =	"SELECT	o.proyecto as						  objeto_proyecto,
 						o.objeto	as						  	objeto,
 						o.nombre	as						  	objeto_nombre,
@@ -498,7 +495,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 				$objetos[] = $this->info_objetos[$a]["objeto"];	
 			}
 		}
-		$cronometro->marcar('SOLICITUD: Cargar	info OBJETOS',apex_nivel_nucleo);
+		toba::get_cronometro()->marcar('SOLICITUD: Cargar	info OBJETOS',apex_nivel_nucleo);
 		return $objetos;
 	}
 //--------------------------------------------------------------------------------------------

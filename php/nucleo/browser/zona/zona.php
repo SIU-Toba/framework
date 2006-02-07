@@ -31,8 +31,7 @@ class zona
 		$this->id = $id;
 		$this->proyecto = $proyecto;
 		$this->solicitud =& $solicitud;
-		global $ADODB_FETCH_MODE, $db, $cronometro;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+
 		//Creo la lista de los VECINOS de la ZONA
 		//Por el mismo motivo que la solicitud, el control de acceso a ITEMs no lo puedo
 		//Hacer respecto del proyecto actual, sino desde el usuario (los items pueden ser

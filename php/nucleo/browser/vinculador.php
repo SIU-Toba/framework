@@ -1,30 +1,21 @@
 <?php
-/* 
-* ARREGLAR: que no se necesiten permisos al autovinculo!
-* agregar un nivel de vinculos globales para un OBJETO puntual
-*/
+
+/**
+ * Esta clase maneja la VINCULACION entre ITEMS. Conoce todos los lugares a los que el 
+ * ITEM actual puede acceder (considerando el USUARIO que lo solicito)
+ * @package Utilidades
+ * @todo que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual
+ */
 class vinculador 
-/*
- 	@@acceso: interno
-	@@desc: Esta clase maneja la VINCULACION entre ITEMS. Conoce todos los lugares a los que el 
-	@@desc: ITEM actual puede acceder (considerando el USUARIO que lo solicito)
-*/
 {
-	var $solicitud;			//interno | referencia | Referencia a la SOLICITUD 
-	var $prefijo;			//interno | string | prefijo de cualquier URL
-	var $info;				//interno | array | Vinculos a los que se puede acceder
-	var $indices_objeto;	//interno | array | Vinculos ordenados por OBJETO
-	var $indices_item;		//interno | array | Vinculos ordenados por ITEM
+	var $solicitud;			//Referencia a la SOLICITUD 
+	var $prefijo;			//Prefijo de cualquier URL
+	var $info;				//Vinculos a los que se puede acceder
+	var $indices_objeto;	//Vinculos ordenados por OBJETO
+	var $indices_item;		//Vinculos ordenados por ITEM
 		
-	function vinculador(&$solicitud)
-/*
- 	@@acceso: nucleo
-	@@desc: Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
-	@@param: referencia | Refenrencia a la Solicitud
-*/
+	function __construct(&$solicitud)
 	{
-		global $ADODB_FETCH_MODE, $db, $cronometro, $hilo;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$this->solicitud =& $solicitud;
 		$sql =	"-- Vinculos GLOBALES del TOBA y del PROYECTO Y PROPIOS del ITEM ------------------------------------
 				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
@@ -137,7 +128,7 @@ class vinculador
 				AND		o.item = '".$this->solicitud->info["item"]."' AND
 						o.proyecto= '".$this->solicitud->info["item_proyecto"]."'
 				AND		(v.destino_item = '/autovinculo');";
-//		echo "<pre> $sql </pre>";
+
 		$rs = toba::get_db("instancia")->consultar($sql);
 		if(! empty($rs)){
 			//Creo el array de vinculos
@@ -156,10 +147,6 @@ class vinculador
 //----------------------------------------------------------------
 
 	function info()
-/*
- 	@@acceso: actividad
-	@@desc: Imprime el estado del objeto
-*/
 	{
 		$dump["indices_objeto"]=$this->indices_objeto;
 		$dump["indices_item"]= $this->indices_item;
@@ -172,19 +159,22 @@ class vinculador
 //########################   Solicitud DIRECTA de URLS  ############################
 //##################################################################################
 	
+	/**
+	 * Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
+	 * No se chequean permisos
+	 *
+	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
+	 * @param string $item ID. del ítem destino (por defecto el actual)
+	 * @param array $parametros Párametros enviados al ítem, arreglo asociativo de strings
+	 * @param boolean $zona Activa la propagación automática del editable en la zona
+	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
+	 * @param array $param_html Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+	 * @param boolean $menu El vinculo esta solicitado por el menu?
+	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
+	 * @return string URL hacia el ítem solicitado
+	 */
 	function generar_solicitud($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,$menu=null,$celda_memoria=null)
-/*
- 	@@acceso: interno
-	@@desc: Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
-	@@param: string | Id del ITEM (Proyecto) | Reproducion del ITEM actual
-	@@param: string | Id del ITEM (Path) | Reproducion del ITEM actual
-	@@param: array | Parametros pasados al ITEM siguente (Array asociativo de strings)| null
-	@@param: boolean | Activa la propagacion automatica del editable de la ZONA | false
-	@@param: boolean | Indica si la solicitud generada por este vinculo debe cronometrarse | false
-	@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
- 	@@retorno: string | URL que implementa la llamada al ITEM solicitado | null
-*/
  	{
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
@@ -250,23 +240,24 @@ class vinculador
 //#########  Solicitud INDIRECTA de URLs (Vinculacion a travez de la DB) ###########
 //##################################################################################
 
+
+	/**
+	 * Recupera un VINCULO explicitamente. Controla los permisos de ACCESO
+	 *
+	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
+	 * @param string $item ID. del ítem destino (por defecto el actual)
+	 * @param array $parametros Párametros enviados al ítem, arreglo asociativo de strings
+	 * @param boolean $escribir_tag Indica si hay que generar el html del vinculo
+	 * @param boolean $zona Activa la propagación automática del editable en la zona
+	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
+	 * @param string $texto Texto del vínculo
+	 * @param array $param_html Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+	 * @param boolean $menu El vinculo esta solicitado por el menu?
+	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
+	 * @return string URL que implementa la llamada o HTML del vinculo si el USUARIO posee permisos, NULL en el caso contrario
+	 */
 	function obtener_vinculo_a_item($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
 										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un VINCULO explicitamente. Controla el los permisos de ACCESO
-	@@param: string | Id del ITEM (Proyecto)
-	@@param: string | Id del ITEM (Path)
-	@@param: array | Parametros pasados al ITEM siguente (Array asociativo de strings)| null
-	@@param: boolean | Indica si hay que generar el HTML del VINCULO | false
-	@@param: boolean | Activa la propagacion automatica del editable de la ZONA | false
-	@@param: boolean | Indica si la solicitud generada por este vinculo debe cronometrarse | false
-	@@param: texto | Texto del vinculo | vacio
-	@@retorno: string | URL que implementa la llamada o HTML del vinculo si el USUARIO posee permisi, NULL en el caso contrario
-	@@pendiente: El PARAMETRO pasado por el OBJETO es un STRING, no deberia ser un array?
-*/
-
-	//Me parece que esta no necesita una inicializacion del canal...
 	{
 		$clave = $proyecto.",".$item;
 		if(isset($this->indices_item[$clave])){
@@ -287,21 +278,13 @@ class vinculador
 	}
 //-------------------------------------------------------------------------------------
 
+	/**
+	 * Recupera un VINCULO explicitamente, controlando que el ITEM actual pertenezca el proyecto activo. Controla el los permisos de ACCESO.
+	 *
+	 * @see vinculador::obtener_vinculo_a_item
+	 */
 	function obtener_vinculo_a_item_cp($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
 										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
-/*
- 	@@acceso: nucleo
-	@@desc: Recupera un VINCULO explicitamente, controlando que el ITEM actual pertenezca el proyecto activo. Controla el los permisos de ACCESO.
-	@@param: string | Id del ITEM (Proyecto)
-	@@param: string | Id del ITEM (Path)
-	@@param: array | Parametros pasados al ITEM siguente (Array asociativo de strings)| null
-	@@param: boolean | Indica si hay que generar el HTML del VINCULO | false
-	@@param: boolean | Activa la propagacion automatica del editable de la ZONA | false
-	@@param: boolean | Indica si la solicitud generada por este vinculo debe cronometrarse | false
-	@@param: texto | Texto del vinculo | vacio
-	@@retorno: string | URL que implementa la llamada o HTML del vinculo si el USUARIO posee permisi, NULL en el caso contrario
-	@@pendiente: El PARAMETRO pasado por el OBJETO es un STRING, no deberia ser un array?
-*/
 	{
 		if($this->solicitud->info['item_proyecto'] == $this->solicitud->hilo->obtener_proyecto() ){
 			return $this->obtener_vinculo_a_item($proyecto,$item,$parametros,$escribir_tag,$zona,
@@ -374,15 +357,15 @@ class vinculador
 	}
 //----------------------------------------------------------------
 
+	/**
+	* Consulta si un USUARIO tiene acceso a un ITEM
+	*
+	* @param string $proyecto Proyecto al que pertenece el item
+	* @param string $item Id. del item a consultar
+	* @param boolean $solo_proyecto_local Controla si el ITEM es del proyecto ACTIVO
+	* @return boolean true si tiene acceso y false en el caso contrario
+	*/
 	function consultar_vinculo($proyecto, $item, $solo_proyecto_local=false)
-/*
- 	@@acceso: actividad
-	@@desc: Consulta si un USUARIO tiene acceso a un ITEM
-	@@param: string | Id del ITEM (Proyecto)
-	@@param: string | Id del ITEM (Path)
-	@@param: boolean | Controla si el ITEM actual es del proyecto ACTIVO | false
-	@@retorno: boolean | true si tiene acceso y false en el caso contrario
-*/	
 	{
 		$clave = $proyecto.",".$item;
 		if(isset($this->indices_item[$clave])){
@@ -406,7 +389,7 @@ class vinculador
 //------------------------------ HTML  -------------------------------
 //-------------------------------------------------------------------------------------
 
-	function generar_html_vinculo($url, $posicion_vinculo, $clase_css='lista-link', $forzar_texto="")
+	protected function generar_html_vinculo($url, $posicion_vinculo, $clase_css='lista-link', $forzar_texto="")
 /*
  	@@acceso: interno
 	@@desc: Inicializa la generacion de HTML del vinculo interno
@@ -435,7 +418,7 @@ class vinculador
 	}
 //----------------------------------------------------------------
 
-	function generar_html($url, $parametros)
+	protected function generar_html($url, $parametros)
 /*
  	@@acceso: interno
 	@@desc: Genera un VINCULO
@@ -496,25 +479,23 @@ class vinculador
 	}
 //----------------------------------------------------------------
 
+	/**
+	 * Genera un salto de javascript directo a una pagina
+	 *
+	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
+	 * @param string $item ID. del ítem destino (por defecto el actual)
+	 * @param array $parametros Parametros pasados al ITEM (Array asociativo de strings)
+	 * @param boolean $zona Activa la propagacion automatica del editable de la ZONA
+	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
+	 * @return string Comando JS que contiene el salto de página
+	 */
 	function navegar_a($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false)
-/*
- 	@@acceso: actividad
-	@@desc: Genera un salto de javascript directo a una pagina
-	@@param: string | Id del ITEM (Proyecto) | Reproducion del ITEM actual
-	@@param: string | Id del ITEM (Path) | Reproducion del ITEM actual
-	@@param: array | Parametros pasados al ITEM siguente (Array asociativo de strings)| null
-	@@param: boolean | Activa la propagacion automatica del editable de la ZONA | false
-	@@param: boolean | Indica si la solicitud generada por este vinculo debe cronometrarse | false
-	@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
- 	@@retorno: string | URL que implementa la llamada al ITEM solicitado | null
-*/
 	{
-		echo "<script language'javascript'>\n";
+		echo js::abrir();
 		echo "document.location.href='".
 				$this->generar_solicitud($item_proyecto,$item,$parametros,$zona,$cronometrar)."'\n";
-		echo "</script>\n";
-		
+		echo js::cerrar();
 	}
 
 //----------------------------------------------------------------

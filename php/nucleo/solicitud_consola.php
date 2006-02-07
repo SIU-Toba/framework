@@ -54,7 +54,7 @@ class solicitud_consola extends solicitud
 			require_once("nucleo/browser/hilo.php");
 			$this->hilo = new hilo();
 		//}
-		parent::solicitud($item, $usuario);
+		parent::__construct($item, $usuario);
 		$this->estado_proceso = 0;
 	}
 //--------------------------------------------------------------------------------------------
