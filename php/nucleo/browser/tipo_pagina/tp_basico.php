@@ -54,6 +54,10 @@ class tp_basico extends tipo_pagina
 		//Incluyo el javascript STANDART	
 		$consumos = array();
 		$consumos[] = 'basico';
+		$consumos[] = 'cola_mensajes';
+		$consumos[] = 'clases/toba';
+		$consumos[] = 'utilidades/datadumper';
+		$consumos[] = 'comunicacion_server';
 		js::cargar_consumos_globales($consumos);
 	}
 

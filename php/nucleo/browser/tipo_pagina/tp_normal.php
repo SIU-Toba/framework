@@ -33,14 +33,7 @@ class tp_normal extends tp_basico
 	
 	protected function js_basico()
 	{
-		//Incluyo el javascript STANDART	
-		$consumos = array();
-		$consumos[] = 'basico';
-		$consumos[] = 'cola_mensajes';
-		$consumos[] = 'clases/toba';
-		$consumos[] = 'utilidades/datadumper';
-		$consumos[] = 'comunicacion_server';
-		js::cargar_consumos_globales($consumos);
+		parent::js_basico();
 	}
 
 	protected function comienzo_cuerpo()

@@ -3,23 +3,18 @@
 	TAREAS
 ===============
 
-	* Hay que chequear el flujo del parametro "instancia"
 	* Necesario para ir a TRUNK
 		* Meter los todos los componentes obsoletos
 	* CONVERSION: ¿¿Adaptar los nombres de las clases en la DB(eliminar 'objeto_') ??
 	* Interprete de consola
 	* Terminar el exportador
-		* Tablas instancia
+		* Separar la exportacion de usuarios
 		* Eliminacion SVN de componentes
 	* Hacer el importador
-		* Pensar LAYUOT instancia
 		* Usuarios
 		* Secuencias
-		* Alta y baja de proyectos simple
-		* Manejo de multiples instancias
 	* Falta un control de que los metadatos sean correctos adentro de la clase (principalmente en RUNTIME). 
-	* Unir las dos representaciones de una clase PHP
-	* Las clases suponen consola... no se pueden llamar desde la web...
+	* Unir las dos definiciones de una clase PHP
 	* Flag compilacion en el punto de acceso
 	* Documentar clases
 	* El cargador simple no chequea que las tablas obligatorias esten llenas
@@ -64,3 +59,10 @@
 
 	* Problema para administrar la memoria en CIs
 	* Ventanas que necesita tandil en el inicio de sesion, etc. 
+
+======================
+OTROs
+======================
+
+	* CI: 
+		* Si se setea un ID de pantalla incorrecto en 'get_pantalla_actual' saltan errores pero no se notifica que paso.
