@@ -165,13 +165,13 @@ class objeto_mt_mds extends objeto_mt_s
             if( $this->iniciar_transaccion() ) //Comienzo la TRANSACCION
             {
                 //-[1]- Inserto el MAESTRO
-                $sql = $this->dependencias["maestro"]->obtener_sql("insert");
+                $sql = $this->dependencias['maestro']->obtener_sql("insert");
                 //ei_arbol($sql,"Datos maestro");
                 if( $this->ejecutar_sql($sql) ){//MAESTRO OK
                     //Recupero secuencias en el maestro
-                    $this->dependencias["maestro"]->actualizacion_post_insert();
+                    $this->dependencias['maestro']->actualizacion_post_insert();
                     //Obtengo la clave
-                    $clave_maestro = $this->dependencias["maestro"]->obtener_clave();
+                    $clave_maestro = $this->dependencias['maestro']->obtener_clave();
                     $this->memoria["clave"] = $clave_maestro;
                     //Asigno la clave del MAESTRO a los DETALLES
                     $this->ut_detalle_asignar_clave_maestro($clave_maestro);
@@ -223,10 +223,10 @@ class objeto_mt_mds extends objeto_mt_s
                 {
                     //-[1]- Modifico el MAESTRO
                     $clave = $this->memoria['clave'];
-                    $sql = $this->dependencias["maestro"]->obtener_sql("update");
+                    $sql = $this->dependencias['maestro']->obtener_sql("update");
                     //ei_arbol($sql,"Datos maestro");
                     if( $this->ejecutar_sql($sql) ){ //MAESTRO OK
-                        $clave_maestro = $this->dependencias["maestro"]->obtener_clave();
+                        $clave_maestro = $this->dependencias['maestro']->obtener_clave();
                         //Asigno la clave del MAESTRO a los DETALLES
                         $this->ut_detalle_asignar_clave_maestro($clave);
                         if($this->ut_detalle_procesar_sql()){
@@ -254,13 +254,13 @@ class objeto_mt_mds extends objeto_mt_s
             }
         }
         elseif(( $_POST[$this->submit]==$this->submit_eli)//        ( 2 ) ELIMINAR
-            && ($this->dependencias["maestro"]->permitir_eliminar() ))
+            && ($this->dependencias['maestro']->permitir_eliminar() ))
         {
             $this->etapa_actual = "PM-D";
             if( $this->iniciar_transaccion() ) //Comienzo la TRANSACCION
             {
                 //Intento ELIMINAR el MAESTRO
-                $sql = $this->dependencias["maestro"]->obtener_sql("delete");
+                $sql = $this->dependencias['maestro']->obtener_sql("delete");
                 //ei_arbol($sql,"Datos maestro");
                 if( $this->ejecutar_sql($sql) ){ //MAESTRO OK
                     //ATENCION: se supone que los hijos se borrar con un CASCADE!!!
@@ -426,11 +426,11 @@ class objeto_mt_mds extends objeto_mt_s
         if($this->memoria["proxima_etapa"]=="PA"){
             echo form::submit($this->submit,"Agregar","abm-input");
         }elseif($this->memoria["proxima_etapa"]=="PM"){
-            if($this->dependencias["maestro"]->info_formulario["ev_mod_limpiar"]){
+            if($this->dependencias['maestro']->info_formulario["ev_mod_limpiar"]){
                 echo "&nbsp;&nbsp;" . form::button("boton","Limpiar formulario","onclick=\"document.location.href='".$this->solicitud->vinculador->generar_solicitud(null,null,array($this->flag_no_propagacion=>1),true)."';\"","abm-input");
             }
             echo "&nbsp;&nbsp;" . form::submit($this->submit, $this->submit_mod, "abm-input");
-            if($this->dependencias["maestro"]->permitir_eliminar()===true)
+            if($this->dependencias['maestro']->permitir_eliminar()===true)
                 echo  form::submit($this->submit, $this->submit_eli, "abm-input-eliminar", " onclick='eliminar_{$this->nombre_formulario}=1' ");
         }else{
             echo "Atencion: la proxima etapa no se encuentra definida!";

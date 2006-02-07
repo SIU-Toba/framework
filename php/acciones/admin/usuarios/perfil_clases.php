@@ -3,10 +3,6 @@ require_once("nucleo/browser/clases/objeto_cuadro.php");
 class objeto_cuadro_perfil extends objeto_cuadro
 {
 	
-	function objeto_cuadro_perfil($id, & $solicitud)
-	{	parent :: objeto_cuadro($id, $solicitud);	}
-	
-	
 	function presentar_editor($fila, $valor)
 	{
 		$param_html['texto'] = "Editar RESTRICCION";

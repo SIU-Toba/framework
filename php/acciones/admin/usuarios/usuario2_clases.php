@@ -10,9 +10,6 @@
 include_once("nucleo/browser/clases/objeto_mt_s_md.php");
 class objeto_mt_mds_usuario extends objeto_mt_mds
 {
-	function objeto_mt_mds_usuario($id,&$solicitud){ parent::objeto_mt_mds($id, $solicitud); }
-	//-------------------------------------------------------------------------------
-
 	function cargar_db($clave)
 	{
 		//Cargo del MAESTRO

@@ -36,7 +36,6 @@ class objeto_mt extends objeto
 		$this->flag_no_propagacion = "no_prop" . $this->id[1];
 		//Cargo las DEPENDENCIAS
 		$this->cargar_info_dependencias();
-
 	}
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
