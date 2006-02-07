@@ -3,10 +3,21 @@ require_once("componente.php");
 
 class componente_ut_formulario extends componente_toba
 {
-
-	function obtener_definicion_db()
+	static function get_estructura()
 	{
-		$sql = parent::obtener_definicion_db();
+		$estructura = parent::get_estructura();
+		$estructura[1]['tabla'] = 'apex_objeto_ut_formulario';
+		$estructura[1]['registros'] = '1';
+		$estructura[1]['obligatorio'] = true;
+		$estructura[2]['tabla'] = 'apex_objeto_ut_formulario_ef';
+		$estructura[2]['registros'] = 'n';
+		$estructura[2]['obligatorio'] = false;
+		return $estructura;		
+	}
+
+	static function get_vista_extendida($proyecto, $componente=null)
+	{
+		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//-- Formulario ----------------------
 		$sql["info_formulario"]["sql"] = "SELECT				tabla	as	tabla,
 										titulo as						titulo,
@@ -17,10 +28,13 @@ class componente_ut_formulario extends componente_toba
 										campo_bl	as						campo_bl,
 										ancho as							ancho
 								FROM	apex_objeto_ut_formulario
-								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
-								AND		objeto_ut_formulario='".$this->id[1]."';";
-		$sql["info_formulario"]["tipo"]="1";
-		$sql["info_formulario"]["estricto"]="1";
+								WHERE	objeto_ut_formulario_proyecto= '$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_formulario"]["sql"] .= " AND	objeto_ut_formulario= '$componente' ";
+		}
+		$sql["info_formulario"]["sql"] .= " ;";
+		$sql["info_formulario"]["registros"]='1';
+		$sql["info_formulario"]['obligatorio']=true;
 		//-- Formulario EF --------------
 		$sql["info_formulario_ef"]["sql"] = "SELECT	identificador as identificador,
 										columnas	as						columnas,
@@ -40,13 +54,20 @@ class componente_ut_formulario extends componente_toba
 										colapsado as 					colapsado,
 										no_sql as						no_sql
 								FROM	apex_objeto_ut_formulario_ef
-								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
-								AND	objeto_ut_formulario='".$this->id[1]."'
-								AND	(desactivado=0	OR	desactivado	IS	NULL)
-								ORDER	BY	orden;";
-		$sql["info_formulario_ef"]["tipo"]="x";
-		$sql["info_formulario_ef"]["estricto"]="1";
+								WHERE	objeto_ut_formulario_proyecto='$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_formulario_ef"]["sql"] .= " AND	objeto_ut_formulario='$componente' ";
+		}
+		$sql["info_formulario_ef"]["sql"] .= " AND (desactivado=0 OR desactivado IS NULL)
+											ORDER	BY	orden;";
+		$sql["info_formulario_ef"]["registros"]='n';
+		$sql["info_formulario_ef"]['obligatorio']=true;
 		return $sql;
+	}
+
+	static function get_path_clase_runtime()
+	{
+		return 'nucleo/componentes/runtime/transversales';
 	}
 }
 ?>

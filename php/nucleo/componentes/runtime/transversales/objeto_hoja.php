@@ -18,59 +18,6 @@ class objeto_hoja extends objeto
 		$this->clave_get = $this->id;
 		$this->planificar_navegacion();
  	}
-    //----------------------------------------------------------------------------------
-
-	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
-	{
-		$sql = parent::obtener_definicion_db();
-		//-- Hoja ---
-		$sql["info_hoja"]["sql"] = "SELECT h.sql as	sql,
-							h.total_y as						total_y,
-							h.total_x as						total_x,
-							cf.funcion as						total_x_formato,
-							h.ordenable as						ordenable,
-                     h.columna_entrada as       	columna_entrada,
-							h.ancho as							ancho,
-							h.grafico as 						grafico,
-							h.graf_columnas as				graf_columnas,
-							h.graf_filas as					graf_filas,
-							h.graf_gen_invertir as			graf_gen_invertir,
-							h.graf_gen_invertible as		graf_gen_invertible,
-							h.graf_gen_ancho as				graf_gen_ancho,
-							h.graf_gen_alto as				graf_gen_alto
-					FROM	apex_objeto_hoja h
-							LEFT OUTER JOIN apex_columna_formato cf 
-								ON h.total_x_formato = cf.columna_formato
-					WHERE	objeto_hoja_proyecto='".$this->id[0]."'
-					AND	objeto_hoja='".$this->id[1]."';";
-		$sql["info_hoja"]["tipo"]="1";
-		$sql["info_hoja"]["estricto"]="1";
-		//-- Directivas ---
-		$sql["info_hoja_dir"]["sql"] = "SELECT	d.objeto_hoja_directiva_tipo as tipo,
-							d.nombre as 						nombre,
-							cf.funcion as 						formato,
-							ce.css as 							estilo,
-							dim.dimension as					dimension,
-							d.par_tabla as						dimension_tabla,
-							d.par_columna as					dimension_columna,
-							u.usuario_perfil_datos as		dimension_control_perfil
-					FROM	apex_objeto_hoja_directiva d 
-							LEFT OUTER JOIN apex_columna_formato cf USING(columna_formato)
-							LEFT OUTER JOIN apex_columna_estilo ce USING(columna_estilo)
-							LEFT OUTER JOIN apex_dimension dim ON (d.par_dimension = dim.dimension)
-							LEFT OUTER JOIN apex_dimension_perfil_datos u ON (d.par_dimension = u.dimension) AND (u.usuario_perfil_datos = '{$this->solicitud->info['usuario_perfil_datos']}')
-					WHERE	d.objeto_hoja_proyecto='".$this->id[0]."'
-    	 			AND	d.objeto_hoja='".$this->id[1]."'
-					ORDER BY	d.columna;";
-		$sql["info_hoja_dir"]["tipo"]="x";
-		$sql["info_hoja_dir"]["estricto"]="1";
-		return $sql;
-	}
-//--------------------------------------------------------------------------------------------
 
     function planificar_navegacion()
     {

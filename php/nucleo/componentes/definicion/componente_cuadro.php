@@ -3,10 +3,21 @@ require_once("componente.php");
 
 class componente_cuadro extends componente_toba
 {
-
-	function obtener_definicion_db()
+	static function get_estructura()
 	{
-		$sql = parent::obtener_definicion_db();
+		$estructura = parent::get_estructura();
+		$estructura[1]['tabla'] = 'apex_objeto_cuadro';
+		$estructura[1]['registros'] = '1';
+		$estructura[1]['obligatorio'] = true;
+		$estructura[2]['tabla'] = 'apex_objeto_cuadro_columna';
+		$estructura[2]['registros'] = 'n';
+		$estructura[2]['obligatorio'] = false;
+		return $estructura;		
+	}
+	
+	static function get_vista_extendida($proyecto, $componente=null)
+	{
+		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- Cuadro ----------------
 		$sql["info_cuadro"]["sql"] = "SELECT	titulo as titulo,		
 								subtitulo						as	subtitulo,		
@@ -25,10 +36,13 @@ class componente_cuadro extends componente_toba
 								pdf_propiedades					as	pdf_propiedades,
 								asociacion_columnas				as	asociacion_columnas
 					 FROM		apex_objeto_cuadro
-					 WHERE	objeto_cuadro_proyecto='".$this->id[0]."'	
-					 AND		objeto_cuadro='".$this->id[1]."';";
-		$sql["info_cuadro"]["estricto"]="1";
-		$sql["info_cuadro"]["tipo"]="1";
+					 WHERE	objeto_cuadro_proyecto='$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_cuadro"]["sql"] .= " AND		objeto_cuadro='$componente' ";
+		}
+		$sql["info_cuadro"]["sql"] .= " ;";			
+		$sql["info_cuadro"]["registros"]='1';
+		$sql["info_cuadro"]['obligatorio']=true;
 		//------------ Columnas ----------------
 		$sql["info_cuadro_columna"]["sql"] = "SELECT	c.orden	as orden,		
 								c.titulo						as titulo,		
@@ -53,15 +67,21 @@ class componente_cuadro extends componente_toba
 								apex_objeto_cuadro_columna	c
 								LEFT OUTER JOIN apex_columna_formato f	
 								ON	f.columna_formato	= c.valor_sql_formato
-					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
-					 AND		objeto_cuadro = '".$this->id[1]."'
-					 AND		c.columna_estilo = e.columna_estilo	
+					 WHERE	objeto_cuadro_proyecto = '$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_cuadro_columna"]["sql"] .= " AND	objeto_cuadro = '$componente' ";
+		}
+		$sql["info_cuadro_columna"]["sql"] .= " AND	c.columna_estilo = e.columna_estilo	
 					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
-					 ORDER BY orden;";
-		$sql["info_cuadro_columna"]["tipo"]="x";
-		$sql["info_cuadro_columna"]["estricto"]="1";
+					 ORDER BY orden; ";
+		$sql["info_cuadro_columna"]["registros"]='n';
+		$sql["info_cuadro_columna"]['obligatorio']=true;
 		return $sql;
 	}
 
+	static function get_path_clase_runtime()
+	{
+		return 'nucleo/componentes/runtime/transversales';
+	}
 }
 ?>

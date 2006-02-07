@@ -1,10 +1,5 @@
 <?php
 require_once("objeto_mt_s.php");
-require_once("objeto_ut_formulario.php");
-
-/*
-	Mo se pueden modificar CLAVES!!
-*/
 
 class objeto_mt_abms extends objeto_mt_s
 /*
@@ -64,7 +59,9 @@ class objeto_mt_abms extends objeto_mt_s
 	@@pendiente: Inhabilitar la posibilidad de que se modifique la clave del padre.
 */
 	{
-		$this->dependencias["formulario"] =& new objeto_ut_formulario($this->id);
+		$clave['proyecto'] = $this->info['proyecto'];
+		$clave['componente'] = $this->info['objeto'];
+		$this->dependencias["formulario"] = constructor_toba::get_runtime( $clave, 'ut_formulario' );
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		$parametro['id'] = "formulario";
 		$this->dependencias["formulario"]->inicializar($parametro);

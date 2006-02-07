@@ -2,6 +2,9 @@
 
 class catalogo_toba
 {
+	/**
+	*	Lista de componentes
+	*/
 	static function get_lista_tipo_componentes()
 	{
 		$datos[] = 'item';
@@ -19,6 +22,26 @@ class catalogo_toba
 		return $datos;
 	}
 
+	/**
+	*	Se agregan los transversales para el DUMP
+	*/
+	static function get_lista_tipo_componentes_dump()
+	{
+		$datos = self::get_lista_tipo_componentes();
+		$datos[] = 'cuadro';
+		$datos[] = 'cuadro_reg';
+		$datos[] = 'filtro';
+		$datos[] = 'hoja';
+		$datos[] = 'mt_abms';
+		$datos[] = 'html';
+		$datos[] = 'lista';
+		$datos[] = 'mt';
+		$datos[] = 'mt_mds';
+		$datos[] = 'mt_s';
+		$datos[] = 'ut_formulario';
+		return $datos;
+	}
+	
 	static function get_nombre_clase_definicion( $tipo )
 	{
 		require_once('nucleo/componentes/definicion/componente_' .$tipo. '.php');

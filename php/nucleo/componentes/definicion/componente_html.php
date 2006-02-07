@@ -1,68 +1,36 @@
 <?
-require_once("nucleo/browser/clases/objeto_ei.php");						//Ancestro de todos los OE
+require_once("componente.php");
 
-/**
- * Controla un flujo de pantallas
- * @package Objetos
- * @subpackage Ei
- */
-class objeto_html extends objeto_ei
-/*
-	@@acceso: publico
-	@@desc: Permite representar planeamientos en el eje del tiempo
-*/
+class componente_html extends componente_toba
 {
-	
-//################################################################################
-//###########################                         ############################
-//###########################      INICIALIZACION     ############################
-//###########################                         ############################
-//################################################################################
-    	
-	function objeto_html($id)
-/*
-	@@acceso: publico
-	@@desc: Constructor de la clase
-*/
+	static function get_estructura()
 	{
-		parent::objeto($id);
-		$this->objeto_js = "objeto_cuadro_{$id[1]}";
+		$estructura = parent::get_estructura();
+		$estructura[1]['tabla'] = 'apex_objeto_html';
+		$estructura[1]['registros'] = '1';
+		$estructura[1]['obligatorio'] = true;
+		return $estructura;		
 	}
-
-	/*----------------------------------------*/
 	
-	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
+	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql = parent::obtener_definicion_db();
+		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//---- Plan -----------------------
 		$sql["info_html"]["sql"] = "SELECT	html      
 									FROM	apex_objeto_html
-									WHERE	objeto_html_proyecto='".$this->id[0]."'
-               				AND     objeto_html='".$this->id[1]."';";
-		$sql["info_html"]["tipo"]="1";
-		$sql["info_html"]["estricto"]="1";
+									WHERE	objeto_html_proyecto='$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_html"]["sql"] .= " AND     objeto_html='$componente' ";
+		}
+		$sql["info_html"]["sql"] .= " ; ";
+		$sql["info_html"]["registros"]='1';
+		$sql["info_html"]['obligatorio']=true;
 		return $sql;
 	}
 
-//################################################################################
-//###########################                         ############################
-//###########################         INTERFACE       ############################
-//###########################                         ############################
-//################################################################################
-
-
-	function obtener_html()
-/*
-	@@acceso: publico
-	@@desc: Genera la interface de este elemento
-*/
+	static function get_path_clase_runtime()
 	{
-		ei_nota($this->info_html['html'],"col-tex-p1");
+		return 'nucleo/componentes/runtime/transversales';
 	}
 }
-//################################################################################
 ?>

@@ -18,34 +18,6 @@ class objeto_lista extends objeto
 			$this->clave_vinculo[$a] = trim($this->clave_vinculo[$a]);
 		}
 	}
-//--------------------------------------------------------------------------------------------
-
-	function obtener_definicion_db()
-/*
- 	@@acceso:
-	@@desc: 
-*/
-	{
-		$sql = parent::obtener_definicion_db();
-		$sql["info_lista"]["sql"] = "SELECT titulo as titulo,
-						subtitulo as				subtitulo,
-						sql  as						sql,
-						col_ver as					col_ver,
-						col_formato as				col_formato,
-						col_titulos as				col_titulos,
-						ancho as					ancho,
-						ordenar as					ordenar,
-						exportar as					exportar,
-						vinculo_clave as			vinculo_clave,
-						vinculo_indice as			vinculo_indice
-				FROM	apex_objeto_lista
-				WHERE	objeto_lista_proyecto='".$this->id[0]."'
-				AND 	objeto_lista='".$this->id[1]."';";
-		$sql["info_lista"]["tipo"]="1";
-		$sql["info_lista"]["estricto"]="1";
-		return $sql;
-	}
-//--------------------------------------------------------------------------------------------
 
 	function cargar_datos($where=null,$from=null)
 	{
