@@ -148,7 +148,7 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->titulo('Creando tablas del sistema.');
 		$directorio = nucleo::get_dir_ddl();
-		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '%.*\.sql%' );
+		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
 			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
 			$this->get_db()->ejecutar_archivo( $archivo );
@@ -159,7 +159,7 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->titulo('Cargando datos del nucleo.');
 		$directorio = nucleo::get_dir_metadatos();
-		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '%.*\.sql%' );
+		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
 			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
 			$this->get_db()->ejecutar_archivo( $archivo );

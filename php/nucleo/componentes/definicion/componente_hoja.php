@@ -9,7 +9,7 @@ class componente_hoja extends componente_toba
 		$estructura[1]['tabla'] = 'apex_objeto_hoja';
 		$estructura[1]['registros'] = '1';
 		$estructura[1]['obligatorio'] = true;
-		$estructura[2]['tabla'] = 'apex_objeto_directiva';
+		$estructura[2]['tabla'] = 'apex_objeto_hoja_directiva';
 		$estructura[2]['registros'] = '2';
 		$estructura[2]['obligatorio'] = true;
 		return $estructura;		

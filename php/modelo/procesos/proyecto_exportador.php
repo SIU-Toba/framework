@@ -60,7 +60,7 @@ class proyecto_exportador extends proceso
 	function exportar_componentes()
 	{
 		cargador_toba::instancia()->crear_cache_simple( $this->elemento->get_id() );
-		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
+		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
 			$this->interface->titulo( $tipo );
 			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->elemento->get_id() ) as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );

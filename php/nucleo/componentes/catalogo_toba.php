@@ -16,6 +16,7 @@ class catalogo_toba
 		$datos[] = 'ei_formulario';
 		$datos[] = 'ei_formulario_ml';
 		$datos[] = 'ei_cuadro';
+		$datos[] = 'ei_esquema';
 		$datos[] = 'cn';
 		$datos[] = 'datos_tabla';
 		$datos[] = 'datos_relacion';

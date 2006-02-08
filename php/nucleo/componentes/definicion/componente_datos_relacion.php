@@ -12,6 +12,9 @@ class componente_datos_relacion extends componente_toba
 		$estructura[3]['tabla'] = 'apex_objeto_datos_rel_asoc';
 		$estructura[3]['registros'] = 'n';
 		$estructura[3]['obligatorio'] = true;
+		$estructura[4]['tabla'] = 'apex_objeto_dependencias';
+		$estructura[4]['registros'] = 'n';
+		$estructura[4]['obligatorio'] = false;
 		return $estructura;		
 	}
 	
