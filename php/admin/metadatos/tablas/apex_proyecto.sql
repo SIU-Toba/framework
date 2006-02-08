@@ -1,0 +1,1 @@
+INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, frames_clase, frames_archivo, menu, path_includes, path_browser, administrador, listar_multiproyecto, orden, palabra_vinculo_std) VALUES ('toba', 'Infraestructura TOBA', 'SIU - Toba', 'toba', NULL, NULL, 'milonic', 'php', '/apl', NULL, '1', '0', NULL);

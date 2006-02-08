@@ -1,0 +1,4 @@
+------------------------------------------------------------
+--[220]--  OBJETO - Vinculos 
+------------------------------------------------------------
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba', '220', NULL, NULL, 'toba', 'objeto_mt_abms', 'objeto_mt_abms_objeto_vinculo', 'nucleo/browser/subclases/objeto.php', 'toba', NULL, 'OBJETO - Vinculos', 'Propiedades del vinculo', NULL, 'Esta interface permite atachar vinculos al OBJETO.', 'toba', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2003-09-23 05:11:05');

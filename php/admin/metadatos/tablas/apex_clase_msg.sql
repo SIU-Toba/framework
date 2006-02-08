@@ -1,0 +1,1 @@
+INSERT INTO apex_clase_msg (clase_msg, msg_tipo, indice, clase_proyecto, clase, descripcion_corta, mensaje_a, mensaje_b, mensaje_c, mensaje_customizable) VALUES ('1', 'error', 'definicion', 'toba', 'objeto', 'Error cargando la definicion del objeto', 'Error cargando al OBJETO', NULL, NULL, 'Error cargando al OBJETO %p1%');
