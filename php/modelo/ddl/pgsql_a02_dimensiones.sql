@@ -8,7 +8,7 @@
 CREATE TABLE apex_dimension_tipo_perfil
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: dimension_tipo_perfil
 --: zona: dimension
 --: desc:
@@ -106,7 +106,7 @@ CREATE TABLE apex_dimension
 CREATE TABLE apex_comparacion
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: comparacion
 --: zona: dimension
 --: desc:

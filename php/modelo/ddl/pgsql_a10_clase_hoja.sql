@@ -44,7 +44,7 @@ CREATE TABLE apex_objeto_hoja
 CREATE TABLE apex_objeto_hoja_directiva_ti 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: objeto_hoja_directiva_tipo
 --: zona: objeto
 --: desc:

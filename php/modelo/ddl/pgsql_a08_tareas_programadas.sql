@@ -8,7 +8,7 @@ CREATE SEQUENCE apex_tp_tarea_tipo_seq INCREMENT 1 MINVALUE 1 MAXVALUE 922337203
 CREATE TABLE apex_tp_tarea_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tarea_tipo
 --: zona: admin_proyectos
 --: desc: Tipos de tarea

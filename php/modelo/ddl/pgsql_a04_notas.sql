@@ -7,7 +7,7 @@
 CREATE TABLE apex_nota_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: nota_tipo
 --: zona: general
 --: desc:

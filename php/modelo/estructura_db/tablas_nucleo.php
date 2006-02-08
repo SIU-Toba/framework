@@ -1,5 +1,5 @@
 <?
-//Generador: nucleo_parser_ddl.php
+//Generador: nucleo.php
 
 class tablas_nucleo
 {
@@ -41,7 +41,6 @@ class tablas_nucleo
   32 => 'apex_admin_persistencia',
   33 => 'apex_tipo_datos',
   34 => 'apex_objeto_mt_me_tipo_nav',
-  35 => 'apex_test_paises',
 );
 	}
 
@@ -50,7 +49,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'elemento_infra',
   'zona' => 'general',
   'desc' => 'Representa	un	elemento	de	la	infraestructura',
@@ -68,7 +67,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'elemento_infra, tabla, columna_clave_proyecto',
   'zona' => 'general',
   'desc' => 'Representa	una tabla donde se almacena parte del elemento',
@@ -95,7 +94,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'entrada',
   'zona' => 'general',
   'desc' => 'En esta tabla se guardan los elementos toba recibidos desde otras instancias',
@@ -119,7 +118,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'estilo_paleta',
   'zona' => 'general',
   'desc' => 'Representa	una serie de colores',
@@ -142,7 +141,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'estilo',
   'zona' => 'general',
   'desc' => 'Estilos	CSS',
@@ -164,7 +163,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'menu',
   'zona' => 'general',
   'desc' => 'Tipos de menues',
@@ -184,7 +183,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'log_sistema_tipo',
   'zona' => 'solicitud',
   'desc' => '',
@@ -202,7 +201,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'fuente_datos_motor',
   'zona' => 'general',
   'desc' => 'DBMS	soportados',
@@ -221,7 +220,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'grafico',
   'zona' => 'general',
   'desc' => 'Tipo	de	grafico',
@@ -241,7 +240,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'recurso_origen',
   'zona' => 'general',
   'desc' => 'Origen del	recurso',
@@ -259,7 +258,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'repositorio',
   'zona' => 'general',
   'desc' => 'Listado	de	repositorios a	los que me puedo conectar',
@@ -277,7 +276,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'nivel_acceso',
   'zona' => 'general',
   'desc' => 'Categoria organizadora	de	niveles de seguridad	(redobla	la	cualificaciond	e elementos	para fortalecer chequeos)',
@@ -296,7 +295,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'nivel_ejecucion',
   'zona' => 'general',
   'desc' => '',
@@ -314,7 +313,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'solicitud_tipo',
   'zona' => 'general',
   'desc' => '',
@@ -334,7 +333,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'columna_estilo',
   'zona' => 'general',
   'desc' => '',
@@ -355,7 +354,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'columna_formato',
   'zona' => 'general',
   'desc' => '',
@@ -378,7 +377,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'columna_proceso',
   'zona' => 'general',
   'desc' => '',
@@ -401,7 +400,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'usuario_tipodoc',
   'zona' => 'usuario',
   'desc' => '',
@@ -419,7 +418,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'clase_tipo',
   'zona' => 'central',
   'desc' => '',
@@ -441,7 +440,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'vinculo_tipo',
   'zona' => 'central',
   'desc' => '',
@@ -460,7 +459,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'nucleo_tipo',
   'zona' => 'nucleo',
   'desc' => '',
@@ -480,7 +479,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a02_dimensiones.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'dimension_tipo_perfil',
   'zona' => 'dimension',
   'desc' => '',
@@ -498,7 +497,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a02_dimensiones.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'comparacion',
   'zona' => 'dimension',
   'desc' => '',
@@ -522,7 +521,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a04_notas.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'nota_tipo',
   'zona' => 'general',
   'desc' => '',
@@ -541,7 +540,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a05_mensajes.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'msg_tipo',
   'zona' => 'general',
   'desc' => '',
@@ -560,7 +559,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a06_mod_datos.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'dump',
   'zona' => 'modelo_datos',
   'desc' => 'Modalidades de dumpeo',
@@ -578,7 +577,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tarea_tipo',
   'zona' => 'admin_proyectos',
   'desc' => 'Tipos de tarea',
@@ -596,7 +595,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tarea_estado',
   'zona' => 'admin_proyectos',
   'desc' => 'Estados de Tarea',
@@ -614,7 +613,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tarea_prioridad',
   'zona' => 'admin_proyectos',
   'desc' => 'Prioridad de Tarea',
@@ -632,7 +631,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a07_admin_proy.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tarea_tema',
   'zona' => 'admin_proyectos',
   'desc' => 'Tipos de tarea',
@@ -650,7 +649,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a08_tareas_programadas.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tarea_tipo',
   'zona' => 'admin_proyectos',
   'desc' => 'Tipos de tarea',
@@ -668,7 +667,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a10_clase_hoja.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'objeto_hoja_directiva_tipo',
   'zona' => 'objeto',
   'desc' => '',
@@ -688,7 +687,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a21_clase_db_registros.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'ap',
   'zona' => 'objeto',
   'desc' => '',
@@ -710,7 +709,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a21_clase_db_registros.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tipo',
   'zona' => 'objeto',
   'desc' => '',
@@ -729,7 +728,7 @@ class tablas_nucleo
 		return array (
   'archivo' => 'pgsql_a52_clase_mt_me.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'tipo_navegacion',
   'zona' => 'objeto',
   'desc' => '',
@@ -739,25 +738,6 @@ class tablas_nucleo
   array (
     0 => 'tipo_navegacion',
     1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_test_paises()
-	{
-		return array (
-  'archivo' => 'pgsql_a98_test.sql',
-  'proyecto' => 'toba',
-  'dump' => 'proyecto',
-  'dump_order_by' => 'pais',
-  'zona' => 'test',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'pais',
-    1 => 'nombre',
   ),
 );
 	}

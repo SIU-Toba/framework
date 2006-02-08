@@ -7,7 +7,7 @@
 CREATE TABLE apex_msg_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: msg_tipo
 --: zona: general
 --: desc:

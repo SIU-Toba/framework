@@ -30,7 +30,7 @@ CREATE SEQUENCE apex_ap_tarea_tipo_seq INCREMENT 1 MINVALUE 1 MAXVALUE 922337203
 CREATE TABLE apex_ap_tarea_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tarea_tipo
 --: zona: admin_proyectos
 --: desc: Tipos de tarea
@@ -47,7 +47,7 @@ CREATE SEQUENCE apex_ap_tarea_estado_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372
 CREATE TABLE apex_ap_tarea_estado
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tarea_estado
 --: zona: admin_proyectos
 --: desc: Estados de Tarea
@@ -63,7 +63,7 @@ CREATE TABLE apex_ap_tarea_estado
 CREATE TABLE apex_ap_tarea_prioridad
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tarea_prioridad
 --: zona: admin_proyectos
 --: desc: Prioridad de Tarea
@@ -80,7 +80,7 @@ CREATE SEQUENCE apex_ap_tarea_tema_seq INCREMENT 1 MINVALUE 1 MAXVALUE 922337203
 CREATE TABLE apex_ap_tarea_tema
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tarea_tema
 --: zona: admin_proyectos
 --: desc: Tipos de tarea

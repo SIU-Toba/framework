@@ -35,7 +35,7 @@ CREATE TABLE apex_mod_datos_zona
 CREATE TABLE apex_mod_datos_dump
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: dump
 --: zona: modelo_datos
 --: desc: Modalidades de dumpeo

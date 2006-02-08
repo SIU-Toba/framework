@@ -1,5 +1,5 @@
 <?
-//Generador: nucleo_parser_ddl.php
+//Generador: nucleo.php
 
 class tablas_instancia
 {
@@ -8,21 +8,32 @@ class tablas_instancia
 		return array (
   0 => 'apex_revision',
   1 => 'apex_instancia',
-  2 => 'apex_usuario',
+);
+	}
+
+	static function get_lista_global_usuario()
+	{
+		return array (
+  0 => 'apex_usuario',
+);
+	}
+
+	static function get_lista_proyecto_usuario()
+	{
+		return array (
+  0 => 'apex_usuario_proyecto',
 );
 	}
 
 	static function get_lista_proyecto()
 	{
 		return array (
-  0 => 'apex_usuario_proyecto',
-  1 => 'apex_arbol_items_fotos',
-  2 => 'apex_admin_album_fotos',
-  3 => 'apex_ap_tarea_usuario',
-  4 => 'apex_et_item',
-  5 => 'apex_et_objeto',
-  6 => 'apex_et_preferencias',
-  7 => 'apex_permiso_grupo_acc',
+  0 => 'apex_arbol_items_fotos',
+  1 => 'apex_admin_album_fotos',
+  2 => 'apex_ap_tarea_usuario',
+  3 => 'apex_et_item',
+  4 => 'apex_et_objeto',
+  5 => 'apex_et_preferencias',
 );
 	}
 
@@ -55,7 +66,7 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a00_revision.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'revision',
   'zona' => 'general',
   'desc' => 'Especifica la revision del SVN con que se creo el proyecto',
@@ -74,7 +85,7 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'instancia',
   'instancia' => '1',
   'zona' => 'general',
@@ -99,11 +110,12 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a01_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'usuario',
   'zona' => 'usuario',
   'desc' => '',
   'instancia' => '1',
+  'usuario' => '1',
   'version' => '1.0',
   'columnas' => 
   array (
@@ -141,6 +153,7 @@ class tablas_instancia
   'dump_order_by' => 'usuario',
   'zona' => 'usuario',
   'instancia' => '1',
+  'usuario' => '1',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
@@ -422,7 +435,7 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'log_sistema',
   'zona' => 'solicitud',
   'desc' => '',
@@ -444,7 +457,7 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'log_error_login',
   'zona' => 'solicitud',
   'desc' => '',
@@ -469,7 +482,7 @@ class tablas_instancia
 		return array (
   'archivo' => 'pgsql_a03_solicitudes.sql',
   'proyecto' => 'toba',
-  'dump' => 'proyecto',
+  'dump' => 'nucleo',
   'dump_order_by' => 'ip',
   'zona' => 'solicitud',
   'desc' => '',
@@ -571,26 +584,6 @@ class tablas_instancia
     3 => 'listado_item_pref',
     4 => 'item_proyecto',
     5 => 'item',
-  ),
-);
-	}
-
-	static function apex_permiso_grupo_acc()
-	{
-		return array (
-  'archivo' => 'pgsql_a22_permisos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'permiso, usuario_grupo_acc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'instancia' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'permiso',
   ),
 );
 	}

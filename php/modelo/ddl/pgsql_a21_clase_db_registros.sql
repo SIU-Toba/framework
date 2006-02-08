@@ -8,7 +8,7 @@ CREATE SEQUENCE apex_admin_persistencia_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223
 CREATE TABLE apex_admin_persistencia
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: ap
 --: zona: objeto
 --: desc:
@@ -28,7 +28,7 @@ CREATE TABLE apex_admin_persistencia
 CREATE TABLE apex_tipo_datos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tipo
 --: zona: objeto
 --: desc:

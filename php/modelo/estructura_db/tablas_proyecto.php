@@ -1,5 +1,5 @@
 <?
-//Generador: nucleo_parser_ddl.php
+//Generador: nucleo.php
 
 class tablas_proyecto
 {
@@ -65,6 +65,7 @@ class tablas_proyecto
   56 => 'apex_tp_tarea',
   57 => 'apex_objeto_mapa',
   58 => 'apex_permiso',
+  59 => 'apex_permiso_grupo_acc',
 );
 	}
 
@@ -1525,6 +1526,25 @@ class tablas_proyecto
     2 => 'nombre',
     3 => 'descripcion',
     4 => 'mensaje_particular',
+  ),
+);
+	}
+
+	static function apex_permiso_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a22_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'permiso, usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'permiso',
   ),
 );
 	}

@@ -1,7 +1,7 @@
 CREATE TABLE			apex_revision
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: revision
 --: zona: general
 --: desc: Especifica la revision del SVN con que se creo el proyecto

@@ -256,7 +256,7 @@ CREATE SEQUENCE apex_log_sistema_seq INCREMENT 1 MINVALUE 1 MAXVALUE 92233720368
 CREATE TABLE apex_log_sistema
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: log_sistema
 --: zona: solicitud
 --: desc:
@@ -280,7 +280,7 @@ CREATE SEQUENCE apex_log_error_login_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372
 CREATE TABLE apex_log_error_login
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: log_error_login
 --: zona: solicitud
 --: desc:
@@ -303,7 +303,7 @@ CREATE TABLE apex_log_error_login
 CREATE TABLE apex_log_ip_rechazada
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: ip
 --: zona: solicitud
 --: desc:

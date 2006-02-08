@@ -1,6 +1,7 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
+require_once('nucleo/lib/manejador_archivos.php');
 
 class instalacion extends elemento_modelo
 {
@@ -26,7 +27,71 @@ class instalacion extends elemento_modelo
 	}
 
 	//-------------------------------------------------------------
-	//-- Informacion basica
+	//-- Informacion general
+	//-------------------------------------------------------------
+		
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	function get_id_grupo_desarrollo()
+	{
+		require_once( self::archivo_info_basica() );
+		$metodos = get_class_methods( self::info_basica );
+		if( in_array( 'get_id_grupo_desarrollo', $metodos ) ) {
+			return info_instalacion::get_id_grupo_desarrollo();
+		}
+		return null;
+	}
+
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	function get_lista_instancias()
+	{
+		$dirs = array();
+		$temp = manejador_archivos::get_archivos_directorio( self::dir_base() , '|^'.self::instancia_prefijo.'|' );
+		foreach ( $temp as $dir ) {
+			$temp_dir = explode( self::instancia_prefijo, $dir );
+			$dirs[] = $temp_dir[1];
+		}
+		return $dirs;
+	}
+
+	/**
+	* Devuelve la lista de las BASES
+	*/
+	function get_lista_bases()
+	{
+		$datos = array();
+		foreach( dba::get_lista_bases_archivo() as $base ) {
+			$datos[ $base ] = dba::get_parametros_base( $base );
+		}
+		return $datos;
+	}
+
+	/**
+	* Devuelve la lista de los proyectos que estan en la carpeta 'proyectos'
+	*/
+	function get_lista_proyectos()
+	{
+		$proyectos = array();
+		$directorio_proyectos = toba_dir() . '/proyectos';
+		if( is_dir( $directorio_proyectos ) ) {
+			if ($dir = opendir($directorio_proyectos)) {	
+			   while (false	!==	($archivo = readdir($dir)))	{ 
+					if( is_dir($directorio_proyectos . '/' . $archivo) 
+						&& ($archivo != '.' ) && ($archivo != '..' ) ){
+						$proyectos[] = $archivo;
+					}
+			   } 
+			   closedir($dir); 
+			}
+		}		
+		return $proyectos;
+	}
+
+	//-------------------------------------------------------------
+	//-- Archivo de Informacion basica
 	//-------------------------------------------------------------
 
 	/**
@@ -59,7 +124,7 @@ class instalacion extends elemento_modelo
 	}
 
 	//-------------------------------------------------------------
-	//-- Informacion bases
+	//-- Archivo de informacion de bases
 	//-------------------------------------------------------------
 
 	/**
@@ -95,7 +160,7 @@ class instalacion extends elemento_modelo
 	}
 	
 	//-------------------------------------------------------------
-	//-- INSTANCIAS
+	//-- Administracion de INSTANCIAS
 	//-------------------------------------------------------------
 
 	static function dir_instancia( $nombre )
@@ -122,64 +187,6 @@ class instalacion extends elemento_modelo
 		$clase->agregar_metodo_datos( 'get_base', $base );
 		$clase->agregar_metodo_datos( 'get_lista_proyectos', $lista_proyectos );
 		$clase->guardar( self::dir_instancia( $nombre ) . '/' . self::instancia_info . '.php');
-	}
-
-	//-------------------------------------------------------------
-	//-- Informacion general
-	//-------------------------------------------------------------
-		
-	/**
-	* Devuelve la lista de las INSTANCIAS
-	*/
-	function get_lista_instancias()
-	{
-		$proyectos = array();
-		$directorio_proyectos = toba_dir() . '/proyectos';
-		if( is_dir( $directorio_proyectos ) ) {
-			if ($dir = opendir($directorio_proyectos)) {	
-			   while (false	!==	($archivo = readdir($dir)))	{ 
-					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) ){
-						$proyectos[] = $archivo;
-					}
-			   } 
-			   closedir($dir); 
-			}
-		}		
-		return $proyectos;
-	}
-
-	/**
-	* Devuelve la lista de las BASES
-	*/
-	function get_lista_bases()
-	{
-		$datos = array();
-		foreach( dba::get_lista_bases_archivo() as $base ) {
-			$datos[ $base ] = dba::get_parametros_base( $base );
-		}
-		return $datos;
-	}
-
-	/**
-	* Devuelve la lista de los proyectos que estan en la carpeta 'proyectos'
-	*/
-	function get_lista_proyectos()
-	{
-		$proyectos = array();
-		$directorio_proyectos = toba_dir() . '/proyectos';
-		if( is_dir( $directorio_proyectos ) ) {
-			if ($dir = opendir($directorio_proyectos)) {	
-			   while (false	!==	($archivo = readdir($dir)))	{ 
-					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) ){
-						$proyectos[] = $archivo;
-					}
-			   } 
-			   closedir($dir); 
-			}
-		}		
-		return $proyectos;
 	}
 }
 ?>

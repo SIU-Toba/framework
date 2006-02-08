@@ -7,7 +7,7 @@
 CREATE TABLE apex_objeto_mt_me_tipo_nav
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: tipo_navegacion
 --: zona: objeto
 --: desc:

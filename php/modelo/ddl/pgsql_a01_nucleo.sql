@@ -8,7 +8,7 @@
 CREATE TABLE			apex_elemento_infra
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: elemento_infra
 --: zona: general
 --: desc: Representa	un	elemento	de	la	infraestructura
@@ -24,7 +24,7 @@ CREATE TABLE			apex_elemento_infra
 CREATE TABLE			apex_elemento_infra_tabla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: elemento_infra, tabla, columna_clave_proyecto
 --: zona: general
 --: desc: Representa	una tabla donde se almacena parte del elemento
@@ -51,7 +51,7 @@ CREATE SEQUENCE apex_elemento_infra_input_seq INCREMENT	1 MINVALUE 1 MAXVALUE 92
 CREATE TABLE			apex_elemento_infra_input
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: entrada
 --: zona: general
 --: desc: En esta tabla se guardan los elementos toba recibidos desde otras instancias
@@ -74,7 +74,7 @@ CREATE TABLE			apex_elemento_infra_input
 CREATE TABLE			apex_estilo_paleta
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: estilo_paleta
 --: zona: general
 --: desc: Representa	una serie de colores
@@ -95,7 +95,7 @@ CREATE TABLE			apex_estilo_paleta
 CREATE TABLE			apex_estilo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: estilo
 --: zona: general
 --: desc: Estilos	CSS
@@ -121,7 +121,7 @@ CREATE TABLE			apex_estilo
 CREATE TABLE	apex_menu
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: menu
 --: zona: general
 --: desc: Tipos de menues
@@ -170,7 +170,7 @@ CREATE TABLE			apex_proyecto
 CREATE TABLE apex_log_sistema_tipo 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: log_sistema_tipo
 --: zona: solicitud
 --: desc:
@@ -186,7 +186,7 @@ CREATE TABLE apex_log_sistema_tipo
 CREATE TABLE apex_instancia
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: instancia
 --: instancia:	1
 --: zona: general
@@ -209,7 +209,7 @@ CREATE TABLE apex_instancia
 CREATE TABLE apex_fuente_datos_motor
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: fuente_datos_motor
 --: zona: general
 --: desc: DBMS	soportados
@@ -257,7 +257,7 @@ CREATE TABLE apex_fuente_datos
 CREATE TABLE apex_grafico
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: grafico
 --: zona: general
 --: desc: Tipo	de	grafico
@@ -275,7 +275,7 @@ CREATE TABLE apex_grafico
 CREATE TABLE apex_recurso_origen
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: recurso_origen 
 --: zona: general
 --: desc: Origen del	recurso:	apex o proyecto
@@ -291,7 +291,7 @@ CREATE TABLE apex_recurso_origen
 CREATE TABLE apex_repositorio
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: repositorio
 --: zona: general
 --: desc: Listado	de	repositorios a	los que me puedo conectar
@@ -307,7 +307,7 @@ CREATE TABLE apex_repositorio
 CREATE TABLE apex_nivel_acceso
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: nivel_acceso
 --: zona: general
 --: desc: Categoria organizadora	de	niveles de seguridad	(redobla	la	cualificaciond	e elementos	para fortalecer chequeos)
@@ -324,7 +324,7 @@ CREATE TABLE apex_nivel_acceso
 CREATE TABLE apex_nivel_ejecucion
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: nivel_ejecucion
 --: zona: general
 --: desc:
@@ -340,7 +340,7 @@ CREATE TABLE apex_nivel_ejecucion
 CREATE TABLE apex_solicitud_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: solicitud_tipo
 --: zona: general
 --: desc:
@@ -424,7 +424,7 @@ CREATE SEQUENCE apex_columna_estilo_seq INCREMENT 1 MINVALUE 1	MAXVALUE	92233720
 CREATE TABLE apex_columna_estilo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: columna_estilo
 --: zona: general
 --: desc:
@@ -444,7 +444,7 @@ CREATE SEQUENCE apex_columna_formato_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372
 CREATE TABLE apex_columna_formato
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: columna_formato
 --: zona: general
 --: desc:
@@ -467,7 +467,7 @@ CREATE SEQUENCE apex_columna_proceso_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372
 CREATE TABLE apex_columna_proceso
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: columna_proceso
 --: zona: general
 --: desc:
@@ -515,7 +515,7 @@ CREATE TABLE apex_pdf_propiedad
 CREATE TABLE apex_usuario_tipodoc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: usuario_tipodoc
 --: zona: usuario
 --: desc:
@@ -531,11 +531,12 @@ CREATE TABLE apex_usuario_tipodoc
 CREATE TABLE apex_usuario
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: usuario
 --: zona: usuario
 --: desc:
 --: instancia:	1
+--: usuario:	1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
@@ -621,6 +622,7 @@ CREATE TABLE apex_usuario_proyecto
 --: dump_order_by: usuario
 --: zona: usuario
 --: instancia:	1
+--: usuario:	1
 --: desc:
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
@@ -781,8 +783,7 @@ CREATE TABLE apex_item
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("proyecto","item"),
 	CONSTRAINT	"apex_item_uq_path" UNIQUE	("proyecto","item"),
 	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
---	Como el DUMP devuelve a	los registros desordenadors este	constraint hay	que definirlo al final
---	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_buffer" FOREIGN	KEY ("actividad_buffer_proyecto","actividad_buffer") REFERENCES "apex_buffer"	("proyecto","buffer") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_patron" FOREIGN	KEY ("actividad_patron_proyecto","actividad_patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_solic_tipo" FOREIGN KEY ("solicitud_tipo")	REFERENCES "apex_solicitud_tipo"	("solicitud_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
@@ -793,6 +794,7 @@ CREATE TABLE apex_item
 --	  CONSTRAINT  "apex_item_fk_usuario" FOREIGN	KEY ("usuario") REFERENCES	"apex_usuario"	("usuario")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+
 --#################################################################################################
 
 CREATE TABLE apex_item_info
@@ -822,7 +824,7 @@ CREATE SEQUENCE apex_clase_tipo_seq	INCREMENT 1	MINVALUE	1 MAXVALUE 922337203685
 CREATE TABLE apex_clase_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: clase_tipo
 --: zona: central
 --: desc:
@@ -1164,7 +1166,7 @@ CREATE TABLE apex_item_objeto
 CREATE TABLE apex_vinculo_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: vinculo_tipo
 --: zona: central
 --: desc:
@@ -1303,7 +1305,7 @@ CREATE SEQUENCE apex_nucleo_tipo_seq INCREMENT 1 MINVALUE 1	MAXVALUE	92233720368
 CREATE TABLE apex_nucleo_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: proyecto
+--: dump: nucleo
 --: dump_order_by: nucleo_tipo
 --: zona: nucleo
 --: desc:

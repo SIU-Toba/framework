@@ -1,19 +1,27 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
-require_once('modelo/procesos/proyecto_exportador.php');
-require_once('modelo/procesos/proyecto_compilador.php');
-/**
-*	Publica los servicios de la clase NUCLEO a la consola toba
-*
-*	FALTA:
-*		- Control de que se referencia a un proyecto VALIDO
+require_once('modelo/estructura_db/tablas_proyecto.php');
+require_once('nucleo/componentes/catalogo_toba.php');
+require_once('nucleo/componentes/cargador_toba.php');
+require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/reflexion/clase_datos.php');
+
+/*
+*	Administrador de metadatos de PROYECTOS
+
+	Atencion: en el caso de la importacion de proyectos directa (sin instancia)
+	hay que actualizar las secuencias despues.
 */
 class proyecto extends elemento_modelo
 {
 	private $instancia;				
 	private $identificador;
 	private $dir;
+	const dump_prefijo_componentes = 'dump_';
+	const compilar_archivo_referencia = 'tabla_tipos';
+	const compilar_prefijo_componentes = 'php_';	
+	private $compilacion_tabla_tipos;
 
 	public function __construct( instancia $instancia, $identificador )
 	{
@@ -59,15 +67,114 @@ class proyecto extends elemento_modelo
 		return $this->dir . '/metadatos_compilados/componentes';
 	}
 
-	//-----------------------------------------------------------
-	//	Procesos generales
-	//-----------------------------------------------------------
-
 	function info()
 	{
 		/*
 			Cuantas objetos hay, etc.
 		*/	
+	}
+
+	//-----------------------------------------------------------
+	//	EXPORTAR
+	//-----------------------------------------------------------
+
+	function exportar()
+	{
+		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+		}
+		try {
+			$this->exportar_tablas();
+			$this->exportar_componentes();
+		} catch ( excepcion_toba $e ) {
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
+			$this->manejador_interface->mensaje( $e->getMessage() );
+		}
+	}
+
+	private function exportar_tablas()
+	{
+		$this->manejador_interface->titulo( "Exportacion de tablas" );
+		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
+		foreach ( tablas_proyecto::get_lista() as $tabla ) {
+			$this->manejador_interface->mensaje( "Exportando tabla: $tabla." );
+			$definicion = tablas_proyecto::$tabla();
+			//Genero el SQL
+			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
+       			$w = stripslashes($definicion['dump_where']);
+       			$where = ereg_replace("%%",$this->get_id(), $w);
+            }else{
+       			$where = " ( proyecto = '".$this->get_id()."')";
+			}
+			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+					" FROM $tabla " .
+					" WHERE $where " .
+					//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
+					" ORDER BY {$definicion['dump_order_by']} ;\n";
+			//$this->manejador_interface->mensaje( $sql );
+			$contenido = "";
+			$datos = consultar_fuente($sql, 'instancia' );
+			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
+				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+			}
+			if ( trim( $contenido ) != '' ) {
+				file_put_contents( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
+			}
+		}
+	}
+
+	/*
+	*	Exporta los componentes
+	*/
+	private function exportar_componentes()
+	{
+		cargador_toba::instancia()->crear_cache_simple( $this->get_id() );
+		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
+			$this->manejador_interface->titulo( $tipo );
+			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id() ) as $id_componente) {
+				$this->exportar_componente( $tipo, $id_componente );
+			}
+		}
+	}
+	
+	/*
+	*	Exporta un componente
+	*/
+	private function exportar_componente( $tipo, $id )
+	{
+		$this->manejador_interface->mensaje("Exportando: " . $id['componente']);
+		$directorio = $this->get_dir_componentes() . '/' . $tipo;
+		manejador_archivos::crear_arbol_directorios( $directorio );
+		$archivo = manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
+		$contenido =&  $this->get_contenido_componente( $tipo, $id );
+		//if ( trim( $contenido ) != '' ) {
+			file_put_contents( $directorio .'/'. $archivo . '.sql', $contenido );
+		//}
+	}
+	
+	/*
+	*	Genera el contenido de la exportacion de un componente
+	*/
+	private function & get_contenido_componente( $tipo, $id )
+	{
+		//Recupero metadatos
+		$metadatos = cargador_toba::instancia()->get_metadatos_simples( $id, $tipo );
+		//Obtengo el nombre del componente
+		if ( isset($metadatos['apex_objeto']) ) {
+			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
+		} else {
+			$nombre_componente = $metadatos['apex_item'][0]['nombre'];		
+		}
+		//Genero el CONTENIDO
+		$contenido = "------------------------------------------------------------\n";
+		$contenido .= "--[{$id['componente']}]--  $nombre_componente \n";
+		$contenido .= "------------------------------------------------------------\n";
+		foreach ( $metadatos as $tabla => $datos) {
+			for ( $a=0; $a<count($datos); $a++ ) {
+				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+			}
+		}
+		return $contenido;		
 	}
 
 	//-----------------------------------------------------------
@@ -115,21 +222,12 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	EXPORTAR
+	//	ELIMINAR
 	//-----------------------------------------------------------
 
-	function exportar()
+	function eliminar()
 	{
-		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
-		}
-		try {
-			$exportador = new proyecto_exportador( $this );
-			$exportador->procesar();
-		} catch ( excepcion_toba $e ) {
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
-			$this->manejador_interface->mensaje( $e->getMessage() );
-		}
+		$this->manejador_interface->mensaje( 'Eliminando: ' . $this->identificador );
 	}
 
 	//-----------------------------------------------------------
@@ -139,21 +237,64 @@ class proyecto extends elemento_modelo
 	function compilar()
 	{
 		try {
-			$compilador = new proyecto_compilador( $this );
-			$compilador->procesar();
+			$this->compilar_componentes();
+			$this->crear_compilar_archivo_referencia();
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la compilacion.' );
 			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
 
-	//-----------------------------------------------------------
-	//	ELIMINAR
-	//-----------------------------------------------------------
-
-	function eliminar()
+	/*
+	*	Ciclo de compilacion de componentes
+	*/
+	function compilar_componentes()
 	{
-		$this->manejador_interface->mensaje( 'Eliminando: ' . $this->identificador );
+		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
+			$this->manejador_interface->titulo( $tipo );
+			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
+			manejador_archivos::crear_arbol_directorios( $path );
+			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id() ) as $id_componente) {
+				$this->compilar_componente( $tipo, $id_componente );
+			}
+		}
+	}
+	
+	/*
+	*	Compila un componente
+	*/
+	function compilar_componente( $tipo, $id )
+	{
+		//Armo la clase compilada
+		$nombre = manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
+		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
+		$clase = new clase_datos( $nombre, basename(__FILE__) );		
+		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
+		//Creo el archivo
+		$directorio = $this->get_dir_componentes_compilados() . '/' . $tipo;
+		$path = $directorio .'/'. $nombre . '.php';
+		$clase->guardar( $path );
+		//Creo la tabla de referencia
+		/*	ATENCION! excluyo los items porque pueden pisarse los IDs con los objetos	*/
+		if ( $tipo != 'item' ) {
+			$this->compilacion_tabla_tipos[$id['componente']] = $tipo;
+		}
+	}
+
+	/*
+	*	Creo la tabla de referencias
+	*/
+	function crear_compilar_archivo_referencia()
+	{
+		//Armo la clase compilada
+		$this->manejador_interface->mensaje("Creando tabla de tipos.");
+		$clase = new clase_datos( self::compilar_archivo_referencia, basename(__FILE__) );		
+		$clase->agregar_metodo_datos('get_datos',$this->compilacion_tabla_tipos);
+		//Creo el archivo
+		$archivo = manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
+		$path = $this->get_dir_componentes_compilados() .'/'. $archivo . '.php';
+		$clase->guardar( $path );
 	}
 }
 ?>
