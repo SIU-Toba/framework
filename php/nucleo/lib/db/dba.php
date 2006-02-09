@@ -154,6 +154,7 @@ class dba
 			//salen de instancias.php
 			if ($nombre == 'instancia') {
 				self::$info_bases[$nombre] = self::parametros_instancia($nombre);
+				self::$info_bases[$nombre]['fuente_datos'] = 'instancia';
 			} else {
 				$sql = "SELECT 	*, 
 								fuente_datos_motor as motor,
@@ -192,7 +193,6 @@ class dba
 		$datos['usuario'] = self::$instancias[$nombre_instancia][apex_db_usuario];
 		$datos['clave'] = self::$instancias[$nombre_instancia][apex_db_clave];
 		$datos['base'] = self::$instancias[$nombre_instancia][apex_db_base];
-		$datos['fuente_datos'] = $nombre;
 		return $datos;
 	}
 	
