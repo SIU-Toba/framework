@@ -53,7 +53,16 @@ class dba
 		$dba->desconectar_db( $nombre );
 		return self::get_db( $nombre );
 	}
-	
+
+	/**
+	*	Desconecta una DB
+	*/	
+	static function desconectar( $nombre )
+	{
+		$dba = self::get_instancia();
+		$dba->desconectar_db( $nombre );
+	}
+		
 	//------------------------------------------------------------------------
 	// Mantenimiento de BASES de DATOS
 	//------------------------------------------------------------------------
@@ -278,6 +287,7 @@ class dba
 		if ( isset( self::$info_bases[$nombre] ) ) {
 			unset( self::$info_bases[$nombre] );
 		}
+		$this->bases_conectadas[$nombre]->destruir();
 		if ( isset( $this->bases_conectadas[$nombre] ) ) {
 			unset( $this->bases_conectadas[$nombre] );
 		}

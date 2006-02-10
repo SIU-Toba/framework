@@ -137,5 +137,37 @@
 		//echo "salida del filtro SQL: $temp <br>";
 		return trim($temp);
 	}
-//-------------------------------------------------------------------------------------
+
+	function sql_array_tablas_drop( $tablas, $cascade = true )
+	{
+		$sql = array();
+		$sql_cascade = $cascade ? 'CASCADE' : '';
+		foreach ( $tablas as $tabla ) {
+			$sql[] = "DROP TABLE $tabla $sql_cascade;";
+		}
+		return $sql;
+	}
+
+	/*
+	*	Espera un array asociativo con el nombre de la tabla como clave
+	*		y el WHERE como valor
+	*/
+	function sql_array_tablas_delete( $tablas )
+	{
+		$sql = array();
+		foreach ( $tablas as $tabla => $where ) {
+			$sql[] = "DELETE FROM $tabla $where;";
+		}
+		return $sql;
+	}
+
+	function sql_array_secuencias_drop( $tablas )
+	{
+		$sql = array();
+		foreach ( $tablas as $tabla ) {
+			$sql[] = "DROP SEQUENCE $tabla;";
+		}
+		return $sql;
+	}
+
 ?>

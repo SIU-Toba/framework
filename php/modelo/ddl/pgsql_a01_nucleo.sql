@@ -181,29 +181,7 @@ CREATE TABLE apex_log_sistema_tipo
 	descripcion					varchar(255)	NOT NULL,
 	CONSTRAINT	"apex_log_sistema_tipo_pk" PRIMARY KEY ("log_sistema_tipo")
 );
---#################################################################################################
 
-CREATE TABLE apex_instancia
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: instancia
---: instancia:	1
---: zona: general
---: desc: Datos de la instancia
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	instancia					varchar(80)		NOT NULL,
-	version						varchar(15)		NOT NULL,
-	institucion					varchar(255)	NULL,
-	observaciones				varchar(255)	NULL,
-	administrador_1				varchar(60)		NULL,--NOT
-	administrador_2				varchar(60)		NULL,--NOT
-	administrador_3				varchar(60)		NULL,--NOT
-	creacion					timestamp(0) without	time zone	DEFAULT current_timestamp NOT	NULL,
-	CONSTRAINT	"apex_instancia_pk"	 PRIMARY	KEY ("instancia")
-);
 --#################################################################################################
 
 CREATE TABLE apex_fuente_datos_motor
@@ -1076,7 +1054,6 @@ CREATE TABLE apex_objeto_dependencias
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: objeto_consumidor
 --: dump_order_by: objeto_consumidor, identificador
---: dump_where:
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -1108,7 +1085,6 @@ CREATE TABLE apex_objeto_eventos
 --: dump_clave_proyecto: proyecto
 --: dump_clave_componente: objeto
 --: dump_order_by: objeto, orden, identificador
---: dump_where:
 --: zona: central
 --: desc:
 --: version: 1.0
@@ -1226,7 +1202,6 @@ CREATE TABLE apex_usuario_grupo_acc_item
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: usuario_grupo_acc, item
---: dump_where:
 --: zona: usuario, item
 --: desc:
 --: version: 1.0
@@ -1249,7 +1224,6 @@ CREATE TABLE apex_arbol_items_fotos
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: usuario, foto_nombre
---: dump_where:
 --: zona: usuario
 --: instancia:	1
 --: desc:
@@ -1274,7 +1248,6 @@ CREATE TABLE apex_admin_album_fotos
 --: proyecto: toba
 --: dump: multiproyecto
 --: dump_order_by: usuario, foto_tipo, foto_nombre
---: dump_where:
 --: zona: usuario
 --: instancia:	1
 --: desc:

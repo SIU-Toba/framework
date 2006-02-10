@@ -9,11 +9,11 @@ class nucleo extends elemento_modelo
 	// Directorios de trabajo
 	protected $dir_sql;
 	protected $dir_ddl;
-	protected $prefijo_archivo = 'tablas_';
-	protected $ba_instancia = 'instancia';
-	protected $ba_nucleo = 'nucleo';
-	protected $ba_proyecto = 'proyecto';
-	protected $ba_componente = 'componente';
+	protected $ba_instancia = 'tablas_instancia';	// ba = base archivo
+	protected $ba_nucleo = 'tablas_nucleo';
+	protected $ba_proyecto = 'tablas_proyecto';
+	protected $ba_componente = 'tablas_componente';
+	protected $ba_no_clasificadas = 'tablas_no_clasificadas';
 	// Parseo
 	protected $secuencias = array();
 	protected $tablas = array();
@@ -23,6 +23,7 @@ class nucleo extends elemento_modelo
 	protected $archivos;
 	// Plan de generacion de PHP
 	protected $plan;
+	protected $catalogo;
 	
 	//------------------------------------------------
 	// Informacion
@@ -56,7 +57,8 @@ class nucleo extends elemento_modelo
 			$this->get_archivos_ddl();
 			$this->parsear_archivos();
 			$this->analizar_tablas();
-			$this->generar_php();
+			$this->generar_archivos_estructura();
+			$this->generar_archivos_catalogo();
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante el parseo.' );
 			$this->manejador_interface->error( $e->getMessage() );
@@ -194,8 +196,14 @@ class nucleo extends elemento_modelo
 				} elseif ( $dump_nucleo ) {
 					$this->plan[ $this->ba_nucleo ]['tablas'][] = $id;
 					$this->plan[ $this->ba_nucleo ]['indices']['get_lista'][] = $id;
+				} else {
+					//Las tablas que entran aca no son catalogadas en ningun lado
+					$this->plan[ $this->ba_no_clasificadas ]['tablas'][] = $id;
+					$this->plan[ $this->ba_no_clasificadas ]['indices']['get_lista'][] = $id;
 				}
 			}
+			//Armo el catalogo GENERAL
+			$this->catalogo['catalogo_general'][] = $id;
 		}
 	}
 
@@ -204,21 +212,32 @@ class nucleo extends elemento_modelo
 	*		por cada entrada crea una clase con N metodos catalogo y un metodo
 	*		informativo por tabla
 	*/
-	private function generar_php()
+	private function generar_archivos_estructura()
 	{
-		foreach(array_keys($this->plan) as $archivo ) {
-			$nombre = $this->prefijo_archivo . $archivo;
+		foreach(array_keys($this->plan) as $nombre ) {
 			$this->manejador_interface->titulo( $nombre );
 			$clase = new clase_datos( $nombre, basename(__FILE__));
 			//Creo los indices
-			foreach ( $this->plan[$archivo]['indices'] as $id => $indice) {
+			foreach ( $this->plan[$nombre]['indices'] as $id => $indice) {
 				$clase->agregar_metodo_datos( $id, $indice );
 			}
 			//Informacion de cada tabla
-			foreach($this->plan[$archivo]['tablas'] as $tabla) {
+			foreach($this->plan[$nombre]['tablas'] as $tabla) {
 				$this->manejador_interface->mensaje("Tabla: $tabla");
 				$clase->agregar_metodo_datos( $tabla, $this->tablas[$tabla] );
 			}
+			$clase->guardar( $this->get_dir_estructura_db() .'/'.$nombre.'.php' );
+		}
+	}
+
+	private function generar_archivos_catalogo()
+	{
+		$this->manejador_interface->titulo("Creacion de catalogos");
+		foreach( array_keys( $this->catalogo ) as $nombre ) {
+			$this->manejador_interface->mensaje( "Catalogo: $nombre" );
+			$clase = new clase_datos( $nombre, basename(__FILE__) );
+			//Informacion de cada tabla
+			$clase->agregar_metodo_datos( 'get_tablas' , $this->catalogo[ $nombre ] );
 			$clase->guardar( $this->get_dir_estructura_db() .'/'.$nombre.'.php' );
 		}
 	}

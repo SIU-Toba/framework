@@ -2,6 +2,7 @@
 require_once('modelo/lib/elemento_modelo.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
+require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
 require_once('nucleo/lib/manejador_archivos.php');
 /**
@@ -78,6 +79,29 @@ class instancia extends elemento_modelo
 		return false;
 	}
 	
+	function existe_modelo()
+	{
+		try {
+			$sql = "SELECT 1 FROM apex_proyecto;";
+			$this->get_db()->consultar( $sql );
+			return true;
+		} catch ( excepcion_toba $e ) {
+			return false;
+		}
+	}
+	
+	function get_registros_tabla()
+	{
+		$registros = array();
+		$tablas = catalogo_general::get_tablas();
+		foreach ( $tablas as $tabla ) {
+			$sql = "SELECT COUNT(*) as registros FROM $tabla;";
+			$temp = $this->get_db()->consultar( $sql );
+			$registros[ $tabla ] = $temp[0]['registros'];
+		}
+		return $registros;
+	}
+
 	//-----------------------------------------------------------
 	//	EXPORTAR
 	//-----------------------------------------------------------
@@ -197,12 +221,21 @@ class instancia extends elemento_modelo
 	/**
 	* Importacion completa de una instancia
 	*/
-	function importar()
+	function importar( $forzar_carga = false )
 	{
 		// Existe la base?
 		$base = info_instancia::get_base();
 		if ( ! dba::existe_base_datos( $base ) ) {
 			dba::crear_base_datos( $base );
+		}
+		// Esta el modelo cargado
+		if ( $this->existe_modelo() ) {
+			if ( $forzar_carga ) {
+				$this->eliminar();
+				dba::crear_base_datos( $base );
+			} else {
+				throw new excepcion_toba_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+			}
 		}
 		//Inicio el proceso de carga
 		try {
@@ -236,7 +269,7 @@ class instancia extends elemento_modelo
 		$directorio = nucleo::get_dir_ddl();
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
+			$this->manejador_interface->mensaje( $archivo );
 			$this->get_db()->ejecutar_archivo( $archivo );
 		}
 	}
@@ -247,13 +280,13 @@ class instancia extends elemento_modelo
 		$directorio = nucleo::get_dir_metadatos();
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje( 'Cargando: ' . $archivo );
+			$this->manejador_interface->mensaje( $archivo );
 			$this->get_db()->ejecutar_archivo( $archivo );
 		}
 	}
 
 	/*
-	* Importa los proyectos asociados
+	*	Importa los proyectos asociados
 	*/
 	private function importar_proyectos()
 	{
@@ -264,14 +297,32 @@ class instancia extends elemento_modelo
 			$proyecto->importar();
 		}	
 	}
-
+	
+	/*
+	* 	Importa la informacion perteneciente a la instancia
+	*/
 	private function importar_informacion_instancia()
 	{
-		
+		$this->manejador_interface->titulo('Cargando datos de la instancia');
+		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir() );
+		foreach ( $subdirs as $dir ) {
+			$this->manejador_interface->mensaje( $dir );
+			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+			foreach( $archivos as $archivo ) {
+				$this->manejador_interface->mensaje( $archivo );
+				$this->get_db()->ejecutar_archivo( $archivo );
+			}
+		}
 	}
 	
+	/*
+	*	Genera informacion descriptiva sobre la instancia creada
+	*/
 	private function generar_info_importacion()
 	{
+		$revision = revision_svn( toba_dir() );
+		$sql = "INSERT INTO apex_revision ( revision ) VALUES ('$revision')";
+		$this->get_db()->ejecutar( $sql );
 	}
 	
 	/*
@@ -312,20 +363,69 @@ class instancia extends elemento_modelo
 	//	ELIMINAR
 	//-----------------------------------------------------------
 
-	/**
-	* Eliminacion de la BASE de la instancia
+	/*
+	*	Elimina la instancia de la forma predefinida
 	*/
 	function eliminar()
 	{
-		$base = info_instancia::get_base();
-		dba::borrar_base_datos( $base );
+		//Por defecto se elimina la base.
+		$this->eliminar_base();
 	}
 
 	/**
-	* Eliminacion de las tablas de la instancia
+	* Eliminacion de la BASE de la instancia
 	*/
-	function eliminar_tablas()
+	function eliminar_base()
 	{
+		try {
+			$base = info_instancia::get_base();
+			dba::desconectar('instancia');
+			dba::borrar_base_datos( $base );
+			$this->manejador_interface->mensaje("La base ha sido eliminada.");
+		} catch ( excepcion_toba $e ) {
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de la BASE' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
+	}
+
+	/**
+	* Eliminacion de las TABLAS de la instancia
+	*/
+	function eliminar_modelo()
+	{
+		try {
+			$this->get_db()->abrir_transaccion();
+			// Tablas
+			$sql = sql_array_tablas_drop( catalogo_general::get_tablas() );
+			$this->get_db()->ejecutar( $sql );
+			// Secuencias
+			$secuencias = array_keys( secuencias::get_lista() );
+			$sql = sql_array_secuencias_drop( $secuencias );
+			$this->get_db()->ejecutar( $sql );
+			$this->get_db()->cerrar_transaccion();
+			$this->manejador_interface->mensaje("El modelo ha sido eliminado.");
+		} catch ( excepcion_toba $e ) {
+			$this->get_db()->abortar_transaccion();
+			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de TABLAS de la instancia.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	Control de INSTANCIAS
+	//-----------------------------------------------------------
+
+	function dump_info_tablas()
+	{
+		// Esta el modelo cargado
+		if ( ( ! dba::existe_base_datos( info_instancia::get_base() ) ) || ( ! $this->existe_modelo() ) ) {
+			throw new excepcion_toba_modelo_preexiste("La instancia no esta inicializada");
+		}
+		$archivo = 'registros_' . $this->identificador;
+		$clase = new clase_datos( $archivo );		
+		$clase->agregar_metodo_datos('get_datos',$this->get_registros_tabla() );
+		$clase->guardar( $this->get_dir() .'/'. $archivo . '.php' );
+		$this->manejador_interface->mensaje("Se creo el archivo '$archivo.php' en " . $this->get_dir() );
 	}
 }
 ?>

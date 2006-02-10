@@ -31,6 +31,7 @@ class comando_instancia extends comando_toba
 		$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() );
 		$this->consola->dump_arbol( $i->get_lista_proyectos(), 'PROYECTOS' );
 		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
+		//$this->consola->dump_arbol( $i->get_registros_tabla(), 'BASE' );
 	}
 	
 	/**
@@ -50,15 +51,26 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Inicializa una instancia [NO]
+	*	Inicializa una instancia
 	*/
 	function opcion__importar()
 	{
-		$this->get_instancia()->importar();
+		try {
+			$this->get_instancia()->importar();
+		} catch ( excepcion_toba_modelo_preexiste $e ) {
+			$this->consola->error( 'Ya existe una instancia en la base de datos' );
+			$this->consola->dump_arbol( $this->get_instancia()->get_parametros_db(), 'BASE' );
+			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego IMPORTARLA?') ) {
+				$this->get_instancia()->importar( true );
+			}
+		} catch ( excepcion_toba $e ) {
+			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
+			$this->consola->error( $e->getMessage() );
+		}
 	}
 
 	/**
-	*	Elimina todas las tablas correspondientes al toba [NO]
+	*	Regenera el TOBA de una instancia
 	*/
 	function opcion__regenerar()
 	{
@@ -78,25 +90,25 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Elimina todas las tablas correspondientes al toba [NO]
-	*/
-	function opcion__eliminar_tablas()
-	{
-		$this->get_instancia()->eliminar_tablas();
-	}
-
-	/**
-	*	Elimina todas las tablas correspondientes al toba [NO]
+	*	Elimina la instancia
 	*/
 	function opcion__eliminar()
 	{
 		$i = $this->get_instancia();
 		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
-		if ( $this->consola->dialogo_simple('Desea eliminar la base de datos?') ) {
-			$i->eliminar();
+		if ( $this->consola->dialogo_simple('Desea eliminar la INSTANCIA?') ) {
+			$i->eliminar_base();
 		}
 	}
-	
+
+	/**
+	*	Genera un archivo con la lista de registros por cada tabla de la instancia
+	*/	
+	function opcion__dump_info_tablas()
+	{
+		$this->get_instancia()->dump_info_tablas();
+	}
+
 	//-------------------------------------------------------------
 	// Primitivas internas
 	//-------------------------------------------------------------

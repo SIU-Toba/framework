@@ -550,7 +550,6 @@ class tablas_proyecto
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'usuario_grupo_acc, item',
-  'dump_where' => '',
   'zona' => 'usuario, item',
   'desc' => '',
   'version' => '1.0',

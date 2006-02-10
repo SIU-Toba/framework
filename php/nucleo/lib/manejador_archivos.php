@@ -113,7 +113,7 @@ class manejador_archivos
 		} 
 		if ($dir = opendir( $directorio )) {	
 		   while (false	!==	( $archivo = readdir( $dir ) ) )	{ 
-				if( ( $archivo != '.' ) && ( $archivo != '..' ) ) {
+				if( ( $archivo != '.' ) && ( $archivo != '..' ) && ( $archivo != '.svn' ) ) {
 					$path = $directorio . '/' . $archivo;
 					if ( is_dir( $path ) ) {
 						$dirs[] = $path;

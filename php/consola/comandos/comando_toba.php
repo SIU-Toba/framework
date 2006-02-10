@@ -9,6 +9,8 @@ require_once('modelo/catalogo_modelo.php');
 
 class comando_toba extends comando
 {
+	private $instancia;
+	
 	/**
 	*	Acceso a la variable de entorno 'toba_instancia'
 	*/
@@ -48,8 +50,10 @@ class comando_toba extends comando
 	*/
 	protected function get_instancia()
 	{
-		return catalogo_modelo::get_instancia( 	$this->get_id_instancia_actual(), 
-												$this->consola );
+		if ( ! isset ( $this->instancia ) ) {
+			$this->instancia = catalogo_modelo::get_instancia( 	$this->get_id_instancia_actual(), $this->consola );
+		}
+		return $this->instancia;
 	}
 
 	/**
