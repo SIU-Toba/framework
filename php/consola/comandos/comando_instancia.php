@@ -43,7 +43,7 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Exporta la informacion COMPLETA de la instancia (incluyendo proyectos) [NO]
+	*	Exporta la informacion COMPLETA de la instancia (incluyendo proyectos)
 	*/
 	function opcion__exportar_full()
 	{

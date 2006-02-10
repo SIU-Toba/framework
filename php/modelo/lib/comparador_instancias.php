@@ -1,5 +1,9 @@
 <?
-
+/*
+*	Compara dos instancias
+*		Como es imposible actualmente instanciar dos INSTANCIAS toba, este
+*		script llama dos veces al comando 'toba instancia'
+*/
 class comparador_instancias
 {
 	private $i1;
@@ -95,5 +99,4 @@ class comparador_instancias
 		return $diff;
 	}
 }
-
 ?>

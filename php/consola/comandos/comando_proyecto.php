@@ -44,7 +44,7 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__importar()
 	{
-		$this->get_proyecto()->importar( true );
+		$this->get_proyecto()->importar_autonomo();
 	}
 
 	/**

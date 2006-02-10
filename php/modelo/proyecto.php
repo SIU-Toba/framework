@@ -183,20 +183,36 @@ class proyecto extends elemento_modelo
 	//	IMPORTAR
 	//-----------------------------------------------------------
 	
-	function importar( $transaccion = false )
+	/*
+	*	Importacion de un proyecto dentro de la inicializacion de una instancia
+	*/
+	function importar()
+	{
+		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
+		}
+		$db = $this->instancia->get_db();
+		$this->importar_tablas();
+		$this->importar_componentes();
+	}
+
+	/*
+	*	Importar un proyecto en una instancia creada
+	*/
+	function importar_autonomo()
 	{
 		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
 		}
 		try {
 			$db = $this->instancia->get_db();
-			if ( $transaccion ) $db->abrir_transaccion();
-			if ( $transaccion ) $db->retrazar_constraints();
+			$db->abrir_transaccion();
+			$db->retrazar_constraints();
 			$this->importar_tablas();
 			$this->importar_componentes();
-			if ( $transaccion ) $db->cerrar_transaccion();
+			$db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
-			if ( $transaccion ) $db->abortar_transaccion();
+			$db->abortar_transaccion();
 			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
