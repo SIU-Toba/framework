@@ -8,6 +8,9 @@ class componente_toba implements definicion_toba
 		$estructura[0]['tabla'] = 'apex_objeto';
 		$estructura[0]['registros'] = '1';
 		$estructura[0]['obligatorio'] = true;
+		$estructura[1]['tabla'] = 'apex_objeto_info';
+		$estructura[1]['registros'] = '1';
+		$estructura[1]['obligatorio'] = false;
 		return $estructura;		
 	}
 

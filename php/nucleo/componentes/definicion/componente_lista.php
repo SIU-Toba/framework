@@ -6,9 +6,9 @@ class componente_lista extends componente_toba
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[1]['tabla'] = 'apex_objeto_lista';
-		$estructura[1]['registros'] = '1';
-		$estructura[1]['obligatorio'] = true;
+		$estructura[2]['tabla'] = 'apex_objeto_lista';
+		$estructura[2]['registros'] = '1';
+		$estructura[2]['obligatorio'] = true;
 		return $estructura;		
 	}
 	

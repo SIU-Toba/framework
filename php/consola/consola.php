@@ -15,6 +15,8 @@ require_once("nucleo/lib/asercion.php");       	   	//Aserciones
 require_once("nucleo/lib/parseo.php");       	   	//Parseo
 require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
+require_once("consola/lib/Getopt.php");
+require_once("consola/lib/Table.php");
 
 class consola implements gui
 {

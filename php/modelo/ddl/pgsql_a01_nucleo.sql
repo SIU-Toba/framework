@@ -1031,7 +1031,7 @@ CREATE TABLE apex_objeto_info
 --: dump_clave_proyecto: objeto_proyecto
 --: dump_clave_componente: objeto
 --: dump_order_by: objeto
---: dump_where: (	objeto_proyecto =	'%%' )
+--: dump_where: ( objeto_proyecto = '%%' )
 --: zona: central
 --: desc:
 --: version: 1.0

@@ -152,6 +152,7 @@ class instancia extends elemento_modelo
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path )
 	{
+		$contenido = "";
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$this->manejador_interface->mensaje( "Tabla: $tabla." );
 			$definicion = tablas_instancia::$tabla();
@@ -160,14 +161,13 @@ class instancia extends elemento_modelo
 					" FROM $tabla " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
-			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			if ( trim( $contenido ) != '' ) {
-				file_put_contents( $path  , $contenido );			
-			}
+		}
+		if ( trim( $contenido ) != '' ) {
+			file_put_contents( $path  , $contenido );			
 		}
 	}
 
@@ -188,6 +188,7 @@ class instancia extends elemento_modelo
 
 	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto )
 	{
+		$contenido = "";
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$this->manejador_interface->mensaje( "Exportando tabla: $tabla." );
 			$definicion = tablas_instancia::$tabla();
@@ -203,14 +204,13 @@ class instancia extends elemento_modelo
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
-			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			if ( trim( $contenido ) != '' ) {
-				file_put_contents( $nombre_archivo, $contenido );			
-			}
+		}
+		if ( trim( $contenido ) != '' ) {
+			file_put_contents( $nombre_archivo, $contenido );			
 		}
 	}
 
@@ -424,8 +424,9 @@ class instancia extends elemento_modelo
 		$archivo = 'registros_' . $this->identificador;
 		$clase = new clase_datos( $archivo );		
 		$clase->agregar_metodo_datos('get_datos',$this->get_registros_tabla() );
-		$clase->guardar( $this->get_dir() .'/'. $archivo . '.php' );
-		$this->manejador_interface->mensaje("Se creo el archivo '$archivo.php' en " . $this->get_dir() );
+		$path = toba_dir() .'/temp/'. $archivo . '.php';
+		$clase->guardar( $path );
+		//$this->manejador_interface->mensaje("Se creo el archivo '$path'");
 	}
 }
 ?>

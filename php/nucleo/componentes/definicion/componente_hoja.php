@@ -6,12 +6,12 @@ class componente_hoja extends componente_toba
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[1]['tabla'] = 'apex_objeto_hoja';
-		$estructura[1]['registros'] = '1';
-		$estructura[1]['obligatorio'] = true;
-		$estructura[2]['tabla'] = 'apex_objeto_hoja_directiva';
-		$estructura[2]['registros'] = '2';
+		$estructura[2]['tabla'] = 'apex_objeto_hoja';
+		$estructura[2]['registros'] = '1';
 		$estructura[2]['obligatorio'] = true;
+		$estructura[3]['tabla'] = 'apex_objeto_hoja_directiva';
+		$estructura[3]['registros'] = '2';
+		$estructura[3]['obligatorio'] = true;
 		return $estructura;		
 	}
 	

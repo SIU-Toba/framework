@@ -12,10 +12,13 @@ class componente_ci extends componente_ei
 		$estructura = parent::get_estructura();
 		$estructura[3]['tabla'] = 'apex_objeto_dependencias';
 		$estructura[3]['registros'] = 'n';
+		$estructura[3]['obligatorio'] = false;
 		$estructura[4]['tabla'] = 'apex_objeto_mt_me';
 		$estructura[4]['registros'] = '1';
+		$estructura[4]['obligatorio'] = true;
 		$estructura[5]['tabla'] = 'apex_objeto_ci_pantalla';
 		$estructura[5]['registros'] = 'n';
+		$estructura[5]['obligatorio'] = true;
 		return $estructura;		
 	}
 	

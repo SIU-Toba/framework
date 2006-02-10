@@ -6,8 +6,9 @@ class componente_mt extends componente_toba
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[1]['tabla'] = 'apex_objeto_dependencias';
-		$estructura[1]['registros'] = 'n';
+		$estructura[2]['tabla'] = 'apex_objeto_dependencias';
+		$estructura[2]['registros'] = 'n';
+		$estructura[2]['obligatorio'] = false;
 		return $estructura;		
 	}
 	
