@@ -22,12 +22,16 @@ class comando_toba extends comando
 			} else {
 				return null;	
 			}
+		} else {
+			if( trim( $_SERVER['toba_instancia'] ) == '' && $obligatorio ) {
+				throw new excepcion_toba("COMANDO_TOBA: La variable de entorno 'toba_proyecto' no esta definida (string vacio)");
+			}
+			return $_SERVER['toba_instancia'];
 		}
-		return $_SERVER['toba_instancia'];
 	}
 
 	/**
-	*	Acceso a la variable de entorno 'toba_instancia'
+	*	Acceso a la variable de entorno 'toba_proyecto'
 	*/
 	protected function get_entorno_id_proyecto( $obligatorio = false )
 	{
@@ -35,10 +39,14 @@ class comando_toba extends comando
 			if( $obligatorio ) {
 				throw new excepcion_toba("COMANDO_TOBA: La variable de entorno 'toba_proyecto' no esta definida");
 			} else {
-				return null;	
+				return null;
 			}
+		} else {
+			if( trim( $_SERVER['toba_proyecto'] ) == '' && $obligatorio ) {
+				throw new excepcion_toba("COMANDO_TOBA: La variable de entorno 'toba_proyecto' no esta definida (string vacio)");
+			}
+			return $_SERVER['toba_proyecto'];
 		}
-		return $_SERVER['toba_proyecto'];
 	}
 	
 	//-----------------------------------------------------------
@@ -80,6 +88,14 @@ class comando_toba extends comando
 	protected function get_nucleo()
 	{
 		return catalogo_modelo::get_nucleo( $this->consola );
+	}
+
+	/**
+	*	Devuelve una referencia al NUCLEO
+	*/
+	protected function get_conversor()
+	{
+		return catalogo_modelo::get_conversor( $this->get_id_instancia_actual(), $this->consola );
 	}
 }
 ?>

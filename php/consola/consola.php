@@ -15,8 +15,8 @@ require_once("nucleo/lib/asercion.php");       	   	//Aserciones
 require_once("nucleo/lib/parseo.php");       	   	//Parseo
 require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
-require_once("consola/lib/Getopt.php");
 require_once("consola/lib/Table.php");
+require_once("consola/lib/Getopt.php");
 
 class consola implements gui
 {
@@ -166,7 +166,7 @@ class consola implements gui
 		$this->subtitulo( $titulo );
 		print_r( $arbol );
 	}
-
+	
 	/*
 	* Genera la salida de una linea completando el espacio faltante del display con un caracter
 	*/
@@ -174,6 +174,21 @@ class consola implements gui
 	{
 		echo str_pad( self::display_prefijo_linea . $base, self::display_ancho, $caracter_relleno );
 		echo "\n";
+	}
+
+	function lista( $lista, $titulo )
+	{
+		$i=0;
+		foreach($lista as $l) {
+			$datos[$i][0] = $l;
+			$i++;
+		}
+		echo Console_Table::fromArray( array( $titulo ), $datos );
+	}
+	
+	function tabla( $tabla, $titulos )
+	{
+		echo Console_Table::fromArray( $titulos, $tabla );
 	}
 	
 	//----------------------------------------------

@@ -1,72 +1,17 @@
 <?
-/*
-	Hay que pensar un par de tablas para manejar los logs de cambios, versiones, revisiones SVN, etc.
-	Estas tablas deberian ser la base de la administracion de conversiones.
-*/
 
 class conversion
-/*
-	Esta clase representa una conversion entre dos versiones del toba
-*/
-{
+{	
 	protected $version;
 	protected $log;
 	protected $db;
 	protected $proyecto;			//Proyecto sobre el que se corren las conversiones
 	protected $reg_afectados = 0;	//Cantidad de registros afectados por la conversion
-
-	//-------- STATICAS
 	
-	static function existe_conversion($version)
-	{
-		$conversiones = self::conversiones_posibles();
-		return in_array($version, $conversiones);
-	}
-	
-	static function conversiones_posibles($proyecto=null)
-	{
-		$conversiones = array();
-		$dir = opendir(dirname(__FILE__));
-		while(($archivo = readdir($dir)) !== false)  
-		{  
-			if (ereg("conversion_(.+).php", $archivo, $version)) {
-				if ($version[1] != 'toba') {
-					$conversiones[] = str_replace("_", ".", $version[1]);
-				}
-			}
-		}		
-		//Si se pide un proyecto, filtra las ya aplicadas 
-		if (isset($proyecto)) {
-			foreach ($conversiones as $id => $version) {
-				if (self::ejecutada_anteriormente($proyecto, $version)) {
-					unset($conversiones[$id]);
-				}
-			}
-		}
-		return $conversiones;
-	}
-	
-	
-	static function ejecutada_anteriormente($proyecto, $version)
-	{
-		$sql = "SELECT fecha FROM apex_conversion WHERE
-						proyecto = '$proyecto' AND
-						conversion_aplicada = '$version'
-		";
-		$rs = toba::get_db('instancia')->consultar($sql);
-		if (empty($rs)) {
-			return false;	
-		} else { 
-			return $rs[0]['fecha'];
-		}
-	}	
-	
-	//--- DINAMICAS
-	
-	function __construct()
+	function __construct( $db )
 	{
 		$this->version = $this->get_version();
-		$this->db = toba::get_db('instancia');
+		$this->db = $db;
 //		$this->db->debug = true;
 	}
 		

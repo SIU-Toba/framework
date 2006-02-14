@@ -20,8 +20,7 @@ class comando_test extends comando_toba
 		$ci = new comparador_instancias( $this->argumentos[1], $this->argumentos[2] );
 		$datos = $ci->procesar();
 		$titulos = array( 'TABLA', $this->argumentos[1], $this->argumentos[2], 'diff');
-		$tabla = Console_Table::fromArray( $titulos, $datos );
-		echo( $tabla );
+		$this->consola->tabla( $datos, $titulos );
 		$ci->finalizar();
 	}
 	

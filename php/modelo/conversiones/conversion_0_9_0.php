@@ -1,5 +1,5 @@
 <?
-require_once("modelo/conversion.php");
+require_once("modelo/conversiones/conversion.php");
 
 class conversion_0_9_0 extends conversion
 {

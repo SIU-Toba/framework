@@ -4,6 +4,7 @@ require_once('modelo/proyecto.php');
 require_once('modelo/instancia.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/nucleo.php');
+require_once('modelo/conversor.php');
 
 class catalogo_modelo
 {
@@ -46,6 +47,17 @@ class catalogo_modelo
 		$nucleo = new nucleo();
 		$nucleo->set_manejador_interface( $manejador_interface );
 		return $nucleo;
+	}
+
+	/**
+	*	Crea un conversor
+	*/
+	static function get_conversor( $id_instancia, $manejador_interface )
+	{
+		$instancia = self::get_instancia( $id_instancia, $manejador_interface );
+		$conversor = new conversor( $instancia );
+		$conversor->set_manejador_interface( $manejador_interface );
+		return $conversor;
 	}
 }
 ?>

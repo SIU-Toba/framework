@@ -25,7 +25,7 @@ class comando
 	
 	function set_argumentos( $argumentos )
 	{
-		$this->argumentos = $argumentos;		
+		$this->argumentos = $argumentos;
 	}
 
 	/**
@@ -67,6 +67,41 @@ class comando
 			}
 		}
 		return $opciones;
+	}
+
+	/*
+	*	Parseo de parametros
+	*/
+	protected function get_parametros()
+	{
+	   $params = array();
+	   for ($i=0; $i < count( $this->argumentos ); $i++){
+	
+	       if ( $this->es_parametro($this->argumentos[$i]) ){
+	          
+	           if (strlen($this->argumentos[$i]) == 1){
+	
+	           }elseif ( strlen($this->argumentos[$i]) == 2){
+	               $paramName = $this->argumentos[$i];
+	               if( isset($this->argumentos[ $i + 1 ]) ) {
+		               $paramVal = ( !$this->es_parametro( $this->argumentos[ $i + 1 ] ) ) ? $this->argumentos[$i + 1] : null;
+	            	} else {
+	            		$paramVal = null;
+	            	}
+	           }elseif ( strlen($this->argumentos[$i]) > 2){
+	               $paramName = substr($this->argumentos[$i],0,2);
+	               $paramVal = substr($this->argumentos[$i],2);
+	           }
+	
+	           $params[ $paramName ] = $paramVal;
+	
+	       }
+	   }
+		return $params;
+	}
+	
+	private function es_parametro( $texto ) {
+       return ($texto{0} == "-") ? 1: 0;
 	}
 }
 ?>

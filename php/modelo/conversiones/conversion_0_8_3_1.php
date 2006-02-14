@@ -1,5 +1,5 @@
 <?
-require_once("modelo/conversion.php");
+require_once("modelo/conversiones/conversion.php");
 /**
 *	-----------------------------------------------------------
 *	 MIGRACION DE EVENTOS POR DEFECTO A EXPLICITOS Y POR GRUPOS
