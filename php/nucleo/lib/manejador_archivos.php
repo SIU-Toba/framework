@@ -88,21 +88,50 @@ class manejador_archivos
 		return str_replace( self::$caracteres_invalidos, self::$caracteres_reemplazo, $candidato );
 	}
 	
-	static function get_archivos_directorio( $directorio, $patron )
+	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false )
 	{
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
 			throw new excepcion_toba("Buscando archivos en directorio '$directorio'. El directorio es invalido");
 		} 
-		if ($dir = opendir( $directorio )) {	
-		   while (false	!==	($archivo = readdir($dir)))	{ 
-				if(preg_match($patron,$archivo)){
-					$archivos_ok[] = $directorio . '/' . $archivo;
+		if ( ! $recursivo_subdir ) {
+			if ( $dir = opendir( $directorio ) ) {	
+			   while (false	!==	($archivo = readdir($dir)))	{
+			   		if(  $archivo != ".svn" &&  $archivo != "." && $archivo != ".." ) {
+						$archivos_ok[] = $directorio . '/' . $archivo;
+			   		}
 				}
-		   } 
-		   closedir($dir); 
+			   closedir($dir); 
+			}
+		} else {
+			$archivos_ok = self::buscar_archivos_subdir( $directorio );
 		}
+		/*
+		//Filtro archivos
+		if( isset( $patron ) ){
+			if(preg_match($patron,$archivo)){
+				$archivos_ok[] = $directorio . '/' . $archivo;
+			}
+		}*/
 		return $archivos_ok;
+	}
+
+	function buscar_archivos_subdir( $directorio )
+	{
+		$archivos = array();
+		$d = dir( $directorio );
+		while($archivo = $d->read()) {
+			if (  $archivo != ".svn" && $archivo != "." && $archivo != "..") {
+				$path = $directorio.'/'.$archivo;
+				if ( is_dir( $path ) ) {
+					$archivos = array_merge( self::buscar_archivos_subdir( $path ), $archivos ) ;
+				} else {
+					$archivos[] = $path;
+				}
+			}
+		}
+		$d->close();
+		return $archivos;
 	}
 	
 	static function get_subdirectorios( $directorio )

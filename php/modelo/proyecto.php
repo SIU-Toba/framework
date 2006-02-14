@@ -4,6 +4,7 @@ require_once('modelo/instancia.php');
 require_once('nucleo/componentes/catalogo_toba.php');
 require_once('nucleo/componentes/cargador_toba.php');
 require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/sincronizador_archivos.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
@@ -20,6 +21,7 @@ class proyecto extends elemento_modelo
 	private $instancia;				
 	private $identificador;
 	private $dir;
+	private $sincro_archivos;
 	const dump_prefijo_componentes = 'dump_';
 	const compilar_archivo_referencia = 'tabla_tipos';
 	const compilar_prefijo_componentes = 'php_';	
@@ -37,7 +39,8 @@ class proyecto extends elemento_modelo
 		}
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
-		} 
+		}
+		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_dump() );
 	}
 
 	//-----------------------------------------------------------
@@ -54,14 +57,19 @@ class proyecto extends elemento_modelo
 		return $this->dir;	
 	}
 
+	function get_dir_dump()
+	{
+		return $this->dir . '/metadatos';	
+	}
+
 	function get_dir_componentes()
 	{
-		return $this->dir . '/metadatos/componentes';
+		return $this->get_dir_dump() . '/componentes';
 	}
 	
 	function get_dir_tablas()
 	{
-		return $this->dir . '/metadatos/tablas';
+		return $this->get_dir_dump() . '/tablas';
 	}
 
 	function get_dir_componentes_compilados()
@@ -88,24 +96,31 @@ class proyecto extends elemento_modelo
 		try {
 			$this->exportar_tablas();
 			$this->exportar_componentes();
+			$this->sincronizar_archivos();
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->mensaje( $e->getMessage() );
 		}
 	}
+	
+	function sincronizar_archivos()
+	{
+		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
+		$obs = $this->sincro_archivos->sincronizar();
+		$this->manejador_interface->lista( $obs, 'Observaciones' );
+	}
 
 	private function exportar_tablas()
 	{
-		$this->manejador_interface->titulo( "Exportacion de tablas" );
+		$this->manejador_interface->titulo( "TABLAS" );
 		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
-			$this->manejador_interface->mensaje( "Exportando tabla: $tabla." );
 			$definicion = tablas_proyecto::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
        			$w = stripslashes($definicion['dump_where']);
        			$where = ereg_replace("%%",$this->get_id(), $w);
-            }else{
+            } else {
        			$where = " ( proyecto = '".$this->get_id()."')";
 			}
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
@@ -116,11 +131,13 @@ class proyecto extends elemento_modelo
 			//$this->manejador_interface->mensaje( $sql );
 			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
-			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
+			$regs = count( $datos );
+			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
+			for ( $a = 0; $a < $regs ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
 			if ( trim( $contenido ) != '' ) {
-				file_put_contents( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
+				$this->guardar_archivo( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 			}
 		}
 	}
@@ -130,10 +147,11 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componentes()
 	{
+		$this->manejador_interface->titulo( "COMPONENTES" );
 		cargador_toba::instancia()->crear_cache_simple( $this->get_id() );
 		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
-			$this->manejador_interface->titulo( $tipo );
-			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id() ) as $id_componente) {
+			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id() );
+			foreach ( $lista_componentes as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
 		}
@@ -144,14 +162,12 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componente( $tipo, $id )
 	{
-		$this->manejador_interface->mensaje("Exportando: " . $id['componente']);
+		$this->manejador_interface->mensaje("COMPONENTE $tipo  --  " . $id['componente']);
 		$directorio = $this->get_dir_componentes() . '/' . $tipo;
 		manejador_archivos::crear_arbol_directorios( $directorio );
 		$archivo = manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
-		//if ( trim( $contenido ) != '' ) {
-			file_put_contents( $directorio .'/'. $archivo . '.sql', $contenido );
-		//}
+		$this->guardar_archivo( $directorio .'/'. $archivo . '.sql', $contenido ); 
 	}
 	
 	/*
@@ -208,8 +224,7 @@ class proyecto extends elemento_modelo
 			$db = $this->instancia->get_db();
 			$db->abrir_transaccion();
 			$db->retrazar_constraints();
-			$this->importar_tablas();
-			$this->importar_componentes();
+			$this->importar();
 			$db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$db->abortar_transaccion();
@@ -355,6 +370,16 @@ class proyecto extends elemento_modelo
 		$archivo = manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
 		$path = $this->get_dir_componentes_compilados() .'/'. $archivo . '.php';
 		$clase->guardar( $path );
+	}
+
+	//-----------------------------------------------------------
+	//	ELIMINAR
+	//-----------------------------------------------------------
+
+	private function guardar_archivo( $archivo, $contenido )
+	{
+		file_put_contents( $archivo, $contenido );
+		$this->sincro_archivos->agregar_archivo( $archivo );
 	}
 }
 ?>

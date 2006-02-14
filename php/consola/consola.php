@@ -178,12 +178,14 @@ class consola implements gui
 
 	function lista( $lista, $titulo )
 	{
-		$i=0;
-		foreach($lista as $l) {
-			$datos[$i][0] = $l;
-			$i++;
+		if( count( $lista ) > 0 ) {
+			$i=0;
+			foreach($lista as $l) {
+				$datos[$i][0] = $l;
+				$i++;
+			}
+			echo Console_Table::fromArray( array( $titulo ), $datos );	
 		}
-		echo Console_Table::fromArray( array( $titulo ), $datos );
 	}
 	
 	function tabla( $tabla, $titulos )
