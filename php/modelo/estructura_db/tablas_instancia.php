@@ -64,7 +64,7 @@ class tablas_instancia
 	static function apex_revision()
 	{
 		return array (
-  'archivo' => 'pgsql_a00_revision.sql',
+  'archivo' => 'pgsql_a00_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'revision',
@@ -83,7 +83,7 @@ class tablas_instancia
 	static function apex_instancia()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a00_instancia.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'instancia',

@@ -103,9 +103,9 @@ class consola implements gui
 	function titulo( $texto )
 	{
 		echo "\n";
-		$this->linea_completa( null, '*' );
-		$this->linea_completa( "***  $texto  ", '*' );
-		$this->linea_completa( null, '*' );
+		$this->linea_completa( null, '-' );
+		$this->linea_completa( " $texto  ", ' ' );
+		$this->linea_completa( null, '-' );
 		echo "\n";
 	}
 	

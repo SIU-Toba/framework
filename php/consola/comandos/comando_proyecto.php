@@ -7,15 +7,15 @@ class comando_proyecto extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de los METADATOS correspondientes a PROYECTOS';
+		return 'Administracion de los METADATOS de PROYECTOS';
 	}
 
 	function mostrar_observaciones()
 	{
 		$this->consola->mensaje("INVOCACION: toba proyecto 'opcion' [id_proyecto] [id_instancia]");
 		$this->consola->enter();
-		$this->consola->mensaje("Si no se indica [id_proyecto] se utiliza la variable de entorno 'toba_proyecto' ( valor actual: '". $this->get_entorno_id_proyecto(). "' ) " );
-		$this->consola->mensaje("Si no se indica [id_instancia] se utiliza la variable de entorno 'toba_instancia' ( valor actual: '". $this->get_entorno_id_instancia(). "' ) " );
+		$this->consola->mensaje("[id_proyecto] Asume el valor de la variable de entorno 'toba_proyecto': ". $this->get_entorno_id_proyecto() );
+		$this->consola->mensaje("[id_instancia] Asume el valor de la variable de entorno 'toba_instancia': ". $this->get_entorno_id_instancia() );
 		$this->consola->enter();
 	}
 
@@ -28,7 +28,8 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__info()
 	{
-		$this->get_proyecto()->info();
+		$datos = $this->get_proyecto()->info();
+		$this->consola->tabla( $datos, array('tipo','componentes') ,'COMPONENTES' );
 	}
 
 	/**

@@ -79,9 +79,13 @@ class proyecto extends elemento_modelo
 
 	function info()
 	{
-		/*
-			Cuantas objetos hay, etc.
-		*/	
+		$sql = "	SELECT clase, COUNT(*) as cantidad
+					FROM apex_objeto
+					WHERE proyecto = '{$this->identificador}'
+					GROUP BY 1
+					ORDER BY 2 DESC";
+		$datos = consultar_fuente($sql, 'instancia' );
+		return $datos;
 	}
 
 	//-----------------------------------------------------------
@@ -103,7 +107,7 @@ class proyecto extends elemento_modelo
 		}
 	}
 	
-	function sincronizar_archivos()
+	private function sincronizar_archivos()
 	{
 		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->sincro_archivos->sincronizar();

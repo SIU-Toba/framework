@@ -42,6 +42,9 @@ class comando_conversion extends comando_toba
 	*/
 	function opcion__probar()
 	{
+		$version = $this->get_id_version_actual();
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_conversor()->procesar( $version, $proyecto, true );
 	}
 
 	/**
@@ -49,6 +52,9 @@ class comando_conversion extends comando_toba
 	*/
 	function opcion__ejecutar()
 	{
+		$version = $this->get_id_version_actual();
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_conversor()->procesar( $version, $proyecto );
 	}
 	
 	//-------------------------------------------------------------

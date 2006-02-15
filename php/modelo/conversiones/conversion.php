@@ -39,7 +39,7 @@ class conversion
 	public function procesar($proyecto=null, $es_prueba = false)
 	{
 		$this->proyecto = $proyecto;
-		$logger = toba::get_logger();
+		$logger = logger::instancia();
 		$cambios = $this->get_lista_cambios();
 		try {
 			$this->ejecutar_sql("BEGIN TRANSACTION");

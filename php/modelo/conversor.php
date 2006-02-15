@@ -21,10 +21,10 @@ class conversor extends elemento_modelo
 	private function get_conversion( $version_usuario )
 	{
 		$version = str_replace( ".", "_", $version_usuario );
-		if( self::existe_conversion( $version ) ) {
+		if( self::existe_conversion( $version_usuario ) ) {
 			require_once( self::dir_conversiones . "/conversion_$version.php" );
 			$clase = "conversion_$version";
-			return new $clase();
+			return new $clase( $this->db );
 		} else {
 			throw new excepcion_toba("La conversion '$version_usuario' no existe.");
 		}	
@@ -79,14 +79,14 @@ class conversor extends elemento_modelo
 		$conversion->info();
 	}
 		
-	function ejecutar_conversion( $proyecto, $version )
+	function procesar( $version, $proyecto, $es_prueba=false )
 	{
 		$anterior = self::ejecutada_anteriormente( $proyecto, $version );
 		if ($anterior) {
-			echo "La conversion ya fue ejecutada en fecha: $anterior\n";
+			throw new excepcion_toba("CONVERSOR: La conversion ya fue ejecutada en fecha: $anterior\n");
 		} else {
 			$conversion = $this->get_conversion( $version );
-			$conversion->procesar($proyecto, $es_prueba);
+			$obs = $conversion->procesar($proyecto, $es_prueba);
 		}
 	}
 }

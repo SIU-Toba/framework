@@ -4,9 +4,15 @@ define('apex_componentes_compilados',false);
 define('apex_componentes_compilados__error_buscar_db',true);
 /*
 *	Creacion de componentes
+
+		Habria que hacer alguna regla en la base que
+			provoque que los IDs de los objetos y de los items
+			no se puedan pisar.
 */
 class constructor_toba
 {
+	static $objetos_runtime_instanciados;		// Referencias a los objetos creados
+
 	/**
 	 * Retorna el objeto-php que representa un runtime de un componente-toba
 	 *
@@ -35,7 +41,9 @@ class constructor_toba
 			$clase = $datos['info']['subclase'];
 		}
 		//Instancio el objeto
-		return new $clase( $datos );		
+		$objeto = new $clase( $datos );
+		self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
+		return 	$objeto;
 	}
 
 	/**
@@ -61,6 +69,23 @@ class constructor_toba
 		$clase = catalogo_toba::get_nombre_clase_info( $tipo );
 		return new $clase( $datos );		
 	}	
+
+	/**
+	 * Retorna el objeto-php que representa un runtime YA INSTANCIADO previamente con
+	 *	con get_runtime()
+	 *	
+	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
+	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
+	 * @return objeto
+	 */
+	static function buscar_runtime( $id ) 
+	{
+		if ( isset( self::$objetos_runtime_instanciados[ $id ] ) ) {
+			return self::$objetos_runtime_instanciados[ $id ];
+		} else {
+			throw new excepcion_toba("El runtime '$id' no fue instanciado");	
+		}
+	}
 	
 	/*
 	*	Este proceso necesita optimizacion

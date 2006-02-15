@@ -106,13 +106,16 @@ class manejador_archivos
 		} else {
 			$archivos_ok = self::buscar_archivos_subdir( $directorio );
 		}
-		/*
-		//Filtro archivos
+		//Si existe un patron activado, filtro los archivos
 		if( isset( $patron ) ){
-			if(preg_match($patron,$archivo)){
-				$archivos_ok[] = $directorio . '/' . $archivo;
+			$temp = array();
+			foreach( $archivos_ok as $archivo ) {
+				if( preg_match( $patron, $archivo )){
+					$temp[] = $archivo;
+				}
 			}
-		}*/
+			$archivos_ok = $temp;
+		}
 		return $archivos_ok;
 	}
 

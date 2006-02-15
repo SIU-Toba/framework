@@ -14,7 +14,7 @@ class comando_instancia extends comando_toba
 	{
 		$this->consola->mensaje("INVOCACION: toba instancia 'opcion' [id_instancia]");
 		$this->consola->enter();
-		$this->consola->mensaje("Si no se indica [id_instancia] se utiliza la variable de entorno 'toba_instancia' ( valor actual: '". $this->get_entorno_id_instancia(). "' ) " );
+		$this->consola->mensaje("[id_instancia] Asume por defecto el valor de la variable de entorno 'toba_instancia': ". $this->get_entorno_id_instancia() );
 		$this->consola->enter();
 	}
 

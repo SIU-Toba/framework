@@ -21,9 +21,10 @@ class sincronizador_archivos
 	
 	function __construct( $dir, $patron_archivos = null )
 	{
+		$this->dir = $dir;
 		$this->patron_archivos = $patron_archivos;
 		$this->tipo_manejo = $this->resolver_tipo();
-		$this->dir = $dir;
+		//echo "SINCRONIZADOR ** DIR: $dir - TIPO: " . $this->tipo_manejo ." **\n" ;
 		if ( ! is_dir( $this->dir ) ) {
 			$this->activado = false;		
 		} else {
@@ -40,10 +41,12 @@ class sincronizador_archivos
 	
 	function resolver_tipo()
 	{
-		/*
-			FALTA la resolucion de tipos segun el tipo de carpeta
-		*/
-		return 'svn';	
+		$dir_svn = $this->dir . '/.svn';
+		if ( is_dir( $dir_svn ) ) {
+			return 'svn';	
+		} else {
+			return 'fs';	
+		}
 	}
 		
 	/*
@@ -62,7 +65,8 @@ class sincronizador_archivos
 		$this->archivos_agregados = array_diff( $this->archivos_utilizados, $this->archivos_originales );
 		$this->archivos_eliminados = array_diff( $this->archivos_originales, $this->archivos_utilizados );
 		if ( $this->tipo_manejo == 'svn' ) {
-			return $this->sincro_svn();				
+			return $this->sincro_svn();
+			//print_r( $this->archivos_originales );
 		} elseif ( $this->tipo_manejo == 'fs' ) {
 			return $this->sincro_fs();
 		}

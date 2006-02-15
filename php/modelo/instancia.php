@@ -5,6 +5,7 @@ require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
 require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/sincronizador_archivos.php');
 /**
 	FALTA:
 		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
@@ -21,6 +22,7 @@ class instancia extends elemento_modelo
 	private $identificador;					// Identificador de la instancia
 	private $dir;							// Directorio raiz de la instancia
 	private $db;							// Referencia a la conexion con la DB de la instancia
+	private $sincro_archivos;
 	
 	public function __construct( $identificador )
 	{
@@ -34,6 +36,8 @@ class instancia extends elemento_modelo
 			//Incluyo el archivo de parametros de la instancia
 			require_once( $this->dir . '/info_instancia.php' );
 		}
+		//Solo se sincronizan los SQLs
+		$this->sincro_archivos = new sincronizador_archivos( $this->dir, '|.*\.sql|' );
 	}
 
 	function get_db()
@@ -113,7 +117,6 @@ class instancia extends elemento_modelo
 	{
 		$this->exportar();
 		foreach( $this->get_lista_proyectos() as $proyecto ) {
-			$this->manejador_interface->titulo( "PROYECTO: $proyecto" );
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			
 			$proyecto->exportar();
@@ -126,15 +129,22 @@ class instancia extends elemento_modelo
 	function exportar()
 	{
 		try {
-			$this->manejador_interface->titulo( "Exportando informacion de la INSTANCIA" );
+			$this->manejador_interface->titulo( "INSTANCIA" );
 			$this->exportar_global();
 			$this->exportar_proyectos();
+			$this->sincronizar_archivos();
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
-	
+
+	private function sincronizar_archivos()
+	{
+		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
+		$obs = $this->sincro_archivos->sincronizar();
+		$this->manejador_interface->lista( $obs, 'Observaciones' );
+	}	
 	/*
 	*	Exportar informacion GLOBAL de la instancia
 	*/
@@ -142,19 +152,16 @@ class instancia extends elemento_modelo
 	{
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
 		manejador_archivos::crear_arbol_directorios( $dir_global );
-		$this->manejador_interface->titulo( "Exportar informacion global" );
-		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos );	
-		$this->manejador_interface->titulo( "Exportar informacion de usuarios" );
-		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios );	
-		$this->manejador_interface->titulo( "Exportar logs globales" );
-		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/' . self::archivo_logs );	
+		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
+		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
+		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/' . self::archivo_logs, 'LOGS' );	
 	}
 
-	private function exportar_tablas_global( $metodo_lista_tablas, $path )
+	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
 	{
 		$contenido = "";
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
-			$this->manejador_interface->mensaje( "Tabla: $tabla." );
+			$this->manejador_interface->mensaje( "tabla $texto  --  $tabla" );
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
@@ -167,7 +174,7 @@ class instancia extends elemento_modelo
 			}
 		}
 		if ( trim( $contenido ) != '' ) {
-			file_put_contents( $path  , $contenido );			
+			$this->guardar_archivo( $path  , $contenido );			
 		}
 	}
 
@@ -177,20 +184,20 @@ class instancia extends elemento_modelo
 	private function exportar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos() as $proyecto ) {
-			$this->manejador_interface->titulo( "Exportar proyecto: $proyecto" );
+			$this->manejador_interface->titulo( "PROYECTO $proyecto" );
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . self::archivo_logs, $proyecto );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . self::archivo_logs, $proyecto, 'LOG' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
 		}
 	}
 
-	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto )
+	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto, $texto )
 	{
 		$contenido = "";
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
-			$this->manejador_interface->mensaje( "Exportando tabla: $tabla." );
+			$this->manejador_interface->mensaje( "tabla $texto  --  $tabla" );
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
@@ -210,10 +217,16 @@ class instancia extends elemento_modelo
 			}
 		}
 		if ( trim( $contenido ) != '' ) {
-			file_put_contents( $nombre_archivo, $contenido );			
+			$this->guardar_archivo( $nombre_archivo, $contenido );			
 		}
 	}
 
+	private function guardar_archivo( $archivo, $contenido )
+	{
+		file_put_contents( $archivo, $contenido );
+		$this->sincro_archivos->agregar_archivo( $archivo );
+	}
+	
 	//-----------------------------------------------------------
 	//	IMPORTAR
 	//-----------------------------------------------------------

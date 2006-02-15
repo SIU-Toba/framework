@@ -2,6 +2,7 @@
 require_once('lib/elemento_modelo.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
 require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/sincronizador_archivos.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 
 class nucleo extends elemento_modelo
@@ -24,11 +25,19 @@ class nucleo extends elemento_modelo
 	// Plan de generacion de PHP
 	protected $plan;
 	protected $catalogo;
+	// Sincro SVN	
+	private $sincro_archivos;
 	
 	//------------------------------------------------
 	// Informacion
 	//------------------------------------------------
-	
+
+	function __construct()
+	{
+		parent::__construct();
+		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
+	}	
+
 	static function get_dir_ddl()
 	{
 		return toba_dir() . '/php/modelo/ddl';
@@ -71,7 +80,7 @@ class nucleo extends elemento_modelo
 	private function get_archivos_ddl()
 	{
 		$directorio = $this->get_dir_ddl();
-		$patron = '|^pgsql_a.*\.sql|';
+		$patron = '|pgsql_a.*\.sql|';
 		$this->archivos = manejador_archivos::get_archivos_directorio( $directorio, $patron );
 	}
 
@@ -252,10 +261,10 @@ class nucleo extends elemento_modelo
 	function exportar( instancia $instancia )
 	{
 		try {
-			$this->manejador_interface->titulo( "Exportacion de tablas del NUCLEO" );
+			$this->manejador_interface->titulo( "Tablas NUCLEO" );
 			manejador_archivos::crear_arbol_directorios( $this->get_dir_metadatos() );
 			foreach ( tablas_nucleo::get_lista() as $tabla ) {
-				$this->manejador_interface->mensaje( "Tabla: $tabla." );
+				$this->manejador_interface->mensaje( "tabla  --  $tabla" );
 				$definicion = tablas_nucleo::$tabla();
 				//Genero el SQL
 				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
@@ -267,9 +276,13 @@ class nucleo extends elemento_modelo
 					$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 				}
 				if ( trim( $contenido ) != '' ) {
-					file_put_contents( $this->get_dir_metadatos() .'/'. $tabla . '.sql', $contenido );			
+					$archivo = $this->get_dir_metadatos() .'/'. $tabla . '.sql';
+					file_put_contents( $archivo, $contenido );
+					$this->sincro_archivos->agregar_archivo( $archivo );					
 				}
 			}
+			//Sincronizo archivos
+			$this->sincro_archivos->sincronizar();			
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );
