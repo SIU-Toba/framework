@@ -4,9 +4,9 @@
 	if($editable = $this->zona->obtener_editable_propagado()){
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
-
 		
-		$param = print_r( dba::parametros_instancia(apex_pa_instancia), true);
+		$base_instancia = info_instancia::get_base();
+		$param = print_r( dba::get_parametros_base( $base_instancia ), true);
 		
 		//------ Cambio de instancia --------// 	
 		$punto_acceso = new punto_acceso();
@@ -28,8 +28,8 @@
 		Instancia: 
 		<select name="nombre_instancia" id="nombre_instancia" onChange="document.cambiar_instancia.submit();">
 		<?
-		foreach (dba::get_info_instancias() as $nombre => $detalles) {
-			$seleccionado = ($nombre == apex_pa_instancia) ? 'selected' : '';
+		foreach ( get_class_methods('info_bases') as $nombre ) {
+			$seleccionado = ($nombre == $base_instancia ) ? 'selected' : '';
 		?>
 		    <option value="<?=$nombre?>" <?=$seleccionado?>><?=$nombre?></option>	
 		<? } ?>

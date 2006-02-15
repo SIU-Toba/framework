@@ -10,7 +10,7 @@ class instalacion extends elemento_modelo
 	const info_bases = 'info_bases';
 	const instancia_prefijo = 'i__';
 	const instancia_info = 'info_instancia';
-
+	
 	function dir_base()
 	{
 		return toba_dir() .'/'. self::directorio_base .'/';
@@ -112,6 +112,7 @@ class instalacion extends elemento_modelo
 		$clase = new clase_datos( self::info_basica );
 		$clase->agregar_metodo_datos( 'get_clave_querystring', apex_clave_get );	
 		$clase->agregar_metodo_datos( 'get_clave_db', apex_clave_db );	
+		$clase->agregar_metodo_datos( 'get_id_grupo_desarrollo', null );
 		$clase->guardar( self::archivo_info_basica() );
 	}
 	

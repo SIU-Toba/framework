@@ -44,18 +44,17 @@ class comando_instalacion extends comando_toba
 	function opcion__migrar_definicion()
 	{
 		require_once('instancias.php');
-		instalacion::set_toba_dir( $this->get_dir_raiz() );
 	
 		//*** 0) Creo la carpeta INSTALACION
 	
-		$this->consola->titulo( "Crear carpeta 'instalacion'" );
+		$this->consola->titulo( "Inicializacion de la instalacion" );
 		instalacion::crear_directorio();
-		$this->consola->mensaje( "Toda la informacion relacionada con la instalacion esta en esta carpeta");
+		$this->consola->mensaje( "Crear carpeta 'instalacion'");
 	
 		//*** 1) BASES
 	
 		$bases_registradas = array();
-		$this->consola->titulo( "Migrar la definicion de BASES. (php/instancias.php)" );
+		$this->consola->Mensaje( "Migrar la definicion de BASES. (php/instancias.php)" );
 		if( ! instalacion::existe_info_bases() ) {
 			foreach( $instancia as $i => $datos ) {
 			    $base['motor']= $datos[apex_db_motor];
@@ -69,17 +68,17 @@ class comando_instalacion extends comando_toba
 			instalacion::crear_info_bases( $bases );
 			$this->consola->mensaje("la definicion de BASES se encuentra ahora en '" . instalacion::archivo_info_bases() . "'");	
 		} else {
-			$this->consola->error( "ya existe una archivo '" . instalacion::archivo_info_bases() . "'" );
+			$this->consola->mensaje( "ya existe una archivo '" . instalacion::archivo_info_bases() . "'" );
 		}
 	
 		// *** 2) CLAVES
 	
-		$this->consola->titulo( "Migrar la definicion de CLAVES. (php/instancias.php)" );
+		$this->consola->mensaje( "Migrar la definicion de CLAVES. (php/instancias.php)" );
 		if( ! instalacion::existe_info_basica() ) {
 			instalacion::crear_info_basica( apex_clave_get, apex_clave_db);
 			$this->consola->mensaje("la definicion de CLAVES se encuentra ahora en '" . instalacion::archivo_info_basica() . "'");	
 		} else {
-			$this->consola->error( "ya existe una archivo '" . instalacion::archivo_info_basica() . "'" );
+			$this->consola->mensaje( "ya existe una archivo '" . instalacion::archivo_info_basica() . "'" );
 		}
 	
 		// *** 3) INSTANCIAS

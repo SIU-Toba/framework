@@ -22,6 +22,7 @@ class proyecto extends elemento_modelo
 	private $identificador;
 	private $dir;
 	private $sincro_archivos;
+	private $db;
 	const dump_prefijo_componentes = 'dump_';
 	const compilar_archivo_referencia = 'tabla_tipos';
 	const compilar_prefijo_componentes = 'php_';	
@@ -40,6 +41,7 @@ class proyecto extends elemento_modelo
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
+		$this->db = $this->instancia->get_db();
 		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_dump() );
 	}
 
@@ -211,7 +213,6 @@ class proyecto extends elemento_modelo
 		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
 		}
-		$db = $this->instancia->get_db();
 		$this->importar_tablas();
 		$this->importar_componentes();
 	}
@@ -225,13 +226,12 @@ class proyecto extends elemento_modelo
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
 		}
 		try {
-			$db = $this->instancia->get_db();
-			$db->abrir_transaccion();
-			$db->retrazar_constraints();
+			$this->db->abrir_transaccion();
+			$this->db->retrazar_constraints();
 			$this->importar();
-			$db->cerrar_transaccion();
+			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
-			$db->abortar_transaccion();
+			$this->db->abortar_transaccion();
 			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
@@ -242,7 +242,7 @@ class proyecto extends elemento_modelo
 		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
 			$this->manejador_interface->mensaje( $archivo );
-			$this->instancia->get_db()->ejecutar_archivo( $archivo );
+			$this->db->ejecutar_archivo( $archivo );
 		}
 	}
 	
@@ -253,7 +253,7 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->mensaje( $dir );
 			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 			foreach( $archivos as $archivo ) {
-				$this->instancia->get_db()->ejecutar_archivo( $archivo );
+				$this->db->ejecutar_archivo( $archivo );
 			}
 		}
 	}
@@ -265,15 +265,14 @@ class proyecto extends elemento_modelo
 	function eliminar()
 	{
 		try {
-			$db = $this->instancia->get_db();
-			$db->abrir_transaccion();
-			$db->retrazar_constraints();
+			$this->db->abrir_transaccion();
+			$this->db->retrazar_constraints();
 			$sql = $this->get_sql_eliminacion();
-			$db->ejecutar( $sql );
-			$db->cerrar_transaccion();
+			$this->db->ejecutar( $sql );
+			$this->db->cerrar_transaccion();
 			$this->manejador_interface->mensaje("El proyecto '{$this->identificador}' ha sido eliminado");
 		} catch ( excepcion_toba $e ) {
-			$db->abortar_transaccion();
+			$this->db->abortar_transaccion();
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de TABLAS de la instancia.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}

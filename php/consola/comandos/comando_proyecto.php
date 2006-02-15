@@ -53,7 +53,11 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__eliminar()
 	{
-		$this->get_proyecto()->eliminar();
+		if ( $this->consola->dialogo_simple("Desea eliminar el proyecto '"
+				.$this->get_id_proyecto_actual()."' de la instancia '"
+				.$this->get_id_instancia_actual()."'") ) {
+			$this->get_proyecto()->eliminar();
+		}
 	}
 
 	/**
