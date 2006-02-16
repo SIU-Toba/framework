@@ -39,10 +39,10 @@ class objeto
 			$this->$parte = $definicion[$parte];
 		}
 		$this->solicitud = toba::get_solicitud();
-		$this->log = $this->solicitud->log;
+		$this->log = toba::get_logger();
 		//Recibi datos por el CANAL?
 		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
-		$this->canal_recibidos = $this->solicitud->hilo->obtener_parametro($this->canal);
+		$this->canal_recibidos = toba::get_hilo()->obtener_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
 		//Manejo transparente de memoria
@@ -194,7 +194,7 @@ class objeto
 	@@desc: Genera un vinculo al mismo objeto
 */
 	{
-		$html = "<a href='". $this->solicitud->vinculador->generar_solicitud(null,null,$parametro,true) ."'>";
+		$html = "<a href='". toba::get_vinculador()->generar_solicitud(null,null,$parametro,true) ."'>";
 		$html .= $texto;
 		$html .="</a>";
 		return $html;
@@ -223,7 +223,7 @@ class objeto
 	function informar_msg($mensaje, $nivel=null)
 	//Guarda un  mensaje en la cola de mensajes
 	{
-		$this->solicitud->cola_mensajes->agregar($mensaje,$nivel);	
+		toba::get_cola_mensajes()->agregar($mensaje,$nivel);	
 	}
 	
 	function informar($indice, $parametros=null,$nivel=null)
@@ -305,9 +305,9 @@ class objeto
 	@@param: boolean | cortar la ejecucion | false
 */
 	{
-		global $solicitud;
+		
 		$this->observaciones[]="[$tipo] ".$observacion;	//El objeto acumula sus propias observaciones
-		$solicitud->observar_objeto($this->id,$tipo,$observacion,$forzar_registro,$mostrar,$cortar_ejecucion);
+		toba::get_solicitud()->observar_objeto($this->id,$tipo,$observacion,$forzar_registro,$mostrar,$cortar_ejecucion);
 	}
 
 	function mostrar_observaciones()
@@ -331,7 +331,7 @@ class objeto
 */
 	{
 		if(isset($this->memoria)){
-			$this->solicitud->hilo->persistir_dato_sincronizado("obj_".$this->id[1],$this->memoria);
+			toba::get_hilo()->persistir_dato_sincronizado("obj_".$this->id[1],$this->memoria);
 		}else{
 
 		}
@@ -343,7 +343,7 @@ class objeto
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		if($this->memoria = $this->solicitud->hilo->recuperar_dato_sincronizado("obj_".$this->id[1])){
+		if($this->memoria = toba::get_hilo()->recuperar_dato_sincronizado("obj_".$this->id[1])){
 			$this->memoria_existencia_previa = true;
 		}
 	}
@@ -367,7 +367,7 @@ class objeto
 */
 	{
 		unset($this->memoria);
-		$this->solicitud->hilo->persistir_dato_sincronizado("obj_".$this->id[1],null);
+		toba::get_hilo()->persistir_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
 	function existio_memoria_previa()
@@ -389,9 +389,9 @@ class objeto
 	function recuperar_estado_sesion()
 	//Recupera las propiedades guardadas en la sesion
 	{
-		if($this->solicitud->hilo->existe_dato_global($this->id_ses_grec)){
+		if(toba::get_hilo()->existe_dato_global($this->id_ses_grec)){
 			//Recupero las propiedades de la sesion
-			$temp = $this->solicitud->hilo->recuperar_dato_global($this->id_ses_grec);
+			$temp = toba::get_hilo()->recuperar_dato_global($this->id_ses_grec);
 			if(isset($temp["toba__indice_objetos_serializados"]))	//El objeto persistio otros objetos
 			{
 				/*
@@ -462,10 +462,10 @@ class objeto
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
-				$this->solicitud->hilo->persistir_dato_global($this->id_ses_grec, $temp, true);
+				toba::get_hilo()->persistir_dato_global($this->id_ses_grec, $temp, true);
 			}else{
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
-				$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
+				toba::get_hilo()->eliminar_dato_global($this->id_ses_grec);
 			}
 		}
 	}
@@ -479,7 +479,7 @@ class objeto
 				unset($this->$propiedades_a_persistir[$a]);			
 			}
 		}
-		$this->solicitud->hilo->eliminar_dato_global($this->id_ses_grec);
+		toba::get_hilo()->eliminar_dato_global($this->id_ses_grec);
 	}
 	
 	function get_estado_sesion()
@@ -697,7 +697,7 @@ class objeto
 		echo "<table class='tabla-0' width='100%'><tr>\n";
 		//Vinculo a los EDITORES	
 		if(apex_pa_acceso_directo_editor){ 
-			if( ($this->id[0]) == $this->solicitud->hilo->obtener_proyecto() ) {
+			if( ($this->id[0]) == toba::get_hilo()->obtener_proyecto() ) {
 				echo "<td class='$estilo'>";
 				$this->vinculo_editor();
 				echo "</td>\n";
@@ -723,7 +723,7 @@ class objeto
 		if($this->existe_ayuda()){
 			$parametros = array("objeto"=>$this->info["objeto"],"proyecto"=>$this->info["proyecto"]);
 			echo "<td class='$estilo'>\n";
-			echo $this->solicitud->vinculador->obtener_vinculo_a_item("toba","/basicos/ayuda_obj",$parametros,true);
+			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/ayuda_obj",$parametros,true);
 			echo "</td>\n";
 		}
 		//Barra especifica dependiente de la clase
@@ -758,7 +758,7 @@ class objeto
 			}
 	  		echo "<table class='tabla-0' border='1'><tr>\n";
 			//Vinculo al EDITOR del OBJETO
-			$vinc_editor= $this->solicitud->vinculador->obtener_vinculo_a_item(
+			$vinc_editor= toba::get_vinculador()->obtener_vinculo_a_item(
 						$this->info["clase_editor_proyecto"],$this->info["clase_editor_item"],
 						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
 						true);        
@@ -770,7 +770,7 @@ class objeto
 			}
 	
 			//Vinculo al EDITOR de VINCULOS del OBJETO
-	        $vinc_editor_vinc= $this->solicitud->vinculador->obtener_vinculo_a_item(
+	        $vinc_editor_vinc= toba::get_vinculador()->obtener_vinculo_a_item(
 	        		"toba","/admin/objetos/vinculos",
 	        		array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
 	        		true);
@@ -782,7 +782,7 @@ class objeto
 			}
 	
 			//Vinculo a las NOTAS del OBJETO
-			$vinc_notas= $this->solicitud->vinculador->obtener_vinculo_a_item(
+			$vinc_notas= toba::get_vinculador()->obtener_vinculo_a_item(
 						"toba","/admin/objetos/notas",
 						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
 						true);
@@ -793,7 +793,7 @@ class objeto
 	        }
 	        
 			//Vinculo a la INFORMACION del OBJETO
-			$vinc_info= $this->solicitud->vinculador->obtener_vinculo_a_item(
+			$vinc_info= toba::get_vinculador()->obtener_vinculo_a_item(
 						"toba","/admin/objetos/info",
 						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
 						true);

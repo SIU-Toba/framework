@@ -52,7 +52,7 @@ class zona
 				AND		ui.proyecto = i.proyecto
 				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
                 AND     ui.proyecto = up.proyecto
-                AND     up.usuario = '".$this->solicitud->hilo->obtener_usuario()."'
+                AND     up.usuario = '".toba::get_hilo()->obtener_usuario()."'
 				AND		i.zona_listar = 1
 				ORDER BY 3";;
 //		echo($sql)."\n";
@@ -60,8 +60,8 @@ class zona
 		$this->editable_cargado = false;
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_propagado = null;
-		if(isset($this->solicitud->hilo->parametros[apex_hilo_qs_zona])){
-			$this->editable_propagado = explode(apex_qs_separador,$this->solicitud->hilo->parametros[apex_hilo_qs_zona]);
+		if(isset(toba::get_hilo()->parametros[apex_hilo_qs_zona])){
+			$this->editable_propagado = explode(apex_qs_separador,toba::get_hilo()->parametros[apex_hilo_qs_zona]);
 		}
 	}
 
@@ -113,10 +113,10 @@ class zona
 		//$cronometro->marcar('basura',apex_nivel_nucleo);
 		echo "<table width='100%' class='tabla-0'><tr>";
 		//INTERFACE que solicta CRONOMETRAR la PAGINA
-		if($this->solicitud->vinculador->consultar_vinculo("toba","/basicos/cronometro",true))
+		if(toba::get_vinculador()->consultar_vinculo("toba","/basicos/cronometro",true))
 		{
 			echo "<td  class='barra-item-id' width='1'>";
-			echo "<a href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true,true)
+			echo "<a href='".toba::get_vinculador()->generar_solicitud(null,null,null,true,true)
 					."'>".recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM")."</a>";
 			echo "</td>";
 		}
@@ -148,7 +148,7 @@ class zona
     	                    "  onmouseout=\"this.className='barra-item-link';\"";
 		foreach($this->items_vecinos as $item){
 			echo "<td  class='barra-item-link' $js_cambiar_color width='1'>";
- 			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($item['item_proyecto'],
+ 			echo "<a href='" . toba::get_vinculador()->generar_solicitud($item['item_proyecto'],
 																				$item['item'],
 																				null,
 																				true) ."'>";

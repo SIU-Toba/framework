@@ -11,6 +11,9 @@ class toba
 		return nucleo_toba::instancia();
 	}
 	
+	/**
+	 * @return solicitud_web
+	 */
 	static function get_solicitud()
 	{
 		return nucleo_toba::instancia()->get_solicitud();	
@@ -21,7 +24,7 @@ class toba
 	 */
 	static function get_vinculador()
 	{
-		return toba::get_solicitud()->vinculador;
+		return vinculador::instancia();
 	}
 	
 	/**
@@ -29,9 +32,7 @@ class toba
 	 */
 	static function get_hilo()
 	{
-		if (isset(toba::get_solicitud()->hilo)) {
-			return toba::get_solicitud()->hilo;
-		}
+		return hilo::instancia();
 	}
 	
 	/**
@@ -52,10 +53,12 @@ class toba
 		return permisos::instancia();
 	}
 
+	/**
+	 * @return cola_mensajes
+	 */
 	static function get_cola_mensajes()
 	{
-		global $solicitud;
-		return $solicitud->cola_mensajes;
+		return cola_mensajes::instancia();
 	}
 
 	static function get_fuente($fuente, $ado=null)

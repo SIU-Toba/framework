@@ -892,9 +892,8 @@ class ef_combo_db_proyecto extends ef_combo_db
 
 	function ef_combo_db_proyecto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-        global $solicitud;
         //Armo la sentencia que limita al proyecto
-        $sql_where =  $parametros["columna_proyecto"] . " = '".$solicitud->hilo->obtener_proyecto()."' ";
+        $sql_where =  $parametros["columna_proyecto"] . " = '".toba::get_hilo()->obtener_proyecto()."' ";
 		if(isset($parametros["incluir_toba"])){
 	        if($parametros["incluir_toba"]) $sql_where .= " OR ".$parametros["columna_proyecto"]." = 'toba'";
 		}

@@ -181,8 +181,8 @@ class recurso {
 	{
 		$hilo = toba::get_hilo();
 		//Si esta abierta la sesion
-		if (isset($hilo)) {
-			$proyecto = toba::get_hilo()->obtener_proyecto();
+		if ($hilo->sesion_abierta()) {
+			$proyecto = $hilo->obtener_proyecto();
 		} else {
 			//Si no se trata de buscar el proyecto en el PA
 			if (defined('apex_pa_proyecto')) {

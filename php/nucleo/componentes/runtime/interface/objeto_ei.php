@@ -265,11 +265,7 @@ class objeto_ei extends objeto
 		return array('clases/objeto');
 	}
 	
-	protected function obtener_javascript()
-/*
-	@@acceso: Actividad
-	@@desc: Construye la clase javascript asociada al objeto
-*/
+	function obtener_javascript()
 	{
 		$identado = js::instancia()->identado();
 		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
@@ -279,7 +275,7 @@ class objeto_ei extends objeto
 		$this->iniciar_objeto_js();
 		echo "$identado//-----------------------------------------------------------------  \n";		
 		return $this->objeto_js;
-	}	
+	}
 	
 	protected function crear_objeto_js()
 	{

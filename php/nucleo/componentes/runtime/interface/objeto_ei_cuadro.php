@@ -1115,7 +1115,7 @@ class objeto_ei_cuadro extends objeto_ei
                 //*** 2) Generacion de VINCULOS!
                 if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
                     //Genero el VINCULO
-                    $vinculo = $this->solicitud->vinculador->obtener_vinculo_de_objeto( $this->id,
+                    $vinculo = toba::get_vinculador()->obtener_vinculo_de_objeto( $this->id,
                                                                             $this->info_cuadro_columna[$a]["vinculo_indice"],
                                                                             $clave_fila, true, $valor);
                     //El vinculador puede no devolver nada en dos casos: 

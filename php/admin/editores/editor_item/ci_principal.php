@@ -18,7 +18,7 @@ class ci_principal extends objeto_ci
 		parent::__construct($id);
 		//Cargo el editable de la zona		
 		$zona = toba::get_solicitud()->zona();
-		if ($editable = $zona->obtener_editable_propagado()){
+		if ($editable = $zona->obtener_editable_propagado()) {
 			$zona->cargar_editable(); 
 			list($proyecto, $item) = $editable;
 		}	
@@ -62,7 +62,15 @@ class ci_principal extends objeto_ci
 		$this->id_item = $id;
 	}
 	
-	function generar_interface_grafica()
+	function get_lista_ei()
+	{
+		if ($this->falla_carga == true || $this->elemento_eliminado) {
+			return array();
+		}
+		return parent::get_lista_ei();
+	}
+	
+	function obtener_html()
 	{
 		if($this->falla_carga === true){
 			echo ei_mensaje("El elemento seleccionado no existe.","error");
@@ -72,16 +80,14 @@ class ci_principal extends objeto_ci
 			echo ei_mensaje("El elemento ha sido eliminado.");
 			return;
 		}
-		$zona = toba::get_solicitud()->zona();
-		if (isset($this->id_item)) {
-			$zona->obtener_html_barra_superior();
-		}
-		parent::generar_interface_grafica();
-		if (isset($this->id_item)) {		
-			$zona->obtener_html_barra_inferior();
-		}
-	}	
-
+		parent::obtener_html();
+		$objetos = array(array('toba', 1519));
+		$vinc = toba::get_vinculador()->crear_vinculo(null, null, array(), 
+													array('servicio'=>'obtener_html',
+														 'objetos_destino' => $objetos));
+		echo "<h1><a href='$vinc'>VER</a></h1>";
+	}
+	
 	function get_lista_eventos()
 	{
 		$eventos = parent::get_lista_eventos();

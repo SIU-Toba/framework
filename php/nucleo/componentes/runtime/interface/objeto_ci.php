@@ -14,7 +14,7 @@ class objeto_ci extends objeto_ei
 {
 	// General
 	protected $cn=null;								// Controlador de negocio asociado
-	protected $nombre_formulario;					// privado | string | Nombre del <form> del MT
+	protected $nombre_formulario;					// Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
 	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
@@ -35,7 +35,7 @@ class objeto_ci extends objeto_ei
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->nombre_formulario = "CI_" . $this->id[1] ;//Cargo el nombre del <form>
+		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 		$this->submit = "CI_" . $this->id[1] . "_submit";
 		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
 		$this->cargar_info_dependencias();
@@ -124,12 +124,12 @@ class objeto_ci extends objeto_ei
 
 	function inicializar_dependencia($dep, $parametro)
 	{
-		if($this->dependencias[$dep] instanceof objeto_ci ){
+		if ($this->dependencias[$dep] instanceof objeto_ci ){
 			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();			
 			if(isset($this->cn)){
 				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
 			}
-		}		
+		}
 		$this->dependencias[$dep]->inicializar($parametro);
 		$this->dependencias[$dep]->agregar_controlador($this);
 	}
@@ -228,7 +228,7 @@ class objeto_ci extends objeto_ei
 	//--  MANEJO de PANTALLAS  -------------------------------
 	//--------------------------------------------------------
 
-	function get_pantalla_inicial()
+	protected function get_pantalla_inicial()
 	{
 		return $this->info_ci_me_pantalla[0]["identificador"];
 	}
@@ -237,11 +237,16 @@ class objeto_ci extends objeto_ei
 	*	@deprecated Desde 0.8.3
 	*	@see objeto_ci::get_pantalla_inicial()
 	*/	
-	function get_etapa_inicial()
+	protected function get_etapa_inicial()
 	{
 		return $this->get_pantalla_inicial();
 	}
 
+	/**
+	 * Determina que pantalla se muestra en este request
+	 * Redefinir en caso de incluir una navegación personalizada
+	 * @return Id. de la pantalla actual
+	 */
 	function get_pantalla_actual()
 	{
 		//¿Se pidio un cambio de pantalla al CI? 
@@ -252,8 +257,15 @@ class objeto_ci extends objeto_ei
 			if ($tab == '_siguiente' || $tab == '_anterior') {
 				return $this->ir_a_limitrofe($tab);
 			} 
-			if ($tab !== false && $this->puede_ir_a_pantalla($tab))
-				return $this->ir_a_pantalla($tab);
+			if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
+				if(in_array($tab, $this->memoria['tabs'])){
+					return $tab;
+				}else{
+					$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");
+					//Error, voy a etapa inicial
+					return $this->get_etapa_inicial();
+				}
+			}
 		}
 		
 		//El post fue generado por otro componente ??
@@ -269,12 +281,17 @@ class objeto_ci extends objeto_ei
 	*	@deprecated Desde 0.8.3
 	*	@see objeto_ci::get_pantalla_actual()
 	*/
-	function get_etapa_actual()
+	protected function get_etapa_actual()
 	{
 		return $this->get_pantalla_actual();
 	}
 		
-	function puede_ir_a_pantalla($tab)
+	/**
+	 * Busca alguna regla particular para determinar si la navegación hacia una pantalla es válida
+	 * El método a definir para incidir en esta regla es evt__puede_mostrar_pantalla y recibe la pantalla como parámetro
+	 * @return boolean
+	 */
+	protected function puede_ir_a_pantalla($tab)
 	{
 		$evento_mostrar = apex_ei_evento . apex_ei_separador . "puede_mostrar_pantalla";
 		if(method_exists($this, $evento_mostrar)){
@@ -283,10 +300,11 @@ class objeto_ci extends objeto_ei
 		return true;
 	}
 	
-	/*
-	*  Recorre las pantallas en un sentido buscando una válida para mostrar
-	*/
-	function ir_a_limitrofe($sentido)
+	/**
+	 * Recorre las pantallas en un sentido buscando una válida para mostrar
+	 * @param string $sentido "_anterior" o "_siguiente"
+	 */
+	protected function ir_a_limitrofe($sentido)
 	{
 		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior
 		$candidato = $this->memoria['etapa_gi'];
@@ -300,22 +318,11 @@ class objeto_ci extends objeto_ei
 		return $this->memoria['etapa_gi'];
 	}
 	
-	//-------------------------------------------------------------------------------	
-	function ir_a_pantalla($tab)
-	{
-		if(in_array($tab, $this->memoria['tabs'])){
-			return $tab;
-		}else{
-			$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");			
-			//Error, voy a etapa inicial
-			return $this->get_etapa_inicial();
-		}
-	}	
 	
 	//-------------------------------------------------------------------------------
-	/*
-	*	Determina la etapa anterior y siguiente a la dada 
-	*/
+	/**
+	 * Determina la etapa anterior y siguiente a la dada 
+	 */
 	function pantallas_limitrofes($actual)
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
@@ -338,18 +345,20 @@ class objeto_ci extends objeto_ei
 	}	
 
 	//-------------------------------------------------------------------------------	
-	function set_etapa_gi($etapa)
+	protected function set_etapa_gi($etapa)
 	{
 		$this->etapa_gi	= $etapa;
 	}
 
-	function get_etapa_gi()
+	protected function get_etapa_gi()
 	{
 		return $this->etapa_gi;	
 	}
 
+	/**
+	 * Define la etapa de Generacion de Interface del request ANTERIOR
+	 */
 	function definir_etapa_gi_pre_eventos()
-	//Define la etapa de Generacion de Interface del request ANTERIOR
 	{
 		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_pre_eventos ]");
 		if( isset($this->memoria['etapa_gi']) ){
@@ -366,10 +375,12 @@ class objeto_ci extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL
+	 * ATENCION: esto se esta ejecutando despues de los eventos propios... 
+	 * puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
+	 */
 	function definir_etapa_gi_post_eventos()
-	//Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL
-	//ATENCION: esto se esta ejecutando despues de los eventos propios... 
-	//				puede traer problemas de ejecucion de eventos antes de validar la salida de etapas
 	{
 		$etapa_previa = (isset($this->memoria['etapa_gi'])) ? $this->memoria['etapa_gi'] : null;
 		$etapa_actual = $this->get_etapa_actual();
@@ -418,10 +429,12 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
+	/**
+	 * Se les ordena a las dependencias que gatillen sus eventos
+	 * Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.
+	 * @todo Esto esta bien? --> cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.
+	 */
 	protected function disparar_eventos()
-	// Se les ordena a las dependencias que gatillen sus eventos
-	// Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.
-	// 		Esto esta bien? --> cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]");
 
@@ -447,8 +460,10 @@ class objeto_ci extends objeto_ei
 		$this->definir_etapa_gi_post_eventos();
 	}
 
-	function controlar_eventos_propios()
-	//Reconoce que evento del CI se ejecuto
+	/**
+	 * Reconoce que evento del CI se ejecuto
+	 */
+	protected function controlar_eventos_propios()
 	{
 		$this->evento_actual = "";
 		if(isset($_POST[$this->submit])){
@@ -461,8 +476,7 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
-	function disparar_evento_propio()
-	//Dispara un evento propio
+	protected function disparar_evento_propio()
 	{
 		if($this->evento_actual != "")
 		{
@@ -479,8 +493,11 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
+	/**
+	 * Devuelve la lista de dependencias que se utlizaron para generar la interface anterior
+	 * @return unknown
+	 */
 	protected function get_dependencias_interface_previa()
-	//Devuelve la lista de dependencias que se utlizaron para general la interface anterior
 	{
 		//Memoria sobre dependencias que fueron a la interface
 		if( isset($this->memoria['dependencias_interface']) ){
@@ -494,9 +511,13 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
-	public function registrar_evento($id, $evento) 
-	// Se disparan eventos dentro del nivel actual
-	// Puede recibir N parametros adicionales
+	/**
+	 * Se disparan eventos dentro del nivel actual
+	 * Puede recibir N parametros adicionales
+	 * @param string $id Id. o rol que tiene la dependencia en este objeto
+	 * @param string $evento Id. del evento
+	 */
+	function registrar_evento($id, $evento) 
 	{
 		$parametros	= func_get_args();
 		array_splice($parametros, 0 , 2);
@@ -512,25 +533,34 @@ class objeto_ci extends objeto_ei
 
 	//---- EVENTOS BASICOS ------
 
+	/**
+	 * Despues de recuperar la interaccion con el usuario
+	 */
 	function evt__post_recuperar_interaccion()
-	//Despues de recuperar la interaccion con el usuario
 	{
 		/*
 		$this->evt__validar_datos();
 		*/
 	}
 
+	/**
+	 * Validar el estado interno, dispara una excepcion si falla
+	 */
 	function evt__validar_datos()
-	//Validar el estado interno, dispara una excepcion si falla
 	{
 	}
 
+	/**
+	 * Disparada cuando un hijo falla en su procesamiento
+	 */
 	function evt__error_proceso_hijo( $dependencia )
-	//Disparada cuando un hijo falla en su procesamiento
 	{
 		$this->error_proceso_hijo[] = $dependencia;
 	}
-	
+
+	/**
+	 * Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado
+	 */
 	function evt__cancelar()
 	{
 		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
@@ -540,6 +570,9 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
+	/**
+	 * Evento predefinido de procesar, en caso de existir el cn le entrega los datos y limpia la memoria
+	 */
 	function evt__procesar()
 	{
 		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
@@ -556,25 +589,20 @@ class objeto_ci extends objeto_ei
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function generar_interface_grafica()
-	//Esta funcion dispara la generacion de TODA la interface.
-	//Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'
+	/**
+	 * Retorna la descripción de una pantalla particular definida en el administrador
+	 * Redefinir en caso de que la descripción sea dinámica
+	 */
+	function obtener_descripcion_pantalla($pantalla)
 	{
-		$this->log->debug($this->get_txt() . "____________________________________________[ generar_interface_grafica ]");
-		try{
-			//Cargar todos los EI que componen la interface
-			$this->cargar_dependencias_gi();
-			$this->obtener_html_base();
-		}catch(excepcion_toba $e){
-			$this->log->debug($e);
-			$this->informar_msg($e->getMessage(), 'error');
-			$this->solicitud->cola_mensajes->mostrar();
-		}
+		return trim($this->info_ci_me_pantalla[$this->indice_etapas[$pantalla]]["descripcion"]);
 	}
-	//-------------------------------------------------------------------------------
-
+	
+	
+	/**
+	 * Cargar las dependencias a utilizar para generar la interface de este objeto
+	 */
 	function cargar_dependencias_gi()
-	//Cargar las depedencias a utilizar para generar la interface
 	{
 		$this->log->debug($this->get_txt() . "[ cargar_dependencias_gi ]");
 		//Busco la lista de las dependencias que necesito para cargar esta interface
@@ -587,6 +615,12 @@ class objeto_ci extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Determina la lista de elementos de interface (ei) que se muestran en esta pantalla
+	 * Para redefinir esta lista para una pantalla particular hay que definir un metodo get_lista_ei__PANTALLA, 
+	 * donde PANTALLA es la buscada.
+	 * @return array Arreglo de elementos a mostrar en esta pantalla
+	 */
 	function get_lista_ei()
 	{
 		//Existe una definicion especifica para esta etapa?
@@ -604,8 +638,12 @@ class objeto_ci extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Método que se ejecuta antes de que se carguen los datos de las dependencias
+	 * Para incorporar algún comportamiento previo a la carga en una pantalla particular definir un método
+	 * evt__pre_cargar_datos_dependencias__PANTALLA donde PANTALLA es la pantalla buscada
+	 */
 	function evt__pre_cargar_datos_dependencias()
-	//Antes de cargar las dependencias
 	{
 		//Existe una definicion especifica para esta etapa?
 		$metodo_especifico = "evt__pre_cargar_datos_dependencias" . apex_ei_separador . $this->etapa_gi;
@@ -615,7 +653,10 @@ class objeto_ci extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
-	function cargar_datos_dependencias()
+	/**
+	 * Dispara la carga de datos de las dependencias del objeto
+	 */
+	protected function cargar_datos_dependencias()
 	{
 		//Disparo la carga de dependencias en los CI que me componen
 		foreach($this->dependencias_gi as $dep)
@@ -651,7 +692,7 @@ class objeto_ci extends objeto_ei
 	}	
 	//-------------------------------------------------------------------------------
 
-	function proveer_datos_dependencias($dependencia)
+	protected function proveer_datos_dependencias($dependencia)
 	{
 		$metodo = apex_ei_evento . apex_ei_separador . $dependencia . apex_ei_separador . "carga";
 		if(method_exists($this, $metodo)){
@@ -664,8 +705,12 @@ class objeto_ci extends objeto_ei
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Método que se ejecuta luego de que se carguen los datos de las dependencias
+	 * Para incorporar algún comportamiento luego de la carga en una pantalla particular definir un método
+	 * evt__post_cargar_datos_dependencias__PANTALLA donde PANTALLA es la pantalla buscada
+	 */	
 	function evt__post_cargar_datos_dependencias()
-	//Despues de cargar las dependencias
 	{
 		//Existe una definicion especifica para esta etapa?
 		$metodo_especifico = "evt__post_cargar_datos_dependencias" . apex_ei_separador . $this->etapa_gi;
@@ -673,42 +718,63 @@ class objeto_ci extends objeto_ei
 			$this->$metodo_especifico();	
 		}		
 	}
-	//-------------------------------------------------------------------------------
 
-	function obtener_html_base()
+	//-------------------------------------------------------------------------------
+	
+	/**
+	 * Obtiene la lista de eventos definidos desde el administrador 
+	 * Se redefine el método para dejar sólo aquellos eventos definidos en esta pantalla
+	 * @return unknown
+	 */
+	protected function get_lista_eventos_definidos()
 	{
-		$this->get_info_post_proceso();
-		//-[1]- Muestro la cola de mensajes
-		//-[2]- Genero la SALIDA
-		$vinculo = $this->solicitud->vinculador->generar_solicitud(null,null,null,true);
-		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n\n\n";
-		$this->obtener_javascript_global_consumido();
-		echo "<br>\n";
-		echo form::abrir($this->nombre_formulario, $vinculo);
-		echo "<div align='center'>\n";
-		$this->obtener_html();
-		echo "</div>\n";
-		echo form::cerrar();
-		
-		echo js::abrir();
-		$this->obtener_javascript();
-		$identado = js::instancia()->identado();
-		echo $identado."{$this->objeto_js}.iniciar();\n";
-		echo js::cerrar();
-		
-		echo "<br>\n";
-		$this->solicitud->cola_mensajes->mostrar();		
-		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";		
+		$eventos = array();
+		$ev_totales = parent::get_lista_eventos_definidos();
+		$ev_etapa = explode(',', $this->info_ci_me_pantalla[ $this->indice_etapas[$this->etapa_gi] ]['eventos']);
+		foreach (array_keys($ev_totales) as $id) {
+			if (! in_array($id, $ev_etapa)) {
+				unset($ev_totales[$id]);
+			}
+		}
+		return $ev_totales;
 	}
-	//-------------------------------------------------------------------------------
 
-	function get_info_post_proceso()
+	
+	/**
+	 * Retorna la lista TOTAL de eventos de este objeto
+	 * @return array
+	 */
+	function get_lista_eventos()
 	{
+		$eventos = array();
+		// Eventos de TABS
+		switch($this->info_ci['tipo_navegacion'])
+		{
+			case "tab_h":
+			case "tab_v":
+				foreach ($this->get_lista_tabs() as $id => $tab) {
+					$eventos += eventos::ci_cambiar_tab($id);
+				}
+				break;
+			case "wizard":
+				list($anterior, $siguiente) = $this->pantallas_limitrofes($this->etapa_gi);
+				if ($anterior !== false)
+					$eventos += eventos::ci_pantalla_anterior($anterior);
+				if ($siguiente !== false)
+					$eventos += eventos::ci_pantalla_siguiente($siguiente);
+				break;
+		}
+		$eventos = array_merge($eventos, parent::get_lista_eventos() );
+		return $eventos;
 	}
-	//-------------------------------------------------------------------------------
 
+	//---------------------------------------------------------------
+	//-------------------------- SALIDA HTML --------------------------
+	//----------------------------------------------------------------
+	
 	function obtener_html()
 	{
+		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
 		$this->eventos = $this->get_lista_eventos();
 		if( count($this->eventos) > 0){
@@ -717,7 +783,7 @@ class objeto_ci extends objeto_ei
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
 		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
-		echo "<table $ancho $alto class='objeto-base' align='center' id='{$this->objeto_js}_cont'>\n";
+		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
 		//--> Barra SUPERIOR
 		echo "<tr><td class='celda-vacia'>";
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
@@ -749,52 +815,10 @@ class objeto_ci extends objeto_ei
 		echo "</tbody>\n";
 		echo "</table>\n";
 		$this->gi = true;
+		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 	}
-
-	//-------------------------------------------------------------------------------
-	protected function get_lista_eventos_definidos()
-	/*
-	*	Obtiene la lista de eventos definidos desde el administrador 
-	* 	Se redefine el método para dejar sólo aquellos eventos definidos en esta pantalla
-	*/
-	{
-		$eventos = array();
-		$ev_totales = parent::get_lista_eventos_definidos();
-		$ev_etapa = explode(',', $this->info_ci_me_pantalla[ $this->indice_etapas[$this->etapa_gi] ]['eventos']);
-		foreach (array_keys($ev_totales) as $id) {
-			if (! in_array($id, $ev_etapa)) {
-				unset($ev_totales[$id]);
-			}
-		}
-		return $ev_totales;
-	}
-
 	
-	function get_lista_eventos()
-	{
-		$eventos = array();
-		// Eventos de TABS
-		switch($this->info_ci['tipo_navegacion'])
-		{
-			case "tab_h":
-			case "tab_v":
-				foreach ($this->get_lista_tabs() as $id => $tab) {
-					$eventos += eventos::ci_cambiar_tab($id);
-				}
-				break;
-			case "wizard":
-				list($anterior, $siguiente) = $this->pantallas_limitrofes($this->etapa_gi);
-				if ($anterior !== false)
-					$eventos += eventos::ci_pantalla_anterior($anterior);
-				if ($siguiente !== false)
-					$eventos += eventos::ci_pantalla_siguiente($siguiente);
-				break;
-		}
-		$eventos = array_merge($eventos, parent::get_lista_eventos() );
-		return $eventos;
-	}
-	//-------------------------------------------------------------------------------
-
+	
 	private function obtener_html_pantalla()
 	{
 		switch($this->info_ci['tipo_navegacion'])
@@ -837,14 +861,13 @@ class objeto_ci extends objeto_ei
 				$this->obtener_html_pantalla_contenido();
 		}
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * Grafica el contenido de la pantalla actual
+	 */
 	protected function obtener_html_pantalla_contenido()
-	//Genera el HTML de las dependencias
 	{
-		/*
-			Descripcion de la PANTALLA
-		*/
+		//--- Descripcion de la PANTALLA
 		$descripcion = $this->obtener_descripcion_pantalla($this->etapa_gi);
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if($descripcion !="" || $es_wizard) {
@@ -860,29 +883,21 @@ class objeto_ci extends objeto_ei
 			}
 			echo "<hr>\n";
 		}
-		/*
-			Controla la existencia de una funcion que redeclare
-			la generacion de una PANTALLA puntual
-		*/
+		//--- Controla la existencia de una funcion que redeclare la generacion de una PANTALLA puntual
 		$interface_especifica = "obtener_html_contenido". apex_ei_separador . $this->etapa_gi;
 		if(method_exists($this, $interface_especifica)){
 			$this->$interface_especifica();
 		}else{
-			/*
-				Solicita el HTML de todas las dependencias que forman parte
-				de la generacion de la interface
-			*/
+			//--- Solicita el HTML de todas las dependencias que forman parte de la generacion de la interface
 			$this->obtener_html_dependencias();
 		}
 	}
 	
-	function obtener_descripcion_pantalla($pantalla)
-	{
-		return trim($this->info_ci_me_pantalla[$this->indice_etapas[$pantalla]]["descripcion"]);
-	}
-	
-	//-------------------------------------------------------------------------------
-	
+	/**
+	 * Dispara la generación de html de los objetos contenidos en esta pantalla
+	 * Para redefinir la generación de una pantalla puntual, hay que definir un método:
+	 * 		obtener_html_contenido__PANTALLA 
+	 */	
 	function obtener_html_dependencias()
 	{
 		$existe_previo = 0;
@@ -896,12 +911,7 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
-	
-	//-------------------------------------------------------------------------------
-	//----  NAVEGACION tipo WIZARD
-	//-------------------------------------------------------------------------------
-
-	function wizard_mostrar_toc()
+	protected function wizard_mostrar_toc()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
 		echo "<ol class='wizard-pantallas'>";
@@ -921,12 +931,8 @@ class objeto_ci extends objeto_ei
 		}		
 		echo "</ol>";
 	}
-	
-	//-------------------------------------------------------------------------------
-	//----  NAVEGACION con TABS
-	//-------------------------------------------------------------------------------
-	
-	function obtener_tabs_horizontales()
+
+	protected function obtener_tabs_horizontales()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
 		echo "<table width='100%' class='tabla-0'>\n";
@@ -939,8 +945,9 @@ class objeto_ci extends objeto_ei
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$html = '';
-			if(isset($tab['imagen'])) 
+			if(isset($tab['imagen'])) {
 				$html = recurso::imagen($tab['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+			}
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
 			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
@@ -961,7 +968,6 @@ class objeto_ci extends objeto_ei
 		echo "</tr>";
 		echo "</table>\n";
 	}
-	//-------------------------------------------------------------------------------
 
 	function obtener_tabs_verticales()
 	{
@@ -990,10 +996,13 @@ class objeto_ci extends objeto_ei
 		}
 		echo "<div class='tabs-v-solapa' style='height:99%;'></div>";
 	}
-	//-------------------------------------------------------------------------------	
 	
+	/**
+	 * Retorna la lista de botones que representan a las pestañas o tabs que se muestran en la pantalla actual
+	 * Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante
+	 * @return array
+	 */
 	function get_lista_tabs()
-	//Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante
 	{
 		$tab = array();
 		for($a = 0; $a<count($this->info_ci_me_pantalla);$a++)
@@ -1015,22 +1024,11 @@ class objeto_ci extends objeto_ei
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_javascript_global_consumido()
-/*
- 	@@acceso: interno
-	@@desc: Genera el javascript GLOBAL que se consumen los EF. El javascript GLOBAL esta compuesto
-	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
-*/
-	{
-		js::cargar_consumos_globales($this->consumo_javascript_global());
-	}
-	//-------------------------------------------------------------------------------
-
+	/**
+	 * Retorna los consumos javascript requerido por este objeto y sus dependencias
+	 * @return array
+	 */
 	function consumo_javascript_global()
-/*
- 	@@acceso: interno
-	@@desc: Javascript global requerido por los HIJOS de este CI
-*/
 	{
 		$consumo_js = parent::consumo_javascript_global();
 		$consumo_js[] = 'clases/objeto_ci';
@@ -1041,7 +1039,6 @@ class objeto_ci extends objeto_ei
 		}
 		return $consumo_js;
 	}
-	//-------------------------------------------------------------------------------
 
 	function crear_objeto_js()
 	{
@@ -1063,5 +1060,78 @@ class objeto_ci extends objeto_ei
 			echo $identado."{$this->objeto_js}.agregar_objeto($objeto, '$id');\n";
 		}
 	}
+	
+	//---------------------------------------------------------------
+	//-------------------------- SALIDA PDF --------------------------
+	//----------------------------------------------------------------
+	
+	function obtener_pdf()
+	{
+		foreach($this->dependencias_gi as $dep) {
+			$this->dependencias[$dep]->obtener_pdf();	
+		}		
+	}
+	
+	
+	//---------------------------------------------------------------
+	//-------------------------- OBSOLETOS --------------------------
+	//----------------------------------------------------------------
+	
+	/**
+	 * Esta funcion DISPARABA la generacion de TODA la interface.
+	 * Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'
+	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 */
+	function generar_interface_grafica()
+	{
+		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "El ítem debería tener una solicitud_web asociada");
+		$this->log->debug($this->get_txt() . "____________________________________________[ generar_interface_grafica ]");
+		try{
+			//Cargar todos los EI que componen la interface
+			$this->cargar_dependencias_gi();
+			$this->obtener_html_base();
+		}catch(excepcion_toba $e){
+			$this->log->debug($e);
+			$this->informar_msg($e->getMessage(), 'error');
+			toba::get_cola_mensajes()->mostrar();
+		}
+	}
+	
+	/**
+	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 */
+	protected function obtener_html_base()
+	{
+		//-[1]- Muestro la cola de mensajes
+		//-[2]- Genero la SALIDA
+		$vinculo = toba::get_vinculador()->generar_solicitud(null,null,null,true);
+		$this->obtener_javascript_global_consumido();
+		echo "<br>\n";
+		echo form::abrir($this->nombre_formulario, $vinculo);
+		echo "<div align='center'>\n";
+		$this->obtener_html();
+		echo "</div>\n";
+		echo form::cerrar();
+		
+		echo js::abrir();
+		$this->obtener_javascript();
+		$identado = js::instancia()->identado();
+		echo $identado."{$this->objeto_js}.iniciar();\n";
+		echo js::cerrar();
+		echo "<br>\n";
+		toba::get_cola_mensajes()->mostrar();	
+	}
+	
+	
+	/**
+	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 */
+	function obtener_javascript_global_consumido()
+	{
+		js::cargar_consumos_globales($this->consumo_javascript_global());
+	}
+	
+	
+	
 }
 ?>

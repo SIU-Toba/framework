@@ -170,16 +170,14 @@ class manejador_archivos
 			$estado = $this->controlar_estado();
 			if($estado[0] == 1)					//---> UPLOAD OK!
 			{
-				global $solicitud;
-				$dir_upload = $solicitud->hilo->obtener_proyecto_path() . "/temp/";
+				$dir_upload = toba::get_hilo()->obtener_proyecto_path() . "/temp/";
 				$this->nombre_archivo = $dir_upload . $_FILES[$this->nombre_input]['name'];
 				if (move_uploaded_file($_FILES[$this->nombre_input]['tmp_name'], $this->nombre_archivo)) 
 				{
 					//Seteo el nombre del archivo cargado para que reaparezca en la interface
 					if($temp_sesion){
-						global $solicitud;
 						//Notifico al hilo el archivo cargado para ELIMINARLO con el FIN de SESION
-						$solicitud->hilo->registrar_archivo($this->nombre_archivo);
+						toba::get_hilo()->registrar_archivo($this->nombre_archivo);
 					}
 				}
 			}elseif( $estado[0] < 0){			//---> ERROR!
@@ -231,10 +229,9 @@ class manejador_archivos
 	function obtener_html()
 	//Llamada completa
 	{
-		global $solicitud;
 		$this->obtener_html_mensaje();
 		enter();
-		echo form::abrir("upload",$solicitud->vinculador->generar_solicitud());
+		echo form::abrir("upload", toba::get_vinculador()->generar_solicitud());
 		$this->obtener_interface();
 		enter();
 		echo form::submit("submit","SUBIR");

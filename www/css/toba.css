@@ -4,6 +4,11 @@
 
 /*-- NIVEL 0 --*/
 
+.cuerpo {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
 .cuadro-cabecera{
 	 empty-cells: hide
 }

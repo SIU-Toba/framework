@@ -23,6 +23,9 @@ define("apex_hilo_qs_zona","toba-zona");						//CANAL de propagacion de ZONAS
 define("apex_hilo_qs_cronometro","toba-cron");					//CANAL gatillo del cronometro
 define("apex_hilo_qs_menu","toma-menu");						//Indica que el vinculo proviene del MENU
 define("apex_hilo_qs_celda_memoria","toba-celda-memoria");		//Indicador que indica que el vinculo proviene del MENU
+define("apex_hilo_qs_servicio", "toba-servicio");
+define("apex_hilo_qs_servicio_defecto", "obtener_html");
+define("apex_hilo_qs_objetos_destino", "toba-dest");
 //-- WDDX
 
 //*********  FRAMES entorno EDICION ************
@@ -49,12 +52,20 @@ class hilo
 	var $reciclar_memoria = true;	//Habilita el reciclado de la memoria en la sesion
 	private $celda_memoria_actual = "central";
 	private $acceso_menu;
+	private $servicio = apex_hilo_qs_servicio_defecto;
+	private $objetos_destino = null;
+	static private $instancia;
 	
-	function hilo()
-/*
- 	@@acceso: constructor
-	@@desc: Inicializa el HILO
-*/	{
+	static function instancia()
+	{
+		if (!isset(self::$instancia)) {
+			self::$instancia = new hilo();
+		}
+		return self::$instancia;		
+	}
+	
+	private function __construct()
+	{
 		//dump_session();
 		$this->id = uniqid('');
 		$this->url_actual = $_SERVER["PHP_SELF"];
@@ -105,10 +116,22 @@ class hilo
 			}
 		}
 		//Guardo el FLAG que indica si se accedio por el menu
-		if(isset($_GET[apex_hilo_qs_menu])){
+		if(isset($_GET[apex_hilo_qs_menu])) {
 			$this->acceso_menu = true;
-		}else{
+		} else {
 			$this->acceso_menu = false;
+		}
+		if (isset($_GET[apex_hilo_qs_servicio])) {
+			$this->servicio = $_GET[apex_hilo_qs_servicio];
+		}
+		if (isset($_GET[apex_hilo_qs_objetos_destino])) {
+			$objetos = $_GET[apex_hilo_qs_objetos_destino];
+			$lista_obj = explode(",", $objetos);
+			$this->objetos_destino = array();
+			foreach ($lista_obj as $obj) {
+				$this->objetos_destino[] = explode(apex_qs_separador, $obj);
+			}
+
 		}
 		$this->inicializar_memoria();
  	}
@@ -162,6 +185,27 @@ class hilo
 	//----------------------------------------------------------------
 	//----------------------------------------------------------------	
 	
+	/**
+	 * Determina si la sesion fue abierta o aún no se ha logueado el usuario
+	 */
+	function sesion_abierta()
+	{
+		return isset($_SESSION['toba']);
+	}
+	
+	function obtener_servicio_solicitado()
+	{
+		return $this->servicio;	
+	}
+	
+	/**
+	 * Retorna la referencia a aquellos objetos destino del servicio solicitado
+	 */
+	function obtener_id_objetos_destino()
+	{
+		return $this->objetos_destino;
+	}
+	
 	function obtener_parametro($canal)
 /*
  	@@acceso: actividad
@@ -189,14 +233,18 @@ class hilo
 		return $temp;			
 	}
 
+	/**
+	 * Retorna el item requerido en este pedido de página
+	 * @return array [0]=>proyecto, [1]=>id_item
+	 */
 	function obtener_item_solicitado()
-/*
- 	@@acceso: nucleo
-	@@desc: Notifica el ITEM solicitado
-	@@retorno: Item solicitado
-*/
 	{
-		return $this->item_solicitado;
+		if (isset($this->item_solicitado)) {
+			return $this->item_solicitado;
+		} else {
+            $item = explode(apex_qs_separador,apex_pa_item_inicial);
+            return $item;
+        }		
 	}
 
 	function obtener_proyecto()
@@ -362,10 +410,10 @@ class hilo
 	@@desc: Notifica si el ITEM que se esta ejecutando es el INSTANCIADOR de un objeto de la libreria
 */
 	{
-		global $solicitud;
-		if(strpos($solicitud->info["item"],"admin/objetos/instanciadores")){
+		$item = toba::get_hilo()->obtener_item_solicitado();
+		if(strpos($item[0],"admin/objetos/instanciadores")) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -381,7 +429,7 @@ class hilo
 		return array("toba","/trabajo/resumen",array(apex_hilo_qs_zona=>$this->obtener_usuario()));
 
 	}
-
+	
 	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//------------ MEMORIA (persistencia en $_SESSION) ---------------

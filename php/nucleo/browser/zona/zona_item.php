@@ -13,8 +13,6 @@ class zona_item extends zona
 	function cargar_editable($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		global $ADODB_FETCH_MODE, $db, $cronometro;		
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		if(!isset($editable)){
 			if(!isset($this->editable_propagado)){
 				ei_mensaje("No se especifico el editable a cargar","error");
@@ -37,16 +35,11 @@ class zona_item extends zona
                     AND     i.actividad_patron_proyecto = p.proyecto
 					AND		i.proyecto='{$clave[0]}'
 					AND		item='{$clave[1]}';";
-		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-		if(!$rs){
-			monitor::evento("bug","ZONA-ITEM: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			return false;
-		}elseif($rs->EOF){
-			echo ei_mensaje("ZONA-ITEM: El editable solicitado no existe","info");
-			return false;
-		}else{
-			$this->editable_info = current($rs->getArray());
-			//ei_arbol($this->editable_info,"EDITABLE");
+		$rs = toba::get_db('instancia')->consultar($sql);
+		if(empty($rs)) {
+			throw new excepcion_toba("No se puede encontrar informacion del item {$clave[0]},{$clave[1]}");
+		} else {
+			$this->editable_info = $rs[0];
 			$this->editable_id = array( $clave[0],$clave[1] );
 			$this->editable_cargado = true;
 			return true;
@@ -62,10 +55,10 @@ class zona_item extends zona
 		echo "<table width='100%' class='tabla-0'><tr>";
 
 		//INTERFACE que solicta CRONOMETRAR la PAGINA
-		if($this->solicitud->vinculador->consultar_vinculo("toba","/basicos/cronometro",true))
+		if(toba::get_vinculador()->consultar_vinculo("toba","/basicos/cronometro",true))
 		{
 			echo "<td  class='barra-0-edit' width='1'>";
-			echo "<a href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true,true)."'>".
+			echo "<a href='".toba::get_vinculador()->generar_solicitud(null,null,null,true,true)."'>".
 					recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM")."</a>";
 			echo "</td>";
 		}
@@ -105,7 +98,7 @@ class zona_item extends zona
                 //ATENCION, solicitud directa
                 $id_buffer = array(apex_hilo_qs_zona => $this->editable_info['actividad_buffer_proyecto']
                                          . apex_qs_separador . $this->editable_info['actividad_buffer'] );
-                if($vinculo = $this->solicitud->vinculador->obtener_vinculo_a_item("toba","/admin/buffers/propiedades",$id_buffer,true))
+                if($vinculo = toba::get_vinculador()->obtener_vinculo_a_item("toba","/admin/buffers/propiedades",$id_buffer,true))
                 {
                         if( !(($this->editable_info['actividad_buffer_proyecto']=="toba" )
                              &&($this->editable_info['actividad_buffer']=="0"))){
@@ -119,7 +112,7 @@ class zona_item extends zona
 
  		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
 		echo "<td  class='barra-item-link' width='1'>";
-		echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
+		echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
 		echo recurso::imagen_apl("items/instanciar.gif",true,null,null,"Generar una SOLICITUD a este ITEM");
 		echo "</a>";
 		echo "</td>";
@@ -178,7 +171,7 @@ class zona_item extends zona
 						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs->fields["clase"]."\", ".($contador[$rs->fields["clase"]]).")</td>";
 						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													"toba","/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
 														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
@@ -187,7 +180,7 @@ class zona_item extends zona
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($rs->fields["clase_editor"])){
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$rs->fields["clase_editor_proyecto"],
 														$rs->fields["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
@@ -197,7 +190,7 @@ class zona_item extends zona
 						if(isset($rs->fields["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$rs->fields["clase_instanciador_proyecto"], 
 														$rs->fields["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]

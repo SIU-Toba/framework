@@ -424,7 +424,7 @@ class ef_editable_numero extends ef_editable
 		$parametros["cifras"]["descripcion"]="Cantidad maxima de caracteres.";
 		$parametros["cifras"]["opcional"]=1;	
 		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
-		$parametros["rango"]["descripcion"]="Rango valido de valores.";
+		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]";
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores";
 		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00";

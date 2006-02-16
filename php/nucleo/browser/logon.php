@@ -2,7 +2,9 @@
 //Esta es la unica ACCION que no se procesa dentro de una SOLICITUD (A esta altura no existen)
 //La contraparte de esta pagina es la clase estatica SESION, que recibe parametros de ACA.
 
-include_once("nucleo/browser/interface/ef.php");
+require_once("nucleo/browser/interface/ef.php");
+require_once("nucleo/browser/interface/ei.php");
+
 
 //El mensaje viaja por querystring para no perderlo si la sesion se rompe en un FRAME!!
 define("apex_logon_mensaje","logon_msg");

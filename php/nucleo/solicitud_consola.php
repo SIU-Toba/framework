@@ -39,6 +39,8 @@ class solicitud_consola extends solicitud
 			fwrite(STDERR, $invocacion );
 	        exit(2);
 	    }
+	    $this->info = self::get_definicion_item($item[0], $item[1]);
+	    
 		//--[ 2 ]-- Si el tipo de solicitud es WEB, emulo el ambiente
 		//if( $this->tipo_solicitud() == "browser" )
 		//{
@@ -52,7 +54,7 @@ class solicitud_consola extends solicitud
 			require_once("nucleo/consola/emular_web_inc.php");
 			sesion::abrir($usuario, $proyecto);
 			require_once("nucleo/browser/hilo.php");
-			$this->hilo = new hilo();
+			$this->hilo = toba::get_hilo();
 		//}
 		parent::__construct($item, $usuario);
 		$this->estado_proceso = 0;

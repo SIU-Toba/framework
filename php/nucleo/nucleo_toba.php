@@ -47,14 +47,15 @@ class nucleo_toba
 	{
 		define("apex_solicitud_tipo","browser");                //Establezco el tipo de solicitud
 		try {
-			require_once("nucleo/solicitud_browser.php");	
+			require_once("nucleo/solicitud.php");
 			require_once("nucleo/browser/http.php");				//Genera Encabezados de HTTP
 			require_once("nucleo/browser/sesion.php");				//Control de sesiones HTTP
 			require_once("nucleo/browser/usuario_http.php");		//Validador de usuarios
 		    http::headers_standart();//Antes de la sesion, si o si.
 			sesion::autorizar(); //Antes del HTML si o si
 			toba::get_cronometro()->marcar('SESION: Controlar STATUS SESION',"nucleo");
-			$this->solicitud = new solicitud_browser();
+			$item = toba::get_hilo()->obtener_item_solicitado();
+			$this->solicitud = solicitud::get_solicitud($item[0], $item[1]);
 			$this->procesar();
 		} catch (excepcion_toba $e) {
 			$mensaje = $e->getMessage();

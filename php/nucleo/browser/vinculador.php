@@ -8,15 +8,25 @@
  */
 class vinculador 
 {
-	var $solicitud;			//Referencia a la SOLICITUD 
-	var $prefijo;			//Prefijo de cualquier URL
-	var $info;				//Vinculos a los que se puede acceder
-	var $indices_objeto;	//Vinculos ordenados por OBJETO
-	var $indices_item;		//Vinculos ordenados por ITEM
-		
-	function __construct(&$solicitud)
+	protected $prefijo;			//Prefijo de cualquier URL
+	protected $info;				//Vinculos a los que se puede acceder
+	protected $indices_objeto;	//Vinculos ordenados por OBJETO
+	protected $indices_item;		//Vinculos ordenados por ITEM
+	static private $instancia;
+	
+	static function instancia()
 	{
-		$this->solicitud =& $solicitud;
+		if (!isset(self::$instancia)) {
+			self::$instancia = new vinculador();
+		}
+		return self::$instancia;		
+	}
+	
+	private function __construct()
+	{
+		$item = toba::get_hilo()->obtener_item_solicitado();
+		$proyecto_actual = toba::get_hilo()->obtener_proyecto();
+		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql =	"-- Vinculos GLOBALES del TOBA y del PROYECTO Y PROPIOS del ITEM ------------------------------------
 				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
 						v.origen_item as					origen_item,
@@ -37,15 +47,15 @@ class vinculador
 				FROM	apex_vinculo v, 
                         apex_usuario_grupo_acc_item ui,
                         apex_usuario_proyecto up
-				WHERE	( (v.origen_item = '".$this->solicitud->info["item"]."' AND
-							v.origen_item_proyecto= '".$this->solicitud->info["item_proyecto"]."'	) 			
+				WHERE	( (v.origen_item = '".$item[0]."' AND
+							v.origen_item_proyecto= '".$item[1]."'	) 			
 							OR (v.origen_item = '/vinculos' 
-							AND ( (v.origen_item_proyecto = '".$this->solicitud->hilo->obtener_proyecto()."')
+							AND ( (v.origen_item_proyecto = '".$proyecto_actual."')
 									OR (v.origen_item_proyecto = 'toba') )	)
 						)
 				AND		(ui.item = v.destino_item) AND (ui.proyecto = v.destino_item_proyecto)
                 AND     (ui.usuario_grupo_acc = up.usuario_grupo_acc)  AND (ui.proyecto = up.proyecto)
-				AND		(up.usuario = '".$this->solicitud->hilo->obtener_usuario()."')
+				AND		(up.usuario = '".$usuario."')
 				UNION
 				-- Vinculos GLOBALES del TOBA y del PROYECTO Y PROPIOS del ITEM (publicos) -------------------------
 				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
@@ -66,10 +76,10 @@ class vinculador
 						v.imagen as							imagen
 				FROM	apex_vinculo v, 
 						apex_item i
-				WHERE	( (v.origen_item = '".$this->solicitud->info["item"]."' AND
-							v.origen_item_proyecto= '".$this->solicitud->info["item_proyecto"]."'	) 			
+				WHERE	( (v.origen_item = '".$item[0]."' AND
+							v.origen_item_proyecto= '".$item[1]."'	) 			
 							OR (v.origen_item = '/vinculos' 
-							AND ( (v.origen_item_proyecto = '".$this->solicitud->hilo->obtener_proyecto()."')
+							AND ( (v.origen_item_proyecto = '".$proyecto_actual."')
 									OR (v.origen_item_proyecto = 'toba') )	)
 						)
 				AND		(	(i.item = v.destino_item) AND (i.proyecto = v.destino_item_proyecto)
@@ -98,11 +108,11 @@ class vinculador
                         apex_usuario_proyecto up
 				WHERE	o.proyecto = v.origen_objeto_proyecto
 				AND		o.objeto = v.origen_objeto
-				AND		o.item = '".$this->solicitud->info["item"]."' AND
-						o.proyecto= '".$this->solicitud->info["item_proyecto"]."'
+				AND		o.item = '".$item[0]."' AND
+						o.proyecto= '".$item[1]."'
 				AND		(ui.item = v.destino_item) AND (ui.proyecto = v.destino_item_proyecto)
            		AND		(ui.usuario_grupo_acc = up.usuario_grupo_acc)  AND (ui.proyecto = up.proyecto)
-				AND		(up.usuario = '".$this->solicitud->hilo->obtener_usuario()."')
+				AND		(up.usuario = '".$proyecto_actual."')
 				UNION
 				-- Vinculos de los OBJETOS asociados con destino AUTOVINCULO ----------------------
 				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
@@ -125,8 +135,8 @@ class vinculador
 						apex_item_objeto o
 				WHERE	o.proyecto = v.origen_objeto_proyecto
 				AND		o.objeto = v.origen_objeto
-				AND		o.item = '".$this->solicitud->info["item"]."' AND
-						o.proyecto= '".$this->solicitud->info["item_proyecto"]."'
+				AND		o.item = '".$item[0]."' AND
+						o.proyecto= '".$item[1]."'
 				AND		(v.destino_item = '/autovinculo');";
 
 		$rs = toba::get_db("instancia")->consultar($sql);
@@ -142,7 +152,7 @@ class vinculador
 				$this->indices_item[$item]=$a;
 			}
 		}
-		$this->prefijo = $this->solicitud->hilo->prefijo_vinculo();
+		$this->prefijo = toba::get_hilo()->prefijo_vinculo();
 	}
 //----------------------------------------------------------------
 
@@ -154,6 +164,60 @@ class vinculador
 		ei_arbol($dump,"VINCULADOR");
 	}
 
+	
+	/**
+	 * Crea un vinculo hacia un item
+	 *
+	 * @param string $proyecto Proyecto destino, por defecto el actual
+	 * @param string $item Item destino, por defecto el actual
+	 * @param array $parametros Parametros pasados al item, es un arreglo asociativo id_parametro => valor
+	 * @param array $opciones Arreglo asociativo de opciones ellas son:
+	 * 					zona => Activa la propagación automática del editable en la zona,
+	 * 					cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse,
+	 * 					param_html => Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
+	 * 					escribir_tag => Indica si hay que generar el html del vinculo
+	 * 					texto => Texto del vínculo
+	 * 					menu => El vinculo esta solicitado por una opción menu?
+	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
+	 * 					servicio => Servicio solicitado, por defecto obtener_html
+	 * 					objetos_destino => array(array(proyecto, id_objeto)) Objetos destino del vinculo
+	 * @return string Una URL o el link html en caso
+	 */
+	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	{
+		$item_actual = toba::get_hilo()->obtener_item_solicitado();
+		if (!isset($proyecto)) $proyecto = $item_actual[0];
+		if (!isset($item)) $item = $item_actual[1];
+		if (!isset($opciones['zona'])) $opciones['zona'] = false;
+		if (!isset($opciones['cronometrar'])) $opciones['cronometrar'] = false;
+		if (!isset($opciones['param_html'])) $opciones['param_html'] = null;
+		if (!isset($opciones['menu'])) $opciones['menu'] = null;
+		if (!isset($opciones['celda_memoria'])) $opciones['celda_memoria'] = null;
+		if (!isset($opciones['texto'])) $opciones['texto'] = '';
+		if (!isset($opciones['validar'])) $opciones['validar'] = true;
+		if (!isset($opciones['escribir_tag'])) $opciones['escribir_tag'] = false;
+		if (!isset($opciones['servicio'])) $opciones['servicio'] = apex_hilo_qs_servicio_defecto;
+		if (!isset($opciones['objetos_destino'])) $opciones['objetos_destino'] = null;
+		
+		$requerido_item_actual = ($item_actual[0]==$proyecto && $item_actual[1]==$item);
+		if ( $opciones['validar'] && !$requerido_item_actual) {
+			$clave = $proyecto.",".$item;
+			if (isset($this->indices_item[$clave])) {
+				$v = $this->indices_item[$clave];
+			} else {
+				return null;	
+			}
+		}
+		$url = $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
+								 $opciones['cronometrar'], $opciones['param_html'],
+								 $opciones['menu'], $opciones['celda_memoria'], 
+								 $opciones['servicio'], $opciones['objetos_destino']);
+		if ($opciones['escribir_tag']) {
+			return $this->generar_html_vinculo($url,$v,'lista-link',$texto);
+		} else {
+			return $url;
+		}
+	}
 
 //##################################################################################
 //########################   Solicitud DIRECTA de URLS  ############################
@@ -168,31 +232,50 @@ class vinculador
 	 * @param array $parametros Párametros enviados al ítem, arreglo asociativo de strings
 	 * @param boolean $zona Activa la propagación automática del editable en la zona
 	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
-	 * @param array $param_html Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+	 * @param array $param_html 
 	 * @param boolean $menu El vinculo esta solicitado por el menu?
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
 	 * @return string URL hacia el ítem solicitado
 	 */
 	function generar_solicitud($item_proyecto="",$item="",$parametros=null,
-								$zona=false,$cronometrar=false,$param_html=null,$menu=null,$celda_memoria=null)
+								$zona=false,$cronometrar=false,$param_html=null,
+								$menu=null,$celda_memoria=null, $servicio=null,
+								$objetos_destino=null)
  	{
+ 		$solicitud_actual = toba::get_solicitud();
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
-		if($item_proyecto=="") $item_proyecto = $this->solicitud->info["item_proyecto"];	
-		if($item==""){
-			$item_proyecto = $this->solicitud->info["item_proyecto"];
-			$item = $this->solicitud->info["item"];
+		if ($item_proyecto == '' || $item == '') {
+			$item_solic = toba::get_hilo()->obtener_item_solicitado();
+			if($item_proyecto=="") { 
+				$item_proyecto = $item_solic[0];
+			}
+			if($item==""){
+				$item = $item_solic[1];
+			}
 		}
 		$item_a_llamar = $item_proyecto . apex_qs_separador . $item;
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
-		if($zona){//Hay que propagar la zona?
-			if(isset($this->solicitud->zona)){//Existe una zona
-				if($this->solicitud->zona->controlar_carga()){//Esta cargada?
+		if ($zona){//Hay que propagar la zona?
+			if($solicitud_actual->hay_zona()){//Existe una zona
+				if($solicitud_actual->zona()->controlar_carga()){//Esta cargada?
 					$parametros_formateados .= "&". apex_hilo_qs_zona 
-						."=". implode(apex_qs_separador, $this->solicitud->zona->obtener_editable_cargado());
+						."=". implode(apex_qs_separador, $solicitud_actual->zona()->obtener_editable_cargado());
 				}
 			}
+		}
+		//Cual es el tipo de salida?
+		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
+			$parametros_formateados .= '&'.apex_hilo_qs_servicio ."=". $servicio;
+		}
+		if (isset($objetos_destino) && count($objetos_destino) > 0) {
+			$objetos = array();
+			foreach ($objetos_destino as $obj) {
+				$objetos[] = $obj[0] . apex_qs_separador . $obj[1];
+			}
+			$qs_objetos = implode(',', $objetos);
+			$parametros_formateados .= '&'.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
 		}
 		//Cual es la celda de memoria del proximo request?
 		if(!isset($celda_memoria)){
@@ -214,11 +297,10 @@ class vinculador
 		$vinculo = $this->prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
 			if(apex_pa_encriptar_qs){
-				$encriptador = toba::get_encriptador();
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
 				$parametros_formateados .= $parametros_formateados . "&jmb76=". uniqid("");
-				$vinculo = $vinculo . "&". apex_hilo_qs_parametros ."=". $encriptador->cifrar($parametros_formateados);
+				$vinculo = $vinculo . "&". apex_hilo_qs_parametros ."=". toba::get_encriptador()->cifrar($parametros_formateados);
 			}else{
 				$vinculo = $vinculo . $parametros_formateados;
 			}
@@ -286,7 +368,8 @@ class vinculador
 	function obtener_vinculo_a_item_cp($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
 										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
 	{
-		if($this->solicitud->info['item_proyecto'] == $this->solicitud->hilo->obtener_proyecto() ){
+		$item_solic = toba::get_hilo()->obtener_item_solicitado();
+		if($item_solic[0] == toba::get_hilo()->obtener_proyecto() ){
 			return $this->obtener_vinculo_a_item($proyecto,$item,$parametros,$escribir_tag,$zona,
 													$cronometrar,$texto,$param_html,$menu,$celda_memoria);
 		}else{
@@ -311,7 +394,7 @@ class vinculador
 	{
 		//Si el OBJETO esta en su INSTANCIADOR, no tiene acceso a su contexto de VINCULOS,
 		//Por la ejecucion se considera de prueba y el LINK dumpea los parametros PASADOS
-		if( $this->solicitud->hilo->entorno_instanciador() === true){
+		if( toba::get_hilo()->entorno_instanciador() === true){
 			//Esto es verdad para todos los objetos?
 			if(trim($texto)=="") $texto = "Probar";
 			return "<a href='#' class='lista-link' onclick=\"alert('PARAMETRO[ $parametro ]')\">$texto</a>";
@@ -371,8 +454,8 @@ class vinculador
 		if(isset($this->indices_item[$clave])){
 			//Controlar tambien que el ITEM se va a cargar en su propio proyecto
 			if($solo_proyecto_local){
-				if($this->solicitud->info['item_proyecto'] 
-						== $this->solicitud->hilo->obtener_proyecto() ){
+				$item_solic = toba::get_hilo()->obtener_item_solicitado();
+				if($item_solic[0] == toba::get_hilo()->obtener_proyecto() ){
 					return true;
 				}else{
 					return false;

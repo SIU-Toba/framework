@@ -31,7 +31,6 @@ class ef_oculto extends ef
 
 	function ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		global $solicitud;
 		parent::ef($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
 		//Estado directo
 		if(isset($parametros["estado"])){
@@ -49,16 +48,15 @@ class ef_oculto extends ef
 	function cargar_estado($estado=null)
 	//Desabilito la carga via POST y utilizo memoria
 	{
-		global $solicitud;
 		if(isset($estado)) {	//Carga el estado a partir del parametro
 			$this->estado = $estado;
-			$solicitud->hilo->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+			toba::get_hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 		} else { //Intenta cargar el estado a partir del hilo
-			$temp = $solicitud->hilo->recuperar_dato($this->clave_memoria());
+			$temp = toba::get_hilo()->recuperar_dato($this->clave_memoria());
 			if(isset($temp)){
 				$this->estado = $temp;
 				//Tengo que memorizar el estado para la proxima instanciacion
-				$solicitud->hilo->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+				toba::get_hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 			}
 		}
 		return true;
@@ -67,8 +65,7 @@ class ef_oculto extends ef
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
-		global $solicitud;
-		$solicitud->hilo->eliminar_dato_sincronizado($this->clave_memoria());
+		toba::get_hilo()->eliminar_dato_sincronizado($this->clave_memoria());
 		if(isset($this->estado)){
 			unset($this->estado);
 		}
@@ -117,19 +114,17 @@ class ef_oculto_proyecto extends ef_oculto
 	
 	function ef_oculto_proyecto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-        global $solicitud;
-        $parametros["estado"]=$solicitud->hilo->obtener_proyecto();
+        $parametros["estado"]=toba::get_hilo()->obtener_proyecto();
 		parent::ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
 	}
     
 	function cargar_estado($estado="")
 	//Desabilito la carga via POST
 	{
-        global $solicitud;
         if($estado!=""){
     		$this->estado = $estado;
         }else{
-            $this->estado = $solicitud->hilo->obtener_proyecto();
+            $this->estado = toba::get_hilo()->obtener_proyecto();
         }
 		return true;
 	}
@@ -137,15 +132,13 @@ class ef_oculto_proyecto extends ef_oculto
 	function resetear_estado()
 	//Resetea el estado INTERNO
 	{
-		global $solicitud;
-		$this->estado = $solicitud->hilo->obtener_proyecto();
+		$this->estado = toba::get_hilo()->obtener_proyecto();
 	}	
 	
     function validar_estado()
     //Controla que el proyecto ACTUAL sea el mismo que el proyecto SETEADO
     {
-        global $solicitud;
-        $proyecto_actual = $solicitud->hilo->obtener_proyecto();
+        $proyecto_actual = toba::get_hilo()->obtener_proyecto();
         if($this->estado == $proyecto_actual ){
 			$this->validacion = true;
             return array(true,"(A: $proyecto_actual S:{$this->estado})");
@@ -184,23 +177,20 @@ class ef_oculto_usuario extends ef_oculto
 	
 	function ef_oculto_usuario($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		global $solicitud;
 		parent::ef_oculto($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-		$this->estado = $solicitud->hilo->obtener_usuario();
+		$this->estado = toba::get_hilo()->obtener_usuario();
 	}
 
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
-		global $solicitud;
-		$this->estado = $solicitud->hilo->obtener_usuario();
+		$this->estado = toba::get_hilo()->obtener_usuario();
 	}	
 
 	function cargar_estado($estado=null)
 	//Desabilito la carga via POST y utilizo memoria
 	{
-		global $solicitud;
-		$this->estado = $solicitud->hilo->obtener_usuario();
+		$this->estado = toba::get_hilo()->obtener_usuario();
 		return true;
 	}
 

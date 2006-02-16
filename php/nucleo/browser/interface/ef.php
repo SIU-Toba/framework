@@ -554,7 +554,6 @@ class ef //Clase abstracta, padre de todos los EF
             $estilo = 'ef-etiqueta-error';
 			$marca ='';
 		}
-		global $solicitud;
 		echo "<table border='0' width='{$this->ancho_etiqueta}' cellpadding='0' cellspacing='0' align='left'>\n";
 		echo "<tr><td>".gif_nulo($this->ancho_etiqueta,0)."</td>";
 		echo "<td>".gif_nulo(1,1)."</td></tr>\n";
@@ -568,7 +567,7 @@ class ef //Clase abstracta, padre de todos los EF
 		//(con el editor de columnas cargado en ESTA!)
 		if(apex_pa_acceso_directo_editor){
 			echo "<td class='$estilo'>";
-			if( ($this->padre[0]) == $solicitud->hilo->obtener_proyecto() &&
+			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto() &&
 			(isset($item_editor_padre)) )
 			{
 				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
@@ -576,7 +575,7 @@ class ef //Clase abstracta, padre de todos los EF
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
 									   apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio,				
 										'ef' => $this->id );
-				echo $solicitud->vinculador->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
+				echo toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
 																	false, false,"",null, 1);
 
 			}

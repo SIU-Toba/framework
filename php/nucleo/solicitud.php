@@ -1,4 +1,7 @@
-<?php	
+<?php
+require_once("nucleo/browser/hilo.php");
+require_once("nucleo/browser/vinculador.php");
+
 //FALTA:	Chequear	que grite cuando no se graba la solicitud	completa	
 class solicitud
 {
@@ -21,18 +24,13 @@ class solicitud
 	function __construct($item, $usuario)	
 	{
 		global $solicitud;
-		$solicitud = $this;		//MALLL
+		$solicitud = $this;		//Compatibilidad para atras
 		global $cronometro;
 		$cronometro->marcar('basura',apex_nivel_nucleo);
 		$this->en_tramite = false;
 		$this->item = $item;
 		$this->usuario = $usuario;
 
-		//-[1]- Busco la definicion del ITEM solicitado y controlo PERMISOS de acceso
-		$status = $this->cargar_definicion();
-		if(!$status[0]){
-			monitor::evento("falta",$status[1],$usuario);	
-		}
 		//ei_arbol($this->info);
 		$status = $this->controlar_permisos();
 		if(!$status[0]){
@@ -117,10 +115,24 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	
 	}
 //--------------------------------------------------------------------------------------------
-
-	function cargar_definicion()
+	/**
+	 * Retorna el objeto solicitud asociado a un item
+	 */
+	static function get_solicitud($proyecto, $item)
 	{
-		//Cargar informacion de la BASE
+		$definicion = self::get_definicion_item($proyecto, $item);
+		$clase = "solicitud_".$definicion['item_solic_tipo'];
+		require_once("$clase.php");
+		return new $clase($definicion);
+		
+	}	
+//--------------------------------------------------------------------------------------------
+
+	/**
+	 * Obtiene la definición de un item desde la fuente de datos
+	 */
+	static function get_definicion_item($proyecto, $item)
+	{
 		$sql = "SELECT	i.proyecto as							item_proyecto,	
 						i.item as									item,	
 						i.nombre	as									item_nombre,
@@ -158,16 +170,14 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 				AND		pt.proyecto	= i.pagina_tipo_proyecto
 				AND		i.actividad_patron =	p.patron	
 				AND		i.actividad_patron_proyecto =	p.proyecto
-				AND		i.proyecto = '{$this->item[0]}'
-				AND		i.item =	'{$this->item[1]}';";
-		//echo($sql)."\n";
-		$temp = toba::get_db("instancia")->consultar($sql);
-		if(empty($temp)) {
-				return array(false,"SOLICITUD: El ITEM '{$this->item[0]},{$this->item[1]}' No existe");
-		} else {
-			$this->info	= $temp[0];	
-			return array(true,"OK!");
-		}
+				AND		i.proyecto = '$proyecto'
+				AND		i.item =	'$item';";
+		$rs =& toba::get_db("instancia")->consultar($sql);
+		
+		if(empty($rs)) {
+			throw  new excepcion_toba("Creación de la solicitud: El ITEM '$proyecto,$item' No existe");
+		} 
+		return $rs[0];
 	}
 //--------------------------------------------------------------------------------------------
 
@@ -207,7 +217,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 			$this->objetos[$a]->destruir();
 		}
 		//--- Finalizo objetos BASICOS -------
-		$this->hilo->destruir();
+		toba::get_hilo()->destruir();
 		//dump_session();
 	}	
 	//--------------------------------------------------------------------------------------------
@@ -217,7 +227,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		//-[1]- Cierro	conexiones secundarias
 		if(isset($this->bases_secundarias)){
 			foreach($this->bases_secundarias	as	$base){
-				$db[$base][apex_db_con]->close();
+				toba::get_db($base)->close();
 			}
 		}
 		exit();
@@ -272,6 +282,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		$cronometro->marcar('basura',apex_nivel_nucleo);
 		$this->en_tramite=true;	
 		$cronometro->marcar('SOLICITUD: -->	INICIO ACTIVIDAD!',apex_nivel_nucleo);	
+
 		  //------------------------------------------------------------
 		  //--------  PASO el control	a la ACTIVIDAD	 ------------------
 		  //------------------------------------------------------------
@@ -500,6 +511,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	}
 //--------------------------------------------------------------------------------------------
 
+	
 	function cargar_objeto($clase,$posicion,$parametros=null)
 	//Se indica	una posicion del INDICE	de	objetos ($this->indice_objetos[$clase][$posicion]).
 	//El indice	apunta a	la	definicion del	objeto a	cargar ($this->info_objeto).

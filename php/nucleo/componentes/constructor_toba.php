@@ -80,10 +80,10 @@ class constructor_toba
 	 */
 	static function buscar_runtime( $id ) 
 	{
-		if ( isset( self::$objetos_runtime_instanciados[ $id ] ) ) {
-			return self::$objetos_runtime_instanciados[ $id ];
+		if ( isset( self::$objetos_runtime_instanciados[ $id['componente'] ] ) ) {
+			return self::$objetos_runtime_instanciados[ $id['componente'] ];
 		} else {
-			throw new excepcion_toba("El runtime '$id' no fue instanciado");	
+			throw new excepcion_toba("El objeto '{$id['componente']}' no fue instanciado");	
 		}
 	}
 	

@@ -655,8 +655,7 @@ class ef_elemento_ini_proyecto extends ef_elemento_ini
     
      function preparar_sql($sql)
      { // Ventana para que los hijos formateen el SQL de acuerdo a su criterio
-        global $solicitud;
-         $proyecto = $solicitud->hilo->obtener_proyecto();
+         $proyecto = toba::get_hilo()->obtener_proyecto();
          if($proyecto == 'toba'){
              // Tengo que ejecutar la funcion igual para sacar el "%w%"
             $where[] = "( proyecto = 'toba' )";

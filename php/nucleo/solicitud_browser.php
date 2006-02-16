@@ -1,10 +1,8 @@
 <?php
-require_once("solicitud.php");
 require_once("nucleo/browser/recurso.php");					//Encapsulamiento de la llamada a recursos
 require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades javascript
 require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
 require_once("nucleo/browser/vinculador.php");				//Vinculos a otros ITEMS
-require_once("nucleo/browser/hilo.php");					//Canal de comunicacion inter-ejecutable
 require_once("nucleo/browser/interface/formateo.php"); 		//Funciones de formateo de columnas
 require_once("nucleo/browser/interface/ei.php");			//Elementos de interface
 require_once("nucleo/browser/logica.php");					//Elementos de logica
@@ -20,18 +18,17 @@ class solicitud_browser extends solicitud
 	var $zona_cargada;
 	var $cola_mensajes;
 	
-	function __construct()
+	function __construct($info)
 	{
+		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//toba::get_cronometro()->marcar('SOLICITUD BROWSER: Listo para cargar el ITEM',"nucleo");
-		$this->hilo =& new hilo();
+		$this->hilo = toba::get_hilo();
 		$item = $this->hilo->obtener_item_solicitado();
 		//ATENCION: esto esjecuta un LOOP recursivo cuando un la pagina inicial es un FRAMSET
 		//que tiene una direccion mal!
-		if (!isset($item)){//-- No se solicito NINGUN ITEM, determino el item por DEFECTO
-            $item = explode(apex_qs_separador,apex_pa_item_inicial);
-        }
-        
+
+                
 		parent::__construct($item,$this->hilo->obtener_usuario());
 		
 		//El elemento de item tiene que ser de tipo browser!
@@ -47,10 +44,8 @@ class solicitud_browser extends solicitud
 														$this->info['item_zona_proyecto'],
 														$this);
 		}
-        //Creo el vinculador
-		$this->vinculador = new vinculador($this);
-		//Creo la cola de mensajes
-		$this->cola_mensajes = new cola_mensajes($this);
+		$this->vinculador = toba::get_vinculador();
+		$this->cola_mensajes = toba::get_cola_mensajes();
 		//Le pregunto al HILO si se solicito cronometrar la PAGINA
 		if($this->hilo->usuario_solicita_cronometrar()){
 			$this->registrar_db = true;
@@ -102,6 +97,11 @@ class solicitud_browser extends solicitud
 	function zona()
 	{
 		return $this->zona;
+	}
+	
+	function hay_zona()
+	{
+		return isset($this->zona);	
 	}
 	
 //--------------------------------------------------------------------------------------------

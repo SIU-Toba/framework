@@ -8,13 +8,21 @@
 */
 class cola_mensajes
 {
-	private $solicitud;
 	private $mensajes = array();
+	static private $instancia;
 	
-	function __construct($solicitud)
+	static function instancia()
 	{
-		$this->solicitud = $solicitud;
+		if (!isset(self::$instancia)) {
+			self::$instancia = new cola_mensajes();
+		}
+		return self::$instancia;		
 	}
+	
+	private function __construct()
+	{	
+	}
+	
 	
 	//--------------------------------------------------------------
 
@@ -22,7 +30,7 @@ class cola_mensajes
 	{
 		$this->mensajes[] = array($mensaje, $nivel);
 		//Agrego el mensaje mostrado al usuario al logger como DEBUG
-		$this->solicitud->log->debug("[usuario] ".$mensaje);
+		toba::get_logger()->debug("[usuario] ".$mensaje);
 	}
 
 	public function agregar_id($indice, $parametros=null, $nivel='error')

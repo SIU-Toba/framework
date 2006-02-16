@@ -124,6 +124,7 @@
 		}
 		return $aplanado;
 	}
+
 	//-----------------------------------------------------------------	
 
 	function dump_array_php($array, $nombre="array",$html=false)

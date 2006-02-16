@@ -20,6 +20,12 @@ class http
         header("Cache-Control: no-cache, must-revalidate");					// HTTP/1.1
         header("Pragma: no-cache");
 	}
+	
+	static function pdf()
+	{
+		header('Content-type: application/pdf');
+		header('Content-Disposition: attachment; filename="downloaded.pdf"');
+	}
 
 	function headers_standart()
 	//Manejo standart de headers

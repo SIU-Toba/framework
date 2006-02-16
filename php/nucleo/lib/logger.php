@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('manejador_archivos.php');
 
 define('TOBA_LOG_EMERG',    0);     /** System is unusable */
@@ -28,6 +28,10 @@ class logger
 	private $proximo = 0;
 	private $datos_registrados = false;
 	private $ocultar = false;
+	
+	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
+	private $mostrado = false;				//Ya fue guardado en este pedido de página
+	private $cant_mostrada;					//Cant. de logs que había cuando se mostro
 
 	/**
 	*	Oculta el logger en la pantalla incondicionalemente, esto es util por ejemplo cuando
@@ -209,9 +213,6 @@ class logger
 		if(apex_pa_log_db){
 			$this->guardar_db();
 		}
-		if(apex_pa_log_pantalla && ! $this->ocultar){
-			$this->mostrar_pantalla();
-		}
 	}
 	
 	function directorio_logs()
@@ -280,10 +281,12 @@ class logger
 
 	function mostrar_pantalla()
 	{
-		if(apex_solicitud_tipo=="consola"){
-			$this->pantalla_consola();
-		}elseif(apex_solicitud_tipo=="browser"){
-			$this->pantalla_browser();			
+		if(apex_pa_log_pantalla && ! $this->ocultar){
+			if(apex_solicitud_tipo=="consola"){
+				$this->pantalla_consola();
+			}elseif(apex_solicitud_tipo=="browser"){
+				$this->pantalla_browser();			
+			}
 		}
 	}
 	
@@ -313,25 +316,28 @@ class logger
 
 	function pantalla_browser()
 	{
-
-		$hay_salida = false;
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-		$html = "</script>";	//Por si estaba un tag abierto
-		$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
-		$html .= "<pre class='texto-ss'>";
-		for($a=0; $a<count($this->mensajes_web); $a++){
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
-				$hay_salida = true;
-				$estilo = $this->estilo_grafico($this->niveles[$a]);
-				$html .= $estilo. $this->mensajes_web[$a] . "<br>";
-			}			
-		}
-//		if ($hay_salida) echo $html;
-		$html .= "</pre></td></tr></table></div>";
-		if ($hay_salida) {
-			echo "<div style='text-align:left;'>
-					<a href='javascript: toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
-					$html</div>";
+		if (!$this->mostrado || (count($this->mensajes_web) != $this->cant_mostrada)) {
+			$hay_salida = false;
+			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+			$html = "</script>";	//Por si estaba un tag abierto
+			$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
+			$html .= "<pre class='texto-ss'>";
+			for($a=0; $a<count($this->mensajes_web); $a++){
+				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
+					$hay_salida = true;
+					$estilo = $this->estilo_grafico($this->niveles[$a]);
+					$html .= $estilo. $this->mensajes_web[$a] . "<br>";
+				}			
+			}
+	//		if ($hay_salida) echo $html;
+			$html .= "</pre></td></tr></table></div>";
+			if ($hay_salida) {
+				echo "<div style='text-align:left;'>
+						<a href='javascript: toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
+						$html</div>";
+			}
+			$this->mostrado = true;
+			$this->cant_mostrada = count($this->mensajes_web);
 		}
 	}
 
@@ -352,6 +358,7 @@ class logger
 		$salida = "<span style='$estilo'>$icono".$this->ref_niveles[$nivel]." * </span> ";
 		return $salida;
 	}
+	
 	//------------------------------------------------------------------
 	//---- Salida a un archivo de logs
 	//------------------------------------------------------------------
