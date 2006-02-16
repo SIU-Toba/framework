@@ -289,6 +289,7 @@ class instancia extends elemento_modelo
 		$this->manejador_interface->titulo('Creando tablas del sistema.');
 		$directorio = nucleo::get_dir_ddl();
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		sort($archivos);
 		foreach( $archivos as $archivo ) {
 			$this->manejador_interface->mensaje( $archivo );
 			$this->get_db()->ejecutar_archivo( $archivo );
@@ -360,7 +361,7 @@ class instancia extends elemento_modelo
 				$res = consultar_fuente($sql, 'instancia', null, true);
 				$nuevo = $res[0]['nuevo'];
 			} else {
-				//Sino se toma utilizando los límites según el ID del grupo
+				//Sino se toma utilizando los lï¿½ites segn el ID del grupo
 				$lim_inf = self::cantidad_seq_grupo * $id_grupo_de_desarrollo;
 				$lim_sup = self::cantidad_seq_grupo * ( $id_grupo_de_desarrollo + 1 );
 				$sql_nuevo = "SELECT max({$datos['campo']}) as nuevo
