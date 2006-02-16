@@ -44,6 +44,18 @@ class instalacion extends elemento_modelo
 	}
 
 	/**
+	* Devuelve las claves utilizadas para encriptar
+	*/
+	function get_claves_encriptacion()
+	{
+		require_once( self::archivo_info_basica() );
+		$claves = array();
+		$claves['db'] = info_instalacion::get_clave_db();
+		$claves['get'] = info_instalacion::get_clave_querystring();
+		return $claves;
+	}
+	
+	/**
 	* Devuelve la lista de las INSTANCIAS
 	*/
 	function get_lista_instancias()

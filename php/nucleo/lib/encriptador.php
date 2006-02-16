@@ -1,5 +1,6 @@
 <?php
 require_once("3ros/adodb464/session/crypt.inc.php");
+require_once("modelo/instalacion.php");
 //------------------------------------------
 
 class encriptador
@@ -10,11 +11,7 @@ class encriptador
 	
 	private function __construct() {
 		$this->motor = new MD5Crypt();
-		//ATENCION: se pide la instancia para que parsee el archivo instancias.php
-		//Esto hay que solucionarlo de otra forma
-		toba::get_db('instancia');
-		$this->clave["db"] = apex_clave_db;
-		$this->clave["get"] = apex_clave_get;
+		$this->clave = instalacion::get_claves_encriptacion();
 	}
 	
 	static function instancia() {

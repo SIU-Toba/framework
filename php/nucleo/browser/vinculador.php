@@ -47,8 +47,8 @@ class vinculador
 				FROM	apex_vinculo v, 
                         apex_usuario_grupo_acc_item ui,
                         apex_usuario_proyecto up
-				WHERE	( (v.origen_item = '".$item[0]."' AND
-							v.origen_item_proyecto= '".$item[1]."'	) 			
+				WHERE	( (v.origen_item = '".$item[1]."' AND
+							v.origen_item_proyecto= '".$item[0]."'	) 			
 							OR (v.origen_item = '/vinculos' 
 							AND ( (v.origen_item_proyecto = '".$proyecto_actual."')
 									OR (v.origen_item_proyecto = 'toba') )	)
@@ -76,8 +76,8 @@ class vinculador
 						v.imagen as							imagen
 				FROM	apex_vinculo v, 
 						apex_item i
-				WHERE	( (v.origen_item = '".$item[0]."' AND
-							v.origen_item_proyecto= '".$item[1]."'	) 			
+				WHERE	( (v.origen_item = '".$item[1]."' AND
+							v.origen_item_proyecto= '".$item[0]."'	) 			
 							OR (v.origen_item = '/vinculos' 
 							AND ( (v.origen_item_proyecto = '".$proyecto_actual."')
 									OR (v.origen_item_proyecto = 'toba') )	)
@@ -108,11 +108,11 @@ class vinculador
                         apex_usuario_proyecto up
 				WHERE	o.proyecto = v.origen_objeto_proyecto
 				AND		o.objeto = v.origen_objeto
-				AND		o.item = '".$item[0]."' AND
-						o.proyecto= '".$item[1]."'
+				AND		o.item = '".$item[1]."' AND
+						o.proyecto= '".$item[0]."'
 				AND		(ui.item = v.destino_item) AND (ui.proyecto = v.destino_item_proyecto)
            		AND		(ui.usuario_grupo_acc = up.usuario_grupo_acc)  AND (ui.proyecto = up.proyecto)
-				AND		(up.usuario = '".$proyecto_actual."')
+				AND		(up.usuario = '".$usuario."')
 				UNION
 				-- Vinculos de los OBJETOS asociados con destino AUTOVINCULO ----------------------
 				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
@@ -135,8 +135,8 @@ class vinculador
 						apex_item_objeto o
 				WHERE	o.proyecto = v.origen_objeto_proyecto
 				AND		o.objeto = v.origen_objeto
-				AND		o.item = '".$item[0]."' AND
-						o.proyecto= '".$item[1]."'
+				AND		o.item = '".$item[1]."' AND
+						o.proyecto= '".$item[0]."'
 				AND		(v.destino_item = '/autovinculo');";
 
 		$rs = toba::get_db("instancia")->consultar($sql);
