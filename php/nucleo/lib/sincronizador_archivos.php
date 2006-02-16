@@ -43,6 +43,11 @@ class sincronizador_archivos
 	{
 		$dir_svn = $this->dir . '/.svn';
 		if ( is_dir( $dir_svn ) ) {
+			// Controlo que el cliente SVN este en el PATH
+			exec("svn --help", $resultado, $status);
+			if( $status !== 0 ){
+				throw new excepcion_toba("SINCRONIZADOR: Es necesario tener un cliente SVN de linea de comandos en el PATH");
+			}
 			return 'svn';	
 		} else {
 			return 'fs';	
@@ -74,9 +79,6 @@ class sincronizador_archivos
 	
 	function sincro_svn()
 	{
-		/*
-			Faltan los controles de que el SVN exista en el path
-		*/
 		$obs = array();
 		foreach ( $this->archivos_eliminados as $archivo ) {
 			system("svn delete --force $archivo");
@@ -84,7 +86,7 @@ class sincronizador_archivos
 		}
 		foreach ( $this->archivos_agregados as $archivo ) {
 			/*
-				Falta agregar los padres al SVN
+				Falta agregar las carpetas SVN padre
 				en el caso de que se exporte un componente que nunca se exporto,
 				se crea la carpeta del componente
 			*/

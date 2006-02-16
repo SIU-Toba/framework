@@ -83,10 +83,17 @@ class comando_instancia extends comando_toba
 	*/
 	function opcion__crear()
 	{
+		$id_instancia = $this->get_id_instancia_actual();
+		$opciones_base = array_keys( instalacion::get_lista_bases() );
+		$texto = 'Seleccione una BASE para la instancia';
+		$base = $this->consola->dialogo_lista_opciones( $opciones_base, $texto, false, array('ID','BASE') );
+		var_dump( $base );
+		/*
 		$instalacion = $this->get_instalacion();
-		$instalacion->crear_instancia( $this->get_id_instancia_actual() );
+		$instalacion->crear_instancia(  );
 		$instancia = $this->get_instancia();
 		$instancia->iniciar_instancia();
+		*/
 	}
 
 	/**

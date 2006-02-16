@@ -188,6 +188,19 @@ class consola implements gui
 		}
 	}
 	
+	function lista_asociativa( $lista, $titulo )
+	{
+		if( count( $lista ) > 0 ) {
+			$i=0;
+			foreach($lista as $id => $l) {
+				$datos[$i]['id'] = $id;
+				$datos[$i]['valor'] = $l;
+				$i++;
+			}
+			echo Console_Table::fromArray( $titulo, $datos );	
+		}
+	}
+
 	function tabla( $tabla, $titulos )
 	{
 		echo Console_Table::fromArray( $titulos, $tabla );
@@ -208,5 +221,35 @@ class consola implements gui
 		if( $respuesta == 's') return true;
 		return false;
 	}	
+
+	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, $titulo = null )
+	{
+		$titulo = isset( $titulo ) ? $titulo : array( 'id', 'valor' );
+		self::mensaje( $texto );
+		self::lista_asociativa( $opciones, $titulo );
+		if ( $multiple_seleccion ) {
+			self::mensaje('Puede seleccionar varios valores separandolos por ","');
+		}
+		$valores_posibles = implode( ',', array_keys( $opciones ) );
+		do {
+			echo "(valor): ";
+			$respuesta = trim( fgets( STDIN ) );
+			if ( $multiple_seleccion ) {
+				$ok = true;
+				$valores = explode(',', $respuesta);
+				foreach ( $valores as $valor ) {
+					if ( ! isset( $opciones[ $valor ] ) ) {
+						self::error("El valor '$valor' es invalido");
+						$ok = false;
+					}
+				}
+				if ( $ok ) return $valores;
+			} else {
+				if ( isset( $opciones[ $respuesta ] ) ) {
+					return $respuesta;
+				}
+			}
+		} while ( true );
+	}
 }
 ?>
