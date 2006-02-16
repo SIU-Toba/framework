@@ -115,11 +115,11 @@ class info_ci extends info_ei
 			$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
 			foreach ($this->subelementos as $elemento) {
 				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
+				$rol = $elemento->rol_en_consumidor();
+				$cuerpo .= clase_php::separador_seccion_chica($rol);
 				if ($es_ei) {
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {
-						$rol = $elemento->rol_en_consumidor();
-						$cuerpo .= clase_php::separador_seccion_chica($rol);
 						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
 							$metodo_evento = clase_php::generar_metodo('evt__' . $rol . '__' .$evento, 
 																			$info['parametros'], null, $info['comentarios'] );

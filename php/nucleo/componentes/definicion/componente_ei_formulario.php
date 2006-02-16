@@ -55,7 +55,7 @@ class componente_ei_formulario extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_formulario_ml';
+		return 'info_ei_formulario';
 	}
 }
 ?>
