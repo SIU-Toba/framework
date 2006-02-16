@@ -206,8 +206,16 @@ class instancia extends elemento_modelo
             }else{
        			$where = " ( proyecto = '$proyecto')";
 			}
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
-					" FROM $tabla dd" .
+			$from = "$tabla dd";
+			if( isset($definicion['dump_from']) && ( trim($definicion['dump_from']) != '') ) {
+       			$from .= ", ".stripslashes($definicion['dump_from']);
+            }
+            $columnas = array();
+            foreach ($definicion['columnas'] as $columna ) {
+            	$columnas[] = "dd.$columna";
+            }
+			$sql = "SELECT " . implode(', ',$columnas) .
+					" FROM $from " .
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );

@@ -1,4 +1,5 @@
 <?php
+require_once("nucleo/browser/interface/ei.php");
 
 //Un script usuario no deberia llamar al monitor!
 //Para guardar datos tiene que usar el metodo observar de la solicitud
