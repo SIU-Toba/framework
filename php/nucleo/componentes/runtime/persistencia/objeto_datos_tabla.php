@@ -379,7 +379,7 @@ class objeto_datos_tabla extends objeto
 				}
 			}
 		}
-		return $coincidencias;
+		return array_values( $coincidencias );
 	}
 
 	/**
