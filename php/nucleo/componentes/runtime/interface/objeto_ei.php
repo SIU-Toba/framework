@@ -249,6 +249,12 @@ class objeto_ei extends objeto
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
 
+	function obtener_pdf()
+	{
+		$nombre =  "<h1>".$this->get_nombre()."</h1><hr>";
+		return $nombre;
+	}
+
 	public function colapsar()
 	{
 		$this->colapsado = true;

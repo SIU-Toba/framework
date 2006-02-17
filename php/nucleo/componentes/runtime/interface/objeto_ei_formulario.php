@@ -668,6 +668,29 @@ class objeto_ei_formulario extends objeto_ei
 		}
 		$consumo = array_unique($consumo);//Elimino los	duplicados
 		return $consumo;
-	}	
+	}
+
+	//---------------------------------------------------------------
+	//-------------------------- SALIDA PDF --------------------------
+	//----------------------------------------------------------------
+		
+	function obtener_pdf()
+	{
+		return "HOLA";
+		$html = '';
+		$html .= "<table>";
+		$html .= "<tr><td>dddddddd\n";
+		$html .= "</td></tr>\n";
+		foreach ($this->lista_ef_post	as	$ef){
+			$clase = 'abm-fila';
+			//$id_ef = $this->elemento_formulario[$ef]->obtener_id_form();
+			$html .= "<tr><td>\n";
+			$html .= $this->elemento_formulario[$ef]->obtener_etiqueta() . ": ";
+			$html .= $this->elemento_formulario[$ef]->obtener_dato();
+			$html .= "</td></tr>\n";
+		}
+		$html .= "</table>\n";		
+		return $html;
+	}
 }
 ?>

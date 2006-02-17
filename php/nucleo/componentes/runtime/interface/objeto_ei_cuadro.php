@@ -1420,6 +1420,12 @@ class objeto_ei_cuadro extends objeto_ei
 //################################    PDF    #####################################
 //################################################################################
 
+	function obtener_pdf()
+	{
+		$nombre =  "<h1>".$this->get_nombre()."</h1><hr>";
+		return $nombre;
+	}
+
 	private function pdf_inicio(){
 		$this->pdf_cabecera();		
 	}

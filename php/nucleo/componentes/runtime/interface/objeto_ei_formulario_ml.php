@@ -862,5 +862,15 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$consumos[] = 'clases/objeto_ei_formulario_ml';
 		return $consumos;
 	}
+
+	//---------------------------------------------------------------
+	//-------------------------- SALIDA PDF --------------------------
+	//----------------------------------------------------------------
+		
+	function obtener_pdf()
+	{
+		$nombre =  "<h1>".$this->get_nombre()."</h1><hr>";
+		return $nombre;
+	}
 }
 ?>

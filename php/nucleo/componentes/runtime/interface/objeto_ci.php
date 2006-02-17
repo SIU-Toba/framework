@@ -1067,9 +1067,11 @@ class objeto_ci extends objeto_ei
 	
 	function obtener_pdf()
 	{
+		$html = "";
 		foreach($this->dependencias_gi as $dep) {
-			$this->dependencias[$dep]->obtener_pdf();	
-		}		
+			$html .= $this->dependencias[$dep]->obtener_pdf();
+		}
+		return $html;
 	}
 	
 	
