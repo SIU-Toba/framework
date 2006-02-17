@@ -193,6 +193,13 @@ var def = ef_editable_clave.prototype;
 			input.onblur();
 	}
 	
+	//cuando_cambia_valor (disparar_callback)
+	def.cuando_cambia_valor = function(callback) { 
+		addEvent(this.input(), 'onblur', callback);
+		addEvent(document.getElementById(this._id_form + '_test'), 'onblur', callback);
+	}
+	
+	
 //--------------------------------------------------------------------------------
 //Clase ef_editable_fecha hereda de ef_editable
 ef_editable_fecha.prototype = new ef_editable;

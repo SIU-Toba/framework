@@ -122,7 +122,7 @@ function mostrar_ocultar_frame() {
 
 		<td class='listado-tabi'><? echo recurso::imagen_apl("usuarios/usuario.gif",true) ?></td>
 		<td class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
-		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">USUARIOS</a>
+		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">USUARIOS</a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>

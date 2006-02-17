@@ -26,6 +26,34 @@ class dao_permisos
 		return consultar_fuente($sql, "instancia");
 	}
 	
+	static function get_grupos_acceso($proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba::get_hilo()->obtener_proyecto();	
+		}
+		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
+				FROM apex_usuario_grupo_acc
+				WHERE 
+					proyecto = '$proyecto'
+				ORDER BY nombre
+		";
+		return consultar_fuente($sql, "instancia");
+	}
+	
+	static function get_perfiles_datos($proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba::get_hilo()->obtener_proyecto();	
+		}
+		$sql = "SELECT proyecto, usuario_perfil_datos, nombre
+				FROM apex_usuario_perfil_datos
+				WHERE 
+					proyecto = '$proyecto'
+				ORDER BY nombre
+		";
+		return consultar_fuente($sql, "instancia");
+	}
+
 }
 
 

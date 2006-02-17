@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_editores.php');
+require_once('admin/db/dao_permisos.php');
 require_once('admin/admin_util.php');
 //----------------------------------------------------------------
 
@@ -192,7 +192,7 @@ class ci_principal extends objeto_ci
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
-		$grupos = dao_editores::get_grupos_acceso(toba::get_hilo()->obtener_proyecto());
+		$grupos = dao_permisos::get_grupos_acceso(toba::get_hilo()->obtener_proyecto());
 		$datos = array();
 		foreach ($grupos as $grupo) {
 			//El grupo esta asignado al item?

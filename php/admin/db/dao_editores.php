@@ -174,24 +174,6 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 
-	//---------------------------------------------------
-	//---------------- PERMISOS -------------------------
-	//---------------------------------------------------
-	
-	static function get_grupos_acceso($proyecto=null)
-	{
-		if (!isset($proyecto)) {
-			$proyecto = toba::get_hilo()->obtener_proyecto();	
-		}
-		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
-				FROM apex_usuario_grupo_acc
-				WHERE 
-					proyecto = '$proyecto'
-				ORDER BY nombre
-		";
-		return consultar_fuente($sql, "instancia");
-	}
-
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------

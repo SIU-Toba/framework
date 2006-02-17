@@ -152,7 +152,7 @@ ORDER BY    3,6;";
       </td>
           <td align="center" class="cat-item-categ1"><? echo $rs->fields["corte_descripcion"] ?></td>
          <td width="2%"  class='cat-item-categ1'>
-            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array($modo=>$rs->fields[$modo])) ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
+            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array($modo=>$rs->fields[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
             <? echo recurso::imagen_apl("usuarios/usuario_nuevo.gif",true,null,null,"Crear Usuario") ?>
             </a>
         </td>
@@ -167,7 +167,7 @@ ORDER BY    3,6;";
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields["usuario"])) ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <img src="<? echo recurso::imagen_apl("usuarios/usuario.gif") ?>" alt="Modificar USUARIO" border="0">
             </a>
       </td>
@@ -228,7 +228,7 @@ WHERE       NOT EXISTS (
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
             </a>
       </td>

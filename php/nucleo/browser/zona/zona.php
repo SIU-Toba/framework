@@ -71,6 +71,17 @@ class zona
 	{
 	}
 
+	/**
+	 * Descarga el editable que contiene actualmente la zona
+	 */
+	function resetear()
+	{
+		unset($this->editable_id);
+		unset($this->editable_info);
+		$this->editable_cargado = false;
+		unset($this->editable_propagado);
+	}
+	
 	function info(){
 		$dump["id"]=$this->id;
 		$dump["id_proyecto"]=$this->proyecto;

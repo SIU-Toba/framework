@@ -204,6 +204,9 @@ class solicitud_web extends solicitud
 	}
 	
 //--------------------------------------------------------------------------------------------
+	/**
+	 * @return zona
+	 */
 	function zona()
 	{
 		return $this->zona;
