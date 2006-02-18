@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Versiones/Migracion0.8.1 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.1?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,10 +59,10 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion0.8.1
 </p>
-<h1 id="Instructivodemigraci贸n0.8.1">Instructivo de migraci贸n 0.8.1</h1>
+<h1 id="Instructivodemigraci髇0.8.1">Instructivo de migraci髇 0.8.1</h1>
 <h2 id="Eventos">Eventos</h2>
 <p>
-En la definici贸n de un evento, lo que antes se llamaba <i>validar</i> ahora es <i>maneja_datos</i>. La validaci贸n era s贸lo un aspecto m谩s de que el evento maneje datos. La forma de especificar el valor verdadero o falso no es con un string sino con el tipo boolean del lenguaje. Entonces sentencias de este tipo:
+En la definici髇 de un evento, lo que antes se llamaba <i>validar</i> ahora es <i>maneja_datos</i>. La validaci髇 era s髄o un aspecto m醩 de que el evento maneje datos. La forma de especificar el valor verdadero o falso no es con un string sino con el tipo boolean del lenguaje. Entonces sentencias de este tipo:
 </p>
 <div class="code"><pre>$evento['cancelar']['validar'] = 'false';
 </span>
@@ -70,14 +71,14 @@ Se deben reemplazar por:
 </p>
 <div class="code"><pre>$evento['cancelar']['maneja_datos] = false;
 </span>
-</pre></div><h2 id="Validaci贸ndeFormulariosenJavascript">Validaci贸n de Formularios en Javascript</h2>
+</pre></div><h2 id="Validaci髇deFormulariosenJavascript">Validaci髇 de Formularios en Javascript</h2>
 <p>
 La forma de manejar los mensajes en el cliente, no es usando alert sino utilizando la clase <i>cola_mensajes</i>:
 </p>
 <div class="code"><pre>cola_mensajes.agregar('Debe ingresar al menos un importe.');
-</pre></div><h2 id="Selecci贸nencuadros">Selecci贸n en cuadros</h2>
+</pre></div><h2 id="Selecci髇encuadros">Selecci髇 en cuadros</h2>
 <p>
-Los ei_cuadro dejan un feedback en la fila seleccionada. Debido a que la operaci贸n determina cuando esta selecci贸n es descartada, se debe notificar al cuadro de esta situaci贸n de esta manera:
+Los ei_cuadro dejan un feedback en la fila seleccionada. Debido a que la operaci髇 determina cuando esta selecci髇 es descartada, se debe notificar al cuadro de esta situaci髇 de esta manera:
 </p>
 <div class="code"><pre>$this-&gt;dependencias['id_del_cuadro']-&gt;deseleccionar();
 </span>

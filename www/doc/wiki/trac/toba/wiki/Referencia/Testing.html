@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Testing - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Testing?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,13 +59,13 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Testing
 </p>
-<h1 id="TestingAutomÃ¡tico">Testing AutomÃ¡tico</h1>
+<h1 id="TestingAutomático">Testing Automático</h1>
 <p>
-Dentro de las librerÃ­as incluÃ­das en toba se encuentra <a class="ext-link" href="../../../../external.html?link=http://www.lastcraft.com/simple_test.php"><span class="icon"></span>SimpleTest</a>, esta librerÃ­a permite armar distintos casos de test que pueden ser ejecutados en forma masiva y automÃ¡tica. Para informaciÃ³n general acerca de la utilizaciÃ³n de esta librerÃ­a y sobre la tÃ©cnica de testing en general se pude encontrar <a class="ext-link" href="../../../../external.html?link=http://www.lastcraft.com/simple_test.php"><span class="icon"></span>aquÃ­</a>.
+Dentro de las librerías incluídas en toba se encuentra <a class="ext-link" href="../../../../external.html?link=http://www.lastcraft.com/simple_test.php"><span class="icon"></span>SimpleTest</a>, esta librería permite armar distintos casos de test que pueden ser ejecutados en forma masiva y automática. Para información general acerca de la utilización de esta librería y sobre la técnica de testing en general se pude encontrar <a class="ext-link" href="../../../../external.html?link=http://www.lastcraft.com/simple_test.php"><span class="icon"></span>aquí</a>.
 </p>
-<h2 id="CategorÃ­asycasos">CategorÃ­as y casos</h2>
+<h2 id="Categoríasycasos">Categorías y casos</h2>
 <p>
-Un caso de test es un conjunto de pruebas que se hacen generalmente sobre una o mÃ¡s unidades del sistema (generalmente clases). Una categorÃ­a es un conjunto de estos casos. Cada proyecto cuenta con una carpeta testing ubicada dentro de la carpeta php. En esta carpeta se pueden definir nuevas categorÃ­as agregando carpetas con prefijo <i>test_</i>, por ejemplo <i>test_facturacion</i>. Dentro de estas carpetas se pueden crear casos siguiendo la misma lÃ³gica pero esta vez con archivos con este prefijo, por ejemplo <i>test_factura_manual.php</i>.
+Un caso de test es un conjunto de pruebas que se hacen generalmente sobre una o más unidades del sistema (generalmente clases). Una categoría es un conjunto de estos casos. Cada proyecto cuenta con una carpeta testing ubicada dentro de la carpeta php. En esta carpeta se pueden definir nuevas categorías agregando carpetas con prefijo <i>test_</i>, por ejemplo <i>test_facturacion</i>. Dentro de estas carpetas se pueden crear casos siguiendo la misma lógica pero esta vez con archivos con este prefijo, por ejemplo <i>test_factura_manual.php</i>.
 </p>
 <p>
 Para que estos casos sean reconocidos por el entorno, la clases dentro de los casos deben tener el mismo nombre que el archivo y deben heredar de la clase test_toba. Por ejemplo:
@@ -77,7 +78,7 @@ class test_factura_manual extends test_toba
 }
 ?&gt;
 </pre>
-<h2 id="EjecuciÃ³ndecasos">EjecuciÃ³n de casos</h2>
+<h2 id="Ejecucióndecasos">Ejecución de casos</h2>
 <p>
 Hay dos formas de ejecutar los casos de test:
 </p>

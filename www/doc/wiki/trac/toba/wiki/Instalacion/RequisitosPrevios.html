@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Instalacion/RequisitosPrevios - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/RequisitosPrevios?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,7 +61,7 @@
 </p>
 <h1 id="Requisitosprevios">Requisitos previos</h1>
 <p>
-Se deber谩n tener instalado los siguientes productos antes de comenzar la instalaci贸n de SIU-TOBA : 
+Se deber醤 tener instalado los siguientes productos antes de comenzar la instalaci髇 de SIU-TOBA : 
 </p>
 <ul><li>Apache.
 </li><li>PHP5.
@@ -69,37 +70,37 @@ Se deber谩n tener instalado los siguientes productos antes de comenzar la instal
 </li><li>Fuentes de Toba.
 </li></ul><h2 id="Apache">Apache</h2>
 <ul><li>URL: <a class="ext-link" href="../../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>.
-</li><li>Versi贸n: Es preferible la versi贸n 1.x por recomendaci贸n de PHP. En caso de usar 2.x ver <a class="ext-link" href="../../../../external.html?link=http://ar2.php.net/manual/en/faq.installation.php#faq.installation.apache2"><span class="icon"></span>precauciones</a>.
+</li><li>Versi髇: Es preferible la versi髇 1.x por recomendaci髇 de PHP. En caso de usar 2.x ver <a class="ext-link" href="../../../../external.html?link=http://ar2.php.net/manual/en/faq.installation.php#faq.installation.apache2"><span class="icon"></span>precauciones</a>.
 </li></ul><h2 id="PHP">PHP</h2>
 <ul><li>URL: <a class="ext-link" href="../../../../external.html?link=http://www.php.net/downloads.php"><span class="icon"></span>http://www.php.net/downloads.php</a>.
-</li><li>Versi贸n: 5.x.
-</li><li>Extensiones m铆nimas necesarias:
+</li><li>Versi髇: 5.x.
+</li><li>Extensiones m韓imas necesarias:
 <ul><li>php_pgsql
 </li></ul></li></ul><h2 id="PostgreSQL">PostgreSQL</h2>
 <ul><li>URL: <a class="ext-link" href="../../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>.
-</li><li>Versi贸n: 7.4 o mayor.
+</li><li>Versi髇: 7.4 o mayor.
 </li><li>Recomendable instalar un cliente como PgAdminIII.
 </li></ul><h2 id="Cygwin">Cygwin</h2>
 <ul><li>URL: <a class="ext-link" href="../../../../external.html?link=http://www.cygwin.com/"><span class="icon"></span>http://www.cygwin.com/</a>.
 </li></ul><h2 id="FuentesdeToba">Fuentes de Toba</h2>
 <p>
-Toba utiliza SVN como sistema de control de versiones, para adquirir la 煤ltima versi贸n de desarrollo del sistema:
+Toba utiliza SVN como sistema de control de versiones, para adquirir la 鷏tima versi髇 de desarrollo del sistema:
 </p>
 <ol><li>Instalar un cliente SVN (bajo Windows recomendado <a class="ext-link" href="../../../../external.html?link=http://tortoisesvn.tigris.org/download.html"><span class="icon"></span>TortoiseSVN</a>).
 </li><li>Hacer un checkout del proyecto:
-<ol><li>Por l铆nea de comando:
+<ol><li>Por l韓ea de comando:
 <pre class="wiki">svn co https://toba.siu.edu.ar/toba/trunk toba
 </pre>
 </li></ol></li></ol><p>
-Bajo linux, en caso de tener problemas con el encoding, se prefiere utilizar iso88591 tanto para el entorno como default charset para Apache. <a class="wiki" href="Encoding.html">Ver m谩s acerca del encoding</a>.
+Bajo linux, en caso de tener problemas con el encoding, se prefiere utilizar iso88591 tanto para el entorno como default charset para Apache. <a class="wiki" href="Encoding.html">Ver m醩 acerca del encoding</a>.
 </p>
-<ol><li><ol><li>Usando un cliente gr谩fico apuntar a <a class="ext-link" href="../../../../external.html?link=https://toba.siu.edu.ar/toba/trunk"><span class="icon"></span>https://toba.siu.edu.ar/toba/trunk</a>
+<ol><li><ol><li>Usando un cliente gr醘ico apuntar a <a class="ext-link" href="../../../../external.html?link=https://toba.siu.edu.ar/toba/trunk"><span class="icon"></span>https://toba.siu.edu.ar/toba/trunk</a>
 </li></ol></li><li>Agregar el path <i>directorio_toba/php</i> al include_path de php.ini
 </li><li>Copiar el archivo <i>directorio_toba/toba.conf</i> a <i>directorio_apache/conf/toba.conf</i>
 </li><li>Incluir el archivo toba.conf en el archivo <i>directorio_apache/conf/httpd.conf</i>:
 <pre class="wiki">include &#34;conf/toba.conf&#34;
 </pre>
-</li><li>Modificar el <a class="wiki" href="../Referencia/PuntosDeAcceso.html">punto de acceso</a> toba de toba.conf para apuntar al lugar de instalaci贸n.
+</li><li>Modificar el <a class="wiki" href="../Referencia/PuntosDeAcceso.html">punto de acceso</a> toba de toba.conf para apuntar al lugar de instalaci髇.
 </li><li>Reiniciar Apache.
 </li></ol></div>
    </div>

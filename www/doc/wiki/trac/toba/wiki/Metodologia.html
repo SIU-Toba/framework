@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Metodologia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Metodologia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -58,84 +59,84 @@
     <div id="searchable"><p>
 <a href="WikiStart.html">Inicio</a> / Metodologia
 </p>
-<h1 id="Metodolog√≠adeTrabajo">Metodolog√≠a de Trabajo</h1>
+<h1 id="MetodologÌadeTrabajo">MetodologÌa de Trabajo</h1>
 <p>
-La <a class="wiki" href="Tecnologia.html">Tecnolog√≠a</a> utilizada en Toba condiciona la forma de trabajo. Los proyectos consumiendo este framework tambi√©n se van a ver envueltos en una metodolog√≠a de trabajo que deber√°n manejar para ser productivos.
+La <a class="wiki" href="Tecnologia.html">TecnologÌa</a> utilizada en Toba condiciona la forma de trabajo. Los proyectos consumiendo este framework tambiÈn se van a ver envueltos en una metodologÌa de trabajo que deber·n manejar para ser productivos.
 </p>
 <h2 id="Lostresgrandes">Los tres grandes</h2>
 <p>
-Uno de nuestros objetivos de desarrollo es llegar a un ambiente de <a class="ext-link" href="../../../external.html?link=http://www.martinfowler.com/articles/continuousIntegration.html"><span class="icon"></span>integraci√≥n cont√≠nua</a> marcado por los llamados <i>tres grandes</i>:
+Uno de nuestros objetivos de desarrollo es llegar a un ambiente de <a class="ext-link" href="../../../external.html?link=http://www.martinfowler.com/articles/continuousIntegration.html"><span class="icon"></span>integraciÛn contÌnua</a> marcado por los llamados <i>tres grandes</i>:
 </p>
-<ul><li>Control de versiones: Permite revertir errores, desarrollos grupales, versionado y visi√≥n hist√≥rica del SW desarrollado.
-</li><li>Testing unitario autom√°tico: Lo que antes era debugging cont√≠nuo ahora es una inversi√≥n a largo plazo, las pruebas se automatizan, acarreando un costo inicial pero dando muy buenos resultados a largo plazo, mejorando la calidad, acortando tiempos, mejores estimaciones, etc.
-</li><li>Construcciones automatizadas (Automated builds), se asegura que el deployment de nuevas versiones sea sencillo al punto de automatizarse corri√©ndose a diario.
+<ul><li>Control de versiones: Permite revertir errores, desarrollos grupales, versionado y visiÛn histÛrica del SW desarrollado.
+</li><li>Testing unitario autom·tico: Lo que antes era debugging contÌnuo ahora es una inversiÛn a largo plazo, las pruebas se automatizan, acarreando un costo inicial pero dando muy buenos resultados a largo plazo, mejorando la calidad, acortando tiempos, mejores estimaciones, etc.
+</li><li>Construcciones automatizadas (Automated builds), se asegura que el deployment de nuevas versiones sea sencillo al punto de automatizarse corriÈndose a diario.
 </li></ul><p>
-Estos tres grandes no funcionan s√≥los sino en forma conjunta:
+Estos tres grandes no funcionan sÛlos sino en forma conjunta:
 </p>
 <h3 id="ControldeVersiones">Control de Versiones</h3>
 <p>
-Toba trabaja con SVN, es usual que todos hablen con el lenguaje de <i>commits</i>, <i>update</i>, <i>checkout</i>, <i>revision</i>, <i>branch</i>, <i>tag</i> y dem√°s. Se recomienda dar una lectura al <a class="ext-link" href="../../../external.html?link=http://svnbook.red-bean.com/"><span class="icon"></span>libro de SVN</a> para entender estos conceptos b√°sicos. Todo documento, c√≥digo, metadato o cualquier otra cosa en formato digital que tiene el proyecto debe pasar por el control de versiones en forma diaria. Parece man√≠aco pero la √∫nica forma de acostumbrase a este tipo de trabajo es imaginarse una persona remota que est√° consumiendo y desarrollando nuestro proyecto continuamente, no se puede confiar en carpetas compartidas, anotaciones en un papelito o personas con un cerebro gigante que recuerden todo lo sucedido en los √∫ltimos meses.<br /><br />
-M√°s all√° del versionado cont√≠nuo se puede hacer diferentes ramas de desarrollo y se pueden congelar versiones. Dejar logs adecuados mejora el entendimiento de cambios, y ayuda a la decisi√≥n de migrar o no hacia una versi√≥n espec√≠fica.
+Toba trabaja con SVN, es usual que todos hablen con el lenguaje de <i>commits</i>, <i>update</i>, <i>checkout</i>, <i>revision</i>, <i>branch</i>, <i>tag</i> y dem·s. Se recomienda dar una lectura al <a class="ext-link" href="../../../external.html?link=http://svnbook.red-bean.com/"><span class="icon"></span>libro de SVN</a> para entender estos conceptos b·sicos. Todo documento, cÛdigo, metadato o cualquier otra cosa en formato digital que tiene el proyecto debe pasar por el control de versiones en forma diaria. Parece manÌaco pero la ˙nica forma de acostumbrase a este tipo de trabajo es imaginarse una persona remota que est· consumiendo y desarrollando nuestro proyecto continuamente, no se puede confiar en carpetas compartidas, anotaciones en un papelito o personas con un cerebro gigante que recuerden todo lo sucedido en los ˙ltimos meses.<br /><br />
+M·s all· del versionado contÌnuo se puede hacer diferentes ramas de desarrollo y se pueden congelar versiones. Dejar logs adecuados mejora el entendimiento de cambios, y ayuda a la decisiÛn de migrar o no hacia una versiÛn especÌfica.
 </p>
 <h3 id="Testingunitario">Testing unitario</h3>
 <p>
-Estamos bastante prematuros en el testing autom√°tico, principalmente el de <a class="wiki" href="Desarrollo/TestingPHP.html">m√≥dulos PHP</a>, los <a class="wiki" href="Desarrollo/TestingJS.html">m√≥dulos javascript</a> est√°n bastante m√°s avanzados, principalmente porque son menos y m√°s recientes. La idea es lograr un esquema en donde cada versi√≥n de Toba <strong>asegure</strong> el correcto funcionamiento de lo que promete, as√≠ por ejemplo en cada regeneraci√≥n de la instancia se correr√≠an los tests. Adem√°s del beneficio interno a Toba, que esto trae hay un beneficio grande para los proyectos que lo consumen: sirven como documentaci√≥n y prueba a la vez. Si una cosa funciona en los test es porque funciona en mi proyecto tambi√©n, y puedo investigar c√≥mo lo hace y en qu√© condiciones, y lo m√°s importante puedo saber r√°pidamente si ma√±ana sigue funcionando.<br /><br />
-Un ideal ser√≠a que toda nueva funcionalidad traiga de la mano un test autom√°tico, esto requiere una fuerte disciplina y soportar una inversi√≥n inicial de tiempo.
+Estamos bastante prematuros en el testing autom·tico, principalmente el de <a class="wiki" href="Desarrollo/TestingPHP.html">mÛdulos PHP</a>, los <a class="wiki" href="Desarrollo/TestingJS.html">mÛdulos javascript</a> est·n bastante m·s avanzados, principalmente porque son menos y m·s recientes. La idea es lograr un esquema en donde cada versiÛn de Toba <strong>asegure</strong> el correcto funcionamiento de lo que promete, asÌ por ejemplo en cada regeneraciÛn de la instancia se correrÌan los tests. Adem·s del beneficio interno a Toba, que esto trae hay un beneficio grande para los proyectos que lo consumen: sirven como documentaciÛn y prueba a la vez. Si una cosa funciona en los test es porque funciona en mi proyecto tambiÈn, y puedo investigar cÛmo lo hace y en quÈ condiciones, y lo m·s importante puedo saber r·pidamente si maÒana sigue funcionando.<br /><br />
+Un ideal serÌa que toda nueva funcionalidad traiga de la mano un test autom·tico, esto requiere una fuerte disciplina y soportar una inversiÛn inicial de tiempo.
 </p>
 <h3 id="Construccionesautomatizadas">Construcciones automatizadas</h3>
 <p>
-Actualmente el deploy de Toba mismo est√° bastante automatizado, esto no requiere que una persona tenga que realizar largos pasos antes de irse a casa o cuando reci√©n llega:
+Actualmente el deploy de Toba mismo est· bastante automatizado, esto no requiere que una persona tenga que realizar largos pasos antes de irse a casa o cuando reciÈn llega:
 </p>
 <ul><li>Antes de irse a casa:
 <pre class="wiki">proyecto exportar mi_proyecto
 svn commit
 </pre>
-</li><li>Como m√≠nimo una vez al d√≠a:
+</li><li>Como mÌnimo una vez al dÌa:
 <pre class="wiki">svn update
 instancia regenerar
 </pre>
 </li></ul><p>
-Hay que dedicarle un poco de tiempo a entender el manejo de las <a class="wiki" href="Referencia/Instancia.html">Instancias</a>, especialmente cuando son varios <i>ingenieros</i> con distintos roles (desarrollo, documentaci√≥n, testing, producci√≥n).
+Hay que dedicarle un poco de tiempo a entender el manejo de las <a class="wiki" href="Referencia/Instancia.html">Instancias</a>, especialmente cuando son varios <i>ingenieros</i> con distintos roles (desarrollo, documentaciÛn, testing, producciÛn).
 </p>
-<h2 id="Seguimientodelproyectoycomunicaci√≥n">Seguimiento del proyecto y comunicaci√≥n</h2>
+<h2 id="SeguimientodelproyectoycomunicaciÛn">Seguimiento del proyecto y comunicaciÛn</h2>
 <p>
-Todo pedido de cambios y notificaci√≥n de bugs deben pasar por Trac (<a class="ext-link" href="../../../external.html?link=http://toba.siu.edu.ar/trac"><span class="icon"></span>http://toba.siu.edu.ar/trac</a>), de esta forma es sencillo categorizarlo, encolarlo para una futura versi√≥n y hacer un seguimiento detallado del <i>issue</i>. Se pueden indicar metas o <i>milestones</i> a fechas tentativas agregandoles estos <i>issues</i>. Por ahora la documentaci√≥n tambi√©n se est√° manteniendo en Trac por una cuesti√≥n de puesta en marcha, a futuro la idea es ir moviendo muchas de estas cosas al administrador toba para una mejor integraci√≥n con el framework.<br /><br />
-Las notificaciones y discusiones globales deben pasar por la <a class="ext-link" href="../../../external.html?link=http://listas.siu.edu.ar/mailman/listinfo/toba"><span class="icon"></span>lista</a>, as√≠ todos toman conocimiento. Discusiones m√°s puntuales o que requieren mayor argumentaci√≥n se recomienda hacerlas en el <a class="wiki" href="Desarrollo.html">wiki:Desarrollo</a>.
+Todo pedido de cambios y notificaciÛn de bugs deben pasar por Trac (<a class="ext-link" href="../../../external.html?link=http://toba.siu.edu.ar/trac"><span class="icon"></span>http://toba.siu.edu.ar/trac</a>), de esta forma es sencillo categorizarlo, encolarlo para una futura versiÛn y hacer un seguimiento detallado del <i>issue</i>. Se pueden indicar metas o <i>milestones</i> a fechas tentativas agregandoles estos <i>issues</i>. Por ahora la documentaciÛn tambiÈn se est· manteniendo en Trac por una cuestiÛn de puesta en marcha, a futuro la idea es ir moviendo muchas de estas cosas al administrador toba para una mejor integraciÛn con el framework.<br /><br />
+Las notificaciones y discusiones globales deben pasar por la <a class="ext-link" href="../../../external.html?link=http://listas.siu.edu.ar/mailman/listinfo/toba"><span class="icon"></span>lista</a>, asÌ todos toman conocimiento. Discusiones m·s puntuales o que requieren mayor argumentaciÛn se recomienda hacerlas en el <a class="wiki" href="Desarrollo.html">wiki:Desarrollo</a>.
 </p>
-<h2 id="Codificaci√≥n">Codificaci√≥n</h2>
+<h2 id="CodificaciÛn">CodificaciÛn</h2>
 <p>
-El c√≥digo fuente es una de las fuentes mas grandes del dise√±o de SW que existe actualmente (sino la <a class="ext-link" href="../../../external.html?link=http://www.developerdotstar.com/mag/articles/reeves_design.html"><span class="icon"></span>√∫nica</a>). Creemos en un tratamiento acorde a su importancia:
+El cÛdigo fuente es una de las fuentes mas grandes del diseÒo de SW que existe actualmente (sino la <a class="ext-link" href="../../../external.html?link=http://www.developerdotstar.com/mag/articles/reeves_design.html"><span class="icon"></span>˙nica</a>). Creemos en un tratamiento acorde a su importancia:
 </p>
-<h3 id="C√≥digoNOpropietario">C√≥digo NO propietario</h3>
+<h3 id="CÛdigoNOpropietario">CÛdigo NO propietario</h3>
 <p>
-A veces la separaci√≥n de roles llevada al extremo puede llevar a desarrollos en donde un archivo, operaci√≥n o m√≥dulo s√≥lo lo puede modificar <i>pedro</i> y toda mejora, comentario, visi√≥n o entendimiento de esa pieza de software pasa por su cuenta. Al fin del d√≠a esta visi√≥n se pierde una de las mejores cualidades del trabajo grupal que es la colaboraci√≥n, por ejemplo para modificar un error de ortograf√≠a, gramatical o conceptual de esta documentaci√≥n hay que apretar "Edit this page", no hay que mandar un mail al responsable para que cuando tenga tiempo vaya y entienda que quiere decir el otro en la correcci√≥n... esa burocracia es costosa. Gracias al control de versiones se sabe qu√©, cu√°ndo y c√≥mo se modific√≥ cada pieza de sw, m√°s all√° de que existan responsables y √°reas en donde se tiene mayor o menor conocimiento, el proyecto se hace entre todos. El c√≥digo propietario (el s√≠ntoma cl√°sico es "no s√©... es el m√≥dulo de pedro") lleva a problemas de comunicaci√≥n y aprendizaje, como ejemplo despu√©s de varios meses de desarrollo se dan cuenta que hicieron casi lo mismo, o peor no tienen idea de c√≥mo lo hizo, o directamente no tienen idea de como otros trabajan, lo cual es grav√≠simo ya que esta ingenier√≠a est√° en pa√±ales y avanzando a pasos agigantando, as√≠ que programar hacia adentro es ponerse las orejeras y estancarse.<br /><br />
+A veces la separaciÛn de roles llevada al extremo puede llevar a desarrollos en donde un archivo, operaciÛn o mÛdulo sÛlo lo puede modificar <i>pedro</i> y toda mejora, comentario, visiÛn o entendimiento de esa pieza de software pasa por su cuenta. Al fin del dÌa esta visiÛn se pierde una de las mejores cualidades del trabajo grupal que es la colaboraciÛn, por ejemplo para modificar un error de ortografÌa, gramatical o conceptual de esta documentaciÛn hay que apretar "Edit this page", no hay que mandar un mail al responsable para que cuando tenga tiempo vaya y entienda que quiere decir el otro en la correcciÛn... esa burocracia es costosa. Gracias al control de versiones se sabe quÈ, cu·ndo y cÛmo se modificÛ cada pieza de sw, m·s all· de que existan responsables y ·reas en donde se tiene mayor o menor conocimiento, el proyecto se hace entre todos. El cÛdigo propietario (el sÌntoma cl·sico es "no sÈ... es el mÛdulo de pedro") lleva a problemas de comunicaciÛn y aprendizaje, como ejemplo despuÈs de varios meses de desarrollo se dan cuenta que hicieron casi lo mismo, o peor no tienen idea de cÛmo lo hizo, o directamente no tienen idea de como otros trabajan, lo cual es gravÌsimo ya que esta ingenierÌa est· en paÒales y avanzando a pasos agigantando, asÌ que programar hacia adentro es ponerse las orejeras y estancarse.<br /><br />
 En definitiva los argumentos en contra de esta forma de trabajo es:
 </p>
 <ul><li>Limita el crecimiento individual: nadie se las sabe todas, y generalmente la velocidad de aprendizaje mejora en ambientes colaborativos.
-</li><li>Empeora la comunicaci√≥n y unidad del grupo: Generalmente no se resuelven ni discuten temas puntuales en conjunto, cada cual tira para su lado y el grupo pasa a ser un conjunto de personas.
-</li><li>Presenta un riesgo al managment: el c√≥digo ultra-secreto de <i>pedro</i> resulta una pesadilla viviente cuando <i>pedro</i> se va... garantizado.
+</li><li>Empeora la comunicaciÛn y unidad del grupo: Generalmente no se resuelven ni discuten temas puntuales en conjunto, cada cual tira para su lado y el grupo pasa a ser un conjunto de personas.
+</li><li>Presenta un riesgo al managment: el cÛdigo ultra-secreto de <i>pedro</i> resulta una pesadilla viviente cuando <i>pedro</i> se va... garantizado.
 </li></ul><h3 id="Dinamismo">Dinamismo</h3>
 <p>
-Haciendo un vistazo a los lenguajes-tecnolog√≠as utilizados HTML, Javascript, CSS, PHP, SQL.. todos se interpretan y la mayor√≠a hace coerciones de tipo y no son fuertemente tipados. As√≠ s√≥lo en ejecuci√≥n se detectan los errores insertados, para aquellos acostumbrados a otras tecnolog√≠as esto puede ser raro, ya que cada capa maneja los errores a su manera:
+Haciendo un vistazo a los lenguajes-tecnologÌas utilizados HTML, Javascript, CSS, PHP, SQL.. todos se interpretan y la mayorÌa hace coerciones de tipo y no son fuertemente tipados. AsÌ sÛlo en ejecuciÛn se detectan los errores insertados, para aquellos acostumbrados a otras tecnologÌas esto puede ser raro, ya que cada capa maneja los errores a su manera:
 </p>
-<ul><li>Para HTML y CSS se recomienda utilizar un validador (hay una <a class="ext-link" href="../../../external.html?link=http://users.skynet.be/mgueury/mozilla/"><span class="icon"></span>extensi√≥n del firefox</a> muy buena), salvo que el error sea grande, el navegador sigue la ejecuci√≥n e intenta hacer lo mejor para mostrar la p√°gina, por lo que la mayor√≠a de los errores pasan inadvertidos.
-</li><li>Para javascript se recomiendo instalar el <a class="ext-link" href="../../../external.html?link=http://blogs.msdn.com/ie/archive/2004/10/26/247912.aspx"><span class="icon"></span>debug en el IE</a> o usar firefox para estar al tanto de los errores. Cuando se hacen extensiones al js por defecto de Toba, estas se incluyen en el c√≥digo fuente HTML, por lo que es una buena t√©cnica inicialmente ver este c√≥digo para verificar que est√© inclu√≠da la extensi√≥n y d√≥nde.
-</li><li>Para PHP programar siempre usando <i>error_reporting = E_ALL</i> como m√≠nimo. Como los errores se listan en la salida HTML en el mismo lugar donde se produce, es posible que se muestre en una secci√≥n <i>&lt;script&gt;</i> del HTML, por lo que no se ve a primera vista, s√≥lo prestando atenci√≥n a los errores javascript y recorriendo el c√≥digo HTML detectado es posible detectarlos.
-</li><li>Para SQL es recomendable armar las consultas en alg√∫n utilitario externo (por ejemplo [<a class="ext-link" href="../../../external.html?link=http://www.sqlmanager.net/products/postgresql/manager"><span class="icon"></span>http://www.sqlmanager.net/products/postgresql/manager</a> EMS PostgreSQL Manager), y siempre chequear el resultado de una inserci√≥n o actualizaci√≥n.
+<ul><li>Para HTML y CSS se recomienda utilizar un validador (hay una <a class="ext-link" href="../../../external.html?link=http://users.skynet.be/mgueury/mozilla/"><span class="icon"></span>extensiÛn del firefox</a> muy buena), salvo que el error sea grande, el navegador sigue la ejecuciÛn e intenta hacer lo mejor para mostrar la p·gina, por lo que la mayorÌa de los errores pasan inadvertidos.
+</li><li>Para javascript se recomiendo instalar el <a class="ext-link" href="../../../external.html?link=http://blogs.msdn.com/ie/archive/2004/10/26/247912.aspx"><span class="icon"></span>debug en el IE</a> o usar firefox para estar al tanto de los errores. Cuando se hacen extensiones al js por defecto de Toba, estas se incluyen en el cÛdigo fuente HTML, por lo que es una buena tÈcnica inicialmente ver este cÛdigo para verificar que estÈ incluÌda la extensiÛn y dÛnde.
+</li><li>Para PHP programar siempre usando <i>error_reporting = E_ALL</i> como mÌnimo. Como los errores se listan en la salida HTML en el mismo lugar donde se produce, es posible que se muestre en una secciÛn <i>&lt;script&gt;</i> del HTML, por lo que no se ve a primera vista, sÛlo prestando atenciÛn a los errores javascript y recorriendo el cÛdigo HTML detectado es posible detectarlos.
+</li><li>Para SQL es recomendable armar las consultas en alg˙n utilitario externo (por ejemplo [<a class="ext-link" href="../../../external.html?link=http://www.sqlmanager.net/products/postgresql/manager"><span class="icon"></span>http://www.sqlmanager.net/products/postgresql/manager</a> EMS PostgreSQL Manager), y siempre chequear el resultado de una inserciÛn o actualizaciÛn.
 </li></ul><p>
-Otra dificultad con este dinamismo es la <i>debilidad</i> de las interfaces. En cualquier momento algo puede dejar de andar sin previo aviso, con lo que el testing autom√°tico otra vez tiene que venir al rescate. Todas estas <i>contras</i> no vienen sin recompensas:   
+Otra dificultad con este dinamismo es la <i>debilidad</i> de las interfaces. En cualquier momento algo puede dejar de andar sin previo aviso, con lo que el testing autom·tico otra vez tiene que venir al rescate. Todas estas <i>contras</i> no vienen sin recompensas:   
 </p>
-<ul><li><strong>flexibilidad</strong>: Todo es moldeable en ejecuci√≥n a nuestras necesidades.
-</li><li><strong>velocidad</strong> y <strong>claridad</strong>: La codificaci√≥n en estos lenguajes es bastante m√°s r√°pida y mas concisa, por lo que las soluciones son en general m√°s f√°ciles de escribir y entender.
-</li></ul><h3 id="Divisi√≥nderesponsabilidades">Divisi√≥n de responsabilidades</h3>
+<ul><li><strong>flexibilidad</strong>: Todo es moldeable en ejecuciÛn a nuestras necesidades.
+</li><li><strong>velocidad</strong> y <strong>claridad</strong>: La codificaciÛn en estos lenguajes es bastante m·s r·pida y mas concisa, por lo que las soluciones son en general m·s f·ciles de escribir y entender.
+</li></ul><h3 id="DivisiÛnderesponsabilidades">DivisiÛn de responsabilidades</h3>
 <p>
-Al no existir una ambiente de desarrollo que englobe todos estos lenguajes y tecnolog√≠as, es el desarrollador el encargado de decidir cual usar bajo cada circunstancia.
+Al no existir una ambiente de desarrollo que englobe todos estos lenguajes y tecnologÌas, es el desarrollador el encargado de decidir cual usar bajo cada circunstancia.
 </p>
-<ul><li>Interface gr√°fica:
-<ul><li>C√≥digo HTML: Mantiene la estructura est√°tica de una pantalla.
-</li><li>C√≥digo CSS: Determina la forma en que ser√° presentada esta estructura (colores, margenes, tama√±os, etc.)
-</li><li>Javascript: Es el encargado de manejar todo el comportamiento <strong>dentro</strong> de una pantalla. Si el contenido es est√°tico a esa instancia particular de la pantalla no tiene sentido utilizar este lenguaje ya que la estructura es est√°tica por lo que es responsabilidad del lenguaje servidor (en este caso PHP) armarla (ver <a class="wiki" href="Referencia/ExtensionesJavascript.html">extensiones javascript</a>).
-</li></ul></li></ul><ul><li>L√≥gica de aplicaci√≥n y de negocio (PHP): Es eslab√≥n entre todos los lenguajes, a nivel de interface <i>informa</i> la estructura est√°tica, la presentaci√≥n y el comportamiento de una p√°gina. La gran pol√©mica es si tambi√©n es el encargado de manejar la l√≥gica de negocio. Hist√≥ricamente las decisiones de negocio se encontraron m√°s unidas a la capa de persistencia a trav√©s de procedimientos almacenados, siendo esta capa intermedia s√≥lo un lugar de paso y de construcci√≥n de una interface. El problema con los procedimientos almacenados es que utilizan c√≥digo propietario particular de cada motor, imposibilitando la migraci√≥n hacia otros motores. Por otro lado tener la l√≥gica en PHP da la posibilidad de contar con un <a class="wiki" href="Referencia/MarcoTransaccional.html">marco transaccional Web</a>.
+<ul><li>Interface gr·fica:
+<ul><li>CÛdigo HTML: Mantiene la estructura est·tica de una pantalla.
+</li><li>CÛdigo CSS: Determina la forma en que ser· presentada esta estructura (colores, margenes, tamaÒos, etc.)
+</li><li>Javascript: Es el encargado de manejar todo el comportamiento <strong>dentro</strong> de una pantalla. Si el contenido es est·tico a esa instancia particular de la pantalla no tiene sentido utilizar este lenguaje ya que la estructura es est·tica por lo que es responsabilidad del lenguaje servidor (en este caso PHP) armarla (ver <a class="wiki" href="Referencia/ExtensionesJavascript.html">extensiones javascript</a>).
+</li></ul></li></ul><ul><li>LÛgica de aplicaciÛn y de negocio (PHP): Es eslabÛn entre todos los lenguajes, a nivel de interface <i>informa</i> la estructura est·tica, la presentaciÛn y el comportamiento de una p·gina. La gran polÈmica es si tambiÈn es el encargado de manejar la lÛgica de negocio. HistÛricamente las decisiones de negocio se encontraron m·s unidas a la capa de persistencia a travÈs de procedimientos almacenados, siendo esta capa intermedia sÛlo un lugar de paso y de construcciÛn de una interface. El problema con los procedimientos almacenados es que utilizan cÛdigo propietario particular de cada motor, imposibilitando la migraciÛn hacia otros motores. Por otro lado tener la lÛgica en PHP da la posibilidad de contar con un <a class="wiki" href="Referencia/MarcoTransaccional.html">marco transaccional Web</a>.
 </li></ul><ul><li>Persistencia (SQL)
 </li></ul></div>
    </div>

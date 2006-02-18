@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -61,39 +62,39 @@
 <h1 id="Referencia">Referencia</h1>
 <h2 id="ConceptosTransversales">Conceptos Transversales</h2>
 <p>
-Existen conceptos b√°sicos independientes de la programaci√≥n particular de las operaciones. 
+Existen conceptos b·sicos independientes de la programaciÛn particular de las operaciones. 
 </p>
 <p>
-Para utilizar toba se necesita una <strong><a class="wiki" href="Referencia/Instalacion.html">Instalaci√≥n</a></strong> que es ni mas ni menos el sistema de archivos conteniendo una versi√≥n de Toba, dentro de este sistema de archivos se encuentra una serie de <strong><a class="wiki" href="Referencia/Proyecto.html">Proyectos</a></strong> en sus respectivas versiones. Tanto la instalaci√≥n de toba como los proyectos adem√°s de contener el c√≥digo fuente contienen los metadatos de las operaciones, de esta forma se puede distribuir un proyecto llevando tanto el c√≥digo como los metadatos a un sistema de producci√≥n. 
+Para utilizar toba se necesita una <strong><a class="wiki" href="Referencia/Instalacion.html">InstalaciÛn</a></strong> que es ni mas ni menos el sistema de archivos conteniendo una versiÛn de Toba, dentro de este sistema de archivos se encuentra una serie de <strong><a class="wiki" href="Referencia/Proyecto.html">Proyectos</a></strong> en sus respectivas versiones. Tanto la instalaciÛn de toba como los proyectos adem·s de contener el cÛdigo fuente contienen los metadatos de las operaciones, de esta forma se puede distribuir un proyecto llevando tanto el cÛdigo como los metadatos a un sistema de producciÛn. 
 </p>
 <p>
-Ahora, modificar estos archivos de metadatos en forma manual es extremadamente dif√≠cil, m√°s a√∫n si es un desarrollo grupal, lo mismo le sucede a Toba en la ejecuci√≥n, para leer estos metadatos es m√°s c√≥modo si est√°n en una base de datos. Entonces el siguiente paso es pasar estos metadatos desde el sistema de archivos a una base de datos, esta base se denomina una <strong><a class="wiki" href="Referencia/Instancia.html">Instancia Toba</a></strong>. As√≠ el sistema puede tener distintas instancias (producci√≥n, desarrollo, testing, pruebas_varias, o cualquier otra que se crea necesaria) aunque siempre es bueno recordar que instalaci√≥n hay una sola y por lo tanto metadatos en forma de archivo tambi√©n (al menos por ahora).
+Ahora, modificar estos archivos de metadatos en forma manual es extremadamente difÌcil, m·s a˙n si es un desarrollo grupal, lo mismo le sucede a Toba en la ejecuciÛn, para leer estos metadatos es m·s cÛmodo si est·n en una base de datos. Entonces el siguiente paso es pasar estos metadatos desde el sistema de archivos a una base de datos, esta base se denomina una <strong><a class="wiki" href="Referencia/Instancia.html">Instancia Toba</a></strong>. AsÌ el sistema puede tener distintas instancias (producciÛn, desarrollo, testing, pruebas_varias, o cualquier otra que se crea necesaria) aunque siempre es bueno recordar que instalaciÛn hay una sola y por lo tanto metadatos en forma de archivo tambiÈn (al menos por ahora).
 </p>
 <p>
-Hasta ac√° tenemos una instalaci√≥n y diferentes instancias, es deseable que cuando se ejecute el sistema se pueda optar cual es la instancia a utilizar, para esto se dispone de diferentes <strong><a class="wiki" href="Referencia/PuntosDeAcceso.html">Puntos de Acceso</a></strong>, que son las p√°ginas iniciales de la ejecuci√≥n, que entre sus configuraciones b√°sicas dictan que instancia utilizar de las disponibles.
+Hasta ac· tenemos una instalaciÛn y diferentes instancias, es deseable que cuando se ejecute el sistema se pueda optar cual es la instancia a utilizar, para esto se dispone de diferentes <strong><a class="wiki" href="Referencia/PuntosDeAcceso.html">Puntos de Acceso</a></strong>, que son las p·ginas iniciales de la ejecuciÛn, que entre sus configuraciones b·sicas dictan que instancia utilizar de las disponibles.
 </p>
 <p>
-Se puede ver un detalle de c√≥mo estos se conceptos se unen en los <strong><a class="wiki" href="Referencia/Deployment.html">casos de uso de deployment</a></strong>.
-(Hay una explicaci√≥n a medias de la <a class="wiki" href="Referencia/Ejecucion.html">ejecuci√≥n de toba</a>).<br /><br />
+Se puede ver un detalle de cÛmo estos se conceptos se unen en los <strong><a class="wiki" href="Referencia/Deployment.html">casos de uso de deployment</a></strong>.
+(Hay una explicaciÛn a medias de la <a class="wiki" href="Referencia/Ejecucion.html">ejecuciÛn de toba</a>).<br /><br />
  
 </p>
-<h2 id="Programaci√≥ndeunaOperaci√≥n">Programaci√≥n de una Operaci√≥n</h2>
+<h2 id="ProgramaciÛndeunaOperaciÛn">ProgramaciÛn de una OperaciÛn</h2>
 <ul><li>Utilizando el <a class="missing wiki" href="Administrador.html" rel="nofollow">Administrador?</a>.
 </li><li>Construyendo un <a class="wiki" href="Referencia/Item.html">Item</a>.
-</li><li><a class="wiki" href="Referencia/MarcoTransaccional.html">Marco transaccional</a> de una operaci√≥n.
+</li><li><a class="wiki" href="Referencia/MarcoTransaccional.html">Marco transaccional</a> de una operaciÛn.
 </li><li>Utilizando los <strong><a class="wiki" href="Referencia/Objetos.html">Objetos Toba</a></strong> y sus <a class="wiki" href="Referencia/Eventos.html">Eventos</a>.
 </li><li>Referenciando a una <a class="wiki" href="Referencia/FuenteDatos.html">Fuente de Datos</a>.
-</li><li>Utilizaci√≥n de <a class="wiki" href="Referencia/Mensajes.html">mensajes y notificaciones</a>.
-</li></ul><h2 id="Administraci√≥ndelproyecto">Administraci√≥n del proyecto</h2>
-<ul><li><a class="wiki" href="Referencia/TipoPagina.html">Tipos de p√°gina</a> (incluir en las operaciones encabezados y pies personalizados).
-</li><li><a class="wiki" href="Referencia/Marco.html">Marcos</a> (frames personalizados de la aplicaci√≥n).
-</li><li><a class="wiki" href="Referencia/Menu.html">Men√∫ de la aplicaci√≥n</a>.
+</li><li>UtilizaciÛn de <a class="wiki" href="Referencia/Mensajes.html">mensajes y notificaciones</a>.
+</li></ul><h2 id="AdministraciÛndelproyecto">AdministraciÛn del proyecto</h2>
+<ul><li><a class="wiki" href="Referencia/TipoPagina.html">Tipos de p·gina</a> (incluir en las operaciones encabezados y pies personalizados).
+</li><li><a class="wiki" href="Referencia/Marco.html">Marcos</a> (frames personalizados de la aplicaciÛn).
+</li><li><a class="wiki" href="Referencia/Menu.html">Men˙ de la aplicaciÛn</a>.
 </li><li><a class="wiki" href="Referencia/Plantillas.html">Plantillas CSS</a> personalizadas.
-</li><li><a class="wiki" href="Referencia/Consola.html">Consola de administraci√≥n</a>
-</li><li><a class="missing wiki" href="Referencia/Consola/Comandos.html" rel="nofollow">Lista de comandos de consola √∫tiles?</a>
+</li><li><a class="wiki" href="Referencia/Consola.html">Consola de administraciÛn</a>
+</li><li><a class="missing wiki" href="Referencia/Consola/Comandos.html" rel="nofollow">Lista de comandos de consola ˙tiles?</a>
 </li></ul><h2 id="ProyectosEjemplo">Proyectos Ejemplo</h2>
-<ul><li><a class="wiki" href="Proyectos/Referencia.html">Doc - Referencia</a>: Proyecto que acompa√±a la documentaci√≥n de referencia.
-</li><li><a class="wiki" href="Proyectos/TobaTesting.html">Toba - Testing</a>: El proyecto base del testing autom√°tico consume distintos aspectos de Toba.
+<ul><li><a class="wiki" href="Proyectos/Referencia.html">Doc - Referencia</a>: Proyecto que acompaÒa la documentaciÛn de referencia.
+</li><li><a class="wiki" href="Proyectos/TobaTesting.html">Toba - Testing</a>: El proyecto base del testing autom·tico consume distintos aspectos de Toba.
 </li></ul></div>
    </div>
    

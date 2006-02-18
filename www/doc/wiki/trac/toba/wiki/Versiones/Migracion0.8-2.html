@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Versiones/Migracion0.8.3 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.8.3?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,16 +59,16 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion0.8.3
 </p>
-<h1 id="InstructivodeMigraci√≥nhacia0.8.3">Instructivo de Migraci√≥n hacia 0.8.3</h1>
+<h1 id="InstructivodeMigraciÛnhacia0.8.3">Instructivo de MigraciÛn hacia 0.8.3</h1>
 <p>
-<strong>ATENCION:</strong> Cada versi√≥n de toba tiene su propio esquemas de includes javascript, por lo que es necesario asegurarse que el browser no los cachea, o bien hay que borrar el cache o directamente desactivarlo (recomendado).
+<strong>ATENCION:</strong> Cada versiÛn de toba tiene su propio esquemas de includes javascript, por lo que es necesario asegurarse que el browser no los cachea, o bien hay que borrar el cache o directamente desactivarlo (recomendado).
 </p>
 <p>
-La migraci√≥n se divide en cambios a los metadatos y cambios al c√≥digo.
+La migraciÛn se divide en cambios a los metadatos y cambios al cÛdigo.
 </p>
 <h2 id="Metadatos">Metadatos</h2>
 <p>
-Antes de actualizar el c√≥digo de toba y convertir los proyectos es recomendable hacer una exportaci√≥n de metadatos 
+Antes de actualizar el cÛdigo de toba y convertir los proyectos es recomendable hacer una exportaciÛn de metadatos 
 </p>
 <pre class="wiki">proyecto exportar mi_proyecto
 </pre>
@@ -83,21 +84,21 @@ Luego, una vez hecho el switch al tag, es necesario regenerar la instancia:
 <pre class="wiki">instancia regenerar
 </pre>
 <p>
-Para aquellos proyectos ubicados en la versi√≥n <a class="wiki" href="0.8-2.html">0.8.2</a> se provee un par de scripts de conversi√≥n. Una vez actualizado a esta versi√≥n de toba se puede averiguar que conversiones son posibles sobre un proyecto particular:
+Para aquellos proyectos ubicados en la versiÛn <a class="wiki" href="0.8-2.html">0.8.2</a> se provee un par de scripts de conversiÛn. Una vez actualizado a esta versiÛn de toba se puede averiguar que conversiones son posibles sobre un proyecto particular:
 </p>
 <pre class="wiki">conversion listar mi_proyecto
 </pre>
 <p>
-A continuaci√≥n se deben correr las actualizaciones correspondientes a esta versi√≥n
+A continuaciÛn se deben correr las actualizaciones correspondientes a esta versiÛn
 </p>
 <pre class="wiki">conversion ejecutar mi_proyecto 0.8.3
 conversion ejecutar mi_proyecto 0.8.3.1
 conversion ejecutar mi_proyecto 0.8.3.3
 </pre>
-<h2 id="C√≥digo">C√≥digo</h2>
+<h2 id="CÛdigo">CÛdigo</h2>
 <h3 id="Puntosdeacceso">Puntos de acceso</h3>
 <p>
-El cambio a los puntos de acceso se debe a la necesidad de incluir al nuevo n√∫cleo de toba. Tambi√©n es recomendado sacar del php.ini el include_path de toba y dejar que el punto de acceso lo determine solo (esto permite tener varias instalaciones de toba en una m√°quina). El c√≥digo que hace esto es:
+El cambio a los puntos de acceso se debe a la necesidad de incluir al nuevo n˙cleo de toba. TambiÈn es recomendado sacar del php.ini el include_path de toba y dejar que el punto de acceso lo determine solo (esto permite tener varias instalaciones de toba en una m·quina). El cÛdigo que hace esto es:
 </p>
 <pre class="wiki">################################################################################
 if (isset($_SERVER['TOBA_DIR'])) {
@@ -115,7 +116,7 @@ en reemplazo del viejo:
 <pre class="wiki">require_once(&#34;nucleo/acceso_browser.php&#34;); 
 </pre>
 <p>
-Se pueden actualizar autom√°ticamente los puntos de acceso de un proyecto con el comando:
+Se pueden actualizar autom·ticamente los puntos de acceso de un proyecto con el comando:
 </p>
 <pre class="wiki">proyecto conf mi_proyecto
 </pre>
@@ -161,15 +162,15 @@ Para poder llevar a cabo una migracion ordenada, se provee el metodo <strong>con
 </p>
 <h3 id="Altoyanchodecomponentes">Alto y ancho de componentes</h3>
 <p>
-Una de las implicaciones de la utilizacion del DOCTYPE HTML (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/38" title="Encabezados HTML (closed)">#38</a>) es que la definicion de los anchos y altos tiene que estar  acompa√±ada de la <strong>unidad de medida</strong> utilizada (Por ejemplo '%' o 'px'). Si se utilizaron valores absolutos, hay que agregarle el sufijo 'px'.
+Una de las implicaciones de la utilizacion del DOCTYPE HTML (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/38" title="Encabezados HTML (closed)">#38</a>) es que la definicion de los anchos y altos tiene que estar  acompaÒada de la <strong>unidad de medida</strong> utilizada (Por ejemplo '%' o 'px'). Si se utilizaron valores absolutos, hay que agregarle el sufijo 'px'.
 </p>
-<h3 id="MarcoCabeceraMen√∫Tipodep√°gina">Marco, Cabecera, Men√∫, Tipo de p√°gina</h3>
+<h3 id="MarcoCabeceraMen˙Tipodep·gina">Marco, Cabecera, Men˙, Tipo de p·gina</h3>
 <p>
-Todas estas cosas sufrieron cambios grandes, si hab√≠a personalizaciones particulares se recomienda chequear la nueva forma de hacerlas:
+Todas estas cosas sufrieron cambios grandes, si habÌa personalizaciones particulares se recomienda chequear la nueva forma de hacerlas:
 </p>
 <ul><li><a class="wiki" href="../Referencia/Marco.html">Marco y cabecera</a>.
-</li><li><a class="wiki" href="../Referencia/Menu.html">Men√∫</a>.
-</li><li><a class="wiki" href="../Referencia/TipoPagina.html">Tipos de p√°gina</a>.
+</li><li><a class="wiki" href="../Referencia/Menu.html">Men˙</a>.
+</li><li><a class="wiki" href="../Referencia/TipoPagina.html">Tipos de p·gina</a>.
 </li></ul></div>
    </div>
    

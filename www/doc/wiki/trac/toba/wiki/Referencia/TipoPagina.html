@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/TipoPagina - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/TipoPagina?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,30 +59,30 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / TipoPagina
 </p>
-<h1 id="Tiposdep√°gina">Tipos de p√°gina</h1>
+<h1 id="Tiposdep·gina">Tipos de p·gina</h1>
 <p>
-Los tipos de p√°gina determinan la salida anterior y posterior a la de una operaci√≥n. Cada <a class="wiki" href="Item.html">√≠tem</a> tiene un tipo de p√°gina asociado. Crear nuevos tipos de p√°gina permite:
+Los tipos de p·gina determinan la salida anterior y posterior a la de una operaciÛn. Cada <a class="wiki" href="Item.html">Ìtem</a> tiene un tipo de p·gina asociado. Crear nuevos tipos de p·gina permite:
 </p>
-<ul><li>Crear encabezados y pie de p√°gina personalizados para distintos grupos de operaciones. 
+<ul><li>Crear encabezados y pie de p·gina personalizados para distintos grupos de operaciones. 
 </li><li>Incluir recursos HTML comunes a un conjunto de operaciones.
 </li><li>Incluir salidas no tradicionales que requieren distintos encabezados HTTP o distintos tags HTML (Por ejemplo mostrar un PDF).
-</li></ul><h2 id="Utilizaci√≥ndelostiposdep√°gina">Utilizaci√≥n de los tipos de p√°gina</h2>
+</li></ul><h2 id="UtilizaciÛndelostiposdep·gina">UtilizaciÛn de los tipos de p·gina</h2>
 <p>
-Los tipos de p√°gina se eligen en la definici√≥n del <a class="wiki" href="Item.html">√≠tem</a>, pudiendo optar entre los predefinidos y aquellos particulares del proyecto.
+Los tipos de p·gina se eligen en la definiciÛn del <a class="wiki" href="Item.html">Ìtem</a>, pudiendo optar entre los predefinidos y aquellos particulares del proyecto.
 </p>
-<h2 id="Creaci√≥ndeunnuevotipodep√°gina">Creaci√≥n de un nuevo tipo de p√°gina</h2>
-<ol><li>Definir el tipo de p√°gina en el administrador: Desde el Administrador del proyecto accediendo al menu <strong>EXT</strong>, en la secci√≥n <strong>Tipo de p√°gina</strong> se puede dar de alta uno nuevo, asociado exclusivamente al proyecto. All√≠ se debe ingresar la clase y su ubicaci√≥n dentro del sistema de archivos del proyecto.
-</li><li>Construir el nuevo tipo de p√°gina: Los tipos de p√°gina necesitan heredar de la clase abstracta tipo_pagina ubicada en la carpeta <i>$toba_dir/nucleo/browser/tipo_pagina</i>. En ese directorio se encuentran distintos tipos de p√°gina que se pueden tomar como modelo de extensi√≥n (tambi√©n se encuentran los tipos de p√°gina viejos que no son clases).
-</li></ol><h2 id="Tiposdep√°ginapredefinidos">Tipos de p√°gina predefinidos</h2>
-<ul><li><strong>tipo_pagina</strong>: Clase abstracta que contiene los m√©todos encabezado() y pie() que los distintos tipos de p√°gina tienen que definir. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tipo_pagina.php">Ver clase</a>.
-</li><li><strong>tp_basico</strong>: Crea lo m√≠nimo necesario para incluir HTML (javascript b√°sicos, <a class="missing wiki" href="Plantilla.html" rel="nofollow">plantilla css?</a> del proyecto, etc. No es recomendado para la extensi√≥n de un tipo de p√°gina que quiere incluirse en items de operaciones comunes (no incluye TODO el javascript ni estilos que necesitan los objetos toba). <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_basico.php">Ver clase</a>.
-</li><li> <strong>tp_normal</strong>: Inluye el HTML m√≠nimo que necesita una operaci√≥n cl√°sica Toba, incluye el men√∫ y una barra superior. Generalmente los proyectos van a hereder de este los tipos de p√°gina particulares. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_normal.php">Ver clase</a>.
-</li></ul><h2 id="Ejemplodeextensi√≥ndeltipodep√°gina">Ejemplo de extensi√≥n del tipo de p√°gina</h2>
+<h2 id="CreaciÛndeunnuevotipodep·gina">CreaciÛn de un nuevo tipo de p·gina</h2>
+<ol><li>Definir el tipo de p·gina en el administrador: Desde el Administrador del proyecto accediendo al menu <strong>EXT</strong>, en la secciÛn <strong>Tipo de p·gina</strong> se puede dar de alta uno nuevo, asociado exclusivamente al proyecto. AllÌ se debe ingresar la clase y su ubicaciÛn dentro del sistema de archivos del proyecto.
+</li><li>Construir el nuevo tipo de p·gina: Los tipos de p·gina necesitan heredar de la clase abstracta tipo_pagina ubicada en la carpeta <i>$toba_dir/nucleo/browser/tipo_pagina</i>. En ese directorio se encuentran distintos tipos de p·gina que se pueden tomar como modelo de extensiÛn (tambiÈn se encuentran los tipos de p·gina viejos que no son clases).
+</li></ol><h2 id="Tiposdep·ginapredefinidos">Tipos de p·gina predefinidos</h2>
+<ul><li><strong>tipo_pagina</strong>: Clase abstracta que contiene los mÈtodos encabezado() y pie() que los distintos tipos de p·gina tienen que definir. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tipo_pagina.php">Ver clase</a>.
+</li><li><strong>tp_basico</strong>: Crea lo mÌnimo necesario para incluir HTML (javascript b·sicos, <a class="missing wiki" href="Plantilla.html" rel="nofollow">plantilla css?</a> del proyecto, etc. No es recomendado para la extensiÛn de un tipo de p·gina que quiere incluirse en items de operaciones comunes (no incluye TODO el javascript ni estilos que necesitan los objetos toba). <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_basico.php">Ver clase</a>.
+</li><li> <strong>tp_normal</strong>: Inluye el HTML mÌnimo que necesita una operaciÛn cl·sica Toba, incluye el men˙ y una barra superior. Generalmente los proyectos van a heredar de este los tipos de p·gina particulares. <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_normal.php">Ver clase</a>.
+</li></ul><h2 id="EjemplodeextensiÛndeltipodep·gina">Ejemplo de extensiÛn del tipo de p·gina</h2>
 <p>
-El siguiente es un tipo de p√°gina extendido utilizado para el proyecto SIU-Quilmes, las modificaciones son:
+El siguiente es un tipo de p·gina extendido utilizado para el proyecto SIU-Quilmes, las modificaciones son:
 </p>
-<ul><li>En el t√≠tulo de p√°gina (y por ende en la barra superior) muestra un nombre jerarquico del item (ej Clientes &gt; Formas de Pago &gt; Listado)
-</li><li>Agrega una funci√≥n particular javascript que permite mostrar un mensaje de espera que se llama antes de entrar en un procesamiento largo.
+<ul><li>En el tÌtulo de p·gina (y por ende en la barra superior) muestra un nombre jerarquico del item (ej Clientes &gt; Formas de Pago &gt; Listado)
+</li><li>Agrega una funciÛn particular javascript que permite mostrar un mensaje de espera que se llama antes de entrar en un procesamiento largo.
 </li></ul><div class="code"><pre><span class="code-lang">&lt;?php
 
 </span><span class="code-keyword">require_once(</span><span class="code-string">"nucleo/browser/tipo_pagina/tp_normal.php"</span><span class="code-keyword">);

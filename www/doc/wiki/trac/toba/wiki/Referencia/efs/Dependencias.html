@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/efs/Dependencias - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs/Dependencias?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,37 +61,37 @@
 </p>
 <h1 id="Dependenciasentreefs">Dependencias entre efs</h1>
 <p>
-Durante la definici√≥n de un <a class="wiki" href="../efs.html">ef</a> (en adelante el <i>esclavo</i>), se puede indicar que su valor <strong>depende</strong> del valor de otro ef (el <i>maestro</i>). As√≠ un cambio en el valor del <i>maestro</i> influye en los valores posibles que puede tomar el <i>esclavo</i>. Un <i>esclavo</i> puede depender de m√°s de un <i>maestro</i>. Esta definici√≥n se puede encadenar (el <i>maestro</i> puede ser dependiente de otro de mayor grado).
+Durante la definiciÛn de un <a class="wiki" href="../efs.html">ef</a> (en adelante el <i>esclavo</i>), se puede indicar que su valor <strong>depende</strong> del valor de otro ef (el <i>maestro</i>). AsÌ un cambio en el valor del <i>maestro</i> influye en los valores posibles que puede tomar el <i>esclavo</i>. Un <i>esclavo</i> puede depender de m·s de un <i>maestro</i>. Esta definiciÛn se puede encadenar (el <i>maestro</i> puede ser dependiente de otro de mayor grado).
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-La forma de definir una dependencia es marcar al ef <i>esclavo</i> con un par√°metro dependencias, indicando los identificadores de sus <i>maestros</i>:
+La forma de definir una dependencia es marcar al ef <i>esclavo</i> con un par·metro dependencias, indicando los identificadores de sus <i>maestros</i>:
 </p>
 <pre class="wiki">dependencias: id_ef_maestro1 , id_ef_maestro2;
 </pre>
 <h2 id="RoldelMaestro">Rol del Maestro</h2>
 <p>
-Los ef's que son maestros de otros tiene la obligaci√≥n de notificar cuando su valor cambia. De esta forma se le preguntar√° su nuevo valor, dej√°ndolo a disposici√≥n del esclavo. Por ahora los tipos de efs que pueden ser maestros son:
+Los ef's que son maestros de otros tiene la obligaciÛn de notificar cuando su valor cambia. De esta forma se le preguntar· su nuevo valor, dej·ndolo a disposiciÛn del esclavo. Por ahora los tipos de efs que pueden ser maestros son:
 </p>
-<ul><li><a class="missing wiki" href="oculto.html" rel="nofollow">ocultos?</a>: Otorgan su valor s√≥lo en el servidor.
+<ul><li><a class="missing wiki" href="oculto.html" rel="nofollow">ocultos?</a>: Otorgan su valor sÛlo en el servidor.
 </li><li><a class="missing wiki" href="combo.html" rel="nofollow">combos?</a>.
 </li></ul><h2 id="RoldelEsclavo">Rol del Esclavo</h2>
 <p>
-Al ef esclavo le llegan los valores de sus distintos maestros. En este punto es el <a class="wiki" href="../efs.html">tipo de ef</a> quien determina c√≥mo influyen esos valores. Por ahora los efs que pueden ser esclavos son:
+Al ef esclavo le llegan los valores de sus distintos maestros. En este punto es el <a class="wiki" href="../efs.html">tipo de ef</a> quien determina cÛmo influyen esos valores. Por ahora los efs que pueden ser esclavos son:
 </p>
-<ul><li><a class="missing wiki" href="combo.html" rel="nofollow">combos?</a>: En los combos DAO, los valores de sus <i>maestros</i> llegan como par√°metros al DAO. En los combos con SQL, a manera de template se dejan los valores de los <i>maestros</i> marcados en la SQL entre s√≠mbolos <i>%</i>:
+<ul><li><a class="missing wiki" href="combo.html" rel="nofollow">combos?</a>: En los combos DAO, los valores de sus <i>maestros</i> llegan como par·metros al DAO. En los combos con SQL, a manera de template se dejan los valores de los <i>maestros</i> marcados en la SQL entre sÌmbolos <i>%</i>:
 <pre class="wiki">sql: SELECT id, descripcion FROM tabla WHERE campo_dep1 = '%id_ef_maestro1%' AND campo_dep2 = %id_ef_maestro2%;
 dependencias: id_ef_maestro1 , id_ef_maestro2;
 </pre>
 </li></ul><h2 id="Ejemplo">Ejemplo</h2>
 <p>
-Existe un ejemplo en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, es el √≠tem <i>Efs/Dependencias</i>. All√≠ se encuentran tres <a class="missing wiki" href="combo.html" rel="nofollow">combos?</a> formando una <i>cascada</i> de una localidad en base al pa√≠s y provincia ingresada. El flujo de la pantalla es el siguiente
+Existe un ejemplo en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, es el Ìtem <i>Efs/Dependencias</i>. AllÌ se encuentran tres <a class="missing wiki" href="combo.html" rel="nofollow">combos?</a> formando una <i>cascada</i> de una localidad en base al paÌs y provincia ingresada. El flujo de la pantalla es el siguiente
 </p>
-<ol><li>Inicialmente s√≥lo se permite seleccionar un pa√≠s, la provincia y la localidad no son seleccionables.
-</li><li>Cuando se selecciona el pa√≠s, se despliegan las provincias pertenecientes al mismo.
+<ol><li>Inicialmente sÛlo se permite seleccionar un paÌs, la provincia y la localidad no son seleccionables.
+</li><li>Cuando se selecciona el paÌs, se despliegan las provincias pertenecientes al mismo.
 </li><li>Cuando selecciona una provincia, se despliegan las localidades de esta provincia.
 </li></ol><p>
-Se brinda una versi√≥n utilizando SQL en las definiciones de los combos y otra utilizando <a class="wiki" href="../Dao.html">DAOs</a>.
+Se brinda una versiÛn utilizando SQL en las definiciones de los combos y otra utilizando <a class="wiki" href="../Dao.html">DAOs</a>.
 </p>
 </div>
    </div>

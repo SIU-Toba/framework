@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Refactorizaciones/modulos - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/modulos?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -61,7 +62,7 @@
 <h1 id="Modulos">Modulos</h1>
 <ul><li>Los modulos pasarian a ser las carpetas del arbol de items (Esto implica una refactorizacion del <a class="wiki" href="menu.html">menu</a>.).
 </li><li>Es una unidad funcional al proceso de personalizacion (tiene que existir una forma simple de cargar modulos).
-<ul><li>Pueden ser los modulos los que permitan que un proyecto importe un grupo de items (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/127" title="AdministraciÃ³n de usuarios en un proyecto (new)">#127</a>: El caso de meter la administracion de usuarios, permisos y accesos a un proyecto...)
+<ul><li>Pueden ser los modulos los que permitan que un proyecto importe un grupo de items (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/127" title="Administración de usuarios en un proyecto (new)">#127</a>: El caso de meter la administracion de usuarios, permisos y accesos a un proyecto...)
 </li></ul></li><li>Habria que usar esta abstraccion para separar el administrador en partes. Seria interesante que el panel de navegacion que esta arriba a la derecha se cargue segun los modulos que estan cargados (<a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/272" title="Customizacion del tablero de control (frame izquierda/arriba) (new)">#272</a>).
 </li><li>Tiene que existir un espacio intermodulo.
 </li></ul><h2 id="Composicion">Composicion</h2>
@@ -70,7 +71,7 @@
 </li><li>Referencian a una carpeta del sistema de archivos.
 </li><li>Tienen un conjunto de parametros (presets usados para generar configuraciones por defecto nombres y otros).
 </li></ul><h2 id="Problemas">Problemas</h2>
-<ul><li>Â¿Como se consumen modulos externos en un proyecto? Â¿A que proyecto pertenece el modulo de administracion de usuarios?
+<ul><li>¿Como se consumen modulos externos en un proyecto? ¿A que proyecto pertenece el modulo de administracion de usuarios?
 </li></ul></div>
    </div>
    

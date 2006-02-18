@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/FuenteDatos - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/FuenteDatos?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,17 +61,17 @@
 </p>
 <h1 id="FuentedeDatos">Fuente de Datos</h1>
 <p>
-Una fuente de datos es una entidad que referencia a un motor de base de datos relacional y permite operar sobre este independientemente del vendedor espec√≠fico al que pertenece. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcci√≥n de SQL compatible sigue quedando a cargo generalmente de los desarrolladores del proyecto.<br /><br />
+Una fuente de datos es una entidad que referencia a un motor de base de datos relacional y permite operar sobre este independientemente del vendedor especÌfico al que pertenece. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcciÛn de SQL compatible sigue quedando a cargo generalmente de los desarrolladores del proyecto.<br /><br />
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-Un proyecto puede tener asociada varias fuentes de datos, cada una representando a una base de datos distinta. Para administrar estas fuentes existe una secci√≥n en el Administrador llamada <i>Datos</i>, all√≠ se puede detallar c√≥mo est√° formada, los campos m√°s importantes, adem√°s de los de conexi√≥n, son estos:
+Un proyecto puede tener asociada varias fuentes de datos, cada una representando a una base de datos distinta. Para administrar estas fuentes existe una secciÛn en el Administrador llamada <i>Datos</i>, allÌ se puede detallar cÛmo est· formada, los campos m·s importantes, adem·s de los de conexiÛn, son estos:
 </p>
 <ul><li>Identificador: es el nombre con el que esta fuente puede ser referenciada desde Toba.
-</li><li>Link instancia: Si se selecciona, los par√°metros de conexi√≥n de este formulario no se tendr√°n en cuenta, en cambio los p√°rametros de la instancia indicada abajo son los v√°lidos. Esto evita la carga de los par√°metros en estas definiciones delegando hacia un archivo php (ver <a class="wiki" href="Instancia.html">definici√≥n de instancias</a>).
-</li></ul><h2 id="Ejecuci√≥n">Ejecuci√≥n</h2>
+</li><li>Link instancia: Si se selecciona, los par·metros de conexiÛn de este formulario no se tendr·n en cuenta, en cambio los p·rametros de la instancia indicada abajo son los v·lidos. Esto evita la carga de los par·metros en estas definiciones delegando hacia un archivo php (ver <a class="wiki" href="Instancia.html">definiciÛn de instancias</a>).
+</li></ul><h2 id="EjecuciÛn">EjecuciÛn</h2>
 <p>
-Durante la ejecuci√≥n las fuentes de datos contienen estos par√°metros est√°ticos junto a una instancia de la librer√≠a <a class="ext-link" href="../../../../external.html?link=http://adodb.sourceforge.net/"><span class="icon"></span>ADODb</a> para el acceso a la misma. Por performance las fuentes no se conectan hasta que sea necesario, esto es porque el objeto en ejecuci√≥n la necesita o porque se utiliza en alg√∫n c√≥digo ad-hoc. En este √∫ltimo caso, sabiendo que ning√∫n otro procesamiento cargo esa fuente de datos, se debe abrir con la siguiente funci√≥n global:
+Durante la ejecuciÛn las fuentes de datos contienen estos par·metros est·ticos junto a una instancia de la librerÌa <a class="ext-link" href="../../../../external.html?link=http://adodb.sourceforge.net/"><span class="icon"></span>ADODb</a> para el acceso a la misma. Por performance las fuentes no se conectan hasta que sea necesario, esto es porque el objeto en ejecuciÛn la necesita o porque se utiliza en alg˙n cÛdigo ad-hoc. En este ˙ltimo caso, sabiendo que ning˙n otro procesamiento cargo esa fuente de datos, se debe abrir con la siguiente funciÛn global:
 </p>
 <pre class="wiki">abrir_fuente_datos($nombre_fuente);
 </pre>
@@ -80,13 +81,13 @@ Una vez disponible la fuente puede obtenerse el objeto ADODb asociado con la sig
 <pre class="wiki">toba::get_db($nombre_fuente0;
 </pre>
 <p>
-Donde $fuente es el nombre de la fuente de datos. Por ejemplo para poner en modo debug a esta librer√≠a es necesario ejecutar esta sentencia:
+Donde $fuente es el nombre de la fuente de datos. Por ejemplo para poner en modo debug a esta librerÌa es necesario ejecutar esta sentencia:
 </p>
 <pre class="wiki">toba::get_db($fuente)-&gt;debug = true;
 </pre>
-<h2 id="Informaci√≥nadicional">Informaci√≥n adicional</h2>
+<h2 id="InformaciÛnadicional">InformaciÛn adicional</h2>
 <p>
-M√°s detalles en la <a class="ext-link" href="../../../../external.html?link=http://phplens.com/lens/adodb/docs-adodb.htm"><span class="icon"></span>documentaci√≥n de la librer√≠a</a>.
+M·s detalles en la <a class="ext-link" href="../../../../external.html?link=http://phplens.com/lens/adodb/docs-adodb.htm"><span class="icon"></span>documentaciÛn de la librerÌa</a>.
 </p>
 </div>
    </div>

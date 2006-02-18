@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/ElementoToba - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/ElementoToba?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -66,7 +67,7 @@
 La implementacion del concepto transversal <strong>elemento toba</strong> puede dividirse en:
 </p>
 <ul><li>A. <strong>Comportamiento</strong> runtime: Funcionamiento concreto del elemento, definido por las clases PHP nucleo/browser/clases/objeto_*.php para el caso de objetos y la clase 'nucleo/solicitud.php' para el item.
-</li><li>B. <strong>Construcci贸n</strong>: Tomar la definici贸n del elemento de uno de los distintos medios (bd, archivo php, xml) e instanciarlo.
+</li><li>B. <strong>Construcci髇</strong>: Tomar la definici髇 del elemento de uno de los distintos medios (bd, archivo php, xml) e instanciarlo.
 </li><li>C. <strong>Consultas</strong> sobre metadatos: Analizar una instancia particular del elemento y brindar servicios informativos.
 </li><li>D. <strong>Administracion</strong> de metadatos: Crear elementos nuevos (editores), exportar elementos, importar elementos, convertir elementos entra las distintas representaciones, etc.
 </li></ul><p>
@@ -80,17 +81,17 @@ Actualmente el acceso a los <strong>metadatos</strong> de los elementos (el mate
 <p>
 <strong>1.1 Editor de permisos del item</strong>
 </p>
-<ul><li><i>nucleo/lib/arbol_items.php</i> : sabe tomar un conjunto de items, ordenarlos, ponerles permisos y filtrar por distintos parametros. Osea ser铆a el elemento_conjunto_items o elemento_arbol_items.
-</li><li><i>nucleo/lib/item.php</i> : Representa a un item particular, se le pueden hacer muchas consultas pero no sale de la definici贸n de un item (no sabe cuales son sus objetos y dem谩s).
+<ul><li><i>nucleo/lib/arbol_items.php</i> : sabe tomar un conjunto de items, ordenarlos, ponerles permisos y filtrar por distintos parametros. Osea ser韆 el elemento_conjunto_items o elemento_arbol_items.
+</li><li><i>nucleo/lib/item.php</i> : Representa a un item particular, se le pueden hacer muchas consultas pero no sale de la definici髇 de un item (no sabe cuales son sus objetos y dem醩).
 </li></ul><p>
 <i>Enfoque: operacion interactiva de gran cantidad de registros. Hace un solo query para todos los items.</i>
 </p>
 <p>
 <strong>1.2. Exportacion/Importacion de elementos</strong>
 </p>
-<ul><li><i>api/elemento.php</i>: Un elemento, levanta la definicion de la tabla <strong>elemento_infra</strong> (una suerte de metainformaci贸n de la metainformci贸n que permite analizar a un elemento_toba).
-</li><li><i>api/elemento_item.php</i>: Representa tambi茅n a un item particular.
-</li><li><i>api/elemento_objeto.php</i>: Representa tambi茅n a un objeto particular. Come existen distintos tipo de objetos, la definicion esta basada adem谩s en una tabla de metadatos <strong>apex_clase</strong>
+<ul><li><i>api/elemento.php</i>: Un elemento, levanta la definicion de la tabla <strong>elemento_infra</strong> (una suerte de metainformaci髇 de la metainformci髇 que permite analizar a un elemento_toba).
+</li><li><i>api/elemento_item.php</i>: Representa tambi閚 a un item particular.
+</li><li><i>api/elemento_objeto.php</i>: Representa tambi閚 a un objeto particular. Come existen distintos tipo de objetos, la definicion esta basada adem醩 en una tabla de metadatos <strong>apex_clase</strong>
 </li></ul><p>
  
 Este esquema fue adaptado despues para la generacion de documentacion en docbook.
@@ -112,12 +113,12 @@ Este esquema fue adaptado despues para la generacion de documentacion en docbook
 <p>
 <strong>2.1 Unificar logica</strong>
 </p>
-<ul><li>P: Me parece que estas ultimas dos deber铆an fusionarse, lo que me frena es que la vista de catalogo del administrador usa entre 100 y 1000 de estos objetos y si cada uno hace estas SQL es un tiempazo (tambien cargan sus subelementos, los cuales tambien deber铆an cargarse a pedido). En definitiva necesita un moldaje bastante grande.
+<ul><li>P: Me parece que estas ultimas dos deber韆n fusionarse, lo que me frena es que la vista de catalogo del administrador usa entre 100 y 1000 de estos objetos y si cada uno hace estas SQL es un tiempazo (tambien cargan sus subelementos, los cuales tambien deber韆n cargarse a pedido). En definitiva necesita un moldaje bastante grande.
 </li><li>R: Si, conceptualmente el caso 2 y 3 pueden fusionarse porque sirven para lo mismo (procesos intensivos sobre elementos puntales, para los cuales el tiempo no es un factor). Sin embargo se necesita otra solucion (Un mix con la 1, orientada a los grupos grandes) para manejar muchos objetos. 
 </li></ul><p>
 <strong>2.2 DB como soporte de metadatos</strong>
 </p>
-<ul><li>P: Las clases elemento_objeto_* andan bastante bien salvo que como hay una tabla apex_clase que mantiene alguna metainformaci贸n s贸lo se puede elegir la clase elemento_objeto_ci por ejemplo una vez que se consulta a esta tabla. 驴Es necesario contar con tambien con esta tabla? 驴Porque los metadatos no estan en las clases que heredan de elemento_toba?. Mantener datos el tabla trae genera indirecciones costosas en performance para conjuntos grandes de elementos.
+<ul><li>P: Las clases elemento_objeto_* andan bastante bien salvo que como hay una tabla apex_clase que mantiene alguna metainformaci髇 s髄o se puede elegir la clase elemento_objeto_ci por ejemplo una vez que se consulta a esta tabla. 縀s necesario contar con tambien con esta tabla? 縋orque los metadatos no estan en las clases que heredan de elemento_toba?. Mantener datos el tabla trae genera indirecciones costosas en performance para conjuntos grandes de elementos.
 </li><li>R: Estoy de acuerdo. Los tipo de objeto nunca van a ser tantos como para justificar usar una tabla como soporte de la abstraccion.
 </li></ul></div>
    </div>

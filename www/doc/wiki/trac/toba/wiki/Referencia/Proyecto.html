@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Proyecto - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Proyecto?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,33 +61,33 @@
 </p>
 <h1 id="Proyecto">Proyecto</h1>
 <p>
-Un proyecto en Toba incluye definiciones tanto en c√≥digo como en metadatos. Estos metadatos se almacenan en el sistema de archivos bajo el directorio <i>sql</i> del proyecto. Es importante diferenciar el concepto de metadato de sus <a class="wiki" href="Instancia.html">instancias</a>, un proyecto puede vivir en diferentes instancias permitiendo el trabajo de distintos grupos en forma aislada.
+Un proyecto en Toba incluye definiciones tanto en cÛdigo como en metadatos. Estos metadatos se almacenan en el sistema de archivos bajo el directorio <i>sql</i> del proyecto. Es importante diferenciar el concepto de metadato de sus <a class="wiki" href="Instancia.html">instancias</a>, un proyecto puede vivir en diferentes instancias permitiendo el trabajo de distintos grupos en forma aislada.
 </p>
 <h2 id="Sistemadearchivos">Sistema de archivos</h2>
 <p>
-El sistema de archivos del proyecto debe estar bajo el directorio <i>proyectos</i> de toba. En este √°rbol debe tener este layout b√°sico:
+El sistema de archivos del proyecto debe estar bajo el directorio <i>proyectos</i> de toba. En este ·rbol debe tener este layout b·sico:
 </p>
 <ul><li><i>nombre_proyecto</i>
 <ul><li><i>php</i>: Carpeta que se incluye en el include_path de php, por lo que se recomienda usarlo para contener todas las clases particulares del proyecto.
-<ul><li><i>inicializacion.php</i>: Primer archivo del proyecto en ser ejecutado en todos los pedidos de p√°gina. Util para incluir cosas particulares del proyecto, definir constantes, etc.
+<ul><li><i>inicializacion.php</i>: Primer archivo del proyecto en ser ejecutado en todos los pedidos de p·gina. Util para incluir cosas particulares del proyecto, definir constantes, etc.
 </li></ul></li><li><i>sql</i>: Directorio donde se almacenan los metadatos del proyecto (datos.sql) y metadatos asociados con los usuarios (datos_instancia.sql)
 </li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del proyecto.
 </li></ul></li></ul><h2 id="Metadatos">Metadatos</h2>
 <p>
-Los metadatos de los proyectos est√°n definidos en dos archivos:
+Los metadatos de los proyectos est·n definidos en dos archivos:
 </p>
-<ul><li><i>sql/datos_instancia.sql</i>: Mantiene la asociaci√≥n entre los usuarios y el proyecto junto a sus notas, logs, etc. La separaci√≥n de este archivo se debe a que los usuarios no pertenecen a un proyecto sino que son globales a la instancia particular. As√≠ con un archivo separado se evita versionarlo, dejando la posibilidad de que las distintas instancias tengan sus usuarios sin afectar el proyecto. En caso de que sea versionado, resolver los conflictos va a ser m√°s sencillo.
-</li><li><i>sql/datos.sql</i>: Mantiene la definici√≥n del resto de los metadatos.
-</li></ul><h2 id="Creaci√≥n">Creaci√≥n</h2>
+<ul><li><i>sql/datos_instancia.sql</i>: Mantiene la asociaciÛn entre los usuarios y el proyecto junto a sus notas, logs, etc. La separaciÛn de este archivo se debe a que los usuarios no pertenecen a un proyecto sino que son globales a la instancia particular. AsÌ con un archivo separado se evita versionarlo, dejando la posibilidad de que las distintas instancias tengan sus usuarios sin afectar el proyecto. En caso de que sea versionado, resolver los conflictos va a ser m·s sencillo.
+</li><li><i>sql/datos.sql</i>: Mantiene la definiciÛn del resto de los metadatos.
+</li></ul><h2 id="CreaciÛn">CreaciÛn</h2>
 <p>
-Para crear un proyecto vac√≠o es necesario ejecutar el comando:
+Para crear un proyecto vacÌo es necesario ejecutar el comando:
 </p>
 <pre class="wiki"> proyecto crear mi_proyecto
 </pre>
 <p>
-Esto crea los metadatos, los carga en la instancia, posteriormente crea un sistema de archivos b√°sicos conteniendo estos metadatos y los puntos de acceso por defecto.
+Esto crea los metadatos, los carga en la instancia, posteriormente crea un sistema de archivos b·sicos conteniendo estos metadatos y los puntos de acceso por defecto.
 </p>
-<h2 id="CargayExportaci√≥n">Carga y Exportaci√≥n</h2>
+<h2 id="CargayExportaciÛn">Carga y ExportaciÛn</h2>
 <p>
 Para poder modificar y trabajar con un proyecto es necesario cargarlo en una instancia. Hay tres formas distintas de cargarlo:
 </p>
@@ -107,9 +108,9 @@ Para hacer el camino inverso (crear los metadatos a partir de la instancia) se d
 <p>
 Los metadatos del proyecto vuelven al sistema de archivos listos para ser versionados.
 </p>
-<h2 id="Actualizaci√≥n">Actualizaci√≥n</h2>
+<h2 id="ActualizaciÛn">ActualizaciÛn</h2>
 <p>
-Es com√∫n recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto basta con borrar la instanciaci√≥n del proyecto:
+Es com˙n recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto basta con borrar la instanciaciÛn del proyecto:
 </p>
 <pre class="wiki">proyecto borrar mi_proyecto
 </pre>
@@ -118,14 +119,14 @@ Y cargarla posteriormente
 </p>
 <pre class="wiki">proyecto cargar mi_proyecto
 </pre>
-<h2 id="Exportaci√≥ndelainformaci√≥nlocal">Exportaci√≥n de la informaci√≥n local</h2>
+<h2 id="ExportaciÛndelainformaciÛnlocal">ExportaciÛn de la informaciÛn local</h2>
 <p>
-En ciertos escenarios s√≥lo se desea exportar el contenido al archivo <i>datos_instancia.sql</i>, conteniendo la informaci√≥n de los usuarios en esta instancia. Para esto existe el comando:
+En ciertos escenarios sÛlo se desea exportar el contenido al archivo <i>datos_instancia.sql</i>, conteniendo la informaciÛn de los usuarios en esta instancia. Para esto existe el comando:
 </p>
 <pre class="wiki">proyecto exportar_local mi_proyecto
 </pre>
 <p>
-Cuando se quiere exportar tanto el <strong>datos_instancia.sql</strong> de toba (conteniendo los usuarios) como los de los proyectos (conteniendo la asociaci√≥n de los usuarios a los proyectos) se hace:
+Cuando se quiere exportar tanto el <strong>datos_instancia.sql</strong> de toba (conteniendo los usuarios) como los de los proyectos (conteniendo la asociaciÛn de los usuarios a los proyectos) se hace:
 </p>
 <pre class="wiki">instancia exportar_local
 </pre>

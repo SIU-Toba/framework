@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/efs/upload - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/efs/upload?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,24 +61,25 @@
 </p>
 <h1 id="EFUpload">EF Upload</h1>
 <p>
-Un EF Upload presenta un campo de edici√≥n (<i>input</i>) para seleccionar cualquier tipo de archivo del sistema de archivos del cliente. En el procesamiento del formulario donde est√° contenido, el archivo se almacena en el disco del servidor, por lo que se conoce como <strong>upload</strong>. 
+Un EF Upload presenta un campo de ediciÛn (<i>input</i>) para seleccionar cualquier tipo de archivo del sistema de archivos del cliente. En el procesamiento del formulario donde est· contenido, el archivo se almacena en el disco del servidor, por lo que se conoce como <strong>upload</strong>. 
 </p>
 <h2 id="Alta">Alta</h2>
 <p>
-En modo alta el elemento funciona de manera natural, enviando un arreglo con las componentes: <i>name</i>, <i>type</i>, <i>tmp_name</i>, <i>error</i>, <i>size</i>. Si no hubo un error al subir el archivo deber√≠amos moverlo del directorio temporal a uno propio.
+En modo alta el elemento funciona de manera natural, enviando un arreglo con las componentes: <i>name</i>, <i>type</i>, <i>tmp_name</i>, <i>error</i>, <i>size</i>. Si no hubo un error al subir el archivo deberÌamos moverlo del directorio temporal a uno propio.
 </p>
-<h2 id="Modificaci√≥n">Modificaci√≥n</h2>
+<h2 id="ModificaciÛn">ModificaciÛn</h2>
 <p>
-En modo modificaci√≥n, se presenta una diferencia entre el comportamiento esperado para este elemento de interface y el resto. Obviamente no es posible presentar al usuario la ruta del archivo en la m√°quina cliente, se debe buscar otra opci√≥n. Las dos alternativas ser√≠an:
+En modo modificaciÛn, se presenta una diferencia entre el comportamiento esperado para este elemento de interface y el resto. Obviamente no es posible presentar al usuario la ruta del archivo en la m·quina cliente, se debe buscar otra opciÛn. Las dos alternativas serÌan:
+<strong>Esto esta desactualizado, ver la implementaciÛn en el trunk</strong>
 </p>
-<ul><li>Deshabilitar el ef_upload, ejecutando desde el formulario que lo contiene el m√©todo <i>establecer_solo_lectura</i>. En este caso hay dos situaciones a distinguir. Si el usuario no seleccion√≥ previamente un archivo, el ef aparecer√° deshabilitado. Si tiene un valor, entonces este valor se mostrar√° en una etiqueta sin dejar la posibilidad de modificaci√≥n (de acuerdo al comporatmiento de un editable en modo s√≥lo lectura).
-</li></ul><ul><li>Permitir la modificaci√≥n del archivo. Es el comportamiento por defecto, si no establecemos al ef como de s√≥lo lectura. En este caso, cuando el componente tiene un valor se ver√° en una etiqueta junto a la posibilidad de seleccionar otro, tildando el checkbox <i>Cambiar el Archivo</i> que veremos debajo del nombre del mismo. 
+<ul><li><del> Deshabilitar el ef_upload, ejecutando desde el formulario que lo contiene el mÈtodo <i>establecer_solo_lectura</i>. En este caso hay dos situaciones a distinguir. Si el usuario no seleccionÛ previamente un archivo, el ef aparecer· deshabilitado. Si tiene un valor, entonces este valor se mostrar· en una etiqueta sin dejar la posibilidad de modificaciÛn (de acuerdo al comporatmiento de un editable en modo sÛlo lectura).</del>
+</li></ul><ul><li><del> Permitir la modificaciÛn del archivo. Es el comportamiento por defecto, si no establecemos al ef como de sÛlo lectura. En este caso, cuando el componente tiene un valor se ver· en una etiqueta junto a la posibilidad de seleccionar otro, tildando el checkbox <i>Cambiar el Archivo</i> que veremos debajo del nombre del mismo. </del> 
 </li></ul><p>
-La segunda opci√≥n intenta emular el modo modificaci√≥n que para este elemento de formulario en particular se debe tratar de manera especial.
+<del> La segunda opciÛn intenta emular el modo modificaciÛn que para este elemento de formulario en particular se debe tratar de manera especial.</del>
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo del uso de ef_upload en <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, √≠tem <i>Descripci√≥n de Elementos/Formularios/Elementos de formulario/ef_upload</i>.
+Existe un ejemplo del uso de ef_upload en <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Ìtem <i>DescripciÛn de Elementos/Formularios/Elementos de formulario/ef_upload</i>.
 </p>
 </div>
    </div>

@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/LockingOptimista - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/LockingOptimista?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,25 +61,25 @@
 </p>
 <h1 id="LockingOptimistadeTransacciones">Locking Optimista de Transacciones</h1>
 <p>
-Basado en la discusiÃ³n de <a class="wiki" href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a>, queda aÃºn pendiente implementar, al menos en forma mÃ­nima, algÃºn esquema de bloqueo de registros en una transacciÃ³n, garantizando la <strong>consistencia</strong> al final de la transacciÃ³n.
+Basado en la discusión de <a class="wiki" href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a>, queda aún pendiente implementar, al menos en forma mínima, algún esquema de bloqueo de registros en una transacción, garantizando la <strong>consistencia</strong> al final de la transacción.
 </p>
-<h2 id="CÃ³moimplementarlo">Â¿CÃ³mo implementarlo?</h2>
+<h2 id="Cómoimplementarlo">¿Cómo implementarlo?</h2>
 <p>
-La mejor manera parece ser con una columna <i>versiÃ³n</i> en la tabla SQL. Al iniciar la transacciÃ³n de negocio se guarda en sesiÃ³n esta versiÃ³n y al finalizar se valida que siga siendo la misma. Es posible hacerlo sin esta columna (comparando los datos). La versiÃ³n parece mejor porque se puede agregar ademÃ¡s a la tabla quien fue el usuario que lo modificÃ³ y cuando.
+La mejor manera parece ser con una columna <i>versión</i> en la tabla SQL. Al iniciar la transacción de negocio se guarda en sesión esta versión y al finalizar se valida que siga siendo la misma. Es posible hacerlo sin esta columna (comparando los datos). La versión parece mejor porque se puede agregar además a la tabla quien fue el usuario que lo modificó y cuando.
 </p>
-<h2 id="Dondeponerlos">Â¿Donde ponerlos?</h2>
+<h2 id="Dondeponerlos">¿Donde ponerlos?</h2>
 <p>
-Los <a class="wiki" href="../Referencia/Objetos/db_registros.html">db_registros</a> parecen el lugar mas lÃ³gico.
+Los <a class="wiki" href="../Referencia/Objetos/db_registros.html">db_registros</a> parecen el lugar mas lógico.
 </p>
 <hr />
 <p>
-Se adjunta parte de un capÃ­tulo de un libro de patrones empresariales, referido a esta estrategia.
+Se adjunta parte de un capítulo de un libro de patrones empresariales, referido a esta estrategia.
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Desarrollo/LockingOptimista/patron.pdf">patron.pdf</a> (73.5 kB) -<q>Patron de locking optimista (extraÃ­do de PoEAA)</q>, added by seba on 06/14/05 16:32:01.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Desarrollo/LockingOptimista/patron.pdf">patron.pdf</a> (73.5 kB) -<q>Patron de locking optimista (extraído de PoEAA)</q>, added by seba on 06/14/05 16:32:01.</li>
     </ul>
   
   

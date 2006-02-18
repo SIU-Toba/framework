@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Refactorizaciones/menu - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/menu?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,25 +61,25 @@
 </p>
 <h1 id="Menu">Menu</h1>
 <p>
-Por un lado estan los items que forman parte y por otro el comportamiento grÃ¡fico del menÃº. Â¿Se los podrÃ­a llamar menu y tipo de menu?
+Por un lado estan los items que forman parte y por otro el comportamiento gráfico del menú. ¿Se los podría llamar menu y tipo de menu?
 </p>
-<h2 id="SÃ­ntomas">SÃ­ntomas</h2>
+<h2 id="Síntomas">Síntomas</h2>
 <p>
-La vista de "items" deberia perder su relacion con el menu que ve el <strong>usuario</strong>. Pasaria a ser una organizacion de elementos dedicada al <strong>desarrollador</strong> (Ver <a class="wiki" href="modulos.html">Modulos</a>). (Esto esta relacionado con <a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/49" title="CutomizaciÃ³n del menÃº y frame superior. (new)">#49</a>)
+La vista de "items" deberia perder su relacion con el menu que ve el <strong>usuario</strong>. Pasaria a ser una organizacion de elementos dedicada al <strong>desarrollador</strong> (Ver <a class="wiki" href="modulos.html">Modulos</a>). (Esto esta relacionado con <a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/49" title="Cutomización del menú y frame superior. (new)">#49</a>)
 </p>
 <ul><li>Se necesita un espacio para generar menues (publicar items organizados)
 </li><li>Deberia existir la posibilidad de generar un menu distinto para cada grupo de acceso.
 </li><li>Deberia existir la posibilidad de elegir el tipo de menu que se desea mostrar para cada grupo (deberia ser posible agregar tipos de menues).
 </li></ul><h2 id="PosiblesSoluciones">Posibles Soluciones</h2>
-<ul><li><i>Tipos de Menu</i>: Para el comportamiento grÃ¡fico, en el branch de refactoring de includes se incluye un esquema inicial donde el tipo de menu es una propiedad del proyecto (tienen su tabla apex_menu) y el comportamiento esta en clases, el tipo de pÃ¡gina es el encargado en definitiva de incluir el menÃº (es parte de la pÃ¡gina). Los tipos de menus posibles estÃ¡n limitados por el layout del proyecto (con-frames o sin-frames).
+<ul><li><i>Tipos de Menu</i>: Para el comportamiento gráfico, en el branch de refactoring de includes se incluye un esquema inicial donde el tipo de menu es una propiedad del proyecto (tienen su tabla apex_menu) y el comportamiento esta en clases, el tipo de página es el encargado en definitiva de incluir el menú (es parte de la página). Los tipos de menus posibles están limitados por el layout del proyecto (con-frames o sin-frames).
 </li></ul><h3 id="Notas">Notas</h3>
-<ul><li>S: Para la mayorÃ­a de los proyectos el arbol de desarrollo y el final de menu va a ser el mismo (es mucho mas comodo), no se deberÃ­a perder eso de vista, permitir varios menus para un proyecto no tiene que complicarlo.
+<ul><li>S: Para la mayoría de los proyectos el arbol de desarrollo y el final de menu va a ser el mismo (es mucho mas comodo), no se debería perder eso de vista, permitir varios menus para un proyecto no tiene que complicarlo.
 </li><li>J: Si, completamente de acuerdo. Pero igual me suena que el menu deberia separarse de la organizacion del programador. Creo que hay dos opcciones que no son excluyentes entre si para facilitar esto:
 <ol><li>Mostrar por defecto la estructura de modulos si el usuario no definio una vista particular.
 </li><li>El lugar del administrador donde se "publican" los items para un grupo de acceso puntual deberia tener una opcion para generar automaticamente el arbol en base a la estructura de modulos.
-</li></ol></li></ul><h2 id="MÃ¡sinfo">MÃ¡s info</h2>
+</li></ol></li></ul><h2 id="Másinfo">Más info</h2>
 <p>
-Respecto al tipo de menu, ver <a class="wiki" href="tipos_pagina.html">tipos de pÃ¡gina</a>
+Respecto al tipo de menu, ver <a class="wiki" href="tipos_pagina.html">tipos de página</a>
 </p>
 </div>
    </div>

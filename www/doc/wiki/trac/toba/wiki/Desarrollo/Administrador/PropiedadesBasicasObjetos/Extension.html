@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Administrador/PropiedadesBasicasObjetos/Extension - SIU-Toba - Trac</title><link rel="start" href="../../../../wiki.html" /><link rel="search" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../../TracGuide.html" /><link rel="stylesheet" href="../../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Administrador/PropiedadesBasicasObjetos/Extension?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../../chrome/common/js/trac.js"></script>
 </head>
@@ -61,24 +62,24 @@
 <h3 id="CreacionautomaticadelarchivoPHPnecesarioparaextenderunaclase">Creacion automatica del archivo PHP necesario para extender una clase</h3>
 <h2 id="Problemas">Problemas</h2>
 <ul><li>Al momento de <a class="wiki" href="../../../Referencia/Objetos/Extension.html">extender un objeto</a> es muy repetitivo tener que crear el esqueleto de una subclase. 
-</li><li>Una vez creada es difÃ­cil analizar lo esencial de la extensiÃ³n, por ejemplo si se escribe mal un listener de evento es difÃ­cil darse cuenta. Otro caso es por ejemplo con un CI con mucha lÃ³gica, donde existen mÃ©todos que no tienen relaciÃ³n directa con la extensiÃ³n.
-</li></ul><h2 id="CreaciÃ³ndelaExtensiÃ³n">CreaciÃ³n de la ExtensiÃ³n</h2>
+</li><li>Una vez creada es difícil analizar lo esencial de la extensión, por ejemplo si se escribe mal un listener de evento es difícil darse cuenta. Otro caso es por ejemplo con un CI con mucha lógica, donde existen métodos que no tienen relación directa con la extensión.
+</li></ul><h2 id="CreacióndelaExtensión">Creación de la Extensión</h2>
 <p>
-Una posibilidad es generar la extensiÃ³n en forma automÃ¡tica. HarÃ­a lo siguiente:
+Una posibilidad es generar la extensión en forma automática. Haría lo siguiente:
 </p>
-<ul><li>CrearÃ­a el archivo PHP.
-</li><li>IncluirÃ­a la clase del objeto base.
-</li><li>CrearÃ­a el encabezado de la subclase.
-</li><li>AnalizarÃ­a las dependencias (si es que tiene) y generarÃ­a los encabezados de los listeners de los eventos.
+<ul><li>Crearía el archivo PHP.
+</li><li>Incluiría la clase del objeto base.
+</li><li>Crearía el encabezado de la subclase.
+</li><li>Analizaría las dependencias (si es que tiene) y generaría los encabezados de los listeners de los eventos.
 </li></ul><p>
-Un punto a tener en cuenta cuando se genera cÃ³digo es la actualizaciÃ³n. digamos que hoy creo el CI y le asocio un par de EIs y me genera el cÃ³digo para escuchar los eventos, hasta ahÃ­ fenÃ³meno. Â¿Que pasa cuando yo adorne la clase con personalizaciones y despues decido agregar/quitar alguna dependencia? Ya es bastante mÃ¡s complicado decidir que hacer. Por eso serÃ­a una utilidad de <strong>creaciÃ³n</strong> de la extensiÃ³n, pero a partir de ahÃ­ arreglatelas como puedas.
+Un punto a tener en cuenta cuando se genera código es la actualización. digamos que hoy creo el CI y le asocio un par de EIs y me genera el código para escuchar los eventos, hasta ahí fenómeno. ¿Que pasa cuando yo adorne la clase con personalizaciones y despues decido agregar/quitar alguna dependencia? Ya es bastante más complicado decidir que hacer. Por eso sería una utilidad de <strong>creación</strong> de la extensión, pero a partir de ahí arreglatelas como puedas.
 </p>
-<h2 id="VisualizaciÃ³ndelaextensiÃ³n">VisualizaciÃ³n de la extensiÃ³n</h2>
+<h2 id="Visualizacióndelaextensión">Visualización de la extensión</h2>
 <p>
 Este problema podria relajarse creando una vista inteligente del codigo PHP de la clase extendida (resumen de eventos atrapados, etc..). Diferentes tipos de vistas:
 </p>
 <ul><li>Eventos escuchados clasificados por id de objeto.
-</li><li>Cosas que parecen ser errores de extensiÃ³n de eventos (tal como <tt>function evt__objeto_modificar()</tt>.
+</li><li>Cosas que parecen ser errores de extensión de eventos (tal como <tt>function evt__objeto_modificar()</tt>.
 </li></ul></div>
    </div>
    

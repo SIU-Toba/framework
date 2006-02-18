@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Instalacion/Encoding - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/Encoding?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,21 +59,21 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Instalacion.html">Instalacion</a> / Encoding
 </p>
-<h1 id="Codificaci√≥nEncoding">Codificaci√≥n (Encoding)</h1>
+<h1 id="CodificaciÛnEncoding">CodificaciÛn (Encoding)</h1>
 <p>
-Para una introducci√≥n corta y sencilla acerca de los encoding y en especial sobre Unicode ver <a class="ext-link" href="../../../../external.html?link=http://www.joelonsoftware.com/articles/Unicode.html"><span class="icon"></span>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
+Para una introducciÛn corta y sencilla acerca de los encoding y en especial sobre Unicode ver <a class="ext-link" href="../../../../external.html?link=http://www.joelonsoftware.com/articles/Unicode.html"><span class="icon"></span>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
 </p>
 <p>
-Actualmente para que los caracteres cl√°sicos utilizados en nuestro lenguaje que superan la barrera del 128 en ASCII (√°, √±, etc.) no se vean como 'cuadraditos', todo el entorno de desarrollo necesita tener un encoding iso88591, esto requiere que:
+Actualmente para que los caracteres cl·sicos utilizados en nuestro lenguaje que superan la barrera del 128 en ASCII (·, Ò, etc.) no se vean como 'cuadraditos', todo el entorno de desarrollo necesita tener un encoding iso88591, esto requiere que:
 </p>
-<ul><li>Apache tenga <tt>AddDefaultCharset ISO-8859-1</tt> en su configuraci√≥n (para probar que con Unicode no funciona probar cambiar a <tt>AddDefaultCharset UTF-8</tt>, reiniciar el servidor y probar alguna p√°gina Toba con acentos. Bajo windows es la configuraci√≥n por defecto.
-</li><li>El cliente svn baje los archivos utilizando iso88591. Para distribuciones linux-debian esta configuraci√≥n se cambia ejecutando como superusuario <tt>dpkg-reconfigure locales</tt> y seleccionando es_AR.iso88591 o similar (el comando cambia el archivo /etc/enviroment). Bajo Windows no se necesita cambiar nada porque
+<ul><li>Apache tenga <tt>AddDefaultCharset ISO-8859-1</tt> en su configuraciÛn (para probar que con Unicode no funciona probar cambiar a <tt>AddDefaultCharset UTF-8</tt>, reiniciar el servidor y probar alguna p·gina Toba con acentos. Bajo windows es la configuraciÛn por defecto.
+</li><li>El cliente svn baje los archivos utilizando iso88591. Para distribuciones linux-debian esta configuraciÛn se cambia ejecutando como superusuario <tt>dpkg-reconfigure locales</tt> y seleccionando es_AR.iso88591 o similar (el comando cambia el archivo /etc/enviroment). Bajo Windows no se necesita cambiar nada porque
 <ul><li>En las versiones 9x no tienen soporte para Unicode
-</li><li>En las versiones XP-200x 'adaptan' el texto para que funcionen los programas no-unicode (colaborando tambi√©n al desentendimiento general del tema).
-</li></ul></li><li>Tanto el cliente como servidor de PostgreSQL necesitan estar configurados para LATIN1 (alias de iso88591). Bajo linux generalmente el servidor toma el encoding del Sistema Operativo, en caso de instalarse linux utilizando Unicode (muy normal actualmente), se necesita explicitar LATIN1 en el comando sql <tt>CREATE TABLE</tt>, o en el comando de consola <tt>createdb</tt> (el comando de toba <tt>db crear</tt> ya esta adaptado a este encoding). Tambi√©n Existe una configuraci√≥n que afecta a todo el motor en el archivo postgresql.conf.
-</li><li>PHP no soporta en forma nativa a Unicode (y al parecer va a ser as√≠ hasta la version 6)
-</li></ul><h2 id="M√°sinfo">M√°s info</h2>
-<ul><li><a class="ext-link" href="../../../../external.html?link=http://intertwingly.net/stories/2004/04/14/i18n.html"><span class="icon"></span>I√±t√´rn√¢ti√¥n√†liz√¶ti√∏n</a>.
+</li><li>En las versiones XP-200x 'adaptan' el texto para que funcionen los programas no-unicode (colaborando tambiÈn al desentendimiento general del tema).
+</li></ul></li><li>Tanto el cliente como servidor de PostgreSQL necesitan estar configurados para LATIN1 (alias de iso88591). Bajo linux generalmente el servidor toma el encoding del Sistema Operativo, en caso de instalarse linux utilizando Unicode (muy normal actualmente), se necesita explicitar LATIN1 en el comando sql <tt>CREATE TABLE</tt>, o en el comando de consola <tt>createdb</tt> (el comando de toba <tt>db crear</tt> ya esta adaptado a este encoding). TambiÈn Existe una configuraciÛn que afecta a todo el motor en el archivo postgresql.conf.
+</li><li>PHP no soporta en forma nativa a Unicode (y al parecer va a ser asÌ hasta la version 6)
+</li></ul><h2 id="M·sinfo">M·s info</h2>
+<ul><li><a class="ext-link" href="../../../../external.html?link=http://intertwingly.net/stories/2004/04/14/i18n.html"><span class="icon"></span>IÒtÎrn‚tiÙn‡lizÊti¯n</a>.
 </li><li><a class="ext-link" href="../../../../external.html?link=http://www.debian.org/doc/manuals/intro-i18n/"><span class="icon"></span>Introduction to i18n (debian linux)</a>.
 </li></ul></div>
    </div>

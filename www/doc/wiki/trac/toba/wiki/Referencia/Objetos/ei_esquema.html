@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/ei_esquema - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_esquema?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,24 +61,24 @@
 </p>
 <h1 id="Objetoei_esquema">Objeto ei_esquema</h1>
 <p>
-Un ei_esquema simplemente enmascara la generaci贸n de un esquema utilizando <a class="ext-link" href="../../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>. 
+Un ei_esquema simplemente enmascara la generaci髇 de un esquema utilizando <a class="ext-link" href="../../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>. 
 </p>
 <h2 id="Carga">Carga</h2>
 <p>
-El evento carga del ei_esquema debe retornar una definici贸n <a class="missing wiki" href="../../GraphViz.html" rel="nofollow">GraphViz?</a>, ver la documentaci贸n online de esta herramienta. 
+El evento carga del ei_esquema debe retornar una definici髇 <a class="missing wiki" href="../../GraphViz.html" rel="nofollow">GraphViz?</a>, ver la documentaci髇 online de esta herramienta. 
 </p>
 <h2 id="Funcionamiento">Funcionamiento</h2>
 <p>
-Una vez suministrado la definici贸n se invoca al comando asociado (si es un grafo dirigido se utiliza <strong>dot</strong> sino <strong>neato</strong>), se toma la salida de este comando y se deja disponible en un directorio temporal ($toba_dir/temp). 
+Una vez suministrado la definici髇 se invoca al comando asociado (si es un grafo dirigido se utiliza <strong>dot</strong> sino <strong>neato</strong>), se toma la salida de este comando y se deja disponible en un directorio temporal ($toba_dir/temp). 
 Dependiendo de cada formato se pone un tag html que hace referencia a un item, este item toma el archivo del directorio temporal hace un passthru al browser y posteriormente lo borra.
 </p>
 <h2 id="Formatos">Formatos</h2>
 <p>
-La salida com煤n es utilizando un formato de imagen (png o gif), aunque es posible utilizar el formato <a class="ext-link" href="../../../../../external.html?link=http://www.w3.org/TR/SVG/"><span class="icon"></span>SVG</a>. Este formato permite que los nodos y arcos del esquema sean seleccionables (pudiendo incluir comportamientos javascript). El problema con este formato es que requiere diferentes requisitos seg煤n el navegador:
+La salida com鷑 es utilizando un formato de imagen (png o gif), aunque es posible utilizar el formato <a class="ext-link" href="../../../../../external.html?link=http://www.w3.org/TR/SVG/"><span class="icon"></span>SVG</a>. Este formato permite que los nodos y arcos del esquema sean seleccionables (pudiendo incluir comportamientos javascript). El problema con este formato es que requiere diferentes requisitos seg鷑 el navegador:
 </p>
-<ul><li>Firefox: Desde la versi贸n 1.5 lo soporta sin necesidad de ning煤n plugin, tanto con el tag &lt;embed&gt; como con &lt;object&gt;
-</li><li>IE: No tiene soporte, se necesita un <a class="ext-link" href="../../../../../external.html?link=http://www.adobe.com/svg/viewer/install/main.html"><span class="icon"></span>plugin de Adobe</a> (s贸lo funciona bien con el tag &lt;embed&gt;, justo el que no es estandar...)
-</li><li>Opera: Soporta un conjunto m铆nimo de cosas (no se puede inclu铆r scripts) y s贸lo funciona con el tag &lt;object&gt;.
+<ul><li>Firefox: Desde la versi髇 1.5 lo soporta sin necesidad de ning鷑 plugin, tanto con el tag &lt;embed&gt; como con &lt;object&gt;
+</li><li>IE: No tiene soporte, se necesita un <a class="ext-link" href="../../../../../external.html?link=http://www.adobe.com/svg/viewer/install/main.html"><span class="icon"></span>plugin de Adobe</a> (s髄o funciona bien con el tag &lt;embed&gt;, justo el que no es estandar...)
+</li><li>Opera: Soporta un conjunto m韓imo de cosas (no se puede inclu韗 scripts) y s髄o funciona con el tag &lt;object&gt;.
 </li></ul></div>
    </div>
    

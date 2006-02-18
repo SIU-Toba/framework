@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/ei_calendario - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_calendario?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,39 +61,39 @@
 </p>
 <h1 id="Calendario">Calendario</h1>
 <p>
-Un ei_calendario es una grilla que muestra d√≠as y semanas en una vista mensual. Por defecto, s√≥lo se muestra el n√∫mero de d√≠a (como en cualquier calendario), pero existe una opci√≥n para habilitar la visualizaci√≥n del contenido del mismo, y cumplir en forma limitada con la funcionalidad de <i>agenda</i>. Cada uno de los d√≠as y semanas puede ser <i>seleccionado</i> a trav√©s de eventos.
+Un ei_calendario es una grilla que muestra dÌas y semanas en una vista mensual. Por defecto, sÛlo se muestra el n˙mero de dÌa (como en cualquier calendario), pero existe una opciÛn para habilitar la visualizaciÛn del contenido del mismo, y cumplir en forma limitada con la funcionalidad de <i>agenda</i>. Cada uno de los dÌas y semanas puede ser <i>seleccionado</i> a travÈs de eventos.
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-No es necesario setear propiedades espec√≠ficas al calendario. Para incluirlo en un <i>controlador de interface</i> basta con definir un objeto de tipo "ei_calendario" en el administrador.
+No es necesario setear propiedades especÌficas al calendario. Para incluirlo en un <i>controlador de interface</i> basta con definir un objeto de tipo "ei_calendario" en el administrador.
 </p>
 <h2 id="Carga">Carga</h2>
 <p>
-Para visualizar los contenidos por d√≠a, el evento de carga debe invocar a la funci√≥n <i>set_ver_contenidos</i> del calendario:
+Para visualizar los contenidos por dÌa, el evento de carga debe invocar a la funciÛn <i>set_ver_contenidos</i> del calendario:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__calendario__carga</span><span class="code-keyword">()
     {
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">"calendario"</span><span class="code-keyword">]-&gt;</span><span class="code-lang">set_ver_contenidos</span><span class="code-keyword">(</span><span class="code-lang">true</span><span class="code-keyword">);
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">"calendario"</span><span class="code-keyword">)-&gt;</span><span class="code-lang">set_ver_contenidos</span><span class="code-keyword">(</span><span class="code-lang">true</span><span class="code-keyword">);
     }
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-El calendario espera en la carga un arreglo cuyas componentes son tambi√©n arreglos (asociativos) del tipo 'dia' =&gt; valor (el formato de fechas es <i>yyyy-mm-dd</i>), 'contenido' =&gt; valor. Notar que la carga de contenidos s√≥lo tendr√° efecto sobre la visualizaci√≥n si el calendario est√° en modo <i>mostrar contenidos</i>.
+El calendario espera en la carga un arreglo cuyas componentes son tambiÈn arreglos (asociativos) del tipo 'dia' =&gt; valor (el formato de fechas es <i>yyyy-mm-dd</i>), 'contenido' =&gt; valor. Notar que la carga de contenidos sÛlo tendr· efecto sobre la visualizaciÛn si el calendario est· en modo <i>mostrar contenidos</i>.
 </p>
 <h2 id="Eventospredefinidos">Eventos predefinidos</h2>
 <p>
 El calendario puede manejar los siguientes eventos en forma predefinida:
 </p>
-<ul><li><i>seleccionar_dia</i>: La selecci√≥n est√° habilitada para los d√≠as anteriores a la fecha actual. Env√≠a como par√°metro el valor del d√≠a seleccionado, en forma de un arreglo asociativo con los campos <strong>dia</strong>, <strong>mes</strong> y <strong>anio</strong>. Esta selecci√≥n cambia el estilo visual del d√≠a seleccionado. 
-</li><li><i>seleccionar_semana</i>: La selecci√≥n de una semana en particular se habilita el d√≠a viernes de la misma. Env√≠a como par√°metro el valor de la semana seleccionada, en forma de un arreglo asociativo con los campos <strong>semana</strong> y <strong>anio</strong>. Esta selecci√≥n tambi√©n actualiza el estilo visual de la selecci√≥n.
-</li><li><i>cambiar_mes</i>: Ante un cambio de mes o a√±o expl√≠cito del usuario se dispara este evento con un arreglo asociativo conteniendo el <strong>mes</strong> y el <strong>anio</strong>.
+<ul><li><i>seleccionar_dia</i>: La selecciÛn est· habilitada para los dÌas anteriores a la fecha actual. EnvÌa como par·metro el valor del dÌa seleccionado, en forma de un arreglo asociativo con los campos <strong>dia</strong>, <strong>mes</strong> y <strong>anio</strong>. Esta selecciÛn cambia el estilo visual del dÌa seleccionado. 
+</li><li><i>seleccionar_semana</i>: La selecciÛn de una semana en particular se habilita el dÌa viernes de la misma. EnvÌa como par·metro el valor de la semana seleccionada, en forma de un arreglo asociativo con los campos <strong>semana</strong> y <strong>anio</strong>. Esta selecciÛn tambiÈn actualiza el estilo visual de la selecciÛn.
+</li><li><i>cambiar_mes</i>: Ante un cambio de mes o aÒo explÌcito del usuario se dispara este evento con un arreglo asociativo conteniendo el <strong>mes</strong> y el <strong>anio</strong>.
 </li></ul><p>
-Notar que para los dos primeros eventos, la opci√≥n de selecci√≥n estar√° deshabilitada hasta que la fecha sea igual o posterior a la que se desea seleccionar. Esto es as√≠ dado que la selecci√≥n est√° pensada para informar y no para almacenar recordatorios futuros.
+Notar que para los dos primeros eventos, la opciÛn de selecciÛn estar· deshabilitada hasta que la fecha sea igual o posterior a la que se desea seleccionar. Esto es asÌ dado que la selecciÛn est· pensada para informar y no para almacenar recordatorios futuros.
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo de un calendario junto a un formulario en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, √≠tem <i>Objetos/ei_calendario</i>.
+Existe un ejemplo de un calendario junto a un formulario en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Ìtem <i>Objetos/ei_calendario</i>.
 </p>
 </div>
    </div>

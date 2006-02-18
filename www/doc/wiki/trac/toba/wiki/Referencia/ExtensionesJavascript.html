@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/ExtensionesJavascript - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/ExtensionesJavascript?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -62,13 +63,13 @@
 <p>
 Cada <a class="wiki" href="Objetos.html">objetos de interface</a> tiene asociado un objeto javascript encargado del comportamiento de pantalla. 
 </p>
-<h2 id="Cuandousarjavascript">Â¿Cuando usar javascript?</h2>
+<h2 id="Cuandousarjavascript">¿Cuando usar javascript?</h2>
 <p>
-La responsabilidad de estos objeto es manejar todo aspecto de la pantalla que no pudo ser determinado estÃ¡ticamente. Por ejemplo si un <a class="missing wiki" href="efs/combo.html" rel="nofollow">combo?</a> necesita deshabilitarse en base a que el usuario tilde un <a class="missing wiki" href="efs/checkbox.html" rel="nofollow">checkbox?</a> es un comportamiento dinÃ¡mico de pantalla ya que el servidor (PHP) no puede introducir lÃ³gica de este tipo, es javascript el lenguaje encargado de manejar esta situaciÃ³n. Distinto es el caso cuando el combo se deshabilite en base a la etapa de un ABM (por ejemplo en la modificaciÃ³n), esta lÃ³gica, aunque de pantalla, es estÃ¡tica al pedido actual y pudo ser determinada desde PHP, impactando al combo con el API de los efs en PHP.
+La responsabilidad de estos objeto es manejar todo aspecto de la pantalla que no pudo ser determinado estáticamente. Por ejemplo si un <a class="missing wiki" href="efs/combo.html" rel="nofollow">combo?</a> necesita deshabilitarse en base a que el usuario tilde un <a class="missing wiki" href="efs/checkbox.html" rel="nofollow">checkbox?</a> es un comportamiento dinámico de pantalla ya que el servidor (PHP) no puede introducir lógica de este tipo, es javascript el lenguaje encargado de manejar esta situación. Distinto es el caso cuando el combo se deshabilite en base a la etapa de un ABM (por ejemplo en la modificación), esta lógica, aunque de pantalla, es estática al pedido actual y pudo ser determinada desde PHP, impactando al combo con el API de los efs en PHP.
 </p>
-<h2 id="CÃ³moextenderelcomportamiento">Â¿CÃ³mo extender el comportamiento?</h2>
+<h2 id="Cómoextenderelcomportamiento">¿Cómo extender el comportamiento?</h2>
 <p>
-Todo cÃ³digo javascript necesita ser parte de la salida PHP. Este concepto puede traer a confusiÃ³n, el cÃ³digo javascript necesita ser definido en PHP, como tambiÃ©n lo hace con la salida HTML. Para esto primero se necesita hacer una subclase en PHP del objeto Toba, allÃ­ se encuentra una ventana de extensiÃ³n javascript, el mÃ©todo <i>extender_objeto_js</i>:
+Todo código javascript necesita ser parte de la salida PHP. Este concepto puede traer a confusión, el código javascript necesita ser definido en PHP, como también lo hace con la salida HTML. Para esto primero se necesita hacer una subclase en PHP del objeto Toba, allí se encuentra una ventana de extensión javascript, el método <i>extender_objeto_js</i>:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">extender_objeto_js</span><span class="code-keyword">()
@@ -85,16 +86,16 @@ Todo cÃ³digo javascript necesita ser parte de la salida PHP. Este concepto puede
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-El <i>Encabezado</i> estÃ¡ compuesto de dos partes:
+El <i>Encabezado</i> está compuesto de dos partes:
 </p>
-<ul><li>Objeto base de la extensiÃ³n: Se utiliza <i>$this-&gt;objeto_js</i>, este atributo mantiene el nombre del objeto javascript asociado.
-</li><li>Nombre del mÃ©todo.
+<ul><li>Objeto base de la extensión: Se utiliza <i>$this-&gt;objeto_js</i>, este atributo mantiene el nombre del objeto javascript asociado.
+</li><li>Nombre del método.
 </li></ul><p>
-A diferencia de las extensiones en PHP, aquÃ­ no se extiende la <i>clase javascript</i> sino la instancia, (el objeto) directamente. El cuerpo de la extensiÃ³n depende del Objeto Toba particular.
+A diferencia de las extensiones en PHP, aquí no se extiende la <i>clase javascript</i> sino la instancia, (el objeto) directamente. El cuerpo de la extensión depende del Objeto Toba particular.
 </p>
 <h2 id="Eventos">Eventos</h2>
 <p>
-Los <a class="wiki" href="Eventos.html">eventos</a> disparados desde el cliente (denominados <i>Disparados para atender la pantalla anterior</i>) pueden atraparse desde javascript y tomar parte de la decisiÃ³n en el <a class="wiki" href="ProcesoDeSubmit.html">proceso de submit</a>.
+Los <a class="wiki" href="Eventos.html">eventos</a> disparados desde el cliente (denominados <i>Disparados para atender la pantalla anterior</i>) pueden atraparse desde javascript y tomar parte de la decisión en el <a class="wiki" href="ProcesoDeSubmit.html">proceso de submit</a>.
 </p>
 </div>
    </div>

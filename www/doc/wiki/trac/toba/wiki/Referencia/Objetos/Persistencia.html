@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/Persistencia - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/Persistencia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,77 +59,65 @@
     <div id="searchable"><p>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / Persistencia
 </p>
-<h1 id="Introducci√≥nalosobjetosdepersistencia">Introducci√≥n a los objetos de persistencia</h1>
+<h1 id="IntroducciÛnalosobjetosdepersistencia">IntroducciÛn a los objetos de persistencia</h1>
 <p>
-Los objetos de persistencia tienen como objetivo resolver una problematica bien puntual: ayudar al controlador de interface en el progreso del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a>. Esto es cargar un conjunto de datos relacionados, mantener los <i>cambios</i> a estos datos en memoria y finalmente sincronizarlos con el medio de persistencia cuando sea solicitado.
+Los objetos de persistencia tienen como objetivo resolver una problematica bien puntual: ayudar al controlador de interface en el progreso del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a>. Esto es cargar un conjunto de datos relacionados, mantener los <i>cambios</i> realizados por el usuario a estos datos en memoria y finalmente sincronizarlos con el medio de persistencia cuando sea solicitado.
 </p>
-<h2 id="Porqu√©">¬øPorqu√©?</h2>
+<h2 id="PorquÈ">øPorquÈ?</h2>
 <p>
-Cuando los datos a manejar son simples, es f√°cil mantener la informaci√≥n en el CI, cuando los datos empiezan a ser complejos, fruto del manejo de relaciones en la base de datos, es muy tedioso tener que mantener estas estructuras en forma manual. La soluci√≥n a este problema es describir en forma de objeto toba a las tablas y relaciones que se van a manipular en la transacci√≥n. 
+Cuando los datos a manejar son simples, es f·cil mantener la informaciÛn entre pedidos de p·gina en la sesiÛn en forma plana, en toba esto lo hace generalmente el <a class="wiki" href="ci.html">objeto_ci</a>. Cuando los datos empiezan a ser complejos, fruto del manejo de relaciones en la base de datos, es muy tedioso tener que mantener estas estructuras en forma manual. La soluciÛn a este problema es describir en forma de objeto toba a las <strong>tablas</strong> y <strong>relaciones</strong> que se van a manipular en la transacciÛn. 
 </p>
 <p>
-La soluci√≥n que brindan estos objetos son:
+La soluciÛn que brindan estos objetos son:
 </p>
-<ul><li>Guardar el estado de los datos que manejan, el CI s√≥lo tendr√° que guardar en sesi√≥n informaci√≥n relacionada con la presentaci√≥n pero ya no m√°s los datos de la operaci√≥n.
-</li><li>Brindar una API de manipulaci√≥n de datos orientada a datos tabulares.
-</li><li>El mecanismo de carga y sincronizaci√≥n es manejado por una clase aparte llamada <i>Administrador de persistencia</i>, es la que en definiva forma las query de carga y los comandos update, insert y delete para el caso de una base de datos relacional.
+<ul><li>Guardar el estado de los datos que manejan, el CI sÛlo tendr· que guardar en sesiÛn informaciÛn relacionada con la presentaciÛn pero ya no m·s los datos de la operaciÛn.
+</li><li>Brindar una API de manipulaciÛn de datos orientada a datos tabulares.
+</li><li>Brindar un mecanismo de carga y sincronizaciÛn, esto es manejado por una clase aparte llamada <a class="wiki" href="AP.html">Administrador de persistencia</a>, es la que en definitiva forma las query de carga y los comandos update, insert y delete para el caso de una base de datos relacional.
 </li></ul><p>
  
 </p>
 <h2 id="ComportamientoGeneral">Comportamiento General</h2>
-<h3 id="Duranteladefinici√≥n">Durante la definici√≥n</h3>
+<h3 id="DuranteladefiniciÛn">Durante la definiciÛn</h3>
 <ul><li>Se modelan datos tabulares, generalmente tablas de una BD relacional. El objeto utilizado es el <a class="wiki" href="datos_tabla.html">objeto_datos_tabla</a>.
 </li><li>Se modelan las relaciones entre estas tabla (utilizando el objeto <a class="wiki" href="datos_relacion.html">objeto_datos_relacion</a>).
-</li><li>Se asigna la relaci√≥n al CI encargado de la transacci√≥n.
+</li><li>Se asigna la relaciÛn al CI encargado de la transacciÛn.
 </li></ul><p>
 <a href="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.png" style="padding:0; border:none"><img src="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.png?format=raw"  style="" /></a>
 </p>
-<h3 id="Durantelaejecuci√≥n">Durante la ejecuci√≥n</h3>
+<h3 id="DurantelaejecuciÛn">Durante la ejecuciÛn</h3>
 <p>
-Siempre desde el CI encargado de la transacci√≥n:
+Siempre desde el CI encargado de la transacciÛn:
 </p>
-<ul><li>Se carga el datos_relacion como <i>dependencia del CI</i> (no es la carga de datos), a diferencia de otros objetos esta carga no es autom√°tica, s√≥lo se hace cuando se necesita. Como esta carga se debe una sola vez por pedido de p√°gina, cuando alg√∫n elemento necesite dialogar con el datos_relacion se recomienda definir un m√©todo que la primera vez que se llama carga la dependencia y luego la retorna ya cargada:
+<ul><li>Se <strong>cargan datos</strong> en la relaciÛn con una restricciÛn (generalmente la clave de la tabla principal que se est· editando), en caso del alta de un nuevo registro se resetea la relaciÛn (por si estaba cargada con alg˙n dato previamente). Generalmente la condiciÛn de alta o modificaciÛn de un conjunto de datos se tiene antes de llegar a este punto (generalmente desde un CI de nivel superior que da la posibilidad al usuario de crear una entidad nueva o editar una existente), por lo que se utilizan dos atributos del objeto <i>es_nuevo</i> e <i>id_editado</i>.
 <div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">protected </span><span class="code-lang">$es_nuevo </span><span class="code-keyword">= </span><span class="code-lang">false</span><span class="code-keyword">;
+    protected </span><span class="code-lang">$id_editado</span><span class="code-keyword">;
 
-    </span><span class="code-comment">/**
-    *    Retorna el datos_relacion de esta operaci√≥n
-    */
-    </span><span class="code-keyword">function </span><span class="code-lang">get_relacion</span><span class="code-keyword">()
+    function </span><span class="code-lang">mantener_estado_sesion</span><span class="code-keyword">()
     {
-        if (! isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">])) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">);
-        }
-        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">];
+        </span><span class="code-lang">$props </span><span class="code-keyword">= </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">mantener_estado_sesion</span><span class="code-keyword">();
+        </span><span class="code-lang">$props</span><span class="code-keyword">[] = </span><span class="code-string">'id_editado'</span><span class="code-keyword">;
+        return </span><span class="code-lang">$props</span><span class="code-keyword">;
     }
-</span><span class="code-lang">?&gt;
-</span></span>
-</pre></div></li></ul><p>
-<strong>ATENCION:</strong>: Esto se deber√≠a hacer autom√°ticamente, en la nueva versi√≥n tiene que haber un m√©todo $this-&gt;dependencia($nombre) que la primera vez la cargue y luego la utilize.
-</p>
-<ul><li>Se <strong>cargan datos</strong> en la relaci√≥n con una restricci√≥n (generalmente la clave de la tabla principal que se est√° editando), en caso del alta de un nuevo registro se resetea la relaci√≥n (por si estaba cargada con alg√∫n dato previamente). Generalmente la condici√≥n de alta o modificaci√≥n de un conjunto de datos se tiene antes de llegar a este punto (generalmente desde un CI de nivel superior que da la posibilidad al usuario de crear una entidad nueva o editar una existente), por lo que se utilizan dos atributos del objeto <i>es_nuevo</i> e <i>id_editado</i>.
-<div class="code"><pre><span class="code-lang">&lt;?php
 
     </span><span class="code-comment">/**
-    *    Retorna el datos_relacion de esta operaci√≥n
+    *    Retorna el datos_relacion de esta operaciÛn
     */
     </span><span class="code-keyword">function </span><span class="code-lang">get_relacion</span><span class="code-keyword">()
     {
-        if (! isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">])) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">);
-        }
         if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">es_nuevo</span><span class="code-keyword">) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">resetear</span><span class="code-keyword">();
+            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">resetear</span><span class="code-keyword">();
             </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">es_nuevo </span><span class="code-keyword">= </span><span class="code-lang">false</span><span class="code-keyword">;
         }
         if (isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">)) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">cargar</span><span class="code-keyword">(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">);
+            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">cargar</span><span class="code-keyword">(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">);
             unset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">);
         }
-        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'relacion'</span><span class="code-keyword">];
+        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">);
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li></ul><ul><li>Los eventos de los distintos elementos de interface (eis) son ruteados hacia el datos_tabla correspondiente. Por ejemplo el carga de un formulario se alimenta del datos_tabla que contiene los datos que se quieren manipular, lo mismo sucede cuando se produce la modificaci√≥n. El siguiente ejemplo <strong>trabaja con un solo registro</strong> por eso la simplicidad de la llamada:
+</pre></div></li></ul><ul><li>Los eventos de los distintos elementos de interface (eis) son ruteados hacia el datos_tabla correspondiente. Por ejemplo el carga de un formulario se alimenta del datos_tabla que contiene los datos que se quieren manipular, lo mismo sucede cuando se produce la modificaciÛn. El siguiente ejemplo <strong>trabaja con un solo registro</strong> por eso la simplicidad de la llamada:
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__aula__carga</span><span class="code-keyword">()
     {
@@ -141,7 +130,7 @@ Siempre desde el CI encargado de la transacci√≥n:
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li><li>Cuando el CI quiere finalizar la transacci√≥n (por ejemplo el usuario decide guardar), se pide sincronizar el datos_relacion.
+</pre></div></li><li>Cuando el CI quiere finalizar la transacciÛn (por ejemplo el usuario decide guardar), se pide sincronizar el datos_relacion.
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__guardar</span><span class="code-keyword">()
     {
@@ -150,7 +139,7 @@ Siempre desde el CI encargado de la transacci√≥n:
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
-Estos son los pasos para escenarios sencillos, para m√°s informaci√≥n sobre los servicios que brindan estos objetos se encuentra en:
+Estos son los pasos para escenarios sencillos, para m·s informaciÛn sobre los servicios que brindan estos objetos se encuentra en:
 </p>
 <ul><li><a class="wiki" href="datos_relacion.html">objeto_datos_relacion</a>
 </li><li><a class="wiki" href="datos_tabla.html">objeto_datos_tabla</a>

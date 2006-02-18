@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Eventos - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Eventos?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,7 +61,7 @@
 </p>
 <h1 id="Temasnoresueltosdeladefiniciondeeventos">Temas no resueltos de la definicion de eventos</h1>
 <h2 id="Relacionconelcontenedor">Relacion con el contenedor</h2>
-<ol><li>Representacion grafica dentro del contenedor: Â¿De quien es la responsabilidad de posicionar un evento dentro de un EI? (lo mas critico es la posicion de la columna en el cuadro y el ML, pero el problema es general)
+<ol><li>Representacion grafica dentro del contenedor: ¿De quien es la responsabilidad de posicionar un evento dentro de un EI? (lo mas critico es la posicion de la columna en el cuadro y el ML, pero el problema es general)
 </li><li>Las deciciones que toman los EI respecto de los eventos, pueden ser confusas al llevar la definicion de eventos al administrador. Ej: El ei_formulario tiene dos "estados" que influyen sobre que eventos mostrar (datos cargados [bajo, modificacion, cancelar]/ vacio [alta]). Esto es poco flexible... que pasa si se necesitan agregar otros eventos para alguno del los momentos?
 </li></ol><p>
 El los dos primeros casos casos el tema se puede resolver poniendo un parametro mas en la definicion del evento del EI:
@@ -73,13 +74,13 @@ Pero ambas implican acoplar responsabilidades del evento y su contenedor.
 <p>
 Me parece que cada una ejercita las dos necesidades pendientes relacionadas a los eventos:
 </p>
-<ol><li>Es un caso mÃ¡s de redefiniciÃ³n del layout de un objeto, creo que merece su <strong><a class="wiki" href="Layout.html">discusiÃ³n propia</a></strong>. Podemos esquivar el bulto y solucionar estos problemas aislados, pero creo que a la larga se va a tener que brindar una soluciÃ³n general.
-</li><li>Esto es producto de que el evento en sÃ­ es sÃ³lo estructura, de esta forma hasta hoy es sencillo crear nuevos y definirlos estÃ¡ticamente porque son una rÃ©plica de otros eventos predefinidos. Supongamos que los eventos sean esto:
-</li></ol><ul><li>Timing del lanzado (hoy en dÃ­a el orden esta prefijado, Â¿que pasa si quiero hacer uno que se lanze despues del <span class="underline">carga?)
-</li><li>Parametros que acarrea (hoy en dÃ­a cada objeto lo llena dependiendo de una regla propia)
-</li><li>Interpretacion del retorno del listener (creo que esta logica ni esta en el objeto que lo lanza). AquÃ­ estarÃ­a el impacto de listener en el objeto lanzador, como es el caso de mostrar o no determinada etapa del formulario.
+<ol><li>Es un caso más de redefinición del layout de un objeto, creo que merece su <strong><a class="wiki" href="Layout.html">discusión propia</a></strong>. Podemos esquivar el bulto y solucionar estos problemas aislados, pero creo que a la larga se va a tener que brindar una solución general.
+</li><li>Esto es producto de que el evento en sí es sólo estructura, de esta forma hasta hoy es sencillo crear nuevos y definirlos estáticamente porque son una réplica de otros eventos predefinidos. Supongamos que los eventos sean esto:
+</li></ol><ul><li>Timing del lanzado (hoy en día el orden esta prefijado, ¿que pasa si quiero hacer uno que se lanze despues del <span class="underline">carga?)
+</li><li>Parametros que acarrea (hoy en día cada objeto lo llena dependiendo de una regla propia)
+</li><li>Interpretacion del retorno del listener (creo que esta logica ni esta en el objeto que lo lanza). Aquí estaría el impacto de listener en el objeto lanzador, como es el caso de mostrar o no determinada etapa del formulario.
 </li></ul><p>
-Todas estas responsabilidades son manejadas por cada objeto particular, y obviamente no pueden saber de antemano las <i>locuras</i> de los eventos personalizados. Â¿Que pasa si el evento es una clase que tiene cÃ³digo para cargar sus parametros, para determinar cuando se lanza y para interpretar el resultado del listener? Â¿Tiene sentido? MÃ¡s allÃ¡ del problemita de compatibilidad (ejem) hay un tema de necesidad, yo no se si se van a hacer tantas personalizaciones de los eventos mÃ¡s allÃ¡ de detalles grÃ¡ficos... 
+Todas estas responsabilidades son manejadas por cada objeto particular, y obviamente no pueden saber de antemano las <i>locuras</i> de los eventos personalizados. ¿Que pasa si el evento es una clase que tiene código para cargar sus parametros, para determinar cuando se lanza y para interpretar el resultado del listener? ¿Tiene sentido? Más allá del problemita de compatibilidad (ejem) hay un tema de necesidad, yo no se si se van a hacer tantas personalizaciones de los eventos más allá de detalles gráficos... 
 </span></p>
 <h2 id="Comportamiento">Comportamiento</h2>
 <ul><li>Hay algo raro detras del concepto de evento por defecto?. 
@@ -87,11 +88,11 @@ Todas estas responsabilidades son manejadas por cada objeto particular, y obviam
 Tendriamos que definir que quiere decir, sacado de lo que hay hoy:
 </p>
 <pre class="wiki">De todos los eventos de un objeto, uno puede estar definido como por defecto. 
-Un evento por defecto serÃ¡ lanzado en caso de que ningÃºn evento sea disparado por el usuario.
+Un evento por defecto será lanzado en caso de que ningún evento sea disparado por el usuario.
 </pre>
 <p>
-Me parece que hay una generalizaciÃ³n peligrosa, hay que hablar por defecto para el tipo de evento <i>Disparado para atender la pantalla anterior</i> (ver <a class="wiki" href="../Referencia/Eventos.html">tipos de eventos</a>). Sino el carga podrÃ­a ser por defecto y no tiene sentido.
-Â¿Te parece bien esta definiciÃ³n? La implementaciÃ³n hoy en dÃ­a cada objeto lo elije como le place.
+Me parece que hay una generalización peligrosa, hay que hablar por defecto para el tipo de evento <i>Disparado para atender la pantalla anterior</i> (ver <a class="wiki" href="../Referencia/Eventos.html">tipos de eventos</a>). Sino el carga podría ser por defecto y no tiene sentido.
+¿Te parece bien esta definición? La implementación hoy en día cada objeto lo elije como le place.
 </p>
 </div>
    </div>

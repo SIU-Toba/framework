@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/PuntosDeAcceso - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/PuntosDeAcceso?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -59,15 +60,15 @@
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / PuntosDeAcceso
 </p>
 <h1 id="PuntosdeAcceso">Puntos de Acceso</h1>
-<h2 id="QuÃ©son">Â¿QuÃ© son?</h2>
+<h2 id="Quéson">¿Qué son?</h2>
 <p>
-Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso tanto al aplicativo de un proyecto como al administrador del mismo. Cada proyecto puede tener varios puntos de acceso, por defecto se proveen dos: una para la aplicaciÃ³n (aplicacion.php) y otro para el administrador (admin.php) y se ubican bajo el directorio <i>www</i> del proyecto.
+Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso tanto al aplicativo de un proyecto como al administrador del mismo. Cada proyecto puede tener varios puntos de acceso, por defecto se proveen dos: una para la aplicación (aplicacion.php) y otro para el administrador (admin.php) y se ubican bajo el directorio <i>www</i> del proyecto.
 </p>
-<h2 id="CÃ³mocrearuno">Â¿CÃ³mo crear uno?</h2>
+<h2 id="Cómocrearuno">¿Cómo crear uno?</h2>
 <p>
-Se recomienda tomar como modelo los puntos de acceso que estÃ¡n incluidos en el mismo Toba.
+Se recomienda tomar como modelo los puntos de acceso que están incluidos en el mismo Toba.
 </p>
-<ul><li>PA de la aplicaciÃ³n: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/aplicacion.php">source:trunk/www/aplicacion.php</a>
+<ul><li>PA de la aplicación: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/aplicacion.php">source:trunk/www/aplicacion.php</a>
 </li></ul><ul><li>PA del administrador: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/admin.php">source:trunk/www/admin.php</a>
 </li></ul><p>
 Luego de modificar las configuraciones particulares es necesario notificar a Apache la existencia del nuevo PA. Para esto es necesario agregar al archivo <i>directorio_apache/conf/toba.conf</i> un alias al punto de acceso:
@@ -84,22 +85,22 @@ Luego de modificar las configuraciones particulares es necesario notificar a Apa
     &lt;/Directory&gt;
 </pre>
 <p>
-Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalaciÃ³n de Toba. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma mÃ¡quina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estarÃ¡ en un directorio diferente.
+Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalación de Toba. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estará en un directorio diferente.
 </p>
 <h2 id="ConfiguracionesImportantes">Configuraciones Importantes</h2>
-<ul><li>Alias: La variable apex_pa_toba_alias debe contener el del alias correspondiente a la instalaciÃ³n de Toba a la cual pertenence la instancia. Esta directiva se puede configurar desde el mismo alias de apache incluyendo <tt>SetEnv TOBA_ALIAS alias</tt>}. Si el alias (en el archivo <i>directorio_apache/conf/toba.conf</i>) tiene asignado el nombre <i>toba_prueba</i>, se define asÃ­:
+<ul><li>Alias: La variable apex_pa_toba_alias debe contener el del alias correspondiente a la instalación de Toba a la cual pertenence la instancia. Esta directiva se puede configurar desde el mismo alias de apache incluyendo <tt>SetEnv TOBA_ALIAS alias</tt>}. Si el alias (en el archivo <i>directorio_apache/conf/toba.conf</i>) tiene asignado el nombre <i>toba_prueba</i>, se define así:
 <pre class="wiki">define(&#34;apex_pa_toba_alias&#34;, &#34;toba_prueba&#34;);
 </pre>
 </li></ul><ul><li>Instancia: La variable apex_pa_instancia debe apuntar a la <a class="wiki" href="Instancia.html">instancia</a> que se quiere acceder, por ejemplo para acceder a una instancia particular <i>toba_prueba</i>:
 <pre class="wiki">define(&#34;apex_pa_instancia&#34;,&#34;toba_prueba&#34;);
 </pre>
-</li></ul><ul><li>Acceso: Para desarrollo es muy prÃ¡ctico evitar pedir un login en cada acceso, para eso se usa la variable apex_pa_validacion_debug. <strong>Importante</strong>: Desactivar esta configuraciÃ³n en deployment.
+</li></ul><ul><li>Acceso: Para desarrollo es muy práctico evitar pedir un login en cada acceso, para eso se usa la variable apex_pa_validacion_debug. <strong>Importante</strong>: Desactivar esta configuración en deployment.
 </li></ul><pre class="wiki">define(&#34;apex_pa_validacion_debug&#34;,1)
 </pre>
-<ul><li>EncriptaciÃ³n: Para maximizar la seguridad es posible encriptar el <i>querystring</i> seteando la variable apex_pa_encriptar_qs:
+<ul><li>Encriptación: Para maximizar la seguridad es posible encriptar el <i>querystring</i> seteando la variable apex_pa_encriptar_qs:
 <pre class="wiki">define(&#34;apex_pa_encriptar_qs&#34;,1);
 </pre>
-</li></ul><ul><li>Log: Es posible elegir el medio y el nivel de logging interno de Toba. Esto es Ãºtil para hacer trazas de desarrollo.
+</li></ul><ul><li>Log: Es posible elegir el medio y el nivel de logging interno de Toba. Esto es útil para hacer trazas de desarrollo.
 <pre class="wiki"># Nivel de log a ARCHIVO
 define(&#34;apex_pa_log_archivo&#34;,1);
 define(&#34;apex_pa_log_archivo_nivel&#34;,2);
@@ -111,7 +112,7 @@ define(&#34;apex_pa_log_pantalla&#34;,1);
 define(&#34;apex_pa_log_pantalla_nivel&#34;,7);
 </pre>
 </li></ul><p>
-Ver <a class="missing wiki" href="../TobaSeguridad.html" rel="nofollow">TobaSeguridad?</a> para mÃ¡s informaciÃ³n acerca de los mecanismos de seguridad existentes.
+Ver <a class="missing wiki" href="../TobaSeguridad.html" rel="nofollow">TobaSeguridad?</a> para más información acerca de los mecanismos de seguridad existentes.
 </p>
 </div>
    </div>

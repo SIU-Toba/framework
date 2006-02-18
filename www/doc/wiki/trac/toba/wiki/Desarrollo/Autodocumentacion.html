@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Autodocumentacion - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Autodocumentacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,17 +59,17 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / Autodocumentacion
 </p>
-<h1 id="AutodocumentaciÃ³ndelcÃ³digo">AutodocumentaciÃ³n del cÃ³digo</h1>
+<h1 id="Autodocumentacióndelcódigo">Autodocumentación del código</h1>
 <p>
-A medida que las extensiones se van haciendo mÃ¡s importantes, mÃ¡s se hace necesario que los proyectos puedan consumir las interfaces de las cosas que extienden o consumen. Hoy en dÃ­a casi todo el aprendizaje se hace leyendo directamente las clases o haciendo copy-paste en base a algo que anda.
+A medida que las extensiones se van haciendo más importantes, más se hace necesario que los proyectos puedan consumir las interfaces de las cosas que extienden o consumen. Hoy en día casi todo el aprendizaje se hace leyendo directamente las clases o haciendo copy-paste en base a algo que anda.
 </p>
-<h2 id="DocumentaciÃ³nenPHP">DocumentaciÃ³n en PHP</h2>
+<h2 id="DocumentaciónenPHP">Documentación en PHP</h2>
 <p>
-Un ejemplo de cÃ³mo documentar un cÃ³digo esta en <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/modelo_documentacion.php">source:trunk/php/modelo_documentacion.php</a>
+Un ejemplo de cómo documentar un código esta en <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/modelo_documentacion.php">source:trunk/php/modelo_documentacion.php</a>
 </p>
-<h3 id="BuenasPrÃ¡cticas">'Buenas?' PrÃ¡cticas</h3>
+<h3 id="BuenasPrácticas">'Buenas?' Prácticas</h3>
 <p>
-Una forma rara de programar es empezar con comentarios e ir reemplazandolos por cÃ³digo, al final del dÃ­a el mÃ©todo/funciÃ³n queda sin comentarios porque todo es claro, por ejemplo esto:
+Una forma rara de programar es empezar con comentarios e ir reemplazandolos por código, al final del día el método/función queda sin comentarios porque todo es claro, por ejemplo esto:
 </p>
 <pre class="wiki">if ($moneda_hoy != $moneda_ayer &amp;&amp; ! $control &amp;&amp; nivel($futuro) == niveles::dificil())  { //Estamos en argentina
 }
@@ -81,26 +82,26 @@ if ($estamos_en_argentina) {
 }
 </pre>
 <p>
-Y cuando se pone dura la mano el prÃ³ximo paso es este:
+Y cuando se pone dura la mano el próximo paso es este:
 </p>
 <pre class="wiki">if (estamos_en_argentina()) { 
 }
 </pre>
-<h2 id="DocumentaciÃ³nenJavascript">DocumentaciÃ³n en Javascript</h2>
+<h2 id="DocumentaciónenJavascript">Documentación en Javascript</h2>
 <p>
-Estoy probando un paquete <a class="ext-link" href="../../../../external.html?link=http://jsdoc.sourceforge.net/"><span class="icon"></span>jsDoc</a>, estÃ¡ hecho en PERL y funciona bien, la pregunta es Â¿dÃ³nde poner la salida? Esto genera varios HTML, Â¿se mete al SVN asÃ­ como estÃ¡? Â¿Se mete comprimido? Â¿se hace un .chm? Â¿se pone en toba.siu.edu.ar?
+Estoy probando un paquete <a class="ext-link" href="../../../../external.html?link=http://jsdoc.sourceforge.net/"><span class="icon"></span>jsDoc</a>, está hecho en PERL y funciona bien, la pregunta es ¿dónde poner la salida? Esto genera varios HTML, ¿se mete al SVN así como está? ¿Se mete comprimido? ¿se hace un .chm? ¿se pone en toba.siu.edu.ar?
 </p>
-<h2 id="CrÃ­ticas">CrÃ­ticas</h2>
+<h2 id="Críticas">Críticas</h2>
 <p>
-Yo tengo una duda con la autodocumentaciÃ³n, siempre pensaba que estaba fenomenal porque evitaba browsear los fuentes, pero despuÃ©s pasÃ© a ver que viendo los fuentes aprendÃ­a bastante y en cierta forma me capacitaba mejor. Desde ya que se necesita un editor que pueda tirar el esqueleto de la clase y pueda hacer un grep rÃ¡pido por las fuentes y un espÃ­ritu aventurero. Muchas veces me ha pasado que recorrer el javadoc era mucho mas mareante que mirar directamente las fuentes (y si no tiene muchos comentarios mejor). 
+Yo tengo una duda con la autodocumentación, siempre pensaba que estaba fenomenal porque evitaba browsear los fuentes, pero después pasé a ver que viendo los fuentes aprendía bastante y en cierta forma me capacitaba mejor. Desde ya que se necesita un editor que pueda tirar el esqueleto de la clase y pueda hacer un grep rápido por las fuentes y un espíritu aventurero. Muchas veces me ha pasado que recorrer el javadoc era mucho mas mareante que mirar directamente las fuentes (y si no tiene muchos comentarios mejor). 
 <br /><br />
-Recien tomÃ© este cÃ³digo en js (hay que imaginar un colorido de javascript):
+Recien tomé este código en js (hay que imaginar un colorido de javascript):
 </p>
 <pre class="wiki">/**
- * Representa un evento que serÃ¡ consumido por un CI
+ * Representa un evento que será consumido por un CI
  * @param id Identificador del evento, ej: 'modificar'
- * @param validar Â¿Se debe validar antes de hacer submit?
- * @param confirmar Â¿Se debe confirmar antes de hacer submit?
+ * @param validar ¿Se debe validar antes de hacer submit?
+ * @param confirmar ¿Se debe confirmar antes de hacer submit?
  * @constructor 
  */
 function evento_ei(id, validar, confirmar, parametros) {
@@ -112,7 +113,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 }
 </pre>
 <p>
-Y se convirtiÃ³ en el HTML que se ve como attachment... a mÃ­ me es mÃ¡s fÃ¡cil ver el cÃ³digo fuente sin todos los /***
+Y se convirtió en el HTML que se ve como attachment... a mí me es más fácil ver el código fuente sin todos los /***
 </p>
 </div>
    </div>

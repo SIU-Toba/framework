@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/ei_arbol - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_arbol?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,31 +59,31 @@
     <div id="searchable"><p>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_arbol
 </p>
-<h1 id="Objeto√°rbol">Objeto √°rbol</h1>
+<h1 id="Objeto·rbol">Objeto ·rbol</h1>
 <p>
-<a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png" style="padding:0; border:none"><img src="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png?format=raw" align="right" alt="Ejemplo de √°rbol" title="Ejemplo de √°rbol" style="" /></a>
-El objeto_ei_arbol tiene como objetivo representar una estructura de √°rbol en pantalla con posibilidad de inclu√≠r funcionalidades de pantallas alrededor de cada nodo del √°rbol tales como iconos, utiler√≠as, colapsados, ayuda extendida, etc.
+<a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png" style="padding:0; border:none"><img src="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png?format=raw" align="right" alt="Ejemplo de ·rbol" title="Ejemplo de ·rbol" style="" /></a>
+El objeto_ei_arbol tiene como objetivo representar una estructura de ·rbol en pantalla con posibilidad de incluÌr funcionalidades de pantallas alrededor de cada nodo del ·rbol tales como iconos, utilerÌas, colapsados, ayuda extendida, etc.
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-Actualmente la definici√≥n del objeto utilizando el administrador es muy b√°sica, todo el comportamiento se define en forma de c√≥digo.
+Actualmente la definiciÛn del objeto utilizando el administrador es muy b·sica, todo el comportamiento se define en forma de cÛdigo.
 </p>
 <h2 id="Carga">Carga</h2>
 <p>
-El evento carga del ei_arbol espera recibir de parte del CI que lo contiene un objeto que implemente la interface <strong>recorrible_como_arbol</strong> (<a class="source" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/clases/interfaces.php">Ver detalles de la interface</a>. Este objeto ser√° considerado como el nodo raiz y ser√° el punto de inicio del recorrido a partir de su m√©todo <i>hijos()</i>.
+El evento carga del ei_arbol espera recibir de parte del CI que lo contiene un objeto que implemente la interface <strong>recorrible_como_arbol</strong> (<a class="source" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/clases/interfaces.php">Ver detalles de la interface</a>. Este objeto ser· considerado como el nodo raiz y ser· el punto de inicio del recorrido a partir de su mÈtodo <i>hijos()</i>.
 </p>
 <h2 id="Eventospredefinidos">Eventos predefinidos</h2>
-<ul><li>cambio_apertura: Se dispara cuando al volver al server el objeto descubre que el usuario ha cambiado la apertura de alguno de los nodos. El evento env√≠a un arreglo asociativo 'id_del_nodo' =&gt; 0|1 determinando si esta abierto o no.
+<ul><li>cambio_apertura: Se dispara cuando al volver al server el objeto descubre que el usuario ha cambiado la apertura de alguno de los nodos. El evento envÌa un arreglo asociativo 'id_del_nodo' =&gt; 0|1 determinando si esta abierto o no.
 </li><li>ver_propiedades: Cuando un nodo tiene_propiedades(), el usuario puede clickear sobre el, en este evento se acarrea el identificador del nodo que fue seleccionado.
 </li></ul><h2 id="Ejemplo">Ejemplo</h2>
 <p>
-Por ahora el catalogo de items, en el frame de la izquierda del administrador, es el ejemplo m√°s claro de este objeto.
+Por ahora el catalogo de items, en el frame de la izquierda del administrador, es el ejemplo m·s claro de este objeto.
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png">objeto_ei_arbol.2.png</a> (27.9 kB) -<q>Ejemplo de √°rbol</q>, added by seba on 11/11/05 16:56:57.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.png">objeto_ei_arbol.2.png</a> (27.9 kB) -<q>Ejemplo de ·rbol</q>, added by seba on 11/11/05 16:56:57.</li>
     </ul>
   
   

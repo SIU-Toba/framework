@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/datos_tabla - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/datos_tabla?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,9 +61,94 @@
 </p>
 <h1 id="Objetodatos_tabla">Objeto datos_tabla</h1>
 <p>
-Ver <a class="wiki" href="Persistencia.html">IntroducciÃ³n a los objetos de persistencia</a>.
+Mantiene una estructura tabular (o también llamada <a class="wiki" href="../../API/RecordSet.html">RecordSet</a>) y brinda una interface para trabajar con ella.
+Sus principales características son:
 </p>
-</div>
+<ul><li>Utiliza un <a class="wiki" href="AP.html">administrador de persistencia</a> para obtener los datos con un medio de persistencia.
+</li><li>Una vez en memoria existen <a class="wiki" href="datos_tabla.html#primitivas">Primitivas</a> para trabajar sobre estos datos.
+</li><li>Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página. Esto quiere decir que cuando se pide modificar un dato esta modificación se retiene hasta el final de la <a class="wiki" href="../MarcoTransaccional.html">transacción de negocios</a>.
+</li><li>Una vez terminada la edición se hace la sincronización con el medio de persistencia a través del <a class="wiki" href="AP.html">administrador de persistencia</a>, marcando el final de la transacción de negocios.
+</li></ul><h2 id="Definición">Definición</h2>
+<ul><li>Tabla: Nombre físico de la tabla en la base de datos
+</li><li>Tipo de persistencia: <a class="wiki" href="AP.html">administrador de persistencia</a> que se utilizará, optativamente se puede personalizar alguno a manera de subclase.
+</li><li>Permitir modificar claves: Por defecto las claves definidas no son modificables.
+</li></ul><h2 id="Primitivas">Primitivas</h2>
+<p>
+La mejor forma de entender las primitivas es revisando el <strong><a href='../../../../../external.html?link=https://desarrollos2.siu.edu.ar/toba_trunk/doc/api/Objetos/Persistencia/objeto_datos_tabla.html#' target='_blank'>API</a></strong>, a continuación se dan ejemplos a manera de resumen de las primitivas más utilizadas:
+</p>
+<h3 id="Carga">Carga</h3>
+<p>
+Generalmente la carga y sincronización son dos procesos que la tabla no maneja en forma aislada sino que es sólo un participante más de la <a class="wiki" href="datos_relacion.html">relación</a> a la que pertenece. En caso de que la operación maneje una tabla aislada (como pueden ser los ABMs de tablas simples) la carga generalmente se hace restringiendo por valores específicos de campos:
+</p>
+<pre class="wiki">$tabla-&gt;cargar(array('id' =&gt; 8)); 
+</pre>
+<h3 id="Trabajoconunúnicoregistro">Trabajo con un único registro</h3>
+<p>
+La operación puede trabajar con un conjunto masivo de filas o registros, o simplemente con un solo. Este último caso es el más sencillo, asumiendo que la carga anterior siempre asegura un único registro (con <i>id 8</i>), para consultar su contenido se ejecuta:
+</p>
+<pre class="wiki">$datos = $tabla-&gt;get();
+ei_arbol($datos);
+</pre>
+<p>
+Por ejemplo el usuario puede modificar el contenido de la fila y pedir posteriormente la modificación en la tabla:
+</p>
+<pre class="wiki">$datos['nombre'] = &#34;Nuevo nombre&#34;;
+$tabla-&gt;set($datos);
+</pre>
+<h3 id="Trabajoconvariosregistros">Trabajo con varios registros</h3>
+<p>
+Las primitivas permiten:
+</p>
+<ul><li>Consultar los datos de una fila <tt>$tabla-&gt;get_fila($id_fila);</tt>
+</li><li>Consultar los datos de varias filas <tt>$tabla-&gt;get_filas($condiciones, true)</tt>
+</li><li>Crear una nueva fila: <tt>$tabla-&gt;nueva_fila($datos);</tt>
+</li><li>Modificar una fila: <tt>$tabla-&gt;modificar_fila($id_fila, $datos);</tt>
+</li><li>Eliminar una fila: <tt>$tabla-&gt;eliminar_fila($id_fila);</tt>
+</li><li>Procesar cambios masivos sobre filas <tt>$tabla-&gt;procesar_filas($cambios);</tt> donde $cambios es una matriz asociativa de filas la clave de cada fila es el $id_fila y cada una tiene una columna especial referenciada por la constante <tt>apex_ei_analisis_fila</tt> que marca el proceso a aplicar a la fila por ejemplo:
+<pre class="wiki">$cambios = array(
+		1001 =&gt; array(apex_ei_analisis_fila =&gt; 'M', 'nombre' =&gt; 'Es una modificación'),
+		1010 =&gt; array(apex_ei_analisis_fila =&gt; 'A', 'nombre' =&gt; 'Es una alta'),
+		1011 =&gt; array(apex_ei_analisis_fila =&gt; 'B')
+	);
+</pre>
+</li></ul><p>
+En todos los casos cuando se habla de $id_fila es la identificación propia de la fila <strong>no relacionada</strong> con la clave de la tabla física.
+</p>
+<h3 id="Sincronización">Sincronización</h3>
+<p>
+Al finalizar el trabajo en memoria se pide sincronizar con el medio de persistencia 
+</p>
+<pre class="wiki">$tabla-&gt;sincronizar();
+</pre>
+<p>
+La sincronización construye los comandos SQL necesarios (updates o inserts) dependiendo de siel registro es nuevo o es sólo una modificación de la carga y los ejecuta dentro de una transacción.
+</p>
+<h3 id="Eliminación">Eliminación</h3>
+<p>
+Para eliminar <strong>TODAS</strong> las filas <strong>cargadas</strong> de una tabla se pueden optar por dos caminos:
+</p>
+<ul><li>Hacerlo a través del <strong>trabajo en memoria</strong> más <strong>sincronización</strong>:
+<pre class="wiki">$tabla-&gt;eliminar_filas();
+$tabla-&gt;sincronizar();
+</pre>
+</li></ul><p>
+Esta opción es útil cuando las filas a eliminar se encuentran cargadas en memoria.
+</p>
+<ul><li>Hacerlo a través de una primitiva de eliminación masiva, esta primitiva elimina directamente desde el mecanismo de persistencia
+<pre class="wiki">$tabla-&gt;eliminar_todo()
+</pre>
+</li></ul><p>
+Esta opción es útil cuando las filas no están cargadas, sino que se borra utilizando una opción externa, sin ver el contenido de las filas.
+</p>
+<p>
+Nota: Recordar que este estos son los pasos para la carga y sincronización de una tabla aislada, el proceso cambia cuando la tabla está involucrada en un <a class="wiki" href="datos_relacion.html">objeto relación</a>.
+Se recomienda ver más información acerca de estas primitivas en la <strong><a href='../../../../../external.html?link=https://desarrollos2.siu.edu.ar/toba_trunk/doc/api/Objetos/Persistencia/objeto_datos_tabla.html#' target='_blank'>documentación del API</a></strong>
+</p>
+<h2 id="Másinfo">Más info</h2>
+<ul><li>Ejemplo en el <a class="wiki" href="../../Proyectos/Referencia.html">proyecto Referencia</a>, ítems bajo la rama "Operaciones Simples"
+</li><li><a class="wiki" href="Persistencia.html">Introducción a los objetos de persistencia</a>.
+</li><li><strong><a href='../../../../../external.html?link=https://desarrollos2.siu.edu.ar/toba_trunk/doc/api/Objetos/Persistencia/objeto_datos_tabla.html#' target='_blank'>API del datos tabla</a></strong>
+</li></ul></div>
    </div>
    
   

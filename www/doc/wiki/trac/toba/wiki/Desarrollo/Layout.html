@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Layout - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Layout?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,11 +61,11 @@
 </p>
 <h1 id="LayoutsdeEIs">Layouts de EIs</h1>
 <p>
-Una posible critica a la customizacion del layout es la posible pÃ©rdida de uniformidad a las pantallas (algo que se critica a las aplicaciones de escritorio que tienen tantos recursos a su alcanze y tanta personalizacion que terminan siendo interfaces mÃ¡s dificiles que las 'rusticas' web).
+Una posible critica a la customizacion del layout es la posible pérdida de uniformidad a las pantallas (algo que se critica a las aplicaciones de escritorio que tienen tantos recursos a su alcanze y tanta personalizacion que terminan siendo interfaces más dificiles que las 'rusticas' web).
 </p>
 <h2 id="TemplatesTipoPull">Templates Tipo Pull</h2>
 <p>
-El template toma mÃ¡s lÃ³gica y directamente dirije la creaciÃ³n de la interface. El ejemplo mÃ¡s radical de esta forma es PHP mismo! (no se me ocurre un ejemplo sin que involucre un nuevo mini-lenguaje). Se dice pull porque el template es el activo que <i>saca</i> cosas del sistema:
+El template toma más lógica y directamente dirije la creación de la interface. El ejemplo más radical de esta forma es PHP mismo! (no se me ocurre un ejemplo sin que involucre un nuevo mini-lenguaje). Se dice pull porque el template es el activo que <i>saca</i> cosas del sistema:
 </p>
 <div class="code"><pre>&lt;div&gt;<span class="code-lang">&lt;?php $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">mostrar_titulo</span><span class="code-keyword">(</span><span class="code-lang">true</span><span class="code-keyword">, </span><span class="code-lang">false</span><span class="code-keyword">);</span><span class="code-lang">?&gt;</span> &lt;/div&gt;
 <span class="code-lang">&lt;?php </span><span class="code-keyword">foreach (</span><span class="code-lang">$columnas </span><span class="code-keyword">as </span><span class="code-lang">$columna</span><span class="code-keyword">) { </span><span class="code-lang">?&gt;
@@ -79,13 +80,13 @@ Positivo:
 </li></ul><p>
 Negativo:
 </p>
-<ul><li>Al carecer de una interface predefinida se deben conocer los interiores de los objetos y por lo tanto no solo es un problema de aprendizaje sino de inestabilidad porque cualquier cambio de implementaciÃ³n rompe la extensiÃ³n. 
+<ul><li>Al carecer de una interface predefinida se deben conocer los interiores de los objetos y por lo tanto no solo es un problema de aprendizaje sino de inestabilidad porque cualquier cambio de implementación rompe la extensión. 
 </li></ul><p>
-Este es el mÃ©todo utilizado hoy en dÃ­a a travez de herencia y echos en lugar de tags <tt>&lt;?php ?&gt;</tt>.
+Este es el método utilizado hoy en día a travez de herencia y echos en lugar de tags <tt>&lt;?php ?&gt;</tt>.
 </p>
 <h2 id="TemplatesTipoPush">Templates Tipo Push</h2>
 <p>
-Existe un conjunto de marcas que se van dejando en el HTML que son entendidas por el objeto que lo va a consumir. Por ej un template de un cuadro serÃ­a
+Existe un conjunto de marcas que se van dejando en el HTML que son entendidas por el objeto que lo va a consumir. Por ej un template de un cuadro sería
 </p>
 <pre class="wiki">&lt;div class='blabla'&gt;
 &lt;!--titulo--&gt;
@@ -98,19 +99,19 @@ Existe un conjunto de marcas que se van dejando en el HTML que son entendidas po
 &lt;/div&gt;
 </pre>
 <p>
-Desde el obtener_html de cada objeto se tomarÃ­a este template y se le <i>pondrÃ­a</i> valor a estas marcas (el template es pasivo). 
+Desde el obtener_html de cada objeto se tomaría este template y se le <i>pondría</i> valor a estas marcas (el template es pasivo). 
 Positivo:
 </p>
 <ul><li>Sencillo
-</li><li>DefiniciÃ³n de una forma mÃ¡s grÃ¡fica y menos programÃ¡tica.
+</li><li>Definición de una forma más gráfica y menos programática.
 </li></ul><p>
 Negativo:
 </p>
 <ul><li>Generalmente es poco lo que se puede cambiar (depende mucho de la granularidad de las definiciones)
-</li><li>El cÃ³digo del generar_html se ensucia un poco y se hace mas lento... hay que parsear el template.
+</li><li>El código del generar_html se ensucia un poco y se hace mas lento... hay que parsear el template.
 </li></ul><h2 id="TemplatesHibridos">Templates Hibridos</h2>
 <p>
-Tomando un poco de cada uno se puede armar uno pasivo pero con parametros dependientes de cada objeto. Por ej un template de un formulario serÃ­a:
+Tomando un poco de cada uno se puede armar uno pasivo pero con parametros dependientes de cada objeto. Por ej un template de un formulario sería:
 </p>
 <pre class="wiki">&lt;evt id='alta'/&gt;
 &lt;div&gt;&lt;titulo/&gt;&lt;/div&gt;
@@ -120,11 +121,11 @@ Tomando un poco de cada uno se puede armar uno pasivo pero con parametros depend
 <p>
 Pro:
 </p>
-<ul><li>CombinaciÃ³n de los mÃ©todos anteriores.
+<ul><li>Combinación de los métodos anteriores.
 </li></ul><p>
 Contra:
 </p>
-<ul><li>AdemÃ¡s de la contra del overhead <strong>Â¿CÃ³mo definir el template adecuado?</strong> Es difÃ­cil encontrar el punto intermedio, cuanto mÃ¡s se deja al template mÃ¡s se flexibiliza pero mÃ¡s se liga a la implementaciÃ³n tambiÃ©n.
+<ul><li>Además de la contra del overhead <strong>¿Cómo definir el template adecuado?</strong> Es difícil encontrar el punto intermedio, cuanto más se deja al template más se flexibiliza pero más se liga a la implementación también.
 </li></ul><h2 id="Links">Links</h2>
 <ul><li><a class="ext-link" href="../../../../external.html?link=http://blog.ianbicking.org/smart-vs-dumb-templates.html"><span class="icon"></span>Smart vs. Dumb Templates</a>
 </li><li><a class="ext-link" href="../../../../external.html?link=http://www.phpwact.org/pattern/template_view"><span class="icon"></span>Template View</a>

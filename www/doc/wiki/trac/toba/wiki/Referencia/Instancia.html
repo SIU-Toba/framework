@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Instancia - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instancia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,12 +61,12 @@
 </p>
 <h1 id="Instancias">Instancias</h1>
 <p>
-Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo los del mismo <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a> (ya que <a class="wiki" href="../TobaConsumeToba.html">TobaConsumeToba</a>). Por esto recibe el nombre de <strong>instanciaci√≥n de un proyecto</strong>, ya que un <a class="wiki" href="Proyecto.html">Proyecto</a> puede estar contenido en muchas instancias diferentes.<br /><br />
+Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo los del mismo <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a> (ya que <a class="wiki" href="../TobaConsumeToba.html">TobaConsumeToba</a>). Por esto recibe el nombre de <strong>instanciaciÛn de un proyecto</strong>, ya que un <a class="wiki" href="Proyecto.html">Proyecto</a> puede estar contenido en muchas instancias diferentes.<br /><br />
 <a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png?format=raw" alt="Una instancia contiene distintos proyectos" title="Una instancia contiene distintos proyectos" style="" /></a>
 </p>
-<h2 id="Configuraci√≥n">Configuraci√≥n</h2>
+<h2 id="ConfiguraciÛn">ConfiguraciÛn</h2>
 <p>
-Una instancia generalmente se almacena en una base de datos propia. El lugar f√≠sico depende de las configuraciones del archivo <i>toba/php/instancias.php</i>. Para armar instancias propias y para la instalaci√≥n inicial se puede tomar el archivo <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/_instancias.php">source:trunk/php/_instancias.php</a> como base. El nombre de la instancia es la clave del arreglo asociativo, as√≠ si se quiere definir una nueva instancia <i>nombre_instancia</i> en la base <i>nombre_base</i>:
+Una instancia generalmente se almacena en una base de datos propia. El lugar fÌsico depende de las configuraciones del archivo <i>toba/php/instancias.php</i>. Para armar instancias propias y para la instalaciÛn inicial se puede tomar el archivo <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/_instancias.php">source:trunk/php/_instancias.php</a> como base. El nombre de la instancia es la clave del arreglo asociativo, asÌ si se quiere definir una nueva instancia <i>nombre_instancia</i> en la base <i>nombre_base</i>:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_motor</span><span class="code-keyword">] = </span><span class="code-string">"postgres7"</span><span class="code-keyword">;
@@ -75,14 +76,14 @@ Una instancia generalmente se almacena en una base de datos propia. El lugar f√≠
     </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_base</span><span class="code-keyword">] = </span><span class="code-string">"nombre_base"</span><span class="code-keyword">;
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h2 id="Composici√≥n">Composici√≥n</h2>
+</pre></div><h2 id="ComposiciÛn">ComposiciÛn</h2>
 <p>
-<a href="../../attachment/wiki/Referencia/Instancia/composicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/composicion.png?format=raw" align="right" alt="Composici√≥n de una instancia" title="Composici√≥n de una instancia" style="" /></a>
-Una instancia puede estar formada por distintos proyectos, entre ellos siempre se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee sectores comunes como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definici√≥n de estos usuarios se encuentra en el archivo <i>datos_instancia.sql</i> del proyecto toba. Este archivo no se encuentra versionado en Toba por lo que es responsabilidad de cada proyecto mantenerlo.
+<a href="../../attachment/wiki/Referencia/Instancia/composicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/composicion.png?format=raw" align="right" alt="ComposiciÛn de una instancia" title="ComposiciÛn de una instancia" style="" /></a>
+Una instancia puede estar formada por distintos proyectos, entre ellos siempre se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee sectores comunes como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definiciÛn de estos usuarios se encuentra en el archivo <i>datos_instancia.sql</i> del proyecto toba. Este archivo no se encuentra versionado en Toba por lo que es responsabilidad de cada proyecto mantenerlo.
 </p>
-<h2 id="Creaci√≥ndeunainstancia">Creaci√≥n de una instancia</h2>
+<h2 id="CreaciÛndeunainstancia">CreaciÛn de una instancia</h2>
 <p>
-La administraci√≥n de las instancias se realiza bajo la consola. La consola est√° configurada con una instancia por defecto, la variable de entorno <i>toba_instancia</i>. Para ver la instancia actual ejecutar:
+La administraciÛn de las instancias se realiza bajo la consola. La consola est· configurada con una instancia por defecto, la variable de entorno <i>toba_instancia</i>. Para ver la instancia actual ejecutar:
 </p>
 <pre class="wiki">echo $toba_instancia
 </pre>
@@ -96,9 +97,9 @@ En caso de que la instancia se hubiera creado anteriormente, es necesario regene
 </p>
 <pre class="wiki">instancia regenerar
 </pre>
-<h2 id="Exportaci√≥ndelainstancia">Exportaci√≥n de la instancia</h2>
+<h2 id="ExportaciÛndelainstancia">ExportaciÛn de la instancia</h2>
 <p>
-No es usual exportar la instancia completa, ya que entre los proyectos se encuentra el Administrador, mantenido por el grupo de desarrollo de Toba. Como resultado de esta exportaci√≥n se va a sobreescribir el archivo <i>datos.sql</i> no s√≥lo del proyecto propio sino tambi√©n del mismo Toba. En cambio exportar la secci√≥n <i>com√∫n</i> de la instancia es recomendable para poder mantener en un archivo los datos de usuarios en esta instancia. Como Toba es un <a class="wiki" href="Proyecto.html">proyecto</a> m√°s, basta con exportar la informaci√≥n local del proyecto Toba:
+No es usual exportar la instancia completa, ya que entre los proyectos se encuentra el Administrador, mantenido por el grupo de desarrollo de Toba. Como resultado de esta exportaciÛn se va a sobreescribir el archivo <i>datos.sql</i> no sÛlo del proyecto propio sino tambiÈn del mismo Toba. En cambio exportar la secciÛn <i>com˙n</i> de la instancia es recomendable para poder mantener en un archivo los datos de usuarios en esta instancia. Como Toba es un <a class="wiki" href="Proyecto.html">proyecto</a> m·s, basta con exportar la informaciÛn local del proyecto Toba:
 </p>
 <pre class="wiki">proyecto exportar_local toba
 </pre>
@@ -106,7 +107,7 @@ No es usual exportar la instancia completa, ya que entre los proyectos se encuen
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png">instancias_y_proyectos.png</a> (4.9 kB) -<q>Una instancia contiene distintos proyectos</q>, added by seba on 06/04/05 17:02:18.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/composicion.png">composicion.png</a> (5.8 kB) -<q>Composici√≥n de una instancia</q>, added by seba on 06/04/05 17:43:31.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.png">instancias_y_proyectos.png</a> (4.9 kB) -<q>Una instancia contiene distintos proyectos</q>, added by seba on 06/04/05 17:02:18.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Instancia/composicion.png">composicion.png</a> (5.8 kB) -<q>ComposiciÛn de una instancia</q>, added by seba on 06/04/05 17:43:31.</li>
     </ul>
   
   

@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/ci - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ci?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,36 +61,36 @@
 </p>
 <h1 id="ControladordeInterface">Controlador de Interface</h1>
 <ul><li>Contiene otros objetos de interface como cuadros, filtros, formularios o incluso otros ci.
-</li><li>Permite <a class="wiki" href="../Eventos.html">escuchar eventos</a> de s√≠ mismo y sus objetos contenidos, definiendo as√≠ su comportamiento.
-</li><li>Permite construir una operaci√≥n en distintas <strong>pantallas</strong>.
-</li><li>Mantiene el estado de la operaci√≥n a trav√©s de distintos pedidos de p√°gina, utilizando el mecanismo de <a class="wiki" href="PersistenciaSesion.html">persistencia en sesi√≥n</a>.
-</li><li>Determina el <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a> de la operaci√≥n, procesando los cambios al final de una <i>transacci√≥n</i> l√≥gica que atraviesa varios pedidos de p√°gina.
+</li><li>Permite <a class="wiki" href="../Eventos.html">escuchar eventos</a> de sÌ mismo y sus objetos contenidos, definiendo asÌ su comportamiento.
+</li><li>Permite construir una operaciÛn en distintas <strong>pantallas</strong>.
+</li><li>Mantiene el estado de la operaciÛn a travÈs de distintos pedidos de p·gina, utilizando el mecanismo de <a class="wiki" href="PersistenciaSesion.html">persistencia en sesiÛn</a>.
+</li><li>Determina el <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a> de la operaciÛn, procesando los cambios al final de una <i>transacciÛn</i> lÛgica que atraviesa varios pedidos de p·gina.
 </li></ul><p>
  
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-Un CI b√°sico se crea desde la vista de <i>Objetos - Desarrollo en Capas</i> en el Administrador, bajo el nombre <i>objeto_ci</i>. Una vez creado, en las propiedades espec√≠ficas se pueden definir distintas pantallas, pudiendo cada una contener distintos objetos y eventos. Ya creado el CI, es posible incluirlo en un <a class="wiki" href="../Item.html">√≠tem</a> utilizando por ejemplo el <a class="wiki" href="../Patron.html">patr√≥n</a> <i>CI</i>.
+Un CI b·sico se crea desde la vista de <i>Objetos - Desarrollo en Capas</i> en el Administrador, bajo el nombre <i>objeto_ci</i>. Una vez creado, en las propiedades especÌficas se pueden definir distintas pantallas, pudiendo cada una contener distintos objetos y eventos. Ya creado el CI, es posible incluirlo en un <a class="wiki" href="../Item.html">Ìtem</a> utilizando por ejemplo el <a class="wiki" href="../Patron.html">patrÛn</a> <i>CI</i>.
 </p>
 <h2 id="Pantallas">Pantallas</h2>
 <p>
-Para la construcci√≥n de interfaces m√°s flexibles, el CI tiene capacidad de manejar diferentes <i>pantallas</i> en una operaci√≥n. As√≠, por ejemplo, reservar una entrada puede pensarse como dos pantallas: una especificando el pago y la otra seleccionando la ubicaci√≥n. La navegaci√≥n entre estas pantallas puede ser:
+Para la construcciÛn de interfaces m·s flexibles, el CI tiene capacidad de manejar diferentes <i>pantallas</i> en una operaciÛn. AsÌ, por ejemplo, reservar una entrada puede pensarse como dos pantallas: una especificando el pago y la otra seleccionando la ubicaciÛn. La navegaciÛn entre estas pantallas puede ser:
 </p>
-<ul><li>Manejada por Toba, utilizando solapas u alg√∫n otro m√©todo expl√≠cito de transici√≥n entre pantallas.
+<ul><li>Manejada por Toba, utilizando solapas u alg˙n otro mÈtodo explÌcito de transiciÛn entre pantallas.
 </li><li>Manejada por el desarrollador extendiendo la clase
 </li></ul><p>
-Independiente de la forma que se comportan, las pantallas tienen una definici√≥n uniforme:
+Independiente de la forma que se comportan, las pantallas tienen una definiciÛn uniforme:
 </p>
-<ul><li>Posici√≥n: Determina el orden de aparici√≥n de la pantalla, s√≥lo se tiene en cuenta cuando la navegaci√≥n es manejada por Toba.
-</li><li>Etiqueta: Cuando la navegaci√≥n es manejada por Toba, se utiliza esta etiqueta en el bot√≥n o imagen para cambiar a esta pantalla.
-</li><li>Lista EI: Separados por coma se listan los objetos contenidos en esta pantalla particular. Como se ver√° m√°s adelante, este listado puede modificarse en ejecuci√≥n.
-</li><li>Bot√≥n Procesar - Cancelar: Se puede definir est√°ticamente si la pantalla tiene el evento procesar o cancelar. Esto es √∫til cuando de antemano se sabe cual es la √∫ltima pantalla, por ejemplo una pantalla de confirmaci√≥n.
-</li></ul><h3 id="Navegaci√≥nconsolapas">Navegaci√≥n con solapas</h3>
+<ul><li>PosiciÛn: Determina el orden de apariciÛn de la pantalla, sÛlo se tiene en cuenta cuando la navegaciÛn es manejada por Toba.
+</li><li>Etiqueta: Cuando la navegaciÛn es manejada por Toba, se utiliza esta etiqueta en el botÛn o imagen para cambiar a esta pantalla.
+</li><li>Lista EI: Separados por coma se listan los objetos contenidos en esta pantalla particular. Como se ver· m·s adelante, este listado puede modificarse en ejecuciÛn.
+</li><li>BotÛn Procesar - Cancelar: Se puede definir est·ticamente si la pantalla tiene el evento procesar o cancelar. Esto es ˙til cuando de antemano se sabe cual es la ˙ltima pantalla, por ejemplo una pantalla de confirmaciÛn.
+</li></ul><h3 id="NavegaciÛnconsolapas">NavegaciÛn con solapas</h3>
 <ul><li>Barras horizontales: A manera de <i>solapas</i> se presentan las distintas pantallas accesibles.
-</li><li>Barras verticales: Las pantallas accesibles se muestran en una lista vertical, esto es √∫til cuando la cantidad de pantallas es muy grande.
-</li></ul><h3 id="Navegaci√≥ntipoWizard">Navegaci√≥n tipo Wizard</h3>
+</li><li>Barras verticales: Las pantallas accesibles se muestran en una lista vertical, esto es ˙til cuando la cantidad de pantallas es muy grande.
+</li></ul><h3 id="NavegaciÛntipoWizard">NavegaciÛn tipo Wizard</h3>
 <p>
-En esta navegaci√≥n s√≥lo se permite navegar hacia la pantalla anterior o la siguiente. Opcionalmente se puede incluir una tabla de contenidos (TOC) mostrando el posicionamiento actual dentro de la navegaci√≥n. 
+En esta navegaciÛn sÛlo se permite navegar hacia la pantalla anterior o la siguiente. Opcionalmente se puede incluir una tabla de contenidos (TOC) mostrando el posicionamiento actual dentro de la navegaciÛn. 
 </p>
 <p>
 Muchas veces es necesario saltear ciertas pantallas basado en selecciones anteriores, para esto hay que escuchar el evento <tt>evt__puede_mostrar_pantalla</tt>:
@@ -110,7 +111,7 @@ Muchas veces es necesario saltear ciertas pantallas basado en selecciones anteri
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Los cambios de pantalla tambi√©n son controlados mediante los eventos <tt>cambiar_tab__anterior</tt> y <tt>cambiar_tab__siguiente</tt>, as√≠ por ejemplo es posible no incluir estos eventos en circunstancias especiales:
+Los cambios de pantalla tambiÈn son controlados mediante los eventos <tt>cambiar_tab__anterior</tt> y <tt>cambiar_tab__siguiente</tt>, asÌ por ejemplo es posible no incluir estos eventos en circunstancias especiales:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
 </span><span class="code-comment">/*
@@ -126,9 +127,9 @@ Los cambios de pantalla tambi√©n son controlados mediante los eventos <tt>cambia
 }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h3 id="Navegaci√≥nmanejadaporextensi√≥n">Navegaci√≥n manejada por extensi√≥n</h3>
+</pre></div><h3 id="NavegaciÛnmanejadaporextensiÛn">NavegaciÛn manejada por extensiÛn</h3>
 <p>
-Para poder utilizar una navegaci√≥n particular entre pantallas es necesario <a class="wiki" href="Extension.html">extender el objeto</a> ci. En esta extensi√≥n debemos indicar continuamente cual es la pantalla a mostrar reescribiendo el m√©todo <tt>get_pantalla_actual()</tt>:
+Para poder utilizar una navegaciÛn particular entre pantallas es necesario <a class="wiki" href="Extension.html">extender el objeto</a> ci. En esta extensiÛn debemos indicar continuamente cual es la pantalla a mostrar reescribiendo el mÈtodo <tt>get_pantalla_actual()</tt>:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">get_pantalla_actual</span><span class="code-keyword">()
@@ -141,7 +142,7 @@ Para poder utilizar una navegaci√≥n particular entre pantallas es necesario <a c
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Generalmente la l√≥gica de decisi√≥n entre pantallas depende del resultado de alg√∫n evento particular. La forma de definir estos eventos en cada pantalla se ve m√°s adelante.
+Generalmente la lÛgica de decisiÛn entre pantallas depende del resultado de alg˙n evento particular. La forma de definir estos eventos en cada pantalla se ve m·s adelante.
 </p>
 <h3 id="Controlandolaentradaylasalida">Controlando la entrada y la salida</h3>
 <p>
@@ -168,12 +169,12 @@ Cuando se entra y sale de una pantalla se dispara un evento que es posible captu
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Una excepci√≥n lanzada en estos listeners evita el cambio de pantalla y el mensaje de la excepci√≥n es agregado a la cola de mensajes de la operaci√≥n para ser mostrada al usuario.
+Una excepciÛn lanzada en estos listeners evita el cambio de pantalla y el mensaje de la excepciÛn es agregado a la cola de mensajes de la operaciÛn para ser mostrada al usuario.
  
 </p>
 <h3 id="Objetoscontenidos">Objetos contenidos</h3>
 <p>
-Para agregar objetos al CI primero hay que agregar al objeto como dependencia y posteriormente hay que agregarlo a la <i>Lista  EI</i> de la pantalla buscada. El orden que toman en esta lista es el orden gr√°fico resultante, por defecto uno arriba del otro. Durante la ejecuci√≥n los CI pueden variar esta lista redefiniendo el m√©todo get_lista_ei:
+Para agregar objetos dinamicamente a una pantalla del CI, primero hay que agregar al objeto como dependencia y posteriormente hay que agregarlo a la <i>Lista  EI</i> de la pantalla buscada. El orden que toman en esta lista es el orden gr·fico resultante, por defecto uno arriba del otro. Durante la ejecuciÛn los CI pueden variar esta lista redefiniendo el mÈtodo get_lista_ei:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">get_lista_ei__1</span><span class="code-keyword">()
@@ -186,10 +187,10 @@ Para agregar objetos al CI primero hay que agregar al objeto como dependencia y 
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Para acceder a un elemento particular se utiliza el arreglo <i>dependencias</i>, es importante notar que este elemento debe estar disponible en la pantalla actual, de lo contrario no hay forma de accederlo. As√≠, siguiendo el ejemplo, para acceder al <i>formulario</i> desde cualquier m√©todo del CI se ejecuta:
+Para acceder a un elemento particular se utiliza el mÈtodo <i>dependencia($id)</i>, es importante notar que este elemento debe estar disponible en la pantalla actual, de lo contrario no hay forma de accederlo. AsÌ, siguiendo el ejemplo, para acceder al <i>formulario</i> desde cualquier mÈtodo del CI se ejecuta:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-    $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'formulario'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">metodo</span><span class="code-keyword">();
+    $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'formulario'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">metodo</span><span class="code-keyword">();
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
@@ -197,11 +198,11 @@ Para definir comportamientos a sus objetos contenidos, se escuchan los <a class=
 </p>
 <h2 id="Eventos">Eventos</h2>
 <p>
-El mismo CI puede disparar eventos, estos se definen utilizando el administrador pudiendose asignar a pantallas particulares. En ejecuci√≥n es posible modificar esta lista sacando algunos eventos basados en una condici√≥n din√°mica:
+El mismo CI puede disparar eventos, estos se definen utilizando el administrador pudiendose asignar a pantallas particulares. En ejecuciÛn es posible modificar esta lista sacando algunos eventos basados en una condiciÛn din·mica:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-comment">/**
-    *    Se saca el evento procesar en forma din√°mica
+    *    Se saca el evento procesar en forma din·mica
     */
     </span><span class="code-keyword">function </span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">()
     {
@@ -215,15 +216,15 @@ El mismo CI puede disparar eventos, estos se definen utilizando el administrador
 </span></span>
 </pre></div><blockquote>
 <p>
-M√°s detalles de como escucharlos en <a class="wiki" href="../Eventos.html">Eventos</a>. En cualquiera de estos eventos se puede incluir una llamada para borrar los datos de la sesi√≥n posterior a la ejecuci√≥n, con el m√©todo <i>eliminar_estado_sesion</i>, esto es especialmente √∫til para los eventos predefinidos <i>procesar</i> y <i>cancelar</i>.
+M·s detalles de como escucharlos en <a class="wiki" href="../Eventos.html">Eventos</a>. En cualquiera de estos eventos se puede incluir una llamada para borrar los datos de la sesiÛn posterior a la ejecuciÛn, con el mÈtodo <i>eliminar_estado_sesion</i>, esto es especialmente ˙til para los eventos predefinidos <i>procesar</i> y <i>cancelar</i>.
 </p>
 </blockquote>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, √≠tem <i>Objetos/ci</i>. All√≠ el √≠tem tiene asociado un ci llamado <i>ci_pantallas_logicas</i> que cuenta con dos pantallas con navegaci√≥n definida por extensi√≥n:
+Existe un ejemplo en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Ìtem <i>Objetos/ci</i>. AllÌ el Ìtem tiene asociado un ci llamado <i>ci_pantallas_logicas</i> que cuenta con dos pantallas con navegaciÛn definida por extensiÛn:
 </p>
-<ul><li>La primera tiene una breve descripci√≥n similar a esta.
-</li><li>La segunda tiene asociada otro CI pero en este caso con navegaci√≥n por barra horizontal, con tres solapas.
+<ul><li>La primera tiene una breve descripciÛn similar a esta.
+</li><li>La segunda tiene asociada otro CI pero en este caso con navegaciÛn por barra horizontal, con tres solapas.
 </li></ul></div>
    </div>
    

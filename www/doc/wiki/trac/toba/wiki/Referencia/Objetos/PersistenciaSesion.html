@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/PersistenciaSesion - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/PersistenciaSesion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,17 +59,17 @@
     <div id="searchable"><p>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / PersistenciaSesion
 </p>
-<h1 id="PersistenciaenSesiÃ³n">Persistencia en SesiÃ³n</h1>
+<h1 id="PersistenciaenSesión">Persistencia en Sesión</h1>
 <p>
-En la subclase especÃ­fica de un objeto se pueden especificar aquellas propiedades que se desean mantener para el prÃ³ximo pedido de pÃ¡gina.
+En la subclase específica de un objeto se pueden especificar aquellas propiedades que se desean mantener para el próximo pedido de página.
 </p>
-<h2 id="PorquÃ©persistirpropiedadesensesiÃ³n">Â¿PorquÃ© persistir propiedades en sesiÃ³n?</h2>
+<h2 id="Porquépersistirpropiedadesensesión">¿Porqué persistir propiedades en sesión?</h2>
 <p>
-Como se ve en el <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a> de una operaciÃ³n, se necesita una forma de <i>recordar</i> cosas en una intercambio cliente (browser) - servidor (php). En una programaciÃ³n ad-hoc se utilizan las llamadas <a class="ext-link" href="../../../../../external.html?link=http://ar2.php.net/manual/en/reserved.variables.php#reserved.variables.session"><span class="icon"></span>variables de sesiÃ³n</a> de PHP, pero para organizar y optimizar el consumo de estas variables, cada objeto-toba se ofrece tomar la responsabilidad de administrar estas variables.
+Como se ve en el <a class="wiki" href="../MarcoTransaccional.html">marco transaccional</a> de una operación, se necesita una forma de <i>recordar</i> cosas en una intercambio cliente (browser) - servidor (php). En una programación ad-hoc se utilizan las llamadas <a class="ext-link" href="../../../../../external.html?link=http://ar2.php.net/manual/en/reserved.variables.php#reserved.variables.session"><span class="icon"></span>variables de sesión</a> de PHP, pero para organizar y optimizar el consumo de estas variables, cada objeto-toba se ofrece tomar la responsabilidad de administrar estas variables.
 </p>
-<h2 id="CÃ³mopersistirestasvariables">Â¿CÃ³mo persistir estas variables?</h2>
+<h2 id="Cómopersistirestasvariables">¿Cómo persistir estas variables?</h2>
 <p>
-Para esto se debe redefinir el mÃ©todo <i>mantener_estado_sesion</i> en la subclase del objeto-toba en cuestiÃ³n. Por ejemplo el siguiente es un encabezado de una subclase de un CI:
+Para esto se debe redefinir el método <i>mantener_estado_sesion</i> en la subclase del objeto-toba en cuestión. Por ejemplo el siguiente es un encabezado de una subclase de un CI:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
 </span><span class="code-keyword">require_once(</span><span class="code-string">'nucleo/browser/clases/objeto_ci.php'</span><span class="code-keyword">);
@@ -80,8 +81,8 @@ class </span><span class="code-lang">mi_ci </span><span class="code-keyword">ext
     function </span><span class="code-lang">__construct</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">)
     {
         </span><span class="code-comment">//Zona apta para inicializaciones por defecto
-        </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">__construct</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">);     </span><span class="code-comment">//AquÃ­ se busca en la sesiÃ³n las propiedades marcadas
-        //AquÃ­ ya se restauraron los valores de las propiedades marcadas
+        </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">__construct</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">);     </span><span class="code-comment">//Aquí se busca en la sesión las propiedades marcadas
+        //Aquí ya se restauraron los valores de las propiedades marcadas
     </span><span class="code-keyword">}
     
     function </span><span class="code-lang">mantener_estado_sesion</span><span class="code-keyword">()
@@ -96,14 +97,14 @@ class </span><span class="code-lang">mi_ci </span><span class="code-keyword">ext
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Estas variables serÃ¡n almacenadas cuando se termine la construcciÃ³n de una pÃ¡gina y restauradas en el siguiente pedido.
+Estas variables serán almacenadas cuando se termine la construcción de una página y restauradas en el siguiente pedido.
 </p>
-<h2 id="Quetipodevariablessepuedenpersistir">Â¿Que tipo de variables se pueden persistir?</h2>
+<h2 id="Quetipodevariablessepuedenpersistir">¿Que tipo de variables se pueden persistir?</h2>
 <p>
-Antiguamente sÃ³lo se podÃ­an persistir estructuras (tipos bÃ¡sicos, arreglos, etc.) y no objetos. Actualmente es posible persistir grafos completos de objetos con algunas consideraciones:
+Antiguamente sólo se podían persistir estructuras (tipos básicos, arreglos, etc.) y no objetos. Actualmente es posible persistir grafos completos de objetos con algunas consideraciones:
 </p>
-<ul><li>Si estos objetos poseen otros por composiciÃ³n, es posible que las clases de estos estÃ©n definidos en un archivo no incluido originalmente, para esto se debe utilizar la funciÃ³n <a class="ext-link" href="../../../../../external.html?link=http://ar2.php.net/manual/en/language.oop5.autoload.php"><span class="icon"></span>__autoload</a> de PHP que permite al sistema encontrar el archivo de esta clase antes de intentar reconstuir el objeto.
-</li><li>Si en esta composiciÃ³n existen referencias circulares es necesario definir <tt>__sleep</tt> en el objeto hijo, para anular el controlador y <tt>__wakeup</tt> en el padre para restablecerlo.
+<ul><li>Si estos objetos poseen otros por composición, es posible que las clases de estos estén definidos en un archivo no incluido originalmente, para esto se debe utilizar la función <a class="ext-link" href="../../../../../external.html?link=http://ar2.php.net/manual/en/language.oop5.autoload.php"><span class="icon"></span>__autoload</a> de PHP que permite al sistema encontrar el archivo de esta clase antes de intentar reconstuir el objeto.
+</li><li>Si en esta composición existen referencias circulares es necesario definir <tt>__sleep</tt> en el objeto hijo, para anular el controlador y <tt>__wakeup</tt> en el padre para restablecerlo.
 </li></ul></div>
    </div>
    

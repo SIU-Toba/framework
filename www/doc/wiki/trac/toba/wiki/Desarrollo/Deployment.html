@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Deployment?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,18 +59,18 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / Deployment
 </p>
-<h2 id="Variosproyectosenproducci贸nenunasolam谩quina">Varios proyectos en producci贸n en una sola m谩quina</h2>
+<h2 id="Variosproyectosenproducci髇enunasolam醧uina">Varios proyectos en producci髇 en una sola m醧uina</h2>
 <p>
-Actualmente tener dos proyectos en una sola m谩quina requiere que:
+Actualmente tener dos proyectos en una sola m醧uina requiere que:
 </p>
 <ul><li>Compartan la misma instancia y por ende usuarios (no siempre es el caso)
-</li><li>Tengan una instancia propia. Pero la instalaci贸n es la misma por lo que tienen que usar la misma versi贸n de toba.
+</li><li>Tengan una instancia propia. Pero la instalaci髇 es la misma por lo que tienen que usar la misma versi髇 de toba.
 </li></ul><p>
-Otra opci贸n era tener dos instalaciones distintas en la misma m谩quina, pero hay estos problemas:
+Otra opci髇 era tener dos instalaciones distintas en la misma m醧uina, pero hay estos problemas:
 </p>
 <ul><li>El 'toba' a poner en el include_path de PHP debe relegarse hasta el punto de acceso (no en el php.ini) <strong>Solucionable</strong>
 </li><li>Los comandos administrativos tienen que poder seleccionar cual de los tobas utilizar. <strong>Solucionable</strong>
-</li><li>S贸lo puede existir un alias /toba y habria que elegir alguna de las intalaciones. Este alias esta para compartir las imagenes y el js, no ser铆a una soluci贸n muy limpia (puede haber diferencias en las imagenes y el js de los tobas involucrados).
+</li><li>S髄o puede existir un alias /toba y habria que elegir alguna de las intalaciones. Este alias esta para compartir las imagenes y el js, no ser韆 una soluci髇 muy limpia (puede haber diferencias en las imagenes y el js de los tobas involucrados).
 </li></ul><hr />
 <p>
 Los tickets involucrados en esto serian (<a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/202" title="Facilitar la ejecucion simultanea en la misma PC de dos tobas de distinta ... (closed)">#202</a>, <a class="new ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/60" title="Manejo de instancias (new)">#60</a>).

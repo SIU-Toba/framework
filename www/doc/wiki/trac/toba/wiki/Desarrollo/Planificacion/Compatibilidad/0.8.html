@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Planificacion/Compatibilidad/0.8.3 - SIU-Toba - Trac</title><link rel="start" href="../../../../wiki.html" /><link rel="search" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../../TracGuide.html" /><link rel="stylesheet" href="../../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Planificacion/Compatibilidad/0.8.3?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,7 +61,7 @@
 </p>
 <h1 id="a0.8.3Cambiosqueafectanlacompatibilidadconlaversion0.8.2">0.8.3 - Cambios que afectan la compatibilidad con la version 0.8.2</h1>
 <ul><li>El id de las pantallas de un CI no deberia ser seteable a mano. Uno ordena las pantallas con el ordenamiento del ML y el sistema asigna el numero. La decicion sobre los valores pasaria a ser mas estricta: de 1 en adelante. Hay que modificar los metodos espeficos de etapas que hayan utilizado otra numeracion. <strong> No se puede proveer un migrador </strong>
-<ul><li>S: Â¿No es un error ligar el orden con el id? Este ID se utiliza para referenciar a la pantalla en la subclase y un cambio del orden en que se muestra romperÃ­a el cÃ³digo. Se puede crear una columna nueva 'ID' y hacer un migrador para pasar de la columna 'posicion' a esta nueva.
+<ul><li>S: ¿No es un error ligar el orden con el id? Este ID se utiliza para referenciar a la pantalla en la subclase y un cambio del orden en que se muestra rompería el código. Se puede crear una columna nueva 'ID' y hacer un migrador para pasar de la columna 'posicion' a esta nueva.
 </li><li>J: Si, me parece mejor.
 </li></ul></li></ul><ul><li>Seria interesante modificar el codigo del CI, y usar la palabra <strong>pantalla</strong> en vez de etapa. Hay que modificar los metodos espeficos de etapas. Lo que tiene de bueno es que hay que tocar la misma linea de codigo que en el caso anterior.
 </li></ul><ul><li>La asociacion de un EI a una pantalla se registraria en una tabla aparte. <strong>Puede escribirse un migrador</strong>.

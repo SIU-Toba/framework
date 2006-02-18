@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -63,11 +64,11 @@
 <p>
 Los siguientes escenarios asumen la existencia de un control de versiones para el proyecto e instalaciones remotas.
 </p>
-<h3 id="M√∫tliplesInstalacionesdeTobaenunamismam√°quina">M√∫tliples Instalaciones de Toba en una misma m√°quina</h3>
+<h3 id="M˙tliplesInstalacionesdeTobaenunamismam·quina">M˙tliples Instalaciones de Toba en una misma m·quina</h3>
 <p>
-Para tener m√∫tliples instalaciones de Toba en una misma m√°quina se deben tener en cuenta ciertas pautas adicionales a las b√°sicas desciptas en el proceso de instalaci√≥n.
+Para tener m˙tliples instalaciones de Toba en una misma m·quina se deben tener en cuenta ciertas pautas adicionales a las b·sicas desciptas en el proceso de instalaciÛn.
 </p>
-<ul><li>Adem√°s de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para los puntos de acceso, de modo que definan la variable de entorno $TOBA_DIR con la versi√≥n correcta de Toba. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuraci√≥n de Apache deber√≠a contener los alias:
+<ul><li>Adem·s de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para los puntos de acceso, de modo que definan la variable de entorno $TOBA_DIR con la versiÛn correcta de Toba. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuraciÛn de Apache deberÌa contener los alias:
 </li></ul><pre class="wiki">    Alias /toba_1 &#34;d:/toba_1/www&#34;
     &lt;Directory &#34;d:/toba_1/www/&#34;&gt;
         SetEnv TOBA_DIR d:/toba_1
@@ -91,7 +92,7 @@ Para tener m√∫tliples instalaciones de Toba en una misma m√°quina se deben tener
 <p>
  
 </p>
-<ul><li>En cada <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a> definido se debe asegurar de que exista el siguiente c√≥digo (incluido por defecto en las versiones nuevas de toba). Este c√≥digo es responsable de incluir al toba_dir en el include_path de PHP, por lo tanto no debe incluirse expl√≠citamente en el php.ini. Como ejemplo veamos el c√≥digo que deber√≠a incluirse al inicio de los puntos de acceso para proyectos pertenecientes a la instalaci√≥n <i>toba_1</i>:
+<ul><li>En cada <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a> definido se debe asegurar de que exista el siguiente cÛdigo (incluido por defecto en las versiones nuevas de toba). Este cÛdigo es responsable de incluir al toba_dir en el include_path de PHP, por lo tanto no debe incluirse explÌcitamente en el php.ini. Como ejemplo veamos el cÛdigo que deberÌa incluirse al inicio de los puntos de acceso para proyectos pertenecientes a la instalaciÛn <i>toba_1</i>:
 </li></ul><pre class="wiki">if (isset($_SERVER['TOBA_DIR'])) {
 	$dir = $_SERVER['TOBA_DIR'].&#34;/php&#34;; 
 	$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? &#34;;.;&#34; : &#34;:.:&#34;;
@@ -99,57 +100,57 @@ Para tener m√∫tliples instalaciones de Toba en una misma m√°quina se deben tener
 } 
 define(&#34;apex_pa_toba_alias&#34;, &#34;toba&#34;);
 </pre>
-<ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicaci√≥n de los mismos, adem√°s de setear el valor de las variables de entorno $toba_dir y $toba_instancia. Si, por ejemplo, quisi√©ramos regenerar la instancia de produccion de la instalaci√≥n <i>toba_1</i>, los pasos a seguir ser√≠an los siguientes:
+<ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicaciÛn de los mismos, adem·s de setear el valor de las variables de entorno $toba_dir y $toba_instancia. Si, por ejemplo, quisiÈramos regenerar la instancia de produccion de la instalaciÛn <i>toba_1</i>, los pasos a seguir serÌan los siguientes:
 <pre class="wiki">export toba_dir=d:/toba_1
 export toba_instancia=produccion
 export PATH=$PATH:/cygdrive/d/toba_1/bin
 instancia produccion regenerar
 </pre>
 </li></ul><p>
-Es importante que antes de ejecutar scripts administrativos se determine el valor de la variable $toba_dir, dado que podr√≠a haber instancias con el mismo nombre en instalaciones diferentes. Este valor se consulta con:
+Es importante que antes de ejecutar scripts administrativos se determine el valor de la variable $toba_dir, dado que podrÌa haber instancias con el mismo nombre en instalaciones diferentes. Este valor se consulta con:
 </p>
 <pre class="wiki">echo $toba_dir
 </pre>
-<h3 id="PasajeDesarrolloProducci√≥n">Pasaje Desarrollo - Producci√≥n</h3>
+<h3 id="PasajeDesarrolloProducciÛn">Pasaje Desarrollo - ProducciÛn</h3>
 <p>
-El escenario m√°s com√∫n es tener una √∫nica instancia de desarrollo y actualizar otra instancia (generalmente Producci√≥n o Testing) de manera peri√≥dica. Este escenario puede describirse en cinco pasos:
+El escenario m·s com˙n es tener una ˙nica instancia de desarrollo y actualizar otra instancia (generalmente ProducciÛn o Testing) de manera periÛdica. Este escenario puede describirse en cinco pasos:
 </p>
 <p>
 <a href="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png?format=raw"  style="" /></a>
 </p>
-<ol><li><i>Desarrollo</i> - Exportaci√≥n de metadatos: Siempre en desarrollo los √∫ltimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es l√≥gico porque los desarrolladores estubieron utilizando el Administrador en forma conjunta con esta instancia. La exportaci√≥n se hace de la siguiente forma:
+<ol><li><i>Desarrollo</i> - ExportaciÛn de metadatos: Siempre en desarrollo los ˙ltimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lÛgico porque los desarrolladores estubieron utilizando el Administrador en forma conjunta con esta instancia. La exportaciÛn se hace de la siguiente forma:
 <pre class="wiki">proyecto exportar mi_proyecto
 </pre>
-</li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportaci√≥n es el archivo datos.sql que se almacena en el directorio sql del proyecto. Junto a las modificaciones de c√≥digo existentes este archivo se sube (commit) creando una nueva revisi√≥n, almacenanda en un repositorio central.
-</li><li><i>Produccion</i> - Actualizaci√≥n de la nueva revisi√≥n: Suponiendo que se toma la desici√≥n de actualizar el sistema en producci√≥n el primer paso es actualizar el proyecto en cuesti√≥n, esto traera los metadatos y el c√≥digo actualizado.
-</li><li><i>Produccion</i> - Exportaci√≥n de informaci√≥n local: Lo √∫nico que se necesita de la instancia en producci√≥n son sus usuarios (para el resto de los metadatos valen los de desarrollo), entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
+</li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportaciÛn es el archivo datos.sql que se almacena en el directorio sql del proyecto. Junto a las modificaciones de cÛdigo existentes este archivo se sube (commit) creando una nueva revisiÛn, almacenanda en un repositorio central.
+</li><li><i>Produccion</i> - ActualizaciÛn de la nueva revisiÛn: Suponiendo que se toma la desiciÛn de actualizar el sistema en producciÛn el primer paso es actualizar el proyecto en cuestiÛn, esto traera los metadatos y el cÛdigo actualizado.
+</li><li><i>Produccion</i> - ExportaciÛn de informaciÛn local: Lo ˙nico que se necesita de la instancia en producciÛn son sus usuarios (para el resto de los metadatos valen los de desarrollo), entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
 <pre class="wiki">instancia exportar_local
 </pre>
-</li><li><i>Produccion</i> - Regeneraci√≥n de la instancia: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar la instancia:
+</li><li><i>Produccion</i> - RegeneraciÛn de la instancia: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar la instancia:
 <pre class="wiki">instancia regenerar
 </pre>
-</li></ol><h3 id="Actualizaci√≥ndeToba">Actualizaci√≥n de Toba</h3>
+</li></ol><h3 id="ActualizaciÛndeToba">ActualizaciÛn de Toba</h3>
 <p>
-Muchas veces es necesario actualizar la versi√≥n de toba con la que se est√° desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualizaci√≥n, ya que actualizar toba muchas veces (no todas) implica reiniciar la instancia:
+Muchas veces es necesario actualizar la versiÛn de toba con la que se est· desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualizaciÛn, ya que actualizar toba muchas veces (no todas) implica reiniciar la instancia:
 </p>
 <p>
 <a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/actualizacion_toba.png?format=raw"  style="" /></a>
 </p>
-<ol><li>Exportar Metadatos del proyecto: Como los √∫ltimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos ya que va a ser reconstruida por completa. As√≠ que para cada proyecto propio ubicado en esta instancia se debe hacer:
+<ol><li>Exportar Metadatos del proyecto: Como los ˙ltimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos ya que va a ser reconstruida por completa. AsÌ que para cada proyecto propio ubicado en esta instancia se debe hacer:
 <pre class="wiki">proyecto exportar mi_proyecto
 </pre>
-</li><li>Exportaci√≥n de informaci√≥n local: El mismo grupo de desarrollo suele estar entre los usuarios del proyecto, por eso si se quieren conservar es necesario exportar esta informaci√≥n:
+</li><li>ExportaciÛn de informaciÛn local: El mismo grupo de desarrollo suele estar entre los usuarios del proyecto, por eso si se quieren conservar es necesario exportar esta informaciÛn:
 <pre class="wiki">instancia exportar_local
 </pre>
-</li><li>Actualizar Toba: Se trae la nueva revisi√≥n de Toba desde el SVN.
-</li><li>Regeneraci√≥n de la instancia: Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario regenerar la instancia:
+</li><li>Actualizar Toba: Se trae la nueva revisiÛn de Toba desde el SVN.
+</li><li>RegeneraciÛn de la instancia: Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario regenerar la instancia:
 <pre class="wiki">instancia regenerar
 </pre>
 </li></ol><p>
-Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportaci√≥n no se efectu√≥ o se efectu√≥ con errores se perder√°n los datos del proyecto y s√≥lo ser√° posible recuperarlos desde alguna revisi√≥n del SVN del proyecto o alg√∫n backup manual.
+Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportaciÛn no se efectuÛ o se efectuÛ con errores se perder·n los datos del proyecto y sÛlo ser· posible recuperarlos desde alguna revisiÛn del SVN del proyecto o alg˙n backup manual.
 </p>
 <p>
-Hay una raz√≥n por la cual la exportaci√≥n se debe hacer antes que la actualizaci√≥n de c√≥digo. Es posible que el nuevo c√≥digo de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba m√°s viejo). Si se quiere hacer la exportaci√≥n luego de la actualizaci√≥n, este nuevo c√≥digo va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracci√≥n de los metadatos hacia el sistema de archivos. Hay una soluci√≥n a este error, siempre y cuando no se haya ejecutado el tercer paso por la raz√≥n explicada en el p√°rrafo anterior. La soluci√≥n es volver atr√°s la revisi√≥n de toba a la misma con la que se gener√≥ la instancia y rearrancar el proceso.
+Hay una razÛn por la cual la exportaciÛn se debe hacer antes que la actualizaciÛn de cÛdigo. Es posible que el nuevo cÛdigo de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba m·s viejo). Si se quiere hacer la exportaciÛn luego de la actualizaciÛn, este nuevo cÛdigo va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracciÛn de los metadatos hacia el sistema de archivos. Hay una soluciÛn a este error, siempre y cuando no se haya ejecutado el tercer paso por la razÛn explicada en el p·rrafo anterior. La soluciÛn es volver atr·s la revisiÛn de toba a la misma con la que se generÛ la instancia y rearrancar el proceso.
 </p>
 </div>
    </div>

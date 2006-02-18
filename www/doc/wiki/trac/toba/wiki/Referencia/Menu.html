@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Menu - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Menu?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -59,23 +60,23 @@
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Menu
 </p>
 <h1 id="Menudelaaplicacion">Menu de la aplicacion</h1>
-<h2 id="TiposdemenÃºdisponibles">Tipos de menÃº disponibles</h2>
+<h2 id="Tiposdemenúdisponibles">Tipos de menú disponibles</h2>
 <p>
-Actualmente el Ãºnico tipo de menÃº disponible en Toba es <a class="ext-link" href="../../../../external.html?link=http://toba.siu.edu.ar/trac/wiki/Referencia/Marco"><span class="icon"></span>el menÃº Milonic</a>. Este tipo de menÃº trabaja bien en un esquema de frames (incluso pasa por encima de los combo de el IE) y tiene un nivel alto de personalizaciÃ³n, el mayor problema que tiene es que es lento y pesado. Por eso se quiere armar un menÃº 'liviano' basado en CSS.
+Actualmente el único tipo de menú disponible en Toba es <a class="ext-link" href="../../../../external.html?link=http://toba.siu.edu.ar/trac/wiki/Referencia/Marco"><span class="icon"></span>el menú Milonic</a>. Este tipo de menú trabaja bien en un esquema de frames (incluso pasa por encima de los combo de el IE) y tiene un nivel alto de personalización, el mayor problema que tiene es que es lento y pesado. Por eso se quiere armar un menú 'liviano' basado en CSS.
 </p>
 <p>
-Puede verse el cÃ³digo fuente de <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/menu/menu_milonic_frames.php">Milonic</a> y de la clase abstracta padre <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/menu/menu.php">menu y menu_recorrido</a>.
+Puede verse el código fuente de <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/menu/menu_milonic_frames.php">Milonic</a> y de la clase abstracta padre <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/menu/menu.php">menu y menu_recorrido</a>.
 </p>
-<h2 id="SelecciÃ³ndelmenÃº">SelecciÃ³n del menÃº</h2>
+<h2 id="Seleccióndelmenú">Selección del menú</h2>
 <p>
-Desde el administrador del proyecto, seleccionar <i>Proyecto</i> &gt; <i>Propiedades BÃ¡sicas</i>, allÃ­ se puede seleccionar el tipo de menÃº a utilizar (por ahora sÃ³lo Milonic en frames). Si se extendiÃ³ el menÃº para incluir alguna particularizaciÃ³n, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
+Desde el administrador del proyecto, seleccionar <i>Proyecto</i> &gt; <i>Propiedades Básicas</i>, allí se puede seleccionar el tipo de menú a utilizar (por ahora sólo Milonic en frames). Si se extendió el menú para incluir alguna particularización, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
 </p>
 <pre class="wiki">...
 define(&#34;apex_pa_menu_archivo&#34;, &#34;extension_nucleo/menu_miproyecto.php&#34;);
 ...
 </pre>
 <p>
-Se toma la convensiÃ³n de que el nombre de la clase es igual al nombre del archivo (sin la extensiÃ³n).
+Se toma la convensión de que el nombre de la clase es igual al nombre del archivo (sin la extensión).
 </p>
 </div>
    </div>

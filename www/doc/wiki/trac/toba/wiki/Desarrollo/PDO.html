@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/PDO - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/PDO?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -73,7 +74,7 @@ Siendo estas las unicas caracteristicas utilizadas, no tiene sentido darle un ro
 Si podria utilizar ADOdb para cosas especificas, como la recuperacion de metadatos del motor. Los servicios orientados a la reescritura de los querys (cosas como el manejo de paginacion -LIMIT, OFFSET en posrgresql), son cosas que hasta donde vi no se utilizan.
 </p>
 <h3 id="VentajasdePDO">Ventajas de PDO</h3>
-<ul><li>Manejo de Errores: Aparentemente se maneja en forma univoca con SQLSTATE. (ADOdb tiene una implementacion de esto extraÃ±a, parseando mensajes de error, obliga a compilar postgres en ingles).
+<ul><li>Manejo de Errores: Aparentemente se maneja en forma univoca con SQLSTATE. (ADOdb tiene una implementacion de esto extraña, parseando mensajes de error, obliga a compilar postgres en ingles).
 </li><li>Performance: ADOdb son mas o menos 100k de includes de codigo PHP, PDO es una libreria escrita en C.
 </li></ul><h3 id="Desventajas">Desventajas</h3>
 <ul><li>Existen proyectos que usan ADOdb a travez de toba.

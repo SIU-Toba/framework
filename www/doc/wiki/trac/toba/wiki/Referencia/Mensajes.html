@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Mensajes - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Mensajes?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,23 +61,23 @@
 </p>
 <h1 id="MensajesyNotificaciones">Mensajes y Notificaciones</h1>
 <p>
-Toba brinda mecanismos para hacer m谩s uniforme la construcci贸n de mensajes y notificarlos al cliente.
+Toba brinda mecanismos para hacer m醩 uniforme la construcci髇 de mensajes y notificarlos al cliente.
 </p>
-<h2 id="Construcci贸ndeMensajes">Construcci贸n de Mensajes</h2>
+<h2 id="Construcci髇deMensajes">Construcci髇 de Mensajes</h2>
 <p>
-Existe la posibilidad de centralizar el armado de mensajes, agregando plantillas de mensajes a nivel global (vista EXT) o a nivel de un objeto. El mensaje act煤a como plantilla dejando marcas para su posterior instanciaci贸n. Estas marcas toman la forma de <i>%posicion%</i>:
+Existe la posibilidad de centralizar el armado de mensajes, agregando plantillas de mensajes a nivel global (vista EXT) o a nivel de un objeto. El mensaje act鷄 como plantilla dejando marcas para su posterior instanciaci髇. Estas marcas toman la forma de <i>%posicion%</i>:
 </p>
 <pre class="wiki">Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.
 </pre>
 <p>
-Cuando el mensaje es global al proyecto, se lo busca invocando desde cualquier lado, utilizando el 铆ndice del mensaje como primer par谩metro y los reemplazos de las marcas como segundo:
+Cuando el mensaje es global al proyecto, se lo busca invocando desde cualquier lado, utilizando el 韓dice del mensaje como primer par醡etro y los reemplazos de las marcas como segundo:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">echo </span><span class="code-lang">mensaje</span><span class="code-keyword">::</span><span class="code-lang">get</span><span class="code-keyword">(</span><span class="code-string">'indice'</span><span class="code-keyword">, array(</span><span class="code-string">'primera'</span><span class="code-keyword">, </span><span class="code-lang">date</span><span class="code-keyword">(</span><span class="code-string">'d/M/Y'</span><span class="code-keyword">));
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Cuando el mensaje es definido desde el Administrador en el mismo objeto, s贸lo se pude invocar desde una extensi贸n de este objeto de la siguiente forma:
+Cuando el mensaje es definido desde el Administrador en el mismo objeto, s髄o se pude invocar desde una extensi髇 de este objeto de la siguiente forma:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">echo </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">obtener_mensaje</span><span class="code-keyword">(</span><span class="code-string">'indice'</span><span class="code-keyword">, array(</span><span class="code-string">'primera'</span><span class="code-keyword">, </span><span class="code-lang">date</span><span class="code-keyword">(</span><span class="code-string">'d/M/Y'</span><span class="code-keyword">));
@@ -87,19 +88,19 @@ El mensaje obtenido es el siguiente:
 </p>
 <pre class="wiki">Esta es la primera instancia de un mensaje global de Toba. Fecha de hoy: 13/Jun/2005
 </pre>
-<h2 id="Notificaci贸n">Notificaci贸n</h2>
+<h2 id="Notificaci髇">Notificaci髇</h2>
 <p>
-Una vez construidos los mensajes, ya sea con la forma anterior o en forma manual, se los puede agrupa en una <i>cola_mensajes</i> para ser mostrados posteriormente al cliente. Esta agrupaci贸n a bajo nivel se hace con la clase <i>cola_mensaje</i> en <i>php/nucleo/lib/cola_mensajes.php</i>:
+Una vez construidos los mensajes, ya sea con la forma anterior o en forma manual, se los puede agrupa en una <i>cola_mensajes</i> para ser mostrados posteriormente al cliente. Esta agrupaci髇 a bajo nivel se hace con la clase <i>cola_mensaje</i> en <i>php/nucleo/lib/cola_mensajes.php</i>:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     toba</span><span class="code-keyword">::</span><span class="code-lang">get_cola_mensajes</span><span class="code-keyword">()-&gt;</span><span class="code-lang">agregar</span><span class="code-keyword">(</span><span class="code-string">"Error al procesar"</span><span class="code-keyword">);
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Opcionalmente se puede incluir el tipo de mensaje como segundo par谩metro ('error' o 'info'), por defecto es 'error'. Por ahora la 煤nica forma en que se muestra esta cola es con un <i>alert</i> de javascript detallando cada uno de los mensajes encolados.
+Opcionalmente se puede incluir el tipo de mensaje como segundo par醡etro ('error' o 'info'), por defecto es 'error'. Por ahora la 鷑ica forma en que se muestra esta cola es con un <i>alert</i> de javascript detallando cada uno de los mensajes encolados.
 </p>
 <p>
-Cuando el error se detecta desde la <a class="wiki" href="Objetos/Extension.html">extensi贸n un objeto toba</a> la notificaci贸n se hace utilizando un servicio del mismo objeto:
+Cuando el error se detecta desde la <a class="wiki" href="Objetos/Extension.html">extensi髇 un objeto toba</a> la notificaci髇 se hace utilizando un servicio del mismo objeto:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">informar_msg</span><span class="code-keyword">(</span><span class="code-string">"Error al procesar"</span><span class="code-keyword">);
@@ -107,7 +108,7 @@ Cuando el error se detecta desde la <a class="wiki" href="Objetos/Extension.html
 </span></span>
 </pre></div><h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo de construcci贸n y notificaci贸n de mensajes en el proyecto <a class="wiki" href="../Proyectos/Referencia.html">Referencia</a>, 铆tem <i>Mensajes y Notificaciones</i>.
+Existe un ejemplo de construcci髇 y notificaci髇 de mensajes en el proyecto <a class="wiki" href="../Proyectos/Referencia.html">Referencia</a>, 韙em <i>Mensajes y Notificaciones</i>.
 </p>
 </div>
    </div>

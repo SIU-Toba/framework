@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Refactorizaciones/ci_junio_2005 - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/ci_junio_2005?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -106,8 +107,8 @@ ejecuta el script generado sobre la base "toba".
 La forma de ejecutar la conversion es la siguiente: 
 </p>
 <ol><li><i>Exportar los proyectos a convertir y subirlos a su repositorio.</i>
-</li><li><i>Es recomendable no incluir en la instancia cualquier proyecto de cuya conversiÃ³n no somos responsables (por ejemplo en mi caso, tengo que borrar comechingones y esperar hasta que el grupo de desarrollo lo convierta). Esto es porque no queremos convertir proyectos de 3eros, puede traer conflictos posteriores. La forma mÃ¡s sencilla de hacerlo es sacar el proyecto del directorio proyectos</i>
-</li><li>Hacer un UPDATE del toba. <i>Tube que regenerar la instancia tambiÃ©n.</i>.
+</li><li><i>Es recomendable no incluir en la instancia cualquier proyecto de cuya conversión no somos responsables (por ejemplo en mi caso, tengo que borrar comechingones y esperar hasta que el grupo de desarrollo lo convierta). Esto es porque no queremos convertir proyectos de 3eros, puede traer conflictos posteriores. La forma más sencilla de hacerlo es sacar el proyecto del directorio proyectos</i>
+</li><li>Hacer un UPDATE del toba. <i>Tube que regenerar la instancia también.</i>.
 </li><li>Ejecutar el script de conversion sobre la base del proyecto.
 </li><li>Exportar el proyecto.
 </li><li>Regenerar la instancia.
@@ -121,9 +122,9 @@ La conversion necesita tambien modificar <strong>codigo fuente</strong>. Como la
 </p>
 <h2 id="Comentarios">Comentarios</h2>
 <ul><li>Muy bueno el refactoring!
-</li><li>Los CI simples que no tenian CN se convirtieron a ci_cn, Â¿es un error?
+</li><li>Los CI simples que no tenian CN se convirtieron a ci_cn, ¿es un error?
 <ul><li>Como hasta ahora todos los CIs suponian un CN, por las dudas los mapee todos al 'ci_cn' para que no haya problemas, era imposible saber si las subclases lo utilizaban o no...
-</li></ul></li><li>Â¿PorquÃ© 6 parametros en la definiciÃ³n bÃ¡sica de un objeto? Â¿Ese formulario tiene que pasar a ser un ML no?
+</li></ul></li><li>¿Porqué 6 parametros en la definición básica de un objeto? ¿Ese formulario tiene que pasar a ser un ML no?
 <ul><li>Las subclases del CI encargadas de manejar db_registros necesitan esa cantidad de parametros (el dao del cuadro y el dbr que utilizan). Es una necesidad urgente un nuevo editor de CIs. Los parametros exclusivos de alguna subclase puntual deberian estar en un tab aparte de la definicion estandard del CI.
 </li></ul></li></ul></div>
    </div>

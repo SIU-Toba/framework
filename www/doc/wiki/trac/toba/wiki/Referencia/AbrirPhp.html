@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/AbrirPhp - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/AbrirPhp?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -66,8 +67,8 @@ Abrir un archivo en el sistema de ventanas del sistema operativo desde un servid
 </li><li>Apache corre en background por lo que no es directo hacer que abra un proceso en el sistema de ventanas
 </li></ul><h1 id="Windows">Windows</h1>
 <ul><li>Sistemas probados: Windows XP SP2 y Windows 2003 con Apache2
-</li><li>Requisitos: Configurar apache para que pueda abrir procesos de escritorio. Para esto ultimo ir a las propiedades del servicio, solapa 'Log On' y activar la opci√≥n 'Allow service to interact with desktop'.
-</li><li>Particularidades: Como apache corre con un usuario aparte (Local service por defecto) el editor se abre utilizando este usuario, por lo que si el editor soporta el esquema de multiples usuarios tendr√° sus configuraciones particulares y abrira una instancia nueva del editor. Por lo general funciona de la siguiente forma:
+</li><li>Requisitos: Configurar apache para que pueda abrir procesos de escritorio. Para esto ultimo ir a las propiedades del servicio, solapa 'Log On' y activar la opciÛn 'Allow service to interact with desktop'.
+</li><li>Particularidades: Como apache corre con un usuario aparte (Local service por defecto) el editor se abre utilizando este usuario, por lo que si el editor soporta el esquema de multiples usuarios tendr· sus configuraciones particulares y abrira una instancia nueva del editor. Por lo general funciona de la siguiente forma:
 <ul><li>Cuando no hay un editor abierto y se pide abrir el archivo se inicia un editor con el usuario 'Local Service'
 </li><li>Cuando hay un editor abierto (con el usuario deseado) y se pide abrir el archivo se reutiliza el editor permaneciendo el usuario.
 </li></ul></li><li>Comando de ejecucion: Se ejecuta un <tt>start nombre_archivo</tt> y dependiendo de las configuraciones actuales se abre el editor predeterminado.

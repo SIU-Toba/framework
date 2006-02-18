@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Refactorizaciones/frames - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/frames?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,15 +59,15 @@
     <div id="searchable"><p>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Desarrollo.html">Desarrollo</a> / <a href="../Refactorizaciones.html">Refactorizaciones</a> / frames
 </p>
-<h1 id="Refactorizaci贸ndedisposici贸n">Refactorizaci贸n de disposici贸n</h1>
-<h2 id="S铆ntomas">S铆ntomas</h2>
-<ul><li>Es dificil armar una disposici贸n que no incluya frames
-</li><li>En la disposici贸n actual (con frames) tendria que ser f谩cil personalizar la cabecera e incluso el tama帽o de los frames
+<h1 id="Refactorizaci髇dedisposici髇">Refactorizaci髇 de disposici髇</h1>
+<h2 id="S韓tomas">S韓tomas</h2>
+<ul><li>Es dificil armar una disposici髇 que no incluya frames
+</li><li>En la disposici髇 actual (con frames) tendria que ser f醕il personalizar la cabecera e incluso el tama駉 de los frames
 </li><li>Tanto el frameset como la cabecera dependen de items que se encuentran en el administrador (salvo que el proyecto quiera hacer los propios desde cero), esto limita la independencia del proyecto.
 </li></ul><h2 id="Posiblessoluciones">Posibles soluciones</h2>
-<ul><li>El 煤nico impedimento a no usar frames es el frame oculto, es lo que hoy en d铆a limita tambi茅n a que los popups puedan usar cascada. La comunicaci贸n por cascada se podria hacer utilizando iframes.
-</li><li>La disposici贸n podr铆a ser una propiedad del proyecto (frames - no frames), en base a esto se limitan los distintos menus (milonic frames o el css no frames por ejemplo). Cuando la disposici贸n es frames se podr铆a indicar una subclase para poder personalizar el html del frameset y el de la cabecera.
-</li><li>La generaci贸n del frameset deber铆a poder hacerse sin pasar por un item del administrador...Toba se da cuenta que no se pidio ning煤n item y que el proyecto esta en modo "frames" (nuevo parametro del proyecto) entonces saca el frameset (personalizable como subclase). Con la cabecera sucede algo similar, aunque tiene mas sentido que sea un item.
+<ul><li>El 鷑ico impedimento a no usar frames es el frame oculto, es lo que hoy en d韆 limita tambi閚 a que los popups puedan usar cascada. La comunicaci髇 por cascada se podria hacer utilizando iframes.
+</li><li>La disposici髇 podr韆 ser una propiedad del proyecto (frames - no frames), en base a esto se limitan los distintos menus (milonic frames o el css no frames por ejemplo). Cuando la disposici髇 es frames se podr韆 indicar una subclase para poder personalizar el html del frameset y el de la cabecera.
+</li><li>La generaci髇 del frameset deber韆 poder hacerse sin pasar por un item del administrador...Toba se da cuenta que no se pidio ning鷑 item y que el proyecto esta en modo "frames" (nuevo parametro del proyecto) entonces saca el frameset (personalizable como subclase). Con la cabecera sucede algo similar, aunque tiene mas sentido que sea un item.
 </li></ul></div>
    </div>
    

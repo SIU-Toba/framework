@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Objetos/ei_cuadro - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Objetos/ei_cuadro?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -60,49 +61,49 @@
 </p>
 <h1 id="CuadroSimple">Cuadro Simple</h1>
 <p>
-Un ei_cuadro es una grilla de registros pensados para visualizaci√≥n. Es com√∫n que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <i>seleccionarla</i> a trav√©s de eventos.
+Un ei_cuadro es una grilla de registros pensados para visualizaciÛn. Es com˙n que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <i>seleccionarla</i> a travÈs de eventos.
 </p>
-<h2 id="Definici√≥n">Definici√≥n</h2>
+<h2 id="DefiniciÛn">DefiniciÛn</h2>
 <p>
-En la definici√≥n del cuadro se incluye:
+En la definiciÛn del cuadro se incluye:
 </p>
-<ul><li>Columnas clave: Aqu√≠ se listan las clave del registro, si es que la tiene. Es de especial utilidad para cuando se desean incluir eventos asociados a los registros (por ejemplo <i>seleccion</i>). A estos eventos se les enviar√° s√≥lo el contenido de estas columnas en un arreglo, en el caso que sean claves m√∫ltiples, o directamente el valor en caso de ser √∫nica clave.
-</li><li>Paginar: Establece si el cuadro podr√° ser visualizado en varias p√°ginas diferentes, funci√≥n especialmente √∫til cuando se espera que el conjunto de datos a mostrar sea extenso.
+<ul><li>Columnas clave: AquÌ se listan las clave del registro, si es que la tiene. Es de especial utilidad para cuando se desean incluir eventos asociados a los registros (por ejemplo <i>seleccion</i>). A estos eventos se les enviar· sÛlo el contenido de estas columnas en un arreglo, en el caso que sean claves m˙ltiples, o directamente el valor en caso de ser ˙nica clave.
+</li><li>Paginar: Establece si el cuadro podr· ser visualizado en varias p·ginas diferentes, funciÛn especialmente ˙til cuando se espera que el conjunto de datos a mostrar sea extenso.
 </li><li>Ordenar: Indica si el usuario tiene posibilidad de ordenar el conjunto de datos a partir de alguna columna.
-</li><li>EOF: El EOF se muestra cuando no hay ning√∫n registro en la carga, existe un mensaje por defecto asociado, √©ste puede ser modificado o directamente ocultado al cliente.
+</li><li>EOF: El EOF se muestra cuando no hay ning˙n registro en la carga, existe un mensaje por defecto asociado, Èste puede ser modificado o directamente ocultado al cliente.
 </li></ul><h2 id="Carga">Carga</h2>
 <p>
-Adem√°s del <a class="wiki" href="../Eventos.html">evento</a> de carga com√∫n a los objetos de interface, existe una forma alternativa de cargar los datos al cuadro especificando un <a class="wiki" href="../Dao.html">DAO</a> en la definici√≥n del cuadro, all√≠ se debe incluir:
+Adem·s del <a class="wiki" href="../Eventos.html">evento</a> de carga com˙n a los objetos de interface, existe una forma alternativa de cargar los datos al cuadro especificando un <a class="wiki" href="../Dao.html">DAO</a> en la definiciÛn del cuadro, allÌ se debe incluir:
 </p>
-<ul><li>DAO(nucleo): Indica el nombre del DAO definido en el secci√≥n EXT del administrador.
-</li><li>DAO(m√©todo): El nombre del m√©todo (definido en la clase n√∫cleo del DAO) que cargar√° los datos en el cuadro.
+<ul><li>DAO(nucleo): Indica el nombre del DAO definido en el secciÛn EXT del administrador.
+</li><li>DAO(mÈtodo): El nombre del mÈtodo (definido en la clase n˙cleo del DAO) que cargar· los datos en el cuadro.
 </li></ul><h2 id="Paginado">Paginado</h2>
 <p>
-Si en la definici√≥n del cuadro se especifica que podr√° ser paginado, adem√°s del n√∫mero de registros por p√°gina es necesario seleccionar un <strong>tipo de paginado</strong>:
+Si en la definiciÛn del cuadro se especifica que podr· ser paginado, adem·s del n˙mero de registros por p·gina es necesario seleccionar un <strong>tipo de paginado</strong>:
 </p>
-<ul><li><i>Propio</i>: Es la opci√≥n m√°s adecuada cuando el conjunto de registros a mostrar es peque√±o, y por lo tanto el hecho de que el CI entregue al cuadro el total de los datos no representa una sobrecarga considerable. En este caso la l√≥gica del paginado es propia del cuadro, y por lo tanto no se requieren consideraciones especiales a la hora de aplicarlo.
-</li><li><i>A cargo del CI</i>: Esta alternativa permite que el CI entregue los datos parciales al cuadro, obteniendo el tama√±o de p√°gina y la p√°gina actual mediante las funciones <i>get_tamanio_pagina()</i> y <i>get_pagina_actual()</i>, respectivamente. A partir de estos datos, el evento carga del CI determinar√° cu√°l es el subconjunto de registros que espera el cuadro. Adem√°s, el propio CI debe agregar un evento <i>cant_reg</i>, que le permitir√° al cuadro saber cu√°l es la cantidad total de registros, para calcular as√≠ el n√∫mero de p√°ginas.
+<ul><li><i>Propio</i>: Es la opciÛn m·s adecuada cuando el conjunto de registros a mostrar es pequeÒo, y por lo tanto el hecho de que el CI entregue al cuadro el total de los datos no representa una sobrecarga considerable. En este caso la lÛgica del paginado es propia del cuadro, y por lo tanto no se requieren consideraciones especiales a la hora de aplicarlo.
+</li><li><i>A cargo del CI</i>: Esta alternativa permite que el CI entregue los datos parciales al cuadro, obteniendo el tamaÒo de p·gina y la p·gina actual mediante las funciones <i>get_tamanio_pagina()</i> y <i>get_pagina_actual()</i>, respectivamente. A partir de estos datos, el evento carga del CI determinar· cu·l es el subconjunto de registros que espera el cuadro. Adem·s, el propio CI debe agregar un evento <i>cant_reg</i>, que le permitir· al cuadro saber cu·l es la cantidad total de registros, para calcular asÌ el n˙mero de p·ginas.
 </li></ul><h2 id="Modelosdeevento">Modelos de evento</h2>
 <p>
-El cuadro posee el modelo de eventos <i>seleccion</i> con un evento con el mismo nombre. El evento selecci√≥n es uno que se adhiere a nivel de registro, como par√°metro env√≠a los valores de las columnas claves del registro seleccionado en forma de arreglo asociativo. Esta selecci√≥n cambia el estilo visual de la fila seleccionada, es responsabilidad del contenedor el determinar cuando este estilo deja de aplicar (porque por ejemplo se cancelo su edici√≥n). Para esto existe un m√©todo <strong>deseleccionar</strong> asociado al cuadro.
+El cuadro posee el modelo de eventos <i>seleccion</i> con un evento con el mismo nombre. El evento selecciÛn es uno que se adhiere a nivel de registro, como par·metro envÌa los valores de las columnas claves del registro seleccionado en forma de arreglo asociativo. Esta selecciÛn cambia el estilo visual de la fila seleccionada, es responsabilidad del contenedor el determinar cuando este estilo deja de aplicar (porque por ejemplo se cancelo su ediciÛn). Para esto existe un mÈtodo <strong>deseleccionar</strong> asociado al cuadro.
 </p>
 <p>
-Cuando se agregan eventos particulares se puede especificar que el evento es a nivel de una fila y no global del cuadro con la propiedad 'sobre_fila'. Esto va a permitir que el evento sea lanzado de manera similar al <i>seleccion</i>, es decir con las claves de la fila desde donde se lanz√≥ el evento. A manera gr√°fica estos eventos van a ser posicionados a un lado de cada fila del cuadro.
+Cuando se agregan eventos particulares se puede especificar que el evento es a nivel de una fila y no global del cuadro con la propiedad 'sobre_fila'. Esto va a permitir que el evento sea lanzado de manera similar al <i>seleccion</i>, es decir con las claves de la fila desde donde se lanzÛ el evento. A manera gr·fica estos eventos van a ser posicionados a un lado de cada fila del cuadro.
 </p>
 <p>
-El cuadro puede poseer adem√°s un evento <i>ordenar</i> (definible en las propiedades b√°sicas), ante un ordenamiento expl√≠cito del usuario se dispara este evento con un arreglo asociativo conteniendo la <i>columna</i> y el <i>sentido</i> ('des' o 'asc').
+El cuadro puede poseer adem·s un evento <i>ordenar</i> (definible en las propiedades b·sicas), ante un ordenamiento explÌcito del usuario se dispara este evento con un arreglo asociativo conteniendo la <i>columna</i> y el <i>sentido</i> ('des' o 'asc').
 </p>
 <h3 id="Filtradodeeventosporfila">Filtrado de eventos por fila</h3>
 <p>
-La precencia o ausencia de un evento (a nivel de fila y no global) puede depender del contenido de cada fila. Para controlar el comportamiento de este tipo de eventos debe existir un m√©todo con el nombre <i>filtrar_evt<span class="underline">nombre_evento</span></i><span class="underline">. El m√©todo recibe como par√°metro el n√∫mero de fila en el cuadro y en caso de retornar verdadero se activa el evento sobre la fila en cuesti√≥n. 
+La precencia o ausencia de un evento (a nivel de fila y no global) puede depender del contenido de cada fila. Para controlar el comportamiento de este tipo de eventos debe existir un mÈtodo con el nombre <i>filtrar_evt<span class="underline">nombre_evento</span></i><span class="underline">. El mÈtodo recibe como par·metro el n˙mero de fila en el cuadro y en caso de retornar verdadero se activa el evento sobre la fila en cuestiÛn. 
 </span></p>
 <h2 id="CortesdeControl">Cortes de Control</h2>
 <p>
 <strong>PENDIENTE</strong>
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
-<ul><li>Existe un ejemplo de un filtro junto a un cuadro en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, √≠tem <i>Objetos/ei_filtro - ei_cuadro</i>.
-</li><li>Un ejemplo de un cuadro con paginado a cargo del CI puede encontrarse en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, √≠tem <i>Objetos/ei_cuadro - paginado</i>.
+<ul><li>Existe un ejemplo de un filtro junto a un cuadro en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Ìtem <i>Objetos/ei_filtro - ei_cuadro</i>.
+</li><li>Un ejemplo de un cuadro con paginado a cargo del CI puede encontrarse en el proyecto <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Ìtem <i>Objetos/ei_cuadro - paginado</i>.
 </li></ul></div>
    </div>
    

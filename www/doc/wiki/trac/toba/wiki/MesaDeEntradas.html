@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>MesaDeEntradas - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/MesaDeEntradas?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -63,19 +64,19 @@
 Agregar libremente dudas, comentarios, inquietudes o mejoras.
 </p>
 <hr />
-<h2 id="Deshabilitaci√≥ndeefs">Deshabilitaci√≥n de efs</h2>
-<ul><li>Estar√≠a muy bueno que en el ei_formulario se agregara un m√©todo ocultar_efs($efs=null), similar al deshabilitar_efs($efs=null) que ya existe. Probablemente esto implicar√≠a tener que definir en el ef el m√©todo establecer_oculto(), similar a establecer_solo_lectura().
-</li><li>Adem√°s, el formulario deber√≠a leer este estado del ef antes de construir la interface. ¬øSer√≠a necesario que el ef puede mostrarse posteriormente usando JS? o directamente no se incluye en el HTML que se genera.
-</li></ul><h2 id="Exportaci√≥naPDF">Exportaci√≥n a PDF</h2>
-<ul><li>Queremos personalizar la forma en la que se generan los pdf a partir de un cuadro. Especializamos la clase objeto_cuadro y redefinimos los m√©todos procesar_pdf(), procesar_propiedades_pdf() y obtener_pdf(), pero nos encontramos con que el generador de pdf (/toba/php/acciones/basicas/generador_pdf) llama al obtener_pdf de un cuadro que crea ah√≠ adentro, con lo cual los m√©todos redefinidos nunca se invocan. Cu√°l es la forma correcta de personalizar la exportaci√≥n a pdf?
-</li></ul><h2 id="Documentaci√≥ndeToba">Documentaci√≥n de Toba</h2>
-<ul><li>Resultar√≠a muy √∫til contar con un API para las distintas clases (o al menos las mas importantes), para tener una ayuda visual un poco mas agradable que visualizar directamente el c√≥digo y de esta forma, poder encontrar mas f√°cilmente los distintos m√©todos o propiedades necesarias a la hora de extender una clase para agregar un comportamiento espec√≠fico.
-</li><li>Hay una infraestructura que soporta esto con un formato similar al javadoc, el problema es que hay poco documentado con esta sintaxis, y lo poco que hay est√° desactualizado. Estar√≠a bueno documentar al menos la interface m√°s com√∫n de los objetos m√°s utilizados. <a class="wiki" href="Desarrollo/Autodocumentacion.html">M√°s de este tema</a>.
+<h2 id="DeshabilitaciÛndeefs">DeshabilitaciÛn de efs</h2>
+<ul><li>EstarÌa muy bueno que en el ei_formulario se agregara un mÈtodo ocultar_efs($efs=null), similar al deshabilitar_efs($efs=null) que ya existe. Probablemente esto implicarÌa tener que definir en el ef el mÈtodo establecer_oculto(), similar a establecer_solo_lectura().
+</li><li>Adem·s, el formulario deberÌa leer este estado del ef antes de construir la interface. øSerÌa necesario que el ef puede mostrarse posteriormente usando JS? o directamente no se incluye en el HTML que se genera.
+</li></ul><h2 id="ExportaciÛnaPDF">ExportaciÛn a PDF</h2>
+<ul><li>Queremos personalizar la forma en la que se generan los pdf a partir de un cuadro. Especializamos la clase objeto_cuadro y redefinimos los mÈtodos procesar_pdf(), procesar_propiedades_pdf() y obtener_pdf(), pero nos encontramos con que el generador de pdf (/toba/php/acciones/basicas/generador_pdf) llama al obtener_pdf de un cuadro que crea ahÌ adentro, con lo cual los mÈtodos redefinidos nunca se invocan. Cu·l es la forma correcta de personalizar la exportaciÛn a pdf?
+</li></ul><h2 id="DocumentaciÛndeToba">DocumentaciÛn de Toba</h2>
+<ul><li>ResultarÌa muy ˙til contar con un API para las distintas clases (o al menos las mas importantes), para tener una ayuda visual un poco mas agradable que visualizar directamente el cÛdigo y de esta forma, poder encontrar mas f·cilmente los distintos mÈtodos o propiedades necesarias a la hora de extender una clase para agregar un comportamiento especÌfico.
+</li><li>Hay una infraestructura que soporta esto con un formato similar al javadoc, el problema es que hay poco documentado con esta sintaxis, y lo poco que hay est· desactualizado. EstarÌa bueno documentar al menos la interface m·s com˙n de los objetos m·s utilizados. <a class="wiki" href="Desarrollo/Autodocumentacion.html">M·s de este tema</a>.
 </li></ul><h2 id="ABMsenlaarquitecturaporcapas">ABMs en la arquitectura por capas</h2>
-<ul><li>P: Hola, estamos haciendo un ABM usando como ejemplo el que est√° en el proyecto de referencia y tenemos algunas preguntitas:
-<ol><li>El patr√≥n del √≠tem tiene que ser "CI - Creador de DB"? Por qu√© no se usa el CI com√∫n
-</li><li>Para el acceso a los datos, se usa el DAO s√≥lo para los get y el DBR para los set?
-</li><li>Para crear un DBR hay un script de consola, nos pueden decir c√∫al es?
+<ul><li>P: Hola, estamos haciendo un ABM usando como ejemplo el que est· en el proyecto de referencia y tenemos algunas preguntitas:
+<ol><li>El patrÛn del Ìtem tiene que ser "CI - Creador de DB"? Por quÈ no se usa el CI com˙n
+</li><li>Para el acceso a los datos, se usa el DAO sÛlo para los get y el DBR para los set?
+</li><li>Para crear un DBR hay un script de consola, nos pueden decir c˙al es?
 </li></ol></li></ul><blockquote>
 <blockquote>
 <p>
@@ -83,19 +84,19 @@ Muchas gracias!
 </p>
 </blockquote>
 </blockquote>
-<ul><li>R: Hola, ac√° van las respuestas a sus preguntas:
-<ol><li>Se utilizaba ese patr√≥n, porque si la BD usada en este ejemplo no exist√≠a, este patr√≥n la creaba. De esta forma, se facilitaba la instalaci√≥n del proyecto creando el ejemplo y los datos que utilizaba el mismo autom√°ticamente.
-De todas formas, hay una nueva versi√≥n disponible del proyecto, en la cu√°l se utiliza un patr√≥n CI y la creaci√≥n de la BD se realiza en el archivo "inicializacion.php". El problema, era que al estar el c√≥digo ubicado en el patr√≥n "CI - Creador de DB", la BD no se creaba hasta ejecutar el item que usaba este patr√≥n mostrando mensajes de Warnings en los objetos previamente ejecutados.
-</li><li>Si, esto es as√≠ porque para este caso particular el cuadro necesita datos de solo lectura y el dbr est√° pensado para modificaciones. Adem√°s, en el DAO se pueden personalizar los gets tanto como se deseen, mientras que en el dbr, habr√≠a que redefinir los m√©todos y esta no es justamente la idea por la que se cre√≥ este objeto.
+<ul><li>R: Hola, ac· van las respuestas a sus preguntas:
+<ol><li>Se utilizaba ese patrÛn, porque si la BD usada en este ejemplo no existÌa, este patrÛn la creaba. De esta forma, se facilitaba la instalaciÛn del proyecto creando el ejemplo y los datos que utilizaba el mismo autom·ticamente.
+De todas formas, hay una nueva versiÛn disponible del proyecto, en la cu·l se utiliza un patrÛn CI y la creaciÛn de la BD se realiza en el archivo "inicializacion.php". El problema, era que al estar el cÛdigo ubicado en el patrÛn "CI - Creador de DB", la BD no se creaba hasta ejecutar el item que usaba este patrÛn mostrando mensajes de Warnings en los objetos previamente ejecutados.
+</li><li>Si, esto es asÌ porque para este caso particular el cuadro necesita datos de solo lectura y el dbr est· pensado para modificaciones. Adem·s, en el DAO se pueden personalizar los gets tanto como se deseen, mientras que en el dbr, habrÌa que redefinir los mÈtodos y esta no es justamente la idea por la que se creÛ este objeto.
 </li><li><a class="wiki" href="Referencia/ScriptsAdministrativos/GeneracionDBR.html">Ver script para generar db_registro</a>
 </li></ol></li></ul><p>
 Espectacular! Muchas gracias!! Ignacio
 </p>
 <h2 id="Consultarfuente">Consultar fuente</h2>
-<ul><li>P: El archivo db.php en php/nucleo/lib, tiene la funci√≥n consultar_fuente.  Porqu√© devuelve como resultado un array en lugar del recordset?  Se podr√≠a hacer una funci√≥n con esta caracter√≠stica?
+<ul><li>P: El archivo db.php en php/nucleo/lib, tiene la funciÛn consultar_fuente.  PorquÈ devuelve como resultado un array en lugar del recordset?  Se podrÌa hacer una funciÛn con esta caracterÌstica?
 </li><li>R: La idea era no desparramar logica de ADOdb por todos lados, para no hacernos dependientes de esa libreria (En general con un array se puede hacer lo mismo que con un recordset). La idea seria tener via libre para utilizar <a class="wiki" href="Desarrollo/PDO.html">PDO</a>. La funcion podria hacerse pero deberia ser especifica del proyecto que la necesite.
 </li></ul><h2 id="Usodelef_combo_dao">Uso del ef_combo_dao</h2>
-<ul><li>P: Hola, les hago una pregunta sobre el uso del ef combo_dao. Dentro de un ei tengo un ef del tipo ef_combo_dao (les adjunto una captura de pantalla con la definici√≥n). El m√©todo que tiene que ejecutar se llama versiones() y lo busca dentro de la extensi√≥n del ci.
+<ul><li>P: Hola, les hago una pregunta sobre el uso del ef combo_dao. Dentro de un ei tengo un ef del tipo ef_combo_dao (les adjunto una captura de pantalla con la definiciÛn). El mÈtodo que tiene que ejecutar se llama versiones() y lo busca dentro de la extensiÛn del ci.
 </li></ul><blockquote>
 <blockquote>
 <p>
@@ -121,7 +122,7 @@ return array("hola", "chau");
 </blockquote>
 <blockquote>
 <p>
-El problema es que cuando despliego el combo, las opciones que me muestra son "h" y "c" (s√≥lo las primeras letras de cada palabra). Me podr√≠an decir qu√© debe retornar el m√©todo que carga el combo? Muchas gracias. Ignacio
+El problema es que cuando despliego el combo, las opciones que me muestra son "h" y "c" (sÛlo las primeras letras de cada palabra). Me podrÌan decir quÈ debe retornar el mÈtodo que carga el combo? Muchas gracias. Ignacio
 </p>
 </blockquote>
 <ul><li>R: El combo_dao espera un estructura tipo recordset, una matriz de registros por columna del tipo:
@@ -133,32 +134,29 @@ El problema es que cuando despliego el combo, las opciones que me muestra son "h
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
-Es necesario definir en los parametros cual es la columna <i>clave</i>  y cual es la <i>valor</i> (as√≠ se llaman los parametros).
-En el proyecto referencia, hay un item en la carpeta <i>efs</i>  que se llama <i>dependencias</i> que tiene tres combos dao, capaz te sirven para ver como est√°n implementados.
+Es necesario definir en los parametros cual es la columna <i>clave</i>  y cual es la <i>valor</i> (asÌ se llaman los parametros).
+En el proyecto referencia, hay un item en la carpeta <i>efs</i>  que se llama <i>dependencias</i> que tiene tres combos dao, capaz te sirven para ver como est·n implementados.
 </p>
 <h2 id="Personalizaciondeestilos">Personalizacion de estilos</h2>
 <ul><li>P: Tengo algunos objetos dentro de un CI (form, browse, filtro) que quiero que se muestren centrados dentro del CI (ahora estan alineados a la izquiera); donde tengo que modificar en la hoja de estilos de mi proyecto para lograr que se muestren centrados? La clase 'objeto-base', dentro de la cual se dibujan los objetos, ya tiene especificado 'align: center;'.
-</li><li>R: La clase a modificar depende del tipo de navegaci√≥n del CI (cambiar la propiedad text-align a center):
+</li><li>R: La clase a modificar depende del tipo de navegaciÛn del CI (cambiar la propiedad text-align a center):
 <ul><li>Tabs horizontales o Wizard: tabs-contenedor
 </li><li>Tabs verticales: tabs-v-contenedor
 </li><li>Definida por la subclase (ad-hoc): ci-cuerpo
 </li></ul></li></ul><p>
   
 </p>
-<h2 id="Deshabilitaci√≥ndeefsconJS">Deshabilitaci√≥n de efs con JS</h2>
-<ul><li>P: Hay alguna forma de setear como (no) obligatorio un ef a trav√©s de los m√©todos Javascript del objeto formulario que lo contiene?
-</li><li>R: No, incluso si la hubiera no podr√≠as desactivar la validaci√≥n en el server. Lo que te conviene es ponerlo como no obligatorio en la definici√≥n, y hacerle las validaciones en js y php segun la l√≥gica.
+<h2 id="DeshabilitaciÛndeefsconJS">DeshabilitaciÛn de efs con JS</h2>
+<ul><li>P: Hay alguna forma de setear como (no) obligatorio un ef a travÈs de los mÈtodos Javascript del objeto formulario que lo contiene?
+</li><li>R: No, incluso si la hubiera no podrÌas desactivar la validaciÛn en el server. Lo que te conviene es ponerlo como no obligatorio en la definiciÛn, y hacerle las validaciones en js y php segun la lÛgica.
 </li></ul><h2 id="Dosobjeto_datos_tablaenunmismoCI">Dos objeto_datos_tabla en un mismo CI</h2>
-<ul><li>P: Puedo tener dentro de un CI 2 objetos del tipo datos_tabla (cada uno con su m√©todo get_tabla())? Lo que pasa es que dentro del mismo CI tengo 2 form, cada uno actualizando una tabla, pero como no me importa la relaci√≥n entre esas tablas no us√© un objeto_datos_relaci√≥n (y el problema es que cuando quiero actualizar datos sobre el 2do. objeto de persistencia, no hace nada). Muchas gracias! Ignacio
-</li><li>R: S√≠, podes tenerlo. Lo probe con un par de tablas (a y b), el c√≥digo r√°pido es as√≠:
+<ul><li>P: Puedo tener dentro de un CI 2 objetos del tipo datos_tabla (cada uno con su mÈtodo get_tabla())? Lo que pasa es que dentro del mismo CI tengo 2 form, cada uno actualizando una tabla, pero como no me importa la relaciÛn entre esas tablas no usÈ un objeto_datos_relaciÛn (y el problema es que cuando quiero actualizar datos sobre el 2do. objeto de persistencia, no hace nada). Muchas gracias! Ignacio
+</li><li>R: SÌ, podes tenerlo. Lo probe con un par de tablas (a y b), el cÛdigo r·pido es asÌ:
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__procesar</span><span class="code-keyword">()
     {
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_dependencia</span><span class="code-keyword">(</span><span class="code-string">"a"</span><span class="code-keyword">);
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_dependencia</span><span class="code-keyword">(</span><span class="code-string">"b"</span><span class="code-keyword">);
-
-        </span><span class="code-lang">$a </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'a'</span><span class="code-keyword">];
-        </span><span class="code-lang">$b </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'b'</span><span class="code-keyword">];
+        </span><span class="code-lang">$a </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'a'</span><span class="code-keyword">);
+        </span><span class="code-lang">$b </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'b'</span><span class="code-keyword">);
 
         </span><span class="code-lang">$a</span><span class="code-keyword">-&gt;</span><span class="code-lang">set</span><span class="code-keyword">(array(</span><span class="code-string">"descripcion" </span><span class="code-keyword">=&gt; </span><span class="code-string">'hola A'</span><span class="code-keyword">));
         </span><span class="code-lang">$b</span><span class="code-keyword">-&gt;</span><span class="code-lang">set</span><span class="code-keyword">(array(</span><span class="code-string">"descripcion" </span><span class="code-keyword">=&gt; </span><span class="code-string">'hola B'</span><span class="code-keyword">));
@@ -169,57 +167,54 @@ En el proyecto referencia, hay un item en la carpeta <i>efs</i>  que se llama <i
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
-¬øQue es el get_tabla al que te refer√≠s?
+øQue es el get_tabla al que te referÌs?
 </p>
 <p>
-En el CI tengo un m√©todo para hacer referencia siempre a la misma tabla (en este caso, uno por tabla)
+En el CI tengo un mÈtodo para hacer referencia siempre a la misma tabla (en este caso, uno por tabla)
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">protected function </span><span class="code-lang">get_tabla</span><span class="code-keyword">() {
-        if(!isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">)) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_dependencia</span><span class="code-keyword">(</span><span class="code-string">"persistencia"</span><span class="code-keyword">);
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tabla </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">"persistencia"</span><span class="code-keyword">];            
-        }
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tabla </span><span class="code-keyword">= </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">"persistencia"</span><span class="code-keyword">);            
         return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">;        
     }
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-donde "persistencia" es el nombre con el que est√° asociado el objeto_datos_tabla al CI. Despu√©s, para interactuar con la tabla hago:
+donde "persistencia" es el nombre con el que est· asociado el objeto_datos_tabla al CI. DespuÈs, para interactuar con la tabla hago:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
         $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_tabla</span><span class="code-keyword">()-&gt;</span><span class="code-lang">sincronizar</span><span class="code-keyword">();
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Igual, detect√© que el problema lo ten√≠a yo! Much√≠simas gracias por la info y perd√≥n por la molestia!!!
+Igual, detectÈ que el problema lo tenÌa yo! MuchÌsimas gracias por la info y perdÛn por la molestia!!!
 </p>
-<h2 id="Informaci√≥ndelafuentededatos">Informaci√≥n de la fuente de datos</h2>
-<ul><li>P: A qu√© clase/objeto le puedo preguntar cu√°l es el motor de base de datos al que estoy conectado? (a veces me conecto a Postgres y otras a Informix, cambiando desde el archivo de instancias, pero como algunas consultas son distintas dependiendo del motor, tengo que preguntar si es una o la otra). Muchas gracias!!
-</li><li>R: En la version del trunk de toba hay una clase dba con un m√©todo est√°tico parametros_instancia($instancia), retorna un arreglo con parametros entre ellos <i>motor</i>, que es el que necesitas. ¬øQue versi√≥n de toba est√°s usando?
+<h2 id="InformaciÛndelafuentededatos">InformaciÛn de la fuente de datos</h2>
+<ul><li>P: A quÈ clase/objeto le puedo preguntar cu·l es el motor de base de datos al que estoy conectado? (a veces me conecto a Postgres y otras a Informix, cambiando desde el archivo de instancias, pero como algunas consultas son distintas dependiendo del motor, tengo que preguntar si es una o la otra). Muchas gracias!!
+</li><li>R: En la version del trunk de toba hay una clase dba con un mÈtodo est·tico parametros_instancia($instancia), retorna un arreglo con parametros entre ellos <i>motor</i>, que es el que necesitas. øQue versiÛn de toba est·s usando?
 </li></ul><h2 id="EFPopup">EF Popup</h2>
-<ul><li>P: Los campos de tipo ef_popup se pueden utilizar en los ei_formulario de la misma manera que se usaban en los objetos viejos? Hay alg√∫n ejemplo - en el proyecto de referencia o en toba - de su uso? (o alguna documentaci√≥n al respecto?) Muchas gracias!!
-</li><li>R: Si, se utilizan de la misma manera, no hay documentaci√≥n y el mejor ejemplo es el selector de archivo de subclases de los editores nuevos.
+<ul><li>P: Los campos de tipo ef_popup se pueden utilizar en los ei_formulario de la misma manera que se usaban en los objetos viejos? Hay alg˙n ejemplo - en el proyecto de referencia o en toba - de su uso? (o alguna documentaciÛn al respecto?) Muchas gracias!!
+</li><li>R: Si, se utilizan de la misma manera, no hay documentaciÛn y el mejor ejemplo es el selector de archivo de subclases de los editores nuevos.
 </li></ul><h2 id="Paginadodecuadros">Paginado de cuadros</h2>
-<ul><li>P: Hay alg√∫n ejemplo de un m√©todo de carga de un cuadro (que tiene el paginado a cargo del CI) cuando el cuadro debe interactuar con un filtro? Muchas gracias.
-</li><li>R: El filtro dispara el evento 'filtrar' (o el que se alla definido) y se deben guardar la info que manda en forma local en el CI, en el <i>carga</i> del cuadro se debe utilizar la informaci√≥n del cuadro para incidir en la SQL (o lo que tengan). El proceso es manual, en realidad el filtro no 'filtra' sino es s√≥lo un componente gr√°fico que envia info de que se quiere filtrar.
-</li></ul><h2 id="Multil√≠nea">Multil√≠nea</h2>
-<ul><li>P: Entro con el ML vac√≠o y agrego una fila (guarda el registro bien). Vuelvo a entrar  y borro el registro (lo borra bien). Cuando vuelvo a entrar y doy de alta una fila, tiene problemas en la inserci√≥n. El error que tira es 'MODIFICAR. No existe un registro con el INDICE indicado (0)'. Por lo que estuve viendo, trata de dar de alta la nueva fila (con clave 156001) y de baja una fila con √≠ndice 0 (que no existe). C√≥mo puedo hacer para solucionarlo? Muchas gracias.
-</li><li>R: Envia a la lista el c√≥digo y screenshots de los objetos que estas utilizando, tanto en el CI como en los objetos de persistencia que estas utilizando.
-</li></ul><h2 id="CSSenlap√°ginadelogin">CSS en la p√°gina de login</h2>
-<ul><li>P: Qu√© valor le tengo que poner a la constante apex_pa_estilo para que use como plantilla de estilos la que est√° definida en el proyecto y no la que est√°n en Toba? Hoy la tengo definida as√≠, pero si le pongo otra cosa, no anda. Muchas gracias!
+<ul><li>P: Hay alg˙n ejemplo de un mÈtodo de carga de un cuadro (que tiene el paginado a cargo del CI) cuando el cuadro debe interactuar con un filtro? Muchas gracias.
+</li><li>R: El filtro dispara el evento 'filtrar' (o el que se alla definido) y se deben guardar la info que manda en forma local en el CI, en el <i>carga</i> del cuadro se debe utilizar la informaciÛn del cuadro para incidir en la SQL (o lo que tengan). El proceso es manual, en realidad el filtro no 'filtra' sino es sÛlo un componente gr·fico que envia info de que se quiere filtrar.
+</li></ul><h2 id="MultilÌnea">MultilÌnea</h2>
+<ul><li>P: Entro con el ML vacÌo y agrego una fila (guarda el registro bien). Vuelvo a entrar  y borro el registro (lo borra bien). Cuando vuelvo a entrar y doy de alta una fila, tiene problemas en la inserciÛn. El error que tira es 'MODIFICAR. No existe un registro con el INDICE indicado (0)'. Por lo que estuve viendo, trata de dar de alta la nueva fila (con clave 156001) y de baja una fila con Ìndice 0 (que no existe). CÛmo puedo hacer para solucionarlo? Muchas gracias.
+</li><li>R: Envia a la lista el cÛdigo y screenshots de los objetos que estas utilizando, tanto en el CI como en los objetos de persistencia que estas utilizando.
+</li></ul><h2 id="CSSenlap·ginadelogin">CSS en la p·gina de login</h2>
+<ul><li>P: QuÈ valor le tengo que poner a la constante apex_pa_estilo para que use como plantilla de estilos la que est· definida en el proyecto y no la que est·n en Toba? Hoy la tengo definida asÌ, pero si le pongo otra cosa, no anda. Muchas gracias!
 <div class="code"><pre><span class="code-lang">&lt;?php
         define</span><span class="code-keyword">(</span><span class="code-string">"apex_pa_estilo"</span><span class="code-keyword">,</span><span class="code-string">"carina_a"</span><span class="code-keyword">);
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li><li>R: Para cambiar el estilo de un proyecto no se utiliza esa constante sino que se <a class="wiki" href="Referencia/Plantillas.html">cambia en el administrador</a>, la constante apex_pa_estilo s√≥lo se utiliza en la pantalla de login.
+</pre></div></li><li>R: Para cambiar el estilo de un proyecto no se utiliza esa constante sino que se <a class="wiki" href="Referencia/Plantillas.html">cambia en el administrador</a>, la constante apex_pa_estilo sÛlo se utiliza en la pantalla de login.
 </li><li>R: Si, lo que necesito es que la pantalla de login use la misma hoja de estilos que el proyecto (dentro del proyecto, en www/css/archivo.css tengo la hoja de estilos del proyecto).
 </li><li>R: El cambio esta en el trunk y en el branch post_0.8.3.3
 </li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../attachment/wiki/MesaDeEntradas/Screenshot.png">Screenshot.png</a> (16.5 kB) -<q>captura de la definici√≥n del ef_combo_dao</q>, added by ignacio on 08/24/05 10:33:18.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../attachment/wiki/MesaDeEntradas/Screenshot.png">Screenshot.png</a> (16.5 kB) -<q>captura de la definiciÛn del ef_combo_dao</q>, added by ignacio on 08/24/05 10:33:18.</li>
     </ul>
   
   

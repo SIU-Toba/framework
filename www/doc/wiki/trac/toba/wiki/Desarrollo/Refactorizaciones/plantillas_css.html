@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Refactorizaciones/plantillas_css - SIU-Toba - Trac</title><link rel="start" href="../../../wiki.html" /><link rel="search" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../../TracGuide.html" /><link rel="stylesheet" href="../../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Refactorizaciones/plantillas_css?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -67,9 +68,9 @@
 </li><li>A medida que las versiones de toba pasan se agregan y sacan estilos y los proyectos no tienen chance de seguir estos cambios, si se agrega un estilo nuevo deberian heredarlo inmediatamente.
 </li><li>Hay muchos que se reutilizan en diferentes circunstancias por ejemplo tabla-0 o barra-0-tit, que tendrian mas sentido como por ejemplo obj-filtro y obj-filtro-tit.
 </li></ol><h2 id="Soluciones">Soluciones</h2>
-<ol><li>Algo esta hecho en <a class="changeset" title=" * Ticket #118: las plantillas css se buscan en el 谩rbol de directorios ..." href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/644">[644]</a>
-</li><li>Esto en quilmes esta, se podria tomar la convenci贸n de que si esta proyecto_impr se incluye como media=print
-</li><li>A pesar de que el browser la cachea, es muy dificil personalizarlo, esta todo mezclado. Una opci贸n ser铆a dividirlo en partes m谩s peque帽as por ejemplo
+<ol><li>Algo esta hecho en <a class="changeset" title=" * Ticket #118: las plantillas css se buscan en el 醨bol de directorios ..." href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/644">[644]</a>
+</li><li>Esto en quilmes esta, se podria tomar la convenci髇 de que si esta proyecto_impr se incluye como media=print
+</li><li>A pesar de que el browser la cachea, es muy dificil personalizarlo, esta todo mezclado. Una opci髇 ser韆 dividirlo en partes m醩 peque馻s por ejemplo
 <ul><li>login.css
 </li><li>general.css
 </li><li>tipo_pagina.css
@@ -78,8 +79,8 @@
 </li><li>ei-cuadro.css
 </li><li>...
 </li></ul></li></ol><p>
-Cada pagina podria incluir solamente los que va a usar, el problema es que se deberia saber esto antes de terminar el &lt;head&gt;, y salvo que se use buffering usado ob_start se tendria que pedir temprano los tipos de objetos involucrados (驴seria crear el arbol de objetos no?) antes de que se produzca alguna salida que iria en el body.
-Si un proyecto quiere personalizar el layout incluiria en su www/css la plantilla personalizada y esta la opci贸n de que se incluya exclusiva o no... (esta ultima podria cargar potencialmente todo dos veces..)
+Cada pagina podria incluir solamente los que va a usar, el problema es que se deberia saber esto antes de terminar el &lt;head&gt;, y salvo que se use buffering usado ob_start se tendria que pedir temprano los tipos de objetos involucrados (縮eria crear el arbol de objetos no?) antes de que se produzca alguna salida que iria en el body.
+Si un proyecto quiere personalizar el layout incluiria en su www/css la plantilla personalizada y esta la opci髇 de que se incluya exclusiva o no... (esta ultima podria cargar potencialmente todo dos veces..)
 </p>
 <ol><li>Lo unico bueno de la inclusiva (se incluye el ei-form.css generico y el ei-form.css del proyecto es que los estilos nuevos se incluyen automaticamente en los proyectos) es que permitiria solucionar este tema.
 </li><li>Habria que tomarse el tiempo de redefinir los estilos por ejemplo:
@@ -90,9 +91,9 @@ Si un proyecto quiere personalizar el layout incluiria en su www/css la plantill
 <p>
 Este tipo de agrupacion no seria posible si se definen en archivos separados..
 </p>
-<h2 id="Conclusi贸n">Conclusi贸n</h2>
+<h2 id="Conclusi髇">Conclusi髇</h2>
 <p>
-Ver <a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/304" title="Personalizaci贸n de CSS (new)">#304</a>
+Ver <a class="new ticket" href="../../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/304" title="Personalizaci髇 de CSS (new)">#304</a>
 </p>
 </div>
    </div>

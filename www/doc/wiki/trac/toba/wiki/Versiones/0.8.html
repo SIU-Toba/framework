@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Versiones/0.8.1 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/0.8.1?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -61,9 +62,9 @@
 <h1 id="Toba0.8.1">Toba 0.8.1</h1>
 <ul><li>Fecha: 23 de Mayo del 2005
 </li><li>Fuente: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/tags/0.8.1">source:tags/0.8.1</a>
-</li><li>Revisiones involucradas: <a class="changeset" title="Soluci√≥n al ticket #1: Nuevo esquema de notificaci√≥n validaci√≥n. Se ..." href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/306">[306]</a> a <a class="changeset" title="Creado en base a [322]. Terminaci√≥n milestone:0.8.1" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/323">[323]</a>.
-</li><li>Progreso de la versi√≥n: <a class="milestone" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/milestone/0.8.1">milestone:0.8.1</a>
-</li><li><a class="wiki" href="Migracion0.8.html">Instructivo de migraci√≥n</a>.
+</li><li>Revisiones involucradas: <a class="changeset" title="SoluciÛn al ticket #1: Nuevo esquema de notificaciÛn validaciÛn. Se ..." href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/306">[306]</a> a <a class="changeset" title="Creado en base a [322]. TerminaciÛn milestone:0.8.1" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/changeset/323">[323]</a>.
+</li><li>Progreso de la versiÛn: <a class="milestone" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/milestone/0.8.1">milestone:0.8.1</a>
+</li><li><a class="wiki" href="Migracion0.8.html">Instructivo de migraciÛn</a>.
 </li><li>Nombre clave: <strong>Archon</strong>.
 </li></ul><p>
 Los cambios fueron elegidos en base a prioridades de ComII.
@@ -71,23 +72,23 @@ Los cambios fueron elegidos en base a prioridades de ComII.
 </p>
 <h2 id="Colapsadodeelementos">Colapsado de elementos</h2>
 <p>
-Tanto los controladores como los elementos de interface tienen capacidad de colapsarse gr√°ficamente. Un elemento puede iniciar colapsado, teniendo el usuario la posibilidad de cambiar esta propiedad en ejecuci√≥n.<br /><br />
+Tanto los controladores como los elementos de interface tienen capacidad de colapsarse gr·ficamente. Un elemento puede iniciar colapsado, teniendo el usuario la posibilidad de cambiar esta propiedad en ejecuciÛn.<br /><br />
 Formas de habilitar el colapsado:
 </p>
-<ul><li>Desde el administrador: Dentro de la propiedades b√°sicas del objeto, atributo <i>Colapsable</i>.
-</li><li>En ejecuci√≥n: Invocando al m√©todo <i>colapsar</i> del objeto. Por ejemplo dentro de un CI si se quiere colapsar un filtro:
+<ul><li>Desde el administrador: Dentro de la propiedades b·sicas del objeto, atributo <i>Colapsable</i>.
+</li><li>En ejecuciÛn: Invocando al mÈtodo <i>colapsar</i> del objeto. Por ejemplo dentro de un CI si se quiere colapsar un filtro:
 <div class="code"><pre> <span class="code-lang">&lt;?php
      $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'id_del_filtro'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">colapsar</span><span class="code-keyword">(); 
  </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
  
-Esta funcionalidad requiere que el objeto tenga t√≠tulo (el usuario debe entender que es lo que se va a mostrar/ocultar).
+Esta funcionalidad requiere que el objeto tenga tÌtulo (el usuario debe entender que es lo que se va a mostrar/ocultar).
  
 </p>
 <h2 id="EventosyBotones">Eventos y Botones</h2>
 <p>
-Previamente el concepto de evento y bot√≥n estaban ligados. En esta versi√≥n un evento puede tener opcionalmente un bot√≥n asociado, esta elecci√≥n se marca con el atributo <i>en_botonera</i> del evento. Por otro lado un evento puede especificarse <i>por_defecto</i> y se va a disparar cuando el usuario no invoca alguno expl√≠citamente. Un ejemplo cl√°sico es un formulario sin botones que siempre dispara el evento <i>modificacion</i>. Por ejemplo para cambiar el evento por defecto de un formulario desde el CI:
+Previamente el concepto de evento y botÛn estaban ligados. En esta versiÛn un evento puede tener opcionalmente un botÛn asociado, esta elecciÛn se marca con el atributo <i>en_botonera</i> del evento. Por otro lado un evento puede especificarse <i>por_defecto</i> y se va a disparar cuando el usuario no invoca alguno explÌcitamente. Un ejemplo cl·sico es un formulario sin botones que siempre dispara el evento <i>modificacion</i>. Por ejemplo para cambiar el evento por defecto de un formulario desde el CI:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencias</span><span class="code-keyword">[</span><span class="code-string">'id_de_formulario'</span><span class="code-keyword">]-&gt;</span><span class="code-lang">set_evento_defecto</span><span class="code-keyword">(</span><span class="code-string">'modificacion'</span><span class="code-keyword">);
@@ -95,12 +96,12 @@ Previamente el concepto de evento y bot√≥n estaban ligados. En esta versi√≥n un 
 </span></span>
 </pre></div><p>
 <br />
-Para facilitar la creaci√≥n de nuevos eventos se provee una clase <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/clases/eventos.php">eventos</a>. Esta clase tiene estas responsabilidades:
+Para facilitar la creaciÛn de nuevos eventos se provee una clase <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/nucleo/browser/clases/eventos.php">eventos</a>. Esta clase tiene estas responsabilidades:
 </p>
 <ul><li>Es un repositorio de eventos predefinidos (cancelar, alta, etc.).
 </li><li>Puede clonar estos eventos en otros para personalizarlos.
-</li><li>Permite construir un evento con propiedades b√°sicas.
-</li><li>Traslada la definici√≥n del evento desde PHP a JS.
+</li><li>Permite construir un evento con propiedades b·sicas.
+</li><li>Traslada la definiciÛn del evento desde PHP a JS.
 </li></ul><p>
  
 Por ejemplo para agregar un evento <i>cancelar</i> a un cuadro desde un CI, conservando los eventos predefinidos:
@@ -112,26 +113,26 @@ Por ejemplo para agregar un evento <i>cancelar</i> a un cuadro desde un CI, cons
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Por defecto este evento se incluir√≠a en la botonera del objeto, si en cambio se quiere hacer oculto para, por ejemplo, disparar el evento solamente desde javascript:
+Por defecto este evento se incluirÌa en la botonera del objeto, si en cambio se quiere hacer oculto para, por ejemplo, disparar el evento solamente desde javascript:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $evento</span><span class="code-keyword">[</span><span class="code-string">'cancelar'</span><span class="code-keyword">][</span><span class="code-string">'en_botonera'</span><span class="code-keyword">] = </span><span class="code-lang">false</span><span class="code-keyword">;
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Otra opci√≥n es duplicar un evento existente, por ejemplo se toma el evento <i>seleccion</i> del cuadro y se lo duplica para hacer un evento <i> </i>selecci√≥n para borrar<i>:
+Otra opciÛn es duplicar un evento existente, por ejemplo se toma el evento <i>seleccion</i> del cuadro y se lo duplica para hacer un evento <i> </i>selecciÛn para borrar<i>:
 </i></p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $borra </span><span class="code-keyword">= </span><span class="code-lang">eventos</span><span class="code-keyword">::</span><span class="code-lang">duplicar</span><span class="code-keyword">(</span><span class="code-lang">eventos</span><span class="code-keyword">::</span><span class="code-lang">seleccion</span><span class="code-keyword">(), </span><span class="code-string">'seleccion_borrar'</span><span class="code-keyword">);
     </span><span class="code-lang">$borra</span><span class="code-keyword">[</span><span class="code-string">'seleccion_borrar'</span><span class="code-keyword">][</span><span class="code-string">'imagen'</span><span class="code-keyword">] = </span><span class="code-lang">recurso</span><span class="code-keyword">::</span><span class="code-lang">imagen_apl</span><span class="code-keyword">(</span><span class="code-string">'borrar.gif'</span><span class="code-keyword">);
-    </span><span class="code-lang">$borra</span><span class="code-keyword">[</span><span class="code-string">'seleccion_borrar'</span><span class="code-keyword">][</span><span class="code-string">'confirmacion'</span><span class="code-keyword">] = </span><span class="code-string">'¬øEst√° seguro que quiere borrar la fila?'</span><span class="code-keyword">;
+    </span><span class="code-lang">$borra</span><span class="code-keyword">[</span><span class="code-string">'seleccion_borrar'</span><span class="code-keyword">][</span><span class="code-string">'confirmacion'</span><span class="code-keyword">] = </span><span class="code-string">'øEst· seguro que quiere borrar la fila?'</span><span class="code-keyword">;
     </span><span class="code-lang">$borra</span><span class="code-keyword">[</span><span class="code-string">'seleccion_borrar'</span><span class="code-keyword">][</span><span class="code-string">'ayuda'</span><span class="code-keyword">] = </span><span class="code-string">'Borra la fila'</span><span class="code-keyword">;
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><h2 id="Notificaciones">Notificaciones</h2>
 <p>
-Se integra la cola de mensajes del server con la de javascript terminando por ahora en un alert. Est√° la opci√≥n de utilizar una ventana modal DHTML, pero como es un cambio gr√°fico grande se dej√≥ pendiente.<br />
-Desde un objeto en PHP la forma de hacer una notificaci√≥n es:
+Se integra la cola de mensajes del server con la de javascript terminando por ahora en un alert. Est· la opciÛn de utilizar una ventana modal DHTML, pero como es un cambio gr·fico grande se dejÛ pendiente.<br />
+Desde un objeto en PHP la forma de hacer una notificaciÛn es:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">informar_msg</span><span class="code-keyword">(</span><span class="code-string">"Este es un error"</span><span class="code-keyword">, </span><span class="code-string">'error'</span><span class="code-keyword">);
@@ -143,9 +144,9 @@ En javascript, directamente se utiliza la cola de mensajes:
 <div class="code"><pre>cola_mensajes.agregar(<B><span class="code-string">&quot;Este es un error&quot;</span></B>);
 </pre></div><h2 id="Modificacionesalei_cuadro">Modificaciones al ei_cuadro</h2>
 <p>
-Dependiendo de la definici√≥n en el administrador, los ei_cuadro tienen los siguientes eventos:
+Dependiendo de la definiciÛn en el administrador, los ei_cuadro tienen los siguientes eventos:
 </p>
-<ul><li>seleccion: Incluye una lupa al costado del registro como medio de disparo. El par√°metro del evento es la clave de la fila. La selecci√≥n deja al cuadro en un estado <i>seleccionado</i> cambiando el fondo de la fila seleccionada. Para que esto funcione correctamente los eventos que dejan sin efecto esta selecci√≥n deben notificar al cuadro. Por ejemplo, cuando un formulario cancela, deselecciona el cuadro:
+<ul><li>seleccion: Incluye una lupa al costado del registro como medio de disparo. El par·metro del evento es la clave de la fila. La selecciÛn deja al cuadro en un estado <i>seleccionado</i> cambiando el fondo de la fila seleccionada. Para que esto funcione correctamente los eventos que dejan sin efecto esta selecciÛn deben notificar al cuadro. Por ejemplo, cuando un formulario cancela, deselecciona el cuadro:
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__formulario___cancelar</span><span class="code-keyword">()
     {
@@ -153,7 +154,7 @@ Dependiendo de la definici√≥n en el administrador, los ei_cuadro tienen los sigu
     }    
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li><li>ordenamiento: Incluye las flechas de ordenamiento, tiene como par√°metros la columna y el sentido del ordenamiento. Por ejemplo:
+</pre></div></li><li>ordenamiento: Incluye las flechas de ordenamiento, tiene como par·metros la columna y el sentido del ordenamiento. Por ejemplo:
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__cuadro__ordenar</span><span class="code-keyword">(</span><span class="code-lang">$param</span><span class="code-keyword">)
     {
@@ -164,12 +165,12 @@ Dependiendo de la definici√≥n en el administrador, los ei_cuadro tienen los sigu
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
-Estas columnas del cuadro pueden marcarse desde el administrador como <i>total</i>. Esto sumariza autom√°ticamente y aplica el formato de la columna.<br />
-A nivel implementaci√≥n el <a class="missing wiki" href="../objeto_ei_cuadro.html" rel="nofollow">ei_cuadro?</a> deja de heredar de <a class="missing wiki" href="../objeto_cuadro.html" rel="nofollow">objeto_cuadro?</a>. 
+Estas columnas del cuadro pueden marcarse desde el administrador como <i>total</i>. Esto sumariza autom·ticamente y aplica el formato de la columna.<br />
+A nivel implementaciÛn el <a class="missing wiki" href="../objeto_ei_cuadro.html" rel="nofollow">ei_cuadro?</a> deja de heredar de <a class="missing wiki" href="../objeto_cuadro.html" rel="nofollow">objeto_cuadro?</a>. 
 </p>
-<h2 id="Validaci√≥ndeFormulariosenJavascript">Validaci√≥n de Formularios en Javascript</h2>
+<h2 id="ValidaciÛndeFormulariosenJavascript">ValidaciÛn de Formularios en Javascript</h2>
 <p>
-Es posible extender la validaci√≥n en forma global de un formulario en javascript escuchando el evento <i>validar</i> de la siguiente forma:
+Es posible extender la validaciÛn en forma global de un formulario en javascript escuchando el evento <i>validar</i> de la siguiente forma:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">extender_objeto_js</span><span class="code-keyword">()
@@ -195,7 +196,7 @@ Es posible extender la validaci√≥n en forma global de un formulario en javascrip
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h2 id="Soluci√≥ndeBugs">Soluci√≥n de Bugs</h2>
+</pre></div><h2 id="SoluciÛndeBugs">SoluciÛn de Bugs</h2>
 <ul><li><a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/83" title="Manejo de mensajes predefinidos (closed)">#83</a> Mensajes predefinidos 
 </li><li><a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/77" title="Confirmacion en Javascript (closed)">#77</a> Confirmaciones en JS
 </li><li><a class="closed ticket" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/ticket/78" title="Bug en IE (closed)">#78</a> Bug en el submit del CI-js 

@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Desarrollo/Persistencia - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Persistencia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -84,32 +85,32 @@
 </li><li>usuario.
 </li></ul></li></ul></li><li>Baja logica.
 </li><li>Evaluar si es mejor que el DT maneje las claves reales.
-</li></ul><h2 id="Discusi贸n">Discusi贸n</h2>
+</li></ul><h2 id="Discusi髇">Discusi髇</h2>
 <h3 id="CargasAnsiosasyperezosas">Cargas Ansiosas y perezosas</h3>
 <blockquote>
 <p>
 Estaba pensando en dos mecanismos de carga: ansioso y perezoso:
 </p>
 </blockquote>
-<ul><li>En el ansioso el entorno (o la extensi贸n) trata de cargar la relaci贸n al inicio de la transacci贸n. (Evita hacer excesivas querys, conocido como problema de N+1 querys)
-</li><li>En el perezoso la carga se realiza a medida que se va necesitando los datos de alguna tabla en la relaci贸n. Evita traer demasiados datos, 煤til por ejemplo cuando en una pantalla tengo para editar las propiedades b谩sicas de 100 cosas y al seleccionar puedo editar sus particularidades. Si todo se edita junto es preferible la ansiosa, si es por separado la perezosa.
+<ul><li>En el ansioso el entorno (o la extensi髇) trata de cargar la relaci髇 al inicio de la transacci髇. (Evita hacer excesivas querys, conocido como problema de N+1 querys)
+</li><li>En el perezoso la carga se realiza a medida que se va necesitando los datos de alguna tabla en la relaci髇. Evita traer demasiados datos, 鷗il por ejemplo cuando en una pantalla tengo para editar las propiedades b醩icas de 100 cosas y al seleccionar puedo editar sus particularidades. Si todo se edita junto es preferible la ansiosa, si es por separado la perezosa.
 </li></ul><p>
-La elecci贸n del m茅todo de carga se pondria 驴en la definici贸n de cada tabla en la relaci贸n o en cada relaci贸n?)
+La elecci髇 del m閠odo de carga se pondria 縠n la definici髇 de cada tabla en la relaci髇 o en cada relaci髇?)
 </p>
 <h3 id="Joinsosubselects">Joins o subselects</h3>
 <p>
-Si por ejemplo quiero traer los empleados y sus tareas de un solo saque... lo m谩s l贸gico es hacer una sola query con el join de las dos tablas... hacer el subselect para traer las tareas tambi茅n es posible pero menos natural (y m谩s lento tambien). 
+Si por ejemplo quiero traer los empleados y sus tareas de un solo saque... lo m醩 l骻ico es hacer una sola query con el join de las dos tablas... hacer el subselect para traer las tareas tambi閚 es posible pero menos natural (y m醩 lento tambien). 
 Si por ejemplo tenemos que las <i>secciones</i> <strong>tiene muchos</strong> <i>empleados</i> y estos <strong>tienen muchas</strong>  <i>tareas':
 </i></p>
 <ul><li>Con una query es imposible traer las tres cosas
-</li><li>Con joins a izquierda es posible traer la primer asociaci贸n, pero se complica para la segunda asociacion...
+</li><li>Con joins a izquierda es posible traer la primer asociaci髇, pero se complica para la segunda asociacion...
 </li><li>Con subselects es posible hacer tres querys uno para cada tabla en forma incremental.
 </li></ul><h3 id="Deiniciones">Deiniciones</h3>
 <p>
-En cada relaci贸n_entre_tablas definida se podria decir que mecanismo de carga implementar (join, subselect, query a mano) y el momento en el que se hace: al inicio (ansiosa o inmediata), a pedido (perezosa)
+En cada relaci髇_entre_tablas definida se podria decir que mecanismo de carga implementar (join, subselect, query a mano) y el momento en el que se hace: al inicio (ansiosa o inmediata), a pedido (perezosa)
 </p>
 <p>
-Incluso lo que hoy es topes minimos y m谩ximos quiz谩s tenga m谩s sentido a nivel de relaci贸n... Por ejemplo si decis que un empleado puede tener a lo sumo 5 tareas asignadas, no es que la tabla de tareas tiene el tope (podria haber muchos empleados con tareas) sino una asociaci贸n espec铆fica. Es m谩s, se podr铆a explicitar el tipo de relaci贸n y sacar el nombre por ejemplo:
+Incluso lo que hoy es topes minimos y m醲imos quiz醩 tenga m醩 sentido a nivel de relaci髇... Por ejemplo si decis que un empleado puede tener a lo sumo 5 tareas asignadas, no es que la tabla de tareas tiene el tope (podria haber muchos empleados con tareas) sino una asociaci髇 espec韋ica. Es m醩, se podr韆 explicitar el tipo de relaci髇 y sacar el nombre por ejemplo:
 </p>
 <p>
 <a href="../../attachment/wiki/Desarrollo/Persistencia/Definicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Desarrollo/Persistencia/Definicion.png?format=raw"  style="" /></a>

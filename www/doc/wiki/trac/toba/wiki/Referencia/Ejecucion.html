@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
  <title>Referencia/Ejecucion - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Ejecucion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -58,29 +59,29 @@
     <div id="searchable"><p>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Ejecucion
 </p>
-<h1 id="Seguimientodelaejecuci√≥n">Seguimiento de la ejecuci√≥n</h1>
+<h1 id="SeguimientodelaejecuciÛn">Seguimiento de la ejecuciÛn</h1>
 <p>
-A continuaci√≥n se van a listar los aspectos m√°s importantes de le ejecuci√≥n toba en un entorno Web.
+A continuaciÛn se van a listar los aspectos m·s importantes de le ejecuciÛn toba en un entorno Web.
 </p>
 <h2 id="ConceptosPrevios">Conceptos Previos</h2>
 <p>
-Para desarrolladores nuevos a las aplicaciones Web surge un nuevo concepto llamado <i>request</i> o <i>pedido</i> que marca la comunicaci√≥n entre el lado cliente y servidor.<br />
-Al no permanecer en memoria entre pedidos, PHP almacena un entorno m√≠nimo de datos en las llamadas <i>variables de sesi√≥n</i>, por ejemplo mantienen el usuario logueado y toda aquella informaci√≥n persistente durante la <i>sesi√≥n</i> del usuario. Toda otra informaci√≥n es descartada cuando la p√°gina termina de <i>servirse</i>, siendo necesario re-ejecutar en cada pedido (esto implica parsear e interpretar nuevamente) para volver a disponer de estos datos.
+Para desarrolladores nuevos a las aplicaciones Web surge un nuevo concepto llamado <i>request</i> o <i>pedido</i> que marca la comunicaciÛn entre el lado cliente y servidor.<br />
+Al no permanecer en memoria entre pedidos, PHP almacena un entorno mÌnimo de datos en las llamadas <i>variables de sesiÛn</i>, por ejemplo mantienen el usuario logueado y toda aquella informaciÛn persistente durante la <i>sesiÛn</i> del usuario. Toda otra informaciÛn es descartada cuando la p·gina termina de <i>servirse</i>, siendo necesario re-ejecutar en cada pedido (esto implica parsear e interpretar nuevamente) para volver a disponer de estos datos.
 </p>
 <h2 id="Ingreso">Ingreso</h2>
 <p>
-Las sesiones de trabajo en Toba siempre pasan a trav√©s de un <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a>, esto se conoce en la industria como <a class="ext-link" href="../../../../external.html?link=http://java.sun.com/blueprints/patterns/FrontController.html"><span class="icon"></span>FrontController</a> dejando de lado el <a class="ext-link" href="../../../../external.html?link=http://www.martinfowler.com/eaaCatalog/pageController.html"><span class="icon"></span>PageController</a> cl√°sico en aplicaciones PHP.
+Las sesiones de trabajo en Toba siempre pasan a travÈs de un <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a>, esto se conoce en la industria como <a class="ext-link" href="../../../../external.html?link=http://java.sun.com/blueprints/patterns/FrontController.html"><span class="icon"></span>FrontController</a> dejando de lado el <a class="ext-link" href="../../../../external.html?link=http://www.martinfowler.com/eaaCatalog/pageController.html"><span class="icon"></span>PageController</a> cl·sico en aplicaciones PHP.
 La URL que ingresa el usuario direcciona este punto de acceso, por ejemplo:
 </p>
 <pre class="wiki">http://localhost/mi_proyecto/aplicacion.php
 </pre>
 <p>
-Es por este archivo (<i>aplicacion.php</i>) por donde pasar√°n los siguientes pedidos, recibiendo como par√°metros la operaci√≥n y atributos propios de esa operaci√≥n entre otras cosas. En este punto de acceso est√°n las primeras configuraciones de ejecuci√≥n, incluyen la <a class="wiki" href="Instancia.html">instancia</a> a ejecutar.<br />
-Cuando las variables de sesi√≥n no est√°n presentes es signo de que el usuario no est√° logueado y se produce la autentificaci√≥n.
+Es por este archivo (<i>aplicacion.php</i>) por donde pasar·n los siguientes pedidos, recibiendo como par·metros la operaciÛn y atributos propios de esa operaciÛn entre otras cosas. En este punto de acceso est·n las primeras configuraciones de ejecuciÛn, incluyen la <a class="wiki" href="Instancia.html">instancia</a> a ejecutar.<br />
+Cuando las variables de sesiÛn no est·n presentes es signo de que el usuario no est· logueado y se produce la autentificaciÛn.
 </p>
-<h2 id="Vinculaci√≥nalaInstancia">Vinculaci√≥n a la Instancia</h2>
+<h2 id="VinculaciÛnalaInstancia">VinculaciÛn a la Instancia</h2>
 <p>
-La <a class="wiki" href="Instancia.html">instancia</a> determina el conjunto de usuarios que ser√°n utilizados en esta sesi√≥n. 
+La <a class="wiki" href="Instancia.html">instancia</a> determina el conjunto de usuarios que ser·n utilizados en esta sesiÛn. 
 </p>
 </div>
    </div>
