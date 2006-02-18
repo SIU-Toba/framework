@@ -12,22 +12,28 @@
 		$palabras = explode(' ', $texto );
 		$lineas = array();
 		$linea_actual = 0;
-		$caracteres = 0;
+		$caracteres_acum = 0;
 		//Armo los grupos
 		while ( count( $palabras ) > 0 ){
 			$palabra = array_shift( $palabras );
-			$caracteres += ( strlen( $palabra ) + 1 );
-			if( $caracteres > $caracteres_linea ) {
-				$linea_actual++;
-				$caracteres = 0;
+			$caracteres_actual = ( strlen( $palabra ) + 1 );
+			$caracteres_acum += $caracteres_actual;
+			//Si la palabra no entra en la linea actual, hay que ponerla en una linea nueva
+			if( $caracteres_acum > $caracteres_linea ) {
+				//Excepto que ya se este en una linea nueva!
+				if ($caracteres_acum != $caracteres_actual) {
+					$linea_actual++;
+					$caracteres_acum = 0;
+				}
 			}
 			$lineas[ $linea_actual ][] = $palabra;
 		}
 		//Contateno las palabras
+		$salida = array();
 		for( $a=0; $a < count( $lineas ); $a++) {
-			$lineas[ $a ] = implode( ' ', $lineas[ $a ] );
+			$salida[ $a ] = implode( ' ', $lineas[ $a ] );
 		}
-		return $lineas;
+		return $salida;
 	}
 
 ?>
