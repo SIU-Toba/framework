@@ -236,7 +236,8 @@ class objeto_datos_relacion extends objeto
 	static function orden_topologico($tablas, $relaciones)
 	{
 		$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
-		$parciales = $sorter->sort(self::grafo_relaciones($tablas, $relaciones));
+		$grafo = self::grafo_relaciones($tablas, $relaciones);
+		$parciales = $sorter->sort($grafo);
 		$salida = array();
 		for ($i =0; $i<count($parciales) ; $i++) {
 			for ($j=0; $j<count($parciales[$i]); $j++) {
