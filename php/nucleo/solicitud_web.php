@@ -182,25 +182,10 @@ class solicitud_web extends solicitud
 	
 	protected function servicio__obtener_pdf($objetos)
 	{
-		/*
-			TEST
-		*/
-		$html = "<html><head><style></style></head><body>\n";
-		foreach ($objetos as $objeto) {
-			$html .= $objeto->obtener_pdf();
-		}
-		$html .= "</body></html>";
-		if ( false ) {
-			echo $html;	
-		} else {
-			require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
-			ini_set("memory_limit", "16M");
-			$dompdf = new DOMPDF();
-			$dompdf->load_html( $html );
-			$dompdf->set_paper('a4', 'portrait');
-			$dompdf->render();
-			$dompdf->stream("out.pdf");
-		}
+		require_once('nucleo/lib/pdf_html.php');
+		$pdf = new pdf_html();
+		$pdf->asignar_objetos( $objetos );
+		$pdf->generar_salida();
 	}
 	
 //--------------------------------------------------------------------------------------------

@@ -39,8 +39,8 @@
 
 /* $Id: dompdf_config.inc.php,v 1.10 2005/12/30 22:45:49 benjcarson Exp $ */
 
-//error_reporting(E_STRICT | E_ALL);
-//ini_set("zend.ze1_compatibility_mode", "0");
+error_reporting(E_STRICT | E_ALL);
+ini_set("zend.ze1_compatibility_mode", "0");
 
 /**
  * The root of your DOMPDF installation
@@ -64,7 +64,6 @@ define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
  * executing DOMPDF from the CLI).  *Please note the trailing slash.*
  */
 define("DOMPDF_FONT_DIR", DOMPDF_DIR . "/lib/fonts/");
-
 /**
  * The location of the system's temporary directory.
  *
@@ -120,7 +119,7 @@ define("DOMPDF_PDF_BACKEND", "pdflib");
  *
  * @see CPDF_Adapter::PAPER_SIZES for valid sizes
  */
-define("DOMPDF_DEFAULT_PAPER_SIZE", "letter");
+define("DOMPDF_DEFAULT_PAPER_SIZE", "a4");
 
 
 /**

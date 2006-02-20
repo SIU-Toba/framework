@@ -750,7 +750,9 @@ class objeto_ei_cuadro extends objeto_ei
 	function inicializar_generacion()
 	{
 		$this->cantidad_columnas = count($this->info_cuadro_columna);
-		$this->cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
+		if ( $this->tipo_salida != 'pdf' ) {
+			$this->cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
+		}
 		$this->cantidad_columnas_total = $this->cantidad_columnas + $this->cantidad_columnas_extra;
 	}
 
@@ -839,6 +841,7 @@ class objeto_ei_cuadro extends objeto_ei
 	public function obtener_html($mostrar_cabecera=true, $titulo=null)
 	{
 		/*	¿Los parametros hay que destruirlos?	*/
+		
 		$this->generar_salida("html");
 	}
 
@@ -1131,39 +1134,41 @@ class objeto_ei_cuadro extends objeto_ei
                 //Termino la CELDA
             }
  			//---> Creo los EVENTOS de la FILA <---
-			foreach ($this->eventos as $id => $evento) {
-				if ($evento['sobre_fila']) {
-					//Filtrado de eventos por fila
-					$metodo_filtro = 'filtrar_evt__' . $id;
-					if(method_exists($this, $metodo_filtro)){
-						if(! $this->$metodo_filtro($f) ){
-							echo "<td class='lista-col-titulo' width='1%'>&nbsp;</td>\n";
-							continue;
+			if ( $this->tipo_salida != 'pdf' ) {
+				foreach ($this->eventos as $id => $evento) {
+					if ($evento['sobre_fila']) {
+						//Filtrado de eventos por fila
+						$metodo_filtro = 'filtrar_evt__' . $id;
+						if(method_exists($this, $metodo_filtro)){
+							if(! $this->$metodo_filtro($f) ){
+								echo "<td class='lista-col-titulo' width='1%'>&nbsp;</td>\n";
+								continue;
+							}
 						}
+						//HTML del EVENTO
+						$tip = '';
+						if (isset($evento['ayuda']))
+							$tip = $evento['ayuda'];
+						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
+						$tab_order = 100;//Esto esta MAAL!!!
+						$acceso = tecla_acceso( $evento["etiqueta"] );
+						$html = '';
+						if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
+							if (isset($evento['imagen_recurso_origen']))
+								$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
+							else
+								$img = $evento['imagen'];
+							$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+						}
+						$html .= $acceso[0];
+						$tecla = $acceso[1];
+						//Creo JS del EVENTO
+						$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
+						$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+						echo "<td class='lista-col-titulo' width='1%'>\n";
+						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+		            	echo "</td>\n";
 					}
-					//HTML del EVENTO
-					$tip = '';
-					if (isset($evento['ayuda']))
-						$tip = $evento['ayuda'];
-					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
-					$tab_order = 100;//Esto esta MAAL!!!
-					$acceso = tecla_acceso( $evento["etiqueta"] );
-					$html = '';
-					if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
-						if (isset($evento['imagen_recurso_origen']))
-							$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
-						else
-							$img = $evento['imagen'];
-						$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-					}
-					$html .= $acceso[0];
-					$tecla = $acceso[1];
-					//Creo JS del EVENTO
-					$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
-					$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-					echo "<td class='lista-col-titulo' width='1%'>\n";
-					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
-	            	echo "</td>\n";
 				}
 			}
 			//----------------------------
@@ -1230,7 +1235,7 @@ class objeto_ei_cuadro extends objeto_ei
     {
 		//Editor de la columna
 		$editor = "";
-		if(apex_pa_acceso_directo_editor){
+		if( apex_pa_acceso_directo_editor && $this->tipo_salida != 'pdf' ){
 			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
 			if ( $this->id[0] == toba::get_hilo()->obtener_proyecto() ) {
 				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
@@ -1422,36 +1427,56 @@ class objeto_ei_cuadro extends objeto_ei
 
 	function obtener_pdf()
 	{
-		$nombre =  "<h1>".$this->get_nombre()."</h1><hr>";
-		return $nombre;
+		$this->generar_salida("pdf");
 	}
 
-	private function pdf_inicio(){
-		$this->pdf_cabecera();		
+	private function pdf_inicio()
+	{
+		$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
+        echo "<TABLE width='$ancho' class='tabla-0'>";
+		// Cabecera
+		echo"<tr><td class='cuadro-cabecera'>";
+		$this->html_cabecera();		
+		echo "</td></tr>\n";
+		//--- INICIO CONTENIDO  -----
+		echo "<tr><td class='cuadro-cc-fondo'>\n";
+		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
+		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_inicio();
+		}
+	}
+
+	private function pdf_fin()
+	{
+		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_totales_columnas($this->acumulador);
+			$this->html_cuadro_fin();					
+		}
+		echo "</td></tr>\n";
+		//--- FIN CONTENIDO  ---------
+		// Pie
+		echo"<tr><td class='cuadro-pie'>";
+		$this->html_pie();		
+		echo "</td></tr>\n";
+		echo "</TABLE>\n";
 	}
 
 	private function pdf_cuadro(&$filas, &$totales){
-	}
-
-	private function pdf_fin(){
-		$this->pdf_pie();
-	}
-
-	protected function pdf_cabecera(){
-	}
-
-	protected function pdf_pie(){
+		$this->html_cuadro( $filas, $totales );
 	}
 
 	protected function pdf_mensaje_cuadro_vacio($texto){
+		$this->html_mensaje_cuadro_vacio($texto);
 	}
 
 	//-- Cortes de Control --
 
-	protected function pdf_cabecera_corte_control(){
+	protected function pdf_cabecera_corte_control(&$nodo ){
+		$this->html_cabecera_corte_control($nodo);
 	}
 
-	protected function pdf_pie_corte_control(){
+	protected function pdf_pie_corte_control( &$nodo ){
+		$this->html_pie_corte_control($nodo);
 	}
 
 	private function pdf_cc_inicio_nivel(){

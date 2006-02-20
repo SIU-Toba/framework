@@ -251,8 +251,7 @@ class objeto_ei extends objeto
 
 	function obtener_pdf()
 	{
-		$nombre =  "<h1>".$this->get_nombre()."</h1><hr>";
-		return $nombre;
+		echo  "<h1>".$this->get_nombre()."</h1><hr>";
 	}
 
 	public function colapsar()
