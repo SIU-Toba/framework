@@ -124,8 +124,11 @@ class solicitud_web extends solicitud
 			case 'obtener_html':
 				$this->servicio__obtener_html($destino);
 				break;
-			case 'obtener_pdf':
-				$this->servicio__obtener_pdf($destino);
+			case 'vista_pdf':
+				$this->servicio__vista_pdf($destino);
+				break;
+			case 'vista_html_impr':
+				$this->servicio__vista_html_impr($destino);
 				break;
 			default:
 				throw new excepcion_toba("El servicio $servicio no está soportado");
@@ -180,14 +183,22 @@ class solicitud_web extends solicitud
        	$tipo_pagina->pie();
 	}
 	
-	protected function servicio__obtener_pdf($objetos)
+	protected function servicio__vista_pdf( $objetos )
 	{
-		require_once('nucleo/lib/pdf.php');
-		$pdf = new pdf();
-		$pdf->asignar_objetos( $objetos );
-		$pdf->generar_salida();
+		require_once('nucleo/lib/salidas/pdf.php');
+		$salida = new pdf();
+		$salida->asignar_objetos( $objetos );
+		$salida->generar_salida();
 	}
 	
+	protected function servicio__vista_html_impr( $objetos )
+	{
+		require_once('nucleo/lib/salidas/html_impr.php');
+		$salida = new html_impr();
+		$salida->asignar_objetos( $objetos );
+		$salida->generar_salida();
+	}
+
 //--------------------------------------------------------------------------------------------
 	/**
 	 * @return zona

@@ -864,12 +864,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 
 	//---------------------------------------------------------------
-	//-------------------------- SALIDA PDF --------------------------
-	//----------------------------------------------------------------
+	//----------------------  SALIDA Impresion  ---------------------
+	//---------------------------------------------------------------
 		
-	function obtener_pdf( $pdf )
+	function vista_impresion_html( $salida )
 	{
-		$pdf->subtitulo( $this->get_nombre() );
+		$salida->subtitulo( $this->get_nombre() );
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		echo "<table class='tabla-0' style='width: $ancho'>\n";
 		//-- Encabezado
@@ -895,9 +895,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 				foreach ($this->lista_ef_post as $ef){
 					$this->elemento_formulario[$ef]->establecer_id_form($fila);
-					$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
-					echo "<td  class='col-tex-p1' id='cont_$id_form'>\n";
-					echo $this->elemento_formulario[$ef]->obtener_estado();
+					$temp = $this->get_valor_imprimible_ef( $ef );
+					echo "</td><td class='". $temp['css'] ."'>\n";
+					echo $temp['valor'];
 					echo "</td>\n";
 				}
 				echo "</tr>\n";

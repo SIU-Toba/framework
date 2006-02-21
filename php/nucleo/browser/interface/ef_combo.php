@@ -110,6 +110,11 @@ class ef_combo extends ef
 		return $this->valores;	
 	}
 
+	function obtener_descripcion_estado()
+	{
+		return $this->valores[ $this->estado ];
+	}
+
 	//-----------------------------------------------
 	//-------------- DEPENDENCIAS -------------------
 	//-----------------------------------------------

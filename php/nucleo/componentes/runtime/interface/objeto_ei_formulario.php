@@ -671,22 +671,38 @@ class objeto_ei_formulario extends objeto_ei
 	}
 
 	//---------------------------------------------------------------
-	//-------------------------- SALIDA PDF --------------------------
-	//----------------------------------------------------------------
+	//----------------------  SALIDA Impresion  ---------------------
+	//---------------------------------------------------------------
 		
-	function obtener_pdf( $pdf )
+	function vista_impresion_html( $salida )
 	{
-		$pdf->subtitulo( $this->get_nombre() );
+		$salida->subtitulo( $this->get_nombre() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
-		foreach ($this->lista_ef_post as	$ef){
+		foreach ( $this->lista_ef_post as $ef){
 			$clase = 'abm-fila';
 			echo "<tr><td class='lista-col-titulo' style='text-align: left'>\n";
 			echo $this->elemento_formulario[$ef]->obtener_etiqueta();
-			echo "</td><td class='col-tex-p1'>\n";
-			echo $this->elemento_formulario[$ef]->obtener_estado();
+			$temp = $this->get_valor_imprimible_ef( $ef );
+			echo "</td><td class='". $temp['css'] ."'>\n";
+			echo $temp['valor'];
 			echo "</td></tr>\n";
 		}
 		echo "</table>\n";
+	}
+	
+	function get_valor_imprimible_ef( $id_ef ) 
+	{
+		require_once('nucleo/browser/interface/formateo.php');
+		$ef = $this->elemento_formulario[$id_ef];
+		$valor = $ef->obtener_descripcion_estado();
+		if ( $ef instanceof ef_editable_moneda ) {
+			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_moneda($valor) );
+		} elseif ( $ef instanceof ef_editable_numero ) {
+			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
+		} else {
+			$temp = array( 'css' => 'col-tex-p1', 'valor'=> $valor );
+		}
+		return $temp;
 	}
 }
 ?>

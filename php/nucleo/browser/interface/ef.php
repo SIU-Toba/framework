@@ -499,6 +499,11 @@ class ef //Clase abstracta, padre de todos los EF
 		}
 	}
 
+	function obtener_descripcion_estado()
+	{
+		return $this->obtener_estado();	
+	}
+
 	function activado()
 	{
 		//Devuelve TRUE si el elemento esta seteado y FALSE en el caso contrario

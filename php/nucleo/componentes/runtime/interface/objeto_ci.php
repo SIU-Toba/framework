@@ -1091,17 +1091,16 @@ class objeto_ci extends objeto_ei
 	}
 	
 	//---------------------------------------------------------------
-	//-------------------------- SALIDA PDF --------------------------
-	//----------------------------------------------------------------
+	//------------------------ SALIDA Impresion ---------------------
+	//---------------------------------------------------------------
 	
-	function obtener_pdf( $pdf )
+	function vista_impresion( impresion $salida )
 	{
-		$pdf->titulo( $this->get_nombre() );
+		$salida->titulo( $this->get_nombre() );
 		foreach($this->dependencias_gi as $dep) {
-			$this->dependencias[$dep]->obtener_pdf( $pdf );
+			$this->dependencias[$dep]->vista_impresion( $salida );
 		}
 	}
-	
 	
 	//---------------------------------------------------------------
 	//-------------------------- OBSOLETOS --------------------------

@@ -37,6 +37,12 @@ class ef_checkbox extends ef
 		$parametros["estado"]["descripcion"]="";
 		$parametros["estado"]["opcional"]=0;	
 		$parametros["estado"]["etiqueta"]="Valor por defecto";	
+		$parametros["valor_info"]["descripcion"]="Descripcion coloquial del valor ACTIVADO";
+		$parametros["valor_info"]["opcional"]=0;	
+		$parametros["valor_info"]["etiqueta"]="Info Valor Act.";	
+		$parametros["valor_info_no_seteado"]["descripcion"]="Descripcion coloquial del valor DESACTIVACION";
+		$parametros["valor_info_no_seteado"]["opcional"]=0;	
+		$parametros["valor_info_no_seteado"]["etiqueta"]="Info Valor DesAct.";	
 		return $parametros;
 	}
 
@@ -49,10 +55,13 @@ class ef_checkbox extends ef
 		}
 		if (isset($parametros["valor"])){
 		    $this->valor = $parametros["valor"];
-		    }
+		}
 		if (isset($parametros["valor_info"])){
 		    $this->valor_info = $parametros["valor_info"];
-		    }
+		}
+		if (isset($parametros["valor_info_no_seteado"])){
+		    $this->valor_info_no_seteado = $parametros["valor_info_no_seteado"];
+		}
 		if (isset($parametros["valor_no_seteado"])){
 		    $this->valor_no_seteado = $parametros["valor_no_seteado"];
 		}		
@@ -70,8 +79,17 @@ class ef_checkbox extends ef
              return "{$this->etiqueta}: {$this->valor_info}";
              }
          }
+
+	function obtener_descripcion_estado()
+	{
+		if ( $this->estado == $this->valor_no_seteado ) {
+			return isset( $this->valor_info_no_seteado ) ? $this->valor_info_no_seteado : '';
+		} else {
+			return isset( $this->valor_info ) ? $this->valor_info : '';
+		}
+	}
     
-     function obtener_input()
+	function obtener_input()
     {
     	//Esto es para eliminar un notice en php 5.0.4
     	if (!isset($this->estado))

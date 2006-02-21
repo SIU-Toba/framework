@@ -249,11 +249,6 @@ class objeto_ei extends objeto
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
 
-	function obtener_pdf()
-	{
-		echo  "<h1>".$this->get_nombre()."</h1><hr>";
-	}
-
 	public function colapsar()
 	{
 		$this->colapsado = true;
@@ -306,6 +301,38 @@ class objeto_ei extends objeto
 		}
 		//Se agrega al objeto al singleton toba
 		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
+	}
+
+	//---------------------------------------------------------------
+	//----------------------  SALIDA Impresion  ---------------------
+	//---------------------------------------------------------------
+
+	/*
+	*	Despachador de tipos de salidas de impresion
+	*/
+	function vista_impresion( impresion $salida )
+	{
+		if ( $salida instanceof html_impr ) {
+			$this->vista_impresion_html( $salida );	
+		}
+	}
+
+	/*
+	*	Impresion HTML por defecto
+	*/
+	function vista_impresion_html( $salida )
+	{
+		$salida->titulo( $this->get_nombre() );
+	}
+
+	/**
+	*	Devuelve un autovinculo pidiendo un servicio PDF
+	*/
+	function vinculo_vista_html_impresion()
+	{
+		$opciones['servicio'] = 'vista_html_impr';
+		$opciones['objetos_destino'] = array( $this->id );
+		return toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );
 	}
 }
 ?>
