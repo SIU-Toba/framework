@@ -674,23 +674,19 @@ class objeto_ei_formulario extends objeto_ei
 	//-------------------------- SALIDA PDF --------------------------
 	//----------------------------------------------------------------
 		
-	function obtener_pdf()
+	function obtener_pdf( $pdf )
 	{
-		//$this->generar_formulario();
-/*		//return "HOLA";
-		echo "<table border='1'>";
-		echo "</td></tr>\n";
-		foreach ($this->lista_ef_post	as	$ef){
+		$pdf->subtitulo( $this->get_nombre() );
+		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
+		foreach ($this->lista_ef_post as	$ef){
 			$clase = 'abm-fila';
-			//$id_ef = $this->elemento_formulario[$ef]->obtener_id_form();
-			echo "<tr><td>\n";
+			echo "<tr><td class='lista-col-titulo' style='text-align: left'>\n";
 			echo $this->elemento_formulario[$ef]->obtener_etiqueta();
-			echo "</td><td>\n";
+			echo "</td><td class='col-tex-p1'>\n";
 			echo $this->elemento_formulario[$ef]->obtener_estado();
 			echo "</td></tr>\n";
 		}
-		echo "</table>\n";		
-*/
+		echo "</table>\n";
 	}
 }
 ?>

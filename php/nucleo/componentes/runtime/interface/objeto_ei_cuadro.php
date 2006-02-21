@@ -1425,8 +1425,9 @@ class objeto_ei_cuadro extends objeto_ei
 //################################    PDF    #####################################
 //################################################################################
 
-	function obtener_pdf()
+	function obtener_pdf( $pdf )
 	{
+		$pdf->subtitulo( $this->get_nombre() );
 		$this->generar_salida("pdf");
 	}
 

@@ -134,6 +134,27 @@ class objeto_ci extends objeto_ei
 		$this->dependencias[$dep]->agregar_controlador($this);
 	}
 
+	/**
+	 * Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
+	 *	si la dependencia es un EI y no figura en la lista GI (generacion de interface) dispara el eventos de carga!
+	 * @param string $id Identificador de la dependencia dentro del objeto actual
+	 * @param boolean $cargar_en_demanda En caso de que el objeto no se encuentre cargado en memoria, lo carga
+	 * @return Objeto
+	 */
+	function dependencia($id, $carga_en_demanda = true)
+	{
+		$dependencia = parent::dependencia( $id, $carga_en_demanda );
+		if( $dependencia instanceof objeto_ei ) {
+			if ( false ) {
+				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
+					//-- Carda de combos dinamicos
+					$this->cargar_daos_dinamicos_dependencia( $dep );
+				}			
+				$dependencia->cargar_datos( $this->proveer_datos_dependencia($dep) );
+			}
+		}
+	}
+
 	//--------------------------------------------------------------
 	//------  Interaccion con un CONTROLADOR de NEGOCIO ------------
 	//--------------------------------------------------------------
@@ -668,31 +689,17 @@ class objeto_ci extends objeto_ei
 			}else{
 				//EI
 				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
-					//-- EI_FORM --
-					//	Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
-					if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
-						//ei_arbol($dao_form,"DAO");
-						//Por cada elemento de formulario que necesita DAOS
-						foreach($dao_form as $ef => $dao){
-							if(method_exists($this, $dao)){
-								$datos = $this->$dao();
-								//ei_arbol($datos,"DATOS $ef");
-								$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
-							}else{
-								throw new excepcion_toba_def("El METODO '$dao' ha sido declarado como DAO y no se encuentra en el CI");
-							}
-						}
-					}
+					//-- Carda de combos dinamicos
+					$this->cargar_daos_dinamicos_dependencia( $dep );
 				}
 				//-- Inyecto DATOS en los EIs, si es que existe un metodo para cargarlos --
-				$this->dependencias[$dep]->cargar_datos( $this->proveer_datos_dependencias($dep) );
+				$this->dependencias[$dep]->cargar_datos( $this->proveer_datos_dependencia($dep) );
 				$this->dependencias[$dep]->definir_eventos();
 			}
 		}
 	}	
-	//-------------------------------------------------------------------------------
 
-	protected function proveer_datos_dependencias($dependencia)
+	protected function proveer_datos_dependencia( $dependencia )
 	{
 		$metodo = apex_ei_evento . apex_ei_separador . $dependencia . apex_ei_separador . "carga";
 		if(method_exists($this, $metodo)){
@@ -703,6 +710,25 @@ class objeto_ci extends objeto_ei
 			return null;
 		}
 	}
+	
+	protected function cargar_daos_dinamicos_dependencia( $dep )
+	{
+		//	Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
+		if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
+			//ei_arbol($dao_form,"DAO");
+			//Por cada elemento de formulario que necesita DAOS
+			foreach($dao_form as $ef => $dao){
+				if(method_exists($this, $dao)){
+					$datos = $this->$dao();
+					//ei_arbol($datos,"DATOS $ef");
+					$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
+				}else{
+					throw new excepcion_toba_def("El METODO '$dao' ha sido declarado como DAO y no se encuentra en el CI");
+				}
+			}
+		}
+	}
+	
 	//-------------------------------------------------------------------------------
 
 	/**
@@ -1065,10 +1091,11 @@ class objeto_ci extends objeto_ei
 	//-------------------------- SALIDA PDF --------------------------
 	//----------------------------------------------------------------
 	
-	function obtener_pdf()
+	function obtener_pdf( $pdf )
 	{
+		$pdf->titulo( $this->get_nombre() );
 		foreach($this->dependencias_gi as $dep) {
-			$this->dependencias[$dep]->obtener_pdf();
+			$this->dependencias[$dep]->obtener_pdf( $pdf );
 		}
 	}
 	
@@ -1080,7 +1107,7 @@ class objeto_ci extends objeto_ei
 	/**
 	 * Esta funcion DISPARABA la generacion de TODA la interface.
 	 * Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'
-	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
 	 */
 	function generar_interface_grafica()
 	{
@@ -1098,7 +1125,7 @@ class objeto_ci extends objeto_ei
 	}
 	
 	/**
-	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
 	 */
 	protected function obtener_html_base()
 	{

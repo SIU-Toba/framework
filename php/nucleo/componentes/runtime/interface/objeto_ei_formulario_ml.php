@@ -867,9 +867,44 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	//-------------------------- SALIDA PDF --------------------------
 	//----------------------------------------------------------------
 		
-	function obtener_pdf()
+	function obtener_pdf( $pdf )
 	{
-		$this->obtener_html();
+		$pdf->subtitulo( $this->get_nombre() );
+		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
+		echo "<table class='tabla-0' style='width: $ancho'>\n";
+		//-- Encabezado
+		echo "<tr>\n";
+		if ($this->info_formulario['filas_numerar']) {
+			echo "<th class='lista-col-titulo'>&nbsp;</th>\n";
+		}
+		foreach ($this->lista_ef_post	as	$ef){
+			echo "<th class='lista-col-titulo'>\n";
+			echo $this->elemento_formulario[$ef]->obtener_etiqueta();
+			echo "</th>\n";
+		}
+		echo "</tr>\n";
+		//-- Cuerpo
+		$a = 0;
+		if( isset( $this->ordenes ) ) {
+			foreach ($this->ordenes as $fila) {
+				$dato = $this->datos[$fila];
+				$this->cargar_registro_a_ef($fila, $dato);
+				echo "<tr class='col-tex-p1'>";
+				if ($this->info_formulario['filas_numerar']) {
+					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
+				}
+				foreach ($this->lista_ef_post as $ef){
+					$this->elemento_formulario[$ef]->establecer_id_form($fila);
+					$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
+					echo "<td  class='col-tex-p1' id='cont_$id_form'>\n";
+					echo $this->elemento_formulario[$ef]->obtener_estado();
+					echo "</td>\n";
+				}
+				echo "</tr>\n";
+				$a++;
+			}
+		}
+		echo "\n</table>\n</div>";
 	}
 }
 ?>

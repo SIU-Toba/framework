@@ -1,7 +1,7 @@
 <?
-require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
+//require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
 
-class pdf_html
+class pdf
 {
 	private $objetos = array();
 	private $configuracion = array();
@@ -28,6 +28,8 @@ class pdf_html
 
 	function generar_salida()
 	{
+		$this->generar_html();
+		/*
 		$html = null;
 		ob_start();
 		$this->generar_html();
@@ -36,7 +38,7 @@ class pdf_html
 			           'indent'        => true,
 			           'output-xhtml'  => true,
 			           'wrap'          => 200);			
-			$tidy = new tidy;
+			$tidy = new tidy();
 			$tidy->parseString( ob_get_clean(), $config );
 			$tidy->cleanRepair();
 			$html = tidy_get_output( $tidy );
@@ -53,14 +55,14 @@ class pdf_html
 			$dompdf->set_paper('a4', 'portrait');
 			$dompdf->render();
 			$dompdf->stream("out.pdf");
-		}
+		}*/
 	}
 
 	private function generar_html()
 	{
 		$this->generar_html_encabezado();
 		foreach( $this->objetos as $objeto ) {
-			$objeto->obtener_pdf();	
+			$objeto->obtener_pdf( $this );	
 		}
 		$this->generar_html_pie();
 	}
@@ -68,12 +70,16 @@ class pdf_html
 	private function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		if( $this->debug ) {
-			echo recurso::link_css(apex_proyecto_estilo."_impr");						
-		} else {
-			echo "<link href='f:/toba_trunk/www/css/toba_impr.css' rel='stylesheet' type='text/css'/>";	
-		}
+		echo recurso::link_css(apex_proyecto_estilo."_impr", 'print');
+		echo recurso::link_css(apex_proyecto_estilo."_impr");
 		echo "</head><body>\n";
+		/*
+		echo "<div class='barra-print' width='100%'>";
+		echo "<button onclick='window.print()'>Imprimir ".
+					recurso::imagen_apl('impresora.gif',true,null,null,'Imprimir').
+			"</button>";		
+		echo "</div>";
+		*/
 	}
 
 	private function generar_html_pie()
@@ -81,8 +87,34 @@ class pdf_html
 		echo "</body></html>";
 	}
 
-
+	//------------------------------------------------------------------------
+	//-- Primitivas graficas
+	//------------------------------------------------------------------------
 	
+	function salto_pagina()
+	{
+		echo "<div class='salto-pagina'></div>\n";			
+	}
+	
+	function titulo( $texto )
+	{
+		echo "<div class='imp-titulo'>$texto</div>\n";			
+	}
+	
+	function subtitulo( $texto )
+	{
+		echo "<div class='imp-subtitulo'>$texto</div>\n";			
+	}
+
+	function mensaje( $texto )
+	{
+		echo "<div class='imp-mensaje'>$texto</div>\n";			
+	}
+
+	//------------------------------------------------------------------------
+	//-- Primitivas de configuracion
+	//------------------------------------------------------------------------
+		
 	function set_papel_tamanio( $tamanio )
 	{
 		$this->configuracion['papel_tamanio'] = $tamanio;

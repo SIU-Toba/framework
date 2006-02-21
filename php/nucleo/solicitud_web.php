@@ -182,8 +182,8 @@ class solicitud_web extends solicitud
 	
 	protected function servicio__obtener_pdf($objetos)
 	{
-		require_once('nucleo/lib/pdf_html.php');
-		$pdf = new pdf_html();
+		require_once('nucleo/lib/pdf.php');
+		$pdf = new pdf();
 		$pdf->asignar_objetos( $objetos );
 		$pdf->generar_salida();
 	}

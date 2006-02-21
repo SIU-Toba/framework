@@ -1,3 +1,36 @@
+.imp-titulo {
+	border-style: solid;
+	border-color: #000000;
+	font-weight: bold;
+	font-size: 14px;
+	margin-top: 10;
+	margin-bottom: 10;
+	border-width: 2px;
+	padding: 5px;
+}
+
+.imp-subtitulo {
+	border-style: solid;
+	border-color: #000000;
+	font-weight: bold;
+	font-size: 12px;
+	border-width: 1px;
+	margin-top: 10;
+	margin-bottom: 5;
+	padding: 2px;
+}
+
+.imp-mensaje {
+	font-size: 10px;
+	border-width: 1px;
+	margin: 4px;
+	padding: 4px;
+}
+
+.salto-pagina {
+	 page-break-after: always;	 
+}
+
 body {
 	margin: 15px;
 	font-size: 11px;
@@ -162,7 +195,7 @@ td.lista-subtitulo {
 	 background-color: #4f4c4d;
 	 text-align: left
 }
-td.lista-col-titulo {
+.lista-col-titulo {
 	border-right: 1px solid #231f20 ;
 	 border-top: 1px solid #231f20 ;
 	 font-weight: bold;
