@@ -1,3 +1,9 @@
+body {
+	margin: 15px;
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
 .imp-titulo {
 	border-style: solid;
 	border-color: #000000;
@@ -6,18 +12,17 @@
 	margin-top: 10;
 	margin-bottom: 10;
 	border-width: 2px;
-	padding: 5px;
+	padding: 8px;
 }
 
 .imp-subtitulo {
 	border-style: solid;
 	border-color: #000000;
-	font-weight: bold;
 	font-size: 12px;
 	border-width: 1px;
-	margin-top: 10;
-	margin-bottom: 5;
-	padding: 2px;
+	margin-top: 15;
+	margin-bottom: 10;
+	padding: 4px;
 }
 
 .imp-mensaje {
@@ -31,11 +36,7 @@
 	 page-break-after: always;	 
 }
 
-body {
-	margin: 15px;
-	font-size: 11px;
-	font-family: courier;
-}
+/*------ CUADRO --------*/ 
 
 .cuadro-cabecera{
 	 empty-cells: hide
@@ -45,14 +46,20 @@ body {
 	 empty-cells: hide
 }
 
+/*-- nivel 0 --*/
+
 .cuadro-cc-tit-nivel-0{
-	background-color: #514a84;
-	color: #ffffff;
+	border-bottom: 2px solid #666666;
+	border-left: 2px solid #666666;
+	border-right: 2px solid #666666;
+	border-top: 2px solid #666666;
+	font-size: 12px;
+	color: #000000;
+	padding: 2px;
 }
 
 .cuadro-cc-pie-nivel-0{
-	background-color: #ffd87c;
-	color: #231f20;
+	color: #000000;
 	font-size: 10px;
 }
 
@@ -75,10 +82,11 @@ body {
 /*-- nivel 1 --*/
 
 .cuadro-cc-tit-nivel-1{
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
 	font-size: 12px;
-	background-color: #999999;
-	color: #ffffff;
-	margin: 0px;
+	color: #000000;
 	padding: 2px;
 }
 
@@ -111,16 +119,12 @@ body {
 /*-- nivel 2 --*/
 
 .cuadro-cc-tit-nivel-2{
-	border-bottom:   1px solid #000000;
-	border-top:  1px solid  #000000;
-	border-left: 1px solid #231f20 ;
-	border-right: 1px solid #231f20  ;
-	font-size: 11px;
-	background-color: #d4d0c8;
-	vertical-align: bottom;
-	text-align: left;
-	padding: 5px;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 12px;
 	color: #000000;
+	padding: 2px;
 }
 
 .cuadro-cc-pie-nivel-2{
@@ -150,6 +154,7 @@ body {
 }
 
 /* tabla de sumarizaciones ad-hoc */
+
 .cuadro-cc-tabla-sum {
 	border-right: 1px solid #4f4c4d ;
 	border-top: 1px solid #4f4c4d ;
@@ -164,25 +169,23 @@ body {
 /* color de fondo */
 .cuadro-cc-fondo {
 	padding: 0px;
-	background-color: #f5f5f5; 
 }
 /*-------------------------------------*/
 
 table.objeto-base {
-	border-right: #404040 2px solid;
-	 padding-right: 0px;
-	 border-top: #ffffff 1px solid;
-	 padding-left: 0px;
-	 font-size: 12px;
-	 padding-bottom: 0px;
-	 margin: 0px;
-	 border-left: 1px solid #ffffff ;
-	 padding-top: 0px;
-	 border-bottom:  2px solid #404040;
-	 border-collapse: collapse;
-	 background-color: #d4d0c8;
-	 text-align: left;
-	 empty-cells: show;
+	border-bottom: 2px solid #000000;
+	border-left: 1px solid #555555;
+	border-right: 2px solid #000000;
+	border-top: 1px solid #555555;
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	font-size: 12px;
+	margin: 0px;
+	border-collapse: collapse;
+	text-align: left;
+	empty-cells: show;
 }
 
 td.lista-subtitulo {
@@ -196,16 +199,15 @@ td.lista-subtitulo {
 	 text-align: left
 }
 .lista-col-titulo {
-	border-right: 1px solid #231f20 ;
-	 border-top: 1px solid #231f20 ;
-	 font-weight: bold;
-	 font-size: 10px;
-	 vertical-align: bottom;
-	 border-left: 1px solid #231f20 ;
-	 color: #000000;
-	 border-bottom: 1px solid #231f20 ;
-	 background-color: #d4d0c8;
-	 text-align: center;
+	border-right: 1px solid #000000 ;
+	border-top: 1px solid #000000 ;
+	border-left: 1px solid #000000 ;
+	border-bottom: 1px solid #000000 ;
+	font-weight: bold;
+	font-size: 11px;
+	vertical-align: bottom;
+	color: #000000;
+	text-align: center;
 }
 td.titulo-monoespacio{
 	border-right: #231f20 1px;

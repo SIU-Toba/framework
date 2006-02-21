@@ -145,14 +145,19 @@ class objeto_ci extends objeto_ei
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
 		if( $dependencia instanceof objeto_ei ) {
-			if ( false ) {
-				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
-					//-- Carda de combos dinamicos
-					$this->cargar_daos_dinamicos_dependencia( $dep );
+			// EIs que no estan en la lista GI: hay que cargar su estado y DAOS
+			if ( ! in_array( $id, $this->dependencias_gi ) ) {
+				$parametro['id'] = $id;
+				$parametro['nombre_formulario'] = $this->nombre_formulario;
+				$this->inicializar_dependencia( $id, $parametro );
+				if( $dependencia instanceof objeto_ei_formulario ) {
+					// Carga de combos dinamicos de formularios
+					$this->cargar_daos_dinamicos_dependencia( $id );
 				}			
-				$dependencia->cargar_datos( $this->proveer_datos_dependencia($dep) );
+				$dependencia->cargar_datos( $this->proveer_datos_dependencia( $id ) );
 			}
 		}
+		return $dependencia;
 	}
 
 	//--------------------------------------------------------------
@@ -682,12 +687,10 @@ class objeto_ci extends objeto_ei
 		//Disparo la carga de dependencias en los CI que me componen
 		foreach($this->dependencias_gi as $dep)
 		{
-			if(	$this->dependencias[$dep] instanceof objeto_ci ){
-				//CI
+			if(	$this->dependencias[$dep] instanceof objeto_ci ){		
 				//	Hago que cargue sus dependencias
 				$this->dependencias[$dep]->cargar_dependencias_gi();
-			}else{
-				//EI
+			}else{														
 				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
 					//-- Carda de combos dinamicos
 					$this->cargar_daos_dinamicos_dependencia( $dep );
@@ -713,7 +716,7 @@ class objeto_ci extends objeto_ei
 	
 	protected function cargar_daos_dinamicos_dependencia( $dep )
 	{
-		//	Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
+		//Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
 		if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
 			//ei_arbol($dao_form,"DAO");
 			//Por cada elemento de formulario que necesita DAOS
