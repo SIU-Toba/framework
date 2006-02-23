@@ -134,7 +134,7 @@ class dba
 	private function get_conexion( $nombre )
 	{
 		if( ! isset( $this->bases_conectadas[$nombre] ) ) {
-			if	( $nombre = 'instancia' ) {
+			if	( $nombre == 'instancia' ) {
 				$parametros = $this->get_info_db_instancia();
 				$this->bases_conectadas[$nombre] = self::conectar_db( $parametros );
 			} else {

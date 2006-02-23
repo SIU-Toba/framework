@@ -154,6 +154,8 @@ CREATE TABLE			apex_proyecto
 	con_frames					smallint		DEFAULT 1,
 	frames_clase				varchar(40)		NULL,
 	frames_archivo				varchar(255)	NULL,
+	salida_impr_html_c			varchar(40)		NULL,
+	salida_impr_html_a			varchar(255)	NULL,
 	menu						varchar(15)		NULL,
 	path_includes				varchar(255)	NULL,
 	path_browser				varchar(255)	NULL,

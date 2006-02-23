@@ -676,7 +676,7 @@ class objeto_ei_formulario extends objeto_ei
 		
 	function vista_impresion_html( $salida )
 	{
-		$salida->subtitulo( $this->get_nombre() );
+		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
 		foreach ( $this->lista_ef_post as $ef){
 			$clase = 'abm-fila';
@@ -699,6 +699,8 @@ class objeto_ei_formulario extends objeto_ei
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_moneda($valor) );
 		} elseif ( $ef instanceof ef_editable_numero ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
+		} elseif ( $ef instanceof ef_editable_fecha ) {
+			$temp = array( 'css' => 'col-tex-p1', 'valor'=> formato_fecha($valor) );
 		} else {
 			$temp = array( 'css' => 'col-tex-p1', 'valor'=> $valor );
 		}

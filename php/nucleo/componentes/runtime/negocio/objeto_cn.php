@@ -60,14 +60,16 @@ class objeto_cn extends objeto
 	function procesar($parametros=null)
 	//ATENCION: ignore_user_abort() //Esto puede ser importante!!!!
 	{
+		$resultado = null;
 		$this->log->debug( $this->get_txt() . "[ procesar ]");
 		try {
 			//ignore_user_abort();				//------> ?????
 			$this->iniciar_transaccion();
 			$this->evt__validar_datos();
-			$this->evt__procesar_especifico($parametros);
+			$resultado = $this->evt__procesar_especifico($parametros);
 			$this->finalizar_transaccion();
 			$this->evt__limpieza_memoria();
+			return $resultado;
 		}
 		catch(excepcion_toba $e){
 			$this->abortar_transaccion();

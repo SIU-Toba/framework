@@ -1427,7 +1427,7 @@ class objeto_ei_cuadro extends objeto_ei
 
 	function vista_impresion_html( $salida )
 	{
-		$salida->subtitulo( $this->get_nombre() );
+		$salida->subtitulo( $this->get_titulo() );
 		$this->generar_salida("pdf");
 	}
 

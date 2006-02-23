@@ -869,7 +869,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		
 	function vista_impresion_html( $salida )
 	{
-		$salida->subtitulo( $this->get_nombre() );
+		$salida->subtitulo( $this->get_titulo() );
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		echo "<table class='tabla-0' style='width: $ancho'>\n";
 		//-- Encabezado

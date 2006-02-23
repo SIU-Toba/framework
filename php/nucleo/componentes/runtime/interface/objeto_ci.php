@@ -1096,7 +1096,7 @@ class objeto_ci extends objeto_ei
 	
 	function vista_impresion( impresion $salida )
 	{
-		$salida->titulo( $this->get_nombre() );
+		$salida->titulo( $this->get_titulo() );
 		foreach($this->dependencias_gi as $dep) {
 			$this->dependencias[$dep]->vista_impresion( $salida );
 		}

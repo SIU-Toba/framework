@@ -78,7 +78,7 @@ class solicitud_web extends solicitud
 			//Asigna el cn a los cis			
 			if (isset($this->cn)) {			
 				foreach ($this->cis as $ci) {
-					$this->objetos[$ci]->asignar_controlador_negocio( $this->objetos[$cn] );
+					$this->objetos[$ci]->asignar_controlador_negocio( $this->objetos[$this->cn] );
 			    } 
 			}
 		} else { 
@@ -123,9 +123,6 @@ class solicitud_web extends solicitud
 		switch ($servicio) {
 			case 'obtener_html':
 				$this->servicio__obtener_html($destino);
-				break;
-			case 'vista_pdf':
-				$this->servicio__vista_pdf($destino);
 				break;
 			case 'vista_html_impr':
 				$this->servicio__vista_html_impr($destino);
@@ -193,8 +190,15 @@ class solicitud_web extends solicitud
 	
 	protected function servicio__vista_html_impr( $objetos )
 	{
-		require_once('nucleo/lib/salidas/html_impr.php');
-		$salida = new html_impr();
+		$datos = toba::get_hilo()->obtener_proyecto_datos();
+		if ( trim($datos['impr_archivo']) != '' && 	trim($datos['impr_clase']) != '' ) {
+			//El proyecto posee un objeto de impresion HTML personalizado
+			require_once($datos['impr_archivo']);
+			$salida = new $datos['impr_clase']();	
+		} else {
+			require_once('nucleo/lib/salidas/html_impr.php');
+			$salida = new html_impr();
+		}
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}

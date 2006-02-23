@@ -86,7 +86,9 @@ class sesion {
 							m.archivo			as menu_archivo,
 							p.con_frames		as con_frames,
 							p.frames_clase		as frames_clase,
-							p.frames_archivo	as frames_archivo
+							p.frames_archivo	as frames_archivo,
+							p.salida_impr_html_c as impr_clase,
+							p.salida_impr_html_a as impr_archivo
 					FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
 							ON (p.menu = m.menu)
 					WHERE	proyecto = '$proyecto'
