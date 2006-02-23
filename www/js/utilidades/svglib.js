@@ -18,3 +18,5 @@ function aviso_instalacion_svg()
 	}
 
 }
+
+toba.confirmar_inclusion('utilidades/svglib');

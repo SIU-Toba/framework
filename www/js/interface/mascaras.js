@@ -660,3 +660,5 @@ qEvent.prototype.setKeyPressed = function (i){
 qEvent.prototype.isDelete = function() {
 	return( this.keyCode == 8 || this.keyCode == 46 )
 }
+
+toba.confirmar_inclusion('interface/mascaras');

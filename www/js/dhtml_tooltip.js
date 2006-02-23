@@ -105,4 +105,12 @@ var dhtml_tooltip = {
  		this.hide();
  	}
 }
-document.write('<div id="dhtml_tooltip_div" onmouseover="dhtml_tooltip._continue()" onmouseout="dhtml_tooltip._stop()"></div>') 
+
+var html = '<div id="dhtml_tooltip_div" onmouseover="dhtml_tooltip._continue()" onmouseout="dhtml_tooltip._stop()"></div>'
+if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
+	document.body.innerHTML += html;	
+} else {
+	document.write(html) 
+}
+if (typeof toba != 'undefined') 
+	toba.confirmar_inclusion('dhtml_tooltip');

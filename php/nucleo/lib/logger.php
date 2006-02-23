@@ -318,18 +318,12 @@ class logger
 	{
 		if (!$this->mostrado || (count($this->mensajes_web) != $this->cant_mostrada)) {
 			$hay_salida = false;
-			$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
 			$html = "</script>";	//Por si estaba un tag abierto
 			$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
 			$html .= "<pre class='texto-ss'>";
-			for($a=0; $a<count($this->mensajes_web); $a++){
-				if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
-					$hay_salida = true;
-					$estilo = $this->estilo_grafico($this->niveles[$a]);
-					$html .= $estilo. $this->mensajes_web[$a] . "<br>";
-				}			
-			}
-	//		if ($hay_salida) echo $html;
+			$mensajes = $this->filtrar_mensajes_web();
+			$hay_salida = ($mensajes != '');
+			$html .= $mensajes;
 			$html .= "</pre></td></tr></table></div>";
 			if ($hay_salida) {
 				echo "<div style='text-align:left;'>
@@ -339,6 +333,19 @@ class logger
 			$this->mostrado = true;
 			$this->cant_mostrada = count($this->mensajes_web);
 		}
+	}
+
+	protected function filtrar_mensajes_web()
+	{
+		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
+		$html = '';
+		for($a=0; $a<count($this->mensajes_web); $a++){
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
+				$estilo = $this->estilo_grafico($this->niveles[$a]);
+				$html .= $estilo. $this->mensajes_web[$a] . "<br>";
+			}			
+		}
+		return $html;
 	}
 
 	private function estilo_grafico($nivel)

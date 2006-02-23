@@ -44,12 +44,12 @@ class hilo
 * 	- La sesion a travez de la MEMORIA
 */
 {
-	var $id;
-	var $url_actual;
-	var $item_solicitado;
-	var $hilo_referencia;
-	var $parametros;
-	var $reciclar_memoria = true;	//Habilita el reciclado de la memoria en la sesion
+	private $id;
+	private $url_actual;
+	private $item_solicitado;
+	private $hilo_referencia;
+	private $parametros;
+	private $reciclar_memoria = true;	//Habilita el reciclado de la memoria en la sesion
 	private $celda_memoria_actual = "central";
 	private $acceso_menu;
 	private $servicio = apex_hilo_qs_servicio_defecto;

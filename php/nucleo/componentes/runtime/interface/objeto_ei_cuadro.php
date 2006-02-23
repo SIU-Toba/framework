@@ -1410,7 +1410,7 @@ class objeto_ei_cuadro extends objeto_ei
 	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		echo $identado."var {$this->objeto_js} = new objeto_ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new objeto_ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 
 

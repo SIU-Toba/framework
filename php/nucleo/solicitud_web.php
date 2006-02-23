@@ -88,6 +88,13 @@ class solicitud_web extends solicitud
 	
 	protected function procesar_eventos()
 	{
+		//--Antes de procesar los eventos toda entrada UTF-8 debe ser pasada a ISO88591
+		if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'UTF-8') !== false) {
+			foreach ($_POST as $clave => $valor) {
+				$_POST[$clave] = utf8_decode($valor);
+			}
+		}
+		
 		//-- Se procesan los eventos generados en el pedido anterior
 		foreach ($this->cis as $ci) {
 			$this->objetos[$ci]->procesar_eventos();
@@ -118,17 +125,12 @@ class solicitud_web extends solicitud
 			}
 		}
 
-		//--- Se atiende el sevicio, esto esta mal, debería ser más dinamico para que se puedan agregar mas servicio
 		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
-		switch ($servicio) {
-			case 'obtener_html':
-				$this->servicio__obtener_html($destino);
-				break;
-			case 'vista_html_impr':
-				$this->servicio__vista_html_impr($destino);
-				break;
-			default:
-				throw new excepcion_toba("El servicio $servicio no está soportado");
+		$callback = "servicio__$servicio";
+		if (method_exists($this, $callback)) {
+			$this->$callback($destino);
+		} else {
+			throw new excepcion_toba("El servicio $servicio no está soportado");			
 		}
 	}
 
@@ -141,10 +143,8 @@ class solicitud_web extends solicitud
 		}
 		$tipo_pagina = new $this->info['tipo_pagina_clase']();
 		$tipo_pagina->encabezado();		
-		
 		//--- Abre el formulario
-		$autovinculo = toba::get_vinculador()->generar_solicitud(null,null,null,true);
-		echo form::abrir("formulario_toba", $autovinculo);
+		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
 		
 		//--- Parte superior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
@@ -174,7 +174,7 @@ class solicitud_web extends solicitud
 		toba::get_cola_mensajes()->mostrar();		
 		echo toba::get_logger()->mostrar_pantalla();
 		
-		//--- Fin del form y parte inferior del tipo de página 
+		//--- Fin del form y parte inferior del tipo de página
 		echo form::cerrar();
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (pie) ',apex_nivel_nucleo);
        	$tipo_pagina->pie();
@@ -203,6 +203,37 @@ class solicitud_web extends solicitud
 		$salida->generar_salida();
 	}
 
+	/**
+	 * Retorna el html y js localizado de un componente y sus dependencias
+	 */
+	protected function servicio__html_parcial($objetos)
+	{
+		//--- Se envia el HTML
+		foreach ($objetos as $objeto) {
+			$objeto->servicio__html_parcial();
+		}	
+				
+		//--- Se envian los consumos js
+		echo "<--toba-->";
+		$consumos = array();
+		foreach ($objetos as $objeto) {
+			$consumos = array_merge($consumos, $objeto->consumo_javascript_global());
+		}
+		echo "toba.incluir(".js::arreglo($consumos, false).");\n"; 
+		
+		//--- Se envia el javascript
+		echo "<--toba-->";
+		//Se actualiza el prefijo de los vinculos
+		$autovinculo = toba::get_vinculador()->crear_autovinculo();
+		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
+		//Se actualiza el vinculo del form
+		echo "document.formulario_toba.action='$autovinculo'\n";
+		foreach ($objetos as $objeto) {
+			//$objeto->servicio__html_parcial();
+			$objeto_js = $objeto->obtener_javascript();
+			echo "\nwindow.$objeto_js.iniciar();\n";
+		}			
+	}
 //--------------------------------------------------------------------------------------------
 	/**
 	 * @return zona

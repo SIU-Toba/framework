@@ -33,7 +33,7 @@ class recurso {
 				$alias = $proyecto;
 			}
 		}
-		return recurso::preambulo(). "/". $alias;
+		return '/'.$alias;
 	}
 	
 	/**
@@ -51,7 +51,7 @@ class recurso {
 				$alias = "toba";
 			}
 		}
-		return recurso::preambulo(). "/". $alias;
+		return '/'.$alias;
 	}
 
 	//------------   ACCESO A IMAGENES   --------------

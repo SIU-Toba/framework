@@ -218,6 +218,14 @@ class vinculador
 			return $url;
 		}
 	}
+	
+	/**
+	 * Crea un vinculo al mismo item propagando la zona
+	 */
+	function crear_autovinculo()
+	{
+		return $this->generar_solicitud(null,null,null,true);		
+	}
 
 //##################################################################################
 //########################   Solicitud DIRECTA de URLS  ############################

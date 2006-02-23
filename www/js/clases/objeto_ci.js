@@ -22,7 +22,6 @@ function objeto_ci(instancia, form, input_submit) {
 	}
 
 	def.dependencia = function(identificador) {
-		//Falta controlar que exista la dependencia
 		return this._deps[identificador];
 	}
 	
@@ -58,12 +57,13 @@ function objeto_ci(instancia, form, input_submit) {
 		if (this._ci && !this._ci.en_submit()) //Primero debe consultar si su padre está en proceso
 			return this._ci.submit();
 
-		this._en_submit = true;				
+		this._en_submit = true;
 		if (! this._ci) { //Si es el padre de todos, borrar las notificaciones
 			cola_mensajes.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();
-				document[this._form].submit();
+				//toba.set_ajax(this);
+				toba.comunicar_eventos();
 			} else {
 				cola_mensajes.mostrar(this);		
 			}
@@ -185,9 +185,9 @@ function objeto_ci(instancia, form, input_submit) {
 	}
 
 	def.ir_a_pantalla = function(pantalla) {
-		var boton = document.getElementById(this._input_submit + '_cambiar_tab_' + pantalla);
-		boton.onclick();
+		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
 	}
+	
 	
 	def.ir_a_anterior = function() {
 		this.ir_a_pantalla('_anterior');	
@@ -197,3 +197,4 @@ function objeto_ci(instancia, form, input_submit) {
 		this.ir_a_pantalla('_siguiente');
 	}
 	
+toba.confirmar_inclusion('clases/objeto_ci');

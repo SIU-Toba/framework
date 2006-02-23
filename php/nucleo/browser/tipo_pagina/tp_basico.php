@@ -24,7 +24,7 @@ class tp_basico extends tipo_pagina
 		$this->encoding();
 		$this->plantillas_css();
 		$this->estilos_css();
-		$this->js_basico();
+		js::cargar_consumos_basicos();
 		echo "</HEAD>\n";
 	}
 	
@@ -49,22 +49,10 @@ class tp_basico extends tipo_pagina
 	{
 	}
 	
-	protected function js_basico()
-	{
-		//Incluyo el javascript STANDART	
-		$consumos = array();
-		$consumos[] = 'basico';
-		$consumos[] = 'cola_mensajes';
-		$consumos[] = 'clases/toba';
-		$consumos[] = 'utilidades/datadumper';
-		$consumos[] = 'comunicacion_server';
-		js::cargar_consumos_globales($consumos);
-	}
-
 
 	protected function comienzo_cuerpo()
 	{
-		echo "<body onLoad='firstFocus()'>\n";
+		echo "<body>\n";
 		$this->menu();
 	}
 	

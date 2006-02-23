@@ -16,4 +16,4 @@ def.constructor = ef_upload;
 		return true;
 	}
 
-	
+toba.confirmar_inclusion('interface/ef_upload');

@@ -22,3 +22,4 @@ def.constructor = ef_multi_seleccion_check;
 		}		
 	}
 	
+toba.confirmar_inclusion('interface/ef_multi_seleccion');

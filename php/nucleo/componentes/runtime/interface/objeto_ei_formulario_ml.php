@@ -841,7 +841,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$filas = js::arreglo($this->filas_enviadas);
 		$en_linea = js::bool($this->info_formulario['filas_agregar_online']);
 		$seleccionada = (isset($this->clave_seleccionada)) ? $this->clave_seleccionada : "null";
-		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario_ml";
+		echo $identado."window.{$this->objeto_js} = new objeto_ei_formulario_ml";
 		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";

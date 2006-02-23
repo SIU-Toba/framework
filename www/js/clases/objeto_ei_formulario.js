@@ -181,3 +181,5 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 			}
 		}
 	}	
+
+toba.confirmar_inclusion('clases/objeto_ei_formulario');

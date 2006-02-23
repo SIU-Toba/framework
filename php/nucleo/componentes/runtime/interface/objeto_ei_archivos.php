@@ -187,7 +187,7 @@ class objeto_ei_archivos extends objeto_ei
 	{
 		$identado = js::instancia()->identado();
 		$path = addslashes($this->path_relativo());
-		echo $identado."var {$this->objeto_js} = new objeto_ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
+		echo $identado."window.{$this->objeto_js} = new objeto_ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
 	}
 
 	//-------------------------------------------------------------------------------

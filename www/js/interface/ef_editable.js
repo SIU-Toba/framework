@@ -255,3 +255,4 @@ var def = ef_editable_fecha.prototype;
 	
 	
 //--------------------------------------------------------------------------------	
+toba.confirmar_inclusion('interface/ef_editable');

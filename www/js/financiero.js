@@ -33,3 +33,5 @@
 		else
 			return false;
 	}
+
+toba.confirmar_inclusion('financiero');

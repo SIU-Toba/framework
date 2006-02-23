@@ -43,3 +43,5 @@ def.constructor = ef_combo;
 		}
 		return true;
 	}
+	
+toba.confirmar_inclusion('interface/ef_combo');

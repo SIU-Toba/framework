@@ -49,3 +49,5 @@ function popup_callback(indice, clave, desc)
 	}		
 
 }
+
+toba.confirmar_inclusion('popup');

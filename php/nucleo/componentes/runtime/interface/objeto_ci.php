@@ -130,8 +130,8 @@ class objeto_ci extends objeto_ei
 				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
 			}
 		}
+		$this->dependencias[$dep]->agregar_controlador($this); //Se hace antes para que puede acceder a su padre
 		$this->dependencias[$dep]->inicializar($parametro);
-		$this->dependencias[$dep]->agregar_controlador($this);
 	}
 
 	/**
@@ -818,35 +818,36 @@ class objeto_ci extends objeto_ei
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
 		echo "</td></tr>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
-		echo "<tbody $colapsado id='cuerpo_{$this->objeto_js}'>\n";
-		//--> Botonera
-		$con_botonera = $this->hay_botones();
-		if($con_botonera){
-			if( ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
-				echo "<tr><td class='abm-zona-botones'>";
-				$this->obtener_botones();
-				echo "</td></tr>\n";
-			}
-		}
-		//--> Cuerpo del CI
-		echo "<tr><td  class='ci-cuerpo' height='100%'>";
-		$this->obtener_html_pantalla();
+		echo "<tr><td class='celda-vacia' $colapsado id='cuerpo_{$this->objeto_js}' $ancho $alto>\n";
+		$this->obtener_html_cuerpo();
 		echo "</td></tr>\n";
-
-		//--> Botonera
-		if($con_botonera){
-			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
-				echo "<tr><td class='abm-zona-botones'>";
-				$this->obtener_botones();
-				echo "</td></tr>\n";
-			}
-		}
-		echo "</tbody>\n";
 		echo "</table>\n";
 		$this->gi = true;
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 	}
 	
+	protected function obtener_html_cuerpo()
+	{	
+		//--> Botonera
+		$con_botonera = $this->hay_botones();
+		if($con_botonera && ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
+			echo "<div class='abm-zona-botones'>";
+			$this->obtener_botones();
+			echo "</div>\n";
+		}
+		//--> Cuerpo del CI
+		echo "<div class='ci-cuerpo'>";
+		$this->obtener_html_pantalla();
+		echo "</div>\n";
+		//--> Botonera
+		if($con_botonera){
+			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
+				echo "<div class='abm-zona-botones'>";
+				$this->obtener_botones();
+				echo "</div>\n";
+			}
+		}
+	}
 	
 	private function obtener_html_pantalla()
 	{
@@ -979,7 +980,7 @@ class objeto_ci extends objeto_ei
 			}
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
-			$js = "onclick=\"{$this->objeto_js}.set_evento(new evento_ei('cambiar_tab_$id', true, ''));\"";
+			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');\"";
 			if( $this->etapa_gi == $id ){
 				//TAB actual
 				echo "<td class='tabs-solapa-sel'>";
@@ -1049,6 +1050,17 @@ class objeto_ci extends objeto_ei
 		return $tab;
 	}
 
+	//---------------------------------------------------------------
+	//-------------------------- HTML PARCIAL (AJAX) -----------------
+	//----------------------------------------------------------------
+	
+	function servicio__html_parcial()
+	{
+		$this->eventos = $this->get_lista_eventos();
+		$this->obtener_html_cuerpo();
+		$this->gi = true;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -1073,7 +1085,7 @@ class objeto_ci extends objeto_ei
 	{
 		$identado = js::instancia()->identado();	
 		//Crea le objeto CI
-		echo $identado."var {$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();

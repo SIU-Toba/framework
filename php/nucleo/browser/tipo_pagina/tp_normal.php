@@ -27,15 +27,16 @@ class tp_normal extends tp_basico
 				line-height:18px;
 				z-index:100;
 			}			
+			#div_calendario {
+				visibility:hidden;
+				position:absolute;
+				background-color: white;
+				layer-background-color: white;
+			}
 		</style>			
 		<?php
 	}
 	
-	protected function js_basico()
-	{
-		parent::js_basico();
-	}
-
 	protected function comienzo_cuerpo()
 	{
 		parent::comienzo_cuerpo();

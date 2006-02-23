@@ -1,3 +1,12 @@
+
+//--- Creacion dinamica del div de error
+var html = "<img id='ef_warning' src='" + toba.imagen('error') + "' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
+if (pagina_cargada) {
+	document.body.innerHTML += html
+} else {
+	document.write(html);
+}
+
 var apex_ef_no_seteado = 'nopar';
 var apex_ef_total = 's';
 
@@ -187,3 +196,5 @@ def.constructor = ef_fijo;
 	def.cambiar_valor = function(nuevo) {
 		this.input().innerHTML = nuevo;
 	}	
+	
+toba.confirmar_inclusion('interface/ef');

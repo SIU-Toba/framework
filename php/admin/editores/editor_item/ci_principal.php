@@ -12,6 +12,7 @@ class ci_principal extends objeto_ci
 	private $falla_carga = false;
 	private $elemento_eliminado = false;
 	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
+	private $refrescar = false;
 	
 	function __construct($id)
 	{
@@ -79,13 +80,12 @@ class ci_principal extends objeto_ci
 		if($this->elemento_eliminado){
 			echo ei_mensaje("El elemento ha sido eliminado.");
 			return;
+			
+		}
+		if ($this->refrescar) {
+			admin_util::refrescar_editor_item();			
 		}
 		parent::obtener_html();
-		$objetos = array(array('toba', 1519));
-		$vinc = toba::get_vinculador()->crear_vinculo(null, null, array(), 
-													array('servicio'=>'obtener_html',
-														 'objetos_destino' => $objetos));
-		echo "<h1><a href='$vinc'>VER</a></h1>";
 	}
 	
 	function get_lista_eventos()
@@ -255,7 +255,7 @@ class ci_principal extends objeto_ci
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
-		admin_util::refrescar_editor_item();
+		$this->refrescar = true;
 		if (! isset($this->id_item)) {		//Si el item es nuevo
 			$this->redireccionar_a_objeto_creado();		
 		}
@@ -265,7 +265,7 @@ class ci_principal extends objeto_ci
 	{
 		$this->get_entidad()->eliminar();
 		$this->elemento_eliminado = true;
-		admin_util::refrescar_editor_item();		
+		$this->refrescar = true;
 	}
 	
 	function redireccionar_a_objeto_creado()

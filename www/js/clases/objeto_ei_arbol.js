@@ -79,3 +79,5 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 				return nodo.childNodes[i];
 		}	
 	}	
+
+toba.confirmar_inclusion('clases/objeto_ei_arbol');

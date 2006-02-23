@@ -55,13 +55,12 @@ class zona
                 AND     up.usuario = '".toba::get_hilo()->obtener_usuario()."'
 				AND		i.zona_listar = 1
 				ORDER BY 3";;
-//		echo($sql)."\n";
 		$this->items_vecinos = toba::get_db('instancia')->consultar($sql);
 		$this->editable_cargado = false;
 		//Se propago algo por el canal utilizado por la zona?
-		$this->editable_propagado = null;
-		if(isset(toba::get_hilo()->parametros[apex_hilo_qs_zona])){
-			$this->editable_propagado = explode(apex_qs_separador,toba::get_hilo()->parametros[apex_hilo_qs_zona]);
+		$this->editable_propagado = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
+		if ( isset($this->editable_propagado) ){
+			$this->editable_propagado = explode(apex_qs_separador,$this->editable_propagado);
 		}
 	}
 

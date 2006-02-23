@@ -44,3 +44,5 @@ def.constructor = ef_checkbox;
 			return false;
 		return !(this.input().disabled);
 	}	
+	
+toba.confirmar_inclusion('interface/ef_checkbox');

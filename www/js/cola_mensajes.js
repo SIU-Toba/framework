@@ -62,3 +62,5 @@ var cola_mensajes =
 		alert(encabezado + mensaje);
 	}
 }
+
+toba.confirmar_inclusion('cola_mensajes');

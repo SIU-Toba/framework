@@ -477,3 +477,5 @@ function cambiar_atributos_en_arbol(arbol, id_orig, nuevo_id) {
 		cambiar_atributos_en_arbol(arbol.childNodes[i], id_orig, nuevo_id);
 	}
 }
+
+toba.confirmar_inclusion('clases/objeto_ei_formulario_ml');

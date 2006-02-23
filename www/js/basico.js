@@ -1,15 +1,15 @@
 var agt=navigator.userAgent.toLowerCase();
 var ie= ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
 var ns6=document.getElementById && !document.all;
+var ereg_numero = /^[1234567890,.-]*$/;
+var ereg_nulo = /^\s*$/;
+var pagina_cargada = false;
 
-var url_wiki = null;
-function mostrar_wiki()
-{
-	if (url_wiki != null) {
-		window.open(url_wiki);
-	}
+
+function isset(o) {
+	return typeof o != 'undefined';	
 }
-document.onkeypress = mostrar_wiki;
+
 //---STRING
 //----------------------------------------------------------
 function trim(s){
@@ -73,7 +73,7 @@ String.prototype.trim = function() {
 
 //---ARRAY
 //----------------------------------------------------------
-function in_array (arreglo, elemento) {
+function in_array (elemento, arreglo) {
 	for (var i=0 ; i < arreglo.length; i++) {
 		if (arreglo[i] == elemento)
 			return true;
@@ -105,7 +105,6 @@ function addEvent(o, _e, c, _b){
 	x = ((b) ? (x + c) : (c + x)) + "\n";
 	return o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
 }
-
 
 //---- DOM
 //Muestra u oculta un nodo
@@ -149,6 +148,14 @@ function firstFocus()
 	}
 }
 
+function include_source(file) {
+    var html_doc = document.getElementsByTagName('head').item(0);
+    var js = document.createElement('script');
+    js.setAttribute('language', 'javascript');
+    js.setAttribute('type', 'text/javascript');
+    js.setAttribute('src', file);
+    html_doc.appendChild(js);
+}
 
 //********************  POPUPS  ************************
 
@@ -170,8 +177,6 @@ function solicitar_item_popup( url, tx, ty, scroll, resizable ){
 	}
 	return false;
 }
-
-
 
 //----Mediciones de Performance
 var mediciones = 
@@ -197,6 +202,8 @@ var mediciones =
 		return html;
 	}
 }
+
+
 
 //----Reflexion
 //--------------------------------------------
@@ -247,5 +254,7 @@ function logger_limpiar() {
 	document.getElementById('logger_salida').innerHTML = "";
 }
 
+//Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus
+addEvent(window, "onload", "pagina_cargada=true;firstFocus();");
 
 

@@ -487,7 +487,7 @@ class ap_tabla_db implements ap_tabla
 
 	/**
 	 * Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
-	 * @param array $registro Arreglo asociativo campo-valor del registro actualizado
+	 * @param mixed $id_registro Clave interna del registro
 	 */	
 	protected function evt__post_update($id_registro){}
 

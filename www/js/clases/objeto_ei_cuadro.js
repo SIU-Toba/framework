@@ -53,3 +53,5 @@ function objeto_ei_cuadro(instancia, input_submit) {
 		}
 		return true;
 	}	
+	
+toba.confirmar_inclusion('clases/objeto_ei_cuadro');

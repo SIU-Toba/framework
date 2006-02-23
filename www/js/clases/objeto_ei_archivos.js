@@ -44,4 +44,4 @@ function objeto_ei_archivos(instancia, input_submit, path_relativo) {
 		}
 	}
 
-
+toba.confirmar_inclusion('clases/objeto_ei_archivos');

@@ -649,7 +649,7 @@ class objeto_ei_formulario extends objeto_ei
 	{
 		$identado = js::instancia()->identado();
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		echo $identado."var {$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new objeto_ei_formulario('{$this->objeto_js}', $rango_tabs, '{$this->submit}');\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}

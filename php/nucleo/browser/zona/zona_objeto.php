@@ -80,10 +80,10 @@ class zona_objeto extends zona
 		echo "<table  width='100%'  class='tabla-0'><tr>";
 
 		//INTERFACE que solicta CRONOMETRAR la PAGINA
-		if($this->solicitud->vinculador->consultar_vinculo("toba","/basicos/cronometro",true))
+		if(toba::get_vinculador()->consultar_vinculo("toba","/basicos/cronometro",true))
 		{
 			echo "<td  class='barra-0-edit' width='1'>";
-			echo "<a href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true,true)."'>".
+			echo "<a href='".toba::get_vinculador()->generar_solicitud(null,null,null,true,true)."'>".
 					recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM")."</a>";
 			echo "</td>";
 		}
@@ -114,7 +114,7 @@ class zona_objeto extends zona
 		if(isset($this->editable_info['subclase_archivo']))
 		{
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/php",null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php",null,true) ."'>";
 			echo recurso::imagen_apl("php.gif",true,null,null,"Manejo de la subclase");
 			echo "</a></td>";
 		}
@@ -125,7 +125,7 @@ class zona_objeto extends zona
 			!in_array($this->editable_info['clase'], dao_editores::get_clases_validas()))
 		{
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/dependencias",null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/dependencias",null,true) ."'>";
 			echo recurso::imagen_apl("objetos/asociar_objeto.gif",true,null,null,"Editar DEPENDECIAS del OBJETO");
 			echo "</a></td>";
 		}
@@ -134,7 +134,7 @@ class zona_objeto extends zona
 		if($this->editable_info['clase_vinculos'] == 1)
 		{
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud("toba","/admin/objetos/vinculos",null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/vinculos",null,true) ."'>";
 			echo recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO");
 			echo "</a></td>";
 		}
@@ -151,7 +151,7 @@ class zona_objeto extends zona
 		//Si es un objeto viejo mostrar el el link a las propiedades básicas
 		if (!in_array($this->editable_info['clase'], dao_editores::get_clases_validas())) { 
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud('toba','/admin/objetos/propiedades',null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/propiedades',null,true) ."'>";
 			echo recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Propiedades Básicas del OBJETO");
 			echo "</a></td>";
 		}
@@ -160,7 +160,7 @@ class zona_objeto extends zona
 		if(isset($this->editable_info['clase_editor']))
 		{
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($this->editable_info['clase_editor_proyecto'],$this->editable_info['clase_editor'],null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_editor_proyecto'],$this->editable_info['clase_editor'],null,true) ."'>";
 			echo recurso::imagen_apl("objetos/editar.gif",true,null,null,"Propiedades ESPECIFICAS del OBJETO");
 			echo "</a></td>";
 		}
@@ -168,7 +168,7 @@ class zona_objeto extends zona
 		if(isset($this->editable_info['clase_instanciador']))
 		{
 			echo "<td  class='barra-item-link' width='1'>";
-			echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($this->editable_info['clase_instanciador_proyecto'],$this->editable_info['clase_instanciador'],null,true) ."'>";
+			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_instanciador_proyecto'],$this->editable_info['clase_instanciador'],null,true) ."'>";
 			echo recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
 			echo "</a>";
 			echo "</td>";
@@ -232,7 +232,7 @@ class zona_objeto extends zona
 								//Si es un objeto viejo mostrar el el link a las propiedades básicas
 						if (!in_array($fila['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";		
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													"toba","/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
@@ -241,7 +241,7 @@ class zona_objeto extends zona
 						}							
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($fila["clase_editor"])){
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$fila["clase_editor_proyecto"],
 														$fila["clase_editor"],
 														array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
@@ -251,7 +251,7 @@ class zona_objeto extends zona
 						if(isset($fila["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$fila["clase_instanciador_proyecto"], 
 														$fila["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
@@ -315,7 +315,7 @@ class zona_objeto extends zona
 						echo "<td  class='barra-obj-link' width='300'>".$fila["objeto_nombre"]. "&nbsp;-&nbsp;" . $fila["objeto_descripcion"]."</td>";
 						if (!in_array($fila['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													"toba","/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
@@ -323,14 +323,14 @@ class zona_objeto extends zona
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
-						echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+						echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													"toba","/admin/objetos/vinculos",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
 							recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO"). "</a>";
 						echo "</td>\n";
 						echo "<td  class='barra-obj-id' width='5'>";
-						echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+						echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													$fila["clase_editor_proyecto"],
 													$fila["clase_editor"],
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
@@ -376,14 +376,14 @@ class zona_objeto extends zona
 					echo "<td  class='barra-obj-link' >&nbsp;".$rs->fields["item"]."&nbsp;</td>";
 
 					echo "<td  class='barra-obj-id' width='5'>";
-					echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+					echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 												"toba","/admin/items/propiedades",
 												array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
 													.apex_qs_separador. $rs->fields["item"]) ) ."'>".
 						recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
 					echo "</td>\n";
 					echo "<td  class='barra-obj-id' width='5'>";
-					echo "<a href='" . $this->solicitud->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ."'>".
+					echo "<a href='" . toba::get_vinculador()->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ."'>".
 						recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
 					echo "</td>\n";
 
@@ -447,7 +447,7 @@ class zona_objeto extends zona
 						echo "<td  class='barra-obj-link'>\"".$rs->fields["objeto_identificador"]."\"</td>";
 						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														"toba","/admin/objetos/propiedades",
 														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
 															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
@@ -456,7 +456,7 @@ class zona_objeto extends zona
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($rs->fields["clase_editor"])){
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$rs->fields["clase_editor_proyecto"],
 														$rs->fields["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
@@ -466,7 +466,7 @@ class zona_objeto extends zona
 						if(isset($rs->fields["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
+							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														$rs->fields["clase_instanciador_proyecto"], 
 														$rs->fields["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]

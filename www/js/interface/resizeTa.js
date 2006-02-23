@@ -157,3 +157,5 @@ positions: function(e) {
 	}	
 }
 addEvent(window, 'onload', 'resizeTa.init()');
+
+toba.confirmar_inclusion('interface/resizeTa');

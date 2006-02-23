@@ -94,3 +94,4 @@ function popup_callback(indice, clave, desc)
 
 }
 	
+toba.confirmar_inclusion('interface/ef_popup');

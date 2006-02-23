@@ -47,8 +47,8 @@ def.constructor = objeto;
 		
 	//---Submit
 	def.submit = function() {
-		var padre_esta_en_proceso = this._ci && !this._ci.en_submit();
-		if (padre_esta_en_proceso)
+		var padre_esta_listo = this._ci && !this._ci.en_submit();
+		if (padre_esta_listo)
 			return this._ci.submit();
 	}
 	
@@ -97,3 +97,5 @@ def.constructor = objeto;
 	def.obtener_boton_colapsar = function() {
 		return document.getElementById('colapsar_boton_' + this._instancia);
 	}
+
+toba.confirmar_inclusion('clases/objeto');

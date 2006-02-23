@@ -303,10 +303,6 @@ class ef_editable extends ef
 	function obtener_consumo_javascript()
 	{
 		$consumos = array('interface/mascaras', 'interface/ef', 'interface/ef_editable');
-        if($this->obligatorio){
-		//Consumo la expresion regular que machea campos nulos
-			$consumos[] = "ereg_nulo";
-		}
 		return $consumos;
 	}
 
@@ -442,14 +438,6 @@ class ef_editable_numero extends ef_editable
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
-	function obtener_consumo_javascript()
-	{
-		$consumo = parent::obtener_consumo_javascript();
-		//Consumo la expresion regular que machea numeros.
-		$consumo[] = "ereg_numero";
-		return $consumo;
-	}
-	
     function obtener_javascript()
 	//Validacion en el cliente. El campo es numerico? 
     {

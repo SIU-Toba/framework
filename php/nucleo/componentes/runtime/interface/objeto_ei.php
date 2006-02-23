@@ -280,7 +280,7 @@ class objeto_ei extends objeto
 	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		echo $identado."var {$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
+		echo $identado."var window.{$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
 	}
 	
 	protected function extender_objeto_js()
@@ -297,10 +297,10 @@ class objeto_ei extends objeto
 			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_defecto($evento);\n";
 		}
 		if ($this->colapsado) {
-			echo $identado."{$this->objeto_js}.colapsar();\n";
+			echo $identado."window.{$this->objeto_js}.colapsar();\n";
 		}
 		//Se agrega al objeto al singleton toba
-		echo $identado."toba.agregar_objeto({$this->objeto_js});\n";		
+		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
 	}
 
 	//---------------------------------------------------------------

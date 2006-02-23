@@ -4,6 +4,17 @@
 
 /*-- NIVEL 0 --*/
 
+.div-esperar {
+	border: solid black 1px; 
+	position: absolute; 
+	text-align: center; 
+	background-color: white; 
+	width: 100px;
+	right: 0px;
+	font-weight: bold;
+}
+body > .div-esperar { position: fixed; }
+
 .cuerpo {
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -616,7 +627,7 @@ BODY {
 	margin: 0px 0px 0px 0px;
 	FONT-SIZE: 10px;
 	 FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-	 BACKGROUND-COLOR: #e9e8e8
+	 BACKGROUND-COLOR: #e9e8e8;
 }
 BODY.lista {
 	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
@@ -1169,7 +1180,7 @@ TD.abm-titulo {
 	 BACKGROUND-COLOR: #5b5394;
 	 TEXT-ALIGN: left
 }
-TD.abm-zona-botones {
+.abm-zona-botones {
 	BORDER-RIGHT: #231f20 0px solid;
 	 PADDING-RIGHT: 3px;
 	 BORDER-TOP: #231f20 0px solid;
@@ -1947,7 +1958,7 @@ TD.objeto-ci-barra-superior {
 	 BACKGROUND-COLOR: #514a84;
 	 TEXT-ALIGN: left
 }
-TD.ci-cuerpo {
+.ci-cuerpo {
 	PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 2px;
 	 FONT-SIZE: 10px;
@@ -1957,6 +1968,7 @@ TD.ci-cuerpo {
 	 PADDING-TOP: 2px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left;
+	 height: 100%;
 }
 /*-----------------------------objeto_ei-arbol-----------------------------------*/
 .ei-arbol-rama {

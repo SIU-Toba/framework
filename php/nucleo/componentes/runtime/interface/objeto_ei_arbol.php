@@ -235,7 +235,7 @@ class objeto_ei_arbol extends objeto_ei
 	{
 		$identado = js::instancia()->identado();
 		$item = js::arreglo($this->item_propiedades, false);
-		echo $identado."var {$this->objeto_js} = new objeto_ei_arbol('{$this->objeto_js}',
+		echo $identado."window.{$this->objeto_js} = new objeto_ei_arbol('{$this->objeto_js}',
 												 '{$this->submit}', $item);\n";
 	}
 
