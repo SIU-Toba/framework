@@ -113,20 +113,20 @@ class instancia extends elemento_modelo
 	/**
 	* Exportacion de TODO lo que hay en una instancia
 	*/
-	function exportar_full()
+	function exportar()
 	{
-		$this->exportar();
 		foreach( $this->get_lista_proyectos() as $proyecto ) {
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			
 			$proyecto->exportar();
 		}	
+		$this->exportar_local();
 	}	
 
 	/**
 	* Exportacion de la informacion correspondiente a la instancia (no proyectos)
 	*/
-	function exportar()
+	function exportar_local()
 	{
 		try {
 			$this->manejador_interface->titulo( "INSTANCIA" );

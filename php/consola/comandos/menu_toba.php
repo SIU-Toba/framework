@@ -20,7 +20,6 @@ class menu_toba extends menu
 						'proyecto',
 						'instalacion',
 						'conversion',
-						'nucleo',
 						'test'
 					);	
 	}

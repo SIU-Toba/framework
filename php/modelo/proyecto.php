@@ -90,6 +90,11 @@ class proyecto extends elemento_modelo
 		return $datos;
 	}
 
+	function get_instancia()
+	{
+		return $this->instancia;
+	}
+
 	//-----------------------------------------------------------
 	//	EXPORTAR
 	//-----------------------------------------------------------
@@ -206,7 +211,7 @@ class proyecto extends elemento_modelo
 	//-----------------------------------------------------------
 	
 	/*
-	*	Importacion de un proyecto dentro de la inicializacion de una instancia
+	*	Importacion de un PROYECTO dentro del proceso de CARGA de una INSTANCIA
 	*/
 	function importar()
 	{
@@ -218,7 +223,7 @@ class proyecto extends elemento_modelo
 	}
 
 	/*
-	*	Importar un proyecto en una instancia creada
+	*	Importar un PROYECTO en una instancia ya creada
 	*/
 	function importar_autonomo()
 	{
@@ -376,7 +381,7 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	ELIMINAR
+	//	Primitivas basicas
 	//-----------------------------------------------------------
 
 	private function guardar_archivo( $archivo, $contenido )

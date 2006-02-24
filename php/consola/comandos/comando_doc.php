@@ -10,7 +10,7 @@ class comando_doc extends comando_toba
 	
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("INVOCACION: toba doc opcion");
+		$this->consola->mensaje("INVOCACION: toba doc OPCION");
 		$this->consola->enter();
 	}
 

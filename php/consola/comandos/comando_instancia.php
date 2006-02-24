@@ -12,9 +12,9 @@ class comando_instancia extends comando_toba
 
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("INVOCACION: toba instancia 'opcion' [id_instancia]");
+		$this->consola->mensaje("INVOCACION: toba instancia OPCION [-i id_instancia]");
 		$this->consola->enter();
-		$this->consola->mensaje("[id_instancia] Asume por defecto el valor de la variable de entorno 'toba_instancia': ". $this->get_entorno_id_instancia() );
+		$this->get_info_parametro_instancia();
 		$this->consola->enter();
 	}
 
@@ -23,7 +23,7 @@ class comando_instancia extends comando_toba
 	//-------------------------------------------------------------
 
 	/**
-	*	Informacion basica de la instancia
+	*	Brinda informacion sobre la instancia
 	*/
 	function opcion__info()
 	{
@@ -35,25 +35,9 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
-	*	Exporta la informacion de la instancia
+	*	Carga una INSTANCIA en una base de datos, partiendo del contenido del sistema de archivos
 	*/
-	function opcion__exportar()
-	{
-		$this->get_instancia()->exportar();
-	}
-
-	/**
-	*	Exporta la informacion COMPLETA de la instancia (incluyendo proyectos)
-	*/
-	function opcion__exportar_full()
-	{
-		$this->get_instancia()->exportar_full();
-	}
-
-	/**
-	*	Inicializa una instancia
-	*/
-	function opcion__importar()
+	function opcion__cargar()
 	{
 		try {
 			$this->get_instancia()->importar();
@@ -70,12 +54,40 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Regenera el TOBA de una instancia
+	*	Elimina una INSTANCIA y la vuelve a generar.
 	*/
 	function opcion__regenerar()
 	{
 		$this->opcion__eliminar();
 		$this->get_instancia()->importar();
+	}
+
+	/**
+	*	Exporta una instancia completa ( Metadatos propios y metadatos de proyectos )
+	*/
+	function opcion__exportar()
+	{
+		$this->get_instancia()->exportar();
+	}
+
+	/**
+	*	Exporta los METADATOS propios de la instancia ( Exclusivamente info local )
+	*/
+	function opcion__exportar_local()
+	{
+		$this->get_instancia()->exportar_local();
+	}
+
+	/**
+	*	Elimina la instancia
+	*/
+	function opcion__eliminar()
+	{
+		$i = $this->get_instancia();
+		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
+		if ( $this->consola->dialogo_simple('Desea eliminar la INSTANCIA?') ) {
+			$i->eliminar_base();
+		}
 	}
 
 	/**
@@ -97,40 +109,11 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Elimina la instancia
-	*/
-	function opcion__eliminar()
-	{
-		$i = $this->get_instancia();
-		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
-		if ( $this->consola->dialogo_simple('Desea eliminar la INSTANCIA?') ) {
-			$i->eliminar_base();
-		}
-	}
-
-	/**
 	*	Genera un archivo con la lista de registros por cada tabla de la instancia
 	*/	
 	function opcion__dump_info_tablas()
 	{
 		$this->get_instancia()->dump_info_tablas();
-	}
-
-	//-------------------------------------------------------------
-	// Primitivas internas
-	//-------------------------------------------------------------
-
-	/**
-	*	Determina la instancia sobre la que se va a trabajar
-	*/
-	protected function get_id_instancia_actual()
-	{
-		if ( isset( $this->argumentos[1] ) ) {
-			$id = $this->argumentos[1];
-		} else {
-			$id = $this->get_entorno_id_instancia();
-		}
-		return $id;
 	}
 }
 ?>

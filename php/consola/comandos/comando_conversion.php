@@ -10,26 +10,16 @@ class comando_conversion extends comando_toba
 	
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("INVOCACION: toba conversion opcion [-p proyecto] [-i instancia] [-v version]");
+		$this->consola->mensaje("INVOCACION: toba conversion OPCION [-p proyecto] [-i instancia] [-v version]");
 		$this->consola->enter();
-		$this->consola->mensaje("Si no se indica '-i' se utiliza la variable de entorno 'toba_instancia': ". $this->get_entorno_id_instancia() );
-		$this->consola->mensaje("Si no se indica '-p' se utiliza la variable de entorno 'toba_proyecto': ". $this->get_entorno_id_proyecto() );
+		$this->get_info_parametro_proyecto();
+		$this->get_info_parametro_instancia();
+		$this->get_info_parametro_version();
 		$this->consola->enter();
 	}
 		
 	/**
-	*	Muestra la lista de conversiones que pueden aplicarse en un proyecto puntual.
-	*/
-	function opcion__listar()
-	{
-		$conversor = $this->get_conversor();
-		$proyecto = $this->get_id_proyecto_actual();
-		$conversiones = $conversor->get_conversiones_posibles( $proyecto );
-		$this->consola->lista( $conversiones, "Conversiones posibles PROYECTO '$proyecto'" );
-	}
-
-	/**
-	*	Muestra el contenido de una conversion puntual. (Utiliza -v)
+	*	Muestra el contenido de una conversion puntual.  
 	*/
 	function opcion__info()
 	{
@@ -38,7 +28,7 @@ class comando_conversion extends comando_toba
 	}
 	
 	/**
-	*	Simula la migración de metadatos de un proyecto hacia una versión
+	*	Simula la migración de metadatos de un proyecto hacia una versión.
 	*/
 	function opcion__probar()
 	{
@@ -48,7 +38,7 @@ class comando_conversion extends comando_toba
 	}
 
 	/**
-	*	Ejecuta la migración de metadatos de un proyecto hacia una versión
+	*	Ejecuta la migración de metadatos de un proyecto hacia una versión. 
 	*/
 	function opcion__ejecutar()
 	{
@@ -57,10 +47,21 @@ class comando_conversion extends comando_toba
 		$this->get_conversor()->procesar( $version, $proyecto );
 	}
 	
-	//-------------------------------------------------------------
-	// Primitivas internas
-	//-------------------------------------------------------------
+	/**
+	*	Muestra la lista de conversiones que pueden aplicarse en un proyecto puntual. No utiliza el parametro [-v]
+	*/
+	function opcion__listar()
+	{
+		$conversor = $this->get_conversor();
+		$proyecto = $this->get_id_proyecto_actual();
+		$conversiones = $conversor->get_conversiones_posibles( $proyecto );
+		$this->consola->lista( $conversiones, "Conversiones posibles PROYECTO '$proyecto'" );
+	}
 
+	//-----------------------------------------------------------
+	// Acceso a los PARAMETROS
+	//-----------------------------------------------------------
+	
 	/**
 	*	Determina la VERSION de la conversion
 	*/
@@ -71,44 +72,16 @@ class comando_conversion extends comando_toba
 			$version = $param['-v'];
 			return $version;
 		} else {
-			throw new excepcion_toba("Es necesario indicar una version");
+			throw new excepcion_toba("Es necesario indicar una version.");
 		}
 	}
 
 	/**
-	*	Determina la INSTANCIA sobre la que se va a trabajar
+	*	Describe el parametro VERSION
 	*/
-	protected function get_id_instancia_actual()
+	protected function get_info_parametro_version()
 	{
-		$param = $this->get_parametros();
-		if ( isset($param['-i']) &&  (trim($param['-i']) != '') ) {
-			$id = $param['-i'];
-		} else {
-			try {
-				$id = $this->get_entorno_id_instancia( true );
-			} catch ( excepcion_toba $e ) {
-				throw new excepcion_toba("Es necesario definir una instancia de trabajo. Utilice el modificador '-i'." . $e->getMessage() );	
-			}
-		}
-		return $id;
-	}
-
-	/**
-	*	Determina el PROYECTO sobre el que se va a trabajar
-	*/
-	protected function get_id_proyecto_actual()
-	{
-		$param = $this->get_parametros();
-		if ( isset($param['-p']) &&  (trim($param['-p']) != '') ) {
-			$id = $param['-p'];
-		} else {
-			try {
-				$id = $this->get_entorno_id_proyecto( true );
-			} catch ( excepcion_toba $e ) {
-				throw new excepcion_toba("Es necesario definir un proyecto. Utilice el modificador '-p'." . $e->getMessage() );	
-			}
-		}
-		return $id;
+		$this->consola->mensaje("[ -v id_version ] Version del TOBA a la que se quiere migrar.");
 	}
 }
 ?>

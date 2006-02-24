@@ -12,10 +12,10 @@ class comando_proyecto extends comando_toba
 
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("INVOCACION: toba proyecto 'opcion' [id_proyecto] [id_instancia]");
+		$this->consola->mensaje("INVOCACION: toba proyecto OPCION [-p id_proyecto] [-i id_instancia]");
 		$this->consola->enter();
-		$this->consola->mensaje("[id_proyecto] Asume el valor de la variable de entorno 'toba_proyecto': ". $this->get_entorno_id_proyecto() );
-		$this->consola->mensaje("[id_instancia] Asume el valor de la variable de entorno 'toba_instancia': ". $this->get_entorno_id_instancia() );
+		$this->get_info_parametro_proyecto();
+		$this->get_info_parametro_instancia();
 		$this->consola->enter();
 	}
 
@@ -37,7 +37,9 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__exportar()
 	{
-		$this->get_proyecto()->exportar();
+		$p = $this->get_proyecto();
+		$p->exportar();
+		$p->get_instancia()->exportar_local();
 	}
 
 	/**
@@ -66,36 +68,6 @@ class comando_proyecto extends comando_toba
 	function opcion__compilar()
 	{
 		$this->get_proyecto()->compilar();
-	}
-
-	//-------------------------------------------------------------
-	// Primitivas internas
-	//-------------------------------------------------------------
-
-	/**
-	*	Determina la instancia sobre la que se va a trabajar
-	*/
-	protected function get_id_instancia_actual()
-	{
-		if ( isset( $this->argumentos[2] ) ) {
-			$id = $this->argumentos[2];
-		} else {
-			$id = $this->get_entorno_id_instancia( true );
-		}
-		return $id;
-	}
-
-	/**
-	*	Determina el PROYECTO sobre el que se va a trabajar
-	*/
-	protected function get_id_proyecto_actual()
-	{
-		if ( isset( $this->argumentos[1] ) ) {
-			$id = $this->argumentos[1];
-		} else {
-			$id = $this->get_entorno_id_proyecto( true );
-		}
-		return $id;
 	}
 }
 ?>

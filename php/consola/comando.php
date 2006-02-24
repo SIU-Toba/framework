@@ -1,7 +1,5 @@
 <?
-/**
-	FALTA:  agregarle una libreria que permita pasear argumentos
-*/
+
 class comando
 {
 	protected $manejador_interface;
