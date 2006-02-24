@@ -210,7 +210,7 @@ class solicitud_web extends solicitud
 	{
 		//--- Se envia el HTML
 		foreach ($objetos as $objeto) {
-			$objeto->servicio__html_parcial();
+			$objeto->obtener_html();
 		}	
 				
 		//--- Se envian los consumos js

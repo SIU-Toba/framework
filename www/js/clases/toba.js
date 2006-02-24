@@ -104,7 +104,7 @@ var toba =
 		}
 		//-- Se agrega el html
 		var pos = respuesta.responseText.indexOf('<--toba-->');
-		this._ajax.cuerpo().innerHTML = respuesta.responseText.substr(0, pos);
+		this._ajax.raiz().innerHTML = respuesta.responseText.substr(0, pos);
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
 		var js =respuesta.responseText.substr(pos+10);

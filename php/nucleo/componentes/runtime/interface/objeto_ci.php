@@ -803,6 +803,7 @@ class objeto_ci extends objeto_ei
 	
 	function obtener_html()
 	{
+		echo "<div id='raiz_{$this->objeto_js}'>\n";
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
 		$this->eventos = $this->get_lista_eventos();
@@ -824,6 +825,7 @@ class objeto_ci extends objeto_ei
 		echo "</table>\n";
 		$this->gi = true;
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
+		echo "</div>";
 	}
 	
 	protected function obtener_html_cuerpo()
@@ -1048,16 +1050,6 @@ class objeto_ci extends objeto_ei
 		return $tab;
 	}
 
-	//---------------------------------------------------------------
-	//-------------------------- HTML PARCIAL (AJAX) -----------------
-	//----------------------------------------------------------------
-	
-	function servicio__html_parcial()
-	{
-		$this->eventos = $this->get_lista_eventos();
-		$this->obtener_html_cuerpo();
-		$this->gi = true;
-	}
 	
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------

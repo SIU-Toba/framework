@@ -71,6 +71,10 @@ def.constructor = objeto;
 		return document.getElementById('cuerpo_' + this._instancia);	
 	}
 	
+	def.raiz = function() {
+		return document.getElementById('raiz_' + this._instancia);			
+	}
+	
 	def.cambiar_colapsado = function() {
 		if (this.cuerpo().style.display == 'none')
 			this.descolapsar();
