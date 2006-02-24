@@ -29,7 +29,6 @@ CREATE TABLE apex_permiso_grupo_acc
 --: dump_order_by: permiso, usuario_grupo_acc
 --: zona: usuario
 --: desc:
---: instancia:	1
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	

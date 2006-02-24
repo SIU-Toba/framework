@@ -47,13 +47,43 @@ class tp_basico extends tipo_pagina
 	
 	protected function estilos_css()
 	{
+		global $color_serie;		
+		?>
+		<style type="text/css">
+			#dhtmltooltip{
+				position: absolute;
+				width: 150px;
+				border: 1px solid black;
+				padding: 2px;
+				background-color: lightyellow;
+				visibility: hidden;
+				z-index: 100;
+			}
+			#dhtml_tooltip_div{
+				position:absolute;
+				width: 200px;
+				visibility:hidden;
+				background-color: lightyellow;			 
+				padding: 2px;
+				border: 1px solid black;
+				line-height:18px;
+				z-index:100;
+			}			
+			#div_calendario {
+				visibility:hidden;
+				position:absolute;
+				background-color: white;
+				layer-background-color: white;
+			}
+		</style>			
+		<?php
 	}
-	
 
 	protected function comienzo_cuerpo()
 	{
 		echo "<body>\n";
 		$this->menu();
+		js::cargar_consumos_globales(array('dhtml_tooltip'));
 	}
 	
 	protected function menu()

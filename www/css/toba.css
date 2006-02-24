@@ -2727,6 +2727,7 @@ TD.separador_derecha {
 
 .ayuda {
 	cursor: help;
+	_cursor: auto;	/* Hack IE */
 }
 
 a > .ayuda {

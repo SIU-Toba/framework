@@ -280,7 +280,7 @@ class objeto_ei extends objeto
 	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		echo $identado."var window.{$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
+		echo $identado."window.{$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
 	}
 	
 	protected function extender_objeto_js()
