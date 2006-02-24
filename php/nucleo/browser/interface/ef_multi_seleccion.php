@@ -542,8 +542,7 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 									}
 								}
 							} else {
-								//Es uno unico
-								if (! elem[i].disabled) {								
+								if (! elem.disabled) {								
 									elem.checked = todos;
 								}
 							}

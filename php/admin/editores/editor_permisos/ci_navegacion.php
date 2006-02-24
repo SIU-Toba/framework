@@ -6,7 +6,7 @@ class ci_navegacion extends objeto_ci
 {
 	protected $pantalla = "seleccion";
 	protected $seleccion;
-	protected $filtro;
+	protected $filtro = array();
 	
 	function mantener_estado_sesion()
 	{
@@ -27,7 +27,8 @@ class ci_navegacion extends objeto_ci
 	
 	function evt__listado__carga()
 	{
-		return dao_permisos::get_lista_permisos($this->filtro);
+		$filtro = (isset($this->filtro)) ? $this->filtro : array();
+		return dao_permisos::get_lista_permisos($filtro);
 	}
 
 	function evt__listado__seleccion($id)

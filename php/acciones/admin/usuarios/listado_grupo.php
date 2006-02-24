@@ -80,7 +80,7 @@ ORDER BY    3,6;";
     $param['imagen'] = "usuarios/$link_img.gif";
     echo $this->vinculador->generar_solicitud(null,null,array('usu_modo'=>$link),false,false,$param) ;
 ?>
-    <td width="95%">
+    <td width="92%">
     </td>
 
     <td width="2%">
@@ -103,12 +103,21 @@ ORDER BY    3,6;";
     echo $this->vinculador->generar_solicitud('toba','/admin/usuarios/tabla_usuarios',array('usu_modo'=>$link),false,false,$param) ;
 ?>
     </td>
+   <td width="2%">
+<?
+    $param['tipo'] = "normal";
+    $param['texto'] = "Editar los Permisos Globales del PROYECTO";
+    $param['imagen_recurso_origen'] = "apex";
+    $param['imagen'] = "usuarios/permisos.gif";
+    $param['frame'] = "frame_centro";
+    echo $this->vinculador->generar_solicitud('toba','3276',array(),false,false,$param,true, 'central') ;
+?>
+    </td>
     </tr>
     </table>
      </td>
 </tr>
 <table>
-
 <script language='javascript'>
     editor='usuario';
 </script>
@@ -246,3 +255,5 @@ WHERE       NOT EXISTS (
     }
 ?>
 </table>
+
+

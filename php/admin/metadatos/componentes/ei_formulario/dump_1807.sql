@@ -7,8 +7,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1807', '4558', 'descripcion', 'ef_editable', 'descripcion', NULL, 'tamano: 40;
 maximo: 255;', '2', 'Descripción', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1807', '4560', 'grupos', 'ef_multi_seleccion_check', 'grupos', NULL, 'dao: get_grupos_acceso;
-clase: dao_editores;
-include: admin/db/dao_editores.php;
+clase: dao_permisos;
+include: admin/db/dao_permisos.php;
 clave: usuario_grupo_acc;
 valor: nombre;
 mostrar_utilidades: 1;', '4', 'Grupos habilitados', NULL, NULL, NULL, NULL, NULL, '0');
