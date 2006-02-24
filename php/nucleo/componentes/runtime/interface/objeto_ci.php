@@ -18,7 +18,7 @@ class objeto_ci extends objeto_ei
 	protected $submit;								// Boton de SUBMIT
 	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
-	protected $dependencias_gi;						// Dependencias utilizadas para la generacion de la interface
+	protected $dependencias_gi = array();						// Dependencias utilizadas para la generacion de la interface
 	protected $eventos;								// Lista de eventos que expone el CI
 	protected $evento_actual;						// Evento propio recuperado de la interaccion
 	protected $evento_actual_param;					// Parametros del evento actual
@@ -818,9 +818,9 @@ class objeto_ci extends objeto_ei
 		$this->barra_superior(null,true,"objeto-ci-barra-superior");
 		echo "</td></tr>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
-		echo "<tr><td class='celda-vacia' $colapsado id='cuerpo_{$this->objeto_js}' $ancho $alto>\n";
+		echo "<tbody $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 		$this->obtener_html_cuerpo();
-		echo "</td></tr>\n";
+		echo "</tbody>";
 		echo "</table>\n";
 		$this->gi = true;
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
@@ -830,22 +830,20 @@ class objeto_ci extends objeto_ei
 	{	
 		//--> Botonera
 		$con_botonera = $this->hay_botones();
-		if($con_botonera && ($this->posicion_botonera == "arriba") || ($this->posicion_botonera == "ambos") ){
-			echo "<div class='abm-zona-botones'>";
+		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ){
+			echo "<tr><td class='abm-zona-botones'\n>";
 			$this->obtener_botones();
-			echo "</div>\n";
+			echo "</td></tr>\n";
 		}
 		//--> Cuerpo del CI
-		echo "<div class='ci-cuerpo'>";
+		echo "<tr><td class='ci-cuerpo' height='100%'>\n";
 		$this->obtener_html_pantalla();
-		echo "</div>\n";
+		echo "</td></tr>\n";
 		//--> Botonera
-		if($con_botonera){
-			if( ($this->posicion_botonera == "abajo") || ($this->posicion_botonera == "ambos") ){
-				echo "<div class='abm-zona-botones'>";
-				$this->obtener_botones();
-				echo "</div>\n";
-			}
+		if($con_botonera && ($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos") ){
+			echo "<tr><td class='abm-zona-botones'>\n";
+			$this->obtener_botones();
+			echo "</td></tr>\n";
 		}
 	}
 	

@@ -26,12 +26,12 @@
 					$caracteres_acum = 0;
 				}
 			}
-			$lineas[ $linea_actual ][] = $palabra;
+			$lineas[ $linea_actual ][] = trim($palabra);
 		}
 		//Contateno las palabras
 		$salida = array();
-		for( $a=0; $a < count( $lineas ); $a++) {
-			$salida[ $a ] = implode( ' ', $lineas[ $a ] );
+		foreach ($lineas as $linea ) {
+			$salida[] = implode(' ', $linea);	
 		}
 		return $salida;
 	}

@@ -1193,7 +1193,7 @@ TD.abm-titulo {
 	 PADDING-TOP: 3px;
 	 BORDER-BOTTOM: #231f20 0px solid;
 	 BACKGROUND-COLOR: #808080;
-	 TEXT-ALIGN: right
+	 TEXT-ALIGN: right;
 }
 .abm-fila, .abm-fila-oculta {
 	PADDING-RIGHT: 3px;
@@ -1968,8 +1968,9 @@ TD.objeto-ci-barra-superior {
 	 PADDING-TOP: 2px;
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left;
-	 height: 100%;
 }
+
+
 /*-----------------------------objeto_ei-arbol-----------------------------------*/
 .ei-arbol-rama {
 	list-style-type: none;  
