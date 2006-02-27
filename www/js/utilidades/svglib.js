@@ -19,4 +19,6 @@ function aviso_instalacion_svg()
 
 }
 
-toba.confirmar_inclusion('utilidades/svglib');
+if (typeof toba != 'undefined') {
+	toba.confirmar_inclusion('utilidades/svglib');
+}

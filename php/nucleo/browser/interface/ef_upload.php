@@ -23,9 +23,10 @@ class ef_upload extends ef
 	function obtener_input()
 	{
 		$estado = $this->obtener_estado_input();
+		$salida = "";
 		if (!  $this->solo_lectura) {
 			if (isset($estado) && $estado != '') {
-				$salida = "	<script  type='text/javascript' language='javascript'>
+				$salida .= "	<script  type='text/javascript' language='javascript'>
 							function cambiar(){
 								if (document.getElementById('{$this->id_form}_check').checked == true) {
 									//Lo va a cambiar

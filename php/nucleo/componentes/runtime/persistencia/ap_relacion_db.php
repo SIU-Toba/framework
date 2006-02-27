@@ -84,7 +84,7 @@ class ap_relacion_db implements ap_relacion
 			}
 			$ok = $ok || $res;
 		}
-		$this->cargado = $ok;
+		$this->objeto_relacion->set_cargado($ok);
 		return $ok;
 	}
 	
@@ -106,13 +106,13 @@ class ap_relacion_db implements ap_relacion
 			}
 			$ok = $ok || $res;
 		}
-		$this->cargado = $ok;
+		$this->objeto_relacion->set_cargado($ok);
 		return $ok;
 	}
 
 	public function esta_cargado()
 	{
-		return $this->cargado;	
+		return $this->objeto_relacion->esta_cargado();
 	}
 
 	//-------------------------------------------------------------------------------

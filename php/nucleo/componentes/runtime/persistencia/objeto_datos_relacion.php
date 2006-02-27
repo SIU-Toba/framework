@@ -14,6 +14,7 @@ class objeto_datos_relacion extends objeto
 	protected $relaciones = array();		
 	protected $tablas_raiz;
 	protected $persistidor;
+	protected $cargado = false;
 	protected $relaciones_mapeos=array();			//Mapeo entre filas de las tablas
 	static $debug_pasadas;							//Mantiene la cantidad de pasadas para generar ids unicos en js
 
@@ -47,6 +48,7 @@ class objeto_datos_relacion extends objeto
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "relaciones_mapeos";
+		$propiedades[] = "cargado";
 		return $propiedades;
 	}	
 	
@@ -401,6 +403,17 @@ class objeto_datos_relacion extends objeto
 			$this->log("***   Fin CARGAR (No se cargaron datos) ***************");
 			return false;
 		}
+	}
+	
+
+	function esta_cargado()
+	{
+		return $this->cargado;	
+	}
+	
+	function set_cargado($cargado)
+	{
+		$this->cargado = $cargado;
 	}
 
 	/**

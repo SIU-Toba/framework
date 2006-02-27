@@ -4,10 +4,20 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 class ci_grupo_permisos extends objeto_ci
 {
 
+	function evt__inicializar()
+	{
+		$editable = toba::get_solicitud()->zona()->obtener_editable_propagado();
+		if ($editable && !$this->dependencia('datos')->esta_cargado()) {
+			list($proyecto, $grupo) = $editable;
+			$this->dependencia('datos')->cargar(array('usuario_grupo_acc' => $grupo,
+														'proyecto' => $proyecto));
+		}
+				
+	}
+
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		//$propiedades[] = 'propiedad_a_persistir';
 		return $propiedades;
 	}
 
@@ -15,6 +25,7 @@ class ci_grupo_permisos extends objeto_ci
 
 	function evt__procesar()
 	{
+		$this->dependencia('datos')->sincronizar();
 	}
 
 	//-------------------------------------------------------------------
@@ -25,11 +36,13 @@ class ci_grupo_permisos extends objeto_ci
 
 	function evt__form__modificacion($datos)
 	{
-		//$this->dependencia('datos')
+		$this->dependencia('datos')->tabla('grupo_permiso')->set_permisos($datos['lista_permisos']);
 	}
 
 	function evt__form__carga()
 	{
+		$per['lista_permisos'] = $this->dependencia('datos')->tabla('grupo_permiso')->get_permisos();
+		return $per;
 	}
 
 

@@ -61,6 +61,7 @@ class zona
 		$this->editable_propagado = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
 		if ( isset($this->editable_propagado) ){
 			$this->editable_propagado = explode(apex_qs_separador,$this->editable_propagado);
+			$this->cargar_editable();
 		}
 	}
 

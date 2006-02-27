@@ -78,7 +78,7 @@ ORDER BY    3,6;";
     $param['texto'] = $link_tip;
     $param['imagen_recurso_origen'] = "apex";
     $param['imagen'] = "usuarios/$link_img.gif";
-    echo $this->vinculador->generar_solicitud(null,null,array('usu_modo'=>$link),false,false,$param) ;
+    echo $this->vinculador->generar_solicitud(null,null,array('usu_modo'=>$link),false,false,$param,true, 'central') ;
 ?>
     <td width="92%">
     </td>
@@ -90,7 +90,7 @@ ORDER BY    3,6;";
     $param['imagen_recurso_origen'] = "apex";
     $param['imagen'] = "tabla.gif";
     $param['frame'] = "frame_centro";
-    echo $this->vinculador->generar_solicitud('toba','/admin/usuarios/tabla_perfil',array('usu_modo'=>$link),false,false,$param) ;
+    echo $this->vinculador->generar_solicitud('toba','/admin/usuarios/tabla_perfil',array('usu_modo'=>$link),false,false,$param, true, 'central') ;
 ?>
     </td>
     <td width="2%">
@@ -100,7 +100,7 @@ ORDER BY    3,6;";
     $param['imagen_recurso_origen'] = "apex";
     $param['imagen'] = "tabla.gif";
     $param['frame'] = "frame_centro";
-    echo $this->vinculador->generar_solicitud('toba','/admin/usuarios/tabla_usuarios',array('usu_modo'=>$link),false,false,$param) ;
+    echo $this->vinculador->generar_solicitud('toba','/admin/usuarios/tabla_usuarios',array('usu_modo'=>$link),false,false,$param, true, 'central') ;
 ?>
     </td>
    <td width="2%">
@@ -125,7 +125,7 @@ ORDER BY    3,6;";
 <tr>
      <td width="98%" class="lista-obj-titulo" ><? echo $titulo ?></td>
      <td width="2%"  class='lista-obj-titulo'>
-    <a href="<? echo $this->vinculador->generar_solicitud("toba",$editor) ?>"
+    <a href="<? echo $this->vinculador->generar_solicitud("toba",$editor, null, false, false, null, true, 'central') ?>"
     class="list-obj" target="<? echo  apex_frame_centro ?>">
     <? echo recurso::imagen_apl("usuarios/{$editor_img}_nuevo.gif",true,null,null,"Crear $editor_tip") ?>
     </a>
@@ -155,7 +155,7 @@ ORDER BY    3,6;";
         <table class='tabla-0'>
         <tr>
           <td width="2%" class='cat-item-categ1'>
-            <a href="<? echo $this->vinculador->generar_solicitud("toba",$editor,array( apex_hilo_qs_zona => $rs->fields[$modo.'_proyecto'] .apex_qs_separador. $rs->fields[$modo])) ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud("toba",$editor,array( apex_hilo_qs_zona => $rs->fields[$modo.'_proyecto'] .apex_qs_separador. $rs->fields[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo recurso::imagen_apl("usuarios/$editor_img.gif",true,null,null,"Modificar $editor_tip") ?>
             </a>
       </td>
