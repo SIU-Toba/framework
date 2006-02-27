@@ -9,7 +9,6 @@ require_once('modelo/catalogo_modelo.php');
 */
 class comando_toba extends comando
 {
-	private $instancia;	// Este es porque si se carga mas de una instancia se rompe todo
 	private $interprete; 
 
 	function __construct( gui $manejador_interface, $interprete = null )
@@ -27,10 +26,8 @@ class comando_toba extends comando
 	*/
 	protected function get_instancia()
 	{
-		if ( ! isset ( $this->instancia ) ) {
-			$this->instancia = catalogo_modelo::get_instancia( 	$this->get_id_instancia_actual(), $this->consola );
-		}
-		return $this->instancia;
+		return catalogo_modelo::instanciacion()->get_instancia(	$this->get_id_instancia_actual(),
+																$this->consola );
 	}
 
 	/**
@@ -38,9 +35,9 @@ class comando_toba extends comando
 	*/
 	protected function get_proyecto()
 	{
-		return catalogo_modelo::get_proyecto( 	$this->get_id_instancia_actual(),
-												$this->get_id_proyecto_actual(),
-												$this->consola );
+		return catalogo_modelo::instanciacion()->get_proyecto( 	$this->get_id_instancia_actual(),
+																$this->get_id_proyecto_actual(),
+																$this->consola );
 	}
 
 	/**
@@ -48,7 +45,7 @@ class comando_toba extends comando
 	*/
 	protected function get_instalacion()
 	{
-		return catalogo_modelo::get_instalacion( $this->consola );
+		return catalogo_modelo::instanciacion()->get_instalacion( $this->consola );
 	}
 
 	/**
@@ -56,7 +53,7 @@ class comando_toba extends comando
 	*/
 	protected function get_nucleo()
 	{
-		return catalogo_modelo::get_nucleo( $this->consola );
+		return catalogo_modelo::instanciacion()->get_nucleo( $this->consola );
 	}
 
 	/**
@@ -64,7 +61,7 @@ class comando_toba extends comando
 	*/
 	protected function get_conversor()
 	{
-		return catalogo_modelo::get_conversor( $this->get_id_instancia_actual(), $this->consola );
+		return catalogo_modelo::instanciacion()->get_conversor( $this->get_id_instancia_actual(), $this->consola );
 	}
 
 	//-----------------------------------------------------------

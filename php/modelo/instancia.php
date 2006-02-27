@@ -169,6 +169,10 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = consultar_fuente($sql, 'instancia' );
+			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
+				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+			}			
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
@@ -220,6 +224,10 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = consultar_fuente($sql, 'instancia' );
+			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
+				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+			}			
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}

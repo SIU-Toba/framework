@@ -20,8 +20,9 @@ class menu_toba extends menu
 						'proyecto',
 						'instalacion',
 						'conversion',
+						'dba',
 						'test'
-					);	
+		);	
 	}
 }
 ?>

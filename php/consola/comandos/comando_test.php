@@ -6,7 +6,7 @@ class comando_test extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Baterias de test';
+		return 'Ejecucion de baterias de test';
 	}
 
 	/**

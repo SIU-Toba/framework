@@ -69,5 +69,22 @@ class comando_proyecto extends comando_toba
 	{
 		$this->get_proyecto()->compilar();
 	}
+
+	/**
+	*	Crea un proyecto nuevo. Falta Terminar
+	*/
+	function opcion__crear()
+	{
+		$id_proyecto = $this->get_id_proyecto_actual();
+		$instancia = $this->get_instancia();
+		$id_instancia = $instancia->get_id();
+		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'" );
+		$instalacion = $this->get_instalacion();
+		$instalacion->crear_proyecto( $instancia, $id_proyecto );
+		return;
+		$proyecto = $this->get_proyecto();
+		$proyecto->exportar();
+		$proyecto->info();
+	}
 }
 ?>

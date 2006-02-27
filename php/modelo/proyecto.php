@@ -143,6 +143,10 @@ class proyecto extends elemento_modelo
 			$contenido = "";
 			$datos = consultar_fuente($sql, 'instancia' );
 			$regs = count( $datos );
+			if ( $regs > 1 ) {
+				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+			}
 			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
 			for ( $a = 0; $a < $regs ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );

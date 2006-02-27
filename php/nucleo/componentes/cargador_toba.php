@@ -23,6 +23,10 @@ class cargador_toba
 	// Servicios
 	//----------------------------------------------------------------
 
+	/**
+	*	Retorna los metadatos de un componente, tal cual existen en las tablas
+	*	del mismo. Este metodo es utilizado por el exportador de componentes
+	*/
 	function get_metadatos_simples( $componente, $tipo=null )
 	{
 		$metadatos = array();	
@@ -36,14 +40,20 @@ class cargador_toba
 			foreach ($estructura as $seccion) {
 				$tabla = $seccion['tabla'];
 				$id = $componente['componente'];
-				$metadatos[$tabla] = $this->cache_metadatos_simples->get_datos_tabla( $tabla , $id);
+				$datos = $this->cache_metadatos_simples->get_datos_tabla( $tabla , $id );
+				if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
+					$definicion = tablas_componente::$tabla();
+					$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+				}
+				$metadatos[$tabla] = $datos;
 			}
 		} else {													// Sin CACHE!
 			foreach ($estructura as $seccion) {
 				$tabla = $seccion['tabla'];
 				$id = $componente['componente'];
 				$proyecto = $componente['proyecto'];
-				$definicion = ddl_tablas::$tabla();
+				$definicion = tablas_componente::$tabla();
 				//Genero el SQL
 				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 						" FROM $tabla " .
@@ -56,6 +66,10 @@ class cargador_toba
 		return $metadatos;
 	}
 
+	/**
+	*	Retorna los metadatos extendidos de un componente
+	*	Este metodo es utilizado por el constructor de runtimes e infos
+	*/
 	function get_metadatos_extendidos( $componente, $tipo=null )
 	{
 		if ( !isset( $tipo ) ) {

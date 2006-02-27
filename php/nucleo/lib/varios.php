@@ -75,6 +75,19 @@
 		return $rs;
 	}
 	//-----------------------------------------------------------------		
+	function rs_ordenar_por_columnas( $rs, $columnas, $tipo = SORT_ASC )
+	{
+		$orden = array();
+		for ( $a=0; $a < count( $rs ) ; $a++ ) {
+			$orden[ $a ] = '';
+			foreach ( $columnas as $col ) {
+				$orden[$a] .= $rs[$a][$col];
+			}
+		}
+		array_multisort( $orden, $rs );
+		return $rs;
+	}
+	//-----------------------------------------------------------------		
 	function pasar_a_unica_linea($string)
 	{
 		return  preg_replace("/\r\n|\n/", "\\n", $string);

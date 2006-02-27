@@ -339,7 +339,7 @@ CREATE TABLE apex_elemento_formulario
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: multiproyecto
---: dump_order_by: padre, elemento_formulario
+--: dump_order_by: elemento_formulario
 --: zona: general
 --: desc: Elementos de formulario soportados
 --: version: 1.0

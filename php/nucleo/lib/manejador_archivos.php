@@ -88,6 +88,9 @@ class manejador_archivos
 		return str_replace( self::$caracteres_invalidos, self::$caracteres_reemplazo, $candidato );
 	}
 	
+	/**
+	*	Buscador de archivos
+	*/
 	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false )
 	{
 		$archivos_ok = array();
@@ -119,6 +122,9 @@ class manejador_archivos
 		return $archivos_ok;
 	}
 
+	/**
+	*	Busca en profundidad los archivos existentes dentro de un directorio
+	*/
 	function buscar_archivos_subdir( $directorio )
 	{
 		$archivos = array();
@@ -137,6 +143,9 @@ class manejador_archivos
 		return $archivos;
 	}
 	
+	/**
+	*	Devuelve la lista de subdirectorios de un directorio
+	*/
 	static function get_subdirectorios( $directorio )
 	{
 		$dirs = array();
@@ -157,6 +166,21 @@ class manejador_archivos
 		return $dirs;
 	}
 	
+	/**
+	*	Copia el contenido de un directorio a otro.
+	*	No copia las carpetas SVN
+	*/
+	static function copiar_directorio( $origen, $destino )
+	{
+		if( ! is_dir( $origen ) ) {
+			throw new excepcion_toba("EL directorio de origen '$origen' es INVALIDO");
+		} 
+		if( ! is_dir( $destino ) ) {
+			throw new excepcion_toba("EL directorio de destino '$destino' es INVALIDO");
+		} 
+		//Falta terminar
+	}
+
 	//---------------------------------------------------------------------------------
 	
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)

@@ -10,6 +10,7 @@ class instalacion extends elemento_modelo
 	const info_bases = 'info_bases';
 	const instancia_prefijo = 'i__';
 	const instancia_info = 'info_instancia';
+	const template_proyecto = '/php/modelo/template_proyecto';
 	
 	function dir_base()
 	{
@@ -200,6 +201,24 @@ class instalacion extends elemento_modelo
 		$clase->agregar_metodo_datos( 'get_base', $base );
 		$clase->agregar_metodo_datos( 'get_lista_proyectos', $lista_proyectos );
 		$clase->guardar( self::dir_instancia( $nombre ) . '/' . self::instancia_info . '.php');
+	}
+
+	//-------------------------------------------------------------
+	//-- Administracion de PROYECTOS
+	//-------------------------------------------------------------
+
+	function crear_proyecto( instancia $instancia, $nombre )
+	{
+		$dir_template = toba_dir() . self::template_proyecto;
+		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
+		if ( $nombre == 'toba' ) {
+			throw new excepcion_toba("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
+		}
+		if ( file_exists( $dir_proyecto ) ) {
+			//throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
+		}
+		mkdir( $dir_proyecto );
+		manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 	}
 }
 ?>

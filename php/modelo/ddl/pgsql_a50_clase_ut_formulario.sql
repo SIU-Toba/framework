@@ -115,7 +115,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 --: dump: componente
 --: dump_clave_proyecto: objeto_ei_formulario_proyecto
 --: dump_clave_componente: objeto_ei_formulario
---: dump_order_by: objeto_ei_formulario, identificador
+--: dump_order_by: objeto_ei_formulario, objeto_ei_formulario_fila
 --: dump_where: ( objeto_ei_formulario_proyecto = '%%' )
 --: zona: objeto
 --: desc:
