@@ -401,19 +401,56 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	Creacion de proyectos
+	//	Funcionalidad ESTATICA
 	//-----------------------------------------------------------
 	
+	/**
+	*	Devuelve la lista de proyectos existentes en el sistema de archivos
+	*/
+	static function get_lista()
+	{
+		$proyectos = array();
+		$directorio_proyectos = toba_dir() . '/proyectos';
+		if( is_dir( $directorio_proyectos ) ) {
+			if ($dir = opendir($directorio_proyectos)) {	
+			   while (false	!==	($archivo = readdir($dir)))	{ 
+					if( is_dir($directorio_proyectos . '/' . $archivo) 
+						&& ($archivo != '.' ) && ($archivo != '..' ) ){
+						$proyectos[] = $archivo;
+					}
+			   } 
+			   closedir($dir); 
+			}
+		}		
+		return $proyectos;
+	}
+	
+	/**
+	*	Indica si un proyecto existe en el sistema de archivos
+	*/
+	static function existe( $nombre )
+	{
+		$proyectos = self::get_lista();
+		if ( in_array( $nombre, $proyectos ) ) {
+			return true;	
+		} else {
+			return false;	
+		}
+	}
+	
+	/**
+	*	Crea un proyecto NUEVO
+	*/
 	static function crear( instancia $instancia, $nombre )
 	{
 		$dir_template = toba_dir() . self::template_proyecto;
-		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
 		if ( $nombre == 'toba' ) {
 			throw new excepcion_toba("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
 		}
-		if ( file_exists( $dir_proyecto ) ) {
+		if ( self::existe( $nombre ) ) {
 			throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
 		}
+		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
 		//- 1 - Creo la carpeta en base al template
 		manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 		//- 2 - Asocio el proyecto a la instancia
@@ -423,6 +460,9 @@ class proyecto extends elemento_modelo
 		$instancia->get_db()->ejecutar( $sql );
 	}
 	
+	/**
+	*	Sentencias de creacion de los metadatos BASICOS
+	*/
 	static function get_sql_metadatos_basicos( $id_proyecto )
 	{
 		// Creo el proyecto

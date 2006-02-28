@@ -37,6 +37,11 @@ class clase_datos
 	//	Manipulacion de la informacion de la clase
 	//-----------------------------------------------------------
 
+	function existe_metodo( $nombre )
+	{
+		return isset( $this->metodos[ $nombre ] );
+	}
+
 	function agregar_metodo_datos($nombre, $datos)
 	{
 		$this->metodos[ $nombre ] = $datos;
@@ -85,7 +90,7 @@ class clase_datos
 		file_put_contents($archivo, $this->generar_php() );
 	}
 
-	function generar_php()
+	private function generar_php()
 	{
 		$php = "<?\n\n";
 		$php .= "class $this->nombre\n{\n";

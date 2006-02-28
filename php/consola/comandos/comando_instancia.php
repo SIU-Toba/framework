@@ -31,13 +31,13 @@ class comando_instancia extends comando_toba
 		$param = $this->get_parametros();
 		if ( isset( $param['-u'] ) ) {
 			// Lista de USUARIOS
-			$this->consola->titulo( 'Lista de Usuarios - (INSTANCIA: ' . $i->get_id() .')' );
+			$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() . ' -- Lista de Usuarios');
 			$this->consola->tabla( $i->get_lista_usuarios(), array( 'Usuario', 'Nombre') );
 		} else {										
 			// Informacion BASICA
-			$this->consola->titulo( 'Informacion basica - (INSTANCIA: ' . $i->get_id() .')' );
-			$this->consola->lista_asociativa( $i->get_parametros_db() , array('Parametros BASE', 'Valores') );
-			$this->consola->lista( $i->get_lista_proyectos(), 'PROYECTOS' );
+			$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() .' -- Informacion basica' );
+			$this->consola->lista_asociativa( $i->get_parametros_db() , array('Parametros Conexion', 'Valores') );
+			$this->consola->lista( $i->get_lista_proyectos_vinculados(), 'Proyectos Vinculados' );
 		}
 	}
 	
@@ -103,7 +103,7 @@ class comando_instancia extends comando_toba
 	function opcion__crear()
 	{
 		$id_instancia = $this->get_id_instancia_actual();
-		$opciones_base = array_keys( instalacion::get_lista_bases() );
+		$opciones_base = array_keys( dba::get_lista_bases_archivo() );
 		$texto = 'Seleccione una BASE para la instancia';
 		$base = $this->consola->dialogo_lista_opciones( $opciones_base, $texto, false, array('ID','BASE') );
 		var_dump( $base );
@@ -113,6 +113,24 @@ class comando_instancia extends comando_toba
 		$instancia = $this->get_instancia();
 		$instancia->iniciar_instancia();
 		*/
+	}
+
+	/**
+	*	Vincula un proyecto con la instancia. [-p 'proyecto']
+	*/
+	function opcion__vincular_proyecto()
+	{
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_instancia()->vincular_proyecto( $proyecto );
+	}
+	
+	/**
+	*	Desvincula un proyecto con la instancia. [-p 'proyecto']
+	*/
+	function opcion__desvincular_proyecto()
+	{
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_instancia()->desvincular_proyecto( $proyecto );
 	}
 
 	/**

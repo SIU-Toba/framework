@@ -17,6 +17,7 @@ require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
 require_once("consola/lib/Table.php");
 require_once("consola/lib/Getopt.php");
+require_once("consola/lib/formulario_consola.php");
 
 class consola implements gui
 {
@@ -35,6 +36,11 @@ class consola implements gui
 		require_once( $this->ubicacion_comandos ."/$clase_menu.php");
 		$this->menu = new $clase_menu( $this );
 		cronometro::instancia()->marcar('Consola online');
+	}
+
+	function get_ubicacion_comandos()
+	{
+		return $this->ubicacion_comandos;	
 	}
 
 	function run( $argumentos )
@@ -83,14 +89,9 @@ class consola implements gui
 		exit(0); 
 	}
 */
-	function get_ubicacion_comandos()
-	{
-		return $this->ubicacion_comandos;	
-	}
-
-	//----------------------------------------------
+	//-------------------------------------------------------------------------
 	// Primitivas de display
-	//----------------------------------------------
+	//-------------------------------------------------------------------------
 
 	function separador( $texto='', $caracter='-' )
 	{
@@ -211,11 +212,11 @@ class consola implements gui
 		echo Console_Table::fromArray( $titulos, $tabla );
 	}
 	
-	//----------------------------------------------
+	//------------------------------------------------------------------------
 	// Interaccion con el usuario
-	//----------------------------------------------
+	//------------------------------------------------------------------------
 
-	function dialogo_simple($texto)
+	function dialogo_simple( $texto )
 	{
 		echo "$texto (Si o No)\n";
 		do {
@@ -226,6 +227,16 @@ class consola implements gui
 		if( $respuesta == 's') return true;
 		return false;
 	}	
+
+	function dialogo_ingresar_texto( $categoria )
+	{
+		do {
+			echo "$categoria: ";
+			$respuesta = trim( fgets( STDIN ) );
+			$ok = ( trim($respuesta != '') );
+		} while ( ! $ok );
+		return $respuesta;
+	}
 
 	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, $titulo = null )
 	{
@@ -255,6 +266,11 @@ class consola implements gui
 				}
 			}
 		} while ( true );
+	}
+	
+	function get_formulario( $titulo )
+	{
+		return new formulario_consola( $this, $titulo );
 	}
 }
 ?>

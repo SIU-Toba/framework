@@ -52,20 +52,28 @@ class instancia extends elemento_modelo
 
 	function vincular_proyecto( $proyecto )
 	{
-		$clase = $this->get_clase_datos();
-		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
-		$datos[] = $proyecto;
-		$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-		$clase->guardar();
+		if ( proyecto::existe( $proyecto ) ) {
+			$clase = $this->get_clase_datos();
+			$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+			$datos[] = $proyecto;
+			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+			$clase->guardar();
+		} else {
+			throw new excepcion_toba("El proyecto '$proyecto' no existe.");
+		}
 	}
 	
 	function desvincular_proyecto( $proyecto )
 	{
 		$clase = $this->get_clase_datos();
 		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
-		$datos = array_diff( $datos, array( $proyecto ) );
-		$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-		$clase->guardar();
+		if ( in_array( $proyecto, $datos ) ) {
+			$datos = array_diff( $datos, array( $proyecto ) );
+			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+			$clase->guardar();
+		} else {
+			throw new excepcion_toba("El proyecto '$proyecto' no estaba vinculado a la instancia.");
+		}
 	}
 	
 	function get_clase_datos()
@@ -94,7 +102,7 @@ class instancia extends elemento_modelo
 		return dba::get_info_db_instancia();
 	}
 		
-	function get_lista_proyectos()
+	function get_lista_proyectos_vinculados()
 	{
 		$lista_proyectos = info_instancia::get_lista_proyectos();
 		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
@@ -106,7 +114,7 @@ class instancia extends elemento_modelo
 	
 	function existe_proyecto_vinculado( $proyecto )
 	{
-		$proyectos = $this->get_lista_proyectos();
+		$proyectos = $this->get_lista_proyectos_vinculados();
 		if ( in_array( $proyecto, $proyectos ) ) {
 			return true;	
 		}
@@ -156,7 +164,7 @@ class instancia extends elemento_modelo
 	*/
 	function exportar()
 	{
-		foreach( $this->get_lista_proyectos() as $proyecto ) {
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			
 			$proyecto->exportar();
@@ -228,7 +236,7 @@ class instancia extends elemento_modelo
 	*/
 	private function exportar_proyectos()
 	{
-		foreach( $this->get_lista_proyectos() as $proyecto ) {
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			$this->manejador_interface->titulo( "PROYECTO $proyecto" );
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
@@ -361,7 +369,7 @@ class instancia extends elemento_modelo
 	*/
 	private function cargar_proyectos()
 	{
-		foreach( $this->get_lista_proyectos() as $proyecto ) {
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			$this->manejador_interface->titulo( "PROYECTO: $proyecto" );
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			

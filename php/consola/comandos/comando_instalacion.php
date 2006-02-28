@@ -25,18 +25,9 @@ class comando_instalacion extends comando_toba
 	{
 		$i = $this->get_instalacion();
 		$this->consola->dump_arbol( $i->get_lista_instancias(), 'INSTANCIAS' );
-		$this->consola->dump_arbol( $i->get_lista_proyectos(), 'PROYECTOS' );
+		$this->consola->dump_arbol( proyecto::get_lista(), 'PROYECTOS' );
 	}
 	
-	/**
-	*	Muestra informacion de la instalacion
-	*/
-	function opcion__info_bases()
-	{
-		$i = $this->get_instalacion();
-		$this->consola->dump_arbol( $i->get_lista_bases(), 'BASE' );
-	}
-
 	/**
 	*	Migracion de definicion de instancias entre las versiones 0.8.3.3 y 0.8.4.
 	*	Esto no esta en el comando conversion porque es pre-conexion.
@@ -87,7 +78,7 @@ class comando_instalacion extends comando_toba
 		$this->consola->mensaje( "Indique que BASES son INSTANCIAS toba"); 
 		//Busco la lista de proyectos de la instalacion
 	
-		$proyectos = instalacion::get_lista_proyectos();
+		$proyectos = proyecto::get_lista();
 	
 		//Creo las instancias, preguntando en cada caso
 		//Existe la opcion de conectarse a la base y preguntar si existe la tabla 'apex_objeto',

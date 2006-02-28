@@ -69,39 +69,6 @@ class instalacion extends elemento_modelo
 		return $dirs;
 	}
 
-	/**
-	* Devuelve la lista de las BASES
-	*/
-	function get_lista_bases()
-	{
-		$datos = array();
-		foreach( dba::get_lista_bases_archivo() as $base ) {
-			$datos[ $base ] = dba::get_parametros_base( $base );
-		}
-		return $datos;
-	}
-
-	/**
-	* Devuelve la lista de los proyectos que estan en la carpeta 'proyectos'
-	*/
-	function get_lista_proyectos()
-	{
-		$proyectos = array();
-		$directorio_proyectos = toba_dir() . '/proyectos';
-		if( is_dir( $directorio_proyectos ) ) {
-			if ($dir = opendir($directorio_proyectos)) {	
-			   while (false	!==	($archivo = readdir($dir)))	{ 
-					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) ){
-						$proyectos[] = $archivo;
-					}
-			   } 
-			   closedir($dir); 
-			}
-		}		
-		return $proyectos;
-	}
-
 	//-------------------------------------------------------------
 	//-- Archivo de Informacion basica
 	//-------------------------------------------------------------
