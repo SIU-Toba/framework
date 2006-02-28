@@ -37,7 +37,7 @@ define("apex_pa_encriptar_qs",0);
 #(Una misma sesion no deberia manejarse desde dos puntos de acceso)
 define("apex_pa_ID",$_SERVER["SCRIPT_FILENAME"]);
 # apex_pa_instancia: Parametro por defecto de creacion de la instancia
-define("apex_pa_instancia","%instancia%");
+define("apex_pa_instancia","__instancia__");
 # apex_pa_instancia_ : Instancia del 
 #define("apex_pa_instancia_metadatos","");
 #define("apex_pa_instancia_usuarios",""); 
@@ -48,7 +48,7 @@ define("apex_pa_instancia","%instancia%");
 #define("apex_pa_instancia_negocio_4","");
 #define("apex_pa_instancia_negocio_5","");
 # apex_proyecto: Proyecto PRIMARIO
-define("apex_pa_proyecto","%proyecto%");
+define("apex_pa_proyecto","__proyecto__");
 # apex_nombre: Nombre del sistema
 define("apex_pa_registrar_solicitud","db");// VALORES POSIBLES: nunca, siempre, db
 #---- Guarda la cronometracion de la generacion del item

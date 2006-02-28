@@ -81,7 +81,7 @@ class comando_proyecto extends comando_toba
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'" );
 		proyecto::crear( $instancia, $id_proyecto );
 		$proyecto = $this->get_proyecto();
-
+		// Vinculo USUARIOS
 		/*
 		$this->consola->subtitulo( "Asociar USUARIOS" );
 		$opcion[0] = "Asociar el usuario 'toba'";
@@ -100,10 +100,15 @@ class comando_proyecto extends comando_toba
 				break;	
 		}
 		*/		
-
+		$proyecto->vincular_usuario( 'toba' );
 		$this->consola->mensaje( "Exportando metadatos iniciales" );
 		$proyecto->exportar( false );
-		$instancia->exportar_local();
+		// Exporto metadatos de la INSTANCIA. Como el archivo de PROYECTOS asociados ya se cargo,
+		//	tengo que ejecutar la exportacion por fuera de este contexto de ejecucion
+		//system("toba instancia ");
+		$this->consola->mensaje( "El proyecto ha sido creado. Si se desea publicar el proyecto en el apache" .
+									" para accederlo por http, agrege al 'httpd.conf' las directivas" .
+									" explicitadas en el archiivo 'toba.conf' en el directorio raiz del proyecto." );
 	}
 }
 ?>

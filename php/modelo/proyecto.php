@@ -5,6 +5,7 @@ require_once('nucleo/componentes/catalogo_toba.php');
 require_once('nucleo/componentes/cargador_toba.php');
 require_once('nucleo/lib/manejador_archivos.php');
 require_once('nucleo/lib/sincronizador_archivos.php');
+require_once('nucleo/lib/editor_archivos.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
@@ -391,6 +392,25 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
+	//	Manejo de USUARIOS
+	//-----------------------------------------------------------
+
+	function vincular_usuario( $usuario, $perfil_acceso='admin', $perfil_datos='no' )
+	{
+		$sql = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+				VALUES ('". $this->get_id()."','$usuario','$perfil_acceso','$perfil_datos');";
+		$this->instancia->get_db()->ejecutar( $sql );
+	}
+
+	function desvincular_usuario( $usuario )
+	{
+		$sql = "DELETE FROM apex_usuario_proyecto 
+				WHERE usuario = '$usuario'
+				AND proyecto = '".$this->get_id()."'";
+		$this->instancia->get_db()->ejecutar( $sql );
+	}
+
+	//-----------------------------------------------------------
 	//	Primitivas basicas
 	//-----------------------------------------------------------
 
@@ -451,8 +471,16 @@ class proyecto extends elemento_modelo
 			throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
 		}
 		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
-		//- 1 - Creo la carpeta en base al template
+		//- 1 - Creo la CARPETA del PROYECTO
 		manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
+		// Modifico los archivos
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
+		$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
+		$editor->agregar_sustitucion( '|__toba_dir__|', toba_dir() );
+		$editor->procesar_archivo( $dir_proyecto . '/www/admin.php' );
+		$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
+		$editor->procesar_archivo( $dir_proyecto . '/toba.conf' );
 		//- 2 - Asocio el proyecto a la instancia
 		$instancia->vincular_proyecto( $nombre );
 		//- 3 - Creo los metadatos basicos del proyecto
@@ -475,8 +503,6 @@ class proyecto extends elemento_modelo
 		$sql[] = "INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion) VALUES ('$id_proyecto','admin','Administrador','0','Accede a toda la funcionalidad');";
 		// Creo un perfil de datos
 		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
-		// Asocio el usuario toba
-		//$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos) VALUES ('$id_proyecto','toba','admin','no');";
 		return $sql;		
 	}
 }
