@@ -188,7 +188,7 @@ class consola implements gui
 		}
 	}
 	
-	function lista_asociativa( $lista, $titulo )
+	function lista_asociativa( $lista, $titulo = null )
 	{
 		if( count( $lista ) > 0 ) {
 			$i=0;
@@ -196,6 +196,11 @@ class consola implements gui
 				$datos[$i]['id'] = $id;
 				$datos[$i]['valor'] = $l;
 				$i++;
+			}
+			if ( ! isset( $titulo ) ) {
+				$titulo = array( 'ID', 'Valor' );	
+			} else {
+				if ( ! is_array( $titulo ) ) $titulo = array( $titulo );
 			}
 			echo Console_Table::fromArray( $titulo, $datos );	
 		}

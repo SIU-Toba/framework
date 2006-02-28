@@ -1,53 +1,102 @@
 <?
 /*
-	Hay que mezclar esto con la clase previa
-	 (Esta es la interface consumida por los procesos generadores de datos en formato PHP)
-
-	Importante!!	 
-	¿Cual es la sintaxis adecuada para que las definiciones estaticas no se reasignen?
+	Esta clase representa a una clase estatica cuyos
+	metodos proveen informacion fija.
 */
 
 class clase_datos
 {
 	private $nombre;
-	private $generador;
+	private $path = null;
 	private $metodos=array();
 	
-	function __construct($nombre, $generador=null)
+	function __construct( $nombre, $path = null )
 	{
 		$this->nombre = $nombre;
-		$this->generador = $generador;
+		if ( isset( $path ) ) {
+			$this->path = $path;
+			if ( file_exists( $this->path ) ) {
+				$this->cargar_clase();
+			}
+		}
 	}
-	
+
+	function cargar_clase()
+	{
+		require_once( $this->path );
+		$metodos = array();
+		$clase = new ReflectionClass( $this->nombre );
+		foreach ( $clase->getMethods() as $metodo ){
+			$nombre = $metodo->getName();
+			$datos = $metodo->invoke( null );
+			$this->metodos[ $nombre ] = $datos;
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	Manipulacion de la informacion de la clase
+	//-----------------------------------------------------------
+
 	function agregar_metodo_datos($nombre, $datos)
 	{
-		$php = "\tstatic function $nombre()\n\t{\n";
-		//$php .= dump_array_php($datos, "\t\t\$datos");
-		//$php .= "\t\treturn \$datos;\n";
-		$php .= "\t\treturn " . var_export( $datos, true) . ";\n";
-		$php .= "\t}\n";
-		$this->metodos[] = $php;
+		$this->metodos[ $nombre ] = $datos;
+	}
+
+	function eliminar_metodo_datos( $nombre )
+	{
+		if ( isset( $this->metodos[ $nombre ] ) ) {
+			unset( $this->metodos[ $nombre ] );
+		} else {
+			throw new excepcion_toba("El metodo '$nombre' no existe");
+		}
+	}
+
+	function get_datos_metodo( $nombre ) 
+	{
+		if ( isset( $this->metodos[ $nombre ] ) ) {
+			return $this->metodos[ $nombre ];
+		} else {
+			throw new excepcion_toba("El metodo '$nombre' no existe");
+		}
 	}
 	
+	function set_datos_metodo( $nombre, $datos ) 
+	{
+		if ( isset( $this->metodos[ $nombre ] ) ) {
+			$this->metodos[ $nombre ] = $datos;
+		} else {
+			throw new excepcion_toba("El metodo '$nombre' no existe");
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	Generacion
+	//-----------------------------------------------------------
+
+	function guardar( $archivo = null )
+	{
+		if ( ! isset( $archivo ) ) {
+			if ( ! isset( $this->path ) )  {
+				throw new excepcion_toba('Es necesario especificar el PATH de la clase que se desea generar');	
+			} else {
+				$archivo = $this->path;	
+			}
+		}
+		file_put_contents($archivo, $this->generar_php() );
+	}
+
 	function generar_php()
 	{
-		$php = "<?\n";
-		//$php .= "//Generacion automatica: ".date("Y/m/d H:i:s")."\n";
-		if (isset($this->generador)) {
-			$php .= "//Generador: $this->generador\n\n";
-		}
+		$php = "<?\n\n";
 		$php .= "class $this->nombre\n{\n";
-		foreach ( $this->metodos as $metodo) {
-			$php .= $metodo;
+		foreach ( $this->metodos as $metodo => $datos ) {
+			$php .= "\tstatic function $metodo()\n\t{\n";
+			$php .= "\t\treturn " . var_export( $datos, true) . ";\n";
+			$php .= "\t}\n";
 			$php .= "\n";
 		}
 		$php .= "}\n?>";
 		return $php;	
-	}
-
-	function guardar($archivo)
-	{
-		file_put_contents($archivo, $this->generar_php() );
 	}
 }
 ?>

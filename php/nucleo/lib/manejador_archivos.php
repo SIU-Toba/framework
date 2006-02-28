@@ -176,13 +176,31 @@ class manejador_archivos
 			throw new excepcion_toba("EL directorio de origen '$origen' es INVALIDO");
 		} 
 		if( ! is_dir( $destino ) ) {
-			throw new excepcion_toba("EL directorio de destino '$destino' es INVALIDO");
+			mkdir( $destino );
 		} 
-		//Falta terminar
+		//Busco los archivos del directorio
+		$lista_archivos = array();
+		if ( $dir = opendir( $origen ) ) {
+			while (false !== ($a = readdir($dir))) {
+				if ( $a != '.' && $a != '..' && $a != '.svn' ) {
+					$lista_archivos[] = $a;
+				}
+			}
+			closedir( $dir );
+		}
+		//Copio los archivos
+		foreach ( $lista_archivos as $archivo ) {
+			$x_origen = $origen . '/' . $archivo;
+			$x_destino = $destino . '/' . $archivo;
+			if ( is_dir( $x_origen ) ) {
+				self::copiar_directorio( $x_origen, $x_destino );
+			} else {
+				copy( $x_origen, $x_destino );	
+			}
+		}
 	}
-
 	//---------------------------------------------------------------------------------
-	
+
 	function manejador_archivos($input="archivo",$temp_sesion=true,$limite=3000)
 	{
 		$this->limite_bytes_cliente = $limite * 1024;

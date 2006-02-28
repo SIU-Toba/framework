@@ -82,9 +82,9 @@ class comando
 	           }elseif ( strlen($this->argumentos[$i]) == 2){
 	               $paramName = $this->argumentos[$i];
 	               if( isset($this->argumentos[ $i + 1 ]) ) {
-		               $paramVal = ( !$this->es_parametro( $this->argumentos[ $i + 1 ] ) ) ? $this->argumentos[$i + 1] : null;
+		               $paramVal = ( !$this->es_parametro( $this->argumentos[ $i + 1 ] ) ) ? $this->argumentos[$i + 1] : '';
 	            	} else {
-	            		$paramVal = null;
+	            		$paramVal = '';
 	            	}
 	           }elseif ( strlen($this->argumentos[$i]) > 2){
 	               $paramName = substr($this->argumentos[$i],0,2);

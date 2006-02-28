@@ -28,10 +28,17 @@ class comando_instancia extends comando_toba
 	function opcion__info()
 	{
 		$i = $this->get_instancia();
-		$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() );
-		$this->consola->dump_arbol( $i->get_lista_proyectos(), 'PROYECTOS' );
-		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
-		//$this->consola->dump_arbol( $i->get_registros_tabla(), 'BASE' );
+		$param = $this->get_parametros();
+		if ( isset( $param['-u'] ) ) {
+			// Lista de USUARIOS
+			$this->consola->titulo( 'Lista de Usuarios - (INSTANCIA: ' . $i->get_id() .')' );
+			$this->consola->tabla( $i->get_lista_usuarios(), array( 'Usuario', 'Nombre') );
+		} else {										
+			// Informacion BASICA
+			$this->consola->titulo( 'Informacion basica - (INSTANCIA: ' . $i->get_id() .')' );
+			$this->consola->lista_asociativa( $i->get_parametros_db() , array('Parametros BASE', 'Valores') );
+			$this->consola->lista( $i->get_lista_proyectos(), 'PROYECTOS' );
+		}
 	}
 	
 	/**
@@ -40,12 +47,12 @@ class comando_instancia extends comando_toba
 	function opcion__cargar()
 	{
 		try {
-			$this->get_instancia()->importar();
+			$this->get_instancia()->cargar();
 		} catch ( excepcion_toba_modelo_preexiste $e ) {
 			$this->consola->error( 'Ya existe una instancia en la base de datos' );
 			$this->consola->dump_arbol( $this->get_instancia()->get_parametros_db(), 'BASE' );
-			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego IMPORTARLA?') ) {
-				$this->get_instancia()->importar( true );
+			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA?') ) {
+				$this->get_instancia()->cargar( true );
 			}
 		} catch ( excepcion_toba $e ) {
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
@@ -59,7 +66,7 @@ class comando_instancia extends comando_toba
 	function opcion__regenerar()
 	{
 		$this->opcion__eliminar();
-		$this->get_instancia()->importar();
+		$this->get_instancia()->cargar();
 	}
 
 	/**

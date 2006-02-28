@@ -6,6 +6,7 @@ require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
 require_once('nucleo/lib/manejador_archivos.php');
 require_once('nucleo/lib/sincronizador_archivos.php');
+require_once('nucleo/lib/reflexion/clase_datos.php');
 /**
 	FALTA:
 		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
@@ -46,7 +47,36 @@ class instancia extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	Informacion
+	//	Administracion de la DEFINICION de la instancia
+	//-----------------------------------------------------------
+
+	function vincular_proyecto( $proyecto )
+	{
+		$clase = $this->get_clase_datos();
+		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+		$datos[] = $proyecto;
+		$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+		$clase->guardar();
+	}
+	
+	function desvincular_proyecto( $proyecto )
+	{
+		$clase = $this->get_clase_datos();
+		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+		$datos = array_diff( $datos, array( $proyecto ) );
+		$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+		$clase->guardar();
+	}
+	
+	function get_clase_datos()
+	{
+		$clase = instalacion::instancia_info;
+		$path = $this->dir . '/' . instalacion::instancia_info . '.php';
+		return new clase_datos( $clase, $path );
+	}
+	
+	//-----------------------------------------------------------
+	//	Informacion BASICA
 	//-----------------------------------------------------------
 
 	function get_id()
@@ -74,7 +104,7 @@ class instancia extends elemento_modelo
 		return $lista_proyectos;
 	}
 	
-	function existe_proyecto( $proyecto )
+	function existe_proyecto_vinculado( $proyecto )
 	{
 		$proyectos = $this->get_lista_proyectos();
 		if ( in_array( $proyecto, $proyectos ) ) {
@@ -83,6 +113,17 @@ class instancia extends elemento_modelo
 		return false;
 	}
 	
+	function existen_metadatos_proyecto( $proyecto )
+	{
+		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = '$proyecto';";
+		$datos = $this->get_db()->consultar( $sql );
+		if ( count( $datos ) > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	function existe_modelo()
 	{
 		try {
@@ -94,7 +135,7 @@ class instancia extends elemento_modelo
 		}
 	}
 	
-	function get_registros_tabla()
+	function get_registros_tablas()
 	{
 		$registros = array();
 		$tablas = catalogo_general::get_tablas();
@@ -107,7 +148,7 @@ class instancia extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	EXPORTAR
+	//	EXPORTAR datos de la DB
 	//-----------------------------------------------------------
 
 	/**
@@ -244,13 +285,13 @@ class instancia extends elemento_modelo
 	}
 	
 	//-----------------------------------------------------------
-	//	IMPORTAR
+	//	CARGAR modelo en la DB
 	//-----------------------------------------------------------
 
 	/**
 	* Importacion completa de una instancia
 	*/
-	function importar( $forzar_carga = false )
+	function cargar( $forzar_carga = false )
 	{
 		// Existe la base?
 		$base = info_instancia::get_base();
@@ -271,8 +312,8 @@ class instancia extends elemento_modelo
 			$this->get_db()->abrir_transaccion();
 			$this->get_db()->retrazar_constraints();
 			$this->crear_modelo_datos_toba();
-			$this->importar_proyectos();
-			$this->importar_informacion_instancia();
+			$this->cargar_proyectos();
+			$this->cargar_informacion_instancia();
 			$this->generar_info_importacion();
 			$this->actualizar_secuencias();
 			$this->get_db()->cerrar_transaccion();
@@ -318,20 +359,20 @@ class instancia extends elemento_modelo
 	/*
 	*	Importa los proyectos asociados
 	*/
-	private function importar_proyectos()
+	private function cargar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos() as $proyecto ) {
 			$this->manejador_interface->titulo( "PROYECTO: $proyecto" );
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			
-			$proyecto->importar();
+			$proyecto->cargar();
 		}	
 	}
 	
 	/*
 	* 	Importa la informacion perteneciente a la instancia
 	*/
-	private function importar_informacion_instancia()
+	private function cargar_informacion_instancia()
 	{
 		$this->manejador_interface->titulo('Cargando datos de la instancia');
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir() );
@@ -390,7 +431,7 @@ class instancia extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	ELIMINAR
+	//	ELIMINAR una DB
 	//-----------------------------------------------------------
 
 	/*
@@ -442,6 +483,16 @@ class instancia extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
+	//	Informacion sobre METADATOS
+	//-----------------------------------------------------------
+
+	function get_lista_usuarios()
+	{
+		$sql = "SELECT usuario, nombre FROM apex_usuario";	
+		return $this->get_db()->consultar( $sql );
+	}
+
+	//-----------------------------------------------------------
 	//	Control de INSTANCIAS
 	//-----------------------------------------------------------
 
@@ -453,7 +504,7 @@ class instancia extends elemento_modelo
 		}
 		$archivo = 'registros_' . $this->identificador;
 		$clase = new clase_datos( $archivo );		
-		$clase->agregar_metodo_datos('get_datos',$this->get_registros_tabla() );
+		$clase->agregar_metodo_datos('get_datos',$this->get_registros_tablas() );
 		$path = toba_dir() .'/temp/'. $archivo . '.php';
 		$clase->guardar( $path );
 		//$this->manejador_interface->mensaje("Se creo el archivo '$path'");

@@ -45,9 +45,9 @@ class comando_proyecto extends comando_toba
 	/**
 	*	Importa los metadatos.
 	*/
-	function opcion__importar()
+	function opcion__cargar()
 	{
-		$this->get_proyecto()->importar_autonomo();
+		$this->get_proyecto()->cargar_autonomo();
 	}
 
 	/**
@@ -79,12 +79,31 @@ class comando_proyecto extends comando_toba
 		$instancia = $this->get_instancia();
 		$id_instancia = $instancia->get_id();
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'" );
-		$instalacion = $this->get_instalacion();
-		$instalacion->crear_proyecto( $instancia, $id_proyecto );
-		return;
+		proyecto::crear( $instancia, $id_proyecto );
 		$proyecto = $this->get_proyecto();
-		$proyecto->exportar();
-		$proyecto->info();
+
+		/*
+		$this->consola->subtitulo( "Asociar USUARIOS" );
+		$opcion[0] = "Asociar el usuario 'toba'";
+		$opcion[1] = "Asociar TODOS los usuarios de la instancia";
+		$opcion[2] = "Mostrar una lista de usuario y SELECCIONAR";
+		$ok = $this->consola->dialogo_lista_opciones( $opcion, 'Asociar USUARIOS al proyecto. Seleccione una FORMA de CARGA', false );
+		switch ( $ok ) {
+			case 0:
+				echo "TOBA";
+				break;	
+			case 1:
+				echo "TODOS";
+				break;	
+			case 2:
+				echo "ELEGIR";
+				break;	
+		}
+		*/		
+
+		$this->consola->mensaje( "Exportando metadatos iniciales" );
+		$proyecto->exportar( false );
+		$instancia->exportar_local();
 	}
 }
 ?>

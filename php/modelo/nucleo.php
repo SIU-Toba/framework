@@ -225,7 +225,7 @@ class nucleo extends elemento_modelo
 	{
 		foreach(array_keys($this->plan) as $nombre ) {
 			$this->manejador_interface->titulo( $nombre );
-			$clase = new clase_datos( $nombre, basename(__FILE__));
+			$clase = new clase_datos( $nombre );
 			//Creo los indices
 			foreach ( $this->plan[$nombre]['indices'] as $id => $indice) {
 				$clase->agregar_metodo_datos( $id, $indice );
@@ -244,7 +244,7 @@ class nucleo extends elemento_modelo
 		$this->manejador_interface->titulo("Creacion de catalogos");
 		foreach( array_keys( $this->catalogo ) as $nombre ) {
 			$this->manejador_interface->mensaje( "Catalogo: $nombre" );
-			$clase = new clase_datos( $nombre, basename(__FILE__) );
+			$clase = new clase_datos( $nombre );
 			//Informacion de cada tabla
 			$clase->agregar_metodo_datos( 'get_tablas' , $this->catalogo[ $nombre ] );
 			$clase->guardar( $this->get_dir_estructura_db() .'/'.$nombre.'.php' );

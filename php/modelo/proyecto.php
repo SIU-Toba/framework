@@ -26,6 +26,7 @@ class proyecto extends elemento_modelo
 	const dump_prefijo_componentes = 'dump_';
 	const compilar_archivo_referencia = 'tabla_tipos';
 	const compilar_prefijo_componentes = 'php_';	
+	const template_proyecto = '/php/modelo/template_proyecto';
 	private $compilacion_tabla_tipos;
 
 	public function __construct( instancia $instancia, $identificador )
@@ -99,9 +100,14 @@ class proyecto extends elemento_modelo
 	//	EXPORTAR
 	//-----------------------------------------------------------
 
-	function exportar()
+	function exportar( $control_vinculo = true )
 	{
-		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
+		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
+		// El el caso de la creacion de un proyecto, el vinculo a las intancia no puede reconocerse
+		// porque la clase informativa se incluyo antes de la creacion del vinculo. Esto hace que sea
+		// necesario desactivar el control.
+		$existe_vinculo = $control_vinculo && $this->instancia->existe_proyecto_vinculado( $this->identificador );
+		if( !( $existen_metadatos || $existe_vinculo ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
 		try {
@@ -211,33 +217,33 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	IMPORTAR
+	//	CARGAR
 	//-----------------------------------------------------------
 	
 	/*
 	*	Importacion de un PROYECTO dentro del proceso de CARGA de una INSTANCIA
 	*/
-	function importar()
+	function cargar()
 	{
-		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
+		if( ! $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta vinculado a la instancia actual.");
 		}
-		$this->importar_tablas();
-		$this->importar_componentes();
+		$this->cargar_tablas();
+		$this->cargar_componentes();
 	}
 
 	/*
-	*	Importar un PROYECTO en una instancia ya creada
+	*	cargar un PROYECTO en una instancia ya creada
 	*/
-	function importar_autonomo()
+	function cargar_autonomo()
 	{
-		if( ! $this->instancia->existe_proyecto( $this->identificador ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual.");
+		if( ! $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta vinculado a la instancia actual.");
 		}
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
-			$this->importar();
+			$this->cargar();
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
@@ -246,7 +252,7 @@ class proyecto extends elemento_modelo
 		}
 	}
 	
-	private function importar_tablas()
+	private function cargar_tablas()
 	{
 		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
@@ -255,7 +261,7 @@ class proyecto extends elemento_modelo
 		}
 	}
 	
-	private function importar_componentes()
+	private function cargar_componentes()
 	{
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
 		foreach ( $subdirs as $dir ) {
@@ -355,7 +361,7 @@ class proyecto extends elemento_modelo
 		//Armo la clase compilada
 		$nombre = manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
 		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
-		$clase = new clase_datos( $nombre, basename(__FILE__) );		
+		$clase = new clase_datos( $nombre );		
 		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
@@ -376,7 +382,7 @@ class proyecto extends elemento_modelo
 	{
 		//Armo la clase compilada
 		$this->manejador_interface->mensaje("Creando tabla de tipos.");
-		$clase = new clase_datos( self::compilar_archivo_referencia, basename(__FILE__) );		
+		$clase = new clase_datos( self::compilar_archivo_referencia );		
 		$clase->agregar_metodo_datos('get_datos',$this->compilacion_tabla_tipos);
 		//Creo el archivo
 		$archivo = manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
@@ -392,6 +398,46 @@ class proyecto extends elemento_modelo
 	{
 		file_put_contents( $archivo, $contenido );
 		$this->sincro_archivos->agregar_archivo( $archivo );
+	}
+
+	//-----------------------------------------------------------
+	//	Creacion de proyectos
+	//-----------------------------------------------------------
+	
+	static function crear( instancia $instancia, $nombre )
+	{
+		$dir_template = toba_dir() . self::template_proyecto;
+		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
+		if ( $nombre == 'toba' ) {
+			throw new excepcion_toba("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
+		}
+		if ( file_exists( $dir_proyecto ) ) {
+			throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
+		}
+		//- 1 - Creo la carpeta en base al template
+		manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
+		//- 2 - Asocio el proyecto a la instancia
+		$instancia->vincular_proyecto( $nombre );
+		//- 3 - Creo los metadatos basicos del proyecto
+		$sql = self::get_sql_metadatos_basicos( $nombre );
+		$instancia->get_db()->ejecutar( $sql );
+	}
+	
+	static function get_sql_metadatos_basicos( $id_proyecto )
+	{
+		// Creo el proyecto
+		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto) VALUES ('$id_proyecto','toba','$id_proyecto','$id_proyecto',1);";
+		//Le agrego los items basicos
+		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','','$id_proyecto','','1','0','browser','toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');";
+		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','/autovinculo','$id_proyecto','','0','0','fantasma','toba','NO','Autovinculo','','toba','0','toba','especifico');";
+		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','/vinculos','$id_proyecto','','0','0','fantasma','toba','NO','Vinculador','','toba','0','toba','especifico');";
+		// Creo un grupo de acceso
+		$sql[] = "INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion) VALUES ('$id_proyecto','admin','Administrador','0','Accede a toda la funcionalidad');";
+		// Creo un perfil de datos
+		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
+		// Asocio el usuario toba
+		//$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos) VALUES ('$id_proyecto','toba','admin','no');";
+		return $sql;		
 	}
 }
 ?>
