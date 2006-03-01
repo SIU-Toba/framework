@@ -103,11 +103,11 @@ class proyecto extends elemento_modelo
 
 	function exportar( $control_vinculo = true )
 	{
-		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		// El el caso de la creacion de un proyecto, el vinculo a las intancia no puede reconocerse
 		// porque la clase informativa se incluyo antes de la creacion del vinculo. Esto hace que sea
 		// necesario desactivar el control.
 		$existe_vinculo = $control_vinculo && $this->instancia->existe_proyecto_vinculado( $this->identificador );
+		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
@@ -224,10 +224,13 @@ class proyecto extends elemento_modelo
 	/*
 	*	Importacion de un PROYECTO dentro del proceso de CARGA de una INSTANCIA
 	*/
-	function cargar()
+	function cargar( $control_vinculo = true )
 	{
-		if( ! $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta vinculado a la instancia actual.");
+		// El el caso de la creacion de un proyecto, el vinculo a las intancia no puede reconocerse
+		// porque la clase informativa se incluyo antes de la creacion del vinculo. Esto hace que sea
+		// necesario desactivar el control.
+		if( $control_vinculo && ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
+			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
@@ -236,15 +239,12 @@ class proyecto extends elemento_modelo
 	/*
 	*	cargar un PROYECTO en una instancia ya creada
 	*/
-	function cargar_autonomo()
+	function cargar_autonomo( $control_vinculo = true )
 	{
-		if( ! $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta vinculado a la instancia actual.");
-		}
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
-			$this->cargar();
+			$this->cargar( $control_vinculo );
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
@@ -392,13 +392,34 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
+	//	Primitivas basicas
+	//-----------------------------------------------------------
+
+	private function guardar_archivo( $archivo, $contenido )
+	{
+		file_put_contents( $archivo, $contenido );
+		$this->sincro_archivos->agregar_archivo( $archivo );
+	}
+	
+	//-----------------------------------------------------------
+	//	Informacion sobre METADATOS
+	//-----------------------------------------------------------
+	
+	function get_lista_grupos_acceso()
+	{
+		$sql = "SELECT usuario_grupo_acc as id, nombre
+				FROM apex_usuario_grupo_acc
+				WHERE proyecto = '".$this->get_id()."';";
+		return $this->instancia->get_db()->consultar( $sql );
+	}
+		
+	//-----------------------------------------------------------
 	//	Manejo de USUARIOS
 	//-----------------------------------------------------------
 
-	function vincular_usuario( $usuario, $perfil_acceso='admin', $perfil_datos='no' )
+	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no' )
 	{
-		$sql = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-				VALUES ('". $this->get_id()."','$usuario','$perfil_acceso','$perfil_datos');";
+		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos );
 		$this->instancia->get_db()->ejecutar( $sql );
 	}
 
@@ -408,16 +429,6 @@ class proyecto extends elemento_modelo
 				WHERE usuario = '$usuario'
 				AND proyecto = '".$this->get_id()."'";
 		$this->instancia->get_db()->ejecutar( $sql );
-	}
-
-	//-----------------------------------------------------------
-	//	Primitivas basicas
-	//-----------------------------------------------------------
-
-	private function guardar_archivo( $archivo, $contenido )
-	{
-		file_put_contents( $archivo, $contenido );
-		$this->sincro_archivos->agregar_archivo( $archivo );
 	}
 
 	//-----------------------------------------------------------
@@ -461,8 +472,9 @@ class proyecto extends elemento_modelo
 	/**
 	*	Crea un proyecto NUEVO
 	*/
-	static function crear( instancia $instancia, $nombre )
+	static function crear( instancia $instancia, $nombre, $usuarios_a_vincular )
 	{
+		//- 1 - Controles
 		$dir_template = toba_dir() . self::template_proyecto;
 		if ( $nombre == 'toba' ) {
 			throw new excepcion_toba("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
@@ -470,22 +482,46 @@ class proyecto extends elemento_modelo
 		if ( self::existe( $nombre ) ) {
 			throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
 		}
-		$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
-		//- 1 - Creo la CARPETA del PROYECTO
-		manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
-		// Modifico los archivos
-		$editor = new editor_archivos();
-		$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
-		$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
-		$editor->agregar_sustitucion( '|__toba_dir__|', toba_dir() );
-		$editor->procesar_archivo( $dir_proyecto . '/www/admin.php' );
-		$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
-		$editor->procesar_archivo( $dir_proyecto . '/toba.conf' );
-		//- 2 - Asocio el proyecto a la instancia
-		$instancia->vincular_proyecto( $nombre );
-		//- 3 - Creo los metadatos basicos del proyecto
-		$sql = self::get_sql_metadatos_basicos( $nombre );
-		$instancia->get_db()->ejecutar( $sql );
+		try {
+			//- 2 - Modificaciones en el sistema de archivos
+			$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
+			// Creo la CARPETA del PROYECTO
+			manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
+			// Modifico los archivos
+			$editor = new editor_archivos();
+			$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
+			$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
+			$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );
+			$editor->procesar_archivo( $dir_proyecto . '/www/admin.php' );
+			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
+			$editor->procesar_archivo( $dir_proyecto . '/toba.conf' );
+			// Asocio el proyecto a la instancia
+			$instancia->vincular_proyecto( $nombre );
+
+			//- 3 - Modificaciones en la BASE de datos
+			$db = $instancia->get_db();
+			try {
+				$db->abrir_transaccion();
+				$db->retrazar_constraints();
+				$db->ejecutar( self::get_sql_metadatos_basicos( $nombre ) );
+				foreach( $usuarios_a_vincular as $usuario ) {
+					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', 'no' ) );
+				}
+				//throw new excepcion_toba("El MAL");
+				$db->cerrar_transaccion();
+			} catch ( excepcion_toba $e ) {
+				$db->abortar_transaccion();
+				$txt = 'PROYECTO: Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ' . $e->getMessage();
+				throw new excepcion_toba( $txt );
+			}
+		} catch ( excepcion_toba $e ) {
+			// Borro la carpeta creada
+			if ( is_dir( $dir_proyecto ) ) {
+				$instancia->desvincular_proyecto( $nombre );
+				manejador_archivos::eliminar_directorio( $dir_proyecto );
+			}	
+			throw $e;
+		}
 	}
 	
 	/**
@@ -494,7 +530,7 @@ class proyecto extends elemento_modelo
 	static function get_sql_metadatos_basicos( $id_proyecto )
 	{
 		// Creo el proyecto
-		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto) VALUES ('$id_proyecto','toba','$id_proyecto','$id_proyecto',1);";
+		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto) VALUES ('$id_proyecto','toba','".strtoupper($id_proyecto)."','".ucwords($id_proyecto)."',1);";
 		//Le agrego los items basicos
 		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','','$id_proyecto','','1','0','browser','toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');";
 		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','/autovinculo','$id_proyecto','','0','0','fantasma','toba','NO','Autovinculo','','toba','0','toba','especifico');";
@@ -504,6 +540,12 @@ class proyecto extends elemento_modelo
 		// Creo un perfil de datos
 		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
 		return $sql;		
+	}
+
+	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos )
+	{
+		return "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+		VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
 	}
 }
 ?>

@@ -5,7 +5,7 @@ class comando_conversion extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de cambios entre versiones';
+		return 'Administracion de CAMBIOS entre versiones';
 	}
 	
 	function mostrar_observaciones()

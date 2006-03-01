@@ -5,7 +5,7 @@ class comando_dba extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de bases de datos';
+		return 'Administracion de BASES de DATOS';
 	}
 
 	/**

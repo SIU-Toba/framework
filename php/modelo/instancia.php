@@ -55,9 +55,11 @@ class instancia extends elemento_modelo
 		if ( proyecto::existe( $proyecto ) ) {
 			$clase = $this->get_clase_datos();
 			$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
-			$datos[] = $proyecto;
-			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-			$clase->guardar();
+			if ( ! in_array( $proyecto, $datos ) ) {
+				$datos[] = $proyecto;
+				$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+				$clase->guardar();
+			}
 		} else {
 			throw new excepcion_toba("El proyecto '$proyecto' no existe.");
 		}
@@ -68,11 +70,16 @@ class instancia extends elemento_modelo
 		$clase = $this->get_clase_datos();
 		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
 		if ( in_array( $proyecto, $datos ) ) {
+			// EL proyecto recien creado no aparece en 'get_lista_proyectos' hasta el final de request
+			// Elimino el LINK
 			$datos = array_diff( $datos, array( $proyecto ) );
 			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
 			$clase->guardar();
-		} else {
-			throw new excepcion_toba("El proyecto '$proyecto' no estaba vinculado a la instancia.");
+			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
+			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+			if ( is_dir( $dir_proyecto ) ) { //Fue exportado?
+				manejador_archivos::eliminar_directorio( $dir_proyecto );			
+			}
 		}
 	}
 	
@@ -393,7 +400,16 @@ class instancia extends elemento_modelo
 			}
 		}
 	}
-	
+
+	function cargar_informacion_instancia_proyecto( $proyecto )
+	{
+		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
+		foreach( $archivos as $archivo ) {
+			$this->get_db()->ejecutar_archivo( $archivo );
+		}
+	}
+		
 	/*
 	*	Genera informacion descriptiva sobre la instancia creada
 	*/

@@ -55,20 +55,6 @@ class instalacion extends elemento_modelo
 		return $claves;
 	}
 	
-	/**
-	* Devuelve la lista de las INSTANCIAS
-	*/
-	function get_lista_instancias()
-	{
-		$dirs = array();
-		$temp = manejador_archivos::get_archivos_directorio( self::dir_base() , '|^'.self::instancia_prefijo.'|' );
-		foreach ( $temp as $dir ) {
-			$temp_dir = explode( self::instancia_prefijo, $dir );
-			$dirs[] = $temp_dir[1];
-		}
-		return $dirs;
-	}
-
 	//-------------------------------------------------------------
 	//-- Archivo de Informacion basica
 	//-------------------------------------------------------------
@@ -167,6 +153,20 @@ class instalacion extends elemento_modelo
 		$clase->agregar_metodo_datos( 'get_base', $base );
 		$clase->agregar_metodo_datos( 'get_lista_proyectos', $lista_proyectos );
 		$clase->guardar( self::dir_instancia( $nombre ) . '/' . self::instancia_info . '.php');
+	}
+
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	function get_lista_instancias()
+	{
+		$dirs = array();
+		$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.instalacion::instancia_prefijo.'|' );
+		foreach ( $temp as $dir ) {
+			$temp_dir = explode( instalacion::instancia_prefijo, $dir );
+			$dirs[] = $temp_dir[1];
+		}
+		return $dirs;
 	}
 }
 ?>

@@ -2,8 +2,10 @@
 require_once('consola/comando.php');
 require_once('modelo/catalogo_modelo.php');
 
-/*
-	FALTA: Tendria que existir un esquema para extender un comando
+/**
+	@todo: Seleccion adecuada de Usuarios y Grupo de acceso
+	
+			Tendria que existir un esquema para extender un comando
 			por ejemplo, despues de crear una instancia, un proyecto puede querer
 			agregar mas tablas a la misma
 */
@@ -155,5 +157,52 @@ class comando_toba extends comando
 			}
 		}
 	}
+	
+	//-----------------------------------------------------------
+	// Preguntas comunes
+	//-----------------------------------------------------------
+	
+	/**
+	*	Interface de seleccion de N usuarios
+	*/
+	protected function seleccionar_usuarios_afectados( instancia $instancia )
+	{
+		// Decido que usuarios voy a vincular
+		/*
+		$this->consola->subtitulo( "Asociar USUARIOS" );
+		$opcion[0] = "Asociar el usuario 'toba'";
+		$opcion[1] = "Asociar TODOS los usuarios de la instancia";
+		$opcion[2] = "Mostrar una lista de usuario y SELECCIONAR";
+		$ok = $this->consola->dialogo_lista_opciones( $opcion, 'Asociar USUARIOS al proyecto. Seleccione una FORMA de CARGA', false );
+		*/		
+		$ok = 1;
+		switch ( $ok ) {
+			case 0:			// Usuario toba (pero..existe?)
+				break;	
+			case 1:			// Todos
+				$datos = $instancia->get_lista_usuarios();
+				foreach ( $datos as $dato ) {
+					$usuarios[] = $dato['usuario'];
+				}
+				break;	
+			case 2:			// Seleccionar usuarios de una lista
+				break;	
+		}
+		return $usuarios;
+	}
+
+	/**
+	*	Interface de seleccion de 1 grupo de acceso
+	*/
+	protected function seleccionar_grupo_acceso( proyecto $proyecto )
+	{
+		$ga = $proyecto->get_lista_grupos_acceso();
+		if ( count( $ga ) == 1 ) {
+			return $ga[0]['id'];
+		} else {
+			// FALTA Seleccion del grupo de ACCESO
+			return $ga[0]['id'];
+		}
+	}	
 }
 ?>

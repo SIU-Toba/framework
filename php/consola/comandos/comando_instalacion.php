@@ -23,9 +23,8 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__info()
 	{
-		$i = $this->get_instalacion();
-		$this->consola->dump_arbol( $i->get_lista_instancias(), 'INSTANCIAS' );
-		$this->consola->dump_arbol( proyecto::get_lista(), 'PROYECTOS' );
+		$this->consola->lista( instalacion::get_lista_instancias(), 'INSTANCIAS' );
+		$this->consola->lista( proyecto::get_lista(), 'PROYECTOS' );
 	}
 	
 	/**
@@ -97,7 +96,6 @@ class comando_instalacion extends comando_toba
 				}
 			}
 		}
-		
 		$this->consola->separador("FIN");		
 		$this->consola->mensaje("Puede borrar el archivo 'php/instancias.php'");
 		$this->consola->mensaje("Toda la informacion correspondiente a la instalacion, se encuentra ahora en la carpeta 'instalacion'");

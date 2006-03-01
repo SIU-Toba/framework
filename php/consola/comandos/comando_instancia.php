@@ -7,7 +7,7 @@ class comando_instancia extends comando_toba
 {
 	static function get_info()
 	{
-		return 'Administracion de INSTANCIAS.';
+		return 'Administracion de INSTANCIAS';
 	}
 
 	function mostrar_observaciones()
@@ -116,29 +116,29 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Vincula un proyecto con la instancia. [-p 'proyecto']
-	*/
-	function opcion__vincular_proyecto()
-	{
-		$proyecto = $this->get_id_proyecto_actual();
-		$this->get_instancia()->vincular_proyecto( $proyecto );
-	}
-	
-	/**
-	*	Desvincula un proyecto con la instancia. [-p 'proyecto']
-	*/
-	function opcion__desvincular_proyecto()
-	{
-		$proyecto = $this->get_id_proyecto_actual();
-		$this->get_instancia()->desvincular_proyecto( $proyecto );
-	}
-
-	/**
 	*	Genera un archivo con la lista de registros por cada tabla de la instancia
 	*/	
 	function opcion__dump_info_tablas()
 	{
 		$this->get_instancia()->dump_info_tablas();
 	}
+
+	/**
+	*	Vincula un proyecto con la instancia. [-p 'proyecto']
+	function opcion__vincular_proyecto()
+	{
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_instancia()->vincular_proyecto( $proyecto );
+	}
+	*/
+	
+	/**
+	*	Desvincula un proyecto con la instancia. [-p 'proyecto']
+	function opcion__desvincular_proyecto()
+	{
+		$proyecto = $this->get_id_proyecto_actual();
+		$this->get_instancia()->desvincular_proyecto( $proyecto );
+	}
+	*/
 }
 ?>
