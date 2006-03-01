@@ -81,7 +81,16 @@ Cuando las variables de sesión no están presentes es signo de que el usuario no 
 </p>
 <h2 id="VinculaciónalaInstancia">Vinculación a la Instancia</h2>
 <p>
-La <a class="wiki" href="Instancia.html">instancia</a> determina el conjunto de usuarios que serán utilizados en esta sesión. 
+En este punto de acceso (aplicacion.php) se determina con qué <a class="wiki" href="Instancia.html">instancia</a> se ejecutará. La instancia determina entre otras cosas que versión del proyecto se ejecuta y con qué usuarios. En el punto de acceso también se definen constantes que sirven de configuración para por ejemplo permitir o no logins anónimos. Una vez determinadas estas constantes se incluye el núcleo de ejecución de toba
+</p>
+<h2 id="Ejecucióndelítem">Ejecución del ítem</h2>
+<p>
+Toda ejecución se hace contra un <a class="wiki" href="Item.html">ítem u operación</a> específica. En el caso particular del ingreso hay una constante definida en el punto de acceso que determina cual es el ítem por defecto a mostrar. El ítem tiene dos funciones principales:
+</p>
+<ul><li>Atender los <a class="wiki" href="Eventos.html">Eventos</a> producidos en la etapa anterior.
+</li><li>Brindar los <a class="missing wiki" href="Servicios.html" rel="nofollow">Servicios?</a> requeridos para formar la siguiente pantalla.
+</li></ul><p>
+Así todos los objetos que constituyen el ítem actual primero atienden los eventos que se notificaron (vía $_POST) y luego construye la salida en base al servicio requerido (vía $_GET).
 </p>
 </div>
    </div>

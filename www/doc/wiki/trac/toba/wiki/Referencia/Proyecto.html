@@ -69,66 +69,51 @@ El sistema de archivos del proyecto debe estar bajo el directorio <i>proyectos</
 </p>
 <ul><li><i>nombre_proyecto</i>
 <ul><li><i>php</i>: Carpeta que se incluye en el include_path de php, por lo que se recomienda usarlo para contener todas las clases particulares del proyecto.
-<ul><li><i>inicializacion.php</i>: Primer archivo del proyecto en ser ejecutado en todos los pedidos de página. Util para incluir cosas particulares del proyecto, definir constantes, etc.
-</li></ul></li><li><i>sql</i>: Directorio donde se almacenan los metadatos del proyecto (datos.sql) y metadatos asociados con los usuarios (datos_instancia.sql)
-</li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del proyecto.
-</li></ul></li></ul><h2 id="Metadatos">Metadatos</h2>
-<p>
-Los metadatos de los proyectos están definidos en dos archivos:
-</p>
-<ul><li><i>sql/datos_instancia.sql</i>: Mantiene la asociación entre los usuarios y el proyecto junto a sus notas, logs, etc. La separación de este archivo se debe a que los usuarios no pertenecen a un proyecto sino que son globales a la instancia particular. Así con un archivo separado se evita versionarlo, dejando la posibilidad de que las distintas instancias tengan sus usuarios sin afectar el proyecto. En caso de que sea versionado, resolver los conflictos va a ser más sencillo.
-</li><li><i>sql/datos.sql</i>: Mantiene la definición del resto de los metadatos.
-</li></ul><h2 id="Creación">Creación</h2>
+<ul><li><i>inicializacion.php</i>: Primer archivo del proyecto en ser ejecutado en todos los pedidos de página. Útil para incluir cosas particulares del proyecto, definir constantes, etc.
+</li></ul></li><li><i>metadatos</i>: Directorio donde se almacenan los metadatos propios del proyecto.
+</li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los distintos <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del proyecto.
+</li></ul></li></ul><h2 id="Creación">Creación</h2>
 <p>
 Para crear un proyecto vacío es necesario ejecutar el comando:
 </p>
-<pre class="wiki"> proyecto crear mi_proyecto
+<pre class="wiki">toba proyecto crear -p mi_proyecto
 </pre>
 <p>
-Esto crea los metadatos, los carga en la instancia, posteriormente crea un sistema de archivos básicos conteniendo estos metadatos y los puntos de acceso por defecto.
+Esto crea los metadatos, los carga en la instancia, posteriormente crea un sistema de archivos básicos conteniendo estos metadatos y los puntos de acceso por defecto. Este comando es necesario ejecutarse una sola vez durante toda la historia del proyecto.
 </p>
-<h2 id="CargayExportación">Carga y Exportación</h2>
+<h2 id="Exportación">Exportación</h2>
 <p>
-Para poder modificar y trabajar con un proyecto es necesario cargarlo en una instancia. Hay tres formas distintas de cargarlo:
+Una vez creado el proyecto y realizado modificaciones sobre él por motivos de backup, sincronización con equipos remotos o lanzamiento del producto es necesario exportar los metadatos desde la BD (la instancia) hacia el sistema de archivos.
 </p>
-<ol><li>Si no se cuenta con la instancia, esta se debe iniciar, cargando los distintos proyectos consigo:
-<pre class="wiki"> instancia iniciar 
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre>
+<p>
+Los metadatos del proyecto vuelven al sistema de archivos listos para ser versionados. Además de exportar los metadatos puros del proyecto se exportan los metadatos comunes de la instancia (información de usuarios, log, etc.)
+</p>
+<h2 id="Carga">Carga</h2>
+<p>
+Para poder modificar y trabajar con un proyecto es necesario tenerlo cargardo en una instancia. 
+Hay dos formas distintas de cargarlo:
+</p>
+<ol><li>Si no se cuenta con la instancia o se quiere regenerar por completo, esta se debe cargar:
+<pre class="wiki"> toba instancia cargar
 </pre>
 </li><li>Si ya se cuenta con la instancia, se ejecuta desde la consola:
-<pre class="wiki"> proyecto cargar mi_proyecto
-</pre>
-</li><li>Si ya se cuenta con la instancia, pero se desea refrescar completa, se ejecuta:
-<pre class="wiki"> instancia regenerar
+<pre class="wiki"> toba proyecto cargar -p mi_proyecto
 </pre>
 </li></ol><p>
 Para hacer el camino inverso (crear los metadatos a partir de la instancia) se debe hacer:
-</p>
-<pre class="wiki">proyecto exportar mi_proyecto
-</pre>
-<p>
-Los metadatos del proyecto vuelven al sistema de archivos listos para ser versionados.
 </p>
 <h2 id="Actualización">Actualización</h2>
 <p>
 Es común recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto basta con borrar la instanciación del proyecto:
 </p>
-<pre class="wiki">proyecto borrar mi_proyecto
+<pre class="wiki">toba proyecto eliminar -p mi_proyecto
 </pre>
 <p>
 Y cargarla posteriormente
 </p>
-<pre class="wiki">proyecto cargar mi_proyecto
-</pre>
-<h2 id="Exportacióndelainformaciónlocal">Exportación de la información local</h2>
-<p>
-En ciertos escenarios sólo se desea exportar el contenido al archivo <i>datos_instancia.sql</i>, conteniendo la información de los usuarios en esta instancia. Para esto existe el comando:
-</p>
-<pre class="wiki">proyecto exportar_local mi_proyecto
-</pre>
-<p>
-Cuando se quiere exportar tanto el <strong>datos_instancia.sql</strong> de toba (conteniendo los usuarios) como los de los proyectos (conteniendo la asociación de los usuarios a los proyectos) se hace:
-</p>
-<pre class="wiki">instancia exportar_local
+<pre class="wiki">tob aproyecto cargar -p mi_proyecto
 </pre>
 </div>
    </div>

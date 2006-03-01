@@ -89,13 +89,12 @@ Toba utiliza SVN como sistema de control de versiones, para adquirir la última v
 <ol><li>Instalar un cliente SVN (bajo Windows recomendado <a class="ext-link" href="../../../../external.html?link=http://tortoisesvn.tigris.org/download.html"><span class="icon"></span>TortoiseSVN</a>).
 </li><li>Hacer un checkout del proyecto:
 <ol><li>Por línea de comando:
-<pre class="wiki">svn co https://toba.siu.edu.ar/toba/trunk toba
+<pre class="wiki">svn co https://desarrollos.siu.edu.ar/svn/toba/trunk toba
 </pre>
 </li></ol></li></ol><p>
 Bajo linux, en caso de tener problemas con el encoding, se prefiere utilizar iso88591 tanto para el entorno como default charset para Apache. <a class="wiki" href="Encoding.html">Ver más acerca del encoding</a>.
 </p>
-<ol><li><ol><li>Usando un cliente gráfico apuntar a <a class="ext-link" href="../../../../external.html?link=https://toba.siu.edu.ar/toba/trunk"><span class="icon"></span>https://toba.siu.edu.ar/toba/trunk</a>
-</li></ol></li><li>Agregar el path <i>directorio_toba/php</i> al include_path de php.ini
+<ol><li>Usando un cliente gráfico apuntar a <a class="ext-link" href="../../../../external.html?link=https://desarrollos.siu.edu.ar/svn/toba/trunk"><span class="icon"></span>https://desarrollos.siu.edu.ar/svn/toba/trunk</a>
 </li><li>Copiar el archivo <i>directorio_toba/toba.conf</i> a <i>directorio_apache/conf/toba.conf</i>
 </li><li>Incluir el archivo toba.conf en el archivo <i>directorio_apache/conf/httpd.conf</i>:
 <pre class="wiki">include &#34;conf/toba.conf&#34;

@@ -61,14 +61,14 @@
 </p>
 <h1 id="FuentedeDatos">Fuente de Datos</h1>
 <p>
-Una fuente de datos es una entidad que referencia a un motor de base de datos relacional y permite operar sobre este independientemente del vendedor específico al que pertenece. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcción de SQL compatible sigue quedando a cargo generalmente de los desarrolladores del proyecto.<br /><br />
+Una fuente de datos es una entidad que referencia a un motor de base de datos relacional y permite operar sobre este independientemente del vendedor específico al que pertenece. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcción de SQL compatible sigue quedando a cargo generalmente de los desarrolladores del proyecto.
 </p>
 <h2 id="Definición">Definición</h2>
 <p>
 Un proyecto puede tener asociada varias fuentes de datos, cada una representando a una base de datos distinta. Para administrar estas fuentes existe una sección en el Administrador llamada <i>Datos</i>, allí se puede detallar cómo está formada, los campos más importantes, además de los de conexión, son estos:
 </p>
 <ul><li>Identificador: es el nombre con el que esta fuente puede ser referenciada desde Toba.
-</li><li>Link instancia: Si se selecciona, los parámetros de conexión de este formulario no se tendrán en cuenta, en cambio los párametros de la instancia indicada abajo son los válidos. Esto evita la carga de los parámetros en estas definiciones delegando hacia un archivo php (ver <a class="wiki" href="Instancia.html">definición de instancias</a>).
+</li><li>Link a info_bases.php: Si se selecciona, los parámetros de conexión de este formulario no se tendrán en cuenta, en cambio se tomarán los parámetros definidos en el archivo <i>instalacion/info_bases.php</i>.
 </li></ul><h2 id="Ejecución">Ejecución</h2>
 <p>
 Durante la ejecución las fuentes de datos contienen estos parámetros estáticos junto a una instancia de la librería <a class="ext-link" href="../../../../external.html?link=http://adodb.sourceforge.net/"><span class="icon"></span>ADODb</a> para el acceso a la misma. Por performance las fuentes no se conectan hasta que sea necesario, esto es porque el objeto en ejecución la necesita o porque se utiliza en algún código ad-hoc. En este último caso, sabiendo que ningún otro procesamiento cargo esa fuente de datos, se debe abrir con la siguiente función global:

@@ -69,14 +69,14 @@ Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso t
 Se recomienda tomar como modelo los puntos de acceso que están incluidos en el mismo Toba.
 </p>
 <ul><li>PA de la aplicación: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/aplicacion.php">source:trunk/www/aplicacion.php</a>
-</li></ul><ul><li>PA del administrador: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/admin.php">source:trunk/www/admin.php</a>
+</li><li>PA del administrador: <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/www/admin.php">source:trunk/www/admin.php</a>
 </li></ul><p>
 Luego de modificar las configuraciones particulares es necesario notificar a Apache la existencia del nuevo PA. Para esto es necesario agregar al archivo <i>directorio_apache/conf/toba.conf</i> un alias al punto de acceso:
 </p>
-<pre class="wiki">
-    Alias /mi_proyecto &#34;d:/toba/proyectos/mi_proyecto/www&#34;
+<pre class="wiki">    Alias /mi_proyecto &#34;d:/toba/proyectos/mi_proyecto/www&#34;
     &lt;Directory &#34;d:/toba/proyectos/mi_proyecto/www&#34;&gt;
         SetEnv TOBA_DIR d:/toba
+        SetEnv TOBA_ALIAS toba
         Options Indexes MultiViews
             DirectoryIndex aplicacion.php
         AllowOverride None
@@ -85,10 +85,10 @@ Luego de modificar las configuraciones particulares es necesario notificar a Apa
     &lt;/Directory&gt;
 </pre>
 <p>
-Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalación de Toba. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estará en un directorio diferente.
+Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalación de Toba así como notificar con que alias se encuentra el directorio www de Toba con la variable $TOBA_ALIAS. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estará en un directorio diferente.
 </p>
 <h2 id="ConfiguracionesImportantes">Configuraciones Importantes</h2>
-<ul><li>Alias: La variable apex_pa_toba_alias debe contener el del alias correspondiente a la instalación de Toba a la cual pertenence la instancia. Esta directiva se puede configurar desde el mismo alias de apache incluyendo <tt>SetEnv TOBA_ALIAS alias</tt>}. Si el alias (en el archivo <i>directorio_apache/conf/toba.conf</i>) tiene asignado el nombre <i>toba_prueba</i>, se define así:
+<ul><li>Alias: La variable apex_pa_toba_alias debe contener el del alias correspondiente a la instalación de Toba a la cual pertenence la instancia. Esta directiva se puede configurar desde el mismo alias de apache incluyendo <tt>SetEnv TOBA_ALIAS alias</tt>. Si el alias (en el archivo <i>directorio_apache/conf/toba.conf</i>) tiene asignado el nombre <i>toba_prueba</i>, se define así:
 <pre class="wiki">define(&#34;apex_pa_toba_alias&#34;, &#34;toba_prueba&#34;);
 </pre>
 </li></ul><ul><li>Instancia: La variable apex_pa_instancia debe apuntar a la <a class="wiki" href="Instancia.html">instancia</a> que se quiere acceder, por ejemplo para acceder a una instancia particular <i>toba_prueba</i>:

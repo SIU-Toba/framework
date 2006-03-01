@@ -61,15 +61,13 @@
 </p>
 <h1 id="Item">Item</h1>
 <p>
-Hablar de un ítem es referirse a la definición de una operación. La operación se encuentra incluída en un <a class="wiki" href="ArbolItems.html">árbol de items</a> dentro de una carpeta particular y su comportamiento está determinado por el <a class="wiki" href="Patron.html">patrón</a> seleccionado y sus <a class="wiki" href="Objetos.html">objetos</a> contenidos.
+Hablar de un ítem es referirse a la definición de una operación. La operación se encuentra incluída en un <a class="wiki" href="ArbolItems.html">árbol de ítems</a> dentro de una carpeta particular y su comportamiento está determinado por los <a class="wiki" href="Objetos.html">objetos</a> contenidos.
 </p>
 <h2 id="Propiedadesbásicas">Propiedades básicas</h2>
 <ul><li>Identificador: El identificador permite referirse al ítem desde otro punto del administrador o desde el mismo código fuente. Se asigna automáticamente al crear el ítem.
 </li><li>Padre: Determina la <a class="wiki" href="Carpetas.html">carpeta</a> en donde estará el ítem.
-</li><li>Tipo de Solicitud: Determina el entorno en donde será ejecutado el ítem. El entorno usual es uno Web (<i>Solicitud de Browser</i>) aunque es posible uno de consola, útil para ejecuciones automáticas o scripts administrativos.
+</li><li>Tipo de Solicitud: Determina el entorno en donde será ejecutado el ítem. El entorno usual es uno Web (<i>Solicitud Web</i>) aunque es posible uno de consola, útil para ejecuciones automáticas o scripts administrativos.
 </li><li>Modelo de Página: Permite variar el HTML incluído antes y después del contenido del ítem, por ejemplo para agregar una barra de navegación o un pie de página particular. Ver <a class="wiki" href="TipoPagina.html">Tipo de página</a>.
-</li><li>Tipo de Comportamiento: Describe si la actividad del ítem está determinada por un script PHP en el sistema de archivos (o bien en la fuente de datos) o por un comportamiento predefinido de Toba. Si se trata de un script PHP, al seleccionar la opción se solicita el path del archivo (o su identificación en la fuente de datos).
-</li><li>Comportamiento: Siempre que el tipo de comportamiento sea <i>Predefinido</i> tendremos que seleccionar un comportamiento, que tendrá a su cargo la creación y ejecución de los objetos particulares asociados al ítem. 
 </li><li>Menú y Orden: Si el ítem se marca como menú se podrá visualizar en la aplicación. Para esto es necesario que las carpetas que lo contienen estén en menú y el usuario logueado tenga permisos sobre estas carpetas y el mismo ítem.
 </li></ul><h2 id="Permisos">Permisos</h2>
 <p>
@@ -77,7 +75,7 @@ Para poder ejecutar un ítem es necesario asignar permisos básicos no sólo al íte
 </p>
 <h2 id="Objetosasociados">Objetos asociados</h2>
 <p>
-Dependiendo del <a class="wiki" href="Patron.html">Patrón</a> seleccionado, el ítem necesita distintos <a class="wiki" href="Objetos.html">Objetos</a> para su ejecución, desde el Administrador es necesario asignar estos objetos.
+El ítem necesita distintos <a class="wiki" href="Objetos.html">Objetos</a> para su ejecución, desde el Administrador es necesario asignar estos objetos. Generalmente se asocia un <a class="wiki" href="Objetos/ci.html">objeto controlador de interface</a>.
 </p>
 <h2 id="Creaciónyuso">Creación y uso</h2>
 <p>

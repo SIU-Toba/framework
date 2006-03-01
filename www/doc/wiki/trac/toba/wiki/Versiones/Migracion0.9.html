@@ -3,7 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
- <title>Referencia/Instalacion - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instalacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+ <title>Versiones/Migracion0.9.0 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.9.0?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
@@ -44,7 +44,7 @@
   <li><a href="../TitleIndex.html">Title Index</a></li>
   <li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
   
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instalacion?action=history">Page History</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.9.0?action=history">Page History</a></li>
   
  </ul>
  <hr />
@@ -57,30 +57,19 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
-<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Instalacion
+<a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion0.9.0
 </p>
-<h1 id="Instalación">Instalación</h1>
+<h1 id="InstructivodeMigraciónhacia0.9.0">Instructivo de Migración hacia 0.9.0</h1>
+<h2 id="Definiciondeinstancias">Definicion de instancias</h2>
+<blockquote>
 <p>
-Una instalación es una carpeta que contiene una versión de Toba. Una instalación puede correr una o más <a class="wiki" href="Instancia.html">Instancias</a> de distintos <a class="wiki" href="Proyecto.html">Proyectos</a>.
+<strong>instalacion migrar_definicion</strong>.
 </p>
-<h2 id="Configuración">Configuración</h2>
-<p>
-En la carpeta principal de toba existe una carpeta no versionada llamada "instalacion" que contiene todas las configuraciones de la instalación incluyendo la de las instancias contenidas. Existen dos configuraciones principales de una instalación:
-</p>
-<ul><li>Qué <a class="wiki" href="Instancia.html">Instancias</a> tiene definidas, determinado por carpetas <tt>toba/instalacion/i__nombre</tt> donde <tt>nombre</tt> es la identificación de la instancia.
-</li><li>Qué <strong>bases de datos</strong> se utilizan en la instalación, se definen en el archivo <tt>toba/instalacion/info_bases.php</tt>.
-</li><li>Configuraciones varias, globales a toda la instancia en el archivo <tt>toba/instalacion/info_instalacion.php</tt>.
-</li></ul><h2 id="DistribucióndeCarpetas">Distribución de Carpetas</h2>
-<ul><li><i>toba</i>
-<ul><li><i>bin</i>: Comandos de consola utilizados para administrar la instalación
-</li><li><i>doc</i>: Documentación interna del proyecto
-</li><li><i>php</i>: Código de Toba
-</li><li><i>proyectos</i>: Arbol de directorio de los distintos <a class="wiki" href="Proyecto.html">Proyectos</a>.
-</li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del mismo administrador de toba.
-</li></ul></li></ul><p>
-   
-</p>
-</div>
+</blockquote>
+<h2 id="ModificacionesenlaAPI">Modificaciones en la API</h2>
+<ul><li>La función ddrivetip está obsoleta y no se incluye por defecto, para utilizarla hacer un js::cargar_consumo_global(array('tooltips')), en su lugar se incluye una más potente (reescrita en base a una similar) llamada dhtml_tooltip.
+</li><li>Ya no se recomienda accede más con $this-&gt;dependendencias[$id], sino con $this-&gt;dependencia($id), esto permite una carga 'a demanda' de un objeto.
+</li></ul></div>
    </div>
    
   
@@ -92,7 +81,7 @@ En la carpeta principal de toba existe una carpeta no versionada llamada "instal
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Instalacion?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/Migracion0.9.0?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 

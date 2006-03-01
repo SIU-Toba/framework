@@ -66,20 +66,13 @@ Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo los
 </p>
 <h2 id="Configuración">Configuración</h2>
 <p>
-Una instancia generalmente se almacena en una base de datos propia. El lugar físico depende de las configuraciones del archivo <i>toba/php/instancias.php</i>. Para armar instancias propias y para la instalación inicial se puede tomar el archivo <a class="source" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser/trunk/php/_instancias.php">source:trunk/php/_instancias.php</a> como base. El nombre de la instancia es la clave del arreglo asociativo, así si se quiere definir una nueva instancia <i>nombre_instancia</i> en la base <i>nombre_base</i>:
+Una instancia posee un nombre (desarrollo, produccion, testing, etc) y con ese nombre debe existir una carpeta <tt>i__nombre</tt> en el directorio <i>toba/instalacion</i>. Esta carpeta posee el archivo info_instancia.php que contiene
 </p>
-<div class="code"><pre><span class="code-lang">&lt;?php
-    $instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_motor</span><span class="code-keyword">] = </span><span class="code-string">"postgres7"</span><span class="code-keyword">;
-    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_profile</span><span class="code-keyword">] = </span><span class="code-string">"localhost"</span><span class="code-keyword">;
-    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_usuario</span><span class="code-keyword">] = </span><span class="code-string">"postgres"</span><span class="code-keyword">;
-    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_clave</span><span class="code-keyword">] = </span><span class="code-string">""</span><span class="code-keyword">;
-    </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"nombre_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_base</span><span class="code-keyword">] = </span><span class="code-string">"nombre_base"</span><span class="code-keyword">;
-</span><span class="code-lang">?&gt;
-</span></span>
-</pre></div><h2 id="Composición">Composición</h2>
+<ul><li>La lista de proyectos que se incluyen en la instancia
+</li><li>La base de datos que se utiliza para almacenar los metadatos, es un puntero hacia las bases definidas en la <a class="wiki" href="Instalacion.html">Instalación</a>.
+</li></ul><h2 id="Composición">Composición</h2>
 <p>
-<a href="../../attachment/wiki/Referencia/Instancia/composicion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Instancia/composicion.png?format=raw" align="right" alt="Composición de una instancia" title="Composición de una instancia" style="" /></a>
-Una instancia puede estar formada por distintos proyectos, entre ellos siempre se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee sectores comunes como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definición de estos usuarios se encuentra en el archivo <i>datos_instancia.sql</i> del proyecto toba. Este archivo no se encuentra versionado en Toba por lo que es responsabilidad de cada proyecto mantenerlo.
+Una instancia puede estar formada por distintos proyectos, entre ellos se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee metadatos propios como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definición de estos metadatos se encuentran en el directorio global dentro de la carpeta <tt>i__nombre</tt>. Aquellos metadatos de la instancia pero referidos a un proyecto particular se exportan a la carpeta <tt>p__nombreproyecto</tt>.
 </p>
 <h2 id="Creacióndeunainstancia">Creación de una instancia</h2>
 <p>
@@ -88,20 +81,15 @@ La administración de las instancias se realiza bajo la consola. La consola está 
 <pre class="wiki">echo $toba_instancia
 </pre>
 <p>
-Luego de definir las configuraciones de la instancia es posible cargar todos los proyectos en una instancia particular. Para esto se utiliza el siguiente comando:
+Luego de definir las configuraciones de la instancia es posible cargar todos los proyectos definidos en una instancia particular. Para esto se utiliza el siguiente comando:
 </p>
-<pre class="wiki">instancia iniciar
-</pre>
-<p>
-En caso de que la instancia se hubiera creado anteriormente, es necesario regenerarla:
-</p>
-<pre class="wiki">instancia regenerar
+<pre class="wiki">toba instancia cargar
 </pre>
 <h2 id="Exportacióndelainstancia">Exportación de la instancia</h2>
 <p>
-No es usual exportar la instancia completa, ya que entre los proyectos se encuentra el Administrador, mantenido por el grupo de desarrollo de Toba. Como resultado de esta exportación se va a sobreescribir el archivo <i>datos.sql</i> no sólo del proyecto propio sino también del mismo Toba. En cambio exportar la sección <i>común</i> de la instancia es recomendable para poder mantener en un archivo los datos de usuarios en esta instancia. Como Toba es un <a class="wiki" href="Proyecto.html">proyecto</a> más, basta con exportar la información local del proyecto Toba:
+Cuando se habla de exportar la instancia, implica exportar los <strong>metadatos propios</strong> de la instancia y no todo su contenido. 
 </p>
-<pre class="wiki">proyecto exportar_local toba
+<pre class="wiki">toba instancia exportar
 </pre>
 </div>
    </div>
