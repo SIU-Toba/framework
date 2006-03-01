@@ -8,34 +8,6 @@
 		$base_instancia = info_instancia::get_base();
 		$param = print_r( dba::get_parametros_base( $base_instancia ), true);
 		
-		//------ Cambio de instancia --------// 	
-		$punto_acceso = new punto_acceso();
-		if (isset($_POST['nombre_instancia']))
-		{
-			$nueva = $_POST['nombre_instancia'];
-			if ($punto_acceso->cambiar_instancia_actual($nueva))
-			{
-				$centro = $this->hilo->obtener_item_inicial();
-				echo "<script language'javascript'>\n";
-				echo "document.location.href='";
-			    echo $this->vinculador->generar_solicitud($centro[0], $centro[1], $centro[2], true);
-				echo "'\n</script>\n";
-			}
-		}
-
-?>
-		<form name="cambiar_instancia" method="post" action="">
-		Instancia: 
-		<select name="nombre_instancia" id="nombre_instancia" onChange="document.cambiar_instancia.submit();">
-		<?
-		foreach ( get_class_methods('info_bases') as $nombre ) {
-			$seleccionado = ($nombre == $base_instancia ) ? 'selected' : '';
-		?>
-		    <option value="<?=$nombre?>" <?=$seleccionado?>><?=$nombre?></option>	
-		<? } ?>
-		</select>
-		</form>
-<?php
 		//---------------------------------//
 			
 	//Mostrar la revision utilizada
@@ -46,8 +18,16 @@ $param";
 			echo "		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() ) . "
 		revision SVN $proyecto: " . revision_svn($this->hilo->obtener_proyecto_path() );
 		}
+   echo "</pre>";
 
-		
+//$path_img = recurso::path_apl()."/doc/wiki/trac/toba/chrome/common/trac_logo_mini.png";
+$img = recurso::imagen_apl("admin/doc_wiki.gif", true, null, null, "Ver documentación WIKI offline");
+$dest = recurso::path_apl()."/doc/wiki/trac/toba/wiki.html";
+echo "<a href='$dest' target='_blank'>$img</a> ";
+
+$img = recurso::imagen_apl("admin/doc_api.gif", true, null, null, "Ver documentación de la API offline");
+$dest = recurso::path_apl()."/doc/api/index.html";
+echo "<a href='$dest' target='_blank'>$img</a>";		
 /*
 	echo "<pre>";
 	echo "
