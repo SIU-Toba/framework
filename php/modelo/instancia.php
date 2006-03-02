@@ -47,50 +47,6 @@ class instancia extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	Administracion de la DEFINICION de la instancia
-	//-----------------------------------------------------------
-
-	function vincular_proyecto( $proyecto )
-	{
-		if ( proyecto::existe( $proyecto ) ) {
-			$clase = $this->get_clase_datos();
-			$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
-			if ( ! in_array( $proyecto, $datos ) ) {
-				$datos[] = $proyecto;
-				$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-				$clase->guardar();
-			}
-		} else {
-			throw new excepcion_toba("El proyecto '$proyecto' no existe.");
-		}
-	}
-	
-	function desvincular_proyecto( $proyecto )
-	{
-		$clase = $this->get_clase_datos();
-		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
-		if ( in_array( $proyecto, $datos ) ) {
-			// EL proyecto recien creado no aparece en 'get_lista_proyectos' hasta el final de request
-			// Elimino el LINK
-			$datos = array_diff( $datos, array( $proyecto ) );
-			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-			$clase->guardar();
-			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
-			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
-			if ( is_dir( $dir_proyecto ) ) { //Fue exportado?
-				manejador_archivos::eliminar_directorio( $dir_proyecto );			
-			}
-		}
-	}
-	
-	function get_clase_datos()
-	{
-		$clase = instalacion::instancia_info;
-		$path = $this->dir . '/' . instalacion::instancia_info . '.php';
-		return new clase_datos( $clase, $path );
-	}
-	
-	//-----------------------------------------------------------
 	//	Informacion BASICA
 	//-----------------------------------------------------------
 
@@ -150,16 +106,66 @@ class instancia extends elemento_modelo
 		}
 	}
 	
-	function get_registros_tablas()
+	/*
+	*	Devuelve un array con los objetos PROYECTO cargados
+	*/
+	function get_proyectos()
 	{
-		$registros = array();
-		$tablas = catalogo_general::get_tablas();
-		foreach ( $tablas as $tabla ) {
-			$sql = "SELECT COUNT(*) as registros FROM $tabla;";
-			$temp = $this->get_db()->consultar( $sql );
-			$registros[ $tabla ] = $temp[0]['registros'];
+		$proyectos = array();
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
+			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
+			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
 		}
-		return $registros;
+		return $proyectos;
+	}
+	
+	//-----------------------------------------------------------
+	//	Manipulacion de la DEFINICION
+	//-----------------------------------------------------------
+
+	function vincular_proyecto( $proyecto )
+	{
+		if ( proyecto::existe( $proyecto ) ) {
+			$clase = $this->get_clase_datos();
+			$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+			if ( ! in_array( $proyecto, $datos ) ) {
+				$datos[] = $proyecto;
+				$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+				$clase->guardar();
+			}
+		} else {
+			throw new excepcion_toba("El proyecto '$proyecto' no existe.");
+		}
+	}
+	
+	function desvincular_proyecto( $proyecto )
+	{
+		$clase = $this->get_clase_datos();
+		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+		if ( in_array( $proyecto, $datos ) ) {
+			// EL proyecto recien creado no aparece en 'get_lista_proyectos' hasta el final de request
+			// Elimino el LINK
+			$datos = array_diff( $datos, array( $proyecto ) );
+			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
+			$clase->guardar();
+			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
+			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+			if ( is_dir( $dir_proyecto ) ) { //Fue exportado?
+				manejador_archivos::eliminar_directorio( $dir_proyecto );			
+			}
+		}
+	}
+
+	function cambiar_db_referencia( $id_db )
+	{
+		$clase = $this->get_clase_datos();		
+	}
+	
+	private function get_clase_datos()
+	{
+		$clase = instalacion::instancia_info;
+		$path = $this->dir . '/' . instalacion::instancia_info . '.php';
+		return new clase_datos( $clase, $path );
 	}
 
 	//-----------------------------------------------------------
@@ -329,7 +335,7 @@ class instancia extends elemento_modelo
 			$this->crear_modelo_datos_toba();
 			$this->cargar_proyectos();
 			$this->cargar_informacion_instancia();
-			$this->generar_info_importacion();
+			$this->generar_info_carga();
 			$this->actualizar_secuencias();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
@@ -413,7 +419,7 @@ class instancia extends elemento_modelo
 	/*
 	*	Genera informacion descriptiva sobre la instancia creada
 	*/
-	private function generar_info_importacion()
+	private function generar_info_carga()
 	{
 		$revision = revision_svn( toba_dir() );
 		$sql = "INSERT INTO apex_revision ( revision ) VALUES ('$revision')";
@@ -516,8 +522,37 @@ class instancia extends elemento_modelo
 		return $this->get_db()->consultar( $sql );
 	}
 
+	function get_registros_tablas()
+	{
+		$registros = array();
+		$tablas = catalogo_general::get_tablas();
+		foreach ( $tablas as $tabla ) {
+			$sql = "SELECT COUNT(*) as registros FROM $tabla;";
+			$temp = $this->get_db()->consultar( $sql );
+			$registros[ $tabla ] = $temp[0]['registros'];
+		}
+		return $registros;
+	}
+	
 	//-----------------------------------------------------------
-	//	Control de INSTANCIAS
+	//	Manipulacion de METADATOS
+	//-----------------------------------------------------------
+
+	function agregar_usuario( $usuario, $nombre, $clave )
+	{
+		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
+				VALUES ('$usuario', '$nombre', 'md5', '. md5($clave) .')";
+		return $this->get_db()->ejecutar( $sql );
+	}
+	
+	function eliminar_usuario( $usuario )
+	{
+		$sql = "DELETE FROM apex_usuario WHERE usuario = '$usuario'";	
+		return $this->get_db()->ejecutar( $sql );
+	}
+
+	//-----------------------------------------------------------
+	//	TEST
 	//-----------------------------------------------------------
 
 	function dump_info_tablas()

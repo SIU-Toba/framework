@@ -81,7 +81,7 @@ class comando_conversion extends comando_toba
 	*/
 	protected function get_info_parametro_version()
 	{
-		$this->consola->mensaje("[ -v id_version ] Version del TOBA a la que se quiere migrar.");
+		$this->consola->mensaje("[-v id_version] Version del TOBA a la que se quiere migrar.");
 	}
 }
 ?>

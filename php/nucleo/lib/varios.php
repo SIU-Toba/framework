@@ -77,15 +77,23 @@
 	//-----------------------------------------------------------------		
 	function rs_ordenar_por_columnas( $rs, $columnas, $tipo = SORT_ASC )
 	{
+		// Armo los arrays utilizados para ORDENAR
 		$orden = array();
 		for ( $a=0; $a < count( $rs ) ; $a++ ) {
-			$orden[ $a ] = '';
-			foreach ( $columnas as $col ) {
-				$orden[$a] .= $rs[$a][$col];
+			foreach ( $columnas as $id => $col ) {
+				$orden[$id][$a] = $rs[$a][$col];
 			}
 		}
-		array_multisort( $orden, $rs );
-		return $rs;
+		// Armo los parametros del mutisort
+		foreach ( $columnas as $id => $col ) {
+			$parametros[] =& $orden[$id];
+			$parametros[] = $tipo;
+		}
+		$parametros[] =& $rs;
+		// Como la funcion trabaja por referencia, tomo la posicion del array que me interesa ordenar
+		$indice_resultado = count( $parametros ) - 1;
+		call_user_func_array( 'array_multisort', $parametros );
+		return $parametros[ $indice_resultado ];
 	}
 	//-----------------------------------------------------------------		
 	function pasar_a_unica_linea($string)

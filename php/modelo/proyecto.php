@@ -48,7 +48,7 @@ class proyecto extends elemento_modelo
 	}
 
 	//-----------------------------------------------------------
-	//	Informacion
+	//	Informacion BASICA
 	//-----------------------------------------------------------
 
 	function get_id()
@@ -79,17 +79,6 @@ class proyecto extends elemento_modelo
 	function get_dir_componentes_compilados()
 	{
 		return $this->dir . '/metadatos_compilados/componentes';
-	}
-
-	function info()
-	{
-		$sql = "	SELECT clase, COUNT(*) as cantidad
-					FROM apex_objeto
-					WHERE proyecto = '{$this->identificador}'
-					GROUP BY 1
-					ORDER BY 2 DESC";
-		$datos = consultar_fuente($sql, 'instancia' );
-		return $datos;
 	}
 
 	function get_instancia()
@@ -412,9 +401,19 @@ class proyecto extends elemento_modelo
 				WHERE proyecto = '".$this->get_id()."';";
 		return $this->instancia->get_db()->consultar( $sql );
 	}
+
+	function get_lista_componentes()
+	{
+		$sql = "	SELECT clase, COUNT(*) as cantidad
+					FROM apex_objeto
+					WHERE proyecto = '{$this->identificador}'
+					GROUP BY 1
+					ORDER BY 2 DESC";
+		return $this->instancia->get_db()->consultar( $sql );
+	}
 		
 	//-----------------------------------------------------------
-	//	Manejo de USUARIOS
+	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
 	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no' )
@@ -507,7 +506,6 @@ class proyecto extends elemento_modelo
 				foreach( $usuarios_a_vincular as $usuario ) {
 					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', 'no' ) );
 				}
-				//throw new excepcion_toba("El MAL");
 				$db->cerrar_transaccion();
 			} catch ( excepcion_toba $e ) {
 				$db->abortar_transaccion();

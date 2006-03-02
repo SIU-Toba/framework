@@ -157,6 +157,23 @@ class comando_toba extends comando
 			}
 		}
 	}
+
+	//-----------------------------------------------------------
+	// Invocacion a otro comando toba
+	//-----------------------------------------------------------
+	/*
+		Cuando un comando modifica la configuracion de la instancia no
+		puede acceder a la nueva configuracion porque las clases informativas
+		ya fueron cargadas por PHP. En ese caso si se desea ejecutar un comando
+		toba, es necesario hacerlo por fuera del request actual. Los casos en que
+		eso pasa estan catalogados aca.
+	*/
+	function exportar_instancia_actual()
+	{
+		$id_instancia = self::get_id_instancia_actual();
+		$id_proyecto = self::get_id_proyecto_actual();
+		system( "toba instancia exportar_local -i $id_instancia -p $id_proyecto" );
+	}
 	
 	//-----------------------------------------------------------
 	// Preguntas comunes
@@ -165,7 +182,7 @@ class comando_toba extends comando
 	/**
 	*	Interface de seleccion de N usuarios
 	*/
-	protected function seleccionar_usuarios_afectados( instancia $instancia )
+	protected function seleccionar_usuarios( instancia $instancia )
 	{
 		// Decido que usuarios voy a vincular
 		/*
@@ -203,6 +220,68 @@ class comando_toba extends comando
 			// FALTA Seleccion del grupo de ACCESO
 			return $ga[0]['id'];
 		}
-	}	
+	}
+
+	/**
+	*	Permite seleccionar una base de datos
+	*/	
+	protected function seleccionar_base()
+	{
+		$titulo = "Seleccionr BASE";
+		$bases = array();
+		foreach( dba::get_lista_bases_archivo() as $db ) {
+			$param = dba::get_parametros_base( $db );
+			$bases[ $db ] = implode(',  ',$param);
+		}
+		if ( count( $bases ) > 0 ) {
+			$cabecera_tabla = implode( ', ', array_keys( $param ) );
+			return $this->consola->dialogo_lista_opciones( $bases, $titulo, false, $cabecera_tabla );
+		} else {
+			return null;	
+		}
+	}
+
+	/**
+	*	Interface de seleccion de PROYECTOS
+	*/
+	protected function seleccionar_proyectos( $seleccion_multiple = true, $obligatorio = false )
+	{
+		$titulo = "Seleccionar PROYECTOS";
+		$proyectos = proyecto::get_lista();
+		foreach( $proyectos as $proyecto ) {
+			$p[ $proyecto ]	= $proyecto;
+		}
+		return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', $obligatorio );
+	}
+
+	/**
+	*	Interface de carga de usuarios
+	*/
+	protected function definir_usuario( $titulo="Crear USUARIO" )
+	{
+		$form = $this->consola->get_formulario( $titulo );
+		$form->agregar_campo( array( 'id' => 'usuario',	'nombre' => 'ID usuario' ) );
+		$form->agregar_campo( array( 'id' => 'nombre',	'nombre' => 'Nombre' ) );
+		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'Clave' ) );
+		return $form->procesar();
+	}
+	
+	protected function mostrar_bases_definidas()
+	{
+		$a = 0;
+		foreach( dba::get_lista_bases_archivo() as $db ) {
+			$base[ $a ]['nombre'] = $db;
+			$param = dba::get_parametros_base( $db );
+			$base[ $a ]['parametros'] = implode(',  ',$param);
+			//$base[ $a ]['existe'] = dba::existe_base_datos( $db );//Alenta
+			$a++; 
+		}
+		if ( $a > 0 ) {
+			$txt_param = implode( ', ', array_keys( $param ) );
+			$this->consola->tabla( $base , array( 'BASE', "Parametros ( $txt_param )" ) );
+		} else {
+			$this->consola->mensaje("ATENCION: No hay BASES definidas.");
+		}		
+	}
 }
 ?>

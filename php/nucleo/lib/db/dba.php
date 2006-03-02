@@ -125,7 +125,7 @@ class dba
 	}
 
 	//------------------------------------------------------------------------
-	// Mantenimiento de DEFINICIONES
+	// ACCESO a DEFINICIONES
 	//------------------------------------------------------------------------
 
 	/*
@@ -139,43 +139,6 @@ class dba
 		return get_class_methods('info_bases');
 	}
 
-	static function existe_base_datos_definida( $id_base )
-	{
-		if(! class_exists('info_bases') ) {
-			self::incluir_archivo_bases();
-		}
-		$bases_registradas = get_class_methods('info_bases');
-		if ( in_array($id_base, $bases_registradas) ) {
-			return true;
-		}
-		return false;
-	}
-
-	static function agregar_definicion( $id_base, $parametros )
-	{
-		if ( ! is_array( $parametros ) ) {
-			throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
-		} else {
-			if ( !isset( $parametros['motor']  )
-				|| !isset( $parametros['profile'] ) 
-				|| !isset( $parametros['usuario'] )
-				|| !isset( $parametros['clave'] )
-				|| !isset( $parametros['base'] ) ) {
-				throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
-			}
-		}
-		$clase = self::get_clase_definicion_editable();
-		$clase->agregar_metodo_datos( $id_base, $parametros );
-		$clase->guardar();
-	}
-	
-	static function eliminar_definicion( $id_base )
-	{
-		$clase = self::get_clase_definicion_editable();
-		$clase->eliminar_metodo_datos( $id_base );
-		$clase->guardar();		
-	}
-
 	/**
 	*	Busca la definicion de una base en el archivo de bases 
 	*/
@@ -186,6 +149,18 @@ class dba
 		} else {
 			throw new excepcion_toba("La BASE '$id_base' no esta definida en el archivo de bases: '" . self::path_archivo_bases . "'" );
 		}
+	}
+
+	static function existe_base_datos_definida( $id_base )
+	{
+		if(! class_exists('info_bases') ) {
+			self::incluir_archivo_bases();
+		}
+		$bases_registradas = get_class_methods('info_bases');
+		if ( in_array($id_base, $bases_registradas) ) {
+			return true;
+		}
+		return false;
 	}
 
 	//------------------------------------------------------------------------
@@ -290,15 +265,6 @@ class dba
 	private function get_path_archivo_bases()
 	{
 		return toba_dir() . self::path_archivo_bases;		
-	}
-
-	/**
-	*	Devuelve la CLASE DATOS de la definicion para que se la edite
-	*/	
-	private static function get_clase_definicion_editable()
-	{
-		require_once('nucleo/lib/reflexion/clase_datos.php');
-		return new clase_datos('info_bases', self::get_path_archivo_bases() );
 	}
 
 	/**

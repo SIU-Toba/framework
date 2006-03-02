@@ -31,8 +31,23 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__info()
 	{
-		$datos = $this->get_proyecto()->info();
-		$this->consola->tabla( $datos, array('tipo','componentes') ,'COMPONENTES' );
+		$p = $this->get_proyecto();
+		$param = $this->get_parametros();
+		$this->consola->titulo( "Informacion sobre el PROYECTO '" . $p->get_id() . "' en la INSTANCIA '" .  $p->get_instancia()->get_id() . "'");
+		if ( isset( $param['-c'] ) ) {
+			// COMPONENTES
+			$this->consola->subtitulo('Listado de COMPONENTES');
+			$this->consola->tabla( $p->get_lista_componentes() , array( 'Tipo', 'Cantidad') );
+		} elseif ( isset( $param['-g'] ) ) {
+			// GRUPOS de ACCESO
+			$this->consola->subtitulo('Listado de GRUPOS de ACCESO');
+			$this->consola->tabla( $p->get_lista_grupos_acceso() , array( 'ID', 'Nombre') );
+		} else {										
+			$this->consola->subtitulo('Reportes');
+			$subopciones = array( 	'-c' => 'Listado de COMPONENTES',
+									'-g' => 'Listado de GRUPOS de ACCESO' ) ;
+			$this->consola->coleccion( $subopciones );			
+		}
 	}
 
 	/**
@@ -76,8 +91,8 @@ class comando_proyecto extends comando_toba
 			$p->cargar_autonomo( false );
 			$this->consola->enter();
 			$this->consola->subtitulo("Vincular USUARIOS");
-			$usuarios = comando_toba::seleccionar_usuarios_afectados( $p->get_instancia() );
-			$grupo_acceso = comando_toba::seleccionar_grupo_acceso( $p );
+			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
 			foreach ( $usuarios as $usuario ) {
 				$p->vincular_usuario( $usuario, $grupo_acceso );
 				$this->consola->mensaje("USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
@@ -86,10 +101,8 @@ class comando_proyecto extends comando_toba
 			//-- 2 -- Exportar proyecto
 			$this->consola->enter();
 			$this->consola->subtitulo("Exportar datos");
-			// Exporto metadatos de la INSTANCIA. Como el archivo de PROYECTOS asociados ya se cargo,
-			//	tengo que ejecutar la exportacion por fuera de este contexto de ejecucion
-			$comando_export_instancia = "toba instancia exportar_local -i ".$i->get_id()." -p " . $p->get_id();
-			system( $comando_export_instancia );
+			// Exporto la instancia con la nueva configuracion (por fuera del request)
+			self::exportar_instancia_actual();
 		} else {
 			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");	
 		}
@@ -120,17 +133,15 @@ class comando_proyecto extends comando_toba
 
 		// -- 1 -- Creo el proyecto
 		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'" );
-		$usuarios = comando_toba::seleccionar_usuarios_afectados( $instancia );
+		$usuarios = $this->seleccionar_usuarios( $instancia );
 		proyecto::crear( $instancia, $id_proyecto, $usuarios );
 
 		// -- 2 -- Exporto el proyecto creado
 		$this->consola->mensaje( "Exportando metadatos iniciales" );
 		$proyecto = $this->get_proyecto();
 		$proyecto->exportar( false );
-		// Exporto metadatos de la INSTANCIA. Como el archivo de PROYECTOS asociados ya se cargo,
-		//	tengo que ejecutar la exportacion por fuera de este contexto de ejecucion
-		$comando_export_instancia = "toba instancia exportar_local -i $id_instancia -p $id_proyecto";
-		system( $comando_export_instancia );
+		// Exporto la instancia con la nueva configuracion (por fuera del request)
+		self::exportar_instancia_actual();
 		$this->consola->separador();
 		$this->consola->mensaje( "El proyecto ha sido creado. Si se desea crear un acceso WEB al mismo" .
 									" agrege al archivo de configuracion de apache ('httpd.conf') las directivas" .

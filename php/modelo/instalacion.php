@@ -26,6 +26,17 @@ class instalacion extends elemento_modelo
 		}		
 	}
 
+	/**
+	* Crea el directorio de proyectos
+	*/
+	static function crear_directorio_proyectos()
+	{
+		$dir = toba_dir() .'/proyectos';
+		if( ! is_dir( $dir ) ) {
+			mkdir( $dir );
+		}		
+	}
+
 	//-------------------------------------------------------------
 	//-- Informacion general
 	//-------------------------------------------------------------
@@ -56,28 +67,18 @@ class instalacion extends elemento_modelo
 	}
 	
 	//-------------------------------------------------------------
-	//-- Archivo de Informacion basica
+	//-- Archivo de Informacion BASICA
 	//-------------------------------------------------------------
-
-	/**
-	* path del archivo con informacion basica
-	*/
-	static function archivo_info_basica()
-	{
-		return self::dir_base() . self::info_basica . '.php';
-	}
 
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
-	static function crear_info_basica($clave_qs=null, $clave_db=null)
+	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null )
 	{
-		if( ! $clave_qs ) $clave_qs = md5(uniqid(rand(), true));
-		if( ! $clave_db ) $clave_db = md5(uniqid(rand(), true));
 		$clase = new clase_datos( self::info_basica );
-		$clase->agregar_metodo_datos( 'get_clave_querystring', apex_clave_get );	
-		$clase->agregar_metodo_datos( 'get_clave_db', apex_clave_db );	
-		$clase->agregar_metodo_datos( 'get_id_grupo_desarrollo', null );
+		$clase->agregar_metodo_datos( 'get_clave_querystring', $clave_qs );	
+		$clase->agregar_metodo_datos( 'get_clave_db', $clave_db );	
+		$clase->agregar_metodo_datos( 'get_id_grupo_desarrollo', $id_grupo_desarrollo );
 		$clase->guardar( self::archivo_info_basica() );
 	}
 	
@@ -89,24 +90,24 @@ class instalacion extends elemento_modelo
 		return ( is_file( self::archivo_info_basica() ) );
 	}
 
-	//-------------------------------------------------------------
-	//-- Archivo de informacion de bases
-	//-------------------------------------------------------------
-
 	/**
 	* path del archivo con informacion basica
 	*/
-	static function archivo_info_bases()
+	static function archivo_info_basica()
 	{
-		return self::dir_base() . self::info_bases . '.php';
+		return self::dir_base() . self::info_basica . '.php';
 	}
+	
+	//-------------------------------------------------------------
+	//-- Archivo de informacion de BASES
+	//-------------------------------------------------------------
 
 	/**
 	* Crea el archivo con la lista de bases disponibles
 	*/
-	static function crear_info_bases( $lista_bases )
+	static function crear_info_bases( $lista_bases = array() )
 	{
-		$clase = new clase_datos( self::info_bases );
+		$clase = self::get_clase_definicion_editable();
 		foreach( $lista_bases as $id => $base ) {
 			//Valido que la definicion sea correcta
 			if( isset( $base['motor'] ) &&
@@ -115,14 +116,62 @@ class instalacion extends elemento_modelo
 				isset( $base['clave'] ) &&
 				isset( $base['base'] ) ) {
 				$clase->agregar_metodo_datos( $id, $base );	
+			} else {
+				throw new excepcion_toba("La definicion de la BASE '$id' es INCORRECTA.");	
 			}
 		}
-		$clase->guardar( self::archivo_info_bases() );
+		$clase->guardar();
+	}
+	
+	static function agregar_db( $id_base, $parametros )
+	{
+		if ( ! is_array( $parametros ) ) {
+			throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
+		} else {
+			if ( !isset( $parametros['motor']  )
+				|| !isset( $parametros['profile'] ) 
+				|| !isset( $parametros['usuario'] )
+				|| !isset( $parametros['clave'] )
+				|| !isset( $parametros['base'] ) ) {
+				throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
+			}
+		}
+		$clase = self::get_clase_definicion_editable();
+		$clase->agregar_metodo_datos( $id_base, $parametros );
+		$clase->guardar();
+	}
+	
+	static function eliminar_db( $id_base )
+	{
+		$clase = self::get_clase_definicion_editable();
+		$clase->eliminar_metodo_datos( $id_base );
+		$clase->guardar();		
+	}
+
+	/**
+	*	Devuelve la CLASE DATOS de la definicion para que se la edite
+	*/	
+	private static function get_clase_definicion_editable()
+	{
+		return new clase_datos( self::info_bases, self::archivo_info_bases() );
 	}
 	
 	function existe_info_bases()
 	{
 		return ( is_file( self::archivo_info_bases() ) );
+	}
+
+	/**
+	* path del archivo con informacion basica
+	*/
+	static function archivo_info_bases()
+	{
+		return self::dir_base() . self::info_bases . '.php';
+	}
+	
+	static function hay_bases()
+	{
+		return count( dba::get_lista_bases_archivo() ) > 0 ;
 	}
 	
 	//-------------------------------------------------------------
@@ -161,10 +210,14 @@ class instalacion extends elemento_modelo
 	function get_lista_instancias()
 	{
 		$dirs = array();
-		$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.instalacion::instancia_prefijo.'|' );
-		foreach ( $temp as $dir ) {
-			$temp_dir = explode( instalacion::instancia_prefijo, $dir );
-			$dirs[] = $temp_dir[1];
+		try {
+			$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.instalacion::instancia_prefijo.'|' );
+			foreach ( $temp as $dir ) {
+				$temp_dir = explode( instalacion::instancia_prefijo, $dir );
+				$dirs[] = $temp_dir[1];
+			}
+		} catch ( excepcion_toba $e ) {
+			// No existe la instalacion
 		}
 		return $dirs;
 	}

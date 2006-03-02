@@ -23,26 +23,56 @@ class comando_instancia extends comando_toba
 	//-------------------------------------------------------------
 
 	/**
-	*	Brinda informacion sobre la instancia
+	*	Brinda informacion sobre la instancia.
 	*/
 	function opcion__info()
 	{
 		$i = $this->get_instancia();
 		$param = $this->get_parametros();
+		$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() );
 		if ( isset( $param['-u'] ) ) {
 			// Lista de USUARIOS
-			$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() . ' -- Lista de Usuarios');
+			$this->consola->subtitulo('Listado de USUARIOS');
 			$this->consola->tabla( $i->get_lista_usuarios(), array( 'Usuario', 'Nombre') );
 		} else {										
 			// Informacion BASICA
-			$this->consola->titulo( 'INSTANCIA: ' . $i->get_id() .' -- Informacion basica' );
+			$this->consola->subtitulo('Informacion BASICA');
 			$this->consola->lista_asociativa( $i->get_parametros_db() , array('Parametros Conexion', 'Valores') );
 			$this->consola->lista( $i->get_lista_proyectos_vinculados(), 'Proyectos Vinculados' );
+			$this->consola->enter();
+			$this->consola->subtitulo('Reportes');
+			$subopciones = array( '-u' => 'Listado de usuarios' ) ;
+			$this->consola->coleccion( $subopciones );			
 		}
 	}
 	
 	/**
-	*	Carga una INSTANCIA en una base de datos, partiendo del contenido del sistema de archivos
+	*	Exporta la instancia completa de la DB referenciada (METADATOS propios y METADATOS de proyectos contenidos).
+	*/
+	function opcion__exportar()
+	{
+		$this->get_instancia()->exportar();
+	}
+
+	/**
+	*	Exporta los METADATOS propios de la instancia de la DB (exclusivamente la informacion local).
+	*/
+	function opcion__exportar_local()
+	{
+		$this->get_instancia()->exportar_local();
+	}
+
+	/**
+	*	Elimina la instancia y la vuelve a cargar.
+	*/
+	function opcion__regenerar()
+	{
+		$this->opcion__eliminar();
+		$this->get_instancia()->cargar();
+	}
+
+	/**
+	*	Carga una instancia en la DB referenciada, partiendo de los METADATOS existentes en el sistema de archivos.
 	*/
 	function opcion__cargar()
 	{
@@ -50,7 +80,7 @@ class comando_instancia extends comando_toba
 			$this->get_instancia()->cargar();
 		} catch ( excepcion_toba_modelo_preexiste $e ) {
 			$this->consola->error( 'Ya existe una instancia en la base de datos' );
-			$this->consola->dump_arbol( $this->get_instancia()->get_parametros_db(), 'BASE' );
+			$this->consola->lista( $this->get_instancia()->get_parametros_db(), 'BASE' );
 			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA?') ) {
 				$this->get_instancia()->cargar( true );
 			}
@@ -61,84 +91,77 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Elimina una INSTANCIA y la vuelve a generar.
-	*/
-	function opcion__regenerar()
-	{
-		$this->opcion__eliminar();
-		$this->get_instancia()->cargar();
-	}
-
-	/**
-	*	Exporta una instancia completa ( Metadatos propios y metadatos de proyectos )
-	*/
-	function opcion__exportar()
-	{
-		$this->get_instancia()->exportar();
-	}
-
-	/**
-	*	Exporta los METADATOS propios de la instancia ( Exclusivamente info local )
-	*/
-	function opcion__exportar_local()
-	{
-		$this->get_instancia()->exportar_local();
-	}
-
-	/**
-	*	Elimina la instancia
+	*	Elimina la instancia.
 	*/
 	function opcion__eliminar()
 	{
 		$i = $this->get_instancia();
-		$this->consola->dump_arbol( $i->get_parametros_db(), 'BASE' );
+		$this->consola->lista( $i->get_parametros_db(), 'BASE' );
 		if ( $this->consola->dialogo_simple('Desea eliminar la INSTANCIA?') ) {
 			$i->eliminar_base();
 		}
 	}
 
 	/**
-	*	Crea una instancia nueva.
+	*	Crea una instancia NUEVA.
 	*/
 	function opcion__crear()
 	{
 		$id_instancia = $this->get_id_instancia_actual();
-		$opciones_base = array_keys( dba::get_lista_bases_archivo() );
-		$texto = 'Seleccione una BASE para la instancia';
-		$base = $this->consola->dialogo_lista_opciones( $opciones_base, $texto, false, array('ID','BASE') );
-		var_dump( $base );
-		/*
 		$instalacion = $this->get_instalacion();
-		$instalacion->crear_instancia(  );
-		$instancia = $this->get_instancia();
-		$instancia->iniciar_instancia();
-		*/
-	}
+		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
+		if ( $instalacion->hay_bases() ) {
 
+			//---- A: Creo la definicion de la instancia
+			$proyectos = $this->seleccionar_proyectos();
+			// En el esquema actual, el toba siempre tiene que estar.
+			if ( ! in_array( 'toba', $proyectos ) ) {
+				$proyectos[] = 'toba';
+			}
+			$this->consola->enter();
+			$base = $this->seleccionar_base();
+			$instalacion->crear_instancia( $id_instancia, $base, $proyectos );
+
+			//---- B: Cargo la INSTANCIA en la BASE
+			$instancia = $this->get_instancia();
+			try {
+				$instancia->cargar();
+			} catch ( excepcion_toba_modelo_preexiste $e ) {
+				$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
+				$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
+				if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
+					$instancia->cargar( true );
+				} else {
+					return;	
+				}
+			} catch ( excepcion_toba $e ) {
+				$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
+				$this->consola->error( $e->getMessage() );
+			}
+
+			//---- C: Creo un USUARIO y lo asigno a los proyectos
+			$datos = $this->definir_usuario( "Crear USUARIO" );
+			//print_r( $datos );
+			$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
+			foreach( $instancia->get_proyectos() as $proyecto ) {
+				$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+				$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
+			}
+
+			//---- D: Exporto la informacion LOCAL
+			$instancia->exportar_local();
+
+		} else {
+			$this->consola->mensaje("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+		}
+	}
+		
 	/**
 	*	Genera un archivo con la lista de registros por cada tabla de la instancia
-	*/	
 	function opcion__dump_info_tablas()
 	{
 		$this->get_instancia()->dump_info_tablas();
 	}
-
-	/**
-	*	Vincula un proyecto con la instancia. [-p 'proyecto']
-	function opcion__vincular_proyecto()
-	{
-		$proyecto = $this->get_id_proyecto_actual();
-		$this->get_instancia()->vincular_proyecto( $proyecto );
-	}
-	*/
-	
-	/**
-	*	Desvincula un proyecto con la instancia. [-p 'proyecto']
-	function opcion__desvincular_proyecto()
-	{
-		$proyecto = $this->get_id_proyecto_actual();
-		$this->get_instancia()->desvincular_proyecto( $proyecto );
-	}
-	*/
+	*/	
 }
 ?>

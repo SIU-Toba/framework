@@ -209,7 +209,11 @@ class consola implements gui
 
 	function tabla( $tabla, $titulos )
 	{
-		echo Console_Table::fromArray( $titulos, $tabla );
+		if ( count( $tabla ) > 0 ) {
+			echo Console_Table::fromArray( $titulos, $tabla );
+		} else {
+			self::mensaje('...No hay DATOS!');	
+		}
 	}
 	
 	//------------------------------------------------------------------------
@@ -228,31 +232,47 @@ class consola implements gui
 		return false;
 	}	
 
-	function dialogo_ingresar_texto( $categoria )
+	function dialogo_ingresar_texto( $categoria, $obligatorio = true )
 	{
 		do {
 			echo "$categoria: ";
 			$respuesta = trim( fgets( STDIN ) );
-			$ok = ( trim($respuesta != '') );
+			$ok = ( ( trim($respuesta != '') && ( $obligatorio ) ) ||  ( ! $obligatorio  ) );
 		} while ( ! $ok );
 		return $respuesta;
 	}
 
-	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, $titulo = null )
+	/**
+	*	Muestra una lista de opciones y espera que el usuario seleccione.
+	*		Soporta: multiple selecciones y seleccion no obligaroria (--).
+	*/
+	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, $titulo = 'VALORES', $obligatorio = true )
 	{
-		$titulo = isset( $titulo ) ? $titulo : array( 'id', 'valor' );
-		self::mensaje( $texto );
-		self::lista_asociativa( $opciones, $titulo );
+		self::subtitulo( $texto );
+		self::lista_asociativa( $opciones, array( 'ID', $titulo ) );
 		if ( $multiple_seleccion ) {
-			self::mensaje('Puede seleccionar varios valores separandolos por ","');
+			self::mensaje('Seleccione valores pertenecientes a la columna "ID"');
+			self::mensaje('(Puede seleccionar varios valores separandolos por ",")');
+			$txt = 'valores';
+		} else {
+			self::mensaje('Seleccione un valor perteneciente a la columna "ID"');
+			$txt = 'valor';
 		}
+		if ( ! $obligatorio ) {
+			self::mensaje('Si no desea seleccionar nada escriba "--"');
+		}
+		self::enter();
 		$valores_posibles = implode( ',', array_keys( $opciones ) );
 		do {
-			echo "(valor): ";
+			echo "($txt): ";
 			$respuesta = trim( fgets( STDIN ) );
+			if ( ! $obligatorio && $respuesta == '--' ) {	// Salida para opcionales
+				return ($multiple_seleccion) ? array() : null;				
+			}
 			if ( $multiple_seleccion ) {
 				$ok = true;
 				$valores = explode(',', $respuesta);
+				$valores = array_map('trim',$valores);
 				foreach ( $valores as $valor ) {
 					if ( ! isset( $opciones[ $valor ] ) ) {
 						self::error("El valor '$valor' es invalido");
@@ -260,7 +280,7 @@ class consola implements gui
 					}
 				}
 				if ( $ok ) return $valores;
-			} else {
+			} else {	// Seleccion simple
 				if ( isset( $opciones[ $respuesta ] ) ) {
 					return $respuesta;
 				}

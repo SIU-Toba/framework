@@ -9,60 +9,14 @@ class comando_dba extends comando_toba
 	}
 
 	/**
-	*	Lista las BASES DEFINIDAS en el entorno.
+	*	Lista las BASES DEFINIDAS en la instalacion.
 	*/
 	function opcion__info()
 	{
-		$a = 0;
-		foreach( dba::get_lista_bases_archivo() as $db ) {
-			$base[ $a ]['nombre'] = $db;
-			$param = dba::get_parametros_base( $db );
-			$base[ $a ]['parametros'] = implode(',  ',$param);
-			//$base[ $a ]['existe'] = dba::existe_base_datos( $db );//Alenta
-			$a++; 
-		}
-		$txt_param = implode( ', ', array_keys( $param) );
-		$this->consola->tabla( $base , array( 'BASE', "Parametros ( $txt_param )" ) );
+		$this->consola->enter();
+		comando_toba::mostrar_bases_definidas();
 	}
 	
-	/**
-	*	Agrega una BASE en el entorno. [-d 'id_base']
-	*/
-	function opcion__agregar_def()
-	{
-		$def = $this->get_id_definicion_actual();
-		if ( dba::existe_base_datos_definida( $def ) ) {
-			throw new excepcion_toba( "Ya existe una base definida con el ID '$def'");
-		}
-		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
-		$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
-		$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE' ) );
-		$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO' ) );
-		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
-		$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
-		$datos = $form->procesar();
-		dba::agregar_definicion( $def, $datos );
-	}
-
-	/**
-	*	Elimina una BASE en el entorno. [-d 'id_base']
-	*/
-	function opcion__eliminar_def()
-	{
-		$def = $this->get_id_definicion_actual();
-		if ( dba::existe_base_datos_definida( $def ) ) {
-			$this->consola->enter();
-			$this->consola->subtitulo("DEFINICION: $def");
-			$this->consola->lista_asociativa( dba::get_parametros_base( $def ), array('Parametro','Valor') );
-			$this->consola->enter();
-			if ( $this->consola->dialogo_simple("Desea eliminar la definicion?") ) {
-				dba::eliminar_definicion( $def );
-			}
-		} else {
-			throw new excepcion_toba( "NO EXISTE una base definida con el ID '$def'");
-		}
-	}
-
 	/**
 	*	Crea una BASE DEFINIDA en el motor. [-d 'id_base']
 	*/

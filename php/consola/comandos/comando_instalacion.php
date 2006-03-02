@@ -19,17 +19,145 @@ class comando_instalacion extends comando_toba
 	//-------------------------------------------------------------
 
 	/**
-	*	Muestra informacion de la instalacion
+	*	Muestra informacion de la instalacion.
 	*/
 	function opcion__info()
 	{
-		$this->consola->lista( instalacion::get_lista_instancias(), 'INSTANCIAS' );
-		$this->consola->lista( proyecto::get_lista(), 'PROYECTOS' );
+		if ( instalacion::existe_info_basica() ) {
+			$this->consola->enter();
+			// INSTANCIAS
+			$instancias = instalacion::get_lista_instancias();
+			if ( $instancias ) {
+				$this->consola->lista( $instancias, 'INSTANCIAS' );
+			} else {
+				$this->consola->enter();
+				$this->consola->mensaje( 'ATENCION: No existen INSTANCIAS definidas.');
+			}
+			$this->consola->enter();
+			// BASES
+			comando_toba::mostrar_bases_definidas();
+			// ID de grupo de DESARROLLO
+			$grupo = instalacion::get_id_grupo_desarrollo();
+			if ( $grupo ) {
+				$this->consola->enter();
+				$this->consola->lista( array( $grupo ), 'ID grupo desarrollo' );
+			} else {
+				$this->consola->enter();
+				$this->consola->mensaje( 'ATENCION: No esta definido el ID del GRUPO de DESARROLLO.');
+			}
+			// PROYECTOS
+			$proyectos = proyecto::get_lista();
+			if ( $proyectos ) {
+				$this->consola->lista( $proyectos, 'PROYECTOS' );
+			} else {
+				$this->consola->enter();
+				$this->consola->mensaje( 'ATENCION: No existen PROYECTOS definidos.');
+			}
+		} else {
+			$this->consola->enter();
+			$this->consola->mensaje( 'La INSTALACION no ha sido inicializada.');
+		}
+	}
+
+	/**
+	*	Agrega una BASE en la instalacion. [-d 'id_base']
+	*/
+	function opcion__agregar_db()
+	{
+		$def = $this->get_id_definicion_actual();
+		if ( dba::existe_base_datos_definida( $def ) ) {
+			throw new excepcion_toba( "Ya existe una base definida con el ID '$def'");
+		}
+		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
+		$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
+		$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE' ) );
+		$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO' ) );
+		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
+		$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
+		$datos = $form->procesar();
+		instalacion::agregar_db( $def, $datos );
+	}
+
+	/**
+	*	Elimina una BASE en la instalacion. [-d 'id_base']
+	*/
+	function opcion__eliminar_db()
+	{
+		$def = $this->get_id_definicion_actual();
+		if ( dba::existe_base_datos_definida( $def ) ) {
+			$this->consola->enter();
+			$this->consola->subtitulo("DEFINICION: $def");
+			$this->consola->lista_asociativa( dba::get_parametros_base( $def ), array('Parametro','Valor') );
+			$this->consola->enter();
+			if ( $this->consola->dialogo_simple("Desea eliminar la definicion?") ) {
+				instalacion::eliminar_db( $def );
+			}
+		} else {
+			throw new excepcion_toba( "NO EXISTE una base definida con el ID '$def'");
+		}
 	}
 	
 	/**
-	*	Migracion de definicion de instancias entre las versiones 0.8.3.3 y 0.8.4.
-	*	Esto no esta en el comando conversion porque es pre-conexion.
+	*	Crea una instalacion.
+	*/
+	function opcion__crear()
+	{
+		instalacion::crear_directorio();
+		if( ! instalacion::existe_info_basica() ) {
+			$this->consola->titulo( "Configurando INSTALACION en: " . toba_dir() );
+			$apex_clave_get = md5(uniqid(rand(), true)); 
+			$apex_clave_db = md5(uniqid(rand(), true)); 
+			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
+			instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
+			instalacion::crear_info_bases();
+			instalacion::crear_directorio_proyectos();
+		} else {
+			$this->consola->enter();
+			$this->consola->mensaje( 'Ya existe una instalacion DEFINIDA' );
+			$this->consola->enter();
+		}
+	}
+
+	//-------------------------------------------------------------
+	// Interface
+	//-------------------------------------------------------------
+
+	/**
+	*	Determina sobre que base definida en 'info_bases' se va a trabajar
+	*/
+	private function get_id_definicion_actual()
+	{
+		$param = $this->get_parametros();
+		if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
+			return $param['-d'];
+		} else {
+			throw new excepcion_toba("Es necesario indicar el ID de la BASE a utilizar. Utilice el modificador '-d'");
+		}
+	}
+	
+	/**
+	*	Consulta al usuario el ID del grupo de desarrollo
+	*/
+	protected function definir_id_grupo_desarrollo()
+	{
+		$this->consola->subtitulo('Definir el ID del grupo de desarrollo');
+		$this->consola->mensaje('Este codigo se utiliza para permitir el desarrollo paralelo de equipos '.
+								'de trabajo geograficamente distribuidos.');
+		$this->consola->enter();
+		$resultado = $this->consola->dialogo_ingresar_texto( 'ID', false );
+		if ( $resultado == '' ) {
+			return null;	
+		} else {
+			return $resultado;	
+		}
+	}
+
+	//-------------------------------------------------------------
+	// Exclusivo migracion 0.8.3.3
+	//-------------------------------------------------------------
+
+	/**
+	*	Migracion de definicion de instancias de la version 0.8.3.3
 	*/
 	function opcion__migrar_definicion()
 	{
@@ -37,7 +165,7 @@ class comando_instalacion extends comando_toba
 	
 		//*** 0) Creo la carpeta INSTALACION
 	
-		$this->consola->titulo( "Inicializacion de la instalacion" );
+		$this->consola->titulo( "Inicializacion de la INSTALACION" );
 		instalacion::crear_directorio();
 		$this->consola->mensaje( "Crear carpeta 'instalacion'");
 	
@@ -65,15 +193,17 @@ class comando_instalacion extends comando_toba
 	
 		$this->consola->mensaje( "Migrar la definicion de CLAVES. (php/instancias.php)" );
 		if( ! instalacion::existe_info_basica() ) {
-			instalacion::crear_info_basica( apex_clave_get, apex_clave_db);
-			$this->consola->mensaje("la definicion de CLAVES se encuentra ahora en '" . instalacion::archivo_info_basica() . "'");	
+			$this->consola->enter();
+			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
+			instalacion::crear_info_basica( apex_clave_get, apex_clave_db, $id_grupo_desarrollo );
 		} else {
 			$this->consola->mensaje( "ya existe una archivo '" . instalacion::archivo_info_basica() . "'" );
 		}
 	
 		// *** 3) INSTANCIAS
 	
-		$this->consola->titulo( "Migrar INSTANCIAS toba" );
+		$this->consola->enter();
+		$this->consola->subtitulo( "Migrar INSTANCIAS toba" );
 		$this->consola->mensaje( "Indique que BASES son INSTANCIAS toba"); 
 		//Busco la lista de proyectos de la instalacion
 	
@@ -97,8 +227,8 @@ class comando_instalacion extends comando_toba
 			}
 		}
 		$this->consola->separador("FIN");		
-		$this->consola->mensaje("Puede borrar el archivo 'php/instancias.php'");
-		$this->consola->mensaje("Toda la informacion correspondiente a la instalacion, se encuentra ahora en la carpeta 'instalacion'");
+		$this->consola->mensaje("La migracion ha finalizado");
+		$this->consola->mensaje("Puede borrar el archivo 'toba_dir/php/instancias.php'");
 	}
 }
 ?>
