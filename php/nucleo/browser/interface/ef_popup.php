@@ -34,6 +34,16 @@ class ef_popup extends ef_editable
 		$parametros["columna_clave"]["etiqueta"]="SQL recup. descripcion (CLAVE)";
 		$parametros["columna_clave"]["descripcion"]="CLAVE del Query utilizado para recuperar la descripcion";
 		$parametros["columna_clave"]["opcional"]=1;
+		
+		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
+		$parametros["dao"]["opcional"]=1;	
+		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
+		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
+		$parametros["clase"]["opcional"]=1;	
+		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
+		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
+		$parametros["include"]["opcional"]=1;	
+		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		return $parametros;
 	}
 
@@ -80,11 +90,13 @@ class ef_popup extends ef_editable
 		}		
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
+	
 //-------------------- INTERFACE --------------------------
 
 	function obtener_input()
 	{
 		if(!isset($this->estado)) $this->estado="";	
+       	$this->obtener_descripcion_estado();  
         if (isset($this->item_destino)) {
             $vinculo_item = toba::get_vinculador()->obtener_vinculo_a_item(
 					            							$this->item_destino_proyecto, 
@@ -168,18 +180,7 @@ class ef_popup extends ef_editable
 		";		
 	}
 	
-    function cargar_estado($estado=null)
-    {
-        parent::cargar_estado($estado);
-		/*
-			ATENCION, el hecho de que la obtencion de estado se cargue aca implica que
-			se puede llamar dos veces en el mismo request. Aparentemente no tiene sentido
-			excepto que se relacione con un pisado de la clave ('$this->estado') de mas abajo.
-			Aparentemente no tiene sentido.
-		*/
-        $this->obtener_descripcion_estado();                    
-    }   
-    
+ 
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
@@ -218,11 +219,19 @@ class ef_popup extends ef_editable
 			}catch( excepcion_toba $e){
 				$this->descripcion_estado = 'ERROR SQL' . $e->getMessage();
 			}
+        } else if (isset($this->dao) && $this->modo =="estatico" && isset($this->estado)) {
+        	$this->descripcion_estado = $this->recuperar_datos_dao($this->estado);
+        } else if (isset($this->dao) && $this->modo !="estatico" && isset($this->estado)) {
+        	throw new excepcion_toba("Un ef_popup no puede cargar su descripcion a partir de un dao dinamico...");
         } else {
-            $this->descripcion_estado = $this->estado;
-        }     
+        	$this->descripcion_estado = $this->estado;	
+        }
     }
    
+ 	function cargar_datos_dao()
+ 	{
+ 		//Para eliminar la herencia	
+ 	}
 }
 //########################################################################################################
 //########################################################################################################
