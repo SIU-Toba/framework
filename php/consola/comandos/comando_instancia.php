@@ -155,6 +155,29 @@ class comando_instancia extends comando_toba
 			$this->consola->mensaje("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
 		}
 	}
+
+	/**
+	*	Crea una instancia en base a la informacion del sistema de archivos de otra 
+	*	(La instancia 'origen' se especifica con el parametro '-o')
+	*/
+	function falta_opcion__duplicar()
+	{
+		$param = $this->get_parametros();
+		if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
+			return $param['-o'];
+		} else {
+			throw new excepcion_toba("Es necesario indicar el la instancia original '-o'");
+		}		
+	}
+
+
+	/**
+	*	Migra el modelo de datos a la version 0.9.0
+	*/
+	function opcion__migrar_modelo()
+	{
+		$this->get_instancia()->cambio_modelo_datos_090();
+	}
 		
 	/**
 	*	Genera un archivo con la lista de registros por cada tabla de la instancia

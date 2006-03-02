@@ -159,7 +159,7 @@ class comando_instalacion extends comando_toba
 	/**
 	*	Migracion de definicion de instancias de la version 0.8.3.3
 	*/
-	function opcion__migrar_definicion()
+	function opcion__migrar_instancias()
 	{
 		require_once('instancias.php');
 	

@@ -1,5 +1,4 @@
 <?
-//Generador: nucleo.php
 
 class catalogo_general
 {

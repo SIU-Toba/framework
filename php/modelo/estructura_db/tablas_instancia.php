@@ -1,5 +1,4 @@
 <?
-//Generador: nucleo.php
 
 class tablas_instancia
 {
@@ -140,6 +139,7 @@ class tablas_instancia
     18 => 'parametro_a',
     19 => 'parametro_b',
     20 => 'parametro_c',
+    21 => 'autentificacion',
   ),
 );
 	}

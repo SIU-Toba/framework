@@ -1,5 +1,4 @@
 <?
-//Generador: nucleo.php
 
 class tablas_componente
 {
