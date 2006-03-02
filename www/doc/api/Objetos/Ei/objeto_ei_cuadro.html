@@ -35,7 +35,7 @@
 	</div>
       <b>Packages:</b><br />
   <div class="package">
-              <a href="../../li_Toba.html">Toba</a><br />
+              <a href="../../li_default.html">default</a><br />
               <a href="../../li_Objetos.html">Objetos</a><br />
               <a href="../../li_Utilerias.html">Utilerias</a><br />
       	</div>
@@ -216,16 +216,15 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_html">obtener_html</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodocultar_cabecera">ocultar_cabecera</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodordenar">ordenar</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodpdf_cabecera">pdf_cabecera</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodpdf_cabecera_corte_control">pdf_cabecera_corte_control</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodpdf_mensaje_cuadro_vacio">pdf_mensaje_cuadro_vacio</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodpdf_pie">pdf_pie</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodpdf_pie_corte_control">pdf_pie_corte_control</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodplanificar_cortes_control">planificar_cortes_control</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodprocesar_definicion">procesar_definicion</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodseleccionar">seleccionar</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodset_titulo">set_titulo</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodset_titulo_columna">set_titulo_columna</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodvista_impresion_html">vista_impresion_html</a></li>
 		  		</ul>
 		</td>
 		
@@ -598,6 +597,24 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvinculo_vista_html_impresion">objeto_ei::vinculo_vista_html_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve un autovinculo pidiendo un servicio PDF</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion">objeto_ei::vista_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion_html">objeto_ei::vista_impresion_html()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
 																	</dl>
 							</blockquote>
 													<p>Inherited From <span class="classname"><a href="../../Objetos/objeto.html">objeto</a></span></p>
@@ -688,6 +705,18 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia">objeto::dependencia()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia_cargada">objeto::dependencia_cargada()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddestruir">objeto::destruir()</a></span>
 										</dt>
 										<dd>
@@ -761,6 +790,12 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_nombre">objeto::get_nombre()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_titulo">objeto::get_titulo()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -1259,22 +1294,12 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#pdf_cabecera" title="details" class="method-name">pdf_cabecera</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pdf_cabecera_corte_control" title="details" class="method-name">pdf_cabecera_corte_control</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pdf_mensaje_cuadro_vacio" title="details" class="method-name">pdf_mensaje_cuadro_vacio</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#pdf_pie" title="details" class="method-name">pdf_pie</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
@@ -1305,6 +1330,11 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_titulo_columna" title="details" class="method-name">set_titulo_columna</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#vista_impresion_html" title="details" class="method-name">vista_impresion_html</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								</table>
@@ -1946,7 +1976,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 234]</span>
+	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 232]</span>
 </div>
 <br />
 
@@ -2002,7 +2032,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 341]</span>
+	<span class="method-title">cargar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
 </div>
 <br />
 
@@ -2026,7 +2056,7 @@ $memorizar = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1355]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1349]</span>
 </div>
 <br />
 
@@ -2062,7 +2092,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1348]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1342]</span>
 </div>
 <br />
 
@@ -2098,7 +2128,7 @@ $memorizar = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 360]</span>
+	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
 </div>
 <br />
 
@@ -2122,7 +2152,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 153]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 151]</span>
 </div>
 <br />
 
@@ -2151,7 +2181,7 @@ $memorizar = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 210]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 208]</span>
 </div>
 <br />
 
@@ -2276,7 +2306,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">finalizar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 332]</span>
+	<span class="method-title">finalizar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 330]</span>
 </div>
 <br />
 
@@ -2386,7 +2416,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 197]</span>
+	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 195]</span>
 </div>
 <br />
 
@@ -2487,7 +2517,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">hay_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 375]</span>
+	<span class="method-title">hay_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 373]</span>
 </div>
 <br />
 
@@ -2511,7 +2541,7 @@ $memorizar = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 849]</span>
+	<span class="method-title">html_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 853]</span>
 </div>
 <br />
 
@@ -2542,7 +2572,7 @@ $memorizar = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 914]</span>
+	<span class="method-title">html_cabecera_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 918]</span>
 </div>
 <br />
 
@@ -2575,7 +2605,7 @@ mixed
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera_pie_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 994]</span>
+	<span class="method-title">html_cabecera_pie_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 998]</span>
 </div>
 <br />
 
@@ -2608,7 +2638,7 @@ mixed
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_cuadro_cabecera_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1159]</span>
+	<span class="method-title">html_cuadro_cabecera_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1165]</span>
 </div>
 <br />
 
@@ -2643,7 +2673,7 @@ $indice&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_cuadro_totales_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1221]</span>
+	<span class="method-title">html_cuadro_totales_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1227]</span>
 </div>
 <br />
 
@@ -2672,7 +2702,7 @@ $estilo_linea = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 860]</span>
+	<span class="method-title">html_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 864]</span>
 </div>
 <br />
 
@@ -2705,7 +2735,7 @@ $texto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 856]</span>
+	<span class="method-title">html_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 860]</span>
 </div>
 <br />
 
@@ -2760,7 +2790,7 @@ $texto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_manejo_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 313]</span>
+	<span class="method-title">inicializar_manejo_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 311]</span>
 </div>
 <br />
 
@@ -2808,7 +2838,7 @@ $texto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 167]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 165]</span>
 </div>
 <br />
 
@@ -2868,7 +2898,7 @@ $texto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 380]</span>
+	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 378]</span>
 </div>
 <br />
 
@@ -2984,7 +3014,7 @@ $datos&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_definicion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 175]</span>
+	<span class="method-title">obtener_definicion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 173]</span>
 </div>
 <br />
 
@@ -3008,7 +3038,7 @@ $datos&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 771]</span>
+	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 773]</span>
 </div>
 <br />
 
@@ -3093,42 +3123,11 @@ $titulo = null]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodpdf_cabecera" id="pdf_cabecera"><!-- --></a>
+<a name="methodpdf_cabecera_corte_control" id="pdf_cabecera_corte_control"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1377]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void pdf_cabecera(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodpdf_cabecera_corte_control" id="pdf_cabecera_corte_control"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">pdf_cabecera_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1388]</span>
+	<span class="method-title">pdf_cabecera_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1407]</span>
 </div>
 <br />
 
@@ -3136,6 +3135,8 @@ $titulo = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void pdf_cabecera_corte_control(
+mixed
+&$nodo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3156,10 +3157,10 @@ $titulo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodpdf_mensaje_cuadro_vacio" id="pdf_mensaje_cuadro_vacio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1383]</span>
+	<span class="method-title">pdf_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1401]</span>
 </div>
 <br />
 
@@ -3188,42 +3189,11 @@ $texto&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodpdf_pie" id="pdf_pie"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">pdf_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1380]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void pdf_pie(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
 <a name="methodpdf_pie_corte_control" id="pdf_pie_corte_control"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_pie_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1391]</span>
+	<span class="method-title">pdf_pie_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1411]</span>
 </div>
 <br />
 
@@ -3231,6 +3201,8 @@ $texto&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void pdf_pie_corte_control(
+mixed
+&$nodo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3302,7 +3274,7 @@ $texto&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 370]</span>
+	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
 </div>
 <br />
 
@@ -3401,13 +3373,44 @@ $titulo&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1360]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void vista_impresion_html(
+mixed
+$salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion_html">objeto_ei::vista_impresion_html()</a></dt>
+					</dl>
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 		</div>
 	</div>
 
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 28 Dec 2005 11:18:41 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+		    Documentation generated on Wed, 01 Mar 2006 20:09:29 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
 	      </div>
       </td></tr></table>
     </td>

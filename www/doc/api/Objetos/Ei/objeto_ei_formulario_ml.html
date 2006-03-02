@@ -35,7 +35,7 @@
 	</div>
       <b>Packages:</b><br />
   <div class="package">
-              <a href="../../li_Toba.html">Toba</a><br />
+              <a href="../../li_default.html">default</a><br />
               <a href="../../li_Objetos.html">Objetos</a><br />
               <a href="../../li_Utilerias.html">Utilerias</a><br />
       	</div>
@@ -195,6 +195,7 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodseleccionar">seleccionar</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodset_metodo_analisis">set_metodo_analisis</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodvalidar_estado">validar_estado</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodvista_impresion_html">vista_impresion_html</a></li>
 		  		</ul>
 		</td>
 		
@@ -585,6 +586,12 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodget_valor_imprimible_ef">objeto_ei_formulario::get_valor_imprimible_ef()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodinfo_estado_ef">objeto_ei_formulario::info_estado_ef()</a></span>
 										</dt>
 										<dd>
@@ -663,7 +670,19 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodset_solo_lectura">objeto_ei_formulario::set_solo_lectura()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Deshabilita o habilita la edición de un conjunto de efs de este formulario</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodvalidar_estado">objeto_ei_formulario::validar_estado()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodvista_impresion_html">objeto_ei_formulario::vista_impresion_html()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -835,6 +854,24 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvinculo_vista_html_impresion">objeto_ei::vinculo_vista_html_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve un autovinculo pidiendo un servicio PDF</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion">objeto_ei::vista_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion_html">objeto_ei::vista_impresion_html()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
 																	</dl>
 							</blockquote>
 													<p>Inherited From <span class="classname"><a href="../../Objetos/objeto.html">objeto</a></span></p>
@@ -925,6 +962,18 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia">objeto::dependencia()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia_cargada">objeto::dependencia_cargada()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddestruir">objeto::destruir()</a></span>
 										</dt>
 										<dd>
@@ -998,6 +1047,12 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_nombre">objeto::get_nombre()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_titulo">objeto::get_titulo()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -1379,6 +1434,11 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 										<td class="method-definition"><a href="#validar_estado" title="details" class="method-name">validar_estado</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#vista_impresion_html" title="details" class="method-name">vista_impresion_html</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
 								</table>
 			</div>
 			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
@@ -1696,7 +1756,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 709]</span>
+	<span class="method-title">botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 720]</span>
 </div>
 <br />
 
@@ -1912,7 +1972,7 @@ $datos_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 819]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 830]</span>
 </div>
 <br />
 
@@ -1941,7 +2001,7 @@ $datos_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 796]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 807]</span>
 </div>
 <br />
 
@@ -2133,7 +2193,7 @@ $evento&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 535]</span>
+	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 546]</span>
 </div>
 <br />
 
@@ -2162,7 +2222,7 @@ $evento&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 624]</span>
+	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 635]</span>
 </div>
 <br />
 
@@ -2186,7 +2246,7 @@ $evento&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 574]</span>
+	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 585]</span>
 </div>
 <br />
 
@@ -2210,7 +2270,7 @@ $evento&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 595]</span>
+	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 606]</span>
 </div>
 <br />
 
@@ -2236,7 +2296,7 @@ $colspan&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 765]</span>
+	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 776]</span>
 </div>
 <br />
 
@@ -2474,7 +2534,7 @@ $analizar_diferencias = false]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">procesar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 740]</span>
+	<span class="method-title">procesar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 751]</span>
 </div>
 <br />
 
@@ -2580,13 +2640,44 @@ $metodo&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 841]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void vista_impresion_html(
+mixed
+$salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objetos/Ei/objeto_ei_formulario.html#methodvista_impresion_html">objeto_ei_formulario::vista_impresion_html()</a></dt>
+					</dl>
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 		</div>
 	</div>
 
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 28 Dec 2005 11:18:43 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+		    Documentation generated on Wed, 01 Mar 2006 20:09:35 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
 	      </div>
       </td></tr></table>
     </td>

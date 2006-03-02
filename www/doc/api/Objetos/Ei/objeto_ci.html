@@ -35,7 +35,7 @@
 	</div>
       <b>Packages:</b><br />
   <div class="package">
-              <a href="../../li_Toba.html">Toba</a><br />
+              <a href="../../li_default.html">default</a><br />
               <a href="../../li_Objetos.html">Objetos</a><br />
               <a href="../../li_Utilerias.html">Utilerias</a><br />
       	</div>
@@ -126,7 +126,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 </strong></p>
 
 		<p class="notes">
-			Located in <a class="field" href="_interface_objeto_ci_php.html">/interface/objeto_ci.php</a> [<span class="field">line 12</span>]
+			Located in <a class="field" href="_interface_objeto_ci_php.html">/interface/objeto_ci.php</a> [<span class="field">line 13</span>]
 		</p>
 
 		
@@ -168,6 +168,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<ul>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#method__construct">__construct</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodasignar_controlador_negocio">asignar_controlador_negocio</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodcargar_daos_dinamicos_dependencia">cargar_daos_dinamicos_dependencia</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodcargar_datos_dependencias">cargar_datos_dependencias</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodcargar_dependencias_gi">cargar_dependencias_gi</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodconsumo_javascript_global">consumo_javascript_global</a></li>
@@ -175,6 +176,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodcrear_objeto_js">crear_objeto_js</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddefinir_etapa_gi_post_eventos">definir_etapa_gi_post_eventos</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddefinir_etapa_gi_pre_eventos">definir_etapa_gi_pre_eventos</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddependencia">dependencia</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddestruir">destruir</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddisparar_entrega_datos_cn">disparar_entrega_datos_cn</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methoddisparar_eventos">disparar_eventos</a></li>
@@ -198,7 +200,6 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_etapa_actual">get_etapa_actual</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_etapa_gi">get_etapa_gi</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_etapa_inicial">get_etapa_inicial</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_info_post_proceso">get_info_post_proceso</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_lista_ei">get_lista_ei</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_lista_eventos">get_lista_eventos</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodget_lista_eventos_definidos">get_lista_eventos_definidos</a></li>
@@ -209,11 +210,11 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodinicializar_dependencia">inicializar_dependencia</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodinicializar_dependencias">inicializar_dependencias</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodir_a_limitrofe">ir_a_limitrofe</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodir_a_pantalla">ir_a_pantalla</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodmantener_estado_sesion">mantener_estado_sesion</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_descripcion_pantalla">obtener_descripcion_pantalla</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_html">obtener_html</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_html_base">obtener_html_base</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_html_cuerpo">obtener_html_cuerpo</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_html_dependencias">obtener_html_dependencias</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_html_pantalla_contenido">obtener_html_pantalla_contenido</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_javascript_global_consumido">obtener_javascript_global_consumido</a></li>
@@ -221,10 +222,11 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodobtener_tabs_verticales">obtener_tabs_verticales</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodpantallas_limitrofes">pantallas_limitrofes</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodprocesar_eventos">procesar_eventos</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodproveer_datos_dependencias">proveer_datos_dependencias</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodproveer_datos_dependencia">proveer_datos_dependencia</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodpuede_ir_a_pantalla">puede_ir_a_pantalla</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodregistrar_evento">registrar_evento</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodset_etapa_gi">set_etapa_gi</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodvista_impresion">vista_impresion</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ci.html#methodwizard_mostrar_toc">wizard_mostrar_toc</a></li>
 		  		</ul>
 		</td>
@@ -592,6 +594,24 @@ Source Location: /interface/objeto_ci.php<br /><br />
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvinculo_vista_html_impresion">objeto_ei::vinculo_vista_html_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Devuelve un autovinculo pidiendo un servicio PDF</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion">objeto_ei::vista_impresion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion_html">objeto_ei::vista_impresion_html()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
 																	</dl>
 							</blockquote>
 													<p>Inherited From <span class="classname"><a href="../../Objetos/objeto.html">objeto</a></span></p>
@@ -682,6 +702,18 @@ Source Location: /interface/objeto_ci.php<br /><br />
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia">objeto::dependencia()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddependencia_cargada">objeto::dependencia_cargada()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methoddestruir">objeto::destruir()</a></span>
 										</dt>
 										<dd>
@@ -755,6 +787,12 @@ Source Location: /interface/objeto_ci.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_nombre">objeto::get_nombre()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/objeto.html#methodget_titulo">objeto::get_titulo()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -1013,23 +1051,28 @@ Source Location: /interface/objeto_ci.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#cargar_datos_dependencias" title="details" class="method-name">cargar_datos_dependencias</a>()&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#cargar_daos_dinamicos_dependencia" title="details" class="method-name">cargar_daos_dinamicos_dependencia</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#cargar_datos_dependencias" title="details" class="method-name">cargar_datos_dependencias</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Dispara la carga de datos de las dependencias del objeto</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_dependencias_gi" title="details" class="method-name">cargar_dependencias_gi</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Cargar las dependencias a utilizar para generar la interface de este objeto</td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#consumo_javascript_global" title="details" class="method-name">consumo_javascript_global</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna los consumos javascript requerido por este objeto y sus dependencias</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#controlar_eventos_propios" title="details" class="method-name">controlar_eventos_propios</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Reconoce que evento del CI se ejecuto</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1039,12 +1082,17 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#definir_etapa_gi_post_eventos" title="details" class="method-name">definir_etapa_gi_post_eventos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL  ATENCION: esto se esta ejecutando despues de los eventos propios...</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#definir_etapa_gi_pre_eventos" title="details" class="method-name">definir_etapa_gi_pre_eventos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Define la etapa de Generacion de Interface del request ANTERIOR</td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">Objeto</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#dependencia" title="details" class="method-name">dependencia</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1059,7 +1107,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#disparar_eventos" title="details" class="method-name">disparar_eventos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Se les ordena a las dependencias que gatillen sus eventos  Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1079,7 +1127,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__cancelar" title="details" class="method-name">evt__cancelar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1089,7 +1137,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__error_proceso_hijo" title="details" class="method-name">evt__error_proceso_hijo</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Disparada cuando un hijo falla en su procesamiento</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1109,32 +1157,32 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_cargar_datos_dependencias" title="details" class="method-name">evt__post_cargar_datos_dependencias</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método que se ejecuta luego de que se carguen los datos de las dependencias</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_recuperar_interaccion" title="details" class="method-name">evt__post_recuperar_interaccion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Despues de recuperar la interaccion con el usuario</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__pre_cargar_datos_dependencias" title="details" class="method-name">evt__pre_cargar_datos_dependencias</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método que se ejecuta antes de que se carguen los datos de las dependencias</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__procesar" title="details" class="method-name">evt__procesar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Evento predefinido de procesar, en caso de existir el cn le entrega los datos y limpia la memoria</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__validar_datos" title="details" class="method-name">evt__validar_datos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Validar el estado interno, dispara una excepcion si falla</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#generar_interface_grafica" title="details" class="method-name">generar_interface_grafica</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Esta funcion DISPARABA la generacion de TODA la interface.</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1142,9 +1190,9 @@ Source Location: /interface/objeto_ci.php<br /><br />
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">unknown</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_dependencias_interface_previa" title="details" class="method-name">get_dependencias_interface_previa</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Devuelve la lista de dependencias que se utlizaron para generar la interface anterior</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1162,34 +1210,29 @@ Source Location: /interface/objeto_ci.php<br /><br />
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#get_info_post_proceso" title="details" class="method-name">get_info_post_proceso</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_lista_ei" title="details" class="method-name">get_lista_ei</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Determina la lista de elementos de interface (ei) que se muestran en esta pantalla  Para redefinir esta lista para una pantalla particular hay que definir un metodo get_lista_ei__PANTALLA,  donde PANTALLA es la buscada.</td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_lista_eventos" title="details" class="method-name">get_lista_eventos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la lista TOTAL de eventos de este objeto</td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">unknown</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_lista_eventos_definidos" title="details" class="method-name">get_lista_eventos_definidos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Obtiene la lista de eventos definidos desde el administrador</td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_lista_tabs" title="details" class="method-name">get_lista_tabs</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la lista de botones que representan a las pestañas o tabs que se muestran en la pantalla actual</td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">Id.</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_pantalla_actual" title="details" class="method-name">get_pantalla_actual</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Determina que pantalla se muestra en este request</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1214,12 +1257,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#ir_a_limitrofe" title="details" class="method-name">ir_a_limitrofe</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#ir_a_pantalla" title="details" class="method-name">ir_a_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Recorre las pantallas en un sentido buscando una válida para mostrar</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1229,7 +1267,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#obtener_descripcion_pantalla" title="details" class="method-name">obtener_descripcion_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la descripción de una pantalla particular definida en el administrador</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1243,13 +1281,18 @@ Source Location: /interface/objeto_ci.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#obtener_html_dependencias" title="details" class="method-name">obtener_html_dependencias</a>()&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#obtener_html_cuerpo" title="details" class="method-name">obtener_html_cuerpo</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#obtener_html_dependencias" title="details" class="method-name">obtener_html_dependencias</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Dispara la generación de html de los objetos contenidos en esta pantalla</td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#obtener_html_pantalla_contenido" title="details" class="method-name">obtener_html_pantalla_contenido</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Grafica el contenido de la pantalla actual</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1269,7 +1312,7 @@ Source Location: /interface/objeto_ci.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pantallas_limitrofes" title="details" class="method-name">pantallas_limitrofes</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Determina la etapa anterior y siguiente a la dada</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -1278,22 +1321,27 @@ Source Location: /interface/objeto_ci.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#proveer_datos_dependencias" title="details" class="method-name">proveer_datos_dependencias</a>()&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#proveer_datos_dependencia" title="details" class="method-name">proveer_datos_dependencia</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#puede_ir_a_pantalla" title="details" class="method-name">puede_ir_a_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Busca alguna regla particular para determinar si la navegación hacia una pantalla es válida</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#registrar_evento" title="details" class="method-name">registrar_evento</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Se disparan eventos dentro del nivel actual</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_etapa_gi" title="details" class="method-name">set_etapa_gi</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#vista_impresion" title="details" class="method-name">vista_impresion</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
@@ -1320,13 +1368,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 												</div>
 		<div class="info-box-body">
 			<a name="var$cn" id="$cn"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cn</span>
-			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 15]</span>
+			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 16]</span>
 		</span>
 	</div>
 
@@ -1344,13 +1392,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias_ci" id="$dependencias_ci"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_ci</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 19]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
 		</span>
 	</div>
 
@@ -1368,13 +1416,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias_ci_globales" id="$dependencias_ci_globales"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_ci_globales</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 18]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 19]</span>
 		</span>
 	</div>
 
@@ -1392,13 +1440,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias_gi" id="$dependencias_gi"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_gi</span>
-						<span class="smalllinenumber">[line 20]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 21]</span>
 		</span>
 	</div>
 
@@ -1416,13 +1464,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$etapa_gi" id="$etapa_gi"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$etapa_gi</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -1440,13 +1488,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$eventos" id="$eventos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$eventos</span>
-						<span class="smalllinenumber">[line 21]</span>
+						<span class="smalllinenumber">[line 22]</span>
 		</span>
 	</div>
 
@@ -1469,36 +1517,12 @@ Source Location: /interface/objeto_ci.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$evento_actual" id="$evento_actual"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$evento_actual</span>
-						<span class="smalllinenumber">[line 22]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$evento_actual_param" id="$evento_actual_param"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$evento_actual_param</span>
+			<span class="var-name">$evento_actual</span>
 						<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
@@ -1516,37 +1540,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$gi" id="$gi"><!-- --></A>
+<a name="var$evento_actual_param" id="$evento_actual_param"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$gi</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 26]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$id_en_padre" id="$id_en_padre"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$id_en_padre</span>
+			<span class="var-name">$evento_actual_param</span>
 						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
@@ -1564,38 +1564,14 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$indice_etapas" id="$indice_etapas"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$indice_etapas</span>
-						<span class="smalllinenumber">[line 29]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$lista_tabs" id="$lista_tabs"><!-- --></A>
+<a name="var$gi" id="$gi"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$lista_tabs</span>
-						<span class="smalllinenumber">[line 32]</span>
+			<span class="var-name">$gi</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -1612,61 +1588,13 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$nombre_formulario" id="$nombre_formulario"><!-- --></A>
+<a name="var$id_en_padre" id="$id_en_padre"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$nombre_formulario</span>
-						<span class="smalllinenumber">[line 16]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$objeto_js" id="$objeto_js"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$objeto_js</span>
-						<span class="smalllinenumber">[line 27]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$posicion_botonera" id="$posicion_botonera"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$posicion_botonera</span>
+			<span class="var-name">$id_en_padre</span>
 						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
@@ -1684,14 +1612,134 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$submit" id="$submit"><!-- --></A>
+<a name="var$indice_etapas" id="$indice_etapas"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$submit</span>
+			<span class="var-name">$indice_etapas</span>
+						<span class="smalllinenumber">[line 30]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$lista_tabs" id="$lista_tabs"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$lista_tabs</span>
+						<span class="smalllinenumber">[line 33]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$nombre_formulario" id="$nombre_formulario"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$nombre_formulario</span>
 						<span class="smalllinenumber">[line 17]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$objeto_js" id="$objeto_js"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$objeto_js</span>
+						<span class="smalllinenumber">[line 28]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$posicion_botonera" id="$posicion_botonera"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$posicion_botonera</span>
+						<span class="smalllinenumber">[line 26]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$submit" id="$submit"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$submit</span>
+						<span class="smalllinenumber">[line 18]</span>
 		</span>
 	</div>
 
@@ -1724,10 +1772,10 @@ Source Location: /interface/objeto_ci.php<br /><br />
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 34]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
 </div>
 <br />
 
@@ -1750,10 +1798,10 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodasignar_controlador_negocio" id="asignar_controlador_negocio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 140]</span>
+	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 167]</span>
 </div>
 <br />
 
@@ -1775,11 +1823,44 @@ $controlador&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodcargar_daos_dinamicos_dependencia" id="cargar_daos_dinamicos_dependencia"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">cargar_daos_dinamicos_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 717]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void cargar_daos_dinamicos_dependencia(
+mixed
+$dep&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodcargar_datos_dependencias" id="cargar_datos_dependencias"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 617]</span>
+	<span class="method-title">cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 685]</span>
 </div>
 <br />
 
@@ -1791,9 +1872,18 @@ $controlador&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Dispara la carga de datos de las dependencias del objeto
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -1803,7 +1893,7 @@ $controlador&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_dependencias_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 575]</span>
+	<span class="method-title">cargar_dependencias_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 631]</span>
 </div>
 <br />
 
@@ -1815,7 +1905,9 @@ $controlador&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Cargar las dependencias a utilizar para generar la interface de este objeto
+</strong></p>
+
 	<br />
 	
 
@@ -1827,19 +1919,21 @@ $controlador&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1026]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1062]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void consumo_javascript_global(
+		<code>array consumo_javascript_global(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna los consumos javascript requerido por este objeto y sus dependencias
+</strong></p>
+
 	<br />
 	
 
@@ -1856,7 +1950,7 @@ $controlador&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 449]</span>
+	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 492]</span>
 </div>
 <br />
 
@@ -1868,9 +1962,18 @@ $controlador&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Reconoce que evento del CI se ejecuto
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -1880,7 +1983,7 @@ $controlador&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1043]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1074]</span>
 </div>
 <br />
 
@@ -1909,7 +2012,7 @@ $controlador&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">definir_etapa_gi_post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
+	<span class="method-title">definir_etapa_gi_post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 409]</span>
 </div>
 <br />
 
@@ -1921,7 +2024,9 @@ $controlador&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Define la etapa de Generacion de Interface correspondiente al procesamiento del evento ACTUAL  ATENCION: esto se esta ejecutando despues de los eventos propios...
+</strong></p>
+<span class="description"><p>puede traer problemas de ejecucion de eventos antes de validar la salida de etapas</p></span>
 	<br />
 	
 
@@ -1933,7 +2038,7 @@ $controlador&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">definir_etapa_gi_pre_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 350]</span>
+	<span class="method-title">definir_etapa_gi_pre_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 387]</span>
 </div>
 <br />
 
@@ -1945,7 +2050,9 @@ $controlador&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Define la etapa de Generacion de Interface del request ANTERIOR
+</strong></p>
+
 	<br />
 	
 
@@ -1953,11 +2060,63 @@ $controlador&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methoddestruir" id="destruir"><!-- --></a>
+<a name="methoddependencia" id="dependencia"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 54]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 144]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>Objeto dependencia(
+string
+$id, [mixed
+$carga_en_demanda = true], boolean
+$cargar_en_demanda&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
+</strong></p>
+<span class="description"><p>si la dependencia es un EI y no figura en la lista GI (generacion de interface) dispara el eventos de carga!</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Identificador de la dependencia dentro del objeto actual</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cargar_en_demanda:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de que el objeto no se encuentre cargado en memoria, lo carga</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objetos/objeto.html#methoddependencia">objeto::dependencia()</a></dt>
+						<dd>Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</dd>
+					</dl>
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methoddestruir" id="destruir"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 55]</span>
 </div>
 <br />
 
@@ -1983,10 +2142,10 @@ $controlador&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_entrega_datos_cn" id="disparar_entrega_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 169]</span>
+	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 196]</span>
 </div>
 <br />
 
@@ -2007,10 +2166,10 @@ $controlador&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 420]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 463]</span>
 </div>
 <br />
 
@@ -2018,6 +2177,50 @@ $controlador&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void disparar_eventos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Se les ordena a las dependencias que gatillen sus eventos  Cualquier error que aparezca, sea donde sea, se atrapa en el ultimo nivel.
+</strong></p>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Esto esta bien? --&gt; cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.</td>
+  </tr>
+</table>
+
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objetos/Ei/objeto_ei.html#methoddisparar_eventos">objeto_ei::disparar_eventos()</a></dt>
+					</dl>
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methoddisparar_evento_propio" id="disparar_evento_propio"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 505]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void disparar_evento_propio(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -2033,44 +2236,15 @@ $controlador&nbsp;
 <br />
 
 
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Objetos/Ei/objeto_ei.html#methoddisparar_eventos">objeto_ei::disparar_eventos()</a></dt>
-					</dl>
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methoddisparar_evento_propio" id="disparar_evento_propio"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 463]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void disparar_evento_propio(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
 	
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_limpieza_memoria" id="disparar_limpieza_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 204]</span>
+	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 231]</span>
 </div>
 <br />
 
@@ -2091,10 +2265,10 @@ $controlador&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_obtencion_datos_cn" id="disparar_obtencion_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 147]</span>
+	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 174]</span>
 </div>
 <br />
 
@@ -2117,10 +2291,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__cancelar" id="evt__cancelar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 533]</span>
+	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 590]</span>
 </div>
 <br />
 
@@ -2132,7 +2306,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado
+</strong></p>
+
 	<br />
 	
 
@@ -2141,10 +2317,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__entregar_datos_cn" id="evt__entregar_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 185]</span>
+	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 212]</span>
 </div>
 <br />
 
@@ -2165,10 +2341,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__error_proceso_hijo" id="evt__error_proceso_hijo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__error_proceso_hijo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 527]</span>
+	<span class="method-title">evt__error_proceso_hijo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 582]</span>
 </div>
 <br />
 
@@ -2182,7 +2358,9 @@ $dependencia&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Disparada cuando un hijo falla en su procesamiento
+</strong></p>
+
 	<br />
 	
 
@@ -2191,10 +2369,10 @@ $dependencia&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__inicializar" id="evt__inicializar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
+	<span class="method-title">evt__inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 93]</span>
 </div>
 <br />
 
@@ -2215,10 +2393,10 @@ $dependencia&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__limpieza_memoria" id="evt__limpieza_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 217]</span>
+	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 244]</span>
 </div>
 <br />
 
@@ -2241,10 +2419,10 @@ $no_borrar = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__obtener_datos_cn" id="evt__obtener_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__obtener_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 161]</span>
+	<span class="method-title">evt__obtener_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 188]</span>
 </div>
 <br />
 
@@ -2267,10 +2445,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__post_cargar_datos_dependencias" id="evt__post_cargar_datos_dependencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 666]</span>
+	<span class="method-title">evt__post_cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 742]</span>
 </div>
 <br />
 
@@ -2282,7 +2460,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método que se ejecuta luego de que se carguen los datos de las dependencias
+</strong></p>
+<span class="description"><p>Para incorporar algún comportamiento luego de la carga en una pantalla particular definir un método  evt__post_cargar_datos_dependencias__PANTALLA donde PANTALLA es la pantalla buscada</p></span>
 	<br />
 	
 
@@ -2291,10 +2471,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__post_recuperar_interaccion" id="evt__post_recuperar_interaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_recuperar_interaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 514]</span>
+	<span class="method-title">evt__post_recuperar_interaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 565]</span>
 </div>
 <br />
 
@@ -2306,7 +2486,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Despues de recuperar la interaccion con el usuario
+</strong></p>
+
 	<br />
 	
 
@@ -2315,10 +2497,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__pre_cargar_datos_dependencias" id="evt__pre_cargar_datos_dependencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__pre_cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 606]</span>
+	<span class="method-title">evt__pre_cargar_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 672]</span>
 </div>
 <br />
 
@@ -2330,7 +2512,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método que se ejecuta antes de que se carguen los datos de las dependencias
+</strong></p>
+<span class="description"><p>Para incorporar algún comportamiento previo a la carga en una pantalla particular definir un método  evt__pre_cargar_datos_dependencias__PANTALLA donde PANTALLA es la pantalla buscada</p></span>
 	<br />
 	
 
@@ -2339,10 +2523,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__procesar" id="evt__procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 542]</span>
+	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 602]</span>
 </div>
 <br />
 
@@ -2354,7 +2538,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Evento predefinido de procesar, en caso de existir el cn le entrega los datos y limpia la memoria
+</strong></p>
+
 	<br />
 	
 
@@ -2363,10 +2549,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodevt__validar_datos" id="evt__validar_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 522]</span>
+	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 575]</span>
 </div>
 <br />
 
@@ -2378,7 +2564,9 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Validar el estado interno, dispara una excepcion si falla
+</strong></p>
+
 	<br />
 	
 
@@ -2387,10 +2575,10 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_interface_grafica" id="generar_interface_grafica"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_interface_grafica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 558]</span>
+	<span class="method-title">generar_interface_grafica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1116]</span>
 </div>
 <br />
 
@@ -2402,19 +2590,28 @@ $modo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Esta funcion DISPARABA la generacion de TODA la interface.
+</strong></p>
+<span class="description"><p>Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'</p></span>
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.9.0, se debe utilizar la solicitud_web</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_dependencias_ci" id="get_dependencias_ci"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 191]</span>
+	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 218]</span>
 </div>
 <br />
 
@@ -2435,17 +2632,87 @@ $modo = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_dependencias_interface_previa" id="get_dependencias_interface_previa"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_interface_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 481]</span>
+	<span class="method-title">get_dependencias_interface_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 526]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_dependencias_interface_previa(
+		<code>unknown get_dependencias_interface_previa(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Devuelve la lista de dependencias que se utlizaron para generar la interface anterior
+</strong></p>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodget_etapa_actual" id="get_etapa_actual"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_etapa_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 310]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_etapa_actual(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Objetos/Ei/objeto_ci.html#methodget_pantalla_actual">objeto_ci::get_pantalla_actual()</a></td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.3</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodget_etapa_gi" id="get_etapa_gi"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_etapa_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 379]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_etapa_gi(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -2465,69 +2732,11 @@ $modo = null]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodget_etapa_actual" id="get_etapa_actual"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">get_etapa_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 271]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_etapa_actual(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Objetos/Ei/objeto_ci.html#methodget_pantalla_actual">objeto_ci::get_pantalla_actual()</a></td>
-  </tr>
-  <tr>
-    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.3</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodget_etapa_gi" id="get_etapa_gi"><!-- --></a>
+<a name="methodget_etapa_inicial" id="get_etapa_inicial"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_etapa_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 345]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_etapa_gi(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodget_etapa_inicial" id="get_etapa_inicial"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">get_etapa_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
+	<span class="method-title">get_etapa_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 266]</span>
 </div>
 <br />
 
@@ -2544,6 +2753,9 @@ $modo = null]&nbsp;
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+  <tr>
     <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Objetos/Ei/objeto_ci.html#methodget_pantalla_inicial">objeto_ci::get_pantalla_inicial()</a></td>
   </tr>
   <tr>
@@ -2557,49 +2769,34 @@ $modo = null]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodget_info_post_proceso" id="get_info_post_proceso"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">get_info_post_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 704]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_info_post_proceso(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
 <a name="methodget_lista_ei" id="get_lista_ei"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_ei</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
+	<span class="method-title">get_lista_ei</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 650]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_lista_ei(
+		<code>array get_lista_ei(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Determina la lista de elementos de interface (ei) que se muestran en esta pantalla  Para redefinir esta lista para una pantalla particular hay que definir un metodo get_lista_ei__PANTALLA,  donde PANTALLA es la buscada.
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo de elementos a mostrar en esta pantalla</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -2609,19 +2806,21 @@ $modo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 771]</span>
+	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 776]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_lista_eventos(
+		<code>array get_lista_eventos(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la lista TOTAL de eventos de este objeto
+</strong></p>
+
 	<br />
 	
 
@@ -2638,19 +2837,21 @@ $modo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos_definidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 753]</span>
+	<span class="method-title">get_lista_eventos_definidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 758]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_lista_eventos_definidos(
+		<code>unknown get_lista_eventos_definidos(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Obtiene la lista de eventos definidos desde el administrador
+</strong></p>
+<span class="description"><p>Se redefine el método para dejar sólo aquellos eventos definidos en esta pantalla</p></span>
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -2674,19 +2875,21 @@ $modo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_tabs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 992]</span>
+	<span class="method-title">get_lista_tabs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1035]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_lista_tabs(
+		<code>array get_lista_tabs(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la lista de botones que representan a las pestañas o tabs que se muestran en la pantalla actual
+</strong></p>
+<span class="description"><p>Para inhabilitar algún tab, heredar, llamar a este método y sacar el tab del arreglo resultante</p></span>
 	<br />
 	
 
@@ -2698,21 +2901,30 @@ $modo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_pantalla_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 244]</span>
+	<span class="method-title">get_pantalla_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 276]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_pantalla_actual(
+		<code>Id. get_pantalla_actual(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Determina que pantalla se muestra en este request
+</strong></p>
+<span class="description"><p>Redefinir en caso de incluir una navegación personalizada</p></span>
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>de la pantalla actual</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -2722,7 +2934,7 @@ $modo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 230]</span>
+	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 257]</span>
 </div>
 <br />
 
@@ -2736,7 +2948,14 @@ $modo = null]&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -2746,7 +2965,7 @@ $modo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 81]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 82]</span>
 </div>
 <br />
 
@@ -2777,7 +2996,7 @@ $parametro = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 124]</span>
+	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 125]</span>
 </div>
 <br />
 
@@ -2804,7 +3023,7 @@ $parametro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
+	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 104]</span>
 </div>
 <br />
 
@@ -2830,7 +3049,7 @@ $dependencias&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 288]</span>
+	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 333]</span>
 </div>
 <br />
 
@@ -2838,51 +3057,44 @@ $dependencias&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void ir_a_limitrofe(
-mixed
+string
 $sentido&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Recorre las pantallas en un sentido buscando una válida para mostrar
+</strong></p>
+
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sentido:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> &quot;_anterior&quot; o &quot;_siguiente&quot;</span>			</td></tr>
+				</table>
+
 	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodir_a_pantalla" id="ir_a_pantalla"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">ir_a_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 303]</span>
-</div>
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
 <br />
 
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void ir_a_pantalla(
-mixed
-$tab&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
 
 	
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 74]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 75]</span>
 </div>
 <br />
 
@@ -2908,10 +3120,10 @@ $tab&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_descripcion_pantalla" id="obtener_descripcion_pantalla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_descripcion_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 876]</span>
+	<span class="method-title">obtener_descripcion_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 622]</span>
 </div>
 <br />
 
@@ -2925,7 +3137,9 @@ $pantalla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la descripción de una pantalla particular definida en el administrador
+</strong></p>
+<span class="description"><p>Redefinir en caso de que la descripción sea dinámica</p></span>
 	<br />
 	
 
@@ -2934,10 +3148,10 @@ $pantalla&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_html" id="obtener_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 709]</span>
+	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 804]</span>
 </div>
 <br />
 
@@ -2958,10 +3172,10 @@ $pantalla&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_html_base" id="obtener_html_base"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 677]</span>
+	<span class="method-title">obtener_html_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1134]</span>
 </div>
 <br />
 
@@ -2975,48 +3189,34 @@ $pantalla&nbsp;
 
 	
 	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodobtener_html_dependencias" id="obtener_html_dependencias"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">obtener_html_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 883]</span>
-</div>
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.9.0, se debe utilizar la solicitud_web</td>
+  </tr>
+</table>
 <br />
 
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void obtener_html_dependencias(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
 
 	
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodobtener_html_pantalla_contenido" id="obtener_html_pantalla_contenido"><!-- --></a>
+<a name="methodobtener_html_cuerpo" id="obtener_html_cuerpo"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html_pantalla_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 840]</span>
+	<span class="method-title">obtener_html_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 831]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void obtener_html_pantalla_contenido(
+		<code>void obtener_html_cuerpo(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3036,11 +3236,70 @@ $pantalla&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodobtener_html_dependencias" id="obtener_html_dependencias"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">obtener_html_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 931]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void obtener_html_dependencias(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Dispara la generación de html de los objetos contenidos en esta pantalla
+</strong></p>
+<span class="description"><p>Para redefinir la generación de una pantalla puntual, hay que definir un método:  		obtener_html_contenido__PANTALLA</p></span>
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodobtener_html_pantalla_contenido" id="obtener_html_pantalla_contenido"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">obtener_html_pantalla_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 898]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void obtener_html_pantalla_contenido(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Grafica el contenido de la pantalla actual
+</strong></p>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodobtener_javascript_global_consumido" id="obtener_javascript_global_consumido"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_javascript_global_consumido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1015]</span>
+	<span class="method-title">obtener_javascript_global_consumido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1160]</span>
 </div>
 <br />
 
@@ -3054,7 +3313,14 @@ $pantalla&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.4, se debe utilizar la solicitud_web</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -3064,7 +3330,7 @@ $pantalla&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_tabs_horizontales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 926]</span>
+	<span class="method-title">obtener_tabs_horizontales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 965]</span>
 </div>
 <br />
 
@@ -3078,7 +3344,14 @@ $pantalla&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -3088,7 +3361,7 @@ $pantalla&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_tabs_verticales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 963]</span>
+	<span class="method-title">obtener_tabs_verticales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1002]</span>
 </div>
 <br />
 
@@ -3112,7 +3385,7 @@ $pantalla&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">pantallas_limitrofes</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 318]</span>
+	<span class="method-title">pantallas_limitrofes</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 352]</span>
 </div>
 <br />
 
@@ -3126,7 +3399,9 @@ $actual&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Determina la etapa anterior y siguiente a la dada
+</strong></p>
+
 	<br />
 	
 
@@ -3138,7 +3413,7 @@ $actual&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">procesar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 406]</span>
+	<span class="method-title">procesar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 444]</span>
 </div>
 <br />
 
@@ -3158,73 +3433,20 @@ $actual&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodproveer_datos_dependencias" id="proveer_datos_dependencias"><!-- --></a>
+<a name="methodproveer_datos_dependencia" id="proveer_datos_dependencia"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">proveer_datos_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 653]</span>
+	<span class="method-title">proveer_datos_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 705]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void proveer_datos_dependencias(
+		<code>void proveer_datos_dependencia(
 mixed
 $dependencia&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodpuede_ir_a_pantalla" id="puede_ir_a_pantalla"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">puede_ir_a_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 276]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void puede_ir_a_pantalla(
-mixed
-$tab&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodregistrar_evento" id="registrar_evento"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 496]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void registrar_evento(
-mixed
-$id, mixed
-$evento&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3234,7 +3456,7 @@ $evento&nbsp;
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
   </tr>
 </table>
 <br />
@@ -3244,11 +3466,91 @@ $evento&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodpuede_ir_a_pantalla" id="puede_ir_a_pantalla"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">puede_ir_a_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 320]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean puede_ir_a_pantalla(
+mixed
+$tab&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Busca alguna regla particular para determinar si la navegación hacia una pantalla es válida
+</strong></p>
+<span class="description"><p>El método a definir para incidir en esta regla es evt__puede_mostrar_pantalla y recibe la pantalla como parámetro</p></span>
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodregistrar_evento" id="registrar_evento"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 546]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void registrar_evento(
+string
+$id, string
+$evento&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Se disparan eventos dentro del nivel actual
+</strong></p>
+<span class="description"><p>Puede recibir N parametros adicionales</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Id. o rol que tiene la dependencia en este objeto</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$evento:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Id. del evento</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodset_etapa_gi" id="set_etapa_gi"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_etapa_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 340]</span>
+	<span class="method-title">set_etapa_gi</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 374]</span>
 </div>
 <br />
 
@@ -3264,17 +3566,55 @@ $etapa&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodwizard_mostrar_toc" id="wizard_mostrar_toc"><!-- --></a>
+<a name="methodvista_impresion" id="vista_impresion"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">wizard_mostrar_toc</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 901]</span>
+	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1099]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void vista_impresion(
+impresion
+$salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objetos/Ei/objeto_ei.html#methodvista_impresion">objeto_ei::vista_impresion()</a></dt>
+					</dl>
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodwizard_mostrar_toc" id="wizard_mostrar_toc"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">wizard_mostrar_toc</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 944]</span>
 </div>
 <br />
 
@@ -3288,7 +3628,14 @@ $etapa&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -3300,7 +3647,7 @@ $etapa&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 28 Dec 2005 11:18:37 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+		    Documentation generated on Wed, 01 Mar 2006 20:09:14 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
 	      </div>
       </td></tr></table>
     </td>

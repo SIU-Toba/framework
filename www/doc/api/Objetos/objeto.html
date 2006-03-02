@@ -35,7 +35,7 @@
 	</div>
       <b>Packages:</b><br />
   <div class="package">
-              <a href="../li_Toba.html">Toba</a><br />
+              <a href="../li_default.html">default</a><br />
               <a href="../li_Objetos.html">Objetos</a><br />
               <a href="../li_Utilerias.html">Utilerias</a><br />
       	</div>
@@ -182,6 +182,8 @@ Source Location: /objeto.php<br /><br />
 		  		  <li><a href="../Objetos/objeto.html#methodconsultar_info_dependencia">consultar_info_dependencia</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodconsulta_datos_recibidos">consulta_datos_recibidos</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodcontrolar_memoria">controlar_memoria</a></li>
+		  		  <li><a href="../Objetos/objeto.html#methoddependencia">dependencia</a></li>
+		  		  <li><a href="../Objetos/objeto.html#methoddependencia_cargada">dependencia_cargada</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methoddestruir">destruir</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodeliminar_estado_sesion">eliminar_estado_sesion</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodevaluar_existencia_interface_anterior">evaluar_existencia_interface_anterior</a></li>
@@ -195,6 +197,7 @@ Source Location: /objeto.php<br /><br />
 		  		  <li><a href="../Objetos/objeto.html#methodget_dependencias_clase">get_dependencias_clase</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodget_estado_sesion">get_estado_sesion</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodget_nombre">get_nombre</a></li>
+		  		  <li><a href="../Objetos/objeto.html#methodget_titulo">get_titulo</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodget_txt">get_txt</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodguardar_estado_sesion">guardar_estado_sesion</a></li>
 		  		  <li><a href="../Objetos/objeto.html#methodinfo">info</a></li>
@@ -251,15 +254,15 @@ Source Location: /objeto.php<br /><br />
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Objetos/Persistencia/objeto_datos_tabla.html">objeto_datos_tabla</a></td>
-					<td>
-											Representa una estructura tipo tabla o RecordSet en memoria
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Objetos/Persistencia/objeto_datos_relacion.html">objeto_datos_relacion</a></td>
 					<td>
 											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Objetos/Persistencia/objeto_datos_tabla.html">objeto_datos_tabla</a></td>
+					<td>
+											Representa una estructura tipo tabla o RecordSet en memoria
 										</td>
 				</tr>
 							</table>
@@ -480,6 +483,16 @@ Source Location: /objeto.php<br /><br />
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">Objeto</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#dependencia" title="details" class="method-name">dependencia</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#dependencia_cargada" title="details" class="method-name">dependencia_cargada</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</td></tr>
+				</div>
+								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#destruir" title="details" class="method-name">destruir</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -542,6 +555,11 @@ Source Location: /objeto.php<br /><br />
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_nombre" title="details" class="method-name">get_nombre</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_titulo" title="details" class="method-name">get_titulo</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
@@ -1235,7 +1253,7 @@ $definicion&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 541]</span>
+	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 562]</span>
 </div>
 <br />
 
@@ -1265,7 +1283,7 @@ $objeto&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">autovinculacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 191]</span>
+	<span class="method-title">autovinculacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 196]</span>
 </div>
 <br />
 
@@ -1292,7 +1310,7 @@ $texto = "Autovinculo"]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 657]</span>
+	<span class="method-title">barra_superior</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 690]</span>
 </div>
 <br />
 
@@ -1320,7 +1338,7 @@ $estilo = "objeto-barra-superior"]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">barra_superior_especifica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 655]</span>
+	<span class="method-title">barra_superior_especifica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 688]</span>
 </div>
 <br />
 
@@ -1344,7 +1362,7 @@ $estilo = "objeto-barra-superior"]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 363]</span>
+	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
 </div>
 <br />
 
@@ -1368,7 +1386,7 @@ $estilo = "objeto-barra-superior"]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 568]</span>
+	<span class="method-title">cargar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
 </div>
 <br />
 
@@ -1395,7 +1413,7 @@ $parametros = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_info_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 530]</span>
+	<span class="method-title">cargar_info_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 535]</span>
 </div>
 <br />
 
@@ -1419,7 +1437,7 @@ $parametros = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 340]</span>
+	<span class="method-title">cargar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 345]</span>
 </div>
 <br />
 
@@ -1443,7 +1461,7 @@ $parametros = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">conectar_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 175]</span>
+	<span class="method-title">conectar_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 180]</span>
 </div>
 <br />
 
@@ -1491,7 +1509,7 @@ $parametros = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">consultar_info_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 594]</span>
+	<span class="method-title">consultar_info_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 627]</span>
 </div>
 <br />
 
@@ -1518,7 +1536,7 @@ $dato = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">consulta_datos_recibidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 161]</span>
+	<span class="method-title">consulta_datos_recibidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 166]</span>
 </div>
 <br />
 
@@ -1542,7 +1560,7 @@ $dato = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 351]</span>
+	<span class="method-title">controlar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 356]</span>
 </div>
 <br />
 
@@ -1555,6 +1573,88 @@ $dato = null]&nbsp;
     </td></tr></table><br /></div>
 
 	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methoddependencia" id="dependencia"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 551]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>Objeto dependencia(
+string
+$id, [mixed
+$carga_en_demanda = true], boolean
+$cargar_en_demanda&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
+</strong></p>
+
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Identificador de la dependencia dentro del objeto actual</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$cargar_en_demanda:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de que el objeto no se encuentre cargado en memoria, lo carga</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+	
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Objetos/Ei/objeto_ci.html#methoddependencia">objeto_ci::dependencia()</a>
+								: Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
+							</li>
+				</ul>
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methoddependencia_cargada" id="dependencia_cargada"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 613]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void dependencia_cargada(
+mixed
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Retorna verdadero si la dependencia fue cargada en este pedido de página
+</strong></p>
+
 	<br />
 	
 
@@ -1590,31 +1690,31 @@ $dato = null]&nbsp;
 				<a href="../Objetos/Ei/objeto_ei.html#methoddestruir">objeto_ei::destruir()</a>
 							</li>
 					<li>
-				<a href="../Objetos/Ei/objeto_ei_archivos.html#methoddestruir">objeto_ei_archivos::destruir()</a>
-							</li>
-					<li>
-				<a href="../Objetos/Ei/objeto_ei_cuadro.html#methoddestruir">objeto_ei_cuadro::destruir()</a>
-							</li>
-					<li>
 				<a href="../Objetos/Ei/objeto_ci.html#methoddestruir">objeto_ci::destruir()</a>
-							</li>
-					<li>
-				<a href="../Objetos/Ei/objeto_ei_formulario_ml.html#methoddestruir">objeto_ei_formulario_ml::destruir()</a>
 							</li>
 					<li>
 				<a href="../Objetos/Ei/objeto_ei_arbol.html#methoddestruir">objeto_ei_arbol::destruir()</a>
 							</li>
 					<li>
+				<a href="../Objetos/Ei/objeto_ei_archivos.html#methoddestruir">objeto_ei_archivos::destruir()</a>
+							</li>
+					<li>
 				<a href="../Objetos/Ei/objeto_ei_calendario.html#methoddestruir">objeto_ei_calendario::destruir()</a>
+							</li>
+					<li>
+				<a href="../Objetos/Ei/objeto_ei_cuadro.html#methoddestruir">objeto_ei_cuadro::destruir()</a>
+							</li>
+					<li>
+				<a href="../Objetos/Ei/objeto_ei_formulario_ml.html#methoddestruir">objeto_ei_formulario_ml::destruir()</a>
 							</li>
 					<li>
 				<a href="../Objetos/objeto_cn.html#methoddestruir">objeto_cn::destruir()</a>
 							</li>
 					<li>
-				<a href="../Objetos/Persistencia/objeto_datos_tabla.html#methoddestruir">objeto_datos_tabla::destruir()</a>
+				<a href="../Objetos/Persistencia/objeto_datos_relacion.html#methoddestruir">objeto_datos_relacion::destruir()</a>
 							</li>
 					<li>
-				<a href="../Objetos/Persistencia/objeto_datos_relacion.html#methoddestruir">objeto_datos_relacion::destruir()</a>
+				<a href="../Objetos/Persistencia/objeto_datos_tabla.html#methoddestruir">objeto_datos_tabla::destruir()</a>
 							</li>
 				</ul>
 		<br />
@@ -1624,7 +1724,7 @@ $dato = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 473]</span>
+	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 478]</span>
 </div>
 <br />
 
@@ -1650,7 +1750,7 @@ $no_eliminar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evaluar_existencia_interface_anterior</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 632]</span>
+	<span class="method-title">evaluar_existencia_interface_anterior</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 665]</span>
 </div>
 <br />
 
@@ -1681,7 +1781,7 @@ $no_eliminar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 185]</span>
+	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 190]</span>
 </div>
 <br />
 
@@ -1705,7 +1805,7 @@ $no_eliminar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 621]</span>
 </div>
 <br />
 
@@ -1721,7 +1821,14 @@ $id&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.4, usar dependencia_cargada</td>
+  </tr>
+</table>
+<br />
+
 
 	
 		<br />
@@ -1731,7 +1838,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existio_interface_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 643]</span>
+	<span class="method-title">existio_interface_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 676]</span>
 </div>
 <br />
 
@@ -1762,7 +1869,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">existio_memoria_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 373]</span>
+	<span class="method-title">existio_memoria_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 378]</span>
 </div>
 <br />
 
@@ -1858,7 +1965,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 616]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 649]</span>
 </div>
 <br />
 
@@ -1884,7 +1991,7 @@ $ereg_busqueda&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 485]</span>
+	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 490]</span>
 </div>
 <br />
 
@@ -1928,8 +2035,32 @@ $ereg_busqueda&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodget_txt" id="get_txt"><!-- --></a>
+<a name="methodget_titulo" id="get_titulo"><!-- --></a>
 <div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 157]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_titulo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodget_txt" id="get_txt"><!-- --></a>
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">get_txt</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 147]</span>
@@ -1953,10 +2084,10 @@ $ereg_busqueda&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodguardar_estado_sesion" id="guardar_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">guardar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 426]</span>
+	<span class="method-title">guardar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 431]</span>
 </div>
 <br />
 
@@ -1977,7 +2108,7 @@ $ereg_busqueda&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinfo" id="info"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 137]</span>
@@ -2001,10 +2132,10 @@ $ereg_busqueda&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinformar" id="informar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 229]</span>
+	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 234]</span>
 </div>
 <br />
 
@@ -2029,10 +2160,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinformar_msg" id="informar_msg"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 223]</span>
+	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 228]</span>
 </div>
 <br />
 
@@ -2056,7 +2187,7 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinfo_definicion" id="info_definicion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">info_definicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 89]</span>
@@ -2080,10 +2211,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinfo_definicion_dependencias" id="info_definicion_dependencias"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">info_definicion_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 611]</span>
+	<span class="method-title">info_definicion_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 644]</span>
 </div>
 <br />
 
@@ -2104,7 +2235,7 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinfo_estado" id="info_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">info_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 78]</span>
@@ -2128,10 +2259,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 383]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 388]</span>
 </div>
 <br />
 
@@ -2152,26 +2283,26 @@ $nivel = null]&nbsp;
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Objetos/Ei/objeto_ei_cuadro.html#methodmantener_estado_sesion">objeto_ei_cuadro::mantener_estado_sesion()</a>
-							</li>
-					<li>
 				<a href="../Objetos/Ei/objeto_ci.html#methodmantener_estado_sesion">objeto_ci::mantener_estado_sesion()</a>
 							</li>
 					<li>
-				<a href="../Objetos/Persistencia/objeto_datos_tabla.html#methodmantener_estado_sesion">objeto_datos_tabla::mantener_estado_sesion()</a>
+				<a href="../Objetos/Ei/objeto_ei_cuadro.html#methodmantener_estado_sesion">objeto_ei_cuadro::mantener_estado_sesion()</a>
 							</li>
 					<li>
 				<a href="../Objetos/Persistencia/objeto_datos_relacion.html#methodmantener_estado_sesion">objeto_datos_relacion::mantener_estado_sesion()</a>
+							</li>
+					<li>
+				<a href="../Objetos/Persistencia/objeto_datos_tabla.html#methodmantener_estado_sesion">objeto_datos_tabla::mantener_estado_sesion()</a>
 							</li>
 				</ul>
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmemorizar" id="memorizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">memorizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 327]</span>
+	<span class="method-title">memorizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 332]</span>
 </div>
 <br />
 
@@ -2192,10 +2323,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_info_proceso" id="mostrar_info_proceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_info_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 250]</span>
+	<span class="method-title">mostrar_info_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 255]</span>
 </div>
 <br />
 
@@ -2216,10 +2347,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_memoria" id="mostrar_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 508]</span>
+	<span class="method-title">mostrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 513]</span>
 </div>
 <br />
 
@@ -2240,10 +2371,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_observaciones" id="mostrar_observaciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 313]</span>
+	<span class="method-title">mostrar_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 318]</span>
 </div>
 <br />
 
@@ -2264,10 +2395,10 @@ $nivel = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobservar" id="observar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 297]</span>
+	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 302]</span>
 </div>
 <br />
 
@@ -2294,10 +2425,10 @@ $cortar_ejecucion = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_estado_proceso" id="obtener_estado_proceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_estado_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 240]</span>
+	<span class="method-title">obtener_estado_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 245]</span>
 </div>
 <br />
 
@@ -2318,10 +2449,10 @@ $cortar_ejecucion = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_mensaje" id="obtener_mensaje"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 210]</span>
+	<span class="method-title">obtener_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 215]</span>
 </div>
 <br />
 
@@ -2345,10 +2476,10 @@ $parametros = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodrecuperar_estado_sesion" id="recuperar_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">recuperar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 389]</span>
+	<span class="method-title">recuperar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 394]</span>
 </div>
 <br />
 
@@ -2369,10 +2500,10 @@ $parametros = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodregistrar_generacion_interface" id="registrar_generacion_interface"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_generacion_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 648]</span>
+	<span class="method-title">registrar_generacion_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 681]</span>
 </div>
 <br />
 
@@ -2400,10 +2531,10 @@ $parametros = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodregistrar_info_proceso" id="registrar_info_proceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_info_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 282]</span>
+	<span class="method-title">registrar_info_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 287]</span>
 </div>
 <br />
 
@@ -2427,10 +2558,10 @@ $gravedad = "info"]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodvinculo_editor" id="vinculo_editor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">vinculo_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 716]</span>
+	<span class="method-title">vinculo_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 750]</span>
 </div>
 <br />
 
@@ -2456,7 +2587,7 @@ $gravedad = "info"]&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 28 Dec 2005 11:18:36 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+		    Documentation generated on Wed, 01 Mar 2006 20:09:12 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
 	      </div>
       </td></tr></table>
     </td>
