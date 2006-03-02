@@ -259,7 +259,7 @@ class objeto_datos_relacion extends objeto
 			$proveedor = isset($tabla['objeto_proveedor']) ? $tabla['objeto_proveedor'] : $tabla['objeto'];
 			$obj[$proveedor] =& $nodo;
 			$nodo->setData($tabla);
-			$grafo->addNode(& $nodo);
+			$grafo->addNode($nodo);
 		}
 		//Se agregan los arcos
 		foreach ($relaciones as $asoc) {
