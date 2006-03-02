@@ -317,6 +317,7 @@ class logger
 	function pantalla_browser()
 	{
 		if (!$this->mostrado || (count($this->mensajes_web) != $this->cant_mostrada)) {
+			js::cargar_consumos_globales(array('basico'));
 			$hay_salida = false;
 			$html = "</script>";	//Por si estaba un tag abierto
 			$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
