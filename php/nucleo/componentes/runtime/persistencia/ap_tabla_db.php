@@ -706,7 +706,7 @@ class ap_tabla_db implements ap_tabla
 		if($this->baja_logica){
 			$sql = "UPDATE " . $this->tabla .
 					" SET " . $this->baja_logica_columna . " = '". $this->baja_logica_valor ."' " .
-					" WHERE " . implode(" AND ",$sql_where) .";";
+					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro)) .";";
 		}else{
 			$sql = "DELETE FROM " . $this->tabla .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
