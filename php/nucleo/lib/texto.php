@@ -8,7 +8,18 @@
 	*/
 	function separar_texto_lineas( $texto, $caracteres_linea )
 	{
-		$texto = str_replace("\n", ' ', $texto);
+		$salida = array();
+		$lineas_separadas = explode("\n", $texto);
+		foreach ($lineas_separadas as $linea) {
+			$salida= array_merge($salida, _separar_texto_lineas_interno($linea, $caracteres_linea));
+		}
+		return $salida;
+	}
+	
+	
+	function _separar_texto_lineas_interno($texto, $caracteres_linea)
+	{
+		//$texto = str_replace("\n", ' ', $texto);
 		$palabras = explode(' ', $texto );
 		$lineas = array();
 		$linea_actual = 0;
@@ -28,11 +39,13 @@
 			}
 			$lineas[ $linea_actual ][] = trim($palabra);
 		}
+		//print_r($lineas);
 		//Contateno las palabras
 		$salida = array();
 		foreach ($lineas as $linea ) {
 			$salida[] = implode(' ', $linea);	
 		}
+		//print_r($salida);
 		return $salida;
 	}
 

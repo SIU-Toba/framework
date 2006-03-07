@@ -37,6 +37,8 @@ class comando_instancia extends comando_toba
 		} else {										
 			// Informacion BASICA
 			$this->consola->subtitulo('Informacion BASICA');
+			//VERSION
+			$this->consola->lista(array($i->get_version_actual()->__toString()), "VERSION");
 			$this->consola->lista_asociativa( $i->get_parametros_db() , array('Parametros Conexion', 'Valores') );
 			$this->consola->lista( $i->get_lista_proyectos_vinculados(), 'Proyectos Vinculados' );
 			$this->consola->enter();

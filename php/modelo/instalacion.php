@@ -1,6 +1,7 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
 require_once('nucleo/lib/manejador_archivos.php');
+require_once('modelo/version_toba.php');
 require_once('nucleo/lib/ini.php');
 
 /**
@@ -55,6 +56,7 @@ class instalacion extends elemento_modelo
 		}
 		return $instancias;
 	}
+	
 	
 	//-------------------------------------------------------------
 	//-- Informacion general
@@ -200,6 +202,7 @@ class instalacion extends elemento_modelo
 		return toba_dir() . '/' . self::directorio_base;
 	}
 	
+
 	/**
 	* Crea el directorio de la instalacion
 	*/
@@ -310,5 +313,34 @@ class instalacion extends elemento_modelo
 	{
 		return self::dir_base() . '/' . self::info_bases;
 	}
+	
+	//------------------------------------------------------------------------
+	//-------------------------- Manejo de Versiones -------------------------
+	//------------------------------------------------------------------------
+
+	static function migrar($desde, $hasta)
+	{
+		$migraciones = $desde->get_migraciones($hasta);
+	}
+	
+
+	static function get_version_actual()
+	{
+		return new version_toba(file_get_contents(toba_dir()."/VERSION"));
+	}
+	
+	
+	static function get_version_anterior()
+	{
+		$version_menor = null;
+		foreach (instalacion::get_lista_instancias() as $id_instancia) {
+			$instancia = new instancia($id_instancia);
+			$version_instancia = $instancia->get_version_actual();
+			if (! isset($version_menor) || $version_instancia->es_menor_que($version_menor)) {
+				$version_menor = $version_instancia;
+			}
+		}
+		return $version_menor;
+	}	
 }
 ?>

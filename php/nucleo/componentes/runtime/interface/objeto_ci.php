@@ -4,6 +4,7 @@ require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 require_once('nucleo/lib/parser_ayuda.php');
+require_once('nucleo/lib/salidas/impresion.php');
 
 /**
  * Controla un flujo de pantallas

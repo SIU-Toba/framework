@@ -135,6 +135,17 @@ class instancia extends elemento_modelo
 	{
 		return $this->dir;		
 	}
+	
+	function get_version_actual()
+	{
+		$sql = "SELECT version FROM apex_instancia WHERE instancia='".$this->get_id()."'";
+		$rs = $this->get_db()->consultar($sql);
+		if (empty($rs)) {
+			return null;	
+		} else {
+			return new version_toba($rs[0]['version']);	
+		}
+	}
 
 	function get_lista_proyectos_vinculados()
 	{
@@ -380,6 +391,7 @@ class instancia extends elemento_modelo
 			$this->cargar_informacion_instancia();
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
+			$this->actualizar_version();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->get_db()->abortar_transaccion();
@@ -501,6 +513,21 @@ class instancia extends elemento_modelo
 			}
 			$this->manejador_interface->mensaje("SECUENCIA $seq: $nuevo");
 		}	
+	}
+	
+	private function actualizar_version()
+	{
+		$nueva = instalacion::get_version_actual()->__toString();
+		$vieja = $this->get_version_actual();
+		if (!isset($vieja)) {
+			//Caso especial cuando es la primera vez que se carga la instancia con el esquema nuevo
+			$sql = "INSERT INTO apex_instancia (instancia, version) 
+					VALUES ('{$this->identificador}', '$nueva')";
+		} else {
+			$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
+		}
+		$this->manejador_interface->titulo("Actualizando número de versión: $nueva");
+		$this->get_db()->ejecutar($sql);
 	}
 
 	//-----------------------------------------------------------

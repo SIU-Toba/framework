@@ -25,6 +25,8 @@ class comando_instalacion extends comando_toba
 	{
 		if ( instalacion::existe_info_basica() ) {
 			$this->consola->enter();
+			//VERSION
+			$this->consola->lista(array(instalacion::get_version_actual()->__toString()), "VERSION");
 			// INSTANCIAS
 			$instancias = instancia::get_lista();
 			if ( $instancias ) {
@@ -282,6 +284,30 @@ class comando_instalacion extends comando_toba
 		$this->consola->separador("FIN");		
 		$this->consola->mensaje("La migracion ha finalizado");
 		$this->consola->mensaje("Puede borrar el archivo 'toba_dir/php/instancias.php'");
+	}
+	
+	/**
+	 * Migra la instalación actual. [-d 'desde']  [-h 'hasta'] [-R 0|1].
+	 * -d se asume la versión de toba de la última instancia cargada.
+	 * -h se asume la versión de toba del código actual.
+	 * -R asume 1, esto quiere decir que migra también todas las instancias y proyectos que encuentre, sino solo lo propio de la instalación
+	 */
+	function opcion__migrar()
+	{
+		//--- Parametros
+		$param = $this->get_parametros();
+		$desde = isset($param['-d']) ? new version_toba($param['-d']) : instalacion::get_version_anterior();
+		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : instalacion::get_version_actual();
+		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
+		
+		if ($recursivo) {
+			$texto_recursivo = ", sus instancias y proyectos";
+		}
+		$desde_texto = $desde->__toString();
+		$hasta_texto = $hasta->__toString();
+		$this->consola->titulo("Migración de la instalación actual".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
+
+		instalacion::migrar($desde, $hasta);
 	}
 }
 ?>

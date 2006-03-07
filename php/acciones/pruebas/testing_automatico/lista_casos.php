@@ -60,7 +60,7 @@ class lista_casos
 		if( $handle = @opendir( $path ) ) {
 			while (false !== ($file = readdir($handle))) { 
 				$path_completo = $path . "/" . $file;
-				if( is_dir( $path_completo ) && substr($file, 0, 5) == "test_" )
+				if( is_dir( $path_completo ) && substr($file, 0, 5) == "test_" ) {
 					if ( $handle_interno = opendir( $path_completo ) ) {
 						while (false !== ($file_interno = readdir($handle_interno))) { 
 							if (substr($file_interno, 0, 5) == "test_" ) {
@@ -76,6 +76,7 @@ class lista_casos
 						}
 						closedir($handle_interno);  
 					}
+				}
 			}
 			closedir($handle); 
 		}
