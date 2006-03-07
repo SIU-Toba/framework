@@ -30,16 +30,15 @@ class tablas_nucleo
   22 => 'apex_comparacion',
   23 => 'apex_nota_tipo',
   24 => 'apex_msg_tipo',
-  25 => 'apex_mod_datos_dump',
-  26 => 'apex_ap_tarea_tipo',
-  27 => 'apex_ap_tarea_estado',
-  28 => 'apex_ap_tarea_prioridad',
-  29 => 'apex_ap_tarea_tema',
-  30 => 'apex_tp_tarea_tipo',
-  31 => 'apex_objeto_hoja_directiva_ti',
-  32 => 'apex_admin_persistencia',
-  33 => 'apex_tipo_datos',
-  34 => 'apex_objeto_mt_me_tipo_nav',
+  25 => 'apex_ap_tarea_tipo',
+  26 => 'apex_ap_tarea_estado',
+  27 => 'apex_ap_tarea_prioridad',
+  28 => 'apex_ap_tarea_tema',
+  29 => 'apex_tp_tarea_tipo',
+  30 => 'apex_objeto_hoja_directiva_ti',
+  31 => 'apex_admin_persistencia',
+  32 => 'apex_tipo_datos',
+  33 => 'apex_objeto_mt_me_tipo_nav',
 );
 	}
 
@@ -549,24 +548,6 @@ class tablas_nucleo
     0 => 'msg_tipo',
     1 => 'descripcion',
     2 => 'icono',
-  ),
-);
-	}
-
-	static function apex_mod_datos_dump()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'dump',
-  'zona' => 'modelo_datos',
-  'desc' => 'Modalidades de dumpeo',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'dump',
-    1 => 'descripcion',
   ),
 );
 	}

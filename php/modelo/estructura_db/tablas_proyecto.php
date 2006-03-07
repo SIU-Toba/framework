@@ -53,18 +53,12 @@ class tablas_proyecto
   45 => 'apex_item_msg',
   46 => 'apex_clase_msg',
   47 => 'apex_objeto_msg',
-  48 => 'apex_mod_datos_zona',
-  49 => 'apex_mod_datos_tabla',
-  50 => 'apex_mod_datos_tabla_columna',
-  51 => 'apex_mod_datos_tabla_restric',
-  52 => 'apex_mod_datos_secuencia',
-  53 => 'apex_mod_datos_zona_tabla',
-  54 => 'apex_ap_version',
-  55 => 'apex_ap_tarea',
-  56 => 'apex_tp_tarea',
-  57 => 'apex_objeto_mapa',
-  58 => 'apex_permiso',
-  59 => 'apex_permiso_grupo_acc',
+  48 => 'apex_ap_version',
+  49 => 'apex_ap_tarea',
+  50 => 'apex_tp_tarea',
+  51 => 'apex_objeto_mapa',
+  52 => 'apex_permiso',
+  53 => 'apex_permiso_grupo_acc',
 );
 	}
 
@@ -1273,141 +1267,6 @@ class tablas_proyecto
     8 => 'mensaje_c',
     9 => 'mensaje_customizable',
     10 => 'parametro_clase',
-  ),
-);
-	}
-
-	static function apex_mod_datos_zona()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'zona',
-  'zona' => 'modelo_datos',
-  'desc' => 'Organizadores conceptuales de tablas',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'zona',
-    2 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_mod_datos_tabla()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'tabla',
-  'zona' => 'modelo_datos',
-  'desc' => 'Tablas que componen el modelo de datos',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'tabla',
-    2 => 'script',
-    3 => 'orden',
-    4 => 'descripcion',
-    5 => 'version',
-    6 => 'historica',
-    7 => 'instancia',
-    8 => 'dump',
-    9 => 'dump_where',
-    10 => 'dump_from',
-    11 => 'dump_order_by',
-    12 => 'dump_order_by_from',
-    13 => 'dump_order_by_where',
-    14 => 'extra_1',
-    15 => 'extra_2',
-  ),
-);
-	}
-
-	static function apex_mod_datos_tabla_columna()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'tabla, columna',
-  'dump_where' => '( tabla_proyecto = \\\'%%\\\' )',
-  'zona' => 'modelo_datos',
-  'desc' => 'Columnas de la tabla',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tabla_proyecto',
-    1 => 'tabla',
-    2 => 'columna',
-    3 => 'orden',
-    4 => 'dump',
-    5 => 'definicion',
-  ),
-);
-	}
-
-	static function apex_mod_datos_tabla_restric()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'tabla, restriccion',
-  'dump_where' => '( tabla_proyecto = \\\'%%\\\' )',
-  'zona' => 'modelo_datos',
-  'desc' => 'Constraints de la tabla',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tabla_proyecto',
-    1 => 'tabla',
-    2 => 'restriccion',
-    3 => 'definicion',
-  ),
-);
-	}
-
-	static function apex_mod_datos_secuencia()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'secuencia',
-  'zona' => 'modelo_datos',
-  'desc' => 'Secuencias',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'secuencia',
-    2 => 'definicion',
-  ),
-);
-	}
-
-	static function apex_mod_datos_zona_tabla()
-	{
-		return array (
-  'archivo' => 'pgsql_a06_mod_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'zona, tabla',
-  'dump_where' => '( tabla_proyecto = \\\'%%\\\' )',
-  'zona' => 'modelo_datos',
-  'desc' => 'Asociacion de tablas con zonas',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'zona_proyecto',
-    1 => 'zona',
-    2 => 'tabla_proyecto',
-    3 => 'tabla',
   ),
 );
 	}
