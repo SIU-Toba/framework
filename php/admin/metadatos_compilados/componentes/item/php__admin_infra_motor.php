@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_infra_motor
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

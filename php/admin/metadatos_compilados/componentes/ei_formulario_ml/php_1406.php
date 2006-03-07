@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1406
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -21,7 +20,7 @@ class php_1406
     'nombre' => 'OBJETO - Editor datos_relacion - Relaciones',
     'titulo' => 'RELACION entre TABLAS',
     'colapsable' => NULL,
-    'descripcion' => 'Asocia objetos a items',
+    'descripcion' => NULL,
     'fuente_proyecto' => 'toba',
     'fuente' => 'instancia',
     'solicitud_registrar' => NULL,

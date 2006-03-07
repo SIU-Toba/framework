@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_objetos_toba_editores_db_tablas
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -11,14 +10,14 @@ class php__admin_objetos_toba_editores_db_tablas
     'item_proyecto' => 'toba',
     'item' => '/admin/objetos_toba/editores/db_tablas',
     'item_nombre' => 'Editor datos_relacion',
-    'item_descripcion' => NULL,
+    'item_descripcion' => '<strong>[wiki:Referencia/Objetos/datos_relacion Datos Relación]</strong>:<br>Mantiene un conjunto relacionado de [wiki:Referencia/Objetos/datos_tabla datos_tabla], brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia.',
     'item_act_buffer_proyecto' => 'toba',
     'item_act_buffer' => '0',
     'item_act_patron_proyecto' => 'toba',
     'item_act_patron' => 'CI',
     'item_act_patron_script' => 'patrones/ci.php',
-    'item_act_accion_script' => NULL,
-    'item_solic_tipo' => 'browser',
+    'item_act_accion_script' => '',
+    'item_solic_tipo' => 'web',
     'item_solic_registrar' => NULL,
     'item_solic_obs_tipo_proyecto' => NULL,
     'item_solic_obs_tipo' => NULL,
@@ -41,7 +40,7 @@ class php__admin_objetos_toba_editores_db_tablas
     'orden' => NULL,
     'publico' => NULL,
     'crono' => NULL,
-    'solicitud_tipo' => 'browser',
+    'solicitud_tipo' => 'web',
   ),
   'info_objetos' => 
   array (

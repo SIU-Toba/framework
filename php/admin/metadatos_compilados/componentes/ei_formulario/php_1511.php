@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1511
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -69,25 +68,11 @@ class php_1511
   array (
     'auto_reset' => NULL,
     'ancho' => NULL,
-    'ancho_etiqueta' => NULL,
+    'ancho_etiqueta' => '150px',
   ),
   'info_formulario_ef' => 
   array (
     0 => 
-    array (
-      'identificador' => 'clave',
-      'columnas' => 'clave',
-      'obligatorio' => NULL,
-      'elemento_formulario' => 'ef_editable',
-      'inicializacion' => 'tamano: 40;
-maximo: 60;',
-      'etiqueta' => 'Clave',
-      'etiqueta_estilo' => NULL,
-      'descripcion' => 'Componentes asociativos de la clave del elemento.',
-      'orden' => '1',
-      'colapsado' => NULL,
-    ),
-    1 => 
     array (
       'identificador' => 'ap',
       'columnas' => 'ap',
@@ -101,7 +86,7 @@ WHERE categoria = \'R\';',
       'orden' => '2',
       'colapsado' => NULL,
     ),
-    2 => 
+    1 => 
     array (
       'identificador' => 'ap_clase',
       'columnas' => 'ap_clase',
@@ -115,7 +100,7 @@ maximo: 80;',
       'orden' => '3',
       'colapsado' => NULL,
     ),
-    3 => 
+    2 => 
     array (
       'identificador' => 'ap_archivo',
       'columnas' => 'ap_archivo',
@@ -131,7 +116,7 @@ ventana: 400,400,yes;',
       'orden' => '4',
       'colapsado' => NULL,
     ),
-    4 => 
+    3 => 
     array (
       'identificador' => 'debug',
       'columnas' => 'debug',
@@ -142,7 +127,8 @@ valor_no_seteado: 0;
 estado: 0;',
       'etiqueta' => 'Modo Debug',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'En el modo debug el objeto muestra un esquema de las tablas al inicio del pedido de página y otro al final. Al mostrar un esquema utilizando SVG se necesita un plugin de Adobe para el IE o la versión 1.5 o superior de Firefox.',
+      'descripcion' => 'En el modo debug el objeto muestra un esquema de las tablas al inicio del pedido de página y otro al final. En caso de querer hacer un dump puntual usar el método [api:Objetos/Persistencia/objeto_datos_relacion dump_esquema].<br><br>
+La salida es en formato SVG, ver requisitos del [wiki:Referencia/Objetos/ei_esquema objeto_ei_esquema] encargado de construirlo.',
       'orden' => '5',
       'colapsado' => NULL,
     ),

@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1519
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -135,7 +134,8 @@ valor: nombre;',
       'columnas' => 'solicitud_tipo',
       'obligatorio' => NULL,
       'elemento_formulario' => 'ef_combo_db',
-      'inicializacion' => 'sql: SELECT solicitud_tipo, descripcion_corta 
+      'inicializacion' => 'predeterminado: web;
+sql: SELECT solicitud_tipo, descripcion_corta 
 FROM apex_solicitud_tipo 
 WHERE solicitud_tipo <> \'fantasma\'
 ORDER BY 1;',
@@ -355,7 +355,7 @@ sql: SELECT proyecto, zona, nombre
 FROM apex_item_zona %w%
 ORDER BY descripcion;
 columna_proyecto: proyecto;
-incluir_toba: 1;',
+incluir_toba: 0;',
       'etiqueta' => 'ZONA',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Zona de la que el ITEM forma parte',

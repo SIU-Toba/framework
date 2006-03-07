@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_infra_tipo_log_sistema
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

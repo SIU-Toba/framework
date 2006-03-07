@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1517
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -86,8 +85,8 @@ class php_1517
     'ev_procesar_etiq' => NULL,
     'ev_cancelar_etiq' => NULL,
     'objetos' => NULL,
-    'ancho' => '600',
-    'alto' => '500',
+    'ancho' => '600px',
+    'alto' => '450px',
     'posicion_botonera' => 'ambos',
     'tipo_navegacion' => 'tab_h',
     'con_toc' => NULL,

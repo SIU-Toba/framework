@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_apex_esquema_clases
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -45,25 +44,6 @@ class php__admin_apex_esquema_clases
   ),
   'info_objetos' => 
   array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '673',
-      'objeto_nombre' => 'CLASES',
-      'objeto_subclase' => NULL,
-      'objeto_subclase_archivo' => NULL,
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_esquema_db',
-      'clase_archivo' => 'nucleo/browser/clases/objeto_esquema_db.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
   ),
 );
 	}

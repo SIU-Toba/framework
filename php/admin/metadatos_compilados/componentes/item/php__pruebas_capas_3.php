@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__pruebas_capas_3
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -45,44 +44,6 @@ class php__pruebas_capas_3
   ),
   'info_objetos' => 
   array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '709',
-      'objeto_nombre' => 'Prueba 3',
-      'objeto_subclase' => 'objeto_cn_t_p3',
-      'objeto_subclase_archivo' => 'acciones/pruebas/capas/prueba_3_negocio.php',
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_cn_t',
-      'clase_archivo' => 'nucleo/negocio/objeto_cn_t.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '710',
-      'objeto_nombre' => 'Prueba 3',
-      'objeto_subclase' => 'objeto_ci_me_tab_p3',
-      'objeto_subclase_archivo' => 'acciones/pruebas/capas/prueba_3_interface.php',
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'ci_cn',
-      'clase_archivo' => 'nucleo/browser/subclases/ci_cn.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
   ),
 );
 	}

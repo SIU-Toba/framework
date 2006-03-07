@@ -51,9 +51,11 @@ class componente_hoja extends componente_toba
 							ce.css as 							estilo,
 							dim.dimension as					dimension,
 							d.par_tabla as						dimension_tabla,
-							d.par_columna as					dimension_columna,
-							u.usuario_perfil_datos as		dimension_control_perfil
-					FROM	apex_objeto_hoja_directiva d 
+							d.par_columna as					dimension_columna ";
+		if ( $consumo_web ) {
+			$sql["info_hoja_dir"]["sql"] .= ", u.usuario_perfil_datos as dimension_control_perfil ";
+		}
+		$sql["info_hoja_dir"]["sql"] .= "	FROM	apex_objeto_hoja_directiva d 
 							LEFT OUTER JOIN apex_columna_formato cf USING(columna_formato)
 							LEFT OUTER JOIN apex_columna_estilo ce USING(columna_estilo)
 							LEFT OUTER JOIN apex_dimension dim ON (d.par_dimension = dim.dimension)";

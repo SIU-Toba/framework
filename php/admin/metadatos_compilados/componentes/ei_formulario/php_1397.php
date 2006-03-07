@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1397
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -77,13 +76,13 @@ class php_1397
     array (
       'identificador' => 'tabla',
       'columnas' => 'tabla',
-      'obligatorio' => NULL,
+      'obligatorio' => '1',
       'elemento_formulario' => 'ef_editable',
       'inicializacion' => 'tamano: 40;
 maximo: 120;',
-      'etiqueta' => 'AP - Tabla',
+      'etiqueta' => 'Tabla',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
+      'descripcion' => 'Nombre de la tabla de la base de datos con la que va a trabajar el objeto.',
       'orden' => '3',
       'colapsado' => NULL,
     ),
@@ -91,7 +90,7 @@ maximo: 120;',
     array (
       'identificador' => 'ap',
       'columnas' => 'ap',
-      'obligatorio' => NULL,
+      'obligatorio' => '1',
       'elemento_formulario' => 'ef_combo_db',
       'inicializacion' => 'predeterminado: 1;
 sql: SELECT ap, descripcion FROM apex_admin_persistencia
@@ -110,7 +109,7 @@ WHERE categoria = \'T\' ORDER BY 2 DESC;',
       'elemento_formulario' => 'ef_editable',
       'inicializacion' => 'tamano: 40;
 maximo: 80;',
-      'etiqueta' => 'AP - Clase',
+      'etiqueta' => 'Subclase',
       'etiqueta_estilo' => NULL,
       'descripcion' => NULL,
       'orden' => '5',
@@ -127,7 +126,7 @@ maximo: 80;
 item_destino: /admin/objetos_toba/selector_archivo,toba;
 ventana: 400,400,yes;
 editable: 1;',
-      'etiqueta' => 'AP - Archivo',
+      'etiqueta' => 'Archivo',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Seleccionar un archivo PHP.',
       'orden' => '6',
@@ -142,9 +141,9 @@ editable: 1;',
       'inicializacion' => 'valor: 1;
 valor_no_seteado: 0;
 estado: 0;',
-      'etiqueta' => 'AP - Modificar claves',
+      'etiqueta' => 'Permitir mod. claves',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
+      'descripcion' => 'Por defecto las columnas marcadas como claves primarias de un tabla no son modificables.',
       'orden' => '7',
       'colapsado' => NULL,
     ),

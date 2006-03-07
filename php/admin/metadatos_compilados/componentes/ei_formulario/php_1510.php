@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1510
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -97,7 +96,7 @@ maximo: 255;',
 columna_proyecto: proyecto;',
       'etiqueta' => 'Fuente de Datos',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'Fuente de datos a la que se conecta el objeto.',
+      'descripcion' => '[wiki:Referencia/FuenteDatos Fuente de datos] a la que se conecta el objeto.',
       'orden' => '2',
       'colapsado' => NULL,
     ),
@@ -111,7 +110,7 @@ columna_proyecto: proyecto;',
 maximo: 100;',
       'etiqueta' => 'Subclase',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'Nombre de la clase. (La clase tiene que heredar el elemento de la infraestructura seleccionado y utilizar las ventanas permitidas)',
+      'descripcion' => 'Nombre optativo de la subclase. Esta tiene que heredar del elemento de la infraestructura seleccionado y utilizar las ventanas permitidas. Ver [wiki:Referencia/Objetos/Extension Extensión de un Objeto].',
       'orden' => '4',
       'colapsado' => NULL,
     ),
@@ -128,7 +127,7 @@ ventana: 400,400,yes;
 editable: 1;',
       'etiqueta' => 'Subclase - Archivo',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'Archivo PHP donde reside la subclase',
+      'descripcion' => 'Archivo PHP donde reside la subclase. Ver [wiki:Referencia/Objetos/Extension Extensión de un Objeto].',
       'orden' => '5',
       'colapsado' => NULL,
     ),
@@ -139,9 +138,9 @@ editable: 1;',
       'obligatorio' => NULL,
       'elemento_formulario' => 'ef_editable_multilinea',
       'inicializacion' => 'columnas: 60;',
-      'etiqueta' => 'Descripcion',
+      'etiqueta' => 'Descripción',
       'etiqueta_estilo' => NULL,
-      'descripcion' => 'Descripcion del objeto.',
+      'descripcion' => 'Ayuda contextual que muestra el objeto, opcionalmente puede tener referencias a documentación externa. Por ejemplo esta es una descripción con   esta [wiki:Referencia referencia] y esta [api:index referencia].',
       'orden' => '6',
       'colapsado' => NULL,
     ),

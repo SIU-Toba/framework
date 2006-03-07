@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__pruebas_testing_automatico_web
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -18,7 +17,7 @@ class php__pruebas_testing_automatico_web
     'item_act_patron' => 'CI',
     'item_act_patron_script' => 'patrones/ci.php',
     'item_act_accion_script' => NULL,
-    'item_solic_tipo' => 'browser',
+    'item_solic_tipo' => 'web',
     'item_solic_registrar' => NULL,
     'item_solic_obs_tipo_proyecto' => NULL,
     'item_solic_obs_tipo' => NULL,
@@ -41,7 +40,7 @@ class php__pruebas_testing_automatico_web
     'orden' => '-3',
     'publico' => NULL,
     'crono' => NULL,
-    'solicitud_tipo' => 'browser',
+    'solicitud_tipo' => 'web',
   ),
   'info_objetos' => 
   array (

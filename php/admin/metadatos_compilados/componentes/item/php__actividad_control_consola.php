@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__actividad_control_consola
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

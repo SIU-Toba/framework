@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1404
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -111,7 +110,7 @@ class php_1404
       'pantalla' => '383',
       'identificador' => 'tablas',
       'etiqueta' => 'Tablas',
-      'descripcion' => 'Adjuntar los objetos DATOS_TABLA que forman parte de la relacion',
+      'descripcion' => 'Adjuntar los [wiki:Referencia/Objetos/datos_tabla datos_tabla] que forman parte de la relación.',
       'imagen_recurso_origen' => NULL,
       'imagen' => NULL,
       'objetos' => 'dependencias',
@@ -123,7 +122,7 @@ class php_1404
       'pantalla' => '458',
       'identificador' => 'relaciones',
       'etiqueta' => 'Relaciones',
-      'descripcion' => 'Describir las relaciones existentes entre las distintas tablas.',
+      'descripcion' => 'Describir las [wiki:Referencia/Objetos/datos_relacion#TiposdeRelaciones relaciones existentes] entre las distintas tablas.',
       'imagen_recurso_origen' => NULL,
       'imagen' => NULL,
       'objetos' => 'relaciones',

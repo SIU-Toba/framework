@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__pruebas_menu_css
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

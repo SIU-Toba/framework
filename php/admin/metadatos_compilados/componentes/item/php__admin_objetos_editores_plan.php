@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_objetos_editores_plan
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -45,44 +44,6 @@ class php__admin_objetos_editores_plan
   ),
   'info_objetos' => 
   array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '482',
-      'objeto_nombre' => 'PLAN',
-      'objeto_subclase' => 'objeto_ci_me_tab_plan',
-      'objeto_subclase_archivo' => 'nucleo/browser/subclases/objeto_ci_me_plan.php',
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'ci_cn',
-      'clase_archivo' => 'nucleo/browser/subclases/ci_cn.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '629',
-      'objeto_nombre' => 'PLAN',
-      'objeto_subclase' => 'objeto_cn_t_plan',
-      'objeto_subclase_archivo' => 'nucleo/negocio/objeto_cn_t_plan.php',
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_cn_t',
-      'clase_archivo' => 'nucleo/negocio/objeto_cn_t.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
   ),
 );
 	}

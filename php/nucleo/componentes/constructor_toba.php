@@ -1,14 +1,6 @@
 <?
 require_once('nucleo/lib/manejador_archivos.php');
-define('apex_componentes_compilados',false);
-define('apex_componentes_compilados__error_buscar_db',true);
-/*
-*	Creacion de componentes
 
-		Habria que hacer alguna regla en la base que
-			provoque que los IDs de los objetos y de los items
-			no se puedan pisar.
-*/
 class constructor_toba
 {
 	static $objetos_runtime_instanciados;		// Referencias a los objetos creados
@@ -29,7 +21,7 @@ class constructor_toba
 			$tipo = catalogo_toba::get_tipo( $id );	
 		}
 		// Cargo los metadatos
-		if ( apex_componentes_compilados ) {
+		if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
 			$datos = self::get_metadatos_compilados( $id, $tipo );
 		} else {
 			$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
@@ -61,7 +53,7 @@ class constructor_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $id );	
 		}
-		if ( apex_componentes_compilados ) {
+		if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
 			$datos = self::get_metadatos_compilados( $id, $tipo );
 		} else {
 			$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
@@ -105,32 +97,13 @@ class constructor_toba
 			require_once( $archivo );
 			return call_user_func( array( $nombre, 'get_metadatos' ) );
 		} else {
-			if( apex_componentes_compilados__error_buscar_db ){
+			if( defined(apex_pa_componentes_compilados__error_buscar_db) 
+					&& apex_pa_componentes_compilados__error_buscar_db ){
 				return cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
 			} else {
 				throw new excepcion_toba("No existe el componente compilado solicitado . CLASE: $tipo, ID: '{$id['componente']}'");
 			}
 		}
 	}
-
-/*	
-	static function get_objeto($id, $parametros=null, $clase=null, $archivo=null)
-	{
-		if(!isset($archivo) || !isset($clase))
-		{
-			//Busco la informacion que necesaria para crearlo
-			//ATENCION: Esto es ineficiente pero rapido de programar
-			//Hay que optmizar la cantidad de consultas y nunca repetirlas en un pedido de pagina
-			require_once("admin/db/dao_editores.php");
-			if (!isset($clase)) {
-				$clase = dao_editores::get_clase_de_objeto($id);
-			}
-			$archivo = dao_editores::get_archivo_de_clase($id[0], $clase);
-		}
-		require_once($archivo);
-		$objeto = new $clase($id, $parametros);
-		return $objeto;
-	}
-*/
 }
 ?>

@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_estadisticas_objetos_proyecto
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

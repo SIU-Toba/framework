@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_estadisticas_graf_i_clases
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -46,25 +45,6 @@ class php__admin_estadisticas_graf_i_clases
   'info_objetos' => 
   array (
     0 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '246',
-      'objeto_nombre' => 'ESTAD. - Instanciacion por clase',
-      'objeto_subclase' => NULL,
-      'objeto_subclase_archivo' => NULL,
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_grafico',
-      'clase_archivo' => 'nucleo/browser/clases/objeto_grafico.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
-    1 => 
     array (
       'objeto_proyecto' => 'toba',
       'objeto' => '281',

@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__trabajo_correo
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -45,44 +44,6 @@ class php__trabajo_correo
   ),
   'info_objetos' => 
   array (
-    0 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '777',
-      'objeto_nombre' => 'Correo',
-      'objeto_subclase' => NULL,
-      'objeto_subclase_archivo' => NULL,
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'ci_cn',
-      'clase_archivo' => 'nucleo/browser/subclases/ci_cn.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '778',
-      'objeto_nombre' => 'Correo',
-      'objeto_subclase' => 'objeto_cn_correo',
-      'objeto_subclase_archivo' => 'acciones/trabajo/correo_cn.php',
-      'orden' => '0',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_cn',
-      'clase_archivo' => 'nucleo/negocio/objeto_cn.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
   ),
 );
 	}

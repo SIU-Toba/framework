@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_proyectos_entregable
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -56,25 +55,6 @@ class php__admin_proyectos_entregable
       'clase_proyecto' => 'toba',
       'clase' => 'objeto_mt_abms',
       'clase_archivo' => 'nucleo/browser/clases/objeto_mt_s_abm.php',
-      'fuente_proyecto' => 'toba',
-      'fuente' => 'instancia',
-      'fuente_motor' => 'postgres7',
-      'fuente_host' => NULL,
-      'fuente_usuario' => NULL,
-      'fuente_clave' => NULL,
-      'fuente_base' => 'No aplicable',
-    ),
-    1 => 
-    array (
-      'objeto_proyecto' => 'toba',
-      'objeto' => '810',
-      'objeto_nombre' => 'CP - Entregables',
-      'objeto_subclase' => NULL,
-      'objeto_subclase_archivo' => NULL,
-      'orden' => '1',
-      'clase_proyecto' => 'toba',
-      'clase' => 'objeto_cuadro',
-      'clase_archivo' => 'nucleo/browser/clases/objeto_cuadro.php',
       'fuente_proyecto' => 'toba',
       'fuente' => 'instancia',
       'fuente_motor' => 'postgres7',

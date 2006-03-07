@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_proyectos_cerrar_iteracion
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

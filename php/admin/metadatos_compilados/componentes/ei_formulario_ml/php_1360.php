@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1360
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

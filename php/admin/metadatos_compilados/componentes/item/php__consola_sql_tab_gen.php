@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__consola_sql_tab_gen
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

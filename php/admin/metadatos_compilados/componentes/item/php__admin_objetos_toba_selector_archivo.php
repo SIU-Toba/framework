@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_objetos_toba_selector_archivo
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -18,7 +17,7 @@ class php__admin_objetos_toba_selector_archivo
     'item_act_patron' => 'CI_POPUP',
     'item_act_patron_script' => 'patrones/ci_popup.php',
     'item_act_accion_script' => NULL,
-    'item_solic_tipo' => 'browser',
+    'item_solic_tipo' => 'web',
     'item_solic_registrar' => NULL,
     'item_solic_obs_tipo_proyecto' => NULL,
     'item_solic_obs_tipo' => NULL,
@@ -27,8 +26,8 @@ class php__admin_objetos_toba_selector_archivo
     'item_parametro_a' => NULL,
     'item_parametro_b' => NULL,
     'item_parametro_c' => NULL,
-    'tipo_pagina_clase' => NULL,
-    'tipo_pagina_archivo' => NULL,
+    'tipo_pagina_clase' => 'tp_popup',
+    'tipo_pagina_archivo' => 'nucleo/browser/tipo_pagina/tp_popup.php',
     'item_include_arriba' => 'nucleo/browser/tipo_pagina/popup_ef_arriba.inc.php',
     'item_include_abajo' => 'nucleo/browser/tipo_pagina/popup_ef_abajo.inc.php',
     'item_zona_proyecto' => NULL,
@@ -41,7 +40,7 @@ class php__admin_objetos_toba_selector_archivo
     'orden' => NULL,
     'publico' => NULL,
     'crono' => NULL,
-    'solicitud_tipo' => 'browser',
+    'solicitud_tipo' => 'web',
   ),
   'info_objetos' => 
   array (

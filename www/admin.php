@@ -33,7 +33,10 @@ define("apex_pa_encriptar_qs",0);
 #-------------------------------------------------------------------------------
 #----<  Configuracion APEX  >-------------------------------------------------
 #-------------------------------------------------------------------------------
-# apex_pa_toba_alias
+# Utilizacion de componentes compilados
+define('apex_pa_componentes_compilados',false);
+# Indica si hay que buscar en la DB los componentes que no se encuentran compilados
+define('apex_pa_componentes_compilados__error_buscar_db',false);
 # Alias con el que se conoce al proyecto toba en el web server
 define("apex_pa_toba_alias", "toba");
 # apex_pa_ID: ID de este punto de acceso

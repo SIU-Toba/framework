@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1356
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -83,7 +82,7 @@ class php_1356
       'etiqueta' => 'Ancho',
       'etiqueta_estilo' => NULL,
       'descripcion' => NULL,
-      'orden' => '5',
+      'orden' => '1',
       'colapsado' => NULL,
     ),
     1 => 
@@ -95,8 +94,8 @@ class php_1356
       'inicializacion' => 'tamano: 10;',
       'etiqueta' => 'Alto',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
-      'orden' => '6',
+      'descripcion' => 'Alto mínimo que ocupa el cuerpo del componente, sin contar el titulo y las botoneras superiores o inferiores.',
+      'orden' => '2',
       'colapsado' => NULL,
     ),
     2 => 
@@ -111,7 +110,7 @@ no_seteado: Definida por la subclase;',
       'etiqueta' => 'Tipo de Navegacion',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Si el CI tiene mas de una pantalla, estas pueden navegarse a travez de una de las formas estandar.',
-      'orden' => '12',
+      'orden' => '3',
       'colapsado' => NULL,
     ),
     3 => 
@@ -124,7 +123,7 @@ no_seteado: Definida por la subclase;',
       'etiqueta' => 'Wizard Incluye TOC',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Se muestra una tabla mostrando donde se encuentra posicionado actualmente el usuario.',
-      'orden' => '13',
+      'orden' => '4',
       'colapsado' => NULL,
     ),
     4 => 
@@ -137,7 +136,7 @@ no_seteado: Definida por la subclase;',
       'etiqueta' => 'Posición botonera',
       'etiqueta_estilo' => NULL,
       'descripcion' => 'Determina la posición gráfica que ocupan los botones del CI.',
-      'orden' => '14',
+      'orden' => '5',
       'colapsado' => NULL,
     ),
   ),

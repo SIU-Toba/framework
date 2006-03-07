@@ -30,9 +30,11 @@ class componente_filtro extends componente_toba
 						f.columna as 					columna,
 						f.requerido as 				obligatorio,
 						f.no_interactivo as			no_interactivo,
-						f.predeterminado as 			predeterminado,
-						u.usuario_perfil_datos as	perfil
-				FROM 	apex_objeto_filtro f,
+						f.predeterminado as 			predeterminado ";
+		if ( $consumo_web ) {
+			$sql["info_dimensiones"]["sql"] .= ", u.usuario_perfil_datos as	perfil ";
+		}
+			$sql["info_dimensiones"]["sql"] .= " FROM 	apex_objeto_filtro f,
 						apex_dimension d
 						LEFT OUTER JOIN apex_dimension_grupo g ON d.dimension_grupo = g.dimension_grupo ";
 		if ( $consumo_web ) {

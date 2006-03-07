@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_apex_elementos_categoria_objeto
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

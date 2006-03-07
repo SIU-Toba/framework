@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_objetos_editores_editor_estilos
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 

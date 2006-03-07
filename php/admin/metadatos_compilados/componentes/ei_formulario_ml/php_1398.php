@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php_1398
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
@@ -53,7 +52,7 @@ class php_1398
       'identificador' => 'modificacion',
       'etiqueta' => 'Modificacion',
       'maneja_datos' => '1',
-      'sobre_fila' => NULL,
+      'sobre_fila' => '0',
       'confirmacion' => NULL,
       'estilo' => NULL,
       'imagen_recurso_origen' => NULL,
@@ -75,7 +74,7 @@ class php_1398
       'imagen_recurso_origen' => 'apex',
       'imagen' => 'fuente.gif',
       'en_botonera' => '1',
-      'ayuda' => NULL,
+      'ayuda' => 'Construye automáticamente los nombres y propiedades de las columnas en base a los metadatos disponibles de la tabla en la base de datos.',
       'ci_predep' => NULL,
       'implicito' => '0',
       'grupo' => NULL,
@@ -101,7 +100,7 @@ class php_1398
     array (
       'identificador' => 'columna',
       'columnas' => 'columna',
-      'obligatorio' => NULL,
+      'obligatorio' => '1',
       'elemento_formulario' => 'ef_editable',
       'inicializacion' => 'tamano: 25;
 maximo: 120;',
@@ -117,7 +116,7 @@ maximo: 120;',
     array (
       'identificador' => 'tipo',
       'columnas' => 'tipo',
-      'obligatorio' => NULL,
+      'obligatorio' => '1',
       'elemento_formulario' => 'ef_combo_db',
       'inicializacion' => 'sql: SELECT tipo, descripcion
 FROM apex_tipo_datos;
@@ -198,11 +197,11 @@ maximo: 120;',
       'obligatorio' => NULL,
       'elemento_formulario' => 'ef_checkbox',
       'inicializacion' => 'valor: 1;',
-      'etiqueta' => 'EXT',
+      'etiqueta' => 'Ext.',
       'etiqueta_estilo' => NULL,
-      'descripcion' => NULL,
+      'descripcion' => 'Una columna externa es una que participa de la tabla por razones cosméticas, generalmente la tabla ya tiene un ID (casi siempre una FK a otra tabla) pero también necesita el campo legible que representa ese ID, que por normalización no está incluído en la tabla.',
       'orden' => '8',
-      'total' => NULL,
+      'total' => '0',
       'columna_estilo' => NULL,
       'colapsado' => NULL,
     ),

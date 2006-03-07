@@ -1,9 +1,8 @@
 <?
-//Generador: compilador_proyecto.php
 
 class php__admin_datos_modelo_tabla
 {
-	function get_metadatos()
+	static function get_metadatos()
 	{
 		return array (
   'info' => 
