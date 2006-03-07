@@ -16,11 +16,10 @@ class menu_toba extends menu
 	function get_comandos()
 	{
 		return array(
+						'instalacion',
 						'instancia',
 						'proyecto',
-						'dba',
 						'conversion',
-						'instalacion',
 						'test'
 		);	
 	}

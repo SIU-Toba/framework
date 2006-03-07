@@ -26,7 +26,7 @@ class comando_instalacion extends comando_toba
 		if ( instalacion::existe_info_basica() ) {
 			$this->consola->enter();
 			// INSTANCIAS
-			$instancias = instalacion::get_lista_instancias();
+			$instancias = instancia::get_lista();
 			if ( $instancias ) {
 				$this->consola->lista( $instancias, 'INSTANCIAS' );
 			} else {
@@ -35,10 +35,10 @@ class comando_instalacion extends comando_toba
 			}
 			$this->consola->enter();
 			// BASES
-			comando_toba::mostrar_bases_definidas();
+			$this->mostrar_bases_definidas();
 			// ID de grupo de DESARROLLO
-			$grupo = instalacion::get_id_grupo_desarrollo();
-			if ( $grupo ) {
+			$grupo = $this->get_instalacion()->get_id_grupo_desarrollo();
+			if ( isset ( $grupo ) ) {
 				$this->consola->enter();
 				$this->consola->lista( array( $grupo ), 'ID grupo desarrollo' );
 			} else {
@@ -64,8 +64,8 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__agregar_db()
 	{
-		$def = $this->get_id_definicion_actual();
-		if ( dba::existe_base_datos_definida( $def ) ) {
+		$def = $this->get_id_base_actual();
+		if ( instalacion::existe_base_datos_definida( $def ) ) {
 			throw new excepcion_toba( "Ya existe una base definida con el ID '$def'");
 		}
 		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
@@ -83,20 +83,58 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__eliminar_db()
 	{
-		$def = $this->get_id_definicion_actual();
-		if ( dba::existe_base_datos_definida( $def ) ) {
+		$i = $this->get_instalacion();
+		$def = $this->get_id_base_actual();
+		if ( instalacion::existe_base_datos_definida( $def ) ) {
 			$this->consola->enter();
 			$this->consola->subtitulo("DEFINICION: $def");
-			$this->consola->lista_asociativa( dba::get_parametros_base( $def ), array('Parametro','Valor') );
+			$this->consola->lista_asociativa( $i->get_parametros_base( $def ), array('Parametro','Valor') );
 			$this->consola->enter();
 			if ( $this->consola->dialogo_simple("Desea eliminar la definicion?") ) {
-				instalacion::eliminar_db( $def );
+				$i->eliminar_db( $def );
 			}
 		} else {
 			throw new excepcion_toba( "NO EXISTE una base definida con el ID '$def'");
 		}
 	}
 	
+	/**
+	*	Crea una BASE DEFINIDA en el motor. [-d 'id_base']
+	*/
+	function opcion__crear_base()
+	{
+		$def = $this->get_id_base_actual();
+		if( ! $this->get_instalacion()->existe_base_datos( $def ) ) {
+			$this->get_instalacion()->crear_base_datos( $def );
+		}
+	}
+
+	/**
+	*	Elimina una BASE DEFINIDA existente dentro del motor. [-d 'id_base']
+	*/
+	function opcion__eliminar_base()
+	{
+		$def = $this->get_id_base_actual();
+		if ( $this->get_instalacion()->existe_base_datos( $def ) ) {
+			$this->consola->enter();
+			$this->consola->subtitulo("BASE de DATOS: $def");
+			$this->consola->lista_asociativa( $this->get_instalacion()->get_parametros_base( $def ), array('Parametro','Valor') );
+			$this->consola->enter();
+			if ( $this->consola->dialogo_simple("Desea eliminar la BASE de DATOS?") ) {
+				$this->get_instalacion()->borrar_base_datos( $def );
+			}
+		} else {
+			throw new excepcion_toba( "NO EXISTE una base '$def' en el MOTOR");
+		}
+	}
+
+	/**
+	*	Chequea la conexion con una base. [-d 'id_base']
+	*/
+	function falta_opcion__test_conexion()
+	{
+	}
+
 	/**
 	*	Crea una instalacion.
 	*/
@@ -125,7 +163,7 @@ class comando_instalacion extends comando_toba
 	/**
 	*	Determina sobre que base definida en 'info_bases' se va a trabajar
 	*/
-	private function get_id_definicion_actual()
+	private function get_id_base_actual()
 	{
 		$param = $this->get_parametros();
 		if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
@@ -161,6 +199,17 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__migrar_instancias()
 	{
+		// Estos defines se necesitan aca porque no se incluye el archivo de funciones planas db.php
+		define("apex_db_motor",0);
+		define("apex_db_profile",1);// host-dsn
+		define("apex_db_usuario",2);
+		define("apex_db_clave",3);
+		define("apex_db_base",4);
+		define("apex_db_con",5);
+		define("apex_db_link",6);
+		define("apex_db",7);
+		define("apex_db_link_id",8);
+
 		require_once('instancias.php');
 	
 		//*** 0) Creo la carpeta INSTALACION
@@ -205,9 +254,12 @@ class comando_instalacion extends comando_toba
 		$this->consola->enter();
 		$this->consola->subtitulo( "Migrar INSTANCIAS toba" );
 		$this->consola->mensaje( "Indique que BASES son INSTANCIAS toba"); 
+
 		//Busco la lista de proyectos de la instalacion
-	
 		$proyectos = proyecto::get_lista();
+		if ( ! in_array( 'toba', $proyectos ) ) {
+			$proyectos[] = 'toba';	
+		}		
 	
 		//Creo las instancias, preguntando en cada caso
 		//Existe la opcion de conectarse a la base y preguntar si existe la tabla 'apex_objeto',
@@ -215,13 +267,14 @@ class comando_instalacion extends comando_toba
 		foreach( $instancia as $i => $datos ) {
 			if( $datos[apex_db_motor] == 'postgres7' ) {
 				$this->consola->separador("BASE: $i");
-				print_r($datos);
+				$this->consola->lista($datos, 'Parametros CONEXION');
+				$this->consola->enter();
 				if ( $this->consola->dialogo_simple("La base '$i' corresponde a una INSTANCIA TOBA?") ) {
-					if( instalacion::existe_carpeta_instancia( $i ) ) {
+					if( instancia::existe_carpeta_instancia( $i ) ) {
 						$this->consola->error("No es posible crearla instancia '$i'");
-						$this->consola->mensaje("Ya exite una carpeta: $path"); 	
+						$this->consola->mensaje("Ya exite una instancia: $i"); 	
 					} else {
-						instalacion::crear_instancia( $i, $i, $proyectos );
+						instancia::crear_instancia( $i, $i, $proyectos );
 					}
 				}
 			}

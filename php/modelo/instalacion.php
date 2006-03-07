@@ -1,23 +1,207 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
-require_once('nucleo/lib/reflexion/clase_datos.php');
 require_once('nucleo/lib/manejador_archivos.php');
+require_once('nucleo/lib/ini.php');
 
+/**
+*	@todo:	Control de que la estructura de los INIs sea correcta
+*/
 class instalacion extends elemento_modelo
 {
+	const db_encoding_estandar = 'LATIN1';
 	const directorio_base = 'instalacion';
-	const info_basica = 'info_instalacion';
-	const info_bases = 'info_bases';
-	const instancia_prefijo = 'i__';
-	const instancia_info = 'info_instancia';
-	
-	function dir_base()
+	const info_basica = 'instalacion.ini';
+	const info_bases = 'bases.ini';
+	private $dir;							// Directorio con info de la instalacion.
+	private $ini_bases;						// Informacion de bases de datos.
+	private $ini_instalacion;				// Informacion basica de la instalacion.
+
+	function __construct()
 	{
-		return toba_dir() .'/'. self::directorio_base .'/';
+		$this->dir = self::dir_base();
+		$this->cargar_info_ini();
+	}
+
+	function cargar_info_ini()
+	{
+		//--- Levanto la CONFIGURACION de bases
+		$archivo_ini_bases = $this->dir . '/' . self::info_bases;
+		if ( ! is_file( $archivo_ini_bases ) ) {
+			throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
+		} else {
+			//  BASE
+			$this->ini_bases = parse_ini_file( $archivo_ini_bases, true );
+		}
+		//--- Levanto la CONFIGURACION de bases
+		$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
+		if ( ! is_file( $archivo_ini_instalacion ) ) {
+			throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
+		} else {
+			//  BASE
+			$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion );
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	Manejo de subcomponentes
+	//-----------------------------------------------------------
+		
+	function get_instancias()
+	{
+		$instancias = array();
+		foreach( instancia::get_lista() as $instancia ) {
+			$instancias[ $instancia ] = new instancia( $this, $instancia );	
+			$instancias[ $instancia ]->set_manejador_interface( $this->manejador_interface );	
+		}
+		return $instancias;
+	}
+	
+	//-------------------------------------------------------------
+	//-- Informacion general
+	//-------------------------------------------------------------
+	
+	function get_dir()
+	{
+		return $this->dir;	
+	}
+	
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	function get_id_grupo_desarrollo()
+	{
+		return $this->ini_instalacion['id_grupo_desarrollo'];
 	}
 
 	/**
-	* Crea la informacion basica de una instalacion
+	* Devuelve las claves utilizadas para encriptar
+	*/
+	function get_claves_encriptacion()
+	{
+		$claves['db'] = $this->ini_instalacion['clave_querystring'];
+		$claves['get'] = $this->ini_instalacion['clave_db'];
+		return $claves;
+	}
+
+	function get_parametros_base( $id_base )
+	{
+		if ( isset( $this->ini_bases[$id_base] ) ) {
+			return $this->ini_bases[$id_base];			
+		} else {
+			throw new excepcion_toba("INSTALACION: La base '$id_base' no existe en el archivo de instancias.");
+		}
+	}
+
+	function existe_base_datos_definida( $id_base )
+	{
+		return isset( $this->ini_bases[$id_base] );
+	}
+
+	function hay_bases()
+	{
+		return count( $this->ini_bases ) > 0 ;
+	}
+
+	function get_lista_bases()
+	{
+		return array_keys( $this->ini_bases );
+	}
+
+	//------------------------------------------------------------------------
+	// Relacion con el MOTOR de base de datos
+	//------------------------------------------------------------------------
+
+	/**
+	*	Conecta una base de datos definida en bases.ini
+	*	@param string $nombre Nombre de la base
+	*/
+	function conectar_base( $nombre )
+	{
+		return $this->conectar_base_parametros( $this->get_parametros_base( $nombre ) );	
+	}
+
+	/**
+	*	Crea una base de datos definida en bases.ini
+	*	@param string $nombre Nombre de la base
+	*/
+	function crear_base_datos( $nombre )
+	{
+		$info_db = $this->get_parametros_base( $nombre );
+		$base_a_crear = $info_db['base'];
+		if($info_db['motor']=='postgres7')
+		{
+			$info_db['base'] = 'template1';
+			$db = $this->conectar_base_parametros( $info_db );
+			$sql = "CREATE DATABASE $base_a_crear ENCODING '" . self::db_encoding_estandar . "';";
+			$db->ejecutar( $sql );
+		}else{
+			throw new excepcion_toba("INSTALACION: El metodo no esta definido para el motor especificado");
+		}
+	}
+
+	/**
+	*	Borra una base de datos definida en bases.ini
+	*	@param string $nombre Nombre de la base
+	*/	
+	function borrar_base_datos( $nombre )
+	{
+		$info_db = $this->get_parametros_base( $nombre );
+		$base_a_borrar = $info_db['base'];
+		if($info_db['motor']=='postgres7')
+		{
+			$info_db['base'] = 'template1';
+			$db = $this->conectar_base_parametros( $info_db );
+			$sql = "DROP DATABASE $base_a_borrar;";
+			$db->ejecutar($sql);
+		}else{
+			throw new excepcion_toba("INSTALACION: El metodo no esta definido para el motor especificado");
+		}
+	}
+
+	/**
+	*	Determina si una base de datos definida en bases.ini existe
+	*	@param string $nombre Nombre de la base
+	*/
+	function existe_base_datos( $nombre )
+	{
+		try{
+			$info_db = $this->get_parametros_base( $nombre );
+			$db = $this->conectar_base_parametros( $info_db );
+			$db->destruir();
+		}catch(excepcion_toba $e){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	*	Conecta una BASE a partir de un juego de parametros
+	*	@param array $parametros Parametros de conexion
+	*/
+	function conectar_base_parametros( $parametros )
+	{
+		$archivo = "nucleo/lib/db/db_" . $parametros['motor'] . ".php";
+		$clase = "db_" . $parametros['motor'];
+		require_once($archivo);
+		$db = new $clase(	$parametros['profile'],
+							$parametros['usuario'],
+							$parametros['clave'],
+							$parametros['base'] );
+		$db->conectar();
+		return $db;
+	}
+
+	//-------------------------------------------------------------------------
+	//-- Funcionalidad estatica relacionada a la CREACION de INSTALACIONES
+	//-------------------------------------------------------------------------
+
+	static function dir_base()
+	{
+		return toba_dir() . '/' . self::directorio_base;
+	}
+	
+	/**
+	* Crea el directorio de la instalacion
 	*/
 	static function crear_directorio()
 	{
@@ -36,50 +220,20 @@ class instalacion extends elemento_modelo
 			mkdir( $dir );
 		}		
 	}
-
-	//-------------------------------------------------------------
-	//-- Informacion general
-	//-------------------------------------------------------------
-		
-	/**
-	* Devuelve la lista de las INSTANCIAS
-	*/
-	function get_id_grupo_desarrollo()
-	{
-		require_once( self::archivo_info_basica() );
-		$metodos = get_class_methods( self::info_basica );
-		if( in_array( 'get_id_grupo_desarrollo', $metodos ) ) {
-			return info_instalacion::get_id_grupo_desarrollo();
-		}
-		return null;
-	}
-
-	/**
-	* Devuelve las claves utilizadas para encriptar
-	*/
-	function get_claves_encriptacion()
-	{
-		require_once( self::archivo_info_basica() );
-		$claves = array();
-		$claves['db'] = info_instalacion::get_clave_db();
-		$claves['get'] = info_instalacion::get_clave_querystring();
-		return $claves;
-	}
 	
-	//-------------------------------------------------------------
-	//-- Archivo de Informacion BASICA
-	//-------------------------------------------------------------
+	//-- Archivo de CONFIGURACION de la INSTALACION  --------------------------------------
 
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
 	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null )
 	{
-		$clase = new clase_datos( self::info_basica );
-		$clase->agregar_metodo_datos( 'get_clave_querystring', $clave_qs );	
-		$clase->agregar_metodo_datos( 'get_clave_db', $clave_db );	
-		$clase->agregar_metodo_datos( 'get_id_grupo_desarrollo', $id_grupo_desarrollo );
-		$clase->guardar( self::archivo_info_basica() );
+		$ini = new ini();
+		$ini->agregar_titulo("Configuracion de la INSTALACION");
+		$ini->agregar_directiva( 'id_grupo_desarrollo', $id_grupo_desarrollo );
+		$ini->agregar_directiva( 'clave_querystring', $clave_qs );	
+		$ini->agregar_directiva( 'clave_db', $clave_db );	
+		$ini->guardar( self::archivo_info_basica() );
 	}
 	
 	/**
@@ -95,19 +249,18 @@ class instalacion extends elemento_modelo
 	*/
 	static function archivo_info_basica()
 	{
-		return self::dir_base() . self::info_basica . '.php';
+		return self::dir_base() . '/' . self::info_basica;
 	}
 	
-	//-------------------------------------------------------------
-	//-- Archivo de informacion de BASES
-	//-------------------------------------------------------------
+	//-- Archivo de CONFIGURACION de BASES  -----------------------------------------------
 
 	/**
 	* Crea el archivo con la lista de bases disponibles
 	*/
 	static function crear_info_bases( $lista_bases = array() )
 	{
-		$clase = self::get_clase_definicion_editable();
+		$ini = new ini();
+		$ini->agregar_titulo("Configuracion de BASES de DATOS");
 		foreach( $lista_bases as $id => $base ) {
 			//Valido que la definicion sea correcta
 			if( isset( $base['motor'] ) &&
@@ -115,45 +268,37 @@ class instalacion extends elemento_modelo
 				isset( $base['usuario'] ) &&
 				isset( $base['clave'] ) &&
 				isset( $base['base'] ) ) {
-				$clase->agregar_metodo_datos( $id, $base );	
+				$ini->agregar_seccion( $id, $base );	
 			} else {
 				throw new excepcion_toba("La definicion de la BASE '$id' es INCORRECTA.");	
 			}
 		}
-		$clase->guardar();
+		$ini->guardar( self::archivo_info_bases() );
 	}
 	
 	static function agregar_db( $id_base, $parametros )
 	{
 		if ( ! is_array( $parametros ) ) {
-			throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
+			throw new excepcion_toba("INSTALACION: Los parametros definidos son incorrectos");	
 		} else {
 			if ( !isset( $parametros['motor']  )
 				|| !isset( $parametros['profile'] ) 
 				|| !isset( $parametros['usuario'] )
 				|| !isset( $parametros['clave'] )
 				|| !isset( $parametros['base'] ) ) {
-				throw new excepcion_toba("DBA: Los parametros definidos son incorrectos");	
+				throw new excepcion_toba("INSTALACION: Los parametros definidos son incorrectos");	
 			}
 		}
-		$clase = self::get_clase_definicion_editable();
-		$clase->agregar_metodo_datos( $id_base, $parametros );
-		$clase->guardar();
+		$ini = new ini( self::archivo_info_bases() );
+		$ini->agregar_seccion( $id_base, $parametros );
+		$ini->guardar();
 	}
 	
 	static function eliminar_db( $id_base )
 	{
-		$clase = self::get_clase_definicion_editable();
-		$clase->eliminar_metodo_datos( $id_base );
-		$clase->guardar();		
-	}
-
-	/**
-	*	Devuelve la CLASE DATOS de la definicion para que se la edite
-	*/	
-	private static function get_clase_definicion_editable()
-	{
-		return new clase_datos( self::info_bases, self::archivo_info_bases() );
+		$ini = new ini( self::archivo_info_bases() );
+		$ini->eliminar_seccion( $id_base );
+		$ini->guardar();		
 	}
 	
 	function existe_info_bases()
@@ -161,65 +306,9 @@ class instalacion extends elemento_modelo
 		return ( is_file( self::archivo_info_bases() ) );
 	}
 
-	/**
-	* path del archivo con informacion basica
-	*/
 	static function archivo_info_bases()
 	{
-		return self::dir_base() . self::info_bases . '.php';
-	}
-	
-	static function hay_bases()
-	{
-		return count( dba::get_lista_bases_archivo() ) > 0 ;
-	}
-	
-	//-------------------------------------------------------------
-	//-- Administracion de INSTANCIAS
-	//-------------------------------------------------------------
-
-	static function dir_instancia( $nombre )
-	{
-		return self::dir_base() . 'i__' . $nombre;
-	}
-
-	static function existe_carpeta_instancia( $nombre )
-	{
-		return is_dir( self::dir_instancia( $nombre) );
-	}
-
-	/**
-	* Agrega una instancia
-	*/
-	static function crear_instancia( $nombre, $base, $lista_proyectos )
-	{
-		//Creo la carpeta
-		if( ! self::existe_carpeta_instancia( $nombre ) ) {
-			mkdir( self::dir_instancia( $nombre ) );
-		}
-		//Creo la clase que proporciona informacion sobre la instancia
-		$clase = new clase_datos( self::instancia_info );
-		$clase->agregar_metodo_datos( 'get_base', $base );
-		$clase->agregar_metodo_datos( 'get_lista_proyectos', $lista_proyectos );
-		$clase->guardar( self::dir_instancia( $nombre ) . '/' . self::instancia_info . '.php');
-	}
-
-	/**
-	* Devuelve la lista de las INSTANCIAS
-	*/
-	function get_lista_instancias()
-	{
-		$dirs = array();
-		try {
-			$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.instalacion::instancia_prefijo.'|' );
-			foreach ( $temp as $dir ) {
-				$temp_dir = explode( instalacion::instancia_prefijo, $dir );
-				$dirs[] = $temp_dir[1];
-			}
-		} catch ( excepcion_toba $e ) {
-			// No existe la instalacion
-		}
-		return $dirs;
+		return self::dir_base() . '/' . self::info_bases;
 	}
 }
 ?>

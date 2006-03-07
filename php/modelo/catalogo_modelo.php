@@ -8,34 +8,35 @@ require_once('modelo/conversor.php');
 
 class catalogo_modelo
 {
-	private $instancia;
+	private $instalacion;				// Instalacion
+	private $instancia;					// Array de instancias existentes en la instalacion
 	static private $singleton;
 
 	private function __construct(){}
 	
-	static function instanciacion()
+	/**
+	*	Devuelve una referencia a la INSTALACION
+	*/
+	function get_instalacion( $manejador_interface )
 	{
-		if (!isset(self::$singleton)) {
-			self::$singleton = new catalogo_modelo();	
+		if ( ! isset( $this->instalacion ) ) {
+			$this->instalacion = new instalacion();
+			$this->instalacion->set_manejador_interface( $manejador_interface );
 		}
-		return self::$singleton;	
-	}	
+		return $this->instalacion;
+	}
 
 	/**
-	*	Devuelve una referencia a un INSTANCIA. La forma actual de definir instancia hace que solo
-	*	se pueda instanciar una por ejecucion ( se basa en la declaracion de una constante )
+	*	Devuelve una referencia a un INSTANCIA.
 	*/
 	function get_instancia( $id_instancia, $manejador_interface )
 	{
-		if ( ! isset ( $this->instancia ) ) {
-			$this->instancia = new instancia( $id_instancia );
-			$this->instancia->set_manejador_interface( $manejador_interface );
-		} else {
-			if ( $this->instancia->get_id() !== $id_instancia ) {
-				throw new excepcion_toba("No es posible utilizar dos instancias distintas en un contexto de ejecucion.");	
-			}	
+		if ( ! isset ( $this->instancia[ $id_instancia ] ) ) {
+			$instalacion = $this->get_instalacion( $manejador_interface );
+			$this->instancia[ $id_instancia ] = new instancia( $instalacion, $id_instancia );
+			$this->instancia[ $id_instancia ]->set_manejador_interface( $manejador_interface );
 		}
-		return $this->instancia;
+		return $this->instancia[ $id_instancia ];
 	}
 	
 	/**
@@ -71,13 +72,14 @@ class catalogo_modelo
 	}
 
 	/**
-	*	Devuelve una referencia a la INSTALACION
+	*	Singleton
 	*/
-	function get_instalacion( $manejador_interface )
+	static function instanciacion()
 	{
-		$instalacion = new instalacion();
-		$instalacion->set_manejador_interface( $manejador_interface );
-		return $instalacion;
-	}
+		if (!isset(self::$singleton)) {
+			self::$singleton = new catalogo_modelo();	
+		}
+		return self::$singleton;	
+	}	
 }
 ?>

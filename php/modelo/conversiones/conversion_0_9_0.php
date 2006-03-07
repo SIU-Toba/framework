@@ -15,7 +15,7 @@ class conversion_0_9_0 extends conversion
 	{
 		$sql = "UPDATE apex_usuario SET clave=md5(clave), autentificacion='md5' 
 				WHERE autentificacion IS NULL OR autentificacion='plano'";
-		$this->db->ejecutar($sql);	
+		$this->ejecutar($sql);	
 	}
 	
 	/**
@@ -34,7 +34,7 @@ class conversion_0_9_0 extends conversion
 					solicitud_tipo='browser' AND
 					actividad_patron IN ('CI', 'CI_POPUP', 'ci', 'ci_cn_popup', 'generico_ci_cn')
 		";
-		$this->db->ejecutar($sql);	
+		$this->ejecutar($sql);	
 	}
 }
 ?>

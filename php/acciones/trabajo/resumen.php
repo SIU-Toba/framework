@@ -5,14 +5,12 @@
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
 		
-		$base_instancia = info_instancia::get_base();
-		$param = print_r( dba::get_parametros_base( $base_instancia ), true);
+		ei_arbol( dba::get_info_db_instancia(), "Parametros de conexion de la instancia");
 		
 		//---------------------------------//
 			
 	//Mostrar la revision utilizada
-	echo "<pre>
-$param";
+	echo "<pre>";
 		$proyecto  = $this->hilo->obtener_proyecto();
 		if( $proyecto != "toba" ){
 			echo "		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() ) . "

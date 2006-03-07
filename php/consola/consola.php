@@ -6,7 +6,6 @@
 */
 require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
-require_once("nucleo/lib/db.php");		    		//Manejo de bases (utiliza abodb340)
 require_once("nucleo/lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("nucleo/lib/sql.php");					//Libreria de manipulacion del SQL
 require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA

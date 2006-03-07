@@ -3,11 +3,10 @@ require_once('consola/comando.php');
 require_once('modelo/catalogo_modelo.php');
 
 /**
-	@todo: Seleccion adecuada de Usuarios y Grupo de acceso
-	
-			Tendria que existir un esquema para extender un comando
-			por ejemplo, despues de crear una instancia, un proyecto puede querer
-			agregar mas tablas a la misma
+	@todo: - Seleccion adecuada de Usuarios y Grupo de acceso
+			- Tendria que existir un esquema para extender un comando
+				por ejemplo, despues de crear una instancia, un proyecto puede querer
+				agregar mas tablas a la misma
 */
 class comando_toba extends comando
 {
@@ -23,6 +22,14 @@ class comando_toba extends comando
 	// Acceso a los SUJETOS sobre los que actuan los comandos
 	//-----------------------------------------------------------
 
+	/**
+	*	Devuelve una referencia al la INSTALACION
+	*/
+	protected function get_instalacion()
+	{
+		return catalogo_modelo::instanciacion()->get_instalacion( $this->consola );
+	}
+	
 	/**
 	*	Devuelve una referencia a la INSTANCIA
 	*/
@@ -40,14 +47,6 @@ class comando_toba extends comando
 		return catalogo_modelo::instanciacion()->get_proyecto( 	$this->get_id_instancia_actual(),
 																$this->get_id_proyecto_actual(),
 																$this->consola );
-	}
-
-	/**
-	*	Devuelve una referencia al la INSTALACION
-	*/
-	protected function get_instalacion()
-	{
-		return catalogo_modelo::instanciacion()->get_instalacion( $this->consola );
 	}
 
 	/**
@@ -176,7 +175,7 @@ class comando_toba extends comando
 	}
 	
 	//-----------------------------------------------------------
-	// Preguntas comunes
+	// Primitivas de INTERFACE comunes
 	//-----------------------------------------------------------
 	
 	/**
@@ -229,8 +228,8 @@ class comando_toba extends comando
 	{
 		$titulo = "Seleccionr BASE";
 		$bases = array();
-		foreach( dba::get_lista_bases_archivo() as $db ) {
-			$param = dba::get_parametros_base( $db );
+		foreach( $this->get_instalacion()->get_lista_bases() as $db ) {
+			$param = $this->get_instalacion()->get_parametros_base( $db );
 			$bases[ $db ] = implode(',  ',$param);
 		}
 		if ( count( $bases ) > 0 ) {
@@ -269,11 +268,10 @@ class comando_toba extends comando
 	protected function mostrar_bases_definidas()
 	{
 		$a = 0;
-		foreach( dba::get_lista_bases_archivo() as $db ) {
+		foreach( $this->get_instalacion()->get_lista_bases() as $db ) {
 			$base[ $a ]['nombre'] = $db;
-			$param = dba::get_parametros_base( $db );
+			$param = $this->get_instalacion()->get_parametros_base( $db );
 			$base[ $a ]['parametros'] = implode(',  ',$param);
-			//$base[ $a ]['existe'] = dba::existe_base_datos( $db );//Alenta
 			$a++; 
 		}
 		if ( $a > 0 ) {

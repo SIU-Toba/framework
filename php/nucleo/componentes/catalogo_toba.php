@@ -75,7 +75,10 @@ class catalogo_toba
 		return self::convertir_tipo( $datos[0]['clase'] );
 	}
 
-	static function get_lista_componentes( $tipo_componente, $proyecto )
+	/**
+	*	La DB como parametro se pasa en el caso de que esto se utilice desde la consola
+	*/
+	static function get_lista_componentes( $tipo_componente, $proyecto, $db = null )
 	{
 		if ($tipo_componente == 'item' ) {
 			$sql = "SELECT 	proyecto as 		proyecto,
@@ -83,7 +86,11 @@ class catalogo_toba
 					FROM apex_item 
 					WHERE proyecto = '$proyecto'
 					ORDER BY 1;";
-			$datos = consultar_fuente($sql, 'instancia' );
+			if ( isset( $db ) ) {
+				$datos = $db->consultar( $sql );
+			} else {
+				$datos = consultar_fuente($sql, 'instancia' );
+			}
 		} else {
 			$tipo_componente = 'objeto_'.$tipo_componente;
 			$sql = "SELECT 	proyecto as 		proyecto,
@@ -92,7 +99,11 @@ class catalogo_toba
 					WHERE proyecto = '$proyecto'
 					AND clase = '$tipo_componente'
 					ORDER BY 1;";
-			$datos = consultar_fuente($sql, 'instancia' );
+			if ( isset( $db ) ) {
+				$datos = $db->consultar( $sql );
+			} else {
+				$datos = consultar_fuente($sql, 'instancia' );
+			}
 		}
 		return $datos;
 	}

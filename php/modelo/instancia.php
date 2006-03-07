@@ -8,42 +8,118 @@ require_once('nucleo/lib/manejador_archivos.php');
 require_once('nucleo/lib/sincronizador_archivos.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 /**
-	FALTA:
-		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
-			( se eliminan las tablas o la base en la regeneracion? )
+*	@todo
+*		- Manipulacion del INI
+*		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
+*			( se eliminan las tablas o la base en la regeneracion? )
 */
 class instancia extends elemento_modelo
 {
-	const dir_datos_globales = 'global';
+	const dir_prefijo = 'i__';
+	const info_instancia = 'instancia.ini';
 	const prefijo_dir_proyecto = 'p__';
+	const dir_datos_globales = 'global';
 	const archivo_datos = 'datos.sql';
 	const archivo_usuarios = 'usuarios.sql';
 	const archivo_logs = 'logs.sql';
 	const cantidad_seq_grupo = 1000000;
+	private $instalacion;					// Referencia a la instalacion en la que esta metida la instancia
 	private $identificador;					// Identificador de la instancia
 	private $dir;							// Directorio raiz de la instancia
-	private $db;							// Referencia a la conexion con la DB de la instancia
-	private $sincro_archivos;
+	private $ini_base;						// ID de la BASE donde reside la instancia
+	private $ini_proyectos_vinculados;		// IDs de proyectos vinculados (a nivel FS)
+	private $db = null;						// Referencia a la CONEXION con la DB de la instancia
+	private $sincro_archivos;				// Sincronizador de archivos.
 	
-	public function __construct( $identificador )
+	function __construct( instalacion $instalacion, $identificador )
 	{
-		parent::__construct();
 		$this->identificador = $identificador;
-		define('apex_pa_instancia', $this->identificador);
-		$this->dir = $this->dir_raiz . '/instalacion/' . instalacion::instancia_prefijo . $this->identificador;
+		$this->instalacion = $instalacion;
+		$this->dir = $this->instalacion->get_dir() . '/' . self::dir_prefijo . $this->identificador;
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
-		} else {
-			//Incluyo el archivo de parametros de la instancia
-			require_once( $this->dir . '/info_instancia.php' );
 		}
 		//Solo se sincronizan los SQLs
+		$this->cargar_info_ini();
 		$this->sincro_archivos = new sincronizador_archivos( $this->dir, '|.*\.sql|' );
 	}
 
+	function cargar_info_ini()
+	{
+		$archivo_ini = $this->dir . '/' . self::info_instancia;
+		if ( ! is_file( $archivo_ini ) ) {
+			throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
+		} else {
+			//--- Levanto la CONFIGURACION de la instancia
+			//  BASE
+			$ini = parse_ini_file( $archivo_ini );
+			if ( ! isset( $ini['base'] ) ) {
+				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
+			}
+			$this->ini_base = $ini['base'];
+			// PROYECTOS
+			if ( ! isset( $ini['proyectos'] ) ) {
+				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
+			}
+			$lista_proyectos = explode(',', $ini['proyectos'] );
+			$lista_proyectos = array_map('trim',$lista_proyectos);
+			if ( count( $lista_proyectos ) == 0 ) {
+				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+			}
+			if ( ! in_array( 'toba', $lista_proyectos ) ) {
+				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee asociado el proyecto 'toba'.)");
+			}
+			$this->ini_proyectos_vinculados = $lista_proyectos;
+		}
+	}
+
+	//-----------------------------------------------------------
+	//	Manejo de subcomponentes
+	//-----------------------------------------------------------
+
+	/**
+	*	Devuelve un array con los objetos PROYECTO cargados
+	*/
+	function get_proyectos()
+	{
+		$proyectos = array();
+		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
+			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
+			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
+		}
+		return $proyectos;
+	}
+	
+	//-----------------------------------------------------------
+	//	Relacion con la base de datos donde reside la instancia
+	//-----------------------------------------------------------
+
+	/**
+	*	Creacion de la conexion con la DB donde reside la instancia
+	*/
 	function get_db()
 	{
-		return dba::get_db('instancia');
+		if ( ! isset( $this->db ) ) {
+			$this->db = $this->instalacion->conectar_base( $this->ini_base );
+		}
+		return $this->db;
+	}
+
+	/**
+	*	Eliminaciond e la conexion con la instancia
+	*/
+	function desconectar_db()
+	{
+		$this->get_db()->destruir();
+		unset( $this->db );
+	}
+
+	/**
+	*	Recuperacion de los parametros de la DB donde reside la instancia
+	*/
+	function get_parametros_db()
+	{
+		return $this->instalacion->get_parametros_base( $this->ini_base );
 	}
 
 	//-----------------------------------------------------------
@@ -60,41 +136,16 @@ class instancia extends elemento_modelo
 		return $this->dir;		
 	}
 
-	function get_parametros_db()
-	{
-		return dba::get_info_db_instancia();
-	}
-		
 	function get_lista_proyectos_vinculados()
 	{
-		$lista_proyectos = info_instancia::get_lista_proyectos();
-		//ATENCION: temporal, hasta que el administrador se oficialice como proyecto
-		if ( ! in_array( 'toba', $lista_proyectos ) ) {
-			$lista_proyectos[] = 'toba';	
-		}
-		return $lista_proyectos;
+		return $this->ini_proyectos_vinculados;
 	}
 	
 	function existe_proyecto_vinculado( $proyecto )
 	{
-		$proyectos = $this->get_lista_proyectos_vinculados();
-		if ( in_array( $proyecto, $proyectos ) ) {
-			return true;	
-		}
-		return false;
+		return in_array( $proyecto, $this->ini_proyectos_vinculados );
 	}
 	
-	function existen_metadatos_proyecto( $proyecto )
-	{
-		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = '$proyecto';";
-		$datos = $this->get_db()->consultar( $sql );
-		if ( count( $datos ) > 0 ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	function existe_modelo()
 	{
 		try {
@@ -105,20 +156,18 @@ class instancia extends elemento_modelo
 			return false;
 		}
 	}
-	
-	/*
-	*	Devuelve un array con los objetos PROYECTO cargados
-	*/
-	function get_proyectos()
+
+	function existen_metadatos_proyecto( $proyecto )
 	{
-		$proyectos = array();
-		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
-			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
+		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = '$proyecto';";
+		$datos = $this->get_db()->consultar( $sql );
+		if ( count( $datos ) > 0 ) {
+			return true;
+		} else {
+			return false;
 		}
-		return $proyectos;
 	}
-	
+		
 	//-----------------------------------------------------------
 	//	Manipulacion de la DEFINICION
 	//-----------------------------------------------------------
@@ -156,11 +205,6 @@ class instancia extends elemento_modelo
 		}
 	}
 
-	function cambiar_db_referencia( $id_db )
-	{
-		$clase = $this->get_clase_datos();		
-	}
-	
 	private function get_clase_datos()
 	{
 		$clase = instalacion::instancia_info;
@@ -230,7 +274,7 @@ class instancia extends elemento_modelo
 					" FROM $tabla " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
-			$datos = consultar_fuente($sql, 'instancia' );
+			$datos = $this->get_db()->consultar($sql);
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -285,7 +329,7 @@ class instancia extends elemento_modelo
 					" WHERE $where " .
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
-			$datos = consultar_fuente($sql, 'instancia' );
+			$datos = $this->get_db()->consultar($sql);
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -315,15 +359,14 @@ class instancia extends elemento_modelo
 	function cargar( $forzar_carga = false )
 	{
 		// Existe la base?
-		$base = info_instancia::get_base();
-		if ( ! dba::existe_base_datos( $base ) ) {
-			dba::crear_base_datos( $base );
+		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
+			$this->instalacion->crear_base_datos( $this->ini_base );
 		}
 		// Esta el modelo cargado
 		if ( $this->existe_modelo() ) {
 			if ( $forzar_carga ) {
 				$this->eliminar();
-				dba::crear_base_datos( $base );
+				$this->instalacion->crear_base_datos( $this->ini_base );
 			} else {
 				throw new excepcion_toba_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
 			}
@@ -432,12 +475,12 @@ class instancia extends elemento_modelo
 	private function actualizar_secuencias()
 	{
 		$this->manejador_interface->titulo('Importando SECUENCIAS');
-		$id_grupo_de_desarrollo = instalacion::get_id_grupo_desarrollo();
+		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( secuencias::get_lista() as $seq => $datos ) {
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
 				$sql = "SELECT setval('$seq', max({$datos['campo']})) as nuevo FROM {$datos['tabla']}"; 
-				$res = consultar_fuente($sql, 'instancia', null, true);
+				$res = $this->get_db()->consultar($sql, null, true);
 				$nuevo = $res[0]['nuevo'];
 			} else {
 				//Sino se toma utilizando los l�ites segn el ID del grupo
@@ -446,7 +489,7 @@ class instancia extends elemento_modelo
 				$sql_nuevo = "SELECT max({$datos['campo']}) as nuevo
 							  FROM {$datos['tabla']}
 							  WHERE	{$datos['campo']} BETWEEN $lim_inf AND $lim_sup";
-				$res = consultar_fuente($sql_nuevo, 'instancia', null, true);
+				$res = $this->get_db()->consultar($sql_nuevo, null, true);
 				$nuevo = $res[0]['nuevo'];
 				//Si no hay un maximo, es el primero del grupo
 				if ($nuevo == NULL) {
@@ -454,7 +497,7 @@ class instancia extends elemento_modelo
 				}
 				$sql = "SELECT setval('$seq', $nuevo)
 							FROM {$datos['tabla']}";
-				consultar_fuente($sql, 'instancia');		
+				$this->get_db()->consultar( $sql, null );	
 			}
 			$this->manejador_interface->mensaje("SECUENCIA $seq: $nuevo");
 		}	
@@ -479,9 +522,8 @@ class instancia extends elemento_modelo
 	function eliminar_base()
 	{
 		try {
-			$base = info_instancia::get_base();
-			dba::desconectar('instancia');
-			dba::borrar_base_datos( $base );
+			$this->desconectar_db();
+			$this->instalacion->borrar_base_datos( $this->ini_base );
 			$this->manejador_interface->mensaje("La base ha sido eliminada.");
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de la BASE' );
@@ -551,22 +593,53 @@ class instancia extends elemento_modelo
 		return $this->get_db()->ejecutar( $sql );
 	}
 
-	//-----------------------------------------------------------
-	//	TEST
-	//-----------------------------------------------------------
+	//-------------------------------------------------------------
+	//-- CREACION de INSTANCIAS
+	//-------------------------------------------------------------
 
-	function dump_info_tablas()
+	/**
+	* Agrega una instancia
+	*/
+	static function crear_instancia( $nombre, $base, $lista_proyectos )
 	{
-		// Esta el modelo cargado
-		if ( ( ! dba::existe_base_datos( info_instancia::get_base() ) ) || ( ! $this->existe_modelo() ) ) {
-			throw new excepcion_toba_modelo_preexiste("La instancia no esta inicializada");
+		//Creo la carpeta
+		if( ! self::existe_carpeta_instancia( $nombre ) ) {
+			mkdir( self::dir_instancia( $nombre ) );
 		}
-		$archivo = 'registros_' . $this->identificador;
-		$clase = new clase_datos( $archivo );		
-		$clase->agregar_metodo_datos('get_datos',$this->get_registros_tablas() );
-		$path = toba_dir() .'/temp/'. $archivo . '.php';
-		$clase->guardar( $path );
-		//$this->manejador_interface->mensaje("Se creo el archivo '$path'");
+		//Creo la clase que proporciona informacion sobre la instancia
+		$ini = new ini();
+		$ini->agregar_titulo("Configuracion de la INSTANCIA");
+		$ini->agregar_directiva( 'base', $base );
+		$ini->agregar_directiva( 'proyectos', implode(', ', $lista_proyectos) );
+		$ini->guardar( self::dir_instancia( $nombre ) . '/' . instancia::info_instancia );
+	}
+
+	static function dir_instancia( $nombre )
+	{
+		return instalacion::dir_base() . '/' . self::dir_prefijo . $nombre;
+	}
+
+	static function existe_carpeta_instancia( $nombre )
+	{
+		return is_dir( self::dir_instancia( $nombre) );
+	}
+	
+	/**
+	* Devuelve la lista de las INSTANCIAS
+	*/
+	static function get_lista()
+	{
+		$dirs = array();
+		try {
+			$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.self::dir_prefijo.'|' );
+			foreach ( $temp as $dir ) {
+				$temp_dir = explode( self::dir_prefijo, $dir );
+				$dirs[] = $temp_dir[1];
+			}
+		} catch ( excepcion_toba $e ) {
+			// No existe la instalacion
+		}
+		return $dirs;
 	}
 
 	//-----------------------------------------------------------

@@ -14,7 +14,7 @@ require_once('modelo/estructura_db/tablas_componente.php');
 /*
 *	Administrador de metadatos de PROYECTOS
 
-	Atencion: en el caso de la importacion de proyectos directa (sin instancia)
+	Atencion !!!!!!!! en el caso de la importacion de proyectos directa (sin instancia)
 	hay que actualizar las secuencias despues.
 */
 class proyecto extends elemento_modelo
@@ -32,13 +32,12 @@ class proyecto extends elemento_modelo
 
 	public function __construct( instancia $instancia, $identificador )
 	{
-		parent::__construct();
 		$this->instancia = $instancia;
 		$this->identificador = $identificador;
 		if ( $this->identificador == 'toba' ) {
-			$this->dir = $this->dir_raiz . '/php/admin';	
+			$this->dir = toba_dir() . '/php/admin';	
 		} else {
-			$this->dir = $this->dir_raiz . '/proyectos/' . $this->identificador;	
+			$this->dir = toba_dir() . '/proyectos/' . $this->identificador;	
 		}
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
@@ -137,7 +136,7 @@ class proyecto extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$contenido = "";
-			$datos = consultar_fuente($sql, 'instancia' );
+			$datos = $this->db->consultar($sql);
 			$regs = count( $datos );
 			if ( $regs > 1 ) {
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
@@ -159,9 +158,9 @@ class proyecto extends elemento_modelo
 	private function exportar_componentes()
 	{
 		$this->manejador_interface->titulo( "COMPONENTES" );
-		cargador_toba::instancia()->crear_cache_simple( $this->get_id() );
+		cargador_toba::instancia()->crear_cache_simple( $this->get_id(), $this->db );
 		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
-			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id() );
+			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db );
 			foreach ( $lista_componentes as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
@@ -187,7 +186,7 @@ class proyecto extends elemento_modelo
 	private function & get_contenido_componente( $tipo, $id )
 	{
 		//Recupero metadatos
-		$metadatos = cargador_toba::instancia()->get_metadatos_simples( $id, $tipo );
+		$metadatos = cargador_toba::instancia()->get_metadatos_simples( $id, $tipo, $this->db );
 		//Obtengo el nombre del componente
 		if ( isset($metadatos['apex_objeto']) ) {
 			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
@@ -333,11 +332,11 @@ class proyecto extends elemento_modelo
 	*/
 	function compilar_componentes()
 	{
-		foreach (catalogo_toba::get_lista_tipo_componentes() as $tipo) {
+		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
 			$this->manejador_interface->titulo( $tipo );
 			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
 			manejador_archivos::crear_arbol_directorios( $path );
-			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id() ) as $id_componente) {
+			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente );
 			}
 		}
@@ -352,7 +351,7 @@ class proyecto extends elemento_modelo
 		$nombre = manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
 		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
 		$clase = new clase_datos( $nombre );		
-		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
 		$directorio = $this->get_dir_componentes_compilados() . '/' . $tipo;

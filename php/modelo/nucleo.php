@@ -34,7 +34,6 @@ class nucleo extends elemento_modelo
 
 	function __construct()
 	{
-		parent::__construct();
 		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
 	}	
 

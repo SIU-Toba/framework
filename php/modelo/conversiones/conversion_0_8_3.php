@@ -17,13 +17,13 @@ class conversion_0_8_3 extends conversion
 	function pre_cambios()
 	{
 		$sql = "DELETE FROM apex_objeto_ci_pantalla WHERE objeto_ci_proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		$sql = "DELETE FROM apex_objeto_ei_cuadro_columna WHERE objeto_cuadro_proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		$sql = "DELETE FROM apex_objeto_ei_formulario_ef WHERE objeto_ei_formulario_proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		$sql = "DELETE FROM apex_objeto_eventos WHERE proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 	
 	function post_cambios()
@@ -31,28 +31,28 @@ class conversion_0_8_3 extends conversion
 
 		$sql = "UPDATE apex_objeto_cuadro SET ev_seleccion = NULL, ev_eliminar = NULL
 				WHERE objeto_cuadro_proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 		$sql = "UPDATE apex_objeto_ut_formulario SET ev_agregar = NULL, ev_agregar_etiq = NULL, ev_mod_modificar = NULL,
 													ev_mod_modificar_etiq = NULL, ev_mod_eliminar_etiq = NULL, 
 													ev_mod_limpiar_etiq = NULL
 				WHERE objeto_ut_formulario_proyecto='{$this->proyecto}'";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 		//Estos DROP no se pueden hacer sino fallan las meta-consultas posteriores
 		//Para borrar estas columnas hay que esperar una version posterior y sacarlas de los pg_*.sql
 /*
 		$sql = "ALTER TABLE apex_objeto_cuadro DROP COLUMN ev_seleccion";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		$sql = "ALTER TABLE apex_objeto_cuadro DROP COLUMN ev_eliminar";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 		//Columnas del formulario
 		$columnas = array("ev_agregar", "ev_agregar_etiq", "ev_mod_modificar", "ev_mod_modificar_etiq",  
 						  "ev_mod_eliminar_etiq", "ev_mod_limpiar_etiq");
 		foreach ($columnas as $columna) {
 			$sql = "ALTER TABLE apex_objeto_ut_formulario DROP COLUMN $columna";
-			$this->ejecutar_sql($sql,"instancia");
+			$this->ejecutar_sql($sql);
 		} 
 */
 	}
@@ -119,7 +119,7 @@ class conversion_0_8_3 extends conversion
 				c.ev_seleccion = 1 AND
 				c.objeto_cuadro_proyecto='{$this->proyecto}'
 		";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 		//Evento ELIMINAR
 		$sql = "
@@ -159,7 +159,7 @@ class conversion_0_8_3 extends conversion
 				c.ev_eliminar = 1 AND
 				c.objeto_cuadro_proyecto='{$this->proyecto}'
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 	}
 
 	/**
@@ -209,7 +209,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_filtro' AND
 				f.ev_agregar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 		//Evento CANCELAR
 		$sql = "
@@ -253,7 +253,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_filtro' AND
                 f.ev_mod_limpiar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 	}
 
 	/**
@@ -301,7 +301,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_formulario' AND
 				f.ev_agregar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		
 		
 		//Evento MODIFICACION del ML y el común
@@ -346,7 +346,7 @@ class conversion_0_8_3 extends conversion
 				o.clase IN ('objeto_ei_formulario', 'objeto_ei_formulario_ml') AND
 				f.ev_mod_modificar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		
 		//Evento BAJA
 		$sql = "
@@ -390,7 +390,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_formulario' AND
 				f.ev_mod_eliminar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");			
+		$this->ejecutar_sql($sql);			
 		
 		//Evento CANCELAR
 		$sql = "
@@ -434,7 +434,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_formulario' AND
                 f.ev_mod_limpiar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		
 		//Evento SELECCION del ML
 		$sql = "
@@ -476,7 +476,7 @@ class conversion_0_8_3 extends conversion
 				o.clase = 'objeto_ei_formulario_ml' AND
                 f.ev_seleccion = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		
 	}
 
@@ -527,7 +527,7 @@ class conversion_0_8_3 extends conversion
 				AND o.proyecto = x.objeto_cuadro_proyecto               
 				AND x.valor_sql IS NOT NULL
 				AND o.clase = 'objeto_ei_cuadro';";	
-		$this->ejecutar_sql($sql,"instancia");	
+		$this->ejecutar_sql($sql);	
 		
 		//Se borran los registros viejos
 		$sql = "
@@ -542,7 +542,7 @@ class conversion_0_8_3 extends conversion
 							proyecto='{$this->proyecto}'
 					)
 		";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 	}
 	
 	/**
@@ -588,7 +588,7 @@ class conversion_0_8_3 extends conversion
 				AND o.objeto = x.objeto_ut_formulario                       
 				AND o.proyecto = x.objeto_ut_formulario_proyecto               
 				AND o.clase IN ('objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro');";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		
 		
 		//Se borran los registros viejos
@@ -605,7 +605,7 @@ class conversion_0_8_3 extends conversion
 							
 						) 
 				";
-		$this->ejecutar_sql($sql,"instancia");					
+		$this->ejecutar_sql($sql);					
 	}
 	
 	
@@ -663,7 +663,7 @@ class conversion_0_8_3 extends conversion
                   pan.ev_procesar = 1 OR
                   pan.ev_cancelar = 1
 		";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}	
 
 	/**
@@ -711,7 +711,7 @@ class conversion_0_8_3 extends conversion
 				AND o.objeto = x.objeto_mt_me
 				AND o.proyecto = x.objeto_mt_me_proyecto
 				AND o.clase IN ('objeto_ci','ci_cn','ci_abm_dbr','objeto_ci_abm','ci_abm_dbt','ci_abm_nav');";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		$sql = "
 			DELETE FROM apex_objeto_mt_me_etapa
 			WHERE 
@@ -723,13 +723,13 @@ class conversion_0_8_3 extends conversion
 							proyecto='{$this->proyecto}'
 					) AND
 				objeto_mt_me_proyecto='{$this->proyecto}' ";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 		//Las etiquetas vacias de las pantallas pasan a llamarse igual que los identificadores
 		$sql = "UPDATE apex_objeto_ci_pantalla
 				SET etiqueta = identificador
 				WHERE etiqueta IS NULL
 				AND objeto_ci_proyecto = '{$this->proyecto}';";
-		$this->ejecutar_sql($sql,"instancia");		
+		$this->ejecutar_sql($sql);		
 	}
 }
 ?>

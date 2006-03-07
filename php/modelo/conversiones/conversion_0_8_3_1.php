@@ -27,7 +27,7 @@ class conversion_0_8_3_1 extends conversion
 				AND apex_objeto.proyecto = '$this->proyecto'
 				AND apex_objeto.clase = 'objeto_ei_formulario'
 				AND apex_objeto_eventos.identificador = 'alta';";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		//modificacion = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
 				SET grupo = 'cargado',
@@ -41,7 +41,7 @@ class conversion_0_8_3_1 extends conversion
 				-- por si se ejecuta dos veces, los implicitos no pertenecen a un grupo
 				AND (apex_objeto_eventos.implicito IS NULL
 						OR apex_objeto_eventos.implicito <> 1);";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		//cancelar = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
 				SET grupo = 'cargado',
@@ -52,7 +52,7 @@ class conversion_0_8_3_1 extends conversion
 				AND apex_objeto.proyecto = '$this->proyecto'
 				AND apex_objeto.clase = 'objeto_ei_formulario'
 				AND apex_objeto_eventos.identificador = 'cancelar';";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		//baja = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
 				SET grupo = 'cargado',
@@ -63,7 +63,7 @@ class conversion_0_8_3_1 extends conversion
 				AND apex_objeto.proyecto = '$this->proyecto'
 				AND apex_objeto.clase = 'objeto_ei_formulario'
 				AND apex_objeto_eventos.identificador = 'baja';";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class conversion_0_8_3_1 extends conversion
 				AND apex_objeto.proyecto = '$this->proyecto'
 				AND apex_objeto.clase = 'objeto_ei_filtro'
 				AND apex_objeto_eventos.identificador = 'filtrar';";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		//cancelar = 'cargado'
 		$sql = "UPDATE apex_objeto_eventos
 				SET grupo = 'cargado',
@@ -92,7 +92,7 @@ class conversion_0_8_3_1 extends conversion
 				AND apex_objeto.proyecto = '$this->proyecto'
 				AND apex_objeto.clase = 'objeto_ei_filtro'
 				AND apex_objeto_eventos.identificador = 'cancelar';";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	/**
@@ -130,7 +130,7 @@ class conversion_0_8_3_1 extends conversion
 				AND 	o.proyecto = '$this->proyecto'
 				GROUP BY 1, 2
 				HAVING (COUNT(e.*) = 0)";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 		/*
 			Modificacion implicita de los multilineas
 				- todos los que no tienen eventos
@@ -162,7 +162,7 @@ class conversion_0_8_3_1 extends conversion
 				AND 	o.proyecto = '$this->proyecto'
 				GROUP BY 1, 2
 				HAVING (COUNT(e.*) = 0)";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	/**
@@ -173,7 +173,7 @@ class conversion_0_8_3_1 extends conversion
 		$sql = "UPDATE apex_proyecto 
 				SET menu = 'milonic' 
 				WHERE proyecto = '$this->proyecto'";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	/**
@@ -186,7 +186,7 @@ class conversion_0_8_3_1 extends conversion
 				WHERE objeto_cuadro_proyecto = '$this->proyecto'
 				AND (	(columnas_clave IS NULL)
 						OR trim(columnas_clave) = '' )";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	//--------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ class conversion_0_8_3_1 extends conversion
 				AND (apex_objeto.subclase IS NULL OR trim(apex_objeto.subclase) = '')
 				AND apex_objeto.clase = apex_clase.clase AND apex_objeto.clase_proyecto = apex_clase.proyecto
 				AND apex_objeto.clase IN ('ci_cn', 'objeto_ci_abm', 'ci_abm_dbr', 'ci_abm_dbt', 'ci_abm_nav')";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 
 	/**
@@ -219,7 +219,7 @@ class conversion_0_8_3_1 extends conversion
 				WHERE 
 					proyecto = '{$this->proyecto}' AND
 					clase IN ('ci_cn', 'objeto_ci_abm', 'ci_abm_dbr', 'ci_abm_dbt', 'ci_abm_nav')";
-		$this->ejecutar_sql($sql,"instancia");
+		$this->ejecutar_sql($sql);
 	}
 	
 	/**

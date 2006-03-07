@@ -1,21 +1,47 @@
 <?
 /**
-*	Administra la utilizacion de bases de datos
-*	Esto es suministrar las conexiones, crear, borrar y consultar su existencia.
+*	Administra la utilizacion de bases de datos durante la ejecucion (basicamente administra)
 *
-*	ATENCION: 	- hay que sacar la suposicion de que si no se pasa un nombre se utilice la conexion 'instancia'
-*					(algo puede funcionar en el administrador y dejar de andar en un proyecto)
-*				- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia'
+*	@todo 	- hay que sacar la suposicion de que si no se pasa un nombre se utilice la conexion 'instancia'
+*				(algo puede funcionar en el administrador y dejar de andar en un proyecto)
+*			- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia
 */
 class dba
 {
-	const path_archivo_bases = '/instalacion/info_bases.php';
-	const db_encoding_estandar = 'LATIN1';
+	const path_archivo_bases = '/instalacion/bases.ini';
 	private static $dba;						// Implementacion del singleton.
-	private static $info_bases;					// Parametros de las conexiones abiertas
+	private static $info_bases;					// Parametros de las conexiones ABIERTAS
+	private static $bases_definidas = null;		// Bases declaradas en BASES.INI
 	private $bases_conectadas = array();		// Conexiones abiertas
 
-	private function __construct(){}
+	private function __construct()
+	{
+		self::cargar_bases_definidas();		
+	}
+	
+	/**
+	*	Levanta la lista de bases definidas
+	*/
+	static function cargar_bases_definidas()
+	{
+		$bases_definidas = array();
+		self::$bases_definidas = parse_ini_file( toba_dir() . self::path_archivo_bases, true );
+	}
+
+	/**
+	*	Busca la definicion de una base en 'bases.ini'
+	*/
+	static function get_parametros_base( $id_base )
+	{
+		if ( ! isset( self::$bases_definidas ) ) {
+			self::cargar_bases_definidas();
+		}
+		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
+			return self::$bases_definidas[ $id_base ];
+		} else {
+			throw new excepcion_toba("DBA: La BASE '$id_base' no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
+		}
+	}
 	
 	//------------------------------------------------------------------------
 	// Administracion de conexiones
@@ -62,113 +88,13 @@ class dba
 		$dba = self::get_instancia();
 		$dba->desconectar_db( $nombre );
 	}
-		
-	//------------------------------------------------------------------------
-	// Mantenimiento de BASES de DATOS
-	//------------------------------------------------------------------------
-
-	/**
-	*	Crea la base de datos asociada a la fuente
-	*	@param string $nombre Nombre de la fuente de datos
-	*/
-	static function crear_base_datos( $nombre )
-	{
-		$info_db = self::get_parametros_base( $nombre );
-		$base_a_crear = $info_db['base'];
-		if($info_db['motor']=='postgres7')
-		{
-			$info_db['base'] = 'template1';
-			$info_db['fuente_datos'] = 'template1';
-			$db = self::conectar_db( $info_db );
-			$sql = "CREATE DATABASE $base_a_crear ENCODING '" . self::db_encoding_estandar . "';";
-			$db->ejecutar( $sql );
-		}else{
-			throw new excepcion_toba("El metodo no esta definido para el motor especificado");
-		}
-	}
-
-	/**
-	*	Borra la base de datos asociada a la fuente
-	*	@param string $nombre Nombre de la fuente de datos
-	*/	
-	static function borrar_base_datos( $nombre )
-	{
-		$info_db = self::get_parametros_base( $nombre );
-		$base_a_borrar = $info_db['base'];
-		if($info_db['motor']=='postgres7')
-		{
-			$info_db['base'] = 'template1';
-			$info_db['fuente_datos'] = 'template1';
-			$db = self::conectar_db($info_db);
-			$sql = "DROP DATABASE $base_a_borrar;";
-			$db->ejecutar($sql);
-		}else{
-			throw new excepcion_toba("El metodo no esta definido para el motor especificado");
-		}
-	}
-
-	/**
-	*	Determina si la base de datos de la fuente existe
-	*	@param string $nombre Nombre de la fuente de datos
-	*/
-	static function existe_base_datos( $nombre )
-	{
-		try{
-			$info_db = self::get_parametros_base( $nombre );
-			$info_db['fuente_datos'] = 'test';
-			$db = self::conectar_db( $info_db );
-			$db->destruir();
-		}catch(excepcion_toba $e){
-			return false;
-		}
-		return true;
-	}
-
-	//------------------------------------------------------------------------
-	// ACCESO a DEFINICIONES
-	//------------------------------------------------------------------------
-
-	/*
-	*	Devuelve la lista de bases del archivo de bases.
-	*/
-	static function get_lista_bases_archivo()
-	{
-		if(! class_exists('info_bases') ) {
-			self::incluir_archivo_bases();
-		}
-		return get_class_methods('info_bases');
-	}
-
-	/**
-	*	Busca la definicion de una base en el archivo de bases 
-	*/
-	static function get_parametros_base( $id_base )
-	{
-		if ( self::existe_base_datos_definida( $id_base ) ) {
-			return info_bases::$id_base();
-		} else {
-			throw new excepcion_toba("La BASE '$id_base' no esta definida en el archivo de bases: '" . self::path_archivo_bases . "'" );
-		}
-	}
-
-	static function existe_base_datos_definida( $id_base )
-	{
-		if(! class_exists('info_bases') ) {
-			self::incluir_archivo_bases();
-		}
-		$bases_registradas = get_class_methods('info_bases');
-		if ( in_array($id_base, $bases_registradas) ) {
-			return true;
-		}
-		return false;
-	}
 
 	//------------------------------------------------------------------------
 	// Servicios internos
 	//------------------------------------------------------------------------
 
 	/**
-	*	Manejo interno de las conexiones realizadas
+	*	Administracion interna de CONEXIONES.
 	*/
 	private function get_conexion( $nombre )
 	{
@@ -200,17 +126,17 @@ class dba
 	{
 		if ( ! isset( self::$info_bases['instancia'] ) ) {
 			if ( ! defined('apex_pa_instancia') ) {
-				throw new excepcion_toba("DBA: La instancia no se encuentra definida (no exite la constante 'apex_pa_instancia')");
+				throw new excepcion_toba("DBA: La INSTANCIA ACTUAL no se encuentra definida (no exite la constante 'apex_pa_instancia')");
 			}
 			//incluyo el archivo de informacion basica de la INSTANCIA
-			$archivo = toba_dir() . '/instalacion/i__' . apex_pa_instancia . '/info_instancia.php';
+			$archivo = toba_dir() . '/instalacion/i__' . apex_pa_instancia . '/instancia.ini';
 			if ( is_file( $archivo ) ) {
-				require_once( $archivo );
+				$datos_ini = parse_ini_file( $archivo );
 			} else {
 				throw new excepcion_toba("DBA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".apex_pa_instancia."' ('$archivo')");
 			}
 			//Identifico la BASE
-			$id_base = info_instancia::get_base();
+			$id_base = $datos_ini['base'];
 			$datos_conexion = self::get_parametros_base( $id_base );
 			$datos_conexion['fuente_datos'] = 'instancia';
 			self::$info_bases['instancia'] = $datos_conexion;
@@ -234,7 +160,7 @@ class dba
 					WHERE	fuente_datos = '$nombre'";
 			$rs = consultar_fuente( $sql, 'instancia' );
 			if (!$rs || count($rs) == 0) {
-				throw new excepcion_toba("La FUENTE de DATOS '$nombre' no fue definida");
+				throw new excepcion_toba("DBA: La FUENTE de DATOS '$nombre' no fue definida");
 			}
 			$datos_db = $rs[0];
 			//Es un link al archivo de instancias?
@@ -247,24 +173,6 @@ class dba
 			self::$info_bases[$nombre] = $datos_conexion;
 		}
 		return self::$info_bases[$nombre];
-	}
-
-	/*
-	*	Incluye el archivo de bases
-	*/
-	private static function incluir_archivo_bases()
-	{
-		$archivo = self::get_path_archivo_bases();
-		if ( is_file( $archivo ) ) {
-			require_once( $archivo );
-		} else {
-			throw new excepcion_toba("Atencion, no se encuentra definido el archivo de BASES: '$archivo'");	
-		}
-	}
-	
-	private function get_path_archivo_bases()
-	{
-		return toba_dir() . self::path_archivo_bases;		
 	}
 
 	/**

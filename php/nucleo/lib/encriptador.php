@@ -1,7 +1,5 @@
 <?php
 require_once("3ros/adodb464/session/crypt.inc.php");
-require_once("modelo/instalacion.php");
-//------------------------------------------
 
 class encriptador
 {
@@ -11,7 +9,7 @@ class encriptador
 	
 	private function __construct() {
 		$this->motor = new MD5Crypt();
-		$this->clave = instalacion::get_claves_encriptacion();
+		$this->clave = toba::get_hilo()->get_claves_encriptacion();
 	}
 	
 	static function instancia() {

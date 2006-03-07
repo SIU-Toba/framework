@@ -17,7 +17,7 @@ class conversion_0_8_3_3 extends conversion
 				SET estilo_titulo = 'lista-col-titulo'
 				WHERE trim(estilo_titulo) = 'lista_col_titulo'
 				AND objeto_cuadro_proyecto = '$this->proyecto';";
-		$this->ejecutar_sql($sql,"instancia");				
+		$this->ejecutar_sql($sql);				
 	}
 }
 ?>

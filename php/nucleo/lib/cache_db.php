@@ -6,13 +6,13 @@
 
 class cache_db
 {
-	private $fuente_datos;
+	private $db;
 	private $tablas = array();
 	private $indices = array();
 
-	function __construct( $fuente_datos )
+	function __construct( $db )
 	{
-		$this->fuente_datos = $fuente_datos;
+		$this->db = $db;
 	}
 
 	/*
@@ -41,7 +41,7 @@ class cache_db
 	function agregar_tabla( $tabla, $sql, $columna_clave )
 	{
 		//Recupero el contenido
-		$this->tablas[$tabla] = consultar_fuente($sql, $this->fuente_datos );
+		$this->tablas[$tabla] = $this->db->consultar( $sql );
 		//Genero indices
 		$this->indices[$tabla] = array();
 		for ($a=0; $a < count($this->tablas[$tabla]); $a++) {

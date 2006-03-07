@@ -391,6 +391,13 @@ class hilo
 		return $_SESSION['toba']["usuario"]["perfil_datos"];
 	}
 	
+	function get_claves_encriptacion()
+	{
+		$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
+		$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];
+		return $claves;
+	}
+
 	function usuario_solicita_cronometrar()
 /*
  	@@acceso: nucleo

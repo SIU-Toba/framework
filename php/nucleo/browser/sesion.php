@@ -17,6 +17,8 @@ class sesion {
 	function abrir($usuario,$proyecto)
 	//Abre una sesion de la aplicacion
 	{
+		// Levanto la informacion de la instalacion
+		$_SESSION['toba']['instalacion'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini' );
 		$db = toba::get_db("instancia");
 		//---------------------------- Controlo que la IP no este bloqueada...
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='{$_SERVER["REMOTE_ADDR"]}'";

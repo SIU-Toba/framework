@@ -26,8 +26,10 @@ class cargador_toba
 	/**
 	*	Retorna los metadatos de un componente, tal cual existen en las tablas
 	*	del mismo. Este metodo es utilizado por el exportador de componentes
+	*	El parametro DB tiene como objetivo brindar este servicio a la consola 
+	*	(no existe 'dba' ni 'consultar_fuente')
 	*/
-	function get_metadatos_simples( $componente, $tipo=null )
+	function get_metadatos_simples( $componente, $tipo=null, $db = null )
 	{
 		$metadatos = array();	
 		if ( !isset( $tipo ) ) {
@@ -60,7 +62,11 @@ class cargador_toba
 						" WHERE {$definicion['dump_clave_proyecto']} = '$proyecto' " .
 						" AND {$definicion['dump_clave_componente']} = '$id' " .
 						" ORDER BY {$definicion['dump_order_by']} ;\n";
-				$metadatos[$tabla] = consultar_fuente($sql, 'instancia' );
+				if ( isset( $db ) ) {
+					$metadatos[$tabla] = $db->consultar( $sql );
+				} else {
+					$metadatos[$tabla] = consultar_fuente($sql, 'instancia' );
+				}
 			}
 		}
 		return $metadatos;
@@ -70,7 +76,7 @@ class cargador_toba
 	*	Retorna los metadatos extendidos de un componente
 	*	Este metodo es utilizado por el constructor de runtimes e infos
 	*/
-	function get_metadatos_extendidos( $componente, $tipo=null )
+	function get_metadatos_extendidos( $componente, $tipo=null, $db=null)
 	{
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
@@ -85,7 +91,11 @@ class cargador_toba
 														'get_vista_extendida'),
 														array( $proyecto, $id ) );
 			foreach ( $estructura as $seccion => $contenido ) {
-				$temp = consultar_fuente($contenido['sql'], 'instancia' );
+				if ( isset( $db ) ) {
+					$temp = $db->consultar( $contenido['sql'] );
+				} else {
+					$temp = consultar_fuente($contenido['sql'], 'instancia' );
+				}
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
 					throw new excepcion_toba("El componente '$id' tiene una estructura incorrecta. No existe el segmento '$seccion'");
 				}
@@ -103,10 +113,14 @@ class cargador_toba
 	// CACHES
 	//----------------------------------------------------------------
 
-	function crear_cache_simple( $proyecto )
+	function crear_cache_simple( $proyecto, $db = null )
 	{
 		$this->cache_metadatos_simples_proyecto = $proyecto;
-		$this->cache_metadatos_simples = new cache_db('instancia');
+		if ( isset ( $db ) ) {
+			$this->cache_metadatos_simples = new cache_db( $db );
+		} else {
+			$this->cache_metadatos_simples = new cache_db( dba::get_db('instancia') );
+		}
 		foreach ( tablas_componente::get_lista() as $tabla ) {
 			$definicion = tablas_componente::$tabla();
 			//Genero el SQL
