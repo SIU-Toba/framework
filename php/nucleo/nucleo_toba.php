@@ -60,7 +60,13 @@ class nucleo_toba
 		} catch (excepcion_toba $e) {
 			$mensaje = $e->getMessage();
 			try {
-				include("nucleo/browser/logon.php");
+					$pro = apex_pa_proyecto;	
+					$candidato = $_SERVER['TOBA_DIR']."/proyectos/$pro/php/logon.php";
+					if (file_exists($candidato)) {
+						include($candidato);
+					}else{
+						include("nucleo/browser/logon.php");
+					}//IF					
 			}catch(exception $e){
 				//No hay una conexion, salta el combo del logon
 				echo ei_mensaje('No es posible INGRESAR al sistema: ' . $e->getMessage());		
