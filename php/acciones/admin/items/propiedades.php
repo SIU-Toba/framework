@@ -45,11 +45,12 @@
 		$abm = $this->cargar_objeto("objeto_mt_abms",0);
 		if($abm > -1){
 			//Seteo de parametros a la fuerza
-			if( (isset($this->hilo->parametros['padre_i'])) && 
-				(isset($this->hilo->parametros['padre_p'])) ){
-				$init = array(	"item" => $this->hilo->parametros['padre_i']."/",
-								"padre" => array("padre_proyecto"=>$this->hilo->parametros['padre_p'],
-													"padre"=>$this->hilo->parametros['padre_i']));
+			$parametros = toba::get_hilo()->obtener_parametros();
+			if( (isset($parametros['padre_i'])) && 
+				(isset($parametros['padre_p'])) ){
+				$init = array(	"item" => $parametros['padre_i']."/",
+								"padre" => array("padre_proyecto"=>$parametros['padre_p'],
+													"padre"=> $parametros['padre_i']));
 				//ei_arbol($init,"Inicializacion ABM");
 				$this->objetos[$abm]->cargar_estado_ef($init);
 			}
