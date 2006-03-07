@@ -1,6 +1,0 @@
-
-UPDATE apex_vinculo SET indice = 'abm', canal = NULL, vinculo_tipo = 'normal', texto = 'Editar EF', imagen_recurso_origen = 'apex', imagen = 'doc.gif', inicializacion = NULL 
-WHERE ( origen_item_proyecto = 'toba') AND ( origen_item = '/autovinculo') 
-AND ( origen_objeto_proyecto = 'toba') AND ( origen_objeto = '258') 
-AND ( destino_item_proyecto = 'toba') AND ( destino_item = '/autovinculo') 
-AND ( destino_objeto_proyecto = 'toba') AND ( destino_objeto = '0');

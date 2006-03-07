@@ -1,9 +1,0 @@
-SELECT p.proyecto as proyecto, 
---p.usuario_perfil_datos as perfil_datos, 
-p.nombre as nombre, 
-p.descripcion as descripcion 
-FROM apex_usuario_perfil_datos p,
-apex_dimension_perfil_datos d 
-WHERE p.usuario_perfil_datos = d.usuario_perfil_datos 
---AND p.proyecto = d.usuario_perfil_datos_proyecto 
---AND d.dimension_proyecto='toba' AND d.dimension='Mes' ORDER BY 4,5,6; 
