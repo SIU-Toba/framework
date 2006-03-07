@@ -381,7 +381,6 @@ class instancia extends elemento_modelo
 			$this->cargar_informacion_instancia();
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
-			$this->actualizar_version();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->get_db()->abortar_transaccion();
