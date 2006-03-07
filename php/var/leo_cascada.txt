@@ -1,3 +1,0 @@
-nombre_n: Nombre del elemento
-sql_n : n corresponde a un combo. SQL debe contener en sus columnas (nombre del combo, texto_opcion,valor_opcion,combo_hijo,seleccionado). Ejemplo, ("mascota","perro","1","raza",1).
-El ultimo combo debe obviar la columna combo_hijo
