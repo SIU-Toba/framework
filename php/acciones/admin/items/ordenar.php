@@ -80,10 +80,11 @@ require_once("nucleo/browser/interface/form.php");
 	} 
 	else
 	{
+		$parametros = toba::get_hilo()->obtener_parametros();
 		//Seteo de parametros a la fuerza
-		if( (isset($this->hilo->parametros['padre_i'])) && 	(isset($this->hilo->parametros['padre_p'])) ){
-			$proyecto = $this->hilo->parametros['padre_p'];
-			$item = $this->hilo->parametros['padre_i'];
+		if( (isset($parametros['padre_i'])) && 	(isset($parametros['padre_p'])) ){
+			$proyecto = $parametros['padre_p'];
+			$item = $parametros['padre_i'];
 		}
 
 		if($this->zona->cargar_editable(array('proyecto' => $proyecto, 'item' => $item))){

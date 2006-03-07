@@ -318,9 +318,26 @@ class instalacion extends elemento_modelo
 	//-------------------------- Manejo de Versiones -------------------------
 	//------------------------------------------------------------------------
 
-	static function migrar($desde, $hasta)
+	function migrar_rango_versiones($desde, $hasta, $recursivo)
 	{
-		$migraciones = $desde->get_migraciones($hasta);
+		$versiones = $desde->get_secuencia_migraciones($hasta);
+		foreach ($versiones as $version) {
+			$this->manejador_interface->titulo("Versión ".$version->__toString());
+			$this->migrar_version($version, $recursivo);
+		}
+	}
+	
+	function migrar_version($version, $recursivo)
+	{
+		$this->manejador_interface->mensaje("Migrando instalación");
+		$version->ejecutar_migracion('instalacion', $this);
+		
+		//-- Se migran las instancias incluidas		
+		if ($recursivo) {
+			foreach ($this->get_instancias() as $instancia) {
+				$instancia->migrar_version($version,$recursivo);
+			}
+		}
 	}
 	
 
@@ -330,11 +347,10 @@ class instalacion extends elemento_modelo
 	}
 	
 	
-	static function get_version_anterior()
+	function get_version_anterior()
 	{
 		$version_menor = null;
-		foreach (instalacion::get_lista_instancias() as $id_instancia) {
-			$instancia = new instancia($id_instancia);
+		foreach ($this->get_instancias() as $instancia) {
 			$version_instancia = $instancia->get_version_actual();
 			if (! isset($version_menor) || $version_instancia->es_menor_que($version_menor)) {
 				$version_menor = $version_instancia;

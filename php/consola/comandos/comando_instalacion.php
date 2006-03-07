@@ -294,10 +294,11 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__migrar()
 	{
+		$instalacion = $this->get_instalacion();
 		//--- Parametros
 		$param = $this->get_parametros();
-		$desde = isset($param['-d']) ? new version_toba($param['-d']) : instalacion::get_version_anterior();
-		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : instalacion::get_version_actual();
+		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $instalacion->get_version_anterior();
+		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : $instalacion->get_version_actual();
 		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
 		
 		if ($recursivo) {
@@ -307,7 +308,15 @@ class comando_instalacion extends comando_toba
 		$hasta_texto = $hasta->__toString();
 		$this->consola->titulo("Migración de la instalación actual".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
 
-		instalacion::migrar($desde, $hasta);
+		$versiones = $desde->get_secuencia_migraciones($hasta);
+		if (empty($versiones)) {
+			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones");
+			return ;
+		} 
+		
+		//$this->consola->lista($versiones, "Migraciones disponibles");
+		//$this->consola->dialogo_simple("");		
+		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}
 }
 ?>

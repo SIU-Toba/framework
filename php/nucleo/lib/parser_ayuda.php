@@ -5,7 +5,7 @@
  */
 class parser_ayuda
 {
-	protected static $tags = array('wiki', 'api', 'test');
+	protected static $tags = array('wiki', 'api', 'link', 'test');
 	
 	static function es_texto_plano($texto)
 	{
@@ -50,6 +50,13 @@ class parser_ayuda
 		$img = recurso::imagen_apl("api.gif", true);
 		$tag = "<a href=$url  target=blank>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
+	}
+	
+	protected static function parsear_link($id, $nombre)
+	{
+		$url = recurso::path_pro()."/".$id;
+		$tag = "<a href=$url  target=blank>$nombre</a>";
+		return str_replace("'", "\\'", $tag);		
 	}
 	
 	protected static function parsear_test($id, $nombre)

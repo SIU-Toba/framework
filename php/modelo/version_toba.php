@@ -1,9 +1,11 @@
 <?php
 require_once('nucleo/lib/manejador_archivos.php');
+require_once("modelo/migraciones/migracion_toba.php");
 
 class version_toba
 {
 	protected $partes;
+	protected $path_migraciones;
 	
 	function __construct($numero)
 	{
@@ -17,6 +19,11 @@ class version_toba
 				throw new excepcion_toba("El número de versión $numero es incorrecto. El formato es A.B.C siendo estas componentes números enteros");
 			}
 		}
+	}
+	
+	function path_migraciones()
+	{
+		return toba_dir()."/php/modelo/migraciones";		
 	}
 
 	function __toString()
@@ -77,10 +84,10 @@ class version_toba
 	 * @param version_toba $hasta
 	 * @param string $path_migraciones Path opcional de donde se ubican las migraciones (solo para tests)
 	 */
-	function get_camino_migraciones($hasta, $path_migraciones=null)
+	function get_secuencia_migraciones($hasta, $path_migraciones=null)
 	{
 		if (!isset($path_migraciones)) {
-			$dir = toba_dir()."/php/modelo/migraciones";
+			$dir = $this->path_migraciones();
 		} else {
 			$dir = $path_migraciones;
 		}
@@ -99,6 +106,20 @@ class version_toba
 		}
 		usort($versiones, array('version_toba', 'comparar_versiones')); 
 		return $versiones;
+	}
+	
+	function ejecutar_migracion($prefijo, $elemento)
+	{
+		$nombre_clase = "migracion_".$this->partes[0].'_'.$this->partes[1].'_'.$this->partes[2];
+		$archivo = $this->path_migraciones()."/$nombre_clase.php";
+		require_once($archivo);
+		$migracion = new $nombre_clase($elemento);
+		$clase = new ReflectionClass($nombre_clase);
+		foreach ($clase->getMethods() as $metodo) {
+			if (strpos($metodo->getName(), $prefijo."__") === 0) {
+				$metodo->invoke($migracion);
+			}
+		}
 	}
 	
 }

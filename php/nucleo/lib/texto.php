@@ -19,7 +19,6 @@
 	
 	function _separar_texto_lineas_interno($texto, $caracteres_linea)
 	{
-		//$texto = str_replace("\n", ' ', $texto);
 		$palabras = explode(' ', $texto );
 		$lineas = array();
 		$linea_actual = 0;

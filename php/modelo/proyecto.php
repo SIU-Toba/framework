@@ -429,6 +429,24 @@ class proyecto extends elemento_modelo
 		$this->instancia->get_db()->ejecutar( $sql );
 	}
 
+	//------------------------------------------------------------------------
+	//-------------------------- Manejo de Versiones --------------------------
+	//------------------------------------------------------------------------
+	function migrar_version($version)
+	{
+		if ($version->es_mayor($this->get_version_actual())) {
+			$this->manejador_interface->mensaje("  Migrando proyecto '{$this->identificador}'");
+			$version->ejecutar_migracion('proyecto', $this);
+		}
+	}
+	
+	function get_version_actual()
+	{
+		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
+		$rs = $this->db->consultar($sql);
+		return new version_toba($rs[0]['version_toba']);
+	}
+	
 	//-----------------------------------------------------------
 	//	Funcionalidad ESTATICA
 	//-----------------------------------------------------------
@@ -441,16 +459,16 @@ class proyecto extends elemento_modelo
 		$proyectos = array();
 		$directorio_proyectos = toba_dir() . '/proyectos';
 		if( is_dir( $directorio_proyectos ) ) {
-			if ($dir = opendir($directorio_proyectos)) {	
+			if ($dir = opendir($directorio_proyectos)) {
 			   while (false	!==	($archivo = readdir($dir)))	{ 
 					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) ){
+						&& ($archivo != '.' ) && ($archivo != '..' ) ) {
 						$proyectos[] = $archivo;
 					}
 			   } 
 			   closedir($dir); 
 			}
-		}		
+		}
 		return $proyectos;
 	}
 	

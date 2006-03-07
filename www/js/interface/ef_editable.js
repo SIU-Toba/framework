@@ -223,7 +223,7 @@ var def = ef_editable_fecha.prototype;
 	def.fecha = function() {
 		if (this.validar()) {
 			var arr = this.valor().split('/');
-			return fecha = new Date(arr[2], arr[1] - 1, arr[0]);
+			return new Date(arr[2], arr[1] - 1, arr[0]);
 		}
 		return null;
 	}
