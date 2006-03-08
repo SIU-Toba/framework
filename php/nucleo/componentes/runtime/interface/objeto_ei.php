@@ -192,7 +192,7 @@ class objeto_ei extends objeto
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
-		if ( $this->eventos[$id]['accion'] == 'H' ) {
+		if ( isset($this->eventos[$id]['accion']) && ($this->eventos[$id]['accion'] == 'H') ) {
 			$this->utilizar_impresion_html = true;
 			// Accion predeterminada: IMPRIMIR HTML
 			$url = $this->vinculo_vista_html_impresion();
