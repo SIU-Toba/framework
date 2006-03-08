@@ -27,7 +27,9 @@ class componente_ei extends componente_toba
 												ayuda					as ayuda,
 												ci_predep				as ci_predep,				
 												implicito				as implicito,					
-												grupo					as grupo
+												grupo					as grupo,
+												accion					as accion,
+												accion_imphtml_debug	as accion_imphtml_debug
 									FROM	apex_objeto_eventos
 									WHERE	proyecto='$proyecto' ";
 		if ( isset($componente) ) {

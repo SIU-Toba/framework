@@ -76,17 +76,5 @@
 	 <td width="98%" class="lista-obj-titulo" >TABLAS</td>
 </tr>
 </table>
-<?
-
-	$cuadro = $this->cargar_objeto("objeto_cuadro",0);
-	if($cuadro > -1){
-		$this->objetos[$cuadro]->cargar_datos(array("proyecto = '". $this->hilo->obtener_proyecto()."'"));
-		$this->objetos[$cuadro]->obtener_html(false);
-	}else{
-		echo ei_mensaje("error");
-	}
-	
-
-?>
 </body>
 </html>

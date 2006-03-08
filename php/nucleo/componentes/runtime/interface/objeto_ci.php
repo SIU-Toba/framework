@@ -848,6 +848,9 @@ class objeto_ci extends objeto_ei
 			$this->obtener_botones();
 			echo "</td></tr>\n";
 		}
+		if ( $this->utilizar_impresion_html ) {
+			$this->get_utilidades_impresion_html();
+		}
 	}
 	
 	private function obtener_html_pantalla()
@@ -1051,7 +1054,29 @@ class objeto_ci extends objeto_ei
 		return $tab;
 	}
 
-	
+	protected function get_utilidades_impresion_html()
+	{
+		$id_frame = "objeto_ci_{$this->id[1]}_print";
+		echo "<iframe style='display:none' name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
+		echo js::abrir();
+		echo "
+		function imprimir_html( url, forzar_popup )
+		{
+			var popup_obligatorio = (forzar_popup) ? forzar_popup : false ;
+			//alert( url );	
+			var f = window.frames.$id_frame;
+			if ( f && f.print && ! popup_obligatorio ) {
+				f.location.href = url;
+				f.focus();
+				f.print();
+			} else {
+				solicitar_item_popup( url, 650, 500, 'yes', 'yes')
+			}
+		}
+		";
+		echo js::cerrar();
+	}
+
 	//-------------------------------------------------------------------------------
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -1156,7 +1181,7 @@ class objeto_ci extends objeto_ei
 	
 	
 	/**
-	 * @deprecated Desde 0.8.4, se debe utilizar la solicitud_web
+	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
 	 */
 	function obtener_javascript_global_consumido()
 	{

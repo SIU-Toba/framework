@@ -20,6 +20,7 @@ class objeto_ei extends objeto
 	protected $evento_por_defecto=null;					//Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
+	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
 
 	function destruir()
 	{
@@ -179,7 +180,7 @@ class objeto_ei extends objeto
 		if (isset($this->eventos[$id]['ayuda']))
 			$tip = $this->eventos[$id]['ayuda'];
 		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "abm-input";
-		$tab_order = 0;//Esto esta MAAL!!!
+		$tab_order = 0;//ATENCION: Esto esta MAAL!!!
 		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
 		$html = '';
 		if (isset($this->eventos[$id]['imagen']) && $this->eventos[$id]['imagen']) {
@@ -191,8 +192,20 @@ class objeto_ei extends objeto
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
-		$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
-		$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+		if ( $this->eventos[$id]['accion'] == 'H' ) {
+			$this->utilizar_impresion_html = true;
+			// Accion predeterminada: IMPRIMIR HTML
+			$url = $this->vinculo_vista_html_impresion();
+			if ( $this->eventos[$id]['accion_imphtml_debug'] == 1 ) {
+				$js = "onclick=\"imprimir_html('$url',true);\"";
+			} else {
+				$js = "onclick=\"imprimir_html('$url');\"";
+			}
+		} else {
+			// Manejo estandar de eventos
+			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
+			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+		}
 		echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 	}
 
@@ -332,6 +345,7 @@ class objeto_ei extends objeto
 	{
 		$opciones['servicio'] = 'vista_html_impr';
 		$opciones['objetos_destino'] = array( $this->id );
+		$opciones['celda_memoria'] = 'popup';
 		return toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );
 	}
 }

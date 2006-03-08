@@ -1110,6 +1110,8 @@ CREATE TABLE apex_objeto_eventos
 	implicito							smallint			NULL, 
 	display_datos_cargados				smallint			NULL, 
 	grupo								varchar(80)			NULL,
+	accion								varchar(1)			NULL,
+	accion_imphtml_debug				smallint			NULL,
 	CONSTRAINT	"apex_objeto_eventos_pk" PRIMARY KEY ("proyecto","evento_id"),
 	CONSTRAINT	"apex_objeto_eventos_uq" UNIQUE ("proyecto","objeto","identificador"),	
 	CONSTRAINT	"apex_objeto_eventos_fk_rec_orig" FOREIGN KEY ("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,

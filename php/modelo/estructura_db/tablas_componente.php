@@ -251,6 +251,8 @@ class tablas_componente
     15 => 'implicito',
     16 => 'display_datos_cargados',
     17 => 'grupo',
+    18 => 'accion',
+    19 => 'accion_imphtml_debug',
   ),
 );
 	}

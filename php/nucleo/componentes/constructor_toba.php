@@ -93,6 +93,10 @@ class constructor_toba
 			$nombre = $prefijo . $id['componente'];
 		}
 		$archivo = $directorio_componentes . '/' . $tipo  . '/' . $nombre . '.php';
+		// Si el proceso esta bien, esto deberia andar...
+		require_once( $archivo );
+		return call_user_func( array( $nombre, 'get_metadatos' ) );
+/*
 		if ( file_exists( $archivo )) {
 			require_once( $archivo );
 			return call_user_func( array( $nombre, 'get_metadatos' ) );
@@ -104,6 +108,7 @@ class constructor_toba
 				throw new excepcion_toba("No existe el componente compilado solicitado . CLASE: $tipo, ID: '{$id['componente']}'");
 			}
 		}
+*/
 	}
 }
 ?>

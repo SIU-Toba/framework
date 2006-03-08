@@ -1,9 +1,4 @@
 <?
-/*
-	FALTA:
-		- Escuchar al usuario con un interprete o recibir parametros de la invocacion
-			son dos cosas que deberian tener el mismo resultado
-*/
 require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
 require_once("nucleo/lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
@@ -18,6 +13,10 @@ require_once("consola/lib/Table.php");
 require_once("consola/lib/Getopt.php");
 require_once("consola/lib/formulario_consola.php");
 
+/**
+*	@todo: 	- Interprete de comandos
+*			- Nombres abreviados de comandos			
+*/
 class consola implements gui
 {
 	const display_ancho = 95;
