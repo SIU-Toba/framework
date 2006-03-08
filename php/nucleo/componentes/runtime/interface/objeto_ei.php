@@ -345,7 +345,7 @@ class objeto_ei extends objeto
 	{
 		$opciones['servicio'] = 'vista_html_impr';
 		$opciones['objetos_destino'] = array( $this->id );
-		$opciones['celda_memoria'] = 'popup';
+		//$opciones['celda_memoria'] = 'popup';
 		return toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );
 	}
 }
