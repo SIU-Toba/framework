@@ -84,6 +84,11 @@ class proyecto extends elemento_modelo
 	{
 		return $this->instancia;
 	}
+	
+	function get_db()
+	{
+		return $this->instancia->get_db();	
+	}
 
 	//-----------------------------------------------------------
 	//	EXPORTAR
@@ -426,11 +431,19 @@ class proyecto extends elemento_modelo
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones --------------------------
 	//------------------------------------------------------------------------
+	function migrar_rango_versiones($desde, $hasta, $recursivo)
+	{
+		$this->get_db()->abrir_transaccion();
+		parent::migrar_rango_versiones($desde, $hasta, $recursivo);
+		$this->get_db()->cerrar_transaccion();
+	}
+	
 	function migrar_version($version)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
 			$this->manejador_interface->mensaje("  Migrando proyecto '{$this->identificador}'");
 			$version->ejecutar_migracion('proyecto', $this);
+			$this->actualizar_campo_version($version);
 		}
 	}
 	
@@ -438,8 +451,20 @@ class proyecto extends elemento_modelo
 	{
 		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
 		$rs = $this->db->consultar($sql);
-		return new version_toba($rs[0]['version_toba']);
+		$version = $rs[0]['version_toba'];
+		if (! isset($version)) {
+			return version_toba::inicial();
+		}
+		return new version_toba($version);
+		
 	}
+	
+	private function actualizar_campo_version($version)
+	{
+		$nueva = $version->__toString();
+		$sql = "UPDATE apex_proyecto SET version_toba='$nueva' WHERE proyecto='{$this->identificador}'";
+		$this->get_db()->ejecutar($sql);
+	}	
 	
 	//-----------------------------------------------------------
 	//	Funcionalidad ESTATICA

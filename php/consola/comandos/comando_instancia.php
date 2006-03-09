@@ -173,13 +173,35 @@ class comando_instancia extends comando_toba
 		}		
 	}
 
-
 	/**
-	*	Migra el modelo de datos a la version 0.9.0
-	*/
-	function opcion__migrar_modelo()
+	 * Migra un instancia entre dos versiones toba. [-d 'desde']  [-h 'hasta'] [-R 0|1].
+	 * -d se asume la versión de toba que posee actualmente la instancia
+	 * -h se asume la versión de toba que posee actualmente la instalacion
+	 * -R asume 1, esto quiere decir que migra también todos los proyecto incluídos, sino solo la propio de la instancia
+	 */
+	function opcion__migrar()
 	{
-		$this->get_instancia()->cambio_modelo_datos_090();
+		$instancia = $this->get_instancia();
+		//--- Parametros
+		$param = $this->get_parametros();
+		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $instancia->get_version_actual();
+		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : instalacion::get_version_actual();
+		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
+		
+		if ($recursivo) {
+			$texto_recursivo = " y proyectos contenidos";
+		}
+		$desde_texto = $desde->__toString();
+		$hasta_texto = $hasta->__toString();
+		$this->consola->titulo("Migración de la instancia '{$instancia->get_id()}'".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
+
+		$versiones = $desde->get_secuencia_migraciones($hasta);
+		if (empty($versiones)) {
+			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para la instancia '{$instancia->get_id()}'");
+			return ;
+		}
+
+		$instancia->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}
 		
 	/**

@@ -159,5 +159,30 @@ class comando_proyecto extends comando_toba
 	{
 		$this->get_proyecto()->compilar();
 	}
+	
+	/**
+	 * Migra un proyecto entre dos versiones toba. [-d 'desde']  [-h 'hasta']
+	 * -d se asume la versión de toba que posee actualmente el proyecto
+	 * -h se asume la versión de toba que posee actualmente la instalacion
+	 */
+	function opcion__migrar()
+	{
+		$proyecto = $this->get_proyecto();
+		//--- Parametros
+		$param = $this->get_parametros();
+		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $proyecto->get_version_actual();
+		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : instalacion::get_version_actual();
+
+		$desde_texto = $desde->__toString();
+		$hasta_texto = $hasta->__toString();
+		$this->consola->titulo("Migración el proyecto '{$proyecto->get_id()}'".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
+
+		$versiones = $desde->get_secuencia_migraciones($hasta);
+		if (empty($versiones)) {
+			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para el proyecto '{$proyecto->get_id()}'");
+			return ;
+		}
+		$proyecto->migrar_rango_versiones($desde, $hasta, false);
+	}	
 }
 ?>

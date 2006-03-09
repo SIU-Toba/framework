@@ -48,14 +48,12 @@ class version_toba
 	
 	function es_mayor_igual($version)
 	{
-		$res = $this->comparar($version);
-		return ($res == 0 || $res > 0);		
+		return ($this->comparar($version) >= 0);
 	}
 	
 	function es_menor_igual($version)
 	{
-		$res = $this->comparar($version);
-		return ($res == 0 || $res < 0);		
+		return ($this->comparar($version) <= 0);		
 	}	
 	
 	/**
@@ -120,6 +118,11 @@ class version_toba
 				$metodo->invoke($migracion);
 			}
 		}
+	}
+	
+	static function inicial()
+	{
+		return new version_toba("0.8.3");
 	}
 	
 }

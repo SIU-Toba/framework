@@ -18,30 +18,33 @@ class instalacion extends elemento_modelo
 	private $dir;							// Directorio con info de la instalacion.
 	private $ini_bases;						// Informacion de bases de datos.
 	private $ini_instalacion;				// Informacion basica de la instalacion.
+	private $ini_cargado = false;
 
 	function __construct()
 	{
 		$this->dir = self::dir_base();
-		$this->cargar_info_ini();
 	}
 
 	function cargar_info_ini()
 	{
-		//--- Levanto la CONFIGURACION de bases
-		$archivo_ini_bases = $this->dir . '/' . self::info_bases;
-		if ( ! is_file( $archivo_ini_bases ) ) {
-			throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
-		} else {
-			//  BASE
-			$this->ini_bases = parse_ini_file( $archivo_ini_bases, true );
-		}
-		//--- Levanto la CONFIGURACION de bases
-		$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
-		if ( ! is_file( $archivo_ini_instalacion ) ) {
-			throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
-		} else {
-			//  BASE
-			$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion );
+		if (!$this->ini_cargado) {
+			//--- Levanto la CONFIGURACION de bases
+			$archivo_ini_bases = $this->dir . '/' . self::info_bases;
+			if ( ! is_file( $archivo_ini_bases ) ) {
+				throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
+			} else {
+				//  BASE
+				$this->ini_bases = parse_ini_file( $archivo_ini_bases, true );
+			}
+			//--- Levanto la CONFIGURACION de bases
+			$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
+			if ( ! is_file( $archivo_ini_instalacion ) ) {
+				throw new excepcion_toba("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
+			} else {
+				//  BASE
+				$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion );
+			}
+			$this->ini_cargado = true;
 		}
 	}
 
@@ -74,6 +77,7 @@ class instalacion extends elemento_modelo
 	*/
 	function get_id_grupo_desarrollo()
 	{
+		$this->cargar_info_ini();		
 		return $this->ini_instalacion['id_grupo_desarrollo'];
 	}
 
@@ -82,6 +86,7 @@ class instalacion extends elemento_modelo
 	*/
 	function get_claves_encriptacion()
 	{
+		$this->cargar_info_ini();
 		$claves['db'] = $this->ini_instalacion['clave_querystring'];
 		$claves['get'] = $this->ini_instalacion['clave_db'];
 		return $claves;
@@ -89,6 +94,7 @@ class instalacion extends elemento_modelo
 
 	function get_parametros_base( $id_base )
 	{
+		$this->cargar_info_ini();		
 		if ( isset( $this->ini_bases[$id_base] ) ) {
 			return $this->ini_bases[$id_base];			
 		} else {
@@ -98,16 +104,19 @@ class instalacion extends elemento_modelo
 
 	function existe_base_datos_definida( $id_base )
 	{
+		$this->cargar_info_ini();		
 		return isset( $this->ini_bases[$id_base] );
 	}
 
 	function hay_bases()
 	{
+		$this->cargar_info_ini();		
 		return count( $this->ini_bases ) > 0 ;
 	}
 
 	function get_lista_bases()
 	{
+		$this->cargar_info_ini();		
 		return array_keys( $this->ini_bases );
 	}
 
@@ -327,20 +336,12 @@ class instalacion extends elemento_modelo
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones -------------------------
 	//------------------------------------------------------------------------
-
-	function migrar_rango_versiones($desde, $hasta, $recursivo)
-	{
-		$versiones = $desde->get_secuencia_migraciones($hasta);
-		foreach ($versiones as $version) {
-			$this->manejador_interface->titulo("Versión ".$version->__toString());
-			$this->migrar_version($version, $recursivo);
-		}
-	}
 	
 	function migrar_version($version, $recursivo)
 	{
-		$this->manejador_interface->mensaje("Migrando instalación");
+		$this->manejador_interface->subtitulo("Migrando instalación");
 		$version->ejecutar_migracion('instalacion', $this);
+		$this->actualizar_version($version);
 		
 		//-- Se migran las instancias incluidas		
 		if ($recursivo) {
@@ -350,7 +351,11 @@ class instalacion extends elemento_modelo
 		}
 	}
 	
-
+	private function actualizar_version($version)
+	{
+		file_put_contents($this->dir_base()."/VERSION", $version->__toString() );
+	}
+	
 	static function get_version_actual()
 	{
 		return new version_toba(file_get_contents(toba_dir()."/VERSION"));
@@ -359,14 +364,11 @@ class instalacion extends elemento_modelo
 	
 	function get_version_anterior()
 	{
-		$version_menor = null;
-		foreach ($this->get_instancias() as $instancia) {
-			$version_instancia = $instancia->get_version_actual();
-			if (! isset($version_menor) || $version_instancia->es_menor_que($version_menor)) {
-				$version_menor = $version_instancia;
-			}
+		if (file_exists($this->dir_base()."/VERSION")) {
+			return new version_toba(file_get_contents($this->dir_base()."/VERSION"));
+		} else {
+			return version_toba::inicial();
 		}
-		return $version_menor;
 	}	
 }
 ?>

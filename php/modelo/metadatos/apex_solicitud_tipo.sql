@@ -1,4 +1,4 @@
-INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('browser', '[OBSOLETO] Solicitud realizada desde un Navegador WEB', '[OBSOLETO] Solicitudes de BROWSER', 'solic_browser.gif');
+INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('browser', 'Solicitud realizada desde un Navegador WEB', 'Solicitudes de BROWSER', 'solic_browser.gif');
 INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('consola', 'Solicitud realizada desde la linea de comandos.', 'Solicitud de CONSOLA', 'solic_consola.gif');
 INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('consumidor_html', 'Solicitud consumidor HTML', 'Consumidor de HTML', 'solic_consumidor_html.gif');
 INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('fantasma', 'Item que no es solicitado nunca', NULL, NULL);

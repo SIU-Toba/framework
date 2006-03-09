@@ -31,7 +31,7 @@ CREATE TABLE apex_objeto_esquema
    tipo_incrustacion			varchar(15)		NULL, -- IMG o IFRAME
    ancho						varchar(10)		NULL,
    alto							varchar(10)		NULL,
-   dirigido						smallint		DEFAULT(1),
+   dirigido						smallint		DEFAULT(1) NULL,
    -- Para el esquema_db
    sql							varchar			NULL,
    CONSTRAINT  "apex_objeto_esquema_pk" PRIMARY KEY ("objeto_esquema_proyecto","objeto_esquema"),

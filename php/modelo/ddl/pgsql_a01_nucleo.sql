@@ -151,7 +151,7 @@ CREATE TABLE			apex_proyecto
 	descripcion					varchar(255)	NOT NULL,
 	descripcion_corta			varchar(40)		NOT NULL, 
 	estilo						varchar(15)		NOT NULL,
-	con_frames					smallint		DEFAULT 1,
+	con_frames					smallint		DEFAULT 1 NULL,
 	frames_clase				varchar(40)		NULL,
 	frames_archivo				varchar(255)	NULL,
 	salida_impr_html_c			varchar(40)		NULL,
@@ -162,7 +162,8 @@ CREATE TABLE			apex_proyecto
 	administrador				varchar(60)		NULL,--NOT
 	listar_multiproyecto		smallint			NULL,
 	orden							float				NULL,
-	palabra_vinculo_std		varchar(30)		NULL,
+	palabra_vinculo_std		varchar(30)			NULL,
+	version_toba			varchar(15)			NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
 	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_menu" FOREIGN KEY ("menu") REFERENCES	"apex_menu" ("menu") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	

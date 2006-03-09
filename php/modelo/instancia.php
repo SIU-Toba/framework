@@ -648,66 +648,34 @@ class instancia extends elemento_modelo
 		return $dirs;
 	}
 
-	//-----------------------------------------------------------
-	//	Conversion desde 0.8.3
-	//-----------------------------------------------------------
-	
-	/**
-	*	Modificaciones en el modelo de datos introducidos en la version 0.9.0
-	*		No puede ir en la conversion comun, las conversiones supenen el nuevo modelo.
-	*		No puede ir en la instalacion porque se puede ejecutar mas de una vez.
-	*/
-	function cambio_modelo_datos_090()
-	{
-		try {
-			$this->get_db()->abrir_transaccion();
-			// Modificaciones en TABLAS
-			$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN salida_impr_html_c varchar(1);";
-			$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN salida_impr_html_a varchar(1);";
-			$sql[] = "ALTER TABLE apex_objeto_dependencias ADD COLUMN orden smallint;";
-			$sql[] = "ALTER TABLE apex_usuario ADD COLUMN autentificacion varchar(10);";
-			$sql[] = "ALTER TABLE apex_usuario ADD COLUMN clave2 varchar(128);";
-			$sql[] = "UPDATE apex_usuario SET clave2 = clave;";
-			$sql[] = "ALTER TABLE apex_usuario DROP COLUMN clave;";
-			$sql[] = "ALTER TABLE apex_usuario ADD COLUMN clave varchar(128);";
-			$sql[] = "UPDATE apex_usuario SET clave = clave2;";
-			$sql[] = "ALTER TABLE apex_usuario DROP COLUMN clave2;";
-			$sql[] = "INSERT INTO apex_solicitud_tipo (solicitud_tipo, descripcion, descripcion_corta, icono) VALUES ('web', 'Solicitud WEB', 'Solicitud WEB', 'solic_browser.gif');";
-			$this->get_db()->ejecutar( $sql );	
-			// Secciones nuevas del MODELO
-			$this->get_db()->ejecutar_archivo( toba_dir() . '/php/modelo/ddl/pgsql_a22_permisos.sql' );
-			$this->get_db()->cerrar_transaccion();
-		} catch ( excepcion_toba $e ) {
-			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la inicializacion de la instancia.' );
-			$this->manejador_interface->error( $e->getMessage() );
-		}
-	}	
-	
+
 	//------------------------------------------------------------------------
 	//--------------------------  Manejo de Versiones ------------------------
 	//------------------------------------------------------------------------
 
 	function migrar_version($version, $recursivo)
 	{
-		$this->manejador_interface->mensaje(" Migrando instancia '{$this->identificador}'");
-		$version->ejecutar_migracion('instancia', $this);
-		$this->actualizar_campo_version($version);
-		
-		//-- Se migran los proyectos incluidos
-		if ($recursivo) {
-			foreach ($this->get_proyectos() as $proyecto) {
-				$proyecto->migrar_version($version);
+		if ($version->es_mayor($this->get_version_actual())) {
+			$this->manejador_interface->enter();		
+			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
+			$this->get_db()->abrir_transaccion();
+			$version->ejecutar_migracion('instancia', $this);
+			$this->actualizar_campo_version($version);
+			
+			//-- Se migran los proyectos incluidos
+			if ($recursivo) {
+				foreach ($this->get_proyectos() as $proyecto) {
+					$proyecto->migrar_version($version);
+				}
 			}
+			$this->get_db()->cerrar_transaccion();
 		}
 	}
 	
 	private function actualizar_campo_version($version)
 	{
 		$nueva = $version->__toString();
-		$vieja = $this->get_version_actual();
 		$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
-		$this->manejador_interface->titulo("Actualizando número de versión: $nueva");
 		$this->get_db()->ejecutar($sql);
 	}
 	
