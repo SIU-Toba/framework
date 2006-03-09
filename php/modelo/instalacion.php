@@ -12,7 +12,9 @@ class instalacion extends elemento_modelo
 	const db_encoding_estandar = 'LATIN1';
 	const directorio_base = 'instalacion';
 	const info_basica = 'instalacion.ini';
+	const info_basica_titulo = 'Configuracion de la INSTALACION';
 	const info_bases = 'bases.ini';
+	const info_bases_titulo = 'Configuracion de BASES de DATOS';
 	private $dir;							// Directorio con info de la instalacion.
 	private $ini_bases;						// Informacion de bases de datos.
 	private $ini_instalacion;				// Informacion basica de la instalacion.
@@ -170,10 +172,10 @@ class instalacion extends elemento_modelo
 			$info_db = $this->get_parametros_base( $nombre );
 			$db = $this->conectar_base_parametros( $info_db );
 			$db->destruir();
+			return true;
 		}catch(excepcion_toba $e){
 			return false;
 		}
-		return true;
 	}
 
 	/**
@@ -232,10 +234,10 @@ class instalacion extends elemento_modelo
 	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null )
 	{
 		$ini = new ini();
-		$ini->agregar_titulo("Configuracion de la INSTALACION");
-		$ini->agregar_directiva( 'id_grupo_desarrollo', $id_grupo_desarrollo );
-		$ini->agregar_directiva( 'clave_querystring', $clave_qs );	
-		$ini->agregar_directiva( 'clave_db', $clave_db );	
+		$ini->agregar_titulo( self::info_basica_titulo );
+		$ini->agregar_entrada( 'id_grupo_desarrollo', $id_grupo_desarrollo );
+		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
+		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->guardar( self::archivo_info_basica() );
 	}
 	
@@ -263,7 +265,7 @@ class instalacion extends elemento_modelo
 	static function crear_info_bases( $lista_bases = array() )
 	{
 		$ini = new ini();
-		$ini->agregar_titulo("Configuracion de BASES de DATOS");
+		$ini->agregar_titulo( self::info_bases_titulo );
 		foreach( $lista_bases as $id => $base ) {
 			//Valido que la definicion sea correcta
 			if( isset( $base['motor'] ) &&
@@ -271,7 +273,7 @@ class instalacion extends elemento_modelo
 				isset( $base['usuario'] ) &&
 				isset( $base['clave'] ) &&
 				isset( $base['base'] ) ) {
-				$ini->agregar_seccion( $id, $base );	
+				$ini->agregar_entrada( $id, $base );	
 			} else {
 				throw new excepcion_toba("La definicion de la BASE '$id' es INCORRECTA.");	
 			}
@@ -284,6 +286,7 @@ class instalacion extends elemento_modelo
 		if ( ! is_array( $parametros ) ) {
 			throw new excepcion_toba("INSTALACION: Los parametros definidos son incorrectos");	
 		} else {
+			// Estan todos los parametros
 			if ( !isset( $parametros['motor']  )
 				|| !isset( $parametros['profile'] ) 
 				|| !isset( $parametros['usuario'] )
@@ -291,16 +294,23 @@ class instalacion extends elemento_modelo
 				|| !isset( $parametros['base'] ) ) {
 				throw new excepcion_toba("INSTALACION: Los parametros definidos son incorrectos");	
 			}
+			// El motor es reconocido
+			$motores = array('postgres7', 'informix', 'mysql', 'odbc');
+			if( ! in_array( $parametros['motor'], $motores ) ) {
+				throw new excepcion_toba("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores) );	
+			}
 		}
 		$ini = new ini( self::archivo_info_bases() );
-		$ini->agregar_seccion( $id_base, $parametros );
+		$ini->agregar_titulo( self::info_bases_titulo );
+		$ini->agregar_entrada( $id_base, $parametros );
 		$ini->guardar();
 	}
 	
 	static function eliminar_db( $id_base )
 	{
 		$ini = new ini( self::archivo_info_bases() );
-		$ini->eliminar_seccion( $id_base );
+		$ini->agregar_titulo( self::info_bases_titulo );
+		$ini->eliminar_entrada( $id_base );
 		$ini->guardar();		
 	}
 	

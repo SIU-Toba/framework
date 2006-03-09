@@ -4,15 +4,14 @@ class ini
 {
 	private $path = null;
 	private $titulo;
-	private $directivas=array();
-	private $secciones=array();
+	private $entradas=array();
 	
 	function __construct( $path = null )
 	{
 		if ( isset( $path ) ) {
 			$this->path = $path;
 			if ( file_exists( $this->path ) ) {
-				$this->secciones = parse_ini_file( $this->path, true );
+				$this->entradas = parse_ini_file( $this->path, true );
 			}
 		}
 	}
@@ -23,52 +22,43 @@ class ini
 	}
 
 	//-----------------------------------------------------------
-	//	Manipulacion de DIRECTIVAS
+	//	Manipulacion de ENTADAS
 	//-----------------------------------------------------------
 
-	function agregar_directiva($nombre, $valor)
+	function existe_entrada( $nombre )
 	{
-		$this->directivas[ $nombre ] = $valor;
+		return isset( $this->entradas[ $nombre ] );
 	}
 
-	//-----------------------------------------------------------
-	//	Manipulacion de SECCIONES
-	//-----------------------------------------------------------
-
-	function existe_seccion( $nombre )
+	function agregar_entrada($nombre, $datos)
 	{
-		return isset( $this->secciones[ $nombre ] );
+		$this->entradas[ $nombre ] = $datos;
 	}
 
-	function agregar_seccion($nombre, $datos)
+	function eliminar_entrada( $nombre )
 	{
-		$this->secciones[ $nombre ] = $datos;
-	}
-
-	function eliminar_seccion( $nombre )
-	{
-		if ( isset( $this->secciones[ $nombre ] ) ) {
-			unset( $this->secciones[ $nombre ] );
+		if ( isset( $this->entradas[ $nombre ] ) ) {
+			unset( $this->entradas[ $nombre ] );
 		} else {
-			throw new excepcion_toba("El metodo '$nombre' no existe");
+			throw new excepcion_toba("La entrada '$nombre' no existe");
 		}
 	}
 
-	function get_datos_seccion( $nombre ) 
+	function get_datos_entrada( $nombre ) 
 	{
-		if ( isset( $this->secciones[ $nombre ] ) ) {
-			return $this->secciones[ $nombre ];
+		if ( isset( $this->entradas[ $nombre ] ) ) {
+			return $this->entradas[ $nombre ];
 		} else {
-			throw new excepcion_toba("El metodo '$nombre' no existe");
+			throw new excepcion_toba("La entrada '$nombre' no existe");
 		}
 	}
 	
-	function set_datos_seccion( $nombre, $datos ) 
+	function set_datos_entrada( $nombre, $datos ) 
 	{
-		if ( isset( $this->secciones[ $nombre ] ) ) {
-			$this->secciones[ $nombre ] = $datos;
+		if ( isset( $this->entradas[ $nombre ] ) ) {
+			$this->entradas[ $nombre ] = $datos;
 		} else {
-			throw new excepcion_toba("El metodo '$nombre' no existe");
+			throw new excepcion_toba("La entrada '$nombre' no existe");
 		}
 	}
 
@@ -80,7 +70,7 @@ class ini
 	{
 		if ( ! isset( $archivo ) ) {
 			if ( ! isset( $this->path ) )  {
-				throw new excepcion_toba('Es necesario especificar el PATH de la clase que se desea generar');	
+				throw new excepcion_toba('Es necesario especificar el PATH del INI que se desea generar');	
 			} else {
 				$archivo = $this->path;	
 			}
@@ -93,22 +83,19 @@ class ini
 		$ini = "";
 		if ( isset( $this->titulo ) ) {
 			$ini .= "; $this->titulo \n";
-		}
-		// Primero van las directivas sueltas
-		if ( $this->directivas ) {
-			$ini .= "\n";
-			foreach ( $this->directivas as $directiva => $valor ) {
-				$ini .= "$directiva = $valor\n";
-			}
 			$ini .= "\n";
 		}
 		// Secciones
-		foreach ( $this->secciones as $nombre => $datos ) {
-			$ini .= "\n";
-			$ini .= "[$nombre]\n";
-			$ini .= "\n";
-			foreach ( $datos as $directiva => $valor ) {
-				$ini .= "$directiva = $valor\n";
+		foreach ( $this->entradas as $nombre => $datos ) {
+			if ( is_array( $datos ) ) {
+				$ini .= "\n";
+				$ini .= "[$nombre]\n";
+				$ini .= "\n";
+				foreach ( $datos as $directiva => $valor ) {
+					$ini .= "$directiva = $valor\n";
+				}
+			} else {
+				$ini .= "$nombre = $datos\n";
 			}
 		}
 		return $ini;	

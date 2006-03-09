@@ -89,12 +89,9 @@ class proyecto extends elemento_modelo
 	//	EXPORTAR
 	//-----------------------------------------------------------
 
-	function exportar( $control_vinculo = true )
+	function exportar()
 	{
-		// El el caso de la creacion de un proyecto, el vinculo a las intancia no puede reconocerse
-		// porque la clase informativa se incluyo antes de la creacion del vinculo. Esto hace que sea
-		// necesario desactivar el control.
-		$existe_vinculo = $control_vinculo && $this->instancia->existe_proyecto_vinculado( $this->identificador );
+		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
@@ -212,12 +209,9 @@ class proyecto extends elemento_modelo
 	/*
 	*	Importacion de un PROYECTO dentro del proceso de CARGA de una INSTANCIA
 	*/
-	function cargar( $control_vinculo = true )
+	function cargar()
 	{
-		// El el caso de la creacion de un proyecto, el vinculo a las intancia no puede reconocerse
-		// porque la clase informativa se incluyo antes de la creacion del vinculo. Esto hace que sea
-		// necesario desactivar el control.
-		if( $control_vinculo && ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
+		if( ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
 		$this->cargar_tablas();

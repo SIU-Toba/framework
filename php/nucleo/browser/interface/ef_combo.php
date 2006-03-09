@@ -112,7 +112,11 @@ class ef_combo extends ef
 
 	function obtener_descripcion_estado()
 	{
-		return $this->valores[ $this->estado ];
+		if ( isset( $this->estado ) && isset( $this->valores[ $this->estado ] ) ) {
+			return $this->valores[ $this->estado ];
+		} else {
+			return null;	
+		}
 	}
 
 	//-----------------------------------------------

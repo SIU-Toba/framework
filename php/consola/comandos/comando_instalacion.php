@@ -35,13 +35,11 @@ class comando_instalacion extends comando_toba
 				$this->consola->enter();
 				$this->consola->mensaje( 'ATENCION: No existen INSTANCIAS definidas.');
 			}
-			$this->consola->enter();
 			// BASES
 			$this->mostrar_bases_definidas();
 			// ID de grupo de DESARROLLO
 			$grupo = $this->get_instalacion()->get_id_grupo_desarrollo();
 			if ( isset ( $grupo ) ) {
-				$this->consola->enter();
 				$this->consola->lista( array( $grupo ), 'ID grupo desarrollo' );
 			} else {
 				$this->consola->enter();
@@ -67,7 +65,7 @@ class comando_instalacion extends comando_toba
 	function opcion__agregar_db()
 	{
 		$def = $this->get_id_base_actual();
-		if ( instalacion::existe_base_datos_definida( $def ) ) {
+		if ( $this->get_instalacion()->existe_base_datos_definida( $def ) ) {
 			throw new excepcion_toba( "Ya existe una base definida con el ID '$def'");
 		}
 		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
@@ -77,7 +75,7 @@ class comando_instalacion extends comando_toba
 		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
 		$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
 		$datos = $form->procesar();
-		instalacion::agregar_db( $def, $datos );
+		$this->get_instalacion()->agregar_db( $def, $datos );
 	}
 
 	/**
@@ -87,7 +85,7 @@ class comando_instalacion extends comando_toba
 	{
 		$i = $this->get_instalacion();
 		$def = $this->get_id_base_actual();
-		if ( instalacion::existe_base_datos_definida( $def ) ) {
+		if ( $i->existe_base_datos_definida( $def ) ) {
 			$this->consola->enter();
 			$this->consola->subtitulo("DEFINICION: $def");
 			$this->consola->lista_asociativa( $i->get_parametros_base( $def ), array('Parametro','Valor') );
@@ -106,8 +104,10 @@ class comando_instalacion extends comando_toba
 	function opcion__crear_base()
 	{
 		$def = $this->get_id_base_actual();
-		if( ! $this->get_instalacion()->existe_base_datos( $def ) ) {
+		if( $this->get_instalacion()->existe_base_datos( $def ) !== true ) {
 			$this->get_instalacion()->crear_base_datos( $def );
+		} else {
+			throw new excepcion_toba( "Ya EXISTE una base '$def' en el MOTOR");
 		}
 	}
 
@@ -133,8 +133,14 @@ class comando_instalacion extends comando_toba
 	/**
 	*	Chequea la conexion con una base. [-d 'id_base']
 	*/
-	function falta_opcion__test_conexion()
+	function opcion__test_conexion()
 	{
+		$def = $this->get_id_base_actual();
+		if ( $this->get_instalacion()->existe_base_datos( $def ) ) {
+			$this->consola->mensaje('Conexion OK!');
+		} else {
+			$this->consola->error("No es posible conectarse a '$def'");
+		}
 	}
 
 	/**
@@ -151,9 +157,10 @@ class comando_instalacion extends comando_toba
 			instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
 			instalacion::crear_info_bases();
 			instalacion::crear_directorio_proyectos();
+			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba instalacion agregar_db -d [nombre_base]'");
 		} else {
 			$this->consola->enter();
-			$this->consola->mensaje( 'Ya existe una instalacion DEFINIDA' );
+			$this->consola->mensaje( 'Ya existe una INSTALACION.' );
 			$this->consola->enter();
 		}
 	}
@@ -212,6 +219,9 @@ class comando_instalacion extends comando_toba
 		define("apex_db",7);
 		define("apex_db_link_id",8);
 
+		if( ! is_file( toba_dir() . '/php/instancias.php' ) ) {
+			throw new excepcion_toba("No existe el archivo 'instancias.php'. No es posible realizar la conversion.");
+		}
 		require_once('instancias.php');
 	
 		//*** 0) Creo la carpeta INSTALACION

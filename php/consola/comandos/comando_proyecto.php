@@ -88,7 +88,7 @@ class comando_proyecto extends comando_toba
 			$this->consola->enter();
 			$this->consola->subtitulo("Cargar METADATOS");
 			$i->vincular_proyecto( $p->get_id() );
-			$p->cargar_autonomo( false );
+			$p->cargar_autonomo();
 			$this->consola->enter();
 			$this->consola->subtitulo("Vincular USUARIOS");
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
@@ -102,7 +102,7 @@ class comando_proyecto extends comando_toba
 			$this->consola->enter();
 			$this->consola->subtitulo("Exportar datos");
 			// Exporto la instancia con la nueva configuracion (por fuera del request)
-			self::exportar_instancia_actual();
+			$i->exportar_local();
 		} else {
 			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");	
 		}
@@ -113,9 +113,13 @@ class comando_proyecto extends comando_toba
 	*/
 	function opcion__eliminar()
 	{
+		$id_proyecto = $this->get_id_proyecto_actual();
+		if ( $id_proyecto == 'toba' ) {
+			throw new excepcion_toba("No es posible eliminar el proyecto 'toba'");
+		}	
 		$p = $this->get_proyecto();
 		if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
-				.$this->get_id_proyecto_actual()."' de la instancia '"
+				.$id_proyecto."' de la instancia '"
 				.$this->get_id_instancia_actual()."'") ) {
 			$p->eliminar();
 		}
@@ -139,9 +143,8 @@ class comando_proyecto extends comando_toba
 		// -- 2 -- Exporto el proyecto creado
 		$this->consola->mensaje( "Exportando metadatos iniciales" );
 		$proyecto = $this->get_proyecto();
-		$proyecto->exportar( false );
-		// Exporto la instancia con la nueva configuracion (por fuera del request)
-		self::exportar_instancia_actual();
+		$proyecto->exportar();
+		$instancia->exportar_local();
 		$this->consola->separador();
 		$this->consola->mensaje( "El proyecto ha sido creado. Si se desea crear un acceso WEB al mismo" .
 									" agrege al archivo de configuracion de apache ('httpd.conf') las directivas" .

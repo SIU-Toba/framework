@@ -61,7 +61,7 @@ class nucleo_toba
 			$mensaje = $e->getMessage();
 			try {
 					$pro = apex_pa_proyecto;	
-					$candidato = $_SERVER['TOBA_DIR']."/proyectos/$pro/php/logon.php";
+					$candidato = toba_dir() ."'/proyectos/$pro/php/logon.php'";
 					if (file_exists($candidato)) {
 						include($candidato);
 					}else{

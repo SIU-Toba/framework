@@ -79,8 +79,10 @@
 /*----------------------------*/
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo){
-		$f = explode($sep_actual,$fecha);
-		return $f[2] . $sep_nuevo . $f[1] . $sep_nuevo . $f[0];
+		if( isset( $fecha ) ) {
+			$f = explode($sep_actual,$fecha);
+			return $f[2] . $sep_nuevo . $f[1] . $sep_nuevo . $f[0];
+		}
 	}
 /*----------------------------*/
 

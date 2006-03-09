@@ -111,51 +111,52 @@ class comando_instancia extends comando_toba
 	{
 		$id_instancia = $this->get_id_instancia_actual();
 		$instalacion = $this->get_instalacion();
-		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
-		if ( $instalacion->hay_bases() ) {
-
-			//---- A: Creo la definicion de la instancia
-			$proyectos = $this->seleccionar_proyectos();
-			// En el esquema actual, el toba siempre tiene que estar.
-			if ( ! in_array( 'toba', $proyectos ) ) {
-				$proyectos[] = 'toba';
-			}
-			$this->consola->enter();
-			$base = $this->seleccionar_base();
-			$instalacion->crear_instancia( $id_instancia, $base, $proyectos );
-
-			//---- B: Cargo la INSTANCIA en la BASE
-			$instancia = $this->get_instancia();
-			try {
-				$instancia->cargar();
-			} catch ( excepcion_toba_modelo_preexiste $e ) {
-				$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
-				$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
-				if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
-					$instancia->cargar( true );
-				} else {
-					return;	
-				}
-			} catch ( excepcion_toba $e ) {
-				$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
-				$this->consola->error( $e->getMessage() );
-			}
-
-			//---- C: Creo un USUARIO y lo asigno a los proyectos
-			$datos = $this->definir_usuario( "Crear USUARIO" );
-			//print_r( $datos );
-			$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
-			foreach( $instancia->get_proyectos() as $proyecto ) {
-				$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
-				$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
-			}
-
-			//---- D: Exporto la informacion LOCAL
-			$instancia->exportar_local();
-
-		} else {
-			$this->consola->mensaje("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+		if ( instancia::existe_carpeta_instancia($id_instancia) ) {
+			throw new excepcion_toba("Ya existe una INSTANCIA con el nombre '$id_instancia'");
 		}
+		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
+		if ( ! $instalacion->hay_bases() ) {
+			throw new excepcion_toba("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+		}
+
+		//---- A: Creo la definicion de la instancia
+		$proyectos = $this->seleccionar_proyectos();
+		// En el esquema actual, el toba siempre tiene que estar.
+		if ( ! in_array( 'toba', $proyectos ) ) {
+			$proyectos[] = 'toba';
+		}
+		$this->consola->enter();
+		$base = $this->seleccionar_base();
+		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+
+		//---- B: Cargo la INSTANCIA en la BASE
+		$instancia = $this->get_instancia();
+		try {
+			$instancia->cargar();
+		} catch ( excepcion_toba_modelo_preexiste $e ) {
+			$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
+			$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
+			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
+				$instancia->cargar( true );
+			} else {
+				return;	
+			}
+		} catch ( excepcion_toba $e ) {
+			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
+			$this->consola->error( $e->getMessage() );
+		}
+
+		//---- C: Creo un USUARIO y lo asigno a los proyectos
+		$datos = $this->definir_usuario( "Crear USUARIO" );
+		//print_r( $datos );
+		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
+		foreach( $instancia->get_proyectos() as $proyecto ) {
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
+		}
+
+		//---- D: Exporto la informacion LOCAL
+		$instancia->exportar_local();
 	}
 
 	/**

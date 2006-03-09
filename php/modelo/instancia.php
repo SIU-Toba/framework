@@ -17,6 +17,7 @@ class instancia extends elemento_modelo
 {
 	const dir_prefijo = 'i__';
 	const info_instancia = 'instancia.ini';
+	const info_instancia_titulo = 'Configuracion de la INSTANCIA';
 	const prefijo_dir_proyecto = 'p__';
 	const dir_datos_globales = 'global';
 	const archivo_datos = 'datos.sql';
@@ -176,13 +177,16 @@ class instancia extends elemento_modelo
 	function vincular_proyecto( $proyecto )
 	{
 		if ( proyecto::existe( $proyecto ) ) {
-			$clase = $this->get_clase_datos();
-			$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+			$ini = $this->get_ini();
+			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
+			$datos = array_map('trim',$datos);
 			if ( ! in_array( $proyecto, $datos ) ) {
 				$datos[] = $proyecto;
-				$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-				$clase->guardar();
+				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
+				$ini->guardar();
 			}
+			// Recargo la inicializacion de la instancia
+			$this->cargar_info_ini();
 		} else {
 			throw new excepcion_toba("El proyecto '$proyecto' no existe.");
 		}
@@ -190,27 +194,28 @@ class instancia extends elemento_modelo
 	
 	function desvincular_proyecto( $proyecto )
 	{
-		$clase = $this->get_clase_datos();
-		$datos = $clase->get_datos_metodo( 'get_lista_proyectos' );
+		$ini = $this->get_ini();
+		$datos =  explode(',',$ini->get_datos_entrada( 'proyectos'));
+		$datos = array_map('trim',$datos);
 		if ( in_array( $proyecto, $datos ) ) {
-			// EL proyecto recien creado no aparece en 'get_lista_proyectos' hasta el final de request
-			// Elimino el LINK
 			$datos = array_diff( $datos, array( $proyecto ) );
-			$clase->set_datos_metodo( 'get_lista_proyectos', $datos );
-			$clase->guardar();
+			$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
+			$ini->guardar();
 			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
-			if ( is_dir( $dir_proyecto ) ) { //Fue exportado?
+			if ( is_dir( $dir_proyecto ) ) {
 				manejador_archivos::eliminar_directorio( $dir_proyecto );			
 			}
 		}
+		// Recargo la inicializacion de la instancia
+		$this->cargar_info_ini();
 	}
 
-	private function get_clase_datos()
+	private function get_ini()
 	{
-		$clase = instalacion::instancia_info;
-		$path = $this->dir . '/' . instalacion::instancia_info . '.php';
-		return new clase_datos( $clase, $path );
+		$ini = new ini( $this->dir . '/' . self::info_instancia );
+		$ini->agregar_titulo( self::info_instancia_titulo );
+		return $ini;
 	}
 
 	//-----------------------------------------------------------
@@ -609,9 +614,9 @@ class instancia extends elemento_modelo
 		}
 		//Creo la clase que proporciona informacion sobre la instancia
 		$ini = new ini();
-		$ini->agregar_titulo("Configuracion de la INSTANCIA");
-		$ini->agregar_directiva( 'base', $base );
-		$ini->agregar_directiva( 'proyectos', implode(', ', $lista_proyectos) );
+		$ini->agregar_titulo( self::info_instancia_titulo );
+		$ini->agregar_entrada( 'base', $base );
+		$ini->agregar_entrada( 'proyectos', implode(', ', $lista_proyectos) );
 		$ini->guardar( self::dir_instancia( $nombre ) . '/' . instancia::info_instancia );
 	}
 

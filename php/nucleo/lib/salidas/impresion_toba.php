@@ -1,6 +1,6 @@
 <?
 
-interface impresion
+interface impresion_toba
 {
 	function titulo( $texto );
 	function subtitulo( $texto );
