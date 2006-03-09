@@ -1,7 +1,7 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
 require_once('nucleo/lib/manejador_archivos.php');
-require_once('modelo/version_toba.php');
+require_once('modelo/lib/version_toba.php');
 require_once('nucleo/lib/ini.php');
 
 /**
@@ -143,10 +143,12 @@ class instalacion extends elemento_modelo
 		$base_a_crear = $info_db['base'];
 		if($info_db['motor']=='postgres7')
 		{
+			sleep(1);	//Para esperar que el script se desconecte			
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
 			$sql = "CREATE DATABASE $base_a_crear ENCODING '" . self::db_encoding_estandar . "';";
 			$db->ejecutar( $sql );
+			$db->destruir();
 		}else{
 			throw new excepcion_toba("INSTALACION: El metodo no esta definido para el motor especificado");
 		}
@@ -162,10 +164,12 @@ class instalacion extends elemento_modelo
 		$base_a_borrar = $info_db['base'];
 		if($info_db['motor']=='postgres7')
 		{
+			sleep(1);	//Para esperar que el script se desconecte
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
 			$sql = "DROP DATABASE $base_a_borrar;";
 			$db->ejecutar($sql);
+			$db->destruir();
 		}else{
 			throw new excepcion_toba("INSTALACION: El metodo no esta definido para el motor especificado");
 		}

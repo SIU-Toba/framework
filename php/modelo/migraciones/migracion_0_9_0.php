@@ -163,16 +163,7 @@ class migracion_0_9_0 extends migracion_toba
 		$this->elemento->get_db()->ejecutar_archivo( toba_dir() . '/php/modelo/ddl/pgsql_a22_permisos.sql' );		
 	}
 	
-	/**
-	 * El nuevo esquema de migración necesita que la instancia tenga una versión toba asociada
-	 */	
-	function instancia__agregado_version_instancia()
-	{
-		$sql = "INSERT INTO apex_instancia (instancia, version) VALUES ('".
-				$this->elemento->get_id(). "', '0.8.3')";
-		$this->elemento->get_db()->ejecutar($sql);
-	}
-	
+
 	/**
 	*	Las claves pasan a encriptarse con md5 (los passwords planos siguen funcionando)
 	*/

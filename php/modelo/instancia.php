@@ -589,7 +589,7 @@ class instancia extends elemento_modelo
 	function agregar_usuario( $usuario, $nombre, $clave )
 	{
 		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
-				VALUES ('$usuario', '$nombre', 'md5', '. md5($clave) .')";
+				VALUES ('$usuario', '$nombre', 'md5', '". md5($clave) ."')";
 		return $this->get_db()->ejecutar( $sql );
 	}
 	
@@ -660,7 +660,7 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
 			$this->get_db()->abrir_transaccion();
 			$version->ejecutar_migracion('instancia', $this);
-			$this->actualizar_campo_version($version);
+			$this->set_version($version);
 			
 			//-- Se migran los proyectos incluidos
 			if ($recursivo) {
@@ -672,24 +672,28 @@ class instancia extends elemento_modelo
 		}
 	}
 	
-	private function actualizar_campo_version($version)
+	function set_version($version)
 	{
-		$nueva = $version->__toString();
-		$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
+		$nueva = $version->__toString();		
+		if ($this->get_version_actual()->es_igual(version_toba::inicial())) {
+			$sql = "INSERT INTO apex_instancia (instancia, version) VALUES ('".
+					$this->get_id(). "', '$nueva')";			
+		} else {
+			$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
+		}
 		$this->get_db()->ejecutar($sql);
 	}
 	
-	
 	function get_version_actual()
 	{
-		$sql = "SELECT version FROM apex_instancia WHERE instancia='".$this->get_id()."'";
+		$sql = "SELECT version FROM apex_instancia";
 		$rs = $this->get_db()->consultar($sql);
 		if (empty($rs)) {
-			return new version_toba("0.8.3"); //Es la version anterior al cambio de la migracion
+			return version_toba::inicial(); //Es la version anterior al cambio de la migracion
 		} else {
 			return new version_toba($rs[0]['version']);	
 		}
-	}	
+	}
 	
 }
 ?>

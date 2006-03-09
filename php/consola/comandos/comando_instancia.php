@@ -145,8 +145,8 @@ class comando_instancia extends comando_toba
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
 			$this->consola->error( $e->getMessage() );
 		}
-
-		//---- C: Creo un USUARIO y lo asigno a los proyectos
+		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
+		$instancia->set_version( instalacion::get_version_actual());
 		$datos = $this->definir_usuario( "Crear USUARIO" );
 		//print_r( $datos );
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
