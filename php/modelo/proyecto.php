@@ -11,11 +11,8 @@ require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
 
-/*
+/**
 *	Administrador de metadatos de PROYECTOS
-
-	Atencion !!!!!!!! en el caso de la importacion de proyectos directa (sin instancia)
-	hay que actualizar las secuencias despues.
 */
 class proyecto extends elemento_modelo
 {
@@ -212,7 +209,25 @@ class proyecto extends elemento_modelo
 	//-----------------------------------------------------------
 	
 	/*
-	*	Importacion de un PROYECTO dentro del proceso de CARGA de una INSTANCIA
+	*	Carga en proyecto en una transaccion
+	*/
+	function cargar_autonomo()
+	{
+		try {
+			$this->db->abrir_transaccion();
+			$this->db->retrazar_constraints();
+			$this->cargar();
+			$this->instancia->actualizar_secuencias();
+			$this->db->cerrar_transaccion();
+		} catch ( excepcion_toba $e ) {
+			$this->db->abortar_transaccion();
+			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
+	}
+
+	/*
+	*	Carga un proyecto
 	*/
 	function cargar()
 	{
@@ -223,23 +238,6 @@ class proyecto extends elemento_modelo
 		$this->cargar_componentes();
 	}
 
-	/*
-	*	cargar un PROYECTO en una instancia ya creada
-	*/
-	function cargar_autonomo( $control_vinculo = true )
-	{
-		try {
-			$this->db->abrir_transaccion();
-			$this->db->retrazar_constraints();
-			$this->cargar( $control_vinculo );
-			$this->db->cerrar_transaccion();
-		} catch ( excepcion_toba $e ) {
-			$this->db->abortar_transaccion();
-			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
-			$this->manejador_interface->error( $e->getMessage() );
-		}
-	}
-	
 	private function cargar_tablas()
 	{
 		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
@@ -265,13 +263,15 @@ class proyecto extends elemento_modelo
 	//	ELIMINAR
 	//-----------------------------------------------------------
 
-	function eliminar()
+	/*
+	*	Eliminacion dentro de una transaccion
+	*/
+	function eliminar_autonomo()
 	{
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
-			$sql = $this->get_sql_eliminacion();
-			$this->db->ejecutar( $sql );
+			$this->eliminar();
 			$this->db->cerrar_transaccion();
 			$this->manejador_interface->mensaje("El proyecto '{$this->identificador}' ha sido eliminado");
 		} catch ( excepcion_toba $e ) {
@@ -280,7 +280,19 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
-	
+
+	/*
+	*	Eliminacion dentro de una transaccion
+	*/
+	function eliminar()
+	{
+		$sql = $this->get_sql_eliminacion();
+		$this->db->ejecutar( $sql );
+	}
+
+	/*
+	*	Genera el SQL de eliminacion del proyecto
+	*/	
 	private function get_sql_eliminacion()
 	{
 		// Tablas
@@ -309,6 +321,29 @@ class proyecto extends elemento_modelo
 		}
 		$sql = sql_array_tablas_delete( $tablas );
 		return $sql;
+	}
+
+	//-----------------------------------------------------------
+	//	REGENERAR
+	//-----------------------------------------------------------
+
+	/*
+	*	cargar un PROYECTO en una instancia ya creada
+	*/
+	function regenerar()
+	{
+		try {
+			$this->db->abrir_transaccion();
+			$this->db->retrazar_constraints();
+			$this->eliminar();
+			$this->cargar();
+			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
+			$this->db->cerrar_transaccion();
+		} catch ( excepcion_toba $e ) {
+			$this->db->abortar_transaccion();
+			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
+			$this->manejador_interface->error( $e->getMessage() );
+		}
 	}
 
 	//-----------------------------------------------------------

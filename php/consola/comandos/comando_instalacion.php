@@ -10,7 +10,7 @@ class comando_instalacion extends comando_toba
 
 	function mostrar_observaciones()
 	{
-		$this->consola->mensaje("Directorio de la INSTALACION: " . toba_dir() );
+		$this->consola->mensaje("Directorio BASE: " . toba_dir() );
 		$this->consola->enter();
 	}
 	
@@ -148,15 +148,12 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__crear()
 	{
-		instalacion::crear_directorio();
 		if( ! instalacion::existe_info_basica() ) {
-			$this->consola->titulo( "Configurando INSTALACION en: " . toba_dir() );
-			$apex_clave_get = md5(uniqid(rand(), true)); 
-			$apex_clave_db = md5(uniqid(rand(), true)); 
+			$this->consola->titulo( "Configurando INSTALACION en: " . instalacion::dir_base() );
 			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
-			instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
-			instalacion::crear_info_bases();
-			instalacion::crear_directorio_proyectos();
+			instalacion::crear( $id_grupo_desarrollo );
+			$this->consola->enter();
+			$this->consola->mensaje("La instalacion ha sido inicializada");
 			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba instalacion agregar_db -d [nombre_base]'");
 		} else {
 			$this->consola->enter();
@@ -165,7 +162,6 @@ class comando_instalacion extends comando_toba
 		}
 	}
 
-	
 	/**
 	 * Migra la instalación actual. [-d 'desde']  [-h 'hasta'] [-R 0|1].
 	 * -d se asume la versión de toba de la última instancia cargada.
@@ -203,6 +199,23 @@ class comando_instalacion extends comando_toba
 	//-------------------------------------------------------------
 	// Interface
 	//-------------------------------------------------------------
+
+	/**
+	*	Consulta al usuario el ID del grupo de desarrollo
+	*/
+	protected function definir_id_grupo_desarrollo()
+	{
+		$this->consola->subtitulo('Definir el ID del grupo de desarrollo');
+		$this->consola->mensaje('Este codigo se utiliza para permitir el desarrollo paralelo de equipos '.
+								'de trabajo geograficamente distribuidos.');
+		$this->consola->enter();
+		$resultado = $this->consola->dialogo_ingresar_texto( 'ID Grupo', false );
+		if ( $resultado == '' ) {
+			return null;	
+		} else {
+			return $resultado;	
+		}
+	}
 
 	/**
 	*	Determina sobre que base definida en 'info_bases' se va a trabajar

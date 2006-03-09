@@ -9,8 +9,7 @@ require_once('nucleo/lib/sincronizador_archivos.php');
 require_once('nucleo/lib/reflexion/clase_datos.php');
 /**
 *	@todo
-*		- Manipulacion del INI
-*		- Falta un parametrizar en la instalacion si la base toba es independiente o adosada al negocio
+*		- Falta un parametrizar en el ini de la instancia si la base toba es independiente o adosada al negocio
 *			( se eliminan las tablas o la base en la regeneracion? )
 */
 class instancia extends elemento_modelo
@@ -266,7 +265,8 @@ class instancia extends elemento_modelo
 		manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/' . self::archivo_logs, 'LOGS' );	
+		$nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
+		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $nombre_log, 'LOGS' );	
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
@@ -304,8 +304,9 @@ class instancia extends elemento_modelo
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . self::archivo_logs, $proyecto, 'LOG' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
+			$nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $nombre_log, $proyecto, 'LOG' );	
 		}
 	}
 
@@ -461,6 +462,7 @@ class instancia extends elemento_modelo
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
+			$this->manejador_interface->mensaje($archivo);
 			$this->get_db()->ejecutar_archivo( $archivo );
 		}
 	}
@@ -478,9 +480,9 @@ class instancia extends elemento_modelo
 	/*
 	*	Reestablece las secuencias del sistema
 	*/
-	private function actualizar_secuencias()
+	function actualizar_secuencias()
 	{
-		$this->manejador_interface->titulo('Importando SECUENCIAS');
+		$this->manejador_interface->titulo('Actualizando SECUENCIAS');
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( secuencias::get_lista() as $seq => $datos ) {
 			if ( is_null( $id_grupo_de_desarrollo ) ) {

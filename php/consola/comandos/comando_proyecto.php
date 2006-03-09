@@ -61,18 +61,11 @@ class comando_proyecto extends comando_toba
 	}
 
 	/**
-	*	Regenera los METADATOS del proyecto.
+	*	Elimina los METADATOS del proyecto y los vuelve a cargar.
 	*/
 	function opcion__regenerar()
 	{
-		$p = $this->get_proyecto();
-		$this->consola->enter();
-		$this->consola->subtitulo("Eliminar proyecto");
-		$p->eliminar();
-		$this->consola->enter();
-		$this->consola->subtitulo("Cargar proyecto");
-		$p->cargar_autonomo();
-		$p->get_instancia()->cargar_informacion_instancia_proyecto( $p->get_id() );
+		$this->get_proyecto()->regenerar();
 	}
 
 	/**
@@ -121,7 +114,7 @@ class comando_proyecto extends comando_toba
 		if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
 				.$id_proyecto."' de la instancia '"
 				.$this->get_id_instancia_actual()."'") ) {
-			$p->eliminar();
+			$p->eliminar_autonomo();
 		}
 		$p->get_instancia()->desvincular_proyecto( $p->get_id() );
 	}

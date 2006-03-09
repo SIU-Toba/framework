@@ -212,11 +212,26 @@ class instalacion extends elemento_modelo
 	//-- Funcionalidad estatica relacionada a la CREACION de INSTALACIONES
 	//-------------------------------------------------------------------------
 
+	static function crear( $id_grupo_desarrollo )
+	{
+		instalacion::crear_directorio();
+		$apex_clave_get = md5(uniqid(rand(), true)); 
+		$apex_clave_db = md5(uniqid(rand(), true)); 
+		instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
+		instalacion::crear_info_bases();
+		instalacion::crear_directorio_proyectos();
+		// Creo un archivo de referencia para la configuracion del apache.
+		$archivo = self::dir_base() . '/toba.conf';
+		copy( toba_dir(). '/php/modelo/var/toba.conf', $archivo );
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );
+		$editor->procesar_archivo( $archivo );
+	}
+
 	static function dir_base()
 	{
 		return toba_dir() . '/' . self::directorio_base;
 	}
-	
 
 	/**
 	* Crea el directorio de la instalacion

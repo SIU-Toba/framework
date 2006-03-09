@@ -114,10 +114,10 @@ class comando_instancia extends comando_toba
 		if ( instancia::existe_carpeta_instancia($id_instancia) ) {
 			throw new excepcion_toba("Ya existe una INSTANCIA con el nombre '$id_instancia'");
 		}
-		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
 		if ( ! $instalacion->hay_bases() ) {
 			throw new excepcion_toba("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
 		}
+		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
 
 		//---- A: Creo la definicion de la instancia
 		$proyectos = $this->seleccionar_proyectos();
