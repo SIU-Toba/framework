@@ -106,7 +106,7 @@ class ef_popup extends ef_editable
         }
 		if(!isset($this->descripcion_estado)) $this->descripcion_estado="";
 		if($this->solo_lectura || $vinculo_item == NULL){
-			$r = form::text("", $this->estado,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);
+			$r = form::text("", $this->descripcion_estado ,$this->solo_lectura,"", $this->tamano ,"ef-input","disabled " . $this->javascript);
 			$r .= form::hidden($this->id_form, $this->estado);
 		}else{
 			$r = $this->obtener_javascript_general() . "\n\n";		
