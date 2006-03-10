@@ -496,9 +496,15 @@ class proyecto extends elemento_modelo
 	
 	private function actualizar_campo_version($version)
 	{
-		$nueva = $version->__toString();
-		$sql = "UPDATE apex_proyecto SET version_toba='$nueva' WHERE proyecto='{$this->identificador}'";
+		$sql = $this->get_sql_actualizar_version($version, $this->identificador);
 		$this->get_db()->ejecutar($sql);
+	}
+	
+	private function get_sql_actualizar_version($version, $id_proyecto)
+	{
+		$nueva = $version->__toString();
+		$sql = "UPDATE apex_proyecto SET version_toba='$nueva' WHERE proyecto='$id_proyecto'";
+		return $sql;
 	}	
 	
 	//-----------------------------------------------------------
@@ -574,6 +580,9 @@ class proyecto extends elemento_modelo
 				$db->abrir_transaccion();
 				$db->retrazar_constraints();
 				$db->ejecutar( self::get_sql_metadatos_basicos( $nombre ) );
+				$sql_version = self::get_sql_actualizar_version( instalacion::get_version_actual(),
+																$nombre);
+				$db->ejecutar($sql_version);
 				foreach( $usuarios_a_vincular as $usuario ) {
 					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', 'no' ) );
 				}

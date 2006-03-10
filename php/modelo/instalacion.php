@@ -215,6 +215,7 @@ class instalacion extends elemento_modelo
 	static function crear( $id_grupo_desarrollo )
 	{
 		instalacion::crear_directorio();
+		instalacion::actualizar_version( instalacion::get_version_actual() );
 		$apex_clave_get = md5(uniqid(rand(), true)); 
 		$apex_clave_db = md5(uniqid(rand(), true)); 
 		instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
@@ -372,7 +373,7 @@ class instalacion extends elemento_modelo
 	
 	private function actualizar_version($version)
 	{
-		file_put_contents($this->dir_base()."/VERSION", $version->__toString() );
+		file_put_contents(self::dir_base()."/VERSION", $version->__toString() );
 	}
 	
 	static function get_version_actual()

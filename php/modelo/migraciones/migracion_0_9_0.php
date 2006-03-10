@@ -192,7 +192,7 @@ class migracion_0_9_0 extends migracion_toba
 		$sql = "UPDATE apex_item
 				SET	solicitud_tipo='web'
 				WHERE
-					proyecto='{$this->proyecto}' AND 
+					proyecto='{$this->elemento->get_id()}' AND 
 					solicitud_tipo='browser' AND
 					actividad_patron IN ('CI', 'CI_POPUP', 'ci', 'ci_cn_popup', 'generico_ci_cn')
 		";
