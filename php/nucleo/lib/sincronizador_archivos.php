@@ -32,6 +32,11 @@ class sincronizador_archivos
 		}
 	}
 	
+	function info()
+	{
+		return $this->archivos_originales;	
+	}
+	
 	private function cargar_archivos_originales()
 	{
 		$this->archivos_originales = manejador_archivos::get_archivos_directorio( 	$this->dir, 

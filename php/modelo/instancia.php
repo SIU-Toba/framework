@@ -30,6 +30,7 @@ class instancia extends elemento_modelo
 	private $ini_proyectos_vinculados;		// IDs de proyectos vinculados (a nivel FS)
 	private $db = null;						// Referencia a la CONEXION con la DB de la instancia
 	private $sincro_archivos;				// Sincronizador de archivos.
+	private $nombre_log;					// Nombre que llevan los archivos de LOG
 	
 	function __construct( instalacion $instalacion, $identificador )
 	{
@@ -41,7 +42,9 @@ class instancia extends elemento_modelo
 		}
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
-		$this->sincro_archivos = new sincronizador_archivos( $this->dir, '|.*\.sql|' );
+		$this->nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
+		$regex = "#datos.sql|$this->nombre_log|usuarios.sql#"; // No hay que interferir con archivos de otras celulas
+		$this->sincro_archivos = new sincronizador_archivos( $this->dir, $regex );
 	}
 
 	function cargar_info_ini()
@@ -265,8 +268,7 @@ class instancia extends elemento_modelo
 		manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		$nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
-		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $nombre_log, 'LOGS' );	
+		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );	
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
@@ -305,8 +307,7 @@ class instancia extends elemento_modelo
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-			$nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $nombre_log, $proyecto, 'LOG' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
 		}
 	}
 
