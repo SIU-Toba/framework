@@ -144,7 +144,7 @@ class objeto_ci extends objeto_ei
 	function dependencia($id, $carga_en_demanda = true)
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
-		if( $dependencia instanceof objeto_ei ) {
+		if($this->gi && $dependencia instanceof objeto_ei ) {
 			// EIs que no estan en la lista GI: hay que cargar su estado y DAOS
 			if ( ! in_array( $id, $this->dependencias_gi ) ) {
 				$parametro['id'] = $id;
@@ -992,6 +992,7 @@ class objeto_ci extends objeto_ei
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}else{
 				echo "<td class='tabs-solapa'>";
+				$tip = str_replace("'", "\\'",$tip);
 				echo form::button_html( $this->submit.'_cambiar_tab_'.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 				echo "</td>\n";
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
@@ -1021,7 +1022,7 @@ class objeto_ci extends objeto_ei
 			if ( $this->etapa_gi == $id ) {
 				echo "<div class='tabs-v-solapa-sel'><div class='tabs-v-boton-sel'>$html</div></div>";
 			} else {
-				$atajo = recurso::ayuda($tecla, $tip);
+				$atajo = recurso::ayuda($tecla, str_replace("'", "\\'",$tip));
 				echo "<div class='tabs-v-solapa'>";
 				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
 				echo "</div>";
