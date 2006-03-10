@@ -244,7 +244,7 @@ class hilo
 		} else {
             $item = explode(apex_qs_separador,apex_pa_item_inicial);
             return $item;
-        }		
+        }
 	}
 
 	function obtener_proyecto()
@@ -391,7 +391,7 @@ class hilo
 		return $_SESSION['toba']["usuario"]["perfil_datos"];
 	}
 	
-	function get_claves_encriptacion()
+	static function get_claves_encriptacion()
 	{
 		$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
 		$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];

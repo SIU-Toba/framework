@@ -9,7 +9,7 @@ class encriptador
 	
 	private function __construct() {
 		$this->motor = new MD5Crypt();
-		$this->clave = toba::get_hilo()->get_claves_encriptacion();
+		$this->clave = hilo::get_claves_encriptacion();
 	}
 	
 	static function instancia() {

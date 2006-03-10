@@ -403,7 +403,7 @@ class objeto_ei_formulario extends objeto_ei
 	//-------------------------------------------------------------------------------
 	
 	/**
-	 * @deprecated Desde 0.8.4, usar establecer_solo_lectura
+	 * @deprecated Desde 0.8.4, usar set_solo_lectura
 	 */
 	function deshabilitar_efs($efs=null)
 	{
