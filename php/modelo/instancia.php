@@ -43,8 +43,15 @@ class instancia extends elemento_modelo
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
 		$this->nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
-		$regex = "#datos.sql|$this->nombre_log|usuarios.sql#"; // No hay que interferir con archivos de otras celulas
-		$this->sincro_archivos = new sincronizador_archivos( $this->dir, $regex );
+	}
+
+	function get_sincronizador()
+	{
+		if ( ! isset( $this->sincro_archivos ) ) {
+			$regex = "#datos.sql|$this->nombre_log|usuarios.sql#"; // No hay que interferir con archivos de otras celulas
+			$this->sincro_archivos = new sincronizador_archivos( $this->dir, $regex );
+		}
+		return $this->sincro_archivos;
 	}
 
 	function cargar_info_ini()
@@ -256,7 +263,7 @@ class instancia extends elemento_modelo
 	private function sincronizar_archivos()
 	{
 		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
-		$obs = $this->sincro_archivos->sincronizar();
+		$obs = $this->get_sincronizador()->sincronizar();
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}	
 	/*
@@ -354,7 +361,7 @@ class instancia extends elemento_modelo
 	private function guardar_archivo( $archivo, $contenido )
 	{
 		file_put_contents( $archivo, $contenido );
-		$this->sincro_archivos->agregar_archivo( $archivo );
+		$this->get_sincronizador()->agregar_archivo( $archivo );
 	}
 	
 	//-----------------------------------------------------------

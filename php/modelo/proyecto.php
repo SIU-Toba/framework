@@ -40,7 +40,14 @@ class proyecto extends elemento_modelo
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
 		$this->db = $this->instancia->get_db();
-		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_dump() );
+	}
+
+	function get_sincronizador()
+	{
+		if ( ! isset( $this->sincro_archivos ) ) {
+			$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_dump() );
+		}
+		return $this->sincro_archivos;
 	}
 
 	//-----------------------------------------------------------
@@ -111,7 +118,7 @@ class proyecto extends elemento_modelo
 	private function sincronizar_archivos()
 	{
 		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
-		$obs = $this->sincro_archivos->sincronizar();
+		$obs = $this->get_sincronizador()->sincronizar();
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}
 
@@ -420,7 +427,7 @@ class proyecto extends elemento_modelo
 	private function guardar_archivo( $archivo, $contenido )
 	{
 		file_put_contents( $archivo, $contenido );
-		$this->sincro_archivos->agregar_archivo( $archivo );
+		$this->get_sincronizador()->agregar_archivo( $archivo );
 	}
 	
 	//-----------------------------------------------------------
