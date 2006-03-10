@@ -1,12 +1,12 @@
 <?
 require_once("nucleo/componentes/runtime/objeto.php");
+require_once('nucleo/lib/salidas/impresion_toba.php');
 require_once('eventos.php');
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_ei_evento","evt");
 define("apex_ei_separador","__");
 define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
 define("apex_datos_clave_fila","x_dbr_clave");				//Clave interna de los datos_tabla, por compatibilidad es igual.
-
 /**
  * Clase base de los elementos de interface (ei)
  * @package Objetos
@@ -323,7 +323,7 @@ class objeto_ei extends objeto
 	/*
 	*	Despachador de tipos de salidas de impresion
 	*/
-	function vista_impresion( impresion $salida )
+	function vista_impresion( impresion_toba $salida )
 	{
 		if ( $salida instanceof html_impr ) {
 			$this->vista_impresion_html( $salida );	

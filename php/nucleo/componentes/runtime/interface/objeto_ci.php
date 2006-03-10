@@ -4,7 +4,6 @@ require_once("nucleo/browser/interface/form.php");
 require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
 require_once('nucleo/lib/parser_ayuda.php');
-require_once('nucleo/lib/salidas/impresion_toba.php');
 
 /**
  * Controla un flujo de pantallas
@@ -1062,15 +1061,15 @@ class objeto_ci extends objeto_ei
 		echo "
 		function imprimir_html( url, forzar_popup )
 		{
-			var popup_obligatorio = (forzar_popup) ? forzar_popup : false ;
+			var usar_popup = (forzar_popup) ? true : false ;
 			//alert( url );	
 			var f = window.frames.$id_frame;
-			if ( f && f.print && ! popup_obligatorio ) {
+			if ( f && f.print && !usar_popup ) {
 				f.location.href = url;
 				f.focus();
 				f.print();
 			} else {
-				solicitar_item_popup( url, 650, 500, 'yes', 'yes')
+				solicitar_item_popup( url, 650, 500, 'yes', 'yes', ',toolbar=yes')
 			}
 		}
 		";

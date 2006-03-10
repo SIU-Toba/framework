@@ -159,8 +159,8 @@ function include_source(file) {
 
 //********************  POPUPS  ************************
 
-function solicitar_item_popup( url, tx, ty, scroll, resizable ){
-	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ", resizable=" + resizable + ",dependent=yes";
+function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
+	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ", resizable=" + resizable + ",dependent=yes" + extra;
 	if (!window.ventana_hija){
 		// No fue definida.
 		ventana_hija = window.open( url , 'ventana_hija', vars);
