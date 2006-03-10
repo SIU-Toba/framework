@@ -59,11 +59,41 @@
     <div id="searchable"><p>
 <a href="WikiStart.html">Inicio</a> / Versiones
 </p>
-<h1 id="Versiones">Versiones</h1>
+<h1 id="VersionadoenToba">Versionado en Toba</h1>
+<h2 id="EsquemadeVersionadodeToba">Esquema de Versionado de Toba</h2>
+<p>
+La nomenclatura de las versiones de Toba tienen una convención:
+</p>
+<pre class="wiki">Versión A.B.C
+</pre>
+<ul><li>El primer nivel (A) marca un release mayor que implica un cambio grande a nivel arquitectura o conceptos.
+</li><li>El segundo nivel (B) marca un release que agrega características o <i>features</i> nuevas. Es acompañada de un anuncio y una actualización de la documentación. Suele incluír cambios que requieren migración ya sea automática o manual.
+</li><li>El tercer nivel (C) es un release para arreglar bugs, no incluyen ninguna característica nueva, sólo asegura que las prometidas funcionan.
+</li></ul><p>
+Así por ejemplo el cambio de la versión 0.9.0 a la 0.9.1 implica sólo solución de bugs o problemas, mientras que hacia 0.10 agregaría nuevas cosas.
+</p>
+<h2 id="Pasajedeversiones">Pasaje de versiones</h2>
+<p>
+Existe un esquema general de conversión, pero cada versión puede incluir alguna modificación al esquema general:
+</p>
+<ol><li><strong>Siempre</strong> hacer una exportación del o los proyectos desarrollados al disco y realizar un backup:
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre>
+</li><li>Mover a toba hacia la nueva versión utilizando SVN (con el comando svn switch si es un cliente por línea de comandos)
+</li><li>Migrar la instalación
+<pre class="wiki">toba instalacion migrar
+</pre>
+</li></ol><p>
+Si sólo se esta actualizando la versión de toba, puede ver un <a class="wiki" href="Referencia/Deployment.html#ActualizacióndeToba">caso de uso</a>.
+También existen más detalles del funcionamiento del <a class="wiki" href="Desarrollo/Conversion.html">esquema de migración</a>
+</p>
+<h2 id="ListadeVersiones">Lista de Versiones</h2>
+<h3 id="Respetandolaconvención">Respetando la convención</h3>
+<ul><li><a class="wiki" href="Versiones/0.9.html">Toba 0.9.0</a> (10/03/2006).
+</li></ul><h3 id="PreConvención">Pre - Convención</h3>
 <ul><li><a class="wiki" href="Versiones/0.8.html">Toba 0.8.1</a> (23/05/2005).
 </li><li><a class="wiki" href="Versiones/0.8-2.html">Toba 0.8.2</a> (30/06/2005).
 </li><li><a class="wiki" href="Versiones/0.8-3.html">Toba 0.8.3</a> (15/10/2005).
-</li><li><a class="wiki" href="Versiones/0.9.html">Toba 0.9.0</a> (21/02/2006).
 </li></ul></div>
    </div>
    

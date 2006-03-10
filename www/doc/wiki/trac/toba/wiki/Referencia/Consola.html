@@ -61,31 +61,16 @@
 </p>
 <h1 id="ConsolaAdministrativa">Consola Administrativa</h1>
 <p>
-Para realizar tareas de mantenimiento sobre los distintos proyectos e instancias existe una <a class="missing wiki" href="Consola/Comandos.html" rel="nofollow">lista de comandos?</a> programados en el lenguaje BASH. Estos comandos pueden ejecutarse en forma nativa en sistemas unix o utilizando cygwin bajo windows.
+Para realizar tareas de mantenimiento sobre los distintos proyectos e instancias existe una <a class="missing wiki" href="Consola/Comandos.html" rel="nofollow">lista de comandos?</a>.
 </p>
-<h2 id="Requisitos">Requisitos</h2>
-<ol><li>Entorno bash con comandos como awk, egrep, ls y sed.
-</li><li>Cliente php en el path del entorno
-</li><li>Comandos de postgres en el path del entorno (psql, createdb, dropdb)
-</li><li>Carpeta bin de toba en el path del entorno
-</li><li>Variables de entorno para toba:
-<ul><li>$toba_dir : directorio raiz de la instalación de toba
-</li><li>$toba_instancia : nombre de la instancia por defecto que utilizan los distintos comandos
-</li></ul></li></ol><h2 id="CumpliendolosrequisitosenCygwin">Cumpliendo los requisitos en Cygwin</h2>
-<p>
-Cuando se quiere utilizar una sola instalación de toba en una máquina la forma fácil de cumplir los requisitos es la siguiente:
-</p>
-<ol><li>Instalar el cygwin con las opciones por defecto
-</li><li>Agregar el path de php a windows, cygwin lo hereda
-</li><li>Instalar una version de postgresql para windows y agregar la carpeta bin al path de windows
-</li><li>Agregar el directorio bin de toba al path de windows
-</li><li>Agregar las variables al archivo etc/profile dentro del arbol de instalación de cygwin:
-<pre class="wiki">toba_dir=d:/proyectos/toba
-export toba_dir
-toba_instancia=desarrollo
-export toba_instancia
-</pre>
-</li></ol><h2 id="Configuraciónavanzada">Configuración avanzada</h2>
+<h2 id="Configuraciondelaconsola">Configuracion de la consola</h2>
+<ul><li>Agregar el archivo disparador de la consola al PATH (windows: toba.bat, linux: toba)
+</li><li>Definir variables de entorno
+<ul><li>toba_dir (obligatoria) : Directorio donde se encuentra en toba
+</li><li>toba_instancia (opcional): Instacia por defecto. Si no existe hay que agregar '-i' en los comandos que referencien instancias.
+</li><li>toba_proyecto (opcional): Proyecto por defecto. Si no existe hay que agregar '-p' en los comandos que referencien proyctos.
+</li></ul></li><li>Si los proyectos se versionan bajo SVN, tiene que existir un cliente de lina de comandos accesible por el PATH. Como los componentes de un proyecto se exportan por separado, el comando administrativo encargado de la exportacion tiene que eliminar y agregar archivos de acuerdo a la actividad de la instancia. Si el proyecto se versiona con SVN, el comando mantiene los cambios dialogando directamente con el cliente svn. ( Bajar el SVN, Agregar el SVN al PATH)
+</li></ul><h2 id="Configuraciónavanzada">Configuración avanzada</h2>
 <p>
 Cuando se quiere utilizar el entorno de consola para distintas instalaciones de toba existe una manera más flexible de cumplir con los requisitos. Consiste en no incluir ningún path ni variable relacionada con toba en forma directa sino relegarlo a la ejecución puntual de comandos. Por ejemplo si se cuenta con dos instalaciones totalmente distintas de toba toba_trunk y toba_0.8.2 se harían dos archivos ejecutables:
 </p>

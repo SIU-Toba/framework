@@ -72,10 +72,7 @@ Supongamos que queremos crear un <a class="wiki" href="../Referencia/Proyecto.ht
     </span><span class="code-lang">$instancia</span><span class="code-keyword">[</span><span class="code-string">"toba_instancia"</span><span class="code-keyword">][</span><span class="code-lang">apex_db_base</span><span class="code-keyword">] = </span><span class="code-string">"toba_instancia"</span><span class="code-keyword">;
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li></ol><p>
-     
-</p>
-<ol><li>Abrir consola (Cygwin)
+</pre></div></li><li>Abrir consola (Cygwin)
 </li><li>Comprobar la instancia actual:
 <pre class="wiki">echo $toba_instancia[enter]
 </pre>
@@ -85,19 +82,17 @@ Supongamos que queremos crear un <a class="wiki" href="../Referencia/Proyecto.ht
 </li><li>Crear la instancia <i>toba_instancia</i>
 <pre class="wiki">instancia iniciar[enter]
 </pre>
-</li><li>Crear el proyecto (este paso crea la carpeta del proyecto dentro de la carpeta <i>proyectos</i>)
-<pre class="wiki">proyecto crear mi_proyecto[enter]
-</pre>
 </li><li>Crear un usuario para el proyecto (puede crearse de 2 maneras)
 <pre class="wiki">db run datos_instancia_basicos.sql[enter]
 </pre>
-</li></ol><p>
 o accediendo a un cliente de postgres (PgAdminIII)
 En la base <i>toba_instancia</i> en las tablas:
-</p>
 <ul><li>Apex_usuario -&gt; crear un usuario
 </li><li>Apex_usuario_proyecto -&gt; crear usuario x proyecto
-</li></ul></div>
+</li></ul></li><li>Crear el proyecto (este paso crea la carpeta del proyecto dentro de la carpeta <i>proyectos</i>)
+<pre class="wiki">proyecto crear mi_proyecto[enter]
+</pre>
+</li></ol></div>
    </div>
    
   

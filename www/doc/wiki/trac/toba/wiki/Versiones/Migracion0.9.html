@@ -60,15 +60,63 @@
 <a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion0.9.0
 </p>
 <h1 id="InstructivodeMigraciónhacia0.9.0">Instructivo de Migración hacia 0.9.0</h1>
-<h2 id="Definiciondeinstancias">Definicion de instancias</h2>
-<blockquote>
+<h2 id="MigracióndeMETADATOS">Migración de METADATOS</h2>
 <p>
-<strong>instalacion migrar_definicion</strong>.
+La versión 0.9 implica un cambio radical en la forma en que los metadatos se almacenan en el sistema de archivos y por ende en los scripts administrativos que los manipulan. 
 </p>
-</blockquote>
+<h3 id="a1.Antesquenada">1. Antes que nada</h3>
+<p>
+Exportar los metadatos existentes y backupearlos en el SVN del proyecto. Esta es la ultima vez que se usan los comandos administrativos viejos.
+</p>
+<h3 id="a2.Checkout">2. Checkout</h3>
+<p>
+Hacer un checkout de la nueva versión de toba.
+</p>
+<h3 id="a3.MigrarlaInstalacióncompleta.">3. Migrar la Instalación completa.</h3>
+<p>
+En las versiones anteriores había una idea acoplada de lo que era la definición de las bases de datos disponibles con la definición de una instancia todo mezclado en el archivo <i>instancias.php</i>. Ahora la definición de las bases reside en el archivo <tt>$toba_dir/instalacion/bases.ini</tt> y la definición de la instancia X se encuentra en la carpeta <tt>$toba_dir/instalacion/i__X</tt>. Prueba de este acoplamiento es que no todas las definiciones del archivo instancias.php correspondían a instancias sino que también existían definiciones de bases de negocio. 
+</p>
+<p>
+La migración se dispara con el comando
+</p>
+<pre class="wiki">toba instalacion migrar
+</pre>
+<p>
+La primer pregunta se refiere al "ID del grupo de desarrollo", esto ayuda a que el trabajo de un grupo en un proyecto desarrollado en forma distribuida no afecte al trabajo de otro grupo, ver más en <a class="wiki" href="../Referencia/CelulaDesarrollo.html">Grupos de desarrollo</a>. La convención inicial que se puede tomar es que el grupo de Capital utilize el "1", Bahía el "2" y Tandil el "3".
+Luego va a preguntar por cada definición existente si corresponde a un <i>instancia TOBA</i>o no, todas las definiciones irán a parar al archivo <tt>$toba_dir/instalacion/bases.ini</tt> y por cada respuesta afirmativa se creará una carpeta <tt>$toba_dir/instalacion/i__X</tt> con definiciones básicas dentro. 
+</p>
+<p>
+Luego de esto se intenta migrar todas las instancias de la instalación y los proyecto contenidos dentro de esta instancia.
+</p>
+<p>
+Una vez migradas las definiciones se puede ver el resultado con el comando
+</p>
+<pre class="wiki">toba instancia info
+</pre>
+<p>
+Un paso opcional al finalizar la migración es borrar o renombrar el archivo obsoleto <i>$toba_dir/php/instancias.php</i>. Es una buena idea mirar el contenido creado en la carpeta <i>$toba_dir/instalacion</i> para entender la nueva disposición de archivos.
+</p>
+<h3 id="a4.Exportarlosproyectosconelnuevoformato">4. Exportar los proyectos con el nuevo formato</h3>
+<p>
+Los metadatos tienen que volver al sistema de archivos, pero esta vez al nuevo lugar <tt>$toba_dir/proyectos/mi_proyecto/metadatos</tt>
+</p>
+<pre class="wiki">toba exportar proyecto -p 'mi_proyecto'
+</pre>
+<p>
+Repetir este paso para cada proyecto.
+</p>
+<h3 id="a5.Regenerartodalainstancia">5. Regenerar toda la instancia</h3>
+<p>
+Se necesita cargar el nuevo nucleo de toba y el nuevo administrador:
+</p>
+<pre class="wiki">toba instancia regenerar
+</pre>
 <h2 id="ModificacionesenlaAPI">Modificaciones en la API</h2>
 <ul><li>La función ddrivetip está obsoleta y no se incluye por defecto, para utilizarla hacer un js::cargar_consumo_global(array('tooltips')), en su lugar se incluye una más potente (reescrita en base a una similar) llamada dhtml_tooltip.
-</li><li>Ya no se recomienda accede más con $this-&gt;dependendencias[$id], sino con $this-&gt;dependencia($id), esto permite una carga 'a demanda' de un objeto.
+</li><li>Desde el ci ya no se recomienda acceder más a las dependencias con $this-&gt;dependendencias[$id], sino con $this-&gt;dependencia($id), esto permite una carga 'a demanda' de un objeto.
+</li><li>La clase "manejador_archivos" era el metodo viejo de hacer UPLOADs. La funcionalidad de esa clase se paso a "manejador_upload_archivos"
+</li></ul><h2 id="NuevosRequisitos">Nuevos Requisitos</h2>
+<ul><li>Se necesita tener el cliente de línea de comandos de SVN (svn.exe para windows) en el path del sistema. Esto es porque la nueva exportación cuando se borra algún componente necesita borrar el archivo de ese componente y por ende lo intenta borrar del repositorio también (desde ya queda a desición del desarrollador hacer un commit y subir el cambio).
 </li></ul></div>
    </div>
    

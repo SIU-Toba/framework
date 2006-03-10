@@ -83,7 +83,7 @@ Esto crea los metadatos, los carga en la instancia, posteriormente crea un siste
 </p>
 <h2 id="Exportación">Exportación</h2>
 <p>
-Una vez creado el proyecto y realizado modificaciones sobre él por motivos de backup, sincronización con equipos remotos o lanzamiento del producto es necesario exportar los metadatos desde la BD (la instancia) hacia el sistema de archivos.
+Una vez creado el proyecto y realizado modificaciones sobre él por motivos de versionado, backup, sincronización con equipos remotos o lanzamiento del producto es necesario exportar los metadatos desde la BD (la instancia) hacia el sistema de archivos.
 </p>
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
@@ -95,25 +95,17 @@ Los metadatos del proyecto vuelven al sistema de archivos listos para ser versio
 Para poder modificar y trabajar con un proyecto es necesario tenerlo cargardo en una instancia. 
 Hay dos formas distintas de cargarlo:
 </p>
-<ol><li>Si no se cuenta con la instancia o se quiere regenerar por completo, esta se debe cargar:
+<ul><li>Si no se cuenta con la instancia o se quiere regenerar por completo, esta se debe cargar:
 <pre class="wiki"> toba instancia cargar
 </pre>
 </li><li>Si ya se cuenta con la instancia, se ejecuta desde la consola:
 <pre class="wiki"> toba proyecto cargar -p mi_proyecto
 </pre>
-</li></ol><p>
-Para hacer el camino inverso (crear los metadatos a partir de la instancia) se debe hacer:
-</p>
-<h2 id="Actualización">Actualización</h2>
+</li></ul><h2 id="Actualización">Actualización</h2>
 <p>
-Es común recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto basta con borrar la instanciación del proyecto:
+Es común recibir los archivos de un proyecto y recargarlo sin modificar el resto de la instancia, para esto ejecutar:
 </p>
-<pre class="wiki">toba proyecto eliminar -p mi_proyecto
-</pre>
-<p>
-Y cargarla posteriormente
-</p>
-<pre class="wiki">tob aproyecto cargar -p mi_proyecto
+<pre class="wiki">toba proyecto regenerar -p mi_proyecto
 </pre>
 </div>
    </div>

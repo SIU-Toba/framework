@@ -118,10 +118,10 @@ El escenario más común es tener una única instancia de desarrollo y actualizar o
 </li></ol><ol><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
 </li></ol><ol><li><i>Produccion</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción el primer paso es actualizar el proyecto en cuestión, esto traera los metadatos y el código actualizado.
 </li></ol><ol><li><i>Produccion</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
-<pre class="wiki">toba instancia exportar
+<pre class="wiki">toba instancia exportar_local
 </pre>
-</li><li><i>Produccion</i> - Cargar la instancia: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar la instancia:
-<pre class="wiki">toba instancia cargar
+</li><li><i>Produccion</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
+<pre class="wiki">toba proyecto regenerar -p mi_proyecto
 </pre>
 </li></ol><h3 id="ActualizacióndeToba">Actualización de Toba</h3>
 <p>
@@ -130,15 +130,25 @@ Muchas veces es necesario actualizar la versión de toba con la que se está desar
 <p>
 <a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/actualizacion_toba.png?format=raw"  style="" /></a>
 </p>
-<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos ya que va a ser reconstruida por completa. Así que para cada proyecto propio ubicado en esta instancia se debe hacer:
+<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y versionarlo. Así que para cada proyecto propio ubicado en esta instancia se debe hacer:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
-</li><li>Exportación de información local: (La exportación del proyecto actualmente también exporta la información local)
+</li><li>Exportación de información local: (YA NO ES NECESARIO: La exportación del proyecto actualmente también exporta la información local)
 </li><li>Actualizar Toba: Se trae la nueva revisión de Toba desde el SVN.
-</li><li>Regeneración de la instancia: Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario cargar la instancia:
-<pre class="wiki">toba instancia cargar
+</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="missing wiki" href="Versiones.html" rel="nofollow">Versiones Toba?</a>), para ello ejecutar:
+<pre class="wiki">toba instalacion migrar
 </pre>
 </li></ol><p>
+Por si la migración afecto algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
+</p>
+<pre class="wiki">toba proyecto exportar -p mi_proyecto
+</pre>
+<p>
+Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el sistema de archivos es necesario volver a cargar la instancia:
+</p>
+<pre class="wiki">toba instancia regenerar
+</pre>
+<p>
 Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
 </p>
 <p>

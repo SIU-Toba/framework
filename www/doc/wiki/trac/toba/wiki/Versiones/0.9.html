@@ -84,9 +84,9 @@ A continuación se muestran los cambios más significativos introducidos en esta v
 <h2 id="Comandosadministrativos">Comandos administrativos</h2>
 <ul><li>Administración multi-instancia.
 </li><li>Exportación granular de componentes.
-</li><li>Migración a PHP. Se modificó el layout de las carpetas. (Esta en php/consola y los comandos están en una subcarpeta que se llama comandos) 
-</li><li>Compilación de metadatos
-</li><li>Cambio del mecanismo de actualización de secuencias. Cada grupo de desarrollo de un mismo proyecto debería definir un número distinto en el método get_id_grupo_desarrollo() del archivo instalación/info_instalación.php. Esto define un 'namespace' de un millón de números para cada grupo. Al regenerar la instancia las secuencias de cada grupo se actualizan en base a su 'namespace' particular, evitando que se choquen al juntar los metadatos. Si la constante no se define se comporta como antes, por lo que no tiene sentido que un grupo lo defina y otro no (siempre en un mismo proyecto). 
+</li><li>Migración a PHP. Se modificó el layout de las carpetas. (Esta en php/consola y los comandos están en una subcarpeta que se llama comandos).
+</li><li>Compilación de metadatos de los proyectos.
+</li><li>Cambio del mecanismo de actualización de secuencias. Cada grupo de desarrollo de un mismo proyecto debería definir un número distinto en la entrada <tt>id_grupo_desarrollo</tt> del archivo <tt>instalación/instalacion.ini</tt>. Esto define un 'namespace' de un millón de números para cada grupo. Al regenerar la instancia o el proyecto las secuencias de cada grupo se actualizan en base a su 'namespace' particular, evitando que se choquen al juntar los metadatos. Si la constante no se define se comporta como antes, por lo que no tiene sentido que un grupo lo defina y otro no (siempre en un mismo proyecto). Ver <a class="wiki" href="../Referencia/CelulaDesarrollo.html">Grupos de desarrollo</a>.
 </li></ul><h2 id="Modificacionesenlaarquitecturainterna">Modificaciones en la arquitectura interna</h2>
 <ul><li>Puertas de acceso al núcleo
 </li><li>Unificación del flujo de metadatos. Se abstrajo el mecanismo de carga y construcción de componentes. Pueden consumirse definiciones compiladas o provenientes de la DB en forma indistinta.
@@ -100,7 +100,8 @@ La nueva solicitud procesa todos los pedidos en este orden permitiendo tener pro
 </p>
 </blockquote>
 </blockquote>
-<h2 id="ObjetosVarios">Objetos Varios</h2>
+<ul><li>La nueva solicitud web no conoce los conceptos de: acción, buffer o patrón, estos quedan resumidos a la solicitud_browser.
+</li></ul><h2 id="ObjetosVarios">Objetos Varios</h2>
 <ul><li>Nuevo tipo de tooltip que permite links y html, a diferencia del anterior no se mueve con el mouse y permite que se pueda seguir un link contenido.
 </li><li>Las descripciones de los tooltips pueden contener tags del tipo <tt>[wiki:Id Descripción]</tt> o <tt>[api:Id Descripción]</tt> apuntando al wiki y al api offline.
 </li><li>Los objetos que están colapsados desde el server van en ese estado al cliente (ya no se hace por javascript una vez cargada la pagina) 
