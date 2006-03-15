@@ -19,7 +19,6 @@ class menu_toba extends menu
 						'instalacion',
 						'instancia',
 						'proyecto',
-						'conversion',
 						'test'
 		);	
 	}
