@@ -254,6 +254,11 @@ function logger_limpiar() {
 	document.getElementById('logger_salida').innerHTML = "";
 }
 
+function salir(){
+	if(confirm('Desea terminar la sesi?n?')) 
+		top.location.href='/toba/aplicacion.php?ah=441968efabd65&fs=1';
+}
+
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus
 addEvent(window, "onload", "pagina_cargada=true;firstFocus();");
 

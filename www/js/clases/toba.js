@@ -153,5 +153,5 @@ var vinculador =
 		}
 		return vinc;
 	}
-	
+
 }

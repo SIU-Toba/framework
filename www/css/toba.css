@@ -624,11 +624,12 @@ TD.barra-item-link2 {
 	 TEXT-ALIGN: right
 }
 BODY {
-	margin: 0px 0px 0px 0px;
-	FONT-SIZE: 10px;
-	 FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
-	 BACKGROUND-COLOR: #e9e8e8;
+	padding: 0px;
+	margin: 0px;
+	font: normal normal normal 10px Verdana, Arial, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #e9e8e8;
 }
+
 BODY.lista {
 	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
 	 BACKGROUND-COLOR: #4f4c4d

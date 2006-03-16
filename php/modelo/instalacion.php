@@ -127,6 +127,7 @@ class instalacion extends elemento_modelo
 	/**
 	*	Conecta una base de datos definida en bases.ini
 	*	@param string $nombre Nombre de la base
+	* 	@return db Objeto db resultante
 	*/
 	function conectar_base( $nombre )
 	{

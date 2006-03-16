@@ -1,0 +1,107 @@
+/* SWIM2.0 :: Simple website menu
+****************************************************************
+* DOM scripting by brothercake -- http://www.brothercake.com/
+* Licensed under GPL -- http://www.gnu.org/copyleft/gpl.html
+****************************************************************
+* For professional menu solutions visit -- http://www.udm4.com/ 
+****************************************************************
+*/
+
+
+ul.horizontal, ul.horizontal li {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+	font-size:100%;
+	}
+
+ul.horizontal {
+	position:absolute;
+	left:20px;
+	cursor:default;
+	z-index:2000;
+	top:5px;
+	}
+
+ul.horizontal li {
+	width:auto;
+	float:left;
+	position:relative;
+	text-align:left;
+	left:10.55em;
+	margin:0 0 0 -1px;
+	}
+	
+* html ul.horizontal li {
+	margin:0 -10.55em 0 10.5em;
+	}
+
+ul[class^="horizontal"] li {
+	margin:0 -10.55em 0 10.45em;
+	left:0.05em;
+	}
+
+ul.horizontal ul {
+	z-index:2020;
+	padding:0;
+	cursor:default;
+	position:absolute;
+	top:auto;
+	width:8.2em;
+	margin:0 0 0 0;
+	left:-2000px;
+	}
+	
+ul.horizontal ul li {
+	width: 200px;
+	left:auto;
+	margin:-1px 0 0 0;
+	}
+
+ul.horizontal ul.wider, ul.horizontal ul.wider li {
+	width:12.2em;
+	}
+
+ul.horizontal ul ul {
+	margin:-0.45em 0 0 7.65em;
+	}
+
+@media Screen, Projection { 
+	ul.horizontal li:hover > ul { left:auto; }
+	ul.horizontal ul li:hover > ul { top:0; }
+	}
+
+ul.horizontal a, ul.horizontal a:visited {
+	display:block;
+	background: #E9E8E8;
+	border:1px solid #8C8D90;
+	padding:5px 7px;
+	font:normal normal normal 11px tahoma, verdana, sans-serif;
+	color:black;
+	text-decoration:none;
+	white-space: nowrap;
+	}	
+
+	
+ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
+	background:#0A246A;
+	color: white;
+	}
+
+
+
+ul.horizontal a { float:left; }
+@media Screen, Projection { ul.horizontal a { float:none; } }
+ul.horizontal a:not(:nth-child(n)) { float:left; }
+ul.horizontal ul a { float:none !important; }
+@media screen, projection {
+	* html ul.horizontal li {
+		display:inline; 
+		f\loat:left; 
+		background:#ffffff; 
+		}
+	}
+* html ul.horizontal li { position:static; }
+* html ul.horizontal a { position:relative; }
+ul[class^="horizontal"] ul { display:none; }
+ul[class^="horizontal"] ul { displa\y:block; }

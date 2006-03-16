@@ -267,10 +267,19 @@ class hilo
 	
 	/**
 	*	Retorna el conjunto de propiedades básicas del proycto actual
+	* 
 	*/
-	function obtener_proyecto_datos()
+	/**
+	 * Retorna todas o una propiedad básica del proyecto actual
+	 * @param string $propiedad Propiedad particular a consultar, sino se asumen que se piden todas
+	 */
+	function obtener_proyecto_datos($propiedad = null)
 	{
-		return $_SESSION['toba']["proyecto"];
+		if (! isset($propiedad)) {
+			return $_SESSION['toba']["proyecto"];
+		} else {
+			return $_SESSION['toba']["proyecto"][$propiedad];
+		}
 	}
 
 	function obtener_path()
@@ -393,9 +402,11 @@ class hilo
 	
 	static function get_claves_encriptacion()
 	{
-		$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
-		$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];
-		return $claves;
+		if (isset($_SESSION['toba'])) {
+			$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
+			$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];
+			return $claves;
+		}
 	}
 
 	function usuario_solicita_cronometrar()

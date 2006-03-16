@@ -61,7 +61,7 @@ ul.navmeister li a {
 	color:#000000;				/*	COLOR DE LA TIPOGRAFIA	*/
 	border:1px solid #000000;		/*	BORDE DEL MENU	*/
 	-moz-border-radius:0px;
-	font:0.6em verdana,arial,helvetica,sans-serif;	/*	FONT , TIPOGRAFIA	*/
+	font:11px verdana,arial,helvetica,sans-serif;	/*	FONT , TIPOGRAFIA	*/
 	font-weight:normal;
 	text-decoration:none;
 	display:block;

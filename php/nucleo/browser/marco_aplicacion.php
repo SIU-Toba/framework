@@ -8,7 +8,7 @@ class marco_aplicacion
 	
 	function frameset()
 	{
-		$vinculo_contenido = explode(apex_qs_separador,apex_pa_item_inicial_contenido);
+		$vinculo_contenido = explode(apex_qs_separador,apex_pa_item_inicial_contenido);		
 		$con_borde = $this->con_borde ? "YES" : "NO";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">

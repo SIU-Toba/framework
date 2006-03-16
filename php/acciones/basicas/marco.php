@@ -18,7 +18,11 @@ if ($datos_proyecto['con_frames']) {
 	
 } else {
 	//No utilizar frames implica que desde aquí se debe redireccionar al item inicial	
-	ei_arbol($datos_proyecto);	
+		$vinculo_contenido = explode(apex_qs_separador,apex_pa_item_inicial_contenido);
+		$vinculo_item = toba::get_vinculador()->crear_vinculo($vinculo_contenido[0], $vinculo_contenido[1], 
+																array(), array('validar' => false));
+		header("Location: $vinculo_item");
+		die;
 }
 
 ?>

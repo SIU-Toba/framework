@@ -1,0 +1,78 @@
+<?php
+
+class menu_css extends menu
+{
+	private $items;
+	private $arbol;
+	private $prof=1;
+	
+	function plantilla_css()
+	{
+		return "listmenu_horizontal";
+	}
+	
+	//-----------------------------------------------------------
+	
+	function preparar_arbol ()
+	{
+		$this->items = $this->items_de_menu(false);
+		$this->arbol .= "<ul id='menu-h'  class='horizontal'>\n";		
+		for ($i=0;$i<count($this->items);$i++) {
+			if ($this->items[ $i ]['padre'] == NULL) {
+				$this->get_padres($i);
+			}
+		}
+		$this->arbol .= "</ul>";	
+	}
+	
+	function get_padres($nodo)
+	{
+		$inden = str_repeat("\t",$this->prof );
+		
+		if (!$this->items[$nodo]['carpeta']) {
+			$vinculo = toba::get_vinculador()->crear_vinculo($this->items[$nodo]['proyecto'],
+															 $this->items[$nodo]['item'], array(),
+															 array('validar' => false, 'menu' => true));
+			$proyecto = $this->items[$nodo]['proyecto'];
+			$item = $this->items[$nodo]['item'];
+			$this->arbol .= $inden . "<li><a href='$vinculo' " .
+							"title='".$this->items[$nodo]['nombre']."'>" . 
+							$this->items[$nodo]['nombre']."</a>";
+			$this->arbol .= $inden . "</li>\n";
+		} else {
+			//Es carpeta
+			$this->arbol .= $inden . "<li><a>" . $this->items[$nodo]['nombre']."</a>\n";
+			$this->arbol .= $inden . "\t<ul>\n";
+			$rs = $this->get_hijos ($nodo);
+			for ($i=0;$i<count($rs);$i++) {
+				$this->prof++;
+				$this->get_padres($rs[ $i ]);
+				$this->prof--;
+			}
+			$this->arbol .= $inden . "\t</ul>\n";
+			$this->arbol .= $inden . "</li>\n";
+		}
+	}
+	
+	function get_hijos($nodo)
+	{
+		$hijos = array();
+		for ($i=0;$i<count($this->items);$i++) {
+			if ($this->items[ $i ]['padre'] == $this->items[ $nodo ][ 'item' ])	{
+				$hijos[] = $i;
+			}
+		}
+		return $hijos;
+	}
+	
+	//-----------------------------------------------------------
+
+	function mostrar()
+	{
+		$this->preparar_arbol();
+		echo $this->arbol;		
+		js::cargar_consumos_globales(array('menu/listmenu'));
+	}
+}
+
+?>

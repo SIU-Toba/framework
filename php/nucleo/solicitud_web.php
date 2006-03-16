@@ -10,6 +10,7 @@ require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
 require_once("nucleo/lib/configuracion.php");	      		//Acceso a la configuracion del sistema
 require_once("nucleo/browser/tipo_pagina/tipo_pagina.php");	//Clase base de Tipo de pagina generico
 require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu 
+require_once("nucleo/browser/interface/form.php");
 
 /**
  * @todo Hacer que el disparo de los servicios sea mas dinamico y no dependa de un switch
@@ -20,6 +21,7 @@ class solicitud_web extends solicitud
 	protected $zona;			//Objeto que representa una zona que vincula varios items
 	protected $cis;
 	protected $cn;
+	protected $tipo_pagina;
 	
 	function __construct($info)
 	{
@@ -40,6 +42,7 @@ class solicitud_web extends solicitud
 	function procesar()
 	{	
 		try {
+			$this->pre_proceso_servicio();
 			$this->crear_zona();
 			$this->cargar_objetos();
 			$this->procesar_eventos();
@@ -48,6 +51,18 @@ class solicitud_web extends solicitud
 			toba::get_logger()->debug($e);
 			toba::get_cola_mensajes()->agregar($e->getMessage(), "error");
 			toba::get_cola_mensajes()->mostrar();
+		}
+	}
+	
+	/**
+	 * Permite que el servicio produzca alguna salida antes de los eventos, para optimizaciones
+	 */
+	protected function pre_proceso_servicio()
+	{
+		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
+		$callback = "servicio_pre__$servicio";
+		if (method_exists($this, $callback)) {
+			$this->$callback();
 		}
 	}
 	
@@ -126,7 +141,7 @@ class solicitud_web extends solicitud
 		}
 
 		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
-		$callback = "servicio__$servicio";
+		$callback = "servicio_post__$servicio";
 		if (method_exists($this, $callback)) {
 			$this->$callback($destino);
 		} else {
@@ -134,22 +149,26 @@ class solicitud_web extends solicitud
 		}
 	}
 
-	protected function servicio__obtener_html($objetos)
+	protected function servicio_pre__obtener_html()
 	{
 		//--- Tipo de PAGINA
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
 		if (isset($this->info['tipo_pagina_archivo'])) {
 			require_once($this->info['tipo_pagina_archivo']);
 		}
-		$tipo_pagina = new $this->info['tipo_pagina_clase']();
-		$tipo_pagina->encabezado();		
+		$this->tipo_pagina = new $this->info['tipo_pagina_clase']();
+		$this->tipo_pagina->encabezado();		
 		//--- Abre el formulario
 		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
 		
+	}
+	
+	protected function servicio_post__obtener_html($objetos)
+	{
 		//--- Parte superior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
 			$this->zona->obtener_html_barra_superior();
-		}
+		}			
 		
 		//--- Genera la interfaz gráfica de todos los CIs		
 		echo "\n<div align='center' class='cuerpo'>\n";
@@ -177,7 +196,7 @@ class solicitud_web extends solicitud
 		//--- Fin del form y parte inferior del tipo de página
 		echo form::cerrar();
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (pie) ',apex_nivel_nucleo);
-       	$tipo_pagina->pie();
+       	$this->tipo_pagina->pie();
 	}
 	
 	protected function servicio__vista_pdf( $objetos )
