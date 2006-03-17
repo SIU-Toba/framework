@@ -3,8 +3,15 @@
 class menu_css extends menu
 {
 	private $items;
-	private $arbol;
 	private $prof=1;
+	private $arbol;
+	protected $imagen_nodo ;
+	
+	function __construct()
+	{
+		$this->imagen_nodo = recurso::imagen_apl('menu_nodo_css.gif', false);
+	}
+	
 	
 	function plantilla_css()
 	{
@@ -15,8 +22,16 @@ class menu_css extends menu
 	
 	function preparar_arbol ()
 	{
+
+		$this->arbol .= '<style type="text/css">
+							ul.horizontal .carpeta {
+								background-repeat: no-repeat;
+								background-position: center right;
+								background-image: url("'.$this->imagen_nodo.'");
+							}
+						</style>';
 		$this->items = $this->items_de_menu(false);
-		$this->arbol .= "<ul id='menu-h'  class='horizontal'>\n";		
+		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		
 		for ($i=0;$i<count($this->items);$i++) {
 			if ($this->items[ $i ]['padre'] == NULL) {
 				$this->get_padres($i);
@@ -41,7 +56,8 @@ class menu_css extends menu
 			$this->arbol .= $inden . "</li>\n";
 		} else {
 			//Es carpeta
-			$this->arbol .= $inden . "<li><a>" . $this->items[$nodo]['nombre'] . "</a>\n";
+			$class = ($this->prof > 1) ? " class='carpeta'" : "";
+			$this->arbol .= $inden . "<li><a $class>" . $this->items[$nodo]['nombre'] . "</a>\n";
 			$this->arbol .= $inden . "\t<ul>\n";
 			$rs = $this->get_hijos ($nodo);
 			for ($i=0;$i<count($rs);$i++) {
