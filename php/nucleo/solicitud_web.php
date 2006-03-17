@@ -149,6 +149,10 @@ class solicitud_web extends solicitud
 		}
 	}
 
+		//---------------------------------------------------------------
+		//-------------------------- SERVICIOS --------------------------
+		//---------------------------------------------------------------
+	
 	protected function servicio_pre__obtener_html()
 	{
 		//--- Tipo de PAGINA
@@ -199,7 +203,7 @@ class solicitud_web extends solicitud
        	$this->tipo_pagina->pie();
 	}
 	
-	protected function servicio__vista_pdf( $objetos )
+	protected function servicio_post__vista_pdf( $objetos )
 	{
 		require_once('nucleo/lib/salidas/pdf.php');
 		$salida = new pdf();
@@ -207,7 +211,7 @@ class solicitud_web extends solicitud
 		$salida->generar_salida();
 	}
 	
-	protected function servicio__vista_html_impr( $objetos )
+	protected function servicio_post__vista_html_impr( $objetos )
 	{
 		$datos = toba::get_hilo()->obtener_proyecto_datos();
 		if ( trim($datos['impr_archivo']) != '' && 	trim($datos['impr_clase']) != '' ) {
@@ -253,6 +257,17 @@ class solicitud_web extends solicitud
 			echo "\nwindow.$objeto_js.iniciar();\n";
 		}			
 	}
+	
+	protected function servicio_post__cascadas_efs($objetos)
+	{
+		toba::get_hilo()->desactivar_reciclado();
+		$rs = array(apex_ef_no_seteado => '--SELECCIONE--', 'a' => 'A', 'b' => 'B', 'c' => 'C');
+		require_once('3ros/JSON.php');
+		$json = new Services_JSON($rs);
+		$respuesta = $json->encode($rs);
+		echo $respuesta;
+	}
+		
 //--------------------------------------------------------------------------------------------
 	/**
 	 * @return zona

@@ -429,8 +429,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(datos)
+		function recargar_slave_{$this->id_form}(respuesta)
 		{
+			var datos = eval('(' + respuesta.responseText + ')');	
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.options.length = 0;//Borro las opciones que existan
 			//Creo los OPTIONS recuperados
@@ -572,21 +573,15 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(datos)
+		function recargar_slave_{$this->id_form}(respuesta)
 		{
+			var datos = eval('(' + respuesta.responseText + ')');			
 			var opciones = document.getElementById('{$this->id_form}_opciones');
 
 			//Creo los OPTIONS recuperados
 			for (id in datos){
 				var nuevo = document.createElement('div');
 				nuevo.className = 'ef-multi-check'; 
-/*				var check = document.createElement('input');
-				check.setAttribute('id', '{$this->id_form}[]',0);
-				check.setAttribute('name', '{$this->id_form}[]',0);				
-				check.type = 'checkbox';
-				check.value = id;
-				check.className = 'ef-checkbox';
-				nuevo.appendChild(check);*/
 				nuevo.innerHTML = \"<input name='{$this->id_form}[]' type='checkbox' value='\" + id + \"' class='ef-checkbox'>\";				
 				nuevo.appendChild(document.createTextNode(datos[id]));
 				opciones.appendChild(nuevo);

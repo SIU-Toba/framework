@@ -126,8 +126,9 @@ class ef_combo extends ef
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(datos)
+		function recargar_slave_{$this->id_form}(respuesta)
 		{
+			var datos = eval('(' + respuesta.responseText + ')');
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.options.length = 0;//Borro las opciones que existan
 			//Creo los OPTIONS recuperados
@@ -137,12 +138,11 @@ class ef_combo extends ef
 					hay_datos = true;
 				s_.options[s_.options.length] = new Option(datos[id], id);
 			}
-			if (hay_datos)
-			{
+			if (hay_datos) {
 				s_.disabled = false;
 				s_.focus();
 			}
-			atender_proxima_consulta();
+			atender_proxima_consulta();			
 		}
 		";	
 	}

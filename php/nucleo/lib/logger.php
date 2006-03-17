@@ -284,8 +284,9 @@ class logger
 		if(apex_pa_log_pantalla && ! $this->ocultar){
 			if(apex_solicitud_tipo=="consola"){
 				$this->pantalla_consola();
-			}elseif(apex_solicitud_tipo=="browser"){
-				$this->pantalla_browser();			
+			} elseif (apex_solicitud_tipo=="browser" && 
+					toba::get_hilo()->obtener_servicio_solicitado() == 'obtener_html'){
+				$this->pantalla_browser();
 			}
 		}
 	}

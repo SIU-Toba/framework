@@ -333,11 +333,16 @@ function atender_proxima_consulta()
 		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3], proximo[4]);
 }
 
-function consultar_info(item_proyecto, item, parametros, callback, prefijo_vinculo)
+function consultar_info(item_proyecto, item, parametros, nombre_callback, prefijo_vinculo)
 {
-	nombre_frame = this.name;
-	nombre_callback = callback;
-	top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
+	var callback =
+	{
+	  success: window[nombre_callback],
+	  failure: toba.error_comunicacion
+	}
+	var vinculo = vinculador.autovinculo('cascadas_efs');
+	var con = conexion.asyncRequest('GET', vinculo, callback, null);
+	//top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
 }
 
 nombre_callback=""; 		//Funcion a activar cuando se retorna el valor
