@@ -284,10 +284,10 @@ class objeto_ci extends objeto_ei
 				return $this->ir_a_limitrofe($tab);
 			} 
 			if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
-				if(in_array($tab, $this->memoria['tabs'])){
+				if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
 					return $tab;
 				}else{
-					$this->log->error($this->get_txt() . "Se solicito un TAB inexistente.");
+					toba::get_logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
 					//Error, voy a etapa inicial
 					return $this->get_etapa_inicial();
 				}
@@ -332,6 +332,10 @@ class objeto_ci extends objeto_ei
 	 */
 	protected function ir_a_limitrofe($sentido)
 	{
+		if (!isset($this->memoria['etapa_gi'])) {
+			toba::get_logger()->crit("No se pudo determinar la etapa_gi anterior, no se encuentra en la memoria sincronizada");
+			return $this->get_etapa_inicial();
+		}
 		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior
 		$candidato = $this->memoria['etapa_gi'];
 		while ($candidato !== false) {

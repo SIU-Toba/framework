@@ -41,7 +41,7 @@ class menu_css extends menu
 			$this->arbol .= $inden . "</li>\n";
 		} else {
 			//Es carpeta
-			$this->arbol .= $inden . "<li><a>" . $this->items[$nodo]['nombre']."</a>\n";
+			$this->arbol .= $inden . "<li><a>" . $this->items[$nodo]['nombre'] . "</a>\n";
 			$this->arbol .= $inden . "\t<ul>\n";
 			$rs = $this->get_hijos ($nodo);
 			for ($i=0;$i<count($rs);$i++) {

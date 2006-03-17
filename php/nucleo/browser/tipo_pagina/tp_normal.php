@@ -97,9 +97,9 @@ class tp_normal extends tp_basico
 		echo "<td width='1' class='barra-0'>". gif_nulo(8,22) . "</td>";
 		$info = toba::get_solicitud()->get_datos_item();			
 	
-		echo "<td width='99%' class='barra-0-tit'>".$this->titulo_pagina()."&nbsp;&nbsp;</td>";
+		echo "<td width='99%' class='barra-0-tit'>".$info['item_nombre']."&nbsp;&nbsp;</td>";
 
-		if(toba::get_solicitud()->cronometrar){
+		if (toba::get_solicitud()->cronometrar){
 			$parametros = array("solicitud"=> toba::get_solicitud()->id() );
 			echo "<td  class='barra-0-tit' width='1'>&nbsp;";
 			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/cronometro",$parametros,true);
@@ -112,7 +112,7 @@ class tp_normal extends tp_basico
 			echo "</td>";
 		}			
 		
-		if(toba::get_solicitud()->existe_ayuda()){
+		if (toba::get_solicitud()->existe_ayuda()){
 			$parametros = array("item"=>$info["item"],
 								"proyecto"=>$info["item_proyecto"]);
 			echo "<td  class='barra-0-tit' width='1'>&nbsp;";
