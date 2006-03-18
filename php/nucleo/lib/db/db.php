@@ -85,16 +85,16 @@ class db
 			for($a = 0; $a < count($sql);$a++){
 				if ( $this->conexion->execute($sql[$a]) === false ){
 					throw new excepcion_toba("ERROR ejecutando SQL. ".
-											"-- Mensaje MOTOR: (" . $this->conexion->ErrorMsg() . ")".
-											"-- SQL ejecutado: (" . $sql[$a] . ").");
+											"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
+											"-- SQL ejecutado: [" . $sql[$a] . "].");
 				}
 				$afectados += $this->conexion->Affected_Rows();
 			}
 		} else {
 			if ( $this->conexion->execute($sql) === false ){
 				throw new excepcion_toba("ERROR ejecutando SQL. ".
-										"-- Mensaje MOTOR: (" . $this->conexion->ErrorMsg() . ")".
-										"-- SQL ejecutado: (" . $sql . ").");
+										"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
+										"-- SQL ejecutado: [" . $sql . "].");
 			}
 			$afectados += $this->conexion->Affected_Rows();			
 		}
