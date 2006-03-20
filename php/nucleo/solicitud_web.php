@@ -24,6 +24,7 @@ class solicitud_web extends solicitud
 	
 	function __construct($info)
 	{
+		define("apex_solicitud_tipo","web");		
 		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
         

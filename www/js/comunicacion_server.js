@@ -345,7 +345,7 @@ function callback_cascadas(respuesta)
 
 function consultar_info(item_proyecto, item, parametros, nombre_callback, prefijo_vinculo)
 {
-	if (top[apex_frame_com]) {
+	if (apex_solicitud_tipo == 'browser' && top[apex_frame_com]) {
         var nombre_frame = this.name; 
         window.nombre_callback = nombre_callback; 		
 		top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);

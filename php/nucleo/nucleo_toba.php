@@ -45,7 +45,6 @@ class nucleo_toba
 	
 	function acceso_web()
 	{
-		define("apex_solicitud_tipo","browser");                //Establezco el tipo de solicitud
 		try {
 			require_once("nucleo/solicitud.php");
 			require_once("nucleo/browser/http.php");				//Genera Encabezados de HTTP

@@ -95,6 +95,7 @@ class js
 					case 'comunicacion_server':
 						echo js::abrir();
 						echo "var apex_frame_com='".apex_frame_com."'\n";
+						echo "var apex_solicitud_tipo='".apex_solicitud_tipo."'\n";
 						echo js::cerrar();
 						echo js::incluir(recurso::js("$consumo.js"));
 						break;

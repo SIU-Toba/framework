@@ -41,7 +41,7 @@
  	@@retorno: string | HTML del mensaje
 */
 	{
-		if(apex_solicitud_tipo=="consola"){
+		if(defined('apex_solicitud_tipo') && apex_solicitud_tipo=="consola"){
 			echo $mensaje . "\n\n";
 			return;
 		}		
@@ -228,7 +228,7 @@
 */
 	{
 		//Me estan llamando por consola??
-		if(apex_solicitud_tipo=="consola"){
+		if(defined('apex_solicitud_tipo') && apex_solicitud_tipo=="consola"){
 			//echo "<pre>";
 			print_r($arbol);
 			//echo "</pre>";

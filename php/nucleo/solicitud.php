@@ -401,7 +401,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		if($mostrar){
 			if(apex_solicitud_tipo =="consola"){
 				echo $observacion	."\n";	
-			}elseif(apex_solicitud_tipo =="browser"){	
+			}else {	
 				echo ei_mensaje($observacion,$tipo);
 			}
 		}	
