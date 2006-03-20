@@ -91,7 +91,7 @@ class instalacion extends elemento_modelo
 		$claves['get'] = $this->ini_instalacion['clave_db'];
 		return $claves;
 	}
-
+	
 	function get_parametros_base( $id_base )
 	{
 		$this->cargar_info_ini();		
@@ -269,6 +269,23 @@ class instalacion extends elemento_modelo
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->guardar( self::archivo_info_basica() );
+	}
+	
+	/**
+	 * Cambia o agrega algunos parametros al archivo de información de la instalación
+	 * @param array $datos clave => valor
+	 */
+	function cambiar_info_basica($datos)
+	{
+		$ini = new ini(self::archivo_info_basica());
+		foreach ($datos as $entrada => $valor) {
+			if ($ini->existe_entrada) {
+				$ini->set_datos_entrada($entrada, $valor);
+			} else {
+				$ini->agregar_entrada($entrada, $valor);
+			}
+		}
+		$ini->guardar();
 	}
 	
 	/**

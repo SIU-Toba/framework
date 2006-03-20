@@ -11,6 +11,11 @@ class ci_editor_php extends objeto_ci
 	protected $meta_clase;	//Al CI le sirve para contextualizar el FORM de opciones
 	protected $subcomponente;
 
+	function evt__inicializar()
+	{
+		$this->set_datos(toba::get_solicitud()->zona()->editable_info);
+	}
+	
 	function mantener_estado_sesion()
 	{
 		$props = parent::mantener_estado_sesion();
@@ -61,11 +66,6 @@ class ci_editor_php extends objeto_ci
 		$this->archivo_php = new archivo_php($path);
 		$this->clase_php = new clase_php($this->datos['subclase'], $this->archivo_php, $this->datos['clase'], $this->datos['clase_archivo']);
 		$this->clase_php->set_meta_clase($this->meta_clase);
-		//- 4 - Se escucha el hilo para saber si se pidio algun evento desde afuera
-		$evento = toba::get_hilo()->obtener_parametro("evento");
-		if ($evento == 'abrir') {
-			$this->evt__abrir();
-		}
 	}
 	
 	//--- EVENTOS
@@ -107,6 +107,15 @@ class ci_editor_php extends objeto_ci
 	}
 	
 
+	/**
+	 * Servicio de ejecución externo
+	 */
+	function servicio__ejecutar()
+	{ 
+		
+		$this->evt__abrir();
+	}
+	
 	//--- Archivo Plano	
 	function obtener_html_contenido__1()
 	{

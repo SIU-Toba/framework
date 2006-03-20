@@ -4,13 +4,9 @@
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-barra-superior-tabn';\"";
 	ei_html_cabecera($this->info["item_nombre"], recurso::css(),"control");
+	js::cargar_consumos_basicos();
 ?>
 <script language='javascript'>
-function salir(){
-if(confirm('Desea terminar la sesion?')) 
-	top.location.href='<? echo $this->hilo->finalizar() ?>';
-}
-
 var frame_admin = top.document.getElementById('frameset_admin');
 var ancho_frame = frame_admin.cols;
 var expandido = true;

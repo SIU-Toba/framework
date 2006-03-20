@@ -255,8 +255,14 @@ function logger_limpiar() {
 }
 
 function salir(){
-	if(confirm('Desea terminar la sesi?n?')) 
-		top.location.href='/toba/aplicacion.php?ah=441968efabd65&fs=1';
+	if(confirm('Desea terminar la sesión?')) {
+		var vinculo = toba_prefijo_vinculo + '&fs=1';
+		if (top) {
+			top.location.href= vinculo;
+		} else {
+			location.href = vinculo; 
+		}
+	}
 }
 
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus

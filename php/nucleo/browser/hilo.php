@@ -408,6 +408,13 @@ class hilo
 			return $claves;
 		}
 	}
+	
+	function get_editor_php() 
+	{
+		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {
+			return $_SESSION['toba']['instalacion']['editor_php'];
+		}
+	}
 
 	function usuario_solicita_cronometrar()
 /*

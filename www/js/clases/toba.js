@@ -96,6 +96,14 @@ var toba =
 		}
 	},
 	
+	comunicar_vinculo : function(vinculo, nombre_callback) {
+		var callback = {
+			success: nombre_callback, 
+			failure: toba.error_comunicacion
+		}; 
+		var con = conexion.asyncRequest("GET", vinculo, callback, null);
+	},
+	
 	servicio__html_parcial : function(respuesta) {
 		//Primero se borra el rastro de los objetos anteriores en el objeto
 		for (var d in this._ajax._deps) {

@@ -45,12 +45,17 @@ class archivo_php
 	
 	function abrir()
 	{
+		$cmd = toba::get_hilo()->get_editor_php();
+		if (strlen($cmd) == 0) {
+			throw new excepcion_toba_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
+		}
 		if (manejador_archivos::es_windows()) {
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
-			exec("start $archivo");
+			exec("$cmd $archivo");
 		} else {
 			$archivo = manejador_archivos::path_a_unix($this->nombre);
-			$fp = popen("export HOME=/home/k7k0;export DISPLAY=:0.0;\n kfmclient exec $archivo", 'r');
+			echo "$cmd $archivo";			
+			$fp = popen("$cmd $archivo", 'r');
 			pclose($fp);
 		}
 	}

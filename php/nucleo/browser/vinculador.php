@@ -222,9 +222,12 @@ class vinculador
 	/**
 	 * Crea un vinculo al mismo item propagando la zona
 	 */
-	function crear_autovinculo()
+	function crear_autovinculo($parametros=array(), $opciones=array())
 	{
-		return $this->generar_solicitud(null,null,null,true);		
+		if (! isset($opciones['zona'])) {
+			$opciones['zona'] = true;	
+		}
+		return $this->crear_vinculo(null, null, $parametros, $opciones);
 	}
 
 //##################################################################################
@@ -277,7 +280,7 @@ class vinculador
 		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
 			$parametros_formateados .= '&'.apex_hilo_qs_servicio ."=". $servicio;
 		}
-		if (isset($objetos_destino) && count($objetos_destino) > 0) {
+		if (isset($objetos_destino) && is_array($objetos_destino) && count($objetos_destino) > 0) {
 			$objetos = array();
 			foreach ($objetos_destino as $obj) {
 				$objetos[] = $obj[0] . apex_qs_separador . $obj[1];
@@ -296,7 +299,7 @@ class vinculador
 			$parametros_formateados .= "&". apex_hilo_qs_cronometro ."=1";
 		}
 		//Formateo paremetros directos
-		if(isset($parametros)){
+		if(isset($parametros) && is_array($parametros)){
 			foreach($parametros as $clave => $valor){
 				$parametros_formateados .= "&$clave=$valor";
 			}

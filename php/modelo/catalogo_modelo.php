@@ -4,7 +4,6 @@ require_once('modelo/proyecto.php');
 require_once('modelo/instancia.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/nucleo.php');
-require_once('modelo/conversor.php');
 
 class catalogo_modelo
 {

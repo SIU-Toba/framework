@@ -207,7 +207,12 @@ class objeto_ei_arbol extends objeto_ei
 			foreach ($utilerias as $utileria) {
 				$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
 				if (isset($utileria['vinculo'])) {
-					$salida .= "<a target='{$this->frame_destino}' href='".$utileria['vinculo']."'>$img</a>\n";
+					if (isset($utileria['target'])) {
+						$target = "target='".$utileria['target']."'";
+					} else {
+						$target = "target='{$this->frame_destino}'";
+					}
+					$salida .= "<a href='".$utileria['vinculo']."' $target>$img</a>\n";
 				} else {
 					$salida .= $img;
 				}

@@ -141,7 +141,7 @@ class solicitud_web extends solicitud
 		}
 
 		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
-		$callback = "servicio_post__$servicio";
+		$callback = "servicio__$servicio";
 		if (method_exists($this, $callback)) {
 			$this->$callback($destino);
 		} else {
@@ -167,7 +167,7 @@ class solicitud_web extends solicitud
 		
 	}
 	
-	protected function servicio_post__obtener_html($objetos)
+	protected function servicio__obtener_html($objetos)
 	{
 		//--- Parte superior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
@@ -203,7 +203,7 @@ class solicitud_web extends solicitud
        	$this->tipo_pagina->pie();
 	}
 	
-	protected function servicio_post__vista_pdf( $objetos )
+	protected function servicio__vista_pdf( $objetos )
 	{
 		require_once('nucleo/lib/salidas/pdf.php');
 		$salida = new pdf();
@@ -211,7 +211,7 @@ class solicitud_web extends solicitud
 		$salida->generar_salida();
 	}
 	
-	protected function servicio_post__vista_html_impr( $objetos )
+	protected function servicio__vista_html_impr( $objetos )
 	{
 		$datos = toba::get_hilo()->obtener_proyecto_datos();
 		if ( trim($datos['impr_archivo']) != '' && 	trim($datos['impr_clase']) != '' ) {
@@ -258,7 +258,7 @@ class solicitud_web extends solicitud
 		}			
 	}
 	
-	protected function servicio_post__cascadas_efs($objetos)
+	protected function servicio__cascadas_efs($objetos)
 	{
 		toba::get_hilo()->desactivar_reciclado();		
 		require_once('3ros/JSON.php');
@@ -273,6 +273,15 @@ class solicitud_web extends solicitud
 		}
 	}
 		
+	/**
+	 * Servicio genérico de acceso a objetos a través de parámetros
+	 */
+	protected function servicio__ejecutar($objetos)
+	{
+		foreach ($objetos as $objeto) {
+			$objeto->servicio__ejecutar();
+		}			
+	}
 //--------------------------------------------------------------------------------------------
 	/**
 	 * @return zona

@@ -104,13 +104,6 @@ class objeto_mt_abms_item_vinculo extends objeto_mt_abms
 */
 {
 
-	function objeto_mt_abms_item_vinculo($id,&$solicitud)
-/*
- 	@@acceso: nucleo
-	@@desc: Muestra la definicion del OBJETO
-*/
-	{	parent::objeto_mt_abms($id, $solicitud);	}
-
 	function validar_estado()
 /*
  	@@acceso: interno
