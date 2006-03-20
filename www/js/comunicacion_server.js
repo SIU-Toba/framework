@@ -333,17 +333,35 @@ function atender_proxima_consulta()
 		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3], proximo[4]);
 }
 
+function callback_cascadas(respuesta)
+{
+	try {
+		var datos = eval('(' + respuesta.responseText + ')');
+		window[respuesta.argument](datos);
+	} catch (e) {
+		alert('Error: ' + respuesta.responseText + e);
+	}
+}
+
 function consultar_info(item_proyecto, item, parametros, nombre_callback, prefijo_vinculo)
 {
-	var callback =
-	{
-	  success: window[nombre_callback],
-	  failure: toba.error_comunicacion
+	if (top[apex_frame_com]) {
+        var nombre_frame = this.name; 
+        window.nombre_callback = nombre_callback; 		
+		top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
+	} else {
+		var callback =
+		{
+		  success: callback_cascadas,
+		  failure: toba.error_comunicacion,
+		  argument: nombre_callback
+		}
+		parm = encodeURI(parametros); 
+		var vinculo = vinculador.autovinculo('cascadas_efs') + '&param-cascadas=' + parm;
+		var con = conexion.asyncRequest('GET', vinculo, callback, null);
 	}
-	var vinculo = vinculador.autovinculo('cascadas_efs');
-	var con = conexion.asyncRequest('GET', vinculo, callback, null);
-	//top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
 }
+
 
 nombre_callback=""; 		//Funcion a activar cuando se retorna el valor
 com_datos_retornados="";	//Datos retornados por la funcion

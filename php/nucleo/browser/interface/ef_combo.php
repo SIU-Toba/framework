@@ -126,9 +126,8 @@ class ef_combo extends ef
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(respuesta)
+		function recargar_slave_{$this->id_form}(datos)
 		{
-			var datos = eval('(' + respuesta.responseText + ')');
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.options.length = 0;//Borro las opciones que existan
 			//Creo los OPTIONS recuperados

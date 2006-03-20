@@ -13,7 +13,6 @@ require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu
 require_once("nucleo/browser/interface/form.php");
 
 /**
- * @todo Hacer que el disparo de los servicios sea mas dinamico y no dependa de un switch
  * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  */
 class solicitud_web extends solicitud
@@ -260,12 +259,17 @@ class solicitud_web extends solicitud
 	
 	protected function servicio_post__cascadas_efs($objetos)
 	{
-		toba::get_hilo()->desactivar_reciclado();
-		$rs = array(apex_ef_no_seteado => '--SELECCIONE--', 'a' => 'A', 'b' => 'B', 'c' => 'C');
+		toba::get_hilo()->desactivar_reciclado();		
 		require_once('3ros/JSON.php');
-		$json = new Services_JSON($rs);
-		$respuesta = $json->encode($rs);
-		echo $respuesta;
+		
+		if (isset($_GET['param-cascadas'])) {
+			$_POST['parametros'] = $_GET['param-cascadas'];
+			include('acciones/basicas/ef/respuesta.php');
+		} else {
+			$json = new Services_JSON();
+			$error = array(apex_ef_no_seteado => 'Error en la comunicacion, falta indicar los parametros');
+			echo $json->encode($error);
+		}
 	}
 		
 //--------------------------------------------------------------------------------------------
@@ -293,5 +297,16 @@ class solicitud_web extends solicitud
 			toba::get_db('instancia')->ejecutar($sql);
 		}
  	}
+}
+
+/**
+ * Función temporal para no cambiar en profundidad la implementación actual de cascadas
+ * @todo Esta funcion no debe estar cuando se refactorizen las cascadas en forma completa
+ */
+function responder($rs)
+{
+	$json = new Services_JSON();
+	$respuesta = $json->encode($rs);
+	echo $respuesta;	
 }
 ?>

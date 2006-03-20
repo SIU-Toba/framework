@@ -346,9 +346,8 @@ if( ereg_nulo.test(formulario.". $this->id_form .".value) ){
 			$solo_lect = "s_.readOnly = false;";
 		}
 		return "
-		function recargar_slave_{$this->id_form}(respuesta)
+		function recargar_slave_{$this->id_form}(dato)
 		{
-			var dato = eval('(' + respuesta.responseText + ')');
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.value = dato;
 			$solo_lect

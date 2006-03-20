@@ -429,9 +429,8 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(respuesta)
+		function recargar_slave_{$this->id_form}(datos)
 		{
-			var datos = eval('(' + respuesta.responseText + ')');	
 			s_ = document.{$this->nombre_formulario}.{$this->id_form};
 			s_.options.length = 0;//Borro las opciones que existan
 			//Creo los OPTIONS recuperados
@@ -573,9 +572,8 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 	function javascript_slave_recargar_datos()
 	{
 		return "
-		function recargar_slave_{$this->id_form}(respuesta)
+		function recargar_slave_{$this->id_form}(datos)
 		{
-			var datos = eval('(' + respuesta.responseText + ')');			
 			var opciones = document.getElementById('{$this->id_form}_opciones');
 
 			//Creo los OPTIONS recuperados

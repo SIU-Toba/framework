@@ -251,7 +251,8 @@ class Services_JSON
                 return (float) $var;
 
             case 'string':
-                // STRINGS ARE EXPECTED TO BE IN ASCII OR UTF-8 FORMAT
+                // STRINGS ARE EXPECTED TO BE IN ASCII OR UTF-8 FORMAT            	
+            	$var = iconv("ISO-8859-1", "UTF-8", $var);
                 $ascii = '';
                 $strlen_var = strlen($var);
 
