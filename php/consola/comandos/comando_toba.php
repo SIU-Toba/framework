@@ -230,10 +230,17 @@ class comando_toba extends comando
 	{
 		$titulo = "Seleccionar PROYECTOS";
 		$proyectos = proyecto::get_lista();
-		foreach( $proyectos as $proyecto ) {
-			$p[ $proyecto ]	= $proyecto;
+		if( count( $proyectos ) > 0 ) {
+			foreach( $proyectos as $proyecto ) {
+				$p[ $proyecto ]	= $proyecto;
+			}
+			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', $obligatorio );
+		} else {
+			if ( $obligatorio ) {
+				throw new excepcion_toba('No hay proyectos definidos');	
+			}
+			return array();
 		}
-		return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', $obligatorio );
 	}
 
 	/**
