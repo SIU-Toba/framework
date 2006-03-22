@@ -64,8 +64,6 @@ define("apex_pa_acceso_directo_editor",1);//Los OBJETOS muestran LINKs a sus EDI
 #----<  LOGGER  >----------------------------------------------------------
 #-------------------------------------------------------------------------------
 # Indica el nivel de ERRORES que se va a registrar
-# 0 - EMERG
-# 1 - ALERT
 # 2 - CRIT
 # 3 - ERROR
 # 4 - WARNING
@@ -74,13 +72,11 @@ define("apex_pa_acceso_directo_editor",1);//Los OBJETOS muestran LINKs a sus EDI
 # 7 - DEBUG
 # Nivel de log a ARCHVO
 define("apex_pa_log_archivo",1);
-define("apex_pa_log_archivo_nivel",2);
+define("apex_pa_log_archivo_nivel",5);
 # Nivel de log a la DB
 define("apex_pa_log_db",1);
 define("apex_pa_log_db_nivel",2);
-# Nivel de log a la pantalla
-define("apex_pa_log_pantalla",1);
-define("apex_pa_log_pantalla_nivel",7);
+
 #-------------------------------------------------------------------------------
 #----<  ASPECTO  >----------------------------------------------------------
 #-------------------------------------------------------------------------------

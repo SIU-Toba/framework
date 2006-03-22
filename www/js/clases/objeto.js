@@ -83,7 +83,7 @@ def.constructor = objeto;
 	}
 	
 	def.colapsar = function() {
-		boton = this.obtener_boton_colapsar();
+		var boton = this.obtener_boton_colapsar();
 		if (boton) {
 			boton.src = toba.imagen('maximizar');
 		}

@@ -162,13 +162,13 @@ class solicitud_web extends solicitud
 		}
 		$this->tipo_pagina = new $this->info['tipo_pagina_clase']();
 		$this->tipo_pagina->encabezado();		
-		//--- Abre el formulario
-		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
-		
 	}
 	
 	protected function servicio__obtener_html($objetos)
 	{
+		//--- Abre el formulario
+		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
+
 		//--- Parte superior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
 			$this->zona->obtener_html_barra_superior();
@@ -195,7 +195,6 @@ class solicitud_web extends solicitud
 		}
 		//--- Muestra la cola de mensajes y el logger
 		toba::get_cola_mensajes()->mostrar();		
-		echo toba::get_logger()->mostrar_pantalla();
 		
 		//--- Fin del form y parte inferior del tipo de página
 		echo form::cerrar();

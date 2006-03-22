@@ -13,7 +13,7 @@ class ci_editor_php extends objeto_ci
 
 	function evt__inicializar()
 	{
-		$this->set_datos(toba::get_solicitud()->zona()->editable_info);
+		$this->set_datos(toba::get_solicitud()->zona()->editable_info);		
 	}
 	
 	function mantener_estado_sesion()

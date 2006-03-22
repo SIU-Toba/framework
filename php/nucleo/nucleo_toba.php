@@ -114,7 +114,6 @@ class nucleo_toba
 		}catch( Exception $e ){
 			toba::get_logger()->crit($e);
 		}
-		echo toba::get_logger()->mostrar_pantalla();		
 		toba::get_logger()->guardar();
 		//ATENCION!: dba::cerrar_bases();
 	}

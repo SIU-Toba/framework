@@ -363,8 +363,8 @@ function consultar_info(item_proyecto, item, parametros, nombre_callback, prefij
 }
 
 
-nombre_callback=""; 		//Funcion a activar cuando se retorna el valor
-com_datos_retornados="";	//Datos retornados por la funcion
+var nombre_callback=""; 		//Funcion a activar cuando se retorna el valor
+var com_datos_retornados="";	//Datos retornados por la funcion
 
 function retornar_info(datos)
 {

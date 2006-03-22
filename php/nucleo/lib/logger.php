@@ -1,14 +1,13 @@
 <?php
 require_once('manejador_archivos.php');
 
-define('TOBA_LOG_EMERG',    0);     /** System is unusable */
-define('TOBA_LOG_ALERT',    1);     /** Immediate action required */
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
 define('TOBA_LOG_ERROR',    3);     /** Error conditions */
 define('TOBA_LOG_WARNING',  4);     /** Warning conditions */
 define('TOBA_LOG_NOTICE',   5);     /** Normal but significant */
 define('TOBA_LOG_INFO',     6);     /** Informational */
 define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
+
 /*
 	Esto esta basado en la clase de LOG de PEAR
 	Ver tema de mascaras y niveles
@@ -22,58 +21,97 @@ class logger
 {
 	static private $instancia;
 	private $ref_niveles;
-	private $mensajes;
-	private $mensajes_web;
-	private $niveles;
+	private $proyecto_actual;
+	
+	//--- Arreglos que contienen info de los logs en runtime
+	private $mensajes = array();
+	private $niveles = array();
+	private $proyectos = array();
+	
 	private $proximo = 0;
+	private $nivel_maximo = 0;
 	private $datos_registrados = false;
-	private $ocultar = false;
+	private $activo = true;
 	
 	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
 	private $mostrado = false;				//Ya fue guardado en este pedido de página
 	private $cant_mostrada;					//Cant. de logs que había cuando se mostro
 
-	/**
-	*	Oculta el logger en la pantalla incondicionalemente, esto es util por ejemplo cuando
-	*	la salida no es un html (un pdf por ejemplo)
-	*/
-	function ocultar()
+	private function __construct($proyecto = null)
 	{
-		$this->ocultar = true;
-	}
-	
-	private function __construct()
-	{
-		$this->ref_niveles[0] = "EMERGENCY";
-		$this->ref_niveles[1] = "ALERT";
+		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : hilo::obtener_proyecto();		
 		$this->ref_niveles[2] = "CRITICAL";
 		$this->ref_niveles[3] = "ERROR";
 		$this->ref_niveles[4] = "WARNING";
 		$this->ref_niveles[5] = "NOTICE";
 		$this->ref_niveles[6] = "INFO";
 		$this->ref_niveles[7] = "DEBUG";
-		if (!defined('apex_pa_log_archivo_nivel')) {
-			define('apex_pa_log_archivo_nivel', 10);
-		}	
-	}	
-	
-	static function instancia()
-	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new logger();	
+		
+		//--- Valores por defecto
+		if (!defined('apex_pa_log_archivo')) define('apex_pa_log_archivo', true);
+		if (!defined('apex_pa_log_db'))	define('apex_pa_log_db', false);
+		if (!defined('apex_pa_log_archivo_nivel')) define('apex_pa_log_archivo_nivel', 10);
+		if (!defined('apex_pa_log_db_nivel')) define('apex_pa_log_db_nivel', 0);
+		if (apex_pa_log_db  && apex_pa_log_db_nivel > $this->nivel_maximo) {
+			$this->nivel_maximo = apex_pa_log_db_nivel;
 		}
-		return self::$instancia;	
+		if (apex_pa_log_archivo && apex_pa_log_archivo_nivel > $this->nivel_maximo) {
+			$this->nivel_maximo = apex_pa_log_archivo_nivel;
+		}		
+		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1000);
+		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
+		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', true);		
+	}		
+	
+	/**
+	* @deprecated Desde 0.9.1
+	*/
+	function ocultar()
+	{
+	}
+	
+	/**
+	 * Desactiva el logger en el pedido de página actual
+	 */
+	function desactivar()
+	{
+		$this->nivel_maximo = 0;
+		$this->activo = false;
+	}
+	
+	function verificar_datos_registrados()
+	//Informa si se guardo la informacion
+	{
+		return $this->datos_registrados;	
+	}
+	
+	/**
+	 * Este es un singleton por proyecto
+	 */
+	static function instancia($proyecto=null)
+	{
+		if (!isset(self::$instancia[$proyecto])) {
+			self::$instancia[$proyecto] = new logger($proyecto);
+		}
+		return self::$instancia[$proyecto];	
 	}
 
-	function registrar_mensaje($mensaje, $nivel)
+	
+	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
-		$this->mensajes_web[$this->proximo] = $this->extraer_mensaje($mensaje, true);
-		$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje, false);
-		$this->niveles[$this->proximo] = $nivel;
-		$this->proximo++;
+		if ($nivel <= $this->nivel_maximo) {
+			$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje, false);
+			$this->niveles[$this->proximo] = $nivel;
+			if (!isset($proyecto)) {
+				//Se hace estatica para poder loguear antes de construido el hilo
+				$proyecto = $this->proyecto_actual;
+			}
+			$this->proyectos[$this->proximo] = $proyecto;
+			$this->proximo++;
+		}
 	}
 	
-	function extraer_mensaje($mensaje, $web)
+	protected function extraer_mensaje($mensaje, $web)
 	/*
 		Adecuar el mecanismo para meter excepciones
 	*/
@@ -100,12 +138,12 @@ class logger
 		return $mensaje;
 	}
 	
-	function mensajes()
+	protected function mensajes()
 	{
 		return $this->mensajes;
 	}
 	
-	function mensajes_web()
+	protected function mensajes_web()
 	{
 		return $this->mensajes_web;
 	}
@@ -119,29 +157,19 @@ class logger
 		$this->$nivel( debug_backtrace() );
 	}
 
-    function emerg($mensaje)
+    function crit($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_EMERG);
-    }
-
-    function alert($mensaje)
-    {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_ALERT);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_CRIT);
     }
     
-    function crit($mensaje)
+    function error($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_CRIT);
-    }
-    
-    function error($mensaje)
-    {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_ERROR);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_ERROR);
     }
 
-    function warning($mensaje)
+    function warning($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_WARNING);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_WARNING);
     }
 
     /**
@@ -150,74 +178,76 @@ class logger
     */
     function obsoleto($clase, $metodo, $version, $extra=null) 
     {
-    	//Se saca el archivo que llamo el metodo obsoleto
-    	$traza = debug_backtrace();
-    	$archivo = $traza[2]['file'];
-		$linea = $traza[2]['line']; 	
-    	if ($clase != '') {
-    		$unidad = "Método '$clase::$metodo'";
-    	} elseif ($metodo != '') {
-			$unidad = "Función '$metodo'";
-    	} else {
-    		$unidad = '';	
+    	if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
+	    	//Se saca el archivo que llamo el metodo obsoleto
+	    	$traza = debug_backtrace();
+	    	$archivo = $traza[2]['file'];
+			$linea = $traza[2]['line']; 	
+	    	if ($clase != '') {
+	    		$unidad = "Método '$clase::$metodo'";
+	    	} elseif ($metodo != '') {
+				$unidad = "Función '$metodo'";
+	    	} else {
+	    		$unidad = '';	
+	    	}
+	    	$msg = "OBSOLETO: $unidad desde versión $version. $extra\nArchivo $archivo, linea $linea.";
+	    	$this->notice($msg);
     	}
-    	$msg = "OBSOLETO: $unidad desde versión $version. $extra\nArchivo $archivo, linea $linea.";
-    	$this->notice($msg);
     }
     
-    function notice($mensaje)
+    function notice($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_NOTICE);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_NOTICE);
     }
 
-    function info($mensaje)
+    function info($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_INFO);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_INFO);
     }
 
-    function debug($mensaje)
+    function debug($mensaje, $proyecto=null)
     {
-        return $this->registrar_mensaje($mensaje, TOBA_LOG_DEBUG);
+        return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_DEBUG);
     }
 
 	//------------------------------------------------------------------
 	//---- Manejo de MASCARAS
 	//------------------------------------------------------------------
 
-    function mascara($nivel)
+    protected function mascara($nivel)
     {
         return (1 << $nivel);
     }
 
-    function mascara_hasta($nivel)
+    protected function mascara_hasta($nivel)
     {
         return ((1 << ($nivel + 1)) - 1);
     }
 
 	//------------------------------------------------------------------
-	//---- GUARDAR o MOSTRAR el contenido del LOGGER
+	//---- Manejo de las fuentes de log
 	//------------------------------------------------------------------
 
-	function verificar_datos_registrados()
-	//Informa si se guardo la informacion
-	{
-		return $this->datos_registrados;	
-	}
 
 	function guardar()
 	{
-		$this->datos_registrados = true;
+		if (!$this->activo) return;
 		if(apex_pa_log_archivo){
 			$this->guardar_en_archivo("sistema.log");
 		}
 		if(apex_pa_log_db){
 			$this->guardar_db();
 		}
+		$this->datos_registrados = true;		
 	}
 	
 	function directorio_logs()
 	{
-		return toba_dir()."/logs";
+		$dir_base = toba_dir();
+		if ($this->proyecto_actual != 'toba') {
+			$dir_base .= '/proyectos/' . $this->proyecto_actual;
+		} 
+		return $dir_base."/logs";
 	}	
 	
 	function guardar_en_archivo($archivo)
@@ -231,22 +261,120 @@ class logger
 			$texto .= " [Servidor: {$_SERVER['SERVER_NAME']}] [{$_SERVER['PHP_SELF']}]";
 		}
 		$texto .= "\r\n";
-		for($a=0; $a<count($this->mensajes); $a++)
-		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
-			{
+		for($a=0; $a<count($this->mensajes); $a++) {
+			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ) {
 				$hay_salida = true;
-				$texto .= "* " . $this->ref_niveles[$this->niveles[$a]] . 
-						" *  " . $this->mensajes[$a] . "\r\n";
+				$texto .= "[" . $this->ref_niveles[$this->niveles[$a]] . 
+						"] " . $this->mensajes[$a] . "\r\n";
 			}			
 		}
-
+		//echo $texto;
 		if ($hay_salida) {
-			$path = $this->directorio_logs();
-			manejador_archivos::crear_arbol_directorios($path);
-			$handle = fopen("$path/$archivo", "a");
-			fwrite($handle, "$texto\r\n");
-			fclose($handle);
+			$this->guardar_archivo_log($texto, $archivo);
+		}
+	}
+	
+	protected function guardar_archivo_log($texto, $archivo)
+	{
+		$permisos = 0700;
+		//--- Asegura que el path esta creado
+		$path = $this->directorio_logs();
+		$path_completo = $path ."/".$archivo;
+		manejador_archivos::crear_arbol_directorios($path, $permisos);
+
+		$es_nuevo = false;
+		if (!file_exists($path_completo)) {
+			//Caso base el archivo no existe
+			$this->anexar_a_archivo($texto, $path_completo);
+			$es_nuevo = true;
+		} else {
+			//El archivo existe, ¿Hay que ciclarlo?
+			$excede_tamanio = (filesize($path_completo) > apex_log_archivo_tamanio * 1024);
+			if (apex_log_archivo_tamanio != null && $excede_tamanio) {
+				$this->ciclar_archivos_logs($path, $archivo);
+				$es_nuevo = true;
+			}
+			$this->anexar_a_archivo($texto, $path_completo);
+		}
+		
+		if ($es_nuevo) {
+			//Cambiar permisos
+			chmod($path_completo, $permisos);			
+		}
+	}
+	
+	protected function anexar_a_archivo($texto, $archivo)
+	{
+		$handle = fopen($archivo, "a");
+		fwrite($handle, "$texto\r\n");
+		fclose($handle);		
+	}
+	
+	protected function ciclar_archivos_logs($path, $archivo)
+	{
+		$arreglo = array();
+		if (apex_log_archivo_backup_cant == 0) {
+			//Si es un unico archivo hay que borrarlo
+			unlink($path."/".$archivo);
+			return;
+		}
+		//Encuentra los archivos
+		$patron = "/$archivo\.([0-9]+)(gz)?/";
+		$archivos = manejador_archivos::get_archivos_directorio($path);
+		sort($archivos);
+
+		//¿Cual es el numero de cada uno?
+		$ultimo = 0;
+		$arch_ordenados = array();
+		foreach ($archivos as $arch_actual) {
+			$version = array();
+			preg_match($patron, $arch_actual, $version);
+			if (! empty($version) && count($version) > 1) {
+				$pos = $version[1];
+				$arch_ordenados[$pos] = $arch_actual;
+				if ($pos > $ultimo) {
+					$ultimo = $pos;
+				}
+			}
+		}
+		//Se determina el siguiente numero
+		$sig = $ultimo + 1;
+		
+		//¿Hay que purgar algunos?
+		$puede_purgar = (apex_log_archivo_backup_cant != -1);
+		$debe_purgar = count($arch_ordenados) >= (apex_log_archivo_backup_cant -1);
+		if ($puede_purgar && $debe_purgar) {
+			ksort($arch_ordenados);
+			reset($arch_ordenados);
+			//Se dejan solo N-1 archivos			
+			$a_purgar = count($arch_ordenados) - (apex_log_archivo_backup_cant - 1);
+			while ($a_purgar > 0) {
+				$arch = current($arch_ordenados);
+				unlink($arch);
+				$a_purgar--;
+				next($arch_ordenados);
+			}
+		}
+	
+		//Se procede a mover el archivo actual
+		$path_completo = $path . "/" . $archivo;
+		if (apex_log_archivo_backup_compr) {
+			//Se comprime
+			$nuevo = $path_completo . ".$sig.gz";
+			manejador_archivos::comprimir_archivo($path_completo, 5, $nuevo);
+			unlink($path_completo);
+		} else {
+			$path_completo = $path . "/" . $archivo;
+			$nuevo = $path_completo . ".$sig";
+			rename($path_completo, $nuevo);
+		}
+	}
+	
+	function borrar_archivos_logs()
+	{
+		$archivo = $this->directorio_logs() . "/sistema.log";
+		if (file_exists($archivo)) {
+			unlink($archivo);
 		}
 	}
 	
@@ -278,41 +406,6 @@ class logger
 	//------------------------------------------------------------------
 	//---- Salida a pantalla
 	//------------------------------------------------------------------
-
-	function mostrar_pantalla()
-	{
-		if(apex_pa_log_pantalla && ! $this->ocultar){
-			if(apex_solicitud_tipo=="consola"){
-				$this->pantalla_consola();
-			} elseif (toba::get_hilo()->obtener_servicio_solicitado() == 'obtener_html'){
-				$this->pantalla_browser();
-			}
-		}
-	}
-	
-	function pantalla_consola()
-	{
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-		$txt = '';
-		for($a=0; $a<count($this->mensajes); $a++){
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
-				$txt .= "* " . $this->ref_niveles[$this->niveles[$a]] . " *  " . $this->mensajes[$a] . "\n";
-			}			
-		}
-		if(trim($txt)!=""){
-			$salida = "\n\n";
-			$salida .= "==============================================================================\n";
-			$salida .= "==================================  LOG  =====================================\n";
-			$salida .= "==============================================================================\n";
-			$salida .= "\n";
-			$salida .= $txt;	
-			$salida .= "\n";
-			$salida .= "==============================================================================\n";
-			$salida .= "==============================================================================\n";
-			$salida .= "\n\n";
-			fwrite(STDERR, $salida);
-		}
-	}
 
 	function pantalla_browser()
 	{
@@ -367,13 +460,7 @@ class logger
 		return $salida;
 	}
 	
-	//------------------------------------------------------------------
-	//---- Salida a un archivo de logs
-	//------------------------------------------------------------------
 
-	function mostrar_archivo()
-	{
-	}
 	//------------------------------------------------------------------
 }
 ?>

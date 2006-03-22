@@ -21,7 +21,7 @@ function trim(s){
 String.prototype.primer_ocurrencia = function (cadenas) {
 	var primera = this.length;
 	for (var i =0 ; i < cadenas.length; i++) {
-		ocurrencia = this.indexOf(cadenas[i]);
+		var ocurrencia = this.indexOf(cadenas[i]);
 		if (ocurrencia != -1 && ocurrencia < primera) {
 			primera = ocurrencia
 		}
@@ -132,7 +132,7 @@ function firstFocus()
 {
 	for (var i=0; i< document.forms.length; i++) {
 		var formulario = document.forms[i];
-		for (j=0;j<formulario.length;j++) {
+		for (var j=0;j<formulario.length;j++) {
 			var elemento = formulario.elements[j];
 			var display = elemento.style.display;
 			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
@@ -167,7 +167,7 @@ function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
 		ventana_hija.focus();
 	} else {
 		// Ya fue definida.
-		if(!ventana_hija.closed){
+		if(!ventana_hija.closed && ventana_hija.focus){
 			//Todavia esta abierta
 			ventana_hija.focus();
 			ventana_hija.location.href = url;

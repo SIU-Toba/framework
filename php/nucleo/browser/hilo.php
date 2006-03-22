@@ -253,7 +253,15 @@ class hilo
 	@@desc: Devuelve el identificador del PROYECTO ACTUAL
 */
 	{
-		return $_SESSION['toba']["proyecto"]["nombre"];
+		if (isset($_SESSION['toba']["proyecto"])) {
+			return $_SESSION['toba']["proyecto"]["nombre"];
+		} else {
+			if (defined('apex_pa_proyecto') && apex_pa_proyecto != 'multi') {
+				return apex_pa_proyecto;
+			} else {
+				return 'toba';	
+			}
+		}
 	}
 
 	function obtener_proyecto_descripcion()

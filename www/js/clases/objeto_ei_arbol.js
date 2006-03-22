@@ -37,7 +37,7 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 			this.datos_apertura_recursivo(raiz, datos);
 		var datos_join = [];
 		for (id in datos) {
-			valor = id;
+			var valor = id;
 			if (datos[id])
 				valor += '=1';
 			else
@@ -54,7 +54,7 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 		//Recorre los <ul> de este nodo
 		for (var i=0; i < nodo.childNodes.length; i++) {
 			var hijo = nodo.childNodes[i];
-			if (hijo.tagName == 'UL' || hijo.tagName =='LI')
+			if (hijo.tagName && (hijo.tagName == 'UL' || hijo.tagName =='LI'))
 				this.datos_apertura_recursivo(hijo, datos);
 		}			
 	}

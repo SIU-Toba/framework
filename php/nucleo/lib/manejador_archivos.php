@@ -7,16 +7,11 @@ class manejador_archivos
 	static private $caracteres_invalidos = array('*', '?', '/', '>', '<', '"', "'", ':', '|');
 	static private $caracteres_reemplazo = array('%', '$', '_', ')', '(', '-',  '.', ';', ',');
 	
-	static function crear_arbol_directorios($path)
+	static function crear_arbol_directorios($path, $modo=0777)
 	{
-		//Verifica que todos los subdirectorios existan
-		$directorios = explode("/", $path);
-		$path_acumulado = '';
-		foreach ($directorios as $directorio) {
-			$path_acumulado .= $directorio."/";
-			if (! file_exists($path_acumulado)) {	//El path no existe, intenta crearlo
-				if (! mkdir($path_acumulado))
-					throw new excepcion_toba("No es posible crear el directorio $path_acumulado");
+		if (!file_exists($path)) {
+			if (!mkdir($path, $modo, true)) {
+				throw new excepcion_toba("No es posible crear el directorio $path");
 			}
 		}
 	}
@@ -212,5 +207,34 @@ class manejador_archivos
 		closedir( $dir );
 		rmdir( $directorio );
 	}	
+	
+	function comprimir_archivo($src, $level = 5, $dst = false){
+	    if( $dst == false){
+	        $dst = $src.".gz";
+	    }
+	    if (file_exists($src)) {
+	        $filesize = filesize($src);
+	        $src_handle = fopen($src, "r");
+	        if ($src_handle === false) {
+	            toba::get_logger()->error("Comprimir archivo: No se puede abrir $src");
+	            return false;
+	        }
+	        if (!file_exists($dst)){
+	            $dst_handle = gzopen($dst, "w$level");
+	            while(!feof($src_handle)){
+	                $chunk = fread($src_handle, 2048);
+	                gzwrite($dst_handle, $chunk);
+	            }
+	            fclose($src_handle);
+	            gzclose($dst_handle);
+	            return true;
+	        } else {
+	            toba::get_logger()->error("Comprimir archivo: $dst ya existe");
+	        }
+	    } else {
+            toba::get_logger()->error("Comprimir archivo: $src no existe");	    	
+	    }
+	    return false;
+	 }	
 }
 ?>

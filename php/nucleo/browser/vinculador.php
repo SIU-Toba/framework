@@ -458,6 +458,7 @@ class vinculador
 	* @param string $item Id. del item a consultar
 	* @param boolean $solo_proyecto_local Controla si el ITEM es del proyecto ACTIVO
 	* @return boolean true si tiene acceso y false en el caso contrario
+	* @todo Me parece que el tercer parametro no se comporta como se supone
 	*/
 	function consultar_vinculo($proyecto, $item, $solo_proyecto_local=false)
 	{

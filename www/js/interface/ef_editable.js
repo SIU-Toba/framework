@@ -118,7 +118,7 @@ def.constructor = ef_editable_numero;
 	def.validar_rango = function() {
 		//this._rango[0-1][0] es limite [0-1][1] determina inclusive
 		var ok = true;
-		valor = this.valor();
+		var valor = this.valor();
 		if (typeof valor != 'number' || ! this._rango)
 			return true;
 		if (this._rango[0][0] != '*')

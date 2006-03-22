@@ -119,6 +119,8 @@ class tp_normal extends tp_basico
 			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/ayuda",$parametros,true);
 			echo "&nbsp;</td>";
 		}
+	
+		
 		echo "</tr></table>\n\n";
 	}
 	
@@ -136,7 +138,7 @@ class tp_normal extends tp_basico
 			$parametros = array("proyecto"=>$info["item_proyecto"],"item"=>$info["item"]);
 			$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/catalogo_unificado",$parametros,true, false, false, "", null, null, 'lateral');
 			
-			//Ayuda del item
+/*			//Ayuda del item
 			$parametros = array(apex_hilo_qs_zona=> $info["item_proyecto"] . apex_qs_separador . $info["item"]);
 			$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/info",$parametros,true);
 	
@@ -144,7 +146,7 @@ class tp_normal extends tp_basico
 			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/editores/editor_estilos', true)) {
 				$parametros = array('plantilla' => recurso::css(apex_pa_estilo));
 				$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba",'/admin/objetos/editores/editor_estilos',$parametros,true);
-			}		
+			}		*/
 			
 			//Consola JS
 			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/consola_js', true)) {		
@@ -153,13 +155,18 @@ class tp_normal extends tp_basico
 				$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba",'/admin/objetos/consola_js',$parametros,true);
 			}			
 			
+			//LOGGER
+			if ($vinculador->consultar_vinculo("toba", "1000003")) {
+				$parametros = array();
+				$vinculos[] =$vinculador->obtener_vinculo_a_item_cp("toba",'1000003',$parametros,true, false, false, '', null, null, 'logger');
+			}
+			
 			//Boton que dispara la cronometracion
 			$zona = toba::get_solicitud()->zona();
 			if( !isset($zona)){
 			//SI existe una zona que todavia no se cargo, el vinculo no va a propagar al EDITABLE
 			//En ese caso, el cronometrador tiene que posicionarse sobre la barra de la ZONA
-				if($vinculador->consultar_vinculo("toba","/basicos/cronometro",true))
-				{
+				if($vinculador->consultar_vinculo("toba","/basicos/cronometro",true)) {
 					$vinculos[] = "<a href='".$vinculador->generar_solicitud(null,null,null,true,true)."'>".
 									recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM").
 									"</a>";
