@@ -15,10 +15,11 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 	ATENCION: 	esta clase compite con los metodos de registro de la solicitud
 				y con el monitor... hay que pasar lo montado en esos elementos
 				sobre este.
-				
 */
 class logger
 {
+	const separador = "-o-o-o-o-o-";
+	const fin_encabezado = "==========";
 	static private $instancia;
 	private $ref_niveles;
 	private $proyecto_actual;
@@ -33,13 +34,21 @@ class logger
 	private $datos_registrados = false;
 	private $activo = true;
 	
+	private $dir_logs;
+	
 	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
 	private $mostrado = false;				//Ya fue guardado en este pedido de página
 	private $cant_mostrada;					//Cant. de logs que había cuando se mostro
 
+	/**
+	 * @todo Para sacar el path de la instalacion y la instancia se necesitaria tener acceso a la clase instalacion
+	 * pero no se carga en el runtime, solo en la parte administrativa, por ahora se replica el lugar
+	 * donde se encuentra el dir de instalacion
+	 */
 	private function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : hilo::obtener_proyecto();		
+		$this->dir_logs = toba_dir()."/instalacion/i__".apex_pa_instancia."/p__{$this->proyecto_actual}/logs";
 		$this->ref_niveles[2] = "CRITICAL";
 		$this->ref_niveles[3] = "ERROR";
 		$this->ref_niveles[4] = "WARNING";
@@ -58,9 +67,9 @@ class logger
 		if (apex_pa_log_archivo && apex_pa_log_archivo_nivel > $this->nivel_maximo) {
 			$this->nivel_maximo = apex_pa_log_archivo_nivel;
 		}		
-		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1000);
+		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1024);
 		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
-		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', true);		
+		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
 	}		
 	
 	/**
@@ -146,6 +155,11 @@ class logger
 	protected function mensajes_web()
 	{
 		return $this->mensajes_web;
+	}
+	
+	function get_niveles()
+	{
+		return $this->ref_niveles;	
 	}
 
 	//------------------------------------------------------------------
@@ -243,24 +257,32 @@ class logger
 	
 	function directorio_logs()
 	{
-		$dir_base = toba_dir();
-		if ($this->proyecto_actual != 'toba') {
-			$dir_base .= '/proyectos/' . $this->proyecto_actual;
-		} 
-		return $dir_base."/logs";
+		return $this->dir_logs;
 	}	
 	
 	function guardar_en_archivo($archivo)
 	{
 		$hay_salida = false;
 		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
-		$time = date("d-m-Y H:i:s");
-		$version = phpversion();
-		$texto = "[$time] - [Versión PHP: $version] ";
+		$salto = "\r\n";
+		$texto = self::separador.$salto;
+		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
+		$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
+		$texto .= "Usuario: ".toba::get_hilo()->obtener_usuario().$salto;
+		$texto .= "Version-PHP: ". phpversion().$salto;
 		if (isset($_SERVER['SERVER_NAME'])) {
-			$texto .= " [Servidor: {$_SERVER['SERVER_NAME']}] [{$_SERVER['PHP_SELF']}]";
+			$texto .= "Servidor: ".$_SERVER['SERVER_NAME'].$salto;
 		}
-		$texto .= "\r\n";
+		if (isset($_SERVER['REQUEST_URI'])) {
+			$texto .= "URI: ".$_SERVER['REQUEST_URI'].$salto;	
+		}		
+		if (isset($_SERVER["HTTP_REFERER"])) {
+			$texto .= "Referrer: ".$_SERVER["HTTP_REFERER"].$salto;
+		}
+		if (isset($_SERVER["REMOTE_ADDR"])) {
+			$texto .= "Host: ".$_SERVER["REMOTE_ADDR"].$salto;			
+		}
+		$texto .= self::fin_encabezado.$salto;
 		for($a=0; $a<count($this->mensajes); $a++) {
 			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ) {
 				$hay_salida = true;
@@ -268,7 +290,6 @@ class logger
 						"] " . $this->mensajes[$a] . "\r\n";
 			}			
 		}
-		//echo $texto;
 		if ($hay_salida) {
 			$this->guardar_archivo_log($texto, $archivo);
 		}
@@ -319,7 +340,7 @@ class logger
 			return;
 		}
 		//Encuentra los archivos
-		$patron = "/$archivo\.([0-9]+)(gz)?/";
+		$patron = "/$archivo\.([0-9]+)/";
 		$archivos = manejador_archivos::get_archivos_directorio($path);
 		sort($archivos);
 
@@ -349,8 +370,7 @@ class logger
 			//Se dejan solo N-1 archivos			
 			$a_purgar = count($arch_ordenados) - (apex_log_archivo_backup_cant - 1);
 			while ($a_purgar > 0) {
-				$arch = current($arch_ordenados);
-				unlink($arch);
+				unlink(current($arch_ordenados));
 				$a_purgar--;
 				next($arch_ordenados);
 			}
@@ -364,7 +384,6 @@ class logger
 			manejador_archivos::comprimir_archivo($path_completo, 5, $nuevo);
 			unlink($path_completo);
 		} else {
-			$path_completo = $path . "/" . $archivo;
 			$nuevo = $path_completo . ".$sig";
 			rename($path_completo, $nuevo);
 		}
@@ -372,9 +391,10 @@ class logger
 	
 	function borrar_archivos_logs()
 	{
-		$archivo = $this->directorio_logs() . "/sistema.log";
-		if (file_exists($archivo)) {
-			unlink($archivo);
+		$patron = "/sistema.log/";
+		$archivos = manejador_archivos::get_archivos_directorio($this->directorio_logs(), $patron);
+		foreach ($archivos as $archivo) {
+			unlink($archivo);			
 		}
 	}
 	

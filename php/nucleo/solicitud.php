@@ -445,10 +445,14 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	}
 	
 	/**
-	*	Retorna un arreglo de datos básicos del item que se esta ejecutando
+	* Retorna un arreglo de datos básicos del item que se esta ejecutando
+	* @param string $prop Propiedad a obtener (opcional)
 	*/
-	function get_datos_item()
+	function get_datos_item($prop=null)
 	{
+		if (isset($prop)) {
+			return $this->info[$prop];	
+		}
 		return $this->info;	
 	}
 	

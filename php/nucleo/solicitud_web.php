@@ -48,7 +48,7 @@ class solicitud_web extends solicitud
 			$this->procesar_eventos();
 			$this->procesar_servicios();
 		} catch(excepcion_toba $e) {
-			toba::get_logger()->debug($e);
+			toba::get_logger()->error($e);
 			toba::get_cola_mensajes()->agregar($e->getMessage(), "error");
 			toba::get_cola_mensajes()->mostrar();
 		}
@@ -193,7 +193,7 @@ class solicitud_web extends solicitud
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
 			$this->zona->obtener_html_barra_inferior();
 		}
-		//--- Muestra la cola de mensajes y el logger
+		//--- Muestra la cola de mensajes
 		toba::get_cola_mensajes()->mostrar();		
 		
 		//--- Fin del form y parte inferior del tipo de página
