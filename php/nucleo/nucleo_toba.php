@@ -56,7 +56,7 @@ class nucleo_toba
 			$item = toba::get_hilo()->obtener_item_solicitado();
 			$this->solicitud = solicitud::get_solicitud($item[0], $item[1]);
 			$this->procesar();
-		} catch (excepcion_toba $e) {
+		} catch (excepcion_toba_login $e) {
 			$mensaje = $e->getMessage();
 			try {
 					$pro = apex_pa_proyecto;	

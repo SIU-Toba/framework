@@ -11,7 +11,7 @@ class manejador_archivos
 	{
 		if (!file_exists($path)) {
 			if (!mkdir($path, $modo, true)) {
-				throw new excepcion_toba("No es posible crear el directorio $path");
+				throw new excepcion_toba("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
 			}
 		}
 	}

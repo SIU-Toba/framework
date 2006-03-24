@@ -24,14 +24,14 @@ class sesion {
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='{$_SERVER["REMOTE_ADDR"]}'";
 		$rs = $db->consultar($sql, apex_db_numerico);
 		if (count($rs)>0){
-			throw new excepcion_toba("Ha sido bloqueado el acceso desde la maquina '{$_SERVER["REMOTE_ADDR"]}'. Por favor contáctese con el <a href='mailto:".apex_pa_administrador."'>Administrador</a>.");
+			throw new excepcion_toba_login("Ha sido bloqueado el acceso desde la maquina '{$_SERVER["REMOTE_ADDR"]}'. Por favor contáctese con el <a href='mailto:".apex_pa_administrador."'>Administrador</a>.");
 		}
 		//---------------------------- Creo la sesion en la base...
 		$sql = "SELECT nextval('apex_sesion_browser_seq'::text);";
 		$rs = $db->consultar($sql, apex_db_numerico);
 		if(!$rs){
 			monitor::evento("bug","sesion: Error consultando la secuencia de sesiones [ ".$db["instancia"][apex_db_con]->ErrorMsg()." ]",$usuario);
-			throw new excepcion_toba("Imposible determinar el ID de la sesion");
+			throw new excepcion_toba_login("Imposible determinar el ID de la sesion");
 		}else{
 			$sesion = $rs[0][0];
 			$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$_SERVER["REMOTE_ADDR"]."','$proyecto','".session_id()."');";
@@ -39,7 +39,7 @@ class sesion {
 				$db->ejecutar($sql);
 			}catch(excepcion_toba $e){
 				monitor::evento("bug","sesion: No es posible registrar la sesion [ ".$e->getMessage()." ]",$usuario);
-				throw new excepcion_toba("No se puede registrar la sesion");
+				throw new excepcion_toba_login("No se puede registrar la sesion");
 			}
 			//-----------------------------> Creo la sesion de PHP
 			//BASICOS
@@ -76,7 +76,7 @@ class sesion {
 				//Este recordset da vacio, el usuario no tenia permiso 
 				//para ver el proyecto.
 				sesion::cerrar();
-				throw new excepcion_toba("El usuario intento abrir un proyecto para el cual no posee permisos");					
+				throw new excepcion_toba_login("El usuario intento abrir un proyecto para el cual no posee permisos");					
 			}
 			$_SESSION['toba']["usuario"]=$rs[0];
 			$_SESSION['toba']['permisos'] = toba::get_permisos()->cargar($proyecto, $rs[0]["grupo_acceso"]);
@@ -151,7 +151,7 @@ class sesion {
                     }else{
                         //Hay que elegir proyecto pero no se eligio
     					session_destroy();//El sesion start del principio deja un archivo de sesion inutil...
-    					throw new excepcion_toba("");
+    					throw new excepcion_toba_login("");
                     }
 				}else{
 					$proyecto=apex_pa_proyecto;
@@ -159,7 +159,7 @@ class sesion {
 				if (isset($_POST[apex_sesion_post_usuario])){ //Hay datos para loguear un usuario?
 						if(!isset($proyecto)){//SI no hay un proyecto seleccionado, afuera...
 		   					session_destroy();//El sesion start del principio deja un archivo de sesion inutil...
-    						throw new excepcion_toba("Es necesario seleccionar un proyecto");
+    						throw new excepcion_toba_login("Es necesario seleccionar un proyecto");
 						}
 					if((apex_pa_usuario_anonimo!="") && ($_POST[apex_sesion_post_usuario]==apex_pa_usuario_anonimo)){
 						//---> Entrada USUARIO anonimo 1.
@@ -174,13 +174,13 @@ class sesion {
 							return sesion::abrir($_POST[apex_sesion_post_usuario],$proyecto);
 						}else{
 							session_destroy();//El sesion start del principio deja un archivo de sesion inutil...
-							throw new excepcion_toba($status_usuario[1]);
+							throw new excepcion_toba_login($status_usuario[1]);
 						}
 					}
 				}else{	//Request inicial
 					//return array(false,"Bienvenido, por favor ingrese su nombre de usuario y contraseña");
 					session_destroy();//El sesion start del principio deja un archivo de sesion inutil...
-					throw new excepcion_toba("");
+					throw new excepcion_toba_login("");
 				}
 			}
 			else {	//No se requiere VALIDACION, se crea una sesion del usuario anonimo
@@ -202,7 +202,7 @@ class sesion {
 				$tiempo_desconectado = ((time()-$_SESSION['toba']["ultimo_acceso"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_desconectado >= apex_pa_sesion_ventana){
 					sesion::cerrar("Se exedio la ventana temporal (" . apex_pa_sesion_ventana . " m.)");
-					throw new excepcion_toba("Usted ha permanecido mas de <b>". apex_pa_sesion_ventana. 
+					throw new excepcion_toba_login("Usted ha permanecido mas de <b>". apex_pa_sesion_ventana. 
 								" minutos</b> sin interactuar con el servidor.
 								Por razones de seguridad <b> su sesion ha sido eliminada. </b>
 								Por favor vuelva a registrarse si desea continuar utilizando el sistema.
@@ -213,13 +213,13 @@ class sesion {
 			//* Control 2: Fin de franja horaria.  ->>> NO TERMINADO!!
 			if(false){
 				sesion::cerrar("Termino la franja horaria de acceso asociada al usuario");
-				throw new excepcion_toba("Ha terminado su franja horaria de trabajo");
+				throw new excepcion_toba_login("Ha terminado su franja horaria de trabajo");
 			}
 
 			//* Control 3: Cambio de punto de acceso.
 			if(apex_pa_ID!=$_SESSION['toba']["apex_pa_ID"]){
 				sesion::cerrar("Cambio de punto de acceso: " . $_SESSION['toba']["apex_pa_ID"]. " -> " . apex_pa_ID );
-				throw new excepcion_toba("El cambio de puntos de acceso no es permitido. Se ha generado un informe");
+				throw new excepcion_toba_login("El cambio de puntos de acceso no es permitido. Se ha generado un informe");
 			}
 
 			//* Control 4: Tiempo maximo de sesion.
@@ -227,7 +227,7 @@ class sesion {
 				$tiempo_total = ((time()-$_SESSION['toba']["inicio"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_total >= apex_pa_sesion_maximo){
 					sesion::cerrar("Se exedio el tiempo maximo de sesion (" . apex_pa_sesion_maximo . " m.)");
-					throw new excepcion_toba("Se ha superado el tiempo de sesion permitido (<b>". apex_pa_sesion_maximo. 
+					throw new excepcion_toba_login("Se ha superado el tiempo de sesion permitido (<b>". apex_pa_sesion_maximo. 
 								" minutos</b>) Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 								Disculpe las molestias ocasionadas.");
 				}
@@ -238,7 +238,7 @@ class sesion {
 			if(isset($_GET[apex_sesion_qs_finalizar])&&($_GET[apex_sesion_qs_finalizar]==1)){
 				sesion::cerrar();
 				if(apex_pa_validacion){	// Si no se requiere validacion hay que volver a entrar
-					throw new excepcion_toba("La sesion ha sido eliminada");					
+					throw new excepcion_toba_login("La sesion ha sido eliminada");					
 				}else{
 					//Si no hay validacion tengo que vuelver a abrir la sesion
 					session_start();
@@ -258,7 +258,7 @@ class sesion {
 					//ATENCION, se abre la sesion sin volver a validar el USUARIO.
     				return sesion::abrir($usuario_id,$_POST[apex_sesion_post_proyecto]);
                 }else{
-                    throw new excepcion_toba("No se especificó el proyecto");
+                    throw new excepcion_toba_login("No se especificó el proyecto");
                 }
 			}else{ //La sesion es VALIDA --> Ahora ya se puede crear la SOLICITUD...
 				sesion::actualizar_estado();

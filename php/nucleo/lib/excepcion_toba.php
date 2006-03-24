@@ -124,4 +124,12 @@ class excepcion_toba_permisos extends excepcion_toba
 	
 }
 
+/**
+ * Excepción producida por un login incorrecto
+ */
+class excepcion_toba_login extends excepcion_toba
+{
+
+}
+
 ?>
