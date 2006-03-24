@@ -1,5 +1,6 @@
 <?php
 require_once('manejador_archivos.php');
+require_once('nucleo/browser/hilo.php');
 
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
 define('TOBA_LOG_ERROR',    3);     /** Error conditions */
