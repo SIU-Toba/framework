@@ -75,6 +75,122 @@ class ci_analizador extends objeto_ci
 		echo ei_mensaje("El logger por base de datos no está implementado");
 	}
 	
+	function servicio__ejecutar()
+	{
+		$res = $this->obtener_pedido($this->seleccion);
+		$encabezado = $this->obtener_html_encabezado($res);
+		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
+
+		echo $encabezado;
+		echo "<--toba-->";		
+		echo $detalle;
+		echo "<--toba-->";
+		echo js::arreglo($cant_por_nivel, true);
+	}
+	
+	function extender_objeto_js() 
+	{
+		if ($this->get_pantalla_actual() != 'visor' || !isset($this->seleccion)) {
+			return;
+		}
+		$niveles = toba::get_logger()->get_niveles();		
+		$parametros = array();
+		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
+?>
+			<?=$this->objeto_js?>.evt__refrescar = function() {
+				this.refrescar_logs();
+				return false;
+			}
+			
+			function renovar_refresco()
+			{
+				setTimeout('{$this->objeto_js}.refrescar_logs()', 4000);
+			}
+			
+			<?=$this->objeto_js?>.refrescar_logs = function() {
+				var callback =
+				{
+				  success: this.respuesta_refresco ,
+				  failure: toba.error_comunicacion,
+				  scope: this
+				}
+				conexion.asyncRequest('GET', '<?=$vinculo?>', callback, null);
+			}
+			
+			<?=$this->objeto_js?>.respuesta_refresco = function(resp)
+			{
+				try {
+					var partes = toba.analizar_respuesta_servicio(resp);
+					document.getElementById('logger_encabezados').innerHTML = partes[0];
+					document.getElementById('logger_detalle').innerHTML = partes[1];
+					var cant = eval('(' + partes[2] + ')');
+					refrescar_cantidad_niveles(cant);
+					refrescar_detalle();
+				} catch (e) {
+					//alert(e);
+				}
+			}
+			
+			//renovar_refresco();
+			
+			var niveles = <?=js::arreglo($niveles)?>;
+			var niveles_actuales = {length: 0};
+			function mostrar_nivel(nivel)
+			{
+				var li_nivel = document.getElementById('nivel_' + nivel);
+				if (! niveles_actuales[nivel]) {
+					niveles_actuales[nivel] = true;
+					niveles_actuales.length++;
+				} else {
+					delete(niveles_actuales[nivel]);
+					niveles_actuales.length--;
+				}
+				refrescar_niveles();
+				refrescar_detalle();
+			}
+	
+			function refrescar_niveles()
+			{
+				var mostrar_todos = (niveles_actuales.length == 0);			
+				for (var i=0; i< niveles.length; i++) {
+					var nivel_min = niveles[i].toLowerCase();
+					var li_nivel = document.getElementById('nivel_' + niveles[i]);
+					var src_actual = li_nivel.childNodes[0].childNodes[0].src;
+					var diff = (mostrar_todos || niveles_actuales[niveles[i]]) ? '' : '_des';
+					var src_nuevo = toba_alias + '/img/logger/' + nivel_min + diff + '.png';
+					if (src_actual != src_nuevo) {
+						li_nivel.childNodes[0].childNodes[0].src = src_nuevo;
+					}
+				}
+			}
+			
+			function refrescar_detalle()
+			{
+				var mostrar_todos = (niveles_actuales.length == 0);
+				var detalle = document.getElementById('logger_detalle');
+				for (var i=0; i < detalle.childNodes.length; i++) {
+					var nodo = detalle.childNodes[i];
+					var nivel = nodo.attributes['nivel'].value;
+					var debe_mostrar = (mostrar_todos || niveles_actuales[nivel]);
+					if (debe_mostrar && nodo.style.display == 'none') {
+						nodo.style.display = '';
+					}
+					if (!debe_mostrar && nodo.style.display == '') {
+						nodo.style.display = 'none';	
+					}
+				}
+			}			
+			
+			function refrescar_cantidad_niveles(cantidades)
+			{
+				for (var nivel in cantidades) {
+					var cant = (cantidades[nivel] > 0) ? '[' + cantidades[nivel] + ']' : '';
+					document.getElementById('nivel_cant_' + nivel).innerHTML = cant;
+				}
+			}
+<?php
+	}
+	
 	function obtener_html_fs()
 	{
 		if (!file_exists($this->archivo)) {
@@ -82,27 +198,76 @@ class ci_analizador extends objeto_ci
 							"<strong>{$this->opciones['proyecto']}</strong>");
 			return;
 		}			
+		$niveles = toba::get_logger()->get_niveles();
+		$niveles = array_reverse($niveles);		
 		
 		$res = $this->obtener_pedido($this->seleccion);
 		$encabezado = $this->analizar_encabezado($res);
-		$cuerpo = $this->analizar_cuerpo($res);
-		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>";
-		echo "<ul>";
-		echo "<li>Encabezado: <ul>";
-		foreach ($encabezado as $clave => $valor) {
-			echo "<li><strong>".ucfirst($clave)."</strong>: $valor</li>\n";
-		}
-		echo "</ul></li>";
+	
+		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
+		
+		//--- Opciones
+		echo "<div>";
+		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
+		echo "<label>$check Ver Encabezados</label><br>";
+		echo "</div><hr>";
+				
+		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
+
+		//--- Encabezado 
+		echo "<ul id='logger_encabezados' style='display:none;list-style-type: none;padding: 0;margin: 0'>";		
+		echo $this->obtener_html_encabezado($res);
 		echo "</ul>";
-		echo "<ol>";
-		foreach ($cuerpo as $linea) {
-			$img =recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null, $linea['nivel']);
-			echo "<li>";
-			echo "$img ".$linea['mensaje'];
-			echo "</li>";	
+
+		//---- Niveles
+		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><strong>Niveles</strong>";
+		echo "<ul style='border:1px solid black; text-align: center;list-style-type: none;padding: 4px;margin: 0; background-color:white;'>";
+		foreach ($niveles as $nivel) {
+			$img = recurso::imagen_apl('logger/'.strtolower($nivel).'.png', true, null, null, "Filtrar el nivel: $nivel");
+			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
+			echo "<li id='nivel_$nivel' style='text-align:left;'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
+			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
 		}
-		echo "</ol>";
+		echo "</ul>";
 		echo "</div>";
+	
+		
+		//--- Detalles
+		echo "<ul id='logger_detalle' style='list-style-type: none;padding: 0;margin: 0;margin-top:10px;'>";		
+		echo $detalle;
+		echo "</ul>\n";
+		
+		echo "</div>";
+	}
+	
+	function obtener_html_encabezado($res)
+	{
+		$encabezado = $this->analizar_encabezado($res);		
+		$enc = "";
+		//--- Encabezado		
+		foreach ($encabezado as $clave => $valor) {
+			$enc .= "<li><strong>".ucfirst($clave)."</strong>: $valor</li>\n";
+		}
+		return $enc;
+	}
+	
+	function obtener_html_detalles($res)
+	{
+		$niveles = toba::get_logger()->get_niveles();
+		$cuerpo = $this->analizar_cuerpo($res);
+		$cant_por_nivel = array();
+		foreach ($niveles as $nivel) {
+			$cant_por_nivel[$nivel] = 0;
+		}
+		$detalle = '';
+		foreach ($cuerpo as $linea) {
+			$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null);
+			$detalle .= "<li nivel='{$linea['nivel']}'>";
+			$detalle .= "$img ".$linea['mensaje'];
+			$detalle .= "</li>";	
+			$cant_por_nivel[$linea['nivel']]++;
+		}
+		return array($detalle, $cant_por_nivel);
 	}
 	
 	protected function analizar_encabezado($log)

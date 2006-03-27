@@ -254,7 +254,7 @@ class solicitud_web extends solicitud
 			//$objeto->servicio__html_parcial();
 			$objeto_js = $objeto->obtener_javascript();
 			echo "\nwindow.$objeto_js.iniciar();\n";
-		}			
+		}
 	}
 	
 	protected function servicio__cascadas_efs($objetos)

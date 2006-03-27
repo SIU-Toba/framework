@@ -76,8 +76,8 @@ var toba =
 		delete(this._callback_inclusion);		
 	},
 	
-	set_ajax : function(callback) {
-		this._ajax = callback;
+	set_ajax : function(objeto) {
+		this._ajax = objeto;
 	},
 	
 	comunicar_eventos : function() {
@@ -110,20 +110,32 @@ var toba =
 			toba.eliminar_objeto(this._ajax._deps[d]._instancia);
 			delete(this._ajax._deps[d]);
 		}
+		var partes = this.analizar_respuesta_servicio(respuesta);
 		//-- Se agrega el html
-		var pos = respuesta.responseText.indexOf('<--toba-->');
-		this._ajax.raiz().innerHTML = respuesta.responseText.substr(0, pos);
+		this._ajax.raiz().innerHTML = partes[0];
 		
 		//-- Se incluyen librerias js y se programa la evaluacion del codigo cuando termine
-		var js =respuesta.responseText.substr(pos+10);
-		pos = js.indexOf('<--toba-->');
-		var incl = js.substr(0, pos);
-		toba.set_callback_incl(js.substr(pos+10));
-		eval(incl);
+		toba.set_callback_incl(partes[2]);
+		eval(partes[1]);
+	},
+	
+	analizar_respuesta_servicio : function(respuesta) {
+		var texto = respuesta.responseText;
+		var partes = new Array();
+		var pos_anterior = 0;
+		while (pos != -1) {
+			var pos = texto.indexOf('<--toba-->', pos_anterior);
+			if (pos != -1) {
+				partes.push(texto.substr(pos_anterior, pos-pos_anterior));
+				pos_anterior = pos + 10;
+			}
+		}
+		partes.push(texto.substr(pos_anterior));
+		return partes;
 	},
 	
 	error_comunicacion : function(error) {
-		alert('Ooops');
+		alert('Error de comunicacion: ' + error);
 	},
 	
 	inicio_aguardar : function() {
@@ -158,6 +170,11 @@ var vinculador =
 		var vinc = toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + destino[0] + toba_hilo_separador + destino[1];
 		if (typeof servicio != 'undefined') {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
+		}
+		if (typeof parametros != 'undefined') {
+			alert('El pasaje de parametros en JS aun no esta implementado');
+			for (var i=0; i<paramentros.length; i++) {
+			}
 		}
 		return vinc;
 	}

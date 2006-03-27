@@ -134,7 +134,7 @@ class js
 		}
 	}
 	
-	function finalizar()
+	static function finalizar()
 	{
 		//echo js::ejecutar('toba.confirmar_inclusion('. js::arreglo(self::$cargados) .')');	
 	}
