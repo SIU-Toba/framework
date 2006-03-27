@@ -86,6 +86,8 @@ class ci_analizador extends objeto_ci
 		echo $detalle;
 		echo "<--toba-->";
 		echo js::arreglo($cant_por_nivel, true);
+		echo "<--toba-->";
+		echo filemtime($this->archivo);		
 	}
 	
 	function extender_objeto_js() 
@@ -97,17 +99,12 @@ class ci_analizador extends objeto_ci
 		$parametros = array();
 		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
+			var ultima_mod ='<?=filemtime($this->archivo)?>';
+			var niveles = <?=js::arreglo($niveles)?>;
+			var niveles_actuales = {length: 0};
+			var refresco_automatico = true;
+
 			<?=$this->objeto_js?>.evt__refrescar = function() {
-				this.refrescar_logs();
-				return false;
-			}
-			
-			function renovar_refresco()
-			{
-				setTimeout('{$this->objeto_js}.refrescar_logs()', 4000);
-			}
-			
-			<?=$this->objeto_js?>.refrescar_logs = function() {
 				var callback =
 				{
 				  success: this.respuesta_refresco ,
@@ -115,26 +112,27 @@ class ci_analizador extends objeto_ci
 				  scope: this
 				}
 				conexion.asyncRequest('GET', '<?=$vinculo?>', callback, null);
+				return false;
 			}
 			
 			<?=$this->objeto_js?>.respuesta_refresco = function(resp)
 			{
 				try {
 					var partes = toba.analizar_respuesta_servicio(resp);
-					document.getElementById('logger_encabezados').innerHTML = partes[0];
-					document.getElementById('logger_detalle').innerHTML = partes[1];
-					var cant = eval('(' + partes[2] + ')');
-					refrescar_cantidad_niveles(cant);
-					refrescar_detalle();
+					//Se actualizo el logger?
+					if (partes[3] != ultima_mod) {
+						ultima_mod = partes[3];
+						document.getElementById('logger_encabezados').innerHTML = partes[0];
+						document.getElementById('logger_detalle').innerHTML = partes[1];
+						var cant = eval('(' + partes[2] + ')');
+						refrescar_cantidad_niveles(cant);
+						refrescar_detalle();
+					}
 				} catch (e) {
 					//alert(e);
 				}
 			}
 			
-			//renovar_refresco();
-			
-			var niveles = <?=js::arreglo($niveles)?>;
-			var niveles_actuales = {length: 0};
 			function mostrar_nivel(nivel)
 			{
 				var li_nivel = document.getElementById('nivel_' + nivel);
@@ -188,6 +186,29 @@ class ci_analizador extends objeto_ci
 					document.getElementById('nivel_cant_' + nivel).innerHTML = cant;
 				}
 			}
+			
+			function set_refresco_automatico(activar)
+			{
+				refresco_automatico = activar;
+				document.getElementById('div_lapso').style.display = (activar) ? "" :"none";
+			}
+			
+			function chequear_refresco()
+			{
+				if (refresco_automatico) {
+					toba.set_aguardar(false);
+					<?=$this->objeto_js?>.evt__refrescar();
+				}
+				timer_refresco();
+			}
+			
+			function timer_refresco()
+			{
+				var lapso = parseFloat(document.getElementById('refresco_lapso').value);
+				var lapso = (lapso>0) ? lapso : 2000;
+				setTimeout("chequear_refresco()", lapso);
+			}
+			timer_refresco();
 <?php
 	}
 	
@@ -203,13 +224,16 @@ class ci_analizador extends objeto_ci
 		
 		$res = $this->obtener_pedido($this->seleccion);
 		$encabezado = $this->analizar_encabezado($res);
-	
+		
 		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
 		
 		//--- Opciones
 		echo "<div>";
 		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";
+		$check = form::checkbox("refresco_automatico", 1, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");		
+		$edit = form::text("refresco_lapso", "1000", false, 6, 6);
+		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
 		echo "</div><hr>";
 				
 		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
@@ -230,7 +254,6 @@ class ci_analizador extends objeto_ci
 		}
 		echo "</ul>";
 		echo "</div>";
-	
 		
 		//--- Detalles
 		echo "<ul id='logger_detalle' style='list-style-type: none;padding: 0;margin: 0;margin-top:10px;'>";		
@@ -242,12 +265,13 @@ class ci_analizador extends objeto_ci
 	
 	function obtener_html_encabezado($res)
 	{
-		$encabezado = $this->analizar_encabezado($res);		
+		$encabezado = $this->analizar_encabezado($res);
 		$enc = "";
 		//--- Encabezado		
 		foreach ($encabezado as $clave => $valor) {
 			$enc .= "<li><strong>".ucfirst($clave)."</strong>: $valor</li>\n";
 		}
+		$enc .= "<li><hr></li>";
 		return $enc;
 	}
 	

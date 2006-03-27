@@ -7,6 +7,7 @@ var toba =
 	_objetos: new Array(), 
 	_callback_inclusion: null,
 	_ajax : false,
+	_mostrar_aguardar: true,
 	
 	agregar_objeto : function(o) {
 		this._objetos[o._instancia] = o;
@@ -139,23 +140,33 @@ var toba =
 	},
 	
 	inicio_aguardar : function() {
-		var div = document.getElementById('div_toba_esperar');
-		if (div.currentStyle) {
-			//Arreglo para el IE para que simule el fixed
-			if (div.currentStyle['position'] == 'absolute') {
-				var y = (document.documentElement && document.documentElement.scrollTop) ?
-						 	document.documentElement.scrollTop :
-						 	document.body.scrollTop;
-				div.style.top = y;
+		if (this._mostrar_aguardar) {
+			var div = document.getElementById('div_toba_esperar');
+			if (div.currentStyle) {
+				//Arreglo para el IE para que simule el fixed
+				if (div.currentStyle['position'] == 'absolute') {
+					var y = (document.documentElement && document.documentElement.scrollTop) ?
+							 	document.documentElement.scrollTop :
+							 	document.body.scrollTop;
+					div.style.top = y;
+				}
 			}
+			div.style.display = '';	
+			document.body.style.cursor = 'wait';
 		}
-		div.style.display = '';	
-		document.body.style.cursor = 'wait';
 	},
 	
 	fin_aguardar : function() {
-		document.getElementById('div_toba_esperar').style.display = 'none';
-		document.body.style.cursor = '';
+		if (this._mostrar_aguardar) {		
+			document.getElementById('div_toba_esperar').style.display = 'none';
+			document.body.style.cursor = '';
+		} else {
+			this.set_aguardar(true);	
+		}
+	},
+	
+	set_aguardar : function(aguardar) {
+		this._mostrar_aguardar = aguardar;
 	}
 	
 }
