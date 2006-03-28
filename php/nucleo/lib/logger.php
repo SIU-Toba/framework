@@ -293,7 +293,7 @@ class logger
 			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ) {
 				$hay_salida = true;
 				$texto .= "[" . $this->ref_niveles[$this->niveles[$a]] . 
-						"] " . $this->mensajes[$a] . "\r\n";
+						"][".$this->proyectos[$a]."] " . $this->mensajes[$a] . "\r\n";
 			}			
 		}
 		if ($hay_salida) {

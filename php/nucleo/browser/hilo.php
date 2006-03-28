@@ -480,7 +480,7 @@ class hilo
 				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
 				como "reciclables" y la memoria sincronizada (la alienada al request anterior).
 			*/
-			toba::get_logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)');
+			toba::get_logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_memoria_global_reciclable();
 		}
