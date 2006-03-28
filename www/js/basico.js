@@ -159,23 +159,35 @@ function include_source(file) {
 
 //********************  POPUPS  ************************
 
+/**
+*	@deprecated Usar abrir_popup
+*/
 function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
-	vars = "width=" + tx + ",scrollbars=" + scroll + ",height=" + ty + ", resizable=" + resizable + ",dependent=yes" + extra;
-	if (!window.ventana_hija){
-		// No fue definida.
-		ventana_hija = window.open( url , 'ventana_hija', vars);
-		ventana_hija.focus();
-	} else {
-		// Ya fue definida.
-		if(!ventana_hija.closed && ventana_hija.focus){
-			//Todavia esta abierta
-			ventana_hija.focus();
-			ventana_hija.location.href = url;
-		}else{
-			ventana_hija = window.open( url , 'ventana_hija', vars);
+	var opciones = {'width': tx, 'scrollbars' : scroll, 'height': ty, 'resizabled': resizable};
+	abrir_popup('general', url, opciones, extra);
+}
+
+var ventana_hija = {};
+function abrir_popup(id, url, opciones, extra) {
+	vars = '';
+	if (typeof opciones != 'undefined') {
+		for (var o in opciones) {
+			vars += o + '=' + opciones[o] + ',';
 		}
 	}
-	return false;
+	vars += 'dependent=yes' + extra;
+	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus;
+	if (no_esta_definida) {
+		// No fue definida, esta cerrada o no puede tener foco
+		ventana_hija[id] = window.open( url , id, vars);
+		ventana_hija[id].focus();
+	} else {
+		// Ya fue definida, no esta cerrada  y no puede tener foco
+		ventana_hija[id].focus();
+		ventana_hija[id].location.href = url;
+		ventana_hija[id].opener = window;		
+	}
+	return false;	
 }
 
 //----Mediciones de Performance
@@ -226,6 +238,13 @@ function existe_funcion(obj, f) {
 	return false;
 }
 
+function actualizar_logger(cant) {
+	var vinc = document.getElementById('vinculo_logger');
+	if (vinc) {
+		vinc.innerHTML += '[' + cant + ']';
+	}
+}
+
 //----Varios
 //--------------------------------------------
 
@@ -239,19 +258,6 @@ function ei_arbol(variable, ret) {
 		return Dumper(variable);
 	else
 		DumperPopup(variable);
-}
-
-
-function logger(mensaje, separador) {
-	separador = (separador) ? separador : "<br>";
-	if (div = document.getElementById('logger_salida')) {
-		div.innerHTML += mensaje + separador;
-		div.style.display = '';
-	}
-}
-
-function logger_limpiar() {
-	document.getElementById('logger_salida').innerHTML = "";
 }
 
 function salir(){

@@ -55,29 +55,11 @@ function popup_abrir_item(url, indice, elemento_cod, elemento_desc, parametros_v
 {
 	popup_elementos.push(new Array(indice, elemento_cod, elemento_desc));
 	//-- Seteo parametros de la ventana
-	if(parametros_ventana !== null){
-		vars = "width=" + parametros_ventana[0] + ",height=" + parametros_ventana[1] + ",scrollbars=" + parametros_ventana[2] +  ",dependent=yes";
-	}else{
-		vars = ""
+	var param = {};
+	if(parametros_ventana !== null) {
+		param = {'width':parametros_ventana[0], 'height':parametros_ventana[1], 'scrollbars':parametros_ventana[2]};
 	}
-	//-- Abro la ventana
-	if (!window.popup_hija){
-		// No fue definida.
-		popup_hija = window.open( url , 'popup_hija', vars);
-		popup_hija.opener = window;
-		popup_hija.focus();
-	} else {
-		// Ya fue definida.
-		if(!popup_hija.closed){
-			//Todavia esta abierta
-			popup_hija.opener = window;
-			popup_hija.location.href = url;
-			popup_hija.focus();
-		}else{
-			popup_hija = window.open( url , 'popup_hija', vars);
-		}
-	}
-	return popup_hija;
+	abrir_popup(indice, url, param, null);
 }
 
 function popup_callback(indice, clave, desc)

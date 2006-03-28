@@ -3,7 +3,8 @@ require_once("tp_basico.php");
 
 class tp_normal extends tp_basico
 {
-
+	protected $con_logger = false;
+	
 	/**
 	 * @todo Sacar este hack cuando el administrador sea un proyecto
 	 */
@@ -90,7 +91,7 @@ class tp_normal extends tp_basico
 		echo "<table width='100%' class='tabla-0'><tr>";
 		foreach ($this->vinculos_izquierda() as $vinculo) {
 			if ($vinculo != '') {
-				echo "<td  class='barra-0-edit' width='1'>$vinculo</td>";
+				echo "<td  class='barra-0-edit' width='1'>$vinculo</td>\n";
 			}
 		}
 		echo "\n\n";
@@ -149,7 +150,7 @@ class tp_normal extends tp_basico
 			}		*/
 			
 			//Consola JS
-			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/consola_js', true)) {		
+			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/consola_js', true)) {	
 				//-- Link a la consola JS
 				$parametros = array();
 				$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba",'/admin/objetos/consola_js',$parametros,true);
@@ -157,8 +158,11 @@ class tp_normal extends tp_basico
 			
 			//LOGGER
 			if ($vinculador->consultar_vinculo("toba", "1000003")) {
+				$this->con_logger = true;	
 				$parametros = array();
-				$vinculos[] =$vinculador->obtener_vinculo_a_item_cp("toba",'1000003',$parametros,true, false, false, '', null, null, 'logger');
+				$html_extra = array('id' => 'vinculo_logger');
+				$url =$vinculador->obtener_vinculo_a_item_cp("toba",'1000003',$parametros,true, false, false, '', $html_extra, null, 'logger');
+				$vinculos[] = $url;
 			}
 			
 			//Boton que dispara la cronometracion
@@ -174,6 +178,17 @@ class tp_normal extends tp_basico
 			}
 		}
 		return $vinculos;
+	}
+	
+	function pie()
+	{
+		if ($this->con_logger) {
+			//--- Actualiza el link del logger mostrando la cant. de mensajes generados
+			$cant = toba::get_logger()->get_cantidad_mensajes();
+			echo js::ejecutar("actualizar_logger('$cant');");
+			echo js::cerrar();
+		}
+		parent::pie();	
 	}
 }
 

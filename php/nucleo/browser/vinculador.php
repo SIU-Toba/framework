@@ -213,7 +213,7 @@ class vinculador
 								 $opciones['menu'], $opciones['celda_memoria'], 
 								 $opciones['servicio'], $opciones['objetos_destino']);
 		if ($opciones['escribir_tag']) {
-			return $this->generar_html_vinculo($url,$v,'lista-link',$texto);
+			return $this->generar_html_vinculo($url,$v,'lista-link',$texto, $opciones['param_html']);
 		} else {
 			return $url;
 		}
@@ -357,9 +357,9 @@ class vinculador
 			$v = $this->indices_item[$clave];
 			$url = $this->generar_solicitud($this->info[$v]['destino_item_proyecto'],
 											$this->info[$v]['destino_item'],
-											$parametros,$zona,$cronometrar,$param_html,$menu,$celda_memoria);
+											$parametros,$zona,$cronometrar,null,$menu,$celda_memoria);
 			if($escribir_tag){
-				return $this->generar_html_vinculo($url,$v,'lista-link',$texto);
+				return $this->generar_html_vinculo($url,$v,'lista-link',$texto, $param_html);
 			}else{
 				return $url;
 			}
@@ -484,7 +484,7 @@ class vinculador
 //------------------------------ HTML  -------------------------------
 //-------------------------------------------------------------------------------------
 
-	protected function generar_html_vinculo($url, $posicion_vinculo, $clase_css='lista-link', $forzar_texto="")
+	protected function generar_html_vinculo($url, $posicion_vinculo, $clase_css='lista-link', $forzar_texto="", $param_extra=null)
 /*
  	@@acceso: interno
 	@@desc: Inicializa la generacion de HTML del vinculo interno
@@ -507,7 +507,9 @@ class vinculador
 		}
 		$parametros = $this->info[$posicion_vinculo];
 		$parametros['clase_css'] = $clase_css;
-
+		if (is_array($param_extra)) {
+			$parametros = array_merge($parametros, $param_extra);
+		}
 
 		return $this->generar_html($url, $parametros);
 	}
@@ -522,6 +524,12 @@ class vinculador
  	@@retorno: string | HTML del vinculo generado
 */
 	{
+		$id='';
+		if (isset($parametros['id'])) {
+			$id = "id='{$parametros['id']}'";
+		}
+		
+		//ei_arbol($parametros);
 		//El vinculo corresponde a un FRAME
 		if(isset($parametros['frame'])){
 			if(trim($parametros['frame']!="")){
@@ -534,7 +542,7 @@ class vinculador
 		}
 		if(isset($parametros['clase_css'])){
 			if(trim($parametros['clase_css']!="")){
-				$clase = " class='" . $parametros['frame'] . "' ";
+				$clase = " class='" . $parametros['clase_css'] . "' ";
 			}else{
 				$clase = " class='lista-link'";
 			}
@@ -544,7 +552,7 @@ class vinculador
 		//La llamada depende del tipo de vinculo (normal, popup, etc.)
 		if( $parametros['tipo']=="normal" ){	//	*** Ventana NORMAL ***
 			//El vinculo es normal
-			$html = "<a href='$url' $clase $frame>";
+			$html = "<a $id href='$url' $clase $frame>";
 		}elseif( $parametros['tipo']=="popup" )	//	*** POPUP javascript ***
 		{
 			$init = explode(",",$parametros['inicializacion']);
@@ -554,7 +562,9 @@ class vinculador
 			$ty = (isset($init[1])) ? $init[1] : 400;
 			$scroll = (isset($init[2])) ? $init[2] : "yes";
 			$resizable = (isset($init[3])) ? $init[3] : "yes";
-			$html = "<a href='#' $clase onclick=\"javascript:return solicitar_item_popup('$url', $tx, $ty, '$scroll', '$resizable')\">";
+			//---SE utiliza el parametro frame para determinar si el popup tiene un id especifico
+			$id_popup = isset($parametros['frame']) ? $parametros['frame'] : 'general';
+			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizabled': '$resizable'})\">";
 		}
 
 		if( isset($parametros['imagen']) && 

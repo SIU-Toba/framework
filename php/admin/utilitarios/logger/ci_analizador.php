@@ -1,6 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 //--------------------------------------------------------------------
+
 class ci_analizador extends objeto_ci
 {
 	protected $opciones;
@@ -80,14 +81,17 @@ class ci_analizador extends objeto_ci
 		$res = $this->obtener_pedido($this->seleccion);
 		$encabezado = $this->obtener_html_encabezado($res);
 		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
-
-		echo $encabezado;
-		echo "<--toba-->";		
-		echo $detalle;
-		echo "<--toba-->";
-		echo js::arreglo($cant_por_nivel, true);
-		echo "<--toba-->";
-		echo filemtime($this->archivo);		
+		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
+		$ultima_mod = filemtime($this->archivo);
+		if ($anterior_mod != $ultima_mod) {
+			echo filemtime($this->archivo);			
+			echo "<--toba-->";			
+			echo $encabezado;
+			echo "<--toba-->";		
+			echo $detalle;
+			echo "<--toba-->";
+			echo js::arreglo($cant_por_nivel, true);
+		}
 	}
 	
 	function extender_objeto_js() 
@@ -97,12 +101,13 @@ class ci_analizador extends objeto_ci
 		}
 		$niveles = toba::get_logger()->get_niveles();		
 		$parametros = array();
-		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
+//		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
 			var ultima_mod ='<?=filemtime($this->archivo)?>';
 			var niveles = <?=js::arreglo($niveles)?>;
 			var niveles_actuales = {length: 0};
 			var refresco_automatico = true;
+			var consultando = false;
 
 			<?=$this->objeto_js?>.evt__refrescar = function() {
 				var callback =
@@ -111,7 +116,9 @@ class ci_analizador extends objeto_ci
 				  failure: toba.error_comunicacion,
 				  scope: this
 				}
-				conexion.asyncRequest('GET', '<?=$vinculo?>', callback, null);
+				var parametros = {'mtime': ultima_mod};
+				var vinculo = vinculador.crear_autovinculo('ejecutar', parametros);
+				conexion.asyncRequest('GET', vinculo, callback, null);
 				return false;
 			}
 			
@@ -120,17 +127,20 @@ class ci_analizador extends objeto_ci
 				try {
 					var partes = toba.analizar_respuesta_servicio(resp);
 					//Se actualizo el logger?
-					if (partes[3] != ultima_mod) {
-						ultima_mod = partes[3];
-						document.getElementById('logger_encabezados').innerHTML = partes[0];
-						document.getElementById('logger_detalle').innerHTML = partes[1];
-						var cant = eval('(' + partes[2] + ')');
+					if (partes.length > 0) {
+						toba.inicio_aguardar();
+						ultima_mod = partes[0];
+						document.getElementById('logger_encabezados').innerHTML = partes[1];
+						document.getElementById('logger_detalle').innerHTML = partes[2];
+						var cant = eval('(' + partes[3] + ')');
 						refrescar_cantidad_niveles(cant);
 						refrescar_detalle();
+						setTimeout("toba.fin_aguardar()", 200);
 					}
 				} catch (e) {
 					//alert(e);
 				}
+				consultando = false;				
 			}
 			
 			function mostrar_nivel(nivel)
@@ -195,7 +205,8 @@ class ci_analizador extends objeto_ci
 			
 			function chequear_refresco()
 			{
-				if (refresco_automatico) {
+				if (refresco_automatico && !consultando) {
+					consultando = true;
 					toba.set_aguardar(false);
 					<?=$this->objeto_js?>.evt__refrescar();
 				}
@@ -232,7 +243,7 @@ class ci_analizador extends objeto_ci
 		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";
 		$check = form::checkbox("refresco_automatico", 1, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");		
-		$edit = form::text("refresco_lapso", "1000", false, 6, 6);
+		$edit = form::text("refresco_lapso", 2000, false, 6, 6);
 		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
 		echo "</div><hr>";
 				

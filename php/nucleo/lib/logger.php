@@ -158,6 +158,11 @@ class logger
 		return $this->mensajes_web;
 	}
 	
+	function get_cantidad_mensajes()
+	{
+		return count($this->mensajes);	
+	}
+	
 	function get_niveles()
 	{
 		return $this->ref_niveles;	

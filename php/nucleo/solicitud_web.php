@@ -261,7 +261,6 @@ class solicitud_web extends solicitud
 	{
 		toba::get_hilo()->desactivar_reciclado();		
 		require_once('3ros/JSON.php');
-		
 		if (isset($_GET['param-cascadas'])) {
 			$_POST['parametros'] = $_GET['param-cascadas'];
 			include('acciones/basicas/ef/respuesta.php');

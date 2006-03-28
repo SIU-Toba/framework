@@ -1539,7 +1539,12 @@ TABLE.lista-tabla {
 	 empty-cells: show
 }
 A.lista-link {
-	COLOR: #231f20
+	COLOR: #231f20;
+}
+#vinculo_logger {
+	white-space: nowrap;
+	text-decoration: none;
+	color: white;
 }
 TD.lista-titulo {
 	PADDING-RIGHT: 10px;

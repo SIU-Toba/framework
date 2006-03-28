@@ -357,7 +357,7 @@ function consultar_info(item_proyecto, item, parametros, nombre_callback, prefij
 		  argument: nombre_callback
 		}
 		parm = encodeURI(parametros); 
-		var vinculo = vinculador.autovinculo('cascadas_efs') + '&param-cascadas=' + parm;
+		var vinculo = vinculador.crear_autovinculo('cascadas_efs') + '&param-cascadas=' + parm;
 		var con = conexion.asyncRequest('GET', vinculo, callback, null);
 	}
 }

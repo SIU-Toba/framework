@@ -89,7 +89,7 @@ var toba =
 			  failure: this.error_comunicacion,
 			  scope: this
 			}
-			var vinculo = vinculador.autovinculo('html_parcial');
+			var vinculo = vinculador.crear_autovinculo('html_parcial');
 			conexion.setForm('formulario_toba');
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
@@ -131,7 +131,10 @@ var toba =
 				pos_anterior = pos + 10;
 			}
 		}
-		partes.push(texto.substr(pos_anterior));
+		var restante = texto.substr(pos_anterior);
+		if (restante.length >0) {
+			partes.push(restante);
+		}
 		return partes;
 	},
 	
@@ -173,7 +176,7 @@ var toba =
 
 var vinculador =
 {
-	autovinculo : function(servicio, parametros) {
+	crear_autovinculo : function(servicio, parametros) {
 		return this.crear(toba_hilo_item, servicio, parametros);
 	},
 	
@@ -183,8 +186,8 @@ var vinculador =
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}
 		if (typeof parametros != 'undefined') {
-			alert('El pasaje de parametros en JS aun no esta implementado');
-			for (var i=0; i<paramentros.length; i++) {
+			for (var i in parametros) {
+				vinc += '&' + i + '=' + parametros[i];
 			}
 		}
 		return vinc;
