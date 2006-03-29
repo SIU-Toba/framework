@@ -457,7 +457,7 @@ class objeto_ei_cuadro extends objeto_ei
     }
 
     /**
-    *	@deprecated Desde 0.8.3. Ver obtener_clave_seleccionada
+    *	@deprecated Desde 0.8.3. Usar obtener_clave_seleccionada
     */
 	function obtener_clave()
 	{

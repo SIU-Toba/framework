@@ -12,7 +12,7 @@ class db_postgres7 extends db
 	function retrazar_constraints()
 	{
 		$this->ejecutar("SET CONSTRAINTS ALL DEFERRED");
-		logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************");		
+		logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************", 'toba');		
 	}
 	//------------------------------------------------------------------------
 

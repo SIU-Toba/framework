@@ -55,11 +55,12 @@ class ci_analizador extends objeto_ci
 		$this->cargar_analizador();
 	}
 	
-	
 	function cargar_analizador()
 	{
-		$this->archivo = $this->get_logger()->directorio_logs()."/sistema.log";		
-		$this->analizador = new analizador_logger_fs($this->archivo);
+		if (isset($this->opciones)) {
+			$this->archivo = $this->get_logger()->directorio_logs()."/sistema.log";		
+			$this->analizador = new analizador_logger_fs($this->archivo);
+		}
 	}
 	
 	function obtener_html_dependencias()
@@ -84,22 +85,42 @@ class ci_analizador extends objeto_ci
 			font-weight: bold;
 			float: right;
 		}
+		.admin-logger-selec {
+			font-size:14px;
+			display: block;
+		}
+		.admin-logger-normal {
+			padding-left: 10px;
+		}
+		.admin-logger-seccion {
+			padding-top: 5px;
+			padding-bottom: 5px;
+			font-weight: bold;
+		}
+		pre {
+			margin: 0;
+			padding:0;
+			margin-left:20px;
+		}
 		</style>
 <?php
-		if ($this->get_pantalla_actual() == 'visor' && isset($this->seleccion)) {
-			if (isset($this->opciones['proyecto']) && isset($this->opciones['fuente'])) {
-				if ($this->opciones['fuente'] == 'db') {
-					$this->obtener_html_db();
-				} elseif ($this->opciones['fuente'] == 'fs') {
-					$this->obtener_html_fs();
-				}
+		if ($this->debe_mostrar_visor()) {
+			if ($this->opciones['fuente'] == 'db') {
+				$this->obtener_html_db();
+			} elseif ($this->opciones['fuente'] == 'fs') {
+				$this->obtener_html_fs();
 			}
 		}
 	}
 	
-	function obtener_html_db()
+	protected function debe_mostrar_visor()
 	{
-		echo ei_mensaje("El logger por base de datos no está implementado");
+		if ($this->get_pantalla_actual() == 'visor' && isset($this->seleccion)) {
+			if (isset($this->opciones['proyecto']) && isset($this->opciones['fuente'])) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	function servicio__ejecutar()
@@ -110,7 +131,7 @@ class ci_analizador extends objeto_ci
 		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
 		$ultima_mod = filemtime($this->archivo);
 		if ($anterior_mod != $ultima_mod) {
-			echo filemtime($this->archivo);			
+			echo $ultima_mod;		
 			echo "<--toba-->";			
 			echo $encabezado;
 			echo "<--toba-->";		
@@ -122,9 +143,8 @@ class ci_analizador extends objeto_ci
 	
 	function extender_objeto_js() 
 	{
-		if ($this->get_pantalla_actual() != 'visor' || !isset($this->seleccion) 
-			|| !file_exists($this->archivo)) {
-			return;
+		if (!$this->debe_mostrar_visor() || !file_exists($this->archivo)) {
+			return;	
 		}
 		$niveles = toba::get_logger()->get_niveles();		
 		$parametros = array();
@@ -265,10 +285,11 @@ class ci_analizador extends objeto_ci
 		$encabezado = $this->analizador->analizar_encabezado($res);
 		
 		//--- Opciones
+		$selec = ($this->seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$this->seleccion}";
 		echo "<div>";
 		echo "<span class='admin-logger-proyecto' title='{$this->archivo}'>";
 		echo ucfirst($this->opciones['proyecto']);
-		echo "</span>";
+		echo "<span class='admin-logger-selec'>$selec</span></span>";
 		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";
 
@@ -336,19 +357,38 @@ class ci_analizador extends objeto_ci
 		}
 		$detalle = '';
 		foreach ($cuerpo as $linea) {
-			$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null);
-			$detalle .= "<li nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
+			//Los mensajes de la solicitudes son especiales..
+			if (substr($linea['mensaje'], 0,10) == "[SECCION] ") {
+				$linea['mensaje'] = substr($linea['mensaje'], 10);
+				$img ='';
+				$clase = "admin-logger-seccion";
+			} else {
+				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null);
+				$clase = "admin-logger-normal";	
+			}
+			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
 			$detalle .= "$img ";
-			$detalle .= $linea['mensaje'];
+			$detalle .= $this->txt2html($linea['mensaje']);
 			$detalle .= "</li>";	
 			$cant_por_nivel[$linea['nivel']]++;
 		}
 		return array($detalle, $cant_por_nivel);
 	}
 	
+	function txt2html($txt)	
+	{
+		$txt = trim($txt);
+		
+		//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo
+		$salto = strpos($txt, "\n", 0);
+		if ($salto !== false) {
+			$txt = substr($txt,0,$salto)."<pre>".substr($txt, $salto)."</pre>";
+		}
+		return $txt;
+	}	
+	
 	function get_logger()
 	{
-	
 		return logger::instancia($this->opciones['proyecto']);
 	}
 	
@@ -369,6 +409,7 @@ class ci_analizador extends objeto_ci
 	function evt__filtro__filtrar($opciones)
 	{
 		$this->opciones = $opciones;		
+		$this->opciones['fuente'] = 'fs';
 	}
 	
 	function evt__filtro__cancelar()

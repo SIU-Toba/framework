@@ -50,7 +50,7 @@ class objeto
 		//$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->evaluar_existencia_interface_anterior();
 		$this->conectar_fuente();
-		$this->log->debug( $this->get_txt() . "[ __construct ]");
+		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');
 		$this->configuracion();
 	}
 
@@ -146,7 +146,7 @@ class objeto
 
 	function get_txt()
 	{
-		return "objeto[". $this->id[1] . "] < ". get_class($this). " > ";	
+		return "objeto(".$this->id[1]."): ";	
 	}
 
 	function get_nombre()

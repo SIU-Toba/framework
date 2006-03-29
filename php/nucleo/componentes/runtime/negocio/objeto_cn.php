@@ -28,7 +28,7 @@ class objeto_cn extends objeto
 
 	function evt__limpieza_memoria($no_borrar=null)
 	{
-		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]");
+		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
 		//$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->evt__inicializar();
@@ -52,7 +52,7 @@ class objeto_cn extends objeto
 
 	function cancelar()
 	{
-		$this->log->debug( $this->get_txt() . "[ cancelar ]");
+		$this->log->debug( $this->get_txt() . "[ cancelar ]", 'toba');
 		$this->evt__limpieza_memoria();
 	}
 	//-------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ class objeto_cn extends objeto
 	//ATENCION: ignore_user_abort() //Esto puede ser importante!!!!
 	{
 		$resultado = null;
-		$this->log->debug( $this->get_txt() . "[ procesar ]");
+		$this->log->debug( $this->get_txt() . "[ procesar ]", 'toba');
 		try {
 			//ignore_user_abort();				//------> ?????
 			$this->iniciar_transaccion();
@@ -73,7 +73,7 @@ class objeto_cn extends objeto
 		}
 		catch(excepcion_toba $e){
 			$this->abortar_transaccion();
-			$this->log->debug($e);	
+			$this->log->debug($e, 'toba');	
 			throw new excepcion_toba( $e->getMessage() );
 		}
 	}

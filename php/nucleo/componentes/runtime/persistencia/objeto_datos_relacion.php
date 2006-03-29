@@ -482,7 +482,7 @@ class objeto_datos_relacion extends objeto
 	 */
 	protected function log($txt)
 	{
-		toba::get_logger()->debug($this->get_txt() . get_class($this). "' " . $txt);
+		toba::get_logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
 	}
 	//-------------------------------------------------------------------------------
 }

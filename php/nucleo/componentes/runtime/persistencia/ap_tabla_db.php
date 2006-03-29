@@ -78,7 +78,7 @@ class ap_tabla_db implements ap_tabla
 	
 	protected function log($txt)
 	{
-		toba::get_logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " .$txt);
+		toba::get_logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " .$txt, 'toba');
 	}
 
 	public function info()
@@ -186,7 +186,7 @@ class ap_tabla_db implements ap_tabla
 	 */
 	public function cargar($clave)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_* o cargar_con');
 		return $this->cargar_por_clave($clave);	
 	}
 	
@@ -316,8 +316,11 @@ class ap_tabla_db implements ap_tabla
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
 			return $modificaciones;
 		} catch(excepcion_toba $e) {
-			if($this->utilizar_transaccion) abortar_transaccion($this->fuente);
-			toba::get_logger()->debug($e);
+			if($this->utilizar_transaccion) { 
+				toba::get_logger()->info("Abortando transacción en {$this->fuente}", 'toba');				
+				abortar_transaccion($this->fuente);
+			}
+			toba::get_logger()->debug("Relanzando excepción. ".$e, 'toba');
 			throw new excepcion_toba($e->getMessage());
 		}		
 	}		
@@ -768,12 +771,11 @@ class ap_tabla_db implements ap_tabla
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->secuencias[$col_llave])){
-						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
+						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia', 'toba');
 					}
 					if(!isset($fila[$col_llave])){
-						toba::get_logger()->debug("AP_TABLA_DB: Falta el parametro '$col_llave'");
-						toba::get_logger()->debug($fila);
-						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+						toba::get_logger()->error("AP_TABLA_DB: Falta el parametro '$col_llave' en fila $fila", 'toba');
+						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.', 'toba');
 					}
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
@@ -789,7 +791,7 @@ class ap_tabla_db implements ap_tabla
 					// - 3 - Ejecuto SQL
 					$datos = consultar_fuente($sql, $this->fuente);
 					if(!$datos){
-						toba::get_logger()->debug('AP_TABLA_DB: no se recuperaron datos ' . $sql);
+						toba::get_logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
 						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 					}
 				}
@@ -812,13 +814,13 @@ class ap_tabla_db implements ap_tabla
 						if(is_array($columna_externa)){
 							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
 							if(!isset($datos[0][$columna_externa['origen']])){
-								toba::get_logger()->debug("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'");
+								toba::get_logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'", 'toba');
 								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
 						}else{
 							if(!isset($datos[0][$columna_externa])){
-								toba::get_logger()->debug("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'");
+								toba::get_logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'", 'toba');
 								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];

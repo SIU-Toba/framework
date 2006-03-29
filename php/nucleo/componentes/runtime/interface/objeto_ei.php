@@ -93,7 +93,7 @@ class objeto_ei extends objeto
 				}
 				//En un principio esto se usa solo para FILTRAR la botonera
 				if( $en_botonera && !($pertenece_a_grupo_actual) ){
-					toba::get_logger()->debug("Se filtro el evento: $id");
+					toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
 					unset($eventos[$id]);
 				}
 			}
@@ -111,7 +111,7 @@ class objeto_ei extends objeto
 			$eventos[$evento['identificador']] = $evento;
 			//Seteo el evento por defecto
 			if($evento['implicito']){
-				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador']);
+				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador'], 'toba');
 				$this->set_evento_defecto($evento['identificador']);
 			}
 		}
@@ -231,7 +231,9 @@ class objeto_ei extends objeto
 	//--  Cosas VIEJAS  --------------------------------------------------
 	//--------------------------------------------------------------------
 
-
+	/**
+	 * @deprecated  Definir los eventos en el admin
+	 */
 	function agregar_evento($evento, $establecer_como_predeterminado=false)
 	{
 		asercion::es_array_dimension($evento,1);
@@ -240,22 +242,25 @@ class objeto_ei extends objeto
 			$id = key($evento);
 			$this->set_evento_defecto($id);
 		}
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
-	}
-
-	public function set_eventos($eventos)
-	{
-		$this->eventos = $eventos;
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3",'Definir los eventos en el administrador');		
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');		
 	}
 
 	/**
-	 * Fuerza que el evento sea implicito en este objeto (no necesita de intervención del usuario para lanzarse)
-	 * @param string $id Id. del evento
+	 * @deprecated  Definir los eventos en el admin
+	 */
+	public function set_eventos($eventos)
+	{
+		$this->eventos = $eventos;
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');
+	}
+
+	/**
+	 * @deprecated Definir los eventos en el admin
 	 */
 	public function set_evento_defecto($id)
 	{
 		$this->evento_por_defecto = $id;
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');
 	}
 
 	//--------------------------------------------------------------------

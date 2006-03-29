@@ -560,11 +560,11 @@ class vinculador
 			//ei_arbol($init);
 			$tx = (isset($init[0])) ? $init[0] : 400;
 			$ty = (isset($init[1])) ? $init[1] : 400;
-			$scroll = (isset($init[2])) ? $init[2] : "yes";
-			$resizable = (isset($init[3])) ? $init[3] : "yes";
+			$scroll = (isset($init[2])) ? $init[2] : "1";
+			$resizable = (isset($init[3])) ? $init[3] : "1";
 			//---SE utiliza el parametro frame para determinar si el popup tiene un id especifico
 			$id_popup = isset($parametros['frame']) ? $parametros['frame'] : 'general';
-			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizabled': '$resizable'})\">";
+			$html = "<a $id href='#' $clase onclick=\"javascript:return abrir_popup('$id_popup','$url', {'width': '$tx', 'scrollbars' : '$scroll', 'height': '$ty', 'resizable': '$resizable'})\">";
 		}
 
 		if( isset($parametros['imagen']) && 

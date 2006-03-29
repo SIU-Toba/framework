@@ -182,7 +182,7 @@ class db_tablas
 			cerrar_transaccion();			
 		}catch(excepcion_toba $e){
 			abortar_transaccion();
-			toba::get_logger()->debug($e);
+			toba::get_logger()->debug($e, 'toba');
 			throw new excepcion_toba($e->getMessage());
 		}		
 	}

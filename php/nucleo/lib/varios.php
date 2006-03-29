@@ -254,6 +254,7 @@
 		}
 	}
 	
+	
 	/**
 	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
 	*	Util para simulaciones

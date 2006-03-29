@@ -57,6 +57,7 @@ class nucleo_toba
 			$this->solicitud = solicitud::get_solicitud($item[0], $item[1]);
 			$this->procesar();
 		} catch (excepcion_toba_login $e) {
+			global $mensaje;
 			$mensaje = $e->getMessage();
 			try {
 					$pro = apex_pa_proyecto;	

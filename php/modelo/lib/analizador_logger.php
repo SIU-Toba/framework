@@ -24,7 +24,7 @@ class analizador_logger_fs
 			$mensaje = $res[$i+1];
 			$bracket_cierra = strpos($mensaje, ']');
 			$proy = substr($mensaje, 1, $bracket_cierra-1);
-			$mens = substr($mensaje, $bracket_cierra+1);
+			$mens = trim(substr($mensaje, $bracket_cierra+1));
 			$cuerpo[] = array('nivel' => $res[$i], 'proyecto'=>$proy, 'mensaje' => $mens);
 			
 		}

@@ -60,7 +60,6 @@ toba::get_hilo()->desactivar_reciclado();
 			//Abro la fuente de datos
 			$fp = $data[0]['fp'];
 			$f = $data[0]['f'];
-			abrir_fuente_datos($f, $fp);
 			$i = parsear_propiedades($data[0]['i']);
 			if(isset($i["sql"]) && !isset($i["fuente"])){
 				$i["fuente"]= $f;

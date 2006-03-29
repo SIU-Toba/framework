@@ -48,7 +48,7 @@ class solicitud_web extends solicitud
 			$this->procesar_eventos();
 			$this->procesar_servicios();
 		} catch(excepcion_toba $e) {
-			toba::get_logger()->error($e);
+			toba::get_logger()->error($e, 'toba');
 			toba::get_cola_mensajes()->agregar($e->getMessage(), "error");
 			toba::get_cola_mensajes()->mostrar();
 		}
@@ -78,6 +78,7 @@ class solicitud_web extends solicitud
 	
 	protected function cargar_objetos()
 	{
+		toba::get_logger()->seccion("Cargando objetos...", 'toba');
 		if ($this->info_objetos > 0) {
 			$this->cis = array();
 			$i = 0;
@@ -103,6 +104,7 @@ class solicitud_web extends solicitud
 	
 	protected function procesar_eventos()
 	{
+		toba::get_logger()->seccion("Procesando eventos...", 'toba');		
 		//--Antes de procesar los eventos toda entrada UTF-8 debe ser pasada a ISO88591
 		if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'UTF-8') !== false) {
 			foreach ($_POST as $clave => $valor) {
@@ -118,6 +120,7 @@ class solicitud_web extends solicitud
 	
 	protected function procesar_servicios()
 	{
+		toba::get_logger()->seccion("Cargando dependencias para responder al servicio...", 'toba');
 		//--- Se fuerza a que los Cis carguen sus dependencias (por si alguna no se cargo para atender ls eventos)
 		foreach ($this->cis as $ci) {
 			$this->objetos[$ci]->cargar_dependencias_gi();
@@ -142,6 +145,7 @@ class solicitud_web extends solicitud
 
 		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
 		$callback = "servicio__$servicio";
+		toba::get_logger()->seccion("Respondiendo al $callback...", 'toba');		
 		if (method_exists($this, $callback)) {
 			$this->$callback($destino);
 		} else {
@@ -313,6 +317,7 @@ class solicitud_web extends solicitud
  */
 function responder($rs)
 {
+	toba::get_logger()->debug("Respuesta Cascadas: ".var_export($rs, true), "toba");
 	$json = new Services_JSON();
 	$respuesta = $json->encode($rs);
 	echo $respuesta;	

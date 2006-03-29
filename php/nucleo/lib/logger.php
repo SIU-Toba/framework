@@ -172,8 +172,20 @@ class logger
 	//------ Entradas para los distintos tipos de error
 	//------------------------------------------------------------------
 
-	function trace()
+	function trace($simple = false)
 	{
+    	//Se saca el archivo que llamo el metodo obsoleto
+    	$traza = debug_backtrace();
+    	$archivo = $traza[2]['file'];
+		$linea = $traza[2]['line']; 	
+    	if ($clase != '') {
+    		$unidad = "Método '$clase::$metodo'";
+    	} elseif ($metodo != '') {
+			$unidad = "Función '$metodo'";
+    	} else {
+    		$unidad = '';	
+    	}
+    	$msg = "\nArchivo $archivo, linea $linea.";
 		$this->$nivel( debug_backtrace() );
 	}
 
@@ -196,24 +208,22 @@ class logger
     *	Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
     *	@param string $version  Versión desde la cual el metodo/funcion deja de estar disponible
     */
-    function obsoleto($clase, $metodo, $version, $extra=null) 
+    function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
     {
     	if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
-	    	//Se saca el archivo que llamo el metodo obsoleto
-	    	$traza = debug_backtrace();
-	    	$archivo = $traza[2]['file'];
-			$linea = $traza[2]['line']; 	
 	    	if ($clase != '') {
 	    		$unidad = "Método '$clase::$metodo'";
 	    	} elseif ($metodo != '') {
 				$unidad = "Función '$metodo'";
 	    	} else {
 	    		$unidad = '';	
-	    	}
-	    	$msg = "OBSOLETO: $unidad desde versión $version. $extra\nArchivo $archivo, linea $linea.";
-	    	$this->notice($msg);
+	    	}    		
+	    	$msg = "OBSOLETO: $unidad desde versión $version. $extra";
+	    	$this->notice($msg, $proyecto);
     	}
     }
+    
+    
     
     function notice($mensaje, $proyecto=null)
     {
@@ -228,6 +238,14 @@ class logger
     function debug($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_DEBUG);
+    }
+    
+    /**
+     * Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
+     */
+    function seccion($mensaje, $proyecto=null)
+    {
+        return $this->registrar_mensaje("[SECCION] ".$mensaje, $proyecto, TOBA_LOG_DEBUG);    	
     }
 
 	//------------------------------------------------------------------

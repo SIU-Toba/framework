@@ -139,7 +139,7 @@ class ap_relacion_db implements ap_relacion
 			if($this->utilizar_transaccion) cerrar_transaccion($fuente);			
 		}catch(excepcion_toba $e){
 			if($this->utilizar_transaccion) abortar_transaccion($fuente);
-			toba::get_logger()->debug($e);
+			toba::get_logger()->debug($e, 'toba');
 			throw new excepcion_toba($e->getMessage());
 		}					
 	}
@@ -207,9 +207,10 @@ class ap_relacion_db implements ap_relacion
 			}
 		} catch(excepcion_toba $e) {
 			if($this->utilizar_transaccion) {
+				toba::get_logger()->info("Abortando transacción en $fuente", 'toba');				
 				abortar_transaccion($fuente);
 			}
-			toba::get_logger()->debug($e);
+			toba::get_logger()->debug("Relanzando excepción. ".$e, 'toba');
 			throw new excepcion_toba($e->getMessage());
 		}
 	}

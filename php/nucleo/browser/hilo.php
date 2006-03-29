@@ -685,7 +685,7 @@ class hilo
 			
 			$es_distinto_item = ($_SESSION[$celda]['item_anterior'] != $_SESSION[$celda]['item']);
 			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
-				toba::get_logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM");
+				toba::get_logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
 				foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_global($reciclable);
@@ -707,7 +707,7 @@ class hilo
 			if($tipo == apex_hilo_reciclado_acceso){
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$_SESSION[$celda]["reciclables_activos"])){
-					toba::get_logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido");
+					toba::get_logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
 					$this->eliminar_dato_global($reciclable);
 				}
 			}
@@ -809,21 +809,30 @@ class hilo
 	//** Compatibilidad inversa con la version anterior
 	//*******************************************************************************
 
+	/**
+	 * @deprecated Usar persistir dato sincronizado
+	 */	
 	public function persistir_dato($indice, $datos)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->persistir_dato_sincronizado($indice, $datos);
 	}
 
+	/**
+	 * @deprecated Usar eliminar dato sincronizado
+	 */	
 	public function eliminar_dato($indice)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->eliminar_dato_sincronizado($indice);
 	}
 
+	/**
+	 * @deprecated Usar recuperar dato sincronizado
+	 */
 	public function recuperar_dato($indice)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, '0.8.3');
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		return $this->recuperar_dato_sincronizado($indice);
 	}
 

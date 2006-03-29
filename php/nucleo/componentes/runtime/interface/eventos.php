@@ -8,7 +8,7 @@ class eventos
 	static function evento_estandar($id, $etiqueta=null, $en_botonera=true, $imagen = '', $ayuda = '', $maneja_datos=true)
 	//Retorna un evento estandar listo para modificar
 	{
-		toba::get_logger()->obsoleto("eventos", "", "0.8.3", "Utilizar la definición de eventos en el administrador");
+		toba::get_logger()->obsoleto(__CLASS__, "", "0.8.3", "Utilizar la definición de eventos en el administrador", 'toba');
 		$evento[$id]['etiqueta'] = $etiqueta;
 		$evento[$id]['maneja_datos'] = $maneja_datos;
 		$evento[$id]['sobre_fila'] = false;			//Propiedad particular que entiende el cuadro (y el ML debería tambien)

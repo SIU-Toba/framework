@@ -105,7 +105,7 @@ class objeto_ci extends objeto_ei
 	//Carga las dependencias y las inicializar
 	{
 		asercion::es_array($dependencias,"No hay dependencias definidas");
-		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true));
+		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true), 'toba');
 		//Parametros a generales
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		foreach($dependencias as $dep)
@@ -173,14 +173,14 @@ class objeto_ci extends objeto_ei
 
 	function disparar_obtencion_datos_cn( $modo=null )
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]");
+		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]", 'toba');
 		$this->evt__obtener_datos_cn( $modo );
 		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'");
+			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'", 'toba');
 			$this->dependencias[$dep]->disparar_obtencion_datos_cn( $modo );
 		}
 	}
@@ -195,7 +195,7 @@ class objeto_ci extends objeto_ei
 
 	function disparar_entrega_datos_cn()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]");
+		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]", 'toba');
 		//DUDA: Validar aca es redundante?
 		$this->evt__validar_datos();
 		$this->evt__entregar_datos_cn();
@@ -204,7 +204,7 @@ class objeto_ci extends objeto_ei
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'");
+			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'", 'toba');
 			$this->dependencias[$dep]->disparar_entrega_datos_cn();
 		}
 	}
@@ -231,7 +231,7 @@ class objeto_ci extends objeto_ei
 	function disparar_limpieza_memoria()
 	//Borra la memoria de todos los CI
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]");
+		$this->log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
 		foreach($this->get_dependencias_ci() as $dep){
 			if( !isset($this->dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
@@ -390,7 +390,7 @@ class objeto_ci extends objeto_ei
 	 */
 	function definir_etapa_gi_pre_eventos()
 	{
-		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_pre_eventos ]");
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_pre_eventos ]", 'toba');
 		if( isset($this->memoria['etapa_gi']) ){
 			// Habia una etapa anterior
 			$this->set_etapa_gi( $this->memoria['etapa_gi'] );
@@ -401,7 +401,7 @@ class objeto_ci extends objeto_ei
 			// porque el CI no se encuentra entre las dependencias previas
 			$this->set_etapa_gi( $this->get_etapa_actual() );
 		}
-		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}");
+		$this->log->debug( $this->get_txt() . "etapa_gi_PRE_eventos: {$this->etapa_gi}", 'toba');
 	}
 	//-------------------------------------------------------------------------------
 
@@ -414,7 +414,7 @@ class objeto_ci extends objeto_ei
 	{
 		$etapa_previa = (isset($this->memoria['etapa_gi'])) ? $this->memoria['etapa_gi'] : null;
 		$etapa_actual = $this->get_etapa_actual();
-		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]");
+		$this->log->debug( $this->get_txt() . "[ definir_etapa_gi_post_eventos ]", 'toba');
 		if($etapa_previa !== $etapa_actual){ //¿Se cambio de etapa?
 			// -[ 1 ]-  Controlo que se pueda salir de la etapa anterior
 			// Esto no lo tengo que subir al metodo anterior?
@@ -434,7 +434,7 @@ class objeto_ci extends objeto_ei
 		}
 		// -[ 3 ]-  Seteo la etapa PROPUESTA
 		$this->set_etapa_gi($etapa_actual);
-		$this->log->debug( $this->get_txt() . "etapa_gi_POST_eventos: {$this->etapa_gi}");
+		$this->log->debug( $this->get_txt() . "etapa_gi_POST_eventos: {$this->etapa_gi}", 'toba');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -448,13 +448,13 @@ class objeto_ci extends objeto_ei
 	function procesar_eventos()
 	//Gatillo del procesamiento de eventos desde el nivel exterior
 	{
-		$this->log->debug($this->get_txt() . "_____________________________________________________[ procesar_eventos ]");
+		$this->log->debug($this->get_txt() . "[ procesar_eventos ]", 'toba');
 		try{
 			$this->controlador = $this;	//El CI exterior es su propio controlador
 			$this->inicializar();
 			$this->disparar_eventos();
 		}catch(excepcion_toba $e){
-			$this->log->debug($e);			
+			$this->log->debug($e, 'toba');			
 			$this->informar_msg($e->getMessage(), 'error');
 		}
 	}
@@ -466,7 +466,7 @@ class objeto_ci extends objeto_ei
 	 */
 	protected function disparar_eventos()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]");
+		$this->log->debug( $this->get_txt() . "[ disparar_eventos ]", 'toba');
 
 		//PANTALLA
 		$this->definir_etapa_gi_pre_eventos();
@@ -513,12 +513,12 @@ class objeto_ci extends objeto_ei
 			$metodo = apex_ei_evento . apex_ei_separador . $this->evento_actual;
 			if(method_exists($this, $metodo)){
 				//Ejecuto el metodo que implementa al evento
-				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]");
+				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]", 'toba');
 				$this->$metodo($this->evento_actual_param);
 				//Comunico el evento al contenedor
 				$this->reportar_evento( $this->evento_actual );
 			}else{
-				$this->log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado");
+				$this->log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado", 'toba');
 			}
 		}
 	}
@@ -553,10 +553,10 @@ class objeto_ci extends objeto_ei
 		array_splice($parametros, 0 , 2);
 		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if(method_exists($this, $metodo)){
-			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true));
+			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
-			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado");
+			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
 			//Puede implementarse un metodo generico de manejo de eventos? 
 		}
 	}
@@ -593,7 +593,7 @@ class objeto_ci extends objeto_ei
 	 */
 	function evt__cancelar()
 	{
-		$this->log->debug($this->get_txt() . "[ evt__cancelar ]");
+		$this->log->debug($this->get_txt() . "[ evt__cancelar ]", 'toba');
 		$this->disparar_limpieza_memoria();
 		if(isset($this->cn)){
 			$this->cn->cancelar();			
@@ -605,7 +605,7 @@ class objeto_ci extends objeto_ei
 	 */
 	function evt__procesar()
 	{
-		$this->log->debug($this->get_txt() . "[ evt__procesar ]");
+		$this->log->debug($this->get_txt() . "[ evt__procesar ]", 'toba');
 		if(isset($this->cn)){
 			$this->disparar_entrega_datos_cn();
 			$this->cn->procesar();
@@ -634,7 +634,7 @@ class objeto_ci extends objeto_ei
 	 */
 	function cargar_dependencias_gi()
 	{
-		$this->log->debug($this->get_txt() . "[ cargar_dependencias_gi ]");
+		$this->log->debug($this->get_txt() . "[ cargar_dependencias_gi ]", 'toba');
 		//Busco la lista de las dependencias que necesito para cargar esta interface
 		$this->dependencias_gi = $this->get_lista_ei();
 		//Creo las dependencias
@@ -710,10 +710,10 @@ class objeto_ci extends objeto_ei
 	{
 		$metodo = apex_ei_evento . apex_ei_separador . $dependencia . apex_ei_separador . "carga";
 		if(method_exists($this, $metodo)){
-			$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dependencia' -> [ $metodo ] ");
+			$this->log->debug($this->get_txt() . "[ cargar_datos_dependencia ] '$dependencia' -> [ $metodo ] ", 'toba');
 			return $this->$metodo();
 		}else{
-			$this->log->info($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada");
+			$this->log->info($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada", 'toba');
 			return null;
 		}
 	}
@@ -1146,13 +1146,13 @@ class objeto_ci extends objeto_ei
 	function generar_interface_grafica()
 	{
 		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "El ítem debería tener una solicitud_web asociada");
-		$this->log->debug($this->get_txt() . "____________________________________________[ generar_interface_grafica ]");
+		$this->log->debug($this->get_txt() . "[ generar_interface_grafica ]");
 		try{
 			//Cargar todos los EI que componen la interface
 			$this->cargar_dependencias_gi();
 			$this->obtener_html_base();
 		}catch(excepcion_toba $e){
-			$this->log->debug($e);
+			$this->log->debug($e, 'toba');
 			$this->informar_msg($e->getMessage(), 'error');
 			toba::get_cola_mensajes()->mostrar();
 		}

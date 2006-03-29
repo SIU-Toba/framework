@@ -42,7 +42,7 @@ class objeto_ei_esquema extends objeto_ei
 		echo form::hidden($this->submit, '');
 		if (isset($this->contenido)) {
 			//Se arma el archivo .dot
-			toba::get_logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido");
+			toba::get_logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido", 'toba');
 			$this->generar_esquema($this->contenido, $this->info_esquema['formato'], 
 									$this->info_esquema['dirigido'], $this->ancho,
 									$this->alto);

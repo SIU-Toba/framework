@@ -99,7 +99,7 @@ class sesion {
 			$_SESSION['toba']["proyecto"]=$rs[0];
 			//-----------------------------> Manejo inicializacion y tiempo de conexion
 			sesion::actualizar_estado();
-			toba::get_logger()->debug('Se creo la SESION [usuario: ' . $_SESSION['toba']["usuario"]['id'] . ' ]');
+			toba::get_logger()->debug('Se creo la SESION [usuario: ' . $_SESSION['toba']["usuario"]['id'] . ' ]', 'toba');
 		}
 	}
 //-----------------------------------------------------------------------------

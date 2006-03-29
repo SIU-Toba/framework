@@ -30,7 +30,7 @@ class cola_mensajes
 	{
 		$this->mensajes[] = array($mensaje, $nivel);
 		//Agrego el mensaje mostrado al usuario al logger como DEBUG
-		toba::get_logger()->debug("[usuario] ".$mensaje);
+		toba::get_logger()->debug("Mensaje a usuario: ".$mensaje, 'toba');
 	}
 
 	public function agregar_id($indice, $parametros=null, $nivel='error')

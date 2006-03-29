@@ -32,7 +32,7 @@ define("apex_db_link_id",8);
 	function abrir_base($id,$parm)
 	{
 		dba::get_db($id);
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");
 		return true;		
 	}
 //-------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ define("apex_db_link_id",8);
 	*/
 	function abrir_fuente_datos($id, $proyecto=null)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");
 		return dba::get_db($id);
 	}
 //-------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ define("apex_db_link_id",8);
 	*/
 	function existe_conexion($id)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");
 		return dba::existe_conexion($id);
 	}
 //-------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ define("apex_db_link_id",8);
 	function obtener_fuente($id, $ado=null)
 	//Devuelve una referencia a una fuente de datos
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");		
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");		
 		if(isset($ado)){
 			global $ADODB_FETCH_MODE;	
 			$ADODB_FETCH_MODE = $ado;
@@ -118,7 +118,7 @@ define("apex_db_link_id",8);
 	*/
 	function recuperar_datos($sql, $fuente="instancia", $ado=null)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");		
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");		
 		global $db, $ADODB_FETCH_MODE;	
 		//Seteo el modo de recuperar registros
 		if(isset($ado)){
@@ -152,7 +152,7 @@ define("apex_db_link_id",8);
 	*/
 	function consultar_fuente_obs($sql, $fuente=null, $ado=null, $obligatorio=false)
 	{
-		toba::get_logger()->obsoleto("", __FUNCTION__, "0.8.3");
+		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3");
 		return dba::get_db($fuente)->consultar($sql, $ado, $obligatorio, true);
 	}
 

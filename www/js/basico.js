@@ -163,7 +163,7 @@ function include_source(file) {
 *	@deprecated Usar abrir_popup
 */
 function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
-	var opciones = {'width': tx, 'scrollbars' : scroll, 'height': ty, 'resizabled': resizable};
+	var opciones = {'width': tx, 'scrollbars' : scroll, 'height': ty, 'resizable': resizable};
 	abrir_popup('general', url, opciones, extra);
 }
 
@@ -175,7 +175,10 @@ function abrir_popup(id, url, opciones, extra) {
 			vars += o + '=' + opciones[o] + ',';
 		}
 	}
-	vars += 'dependent=yes' + extra;
+	vars += 'dependent=1';
+	if (typeof extra != 'undefined') {
+		vars += extra;
+	}
 	var no_esta_definida  = !ventana_hija[id] || ventana_hija[id].closed || !ventana_hija[id].focus;
 	if (no_esta_definida) {
 		// No fue definida, esta cerrada o no puede tener foco

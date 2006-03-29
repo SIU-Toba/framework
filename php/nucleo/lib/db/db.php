@@ -181,21 +181,21 @@ class db
 	{
 		$sql = 'BEGIN TRANSACTION';
 		$this->ejecutar($sql);
-		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************");
+		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK TRANSACTION';
 		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************"); 
+		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION";
 		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************"); 
+		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
 //-------------------------------------------------------------------------------------
