@@ -110,7 +110,7 @@ class logger
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
 		if ($nivel <= $this->nivel_maximo) {
-			$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje, false);
+			$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje);
 			$this->niveles[$this->proximo] = $nivel;
 			if (!isset($proyecto)) {
 				//Se hace estatica para poder loguear antes de construido el hilo
@@ -121,19 +121,15 @@ class logger
 		}
 	}
 	
-	protected function extraer_mensaje($mensaje, $web)
-	/*
-		Adecuar el mecanismo para meter excepciones
-	*/
+	protected function extraer_mensaje($mensaje)
 	{
         if (is_object($mensaje)) {
-            if ($web && method_exists($mensaje, 'mensaje_web')) {
-				//Excepciones!
-                $mensaje = $mensaje->mensaje_web();
-			} else if (!$web && method_exists($mensaje, 'mensaje_txt')) {
-				//Excepciones!
-                $mensaje = $mensaje->mensaje_txt();
-            } else if (method_exists($mensaje, 'getMessage')) {
+        	if ($mensaje instanceof Exception) {
+        		//Solo muestra parametros en modo DEBUG
+        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
+        		$mensaje = get_class($mensaje).": ".$mensaje->getMessage() . "\n". 
+        					$this->construir_traza($con_parametros, $mensaje->getTrace());
+        	} else if (method_exists($mensaje, 'getMessage')) {
                 $mensaje = $mensaje->getMessage();
             } else if (method_exists($mensaje, 'tostring')) {
                 $mensaje = $mensaje->toString();
@@ -148,14 +144,47 @@ class logger
 		return $mensaje;
 	}
 	
+	protected function construir_traza($con_parametros=false, $pasos = null)
+	{
+		if (!isset($pasos)) {
+    		$pasos = debug_backtrace();
+		}
+    	$html = "[TRAZA]\n";
+		$html .= "\t<ul style='display: none'>\n";    	
+    	foreach ($pasos as $paso) {
+			$clase = '';
+			if (isset($paso['class'])) {
+				$clase .= $paso['class'];
+			}
+			//Se obvia los pasos por esta clase
+			if ($clase !== __CLASS__) {
+				if (isset($paso['type']))
+					$clase .= $paso['type'];				
+				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br>".
+						  "Archivo: {$paso['file']}, línea {$paso['line']}<br>";
+				if ($con_parametros && ! empty($paso['args'])) {
+					$html .= "Parámetros: <ol>";
+					foreach ($paso['args'] as $arg) {
+						$html .= "<li>";
+						if (is_object($arg)) {
+							$html .= 'Instancia de <em>'.get_class($arg).'</em>';
+						} else {
+							$html .= highlight_string(print_r($arg, true), true);
+						}
+						$html .= "</li>\n";
+					}
+					$html .= "\t</ol>\n";
+				} 
+				$html .= "\t</li>\n";
+			}
+    	}
+    	$html .= "\t</ul>";		
+    	return $html;
+	}
+	
 	protected function mensajes()
 	{
 		return $this->mensajes;
-	}
-	
-	protected function mensajes_web()
-	{
-		return $this->mensajes_web;
 	}
 	
 	function get_cantidad_mensajes()
@@ -172,21 +201,9 @@ class logger
 	//------ Entradas para los distintos tipos de error
 	//------------------------------------------------------------------
 
-	function trace($simple = false)
+	function trace($con_parametros=false, $proyecto = null)
 	{
-    	//Se saca el archivo que llamo el metodo obsoleto
-    	$traza = debug_backtrace();
-    	$archivo = $traza[2]['file'];
-		$linea = $traza[2]['line']; 	
-    	if ($clase != '') {
-    		$unidad = "Método '$clase::$metodo'";
-    	} elseif ($metodo != '') {
-			$unidad = "Función '$metodo'";
-    	} else {
-    		$unidad = '';	
-    	}
-    	$msg = "\nArchivo $archivo, linea $linea.";
-		$this->$nivel( debug_backtrace() );
+    	$this->debug($this->construir_traza($con_parametros), $proyecto);
 	}
 
     function crit($mensaje, $proyecto=null)
@@ -211,19 +228,25 @@ class logger
     function obsoleto($clase, $metodo, $version, $extra=null, $proyecto=null) 
     {
     	if (TOBA_LOG_NOTICE <= $this->nivel_maximo) {
+    		$extra = "";
+            //Se saca el archivo que llamo el metodo obsoleto solo cuando hay modo debug
+            if (TOBA_LOG_DEBUG <= $this->nivel_maximo) {
+	            $traza = debug_backtrace();
+	            $archivo = $traza[2]['file'];
+	            $linea = $traza[2]['line'];
+				$extra = "Archivo: $archivo, linea: $linea";
+            }
 	    	if ($clase != '') {
 	    		$unidad = "Método '$clase::$metodo'";
 	    	} elseif ($metodo != '') {
 				$unidad = "Función '$metodo'";
 	    	} else {
 	    		$unidad = '';	
-	    	}    		
+	    	}
 	    	$msg = "OBSOLETO: $unidad desde versión $version. $extra";
 	    	$this->notice($msg, $proyecto);
     	}
     }
-    
-    
     
     function notice($mensaje, $proyecto=null)
     {
@@ -265,7 +288,6 @@ class logger
 	//------------------------------------------------------------------
 	//---- Manejo de las fuentes de log
 	//------------------------------------------------------------------
-
 
 	function guardar()
 	{
@@ -447,63 +469,6 @@ class logger
 */
 	}
 
-	//------------------------------------------------------------------
-	//---- Salida a pantalla
-	//------------------------------------------------------------------
-
-	function pantalla_browser()
-	{
-		if (!$this->mostrado || (count($this->mensajes_web) != $this->cant_mostrada)) {
-			js::cargar_consumos_globales(array('basico'));
-			$hay_salida = false;
-			$html = "</script>";	//Por si estaba un tag abierto
-			$html .= "<div id='logger_salida' style='display:none'> <table width='90%'><tr><td>";
-			$html .= "<pre class='texto-ss'>";
-			$mensajes = $this->filtrar_mensajes_web();
-			$hay_salida = ($mensajes != '');
-			$html .= $mensajes;
-			$html .= "</pre></td></tr></table></div>";
-			if ($hay_salida) {
-				echo "<div style='text-align:left;'>
-						<a href='javascript: toggle_nodo(document.getElementById(\"logger_salida\"))'>Log</a>
-						$html</div>";
-			}
-			$this->mostrado = true;
-			$this->cant_mostrada = count($this->mensajes_web);
-		}
-	}
-
-	protected function filtrar_mensajes_web()
-	{
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_pantalla_nivel );
-		$html = '';
-		for($a=0; $a<count($this->mensajes_web); $a++){
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) ){
-				$estilo = $this->estilo_grafico($this->niveles[$a]);
-				$html .= $estilo. $this->mensajes_web[$a] . "<br>";
-			}			
-		}
-		return $html;
-	}
-
-	private function estilo_grafico($nivel)
-	{
-		$icono = gif_nulo(16,1);
-		$estilo = "";
-		if ($nivel <= TOBA_LOG_WARNING) {
-			$estilo = "font-weight: bold;";
-			$icono = recurso::imagen_apl('warning.gif',true);
-		} elseif ($nivel <= TOBA_LOG_NOTICE) {
-			$estilo = 'font-weight: bold;';			
-		} elseif ($nivel <= TOBA_LOG_INFO) {
-			$icono = recurso::imagen_apl('info_chico.gif',true);
-		} else {
-			$estilo = '';
-		}
-		$salida = "<span style='$estilo'>$icono".$this->ref_niveles[$nivel]." * </span> ";
-		return $salida;
-	}
-	
 
 	//------------------------------------------------------------------
 }

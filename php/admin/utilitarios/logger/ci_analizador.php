@@ -85,6 +85,12 @@ class ci_analizador extends objeto_ci
 			font-weight: bold;
 			float: right;
 		}
+		.admin-logger-traza {
+			font-weight: bold;
+	 		TEXT-DECORATION: underline;
+	 		color: blue;
+	 		cursor: pointer;
+		}
 		.admin-logger-selec {
 			font-size:14px;
 			display: block;
@@ -357,11 +363,12 @@ class ci_analizador extends objeto_ci
 		}
 		$detalle = '';
 		foreach ($cuerpo as $linea) {
-			//Los mensajes de la solicitudes son especiales..
+			//¿Es una sección?
 			if (substr($linea['mensaje'], 0,10) == "[SECCION] ") {
 				$linea['mensaje'] = substr($linea['mensaje'], 10);
 				$img ='';
 				$clase = "admin-logger-seccion";
+			//Es normal
 			} else {
 				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null);
 				$clase = "admin-logger-normal";	
@@ -378,10 +385,17 @@ class ci_analizador extends objeto_ci
 	function txt2html($txt)	
 	{
 		$txt = trim($txt);
+		$texto_traza = "[TRAZA]";
+		$pos_traza = strpos($txt, $texto_traza);
+		$salto = strpos($txt, "\n", 0);		
 		
-		//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo
-		$salto = strpos($txt, "\n", 0);
-		if ($salto !== false) {
+		//¿Contiene una traza?		
+		if ($pos_traza !== false) {
+			$txt_anterior = substr($txt, 0, $pos_traza);
+			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
+			$txt = "$txt_anterior <span class='admin-logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
+		} elseif ($salto !== false) {
+			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
 			$txt = substr($txt,0,$salto)."<pre>".substr($txt, $salto)."</pre>";
 		}
 		return $txt;
@@ -391,7 +405,6 @@ class ci_analizador extends objeto_ci
 	{
 		return logger::instancia($this->opciones['proyecto']);
 	}
-	
 	
 	//---- Eventos CI -------------------------------------------------------
 	
