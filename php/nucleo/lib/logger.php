@@ -125,23 +125,32 @@ class logger
 	{
         if (is_object($mensaje)) {
         	if ($mensaje instanceof Exception) {
-        		//Solo muestra parametros en modo DEBUG
-        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
-        		$mensaje = get_class($mensaje).": ".$mensaje->getMessage() . "\n". 
-        					$this->construir_traza($con_parametros, $mensaje->getTrace());
+       			$res = get_class($mensaje).": ".$mensaje->getMessage()."\n";
+       			
+        		$es_php_compatible = version_compare(phpversion(), "5.1.0", ">=");
+       			if ($es_php_compatible) {
+        			//Solo muestra parametros en modo DEBUG
+	        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
+	        		$res .= $this->construir_traza($con_parametros, $mensaje->getTrace());
+       			} else {
+       				//Para php < 5.1 mostrar el string 
+    				$res = "\n[TRAZA]<div style='display:none'>".$mensaje->__toString()."</div>";
+       			}
+       			return $res;
         	} else if (method_exists($mensaje, 'getMessage')) {
-                $mensaje = $mensaje->getMessage();
+                return $mensaje->getMessage();
             } else if (method_exists($mensaje, 'tostring')) {
-                $mensaje = $mensaje->toString();
+                return $mensaje->toString();
             } else if (method_exists($mensaje, '__tostring')) {
-                $mensaje = (string)$mensaje;
+                return (string)$mensaje;
             } else {
-                $mensaje = var_export($mensaje, true);
+                return var_export($mensaje, true);
             }
         } else if (is_array($mensaje)) {
-            $mensaje = var_export($mensaje, true);
+            return var_export($mensaje, true);
+        } else {
+        	return $mensaje;	
         }
-		return $mensaje;
 	}
 	
 	protected function construir_traza($con_parametros=false, $pasos = null)
