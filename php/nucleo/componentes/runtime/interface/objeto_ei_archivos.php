@@ -91,11 +91,11 @@ class objeto_ei_archivos extends objeto_ei
 		$relativo = substr($this->dir_actual, $pos);
 		return $relativo;
 	}
-	
-	function set_path_relativo_inicial($dir)
+
 	/*
 	*	El listado de archivos comienza desde este directorio y la respuesta tambien sera analizada en este contexto
-	*/
+	*/	
+	function set_path_relativo_inicial($dir)
 	{
 		$this->path_relativo_inicial = $dir;
 		if (!isset($this->dir_actual))
@@ -104,7 +104,7 @@ class objeto_ei_archivos extends objeto_ei
 	
 	function set_path($path)
 	{
-		$this->dir_actual = $this->path_relativo_inicial."/".$path;
+		$this->dir_actual = $this->path_relativo_inicial.$path;
 	}
 
 	function obtener_html()
