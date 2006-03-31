@@ -53,6 +53,9 @@ class ci_principal extends ci_editores_toba
 
 	function evt__prop_basicas__modificacion($datos)
 	{
+		if (! $datos['filas_ordenar']) {
+			$datos['columna_orden'] = '';
+		}
 		$this->get_entidad()->tabla("prop_basicas")->set($datos);
 		
 	}

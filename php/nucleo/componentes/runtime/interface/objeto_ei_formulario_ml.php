@@ -278,11 +278,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 
 		$this->datos = array();			
 		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
-		$filas_recibidas = array();
+		$filas_post = array();
 		if ($lista_filas != '') {
-			$filas_recibidas = explode('_', $lista_filas);
+			$filas_post = explode('_', $lista_filas);
 			//Por cada fila
-			foreach ($filas_recibidas as $fila)
+			foreach ($filas_post as $fila)
 			{
 				if ($fila >= $this->siguiente_id_fila)
 					$this->siguiente_id_fila = $fila + 1;
@@ -448,15 +448,17 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$this->carga_inicial();
 		}
 		//Ordenar por la columna que se establece
-		if ($this->info_formulario['columna_orden']) {
-			$ordenes = array();
-			foreach ($this->datos as $id => $dato) {
-				$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
+		if ($this->datos != null) {
+			if ($this->info_formulario['columna_orden']) {
+				$ordenes = array();
+				foreach ($this->datos as $id => $dato) {
+					$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
+				}
+				asort($ordenes);
+				$this->ordenes = array_keys($ordenes);
+			} else {
+				$this->ordenes = array_keys($this->datos);
 			}
-			asort($ordenes);
-			$this->ordenes = array_keys($ordenes);
-		} else {
-			$this->ordenes = array_keys($this->datos);
 		}
 	}
 	//-------------------------------------------------------------------------------

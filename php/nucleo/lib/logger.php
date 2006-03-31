@@ -131,7 +131,10 @@ class logger
        			if ($es_php_compatible) {
         			//Solo muestra parametros en modo DEBUG
 	        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);
-	        		$res .= $this->construir_traza($con_parametros, $mensaje->getTrace());
+	        		$traza = $mensaje->getTrace();
+	        		$traza[0]['file'] = $mensaje->getFile();
+	        		$traza[0]['line'] = $mensaje->getLine();
+	        		$res .= $this->construir_traza($con_parametros, $traza);
        			} else {
        				//Para php < 5.1 mostrar el string 
     				$res = "\n[TRAZA]<div style='display:none'>".$mensaje->__toString()."</div>";
@@ -159,7 +162,7 @@ class logger
     		$pasos = debug_backtrace();
 		}
     	$html = "[TRAZA]\n";
-		$html .= "\t<ul style='display: none'>\n";    	
+		$html .= "\t<ul style='display: none'>\n";    
     	foreach ($pasos as $paso) {
 			$clase = '';
 			if (isset($paso['class'])) {
@@ -169,8 +172,10 @@ class logger
 			if ($clase !== __CLASS__) {
 				if (isset($paso['type']))
 					$clase .= $paso['type'];				
-				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br>".
-						  "Archivo: {$paso['file']}, línea {$paso['line']}<br>";
+				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br>";
+				if (isset($paso['file'])) {
+					$html .= "Archivo: {$paso['file']}, línea {$paso['line']}<br>";
+				}
 				if ($con_parametros && ! empty($paso['args'])) {
 					$html .= "Parámetros: <ol>";
 					foreach ($paso['args'] as $arg) {
