@@ -144,6 +144,20 @@ class dba
 		return self::$info_bases['instancia'];
 	}
 
+	
+	/**
+	 * Determina si el proyecto cuenta con una fuente de datos propia
+	 */
+	static function hay_fuente_definida($proyecto)
+	{
+		$sql = "SELECT count(*) as cantidad
+				FROM 	apex_fuente_datos
+				WHERE	proyecto = '$proyecto'";
+		$rs = consultar_fuente($sql, 'instancia');
+		return $rs[0]['cantidad'] > 0;
+		
+	}
+	
 	/**
 	*	Busca la definicion de una FUENTE de DATOS declarada en el toba. 
 	*		Si la fuente esta marcada como 'link_instancia', 

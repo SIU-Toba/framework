@@ -32,6 +32,9 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
 		this.reset_evento();
+		if (this.configurar) {
+			this.configurar()
+		}
 	}
 
 	//---Consultas

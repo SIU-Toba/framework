@@ -12,6 +12,7 @@ class ci_principal extends ci_editores_toba
 {
 	protected $seleccion_relacion;
 	protected $seleccion_relacion_anterior;
+	protected $clase_actual = 'objeto_datos_relacion';		
 
 	function mantener_estado_sesion()
 	{
@@ -150,14 +151,7 @@ class ci_principal extends ci_editores_toba
 	{
 		//Se retrasa el chequeo de constraints para permitir la modificacion de ident. de dependencias
 		$this->get_entidad()->get_persistidor()->retrasar_constraints();
-		
-		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		//$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto","toba_testing" );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_datos_relacion" );
-		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();	
+		parent::evt__procesar();
 	}
 	//-------------------------------------------------------------------
 }

@@ -12,7 +12,8 @@ class ci_editor extends ci_editores_toba
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
 	private $id_intermedio_pantalla;
 	protected $seleccion_externa_pantalla;
-
+	protected $clase_actual = 'objeto_ci';
+	
 	function __construct($id)
 	{
 		parent::__construct($id);
@@ -484,21 +485,6 @@ class ci_editor extends ci_editores_toba
 	// *******************************************************************
 	
 	
-	// *******************************************************************
-	// *******************  PROCESAMIENTO  *******************************
-	// *******************************************************************
-	
-	function evt__procesar()
-	{
-		if (!$this->cargado) {
-			//Seteo los datos asociados al uso de este editor
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ci" );
-		}
-		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();
-	}
-	// *******************************************************************
+
 }
 ?>

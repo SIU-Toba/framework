@@ -174,6 +174,17 @@ class dao_editores
 		return consultar_fuente($sql, "instancia");
 	}
 
+	static function get_clases_con_fuente_datos()
+	{
+		$clases = array();
+		$clases[] = 'objeto_ei_formulario';
+		$clases[] = 'objeto_ei_formulario_ml';
+		$clases[] = 'objeto_ei_filtro';
+		$clases[] = 'objeto_datos_tabla';
+		$clases[] = 'objeto_datos_relacion';
+		$clases[] = 'objeto_cn';
+		return $clases;	
+	}
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------

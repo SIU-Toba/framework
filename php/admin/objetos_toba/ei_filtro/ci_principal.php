@@ -4,6 +4,7 @@ require_once('nucleo/componentes/info/info_ei_filtro.php');
 
 class ci_principal extends ci_editores_toba
 {
+	protected $clase_actual = 'objeto_ei_filtro';	
 	protected $ef_seleccionado;
 	
 	function __construct($id)
@@ -103,18 +104,5 @@ class ci_principal extends ci_editores_toba
 		return $this->get_entidad()->tabla('eventos');
 	}
 
-	//*******************************************************************
-	//*******************  PROCESAMIENTO  *******************************
-	//*******************************************************************
-
-	function evt__procesar()
-	{
-		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", "objeto_ei_filtro" );
-		//Sincronizo el DBT
-		$this->get_entidad()->sincronizar();		}
-	//-------------------------------------------------------------------
 }
 ?>

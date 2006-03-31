@@ -64,9 +64,8 @@ abstract class ci_editores_toba extends objeto_ci
 		$this->id_objeto = 	$id;
 	}
 	
-	function generar_interface_grafica()
+	function obtener_html()
 	{
-		$this->get_entidad();
 		if($this->falla_carga === true){
 			echo ei_mensaje("El elemento seleccionado no existe.","error");
 			return;
@@ -75,14 +74,8 @@ abstract class ci_editores_toba extends objeto_ci
 			echo ei_mensaje("El elemento ha sido eliminado.");
 			return;
 		}
-		$zona = toba::get_solicitud()->zona();
-		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_superior();
-		}
-		parent::generar_interface_grafica();
-		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_inferior();
-		}	
+		
+		parent::obtener_html();
 	}
 
 	function get_lista_eventos()
@@ -107,8 +100,43 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		$this->get_entidad()->eliminar();
 		$this->elemento_eliminado = true;
-		toba::get_solicitud()->zona()->refrescar_listado_editable_apex();
+		$zona = toba::get_solicitud()->zona();
+		$zona->refrescar_listado_editable_apex();
+		$zona->resetear();
 		admin_util::refrescar_editor_item();
 	}
+	
+
+	// *******************************************************************
+	// *******************  PROCESAMIENTO  *******************************
+	// *******************************************************************
+	
+	function evt__procesar()
+	{
+		if (!$this->cargado) {
+			//Seteo los datos asociados al uso de este editor
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", "toba" );
+			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", $this->get_clase_actual() );
+		}
+		//Sincronizo el DBT
+		$this->get_entidad()->sincronizar();
+	}
+	// *******************************************************************
+	
+	//---------------------------------------------------------------
+	//-------------------------- Consultas --------------------------
+	//---------------------------------------------------------------
+
+	function get_clase_actual()
+	{
+		if (isset($this->clase_actual)) {
+			return $this->clase_actual;
+		} else {
+			throw new excepcion_toba("El editor actual no tiene definida sobre que clase de objeto trabaja");
+		}
+	}
+		
+	
 }
 ?>
