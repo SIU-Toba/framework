@@ -8,9 +8,8 @@ require_once("objeto_ei.php");
 */
 class objeto_ei_arbol extends objeto_ei
 {
-	protected $nodo_inicial;
+	protected $nodos_inicial;
 	protected $item_propiedades = array();
-	protected $mostrar_raiz = true;
 	protected $nivel_apertura = 1;
 	protected $datos_apertura;
 	protected $frame_destino = null;
@@ -53,19 +52,14 @@ class objeto_ei_arbol extends objeto_ei
 		$this->nivel_apertura = $nivel;
 	}
 	
-	function set_mostrar_raiz($mostrar)
-	{
-		$this->mostrar_raiz = $mostrar;
-	}
-	
 	function set_frame_destino($frame)
 	{
 		$this->frame_destino = $frame;
 	}
 	
-    function cargar_datos($nodo=null, $memorizar=true)
+    function cargar_datos($nodos=null, $memorizar=true)
     {
-		$this->nodo_inicial = $nodo;
+		$this->nodos_inicial = $nodos;
 	}
 	
 	function get_lista_eventos()
@@ -111,24 +105,25 @@ class objeto_ei_arbol extends objeto_ei
 		$salida .= form::hidden($this->submit, '');
 		$salida .= form::hidden($this->submit."__apertura_datos", '');
 		$salida .= form::hidden($this->submit."__seleccion", '');
-		if ($this->nodo_inicial != null) {
-			$salida .= "\n<ul id='{$this->objeto_js}_nodo_raiz' class='ei-arbol-raiz'>";
-			$salida .= $this->recorrer_recursivo($this->nodo_inicial, true);		
-			$salida .= "</ul>";
+		$id = "id='{$this->objeto_js}_nodo_raiz'";
+		if (isset($this->nodos_inicial)) {
+			foreach ($this->nodos_inicial as $nodo_inicial) {
+				$salida .= "\n<ul $id class='ei-arbol-raiz'>";
+				$salida .= $this->recorrer_recursivo($nodo_inicial, true);
+				$salida .= "</ul>";
+				$id = null;	//El id lo tiene sólo el primer nodo
+			}
 		}
 		echo $salida;
 	}
 	
 	protected function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0)
 	{
-
 		//Determina si el nodo es visible en la apertura
 		$salida = "\n\t<li class='ei-arbol-nodo'>";
-		$es_visible = false;
-		if (!$es_raiz || $this->mostrar_raiz) {
-			$es_visible = $this->nodo_es_visible($nodo, $nivel);
-			$salida .= $this->mostrar_nodo($nodo, $es_visible);
-		}
+		$es_visible = $this->nodo_es_visible($nodo, $nivel);
+		$salida .= $this->mostrar_nodo($nodo, $es_visible);
+
 		//Recursividad
 		if (! $nodo->es_hoja()) {
 			$estilo =  ($es_visible) ? "" : "style='display:none'";

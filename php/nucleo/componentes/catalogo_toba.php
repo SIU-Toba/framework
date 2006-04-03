@@ -110,7 +110,8 @@ class catalogo_toba
 
 	static function control_clave_valida( $clave_componente )
 	{
-		if( !isset($clave_componente['componente']) 
+		if(! is_array($clave_componente) 
+			|| !isset($clave_componente['componente']) 
 			|| !isset($clave_componente['proyecto']) ) {
 			throw new excepcion_toba("La clave utilizada para invocar el componente no es valida");	
 		}

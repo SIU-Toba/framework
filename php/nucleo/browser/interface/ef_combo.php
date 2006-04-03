@@ -718,7 +718,9 @@ class ef_combo_lista extends ef_combo
 {
 	static function get_parametros()
 	{
-		$parametros["lista"]["descripcion"]="a lista representada como un STRING con los elementos separados por COMAS";
+		$parametros = ef_combo::get_parametros();
+		unset($parametros['valores']);
+		$parametros["lista"]["descripcion"]="La lista representada como un STRING con los elementos separados por COMAS";
 		$parametros["lista"]["opcional"]=1;	
 		$parametros["lista"]["etiqueta"]="Lista";	
 		return $parametros;

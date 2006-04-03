@@ -1,6 +1,6 @@
 <?php
 require_once('admin/catalogos/ci_catalogo.php'); 
-require_once("nucleo/lib/arbol_items.php");
+require_once("modelo/lib/arbol_items.php");
 
 //----------------------------------------------------------------
 class ci_catalogo_items extends ci_catalogo
@@ -102,8 +102,9 @@ class ci_catalogo_items extends ci_catalogo
 			}
 		}
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
-		if ($nodo !== false)
-			return $nodo;
+		if ($nodo !== false) {
+			return array($nodo);
+		}
 	}
 
 	function evt__items__ver_propiedades($id)
@@ -128,7 +129,7 @@ class ci_catalogo_items extends ci_catalogo
 		$clave['componente'] = $this->item_seleccionado;
 		$clave['proyecto'] = toba::get_hilo()->obtener_proyecto();
 		$item = constructor_toba::get_info($clave, 'item');
-		return $item;
+		return array($item);
 	}	
 }
 ?>

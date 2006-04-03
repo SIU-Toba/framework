@@ -1,6 +1,6 @@
 <?
 	include_once("nucleo/browser/interface/form.php");
-	require_once('nucleo/lib/arbol_items.php');
+	require_once('modelo/lib/arbol_items.php');
 
 	define('separador_camino', '_%_');
 

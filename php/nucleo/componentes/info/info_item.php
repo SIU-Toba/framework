@@ -1,6 +1,5 @@
 <?
 require_once("interfaces.php");
-require_once("nucleo/lib/item_toba.php");
 
 class info_item implements recorrible_como_arbol
 {

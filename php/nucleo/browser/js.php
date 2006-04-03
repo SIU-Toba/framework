@@ -55,7 +55,7 @@ class js
 	//-------------------------------------------------------------------------------------	
 	static function incluir($archivo) 
 	{
-		return "\n<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";
+		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";
 	}
 	//-------------------------------------------------------------------------------------
 	static function ejecutar($codigo) 

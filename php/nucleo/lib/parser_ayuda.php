@@ -40,7 +40,7 @@ class parser_ayuda
 	{
 		$url = recurso::path_apl()."/doc/wiki/trac/toba/wiki/$id.html";
 		$img = recurso::imagen_apl("wiki.gif", true);
-		$tag = "<a href=$url target=blank>$nombre</a>$img";
+		$tag = "<a href=$url target=wiki>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
 	
@@ -48,14 +48,14 @@ class parser_ayuda
 	{
 		$url = recurso::path_apl()."/doc/api/$id.html";
 		$img = recurso::imagen_apl("api.gif", true);
-		$tag = "<a href=$url  target=blank>$nombre</a>$img";
+		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
 	
 	protected static function parsear_link($id, $nombre)
 	{
 		$url = recurso::path_pro()."/".$id;
-		$tag = "<a href=$url  target=blank>$nombre</a>";
+		$tag = "<a href=$url  target=_blank>$nombre</a>";
 		return str_replace("'", "\\'", $tag);		
 	}
 	

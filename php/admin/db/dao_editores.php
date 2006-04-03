@@ -214,7 +214,7 @@ class dao_editores
 	*/
 	static function get_items_para_combo()
 	{
-		require_once("nucleo/lib/arbol_items.php");
+		require_once("modelo/lib/arbol_items.php");
 		$catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
 		$catalogador->ordenar();		
 		foreach($catalogador->items() as $item) {
@@ -239,7 +239,7 @@ class dao_editores
 	*/
 	static function get_carpetas_posibles()
 	{
-		require_once("nucleo/lib/arbol_items.php");
+		require_once("modelo/lib/arbol_items.php");
 		$catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
 		$catalogador->ordenar();		
 		foreach($catalogador->items() as $carpeta) {
