@@ -43,9 +43,11 @@ class constructor_toba
 	 *
 	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
+	 * @param boolen $en_profundidad Los componentes cargan los info de sus dependencias
+	 * @param array $datos Datos pre-procesados que necesita el objeto-info, si no se especifica se buscan
 	 * @return info_componente
 	 */	
-	static function get_info($id, $tipo=null) 
+	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null) 
 	{
 		// Controla la integridad de la clave
 		catalogo_toba::control_clave_valida( $id );
@@ -53,13 +55,15 @@ class constructor_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $id );	
 		}
-		if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
-			$datos = self::get_metadatos_compilados( $id, $tipo );
-		} else {
-			$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+		if (! isset($datos)) {
+			if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
+				$datos = self::get_metadatos_compilados( $id, $tipo );
+			} else {
+				$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+			}
 		}
 		$clase = catalogo_toba::get_nombre_clase_info( $tipo );
-		return new $clase( $datos );		
+		return new $clase( $datos, $en_profundidad );		
 	}	
 
 	/**

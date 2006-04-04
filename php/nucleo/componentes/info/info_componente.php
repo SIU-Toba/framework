@@ -11,13 +11,15 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	protected $subelementos = array();
 	protected $proyecto;
 	protected $id;
+	protected $carga_profundidad;
 	
 	function __construct( $datos, $carga_profundidad=true)
 	{
+		$this->carga_profundidad = $carga_profundidad;
 		$this->datos = $datos;
 		$this->id = $this->datos['info']['objeto'];
 		$this->proyecto = $this->datos['info']['proyecto'];
-		if ($carga_profundidad) {
+		if ($this->carga_profundidad) {
 			$this->cargar_dependencias();
 		}
 	}

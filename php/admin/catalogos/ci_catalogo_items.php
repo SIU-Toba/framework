@@ -67,10 +67,26 @@ class ci_catalogo_items extends ci_catalogo
 	//-------------------------------
 	//---- Fotos --------------------
 	//-------------------------------
-	function agregar_foto_inicial()
+	function evt__fotos__carga()
 	{
-		$this->album_fotos->agregar_foto(apex_foto_inicial, array(), array(), false);
+		$fotos = parent::evt__fotos__carga();
+		$completa['foto_nombre'] = apex_foto_inicial;
+		$completa['predeterminada'] = 0;
+		$completa['defecto'] = 'nulo.gif';
+		$fotos[] = $completa;
+		return $fotos;
 	}
+	
+	function evt__fotos__seleccion($nombre)
+	{
+		switch ( $nombre['foto_nombre']) {
+			case apex_foto_inicial:
+				$this->opciones =array();
+				break;
+			default:
+				parent::evt__fotos__seleccion($nombre);
+		}
+	}	
 		
 	//-------------------------------
 	//---- Listado de items ----

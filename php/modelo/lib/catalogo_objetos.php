@@ -20,33 +20,6 @@ class catalogo_objetos
 			$clases = dao_editores::get_clases_validas();
 		}
 		$filtro_id = isset($opciones['id']) ? "AND	o.objeto = '{$opciones['id']}'" : '';
-/*		$sql = "SELECT 	
-					o.objeto 			        as obj_id,
-					o.nombre 					as obj_nombre,
-					c.clase 					as cla_id,
-					c.editor_item   	        as cla_editor,
-					c.editor_proyecto			as cla_editor_proyecto,
-					c.instanciador_item	        as cla_instanciador,
-					c.instanciador_proyecto		as cla_instanciador_proyecto,
-					o.subclase					as obj_subclase
-				FROM 	
-					apex_objeto o,
-					apex_proyecto p,
-					apex_clase c,
-					apex_clase_tipo t,
-					apex_fuente_datos f
-				WHERE	
-					c.clase_tipo = t.clase_tipo
-				AND		o.fuente_datos = f.fuente_datos 
-				AND 	f.proyecto = p.proyecto
-				AND		o.proyecto = p.proyecto
-				AND		o.clase = c.clase
-				AND		o.clase IN ('" . implode("', '", $clases) . "')
-				$filtro_id
-				AND 	p.proyecto = '$this->proyecto'
-				AND		t.metodologia = 'capas'
-	            ORDER BY obj_nombre
-		";		*/
 		$filtro_ext = "";
 		if (isset($opciones['extendidos'])) {
 			if ($opciones['extendidos'] == 'SI') {
@@ -60,24 +33,37 @@ class catalogo_objetos
 			$filtro_huerfano = "AND		o.objeto NOT IN (SELECT objeto FROM apex_item_objeto WHERE proyecto = '{$this->proyecto}')";
 			$filtro_huerfano .= "AND	o.objeto NOT IN (SELECT objeto_proveedor FROM apex_objeto_dependencias WHERE proyecto = '{$this->proyecto}')";
 		}
-		$sql = "SELECT 	
-					o.objeto 			        as obj_id,
-					o.clase 					as cla_id					
-				FROM 	
-					apex_objeto o
-				WHERE	
-						o.clase IN ('" . implode("', '", $clases) . "')
+		$filtro_nombre = isset($opciones['nombre']) ? "AND		o.nombre ILIKE '%{$opciones['nombre']}%'" : '';
+		
+		$sql_base = componente_toba::get_vista_extendida($this->proyecto);
+		$sql = $sql_base['info']['sql'];
+		$sql .= "
+				AND o.clase IN ('" . implode("', '", $clases) . "')
 				AND 	o.proyecto = '$this->proyecto'
 				$filtro_id
 				$filtro_ext
-				$filtro_huerfano				
+				$filtro_huerfano
+				$filtro_nombre			
 	            ORDER BY o.nombre
 		";
 		$datos = toba::get_db('instancia')->consultar($sql);
 		foreach ($datos as $dato) {
-			$clave = array('componente' =>$dato['obj_id'], 'proyecto' => $this->proyecto);
-			$this->objetos[] = constructor_toba::get_info($clave, $dato['cla_id']);
+			$agregar = true;
+			if (isset($opciones['extensiones_rotas']) && $opciones['extensiones_rotas'] == 1) {
+				$archivo = $dato['subclase_archivo'];
+				$path_proy = toba::get_hilo()->obtener_proyecto_path()."/php/".$archivo;
+				$path_toba = toba_dir()."/php/".$archivo;
+				if (file_exists($path_proy) || file_exists($path_toba)) {
+					//Si se encuentra el archivo la extension no esta rota
+					$agregar = false;
+				}
+			}
+			if ($agregar) {
+				$clave = array('componente' =>$dato['objeto'], 'proyecto' => $this->proyecto);			
+				$this->objetos[] = constructor_toba::get_info($clave, $dato['clase'], false, array('info' =>$dato));
+			}
 		}
+		
 		return $this->objetos;
 	}
 	

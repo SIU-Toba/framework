@@ -10,6 +10,8 @@ class ci_catalogo_objetos extends ci_catalogo
 	protected $album_fotos;
 	protected $catalogo;
 	protected $opciones;
+	const foto_huerfanos = 'Objetos Huérfanos';
+	const foto_ext_rotas = 'Extensiones PHP rotas';
 	
 	function __construct($id)
 	{
@@ -23,12 +25,41 @@ class ci_catalogo_objetos extends ci_catalogo
 	{
 		$this->album_fotos->agregar_foto(apex_foto_inicial, array(), array(), false);
 	}
-
 	
 	
 	//-------------------------------------------------------------
 	//-------------------EVENTOS DE OBJETOS -----------------------
 	//-------------------------------------------------------------
+	
+	function evt__fotos__carga()
+	{
+		$fotos = parent::evt__fotos__carga();
+		$huerfanos['foto_nombre'] = self::foto_huerfanos;
+		$huerfanos['predeterminada'] = 0;
+		$huerfanos['defecto'] = 'nulo.gif';
+		$ext_rotas['foto_nombre'] = self::foto_ext_rotas;
+		$ext_rotas['predeterminada'] = 0;
+		$ext_rotas['defecto'] = 'nulo.gif';
+		$fotos[] = $huerfanos;
+		$fotos[] = $ext_rotas;
+		return $fotos;
+		//ei_arbol($fotos);
+	}
+	
+	function evt__fotos__seleccion($nombre)
+	{
+		unset($this->opciones);						
+		switch ( $nombre['foto_nombre']) {
+			case self::foto_ext_rotas:
+				$this->opciones['extensiones_rotas'] = 1;
+				break;
+			case self::foto_huerfanos:
+				$this->opciones['huerfanos'] = 1;
+				break;
+			default:
+				parent::evt__fotos__seleccion($nombre);
+		}
+	}
 	
 	function evt__listado__carga()
 	{

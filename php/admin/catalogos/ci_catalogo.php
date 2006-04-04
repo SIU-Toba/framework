@@ -83,7 +83,6 @@ abstract class ci_catalogo extends objeto_ci
 	{
 		$fotos = $this->album_fotos->fotos();
 		$this->dependencia('fotos')->colapsar();
-		$esta_la_inicial = false;
 		//Se incluyen la imagen de predeterminada
 		foreach ($fotos as $id => $foto) {
 			if ($foto['foto_nombre'] == apex_foto_inicial) {
@@ -101,16 +100,9 @@ abstract class ci_catalogo extends objeto_ci
 			else 
 				$fotos[$id]['defecto'] = 'nulo.gif';
 		}
-		if (!$esta_la_inicial) {
-			//Si no esta la foto inicial, se agrega y se carga de nuevo
-			$this->agregar_foto_inicial();
-			return $this->evt__fotos__carga();
-		}
-		
 		return $fotos;
 	}
 	
-	abstract function agregar_foto_inicial();
 	
 	function evt__fotos__seleccion($nombre)
 	{

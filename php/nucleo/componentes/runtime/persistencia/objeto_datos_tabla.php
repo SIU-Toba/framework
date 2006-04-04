@@ -601,12 +601,15 @@ class objeto_datos_tabla extends objeto
 	function eliminar_fila($id)
 	{
 		$id = $this->normalizar_id($id);
-		if(!$this->existe_fila($id)){
+		if (!$this->existe_fila($id)) {
 			$mensaje = $this->get_txt() . " ELIMINAR. No existe un registro con el INDICE indicado ($id)";
 			toba::get_logger()->error($mensaje);
 			throw new excepcion_toba($mensaje);
 		}
-		$this->notificar_contenedor("pre_eliminar", $id);
+		if ( $this->get_cursor() == $id ) { 
+ 			$this->resetear_cursor();        
+		}
+ 		$this->notificar_contenedor("pre_eliminar", $id);
 		//Se notifica la eliminación a las relaciones
 		foreach ($this->relaciones_con_hijos as $rel) {
 			$rel->evt__eliminacion_fila_padre($id);

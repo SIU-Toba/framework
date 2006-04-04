@@ -108,6 +108,7 @@ class album_fotos
 					fotos.usuario = '$usuario' AND
 					fotos.foto_tipo = '{$this->tipo}'
 					$where_nombre
+					AND fotos.foto_nombre != '".apex_foto_inicial."'
 			";
 		$fotos_en_crudo = toba::get_db('instancia')->consultar($sql);
 		$fotos = array();

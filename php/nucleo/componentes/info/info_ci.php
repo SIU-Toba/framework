@@ -20,7 +20,7 @@ class info_ci extends info_ei
 		//Este objeto tiene las dependencias, cada pantalla debería poder sacar las que les concierne
 		//Pero tambien este objeto debería saber cuales no son utilizadas por las pantallas
 		$pantallas = array();
-		if (count($this->datos['info_ci_me_pantalla'])>0) {
+		if ($this->carga_profundidad && count($this->datos['info_ci_me_pantalla'])>0) {
 			//Se ordena por la columna orden
 			$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
 			foreach ($datos_pantallas as $pantalla) {
