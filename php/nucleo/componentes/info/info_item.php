@@ -57,6 +57,15 @@ class info_item implements recorrible_como_arbol
 						false, false, null, true, "central");
 	}
 	
+	function contiene_objeto($id)
+	{
+		foreach ($this->subelementos as $elem) {
+			if ($elem->contiene_objeto($id)) {
+				return true;
+			}
+		}
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------

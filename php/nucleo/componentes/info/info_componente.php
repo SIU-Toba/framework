@@ -180,7 +180,19 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	function info_extra()
 	{
 		return "";	
-	}	
+	}
+	
+	function contiene_objeto($id)
+	{
+		if ($id == $this->id()) {
+			return true;	
+		}
+		foreach ($this->subelementos as $elem) {
+			if ($elem->contiene_objeto($id)) {
+				return true;
+			}
+		}
+	}
 	
 	//---------------------------------------------------------------------	
 	//-- EVENTOS

@@ -144,6 +144,17 @@ class catalogo_items
 		}
 		$this->dejar_ramas_con_items($encontrados);		
 	}
+	
+	function dejar_items_con_objeto($id_objeto)
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if (!$item->es_carpeta() && $item->contiene_objeto($id_objeto)) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);			
+	}
 
 	protected function dejar_ramas_con_items($items)
 	{

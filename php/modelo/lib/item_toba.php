@@ -155,6 +155,17 @@ class item_toba implements recorrible_como_arbol
 		return false;
 	}
 	
+	/**
+	 * Recorre el item en profundidad buscando el objeto pasado por parametro
+	 * La ejecución de este método es muy costosa ya que hace una query por objeto
+	 */
+	function contiene_objeto($id)
+	{
+		$id_info = array('componente' => $this->id(), 'proyecto' => $this->proyecto());
+		$info = constructor_toba::get_info($id_info, "item");
+		return $info->contiene_objeto($id);
+	}
+	
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------
 	
 	function set_nivel($nivel) { $this->nivel = $nivel; }	

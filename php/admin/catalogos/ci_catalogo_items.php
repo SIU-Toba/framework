@@ -142,6 +142,12 @@ class ci_catalogo_items extends ci_catalogo
 				$this->dependencia('items')->set_todos_abiertos();
 				$this->catalogador->dejar_items_sin_objetos();
 			}
+			if (isset($this->opciones['con_objeto']) && $this->opciones['con_objeto'] == 1) {
+				$this->dependencia('items')->set_todos_abiertos();				
+				if (isset($this->opciones['objeto'])) {
+					$this->catalogador->dejar_items_con_objeto($this->opciones['objeto']);
+				}
+			}
 		}
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
