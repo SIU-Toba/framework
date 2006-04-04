@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/arbol_items.php');
+require_once('nucleo/lib/catalogo_items.php');
 
 class test_arbol_items extends test_toba
 {
@@ -34,7 +34,7 @@ class test_arbol_items extends test_toba
 	*/
 	{
 		
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->set_carpeta_inicial('/cualquieraa');
 		$arbol->ordenar();
 		$this->assertEqual($arbol->cantidad_items(), 0 ,'La rama no existe (%s)');
@@ -46,7 +46,7 @@ class test_arbol_items extends test_toba
 		Recorre una hoja, debe encontrar sólo a sí mimsmo
 	*/
 	{
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_vacia');
 		$arbol->ordenar();
 		$this->assertEqual($arbol->cantidad_items(), 1 ,'La rama no tiene hijos (%s)');
@@ -75,7 +75,7 @@ class test_arbol_items extends test_toba
 					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a', 4),
 					array('/pruebas_arbol_items/rama_profunda/r1', 1)
 			);
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_profunda');
 		$arbol->ordenar();
 		foreach ($niveles as $nivel) {
@@ -107,7 +107,7 @@ class test_arbol_items extends test_toba
 					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021', 3),
 					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a', 4),
 			);
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
 		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_profunda');
 		$arbol->ordenar();
@@ -134,12 +134,12 @@ class test_arbol_items extends test_toba
 		Deniega los permisos de un grupo a todo el arbol
 	*/
 	{
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
 		$arbol->cambiar_permisos(array(), 'prueba_asignacion');
 		
 		//Chequeo
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
 		$arbol->ordenar();
 		foreach ($arbol->items() as $item)
@@ -156,7 +156,7 @@ class test_arbol_items extends test_toba
 		que lo contienen.
 	*/
 	{
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
 		$arbol->cambiar_permisos(array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a'), 'prueba_asignacion');
 		
@@ -170,7 +170,7 @@ class test_arbol_items extends test_toba
 					'/pruebas_arbol_items/rama_profunda/r0/r02/r021',
 					'/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a'
 			);
-		$arbol = new arbol_items(false, 'toba_testing');
+		$arbol = new catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
 		$arbol->ordenar();
 		$arbol->dejar_grupo_acceso('prueba_asignacion');

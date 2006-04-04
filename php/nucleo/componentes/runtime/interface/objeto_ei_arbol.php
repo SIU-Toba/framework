@@ -12,6 +12,7 @@ class objeto_ei_arbol extends objeto_ei
 	protected $item_propiedades = array();
 	protected $nivel_apertura = 1;
 	protected $datos_apertura;
+	protected $todos_abiertos = false;
 	protected $frame_destino = null;
 
     function __construct($id)
@@ -50,6 +51,11 @@ class objeto_ei_arbol extends objeto_ei
 	function set_nivel_apertura($nivel)
 	{
 		$this->nivel_apertura = $nivel;
+	}
+	
+	function set_todos_abiertos()
+	{
+		$this->todos_abiertos = true;	
 	}
 	
 	function set_frame_destino($frame)
@@ -156,9 +162,12 @@ class objeto_ei_arbol extends objeto_ei
 		
 		//Nombre
 		$corto = $this->acortar_nombre($nodo->nombre_corto());
-		$title= "Nombre: ".$nodo->nombre_largo()."<br>Id:  ".$nodo->id();
+		$title= "<b>Nombre</b>: ".$nodo->nombre_largo()."<br><b>Id</b>:  ".$nodo->id();
+		$extra = $nodo->info_extra();
+		if ($extra != '') {
+			$title .= "<br><em>$extra</em>";
+		}
 		
-		//$nombre= "<span class='ei-arbol-nombre' title=\"$title\">$corto</span>";
 		$ayuda = recurso::ayuda(null,  $title, 'ei-arbol-nombre');
 		$nombre= "<span $ayuda>$corto</span>";
 		if ($nodo->tiene_propiedades()) {
@@ -173,9 +182,13 @@ class objeto_ei_arbol extends objeto_ei
 	protected function nodo_es_visible($nodo, $nivel)
 	//Determina si un nodo es visible viendo en la apertura de nodos
 	{
+		if ($this->todos_abiertos) {
+			return true;	
+		}
 		if (isset($this->datos_apertura[$nodo->id()])) {
 			return $this->datos_apertura[$nodo->id()];
 		}
+	
 		//Si no esta se determina por el nivel de apertura estandar
 		return ($nivel < $this->nivel_apertura);
 	}

@@ -1,11 +1,11 @@
 <?
 	include_once("nucleo/browser/interface/form.php");
-	require_once('modelo/lib/arbol_items.php');
+	require_once('modelo/lib/catalogo_items.php');
 
 	define('separador_camino', '_%_');
 
 	$grupo = $editable[1];
-	$arbol = new arbol_items();
+	$arbol = new catalogo_items();
 	$arbol->sacar_publicos();
 	$arbol->ordenar();
 

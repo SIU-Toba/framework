@@ -1,17 +1,19 @@
 <?php
 require_once('admin/catalogos/ci_catalogo.php'); 
-require_once("modelo/lib/arbol_items.php");
+require_once("modelo/lib/catalogo_items.php");
 
 //----------------------------------------------------------------
 class ci_catalogo_items extends ci_catalogo
 {
 	protected $catalogador; 
 	protected $item_seleccionado;
+	const foto_inaccesibles = "Items con problemas de acceso";
+	const foto_sin_objetos = "Items sin objetos asociados";
 	
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->catalogador = new arbol_items(false, toba::get_hilo()->obtener_proyecto());
+		$this->catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto());
 		$this->catalogador->ordenar();
 		
 		$this->album_fotos = new album_fotos('cat_item');
@@ -70,10 +72,18 @@ class ci_catalogo_items extends ci_catalogo
 	function evt__fotos__carga()
 	{
 		$fotos = parent::evt__fotos__carga();
-		$completa['foto_nombre'] = apex_foto_inicial;
-		$completa['predeterminada'] = 0;
-		$completa['defecto'] = 'nulo.gif';
-		$fotos[] = $completa;
+		$predefinidas = array();
+		$predefinidas[] = self::foto_inaccesibles;
+		$predefinidas[] = self::foto_sin_objetos;
+		$predefinidas[] = apex_foto_inicial;		
+		foreach ($predefinidas as $id) {
+			$foto = array();
+			$foto['foto_nombre'] = $id;
+			$foto['predeterminada'] = 0;
+			$foto['defecto'] = 'nulo.gif';
+			$fotos[] = $foto;
+		}
+		$this->dependencia('fotos')->set_fotos_predefinidas($predefinidas);
 		return $fotos;
 	}
 	
@@ -82,6 +92,14 @@ class ci_catalogo_items extends ci_catalogo
 		switch ( $nombre['foto_nombre']) {
 			case apex_foto_inicial:
 				$this->opciones =array();
+				break;
+			case self::foto_inaccesibles:
+				$this->opciones = array();
+				$this->opciones['inaccesibles'] = true;
+				break;
+			case self::foto_sin_objetos :
+				$this->opciones = array();
+				$this->opciones['sin_objetos'] = true;
 				break;
 			default:
 				parent::evt__fotos__seleccion($nombre);
@@ -115,6 +133,14 @@ class ci_catalogo_items extends ci_catalogo
 			}
 			if (isset($this->opciones['id'])) {
 				$this->catalogador->dejar_items_con_id($this->opciones['id']);			
+			}
+			if (isset($this->opciones['inaccesibles'])) {
+				$this->dependencia('items')->set_todos_abiertos();
+				$this->catalogador->dejar_items_inaccesibles();
+			}
+			if (isset($this->opciones['sin_objetos'])) {
+				$this->dependencia('items')->set_todos_abiertos();
+				$this->catalogador->dejar_items_sin_objetos();
 			}
 		}
 		$nodo = $this->catalogador->buscar_carpeta_inicial();

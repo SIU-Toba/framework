@@ -208,7 +208,8 @@ class objeto_datos_relacion extends objeto
 	static function hay_ciclos($tablas, $relaciones)
 	{
 		$tester = new Structures_Graph_Manipulator_AcyclicTest();
-		return ! $tester->isAcyclic(self::grafo_relaciones($tablas, $relaciones));
+		$grafo = self::grafo_relaciones($tablas, $relaciones);
+		return ! $tester->isAcyclic($grafo);
 	}
 
 	/**

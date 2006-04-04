@@ -204,5 +204,10 @@ class info_item implements recorrible_como_arbol
 			);		
 		return $utilerias;
 	}
+	
+	function info_extra()
+	{
+		return "";	
+	}	
 }
 ?>

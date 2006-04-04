@@ -25,7 +25,7 @@ class album_fotos
 		cerrar_transaccion('instancia');
 	}
 	
-	public function set_predeterminada($nombre)
+	public function cambiar_predeterminada($nombre)
 	{
 		$proyecto = toba::get_hilo()->obtener_proyecto();
 		$usuario = toba::get_hilo()->obtener_usuario();		
@@ -37,13 +37,14 @@ class album_fotos
 				WHERE 
 					proyecto = '$proyecto' AND
 					usuario = '$usuario' AND
-					foto_tipo = '{$this->tipo}'
+					foto_tipo = '{$this->tipo}' AND
+					foto_nombre != '$nombre'
 		";
 		toba::get_db('instancia')->ejecutar($sql);
 		
 		//Actualiza la nueva predeterminada
 		$sql = "UPDATE apex_admin_album_fotos 
-				SET predeterminada = 1 
+				SET predeterminada = 1 - COALESCE(predeterminada, 0)
 				WHERE 
 					proyecto = '$proyecto' AND
 					usuario = '$usuario' AND

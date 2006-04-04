@@ -175,6 +175,11 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			);
 		}
 		return $iconos;	
+	}
+
+	function info_extra()
+	{
+		return "";	
 	}	
 	
 	//---------------------------------------------------------------------	

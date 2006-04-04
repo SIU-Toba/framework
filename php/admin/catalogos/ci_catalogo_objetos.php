@@ -34,17 +34,19 @@ class ci_catalogo_objetos extends ci_catalogo
 	function evt__fotos__carga()
 	{
 		$fotos = parent::evt__fotos__carga();
-		$huerfanos['foto_nombre'] = self::foto_huerfanos;
-		$huerfanos['predeterminada'] = 0;
-		$huerfanos['defecto'] = 'nulo.gif';
-		$ext_rotas['foto_nombre'] = self::foto_ext_rotas;
-		$ext_rotas['predeterminada'] = 0;
-		$ext_rotas['defecto'] = 'nulo.gif';
-		$fotos[] = $huerfanos;
-		$fotos[] = $ext_rotas;
+		$predefinidas = array();
+		$predefinidas[] = self::foto_huerfanos;
+		$predefinidas[] = self::foto_ext_rotas;
+		foreach ($predefinidas as $id) {
+			$foto = array();
+			$foto['foto_nombre'] = $id;
+			$foto['predeterminada'] = 0;
+			$foto['defecto'] = 'nulo.gif';
+			$fotos[] = $foto;
+		}
+		$this->dependencia('fotos')->set_fotos_predefinidas($predefinidas);
 		return $fotos;
-		//ei_arbol($fotos);
-	}
+	}	
 	
 	function evt__fotos__seleccion($nombre)
 	{
@@ -69,23 +71,13 @@ class ci_catalogo_objetos extends ci_catalogo
 		}
 	}
 		
-	function evt__opciones__filtrar($opciones)
-	{
-		$this->opciones = $opciones;
-	}
-	
-	function evt__opciones__cancelar()
-	{
-		unset($this->opciones);	
-	}
-	
-	function evt__opciones__carga()
+	function evt__filtro__carga()
 	{
 		if (isset($this->opciones)) {
-			$this->dependencia('opciones')->colapsar();
+			$this->dependencia('filtro')->colapsar();			
 			return $this->opciones;
 		}
-	}
+	}	
 	
 	
 	

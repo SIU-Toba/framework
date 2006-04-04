@@ -1,7 +1,7 @@
 <?
 require_once("modelo/lib/item_toba.php");
 
-class arbol_items
+class catalogo_items
 {
 	protected $proyecto;
 	protected $carpeta_inicial;
@@ -115,7 +115,7 @@ class arbol_items
 	function dejar_items_con_id($id)
 	{
 		$encontrados = array();
-		foreach ($this->items as $posicion => $item) {
+		foreach ($this->items as $item) {
 			if (stripos($item->id(),$id) !== false) {
 				$encontrados[] = $item;
 			}
@@ -123,9 +123,31 @@ class arbol_items
 		$this->dejar_ramas_con_items($encontrados);
 	}
 	
+	function dejar_items_inaccesibles()
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if (!$item->es_carpeta() && $item->es_inaccesible()) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);
+	}
+	
+	function dejar_items_sin_objetos()
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if (!$item->es_carpeta() && $item->objetos() == 0) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);		
+	}
+
 	protected function dejar_ramas_con_items($items)
 	{
-		//Selecciona las carpetas que pertenecen a las ramas
+		//--- Selecciona las carpetas que pertenecen a las ramas
 		$seleccionados = $items;
 		foreach ($items as $item) {
 			$padre = $item->get_padre();
@@ -143,7 +165,7 @@ class arbol_items
 		}
 
 	}
-
+	
 	function buscar_carpeta_inicial()
 	{
 		foreach ($this->items as $item) {

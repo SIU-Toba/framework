@@ -106,5 +106,10 @@ class info_ci_pantalla implements recorrible_como_arbol
 		);
 		return $iconos;	
 	}
+	
+	function info_extra()
+	{
+		return "";	
+	}
 }
 ?>

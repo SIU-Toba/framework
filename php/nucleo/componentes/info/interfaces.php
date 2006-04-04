@@ -13,6 +13,7 @@ interface recorrible_como_arbol
 	public function id();					//Forma de identificar al nodo
 	public function nombre_corto();			//Nombre corto del nodo
 	public function nombre_largo();			//Nombre largo sólo disponible para ayudas o vistas mas directas
+	public function info_extra();			//Información extra contextual a la situación actual del item
 	public function iconos(); 				//Arreglo de iconos asociados al nodo
 	public function utilerias();			//Arreglo de utilerias (similares a los iconos pero secundarios
 	//Formato de nodos y utilerias:

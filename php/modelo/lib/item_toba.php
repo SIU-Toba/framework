@@ -9,6 +9,7 @@ class item_toba implements recorrible_como_arbol
 	protected $camino;					//Arreglo de carpetas que componen la rama en donde pertenece el item
 	protected $items_hijos=array();		//Arreglo de hijos 
 	protected $padre=null;				//Objeto item padre
+	protected $extra = '';
 	
 	function __construct($datos = array())
 	{
@@ -75,7 +76,13 @@ class item_toba implements recorrible_como_arbol
 	
 	function es_carpeta() { return $this->datos['carpeta']; }
 	
-	function es_de_menu() {	return $this->datos["menu"]; }
+	function es_de_menu() {	
+		if ($this->tiene_padre()) {
+			return $this->datos["menu"]; 
+		} else {
+			return true;	
+		}
+	}
 	
 	function es_publico() { return $this->datos['publico']; } 
 	
@@ -111,6 +118,41 @@ class item_toba implements recorrible_como_arbol
 		return toba::get_vinculador()->generar_solicitud("toba", $item_editor,
 						array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
 						false, false, null, true, "central");
+	}
+	
+	function es_de_consola()
+	{
+		return $this->tipo_solicitud() == 'consola';	
+	}
+	
+	/**
+	 * Un item inaccesible es uno en el que:
+	 * 	- Esta marcado por menu pero alguno de sus padres no lo esta
+	 * 	- No tiene permisos y no es ni publico ni de consola
+	 */	
+	function es_inaccesible()
+	{
+		$grupos = $this->grupos_acceso();
+		//--- Si no es de consola ni publico y no tiene grupos de acceso, no hay forma de accederlo
+		$sin_grupo = (!$this->es_de_consola() && !$this->es_publico() && count($this->grupos_acceso()) == 0);
+		if ($sin_grupo) {
+			if (!$this->es_carpeta()) {
+				$this->extra = "El ítem es inaccesible porque no hay grupo de acceso que tenga permiso de accederlo.";
+			}
+			return true;
+		}
+		//--- Si es de menu y algun padre no lo es, no se va a mostrar en el mismo
+		$es_de_menu = $this->es_de_menu();
+		$padre = $this->get_padre();
+		while ($padre != null) {
+			if ($es_de_menu && ! $padre->es_de_menu()) {
+				$this->extra = "El ítem es inaccesible por menú porque la carpeta `{$padre->nombre()}` no se muestra en el mismo.";
+				return true;
+				break;
+			}
+			$padre = $padre->get_padre();
+		}
+		return false;
 	}
 	
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------
@@ -168,9 +210,19 @@ class item_toba implements recorrible_como_arbol
 		return $this->padre;
 	}
 	
+	function tiene_padre()
+	{
+		return $this->padre !== null;	
+	}
+	
 	function hijos()
 	{
 		return $this->items_hijos;
+	}
+	
+	function info_extra()
+	{
+		return $this->extra;
 	}
 	
 	function iconos()
