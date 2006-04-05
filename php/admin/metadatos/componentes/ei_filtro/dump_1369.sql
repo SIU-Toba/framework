@@ -29,5 +29,4 @@ clase: dao_editores;
 include: admin/db/dao_editores.php;
 clave: id;
 valor: descripcion;
-no_seteado: --- Seleccione ---;
 dependencias: objeto_clase;', '7', 'Objeto', NULL, NULL, NULL, NULL, NULL, '0');

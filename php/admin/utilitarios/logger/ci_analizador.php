@@ -218,7 +218,7 @@ class ci_analizador extends objeto_ci
 					var li_nivel = document.getElementById('nivel_' + niveles[i]);
 					var src_actual = li_nivel.childNodes[0].childNodes[0].src;
 					var diff = (mostrar_todos || niveles_actuales[niveles[i]]) ? '' : '_des';
-					var src_nuevo = toba_alias + '/img/logger/' + nivel_min + diff + '.png';
+					var src_nuevo = toba_alias + '/img/logger/' + nivel_min + diff + '.gif';
 					if (src_actual != src_nuevo) {
 						li_nivel.childNodes[0].childNodes[0].src = src_nuevo;
 					}
@@ -317,7 +317,7 @@ class ci_analizador extends objeto_ci
 		echo "<strong>Niveles</strong>";
 		echo "<ul class='admin-logger-opciones'>";
 		foreach ($niveles as $nivel) {
-			$img = recurso::imagen_apl('logger/'.strtolower($nivel).'.png', true, null, null, "Filtrar el nivel: $nivel");
+			$img = recurso::imagen_apl('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
 			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
 			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
 			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
@@ -325,7 +325,7 @@ class ci_analizador extends objeto_ci
 		echo "</ul>";
 		echo "</div>";
 /*****	MOCKUP de la eleccion de un proyecto especifico		
- 		echo recurso::imagen_apl('logger/ver_texto.png', true, 16, 16, "Ver el texto original del log");* 
+ 		echo recurso::imagen_apl('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
 		echo "<strong>Proyectos</strong>";
 		echo "<ul id='logger_proyectos' class='admin-logger-opciones'>";
@@ -370,7 +370,7 @@ class ci_analizador extends objeto_ci
 				$clase = "admin-logger-seccion";
 			//Es normal
 			} else {
-				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.png', true, null, null);
+				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
 				$clase = "admin-logger-normal";	
 			}
 			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";

@@ -4,6 +4,7 @@ require_once('nucleo/lib/manejador_archivos.php');
 class constructor_toba
 {
 	static $objetos_runtime_instanciados;		// Referencias a los objetos creados
+	static $cache_infos = array();
 
 	/**
 	 * Retorna el objeto-php que representa un runtime de un componente-toba
@@ -55,15 +56,21 @@ class constructor_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $id );	
 		}
-		if (! isset($datos)) {
-			if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
-				$datos = self::get_metadatos_compilados( $id, $tipo );
-			} else {
-				$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+		//--- Si esta en el cache lo retorna
+		$hash = $id['componente']."-".$id['proyecto']."-".$tipo;
+		if (! isset(self::$cache_infos[$hash])) {
+			if (! isset($datos)) {
+				if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
+					$datos = self::get_metadatos_compilados( $id, $tipo );
+				} else {
+					$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
+				}
 			}
+			$clase = catalogo_toba::get_nombre_clase_info( $tipo );
+			$obj = new $clase( $datos, $en_profundidad );
+			self::$cache_infos[$hash] = $obj;
 		}
-		$clase = catalogo_toba::get_nombre_clase_info( $tipo );
-		return new $clase( $datos, $en_profundidad );		
+		return self::$cache_infos[$hash];
 	}	
 
 	/**

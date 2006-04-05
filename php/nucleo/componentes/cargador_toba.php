@@ -35,8 +35,8 @@ class cargador_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
 		}
-		$clase_info = catalogo_toba::get_nombre_clase_definicion( $tipo );
-		$estructura = call_user_func(array($clase_info,'get_estructura'));
+		$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );
+		$estructura = call_user_func(array($clase_def,'get_estructura'));
 		if ( isset($this->cache_metadatos_simples) ) {				// Con CACHE!
 			//Saco el componente del CACHE
 			foreach ($estructura as $seccion) {
@@ -81,13 +81,14 @@ class cargador_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
 		}
-		$clase_info = catalogo_toba::get_nombre_clase_definicion( $tipo );
+		$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE no implementado!
-			throw new excepcion_toba('No implementado');	
+			
+			throw new excepcion_toba('No implementado');
 		} else {													// Sin CACHE!
 			$proyecto = $componente['proyecto'];
 			$id = $componente['componente'];
-			$estructura = call_user_func_array( array(	$clase_info,
+			$estructura = call_user_func_array( array(	$clase_def,
 														'get_vista_extendida'),
 														array( $proyecto, $id ) );
 			foreach ( $estructura as $seccion => $contenido ) {
@@ -136,7 +137,7 @@ class cargador_toba
 		//print_r( $this->cache_metadatos_simples->info() );
 	}
 
-	function generar_cache_extendido( $proyecto )
+	function generar_cache_extendido( $proyecto, $db =null )
 	{
 	}
 }

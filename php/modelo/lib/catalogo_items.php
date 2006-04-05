@@ -147,13 +147,50 @@ class catalogo_items
 	
 	function dejar_items_con_objeto($id_objeto)
 	{
+		//--- Se hacen SQL personalizados si no hay que traer la base completa a memoria
+		$ids_encontrados = array();
+		
+		$this->raices_de_objeto = array();
+		$this->buscar_raices_de_objeto($id_objeto);
+		foreach ($this->raices_de_objeto as $obj_raiz) {
+			$sql = "SELECT item FROM apex_item_objeto WHERE
+					objeto = '$obj_raiz' AND proyecto = '{$this->proyecto}'
+				";
+			$rs = consultar_fuente($sql, 'instancia');
+			foreach ($rs as $item) {
+				if (! in_array($item['item'], $ids_encontrados)) {
+					$ids_encontrados[] = $item['item'];
+				}
+			}
+		}
+		
 		$encontrados = array();
 		foreach ($this->items as $item) {
-			if (!$item->es_carpeta() && $item->contiene_objeto($id_objeto)) {
+			if (in_array($item->id(), $ids_encontrados)) {
 				$encontrados[] = $item;
 			}
 		}
-		$this->dejar_ramas_con_items($encontrados);			
+		$this->dejar_ramas_con_items($encontrados);				
+	}
+	
+	/**
+	 * Recorre el arbol de dependencias hasta llegar a objetos que no estan contenidos en otros
+	 */
+	protected function buscar_raices_de_objeto($id_objeto)
+	{
+		$sql_obj = "SELECT objeto_consumidor FROM apex_objeto_dependencias WHERE
+					objeto_proveedor = '$id_objeto' AND proyecto = '{$this->proyecto}'
+			";
+		$rs = consultar_fuente($sql_obj, 'instancia');
+		if (empty($rs)) {
+			if (! in_array($id_objeto, $this->raices_de_objeto)) {
+				$this->raices_de_objeto[] = $id_objeto;
+			}
+		} else {
+			foreach ($rs as $padre) {
+				$this->buscar_raices_de_objeto($padre['objeto_consumidor']);
+			}
+		}
 	}
 
 	protected function dejar_ramas_con_items($items)
