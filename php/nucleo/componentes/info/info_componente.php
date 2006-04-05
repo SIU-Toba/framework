@@ -12,6 +12,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	protected $proyecto;
 	protected $id;
 	protected $carga_profundidad;
+	protected $info_extra = "";
 	
 	function __construct( $datos, $carga_profundidad=true)
 	{
@@ -179,7 +180,12 @@ class info_componente implements recorrible_como_arbol, meta_clase
 
 	function info_extra()
 	{
-		return "";	
+		return $this->info_extra;	
+	}
+	
+	function set_info_extra($info)
+	{
+		$this->info_extra = $info;	
 	}
 	
 	function contiene_objeto($id)

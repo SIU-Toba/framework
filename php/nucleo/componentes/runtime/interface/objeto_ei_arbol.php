@@ -165,7 +165,7 @@ class objeto_ei_arbol extends objeto_ei
 		$title= "<b>Nombre</b>: ".$nodo->nombre_largo()."<br><b>Id</b>:  ".$nodo->id();
 		$extra = $nodo->info_extra();
 		if ($extra != '') {
-			$title .= "<br><em>$extra</em>";
+			$title .= "<hr><em>$extra</em>";
 		}
 		
 		$ayuda = recurso::ayuda(null,  $title, 'ei-arbol-nombre');
