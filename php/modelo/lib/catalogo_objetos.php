@@ -52,10 +52,25 @@ class catalogo_objetos
 		}
 		
 		//---Nombre
-		$filtro_nombre = isset($opciones['nombre']) ? "AND		o.nombre ILIKE '%{$opciones['nombre']}%'" : '';
+		$filtro_nombre = "";
+		if (isset($opciones['nombre']) && $opciones['nombre'] != '') {
+			$filtro_nombre =  "AND		o.nombre ILIKE '%{$opciones['nombre']}%'";
+		}
 		
+		//---Tabla
+		$filtro_tabla = "";
+		if (isset($opciones['tabla']) && $opciones['tabla'] != '') {
+			$subselect = "
+				SELECT 
+					objeto,
+					objeto_proyecto
+				FROM apex_objeto_db_registros
+				WHERE 
+					objeto_proyecto = '{$this->proyecto}' 
+					AND tabla ILIKE '%{$opciones['tabla']}%'";
+			$filtro_tabla = " AND (o.objeto, o.proyecto) IN ($subselect)";
+		}
 
-		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		$sql_base = componente_toba::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['info']['sql'];
@@ -67,6 +82,7 @@ class catalogo_objetos
 				$filtro_ext
 				$filtro_huerfano
 				$filtro_nombre
+				$filtro_tabla
 	            ORDER BY o.nombre
 		";
 
@@ -98,6 +114,14 @@ class catalogo_objetos
 		return $this->objetos;
 	}
 	
+	
+	/**
+	 * Consulta antes los objetos que contienen una determinada tabla
+	 */
+	protected function formar_filtro_tabla($tabla)
+	{
+		
+	}
 	
 	/**
 	 * Consulta antes los objetos porque tiene que formar la 'explicacion' 
