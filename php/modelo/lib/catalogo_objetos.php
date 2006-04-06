@@ -20,8 +20,10 @@ class catalogo_objetos
 		$filtro_dao = "";
 		if (isset($opciones['dao']) && $opciones['dao'] != '') {
 			$filtro_dao = $this->formar_filtro_dao($opciones['dao']);	
+			if (! isset($filtro_dao)) {
+				return array();	
+			}
 		}
-				
 		//---Clase
 		if (isset($opciones['clase'])) {
 			$clases = array($opciones['clase']);	
@@ -89,6 +91,7 @@ class catalogo_objetos
 					$info->set_info_extra($explicacion);
 				}
 				$this->objetos[] = $info;
+				
 			}
 		}
 		
@@ -102,10 +105,22 @@ class catalogo_objetos
 	 */
 	protected function formar_filtro_dao($busca)
 	{
+		$daos_efs = array();
+		$daos_efs['clase'] = "el NOMBRE de la CLASE";
+		$daos_efs['dao'] = "el NOMBRE del METODO";
+		$daos_efs['include'] = "el INCLUDE de la CLASE";
+		$daos_efs['agrupador_dao'] = "el NOMBRE del METODO AGRUPADOR";
+		$daos_efs['agrupador_clase'] = "el NOMBRE de la CLASE AGRUPADORA";
+		$daos_efs['agrupador_include'] = "el INCLUDE de la CLASE AGRUPADORA";		
+		$sql_efs = "";
+		foreach (array_keys($daos_efs) as $clave) {
+			$sql_efs .= "ef.inicializacion ILIKE '%$clave:%$busca%;' OR ";
+		}
 		$sql = "
 			SELECT 
 				o.objeto,
 				ef.inicializacion,
+				ef.identificador,
 				c.dao_metodo,
 				c.dao_nucleo
 			FROM apex_objeto o
@@ -118,17 +133,15 @@ class catalogo_objetos
 			WHERE
 				o.proyecto = '{$this->proyecto}'
 				AND (
-					(c.dao_nucleo ILIKE '%$busca%'  OR	c.dao_metodo ILIKE '%$busca%')
-					OR 		(ef.inicializacion ILIKE '%clase:%$busca%;'
-							OR	ef.inicializacion ILIKE '%dao:%$busca%;'
-							OR	ef.inicializacion ILIKE '%include:%$busca%;')
+					$sql_efs
+					c.dao_nucleo ILIKE '%$busca%'  OR	c.dao_metodo ILIKE '%$busca%'
 					)
 		";
 		$rs = consultar_fuente($sql, 'instancia');
 		if (!empty($rs)) {
 			$sql = "AND		o.objeto IN (";
 			foreach ($rs as $obj) {
-				$this->explicaciones[$obj['objeto']][] = $this->formar_explicacion_dao($busca, $obj);
+				$this->explicaciones[$obj['objeto']][] = $this->formar_explicacion_dao($busca, $obj, $daos_efs);
 				$sql .= $obj['objeto'].", ";
 			}
 			$sql = substr($sql, 0, -2);
@@ -137,19 +150,29 @@ class catalogo_objetos
 		}
 	}
 	
-	protected function formar_explicacion_dao($buscado, $datos)
+	protected function formar_explicacion_dao($buscado, $datos, $daos_efs)
 	{
 		if (isset($datos['inicializacion'])) {
-
+			$expl ="";
+			foreach ($daos_efs as $clave => $descripcion) {
+				$exp_reg = "/$clave:(.*)$buscado(.*);/";
+				if (preg_match($exp_reg, $datos['inicializacion'], $res)) {
+					$expl .= " se encontró en $descripcion ({$res[1]}<b>$buscado</b>{$res[2]}) de la consulta php.";
+				}
+			}
+			if ($expl == '') {
+				$expl = $datos['inicializacion'];	
+			}
+			return "En el ef <b>{$datos['identificador']}</b>:$expl";;
 		}
 		if (isset($datos['dao_metodo'])) {
 			if (preg_match("/$buscado/", $datos['dao_metodo'])) {
-				return "<b>$buscado</b> se encontró como método <b>{$datos['dao_metodo']}</b> de la consulta_php de este cuadro.";
+				return "<b>$buscado</b> se encontró como método <b>{$datos['dao_metodo']}</b> de la consulta php de este cuadro.";
 			}
 		}
 		if (isset($datos['dao_nucleo'])) {
 			if (eregi("$buscado", $datos['dao_nucleo'])) {
-				return "<b>$buscado</b> se encontró en el nombre <b>{$datos['dao_nucleo']}</b> de la consulta_php de este cuadro.";
+				return "<b>$buscado</b> se encontró en el nombre <b>{$datos['dao_nucleo']}</b> de la consulta php de este cuadro.";
 			}
 		}		
 	}
