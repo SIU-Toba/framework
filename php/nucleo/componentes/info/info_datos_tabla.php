@@ -5,8 +5,8 @@ class info_datos_tabla extends info_componente
 {
 	function get_metadatos_subcomponente($subcomponente)
 	{
-		$sub['clase'] = $this->datos['info_estructura']['ap_clase'];
-		$sub['archivo'] = $this->datos['info_estructura']['ap_archivo'];
+		$sub['clase'] = $this->datos['info_estructura']['ap_sub_clase'];
+		$sub['archivo'] = $this->datos['info_estructura']['ap_sub_clase_archivo'];
 		//HARCODEO!
 		$sub['padre_clase'] = 'ap_tabla_db';
 		$sub['padre_archivo'] = 'nucleo/componentes/runtime/persistencia/ap_tabla_db.php';
@@ -25,7 +25,7 @@ class info_datos_tabla extends info_componente
 		$iconos = array();
 		$param_editores = array(apex_hilo_qs_zona=>$this->proyecto.apex_qs_separador.$this->id,
 								'subcomponente'=>'ap');
-		if (isset($this->datos['apex_objeto_db_registros'][0]["ap_archivo"])) {
+		if (isset($this->datos['info_estructura']["ap_sub_clase_archivo"])) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",

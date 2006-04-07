@@ -68,8 +68,9 @@ class archivo_php
 			if (strcasecmp($this->nombre, $nombre_incluido) == 0)
 				$ya_incluido = true;
 		}
-		if (!$ya_incluido)
+		if (!$ya_incluido) {
 			include_once($this->nombre);
+		}
 	}	
 	
 	function crear_basico()
