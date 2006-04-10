@@ -59,11 +59,11 @@
 			echo "<td width='2%'  class='cat-arbol'>".gif_nulo(4,1)."</td>";
 		}
 		if ($item->es_carpeta()){
-			$ultima_carpeta = $item->id();
+			$ultima_carpeta = $item->get_id();
 			//******************< Carpetas >*****************************
 			?>
 	          <td  class='cat-arbol-carpeta' width='2%'>
-				<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->id()) ) ?>" class='cat-item'>
+				<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
 				<img src='<? echo recurso::imagen_apl("items/carpeta.gif") ?>' border='0'></a>
 			  </td>
 	
@@ -74,10 +74,10 @@
 			  </td>
 			  
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->id()?>',true);return false;"><? echo recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->id()?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->nombre()?></td>
 		  
@@ -85,7 +85,7 @@
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='cat-arbol-item'  width='2%'>
-						<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->id()) ) ?>" class='cat-item'>
+						<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
 						<img src='<? echo recurso::imagen_apl("items/item.gif") ?>' border='0'></a>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
@@ -96,10 +96,10 @@
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? 
 				$extra = " camino='".implode(separador_camino, $item->camino())."' ";
-				echo form::checkbox($prefijo_items.$item->id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
+				echo form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 					  </td>
 			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->nombre()?></td>
-			          <td  class='cat-item-dato1' width='100' ><? echo $item->id(); ?></td>
+			          <td  class='cat-item-dato1' width='100' ><? echo $item->get_id(); ?></td>
 			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
 			<?					  
 		}

@@ -5,12 +5,13 @@ class catalogo_items
 {
 	protected $proyecto;
 	protected $carpeta_inicial;
-	protected $items;
+	protected $items = array();
+	protected $items_ordenados = array();
 	protected $mensaje;
 	
 	protected $camino; //Durante el recorrido va manteniendo el camino actual
 	
-	function __construct($menu=false, $proyecto = null)
+	function __construct($menu=false, $proyecto = null, $id_item_inicial=null, $incluidos_forzados=array())
 	{
 		if (!$proyecto)
 			$this->proyecto = toba::get_hilo()->obtener_proyecto();
@@ -21,23 +22,48 @@ class catalogo_items
 			$where = "	AND		(i.menu = 1 OR i.item = '')";
 		else
 			$where = "";
+			
+		//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
+		if (isset($id_item_inicial)) {
+			$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
+		}
+		
+		if (! empty($incluidos_forzados)) {
+			$forzados = implode("', '", $incluidos_forzados);
+			$filtro_incluidos = "( i.padre IN ('".$forzados."')";
+			$filtro_incluidos .= " OR i.item IN ('".$forzados."') )";			
+		}
+		
+		$filtro_items = "";
+		if (isset($filtro_padre) && isset($filtro_incluidos)) {
+			$filtro_items ="	AND ($filtro_padre 
+									OR 
+								$filtro_incluidos)
+				";
+		} elseif (isset($filtro_padre)) {
+			$filtro_items = "	AND $filtro_padre ";	
+		} elseif (isset($filtro_incluidos)) {
+			$filtro_items = "	AND $filtro_incluidos ";
+		}
+
 		$sql = "SELECT 	p.proyecto 						as item_proyecto,
 						p.descripcion 					as pro_des,
 						".item_toba::definicion_campos().",
-						(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item) as objetos
+						(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item) as objetos,
+						(SELECT COUNT(*) FROM apex_item WHERE padre = i.item) as cant_hijos
 				FROM 	apex_item i,
 						apex_proyecto p
 				WHERE	i.proyecto = p.proyecto
 	            AND     i.proyecto = '{$this->proyecto}'
 				AND 	solicitud_tipo <> 'fantasma'
+				$filtro_items
 				$where
 				ORDER BY i.carpeta, i.orden, i.nombre";
 		$rs = toba::get_db('instancia')->consultar($sql);
-		$this->items = array();
 		foreach ($rs as $fila) {
-			$this->items[] = new item_toba($fila);			
+			$this->items[$fila['item']] = new item_toba($fila);			
 		}
-		$this->carpeta_inicial = '';//Raiz
+		$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
 		$this->mensaje = "";
 	}
 
@@ -76,13 +102,13 @@ class catalogo_items
 				unset($this->items[$posicion]);
 		}
 	}
-	
+
+	/**
+	 * Del conjunto de items disponibles, sólo mantiene aquellos que tiene grupo de acceso $grupo
+	 * Este filtro afecta al recorrido ya que toma tanto carpetas como items. Una carpeta que no es del grupo de 
+	 * acceso $grupo bloquea el recorrido de todos sus hijos. Es recomendable utilizarlo luego de un recorrido.
+	 */
 	function dejar_grupo_acceso($grupo)
-	/*
-		Del conjunto de items disponibles, sólo mantiene aquellos que tiene grupo de acceso $grupo
-		Este filtro afecta al recorrido ya que toma tanto carpetas como items. Una carpeta que no es del grupo de 
-		acceso $grupo bloquea el recorrido de todos sus hijos. Es recomendable utilizarlo luego de un recorrido.
-	*/
 	{
 		foreach ($this->items as $posicion => $item) {
 			if (!in_array($grupo, $item->grupos_acceso())) 
@@ -94,7 +120,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $posicion => $item) {
-			$es_raiz = ($item->id() == '');
+			$es_raiz = ($item->get_id() == '');
 			if ($es_raiz || $item->es_de_menu() == $en_menu) 
 				$encontrados[] = $item;
 		}
@@ -116,7 +142,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $item) {
-			if (stripos($item->id(),$id) !== false) {
+			if (stripos($item->get_id(),$id) !== false) {
 				$encontrados[] = $item;
 			}
 		}
@@ -166,7 +192,7 @@ class catalogo_items
 		
 		$encontrados = array();
 		foreach ($this->items as $item) {
-			if (in_array($item->id(), $ids_encontrados)) {
+			if (in_array($item->get_id(), $ids_encontrados)) {
 				$encontrados[] = $item;
 			}
 		}
@@ -217,7 +243,7 @@ class catalogo_items
 	function buscar_carpeta_inicial()
 	{
 		foreach ($this->items as $item) {
-			if ($item->id() == $this->carpeta_inicial)
+			if ($item->get_id() == $this->carpeta_inicial)
 				return $item;
 		}
 		//El item inicial no esta en el listado
@@ -239,40 +265,49 @@ class catalogo_items
 	/**
 	*	Recorrido en profundidad del arbol
 	* 	Se muestran primero la caperta y luego los items ordenados por posición en menú
-	*/
-	function ordenar()		
+	*/	
+	function ordenar()
 	{
-		$carpeta = $this->buscar_carpeta_inicial();
-		if ($carpeta !== false) {
-			$this->items = $this->ordenar_recursivo($carpeta, 0);
-		}else{
-			$this->items = array();		
+		//--- Se conocen entre padres e hijos
+		foreach (array_keys($this->items) as $id) {
+			$item = $this->items[$id];
+			if (isset($this->items[$item->id_padre()])) {
+				$padre = $this->items[$item->id_padre()];
+			}
+ 			if (isset($padre) && isset($item) && $padre != $item) {			
+				$item->set_padre($padre);
+				$padre->agregar_hijo($item);
+			}
 		}
+		
+		//---Se recorre el arbol para poner los niveles
+		$raiz = $this->buscar_carpeta_inicial();
+		$this->items_ordenados = array();
+		$this->camino = array();
+		$this->ordenar_recursivo($raiz, 0);
+		$this->items = $this->items_ordenados;
 	}
-
-	protected function ordenar_recursivo($carpeta, $nivel)
+	
+	function ordenar_recursivo($carpeta, $nivel)
 	{
-		$items = array();
-		$carpeta->set_nivel($nivel);
-		$items[] = $carpeta;
-		$this->camino[] = $carpeta->id();
-		foreach ($this->items as $item) {
-			if ($item->es_hijo_de($carpeta)) {
-				$item->set_camino($this->camino);
-				$item->set_padre($carpeta);
-				$carpeta->agregar_hijo($item);
-				if ($item->es_carpeta()) //Caso recursivo
-					$items = array_merge($items, $this->ordenar_recursivo($item, $nivel + 1));
-				else {
-					$item->set_nivel($nivel + 1);
-					$items[] = $item;
+		$this->items_ordenados[] = $carpeta;
+		$carpeta->set_nivel($nivel);		
+		$this->camino[] = $carpeta->get_id();
+		if ($carpeta->es_carpeta()) {
+			foreach ($carpeta->get_hijos() as $hijo) {
+				$hijo->set_camino($this->camino);
+				//Caso recursivo			
+				if ($hijo->es_carpeta()) { 
+					$this->ordenar_recursivo($hijo, $nivel + 1);
+				} else {
+					$this->items_ordenados[] = $hijo;
+					$hijo->set_nivel($nivel + 1);
 				}
 			}
 		}
 		array_pop($this->camino);
-		return $items;
 	}
-
+	
 	//------------------------------------TRABAJOS sobre el arbol --------------------------------------------------------			
 
 	function cambiar_permisos($lista_items_permitidos, $grupo)
@@ -303,7 +338,7 @@ class catalogo_items
 					$rama_con_permiso = $this->cambiar_permisos_recursivo($item, $items_permitidos, $grupo);
 					$hay_desc_con_permiso = $hay_desc_con_permiso || $rama_con_permiso;
 				} else { //Es un item simple
-					if (in_array($item->id(), $items_permitidos)) {
+					if (in_array($item->get_id(), $items_permitidos)) {
 						$hay_desc_con_permiso = true;
 						$item->otorgar_permiso($grupo);						
 					}

@@ -70,14 +70,19 @@ class info_item implements recorrible_como_arbol
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 	
-	function id()
+	function get_id()
 	{
 		return $this->id;	
 	}
 	
-	function hijos()
+	function get_hijos()
 	{
 		return $this->subelementos;
+	}
+	
+	function get_padre()
+	{
+		return null;	
 	}
 	
 	function es_hoja()
@@ -90,17 +95,17 @@ class info_item implements recorrible_como_arbol
 		return false;
 	}	
 	
-	function nombre_corto()
+	function get_nombre_corto()
 	{
 		return $this->datos['info']['item_nombre'];
 	}
 	
-	function nombre_largo()
+	function get_nombre_largo()
 	{
-		return $this->nombre_corto();
+		return $this->get_nombre_corto();
 	}
 	
-	function iconos()
+	function get_iconos()
 	{
 		$iconos = array();
 		if ($this->es_carpeta()) {
@@ -139,7 +144,7 @@ class info_item implements recorrible_como_arbol
 		return $iconos;
 	}
 	
-	function utilerias()
+	function get_utilerias()
 	{
 		$utilerias = array();
 		if ($this->es_carpeta()) {	
@@ -214,9 +219,14 @@ class info_item implements recorrible_como_arbol
 		return $utilerias;
 	}
 	
-	function info_extra()
+	function get_info_extra()
 	{
 		return "";	
-	}	
+	}
+
+	function tiene_hijos_cargados()
+	{
+		return true;	
+	}
 }
 ?>

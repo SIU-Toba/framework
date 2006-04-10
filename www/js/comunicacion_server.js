@@ -356,8 +356,7 @@ function consultar_info(item_proyecto, item, parametros, nombre_callback, prefij
 		  failure: toba.error_comunicacion,
 		  argument: nombre_callback
 		}
-		parm = encodeURI(parametros); 
-		var vinculo = vinculador.crear_autovinculo('cascadas_efs') + '&param-cascadas=' + parm;
+		var vinculo = vinculador.crear_autovinculo('cascadas_efs', {'param-cascadas': parametros})
 		var con = conexion.asyncRequest('GET', vinculo, callback, null);
 	}
 }

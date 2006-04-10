@@ -10,39 +10,22 @@ class ci_catalogo_items extends ci_catalogo
 	const foto_inaccesibles = "Items con problemas de acceso";
 	const foto_sin_objetos = "Items sin objetos asociados";
 	
-	function __construct($id)
+	function evt__inicializar()
 	{
-		parent::__construct($id);
-		$this->catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto());
-		$this->catalogador->ordenar();
-		
 		$this->album_fotos = new album_fotos('cat_item');
 
 		//Si se pidio un item especifico, cargarlo
 		$item_selecc = toba::get_hilo()->obtener_parametro('item');
 		if ($item_selecc != null) {
-			$this->item_seleccionado = $item_selecc;
+			$this->opciones['inicial'] = $item_selecc;
 		}
 	}
 	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "item_seleccionado";
-		return $propiedades;
-	}
 
-	
-	function get_etapa_actual()
-	{
-		if (isset($this->item_seleccionado))
-			return 2;
-		else
-			return 1;
-	}
-	
 	function carpetas_posibles()
 	{
+		return array();
+		$this->cargar_catalogo('');
 		//Formatea las carpetas para que se vean mejor en el combo
 		foreach($this->catalogador->items() as $carpeta)
 		{
@@ -54,17 +37,14 @@ class ci_catalogo_items extends ci_catalogo
 					$inden = "";
 				}
 				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
-									'id' => $carpeta->id(), 
+									'id' => $carpeta->get_id(), 
 									'nombre' => $inden . $carpeta->nombre());
 			}
 		}
 		return $datos;
 	}
 	
-	function evt__volver()
-	{
-		unset($this->item_seleccionado);
-	}
+	
 	
 	//-------------------------------
 	//---- Fotos --------------------
@@ -110,20 +90,28 @@ class ci_catalogo_items extends ci_catalogo
 	//---- Listado de items ----
 	//-------------------------------
 
-	function evt__items__carga()
+	function get_nodo_raiz($inicial)
 	{
-		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
-		$this->dependencia('items')->set_item_propiedades(array('toba','/admin/items/composicion_item'));
-		//¿Hay apertura seleccionada?
+		$excepciones = array();
+		//¿Hay apertura seleccionada?		
 		if (isset($this->apertura)) {
 			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->apertura;
 			$this->dependencia('items')->set_apertura_nodos($apertura);
+			foreach ($apertura as $nodo => $incluido) {
+				if ($incluido) {
+					$excepciones[] = $nodo;	
+				}	
+			}
 		}
+				
+		$this->catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto(), 
+												$inicial, $excepciones);
+		$this->catalogador->ordenar();
+		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
+		$this->dependencia('items')->set_item_propiedades(array('toba','/admin/items/composicion_item'));
+
 		//Aplicación de los filtros
 		if (isset($this->opciones)) {
-			if (isset($this->opciones['inicial'])) {
-				$this->catalogador->set_carpeta_inicial($this->opciones['inicial']);
-			}
 			if (isset($this->opciones['nombre'])) {
 				$this->catalogador->dejar_items_con_nombre($this->opciones['nombre']);
 			}			
@@ -151,33 +139,34 @@ class ci_catalogo_items extends ci_catalogo
 		}
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
+			$nodo->cargar_rama();			
 			return array($nodo);
+		}		
+	}
+	
+	function evt__items__carga()
+	{
+		$inicial = '';
+		if (isset($this->opciones['inicial'])) {
+			$inicial = $this->opciones['inicial'];
 		}
+		return $this->get_nodo_raiz($inicial);
+	}
+	
+	function evt__items__cargar_nodo($id)
+	{
+		return $this->get_nodo_raiz($id);
 	}
 
 	function evt__items__ver_propiedades($id)
 	{
-		$this->item_seleccionado = $id;
+		$this->opciones['inicial'] = $id;
 	}
 	
 	function evt__items__cambio_apertura($datos)
 	{
 		$this->apertura = $datos;
 	}
-
 	
-	//------------------------------------------------
-	//---- Listado de objetos asociados a un item ----
-	//------------------------------------------------
-
-	function evt__objetos__carga()
-	{
-		$this->dependencia('objetos')->set_frame_destino(apex_frame_centro);
-		$this->dependencia('objetos')->set_nivel_apertura(3);
-		$clave['componente'] = $this->item_seleccionado;
-		$clave['proyecto'] = toba::get_hilo()->obtener_proyecto();
-		$item = constructor_toba::get_info($clave, 'item');
-		return array($item);
-	}	
 }
 ?>

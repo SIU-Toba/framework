@@ -10,7 +10,7 @@ maximo: 255;', '4', 'ID', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1369', '1232', 'inicial', 'ef_combo_dao', 'inicial', NULL, 'dao: carpetas_posibles;
 clase: ci_catalogo_items;
 clave: id;
-valor: nombre;', '1', 'Carpeta', NULL, NULL, NULL, NULL, NULL, '0');
+valor: nombre;', '1', 'Carpeta', NULL, NULL, NULL, '1', NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1369', '1233', 'menu', 'ef_combo_lista', 'menu', NULL, 'lista: SI,NO;
 no_seteado: --Todos--;', '3', 'En menú', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1369', '1234', 'nombre', 'ef_editable', 'nombre', NULL, 'tamano: 30;

@@ -78,14 +78,19 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 
-	function id()
+	function get_id()
 	{
 		return $this->id;	
 	}
 	
-	function hijos()
+	function get_hijos()
 	{
 		return $this->subelementos;
+	}
+	
+	function get_padre()
+	{
+		return null;
 	}
 	
 	function es_hoja()
@@ -98,7 +103,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return false;
 	}
 	
-	function nombre_corto()
+	function get_nombre_corto()
 	{
 		$nombre_objeto = $this->datos['info']['nombre'];
 		if ($this->tiene_consumidor())
@@ -108,7 +113,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $nombre;
 	}
 	
-	function nombre_largo()
+	function get_nombre_largo()
 	{
 		$nombre_objeto = $this->datos['info']['nombre'];
 		if ($this->tiene_consumidor())
@@ -118,7 +123,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $nombre;
 	}
 	
-	function iconos()
+	function get_iconos()
 	{
 		$clase_corto = substr($this->datos['info']['clase'], 7);		
 		$iconos = array();
@@ -139,7 +144,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $iconos;
 	}
 	
-	function utilerias()
+	function get_utilerias()
 	{
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
@@ -178,7 +183,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $iconos;	
 	}
 
-	function info_extra()
+	function get_info_extra()
 	{
 		return $this->info_extra;	
 	}
@@ -188,9 +193,14 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$this->info_extra = $info;	
 	}
 	
+	function tiene_hijos_cargados()
+	{
+		return true;	
+	}
+	
 	function contiene_objeto($id)
 	{
-		if ($id == $this->id()) {
+		if ($id == $this->get_id()) {
 			return true;	
 		}
 		foreach ($this->subelementos as $elem) {

@@ -176,21 +176,26 @@ var toba =
 
 var vinculador =
 {
-	crear_autovinculo : function(servicio, parametros) {
-		return this.crear(toba_hilo_item, servicio, parametros);
+	crear_autovinculo : function(servicio, parametros, objetos) {
+		return this.crear(toba_hilo_item, servicio, parametros, objetos);
 	},
 	
-	crear: function(destino, servicio, parametros) {
+	crear: function(destino, servicio, parametros, objetos) {
 		var vinc = toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + destino[0] + toba_hilo_separador + destino[1];
 		if (typeof servicio != 'undefined') {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}
 		if (typeof parametros != 'undefined') {
-			for (var i in parametros) {
-				vinc += '&' + i + '=' + parametros[i];
-			}
+			vinc = this.agregar_parametros(vinc, parametros);
 		}
 		return vinc;
+	},
+	
+	agregar_parametros : function(vinculo, parametros) {
+		for (var i in parametros) {
+			vinculo += '&' + i + '=' + encodeURI(parametros[i]);
+		}
+		return vinculo;
 	}
 
 }

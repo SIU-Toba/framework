@@ -282,7 +282,7 @@ class solicitud_web extends solicitud
 	{
 		foreach ($objetos as $objeto) {
 			$objeto->servicio__ejecutar();
-		}			
+		}
 	}
 //--------------------------------------------------------------------------------------------
 	/**

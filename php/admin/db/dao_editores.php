@@ -226,7 +226,7 @@ class dao_editores
 					$inden = "";
 				}
 				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
-									'id' => $item->id(), 
+									'id' => $item->get_id(), 
 									'padre' => $item->id_padre(),
 									'descripcion' => $inden . $item->nombre());
 			}
@@ -251,8 +251,8 @@ class dao_editores
 					$inden = "";
 				}
 				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
-									'id' => $carpeta->id(), 
-									'padre' => $carpeta->id(),		//Necesario para el macheo por agrupacion
+									'id' => $carpeta->get_id(), 
+									'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
 									'nombre' => $inden . $carpeta->nombre());
 			}
 		}

@@ -4,10 +4,11 @@ objeto_ei_arbol.prototype = new objeto;
 var def = objeto_ei_arbol.prototype;
 def.constructor = objeto_ei_arbol;
 
-function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
+function objeto_ei_arbol(instancia, input_submit, item_propiedades, autovinculo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._item_propiedades = item_propiedades;
+	this._autovinculo = autovinculo;
 }
 
 	//---Submit
@@ -60,15 +61,44 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades) {
 	}
 	
 	def.cambiar_expansion = function(nodo) {
-		ul = this.buscar_primer_ul(nodo.parentNode);
-		if (ul) {
-			if (ul.style.display == 'none') {
-				ul.style.display = '';
-				nodo.src = toba.imagen('contraer_nodo');				
+		var ul = this.buscar_primer_ul(nodo.parentNode);
+		if (ul && ul.getAttribute('id_nodo')) {
+			if (ul.innerHTML == '') {
+				var id_nodo = ul.getAttribute('id_nodo');
+				var callback =
+				{
+				  success: this.retorno_expansion,
+				  failure: toba.error_comunicacion,
+				  scope: this,
+				  argument: nodo
+				}
+				var vinculo = vinculador.agregar_parametros(this._autovinculo, {'id_nodo':id_nodo});
+				conexion.asyncRequest('GET', vinculo, callback, null);
 			} else {
-				ul.style.display = 'none';			
-				nodo.src = toba.imagen('expandir_nodo');
+				this.toggle_expansion(nodo, ul);
 			}
+		}
+	}
+	
+	def.retorno_expansion = function(resultado)
+	{
+		var nodo =resultado['argument'];
+		var ul = this.buscar_primer_ul(nodo.parentNode);		
+		if (ul) {
+			ul.innerHTML = resultado.responseText;					
+			this.toggle_expansion(nodo,ul);
+		}
+		return true;
+	}
+	
+	def.toggle_expansion = function(nodo, ul)
+	{
+		if (ul.style.display == 'none') {
+			ul.style.display = '';
+			nodo.src = toba.imagen('contraer_nodo');				
+		} else {
+			ul.style.display = 'none';			
+			nodo.src = toba.imagen('expandir_nodo');
 		}
 	}
 	

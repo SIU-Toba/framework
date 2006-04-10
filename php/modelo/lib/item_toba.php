@@ -14,9 +14,9 @@ class item_toba implements recorrible_como_arbol
 	function __construct($datos = array())
 	{
 		$this->datos = $datos;
+		$this->items_hijos = array();		
 	}
 	//------------------------------------PROPIEDADES --------------------------------------------------------			
-	function id() {	return $this->datos['item']; }
 	
 	function id_padre() {	return $this->datos['padre']; }	
 
@@ -54,7 +54,7 @@ class item_toba implements recorrible_como_arbol
 				FROM
 					apex_usuario_grupo_acc_item g
 				WHERE
-					g.item = '{$this->id()}' AND
+					g.item = '{$this->get_id()}' AND
 					g.proyecto = '{$this->proyecto()}'
 			";
 			$rs = toba::get_db('instancia')->Execute($sql);
@@ -104,9 +104,9 @@ class item_toba implements recorrible_como_arbol
 
 	function es_hijo_de($carpeta)
 	{
-		if ($this->id() == '')
+		if ($this->get_id() == '')
 			return false;
-		return $this->datos['padre'] == $carpeta->id();
+		return $this->datos['padre'] == $carpeta->get_id();
 	}
 	
 	function vinculo_editor()
@@ -116,7 +116,7 @@ class item_toba implements recorrible_como_arbol
 		else
 			$item_editor = "/admin/items/editor_items";		
 		return toba::get_vinculador()->generar_solicitud("toba", $item_editor,
-						array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->id()),
+						array( apex_hilo_qs_zona => $this->proyecto() .apex_qs_separador. $this->get_id()),
 						false, false, null, true, "central");
 	}
 	
@@ -161,7 +161,7 @@ class item_toba implements recorrible_como_arbol
 	 */
 	function contiene_objeto($id)
 	{
-		$id_info = array('componente' => $this->id(), 'proyecto' => $this->proyecto());
+		$id_info = array('componente' => $this->get_id(), 'proyecto' => $this->proyecto());
 		$info = constructor_toba::get_info($id_info, "item");
 		return $info->contiene_objeto($id);
 	}
@@ -177,38 +177,43 @@ class item_toba implements recorrible_como_arbol
 	function otorgar_permiso($grupo)
 	{
 		$sql = "INSERT INTO apex_usuario_grupo_acc_item (usuario_grupo_acc, proyecto, item) 
-				VALUES ('$grupo', '{$this->proyecto()}', '{$this->id()}')";
+				VALUES ('$grupo', '{$this->proyecto()}', '{$this->get_id()}')";
 		if(toba::get_db('instancia')->Execute($sql) === false)
 			throw new excepcion_toba("Ha ocurrido un error CREANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
 	}
 
 	//------------------------------------RECORRIDOS--------------------------------------------------------	
-	function nombre_corto() { 
+	function get_id()
+	{
+		return $this->datos['item'];
+	}
+	
+	function get_nombre_corto() { 
 		return $this->nombre();
 	}
 
-	function nombre_largo() { 
+	function get_nombre_largo() { 
 		return $this->nombre();
 	}	
 
 	function es_hoja()
 	{
-		return count($this->items_hijos) == 0;
+		return $this->datos['cant_hijos'] == 0 && $this->datos['objetos'] == 0;
 	}
 	
 	function tiene_propiedades()
 	{
-		return !$this->es_carpeta();
+		return true;
 	}
 	
 	function agregar_hijo($item)
 	{
-		$this->items_hijos[$item->id()] = $item;
+		$this->items_hijos[$item->get_id()] = $item;
 	}
-	
+		
 	function quitar_hijo($item)
 	{
-		unset($this->items_hijos[$item->id()]);
+		unset($this->items_hijos[$item->get_id()]);
 	}
 	
 	function set_padre($carpeta)
@@ -226,17 +231,32 @@ class item_toba implements recorrible_como_arbol
 		return $this->padre !== null;	
 	}
 	
-	function hijos()
+	function get_hijos()
 	{
-		return $this->items_hijos;
+		if ($this->es_carpeta()) {
+			return $this->items_hijos;
+		} else {
+			//--- Hay que retornar los objetos hijos
+			$id_info = array('componente' => $this->get_id(), 'proyecto' => $this->proyecto());
+			$info = constructor_toba::get_info($id_info, "item");
+			return $info->get_hijos();
+		}
 	}
 	
-	function info_extra()
+	function tiene_hijos_cargados()
+	{
+		if (! $this->es_hoja() && count($this->items_hijos) == 0) {
+			return false;	
+		}
+		return true;
+	}
+	
+	function get_info_extra()
 	{
 		return $this->extra;
 	}
 	
-	function iconos()
+	function get_iconos()
 	{
 		$iconos = array();
 		if ($this->es_carpeta()) {
@@ -267,7 +287,7 @@ class item_toba implements recorrible_como_arbol
 				$iconos[] = array(
 								'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
 								'ayuda' => 'Ejecutar el ITEM',
-								'vinculo' => toba::get_vinculador()->generar_solicitud($this->proyecto(), $this->id(), 
+								'vinculo' => toba::get_vinculador()->generar_solicitud($this->proyecto(), $this->get_id(), 
 												null,false,false,null,true, "central")
 							);
 			}
@@ -275,7 +295,7 @@ class item_toba implements recorrible_como_arbol
 		return $iconos;
 	}
 	
-	function utilerias()
+	function get_utilerias()
 	{
 		$utilerias = array();
 		if ($this->es_carpeta()) {	
@@ -292,20 +312,20 @@ class item_toba implements recorrible_como_arbol
 				'imagen' => recurso::imagen_apl("items/carpeta_ordenar.gif", false),
 				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_ordenar", 
-								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()) )
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->get_id()) )
 			);
 */
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades", 
-								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()),false,false,null,true, "central" )
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" )
 			);
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items", 
-								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->id()),false,false,null,true, "central" )
+								array("padre_p"=>$this->proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" )
 			);			
 
 		} else { //Es un item común
@@ -336,7 +356,7 @@ class item_toba implements recorrible_como_arbol
 /*			//ID del objeto
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("nota.gif", false),
-				'ayuda' => $this->id()
+				'ayuda' => $this->get_id()
 			);*/
 		}
 		return $utilerias;
@@ -387,13 +407,15 @@ class item_toba implements recorrible_como_arbol
 	*	Al asumir que los niveles son pocos se hace una consulta por nivel
 	*	Quedan cargado en el objeto los ancestros de la rama
 	*/
-	function cargar_rama($proyecto, $id)
+	function cargar_rama($proyecto=null, $id=null)
 	{
-		$this->cargar_por_id($proyecto, $id);
+		if (isset($proyecto) && isset($id)) {
+			$this->cargar_por_id($proyecto, $id);			
+		} 
 		$item_ancestro = $this;
-		while ($item_ancestro->id_padre() != null) {
+		while ($item_ancestro->get_id() != null) {
 			$nodo = new item_toba();
-			$nodo->cargar_por_id($proyecto, $item_ancestro->id_padre());
+			$nodo->cargar_por_id($this->proyecto(), $item_ancestro->id_padre());
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
 		}

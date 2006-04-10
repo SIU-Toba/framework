@@ -35,7 +35,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 
-	function hijos()
+	function get_hijos()
 	{
 		return $this->dependencias;
 	}
@@ -50,28 +50,28 @@ class info_ci_pantalla implements recorrible_como_arbol
 		return false;
 	}	
 	
-	function nombre_corto()
+	function get_nombre_corto()
 	{
 		if ($this->datos['etiqueta'] != '')
 			return str_replace('&', '', $this->datos['etiqueta']);
 		else
-			return $this->id();
+			return $this->get_id();
 	}
 	
-	function nombre_largo()
+	function get_nombre_largo()
 	{
 		if (trim($this->datos['descripcion']) != '')
 			return $this->datos['descripcion'];
 		else
-			return $this->nombre_corto();
+			return $this->get_nombre_corto();
 	}
 	
-	function id()
+	function get_id()
 	{
-		return $this->datos['identificador'];
+		return $this->datos['identificador'];		
 	}
 	
-	function iconos()
+	function get_iconos()
 	{
 		$iconos = array();
 		$iconos[] = array(
@@ -81,7 +81,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 		return $iconos;
 	}
 	
-	function utilerias()
+	function get_utilerias()
 	{
 		$param_editores = array(apex_hilo_qs_zona=> $this->proyecto. apex_qs_separador.
 													$this->id,
@@ -107,9 +107,19 @@ class info_ci_pantalla implements recorrible_como_arbol
 		return $iconos;	
 	}
 	
-	function info_extra()
+	function get_info_extra()
 	{
 		return "";	
+	}
+	
+	function tiene_hijos_cargados()
+	{
+		return true;	
+	}
+	
+	function get_padre()
+	{
+		return null;
 	}
 }
 ?>
