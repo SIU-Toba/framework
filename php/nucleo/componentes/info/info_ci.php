@@ -10,10 +10,10 @@ class info_ci extends info_ei
 
 	function es_hoja()
 	{
-		return (count($this->hijos()) == 0);
+		return (count($this->get_hijos()) == 0);
 	}	
 
-	function hijos()
+	function get_hijos()
 	{
 		//Las dependencias son sus hijos
 		//Hay una responsabilidad no bien limitada
@@ -43,7 +43,7 @@ class info_ci extends info_ei
 		return array_merge($pantallas, $dependencias_libres);
 	}	
 
-	function utilerias()
+	function get_utilerias()
 	{
 		$iconos = array();
 		$iconos[] = array(
@@ -55,7 +55,7 @@ class info_ci extends info_ei
 										'destino_id' => $this->id ),
 										false, false, null, true, "central")
 		);
-		return array_merge($iconos, parent::utilerias());	
+		return array_merge($iconos, parent::get_utilerias());	
 	}		
 
 	//---------------------------------------------------------------------	

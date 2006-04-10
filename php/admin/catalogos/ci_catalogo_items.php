@@ -44,11 +44,10 @@ class ci_catalogo_items extends ci_catalogo
 		return $datos;
 	}
 	
-	
-	
 	//-------------------------------
 	//---- Fotos --------------------
 	//-------------------------------
+	
 	function evt__fotos__carga()
 	{
 		$fotos = parent::evt__fotos__carga();
@@ -139,7 +138,12 @@ class ci_catalogo_items extends ci_catalogo
 		}
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
-			$nodo->cargar_rama();			
+			$nodo->cargar_rama();
+			//--- Cuando es un item directo y no una carpeta se cargan por adelantado sus objetos
+			if (!$nodo->es_carpeta()) {
+				$nodo->cargar_info();
+				$this->dependencia('items')->set_nivel_apertura(3);
+			}
 			return array($nodo);
 		}		
 	}
@@ -160,6 +164,7 @@ class ci_catalogo_items extends ci_catalogo
 
 	function evt__items__ver_propiedades($id)
 	{
+		$this->apertura[$id] = 1;
 		$this->opciones['inicial'] = $id;
 	}
 	

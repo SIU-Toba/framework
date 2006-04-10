@@ -273,11 +273,11 @@ class catalogo_items
 			$item = $this->items[$id];
 			if (isset($this->items[$item->id_padre()])) {
 				$padre = $this->items[$item->id_padre()];
-			}
- 			if (isset($padre) && isset($item) && $padre != $item) {			
-				$item->set_padre($padre);
-				$padre->agregar_hijo($item);
-			}
+	 			if ($padre != $item) {			
+					$item->set_padre($padre);
+					$padre->agregar_hijo($item);
+				}
+			}			
 		}
 		
 		//---Se recorre el arbol para poner los niveles
@@ -360,9 +360,6 @@ class catalogo_items
 		if(toba::get_db('instancia')->Execute($sql) === false)
 			throw new excepcion_toba("Ha ocurrido un error ELIMINANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
 	}
-	
-
-
 	
 }
 ?>

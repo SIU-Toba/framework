@@ -116,24 +116,16 @@ class objeto_ei_arbol extends objeto_ei
 	
 	function obtener_html()
 	{
-	
 		$salida = "";
 		$salida .= form::hidden($this->submit, '');
 		$salida .= form::hidden($this->submit."__apertura_datos", '');
 		$salida .= form::hidden($this->submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
-		$path = $this->reportar_evento("path_actual");
-		if (isset($path)) {
-			
-			foreach ($path as $id => $nombre) {
-			}
-			$salida = substr($salida, 0, -2);
-		}
 		if (isset($this->nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
 			$barra = "";
 			if (count($this->nodos_inicial) > 0) {
-				$nodo = $this->nodos_inicial[0];				
+				$nodo = $this->nodos_inicial[0];
 				while ($nodo->get_padre() != null) {
 					$nodo = $nodo->get_padre();	
 					$nodo_barra = "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"";
@@ -141,9 +133,12 @@ class objeto_ei_arbol extends objeto_ei
 					$nodo_barra .= "class='ei-arbol-ver-prop'>".$nodo->get_nombre_corto()."</a>";
 					$barra = $nodo_barra . " > ". $barra;
 				}
+				if ($barra != '') {
+					$barra = "<div class='ei-arbol-barra-path'>$barra</div>";	
+				}
 				$salida .= $barra;
 			}
-			
+
 			foreach ($this->nodos_inicial as $nodo_inicial) {
 				$salida .= "\n<ul $id class='ei-arbol-raiz'>";
 				$salida .= $this->recorrer_recursivo($nodo_inicial, true);
@@ -230,7 +225,6 @@ class objeto_ei_arbol extends objeto_ei
 		if (isset($this->datos_apertura[$nodo->get_id()])) {
 			return $this->datos_apertura[$nodo->get_id()] && $cargado_parcial;
 		}
-	
 		//Si no esta se determina por el nivel de apertura estandar
 		return ($nivel < $this->nivel_apertura) && $cargado_parcial;
 	}

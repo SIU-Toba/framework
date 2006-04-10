@@ -10,6 +10,7 @@ class item_toba implements recorrible_como_arbol
 	protected $items_hijos=array();		//Arreglo de hijos 
 	protected $padre=null;				//Objeto item padre
 	protected $extra = '';
+	protected $objeto_info;
 	
 	function __construct($datos = array())
 	{
@@ -236,17 +237,17 @@ class item_toba implements recorrible_como_arbol
 		if ($this->es_carpeta()) {
 			return $this->items_hijos;
 		} else {
-			//--- Hay que retornar los objetos hijos
-			$id_info = array('componente' => $this->get_id(), 'proyecto' => $this->proyecto());
-			$info = constructor_toba::get_info($id_info, "item");
-			return $info->get_hijos();
+			return $this->cargar_info()->get_hijos();
 		}
 	}
 	
 	function tiene_hijos_cargados()
 	{
-		if (! $this->es_hoja() && count($this->items_hijos) == 0) {
+		if ($this->es_carpeta() && ! $this->es_hoja() && count($this->items_hijos) == 0) {
 			return false;	
+		}
+		if (!$this->es_carpeta() && ! isset($this->objeto_info)) {
+			return false;
 		}
 		return true;
 	}
@@ -401,6 +402,16 @@ class item_toba implements recorrible_como_arbol
 		else
 			$this->datos = $rs->fields;
 	}	
+	
+	function cargar_info()
+	{
+		if (!isset($this->objeto_info)) {
+			//--- Hay que retornar los objetos hijos
+			$id_info = array('componente' => $this->get_id(), 'proyecto' => $this->proyecto());
+			$this->objeto_info = constructor_toba::get_info($id_info, "item");
+		}
+		return $this->objeto_info;
+	}
 	
 	/**
 	*	Crea una rama de items comenzando por la raiz
