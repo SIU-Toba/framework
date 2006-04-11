@@ -700,7 +700,7 @@ class objeto_ei_formulario extends objeto_ei
 		} elseif ( $ef instanceof ef_editable_numero ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
 		} elseif ( $ef instanceof ef_editable_fecha ) {
-			if ($valor!='NULL') {
+			if ($valor!='') {
 				$temp = array( 'css' => 'col-tex-p1', 'valor'=> formato_fecha($valor) );
 			} else {
 				$temp = array( 'css' => 'col-tex-p1', 'valor'=> '' );

@@ -18,7 +18,8 @@ class objeto_ci extends objeto_ei
 	protected $submit;								// Boton de SUBMIT
 	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
-	protected $dependencias_gi = array();						// Dependencias utilizadas para la generacion de la interface
+	protected $dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
+	protected $dependencias_inicializadas = array();// Lista de dependencias inicializadas
 	protected $eventos;								// Lista de eventos que expone el CI
 	protected $evento_actual;						// Evento propio recuperado de la interaccion
 	protected $evento_actual_param;					// Parametros del evento actual
@@ -124,6 +125,7 @@ class objeto_ci extends objeto_ei
 
 	function inicializar_dependencia($dep, $parametro)
 	{
+		if( in_array( $dep, $this->dependencias_inicializadas ) )  return;
 		if ($this->dependencias[$dep] instanceof objeto_ci ){
 			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();			
 			if(isset($this->cn)){
@@ -132,6 +134,7 @@ class objeto_ci extends objeto_ei
 		}
 		$this->dependencias[$dep]->agregar_controlador($this); //Se hace antes para que puede acceder a su padre
 		$this->dependencias[$dep]->inicializar($parametro);
+		$this->dependencias_inicializadas[] = $dep;
 	}
 
 	/**
@@ -1074,7 +1077,7 @@ class objeto_ci extends objeto_ei
 				f.focus();
 				f.print();
 			} else {
-				solicitar_item_popup( url, 650, 500, 'yes', 'yes', ',toolbar=yes')
+				solicitar_item_popup( url, 650, 500, 'yes', 'yes');
 			}
 		}
 		";
@@ -1126,7 +1129,7 @@ class objeto_ci extends objeto_ei
 	//------------------------ SALIDA Impresion ---------------------
 	//---------------------------------------------------------------
 	
-	function vista_impresion( impresion $salida )
+	function vista_impresion( impresion_toba $salida )
 	{
 		$salida->titulo( $this->get_titulo() );
 		foreach($this->dependencias_gi as $dep) {

@@ -51,7 +51,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		//Se determina el metodo de analisis de cambios
 		$this->set_metodo_analisis($this->info_formulario['analisis_cambios']);
 	}
-	//-------------------------------------------------------------------------------
 
 	function obtener_definicion_db()
 	{
@@ -96,7 +95,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		return $sql;
 	}
 	
-//--------------------------------------------------------------------------	
 	function set_metodo_analisis($metodo)
 	{
 		switch ($metodo)
@@ -115,13 +113,16 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}	
 	}
 	
-//--------------------------------------------------------------------------
 	function deseleccionar()
 	{
 		unset($this->clave_seleccionada);
 	}
 
-//--------------------------------------------------------------------------
+	function desactivar_agregado_filas()
+	{
+		$this->info_formulario['filas_agregar'] = false;
+	}
+	
 	function seleccionar($clave)
 	{
 		$this->clave_seleccionada = $clave;
@@ -906,7 +907,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				$a++;
 			}
 		}
-		echo "\n</table>\n</div>";
+		echo "\n</table>\n";
 	}
 }
 ?>

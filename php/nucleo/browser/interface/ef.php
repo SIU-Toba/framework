@@ -501,7 +501,9 @@ class ef //Clase abstracta, padre de todos los EF
 
 	function obtener_descripcion_estado()
 	{
-		return $this->obtener_estado();	
+		$estado = $this->obtener_estado();
+		if ($estado=='NULL') $estado = '';
+		return $estado;
 	}
 
 	function activado()

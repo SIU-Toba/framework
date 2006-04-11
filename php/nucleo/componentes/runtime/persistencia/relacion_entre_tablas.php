@@ -90,10 +90,10 @@ class relacion_entre_tablas
 		} else {
 			//Se arman los mapeos de filas
 			//Quizás se podría optimizar recorriendo en primer lugar los hijos
-			foreach($this->tabla_padre->get_id_filas() as $id_padre) {
+			foreach($this->tabla_padre->get_id_filas(false) as $id_padre) {
 				$fila_padre = $this->tabla_padre->get_fila($id_padre);
 				$claves = $this->mapear_fila_a_formato_hijo($fila_padre);
-				$hijas = $this->tabla_hijo->get_id_fila_condicion($claves);
+				$hijas = $this->tabla_hijo->get_id_fila_condicion($claves, false);
 				$this->mapeo_filas[$id_padre] = $hijas;
 			}
 		}
@@ -220,7 +220,7 @@ class relacion_entre_tablas
 	protected function buscar_id_padre_fila($fila_hijo)
 	{
 		$condicion = $this->mapear_fila_a_formato_padre($fila_hijo);
-		$id_padre = $this->tabla_padre->get_id_fila_condicion($condicion);
+		$id_padre = $this->tabla_padre->get_id_fila_condicion($condicion, false);
 		if (count($id_padre) == 1) {
 			return current($id_padre);
 		} else {

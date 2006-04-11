@@ -82,7 +82,7 @@ class ef_checkbox extends ef
 
 	function obtener_descripcion_estado()
 	{
-		if ( $this->estado == $this->valor_no_seteado ) {
+		if ( !isset($this->estado) || $this->estado == $this->valor_no_seteado ) {
 			return isset( $this->valor_info_no_seteado ) ? $this->valor_info_no_seteado : '';
 		} else {
 			return isset( $this->valor_info ) ? $this->valor_info : '';

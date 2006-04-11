@@ -27,18 +27,33 @@ class html_impr implements impresion_toba
 		echo "<html><head>";
 		echo recurso::link_css(apex_proyecto_estilo."_impr", 'print');
 		echo recurso::link_css(apex_proyecto_estilo."_impr");
+		echo "<style type='text/css' media='print'>
+			.barra-impresion {
+				display: none;				
+			}
+			</style>
+			<style type='text/css'>
+			.barra-impresion {
+				padding: 7px;
+				background-color: #cccccc;
+				text-align: right;
+			}
+			.marco-impresion {
+				padding: 10px;
+			}
+			</style>\n";
 		echo "</head><body>\n";
-		/*
-		echo "<div class='barra-print' width='100%'>";
-		echo "<button onclick='window.print()'>Imprimir ".
+		echo "<div class='barra-impresion'>";
+		echo "<button onclick='window.print()'>".
 					recurso::imagen_apl('impresora.gif',true,null,null,'Imprimir').
-			"</button>";		
+			"    Imprimir</button>";		
 		echo "</div>";
-		*/
+		echo "<div class='marco-impresion'>";
 	}
 
 	private function generar_html_pie()
 	{
+		echo "</div>";
 		echo "</body></html>";
 	}
 
@@ -53,17 +68,23 @@ class html_impr implements impresion_toba
 	
 	function titulo( $texto )
 	{
-		echo "<div class='imp-titulo'>$texto</div>\n";			
+		if( trim($texto) != '' ) {
+			echo "<div class='imp-titulo'>$texto</div>\n";			
+		}
 	}
 	
 	function subtitulo( $texto )
 	{
-		echo "<div class='imp-subtitulo'>$texto</div>\n";			
+		if( trim($texto) != '' ) {
+			echo "<div class='imp-subtitulo'>$texto</div>\n";			
+		}
 	}
 
 	function mensaje( $texto )
 	{
-		echo "<div class='imp-mensaje'>$texto</div>\n";			
+		if( trim($texto) != '' ) {
+			echo "<div class='imp-mensaje'>$texto</div>\n";			
+		}
 	}
 }
 ?>

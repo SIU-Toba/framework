@@ -343,6 +343,9 @@ class objeto_datos_tabla extends objeto
 			foreach ($this->relaciones_con_padres as $id => $rel_padre) {
 				if ($rel_padre->hay_cursor_en_padre()) {
 					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
+				} else {
+					$coincidencias = array();
+					break;
 				}
 			}
 		}
