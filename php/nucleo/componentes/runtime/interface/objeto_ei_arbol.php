@@ -41,10 +41,14 @@ class objeto_ei_arbol extends objeto_ei
 	function servicio__ejecutar()
 	{
 		toba::get_hilo()->desactivar_reciclado();		
-		$nodo = toba::get_hilo()->obtener_parametro('id_nodo');
-		$nodo = $this->reportar_evento("cargar_nodo", $nodo);
-		$html = $this->recorrer_hijos(current($nodo), 0);
-		echo $html;
+		$id_nodo = toba::get_hilo()->obtener_parametro('id_nodo');
+		$nodo = $this->reportar_evento("cargar_nodo", $id_nodo);
+		if (isset($nodo)) {
+			$html = $this->recorrer_hijos(current($nodo), 0);
+			echo $html;
+		} else {
+			toba::get_logger()->warning("objeto_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
+		}
 	}
 	
 	function set_item_propiedades($id_item)

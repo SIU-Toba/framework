@@ -70,6 +70,17 @@ class ci_catalogo_objetos extends ci_catalogo
 			return $this->catalogo->get_objetos($this->opciones);
 		}
 	}
+	
+	function evt__listado__cargar_nodo($id)
+	{
+		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);		
+		if (isset($this->opciones)) {
+			$opciones = $this->opciones;
+		}
+		$opciones['id'] = $id;
+		$obj = $this->catalogo->get_objetos($opciones, true);
+		return $obj;
+	}	
 		
 	function evt__filtro__carga()
 	{

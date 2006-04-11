@@ -14,7 +14,7 @@ class catalogo_objetos
 		$this->proyecto = $proyecto;
 	}
 	
-	function get_objetos($opciones)
+	function get_objetos($opciones, $en_profundidad = false)
 	{
 		//---Metodo de Consulta (DAO)
 		$filtro_dao = "";
@@ -88,6 +88,7 @@ class catalogo_objetos
 
 		//--- Recorrido
 		$datos = toba::get_db('instancia')->consultar($sql);
+		$this->objetos = array();
 		foreach ($datos as $dato) {
 			$agregar = true;
 			if (isset($opciones['extensiones_rotas']) && $opciones['extensiones_rotas'] == 1) {
@@ -101,7 +102,12 @@ class catalogo_objetos
 			}
 			if ($agregar) {
 				$clave = array('componente' =>$dato['objeto'], 'proyecto' => $this->proyecto);			
-				$info = constructor_toba::get_info($clave, $dato['clase'], false, array('info' =>$dato));
+				if (! $en_profundidad) {
+					$info = constructor_toba::get_info($clave, $dato['clase'], false, 
+										array('info' =>$dato));
+				} else {
+					$info = constructor_toba::get_info($clave, $dato['clase'], true, null, true); 
+				}
 				if (isset($this->explicaciones[$dato['objeto']] )) {
 					$explicacion = implode("<hr>", $this->explicaciones[$dato['objeto']]);
 					$info->set_info_extra($explicacion);
@@ -110,7 +116,6 @@ class catalogo_objetos
 				
 			}
 		}
-		
 		return $this->objetos;
 	}
 	

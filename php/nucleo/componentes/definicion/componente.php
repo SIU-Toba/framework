@@ -52,7 +52,11 @@ class componente_toba implements definicion_toba
 									c.descripcion_corta				as clase_descripcion_corta,
 									c.instanciador_proyecto			as clase_instanciador_proyecto,
 									c.instanciador_item 			as clase_instanciador_item,
-									oi.objeto 						as objeto_existe_ayuda
+									oi.objeto 						as objeto_existe_ayuda,
+									(SELECT COUNT(*) 
+										FROM apex_objeto_dependencias 
+										WHERE objeto_consumidor = o.objeto
+												AND proyecto = o.proyecto) as cant_dependencias
 						FROM	apex_objeto o
 									LEFT OUTER JOIN apex_objeto_info oi 
 										ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto),

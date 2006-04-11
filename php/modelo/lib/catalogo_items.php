@@ -56,8 +56,10 @@ class catalogo_items
 		$sql = "SELECT 	p.proyecto 						as item_proyecto,
 						p.descripcion 					as pro_des,
 						".item_toba::definicion_campos().",
-						(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item) as objetos,
-						(SELECT COUNT(*) FROM apex_item WHERE padre = i.item) as cant_hijos
+						(SELECT COUNT(*) FROM apex_item_objeto 
+							WHERE item = i.item AND proyecto = i.proyecto) as objetos,
+						(SELECT COUNT(*) FROM apex_item 
+							WHERE padre = i.item AND proyecto = i.proyecto) as cant_hijos
 				FROM 	apex_item i,
 						apex_proyecto p
 				WHERE	i.proyecto = p.proyecto

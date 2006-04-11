@@ -95,7 +95,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	
 	function es_hoja()
 	{
-		return (count($this->subelementos) == 0);
+		return $this->datos['info']['cant_dependencias'] == 0;
 	}
 	
 	function tiene_propiedades()
@@ -195,7 +195,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	
 	function tiene_hijos_cargados()
 	{
-		return true;	
+		return !$this->es_hoja() && count($this->subelementos) != 0;
 	}
 	
 	function contiene_objeto($id)

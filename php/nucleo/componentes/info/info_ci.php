@@ -10,9 +10,20 @@ class info_ci extends info_ei
 
 	function es_hoja()
 	{
-		return (count($this->get_hijos()) == 0);
-	}	
-
+		return parent::es_hoja() && $this->get_cant_pantallas() == 0;
+	}
+	
+	function get_cant_pantallas()
+	{
+		if ($this->carga_profundidad && count($this->datos['info_ci_me_pantalla'])>0) {
+			//Se ordena por la columna orden
+			$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
+			return count($datos_pantallas);
+		} else {
+			return 0;	
+		}
+	}
+	
 	function get_hijos()
 	{
 		//Las dependencias son sus hijos

@@ -48,7 +48,7 @@ class constructor_toba
 	 * @param array $datos Datos pre-procesados que necesita el objeto-info, si no se especifica se buscan
 	 * @return info_componente
 	 */	
-	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null) 
+	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null, $refrescar_cache=false) 
 	{
 		// Controla la integridad de la clave
 		catalogo_toba::control_clave_valida( $id );
@@ -58,7 +58,7 @@ class constructor_toba
 		}
 		//--- Si esta en el cache lo retorna
 		$hash = $id['componente']."-".$id['proyecto']."-".$tipo;
-		if (! isset(self::$cache_infos[$hash])) {
+		if (! isset(self::$cache_infos[$hash]) || $refrescar_cache) {
 			if (! isset($datos)) {
 				if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
 					$datos = self::get_metadatos_compilados( $id, $tipo );
