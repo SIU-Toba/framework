@@ -312,7 +312,12 @@ class objeto_ci extends objeto_ei
 	*/
 	protected function get_etapa_actual()
 	{
-		return $this->get_pantalla_actual();
+		$etapa = $this->get_pantalla_actual();
+		if (!isset($etapa) || !isset($this->indice_etapas[$etapa]) ) {
+			throw new excepcion_toba("La pantalla '$etapa' no es una pantalla valida del CI.
+										Si se redefinio el metodo 'get_pantalla_actual', el mismo esta devolviendo un valor incorrecto.");
+		}
+		return $etapa;
 	}
 		
 	/**

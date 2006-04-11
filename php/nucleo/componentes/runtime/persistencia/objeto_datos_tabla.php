@@ -282,7 +282,9 @@ class objeto_datos_tabla extends objeto
 	 */
 	function get_cursor()
 	{
-		return $this->cursor;	
+		if(isset($this->cursor)){
+			return $this->cursor;
+		}	
 	}
 
 	/**
