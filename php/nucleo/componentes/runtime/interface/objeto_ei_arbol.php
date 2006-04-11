@@ -130,7 +130,7 @@ class objeto_ei_arbol extends objeto_ei
 					$nodo = $nodo->get_padre();	
 					$nodo_barra = "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"";
 					$nodo_barra .= $nodo->get_id()."\");' ";
-					$nodo_barra .= "class='ei-arbol-ver-prop'>".$nodo->get_nombre_corto()."</a>";
+					$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(),20)."</a>";
 					$barra = $nodo_barra . " > ". $barra;
 				}
 				if ($barra != '') {
@@ -266,9 +266,8 @@ class objeto_ei_arbol extends objeto_ei
 		}
 	}
 
-	protected function acortar_nombre($nombre) 
+	protected function acortar_nombre($nombre, $limite=30) 
 	{
-		$limite = 30;
 		if (strlen($nombre) <= $limite)
 			return $nombre;
 		else

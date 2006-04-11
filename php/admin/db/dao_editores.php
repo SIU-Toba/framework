@@ -215,8 +215,8 @@ class dao_editores
 	static function get_items_para_combo()
 	{
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto());
-		$catalogador->ordenar();		
+		$catalogador = new catalogo_items();
+		$catalogador->cargar(array());	
 		foreach($catalogador->items() as $item) {
 			if (! $item->es_carpeta()) {
 				$nivel = $item->nivel() - 1;
@@ -240,21 +240,19 @@ class dao_editores
 	static function get_carpetas_posibles()
 	{
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto());
-		$catalogador->ordenar();		
+		$catalogador = new catalogo_items(toba::get_hilo()->obtener_proyecto());
+		$catalogador->cargar(array('solo_carpetas' => 1));		
 		foreach($catalogador->items() as $carpeta) {
-			if ($carpeta->es_carpeta()) {
-				$nivel = $carpeta->nivel() - 1;
-				if($nivel >= 0){
-					$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
-				}else{
-					$inden = "";
-				}
-				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
-									'id' => $carpeta->get_id(), 
-									'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
-									'nombre' => $inden . $carpeta->nombre());
+			$nivel = $carpeta->nivel() - 1;
+			if($nivel >= 0){
+				$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
+			}else{
+				$inden = "";
 			}
+			$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+								'id' => $carpeta->get_id(), 
+								'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
+								'nombre' => $inden . $carpeta->nombre());
 		}
 		return $datos;
 	}	

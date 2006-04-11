@@ -6,8 +6,8 @@
 
 	$grupo = $editable[1];
 	$arbol = new catalogo_items();
+	$arbol->cargar(array());
 	$arbol->sacar_publicos();
-	$arbol->ordenar();
 
 	$maximo = $arbol->profundidad();
 	$formulario = "permisos";

@@ -19,6 +19,8 @@ class ci_catalogo_items extends ci_catalogo
 		if ($item_selecc != null) {
 			$this->opciones['inicial'] = $item_selecc;
 		}
+		
+		$this->catalogador = new catalogo_items();		
 	}
 	
 
@@ -102,40 +104,19 @@ class ci_catalogo_items extends ci_catalogo
 				}	
 			}
 		}
-				
-		$this->catalogador = new catalogo_items(false, toba::get_hilo()->obtener_proyecto(), 
-												$inicial, $excepciones);
-		$this->catalogador->ordenar();
-		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
-		$this->dependencia('items')->set_item_propiedades(array('toba','/admin/items/composicion_item'));
 
-		//Aplicación de los filtros
+		$opciones = isset($this->opciones) ? $this->opciones : array();
+		$this->catalogador->cargar($opciones, $inicial, $excepciones);
+		
+		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
+
 		if (isset($this->opciones)) {
-			if (isset($this->opciones['nombre'])) {
-				$this->catalogador->dejar_items_con_nombre($this->opciones['nombre']);
-			}			
-			if (isset($this->opciones['menu'])) {
-				$solo_menu = ($this->opciones['menu'] == 'SI') ? true : false;
-				$this->catalogador->filtrar_items_en_menu($solo_menu);
-			}
-			if (isset($this->opciones['id'])) {
-				$this->catalogador->dejar_items_con_id($this->opciones['id']);			
-			}
-			if (isset($this->opciones['inaccesibles'])) {
+			if (isset($this->opciones['inaccesibles']) || isset($this->opciones['sin_objetos']) ||
+				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1)) {
 				$this->dependencia('items')->set_todos_abiertos();
-				$this->catalogador->dejar_items_inaccesibles();
-			}
-			if (isset($this->opciones['sin_objetos'])) {
-				$this->dependencia('items')->set_todos_abiertos();
-				$this->catalogador->dejar_items_sin_objetos();
-			}
-			if (isset($this->opciones['con_objeto']) && $this->opciones['con_objeto'] == 1) {
-				$this->dependencia('items')->set_todos_abiertos();				
-				if (isset($this->opciones['objeto'])) {
-					$this->catalogador->dejar_items_con_objeto($this->opciones['objeto']);
-				}
 			}
 		}
+		
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
 			$nodo->cargar_rama();

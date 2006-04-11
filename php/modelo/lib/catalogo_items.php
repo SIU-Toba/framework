@@ -11,39 +11,46 @@ class catalogo_items
 	
 	protected $camino; //Durante el recorrido va manteniendo el camino actual
 	
-	function __construct($menu=false, $proyecto = null, $id_item_inicial=null, $incluidos_forzados=array())
+	function __construct($proyecto=null)
 	{
-		if (!$proyecto)
+		if (!$proyecto) {
 			$this->proyecto = toba::get_hilo()->obtener_proyecto();
-		else
+		} else {
 			$this->proyecto = $proyecto;
+		}
+	}
+	
+	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array(), $solo_menu=false)
+	{
+		$where = ($solo_menu) ? "	AND		(i.menu = 1 OR i.item = '')" : "";
 
-		if ($menu)
-			$where = "	AND		(i.menu = 1 OR i.item = '')";
-		else
-			$where = "";
+		$filtro_items = "";		
+		if (!$this->debe_cargar_todo($opciones)) {
+			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
+			if (isset($id_item_inicial)) {
+				$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
+			}
 			
-		//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
-		if (isset($id_item_inicial)) {
-			$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
+			if (! empty($incluidos_forzados)) {
+				$forzados = implode("', '", $incluidos_forzados);
+				$filtro_incluidos = "( i.padre IN ('".$forzados."')";
+				$filtro_incluidos .= " OR i.item IN ('".$forzados."') )";			
+			}
+			
+			if (isset($filtro_padre) && isset($filtro_incluidos)) {
+				$filtro_items ="	AND ($filtro_padre 
+										OR 
+									$filtro_incluidos)
+					";
+			} elseif (isset($filtro_padre)) {
+				$filtro_items = "	AND $filtro_padre ";	
+			} elseif (isset($filtro_incluidos)) {
+				$filtro_items = "	AND $filtro_incluidos ";
+			}
 		}
 		
-		if (! empty($incluidos_forzados)) {
-			$forzados = implode("', '", $incluidos_forzados);
-			$filtro_incluidos = "( i.padre IN ('".$forzados."')";
-			$filtro_incluidos .= " OR i.item IN ('".$forzados."') )";			
-		}
-		
-		$filtro_items = "";
-		if (isset($filtro_padre) && isset($filtro_incluidos)) {
-			$filtro_items ="	AND ($filtro_padre 
-									OR 
-								$filtro_incluidos)
-				";
-		} elseif (isset($filtro_padre)) {
-			$filtro_items = "	AND $filtro_padre ";	
-		} elseif (isset($filtro_incluidos)) {
-			$filtro_items = "	AND $filtro_incluidos ";
+		if (isset($opciones['solo_carpetas']) && $opciones['solo_carpetas'] == 1) {
+			$filtro_items .= "	AND i.carpeta = 1";
 		}
 
 		$sql = "SELECT 	p.proyecto 						as item_proyecto,
@@ -60,11 +67,56 @@ class catalogo_items
 				$where
 				ORDER BY i.carpeta, i.orden, i.nombre";
 		$rs = toba::get_db('instancia')->consultar($sql);
+		$this->items = array();
 		foreach ($rs as $fila) {
 			$this->items[$fila['item']] = new item_toba($fila);			
 		}
 		$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
 		$this->mensaje = "";
+		$this->ordenar();
+		$this->filtrar($opciones);
+	}
+	
+	protected function debe_cargar_todo($opciones)
+	{
+		return (isset($opciones['id']) && $opciones['id'] != '') ||
+				isset($opciones['nombre']) && $opciones['nombre'] != '' ||
+				isset($opciones['inaccesibles']) ||
+				isset($opciones['sin_objetos']) ||
+				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1);
+		
+	}
+	
+	function filtrar($opciones)
+	{
+		if (isset($opciones['menu'])) {
+			$solo_menu = ($opciones['menu'] == 'SI') ? true : false;
+			$this->filtrar_items_en_menu($solo_menu);
+		}
+		
+		//--- ID
+		if (isset($opciones['id']) && $opciones['id'] != '') {
+			$this->dejar_items_con_id($opciones['id']);			
+		}
+
+		//--- Nombre
+		if (isset($opciones['nombre']) && $opciones['nombre'] != '') {
+			$this->dejar_items_con_nombre($opciones['nombre']);
+		}			
+
+		//--- Inaccesibles
+		if (isset($opciones['inaccesibles'])) {
+			$this->dejar_items_inaccesibles();
+		}		
+		
+		if (isset($opciones['sin_objetos'])) {
+			$this->dejar_items_sin_objetos();
+		}
+		if (isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) {
+			if (isset($opciones['objeto'])) {
+				$this->dejar_items_con_objeto($opciones['objeto']);
+			}
+		}
 	}
 
 	//------------------------------------PROPIEDADES --------------------------------------------------------			
@@ -310,11 +362,11 @@ class catalogo_items
 	
 	//------------------------------------TRABAJOS sobre el arbol --------------------------------------------------------			
 
+	/**
+	 * Asigna permisos de un $grupo a toda la $lista_items_permitidos y sus carpetas ancestras.
+	 * El resto de los items/carpetas quedan sin permiso
+	 */
 	function cambiar_permisos($lista_items_permitidos, $grupo)
-	/*
-		@@desc: Asigna permisos de un $grupo a toda la $lista_items_permitidos y sus carpetas ancestras.
-				El resto de los items/carpetas quedan sin permiso
-	*/
 	{
 		$carpeta = $this->buscar_carpeta_inicial();
 		if ($carpeta !== false) {	
