@@ -219,7 +219,7 @@ class dao_editores
 		$catalogador->cargar(array());	
 		foreach($catalogador->items() as $item) {
 			if (! $item->es_carpeta()) {
-				$nivel = $item->nivel() - 1;
+				$nivel = $item->get_nivel_prof() - 1;
 				if($nivel >= 1){
 					$inden = "&nbsp;" . str_repeat("&nbsp" . str_repeat("&nbsp;",8), $nivel -1) . "|__&nbsp;";
 				}else{
@@ -227,8 +227,8 @@ class dao_editores
 				}
 				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
 									'id' => $item->get_id(), 
-									'padre' => $item->id_padre(),
-									'descripcion' => $inden . $item->nombre());
+									'padre' => $item->get_id_padre(),
+									'descripcion' => $inden . $item->get_nombre());
 			}
 		}
 		return $datos;		
@@ -243,7 +243,7 @@ class dao_editores
 		$catalogador = new catalogo_items(toba::get_hilo()->obtener_proyecto());
 		$catalogador->cargar(array('solo_carpetas' => 1));		
 		foreach($catalogador->items() as $carpeta) {
-			$nivel = $carpeta->nivel() - 1;
+			$nivel = $carpeta->get_nivel_prof() - 1;
 			if($nivel >= 0){
 				$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
 			}else{
@@ -252,7 +252,7 @@ class dao_editores
 			$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
 								'id' => $carpeta->get_id(), 
 								'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
-								'nombre' => $inden . $carpeta->nombre());
+								'nombre' => $inden . $carpeta->get_nombre());
 		}
 		return $datos;
 	}	

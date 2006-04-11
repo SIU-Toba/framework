@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/lib/item_toba.php');
 
 class test_item extends test_toba
 {

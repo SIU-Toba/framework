@@ -83,7 +83,7 @@ class test_arbol_items extends test_toba
 			foreach ($arbol->items() as $item) {
 				if ($item->id() == $nivel[0]) {
 					$encontrado = true;
-					$this->AssertEqual($item->nivel() , $nivel[1], "Nivel del item {$item->id()} (%s)");
+					$this->AssertEqual($item->get_nivel_prof() , $nivel[1], "Nivel del item {$item->id()} (%s)");
 					break;
 				}
 			}
@@ -117,7 +117,7 @@ class test_arbol_items extends test_toba
 			foreach ($arbol->items() as $item) {
 				if ($item->id() == $nivel[0]) {
 					$encontrado = true;
-					$this->AssertEqual($item->nivel() , $nivel[1], "Nivel del item {$item->id()} (%s)");
+					$this->AssertEqual($item->get_nivel_prof() , $nivel[1], "Nivel del item {$item->id()} (%s)");
 					break;
 				}
 			}

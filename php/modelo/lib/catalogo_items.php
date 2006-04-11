@@ -1,5 +1,5 @@
 <?
-require_once("modelo/lib/item_toba.php");
+require_once('nucleo/componentes/definicion/componente_item.php');
 
 class catalogo_items
 {
@@ -20,18 +20,17 @@ class catalogo_items
 		}
 	}
 	
-	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array(), $solo_menu=false)
+	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
-		$where = ($solo_menu) ? "	AND		(i.menu = 1 OR i.item = '')" : "";
-
+		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial);
 		$filtro_items = "";		
-		if (!$this->debe_cargar_todo($opciones)) {
+		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
 			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
 			if (isset($id_item_inicial)) {
 				$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
 			}
 			
-			if (! empty($incluidos_forzados)) {
+			if (! empty($incluidos_forzados) && !$en_profundidad) {
 				$forzados = implode("', '", $incluidos_forzados);
 				$filtro_incluidos = "( i.padre IN ('".$forzados."')";
 				$filtro_incluidos .= " OR i.item IN ('".$forzados."') )";			
@@ -53,25 +52,26 @@ class catalogo_items
 			$filtro_items .= "	AND i.carpeta = 1";
 		}
 
-		$sql = "SELECT 	p.proyecto 						as item_proyecto,
-						p.descripcion 					as pro_des,
-						".item_toba::definicion_campos().",
-						(SELECT COUNT(*) FROM apex_item_objeto 
-							WHERE item = i.item AND proyecto = i.proyecto) as objetos,
-						(SELECT COUNT(*) FROM apex_item 
-							WHERE padre = i.item AND proyecto = i.proyecto) as cant_hijos
-				FROM 	apex_item i,
-						apex_proyecto p
-				WHERE	i.proyecto = p.proyecto
-	            AND     i.proyecto = '{$this->proyecto}'
-				AND 	solicitud_tipo <> 'fantasma'
-				$filtro_items
-				$where
-				ORDER BY i.carpeta, i.orden, i.nombre";
+		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
+		$sql_base = componente_item::get_vista_extendida($this->proyecto);
+		$sql = $sql_base['info']['sql'];
+		$sql .=	$filtro_items;
+		$sql .= "	AND		i.solicitud_tipo <> 'fantasma'";
+		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
+		
 		$rs = toba::get_db('instancia')->consultar($sql);
 		$this->items = array();
 		foreach ($rs as $fila) {
-			$this->items[$fila['item']] = new item_toba($fila);			
+			$id = array();
+			$id['componente'] = $fila['item'];
+			$id['proyecto'] = $fila['item_proyecto'];
+			$datos = array('info' => $fila);
+			if ($en_profundidad) {
+				$info = constructor_toba::get_info($id, 'item', true, null, true);
+			} else {
+				$info = constructor_toba::get_info($id, 'item', false, $datos);
+			}
+			$this->items[$fila['item']] = $info;
 		}
 		$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
 		$this->mensaje = "";
@@ -85,8 +85,16 @@ class catalogo_items
 				isset($opciones['nombre']) && $opciones['nombre'] != '' ||
 				isset($opciones['inaccesibles']) ||
 				isset($opciones['sin_objetos']) ||
-				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1);
-		
+				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
+				isset($opciones['menu']);
+	}
+	
+	protected function debe_cargar_en_profundidad($id_item)
+	{
+		$sql = "SELECT carpeta FROM apex_item i WHERE 
+					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
+		$rs = toba::get_db('instancia')->consultar($sql, null, true);
+		return $rs[0]['carpeta'] == 0;
 	}
 	
 	function filtrar($opciones)
@@ -136,8 +144,8 @@ class catalogo_items
 	{
 		$max_nivel = 0;
 		foreach ($this->items as $item) {
-			if ($item->nivel() > $max_nivel)
-				$max_nivel = $item->nivel();
+			if ($item->get_nivel_prof() > $max_nivel)
+				$max_nivel = $item->get_nivel_prof();
 		}
 		return $max_nivel+1;
 	}
@@ -185,7 +193,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $posicion => $item) {
-			if (stripos($item->nombre(),$nombre) !== false) {
+			if (stripos($item->get_nombre(),$nombre) !== false) {
 				$encontrados[] = $item;
 			}
 		}
@@ -218,7 +226,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $item) {
-			if (!$item->es_carpeta() && $item->objetos() == 0) {
+			if (!$item->es_carpeta() && $item->cant_objetos() == 0) {
 				$encontrados[] = $item;
 			}
 		}
@@ -325,8 +333,8 @@ class catalogo_items
 		//--- Se conocen entre padres e hijos
 		foreach (array_keys($this->items) as $id) {
 			$item = $this->items[$id];
-			if (isset($this->items[$item->id_padre()])) {
-				$padre = $this->items[$item->id_padre()];
+			if (isset($this->items[$item->get_id_padre()])) {
+				$padre = $this->items[$item->get_id_padre()];
 	 			if ($padre != $item) {			
 					$item->set_padre($padre);
 					$padre->agregar_hijo($item);

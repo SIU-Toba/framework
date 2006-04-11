@@ -52,7 +52,12 @@ class componente_item implements definicion_toba
 						i.orden as								orden,
 						i.publico as							publico,
 						i.solicitud_registrar_cron as			crono,
-						i.solicitud_tipo as						solicitud_tipo						
+						i.solicitud_tipo as						solicitud_tipo,
+						i.padre	as 								item_padre,
+						(SELECT COUNT(*) FROM apex_item_objeto 
+							WHERE item = i.item AND proyecto = i.proyecto) as cant_dependencias,
+						(SELECT COUNT(*) FROM apex_item 
+							WHERE padre = i.item AND proyecto = i.proyecto) as cant_items_hijos						
 				FROM	apex_item i	
 							LEFT OUTER JOIN apex_item_zona z	ON	( i.zona_proyecto	= z.proyecto AND i.zona	= z.zona	)
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item),
@@ -66,7 +71,6 @@ class componente_item implements definicion_toba
 		if ( isset($componente) ) {
 			$sql['info']['sql'] .= "	AND		i.item ='$componente' ";	
 		}
-		$sql['info']['sql'] .= ";";
 		$sql['info']['registros']='1';	
 		$sql['info']['obligatorio']=true;
 		$sql['info_objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,

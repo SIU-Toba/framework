@@ -32,7 +32,7 @@ class ci_catalogo_items extends ci_catalogo
 		foreach($this->catalogador->items() as $carpeta)
 		{
 			if ($carpeta->es_carpeta()) {
-				$nivel = $carpeta->nivel() - 1;
+				$nivel = $carpeta->get_nivel_prof() - 1;
 				if($nivel >= 0){
 					$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
 				}else{
@@ -91,11 +91,11 @@ class ci_catalogo_items extends ci_catalogo
 	//---- Listado de items ----
 	//-------------------------------
 
-	function get_nodo_raiz($inicial)
+	function get_nodo_raiz($inicial, $con_excepciones=true)
 	{
 		$excepciones = array();
 		//¿Hay apertura seleccionada?		
-		if (isset($this->apertura)) {
+		if (isset($this->apertura) && $con_excepciones) {
 			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->apertura;
 			$this->dependencia('items')->set_apertura_nodos($apertura);
 			foreach ($apertura as $nodo => $incluido) {
@@ -120,9 +120,8 @@ class ci_catalogo_items extends ci_catalogo
 		$nodo = $this->catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
 			$nodo->cargar_rama();
-			//--- Cuando es un item directo y no una carpeta se cargan por adelantado sus objetos
+			//--- Cuando es un item directo y no una carpeta se aumenta la apertura
 			if (!$nodo->es_carpeta()) {
-				$nodo->cargar_info();
 				$this->dependencia('items')->set_nivel_apertura(3);
 			}
 			return array($nodo);
@@ -140,7 +139,7 @@ class ci_catalogo_items extends ci_catalogo
 	
 	function evt__items__cargar_nodo($id)
 	{
-		return $this->get_nodo_raiz($id);
+		return $this->get_nodo_raiz($id, false);
 	}
 
 	function evt__items__ver_propiedades($id)

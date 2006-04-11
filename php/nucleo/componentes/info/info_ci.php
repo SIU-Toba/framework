@@ -10,8 +10,14 @@ class info_ci extends info_ei
 
 	function es_hoja()
 	{
-		return parent::es_hoja() && $this->get_cant_pantallas() == 0;
+		$es_hoja = parent::es_hoja() && $this->get_cant_pantallas() == 0;
 	}
+	
+	function tiene_hijos_cargados()
+	{
+		return (!$this->es_hoja() && count($this->subelementos) != 0) || $this->get_cant_pantallas() != 0;
+	}
+		
 	
 	function get_cant_pantallas()
 	{

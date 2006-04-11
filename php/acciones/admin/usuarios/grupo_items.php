@@ -54,7 +54,7 @@
 	{ 
 		echo "<tr>";
 		//Indentado del arbol
-		$nivel = $item->nivel();
+		$nivel = $item->get_nivel_prof();
 		for($a=0;$a<$nivel;$a++){
 			echo "<td width='2%'  class='cat-arbol'>".gif_nulo(4,1)."</td>";
 		}
@@ -63,7 +63,7 @@
 			//******************< Carpetas >*****************************
 			?>
 	          <td  class='cat-arbol-carpeta' width='2%'>
-				<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
+				<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $item->get_proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
 				<img src='<? echo recurso::imagen_apl("items/carpeta.gif") ?>' border='0'></a>
 			  </td>
 	
@@ -79,13 +79,13 @@
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
 				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
-	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->nombre()?></td>
+	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->get_nombre()?></td>
 		  
 			<? }else{
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='cat-arbol-item'  width='2%'>
-						<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array(apex_hilo_qs_zona => $item->proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
+						<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/items/propiedades", array(apex_hilo_qs_zona => $item->get_proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
 						<img src='<? echo recurso::imagen_apl("items/item.gif") ?>' border='0'></a>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
@@ -95,10 +95,10 @@
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? 
-				$extra = " camino='".implode(separador_camino, $item->camino())."' ";
+				$extra = " camino='".implode(separador_camino, $item->get_camino())."' ";
 				echo form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 					  </td>
-			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->nombre()?></td>
+			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->get_nombre()?></td>
 			          <td  class='cat-item-dato1' width='100' ><? echo $item->get_id(); ?></td>
 			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
 			<?					  
