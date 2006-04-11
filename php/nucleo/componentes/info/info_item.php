@@ -12,7 +12,7 @@ class info_item implements recorrible_como_arbol
 	protected $camino;					//Arreglo de carpetas que componen la rama en donde pertenece el item
 	protected $items_hijos=array();		//Arreglo de hijos 
 	protected $padre=null;				//Objeto item padre
-	protected $extra = '';
+	protected $info_extra = '';
 	protected $carga_profundidad;
 	
 	
@@ -25,6 +25,10 @@ class info_item implements recorrible_como_arbol
 		if ($this->carga_profundidad) {
 			$this->cargar_dependencias();
 		}
+		if($this->es_de_menu()) {
+			$this->info_extra .= recurso::imagen_apl("items/menu.gif",true)." - Está incluído en el MENU";
+		}
+			
 	}
 
 	function cargar_dependencias()
@@ -192,7 +196,7 @@ class info_item implements recorrible_como_arbol
 		$sin_grupo = (!$this->es_de_consola() && !$this->es_publico() && count($this->grupos_acceso()) == 0);
 		if ($sin_grupo) {
 			if (!$this->es_carpeta()) {
-				$this->extra = "El ítem es inaccesible porque no hay grupo de acceso que tenga permiso de accederlo.";
+				$this->info_extra .= "El ítem es inaccesible porque no hay grupo de acceso que tenga permiso de accederlo.";
 			}
 			return true;
 		}
@@ -201,7 +205,7 @@ class info_item implements recorrible_como_arbol
 		$padre = $this->get_padre();
 		while ($padre != null) {
 			if ($es_de_menu && ! $padre->es_de_menu()) {
-				$this->extra = "El ítem es inaccesible por menú porque la carpeta `{$padre->get_nombre()}` no se muestra en el mismo.";
+				$this->info_extra .= "El ítem es inaccesible por menú porque la carpeta `{$padre->get_nombre()}` no se muestra en el mismo.";
 				return true;
 				break;
 			}
@@ -246,15 +250,12 @@ class info_item implements recorrible_como_arbol
 		if ($this->es_carpeta()) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("items/carpeta.gif", false),
-				'ayuda' => "Editar propiedades de la carpeta",
-				'vinculo' => $this->vinculo_editor()
+				'ayuda' => "Carpeta que contiene operaciones.",
 				);
-
 		} else {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("items/item.gif", false),
-				'ayuda' => "Editar propiedades del ITEM",
-				'vinculo' => $this->vinculo_editor()
+				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
 				);
 				
 			if ($this->tipo_solicitud() == "consola") {
@@ -267,13 +268,24 @@ class info_item implements recorrible_como_arbol
 								'imagen' => recurso::imagen_apl("solic_wddx.gif",false),
 								'ayuda' => 'Solicitud WDDX'
 							);
-			} else {
+			}
+			if($this->crono()){		
 				$iconos[] = array(
-								'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
-								'ayuda' => 'Ejecutar el ITEM',
-								'vinculo' => toba::get_vinculador()->generar_solicitud($this->get_proyecto(), $this->get_id(), 
-												null,false,false,null,true, "central")
-							);
+					'imagen' => recurso::imagen_apl("cronometro.gif", false),
+					'ayuda'=> "El ITEM se cronometra"
+				);			
+			}
+			if($this->es_publico()){
+				$iconos[] = array(
+					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
+					'ayuda'=> "ITEM público"
+				);				
+			}
+			if($this->registra_solicitud() == 1){
+				$iconos[] = array(
+					'imagen' => recurso::imagen_apl("solicitudes.gif", false),
+					'ayuda'=> "El ITEM se registra"
+				);				
 			}
 		}
 		return $iconos;
@@ -284,39 +296,7 @@ class info_item implements recorrible_como_arbol
 /*		
 		$utilerias = array();
 		if ($this->es_carpeta()) {	
-			if($this->es_de_menu()) {
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("items/menu.gif",false),
-					'ayuda' => "La CARPETA esta incluido en el MENU del PROYECTO",
-					'vinculo' => null
-				);
-			}
-			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
-				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades", 
-								array("padre_p"=>$this->proyecto, "padre_i"=>$this->id),false,false,null,true, "central" )
-			);
-			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
-				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items", 
-								array("padre_p"=>$this->proyecto, "padre_i"=>$this->id),false,false,null,true, "central" )
-			);			
-
 		} else { //Es un item común
-			if($this->crono()){		
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("cronometro.gif", false),
-					'ayuda'=> "El ITEM se cronometra"
-				);			
-			}
-			if($this->es_publico()){
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
-					'ayuda'=> "ITEM público"
-				);				
-			}
 			if ($this->es_de_menu()) {
 				$utilerias[] = array(
 					'imagen' => recurso::imagen_apl("items/menu.gif", false),
@@ -324,30 +304,10 @@ class info_item implements recorrible_como_arbol
 				);	
 			}
 		}
-		$utilerias[] = array(
-			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
-			'ayuda' => "Crear un objeto asociado al item",
-			'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
-								array('destino_tipo' =>'item', 
-										'destino_proyecto' => $this->proyecto,
-										'destino_id' => $this->id ),
-										false, false, null, true, "central")
-		);
-		$utilerias[] = array(
-			'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
-			'ayuda' => "Editar propiedades del ITEM",
-			'vinculo' => $this->vinculo_editor()
-			);		
+	
 */
 		$utilerias = array();
 		if ($this->es_carpeta()) {	
-			if($this->es_de_menu()) {
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("items/menu.gif",false),
-					'ayuda' => "La CARPETA esta incluido en el MENU del PROYECTO",
-					'vinculo' => null
-				);
-			}
 			// Ordenamiento, Nueva carpeta, nuevo item
 /*			
 			$utilerias[] = array(
@@ -371,31 +331,32 @@ class info_item implements recorrible_como_arbol
 			);			
 
 		} else { //Es un item común
-			if($this->crono()){		
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("cronometro.gif", false),
-					'ayuda'=> "El ITEM se cronometra"
-				);			
-			}
-			if($this->es_publico()){
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
-					'ayuda'=> "ITEM público"
-				);				
-			}
-			if($this->registra_solicitud() == 1){
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("solicitudes.gif", false),
-					'ayuda'=> "El ITEM se registra"
-				);				
-			}
-			if ($this->es_de_menu()) {
-				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("items/menu.gif", false),
-					'ayuda'=> "El ITEM esta incluido en el MENU del PROYECTO"
-				);	
-			}
+			$utilerias[] = array(
+				'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+				'ayuda' => "Crear un objeto asociado al item",
+				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos_toba/crear",
+									array('destino_tipo' =>'item', 
+											'destino_proyecto' => $this->proyecto,
+											'destino_id' => $this->id ),
+											false, false, null, true, "central")
+			);
 		}
+		if (!$this->es_carpeta() && 
+				$this->tipo_solicitud() != 'consola' &&
+				$this->tipo_solicitud() !="wddx") {
+			$utilerias[] = array(
+							'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
+							'ayuda' => 'Ejecutar el ITEM',
+							'vinculo' => toba::get_vinculador()->generar_solicitud($this->get_proyecto(), $this->get_id(), 
+											null,false,false,null,true, "central")
+						);			
+			
+		}		
+		$utilerias[] = array(
+			'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+			'ayuda' => "Editar propiedades del ITEM",
+			'vinculo' => $this->vinculo_editor()
+		);				
 		return $utilerias;
 	}	
 	
@@ -447,7 +408,7 @@ class info_item implements recorrible_como_arbol
 
 	function get_info_extra()
 	{
-		return $this->extra;
+		return $this->info_extra;
 	}	
 	
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------

@@ -190,7 +190,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	
 	function set_info_extra($info)
 	{
-		$this->info_extra = $info;	
+		$this->info_extra .= $info;	
 	}
 	
 	function tiene_hijos_cargados()

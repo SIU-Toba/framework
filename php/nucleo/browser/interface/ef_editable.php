@@ -31,7 +31,7 @@ class ef_editable extends ef
 
 	static function get_parametros()
 	{
-		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["tamano"]["descripcion"]="Cantidad de caracteres visibles.";
 		$parametros["tamano"]["opcional"]=1;	
 		$parametros["tamano"]["etiqueta"]="Tamaño Campo";
 		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
