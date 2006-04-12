@@ -1998,7 +1998,7 @@ TD.objeto-ci-barra-superior {
 	text-decoration: underline;
 }
 .ei-arbol-nodo {
-	background-color: #fafafa;
+	background-color: #eeeeee;
 	 vertical-align: middle;
 	clear: right;
 	 border-top: #bbbbbb 1px dotted;
@@ -2012,7 +2012,6 @@ TD.objeto-ci-barra-superior {
 }
 .ei-arbol-barra-path {
 	FONT-WEIGHT: bold;
-	background-color: #eeeeee;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 5px;
