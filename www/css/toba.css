@@ -16,7 +16,7 @@
 body > .div-esperar { position: fixed; }
 
 .cuerpo {
-	margin-top: 15px;
+	margin-top: 15px; 
 	margin-bottom: 15px;
 }
 
@@ -1982,8 +1982,8 @@ TD.objeto-ci-barra-superior {
 	list-style-type: none;  
 	margin-left: 20px;
 	padding-left: 0px;
-	padding-top: 5px;
 	white-space: nowrap;
+	 vertical-align: middle;
 }
 .ei-arbol-raiz {
 	list-style-type: none; 
@@ -1998,16 +1998,21 @@ TD.objeto-ci-barra-superior {
 	text-decoration: underline;
 }
 .ei-arbol-nodo {
+	background-color: #fafafa;
+	 vertical-align: middle;
 	clear: right;
+	 border-top: #bbbbbb 1px dotted;
 }
 .ei-arbol-nombre {
-	 COLOR: #000000;
+	 COLOR: #222222;
 }
 .ei-arbol-exp-contr {
 	cursor: pointer;
 	cursor: hand;	
 }
 .ei-arbol-barra-path {
+	FONT-WEIGHT: bold;
+	background-color: #eeeeee;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 5px;
