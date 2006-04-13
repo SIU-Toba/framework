@@ -8,6 +8,8 @@
 abstract class tipo_pagina
 {
 	abstract function encabezado();
+	abstract function pre_contenido();
+	abstract function post_contenido();
 	abstract function pie();
 }
 

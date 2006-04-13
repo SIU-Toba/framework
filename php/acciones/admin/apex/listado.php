@@ -1,37 +1,124 @@
 <?
-include("nucleo/browser/interface/ef.php"); 
 //--------------------------------------------------------------------------------------
-//------------------------------------<  CLASES  >------------------------------------
+//------------------------------------<  fuentes  >------------------------------------
 //--------------------------------------------------------------------------------------
-	
-/*
-	//Cuantas clases definidas hay?
-	global $ADODB_FETCH_MODE;
-	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-	$sql = "SELECT 	COUNT(*) as total
-			FROM 	apex_clase
-			WHERE 	proyecto = '".$this->hilo->obtener_proyecto()."'";
-	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-	$total = "NO DEFINIDO";
-	if(($rs)&&(!$rs->EOF)){
-		$total = $rs->fields["total"];
-	}
-	
-//---------> [<? echo $total ?>]
-*/
 ?>
 <table width="100%"  class='cat-item'>
 <tr> 
-	 <td width="2%"  class='lista-obj-titulo'>
-<?
-	$url =  $this->vinculador->generar_solicitud("toba","/admin/apex/esquema_clases");
-
-	echo form::abrir("tipo_objeto",$url, " target='frame_centro'");
-	echo form::submit('esquema','Esquema');
-	echo form::cerrar();
-	
+	 <td width="98%" class="lista-obj-titulo" >FUENTES de DATOS</td>
+ <td width="2%"  class='lista-obj-titulo'>
+	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/datos/fuente")?>" class="list-obj" target="<? echo  apex_frame_centro ?>">
+	<? echo recurso::imagen_apl("fuente_nueva.gif",true) ?>
+	</a>
+</td>
+</tr>
+</table>
+<script language='javascript'>
+	editor='datos';
+</script>
+<? 	
+	global $ADODB_FETCH_MODE;
+	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+	$sql = "	
+			SELECT 	m.fuente_datos_motor as 		motor,
+					f.proyecto as					fuente_proyecto,
+					f.fuente_datos as				fuente,
+					f.base as						base,
+					f.proyecto as					proyecto,
+					f.host as						host,
+					f.link_instancia as				link_instancia
+			FROM apex_fuente_datos_motor m,
+			apex_fuente_datos f
+			WHERE m.fuente_datos_motor = f.fuente_datos_motor
+            AND     f.proyecto = '".$this->hilo->obtener_proyecto()."'			
+			ORDER BY f.fuente_datos;";
+	//dump_sql($sql);
+	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
+	if(!$rs) 
+		$this->observar("error","Lista de sesiones - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql ,false,true,true);
+	if(!$rs->EOF){
 ?>
-	</td>
+<table width="100%" class='lista-obj'>
+<?
+	while(!$rs->EOF)
+	{ 
+?>
+        <tr> 
+          <td  class='cat-item-botones2'>
+		 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/datos/fuente",array( apex_hilo_qs_zona => $rs->fields["fuente_proyecto"] .apex_qs_separador. $rs->fields["fuente"]))?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+			  <? echo recurso::imagen_apl("fuente.gif",true,null,null,"host/dsn: " . $rs->fields["host"]) ?>
+			</a>
+		  </td>
+          <td  class='cat-item-botones2'>
+		<a href='<? echo  $this->vinculador->generar_solicitud("toba","/admin/datos/fuente_sql",array( apex_hilo_qs_zona => $rs->fields["fuente_proyecto"] .apex_qs_separador. $rs->fields["fuente"])) ?>'  class="cat-item" target="<? echo  apex_frame_centro ?>">
+	        <? echo recurso::imagen_apl("sql.gif",true)?> 
+			</a>
+		  </td>
+          <td  class='lista-obj-dato1' width="100%"><? echo $rs->fields["fuente"] ?></td>
+          <td  class='lista-obj-dato1'><? echo $rs->fields["motor"] ?></td>
+          <td  class='lista-obj-dato1'><? echo $rs->fields["proyecto"] ?></td>
+          <td  class='lista-obj-dato1'><? echo $rs->fields["link_instancia"] ?></td>
+        </tr>
+<?
+		$rs->movenext();	
+	}
+?>
+</table>
+<?
+}
+?>
+<?
+//--------------------------------------------------------------------------------------
+//------------------------------------<  ELEMENTOS  >------------------------------------
+//--------------------------------------------------------------------------------------
+?>
+<table width="100%"  class='cat-item'>
+<tr> 
+    <td width="98%" class="lista-obj-titulo" >Elementos Basicos</td>
+</tr>
+</table>
+<script language='javascript'>
+	editor='apex';
+</script>
+<table width="100%" class='lista-obj'>
+<? 	
+	global $ADODB_FETCH_MODE;
+	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+	$sql = "SELECT 	proyecto, item, nombre, descripcion, imagen
+			FROM 	apex_item
+			WHERE padre = '/admin/apex/elementos'
+			AND menu = 1
+			ORDER BY nombre";
+	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
+	if(!$rs) 
+		$this->observar("error","Lista de CLASES - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql] $sql",false,true,true);
+	if(!$rs->EOF){
+?>
+<?
+while(!$rs->EOF)
+{
+?>
+
+         <tr> 
+          <td width="2%" class='lista-obj-botones'>
+		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ?>" target="<? echo  apex_frame_centro ?>">
+				<img src="<? echo recurso::imagen_apl($rs->fields["imagen"]) ?>" alt="<? echo trim($rs->fields["descripcion"])?>" border="0">
+			</a>
+	  	  </td>
+          <td width="98%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
+        </tr>
+<?		$rs->movenext();	
+		}
+	}
+?>
+</table>
+<?
+//--------------------------------------------------------------------------------------
+//------------------------------------<  CLASES  >------------------------------------
+//--------------------------------------------------------------------------------------
+?>
+<table width="100%"  class='cat-item'>
+<tr> 
     <td width="98%" class="lista-obj-titulo" >CLASES</td>
 	 <td width="2%"  class='lista-obj-titulo'>
 	<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/apex/clase_propiedades") ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
@@ -60,13 +147,6 @@ include("nucleo/browser/interface/ef.php");
 		$this->observar("error","Lista de CLASES - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql] $sql",false,true,true);
 	if(!$rs->EOF){
 ?>
-        <tr> 
-          <td width="2%" class='lista-obj-titcol' colspan='4'>e</td>
-          <td width="80%" class='lista-obj-titcol' >clase</td>
-		  <td width="10%" class='lista-obj-titcol' >G</td>
-		  <td width="10%" class='lista-obj-titcol' >O</td>
-          <td width="10%" class='lista-obj-titcol' >OI</td>
-        </tr>
 <?
 while(!$rs->EOF)
 {
@@ -299,55 +379,6 @@ while(!$rs->EOF)
 
           <td width="90%" class='lista-obj-dato1'><? echo trim($rs->fields["descripcion_corta"]) ?></td>
           <td width="2%" class='lista-obj-dato3'><? echo trim($rs->fields["items"]) ?></td>
-        </tr>
-<?		$rs->movenext();	
-		}
-	}
-?>
-</table>
-<?
-//--------------------------------------------------------------------------------------
-//------------------------------------<  ELEMENTOS  >------------------------------------
-//--------------------------------------------------------------------------------------
-?>
-<table width="100%"  class='cat-item'>
-<tr> 
-    <td width="98%" class="lista-obj-titulo" >Elementos Basicos</td>
-</tr>
-</table>
-<script language='javascript'>
-	editor='apex';
-</script>
-<table width="100%" class='lista-obj'>
-<? 	
-	global $ADODB_FETCH_MODE;
-	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-	$sql = "SELECT 	proyecto, item, nombre, descripcion, imagen
-			FROM 	apex_item
-			WHERE padre = '/admin/apex/elementos'
-			AND menu = 1
-			ORDER BY nombre";
-	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-	if(!$rs) 
-		$this->observar("error","Lista de CLASES - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql] $sql",false,true,true);
-	if(!$rs->EOF){
-?>
-        <tr> 
-          <td width="2%" class='lista-obj-titcol'></td>
-          <td width="80%" class='lista-obj-titcol' ></td>
-        </tr>
-<?
-while(!$rs->EOF)
-{
-?>
-
-         <tr> 
-          <td width="2%" class='lista-obj-botones'>
-		 	<a href="<? echo $this->vinculador->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ?>" target="<? echo  apex_frame_centro ?>">
-				<img src="<? echo recurso::imagen_apl($rs->fields["imagen"]) ?>" alt="<? echo trim($rs->fields["descripcion"])?>" border="0">
-			</a>
-	  	  </td>
-          <td width="2%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
         </tr>
 <?		$rs->movenext();	
 		}

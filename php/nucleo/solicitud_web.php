@@ -179,7 +179,9 @@ class solicitud_web extends solicitud
 		}			
 		
 		//--- Genera la interfaz gráfica de todos los CIs		
-		echo "\n<div align='center' class='cuerpo'>\n";
+
+		$this->tipo_pagina->pre_contenido();
+
 		foreach ($objetos as $obj) {
 			//-- Librerias JS necesarias
 			js::cargar_consumos_globales($obj->consumo_javascript_global());
@@ -191,7 +193,8 @@ class solicitud_web extends solicitud
 			echo "\n$objeto_js.iniciar();\n";
 			echo js::cerrar();
 		}
-		echo "\n</div>\n";
+
+		$this->tipo_pagina->post_contenido();
 		
 		//--- Parte inferior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {

@@ -22,6 +22,10 @@ class tp_basico extends tipo_pagina
 		$this->barra_superior();
 	}
 	
+	function pre_contenido(){}
+	
+	function post_contenido(){}
+
 	function pie()
 	{
 		echo "</BODY>\n";

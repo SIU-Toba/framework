@@ -179,7 +179,17 @@ class tp_normal extends tp_basico
 		}
 		return $vinculos;
 	}
+
+	function pre_contenido()
+	{
+		echo "\n<div align='center' class='cuerpo'>\n";
+	}
 	
+	function post_contenido()
+	{
+		echo "\n</div>\n";		
+	}
+		
 	function pie()
 	{
 		if ($this->con_logger) {

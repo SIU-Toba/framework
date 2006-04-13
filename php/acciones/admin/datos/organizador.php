@@ -71,10 +71,3 @@
 <?
 }
 ?>
-<table width="100%"  class='cat-item'>
-<tr> 
-	 <td width="98%" class="lista-obj-titulo" >TABLAS</td>
-</tr>
-</table>
-</body>
-</html>
