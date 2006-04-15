@@ -1,4 +1,5 @@
 <?php
+require_once('modelo/instalacion.php');
 
 function cuadro_ayuda($titulo, $iconos)
 {
@@ -28,17 +29,22 @@ function cuadro_ayuda($titulo, $iconos)
 	echo "</div>";
 }
 
-							
+
+//--- LINKS
 echo "<div style='display: block;'>";
 $online = array();
-$online[] = array('url' => array("Manual Introductorio (esp)" => 'http://www.sidar.org/recur/desdi/mcss/manual/indice.php',
-									"Especificación 2.0 (esp)" => 'http://www.sidar.org/recur/desdi/traduc/es/css/cover.html'
-							),
-				'img' => 'admin/botones/css80.png', 'frame' => 'html');
-				
 $online[] = array('url' => array("Especificación 4.01 (esp)" => "http://html.conclase.net/w3c/html401-es/cover.html#minitoc"
 							),
 				'img' => 'admin/botones/html80.png', 'frame' => 'html');
+
+$online[] = array('url' => array("Manual Introductorio (esp)" => 'http://www.sidar.org/recur/desdi/mcss/manual/indice.php',
+									"Especificación 2.0 (esp)" => 'http://www.sidar.org/recur/desdi/traduc/es/css/cover.html',
+									"Compatibilidad entre navegadores (eng)" => 'http://www.westciv.com/style_master/academy/browser_support/index.html',
+									"Tutoriales (eng)" => 'http://css.maxdesign.com.au/',
+									"Posicionamiento (eng)" => 'http://www.brainjar.com/css/positioning/default.asp',
+									"Soporte CSS en Email (eng)" => 'http://www.campaignmonitor.com/blog/archives/2006/03/a_guide_to_css_1.html',
+							),
+				'img' => 'admin/botones/css80.png', 'frame' => 'html');
 				
 $online[] = array('url' => array('Manual (esp)' => 'http://www.php.net/manual/es/',
 							),
@@ -58,6 +64,7 @@ $online[] = array('url' => array("Libro (eng)" => 'http://svnbook.red-bean.com/n
 				
 cuadro_ayuda("Otros", $online);
 
+
 $trac = array();
 $trac[] = array('url' => array('Documentación online de la última versión' => 'http://desarrollos2.siu.edu.ar/trac/toba/login',
 							),
@@ -71,35 +78,51 @@ $trac[] = array('url' => array('Bugs y mejoras pendientes' => 'https://desarroll
 $trac[] = array('url' => array('Línea de tiempo del proyecto' =>'https://desarrollos2.siu.edu.ar/trac/toba/login',
 							),
 						'img' => 'admin/botones/timeline80.png', 'frame' => 'trac');
+$trac[] = array('url' => array('Documentación de la API de la última versión' => 'http://desarrollos2.siu.edu.ar/toba_trunk/doc/api/index.html',
+							),
+				'img' => 'admin/botones/api80.png', 'frame' => 'api');					
 cuadro_ayuda("Sitio Web", $trac);
 
 
 $offline = array();
 $offline[] = array('url' => array(recurso::path_apl()."/doc/api/index.html",
 							),
-					'img' => 'admin/botones/apioffline80.png', 'frame' => 'trac');
+					'img' => 'admin/botones/apioffline80.png', 'frame' => 'api');
 $offline[] = array('url' => array(recurso::path_apl()."/doc/wiki/trac/toba/wiki.html",
 							),
-					'img' => 'admin/botones/wikioffline80.png', 'frame' => 'trac');					
+					'img' => 'admin/botones/wikioffline80.png', 'frame' => 'wiki');					
 cuadro_ayuda("Ayuda Local", $offline);
 
 echo "</div>";
 
 
+//--- VERSION
+$version = instalacion::get_version_actual();
+$cambios = "https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/".$version->__toString();
+echo "<div style='position: fixed;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
+//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
+$ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
+echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
+echo $version->__toString()."</a></div>";
 
 
-//ei_arbol( dba::get_info_db_instancia(), "Parametros de conexion de la instancia");
-		
-		//---------------------------------//
-			
-	//Mostrar la revision utilizada
-	echo "<pre>";
-		$proyecto  = $this->hilo->obtener_proyecto();
-		if( $proyecto != "toba" ){
-			echo "		revision SVN toba: " . revision_svn(  $this->hilo->obtener_path() ) . "
-		revision SVN $proyecto: " . revision_svn($this->hilo->obtener_proyecto_path() );
-		}
-   echo "</pre>";
+$datos = dba::get_info_db_instancia();
+$alt = recurso::ayuda(null, "<pre>".print_r($datos, true)."</pre>");
+$instancia = "<strong>".apex_pa_instancia."</strong>";
+
+echo "<div style='position:fixed; bottom: 0; left: 0; padding:4px; background-color: white;border: 1px solid gray'>";
+echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  $instancia:");
+echo "<ul style='margin-top: 0px;'>";
+foreach (dba::get_info_db_instancia() as $clave => $valor) {
+	echo "<li>".ucfirst($clave).": $valor</li>";	
+}
+echo "</ul>";
+/*
+if (toba::get_hilo()->obtener_proyecto() != 'toba') {
+	echo "<br>Revisión SVN: " . revision_svn($this->hilo->obtener_proyecto_path() );
+}*/
+
+echo "</div>";
 
 
 ?>

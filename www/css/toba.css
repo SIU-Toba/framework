@@ -2745,7 +2745,7 @@ TD.separador_derecha {
 	_cursor: auto;	/* Hack IE */
 }
 
-a > .ayuda {
+a > .ayuda, a.ayuda {
 	cursor: pointer;
 }
 
