@@ -1,6 +1,6 @@
 var dhtml_tooltip = {
  	//---Public
-	vertical_offset : '0px',
+	vertical_offset : '-3px',
 	horizontal_offset : '-3px',
 	delay_disappear : 250,
 	delay_appear : 1000,
