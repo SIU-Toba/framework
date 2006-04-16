@@ -1,5 +1,6 @@
 <?php
 require_once('modelo/instalacion.php');
+require_once('admin/admin_util.php');
 
 function cuadro_ayuda($titulo, $iconos)
 {
@@ -65,20 +66,21 @@ $online[] = array('url' => array("Libro (eng)" => 'http://svnbook.red-bean.com/n
 cuadro_ayuda("Otros", $online);
 
 
+$url_trac = admin_util::get_url_desarrollos();
 $trac = array();
-$trac[] = array('url' => array('Documentación online de la última versión' => 'http://desarrollos2.siu.edu.ar/trac/toba/login',
+$trac[] = array('url' => array('Documentación online de la última versión' => $url_trac.'/trac/toba/login',
 							),
 				'img' => 'admin/botones/wiki80.png', 'frame' => 'trac');
-$trac[] = array('url' => array('Planificación de versiones futuras' => 'https://desarrollos2.siu.edu.ar/trac/toba/roadmap',
+$trac[] = array('url' => array('Planificación de versiones futuras' => $url_trac.'/trac/toba/roadmap',
 							),
 				'img' => 'admin/botones/roadmap80.png', 'frame' => 'trac');
-$trac[] = array('url' => array('Bugs y mejoras pendientes' => 'https://desarrollos2.siu.edu.ar/trac/toba/report/3',
+$trac[] = array('url' => array('Bugs y mejoras pendientes' => $url_trac.'/trac/toba/report/3',
 							),
 				'img' => 'admin/botones/tickets80.png', 'frame' => 'trac');
-$trac[] = array('url' => array('Línea de tiempo del proyecto' =>'https://desarrollos2.siu.edu.ar/trac/toba/login',
+$trac[] = array('url' => array('Línea de tiempo del proyecto' =>$url_trac.'/trac/toba/timeline',
 							),
 						'img' => 'admin/botones/timeline80.png', 'frame' => 'trac');
-$trac[] = array('url' => array('Documentación de la API de la última versión' => 'http://desarrollos2.siu.edu.ar/toba_trunk/doc/api/index.html',
+$trac[] = array('url' => array('Documentación de la API de la última versión' => $url_trac.'/toba_trunk/doc/api/index.html',
 							),
 				'img' => 'admin/botones/api80.png', 'frame' => 'api');					
 cuadro_ayuda("Sitio Web", $trac);
@@ -98,7 +100,7 @@ echo "</div>";
 
 //--- VERSION
 $version = instalacion::get_version_actual();
-$cambios = "https://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/".$version->__toString();
+$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 echo "<div style='position: fixed;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 //echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
 $ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
@@ -121,7 +123,6 @@ echo "</ul>";
 if (toba::get_hilo()->obtener_proyecto() != 'toba') {
 	echo "<br>Revisión SVN: " . revision_svn($this->hilo->obtener_proyecto_path() );
 }*/
-
 echo "</div>";
 
 

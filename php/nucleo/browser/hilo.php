@@ -417,6 +417,13 @@ class hilo
 		}
 	}
 	
+	function get_id_grupo_desarrollo()
+	{
+		if (isset($_SESSION['toba'])) {
+			return $_SESSION['toba']['instalacion']['id_grupo_desarrollo'];
+		}		
+	}
+	
 	function get_editor_php() 
 	{
 		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {

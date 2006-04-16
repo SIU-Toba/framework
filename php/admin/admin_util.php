@@ -31,5 +31,10 @@ class admin_util
 		echo js::cerrar();		
 	}
 	
+	function get_url_desarrollos()
+	{
+		$host = (toba::get_hilo()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
+		return "https://$host.siu.edu.ar";
+	}
 }
 ?>
