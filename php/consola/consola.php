@@ -27,6 +27,7 @@ class consola implements gui
 	
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
+		ini_set("error_reporting", E_ALL);
 		if( ! is_dir( $ubicacion_comandos ) ) {
 			throw new excepcion_toba("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
 		}
