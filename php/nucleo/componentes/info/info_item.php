@@ -396,8 +396,8 @@ class info_item implements recorrible_como_arbol
 	
 	function tiene_hijos_cargados()
 	{
-		if ($this->es_carpeta() && ! $this->es_hoja() && count($this->items_hijos) == 0) {
-			return false;	
+		if ($this->es_carpeta() && ! $this->es_hoja()) {
+		 	return count($this->items_hijos) == $this->datos['info']['cant_items_hijos'];
 		}
 		if (!$this->es_carpeta() && ! $this->carga_profundidad) {
 			return false;
