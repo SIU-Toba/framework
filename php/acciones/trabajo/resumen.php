@@ -97,11 +97,10 @@ cuadro_ayuda("Ayuda Local", $offline);
 
 echo "</div>";
 
-
 //--- VERSION
 $version = instalacion::get_version_actual();
 $cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
-echo "<div style='position: fixed;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
+echo "<div style='position: absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 //echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
 $ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
@@ -112,7 +111,7 @@ $datos = dba::get_info_db_instancia();
 $alt = recurso::ayuda(null, "<pre>".print_r($datos, true)."</pre>");
 $instancia = "<strong>".apex_pa_instancia."</strong>";
 
-echo "<div style='position:fixed; bottom: 0; left: 0; padding:4px; background-color: white;border: 1px solid gray'>";
+echo "<div style='padding:4px; background-color: white;border: 1px solid gray'>";
 echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  $instancia:");
 echo "<ul style='margin-top: 0px;'>";
 foreach (dba::get_info_db_instancia() as $clave => $valor) {
@@ -124,6 +123,7 @@ if (toba::get_hilo()->obtener_proyecto() != 'toba') {
 	echo "<br>Revisión SVN: " . revision_svn($this->hilo->obtener_proyecto_path() );
 }*/
 echo "</div>";
+
 
 
 ?>

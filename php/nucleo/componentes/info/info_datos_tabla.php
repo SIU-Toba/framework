@@ -20,7 +20,7 @@ class info_datos_tabla extends info_componente
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 	
-	function utilerias()
+	function get_utilerias()
 	{
 		$iconos = array();
 		$param_editores = array(apex_hilo_qs_zona=>$this->proyecto.apex_qs_separador.$this->id,
@@ -33,7 +33,7 @@ class info_datos_tabla extends info_componente
 																		false, false, null, true, "central")
 			);
 		}
-		return array_merge($iconos, parent::utilerias());	
+		return array_merge($iconos, parent::get_utilerias());	
 	}	
 
 	//---------------------------------------------------------------------	

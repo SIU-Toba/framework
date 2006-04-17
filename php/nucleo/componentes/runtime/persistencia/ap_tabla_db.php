@@ -78,7 +78,7 @@ class ap_tabla_db implements ap_tabla
 	
 	protected function log($txt)
 	{
-		toba::get_logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " .$txt, 'toba');
+		toba::get_logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
 	}
 
 	public function info()

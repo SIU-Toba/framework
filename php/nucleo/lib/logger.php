@@ -48,8 +48,10 @@ class logger
 	 */
 	private function __construct($proyecto = null)
 	{
-		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : hilo::obtener_proyecto();		
-		$this->dir_logs = toba_dir()."/instalacion/i__".apex_pa_instancia."/p__{$this->proyecto_actual}/logs";
+		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : hilo::obtener_proyecto();
+		if (defined('apex_pa_instancia')) {
+			$this->dir_logs = toba_dir()."/instalacion/i__".apex_pa_instancia."/p__{$this->proyecto_actual}/logs";
+		}
 		$this->ref_niveles[2] = "CRITICAL";
 		$this->ref_niveles[3] = "ERROR";
 		$this->ref_niveles[4] = "WARNING";

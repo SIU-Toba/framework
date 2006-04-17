@@ -7,7 +7,7 @@ class info_datos_relacion extends info_componente
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 
-	function utilerias()
+	function get_utilerias()
 	{
 		$iconos = array();
 		$iconos[] = array(
@@ -19,7 +19,7 @@ class info_datos_relacion extends info_componente
 										'destino_id' => $this->id),
 										false, false, null, true, "central")
 		);
-		return array_merge($iconos, parent::utilerias());	
+		return array_merge($iconos, parent::get_utilerias());	
 	}		
 }
 ?>
