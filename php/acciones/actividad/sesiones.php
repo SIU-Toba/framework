@@ -1,7 +1,7 @@
 <?
 include("nucleo/browser/interface/ef.php");
         
-$parametros["sql"] = "SELECT proyecto, descripcion FROM apex_proyecto";
+$parametros["sql"] = "SELECT proyecto, descripcion_corta FROM apex_proyecto";
 $combo_proyecto =& new ef_combo_db("proyecto","",apex_sesion_post_proyecto,apex_sesion_post_proyecto,"Seleccione el proyecto.","","",$parametros);
 if ($temp = $this->hilo->recuperar_dato_global("log_proyecto")) {
 	$combo_proyecto->cargar_estado($temp);

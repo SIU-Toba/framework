@@ -31,12 +31,11 @@ function mostrar_ocultar_frame() {
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
 		<a href="javascript: mostrar_ocultar_frame();"><img src="<? echo recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
-		 <a  target="<? echo  apex_frame_lista  ?>" href="<? echo $this->vinculador->generar_solicitud("toba","/red/organizador") ?>">
-		 <? echo recurso::imagen_apl("logo_barra_apex.gif",true,null,null,"Red SIU-Toba")?></a></td>
+		 <? echo recurso::imagen_apl("logo_barra_apex.gif",true)?>
+		 </td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
 
-	 <td class='listado-barra-superior-tabi'><? echo recurso::imagen_apl("proyecto.gif",true) ?></td>
 <?
 	if(apex_pa_proyecto=="multi")
 	{
@@ -71,23 +70,28 @@ function mostrar_ocultar_frame() {
 ?>
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		<td class='listado-barra-superior-tabn' <? echo $js_cambiar_color_2 ?>>
-        <a href="<? echo $this->vinculador->generar_solicitud("toba","/actividad/organizador") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
-        <? echo recurso::imagen_apl("doc.gif",true,null,null,"Ver LOGS de actividad local") ?></a></td>
+		<td class='listado-tabi'>
+        <a href="<? echo $this->vinculador->generar_solicitud("toba","3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
+        <? echo recurso::imagen_apl("actividad_local.gif",true,null,null,"Ver LOGS de actividad local") ?></a></td>
 
-		<td><? echo gif_nulo(3,1) ?></td>
 
 <? 	$centro = $this->hilo->obtener_item_inicial(); ?>
 
-         <td class='listado-barra-superior-tabn' <? echo $js_cambiar_color_2 ?>>
+<?
+	$parametros = array();
+	$html_extra = array('id' => 'vinculo_logger');
+	$url =toba::get_vinculador()->obtener_vinculo_a_item("toba",'1000003',$parametros,true, false, false, '', $html_extra, null, 'logger');
+?>
+         <td class='listado-tabi'><? echo $url ?></td>
+
+         <td class='listado-tabi'>
         <a href="<? echo $this->vinculador->generar_solicitud($centro[0], $centro[1], $centro[2]) ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
 		 <? echo recurso::imagen_apl("home.gif",true,null,null,"Pagina inicial") ?></a></td>
 
 
 		<td><? echo gif_nulo(3,1) ?></td>
-         <td class='listado-barra-superior-tabn' width='1' <? echo $js_cambiar_color_2 ?>><a href="#" class="list-obj"  onclick='javascript:salir();return false;'>
+         <td><a href="#" class="list-obj"  onclick='javascript:salir();return false;'>
 		 <? echo recurso::imagen_apl("finalizar_sesion.gif",true,null,null,"Finalizar SESION") ?></a></td>
-
 		<td><? echo gif_nulo(3,1) ?></td>
 
 	</tr>
@@ -122,10 +126,6 @@ function mostrar_ocultar_frame() {
 
 		<td class='listado-tabi'>
 		<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo recurso::imagen_apl("usuarios/usuario.gif",true) ?></a>
-		</td>
-
-		<td class='listado-tabi'>
-			<a href="<? echo $this->vinculador->generar_solicitud("toba","/admin/dimensiones/listado") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo recurso::imagen_apl("dimension.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>

@@ -7,17 +7,7 @@ class objeto_cuadro_solicitud_sesion extends objeto_cuadro
  */
 {
     
-     function objeto_cuadro_solicitud_sesion($id, & $solicitud)
-    /**
-     * @acceso: nucleo
-     * @desc: Muestra la definicion del OBJETO
-     */
-    {
-         parent :: objeto_cuadro($id, $solicitud);
-    }
-    
-    
-     function procesar_celda_solicitud($fila, $valor)
+    function procesar_celda_solicitud($fila, $valor)
     /**
      * @acceso: nucleo
      * @desc: Regenera el valor del dato a mostrar en una celda

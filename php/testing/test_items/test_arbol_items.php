@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/catalogo_items.php');
+require_once('modelo/lib/catalogo_items.php');
 
 class test_arbol_items extends test_toba
 {

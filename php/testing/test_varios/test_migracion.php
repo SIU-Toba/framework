@@ -1,5 +1,5 @@
 <?php
-require_once("modelo/version_toba.php");
+require_once("modelo/lib/version_toba.php");
 
 class test_migracion extends test_toba 
 {

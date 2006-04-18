@@ -25,4 +25,4 @@ mostrar_utilidades: 1;', '7', 'Pantallas', NULL, 'Pantallas en las que se incluy
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1722', '4578', 'accion', 'ef_combo_lista_c', 'accion', NULL, 'no_seteado: Ninguna;
 lista: H,Impresion HTML;', '8', 'Accion predefinida', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1722', '4579', 'accion_imphtml_debug', 'ef_checkbox', 'accion_imphtml_debug', NULL, 'valor: 1;
-valor_no_seteado: 0;', '9', 'Debug Impresion', NULL, NULL, NULL, NULL, NULL, '0');
+valor_no_seteado: 0;', '9', 'Vista Previa', NULL, NULL, NULL, NULL, NULL, '0');
