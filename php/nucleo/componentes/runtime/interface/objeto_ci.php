@@ -658,6 +658,7 @@ class objeto_ci extends objeto_ei
 	 * Para redefinir esta lista para una pantalla particular hay que definir un metodo get_lista_ei__PANTALLA, 
 	 * donde PANTALLA es la buscada.
 	 * @return array Arreglo de elementos a mostrar en esta pantalla
+	 * @todo Sacar chequeo cuando los objetos en una pantalla no sean serializados
 	 */
 	function get_lista_ei()
 	{
@@ -669,7 +670,22 @@ class objeto_ci extends objeto_ei
 		//Busco la definicion standard para la etapa
 		$objetos = trim( $this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["objetos"] );
 		if( $objetos != "" ){
-			return array_map("trim", explode(",", $objetos ) );
+			$lista = array_map("trim", explode(",", $objetos ) );
+			//--- Chequeo hecho para evitar el bug #389
+			$lista_real = array();
+			foreach ($lista as $id_obj) {
+				$ok = false;
+				for ($i = 0; $i < count($this->info_dependencias) ; $i++) {
+					if ($id_obj == $this->info_dependencias[$i]['identificador']) {
+						$ok = true;
+						break;
+					}
+				}
+				if ($ok) {
+					$lista_real[] = $id_obj;
+				}
+			}
+			return $lista_real;
 		}else{
 			return array();
 		}
