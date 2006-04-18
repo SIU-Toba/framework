@@ -9,7 +9,8 @@ WHERE categoria = \'R\';', '2', 'AP por defecto', NULL, NULL, NULL, NULL, NULL, 
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1511', '1259', 'ap_archivo', 'ef_popup', 'ap_archivo', NULL, 'tamano: 60;
 maximo: 80;
 item_destino: /admin/objetos_toba/selector_archivo,toba;
-ventana: 400,400,yes;', '4', 'AP - Archivo', NULL, NULL, NULL, NULL, NULL, NULL);
+ventana: 400,400,yes;
+editable: 1;', '4', 'AP - Archivo', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1511', '1260', 'ap_clase', 'ef_editable', 'ap_clase', NULL, 'tamano: 40;
 maximo: 80;', '3', 'AP - Clase', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1511', '1442', 'clave', 'ef_editable', 'clave', NULL, 'tamano: 40;

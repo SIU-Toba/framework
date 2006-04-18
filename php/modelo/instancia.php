@@ -511,9 +511,8 @@ class instancia extends elemento_modelo
 				if ($nuevo == NULL) {
 					$nuevo = $lim_inf;
 				}
-				$sql = "SELECT setval('$seq', $nuevo)
-							FROM {$datos['tabla']}";
-				$this->get_db()->consultar( $sql, null );	
+				$sql = "SELECT setval('$seq', $nuevo)";
+				$this->get_db()->consultar( $sql );	
 			}
 			$this->manejador_interface->mensaje("SECUENCIA $seq: $nuevo");
 		}	
