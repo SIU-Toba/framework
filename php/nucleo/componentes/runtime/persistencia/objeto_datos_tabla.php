@@ -772,7 +772,6 @@ class objeto_datos_tabla extends objeto
 	 * 	Controla que los campos del registro existan
 	 */
 	protected function control_estructura_fila($fila)
-
 	{
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...

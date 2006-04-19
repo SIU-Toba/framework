@@ -1115,19 +1115,7 @@ class objeto_ei_cuadro extends objeto_ei
 	                    $valor = $funcion($valor);
 	                }
 	            }
-                //*** 2) Generacion de VINCULOS!
-                if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
-                    //Genero el VINCULO
-                    $vinculo = toba::get_vinculador()->obtener_vinculo_de_objeto( $this->id,
-                                                                            $this->info_cuadro_columna[$a]["vinculo_indice"],
-                                                                            $clave_fila, true, $valor);
-                    //El vinculador puede no devolver nada en dos casos: 
-                    //No hay permisos o el indice no existe
-                    if(isset($vinculo)){
-                        $valor = $vinculo;
-                    }
-                }
-                //*** 4) Genero el HTML
+                //*** 2) Genero el HTML
                 echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
                 echo $valor;
                 echo "</td>\n";

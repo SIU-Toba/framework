@@ -29,7 +29,12 @@ class componente_ei extends componente_toba
 												implicito				as implicito,					
 												grupo					as grupo,
 												accion					as accion,
-												accion_imphtml_debug	as accion_imphtml_debug
+												accion_imphtml_debug	as accion_imphtml_debug,
+												accion_vinculo_carpeta		,
+												accion_vinculo_item			,
+												accion_vinculo_objeto		,
+												accion_vinculo_popup		,
+												accion_vinculo_popup_param	
 									FROM	apex_objeto_eventos
 									WHERE	proyecto='$proyecto' ";
 		if ( isset($componente) ) {

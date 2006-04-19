@@ -256,6 +256,26 @@ class dao_editores
 		}
 		return $datos;
 	}	
+
+	/**
+	*	Retorna la lista de carpetas en un formato adecuado para un combo
+	*/
+	static function get_items_carpeta($carpeta)
+	{
+		$sql = "
+			SELECT 
+				item 						as id, 
+				nombre						as descripcion
+			FROM apex_item 
+			WHERE 
+				(carpeta <> '1' OR carpeta IS NULL) AND
+				( (padre = '$carpeta') AND (padre_proyecto='". toba::get_hilo()->obtener_proyecto() ."') ) AND
+				proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+			ORDER BY nombre;
+		";
+		return consultar_fuente($sql, "instancia");		
+	}
+
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------

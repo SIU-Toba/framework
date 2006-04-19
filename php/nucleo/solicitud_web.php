@@ -191,6 +191,8 @@ class solicitud_web extends solicitud
 			echo js::abrir();
 			$objeto_js = $obj->obtener_javascript();
 			echo "\n$objeto_js.iniciar();\n";
+			//-- Javascript del vinculador
+			toba::get_vinculador()->obtener_javascript();
 			echo js::cerrar();
 		}
 

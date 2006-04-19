@@ -1,6 +1,7 @@
 <?
 require_once("nucleo/componentes/runtime/objeto.php");
 require_once('nucleo/lib/salidas/impresion_toba.php');
+require_once('nucleo/lib/vinculo.php');
 require_once('eventos.php');
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_ei_evento","evt");
@@ -192,15 +193,33 @@ class objeto_ei extends objeto
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
-		if ( isset($this->eventos[$id]['accion']) && ($this->eventos[$id]['accion'] == 'H') ) {
-			$this->utilizar_impresion_html = true;
-			// Accion predeterminada: IMPRIMIR HTML
-			$url = $this->vinculo_vista_html_impresion();
-			if ( $this->eventos[$id]['accion_imphtml_debug'] == 1 ) {
-				$js = "onclick=\"imprimir_html('$url',true);\"";
-			} else {
-				$js = "onclick=\"imprimir_html('$url');\"";
-			}
+		if ( isset($this->eventos[$id]['accion']) ) {
+			// Acciones predeterminadas
+			if ($this->eventos[$id]['accion'] == 'H') {
+				$this->utilizar_impresion_html = true;
+				// --- IMPRIMIR HTML ---
+				$url = $this->vinculo_vista_html_impresion();
+				if ( $this->eventos[$id]['accion_imphtml_debug'] == 1 ) {
+					$js = "onclick=\"imprimir_html('$url',true);\"";
+				} else {
+					$js = "onclick=\"imprimir_html('$url');\"";
+				}
+			} elseif ( ($this->eventos[$id]['accion'] == 'V') ) {
+			// --- VINCULO ---
+				$vinculo = new vinculo(	toba::get_hilo()->obtener_proyecto(), 
+										$this->eventos[$id]['accion_vinculo_item'],
+										$this->eventos[$id]['accion_vinculo_popup'],
+										$this->eventos[$id]['accion_vinculo_popup_param'] );
+				// ventana de modificacion del vinculo
+				$nombre_filtro = 'interceptar_vinculo__' . $id;
+				if ( method_exists($this, $nombre_filtro) ) {
+					$vinculo = $this->$nombre_filtro( $vinculo );
+				}
+				// Registro el vinculo en el vinculador
+				$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
+				// Escribo la sentencia que invocaria el vinculo
+				$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
+			}			
 		} else {
 			// Manejo estandar de eventos
 			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);

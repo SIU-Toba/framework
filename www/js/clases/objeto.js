@@ -63,7 +63,16 @@ def.constructor = objeto;
 	}
 
 	def.resetear_errores = function() {
-	}	
+	}
+	
+	def.invocar_vinculo = function(id_evento, id_vinculo) {
+		var funciv = 'interceptar_vinculo__' + id_evento;
+		if (existe_funcion(this, funciv)) {
+			this[funciv](id_vinculo);
+		} else {
+			vinculador.invocar(id_vinculo);
+		}
+	}
 
 	//----------------------------------------------------------------  
 	//---Servicios graficos 

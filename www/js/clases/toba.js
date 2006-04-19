@@ -176,6 +176,8 @@ var toba =
 
 var vinculador =
 {
+	_vinculos : new Array(),
+	
 	crear_autovinculo : function(servicio, parametros, objetos) {
 		return this.crear(toba_hilo_item, servicio, parametros, objetos);
 	},
@@ -196,6 +198,23 @@ var vinculador =
 			vinculo += '&' + i + '=' + encodeURI(parametros[i]);
 		}
 		return vinculo;
+	},
+	
+	agregar_vinculo : function(identificador, datos) {
+		this._vinculos[ identificador ] = datos;
+	},
+	
+	invocar : function(identificador, parametros_extra) {
+		//ei_arbol(this._vinculos[identificador]);
+		if (typeof hacer_submit == 'undefined') {
+			url = this._vinculos[identificador]['url'];
+		} else {
+			url = this.agregar_parametros( this._vinculos[identificador]['url'], parametros_extra);
+		}
+		if (this._vinculos[identificador]['popup'] == '1' ) {
+			abrir_popup('cambiar_esto',url,this._vinculos[identificador]['popup_parametros']);
+		} else {
+			document.location.href = url;
+		}
 	}
-
 }

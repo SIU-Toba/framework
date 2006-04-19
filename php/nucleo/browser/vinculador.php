@@ -12,6 +12,7 @@ class vinculador
 	protected $info;				//Vinculos a los que se puede acceder
 	protected $indices_objeto;	//Vinculos ordenados por OBJETO
 	protected $indices_item;		//Vinculos ordenados por ITEM
+	protected $vinculos = array();
 	static private $instancia;
 	
 	static function instancia()
@@ -228,6 +229,13 @@ class vinculador
 			$opciones['zona'] = true;	
 		}
 		return $this->crear_vinculo(null, null, $parametros, $opciones);
+	}
+
+	function registrar_vinculo( vinculo $vinculo )
+	{
+		$id = count( $this->vinculos );
+		$this->vinculos[$id] = $vinculo;
+		return $id;
 	}
 
 //##################################################################################
@@ -603,23 +611,25 @@ class vinculador
 		echo js::cerrar();
 	}
 
-//----------------------------------------------------------------
-
-	function javascript_head()
-	//JAvascript necesario en el HEAD segun los vinculos que se van consumir
-	//en esta solicitud
+	/*
+	* Registra vinculos en la clase homologa de javascript
+	*/
+	function obtener_javascript()
 	{
-		//Evalua que cosas se van a llamar y crear todo el javascript
-		//necesario	
+		foreach( $this->vinculos as $id => $vinculo ) {
+			$opciones['validar'] = false;
+			if($vinculo->estado_popup() == 1){
+				$opciones['celda_memoria'] = 'popup';
+			}
+			$datos['url'] = $this->crear_vinculo( 	$vinculo->get_proyecto(),
+													$vinculo->get_item(),
+													$vinculo->get_parametros(),
+													$opciones	);
+			$datos['popup'] = $vinculo->estado_popup();
+			$datos['popup_parametros'] = $vinculo->get_popup_parametros();
+			$datos_js = js::arreglo($datos, true);
+			echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
+		}
 	}
-//----------------------------------------------------------------
-	
-	function javascript_popup()
-	//Devuelve la funcion de popup que hay que poner en el HEADER
-	//Con la que se llaman a todos los POPUP
-	{
-	
-	}
-//----------------------------------------------------------------
 }
 ?>
