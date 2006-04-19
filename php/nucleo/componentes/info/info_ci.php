@@ -18,13 +18,21 @@ class info_ci extends info_ei
 		return (!$this->es_hoja() && count($this->subelementos) != 0) || $this->get_cant_pantallas() != 0;
 	}
 		
+	function get_pantalla($id)
+	{
+		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
+			if ($this->datos['info_ci_me_pantalla'][$i]['pantalla'] == $id) {
+				return new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],
+											$this->subelementos, $this->proyecto, $this->id);
+			}
+		}
+		throw new excepcion_toba("No se encuentra la pantalla $id");
+	}
 	
 	function get_cant_pantallas()
 	{
-		if ($this->carga_profundidad && count($this->datos['info_ci_me_pantalla'])>0) {
-			//Se ordena por la columna orden
-			$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
-			return count($datos_pantallas);
+		if ($this->carga_profundidad) {
+			return count($this->datos['info_ci_me_pantalla']);
 		} else {
 			return 0;	
 		}

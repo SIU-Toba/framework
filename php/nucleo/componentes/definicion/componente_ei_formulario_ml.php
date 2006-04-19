@@ -55,5 +55,10 @@ class componente_ei_formulario_ml extends componente_ei_formulario
 	{
 		return 'info_ei_formulario_ml';
 	}
+	
+	static function get_tipo_abreviado()
+	{
+		return "Form. ML";		
+	}
 }
 ?>

@@ -115,5 +115,10 @@ class componente_ei_cuadro extends componente_ei
 	{
 		return 'info_ei_cuadro';
 	}
+	
+	static function get_tipo_abreviado()
+	{
+		return "Cuadro";		
+	}
 }
 ?>

@@ -57,5 +57,10 @@ class componente_ei_formulario extends componente_ei
 	{
 		return 'info_ei_formulario';
 	}
+	
+	static function get_tipo_abreviado()
+	{
+		return "Form.";		
+	}
 }
 ?>

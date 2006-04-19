@@ -68,6 +68,11 @@ class componente_ci extends componente_ei
 	static function get_nombre_clase_info()
 	{
 		return 'info_ci';
-	}	
+	}
+
+	static function get_tipo_abreviado()
+	{
+		return "CI";		
+	}
 }
 ?>

@@ -145,6 +145,35 @@ class ci_creador_objeto extends objeto_ci
 		$this->agregar_dependencia('editor', $this->datos_editor['proyecto'], $this->datos_editor['objeto']);
 	}
 	
+	function get_nombre_destino()
+	{
+		$clave = array('componente' => $this->destino['objeto'],
+						'proyecto' => $this->destino['proyecto']);
+		$nombre = "";
+		if (isset($this->destino)) {
+			switch ($this->destino['tipo']) {
+				case 'item': 
+				case 'ci':
+				case 'datos_relacion':
+					$info = constructor_toba::get_info($clave, $this->destino['tipo'], false);								
+					$nombre .= $info->get_nombre_corto();
+					break;
+				case 'ci_pantalla':
+					//--- Si es una pantalla el info_ci se carga en profunidad para traer el nombre de la misma
+					$info = constructor_toba::get_info($clave, 'ci', true);			
+					$pantalla = $info->get_pantalla($this->destino['pantalla']);
+					$nombre .= $info->get_nombre_corto() .' - '.$pantalla->get_id();
+					break;
+			}	
+		}	
+		return $nombre;
+	}
+	
+	function destino_es_item()
+	{
+		return $this->destino['tipo'] == 'item';	
+	}
+	
 	/**
 	*	Cuando se procesa este CI es porque el editor contenido ya proceso
 	*	Por lo que se debe extraer la clave del objeto creado para su posterior asignacion
@@ -153,7 +182,7 @@ class ci_creador_objeto extends objeto_ci
 	{
 		$this->objeto_construido = $this->dependencia('editor')->get_entidad()->tabla('base')->get_clave_valor(0);
 
-				//Si el destino es un item se asigna aqui nomas
+		//Si el destino es un item se asigna aqui nomas
 		if (isset($this->destino) && $this->destino['tipo'] == 'item') {
 			$this->evt__asignar();
 		}

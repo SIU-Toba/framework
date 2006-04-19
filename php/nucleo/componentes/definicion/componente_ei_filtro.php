@@ -8,5 +8,9 @@ require_once("componente_ei_formulario.php");
  */
 class componente_ei_filtro extends componente_ei_formulario
 {
+	static function get_tipo_abreviado()
+	{
+		return "Filtro";		
+	}	
 }
 ?>

@@ -5,19 +5,5 @@ class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_ei_archivos';
 	
-	//*******************************************************************
-	//*****************  PROPIEDADES BASICAS  ***************************
-	//*******************************************************************
-
-	function evt__base__carga()
-	{
-		return $this->get_entidad()->tabla("base")->get();
-	}
-
-	function evt__base__modificacion($datos)
-	{
-		$this->get_entidad()->tabla("base")->set($datos);
-	}
-
 }
 ?>

@@ -12,5 +12,9 @@ require_once("componente_ei.php");
  */
 class componente_ei_calendario extends componente_ei
 {
+	static function get_tipo_abreviado()
+	{
+		return "Calendario";		
+	}
 }
 ?>

@@ -32,5 +32,10 @@ class componente_ei_esquema extends componente_ei
 		$sql['info_esquema']['obligatorio']=true;
 		return $sql;
 	}
+	
+	static function get_tipo_abreviado()
+	{
+		return "Esquema";		
+	}
 }
 ?>

@@ -71,6 +71,11 @@ class componente_datos_relacion extends componente_toba
 	static function get_path_clase_runtime()
 	{
 		return 'nucleo/componentes/runtime/persistencia';
-	}	
+	}
+
+	static function get_tipo_abreviado()
+	{
+		return "Relación";		
+	}
 }
 ?>

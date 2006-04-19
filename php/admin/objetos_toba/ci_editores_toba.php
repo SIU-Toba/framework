@@ -107,6 +107,37 @@ abstract class ci_editores_toba extends objeto_ci
 	}
 	
 
+	//*******************************************************************
+	//*****************  PROPIEDADES BASICAS  ***************************
+	//*******************************************************************
+
+	function evt__base__carga()
+	{
+		$reg = $this->get_entidad()->tabla("base")->get();
+		if (!isset($reg)) {
+			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
+			$nombre = "";
+			if (isset($this->controlador) && method_exists($this->controlador, 'get_nombre_destino')) {
+				$nombre_dest = $this->controlador->get_nombre_destino();
+				if ($this->controlador->destino_es_item()) {
+					$nombre = $nombre_dest;
+				} else {
+					$nombre = "$nombre_dest - ".$this->get_abreviacion_clase_actual();	
+				}
+			} else {
+				$nombre = $this->get_abreviacion_clase_actual();				
+			}
+			$reg = array();
+			$reg['nombre'] = $nombre;
+		}
+		return $reg;
+	}
+
+	function evt__base__modificacion($datos)
+	{
+		$this->get_entidad()->tabla("base")->set($datos);
+	}
+	
 	// *******************************************************************
 	// *******************  PROCESAMIENTO  *******************************
 	// *******************************************************************
@@ -122,7 +153,6 @@ abstract class ci_editores_toba extends objeto_ci
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
 	}
-	// *******************************************************************
 	
 	//---------------------------------------------------------------
 	//-------------------------- Consultas --------------------------
@@ -135,6 +165,13 @@ abstract class ci_editores_toba extends objeto_ci
 		} else {
 			throw new excepcion_toba("El editor actual no tiene definida sobre que clase de objeto trabaja");
 		}
+	}
+	
+	function get_abreviacion_clase_actual()
+	{
+		$tipo = catalogo_toba::convertir_tipo( $this->get_clase_actual() );
+		$clase = catalogo_toba::get_nombre_clase_definicion($tipo);
+		return call_user_func(array($clase, "get_tipo_abreviado"));
 	}
 		
 	

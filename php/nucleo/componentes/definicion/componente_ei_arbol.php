@@ -12,5 +12,11 @@ require_once("componente_ei.php");
  */
 class componente_ei_arbol extends componente_ei
 {
+	static function get_tipo_abreviado()
+	{
+		return "Árbol";		
+	}
+	
+
 }
 ?>

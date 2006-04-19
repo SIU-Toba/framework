@@ -70,5 +70,10 @@ class componente_datos_tabla extends componente_toba
 	{
 		return 'nucleo/componentes/runtime/persistencia';
 	}
+	
+	static function get_tipo_abreviado()
+	{
+		return "Tabla";		
+	}
 }
 ?>

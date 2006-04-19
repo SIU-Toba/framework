@@ -15,6 +15,11 @@ class componente_cn extends componente_toba
 	static function get_path_clase_runtime()
 	{
 		return 'nucleo/componentes/runtime/negocio';
-	}	
+	}
+
+	static function get_tipo_abreviado()
+	{
+		return "CN";		
+	}
 }
 ?>
