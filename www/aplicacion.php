@@ -29,7 +29,7 @@ define("apex_pa_sesion_ventana",40);
 # Tiempo maximo de duracion de la sesion.
 define("apex_pa_sesion_maximo",0);
 # Manejo de parametros de querystring encriptados
-define("apex_pa_encriptar_qs",1);
+define("apex_pa_encriptar_qs",0);
 #-------------------------------------------------------------------------------
 #----<  Configuracion APEX  >-------------------------------------------------
 #-------------------------------------------------------------------------------

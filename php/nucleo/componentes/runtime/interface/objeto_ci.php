@@ -1085,21 +1085,32 @@ class objeto_ci extends objeto_ei
 	protected function get_utilidades_impresion_html()
 	{
 		$id_frame = "objeto_ci_{$this->id[1]}_print";
-		echo "<iframe style='display:none' name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
+		echo "<iframe style='position:absolute;width: 0px; height: 0px; border-style: none;' "
+			."name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
 		echo js::abrir();
 		echo "
 		function imprimir_html( url, forzar_popup )
 		{
 			var usar_popup = (forzar_popup) ? true : false ;
-			//alert( url );	
-			var f = window.frames.$id_frame;
-			if ( f && f.print && !usar_popup ) {
-				f.location.href = url;
-				f.focus();
-				f.print();
+			var f = window.frames.$id_frame.document;
+			if ( f && !usar_popup ) {
+			    var html = '';
+			    html += '<html>';
+			    html += '<body onload=\"parent.printFrame(window.frames.urlToPrint);\">';
+			    html += '<iframe name=\"urlToPrint\" src=\"' + url + '\"><\/iframe>';
+			    html += '<\/body><\/html>';
+			    f.open();
+			    f.write(html);
+			    f.close();
 			} else {
 				solicitar_item_popup( url, 650, 500, 'yes', 'yes');
 			}
+		}
+		function printFrame (frame) {
+		  if (frame.print) {
+		    frame.focus();
+		    frame.print();
+		  }
 		}
 		";
 		echo js::cerrar();

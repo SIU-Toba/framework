@@ -28,6 +28,7 @@ class catalogo_items
 			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
 			if (isset($id_item_inicial)) {
 				$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
+						//OR i.padre IN (SELECT item FROM apex_item WHERE padre='$id_item_inicial'))";
 			}
 			
 			if (! empty($incluidos_forzados) && !$en_profundidad) {
