@@ -239,7 +239,8 @@ CREATE TABLE apex_log_objeto
 	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario								varchar(20) 	NULL,
 	objeto_proyecto          			varchar(15)  	NOT NULL,
-	objeto								int4			NOT NULL,
+	objeto								int4			NULL,
+	item								varchar(60)		NULL,
 	observacion							varchar			NULL,
 	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")
 --	CONSTRAINT	"apex_log_sis_fk_usuario" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
