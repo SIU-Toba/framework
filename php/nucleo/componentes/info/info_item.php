@@ -320,13 +320,15 @@ class info_item implements recorrible_como_arbol
 				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/carpeta_propiedades", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" )
+								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
+				'plegado' => true								
 			);
 			$utilerias[] = array(
 				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/items/editor_items", 
-								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" )
+								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
+				'plegado' => true								
 			);			
 
 		} else { //Es un item común
@@ -337,7 +339,8 @@ class info_item implements recorrible_como_arbol
 									array('destino_tipo' =>'item', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id ),
-											false, false, null, true, "central")
+											false, false, null, true, "central"),
+				'plegado' => true											
 			);
 		}
 		if (!$this->es_carpeta() && 

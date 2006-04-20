@@ -78,7 +78,8 @@ class info_ci extends info_ei
 								array(	'destino_tipo' => 'ci', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id ),
-										false, false, null, true, "central")
+										false, false, null, true, "central"),
+			'plegado' => true										
 		);
 		return array_merge($iconos, parent::get_utilerias());	
 	}		

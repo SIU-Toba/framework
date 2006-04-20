@@ -95,7 +95,8 @@ class info_ci_pantalla implements recorrible_como_arbol
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id,
 										'destino_pantalla' => $this->datos['pantalla']),
-										false, false, null, true, "central")
+										false, false, null, true, "central"),
+			'plegado' => true										
 		);
 
 		$iconos[] = array(

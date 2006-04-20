@@ -249,9 +249,13 @@ class objeto_ei_arbol extends objeto_ei
 	
 	protected function mostrar_utilerias($nodo)
 	{
+		$salida = "";
 		$utilerias = $nodo->get_utilerias();
 		if (count($utilerias) > 0) {
-			$salida = "<span style='float: right'>";
+			$plegados = "";
+			$despl = "";
+			$salida .= "<span style='float:right;'>";	
+			$cant_plegados = 0;
 			foreach ($utilerias as $utileria) {
 				$img = recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
 				if (isset($utileria['vinculo'])) {
@@ -260,11 +264,23 @@ class objeto_ei_arbol extends objeto_ei
 					} else {
 						$target = "target='{$this->frame_destino}'";
 					}
-					$salida .= "<a href='".$utileria['vinculo']."' $target>$img</a>\n";
+					$html = "<a href='".$utileria['vinculo']."' $target>$img</a>\n";
 				} else {
-					$salida .= $img;
+					$html = $img;
+				}
+				if (isset($utileria['plegado']) && $utileria['plegado']) {
+					$plegados .= $html;
+					$cant_plegados++;
+				} else {
+					$despl .= $html;	
 				}
 			}
+			if ($cant_plegados > 0) {
+				$img = recurso::imagen_apl("expandir_izq.gif",true);
+				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);'>$img</a>";
+				$salida .= "<span style='display:none'>$plegados</span>";
+			}
+			$salida .= $despl;
 			$salida .= "</span>";
 			return $salida;
 		}

@@ -157,20 +157,23 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
 				'vinculo' => "javascript: $js;",
-				'target' => ''
+				'target' => '',
+				'plegado' => true
 			);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('php.gif', false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
 				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
-																		false, false, null, true, 'central')
+																		false, false, null, true, 'central'),
+				'plegado' => true																		
 			);
 		}
 		if (isset($this->datos['info_eventos'])) {
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('reflexion/evento.gif', false),
 				'ayuda' => 'Editar los [wiki:Referencia/Eventos eventos del objeto].',
-				'vinculo' => $this->vinculo_editor(array('etapa' => 3))
+				'vinculo' => $this->vinculo_editor(array('etapa' => 3)),
+				'plegado' => true
 			);
 		}
 		if(isset($this->datos['info']['clase_editor_proyecto'])) {

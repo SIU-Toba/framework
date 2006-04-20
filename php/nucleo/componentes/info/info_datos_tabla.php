@@ -30,7 +30,8 @@ class info_datos_tabla extends info_componente
 				'imagen' => recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
 				'vinculo' => toba::get_vinculador()->generar_solicitud("toba","/admin/objetos/php", $param_editores,
-																		false, false, null, true, "central")
+																		false, false, null, true, "central"),
+				'plegado' => true																		
 			);
 		}
 		return array_merge($iconos, parent::get_utilerias());	
