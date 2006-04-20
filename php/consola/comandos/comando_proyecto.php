@@ -61,6 +61,19 @@ class comando_proyecto extends comando_toba
 	}
 
 	/**
+	 * Exporta los METADATOS y luego actualiza el proyecto (usando svn)
+	 */
+	function opcion__actualizar()
+	{
+		$this->consola->titulo("1.- Exportando METADATOS");		
+		$this->opcion__exportar();
+
+		$this->consola->titulo("2.- Actualizando el proyecto utilizando SVN");
+		$p = $this->get_proyecto();		
+		$p->actualizar();		
+	}
+	
+	/**
 	*	Elimina los METADATOS del proyecto y los vuelve a cargar.
 	*/
 	function opcion__regenerar()

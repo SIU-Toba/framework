@@ -302,7 +302,7 @@ class objeto_datos_tabla extends objeto
 	/**
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
 	 * Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
-	 * @param array Las condiciones permiten filtrar la lista de registros que se devuelve
+	 * @param array Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones
 	 * @param boolean Hace que las claves del array devuelto sean las claves internas del dbr
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Formato tipo RecordSet
