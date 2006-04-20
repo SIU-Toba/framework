@@ -47,7 +47,7 @@ class vinculo
 	
 	function set_parametros( $parametros )
 	{
-		$this->paramtros = $parametros;	
+		$this->parametros = $parametros;	
 	}
 
 	function agregar_parametro($clave, $valor)

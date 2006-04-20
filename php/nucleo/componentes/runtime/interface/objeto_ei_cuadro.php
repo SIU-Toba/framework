@@ -456,6 +456,16 @@ class objeto_ei_cuadro extends objeto_ei
         return $id_fila;
     }
 
+	function obtener_clave_fila_array($fila)
+	{
+        if (isset($this->columnas_clave)) {
+	        foreach($this->columnas_clave as $clave){
+	            $array[$clave] = $this->datos[$fila][$clave];
+	        }
+	        return $array;
+        }
+	}
+
     /**
     *	@deprecated Desde 0.8.3. Usar obtener_clave_seleccionada
     */
@@ -1133,7 +1143,29 @@ class objeto_ei_cuadro extends objeto_ei
 								continue;
 							}
 						}
-						//HTML del EVENTO
+						//--->  Generacion del GATILLO del EVENTO
+						if ( isset($this->eventos[$id]['accion']) && ($this->eventos[$id]['accion'] == 'V') ) {
+							//El evento es una ACCION predeterminada de tipo VINCULO!
+							$vinculo = new vinculo(	toba::get_hilo()->obtener_proyecto(), 
+													$this->eventos[$id]['accion_vinculo_item'],
+													$this->eventos[$id]['accion_vinculo_popup'],
+													$this->eventos[$id]['accion_vinculo_popup_param'] );
+							$vinculo->set_parametros( $this->obtener_clave_fila_array($f) );
+							// ventana de modificacion del vinculo
+							$nombre_filtro = 'interceptar_vinculo__' . $id;
+							if ( method_exists($this, $nombre_filtro) ) {
+								$vinculo = $this->$nombre_filtro( $vinculo );
+							}
+							// Registro el vinculo en el vinculador
+							$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
+							// Escribo la sentencia que invocaria el vinculo
+							$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
+						} else {
+							//El evento es una ACCION predeterminada de tipo VINCULO!
+							$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
+							$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+						}
+						//--->  Generacion del HTML del EVENTO
 						$tip = '';
 						if (isset($evento['ayuda']))
 							$tip = $evento['ayuda'];
@@ -1151,8 +1183,6 @@ class objeto_ei_cuadro extends objeto_ei
 						$html .= $acceso[0];
 						$tecla = $acceso[1];
 						//Creo JS del EVENTO
-						$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
-						$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 						echo "<td class='lista-col-titulo' width='1%'>\n";
 						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 		            	echo "</td>\n";
