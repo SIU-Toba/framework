@@ -103,7 +103,7 @@ CREATE TABLE apex_objeto_plan_hito
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_plan_linea_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_objeto_plan_linea_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_objeto_plan_linea
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

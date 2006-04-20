@@ -106,7 +106,7 @@ CREATE TABLE apex_objeto_cuadro_columna
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_obj_ei_cuadro_cc_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_obj_ei_cuadro_cc_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_cuadro_cc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -139,7 +139,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_obj_ei_cuadro_col_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_obj_ei_cuadro_col_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_ei_cuadro_columna
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

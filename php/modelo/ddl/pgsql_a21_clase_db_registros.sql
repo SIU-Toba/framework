@@ -4,7 +4,7 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
-CREATE SEQUENCE apex_admin_persistencia_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_admin_persistencia_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_admin_persistencia
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -77,7 +77,7 @@ CREATE TABLE apex_objeto_db_registros
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_objeto_dbr_columna_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_objeto_dbr_columna_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_db_registros_col
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -143,7 +143,7 @@ CREATE TABLE apex_objeto_datos_rel
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_objeto_datos_rel_asoc_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_objeto_datos_rel_asoc_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_datos_rel_asoc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

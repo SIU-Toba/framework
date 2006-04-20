@@ -26,7 +26,7 @@ CREATE TABLE 			apex_ap_version
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_ap_tarea_tipo_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_ap_tarea_tipo_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_ap_tarea_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -43,7 +43,7 @@ CREATE TABLE apex_ap_tarea_tipo
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_ap_tarea_estado_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_ap_tarea_estado_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_ap_tarea_estado
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -76,7 +76,7 @@ CREATE TABLE apex_ap_tarea_prioridad
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_ap_tarea_tema_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_ap_tarea_tema_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_ap_tarea_tema
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -93,7 +93,7 @@ CREATE TABLE apex_ap_tarea_tema
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_ap_tarea_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_ap_tarea_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_ap_tarea
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

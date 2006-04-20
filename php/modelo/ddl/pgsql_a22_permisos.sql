@@ -2,7 +2,7 @@
 --##						PERMISOS particulares de grupos de acceso
 --#################################################################################################
 
-CREATE SEQUENCE apex_permiso_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_permiso_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_permiso
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

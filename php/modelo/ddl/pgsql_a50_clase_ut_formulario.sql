@@ -108,7 +108,7 @@ CREATE TABLE apex_objeto_ut_formulario_ef
 --###################################################################################################
 --###################################################################################################
 
-CREATE SEQUENCE apex_obj_ei_form_fila_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_obj_ei_form_fila_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_ei_formulario_ef
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

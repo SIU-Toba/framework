@@ -47,7 +47,7 @@ CREATE TABLE			apex_elemento_infra_tabla
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_elemento_infra_input_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_elemento_infra_input_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE			apex_elemento_infra_input
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -401,7 +401,7 @@ CREATE TABLE apex_pagina_tipo
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_columna_estilo_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_columna_estilo_seq INCREMENT 1 MINVALUE 0	MAXVALUE	9223372036854775807 CACHE 1;
 CREATE TABLE apex_columna_estilo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -421,7 +421,7 @@ CREATE TABLE apex_columna_estilo
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_columna_formato_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_columna_formato_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_columna_formato
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -444,7 +444,7 @@ CREATE TABLE apex_columna_formato
 
 --###################################################################################################
 
-CREATE SEQUENCE apex_columna_proceso_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_columna_proceso_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_columna_proceso
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -667,7 +667,7 @@ CREATE TABLE apex_patron_info
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_buffer_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_buffer_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_buffer
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -977,7 +977,7 @@ CREATE TABLE apex_solicitud_obj_obs_tipo
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_objeto_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1049,7 +1049,7 @@ CREATE TABLE apex_objeto_info
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_dep_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_objeto_dep_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_dependencias
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1080,7 +1080,7 @@ CREATE TABLE apex_objeto_dependencias
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_eventos_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_objeto_eventos_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_eventos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1284,7 +1284,7 @@ CREATE TABLE apex_admin_album_fotos
 --**************************************************************************************************
 
 
-CREATE SEQUENCE apex_nucleo_tipo_seq INCREMENT 1 MINVALUE 1	MAXVALUE	9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_nucleo_tipo_seq INCREMENT 1 MINVALUE 0	MAXVALUE	9223372036854775807 CACHE 1;
 CREATE TABLE apex_nucleo_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

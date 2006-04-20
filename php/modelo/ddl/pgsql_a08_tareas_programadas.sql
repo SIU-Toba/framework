@@ -4,7 +4,7 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
-CREATE SEQUENCE apex_tp_tarea_tipo_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_tp_tarea_tipo_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_tp_tarea_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -22,7 +22,7 @@ CREATE TABLE apex_tp_tarea_tipo
 --#################################################################################################
 
 
-CREATE SEQUENCE apex_tp_tarea_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_tp_tarea_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_tp_tarea
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

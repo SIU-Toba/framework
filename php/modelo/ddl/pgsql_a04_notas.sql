@@ -23,7 +23,7 @@ CREATE TABLE apex_nota_tipo
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -52,7 +52,7 @@ CREATE TABLE apex_nota
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_patron_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_patron_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_patron_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -83,7 +83,7 @@ CREATE TABLE apex_patron_nota
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_item_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_item_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_item_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -115,7 +115,7 @@ CREATE TABLE apex_item_nota
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_clase_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_clase_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_clase_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -146,7 +146,7 @@ CREATE TABLE apex_clase_nota
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_objeto_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_objeto_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -177,7 +177,7 @@ CREATE TABLE apex_objeto_nota
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_nucleo_nota_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_nucleo_nota_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_nucleo_nota
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

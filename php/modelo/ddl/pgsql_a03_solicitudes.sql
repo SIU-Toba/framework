@@ -9,7 +9,7 @@
 --%%: proyecto: toba
 
 
-CREATE SEQUENCE apex_solicitud_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_solicitud_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_solicitud
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -35,7 +35,7 @@ CREATE TABLE apex_solicitud
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_sesion_browser_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_sesion_browser_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_sesion_browser
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -164,7 +164,7 @@ CREATE TABLE apex_solicitud_cronometro
 );
 --###################################################################################################
 
-CREATE SEQUENCE apex_solicitud_observacion_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_solicitud_observacion_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_solicitud_observacion
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -192,7 +192,7 @@ CREATE TABLE apex_solicitud_observacion
 
 --###################################################################################################
 
-CREATE SEQUENCE apex_solicitud_obj_obs_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_solicitud_obj_obs_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_solicitud_obj_observacion
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -222,7 +222,7 @@ CREATE TABLE apex_solicitud_obj_observacion
 
 --###################################################################################################
 
-CREATE SEQUENCE apex_log_objeto_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_log_objeto_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_log_objeto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -253,7 +253,7 @@ CREATE TABLE apex_log_objeto
 --##################################################################################################
 --##################################################################################################
 
-CREATE SEQUENCE apex_log_sistema_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_log_sistema_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_log_sistema
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -277,7 +277,7 @@ CREATE TABLE apex_log_sistema
 );
 --###################################################################################################-------------------
 
-CREATE SEQUENCE apex_log_error_login_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_log_error_login_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_log_error_login
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

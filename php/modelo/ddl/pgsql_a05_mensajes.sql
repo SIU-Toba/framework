@@ -21,7 +21,7 @@ CREATE TABLE apex_msg_tipo
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_msg_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -48,7 +48,7 @@ CREATE TABLE apex_msg
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_patron_msg_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_patron_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_patron_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -77,7 +77,7 @@ CREATE TABLE apex_patron_msg
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_item_msg_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_item_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_item_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -108,7 +108,7 @@ CREATE TABLE apex_item_msg
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_clase_msg_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_clase_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_clase_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -137,7 +137,7 @@ CREATE TABLE apex_clase_msg
 );
 --#################################################################################################
 
-CREATE SEQUENCE apex_objeto_msg_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE SEQUENCE apex_objeto_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_objeto_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

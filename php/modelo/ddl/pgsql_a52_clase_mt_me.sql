@@ -98,7 +98,7 @@ CREATE TABLE apex_objeto_mt_me_etapa
 --###################################################################################################
 --###################################################################################################
 
-CREATE SEQUENCE apex_obj_ci_pantalla_seq INCREMENT	1 MINVALUE 1 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE SEQUENCE apex_obj_ci_pantalla_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_ci_pantalla
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
