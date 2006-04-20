@@ -26,7 +26,13 @@ class ci_catalogo_objetos extends ci_catalogo
 		$this->album_fotos->agregar_foto(apex_foto_inicial, array(), array(), false);
 	}
 	
-	
+	function obtener_html()
+	{
+		echo "<style type='text/css'>";
+		echo " .ci-cuerpo { 	background-color: #eeeeee; }";
+		echo "</style>";
+		parent::obtener_html();
+	}	
 	//-------------------------------------------------------------
 	//-------------------EVENTOS DE OBJETOS -----------------------
 	//-------------------------------------------------------------

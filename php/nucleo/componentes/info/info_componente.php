@@ -158,7 +158,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
 				'vinculo' => "javascript: $js;",
 				'target' => '',
-				'plegado' => true
+				'plegado' => false
 			);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('php.gif', false),
