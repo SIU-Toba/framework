@@ -80,7 +80,7 @@ class catalogo_items
 		$this->filtrar($opciones);
 	}
 	
-	protected function debe_cargar_todo($opciones)
+	function debe_cargar_todo($opciones)
 	{
 		return (isset($opciones['id']) && $opciones['id'] != '') ||
 				isset($opciones['nombre']) && $opciones['nombre'] != '' ||
@@ -209,6 +209,7 @@ class catalogo_items
 				$encontrados[] = $item;
 			}
 		}
+
 		$this->dejar_ramas_con_items($encontrados);
 	}
 	
@@ -300,7 +301,6 @@ class catalogo_items
 					$padre->quitar_hijo($item);
 			}
 		}
-
 	}
 	
 	function buscar_carpeta_inicial()
@@ -349,6 +349,7 @@ class catalogo_items
 		$this->camino = array();
 		$this->ordenar_recursivo($raiz, 0);
 		$this->items = $this->items_ordenados;
+		unset($this->item_ordenados);
 	}
 	
 	function ordenar_recursivo($carpeta, $nivel)

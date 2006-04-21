@@ -369,6 +369,7 @@ class info_item implements recorrible_como_arbol
 		
 	function quitar_hijo($item)
 	{
+		$this->datos['info']['cant_items_hijos']--;
 		unset($this->items_hijos[$item->get_id()]);
 	}	
 	

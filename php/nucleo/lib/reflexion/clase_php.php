@@ -34,13 +34,10 @@ class clase_php
 
 	function generar($opciones)
 	{
-		if ($this->archivo->esta_vacio())
+		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
-		$this->archivo->edicion_inicio();
-		//¿Está incluido la clase padre en el archivo
-		if (strpos($this->archivo->contenido(), $this->archivo_padre_nombre) === false) {
-			$this->archivo->insertar_al_inicio("require_once('{$this->archivo_padre_nombre}');");
 		}
+		$this->archivo->edicion_inicio();
 		$this->archivo->insertar_al_final($this->generar_clase($opciones));
 		$this->archivo->edicion_fin();	
 		

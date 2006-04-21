@@ -119,8 +119,9 @@ class ci_catalogo_items extends ci_catalogo
 		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
 
 		if (isset($this->opciones)) {
-			if (isset($this->opciones['inaccesibles']) || isset($this->opciones['sin_objetos']) ||
-				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1)) {
+			//Cuando el catalogo carga todo los items es porque va a filtrar algo
+			//entonces el resultado se debe mostrar completo, sin colapsados
+			if ($this->catalogador->debe_cargar_todo($this->opciones)) {
 				$this->dependencia('items')->set_todos_abiertos();
 			}
 		}
