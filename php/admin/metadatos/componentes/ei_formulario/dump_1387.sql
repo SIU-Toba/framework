@@ -9,7 +9,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1387', '1237', 'desactivado', 'ef_checkbox', 'desactivado', NULL, 'valor: 1;
 valor_info: SI;', '4', 'Desactivar', NULL, 'Excluir el EF del ABM', NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1387', '1238', 'descripcion', 'ef_editable_multilinea', 'descripcion', NULL, 'filas: 4;
-columnas: 60;', '2', 'Descripcion', NULL, 'Descripcion para ayuda sensitiva', NULL, NULL, NULL, NULL);
+columnas: 50;', '2', 'Descripcion', NULL, 'Descripcion para ayuda sensitiva', NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1387', '4231', 'total', 'ef_checkbox', 'total', NULL, 'valor: 1;
 valor_no_seteado: 0;
 estado: 0;', '5', 'Totalizar', NULL, 'Sólo aplicable a formularios_ml. Incorpora a la columna un proceso automático de sumarización.', NULL, NULL, NULL, NULL);

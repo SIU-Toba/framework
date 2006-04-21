@@ -117,12 +117,14 @@ abstract class ci_editores_toba extends objeto_ci
 		if (!isset($reg)) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
 			$nombre = "";
-			if (isset($this->controlador) && method_exists($this->controlador, 'get_nombre_destino')) {
-				$nombre_dest = $this->controlador->get_nombre_destino();
+			if (isset($this->controlador)
+					 && method_exists($this->controlador, 'get_nombre_destino')
+					 && $this->controlador->hay_destino()) {
+				$nombre_dest = $this->controlador->get_nombre_destino();				 	
 				if ($this->controlador->destino_es_item()) {
 					$nombre = $nombre_dest;
 				} else {
-					$nombre = "$nombre_dest - ".$this->get_abreviacion_clase_actual();	
+					$nombre = "$nombre_dest - ".$this->controlador->get_nombre_rol();	
 				}
 			} else {
 				$nombre = $this->get_abreviacion_clase_actual();				

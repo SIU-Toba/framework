@@ -14,6 +14,10 @@ class ci_creador_objeto extends objeto_ci
 	function __construct($id)
 	{
 		parent::__construct($id);
+		if (! dba::hay_fuente_definida(toba::get_hilo()->obtener_proyecto())) {
+			throw new excepcion_toba("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
+		}		
+		
 		if (isset($this->clase_actual)) {
 			$this->cargar_editor();
 		}
@@ -50,18 +54,25 @@ class ci_creador_objeto extends objeto_ci
 		if (! isset($this->objeto_construido)) {
 			return "construccion";
 		}
-		if (isset($this->destino)) {
-			if ($this->destino['tipo'] == 'datos_relacion') {
-				return "asignacion_dr";
-			} else { //Es un CI
-				return "asignacion";
-			}
-
-		}
 		//Sino es que el objeto se creo y no hay que asignarselo a nadie asi que 
 		//hay que redireccionar
 		$this->redireccionar_a_objeto_creado();
 	}	
+	
+	function get_lista_ei__tipos()
+	{
+		$eis = array();
+		if (isset($this->destino)) {
+			if ($this->destino['tipo'] == 'datos_relacion') {
+				$eis[] = 'info_asignacion_dr';
+			} elseif ($this->destino['tipo'] == 'ci' ||
+						$this->destino['tipo'] == 'ci_pantalla') { 
+				$eis[] = 'info_asignacion';
+			}
+		}
+		$eis[] = 'tipos';		
+		return $eis;
+	}
 	
 	function obtener_descripcion_pantalla($pantalla)
 	{
@@ -75,15 +86,15 @@ class ci_creador_objeto extends objeto_ci
 						break;
 					case 'ci':
 						$des .= "<br>El objeto construido se asignará automáticamente al 
-								<strong>CI</strong> seleccionado.";
+								<strong>CI</strong> seleccionado,<br> con el rol ingresado.";
 						break;		
 					case 'ci_pantalla':
 						$des .= "<br>El objeto construido se asignará automáticamente a la 
-								<strong>pantalla</strong> seleccionada.";
+								<strong>pantalla</strong> seleccionada,<br> con el rol ingresado.";
 						break;		
 					case 'datos_relacion':
 						$des .= "<br>El datos_tabla construido se asignará automáticamente al
-								<strong>datos_relacion</strong> seleccionado.";								
+								<strong>datos_relacion</strong> seleccionado,<br> con el rol ingresado.";								
 				}
 				break;
 			case 'construccion':
@@ -118,6 +129,32 @@ class ci_creador_objeto extends objeto_ci
 		$this->cargar_editor();
 	}	
 
+	function evt__info_asignacion__modificacion($datos)
+	{
+		$this->destino += $datos;
+	}
+	
+	function evt__info_asignacion__carga()
+	{
+		if (isset($this->destino)) {
+			return $this->destino;
+		}
+	}
+	
+	/**
+	*	Parametros para asignar el objeto a un datos_relacion
+	*/
+	function evt__info_asignacion_dr__modificacion($datos)
+	{
+		$this->destino += $datos;
+	}
+	
+	function evt__info_asignacion_dr__carga()
+	{
+		if (isset($this->destino)) {
+			return $this->destino;
+		}
+	}
 
 	//------------------------------------------------------------
 	//-----------------  ETAPA DE CONSTRUCCION   ----------------------
@@ -169,9 +206,21 @@ class ci_creador_objeto extends objeto_ci
 		return $nombre;
 	}
 	
+	function hay_destino()
+	{
+		return isset($this->destino['tipo']);	
+	}
+	
 	function destino_es_item()
 	{
 		return $this->destino['tipo'] == 'item';	
+	}
+	
+	function get_nombre_rol()
+	{
+		if (isset($this->destino['id_dependencia'])) {
+			return $this->destino['id_dependencia'];
+		}	
 	}
 	
 	/**
@@ -181,38 +230,15 @@ class ci_creador_objeto extends objeto_ci
 	function evt__editor__procesar()
 	{
 		$this->objeto_construido = $this->dependencia('editor')->get_entidad()->tabla('base')->get_clave_valor(0);
-
-		//Si el destino es un item se asigna aqui nomas
-		if (isset($this->destino) && $this->destino['tipo'] == 'item') {
-			$this->evt__asignar();
+		
+		//---Asigna el objeto creado al destino
+		if (isset($this->destino)) {
+			$asignador = new asignador_objetos($this->objeto_construido, $this->destino);
+			$asignador->asignar();
+			$this->redireccionar_a_objeto_creado();
 		}
 	}
-	
-	//----------------------------------------------------------
-	//-----------------  ETAPA DE ASIGNACION   -----------------
-	//----------------------------------------------------------
-	function evt__info_asignacion__modificacion($datos)
-	{
-		$this->destino['id_dependencia'] = $datos['id_dependencia'];
-	}
-	
-	/**
-	*	Parametros para asignar el objeto a un datos_relacion
-	*/
-	function evt__info_asignacion_dr__modificacion($datos)
-	{
-		$this->destino['id_dependencia'] = $datos['identificador'];
-		$this->destino['min_filas'] = $datos['min_filas'];
-		$this->destino['max_filas'] = $datos['max_filas'];
-	}
-	
-	function evt__asignar()
-	{
-		$asignador = new asignador_objetos($this->objeto_construido, $this->destino);
-		$asignador->asignar();
-		$this->redireccionar_a_objeto_creado();
-	}
-	
+		
 	function redireccionar_a_objeto_creado()
 	{
 		admin_util::redireccionar_a_editor_objeto($this->objeto_construido['proyecto'], 
