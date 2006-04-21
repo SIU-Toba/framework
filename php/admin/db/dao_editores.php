@@ -390,5 +390,32 @@ class dao_editores
 				ORDER BY 3";
 		return consultar_fuente($sql, "instancia");
 	}
+
+	//-------------------------------------------------
+	//---------------- ITEMS --------------------------
+	//-------------------------------------------------
+
+	function get_log_modificacion_componentes()
+	{
+		$sql = "	SELECT l.momento as momento,
+						l.usuario as usuario,	
+						coalesce(o.nombre, i.nombre) as componente_nombre,
+						l.objeto_proyecto as componente_proyecto,
+						coalesce(CAST(l.objeto as text), l.item) as componente_id,
+						coalesce(c.editor_proyecto,'toba') as editor_proyecto, 
+						coalesce(c.editor_item,'/admin/items/editor_items') as editor_item,
+						c.icono as icono_tipo_componente, 
+						l.observacion as observacion
+					FROM apex_log_objeto l
+					LEFT OUTER JOIN 
+						apex_objeto o INNER JOIN apex_clase c ON (o.clase = c.clase AND o.clase_proyecto = c.proyecto)
+						ON (o.proyecto = l.objeto_proyecto AND o.objeto = l.objeto)
+					LEFT OUTER JOIN
+						apex_item i ON (l.item = i.item)
+					WHERE objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+					ORDER BY momento DESC;";	
+		return consultar_fuente($sql, "instancia");
+	}
+
 }
 ?>
