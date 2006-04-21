@@ -346,7 +346,8 @@ class dao_editores
 			'objeto_ei_filtro' 			=> array('toba', '1535'),
 			'objeto_ei_formulario' 		=> array('toba', '1534'),
 			'objeto_ei_formulario_ml' 	=> array('toba', '1536'),			
-			'objeto_ei_arbol' 			=> array('toba', '1610'),			
+			'objeto_ei_arbol' 			=> array('toba', '1610'),	
+			'objeto_cn'					=> array('toba', '1610'),
 		);
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			

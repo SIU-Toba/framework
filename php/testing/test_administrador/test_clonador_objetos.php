@@ -28,7 +28,7 @@ class test_clonador_objetos extends test_toba
 		//--- Verificación
 		$meta_objeto = constructor_toba::get_info( array('proyecto' => $clon['proyecto'],
 													'componente'=> $clon['objeto']) );
-		$this->assertEqual($nuevo_nombre, $meta_objeto->nombre_largo());
+		$this->assertEqual($nuevo_nombre, $meta_objeto->get_nombre_largo());
 		$this->assertTrue(is_numeric($clon['objeto']));
 		$this->assertNotEqual($clon['objeto'], $id);		
 	}
@@ -83,6 +83,10 @@ class test_clonador_objetos extends test_toba
 		$this->probar_objeto("1646");
 	}
 	
+	function test_clonar_cn()
+	{
+		$this->probar_objeto("1000005");		
+	}
 	
 }
 

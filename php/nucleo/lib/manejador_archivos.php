@@ -29,6 +29,17 @@ class manejador_archivos
 		return (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 	}	
 	
+	/**
+	 * Similar al file_exists de php pero incluye al include_path en la búsqueda
+	 */
+    static function existe_archivo_en_path($file)
+    {
+        $fp = @fopen($file, 'r', true);
+        $ok = ($fp) ? true : false;
+        @fclose($fp);
+        return $ok;
+    }
+	
 	static function path_a_windows($nombre)
 	{
 		$nombre = str_replace('/', "\\", $nombre);	

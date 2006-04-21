@@ -3,6 +3,7 @@ require_once('nucleo/browser/clases/objeto_ci.php');
 require_once('reporter_toba.php');
 require_once('lista_casos.php');
 require_once("nucleo/lib/reflexion/archivo_php.php");
+require_once("nucleo/lib/manejador_archivos.php");
 
 class casos_web extends objeto_ci
 {
@@ -82,8 +83,10 @@ class casos_web extends objeto_ci
 					$test->run(new reporter_toba());
 					
 					//--- COBERTURA DE CODIGO (OPCIONAL) ----
-					if (function_exists("xdebug_start_code_coverage")) {
-						require_once('PHPUnit2/Util/CodeCoverage/Renderer.php');
+					$arch = 'PHPUnit2/Util/CodeCoverage/Renderer.php';
+					manejador_archivos::existe_archivo_en_path($arch);
+					if (function_exists("xdebug_start_code_coverage") && $existe) {
+						require_once($arch);
 						$cubiertos = xdebug_get_code_coverage();
 						//Se limpian las referencias a simpletest y a librerias de testing en gral.
 						$archivos = array();
