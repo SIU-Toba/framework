@@ -113,12 +113,13 @@ class objeto_ei_esquema extends objeto_ei
 		$status = 0;
 		exec($llamada . " 2>&1 ", $salida, $status);
 		if ($status !== 0) {
-			if ($status == 1) {
-				echo "Para poder visualizar el esquema debe instalar
-					<a href='http://www.graphviz.org/Download.php' target='_blank'>GraphViz</a> y reiniciar el servidor web.";
-			}
-			unlink($grafico);
-			throw new excepcion_toba(implode("\n", $salida));
+			$ayuda = parser_ayuda::parsear("[wiki:Referencia/Objetos/ei_esquema esquema]");
+			echo "Recuerde que para poder visualizar el $ayuda debe instalar
+					<a href='http://www.graphviz.org/Download.php' target='_blank'>GraphViz</a> en el servidor.";
+			echo "<pre>";
+			echo implode("\n", $salida);
+			echo "</pre>";
+			toba::get_logger()->error(implode("\n", $salida));
 		}
 		
 		//Se elimina el archivo .dot

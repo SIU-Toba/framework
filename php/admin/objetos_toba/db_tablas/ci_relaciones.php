@@ -158,9 +158,9 @@ class ci_relaciones extends objeto_ci
 		$hay_ciclos = objeto_datos_relacion::hay_ciclos($tablas, $relaciones);
 		if ($hay_ciclos) {
 			$this->informar_msg("El esquema de relaciones actual contiene ciclos. ".
-								"En un esqema con ciclos el mecanismo de sincronización no puede" .
-								" encontrar un orden de sincronización sin violar las constraints de la BD. ".
-								 " El mecanismo de persistencia necesita deshabilitarlas hasta el final de la transacción."
+								"En un esquema con ciclos el mecanismo de sincronización no puede" .
+								" encontrar automaticamente un orden sin violar las constraints de la BD. ".
+								 " Se recomienda deshabilitar el chequeo de constraints hasta el final de la transacción."
 								 , "info");
 		}
 		//ei_arbol($tabla->get_filas(),"FILAS");

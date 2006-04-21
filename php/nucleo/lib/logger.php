@@ -21,6 +21,7 @@ class logger
 {
 	const separador = "-o-o-o-o-o-";
 	const fin_encabezado = "==========";
+	const limite_mensaje = 100000; //100 KB
 	static private $instancia;
 	private $ref_niveles;
 	private $proyecto_actual;
@@ -112,7 +113,14 @@ class logger
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
 		if ($nivel <= $this->nivel_maximo) {
-			$this->mensajes[$this->proximo] = $this->extraer_mensaje($mensaje);
+			$msg = $this->extraer_mensaje($mensaje);
+			if (strlen($msg) > self::limite_mensaje) {
+				$msg = substr($msg, 0, self::limite_mensaje).
+						"..TEXTO CORTADO POR EXCEDER EL LIMITE DE ".
+						self::limite_mensaje.
+						" bytes";
+			}	
+			$this->mensajes[$this->proximo] = $msg;
 			$this->niveles[$this->proximo] = $nivel;
 			if (!isset($proyecto)) {
 				//Se hace estatica para poder loguear antes de construido el hilo
@@ -194,7 +202,13 @@ class logger
 				$html .= "\t</li>\n";
 			}
     	}
-    	$html .= "\t</ul>";		
+    	$html .= "\t</ul>";
+    	//--- Una traza no puede exceder la mitad del limite de todo el mensaje
+		if (strlen($html) > self::limite_mensaje/2) {
+			$html = substr($html, 0, self::limite_mensaje/2).
+					"\nTRAZA CORTADA POR EXCEDER EL LIMITE DE ".
+					self::limite_mensaje/2 . " bytes";
+		}
     	return $html;
 	}
 	
