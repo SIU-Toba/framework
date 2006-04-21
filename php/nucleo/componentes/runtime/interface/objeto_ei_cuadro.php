@@ -311,7 +311,12 @@ class objeto_ei_cuadro extends objeto_ei
 				eval($sentencia);
 			}
 		}
-		if(isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0) )
+		if (isset($this->datos) && !is_array($this->datos)) {
+			throw new excepcion_toba_def( $this->get_txt() . 
+					" El parametro para cargar el cuadro posee un formato incorrecto:" .
+						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+		}
+		if (isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0) )
 		{
 			$this->validar_estructura_datos();
 			// - 2 - Paginacion
@@ -339,11 +344,14 @@ class objeto_ei_cuadro extends objeto_ei
 	private function validar_estructura_datos()
 	{
 		$muestra = $this->datos[0];
-		//ei_arbol($muestra);
-		$error = array();
-		foreach($this->estructura_datos as $columna){
-			if(!isset($muestra[$columna])){
-				$error[] = $columna;
+		if (!is_array($muestra)) {
+			$error = array_values($this->estructura_datos);
+		} else {
+			$error = array();
+			foreach($this->estructura_datos as $columna){
+				if(!isset($muestra[$columna])){
+					$error[] = $columna;
+				}
 			}
 		}
 		if(count($error)>0){

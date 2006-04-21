@@ -54,7 +54,9 @@ class archivo_php
 			exec("$cmd $archivo");
 		} else {
 			$archivo = manejador_archivos::path_a_unix($this->nombre);
+			$archivo = str_replace(" ", "\\ ", $archivo);
 			$fp = popen("$cmd $archivo", 'r');
+			echo "$cmd $archivo";
 			pclose($fp);
 		}
 	}
