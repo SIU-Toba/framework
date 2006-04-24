@@ -115,24 +115,26 @@ class hilo
 				throw new excepcion_toba_def("No puede utilizarse la palabra 'toba' como nombre de celda");
 			}
 		}
-		//Guardo el FLAG que indica si se accedio por el menu
-		if(isset($_GET[apex_hilo_qs_menu])) {
-			$this->acceso_menu = true;
-		} else {
-			$this->acceso_menu = false;
+		if (isset($this->parametros[apex_hilo_qs_servicio])) {
+			$this->servicio = $this->parametros[apex_hilo_qs_servicio];
+			unset($this->parametros[apex_hilo_qs_servicio]);
 		}
-		if (isset($_GET[apex_hilo_qs_servicio])) {
-			$this->servicio = $_GET[apex_hilo_qs_servicio];
-		}
-		if (isset($_GET[apex_hilo_qs_objetos_destino])) {
-			$objetos = $_GET[apex_hilo_qs_objetos_destino];
+		if (isset($this->parametros[apex_hilo_qs_objetos_destino])) {
+			$objetos = $this->parametros[apex_hilo_qs_objetos_destino];
 			$lista_obj = explode(",", $objetos);
 			$this->objetos_destino = array();
 			foreach ($lista_obj as $obj) {
 				$this->objetos_destino[] = explode(apex_qs_separador, $obj);
 			}
-
+			unset($this->parametros[apex_hilo_qs_servicio]);
+		}		
+		//Guardo el FLAG que indica si se accedio por el menu
+		if (isset($_GET[apex_hilo_qs_menu])) {
+			$this->acceso_menu = true;
+		} else {
+			$this->acceso_menu = false;
 		}
+
 		$this->inicializar_memoria();
  	}
 

@@ -21,12 +21,22 @@ class encriptador
 		
 	function cifrar($no_encriptado, $clave="get")
 	{
-		return $this->motor->Encrypt($no_encriptado,$this->clave[$clave]);
+		$cifrado = $this->motor->Encrypt($no_encriptado,$this->clave[$clave]);
+		if ($clave == 'get') {
+			return urlencode($cifrado);
+		} else {
+			return $cifrado;	
+		}
 	}
 	
 	function descifrar($encriptado, $clave="get")
 	{
-		return  $this->motor->Decrypt($encriptado,$this->clave[$clave]);
+		$descifrado = $this->motor->Decrypt($encriptado,$this->clave[$clave]);
+		if ($clave == 'get') {
+			return urldecode($descifrado);
+		} else {
+			return $descifrado;	
+		}		
 	}
 }
 ?>
