@@ -62,7 +62,7 @@ class info_datos_tabla extends info_componente
 							$datos[$a]['elemento_formulario'] = 'ef_editable_numero';
 							break;
 						case 'N':
-							$datos[$a]['elemento_formulario'] = 'ef_editable_numero_moneda';
+							$datos[$a]['elemento_formulario'] = 'ef_editable_numero';
 							break;
 						case 'F':
 							$datos[$a]['elemento_formulario'] = 'ef_editable_fecha';
