@@ -287,5 +287,57 @@ class nucleo extends elemento_modelo
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
+	
+	//------------------------------------------------------------------------
+	//-- PARSEO de los EDITORES ----------------------------------------------
+	//------------------------------------------------------------------------
+	function parsear_editores(instancia $instancia)
+	{
+		require_once("admin/db/dao_editores.php");
+		//--- Se busca el CI asociado a cada clase
+		$sql = "SELECT 
+					c.clase,
+				 	o.proyecto,
+					o.objeto
+				FROM
+					apex_clase c,
+					apex_item_objeto io,
+					apex_objeto o
+				WHERE
+					c.clase IN ('". implode("','", dao_editores::get_clases_validas() ) ."')	AND
+					c.proyecto = 'toba' AND
+					c.editor_item = io.item AND				-- Se busca el item editor
+					c.editor_proyecto = io.proyecto AND
+					io.objeto = o.objeto AND				-- Se busca el CI del item
+					io.proyecto = o.proyecto AND
+					o.clase = 'objeto_ci'";
+		$rs = $instancia->get_db()->consultar($sql);
+		
+		$clase_php = new clase_datos( "datos_editores" );		
+		foreach ($rs as $datos) {
+			//--- Se buscan las pantallas asociadas a un CI especifico
+			$this->manejador_interface->mensaje("Procesando " . $datos['clase'] . "...");
+			$sql = "
+				SELECT
+					pant.identificador,
+					pant.etiqueta,
+					pant.imagen
+				FROM
+					apex_objeto_ci_pantalla pant
+				WHERE
+						pant.objeto_ci_proyecto = '{$datos['proyecto']}' 
+					AND pant.objeto_ci = '{$datos['objeto']}' 
+				ORDER BY pant.orden
+			";
+			$pantallas = $instancia->get_db()->consultar($sql);
+			$clase_php->agregar_metodo_datos( 'get_pantallas_'.$datos['clase'] , $pantallas );
+		}
+		$dir = toba_dir()."/php/nucleo/componentes/info";
+		$clase_php->guardar( $dir.'/datos_editores.php' );
+	}
+	
+	
+	
+	
 }
 ?>

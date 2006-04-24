@@ -417,9 +417,11 @@ class ef_editable_numero extends ef_editable
 	{
 		$parametros = ef_editable::get_parametros();
 		unset($parametros['tamano']);
-		$parametros["cifras"]["descripcion"]="Cantidad maxima de caracteres.";
+		$parametros["maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox. Es recomendable utilizar <b>Rango</b> en su lugar.";
+		$parametros["maximo"]["etiqueta"]="(obsoleto) Max. Caract.";
+		$parametros["cifras"]["descripcion"]="Tamaño visual ";
 		$parametros["cifras"]["opcional"]=1;	
-		$parametros["cifras"]["etiqueta"]="Cantidad de cifras";
+		$parametros["cifras"]["etiqueta"]="Cifras a mostrar";
 		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]";
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores";
@@ -528,7 +530,6 @@ if( !(ereg_numero.test(formulario.". $this->id_form .".value)) ){
 			return $val_padre;
 		}
 	}
-
 	
 	function parametros_js()
 	{

@@ -168,20 +168,27 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				'plegado' => true																		
 			);
 		}
-		if (isset($this->datos['info_eventos'])) {
-			$iconos[] = array(
-				'imagen' => recurso::imagen_apl('reflexion/evento.gif', false),
-				'ayuda' => 'Editar los [wiki:Referencia/Eventos eventos del objeto].',
-				'vinculo' => $this->vinculo_editor(array('etapa' => 3)),
-				'plegado' => true
-			);
-		}
-		if(isset($this->datos['info']['clase_editor_proyecto'])) {
+		if (isset($this->datos['info']['clase_editor_proyecto'])) {
+			require_once("datos_editores.php");
+			$metodo = "get_pantallas_".$this->datos['info']['clase'];
+			$pantallas = call_user_func(array("datos_editores", $metodo));
+			//-- Se incluye un vinculo a cada pantalla encontrada
+			$ayuda = "<div style=float:right>";
+			foreach ($pantallas as $pantalla) {
+				$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
+				$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
+				$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
+							" title='".$pantalla['etiqueta']."'>".
+							recurso::imagen_apl($img, true).
+							'</a> ';
+			}
+			$ayuda .= "</div>";
+			$ayuda = str_replace("'", "\\'", $ayuda);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
-				'ayuda' => "Editar propiedades del OBJETO",
+				'ayuda' => $ayuda,
 				'vinculo' => $this->vinculo_editor()
-			);
+			);			
 		}
 		return $iconos;	
 	}

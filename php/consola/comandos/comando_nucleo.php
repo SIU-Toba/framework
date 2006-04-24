@@ -38,5 +38,15 @@ class comando_nucleo extends comando_toba
 		$instancia = $this->get_instancia();
 		$this->get_nucleo()->exportar( $instancia );
 	}
+	
+	/**
+	 * Actualiza los objetos info en base a los editores de los objetos
+	 */
+	function opcion__parsear_editores()
+	{
+		//Tomo la referencia a la instancia
+		$instancia = $this->get_instancia();
+		$this->get_nucleo()->parsear_editores( $instancia );		
+	}
 }
 ?>
