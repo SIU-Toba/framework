@@ -2,15 +2,11 @@
 
 class tablas_instancia
 {
-	static function get_lista_proyecto()
+	static function get_lista_global()
 	{
 		return array (
-  0 => 'apex_et_item',
-  1 => 'apex_et_objeto',
-  2 => 'apex_et_preferencias',
-  3 => 'apex_arbol_items_fotos',
-  4 => 'apex_admin_album_fotos',
-  5 => 'apex_ap_tarea_usuario',
+  0 => 'apex_revision',
+  1 => 'apex_instancia',
 );
 	}
 
@@ -25,6 +21,18 @@ class tablas_instancia
 	{
 		return array (
   0 => 'apex_usuario_proyecto',
+);
+	}
+
+	static function get_lista_proyecto()
+	{
+		return array (
+  0 => 'apex_arbol_items_fotos',
+  1 => 'apex_admin_album_fotos',
+  2 => 'apex_ap_tarea_usuario',
+  3 => 'apex_et_item',
+  4 => 'apex_et_objeto',
+  5 => 'apex_et_preferencias',
 );
 	}
 
@@ -52,78 +60,46 @@ class tablas_instancia
 );
 	}
 
-	static function get_lista_global()
+	static function apex_revision()
 	{
 		return array (
-  0 => 'apex_revision',
-  1 => 'apex_instancia',
-);
-	}
-
-	static function apex_et_item()
-	{
-		return array (
-  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
+  'archivo' => 'pgsql_a00_instancia.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_where' => '(item_proyecto =\\\'%%\\\')',
-  'dump_order_by' => 'usuario, item',
-  'zona' => 'entorno_trabajo',
-  'desc' => 'Portafolios de items',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'revision',
+  'zona' => 'general',
+  'desc' => 'Especifica la revision del SVN con que se creo el proyecto',
   'version' => '1.0',
   'instancia' => '1',
   'columnas' => 
   array (
-    0 => 'item_proyecto',
-    1 => 'item',
-    2 => 'usuario',
-    3 => 'creacion',
+    0 => 'revision',
+    1 => 'creacion',
   ),
 );
 	}
 
-	static function apex_et_objeto()
+	static function apex_instancia()
 	{
 		return array (
-  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
+  'archivo' => 'pgsql_a00_instancia.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_where' => '(objeto_proyecto =\\\'%%\\\')',
-  'dump_order_by' => 'usuario, objeto',
-  'zona' => 'entorno_trabajo',
-  'desc' => 'Portafolios de objetos',
-  'version' => '1.0',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'instancia',
   'instancia' => '1',
+  'zona' => 'general',
+  'desc' => 'Datos de la instancia',
+  'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_proyecto',
-    1 => 'objeto',
-    2 => 'usuario',
-    3 => 'creacion',
-  ),
-);
-	}
-
-	static function apex_et_preferencias()
-	{
-		return array (
-  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_where' => '(usuario_proyecto =\\\'%%\\\')',
-  'dump_order_by' => 'usuario',
-  'zona' => 'entorno_trabajo',
-  'desc' => 'Portafolios de Item',
-  'version' => '1.0',
-  'instancia' => '1',
-  'columnas' => 
-  array (
-    0 => 'usuario_proyecto',
-    1 => 'usuario',
-    2 => 'listado_obj_pref',
-    3 => 'listado_item_pref',
-    4 => 'item_proyecto',
-    5 => 'item',
+    0 => 'instancia',
+    1 => 'version',
+    2 => 'institucion',
+    3 => 'observaciones',
+    4 => 'administrador_1',
+    5 => 'administrador_2',
+    6 => 'administrador_3',
+    7 => 'creacion',
   ),
 );
 	}
@@ -543,46 +519,70 @@ class tablas_instancia
 );
 	}
 
-	static function apex_revision()
+	static function apex_et_item()
 	{
 		return array (
-  'archivo' => 'pgsql_a00_instancia.sql',
+  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
   'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'revision',
-  'zona' => 'general',
-  'desc' => 'Especifica la revision del SVN con que se creo el proyecto',
+  'dump' => 'multiproyecto',
+  'dump_where' => '(item_proyecto =\\\'%%\\\')',
+  'dump_order_by' => 'usuario, item',
+  'zona' => 'entorno_trabajo',
+  'desc' => 'Portafolios de items',
   'version' => '1.0',
   'instancia' => '1',
   'columnas' => 
   array (
-    0 => 'revision',
-    1 => 'creacion',
+    0 => 'item_proyecto',
+    1 => 'item',
+    2 => 'usuario',
+    3 => 'creacion',
   ),
 );
 	}
 
-	static function apex_instancia()
+	static function apex_et_objeto()
 	{
 		return array (
-  'archivo' => 'pgsql_a00_instancia.sql',
+  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
   'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'instancia',
-  'instancia' => '1',
-  'zona' => 'general',
-  'desc' => 'Datos de la instancia',
+  'dump' => 'multiproyecto',
+  'dump_where' => '(objeto_proyecto =\\\'%%\\\')',
+  'dump_order_by' => 'usuario, objeto',
+  'zona' => 'entorno_trabajo',
+  'desc' => 'Portafolios de objetos',
   'version' => '1.0',
+  'instancia' => '1',
   'columnas' => 
   array (
-    0 => 'instancia',
-    1 => 'version',
-    2 => 'institucion',
-    3 => 'observaciones',
-    4 => 'administrador_1',
-    5 => 'administrador_2',
-    6 => 'administrador_3',
-    7 => 'creacion',
+    0 => 'objeto_proyecto',
+    1 => 'objeto',
+    2 => 'usuario',
+    3 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_et_preferencias()
+	{
+		return array (
+  'archivo' => 'pgsql_a09_entorno_trabajo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_where' => '(usuario_proyecto =\\\'%%\\\')',
+  'dump_order_by' => 'usuario',
+  'zona' => 'entorno_trabajo',
+  'desc' => 'Portafolios de Item',
+  'version' => '1.0',
+  'instancia' => '1',
+  'columnas' => 
+  array (
+    0 => 'usuario_proyecto',
+    1 => 'usuario',
+    2 => 'listado_obj_pref',
+    3 => 'listado_item_pref',
+    4 => 'item_proyecto',
+    5 => 'item',
   ),
 );
 	}
