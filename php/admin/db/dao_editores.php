@@ -399,12 +399,13 @@ class dao_editores
 	{
 		$sql = "	SELECT l.momento as momento,
 						l.usuario as usuario,	
-						'[' || coalesce(CAST(l.objeto as text), l.item) || '] ' || coalesce(o.nombre, i.nombre) as componente_nombre,
+						'[' || coalesce(CAST(l.objeto as text), '...') || '] ' 
+							|| coalesce(o.nombre, i.nombre) as componente_nombre,
 						l.objeto_proyecto as componente_proyecto,
 						coalesce(CAST(l.objeto as text), l.item) as componente_id,
 						coalesce(c.editor_proyecto,'toba') as editor_proyecto, 
 						coalesce(c.editor_item,'/admin/items/editor_items') as editor_item,
-						c.icono as icono_tipo_componente, 
+						coalesce(c.icono,'items/item.gif') as icono_tipo_componente, 
 						l.observacion as observacion
 					FROM apex_log_objeto l
 					LEFT OUTER JOIN 
@@ -413,6 +414,7 @@ class dao_editores
 					LEFT OUTER JOIN
 						apex_item i ON (l.item = i.item)
 					WHERE objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+					AND ( (o.objeto IS NOT NULL) OR (i.item IS NOT NULL) ) -- no mostrar eliminados
 					ORDER BY momento DESC;";	
 		return consultar_fuente($sql, "instancia");
 	}
