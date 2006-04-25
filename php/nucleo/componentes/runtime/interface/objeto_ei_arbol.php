@@ -277,7 +277,7 @@ class objeto_ei_arbol extends objeto_ei
 			}
 			if ($cant_plegados > 0) {
 				$img = recurso::imagen_apl("expandir_izq.gif",true);
-				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);'>$img</a>";
+				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);return false'>$img</a>";
 				$salida .= "<span style='display:none'>$plegados</span>";
 			}
 			$salida .= $despl;

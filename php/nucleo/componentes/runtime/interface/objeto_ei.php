@@ -210,10 +210,16 @@ class objeto_ei extends objeto
 										$this->eventos[$id]['accion_vinculo_item'],
 										$this->eventos[$id]['accion_vinculo_popup'],
 										$this->eventos[$id]['accion_vinculo_popup_param'] );
+				if( $this->eventos[$id]['accion_vinculo_celda'] ) {
+					$vinculo->set_opciones(array('celda_memoria'=>$this->eventos[$id]['accion_vinculo_celda']));	
+				}
+				if( $this->eventos[$id]['accion_vinculo_target'] ) {
+					$vinculo->set_target($this->eventos[$id]['accion_vinculo_target']);
+				}
 				// ventana de modificacion del vinculo
-				$nombre_filtro = 'interceptar_vinculo__' . $id;
+				$nombre_filtro = 'modificar_vinculo__' . $id;
 				if ( method_exists($this, $nombre_filtro) ) {
-					$vinculo = $this->$nombre_filtro( $vinculo );
+					$this->$nombre_filtro( $vinculo );
 				}
 				// Registro el vinculo en el vinculador
 				$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );

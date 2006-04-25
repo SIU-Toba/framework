@@ -12,12 +12,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 {
 	protected $datos;
 	protected $lista_ef_totales = array();
-	protected $clave_seleccionada;					//Id de la fila seleccionada
+	protected $clave_seleccionada;				//Id de la fila seleccionada
 	protected $siguiente_id_fila;				//Autoincremental que se va a asociar al ef que identifica una fila
 	protected $filas_recibidas;					//Lista de filas recibidas desde el ci
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
-	protected $ordenes;							//Ordenes de las claves de los datos recibidos
+	protected $ordenes = array();				//Ordenes de las claves de los datos recibidos
 	protected $hay_registro_nuevo=false;		//¿La proxima pantalla muestra una linea en blanco?
 
 	function __construct($id)

@@ -617,8 +617,13 @@ class vinculador
 	function obtener_javascript()
 	{
 		foreach( $this->vinculos as $id => $vinculo ) {
-			$opciones['validar'] = false;
-			if($vinculo->estado_popup() == 1){
+			$opciones = $vinculo->get_opciones();
+			if( !isset( $opciones['validar']) ) {
+				//Por defecto los vinculos no se validan.
+				$opciones['validar'] = false;
+			}
+			if( (!isset($opciones['celda_memoria'])) && ($vinculo->estado_popup() == 1) ) {
+				//Accion preventiva para que los popups no se carguen en la celda de la operacion
 				$opciones['celda_memoria'] = 'popup';
 			}
 			$datos['url'] = $this->crear_vinculo( 	$vinculo->get_proyecto(),
@@ -627,6 +632,7 @@ class vinculador
 													$opciones	);
 			$datos['popup'] = $vinculo->estado_popup();
 			$datos['popup_parametros'] = $vinculo->get_popup_parametros();
+			$datos['target'] = $vinculo->get_target();
 			$datos_js = js::arreglo($datos, true);
 			echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 		}

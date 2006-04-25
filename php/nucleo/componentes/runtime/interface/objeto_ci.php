@@ -999,6 +999,7 @@ class objeto_ci extends objeto_ei
 		echo "<table width='100%' class='tabla-0'>\n";
 		echo "<tr>";
 		//echo "<td width='1'  class='tabs-solapa-hueco'>".gif_nulo(6,1)."</td>";
+		$id_tab = 1;
 		foreach( $this->lista_tabs as $id => $tab )
 		{
 			$tip = $tab["tip"];
@@ -1011,6 +1012,7 @@ class objeto_ci extends objeto_ei
 			}
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
+			if(!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');\"";
 			if( $this->etapa_gi == $id ){
 				//TAB actual
@@ -1025,6 +1027,7 @@ class objeto_ci extends objeto_ei
 				echo "</td>\n";
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}
+			$id_tab++;
 		}
 		echo "<td width='90%'  class='tabs-solapa-hueco'>".gif_nulo()."</td>\n";
 		echo "</tr>";

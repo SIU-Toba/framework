@@ -72,7 +72,7 @@ function mostrar_ocultar_frame() {
 
 		<td class='listado-tabi'>
         <a href="<? echo $this->vinculador->generar_solicitud("toba","3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
-        <? echo recurso::imagen_apl("actividad_local.gif",true,null,null,"Ver LOGS de actividad local") ?></a></td>
+        <? echo recurso::imagen_apl("actividad_local.gif",true,null,null,"LOG de modificacion de componentes") ?></a></td>
 
 
 <? 	$centro = $this->hilo->obtener_item_inicial(); ?>

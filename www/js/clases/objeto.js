@@ -66,7 +66,7 @@ def.constructor = objeto;
 	}
 	
 	def.invocar_vinculo = function(id_evento, id_vinculo) {
-		var funciv = 'interceptar_vinculo__' + id_evento;
+		var funciv = 'modificar_vinculo__' + id_evento;
 		if (existe_funcion(this, funciv)) {
 			this[funciv](id_vinculo);
 		} else {

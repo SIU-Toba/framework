@@ -20,12 +20,13 @@ class migracion_0_9_1 extends migracion_toba
 
 	function instancia__cambios_estructura()
 	{
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_carpeta varchar(60)";
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_item varchar(60)";
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_objeto int4";
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_popup smallint";
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_popup_param varchar(100)";
-		$sql[] = "ALTER TABLA apex_objeto_eventos ADD COLUMN accion_vinculo_target varchar(60)";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_carpeta varchar(60)";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_item varchar(60)";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_objeto int4";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_popup smallint";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_popup_param varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_target varchar(40)";
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_celda varchar(40)";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 }

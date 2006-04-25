@@ -399,7 +399,7 @@ class dao_editores
 	{
 		$sql = "	SELECT l.momento as momento,
 						l.usuario as usuario,	
-						coalesce(o.nombre, i.nombre) as componente_nombre,
+						'[' || coalesce(CAST(l.objeto as text), l.item) || '] ' || coalesce(o.nombre, i.nombre) as componente_nombre,
 						l.objeto_proyecto as componente_proyecto,
 						coalesce(CAST(l.objeto as text), l.item) as componente_id,
 						coalesce(c.editor_proyecto,'toba') as editor_proyecto, 

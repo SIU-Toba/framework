@@ -205,7 +205,6 @@ var vinculador =
 	},
 	
 	invocar : function(identificador, parametros_extra) {
-		//ei_arbol(this._vinculos[identificador]);
 		if (typeof hacer_submit == 'undefined') {
 			url = this._vinculos[identificador]['url'];
 		} else {
@@ -214,7 +213,12 @@ var vinculador =
 		if (this._vinculos[identificador]['popup'] == '1' ) {
 			abrir_popup('cambiar_esto',url,this._vinculos[identificador]['popup_parametros']);
 		} else {
-			document.location.href = url;
+			if( this._vinculos[identificador]['target'] != '' ) {
+				idtarget = this._vinculos[identificador]['target']
+				window.parent.frames[idtarget].document.location.href = url;
+			} else {
+				document.location.href = url;
+			}
 		}
 	}
 }

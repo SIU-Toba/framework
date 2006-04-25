@@ -4,7 +4,9 @@ class vinculo
 {
 	private $item;
 	private $proyecto;
-	private $parametros;
+	private $parametros;// = array();
+	private $opciones;// = array();
+	private $target;
 	private $popup = 0;
 	private $popup_parametros;
 
@@ -60,6 +62,21 @@ class vinculo
 		return $this->parametros;	
 	}
 
+	function set_opciones($datos)
+	{
+		$this->opciones = $datos;
+	}
+	
+	function get_opciones()
+	{
+		return $this->opciones;
+	}
+
+	function agregar_opcion($clave, $valor)
+	{
+		$this->opciones[$clave] = $valor;
+	}
+
 	function activar_popup()
 	{
 		$this->popup = 1;	
@@ -83,6 +100,16 @@ class vinculo
 	function get_popup_parametros()
 	{
 		return $this->popup_parametros;	
+	}
+	
+	function set_target($id)
+	{
+		$this->target = $id;	
+	}
+	
+	function get_target()
+	{
+		return $this->target;	
 	}
 }
 ?>

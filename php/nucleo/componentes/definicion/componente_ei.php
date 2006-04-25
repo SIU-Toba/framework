@@ -34,7 +34,9 @@ class componente_ei extends componente_toba
 												accion_vinculo_item			,
 												accion_vinculo_objeto		,
 												accion_vinculo_popup		,
-												accion_vinculo_popup_param	
+												accion_vinculo_popup_param	,
+												accion_vinculo_celda,
+												accion_vinculo_target
 									FROM	apex_objeto_eventos
 									WHERE	proyecto='$proyecto' ";
 		if ( isset($componente) ) {
