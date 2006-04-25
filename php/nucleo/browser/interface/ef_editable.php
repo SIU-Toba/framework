@@ -418,16 +418,17 @@ class ef_editable_numero extends ef_editable
 		$parametros = ef_editable::get_parametros();
 		unset($parametros['tamano']);
 		unset($parametros['maximo']);
-		$parametros["maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox incluyendo simbolos de puntuación, comas, decimales, etc.";
+		$mas = '<br>Ver [wiki:Referencia/efs/numero documentación de los parametros]';
+		$parametros["maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox incluyendo simbolos de puntuación, comas, decimales, etc. $mas";
 		$parametros["maximo"]["etiqueta"]="Cant. Max. Caract.";
 		$parametros["maximo"]["opcional"]=1;
-		$parametros["cifras"]["descripcion"]="Determina la cantidad de caracteres que son visibles sin scrollear";
+		$parametros["cifras"]["descripcion"]="Determina la cantidad de caracteres que son visibles sin scrollear. ".$mas;
 		$parametros["cifras"]["opcional"]=1;	
 		$parametros["cifras"]["etiqueta"]="Tamaño visual";
-		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]";
+		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. ".$mas;
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores permitidos";
-		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00";
+		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00".$mas;
 		return $parametros;
 	}
 
