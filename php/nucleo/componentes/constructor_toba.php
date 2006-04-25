@@ -5,6 +5,7 @@ class constructor_toba
 {
 	static $objetos_runtime_instanciados;		// Referencias a los objetos creados
 	static $cache_infos = array();
+	static $refresco_forzado = false;
 
 	/**
 	 * Retorna el objeto-php que representa un runtime de un componente-toba
@@ -50,6 +51,7 @@ class constructor_toba
 	 */	
 	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null, $refrescar_cache=false) 
 	{
+		$refrescar_cache = ($refrescar_cache || self::$refresco_forzado);
 		// Controla la integridad de la clave
 		catalogo_toba::control_clave_valida( $id );
 		$tipo = catalogo_toba::convertir_tipo( $tipo );
@@ -120,6 +122,11 @@ class constructor_toba
 			}
 		}
 */
+	}
+	
+	static function set_refresco_forzado($refrescar)
+	{
+		self::$refresco_forzado = $refrescar;
 	}
 }
 ?>
