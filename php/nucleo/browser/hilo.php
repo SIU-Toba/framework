@@ -95,18 +95,21 @@ class hilo
         }
 		//-[3]- Recupero los parametros
 		$this->parametros = array();
+		$this->parametros = $_GET;
+		//FALTA hacer un URL decode!!!		
 		if(apex_pa_encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
 				$encriptador = toba::get_encriptador();
-				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]),$this->parametros);
+				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]), $parametros);
+				$this->parametros = array_merge($this->parametros, $parametros);
+				unset($this->parametros[apex_hilo_qs_parametros]);
 				unset($this->parametros["jmb76"]);//Clave agregada para complicar la encriptacion
 			}
-		}else{
-			$this->parametros = $_GET;
-			unset($this->parametros[apex_hilo_qs_id]);
-			unset($this->parametros[apex_hilo_qs_item]);
-			//FALTA hacer un URL decode!!!
 		}
+		unset($this->parametros[apex_hilo_qs_id]);
+		unset($this->parametros[apex_hilo_qs_item]);
+		
+		
 		//MEMORIA: Averiguo cual es la CELDA de memoria activa para este REQUEST
 		if(isset($this->parametros[apex_hilo_qs_celda_memoria])){
 			$this->celda_memoria_actual = $this->parametros[apex_hilo_qs_celda_memoria];
