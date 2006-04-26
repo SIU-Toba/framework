@@ -74,12 +74,20 @@ class nucleo_toba
 		}		
 	}
 
-	function acceso_consola()
+	function acceso_consola($instancia, $proyecto, $item, $usuario)
 	{
 		try {
+			//---- Registra la solicitud en la base
+			define("apex_pa_registrar_solicitud","db");// VALORES POSIBLES: nunca, siempre, db
+			//---- Guarda el benchmark de la generacion del item
+			define("apex_pa_registrar_cronometro","db");//VALORES POSIBLES: nunca, siempre, db
+			# Nivel de log a ARCHVO
+			define("apex_pa_log_archivo",1);
+			define("apex_pa_log_archivo_nivel",2);			
+			define('apex_pa_instancia', $instancia);
 			define("apex_solicitud_tipo","consola");                //Establezco el tipo de solicitud		
 			require_once("nucleo/solicitud_consola.php");
-			$this->solicitud = new solicitud_consola();
+			$this->solicitud = new solicitud_consola($proyecto, $item, $usuario);
 			$this->procesar();
 			exit( $this->solicitud->obtener_estado_proceso() );
 		} catch (excepcion_toba $e) {

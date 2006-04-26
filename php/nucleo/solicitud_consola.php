@@ -6,40 +6,9 @@ class solicitud_consola extends solicitud
 	var $debug;	//Modo debug activado
 	var $estado_proceso;
 
-	function solicitud_consola()
+	function solicitud_consola($proyecto, $item, $usuario)
 	{
-		global $argv;
-		//--[ 1 ]--  Recupero parametros OBLIGATORIOS
-	    //print_r($argv);exit();
-	    $invocacion = " INVOCACION CORRECTA:   ". $argv[0] . " instancia usuario proyecto item [parametros]\n";
-	    //-- INSTANCIA --
-		if(isset($argv[1])){
-	        define("apex_pa_instancia",$argv[1]);
-		}else{
-	        echo " ERROR: Es necesario especificar un INSTANCIA\n";
-			fwrite(STDERR, $invocacion );
-	        exit(3);
-	    }
-	    //-- USUARIO --
-		if(isset($argv[2])){
-	        $usuario = $argv[2];
-		}else{
-	        echo " ERROR: Es necesario especificar un USUARIO\n";
-			fwrite(STDERR, $invocacion );
-	        exit(3);
-	    }
-	    //-- ITEM (proyecto/item) --
-		if((isset($argv[3]))&&(isset($argv[4])))
-		{
-	        $proyecto = $argv[3];
-	        $item[0] = $proyecto;// Proyecto del ITEM
-			$item[1] = $argv[4];// Clave del ITEM
-		}else{  //ITEM por DEFECTO.
-	        echo " ERROR: Es necesario especificar un ITEM\n";
-			fwrite(STDERR, $invocacion );
-	        exit(2);
-	    }
-	    $this->info = self::get_definicion_item($item[0], $item[1]);
+	    $this->info = self::get_definicion_item($proyecto, $item);
 	    
 		//--[ 2 ]-- Si el tipo de solicitud es WEB, emulo el ambiente
 		//if( $this->tipo_solicitud() == "browser" )
@@ -64,27 +33,6 @@ class solicitud_consola extends solicitud
 	function controlar_permisos()
 	{
 		return array(true, "No se chequean permisos en el acceso por consola");			
-	}
-//--------------------------------------------------------------------------------------------
-
-	function procesar()
-	//Atrapo las llamadas a la ayuda... sino proceso
-	{
-/*
-		//Si el item no es del proyecto toba se debe incluir el proyecto en el include path e invocar a inicializacion.php
-		$proyecto = $this->info["item_proyecto"];		
-		if ($proyecto != "toba") {
-			$actual = __FILE__;
-			$dir_toba = substr($actual,0,strpos($actual,"toba")). "toba"; 	//Borra todo desde "toba" 
-			$dir_toba = str_replace("\\", "/", $dir_toba);					//Cambia limitadores a formato unix
-	
-			$dir_proyecto = $dir_toba."/proyectos/$proyecto/php";
-			$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
-			ini_set("include_path", ini_get("include_path"). $separador . $dir_proyecto);
-			include_once("inicializacion.php");
-		}
-*/
-		parent::procesar();
 	}
 //--------------------------------------------------------------------------------------------
 
