@@ -188,27 +188,30 @@ var vinculador =
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}
 		if (typeof parametros != 'undefined') {
-			vinc = this.agregar_parametros(vinc, parametros);
+			vinc = this.concatenar_parametros_url(vinc, parametros);
 		}
 		return vinc;
 	},
 	
-	agregar_parametros : function(vinculo, parametros) {
+	concatenar_parametros_url : function(vinculo, parametros) {
 		for (var i in parametros) {
 			vinculo += '&' + i + '=' + encodeURI(parametros[i]);
 		}
 		return vinculo;
 	},
+
+	//--------------------------------------------------
+	// Manejo de vinculos registrados en PHP
+	//--------------------------------------------------
 	
-	agregar_vinculo : function(identificador, datos) {
-		this._vinculos[ identificador ] = datos;
-	},
-	
-	invocar : function(identificador, parametros_extra) {
-		if (typeof hacer_submit == 'undefined') {
+	invocar : function(identificador) {
+		if (typeof this._vinculos[identificador] == 'undefined') return;
+		if (this._vinculos[identificador]['activado'] != 1) return;	//Desactivado
+		if (typeof this._vinculos[identificador]['parametros'] == 'undefined') {
 			url = this._vinculos[identificador]['url'];
 		} else {
-			url = this.agregar_parametros( this._vinculos[identificador]['url'], parametros_extra);
+			url = this.concatenar_parametros_url( 	this._vinculos[identificador]['url'],
+													this._vinculos[identificador]['parametros'] );
 		}
 		if (this._vinculos[identificador]['popup'] == '1' ) {
 			abrir_popup('cambiar_esto',url,this._vinculos[identificador]['popup_parametros']);
@@ -220,5 +223,25 @@ var vinculador =
 				document.location.href = url;
 			}
 		}
+	},
+
+	agregar_parametros: function(identificador, parametros) {
+		if (typeof this._vinculos[identificador] == 'undefined') return;
+		this._vinculos[identificador]['parametros']	= parametros;	
+	},
+
+	desactivar_vinculo : function(identificador) {
+		if (typeof this._vinculos[identificador] == 'undefined' ) return;
+		this._vinculos[identificador]['activado'] = 0;
+	},
+
+	activar_vinculo : function(identificador) {
+		if (typeof this._vinculos[identificador] == 'undefined' ) return;
+		this._vinculos[identificador]['activado'] = 1;
+	},
+	
+	// A travez de este metodo el vinculador de PHP habla con el de JS.
+	agregar_vinculo : function(identificador, datos) {
+		this._vinculos[ identificador ] = datos;
 	}
 }

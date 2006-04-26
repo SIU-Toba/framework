@@ -9,6 +9,7 @@ class vinculo
 	private $target;
 	private $popup = 0;
 	private $popup_parametros;
+	private $popup_parametros_validos = array('width','height','scrollbars','resizable');
 
 	function __construct($proyecto=null, $item=null, $popup=null, $opciones_popup=null)
 	{

@@ -633,6 +633,7 @@ class vinculador
 			$datos['popup'] = $vinculo->estado_popup();
 			$datos['popup_parametros'] = $vinculo->get_popup_parametros();
 			$datos['target'] = $vinculo->get_target();
+			$datos['activado'] = 1;
 			$datos_js = js::arreglo($datos, true);
 			echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 		}

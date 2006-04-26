@@ -72,7 +72,7 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades, autovinculo)
 				  scope: this,
 				  argument: nodo
 				}
-				var vinculo = vinculador.agregar_parametros(this._autovinculo, {'id_nodo':id_nodo});
+				var vinculo = vinculador.concatenar_parametros_url(this._autovinculo, {'id_nodo':id_nodo});
 				conexion.asyncRequest('GET', vinculo, callback, null);
 			} else {
 				this.toggle_expansion(nodo, ul);

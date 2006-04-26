@@ -66,12 +66,12 @@ def.constructor = objeto;
 	}
 	
 	def.invocar_vinculo = function(id_evento, id_vinculo) {
+		// Busco la extension de modificacin de vinculos
 		var funciv = 'modificar_vinculo__' + id_evento;
 		if (existe_funcion(this, funciv)) {
 			this[funciv](id_vinculo);
-		} else {
-			vinculador.invocar(id_vinculo);
 		}
+		vinculador.invocar(id_vinculo);
 	}
 
 	//----------------------------------------------------------------  
