@@ -26,6 +26,11 @@ class http
 		header('Content-type: application/pdf');
 		header('Content-Disposition: attachment; filename="downloaded.pdf"');
 	}
+	
+	static function encoding()
+	{
+		header('Content-Type: text/html; charset=iso-8859-1');
+	}
 
 	function headers_standart()
 	//Manejo standart de headers
@@ -34,6 +39,7 @@ class http
 		//	cuando la pagina anterior fue solicitada con un POST y se presiona el boton BACK
 		//	se muestra un mensaje de pagina caducada y un usuario puede pensar que es un error del sistema
 		//	Este error de transparencia del cache esta comentado en el RFC del HTTP 
+		http::encoding();
 		if( acceso_post() ){
 			if(!headers_sent()){
 				http::cache();
