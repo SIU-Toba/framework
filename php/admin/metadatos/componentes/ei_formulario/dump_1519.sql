@@ -59,7 +59,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 sql: SELECT solicitud_tipo, descripcion_corta 
 FROM apex_solicitud_tipo 
 WHERE solicitud_tipo <> \'fantasma\'
-ORDER BY 1;', '5', 'Tipo de solicitud', NULL, NULL, NULL, NULL, NULL, '0');
+ORDER BY 1;', '5', 'Tipo de solicitud', NULL, 'El [wiki:Referencia/Solicitud Tipo de Solicitud] marca desde que ambiente se puede solicitar el item y que clases/funciones habrá disponible para esa ejecución. Usualmente son solicitudes Web.', NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba', '1519', '1523', 'zona', 'ef_combo_db_proyecto', 'zona_proyecto, zona', NULL, 'no_seteado: Ninguna;
 sql: SELECT proyecto, zona, nombre
 FROM apex_item_zona %w%

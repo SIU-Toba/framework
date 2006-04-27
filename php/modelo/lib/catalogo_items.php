@@ -52,7 +52,7 @@ class catalogo_items
 		if (isset($opciones['solo_carpetas']) && $opciones['solo_carpetas'] == 1) {
 			$filtro_items .= "	AND i.carpeta = 1";
 		}
-
+		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		$sql_base = componente_item::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['info']['sql'];
@@ -83,11 +83,12 @@ class catalogo_items
 	function debe_cargar_todo($opciones)
 	{
 		return (isset($opciones['id']) && $opciones['id'] != '') ||
-				isset($opciones['nombre']) && $opciones['nombre'] != '' ||
+				(isset($opciones['nombre']) && $opciones['nombre'] != '') ||
 				isset($opciones['inaccesibles']) ||
 				isset($opciones['sin_objetos']) ||
 				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
-				isset($opciones['menu']);
+				isset($opciones['menu']) || 
+				isset($opciones['tipo_solicitud']);
 	}
 	
 	protected function debe_cargar_en_profundidad($id_item)
@@ -120,6 +121,7 @@ class catalogo_items
 			$this->dejar_items_inaccesibles();
 		}		
 		
+		//--- Con/Sin Objetos
 		if (isset($opciones['sin_objetos'])) {
 			$this->dejar_items_sin_objetos();
 		}
@@ -128,6 +130,11 @@ class catalogo_items
 				$this->dejar_items_con_objeto($opciones['objeto']);
 			}
 		}
+		
+		//--- Tipo de Solicitud
+		if (isset($opciones['tipo_solicitud'])) {
+			$this->dejar_items_con_tipo_solicitud($opciones['tipo_solicitud']);
+		}		
 	}
 
 	//------------------------------------PROPIEDADES --------------------------------------------------------			
@@ -261,6 +268,17 @@ class catalogo_items
 			}
 		}
 		$this->dejar_ramas_con_items($encontrados);				
+	}
+	
+	function dejar_items_con_tipo_solicitud($tipo)
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if ($item->tipo_solicitud() == $tipo) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);			
 	}
 	
 	/**

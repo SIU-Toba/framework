@@ -28,7 +28,7 @@ class comando_item extends comando_toba
 			throw new excepcion_toba("Es necesario definir una ITEM. Utilice el modificador '-t'");
 		}
 		$item = $param['-t'];
-		
+
 		require_once("nucleo/toba.php");
 		toba::get_nucleo()->acceso_consola($id_instancia,$id_proyecto, $item, $usuario);
 	}	
