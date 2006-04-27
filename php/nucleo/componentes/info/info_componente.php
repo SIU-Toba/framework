@@ -169,26 +169,29 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			);
 		}
 		if (isset($this->datos['info']['clase_editor_proyecto'])) {
-			require_once("datos_editores.php");
-			$metodo = "get_pantallas_".$this->datos['info']['clase'];
-			$pantallas = call_user_func(array("datos_editores", $metodo));
-			//-- Se incluye un vinculo a cada pantalla encontrada
-			$ayuda = "<div style=float:right>";
-			foreach ($pantallas as $pantalla) {
-				$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
-				$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
-				$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
-							" title='".$pantalla['etiqueta']."'>".
-							recurso::imagen_apl($img, true).
-							'</a> ';
+			$ayuda = null;
+			if (in_array($this->datos['info']['clase'], dao_editores::get_clases_validas())) {
+				require_once("datos_editores.php");
+				$metodo = "get_pantallas_".$this->datos['info']['clase'];
+				$pantallas = call_user_func(array("datos_editores", $metodo));
+				//-- Se incluye un vinculo a cada pantalla encontrada
+				$ayuda = "<div style=float:right>";
+				foreach ($pantallas as $pantalla) {
+					$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
+					$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
+					$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
+								" title='".$pantalla['etiqueta']."'>".
+								recurso::imagen_apl($img, true).
+								'</a> ';
+				}
+				$ayuda .= "</div>";
+				$ayuda = str_replace("'", "\\'", $ayuda);
 			}
-			$ayuda .= "</div>";
-			$ayuda = str_replace("'", "\\'", $ayuda);
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
 				'ayuda' => $ayuda,
 				'vinculo' => $this->vinculo_editor()
-			);			
+			);
 		}
 		return $iconos;	
 	}

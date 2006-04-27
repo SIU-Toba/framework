@@ -391,7 +391,7 @@ class ci_analizador extends objeto_ci
 		
 		//¿Contiene una traza?		
 		if ($pos_traza !== false) {
-			$txt_anterior = substr($txt, 0, $pos_traza);
+			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
 			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
 			$txt = "$txt_anterior <span class='admin-logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
 		} elseif ($salto !== false) {
