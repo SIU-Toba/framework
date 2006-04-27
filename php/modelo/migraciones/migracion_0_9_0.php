@@ -153,11 +153,11 @@ class migracion_0_9_0 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion varchar(1)";
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_imphtml_debug smallint";		
 		//Datos Relacion
-		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN debug smallint DEFAULT(0)";
-		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN sinc_susp_constraints smallint DEFAULT(0)";
-		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN sinc_orden_automatico smallint DEFAULT(1)";
+		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN debug smallint;";
+		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN sinc_susp_constraints smallint;";
+		$sql[] = "ALTER TABLE apex_objeto_datos_rel ADD COLUMN sinc_orden_automatico smallint;";
 		//Objeto_ei_esquema
-		$sql[] = "ALTER TABLE apex_objeto_esquema ADD COLUMN dirigido smallint DEFAULT(1)";
+		$sql[] = "ALTER TABLE apex_objeto_esquema ADD COLUMN dirigido smallint;";
 		
 		$this->elemento->get_db()->ejecutar($sql);
 		$this->elemento->get_db()->ejecutar_archivo( toba_dir() . '/php/modelo/ddl/pgsql_a22_permisos.sql' );		
