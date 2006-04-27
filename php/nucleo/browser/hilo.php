@@ -95,7 +95,10 @@ class hilo
         }
 		//-[3]- Recupero los parametros
 		$this->parametros = array();
-		$this->parametros = $_GET;
+		foreach (array_keys($_GET) as $clave) {
+			$this->parametros[utf8_decode($clave)] = utf8_decode($_GET[$clave]);
+		}
+//		$this->parametros = $_GET;
 		//FALTA hacer un URL decode!!!		
 		if(apex_pa_encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
