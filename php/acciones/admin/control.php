@@ -1,4 +1,5 @@
 <?
+	include_once("nucleo/browser/interface/ef.php");
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
@@ -23,6 +24,9 @@ function mostrar_ocultar_frame() {
 	}
 }
 </script>
+<?php
+echo form::abrir("multiproyecto",$this->hilo->cambiar_proyecto(),"target = '_top'");
+?>
 <table width='100%'  class='tabla-0' >
 <tr><td class='listado-barra-superior'><? echo gif_nulo(1,4) ?></td></tr>
 <tr><td  class='listado-barra-superior'>
@@ -39,10 +43,8 @@ function mostrar_ocultar_frame() {
 <?
 	if(apex_pa_proyecto=="multi")
 	{
-		include_once("nucleo/browser/interface/ef.php");
 		//Si estoy en modo MULTIPROYECTO muestro un combo para cambiar a otro proyecto,
 		//sino muestro el nombre del proyecto ACTUAL
-		echo form::abrir("multiproyecto",$this->hilo->cambiar_proyecto(),"target = '_top'");
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$parametros["sql"] = "SELECT 	p.proyecto, 
                 						p.descripcion_corta
@@ -60,7 +62,6 @@ function mostrar_ocultar_frame() {
 		echo "<td class='listado-barra-superior-tabi'>";
         echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false));
         echo "</td>";
-		echo form::cerrar();
 	}else{
 		$proyecto = ereg_replace("-","_",apex_pa_proyecto);
 		echo "<td class='listado-barra-superior-tabn'>";
@@ -144,3 +145,6 @@ function mostrar_ocultar_frame() {
 </td></tr>
 <tr><td  class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
 </table>
+<?php
+echo form::cerrar();
+?>

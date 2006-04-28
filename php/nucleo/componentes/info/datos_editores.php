@@ -68,8 +68,8 @@ class datos_editores
   1 => 
   array (
     'identificador' => '2',
-    'etiqueta' => 'Elementos de Formulario',
-    'imagen' => NULL,
+    'etiqueta' => 'Elementos (efs)',
+    'imagen' => 'objetos/efs.gif',
   ),
   2 => 
   array (
@@ -194,14 +194,14 @@ class datos_editores
   0 => 
   array (
     'identificador' => '1',
-    'etiqueta' => 'Propiedades básicas',
+    'etiqueta' => 'Propiedades basicas',
     'imagen' => 'objetos/datos_tabla.gif',
   ),
   1 => 
   array (
     'identificador' => '2',
     'etiqueta' => 'Columnas',
-    'imagen' => 'objetos/columna.gif',
+    'imagen' => NULL,
   ),
 );
 	}
@@ -212,7 +212,7 @@ class datos_editores
   0 => 
   array (
     'identificador' => 'prop_basicas',
-    'etiqueta' => 'Propiedades básicas',
+    'etiqueta' => 'Propiedades basicas',
     'imagen' => 'objetos/datos_relacion.gif',
   ),
   1 => 

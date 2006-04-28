@@ -119,8 +119,9 @@ class form {
     static function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton")
     // Boton con html embebido
     {
-		$acceso = recurso::ayuda($tecla, $tip);
-        return  "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' class='$clase' tabindex='$tab' $acceso $extra>".
+		$acceso = recurso::ayuda($tecla, $tip, $clase);
+		$tab = (isset($tab) && $tab != 0) ? "tab_index='$tab'" : "";
+        return  "<button type='$tipo' name='$nombre' id='$nombre' value='$valor' $tab $acceso $extra>".
 				"$html</button>\n";
     }
 
@@ -140,14 +141,14 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    static function abrir($nombre,$action,$extra="",$method="POST",$upload=true)
+    static function abrir($nombre,$action,$extra="",$method="post",$upload=true)
     {
         // Dejo el upload por defecto, asi no tengo que dejar una puerta para
         // cuando se necesita en los consumidores (particularmente el MT).
         // Aparentemente no tiene ningun efecto negativo...
         if($upload){
             $enctype="multipart/form-data";
-            $method="POST";//Post obligado en este caso
+            $method="post";//Post obligado en este caso
         }else{
             $enctype="application/x-www-form-urlencoded";
         }

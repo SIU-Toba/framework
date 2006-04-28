@@ -165,7 +165,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
 				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central'),
-				'plegado' => true																		
+				'plegado' => true
 			);
 		}
 		if (isset($this->datos['info']['clase_editor_proyecto'])) {

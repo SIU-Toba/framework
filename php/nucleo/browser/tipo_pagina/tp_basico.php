@@ -53,7 +53,7 @@ class tp_basico extends tipo_pagina
 	
 	protected function encoding()
 	{
-		echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n";
+		echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"/>\n";
 	}
 
 	protected function plantillas_css()

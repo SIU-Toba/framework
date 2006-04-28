@@ -196,7 +196,6 @@ class tp_normal extends tp_basico
 			//--- Actualiza el link del logger mostrando la cant. de mensajes generados
 			$cant = toba::get_logger()->get_cantidad_mensajes();
 			echo js::ejecutar("actualizar_logger('$cant');");
-			echo js::cerrar();
 		}
 		parent::pie();	
 	}
