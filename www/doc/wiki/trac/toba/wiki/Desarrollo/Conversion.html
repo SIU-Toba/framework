@@ -1,0 +1,146 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+ <title>Desarrollo/Conversion - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Conversion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+<body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="../../wiki.html">Start Page</a></li>
+  <li><a href="../TitleIndex.html">Title Index</a></li>
+  <li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
+  
+   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Conversion?action=history">Page History</a></li>
+  
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><p>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Desarrollo.html">Desarrollo</a> / Conversion
+</p>
+<h1 id="Esquemadeconversiónentreversiones">Esquema de conversión entre versiones</h1>
+<p>
+<i>Nota: En todos los lugares donde dice convertir o conversion, podría ser migrar o migración</i>
+</p>
+<h2 id="Utilización">Utilización</h2>
+<p>
+Se necesita hacer modificaciones tanto a la instalación (por ej. modificar algo de los .ini de la carpeta instalacion), a la instancia (por ej. modificar datos de los usuarios) como a proyectos.
+</p>
+<p>
+El esquema de conversión debería poder llevar toda una instalación desde una versión a otra. El pasaje puede ser automático o el usuario puede seleccionar que salto específico dar y sobre que dominio (instalación, instancia o proyectos)
+</p>
+<p>
+Al ser tres conceptos incluidos (un proyecto está dentro de una instancia que está en una instalación) y para facilitar la invocación de los comandos se puede suponer que funcionan en forma recursiva, lo ideal es beneficiar al caso más común en donde un desarrollador necesita migrar los proyectos que tiene en su instancia hacia una versión más nueva, sin conocer detalles de donde estaba y hacia donde va:
+</p>
+<pre class="wiki">instalacion convertir
+</pre>
+<p>
+Este comando detecta las versiones desde y hasta en forma automática y las aplica sobre la misma instalación, sus instancias y los proyectos de la instancia.
+</p>
+<p>
+Luego casos menos comunes donde se quiere forzar convertir partes específicas se necesita saber cual era la versión actual y cual a la que se va a convertir.
+</p>
+<pre class="wiki">toba instalacion convertir -d 0.8 -h 0.9 -R0
+toba instancia convertir -d 0.9 -h 0.9.1
+toba proyecto convertir -p mi_proyecto -d 0.8 -h 0.9.1
+</pre>
+<p>
+El desde y hasta serían opcionales sino los averigua automáticamente. El -R implica si es o no recursivo, es decir si la instalacion también aplica sobre las instancias ( en el caso de la instancia si aplica sobre sus proyecto). Por defecto es recursivo (-R1). Muchas combinaciones no van a tener sentido, pero quedaría para casos en donde uno sabe que cosas hace una conversión y quiere correrla en forma específica. Por ejemplo el caso de conversion a md5 de las claves, quizás dentro de 6 meses uno se topa con una instancia que por alguna razon tiene los passwords planos (bug en algún lado o simplemente decidieron crear los usuarios así). Se puede aplicar la conversión en la instancia únicamente desde la version 0.8.4 a la 0.9 en forma no recursiva:
+</p>
+<pre class="wiki">toba instancia convertir -d 0.9
+</pre>
+<p>
+Sería algo así como la forma de bajo nivel de hacer la migración.
+</p>
+<h2 id="Deteccióndeversionesdesdeyhasta">Detección de versiones desde y hasta</h2>
+<p>
+La versión hasta se puede asumir que es la que tiene la nueva instalación, un archivo VERSION (versionado en el SVN).
+</p>
+<ul><li>Instalación: La instalación en sí no sabe cual era la versión de la instalación anterior... y no se me ocurre una forma de saberlo (antes de hacer el switch habria que guardarlo en algún lado, pero es feo). Puede elegirse la versión menor de todas las instancias cargadas sino pedir que explicitamente se diga desde donde.
+</li><li>Instancia: Al estar en la base cargada la instancia es posible saber cual es su número actual con el campo version de la tabla apex_instancia.
+</li><li>Proyectos: Se puede asumir que está en la versión que tiene la instancia o sino incluir un campo en apex_proyecto "version_toba". Tener este campo permitiría hacer migraciones automáticas en instancias con proyectos que ya tienen migraciones aplicadas (caso admin de toba).
+</li></ul><h2 id="Creacióndeunaconversión">Creación de una conversión</h2>
+<p>
+La conversión hacia una versión desde la anterior puede ser:
+</p>
+<ul><li>Un único archivo con tres clases: conv_instalacion_08, conv_instancia_08 y conv_proyecto_08
+</li><li>Un único archivo y una única clase conversion_08 y los métodos que comienzan con instalacion, instancia o proyecto
+</li><li>Tres archivos con su clase
+</li></ul><p>
+En el caso de ser un único archivo evitaría tener que crear una carpeta por versión sino cada versión de toba tiene una carpeta de conversión en $toba_dir/php/modelo/conversion.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Desarrollo/Conversion?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+</html>
+
