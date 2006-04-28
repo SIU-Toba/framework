@@ -79,8 +79,8 @@ class solicitud_web extends solicitud
 	protected function cargar_objetos()
 	{
 		toba::get_logger()->seccion("Cargando objetos...", 'toba');
+		$this->cis = array();		
 		if ($this->info_objetos > 0) {
-			$this->cis = array();
 			$i = 0;
 			//Construye los objetos ci y el cn
 			foreach ($this->info_objetos as $objeto) {
