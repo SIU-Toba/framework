@@ -782,7 +782,8 @@ class ef_combo_db extends ef_combo
 // "sql": SQL que genera la lista (EL sql debe devolver dos columnas: clave, descripcion)
 // "no_seteado": Valor que representa el estado de NO activado
 {
-	var $sql;
+	var $plantilla_sql;
+	protected $sql;
 	var $fuente;
 	protected $dependencias_opcionales = false;
 
@@ -803,9 +804,10 @@ class ef_combo_db extends ef_combo
 
 	function ef_combo_db($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		if(!($this->sql = stripslashes($parametros["sql"]) )){
+		if(!($this->plantilla_sql = stripslashes($parametros["sql"]) )){
 			monitor::evento("bug","COMBO DB: SQL Vacio.");
 		}
+		$this->sql = $this->plantilla_sql;
         if((isset($parametros["fuente"]))&&(trim($parametros["fuente"])!="")){
     		$this->fuente = $parametros["fuente"];
             unset($parametros["fuente"]);
@@ -827,7 +829,9 @@ class ef_combo_db extends ef_combo
 		}
 		
 	}
+	
 
+	
 	function cargar_datos_db()
 	{
 		$this->valores = array();//Limpio la lista de valores
@@ -851,7 +855,7 @@ class ef_combo_db extends ef_combo
 		if(isset($this->sql)){
 			//1) Reescribo el SQL con los datos de las dependencias	
 			foreach($this->dependencias_datos as $dep => $valor){
-				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->sql);
+				$this->sql = ereg_replace(apex_ef_dependenca.$dep.apex_ef_dependenca,$valor,$this->plantilla_sql);
 			}
 			//echo $this->id . " - " . $this->sql;
 			//2) Regenero la consulta a la base
