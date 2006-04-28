@@ -251,8 +251,18 @@ var def = ef_editable_fecha.prototype;
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
 		ef_editable.prototype.set_solo_lectura.call(this, solo_lectura);
 		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
-	}	
+	}
 	
+//--------------------------------------------------------------------------------
+//Clase ef_editable_multilinea hereda de ef_editable
+ef_editable_multilinea.prototype = new ef_editable;
+var def = ef_editable_multilinea.prototype;
+def.constructor = ef_editable_multilinea;
+
+	function ef_editable_multilinea(id_form, etiqueta, obligatorio, colapsado, masc, maximo)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		this._maximo = maximo;
+	}	
 	
 //--------------------------------------------------------------------------------	
 toba.confirmar_inclusion('interface/ef_editable');

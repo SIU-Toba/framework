@@ -412,23 +412,21 @@ class calendario extends activecalendar
 	
 	function viernes($semana, $anio)
 	{
-		$anio_actual = $this->mkActiveTime(0, 0, 0, 1, 1, $anio); 
-		$sabado = $anio_actual + (60*60*24*7*$semana);
-		$viernes = $sabado - (60*60*24);
-		return $viernes; 
+		$ts_semana  = strtotime('+' . $semana . ' weeks', strtotime($anio . '0101'));
+		$ajuste = 5 - date('w', $ts_semana);
+		$ts_viernes = strtotime($ajuste . ' days', $ts_semana);
+		
+		if (date('W', $ts_viernes) == $semana)
+			return $ts_viernes;
+		else // se pasó a la semana siguiente
+			return strtotime('-7 days', $ts_viernes);
 	}
 
 	
 	function compare_week($week, $year)
 	{
 		$viernes = $this->viernes($week, $year);
-		$fecha_hoy = $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday);
-		if ($viernes < $fecha_hoy)
-			return -1;
-		elseif ($viernes > $fecha_hoy)
-			return 1;
-		else
-			return 0;	
+		return $this->compare_date($viernes);
 	}
 
 	function mkWeek($date, $objeto_js, $eventos)
@@ -459,12 +457,11 @@ class calendario extends activecalendar
 	
 	function compare_date($day)
 	{
-		$fecha_comp = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->actmonth,$day,$this->actyear));
-		$fecha_hoy = $this->mkActiveDate("Y-m-d", $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday));
-		
-		if ($fecha_comp < $fecha_hoy)
+		$fecha_hoy = $this->mkActiveTime(0,0,1,$this->monthtoday,$this->daytoday,$this->yeartoday);
+	
+		if ($day < $fecha_hoy)
 			return -1;
-		elseif ($fecha_comp > $fecha_hoy)
+		elseif ($day > $fecha_hoy)
 			return 1;
 		else
 			return 0;	
@@ -482,37 +479,37 @@ class calendario extends activecalendar
 		
 		$evento_js = eventos::a_javascript('seleccionar_dia', $eventos["seleccionar_dia"], "{$day}||{$this->actmonth}||{$this->actyear}");
 		$js = "{$objeto_js}.set_evento($evento_js);";
-
-			if ($this->compare_date($var) == 1)
-				$out="<td class=\"".$this->cssSunday."\">".$var."</td>";		
-			elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
-				$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
-			elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
-				if (!$this->dayLinks)
-					$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
-				else
-					$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-			} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $this->getSelectedDay() < 0 && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
-				if (!$this->dayLinks)
-					$out="<td class=\"".$this->cssToday."\">".$var.$content."</td>";
-				else
-					$out="<td class=\"".$this->cssToday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-			} elseif ($this->getWeekday($var) == 0 && $this->crSunClass){
-				if (!$this->dayLinks)
-					$out="<td class=\"".$this->cssSunday."\">".$var.$content."</td>";
-				else
-					$out="<td class=\"".$this->cssSunday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-			} elseif ($this->getWeekday($var) == 6 && $this->crSatClass) {
-				if (!$this->dayLinks)
-					$out="<td class=\"".$this->cssSaturday."\">".$var.$content."</td>";
-				else	
-					$out="<td class=\"".$this->cssSaturday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-			} else {
-				if (!$this->dayLinks)
-					$out="<td class=\"".$this->cssMonthDay."\">".$var.$content."</td>";
-				else
-					$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
-			}		
+		$day = $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear);
+		if ($this->compare_date($day) == 1)
+			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";		
+		elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
+			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
+		elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
+			if (!$this->dayLinks)
+				$out="<td class=\"".$this->cssSelecDay."\">".$var.$content."</td>";
+			else
+				$out="<td class=\"".$this->cssSelecDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
+		} elseif ($var==$this->daytoday && $this->actmonth==$this->monthtoday && $this->actyear==$this->yeartoday && $this->getSelectedDay() < 0 && $this->getSelectedMonth()==$this->monthtoday && $this->getSelectedWeek()<0) {
+			if (!$this->dayLinks)
+				$out="<td class=\"".$this->cssToday."\">".$var.$content."</td>";
+			else
+				$out="<td class=\"".$this->cssToday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
+		} elseif ($this->getWeekday($var) == 0 && $this->crSunClass){
+			if (!$this->dayLinks)
+				$out="<td class=\"".$this->cssSunday."\">".$var.$content."</td>";
+			else
+				$out="<td class=\"".$this->cssSunday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
+		} elseif ($this->getWeekday($var) == 6 && $this->crSatClass) {
+			if (!$this->dayLinks)
+				$out="<td class=\"".$this->cssSaturday."\">".$var.$content."</td>";
+			else	
+				$out="<td class=\"".$this->cssSaturday."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
+		} else {
+			if (!$this->dayLinks)
+				$out="<td class=\"".$this->cssMonthDay."\">".$var.$content."</td>";
+			else
+				$out="<td class=\"".$this->cssMonthDay."\"style='cursor: pointer;cursor:hand;' onclick=\"$js\">".$var.$content."</td>";
+		}		
 
 		return $out;
 	}

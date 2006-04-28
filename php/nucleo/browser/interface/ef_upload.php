@@ -23,10 +23,15 @@ class ef_upload extends ef
 	function obtener_input()
 	{
 		$estado = $this->obtener_estado_input();
+		if (is_array($estado))
+			$nombre_archivo = isset($estado['name']) ? $estado['name'] : current($estado);
+		else
+			$nombre_archivo = $estado;
+			
 		$salida = "";
-		if (!  $this->solo_lectura) {
-			if (isset($estado) && $estado != '') {
-				$salida .= "	<script  type='text/javascript' language='javascript'>
+		if (! $this->solo_lectura) {
+			if (isset($nombre_archivo)) {
+				$salida .= "<script  type='text/javascript' language='javascript'>
 							function cambiar(){
 								if (document.getElementById('{$this->id_form}_check').checked == true) {
 									//Lo va a cambiar
@@ -39,16 +44,21 @@ class ef_upload extends ef
 							}
 							</script>\n";
 				$salida .= form::archivo($this->id_form, null, "ef-input-upload", "style='display:none'");
-				$salida .= 	"<div id='{$this->id_form}_desicion' class='ef-upload-desc'> $estado </div>";
-				$salida .= 	"<span style='white-space:nowrap'><input name='{$this->id_form}_check' id='{$this->id_form}_check' onclick='cambiar()' type='checkbox' value='1' class='ef-checkbox'>". 
-							"<label for='{$this->id_form}_check' style='font-weight:normal'>Cambiar el Archivo</span></label>";
+				$salida .= 	"<div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
+				$salida .= 	"<span style='white-space:nowrap'><input name='{$this->id_form}_check' id='{$this->id_form}_check'
+							onclick='cambiar()' type='checkbox' value='1' class='ef-checkbox'>
+							<label for='{$this->id_form}_check' style='font-weight:normal'>Cambiar el Archivo</span></label>";
 			} else {
 				$salida = form::archivo($this->id_form);
 				$salida .= form::hidden($this->id_form."_check", 1);
 			}
-		} else {
-			$salida .= "<div class='ef-upload-desc'>$estado</div>";
+		} else { // En modo sólo lectura
+			if (isset($nombre_archivo))
+				$salida = "<div class='ef-upload-desc'>". $nombre_archivo ."</div>";
+			else
+				$salida = form::archivo($this->id_form, null, "ef-input-upload", "disabled='disabled'");
 		}
+
 		return $salida;
 	}
 	

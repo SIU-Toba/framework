@@ -834,7 +834,10 @@ class ef_editable_multilinea extends ef_editable
 		$parametros["filas"]["etiqueta"]="Lineas";	
 		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
 		$parametros["columnas"]["opcional"]=1;	
-		$parametros["columnas"]["etiqueta"]="Largo";	
+		$parametros["columnas"]["etiqueta"]="Largo";
+		$parametros["maximo"]["descripcion"]="Cantidad máxima de caracteres (por defecto igual a [tamano]).";
+		$parametros["maximo"]["opcional"]=1;	
+		$parametros["maximo"]["etiqueta"]="Max. Caract.";
 		$parametros["wrap"]["descripcion"]="";
 		$parametros["wrap"]["opcional"]=1;	
 		$parametros["wrap"]["etiqueta"]="Wrap";	
@@ -886,6 +889,8 @@ class ef_editable_multilinea extends ef_editable
 			$this->resaltar = 0;
 		}
 		$parametros["tamano"] = isset($parametros["columnas"]) ? $parametros["columnas"] : 40;
+		if(isset($parametros["maximo"]) && $parametros["maximo"]!="")
+			$this->maximo = $parametros["maximo"];
 		$this->ajustable = isset($parametros["ajustable"]) ? $parametros["ajustable"] : false;
 		unset($parametros["filas"]);
 		unset($parametros["columnas"]);
@@ -910,7 +915,7 @@ class ef_editable_multilinea extends ef_editable
 		if ($this->ajustable)
 			$consumo[] = "interface/resizeTa";
 		return $consumo;
-	}	
+	}
 	//---------------------------------------------------------
 
 	function obtener_input()
@@ -924,7 +929,24 @@ class ef_editable_multilinea extends ef_editable
 				$javascript = " onclick='javascript: document.".$this->nombre_formulario . "." . $this->id_form.".select()'";
 				$html .= form::button($this->id_form . "_res", "Seleccionar", $javascript );
 			}
-			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript );
+			if($this->maximo) {
+				if (strlen($this->estado) > $this->maximo)
+					$this->estado = substr($this->estado, 0, $this->maximo);
+				$html .= "
+				<script  type='text/javascript' language='javascript'>
+					function multilinea_validar()
+					{
+						var elem = document.{$this->nombre_formulario}.{$this->id_form};
+						var maximo = {$this->maximo};
+						if (typeof maximo != 'undefined' && elem.value.length > maximo) {
+							elem.value = elem.value.substring(0, maximo);
+						}
+					}
+				</script>
+				";
+				$this->javascript .= "onkeydown='multilinea_validar()' onkeyup='multilinea_validar()'";
+			}
+			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript);
 			if ($this->ajustable) {
 				$html .= js::abrir();
 				$html .= "resizeTa.agregar_elemento(document.getElementById('{$this->id_form}'));";
