@@ -583,8 +583,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		if($this->info_formulario["scroll"]){
 			$alto_maximo = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
-			if ($ancho != 'auto') {
-				echo "<div style='overflow: auto; width: $ancho; border: 1px inset; margin: 0px; padding: 0px;'>";
+			if ($ancho != 'auto' || $alto_maximo != 'auto') {
+				echo "<div style='overflow: auto; width: $ancho; height: $alto_maximo; border: 1px inset; margin: 0px; padding: 0px;'>";
 			} else {
 				echo "<div>";
 			}
@@ -608,7 +608,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		echo "<tfoot>\n";
 		$this->generar_formulario_pie($colspan);
 		echo "</tfoot>\n";	
-		echo "<tbody style='max-height:$alto_maximo'>";		
+		echo "<tbody>";		
 		$this->generar_formulario_cuerpo();
 		echo "</tbody>\n";		
 		echo "\n</table>\n</div>";
