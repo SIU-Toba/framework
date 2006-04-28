@@ -27,6 +27,7 @@ class migracion_0_9_1 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_popup_param varchar(100)";
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_target varchar(40)";
 		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN accion_vinculo_celda varchar(40)";
+		$sql[] = "ALTER TABLE apex_log_objeto ADD COLUMN item varchar(60)";
 		$this->elemento->get_db()->ejecutar($sql);
 	}	
 }
