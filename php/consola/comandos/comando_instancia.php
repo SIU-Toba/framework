@@ -150,18 +150,26 @@ class comando_instancia extends comando_toba
 		}
 		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
 		$instancia->set_version( instalacion::get_version_actual());
-		$datos = $this->definir_usuario( "Crear USUARIO" );
-		//print_r( $datos );
-		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
-		foreach( $instancia->get_proyectos() as $proyecto ) {
-			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
-			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
-		}
+		$this->opcion__crear_usuario();
 
 		//---- D: Exporto la informacion LOCAL
 		$instancia->exportar_local();
 	}
 
+	/**
+	 * Crea un usuario administrador y lo asigna a los proyectos
+	 */
+	function opcion__crear_usuario()
+	{
+		$instancia = $this->get_instancia();		
+		$datos = $this->definir_usuario( "Crear USUARIO" );
+		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
+		foreach( $instancia->get_proyectos() as $proyecto ) {
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
+		}		
+	}
+	
 	/**
 	*	Crea una instancia en base a la informacion del sistema de archivos de otra 
 	*	(La instancia 'origen' se especifica con el parametro '-o')
