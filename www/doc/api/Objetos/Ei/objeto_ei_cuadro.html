@@ -209,6 +209,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodmantener_estado_sesion">mantener_estado_sesion</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_clave">obtener_clave</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_clave_fila">obtener_clave_fila</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_clave_fila_array">obtener_clave_fila_array</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_clave_seleccionada">obtener_clave_seleccionada</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_datos">obtener_datos</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_cuadro.html#methodobtener_datos_paginados">obtener_datos_paginados</a></li>
@@ -287,6 +288,12 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$info_eventos">objeto_ei::$info_eventos</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$utilizar_impresion_html">objeto_ei::$utilizar_impresion_html</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -589,7 +596,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_evento_defecto">objeto_ei::set_evento_defecto()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Fuerza que el evento sea implicito en este objeto (no necesita de intervención del usuario para lanzarse)</span>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_grupo_eventos_activo">objeto_ei::set_grupo_eventos_activo()</a></span>
@@ -1258,6 +1265,11 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#obtener_clave_fila_array" title="details" class="method-name">obtener_clave_fila_array</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#obtener_clave_seleccionada" title="details" class="method-name">obtener_clave_seleccionada</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">En caso de existir una fila seleccionada, retorna su clave</td></tr>
@@ -1356,7 +1368,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 												</div>
 		<div class="info-box-body">
 			<a name="var$acumulador" id="$acumulador"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1380,7 +1392,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$acumulador_sum_usuario" id="$acumulador_sum_usuario"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1404,7 +1416,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cantidad_columnas" id="$cantidad_columnas"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1428,7 +1440,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cantidad_columnas_extra" id="$cantidad_columnas_extra"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1452,7 +1464,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cantidad_columnas_total" id="$cantidad_columnas_total"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1476,7 +1488,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cantidad_paginas" id="$cantidad_paginas"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1500,7 +1512,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$clave_seleccionada" id="$clave_seleccionada"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1524,7 +1536,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$columnas" id="$columnas"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1548,7 +1560,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$columnas_clave" id="$columnas_clave"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1572,7 +1584,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cortes_control" id="$cortes_control"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1596,7 +1608,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cortes_def" id="$cortes_def"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1620,7 +1632,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cortes_indice" id="$cortes_indice"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1644,7 +1656,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cortes_modo" id="$cortes_modo"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1668,7 +1680,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$datos" id="$datos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1692,7 +1704,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$estructura_datos" id="$estructura_datos"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1716,7 +1728,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id_en_padre" id="$id_en_padre"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1740,7 +1752,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$orden_columna" id="$orden_columna"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1764,7 +1776,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$orden_sentido" id="$orden_sentido"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1788,7 +1800,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$pagina_actual" id="$pagina_actual"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1812,7 +1824,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$submit" id="$submit"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1836,7 +1848,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$sum_usuario" id="$sum_usuario"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1860,7 +1872,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$tamanio_pagina" id="$tamanio_pagina"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1884,7 +1896,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$tipo_salida" id="$tipo_salida"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1923,7 +1935,7 @@ Source Location: /interface/objeto_ei_cuadro.php<br /><br />
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 43]</span>
@@ -1949,10 +1961,10 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcargar_cambio_pagina" id="cargar_cambio_pagina"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_cambio_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 475]</span>
+	<span class="method-title">cargar_cambio_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 493]</span>
 </div>
 <br />
 
@@ -1973,7 +1985,7 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcargar_datos" id="cargar_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 232]</span>
@@ -2005,10 +2017,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcargar_ordenamiento" id="cargar_ordenamiento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 573]</span>
+	<span class="method-title">cargar_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 591]</span>
 </div>
 <br />
 
@@ -2029,10 +2041,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcargar_seleccion" id="cargar_seleccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
+	<span class="method-title">cargar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 347]</span>
 </div>
 <br />
 
@@ -2053,10 +2065,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodconsumo_javascript_global" id="consumo_javascript_global"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1349]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1381]</span>
 </div>
 <br />
 
@@ -2089,10 +2101,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1342]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1374]</span>
 </div>
 <br />
 
@@ -2125,10 +2137,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddeseleccionar" id="deseleccionar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
+	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 366]</span>
 </div>
 <br />
 
@@ -2149,7 +2161,7 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 151]</span>
@@ -2178,7 +2190,7 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 208]</span>
@@ -2207,10 +2219,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodexisten_cortes_control" id="existen_cortes_control"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existen_cortes_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 485]</span>
+	<span class="method-title">existen_cortes_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 503]</span>
 </div>
 <br />
 
@@ -2231,10 +2243,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodexiste_paginado" id="existe_paginado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">existe_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 413]</span>
+	<span class="method-title">existe_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 431]</span>
 </div>
 <br />
 
@@ -2255,10 +2267,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodfinalizar_ordenamiento" id="finalizar_ordenamiento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">finalizar_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 559]</span>
+	<span class="method-title">finalizar_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 577]</span>
 </div>
 <br />
 
@@ -2279,10 +2291,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodfinalizar_paginado" id="finalizar_paginado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">finalizar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 428]</span>
+	<span class="method-title">finalizar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 446]</span>
 </div>
 <br />
 
@@ -2303,10 +2315,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodfinalizar_seleccion" id="finalizar_seleccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">finalizar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 330]</span>
+	<span class="method-title">finalizar_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 338]</span>
 </div>
 <br />
 
@@ -2327,10 +2339,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_paginado" id="generar_paginado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 437]</span>
+	<span class="method-title">generar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
 </div>
 <br />
 
@@ -2351,10 +2363,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_columnas" id="get_columnas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 640]</span>
+	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 658]</span>
 </div>
 <br />
 
@@ -2382,10 +2394,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_estructura_datos" id="get_estructura_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_estructura_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 635]</span>
+	<span class="method-title">get_estructura_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 653]</span>
 </div>
 <br />
 
@@ -2413,7 +2425,7 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_lista_eventos" id="get_lista_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 195]</span>
@@ -2442,10 +2454,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_pagina_actual" id="get_pagina_actual"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_pagina_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 470]</span>
+	<span class="method-title">get_pagina_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 488]</span>
 </div>
 <br />
 
@@ -2466,10 +2478,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_tamanio_pagina" id="get_tamanio_pagina"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_tamanio_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 465]</span>
+	<span class="method-title">get_tamanio_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 483]</span>
 </div>
 <br />
 
@@ -2490,10 +2502,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhay_ordenamiento" id="hay_ordenamiento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">hay_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 592]</span>
+	<span class="method-title">hay_ordenamiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 610]</span>
 </div>
 <br />
 
@@ -2514,10 +2526,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhay_seleccion" id="hay_seleccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">hay_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 373]</span>
+	<span class="method-title">hay_seleccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 381]</span>
 </div>
 <br />
 
@@ -2538,10 +2550,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_cabecera" id="html_cabecera"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 853]</span>
+	<span class="method-title">html_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 871]</span>
 </div>
 <br />
 
@@ -2569,10 +2581,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_cabecera_cc_contenido" id="html_cabecera_cc_contenido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 918]</span>
+	<span class="method-title">html_cabecera_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 936]</span>
 </div>
 <br />
 
@@ -2602,10 +2614,10 @@ mixed
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_cabecera_pie_cc_contenido" id="html_cabecera_pie_cc_contenido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_cabecera_pie_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 998]</span>
+	<span class="method-title">html_cabecera_pie_cc_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1016]</span>
 </div>
 <br />
 
@@ -2635,10 +2647,10 @@ mixed
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_cuadro_cabecera_columna" id="html_cuadro_cabecera_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_cuadro_cabecera_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1165]</span>
+	<span class="method-title">html_cuadro_cabecera_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1197]</span>
 </div>
 <br />
 
@@ -2670,10 +2682,10 @@ $indice&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_cuadro_totales_columnas" id="html_cuadro_totales_columnas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_cuadro_totales_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1227]</span>
+	<span class="method-title">html_cuadro_totales_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1259]</span>
 </div>
 <br />
 
@@ -2699,10 +2711,10 @@ $estilo_linea = null]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_mensaje_cuadro_vacio" id="html_mensaje_cuadro_vacio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">html_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 864]</span>
+	<span class="method-title">html_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 882]</span>
 </div>
 <br />
 
@@ -2732,10 +2744,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodhtml_pie" id="html_pie"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">html_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 860]</span>
+	<span class="method-title">html_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 878]</span>
 </div>
 <br />
 
@@ -2763,10 +2775,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinicializar_generacion" id="inicializar_generacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_generacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 682]</span>
+	<span class="method-title">inicializar_generacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 700]</span>
 </div>
 <br />
 
@@ -2787,10 +2799,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinicializar_manejo_clave" id="inicializar_manejo_clave"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_manejo_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 311]</span>
+	<span class="method-title">inicializar_manejo_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 319]</span>
 </div>
 <br />
 
@@ -2811,10 +2823,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinicializar_paginado" id="inicializar_paginado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 418]</span>
+	<span class="method-title">inicializar_paginado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 436]</span>
 </div>
 <br />
 
@@ -2835,7 +2847,7 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 165]</span>
@@ -2864,10 +2876,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_clave" id="obtener_clave"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 394]</span>
+	<span class="method-title">obtener_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 412]</span>
 </div>
 <br />
 
@@ -2884,7 +2896,7 @@ $texto&nbsp;
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.3. Ver obtener_clave_seleccionada</td>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.3. Usar obtener_clave_seleccionada</td>
   </tr>
 </table>
 <br />
@@ -2895,10 +2907,10 @@ $texto&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_clave_fila" id="obtener_clave_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 378]</span>
+	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 386]</span>
 </div>
 <br />
 
@@ -2920,11 +2932,37 @@ $fila&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodobtener_clave_fila_array" id="obtener_clave_fila_array"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">obtener_clave_fila_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 399]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void obtener_clave_fila_array(
+mixed
+$fila&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodobtener_clave_seleccionada" id="obtener_clave_seleccionada"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_clave_seleccionada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 404]</span>
+	<span class="method-title">obtener_clave_seleccionada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 422]</span>
 </div>
 <br />
 
@@ -2957,7 +2995,7 @@ $fila&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 622]</span>
+	<span class="method-title">obtener_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 640]</span>
 </div>
 <br />
 
@@ -2988,7 +3026,7 @@ $fila&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_datos_paginados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 459]</span>
+	<span class="method-title">obtener_datos_paginados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 477]</span>
 </div>
 <br />
 
@@ -3038,7 +3076,7 @@ $datos&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 773]</span>
+	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 791]</span>
 </div>
 <br />
 
@@ -3072,7 +3110,7 @@ $titulo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ocultar_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 631]</span>
+	<span class="method-title">ocultar_cabecera</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 649]</span>
 </div>
 <br />
 
@@ -3103,7 +3141,7 @@ $titulo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ordenar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 597]</span>
+	<span class="method-title">ordenar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 615]</span>
 </div>
 <br />
 
@@ -3127,7 +3165,7 @@ $titulo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_cabecera_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1407]</span>
+	<span class="method-title">pdf_cabecera_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1439]</span>
 </div>
 <br />
 
@@ -3160,7 +3198,7 @@ mixed
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1401]</span>
+	<span class="method-title">pdf_mensaje_cuadro_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1433]</span>
 </div>
 <br />
 
@@ -3193,7 +3231,7 @@ $texto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pdf_pie_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1411]</span>
+	<span class="method-title">pdf_pie_corte_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1443]</span>
 </div>
 <br />
 
@@ -3226,7 +3264,7 @@ mixed
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">planificar_cortes_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 490]</span>
+	<span class="method-title">planificar_cortes_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 508]</span>
 </div>
 <br />
 
@@ -3274,7 +3312,7 @@ mixed
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
+	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 376]</span>
 </div>
 <br />
 
@@ -3312,7 +3350,7 @@ $clave&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 627]</span>
+	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 645]</span>
 </div>
 <br />
 
@@ -3343,7 +3381,7 @@ $clave&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_titulo_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 617]</span>
+	<span class="method-title">set_titulo_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 635]</span>
 </div>
 <br />
 
@@ -3377,7 +3415,7 @@ $titulo&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1360]</span>
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1392]</span>
 </div>
 <br />
 
@@ -3410,7 +3448,7 @@ $salida&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 01 Mar 2006 20:09:29 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
+		    Documentation generated on Fri, 28 Apr 2006 15:09:01 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
 	      </div>
       </td></tr></table>
     </td>

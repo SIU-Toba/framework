@@ -147,9 +147,9 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$datos_apertura">$datos_apertura</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$frame_destino">$frame_destino</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$item_propiedades">$item_propiedades</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$mostrar_raiz">$mostrar_raiz</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$nivel_apertura">$nivel_apertura</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$nodo_inicial">$nodo_inicial</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$nodos_inicial">$nodos_inicial</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#var$todos_abiertos">$todos_abiertos</a></li>
 		  		</ul>
 		</td>
 		
@@ -170,12 +170,14 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodmostrar_utilerias">mostrar_utilerias</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodnodo_es_visible">nodo_es_visible</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodobtener_html">obtener_html</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodrecorrer_hijos">recorrer_hijos</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodrecorrer_recursivo">recorrer_recursivo</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodservicio__ejecutar">servicio__ejecutar</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_apertura_nodos">set_apertura_nodos</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_frame_destino">set_frame_destino</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_item_propiedades">set_item_propiedades</a></li>
-		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_mostrar_raiz">set_mostrar_raiz</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_nivel_apertura">set_nivel_apertura</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_arbol.html#methodset_todos_abiertos">set_todos_abiertos</a></li>
 		  		</ul>
 		</td>
 		
@@ -238,6 +240,12 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$info_eventos">objeto_ei::$info_eventos</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$utilizar_impresion_html">objeto_ei::$utilizar_impresion_html</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -540,7 +548,7 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_evento_defecto">objeto_ei::set_evento_defecto()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Fuerza que el evento sea implicito en este objeto (no necesita de intervención del usuario para lanzarse)</span>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_grupo_eventos_activo">objeto_ei::set_grupo_eventos_activo()</a></span>
@@ -912,17 +920,17 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 				</div>
 								<div class="var-title">
 					<tr><td class="var-title"><span class="var-type-summary">mixed</span>&nbsp;&nbsp;</td>
-					<td class="var-title"><a href="#$mostrar_raiz" title="details" class="var-name-summary">$mostrar_raiz</a>&nbsp;&nbsp;</td>
-					<td class="var-summary-description"></td></tr>
-				</div>
-								<div class="var-title">
-					<tr><td class="var-title"><span class="var-type-summary">mixed</span>&nbsp;&nbsp;</td>
 					<td class="var-title"><a href="#$nivel_apertura" title="details" class="var-name-summary">$nivel_apertura</a>&nbsp;&nbsp;</td>
 					<td class="var-summary-description"></td></tr>
 				</div>
 								<div class="var-title">
 					<tr><td class="var-title"><span class="var-type-summary">mixed</span>&nbsp;&nbsp;</td>
-					<td class="var-title"><a href="#$nodo_inicial" title="details" class="var-name-summary">$nodo_inicial</a>&nbsp;&nbsp;</td>
+					<td class="var-title"><a href="#$nodos_inicial" title="details" class="var-name-summary">$nodos_inicial</a>&nbsp;&nbsp;</td>
+					<td class="var-summary-description"></td></tr>
+				</div>
+								<div class="var-title">
+					<tr><td class="var-title"><span class="var-type-summary">mixed</span>&nbsp;&nbsp;</td>
+					<td class="var-title"><a href="#$todos_abiertos" title="details" class="var-name-summary">$todos_abiertos</a>&nbsp;&nbsp;</td>
 					<td class="var-summary-description"></td></tr>
 				</div>
 								</table>
@@ -1015,7 +1023,17 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#recorrer_hijos" title="details" class="method-name">recorrer_hijos</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#recorrer_recursivo" title="details" class="method-name">recorrer_recursivo</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#servicio__ejecutar" title="details" class="method-name">servicio__ejecutar</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
@@ -1035,12 +1053,12 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#set_mostrar_raiz" title="details" class="method-name">set_mostrar_raiz</a>()&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#set_nivel_apertura" title="details" class="method-name">set_nivel_apertura</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#set_nivel_apertura" title="details" class="method-name">set_nivel_apertura</a>()&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#set_todos_abiertos" title="details" class="method-name">set_todos_abiertos</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
 								</table>
@@ -1062,13 +1080,13 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 												</div>
 		<div class="info-box-body">
 			<a name="var$datos_apertura" id="$datos_apertura"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$datos_apertura</span>
-						<span class="smalllinenumber">[line 15]</span>
+						<span class="smalllinenumber">[line 14]</span>
 		</span>
 	</div>
 
@@ -1086,7 +1104,7 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$frame_destino" id="$frame_destino"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1110,37 +1128,13 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$item_propiedades" id="$item_propiedades"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$item_propiedades</span>
 			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 12]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$mostrar_raiz" id="$mostrar_raiz"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$mostrar_raiz</span>
-			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 13]</span>
 		</span>
 	</div>
 
@@ -1164,7 +1158,7 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$nivel_apertura</span>
-			 = <span class="var-default"> 1</span>			<span class="smalllinenumber">[line 14]</span>
+			 = <span class="var-default"> 1</span>			<span class="smalllinenumber">[line 13]</span>
 		</span>
 	</div>
 
@@ -1181,14 +1175,38 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$nodo_inicial" id="$nodo_inicial"><!-- --></A>
+<a name="var$nodos_inicial" id="$nodos_inicial"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$nodo_inicial</span>
+			<span class="var-name">$nodos_inicial</span>
 						<span class="smalllinenumber">[line 11]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$todos_abiertos" id="$todos_abiertos"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$todos_abiertos</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 15]</span>
 		</span>
 	</div>
 
@@ -1221,7 +1239,7 @@ Source Location: /interface/objeto_ei_arbol.php<br /><br />
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 18]</span>
@@ -1247,10 +1265,10 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodacortar_nombre" id="acortar_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">acortar_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 220]</span>
+	<span class="method-title">acortar_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 289]</span>
 </div>
 <br />
 
@@ -1259,7 +1277,8 @@ $id&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void acortar_nombre(
 mixed
-$nombre&nbsp;
+$nombre, [mixed
+$limite = 30]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1280,10 +1299,10 @@ $nombre&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcargar_datos" id="cargar_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 66]</span>
+	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 79]</span>
 </div>
 <br />
 
@@ -1292,7 +1311,7 @@ $nombre&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void cargar_datos(
 [mixed
-$nodo = null], [mixed
+$nodos = null], [mixed
 $memorizar = true]&nbsp;
 )</code>
     </td></tr></table>
@@ -1312,10 +1331,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodconsumo_javascript_global" id="consumo_javascript_global"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 244]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 315]</span>
 </div>
 <br />
 
@@ -1348,10 +1367,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 234]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 302]</span>
 </div>
 <br />
 
@@ -1384,7 +1403,7 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 25]</span>
@@ -1413,10 +1432,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 78]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 91]</span>
 </div>
 <br />
 
@@ -1442,10 +1461,10 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_lista_eventos" id="get_lista_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 71]</span>
+	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 84]</span>
 </div>
 <br />
 
@@ -1471,7 +1490,7 @@ $memorizar = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinicializar" id="inicializar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
@@ -1502,10 +1521,10 @@ $parametros&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_iconos" id="mostrar_iconos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_iconos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 188]</span>
+	<span class="method-title">mostrar_iconos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 236]</span>
 </div>
 <br />
 
@@ -1535,10 +1554,10 @@ $nodo&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_nodo" id="mostrar_nodo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_nodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 146]</span>
+	<span class="method-title">mostrar_nodo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 186]</span>
 </div>
 <br />
 
@@ -1569,10 +1588,10 @@ $es_visible&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodmostrar_utilerias" id="mostrar_utilerias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">mostrar_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 202]</span>
+	<span class="method-title">mostrar_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 250]</span>
 </div>
 <br />
 
@@ -1602,10 +1621,10 @@ $nodo&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodnodo_es_visible" id="nodo_es_visible"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">nodo_es_visible</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 178]</span>
+	<span class="method-title">nodo_es_visible</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 222]</span>
 </div>
 <br />
 
@@ -1636,10 +1655,10 @@ $nivel&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_html" id="obtener_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 108]</span>
+	<span class="method-title">obtener_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 121]</span>
 </div>
 <br />
 
@@ -1659,11 +1678,45 @@ $nivel&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodrecorrer_hijos" id="recorrer_hijos"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">recorrer_hijos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 177]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void recorrer_hijos(
+mixed
+$nodo, mixed
+$nivel&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodrecorrer_recursivo" id="recorrer_recursivo"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">recorrer_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 122]</span>
+	<span class="method-title">recorrer_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 156]</span>
 </div>
 <br />
 
@@ -1694,11 +1747,35 @@ $nivel = 0]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodset_apertura_nodos" id="set_apertura_nodos"><!-- --></a>
+<a name="methodservicio__ejecutar" id="servicio__ejecutar"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_apertura_nodos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 46]</span>
+	<span class="method-title">servicio__ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 41]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void servicio__ejecutar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodset_apertura_nodos" id="set_apertura_nodos"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">set_apertura_nodos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 59]</span>
 </div>
 <br />
 
@@ -1721,10 +1798,10 @@ $datos_apertura&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodset_frame_destino" id="set_frame_destino"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_frame_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 61]</span>
+	<span class="method-title">set_frame_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 74]</span>
 </div>
 <br />
 
@@ -1747,10 +1824,10 @@ $frame&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodset_item_propiedades" id="set_item_propiedades"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_item_propiedades</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 41]</span>
+	<span class="method-title">set_item_propiedades</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 54]</span>
 </div>
 <br />
 
@@ -1772,37 +1849,11 @@ $id_item&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodset_mostrar_raiz" id="set_mostrar_raiz"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">set_mostrar_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 56]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void set_mostrar_raiz(
-mixed
-$mostrar&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
 <a name="methodset_nivel_apertura" id="set_nivel_apertura"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_nivel_apertura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 51]</span>
+	<span class="method-title">set_nivel_apertura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 64]</span>
 </div>
 <br />
 
@@ -1824,13 +1875,37 @@ $nivel&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodset_todos_abiertos" id="set_todos_abiertos"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">set_todos_abiertos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_todos_abiertos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 		</div>
 	</div>
 
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 01 Mar 2006 20:09:26 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
+		    Documentation generated on Fri, 28 Apr 2006 15:08:58 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
 	      </div>
       </td></tr></table>
     </td>

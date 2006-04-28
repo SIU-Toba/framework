@@ -173,6 +173,7 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodcarga_inicial">carga_inicial</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodconsumo_javascript_global">consumo_javascript_global</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methodcrear_objeto_js">crear_objeto_js</a></li>
+		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methoddesactivar_agregado_filas">desactivar_agregado_filas</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methoddeseleccionar">deseleccionar</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methoddestruir">destruir</a></li>
 		  		  <li><a href="../../Objetos/Ei/objeto_ei_formulario_ml.html#methoddisparar_eventos">disparar_eventos</a></li>
@@ -365,6 +366,12 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$info_eventos">objeto_ei::$info_eventos</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#var$utilizar_impresion_html">objeto_ei::$utilizar_impresion_html</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -846,7 +853,7 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_evento_defecto">objeto_ei::set_evento_defecto()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Fuerza que el evento sea implicito en este objeto (no necesita de intervención del usuario para lanzarse)</span>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Objetos/Ei/objeto_ei.html#methodset_grupo_eventos_activo">objeto_ei::set_grupo_eventos_activo()</a></span>
@@ -1326,6 +1333,11 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#desactivar_agregado_filas" title="details" class="method-name">desactivar_agregado_filas</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#deseleccionar" title="details" class="method-name">deseleccionar</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
@@ -1632,7 +1644,7 @@ Source Location: /interface/objeto_ei_formulario_ml.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$ordenes</span>
-						<span class="smalllinenumber">[line 20]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
 		</span>
 	</div>
 
@@ -1723,7 +1735,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_registro_nuevo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 437]</span>
+	<span class="method-title">agregar_registro_nuevo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 440]</span>
 </div>
 <br />
 
@@ -1756,7 +1768,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 720]</span>
+	<span class="method-title">botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 724]</span>
 </div>
 <br />
 
@@ -1780,7 +1792,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cantidad_lineas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
+	<span class="method-title">cantidad_lineas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 340]</span>
 </div>
 <br />
 
@@ -1804,7 +1816,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 405]</span>
+	<span class="method-title">cargar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 406]</span>
 </div>
 <br />
 
@@ -1835,7 +1847,7 @@ $datos = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_ef_a_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 467]</span>
+	<span class="method-title">cargar_ef_a_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 470]</span>
 </div>
 <br />
 
@@ -1861,7 +1873,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_estado_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 313]</span>
+	<span class="method-title">cargar_estado_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 314]</span>
 </div>
 <br />
 
@@ -1892,7 +1904,7 @@ $array_ef&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 241]</span>
+	<span class="method-title">cargar_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 242]</span>
 </div>
 <br />
 
@@ -1921,7 +1933,7 @@ $array_ef&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_registro_a_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 498]</span>
+	<span class="method-title">cargar_registro_a_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 501]</span>
 </div>
 <br />
 
@@ -1948,7 +1960,7 @@ $datos_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">carga_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 222]</span>
+	<span class="method-title">carga_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 223]</span>
 </div>
 <br />
 
@@ -1972,7 +1984,7 @@ $datos_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 830]</span>
+	<span class="method-title">consumo_javascript_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 834]</span>
 </div>
 <br />
 
@@ -2001,7 +2013,7 @@ $datos_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 807]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 811]</span>
 </div>
 <br />
 
@@ -2026,11 +2038,35 @@ $datos_registro&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methoddeseleccionar" id="deseleccionar"><!-- --></a>
+<a name="methoddesactivar_agregado_filas" id="desactivar_agregado_filas"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 90]</span>
+	<span class="method-title">desactivar_agregado_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar_agregado_filas(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methoddeseleccionar" id="deseleccionar"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 87]</span>
 </div>
 <br />
 
@@ -2051,7 +2087,7 @@ $datos_registro&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
@@ -2080,10 +2116,10 @@ $datos_registro&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 129]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
 </div>
 <br />
 
@@ -2109,10 +2145,10 @@ $datos_registro&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos_especifico" id="disparar_eventos_especifico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 145]</span>
+	<span class="method-title">disparar_eventos_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 146]</span>
 </div>
 <br />
 
@@ -2142,10 +2178,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddisparar_eventos_granulares" id="disparar_eventos_granulares"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos_granulares</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 198]</span>
+	<span class="method-title">disparar_eventos_granulares</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 199]</span>
 </div>
 <br />
 
@@ -2166,10 +2202,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodexisten_datos_cargados" id="existen_datos_cargados"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">existen_datos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 447]</span>
+	<span class="method-title">existen_datos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 450]</span>
 </div>
 <br />
 
@@ -2190,10 +2226,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_formulario" id="generar_formulario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 546]</span>
+	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 549]</span>
 </div>
 <br />
 
@@ -2219,10 +2255,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_formulario_cuerpo" id="generar_formulario_cuerpo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 635]</span>
+	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 639]</span>
 </div>
 <br />
 
@@ -2243,10 +2279,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_formulario_encabezado" id="generar_formulario_encabezado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 585]</span>
+	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
 </div>
 <br />
 
@@ -2267,10 +2303,10 @@ $evento&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgenerar_formulario_pie" id="generar_formulario_pie"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 606]</span>
+	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 610]</span>
 </div>
 <br />
 
@@ -2293,10 +2329,10 @@ $colspan&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodget_lista_eventos" id="get_lista_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 776]</span>
+	<span class="method-title">get_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 780]</span>
 </div>
 <br />
 
@@ -2322,10 +2358,10 @@ $colspan&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinfo_estado_ef" id="info_estado_ef"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">info_estado_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 108]</span>
+	<span class="method-title">info_estado_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 109]</span>
 </div>
 <br />
 
@@ -2351,7 +2387,7 @@ $colspan&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodinicializar_especifico" id="inicializar_especifico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">inicializar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 42]</span>
@@ -2380,10 +2416,10 @@ $colspan&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodlimpiar_interface" id="limpiar_interface"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 299]</span>
+	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 300]</span>
 </div>
 <br />
 
@@ -2409,10 +2445,10 @@ $colspan&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_clave_fila" id="obtener_clave_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 385]</span>
+	<span class="method-title">obtener_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 386]</span>
 </div>
 <br />
 
@@ -2442,10 +2478,10 @@ $fila&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_datos" id="obtener_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 345]</span>
+	<span class="method-title">obtener_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 346]</span>
 </div>
 <br />
 
@@ -2473,10 +2509,10 @@ $analizar_diferencias = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_definicion_db" id="obtener_definicion_db"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_definicion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 56]</span>
+	<span class="method-title">obtener_definicion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 55]</span>
 </div>
 <br />
 
@@ -2502,10 +2538,10 @@ $analizar_diferencias = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodobtener_nombres_ef" id="obtener_nombres_ef"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">obtener_nombres_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 320]</span>
+	<span class="method-title">obtener_nombres_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 321]</span>
 </div>
 <br />
 
@@ -2531,10 +2567,10 @@ $analizar_diferencias = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodprocesar_dependencias" id="procesar_dependencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">procesar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 751]</span>
+	<span class="method-title">procesar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 755]</span>
 </div>
 <br />
 
@@ -2560,10 +2596,10 @@ $analizar_diferencias = false]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodseleccionar" id="seleccionar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 96]</span>
+	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 97]</span>
 </div>
 <br />
 
@@ -2586,10 +2622,10 @@ $clave&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodset_metodo_analisis" id="set_metodo_analisis"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_metodo_analisis</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 71]</span>
+	<span class="method-title">set_metodo_analisis</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
 </div>
 <br />
 
@@ -2612,10 +2648,10 @@ $metodo&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodvalidar_estado" id="validar_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 275]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 276]</span>
 </div>
 <br />
 
@@ -2641,10 +2677,10 @@ $metodo&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 841]</span>
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 845]</span>
 </div>
 <br />
 
@@ -2677,7 +2713,7 @@ $salida&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 01 Mar 2006 20:09:35 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC3</a>
+		    Documentation generated on Fri, 28 Apr 2006 15:09:05 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
 	      </div>
       </td></tr></table>
     </td>
