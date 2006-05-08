@@ -2,14 +2,24 @@
   
 class ef_upload extends ef
 {
+
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
 	{
+		// Controlar las extensiones válidas...
+		if (isset($parametros['extensiones_validas'])) {
+			$this->extensiones_validas = explode(',', $parametros['extensiones_validas']);
+			foreach ($this->extensiones_validas as $clave => $valor)
+				$this->extensiones_validas[$clave] = strtolower(trim($valor));
+		}
 		parent :: __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
 	}
     
 	static function get_parametros()
 	{
 		$parametros = ef::get_parametros();
+		$parametros['extensiones_validas']['descripcion'] = 'Tipos de archivo permitidos';
+		$parametros['extensiones_validas']['opcional'] = 1;	
+		$parametros['extensiones_validas']['etiqueta'] = 'Extensiones válidas';
 		return $parametros;
 	}
 	
@@ -111,6 +121,12 @@ class ef_upload extends ef
 			case UPLOAD_ERR_PARTIAL:
 				throw new excepcion_toba("Ha ocurrido un error cargando el archivo");
 				break;
+		}
+		if (isset($this->extensiones_validas)) {
+			$rep = $_FILES[$this->id_form]['name'];
+			$ext = substr($rep, strrpos($rep, '.') + 1);
+			if (! in_array(strtolower($ext), $this->extensiones_validas))
+				throw new excepcion_toba('Este tipo de archivos no está permitido.');
 		}
 	}
 	
