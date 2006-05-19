@@ -119,7 +119,7 @@ CREATE TABLE apex_objeto_ci_pantalla
 	identificador						varchar(20)			NOT NULL,
 	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
 	etiqueta							varchar(80)			NULL,
-	descripcion							varchar(255)		NULL,
+	descripcion							varchar				NULL,
 	tip									varchar(80)			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
