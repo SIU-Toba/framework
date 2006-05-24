@@ -61,7 +61,7 @@ class objeto_mt_abms extends objeto_mt_s
 	{
 		$clave['proyecto'] = $this->info['proyecto'];
 		$clave['componente'] = $this->info['objeto'];
-		$this->dependencias["formulario"] = constructor_toba::get_runtime( $clave, 'ut_formulario' );
+		$this->dependencias["formulario"] = constructor_toba::get_runtime( $clave, 'ut_formulario', false);
 		$parametro["nombre_formulario"] = $this->nombre_formulario;
 		$parametro['id'] = "formulario";
 		$this->dependencias["formulario"]->inicializar($parametro);

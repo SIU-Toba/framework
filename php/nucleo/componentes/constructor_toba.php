@@ -13,8 +13,9 @@ class constructor_toba
 	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
 	 * @return objeto
+	 * @todo Cuando la arquitectura 1 se acabe sacar el 3er parametro, es para que el ambs pueda crear un ut-form
 	 */
-	static function get_runtime( $id, $tipo=null )
+	static function get_runtime( $id, $tipo=null, $con_subclase=true )
 	{
 		// Controla la integridad de la clave
 		catalogo_toba::control_clave_valida( $id );
@@ -30,7 +31,7 @@ class constructor_toba
 		}
 		$clase = catalogo_toba::get_nombre_clase_runtime( $tipo );
 		//Posee una subclase asociada?
-		if ( $datos['info']['subclase'] ) {
+		if ( $datos['info']['subclase'] && $con_subclase ) {
 			require_once($datos['info']['subclase_archivo']);
 			$clase = $datos['info']['subclase'];
 		}
