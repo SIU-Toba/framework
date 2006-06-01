@@ -147,9 +147,8 @@ class objeto_ci extends objeto_ei
 	function dependencia($id, $carga_en_demanda = true)
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
-		if($this->gi && $dependencia instanceof objeto_ei ) {
-			// EIs que no estan en la lista GI: hay que cargar su estado y DAOS
-			if ( ! in_array( $id, $this->dependencias_gi ) ) {
+		if ( ! in_array( $id, $this->dependencias_inicializadas ) ) {
+ 			if (  $dependencia instanceof objeto_ei ) {
 				$parametro['id'] = $id;
 				$parametro['nombre_formulario'] = $this->nombre_formulario;
 				$this->inicializar_dependencia( $id, $parametro );
