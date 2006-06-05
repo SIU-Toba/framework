@@ -10,7 +10,7 @@ class manejador_archivos
 	static function crear_arbol_directorios($path, $modo=0777)
 	{
 		if (self::es_windows()) {
-			$path = self::path_a_windows($path);	
+			$path = self::path_a_windows($path, false);	
 		}
 		if (!file_exists($path)) {
 			if (!mkdir($path, $modo, true)) {
@@ -43,11 +43,11 @@ class manejador_archivos
         return $ok;
     }
 	
-	static function path_a_windows($nombre)
+	static function path_a_windows($nombre, $encomillar_espacios=true)
 	{
 		$nombre = str_replace('/', "\\", $nombre);	
 		//Si algun segmento del PATH tiene espacios, hay que ponerlo entre comillas.
-		if(strpos($nombre,' ')){
+		if($encomillar_espacios && strpos($nombre,' ')){
 			$segmentos = explode("\\",$nombre);
 			for($a=0;$a<(count($segmentos));$a++){
 				if(strpos($segmentos[$a],' ')){
