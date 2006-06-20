@@ -32,13 +32,10 @@ class nucleo extends elemento_modelo
 	// Informacion
 	//------------------------------------------------
 
-	function get_sincronizador()
+	function __construct()
 	{
-		if ( ! isset( $this->sincro_archivos ) ) {
-			$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
-		}
-		return $this->sincro_archivos;
-	}
+		$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
+	}	
 
 	static function get_dir_ddl()
 	{
@@ -162,9 +159,8 @@ class nucleo extends elemento_modelo
 			$es_log = ( isset( $tabla['historica'] ) && ( $tabla['historica'] == '1' ) );
 			$es_usuario = ( isset( $tabla['usuario'] ) && ( $tabla['usuario'] == '1' ) );
 			$dump_componente = ( $tabla['dump'] == 'componente' );
-			$dump_proyecto = ( ($tabla['dump'] == 'multiproyecto') || ($tabla['dump'] == 'nucleo_multiproyecto') );
+			$dump_proyecto = ( $tabla['dump'] == 'multiproyecto' ); 
 			$dump_nucleo = ( $tabla['dump'] == 'nucleo' );
-			$dump_nucleo_multiproyecto = ( $tabla['dump'] == 'nucleo_multiproyecto' );
 			//-- Controles de integridad de la DEFINICION del plan --
 			if ( $dump_componente && ( $es_instancia || $es_log ) ) {
 				throw new excepcion_toba("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
@@ -205,10 +201,6 @@ class nucleo extends elemento_modelo
 				} elseif ( $dump_proyecto ) {
 					$this->plan[ $this->ba_proyecto ]['tablas'][] = $id;
 					$this->plan[ $this->ba_proyecto ]['indices']['get_lista'][] = $id;
-					if ( $dump_nucleo_multiproyecto ) {
-						$this->plan[ $this->ba_nucleo ]['tablas'][] = $id;
-						$this->plan[ $this->ba_nucleo ]['indices']['get_lista_nucleo_multiproyecto'][] = $id;
-					}
 				} elseif ( $dump_nucleo ) {
 					$this->plan[ $this->ba_nucleo ]['tablas'][] = $id;
 					$this->plan[ $this->ba_nucleo ]['indices']['get_lista'][] = $id;
@@ -259,20 +251,13 @@ class nucleo extends elemento_modelo
 	}
 
 	//-------------------------------------------------------------------
-	// EXPORTACION de TABLAS con METADATOS del NUCLEO
+	// EXPORTACION de TABLAS MAESTRAS
 	//-------------------------------------------------------------------
 
 	/*
 	*	Exporta los metadatos correspondientes a las tablas maestras del sistema
 	*/
-	function exportar(instancia $instancia)
-	{
-		$this->exportar_tablas_nucleo($instancia);
-		$this->exportar_tablas_nucleo_multiproyecto($instancia);
-		$this->get_sincronizador()->sincronizar();
-	}
-
-	function exportar_tablas_nucleo(instancia $instancia)
+	function exportar( instancia $instancia )
 	{
 		try {
 			$this->manejador_interface->titulo( "Tablas NUCLEO" );
@@ -286,70 +271,26 @@ class nucleo extends elemento_modelo
 						" ORDER BY {$definicion['dump_order_by']} ;\n";
 				$contenido = "";
 				$datos = $instancia->get_db()->consultar( $sql );
-				$regs = count( $datos );
-				if ( $regs > 1 ) {
-					$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
-					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-				}
-				for ( $a = 0; $a < $regs ; $a++ ) {
+				for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 					$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 				}
 				if ( trim( $contenido ) != '' ) {
-					$this->guardar_tabla_archivo($tabla, $contenido);
+					$archivo = $this->get_dir_metadatos() .'/'. $tabla . '.sql';
+					file_put_contents( $archivo, $contenido );
+					$this->sincro_archivos->agregar_archivo( $archivo );					
 				}
 			}
+			//Sincronizo archivos
+			$this->sincro_archivos->sincronizar();			
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
-
-	private function exportar_tablas_nucleo_multiproyecto(instancia $instancia)
-	{
-		$this->manejador_interface->titulo( "Tablas NUCLEO - PROYECTO" );
-		foreach ( tablas_nucleo::get_lista_nucleo_multiproyecto() as $tabla ) {
-			$definicion = tablas_nucleo::$tabla();
-			//Genero el SQL
-			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
-       			$w = stripslashes($definicion['dump_where']);
-       			$where = ereg_replace("%%",'toba', $w);
-            } else {
-       			$where = " ( proyecto = 'toba')";
-			}
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
-					" FROM $tabla " .
-					" WHERE $where " .
-					//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
-					" ORDER BY {$definicion['dump_order_by']} ;\n";
-			//$this->manejador_interface->mensaje( $sql );
-			$contenido = "";
-			$datos = $instancia->get_db()->consultar($sql);
-			$regs = count( $datos );
-			if ( $regs > 1 ) {
-				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
-				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-			}
-			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
-			for ( $a = 0; $a < $regs ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
-			}
-			if ( trim( $contenido ) != '' ) {
-				$this->guardar_tabla_archivo($tabla, $contenido);
-			}
-		}
-	}
-
-	private function guardar_tabla_archivo( $tabla, $contenido )
-	{
-		$archivo = $this->get_dir_metadatos() .'/'. $tabla . '.sql';
-		file_put_contents( $archivo, $contenido );
-		$this->get_sincronizador()->agregar_archivo( $archivo );
-	}
 	
 	//------------------------------------------------------------------------
 	//-- PARSEO de los EDITORES ----------------------------------------------
 	//------------------------------------------------------------------------
-
 	function parsear_editores(instancia $instancia)
 	{
 		require_once("admin/db/dao_editores.php");
@@ -394,5 +335,9 @@ class nucleo extends elemento_modelo
 		$dir = toba_dir()."/php/nucleo/componentes/info";
 		$clase_php->guardar( $dir.'/datos_editores.php' );
 	}
+	
+	
+	
+	
 }
 ?>

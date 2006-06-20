@@ -207,7 +207,7 @@ CREATE TABLE apex_fuente_datos_motor
 CREATE TABLE apex_fuente_datos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: fuente_datos
 --: zona: general
 --: desc: Bases de datos a	las que se puede acceder
@@ -339,7 +339,7 @@ CREATE TABLE apex_solicitud_tipo
 CREATE TABLE apex_elemento_formulario
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: elemento_formulario
 --: zona: general
 --: desc: Elementos de formulario soportados
@@ -361,7 +361,7 @@ CREATE TABLE apex_elemento_formulario
 CREATE TABLE apex_solicitud_obs_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: solicitud_obs_tipo
 --: zona: general
 --: desc:
@@ -380,7 +380,7 @@ CREATE TABLE apex_solicitud_obs_tipo
 CREATE TABLE apex_pagina_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: pagina_tipo
 --: zona: general
 --: desc:
@@ -469,7 +469,7 @@ CREATE TABLE apex_columna_proceso
 CREATE TABLE apex_pdf_propiedad 
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo
+--: dump: multiproyecto
 --: dump_order_by: pdf_propiedad
 --: zona: objeto
 --: desc:
@@ -628,7 +628,7 @@ CREATE TABLE apex_usuario_proyecto
 CREATE TABLE apex_patron
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: patron
 --: zona: central
 --: desc:
@@ -650,7 +650,7 @@ CREATE TABLE apex_patron
 CREATE TABLE apex_patron_info
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: patron
 --: dump_where: ( patron_proyecto = '%%' )
 --: zona: central
@@ -825,7 +825,7 @@ CREATE TABLE apex_clase_tipo
 CREATE TABLE apex_clase
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: clase
 --: zona: central
 --: desc:
@@ -864,18 +864,18 @@ CREATE TABLE apex_clase
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
 	CONSTRAINT	"apex_clase_uq" UNIQUE 	("clase"),
 	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
---	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 --	CONSTRAINT	"apex_clase_fk_ancestro" FOREIGN	KEY ("ancestro_proyecto","ancestro") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_instan" FOREIGN KEY ("instanciador_proyecto","instanciador_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_instan" FOREIGN KEY ("instanciador_proyecto","instanciador_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
 CREATE TABLE apex_clase_info
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: clase
 --: dump_where: (	clase_proyecto	= '%%' )
 --: zona: central
@@ -895,7 +895,7 @@ CREATE TABLE apex_clase_info
 CREATE TABLE apex_clase_dependencias
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: clase_consumidora, identificador
 --: dump_where: (	clase_consumidora_proyecto	= '%%' )
 --: zona: central
@@ -918,7 +918,7 @@ CREATE TABLE apex_clase_dependencias
 CREATE TABLE apex_patron_dependencias
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: patron, clase
 --: dump_where: (	patron_proyecto =	'%%' )
 --: zona: central
@@ -960,7 +960,7 @@ CREATE TABLE apex_objeto_categoria
 CREATE TABLE apex_solicitud_obj_obs_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: nucleo_multiproyecto
+--: dump: multiproyecto
 --: dump_order_by: solicitud_obj_obs_tipo
 --: dump_where: (	clase_proyecto	= '%%' )
 --: zona: central

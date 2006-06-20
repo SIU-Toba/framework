@@ -1,0 +1,6 @@
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('fontsize', 'Tamaño de la fuente (10)', 'opcional', 'toba', NULL, '1');
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('innerLineThickness', 'Ancho del borde interno de la celda(default - 1)', 'opcional', 'toba', '1', NULL);
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('orientacion_papel', 'Orientacion del papel (landscape o portrait)', 'opcional', 'toba', NULL, '1');
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('shaded', '(Mostrar lineas sombreadas 0=no, 1= alternadas, 2= todas sombreadas)', 'opcional', 'toba', NULL, '1');
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('titleFontSize', 'Tamaño de la fuente del título (ejemplo - 12)', 'opcional', 'toba', NULL, '1');
+INSERT INTO apex_pdf_propiedad (pdf_propiedad, descripcion, requerido, proyecto, exclusiva_columna, exclusiva_tabla) VALUES ('width', 'Define el ancho de la tabla/columna', 'obligatorio', 'toba', '1', '1');

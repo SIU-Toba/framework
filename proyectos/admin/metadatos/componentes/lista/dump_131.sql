@@ -1,6 +1,0 @@
-------------------------------------------------------------
---[131]--  Infra - Listado USUARIOS 
-------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('admin', '131', NULL, '0', 'toba', 'objeto_lista', NULL, NULL, 'toba', NULL, 'Infra - Listado USUARIOS', 'Listado de usuarios', NULL, NULL, 'toba', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2003-08-30 19:35:55');
-INSERT INTO apex_objeto_lista (objeto_lista_proyecto, objeto_lista, titulo, subtitulo, sql, col_ver, col_titulos, col_formato, ancho, ordenar, exportar, vinculo_clave, vinculo_indice) VALUES ('admin', '131', 'Listado de usuarios', NULL, 'SELECT usuario, clave, nombre FROM apex_usuario %f% %w%
-ORDER BY 1;', '0=>\"t\",1=>\"t\",2=>\"t\"', 'Identificador, Nombre, Perfil', NULL, '450', NULL, NULL, '0', NULL);

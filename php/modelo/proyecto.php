@@ -539,7 +539,7 @@ class proyecto extends elemento_modelo
 			if ($dir = opendir($directorio_proyectos)) {
 			   while (false	!==	($archivo = readdir($dir)))	{ 
 					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
+						&& ($archivo != '.' ) && ($archivo != '..' ) ) {
 						$proyectos[] = $archivo;
 					}
 			   } 
