@@ -25,7 +25,7 @@ CREATE SEQUENCE apex_msg_seq INCREMENT 1 MINVALUE 0 MAXVALUE 9223372036854775807
 CREATE TABLE apex_msg
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: nucleo_multiproyecto
 --: dump_order_by: msg
 --: zona: central
 --: desc:
