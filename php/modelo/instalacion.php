@@ -184,7 +184,7 @@ class instalacion extends elemento_modelo
 	{
 		try{
 			$info_db = $this->get_parametros_base( $nombre );
-			$db = @$this->conectar_base_parametros( $info_db );
+			$db = $this->conectar_base_parametros( $info_db );
 			$db->destruir();
 			return true;
 		}catch(excepcion_toba $e){

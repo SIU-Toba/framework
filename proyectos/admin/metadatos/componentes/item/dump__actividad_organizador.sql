@@ -1,0 +1,10 @@
+------------------------------------------------------------
+--[/actividad/organizador]--  Organizador 
+------------------------------------------------------------
+INSERT INTO apex_item (proyecto, padre_proyecto, actividad_buffer_proyecto, zona_proyecto, item_id, item, padre_id, padre, carpeta, nivel_acceso, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer, actividad_patron_proyecto, actividad_patron, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, solicitud_tipo, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, usuario, creacion) VALUES ('admin','admin','admin',NULL, '379', '/actividad/organizador', '134', '/actividad', '0', '0', 'toba', 'lista_admin', 'Organizador', NULL, '0', 'toba', 'especifico', 'acciones/actividad/sesiones.php', NULL, '770', NULL, NULL, NULL, NULL, NULL, NULL, 'browser', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2004-07-06 11:54:07');
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '447', '0', NULL);
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '451', '1', NULL);
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '452', '2', NULL);
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '456', '3', NULL);
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '458', '4', NULL);
+INSERT INTO apex_item_objeto (proyecto, item_id, item, objeto, orden, inicializar) VALUES ('admin','379', '/actividad/organizador', '459', '5', NULL);

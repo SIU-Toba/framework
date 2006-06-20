@@ -1,0 +1,14 @@
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '1');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '2');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'usuario_admin', '2');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '3');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '4');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '5');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'usuario_admin', '5');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '6');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '7');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '8');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '9');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '10');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'usuario_admin', '10');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('admin', 'admin', '11');

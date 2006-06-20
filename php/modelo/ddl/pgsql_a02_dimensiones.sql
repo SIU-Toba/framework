@@ -24,7 +24,7 @@ CREATE TABLE apex_dimension_tipo_perfil
 CREATE TABLE apex_dimension_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: nucleo_multiproyecto
 --: dump_order_by: dimension_tipo
 --: zona: dimension
 --: desc:
@@ -45,7 +45,7 @@ CREATE TABLE apex_dimension_tipo
 	exclusivo_toba							smallint			NULL,
    CONSTRAINT  "apex_dim_tipo_pk" PRIMARY KEY ("proyecto","dimension_tipo"),
    CONSTRAINT  "apex_dim_tipo_fk_perfil" FOREIGN KEY ("dimension_tipo_perfil") REFERENCES "apex_dimension_tipo_perfil" ("dimension_tipo_perfil") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_dim_tipo_fk_editor" FOREIGN KEY ("item_editor_restric_proyecto","item_editor_restric") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   --CONSTRAINT  "apex_dim_tipo_fk_editor" FOREIGN KEY ("item_editor_restric_proyecto","item_editor_restric") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_dim_tipo_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

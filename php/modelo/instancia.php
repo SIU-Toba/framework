@@ -76,9 +76,6 @@ class instancia extends elemento_modelo
 			if ( count( $lista_proyectos ) == 0 ) {
 				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
 			}
-			if ( ! in_array( 'toba', $lista_proyectos ) ) {
-				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee asociado el proyecto 'toba'.)");
-			}
 			$this->ini_proyectos_vinculados = $lista_proyectos;
 		}
 	}
