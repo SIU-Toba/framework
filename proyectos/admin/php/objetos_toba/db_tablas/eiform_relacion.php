@@ -1,6 +1,4 @@
 <?
-require_once("nucleo/browser/clases/objeto_ei_formulario.php");
-
 /*
 	Faltan controles javascript
 		- La tabla padre e hija no puede ser la misma

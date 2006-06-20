@@ -35,9 +35,9 @@ class comunicador_soap
 		if(is_array($datos)){
 			//Agrego HEADERS standart que utiliza el TOBA para los envios
 			if($campos_toba){
-				if( apex_solicitud_tipo == "soap"){
+				if( toba::get_solicitud()->get_tipo() == "soap"){
 					$datos[apex_soap_usuario] = apex_pa_usuario_anonimo;
-				}elseif( apex_solicitud_tipo == "browser" ){
+				}elseif( toba::get_solicitud()->get_tipo() == "browser" ){
 					global $solicitud;
 					$datos[apex_soap_usuario] = $solicitud->hilo->obtener_usuario();
 				}

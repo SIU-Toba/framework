@@ -1,20 +1,7 @@
 <?php
-require_once("nucleo/lib/usuario_toba.php");
 
 class tp_basico extends tipo_pagina
 {
-	protected $menu;
-	protected $alto_cabecera = "34px";
-	
-	function __construct()
-	{
-		if (defined("apex_pa_menu_archivo")) {
-			require_once(apex_pa_menu_archivo);
-			$clase = basename(apex_pa_menu_archivo, ".php");;
-			$this->menu = new $clase();
-		}
-	}
-	
 	function encabezado()
 	{
 		$this->cabecera_html();
@@ -47,8 +34,8 @@ class tp_basico extends tipo_pagina
 	
 	protected function titulo_pagina()
 	{
-		$item = toba::get_solicitud()->get_datos_item();
-		return toba::get_hilo()->obtener_proyecto_descripcion() . ' - ' . $item['item_nombre'];
+		$item = toba::get_solicitud()->get_datos_item('item_nombre');
+		return toba::get_hilo()->obtener_proyecto_descripcion() . ' - ' . $item;
 	}
 	
 	protected function encoding()
@@ -58,14 +45,9 @@ class tp_basico extends tipo_pagina
 
 	protected function plantillas_css()
 	{
-		if (isset($this->menu)) {
-			$estilo = $this->menu->plantilla_css();
-			if ($estilo != '') {
-				echo recurso::link_css($estilo, "screen");
-			}
-		}
-		echo recurso::link_css(apex_proyecto_estilo, "screen");
-		echo recurso::link_css(apex_proyecto_estilo."_impr", "print");		
+		$estilo = info_proyecto::instancia()->get_parametro('estilo');
+		echo recurso::link_css($estilo, "screen");
+		echo recurso::link_css($estilo."_impr", "print");		
 	}
 	
 	protected function estilos_css()
@@ -104,28 +86,14 @@ class tp_basico extends tipo_pagina
 	{
 		echo "<body>\n";
 		js::cargar_consumos_globales(array('dhtml_tooltip'));
+		if ( editor::modo_prueba() ) {
+			$item = toba::get_solicitud()->get_datos_item('item');
+			editor::generar_zona_vinculos_item($item);
+		}
 	}
-	
 
-	protected function menu()
-	{
-		if (isset($this->menu)) {
-			$this->menu->mostrar();
-		} elseif(defined('apex_pa_menu') && apex_pa_menu == "milonic") {
-			//--- Migracion 0.8.3 ----
-			//Cargo el menu milonic, si el punto de acceso lo solicita
-			toba::get_logger()->obsoleto("", "", "0.8.3", "El menú debe ser una propiedad del proyecto");
-			require_once("nucleo/browser/includes/menu_inferior.php");
-			//--------------------------------
-		}		
-	}
-	
 	protected function barra_superior()
 	{
 	}
-
-
 }
-
-
 ?>

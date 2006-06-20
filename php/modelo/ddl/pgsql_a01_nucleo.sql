@@ -140,7 +140,7 @@ CREATE TABLE	apex_menu
 CREATE TABLE			apex_proyecto
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: nucleo_multiproyecto
 --: dump_order_by: proyecto
 --: zona: general
 --: desc: Tabla maestra	de	proyectos
@@ -148,23 +148,44 @@ CREATE TABLE			apex_proyecto
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto						varchar(15)		NOT NULL,
-	descripcion					varchar(255)	NOT NULL,
-	descripcion_corta			varchar(40)		NOT NULL, 
-	estilo						varchar(15)		NOT NULL,
-	con_frames					smallint		DEFAULT 1 NULL,
-	frames_clase				varchar(40)		NULL,
-	frames_archivo				varchar(255)	NULL,
-	salida_impr_html_c			varchar(40)		NULL,
-	salida_impr_html_a			varchar(255)	NULL,
-	menu						varchar(15)		NULL,
-	path_includes				varchar(255)	NULL,
-	path_browser				varchar(255)	NULL,
-	administrador				varchar(60)		NULL,--NOT
-	listar_multiproyecto		smallint			NULL,
-	orden							float				NULL,
-	palabra_vinculo_std		varchar(30)			NULL,
-	version_toba			varchar(15)			NULL,
+	descripcion						varchar(255)	NOT NULL,
+	descripcion_corta				varchar(40)		NOT NULL, 
+	estilo							varchar(15)		NOT NULL,
+	con_frames						smallint		DEFAULT 1 NULL,
+	frames_clase					varchar(40)		NULL,
+	frames_archivo					varchar(255)	NULL,
+	salida_impr_html_c				varchar(40)		NULL,
+	salida_impr_html_a				varchar(255)	NULL,
+	menu							varchar(15)		NULL,
+	path_includes					varchar(255)	NULL,
+	path_browser					varchar(255)	NULL,
+	administrador					varchar(60)		NULL,
+	listar_multiproyecto			smallint		NULL,
+	orden							float			NULL,
+	palabra_vinculo_std				varchar(30)		NULL,
+	version_toba					varchar(15)		NULL,
+	requiere_validacion				smallint		NULL,
+	usuario_anonimo					varchar(15)		NULL,
+	validacion_intentos				smallint		NULL,
+	validacion_intentos_min			smallint		NULL,
+	validacion_debug				smallint		NULL,
+	sesion_tiempo_no_interac_min	smallint		NULL,
+	sesion_tiempo_maximo_min		smallint		NULL,
+	sesion_subclase					varchar(40)		NULL,
+	sesion_subclase_archivo			varchar(255)	NULL,
+	usuario_subclase				varchar(40)		NULL,
+	usuario_subclase_archivo		varchar(255)	NULL,
+	encriptar_qs					smallint		NULL,
+	combo_cambiar_proyecto			smallint		NULL,
+	registrar_solicitud				varchar(1)		NULL,
+	registrar_cronometro			varchar(1)		NULL,
+	item_inicio_sesion      		varchar(60)		NULL,--NOT
+	item_pre_sesion		          	varchar(60)		NULL,--NOT
+	log_archivo						smallint		NULL,
+	log_archivo_nivel				smallint		NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
+	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","tem_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_menu" FOREIGN KEY ("menu") REFERENCES	"apex_menu" ("menu") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
 );
@@ -671,7 +692,7 @@ CREATE SEQUENCE apex_buffer_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775
 CREATE TABLE apex_buffer
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: nucleo_multiproyecto
 --: dump_order_by: buffer
 --: zona: central
 --: desc:
@@ -797,7 +818,7 @@ CREATE TABLE apex_item_info
 	descripcion_breve				varchar(255)	NULL,
 	descripcion_larga				text				NULL,
 	CONSTRAINT	"apex_item_info_pk"	 PRIMARY	KEY ("item_proyecto","item"),
-	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -1200,10 +1221,10 @@ CREATE TABLE apex_vinculo
 	imagen								varchar(60)		NULL,			--	path a la imagen
 	CONSTRAINT	"apex_vinc_pk"	PRIMARY KEY	("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto"),
 --	  CONSTRAINT  "apex_vinc_pk" UNIQUE	 ("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto","indice"),
-	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_d"	FOREIGN KEY	("destino_objeto_proyecto","destino_objeto")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_vinc_fk_obj_d"	FOREIGN KEY	("destino_objeto_proyecto","destino_objeto")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE	ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_vinc_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_vinc_fk_tipo" FOREIGN KEY ("vinculo_tipo") REFERENCES	"apex_vinculo_tipo" ("vinculo_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
@@ -1278,6 +1299,28 @@ CREATE TABLE apex_admin_album_fotos
     											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
+--#################################################################################################
+
+CREATE TABLE apex_admin_param_previsualizazion
+
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: usuario, proyecto
+--: zona: usuario
+--: instancia:	1
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)		NOT NULL, 
+	usuario								varchar(20)		NOT NULL,
+	grupo_acceso						varchar(20)		NOT NULL,
+	punto_acceso						varchar(100)	NOT NULL,
+  CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario"),
+  CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
+    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
  
 --**************************************************************************************************
 --**************************************************************************************************

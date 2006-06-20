@@ -125,8 +125,8 @@ class comando_instancia extends comando_toba
 		//---- A: Creo la definicion de la instancia
 		$proyectos = $this->seleccionar_proyectos();
 		// En el esquema actual, el toba siempre tiene que estar.
-		if ( ! in_array( 'toba', $proyectos ) ) {
-			$proyectos[] = 'toba';
+		if ( ! in_array( 'admin', $proyectos ) ) {
+			$proyectos[] = 'admin';
 		}
 		$this->consola->enter();
 		$base = $this->seleccionar_base();

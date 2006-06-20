@@ -1,26 +1,42 @@
 <?php
-require_once("tp_basico.php");
+require_once("tp_basico_titulo.php");
 
-class tp_normal extends tp_basico
+class tp_normal extends tp_basico_titulo
 {
-	protected $con_logger = false;
+	protected $menu;
+	protected $alto_cabecera = "34px";
+
+	function __construct()
+	{
+		$archivo_menu = info_proyecto::instancia()->get_parametro('menu_archivo');
+		require_once($archivo_menu);
+		$clase = basename($archivo_menu, ".php");
+		$this->menu = new $clase();
+	}
 	
-	/**
-	 * @todo Sacar este hack cuando el administrador sea un proyecto
-	 */
 	protected function comienzo_cuerpo()
 	{
 		parent::comienzo_cuerpo();
-		$item = toba::get_hilo()->obtener_item_solicitado();
-		
-		//ATENCION: Hack para que no se muestre menu en el admin
-		$es_admin = defined('apex_pa_item_inicial') && (apex_pa_item_inicial=="toba||/admin/acceso");
-		if (!$es_admin) {
-			$this->menu();					
-		}
-		if (!$es_admin && ! toba::get_hilo()->obtener_proyecto_datos('con_frames')) {
-			$this->cabecera_aplicacion();			
+		$this->menu();					
+		$this->cabecera_aplicacion();			
+	}
+
+	protected function menu()
+	{
+		if (isset($this->menu)) {
+			$this->menu->mostrar();
 		}		
+	}
+
+	protected function plantillas_css()
+	{
+		if (isset($this->menu)) {
+			$estilo = $this->menu->plantilla_css();
+			if ($estilo != '') {
+				echo recurso::link_css($estilo, "screen");
+			}
+		}
+		parent::plantillas_css();
 	}
 	
 	protected function cabecera_aplicacion()
@@ -65,7 +81,11 @@ class tp_normal extends tp_basico
 		?>
 			</td>
 			<td class='menu-0'><?=$this->info_usuario()?></td>
+		<? if ( editor::modo_prueba() ) { ?>
+			<td class='menu-0'><a href="#" onclick='javascript:window.close()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
+		<? } else { ?>
 			<td class='menu-0'><a href="#" onclick='javascript:salir()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
+		<? } ?>
 			</tr>
 			</table>
 		</td>
@@ -80,126 +100,14 @@ class tp_normal extends tp_basico
 	
 	protected function info_usuario()
 	{
-		$usuario = new usuario_toba(toba::get_hilo()->obtener_usuario());
 		echo "<div style='white-space: nowrap'>";
-		echo "<strong>".$usuario->nombre()."</strong></div>";
-		echo $usuario->id();
+		echo "<strong>".toba::get_usuario()->get_nombre()."</strong></div>";
+		echo toba::get_usuario()->get_id();
 	}		
 	
-	protected function barra_superior()
-	{
-		echo "<table width='100%' class='tabla-0'><tr>";
-		foreach ($this->vinculos_izquierda() as $vinculo) {
-			if ($vinculo != '') {
-				echo "<td  class='barra-0-edit' width='1'>$vinculo</td>\n";
-			}
-		}
-		echo "\n\n";
-		echo "<td width='1' class='barra-0'>". gif_nulo(8,22) . "</td>";
-		$info = toba::get_solicitud()->get_datos_item();			
-	
-		echo "<td width='99%' class='barra-0-tit'>".$info['item_nombre']."&nbsp;&nbsp;</td>";
-
-		if (toba::get_solicitud()->cronometrar){
-			$parametros = array("solicitud"=> toba::get_solicitud()->id() );
-			echo "<td  class='barra-0-tit' width='1'>&nbsp;";
-			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/cronometro",$parametros,true);
-			echo "&nbsp;</td>";
-		}
-		
-		if (trim($info['item_descripcion']) != '') {
-			echo "<td  class='barra-0-tit' width='1'>";
-			echo recurso::imagen_apl("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
-			echo "</td>";
-		}			
-		
-		if (toba::get_solicitud()->existe_ayuda()){
-			$parametros = array("item"=>$info["item"],
-								"proyecto"=>$info["item_proyecto"]);
-			echo "<td  class='barra-0-tit' width='1'>&nbsp;";
-			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/ayuda",$parametros,true);
-			echo "&nbsp;</td>";
-		}
-	
-		
-		echo "</tr></table>\n\n";
-	}
-	
-	protected function vinculos_izquierda()
-	{
-		$vinculador = toba::get_vinculador();
-		$info = toba::get_solicitud()->get_datos_item();
-		$vinculos = array();
-		if (apex_pa_acceso_directo_editor) {
-			//Etitor Item
-			$parametros = array(apex_hilo_qs_zona=> $info["item_proyecto"] . apex_qs_separador . $info["item"]);
-			$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/editor_items",$parametros,true);
-	
-			//Catalogo Unificado
-			$parametros = array("proyecto"=>$info["item_proyecto"],"item"=>$info["item"]);
-			$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/catalogo_unificado",$parametros,true, false, false, "", null, null, 'lateral');
-			
-/*			//Ayuda del item
-			$parametros = array(apex_hilo_qs_zona=> $info["item_proyecto"] . apex_qs_separador . $info["item"]);
-			$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba","/admin/items/info",$parametros,true);
-	
-			//Editor de estilos CSS
-			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/editores/editor_estilos', true)) {
-				$parametros = array('plantilla' => recurso::css(apex_pa_estilo));
-				$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba",'/admin/objetos/editores/editor_estilos',$parametros,true);
-			}		*/
-			
-			//Consola JS
-			if ($vinculador->consultar_vinculo("toba",'/admin/objetos/consola_js', true)) {	
-				//-- Link a la consola JS
-				$parametros = array();
-				$vinculos[] = $vinculador->obtener_vinculo_a_item_cp("toba",'/admin/objetos/consola_js',$parametros,true);
-			}			
-			
-			//LOGGER
-			if ($vinculador->consultar_vinculo("toba", "1000003")) {
-				$this->con_logger = true;	
-				$parametros = array();
-				$html_extra = array('id' => 'vinculo_logger');
-				$url =$vinculador->obtener_vinculo_a_item_cp("toba",'1000003',$parametros,true, false, false, '', $html_extra, null, 'logger');
-				$vinculos[] = $url;
-			}
-			
-			//Boton que dispara la cronometracion
-			$zona = toba::get_solicitud()->zona();
-			if( !isset($zona)){
-			//SI existe una zona que todavia no se cargo, el vinculo no va a propagar al EDITABLE
-			//En ese caso, el cronometrador tiene que posicionarse sobre la barra de la ZONA
-				if($vinculador->consultar_vinculo("toba","/basicos/cronometro",true)) {
-					$vinculos[] = "<a href='".$vinculador->generar_solicitud(null,null,null,true,true)."'>".
-									recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM").
-									"</a>";
-				}
-			}
-		}
-		return $vinculos;
-	}
-
-	function pre_contenido()
-	{
-		echo "\n<div align='center' class='cuerpo'>\n";
-	}
-	
-	function post_contenido()
-	{
-		echo "\n</div>\n";		
-	}
-		
 	function pie()
 	{
-		if ($this->con_logger) {
-			//--- Actualiza el link del logger mostrando la cant. de mensajes generados
-			$cant = toba::get_logger()->get_cantidad_mensajes();
-			echo js::ejecutar("actualizar_logger('$cant');");
-		}
 		parent::pie();	
 	}
 }
-
-
 ?>

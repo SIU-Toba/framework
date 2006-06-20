@@ -1,5 +1,5 @@
 <?php
-require_once('admin/objetos_toba/ci_editores_toba.php');
+require_once('objetos_toba/ci_editores_toba.php');
 require_once('nucleo/componentes/info/info_ei_cuadro.php');
 
 class ci_principal extends ci_editores_toba
@@ -259,7 +259,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->importacion_cols = $datos;
 		if(isset($datos['datos_tabla'])){
-			$clave = array( 'proyecto' => toba::get_hilo()->obtener_proyecto(),
+			$clave = array( 'proyecto' => editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
 			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_columnas($datos['pk']);

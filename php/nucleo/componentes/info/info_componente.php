@@ -150,8 +150,8 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if (isset($this->datos['info']['subclase_archivo'])) {
 			$parametros = $this->acceso_zona();
 			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax');
-			$vinculo = toba::get_vinculador()->crear_vinculo("toba","/admin/objetos/php", $parametros, $opciones);
-			$js = "toba.comunicar_vinculo(\"$vinculo\")";
+			$vinculo = toba::get_vinculador()->crear_vinculo("admin","/admin/objetos/php", $parametros, $opciones);
+			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('reflexion/abrir.gif', false),
 				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
@@ -163,7 +163,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			$iconos[] = array(
 				'imagen' => recurso::imagen_apl('php.gif', false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
-				'vinculo' => toba::get_vinculador()->generar_solicitud('toba','/admin/objetos/php', $this->acceso_zona(),
+				'vinculo' => toba::get_vinculador()->generar_solicitud('admin','/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central'),
 				'plegado' => true
 			);

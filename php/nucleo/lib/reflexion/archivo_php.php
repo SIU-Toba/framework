@@ -45,7 +45,7 @@ class archivo_php
 	
 	function abrir()
 	{
-		$cmd = toba::get_hilo()->get_editor_php();
+		$cmd = info_instalacion::instancia()->get_editor_php();
 		if (strlen($cmd) == 0) {
 			throw new excepcion_toba_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
 		}

@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_permisos.php');
-require_once('admin/admin_util.php');
+require_once('db/dao_permisos.php');
+require_once('admin_util.php');
 //----------------------------------------------------------------
 
 class ci_principal extends objeto_ci
@@ -192,7 +192,7 @@ class ci_principal extends objeto_ci
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
-		$grupos = dao_permisos::get_grupos_acceso(toba::get_hilo()->obtener_proyecto());
+		$grupos = dao_permisos::get_grupos_acceso(editor::get_proyecto_cargado());
 		$datos = array();
 		foreach ($grupos as $grupo) {
 			//El grupo esta asignado al item?
@@ -252,7 +252,7 @@ class ci_principal extends objeto_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba::get_hilo()->obtener_proyecto() );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
 		$this->refrescar = true;

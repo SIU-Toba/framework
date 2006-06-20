@@ -28,16 +28,6 @@ define("apex_hilo_qs_servicio_defecto", "obtener_html");
 define("apex_hilo_qs_objetos_destino", "toba-dest");
 //-- WDDX
 
-//*********  FRAMES entorno EDICION ************
-//-- FRAME control
-define("apex_frame_control","frame_control");
-//-- FRAME lista
-define("apex_frame_lista","frame_lista");
-//-- FRAME central
-define("apex_frame_centro","frame_centro");
-//-- FRAME comunicaciones
-define("apex_frame_com","frame_com");
-
 class hilo
 /* Todas las preguntas sobre el ESTADO de la aplicacion deberian caer en esta clase:
 * 	- El GET a travez del array de PARAMETROS
@@ -87,8 +77,7 @@ class hilo
 				//Dos parametros es OK!
 				$this->item_solicitado = $item;
 			}else{
-				//Errores de formateo llevan al ITEM vacio
-				$this->item_solicitado = array("toba","/basicos/vacio");
+				$this->item_solicitado = null;
 			}
 		}else{
             $this->item_solicitado = null;//No hay parametro
@@ -100,7 +89,8 @@ class hilo
 		}
 //		$this->parametros = $_GET;
 		//FALTA hacer un URL decode!!!		
-		if(apex_pa_encriptar_qs){
+		$encriptar_qs = info_proyecto::instancia()->get_parametro('encriptar_qs');
+		if($encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
 				$encriptador = toba::get_encriptador();
 				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]), $parametros);
@@ -154,6 +144,11 @@ class hilo
 		//Mantengo guardado cual es el item anterior de la celda
 		$celda = $this->get_celda_memoria_actual();
 		$_SESSION[$celda]['item_anterior'] = $_SESSION[$celda]['item'];
+	}
+
+	function set_item_solicitado( $item ) 
+	{
+		$this->item_solicitado = $item;
 	}
 
 	function info()
@@ -249,55 +244,25 @@ class hilo
 	{
 		if (isset($this->item_solicitado)) {
 			return $this->item_solicitado;
-		} else {
-            $item = explode(apex_qs_separador,apex_pa_item_inicial);
-            return $item;
-        }
+		}
 	}
 
 	function obtener_proyecto()
 /*
- 	@@acceso: actividad
-	@@desc: Devuelve el identificador del PROYECTO ACTUAL
+ 	DEPRECADO
 */
 	{
-		if (isset($_SESSION['toba']["proyecto"])) {
-			return $_SESSION['toba']["proyecto"]["nombre"];
-		} else {
-			if (defined('apex_pa_proyecto') && apex_pa_proyecto != 'multi') {
-				return apex_pa_proyecto;
-			} else {
-				return 'toba';	
-			}
-		}
+		return info_proyecto::instancia()->get_id();
 	}
 
 	function obtener_proyecto_descripcion()
 /*
- 	@@acceso: actividad
-	@@desc: DEvuelve la descripcion del proyecto
+ 	DEPRECADO
 */
 	{
-		return $_SESSION['toba']["proyecto"]["descripcion"];
+		return info_proyecto::instancia()->get_parametro('descripcion');
 	}
 	
-	/**
-	*	Retorna el conjunto de propiedades básicas del proycto actual
-	* 
-	*/
-	/**
-	 * Retorna todas o una propiedad básica del proyecto actual
-	 * @param string $propiedad Propiedad particular a consultar, sino se asumen que se piden todas
-	 */
-	function obtener_proyecto_datos($propiedad = null)
-	{
-		if (! isset($propiedad)) {
-			return $_SESSION['toba']["proyecto"];
-		} else {
-			return $_SESSION['toba']["proyecto"][$propiedad];
-		}
-	}
-
 	function obtener_path()
 /*
  	@@acceso: actividad
@@ -313,11 +278,7 @@ class hilo
 	@@desc: Devuelve el PATH del PROYECTO
 */
 	{
-		if($_SESSION['toba']["proyecto"]["nombre"]=="toba"){
-			return $_SESSION['toba']["path"];
-		}else{
 			return $_SESSION['toba']["path_proyecto"];
-		}
 	}
 	
 	/**
@@ -362,7 +323,7 @@ class hilo
 	@@desc: Devuelve el identificador del USUARIO logueado
 */
 	{
-		return $_SESSION['toba']["usuario"]["id"];
+		return toba::get_usuario()->get_id();
 	}
     
     /**
@@ -404,7 +365,7 @@ class hilo
 	@@desc: Notifica el GRUPO de ACCESO del usuario
 */
 	{
-		return $_SESSION['toba']["usuario"]["grupo_acceso"];
+		return toba::get_sesion()->get_grupo_acceso();
 	}
 
 	function obtener_usuario_perfil_datos()
@@ -416,29 +377,6 @@ class hilo
 		return $_SESSION['toba']["usuario"]["perfil_datos"];
 	}
 	
-	static function get_claves_encriptacion()
-	{
-		if (isset($_SESSION['toba'])) {
-			$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
-			$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];
-			return $claves;
-		}
-	}
-	
-	function get_id_grupo_desarrollo()
-	{
-		if (isset($_SESSION['toba'])) {
-			return $_SESSION['toba']['instalacion']['id_grupo_desarrollo'];
-		}		
-	}
-	
-	function get_editor_php() 
-	{
-		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {
-			return $_SESSION['toba']['instalacion']['editor_php'];
-		}
-	}
-
 	function usuario_solicita_cronometrar()
 /*
  	@@acceso: nucleo
@@ -464,18 +402,6 @@ class hilo
 		} else {
 			return false;
 		}
-	}
-	
-	function obtener_item_inicial()
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve el identificador del PROYECTO ACTUAL
-*/
-	{
-		//explode(apex_qs_separador,apex_pa_item_inicial_contenido);
-		//Esto lo tiene que saber $_SESSION en base a las preferencias de usuario
-		return array("toba","/trabajo/resumen",array(apex_hilo_qs_zona=>$this->obtener_usuario()));
-
 	}
 	
 	//----------------------------------------------------------------	

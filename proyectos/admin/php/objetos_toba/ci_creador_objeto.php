@@ -1,8 +1,7 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_editores.php');
-require_once('admin/objetos_toba/asignador_objetos.php');
-require_once('admin/admin_util.php');
+require_once('db/dao_editores.php');
+require_once('objetos_toba/asignador_objetos.php');
+require_once('admin_util.php');
 //----------------------------------------------------------------
 class ci_creador_objeto extends objeto_ci
 {
@@ -14,7 +13,7 @@ class ci_creador_objeto extends objeto_ci
 	function __construct($id)
 	{
 		parent::__construct($id);
-		if (! dba::hay_fuente_definida(toba::get_hilo()->obtener_proyecto())) {
+		if (! dba::hay_fuente_definida(editor::get_proyecto_cargado())) {
 			throw new excepcion_toba("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
 		}		
 		

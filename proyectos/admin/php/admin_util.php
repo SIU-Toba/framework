@@ -33,7 +33,7 @@ class admin_util
 	
 	function get_url_desarrollos()
 	{
-		$host = (toba::get_hilo()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
+		$host = (info_instalacion::instancia()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
 		return "https://$host.siu.edu.ar";
 	}
 }

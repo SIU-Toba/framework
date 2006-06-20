@@ -70,8 +70,9 @@ class pdf
 	private function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		echo recurso::link_css(apex_proyecto_estilo."_impr", 'print');
-		echo recurso::link_css(apex_proyecto_estilo."_impr");
+		$estilo = info_proyecto::instancia()->get_parametro('estilo');
+		echo recurso::link_css($estilo."_impr", 'print');
+		echo recurso::link_css($estilo."_impr");
 		echo "</head><body>\n";
 		/*
 		echo "<div class='barra-print' width='100%'>";

@@ -40,5 +40,21 @@ class excepcion_toba_login extends excepcion_toba
 
 }
 
+/**
+ * Excepción para recargar una solicitud
+ */
+class excepcion_reset_nucleo extends Exception
+{
+	private $item = null;
 
+	function set_item($item)
+	{
+		$this->item = $item;
+	}
+	
+	function get_item()
+	{
+		return $this->item;
+	}
+}
 ?>

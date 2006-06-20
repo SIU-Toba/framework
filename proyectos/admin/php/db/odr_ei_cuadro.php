@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/persistencia/objeto_datos_relacion.php'); 
-//----------------------------------------------------------------
+
 class odr_ei_cuadro extends objeto_datos_relacion
 {
 	/**

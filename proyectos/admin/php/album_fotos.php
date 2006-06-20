@@ -14,7 +14,7 @@ class album_fotos
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
-		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$proyecto = editor::get_proyecto_cargado();
 		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql = "INSERT INTO apex_arbol_items_fotos (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones) VALUES
 					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones')";
@@ -27,7 +27,7 @@ class album_fotos
 	
 	public function borrar_foto($nombre)
 	{
-		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$proyecto = editor::get_proyecto_cargado();
 		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql = "DELETE FROM apex_arbol_items_fotos
 				WHERE
@@ -44,7 +44,7 @@ class album_fotos
 	
 	public function fotos()
 	{
-		$proyecto = toba::get_hilo()->obtener_proyecto();
+		$proyecto = editor::get_proyecto_cargado();
 		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql = "SELECT 
 					foto_nombre, 

@@ -1,8 +1,8 @@
 <?php
 require_once("objeto_ei.php");
 require_once("nucleo/browser/interface/form.php");
-require_once("nucleo/browser/clases/objeto_ei_formulario.php");
-require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+require_once("nucleo/componentes/runtime/interface/objeto_ei_formulario.php");
+require_once("nucleo/componentes/runtime/interface/objeto_ei_cuadro.php");
 require_once('nucleo/lib/parser_ayuda.php');
 
 /**
@@ -462,7 +462,7 @@ class objeto_ci extends objeto_ei
 			$this->disparar_eventos();
 		}catch(excepcion_toba $e){
 			$this->log->debug($e, 'toba');			
-			$this->informar_msg($e->getMessage(), 'error');
+			toba::get_cola_mensajes()->agregar($e->getMessage());
 		}
 	}
 

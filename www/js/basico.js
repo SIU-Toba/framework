@@ -168,14 +168,17 @@ function solicitar_item_popup( url, tx, ty, scroll, resizable, extra ){
 }
 
 var ventana_hija = {};
-function abrir_popup(id, url, opciones, extra) {
+function abrir_popup(id, url, opciones, extra, dep) {
 	vars = '';
 	if (typeof opciones != 'undefined') {
 		for (var o in opciones) {
 			vars += o + '=' + opciones[o] + ',';
 		}
 	}
-	vars += 'dependent=1';
+	if (typeof dep == 'undefined') dep = true;
+	if (dep) {
+		vars += 'dependent=1';
+	}
 	if (typeof extra != 'undefined') {
 		vars += extra;
 	}

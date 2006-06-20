@@ -120,23 +120,12 @@ class zona
 	function obtener_html_barra_superior()
 	//Genera el HTML de la BARRA
 	{
-		//global $cronometro;
-		//$cronometro->marcar('basura',apex_nivel_nucleo);
 		echo "<table width='100%' class='tabla-0'><tr>";
-		//INTERFACE que solicta CRONOMETRAR la PAGINA
-		if(toba::get_vinculador()->consultar_vinculo("toba","/basicos/cronometro",true))
-		{
-			echo "<td  class='barra-item-id' width='1'>";
-			echo "<a href='".toba::get_vinculador()->generar_solicitud(null,null,null,true,true)
-					."'>".recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM")."</a>";
-			echo "</td>";
-		}
 		$this->obtener_html_barra_info();
 		$this->obtener_html_barra_vinculos();
 		$this->obtener_html_barra_especifico();
 		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
 		echo "</tr></table>\n";
-		//$cronometro->marcar('ZONA: Barra SUPERIOR',apex_nivel_nucleo);
 	}
 //-----------------------------------------------------
 

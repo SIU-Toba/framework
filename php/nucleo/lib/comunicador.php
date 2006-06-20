@@ -33,9 +33,9 @@ class comunicador
 		if(is_array($datos)){
 			//Agrego HEADERS standart que utiliza el TOBA para los envios
 			if($campos_toba){
-				if( apex_solicitud_tipo == "wddx"){
+				if( toba::get_solicitud()->get_tipo() ==  "wddx"){
 					$datos[apex_wddx_usuario] = apex_pa_usuario_anonimo;
-				}elseif( apex_solicitud_tipo == "browser" ){
+				}elseif( toba::get_solicitud()->get_tipo() == "browser" ){
 					global $solicitud;
 					$datos[apex_wddx_usuario] = $solicitud->hilo->obtener_usuario();
 				}

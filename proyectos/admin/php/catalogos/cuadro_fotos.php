@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_cuadro.php'); 
-//--------------------------------------------------------------------
+
 class cuadro_fotos extends objeto_ei_cuadro
 {
 	protected $fotos_predefinidas = array();

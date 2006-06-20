@@ -1,9 +1,9 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_editores.php');
-require_once('admin/objetos_toba/clonador_objetos.php');
-require_once('admin/objetos_toba/asignador_objetos.php');
-require_once('admin/admin_util.php');
+require_once('db/dao_editores.php');
+require_once('objetos_toba/clonador_objetos.php');
+require_once('objetos_toba/asignador_objetos.php');
+require_once('admin_util.php');
 //----------------------------------------------------------------
 class ci_clonador_objetos extends objeto_ci
 {
@@ -40,7 +40,7 @@ class ci_clonador_objetos extends objeto_ci
 	{
 		$destinos = array(
 						array(
-							'proyecto' => toba::get_hilo()->obtener_proyecto(),
+							'proyecto' => editor::get_proyecto_cargado(),
 							'clase' => 'item'
 						)
 					);
@@ -97,7 +97,7 @@ class ci_clonador_objetos extends objeto_ci
 						$tipo = $this->destino['tipo'];
 				}
 				$this->destino['tipo'] = $tipo;
-				$this->destino['proyecto'] = toba::get_hilo()->obtener_proyecto();
+				$this->destino['proyecto'] = editor::get_proyecto_cargado();
 			}
 		}
 	}

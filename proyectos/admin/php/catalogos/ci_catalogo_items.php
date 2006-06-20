@@ -1,5 +1,5 @@
 <?php
-require_once('admin/catalogos/ci_catalogo.php'); 
+require_once('catalogos/ci_catalogo.php'); 
 require_once("modelo/lib/catalogo_items.php");
 
 //----------------------------------------------------------------
@@ -20,7 +20,7 @@ class ci_catalogo_items extends ci_catalogo
 			$this->opciones['inicial'] = $item_selecc;
 		}
 		
-		$this->catalogador = new catalogo_items();		
+		$this->catalogador = new catalogo_items(editor::get_proyecto_cargado());		
 	}
 	
 
@@ -38,7 +38,7 @@ class ci_catalogo_items extends ci_catalogo
 				}else{
 					$inden = "";
 				}
-				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+				$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
 									'id' => $carpeta->get_id(), 
 									'nombre' => $inden . $carpeta->nombre());
 			}

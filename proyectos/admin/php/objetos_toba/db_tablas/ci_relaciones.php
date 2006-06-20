@@ -1,7 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_editores.php');
-require_once('nucleo/persistencia/objeto_datos_relacion.php');
+require_once('db/dao_editores.php');
 
 class ci_relaciones extends objeto_ci
 {
@@ -107,13 +105,13 @@ class ci_relaciones extends objeto_ci
 		//-- PADRE --
 		$padre = explode(",",$datos['padre']);
 		$datos['padre_id'] = $padre[0];
-		$datos['padre_proyecto'] = toba::get_hilo()->obtener_proyecto();
+		$datos['padre_proyecto'] = editor::get_proyecto_cargado();
 		$datos['padre_objeto'] = $padre[1];
 		unset($datos['padre']);
 		//-- HIJO --
 		$hijo = explode(",",$datos['hija']);
 		$datos['hijo_id'] = $hijo[0];
-		$datos['hijo_proyecto'] = toba::get_hilo()->obtener_proyecto();
+		$datos['hijo_proyecto'] = editor::get_proyecto_cargado();
 		$datos['hijo_objeto'] = $hijo[1];
 		unset($datos['hija']);
 		return $datos;

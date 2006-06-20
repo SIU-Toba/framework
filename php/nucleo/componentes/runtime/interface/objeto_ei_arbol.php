@@ -264,7 +264,7 @@ class objeto_ei_arbol extends objeto_ei
 					} else {
 						$target = "target='{$this->frame_destino}'";
 					}
-					$html = "<a href='".$utileria['vinculo']."' $target>$img</a>\n";
+					$html = "<a href=\"".$utileria['vinculo']."\" $target>$img</a>\n";
 				} else {
 					$html = $img;
 				}

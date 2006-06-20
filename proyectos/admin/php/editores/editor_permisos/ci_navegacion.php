@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_permisos.php');
+require_once('db/dao_permisos.php');
 //--------------------------------------------------------------------
 class ci_navegacion extends objeto_ci
 {
@@ -74,7 +74,7 @@ class ci_navegacion extends objeto_ci
 	
 	function evt__guardar()
 	{
-		$this->get_relacion()->tabla('permiso')->set_columna_valor('proyecto', toba::get_hilo()->obtener_proyecto());
+		$this->get_relacion()->tabla('permiso')->set_columna_valor('proyecto', editor::get_proyecto_cargado());
 		$this->get_relacion()->sincronizar();
 		$this->evt__cancelar();
 	}

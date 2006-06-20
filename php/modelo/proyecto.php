@@ -31,11 +31,7 @@ class proyecto extends elemento_modelo
 	{
 		$this->instancia = $instancia;
 		$this->identificador = $identificador;
-		if ( $this->identificador == 'toba' ) {
-			$this->dir = toba_dir() . '/php/admin';	
-		} else {
-			$this->dir = toba_dir() . '/proyectos/' . $this->identificador;	
-		}
+		$this->dir = toba_dir() . '/proyectos/' . $this->identificador;	
 		if( ! is_dir( $this->dir ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}

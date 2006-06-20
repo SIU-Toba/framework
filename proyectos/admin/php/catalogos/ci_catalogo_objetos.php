@@ -1,7 +1,7 @@
 <?php
 
 //----------------------------------------------------------------
-require_once('admin/catalogos/ci_catalogo.php'); 
+require_once('catalogos/ci_catalogo.php'); 
 require_once('modelo/lib/catalogo_objetos.php');
 require_once('nucleo/componentes/info/info_componente.php');
 
@@ -17,7 +17,7 @@ class ci_catalogo_objetos extends ci_catalogo
 	{
 		parent::__construct($id);
 		$this->album_fotos = new album_fotos('cat_objeto');
-		$this->catalogo = new catalogo_objetos(toba::get_hilo()->obtener_proyecto());
+		$this->catalogo = new catalogo_objetos(editor::get_proyecto_cargado());
 	}
 	
 

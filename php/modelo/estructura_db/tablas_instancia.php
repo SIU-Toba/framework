@@ -29,10 +29,11 @@ class tablas_instancia
 		return array (
   0 => 'apex_arbol_items_fotos',
   1 => 'apex_admin_album_fotos',
-  2 => 'apex_ap_tarea_usuario',
-  3 => 'apex_et_item',
-  4 => 'apex_et_objeto',
-  5 => 'apex_et_preferencias',
+  2 => 'apex_admin_param_previsualizazion',
+  3 => 'apex_ap_tarea_usuario',
+  4 => 'apex_et_item',
+  5 => 'apex_et_objeto',
+  6 => 'apex_et_preferencias',
 );
 	}
 
@@ -208,6 +209,27 @@ class tablas_instancia
     4 => 'foto_nodos_visibles',
     5 => 'foto_opciones',
     6 => 'predeterminada',
+  ),
+);
+	}
+
+	static function apex_admin_param_previsualizazion()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario, proyecto',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario',
+    2 => 'grupo_acceso',
+    3 => 'punto_acceso',
   ),
 );
 	}

@@ -14,7 +14,7 @@ class componente_filtro extends componente_toba
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$consumo_web = defined('apex_solicitud_tipo');
+		$consumo_web = toba::get_solicitud()->get_tipo() == 'web';
 		$sql = parent::get_vista_extendida($proyecto, $componente);	
 		$sql["info_dimensiones"]["sql"] = "SELECT	g.dimension_grupo as	grupo,
 						g.nombre as		 				grupo_nombre,

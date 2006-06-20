@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/persistencia/ap_tabla_db.php");
+require_once("nucleo/componentes/runtime/persistencia/ap_tabla_db.php");
 
 class apdb_usuario_basicas extends ap_tabla_db
 {

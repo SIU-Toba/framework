@@ -8,6 +8,7 @@ class solicitud_consola extends solicitud
 
 	function solicitud_consola($proyecto, $item, $usuario)
 	{
+		$this->tipo_solicitud = 'consola';
 	    $this->info = self::get_definicion_item($proyecto, $item);
 	    
 		//--[ 2 ]-- Si el tipo de solicitud es WEB, emulo el ambiente

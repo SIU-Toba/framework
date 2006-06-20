@@ -79,7 +79,7 @@ class dao_editores
 				FROM apex_clase 
 				WHERE 
 					$sql_todas
-					(proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR proyecto='toba')
+					(proyecto = '". editor::get_proyecto_cargado() ."' OR proyecto='toba')
 				ORDER BY 2";
 		return consultar_fuente($sql, "instancia");
 	}	
@@ -118,7 +118,7 @@ class dao_editores
 					c.clase_tipo = ct.clase_tipo AND 
 					c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."')	AND
 						--El proyecto es Toba o el actual
-					(c.proyecto = '". toba::get_hilo()->obtener_proyecto() ."' OR c.proyecto = 'toba') AND
+					(c.proyecto = '". editor::get_proyecto_cargado() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL
 				ORDER BY ct.orden DESC";
 		return consultar_fuente($sql, "instancia");	
@@ -168,7 +168,7 @@ class dao_editores
 				FROM
 					apex_objeto_ci_pantalla
 				WHERE
-					objeto_ci_proyecto = '". toba::get_hilo()->obtener_proyecto() ."' AND
+					objeto_ci_proyecto = '". editor::get_proyecto_cargado() ."' AND
 					objeto_ci = '$objeto'
 		";
 		return consultar_fuente($sql, "instancia");
@@ -202,7 +202,7 @@ class dao_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				proyecto = '". editor::get_proyecto_cargado() ."'
 			ORDER BY nombre;
 		";
 		return consultar_fuente($sql, "instancia");
@@ -215,7 +215,7 @@ class dao_editores
 	static function get_items_para_combo()
 	{
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items();
+		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
 		$catalogador->cargar(array());	
 		foreach($catalogador->items() as $item) {
 			if (! $item->es_carpeta()) {
@@ -225,7 +225,7 @@ class dao_editores
 				}else{
 					$inden = "";
 				}
-				$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+				$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
 									'id' => $item->get_id(), 
 									'padre' => $item->get_id_padre(),
 									'descripcion' => $inden . $item->get_nombre());
@@ -240,7 +240,7 @@ class dao_editores
 	static function get_carpetas_posibles()
 	{
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items(toba::get_hilo()->obtener_proyecto());
+		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
 		$catalogador->cargar(array('solo_carpetas' => 1));		
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
@@ -249,7 +249,7 @@ class dao_editores
 			}else{
 				$inden = "";
 			}
-			$datos[] =  array('proyecto' => toba::get_hilo()->obtener_proyecto(),
+			$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
 								'id' => $carpeta->get_id(), 
 								'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
 								'nombre' => $inden . $carpeta->get_nombre());
@@ -258,10 +258,11 @@ class dao_editores
 	}	
 
 	/**
-	*	Retorna la lista de carpetas en un formato adecuado para un combo
+	*	Retorna los items de una carpeta
 	*/
 	static function get_items_carpeta($carpeta)
 	{
+		$proyecto = editor::get_proyecto_cargado();
 		$sql = "
 			SELECT 
 				item 						as id, 
@@ -269,8 +270,8 @@ class dao_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				( (padre = '$carpeta') AND (padre_proyecto='". toba::get_hilo()->obtener_proyecto() ."') ) AND
-				proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				( (padre = '$carpeta') AND (padre_proyecto='$proyecto') )
+					AND	proyecto = '$proyecto'
 			ORDER BY nombre;
 		";
 		return consultar_fuente($sql, "instancia");		
@@ -289,7 +290,7 @@ class dao_editores
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
 				WHERE 	clase = '{$clase[1]}'
-				AND 	proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				AND 	proyecto = '". editor::get_proyecto_cargado() ."'
 				ORDER BY nombre";
 		return consultar_fuente($sql, "instancia");
 	}
@@ -369,7 +370,7 @@ class dao_editores
 				FROM apex_objeto 
 				WHERE 	clase = 'objeto_datos_tabla'
 				AND		clase_proyecto = 'toba'
-				AND 	proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				AND 	proyecto = '". editor::get_proyecto_cargado() ."'
 				ORDER BY 2";
 		return consultar_fuente($sql, "instancia");
 	}
@@ -386,17 +387,107 @@ class dao_editores
 							col_id  as	col_id
 				FROM apex_objeto_db_registros_col 
 				WHERE 	objeto = $objeto
-				AND 	objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+				AND 	objeto_proyecto = '". editor::get_proyecto_cargado() ."'
 				ORDER BY 3";
 		return consultar_fuente($sql, "instancia");
 	}
 
 	//-------------------------------------------------
-	//---------------- ITEMS --------------------------
+	//---------------- VARIOS -------------------------
+	//-------------------------------------------------
+
+	/**
+	* Tipos de pagina
+	*/
+	function get_tipos_pagina()
+	{
+		$sql = "SELECT proyecto, pagina_tipo, descripcion 
+				FROM apex_pagina_tipo 
+				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY 3";
+		return consultar_fuente($sql, "instancia");
+	}
+	
+	/**
+	* BUFFERs
+	*/
+	function get_buffers()
+	{
+		$sql = "SELECT proyecto, buffer, descripcion_corta 
+				FROM apex_buffer 
+				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY 2";
+		return consultar_fuente($sql, "instancia");		
+	}
+
+	/**
+	* Patrones
+	*/
+	function get_comportamientos()
+	{
+		$sql = "SELECT proyecto, patron, descripcion_corta FROM apex_patron 
+				WHERE patron != 'especifico'
+				AND ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY 3";
+		return consultar_fuente($sql, "instancia");		
+	}
+
+	/**
+	* Zonas
+	*/
+	function get_zonas()
+	{
+		$sql = "SELECT proyecto, zona, nombre
+				FROM apex_item_zona
+				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY descripcion";
+		return consultar_fuente($sql, "instancia");		
+	}			
+
+	/**
+	* Tipos de solicitud
+	*/
+	function get_tipo_observaciones_solicitud()
+	{
+		$sql = "SELECT proyecto, solicitud_obs_tipo, 
+						descripcion 
+				FROM apex_solicitud_obs_tipo 
+				WHERE (criterio = 'item' OR criterio='sistema')
+				AND ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' ) ";
+		return consultar_fuente($sql, "instancia");		
+	}
+
+	/**
+	* FUENTEs de DATOS
+	*/
+	function get_fuentes_datos()
+	{
+		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
+				FROM apex_fuente_datos
+				WHERE ( proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY 2";
+		return consultar_fuente($sql, "instancia");		
+	}
+
+	/**
+	*	Consultas PHP declaradas
+	*/
+	function get_consultas_php()
+	{
+		$sql = "SELECT proyecto, nucleo, nucleo 
+				FROM apex_nucleo
+				WHERE ( proyecto = '". editor::get_proyecto_cargado() ."' )
+				ORDER BY 2 ASC";
+		return consultar_fuente($sql, "instancia");		
+	}
+
+	//-------------------------------------------------
+	//---------------- LOGS ---------------------------
 	//-------------------------------------------------
 
 	/*
-		ATENCION, clase 'toba' de editores hardcodeada
+		ATENCION, clase 'toba' hardcodeada en el item del editor...
+			Hay que arreglarlo antes de que los proyectos agreguen componentes
 	*/
 	function get_log_modificacion_componentes()
 	{
@@ -416,11 +507,10 @@ class dao_editores
 						ON (o.proyecto = l.objeto_proyecto AND o.objeto = l.objeto)
 					LEFT OUTER JOIN
 						apex_item i ON (l.item = i.item)
-					WHERE objeto_proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+					WHERE objeto_proyecto = '". editor::get_proyecto_cargado() ."'
 					AND ( (o.objeto IS NOT NULL) OR (i.item IS NOT NULL) ) -- no mostrar eliminados
 					ORDER BY momento DESC;";	
 		return consultar_fuente($sql, "instancia");
 	}
-
 }
 ?>

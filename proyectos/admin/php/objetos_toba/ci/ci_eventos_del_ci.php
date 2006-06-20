@@ -1,5 +1,5 @@
 <?php
-require_once("admin/objetos_toba/ci_eventos.php");
+require_once("objetos_toba/ci_eventos.php");
 
 /**
  * Wrapper del ci_eventos destinado a manejar las particularidades de un evento en un ci

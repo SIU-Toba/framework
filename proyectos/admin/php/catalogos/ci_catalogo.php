@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/catalogos/album_fotos.php');
+require_once('catalogos/album_fotos.php');
 
 define('apex_foto_inicial', '-- Completo --');
 //----------------------------------------------------------------

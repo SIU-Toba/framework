@@ -26,7 +26,7 @@
 		top.cabecera.closeallmenus();//Queda el boton activado
 	}else{
 		//alert('Error! la cabecera redirecciona a:' + top.cabecera.redireccion);
-		top.cabecera.location.href='<? echo $this->vinculador->generar_solicitud("toba","/basicos/cabecera") ?>&frame='+self.name;
+		top.cabecera.location.href='<? echo $this->vinculador->generar_solicitud("admin","/basicos/cabecera") ?>&frame='+self.name;
 	}
 </script>*/
 ?>

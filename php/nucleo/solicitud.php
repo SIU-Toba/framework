@@ -20,6 +20,7 @@ class solicitud
 	var $registrar_db;					//Indica	si	se	va	a registrar	la	solicitud
 	var $cronometrar;					//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
 	var $log;							//Objeto que mantiene el log de la ejecucion
+	private $tipo_solicitud;
 
 	function __construct($item, $usuario)	
 	{
@@ -31,11 +32,6 @@ class solicitud
 		$this->item = $item;
 		$this->usuario = $usuario;
 
-		//ei_arbol($this->info);
-		$status = $this->controlar_permisos();
-		if(!$status[0]){
-			monitor::evento("falta",$status[1],$usuario);	
-		}
 		//-[2]- Determino	la	ACTIVIDAD (El php	que ejecuta	al	ITEM)	
 		//Un	ITEM siempre tiene asociada una ACTIVIDAD, escrita	directamente en PHP,	
 		//QUe representa	el	procesamiento correspondiente	al	metodo procesar()	de	la	SOLICITUD
@@ -64,7 +60,7 @@ class solicitud
 			monitor::evento("bug","Imposible	determinar el ID de la SOLICITUD: "	.$db["instancia"][apex_db_con]->ErrorMsg(),$usuario);	
 		}
 		$this->id =	$rs[0][0];
-
+/*
 		//-[4]- Decido	si	la	solicitud se registra en la base	
 		switch(apex_pa_registrar_solicitud){
 			case "siempre": 
@@ -94,7 +90,7 @@ class solicitud
 			default:	//Si se equivocan	en	el	punto	de	acceso
 				$this->cronometrar =	false;				
 		}
-
+*/
 		//-[7]- Identifico si la solicitud tiene que	realizar	observaciones
 		if(isset($this->info['item_solic_obs_tipo'])){
 			$tipo	= array($this->info['item_solic_obs_tipo_proyecto'],$this->info['item_solic_obs_tipo']);
@@ -112,7 +108,6 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		$this->cargar_info_objetos();
 		$this->log = toba::get_logger();
 		$cronometro->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
-	
 	}
 //--------------------------------------------------------------------------------------------
 	/**
@@ -124,7 +119,6 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		$clase = "solicitud_".$definicion['item_solic_tipo'];
 		require_once("$clase.php");
 		return new $clase($definicion);
-		
 	}	
 //--------------------------------------------------------------------------------------------
 
@@ -181,34 +175,6 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 	}
 //--------------------------------------------------------------------------------------------
 
-	function controlar_permisos()
-	{
-		//Controlar si el ITEM es PUBLICO
-		if($this->info['item_publico'] == "1"){
-			return array(true,"OK! (el item es publico)");
-		}
-		//Controlar PERMISOS desde la DB
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE	= ADODB_FETCH_ASSOC;
-		$sql = "SELECT u.usuario as usuario	
-					FROM	apex_usuario_grupo_acc_item ui,
-							apex_usuario_proyecto up,
-							apex_usuario u	
-					WHERE	ui.usuario_grupo_acc	= up.usuario_grupo_acc
-					AND	ui.proyecto	= up.proyecto
-					AND	up.usuario = u.usuario
-					AND	u.usuario =	'{$this->usuario}'
-					AND	ui.proyecto = '{$this->item[0]}'
-					AND	ui.item =	'{$this->item[1]}';";
-		$rs = toba::get_db("instancia")->consultar($sql);
-		if(empty($rs)){
-			return array(false,"EL usuario no posee permisos para acceder al ITEM solicitado");
-		}else{
-			return array(true,"OK! (el usurio posee permisos)");
-		}
-	}
-	//--------------------------------------------------------------------------------------------
-
 	function finalizar_objetos()
 	{
 		//--- Finalizo objetos TOBA ----------
@@ -233,6 +199,17 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		exit();
 		//$cronometro->marcar('SOLICITUD: Finalizar el CONTEXTO',apex_nivel_nucleo);
 	}
+
+	function get_tipo()
+	{
+		return $this->tipo_solicitud;	
+	}
+	
+	function es_item_publico()
+	{
+		return $this->info['item_publico'];	
+	}
+
 	//--------------------------------------------------------------------------------------------
 
 	function info()
@@ -347,7 +324,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 			$cronometro->marcar('SOLICITUD: Fin	del registro',"nucleo");
 			$tiempo = $cronometro->tiempo_acumulado();
 			$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo,	item_proyecto,	item,	tiempo_respuesta)	
-					VALUES ('$proyecto','$this->id','".apex_solicitud_tipo."','{$this->info['item_proyecto']}','{$this->info['item']}','$tiempo');";	
+					VALUES ('$proyecto','$this->id','$this->tipo_solicitud','{$this->info['item_proyecto']}','{$this->info['item']}','$tiempo');";	
 			if	($db["instancia"][apex_db_con]->Execute($sql) === false){
 				monitor::evento("bug","SOLICITUD: No se pudo	registrar la solicitud:	" .$db["instancia"][apex_db_con]->ErrorMsg());
 			}else{
@@ -399,7 +376,7 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		}
 		if($forzar_registro)	$this->registrar_db=true;
 		if($mostrar){
-			if(apex_solicitud_tipo =="consola"){
+			if( $this->get_tipo() =="consola"){
 				echo $observacion	."\n";	
 			}else {	
 				echo ei_mensaje($observacion,$tipo);

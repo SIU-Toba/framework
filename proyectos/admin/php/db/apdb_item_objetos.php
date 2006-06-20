@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/persistencia/ap_tabla_db_s.php");
+require_once("nucleo/componentes/runtime/persistencia/ap_tabla_db_s.php");
 
 class apdb_item_objetos extends ap_tabla_db_s
 {
@@ -7,7 +7,7 @@ class apdb_item_objetos extends ap_tabla_db_s
 	{
 		$this->activar_proceso_carga_externa_dao(	"get_info_dependencia",
 													"dao_editores",
-													"admin/db/dao_editores.php", 
+													"db/dao_editores.php", 
 													array('proyecto','objeto'), 
 													array('clase','nombre_objeto','descripcion') );
 	}

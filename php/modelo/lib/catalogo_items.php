@@ -13,11 +13,7 @@ class catalogo_items
 	
 	function __construct($proyecto=null)
 	{
-		if (!$proyecto) {
-			$this->proyecto = toba::get_hilo()->obtener_proyecto();
-		} else {
-			$this->proyecto = $proyecto;
-		}
+		$this->proyecto = $proyecto;
 	}
 	
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())

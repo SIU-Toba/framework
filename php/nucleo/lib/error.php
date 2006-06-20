@@ -29,7 +29,7 @@
 		$mensaje["linea"] = $linenum;
 
 		//Muestro el mensaje
-		if ( apex_solicitud_tipo == "browser"){
+		if ( toba::get_solicitud()->get_tipo() == "browser"){
 			require_once("nucleo/browser/interface/ei.php");//puede pasar...
 			switch( apex_pa_nivel_error ){
 				case 1: 	//TRACE completo de PHP
@@ -52,7 +52,7 @@
 	//No es posible conectarse a la instancia principal
 	{
 		global $instancia;
-		if ( apex_solicitud_tipo == "browser"){
+		if ( toba::get_solicitud()->get_tipo() == "browser"){
 			require_once("nucleo/browser/interface/ei.php");	
 			$titulo = "Problemas para conectarse a la instancia";
 			ei_html_cabecera($titulo);

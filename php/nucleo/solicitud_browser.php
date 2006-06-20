@@ -20,7 +20,7 @@ class solicitud_browser extends solicitud
 	
 	function __construct($info)
 	{
-		define("apex_solicitud_tipo","browser");		
+		$this->tipo_solicitud = 'browser';
 		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//toba::get_cronometro()->marcar('SOLICITUD BROWSER: Listo para cargar el ITEM',"nucleo");
@@ -33,7 +33,7 @@ class solicitud_browser extends solicitud
 		parent::__construct($item,$this->hilo->obtener_usuario());
 		
 		//El elemento de item tiene que ser de tipo browser!
-		if(apex_solicitud_tipo!=$this->info['item_solic_tipo']) {
+		if($this->tipo_solicitud!=$this->info['item_solic_tipo']) {
 			monitor::evento("falta","SOLICITUD BROWSER: El ITEM de item no es de tipo: BROWSER.");
 		}
 		//Creo la ZONA

@@ -139,7 +139,6 @@ class vinculador
 				AND		o.item = '".$item[1]."' AND
 						o.proyecto= '".$item[0]."'
 				AND		(v.destino_item = '/autovinculo');";
-
 		$rs = toba::get_db("instancia")->consultar($sql);
 		if(! empty($rs)){
 			//Creo el array de vinculos
@@ -182,6 +181,7 @@ class vinculador
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
 	 * 					servicio => Servicio solicitado, por defecto obtener_html
 	 * 					objetos_destino => array(array(proyecto, id_objeto)) Objetos destino del vinculo
+	 * 					prefijo => Punto de acceso a llamar.
 	 * @return string Una URL o el link html en caso
 	 */
 	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
@@ -199,6 +199,7 @@ class vinculador
 		if (!isset($opciones['escribir_tag'])) $opciones['escribir_tag'] = false;
 		if (!isset($opciones['servicio'])) $opciones['servicio'] = apex_hilo_qs_servicio_defecto;
 		if (!isset($opciones['objetos_destino'])) $opciones['objetos_destino'] = null;
+		if (!isset($opciones['prefijo'])) $opciones['prefijo'] = null;
 		
 		$requerido_item_actual = ($item_actual[0]==$proyecto && $item_actual[1]==$item);
 		if ( $opciones['validar'] && !$requerido_item_actual) {
@@ -212,7 +213,8 @@ class vinculador
 		$url = $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
 								 $opciones['cronometrar'], $opciones['param_html'],
 								 $opciones['menu'], $opciones['celda_memoria'], 
-								 $opciones['servicio'], $opciones['objetos_destino']);
+								 $opciones['servicio'], $opciones['objetos_destino'],
+								 $opciones['prefijo'] );
 		if ($opciones['escribir_tag']) {
 			return $this->generar_html_vinculo($url,$v,'lista-link',$texto, $opciones['param_html']);
 		} else {
@@ -259,7 +261,7 @@ class vinculador
 	function generar_solicitud($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
 								$menu=null,$celda_memoria=null, $servicio=null,
-								$objetos_destino=null)
+								$objetos_destino=null, $prefijo=null)
  	{
  		$solicitud_actual = toba::get_solicitud();
 		//-[1]- Determino ITEM
@@ -312,10 +314,20 @@ class vinculador
 				$parametros_formateados .= "&$clave=$valor";
 			}
 		}
+		//Obtengo el prefijo del vinculo
+		if ( ! isset($prefijo) ) {
+			$prefijo = $this->prefijo;	
+		} else {
+			if (strpos($prefijo,'?') === false) {
+				$prefijo = $prefijo . '?';
+			}
+		}
 		//Genero la URL que invoca la solicitud
-		$vinculo = $this->prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
+		$vinculo = $prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
-			if(apex_pa_encriptar_qs){
+
+			$encriptar_qs = info_proyecto::instancia()->get_parametro('encriptar_qs');
+			if($encriptar_qs){
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
 				$parametros_formateados .= $parametros_formateados . "&jmb76=". uniqid("");

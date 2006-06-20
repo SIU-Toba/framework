@@ -22,6 +22,6 @@ CREATE TABLE apex_objeto_html
    objeto_html            		int4			NOT NULL,
    html		               		varchar			NULL,
    CONSTRAINT  "apex_objeto_html_pk" PRIMARY KEY ("objeto_html_proyecto","objeto_html"),
-   CONSTRAINT  "apex_objeto_html_fk_objeto"  FOREIGN KEY ("objeto_html_proyecto","objeto_html") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_objeto_html_fk_objeto"  FOREIGN KEY ("objeto_html_proyecto","objeto_html") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

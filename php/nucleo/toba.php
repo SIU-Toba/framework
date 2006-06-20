@@ -99,5 +99,28 @@ class toba
 		return cronometro::instancia();	
 	}
 
+	static function get_sesion()
+	{
+		$subclase = info_proyecto::instancia()->get_parametro('sesion_subclase');
+		$archivo = info_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
+		if( $subclase && $archivo ) {
+			require_once($archivo);
+			return call_user_func(array($subclase,'instancia'));
+		} else {
+			return sesion_toba::instancia();
+		}
+	}
+
+	static function get_usuario()
+	{
+		$subclase = info_proyecto::instancia()->get_parametro('usuario_subclase');
+		$archivo = info_proyecto::instancia()->get_parametro('usuario_subclase_archivo');
+		if( $subclase && $archivo ) {
+			require_once($archivo);
+			return call_user_func(array($subclase,'instancia'));
+		} else {
+			return usuario_toba::instancia();
+		}
+	}
 }
 ?>

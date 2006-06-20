@@ -1,5 +1,5 @@
 <?php
-require_once("admin/db/dao_editores.php");
+require_once("db/dao_editores.php");
 require_once("nucleo/componentes/constructor_toba.php");
 
 class clonador_objetos

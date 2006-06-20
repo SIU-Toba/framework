@@ -1,6 +1,6 @@
 <?php
-require_once('nucleo/persistencia/objeto_datos_tabla.php'); 
-//--------------------------------------------------------------------
+
+
 class odt_permisos_grupos extends objeto_datos_tabla
 {
 	function set_grupos($grupos)

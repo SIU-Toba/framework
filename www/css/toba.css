@@ -4,6 +4,18 @@
 
 /*-- NIVEL 0 --*/
 
+.div-editor {
+
+	border: solid orange 1px; 
+	background-color: yellow; 
+	padding: 1px;
+}
+body > .div-editor { 
+position: absolute; 
+position: fixed; 
+left: 0px;
+}
+
 .div-esperar {
 	border: solid black 1px; 
 	position: absolute; 

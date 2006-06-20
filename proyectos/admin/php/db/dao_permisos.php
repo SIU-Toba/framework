@@ -19,7 +19,7 @@ class dao_permisos
 					descripcion
 				FROM apex_permiso 
 				WHERE 
-					proyecto = '". toba::get_hilo()->obtener_proyecto() ."'
+					proyecto = '". editor::get_proyecto_cargado() ."'
 					$where
 				ORDER BY nombre, descripcion
 		";
@@ -29,7 +29,7 @@ class dao_permisos
 	static function get_grupos_acceso($proyecto=null)
 	{
 		if (!isset($proyecto)) {
-			$proyecto = toba::get_hilo()->obtener_proyecto();	
+			$proyecto = editor::get_proyecto_cargado();	
 		}
 		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
 				FROM apex_usuario_grupo_acc
@@ -43,7 +43,7 @@ class dao_permisos
 	static function get_perfiles_datos($proyecto=null)
 	{
 		if (!isset($proyecto)) {
-			$proyecto = toba::get_hilo()->obtener_proyecto();	
+			$proyecto = editor::get_proyecto_cargado();	
 		}
 		$sql = "SELECT proyecto, usuario_perfil_datos, nombre
 				FROM apex_usuario_perfil_datos

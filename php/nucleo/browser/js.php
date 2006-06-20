@@ -94,8 +94,8 @@ class js
 						break;
 					case 'comunicacion_server':
 						echo js::abrir();
-						echo "var apex_frame_com='".apex_frame_com."'\n";
-						echo "var apex_solicitud_tipo='".apex_solicitud_tipo."'\n";
+						//echo "var apex_frame_com='".apex_frame_com."'\n";
+						echo "var apex_solicitud_tipo='".toba::get_solicitud()->get_tipo()."'\n";
 						echo js::cerrar();
 						echo js::incluir(recurso::js("$consumo.js"));
 						break;
@@ -121,6 +121,7 @@ class js
 						echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 						echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 						echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
+						echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 						echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
 						echo "var lista_imagenes=".js::arreglo($imagenes, true).";";
 						echo js::cerrar();

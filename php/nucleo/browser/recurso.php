@@ -181,8 +181,9 @@ class recurso {
 	*	Dado el nombre de una plantilla, encuentra la url  si es que existe
 	*	Para esto primero busca en el proyecto y si no lo encuentra lo busca en el mismo toba
 	*/
-	static function css($nombre=apex_proyecto_estilo)
+	static function css($nombre=null)
 	{
+		$nombre = isset($nombre)? $nombre: info_proyecto::instancia()->get_parametro('estilo');
 		$hilo = toba::get_hilo();
 		//Si esta abierta la sesion
 		if ($hilo->sesion_abierta()) {
@@ -214,8 +215,9 @@ class recurso {
 	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
 	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
 	*/
-	static function link_css($estilo=apex_proyecto_estilo,  $rol='screen')
+	static function link_css($estilo=null,  $rol='screen')
 	{
+		$estilo = isset($estilo) ? $estilo : info_proyecto::instancia()->get_parametro('estilo');
 		$url = recurso::css($estilo);
 		if ($url != null) {
 			return "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";

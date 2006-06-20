@@ -70,7 +70,7 @@ class objeto_ei_esquema extends objeto_ei
 		$archivo_generado = self::generar_archivo($contenido, $formato, $es_dirigido);
 		$parametros = array("archivo" => $archivo_generado, 'tipo_salida' => urlencode($tipo_salida));
 		//Vinculo a un item que hace el passthru y borra el archivo
-		$url = toba::get_vinculador()->obtener_vinculo_a_item("toba","3068", $parametros,
+		$url = toba::get_vinculador()->obtener_vinculo_a_item("admin","3068", $parametros,
 																false, false, false,
 																"", null, null, 'temp');
 		self::generar_sentencia_incrustacion($url, $formato, $ancho, $alto);

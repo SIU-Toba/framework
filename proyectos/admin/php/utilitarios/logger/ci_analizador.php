@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('modelo/lib/analizador_logger.php');
 //--------------------------------------------------------------------
 
@@ -43,7 +42,7 @@ class ci_analizador extends objeto_ci
 	{
 		toba::get_logger()->desactivar();	
 		if (!isset($this->opciones)) {
-			$this->opciones['proyecto'] = toba::get_hilo()->obtener_proyecto();	
+			$this->opciones['proyecto'] = editor::get_proyecto_cargado();	
 			$this->opciones['fuente'] = 'fs';
 			$this->seleccion = 'ultima';
 		}

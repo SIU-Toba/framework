@@ -34,7 +34,9 @@ class monitor
 	//ATENCION: cuando la solicitud no se puede crear el mensaje se muestra sin el encabezado de HTML!!!
 	//--> Para probar esto hay que generar solicitudes incorrectas ( a items inaccesibles)
 	{
-		if(apex_solicitud_tipo == "browser"){
+		echo "MONITOR!<br>";
+		debug_print_backtrace();
+		if(toba::get_solicitud()->get_tipo() == "browser"){
 			if($mostrar){
 				global $solicitud;
 				if(is_object($solicitud)){
@@ -52,7 +54,7 @@ class monitor
 								ei_mensaje($mensaje,"error") . "</body></html>"; 
 				}
 			}
-		}elseif(apex_solicitud_tipo == "consola"){
+		}elseif(toba::get_solicitud()->get_tipo() == "consola"){
 
 			fwrite(STDERR, "\n$mensaje\n\n\n" );
 		}

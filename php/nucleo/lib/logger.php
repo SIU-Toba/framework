@@ -1,6 +1,5 @@
 <?php
 require_once('manejador_archivos.php');
-require_once('nucleo/browser/hilo.php');
 
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
 define('TOBA_LOG_ERROR',    3);     /** Error conditions */
@@ -49,7 +48,7 @@ class logger
 	 */
 	private function __construct($proyecto = null)
 	{
-		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : hilo::obtener_proyecto();
+		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
 		if (defined('apex_pa_instancia')) {
 			$this->dir_logs = toba_dir()."/instalacion/i__".apex_pa_instancia."/p__{$this->proyecto_actual}/logs";
 		}
@@ -74,7 +73,26 @@ class logger
 		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1024);
 		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
 		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
-	}		
+	}
+	
+	function get_proyecto_actual()
+	{
+		if( php_sapi_name() === 'cli' ) {
+			return 'toba';
+			return comando_toba::get_id_proyecto_actual();
+		} else {
+			return info_proyecto::get_id();
+		}
+	}
+	
+	function get_usuario_actual()
+	{
+		if( php_sapi_name() === 'cli' ) {
+			return null;
+		} else {
+			return toba::get_usuario()->get_id();
+		}
+	}
 	
 	/**
 	* @deprecated Desde 0.9.1
@@ -344,7 +362,7 @@ class logger
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
 		$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
-		$texto .= "Usuario: ".toba::get_hilo()->obtener_usuario().$salto;
+		$texto .= "Usuario: ".self::get_usuario_actual().$salto;
 		$texto .= "Version-PHP: ". phpversion().$salto;
 		if (isset($_SERVER['SERVER_NAME'])) {
 			$texto .= "Servidor: ".$_SERVER['SERVER_NAME'].$salto;

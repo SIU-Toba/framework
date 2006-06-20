@@ -24,7 +24,7 @@ class solicitud_web extends solicitud
 	
 	function __construct($info)
 	{
-		define("apex_solicitud_tipo","web");		
+		$this->tipo_solicitud = 'web';
 		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
         
@@ -42,11 +42,22 @@ class solicitud_web extends solicitud
 	function procesar()
 	{	
 		try {
+	/*
+		NOTA: esto hay que arreglarlo: esta cambiado porque no se lleva bien con el TRAP
 			$this->pre_proceso_servicio();
 			$this->crear_zona();
 			$this->cargar_objetos();
 			$this->procesar_eventos();
 			$this->procesar_servicios();
+	*/
+			$this->crear_zona();
+			$this->cargar_objetos();
+			$this->procesar_eventos();
+			$this->pre_proceso_servicio();
+			$this->procesar_servicios();
+		} catch( excepcion_reset_nucleo $e ) {
+			// Recarga del nucleo
+			throw $e;
 		} catch(excepcion_toba $e) {
 			toba::get_logger()->error($e, 'toba');
 			toba::get_cola_mensajes()->agregar($e->getMessage(), "error");
@@ -178,8 +189,6 @@ class solicitud_web extends solicitud
 			$this->zona->obtener_html_barra_superior();
 		}			
 		
-		//--- Genera la interfaz gráfica de todos los CIs		
-
 		$this->tipo_pagina->pre_contenido();
 
 		foreach ($objetos as $obj) {
@@ -191,12 +200,15 @@ class solicitud_web extends solicitud
 			echo js::abrir();
 			$objeto_js = $obj->obtener_javascript();
 			echo "\n$objeto_js.iniciar();\n";
-			//-- Javascript del vinculador
-			toba::get_vinculador()->obtener_javascript();
 			echo js::cerrar();
 		}
 
 		$this->tipo_pagina->post_contenido();
+
+		// Carga de componentes JS genericos
+		echo js::abrir();
+		toba::get_vinculador()->obtener_javascript();
+		echo js::cerrar();
 		
 		//--- Parte inferior de la zona
 		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
@@ -221,11 +233,12 @@ class solicitud_web extends solicitud
 	
 	protected function servicio__vista_html_impr( $objetos )
 	{
-		$datos = toba::get_hilo()->obtener_proyecto_datos();
-		if ( trim($datos['impr_archivo']) != '' && 	trim($datos['impr_clase']) != '' ) {
+		$clase = info_proyecto::instancia()->get_parametro('salida_impr_html_c');
+		$archivo = info_proyecto::instancia()->get_parametro('salida_impr_html_a');
+		if ( $clase && $archivo ) {
 			//El proyecto posee un objeto de impresion HTML personalizado
-			require_once($datos['impr_archivo']);
-			$salida = new $datos['impr_clase']();	
+			require_once($archivo);
+			$salida = new $clase();	
 		} else {
 			require_once('nucleo/lib/salidas/html_impr.php');
 			$salida = new html_impr();

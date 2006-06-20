@@ -1,0 +1,28 @@
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'checkbox', 'CheckBox', 'La dimension representa una propiedad que se presenta o no.', 'valor: Valor que represente la activacion;
+valor_info: Nombre coloquial de valor;
+operador: Operador a utilizar en la comparacion;', 'no', NULL, 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'combo_db', 'Combo DB', 'La dimension es representada por un COMBO que permite elegir un valor.', 'sql: SQL a utilizar para generar el combo;
+no_seteado: valor de no seteado;', 'no', NULL, 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'combo_db_proyecto', 'Combo DB proyecto', 'Combo que filtra los elementos segun el proyecto ACTUAL. (Puede incorporar opcionalmente a los del proyecto TOBA)', 'sql: QUERY que carga el combo. Tiene que devolver 3 columnas (proyecto, id del dato y valor legible al usuario). Es necesario que se posicione el string \'%w%\' en el lugar donde se tiene que concatenar el WHERE automatico;
+columna_proyecto: columna de la tabla que representa el proyecto;
+incluir_toba: Hay que incluir el proyecto Toba en la lista?
+no_seteado: Nombre que representa la ausencia de dato (en la base se graba como NULL);', 'no', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'combo_db_restric', 'Combo PERFIL', 'Combo restringido segun el perfil de datos del usuario', 'tab_ref: Tabla donde esta guardada la dimension;
+tab_ref_clave: columna clave de la tabla de referencia;
+tab_ref_des: columna que representa la descripcion de la tabla de referencia;
+tab_restric: Respecto de los campos de esta tabla se supone que la FOREIGN KEY a la tabla de referencia se llama igual que la clave de esta tabla, y que la FOREIGN KEY a la tabla \"apex_usuario_perfil_datos\" se llama \"usuario_perfil_datos\";
+no_seteado: Valor que representa la no activacion del filtro;', 'tabla', NULL, 'admin', '/admin/dimensiones/editor_tab_asoc', '400', '500', NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'fecha_lapso', 'Lapso entre dos fechas', 'Lapso entre dos fechas', 'inclusive', 'no', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'mes', 'Mes', 'Elegir un mes puntual (Maneja dos valores independientes: anio y mes)', 'anio_i: Anio inicial;
+anio_f: Anio final;
+operador: Operador que evalua la dimension;
+operador_texto: Descripcion del operador para INFO;', 'no', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'mes_lapso', 'Lapso entre meses', 'La interface indica un lapso entre meses. Devuelve 4 valores: anio 1, mes 1, anio 2, mes 2.', 'anio_i: Anio inicial;
+anio_f: Anio final;', 'no', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'numero_conector', 'Numero con conector', 'Compara una columna con un numero usando (=,>=,<=,>,<)', 'digitos: Cantidad de digitos del numero a ingresar;', 'no', NULL, 'admin', NULL, NULL, NULL, NULL);
+INSERT INTO apex_dimension_tipo (proyecto, dimension_tipo, nombre, descripcion, parametros, dimension_tipo_perfil, editor_restric_id, item_editor_restric_proyecto, item_editor_restric, ventana_editor_x, ventana_editor_y, exclusivo_toba) VALUES ('toba', 'texto_operador', 'Texto + Operador', 'Se machea una columna con un texto ingresado por el usuario. Hay que especificar que operador utilizar en la comparacion', 'tamano: Tamanio del campo a completar;
+maximo: Cantidad maxima de caracteres para el campo a completar;
+operador: Operador utilizado para concatenar el valor (Tiene que ser un operador valido para el motor utilizado);
+pre_string: String a concatenar ANTES del  texto obtenido de la interface;
+post_string: String a concatenar DESPUES del  texto obtenido de la interface;
+buscar_subcadenas: (0|1) Divide la cadena en palabras y aplica el operador;', 'no', NULL, 'admin', NULL, '0', '0', NULL);

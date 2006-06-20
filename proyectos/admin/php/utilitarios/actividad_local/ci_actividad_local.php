@@ -1,5 +1,5 @@
 <?php
-require_once('admin/db/dao_editores.php'); 
+require_once('db/dao_editores.php'); 
 //--------------------------------------------------------------------
 class ci_actividad_local extends objeto_ci
 {

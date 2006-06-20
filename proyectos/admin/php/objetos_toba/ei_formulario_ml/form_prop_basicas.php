@@ -1,5 +1,4 @@
 <?php
-require_once("nucleo/browser/clases/objeto_ei_formulario.php");
 
 class form_prop_basicas extends objeto_ei_formulario
 {

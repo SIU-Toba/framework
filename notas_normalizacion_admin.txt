@@ -1,0 +1,106 @@
+================================================================================================================
+	TRABAJO pendiente
+================================================================================================================
+
+	* Cambiar nombre del proyecto admin a 'editor'
+	* Acceso anonimo
+	* Insertar el item de login en los proyectos
+	* Esquema de vinculacion inter-proyecto: es necesario para armar el esquema de switcheo (combo) entre proyectos
+	* switcheo de proyectos dentro del admin
+	* Incorporar el esquema de instancia variable
+	* Arreglar el tipo de pagina por defecto en el admin.
+	* Esquema de login automatico imcompleto
+	* ORDEN ADMIN:
+		- Reacomodar TESTING	
+		- Eliminar el uso de ADOdb
+		- Hay que eliminar el uso anterior de vinculos
+		- Mejorar el orden de carpetas de la parte nueva
+		- Existe el tipo de pagina menu APEX? si es asi pasarlo al admin
+		- Falla el editor de vinculos de los cuadros obsoletos
+		- Hay un DT y un ei_cuadro pegado en un item en algun lugar.
+
+================================================================================================================
+	TEMAS pendientes
+================================================================================================================
+
+	* Resolver el problema de los contextos de las definiciones 
+	* Como es el tema de reconeccion con otro perfil?
+	* Solicitud:
+		- Los pre_servicios no se llevan bien con el TRAP (switchear una solicitud como respuesta a un evento)
+		- Hay que pasar todo el SQL a la clase datos_acceso
+	* Sesion: 
+		- Que usuario se utiliza cuando no se cargo ninguno?
+			- El esquema de items iniciales hay que asimilarlos al grupo de acceso anonimo
+	* Logger: 
+		- como se sabe el proyecto en la invocacion por consola?
+		Hay que separar las cosas que se consumen por consola...
+	* Permisos globales: volver a problarlos
+		Antes tenian este codigo en la actualizacion de la sesion
+			//--Notifico los permisos del usuario actual
+			toba::get_permisos()->set_permisos($_SESSION['toba']['permisos']);
+	* Recursion NUCLEO/ADMIN
+		* NUCLEO / ADMIN:
+			* El modo "edicion" que cambie al comportamiento de efs, componentes y tipos de paginas es del nucleo
+		* MODELO / ADMIN:
+			* Vinculos a editores (Las clases info_ suponen la utilizaicion del admin::).
+			* ATENCION: Los componentes info tienen harcodeado editores del admin
+	* Como se cumple la funcion de "inicializacion.php"??
+	* Hay que pasar los DAOS del ADMIN al modelo?
+	* componentes TRANSVERSALES (obsoletos):
+		- Atencion, llaman a items genericos del toba para generar PDF, XLS, etc.
+
+================================================================================================================
+	NOTAS EXTERNAS
+================================================================================================================
+
+	* Excepciones:
+		* Los proyectos tienen que disparar las suyas
+		* La excepcion_toba tiene que atraparse recien al final,
+		* Los componentes tienen que manejar excepciones mas concretas.
+	* Ahora que hay dos proyectos separados, seria interesante que el editor tenga una analizador
+		de sesion del proyecto (que muestre que objetos esta instanciados y con que estado)
+	* Los EFS de _proyecto tienen que quedar para el soporte obsoleto del admin
+	* COmpilacion: hay que pensar formas de reducir los includes
+		- en el nucleo
+			- Archivos que incluyan todo el nucleo
+		- en los proyectos
+			- Los datos de los metadatos y todas las sublcases se tienen que unir en 
+				un unico archivo que cargue todo lo que necesita un item
+		- Va a ser necesario mezclar admin y nucleo?
+			- Un unico archivo que tenga por cada item todos los componentes y sus ancestros
+	* Hay que poder extender la consola toba para administrar a los proyectos desde ahi
+	* La respueste al ajax del editor, estaria buena desde un item especializado? (performance)
+	* Las acciones son una buena idea para algo... tendria que existir algo asi en el nuevo esquema
+		- Extension de soliitudes (la accion en cierta forma es una ventana limitada)
+		- Los items son componentes?
+	* EL toba con SQLite ofreceria una simplicidad perfecta a nivel instalacion.
+		(...Hay que pensar una forma de que se pueda usar en hostings...)
+
+================================================================================================================
+	Compatibilidad
+================================================================================================================
+
+	METADATOS
+	---------
+		
+		* El item de inicio y el de login deja de ser del toba
+			* Hay que crearlos para los proyectos existentes
+			* HAy que meterlo en el plan de proyectos nuevos
+				* Esto se puede alinear con un marco de consola para crear operaciones nuevas
+
+	Modificaciones HECHAS en el sistema de archivos
+	-----------------------------------------------
+	
+		* Se eliminan los links intermedios de clases:
+			* borrar "nucleo/browser/clases"	[ereg require_once("nucleo/browser/clases/*.php");]
+			* borrar "nucleo/persistencia"
+			* El puenteo de "negocio" no se borra pero pasa a "obsoleto"
+			* "persistencia" pasa a "nucleo/obsoleto/persistencia"
+			* "negocio" pasa a "nucleo/obsoleto/negocio"
+		* Los patrones pasa "nucleo/obsoleto/comportamientos"
+		* "consola" pasa a "nucleo/obsoleto/consola"
+
+	* HILO: 
+		- Se elimina obtener item inicial
+
+================================================================================================================

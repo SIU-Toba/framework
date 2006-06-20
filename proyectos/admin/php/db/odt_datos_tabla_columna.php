@@ -1,5 +1,4 @@
 <?
-require_once("nucleo/persistencia/objeto_datos_tabla.php");
 
 class odt_datos_tabla_columna extends objeto_datos_tabla
 {

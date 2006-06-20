@@ -700,13 +700,12 @@ class objeto
 			$titulo = $this->info["titulo"];	
 		}
 		echo "<table class='tabla-0' width='100%'><tr>\n";
+
 		//Vinculo a los EDITORES	
-		if(apex_pa_acceso_directo_editor){ 
-			if( ($this->id[0]) == toba::get_hilo()->obtener_proyecto() ) {
-				echo "<td class='$estilo'>";
-				$this->vinculo_editor();
-				echo "</td>\n";
-			}
+		if( editor::modo_prueba() ){ 
+			echo "<td class='$estilo'>";
+			editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
+			echo "</td>\n";
 		}
 		//Barra de colapsado
 		$colapsado = "";
@@ -728,7 +727,7 @@ class objeto
 		if($this->existe_ayuda()){
 			$parametros = array("objeto"=>$this->info["objeto"],"proyecto"=>$this->info["proyecto"]);
 			echo "<td class='$estilo'>\n";
-			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/ayuda_obj",$parametros,true);
+			echo toba::get_vinculador()->obtener_vinculo_a_item("admin","/basicos/ayuda_obj",$parametros,true);
 			echo "</td>\n";
 		}
 		//Barra especifica dependiente de la clase
@@ -744,71 +743,6 @@ class objeto
 			echo "</td>\n";
 		}
 		echo "</tr></table>";
-	}
-//-----------------------------------------------------------------------------
-	
-	function vinculo_editor()
-/*
- 	@@acceso:
-	@@desc: 
-*/
-	//Muestra vinculos a los editores
-	{
-		if(apex_pa_acceso_directo_editor)
-		{
-			if($this->info["reflexivo"]){
-				$estilo = "objeto-editores-reflexivo";
-			}else{
-				$estilo = "objeto-editores";
-			}
-	  		echo "<table class='tabla-0' border='1'><tr>\n";
-			//Vinculo al EDITOR del OBJETO
-			$vinc_editor= toba::get_vinculador()->obtener_vinculo_a_item(
-						$this->info["clase_editor_proyecto"],$this->info["clase_editor_item"],
-						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-						true);        
-	
-			if($vinc_editor && isset($this->info["clase_editor"])){
-				echo "<td class='$estilo'>";
-	            echo $vinc_editor;
-				echo "</td>\n";
-			}
-	
-			//Vinculo al EDITOR de VINCULOS del OBJETO
-	        $vinc_editor_vinc= toba::get_vinculador()->obtener_vinculo_a_item(
-	        		"toba","/admin/objetos/vinculos",
-	        		array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-	        		true);
-	
-			if($vinc_editor_vinc && $this->info["clase_vinculos"]==1){
-				echo "<td class='$estilo'>";
-	            echo $vinc_editor_vinc;
-				echo "</td>\n";
-			}
-	
-			//Vinculo a las NOTAS del OBJETO
-			$vinc_notas= toba::get_vinculador()->obtener_vinculo_a_item(
-						"toba","/admin/objetos/notas",
-						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-						true);
-	        if ($vinc_notas){
-	    		echo "<td class='$estilo'>";
-	            echo $vinc_notas;
-	    		echo "</td>\n";
-	        }
-	        
-			//Vinculo a la INFORMACION del OBJETO
-			$vinc_info= toba::get_vinculador()->obtener_vinculo_a_item(
-						"toba","/admin/objetos/info",
-						array(apex_hilo_qs_zona=>implode(apex_qs_separador,$this->id)),
-						true);
-	        if ($vinc_info){
-	    		echo "<td class='$estilo'>";
-	            echo $vinc_info;
-	    		echo "</td>\n";
-	        }            
-	   		echo "</tr></table>";
-		}
 	}
 }
 ?>

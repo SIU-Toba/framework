@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once('admin/db/dao_instancia.php');
+require_once('db/dao_instancia.php');
 require_once('3ros/cssparser.php');
 //----------------------------------------------------------------
 class ci_comparador extends objeto_ci

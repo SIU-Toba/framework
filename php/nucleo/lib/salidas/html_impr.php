@@ -25,8 +25,9 @@ class html_impr implements impresion_toba
 	private function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		echo recurso::link_css(apex_proyecto_estilo."_impr", 'print');
-		echo recurso::link_css(apex_proyecto_estilo."_impr");
+		$estilo = info_proyecto::instancia()->get_parametro('estilo');
+		echo recurso::link_css($estilo."_impr", 'print');
+		echo recurso::link_css($estilo."_impr");
 		echo "<style type='text/css' media='print'>
 			.barra-impresion {
 				display: none;				
