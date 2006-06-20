@@ -40,7 +40,7 @@ FROM        apex_usuario_proyecto up
                 ON  ga.proyecto = up.proyecto
                 AND     ga.usuario_grupo_acc = up.usuario_grupo_acc
 WHERE       ga.proyecto = '".editor::get_proyecto_cargado()."'
-AND         ga.nivel_acceso >= ".$this->hilo->obtener_usuario_nivel_acceso()."
+--AND         ga.nivel_acceso >= ".$this->hilo->obtener_usuario_nivel_acceso()."
 ORDER BY    3,6;";
 
     }else{
@@ -116,10 +116,9 @@ ORDER BY    3,6;";
 <? 	
 	global $ADODB_FETCH_MODE;
 	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-	$sql = "	
-			SELECT 	*
+	$sql = "SELECT 	*
 			FROM apex_proyecto
-			WHERE proyecto <> 'toba'";
+			WHERE proyecto <> 'admin'";
 	//dump_sql($sql);
 	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 	if(!$rs) 
@@ -179,7 +178,7 @@ ORDER BY    3,6;";
 //  dump_sql($sql);
     $rs = $db["instancia"][apex_db_con]->Execute($sql2);
     if(!$rs)
-        $this->observar("error","Lista de dimensiones - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql ,false,true,true);
+        $this->observar("error","Lista de USUARIOS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql2 ,false,true,true);
     if(!$rs->EOF){
     while(!$rs->EOF)
     {

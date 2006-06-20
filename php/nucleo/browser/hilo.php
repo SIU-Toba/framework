@@ -356,7 +356,7 @@ class hilo
 	@@desc: Notifica el nivel de acceso que posee el usuario
 */
 	{
-		return $_SESSION['toba']["usuario"]["nivel_acceso"];
+		return null;//$_SESSION['toba']["usuario"]["nivel_acceso"];
 	}
 
 	function obtener_usuario_grupo_acceso()

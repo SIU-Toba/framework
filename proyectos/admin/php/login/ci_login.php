@@ -4,8 +4,6 @@ require_once('modelo/lib/gui.php');
 
 class ci_login extends objeto_ci
 {
-	protected $datos;
-
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
@@ -13,25 +11,64 @@ class ci_login extends objeto_ci
 		return $propiedades;
 	}
 
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($_SESSION['toba']);
-	}
-
 	function get_lista_ei()
 	{
 		$ei = parent::get_lista_ei();
-		if ( true || (! info_proyecto::instancia()->get_parametro('validacion_debug')) ) {
+		if ( ! info_proyecto::instancia()->get_parametro('validacion_debug') ) {
 			unset($ei);
 			$ei[] = 'datos';
 		}
 		return $ei;
 	}
 
+	function evt__post_recuperar_interaccion()
+	{
+		//ei_arbol( $this->datos );
+		if ( false || ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) ) {
+			try {
+				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
+				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
+			} catch ( excepcion_toba_login $e ) {
+				toba::get_cola_mensajes()->agregar( $e->getMessage() );
+			}
+		}
+	}
+
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
+
+	//---- datos -------------------------------------------------------
+
+	function evt__datos__modificacion($datos)
+	{
+		$datos['instancia'] = apex_pa_instancia; //temp
+		$this->datos = $datos;
+	}
+
+	function evt__datos__carga()
+	{
+		$this->datos['instancia'] = apex_pa_instancia;
+		if (isset($this->datos['clave'])) {
+			unset($this->datos['clave']);
+		}
+		return $this->datos;	
+	}
+
+	//---- seleccion_usuario -------------------------------------------------------
+
+	function evt__seleccion_usuario__seleccion($seleccion)
+	{
+		$this->datos['usuario'] = $seleccion['usuario'];
+		$this->datos['clave'] = null;
+	}
+
+	function evt__seleccion_usuario__carga()
+	{
+		return datos_acceso::get_lista_usuarios();
+	}
+
+	//--- COMBOS ----------------------------------------------------------------
 
 	function get_lista_instancias()
 	{
@@ -59,44 +96,6 @@ class ci_login extends objeto_ci
 		}
 		return $datos;
 	}
-
-	//---- datos -------------------------------------------------------
-
-	function evt__datos__procesar($datos)
-	{
-		try {
-			$datos['instancia'] = apex_pa_instancia; //temp
-			editor::iniciar($datos['instancia'], $datos['proyecto']);
-			toba::get_sesion()->iniciar($datos['usuario'], $datos['clave']);
-		} catch ( excepcion_toba_login $e ) {
-			$this->datos = $datos;
-			toba::get_cola_mensajes()->agregar( $e->getMessage() );
-		}
-	}
-
-	function evt__datos__carga()
-	{
-		$this->datos['instancia'] = apex_pa_instancia;
-		if (isset($this->datos['clave'])) {
-			unset($this->datos['clave']);
-		}
-		return $this->datos;	
-	}
-
-	//---- seleccion_usuario -------------------------------------------------------
-
-	function evt__seleccion_usuario__seleccion($seleccion)
-	{
-		try {
-			toba::get_sesion()->iniciar($seleccion['usuario']);
-		} catch ( excepcion_toba_login $e ) {
-			toba::get_cola_mensajes()->agregar( $e->getMessage() );
-		}
-	}
-
-	function evt__seleccion_usuario__carga()
-	{
-		return datos_acceso::get_lista_usuarios();
-	}
+	//-------------------------------------------------------------------
 }
 ?>
