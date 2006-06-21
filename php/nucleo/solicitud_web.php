@@ -3,7 +3,7 @@ require_once("nucleo/browser/recurso.php");					//Encapsulamiento de la llamada 
 require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades javascript
 require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
 require_once("nucleo/browser/hilo.php");					//Canal de comunicacion inter-ejecutable
-require_once("nucleo/browser/interface/formateo.php"); 		//Funciones de formateo de columnas
+require_once("nucleo/lib/formateo.php"); 		//Funciones de formateo de columnas
 require_once("nucleo/lib/ei.php"); 							//Elementos de interface
 require_once("nucleo/browser/logica.php");					//Elementos de logica
 require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo

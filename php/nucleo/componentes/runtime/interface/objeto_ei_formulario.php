@@ -618,11 +618,12 @@ class objeto_ei_formulario extends objeto_ei
 
 	protected function generar_vinculo_editor()
 	{
-		if (apex_pa_acceso_directo_editor && $this->id[0] == toba::get_hilo()->obtener_proyecto() ) {
+		if (editor::modo_prueba()) {
 			$vinc = new vinculo('toba', $this->item_editor);
 			$vinc->set_parametros(array( apex_hilo_qs_zona => implode(apex_qs_separador, $this->id)));
 			$this->id_vinculo_editor = toba::get_vinculador()->registrar_vinculo($vinc);
 			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 15);
+			//editor::get_vinculo_subcomponente('/admin/objetos_toba/editores/ei_formulario_ml',$parametros);
 		}
 	}
 	

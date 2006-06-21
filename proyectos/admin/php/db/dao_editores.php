@@ -264,7 +264,7 @@ class dao_editores
 	static function get_carpetas_posibles($proyecto=null)
 	{
 		if (! isset($proyecto)) {
-			$proyecto = toba::get_hilo()->obtener_proyecto();
+			$proyecto = editor::get_proyecto_cargado();
 		}
 		require_once("modelo/lib/catalogo_items.php");
 		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
