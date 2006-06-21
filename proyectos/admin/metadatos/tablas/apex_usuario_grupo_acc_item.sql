@@ -163,3 +163,5 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '/admin/objetos_toba/selector_archivo');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '1240');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '3280');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000020');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000021');

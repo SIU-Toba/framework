@@ -19,18 +19,13 @@ valor_:_ descripcion_corta_;_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1173', 'nombre', 'ef_editable', 'nombre', '1', 'tamano_:_ 50_;_
 maximo_:_ 255_;_
 ', '2', 'Nombre', NULL, 'Nombre del objeto, no tiene injerencia en el funcionamiento del objeto, solo sirve para su ubicación y referencia posterior en este administrador.', NULL, NULL, NULL, '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1174', 'subclase', 'ef_editable', 'subclase', NULL, 'tamano_:_ 40_;_
-maximo_:_ 100_;_
-', '5', 'Subclase', NULL, 'Nombre de la clase. (La clase tiene que heredar el elemento de la infraestructura seleccionado y utilizar las ventanas permitidas)', NULL, NULL, NULL, '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1175', 'subclase_archivo', 'ef_popup', 'subclase_archivo', NULL, 'tamano_:_ 60_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1174', 'subclase', 'ef_editable', 'subclase', '0', 'tamano_:_ 40_;_
+maximo_:_ 100_;_', '6', 'Subclase', NULL, 'Nombre de la clase. (La clase tiene que heredar el elemento de la infraestructura seleccionado y utilizar las ventanas permitidas)', NULL, NULL, NULL, NULL);
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1175', 'subclase_archivo', 'ef_popup', 'subclase_archivo', '0', 'tamano_:_ 60_;_
 maximo_:_ 80_;_
-item_destino_:_ /admin/objetos_toba/selector_archivo_;_
+item_destino_:_ /admin/objetos_toba/selector_archivo,toba_;_
 ventana_:_ width: 400,height: 400,scroll: yes_;_
-editable_:_ 1_;_
-', '6', 'Subclase - Archivo', NULL, 'Archivo PHP donde reside la subclase.', NULL, NULL, NULL, '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1176', 'tipo_clase', 'ef_combo', 'tipo_clase', NULL, 'no_seteado_:_ --- FILTRAR ---_;_
-sql_:_ SELECT clase_tipo, descripcion_corta FROM apex_clase_tipo_;_
-', '4', 'Tipo Clase', NULL, 'Esto es (por ahora) para testear cascadas', NULL, '1', NULL, '0');
+editable_:_ 1_;_', '5', 'Subclase - Archivo', NULL, 'Archivo PHP donde reside la subclase.', NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1177', 'titulo', 'ef_editable', 'titulo', NULL, 'tamano_:_ 60_;_
 maximo_:_ 80_;_
 ', '7', 'Titulo interface', NULL, NULL, NULL, NULL, NULL, NULL);

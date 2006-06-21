@@ -9,7 +9,6 @@ clase_:_ lista_casos_;_
 include_:_ acciones/pruebas/testing_automatico/lista_casos.php_;_
 clave_:_ id_;_
 valor_:_ nombre_;_
-no_seteado_:_ -- Seleccione --_;_
 dependencias_:_ categoria_;_
 cant_minima_:_ 1_;_
 mostrar_utilidades_:_ 1_;_

@@ -24,4 +24,4 @@ FROM apex_tipo_datos_;_
 no_seteado_:_ Indefinido_;_
 ', '2', 'Tipo', NULL, NULL, NULL, NULL, '4', NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1398', '1532', 'externa', 'ef_checkbox', 'externa', NULL, 'valor_:_ 1_;_
-', '8', 'Ext.', NULL, 'Una columna externa es una que participa de la tabla por razones cosméticas, generalmente la tabla ya tiene un ID (casi siempre una FK a otra tabla) pero también necesita el campo legible que representa ese ID, que por normalización no está incluído en la tabla.', NULL, NULL, NULL, '0');
+', '8', 'Ext.', NULL, 'Una [wiki:Referencia/Objetos/datos_tabla#Cargadecamposcosméticos  columna externa] es una que participa de la tabla por razones cosméticas, generalmente la tabla ya tiene un ID (casi siempre una FK a otra tabla) pero también necesita el campo legible que representa ese ID, que por normalización no está incluído en la tabla.', NULL, NULL, NULL, '0');
