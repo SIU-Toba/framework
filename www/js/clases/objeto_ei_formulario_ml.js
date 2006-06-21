@@ -92,7 +92,6 @@ def.constructor = objeto_ei_formulario_ml;
 	}
 	
 	def.validar_fila_ef = function(fila, id_ef, es_online) {
-
 		var ef = this._efs[id_ef].ir_a_fila(fila);
 		var validacion_particular = 'evt__' + id_ef + '__validar';
 		var es_valido = ef.validar();
@@ -147,7 +146,7 @@ def.constructor = objeto_ei_formulario_ml;
 	def.cascadas_cambio_maestro = function(id_ef)
 	{
 		var actual = this.ef(id_ef).get_fila_actual();
-		for (ef in this._efs) {
+		for (var ef in this._efs) {
 			this._efs[ef].ir_a_fila(actual);
 		}
 		objeto_ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);

@@ -1,0 +1,6 @@
+ - Cuando el clonador clona hacia otro proyecto no traslada las fuentes de datos
+ - Los vinculos de edicion de los efs aun no estan migrados
+ - Aquellos archivos que juan modifico y seba movio no fueron notificados en el merge, la inversa si sucedio aunque falta revisarlo
+ - Los metadatos de los datos_relacion hacen referencia al proyecto 'toba' en lugar de 'admin'
+ - ¿Donde se editan los metadatos del nucleo como efs y tipos de pagina?
+ - No encuentro la consola js
