@@ -978,7 +978,7 @@ class objeto_ei_cuadro extends objeto_ei
 			//----- Contar Filas
 			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
 				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
-				echo "<em>Cantidad de filas: " . count($nodo['filas']) . "<em>";
+				echo "<em>" . $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']) . "<em>";
 				echo "</td></tr>\n";
 			}
 			//----- Contenido del usuario al final del PIE
@@ -991,6 +991,11 @@ class objeto_ei_cuadro extends objeto_ei
 		}else{																//MODO ANIDADO
 			echo "</li>\n";
 		}
+	}
+
+	function etiqueta_cantidad_filas($profundidad)
+	{
+		return "Cantidad de filas: ";
 	}
 	
 	/**
