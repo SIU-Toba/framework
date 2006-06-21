@@ -167,9 +167,10 @@ class comando_proyecto extends comando_toba
 	}
 	
 	/**
-	 * Migra un proyecto entre dos versiones toba. [-d 'desde']  [-h 'hasta']
+	 * Migra un proyecto entre dos versiones toba. [-d 'desde']  [-h 'hasta'] [-m 'metodo']
 	 * -d se asume la versión de toba que posee actualmente el proyecto
 	 * -h se asume la versión de toba que posee actualmente la instalacion
+	 * -m ejecuta solo un metodo de la migración (incluir nombre completo)
 	 */
 	function opcion__migrar()
 	{
@@ -181,14 +182,19 @@ class comando_proyecto extends comando_toba
 
 		$desde_texto = $desde->__toString();
 		$hasta_texto = $hasta->__toString();
-		$this->consola->titulo("Migración el proyecto '{$proyecto->get_id()}'".$texto_recursivo." desde la versión $desde_texto hacia la $hasta_texto.");
+		$this->consola->titulo("Migración el proyecto '{$proyecto->get_id()}'"." desde la versión $desde_texto hacia la $hasta_texto.");
 
-		$versiones = $desde->get_secuencia_migraciones($hasta);
-		if (empty($versiones)) {
-			$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para el proyecto '{$proyecto->get_id()}'");
-			return ;
+		if (! isset($param['-m'])) {
+			$versiones = $desde->get_secuencia_migraciones($hasta);
+			if (empty($versiones)) {
+				$this->consola->mensaje("No es necesario ejecutar una migración entre estas versiones para el proyecto '{$proyecto->get_id()}'");
+				return ;
+			}
+			$proyecto->migrar_rango_versiones($desde, $hasta, false);
+		} else {
+			//Se pidio un método puntual
+			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
-		$proyecto->migrar_rango_versiones($desde, $hasta, false);
 	}	
 }
 ?>

@@ -69,9 +69,11 @@ class comando_instancia extends comando_toba
 	*/
 	function opcion__regenerar()
 	{
-		if ( $this->consola->dialogo_simple('Desea EXPORTAR antes la información local de la INSTANCIA?') ) {
-			$this->opcion__exportar_local();
-		}		
+		if ($this->get_instancia()->existe_modelo()) {
+			if ( $this->consola->dialogo_simple('Desea EXPORTAR antes la información local de la INSTANCIA?') ) {
+				$this->opcion__exportar_local();
+			}
+		}
 		$this->opcion__eliminar();
 		$this->get_instancia()->cargar();
 	}
