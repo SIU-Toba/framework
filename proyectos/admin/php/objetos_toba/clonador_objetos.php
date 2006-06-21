@@ -45,7 +45,7 @@ class clonador_objetos
 		//Se busca la clave del nuevo objeto
 		$clave = $this->datos_relacion->tabla('base')->get_clave_valor(0);
 		return $clave;
-	}	
+	}
 }
 
 ?>

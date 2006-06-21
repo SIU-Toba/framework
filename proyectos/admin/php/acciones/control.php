@@ -1,4 +1,5 @@
 <?
+	require_once("nucleo/lib/efs_obsoletos/ef.php");
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
@@ -6,7 +7,7 @@
 	ei_html_cabecera($this->info["item_nombre"], recurso::css(),"control");
 	js::cargar_consumos_basicos();
 ?>
-<script language='javascript'>
+<script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
 var ancho_frame = frame_admin.cols;
 var expandido = true;
@@ -52,7 +53,7 @@ function mostrar_ocultar_frame() {
 <?
 	if(apex_pa_proyecto=="multi")
 	{
-		include_once("nucleo/browser/interface/ef.php");
+		include_once("nucleo/lib/efs_obsoletos/ef.php");
 		//Si estoy en modo MULTIPROYECTO muestro un combo para cambiar a otro proyecto,
 		//sino muestro el nombre del proyecto ACTUAL
 		echo form::abrir("multiproyecto",$this->hilo->cambiar_proyecto(),"target = '_top'");

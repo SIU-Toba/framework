@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("nucleo/browser/interface/ef.php");
+require_once("nucleo/componentes/runtime/interface/efs/ef.php");
 /*
 	ATENCION: 
 		El controlador tiene que implementar "get_dbr_efs()" 
@@ -81,6 +81,9 @@ class ci_efs extends objeto_ci
 			$ei[] = "efs_ini";
 		}else{
 			$ei[] = "efs_importar";
+			if ($this->hay_cascadas()) {
+				$ei[] = "esquema_cascadas";
+			}			
 		}
 		return $ei;	
 	}
@@ -218,7 +221,7 @@ class ci_efs extends objeto_ci
 		//Inicializacion del EF actual
 		$x = $this->get_tabla()->get_fila_columna($this->seleccion_efs_anterior,"inicializacion");
 		if(isset($x)){
-			$inicializacion = parsear_propiedades($x);
+			$inicializacion = parsear_propiedades($x, '_');
 		}
 		//Armo la lista
 		$temp = array();
@@ -250,7 +253,7 @@ class ci_efs extends objeto_ci
 			}
 		}
 		if(count($temp)>0){
-			$resultado = empaquetar_propiedades($temp); //echo "<pre> $resultado </pre>";
+			$resultado = empaquetar_propiedades($temp, '_');
 			//Tengo que validar que los obligatorios existan
 			$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
 		}
@@ -292,6 +295,38 @@ class ci_efs extends objeto_ci
 			return $this->importacion_efs;
 		}
 	}
-	//-------------------------------------------------------------------
+
+	
+	//---------------------------------
+	//---- EI: Cascadas		 ----
+	//---------------------------------	
+	function evt__esquema_cascadas__carga()
+	{
+		$diagrama = "digraph G {\nsize=\"7,7\";\n";		
+		
+		foreach ($this->get_tabla()->get_filas() as $ef) {
+			$param = parsear_propiedades($ef['inicializacion'], '_');
+			if (isset($param['dependencias'])) {
+				foreach (explode(',', $param['dependencias']) as $dep) {
+					$diagrama .= $dep.'->'.$ef['identificador'].";\n";
+				}
+			}
+		}
+		$diagrama .= " }";
+		return $diagrama;
+	}
+	
+	function hay_cascadas()
+	{
+		foreach ($this->get_tabla()->get_filas() as $ef) {
+			if (isset($ef['inicializacion'])) {
+				$param = parsear_propiedades($ef['inicializacion'], '_');			
+				if (isset($param['dependencias'])) {
+					return true;	
+				}
+			}
+		}
+		return false;
+	}	
 }
 ?>

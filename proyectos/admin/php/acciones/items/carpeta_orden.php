@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/interface/form.php");
+require_once("nucleo/lib/form.php");
 
 	//------------------------------------------------------------
 	interface ordenamiento_items

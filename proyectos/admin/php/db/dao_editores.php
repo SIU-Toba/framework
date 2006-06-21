@@ -2,6 +2,30 @@
 class dao_editores
 {
 	//---------------------------------------------------
+	//---------------- PROYECTOS-------------------------
+	//---------------------------------------------------
+	
+	/**
+	 * Retorna la lista de proyectos que el usuario actual puede modificar
+	 */
+	static function get_proyectos_accesibles()
+	{
+		$sql = "
+			SELECT 	
+				p.proyecto, 
+				p.descripcion_corta
+			FROM
+			 	apex_proyecto p,
+				apex_usuario_proyecto up
+			WHERE 	
+				p.proyecto = up.proyecto
+			AND p.listar_multiproyecto = 1 
+			AND	up.usuario = '".toba::get_hilo()->obtener_usuario()."'
+			ORDER BY orden;";
+		return consultar_fuente($sql, 'instancia');
+	}
+	
+	//---------------------------------------------------
 	//---------------- CLASES ---------------------------
 	//---------------------------------------------------
 
@@ -237,11 +261,15 @@ class dao_editores
 	/**
 	*	Retorna la lista de carpetas en un formato adecuado para un combo
 	*/
-	static function get_carpetas_posibles()
+	static function get_carpetas_posibles($proyecto=null)
 	{
+		if (! isset($proyecto)) {
+			$proyecto = toba::get_hilo()->obtener_proyecto();
+		}
 		require_once("modelo/lib/catalogo_items.php");
 		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
-		$catalogador->cargar(array('solo_carpetas' => 1));		
+		$catalogador = new catalogo_items($proyecto);
+		$catalogador->cargar(array('solo_carpetas' => 1));
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
 			if($nivel >= 0){
@@ -349,6 +377,7 @@ class dao_editores
 			'objeto_ei_formulario_ml' 	=> array('admin', '1536'),			
 			'objeto_ei_arbol' 			=> array('admin', '1610'),	
 			'objeto_cn'					=> array('admin', '1610'),
+			'item'						=> array('toba', '1554')
 		);
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			
@@ -485,7 +514,7 @@ class dao_editores
 	//---------------- LOGS ---------------------------
 	//-------------------------------------------------
 
-	/*
+	/**
 		ATENCION, clase 'toba' hardcodeada en el item del editor...
 			Hay que arreglarlo antes de que los proyectos agreguen componentes
 	*/

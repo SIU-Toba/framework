@@ -20,7 +20,7 @@
 		$tab_param["form_submit"]="restric_procesar";
 		$tab_param["titulo_referencia"]= "ELEMENTOS HABILITADOS";
 
-		include_once("nucleo/browser/interface/tabla_asociacion.php");
+		include_once("nucleo/lib/efs_obsoletos/tabla_asociacion.php");
 		$tabla =& new tabla_asociacion($tab_param);
 		//$tabla->info();
 		$tabla->procesar();

@@ -9,7 +9,7 @@ class admin_util
 	/**
 	*	Refresca el frame izquierdo del editor
 	*/
-	function refrescar_editor_item()
+	static function refrescar_editor_item()
 	{
 		echo js::abrir();
 		$frame = "parent.".apex_frame_lista;

@@ -255,7 +255,6 @@ class ci_principal extends objeto_ci
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
-		$this->refrescar = true;
 		if (! isset($this->id_item)) {		//Si el item es nuevo
 			$this->redireccionar_a_objeto_creado();		
 		}
@@ -275,6 +274,7 @@ class ci_principal extends objeto_ci
 						'componente' => $datos['item'] );
 		$elem_item = constructor_toba::get_info($clave, 'item');
 		$vinculo = $elem_item->vinculo_editor();
+		admin_util::refrescar_editor_item();
 		echo js::abrir();
 		echo "window.location.href='$vinculo'\n";
 		echo js::cerrar();

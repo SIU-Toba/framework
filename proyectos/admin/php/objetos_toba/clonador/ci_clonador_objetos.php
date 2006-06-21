@@ -57,7 +57,7 @@ class ci_clonador_objetos extends objeto_ci
 					return dao_editores::get_lista_items();
 					break;
 				default:
-					$tipo = "????,".$clase;
+					$tipo = "componente,".$clase;
 					return dao_editores::get_lista_objetos_toba($tipo);
 			}
 		}
@@ -106,9 +106,10 @@ class ci_clonador_objetos extends objeto_ci
 	{
 		abrir_transaccion("instancia");
 		//--- Clonación
-		$clonador = new clonador_objetos();
-		$clonador->cargar_db(array($this->id_objeto['proyecto'], $this->id_objeto['objeto']));
-		$clon = $clonador->clonar($this->nuevo_nombre, false);
+		$clave = array('componente' => $this->id_objeto['objeto'],
+						'proyecto' => $this->id_objeto['proyecto']);
+		$info = constructor_toba::get_info($clave, null, false);
+		$clon = $info->clonar(null, array('nombre' => $this->nuevo_nombre), false);
 		
 		//--- Asignación
 		if (isset($this->destino)) {

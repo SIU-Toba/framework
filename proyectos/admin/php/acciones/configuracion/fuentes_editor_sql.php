@@ -4,7 +4,7 @@
 		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();	
 
-		include_once("nucleo/browser/interface/ef.php");
+		include_once("nucleo/lib/ef.php");
 		$form = "editor_sql";
 		$submit = "procesar";
 		$submit_nombre = "Ejecutar";
@@ -42,7 +42,7 @@
 			$cuadro_param["ordenar"]=false;
 			$fuente_datos = $this->zona->editable_info["fuente_datos"];
 
-			include_once("nucleo/browser/interface/cuadro.php");
+			include_once("nucleo/lib/efs_obsoletos/cuadro.php");
 			$cuadro =& new cuadro_db($cuadro_param,$fuente_datos,$sql);
 		}
 	
