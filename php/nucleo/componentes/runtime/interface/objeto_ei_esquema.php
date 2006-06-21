@@ -48,7 +48,7 @@ class objeto_ei_esquema extends objeto_ei
 									$this->alto);
 		}
 		echo "<div class='ei-base'>\n";
-		$this->obtener_botones();
+		$this->generar_botones();
 		echo "</div>\n";		
 		echo "</div></td></tr>\n";
 		echo "</table>\n";

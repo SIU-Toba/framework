@@ -128,10 +128,13 @@ class recurso {
 		if(isset($alt)) {
 			$a = self::ayuda(null, $alt);
 		}
-		if(isset($mapa)) {
+		if(isset($mapa) && $mapa != '') {
 			$m = " usemap='$mapa'";
 		}
-		$img = "<img border=0 src=$src $x $y $a $m  style=\"margin: 0px 0px 0px 0px; $estilo\" $js/>";
+		if ($estilo != '') {
+			$estilo ="style=\"$estilo\"";
+		}
+		$img = "<img border=0 src=$src $x $y $a $m  alt=\"\" $estilo $js/>";
 		return $img;
 	}
 

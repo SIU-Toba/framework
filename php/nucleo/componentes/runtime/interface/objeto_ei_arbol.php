@@ -132,7 +132,7 @@ class objeto_ei_arbol extends objeto_ei
 				$nodo = $this->nodos_inicial[0];
 				while ($nodo->get_padre() != null) {
 					$nodo = $nodo->get_padre();	
-					$nodo_barra = "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"";
+					$nodo_barra = "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"";
 					$nodo_barra .= $nodo->get_id()."\");' ";
 					$nodo_barra .= "class='ei-arbol-ver-prop'>". $this->acortar_nombre($nodo->get_nombre_corto(),20)."</a>";
 					$barra = $nodo_barra . " > ". $barra;
@@ -211,7 +211,7 @@ class objeto_ei_arbol extends objeto_ei
 		$ayuda = recurso::ayuda(null,  $title, 'ei-arbol-nombre');
 		$nombre= "<span $ayuda>$corto</span>";
 		if ($nodo->tiene_propiedades()) {
-			$salida .= "<a href='javascript: {$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
+			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
 						"class='ei-arbol-ver-prop'>$nombre</a>";			
 		} else {
 			$salida .= $nombre;
@@ -312,9 +312,9 @@ class objeto_ei_arbol extends objeto_ei
 
 	//-------------------------------------------------------------------------------
 
-	public function consumo_javascript_global()
+	public function get_consumo_javascript()
 	{
-		$consumo = parent::consumo_javascript_global();
+		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'clases/objeto_ei_arbol';
 		return $consumo;
 	}	

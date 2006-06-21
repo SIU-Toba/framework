@@ -230,9 +230,9 @@ class objeto_ei_calendario extends objeto_ei
 
 	//-------------------------------------------------------------------------------
 
-	public function consumo_javascript_global()
+	public function get_consumo_javascript()
 	{
-		$consumo = parent::consumo_javascript_global();
+		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'clases/objeto_ei_calendario';
 		return $consumo;
 	}	

@@ -184,7 +184,7 @@ class objeto_ut extends objeto
 	}	
 	//-------------------------------------------------------------------------------
 
-	function consumo_javascript_global()
+	function get_consumo_javascript()
 /*
  	@@acceso: objeto
 	@@desc: Indica que funciones generales de javascript (disponibles a travez del MT) 

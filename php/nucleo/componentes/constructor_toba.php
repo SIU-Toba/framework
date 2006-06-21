@@ -46,7 +46,7 @@ class constructor_toba
 	 *
 	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas recursos
-	 * @param boolen $en_profundidad Los componentes cargan los info de sus dependencias
+	 * @param boolean $en_profundidad Los componentes cargan los info de sus dependencias
 	 * @param array $datos Datos pre-procesados que necesita el objeto-info, si no se especifica se buscan
 	 * @return info_componente
 	 */	

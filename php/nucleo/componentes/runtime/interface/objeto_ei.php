@@ -77,6 +77,7 @@ class objeto_ei extends objeto
 	{
 		$eventos = $this->get_lista_eventos_definidos();
 		$grupo = $this->get_grupo_eventos_activo();
+
 		//Si hay un grupo de eventos definido:
 		//	filtro los eventos que:
 		// 		* Van a la botonera
@@ -147,20 +148,18 @@ class objeto_ei extends objeto
 		return false;
 	}	
 	
-	function obtener_botones()
+	function generar_botones()
 	{
 		//----------- Generacion
-		echo "<table class='tabla-0' align='center' width='100%'>\n";
-		echo "<tr><td align='right'>";
-		$this->obtener_botones_eventos();
-		echo "</td></tr>\n";
-		echo "</table>\n";
+		echo "<div class='ei-botones'>";
+		$this->generar_botones_eventos();
+		echo "</div>";
 	}	
 	
 	/*
 		Genera los botones de todos los eventos marcardos para aparecer en la botonera.
 	*/
-	function obtener_botones_eventos()
+	function generar_botones_eventos()
 	{
 		foreach(array_keys($this->eventos) as $id )	{
 			if ($this->evento_es_en_botonera($this->eventos[$id])) {
@@ -303,7 +302,7 @@ class objeto_ei extends objeto
 		$this->info['colapsable'] = $colapsable;
 	}
 	
-	public function consumo_javascript_global()
+	public function get_consumo_javascript()
 	{
 		return array('clases/objeto');
 	}

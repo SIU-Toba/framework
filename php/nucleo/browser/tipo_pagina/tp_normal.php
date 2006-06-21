@@ -1,5 +1,6 @@
 <?php
 require_once("tp_basico_titulo.php");
+require_once("nucleo/lib/form.php");
 
 class tp_normal extends tp_basico_titulo
 {
@@ -41,6 +42,9 @@ class tp_normal extends tp_basico_titulo
 	
 	protected function cabecera_aplicacion()
 	{
+		if (apex_pa_proyecto=="multi") {
+			echo form::abrir("multiproyecto",toba::get_hilo()->cambiar_proyecto(),"target = '_top'");
+		}	
 		?>
 		<table width='100%' height="<?=$this->alto_cabecera?>"class='tabla-0'><tr>
 		<td class='menu-0'><?=$this->mostrar_logo()?></td>
@@ -50,33 +54,29 @@ class tp_normal extends tp_basico_titulo
 			<tr>
 			<td class='menu-0'>
 		<?
-				if(apex_pa_proyecto=="multi")
-				{
+				if(apex_pa_proyecto=="multi") {		
 					echo "<td>";
 					echo recurso::imagen_apl("proyecto.gif",true);
 					echo "</td>";
-					include_once("nucleo/browser/interface/ef.php");
 					//Si estoy en modo MULTIPROYECTO muestro un combo para cambiar a otro proyecto,
 					//sino muestro el nombre del proyecto ACTUAL
-					echo form::abrir("multiproyecto",toba::get_hilo()->cambiar_proyecto(),"target = '_top'");
 					echo "<td>";
-					$parametros["sql"] = "SELECT 	p.proyecto, 
-			                						p.descripcion_corta
-			                				FROM 	apex_proyecto p,
-			                						apex_usuario_proyecto up
-			                				WHERE 	p.proyecto = up.proyecto
+					$sql = "SELECT 	p.proyecto, 
+					        						p.descripcion_corta
+					        				FROM 	apex_proyecto p,
+					        						apex_usuario_proyecto up
+					        				WHERE 	p.proyecto = up.proyecto
 											AND  	listar_multiproyecto = 1 
 											AND		up.usuario = '".toba::get_hilo()->obtener_usuario()."'
 											ORDER BY orden;";
-					$proy =& new ef_combo_db(null,"",apex_sesion_post_proyecto,apex_sesion_post_proyecto,
-			                                "Seleccione el proyecto en el que desea ingresar.","","",$parametros);
-					$proy->cargar_estado(toba::get_hilo()->obtener_proyecto());//Que el elemento seteado
-					echo $proy->obtener_input(" onchange='multiproyecto.submit();'");
+					$datos = consultar_fuente($sql, 'instancia', apex_db_numerico);
+					$datos = rs_convertir_asociativo($datos, array(0), 1);
+					echo form::select(apex_sesion_post_proyecto, toba::get_hilo()->obtener_proyecto(), $datos,
+								'ef-combo', "onchange='multiproyecto.submit();'");
 					echo "</td>";
 					echo "<td>";
-			        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif'));
-			        echo "</td>";
-					echo form::cerrar();
+					echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif'));
+					echo "</td>";
 				}
 		?>
 			</td>
@@ -91,6 +91,9 @@ class tp_normal extends tp_basico_titulo
 		</td>
 		</tr></table>	
 		<?php
+		if(apex_pa_proyecto=="multi") {		
+			echo form::cerrar();
+		}		
 	}
 
 	protected function mostrar_logo()

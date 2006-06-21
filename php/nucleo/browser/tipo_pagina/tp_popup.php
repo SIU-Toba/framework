@@ -14,15 +14,15 @@ class tp_popup extends tp_basico
 	    }
 		$hilo->persistir_dato('ef_popup', $ef_popup);
 	
+		echo js::abrir();
 		echo "
-			<script language='javascript'>
 			function seleccionar(clave, descripcion)
 			{
 				window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
 				window.close();
 			}
-			</script>
 		";
+		echo js::cerrar();
 		echo "\n\n";
 		echo "<table width='100%' class='tabla-0'><tr>";
 		echo "<td width='1' class='barra-0'>". gif_nulo(8,22) . "</td>";

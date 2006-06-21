@@ -147,6 +147,34 @@
 		}
 		return $aplanado;
 	}
+	
+	/**
+	 * Toma una matriz en formato recordset y retorna un arreglo asociativo clave => valor
+	 *
+	 * @param array $datos_recordset Matriz en formato recordset
+	 * @param array $claves Campos (asociativos o numericos) claves de cada registro
+	 * @param string $valor Campo valor (asociativo o numerico) de cada registro
+	 * @return array 
+	 */
+    function rs_convertir_asociativo($datos_recordset, $claves=array(0), $valor=1)
+    {
+    	if (!isset($datos_recordset)) {
+    		return array();	
+    	}
+		$valores = array();
+		foreach ($datos_recordset as $fila){
+			$valores_clave = array();
+			foreach($claves as $clave) {
+				if (isset($fila[$clave])) {
+					$valores_clave[] = $fila[$clave];
+				} else {
+					throw new excepcion_toba("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+				}
+			}
+            $valores[implode(apex_ef_separador, $valores_clave)] = $fila[$valor];
+		}
+        return $valores;
+    }	
 
 	//-----------------------------------------------------------------	
 
@@ -256,7 +284,6 @@
 		}
 	}
 	
-	
 	/**
 	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
 	*	Util para simulaciones
@@ -276,6 +303,22 @@
 		{
 			return new objeto_de_mentira();
 		}
+	}
+
+	function convertir_a_medida_tabla($ancho, $medida='width')
+	{
+		//El ancho de una tabla no puede tener 'px'			
+		$ancho = str_replace('px', '', $ancho);
+		if ($ancho != '') {
+			$ancho =  "$medida='$ancho'";
+		}
+		return $ancho;
+	}
+	
+	function sumar_medida($original, $agregado)
+	{
+		$numero = intval($original);
+		return str_replace($numero, $numero + $agregado, $original);
 	}
 	
 ?>

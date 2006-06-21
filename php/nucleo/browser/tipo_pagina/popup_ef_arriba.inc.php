@@ -12,8 +12,7 @@
 //##############################################################################################
 
     $ef_popup = $this->hilo->obtener_parametro('ef_popup');
-    if ($ef_popup == null)
-    {
+    if ($ef_popup == null) {
         $ef_popup = $this->hilo->recuperar_dato('ef_popup');
     }
 	$this->hilo->persistir_dato('ef_popup', $ef_popup);

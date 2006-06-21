@@ -323,6 +323,7 @@ class objeto_datos_relacion extends objeto
 		foreach($this->dependencias as $dependencia){
 			$dependencia->resetear();
 		}
+		$this->cargado = false;
 	}
 	
 	/**

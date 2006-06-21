@@ -8,49 +8,27 @@ require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
  */
 class objeto_ei_filtro extends objeto_ei_formulario
 {
-	function inicializar_especifico()
+	protected $item_editor = '/admin/objetos_toba/editores/ei_filtro';
+	
+	protected function generar_envoltura_ef($ef, $editor=null)
 	{
-		$this->set_grupo_eventos_activo('no_cargado');
-	}
-
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		return $eventos;
-		/*
-
-		CAMBIO_EVT
-
-		//En caso que no se definan eventos, filtrar n es el por defecto y no se incluye como botón
-		if (count($eventos) == 0) {
-			$eventos += eventos::filtrar(null, false);		
-			$this->set_evento_defecto('filtrar');
+		$clase = 'abm-fila';
+		$estilo_nodo = "";
+		$id_ef = $this->elemento_formulario[$ef]->get_id_form();
+		if (! $this->elemento_formulario[$ef]->esta_expandido()) {
+			$clase = 'abm-fila-oculta';
+			$estilo_nodo = "display:none";
 		}
-		*/
-	}
-
-	function generar_formulario()
-	{
-		//Genero	la	interface
-		if($this->estado_proceso!="INFRACCION")
-		{
-			//A los ocultos se les deja incluir javascript
-			foreach ($this->lista_ef_ocultos as $ef) {
-				echo $this->elemento_formulario[$ef]->obtener_javascript_general();
-			}
-			echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
-			foreach ($this->lista_ef_post	as	$ef){
-				$id_ef = $this->elemento_formulario[$ef]->obtener_id_form();			
-				echo "<tr><td class='abm-fila' id='nodo_$id_ef'>\n";
-				$this->elemento_formulario[$ef]->obtener_interface_ei_filtro();
-				echo "</td></tr>\n";
-			}
-			echo "<tr><td class='ei-base'>\n";
-			$this->obtener_botones();
-			echo "</td></tr>\n";
-			echo "</table>\n";
-		}
-	}
+		if ($this->elemento_formulario[$ef]->seleccionado()) {
+			$clase .= ' abm-fila-filtrada';
+		}				
+		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
+		$this->generar_etiqueta_ef($ef);
+		echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta}'>\n";		
+		echo $this->elemento_formulario[$ef]->get_input();
+		echo "</div>";
+		echo "</div>\n";
+	}	
 	
 }
 ?>

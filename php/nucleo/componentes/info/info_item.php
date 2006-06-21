@@ -443,6 +443,92 @@ class info_item implements recorrible_como_arbol
 				VALUES ('$grupo', '{$this->get_proyecto()}', '{$this->get_id()}')";
 		if(toba::get_db('instancia')->Execute($sql) === false)
 			throw new excepcion_toba("Ha ocurrido un error CREANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
-	}	
+	}
+
+	/**
+	 * Duplica un item y sus dependencias recursivamente
+	 *
+	 * @param array $nuevos_datos Datos a modificar en la base del item. Para anexar algo al nombre se utiliza el campo 'anexo_nombre'
+	 * @param boolean/string $dir_subclases Si el componente tiene subclases clona los archivos, en caso afirmativo indicar la ruta destino (relativa)
+	 * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
+	 * @return array Clave del item que resulta del clonado
+	 */
+	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion=true)
+	{
+		//-- Cargo el DR asociado
+		$id_dr = dao_editores::get_dr_de_clase('item');
+		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
+		$dr = constructor_toba::get_runtime($componente);
+		$dr->conectar_fuente();
+		$dr->configuracion();
+		$dr->cargar(array('proyecto' => $this->proyecto, 'item' => $this->id));
+		
+		foreach ($nuevos_datos as $campo => $valor) {
+			if ($campo == 'anexo_nombre') {
+				$campo = 'nombre';
+				$valor = $valor . $dr->tabla('base')->get_fila_columna(0, $campo);
+			}
+			$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
+		}
+		//Se le fuerza una inserción a los datos_tabla
+		//Como la clave de los objetos son secuencias, esto garantiza claves nuevas
+		$dr->forzar_insercion();
+		$dr->get_persistidor()->desactivar_transaccion();
+		if ($con_transaccion) {
+			abrir_transaccion('instancia');	
+		}
+		//--- Se clonan los hijos y se agregan como dependencias
+		$dr->tabla('objetos')->eliminar_filas();		
+		$i=0;		
+		foreach ($this->subelementos as $hijo) {
+			//-- Si se especifico un proyecto, se propaga
+			$datos_objeto = array();
+			if (isset($nuevos_datos['proyecto'])) {
+				$datos_objeto['proyecto'] = $nuevos_datos['proyecto'];	
+			}
+			//-- Si se especifica un anexo de nombre, se propaga
+			if (isset($nuevos_datos['anexo_nombre'])) {
+				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
+			}
+			$nuevo_hijo = $hijo->clonar($datos_objeto, $dir_subclases, false);
+			$fila = array('objeto' => $nuevo_hijo['componente'], 
+							'proyecto' => $nuevo_hijo['proyecto'], 
+							'orden' => $i);			
+			$dr->tabla('objetos')->nueva_fila($fila);
+			$i++;
+		}
+		
+		//--- GRABA
+		$dr->sincronizar();
+		if ($con_transaccion) {
+			cerrar_transaccion('instancia');	
+		}
+		
+		//Se busca la clave del nuevo objeto
+		$clave = $dr->tabla('base')->get_clave_valor(0);
+		$clave['componente'] = $clave['item'];
+		return $clave;				
+	}
+	
+	
+	function asignar_componente($id_componente)
+	{
+		$sql = "SELECT COALESCE(MAX(orden),0) as maximo
+					FROM apex_item_objeto 
+					WHERE item='{$this->id}' AND proyecto='{$this->proyecto}'
+			";
+		$res = consultar_fuente($sql,'instancia');
+		$orden = $res[0]['maximo'];
+		$sql = "INSERT INTO apex_item_objeto 
+					(proyecto, item, objeto, orden) VALUES (
+						'{$this->proyecto}', 
+						'{$this->id}', 
+						'{$id_componente['componente']}', 
+						$orden
+					)
+			";
+		ejecutar_sql($sql,'instancia');
+	}
+	
 }
 ?>

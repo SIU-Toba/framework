@@ -42,6 +42,7 @@ class cache_db
 	{
 		//Recupero el contenido
 		$this->tablas[$tabla] = $this->db->consultar( $sql );
+
 		//Genero indices
 		$this->indices[$tabla] = array();
 		for ($a=0; $a < count($this->tablas[$tabla]); $a++) {

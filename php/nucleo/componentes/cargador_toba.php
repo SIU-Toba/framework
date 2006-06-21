@@ -9,14 +9,31 @@ class cargador_toba
 	protected $cache_metadatos_simples_proyecto;	// ATENCION, hay que controlar que coincidan en la solicitud
 	protected $cache_metadatos_extendidos;
 	protected $cache_metadatos_extendidos_proyecto;
+	protected $redefinidos = array();
 	
-	private function __construct(){}
+	private function __construct()
+	{
+		if (class_exists('toba')) {
+			$this->redefinidos = toba::get_hilo()->recuperar_dato_sincronizado("catalogo_toba");
+			if (!isset($this->redefinidos)) {
+				$this->redefinidos = array();
+			}	
+		}
+	}
 
+	/**
+	 * @return cargador_toba
+	 */
 	static function instancia() {
 		if (!isset(self::$instancia)) {
 			self::$instancia = new cargador_toba();	
 		}
 		return self::$instancia;	
+	}
+	
+	function destruir()
+	{
+		toba::get_hilo()->persistir_dato_sincronizado("catalogo_toba", $this->redefinidos);
 	}
 
 	//----------------------------------------------------------------
@@ -81,13 +98,17 @@ class cargador_toba
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
 		}
-		$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );
+		$proyecto = $componente['proyecto'];
+		$id = $componente['componente'];		
+		$clave_ser = $proyecto.'||'.$id;
+		//--- Los metadatos fueron definidos en runtime?
+		if (isset($this->redefinidos[$clave_ser])) {
+			return $this->redefinidos[$clave_ser];
+		}
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE no implementado!
-			
 			throw new excepcion_toba('No implementado');
 		} else {													// Sin CACHE!
-			$proyecto = $componente['proyecto'];
-			$id = $componente['componente'];
+			$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );
 			$estructura = call_user_func_array( array(	$clase_def,
 														'get_vista_extendida'),
 														array( $proyecto, $id ) );
@@ -110,6 +131,15 @@ class cargador_toba
 		return $metadatos;
 	}
 
+	/**
+	 * Permite definir los metadatos de un componente existente o no en la instancia actual
+	 */
+	function set_metadatos_extendidos($metadatos, $componente) 
+	{
+		$clave_ser = $componente['proyecto'].'||'.$componente['componente'];
+		$this->redefinidos[$clave_ser] = $metadatos;
+	}
+	
 	//----------------------------------------------------------------
 	// CACHES
 	//----------------------------------------------------------------

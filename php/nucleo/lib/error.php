@@ -30,7 +30,7 @@
 
 		//Muestro el mensaje
 		if ( toba::get_solicitud()->get_tipo() == "browser"){
-			require_once("nucleo/browser/interface/ei.php");//puede pasar...
+			require_once("nucleo/lib/ei.php");//puede pasar...
 			switch( apex_pa_nivel_error ){
 				case 1: 	//TRACE completo de PHP
 					ei_arbol(debug_backtrace(),"TRACE");
@@ -53,7 +53,7 @@
 	{
 		global $instancia;
 		if ( toba::get_solicitud()->get_tipo() == "browser"){
-			require_once("nucleo/browser/interface/ei.php");	
+			require_once("nucleo/lib/ei.php");//puede pasar...
 			$titulo = "Problemas para conectarse a la instancia";
 			ei_html_cabecera($titulo);
 			echo "<h2>No es posible contactar la INSTANCIA</h2>";

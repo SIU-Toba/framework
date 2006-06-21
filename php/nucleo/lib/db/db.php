@@ -52,9 +52,10 @@ class db
 	{
 		$this->pre_conectar();
 		$this->conexion = ADONewConnection($this->motor);
-		$status = @$this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
+		$status = $this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
 		if(!$status){
-			throw new excepcion_toba("No es posible realizar la conexion - ERROR: " . $this->conexion->ErrorMsg());
+			$error = $this->conexion->ErrorMsg();
+			throw new excepcion_toba("No es posible realizar la conexión a la base. $error");
 		}
 		$this->post_conectar();
 		return $this->conexion;
@@ -70,6 +71,13 @@ class db
 	*/
 	function post_conectar() {}
 
+	/**
+	 * Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado
+	 */
+	function set_modo_debug($debug=true)
+	{
+		$this->conexion->debug = $debug;
+	}
 	
 	//-------------------------------------------------------------------------------------	
 

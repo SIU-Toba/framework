@@ -459,11 +459,7 @@ class objeto_mt_abms extends objeto_mt_s
 	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_botones()
-/*
- 	@@acceso: interno
-	@@desc: Genera los botones de ABM
-*/
+	function generar_botones()
 	{
 		echo "<table class='tabla-0' align='center' width='100%'>\n";
 		echo "<tr><td class='abm-zona-botones'>";

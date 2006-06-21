@@ -1,6 +1,6 @@
 <?
 require_once("objeto_ei_formulario.php");	//Ancestro de todos los	OE
-require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
+require_once("nucleo/componentes/runtime/interface/efs/ef.php");//	Elementos de interface
 
 /**
  * Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
@@ -8,7 +8,7 @@ require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
  * @package Objetos
  * @subpackage Ei
  */
-class	objeto_ei_formulario_ml	extends objeto_ei_formulario
+class objeto_ei_formulario_ml extends objeto_ei_formulario
 {
 	protected $datos;
 	protected $lista_ef_totales = array();
@@ -19,7 +19,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $ordenes = array();				//Ordenes de las claves de los datos recibidos
 	protected $hay_registro_nuevo=false;		//¿La proxima pantalla muestra una linea en blanco?
-
+	protected $id_fila_actual;					//¿Que fila se esta procesando actualmente?
+	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
+	
 	function __construct($id)
 /*
 	@@acceso: nucleo
@@ -52,49 +54,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$this->set_metodo_analisis($this->info_formulario['analisis_cambios']);
 	}
 
-	function obtener_definicion_db()
-	{
-		$sql = parent::obtener_definicion_db();
-		//Formulario
-		$sql["info_formulario"]["sql"] = "SELECT	auto_reset as	auto_reset,
-										scroll as 					scroll,					
-										ancho as					ancho,
-										alto as						alto,
-										filas as					filas,
-										filas_agregar as			filas_agregar,
-										filas_agregar_online as 	filas_agregar_online,
-										filas_ordenar as			filas_ordenar,
-										filas_numerar as 			filas_numerar,
-										columna_orden as 			columna_orden,
-										analisis_cambios		as	analisis_cambios
-								FROM	apex_objeto_ut_formulario
-								WHERE	objeto_ut_formulario_proyecto='".$this->id[0]."'
-								AND		objeto_ut_formulario='".$this->id[1]."';";
-		$sql["info_formulario"]["tipo"]="1";
-		$sql["info_formulario"]["estricto"]="1";
-		//EF
-		$sql["info_formulario_ef"]["sql"] = "SELECT	identificador as identificador,
-										columnas	as				columnas,
-										obligatorio	as				obligatorio,
-										elemento_formulario as		elemento_formulario,
-										inicializacion	as			inicializacion,
-										etiqueta	as				etiqueta,
-										etiqueta_estilo	as			etiqueta_estilo,
-										descripcion	as				descripcion,
-										orden	as					orden,
-										total as 					total,
-										estilo as					columna_estilo,
-										colapsado as 				colapsado
-								FROM	apex_objeto_ei_formulario_ef
-								WHERE	objeto_ei_formulario_proyecto='".$this->id[0]."'
-								AND	objeto_ei_formulario='".$this->id[1]."'
-								AND	(desactivado=0	OR	desactivado	IS	NULL)
-								ORDER	BY	orden;";
-		$sql["info_formulario_ef"]["tipo"]="x";
-		$sql["info_formulario_ef"]["estricto"]="1";
-		return $sql;
-	}
-	
 	function set_metodo_analisis($metodo)
 	{
 		switch ($metodo)
@@ -127,33 +86,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	{
 		$this->clave_seleccionada = $clave;
 	}
-		
-	
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
-	//-----------------------------	INFORMACION	 -----------------------------------
-	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 
-	function	info_estado_ef()
-/*
-	@@acceso: actividad
-	@@desc: Muestra el estado de los	EF
-*/
-	{
-		foreach ($this->lista_ef as $ef){
-			$temp1[$ef]	= $this->elemento_formulario[$ef]->obtener_estado();
-			$temp2[$ef]	= $this->elemento_formulario[$ef]->obtener_dato();
-		}
-		$temp["DATOS"]=$temp2;
-		$temp["ESTADO"]=$temp1;
-		//ei_arbol($temp,"Estado actual	de	los ELEMENTOS de FORMULARIO");
-	}
-
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//--------------------------------	PROCESOS  -----------------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function disparar_eventos()
@@ -170,7 +105,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		$this->limpiar_interface();
 	}	
-	
 	
 	protected function disparar_eventos_especifico($evento)
 	{
@@ -191,7 +125,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			if ($this->eventos_granulares && $maneja_datos) {
 				$this->disparar_eventos_granulares();
 			} else {
-				$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );				
+				$this->reportar_evento( 'modificacion', $this->get_datos($this->analizar_diferencias) );				
 			}
 			$this->hay_registro_nuevo = $this->reportar_evento( $evento, null );
 			return;
@@ -206,29 +140,28 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		if ($parametros != '') {
 			//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
 			if ($maneja_datos && !$this->eventos_granulares) {
-				$this->reportar_evento( 'modificacion', $this->obtener_datos($this->analizar_diferencias) );
+				$this->reportar_evento( 'modificacion', $this->get_datos($this->analizar_diferencias) );
 			}
 			//Reporto el evento a nivel de fila
-			$this->clave_seleccionada = $this->obtener_clave_fila($parametros);
+			$this->clave_seleccionada = $this->get_clave_fila($parametros);
 			$this->reportar_evento( $evento, $this->clave_seleccionada);
 		}
 		
 		//Si no tiene parametros particulares, ellos son los valores de las filas
 		if ($parametros == '' && !$this->eventos_granulares) {
 			if ($maneja_datos)
-				$this->reportar_evento( $evento, $this->obtener_datos($this->analizar_diferencias) );
+				$this->reportar_evento( $evento, $this->get_datos($this->analizar_diferencias) );
 			elseif ($evento != 'pedido_registro_nuevo')
 				$this->reportar_evento( $evento, null );
 		}
 		
 
 	}
-	//-------------------------------------------------------------------------------
 		
-	function disparar_eventos_granulares()
+	protected function disparar_eventos_granulares()
 	{
 		$this->validar_estado();
-		$datos = $this->obtener_datos(true);
+		$datos = $this->get_datos(true);
 		foreach ($datos as $fila => $dato) {
 			$analisis = $dato[apex_ei_analisis_fila];
 			unset($dato[apex_ei_analisis_fila]);			
@@ -247,8 +180,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}	
 	}
 
-	//-------------------------------------------------------------------------------
-
 	function carga_inicial()
 /*
 	@@acceso: interno
@@ -266,14 +197,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 		}
 	}
-	//-------------------------------------------------------------------------------
 		
 	function cargar_post()
 	{
-/*
-	@@acceso: interno
-	@@desc: Carga los datos a partir del POST
-*/
 		if (! isset($_POST[$this->objeto_js.'_listafilas']))
 			return false;
 
@@ -289,9 +215,9 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					$this->siguiente_id_fila = $fila + 1;
 				//1) Cargo los EFs
 				foreach ($this->lista_ef as $ef){
-					$this->elemento_formulario[$ef]->establecer_id_form($fila);
+					$this->elemento_formulario[$ef]->ir_a_fila($fila);
 					$this->elemento_formulario[$ef]->resetear_estado();
-					$x	= $this->elemento_formulario[$ef]->cargar_estado();
+					$this->elemento_formulario[$ef]->cargar_estado_post();
 					//La validación del estado no se hace aquí porque interrumpiría la carga
 				}
 				//2) Seteo el registro
@@ -300,14 +226,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		return true;
 	}
-	//-------------------------------------------------------------------------------
 
 	function validar_estado()
-/*
-	@@acceso: interno
-	@@desc: Valida	cada fila
-	@@pendiente: grados:	EJ	un	ef_oculto_proyecto no la deberia	dejar	pasar...
-*/
 	{
 		//Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual
 		//de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden
@@ -315,22 +235,18 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		foreach ($this->datos as $id_fila => $datos_registro) {
 			$this->cargar_registro_a_ef($id_fila, $datos_registro);
 			foreach ($this->lista_ef as $ef){
-				$this->elemento_formulario[$ef]->establecer_id_form($id_fila);
-				$temp = $this->elemento_formulario[$ef]->validar_estado();
-				if(!$temp[0]){
-					$mensaje = "Error en el elemento de formulario '" . $this->elemento_formulario[$ef]->obtener_etiqueta() ."' - ". $temp[1];
-					throw new excepcion_toba($mensaje);
+				$this->elemento_formulario[$ef]->ir_a_fila($id_fila);
+				$validacion = $this->elemento_formulario[$ef]->validar_estado();
+				if ($validacion !== true) {
+					$this->efs_invalidos[$id_fila][$ef] = $validacion;
+					$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
+					throw new excepcion_toba($etiqueta.': '.$validacion);
 				}
-			}			
+			}
 		}
- 	}
-	//-------------------------------------------------------------------------------
-
+	} 	
+	
 	function limpiar_interface()
-/*
-	@@acceso: actividad
-	@@desc: Resetea los elementos	de	formulario
-*/
 	{
 		foreach ($this->lista_ef as $ef){
 			$this->elemento_formulario[$ef]->resetear_estado();
@@ -338,41 +254,23 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		unset($this->datos);
 		unset($this->ordenes);
 	}
-	//-------------------------------------------------------------------------------
 
 	function cargar_estado_ef($array_ef)
 	{
 		throw new excepcion_toba("No esta implementado en el multilínea");
 		//ATENCION: En un multilinea esto es distinto. FALTA
 	}
-	//-------------------------------------------------------------------------------
 
-	function obtener_nombres_ef()
-/*
-	@@acceso: actividad
-	@@desc: Recupera la lista de nombres de EF
-	@@retorno: array | Listado	de	cada elemento de formulario
-*/
-	{
-		foreach ($this->lista_ef_post	as	$ef){
-			$nombres_ef[$ef] = $this->elemento_formulario[$ef]->obtener_id_form_orig();		
-		}
-		return $nombres_ef;
-	}
-
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//-------------------------	  MANEJO de DATOS	---------------------------------
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 
-	function cantidad_lineas()
+	function get_cantidad_lineas()
 	{
 		return count($this->datos);
 	}
 	
-	//-------------------------------------------------------------------------------	
-	function obtener_datos($analizar_diferencias = false)
+	function get_datos($analizar_diferencias = false)
 	{
 		//Envia el ordenamiento como una columna aparte
 		if ($this->info_formulario['columna_orden']) {
@@ -412,7 +310,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	*   Esta posicion puede ser el mismo id interno en caso de que las diferencias se analizen online
 	*   o puede ser el posicionamiento simple si no hay analisis
 	*/
-	protected function obtener_clave_fila($fila)
+	protected function get_clave_fila($fila)
 	{
 		if ($this->analizar_diferencias) {
 			if (isset($this->datos[$fila]))
@@ -431,7 +329,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		
 	}
 	
-	//-------------------------------------------------------------------------------
+
 	function cargar_datos($datos = null)
 	{
 		if ($datos !== null) {
@@ -460,9 +358,11 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			} else {
 				$this->ordenes = array_keys($this->datos);
 			}
+		} else {
+			$this->ordenes = array();	
 		}
 	}
-	//-------------------------------------------------------------------------------
+
 	/**
 	*	Agrega un registro nuevo a la matriz
 	*/
@@ -473,8 +373,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$this->ordenes[] = $this->siguiente_id_fila;
 		$this->siguiente_id_fila++;
 	}
-
-	//-------------------------------------------------------------------------------
 
 	function existen_datos_cargados()
 	{
@@ -491,55 +389,47 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//------------------------  Multiplexacion de EFs  ------------------------------
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * Carga los datos de una fila específica a partir de los valores de los efs de esa fila
+	 */
 	function cargar_ef_a_registro($id_registro)
-/*
-	@@acceso: actividad
-	@@desc: Carga el estado del array de EFs en un registro
-	@@retorno: array | estado de cada elemento de formulario
-*/
 	{
+		$this->id_fila_actual = $id_registro;
 		foreach ($this->lista_ef as $ef)
 		{
 			//Aplano el estado del EF en un array
-			$dato	= $this->elemento_formulario[$ef]->obtener_dato();
-			$estado = $this->elemento_formulario[$ef]->obtener_estado();
+			$dato	= $this->elemento_formulario[$ef]->get_dato();
+			$estado = $this->elemento_formulario[$ef]->get_estado();
 			if (is_array($dato)) {	//El EF maneja	DATO COMPUESTO
 				if((count($dato))!=(count($estado))){//Error	de	consistencia interna	del EF
-					echo ei_mensaje("obtener_datos: Error de consistencia	interna en el EF etiquetado: ".
-										$this->elemento_formulario[$ef]->obtener_etiqueta(),"error");
+					echo ei_mensaje("Error de consistencia	interna en el EF etiquetado: ".
+										$this->elemento_formulario[$ef]->get_etiqueta(),"error");
 				}
 				for($x=0;$x<count($dato);$x++){
 					$this->datos[$id_registro][$dato[$x]]	= $estado[$dato[$x]];
 				}
 			}else{					//El EF maneja	un	DATO SIMPLE
-				//ATENCION, esta truchada es para evitar el comportamiento de los EF de retornar NULL
-				if ($estado == 'NULL')
-					$estado = null;
 				$this->datos[$id_registro][$dato] = $estado;
 			}
 		}
 		//ei_arbol($this->datos,"CArga de registros");
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * Carga los efs en base a los datos de una fila específica
+	 */
 	function cargar_registro_a_ef($id_fila, $datos_registro)
-/*
-	@@acceso: actividad
-	@@desc: Carga un REGISTRO en el array de EFs
-	@@retorno: array | estado de cada elemento de formulario
-*/
 	{
+		$this->id_fila_actual = $id_fila;
 		$datos = $datos_registro;
 		foreach ($this->lista_ef as $ef) {
 			//Seteo el ID-formulario del EF para que referencie al registro actual
-			$this->elemento_formulario[$ef]->establecer_id_form($id_fila);
+			$this->elemento_formulario[$ef]->ir_a_fila($id_fila);
 			$this->elemento_formulario[$ef]->resetear_estado();
-			$dato = $this->elemento_formulario[$ef]->obtener_dato();
+			$dato = $this->elemento_formulario[$ef]->get_dato();
 			if(is_array($dato)){	//El EF maneja	 *** DATO COMPUESTO
 				$temp = array();
 				for($x=0;$x<count($dato);$x++){
@@ -564,15 +454,13 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 				}
 			}
 			if ($temp !== null)
-				$this->elemento_formulario[$ef]->cargar_estado($temp);
+				$this->elemento_formulario[$ef]->set_estado($temp);
 		}
-		$this->procesar_dependencias();
+		$this->cargar_valores_efs();
 	}
 
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 	//----------------------------	  SALIDA	  -----------------------------------
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function generar_formulario()
@@ -617,6 +505,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	
 	function generar_formulario_encabezado()
 	{
+		$id_vinculo_editor = $this->generar_vinculo_editor();
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		if ($this->info_formulario['filas_numerar']) {
@@ -624,7 +513,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		foreach ($this->lista_ef_post	as	$ef){
 			echo "<th class='abm-columna'>\n";
-			echo $this->elemento_formulario[$ef]->envoltura_ei_ml();
+			$this->generar_etiqueta_ef($ef);
 			echo "</th>\n";
 		}
         //-- Eventos sobre fila
@@ -635,6 +524,33 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}		
 		echo "</tr>\n";
 	}
+	
+	protected function generar_etiqueta_ef($ef)
+	{
+		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
+		if ($estilo == '') {
+	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
+	    	        $estilo = 'ef-etiqueta-obligatorio';
+					$marca = '(*)';
+        	} else {
+	            $estilo = 'ef-etiqueta';
+				$marca ='';
+    	    }
+		}
+		$desc = $this->elemento_formulario[$ef]->get_descripcion();
+		if ($desc !=""){
+			$desc = recurso::imagen_apl("descripcion.gif",true,null,null,$desc);
+		}
+		$editor = '';
+		$id_ef = $this->elemento_formulario[$ef]->get_id_form();			
+		if (isset($this->id_vinculo_editor)) {
+			$editor = "<img title='Editar el ef' style='cursor:pointer; cursor:hand' ".
+					"onclick='vinculador.agregar_parametros({$this->id_vinculo_editor}, {ef: \"$ef\"});vinculador.invocar({$this->id_vinculo_editor});' src='".
+					recurso::imagen_apl('objetos/editar.gif', false)."'/>";
+		}
+		$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta().$marca;
+		echo "<span class='$estilo'>$etiqueta $editor $desc</span>\n";
+	}	
 	
 	function generar_formulario_pie($colspan)
 	{
@@ -647,8 +563,8 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			}
 			foreach ($this->lista_ef_post as $ef){
 				echo "<td  class='abm-total'>\n";
-					$this->elemento_formulario[$ef]->establecer_id_form("s");
-					$id_form_total = $this->elemento_formulario[$ef]->obtener_id_form();
+					$this->elemento_formulario[$ef]->ir_a_fila("s");
+					$id_form_total = $this->elemento_formulario[$ef]->get_id_form();
 					echo "<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
 				echo "</td>\n";
 			}
@@ -661,7 +577,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			echo "</tr>\n";
 		}		
 		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
-		$this->obtener_botones();
+		$this->generar_botones();
 		echo "</td></tr>\n";
 	}
 	
@@ -698,16 +614,16 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
 			echo "\n<!-- FILA $fila -->\n\n";
-			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onFocus='{$this->objeto_js}.seleccionar($fila)' onClick='{$this->objeto_js}.seleccionar($fila)'>";
+			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onClick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->info_formulario['filas_numerar']) {
 				echo "<td class='$estilo_fila'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}
 			foreach ($this->lista_ef_post as $ef){
-				$this->elemento_formulario[$ef]->establecer_id_form($fila);
-				$id_form = $this->elemento_formulario[$ef]->obtener_id_form();
+				$this->elemento_formulario[$ef]->ir_a_fila($fila);
+				$id_form = $this->elemento_formulario[$ef]->get_id_form();
 				echo "<td  class='$estilo_fila' id='cont_$id_form'>\n";
-				echo $this->elemento_formulario[$ef]->obtener_input();
+				echo $this->elemento_formulario[$ef]->get_input();
 				echo "</td>\n";
 			}
  			//---> Creo los EVENTOS de la FILA <---
@@ -740,7 +656,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					$evento_js = eventos::a_javascript($id, $evento, $fila);
 					$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 					echo "<td class='$estilo_fila'>\n";
-					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase, false);
 	            	echo "</td>\n";
 				}	
 			}
@@ -778,31 +694,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 	}
 
 	//-------------------------------------------------------------------------------
-	//--------------------------------	DEPENDENCIAS  -------------------------------
-	//-------------------------------------------------------------------------------
-
-	function procesar_dependencias()
-	{
-		foreach ($this->lista_ef as $ef){
-			$dependencias = $this->elemento_formulario[$ef]->obtener_dependencias();
-			if(is_array($dependencias)){
-				$estado = array();
-				foreach( $dependencias as $dep ){
-					//echo "entre $dep<br>";
-					if(is_object($this->elemento_formulario[$dep])){
-						if($temp = $this->elemento_formulario[$dep]->obtener_estado()){
-							if($temp != "NULL") $estado[$dep] = $temp;
-						}
-					}else{
-						echo ei_mensaje("La dependencia '$dep' es invalida");
-					}
-				}
-				$this->elemento_formulario[$ef]->cargar_datos_dependencias($estado);
-			}
-		}
-	}	
-	
-	//-------------------------------------------------------------------------------
 	//--------------------------------	EVENTOS  -------------------------------
 	//-------------------------------------------------------------------------------
 
@@ -816,21 +707,6 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 			$eventos +=eventos::ml_registro_nuevo();
 		}
 		return $eventos;
-		/*
-		
-		CAMBIO_EVT
-
-		$hay_botonera = false;
-		foreach ($eventos as $evento) {
-			if ($evento['en_botonera'])
-				$hay_botonera = true;
-		}
-		if(! $hay_botonera) {
-				//En caso que no se definan eventos, modificacion es el por defecto y no se incluye como botón
-			$eventos += eventos::modificacion(null, false);
-			$this->set_evento_defecto('modificacion');
-		}
-		*/
 	}
 
 	//-------------------------------------------------------------------------------
@@ -845,8 +721,12 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		$filas = js::arreglo($this->filas_enviadas);
 		$en_linea = js::bool($this->info_formulario['filas_agregar_online']);
 		$seleccionada = (isset($this->clave_seleccionada)) ? $this->clave_seleccionada : "null";
+		$esclavos = js::arreglo($this->cascadas_esclavos, true, false);
+		$maestros = js::arreglo($this->cascadas_maestros, true, false);		
+		$id = js::arreglo($this->id, false);
+		$invalidos = js::arreglo($this->efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new objeto_ei_formulario_ml";
-		echo "('{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea);\n";
+		echo "($id, '{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea, $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
@@ -860,9 +740,14 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 	}
 	
-	function consumo_javascript_global()
+	function get_objeto_js_ef($id)
 	{
-		$consumos = parent::consumo_javascript_global();
+		return "{$this->objeto_js}.ef('$id').ir_a_fila({$this->id_fila_actual})";
+	}
+	
+	function get_consumo_javascript()
+	{
+		$consumos = parent::get_consumo_javascript();
 		$consumos[] = 'clases/objeto_ei_formulario_ml';
 		return $consumos;
 	}
@@ -883,7 +768,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 		}
 		foreach ($this->lista_ef_post	as	$ef){
 			echo "<th class='lista-col-titulo'>\n";
-			echo $this->elemento_formulario[$ef]->obtener_etiqueta();
+			echo $this->elemento_formulario[$ef]->get_etiqueta();
 			echo "</th>\n";
 		}
 		echo "</tr>\n";
@@ -898,7 +783,7 @@ class	objeto_ei_formulario_ml	extends objeto_ei_formulario
 					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
 				}
 				foreach ($this->lista_ef_post as $ef){
-					$this->elemento_formulario[$ef]->establecer_id_form($fila);
+					$this->elemento_formulario[$ef]->ir_a_fila($fila);
 					$temp = $this->get_valor_imprimible_ef( $ef );
 					echo "</td><td class='". $temp['css'] ."'>\n";
 					echo $temp['valor'];

@@ -1,6 +1,6 @@
 <?php
 require_once("objeto_mt.php");	//Ancestro de todos los OE
-include_once("nucleo/browser/interface/form.php");// HTML FROM
+include_once("nucleo/lib/form.php");// HTML FROM
 
 /*
 Pasos a seguir:
@@ -456,12 +456,12 @@ class objeto_mt_me extends objeto_mt
 	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
 */
 	{
-		$consumo_js = $this->consumo_javascript_global();
+		$consumo_js = $this->get_consumo_javascript();
 		if(is_array($this->dependencias)){
 			//Que necesita el Marco?
 			//Que necesita cada UT?
 			foreach(array_keys($this->dependencias) as $ut){
-				$temp = $this->dependencias[$ut]->consumo_javascript_global();
+				$temp = $this->dependencias[$ut]->get_consumo_javascript();
 				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
 			}
 		}

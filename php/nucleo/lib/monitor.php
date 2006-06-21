@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/interface/ei.php");
+require_once("nucleo/lib/ei.php");
 
 //Un script usuario no deberia llamar al monitor!
 //Para guardar datos tiene que usar el metodo observar de la solicitud
@@ -36,7 +36,7 @@ class monitor
 	{
 		echo "MONITOR!<br>";
 		debug_print_backtrace();
-		if(toba::get_solicitud()->get_tipo() == "browser"){
+		if (toba::get_solicitud()->get_tipo() == "browser" || toba::get_solicitud()->get_tipo() == "web") {
 			if($mostrar){
 				global $solicitud;
 				if(is_object($solicitud)){

@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/componentes/runtime/objeto.php');
-require_once("nucleo/browser/interface/formateo.php");
+require_once("nucleo/lib/formateo.php");
 
 //error_reporting(E_ALL ^ E_NOTICE);
 

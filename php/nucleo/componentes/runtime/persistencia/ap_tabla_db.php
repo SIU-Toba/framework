@@ -658,7 +658,7 @@ class ap_tabla_db implements ap_tabla
 		}
 		$sql = "INSERT INTO " . $this->tabla .
 				" ( " . implode(", ", $columnas_sql) . " ) ".
-				" VALUES (" . implode(", ", $valores_sql) . ");";
+				"\n VALUES (" . implode(", ", $valores_sql) . ");";
 		return $sql;
 	}
 
@@ -771,11 +771,7 @@ class ap_tabla_db implements ap_tabla
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->secuencias[$col_llave])){
-						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia', 'toba');
-					}
-					if(!isset($fila[$col_llave])){
-						toba::get_logger()->error("AP_TABLA_DB: Falta el parametro '$col_llave' en fila $fila", 'toba');
-						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.', 'toba');
+						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro

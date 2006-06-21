@@ -54,7 +54,7 @@ function responder_consulta(retorno)
 </HEAD>
 <BODY>
 <?
-	include_once('nucleo/browser/interface/form.php');
+	include_once('nucleo/lib/form.php');
 	echo form::abrir("comunicaciones","no_ahun");
 	echo form::hidden("nombre_frame","no_ahun");
 	echo form::hidden("parametros","no_ahun");

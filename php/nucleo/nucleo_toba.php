@@ -33,6 +33,9 @@ class nucleo_toba
 	
 	private function __construct()
 	{
+		if (get_magic_quotes_gpc()) {
+			throw new excepcion_toba("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
+		}
 		toba::get_cronometro();
 	}
 	
@@ -75,12 +78,12 @@ class nucleo_toba
 			}
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
-			toba::get_logger()->guardar();
 		} catch (Exception $e) {
 			toba::get_logger()->crit($e);
 			echo $e->getMessage() . "\n\n";
-			//toba::get_logger()->guardar();
 		}
+		toba::get_logger()->guardar();		
+		//echo cronometro::instancia()->tiempo_acumulado();
 	}
 
 	/**

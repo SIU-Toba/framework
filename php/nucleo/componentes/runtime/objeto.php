@@ -159,6 +159,11 @@ class objeto
 		return $this->info['titulo'];
 	}
 
+	function get_id()
+	{
+		return $this->id;	
+	}
+	
 //*******************************************************************************************
 //****************************************<  SOPORTE   >*************************************
 //*******************************************************************************************	
@@ -731,13 +736,13 @@ class objeto
 			echo "</td>\n";
 		}
 		//Barra especifica dependiente de la clase
-		echo "<td class='$estilo'>";
+		echo "<td class='$estilo'>&nbsp;";
 		echo $this->barra_superior_especifica();
 		echo "</td>\n";
 		if (isset($this->objeto_js)) {
 			//Barra de mensajeria
 			echo "<td class='$estilo' id='barra_{$this->objeto_js}' style='display:none'>";
-			echo "<a href='javascript: cola_mensajes.mostrar({$this->objeto_js})'>";
+			echo "<a href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
 			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 			echo "</a>";
 			echo "</td>\n";

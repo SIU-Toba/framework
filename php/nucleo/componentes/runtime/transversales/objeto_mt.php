@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/componentes/runtime/objeto.php');
-require_once("nucleo/browser/interface/form.php");
+require_once("nucleo/lib/form.php");
 
 /*
 	Que relacion hay entre hacer todo por defecto y el ABMS?

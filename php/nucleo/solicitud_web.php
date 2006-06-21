@@ -4,13 +4,13 @@ require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades j
 require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
 require_once("nucleo/browser/hilo.php");					//Canal de comunicacion inter-ejecutable
 require_once("nucleo/browser/interface/formateo.php"); 		//Funciones de formateo de columnas
-require_once("nucleo/browser/interface/ei.php");			//Elementos de interface
+require_once("nucleo/lib/ei.php"); 							//Elementos de interface
 require_once("nucleo/browser/logica.php");					//Elementos de logica
 require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
 require_once("nucleo/lib/configuracion.php");	      		//Acceso a la configuracion del sistema
 require_once("nucleo/browser/tipo_pagina/tipo_pagina.php");	//Clase base de Tipo de pagina generico
 require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu 
-require_once("nucleo/browser/interface/form.php");
+require_once("nucleo/lib/form.php");
 
 /**
  * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
@@ -193,7 +193,7 @@ class solicitud_web extends solicitud
 
 		foreach ($objetos as $obj) {
 			//-- Librerias JS necesarias
-			js::cargar_consumos_globales($obj->consumo_javascript_global());
+			js::cargar_consumos_globales($obj->get_consumo_javascript());
 			//-- HTML propio del objeto
 			$obj->obtener_html();
 			//-- Javascript propio del objeto
@@ -261,7 +261,7 @@ class solicitud_web extends solicitud
 		echo "<--toba-->";
 		$consumos = array();
 		foreach ($objetos as $objeto) {
-			$consumos = array_merge($consumos, $objeto->consumo_javascript_global());
+			$consumos = array_merge($consumos, $objeto->get_consumo_javascript());
 		}
 		echo "toba.incluir(".js::arreglo($consumos, false).");\n"; 
 		
@@ -281,15 +281,15 @@ class solicitud_web extends solicitud
 	
 	protected function servicio__cascadas_efs($objetos)
 	{
-		toba::get_hilo()->desactivar_reciclado();		
-		require_once('3ros/JSON.php');
-		if (isset($_GET['param-cascadas'])) {
-			$_POST['parametros'] = $_GET['param-cascadas'];
-			include('acciones/basicas/ef/respuesta.php');
-		} else {
-			$json = new Services_JSON();
-			$error = array(apex_ef_no_seteado => 'Error en la comunicacion, falta indicar los parametros');
-			echo $json->encode($error);
+		toba::get_hilo()->desactivar_reciclado();
+		try {
+			if (count($objetos) != 1) {
+				$actual = count($objetos);
+				throw new excepcion_toba("Las cascadas sólo admiten un objeto destino (actualmente: $actual)");
+			}
+			$objetos[0]->servicio__cascadas_efs();
+		} catch(excepcion_toba $e) {
+			toba::get_logger()->error($e, 'toba');
 		}
 	}
 		

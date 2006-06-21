@@ -1,16 +1,16 @@
 <?php
 
-    function parsear_propiedades( $texto )
+    function parsear_propiedades( $texto, $extra='' )
     //Toma como entrada un texto tipo CSS (propiedad: valor;)
     //y devuelve un array asociativo $resultado[propiedad] = valor
     {
 		$prop = array();
 		//FALTA hacer que todas las claves queden en minuscula...
-		$linea = explode(";",$texto);
+		$linea = explode($extra.";".$extra,$texto);
 		//array_pop($linea);
 		foreach($linea as $sentencia){
 			if(trim($sentencia) != ""){
-				$propiedad = explode(":",trim($sentencia));
+				$propiedad = explode($extra.":".$extra, trim($sentencia));
 				if(count($propiedad)==2){
 					$nombre = trim($propiedad[0]);
     	    	    $valor = trim($propiedad[1]);
@@ -25,38 +25,16 @@
 		}
     }
 
-	function empaquetar_propiedades( $array )
+	function empaquetar_propiedades( $array, $extra='' )
 	{
+		$filas = array();
 		foreach($array as $clave => $valor){
-			$filas[] = "$clave: $valor";
+			$filas[] = $clave.$extra.':'.$extra." $valor";
 		}
-		$texto = implode(";\n",$filas) . ";\n";
+		$texto = implode($extra.';'.$extra."\n",$filas) . $extra.";$extra\n";
 		return $texto;
 	}
 
-	function parsear_propiedades_array( $texto )
-	//Parsea cadenas que poseen el nombre del atributo, ":" y depues
-	//una lista de elementos separados por comas que conforman un array
-	{
-		$prop = array();
-		$linea = explode(";",$texto);
-		if(is_array($linea)){
-			foreach($linea as $sentencia){
-				if(trim($sentencia) != ""){
-					$propiedad = explode(":",trim($sentencia));
-					if(count($propiedad)==2){
-						$nombre = trim($propiedad[0]);
-	    	    	    $valor = explode(",",trim($propiedad[1]));
-					    $prop[$nombre] = $valor;
-					}
-				}
-			}
-			return $prop;
-		}else{
-			echo "ace";
-			return null;
-		}
-	}
 	
 	function parsear_doc_comment( $com )
 	{

@@ -192,9 +192,9 @@ class objeto_ei_archivos extends objeto_ei
 
 	//-------------------------------------------------------------------------------
 
-	public function consumo_javascript_global()
+	function get_consumo_javascript()
 	{
-		$consumo = parent::consumo_javascript_global();
+		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'clases/objeto_ei_archivos';
 		return $consumo;
 	}	

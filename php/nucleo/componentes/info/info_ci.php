@@ -108,7 +108,9 @@ class info_ci extends info_ei
 		switch($modelo){
 			case 'proceso':
 				$evento[0]['identificador'] = "procesar";
-				$evento[0]['etiqueta'] = "Proce&sar";
+				$evento[0]['etiqueta'] = "&Guardar";
+				$evento[0]['imagen_recurso'] = 'apex';
+				$evento[0]['imagen'] = 'guardar.gif';
 				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['orden'] = 0;
 				$evento[0]['en_botonera'] = 1;

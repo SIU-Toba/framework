@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/interface/formateo.php");
+require_once("nucleo/lib/formateo.php");
 //Estos son los tipos de columna existentes
 define("corte_id",1);
 define("corte_des",2);

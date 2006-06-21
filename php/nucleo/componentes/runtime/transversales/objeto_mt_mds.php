@@ -415,7 +415,7 @@ class objeto_mt_mds extends objeto_mt_s
     }
     //-------------------------------------------------------------------------------
 
-    function obtener_botones()
+    function generar_botones()
 /*
     @@acceso: interno
     @@desc: Genera los botones de ABM

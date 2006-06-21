@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/interface/ef.php");// Elementos de interface
+require_once("nucleo/lib/efs_obsoletos/ef.php");// Elementos de interface
 /*
 * 			ef <abstracta>
 * 			|
@@ -890,11 +890,16 @@ class ef_editable_multilinea extends ef_editable
 		}
 		$parametros["tamano"] = isset($parametros["columnas"]) ? $parametros["columnas"] : 40;
 		if(isset($parametros["maximo"]) && $parametros["maximo"]!="")
-			$this->maximo = $parametros["maximo"];
+			$maximo = $parametros["maximo"];
 		$this->ajustable = isset($parametros["ajustable"]) ? $parametros["ajustable"] : false;
 		unset($parametros["filas"]);
 		unset($parametros["columnas"]);
 		parent::ef_editable($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		if (isset($maximo)) {
+			$this->maximo = $maximo;	
+		} else {
+			$this->maximo = null;	
+		}		
 	}
 	//---------------------------------------------------------
 

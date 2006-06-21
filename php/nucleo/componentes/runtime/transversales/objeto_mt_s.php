@@ -1,6 +1,6 @@
 <?php
 require_once("objeto_mt.php");
-include_once("nucleo/browser/interface/form.php");// HTML FROM
+include_once("nucleo/lib/form.php");// HTML FROM
 
 //Que relacion hay entre hacer todo por defecto y el ABMS?
 //JAVASCRIPT especifico = javascript
@@ -127,7 +127,7 @@ class objeto_mt_s extends objeto_mt
 		$this->obtener_interface();		//El hijo genera la INTERFACE
 		echo "</td></tr>\n";
 		echo "<tr><td>";
-		$this->obtener_botones();
+		$this->generar_botones();
 		echo "</td></tr>\n";
 		echo "</table>\n";
 		echo "</div>\n";
@@ -158,12 +158,12 @@ class objeto_mt_s extends objeto_mt
 	@@desc: por porciones de codigo reutilizadas entre distintos subelementos.
 */
 	{
-		$consumo_js = $this->consumo_javascript_global();
+		$consumo_js = $this->get_consumo_javascript();
 		if(is_array($this->dependencias)){
 			//Que necesita el Marco?
 			//Que necesita cada UT?
 			foreach(array_keys($this->dependencias) as $ut){
-				$temp = $this->dependencias[$ut]->consumo_javascript_global();
+				$temp = $this->dependencias[$ut]->get_consumo_javascript();
 				if(isset($temp)) $consumo_js = array_merge($consumo_js, $temp);
 			}
 		}
@@ -226,7 +226,7 @@ function validar_form_{$this->nombre_formulario}(formulario){\n";
 	}
 	//-------------------------------------------------------------------------------
 
-	function consumo_javascript_global()
+	function get_consumo_javascript()
 /*
  	@@acceso: interno
 	@@desc: Javascript global requerido para la validacion especifica del MT
@@ -236,7 +236,7 @@ function validar_form_{$this->nombre_formulario}(formulario){\n";
 	}
 	//-------------------------------------------------------------------------------
 
-	function obtener_botones()
+	function generar_botones()
 /*
  	@@acceso: interno
 	@@desc: Genera los BOTONES del Marco Transaccional

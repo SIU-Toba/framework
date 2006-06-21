@@ -1,7 +1,8 @@
 <?
 define("apex_cuadro_compatible",1);
-require_once("nucleo/browser/interface/form.php");// Elementos STANDART de formulario
+require_once("nucleo/lib/form.php");
 require_once("objeto_ei.php");
+require_once("nucleo/lib/formateo.php"); 		//Funciones de formateo de columnas
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 
@@ -168,92 +169,6 @@ class objeto_ei_cuadro extends objeto_ei
 		$propiedades[] = "tamanio_pagina";
 		$propiedades[] = "cantidad_paginas";
 		return $propiedades;
-	}
-	
-	function obtener_definicion_db()
-	{
-		$sql = parent::obtener_definicion_db();
-		//------------- Cuadro ----------------
-		$sql["info_cuadro"]["sql"] = "SELECT	titulo as titulo,		
-								c.subtitulo						as	subtitulo,		
-								c.sql							as	sql,			
-								c.columnas_clave				as	columnas_clave,
-								c.clave_dbr						as	clave_datos_tabla,
-								c.archivos_callbacks			as	archivos_callbacks,		
-								c.ancho							as	ancho,			
-								c.ordenar						as	ordenar,			
-								c.exportar						as	exportar_xls,		 
-								c.exportar_rtf					as	exportar_pdf,		 
-								c.paginar						as	paginar,			
-								c.tamano_pagina					as	tamano_pagina,
-								c.tipo_paginado					as	tipo_paginado,
-								c.scroll						as	scroll,
-								c.scroll_alto					as	alto,
-								c.eof_invisible					as	eof_invisible,		 
-								c.eof_customizado				as	eof_customizado,
-								c.pdf_respetar_paginacion		as	pdf_respetar_paginacion,	
-								c.pdf_propiedades				as	pdf_propiedades,
-								c.asociacion_columnas			as	asociacion_columnas,
-								c.dao_nucleo_proyecto			as  dao_nucleo_proyecto,	
-								c.dao_nucleo					as  dao_clase,			
-								c.dao_metodo					as  dao_metodo,
-								c.dao_parametros				as  dao_parametros,
-								n.archivo 						as	dao_archivo,
-								c.cc_modo						as	cc_modo,						
-								c.cc_modo_anidado_colap			as	cc_modo_anidado_colap,		
-								c.cc_modo_anidado_totcol		as	cc_modo_anidado_totcol,		
-								c.cc_modo_anidado_totcua		as	cc_modo_anidado_totcua		
-					 FROM		apex_objeto_cuadro c
-					 			LEFT OUTER JOIN	apex_nucleo n
-					 			ON c.dao_nucleo_proyecto = n.proyecto
-					 			AND c.dao_nucleo = n.nucleo
-					 WHERE	objeto_cuadro_proyecto='".$this->id[0]."'	
-					 AND		objeto_cuadro='".$this->id[1]."';";
-		$sql["info_cuadro"]["estricto"]="1";
-		$sql["info_cuadro"]["tipo"]="1";
-		//------------ Columnas ----------------
-		$sql["info_cuadro_columna"]["sql"] = "SELECT	c.orden	as orden,		
-								c.titulo						as titulo,
-								c.estilo_titulo					as estilo_titulo,		
-								e.css							as estilo,	 
-								c.ancho							as ancho,	 
-								c.clave							as clave,		
-								f.funcion						as formateo,	 
-								c.vinculo_indice				as vinculo_indice,	
-								c.no_ordenar					as no_ordenar,
-								c.mostrar_xls					as mostrar_xls,
-								c.mostrar_pdf					as mostrar_pdf,
-								c.pdf_propiedades				as pdf_propiedades,
-								c.total							as total,
-								c.total_cc						as total_cc
-					 FROM		apex_columna_estilo e,
-								apex_objeto_ei_cuadro_columna	c
-								LEFT OUTER JOIN apex_columna_formato f	
-								ON	f.columna_formato	= c.formateo
-					 WHERE	objeto_cuadro_proyecto = '".$this->id[0]."'
-					 AND		objeto_cuadro = '".$this->id[1]."'
-					 AND		c.estilo = e.columna_estilo	
-					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
-					 ORDER BY orden;";
-		$sql["info_cuadro_columna"]["tipo"]="x";
-		$sql["info_cuadro_columna"]["estricto"]="1";		
-		//------------ Cortes de Control ----------------
-		$sql["info_cuadro_cortes"]["sql"] = "SELECT	orden,		
-													columnas_id,	    		
-													columnas_descripcion,	
-													identificador		,	
-													pie_contar_filas	,	
-													pie_mostrar_titular ,	
-													pie_mostrar_titulos	,	
-													imp_paginar,
-													descripcion				
-					 FROM		apex_objeto_cuadro_cc	
-					 WHERE		objeto_cuadro_proyecto = '".$this->id[0]."'
-					 AND		objeto_cuadro = '".$this->id[1]."'
-					 ORDER BY orden;";
-		$sql["info_cuadro_cortes"]["tipo"]="x";
-		$sql["info_cuadro_cortes"]["estricto"]="0";		
-		return $sql;
 	}
   
 //################################################################################
@@ -881,7 +796,8 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 		//-- Tabla BASE
 		$mostrar_cabecera = true;
-        echo "\n<table class='objeto-base' width='$ancho'>\n";
+		$ancho = convertir_a_medida_tabla($ancho);
+        echo "\n<table class='objeto-base' $ancho>\n";
         if($mostrar_cabecera){
             echo "<tr><td>";
             $this->barra_superior(null, true,"objeto-ei-barra-superior");
@@ -924,7 +840,7 @@ class objeto_ei_cuadro extends objeto_ei
 		//Botonera
 		if ($this->hay_botones()) {
 			echo"<tr><td class='lista-subtitulo'>";
-			$this->obtener_botones();
+			$this->generar_botones();
 			echo "</td></tr>\n";
 		}
 		echo "</TABLE>\n";
@@ -1198,7 +1114,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$tecla = $acceso[1];
 						//Creo JS del EVENTO
 						echo "<td class='lista-col-titulo' width='1%'>\n";
-						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase, false);
 		            	echo "</td>\n";
 					}
 				}
@@ -1446,9 +1362,9 @@ class objeto_ei_cuadro extends objeto_ei
 	}
 
 
-	public function consumo_javascript_global()
+	public function get_consumo_javascript()
 	{
-		$consumo = parent::consumo_javascript_global();
+		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'clases/objeto_ei_cuadro';
 		return $consumo;
 	}	

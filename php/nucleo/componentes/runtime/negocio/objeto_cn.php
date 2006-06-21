@@ -180,9 +180,9 @@ class objeto_cn extends objeto
 	//------  MANEJO de CONTROLES configurables
 	//-------------------------------------------------------------------------------
 /*
-	function obtener_definicion_db()
+	function get_definicion_db()
 	{
-		$sql = parent::obtener_definicion_db();
+		$sql = parent::get_definicion_db();
 		//-- CABECERA ----------------------
 		$sql["info_negocio"]["sql"] = "SELECT 	descripcion
 										FROM	apex_objeto_negocio

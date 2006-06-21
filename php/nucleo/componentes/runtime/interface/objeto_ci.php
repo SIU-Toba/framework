@@ -152,10 +152,6 @@ class objeto_ci extends objeto_ei
 				$parametro['id'] = $id;
 				$parametro['nombre_formulario'] = $this->nombre_formulario;
 				$this->inicializar_dependencia( $id, $parametro );
-				if( $dependencia instanceof objeto_ei_formulario ) {
-					// Carga de combos dinamicos de formularios
-					$this->cargar_daos_dinamicos_dependencia( $id );
-				}			
 				$dependencia->cargar_datos( $this->proveer_datos_dependencia( $id ) );
 			}
 		}
@@ -718,10 +714,6 @@ class objeto_ci extends objeto_ei
 				//	Hago que cargue sus dependencias
 				$this->dependencias[$dep]->cargar_dependencias_gi();
 			}else{														
-				if( $this->dependencias[$dep] instanceof objeto_ei_formulario ){
-					//-- Carda de combos dinamicos
-					$this->cargar_daos_dinamicos_dependencia( $dep );
-				}
 				//-- Inyecto DATOS en los EIs, si es que existe un metodo para cargarlos --
 				$this->dependencias[$dep]->cargar_datos( $this->proveer_datos_dependencia($dep) );
 				$this->dependencias[$dep]->definir_eventos();
@@ -738,24 +730,6 @@ class objeto_ci extends objeto_ei
 		}else{
 			$this->log->info($this->get_txt() . "[ cargar_datos_dependencia ] El METODO [ $metodo ] no existe - '$dependencia' no fue cargada", 'toba');
 			return null;
-		}
-	}
-	
-	protected function cargar_daos_dinamicos_dependencia( $dep )
-	{
-		//Un EF-COMBO puede solicitar la carga al CI que los contiene si sus valores no son estaticos
-		if( $dao_form = $this->dependencias[$dep]->obtener_consumo_dao() ){
-			//ei_arbol($dao_form,"DAO");
-			//Por cada elemento de formulario que necesita DAOS
-			foreach($dao_form as $ef => $dao){
-				if(method_exists($this, $dao)){
-					$datos = $this->$dao();
-					//ei_arbol($datos,"DATOS $ef");
-					$this->dependencias[$dep]->ejecutar_metodo_ef($ef,"cargar_datos",$datos);
-				}else{
-					throw new excepcion_toba_def("El METODO '$dao' ha sido declarado como DAO y no se encuentra en el CI");
-				}
-			}
 		}
 	}
 	
@@ -838,8 +812,8 @@ class objeto_ci extends objeto_ei
 			echo form::hidden($this->submit, '');
 			echo form::hidden($this->submit."__param", '');
 		}
-		$ancho = isset($this->info_ci["ancho"]) ? "width='" . $this->info_ci["ancho"] . "'" : "";
-		$alto = isset($this->info_ci["alto"]) ? "height='" . $this->info_ci["alto"] . "'" : "";
+		$ancho = convertir_a_medida_tabla($this->info_ci["ancho"]);
+		$alto = isset($this->info_ci["alto"]) ? "style='height:" . $this->info_ci["alto"] . "'" : "";
 		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
 		//--> Barra SUPERIOR
 		echo "<tr><td class='celda-vacia'>";
@@ -861,7 +835,7 @@ class objeto_ci extends objeto_ei
 		$con_botonera = $this->hay_botones();
 		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ){
 			echo "<tr><td class='abm-zona-botones'\n>";
-			$this->obtener_botones();
+			$this->generar_botones();
 			echo "</td></tr>\n";
 		}
 		//--> Cuerpo del CI
@@ -871,7 +845,7 @@ class objeto_ci extends objeto_ei
 		//--> Botonera
 		if($con_botonera && ($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos") ){
 			echo "<tr><td class='abm-zona-botones'>\n";
-			$this->obtener_botones();
+			$this->generar_botones();
 			echo "</td></tr>\n";
 		}
 		if ( $this->utilizar_impresion_html ) {
@@ -1126,12 +1100,12 @@ class objeto_ci extends objeto_ei
 	 * Retorna los consumos javascript requerido por este objeto y sus dependencias
 	 * @return array
 	 */
-	function consumo_javascript_global()
+	function get_consumo_javascript()
 	{
-		$consumo_js = parent::consumo_javascript_global();
+		$consumo_js = parent::get_consumo_javascript();
 		$consumo_js[] = 'clases/objeto_ci';
 		foreach($this->dependencias_gi as $dep){
-			$temp = $this->dependencias[$dep]->consumo_javascript_global();
+			$temp = $this->dependencias[$dep]->get_consumo_javascript();
 			if(isset($temp))
 				$consumo_js = array_merge($consumo_js, $temp);
 		}
@@ -1226,7 +1200,7 @@ class objeto_ci extends objeto_ei
 	 */
 	function obtener_javascript_global_consumido()
 	{
-		js::cargar_consumos_globales($this->consumo_javascript_global());
+		js::cargar_consumos_globales($this->get_consumo_javascript());
 	}
 	
 	

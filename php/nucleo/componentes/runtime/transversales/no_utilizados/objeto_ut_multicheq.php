@@ -1,6 +1,6 @@
 <?php	
 require_once("objeto_ut.php");	
-require_once("nucleo/browser/interface/ef.php");//	Elementos de interface
+require_once("nucleo/lib/efs_obsoletos/ef.php");//	Elementos de interface
 
 //	ATENCION!! esta clase no maneja claves	duplicadas!!
 

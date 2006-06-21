@@ -78,6 +78,9 @@ class tp_basico extends tipo_pagina
 				position:absolute;
 				background-color: white;
 			}
+			#overlay {
+				background-image:url(<?=recurso::imagen_apl('overlay.gif', false);?>);     			
+			}
 		</style>			
 		<?php
 	}
@@ -85,6 +88,11 @@ class tp_basico extends tipo_pagina
 	protected function comienzo_cuerpo()
 	{
 		echo "<body>\n";
+		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
+		$img = recurso::imagen_apl('wait.gif');
+		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
+		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
+		echo "</div>";
 		js::cargar_consumos_globales(array('dhtml_tooltip'));
 		if ( editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');

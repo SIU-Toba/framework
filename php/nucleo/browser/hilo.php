@@ -120,7 +120,9 @@ class hilo
 			$lista_obj = explode(",", $objetos);
 			$this->objetos_destino = array();
 			foreach ($lista_obj as $obj) {
-				$this->objetos_destino[] = explode(apex_qs_separador, $obj);
+				if (trim($obj) != '') {
+					$this->objetos_destino[] = explode(apex_qs_separador, $obj);
+				}
 			}
 			unset($this->parametros[apex_hilo_qs_servicio]);
 		}		

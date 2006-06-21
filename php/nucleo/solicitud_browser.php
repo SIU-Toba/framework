@@ -4,7 +4,7 @@ require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades j
 require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
 require_once("nucleo/browser/vinculador.php");				//Vinculos a otros ITEMS
 require_once("nucleo/browser/interface/formateo.php"); 		//Funciones de formateo de columnas
-require_once("nucleo/browser/interface/ei.php");			//Elementos de interface
+require_once("nucleo/lib/ei.php");							//Elementos de interface
 require_once("nucleo/browser/logica.php");					//Elementos de logica
 require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
 require_once("nucleo/lib/configuracion.php");	      		//Acceso a la configuracion del sistema

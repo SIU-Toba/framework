@@ -2,6 +2,7 @@
 require_once("interfaces.php");
 require_once("nucleo/lib/manejador_archivos.php");
 require_once("nucleo/lib/reflexion/clase_php.php");
+require_once('admin/db/dao_editores.php');
 
 class info_componente implements recorrible_como_arbol, meta_clase
 {
@@ -74,6 +75,95 @@ class info_componente implements recorrible_como_arbol, meta_clase
 															false, false, null, true, 'central');
 	}
 
+	function get_archivo_subclase()
+	{
+		if (isset($this->datos['info']['subclase_archivo'])) {
+			return $this->datos['info']['subclase_archivo'];
+		}
+		return null;		
+	}
+	
+	/**
+	 * Duplica un objeto y sus dependencias recursivamente
+	 *
+	 * @param array $nuevos_datos Datos a modificar en la base del objeto. Para anexar algo al nombre se utiliza el campo 'anexo_nombre'
+	 * @param boolean/string $dir_subclases Si el componente tiene subclases clona los archivos, en caso afirmativo indicar la ruta destino (relativa)
+	 * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
+	 * @return array Clave del objeto que resulta del clonado
+	 * @todo El path absoluto de los archivos clonados se basa en la presuncion de que es $toba_dir/proyectos/$proyecto, esto seguramente cambia
+	 */
+	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
+	{
+		//Se busca el id del datos_relacion de la clase
+		$id_dr = dao_editores::get_dr_de_clase($this->datos['info']['clase']);
+		
+		//Se construye el objeto datos_relacion
+		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
+		$dr = constructor_toba::get_runtime($componente);
+		$dr->conectar_fuente();
+		$dr->configuracion();
+		
+		//Se carga con el id_origen
+		$dr->cargar(array('proyecto' => $this->proyecto, 'objeto' => $this->id));
+		foreach ($nuevos_datos as $campo => $valor) {
+			if ($campo == 'anexo_nombre') {
+				$campo = 'nombre';
+				$valor = $valor . $dr->tabla('base')->get_fila_columna(0, $campo);
+			}
+			$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
+		}
+
+		//Se le fuerza una inserción a los datos_tabla
+		//Como la clave de los objetos son secuencias, esto garantiza claves nuevas
+		$dr->forzar_insercion();
+		if (!$con_transaccion) {
+			$dr->get_persistidor()->desactivar_transaccion();	
+		}
+		
+		//--- Si tiene subclase, se copia el archivo y se cambia
+		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
+			$archivo = $this->datos['info']['subclase_archivo'];
+			$nuevo_archivo = $dir_subclases."/".basename($archivo);
+			$path_origen = toba::get_hilo()->obtener_proyecto_path()."/php/";
+			if (isset($nuevos_datos['proyecto'])) {
+				$path_destino = toba_dir()."/proyectos/".$nuevos_datos['proyecto']."/php/";
+			} else {
+				$path_destino = $path_origen;	
+			}
+			$dr->tabla('base')->set_fila_columna_valor(0, 'subclase_archivo', $nuevo_archivo);
+			//--- Si el dir. destino no existe, se lo crea
+			if (!file_exists($path_destino.$dir_subclases)) {
+				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+			}
+			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
+		}
+		
+		//--- Se reemplazan las dependencias
+		foreach ($this->subelementos as $hijo) {
+			//-- Si se especifico un proyecto, se propaga
+			$datos_objeto = array();
+			if (isset($nuevos_datos['proyecto'])) {
+				$datos_objeto['proyecto'] = $nuevos_datos['proyecto'];	
+			}
+			//-- Si se especifica un anexo de nombre, se propaga
+			if (isset($nuevos_datos['anexo_nombre'])) {
+				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
+			}			
+			$id_clon = $hijo->clonar($datos_objeto, $dir_subclases, $con_transaccion);
+			//--- En el componente actual se reemplaza la dependencia por el clon
+			$id_fila = $dr->tabla('dependencias')->get_id_fila_condicion(
+								array('identificador' => $hijo->rol_en_consumidor()));
+			$dr->tabla('dependencias')->modificar_fila(current($id_fila), 
+								array('objeto_proveedor' => $id_clon['componente']));
+		}
+		$dr->sincronizar();
+		
+		//Se busca la clave del nuevo objeto
+		$clave = $dr->tabla('base')->get_clave_valor(0);
+		$clave['componente'] = $clave['objeto'];
+		return $clave;
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
@@ -121,6 +211,11 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		else
 			$nombre = $nombre_objeto; 
 		return $nombre;
+	}
+	
+	function get_nombre()
+	{
+		return $this->datos['info']['nombre'];	
 	}
 	
 	function get_iconos()

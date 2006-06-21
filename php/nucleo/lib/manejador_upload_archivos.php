@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/interface/form.php");
+require_once("nucleo/lib/form.php");
 /*
  	SETEOS necesarios en el PHP.INI para que esta clase funcione.
 		- file_uploads

@@ -182,6 +182,8 @@ ATENCION: Esto ahora hay que preguntarselo al HILO
 		for($a=0;$a<count($this->objetos);$a++){
 			$this->objetos[$a]->destruir();
 		}
+		cargador_toba::instancia()->destruir();
+		
 		//--- Finalizo objetos BASICOS -------
 		toba::get_hilo()->destruir();
 		//dump_session();

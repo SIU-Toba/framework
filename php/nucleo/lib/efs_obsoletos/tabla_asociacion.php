@@ -1,5 +1,4 @@
 <?
-include_once("nucleo/browser/interface/form.php");
 
 /*
 * Este objeto no soporta bien a las tablas de mas de una CLAVE (PK)

@@ -100,10 +100,6 @@ class js
 						echo js::incluir(recurso::js("$consumo.js"));
 						break;
 					case 'clases/toba': 
-						$img = recurso::imagen_apl('wait.gif');
-						echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
-						echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
-						echo "</div>";
 						echo js::incluir(recurso::js("$consumo.js"));
 						$imagenes = array(	'error' => recurso::imagen_apl('error.gif', false), 
 											'info' => recurso::imagen_apl('info_chico.gif', false), 
@@ -122,6 +118,7 @@ class js
 						echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 						echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
 						echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
+						echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
 						echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
 						echo "var lista_imagenes=".js::arreglo($imagenes, true).";";
 						echo js::cerrar();
@@ -148,7 +145,7 @@ class js
 		return ($bool) ? "true" : "false";
 	}
 	
-	static function arreglo($arreglo, $es_assoc = false)
+	static function arreglo($arreglo, $es_assoc = false, $seg_nivel_assoc=true)
 	{
 		$js = "";
 		if ($es_assoc) {
@@ -157,7 +154,7 @@ class js
 				foreach($arreglo as $id => $valor) {
 					if (is_array($valor)) { 
 						//RECURSIVIDAD
-						$js .= "$id: ".self::arreglo($valor, true)." ,";
+						$js .= "$id: ".self::arreglo($valor, $seg_nivel_assoc)." ,";
 					} else {
 						$js .= "$id: '$valor', ";
 					}
@@ -170,11 +167,13 @@ class js
 		} else {	//No asociativo
 			$js .="[ ";
 			foreach($arreglo as $valor) {
-				if (is_numeric($valor))
+				if (!isset($valor)) {
+					$js .= "null,";
+				} elseif (is_numeric($valor)) {
 					$js .= "$valor,";
-				elseif (is_array($valor)) {
+				} elseif (is_array($valor)) {
 					//RECURSIVIDAD
-					$js .= self::arreglo($valor, true).",";
+					$js .= self::arreglo($valor, $seg_nivel_assoc).",";
 				} else {
 					$js .= "'$valor',";
 				}

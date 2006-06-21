@@ -633,11 +633,12 @@ class objeto_datos_tabla extends objeto
 	}
 
 	/**
-	 * Elimina todas las filas de la tabla en memoria, sin tener en cuenta los cursores de los padres
+	 * Elimina todas las filas de la tabla en memoria
+	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre
 	 */
-	function eliminar_filas()
+	function eliminar_filas($con_cursores = false)
 	{
-		foreach(array_keys($this->cambios) as $fila) {
+		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->eliminar_fila($fila);
 		}
 	}
