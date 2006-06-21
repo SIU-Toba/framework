@@ -98,7 +98,7 @@ class instalacion extends elemento_modelo
 		if ( isset( $this->ini_bases[$id_base] ) ) {
 			return $this->ini_bases[$id_base];			
 		} else {
-			throw new excepcion_toba("INSTALACION: La base '$id_base' no existe en el archivo de instancias.");
+			throw new excepcion_toba("INSTALACION: La base '$id_base' no existe en el archivo bases.ini");
 		}
 	}
 
