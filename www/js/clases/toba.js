@@ -139,7 +139,7 @@ var toba =
 	},
 	
 	error_comunicacion : function(error) {
-		alert('Error de comunicacion: ' + error);
+		alert('Error de comunicacion AJAX');
 	},
 	
 	inicio_aguardar : function() {
@@ -190,6 +190,12 @@ var vinculador =
 		if (typeof parametros != 'undefined') {
 			vinc = this.concatenar_parametros_url(vinc, parametros);
 		}
+		if (typeof objetos != 'undefined') {
+			vinc += '&' + toba_hilo_qs_objetos_destino + "=";
+			for (var i=0; i<objetos.length; i++) {
+				vinc += objetos[i][0] + toba_hilo_separador + objetos[i][1] + ',';
+			}
+		}
 		return vinc;
 	},
 	
@@ -205,7 +211,11 @@ var vinculador =
 	//--------------------------------------------------
 	
 	invocar : function(identificador) {
-		if (typeof this._vinculos[identificador] == 'undefined') return;
+		if (typeof this._vinculos[identificador] == 'undefined') {
+		 	cola_mensajes.agregar('Ud. no tiene permisos para ingresar a esta operación');
+		 	cola_mensajes.mostrar();
+		 	return;
+		}
 		if (this._vinculos[identificador]['activado'] != 1) return;	//Desactivado
 		if (typeof this._vinculos[identificador]['parametros'] == 'undefined') {
 			url = this._vinculos[identificador]['url'];
@@ -214,7 +224,7 @@ var vinculador =
 													this._vinculos[identificador]['parametros'] );
 		}
 		if (this._vinculos[identificador]['popup'] == '1' ) {
-			abrir_popup('cambiar_esto',url,this._vinculos[identificador]['popup_parametros']);
+			abrir_popup(identificador,url,this._vinculos[identificador]['popup_parametros']);
 		} else {
 			if( this._vinculos[identificador]['target'] != '' ) {
 				idtarget = this._vinculos[identificador]['target']
@@ -227,7 +237,13 @@ var vinculador =
 
 	agregar_parametros: function(identificador, parametros) {
 		if (typeof this._vinculos[identificador] == 'undefined') return;
-		this._vinculos[identificador]['parametros']	= parametros;	
+		if (typeof this._vinculos[identificador]['parametros'] == 'undefined') {
+			this._vinculos[identificador]['parametros']= parametros;
+		} else {
+			for (var i in parametros) {
+				this._vinculos[identificador]['parametros'][i] = parametros[i];
+			}	
+		}
 	},
 
 	desactivar_vinculo : function(identificador) {

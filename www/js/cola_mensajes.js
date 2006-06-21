@@ -7,9 +7,9 @@ var cola_mensajes =
 	_mensajes: new Array(),
 	_responsable: null,
 	
-	agregar: function(mensaje, gravedad) {
+	agregar: function(mensaje, gravedad, sujeto) {
 		if (!gravedad) gravedad = 'error';
-		this._mensajes.push(new Array(mensaje, gravedad));
+		this._mensajes.push(new Array(mensaje, gravedad, sujeto));
 	},	
 
 	mostrar : function(responsable) {
@@ -18,7 +18,7 @@ var cola_mensajes =
 				this._responsable = responsable;
 				responsable.notificar(true);
 			}
-			this.ventana_alert();
+			this.ventana_modal();
 		}
 	},
 	
@@ -29,17 +29,21 @@ var cola_mensajes =
 	},
 	
 	ventana_modal: function() {
-		var mensaje = '<div style="margin-left: 5px">Se han encontrado los siguientes problemas:<br><br>';
+		var mensaje = '<div class="overlay-titulo">Se han encontrado los siguientes problemas:</div>';
 		for (var i=0; i < this._mensajes.length; i++) {
-			var gravedad;
-			if (this._mensajes[i][1] == 'error')
-				gravedad = document.getElementById('icono_error').innerHTML;
-			else
-				gravedad = document.getElementById('icono_info').innerHTML;
-			mensaje += gravedad + ' ' + this._mensajes[i][0] + '<br><br>';
+			var gravedad = '';
+			if (this._mensajes[i][1] == 'error') {
+				gravedad = '<img src="'+ toba.imagen('error') + '"/> ';
+			}
+			var texto = this._mensajes[i][0]
+			if (typeof this._mensajes[i][2] != 'undefined') {
+				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
+			}
+			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		mensaje += '</div>';
-		showPopWin(null, mensaje, 400, 100, [['Cerrar','hidePopWin(false)']]);
+		mensaje += "<div class='overlay-botonera'><input type='button' value='Aceptar' onclick='overlay()'/></div>";
+		document.getElementById('overlay_contenido').innerHTML = mensaje;
+		overlay();
 	},
 	
 	ventana_alert: function() {
@@ -56,11 +60,28 @@ var cola_mensajes =
 				gravedad = '- ';
 				hay_info = true;
 			}
-			mensaje += gravedad + this._mensajes[i][0] + '\n';
+			var texto = this._mensajes[i][0];
+			if (typeof this._mensajes[i][2] != 'undefined') {
+				texto = this._mensajes[i][2] + " " + texto;
+			}			
+			mensaje += gravedad + texto + '\n';
 		}
 		var encabezado = (hay_error) ? 'Se han encontrado los siguientes problemas:\n\n' : 'Atención:\n\n';
 		alert(encabezado + mensaje);
 	}
+}
+
+function overlay() {
+	el = document.getElementById("overlay");
+	var visible = (el.style.visibility == "visible");
+	if (ie) {
+		//--- Oculta los SELECT por bug del IE
+		var selects = document.getElementsByTagName('select');
+		for (var i=0; i < selects.length; i++) {
+			selects[i].style.visibility = (visible) ? 'visible' : 'hidden';	
+		}
+	}
+	el.style.visibility = (visible) ? "hidden" : "visible";        
 }
 
 toba.confirmar_inclusion('cola_mensajes');

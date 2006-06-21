@@ -188,10 +188,10 @@ function abrir_popup(id, url, opciones, extra, dep) {
 		ventana_hija[id] = window.open( url , id, vars);
 		ventana_hija[id].focus();
 	} else {
-		// Ya fue definida, no esta cerrada  y no puede tener foco
-		ventana_hija[id].focus();
+		// Ya fue definida, no esta cerrada  y puede tener foco
+		ventana_hija[id].focus();		
 		ventana_hija[id].location.href = url;
-		ventana_hija[id].opener = window;		
+		ventana_hija[id].opener = window;
 	}
 	return false;	
 }

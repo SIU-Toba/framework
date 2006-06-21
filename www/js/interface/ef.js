@@ -17,7 +17,11 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 	this._id_form = id_form;				//El id_form es la clave que permite identificarlo univocamente
 	this._id_form_orig = this._id_form;
 	this._etiqueta = etiqueta;
-	this._obligatorio = obligatorio;
+	if (obligatorio) {
+		this._obligatorio_orig = obligatorio[0];
+		this._obligatorio = this._obligatorio_orig;
+		this._obligatorio_relajado = obligatorio[1];
+	}
 	this._error = null;
 	this._colapsable = colapsable;
 }
@@ -25,11 +29,18 @@ var def = ef.prototype;
 def.constructor = ef;
 
 	//---Servicios de inicio y finalización 
-	def.iniciar = function(id) {
+	def.iniciar = function(id, controlador) {
 		this._id = id;
+		this._controlador = controlador;
 	}
 
 	def.validar = function () {
+		//--- Siempre hay que llamar a este validar antes de ejecutar el validar de un hijo
+		if (this._obligatorio_orig) {
+			if (this._obligatorio_relajado) {
+				this._obligatorio = this._controlador.cascadas_maestros_preparados(this._id);	
+			}
+		}
 		return true;
 	}	
 	
@@ -63,6 +74,11 @@ def.constructor = ef;
 		
 	def.input = function() {
 		return document.getElementById(this._id_form);
+	}
+	
+	def.get_contenedor = function()
+	{
+		return document.getElementById('cont_' + this._id_form);		
 	}
 	
 	def.nodo = function() {
@@ -106,7 +122,7 @@ def.constructor = ef;
 	}
 
 	def.resaltar = function(texto, izq) {
-		var cont = document.getElementById('cont_' + this._id_form);
+		var cont = this.get_contenedor();
 		var warn = document.getElementById('ef_warning_' + this._id_form);
 		if (! warn) {
 			izq = (typeof izq == 'number') ? izq : 14;
@@ -123,7 +139,7 @@ def.constructor = ef;
 	}
 	
 	def.no_resaltar = function() {
-		var cont = document.getElementById('cont_' + this._id_form);
+		var cont = this.get_contenedor();
 		var warn = document.getElementById('ef_warning_' + this._id_form);
 		if (warn) {
 			elem = cont.removeChild(warn);
@@ -141,7 +157,7 @@ def.constructor = ef;
 	}
 
 	def.set_solo_lectura = function(solo_lectura) {
-		this.input().disabled = (typeof solo_lectura != 'undefined' && solo_lectura);
+		this.input().disabled = (typeof solo_lectura == 'undefined' || solo_lectura);
 	}
 	
 	def.desactivar = function() {
@@ -176,11 +192,29 @@ def.constructor = ef;
 		return this;	
 	}
 	
+	//En que fila se encuentra posicionado el ef
+	def.get_fila_actual = function() {
+		return this._id_form.substring(this._id_form_orig.length);
+	}
+	
 	//Multiplexacion, deja sin seleccionar la fila en la que está 
 	def.sin_fila = function() {
 		this._id_form = this._id_form_orig;
 		return this;
 	}	
+	
+	//---Relación con el cascadas
+	def.resetear = function() {
+		this.cambiar_valor('');
+	}
+	
+	def.esta_cargado = function() {
+		return this.valor() != '';	
+	}
+	
+	def.set_valores = function(valores) {
+		this.cambiar_valor(valores);	
+	}
 
 	
 //--------------------------------------------------------------------------------

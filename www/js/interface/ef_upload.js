@@ -9,11 +9,36 @@ def.constructor = ef_upload;
 	}
 
 	def.validar = function () {
-		if (this._obligatorio && this.valor() == "") {
-			this._error = 'El campo ' + this._etiqueta + ' es obligatorio.';
-		    return false;
+		if (this.get_cambiar_archivo()) {
+			if (! ef.prototype.validar.call(this))
+				return false;		
+			if (this._obligatorio && this.valor() == "") {
+				this._error = 'es obligatorio.';
+			    return false;
+			}
 		}
 		return true;
 	}
+	
+	def.set_editable = function() {
+		var desicion = document.getElementById(this._id_form + '_desicion');
+		if (this.get_cambiar_archivo()) {
+			//Lo va a cambiar
+			desicion.style.display = 'none';
+			this.input().style.display = '';
+		} else {
+			desicion.style.display = '';
+			this.input().style.display = 'none';
+		}
+	}
 
+	def.get_cambiar_archivo = function() {
+		var input = document.getElementById(this._id_form + '_check');
+		if (input) {
+			return input.checked
+		} else {
+			return false;
+		}
+	}
+	
 toba.confirmar_inclusion('interface/ef_upload');

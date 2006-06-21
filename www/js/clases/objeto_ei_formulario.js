@@ -4,7 +4,8 @@ objeto_ei_formulario.prototype = new objeto;
 var def = objeto_ei_formulario.prototype;
 def.constructor = objeto_ei_formulario;
 
-function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
+function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclavos, invalidos) {
+	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._rango_tabs = rango_tabs;
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
@@ -15,6 +16,9 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = null;				//No hay evento prefijado
 	this._expandido = false;					//El formulario comienza sin expandirse
+	this._maestros = maestros;
+	this._esclavos = esclavos;
+	this._invalidos = invalidos;
 }
 
 	def.agregar_ef  = function (ef, identificador) {
@@ -24,10 +28,13 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 	
 	def.iniciar = function () {
 		for (id_ef in this._efs) {
-			this._efs[id_ef].iniciar(id_ef);
+			this._efs[id_ef].iniciar(id_ef, this);
 			this._efs[id_ef].cambiar_tab(this._rango_tabs[0]);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
-			this._rango_tabs[0]++;
+			this._rango_tabs[0] = this._rango_tabs[0] + 5;
+			if (this._invalidos[id_ef]) {
+				this._efs[id_ef].resaltar(this._invalidos[id_ef]);
+			}
 		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
@@ -89,6 +96,98 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 		return true;
 	}
 
+	//---- Cascadas
+	def.cascadas_cambio_maestro = function(id_ef)
+	{
+		if (this._esclavos[id_ef]) {
+			//--Se recorren los esclavos del master modificado
+			for (var i=0; i < this._esclavos[id_ef].length; i++) {
+				this.cascadas_preparar_esclavo(this._esclavos[id_ef][i]);
+			}
+		}
+	}
+	
+	def.cascadas_maestros_preparados = function(id_esclavo)
+	{
+		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
+			if (! this.ef(this._maestros[id_esclavo][i]).esta_cargado()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	def.cascadas_preparar_esclavo = function (id_esclavo)
+	{
+		//Primero se resetea por si la consulta nunca retorna
+		this.cascadas_en_espera(id_esclavo);
+	
+		//---Todos los maestros estan cargados?
+		var cargado = true;
+		var valores = '';
+		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
+			var id_maestro = this._maestros[id_esclavo][i];
+			if (this.ef(id_maestro).esta_cargado()) {
+				var valor = this.ef(id_maestro).valor();
+				valores +=  id_maestro + '-;-' + valor + '-|-';
+			} else {
+				cargado = false;
+				break;
+			}
+		}
+		//--- Si estan todos los maestros puedo ir al server a preguntar el valor de este
+		if (cargado) {
+			this.cascadas_comunicar(id_esclavo, valores);
+		}
+	}
+	
+	def.cascadas_en_espera = function(id_ef)
+	{
+		//Se resetea y desactiva al ef y todos sus esclavos
+		this.ef(id_ef).resetear();		
+		this.ef(id_ef).desactivar();
+		if (this._esclavos[id_ef]) {
+			for (var i=0; i< this._esclavos[id_ef].length; i++) {
+				this.cascadas_en_espera(this._esclavos[id_ef][i]);
+			}
+		}
+	}
+	
+	
+	def.cascadas_comunicar = function(id_ef, valores) 
+	{
+		//Empaqueto toda la informacion que tengo que mandar.
+		var parametros = {'cascadas-ef': id_ef, 'cascadas-maestros' : valores}
+		var callback =
+		{
+		  success: this.cascadas_respuesta,
+		  failure: toba.error_comunicacion,
+		  argument: id_ef,
+		  scope: this
+		}
+		var vinculo = vinculador.crear_autovinculo('cascadas_efs', parametros, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback, null);
+	}
+	
+	def.cascadas_respuesta = function(respuesta)
+	{
+		if (respuesta.responseText == '') {
+			var error = 'Error en la respuesta de la cascada, para más información consulte el log';
+			cola_mensajes.agregar(error);
+			cola_mensajes.mostrar();			
+		} else {
+			try {
+				var datos = eval('(' + respuesta.responseText + ')');
+				this.ef(respuesta.argument).set_valores(datos);
+				this.ef(respuesta.argument).activar();
+			} catch (e) {
+				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
+				cola_mensajes.agregar(error);
+				cola_mensajes.mostrar();				
+			}
+		}
+	}
+	
 	//----Validación 
 	def.validar = function() {
 		var ok = true;
@@ -118,7 +217,7 @@ function objeto_ei_formulario(instancia, rango_tabs, input_submit) {
 			if (! this._silencioso)
 				ef.resaltar(ef.error());
 			if (! es_online)
-				cola_mensajes.agregar(ef.error());
+				cola_mensajes.agregar(ef.error(), 'error', ef._etiqueta);
 			ef.resetear_error();
 			return false
 		}

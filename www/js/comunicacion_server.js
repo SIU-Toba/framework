@@ -337,18 +337,20 @@ function callback_cascadas(respuesta)
 {
 	try {
 		var datos = eval('(' + respuesta.responseText + ')');
-		window[respuesta.argument](datos);
+		window[respuesta.argument].cascadas_respuesta(datos);
 	} catch (e) {
-		alert('Error: ' + respuesta.responseText + e);
+		var error = 'Error.\n' + "Mensaje Server:\n" + respuesta.responseText + "\n\nError JS:\n" + e;
+		cola_mensajes.agregar(error);
+		cola_mensaje.mostrar();
 	}
 }
 
-function consultar_info(item_proyecto, item, parametros, nombre_callback, prefijo_vinculo)
+function consultar_info(item_proyecto, item, parametros, nombre_callback)
 {
 	if (apex_solicitud_tipo == 'browser' && top[apex_frame_com]) {
         var nombre_frame = this.name; 
         window.nombre_callback = nombre_callback; 		
-		top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, prefijo_vinculo);
+		top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, toba_prefijo_vinculo);
 	} else {
 		var callback =
 		{

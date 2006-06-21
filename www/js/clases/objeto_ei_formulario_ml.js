@@ -5,8 +5,10 @@ var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(instancia, rango_tabs, input_submit, filas, proximo_id, seleccionada, en_linea) {
-		objeto_ei_formulario.prototype.constructor.call(this, instancia, rango_tabs, input_submit);
+	function objeto_ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
+									proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
+		objeto_ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
+														input_submit, maestros, esclavos, invalidos);
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
 		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
@@ -15,7 +17,7 @@ def.constructor = objeto_ei_formulario_ml;
 		this._agregado_en_linea = en_linea;
 	}
 
-	def.iniciar = function () {
+	def.iniciar = function() {
 		//Iniciar las filas
 		for (fila in this._filas) {
 			this.iniciar_fila(this._filas[fila]);
@@ -32,7 +34,10 @@ def.constructor = objeto_ei_formulario_ml;
 	def.iniciar_fila = function (fila) {
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
-			ef.iniciar(id_ef);
+			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
+				this._efs[id_ef].resaltar(this._invalidos[fila][id_ef]);
+			}			
+			ef.iniciar(id_ef, this);
 			ef.cambiar_tab(this._rango_tabs[0]);
 			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
 			this._rango_tabs[0]++;
@@ -137,7 +142,17 @@ def.constructor = objeto_ei_formulario_ml;
 			return true;
 		}
 	}
-
+	
+	//---- Cascadas
+	def.cascadas_cambio_maestro = function(id_ef)
+	{
+		var actual = this.ef(id_ef).get_fila_actual();
+		for (ef in this._efs) {
+			this._efs[ef].ir_a_fila(actual);
+		}
+		objeto_ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);
+	}	
+	
 	//----Selección 
 	def.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------
 //Clase ef_editable
-ef_editable.prototype = new ef;
+ef_editable.prototype = new ef();
 var def = ef_editable.prototype;
 def.constructor = ef_editable;
 
@@ -10,8 +10,8 @@ def.constructor = ef_editable;
 		this._mascara = null;
 	}
 
-	def.iniciar = function(id) { 
-		ef.prototype.iniciar.call(this, id);
+	def.iniciar = function(id, contenedor) { 
+		ef.prototype.iniciar.call(this, id, contenedor);
 		if (this._forma_mascara) {
 			this._mascara = new mascara_generica(this._forma_mascara);
 			this._mascara.attach(this.input());
@@ -27,8 +27,10 @@ def.constructor = ef_editable;
 	}
 	
 	def.validar = function () {
+		if (! ef.prototype.validar.call(this))
+			return false;		
 		if (this._obligatorio && ereg_nulo.test(this.valor())) {
-			this._error = this._etiqueta + ' es obligatorio.';
+			this._error = 'es obligatorio.';
 		    return false;
 		}
 		return true;
@@ -77,11 +79,25 @@ def.constructor = ef_editable;
 	}
 	
 	def.set_solo_lectura = function(solo_lectura) {
-		this.input().readOnly = (typeof solo_lectura != 'undefined' && solo_lectura);
+		this.input().readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
 	}	
 	
 	def.activo = function() {
 		return !(this.input().readOnly);
+	}
+
+	/**
+	* @todo Falta manejar el caso del solo-lectura
+	*/
+	def.cascada_cargar = function(nuevo_valor) {
+		this.cambiar_valor(nuevo_valor);
+		this.input().focus();
+		atender_proxima_consulta();
+	}
+	
+	def.cascada_resetear = function() {
+		this.set_solo_lectura(true);
+		this.cambiar_valor('');
 	}
 
 	
@@ -101,8 +117,8 @@ def.constructor = ef_editable_numero;
 		this._mensaje = mensaje;				//Mensaje a mostrar cuando no se valida el número
 	}
 	
-	def.iniciar = function(id) { 
-		ef.prototype.iniciar.call(this, id);
+	def.iniciar = function(id, controlador) { 
+		ef.prototype.iniciar.call(this, id, controlador);
 		if (this._forma_mascara) {
 			this._mascara = new mascara_numero(this._forma_mascara);
 			this._mascara.attach(this.input());
@@ -132,11 +148,11 @@ def.constructor = ef_editable_numero;
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
 		if (isNaN(this.valor())) {
-			this._error = this._etiqueta + ' debe ser numérico.';
+			this._error = 'debe ser numérico.';
 		    return false;
 		}
 		if (!this.validar_rango()) {
-			this._error = this._etiqueta + this._mensaje;
+			this._error = this._mensaje;
 		    return false;
 		}
 		return true;
@@ -179,7 +195,7 @@ var def = ef_editable_clave.prototype;
 		var test = document.getElementById(this._id_form + '_test');
 		if (orig.value != test.value)
 		{
-			this._error = this._etiqueta + ': Las contraseñas no coinciden.';
+			this._error = ': Las contraseñas no coinciden.';
 		    return false;
 		}		
 		return true;
@@ -192,6 +208,11 @@ var def = ef_editable_clave.prototype;
 		if (input.onblur)
 			input.onblur();
 	}
+	
+	def.cambiar_tab = function(tab_index) {
+		this.input().tabIndex = tab_index;
+		document.getElementById(this._id_form + '_test').tabIndex = tab_index+1;
+	}	
 	
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
@@ -210,8 +231,8 @@ var def = ef_editable_fecha.prototype;
 		this._forma_mascara = (masc) ? masc : 'dd/mm/yyyy';
 	}	
 	
-	def.iniciar = function(id) {
-		ef.prototype.iniciar.call(this, id);
+	def.iniciar = function(id, controlador) {
+		ef.prototype.iniciar.call(this, id, controlador);
 		this._mascara = new mascara_fecha(this._forma_mascara);
 		this._mascara.attach(this.input());
 	}
@@ -234,10 +255,10 @@ var def = ef_editable_fecha.prototype;
 		try {
 			var valida = validar_fecha(this.valor(), false);
 		} catch (e) {
-			valida = "no es una fecha válida";
+			valida = "no contiene una fecha válida";
 		}
 		if (valida != true) {
-			this._error = this._etiqueta + ': ' + valida;
+			this._error = valida;
 		    return false;
 		}		
 		return true;
@@ -259,10 +280,29 @@ ef_editable_multilinea.prototype = new ef_editable;
 var def = ef_editable_multilinea.prototype;
 def.constructor = ef_editable_multilinea;
 
-	function ef_editable_multilinea(id_form, etiqueta, obligatorio, colapsado, masc, maximo)	{
+	function ef_editable_multilinea(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._maximo = maximo;
+		this._ajustable = ajustable;
 	}	
+	
+	def.iniciar = function(id, controlador) { 
+		ef.prototype.iniciar.call(this, id, controlador);
+		if (this._ajustable) {
+			resizeTa.agregar_elemento(this.input());
+		}
+	}
+	
+	def.validar = function() {
+		if (! ef_editable.prototype.validar.call(this)) {
+			return false;
+		}
+		var elem = this.input();
+		if (this._maximo != null && elem.value.length > this._maximo) {
+			elem.value = elem.value.substring(0, this._maximo);
+		}
+		return true;
+	}
 	
 //--------------------------------------------------------------------------------	
 toba.confirmar_inclusion('interface/ef_editable');
