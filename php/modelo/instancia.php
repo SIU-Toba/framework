@@ -158,7 +158,7 @@ class instancia extends elemento_modelo
 	{
 		try {
 			$sql = "SELECT 1 FROM apex_proyecto;";
-			$this->get_db()->consultar( $sql );
+			@$this->get_db()->consultar( $sql );
 			return true;
 		} catch ( excepcion_toba $e ) {
 			return false;
@@ -445,6 +445,7 @@ class instancia extends elemento_modelo
 		}	
 	}
 	
+	
 	/*
 	* 	Importa la informacion perteneciente a la instancia
 	*/
@@ -452,12 +453,20 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->titulo('Cargando datos de la instancia');
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir() );
-		foreach ( $subdirs as $dir ) {
-			$this->manejador_interface->mensaje( $dir );
-			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
-			foreach( $archivos as $archivo ) {
-				$this->manejador_interface->mensaje( $archivo );
-				$this->get_db()->ejecutar_archivo( $archivo );
+		$proyectos = $this->get_lista_proyectos_vinculados();
+		$nombres_carp = array('global');
+		foreach ($proyectos as $proy) {
+			$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
+		}
+		foreach ( $nombres_carp as $carp ) {
+			$dir = $this->get_dir()."/".$carp;
+			if (file_exists($dir)) {
+				$this->manejador_interface->mensaje( $dir );
+				$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+				foreach( $archivos as $archivo ) {
+					$this->manejador_interface->mensaje( $archivo );
+					$this->get_db()->ejecutar_archivo( $archivo );
+				}
 			}
 		}
 	}

@@ -55,25 +55,27 @@ class catalogo_items
 		$sql .=	$filtro_items;
 		$sql .= "	AND		i.solicitud_tipo <> 'fantasma'";
 		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
-		
+
 		$rs = toba::get_db('instancia')->consultar($sql);
 		$this->items = array();
-		foreach ($rs as $fila) {
-			$id = array();
-			$id['componente'] = $fila['item'];
-			$id['proyecto'] = $fila['item_proyecto'];
-			$datos = array('info' => $fila);
-			if ($en_profundidad) {
-				$info = constructor_toba::get_info($id, 'item', true, null, true);
-			} else {
-				$info = constructor_toba::get_info($id, 'item', false, $datos);
+		if (!empty($rs)) {
+			foreach ($rs as $fila) {
+				$id = array();
+				$id['componente'] = $fila['item'];
+				$id['proyecto'] = $fila['item_proyecto'];
+				$datos = array('info' => $fila);
+				if ($en_profundidad) {
+					$info = constructor_toba::get_info($id, 'item', true, null, true);
+				} else {
+					$info = constructor_toba::get_info($id, 'item', false, $datos);
+				}
+				$this->items[$fila['item']] = $info;
 			}
-			$this->items[$fila['item']] = $info;
+			$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
+			$this->mensaje = "";
+			$this->ordenar();
+			$this->filtrar($opciones);
 		}
-		$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
-		$this->mensaje = "";
-		$this->ordenar();
-		$this->filtrar($opciones);
 	}
 	
 	function debe_cargar_todo($opciones)
@@ -91,8 +93,12 @@ class catalogo_items
 	{
 		$sql = "SELECT carpeta FROM apex_item i WHERE 
 					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
-		$rs = toba::get_db('instancia')->consultar($sql, null, true);
-		return $rs[0]['carpeta'] == 0;
+		$rs = toba::get_db('instancia')->consultar($sql);
+		if (!empty($rs)) {
+			return $rs[0]['carpeta'] == 0;
+		} else {
+			return false;
+		}	
 	}
 	
 	function filtrar($opciones)

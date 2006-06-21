@@ -616,7 +616,10 @@ WHERE c2.relname=\'%s\' or c2.relname=lower(\'%s\')';
 	function _connect($str,$user='',$pwd='',$db='',$ctype=0)
 	{
 		
-		if (!function_exists('pg_pconnect')) return null;
+		if (!function_exists('pg_pconnect')) {
+			$this->_errorMsg = "No tiene habilitada la extension pgsql en el php.ini";
+			return null;
+		}
 		
 		$this->_errorMsg = false;
 		

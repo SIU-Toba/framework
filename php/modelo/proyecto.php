@@ -354,7 +354,7 @@ class proyecto extends elemento_modelo
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
+			$this->manejador_interface->error("PROYECTO {$this->identificador}: Ha ocurrido un error durante la IMPORTACION.");
 			$this->manejador_interface->error( $e->getMessage() );
 		}
 	}
@@ -493,6 +493,13 @@ class proyecto extends elemento_modelo
 			$version->ejecutar_migracion('proyecto', $this);
 			$this->actualizar_campo_version($version);
 		}
+	}
+	
+	function ejecutar_migracion_particular($version, $metodo)
+	{
+		$this->get_db()->abrir_transaccion();		
+		$version->ejecutar_migracion('proyecto', $this, $metodo);
+		$this->get_db()->cerrar_transaccion();		
 	}
 	
 	function get_version_actual()

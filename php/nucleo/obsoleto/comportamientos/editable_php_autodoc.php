@@ -19,7 +19,7 @@
 				$param = array("interno"=>1);			
 				$nombre = "Ver interface Completa";
 			}
-			include_once("nucleo/browser/interface/form.php");
+			include_once("nucleo/lib/form.php");
 			$vinculo = $this->vinculador->generar_solicitud(null,null,$param,true);
 			$html = form::button("boton",$nombre,"onclick=\"javascript:window.document.location.href='$vinculo'\"");
 			ei_separador($html);
