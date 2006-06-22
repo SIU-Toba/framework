@@ -69,9 +69,9 @@ class js
 		$consumos = array();
 		$consumos[] = 'basico';
 		$consumos[] = 'clases/toba';
-		$consumos[] = 'cola_mensajes';
 		$consumos[] = 'utilidades/datadumper';
 		$consumos[] = 'comunicacion_server';
+		$consumos[] = 'cola_mensajes';				
 		self::cargar_consumos_globales($consumos);
 	}
 	

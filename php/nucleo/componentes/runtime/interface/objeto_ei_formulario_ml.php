@@ -505,7 +505,6 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	
 	function generar_formulario_encabezado()
 	{
-		$id_vinculo_editor = $this->generar_vinculo_editor();
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		if ($this->info_formulario['filas_numerar']) {
@@ -541,13 +540,8 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		if ($desc !=""){
 			$desc = recurso::imagen_apl("descripcion.gif",true,null,null,$desc);
 		}
-		$editor = '';
 		$id_ef = $this->elemento_formulario[$ef]->get_id_form();			
-		if (isset($this->id_vinculo_editor)) {
-			$editor = "<img title='Editar el ef' style='cursor:pointer; cursor:hand' ".
-					"onclick='vinculador.agregar_parametros({$this->id_vinculo_editor}, {ef: \"$ef\"});vinculador.invocar({$this->id_vinculo_editor});' src='".
-					recurso::imagen_apl('objetos/editar.gif', false)."'/>";
-		}
+		$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta().$marca;
 		echo "<span class='$estilo'>$etiqueta $editor $desc</span>\n";
 	}	

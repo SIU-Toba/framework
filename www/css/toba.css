@@ -84,7 +84,9 @@ body > .div-esperar { position: fixed; }
 .abm-fila-filtrada {
 	background-color: #d4b0a7
 }
-
+.abm-expansion {
+	text-align:center;
+}
 /*-- FORMULARIO ML --*/
 .abm-columna {
 	padding: 2px 2px 4px 2px;

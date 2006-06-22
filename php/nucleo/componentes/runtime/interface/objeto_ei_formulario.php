@@ -32,7 +32,6 @@ class objeto_ei_formulario extends objeto_ei
 	protected $observadores;
 	protected $id_en_padre;
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario';
-	protected $id_vinculo_editor;
 		
 	//---Cascadas
 	protected $cascadas_maestros = array();		//Arreglo de maestros indexados por esclavo
@@ -616,20 +615,11 @@ class objeto_ei_formulario extends objeto_ei
 		$this->flag_out = true;
 	}
 
-	protected function generar_vinculo_editor()
-	{
-		if (editor::modo_prueba()) {
-			$vinc = new vinculo('toba', $this->item_editor);
-			$vinc->set_parametros(array( apex_hilo_qs_zona => implode(apex_qs_separador, $this->id)));
-			$this->id_vinculo_editor = toba::get_vinculador()->registrar_vinculo($vinc);
-			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 15);
-			//editor::get_vinculo_subcomponente('/admin/objetos_toba/editores/ei_formulario_ml',$parametros);
-		}
-	}
-	
 	protected function generar_formulario()
 	{
-		$this->generar_vinculo_editor();
+		if (editor::modo_prueba()) {
+			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 18);
+		}
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
 		echo "<div class='ei-formulario' $ancho>";
 		$hay_colapsado = false;
@@ -642,7 +632,7 @@ class objeto_ei_formulario extends objeto_ei
 		if ($hay_colapsado) {
 			$img = recurso::imagen_apl('expandir_vert.gif', false);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
-			echo "<div class='abm-fila' style='text-align:center'>";
+			echo "<div class='abm-fila abm-expansion'>";
 			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 			echo "</div>";
 		}
@@ -652,7 +642,7 @@ class objeto_ei_formulario extends objeto_ei
 		echo "</div>\n";
 	}
 	
-	protected function generar_envoltura_ef($ef, $editor=null)
+	protected function generar_envoltura_ef($ef)
 	{
 		$clase = 'abm-fila';
 		$estilo_nodo = "";
@@ -691,18 +681,23 @@ class objeto_ei_formulario extends objeto_ei
 		if ($desc !=""){
 			$desc = recurso::imagen_apl("descripcion.gif",true,null,null,$desc);
 		}
-		$editor = '';
 		$id_ef = $this->elemento_formulario[$ef]->get_id_form();					
-		if (isset($this->id_vinculo_editor)) {
-			$editor = "<img title='Editar el ef' style='cursor:pointer; cursor:hand' ".
-					"onclick='vinculador.agregar_parametros({$this->id_vinculo_editor}, {ef: \"$ef\"});vinculador.invocar({$this->id_vinculo_editor});' src='".
-					recurso::imagen_apl('objetos/editar.gif', false)."'/>";
-		}
+		$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
 		echo "<label style='_width:{$this->ancho_etiqueta};' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
 	}
 	
+	protected function generar_vinculo_editor($id_ef)
+	{
+		if (editor::modo_prueba()) {
+			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
+									'ef' => $id_ef );
+			return editor::get_vinculo_subcomponente($this->item_editor, $param_editor);			
+		}
+		return null;
+	}
+		
 	//-------------------------------------------------------------------------------
 	//------------------------------ JAVASCRIPT  ------------------------------------
 	//-------------------------------------------------------------------------------

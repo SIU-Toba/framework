@@ -572,20 +572,14 @@ class ef //Clase abstracta, padre de todos los EF
 		echo "&nbsp;{$this->etiqueta} $marca</td>\n";
 		//Acceso directo al EDITOR del ABM 
 		//(con el editor de columnas cargado en ESTA!)
-		if(apex_pa_acceso_directo_editor){
+		if(editor::modo_prueba()){
 			echo "<td class='$estilo'>";
-			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto() &&
-			(isset($item_editor_padre)) )
-			{
-				$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
-				$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
-				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
-									   apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio,				
-										'ef' => $this->id );
-				echo toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
-																	false, false,"",null, 1);
-
-			}
+			$clave_abm_registro_padre = implode(apex_qs_separador,$this->padre);
+			$clave_abm_registro_propio = $clave_abm_registro_padre . apex_qs_separador .$this->id;
+			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
+								   apex_hilo_qs_canal_obj.$canal_editor_detalle_ef => $clave_abm_registro_propio,				
+									'ef' => $this->id );
+			echo editor::get_vinculo_subcomponente($item_editor_padre, $param_editor);
 			echo "</td>\n";
 		}
 		echo "<td class='ef-zonainput' id='cont_{$this->id_form}'>$elemento_formulario</td></tr>\n";
@@ -599,17 +593,13 @@ class ef //Clase abstracta, padre de todos los EF
 
 	function envoltura_ei_ml()
 	{
-		//Editor del ef
-		$editor = "";
-		if (apex_pa_acceso_directo_editor) {
-			$item_editor_padre = "/admin/objetos_toba/editores/ei_formulario_ml";
-			if( ($this->padre[0]) == toba::get_hilo()->obtener_proyecto()) {
-				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
-										'ef' => $this->id );
-				$editor = toba::get_vinculador()->obtener_vinculo_a_item("toba",$item_editor_padre, $param_editor, true,
-																	false, false,"",null, 1);				
-			}
+		//Acceso al Editor del ef
+		if (editor::modo_prueba()) {
+			$parametros = array( 	apex_hilo_qs_zona => implode(apex_qs_separador,$this->padre),
+									'ef' => $this->id );
+			$editor = editor::get_vinculo_subcomponente('/admin/objetos_toba/editores/ei_formulario_ml',$parametros);
 		}
+		
 		if($this->validacion){
 			if($this->estilo_etiqueta=='') {
 		        if ($this->obligatorio) {

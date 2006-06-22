@@ -41,7 +41,7 @@
  	@@retorno: string | HTML del mensaje
 */
 	{
-		if(defined('apex_solicitud_tipo') && apex_solicitud_tipo=="consola"){
+		if (toba::get_solicitud()->get_tipo() == 'consola') {
 			echo $mensaje . "\n\n";
 			return;
 		}		
@@ -230,7 +230,7 @@
 */
 	{
 		//Me estan llamando por consola??
-		if(defined('apex_solicitud_tipo') && apex_solicitud_tipo=="consola"){
+		if(toba::get_solicitud()->get_tipo() == 'consola'){
 			//echo "<pre>";
 			print_r($arbol);
 			//echo "</pre>";

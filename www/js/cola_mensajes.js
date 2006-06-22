@@ -29,6 +29,12 @@ var cola_mensajes =
 	},
 	
 	ventana_modal: function() {
+		var contenedor = document.getElementById('overlay_contenido');
+		if (!contenedor) {
+			//--- Si el mensaje se produce antes del body, usar el alert
+			this.ventana_alert();
+			return;	
+		}
 		var mensaje = '<div class="overlay-titulo">Se han encontrado los siguientes problemas:</div>';
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad = '';
@@ -42,7 +48,7 @@ var cola_mensajes =
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
 		mensaje += "<div class='overlay-botonera'><input type='button' value='Aceptar' onclick='overlay()'/></div>";
-		document.getElementById('overlay_contenido').innerHTML = mensaje;
+		contenedor.innerHTML = mensaje;
 		overlay();
 	},
 	

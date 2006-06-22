@@ -235,11 +235,9 @@ class editor
 		if(!isset($opciones['validar'])) $opciones['validar'] = false;
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
 		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
-		$html = "<div id='div_toba_editor' class='div-editor' style='float:left'>\n";
-		$html .= "<a href='#' onclick=\"toba_invocar_editor('$frame','$url')\">";
+		$html = "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
 		$html .= recurso::imagen_apl($imagen,true);//,null,null,$vinculo['tip']);
 		$html .= '</a>';
-		$html .= '</div>';
 		return $html;
 	}
 
