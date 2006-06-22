@@ -1,0 +1,1 @@
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, fuente_datos_motor, descripcion, descripcion_corta, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden) VALUES ('toba_testing', 'instancia', 'postgres7', 'Instancia de Toba', 'instancia', NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL);

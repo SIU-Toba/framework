@@ -1,0 +1,5 @@
+------------------------------------------------------------
+--[1207]--  Prueba objeto_filtro 
+------------------------------------------------------------
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_testing', '1207', NULL, NULL, 'toba', 'objeto_filtro', NULL, NULL, NULL, NULL, 'Prueba objeto_filtro', 'Prueba objeto_filtro', NULL, NULL, 'toba_testing', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-05-17 11:22:27');
+INSERT INTO apex_objeto_filtro (objeto_filtro_proyecto, objeto_filtro, dimension_proyecto, dimension, etiqueta, tabla, columna, orden, requerido, no_interactivo, predeterminado) VALUES ('toba_testing', '1207', 'toba_testing', 'prueba_multicolumna_2', 'Persona', NULL, '(apellido || \' \' || nombres || \' \' || domicilio)', '0', NULL, NULL, NULL);
