@@ -377,7 +377,7 @@ class dao_editores
 			'objeto_ei_formulario_ml' 	=> array('admin', '1536'),			
 			'objeto_ei_arbol' 			=> array('admin', '1610'),	
 			'objeto_cn'					=> array('admin', '1610'),
-			'item'						=> array('toba', '1554')
+			'item'						=> array('admin', '1554')
 		);
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			

@@ -1,6 +1,5 @@
 <?php
 require_once("base_test_datos.php");
-require_once('nucleo/persistencia/objeto_datos_tabla.php');
 
 class test_dt_tabla_minima extends base_test_datos
 {

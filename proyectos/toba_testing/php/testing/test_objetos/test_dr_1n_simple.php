@@ -1,6 +1,5 @@
 <?php
 require_once("base_test_datos.php");
-require_once("nucleo/persistencia/objeto_datos_relacion.php");
 
 class test_dr_1n_simple extends base_test_datos
 {

@@ -1,5 +1,5 @@
 <?php
-require_once('admin/objetos_toba/asignador_objetos.php');
+require_once('objetos_toba/asignador_objetos.php');
 
 class test_asignador_objetos extends test_toba
 {

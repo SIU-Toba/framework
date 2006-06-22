@@ -361,7 +361,9 @@ class logger
 		$salto = "\r\n";
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
-		$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
+		if (is_object(toba::get_solicitud())) {
+			$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
+		}
 		$texto .= "Usuario: ".self::get_usuario_actual().$salto;
 		$texto .= "Version-PHP: ". phpversion().$salto;
 		if (isset($_SERVER['SERVER_NAME'])) {

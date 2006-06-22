@@ -124,7 +124,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
 			$archivo = $this->datos['info']['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba::get_hilo()->obtener_proyecto_path()."/php/";
+			$path_origen = toba_dir()."/proyectos/".editor::get_proyecto_cargado()."/php/";
 			if (isset($nuevos_datos['proyecto'])) {
 				$path_destino = toba_dir()."/proyectos/".$nuevos_datos['proyecto']."/php/";
 			} else {
@@ -138,6 +138,9 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
 		}
 		
+		//--- Si tiene una fuente y se clona a otro proyecto, trasladar la fuente!
+		
+		
 		//--- Se reemplazan las dependencias
 		foreach ($this->subelementos as $hijo) {
 			//-- Si se especifico un proyecto, se propaga
@@ -148,7 +151,15 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			//-- Si se especifica un anexo de nombre, se propaga
 			if (isset($nuevos_datos['anexo_nombre'])) {
 				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
-			}			
+			}
+			//-- La fuente tambien se propaga
+			if (isset($nuevos_datos['fuente_proyecto'])) {
+				$datos_objeto['fuente_proyecto'] = $nuevos_datos['fuente_proyecto'];
+			}
+			if (isset($nuevos_datos['fuente'])) {
+				$datos_objeto['fuente'] = $nuevos_datos['fuente'];
+			}
+			//-- SE CLONA
 			$id_clon = $hijo->clonar($datos_objeto, $dir_subclases, $con_transaccion);
 			//--- En el componente actual se reemplaza la dependencia por el clon
 			$id_fila = $dr->tabla('dependencias')->get_id_fila_condicion(
@@ -163,7 +174,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$clave['componente'] = $clave['objeto'];
 		return $clave;
 	}
-	
+
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------

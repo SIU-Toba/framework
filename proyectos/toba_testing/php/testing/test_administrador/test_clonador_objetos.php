@@ -1,5 +1,4 @@
 <?php
-require_once('admin/objetos_toba/clonador_objetos.php');
 
 class test_clonador_objetos extends test_toba
 {

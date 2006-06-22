@@ -1,5 +1,6 @@
 <?
 require_once("interfaces.php");
+require_once('modelo/consultas/dao_editores.php');
 
 class info_item implements recorrible_como_arbol
 {
@@ -489,6 +490,13 @@ class info_item implements recorrible_como_arbol
 			//-- Si se especifica un anexo de nombre, se propaga
 			if (isset($nuevos_datos['anexo_nombre'])) {
 				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
+			}
+			//-- La fuente tambien se propaga
+			if (isset($nuevos_datos['fuente_proyecto'])) {
+				$datos_objeto['fuente_proyecto'] = $nuevos_datos['fuente_proyecto'];
+			}
+			if (isset($nuevos_datos['fuente'])) {
+				$datos_objeto['fuente'] = $nuevos_datos['fuente'];
 			}
 			$nuevo_hijo = $hijo->clonar($datos_objeto, $dir_subclases, false);
 			$fila = array('objeto' => $nuevo_hijo['componente'], 

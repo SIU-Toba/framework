@@ -16,4 +16,5 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 clase_:_ lista_casos_;_
 include_:_ modelo/lib/testing_unitario/lista_casos.php_;_
 clave_:_ id_;_
-valor_:_ nombre_;_', '1', 'Categoría', NULL, NULL, '0', '0', NULL, '0');
+valor_:_ nombre_;_
+predeterminado_:_ todas_;_', '1', 'Categoría', NULL, NULL, '0', '0', NULL, '0');

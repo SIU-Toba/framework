@@ -1,5 +1,4 @@
 <?php
-require_once('admin/objetos_toba/clonador_objetos.php');
 
 class test_clonador_items extends test_toba
 {
@@ -73,7 +72,7 @@ class test_clonador_items extends test_toba
 	
 	function test_item_con_dependencias_con_subclases()
 	{
-		$path_relativo = toba::get_hilo()->obtener_proyecto_path()."/php/";
+		$path_relativo = toba_dir()."/proyectos/".editor::get_proyecto_cargado()."/php/";
 		$anexo= "Clon - ";
 		$nuevos_datos = array('anexo_nombre' => $anexo);
 		$meta_item = $this->probar_item('1000034', $nuevos_datos, 'nuevo_dir');

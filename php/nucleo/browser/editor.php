@@ -201,13 +201,11 @@ class editor
 	function generar_zona_vinculos_item( $item )
 	{
 		self::javascript_invocacion_editor();
-		echo "<div id='div_toba_editor' class='div-editor'>\n";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
-			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			echo "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			echo recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a><br>\n";
 		}
-		echo "</div>";
 	}
 
 	/*
@@ -215,13 +213,11 @@ class editor
 	*/
 	function generar_zona_vinculos_componente( $componente, $editor )
 	{
-		echo "<div id='div_toba_editor' class='div-editor'>\n";
 		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
-			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			echo "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			echo recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a>\n";
 		}
-		echo "</div>";
 	}
 
 	/*

@@ -1,4 +1,6 @@
  - Cuando el clonador clona hacia otro proyecto no traslada las fuentes de datos
   - Los metadatos de los datos_relacion hacen referencia al proyecto 'toba' en lugar de 'admin'
  - ¿Donde se editan los metadatos del nucleo como efs y tipos de pagina?
+ - Delegar la responsabilidad de carga a cada servicio (el cascada no requiere carga)
+ 
  

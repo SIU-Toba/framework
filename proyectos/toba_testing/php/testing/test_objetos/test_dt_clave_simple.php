@@ -1,6 +1,5 @@
 <?php
 require_once("base_test_datos.php");
-require_once('nucleo/persistencia/objeto_datos_tabla.php');
 
 class test_dt_clave_simple extends base_test_datos
 {
