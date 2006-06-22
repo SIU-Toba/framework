@@ -9,7 +9,7 @@ maximo_:_ 20_;_
 ', '1', 'Identificador', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1508', '1435', 'dependencia', 'ef_combo', 'proyecto, objeto_proveedor', NULL, 'dao_:_ get_lista_objetos_dt_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto, objeto_;_
 valor_:_ descripcion_;_
 ', '2', 'Dependencia', NULL, NULL, NULL, NULL, NULL, NULL);

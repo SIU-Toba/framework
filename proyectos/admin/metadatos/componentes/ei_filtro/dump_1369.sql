@@ -25,14 +25,14 @@ estado_:_ 0_;_
 ', '5', 'Cont. Obj.', NULL, 'Filtra la lista de items que contiene (en forma recursiva) el objeto especificado.', NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1369', '1000010', 'objeto_clase', 'ef_combo', 'objeto_clase', NULL, 'dao_:_ get_lista_clases_toba_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ clase_;_
 valor_:_ descripcion_;_
 no_seteado_:_ --- Seleccione ---_;_
 ', '6', 'Tipo de Objeto', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1369', '1000011', 'objeto', 'ef_combo', 'objeto', NULL, 'dao_:_ get_lista_objetos_toba_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ id_;_
 valor_:_ descripcion_;_
 dependencias_:_ objeto_clase_;_

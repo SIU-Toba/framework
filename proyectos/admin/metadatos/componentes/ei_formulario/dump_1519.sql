@@ -9,7 +9,7 @@ maximo_:_ 80_;_
 ', '11', 'Archivo PHP', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1500', 'buffer', 'ef_combo', 'actividad_buffer_proyecto, actividad_buffer', NULL, 'dao_:_ get_buffers_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,buffer_;_
 valor_:_ descripcion_corta_;_
 predeterminado_:_ toba,0_;_
@@ -36,13 +36,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 ', '16', 'Orden en el menú', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1510', 'padre', 'ef_combo', 'padre_proyecto, padre', NULL, 'dao_:_ get_carpetas_posibles_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,id_;_
 valor_:_ nombre_;_
 ', '2', 'Carpeta Padre', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1511', 'pagina_tipo', 'ef_combo', 'pagina_tipo_proyecto, pagina_tipo', NULL, 'dao_:_ get_tipos_pagina_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,pagina_tipo_;_
 valor_:_ descripcion_;_
 predeterminado_:_ toba,normal_;_
@@ -58,7 +58,7 @@ maximo_:_ 100_;_
 ', '14', 'Parametro C', NULL, NULL, '1', NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1515', 'patron', 'ef_combo', 'actividad_patron_proyecto, actividad_patron', NULL, 'dao_:_ get_comportamientos_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,patron_;_
 valor_:_ descripcion_corta_;_
 predeterminado_:_ toba,CI_;_
@@ -67,7 +67,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 ', '26', 'Publico', NULL, 'El ITEM puede ser accedido por cualquier USUARIO, sin considerar el GRUPO de ACCESO al que pertenece.', '1', NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1518', 'solicitud_obs_tipo', 'ef_combo', 'solicitud_obs_tipo_proyecto, solicitud_obs_tipo', NULL, 'dao_:_ get_tipo_observaciones_solicitud_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,solicitud_obs_tipo_;_
 valor_:_ descripcion_;_
 no_seteado_:_ NO clasificar_;_
@@ -87,7 +87,7 @@ ORDER BY 1_;_
 ', '4', 'Tipo de solicitud', NULL, 'El [wiki:Referencia/Solicitud Tipo de Solicitud] marca desde que ambiente se puede solicitar el item y que clases/funciones habrá disponible para esa ejecución. Usualmente son solicitudes Web.', NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1519', '1523', 'zona', 'ef_combo', 'zona_proyecto, zona', NULL, 'dao_:_ get_zonas_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto,zona_;_
 valor_:_ nombre_;_
 no_seteado_:_ Ninguna_;_

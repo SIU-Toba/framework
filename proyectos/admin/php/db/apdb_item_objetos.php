@@ -7,7 +7,7 @@ class apdb_item_objetos extends ap_tabla_db_s
 	{
 		$this->activar_proceso_carga_externa_dao(	"get_info_dependencia",
 													"dao_editores",
-													"db/dao_editores.php", 
+													"modelo/consultas/dao_editores.php", 
 													array('proyecto','objeto'), 
 													array('clase','nombre_objeto','descripcion') );
 	}

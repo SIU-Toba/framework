@@ -17,7 +17,7 @@ maximo_:_ 80_;_
 ', '17', 'DAO (metodo)', NULL, 'Metodo a ejecutar en el DAO.', '1', NULL, NULL, NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1361', '1203', 'dao_nucleo', 'ef_combo', 'dao_nucleo_proyecto, dao_nucleo', NULL, 'dao_:_ get_consultas_php_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto, nucleo_;_
 valor_:_ nucleo_;_
 no_seteado_:_ No utiliza_;_

@@ -1,6 +1,6 @@
 <?php
 require_once("nucleo/browser/zona/zona.php");
-require_once("db/dao_editores.php");
+require_once('modelo/consultas/dao_editores.php');
 
 class zona_item extends zona
 {

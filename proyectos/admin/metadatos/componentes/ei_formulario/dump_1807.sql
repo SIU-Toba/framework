@@ -16,7 +16,7 @@ ajustable_:_ 1_;_
 ', '3', 'Mensaje particular', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1807', '4560', 'grupos', 'ef_multi_seleccion_check', 'grupos', NULL, 'dao_:_ get_grupos_acceso_;_
 clase_:_ dao_permisos_;_
-include_:_ db/dao_permisos.php_;_
+include_:_ modelo/consultas/dao_permisos.php_;_
 clave_:_ usuario_grupo_acc_;_
 valor_:_ nombre_;_
 mostrar_utilidades_:_ 1_;_

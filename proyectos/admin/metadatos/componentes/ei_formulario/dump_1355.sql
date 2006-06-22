@@ -12,7 +12,7 @@ columnas_:_ 50_;_
 ', '9', 'Descripcion', NULL, 'Descripcion del objeto.', '1', NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1355', '1172', 'fuente_datos', 'ef_combo', 'fuente_datos_proyecto, fuente_datos', '1', 'dao_:_ get_fuentes_datos_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ proyecto, fuente_datos_;_
 valor_:_ descripcion_corta_;_
 ', '3', 'Fuente de Datos', NULL, 'Fuente de datos a la que se conecta el objeto.', NULL, NULL, NULL, '0');

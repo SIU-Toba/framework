@@ -2,7 +2,7 @@
 require_once("interfaces.php");
 require_once("nucleo/lib/manejador_archivos.php");
 require_once("nucleo/lib/reflexion/clase_php.php");
-require_once('db/dao_editores.php');
+require_once('modelo/consultas/dao_editores.php');
 
 class info_componente implements recorrible_como_arbol, meta_clase
 {

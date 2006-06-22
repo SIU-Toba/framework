@@ -9,7 +9,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 ', '1', 'Identificador', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1000004', '1000004', 'clase', 'ef_combo', 'clase', NULL, 'dao_:_ get_clases_editores_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ clase_;_
 valor_:_ clase_;_
 no_seteado_:_ --- Todas ---_;_

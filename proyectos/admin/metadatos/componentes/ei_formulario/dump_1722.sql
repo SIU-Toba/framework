@@ -43,14 +43,14 @@ maximo_:_ 40_;_
 ', '12', 'Vinculo - Celda mem.', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1722', '5000001', 'accion_vin_carpeta', 'ef_combo', 'accion_vinculo_carpeta', NULL, 'dao_:_ get_carpetas_posibles_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ id_;_
 valor_:_ nombre_;_
 no_seteado_:_ -- SELECCIONAR --_;_
 ', '10', 'Vinculo - Carpeta', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1722', '5000002', 'accion_vin_item', 'ef_combo', 'accion_vinculo_item', NULL, 'dao_:_ get_items_carpeta_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ id_;_
 valor_:_ descripcion_;_
 no_seteado_:_ -- SELECCIONAR --_;_

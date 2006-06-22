@@ -28,7 +28,7 @@ maximo_:_ 80_;_
 ', '1', 'Nuevo nombre', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1636', '4247', 'ci_pantalla', 'ef_combo', 'pantalla', NULL, 'dao_:_ get_pantallas_de_ci_;_
 clase_:_ dao_editores_;_
-include_:_ db/dao_editores.php_;_
+include_:_ modelo/consultas/dao_editores.php_;_
 clave_:_ pantalla_;_
 valor_:_ descripcion_;_
 no_seteado_:_ Ninguna_;_

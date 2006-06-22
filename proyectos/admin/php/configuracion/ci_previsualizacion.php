@@ -1,5 +1,5 @@
 <?php 
-require_once('db/dao_permisos.php');
+require_once('modelo/consultas/dao_permisos.php');
 
 class ci_previsualizacion extends objeto_ci
 {

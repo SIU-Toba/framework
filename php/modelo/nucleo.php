@@ -352,7 +352,7 @@ class nucleo extends elemento_modelo
 
 	function parsear_editores(instancia $instancia)
 	{
-		require_once("admin/db/dao_editores.php");
+		require_once("modelo/consultas/dao_editores.php");
 		//--- Se busca el CI asociado a cada clase
 		$sql = "SELECT 
 					c.clase,
