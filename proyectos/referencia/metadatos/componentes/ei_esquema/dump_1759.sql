@@ -1,0 +1,5 @@
+------------------------------------------------------------
+--[1759]--  Esquema SVG 
+------------------------------------------------------------
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('referencia', '1759', NULL, NULL, 'toba', 'objeto_ei_esquema', NULL, NULL, NULL, NULL, 'Esquema SVG', NULL, NULL, NULL, 'referencia', 'referencia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-12-26 09:37:05');
+INSERT INTO apex_objeto_esquema (objeto_esquema_proyecto, objeto_esquema, parser, descripcion, dot, debug, formato, modelo_ejecucion, modelo_ejecucion_cache, tipo_incrustacion, ancho, alto, dirigido, sql) VALUES ('referencia', '1759', NULL, NULL, NULL, NULL, 'svg', NULL, '0', NULL, NULL, '300', '1', NULL);
