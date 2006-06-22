@@ -1,7 +1,6 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php');
-require_once('reporter_toba.php');
-require_once('lista_casos.php');
+require_once('utilitarios/testing_unitario/reporter_toba.php');
+require_once('modelo/lib/testing_unitario/lista_casos.php');
 require_once("nucleo/lib/reflexion/archivo_php.php");
 require_once("nucleo/lib/manejador_archivos.php");
 

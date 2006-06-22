@@ -1,6 +1,5 @@
 <?php
-include_once('nucleo/browser/interface/ef.php');
-require_once('testing/test_toba.php');
+require_once('modelo/lib/testing_unitario/test_toba.php');
 
 class lista_casos
 {
