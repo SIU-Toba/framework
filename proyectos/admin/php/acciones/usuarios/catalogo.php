@@ -114,40 +114,34 @@ ORDER BY    3,6;";
 </tr>
 </table>
 <? 	
-	global $ADODB_FETCH_MODE;
-	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 	$sql = "SELECT 	*
 			FROM apex_proyecto
 			WHERE proyecto <> 'admin'";
 	//dump_sql($sql);
-	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-	if(!$rs) 
-		$this->observar("error","Lista de sesiones - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql ,false,true,true);
-	if(!$rs->EOF){
+	$rs = toba::get_db('instancia')->consultar($sql);
+	if( $rs ) {
 ?>
 <table width="100%" class='lista-obj'>
 <?
-	while(!$rs->EOF)
-	{ 
+	foreach( $rs as $registro ) {
 ?>
         <tr> 
 		  </td>
           <td  class='lista-obj-dato2'  width="1">
-		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/proyectos/usuarios",array(apex_hilo_qs_zona => $rs->fields['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/proyectos/usuarios",array(apex_hilo_qs_zona => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
 			  <? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Ver Perfiles") ?>
 			</a>
 		  </td>
-          <td  class='lista-obj-dato1'  width="50%"><? echo $rs->fields["proyecto"] ?></td>
-          <td  class='lista-obj-dato1'  width="50%"><? echo $rs->fields["descripcion_corta"] ?></td>
+          <td  class='lista-obj-dato1'  width="50%"><? echo $registro["proyecto"] ?></td>
+          <td  class='lista-obj-dato1'  width="50%"><? echo $registro["descripcion_corta"] ?></td>
         </tr>
 <?
-		$rs->movenext();	
 	}
 ?>
 </table>
 <?
-} }
- ?>
+ } }
+?>
 <?
 //-------------------------------------------------------------------------
 //	Vista general
@@ -173,73 +167,66 @@ ORDER BY    3,6;";
       <td class='lista-obj-titcol' >NOMBRE</td>
     </tr>
 <?
-    global $ADODB_FETCH_MODE;
-    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-//  dump_sql($sql);
-    $rs = $db["instancia"][apex_db_con]->Execute($sql2);
-    if(!$rs)
-        $this->observar("error","Lista de USUARIOS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql2 ,false,true,true);
-    if(!$rs->EOF){
-    while(!$rs->EOF)
-    {
-        $grupo = $rs->fields[$modo];
+	$rs = toba::get_db('instancia')->consultar($sql2);
+    if($rs) {
+	$grupo_anterior = null;
+	foreach( $rs as $registro ) 
+	{
+		if( $grupo_anterior != $registro[$modo] ) {
 ?>
     <tr>
      <td colspan='3'>
-
         <table class='tabla-0'>
         <tr>
           <td width="2%" class='cat-item-categ1'>
-            <a href="<? echo $this->vinculador->generar_solicitud('admin',$editor,array( apex_hilo_qs_zona => $rs->fields[$modo.'_proyecto'] .apex_qs_separador. $rs->fields[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud('admin',$editor,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo recurso::imagen_apl("usuarios/$editor_img.gif",true,null,null,"Modificar $editor_tip") ?>
             </a>
 <? if (isset($editor2)){ ?>
       </td>
           <td width="2%" class='cat-item-categ1'>
-            <a href="<? echo $this->vinculador->generar_solicitud('admin',$editor2,array( apex_hilo_qs_zona => $rs->fields[$modo.'_proyecto'] .apex_qs_separador. $rs->fields[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud('admin',$editor2,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo recurso::imagen_apl("usuarios/$editor2_img.gif",true,null,null,"Modificar $editor2_tip") ?>
             </a>
       </td>
 <? } ?>
-          <td align="center" class="cat-item-categ1"><? echo $rs->fields["corte_descripcion"] ?></td>
+          <td align="center" class="cat-item-categ1"><? echo $registro["corte_descripcion"] ?></td>
          <td width="2%"  class='cat-item-categ1'>
-            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array($modo=>$rs->fields[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
+            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array($modo=>$registro[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
             <? echo recurso::imagen_apl("usuarios/usuario_nuevo.gif",true,null,null,"Crear Usuario") ?>
             </a>
         </td>
         </tr>
         </table>
-
-    </td>
+    </td></tr>
 <?
-        while((!$rs->EOF) && ($rs->fields[$modo]==$grupo))
-        {
-            if(trim($rs->fields["usuario"])!=""){
+	}
+
+         if(trim($registro["usuario"])!=""){
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <img src="<? echo recurso::imagen_apl("usuarios/usuario.gif") ?>" alt="Modificar USUARIO" border="0">
             </a>
       </td>
 <?
-    if( $rs->fields["usuario"] == $this->hilo->obtener_usuario() ){
+    if( $registro["usuario"] == $this->hilo->obtener_usuario() ){
 ?>
-          <td width="30%" class='lista-obj-dato4'>&nbsp;<b><? echo $rs->fields["usuario"] ?></b></td>
-          <td width="70%" class='lista-obj-dato4'>&nbsp;<b><? echo $rs->fields["usuario_nombre"] ?></b></td>
+          <td width="30%" class='lista-obj-dato4'>&nbsp;<b><? echo $registro["usuario"] ?></b></td>
+          <td width="70%" class='lista-obj-dato4'>&nbsp;<b><? echo $registro["usuario_nombre"] ?></b></td>
 <?
     }else{
 ?>
-          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
-          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario_nombre"] ?></td>
+          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $registro["usuario"] ?></td>
+          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $registro["usuario_nombre"] ?></td>
 <?
     }
 ?>
         </tr>
 <?
             }
-            $rs->movenext();
-        }
+        $grupo_anterior = $registro[$modo];
     }
 ?>
 </table>
@@ -258,8 +245,6 @@ ORDER BY    3,6;";
 </script>
 <table width="100%" class='lista-obj'>
 <?
-    global $ADODB_FETCH_MODE;
-    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
     $sql = "
 SELECT  u.usuario,
         u.nombre
@@ -269,24 +254,20 @@ WHERE       NOT EXISTS (
                         WHERE p.usuario = u.usuario
                         AND p.proyecto = '".editor::get_proyecto_cargado()."' )
             ORDER BY 2";
-    //dump_sql($sql);
-    $rs =& $db["instancia"][apex_db_con]->Execute($sql);
-    if(!$rs)
-        $this->observar("error","Lista de USUARIOS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql ,false,true,true);
-    if(!$rs->EOF){
-    while(!$rs->EOF)
-    {
+	//dump_sql($sql);
+	$rs = toba::get_db('instancia')->consultar($sql);
+	if( $rs ) {
+	foreach( $rs as $registro ) {
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
             </a>
       </td>
-          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
-          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td></tr>
+          <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $registro["usuario"] ?></td>
+          <td width="70%" class='lista-obj-dato1'>&nbsp;<? echo $registro["nombre"] ?></td></tr>
 <?
-    $rs->movenext();
     }
     }else{
 ?>
@@ -297,5 +278,3 @@ WHERE       NOT EXISTS (
     }
 ?>
 </table>
-
-
