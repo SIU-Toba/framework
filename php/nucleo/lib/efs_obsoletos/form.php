@@ -48,7 +48,7 @@ class form {
 	
     static function multi_select($nombre,$actuales,$datos, $tamanio, $clase="ef-combo", $extra="")
     {
-        if(!is_array($datos)){//Si datos no es un array, no puedo seguir
+        if(!is_array($datos)){
             $datos[""] = "";
         }
         $combo = "<select name='".$nombre."[]' id='$nombre' class='$clase' size='$tamanio' multiple $extra>\n";

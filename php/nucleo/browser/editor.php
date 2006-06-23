@@ -4,7 +4,7 @@
 */
 class editor
 {
-	function get_id()
+	static function get_id()
 	{
 		return 'admin';	
 	}
@@ -13,7 +13,7 @@ class editor
 	*	_falta: Hacer un control de que el administrador esta en esa instancia
 	*			(hoy en dia seria obligatorio)
 	*/
-	function iniciar($instancia, $proyecto)
+	static function iniciar($instancia, $proyecto)
 	{
 		$_SESSION['toba']['_editor_']['instancia'] = $instancia;
 		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
@@ -25,7 +25,7 @@ class editor
 	/**
 	*	Indica si el EDITOR de metadatos se encuentra encendido
 	*/
-	function activado()
+	static function activado()
 	{
 		if (isset($_SESSION['toba']['_editor_'])) {
 			return true;	
@@ -37,7 +37,7 @@ class editor
 	*	Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto 
 	*		lanzada desde el admin
 	*/
-	function modo_prueba()
+	static function modo_prueba()
 	{
 		if (self::activado() && toba::get_sesion()->activa()) {
 			return $_SESSION['toba']['_editor_']['proyecto'] == info_proyecto::get_id();
@@ -45,21 +45,21 @@ class editor
 		return false;
 	}
 
-	function get_instancia_activa()
+	static function get_instancia_activa()
 	{
 		if (self::activado()) {
 			return $_SESSION['toba']['_editor_']['instancia'];
 		}
 	}
 
-	function get_proyecto_cargado()
+	static function get_proyecto_cargado()
 	{
 		if (self::activado()) {
 			return $_SESSION['toba']['_editor_']['proyecto'];
 		}
 	}
 		
-	function get_punto_acceso_editor()
+	static function get_punto_acceso_editor()
 	{
 		if (self::activado()) {
 			return $_SESSION['toba']['_editor_']['punto_acceso'];
@@ -69,7 +69,7 @@ class editor
 	/**
 	*	Indica si el ADMIN se esta editando a si mismo
 	*/
-	function acceso_recursivo()
+	static function acceso_recursivo()
 	{
 		if (self::activado()) {
 			return $_SESSION['toba']['_editor_']['proyecto'] == self::get_id();
@@ -77,7 +77,7 @@ class editor
 		return false;		
 	}
 
-	function borrar_memoria()
+	static function borrar_memoria()
 	{
 		unset($_SESSION['toba']['_editor_']);
 	}
@@ -90,14 +90,14 @@ class editor
 	/**
 	*	Alimenta a la clase que representa al editor en JS
 	*/
-	function get_parametros_previsualizacion_js()
+	static function get_parametros_previsualizacion_js()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
 		$param_prev['proyecto'] = self::get_proyecto_cargado();
 		return $param_prev;
 	}
 
-	function get_grupo_acceso_previsualizacion()
+	static function get_grupo_acceso_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
 		if(isset($param_prev['grupo_acceso'])) {
@@ -110,7 +110,7 @@ class editor
 	/**
 	*	Recuperar las propiedades y setearlas en la sesion
 	*/
-	function get_parametros_previsualizacion()
+	static function get_parametros_previsualizacion()
 	{
 		if (!isset($_SESSION['toba']['_editor_']['previsualizacion'])) {
 			$rs = self::get_parametros_previsualizacion_db();
@@ -127,7 +127,7 @@ class editor
 	/**
 	*	Establecer las propiedades desde el editor
 	*/
-	function set_parametros_previsualizacion($datos)
+	static function set_parametros_previsualizacion($datos)
 	{
 		if (!( array_key_exists('punto_acceso', $datos) && array_key_exists('grupo_acceso', $datos))) {
 			throw new excepcion_toba('Los parametros de previsualizacion son incorrectos.');	
@@ -137,7 +137,7 @@ class editor
 		self::set_parametros_previsualizacion_db($datos);
 	}
 
-	function get_parametros_previsualizacion_db()
+	static function get_parametros_previsualizacion_db()
 	{
 		$sql = "SELECT grupo_acceso, punto_acceso 
 				FROM apex_admin_param_previsualizazion
@@ -150,7 +150,7 @@ class editor
 		return null;
 	}
 	
-	function set_parametros_previsualizacion_db($datos)
+	static function set_parametros_previsualizacion_db($datos)
 	{
 		$rs = self::get_parametros_previsualizacion_db();
 		if (!$rs) {
@@ -174,7 +174,7 @@ class editor
 	/**
 	*	Generacion del invocador al editor.
 	*/
-	function javascript_invocacion_editor()
+	static function javascript_invocacion_editor()
 	{
 		echo js::abrir();
 		echo "	function toba_invocar_editor(frame, url) {\n";
@@ -198,32 +198,36 @@ class editor
 	/*
 	*	Zona de vinculos de los items
 	*/
-	function generar_zona_vinculos_item( $item )
+	static function generar_zona_vinculos_item( $item )
 	{
 		self::javascript_invocacion_editor();
+		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
-			echo "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			echo recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
-			echo "</a><br>\n";
+			echo "</a>\n";
 		}
+		echo "</div>";
 	}
 
 	/*
 	*	Zona de vinculos de los componentes
 	*/
-	function generar_zona_vinculos_componente( $componente, $editor )
+	static function generar_zona_vinculos_componente( $componente, $editor )
 	{
+		echo "<div class='div-editor'>";		
 		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
-			echo "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			echo recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a>\n";
 		}
+		echo "</div>";
 	}
 
 	/*
 	*	Vinculos a EFs y a COLUMNAS
 	*/
-	function get_vinculo_subcomponente($item_editor, $parametros, $opciones=array(),$frame='frame_centro')
+	static function get_vinculo_subcomponente($item_editor, $parametros, $opciones=array(),$frame='frame_centro')
 	{
 		$imagen='objetos/editar.gif';
 		if(!isset($opciones['celda_memoria'])) $opciones['celda_memoria'] = 'central';
@@ -243,7 +247,7 @@ class editor
 			- Editor de CSS
 			- Cronometro
 	*/
-	function get_vinculos_item( $item )
+	static function get_vinculos_item( $item )
 	{
 		//Celda de memoria central
 		//punto de acceso del admin
@@ -278,7 +282,7 @@ class editor
 		return $vinculos;
 	}
 
-	function get_vinculos_componente($componente,$editor) 
+	static function get_vinculos_componente($componente,$editor) 
 	{
 		$vinculos = array();
 		$opciones['celda_memoria'] = 'central';

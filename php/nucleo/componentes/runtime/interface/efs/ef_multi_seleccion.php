@@ -91,16 +91,6 @@ abstract class ef_multi_seleccion extends ef
 		$this->set_estado($this->estado_defecto);		
 	}
 	
-	function es_seleccionable()
-	{
-		return true;	
-	}
-	
-	function es_estado_unico() 
-	{
-		return false;	
-	}	
-
 	function activado()
 	{
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
@@ -112,11 +102,6 @@ abstract class ef_multi_seleccion extends ef
 			$datos = array();	
 		}
 		$this->valores = $datos;
-	}
-	
-	function get_valores()
-	{
-		return $this->valores;
 	}
 	
 	protected function es_estado_individual_nulo($estado)
@@ -203,39 +188,6 @@ abstract class ef_multi_seleccion extends ef
 		return true;
 	}
 
-	function get_estado()
-	{
-		if ($this->activado()) {
-			if ($this->serializar !== false) {
-				return implode($this->estado, $this->serializar);	
-			} else {
-				return $this->estado;
-			}
-		} else {
-			if ($this->serializar !== false) {
-				return null;	
-			} else {
-				return array();
-			}
-		}		
-	}
-	
-	protected function get_estado_para_input()
-	{
-		if ($this->es_estado_nulo($this->estado))	{
-			return $this->estado_nulo;	
-		}
-		if (! is_array($this->dato)) {
-			return $this->estado;	
-		} else {
-			$salida = array();
-			foreach ($this->estado as $registro) {
-				$salida[] = implode(apex_ef_separador, $registro);
-			}	
-			return $salida;
-		}
-	}
-	
     function validar_estado()
     {
 		$padre = parent::validar_estado();
@@ -256,12 +208,6 @@ abstract class ef_multi_seleccion extends ef
 		}
 		return true;
     }
-    
-	function get_consumo_javascript()
-	{
-		$consumos = array('interface/ef', 'interface/ef_multi_seleccion');
-		return $consumos;
-	}	
 	
 	protected function parametros_js()
 	{
@@ -270,6 +216,71 @@ abstract class ef_multi_seleccion extends ef
 		$limites[1] = isset($this->cant_maxima) ? $this->cant_maxima : null;
 		return parent::parametros_js().','.js::arreglo($limites, false);
 	}
+	
+	function es_seleccionable()
+	{
+		return true;	
+	}
+	
+	function es_estado_unico() 
+	{
+		return false;	
+	}	
+	
+	function get_consumo_javascript()
+	{
+		$consumos = array('interface/ef', 'interface/ef_multi_seleccion');
+		return $consumos;
+	}
+		
+	function get_descripcion_estado()
+	{
+		$desc = "<ul>\n";
+		foreach ($this->get_estado_para_input() as $estado) {
+			$desc .= "<li>{$this->valores[$estado]}</li>\n";
+		}
+		$desc .= "</ul>\n";
+		return $desc;	
+	}
+	
+	function get_estado()
+	{
+		if ($this->activado()) {
+			if ($this->serializar !== false) {
+				return implode($this->estado, $this->serializar);	
+			} else {
+				return $this->estado;
+			}
+		} else {
+			if ($this->serializar !== false) {
+				return null;	
+			} else {
+				return array();
+			}
+		}		
+	}
+	
+	function get_valores()
+	{
+		return $this->valores;
+	}	
+	
+	protected function get_estado_para_input()
+	{
+		if ($this->es_estado_nulo($this->estado))	{
+			return $this->estado_nulo;	
+		}
+		if (! is_array($this->dato)) {
+			return $this->estado;	
+		} else {
+			$salida = array();
+			foreach ($this->estado as $registro) {
+				$salida[] = implode(apex_ef_separador, $registro);
+			}	
+			return $salida;
+		}
+	}
+	
 	
 }
 
@@ -309,8 +320,6 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 		$html .= form::multi_select($this->id_form, $estado, $this->valores, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
-		
-
 	
 	function crear_objeto_js()
 	{

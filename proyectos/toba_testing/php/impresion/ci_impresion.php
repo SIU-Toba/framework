@@ -79,6 +79,7 @@ class ci_impresion extends objeto_ci
 		$datos['combo'] = 'P';
 		$datos['checkbox'] = '1';
 		$datos['precio'] = '227';
+		$datos['lista'] = array('a', 'c');
 		return $datos;
 	}
 

@@ -744,8 +744,7 @@ class objeto_ei_formulario extends objeto_ei
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
 		foreach ( $this->lista_ef_post as $ef){
-			$clase = 'abm-fila';
-			echo "<tr><td class='lista-col-titulo' style='text-align: left'>\n";
+			echo "<tr><td class='ef-etiqueta'>\n";
 			echo $this->elemento_formulario[$ef]->get_etiqueta();
 			$temp = $this->get_valor_imprimible_ef( $ef );
 			echo "</td><td class='". $temp['css'] ."'>\n";
