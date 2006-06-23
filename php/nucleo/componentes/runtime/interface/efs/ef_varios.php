@@ -22,6 +22,8 @@ class ef_checkbox extends ef
 {
     protected $valor;
     protected $valor_no_seteado;
+    protected $valor_info;
+    protected $valor_info_no_seteado;
     
 	static function get_parametros()
 	{
@@ -34,6 +36,12 @@ class ef_checkbox extends ef
 		$parametros["estado"]["descripcion"]="";
 		$parametros["estado"]["opcional"]=0;	
 		$parametros["estado"]["etiqueta"]="Valor por defecto";	
+		$parametros["valor_info"]["descripcion"]="Descripcion coloquial del valor ACTIVADO";
+		$parametros["valor_info"]["opcional"]=0;	
+		$parametros["valor_info"]["etiqueta"]="Info Valor Act.";	
+		$parametros["valor_info_no_seteado"]["descripcion"]="Descripcion coloquial del valor DESACTIVACION";
+		$parametros["valor_info_no_seteado"]["opcional"]=0;	
+		$parametros["valor_info_no_seteado"]["etiqueta"]="Info Valor DesAct.";			
 		return $parametros;
 	}
 
@@ -54,6 +62,12 @@ class ef_checkbox extends ef
 		} else {
 			$this->valor_no_seteado = 0;	
 		}	
+		if (isset($parametros["valor_info"])){
+		    $this->valor_info = $parametros["valor_info"];
+		}
+		if (isset($parametros["valor_info_no_seteado"])){
+		    $this->valor_info_no_seteado = $parametros["valor_info_no_seteado"];
+		}		
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
     }
     
@@ -134,7 +148,17 @@ class ef_checkbox extends ef
 	{
 		return "new ef_checkbox({$this->parametros_js()})";
 	}	
-		
+
+
+	function get_descripcion_estado()
+	{
+		if ( !isset($this->estado) || $this->estado == $this->valor_no_seteado ) {
+			return isset( $this->valor_info_no_seteado ) ? $this->valor_info_no_seteado : 'NO';
+		} else {
+			return isset( $this->valor_info ) ? $this->valor_info : 'SI';
+		}
+	}
+	
 }
 // ########################################################################################################
 // ########################################################################################################
