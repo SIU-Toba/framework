@@ -1,7 +1,6 @@
 <?
 /**
-*	Todos los metodos estaticos siguientes deben ejecutarse en la misma base.
-*	Conforman el conjunto de consultas realizadas a la seccion "acceso y auditoria" de los metadatos de la instancia
+*	Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
 */
 class datos_acceso
 {
@@ -174,7 +173,30 @@ class datos_acceso
 	// LOG a nivel APLICACION
 	//----------------------------------------------------------------
 
+	static function get_id_solicitud()
+	{
+		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
+		$rs = self::get_db("instancia")->consultar($sql);
+		if (empty($rs)) {
+			throw new excepcion_toba('No es posible generar un ID para la solicitud');
+		}
+		return $rs[0]['id'];
+	}
 
+	static function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
+	{
+		$tiempo = toba::get_cronometro()->tiempo_acumulado();
+		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
+				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
+		self::get_db("instancia")->ejecutar($sql);
+	}
+	
+	static function registrar_solicitud_observaciones( $id, $tipo, $observacion )
+	{
+		$sql = "INSERT	INTO apex_solicitud_observacion (solicitud,solicitud_obs_tipo_proyecto,solicitud_obs_tipo,observacion) 
+				VALUES ('$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
+		self::get_db("instancia")->ejecutar($sql);
+	}
 
 	//----------------------------------------------------------------
 	// Bloqueo de IPs por fallas de login

@@ -54,7 +54,7 @@ class catalogo_toba
 		$clase_definicion = self::get_nombre_clase_definicion( $tipo );
 		$path = call_user_func( array( $clase_definicion, 'get_path_clase_runtime') );
 		require_once( $path .'/objeto_'. $tipo. '.php');
-		return 'objeto_'. $tipo;		
+		return 'objeto_'. $tipo;
 	}
 
 	static function get_nombre_clase_info( $tipo )
@@ -124,8 +124,9 @@ class catalogo_toba
 	*/
 	static function convertir_tipo( $tipo )
 	{
-		$no_mas = 'objeto_';
 		if(!isset($tipo)) return null;
+		if($tipo=='item') return 'item';
+		$no_mas = 'objeto_';
 		if( strrpos($tipo, $no_mas) !== false ) {
 			return substr($tipo, strlen($no_mas) );
 		} else {

@@ -16,12 +16,11 @@ class info_item implements recorrible_como_arbol
 	protected $info_extra = '';
 	protected $carga_profundidad;
 	
-	
 	function __construct( $datos, $carga_profundidad=true)
 	{
 		$this->datos = $datos;	
-		$this->id = $this->datos['info']['item'];
-		$this->proyecto = $this->datos['info']['item_proyecto'];
+		$this->id = $this->datos['basica']['item'];
+		$this->proyecto = $this->datos['basica']['item_proyecto'];
 		$this->carga_profundidad = $carga_profundidad;
 		if ($this->carga_profundidad) {
 			$this->cargar_dependencias();
@@ -29,16 +28,15 @@ class info_item implements recorrible_como_arbol
 		if($this->es_de_menu()) {
 			$this->info_extra .= recurso::imagen_apl("items/menu.gif",true)." - Está incluído en el MENU";
 		}
-			
 	}
 
 	function cargar_dependencias()
 	{
 		//Si hay objetos asociados...
-		if (count($this->datos['info_objetos'])>0)	{
-			for ($a=0; $a<count($this->datos['info_objetos']); $a++) {
-				$clave['proyecto'] = $this->datos['info_objetos'][$a]['objeto_proyecto'];
-				$clave['componente'] = $this->datos['info_objetos'][$a]['objeto'];
+		if (count($this->datos['objetos'])>0)	{
+			for ($a=0; $a<count($this->datos['objetos']); $a++) {
+				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
+				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
 				$this->subelementos[$a] = constructor_toba::get_info( $clave );
 			}
 		}
@@ -67,20 +65,20 @@ class info_item implements recorrible_como_arbol
 
 	function es_carpeta() 
 	{ 
-		return $this->datos['info']['carpeta']; 
+		return $this->datos['basica']['carpeta']; 
 	}
 	
 	function es_de_menu() {	
 		if ($this->id != '') {
-			return $this->datos['info']['menu'];
+			return $this->datos['basica']['menu'];
 		} else {
 			return true;	
 		}
 	}	
 	
-	function es_publico() { return $this->datos['info']['publico']; } 
+	function es_publico() { return $this->datos['basica']['publico']; } 
 
-	function tipo_solicitud() { return $this->datos['info']['solicitud_tipo']; }
+	function tipo_solicitud() { return $this->datos['basica']['solicitud_tipo']; }
 	
 	function vinculo_editor()
 	{
@@ -121,15 +119,15 @@ class info_item implements recorrible_como_arbol
 		}
 	}
 	
-	function get_id_padre() {	return $this->datos['info']['item_padre']; }	
+	function get_id_padre() {	return $this->datos['basica']['item_padre']; }	
 
 	function get_nivel_prof() {	return $this->nivel; }
 	
 	function get_camino() { return $this->camino; }
 	
-	function get_nombre() { return $this->datos['info']['item_nombre']; }
+	function get_nombre() { return $this->datos['basica']['item_nombre']; }
 	
-	function get_proyecto() { return $this->datos['info']['item_proyecto']; }
+	function get_proyecto() { return $this->datos['basica']['item_proyecto']; }
 	
 	function crono() 
 	{ 
@@ -137,15 +135,15 @@ class info_item implements recorrible_como_arbol
 			return $this->datos['crono'] == 1; 
 	}
 	
-	function cant_objetos() { return $this->datos['info']['cant_dependencias']; }
+	function cant_objetos() { return $this->datos['basica']['cant_dependencias']; }
 	
 	function registra_solicitud()
 	{ 
-		if (isset($this->datos['info']['registrar']))
-			return $this->datos['info']["registrar"]; 
+		if (isset($this->datos['basica']['registrar']))
+			return $this->datos['basica']["registrar"]; 
 	}
 	
-	function propietario() { return $this->datos['info']['usuario']; }
+	function propietario() { return $this->datos['basica']['usuario']; }
 
 	function grupos_acceso()
 	{
@@ -174,13 +172,13 @@ class info_item implements recorrible_como_arbol
 	
 	function es_buffer() 
 	{ 
-		return !($this->datos['info']['act_buf']== 0 && $this->datos['info']['act_buf_p']=="toba");
+		return !($this->datos['basica']['act_buf']== 0 && $this->datos['basica']['act_buf_p']=="toba");
 	}
 	
 	function es_patron()
 	//--- Es un PATRON?? El patron <toba,especifico> representa la ausencia de PATRON	
 	{
-		return !($this->datos['info']['act_pat']=="especifico" && $this->datos['info']['act_pat_p']=="toba");
+		return !($this->datos['basica']['act_pat']=="especifico" && $this->datos['basica']['act_pat_p']=="toba");
 	}
 	
 	function es_accion()
@@ -241,7 +239,7 @@ class info_item implements recorrible_como_arbol
 	
 	function es_hoja()
 	{
-		return $this->datos['info']['cant_items_hijos'] == 0 && $this->cant_objetos() == 0;
+		return $this->datos['basica']['cant_items_hijos'] == 0 && $this->cant_objetos() == 0;
 	}
 
 	function tiene_propiedades()
@@ -384,7 +382,7 @@ class info_item implements recorrible_como_arbol
 		
 	function quitar_hijo($item)
 	{
-		$this->datos['info']['cant_items_hijos']--;
+		$this->datos['basica']['cant_items_hijos']--;
 		unset($this->items_hijos[$item->get_id()]);
 	}	
 	
@@ -415,7 +413,7 @@ class info_item implements recorrible_como_arbol
 	function tiene_hijos_cargados()
 	{
 		if ($this->es_carpeta() && ! $this->es_hoja()) {
-		 	return count($this->items_hijos) == $this->datos['info']['cant_items_hijos'];
+		 	return count($this->items_hijos) == $this->datos['basica']['cant_items_hijos'];
 		}
 		if (!$this->es_carpeta() && ! $this->carga_profundidad) {
 			return false;

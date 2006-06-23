@@ -105,7 +105,7 @@ class cargador_toba
 		if (isset($this->redefinidos[$clave_ser])) {
 			return $this->redefinidos[$clave_ser];
 		}
-		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE no implementado!
+		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE de EXTENDIDOS no implementado!
 			throw new excepcion_toba('No implementado');
 		} else {													// Sin CACHE!
 			$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );

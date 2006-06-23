@@ -29,16 +29,23 @@ class constructor_toba
 		} else {
 			$datos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo );
 		}
-		$clase = catalogo_toba::get_nombre_clase_runtime( $tipo );
-		//Posee una subclase asociada?
-		if ( $datos['info']['subclase'] && $con_subclase ) {
-			require_once($datos['info']['subclase_archivo']);
-			$clase = $datos['info']['subclase'];
+		//--- INSTANCIACION	---
+		if ($tipo != 'item') {		//**** Creacion de OBJETOS
+			$clase = catalogo_toba::get_nombre_clase_runtime( $tipo );
+			//Posee una subclase asociada?
+			if ( $datos['info']['subclase'] && $con_subclase ) {
+				require_once($datos['info']['subclase_archivo']);
+				$clase = $datos['info']['subclase'];
+			}
+			//Instancio el objeto
+			$objeto = new $clase( $datos );
+			self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
+			return 	$objeto;
+		} else {					//**** Creacion de ITEMS
+			$clase = "solicitud_".$datos['basica']['item_solic_tipo'];
+			require_once("nucleo/$clase.php");
+			return new $clase($datos);
 		}
-		//Instancio el objeto
-		$objeto = new $clase( $datos );
-		self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
-		return 	$objeto;
 	}
 
 	/**

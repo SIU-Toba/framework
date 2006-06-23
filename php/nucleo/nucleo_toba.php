@@ -94,7 +94,7 @@ class nucleo_toba
 		if (toba::get_sesion()->controlar_estado_activacion()) {
 			$item = $this->get_id_item('item_inicio_sesion');
 			$grupo_acceso = toba::get_sesion()->get_grupo_acceso();
-			$solicitud = solicitud::get_solicitud($item[0],$item[1]);			
+			$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
 				datos_acceso::control_acceso_item($item, $grupo_acceso);
 			}
@@ -102,7 +102,7 @@ class nucleo_toba
 		} else {
 			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
-			$solicitud = solicitud::get_solicitud($item[0],$item[1]);
+			$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
 				// Si se arrastra una URL previa despues de finalizar la sesion y se refresca
 				// la pagina, el nucleo trata de cargar un item explicito por URL. El mismo no va a ser publico...
@@ -112,7 +112,7 @@ class nucleo_toba
 					toba::get_logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado');
 					toba::get_hilo()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
-					$solicitud = solicitud::get_solicitud($item[0],$item[1]);
+					$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 					if (!$solicitud->es_item_publico()) {
 						throw new excepcion_toba($mensaje_error);				
 					}

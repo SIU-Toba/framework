@@ -51,7 +51,7 @@ class catalogo_items
 		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		$sql_base = componente_item::get_vista_extendida($this->proyecto);
-		$sql = $sql_base['info']['sql'];
+		$sql = $sql_base['basica']['sql'];
 		$sql .=	$filtro_items;
 		$sql .= "	AND		i.solicitud_tipo <> 'fantasma'";
 		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
@@ -63,7 +63,7 @@ class catalogo_items
 				$id = array();
 				$id['componente'] = $fila['item'];
 				$id['proyecto'] = $fila['item_proyecto'];
-				$datos = array('info' => $fila);
+				$datos = array('basica' => $fila);
 				if ($en_profundidad) {
 					$info = constructor_toba::get_info($id, 'item', true, null, true);
 				} else {

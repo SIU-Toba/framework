@@ -7,11 +7,9 @@
 	* Insertar el item de login en los proyectos
 	* Esquema de vinculacion inter-proyecto: es necesario para armar el esquema de switcheo (combo) entre proyectos
 	* switcheo de proyectos dentro del admin
-	* Incorporar el esquema de instancia variable
+		* Incorporar el esquema de instancia variable
 	* Arreglar el tipo de pagina por defecto en el admin.
-	* Esquema de login automatico imcompleto
 	* ORDEN ADMIN:
-		- Reacomodar TESTING	
 		- Eliminar el uso de ADOdb
 		- Hay que eliminar el uso anterior de vinculos
 		- Mejorar el orden de carpetas de la parte nueva
@@ -45,7 +43,6 @@
 			* Vinculos a editores (Las clases info_ suponen la utilizaicion del admin::).
 			* ATENCION: Los componentes info tienen harcodeado editores del admin
 	* Como se cumple la funcion de "inicializacion.php"??
-	* Hay que pasar los DAOS del ADMIN al modelo?
 	* componentes TRANSVERSALES (obsoletos):
 		- Atencion, llaman a items genericos del toba para generar PDF, XLS, etc.
 

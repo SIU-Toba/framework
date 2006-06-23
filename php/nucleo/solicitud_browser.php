@@ -33,16 +33,16 @@ class solicitud_browser extends solicitud
 		parent::__construct($item,$this->hilo->obtener_usuario());
 		
 		//El elemento de item tiene que ser de tipo browser!
-		if($this->tipo_solicitud!=$this->info['item_solic_tipo']) {
+		if($this->tipo_solicitud!=$this->info['basica']['item_solic_tipo']) {
 			monitor::evento("falta","SOLICITUD BROWSER: El ITEM de item no es de tipo: BROWSER.");
 		}
 		//Creo la ZONA
-		if(trim($this->info['item_zona'])!=""){
+		if(trim($this->info['basica']['item_zona'])!=""){
 			//Hay una zona, tengo que crearla...
-			require_once($this->info['item_zona_archivo']);
+			require_once($this->info['basica']['item_zona_archivo']);
 			//Creo la clase
-			$this->zona = new $this->info['item_zona']($this->info['item_zona'], 
-														$this->info['item_zona_proyecto'],
+			$this->zona = new $this->info['basica']['item_zona']($this->info['basica']['item_zona'], 
+														$this->info['basica']['item_zona_proyecto'],
 														$this);
 		}
 		$this->vinculador = toba::get_vinculador();
@@ -61,17 +61,17 @@ class solicitud_browser extends solicitud
     	toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		//--- Tipo de PAGINA
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
-		if (isset($this->info['tipo_pagina_archivo'])) {
-			require_once($this->info['tipo_pagina_archivo']);
+		if (isset($this->info['basica']['tipo_pagina_archivo'])) {
+			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
-		if (isset($this->info['tipo_pagina_clase'])) {
-			$tipo_pagina = new $this->info['tipo_pagina_clase']($this);
+		if (isset($this->info['basica']['tipo_pagina_clase'])) {
+			$tipo_pagina = new $this->info['basica']['tipo_pagina_clase']($this);
 			$tipo_pagina->encabezado();
 		} else {
 			//--------------- MIGRACION 0.8.3 ----------------
-			if(trim($this->info["item_include_arriba"]!= "")){
+			if(trim($this->info['basica']["item_include_arriba"]!= "")){
 				toba::get_logger()->obsoleto(null, null, "0.8.3", "El tipo de página personalizado se hace con subclases");
-				include_once($this->info["item_include_arriba"]);
+				include_once($this->info['basica']["item_include_arriba"]);
 			}			
 			//-----------------------------------------------			
 		}
@@ -86,9 +86,9 @@ class solicitud_browser extends solicitud
         	$tipo_pagina->pie();
         } else {
 			//--------------- MIGRACION 0.8.3 ----------------
-			if(trim($this->info["item_include_abajo"]!= "")){
+			if(trim($this->info['basica']["item_include_abajo"]!= "")){
 				toba::get_logger()->obsoleto(null, null, "0.8.3", "El tipo de página personalizado se hace con subclases");	
-				include_once($this->info["item_include_abajo"]);
+				include_once($this->info['basica']["item_include_abajo"]);
 			}
 			//-----------------------------------------------					
         }

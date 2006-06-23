@@ -19,7 +19,7 @@ class componente_item implements definicion_toba
 	
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['info']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
+		$sql['basica']['sql'] = "SELECT	i.proyecto as			item_proyecto,	
 						i.item as								item,	
 						i.nombre	as							item_nombre,
 						i.descripcion as						item_descripcion,	
@@ -69,11 +69,11 @@ class componente_item implements definicion_toba
 				AND		i.actividad_patron_proyecto =	p.proyecto
 				AND		i.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info']['sql'] .= "	AND		i.item ='$componente' ";	
+			$sql['basica']['sql'] .= "	AND		i.item ='$componente' ";	
 		}
-		$sql['info']['registros']='1';	
-		$sql['info']['obligatorio']=true;
-		$sql['info_objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,
+		$sql['basica']['registros']='1';	
+		$sql['basica']['obligatorio']=true;
+		$sql['objetos']['sql'] =	"SELECT	o.proyecto as		objeto_proyecto,
 						o.objeto	as						objeto,
 						o.nombre	as						objeto_nombre,
 						o.subclase as						objeto_subclase,
@@ -101,11 +101,11 @@ class componente_item implements definicion_toba
 				AND		o.fuente_datos_proyecto	= d.proyecto
 				AND		io.proyecto	= '$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_objetos']['sql'] .= "	AND		io.item ='$componente' ";	
+			$sql['objetos']['sql'] .= "	AND		io.item ='$componente' ";	
 		}
-		$sql['info_objetos']['sql'] .= "	ORDER	BY	io.orden;";	
-		$sql['info_objetos']['registros']='n';
-		$sql['info_objetos']['obligatorio']=false;
+		$sql['objetos']['sql'] .= "	ORDER	BY	io.orden;";	
+		$sql['objetos']['registros']='n';
+		$sql['objetos']['obligatorio']=false;
 		return $sql;
 	}
 

@@ -79,10 +79,10 @@ class solicitud_web extends solicitud
 	
 	protected function crear_zona()
 	{
-		if(trim($this->info['item_zona'])!=""){
-			require_once($this->info['item_zona_archivo']);
-			$this->zona = new $this->info['item_zona']($this->info['item_zona'], 
-														$this->info['item_zona_proyecto'],
+		if(trim($this->info['basica']['item_zona'])!=""){
+			require_once($this->info['basica']['item_zona_archivo']);
+			$this->zona = new $this->info['basica']['item_zona']($this->info['basica']['item_zona'], 
+														$this->info['basica']['item_zona_proyecto'],
 														$this);
 		}		
 	}
@@ -91,10 +91,10 @@ class solicitud_web extends solicitud
 	{
 		toba::get_logger()->seccion("Cargando objetos...", 'toba');
 		$this->cis = array();		
-		if ($this->info_objetos > 0) {
+		if ($this->info['objetos'] > 0) {
 			$i = 0;
 			//Construye los objetos ci y el cn
-			foreach ($this->info_objetos as $objeto) {
+			foreach ($this->info['objetos'] as $objeto) {
 				if ($objeto['clase'] != 'objeto_cn') {
 					$this->cis[] = $this->cargar_objeto($objeto['clase'],$i); 
 					$i++;
@@ -172,10 +172,10 @@ class solicitud_web extends solicitud
 	{
 		//--- Tipo de PAGINA
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
-		if (isset($this->info['tipo_pagina_archivo'])) {
-			require_once($this->info['tipo_pagina_archivo']);
+		if (isset($this->info['basica']['tipo_pagina_archivo'])) {
+			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
-		$this->tipo_pagina = new $this->info['tipo_pagina_clase']();
+		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();
 		$this->tipo_pagina->encabezado();		
 	}
 	
