@@ -153,11 +153,11 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
 			}
 			//-- La fuente tambien se propaga
-			if (isset($nuevos_datos['fuente_proyecto'])) {
-				$datos_objeto['fuente_proyecto'] = $nuevos_datos['fuente_proyecto'];
+			if (isset($nuevos_datos['fuente_datos_proyecto'])) {
+				$datos_objeto['fuente_datos_proyecto'] = $nuevos_datos['fuente_datos_proyecto'];
 			}
-			if (isset($nuevos_datos['fuente'])) {
-				$datos_objeto['fuente'] = $nuevos_datos['fuente'];
+			if (isset($nuevos_datos['fuente_datos'])) {
+				$datos_objeto['fuente_datos'] = $nuevos_datos['fuente_datos'];
 			}
 			//-- SE CLONA
 			$id_clon = $hijo->clonar($datos_objeto, $dir_subclases, $con_transaccion);

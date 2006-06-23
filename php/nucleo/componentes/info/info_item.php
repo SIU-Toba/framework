@@ -469,7 +469,9 @@ class info_item implements recorrible_como_arbol
 				$campo = 'nombre';
 				$valor = $valor . $dr->tabla('base')->get_fila_columna(0, $campo);
 			}
-			$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
+			if ($campo != 'fuente_datos' && $campo != 'fuente_datos_proyecto') {
+				$dr->tabla('base')->set_fila_columna_valor(0, $campo, $valor);
+			}
 		}
 		//Se le fuerza una inserción a los datos_tabla
 		//Como la clave de los objetos son secuencias, esto garantiza claves nuevas
@@ -492,11 +494,11 @@ class info_item implements recorrible_como_arbol
 				$datos_objeto['anexo_nombre'] = $nuevos_datos['anexo_nombre'];
 			}
 			//-- La fuente tambien se propaga
-			if (isset($nuevos_datos['fuente_proyecto'])) {
-				$datos_objeto['fuente_proyecto'] = $nuevos_datos['fuente_proyecto'];
+			if (isset($nuevos_datos['fuente_datos_proyecto'])) {
+				$datos_objeto['fuente_datos_proyecto'] = $nuevos_datos['fuente_datos_proyecto'];
 			}
-			if (isset($nuevos_datos['fuente'])) {
-				$datos_objeto['fuente'] = $nuevos_datos['fuente'];
+			if (isset($nuevos_datos['fuente_datos'])) {
+				$datos_objeto['fuente_datos'] = $nuevos_datos['fuente_datos'];
 			}
 			$nuevo_hijo = $hijo->clonar($datos_objeto, $dir_subclases, false);
 			$fila = array('objeto' => $nuevo_hijo['componente'], 
@@ -517,7 +519,6 @@ class info_item implements recorrible_como_arbol
 		$clave['componente'] = $clave['item'];
 		return $clave;				
 	}
-	
 	
 	function asignar_componente($id_componente)
 	{

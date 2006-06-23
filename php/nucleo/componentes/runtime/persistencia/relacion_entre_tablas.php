@@ -37,6 +37,11 @@ class relacion_entre_tablas
 		$this->mapear_campos();
 	}
 	
+	function get_txt()
+	{
+		return "Relacion entre {$this->tabla_padre_id} y {$this->tabla_hijo_id}: ";	
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- CONFIGURACION
 	//-------------------------------------------------------------------------------
@@ -226,9 +231,9 @@ class relacion_entre_tablas
 		} else {
 			$desc_hijo = var_export($fila_hijo, true);
 			if (empty($id_padre)) {
-				throw new excepcion_toba("No se encuentra una fila padre. Fila hija: $desc_hijo");
+				throw new excepcion_toba($this->get_txt_error_base("No se encuentra una fila padre. Fila hija: $desc_hijo"));
 			} else {
-				throw new excepcion_toba("Estructura corrupta. Se encuentra más de una fila padre. Fila hija: $desc_hijo");
+				throw new excepcion_toba($this->get_txt_error_base("Estructura corrupta. Se encuentra más de una fila padre. Fila hija: $desc_hijo"));
 			}
 		}		
 	}
@@ -338,7 +343,7 @@ class relacion_entre_tablas
 		//Si no se paso el padre, hay que encontrarlo...
 		if (!isset($id_padre)) {
 			if (! $this->tabla_padre->hay_cursor()) {
-				throw new excepcion_toba("Se intenta crear o actualizar una fila y su fila padre aún no existe");
+				throw new excepcion_toba($this->get_txt_error_base("Se intenta crear o actualizar una fila y su fila padre aún no existe"));
 			}
 			$id_padre = $this->tabla_padre->get_cursor();
 		} 

@@ -209,6 +209,7 @@ class dao_editores
 		$clases[] = 'objeto_cn';
 		return $clases;	
 	}
+	
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------
@@ -489,11 +490,14 @@ class dao_editores
 	/**
 	* FUENTEs de DATOS
 	*/
-	function get_fuentes_datos()
+	function get_fuentes_datos($proyecto=null)
 	{
+		if (!isset($proyecto)) {
+			$proyecto = editor::get_proyecto_cargado();
+		}
 		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
 				FROM apex_fuente_datos
-				WHERE ( proyecto = '". editor::get_proyecto_cargado() ."' )
+				WHERE ( proyecto = '$proyecto' )
 				ORDER BY 2";
 		return consultar_fuente($sql, "instancia");		
 	}

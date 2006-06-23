@@ -34,6 +34,8 @@ class ci_clonador_items extends objeto_ci
 		if (isset($this->opciones['anexo'])) {
 			$nuevos_datos['anexo_nombre'] = $this->opciones['anexo'];	
 		}
+		$nuevos_datos['fuente_datos'] = $this->opciones['fuente'];
+		$nuevos_datos['fuente_datos_proyecto'] = $this->opciones['proyecto'];
 		$info_item->clonar($nuevos_datos, $directorio);
 	}
 

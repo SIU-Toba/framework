@@ -545,6 +545,15 @@ class objeto_datos_tabla extends objeto
 		$this->validar_fila($fila, $id);
 		$this->notificar_contenedor("pre_modificar", $fila, $id);
 		
+		
+		//Actualizo los valores
+		foreach(array_keys($fila) as $clave){
+			$this->datos[$id][$clave] = $fila[$clave];
+		}
+		if($this->cambios[$id]['estado']!="i"){
+			$this->registrar_cambio($id,"u");
+		}
+						
 		//Se actualizan los cambios en la relación
 		foreach ($this->relaciones_con_padres as $rel_padre) {
 			$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
@@ -555,13 +564,6 @@ class objeto_datos_tabla extends objeto
 			interface, primero actualizo los valores y despues tomo la fila y la
 			proceso con la actualizacion de campos externos
 		*/
-		//Actualizo los valores
-		foreach(array_keys($fila) as $clave){
-			$this->datos[$id][$clave] = $fila[$clave];
-		}
-		if($this->cambios[$id]['estado']!="i"){
-			$this->registrar_cambio($id,"u");
-		}
 		//Si la tabla posee campos externos, le pido la nueva fila al persistidor
 		if($this->posee_columnas_ext){
 			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->datos[$id],"upd");
@@ -654,10 +656,7 @@ class objeto_datos_tabla extends objeto
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
 			if( isset($this->columnas[$columna]) ){
-				$this->datos[$id][$columna] = $valor;
-				if($this->cambios[$id]['estado']!="i" && $this->cambios[$id]['estado']!="d"){
-					$this->registrar_cambio($id,"u");
-				}		
+				$this->modificar_fila($id, array($columna => $valor));
 			}else{
 				throw new excepcion_toba("La columna '$columna' no es valida");
 			}
@@ -669,16 +668,14 @@ class objeto_datos_tabla extends objeto
 	/**
 	 * Cambia el valor de una columna en todas las filas
 	 */
-	function set_columna_valor($columna, $valor)
+	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
-		foreach(array_keys($this->cambios) as $fila){
-			if($this->cambios[$fila]['estado']!="d"){
-				$this->datos[$fila][$columna] = $valor;
-				if($this->cambios[$fila]['estado']!="i"){
-					$this->registrar_cambio($fila,"u");
-				}		
-			}
+		if(! isset($this->columnas[$columna]) ) { 
+			throw new excepcion_toba("La columna '$columna' no es valida");
 		}
+		foreach($this->get_id_filas($con_cursores) as $fila) {
+			$this->modificar_fila($fila, array($columna => $valor));
+		}		
 	}
 
 	/**

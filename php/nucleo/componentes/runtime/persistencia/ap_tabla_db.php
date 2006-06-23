@@ -690,7 +690,7 @@ class ap_tabla_db implements ap_tabla
 			}
 		}
 		if(empty($set)){
-			toba::get_logger()->info('AP - datos_tabla: No hay campos para hacer el UPDATE');
+			$this->log('No hay campos para hacer el UPDATE');
 			return null;	
 		}
 		//Armo el SQL
