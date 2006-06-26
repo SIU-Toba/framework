@@ -51,11 +51,15 @@ def.constructor = objeto_ei_formulario_ml;
 	//----Consultas 
 	def.filas = function () { return this._filas };
 	
-	def.procesar = function (id_ef, fila, es_inicial) {
+	def.procesar = function (id_ef, fila, es_inicial, es_particular) {
+		if (typeof es_particular == 'undefined') {
+			es_particular = true;	
+		}
 		if (this.hay_procesamiento_particular_ef(id_ef))
 			this['evt__' + id_ef + '__procesar'](es_inicial, fila);		 //Procesamiento particular
-		if (id_ef in this._ef_con_totales)
+		if (es_particular && id_ef in this._ef_con_totales) {
 			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
+		}
 	}
 
 	//Función de calculo de procesamento por defecto, suma el valor de cada filas	
@@ -102,7 +106,7 @@ def.constructor = objeto_ei_formulario_ml;
 			if (! this._silencioso)
 				ef.resaltar(ef.error(), 8);
 			if (! es_online)
-				cola_mensajes.agregar(ef.error());
+				cola_mensajes.agregar(ef.error(), 'error', ef._etiqueta);
 			ef.resetear_error();
 			return false;
 		}		
@@ -406,11 +410,12 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	def.refrescar_procesamientos = function (es_inicial) {
 		for (id_ef in this._efs) {
-			if (id_ef in this._ef_con_totales)
+			if (id_ef in this._ef_con_totales) {
 				this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
+			} 
 			for (id_fila in this._filas) {
 				if (this._efs_procesar[id_ef]) {
-					this.procesar(id_ef, this._filas[id_fila], es_inicial);
+					this.procesar(id_ef, this._filas[id_fila], es_inicial, false);
 				}
 			}
 		}
