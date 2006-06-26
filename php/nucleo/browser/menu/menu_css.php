@@ -6,6 +6,7 @@ class menu_css extends menu
 	private $prof=1;
 	private $arbol;
 	protected $imagen_nodo ;
+	protected $hay_algun_item = false;
 	
 	function __construct()
 	{
@@ -54,6 +55,7 @@ class menu_css extends menu
 							"title='".$this->items[$nodo]['nombre']."'>" . 
 							$this->items[$nodo]['nombre']."</a>";
 			$this->arbol .= $inden . "</li>\n";
+			$this->hay_algun_item = true;
 		} else {
 			//Es carpeta
 			$class = ($this->prof > 1) ? " class='carpeta'" : "";
@@ -86,8 +88,10 @@ class menu_css extends menu
 	function mostrar()
 	{
 		$this->preparar_arbol();
-		echo $this->arbol;		
-		js::cargar_consumos_globales(array('menu/listmenu'));
+		echo $this->arbol;
+		if ($this->hay_algun_item) {
+			js::cargar_consumos_globales(array('menu/listmenu'));
+		}
 	}
 }
 

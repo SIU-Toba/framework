@@ -230,7 +230,7 @@
 */
 	{
 		//Me estan llamando por consola??
-		if(toba::get_solicitud()->get_tipo() == 'consola'){
+		if(toba::get_solicitud() != null && toba::get_solicitud()->get_tipo() == 'consola'){
 			//echo "<pre>";
 			print_r($arbol);
 			//echo "</pre>";

@@ -29,7 +29,7 @@ class ef_popup extends ef_editable
 		$parametros["maximo"]["descripcion"]="";
 		$parametros["maximo"]["opcional"]=1;		
 		$parametros["item_destino"]["etiqueta"]="Item destino";
-		$parametros["item_destino"]["descripcion"]="Par `proyecto,item` a invocar. Si no se especifíca el proyecto se asume el actual";
+		$parametros["item_destino"]["descripcion"]="Par `item,proyecto` a invocar. Si no se especifíca el proyecto se asume el actual";
 		$parametros["item_destino"]["opcional"]=0;
 		$parametros["ventana"]["etiqueta"]="Parametros Ventana";
 		$parametros["ventana"]["descripcion"]="ancho, alto, scroll";
@@ -64,11 +64,7 @@ class ef_popup extends ef_editable
 			$destino = explode(',',$parametros['item_destino']);
 			$this->item_destino = $destino[0];
 			if(count($destino)==2){
-				if($destino[1]=='toba'){
-					$this->item_destino_proyecto = $destino[1];
-				}else{
-					throw new excepcion_toba_def("No es posible abrir un popup de un proyecto externo que no sea el administrador.");
-				}
+				$this->item_destino_proyecto = $destino[1];
 			}else{
 				$this->item_destino_proyecto = toba::get_hilo()->obtener_proyecto();
 			}

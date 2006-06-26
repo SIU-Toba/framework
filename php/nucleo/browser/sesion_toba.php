@@ -111,7 +111,7 @@ class sesion_toba
 		}
 	}
 
-	protected function conf__inicio()
+	protected function conf__inicio($usuario)
 	{
 		
 	}

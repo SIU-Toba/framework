@@ -218,6 +218,83 @@ class objeto_ei_formulario extends objeto_ei
 		}
 	}
 
+	function get_nombres_ef()
+	{
+		return $this->lista_ef_post;
+	}
+	
+	/**
+	 * Retorna la referencia a un ef contenido
+	 * @return ef
+	 */
+	function ef($id) 
+	{
+		return $this->elemento_formulario[$id];
+	}
+
+	
+	/**
+	 * Permite o no la edición de un conjunto de efs de este formulario, pero sus valores se muestran al usuario
+	 *
+	 * @param array $efs Uno o mas efs, si es nulo se asume todos
+	 * @param boolean $readonly ¿Hacer solo_lectura? (true por defecto)
+	 */
+	function set_solo_lectura($efs=null, $readonly=true)
+	{
+		if(!isset($efs)){
+			$efs = $this->lista_ef_post;
+		}
+		if (! is_array($efs)) {
+			$efs = array($efs);	
+		}
+		foreach ($efs as $ef){
+			if(isset($this->elemento_formulario[$ef])){
+				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
+			}else{
+				throw new excepcion_toba("Deshabilitar EF: El ef '$ef' no existe");
+			}
+		}
+	}
+
+	/**
+	 * Establece que un conjunto de efs serán o no obligatorios durante una interacción
+	 *
+	 * @param array $efs Uno o mas efs, si es nulo se asume todos
+	 * @param boolean $obligatorios ¿Hacer obligatorio? (true por defecto)
+	 */
+	function set_efs_obligatorios($efs=null, $obligatorios=true) {
+		if(!isset($efs)){
+			$efs = $this->lista_ef_post;
+		}
+		if (! is_array($efs)) {
+			$efs = array($efs);	
+		}
+		foreach ($efs as $ef){
+			if(isset($this->elemento_formulario[$ef])){
+				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);						
+			}else{
+				throw new excepcion_toba("El ef '$ef' no existe");
+			}
+		}
+	}
+	
+	/**
+	 * Establece que un conjunto de efs NO seran enviados al cliente durante una interacción
+	 *
+	 * @param array $efs Uno o mas efs, si es nulo se asume todos
+	 * @param boolean $desactivar ¿Desactivarlos? (true por defecto)
+	 */
+	function desactivar_efs($efs=null, $desactivar=true)
+	{
+		if(!isset($efs)){
+			$efs = $this->lista_ef_post;
+		}
+		if (! is_array($efs)) {
+			$efs = array($efs);	
+		}
+		
+	}
+	
 	function cargar_estado_ef($array_ef)
 	{
 		if(is_array($array_ef)){
@@ -233,71 +310,6 @@ class objeto_ei_formulario extends objeto_ei
 		}
 	}
 
-	function ejecutar_metodo_ef($ef, $metodo, $parametro=null)
-	{
-		if (isset($this->elemento_formulario[$ef])) {
-			return $this->elemento_formulario[$ef]->$metodo($parametro);
-		} else {
-			echo ei_mensaje("El EF identificado	'$ef'	no	existe.");
-		}
-	}
-	
-	function get_nombres_ef()
-	{
-		return $this->lista_ef_post;
-	}
-	
-	/**
-	 * Retorna la referencia a un ef contenido
-	 * @return ef
-	 */
-	function get_ef($id) 
-	{
-		return $this->elemento_formulario[$id];
-	}
-	//-------------------------------------------------------------------------------
-
-	/**
-	 * @deprecated Desde 0.8.4, usar set_solo_lectura
-	 */
-	function deshabilitar_efs($efs=null)
-	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.4", "Usar set_solo_lectura");
-		$this->set_solo_lectura($efs);
-	}
-	
-	/**
-	 * Deshabilita o habilita la edición de un conjunto de efs de este formulario
-	 *
-	 * @param array $efs Conjunto de efs a deshabilitar, si es nulo se asume todos
-	 * @param boolean $readonly Deshabilita la edición (por defecto true)
-	 */
-	function set_solo_lectura($efs=null, $readonly=true)
-	{
-		if(!isset($efs)){
-			$efs = $this->lista_ef_post;
-		}
-		foreach ($efs as $ef){
-			if(isset($this->elemento_formulario[$ef])){
-				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
-			}else{
-				throw new excepcion_toba("Deshabilitar EF: El ef '$ef' no existe");
-			}
-		}
-	}
-	
-	function set_efs_obligatorios($efs=null, $obligatorios=true) {
-		if(!isset($efs)){
-			$efs = $this->lista_ef_post;
-		}
-		foreach ($efs as $ef){
-			if(isset($this->elemento_formulario[$ef])){
-				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);						
-			}else{
-				throw new excepcion_toba("El ef '$ef' no existe");
-			}
-		}
-	}
 	
 	//-------------------------------------------------------------------------------
 	//-------------------------	  MANEJO de DATOS	  -------------------------------
