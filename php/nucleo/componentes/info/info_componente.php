@@ -138,10 +138,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
 		}
 		
-		//--- Si tiene una fuente y se clona a otro proyecto, trasladar la fuente!
-		
-		
-		//--- Se reemplazan las dependencias
+		//--- Se reemplazan los datos y se clonan los hijos
 		foreach ($this->subelementos as $hijo) {
 			//-- Si se especifico un proyecto, se propaga
 			$datos_objeto = array();

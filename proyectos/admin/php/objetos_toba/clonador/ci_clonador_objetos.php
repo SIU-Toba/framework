@@ -1,7 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
 require_once('modelo/consultas/dao_editores.php');
-require_once('objetos_toba/clonador_objetos.php');
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
 //----------------------------------------------------------------
@@ -29,6 +28,7 @@ class ci_clonador_objetos extends objeto_ci
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "id_objeto";
+		$propiedades[] = "datos";
 		return $propiedades;
 	}		
 	
@@ -68,8 +68,18 @@ class ci_clonador_objetos extends objeto_ci
 	*			EVENTOS
 	*********************************/
 	
+	function evt__destino__carga()
+	{
+		if (! isset($this->datos)) {
+			$this->datos = array();
+			$this->datos['proyecto'] = editor::get_proyecto_cargado();	
+		}
+		return $this->datos;
+	}
+	
 	function evt__destino__modificacion($datos)
 	{
+		$this->datos = $datos;
 		$this->nuevo_nombre = $datos['nuevo_nombre'];
 		if ($datos['con_destino']) {
 			if (isset($datos['tipo']) && isset($datos['objeto'])) {
@@ -109,7 +119,7 @@ class ci_clonador_objetos extends objeto_ci
 		$clave = array('componente' => $this->id_objeto['objeto'],
 						'proyecto' => $this->id_objeto['proyecto']);
 		$info = constructor_toba::get_info($clave, null, false);
-		$clon = $info->clonar(null, array('nombre' => $this->nuevo_nombre), false);
+		$clon = $info->clonar(array('nombre' => $this->nuevo_nombre), false, false);
 		
 		//--- Asignación
 		if (isset($this->destino)) {

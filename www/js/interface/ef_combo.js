@@ -66,8 +66,9 @@ def.constructor = ef_combo;
 			if (id !=  apex_ef_no_seteado) {
 				hay_datos = true;
 			}
-			input.innerHTML += "<option value='" + id + "'>" + valores[id] + "</option>";
-//			input.options[input.options.length] = new Option(valores[id], id);
+			input.options[input.options.length] = new Option(valores[id], id);
+			//--- Esto es para poder insertar caracteres especiales dentro del Option
+			input.options[input.options.length - 1].innerHTML = valores[id];
 		}
 		if (hay_datos) {
 			input.disabled = false;

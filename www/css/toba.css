@@ -78,11 +78,8 @@ body > .div-esperar { position: fixed; }
 	white-space: nowrap;
 	vertical-align: middle;
 }
-.abm-fila-oculta {
+.abm-fila-oculta, .abm-fila-filtrada {
 	background-color: #E7E4E0;
-}
-.abm-fila-filtrada {
-	background-color: #ede9e0;
 }
 .abm-expansion {
 	text-align:center;
@@ -2923,7 +2920,7 @@ a > .ayuda, a.ayuda {
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
-	border: 1px solid #514a84; /*#441177;*/
+	border: 1px solid #514a84;
 	color:#384955;
 }
 .today {
