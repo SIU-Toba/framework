@@ -180,7 +180,7 @@ class vinculador
 	 * 					menu => El vinculo esta solicitado por una opción menu?
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
 	 * 					servicio => Servicio solicitado, por defecto obtener_html
-	 * 					objetos_destino => array(array(proyecto, id_objeto)) Objetos destino del vinculo
+	 * 					objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
 	 * 					prefijo => Punto de acceso a llamar.
 	 * @return string Una URL o el link html en caso
 	 */

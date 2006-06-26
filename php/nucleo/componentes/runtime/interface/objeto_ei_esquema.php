@@ -54,30 +54,20 @@ class objeto_ei_esquema extends objeto_ei
 		echo "</table>\n";
 	}
 	
-	static function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
+	function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
 	{
-	    $tipo_salida = null;
-		switch ($formato) {
-			case 'png':
-				$tipo_salida = "image/png";
-			case 'gif':
-				$tipo_salida = "image/gif";
-			break;
-			case 'svg':
-				$tipo_salida = "image/svg+xml";				
-			break;
-		}    	    
-		$archivo_generado = self::generar_archivo($contenido, $formato, $es_dirigido);
-		$parametros = array("archivo" => $archivo_generado, 'tipo_salida' => urlencode($tipo_salida));
+		$parametros = array("contenido" => $contenido, 
+							'formato' => $formato,
+							'es_dirigido' => $es_dirigido);
 		//Vinculo a un item que hace el passthru y borra el archivo
-		//toba::get_vinculador()->crear_autovinculo()
-		$url = toba::get_vinculador()->obtener_vinculo_a_item("admin","3068", $parametros,
-																false, false, false,
-																"", null, null, 'temp');
-		self::generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
+		$destino = array($this->id);
+		$this->memoria['parametros'] = $parametros;
+		$url = toba::get_vinculador()->crear_autovinculo(array(), array('servicio' => 'mostrar_esquema', 
+																		'objetos_destino' => $destino));
+		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
 	}
 
-	static protected function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
+	protected function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
 	{
 		$ancho = isset($ancho) ? "width='$ancho'" : "";
 		$alto = isset($alto) ? "height='$alto'" : "";
@@ -97,7 +87,7 @@ class objeto_ei_esquema extends objeto_ei
 		}
 	}
 	
-	static protected function generar_archivo($contenido, $formato, $es_dirigido = true)
+	protected function generar_archivo($contenido, $formato, $es_dirigido = true)
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
 		$dir_temp = toba::get_hilo()->obtener_path_temp();
@@ -127,6 +117,48 @@ class objeto_ei_esquema extends objeto_ei
 		unlink($grafico);
 		return $nombre_archivo;
 	}	
+	
+	/**
+	 * En base a la definicion que dejo el componente en el request anterior
+	 * se construye el esquema y se le hace un passthru
+	 */
+	function servicio__mostrar_esquema()
+	{
+		if (!isset($this->memoria['parametros'])) {
+			throw new excepcion_toba("No se pueden obtener los parámetros");
+		}
+		$contenido = $this->memoria['parametros']['contenido'];
+		$formato = $this->memoria['parametros']['formato'];
+		$es_dirigido = $this->memoria['parametros']['es_dirigido'];
+	    $tipo_salida = null;
+		switch ($formato) {
+			case 'png':
+				$tipo_salida = "image/png";
+			case 'gif':
+				$tipo_salida = "image/gif";
+			break;
+			case 'svg':
+				$tipo_salida = "image/svg+xml";				
+			break;
+		}
+		$archivo = $this->generar_archivo($contenido, $formato, $es_dirigido);
+		$dir_temp = toba::get_hilo()->obtener_path_temp();
+		$path_completo = $dir_temp . "/" . $archivo;
+		if (file_exists($path_completo)) {
+			toba::get_logger()->var_dump($path_completo);
+			$fp = fopen($path_completo, 'rb');
+			if (isset($tipo_salida)) {
+				header("Content-type: $tipo_salida");
+			}
+			header("Content-Length: " . filesize($path_completo));	
+			fpassthru($fp);
+			fclose($fp);
+			unlink($path_completo);
+		} else {
+			toba::get_logger()->error("El archivo $path_completo no se encuentra");
+		}
+	}
+
 }
 //################################################################################
 ?>

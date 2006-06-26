@@ -249,11 +249,22 @@ class logger
 	//------ Entradas para los distintos tipos de error
 	//------------------------------------------------------------------
 
+	/**
+	 * Muestra la traza de ejecucion actual en el logger
+	 */
 	function trace($con_parametros=false, $proyecto = null)
 	{
     	$this->debug($this->construir_traza($con_parametros), $proyecto);
 	}
 
+	/**
+	 * Dumpea el contenido de una variable al logger
+	 */
+	function var_dump($variable, $proyecto = null)
+	{
+		$this->debug(var_export($variable, true), $proyecto);
+	}
+	
     function crit($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_CRIT);

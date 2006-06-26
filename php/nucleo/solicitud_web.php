@@ -159,6 +159,10 @@ class solicitud_web extends solicitud
 		toba::get_logger()->seccion("Respondiendo al $callback...", 'toba');		
 		if (method_exists($this, $callback)) {
 			$this->$callback($destino);
+		} elseif (count($destino) == 1 && method_exists(current($destino), $callback)) {
+			//-- Se pide un servicio desconocido para la solicitud, pero conocido para el objeto destino
+			$obj = current($destino);
+			$obj->$callback();
 		} else {
 			throw new excepcion_toba("El servicio $servicio no está soportado");			
 		}
