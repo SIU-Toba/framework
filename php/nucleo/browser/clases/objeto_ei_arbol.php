@@ -1,3 +1,3 @@
 <?
-require_once('nucleo/componentes/runtime/interface/objeto_ei_arbol.php');
+require_once('nucleo/componentes/interface/objeto_ei_arbol.php');
 ?>

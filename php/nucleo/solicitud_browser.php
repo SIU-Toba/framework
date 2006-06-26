@@ -10,6 +10,7 @@ require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
 require_once("nucleo/lib/configuracion.php");	      		//Acceso a la configuracion del sistema
 require_once("nucleo/browser/tipo_pagina/tipo_pagina.php");	//Clase base de Tipo de pagina generico
 require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu 
+require_once("nucleo/componentes/definicion_db_transversales.php");
 
 class solicitud_browser extends solicitud
 {

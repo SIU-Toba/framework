@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php'); 
-require_once("nucleo/componentes/runtime/interface/efs/ef.php");
+require_once("nucleo/componentes/interface/efs/ef.php");
 /*
 	ATENCION: 
 		El controlador tiene que implementar "get_dbr_efs()" 

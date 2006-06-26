@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/componentes/runtime/interface/efs/ef_editable.php');
+require_once('nucleo/componentes/interface/efs/ef_editable.php');
 
 class test_editable extends test_toba
 /*

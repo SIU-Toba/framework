@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/componentes/runtime/persistencia/ap_tabla_db_s.php");
+require_once("nucleo/componentes/persistencia/ap_tabla_db_s.php");
 
 class apdb_dependencias extends ap_tabla_db_s
 {

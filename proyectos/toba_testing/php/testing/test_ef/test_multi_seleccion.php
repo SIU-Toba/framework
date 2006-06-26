@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/componentes/runtime/interface/efs/ef_multi_seleccion.php');
+require_once('nucleo/componentes/interface/efs/ef_multi_seleccion.php');
 
 class test_multi_seleccion extends test_toba
 /*

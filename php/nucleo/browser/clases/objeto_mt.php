@@ -1,3 +1,3 @@
 <?
-require_once('nucleo/componentes/runtime/transversales/objeto_mt.php');
+require_once('nucleo/componentes/transversales/objeto_mt.php');
 ?>

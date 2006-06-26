@@ -1,6 +1,6 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
-require_once('nucleo/componentes/info/info_ci.php');
+require_once('modelo/componentes/info_ci.php');
 
 class ci_editor extends ci_editores_toba
 {

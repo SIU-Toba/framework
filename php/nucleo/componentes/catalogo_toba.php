@@ -45,7 +45,6 @@ class catalogo_toba
 	
 	static function get_nombre_clase_definicion( $tipo )
 	{
-		require_once('nucleo/componentes/definicion/componente_' .$tipo. '.php');
 		return 'componente_'. $tipo;
 	}
 
@@ -61,7 +60,7 @@ class catalogo_toba
 	{
 		$clase_definicion = self::get_nombre_clase_definicion( $tipo );
 		$nombre = call_user_func( array( $clase_definicion, 'get_nombre_clase_info') );
-		require_once('nucleo/componentes/info/' .$nombre. '.php');
+		require_once('modelo/componentes/' .$nombre. '.php');
 		return $nombre;
 	}
 

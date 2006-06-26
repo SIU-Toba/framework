@@ -24,7 +24,7 @@ class ci_login extends objeto_ci
 	function evt__post_recuperar_interaccion()
 	{
 		//ei_arbol( $this->datos );
-		if ( false || ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) ) {
+		if ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) {
 			try {
 				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
 				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);

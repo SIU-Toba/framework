@@ -3,7 +3,7 @@
 //----------------------------------------------------------------
 require_once('catalogos/ci_catalogo.php'); 
 require_once('modelo/lib/catalogo_objetos.php');
-require_once('nucleo/componentes/info/info_componente.php');
+require_once('modelo/componentes/info_componente.php');
 
 class ci_catalogo_objetos extends ci_catalogo
 {

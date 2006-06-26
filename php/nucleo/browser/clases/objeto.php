@@ -1,3 +1,3 @@
 <?
-require_once('nucleo/componentes/runtime/objeto.php');
+require_once('nucleo/componentes/objeto.php');
 ?>
