@@ -805,7 +805,7 @@ class ef_combo_db extends ef_combo
 	function ef_combo_db($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if(!($this->plantilla_sql = stripslashes($parametros["sql"]) )){
-			monitor::evento("bug","COMBO DB: SQL Vacio.");
+			throw new excepcion_toba("COMBO DB: SQL Vacio.");
 		}
 		$this->sql = $this->plantilla_sql;
         if((isset($parametros["fuente"]))&&(trim($parametros["fuente"])!="")){

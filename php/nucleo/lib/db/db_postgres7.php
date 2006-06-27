@@ -34,7 +34,7 @@ class db_postgres7 extends db
 				ORDER BY 1;";
 		$rs =& $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (columnas)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (columnas)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$metadatos['columnas'] = array();
@@ -47,7 +47,7 @@ class db_postgres7 extends db
 								WHERE relname = '$tabla');";
 		$rs = $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (constraints)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (constraints)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$metadatos['constraints'] = array();
@@ -74,7 +74,7 @@ class db_postgres7 extends db
 		//echo $sql;
 		$rs = $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$tablas = array();

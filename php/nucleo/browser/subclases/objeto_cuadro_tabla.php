@@ -85,11 +85,11 @@ class objeto_cuadro_tabla extends objeto_cuadro
                $rs = $db["instancia"][apex_db_con]->Execute($definicion[$parte]["sql"]);
 				
    				if((!$rs)){
-   					monitor::evento("bug","Error cargando la DEFINICION del OBJETO [objeto: $parte] Error cargando la definicion del OBJETO '{$this->id[0]}, {$this->id[1]}'. ".$db["instancia"][apex_db_con]->ErrorMsg());
+					throw new excepcion_toba("Error cargando la DEFINICION del OBJETO [objeto: $parte] Error cargando la definicion del OBJETO '{$this->id[0]}, {$this->id[1]}'. ".$db["instancia"][apex_db_con]->ErrorMsg());
    				}
    				if($rs->EOF){
    					if($definicion[$parte]["estricto"]=="1"){
-   						monitor::evento("bug","Error cargando la DEFINICION del OBJETO [objeto:$parte] '{$this->id[0]},{$this->id[1]}'. No hay registros.");
+						throw new excepcion_toba("Error cargando la DEFINICION del OBJETO [objeto:$parte] '{$this->id[0]},{$this->id[1]}'. No hay registros.");
    					}else{
    						//El parametro no es estricto, lo inicializo como ARRAY vacio
    						$this->$parte = array();

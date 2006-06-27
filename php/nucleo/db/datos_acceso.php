@@ -190,11 +190,23 @@ class datos_acceso
 				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
 		self::get_db("instancia")->ejecutar($sql);
 	}
-	
+
 	static function registrar_solicitud_observaciones( $id, $tipo, $observacion )
 	{
 		$sql = "INSERT	INTO apex_solicitud_observacion (solicitud,solicitud_obs_tipo_proyecto,solicitud_obs_tipo,observacion) 
 				VALUES ('$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
+		self::get_db("instancia")->ejecutar($sql);
+	}
+
+	static function registrar_solicitud_browser($id, $sesion, $ip)
+	{
+		$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip) VALUES ('$id','$sesion','$ip');";
+		self::get_db("instancia")->ejecutar($sql);
+	}
+
+	static function registrar_solicitud_consola($id, $usuario, $llamada)
+	{
+		$sql = "INSERT INTO apex_solicitud_consola (solicitud_consola, usuario, llamada) VALUES ('$id','$usuario','$llamada');";
 		self::get_db("instancia")->ejecutar($sql);
 	}
 

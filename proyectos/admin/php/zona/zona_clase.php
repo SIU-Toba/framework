@@ -35,7 +35,7 @@ class zona_clase extends zona
 					AND		clase='{$clave[1]}';";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","ZONA-CLASE: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("ZONA-CLASE: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-CLASE: El editable solicitado no existe","info");

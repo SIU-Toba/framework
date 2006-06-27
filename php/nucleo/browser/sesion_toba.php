@@ -173,6 +173,11 @@ class sesion_toba
 		
 	}
 
+	function get_id()
+	{
+		return $_SESSION['toba']['id'];
+	}
+
 	//---------------------------------------------------------------
 	//	Controles extendidos aplicables al usuario
 	//---------------------------------------------------------------

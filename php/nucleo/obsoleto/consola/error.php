@@ -9,7 +9,7 @@
 		if ($tipo == E_WARNING)
 		{
 			if(strstr($mensaje,"cargar_php_include")){
-				monitor::evento("bug","ERROR HANDLER: No es posible cargar el ejecutable: 
+				throw new excepcion_toba("ERROR HANDLER: No es posible cargar el ejecutable: 
 								<b>{$solicitud->ejecutable['nombre']}</b> 
 								porque el archivo <b>{$solicitud->ejecutable['referencia']}</b>
 								NO EXISTE!

@@ -51,10 +51,10 @@ class objeto_mt_me extends objeto_mt
 				AND	objeto_mt_me='".$this->id[1]."';";
 		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","OBJETO MT ME: No	se	genero el recordset.	id[".	$this->id[0].",".	$this->id[1] ."] clase[". $this->info["clase"] ."]	--	" . $db["instancia"][apex_db_con]->ErrorMsg()."	--	SQL: $sql -- ");
+			throw new excepcion_toba("OBJETO MT ME: No	se	genero el recordset.	id[".	$this->id[0].",".	$this->id[1] ."] clase[". $this->info["clase"] ."]	--	" . $db["instancia"][apex_db_con]->ErrorMsg()."	--	SQL: $sql -- ");
 		}
 		if($rs->EOF){
-			monitor::evento("bug","OBJETO	MT ME: El	objeto solicitado	NO	EXISTE. id[". $this->id[0].",". $this->id[1]	."] clase[". $this->info["clase"] ."]");
+			throw new excepcion_toba("OBJETO	MT ME: El	objeto solicitado	NO	EXISTE. id[". $this->id[0].",". $this->id[1]	."] clase[". $this->info["clase"] ."]");
 		}
 		$temp	= $rs->getArray();
 		$this->info_mt_me = $temp[0];
@@ -69,10 +69,10 @@ class objeto_mt_me extends objeto_mt
 				ORDER	BY	posicion;";
 		$rs =	$db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","OBJETO	 MT ME - Etapa:	No	se	genero el recordset.	id[".	$this->id[0].",".	$this->id[1] ."] clase[". $this->info["clase"] ."]. -- <b>"	. $db["instancia"][apex_db_con]->ErrorMsg().	" </b> -- SQL:	$sql --");
+			throw new excepcion_toba("OBJETO	 MT ME - Etapa:	No	se	genero el recordset.	id[".	$this->id[0].",".	$this->id[1] ."] clase[". $this->info["clase"] ."]. -- <b>"	. $db["instancia"][apex_db_con]->ErrorMsg().	" </b> -- SQL:	$sql --");
 		}
 		if($rs->EOF){
-			monitor::evento("bug","OBJETO	 MT ME - Etapa:	No	hay informacion sobre elementos de formulario en: id[". $this->id[0].",". $this->id[1]	."] clase[". $this->info["clase"] ."]");
+			throw new excepcion_toba("OBJETO	 MT ME - Etapa:	No	hay informacion sobre elementos de formulario en: id[". $this->id[0].",". $this->id[1]	."] clase[". $this->info["clase"] ."]");
 		}
 		$this->info_mt_me_etapa = $rs->getArray();
 		$this->clave_actual = null;

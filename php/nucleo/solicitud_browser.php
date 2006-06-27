@@ -34,7 +34,7 @@ class solicitud_browser extends solicitud
 		
 		//El elemento de item tiene que ser de tipo browser!
 		if($this->tipo_solicitud!=$this->info['basica']['item_solic_tipo']) {
-			monitor::evento("falta","SOLICITUD BROWSER: El ITEM de item no es de tipo: BROWSER.");
+			throw new excepcion_toba("SOLICITUD BROWSER: El ITEM de item no es de tipo: BROWSER.");
 		}
 		//Creo la ZONA
 		if(trim($this->info['basica']['item_zona'])!=""){
@@ -109,14 +109,9 @@ class solicitud_browser extends solicitud
 
 	function registrar( )
 	{
-		global $db;
-		parent::registrar( $this->hilo->obtener_proyecto() );
+		parent::registrar();
 		if($this->registrar_db){
-			$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip)
-					VALUES ('$this->id','".$_SESSION["toba"]["id"]."','".$_SERVER["REMOTE_ADDR"]."');";
-			if ($db["instancia"][apex_db_con]->Execute($sql) === false){
-				monitor::evento("bug","SOLICITUD BROWSER: No se pudo registrar la solicitud: " .$db["instancia"][apex_db_con]->ErrorMsg());
-			}
+			datos_acceso::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
 		}
  	}
 }

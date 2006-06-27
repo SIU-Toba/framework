@@ -326,9 +326,7 @@ class solicitud_web extends solicitud
 	{
 		parent::registrar( toba::get_hilo()->obtener_proyecto() );
 		if($this->registrar_db){
-			$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip)
-					VALUES ('$this->id','".$_SESSION["toba"]["id"]."','".$_SERVER["REMOTE_ADDR"]."');";
-			toba::get_db('instancia')->ejecutar($sql);
+			datos_acceso::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
 		}
  	}
 }

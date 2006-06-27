@@ -140,13 +140,9 @@ class solicitud_consola extends solicitud
 		}else{
 			$str_llamada = "";
 		}
-		parent::registrar( $this->item[0] );
+		parent::registrar();
 		if($this->registrar_db){
-			$sql = "INSERT INTO apex_solicitud_consola (solicitud_consola, usuario, llamada)
-					VALUES ('$this->id','".$this->usuario."','$str_llamada');";
-			if ($db["instancia"][apex_db_con]->Execute($sql) === false){
-				monitor::evento("bug","SOLICITUD CONSOLA: No se pudo registrar la solicitud: " .$db["instancia"][apex_db_con]->ErrorMsg());
-			}
+			datos_acceso::registrar_solicitud_consola($this->id, $this->usuario, $str_llamada);
 		}
 	}
 }

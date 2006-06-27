@@ -36,7 +36,7 @@ class zona_grupo_acceso extends zona
 		//echo $sql;
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","ZONA - GRUPO ACCESO: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("ZONA - GRUPO ACCESO: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA - GRUPO ACCESO: El editable solicitado no existe","info");

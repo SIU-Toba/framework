@@ -141,7 +141,7 @@ class zona_item extends zona
 					ORDER BY 4,5,6;";
 			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 			if(!$rs){
-				monitor::evento("bug","BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+				throw new excepcion_toba("BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			}
 			if(!$rs->EOF){
 				echo "<table class='tabla-0'>";

@@ -180,7 +180,7 @@ class fuente_datos_postgres7 extends fuente_datos
 				ORDER BY 1;";
 		$rs =& $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (columnas)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (columnas)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$metadatos['columnas'] = array();
@@ -193,7 +193,7 @@ class fuente_datos_postgres7 extends fuente_datos
 								WHERE relname = '$tabla');";
 		$rs = $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (constraints)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (constraints)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$metadatos['constraints'] = array();
@@ -220,7 +220,7 @@ class fuente_datos_postgres7 extends fuente_datos
 		//echo $sql;
 		$rs = $this->conexion->Execute($sql);
 		if((!$rs)){
-			monitor::evento("bug", "Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
+			throw new excepcion_toba("Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
 		}
 		if($rs->EOF){
 			$tablas = array();

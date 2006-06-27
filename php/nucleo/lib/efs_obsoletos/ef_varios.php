@@ -794,7 +794,7 @@ class ef_ini_cheq extends ef
          }
          $rs = $db[$this->fuente][apex_db_con]->Execute($this->sql);
          if(!$rs){
-             monitor::evento("bug", "No se genero el recordset. " . $db[$this->fuente][apex_db_con]->ErrorMsg() . " -- SQL: $this->sql -- ");
+			throw new excepcion_toba("No se genero el recordset. " . $db[$this->fuente][apex_db_con]->ErrorMsg() . " -- SQL: $this->sql -- ");
          }
          if($rs->EOF){
              echo ei_mensaje("EF etiquetado '$etiqueta'<br> No se obtuvieron registros: " . $this->sql);

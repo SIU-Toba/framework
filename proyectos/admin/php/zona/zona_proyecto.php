@@ -32,7 +32,7 @@ class zona_proyecto extends zona
 					WHERE	proyecto='{$clave[0]}'";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","ZONA-PROYECTO: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("ZONA-PROYECTO: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-PROYECTO: El editable solicitado no existe","info");

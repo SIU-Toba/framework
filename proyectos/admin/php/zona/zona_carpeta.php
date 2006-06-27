@@ -35,7 +35,7 @@ class zona_carpeta extends zona
 					AND		item='{$clave[1]}';";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","ZONA-ITEM: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("ZONA-ITEM: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-ITEM: El editable solicitado no existe","info");

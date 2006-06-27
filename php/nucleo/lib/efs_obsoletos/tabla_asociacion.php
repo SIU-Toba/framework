@@ -157,10 +157,10 @@ class tabla_asociacion
         $sql = $this->generar_sql_interface();
         $rs = $db[$this->fuente][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","OBJETO TABLA ASOCIACION: No se genero el recordset. -- " . $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ");
+			throw new excepcion_toba("OBJETO TABLA ASOCIACION: No se genero el recordset. -- " . $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ");
 		}
 		if($rs->EOF){
-			monitor::evento("bug","RECORDSET VACIO. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ");
+			throw new excepcion_toba("RECORDSET VACIO. ". $db[$this->fuente][apex_db_con]->ErrorMsg()." -- SQL: $sql -- ");
 		}
 		//Construyo la interface
 		//-[1]- Funcion para marcar y desmarcar todos.

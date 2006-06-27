@@ -286,10 +286,10 @@ class objeto_filtro extends objeto
 			//dump_SQL($sql);
 			$rs = $db["instancia"][apex_db_con]->Execute($sql);
 			if(!$rs){
-				monitor::evento("bug","OBJETO FILTRO (Acoplar dimensiones): No se genero el recordset. id[". ($this->id) ."] clase[". $this->info["clase"] ."]. -- <b>" . $db["instancia"][apex_db_con]->ErrorMsg(). " </b> -- SQL: $sql --");
+				throw new excepcion_toba("OBJETO FILTRO (Acoplar dimensiones): No se genero el recordset. id[". ($this->id) ."] clase[". $this->info["clase"] ."]. -- <b>" . $db["instancia"][apex_db_con]->ErrorMsg(). " </b> -- SQL: $sql --");
 			}
 			if($rs->EOF){
-				monitor::evento("bug","OBJETO FILTRO (Acoplar dimensiones): No es posible acceder a las dimensiones (EOF)");
+				throw new excepcion_toba("OBJETO FILTRO (Acoplar dimensiones): No es posible acceder a las dimensiones (EOF)");
 			}
 			$definiciones = $rs->getArray();
 	

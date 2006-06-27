@@ -2,7 +2,6 @@
 //require_once('nucleo/browser/clases/interfaces.php');
 require_once('nucleo/lib/error.php');	    				//Error Handling
 require_once('nucleo/lib/cronometro.php');          		//Cronometrar ejecucion
-require_once('nucleo/lib/monitor.php');	   					//Monitoreo general
 require_once('nucleo/lib/db.php');		    				//Manejo de bases (utiliza abodb340)
 require_once('nucleo/lib/encriptador.php');					//Encriptador
 require_once('nucleo/lib/varios.php');						//Funciones genericas (Manejo de paths, etc.)

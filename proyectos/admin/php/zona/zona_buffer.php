@@ -35,7 +35,7 @@ class zona_buffer extends zona
 					AND		buffer ='{$clave[1]}';";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			monitor::evento("bug","ZONA-CLASE: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new excepcion_toba("ZONA-CLASE: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-CLASE: El editable solicitado no existe","info");
@@ -81,7 +81,7 @@ class zona_buffer extends zona
 					ORDER BY 2;";
 			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 			if(!$rs){
-				monitor::evento("bug","BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+				throw new excepcion_toba("BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			}
 			if(!$rs->EOF){
 				echo "<table class='tabla-0' width='400'>";

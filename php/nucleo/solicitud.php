@@ -236,7 +236,7 @@ class solicitud
 //**********************************<	AUDITORIA Y	LOG	>***********************************
 //*******************************************************************************************
 
-	function registrar($proyecto)	
+	function registrar()	
 	{
 		if($this->registrar_db) {
 			toba::get_cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
