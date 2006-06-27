@@ -42,19 +42,19 @@ class solicitud_web extends solicitud
 	function procesar()
 	{	
 		try {
-	/*
-		NOTA: esto hay que arreglarlo: esta cambiado porque no se lleva bien con el TRAP
-			$this->pre_proceso_servicio();
+			$redirecciona = ($this->info['basica']['redirecciona']);
+			// Si la pagina redirecciona, no mando los pre_servicios ahora
+			if (!$redirecciona) {
+				$this->pre_proceso_servicio();
+			}
 			$this->crear_zona();
 			$this->cargar_objetos();
 			$this->procesar_eventos();
+			if ($redirecciona) {
+				$this->pre_proceso_servicio();
+			}
 			$this->procesar_servicios();
-	*/
-			$this->crear_zona();
-			$this->cargar_objetos();
-			$this->procesar_eventos();
-			$this->pre_proceso_servicio();
-			$this->procesar_servicios();
+
 		} catch( excepcion_reset_nucleo $e ) {
 			// Recarga del nucleo
 			throw $e;

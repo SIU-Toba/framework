@@ -69,6 +69,10 @@ class nucleo_toba
 				$this->solicitud_en_proceso = true;
 				$this->solicitud->procesar();
 			} catch( excepcion_reset_nucleo $e ) {
+				//El item puede redireccionar?
+				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
+					throw new excepcion_toba('ERROR: El item no esta habilitado para provocar redirecciones.');
+				}
 				//TRAP para forzar la recarga de solicitud
 				$this->solicitud_en_proceso = false;
 				toba::get_hilo()->limpiar_memoria();
@@ -105,8 +109,8 @@ class nucleo_toba
 			$item = $this->get_id_item('item_pre_sesion');
 			$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
-				// Si se arrastra una URL previa despues de finalizar la sesion y se refresca
-				// la pagina, el nucleo trata de cargar un item explicito por URL. El mismo no va a ser publico...
+				// Si se arrastra una URL previa despues de finalizar la sesion y se refresca la pagina
+				// el nucleo trata de cargar un item explicito por URL. El mismo no va a ser publico...
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
 				if ( toba::get_hilo()->obtener_item_solicitado() ) {

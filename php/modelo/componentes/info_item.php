@@ -78,6 +78,8 @@ class info_item implements recorrible_como_arbol
 	
 	function es_publico() { return $this->datos['basica']['publico']; } 
 
+	function puede_redireccionar() { return $this->datos['basica']['redirecciona']; } 
+
 	function tipo_solicitud() { return $this->datos['basica']['solicitud_tipo']; }
 	
 	function vinculo_editor()
@@ -292,6 +294,12 @@ class info_item implements recorrible_como_arbol
 				$iconos[] = array(
 					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
 					'ayuda'=> "ITEM público"
+				);				
+			}
+			if($this->puede_redireccionar()){
+				$iconos[] = array(
+					'imagen' => recurso::imagen_apl("refrescar.gif", false),
+					'ayuda'=> "ITEM puede redireccionar."
 				);				
 			}
 			if($this->registra_solicitud() == 1){

@@ -781,6 +781,7 @@ CREATE TABLE apex_item
 	parametro_b						varchar(100)	NULL,
 	parametro_c						varchar(100)	NULL,
 	publico							smallint		NULL,
+	redirecciona					smallint		NULL,
 	usuario							varchar(20)		NULL,
 	creacion						timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("proyecto","item"),

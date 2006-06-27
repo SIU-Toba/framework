@@ -51,6 +51,7 @@ class componente_item implements definicion_toba
 						i.menu as								menu,
 						i.orden as								orden,
 						i.publico as							publico,
+						i.redirecciona as						redirecciona,
 						i.solicitud_registrar_cron as			crono,
 						i.solicitud_tipo as						solicitud_tipo,
 						i.padre	as 								item_padre,
