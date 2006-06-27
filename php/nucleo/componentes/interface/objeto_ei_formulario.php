@@ -50,6 +50,13 @@ class objeto_ei_formulario extends objeto_ei
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);
 	}
 
+	function destruir()
+	{
+		//Memorizo la lista de efs enviados
+		$this->memoria['lista_efs'] = $this->lista_ef_post;
+		parent::destruir();
+	}
+	
 	function inicializar($parametros)
 	{
 		$this->parametros = $parametros;
@@ -63,7 +70,7 @@ class objeto_ei_formulario extends objeto_ei
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();
 		//Cargo IDs en el CLIENTE
-		foreach ($this->lista_ef_post	as	$ef){
+		foreach ($this->lista_ef_post as $ef) {
 			$this->nombre_ef_cli[$ef] = $this->elemento_formulario[$ef]->get_id_form();
 		}
 		//Registar esclavos en los maestro
@@ -74,19 +81,21 @@ class objeto_ei_formulario extends objeto_ei
 	
 	protected function crear_elementos_formulario()
 	{
+		$this->lista_ef = array();
 		for($a=0;$a<count($this->info_formulario_ef);$a++)
 		{
 			//-[1]- Armo las listas	que determinan	el	plan de accion	del ABM
-			$this->lista_ef[]	= $this->info_formulario_ef[$a]["identificador"];
+			$id_ef = $this->info_formulario_ef[$a]["identificador"];
+			$this->lista_ef[]	= $id_ef;
 			switch ($this->info_formulario_ef[$a]["elemento_formulario"]) {
 				case	"ef_oculto":
 				case	"ef_oculto_secuencia":
 				case	"ef_oculto_proyecto":
 				case	"ef_oculto_usuario":
-					$this->lista_ef_ocultos[] = $this->info_formulario_ef[$a]["identificador"];
+					$this->lista_ef_ocultos[] = $id_ef;
 					break;
 				default:
-					  $this->lista_ef_post[] =	$this->info_formulario_ef[$a]["identificador"];
+					$this->lista_ef_post[] = $id_ef;
 			}
 			$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"], '_');
 			if(isset($parametros["sql"]) && !isset($parametros["fuente"])){
@@ -132,8 +141,38 @@ class objeto_ei_formulario extends objeto_ei
 	//--------------------------------	EVENTOS  -----------------------------------
 	//-------------------------------------------------------------------------------
 
+	function pre_eventos()
+	{
+		$this->lista_efs_servicio = $this->lista_ef_post;
+		$this->lista_ef_post = $this->memoria['lista_efs'];	
+		if (isset($this->memoria['efs'])) {
+			foreach (array_keys($this->memoria['efs']) as $id_ef) {
+				if (isset($this->memoria['efs'][$id_ef]['obligatorio'])) {
+					$this->elemento_formulario[$id_ef]->set_obligatorio($this->memoria['efs'][$id_ef]['obligatorio']);
+				}
+			}
+		}
+	}
+
+	function post_eventos()
+	{
+		if (isset($this->memoria['efs'])) {
+			foreach ($this->info_formulario_ef as $def_ef) {
+				$id_ef = $def_ef['identificador'];
+				if (isset($this->memoria['efs'][$id_ef])) {
+					//--- Restaura lo obligatorio
+					$this->elemento_formulario[$id_ef]->set_obligatorio($def_ef['obligatorio']);
+				}
+			}
+			unset($this->memoria['efs']);
+		}
+		$this->limpiar_interface();	
+		$this->lista_ef_post = $this->lista_efs_servicio;
+	}	
+	
 	function disparar_eventos()
 	{
+		$this->pre_eventos();
 		$this->recuperar_interaccion();
 		$datos = $this->get_datos();
 		$validado = false;
@@ -157,12 +196,8 @@ class objeto_ei_formulario extends objeto_ei
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
-		$this->limpiar_interface();
+		$this->post_eventos();
 	}
-
-	//-------------------------------------------------------------------------------
-	//--------------------------------	PROCESOS  -----------------------------------
-	//-------------------------------------------------------------------------------
 
 	function recuperar_interaccion()
 	{
@@ -174,12 +209,12 @@ class objeto_ei_formulario extends objeto_ei
 	function validar_estado()
 	{
 		//Valida el	estado de los ELEMENTOS	de	FORMULARIO
-		foreach ($this->lista_ef as $ef) {
+		foreach ($this->lista_ef_post as $ef) {
 			$validacion = $this->elemento_formulario[$ef]->validar_estado();
 			if ($validacion !== true) {
 				$this->efs_invalidos[$ef] = $validacion;
 				$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
-				throw new excepcion_toba($etiqueta.': '.$validacion);
+				throw new excepcion_toba_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 			}
 		}
 	}
@@ -247,7 +282,7 @@ class objeto_ei_formulario extends objeto_ei
 		if (! is_array($efs)) {
 			$efs = array($efs);	
 		}
-		foreach ($efs as $ef){
+		foreach ($efs as $ef) {
 			if(isset($this->elemento_formulario[$ef])){
 				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
@@ -257,22 +292,24 @@ class objeto_ei_formulario extends objeto_ei
 	}
 
 	/**
-	 * Establece que un conjunto de efs serán o no obligatorios durante una interacción
+	 * Establece que un conjunto de efs serán o no obligatorios
+	 * Este estado perdura durante una interaccion
 	 *
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
 	 * @param boolean $obligatorios ¿Hacer obligatorio? (true por defecto)
 	 */
 	function set_efs_obligatorios($efs=null, $obligatorios=true) {
-		if(!isset($efs)){
+		if (!isset($efs)) {
 			$efs = $this->lista_ef_post;
 		}
 		if (! is_array($efs)) {
 			$efs = array($efs);	
 		}
-		foreach ($efs as $ef){
-			if(isset($this->elemento_formulario[$ef])){
-				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);						
-			}else{
+		foreach ($efs as $ef) {
+			if (isset($this->elemento_formulario[$ef])) {
+				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);
+				$this->memoria['efs'][$ef]['obligatorio'] = $obligatorios;
+			} else {
 				throw new excepcion_toba("El ef '$ef' no existe");
 			}
 		}
@@ -280,24 +317,31 @@ class objeto_ei_formulario extends objeto_ei
 	
 	/**
 	 * Establece que un conjunto de efs NO seran enviados al cliente durante una interacción
-	 *
+	 * 
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
-	 * @param boolean $desactivar ¿Desactivarlos? (true por defecto)
 	 */
-	function desactivar_efs($efs=null, $desactivar=true)
+	function desactivar_efs($efs=null)
 	{
 		if(!isset($efs)){
 			$efs = $this->lista_ef_post;
 		}
 		if (! is_array($efs)) {
-			$efs = array($efs);	
+			$efs = array($efs);
 		}
-		
+		foreach ($efs as $ef) {
+			$this->memoria['efs'][$ef]['desactivado'] = true;
+			$pos = array_search($ef, $this->lista_ef_post);
+			if ($pos !== false) {
+				array_splice($this->lista_ef_post, $pos, 1);
+			} else {
+				throw new excepcion_toba("No se puede desactivar el ef $ef ya que no se encuentra en la lista de efs activos");
+			}
+		}
 	}
 	
 	function cargar_estado_ef($array_ef)
 	{
-		if(is_array($array_ef)){
+		if (is_array($array_ef)){
 			foreach($array_ef	as	$ef => $valor){
 				if(isset($this->elemento_formulario[$ef])){
 					$this->elemento_formulario[$ef]->set_estado($valor);
@@ -606,7 +650,7 @@ class objeto_ei_formulario extends objeto_ei
 	{
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
-		$this->cargar_valores_efs();		
+		$this->cargar_valores_efs();
 		//Genero la interface
 		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
@@ -752,6 +796,7 @@ class objeto_ei_formulario extends objeto_ei
 		
 	function vista_impresion_html( $salida )
 	{
+
 		$this->cargar_valores_efs();		
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";

@@ -34,15 +34,18 @@ def.constructor = ef_checkbox;
 	}
 	
 	def.chequeado = function() {
-		if (!this.input())	//En caso de setearse solo lectura en el server no hay input
-			return false;
-		return this.input().checked;
+		var input = this.input();
+		if (input.type == 'hidden') {
+			//Caso particular del solo-lectura en server
+			var chequeado = input.value;
+		} else {
+			var chequeado = input.checked;
+		}			
+		return chequeado;
 	}	
 	
 	def.activo = function() {
-		if (!this.input())
-			return false;
-		return !(this.input().disabled);
+		return this.input().type !='hidden' && !(this.input().disabled);
 	}	
 	
 toba.confirmar_inclusion('interface/ef_checkbox');

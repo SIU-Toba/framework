@@ -109,7 +109,7 @@ class info_ci extends info_ei
 			case 'proceso':
 				$evento[0]['identificador'] = "procesar";
 				$evento[0]['etiqueta'] = "&Guardar";
-				$evento[0]['imagen_recurso'] = 'apex';
+				$evento[0]['imagen_recurso_origen'] = 'apex';
 				$evento[0]['imagen'] = 'guardar.gif';
 				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['orden'] = 0;

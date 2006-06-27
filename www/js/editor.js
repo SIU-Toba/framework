@@ -20,6 +20,7 @@ var editor =
 					+ this._parametros['proyecto'] + window.toba_hilo_separador + item;
 			// Celda de memoria
 			url = url + '&' + apex_hilo_qs_celda_memoria + '=previsualizacion';
+			url = url + '&' + toba_hilo_qs_menu  + "=1";
 			//alert(url);
 			abrir_popup('previsualizacion',url, {'scrollbars' : '1'}, null, false);
 		}

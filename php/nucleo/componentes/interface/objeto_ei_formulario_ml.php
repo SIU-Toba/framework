@@ -233,13 +233,13 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		//ver las modificaciones hechas, sería deseable poder verlos.
 		foreach ($this->datos as $id_fila => $datos_registro) {
 			$this->cargar_registro_a_ef($id_fila, $datos_registro);
-			foreach ($this->lista_ef as $ef){
+			foreach ($this->lista_ef_post as $ef){
 				$this->elemento_formulario[$ef]->ir_a_fila($id_fila);
 				$validacion = $this->elemento_formulario[$ef]->validar_estado();
 				if ($validacion !== true) {
 					$this->efs_invalidos[$id_fila][$ef] = $validacion;
 					$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
-					throw new excepcion_toba($etiqueta.': '.$validacion);
+					throw new excepcion_toba_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 				}
 			}
 		}

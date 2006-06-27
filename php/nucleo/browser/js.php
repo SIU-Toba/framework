@@ -117,6 +117,7 @@ class js
 						echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 						echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 						echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
+						echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 						echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 						echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
 						echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";

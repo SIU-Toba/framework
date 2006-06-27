@@ -40,6 +40,23 @@ class excepcion_toba_login extends excepcion_toba
 
 }
 
+
+class excepcion_toba_validacion extends excepcion_toba 
+{
+	protected $causante;
+	
+	function __construct($mensaje, $causante=null)
+	{
+		$this->causante = $causante;
+		parent::__construct($mensaje);
+	}	
+	
+	function get_causante()
+	{
+		return $this->causante;	
+	}
+}
+
 /**
  * Excepción para recargar una solicitud
  */
