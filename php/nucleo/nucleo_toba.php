@@ -17,7 +17,6 @@ require_once('nucleo/browser/recurso.php');					//Obtencion de imágenes de la ap
 require_once('nucleo/componentes/constructor_toba.php');	//Constructor de componentes
 require_once('nucleo/componentes/cargador_toba.php');		//Cargador de componentes
 require_once('nucleo/componentes/catalogo_toba.php');		//Catalogo de componentes
-require_once("nucleo/componentes/definicion_db.php");
 require_once('nucleo/info_instalacion.php');				//Informacion sobre la instalacion
 require_once('nucleo/info_proyecto.php');	   				//Informacion sobre el proyecto
 require_once('nucleo/browser/usuario_toba.php');	  		//Informacion sobre el usuario

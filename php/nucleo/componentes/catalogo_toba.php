@@ -45,6 +45,7 @@ class catalogo_toba
 	
 	static function get_nombre_clase_definicion( $tipo )
 	{
+		require_once('nucleo/componentes/definicion/componente_' .$tipo. '.php');
 		return 'componente_'. $tipo;
 	}
 
