@@ -21,6 +21,16 @@ class form_solo_lectura extends objeto_ei_formulario
 				*/
 				return false;
 			}
+			
+			{$this->objeto_js}.evt__checkbox__procesar = function(inicial) {
+				if (this.ef('checkbox').input().type == 'hidden') {
+					//Caso particular del solo-lectura en server
+					var chequeado = this.ef('checkbox').input().value;
+				} else {
+					var chequeado = this.ef('checkbox').chequeado();
+				}
+				alert(chequeado);
+			}
 		";
 
 	}

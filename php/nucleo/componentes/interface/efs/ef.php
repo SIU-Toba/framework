@@ -141,7 +141,7 @@ abstract class ef
 		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
 		$parametros["fuente"]["opcional"]=1;	
 		$parametros["fuente"]["etiqueta"]="SQL: fuente";
-		$parametros["columna_proyecto"]["descripcion"]= "Columna de la tabla que representa el proyecto";
+/*		$parametros["columna_proyecto"]["descripcion"]= "Columna de la tabla que representa el proyecto";
 		$parametros["columna_proyecto"]["opcional"]=0;	
 		$parametros["columna_proyecto"]["etiqueta"]= "Columna del proyecto";
 		$parametros["columna_clave"]["etiqueta"]="SQL: Columna clave a filtrar";
@@ -149,7 +149,7 @@ abstract class ef
 		$parametros["columna_clave"]["opcional"]=1;			
 		$parametros["incluir_toba"]["descripcion"]= "¿Hay que listar a toba entre los proyectos?";
 		$parametros["incluir_toba"]["opcional"]=0;	
-		$parametros["incluir_toba"]["etiqueta"]= "Incluir Toba";
+		$parametros["incluir_toba"]["etiqueta"]= "Incluir Toba";*/
 		$parametros['lista']['descripcion'] = "La clave/valor se separa con el caracter [/] y los pares con el caracter [,]";
 		$parametros['lista']['opcional'] = 0;
 		$parametros['lista']['etiqueta'] = "Lista de valores";	

@@ -182,6 +182,23 @@ class migracion_0_10_0 extends migracion_toba
 		";		
 		$rs = $this->elemento->get_db()->ejecutar($sql);		
 	}
+	
+	/**
+	 * El ef_editable_multilinea pasa a ser ef_editable_textarea
+	 */
+	function proyecto__ef_textarea()
+	{
+		$sql = "
+			UPDATE 
+				apex_objeto_ei_formulario_ef
+			SET
+				elemento_formulario = 'ef_editable_textarea'
+			WHERE 
+				objeto_ei_formulario_proyecto='{$this->elemento->get_id()}' AND
+				elemento_formulario = 'ef_editable_multilinea'
+		";		
+		$rs = $this->elemento->get_db()->ejecutar($sql);		
+	}
 
 }
 ?>

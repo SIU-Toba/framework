@@ -27,9 +27,6 @@ class ef_editable extends ef
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
-		$parametros["estilo"]["descripcion"]="Clase css a aplicar al elemento";
-		$parametros["estilo"]["opcional"]=1;	
-		$parametros["estilo"]["etiqueta"]="Estilo CSS";		
 		return $parametros;
 	}
 
@@ -56,11 +53,6 @@ class ef_editable extends ef
 		if(isset($parametros["mascara"])) {
 			$this->mascara = $parametros["mascara"];		
 		}
-        //Determino la ESTILO
-        if((isset($parametros["estilo"]))&&(trim($parametros["estilo"])!="")){
-            $this->estilo = $parametros["estilo"];
-            unset($parametros["estilo"]);
-    	}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
@@ -428,7 +420,7 @@ class ef_editable_fecha extends ef_editable
 //########################################################################################################
 //########################################################################################################
 
-class ef_editable_multilinea extends ef_editable
+class ef_editable_textarea extends ef_editable
 {
 	protected $lineas;
 	protected $resaltar;
@@ -440,6 +432,9 @@ class ef_editable_multilinea extends ef_editable
 	
 	static function get_parametros()
 	{
+		$parametros = ef::get_parametros_carga();
+		unset($parametros['lista']);
+		
 		$parametros["filas"]["descripcion"]="Cantidad de lineas";
 		$parametros["filas"]["opcional"]=1;	
 		$parametros["filas"]["etiqueta"]="Alto";	
@@ -458,21 +453,6 @@ class ef_editable_multilinea extends ef_editable
 		$parametros["ajustable"]["descripcion"]="El tamaño gráfico es ajustable";
 		$parametros["ajustable"]["opcional"]=1;	
 		$parametros["ajustable"]["etiqueta"]="Ajustable";	
-		$parametros["sql"]["descripcion"]="Cargar el valor en base a una sentencia SQL.";
-		$parametros["sql"]["opcional"]=1;	
-		$parametros["sql"]["etiqueta"]="Carga SQL: select";
-		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["fuente"]["opcional"]=1;	
-		$parametros["fuente"]["etiqueta"]="Carga SQL: fuente";
-		$parametros["dao"]["descripcion"]="Cargar el valor de un metodo.";
-		$parametros["dao"]["opcional"]=1;	
-		$parametros["dao"]["etiqueta"]="Carga Dao: metodo";
-		$parametros["clase"]["descripcion"]="(Util solo si existe [dao]) Nombre de la clase que posee el metodo.";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="Carga Dao: clase";
-		$parametros["include"]["descripcion"]="(Util solo si existe [dao]) Archivo que posee la definicion de la clase.";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="Carga Dao: include";
 		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
 		$parametros["estado"]["opcional"]=1;	
 		$parametros["estado"]["etiqueta"]="Valor defecto";

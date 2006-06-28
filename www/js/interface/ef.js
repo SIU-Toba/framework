@@ -152,8 +152,14 @@ def.constructor = ef;
 		this.nodo().style.display = 'none';	
 	}
 	
-	def.mostrar = function() {
-		this.nodo().style.display = '';	
+	def.mostrar = function(mostrar) {
+		if (typeof mostrar == 'undefined') 
+			mostrar = true;
+		if (mostrar) {
+			this.nodo().style.display = '';	
+		} else {
+			this.ocultar();	
+		}
 	}
 
 	def.set_solo_lectura = function(solo_lectura) {

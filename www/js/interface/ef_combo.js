@@ -39,7 +39,9 @@ def.constructor = ef_combo;
 		if (! ef.prototype.validar.call(this))
 			return false;		
 		var valor = this.valor();
-		if (this._obligatorio && (valor == apex_ef_no_seteado || valor == null)) {
+		if (this._obligatorio && 
+			(valor == apex_ef_no_seteado || this.input().options.length ==0 ||
+				valor == null)) {
 			this._error = 'es obligatorio.';
 		    return false;
 		}

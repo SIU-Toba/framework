@@ -101,7 +101,8 @@ class info_item implements recorrible_como_arbol
 		if( editor::get_proyecto_cargado() == 'admin' ) {
 			$vinculo = toba::get_vinculador()->crear_vinculo($this->get_proyecto(), $this->get_id(), 
 															null, array('celda_memoria'=>'central',
-																		'validar' => false ) );
+																		'validar' => false,
+																		'menu' => true ) );
 		} else {
 			$vinculo = "javascript:top.frame_control.editor.ejecutar_item('".$this->get_id()."');";
 		}

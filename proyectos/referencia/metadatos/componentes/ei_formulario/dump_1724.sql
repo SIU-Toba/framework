@@ -10,6 +10,6 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('referencia', '1724', '4381', 'nombre', 'ef_editable', 'nombre', '1', 'tamano_:_ 40_;_
 maximo_:_ 60_;_
 ', '1', 'Nombre', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('referencia', '1724', '4382', 'descripcion', 'ef_editable_multilinea', 'descripcion', NULL, 'filas_:_ 5_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('referencia', '1724', '4382', 'descripcion', 'ef_editable_textarea', 'descripcion', NULL, 'filas_:_ 5_;_
 columnas_:_ 40_;_
 ', '2', 'Descripcion', NULL, NULL, NULL, NULL, NULL, '0');

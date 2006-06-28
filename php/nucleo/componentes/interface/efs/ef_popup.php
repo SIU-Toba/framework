@@ -46,9 +46,6 @@ class ef_popup extends ef_editable
 
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros)
 	{ 
-        if(isset($parametros["columna_clave"])){
-            $this->columna_clave = $parametros["columna_clave"];
-        }
         if(isset($parametros["ventana"])){
             $this->ventana = trim($parametros["ventana"]);
             unset($parametros['ventana']);

@@ -20,7 +20,7 @@ cant_minima_:_ 3_;_
 cant_maxima_:_ 4_;_', '4', 'Multi selección Doble', NULL, NULL, NULL, NULL, NULL, '0');
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba_testing', '1000020', '1000071', 'radio', 'ef_radio', 'radio', '1', 'lista_:_ a/Valor A, b/Valor B, c/Valor C, d/Valor D_;_
 no_seteado_:_ NINGUNO_;_', '1', 'Radio', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba_testing', '1000020', '1000078', 'multilinea_maximo', 'ef_editable_multilinea', 'multilinea_maximo', '1', 'filas_:_ 5_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('toba_testing', '1000020', '1000078', 'multilinea_maximo', 'ef_editable_textarea', 'multilinea_maximo', '1', 'filas_:_ 5_;_
 columnas_:_ 30_;_
 maximo_:_ 20_;_
 ajustable_:_ 1_;_', '5', 'Multilinea Maximo', NULL, NULL, NULL, NULL, NULL, NULL);

@@ -20,15 +20,7 @@ abstract class ef_seleccion extends ef
 		$parametros["predeterminado"]["descripcion"]="Valor predeterminado, si tiene varias claves separar con barra (/)";
 		$parametros["predeterminado"]["opcional"]=1;	
 		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
-		
-		
-		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";	
-		$parametros["dependencias_opcionales"]["descripcion"]="(1 o 0) Indica si las dependencias deben estar todas con valores para recargar sus valores";
-		$parametros["dependencias_opcionales"]["opcional"]=1;
-		$parametros["dependencias_opcionales"]["etiqueta"]="Dependencias son opcional";		
-		
+/*
 		$parametros["agrupador_dao"]["descripcion"]="Método de donde se obtienen las distintas categorias para agrupar.";
 		$parametros["agrupador_dao"]["opcional"]=0;	
 		$parametros["agrupador_dao"]["etiqueta"]="Agrupador - Método";	
@@ -44,7 +36,7 @@ abstract class ef_seleccion extends ef
 		$parametros["agrupador_clave"]["etiqueta"]="Agrupador - resultado: CLAVE";	
 		$parametros["agrupador_valor"]["descripcion"]="Indica que INDICE de la matriz de grupos se utilizara como DESCRIPCION";
 		$parametros["agrupador_valor"]["opcional"]=0;	
-		$parametros["agrupador_valor"]["etiqueta"]="Agrupador - resultado: DESC.";
+		$parametros["agrupador_valor"]["etiqueta"]="Agrupador - resultado: DESC.";*/
 		return $parametros;
 	}
 

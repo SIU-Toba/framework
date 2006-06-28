@@ -10,7 +10,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 ', '1', 'Parametro', NULL, NULL, NULL, NULL, '4', NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1393', '1255', 'etiqueta', 'ef_fijo', 'etiqueta', NULL, '_;_
 ', '2', 'Parametro', NULL, NULL, NULL, NULL, '4', NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1393', '1256', 'valor', 'ef_editable_multilinea', 'valor', NULL, 'filas_:_ 2_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1393', '1256', 'valor', 'ef_editable_textarea', 'valor', NULL, 'filas_:_ 2_;_
 columnas_:_ 60_;_
 ajustable_:_ 1_;_
 ', '4', 'Valor', NULL, NULL, NULL, NULL, '4', '0');

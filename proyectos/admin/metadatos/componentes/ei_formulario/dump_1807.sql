@@ -10,7 +10,7 @@ maximo_:_ 100_;_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1807', '4558', 'descripcion', 'ef_editable', 'descripcion', NULL, 'tamano_:_ 40_;_
 maximo_:_ 255_;_
 ', '2', 'Descripción', NULL, NULL, NULL, NULL, NULL, '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1807', '4559', 'mensaje_particular', 'ef_editable_multilinea', 'mensaje_particular', NULL, 'filas_:_ 4_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1807', '4559', 'mensaje_particular', 'ef_editable_textarea', 'mensaje_particular', NULL, 'filas_:_ 4_;_
 columnas_:_ 40_;_
 ajustable_:_ 1_;_
 ', '3', 'Mensaje particular', NULL, NULL, NULL, NULL, NULL, '0');
