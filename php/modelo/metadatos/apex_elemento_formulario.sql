@@ -34,11 +34,12 @@ rango: Intervalo de números permitidos. Los corchetes incluyen el límite, los pa
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_multilinea', 'ef_editable', 'Campo editable de N lineas', 'columnas: Cantidad de columnas:opcional;
 filas: Cantidad de filas:opcional;
 resaltar: Incorporar boton de seleccion de texto (setear a 1):opcional;
-wrap: soft | hard | off:opcional;', 'toba', NULL, '0');
+wrap: soft | hard | off:opcional;', 'toba', NULL, '1');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_numero', 'ef_editable', 'Campo de texto editable que solo acepta numeros', 'cifras: Cantidad de cifras del numero:opcional;
 mascara: Formateo del valor (por defecto ###.###,##): opcional;
 rango: Intervalo de números permitidos los corchetes incluyen el límite, los paréntesis no, formato: [-5..*], mensaje de error: opcional;', 'toba', NULL, '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_numero_porcentaje', 'ef_editable_numero', 'Elemento de formulario que permite cargar porcentajes', 'rango: Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..100]: opcional;', 'toba', NULL, '0');
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_textarea', 'ef_editable', 'Campo editable de varias líneas de alto.', NULL, 'toba', NULL, '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_elemento_ini', 'ef', 'Permite elegir un TIPO de elemento de una lista e inicializarlo (con una sintaxis similar a la de CSS)', 'sql: El query tiene que devolver 4 campos o mas (claves, Desc. combo, Descripcion y Parametros):obligatorio;
 claves: Indica la cantidad de claves que hay en el SQL:obligatorio;
 filas: Cantidad de filas en el TEXTAREA de inicializacion:opcional;
