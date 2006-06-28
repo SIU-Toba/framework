@@ -199,6 +199,42 @@ class migracion_0_10_0 extends migracion_toba
 		";		
 		$rs = $this->elemento->get_db()->ejecutar($sql);		
 	}
+	
+	/**
+	 * El editable numero migra su parametro CIFRAS por TAMANO, que es en realidad lo que es!
+	 */
+	function proyecto__parametros_editable_numero()
+	{
+		$sql = "
+			SELECT 
+				objeto_ei_formulario_proyecto,
+				objeto_ei_formulario,
+				objeto_ei_formulario_fila,
+				inicializacion
+			FROM
+				apex_objeto_ei_formulario_ef
+			WHERE 
+					elemento_formulario IN ('ef_editable_numero', 'ef_editable_numero_porcentaje', 'ef_editable_moneda')
+				AND objeto_ei_formulario_proyecto='{$this->elemento->get_id()}'
+		";
+		$rs = $this->elemento->get_db()->consultar($sql);
+		foreach ($rs as $ef) {
+			$param = parsear_propiedades($ef['inicializacion'],'_');
+			if (isset($param['cifras'])) {
+				$param['tamano'] = $param['cifras'];
+				unset($param['cifras']);
+				$prop = addslashes(empaquetar_propiedades($param,'_'));
+				$sql = "
+					UPDATE apex_objeto_ei_formulario_ef SET inicializacion = '$prop'
+					WHERE
+							objeto_ei_formulario_proyecto = '{$ef['objeto_ei_formulario_proyecto']}' 
+						AND	objeto_ei_formulario = '{$ef['objeto_ei_formulario']}'  
+						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
+					";
+				$rs = $this->elemento->get_db()->ejecutar($sql);
+			}
+		}		
+	}
 
 }
 ?>

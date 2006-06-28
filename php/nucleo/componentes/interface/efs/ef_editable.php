@@ -125,6 +125,7 @@ class ef_editable_numero extends ef_editable
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
 	protected $mensaje_defecto;
+	protected $unidad;
 
 	static function get_parametros()
 	{
@@ -135,23 +136,26 @@ class ef_editable_numero extends ef_editable
 		$parametros["maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox incluyendo simbolos de puntuación, comas, decimales, etc. $mas";
 		$parametros["maximo"]["etiqueta"]="Cant. Max. Caract.";
 		$parametros["maximo"]["opcional"]=1;
-		$parametros["cifras"]["descripcion"]="Determina la cantidad de caracteres que son visibles sin scrollear. ".$mas;
-		$parametros["cifras"]["opcional"]=1;	
-		$parametros["cifras"]["etiqueta"]="Tamaño visual";
 		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. ".$mas;
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores permitidos";
 		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00".$mas;
+		$parametros["unidad"]["descripcion"]="Anexa al editable una referencia de la unidad utilizada (por ej. cargos)";
+		$parametros["unidad"]["opcional"]=1;	
+		$parametros["unidad"]["etiqueta"]="Unidad de referencia";		
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-input-numero";
-        $parametros["tamano"] = (isset($parametros["cifras"])) ? $parametros["cifras"] : 5;
-        unset($parametros["cifras"]);
+        $parametros["tamano"] = (isset($parametros["tamano"])) ? $parametros["tamano"] : 5;
 		if (isset($parametros['rango'])) {
 			$this->cambiar_rango($parametros['rango']);
+		}
+		if (isset($parametros['unidad'])) {
+			$this->unidad = $parametros['unidad'];
+			unset($parametros['unidad']);	
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -231,6 +235,15 @@ class ef_editable_numero extends ef_editable
 		return true;
 	}
 	
+	function get_input()
+	{
+		$input = parent::get_input();
+		if (isset($this->unidad)) {
+			$input .= ' '. $this->unidad;
+		}
+		return $input;
+	}		
+	
 	function parametros_js()
 	{
 		$inferior = "new Array('{$this->rango_inferior['limite']}', {$this->rango_inferior['incluido']})";
@@ -284,13 +297,9 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 		if (! isset($parametros["cifras"]))
 			$parametros["cifras"]= 4;
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		$this->unidad = '%';
 	}
 
-	function get_input()
-	{
-		return parent::get_input()." %";
-	}	
-	
 	function crear_objeto_js()
 	{
 		return "new ef_editable_porcentaje({$this->parametros_js()})";
