@@ -12,6 +12,6 @@ valor_info_:_ SI_;_
 javascript_:_ onclick, sumarizar(this.form)_;_
 valor_no_seteado_:_ 0_;_
 ', '3', 'A', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '703', '1141', 'valor', 'ef_editable_numero', 'valor', NULL, 'cifras_:_ 10_;_
-solo_lectura_:_ 1_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '703', '1141', 'valor', 'ef_editable_numero', 'valor', NULL, 'solo_lectura_:_ 1_;_
+tamano_:_ 10_;_
 ', '2', 'Valor', NULL, NULL, NULL, NULL, NULL, '1');

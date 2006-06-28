@@ -8,7 +8,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1398', '1264', 'columna', 'ef_editable', 'columna', '1', 'tamano_:_ 25_;_
 maximo_:_ 120_;_
 ', '1', 'Columna', NULL, NULL, NULL, NULL, '4', '0');
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1398', '1265', 'largo', 'ef_editable_numero', 'largo', NULL, 'cifras_:_ 10_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1398', '1265', 'largo', 'ef_editable_numero', 'largo', NULL, 'tamano_:_ 10_;_
 ', '3', 'Max.', NULL, NULL, NULL, NULL, '4', NULL);
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '1398', '1266', 'no_nulo', 'ef_checkbox', 'no_nulo', NULL, 'valor_:_ 1_;_
 ', '6', 'No nulo', NULL, NULL, NULL, '1', '4', NULL);

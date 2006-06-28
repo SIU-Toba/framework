@@ -7,8 +7,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '706', '1150', 'descripcion', 'ef_editable', 'descripcion', NULL, 'tamano_:_ 30_;_
 solo_lectura_:_ 1_;_
 ', '0', 'Descripcion', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '706', '1151', 'tope', 'ef_editable_numero', 'tope', NULL, 'cifras_:_ 10_;_
-solo_lectura_:_ 1_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '706', '1151', 'tope', 'ef_editable_numero', 'tope', NULL, 'solo_lectura_:_ 1_;_
+tamano_:_ 10_;_
 ', '1', 'Tope', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '706', '1152', 'valor', 'ef_editable_numero', 'valor', NULL, 'cifras_:_ 10_;_
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, inicializacion, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total) VALUES ('admin', '706', '1152', 'valor', 'ef_editable_numero', 'valor', NULL, 'tamano_:_ 10_;_
 ', '2', 'Valor', NULL, NULL, NULL, NULL, NULL, '1');
