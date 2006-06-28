@@ -372,14 +372,15 @@ class objeto_datos_relacion extends objeto
 		if (!isset($this->persistidor)) {		
 			//Se incluye el archivo
 			$archivo = "ap_relacion_db.php";
-			if (isset($this->info_estructura['ap_archivo'])) {
+			$particular = ($this->info_estructura['ap'] == 3);
+			if ($particular	&& isset($this->info_estructura['ap_archivo'])) {
 				$archivo = $this->info_estructura['ap_archivo'];
 			}
 			require_once($archivo);
 
 			//Se crea la clase		
 			$clase = "ap_relacion_db";
-			if (isset($this->info_estructura['ap_clase'])) {
+			if ($particular && isset($this->info_estructura['ap_clase'])) {
 				$clase = $this->info_estructura['ap_clase'];
 			}
 			$this->persistidor = new $clase( $this );

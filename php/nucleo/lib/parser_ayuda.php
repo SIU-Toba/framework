@@ -5,7 +5,7 @@
  */
 class parser_ayuda
 {
-	protected static $tags = array('wiki', 'api', 'link', 'test');
+	protected static $tags = array('wiki', 'api', 'link', 'url', 'test');
 	
 	static function es_texto_plano($texto)
 	{
@@ -59,6 +59,12 @@ class parser_ayuda
 		return str_replace("'", "\\'", $tag);		
 	}
 	
+	protected static function parsear_url($id, $nombre)
+	{
+		$url = $id;
+		$tag = "<a href=$url  target=_blank>$nombre</a>";
+		return str_replace("'", "\\'", $tag);		
+	}
 	protected static function parsear_test($id, $nombre)
 	{
 		return "<test id='$id'>$nombre</test>";

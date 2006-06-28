@@ -7,7 +7,8 @@ class ef_editable extends ef
 	protected $maximo;
 	protected $estilo="ef-input";
 	protected $mascara;
-
+	protected $unidad;
+	
 	static function get_parametros()
 	{
 		$parametros = parent::get_parametros_carga();
@@ -27,6 +28,9 @@ class ef_editable extends ef
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
+		$parametros["unidad"]["descripcion"]="Anexa al editable una referencia de la unidad utilizada (por ej. cargos)";
+		$parametros["unidad"]["opcional"]=1;	
+		$parametros["unidad"]["etiqueta"]="Unidad de referencia";				
 		return $parametros;
 	}
 
@@ -53,6 +57,10 @@ class ef_editable extends ef
 		if(isset($parametros["mascara"])) {
 			$this->mascara = $parametros["mascara"];		
 		}
+		if (isset($parametros['unidad'])) {
+			$this->unidad = $parametros['unidad'];
+			unset($parametros['unidad']);	
+		}		
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
@@ -97,9 +105,13 @@ class ef_editable extends ef
     
 	function get_input()
 	{
-		return form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
+		$input = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
+		if (isset($this->unidad)) {
+			$input .= ' '. $this->unidad;
+		}
+		return $input;
 	}
-
+	
 	function get_consumo_javascript()
 	{
 		$consumos = array('interface/mascaras', 'interface/ef', 'interface/ef_editable');
@@ -125,7 +137,6 @@ class ef_editable_numero extends ef_editable
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
 	protected $mensaje_defecto;
-	protected $unidad;
 
 	static function get_parametros()
 	{
@@ -140,9 +151,6 @@ class ef_editable_numero extends ef_editable
 		$parametros["rango"]["opcional"]=1;	
 		$parametros["rango"]["etiqueta"]="Rango de valores permitidos";
 		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00".$mas;
-		$parametros["unidad"]["descripcion"]="Anexa al editable una referencia de la unidad utilizada (por ej. cargos)";
-		$parametros["unidad"]["opcional"]=1;	
-		$parametros["unidad"]["etiqueta"]="Unidad de referencia";		
 		return $parametros;
 	}
 
@@ -152,10 +160,6 @@ class ef_editable_numero extends ef_editable
         $parametros["tamano"] = (isset($parametros["tamano"])) ? $parametros["tamano"] : 5;
 		if (isset($parametros['rango'])) {
 			$this->cambiar_rango($parametros['rango']);
-		}
-		if (isset($parametros['unidad'])) {
-			$this->unidad = $parametros['unidad'];
-			unset($parametros['unidad']);	
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -235,15 +239,7 @@ class ef_editable_numero extends ef_editable
 		return true;
 	}
 	
-	function get_input()
-	{
-		$input = parent::get_input();
-		if (isset($this->unidad)) {
-			$input .= ' '. $this->unidad;
-		}
-		return $input;
-	}		
-	
+
 	function parametros_js()
 	{
 		$inferior = "new Array('{$this->rango_inferior['limite']}', {$this->rango_inferior['incluido']})";
@@ -468,20 +464,16 @@ class ef_editable_textarea extends ef_editable
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
-		$parametros["no_margen"]["descripcion"]="Indica que no se utilice etiqueta";
-		$parametros["no_margen"]["opcional"]=1;	
-		$parametros["no_margen"]["etiqueta"]="No margen";	
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//Esta conversion es para no modificar ahora las definiciones, CAMBIAR!
-		$this->no_margen = isset($parametros["no_margen"]) ? $parametros["no_margen"] : 0;
 		$this->lineas = isset($parametros["filas"]) ? $parametros["filas"] : 6;
 		$this->wrap = isset($parametros["wrap"]) ? $parametros["wrap"] : "";
 		$this->clase = isset($parametros["clase"]) ? $parametros["clase"] : "ef-textarea";
-		if(isset($parametros["resaltar"])){
+		if (isset($parametros["resaltar"])){
 			if($parametros["resaltar"]==1){
 				$this->resaltar = 1;
 			}
