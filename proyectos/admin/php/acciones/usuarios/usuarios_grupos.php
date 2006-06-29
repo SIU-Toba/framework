@@ -11,7 +11,7 @@
 		$boton_post = "asignar_permisos";
 		$boton_post_nombre = "Guardar";
 
-		include_once("nucleo/lib/form.php");
+		include_once("nucleo/lib/interface/form.php");
 		include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
 		global $ADODB_FETCH_MODE;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;

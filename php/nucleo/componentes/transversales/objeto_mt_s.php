@@ -1,6 +1,6 @@
 <?php
 require_once("objeto_mt.php");
-include_once("nucleo/lib/form.php");// HTML FROM
+include_once("nucleo/lib/interface/form.php");// HTML FROM
 
 //Que relacion hay entre hacer todo por defecto y el ABMS?
 //JAVASCRIPT especifico = javascript

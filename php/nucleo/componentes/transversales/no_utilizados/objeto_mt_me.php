@@ -1,6 +1,6 @@
 <?php
 require_once("objeto_mt.php");	//Ancestro de todos los OE
-include_once("nucleo/lib/form.php");// HTML FROM
+include_once("nucleo/lib/interface/form.php");// HTML FROM
 
 /*
 Pasos a seguir:

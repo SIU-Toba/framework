@@ -28,7 +28,7 @@ class componente_ei_formulario_ml extends componente_ei_formulario
 		$sql['info_formulario']['obligatorio']=true;
 		//EF
 		$sql["info_formulario_ef"]['sql'] = "SELECT	*,
-										estilo as					columna_estilo,
+										estilo as					columna_estilo
 								FROM	apex_objeto_ei_formulario_ef
 								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {

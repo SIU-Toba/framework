@@ -1,5 +1,5 @@
 <?
-	include_once("nucleo/lib/form.php");
+	include_once("nucleo/lib/interface/form.php");
 	require_once('modelo/lib/catalogo_items.php');
 
 	define('separador_camino', '_%_');
