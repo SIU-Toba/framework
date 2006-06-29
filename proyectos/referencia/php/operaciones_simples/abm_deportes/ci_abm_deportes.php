@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/objeto_ci.php'); 
 require_once('operaciones_simples/consultas.php'); 
 
 class ci_abm_deportes extends objeto_ci

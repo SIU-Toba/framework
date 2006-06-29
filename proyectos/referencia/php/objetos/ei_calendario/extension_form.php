@@ -1,6 +1,6 @@
 <?php
   
-require_once('nucleo/browser/clases/objeto_ei_formulario.php');
+require_once('nucleo/componentes/interface/objeto_ei_formulario.php');
 
 class extension_form extends objeto_ei_formulario
 {

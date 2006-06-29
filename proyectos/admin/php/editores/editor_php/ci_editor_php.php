@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php');
+require_once('nucleo/componentes/interface/objeto_ci.php');
 require_once('lib/reflexion/archivo_php.php');
 require_once('lib/reflexion/clase_php.php');
 

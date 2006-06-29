@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php'); 
+require_once('nucleo/componentes/interface/objeto_ei_formulario_ml.php'); 
 //----------------------------------------------------------------
 class form_persona_juegos extends objeto_ei_formulario_ml
 {

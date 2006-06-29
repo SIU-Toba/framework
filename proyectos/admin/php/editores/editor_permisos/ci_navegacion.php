@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/objeto_ci.php'); 
 require_once('modelo/consultas/dao_permisos.php');
 //--------------------------------------------------------------------
 class ci_navegacion extends objeto_ci

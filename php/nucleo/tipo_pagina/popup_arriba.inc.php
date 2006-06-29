@@ -5,7 +5,7 @@
 
 	//echo "<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">\n";
 	ei_html_cabecera($this->info["item_nombre"], recurso::css());
-	require_once("nucleo/browser/includes/javascript.php");
+	require_once("javascript.php");
 
 
 //##############################################################################################

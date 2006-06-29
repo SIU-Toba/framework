@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_filtro.php');
+require_once('nucleo/componentes/interface/objeto_ei_filtro.php');
 
 class extension_filtro extends objeto_ei_filtro
 {

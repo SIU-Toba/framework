@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
 
 class extension_seleccion_evt extends objeto_ei_cuadro
 {

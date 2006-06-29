@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php');
+require_once('nucleo/componentes/interface/objeto_ci.php');
 
 /**
 *	Esta clase es un ejemplo de navegación particular. Al no tener un tipo de navegación predeterminado, esta debe

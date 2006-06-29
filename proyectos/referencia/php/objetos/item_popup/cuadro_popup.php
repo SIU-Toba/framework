@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_cuadro.php'); 
+require_once('nucleo/componentes/interface/objeto_ei_cuadro.php'); 
 //--------------------------------------------------------------------
 class cuadro_popup extends objeto_ei_cuadro
 {

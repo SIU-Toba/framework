@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/objeto_ci.php'); 
 
 abstract class ci_instanciadores extends objeto_ci
 {
