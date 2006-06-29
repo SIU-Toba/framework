@@ -8,13 +8,6 @@
 		echo "<pre>$sql</pre><br>";
 	}
 
-	function dump_conexiones()
-	{
-		global $db;
-		ei_arbol($db,"CONEXIONES ABIERTAS");
-	}
-//----------------------------------------------------------------------------------	
-
 	function dump_POST()
 	{
 		ei_arbol($_POST,"Contenido de \$_POST[]");
@@ -37,14 +30,6 @@
 		ei_arbol(get_defined_constants());
 	}
 //----------------------------------------------------------------------------------
-
-	function dump_COLOR()
-	{
-		global $color_serie;
-        ei_arbol($color_serie,"SERIE de COLORES");
-	}
-
-//----------------  DUMP de ARBOLES  ------------------------------------------------
 
 	//Dumpeador precario para etapas en las que no se puede acceder a
 	//lo HOJA de ESTILOS

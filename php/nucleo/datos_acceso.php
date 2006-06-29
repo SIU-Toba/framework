@@ -152,21 +152,11 @@ class datos_acceso
 	// LOG general del sistema
 	//----------------------------------------------------------------
 
-	static function evento($tipo,$mensaje,$usuario="")
+	static function evento($tipo,$mensaje)
 	{
-		//Tipos existentes: bug, seguridad, info, falta
 		$mensaje = addslashes($mensaje);
-		global $db, $hilo;
-		if($usuario==""){
-			if(isset($hilo)) $usuario = $hilo->obtener_usuario();
-		}
-		if($usuario!=""){
-			$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
-		}else{
-			$sql = "INSERT INTO apex_log_sistema(log_sistema_tipo,observaciones) VALUES ('$tipo','$mensaje')";
-		}
-		//echo $sql;
-		$rs	= $db["instancia"][apex_db_con]->Execute($sql);
+		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
+		self::get_db('instancia')->ejecutar($sql);
 	}
 
 	//----------------------------------------------------------------
@@ -176,7 +166,7 @@ class datos_acceso
 	static function get_id_solicitud()
 	{
 		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
-		$rs = self::get_db("instancia")->consultar($sql);
+		$rs = self::get_db('instancia')->consultar($sql);
 		if (empty($rs)) {
 			throw new excepcion_toba('No es posible generar un ID para la solicitud');
 		}
@@ -188,26 +178,26 @@ class datos_acceso
 		$tiempo = toba::get_cronometro()->tiempo_acumulado();
 		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
 				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
-		self::get_db("instancia")->ejecutar($sql);
+		self::get_db('instancia')->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_observaciones( $id, $tipo, $observacion )
 	{
 		$sql = "INSERT	INTO apex_solicitud_observacion (solicitud,solicitud_obs_tipo_proyecto,solicitud_obs_tipo,observacion) 
 				VALUES ('$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
-		self::get_db("instancia")->ejecutar($sql);
+		self::get_db('instancia')->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_browser($id, $sesion, $ip)
 	{
 		$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip) VALUES ('$id','$sesion','$ip');";
-		self::get_db("instancia")->ejecutar($sql);
+		self::get_db('instancia')->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_consola($id, $usuario, $llamada)
 	{
 		$sql = "INSERT INTO apex_solicitud_consola (solicitud_consola, usuario, llamada) VALUES ('$id','$usuario','$llamada');";
-		self::get_db("instancia")->ejecutar($sql);
+		self::get_db('instancia')->ejecutar($sql);
 	}
 
 	//----------------------------------------------------------------
@@ -230,10 +220,10 @@ class datos_acceso
 		if($gravedad>0){
 			$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
 					VALUES ('".$this->usuario."','".$this->clave."','".$_SERVER["REMOTE_ADDR"]."','$gravedad','$texto')";
-			$rs	= $db["instancia"][apex_db_con]->Execute($sql);
+			$rs	= $db['instancia'][apex_db_con]->Execute($sql);
 		}
 		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='{$_SERVER["REMOTE_ADDR"]}' AND (gravedad > 0) AND ((now()-momento) < '" . apex_pa_validacion_ventana_intentos . " min')";
-		$rs	  = $db["instancia"][apex_db_con]->Execute($sql);
+		$rs	  = $db['instancia'][apex_db_con]->Execute($sql);
 		if ($rs->fields[0] < apex_pa_validacion_intentos){
 			return array (false,$texto." Quedan " . (apex_pa_validacion_intentos - $rs->fields[0]) . " intentos antes de bloquear la IP.");
 		}else{//Se supero la cantidad de intentos
@@ -246,7 +236,7 @@ class datos_acceso
 	{
 		global $db;
 		$sql = "INSERT INTO apex_log_ip_rechazada(ip) VALUES ('".$_SERVER["REMOTE_ADDR"]."')";
-		$db["instancia"][apex_db_con]->execute($sql);
+		$db['instancia'][apex_db_con]->execute($sql);
 	}
 }
 ?>

@@ -94,6 +94,7 @@
 			* El puenteo de "negocio" no se borra pero pasa a "obsoleto"
 			* "persistencia" pasa a "nucleo/obsoleto/persistencia"
 			* "negocio" pasa a "nucleo/obsoleto/negocio"
+			* "nucleo/browser/subclases as nucleo/obsoleto/subclases"
 		* Los patrones pasa "nucleo/obsoleto/comportamientos"
 		* "consola" pasa a "nucleo/obsoleto/consola"
 

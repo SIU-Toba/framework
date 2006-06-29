@@ -40,20 +40,14 @@ class solicitud_consola extends solicitud
 	function ayuda()
 	//Atrapo las llamadas a la ayuda... sino proceso
 	{
-		global $db, $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;		
-		$sql ="	SELECT descripcion_breve, descripcion_larga
-				FROM apex_item_info
-				WHERE item_proyecto = '".$this->info['basica']["item_proyecto"]."'
-				AND item = '".$this->info['basica']["item"]."';";
-		$rs = $db["instancia"][apex_db_con]->Execute($sql);	
-		if( ($rs) && ( !($rs->EOF) ) ){
-			echo "\n**************** {$this->info['basica']["item_proyecto"]} - {$this->info['basica']["item"]}  *************\n";
+		$rs = info_proyecto::get_menu_consola($this->info['basica']['item_proyecto'],$this->info['basica']['item']);	
+		if ($rs) {
+			echo "\n**************** {$this->info['basica']['item_proyecto']} - {$this->info['basica']['item']}  *************\n";
 			echo "\n --- Descripcion\n\n";
-			echo $rs->fields["descripcion_breve"] ."\n";
+			echo $rs[0]["descripcion_breve"] ."\n";
 			echo "\n --- Parametros\n\n";
-			echo $rs->fields["descripcion_larga"] ."\n\n";
-		}else{
+			echo $rs[0]["descripcion_larga"] ."\n\n";
+		} else {
 			echo "No hay ayuda disponible\n";
 		}
 	}

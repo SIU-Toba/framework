@@ -1,6 +1,5 @@
 <?php
 //require_once('nucleo/browser/clases/interfaces.php');
-require_once('nucleo/lib/error.php');	    				//Error Handling
 require_once('nucleo/lib/cronometro.php');          		//Cronometrar ejecucion
 require_once('nucleo/lib/db.php');		    				//Manejo de bases (utiliza abodb340)
 require_once('nucleo/lib/encriptador.php');					//Encriptador
@@ -8,7 +7,7 @@ require_once('nucleo/lib/varios.php');						//Funciones genericas (Manejo de pat
 require_once('nucleo/lib/sql.php');							//Libreria de manipulacion del SQL
 require_once('nucleo/lib/excepcion_toba.php');				//Excepciones del TOBA
 require_once('nucleo/lib/logger.php');						//Logger
-require_once('nucleo/lib/mensaje.php');						//Modulo de mensajes parametrizables
+require_once('nucleo/lib/mensajes.php');						//Modulo de mensajes parametrizables
 require_once('nucleo/lib/cola_mensajes.php');				//Cola de mensajes utilizada durante la EJECUCION
 require_once('nucleo/lib/asercion.php');       	   			//Aserciones
 require_once('nucleo/lib/permisos.php');					//Administrador de permisos particulares
@@ -19,8 +18,7 @@ require_once('nucleo/componentes/catalogo_toba.php');		//Catalogo de componentes
 require_once('nucleo/info_instalacion.php');				//Informacion sobre la instalacion
 require_once('nucleo/info_proyecto.php');	   				//Informacion sobre el proyecto
 require_once('nucleo/browser/usuario_toba.php');	  		//Informacion sobre el usuario
-require_once('nucleo/db/datos_acceso.php');					//Informacion de ACCESO
-require_once('nucleo/db/datos_proyecto.php');				//Informacion de ACCESO
+require_once('nucleo/datos_acceso.php');					//Informacion de ACCESO
 require_once('nucleo/browser/editor.php');			  		//Informacion sobre el usuario
 
 

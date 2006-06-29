@@ -23,8 +23,6 @@ class solicitud
 
 	function __construct($item, $usuario)	
 	{
-		global $solicitud;
-		$solicitud = $this;		//Compatibilidad para atras
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
 		$this->en_tramite = false;
 		$this->item = $item;
