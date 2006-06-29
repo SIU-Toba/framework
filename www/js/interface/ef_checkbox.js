@@ -48,4 +48,8 @@ def.constructor = ef_checkbox;
 		return this.input().type !='hidden' && !(this.input().disabled);
 	}	
 	
+	def.resetear = function() {
+		this.chequear(false);
+	}
+	
 toba.confirmar_inclusion('interface/ef_checkbox');

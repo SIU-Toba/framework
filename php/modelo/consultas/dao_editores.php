@@ -293,8 +293,8 @@ class dao_editores
 		$proyecto = editor::get_proyecto_cargado();
 		$sql = "
 			SELECT 
-				item 						as id, 
-				nombre						as descripcion
+				item 									as id, 
+				nombre || ' - (' || item || ')'			as descripcion
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND

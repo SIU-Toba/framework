@@ -1,5 +1,4 @@
 <?
-require_once("nucleo/lib/error.php");	    		//Error Handling
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
 require_once("nucleo/lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("nucleo/lib/sql.php");					//Libreria de manipulacion del SQL

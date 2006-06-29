@@ -22,8 +22,8 @@ class ef_checkbox extends ef
 {
     protected $valor;
     protected $valor_no_seteado;
-    protected $valor_info;
-    protected $valor_info_no_seteado;
+    protected $valor_info = 'Sí';
+    protected $valor_info_no_seteado = 'No';
     
 	static function get_parametros()
 	{
@@ -153,9 +153,9 @@ class ef_checkbox extends ef
 	function get_descripcion_estado()
 	{
 		if ( !isset($this->estado) || $this->estado == $this->valor_no_seteado ) {
-			return isset( $this->valor_info_no_seteado ) ? $this->valor_info_no_seteado : 'NO';
+			return $this->valor_info_no_seteado;
 		} else {
-			return isset( $this->valor_info ) ? $this->valor_info : 'SI';
+			return $this->valor_info;
 		}
 	}
 	

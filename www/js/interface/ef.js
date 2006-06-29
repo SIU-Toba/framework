@@ -148,17 +148,21 @@ def.constructor = ef;
 		}
 	}
 
-	def.ocultar = function() {
+	def.ocultar = function(resetear) {
+		if (typeof resetear == 'undefined')
+			resetear = false;
 		this.nodo().style.display = 'none';	
+		if (resetear)
+			this.resetear();
 	}
 	
-	def.mostrar = function(mostrar) {
+	def.mostrar = function(mostrar, resetear) {
 		if (typeof mostrar == 'undefined') 
 			mostrar = true;
 		if (mostrar) {
 			this.nodo().style.display = '';	
 		} else {
-			this.ocultar();	
+			this.ocultar(resetear);	
 		}
 	}
 

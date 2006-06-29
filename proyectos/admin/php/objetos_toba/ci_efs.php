@@ -192,6 +192,8 @@ class ci_efs extends objeto_ci
 
 	function evt__efs__modificacion($datos)
 	{
+		unset($datos['estado']);
+		unset($datos['solo_lectura']);
 		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $datos);
 	}
 	
@@ -328,5 +330,7 @@ class ci_efs extends objeto_ci
 		}
 		return false;
 	}	
+	
+	
 }
 ?>

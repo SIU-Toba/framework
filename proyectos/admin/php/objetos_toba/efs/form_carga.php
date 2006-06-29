@@ -9,8 +9,8 @@ class form_carga extends objeto_ei_formulario
 			
 			{$this->objeto_js}.evt__estatico__procesar = function(inicial) {
 				var cheq = this.ef('estatico').chequeado();
-				this.ef('include').mostrar(cheq);
-				this.ef('clase').mostrar(cheq);
+				this.ef('include').mostrar(cheq, true);
+				this.ef('clase').mostrar(cheq, true);
 			}
 						
 			{$this->objeto_js}.evt__mecanismo__procesar = function(inicial) {
@@ -19,7 +19,7 @@ class form_carga extends objeto_ei_formulario
 				//---Ocultar/Mostrar todos
 				for (var id_ef in this._efs) {
 					if (id_ef != 'mecanismo') {
-						this.ef(id_ef).mostrar(mostrar);
+						this.ef(id_ef).mostrar(mostrar, true);
 					}
 				}
 				if (mostrar) {
@@ -33,24 +33,24 @@ class form_carga extends objeto_ei_formulario
 			{$this->objeto_js}.cambiar_mecanismo = function(mecanismo, estado) {
 				switch (mecanismo) {
 					case 'php':
-						this.ef('estatico').mostrar(estado);
+						this.ef('estatico').mostrar(estado, true);
 						if (estado) {
 							this.evt__estatico__procesar(false);
 						} else {
-							this.ef('include').ocultar();
-							this.ef('clase').ocultar();						
+							this.ef('include').ocultar(true);
+							this.ef('clase').ocultar(true);						
 						}
-						this.ef('dao').mostrar(estado);
+						this.ef('dao').mostrar(estado, true);
 						break;
 					case 'sql':
-						this.ef('sql').mostrar(estado);
-						this.ef('fuente').mostrar(estado);
+						this.ef('sql').mostrar(estado, true);
+						this.ef('fuente').mostrar(estado, true);
 						break;
 					
 					case 'lista':
-						this.ef('lista').mostrar(estado);
-						this.ef('clave').mostrar(!estado);
-						this.ef('valor').mostrar(!estado);
+						this.ef('lista').mostrar(estado, true);
+						this.ef('clave').mostrar(!estado, true);
+						this.ef('valor').mostrar(!estado, true);
 						break;
 				}
 			}

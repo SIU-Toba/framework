@@ -13,6 +13,9 @@ class info_proyecto
 		return apex_pa_proyecto;
 	}
 	
+	/**
+	 * @return info_proyecto
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
