@@ -154,7 +154,7 @@ class ci_efs_prueba extends objeto_ci
 		$this->parametros = array_merge($this->parametros, $datos);
 	}
 	
-	function evt__pre_cargar_datos_dependencias()
+	function evt__post_recuperar_interaccion()
 	{
 		ei_arbol($this->parametros);
 		$salida = array();
@@ -162,8 +162,6 @@ class ci_efs_prueba extends objeto_ci
 			if (is_array($valor)) {
 				$valor = implode(', ', $valor);	
 			}
-			
-			
 		}
 	}	
 	

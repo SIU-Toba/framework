@@ -31,16 +31,7 @@ class componente_ei_formulario extends componente_ei
 		$sql['info_formulario']['registros']='1';
 		$sql['info_formulario']['obligatorio']=true;
 		//EF
-		$sql["info_formulario_ef"]['sql'] = "SELECT	identificador as identificador,
-										columnas					as		columnas,
-										obligatorio					as		obligatorio,
-										elemento_formulario 		as		elemento_formulario,
-										inicializacion				as		inicializacion,
-										etiqueta					as		etiqueta,
-										etiqueta_estilo				as		etiqueta_estilo,
-										descripcion					as		descripcion,
-										orden						as		orden,
-										colapsado					as 		colapsado
+		$sql["info_formulario_ef"]['sql'] = "SELECT	*
 								FROM	apex_objeto_ei_formulario_ef
 								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
