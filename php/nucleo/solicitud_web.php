@@ -324,7 +324,7 @@ class solicitud_web extends solicitud
 	{
 		parent::registrar( toba::get_hilo()->obtener_proyecto() );
 		if($this->registrar_db){
-			datos_acceso::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
+			info_instancia::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
 		}
  	}
 }

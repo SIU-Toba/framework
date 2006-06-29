@@ -16,10 +16,10 @@ require_once('nucleo/componentes/constructor_toba.php');	//Constructor de compon
 require_once('nucleo/componentes/cargador_toba.php');		//Cargador de componentes
 require_once('nucleo/componentes/catalogo_toba.php');		//Catalogo de componentes
 require_once('nucleo/info_instalacion.php');				//Informacion sobre la instalacion
+require_once('nucleo/info_instancia.php');					//Informacion sobre la instancia
 require_once('nucleo/info_proyecto.php');	   				//Informacion sobre el proyecto
 require_once('nucleo/browser/usuario_toba.php');	  		//Informacion sobre el usuario
-require_once('nucleo/datos_acceso.php');					//Informacion de ACCESO
-require_once('nucleo/browser/editor.php');			  		//Informacion sobre el usuario
+require_once('nucleo/browser/editor.php');			  		//Interaccion con el EDITOR
 
 
 class nucleo_toba
@@ -98,7 +98,7 @@ class nucleo_toba
 			$grupo_acceso = toba::get_sesion()->get_grupo_acceso();
 			$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
-				datos_acceso::control_acceso_item($item, $grupo_acceso);
+				info_proyecto::control_acceso_item($item, $grupo_acceso);
 			}
 			return $solicitud;
 		} else {

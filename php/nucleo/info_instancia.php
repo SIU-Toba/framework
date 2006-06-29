@@ -2,7 +2,7 @@
 /**
 *	Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
 */
-class datos_acceso
+class info_instancia
 {
 	static function get_db()
 	{
@@ -103,50 +103,6 @@ class datos_acceso
 				AND		up.proyecto = '$proyecto';";
 		return self::get_db()->consultar($sql);
 	}
-
-	static function control_acceso_item($item, $grupo_acceso)
-	{
-		$sql = "	SELECT	1 as ok
-					FROM	apex_usuario_grupo_acc_item ui,
-							apex_usuario_proyecto up
-					WHERE	ui.usuario_grupo_acc = up.usuario_grupo_acc
-					AND	ui.proyecto	= up.proyecto
-					AND	up.usuario_grupo_acc = '$grupo_acceso'
-					AND	ui.proyecto = '{$item[0]}'
-					AND	ui.item =	'{$item[1]}';";
-		$rs = self::get_db()->consultar($sql);
-		if(empty($rs)){
-			throw new excepcion_toba('El usuario no posee permisos para acceder al item solicitado.');
-		}
-	}
-
-	//----------------------------------------------------------------
-	// MENU
-	//----------------------------------------------------------------
-
-	function items_menu($solo_primer_nivel=false, $proyecto, $grupo_acceso)
-	{
-		$rest = "";
-		if ($solo_primer_nivel) {
-			$rest = " AND i.padre = '' ";
-		}
-		$grupo = toba::get_hilo()->obtener_usuario_grupo_acceso();
-		$sql = "SELECT 	i.padre as 		padre,
-						i.carpeta as 	carpeta, 
-						i.proyecto as	proyecto,
-						i.item as 		item,
-						i.nombre as 	nombre
-				FROM 	apex_item i LEFT OUTER JOIN	apex_usuario_grupo_acc_item u ON
-							(	i.item = u.item AND i.proyecto = u.proyecto	)
-				WHERE
-					(i.menu = 1)
-				AND	(u.usuario_grupo_acc = '$grupo_acceso' OR i.publico = 1)
-				AND (i.item <> '')
-				$rest
-				AND		(i.proyecto = '$proyecto')
-				ORDER BY i.padre,i.orden;";
-		return self::get_db()->consultar($sql);
-	}	
 
 	//----------------------------------------------------------------
 	// LOG general del sistema

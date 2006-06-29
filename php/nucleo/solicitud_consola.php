@@ -136,7 +136,7 @@ class solicitud_consola extends solicitud
 		}
 		parent::registrar();
 		if($this->registrar_db){
-			datos_acceso::registrar_solicitud_consola($this->id, $this->usuario, $str_llamada);
+			info_instancia::registrar_solicitud_consola($this->id, $this->usuario, $str_llamada);
 		}
 	}
 }

@@ -33,7 +33,7 @@ class usuario_toba implements interface_usuario
 	function cargar($id_usuario, $clave=null)
 	{
 		$this->autenticar($id_usuario, $clave);
-		$_SESSION['toba']['usuario'] = datos_acceso::get_info_usuario($id_usuario);
+		$_SESSION['toba']['usuario'] = info_instancia::get_info_usuario($id_usuario);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ class usuario_toba implements interface_usuario
 	*/
 	function autenticar($id_usuario, $clave)
 	{
-		$datos_usuario = datos_acceso::get_info_autenticacion($id_usuario);
+		$datos_usuario = info_instancia::get_info_autenticacion($id_usuario);
 		if( empty($datos_usuario) ) {
 			// El usuario no existe	
 			throw new excepcion_toba_login("La combinacion usuario/clave es incorrecta.");
@@ -91,7 +91,7 @@ class usuario_toba implements interface_usuario
 		if($this->cargado()){
 			$proyecto = info_proyecto::get_id();
 			if (!isset($_SESSION['toba']['usuario']['grupo_acceso'][$proyecto])) {
-				$datos_grupo_acceso = datos_acceso::get_grupo_acceso( $this->get_id(), $proyecto );
+				$datos_grupo_acceso = info_instancia::get_grupo_acceso( $this->get_id(), $proyecto );
 				if(empty($datos_grupo_acceso)){
 					throw new excepcion_toba_login("El usuario '".$this->get_id()."' no pertenece un grupo de acceso del proyecto '$proyecto'. ACCESO DENEGADO");
 				}

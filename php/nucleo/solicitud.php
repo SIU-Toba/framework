@@ -34,7 +34,7 @@ class solicitud
 			$objetos[] = $this->info['objetos'][$a]["objeto"];	
 		}
 
-		$this->id =	datos_acceso::get_id_solicitud();
+		$this->id =	info_instancia::get_id_solicitud();
 
 
 		//-[2]- Determino	la	ACTIVIDAD (El php	que ejecuta	al	ITEM)	
@@ -239,7 +239,7 @@ class solicitud
 		if($this->registrar_db) {
 			toba::get_cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Solicitud
-			datos_acceso::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
+			info_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 												$this->info['basica']['item'], $this->tipo_solicitud);
 			// Cronometro
 			if($this->cronometrar){	
@@ -250,7 +250,7 @@ class solicitud
 				for($i=0;$i<count($this->observaciones);$i++) {
 					$tipo[0] = $this->observaciones[$i][0][0];
 					$tipo[1] = $this->observaciones[$i][0][1];
-					datos_acceso::registrar_solicitud_observaciones($this->id, $tipo, $this->observaciones[$i][1]);
+					info_instancia::registrar_solicitud_observaciones($this->id, $tipo, $this->observaciones[$i][1]);
 				}
 			}
 		}

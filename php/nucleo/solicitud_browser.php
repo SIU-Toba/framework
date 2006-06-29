@@ -109,7 +109,7 @@ class solicitud_browser extends solicitud
 	{
 		parent::registrar();
 		if($this->registrar_db){
-			datos_acceso::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
+			info_instancia::registrar_solicitud_browser($this->id, sesion_toba::get_id(), $_SERVER['REMOTE_ADDR']);
 		}
  	}
 }

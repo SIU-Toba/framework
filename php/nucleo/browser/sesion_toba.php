@@ -86,8 +86,8 @@ class sesion_toba
 			$grupo_acceso = toba::get_usuario()->get_grupo_acceso();
 
 			//Creo la sesion
-			$id = datos_acceso::get_id_sesion();
-			datos_acceso::abrir_sesion(	$id, toba::get_usuario()->get_id(), $proyecto );
+			$id = info_instancia::get_id_sesion();
+			info_instancia::abrir_sesion(	$id, toba::get_usuario()->get_id(), $proyecto );
 			$_SESSION['toba']["id"] = $id;
 			$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
 			$_SESSION['toba']["inicio"]=time();
@@ -123,7 +123,7 @@ class sesion_toba
 		{
 			$this->conf__fin();
 			//Cierro la sesion de la base
-			datos_acceso::cerrar_sesion($_SESSION['toba']["id"], $observaciones);
+			info_instancia::cerrar_sesion($_SESSION['toba']["id"], $observaciones);
 			unset($_SESSION['toba']["id"]);
 			unset($_SESSION['toba']["apex_pa_ID"]);
 			unset($_SESSION['toba']["inicio"]);

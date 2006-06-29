@@ -65,7 +65,7 @@ class ci_login extends objeto_ci
 
 	function evt__seleccion_usuario__carga()
 	{
-		return datos_acceso::get_lista_usuarios();
+		return info_instancia::get_lista_usuarios();
 	}
 
 	//--- COMBOS ----------------------------------------------------------------

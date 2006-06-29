@@ -13,7 +13,7 @@ abstract class menu
 	{
 		$proyecto = info_proyecto::get_id();
 		$grupo = toba::get_sesion()->get_grupo_acceso();
-		return datos_acceso::items_menu($solo_primer_nivel, $proyecto, $grupo);
+		return info_proyecto::items_menu($solo_primer_nivel, $proyecto, $grupo);
 	}	
 }
 ?>
