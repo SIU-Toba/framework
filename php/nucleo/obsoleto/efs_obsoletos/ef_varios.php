@@ -1,6 +1,6 @@
 <?
-require_once("nucleo/lib/efs_obsoletos/ef.php"); // Elementos de interface
-require_once("nucleo/lib/efs_obsoletos/ef_oculto.php");
+require_once("nucleo/obsoleto/efs_obsoletos/ef.php"); // Elementos de interface
+require_once("nucleo/obsoleto/efs_obsoletos/ef_oculto.php");
 
 
 /**

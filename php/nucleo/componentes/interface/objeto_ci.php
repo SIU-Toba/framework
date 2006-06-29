@@ -1,8 +1,8 @@
 <?php
 require_once("objeto_ei.php");
-require_once("nucleo/lib/form.php");
 require_once("nucleo/componentes/interface/objeto_ei_formulario.php");
 require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
+require_once("nucleo/lib/interface/form.php");
 require_once('nucleo/lib/parser_ayuda.php');
 
 /**

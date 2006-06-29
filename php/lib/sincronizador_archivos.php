@@ -1,5 +1,5 @@
 <?
-require_once('nucleo/lib/manejador_archivos.php');
+require_once('lib/manejador_archivos.php');
 /*
 *	Sincroniza el arbol de archivos manejado con la generacion
 *	automatica de archivos basados en la base.

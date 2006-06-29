@@ -1,9 +1,9 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
-require_once('nucleo/lib/manejador_archivos.php');
-require_once('nucleo/lib/sincronizador_archivos.php');
-require_once('nucleo/lib/reflexion/clase_datos.php');
+require_once('lib/manejador_archivos.php');
+require_once('lib/sincronizador_archivos.php');
+require_once('lib/reflexion/clase_datos.php');
 
 class nucleo extends elemento_modelo
 {

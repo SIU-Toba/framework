@@ -1,19 +1,5 @@
 <?php
-	//-----------------------------------------------------------------
-	function acceso_post()
-	//Devuelde TRUE si la hoja se accedio por POST
-	{
-		return ($_SERVER["REQUEST_METHOD"]=="POST");
-	}
-	//-----------------------------------------------------------------
 
-	function acceso_get()
-	//Devuelve TRUE si el acceso se dio por GET
-	{
-		return ($_SERVER["REQUEST_METHOD"]=="GET");
-	}
-
-	//-----------------------------------------------------------------		
 	function toba_dir()
 	{
 // 		si el proyecto esta en un path que incluye la cadena "toba/toba" se va todo al carajo.	
@@ -21,7 +7,7 @@
 		//ATENCION: Se asume que este archivo no va a cambiar de lugar en referencia a la raiz del proyecto
 		//php/nucleo/lib/varios
 		$dir = dirname(__FILE__);
-		return substr($dir,0, -15);
+		return substr($dir,0, -8);
 	}
 
 	//-----------------------------------------------------------------			
@@ -320,5 +306,18 @@
 		$numero = intval($original);
 		return str_replace($numero, $numero + $agregado, $original);
 	}
-	
+
+	//-----------------------------------------------------------------
+	function acceso_post()
+	//Devuelde TRUE si la hoja se accedio por POST
+	{
+		return ($_SERVER["REQUEST_METHOD"]=="POST");
+	}
+	//-----------------------------------------------------------------
+
+	function acceso_get()
+	//Devuelve TRUE si el acceso se dio por GET
+	{
+		return ($_SERVER["REQUEST_METHOD"]=="GET");
+	}	
 ?>

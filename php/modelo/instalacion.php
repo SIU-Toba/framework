@@ -1,8 +1,8 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
-require_once('nucleo/lib/manejador_archivos.php');
+require_once('lib/manejador_archivos.php');
 require_once('modelo/lib/version_toba.php');
-require_once('nucleo/lib/ini.php');
+require_once('lib/ini.php');
 
 /**
 *	@todo:	Control de que la estructura de los INIs sea correcta
@@ -198,7 +198,7 @@ class instalacion extends elemento_modelo
 	*/
 	function conectar_base_parametros( $parametros )
 	{
-		$archivo = "nucleo/lib/db/db_" . $parametros['motor'] . ".php";
+		$archivo = "lib/db/db_" . $parametros['motor'] . ".php";
 		$clase = "db_" . $parametros['motor'];
 		require_once($archivo);
 		$db = new $clase(	$parametros['profile'],

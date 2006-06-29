@@ -1,6 +1,6 @@
 <?
 require_once("objeto_ei.php");						//Ancestro de todos los OE
-require_once("nucleo/lib/manejador_archivos.php");
+require_once("lib/manejador_archivos.php");
 
 /**
  * Genera un esquema utilizando GraphViz

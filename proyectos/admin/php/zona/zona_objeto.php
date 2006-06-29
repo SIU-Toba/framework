@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/zona/zona.php");
+require_once("nucleo/lib/zona.php");
 require_once('modelo/consultas/dao_editores.php');
 
 class zona_objeto extends zona

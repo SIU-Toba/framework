@@ -1,6 +1,8 @@
 <?
 require_once('migracion_toba.php');
-require_once('nucleo/lib/parseo.php');
+require_once('lib/parseo.php');
+require_once('lib/manejador_archivos.php');
+require_once('lib/editor_archivos.php');
 
 class migracion_0_10_0 extends migracion_toba
 {
@@ -343,5 +345,58 @@ class migracion_0_10_0 extends migracion_toba
 		$this->elemento->get_db()->ejecutar($sql);
 	}
 
+	function proyecto__path_includes()
+	{
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion('nucleo/browser/zona/zona.php'				,'nucleo/lib/zona.php');
+		$editor->agregar_sustitucion('nucleo/lib/asercion.php'					,'lib/asercion.php');          
+		$editor->agregar_sustitucion('nucleo/lib/cache_db.php'              	,'lib/cache_db.php');               
+		$editor->agregar_sustitucion('nucleo/lib/db.php'                    	,'lib/db.php');                     
+		$editor->agregar_sustitucion('nucleo/lib/editor_archivos.php'       	,'lib/editor_archivos.php');
+		$editor->agregar_sustitucion('nucleo/lib/encriptador.php'           	,'lib/encriptador.php');      
+		$editor->agregar_sustitucion('nucleo/lib/ini.php'                   	,'lib/ini.php');          
+		$editor->agregar_sustitucion('nucleo/lib/manejador_archivos.php'	   	,'lib/manejador_archivos.php');
+		$editor->agregar_sustitucion('nucleo/lib/parseo.php'                	,'lib/parseo.php');   
+		$editor->agregar_sustitucion('nucleo/lib/sincronizador_archivos.php'	,'lib/sincronizador_archivos.php');
+		$editor->agregar_sustitucion('nucleo/lib/sql.php'                   	,'lib/sql.php');
+		$editor->agregar_sustitucion('nucleo/lib/texto.php'                 	,'lib/texto.php');
+		$editor->agregar_sustitucion('nucleo/lib/varios.php'					,'lib/varios.php');
+		$editor->agregar_sustitucion('nucleo/lib/reflexion/archivo_php.php'		,'lib/reflexion/archivo_php.php');
+		$editor->agregar_sustitucion('nucleo/lib/reflexion/clase_datos.php' 	,'lib/reflexion/clase_datos.php');
+		$editor->agregar_sustitucion('nucleo/lib/reflexion/clase_php.php'   	,'lib/reflexion/clase_php.php');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto.php');"                 ,'');		
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ci.php');"              ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ci_abm.php');"          ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_cuadro.php');"          ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_cuadro_reg.php');"      ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei.php');"              ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_arbol.php');"        ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_archivos.php');"     ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_calendario.php');"   ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_cuadro.php');"       ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_filtro.php');"       ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_formulario.php');"   ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php');",'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_esquema.php');"         ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_esquema_db.php');"      ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_filtro.php');"          ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_grafico.php');"         ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_hoja.php');"            ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_html.php');"            ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_lista.php');"           ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_mt.php');"              ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_mt_me.php');"           ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_mt_s.php');"            ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_mt_s_abm.php');"        ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_mt_s_md.php');"         ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_plan.php');"            ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ut.php');"              ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ut_formulario.php');"   ,'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ut_formulario_bl.php');",'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ut_formulario_ml.php');",'');
+		$editor->agregar_sustitucion("require_once('nucleo/browser/clases/objeto_ut_multicheq.php');"    ,'');
+		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		//$editor->procesar_archivos($archivos);
+	}
 }
 ?>

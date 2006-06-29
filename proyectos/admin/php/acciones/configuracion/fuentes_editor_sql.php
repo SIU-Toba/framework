@@ -42,7 +42,7 @@
 			$cuadro_param["ordenar"]=false;
 			$fuente_datos = $this->zona->editable_info["fuente_datos"];
 
-			include_once("nucleo/lib/efs_obsoletos/cuadro.php");
+			include_once("nucleo/obsoleto/efs_obsoletos/cuadro.php");
 			$cuadro =& new cuadro_db($cuadro_param,$fuente_datos,$sql);
 		}
 	

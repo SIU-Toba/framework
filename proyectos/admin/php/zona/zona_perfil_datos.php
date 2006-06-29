@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/zona/zona.php");
+require_once("nucleo/lib/zona.php");
 
 class zona_usuario_perfil extends zona
 {

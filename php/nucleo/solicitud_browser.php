@@ -1,13 +1,13 @@
 <?php
-require_once("nucleo/browser/recurso.php");					//Encapsulamiento de la llamada a recursos
-require_once("nucleo/browser/js.php");						//Encapsulamiento de la utilidades javascript
-require_once("nucleo/browser/debug.php");					//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/browser/vinculador.php");				//Vinculos a otros ITEMS
-require_once("nucleo/lib/formateo.php"); 		//Funciones de formateo de columnas
-require_once("nucleo/lib/ei.php");							//Elementos de interface
-require_once("nucleo/lib/parseo.php");			       		//Funciones de parseo
-require_once("nucleo/browser/tipo_pagina/tipo_pagina.php");	//Clase base de Tipo de pagina generico
-require_once("nucleo/browser/menu/menu.php");				//Clase base de Menu 
+require_once('nucleo/lib/recurso.php');					//Encapsulamiento de la llamada a recursos
+require_once('nucleo/lib/js.php');						//Encapsulamiento de la utilidades javascript
+require_once('nucleo/lib/debug.php');					//DUMP de arrays, arboles y estructuras centrales
+require_once('nucleo/lib/vinculador.php');				//Vinculos a otros ITEMS
+require_once('nucleo/lib/interface/formateo.php'); 		//Funciones de formateo de columnas
+require_once('nucleo/lib/interface/ei.php');			//Elementos de interface
+require_once('lib/parseo.php');			    	   		//Funciones de parseo
+require_once('nucleo/tipo_pagina/tipo_pagina.php');		//Clase base de Tipo de pagina generico
+require_once('nucleo/menu/menu.php');					//Clase base de Menu 
 
 class solicitud_browser extends solicitud
 {

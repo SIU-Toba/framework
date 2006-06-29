@@ -4,9 +4,9 @@ require_once('modelo/instalacion.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
-require_once('nucleo/lib/manejador_archivos.php');
-require_once('nucleo/lib/sincronizador_archivos.php');
-require_once('nucleo/lib/reflexion/clase_datos.php');
+require_once('lib/manejador_archivos.php');
+require_once('lib/sincronizador_archivos.php');
+require_once('lib/reflexion/clase_datos.php');
 /**
 *	@todo
 *		- Falta un parametrizar en el ini de la instancia si la base toba es independiente o adosada al negocio

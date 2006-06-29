@@ -1,8 +1,8 @@
 <?
 define("apex_cuadro_compatible",1);
-require_once("nucleo/lib/form.php");
 require_once("objeto_ei.php");
-require_once("nucleo/lib/formateo.php"); 		//Funciones de formateo de columnas
+require_once("nucleo/lib/interface/form.php");
+require_once("nucleo/lib/interface/formateo.php"); 
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 

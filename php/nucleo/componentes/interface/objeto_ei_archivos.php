@@ -1,6 +1,6 @@
 <?php
 require_once("objeto_ei.php");
-require_once("nucleo/lib/manejador_archivos.php");
+require_once("lib/manejador_archivos.php");
 
 /**
  * Permite navegar el sistema de archivos del servidor bajo una carpeta dada

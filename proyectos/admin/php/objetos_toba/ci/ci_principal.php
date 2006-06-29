@@ -445,8 +445,8 @@ class ci_editor extends ci_editores_toba
 
 	function obtener_html_contenido__4()
 	{	
-		require_once('nucleo/lib/reflexion/archivo_php.php');
-		require_once('nucleo/lib/reflexion/clase_php.php');
+		require_once('lib/reflexion/archivo_php.php');
+		require_once('lib/reflexion/clase_php.php');
 		require_once('modelo/consultas/dao_editores.php');
 
 		$registro = $this->get_entidad()->tabla('base')->get();

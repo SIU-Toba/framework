@@ -1,5 +1,5 @@
 <?php
-include_once("nnucleo/lib/efs_obsoletos/ef.php");// Elementos de interface
+include_once("nnucleo/obsoleto/efs_obsoletos/ef.php");// Elementos de interface
 /*
 * 			ef <abstracta>
 * 			|

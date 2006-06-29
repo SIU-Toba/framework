@@ -1,25 +1,24 @@
 <?php
-//require_once('nucleo/browser/clases/interfaces.php');
-require_once('nucleo/lib/cronometro.php');          		//Cronometrar ejecucion
-require_once('nucleo/lib/db.php');		    				//Manejo de bases (utiliza abodb340)
-require_once('nucleo/lib/encriptador.php');					//Encriptador
-require_once('nucleo/lib/varios.php');						//Funciones genericas (Manejo de paths, etc.)
-require_once('nucleo/lib/sql.php');							//Libreria de manipulacion del SQL
+require_once('lib/asercion.php');    		   	   			//Aserciones
+require_once('lib/db.php');				    				//Manejo de bases (utiliza abodb340)
+require_once('lib/encriptador.php');						//Encriptador
+require_once('lib/varios.php');								//Funciones genericas (Manejo de paths, etc.)
+require_once('lib/sql.php');								//Libreria de manipulacion del SQL
 require_once('nucleo/lib/excepcion_toba.php');				//Excepciones del TOBA
 require_once('nucleo/lib/logger.php');						//Logger
-require_once('nucleo/lib/mensajes.php');						//Modulo de mensajes parametrizables
+require_once('nucleo/lib/mensajes.php');					//Modulo de mensajes parametrizables
 require_once('nucleo/lib/cola_mensajes.php');				//Cola de mensajes utilizada durante la EJECUCION
-require_once('nucleo/lib/asercion.php');       	   			//Aserciones
 require_once('nucleo/lib/permisos.php');					//Administrador de permisos particulares
-require_once('nucleo/browser/recurso.php');					//Obtencion de imágenes de la aplicación
+require_once('nucleo/lib/recurso.php');						//Obtencion de imágenes de la aplicación
+require_once('nucleo/lib/usuario_toba.php');	  			//Informacion sobre el usuario
+require_once('nucleo/lib/editor.php');			 	 		//Interaccion con el EDITOR
+require_once('nucleo/lib/cronometro.php');          		//Cronometrar ejecucion
+require_once('nucleo/lib/info_instalacion.php');			//Informacion sobre la instalacion
+require_once('nucleo/lib/info_instancia.php');				//Informacion sobre la instancia
+require_once('nucleo/lib/info_proyecto.php');	   			//Informacion sobre el proyecto
 require_once('nucleo/componentes/constructor_toba.php');	//Constructor de componentes
 require_once('nucleo/componentes/cargador_toba.php');		//Cargador de componentes
 require_once('nucleo/componentes/catalogo_toba.php');		//Catalogo de componentes
-require_once('nucleo/info_instalacion.php');				//Informacion sobre la instalacion
-require_once('nucleo/info_instancia.php');					//Informacion sobre la instancia
-require_once('nucleo/info_proyecto.php');	   				//Informacion sobre el proyecto
-require_once('nucleo/browser/usuario_toba.php');	  		//Informacion sobre el usuario
-require_once('nucleo/browser/editor.php');			  		//Interaccion con el EDITOR
 
 
 class nucleo_toba
@@ -54,8 +53,8 @@ class nucleo_toba
 	{
 		try {
 			require_once('nucleo/solicitud.php');
-			require_once('nucleo/browser/http.php');				//Genera Encabezados de HTTP
-			require_once('nucleo/browser/sesion_toba.php');			//Control de sesiones HTTP
+			require_once('nucleo/lib/http.php');				//Genera Encabezados de HTTP
+			require_once('nucleo/lib/sesion_toba.php');			//Control de sesiones HTTP
 			session_start();
 		    http::headers_standart();
 			$this->preparar_include_path();

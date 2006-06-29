@@ -1,12 +1,12 @@
 <?
+require_once("lib/asercion.php"); 		      	   	//Aserciones
 require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
-require_once("nucleo/lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
-require_once("nucleo/lib/sql.php");					//Libreria de manipulacion del SQL
+require_once("lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
+require_once("lib/sql.php");					//Libreria de manipulacion del SQL
 require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA
 require_once("nucleo/lib/logger.php");				//Logger
-require_once("nucleo/lib/asercion.php");       	   	//Aserciones
-require_once("nucleo/lib/parseo.php");       	   	//Parseo
-require_once("nucleo/lib/texto.php");       	   	//Manipulacion de texto
+require_once("lib/parseo.php");       	   	//Parseo
+require_once("lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
 require_once("consola/lib/Table.php");
 require_once("consola/lib/Getopt.php");

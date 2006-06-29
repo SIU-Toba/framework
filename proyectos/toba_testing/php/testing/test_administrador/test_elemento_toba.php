@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/reflexion/clase_php.php');
+require_once('lib/reflexion/clase_php.php');
 
 class test_elemento_toba extends test_toba
 {

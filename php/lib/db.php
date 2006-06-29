@@ -1,6 +1,6 @@
 <?php
-require_once('db/dba.php');
-require_once("fuente.php");
+require_once('lib/db/dba.php');
+require_once('nucleo/lib/fuente.php');
 /*
 	Notas de ADOdb
 	--------------

@@ -2,10 +2,10 @@
 //Sacar el parametro TABLA
 //Falta especificar los valores por defecto del LAPSO
 
-include_once("nucleo/lib/efs_obsoletos/ef.php");
-include_once("nucleo/lib/efs_obsoletos/ef_combo.php");
-include_once("nucleo/lib/efs_obsoletos/ef_editable.php");
-include_once("nucleo/lib/efs_obsoletos/ef_varios.php");
+include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
+include_once("nucleo/obsoleto/efs_obsoletos/ef_combo.php");
+include_once("nucleo/obsoleto/efs_obsoletos/ef_editable.php");
+include_once("nucleo/obsoleto/efs_obsoletos/ef_varios.php");
 //########################################################################################################
 //########################################################################################################
 //##########################################  DIMENSIONES  ###############################################

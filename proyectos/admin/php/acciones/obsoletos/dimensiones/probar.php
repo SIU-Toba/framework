@@ -4,8 +4,8 @@
 		$this->zona->cargar_editable();
 		$this->zona->obtener_html_barra_superior();
 		//$this->zona->info();
-		include("nucleo/lib/efs_obsoletos/dimensiones.php");//Dimensiones
-		include("nucleo/lib/efs_obsoletos/dimensiones_restric.php");//Dimensiones
+		include("nucleo/obsoleto/efs_obsoletos/dimensiones.php");//Dimensiones
+		include("nucleo/obsoleto/efs_obsoletos/dimensiones_restric.php");//Dimensiones
 
 		//Creo el ARRAY que inicializa la DIMENSION
         $parametros = parsear_propiedades($this->zona->editable_info["inicializacion"]);

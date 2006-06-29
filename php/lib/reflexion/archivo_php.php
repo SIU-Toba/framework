@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/manejador_archivos.php');
+require_once('lib/manejador_archivos.php');
 
 class archivo_php
 {

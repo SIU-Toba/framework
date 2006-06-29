@@ -1,5 +1,5 @@
 <?php
-include_once('nucleo/lib/varios.php');
+include_once('lib/varios.php');
 
 class test_parseo_etiquetas extends test_toba
 {

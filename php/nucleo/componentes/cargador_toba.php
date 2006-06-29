@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/cache_db.php');
+require_once('lib/cache_db.php');
 require_once('modelo/estructura_db/tablas_componente.php');
 
 class cargador_toba

@@ -1,7 +1,7 @@
 <?
 
 require_once("nucleo/componentes/interface/objeto_ei.php");	//Ancestro de todos los	OE
-require_once("nucleo/lib/efs_obsoletos/ef.php");//	Elementos de interface
+require_once("nucleo/obsoleto/efs_obsoletos/ef.php");//	Elementos de interface
 
 class objeto_ei_formulario_obsoleto extends objeto_ei
 {

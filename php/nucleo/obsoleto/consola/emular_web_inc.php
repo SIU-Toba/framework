@@ -8,6 +8,6 @@ require_once("nucleo/browser/vinculador.php");			//Vinculos a otros ITEMS
 require_once("nucleo/browser/hilo.php");				//Canal de comunicacion inter-ejecutable
 require_once("nucleo/browser/interface/formateo.php"); 	//Funciones de formateo de columnas
 require_once("nucleo/browser/interface/ei.php");		//Elementos de interface
-require_once("nucleo/lib/parseo.php");			       	//Funciones de parseo
+require_once("lib/parseo.php");			       	//Funciones de parseo
 
 ?>

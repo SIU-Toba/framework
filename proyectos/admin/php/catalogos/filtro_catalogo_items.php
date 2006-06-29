@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_filtro.php'); 
-//--------------------------------------------------------------------
+
 class filtro_catalogo_items extends objeto_ei_filtro
 {
 	function extender_objeto_js()
@@ -17,8 +16,5 @@ class filtro_catalogo_items extends objeto_ei_filtro
 			}
 		";
 	}
-
-
 }
-
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/componentes/objeto.php');
-include("nucleo/lib/efs_obsoletos/dimensiones.php");	//Objetos dimension (Especializacion de elementos de FORMULARIO)
-include("nucleo/lib/efs_obsoletos/dimensiones_restric.php");
+include("nucleo/obsoleto/efs_obsoletos/dimensiones.php");	//Objetos dimension (Especializacion de elementos de FORMULARIO)
+include("nucleo/obsoleto/efs_obsoletos/dimensiones_restric.php");
 define("apex_filtro_separador","%-%");
 
 //error_reporting(E_ALL ^ E_NOTICE);

@@ -1,6 +1,6 @@
 <?php
-require_once("nucleo/browser/hilo.php");
-require_once("nucleo/browser/vinculador.php");
+require_once("nucleo/lib/hilo.php");
+require_once("nucleo/lib/vinculador.php");
 
 class solicitud
 {

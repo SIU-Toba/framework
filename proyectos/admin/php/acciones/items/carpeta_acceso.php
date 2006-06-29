@@ -16,7 +16,7 @@
 			$tab_param["form_prefijo"]=			"grupo_acc_";
 			$tab_param["form_submit"]=			"grupo_acc_procesar";
 			$tab_param["titulo_referencia"]=	"Grupos de Acceso";
-			include_once("nucleo/lib/efs_obsoletos/tabla_asociacion.php");
+			include_once("nucleo/obsoleto/efs_obsoletos/tabla_asociacion.php");
 			$debug = false;
 			  $tabla =& new tabla_asociacion($tab_param, $debug);
 			$tabla->procesar();

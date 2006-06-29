@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/browser/zona/zona.php");
+require_once("nucleo/lib/zona.php");
 
 class zona_grupo_acceso extends zona
 {

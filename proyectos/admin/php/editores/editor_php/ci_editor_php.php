@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/browser/clases/objeto_ci.php');
-require_once('nucleo/lib/reflexion/archivo_php.php');
-require_once('nucleo/lib/reflexion/clase_php.php');
+require_once('lib/reflexion/archivo_php.php');
+require_once('lib/reflexion/clase_php.php');
 
 class ci_editor_php extends objeto_ci
 {
