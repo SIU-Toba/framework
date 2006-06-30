@@ -455,7 +455,6 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			if ($temp !== null)
 				$this->elemento_formulario[$ef]->set_estado($temp);
 		}
-		$this->cargar_valores_efs();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -604,6 +603,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				$estilo_fila = "abm-fila-ml";
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
+			$this->cargar_valores_efs();			
 			
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
 			echo "\n<!-- FILA $fila -->\n\n";
@@ -771,6 +771,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			foreach ($this->ordenes as $fila) {
 				$dato = $this->datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
+				$this->cargar_valores_efs();
 				echo "<tr class='col-tex-p1'>";
 				if ($this->info_formulario['filas_numerar']) {
 					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
