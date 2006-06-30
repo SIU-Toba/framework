@@ -548,10 +548,12 @@ class objeto_datos_tabla extends objeto
 		//Actualizo los valores
 		$alguno_modificado = false;
 		foreach(array_keys($fila) as $clave){
-			$modificar = false;
 			if (isset($this->datos[$id][$clave])) {
 				//--- Comparacion por igualdad estricta con un cast a string
 				$modificar = ((string) $this->datos[$id][$clave] !== (string) $fila[$clave]);
+			} else {
+				//--- Si antes era null, se modifica si ahora no es null!
+				$modificar = isset($fila[$clave]);
 			}
 			if ($modificar) {
 				$alguno_modificado = true;
