@@ -27,46 +27,46 @@ class ef_checkbox extends ef
     
 	static function get_parametros()
 	{
-		$parametros["valor"]["descripcion"]="Valor que toma el elemento cuando esta activado (por defecto 1).";
-		$parametros["valor"]["opcional"]=0;	
-		$parametros["valor"]["etiqueta"]="Valor ACTIVADO.";	
-		$parametros["valor_no_seteado"]["descripcion"]="Valor que toma el elemento cuando esta desactivado (por defecto 0)";
-		$parametros["valor_no_seteado"]["opcional"]=1;	
-		$parametros["valor_no_seteado"]["etiqueta"]="Valor DESACTIVADO";	
-		$parametros["estado"]["descripcion"]="";
-		$parametros["estado"]["opcional"]=0;	
-		$parametros["estado"]["etiqueta"]="Valor por defecto";	
-		$parametros["valor_info"]["descripcion"]="Descripcion coloquial del valor ACTIVADO";
-		$parametros["valor_info"]["opcional"]=0;	
-		$parametros["valor_info"]["etiqueta"]="Info Valor Act.";	
-		$parametros["valor_info_no_seteado"]["descripcion"]="Descripcion coloquial del valor DESACTIVACION";
-		$parametros["valor_info_no_seteado"]["opcional"]=0;	
-		$parametros["valor_info_no_seteado"]["etiqueta"]="Info Valor DesAct.";			
+		$parametros["check_valor_si"]["descripcion"]="Valor que toma el elemento cuando esta activado (por defecto 1).";
+		$parametros["check_valor_si"]["opcional"]=0;	
+		$parametros["check_valor_si"]["etiqueta"]="Valor ACTIVADO.";	
+		$parametros["check_valor_no"]["descripcion"]="Valor que toma el elemento cuando esta desactivado (por defecto 0)";
+		$parametros["check_valor_no"]["opcional"]=1;	
+		$parametros["check_valor_no"]["etiqueta"]="Valor DESACTIVADO";	
+		$parametros["estado_defecto"]["descripcion"]="";
+		$parametros["estado_defecto"]["opcional"]=0;	
+		$parametros["estado_defecto"]["etiqueta"]="Valor por defecto";	
+		$parametros["check_desc_si"]["descripcion"]="Descripcion coloquial del valor ACTIVADO";
+		$parametros["check_desc_si"]["opcional"]=0;	
+		$parametros["check_desc_si"]["etiqueta"]="Info Valor Act.";	
+		$parametros["check_desc_no"]["descripcion"]="Descripcion coloquial del valor DESACTIVACION";
+		$parametros["check_desc_no"]["opcional"]=0;	
+		$parametros["check_desc_no"]["etiqueta"]="Info Valor DesAct.";			
 		return $parametros;
 	}
 
     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		//VAlor FIJO
-		if(isset($parametros["estado"])){
-			$this->estado_defecto = $parametros["estado"];		
+		if(isset($parametros['estado_defecto'])){
+			$this->estado_defecto = $parametros['estado_defecto'];		
 			$this->estado = $this->estado_defecto;
 		}
-		if (isset($parametros["valor"])){
-		    $this->valor = $parametros["valor"];
+		if (isset($parametros['check_valor_si'])){
+		    $this->valor = $parametros['check_valor_si'];
 		} else {
-			$this->valor = 1;
+			$this->valor = '1';
 		}
-		if (isset($parametros["valor_no_seteado"])){
-		    $this->valor_no_seteado = $parametros["valor_no_seteado"];
+		if (isset($parametros['check_valor_no'])){
+		    $this->valor_no_seteado = $parametros['check_valor_no'];
 		} else {
-			$this->valor_no_seteado = 0;	
+			$this->valor_no_seteado = '0';	
 		}	
-		if (isset($parametros["valor_info"])){
-		    $this->valor_info = $parametros["valor_info"];
+		if (isset($parametros["check_desc_si"])){
+		    $this->valor_info = $parametros["check_desc_si"];
 		}
-		if (isset($parametros["valor_info_no_seteado"])){
-		    $this->valor_info_no_seteado = $parametros["valor_info_no_seteado"];
+		if (isset($parametros["check_desc_no"])){
+		    $this->valor_info_no_seteado = $parametros["check_desc_no"];
 		}		
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
     }
@@ -162,8 +162,6 @@ class ef_checkbox extends ef
 }
 // ########################################################################################################
 // ########################################################################################################
-// PARAMETROS ADICIONALES:
-// "estado": Valor que tiene que tomar el elemento
 class ef_fijo extends ef_oculto
 {
 	private $estilo;
@@ -172,20 +170,17 @@ class ef_fijo extends ef_oculto
 
 	static function get_parametros()
 	{
-		$parametros["estilo"]["etiqueta"]="Clase CSS";
-		$parametros["estilo"]["descripcion"]="Clase CSS del campo (tiene que estar incluida en el archivo css del proyecto";
-		$parametros["estilo"]["opcional"]=1;	
-		$parametros["sin_datos"]["etiqueta"]="Sin datos";
-		$parametros["sin_datos"]["descripcion"]="Si el valor es 1, indica que el elemento no maneja datos (es solo informativo)";
-		$parametros["sin_datos"]["opcional"]=1;	
+		$parametros["fijo_sin_estado"]["etiqueta"]="Sin datos";
+		$parametros["fijo_sin_estado"]["descripcion"]="Si el valor es 1, indica que el elemento no maneja datos (es solo informativo)";
+		$parametros["fijo_sin_estado"]["opcional"]=1;	
 		return $parametros;
 	}
 
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
-		$this->estilo = isset($parametros["estilo"]) ? $parametros["estilo"] : "ef-fijo";
-		if(isset($parametros["sin_datos"]) && $parametros["sin_datos"] == 1){
+		$this->estilo = "ef-fijo";
+		if(isset($parametros['fijo_sin_estado']) && $parametros['fijo_sin_estado'] == 1){
 			$this->maneja_datos = false;
 		}else{
 			$this->maneja_datos = true;
@@ -227,78 +222,6 @@ class ef_fijo extends ef_oculto
 			
 }
 
-// ########################################################################################################
-// ########################################################################################################
-class ef_combo_editable extends ef
-{
-     var $ef_combo;
-     var $ef_editable;
-     var $dato;
-    
-	static function get_parametros()
-	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
-	}
-
-     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
-    {
-         if(count($dato) != 2){
-             echo ei_mensaje("EF_COMBO_VALOR: El elemento posee 2 columnas asociadas");
-             return;
-             }
-         $this->dato = $dato;
-         $parametros_combo['no_seteado'] = isset($parametros['no_seteado'])? $parametros['no_seteado']: null;
-         $parametros_combo['sql'] = isset($parametros['sql'])? $parametros['sql']: null;
-         $parametros_combo['fuente'] = isset($parametros['fuente'])? $parametros['fuente']: null;
-         $this->ef_combo = & new ef_combo_db($padre, $nombre_formulario,
-             $id . "_" . $dato[0], $etiqueta,
-             $descripcion, $dato[0],
-             $obligatorio, $parametros_combo);
-         $parametros_editable['estado'] = isset($parametros['estado'])? $parametros['estado']: null;
-         $parametros_editable['tamano'] = isset($parametros['tamano'])? $parametros['tamano']: null;
-         $parametros_editable['maximo'] = isset($parametros['maximo'])? $parametros['maximo']: null;
-         $this->ef_editable = & new ef_editable($padre, $nombre_formulario,
-             $id . "_" . $dato[1], $etiqueta,
-             $descripcion, $dato[1],
-             $obligatorio, $parametros_editable);
-         parent :: ef($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio);
-         }
-    
-     function set_estado($estado = null)
-     { // Carga el estado interno
-        if($estado != null){
-			$this->ef_combo->set_estado($estado[$this->dato[0]]);
-			$this->ef_editable->set_estado($estado[$this->dato[1]]);
-		}else{
-			$this->ef_combo->set_estado();
-			$this->ef_editable->set_estado();
-		}
-	}
-    
-	function get_estado()
-    {
-         $temp[$this->dato[0]] = $this->ef_combo->get_estado();
-         $temp[$this->dato[1]] = $this->ef_editable->get_estado();
-         return $temp;
-	}
-    
-     function get_input()
-    {
-         // Informacion al usuario sobre el elemento: AYUDA y PARAMETROS
-        // Elementos de FORMULARIO
-        $html = "";
-         $html .= "<table class='tabla-0'>\n";
-         $html .= "<tr><td>\n";
-         $html .= $this->ef_combo->get_input();
-         $html .= "</td><td>\n";
-         $html .= $this->ef_editable->get_input();
-         $html .= "</td></tr>\n";
-         $html .= "</table>\n";
-         return $html;
-         }
-    }
 
 // ########################################################################################################
 // ########################################################################################################
@@ -312,23 +235,23 @@ class ef_html extends ef
 
 	static function get_parametros()
 	{
-		$parametros["ancho"]["descripcion"]= "Ancho, especificar medida ej. 450px o 80%";
-		$parametros["ancho"]["opcional"] = 1;	
-		$parametros["ancho"]["etiqueta"] = "Ancho";
-		$parametros["alto"]["descripcion"]= "Alto, especificar medida ej. 450px o 80%";
-		$parametros["alto"]["opcional"] = 1;	
-		$parametros["alto"]["etiqueta"] = "Alto";			
-		$parametros["botonera"]["descripcion"] = "Tipo de botonera (por defecto toba";	
-		$parametros["botonera"]["opcional"] = 1;	
-		$parametros["botonera"]["etiqueta"] = "Botonera";
+		$parametros["editor_ancho"]["descripcion"]= "Ancho, especificar medida ej. 450px o 80%";
+		$parametros["editor_ancho"]["opcional"] = 1;	
+		$parametros["editor_ancho"]["etiqueta"] = "Ancho";
+		$parametros["editor_alto"]["descripcion"]= "Alto, especificar medida ej. 450px o 80%";
+		$parametros["editor_alto"]["opcional"] = 1;	
+		$parametros["editor_alto"]["etiqueta"] = "Alto";			
+		$parametros["editor_botonera"]["descripcion"] = "Tipo de botonera (por defecto toba";	
+		$parametros["editor_botonera"]["opcional"] = 1;	
+		$parametros["editor_botonera"]["etiqueta"] = "Botonera";
 		return $parametros;
 	}
 
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
-		$this->ancho = (isset($parametros["ancho"]))? $parametros["ancho"] : "100%";
-		$this->alto = (isset($parametros["alto"]))? $parametros["alto"] : "300px";
-		$this->botonera = (isset($parametros["botonera"]))? $parametros["botonera"] : "Toba";
+		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";
+		$this->alto = (isset($parametros['editor_alto']))? $parametros['editor_alto'] : "300px";
+		$this->botonera = (isset($parametros['editor_botonera']))? $parametros['editor_botonera'] : "Toba";
          parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}
 
@@ -368,64 +291,5 @@ class ef_html extends ef
 		return $html;
 	}
 }
-// ########################################################################################################
-// ########################################################################################################
-//Editor de PHP con sintaxis coloreada
 
-class ef_php extends ef
-{
-	var $ancho;
-	var $alto;
-
-	static function get_parametros()
-	{
-		$parametros[""]["descripcion"]="";
-		$parametros[""]["opcional"]=1;	
-		return $parametros;
-	}
-
-	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
-    {
-		$this->ancho = (isset($parametros["ancho"]))? $parametros["ancho"] : "100%";
-		$this->alto = (isset($parametros["alto"]))? $parametros["alto"] : "300";
-         parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
-	}
-	//---------------------------------------------------------
-
-	function obtener_interface_ut()
-	{
-		echo $this->obtener_input();
-	}
-	//---------------------------------------------------------
-
-    function obtener_javascript()
-    {
-        //Obtengo el CODIGO PHP del iframe
-        return "formulario.". $this->id_form .".value = ".$this->id_form."_editor.getContents();";
-    }
-	//---------------------------------------------------------
-
-	function get_input()
-	{
-	    $estado = str_replace("\r", "", $this->estado);
-	    $estado = str_replace("\n", "\\n", $estado);
-	    $estado = str_replace('"', '\"', $estado);
-	    $estado = str_replace("\t", "\\t", $estado);
-	    $estado = "Hola, que tal";
-		$html = "
-<iframe name='{$this->id_form}_editor' src='".recurso::js('helene/editor.html').
-				"' style='width: {$this->ancho}; height: {$this->alto};'></iframe>
-<script type='text/javascript'>
-function {$this->id_form}_init(){
-//alert('$estado');
-document.{$this->id_form}_editor.setContents(\"$estado\");
-}
-$this.onload = {$this->id_form}_init();
-</script>";
-		$html .= form::hidden($this->id_form,$estado);
-		return $html;
-	}
-}
-// ########################################################################################################
-// ########################################################################################################
 ?>

@@ -13,40 +13,40 @@ class ef_editable extends ef
 	{
 		$parametros = parent::get_parametros_carga();
 		unset($parametros['lista']);
-		$parametros["tamano"]["descripcion"]="Cantidad de caracteres visibles.";
-		$parametros["tamano"]["opcional"]=1;	
-		$parametros["tamano"]["etiqueta"]="Tamaño Campo";
-		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
-		$parametros["maximo"]["opcional"]=1;	
-		$parametros["maximo"]["etiqueta"]="Max. Caract.";
-		$parametros["mascara"]["descripcion"]="Mascara del elemento.";
-		$parametros["mascara"]["opcional"]=1;	
-		$parametros["mascara"]["etiqueta"]="Máscara";
-		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
-		$parametros["estado"]["opcional"]=1;	
-		$parametros["estado"]["etiqueta"]="Valor defecto";
+		$parametros["edit_tamano"]["descripcion"]="Cantidad de caracteres visibles.";
+		$parametros["edit_tamano"]["opcional"]=1;	
+		$parametros["edit_tamano"]["etiqueta"]="Tamaño Campo";
+		$parametros["edit_maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
+		$parametros["edit_maximo"]["opcional"]=1;	
+		$parametros["edit_maximo"]["etiqueta"]="Max. Caract.";
+		$parametros["edit_mascara"]["descripcion"]="Mascara del elemento.";
+		$parametros["edit_mascara"]["opcional"]=1;	
+		$parametros["edit_mascara"]["etiqueta"]="Máscara";
+		$parametros["estado_defecto"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado_defecto"]["opcional"]=1;	
+		$parametros["estado_defecto"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
-		$parametros["unidad"]["descripcion"]="Anexa al editable una referencia de la unidad utilizada (por ej. cargos)";
-		$parametros["unidad"]["opcional"]=1;	
-		$parametros["unidad"]["etiqueta"]="Unidad de referencia";				
+		$parametros["edit_unidad"]["descripcion"]="Anexa al editable una referencia de la unidad utilizada (por ej. cargos)";
+		$parametros["edit_unidad"]["opcional"]=1;	
+		$parametros["edit_unidad"]["etiqueta"]="Unidad de referencia";				
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//VAlor FIJO
-		if(isset($parametros["estado"])){
-			$this->estado_defecto = $parametros["estado"];
+		if(isset($parametros['estado_defecto'])){
+			$this->estado_defecto = $parametros['estado_defecto'];
 			$this->estado = $this->estado_defecto;
 		}
 		//Tamaño del editable
-		$this->tamano = (isset($parametros["tamano"]))? $parametros["tamano"] : 20;
+		$this->tamano = (isset($parametros['edit_tamano']))? $parametros['edit_tamano'] : 20;
 		//Maximo de caracteres
-		if(isset($parametros["maximo"])){
-			if($parametros["maximo"]!=""){
-				$this->maximo = $parametros["maximo"];
+		if(isset($parametros['edit_maximo'])){
+			if($parametros['edit_maximo']!=""){
+				$this->maximo = $parametros['edit_maximo'];
 			}else{
 				$this->maximo = $this->tamano;
 			}
@@ -54,12 +54,12 @@ class ef_editable extends ef
 			$this->maximo = $this->tamano;
 		}
 		//Mascara
-		if(isset($parametros["mascara"])) {
-			$this->mascara = $parametros["mascara"];		
+		if(isset($parametros['edit_mascara'])) {
+			$this->mascara = $parametros['edit_mascara'];		
 		}
-		if (isset($parametros['unidad'])) {
-			$this->unidad = $parametros['unidad'];
-			unset($parametros['unidad']);	
+		if (isset($parametros['edit_unidad'])) {
+			$this->unidad = $parametros['edit_unidad'];
+			unset($parametros['edit_unidad']);	
 		}		
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -141,25 +141,25 @@ class ef_editable_numero extends ef_editable
 	static function get_parametros()
 	{
 		$parametros = ef_editable::get_parametros();
-		unset($parametros['tamano']);
-		unset($parametros['maximo']);
+		unset($parametros['edit_tamano']);
+		unset($parametros['edit_maximo']);
 		$mas = '<br>Ver [wiki:Referencia/efs/numero documentación de los parametros]';
-		$parametros["maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox incluyendo simbolos de puntuación, comas, decimales, etc. $mas";
-		$parametros["maximo"]["etiqueta"]="Cant. Max. Caract.";
-		$parametros["maximo"]["opcional"]=1;
-		$parametros["rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. ".$mas;
-		$parametros["rango"]["opcional"]=1;	
-		$parametros["rango"]["etiqueta"]="Rango de valores permitidos";
-		$parametros["mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00".$mas;
+		$parametros["edit_maximo"]["descripcion"]="Pone un limite en la cantidad de caracteres que es posible ingresar al editbox incluyendo simbolos de puntuación, comas, decimales, etc. $mas";
+		$parametros["edit_maximo"]["etiqueta"]="Cant. Max. Caract.";
+		$parametros["edit_maximo"]["opcional"]=1;
+		$parametros["edit_rango"]["descripcion"]="Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. ".$mas;
+		$parametros["edit_rango"]["opcional"]=1;	
+		$parametros["edit_rango"]["etiqueta"]="Rango de valores permitidos";
+		$parametros["edit_mascara"]["descripcion"]="Máscara aplicada al número, por ejemplo ###.###,00".$mas;
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-input-numero";
-        $parametros["tamano"] = (isset($parametros["tamano"])) ? $parametros["tamano"] : 5;
-		if (isset($parametros['rango'])) {
-			$this->cambiar_rango($parametros['rango']);
+        $parametros['edit_tamano'] = (isset($parametros['edit_tamano'])) ? $parametros['edit_tamano'] : 5;
+		if (isset($parametros['edit_rango'])) {
+			$this->cambiar_rango($parametros['edit_rango']);
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -290,8 +290,8 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		if (! isset($parametros["cifras"]))
-			$parametros["cifras"]= 4;
+		if (! isset($parametros['edit_tamano']))
+			$parametros['edit_tamano']= 4;
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 		$this->unidad = '%';
 	}
@@ -309,12 +309,12 @@ class ef_editable_clave extends ef_editable
 {
 	static function get_parametros()
 	{
-		$parametros["tamano"]["descripcion"]="Cantidad de caracteres.";
-		$parametros["tamano"]["opcional"]=1;	
-		$parametros["tamano"]["etiqueta"]="Tamaño Campo";
-		$parametros["maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
-		$parametros["maximo"]["opcional"]=1;	
-		$parametros["maximo"]["etiqueta"]="Max. Caract.";
+		$parametros["edit_tamano"]["descripcion"]="Cantidad de caracteres.";
+		$parametros["edit_tamano"]["opcional"]=1;	
+		$parametros["edit_tamano"]["etiqueta"]="Tamaño Campo";
+		$parametros["edit_maximo"]["descripcion"]="Cantidad maxima de caracteres (Por defecto igual a [tamano]).";
+		$parametros["edit_maximo"]["opcional"]=1;	
+		$parametros["edit_maximo"]["etiqueta"]="Max. Caract.";
 		return $parametros;
 	}
 
@@ -340,13 +340,13 @@ class ef_editable_fecha extends ef_editable
 	static function get_parametros()
 	{
 		$parametros = ef_editable::get_parametros();
-		unset($parametros['tamano']);
+		unset($parametros['edit_tamano']);
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$parametros['tamano'] = "10";//Esto deberia depender del tipo de fecha
+		$parametros['edit_tamano'] = "10";//Esto deberia depender del tipo de fecha
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
@@ -430,7 +430,7 @@ class ef_editable_textarea extends ef_editable
 	protected $lineas;
 	protected $resaltar;
 	protected $wrap;
-	protected $clase;
+	protected $clase='ef-textarea';
 	protected $no_margen;
 	protected $ajustable;
 	protected $maximo;
@@ -438,29 +438,29 @@ class ef_editable_textarea extends ef_editable
 	static function get_parametros()
 	{
 		$parametros = ef::get_parametros_carga();
-		unset($parametros['lista']);
+		unset($parametros['carga_lista']);
 		
-		$parametros["filas"]["descripcion"]="Cantidad de lineas";
-		$parametros["filas"]["opcional"]=1;	
-		$parametros["filas"]["etiqueta"]="Alto";	
-		$parametros["columnas"]["descripcion"]="Cantidad de carcteres por linea";
-		$parametros["columnas"]["opcional"]=1;	
-		$parametros["columnas"]["etiqueta"]="Ancho";
-		$parametros["maximo"]["descripcion"]="Cantidad máxima de caracteres.";
-		$parametros["maximo"]["opcional"]=1;	
-		$parametros["maximo"]["etiqueta"]="Max. Caract.";
-		$parametros["wrap"]["descripcion"]="";
-		$parametros["wrap"]["opcional"]=1;	
-		$parametros["wrap"]["etiqueta"]="Wrap";	
-		$parametros["resaltar"]["descripcion"]="Se incorpora un boton para resaltar el texto";
-		$parametros["resaltar"]["opcional"]=1;	
-		$parametros["resaltar"]["etiqueta"]="Seleccionable";	
-		$parametros["ajustable"]["descripcion"]="El tamaño gráfico es ajustable";
-		$parametros["ajustable"]["opcional"]=1;	
-		$parametros["ajustable"]["etiqueta"]="Ajustable";	
-		$parametros["estado"]["descripcion"]="Indica un valor predeterminado para el campo";
-		$parametros["estado"]["opcional"]=1;	
-		$parametros["estado"]["etiqueta"]="Valor defecto";
+		$parametros["edit_filas"]["descripcion"]="Cantidad de lineas";
+		$parametros["edit_filas"]["opcional"]=1;	
+		$parametros["edit_filas"]["etiqueta"]="Alto";	
+		$parametros["edit_columnas"]["descripcion"]="Cantidad de carcteres por linea";
+		$parametros["edit_columnas"]["opcional"]=1;	
+		$parametros["edit_columnas"]["etiqueta"]="Ancho";
+		$parametros["edit_maximo"]["descripcion"]="Cantidad máxima de caracteres.";
+		$parametros["edit_maximo"]["opcional"]=1;	
+		$parametros["edit_maximo"]["etiqueta"]="Max. Caract.";
+		$parametros["edit_wrap"]["descripcion"]="";
+		$parametros["edit_wrap"]["opcional"]=1;	
+		$parametros["edit_wrap"]["etiqueta"]="Wrap";	
+		$parametros["edit_resaltar"]["descripcion"]="Se incorpora un boton para resaltar el texto";
+		$parametros["edit_resaltar"]["opcional"]=1;	
+		$parametros["edit_resaltar"]["etiqueta"]="Seleccionable";	
+		$parametros["edit_ajustable"]["descripcion"]="El tamaño gráfico es ajustable";
+		$parametros["edit_ajustable"]["opcional"]=1;	
+		$parametros["edit_ajustable"]["etiqueta"]="Ajustable";	
+		$parametros["estado_defecto"]["descripcion"]="Indica un valor predeterminado para el campo";
+		$parametros["estado_defecto"]["opcional"]=1;	
+		$parametros["estado_defecto"]["etiqueta"]="Valor defecto";
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
@@ -470,25 +470,24 @@ class ef_editable_textarea extends ef_editable
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		//Esta conversion es para no modificar ahora las definiciones, CAMBIAR!
-		$this->lineas = isset($parametros["filas"]) ? $parametros["filas"] : 6;
-		$this->wrap = isset($parametros["wrap"]) ? $parametros["wrap"] : "";
-		$this->clase = isset($parametros["clase"]) ? $parametros["clase"] : "ef-textarea";
-		if (isset($parametros["resaltar"])){
-			if($parametros["resaltar"]==1){
+		$this->lineas = isset($parametros['edit_filas']) ? $parametros['edit_filas'] : 6;
+		$this->wrap = isset($parametros['edit_wrap']) ? $parametros['edit_wrap'] : "";
+		if (isset($parametros['edit_resaltar'])){
+			if($parametros['edit_resaltar']==1){
 				$this->resaltar = 1;
 			}
 		}else{
 			$this->resaltar = 0;
 		}
-		$parametros["tamano"] = isset($parametros["columnas"]) ? $parametros["columnas"] : 40;
+		$parametros['edit_tamano'] = isset($parametros["edit_columnas"]) ? $parametros["edit_columnas"] : 40;
 		
-		if(isset($parametros["maximo"]) && $parametros["maximo"]!="") {
-			$maximo = $parametros["maximo"];
-			unset($parametros['maximo']);
+		if(isset($parametros['edit_maximo']) && $parametros['edit_maximo']!="") {
+			$maximo = $parametros['edit_maximo'];
+			unset($parametros['edit_maximo']);
 		}
-		$this->ajustable = isset($parametros["ajustable"]) ? $parametros["ajustable"] : false;
-		unset($parametros["filas"]);
-		unset($parametros["columnas"]);
+		$this->ajustable = isset($parametros['edit_ajustable']) ? $parametros['edit_ajustable'] : false;
+		unset($parametros['edit_filas']);
+		unset($parametros['edit_columnas']);
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 		
 		if (isset($maximo)) {

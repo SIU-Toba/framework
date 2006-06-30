@@ -13,13 +13,13 @@ abstract class ef_seleccion extends ef
 	static function get_parametros()
 	{
 		$parametros = parent::get_parametros_carga();
-		$parametros["no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo";
-		$parametros["no_seteado"]["opcional"]=1;	
-		$parametros["no_seteado"]["etiqueta"]="Desc. No seleccion";	
+		$parametros["carga_no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo";
+		$parametros["carga_no_seteado"]["opcional"]=1;	
+		$parametros["carga_no_seteado"]["etiqueta"]="Desc. No seleccion";	
 
-		$parametros["predeterminado"]["descripcion"]="Valor predeterminado, si tiene varias claves separar con barra (/)";
-		$parametros["predeterminado"]["opcional"]=1;	
-		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
+		$parametros["estado_defecto"]["descripcion"]="Valor predeterminado, si tiene varias claves separar con barra (/)";
+		$parametros["estado_defecto"]["opcional"]=1;	
+		$parametros["estado_defecto"]["etiqueta"]="Valor predeterminado";
 /*
 		$parametros["agrupador_dao"]["descripcion"]="Método de donde se obtienen las distintas categorias para agrupar.";
 		$parametros["agrupador_dao"]["opcional"]=0;	
@@ -45,15 +45,15 @@ abstract class ef_seleccion extends ef
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 		
 		//---------------------- Manejo de Estado por defecto  ------------------		
-		if (isset($parametros["predeterminado"]) && $parametros["predeterminado"]!="") {
+		if (isset($parametros['estado_defecto']) && $parametros['estado_defecto']!="") {
 			if (is_array($this->dato)) {
 				$this->estado_defecto = array();
-				$param = explode(',', $parametros["predeterminado"]);
+				$param = explode(',', $parametros['estado_defecto']);
 				for ($i=0; $i < count($this->dato); $i++) {
 					$this->estado_defecto[$this->dato[$i]] = trim($param[$i]);
 				}
 			} else {
-				$this->estado_defecto = trim($parametros["predeterminado"]);	
+				$this->estado_defecto = trim($parametros['estado_defecto']);	
 			}
 		}		
 		

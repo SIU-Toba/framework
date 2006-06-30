@@ -248,7 +248,6 @@ class migracion_0_10_0 extends migracion_toba
 			'clase' =>'carga_clase',
 			'include' =>'carga_include',
 			'clave' =>'carga_col_clave',
-			'valor' =>'carga_col_desc',
 			'sql' =>'carga_sql',
 			'fuente' =>'carga_fuente',
 			'lista' =>'carga_lista',
@@ -269,11 +268,10 @@ class migracion_0_10_0 extends migracion_toba
 			'ventana' =>'popup_ventana',
 			'editable' =>'popup_editable',
 			'tipo' =>'fieldset_fin',
-			'valor' =>'check_valor_si',
 			'valor_no_seteado' =>'check_valor_no',
 			'valor_info' =>'check_desc_si',
 			'valor_info_no_seteado' =>'check_desc_no',
-			'sin_datos' =>'fijo_con_estado',
+			'sin_datos' =>'fijo_sin_estado',
 			'ancho' =>'editor_ancho',
 			'alto' =>'editor_alto',
 			'botonera' =>'editor_botonera',
@@ -282,6 +280,7 @@ class migracion_0_10_0 extends migracion_toba
 			'mostrar_utilidades'=>'selec_utilidades',
 			'tamanio'=>'selec_tamano',
 			//'item_destino' Migrar manualmente
+			//'valor':carga_col_desc o check_valor_si
 		);
 		
 		$sql = "
@@ -289,6 +288,7 @@ class migracion_0_10_0 extends migracion_toba
 				objeto_ei_formulario_proyecto,
 				objeto_ei_formulario,
 				objeto_ei_formulario_fila,
+				elemento_formulario,
 				inicializacion
 			FROM
 				apex_objeto_ei_formulario_ef
@@ -302,11 +302,17 @@ class migracion_0_10_0 extends migracion_toba
 			foreach ($param as $clave => $valor) {
 				if (isset($correlacion[$clave])) {
 					$nuevos[$correlacion[$clave]] = $valor;
+				} elseif ($clave == 'valor') {
+					if ($ef['elemento_formulario'] == 'ef_checkbox') {
+						$nuevos['check_valor_si'] = $valor;
+					} else {
+						$nuevos['carga_col_desc'] = $valor;
+					}
 				} elseif ($clave == 'item_destino') {
 					$partes = explode(',', $valor);
 					$p_item = $partes[0];
 					if (count($partes)==2) {
-						$p_proyecto = $destino[1];
+						$p_proyecto = $partes[1];
 					} else {
 						$p_proyecto = $this->elemento->get_id();
 					}

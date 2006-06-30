@@ -78,16 +78,16 @@ class ef_fieldset extends ef_sin_estado
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$this->fin = (isset($parametros["tipo"]))? ($parametros["tipo"] == 1) : false;
+		$this->fin = (isset($parametros['fieldset_fin'])) ? ($parametros['fieldset_fin'] == 1) : false;
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
 	static function get_parametros()
 	{
 		$parametros = array();
-		$parametros["tipo"]["descripcion"]="¿Este ef marca el fin del fieldset?";
-		$parametros["tipo"]["opcional"]=1;	
-		$parametros["tipo"]["etiqueta"]="Fin del fieldset";			
+		$parametros["fieldset_fin"]["descripcion"]="¿Este ef marca el fin del fieldset?";
+		$parametros["fieldset_fin"]["opcional"]=1;	
+		$parametros["fieldset_fin"]["etiqueta"]="Fin del fieldset";			
 		return $parametros;
 	}	
 	

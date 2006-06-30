@@ -220,6 +220,20 @@ class ci_efs extends objeto_ci
 			cambiarle el estilo a la linea del ML
 		*/
 		$parametros = $this->get_definicion_parametros();
+		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		$temp = array();
+		$a=0;		
+		foreach($parametros as $clave => $desc) {
+			$imagen_ayuda = recurso::imagen_apl("descripcion.gif",true, null, null, $desc['descripcion']);
+			$temp[$a]['clave'] = $clave;
+			$temp[$a]['etiqueta'] = $desc['etiqueta'];
+			$temp[$a]['valor'] = isset($fila[$clave]) ? $fila[$clave] : null;
+			$temp[$a]['ayuda'] = $imagen_ayuda;
+			$a++;	
+		}
+		return $temp;
+		
+		/*
 		//Inicializacion del EF actual
 		$x = $this->get_tabla()->get_fila_columna($this->seleccion_efs_anterior,"inicializacion");
 		if(isset($x)){
@@ -236,15 +250,20 @@ class ci_efs extends objeto_ci
 			$temp[$a]['ayuda'] = $imagen_ayuda;
 			$a++;	
 		}
-		return $temp;
+		return $temp;*/
 	}
 	
 	function evt__efs_ini__modificacion($datos)
 	{
+		$campos = array();
+		foreach ($datos as $param) {
+			$campos[$param['clave']] = $param['valor'];
+		}
+		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $campos);
 		/*
 			ATENCION: Falta la validacion de que los campos obligatorios esten seteados
 		*/
-		
+/*		
 		//Primero se borran los parametros anteriores
 		$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion","");
 		
@@ -258,7 +277,7 @@ class ci_efs extends objeto_ci
 			$resultado = empaquetar_propiedades($temp, '_');
 			//Tengo que validar que los obligatorios existan
 			$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
-		}
+		}*/
 	}
 	
 	function get_definicion_parametros()

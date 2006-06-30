@@ -16,63 +16,68 @@ abstract class ef_multi_seleccion extends ef
 	static function get_parametros()
 	{
 		$parametros = ef::get_parametros_carga();		
-		$parametros["predeterminado"]["descripcion"]="Valor predeterminado";
-		$parametros["predeterminado"]["opcional"]=1;	
-		$parametros["predeterminado"]["etiqueta"]="Valor predeterminado";
-		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";		
-		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
+		$parametros["estado_defecto"]["descripcion"]="Valor predeterminado";
+		$parametros["estado_defecto"]["opcional"]=1;	
+		$parametros["estado_defecto"]["etiqueta"]="Valor predeterminado";
+		$parametros["carga_maestros"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["carga_maestros"]["opcional"]=1;	
+		$parametros["carga_maestros"]["etiqueta"]="Dependencias";		
+/*		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
 		$parametros["dependencia_estricta"]["opcional"]=1;	
-		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		
-		$parametros["cant_minima"]["descripcion"]="Cantidad Minima";
-		$parametros["cant_minima"]["opcional"]=1;	
-		$parametros["cant_minima"]["etiqueta"]="Cantidad Minima";
-		$parametros["cant_maxima"]["descripcion"]="Cantidad Máxima";
-		$parametros["cant_maxima"]["opcional"]=1;	
-		$parametros["cant_maxima"]["etiqueta"]="Cantidad Máxima";			
+		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		*/
+		$parametros["selec_cant_minima"]["descripcion"]="Cantidad Minima";
+		$parametros["selec_cant_minima"]["opcional"]=1;	
+		$parametros["selec_cant_minima"]["etiqueta"]="Cantidad Minima";
+		$parametros["selec_cant_maxima"]["descripcion"]="Cantidad Máxima";
+		$parametros["selec_cant_maxima"]["opcional"]=1;	
+		$parametros["selec_cant_maxima"]["etiqueta"]="Cantidad Máxima";			
 		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
 		$parametros["solo_lectura"]["opcional"]=1;	
 		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
-		$parametros["mostrar_utilidades"]["descripcion"]="Permite que el usuario seleccione/deseleccione todos los elementos";
-		$parametros["mostrar_utilidades"]["opcional"]=1;	
-		$parametros["mostrar_utilidades"]["etiqueta"]="Utilidad 'Todos/Ninguno'";
+		$parametros["selec_utilidades"]["descripcion"]="Permite que el usuario seleccione/deseleccione todos los elementos";
+		$parametros["selec_utilidades"]["opcional"]=1;	
+		$parametros["selec_utilidades"]["etiqueta"]="Utilidad 'Todos/Ninguno'";
 		return $parametros;
 	}
 
+	/**
+	 * @todo El parametros serializar??
+	 */
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);		
-		if (isset($parametros['mostrar_utilidades'])) {
-			$this->mostrar_utilidades = $parametros['mostrar_utilidades'];
+		if (isset($parametros['selec_utilidades'])) {
+			$this->mostrar_utilidades = $parametros['selec_utilidades'];
 		} else { 
 			$this->mostrar_utilidades = false;
 		}		
-		if(isset($parametros["tamanio"])) {
-			$this->tamanio = $parametros['tamanio'];
-			unset($parametros['tamanio']);
+		if(isset($parametros['selec_tamano'])) {
+			$this->tamanio = $parametros['selec_tamano'];
+			unset($parametros['selec_tamano']);
 		}
-		if(isset($parametros["cant_maxima"])) {
-			$this->cant_maxima = $parametros['cant_maxima'];
-			unset($parametros['cant_maxima']);
+		if(isset($parametros["selec_cant_maxima"])) {
+			$this->cant_maxima = $parametros['selec_cant_maxima'];
+			unset($parametros['selec_cant_maxima']);
 		}
-		if(isset($parametros["cant_minima"])) {
-			$this->cant_minima = $parametros['cant_minima'];
-			unset($parametros['cant_minima']);
+		if(isset($parametros['selec_cant_minima'])) {
+			$this->cant_minima = $parametros['selec_cant_minima'];
+			unset($parametros['selec_cant_minima']);
 		}
+		
+		
 		if(isset($parametros["serializar"])) {
 			$this->serializar = $parametros["serializar"];
 		}
 		
 		//---------------------- Manejo de Estado por defecto  ------------------		
-		if (isset($parametros["predeterminado"]) && $parametros["predeterminado"]!="") {
-			$estados = explode(',', $parametros["predeterminado"]);
+		if (isset($parametros['estado_defecto']) && $parametros['estado_defecto']!="") {
+			$estados = explode(',', $parametros['estado_defecto']);
 			$estados = array_map('trim', $estados);
 			if (is_array($this->dato)) {
 				$this->estado_defecto = array();
 				$actual = 0;
 				foreach ($estados as $estado) {
-					$param = explode('/', $parametros["predeterminado"]);
+					$param = explode('/', $parametros['estado_defecto']);
 					$parm = array_map('trim', $param);
 					for ($i=0; $i < count($this->dato); $i++) {
 						$this->estado_defecto[$actual][$this->dato[$i]] = trim($param[$i]);
@@ -293,9 +298,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 	static function get_parametros()
 	{
 		$parametros = ef_multi_seleccion::get_parametros();
-		$parametros["tamanio"]["descripcion"]="Cantidad de elementos que se visualizan simultáneamente";
-		$parametros["tamanio"]["opcional"]=1;	
-		$parametros["tamanio"]["etiqueta"]="Tamaño";			
+		$parametros["selec_tamano"]["descripcion"]="Cantidad de elementos que se visualizan simultáneamente";
+		$parametros["selec_tamano"]["opcional"]=1;	
+		$parametros["selec_tamano"]["etiqueta"]="Tamaño";			
 		return $parametros;
 	}
 

@@ -545,30 +545,41 @@ class objeto_datos_tabla extends objeto
 		$this->validar_fila($fila, $id);
 		$this->notificar_contenedor("pre_modificar", $fila, $id);
 		
-		
 		//Actualizo los valores
+		$alguno_modificado = false;
 		foreach(array_keys($fila) as $clave){
-			$this->datos[$id][$clave] = $fila[$clave];
+			$modificar = false;
+			if (isset($this->datos[$id][$clave])) {
+				//--- Comparacion por igualdad estricta con un cast a string
+				$modificar = ((string) $this->datos[$id][$clave] !== (string) $fila[$clave]);
+			}
+			if ($modificar) {
+				$alguno_modificado = true;
+				$this->datos[$id][$clave] = $fila[$clave];
+			}
 		}
-		if($this->cambios[$id]['estado']!="i"){
-			$this->registrar_cambio($id,"u");
-		}
-						
-		//Se actualizan los cambios en la relación
-		foreach ($this->relaciones_con_padres as $rel_padre) {
-			$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
-		}
-		
-		/*
-			Como los campos externos pueden necesitar una campo que no entrego la
-			interface, primero actualizo los valores y despues tomo la fila y la
-			proceso con la actualizacion de campos externos
-		*/
-		//Si la tabla posee campos externos, le pido la nueva fila al persistidor
-		if($this->posee_columnas_ext){
-			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->datos[$id],"upd");
-			foreach($campos_externos as $clave => $valor){
-				$this->datos[$id][$clave] = $valor;
+		//--- Esto evita propagar cambios que en realidad no sucedieron
+		if ($alguno_modificado) {
+			if($this->cambios[$id]['estado']!="i"){
+				$this->registrar_cambio($id,"u");
+			}
+			
+			//Se actualizan los cambios en la relación
+			foreach ($this->relaciones_con_padres as $rel_padre) {
+				$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
+			}
+			
+			/*
+				Como los campos externos pueden necesitar una campo que no entrego la
+				interface, primero actualizo los valores y despues tomo la fila y la
+				proceso con la actualizacion de campos externos
+			*/
+			//Si la tabla posee campos externos, le pido la nueva fila al persistidor
+			if($this->posee_columnas_ext){
+				$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->datos[$id],"upd");
+				foreach($campos_externos as $clave => $valor){
+					$this->datos[$id][$clave] = $valor;
+				}
 			}
 		}
 		$this->notificar_contenedor("post_modificar", $fila, $id);

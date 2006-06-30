@@ -63,12 +63,12 @@ abstract class ef
      	$this->obligatorio = $obligatorio;
 		
 		//---- Declaracion de dependencias
-		if (isset($parametros["dependencias"])) {
-			if($parametros["dependencias"]!=""){
-				$this->maestros = explode(",",$parametros["dependencias"]);
+		if (isset($parametros['carga_maestros'])) {
+			if ($parametros['carga_maestros']!=""){
+				$this->maestros = explode(",",$parametros['carga_maestros']);
 				$this->maestros = array_map("trim",$this->maestros);
 			}
-			if (isset($parametros['cascada_relajada']) && $parametros['cascada_relajada']) {
+			if (isset($parametros['carga_cascada_relaj']) && $parametros['carga_cascada_relaj']) {
 				$this->cascada_relajada = true;
 			}
 		}
@@ -80,16 +80,16 @@ abstract class ef
 		}		
 		
 		//---------------------- Manejo de CLAVES  ------------------
-		if (isset($parametros['clave'])) {
-			$campos_clave = explode(",", $parametros["clave"]);
+		if (isset($parametros['carga_col_clave'])) {
+			$campos_clave = explode(",", $parametros['carga_col_clave']);
 			$this->campos_clave = array_map("trim", $campos_clave);
 		} else {
 			if (isset($parametros['columna_proyecto'])) {
 				$this->campos_clave = array(0,1);	
 			}
 		}
-		if (isset($parametros['valor'])) {
-			$this->campo_valor = trim($parametros['valor']);
+		if (isset($parametros['carga_col_desc'])) {
+			$this->campo_valor = trim($parametros['carga_col_desc']);
 		} else {
 			$this->campo_valor = (isset($parametros['columna_proyecto'])) ? 2 : 1;
 		}
@@ -120,27 +120,27 @@ abstract class ef
 	static function get_parametros_carga()
 	{
 		$parametros = array();
-		$parametros["dao"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
-		$parametros["dao"]["opcional"]=0;	
-		$parametros["dao"]["etiqueta"]="DAO - Metodo";	
-		$parametros["clase"]["descripcion"]="Nombre de la clase";
-		$parametros["clase"]["opcional"]=1;	
-		$parametros["clase"]["etiqueta"]="DAO - Clase";	
-		$parametros["include"]["descripcion"]="Archivo donde se encuentra definida la clase";
-		$parametros["include"]["opcional"]=1;	
-		$parametros["include"]["etiqueta"]="DAO - Include";	
-		$parametros["clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
-		$parametros["clave"]["opcional"]=0;	
-		$parametros["clave"]["etiqueta"]="DAO - resultado: CLAVE";	
-		$parametros["valor"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
-		$parametros["valor"]["opcional"]=0;	
-		$parametros["valor"]["etiqueta"]="DAO - resultado: DESC.";	
-		$parametros["sql"]["descripcion"]="Query que carga al combo. Si hay condiciones dinámicas que inciden en el where, indicar el mismo con %w%";
-		$parametros["sql"]["opcional"]=0;	
-		$parametros["sql"]["etiqueta"]="SQL";	
-		$parametros["fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["fuente"]["opcional"]=1;	
-		$parametros["fuente"]["etiqueta"]="SQL: fuente";
+		$parametros["carga_metodo"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
+		$parametros["carga_metodo"]["opcional"]=0;	
+		$parametros["carga_metodo"]["etiqueta"]="DAO - Metodo";	
+		$parametros["carga_clase"]["descripcion"]="Nombre de la clase";
+		$parametros["carga_clase"]["opcional"]=1;	
+		$parametros["carga_clase"]["etiqueta"]="DAO - Clase";	
+		$parametros["carga_include"]["descripcion"]="Archivo donde se encuentra definida la clase";
+		$parametros["carga_include"]["opcional"]=1;	
+		$parametros["carga_include"]["etiqueta"]="DAO - Include";	
+		$parametros["carga_col_clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
+		$parametros["carga_col_clave"]["opcional"]=0;	
+		$parametros["carga_col_clave"]["etiqueta"]="DAO - resultado: CLAVE";	
+		$parametros["carga_col_desc"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
+		$parametros["carga_col_desc"]["opcional"]=0;	
+		$parametros["carga_col_desc"]["etiqueta"]="DAO - resultado: DESC.";	
+		$parametros["carga_sql"]["descripcion"]="Query que carga al combo. Si hay condiciones dinámicas que inciden en el where, indicar el mismo con %w%";
+		$parametros["carga_sql"]["opcional"]=0;	
+		$parametros["carga_sql"]["etiqueta"]="SQL";	
+		$parametros["carga_fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
+		$parametros["carga_fuente"]["opcional"]=1;	
+		$parametros["carga_fuente"]["etiqueta"]="SQL: fuente";
 /*		$parametros["columna_proyecto"]["descripcion"]= "Columna de la tabla que representa el proyecto";
 		$parametros["columna_proyecto"]["opcional"]=0;	
 		$parametros["columna_proyecto"]["etiqueta"]= "Columna del proyecto";
@@ -150,15 +150,15 @@ abstract class ef
 		$parametros["incluir_toba"]["descripcion"]= "¿Hay que listar a toba entre los proyectos?";
 		$parametros["incluir_toba"]["opcional"]=0;	
 		$parametros["incluir_toba"]["etiqueta"]= "Incluir Toba";*/
-		$parametros['lista']['descripcion'] = "La clave/valor se separa con el caracter [/] y los pares con el caracter [,]";
-		$parametros['lista']['opcional'] = 0;
-		$parametros['lista']['etiqueta'] = "Lista de valores";	
-		$parametros["dependencias"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["dependencias"]["opcional"]=1;	
-		$parametros["dependencias"]["etiqueta"]="Dependencias";
-		$parametros["cascada_relajada"]["descripcion"]="Cuando el ef tiene maestros y alguno de estos no está activo se relaja la obligatoriedad";
-		$parametros["cascada_relajada"]["opcional"]=1;
-		$parametros["cascada_relajada"]["etiqueta"]="Cascada relaja obligatoriedad";
+		$parametros['carga_lista']['descripcion'] = "La clave/valor se separa con el caracter [/] y los pares con el caracter [,]";
+		$parametros['carga_lista']['opcional'] = 0;
+		$parametros['carga_lista']['etiqueta'] = "Lista de valores";	
+		$parametros["carga_maestros"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
+		$parametros["carga_maestros"]["opcional"]=1;	
+		$parametros["carga_maestros"]["etiqueta"]="Dependencias";
+		$parametros["carga_cascada_relaj"]["descripcion"]="Cuando el ef tiene maestros y alguno de estos no está activo se relaja la obligatoriedad";
+		$parametros["carga_cascada_relaj"]["opcional"]=1;
+		$parametros["carga_cascada_relaj"]["etiqueta"]="Cascada relaja obligatoriedad";
 		return $parametros;
 	}
 

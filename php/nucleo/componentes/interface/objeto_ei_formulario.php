@@ -97,9 +97,10 @@ class objeto_ei_formulario extends objeto_ei
 				default:
 					$this->lista_ef_post[] = $id_ef;
 			}
-			$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"], '_');
-			if(isset($parametros["sql"]) && !isset($parametros["fuente"])){
-				$parametros["fuente"]=$this->info["fuente"];
+			//$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"], '_');
+			$parametros = $this->info_formulario_ef[$a];
+			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])){
+				$parametros['carga_fuente']=$this->info['fuente'];
 			}
 
 			//Preparo el identificador	del dato	que maneja el EF.
@@ -493,9 +494,9 @@ class objeto_ei_formulario extends objeto_ei
 	protected function ef_requiere_carga($id_ef)
 	{
 		return 
-			isset($this->parametros_carga_efs[$id_ef]['dao'])
-			|| isset($this->parametros_carga_efs[$id_ef]['lista'])
-			|| isset($this->parametros_carga_efs[$id_ef]['sql']);
+			isset($this->parametros_carga_efs[$id_ef]['carga_metodo'])
+			|| isset($this->parametros_carga_efs[$id_ef]['carga_lista'])
+			|| isset($this->parametros_carga_efs[$id_ef]['carga_sql']);
 	}
 	
 	protected function ejecutar_metodo_carga_ef($id_ef, $maestros = array())
@@ -511,15 +512,15 @@ class objeto_ei_formulario extends objeto_ei
 			$es_posicional = $this->elemento_formulario[$id_ef]->son_campos_posicionales();
 	
 			$valores = array();
-			if (isset($parametros['no_seteado']) && ! isset($valores[apex_ef_no_seteado])) {
-				$valores[apex_ef_no_seteado] = $parametros['no_seteado'];
+			if (isset($parametros['carga_no_seteado']) && ! isset($valores[apex_ef_no_seteado])) {
+				$valores[apex_ef_no_seteado] = $parametros['carga_no_seteado'];
 			}
 		}
-		if (isset($parametros['lista'])) {
+		if (isset($parametros['carga_lista'])) {
 			//--- Carga a partir de una lista de valores
 			$nuevos = $this->ef_metodo_carga_lista($id_ef, $parametros, $maestros);
 			return $valores + $nuevos;
-		} elseif (isset($parametros['sql'])) {
+		} elseif (isset($parametros['carga_sql'])) {
 			//--- Carga a partir de un SQL
 			$nuevos = $this->ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional);
 			if ($seleccionable) {
@@ -529,7 +530,7 @@ class objeto_ei_formulario extends objeto_ei
 					return $nuevos[0][0];					
 				}
 			}
-		} elseif (isset($parametros['dao'])) {
+		} elseif (isset($parametros['carga_metodo'])) {
 			//--- Carga a partir de un Método PHP
 			$nuevos = $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
 			if ($seleccionable) {
@@ -543,7 +544,7 @@ class objeto_ei_formulario extends objeto_ei
 
 	protected function ef_metodo_carga_lista($id_ef, $parametros, $maestros)
 	{
-		$elementos = explode(",", $parametros["lista"]);
+		$elementos = explode(",", $parametros['carga_lista']);
 		$valores = array();
 		foreach ($elementos as $elemento) {
 			$campos = explode("/", $elemento);
@@ -561,7 +562,7 @@ class objeto_ei_formulario extends objeto_ei
 	protected function ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional)
 	{
 		//--- Si la SQL contenia comillas fueron quoteadas cuando se guardaron en la base
-		$parametros['sql'] = stripslashes($parametros['sql']);
+		$parametros['carga_sql'] = stripslashes($parametros['carga_sql']);
         //Armo la sentencia que limita al proyecto
         $sql_where = "";
         if (isset($parametros['columna_proyecto'])) {
@@ -572,31 +573,31 @@ class objeto_ei_formulario extends objeto_ei
         }
 		if ($sql_where != '') {
 	        $where[] = "(" . $sql_where .")";
-        	$parametros["sql"] =  stripslashes(sql_agregar_clausulas_where($parametros["sql"],$where));
+        	$parametros['carga_sql'] =  stripslashes(sql_agregar_clausulas_where($parametros['carga_sql'],$where));
 		}
 		foreach ($maestros as $id_maestro => $valor_maestro) {
-			$parametros["sql"] = ereg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
-												$parametros["sql"]);
+			$parametros['carga_sql'] = ereg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
+												$parametros['carga_sql']);
 		}
 		$modo = ($es_posicional) ? apex_db_numerico : apex_db_asociativo;
-		return toba::get_db($parametros['fuente'])->consultar($parametros['sql'], $modo);
+		return toba::get_db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
 	}
 	
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
-		if (isset($parametros['include'])) {
+		if (isset($parametros['carga_include'])) {
 			$instanciable = (isset($parametros['instanciable']) && $parametros['instanciable']=='1');
-			require_once($parametros['include']);
+			require_once($parametros['carga_include']);
 			if ($instanciable) {
-				$obj = new $parametros['clase']();
-				$metodo = array($obj, $parametros['dao']);
+				$obj = new $parametros['carga_clase']();
+				$metodo = array($obj, $parametros['carga_metodo']);
 			} else {
-				$metodo = array($parametros['clase'], $parametros['dao']);
+				$metodo = array($parametros['carga_clase'], $parametros['carga_metodo']);
 			}
 			return call_user_func_array($metodo, $maestros);
 		} else {
 			//--- Es un metodo del CI contenedor
-			return call_user_func_array( array($this->controlador, $parametros['dao']), $maestros);
+			return call_user_func_array( array($this->controlador, $parametros['carga_metodo']), $maestros);
 		}
 	}
 	

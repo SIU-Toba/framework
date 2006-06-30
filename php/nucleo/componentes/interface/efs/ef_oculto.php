@@ -12,8 +12,6 @@ include_once("ef.php");// Elementos de interface
 *		        	+----> ef_oculto_usuario (Usuario que realizo la SOLICITUD)
 */
 
-//PARAMETROS ADICIONALES:
-//"estado": Valor que tiene que tomar el elemento
 
 class ef_oculto extends ef
 {
@@ -23,18 +21,17 @@ class ef_oculto extends ef
 	static function get_parametros()
 	{
 		$parametros = array();
-		$parametros['estado']['descripcion'] = "Valor fijo que toma el ef";
-		$parametros['estado']['opcional'] = 1;
-		$parametros['estado']['etiqueta'] = "Estado";
+		$parametros['estado_defecto']['descripcion'] = "Valor fijo que toma el ef";
+		$parametros['estado_defecto']['opcional'] = 1;
+		$parametros['estado_defecto']['etiqueta'] = "Estado";
 		return $parametros;
 	}
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-		//Estado directo
-		if(isset($parametros["estado"])){
-			$this->estado_defecto = $parametros["estado"];
+		if(isset($parametros['estado_defecto'])){
+			$this->estado_defecto = $parametros['estado_defecto'];
 			$this->set_estado($this->estado_defecto);
 		}		
 	}
@@ -54,7 +51,7 @@ class ef_oculto extends ef
 	function cargar_estado_post()
 	{
 		//Intenta cargar el estado a partir del hilo
-		$temp = toba::get_hilo()->recuperar_dato($this->clave_memoria());
+		$temp = toba::get_hilo()->recuperar_dato_sincronizado($this->clave_memoria());
 		if(isset($temp)) {
 			$this->estado = $temp;
 			//Tengo que memorizar el estado para la proxima instanciacion
