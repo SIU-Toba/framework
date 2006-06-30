@@ -31,6 +31,11 @@ class info_proyecto
 		}
 	}
 
+	function limpiar_memoria()
+	{
+		unset($_SESSION['toba']['proyectos'][self::get_id()]);
+	}
+
 	function get_parametro($id)
 	{
 		if( defined( self::prefijo_punto_acceso . $id ) ){

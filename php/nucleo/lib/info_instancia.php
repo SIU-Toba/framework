@@ -4,15 +4,38 @@
 */
 class info_instancia
 {
+/*
+	static private $instancia;
+	
+	static function instancia()
+	{
+		if (!isset(self::$instancia)) {
+			self::$instancia = new info_instalacion();	
+		}
+		return self::$instancia;	
+	}
+
+	private function __construct()
+	{
+		$_SESSION['toba']['instancia'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
+	}
+	
+	function limpiar_memoria()
+	{
+		unset($_SESSION['toba']['instancia']);
+	}
+*/
+	//----------------------------------------------------------------
+	// DATOS
+	//----------------------------------------------------------------
+
 	static function get_db()
 	{
 		return toba::get_db('instancia');
 	}
-	
-	//----------------------------------------------------------------
-	// SESION
-	//----------------------------------------------------------------
 
+	//------------------------- SESION -------------------------------------
+	
 	static function get_id_sesion()
 	{
 		$sql = "SELECT nextval('apex_sesion_browser_seq'::text) as id;";
@@ -39,9 +62,7 @@ class info_instancia
 		self::get_db()->ejecutar($sql);
 	}
 
-	//----------------------------------------------------------------
-	// USUARIO
-	//----------------------------------------------------------------
+	//------------------------- USUARIOS -------------------------------------
 	
 	static function get_info_usuario($usuario)
 	{
@@ -86,10 +107,6 @@ class info_instancia
 		return self::get_db()->consultar($sql);	
 	}
 
-	//----------------------------------------------------------------
-	// AUTORIZACION
-	//----------------------------------------------------------------
-
 	static function get_grupo_acceso($usuario, $proyecto)
 	{
 		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,
@@ -104,20 +121,7 @@ class info_instancia
 		return self::get_db()->consultar($sql);
 	}
 
-	//----------------------------------------------------------------
-	// LOG general del sistema
-	//----------------------------------------------------------------
-
-	static function evento($tipo,$mensaje)
-	{
-		$mensaje = addslashes($mensaje);
-		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
-		self::get_db('instancia')->ejecutar($sql);
-	}
-
-	//----------------------------------------------------------------
-	// LOG a nivel APLICACION
-	//----------------------------------------------------------------
+	//------------------------- LOG aplicacion -------------------------------------
 
 	static function get_id_solicitud()
 	{
@@ -156,9 +160,14 @@ class info_instancia
 		self::get_db('instancia')->ejecutar($sql);
 	}
 
-	//----------------------------------------------------------------
-	// Bloqueo de IPs por fallas de login
-	//----------------------------------------------------------------
+	static function log_sistema($tipo,$mensaje)
+	{
+		$mensaje = addslashes($mensaje);
+		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
+		self::get_db('instancia')->ejecutar($sql);
+	}
+
+	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
 
 	static function control_ip_rechazada()
 	{

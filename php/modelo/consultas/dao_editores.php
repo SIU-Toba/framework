@@ -75,6 +75,10 @@ class dao_editores
 							'objeto_ei_archivos',
 							'objeto_ei_esquema' );
 		}
+		if($contenedor=="cn"){
+			return array(	'objeto_datos_tabla',
+							'objeto_datos_relacion' );
+		}		
 		//Por defecto devulevo todo
 		return self::get_clases_validas();
 	}

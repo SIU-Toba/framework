@@ -5,5 +5,9 @@ class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_cn';
 
+	function get_dbr_dependencias()
+	{
+		return $this->dependencia('datos')->tabla('dependencias');	
+	}
 	
 }

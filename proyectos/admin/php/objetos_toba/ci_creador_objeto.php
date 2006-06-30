@@ -65,7 +65,8 @@ class ci_creador_objeto extends objeto_ci
 			if ($this->destino['tipo'] == 'datos_relacion') {
 				$eis[] = 'info_asignacion_dr';
 			} elseif ($this->destino['tipo'] == 'ci' ||
-						$this->destino['tipo'] == 'ci_pantalla') { 
+						$this->destino['tipo'] == 'ci_pantalla' || 
+							$this->destino['tipo'] == 'cn') { 
 				$eis[] = 'info_asignacion';
 			}
 		}

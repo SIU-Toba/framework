@@ -14,7 +14,12 @@ class info_instalacion
 
 	private function __construct()
 	{
-		$_SESSION['toba']['instalacion'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini' );
+		$_SESSION['toba']['instalacion'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
+	}
+	
+	function limpiar_memoria()
+	{
+		unset($_SESSION['toba']['instalacion']);
 	}
 
 	function get_claves_encriptacion()
