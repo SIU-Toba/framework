@@ -155,7 +155,7 @@ class logger
         	if ($mensaje instanceof Exception) {
        			$res = get_class($mensaje).": ".$mensaje->getMessage()."\n";
        			
-        		$es_php_compatible = version_compare(phpversion(), "5.1.0", ">=");
+        		$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");
        			if ($es_php_compatible) {
         			//Solo muestra parametros en modo DEBUG
 	        		$con_parametros = (TOBA_LOG_DEBUG <= $this->nivel_maximo);

@@ -32,13 +32,15 @@ class ci_editor_php extends objeto_ci
 	{
 		$this->datos = $datos;
 		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
+		
 		require_once($this->datos['clase_archivo']);
 		if (class_exists($this->datos['clase'])) {
 			$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
 			$clase_info = constructor_toba::get_info( $clave, $this->datos['clase']);
 		}else{
-			throw new exception_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
+			throw new excepcion_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
 		}
+		
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
 		/* Este mecanismo no es optimo... hay que pensarlo bien.
 			Se inagura el caso de que un objeto contenga una clase que no sea un objeto.

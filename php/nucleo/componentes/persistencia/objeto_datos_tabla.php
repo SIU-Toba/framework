@@ -823,7 +823,7 @@ class objeto_datos_tabla extends objeto
 							}
 						}
 						if($combinacion_existente){
-							throw new excepcion_toba("Error de valores repetidos");
+							throw new excepcion_toba($this->get_txt().": Error de valores repetidos en columna '$columna'");
 						}
 					}
 				}				
