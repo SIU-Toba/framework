@@ -7,8 +7,8 @@
  */
 function evento_ei(id, validar, confirmar, parametros) {
 	this.id = id;
-	this.validar = validar;
-	this.confirmar = confirmar;
+	this.validar = (typeof validar == 'undefined') ? true : validar;
+	this.confirmar = (typeof confirmar == 'undefined') ? false : confirmar;
 	this.parametros = parametros;
 	this._silencioso = false;
 }

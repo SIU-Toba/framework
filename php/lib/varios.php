@@ -122,6 +122,14 @@
 	}
 	//-----------------------------------------------------------------	
 	
+	function array_borrar_valor(& $arreglo, $valor)
+	{
+		$pos = array_search($valor, $arreglo);
+		if ($pos !== false) {
+			array_splice($arreglo, $pos, 1);
+		}
+	}
+	
 	function aplanar_matriz($matriz, $campo = null)
 	//Toma una matriz y lo aplana a una sola dimension, si no se especifica un campo, se elige el primero
 	//Util para aplanar recordset de consultas de un solo campo

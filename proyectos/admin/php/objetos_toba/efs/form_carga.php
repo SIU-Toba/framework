@@ -5,7 +5,7 @@ class form_carga extends objeto_ei_formulario
 	function extender_objeto_js()
 	{
 		echo "
-			var mecanismos_carga = ['php','sql', 'lista'];
+			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista'];
 			
 			{$this->objeto_js}.evt__estatico__procesar = function(inicial) {
 				var cheq = this.ef('estatico').chequeado();
@@ -32,7 +32,7 @@ class form_carga extends objeto_ei_formulario
 
 			{$this->objeto_js}.cambiar_mecanismo = function(mecanismo, estado) {
 				switch (mecanismo) {
-					case 'php':
+					case 'carga_metodo':
 						this.ef('estatico').mostrar(estado, true);
 						if (estado) {
 							this.evt__estatico__procesar(false);
@@ -42,15 +42,18 @@ class form_carga extends objeto_ei_formulario
 						}
 						this.ef('carga_metodo').mostrar(estado, true);
 						break;
-					case 'sql':
+					case 'carga_sql':
 						this.ef('carga_sql').mostrar(estado, true);
 						this.ef('carga_fuente').mostrar(estado, true);
 						break;
 					
-					case 'lista':
-						this.ef('carga_lista').mostrar(estado, true);
-						this.ef('carga_col_clave').mostrar(!estado, true);
-						this.ef('carga_col_desc').mostrar(!estado, true);
+					case 'carga_lista':
+						if (this.ef('carga_lista')) 
+							this.ef('carga_lista').mostrar(estado, true);
+						if (this.ef('carga_col_clave')) 
+							this.ef('carga_col_clave').mostrar(!estado, true);
+						if (this.ef('carga_col_desc')) 							
+							this.ef('carga_col_desc').mostrar(!estado, true);
 						break;
 				}
 			}

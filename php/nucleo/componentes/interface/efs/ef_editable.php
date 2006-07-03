@@ -9,6 +9,25 @@ class ef_editable extends ef
 	protected $mascara;
 	protected $unidad;
 	
+	
+    static function get_lista_parametros_carga()
+    {
+    	$parametros = ef::get_lista_parametros_carga_basico();    
+		array_borrar_valor($parametros, 'carga_lista');
+		array_borrar_valor($parametros, 'carga_col_clave');
+		array_borrar_valor($parametros, 'carga_col_desc');
+		return $parametros;    	
+    }
+    	
+    static function get_lista_parametros()
+    {
+    	$param[] = 'edit_tamano';
+    	$param[] = 'edit_maximo';
+    	$param[] = 'edit_mascara';
+    	$param[] = 'edit_unidad';
+    	return $param;    	
+    }
+    	
 	static function get_parametros()
 	{
 		$parametros = parent::get_parametros_carga();
@@ -138,6 +157,13 @@ class ef_editable_numero extends ef_editable
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
 	protected $mensaje_defecto;
 
+    static function get_lista_parametros()
+    {
+    	$param = parent::get_lista_parametros();
+    	$param[] = 'edit_rango';
+    	return $param;
+    }
+    	
 	static function get_parametros()
 	{
 		$parametros = ef_editable::get_parametros();
@@ -292,8 +318,10 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 	{
 		if (! isset($parametros['edit_tamano']))
 			$parametros['edit_tamano']= 4;
+		if (!isset($parametros['unidad'])) {
+			$parametros['unidad'] = '%';
+		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
-		$this->unidad = '%';
 	}
 
 	function crear_objeto_js()
@@ -307,6 +335,14 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 
 class ef_editable_clave extends ef_editable
 {
+	
+    static function get_lista_parametros()
+    {
+    	$param[] = 'edit_tamano';
+    	$param[] = 'edit_maximo';
+    	return $param;
+    }
+    
 	static function get_parametros()
 	{
 		$parametros["edit_tamano"]["descripcion"]="Cantidad de caracteres.";
@@ -337,6 +373,13 @@ class ef_editable_clave extends ef_editable
 class ef_editable_fecha extends ef_editable
 //Campo que maneja fechas
 {
+    static function get_lista_parametros()
+    {
+    	$param = ef_editable::get_lista_parametros();
+    	array_borrar_valor($param, 'edit_unidad');
+    	return $param;
+    }	
+	
 	static function get_parametros()
 	{
 		$parametros = ef_editable::get_parametros();
@@ -346,7 +389,9 @@ class ef_editable_fecha extends ef_editable
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$parametros['edit_tamano'] = "10";//Esto deberia depender del tipo de fecha
+		if (! isset($parametros['edit_tamano'])) {
+			$parametros['edit_tamano'] = "10";//Esto deberia depender del tipo de fecha
+		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
@@ -434,6 +479,17 @@ class ef_editable_textarea extends ef_editable
 	protected $no_margen;
 	protected $ajustable;
 	protected $maximo;
+	
+    static function get_lista_parametros()
+    {
+    	$param[] = 'edit_filas';
+    	$param[] = 'edit_columnas';
+    	$param[] = 'edit_wrap';
+    	$param[] = 'edit_maximo';
+    	$param[] = 'edit_resaltar';
+    	$param[] = 'edit_ajustable';
+    	return $param;
+    }		
 	
 	static function get_parametros()
 	{

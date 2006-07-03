@@ -13,6 +13,14 @@ abstract class ef_multi_seleccion extends ef
 	protected $cant_maxima;
 	protected $cant_minima;
 	
+    static function get_lista_parametros()
+    {
+    	$param[] = 'selec_cant_minima';
+    	$param[] = 'selec_cant_maxima';
+    	$param[] = 'selec_utilidades';
+    	return $param;    	
+    }
+	
 	static function get_parametros()
 	{
 		$parametros = ef::get_parametros_carga();		
@@ -294,6 +302,12 @@ abstract class ef_multi_seleccion extends ef
 
 class ef_multi_seleccion_lista extends ef_multi_seleccion
 {
+    static function get_lista_parametros()
+    {
+    	$param = parent::get_lista_parametros();
+    	$param[] = 'selec_tamano';
+    	return $param;    	
+    }	
 	
 	static function get_parametros()
 	{

@@ -25,6 +25,16 @@ class ef_checkbox extends ef
     protected $valor_info = 'Sí';
     protected $valor_info_no_seteado = 'No';
     
+    static function get_lista_parametros()
+    {
+    	return array(
+    					'check_valor_si',
+    					'check_valor_no',
+    					'check_desc_si',
+    					'check_desc_no'
+    	);
+    }
+    
 	static function get_parametros()
 	{
 		$parametros["check_valor_si"]["descripcion"]="Valor que toma el elemento cuando esta activado (por defecto 1).";
@@ -166,7 +176,12 @@ class ef_fijo extends ef_oculto
 	private $estilo;
 	private $maneja_datos;
 	
-
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'fijo_sin_estado';
+		return $parametros;
+	}
+	
 	static function get_parametros()
 	{
 		$parametros["fijo_sin_estado"]["etiqueta"]="Sin datos";
@@ -232,6 +247,15 @@ class ef_html extends ef
 	var $alto;
 	var $botonera;
 
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'editor_ancho';
+		$parametros[] = 'editor_alto';
+		$parametros[] = 'editor_botonera';
+		return $parametros;
+	}	
+	
+	
 	static function get_parametros()
 	{
 		$parametros["editor_ancho"]["descripcion"]= "Ancho, especificar medida ej. 450px o 80%";

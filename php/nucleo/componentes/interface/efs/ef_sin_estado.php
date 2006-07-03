@@ -82,6 +82,12 @@ class ef_fieldset extends ef_sin_estado
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'fieldset_fin';
+		return $parametros;
+	}	
+	
 	static function get_parametros()
 	{
 		$parametros = array();

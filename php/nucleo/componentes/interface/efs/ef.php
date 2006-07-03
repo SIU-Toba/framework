@@ -112,6 +112,32 @@ abstract class ef
 		
 	}
 
+	static function get_lista_parametros()
+	{
+		return array();
+	}	
+		
+	static function get_lista_parametros_carga()
+	{
+		return array();	
+	}
+	
+	static function get_lista_parametros_carga_basico()
+	{
+		return array(
+			'carga_metodo',
+			'carga_clase',
+			'carga_include',
+			'carga_col_clave',
+			'carga_col_desc',
+			'carga_sql',
+			'carga_fuente',
+			'carga_lista',
+			'carga_maestros',
+			'carga_cascada_relaj'
+		);	
+	}	
+	
 	static function get_parametros()
 	{
 		return array();

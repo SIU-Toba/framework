@@ -2,40 +2,69 @@
 //--------------------------------------------------------------------
 class ci_efs_prueba extends objeto_ci
 {
-	protected $parametros = array();
 	protected $modificado = false;
+	protected $tipo_ef;
+	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
 
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos';
+		$propiedades[] = 'tipo_ef';
 		return $propiedades;
 	}
-
+	
+	function get_definicion_parametros($carga = false)
+	//Recupero la informacion de los parametros de un EF puntual
+	{
+		$ef = $this->get_tipo_ef();
+		$metodo = ($carga) ? "get_lista_parametros_carga" : "get_lista_parametros";
+		$parametros = call_user_func(array($ef, $metodo));
+		return $parametros;
+	}
+	
+	
 	function get_mecanismos_carga()
 	{
-		$tipos = array(
-			array('php', 'Método PHP'),
-			array('sql', 'Consulta SQL'),
-		);
-		//--- Si es un editable, sacar la lista
-		if (strpos($this->get_tipo_ef(), 'ef_editable') === false) {
-			$tipos[] = array('lista', 'Lista de Valores');
+		$param = $this->get_definicion_parametros(true);		
+		$tipos = array();
+		if (in_array('carga_metodo', $param)) {
+			$tipos[] = array('carga_metodo', 'Método PHP');
+		}
+		if (in_array('carga_sql', $param)) {		
+			$tipos[] = array('carga_sql', 'Consulta SQL');
+		}
+		if (in_array('carga_lista', $param)) {
+			$tipos[] = array('carga_lista', 'Lista de Valores');
 		}
 		return $tipos;
 	}
 	
+	function get_lista_ei()
+	{
+		$eis = array('tipo_ef');
+		if (isset($this->tipo_ef['tipo'])) {
+			$eis[] = 'efs';
+			$param_carga = $this->get_definicion_parametros(true);			
+			$param_varios = $this->get_definicion_parametros();
+			if (! empty($param_varios)) {			
+				$eis[] = 'param_varios';
+			}
+			if (! empty($param_carga)) {
+				$eis[] = 'param_carga';
+			}
+		}
+		return $eis;
+	}
+	
+	function get_tipo_ef()
+	{
+		return $this->tipo_ef['tipo'];
+	}
+
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
 
-	//---- carga -------------------------------------------------------
-
-	function get_tipo_ef()
-	{
-		return 'ef';
-	}
-	
 	
 /*	function evt__popup__carga()
 	{
@@ -46,20 +75,111 @@ class ci_efs_prueba extends objeto_ci
 	
 	
 	///--------------
+	
+	function evt__tipo_ef__carga()
+	{
+		if (isset($this->tipo_ef)) {
+			return $this->tipo_ef;
+		}
+	}
+	
+	function evt__tipo_ef__modificacion($tipo)
+	{
+		$this->tipo_ef = $tipo;
+	}
 
+	function evt__efs__modificacion($datos)
+	{
+		$this->get_tabla()->set($datos);
+	}
+	
 	function evt__efs__carga()
 	{
-		$datos = array(
-			'columnas' => 'columnas',
-			'estado_defecto' => 'Defecto!',
-			'solo_lectura' => 1
-		);	
-		return $datos;
+		return $this->get_tabla()->get();
 	}
 	
 	function evt__param_carga__carga()
 	{
-		$datos = array(
+		$lista_param = $this->get_definicion_parametros(true);
+		$parametros=  $this->get_tabla()->get();
+		$todos = $this->dependencia('param_carga')->get_nombres_ef();
+		foreach ($todos as $disponible) {
+			if (! in_array($disponible, $lista_param) &&
+					$disponible != 'mecanismo' &&
+					$disponible != 'estatico') {
+				if (isset($parametros[$disponible])) {
+					unset($parametros[$disponible]);	
+				}						
+				$this->dependencia('param_carga')->desactivar_efs($disponible);
+			}
+		}
+		
+		//---Determina el mecanismo
+		foreach ($this->mecanismos_carga as $mec) {
+			if (isset($paramametros[$mec])) {
+				$parametros['mecanismo'] = $mec;
+				break;
+			}
+		}
+		return $parametros;
+	}
+	
+	function evt__param_varios__carga()
+	{
+		$param = $this->get_definicion_parametros();
+		$todos = $this->dependencia('param_varios')->get_nombres_ef();
+		$efs_a_desactivar = array();
+		foreach ($todos as $disponible) {
+			if (! in_array($disponible, $param) ) {
+				$efs_a_desactivar[] = $disponible;
+				if (isset($this->parametros[$disponible])) {
+					unset($this->parametros[$disponible]);	
+				}
+			}
+		}
+		//-- Si es un popup no eliminar la carpeta (es cosmetico)
+		if (! in_array('popup_item', $efs_a_desactivar)) {
+			array_borrar_valor($efs_a_desactivar, 'popup_carpeta');	
+		}
+		$this->dependencia('param_varios')->desactivar_efs($efs_a_desactivar);
+		return $this->get_tabla()->get();
+	}
+	
+	function evt__param_carga__modificacion($datos)
+	{
+		$this->modificado = true;		
+		$actual = $datos['mecanismo'];
+		foreach ($this->mecanismos_carga as $valor_mec) {
+			if ($valor_mec != $actual && isset($datos[$valor_mec])) {
+				unset($datos[$valor_mec]);
+			}
+		}
+		if ($datos['mecanismo'] != null) {
+			unset($datos['mecanismo']);
+			unset($datos['estatico']);
+		} else {
+			//--- Limpia los valores
+			$datos = array();	
+			foreach ($this->mecanismos_carga as $mec) {
+				$datos[$mec] = null;
+			}
+		}
+		$this->get_tabla()->set($datos);
+	}
+	
+	function evt__param_varios__modificacion($datos)
+	{
+		$this->modificado = true;
+		$this->get_tabla()->set($datos);
+	}
+	
+	function evt__cargar_datos()
+	{
+		$this->parametros = array(
+			'columnas' => 'columnas',
+			'estado_defecto' => 'Defecto!',
+			'solo_lectura' => 1,
+					
 			'mecanismo' => 'php',
 			'estatico' => 1,
 			'carga_include' => 'algun/path/archivo.php',
@@ -72,14 +192,8 @@ class ci_efs_prueba extends objeto_ci
 			'carga_lista' => 'a/A, b/B, c/C',
 			'carga_maestros' => array('a','b','c'),
 			'carga_cascada_relaj' => 1,
-			'carga_no_seteado' => '---Valor No seteado!!--'
-		);
-		return $datos;
-	}
-	
-	function evt__param_varios__carga()
-	{
-		$datos = array(
+			'carga_no_seteado' => '---Valor No seteado!!--',
+					
 			'edit_columnas' => 12,
 			'edit_tamano' => 100,
 			'edit_maximo' => 255,
@@ -101,47 +215,34 @@ class ci_efs_prueba extends objeto_ci
 			'selec_cant_maxima' => 5,
 			'selec_utilidades' => 1,
 			'selec_tamano' => 4
-		);
-		return $datos;
-	}
-	
-	function evt__param_carga__modificacion($datos)
-	{
-		$this->modificado = true;		
-		$mecanismos = array( 'php' => 'carga_metodo', 'sql' => 'carga_sql', 'lista' => 'carga_lista');
-		$actual = $datos['mecanismo'];
-		foreach ($mecanismos as $id_mec => $valor_mec) {
-			if ($id_mec != $actual && isset($datos[$valor_mec])) {
-				unset($datos[$valor_mec]);
-			}
-		}
-		if ($datos['mecanismo'] != null) {
-			unset($datos['mecanismo']);
-			unset($datos['estatico']);
-		} else {
-			$datos = array();	
-		}
-		$this->parametros = array_merge($this->parametros, $datos);	}
-	
-	function evt__param_varios__modificacion($datos)
-	{
-		$this->modificado = true;
-		$this->parametros = array_merge($this->parametros, $datos);
+		);		
 	}
 	
 	function evt__post_recuperar_interaccion()
 	{
-		if ($this->modificado) {
-			ei_arbol($this->parametros);	
-		}
-		$salida = array();
-		foreach ($this->parametros as $clave => $valor) {
-			if (is_array($valor)) {
-				$valor = implode(', ', $valor);	
+		if (isset($this->parametros)) {
+			$salida = array();
+			foreach ($this->parametros as $clave => $valor) {
+				if (is_array($valor)) {
+					$valor = implode(', ', $valor);	
+				}
+				$salida[$clave] = $valor;
 			}
+			//--- Inserto los nuevos
+			$this->get_tabla()->set($salida);
 		}
-	}	
+	}
 	
+	
+	function get_tabla()
+	{
+		return $this->dependencia('tabla');	
+	}
+	
+	function evt__procesar()
+	{
+		ei_arbol($this->get_tabla()->get());
+	}
 }
 
 ?>

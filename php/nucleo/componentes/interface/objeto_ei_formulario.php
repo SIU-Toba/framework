@@ -144,6 +144,7 @@ class objeto_ei_formulario extends objeto_ei
 
 	function pre_eventos()
 	{
+		//-- Resguarda la lista de efs para servicio
 		$this->lista_efs_servicio = $this->lista_ef_post;
 		$this->lista_ef_post = $this->memoria['lista_efs'];	
 		if (isset($this->memoria['efs'])) {
@@ -158,16 +159,17 @@ class objeto_ei_formulario extends objeto_ei
 	function post_eventos()
 	{
 		if (isset($this->memoria['efs'])) {
+			//--- Restaura lo obligatorio
 			foreach ($this->info_formulario_ef as $def_ef) {
 				$id_ef = $def_ef['identificador'];
 				if (isset($this->memoria['efs'][$id_ef])) {
-					//--- Restaura lo obligatorio
 					$this->elemento_formulario[$id_ef]->set_obligatorio($def_ef['obligatorio']);
 				}
 			}
 			unset($this->memoria['efs']);
 		}
 		$this->limpiar_interface();	
+		//-- Restaura la lista de efs para servicio		
 		$this->lista_ef_post = $this->lista_efs_servicio;
 	}	
 	
@@ -260,6 +262,20 @@ class objeto_ei_formulario extends objeto_ei
 	}
 	
 	/**
+	 * Retorna la lista de identificadores que no estan desactivados
+	 */
+	protected function get_efs_activos()
+	{
+		$lista = array();
+		foreach ($this->lista_ef as $id_ef) {
+			if (in_array($id_ef, $this->lista_ef_post) || in_array($id_ef, $this->lista_ef_ocultos)) {
+				$lista[] = $id_ef;
+			}	
+		}
+		return $lista;
+	}
+	
+	/**
 	 * Retorna la referencia a un ef contenido
 	 * @return ef
 	 */
@@ -330,12 +346,11 @@ class objeto_ei_formulario extends objeto_ei
 			$efs = array($efs);
 		}
 		foreach ($efs as $ef) {
-			$this->memoria['efs'][$ef]['desactivado'] = true;
 			$pos = array_search($ef, $this->lista_ef_post);
 			if ($pos !== false) {
 				array_splice($this->lista_ef_post, $pos, 1);
 			} else {
-				throw new excepcion_toba("No se puede desactivar el ef $ef ya que no se encuentra en la lista de efs activos");
+				throw new excepcion_toba("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
 			}
 		}
 	}
@@ -365,7 +380,7 @@ class objeto_ei_formulario extends objeto_ei
 	 */
 	function get_datos()
 	{
-		foreach ($this->lista_ef as $ef) {
+		foreach ($this->get_efs_activos() as $ef) {
 			$dato	= $this->elemento_formulario[$ef]->get_dato();
 			$estado = $this->elemento_formulario[$ef]->get_estado();
 			if (is_array($dato)){	//El EF maneja	DATO COMPUESTO

@@ -10,6 +10,13 @@ abstract class ef_seleccion extends ef
 	protected $estado_nulo = null;
 	protected $estado_defecto;
 
+    static function get_lista_parametros_carga()
+    {
+    	$param = ef::get_lista_parametros_carga_basico();    	
+		$param[] = 'carga_no_seteado';
+		return $param;
+    }
+	
 	static function get_parametros()
 	{
 		$parametros = parent::get_parametros_carga();

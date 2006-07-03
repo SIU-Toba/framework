@@ -9,10 +9,30 @@ class ef_popup extends ef_editable
     protected $ventana;
 	protected $editable;
 	protected $id_vinculo;
-    
+
+    static function get_lista_parametros_carga()
+    {
+    	$parametros = ef::get_lista_parametros_carga_basico();    
+		array_borrar_valor($parametros, 'carga_lista');
+		array_borrar_valor($parametros, 'carga_col_clave');
+		array_borrar_valor($parametros, 'carga_col_desc');
+		return $parametros;    	
+    }
+    	
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'edit_tamano';
+		$parametros[] = 'edit_maximo';
+		$parametros[] = 'popup_item';
+		$parametros[] = 'popup_proyecto';
+		$parametros[] = 'popup_ventana';
+		$parametros[] = 'popup_editable';
+		return $parametros;
+	}
+	
 	static function get_parametros()
 	{
-		$parametros = ef::get_parametros_carga();
+		$parametros = ef::get_parametros_carga();		
 		unset($parametros['carga_lista']);		
 		unset($parametros['carga_col_clave']);		
 		unset($parametros['carga_col_desc']);		
