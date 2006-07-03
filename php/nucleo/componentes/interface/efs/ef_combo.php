@@ -17,36 +17,6 @@ abstract class ef_seleccion extends ef
 		return $param;
     }
 	
-	static function get_parametros()
-	{
-		$parametros = parent::get_parametros_carga();
-		$parametros["carga_no_seteado"]["descripcion"]="Descripcion que representa la NO-SELECCION del combo";
-		$parametros["carga_no_seteado"]["opcional"]=1;	
-		$parametros["carga_no_seteado"]["etiqueta"]="Desc. No seleccion";	
-
-		$parametros["estado_defecto"]["descripcion"]="Valor predeterminado, si tiene varias claves separar con barra (/)";
-		$parametros["estado_defecto"]["opcional"]=1;	
-		$parametros["estado_defecto"]["etiqueta"]="Valor predeterminado";
-/*
-		$parametros["agrupador_dao"]["descripcion"]="Método de donde se obtienen las distintas categorias para agrupar.";
-		$parametros["agrupador_dao"]["opcional"]=0;	
-		$parametros["agrupador_dao"]["etiqueta"]="Agrupador - Método";	
-		$parametros["agrupador_clase"]["descripcion"]="Nombre de la clase";
-		$parametros["agrupador_clase"]["opcional"]=1;	
-		$parametros["agrupador_clase"]["etiqueta"]="Agrupador - Clase";	
-		$parametros["agrupador_include"]["descripcion"]="Archivo donde se encuentra definida la clase";
-		$parametros["agrupador_include"]["opcional"]=1;	
-		$parametros["agrupador_include"]["etiqueta"]="Agrupador - Include";	
-		$parametros["agrupador_clave"]["descripcion"]="Indica que INDICES de la matriz de grupos se utilizaran como CLAVE (Si son varios separar con comas). ".
-													  "Estas claves tienen que estar presentes tanto en el dao como en el agrupador";
-		$parametros["agrupador_clave"]["opcional"]=0;	
-		$parametros["agrupador_clave"]["etiqueta"]="Agrupador - resultado: CLAVE";	
-		$parametros["agrupador_valor"]["descripcion"]="Indica que INDICE de la matriz de grupos se utilizara como DESCRIPCION";
-		$parametros["agrupador_valor"]["opcional"]=0;	
-		$parametros["agrupador_valor"]["etiqueta"]="Agrupador - resultado: DESC.";*/
-		return $parametros;
-	}
-
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);

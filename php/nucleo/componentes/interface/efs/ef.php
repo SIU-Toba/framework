@@ -138,56 +138,6 @@ abstract class ef
 		);	
 	}	
 	
-	static function get_parametros()
-	{
-		return array();
-	}
-	
-	static function get_parametros_carga()
-	{
-		$parametros = array();
-		$parametros["carga_metodo"]["descripcion"]="Metodo a ejecutar para recuperar datos.";
-		$parametros["carga_metodo"]["opcional"]=0;	
-		$parametros["carga_metodo"]["etiqueta"]="DAO - Metodo";	
-		$parametros["carga_clase"]["descripcion"]="Nombre de la clase";
-		$parametros["carga_clase"]["opcional"]=1;	
-		$parametros["carga_clase"]["etiqueta"]="DAO - Clase";	
-		$parametros["carga_include"]["descripcion"]="Archivo donde se encuentra definida la clase";
-		$parametros["carga_include"]["opcional"]=1;	
-		$parametros["carga_include"]["etiqueta"]="DAO - Include";	
-		$parametros["carga_col_clave"]["descripcion"]="Indica que INDICES de la matriz recuperada se utilizaran como CLAVE (Si son varios separar con comas)";
-		$parametros["carga_col_clave"]["opcional"]=0;	
-		$parametros["carga_col_clave"]["etiqueta"]="DAO - resultado: CLAVE";	
-		$parametros["carga_col_desc"]["descripcion"]="Indica que INDICE de la matriz recuperada se utilizara como DESCRIPCION";
-		$parametros["carga_col_desc"]["opcional"]=0;	
-		$parametros["carga_col_desc"]["etiqueta"]="DAO - resultado: DESC.";	
-		$parametros["carga_sql"]["descripcion"]="Query que carga al combo. Si hay condiciones dinámicas que inciden en el where, indicar el mismo con %w%";
-		$parametros["carga_sql"]["opcional"]=0;	
-		$parametros["carga_sql"]["etiqueta"]="SQL";	
-		$parametros["carga_fuente"]["descripcion"]="(Util solo si existe [sql]) Fuente a utilizar para ejecutar el SQL.";
-		$parametros["carga_fuente"]["opcional"]=1;	
-		$parametros["carga_fuente"]["etiqueta"]="SQL: fuente";
-/*		$parametros["columna_proyecto"]["descripcion"]= "Columna de la tabla que representa el proyecto";
-		$parametros["columna_proyecto"]["opcional"]=0;	
-		$parametros["columna_proyecto"]["etiqueta"]= "Columna del proyecto";
-		$parametros["columna_clave"]["etiqueta"]="SQL: Columna clave a filtrar";
-		$parametros["columna_clave"]["descripcion"]="Permite incidir en el where de la consulta (necesita tener un %w% indicando donde se encuentra el where) comparando una columna con el estado actual del ef.";
-		$parametros["columna_clave"]["opcional"]=1;			
-		$parametros["incluir_toba"]["descripcion"]= "¿Hay que listar a toba entre los proyectos?";
-		$parametros["incluir_toba"]["opcional"]=0;	
-		$parametros["incluir_toba"]["etiqueta"]= "Incluir Toba";*/
-		$parametros['carga_lista']['descripcion'] = "La clave/valor se separa con el caracter [/] y los pares con el caracter [,]";
-		$parametros['carga_lista']['opcional'] = 0;
-		$parametros['carga_lista']['etiqueta'] = "Lista de valores";	
-		$parametros["carga_maestros"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["carga_maestros"]["opcional"]=1;	
-		$parametros["carga_maestros"]["etiqueta"]="Dependencias";
-		$parametros["carga_cascada_relaj"]["descripcion"]="Cuando el ef tiene maestros y alguno de estos no está activo se relaja la obligatoriedad";
-		$parametros["carga_cascada_relaj"]["opcional"]=1;
-		$parametros["carga_cascada_relaj"]["etiqueta"]="Cascada relaja obligatoriedad";
-		return $parametros;
-	}
-
 	//-----------------------------------------------------
 	//-------------- CAMBIO DE PROPIEDADES -----------------
 	//-----------------------------------------------------

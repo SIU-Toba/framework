@@ -18,6 +18,8 @@ class ci_efs extends objeto_ci
 	protected $seleccion_efs_anterior;
 	protected $importacion_efs;
 	private $id_intermedio_efs;
+	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
+	protected $modificado = false;
 
 	function destruir()
 	{
@@ -78,7 +80,15 @@ class ci_efs extends objeto_ci
 		$ei[] = "efs_lista";
 		if( $this->mostrar_efs_detalle() ){
 			$ei[] = "efs";
-			$ei[] = "efs_ini";
+			//$ei[] = "efs_ini";
+			$param_carga = $this->get_definicion_parametros(true);			
+			$param_varios = $this->get_definicion_parametros(false);
+			if (! empty($param_varios)) {			
+				$ei[] = 'param_varios';
+			}
+			if (! empty($param_carga)) {
+				$ei[] = 'param_carga';
+			}
 		}else{
 			$ei[] = "efs_importar";
 			if ($this->hay_cascadas()) {
@@ -210,82 +220,148 @@ class ci_efs extends objeto_ci
 	//-----------------------------------------
 	//---- EI: Inicializacion del EF ----------
 	//-----------------------------------------
-
-	function evt__efs_ini__carga()
+	
+	function get_mecanismos_carga()
 	{
-		/*
-			Se podria usar el conocimiento de los obligatorios para 
-			cambiarle el estilo a la linea del ML
-		*/
-		$parametros = $this->get_definicion_parametros();
-		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
-		$temp = array();
-		$a=0;		
-		foreach($parametros as $clave => $desc) {
-			$imagen_ayuda = recurso::imagen_apl("descripcion.gif",true, null, null, $desc['descripcion']);
-			$temp[$a]['clave'] = $clave;
-			$temp[$a]['etiqueta'] = $desc['etiqueta'];
-			$temp[$a]['valor'] = isset($fila[$clave]) ? $fila[$clave] : null;
-			$temp[$a]['ayuda'] = $imagen_ayuda;
-			$a++;	
+		$param = $this->get_definicion_parametros(true);		
+		$tipos = array();
+		if (in_array('carga_metodo', $param)) {
+			$tipos[] = array('carga_metodo', 'Método PHP');
 		}
-		return $temp;
-		
-		/*
-		//Inicializacion del EF actual
-		$x = $this->get_tabla()->get_fila_columna($this->seleccion_efs_anterior,"inicializacion");
-		if(isset($x)){
-			$inicializacion = parsear_propiedades($x, '_');
+		if (in_array('carga_sql', $param)) {		
+			$tipos[] = array('carga_sql', 'Consulta SQL');
 		}
-		//Armo la lista
-		$temp = array();
-		$a=0;
-		foreach($parametros as $clave => $desc){
-			$imagen_ayuda = recurso::imagen_apl("descripcion.gif",true, null, null, $desc['descripcion']);
-			$temp[$a]['clave'] = $clave;
-			$temp[$a]['etiqueta'] = $desc['etiqueta'];
-			$temp[$a]['valor'] = isset($inicializacion[$clave]) ? $inicializacion[$clave] : null;
-			$temp[$a]['ayuda'] = $imagen_ayuda;
-			$a++;	
+		if (in_array('carga_lista', $param)) {
+			$tipos[] = array('carga_lista', 'Lista de Opciones');
 		}
-		return $temp;*/
+		return $tipos;
 	}
 	
-	function evt__efs_ini__modificacion($datos)
+	function get_posibles_maestros()
 	{
-		$campos = array();
-		foreach ($datos as $param) {
-			$campos[$param['clave']] = $param['valor'];
-		}
-		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $campos);
-		/*
-			ATENCION: Falta la validacion de que los campos obligatorios esten seteados
-		*/
-/*		
-		//Primero se borran los parametros anteriores
-		$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion","");
-		
-		$temp = array();
-		foreach($datos as $parametro){
-			if(trim($parametro['valor'])!=""){
-				$temp[$parametro['clave']] = $parametro['valor'];
+		$filas = $this->get_tabla()->get_filas(null, true);
+		$posibles = array();
+		foreach ($filas as $clave => $datos) {
+			if ($clave != $this->seleccion_efs) {
+				$posibles[] = array($datos['identificador'], $datos['identificador']);
 			}
 		}
-		if(count($temp)>0){
-			$resultado = empaquetar_propiedades($temp, '_');
-			//Tengo que validar que los obligatorios existan
-			$this->get_tabla()->set_fila_columna_valor($this->seleccion_efs_anterior,"inicializacion",$resultado);
-		}*/
+		return $posibles;
 	}
 	
-	function get_definicion_parametros()
-	//Recupero la informacion de los parametros de un EF puntual
+	function get_definicion_parametros($carga = false)
 	{
-		$ef = $this->get_tabla()->get_fila_columna( $this->seleccion_efs_anterior , "elemento_formulario");
-		$parametros = call_user_func(array($ef,"get_parametros"));
+		$ef = $this->get_tipo_ef();
+		$metodo = ($carga) ? "get_lista_parametros_carga" : "get_lista_parametros";
+		$parametros = call_user_func(array($ef, $metodo));
 		return $parametros;
 	}
+	
+	function get_tipo_ef()
+	{
+		return $this->get_tabla()->get_fila_columna( $this->seleccion_efs, "elemento_formulario");
+	}
+	
+	
+	function set_parametros($parametros)
+	{
+		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $parametros);
+	}
+		
 
+	//---------------------------------
+	//---- PARAMETROS VARIOS
+	//---------------------------------
+	
+	function evt__param_varios__carga()
+	{
+		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+				
+		//--- Se desactivan los efs que no forman parte de la definicion
+		$param = $this->get_definicion_parametros();
+		$todos = $this->dependencia('param_varios')->get_nombres_ef();
+		$efs_a_desactivar = array();
+		foreach ($todos as $disponible) {
+			if (! in_array($disponible, $param) ) {
+				$efs_a_desactivar[] = $disponible;
+				if (isset($this->parametros[$disponible])) {
+					unset($this->parametros[$disponible]);	
+				}
+			}
+		}
+		
+		//-- Si es un popup no eliminar la carpeta (es cosmetico)
+		if (! in_array('popup_item', $efs_a_desactivar)) {
+			array_borrar_valor($efs_a_desactivar, 'popup_carpeta');	
+			//-- Si esta seteado el item, buscar la carpeta asociada
+			if (isset($fila['popup_item']) && isset($fila['popup_proyecto'])) {
+				$fila['popup_carpeta'] = dao_editores::get_carpeta_de_item(	$fila['popup_item'], 
+																			$fila['popup_proyecto']);
+			}
+		}
+		$this->dependencia('param_varios')->desactivar_efs($efs_a_desactivar);
+		return $fila;
+	}
+	
+	function evt__param_varios__modificacion($datos)
+	{
+		$this->modificado = true;
+		$this->set_parametros($datos);
+	}
+	
+	//---------------------------------
+	//---- PARAMETROS de CARGA
+	//---------------------------------
+
+	function evt__param_carga__carga()
+	{
+		$lista_param = $this->get_definicion_parametros(true);
+		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		$todos = $this->dependencia('param_carga')->get_nombres_ef();
+		foreach ($todos as $disponible) {
+			if (! in_array($disponible, $lista_param) &&
+					$disponible != 'mecanismo' &&
+					$disponible != 'estatico') {
+				if (isset($fila[$disponible])) {
+					unset($fila[$disponible]);	
+				}						
+				$this->dependencia('param_carga')->desactivar_efs($disponible);
+			}
+		}
+		
+		//---Determina el mecanismo
+		foreach ($this->mecanismos_carga as $mec) {
+			if (isset($fila[$mec])) {
+				$fila['mecanismo'] = $mec;
+				break;
+			}
+		}
+		return $fila;
+	}
+	
+	function evt__param_carga__modificacion($datos)
+	{
+		$this->modificado = true;		
+		$actual = $datos['mecanismo'];
+		foreach ($this->mecanismos_carga as $valor_mec) {
+			if ($valor_mec != $actual && isset($datos[$valor_mec])) {
+				unset($datos[$valor_mec]);
+			}
+		}
+		if ($datos['mecanismo'] != null) {
+			unset($datos['mecanismo']);
+			unset($datos['estatico']);
+		} else {
+			//--- Limpia los valores
+			$datos = array();	
+			foreach ($this->mecanismos_carga as $mec) {
+				$datos[$mec] = null;
+			}
+		}
+		$this->set_parametros($datos);
+	}
+			
+		
 	//---------------------------------
 	//---- EI: IMPORTAR definicion ----
 	//---------------------------------

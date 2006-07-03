@@ -88,15 +88,6 @@ class ef_fieldset extends ef_sin_estado
 		return $parametros;
 	}	
 	
-	static function get_parametros()
-	{
-		$parametros = array();
-		$parametros["fieldset_fin"]["descripcion"]="¿Este ef marca el fin del fieldset?";
-		$parametros["fieldset_fin"]["opcional"]=1;	
-		$parametros["fieldset_fin"]["etiqueta"]="Fin del fieldset";			
-		return $parametros;
-	}	
-	
 	function get_input()
 	{
 		if(! $this->fin){

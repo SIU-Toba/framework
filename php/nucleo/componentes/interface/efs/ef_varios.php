@@ -35,26 +35,6 @@ class ef_checkbox extends ef
     	);
     }
     
-	static function get_parametros()
-	{
-		$parametros["check_valor_si"]["descripcion"]="Valor que toma el elemento cuando esta activado (por defecto 1).";
-		$parametros["check_valor_si"]["opcional"]=0;	
-		$parametros["check_valor_si"]["etiqueta"]="Valor ACTIVADO.";	
-		$parametros["check_valor_no"]["descripcion"]="Valor que toma el elemento cuando esta desactivado (por defecto 0)";
-		$parametros["check_valor_no"]["opcional"]=1;	
-		$parametros["check_valor_no"]["etiqueta"]="Valor DESACTIVADO";	
-		$parametros["estado_defecto"]["descripcion"]="";
-		$parametros["estado_defecto"]["opcional"]=0;	
-		$parametros["estado_defecto"]["etiqueta"]="Valor por defecto";	
-		$parametros["check_desc_si"]["descripcion"]="Descripcion coloquial del valor ACTIVADO";
-		$parametros["check_desc_si"]["opcional"]=0;	
-		$parametros["check_desc_si"]["etiqueta"]="Info Valor Act.";	
-		$parametros["check_desc_no"]["descripcion"]="Descripcion coloquial del valor DESACTIVACION";
-		$parametros["check_desc_no"]["opcional"]=0;	
-		$parametros["check_desc_no"]["etiqueta"]="Info Valor DesAct.";			
-		return $parametros;
-	}
-
     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		//VAlor FIJO
@@ -182,14 +162,6 @@ class ef_fijo extends ef_oculto
 		return $parametros;
 	}
 	
-	static function get_parametros()
-	{
-		$parametros["fijo_sin_estado"]["etiqueta"]="Sin datos";
-		$parametros["fijo_sin_estado"]["descripcion"]="Si el valor es 1, indica que el elemento no maneja datos (es solo informativo)";
-		$parametros["fijo_sin_estado"]["opcional"]=1;	
-		return $parametros;
-	}
-
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -255,21 +227,6 @@ class ef_html extends ef
 		return $parametros;
 	}	
 	
-	
-	static function get_parametros()
-	{
-		$parametros["editor_ancho"]["descripcion"]= "Ancho, especificar medida ej. 450px o 80%";
-		$parametros["editor_ancho"]["opcional"] = 1;	
-		$parametros["editor_ancho"]["etiqueta"] = "Ancho";
-		$parametros["editor_alto"]["descripcion"]= "Alto, especificar medida ej. 450px o 80%";
-		$parametros["editor_alto"]["opcional"] = 1;	
-		$parametros["editor_alto"]["etiqueta"] = "Alto";			
-		$parametros["editor_botonera"]["descripcion"] = "Tipo de botonera (por defecto toba";	
-		$parametros["editor_botonera"]["opcional"] = 1;	
-		$parametros["editor_botonera"]["etiqueta"] = "Botonera";
-		return $parametros;
-	}
-
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";

@@ -310,6 +310,22 @@ class dao_editores
 		";
 		return consultar_fuente($sql, "instancia");		
 	}
+	
+	static function get_carpeta_de_item($item, $proyecto)
+	{
+		$sql = "
+			SELECT 
+				padre
+			FROM apex_item 
+			WHERE 
+					item = '$item'
+				AND	proyecto = '$proyecto'
+		";
+		$rs = consultar_fuente($sql, "instancia");
+		if (!empty($rs)) {
+			return $rs[0]['padre'];	
+		}
+	}
 
 	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------

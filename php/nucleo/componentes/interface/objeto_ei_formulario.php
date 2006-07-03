@@ -234,7 +234,7 @@ class objeto_ei_formulario extends objeto_ei
 			$this->cascadas_maestros[$esclavo] = $this->elemento_formulario[$esclavo]->get_maestros();
 			foreach ($this->cascadas_maestros[$esclavo] as $maestro) {
 				if (! isset($this->elemento_formulario[$maestro])) {
-					throw new excepcion_toba_def("El ef '$maestro' no esta definido");
+					throw new excepcion_toba_def("Cascadas: El ef '$maestro' no esta definido");
 				}
 				$this->cascadas_esclavos[$maestro][] = $esclavo;
 
@@ -380,6 +380,7 @@ class objeto_ei_formulario extends objeto_ei
 	 */
 	function get_datos()
 	{
+		$registro = array();
 		foreach ($this->get_efs_activos() as $ef) {
 			$dato	= $this->elemento_formulario[$ef]->get_dato();
 			$estado = $this->elemento_formulario[$ef]->get_estado();

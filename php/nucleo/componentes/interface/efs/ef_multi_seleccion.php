@@ -18,39 +18,15 @@ abstract class ef_multi_seleccion extends ef
     	$param[] = 'selec_cant_minima';
     	$param[] = 'selec_cant_maxima';
     	$param[] = 'selec_utilidades';
+    	$param[] = 'selec_serializar';
     	return $param;    	
     }
+    
+    static function get_lista_parametros_carga()
+    {
+    	return ef::get_lista_parametros_carga_basico();	
+    }
 	
-	static function get_parametros()
-	{
-		$parametros = ef::get_parametros_carga();		
-		$parametros["estado_defecto"]["descripcion"]="Valor predeterminado";
-		$parametros["estado_defecto"]["opcional"]=1;	
-		$parametros["estado_defecto"]["etiqueta"]="Valor predeterminado";
-		$parametros["carga_maestros"]["descripcion"]="El estado dependende de otro EF (CASCADA). Lista de EFs separada por comas";
-		$parametros["carga_maestros"]["opcional"]=1;	
-		$parametros["carga_maestros"]["etiqueta"]="Dependencias";		
-/*		$parametros["dependencia_estricta"]["descripcion"]="Indica que las dependencias deben estar completas antes de cargar los datos";
-		$parametros["dependencia_estricta"]["opcional"]=1;	
-		$parametros["dependencia_estricta"]["etiqueta"]="Dep. estricta";		*/
-		$parametros["selec_cant_minima"]["descripcion"]="Cantidad Minima";
-		$parametros["selec_cant_minima"]["opcional"]=1;	
-		$parametros["selec_cant_minima"]["etiqueta"]="Cantidad Minima";
-		$parametros["selec_cant_maxima"]["descripcion"]="Cantidad Máxima";
-		$parametros["selec_cant_maxima"]["opcional"]=1;	
-		$parametros["selec_cant_maxima"]["etiqueta"]="Cantidad Máxima";			
-		$parametros["solo_lectura"]["descripcion"]="Establece el elemento como solo lectura.";
-		$parametros["solo_lectura"]["opcional"]=1;	
-		$parametros["solo_lectura"]["etiqueta"]="Solo lectura";
-		$parametros["selec_utilidades"]["descripcion"]="Permite que el usuario seleccione/deseleccione todos los elementos";
-		$parametros["selec_utilidades"]["opcional"]=1;	
-		$parametros["selec_utilidades"]["etiqueta"]="Utilidad 'Todos/Ninguno'";
-		return $parametros;
-	}
-
-	/**
-	 * @todo El parametros serializar??
-	 */
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);		
@@ -72,10 +48,9 @@ abstract class ef_multi_seleccion extends ef
 			unset($parametros['selec_cant_minima']);
 		}
 		
-		
-		if(isset($parametros["serializar"])) {
-			$this->serializar = $parametros["serializar"];
-		}
+		if(isset($parametros["selec_serializar"]) && $parametros["selec_serializar"] != 0) {
+			$this->serializar = ',';
+		}				
 		
 		//---------------------- Manejo de Estado por defecto  ------------------		
 		if (isset($parametros['estado_defecto']) && $parametros['estado_defecto']!="") {
@@ -101,7 +76,7 @@ abstract class ef_multi_seleccion extends ef
 		if (! isset($this->estado_defecto)) {
 			$this->estado_defecto = $this->estado_nulo;
 		}	
-		$this->set_estado($this->estado_defecto);		
+		$this->set_estado($this->estado_defecto);
 	}
 	
 	function activado()
@@ -160,7 +135,7 @@ abstract class ef_multi_seleccion extends ef
 	
 	function set_estado($estado)
 	{
-		if ($this->serializar !== false) {
+		if ($this->serializar !== false && is_scalar($estado)) {
 			$estado = explode($this->serializar, $estado);
 		}
 		if ($this->es_estado_nulo($estado)) {
@@ -309,15 +284,6 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
     	return $param;    	
     }	
 	
-	static function get_parametros()
-	{
-		$parametros = ef_multi_seleccion::get_parametros();
-		$parametros["selec_tamano"]["descripcion"]="Cantidad de elementos que se visualizan simultáneamente";
-		$parametros["selec_tamano"]["opcional"]=1;	
-		$parametros["selec_tamano"]["etiqueta"]="Tamaño";			
-		return $parametros;
-	}
-
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);		
@@ -404,6 +370,13 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 
 class ef_multi_seleccion_doble extends ef_multi_seleccion
 {
+    static function get_lista_parametros()
+    {
+    	$param = parent::get_lista_parametros();
+    	$param[] = 'selec_tamano';
+    	return $param;    	
+    }	
+		
 	protected function parametros_js()
 	{
 		$imgs = array();
