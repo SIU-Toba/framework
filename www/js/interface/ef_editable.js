@@ -95,11 +95,6 @@ def.constructor = ef_editable;
 		atender_proxima_consulta();
 	}
 	
-	def.cascada_resetear = function() {
-		this.set_solo_lectura(true);
-		this.cambiar_valor('');
-	}
-
 	
 //--------------------------------------------------------------------------------
 //Clase ef_editable_numero hereda de ef_editable

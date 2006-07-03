@@ -149,7 +149,6 @@ class ef_checkbox extends ef
 		return "new ef_checkbox({$this->parametros_js()})";
 	}	
 
-
 	function get_descripcion_estado()
 	{
 		if ( !isset($this->estado) || $this->estado == $this->valor_no_seteado ) {

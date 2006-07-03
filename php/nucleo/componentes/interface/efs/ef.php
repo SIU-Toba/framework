@@ -387,7 +387,8 @@ abstract class ef
 		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
 		$relajado = ( $this->cascada_relajada ) ? "true" : "false"; 
 		$colapsable = ( $this->expandido ) ? "false" : "true";
-		return "'{$this->id_form_orig}', '{$this->etiqueta}', [$obligatorio, $relajado], $colapsable";
+		$etiqueta = str_replace("/", "\\/", $this->etiqueta);
+		return "'{$this->id_form_orig}', '$etiqueta', [$obligatorio, $relajado], $colapsable";
 	}
 
 	/**

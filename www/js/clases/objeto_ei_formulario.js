@@ -144,7 +144,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 	def.cascadas_en_espera = function(id_ef)
 	{
 		//Se resetea y desactiva al ef y todos sus esclavos
-		this.ef(id_ef).resetear();		
+		this.ef(id_ef).borrar_opciones();		
 		this.ef(id_ef).desactivar();
 		if (this._esclavos[id_ef]) {
 			for (var i=0; i< this._esclavos[id_ef].length; i++) {
@@ -173,6 +173,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 	{
 		if (respuesta.responseText == '') {
 			var error = 'Error en la respuesta de la cascada, para más información consulte el log';
+			cola_mensajes.limpiar();
 			cola_mensajes.agregar(error);
 			cola_mensajes.mostrar();			
 		} else {
@@ -182,6 +183,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 				this.ef(respuesta.argument).activar();
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
+				cola_mensajes.limpiar();
 				cola_mensajes.agregar(error);
 				cola_mensajes.mostrar();				
 			}

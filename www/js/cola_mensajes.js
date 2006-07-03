@@ -87,7 +87,8 @@ function overlay() {
 			selects[i].style.visibility = (visible) ? 'visible' : 'hidden';	
 		}
 	}
-	el.style.visibility = (visible) ? "hidden" : "visible";        
+	el.style.visibility = (visible) ? "hidden" : "visible";
+	scroll(0,0);
 }
 
 toba.confirmar_inclusion('cola_mensajes');

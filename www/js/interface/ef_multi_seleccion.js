@@ -58,7 +58,7 @@ def.constructor = ef_multi_seleccion_lista;
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
 	}
 
-	def.resetear = function() {
+	def.borrar_opciones = function() {
 		this.input().length = 0;
 	}
 	
@@ -69,7 +69,7 @@ def.constructor = ef_multi_seleccion_lista;
 	}
 
 	def.set_valores = function(valores) {
-		this.resetear();
+		this.borrar_opciones();
 		var input = this.input();
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
@@ -140,7 +140,7 @@ def.constructor = ef_multi_seleccion_check;
 		}
 	}
 	
-	def.resetear = function() {
+	def.borrar_opciones = function() {
 		var opciones = document.getElementById(this._id_form + '_opciones');
 		while(opciones.childNodes[0]) {
 			opciones.removeChild(opciones.childNodes[0]);
@@ -148,7 +148,7 @@ def.constructor = ef_multi_seleccion_check;
 	}
 	
 	def.set_valores = function(valores) {
-		this.resetear();
+		this.borrar_opciones();
 		var opciones = document.getElementById(this._id_form + '_opciones');		
 		var nuevo = "";
 		var i = 0;
@@ -244,7 +244,7 @@ def.constructor = ef_multi_seleccion_doble;
 	
 
 	def.set_valores = function(valores) {
-		this.resetear();
+		this.borrar_opciones();
 		var input = this.input('izq');
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
@@ -262,7 +262,7 @@ def.constructor = ef_multi_seleccion_doble;
 		this.refrescar_iconos('der');		
 	}
 		
-	def.resetear = function() {
+	def.borrar_opciones =  function() {
 		this.input('izq').length = 0;
 		this.input('der').length = 0;
 	}

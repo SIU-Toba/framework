@@ -218,6 +218,8 @@ def.constructor = ef;
 		this.cambiar_valor('');
 	}
 	
+	def.borrar_opciones = def.resetear;
+	
 	def.esta_cargado = function() {
 		return this.valor() != '';	
 	}

@@ -272,7 +272,7 @@ class dao_editores
 			$proyecto = editor::get_proyecto_cargado();
 		}
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
+		$catalogador = new catalogo_items($proyecto);
 		$catalogador->cargar(array('solo_carpetas' => 1));
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
@@ -281,7 +281,7 @@ class dao_editores
 			} else {
 				$inden = "";
 			}
-			$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
+			$datos[] =  array('proyecto' => $proyecto,
 								'id' => $carpeta->get_id(), 
 								'padre' => $carpeta->get_id(),		//Necesario para el macheo por agrupacion
 								'nombre' => $inden . $carpeta->get_nombre());
@@ -292,9 +292,11 @@ class dao_editores
 	/**
 	*	Retorna los items de una carpeta
 	*/
-	static function get_items_carpeta($carpeta)
+	static function get_items_carpeta($carpeta, $proyecto=null)
 	{
-		$proyecto = editor::get_proyecto_cargado();
+		if (! isset($proyecto)) {
+			$proyecto = editor::get_proyecto_cargado();
+		}
 		$sql = "
 			SELECT 
 				item 									as id, 
