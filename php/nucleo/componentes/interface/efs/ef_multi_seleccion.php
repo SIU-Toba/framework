@@ -79,7 +79,7 @@ abstract class ef_multi_seleccion extends ef
 		$this->set_estado($this->estado_defecto);
 	}
 	
-	function activado()
+	function tiene_estado()
 	{
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
 	}	
@@ -233,7 +233,7 @@ abstract class ef_multi_seleccion extends ef
 	
 	function get_estado()
 	{
-		if ($this->activado()) {
+		if ($this->tiene_estado()) {
 			if ($this->serializar !== false) {
 				return implode($this->estado, $this->serializar);	
 			} else {

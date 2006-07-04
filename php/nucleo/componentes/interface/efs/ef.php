@@ -247,7 +247,7 @@ abstract class ef
 	
 	function get_estado()
 	{
-		if ($this->activado()) {
+		if ($this->tiene_estado()) {
 			return $this->estado;			
 		} else {
 			return null;
@@ -259,17 +259,17 @@ abstract class ef
 		return $this->get_estado();
 	}
 
-	function activado()
+	function tiene_estado()
 	{
 		return isset($this->estado) && ($this->estado !== apex_ef_no_seteado);
 	}
 	
 	/**
-	 * El ef tiene un valor positivo, parecido a activado() pero puede ser mas restrictivo
+	 * El ef tiene un valor positivo, parecido a tiene_estado() pero puede ser mas restrictivo
 	 */
 	function seleccionado()
 	{
-		return $this->activado();
+		return $this->tiene_estado();
 	}
 
 	function resetear_estado()
@@ -287,7 +287,7 @@ abstract class ef
     			$obligatorio = $this->padre->ef_tiene_maestros_seteados($this->id);
     		}
     	}
-        if ($obligatorio && !$this->activado()) {
+        if ($obligatorio && !$this->tiene_estado()) {
 			return "El campo es obligatorio";
         }
         return true;

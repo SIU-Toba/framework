@@ -87,9 +87,8 @@ class ef_editable extends ef
     	}
 	}	
 
-	function activado()
+	function tiene_estado()
 	{
-		//Devuelve TRUE si el elemento esta seteado y FALSE en el caso contrario
 		if (isset($this->estado)) {
 			return ($this->estado != "");
 		} else{
@@ -215,7 +214,7 @@ class ef_editable_numero extends ef_editable
 		if ($padre !== true) {
 			return $padre;	
 		}
-        if ($this->activado()) {
+        if ($this->tiene_estado()) {
 			if (! is_numeric($this->estado)) {
 				return "El campo es numérico";
 			}
@@ -344,7 +343,7 @@ class ef_editable_fecha extends ef_editable
 	function get_estado()
 	{
 		// En este punto se formatea la fecha
-		if($this->activado()){
+		if($this->tiene_estado()){
 			return $this->cambiar_fecha($this->estado,'/','-');
 		}else{
 			return null;
@@ -377,7 +376,7 @@ class ef_editable_fecha extends ef_editable
 		if ($padre !== true) {
 			return $padre;	
 		}
-		if ($this->activado()) {
+		if ($this->tiene_estado()) {
             $fecha = explode('/',$this->estado); 
             if (count($fecha) != 3) {
 				return "El campo no es una fecha valida (3).";

@@ -5,11 +5,6 @@ require_once("nucleo/componentes/interface/efs/ef.php");
 	ATENCION: 
 		El controlador tiene que implementar "get_dbr_efs()" 
 		para que este CI puede obtener el DBR que utiliza para trabajar
-	
-	NOTAS:
-		Lo ideal para la definicion de EFs seria que el metodo estatico get_parametros
-		devuleva como el ef instanciado que permite cargar los valores de si mismo,
-		esto permitiria lograr una mejor validacion
 */
 class ci_efs extends objeto_ci
 {
@@ -37,7 +32,6 @@ class ci_efs extends objeto_ci
 		return $propiedades;
 	}
 
-	
 	function get_tabla()
 	//Acceso al db_tablas
 	{
@@ -80,7 +74,6 @@ class ci_efs extends objeto_ci
 		$ei[] = "efs_lista";
 		if( $this->mostrar_efs_detalle() ){
 			$ei[] = "efs";
-			//$ei[] = "efs_ini";
 			$param_carga = $this->get_definicion_parametros(true);			
 			$param_varios = $this->get_definicion_parametros(false);
 			if (! empty($param_varios)) {			
@@ -262,12 +255,10 @@ class ci_efs extends objeto_ci
 		return $this->get_tabla()->get_fila_columna( $this->seleccion_efs, "elemento_formulario");
 	}
 	
-	
 	function set_parametros($parametros)
 	{
 		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $parametros);
 	}
-		
 
 	//---------------------------------
 	//---- PARAMETROS VARIOS
@@ -398,11 +389,11 @@ class ci_efs extends objeto_ci
 	function evt__esquema_cascadas__carga()
 	{
 		$diagrama = "digraph G {\nsize=\"7,7\";\n";		
-		
+		$diagrama .= "node [shape=record];\n";
 		foreach ($this->get_tabla()->get_filas() as $ef) {
-			$param = parsear_propiedades($ef['inicializacion'], '_');
-			if (isset($param['dependencias'])) {
-				foreach (explode(',', $param['dependencias']) as $dep) {
+			$maestros = trim($ef['carga_maestros']);
+			if ($maestros != '') {
+				foreach (explode(',', $maestros) as $dep) {
 					$diagrama .= $dep.'->'.$ef['identificador'].";\n";
 				}
 			}
@@ -414,11 +405,8 @@ class ci_efs extends objeto_ci
 	function hay_cascadas()
 	{
 		foreach ($this->get_tabla()->get_filas() as $ef) {
-			if (isset($ef['inicializacion'])) {
-				$param = parsear_propiedades($ef['inicializacion'], '_');			
-				if (isset($param['dependencias'])) {
-					return true;	
-				}
+			if (trim($ef['carga_maestros']) != '') {
+				return true;
 			}
 		}
 		return false;

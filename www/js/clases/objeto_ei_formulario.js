@@ -110,7 +110,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 	def.cascadas_maestros_preparados = function(id_esclavo)
 	{
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
-			if (! this.ef(this._maestros[id_esclavo][i]).esta_cargado()) {
+			if (! this.ef(this._maestros[id_esclavo][i]).tiene_estado()) {
 				return false;
 			}
 		}
@@ -122,21 +122,21 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		//Primero se resetea por si la consulta nunca retorna
 		this.cascadas_en_espera(id_esclavo);
 	
-		//---Todos los maestros estan cargados?
-		var cargado = true;
+		//---Todos los maestros tienen estado?
+		var con_estado = true;
 		var valores = '';
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
-			if (this.ef(id_maestro).esta_cargado()) {
+			if (this.ef(id_maestro).tiene_estado()) {
 				var valor = this.ef(id_maestro).valor();
 				valores +=  id_maestro + '-;-' + valor + '-|-';
 			} else {
-				cargado = false;
+				con_estado = false;
 				break;
 			}
 		}
 		//--- Si estan todos los maestros puedo ir al server a preguntar el valor de este
-		if (cargado) {
+		if (con_estado) {
 			this.cascadas_comunicar(id_esclavo, valores);
 		}
 	}
@@ -179,7 +179,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		} else {
 			try {
 				var datos = eval('(' + respuesta.responseText + ')');
-				this.ef(respuesta.argument).set_valores(datos);
+				this.ef(respuesta.argument).set_opciones(datos);
 				this.ef(respuesta.argument).activar();
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;

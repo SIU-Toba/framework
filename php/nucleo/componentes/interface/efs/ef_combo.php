@@ -151,7 +151,7 @@ abstract class ef_seleccion extends ef
 		return true;
 	}
 	
-	function activado()
+	function tiene_estado()
 	{
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
 	}

@@ -66,7 +66,7 @@ class ef_upload extends ef
 		return $_FILES[$this->id_form]["error"] == UPLOAD_ERR_NO_FILE;
 	}
 	
-	function activado()
+	function tiene_estado()
 	{
 		return $this->archivo_cargado || 
 				($this->archivo_subido && !$this->es_archivo_vacio());

@@ -275,6 +275,8 @@ class ci_relaciones extends objeto_ci
 		$relaciones = $this->get_tabla()->get_filas();
 		$grafo = objeto_datos_relacion::grafo_relaciones($tablas, $relaciones);
 		$diagrama = "digraph G { \n";
+		$diagrama .= "size=\"7,7\";\n";		
+		$diagrama .= "node [shape=record];\n";
 		foreach ($grafo->getNodes() as $nodo) {
 			$datos = $nodo->getData();
 			$diagrama .=  $datos['identificador']."\n";	

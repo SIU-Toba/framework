@@ -68,7 +68,7 @@ def.constructor = ef_multi_seleccion_lista;
 		}		
 	}
 
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input();
 		for (id in valores){
@@ -147,7 +147,7 @@ def.constructor = ef_multi_seleccion_check;
 		}
 	}
 	
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = document.getElementById(this._id_form + '_opciones');		
 		var nuevo = "";
@@ -243,7 +243,7 @@ def.constructor = ef_multi_seleccion_doble;
 	}
 	
 
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input('izq');
 		for (id in valores){

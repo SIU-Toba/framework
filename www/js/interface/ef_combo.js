@@ -55,7 +55,7 @@ def.constructor = ef_combo;
 	}	
 	
 	def.resetear = function() {
-		if (this.esta_cargado()) {
+		if (this.tiene_estado()) {
 			var opciones = this.input().options;			
 			for (var i =0 ; i < opciones.length; i++) {
 				if (opciones[i].value == apex_ef_no_seteado) {
@@ -67,12 +67,12 @@ def.constructor = ef_combo;
 		}
 	}
 	
-	def.esta_cargado = function() {
+	def.tiene_estado = function() {
 		var valor = this.valor();
 		return valor != '' &&  valor != apex_ef_no_seteado;	
 	}
 	
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		var input = this.input();
 		input.options.length = 0;//Borro las opciones que existan
 		//Creo los OPTIONS recuperados
@@ -126,7 +126,7 @@ def.constructor = ef_radio;
 	}
 	
 	//--- Cascadas
-	def.esta_cargado = function() {
+	def.tiene_estado = function() {
 		return this.valor() != apex_ef_no_seteado;	
 	}	
 	
@@ -137,7 +137,7 @@ def.constructor = ef_radio;
 		}
 	}
 	
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = this.get_contenedor();
 		var nuevo = "";

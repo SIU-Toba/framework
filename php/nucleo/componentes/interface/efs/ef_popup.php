@@ -117,7 +117,7 @@ class ef_popup extends ef_editable
 	function resetear_estado()
 	{
 		$this->descripcion_estado = '';		
-		if($this->activado()){
+		if($this->tiene_estado()){
 			unset($this->estado);
 		}
 		if (isset($this->estado_defecto)) {

@@ -122,7 +122,7 @@ class ef_checkbox extends ef
 		return $consumos;
 	}	
 	
-	function activado()
+	function tiene_estado()
 	{
 		return isset($this->estado) && 
 				($this->estado == $this->valor || $this->estado == $this->valor_no_seteado);

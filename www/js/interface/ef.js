@@ -220,11 +220,11 @@ def.constructor = ef;
 	
 	def.borrar_opciones = def.resetear;
 	
-	def.esta_cargado = function() {
+	def.tiene_estado = function() {
 		return this.valor() != '';	
 	}
 	
-	def.set_valores = function(valores) {
+	def.set_opciones = function(valores) {
 		this.cambiar_valor(valores);	
 	}
 

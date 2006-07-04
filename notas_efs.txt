@@ -1,4 +1,0 @@
- - ¿Donde se editan los metadatos del nucleo como efs y tipos de pagina?
- - Delegar la responsabilidad de carga a cada servicio (el cascada no requiere carga)
- 
- 

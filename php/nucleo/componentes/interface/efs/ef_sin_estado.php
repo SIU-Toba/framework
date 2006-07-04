@@ -20,7 +20,7 @@ abstract class ef_sin_estado extends ef
 		return null;
 	}
 
-	function activado()
+	function tiene_estado()
 	{
 		return false;
 	}

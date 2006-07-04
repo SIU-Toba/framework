@@ -18,7 +18,7 @@ class objeto_ei_formulario extends objeto_ei
 	protected $lista_ef_post = array();		// interno | array |	Lista	de	elementos que se reciben por POST
 	protected $lista_ef_ocultos = array();
 	protected $nombre_ef_cli = array(); 	// interno | array | ID html de los elementos
-	protected $parametros_carga_efs;		// Parámetros que se utilizan para cargar de valores a los efs
+	protected $parametros_carga_efs;		// Parámetros que se utilizan para cargar opciones a los efs
 	protected $parametros;
 	protected $modelo_eventos;
 	protected $flag_out = false;			// indica si el formulario genero output
@@ -99,7 +99,7 @@ class objeto_ei_formulario extends objeto_ei
 			}
 			//$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"], '_');
 			$parametros = $this->info_formulario_ef[$a];
-			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])){
+			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])) {
 				$parametros['carga_fuente']=$this->info['fuente'];
 			}
 
@@ -464,29 +464,29 @@ class objeto_ei_formulario extends objeto_ei
 	}
 	
 	//---------------------------------------------------------------------------
-	//-------------------------	  CARGA DE efs	  -------------------------------
+	//-------------	  CARGA DE OPCIONES de  efs	  -------------------------------
 	//---------------------------------------------------------------------------
 
 	function ef_tiene_maestros_seteados($id_ef)
 	{
 		foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
-			if (! $this->elemento_formulario[$maestro]->activado()) {
+			if (! $this->elemento_formulario[$maestro]->tiene_estado()) {
 				return false;
 			}
 		}
 		return true;			
 	}
 	
-	protected function cargar_valores_efs()
+	protected function cargar_opciones_efs()
 	{
 		foreach ($this->lista_ef as $id_ef) {
 			if ($this->ef_requiere_carga($id_ef)) {
 				$param = array();
-				//-- Tiene maestros el ef?
+				//-- Tiene maestros el ef? Todos tienen estado?
 				$cargar = true;
 				if (isset($this->cascadas_maestros[$id_ef]) && !empty($this->cascadas_maestros[$id_ef])) {
 					foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
-						if ($this->elemento_formulario[$maestro]->activado()) {
+						if ($this->elemento_formulario[$maestro]->tiene_estado()) {
 							$estado = $this->elemento_formulario[$maestro]->get_estado();
 							$param[$maestro] = $estado;
 						} else {
@@ -667,7 +667,7 @@ class objeto_ei_formulario extends objeto_ei
 	{
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
-		$this->cargar_valores_efs();
+		$this->cargar_opciones_efs();
 		//Genero la interface
 		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
@@ -813,8 +813,7 @@ class objeto_ei_formulario extends objeto_ei
 		
 	function vista_impresion_html( $salida )
 	{
-
-		$this->cargar_valores_efs();		
+		$this->cargar_opciones_efs();		
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
 		foreach ( $this->lista_ef_post as $ef){
