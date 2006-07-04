@@ -914,6 +914,7 @@ class tablas_componente
     53 => 'selec_cant_maxima',
     54 => 'selec_utilidades',
     55 => 'selec_tamano',
+    56 => 'selec_serializar',
   ),
 );
 	}
