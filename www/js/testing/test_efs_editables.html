@@ -34,18 +34,18 @@ function test_editable_texto() {
 	
 	//Consultas basicas
 	assertEquals('el_editable', ef.id());
-	ef.cambiar_tab(18);
-	assertEquals(18, ef.tab());
+	ef.set_tab_index(18);
+	assertEquals(18, ef.get_tab_index());
 
 	//No tiene que validar porque es obligatorio y esta vacio
-	assertEquals('', ef.valor());
+	assertEquals('', ef.get_estado());
 	assertFalse(ef.validar()); 
-	assertTrue(ef.error() != '');
+	assertTrue(ef.get_error() != '');
 	
 	ef.resetear_error();
-	ef.cambiar_valor('Nuevo Valor');
+	ef.set_estado('Nuevo Valor');
 	assertEquals(true, ef.validar()); 
-	assertTrue(ef.error() != '');
+	assertTrue(ef.get_eror() != '');
 }
 
 function test_editable_numero() {
@@ -54,24 +54,24 @@ function test_editable_numero() {
 	ef.iniciar();
 
 	//Numero decimal
-	ef.cambiar_valor(1150.254);
-	assertEquals(1150.25, ef.valor());
-	assertEquals('1.150,25', ef.valor_formateado());	
+	ef.set_estado(1150.254);
+	assertEquals(1150.25, ef.get_estado());
+	assertEquals('1.150,25', ef.get_estado_con_formato());	
 	assertTrue(ef.validar());
 	ef.submit();
 	assertEquals('1150.25', ef.input().value);
 	
 	//Entero
-	ef.cambiar_valor(1234567);
-	assertEquals(1234567, ef.valor());
-	assertEquals('1.234.567', ef.valor_formateado());	
+	ef.set_estado(1234567);
+	assertEquals(1234567, ef.get_estado());
+	assertEquals('1.234.567', ef.get_estado_con_formato());	
 	assertTrue(ef.validar());
 	ef.submit();
 	assertEquals('1234567', ef.input().value);
 
 	//No es numero!!
-	ef.cambiar_valor('Esta cadena no contiene n&uacute;meros');
-	assertEquals(ef.valor(), '');
+	ef.set_estado('Esta cadena no contiene n&uacute;meros');
+	assertEquals(ef.get_estado(), '');
 }
 
 //---------------------------------------------------------------
@@ -80,7 +80,7 @@ function test_editable_numero() {
 function validar_correctos(ef, numeros)
 {
 	for (i in numeros) {
-		ef.cambiar_valor(numeros[i]);
+		ef.set_estado(numeros[i]);
 		
 		if (!ef.validar())
 			fail('No valida con' + numeros[i]);
@@ -90,7 +90,7 @@ function validar_correctos(ef, numeros)
 function validar_incorrectos(ef, numeros)
 {
 	for (i in numeros) {
-		ef.cambiar_valor(numeros[i]);
+		ef.set_estado(numeros[i]);
 		if (ef.validar())
 			fail('Valida con' + numeros[i]);
 	}
@@ -167,17 +167,17 @@ function test_editable_moneda() {
 	ef.iniciar();
 
 	//Numero decimal
-	ef.cambiar_valor(1150.2);
-	assertEquals(1150.2, ef.valor());
-	assertEquals('$ 1.150,20', ef.valor_formateado());	
+	ef.set_estado(1150.2);
+	assertEquals(1150.2, ef.get_estado());
+	assertEquals('$ 1.150,20', ef.get_estado_con_formato());	
 	assertTrue(ef.validar());
 	ef.submit();
 	assertEquals('1150.2', ef.input().value);
 	
 	//Entero
-	ef.cambiar_valor(1234567);
-	assertEquals(1234567, ef.valor());
-	assertEquals('$ 1.234.567,00', ef.valor_formateado());	
+	ef.set_estado(1234567);
+	assertEquals(1234567, ef.get_estado());
+	assertEquals('$ 1.234.567,00', ef.get_estado_con_formato());	
 	assertTrue(ef.validar());
 	ef.submit();
 	assertEquals('1234567', ef.input().value);
@@ -187,11 +187,11 @@ function test_editable_porcentaje() {
 	rango = [ ['0', 1], ['100', 1]]; //[0..100] 
 	var ef = new ef_editable_porcentaje('formulario1148porcentaje', 'Porcentaje', false, false, '', rango);
 	ef.iniciar();
-	ef.cambiar_valor(50.3);
+	ef.set_estado(50.3);
 	assertTrue(ef.validar());
-	ef.cambiar_valor(150.3);
+	ef.set_estado(150.3);
 	assertFalse(ef.validar());
-	ef.cambiar_valor(-0.3);
+	ef.set_estado(-0.3);
 	assertFalse(ef.validar());
 }
 
@@ -201,7 +201,7 @@ function test_editable_clave() {
 	//Es invalido por los datos iniciales que tiene
 	assertFalse(ef.validar());
 	
-	ef.cambiar_valor('nuevo');
+	ef.set_estado('nuevo');
 	assertTrue(ef.validar());
 }
 
@@ -209,15 +209,15 @@ function test_ef_fecha() {
 	var ef = new ef_editable_fecha('formulario1148fecha', 'fecha', false,false, 'dd/mm/yyyy');
 	ef.iniciar();
 
-	ef.cambiar_valor('23/12/2008');
+	ef.set_estado('23/12/2008');
 	assertTrue(ef.validar());
-	ef.cambiar_valor('1/1/1');
+	ef.set_estado('1/1/1');
 	assertTrue(ef.validar());
-	ef.cambiar_valor('32/12/2008');
+	ef.set_estado('32/12/2008');
 	assertFalse(ef.validar());
-	ef.cambiar_valor('29/02/2008');
+	ef.set_estado('29/02/2008');
 	assertTrue(ef.validar());
-	ef.cambiar_valor('29/02/2005');
+	ef.set_estado('29/02/2005');
 	assertFalse(ef.validar());
 }
 </script>

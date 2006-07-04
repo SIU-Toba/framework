@@ -22,15 +22,15 @@ function test_combo() {
 	ef.iniciar();
 	this.assertFalse(ef.validar());
 	//Valor Existente
-	ef.cambiar_valor('a');
+	ef.set_estado('a');
 	this.assertTrue(ef.validar());	
 
 	//Valor no existente
-	ef.cambiar_valor(apex_ef_no_seteado);
+	ef.set_estado(apex_ef_no_seteado);
 	this.assertFalse(ef.validar());	
 	try {
 		ok = true
-		ef.cambiar_valor('z');
+		ef.set_estado('z');
 	} catch (e) {
 		var ok = false
 	}
@@ -41,18 +41,18 @@ function test_combo() {
 	var ef = new ef_combo('formulario1148combo', 'Combo', false);
 	ef.iniciar();
 	//Valor no existente
-	ef.cambiar_valor(apex_ef_no_seteado);
+	ef.set_estado(apex_ef_no_seteado);
 	this.assertTrue(ef.validar());	
 }
 
 function test_checkbox() {
 	var ef = new ef_checkbox('formulario1148checkbox', 'Checkbox', false);
 	ef.iniciar();
-	this.assertEquals(ef.valor(), null);
+	this.assertEquals(ef.get_estado(), null);
 	ef.chequear(true);
-	this.assertEquals(ef.valor(), '1');
+	this.assertEquals(ef.get_estado(), '1');
 	ef.chequear(false);
-	this.assertEquals(ef.valor(), null);		
+	this.assertEquals(ef.get_estado(), null);		
 }
 
 function test_popup_validar() {
@@ -63,7 +63,7 @@ function test_popup_validar() {
 }
 
 //Abre un popup y le retorna un valor
-function test_popup_valor() {
+function test_popup_get_estado() {
 	var ef = new ef_popup('formulario1148popup', 'Popup', true);
 	ef.iniciar();
 	ef.vinculo().onclick();
@@ -71,8 +71,8 @@ function test_popup_valor() {
 	var descripcion = "Descripcion";
 	ventana.opener.popup_callback('formulario1148popup', clave, descripcion);
 	ventana.close();
-	this.assertEquals('25', ef.valor());
-	this.assertEquals('Descripcion', ef.valor_formateado());
+	this.assertEquals('25', ef.get_estado());
+	this.assertEquals('Descripcion', ef.get_estado_con_formato());
 }
 var ventana = null;
 </script>

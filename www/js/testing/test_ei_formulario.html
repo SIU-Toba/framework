@@ -30,7 +30,7 @@ var clase_ef_ok = function(test) {
 	this.test = test;
 	this.id = function() { return 'primero' };
 	this.iniciar = function() {};
-	this.cambiar_tab = function(numero) {
+	this.set_tab_index = function(numero) {
 		test.assertEquals(8, numero);
 	};		
 	this.cuando_cambia_valor = function(a) {};
@@ -46,7 +46,7 @@ var clase_ef_error = function(test) {
 	this.test = test;
 	this.id = function() { return 'segundo' };
 	this.iniciar = function() {};
-	this.cambiar_tab = function(numero) {
+	this.set_tab_index = function(numero) {
 		test.assertEquals(9, numero);
 	};		
 	this.cuando_cambia_valor = function() {};
@@ -180,7 +180,7 @@ function test_validador_nuevo() {
 	formu.iniciar();
 	formu.set_evento(new evento_ei('modificar', true, 'confirmacion'), false)
 	
-	formu.ef('el_editable').cambiar_valor('');	//Lo pone vacio 
+	formu.ef('el_editable').set_estado('');	//Lo pone vacio 
 	this.assertFalse(formu.validar());
 
 	//Una validacion nueva, si no esta chequeado pasar por alto el obligatorio del editable 
@@ -221,7 +221,7 @@ function test_validacion_en_agregar() {
 
 	formu.evt__alta = function() {
 		var editable = this.ef('el_editable');
-		if (editable.valor() % 2 != 0)
+		if (editable.get_estado() % 2 != 0)
 			return false;
 		else
 			return true;
@@ -229,10 +229,10 @@ function test_validacion_en_agregar() {
 	
 	formu.iniciar();	
 	formu.set_evento(new evento_ei('alta', true, 'confirmacion'), false)
-	formu.ef('el_editable').cambiar_valor('87');	//Lo pone impar
+	formu.ef('el_editable').set_estado('87');	//Lo pone impar
 	this.assertFalse(formu.puede_submit());
 
-	formu.ef('el_editable').cambiar_valor('86');	//Lo pone par
+	formu.ef('el_editable').set_estado('86');	//Lo pone par
 	this.assertTrue(formu.puede_submit());
 }
 
@@ -266,7 +266,7 @@ function test_procesar_submit() {
 	}
 	formu.iniciar();
 	this.assertFalse(llamado);
-	formu.ef('el_combo').cambiar_valor('c');
+	formu.ef('el_combo').set_estado('c');
 	formu.refrescar_procesamientos();
 	this.assertTrue(llamado);	
 }

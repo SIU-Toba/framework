@@ -8,6 +8,28 @@ def.constructor = ef_combo;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
+	//---Consultas		
+	
+	def.tiene_estado = function() {
+		var valor = this.get_estado();
+		return valor != '' &&  valor != apex_ef_no_seteado;	
+	}
+	
+	def.validar = function () {
+		if (! ef.prototype.validar.call(this))
+			return false;		
+		var valor = this.get_estado();
+		if (this._obligatorio && 
+			(valor == apex_ef_no_seteado || this.input().options.length ==0 ||
+				valor == null)) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		return true;
+	}
+	
+	//---Comandos 
+		
 	def.seleccionar = function () {
 		try {
 			this.input().focus();
@@ -17,7 +39,7 @@ def.constructor = ef_combo;
 		}
 	}	
 	
-	def.cambiar_valor = function(nuevo) {
+	def.set_estado = function(nuevo) {
 		var input = this.input();
 		var opciones = input.options;
 		var ok = false;
@@ -36,41 +58,22 @@ def.constructor = ef_combo;
 			input.onchange();
 	}
 	
-	def.validar = function () {
-		if (! ef.prototype.validar.call(this))
-			return false;		
-		var valor = this.valor();
-		if (this._obligatorio && 
-			(valor == apex_ef_no_seteado || this.input().options.length ==0 ||
-				valor == null)) {
-			this._error = 'es obligatorio.';
-		    return false;
-		}
-		return true;
-	}
-
-	//--- Cascadas
-	def.borrar_opciones = function() {
-		this.input().options.length = 0;
-	}	
-	
-	def.resetear = function() {
+	def.resetear_estado = function() {
 		if (this.tiene_estado()) {
 			var opciones = this.input().options;			
 			for (var i =0 ; i < opciones.length; i++) {
 				if (opciones[i].value == apex_ef_no_seteado) {
-					return this.cambiar_valor(apex_ef_no_seteado);
+					return this.set_estado(apex_ef_no_seteado);
 				} else if (opciones[i].value == '') {
-					return this.cambiar_valor('');
+					return this.set_estado('');
 				}
 			}
 		}
 	}
 	
-	def.tiene_estado = function() {
-		var valor = this.valor();
-		return valor != '' &&  valor != apex_ef_no_seteado;	
-	}
+	def.borrar_opciones = function() {
+		this.input().options.length = 0;
+	}	
 	
 	def.set_opciones = function(valores) {
 		var input = this.input();
@@ -106,17 +109,8 @@ def.constructor = ef_radio;
 		this._callback = callback;
 	}
 
-	def.validar = function () {
-		if (! ef.prototype.validar.call(this))
-			return false;		
-		if (this._obligatorio && this.valor() == apex_ef_no_seteado) {
-			this._error = 'es obligatorio.';
-		    return false;
-		}
-		return true;
-	}
-	
-	def.valor = function() {
+	//---Consultas	
+	def.get_estado = function() {
 		var elem = this.input();		
 		for (var i=0; i < elem.length ; i++) {
 			if (elem[i].checked)
@@ -125,10 +119,29 @@ def.constructor = ef_radio;
 		return apex_ef_no_seteado;
 	}
 	
-	//--- Cascadas
 	def.tiene_estado = function() {
-		return this.valor() != apex_ef_no_seteado;	
+		return this.get_estado() != apex_ef_no_seteado;	
 	}	
+	
+	def.validar = function () {
+		if (! ef.prototype.validar.call(this))
+			return false;		
+		if (this._obligatorio && this.get_estado() == apex_ef_no_seteado) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		return true;
+	}
+	
+	def.input = function() {
+		var input = document.getElementsByName(this._id_form);	
+		if (typeof input.length != 'number') {
+			input = [input];
+		}
+		return input;
+	}	
+	
+	//---Comandos	
 	
 	def.borrar_opciones = function() {
 		var opciones = this.get_contenedor();
@@ -183,13 +196,6 @@ def.constructor = ef_radio;
 			elem[i].disabled = solo_lectura;
 		}
 	}	
-	
-	def.input = function() {
-		var input = document.getElementsByName(this._id_form);	
-		if (typeof input.length != 'number') {
-			input = [input];
-		}
-		return input;
-	}
+
 	
 toba.confirmar_inclusion('interface/ef_combo');

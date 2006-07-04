@@ -92,7 +92,7 @@ function test_validacion_con_sin_evento() {
 	formu._silencioso = true;
 	formu.iniciar();
 
-	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');	//Lo pone vacio  
+	formu.ef('mi_moneda').ir_a_fila(0).set_estado('');	//Lo pone vacio  
 	this.assertTrue(formu.validar());
 	
 	formu.set_evento(new evento_ei('modificar', true, ''));	//Hay un evento, no valida  
@@ -110,7 +110,7 @@ function test_validador_nuevo() {
 	formu._silencioso = true;
 	formu.iniciar();
 
-	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');	//Lo pone vacio 
+	formu.ef('mi_moneda').ir_a_fila(0).set_estado('');	//Lo pone vacio 
 	this.assertFalse(formu.validar());
 
 	//Una validacion nueva, si no esta chequeado pasar por alto la validacion de esa fila
@@ -127,12 +127,12 @@ function test_validador_nuevo() {
 
 	//El check de la primer fila esta sin chequear y el editable esta vacio, no hay que aceptar
 	formu.ef('mi_check').ir_a_fila(0).chequear(false);
-	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor('');
+	formu.ef('mi_moneda').ir_a_fila(0).set_estado('');
 	this.assertTrue(formu.validar());
 
 	//El check de la segunda fila esta chequeado y el editable esta vacio, hay que rechazar
 	formu.ef('mi_check').ir_a_fila(1).chequear(true);
-	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor('');
+	formu.ef('mi_moneda').ir_a_fila(1).set_estado('');
 	this.assertFalse(formu.validar());	
 }
 
@@ -142,8 +142,8 @@ function test_totalizacion_estandar() {
 	formu.iniciar();
 	this.assertEquals(0, formu.procesar('mi_moneda'));
 	
-	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor(504.34);
-	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(506.12);
+	formu.ef('mi_moneda').ir_a_fila(0).set_estado4.34);
+	formu.ef('mi_moneda').ir_a_fila(1).set_estado(506.12);
 	this.assertEquals(1010.46, formu.procesar('mi_moneda'));
 
 	formu.refrescar_procesamientos(); //Solmente Estetico
@@ -152,8 +152,8 @@ function test_totalizacion_estandar() {
 function test_procesamiento_extendido() {
 	//Consiste en usar un ef como disparador del procesamiento y otro como objeto y contenedor del resultado del mismo
 	//En este caso el cambio de valor del checkbox dispara la suma de las monedas seleccionadas
-	formu.ef('mi_moneda').ir_a_fila(0).cambiar_valor(1301.12);
-	formu.ef('mi_moneda').ir_a_fila(1).cambiar_valor(0.52);	
+	formu.ef('mi_moneda').ir_a_fila(0).set_estado(1301.12);
+	formu.ef('mi_moneda').ir_a_fila(1).set_estado(0.52);	
 
 	var resultado = -1; //Variable donde se va a almacenar el resultado del procesamiento
 	//Extension del procesamiento del ef mi_check
@@ -163,7 +163,7 @@ function test_procesamiento_extendido() {
 		for (fila in filas)	{
 			if (this.ef('mi_check').ir_a_fila(filas[fila]).chequeado()) {
 				this.ef('mi_moneda').ir_a_fila(filas[fila]).activar();
-				valor = this.ef('mi_moneda').ir_a_fila(filas[fila]).valor();
+				valor = this.ef('mi_moneda').ir_a_fila(filas[fila]).get_estado();
 				valor = (valor=='' || isNaN(valor)) ? 0 : valor;
 				total += valor
 			}

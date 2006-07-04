@@ -9,34 +9,13 @@ def.constructor = ef_editable;
 		this._forma_mascara = (masc && masc.trim().toLowerCase() != 'no') ? masc : null;
 		this._mascara = null;
 	}
-
-	def.iniciar = function(id, contenedor) { 
-		ef.prototype.iniciar.call(this, id, contenedor);
-		if (this._forma_mascara) {
-			this._mascara = new mascara_generica(this._forma_mascara);
-			this._mascara.attach(this.input());
-			this.cambiar_valor(this.input().value);
-		}
-	}	
 	
-	def.submit = function() { 
-		if (this._mascara) {
-			this.input().value = this.valor();
-		}
-		ef.prototype.submit.call(this);
+	//---Consultas
+	def.activo = function() {
+		return !(this.input().readOnly);
 	}
 	
-	def.validar = function () {
-		if (! ef.prototype.validar.call(this))
-			return false;		
-		if (this._obligatorio && ereg_nulo.test(this.valor())) {
-			this._error = 'es obligatorio.';
-		    return false;
-		}
-		return true;
-	}	
-	
-	def.valor = function() {
+	def.get_estado = function() {
 		if (this._mascara) {
 			//Refresco del valor, esto es necesario por la multiplexacion del ML
 			this._mascara.format(this.input().value, false);
@@ -46,18 +25,46 @@ def.constructor = ef_editable;
 			return this.input().value;
 	}	
 	
-	def.valor_formateado = function() {
+	def.get_estado_con_formato = function() {
 		return this.input().value;
 	}		
 	
-	def.formato_texto = function(valor) {
+	def.formatear_valor = function(valor) {
 		if (this._mascara)
 			return this._mascara.format(valor, false, true);
 		else
 			return valor;
+	}	
+	
+	def.validar = function () {
+		if (! ef.prototype.validar.call(this))
+			return false;		
+		if (this._obligatorio && ereg_nulo.test(this.get_estado())) {
+			this._error = 'es obligatorio.';
+		    return false;
+		}
+		return true;
+	}
+		
+	//---Comandos
+
+	def.iniciar = function(id, contenedor) { 
+		ef.prototype.iniciar.call(this, id, contenedor);
+		if (this._forma_mascara) {
+			this._mascara = new mascara_generica(this._forma_mascara);
+			this._mascara.attach(this.input());
+			this.set_estado(this.input().value);
+		}
+	}	
+	
+	def.submit = function() { 
+		if (this._mascara) {
+			this.input().value = this.get_estado();
+		}
+		ef.prototype.submit.call(this);
 	}
 	
-	def.cambiar_valor = function(nuevo) {
+	def.set_estado = function(nuevo) {
 		if (this._mascara) {
 			var valor = this._mascara.format(nuevo, false, true);
 			this.input().value = valor;
@@ -66,7 +73,7 @@ def.constructor = ef_editable;
 				desc.value = valor;
 			}
 		} else {
-			return ef.prototype.cambiar_valor.call(this, nuevo);	
+			return ef.prototype.set_estado.call(this, nuevo);	
 		}
 		if (this.input().onblur) {
 			this.input().onblur();
@@ -81,20 +88,7 @@ def.constructor = ef_editable;
 	def.set_solo_lectura = function(solo_lectura) {
 		this.input().readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
 	}	
-	
-	def.activo = function() {
-		return !(this.input().readOnly);
-	}
 
-	/**
-	* @todo Falta manejar el caso del solo-lectura
-	*/
-	def.cascada_cargar = function(nuevo_valor) {
-		this.cambiar_valor(nuevo_valor);
-		this.input().focus();
-		atender_proxima_consulta();
-	}
-	
 	
 //--------------------------------------------------------------------------------
 //Clase ef_editable_numero hereda de ef_editable
@@ -117,19 +111,19 @@ def.constructor = ef_editable_numero;
 		if (this._forma_mascara) {
 			this._mascara = new mascara_numero(this._forma_mascara);
 			this._mascara.attach(this.input());
-			this.cambiar_valor(this.input().value);
+			this.set_estado(this.input().value);
 		}
 	}	
 	
-	def.valor = function() {
-		var valor = ef_editable.prototype.valor.call(this);
+	def.get_estado = function() {
+		var valor = ef_editable.prototype.get_estado.call(this);
 		return (valor == '') ? '' : parseFloat(valor);
 	}
 
 	def.validar_rango = function() {
 		//this._rango[0-1][0] es limite [0-1][1] determina inclusive
 		var ok = true;
-		var valor = this.valor();
+		var valor = this.get_estado();
 		if (typeof valor != 'number' || ! this._rango)
 			return true;
 		if (this._rango[0][0] != '*')
@@ -142,7 +136,7 @@ def.constructor = ef_editable_numero;
 	def.validar = function() {
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
-		if (isNaN(this.valor())) {
+		if (isNaN(this.get_estado())) {
 			this._error = 'debe ser numérico.';
 		    return false;
 		}
@@ -170,8 +164,8 @@ var def = ef_editable_porcentaje.prototype;
 		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje);
 	}
 	
-	def.formato_texto = function(valor) {
-		return (ef_editable_numero.prototype.formato_texto.call(this, valor) + ' %');
+	def.formatear_valor = function(valor) {
+		return (ef_editable_numero.prototype.formatear_valor.call(this, valor) + ' %');
 	}
 	
 //--------------------------------------------------------------------------------
@@ -196,7 +190,7 @@ var def = ef_editable_clave.prototype;
 		return true;
 	}
 	
-	def.cambiar_valor = function (nuevo) {
+	def.set_estado = function (nuevo) {
 		var input = this.input();
 		input.value = nuevo;
 		document.getElementById(this._id_form + '_test').value = nuevo;
@@ -204,7 +198,7 @@ var def = ef_editable_clave.prototype;
 			input.onblur();
 	}
 	
-	def.cambiar_tab = function(tab_index) {
+	def.set_tab_index = function(tab_index) {
 		this.input().tabIndex = tab_index;
 		document.getElementById(this._id_form + '_test').tabIndex = tab_index+1;
 	}	
@@ -232,13 +226,13 @@ var def = ef_editable_fecha.prototype;
 		this._mascara.attach(this.input());
 	}
 	
-	def.valor = function() {
+	def.get_estado = function() {
 		return this.input().value;
 	}
 	
 	def.fecha = function() {
 		if (this.validar()) {
-			var arr = this.valor().split('/');
+			var arr = this.get_estado().split('/');
 			return new Date(arr[2], arr[1] - 1, arr[0]);
 		}
 		return null;
@@ -248,7 +242,7 @@ var def = ef_editable_fecha.prototype;
 		if (! ef_editable.prototype.validar.call(this))
 			return false;
 		try {
-			var valida = validar_fecha(this.valor(), false);
+			var valida = validar_fecha(this.get_estado(), false);
 		} catch (e) {
 			valida = "no contiene una fecha válida";
 		}

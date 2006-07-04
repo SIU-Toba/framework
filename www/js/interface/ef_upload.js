@@ -12,7 +12,7 @@ def.constructor = ef_upload;
 		if (this.get_cambiar_archivo()) {
 			if (! ef.prototype.validar.call(this))
 				return false;		
-			if (this._obligatorio && this.valor() == "") {
+			if (this._obligatorio && this.get_estado() == "") {
 				this._error = 'es obligatorio.';
 			    return false;
 			}

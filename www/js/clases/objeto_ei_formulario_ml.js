@@ -38,7 +38,7 @@ def.constructor = objeto_ei_formulario_ml;
 				this._efs[id_ef].resaltar(this._invalidos[fila][id_ef]);
 			}			
 			ef.iniciar(id_ef, this);
-			ef.cambiar_tab(this._rango_tabs[0]);
+			ef.set_tab_index(this._rango_tabs[0]);
 			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
 			this._rango_tabs[0]++;
 		}
@@ -66,7 +66,7 @@ def.constructor = objeto_ei_formulario_ml;
 	def.total = function (id_ef) {
 		var total = 0;	
 		for (fila in this._filas) {
-			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).valor();
+			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
 			valor = (valor == '' || isNaN(valor)) ? 0 : valor;
 			total += valor;
 		}
@@ -104,9 +104,9 @@ def.constructor = objeto_ei_formulario_ml;
 		}
 		if (!es_valido) {
 			if (! this._silencioso)
-				ef.resaltar(ef.error(), 8);
+				ef.resaltar(ef.get_error(), 8);
 			if (! es_online)
-				cola_mensajes.agregar(ef.error(), 'error', ef._etiqueta);
+				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
 			ef.resetear_error();
 			return false;
 		}		
@@ -213,10 +213,10 @@ def.constructor = objeto_ei_formulario_ml;
 		
 		//Reemplazo de los tabs index
 		for (id_ef in this._efs) {
-			var tab_a = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).tab();
-			var tab_b = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).tab();
-			this._efs[id_ef].ir_a_fila(this._filas[pos_a]).cambiar_tab(tab_b);
-			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).cambiar_tab(tab_a);			
+			var tab_a = this._efs[id_ef].ir_a_fila(this._filas[pos_a]).get_tab_index();
+			var tab_b = this._efs[id_ef].ir_a_fila(this._filas[pos_b]).get_tab_index();
+			this._efs[id_ef].ir_a_fila(this._filas[pos_a]).set_tab_index(tab_b);
+			this._efs[id_ef].ir_a_fila(this._filas[pos_b]).set_tab_index(tab_a);			
 		}
 		
 		//Reemplazo interno 
@@ -303,7 +303,7 @@ def.constructor = objeto_ei_formulario_ml;
 		var id_ant = this._efs[id_ef]._id_form;
 		//Se cambia el total
 		var elemento = this._efs[id_ef].ir_a_fila(apex_ef_total);
-		document.getElementById(elemento._id_form).innerHTML = elemento.formato_texto(total);
+		document.getElementById(elemento._id_form).innerHTML = elemento.formatear_valor(total);
 		//Se restaura el id
 		this._efs[id_ef]._id_form = id_ant;
 		return total;

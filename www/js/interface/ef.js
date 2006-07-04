@@ -28,6 +28,52 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 var def = ef.prototype;
 def.constructor = ef;
 
+	//---Consultas	
+	def.get_id = function() { 
+		return this._id;	
+	}
+	
+	def.tiene_estado = function() {
+		return this.get_estado() != '';	
+	}
+		
+	def.get_estado = function() {
+		return this.input().value;
+	}
+	
+	def.get_estado_con_formato = function() {
+		return this.get_estado();
+	}	
+
+	//Formatea un valor segun el ef y lo retorna
+	def.formatear_valor = function (valor) {
+		return valor;
+	}
+
+	def.activo = function() {
+		return !(this.input().disabled);
+	}
+		
+	def.input = function() {
+		return document.getElementById(this._id_form);
+	}
+	
+	def.nodo = function() {
+		return document.getElementById('nodo_' + this._id_form);			
+	}	
+	
+	def.get_contenedor = function() {
+		return document.getElementById('cont_' + this._id_form);		
+	}
+
+	def.get_tab_index = function () {
+		return this.input().tabIndex;
+	}
+
+	def.get_error = function() {
+		return this._error;
+	}
+
 	//---Servicios de inicio y finalización 
 	def.iniciar = function(id, controlador) {
 		this._id = id;
@@ -50,49 +96,7 @@ def.constructor = ef;
 			input.disabled = false;
 	}		
 	
-	//---Consultas	
-	def.id = function() { 
-		return this._id;	
-	}
-	
-	def.valor = function() {
-		return this.input().value;
-	}
-	
-	def.valor_formateado = function() {
-		return this.valor();
-	}	
 
-	//Retorna el formato en modo texto de valor
-	def.formato_texto = function (valor) {
-		return valor;
-	}
-
-	def.activo = function() {
-		return !(this.input().disabled);
-	}
-		
-	def.input = function() {
-		return document.getElementById(this._id_form);
-	}
-	
-	def.get_contenedor = function()
-	{
-		return document.getElementById('cont_' + this._id_form);		
-	}
-	
-	def.nodo = function() {
-		return document.getElementById('nodo_' + this._id_form);			
-	}
-
-	def.tab = function () {
-		return this.input().tabIndex;
-	}
-
-	def.error = function() {
-		return this._error;
-	}
-	
 	//---Comandos 
 	def.cambiar_expansion = function(expandir) {
 		if (this._colapsable) {
@@ -153,7 +157,7 @@ def.constructor = ef;
 			resetear = false;
 		this.nodo().style.display = 'none';	
 		if (resetear)
-			this.resetear();
+			this.resetear_estado();
 	}
 	
 	def.mostrar = function(mostrar, resetear) {
@@ -179,17 +183,19 @@ def.constructor = ef;
 	}
 	
 	
-	def.cambiar_tab = function(tab_index) {
+	def.set_tab_index = function(tab_index) {
 		if (this.input())
 			this.input().tabIndex = tab_index;
 	}
 	
-	def.cambiar_valor = function(nuevo) {
+	
+	def.set_estado = function(nuevo) {
 		this.input().value = nuevo;
 		if (this.input().onchange)
-			this.input().onchange();
+			this.input().onchange();		
 	}
 	
+
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
 		if (this.input())
@@ -214,20 +220,25 @@ def.constructor = ef;
 	}	
 	
 	//---Relación con el cascadas
-	def.resetear = function() {
-		this.cambiar_valor('');
+	def.resetear_estado = function() {
+		this.set_estado('');
 	}
 	
-	def.borrar_opciones = def.resetear;
+	def.borrar_opciones = def.resetear_estado;
 	
-	def.tiene_estado = function() {
-		return this.valor() != '';	
-	}
-	
-	def.set_opciones = function(valores) {
-		this.cambiar_valor(valores);	
+	def.set_opciones = function(opciones) {
+		this.set_estado(opciones);	
 	}
 
+	/****** OBSOLETOS *******/
+	def.valor = function() {
+		return this.get_estado();
+	}
+	
+	def.cambiar_valor = function(nuevo) {
+		this.set_estado(nuevo);
+	}
+	/***********************/		
 	
 //--------------------------------------------------------------------------------
 //Clase ef_fijo
@@ -239,7 +250,7 @@ def.constructor = ef_fijo;
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 	
-	def.cambiar_valor = function(nuevo) {
+	def.set_estado = function(nuevo) {
 		this.input().innerHTML = nuevo;
 	}	
 	

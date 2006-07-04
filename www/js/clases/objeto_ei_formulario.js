@@ -29,7 +29,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 	def.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
-			this._efs[id_ef].cambiar_tab(this._rango_tabs[0]);
+			this._efs[id_ef].set_tab_index(this._rango_tabs[0]);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
 			this._rango_tabs[0] = this._rango_tabs[0] + 5;
 			if (this._invalidos[id_ef]) {
@@ -128,7 +128,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
 			if (this.ef(id_maestro).tiene_estado()) {
-				var valor = this.ef(id_maestro).valor();
+				var valor = this.ef(id_maestro).get_estado();
 				valores +=  id_maestro + '-;-' + valor + '-|-';
 			} else {
 				con_estado = false;
@@ -217,9 +217,9 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		}
 		if (!ok) {
 			if (! this._silencioso)
-				ef.resaltar(ef.error());
+				ef.resaltar(ef.get_error());
 			if (! es_online)
-				cola_mensajes.agregar(ef.error(), 'error', ef._etiqueta);
+				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
 			ef.resetear_error();
 			return false
 		}
