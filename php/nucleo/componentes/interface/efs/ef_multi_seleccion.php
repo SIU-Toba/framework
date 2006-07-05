@@ -84,7 +84,7 @@ abstract class ef_multi_seleccion extends ef
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
 	}	
 	
-	function cargar_valores($datos)
+	function set_opciones($datos)
 	{
 		if (!isset($datos)) {
 			$datos = array();	

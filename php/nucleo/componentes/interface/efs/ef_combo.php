@@ -46,7 +46,7 @@ abstract class ef_seleccion extends ef
 		return true;
 	}
 	
-	function cargar_valores($datos)
+	function set_opciones($datos)
 	{
 		if ($datos == null) {
 			$this->input_extra = " disabled ";

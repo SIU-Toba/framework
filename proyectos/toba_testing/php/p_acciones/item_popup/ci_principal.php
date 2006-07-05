@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-//--------------------------------------------------------------------
+
 class ci_principal extends objeto_ci
 {
 	function extender_objeto_js()

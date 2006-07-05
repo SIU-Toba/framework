@@ -152,6 +152,11 @@ abstract class ef
 	{
 		$this->etiqueta = $etiqueta;
 	}
+	
+	function set_descripcion($descripcion)
+	{
+		$this->descripcion = $descripcion;
+	}
 
 	function set_solo_lectura($solo_lectura = true)
 	{

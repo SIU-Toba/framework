@@ -502,7 +502,7 @@ class objeto_ei_formulario extends objeto_ei
 				} else {
 					$datos = null;	
 				}
-				$this->elemento_formulario[$id_ef]->cargar_valores($datos);				
+				$this->elemento_formulario[$id_ef]->set_opciones($datos);				
 			}
 		}
 	}

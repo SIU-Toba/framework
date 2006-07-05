@@ -308,6 +308,8 @@ class ci_efs extends objeto_ci
 	{
 		$lista_param = $this->get_definicion_parametros(true);
 		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		
+		//---Desactiva los efs que no pertenecen a los parametros
 		$todos = $this->dependencia('param_carga')->get_nombres_ef();
 		foreach ($todos as $disponible) {
 			if (! in_array($disponible, $lista_param) &&
@@ -325,6 +327,14 @@ class ci_efs extends objeto_ci
 			if (isset($fila[$mec])) {
 				$fila['mecanismo'] = $mec;
 				break;
+			}
+		}
+		//--- Si el mecanismo es un metodo php y es estatico chequear el checkbox
+		if (isset($fila['mecanismo']) && $fila['mecanismo'] == 'carga_metodo') {
+			$tiene_clase = (isset($fila['carga_clase']) && $fila['carga_clase'] != '');
+			$tiene_include = (isset($fila['carga_include']) && $fila['carga_include'] != '');
+			if ($tiene_clase || $tiene_include) {
+				$fila['estatico'] = 1;
 			}
 		}
 		return $fila;

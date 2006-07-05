@@ -59,14 +59,14 @@ class ef_popup extends ef_editable
 		return true;	
 	}
 	
-	function cargar_valores($descripcion=null)
+	function set_opciones($descripcion=null)
 	{
 		if (!isset($descripcion)) {
 			$this->solo_lectura = 1;
-		} 
+		}
+		$this->descripcion_estado = $descripcion;		
 		if (!isset($this->estado)) {
 			$this->estado = $descripcion;
-			$this->descripcion_estado = $descripcion;
 		}
 	}
 	
