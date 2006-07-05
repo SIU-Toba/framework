@@ -46,13 +46,13 @@ class tp_normal extends tp_basico_titulo
 			echo form::abrir("multiproyecto",toba::get_hilo()->cambiar_proyecto(),"target = '_top'");
 		}	
 		?>
-		<table width='100%' height="<?=$this->alto_cabecera?>"class='tabla-0'><tr>
-		<td class='menu-0'><?=$this->mostrar_logo()?></td>
-		<td class='menu-0'  width='100%'>&nbsp;</td>
-		<td class='menu-1'>
+		<table width='100%' height="<?=$this->alto_cabecera?>" class='menu-barra'><tr>
+		<td ><?=$this->mostrar_logo()?></td>
+		<td  width='100%'>&nbsp;</td>
+		<td>
 			<table width='50' cellpadding='3' cellspacing='0' border='0'>
 			<tr>
-			<td class='menu-0'>
+			<td>
 		<?
 				if(apex_pa_proyecto=="multi") {		
 					echo "<td>";
@@ -82,9 +82,9 @@ class tp_normal extends tp_basico_titulo
 			</td>
 			<td class='menu-0'><?=$this->info_usuario()?></td>
 		<? if ( editor::modo_prueba() ) { ?>
-			<td class='menu-0'><a href="#" onclick='javascript:window.close()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
+			<td><a href="#" onclick='javascript:window.close()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
 		<? } else { ?>
-			<td class='menu-0'><a href="#" onclick='javascript:salir()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
+			<td><a href="#" onclick='javascript:salir()'><img src='<? echo recurso::imagen_apl('finalizar_sesion.gif') ?>' border='0'></a></td>
 		<? } ?>
 			</tr>
 			</table>

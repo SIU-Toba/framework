@@ -12,15 +12,15 @@ class objeto_ei_filtro extends objeto_ei_formulario
 	
 	protected function generar_envoltura_ef($ef, $editor=null)
 	{
-		$clase = 'abm-fila';
+		$clase = 'ei-form-fila';
 		$estilo_nodo = "";
 		$id_ef = $this->elemento_formulario[$ef]->get_id_form();
 		if (! $this->elemento_formulario[$ef]->esta_expandido()) {
-			$clase = 'abm-fila-oculta';
+			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
 		if ($this->elemento_formulario[$ef]->seleccionado()) {
-			$clase .= ' abm-fila-filtrada';
+			$clase .= ' ei-form-fila-filtrada';
 		}				
 		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
 		$this->generar_etiqueta_ef($ef);

@@ -5,14 +5,14 @@ class tp_basico_titulo extends tp_basico
 {
 	protected function barra_superior()
 	{
-		echo "<table width='100%' class='tabla-0'><tr>";
-		echo "<td width='1' class='barra-0'>". gif_nulo(8,22) . "</td>";
+		echo "<table width='100%' class='item-barra'><tr>";
+		echo "<td width='1'>". gif_nulo(8,22) . "</td>";
 		$info = toba::get_solicitud()->get_datos_item();			
 	
-		echo "<td width='99%' class='barra-0-tit'>".$info['item_nombre']."&nbsp;&nbsp;</td>";
+		echo "<td width='99%' class='item-barra-tit'>".$info['item_nombre']."</td>";
 
 		if (trim($info['item_descripcion']) != '') {
-			echo "<td  class='barra-0-tit' width='1'>";
+			echo "<td class='item-barra-ayuda' width='1'>";
 			echo recurso::imagen_apl("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
 			echo "</td>";
 		}			

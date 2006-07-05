@@ -707,7 +707,7 @@ class objeto_ei_formulario extends objeto_ei
 			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 18);
 		}
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
-		echo "<div class='ei-formulario' $ancho>";
+		echo "<div class='ei-cuerpo ei-form' $ancho>";
 		$hay_colapsado = false;
 		foreach ($this->lista_ef_post as $ef){
 			if (! $this->elemento_formulario[$ef]->esta_expandido()) {
@@ -718,23 +718,21 @@ class objeto_ei_formulario extends objeto_ei
 		if ($hay_colapsado) {
 			$img = recurso::imagen_apl('expandir_vert.gif', false);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
-			echo "<div class='abm-fila abm-expansion'>";
+			echo "<div class='ei-form-fila ei-form-expansion'>";
 			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
 			echo "</div>";
 		}
-		echo "<div class='ei-base'>\n";
 		$this->generar_botones();
-		echo "</div>";
 		echo "</div>\n";
 	}
 	
 	protected function generar_envoltura_ef($ef)
 	{
-		$clase = 'abm-fila';
+		$clase = 'ei-form-fila';
 		$estilo_nodo = "";
 		$id_ef = $this->elemento_formulario[$ef]->get_id_form();
 		if (! $this->elemento_formulario[$ef]->esta_expandido()) {
-			$clase = 'abm-fila-oculta';
+			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
 		
@@ -756,10 +754,10 @@ class objeto_ei_formulario extends objeto_ei
 		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
 		if ($estilo == '') {
 	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
-	    	        $estilo = 'ef-etiqueta-obligatorio';
+	    	        $estilo = 'ei-form-etiq-oblig';
 					$marca = '(*)';
         	} else {
-	            $estilo = 'ef-etiqueta';
+	            $estilo = 'ei-form-etiq';
 				$marca ='';
     	    }
 		}
@@ -830,7 +828,7 @@ class objeto_ei_formulario extends objeto_ei
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
 		foreach ( $this->lista_ef_post as $ef){
-			echo "<tr><td class='ef-etiqueta'>\n";
+			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->elemento_formulario[$ef]->get_etiqueta();
 			$temp = $this->get_valor_imprimible_ef( $ef );
 			echo "</td><td class='". $temp['css'] ."'>\n";

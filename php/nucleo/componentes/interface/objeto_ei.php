@@ -151,7 +151,7 @@ class objeto_ei extends objeto
 	function generar_botones()
 	{
 		//----------- Generacion
-		echo "<div class='ei-botones'>";
+		echo "<div class='ei-botonera'>";
 		$this->generar_botones_eventos();
 		echo "</div>";
 	}	

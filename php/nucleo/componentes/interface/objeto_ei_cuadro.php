@@ -808,11 +808,11 @@ class objeto_ei_cuadro extends objeto_ei
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
         echo "<TABLE width='100%' class='tabla-0' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
-		echo"<tr><td class='cuadro-cabecera'>";
+		echo"<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();		
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
-		echo "<tr><td class='cuadro-cc-fondo'>\n";
+		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
 		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
 			$this->html_cuadro_inicio();
@@ -828,7 +828,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</td></tr>\n";
 		//--- FIN CONTENIDO  ---------
 		// Pie
-		echo"<tr><td class='cuadro-pie'>";
+		echo"<tr><td class='ei-cuadro-pie'>";
 		$this->html_pie();		
 		echo "</td></tr>\n";
 		//Paginacion
@@ -902,7 +902,7 @@ class objeto_ei_cuadro extends objeto_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-		$class = "cuadro-cc-tit-nivel-$nivel_css";
+		$class = "ei-cuadro-cc-tit-nivel-$nivel_css";
 		if($this->cortes_modo == apex_cuadro_cc_tabular){
 			echo "<tr><td  colspan='$this->cantidad_columnas_total' class='$class'>\n";
 			$this->$metodo($nodo);
@@ -938,8 +938,8 @@ class objeto_ei_cuadro extends objeto_ei
 	{
 		if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
 			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-			$css_pie = 'cuadro-cc-pie-nivel-' . $nivel_css;
-			$css_pie_cab = 'cuadro-cc-pie-cab-nivel-'.$nivel_css;
+			$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
+			$css_pie_cab = 'ei-cuadro-cc-pie-cab-nivel-'.$nivel_css;
 			//-----  Cabecera del PIE --------
 			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
 				$metodo_redeclarado = 'html_pie_cc_cabecera__' . $nodo['corte'];
@@ -959,14 +959,14 @@ class objeto_ei_cuadro extends objeto_ei
 					$titulos = true;	
 				}
 				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
-													'cuadro-cc-sum-nivel-'.$nivel_css, 
+													'ei-cuadro-cc-sum-nivel-'.$nivel_css, 
 													$titulos,
 													$css_pie);
 			}
 			//------ Sumarizacion AD-HOC del usuario --------
 			if(isset($nodo['sum_usuario'])){
 				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-				$css = 'cuadro-cc-sum-nivel-'.$nivel_css;
+				$css = 'ei-cuadro-cc-sum-nivel-'.$nivel_css;
 				foreach($nodo['sum_usuario'] as $id => $valor){
 					$desc = $this->sum_usuario[$id]['descripcion'];
 					$datos[$desc] = $valor;
@@ -1104,7 +1104,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$tip = '';
 						if (isset($evento['ayuda']))
 							$tip = $evento['ayuda'];
-						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
+						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-evt-fila';
 						$tab_order = 100;//Esto esta MAAL!!!
 						$acceso = tecla_acceso( $evento["etiqueta"] );
 						$html = '';
@@ -1298,7 +1298,7 @@ class objeto_ei_cuadro extends objeto_ei
 	private function html_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
 		if(isset($ancho)) $ancho = "width='$ancho'";
-		echo "<table $ancho class='cuadro-cc-tabla-sum'>";
+		echo "<table $ancho class='ei-cuadro-cc-tabla-sum'>";
 		//Titulo
 		if(isset($titulo)){
 			echo "<tr>\n";
@@ -1389,11 +1389,11 @@ class objeto_ei_cuadro extends objeto_ei
 		$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
         echo "<TABLE width='$ancho' class='tabla-0'>";
 		// Cabecera
-		echo"<tr><td class='cuadro-cabecera'>";
+		echo"<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();		
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
-		echo "<tr><td class='cuadro-cc-fondo'>\n";
+		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
 		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
 			$this->html_cuadro_inicio();
@@ -1409,7 +1409,7 @@ class objeto_ei_cuadro extends objeto_ei
 		echo "</td></tr>\n";
 		//--- FIN CONTENIDO  ---------
 		// Pie
-		echo"<tr><td class='cuadro-pie'>";
+		echo"<tr><td class='ei-cuadro-pie'>";
 		$this->html_pie();		
 		echo "</td></tr>\n";
 		echo "</TABLE>\n";

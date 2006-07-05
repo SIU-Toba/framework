@@ -24,18 +24,17 @@ class tp_popup extends tp_basico
 		";
 		echo js::cerrar();
 		echo "\n\n";
-		echo "<table width='100%' class='tabla-0'><tr>";
-		echo "<td width='1' class='barra-0'>". gif_nulo(8,22) . "</td>";
-		echo "<td width='95%' class='barra-0-tit'>".$this->titulo_pagina()."</td>";
+		echo "<table width='100%' class='item-barra'><tr>";
+		echo "<td width='1'>". gif_nulo(8,22) . "</td>";
+		echo "<td width='95%' class='item-barra-tit'>".$this->titulo_pagina()."</td>";
 		echo "</tr></table>\n\n";
 	}
 	
 	function pie()
 	{
 		echo "\n\n";
-		echo "<table width='100%' class='tabla-0'><tr>";
-		echo "<td width='1' class='barra-0'>".gif_nulo(8,22)."</td>";
-		echo "<td width='95%' class='barra-0'></td>";
+		echo "<table width='100%' class='item-barra'><tr>";
+		echo "<td>".gif_nulo(8,22)."</td>";
 		echo "</tr></table>\n\n";
 		parent::pie();
 	}

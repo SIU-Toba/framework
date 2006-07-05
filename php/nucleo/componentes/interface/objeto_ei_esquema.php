@@ -47,9 +47,7 @@ class objeto_ei_esquema extends objeto_ei
 									$this->info_esquema['dirigido'], $this->ancho,
 									$this->alto);
 		}
-		echo "<div class='ei-base'>\n";
 		$this->generar_botones();
-		echo "</div>\n";		
 		echo "</div></td></tr>\n";
 		echo "</table>\n";
 	}

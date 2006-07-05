@@ -913,7 +913,7 @@ class objeto_ci extends objeto_ei
 				$html .= "</div><div class='wizard-descripcion'>$descripcion</div></div>";
 				echo $html;
 			} else {
-				echo "<div class='txt-info'>$imagen&nbsp;$descripcion</div>\n";
+				echo "<div class='ci-pant-desc'>$imagen&nbsp;$descripcion</div>\n";
 			}
 			echo "<hr>\n";
 		}

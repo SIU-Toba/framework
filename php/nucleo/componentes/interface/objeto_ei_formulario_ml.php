@@ -506,17 +506,17 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		if ($this->info_formulario['filas_numerar']) {
-			echo "<th class='abm-columna'>&nbsp;</th>\n";
+			echo "<th class='ei-ml-columna'>&nbsp;</th>\n";
 		}
 		foreach ($this->lista_ef_post	as	$ef){
-			echo "<th class='abm-columna'>\n";
+			echo "<th class='ei-ml-columna'>\n";
 			$this->generar_etiqueta_ef($ef);
 			echo "</th>\n";
 		}
         //-- Eventos sobre fila
 		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
 		if($cant_sobre_fila > 0){
-			echo "<th class='abm-columna' colspan='$cant_sobre_fila'>\n";
+			echo "<th class='ei-ml-columna' colspan='$cant_sobre_fila'>\n";
             echo "</th>\n";
 		}		
 		echo "</tr>\n";
@@ -527,10 +527,10 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
 		if ($estilo == '') {
 	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
-	    	        $estilo = 'ef-etiqueta-obligatorio';
+	    	        $estilo = 'ei-ml-etiq-oblig';
 					$marca = '(*)';
         	} else {
-	            $estilo = 'ef-etiqueta';
+	            $estilo = 'ei-ml-etiq';
 				$marca ='';
     	    }
 		}
@@ -568,7 +568,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			}
 			echo "</tr>\n";
 		}		
-		echo "<tr><td class='ei-base' colspan='$colspan'>\n";
+		echo "<tr><td colspan='$colspan'>\n";
 		$this->generar_botones();
 		echo "</td></tr>\n";
 	}
@@ -594,13 +594,12 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				$this->filas_enviadas[] = $fila;
 				$estilo = "";
 			} else {
-					$estilo = "style='display:none;'";
+				$estilo = "style='display:none;'";
 			}
 			//Determinar el estilo de la fila
+			$estilo_fila = "ei-ml-fila";			
 			if (isset($this->clave_seleccionada) && $fila == $this->clave_seleccionada) {
-				$estilo_fila = "abm-fila-ml-selec";				
-			} else {
-				$estilo_fila = "abm-fila-ml";
+				$estilo_fila .= " ei-ml-fila-selec";				
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
 			
@@ -634,7 +633,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 					$tip = '';
 					if (isset($evento['ayuda']))
 						$tip = $evento['ayuda'];
-					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'cuadro-evt';
+					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-evt-fila';
 					$tab_order = null;
 					$acceso = tecla_acceso( $evento["etiqueta"] );
 					$html = '';

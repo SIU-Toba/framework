@@ -1,0 +1,296 @@
+.ei-base {
+	clear: both;
+	background-color: #cac7c2;
+	padding: 2px 2px 2px 2px;
+	color: #f0f1ff;
+	text-align: right;
+}
+.abm-fila, .abm-fila-oculta {
+	padding: 0px 10px 5px 8px;
+	margin: 0;
+	BACKGROUND-COLOR: #d4d0c8;
+	text-align: left;
+	clear:both;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.ef-etiqueta-error {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 COLOR: #ffffff;
+	 BACKGROUND-COLOR: #ff411b;
+	 TEXT-ALIGN: left
+}
+
+.menu-icono {
+	float: right;
+}
+.menu-texto {
+    white-space: nowrap; 
+}
+
+.est-item-link {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: right
+}
+
+.est-item-lateral {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #cccccc;
+	 TEXT-ALIGN: right
+}
+.est-item-nombre {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 10px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: left
+}
+.est-objeto-link {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: right
+}
+.est-objeto-lateral {
+	
+}
+.est-objeto-deps {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 4px;
+	 PADDING-BOTTOM: 0px;
+	 PADDING-TOP: 0px;
+	 BACKGROUND-COLOR: #cccccc
+}
+.est-objeto-iddep {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 6px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 1px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #4f4c4d;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #666666 2px solid;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
+}
+.est-objeto-nombre {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
+.est-objeto-nombre-ci {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 4px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #000000;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
+CODE {
+	FONT-SIZE: 11px;
+	 BACKGROUND-COLOR: #ffffff
+}
+.php {
+	PADDING-RIGHT: 5px;
+	 PADDING-LEFT: 5px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 5px;
+	 PADDING-TOP: 5px;
+	 BACKGROUND-COLOR: #ffffff;
+	 TEXT-ALIGN: left
+}
+TD.barra-0-edit {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #000000 1px solid;
+	 BACKGROUND-COLOR: #514a84;
+	 TEXT-ALIGN: right
+}
+
+TD.barra-obj-id {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: right
+}
+TD.barra-obj-leve {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #4f4c4d;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
+TD.barra-obj-tit1 {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 0px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 0px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #848284;
+	 TEXT-ALIGN: left
+}
+.barra-obj-tit {
+	border: #4f4c4d 1px solid;
+	font-size: 11px;
+	color: #4f4c4d;
+	background-color: #a7a5a6;
+	text-align: left
+}
+TD.barra-obj-link {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #e9e8e8;
+	 TEXT-ALIGN: left
+}
+
+TD.barra-obj-io {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 10px;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 6px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #231f20;
+	 PADDING-TOP: 6px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #a7a5a6;
+	 TEXT-ALIGN: left
+}
+TD.barra-item-link {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #e9e8e8;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 TEXT-ALIGN: right
+}
+TD.barra-item-link2 {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #4f4c4d;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 TEXT-ALIGN: right
+}
+BODY.lista {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #4f4c4d
+}
+BODY.control {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	 BACKGROUND-COLOR: #231f20
+}
+A.basico {
+	COLOR: #231f20;
+	TEXT-DECORATION: none;
+}
+
+.num {
+	TEXT-ALIGN: right
+}
+.tex {
+	TEXT-ALIGN: left
+}
+.cen {
+	TEXT-ALIGN: center
+}
+.borde-0 {
+	BORDER-RIGHT: #4f4c4d 1px solid;
+	 BORDER-TOP: #4f4c4d 1px solid;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 BORDER-BOTTOM: #4f4c4d 1px solid
+}
+.borde-1 {
+	BORDER-RIGHT: #4f4c4d 2px solid;
+	 BORDER-TOP: #4f4c4d 2px solid;
+	 BORDER-LEFT: #4f4c4d 2px solid;
+	 BORDER-BOTTOM: #4f4c4d 2px solid
+}
+.borde-especial {
+	BORDER-RIGHT: #4f4c4d 1px dashed;
+	 BORDER-TOP: #4f4c4d 1px dashed;
+	 BORDER-LEFT: #4f4c4d 1px dashed;
+	 BORDER-BOTTOM: #4f4c4d 1px dashed
+}
+TD.menu-1 {
+	FONT-SIZE: 10px;
+	 COLOR: #231f20;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: right
+}

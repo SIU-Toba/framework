@@ -124,7 +124,7 @@ class zona
 		$this->obtener_html_barra_info();
 		$this->obtener_html_barra_vinculos();
 		$this->obtener_html_barra_especifico();
-		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
+		echo "<td width='15'>&nbsp;</td>";
 		echo "</tr></table>\n";
 	}
 //-----------------------------------------------------
@@ -132,12 +132,10 @@ class zona
 	function obtener_html_barra_info()
 	//Muestra la seccion INFORMATIVA (izquierda) de la barra
 	{
-		echo "	<td width='250' class='barra-item-id'>";
-//		echo "&nbsp;".$this->editable_id[0]."&nbsp;";
+		echo "	<td width='250' class='zona-barra-id'>";
 		echo "&nbsp;".$this->editable_id[1]."&nbsp;";
-//		echo "&nbsp;".$this->editable_id[1]."@".$this->editable_id[0]."&nbsp;";
 		echo "</td>";
-		echo "<td width='60%' class='barra-item-tit'>&nbsp;".$this->editable_info['nombre']."</td>";
+		echo "<td width='60%' class='zona-barra-desc'>&nbsp;".$this->editable_info['nombre']."</td>";
 	}
 //-----------------------------------------------------
 

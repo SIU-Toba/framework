@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-//--------------------------------------------------------------------
+
 class ci_principal extends objeto_ci
 {
 	protected $datos_form;
