@@ -4,12 +4,14 @@ class ci_cascadas extends objeto_ci
 {
 	protected $form_simple;
 	protected $form_comp;	
+	protected $form_ml;
 	
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = 'form_simple';
 		$propiedades[] = 'form_comp';
+		$propiedades[] = 'form_ml';
 		return $propiedades;
 	}
 
@@ -78,14 +80,31 @@ class ci_cascadas extends objeto_ci
 	
 	function evt__debug()
 	{
-		ei_arbol($this->form_simple, 'simple');	
-		ei_arbol($this->form_comp, 'comp');
+		if (isset($this->form_simple)) 
+			ei_arbol($this->form_simple, 'simple');	
+		if (isset($this->form_comp)) 
+			ei_arbol($this->form_comp, 'comp');
+		if (isset($this->form_ml)) 
+			ei_arbol($this->form_ml, 'ml');
 	}
 	
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
 
+	function evt__form_ml__modificacion($datos)
+	{
+		$this->form_ml = $datos;
+	}
+
+	function evt__form_ml__carga()
+	{
+		if (isset($this->form_ml)) {
+			return $this->form_ml;
+		}
+	}
+	
+	
 	//---- form -------------------------------------------------------
 
 	function evt__form_simple__modificacion($datos)

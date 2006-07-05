@@ -484,7 +484,9 @@ class objeto_ei_formulario extends objeto_ei
 				$param = array();
 				//-- Tiene maestros el ef? Todos tienen estado?
 				$cargar = true;
+				$tiene_maestros = false;
 				if (isset($this->cascadas_maestros[$id_ef]) && !empty($this->cascadas_maestros[$id_ef])) {
+					$tiene_maestros = true;
 					foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
 						if ($this->elemento_formulario[$maestro]->tiene_estado()) {
 							$estado = $this->elemento_formulario[$maestro]->get_estado();
@@ -494,15 +496,25 @@ class objeto_ei_formulario extends objeto_ei
 						}
 					}
 				}
-				if ($cargar) {
-					if ($this->elemento_formulario[$id_ef]->carga_depende_de_estado()) {
-						$param[$id_ef] = $this->elemento_formulario[$id_ef]->get_estado();
+				//--- Existe la posibilidad que no tenga maestros y ya ha sido cargado anteriormente
+				//--- En este caso se evita una re-carga porque se asume que no hay condiciones que puedan variar las opciones
+				$cargado = false;
+				if (! $tiene_maestros && $cargar) {
+					if ($this->elemento_formulario[$id_ef]->tiene_opciones_cargadas()) {
+						$cargado = true;
 					}
-					$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
-				} else {
-					$datos = null;	
 				}
-				$this->elemento_formulario[$id_ef]->set_opciones($datos);				
+				if (! $cargado) {
+					if ($cargar) {
+						if ($this->elemento_formulario[$id_ef]->carga_depende_de_estado()) {
+							$param[$id_ef] = $this->elemento_formulario[$id_ef]->get_estado();
+						}
+						$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
+					} else {
+						$datos = null;	
+					}
+					$this->elemento_formulario[$id_ef]->set_opciones($datos);
+				}
 			}
 		}
 	}
@@ -569,7 +581,7 @@ class objeto_ei_formulario extends objeto_ei
 			} elseif (count($campos) == 2) {
 				$valores[trim($campos[0])] = trim($campos[1]);
 			} else {
-				throw new excepcion_toba_def("La lista de valores del ef $id_ef es incorrecta.");
+				throw new excepcion_toba_def("La lista de opciones del ef '$id_ef' es incorrecta.");
 			}
 		}		
 		return $valores;
@@ -654,7 +666,7 @@ class objeto_ei_formulario extends objeto_ei
 				}
 			}
 		}
-		toba::get_logger()->debug("Cascadas '$id_ef', Valores de los maestros: ".var_export($maestros, true));		
+		toba::get_logger()->debug("Cascadas '$id_ef', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->ejecutar_metodo_carga_ef($id_ef, $maestros);
 		toba::get_logger()->debug("Cascadas '$id_ef', Respuesta: ".var_export($valores, true));				
 		
@@ -665,9 +677,6 @@ class objeto_ei_formulario extends objeto_ei
 	
 	function obtener_html()
 	{
-		//--- La carga de efs se realiza aqui para que sea contextual al servicio
-		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
-		$this->cargar_opciones_efs();
 		//Genero la interface
 		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
@@ -690,6 +699,10 @@ class objeto_ei_formulario extends objeto_ei
 
 	protected function generar_formulario()
 	{
+		//--- La carga de efs se realiza aqui para que sea contextual al servicio
+		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
+		$this->cargar_opciones_efs();
+				
 		if (editor::modo_prueba()) {
 			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 18);
 		}

@@ -603,6 +603,8 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				$estilo_fila = "abm-fila-ml";
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
+			
+			//--- Se cargan las opciones de los efs de esta fila
 			$this->cargar_opciones_efs();			
 			
 			//Aca va el codigo que modifica el estado de cada EF segun los datos...
@@ -735,7 +737,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	
 	function get_objeto_js_ef($id)
 	{
-		return "{$this->objeto_js}.ef('$id').ir_a_fila({$this->id_fila_actual})";
+		return "{$this->objeto_js}.ef('$id').ir_a_fila('{$this->id_fila_actual}')";
 	}
 	
 	function get_consumo_javascript()

@@ -44,6 +44,7 @@ abstract class ef
 	//---- Metodo de carga
 	protected $campos_clave = array(0);
 	protected $campo_valor;
+	protected $opciones_cargadas = false;
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
@@ -139,72 +140,14 @@ abstract class ef
 	}	
 	
 	//-----------------------------------------------------
-	//-------------- CAMBIO DE PROPIEDADES -----------------
-	//-----------------------------------------------------
-
-	function ir_a_fila($agregado="")
-	{
-		$this->agregado_form = $agregado;
-		$this->id_form = $this->id_form_orig . $agregado;
-	}
-    
-	function set_etiqueta($etiqueta)
-	{
-		$this->etiqueta = $etiqueta;
-	}
-	
-	function set_descripcion($descripcion)
-	{
-		$this->descripcion = $descripcion;
-	}
-
-	function set_solo_lectura($solo_lectura = true)
-	{
-        $this->solo_lectura = $solo_lectura;
-    }
-	
-    function set_obligatorio($obligatorio = true)
-    {
-	    $this->obligatorio = $obligatorio;
-    }
-    
-    function set_estilo_etiqueta($estilo)
-    {
-    	$this->estilo_etiqueta = $estilo;	
-    }
-
-	function set_expandido($expandido)
-	{
-		$this->expandido = $expandido;
-	}
-	
-	function set_estado($estado)
-	{
-   		if(isset($estado)){								
-    		$this->estado=$estado;
-			return true;
-	    } else {
-	    	$this->estado = null;	
-	    }
-	    return false;
-	}
-
-	function cargar_estado_post()
-	{
-		if (isset($_POST[$this->id_form])){
-			$this->estado = $_POST[$this->id_form];
-			return true;
-    	} else {
-			$this->estado = null;
-			return false;
-    	}
-	}  	
-
-	
-	//-----------------------------------------------------
 	//-------------- ACCESO a propiedades -----------------
 	//-----------------------------------------------------	
     
+	function tiene_opciones_cargadas()
+	{
+		return $this->opciones_cargadas;	
+	}
+	
     function es_obligatorio()
     {
     	return $this->obligatorio;	
@@ -345,6 +288,68 @@ abstract class ef
 		}
 		return true;
 	}
+
+	//-----------------------------------------------------
+	//-------------- CAMBIO DE PROPIEDADES -----------------
+	//-----------------------------------------------------
+
+	function ir_a_fila($agregado="")
+	{
+		$this->agregado_form = $agregado;
+		$this->id_form = $this->id_form_orig . $agregado;
+	}
+    
+	function set_etiqueta($etiqueta)
+	{
+		$this->etiqueta = $etiqueta;
+	}
+	
+	function set_descripcion($descripcion)
+	{
+		$this->descripcion = $descripcion;
+	}
+
+	function set_solo_lectura($solo_lectura = true)
+	{
+        $this->solo_lectura = $solo_lectura;
+    }
+	
+    function set_obligatorio($obligatorio = true)
+    {
+	    $this->obligatorio = $obligatorio;
+    }
+    
+    function set_estilo_etiqueta($estilo)
+    {
+    	$this->estilo_etiqueta = $estilo;	
+    }
+
+	function set_expandido($expandido)
+	{
+		$this->expandido = $expandido;
+	}
+	
+	function set_estado($estado)
+	{
+   		if(isset($estado)){								
+    		$this->estado=$estado;
+			return true;
+	    } else {
+	    	$this->estado = null;	
+	    }
+	    return false;
+	}
+
+	function cargar_estado_post()
+	{
+		if (isset($_POST[$this->id_form])){
+			$this->estado = $_POST[$this->id_form];
+			return true;
+    	} else {
+			$this->estado = null;
+			return false;
+    	}
+	}	
 	
 	//-----------------------------------------------------
 	//-------------------- JAVASCRIPT ---------------------
@@ -389,8 +394,9 @@ abstract class ef
 	
 	protected function get_cuando_cambia_valor()
 	{
-		$js = '';
-		return $js . $this->cuando_cambia_valor;
+		//--- Se llama a $this->objeto_js para que los ML se posicionen en la fila correcta
+		$js = $this->objeto_js().";".$this->cuando_cambia_valor;		
+		return $js;
 	}	
 	
 	//-----------------------------------------------------

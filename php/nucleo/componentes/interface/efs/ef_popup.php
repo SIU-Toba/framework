@@ -61,6 +61,9 @@ class ef_popup extends ef_editable
 	
 	function set_opciones($descripcion=null)
 	{
+		//--- No se actualiza $this->opciones_cargadas porque los popups requieren
+		//--- que siempre se refresquen sus opciones porque se basan en su estado
+		
 		if (!isset($descripcion)) {
 			$this->solo_lectura = 1;
 		}

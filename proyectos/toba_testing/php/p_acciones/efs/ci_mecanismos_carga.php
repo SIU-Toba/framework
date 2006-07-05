@@ -3,6 +3,7 @@
 class ci_mecanismos_carga extends objeto_ci
 {
 	protected $registro;
+	protected $datos_ml;
 	
 	function mantener_estado_sesion()
 	{
@@ -34,6 +35,16 @@ class ci_mecanismos_carga extends objeto_ci
 	{
 		return $this->registro;	
 	}
+	
+	function evt__form_ml__carga()
+	{
+		return $this->datos_ml;
+	}
+	
+	function evt__form_ml__modificacion($datos)
+	{
+		$this->datos_ml = $datos;
+	}	
 }
 
 ?>

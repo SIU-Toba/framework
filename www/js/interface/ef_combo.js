@@ -104,9 +104,8 @@ ef_radio.prototype = new ef;
 var def = ef_radio.prototype;
 def.constructor = ef_radio;
 
-	function ef_radio(id_form, etiqueta, obligatorio, colapsado, callback) {
+	function ef_radio(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
-		this._callback = callback;
 	}
 
 	//---Consultas	
@@ -144,7 +143,7 @@ def.constructor = ef_radio;
 	//---Comandos	
 	
 	def.borrar_opciones = function() {
-		var opciones = this.get_contenedor();
+		var opciones = this.get_contenedor_opciones();
 		while(opciones.childNodes[0]) {
 			opciones.removeChild(opciones.childNodes[0]);
 		}
@@ -152,7 +151,7 @@ def.constructor = ef_radio;
 	
 	def.set_opciones = function(valores) {
 		this.borrar_opciones();
-		var opciones = this.get_contenedor();
+		var opciones = this.get_contenedor_opciones();
 		var nuevo = "";
 		var i=0;
 		if (valores[apex_ef_no_seteado]) {
@@ -165,7 +164,7 @@ def.constructor = ef_radio;
 			i++
 		}
 		opciones.innerHTML = nuevo;
-		this.refrescar();
+		this.refrescar_callbacks();
 	}
 	
 	def._crear_label = function(nombre, valor, etiqueta, i) {
@@ -176,15 +175,19 @@ def.constructor = ef_radio;
 		return nuevo;
 	}
 	
-	def.cuando_cambia_valor = function(callback) {
-		this._callback = this._callback + ';' + callback;
-		this.refrescar();
+	def.get_contenedor_opciones = function() {
+		return document.getElementById('opciones_' + this._id_form);	
 	}
 	
-	def.refrescar = function() {
+	def.cuando_cambia_valor = function(callback) {
+		addEvent(this.get_contenedor_opciones(), 'onchange', callback);		
+		this.refrescar_callbacks();
+	}
+	
+	def.refrescar_callbacks = function() {
 		var elem = this.input();
 		for (var i=0; i < elem.length; i++) {
-			addEvent(elem[i], 'onclick', this._callback);
+			addEvent(elem[i], 'onclick', this.get_contenedor_opciones().onchange);
 		}
 	}
 	

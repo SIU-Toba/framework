@@ -3,7 +3,7 @@ require_once("ef.php");
 
 abstract class ef_multi_seleccion extends ef
 {
-	protected $valores = array();
+	protected $opciones = array();
 	protected $tamanio;
 	protected $estado_nulo = array();
 	protected $serializar = false;	
@@ -86,10 +86,11 @@ abstract class ef_multi_seleccion extends ef
 	
 	function set_opciones($datos)
 	{
+		$this->opciones_cargadas = true;		
 		if (!isset($datos)) {
 			$datos = array();	
 		}
-		$this->valores = $datos;
+		$this->opciones = $datos;
 	}
 	
 	protected function es_estado_individual_nulo($estado)
@@ -225,7 +226,7 @@ abstract class ef_multi_seleccion extends ef
 	{
 		$desc = "<ul>\n";
 		foreach ($this->get_estado_para_input() as $estado) {
-			$desc .= "<li>{$this->valores[$estado]}</li>\n";
+			$desc .= "<li>{$this->opciones[$estado]}</li>\n";
 		}
 		$desc .= "</ul>\n";
 		return $desc;	
@@ -247,11 +248,6 @@ abstract class ef_multi_seleccion extends ef
 			}
 		}		
 	}
-	
-	function get_valores()
-	{
-		return $this->valores;
-	}	
 	
 	protected function get_estado_para_input()
 	{
@@ -300,9 +296,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
 			";
 		}
-		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->valores);
+		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$extra = ($this->solo_lectura) ? "disabled" : "";
-		$html .= form::multi_select($this->id_form, $estado, $this->valores, $tamanio, 'ef-combo', $extra);
+		$html .= form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
 	
@@ -329,7 +325,7 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 		$html = "";
 		if ($this->solo_lectura) {
 			$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
-			foreach ($this->valores as $id => $descripcion) {
+			foreach ($this->opciones as $id => $descripcion) {
 				$html .= "<label class='ef-multi-check'>";
 				if (in_array($id, $estado)) {
 					$html .= recurso::imagen_apl('checked.gif',true,16,16);
@@ -349,7 +345,7 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 			}		
 			$html .= "<div id='{$this->id_form}_opciones'>";
 			$i =0;
-			foreach ($this->valores as $clave => $descripcion) {
+			foreach ($this->opciones as $clave => $descripcion) {
 				$id = $this->id_form.$i;
 				$checkeado = in_array($clave, $estado) ? "checked" : "";
 				$html .= "<label class='ef-multi-check' for='$id'>";
@@ -395,11 +391,11 @@ class ef_multi_seleccion_doble extends ef_multi_seleccion
 	function get_input()
 	{
 		$html = '';
-		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->valores);
+		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$estado = $this->get_estado_para_input();
 		$izq = array();
 		$der = array();
-		foreach ($this->valores as $clave => $valor) {
+		foreach ($this->opciones as $clave => $valor) {
 			if (in_array($clave, $estado)) {
 				$der[$clave] = $valor;	
 			} else {

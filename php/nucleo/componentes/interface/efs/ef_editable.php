@@ -58,14 +58,14 @@ class ef_editable extends ef
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
-	function set_opciones($valores)
+	function set_opciones($opciones)
 	{
-		if ($valores === null) {
+		if ($opciones === null) {
 			$this->solo_lectura = true;
 		}
 		if (!isset($this->estado)) {
-			$this->estado = $valores;
-		}
+			$this->estado = $opciones;
+		}		
 	}
 	
 	function set_estado($estado)

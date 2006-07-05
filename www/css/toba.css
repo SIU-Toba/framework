@@ -84,6 +84,7 @@ body > .div-esperar { position: fixed; }
 .abm-expansion {
 	text-align:center;
 }
+
 /*-- FORMULARIO ML --*/
 .abm-columna {
 	padding: 2px 2px 4px 2px;
@@ -92,6 +93,15 @@ body > .div-esperar { position: fixed; }
 	color: #231f20;
 	background-color: #d4d0c8;
 	text-align: center;
+}
+
+.abm-fila-ml, .abm-fila-ml-selec {
+	padding: 0px 3px 0px 3px;
+	margin: 0px;
+	background-color: #d4d0c8
+}
+.abm-fila-ml-selec {
+	background-color: #a4a098
 }
 
 /*-- EFS --*/
@@ -1323,39 +1333,6 @@ TD.abm-titulo {
 	 BORDER-BOTTOM: #231f20 0px solid;
 	 BACKGROUND-COLOR: #808080;
 	 TEXT-ALIGN: right;
-}
-TD.abm-fila-ml {
-	PADDING-RIGHT: 3px;
-	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #d4d0c8
-}
-TD.abm-fila-ml-selec {
-	PADDING-RIGHT: 3px;
-	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #a4a098
-}
-.abm-columna {
-	PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 4px;
-	 VERTICAL-ALIGN: bottom;
-	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
 }
 TD.abm-total {
 	PADDING-RIGHT: 0px;

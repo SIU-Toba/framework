@@ -3,7 +3,7 @@ require_once("nucleo/componentes/interface/efs/ef.php");
 
 abstract class ef_seleccion extends ef
 {
-	protected $valores;				//Array con valores de la lista
+	protected $opciones;
 	protected $predeterminado;		//Si el combo tiene predeterminados, tengo que inicializarlo
 	protected $no_seteado;
 	protected $categorias;
@@ -48,10 +48,11 @@ abstract class ef_seleccion extends ef
 	
 	function set_opciones($datos)
 	{
+		$this->opciones_cargadas = true;
 		if ($datos == null) {
 			$this->input_extra = " disabled ";
 		}
-		$this->valores = $datos;
+		$this->opciones = $datos;
 	}
 
 	function get_estado()
@@ -61,8 +62,8 @@ abstract class ef_seleccion extends ef
 	
 	function get_descripcion_estado()
 	{
-		if ( isset( $this->estado ) && isset( $this->valores[ $this->estado ] ) ) {
-			return $this->valores[ $this->estado ];
+		if ( isset( $this->estado ) && isset( $this->opciones[ $this->estado ] ) ) {
+			return $this->opciones[ $this->estado ];
 		} else {
 			return null;	
 		}
@@ -177,7 +178,7 @@ class ef_combo extends ef_seleccion
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
-        	$input = form::select("",$estado, $this->valores, "ef-combo", "disabled");	
+        	$input = form::select("",$estado, $this->opciones, "ef-combo", "disabled");	
 			$input .= form::hidden($this->id_form, $estado);
             return $input;
 		} else {
@@ -185,7 +186,7 @@ class ef_combo extends ef_seleccion
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
-			$html .= form::select($this->id_form, $estado ,$this->valores, 'ef-combo', $js . $this->input_extra, $this->categorias);
+			$html .= form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra, $this->categorias);
 			return $html;
 		}
 	}	
@@ -201,9 +202,11 @@ class ef_radio extends ef_seleccion
 	function get_input()
 	{
 		$estado = $this->get_estado_para_input();
-		$html = "";		
+		$callback = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
+		//--- Se guarda el callback en el <div> asi puede ser recuperada en caso de que se borren las opciones
+		$html = "<div id='opciones_{$this->id_form}' $callback>";
 		if ($this->solo_lectura) {
-			foreach ($this->valores as $id => $descripcion) {
+			foreach ($this->opciones as $id => $descripcion) {
 				$html .= "<label class='ef-radio'>";
 				if ($id == $estado) {
 					$html .= recurso::imagen_apl('radio_checked.gif',true,16,16);
@@ -213,16 +216,12 @@ class ef_radio extends ef_seleccion
 				$html .= "$descripcion</label>\n";
 			}
 		} else {
-			$html .= form::radio($this->id_form, $estado, $this->valores);
+			$html .= form::radio($this->id_form, $estado, $this->opciones, null, $callback);
 		}
+		$html .= '</div>';
 		return $html;
 	}
-	
-	function parametros_js()
-	{
-		return parent::parametros_js().", \"{$this->get_cuando_cambia_valor()}\"";	
-	}
-	
+		
 	function crear_objeto_js()
 	{
 		return "new ef_radio({$this->parametros_js()})";
