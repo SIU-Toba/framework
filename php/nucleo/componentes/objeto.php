@@ -690,9 +690,11 @@ class objeto
 
 //*******************************************************************************************
 
-	function barra_superior_especifica(){}
+	function barra_superior_especifica()
+	{
+	}
 
-	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="objeto-barra-superior")
+	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
 		//Marco la existencia de una interface previa
 		$this->registrar_generacion_interface();
@@ -704,50 +706,40 @@ class objeto
 		if(!isset($titulo)){
 			$titulo = $this->info["titulo"];	
 		}
-		echo "<table class='tabla-0' width='100%'><tr>\n";
-
-		//Vinculo a los EDITORES	
+		echo "<div class='ei-barra-sup $estilo'>";
+		//---ICONOS
+		echo '<span class="ei-barra-sup-iconos">';		
 		if( editor::modo_prueba() ){ 
-			echo "<td class='$estilo'>";
 			editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
-			echo "</td>\n";
-		}
-		//Barra de colapsado
-		$colapsado = "";
-		if ($this->info['colapsable'] && isset($this->objeto_js)) {
-		
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-			echo "<td class='$estilo'>";
-			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
-			echo "<img id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
-			echo "</td>\n";
-		}
-		//Titulo
-		echo "<td class='$estilo' width='99%'><span $colapsado>$titulo</span></td>\n";
-		if(trim($this->info["descripcion"])!=""){
-			echo "<td class='$estilo'>\n";
-			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
-			echo "</td>\n";
-		}
-		if($this->existe_ayuda()){
-			$parametros = array("objeto"=>$this->info["objeto"],"proyecto"=>$this->info["proyecto"]);
-			echo "<td class='$estilo'>\n";
-			echo toba::get_vinculador()->obtener_vinculo_a_item("admin","/basicos/ayuda_obj",$parametros,true);
-			echo "</td>\n";
-		}
-		//Barra especifica dependiente de la clase
-		echo "<td class='$estilo'>&nbsp;";
+		}		
 		echo $this->barra_superior_especifica();
-		echo "</td>\n";
+		echo '</span>';
+		
+		//---Barra de mensajeria		
 		if (isset($this->objeto_js)) {
-			//Barra de mensajeria
-			echo "<td class='$estilo' id='barra_{$this->objeto_js}' style='display:none'>";
-			echo "<a href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
+			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
 			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 			echo "</a>";
-			echo "</td>\n";
 		}
-		echo "</tr></table>";
+
+		//--- Descripcion	
+		if(trim($this->info["descripcion"])!=""){
+			echo '<span class="ei-barra-sup-desc">';
+			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
+			echo '</span>';
+		}		
+		
+		//---Barra de colapsado
+		$colapsado = "";
+		if ($this->info['colapsable'] && isset($this->objeto_js)) {
+			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
+			echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
+		}
+
+		//---Titulo
+		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
+		echo "</div>";
 	}
 }
 ?>

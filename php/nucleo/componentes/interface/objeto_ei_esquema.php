@@ -34,7 +34,7 @@ class objeto_ei_esquema extends objeto_ei
 	{
 		echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
-		$this->barra_superior(null, true,"objeto-ei-barra-superior");
+		$this->barra_superior(null, true,"ei-esquema-barra-sup");
 		echo "</td></tr>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
 		echo "<tr><td><div $colapsado id='cuerpo_{$this->objeto_js}'>";

@@ -1,8 +1,8 @@
-/****************
-ESTILOS ADMIN
-******************/
+/*********************
+	ESTILOS ADMIN
+**********************/
 .div-editor {
-	border: solid orange 1px; 
+	border: 1px solid orange; 
 	background-color: yellow; 
 	padding: 1px;
 }
@@ -11,7 +11,6 @@ body > .div-editor {
 	position: fixed; 
 	left: 0px;
 }
-
 
 /*************************************
 			Estilos Generales
@@ -25,7 +24,7 @@ img {
 	margin: 0;
 }
 .div-esperar {
-	border: solid black 1px; 
+	border: 1px solid black; 
 	position: absolute; 
 	text-align: center; 
 	background-color: white; 
@@ -38,7 +37,7 @@ body {
 	margin: 0px;
     height:100%;
 	font: normal normal normal 10px Verdana, Arial, Helvetica, sans-serif; 
-	BACKGROUND-COLOR: #e9e8e8;
+	background-color: #e9e8e8;
 }
 body > .div-esperar { position: fixed; }
 
@@ -50,17 +49,77 @@ body > .div-esperar { position: fixed; }
 /*************************************
 		Elementos de Interface
 **************************************/
+.ei {
+	border-right: #404040 2px solid;
+	border-top: #ffffff 1px solid;	
+	border-left: #ffffff 1px solid;	
+	border-bottom: #404040 2px solid;	
+	padding: 0;
+	margin: 0;	
+	font-size: 10px;
+	border-collapse: collapse;
+	background-color: #d4d0c8;
+	text-align: left;
+	empty-cells: show;
+	width: auto;
+}
 .ei-cuerpo {}
+.ei-barra-sup {
+	border: 1px solid #a7a5a6;
+	padding: 3px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #ffffff;
+	background-color: #808080;
+	text-align: left;
+	padding: 4px;
+}
+.ei-barra-sup-desc {
+	float: right;
+}
+.ei-barra-sup-tit {
+	margin-left: 4px;
+	margin-right: 4px;
+}
+.ei-barra-sup-iconos {
+	float: left;
+}
+.ei-barra-colapsar {}
+.ei-barra-mensajeria {
+	float: right;
+}
 .ei-botonera {
-	margin-right: 10px;
 	clear: both;
-	padding: 2px 2px 2px 2px;
+	padding: 2px 10px 2px 2px;
 	text-align: right;	
 }
 .ei-evt-fila {
 	font-size: 11px;
 	color: #231f20;
 	background-color: #d4d0c8; 
+}
+
+/*************************
+		CI
+**************************/
+.ci {
+
+}
+.ci-barra-sup {
+	background-color: #514a84;
+}
+.ci-botonera {
+	border: 0px solid #231f20;
+	padding: 3px;
+	color: #e9e8e8;
+	background-color: #808080;
+}
+.ci-cuerpo {
+	padding:2px;
+	vertical-align: top;
+	color: #000000;
+	background-color: #d4d0c8;
+	text-align: left;
 }
 
 /*************************
@@ -110,7 +169,7 @@ body > .div-esperar { position: fixed; }
 	text-align: center;
 }
 
-.ei-ml-fila {
+.ei-ml-fila, .ei-ml-fila-selec {
 	padding: 0px 3px 0px 3px;
 	margin: 0px;
 	background-color: #d4d0c8
@@ -169,10 +228,9 @@ body > .div-esperar { position: fixed; }
 	 empty-cells: hide
 }
 
-
 /* Tabla de sumarizaciones ad-hoc */
 .ei-cuadro-cc-tabla-sum {
-	border: #4f4c4d 1px solid;
+	border: 1px #4f4c4d solid;
 	padding: 5px;
 	MARGIN: 5px;
 	BORDER-COLLAPSE: collapse;
@@ -186,7 +244,7 @@ body > .div-esperar { position: fixed; }
 
 /*-- NIVEL 0 --*/
 .ei-cuadro-cc-tit-nivel-0{
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	background-color: #514a84;
 	color: #ffffff;
 	font-size: 14px;
@@ -207,7 +265,7 @@ body > .div-esperar { position: fixed; }
 	width: auto;
 }
 .ei-cuadro-cc-sum-nivel-0 {
-	border: #4f4c4d 1px solid;
+	border: 1px solid #4f4c4d;
 	background-color: #FFD87C;
 	color: #231f20;
 	margin: 0px;
@@ -243,7 +301,7 @@ body > .div-esperar { position: fixed; }
 }
 
 .ei-cuadro-cc-sum-nivel-1 {
-	border: #4f4c4d 1px solid;
+	border: 1px solid #4f4c4d;
 	color: #231f20;
 	background-color: #FFFAAF;
 	margin: 0px;
@@ -280,7 +338,7 @@ body > .div-esperar { position: fixed; }
 }
 
 .ei-cuadro-cc-sum-nivel-2 {
-	border: #4f4c4d 1px solid;
+	border: 1px solid #4f4c4d;
 	color: #231f20;
 	background-color: white;
 	text-align: right;
@@ -363,13 +421,34 @@ body > .div-esperar { position: fixed; }
 	font-weight: bold;
 	color: #222222
 }
+.tabs-v-panel-pasos {
+	height: 100%;
+	vertical-align: top;
+}
+.tabs-v-solapa {
+	border-right: 1px solid #ffffff;
+	background-color: #d4d0c8;	
+	padding: 2px 10px 2px 2px;
+	white-space: nowrap;
+	text-align: left;
+}
+.tabs-v-solapa-sel {
+	PADDING-RIGHT: 10px;
+	 BORDER-TOP: #ffffff 1px solid;
+	 PADDING-LEFT: 3px;
+	 BORDER-LEFT: #ffffff 1px solid;
+	 BORDER-BOTTOM: #808080 1px solid;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: left
+}
 
 /*************************
 	Funcion ei_arbol
 **************************/
 
 .arbol-titulo {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 8px 4px 4px 10px;
 	font-weight: bold;
 	font-size: 12px;
@@ -378,7 +457,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left;
 }
 .arbol-cuerpo {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 1px;
 	color: #e9e8e8;
 	background-color: #4f4c4d;
@@ -409,7 +488,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left;
 }
 .arbol-valor {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 0px 3px 0px 3px;
 	font-size: 10px;
 	color: #000000;
@@ -417,7 +496,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left
 }
 .arbol-valor-array {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 1px 3px 0px 3px;
 	font-size: 10px;
 	color: #000000;
@@ -425,7 +504,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left;
 }
 .arbol-valor-objeto {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 0px 3px 0px 3px;
 	font-size: 10px;
 	color: #000000;
@@ -433,7 +512,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left
 }
 .arbol-valor-null {
-	border: #231f20 1px solid;
+	border: 1px solid #231f20;
 	padding: 0px 3px 0px 3px;
 	font-size: 10px;
 	color: #ffffff;
@@ -457,7 +536,7 @@ body > .div-esperar { position: fixed; }
 .item-barra-ayuda {}
 
 .barra-separador {
-	border: #4f4c4d 1px solid;
+	border: 1px solid #4f4c4d;
 	padding: 5px;
 	font-weight: bold;
 	font-size: 11px;
@@ -532,7 +611,7 @@ body > .div-esperar { position: fixed; }
 	text-align: left
 }
 .mensaje-error {
-	border: #231f20 3px solid;
+	border: 1px solid #231f20;
 	border-collapse: collapse;	 
 	padding: 0px;
 	margin: 0px;	
@@ -562,10 +641,6 @@ body > .div-esperar { position: fixed; }
 	text-align: center
 }
 
-/*************************
-	A REVISARRR
-**************************/
-
 .tabla-0 {
 	padding: 0;
 	margin: 0;		
@@ -573,6 +648,11 @@ body > .div-esperar { position: fixed; }
 	empty-cells: hide;
 	font-size:10px;
 }
+
+/*************************
+	A REVISARRR
+**************************/
+
 TD.celda-vacia {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
@@ -581,16 +661,7 @@ TD.celda-vacia {
 	 VERTICAL-ALIGN: top;
 	 PADDING-TOP: 0px
 }
-TABLE.tabla-1 {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 PADDING-TOP: 0px;
-	 BORDER-COLLAPSE: collapse;
-	 empty-cells: show
-}
+
 TABLE.tabla-2 {
 	PADDING-RIGHT: 0px;
 	 PADDING-LEFT: 0px;
@@ -897,53 +968,7 @@ TD.objeto-barra-superior {
 	 BACKGROUND-COLOR: #514a84;
 	 TEXT-ALIGN: left
 }
-TD.objeto-barra-superior-botones {
-	BORDER-RIGHT: #a7a5a6 1px solid;
-	 PADDING-RIGHT: 3px;
-	 BORDER-TOP: #a7a5a6 1px solid;
-	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 3px;
-	 BORDER-LEFT: #a7a5a6 1px solid;
-	 COLOR: #e9e8e8;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: #a7a5a6 1px solid;
-	 BACKGROUND-COLOR: #231f20;
-	 TEXT-ALIGN: left
-}
-TD.objeto-ei-barra-superior {
-	BORDER-RIGHT: #a7a5a6 1px;
-	 PADDING-RIGHT: 3px;
-	 BORDER-TOP: #a7a5a6 1px;
-	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 3px;
-	 BORDER-LEFT: #a7a5a6 1px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: #a7a5a6 1px;
-	 BACKGROUND-COLOR: #808080;
-	 TEXT-ALIGN: left;
-	 white-space: nowrap;
-}
-TABLE.objeto-base {
-	BORDER-RIGHT: #404040 2px solid;
-	 PADDING-RIGHT: 0px;
-	 BORDER-TOP: #ffffff 1px solid;
-	 PADDING-LEFT: 0px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 BORDER-LEFT: #ffffff 1px solid;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #404040 2px solid;
-	 BORDER-COLLAPSE: collapse;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left;
-	 empty-cells: show;
-}
+
 TABLE.abm {
 	BORDER-RIGHT: #231f20 2px solid;
 	 PADDING-RIGHT: 0px;
@@ -974,19 +999,7 @@ TD.abm-titulo {
 	 TEXT-ALIGN: left
 }
 .abm-zona-botones {
-	BORDER-RIGHT: #231f20 0px solid;
-	 PADDING-RIGHT: 3px;
-	 BORDER-TOP: #231f20 0px solid;
-	 PADDING-LEFT: 3px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 8px;
-	 PADDING-BOTTOM: 3px;
-	 BORDER-LEFT: #231f20 0px solid;
-	 COLOR: #e9e8e8;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: #231f20 0px solid;
-	 BACKGROUND-COLOR: #808080;
-	 TEXT-ALIGN: right;
+
 }
 TD.abm-total {
 	PADDING-RIGHT: 0px;
@@ -1658,17 +1671,6 @@ TD.objeto-ci-barra-superior {
 	 BACKGROUND-COLOR: #514a84;
 	 TEXT-ALIGN: left
 }
-.ci-cuerpo {
-	PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 2px;
-	 VERTICAL-ALIGN: top;
-	 COLOR: #000000;
-	 PADDING-TOP: 2px;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left;
-}
 
 
 /*-----------------------------objeto_ei-arbol-----------------------------------*/
@@ -2296,26 +2298,7 @@ TD.tabs-solapa-sel {
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: center
 }
-.tabs-v-solapa {
-	BORDER-RIGHT: #ffffff 1px solid;
-	 PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 2px;
-	 PADDING-BOTTOM: 2px;
-	 PADDING-TOP: 2px;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
-}
-.tabs-v-solapa-sel {
-	PADDING-RIGHT: 10px;
-	 BORDER-TOP: #ffffff 1px solid;
-	 PADDING-LEFT: 3px;
-	 BORDER-LEFT: #ffffff 1px solid;
-	 BORDER-BOTTOM: #808080 1px solid;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
-}
+
 .tabs-boton {
 	BORDER-RIGHT: medium none;
 	 PADDING-RIGHT: 2px;

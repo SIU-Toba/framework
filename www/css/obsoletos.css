@@ -294,3 +294,36 @@ TD.menu-1 {
 	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: right
 }
+TD.objeto-barra-superior {
+	BORDER-RIGHT: #a7a5a6 1px;
+	 PADDING-RIGHT: 3px;
+	 BORDER-TOP: #a7a5a6 1px;
+	 PADDING-LEFT: 3px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 3px;
+	 BORDER-LEFT: #a7a5a6 1px;
+	 COLOR: #ffffff;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: #a7a5a6 1px;
+	 BACKGROUND-COLOR: #514a84;
+	 TEXT-ALIGN: left
+}
+TABLE.tabla-1 {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
+}
+TD.celda-vacia {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
+	 PADDING-TOP: 0px
+}

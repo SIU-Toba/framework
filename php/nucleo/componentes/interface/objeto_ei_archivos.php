@@ -144,7 +144,7 @@ class objeto_ei_archivos extends objeto_ei
 		sort($archivos);
 		sort($carpetas);
 		$path = pathinfo($this->dir_actual);
-		$this->barra_superior("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"objeto-ei-barra-superior");
+		$this->barra_superior("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
 		echo "<div style=''>\n";
 		
 		$img_crear_carpeta = recurso::imagen_apl('archivos/carpeta_nueva.gif', true);

@@ -81,7 +81,7 @@ def.constructor = objeto;
 	}
 	
 	def.raiz = function() {
-		return document.getElementById('raiz_' + this._instancia);			
+		return this.cuerpo().parentNode;
 	}
 	
 	def.cambiar_colapsado = function() {

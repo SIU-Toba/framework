@@ -687,7 +687,7 @@ class objeto_ei_formulario extends objeto_ei
 		}
 		echo "<table class='objeto-base' $ancho id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
-		$this->barra_superior(null, true,"objeto-ei-barra-superior");
+		$this->barra_superior(null, true,"ei-form-barra-sup");
 		echo "</td></tr>\n";
 		echo "<tr><td>";
 		$this->generar_formulario();	

@@ -800,7 +800,7 @@ class objeto_ei_cuadro extends objeto_ei
         echo "\n<table class='objeto-base' $ancho>\n";
         if($mostrar_cabecera){
             echo "<tr><td>";
-            $this->barra_superior(null, true,"objeto-ei-barra-superior");
+            $this->barra_superior(null, true,"ei-cuadro-barra-sup");
             echo "</td></tr>\n";
         }
 		//-- INICIO zona COLAPSABLE

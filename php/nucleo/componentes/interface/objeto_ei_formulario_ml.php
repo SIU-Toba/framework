@@ -600,9 +600,10 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				$estilo = "style='display:none;'";
 			}
 			//Determinar el estilo de la fila
-			$estilo_fila = "ei-ml-fila";			
 			if (isset($this->clave_seleccionada) && $fila == $this->clave_seleccionada) {
-				$estilo_fila .= " ei-ml-fila-selec";				
+				$estilo_fila = "ei-ml-fila-selec";				
+			} else {
+				$estilo_fila = "ei-ml-fila";
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
 			

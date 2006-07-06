@@ -168,7 +168,7 @@ def.constructor = objeto_ei_formulario_ml;
 	def.deseleccionar_actual = function() {
 		if (this._seleccionada != null) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
-			cambiar_clase(fila.cells, 'abm-fila-ml');			
+			cambiar_clase(fila.cells, 'ei-ml-fila');			
 			delete(this._seleccionada);
 		}
 	}
@@ -245,7 +245,7 @@ def.constructor = objeto_ei_formulario_ml;
 			//'Elimina' la fila en el DOM
 		var id_fila = this._instancia + '_fila' + fila;
 		var id_deshacer = this._instancia + '_deshacer';
-		cambiar_clase(document.getElementById(id_fila).cells, 'abm-fila-ml');
+		cambiar_clase(document.getElementById(id_fila).cells, 'ei-ml-fila');
 		document.getElementById(id_fila).style.display = 'none';
 			//Elimina la fila en la lista interna
 		for (i in this._filas) { 
@@ -383,7 +383,7 @@ def.constructor = objeto_ei_formulario_ml;
 	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
 		if (this._seleccionada != null) {
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'abm-fila-ml-selec');
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec');
 			if (this.boton_eliminar())
 				this.boton_eliminar().disabled = false;
 			if (this.boton_subir()) {

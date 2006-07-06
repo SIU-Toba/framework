@@ -804,7 +804,6 @@ class objeto_ci extends objeto_ei
 	
 	function obtener_html()
 	{
-		echo "<div id='raiz_{$this->objeto_js}'>\n";
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
 		$this->eventos = $this->get_lista_eventos();
@@ -812,41 +811,34 @@ class objeto_ci extends objeto_ei
 			echo form::hidden($this->submit, '');
 			echo form::hidden($this->submit."__param", '');
 		}
-		$ancho = convertir_a_medida_tabla($this->info_ci["ancho"]);
-		$alto = isset($this->info_ci["alto"]) ? "style='height:" . $this->info_ci["alto"] . "'" : "";
-		echo "<table $ancho $alto class='objeto-base' id='{$this->objeto_js}_cont'>\n";
-		//--> Barra SUPERIOR
-		echo "<tr><td class='celda-vacia'>";
-		$this->barra_superior(null,true,"objeto-ci-barra-superior");
-		echo "</td></tr>\n";
+		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
+		echo "<table $ancho class='ei ci' id='{$this->objeto_js}_cont'><tr><td>";
+		$this->barra_superior(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
-		echo "<tbody $colapsado id='cuerpo_{$this->objeto_js}'>\n";
+		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 		$this->obtener_html_cuerpo();
-		echo "</tbody>";
-		echo "</table>\n";
-		$this->gi = true;
-		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 		echo "</div>";
+		echo "</td></tr></table>";
+		$this->gi = true;		
+		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 	}
 	
 	protected function obtener_html_cuerpo()
 	{	
 		//--> Botonera
 		$con_botonera = $this->hay_botones();
-		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ){
-			echo "<tr><td class='abm-zona-botones'\n>";
-			$this->generar_botones();
-			echo "</td></tr>\n";
+		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ) {
+			$this->generar_botones('ci-botonera');
 		}
 		//--> Cuerpo del CI
-		echo "<tr><td class='ci-cuerpo' height='100%'>\n";
+		$alto = isset($this->info_ci["alto"]) ? "style='height:" . $this->info_ci["alto"] . "'" : "";
+		echo "<div class='ci-cuerpo' $alto>\n";
 		$this->obtener_html_pantalla();
-		echo "</td></tr>\n";
+		echo "</div>\n";
+		
 		//--> Botonera
-		if($con_botonera && ($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos") ){
-			echo "<tr><td class='abm-zona-botones'>\n";
-			$this->generar_botones();
-			echo "</td></tr>\n";
+		if($con_botonera && ($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos")) {
+			$this->generar_botones('ci-botonera');
 		}
 		if ( $this->utilizar_impresion_html ) {
 			$this->get_utilidades_impresion_html();
@@ -860,7 +852,7 @@ class objeto_ci extends objeto_ei
 			case "tab_h":									//*** TABs horizontales
 				echo "<table class='tabla-0' width='100%'>\n";
 				//Tabs
-				echo "<tr><td class='celda-vacia'>";
+				echo "<tr><td>";
 				$this->obtener_tabs_horizontales();
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente
@@ -871,17 +863,17 @@ class objeto_ci extends objeto_ei
 				break;				
 			case "tab_v": 									//*** TABs verticales
 				echo "<table class='tabla-0' width='100%'>\n";
-				echo "<tr><td  class='celda-vacia' height='100%'>";
+				echo "<tr><td class='tabs-v-panel-pasos'>";
 				$this->obtener_tabs_verticales();
 				echo "</td>";
-				echo "<td class='tabs-v-contenedor' height='100%'>";
+				echo "<td class='tabs-v-contenedor'>";
 				$this->obtener_html_pantalla_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
 			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
-				echo "<table class='tabla-0' >\n";
-				echo "<tr><td class='celda-vacia'  height='100%'>";
+				echo "<table class='tabla-0'>\n";
+				echo "<tr><td class='celda-vacia' height='100%'>";
 				if ($this->info_ci['con_toc']) {
 					$this->wizard_mostrar_toc();
 				}

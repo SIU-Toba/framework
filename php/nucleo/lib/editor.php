@@ -215,13 +215,13 @@ class editor
 	*/
 	static function generar_zona_vinculos_componente( $componente, $editor )
 	{
-		echo "<div class='div-editor'>";		
+		echo "<span class='div-editor'>";		
 		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
 			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			echo recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a>\n";
 		}
-		echo "</div>";
+		echo "</span>";
 	}
 
 	/*
