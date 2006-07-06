@@ -64,7 +64,7 @@ body > .div-esperar { position: fixed; }
 }
 
 /*************************
-		Formularios
+		Form. Común
 **************************/
 .ei-form {}
 .ei-form-fila {
@@ -89,6 +89,18 @@ body > .div-esperar { position: fixed; }
 }
 .ei-form-etiq-oblig {
 	font-weight: bold;
+}
+
+/*************************
+		Form. ML
+**************************/
+.ei-ml {}
+.ei-ml-grilla {
+	padding: 0;
+	margin: 0;		
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;
+	font-size:10px;
 }
 
 .ei-ml-columna {
@@ -135,10 +147,24 @@ body > .div-esperar { position: fixed; }
 	cursor: pointer;
 	cursor: hand;	
 }
+.ef-barra-divisora {
+	border-right: #404040 2px solid;
+	border-top: #d4d0c8 2px solid;
+	border-left: #d4d0c8 2px solid;	
+	border-bottom: #404040 2px solid;
+	font-size: 11px;
+	color: #000000;
+	background-color: #c2c2c2;
+	text-align: left;
+	padding-left:10px;
+}
 
 /*************************
 		EI - CUADRO
 **************************/
+.ei-cuadro {
+	width: 100%;
+}
 .ei-cuadro-cabecera, .ei-cuadro-pie {
 	 empty-cells: hide
 }
@@ -439,6 +465,9 @@ body > .div-esperar { position: fixed; }
 	background-color: #d3d2d2;
 	text-align: left;
 }
+.zona-barra-sup {
+	width: 100%;
+}
 .zona-barra-id {
 	padding: 2px;
 	border-bottom: #4f4c4d 1px solid;	
@@ -446,7 +475,7 @@ body > .div-esperar { position: fixed; }
 	font-size: 11px;
 	color: #231f20;
 	background-color: #7b7979;
-	text-align: left
+	text-align: left;
 }
 .zona-barra-desc {
 	border-left: #4f4c4d 1px solid;
@@ -454,7 +483,7 @@ body > .div-esperar { position: fixed; }
 	font-size: 15px;	
 	color: #000000;
 	background-color: #d4d0c8;
-	text-align: center
+	text-align: center;
 }
 
 
@@ -462,103 +491,81 @@ body > .div-esperar { position: fixed; }
 	font-size: 10px;
 	color: #231f20;
 	background-color: #d4d0c8;
+	text-align: left;
+}
+
+/*************************
+		MENSAJES
+**************************/
+
+.mensaje-info {
+	border-right: #404040 2px solid;
+	border-top: #808080 1px solid;
+	border-left: #808080 1px solid;
+	border-bottom: #404040 2px solid;
+	border-collapse: collapse;	 
+	padding: 0px;
+	margin: 0px;
+	font-size: 10px;	 
+	empty-cells: show
+}
+.mensaje-titulo-info {
+	padding: 5px 10px 3px 10px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #ffffff;
+	background-color: #514a84;
+	text-align: right;
+}
+.mensaje-subtitulo-info {
+	padding: 0px 0px 5px 5px;
+	font-size: 11px;
+	color: #a7a5a6;
+	background-color: #4f4c4d;
 	text-align: left
+}
+.mensaje-cuerpo-info {
+	padding: 15px 10px 15px 10px;
+	font-size: 12px;
+	color: #000000;
+	background-color: #ffffff;
+	text-align: left
+}
+.mensaje-error {
+	border: #231f20 3px solid;
+	border-collapse: collapse;	 
+	padding: 0px;
+	margin: 0px;	
+	font-size: 10px;
+	empty-cells: show
+}
+.mensaje-titulo-error {
+	padding: 5px 10px 3px 10px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #ffffff;
+	background-color: #ff411b;
+	text-align: right;
+}
+.mensaje-subtitulo-error {
+	padding: 0px 0px 5px 5px;	
+	font-size: 11px;
+	color: #ccccdd;
+	background-color: #ff411b;
+	text-align: left
+}
+.mensaje-cuerpo-error {
+	padding: 15px 10px 15px 10px;
+	font-size: 12px;
+	color: #231f20;
+	background-color: #ffffff;
+	text-align: center
 }
 
 /*************************
 	A REVISARRR
 **************************/
 
-TABLE.mensaje-info {
-	BORDER-RIGHT: #404040 2px solid;
-	 PADDING-RIGHT: 0px;
-	 BORDER-TOP: #808080 1px solid;
-	 PADDING-LEFT: 0px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 BORDER-LEFT: #808080 1px solid;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #404040 2px solid;
-	 BORDER-COLLAPSE: collapse;
-	 empty-cells: show
-}
-TD.mensaje-titulo-info {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 3px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 5px;
-	 BACKGROUND-COLOR: #514a84;
-	 TEXT-ALIGN: right
-}
-TD.mensaje-subtitulo-info {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 5px;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 5px;
-	 COLOR: #a7a5a6;
-	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #4f4c4d;
-	 TEXT-ALIGN: left
-}
-TD.mensaje-cuerpo-info {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 15px;
-	 COLOR: #000000;
-	 PADDING-TOP: 15px;
-	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: left
-}
-TABLE.mensaje-error {
-	BORDER-RIGHT: #231f20 3px solid;
-	 PADDING-RIGHT: 0px;
-	 BORDER-TOP: #231f20 3px solid;
-	 PADDING-LEFT: 0px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 BORDER-LEFT: #231f20 3px solid;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #231f20 3px solid;
-	 BORDER-COLLAPSE: collapse;
-	 empty-cells: show
-}
-TD.mensaje-titulo-error {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 3px;
-	 COLOR: #ffffff;
-	 PADDING-TOP: 5px;
-	 BACKGROUND-COLOR: #ff411b;
-	 TEXT-ALIGN: right
-}
-TD.mensaje-subtitulo-error {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 5px;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 5px;
-	 COLOR: #ccccdd;
-	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #ff411b;
-	 TEXT-ALIGN: left
-}
-TD.mensaje-cuerpo-error {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 15px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 15px;
-	 BACKGROUND-COLOR: #ffffff;
-	 TEXT-ALIGN: center
-}
 .tabla-0 {
 	padding: 0;
 	margin: 0;		
@@ -1577,16 +1584,7 @@ DIV.doc-func-param-obligatorio {
 	 BORDER-BOTTOM: #d4d0c8 2px solid;
 	 BACKGROUND-COLOR: #fffdf9
 }
-.ef-barra_divisoria {
-	BORDER-RIGHT: #404040 2px solid;
-	 BORDER-TOP: #d4d0c8 2px solid;
-	 FONT-SIZE: 11px;
-	 BORDER-LEFT: #d4d0c8 2px solid;
-	 COLOR: #000000;
-	 BORDER-BOTTOM: #404040 2px solid;
-	 BACKGROUND-COLOR: #c2c2c2;
-	 TEXT-ALIGN: left
-}
+
 .ef-input-numero {
 	FONT-SIZE: 10px;
 	 COLOR: #231f20;

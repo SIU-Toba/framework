@@ -107,7 +107,7 @@ class solicitud_web extends solicitud
 			    } 
 			}
 		} else { 
-			echo ei_mensaje("Necesita asociar un objeto CI al ítem.");
+			throw new excepcion_toba_def("Necesita asociar un objeto CI al ítem.");
 	    }
 	}
 	

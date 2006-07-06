@@ -63,9 +63,7 @@ class ef_barra_divisora extends ef_sin_estado
 {
 	function get_input()
 	{
-		echo "<table class='tabla-0' width='100%'>\n";
-		echo "<tr><td class='ef-barra_divisoria'>&nbsp;&nbsp;{$this->etiqueta}</td></tr>\n";
-		echo "</table>\n";
+		echo "<div class='ef-barra-divisora'>{$this->etiqueta}</div>\n";
 	}
 }
 

@@ -463,21 +463,24 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
-		//Botonera de agregar y ordenar
-		$this->botonera_manejo_filas();
 		//Ancho y Scroll
+		$estilo = '';
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
 		if($this->info_formulario["scroll"]){
 			$alto_maximo = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
 			if ($ancho != 'auto' || $alto_maximo != 'auto') {
-				echo "<div style='overflow: auto; width: $ancho; height: $alto_maximo; border: 1px inset; margin: 0px; padding: 0px;'>";
-			} else {
-				echo "<div>";
-			}
+				$estilo .= "overflow: auto; width: $ancho; height: $alto_maximo; border: 1px inset; margin: 0px; padding: 0px;";
+			} 
 		}else{
 			$alto_maximo = "auto";
-			echo "<div>";
+		}		
+		if (isset($this->colapsado) && $this->colapsado) {
+			$estilo .= "display:none;";
 		}
+		echo "<div class='ei-cuerpo ei-ml' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
+		//Botonera de agregar y ordenar
+		$this->botonera_manejo_filas();
+
 		//Defino la cantidad de columnas
 		$colspan = count($this->lista_ef_post);
 		if ($this->info_formulario['filas_numerar']) {
@@ -487,7 +490,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		echo form::hidden("{$this->objeto_js}_listafilas",'');
 		echo form::hidden("{$this->objeto_js}__parametros", '');
 		
-		echo "<table class='tabla-0' style='width: $ancho'>\n";
+		echo "<table class='ei-ml-grilla' style='width: $ancho' >\n";
 		echo "<thead>\n";
 		$this->generar_formulario_encabezado();
 		echo "</thead>\n";
@@ -497,8 +500,8 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		echo "<tbody>";		
 		$this->generar_formulario_cuerpo();
 		echo "</tbody>\n";		
-		echo "\n</table>\n</div>";
-		
+		echo "\n</table>";
+		echo "\n</div>";
 	}
 	
 	function generar_formulario_encabezado()

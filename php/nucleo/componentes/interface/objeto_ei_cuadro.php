@@ -806,7 +806,7 @@ class objeto_ei_cuadro extends objeto_ei
 		//-- INICIO zona COLAPSABLE
 		echo"<tr><td>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
-        echo "<TABLE width='100%' class='tabla-0' $colapsado id='cuerpo_{$this->objeto_js}'>";
+        echo "<TABLE class='ei-cuadro' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
 		echo"<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();		

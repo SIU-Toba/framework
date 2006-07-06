@@ -120,7 +120,7 @@ class zona
 	function obtener_html_barra_superior()
 	//Genera el HTML de la BARRA
 	{
-		echo "<table width='100%' class='tabla-0'><tr>";
+		echo "<table class='zona-barra-sup'><tr>";
 		$this->obtener_html_barra_info();
 		$this->obtener_html_barra_vinculos();
 		$this->obtener_html_barra_especifico();
