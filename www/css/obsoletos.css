@@ -327,3 +327,53 @@ TD.celda-vacia {
 	 VERTICAL-ALIGN: top;
 	 PADDING-TOP: 0px
 }
+
+TD.celda-vacia {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
+	 PADDING-TOP: 0px
+}
+TABLE.tabla-2 {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 FONT-SIZE: 12px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-COLLAPSE: collapse;
+	 empty-cells: show
+}
+TD.portada-modulo {
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 18px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #000000;
+	 PADDING-TOP: 5px;
+	 TEXT-ALIGN: center
+}
+TD.portada-titulo {
+	PADDING-RIGHT: 10px;
+	 PADDING-LEFT: 10px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 18px;
+	 PADDING-BOTTOM: 5px;
+	 COLOR: #4f4c4d;
+	 PADDING-TOP: 5px;
+	 TEXT-ALIGN: center
+}
+TD.portada-comentario {
+	FONT-SIZE: 10px;
+	 COLOR: #7b7979;
+	 TEXT-ALIGN: center
+}
+
+.texto-ss {
+	FONT-SIZE: 11px;
+	 FONT-FAMILY: courier,courier new,  mono;
+	 TEXT-ALIGN: left
+}

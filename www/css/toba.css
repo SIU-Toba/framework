@@ -324,43 +324,6 @@ body > .div-esperar { position: fixed; }
 	padding: 2px;
 }
 
-
-
-/*************************
-		Ventana Modal
-**************************/
-
-#overlay {
-     visibility: hidden;
-     position: absolute;
-     left: 0px;
-     top: 0px;
-     width:100%;
-     height:100%;
-     z-index: 1000;
-}
-
-#overlay_contenido {
-     width:300px;
-     margin: 100px auto;
-     background-color: #fff;
-     border:1px solid #000;
-     padding:15px;
-}
-
-.overlay-titulo {
-	padding-bottom: 10px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid gray;	
-	font-weight: bold;
-}
-.overlay-botonera {
-	padding-top: 10px;
-	margin-top: 10px;
-	border-top: 1px solid gray;
-	text-align: center;
-}
-
 /*************************
 		CI
 **************************/
@@ -382,7 +345,6 @@ body > .div-esperar { position: fixed; }
 	background-color: #d4d0c8;
 	text-align: left;
 }
-
 .ci-pant-desc, .ci-wiz-enc {
 	padding: 5px;
 	font-size: 11px;
@@ -397,27 +359,30 @@ body > .div-esperar { position: fixed; }
 .ci-wiz-descr {
 	padding-left: 15px
 }
-.ci-wiz-pant {
+.ci-wiz-toc {
+	height: 100%;
+	vertical-align: top;
+}
+.ci-wiz-toc-lista {
 	padding-right: 10px;
 	padding-left: 0px;
 	padding-bottom: 5px;
 	padding-top: 15px;	
 	font-size: 10px;
 	margin-left: 30px;
-	vertical-align: middle;
+	vertical-align: top;
 	white-space: nowrap;
 	text-align: left;
+	height: 100%;
 }
-.ci-wiz-pant-pasada {
-	color: gray
+.ci-wiz-toc-pant-pasada, .ci-wiz-toc-pant-futuro {
+	color: gray;
 }
-.ci-wiz-pant-futuro {
-	color: gray
-}
-.ci-wiz-pant-actual {
+.ci-wiz-toc-pant-actual {
 	font-weight: bold;
-	color: #222222
+	color: #222222;
 }
+
 
 /*** Tabs verticales ***/
 .ci-tabs-v-lista {
@@ -472,11 +437,10 @@ body > .div-esperar { position: fixed; }
 }
 /*** Tabs horizontales ***/
 .ci-tabs-h-lista {
-	padding: 0;
-	margin: 0;		
-	BORDER-COLLAPSE: collapse;
+	border-collapse: collapse;
 	empty-cells: hide;
-	font-size:10px;
+	margin-left: -1px;
+	width: 100%;
 }
 .ci-tabs-h-solapa {
 	border-right: 2px solid #808080;
@@ -487,68 +451,49 @@ body > .div-esperar { position: fixed; }
 	background-color: #d4d0c8;
 	text-align: center;
 }
-TD.tabs-solapa-sel {
-	BORDER-RIGHT: #808080 2px solid;
-	 BORDER-TOP: #ffffff 2px solid;
-	 BORDER-LEFT: #ffffff 2px solid;
-	 BORDER-BOTTOM: #d4d0c8 2px solid;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
+.ci-tabs-h-solapa-sel {
+	border-right: 2px solid #808080;
+	border-top: 2px solid #ffffff;
+	border-left: 2px solid #ffffff;
+	border-bottom: 2px solid #d4d0c8;
+	white-space: nowrap;
+	background-color: #d4d0c8;
+	text-align: center
+}
+.ci-tabs-h-boton {
+	border: medium none;
+	padding: 3px;
+	font-size: 10px;
+	color: #000000;
+	white-space: nowrap;
+	background-color: #d7d4cf
+}
+.ci-tabs-h-boton-sel {
+	padding: 2px;
+	border: medium none;
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	white-space: nowrap;
+	background-color: #d4d0c8
 }
 
-.tabs-boton {
-	BORDER-RIGHT: medium none;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: medium none;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 2px;
-	 BORDER-LEFT: medium none;
-	 COLOR: #000000;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: medium none;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d7d4cf
+.ci-tabs-h-hueco {
+	padding: 0;
+	margin: 0;
+	border-bottom: #ffffff 2px solid
 }
-.tabs-boton-sel {
-	BORDER-RIGHT: medium none;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: medium none;
-	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 2px;
-	 BORDER-LEFT: medium none;
-	 COLOR: #000000;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: medium none;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8
+.ci-tabs-h-cont, .ci-wiz-cont {
+	height: 100%;
+	border-right: #808080 2px solid;
+	border-left: #ffffff 2px solid;	
+	border-bottom: #808080 2px solid;	
+	padding: 6px 2px 6px 6px;
+	margin: 0px;
+	vertical-align: top;
+	background-color: #d4d0c8;
+	text-align: left;
 }
-
-.tabs-solapa-hueco {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #ffffff 2px solid
-}
-.tabs-contenedor {
-	BORDER-RIGHT: #808080 2px solid;
-	 PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 6px;
-	 PADDING-BOTTOM: 6px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 BORDER-LEFT: #ffffff 2px solid;
-	 PADDING-TOP: 6px;
-	 BORDER-BOTTOM: #808080 2px solid;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left;
-}
-
 
 
 /*************************
@@ -681,6 +626,44 @@ TD.tabs-solapa-sel {
 	text-align: left;
 }
 
+
+
+
+/*************************
+		Ventana Modal
+**************************/
+
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     z-index: 1000;
+}
+
+#overlay_contenido {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+}
+
+.overlay-titulo {
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid gray;	
+	font-weight: bold;
+}
+.overlay-botonera {
+	padding-top: 10px;
+	margin-top: 10px;
+	border-top: 1px solid gray;
+	text-align: center;
+}
+
 /*************************
 		MENSAJES
 **************************/
@@ -761,55 +744,6 @@ TD.tabs-solapa-sel {
 	A REVISARRR
 **************************/
 
-TD.celda-vacia {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 PADDING-TOP: 0px
-}
-
-TABLE.tabla-2 {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 PADDING-TOP: 0px;
-	 BORDER-COLLAPSE: collapse;
-	 empty-cells: show
-}
-TD.portada-modulo {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 18px;
-	 PADDING-BOTTOM: 5px;
-	 COLOR: #000000;
-	 PADDING-TOP: 5px;
-	 TEXT-ALIGN: center
-}
-TD.portada-titulo {
-	PADDING-RIGHT: 10px;
-	 PADDING-LEFT: 10px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 18px;
-	 PADDING-BOTTOM: 5px;
-	 COLOR: #4f4c4d;
-	 PADDING-TOP: 5px;
-	 TEXT-ALIGN: center
-}
-TD.portada-comentario {
-	FONT-SIZE: 10px;
-	 COLOR: #7b7979;
-	 TEXT-ALIGN: center
-}
-.texto-ss {
-	FONT-SIZE: 11px;
-	 FONT-FAMILY: courier,courier new,  mono;
-	 TEXT-ALIGN: left
-}
 .texto {
 	FONT-SIZE: 12px;
 	 COLOR: #231f20;

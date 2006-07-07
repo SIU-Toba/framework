@@ -856,7 +856,7 @@ class objeto_ci extends objeto_ei
 				$this->obtener_tabs_horizontales();
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente
-				echo "<tr><td class='tabs-contenedor' height='100%'>";
+				echo "<tr><td class='ci-tabs-h-cont'>";
 				$this->obtener_html_pantalla_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
@@ -873,12 +873,12 @@ class objeto_ci extends objeto_ei
 				break;				
 			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
 				echo "<table class='tabla-0'>\n";
-				echo "<tr><td class='celda-vacia' height='100%'>";
+				echo "<tr><td class='ci-wiz-toc'>";
 				if ($this->info_ci['con_toc']) {
 					$this->wizard_mostrar_toc();
 				}
 				echo "</td>";
-				echo "<td width='100%' class='tabs-contenedor' height='100%'>";
+				echo "<td class='ci-wiz-cont'>";
 				$this->obtener_html_pantalla_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
@@ -940,15 +940,15 @@ class objeto_ci extends objeto_ei
 	protected function wizard_mostrar_toc()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<ol class='ci-wiz-pant'>";
+		echo "<ol class='ci-wiz-toc-lista'>";
 		$pasada = true;
 		foreach ($this->lista_tabs as $id => $pantalla) {
 			if ($pasada)
-				$clase = 'ci-wiz-pant-pasada';
+				$clase = 'ci-wiz-toc-pant-pasada';
 			else
-				$clase = 'ci-wiz-pant-futuro';			
+				$clase = 'ci-wiz-toc-pant-futuro';			
 			if ($id == $this->etapa_gi) {
-				$clase = 'ci-wiz-pant-actual';
+				$clase = 'ci-wiz-toc-pant-actual';
 				$pasada = false;
 			}
 			echo "<li class='$clase'>";
@@ -961,14 +961,13 @@ class objeto_ci extends objeto_ei
 	protected function obtener_tabs_horizontales()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<table width='100%' class='ci-tabs-h-lista'>\n";
+		echo "<table class='ci-tabs-h-lista'>\n";
 		echo "<tr>";
-		//echo "<td width='1'  class='tabs-solapa-hueco'>".gif_nulo(6,1)."</td>";
 		$id_tab = 1;
 		foreach( $this->lista_tabs as $id => $tab )
 		{
 			$tip = $tab["tip"];
-			$clase = 'tabs-boton';
+			$clase = 'ci-tabs-h-boton';
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$html = '';
@@ -981,20 +980,20 @@ class objeto_ci extends objeto_ei
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');\"";
 			if( $this->etapa_gi == $id ){
 				//TAB actual
-				echo "<td class='tabs-solapa-sel'>";
-				echo form::button_html( "actual", $html, '', $tab_order, null, '', 'button', '', "tabs-boton-sel");
+				echo "<td class='ci-tabs-h-solapa-sel'>";
+				echo form::button_html( "actual", $html, '', $tab_order, null, '', 'button', '', "ci-tabs-h-boton-sel");
 				echo "</td>\n";
-				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
+				echo "<td width='1' class='ci-tabs-h-hueco'>".gif_nulo(4,1)."</td>\n";
 			}else{
 				echo "<td class='ci-tabs-h-solapa'>";
 				$tip = str_replace("'", "\\'",$tip);
 				echo form::button_html( $this->submit.'_cambiar_tab_'.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 				echo "</td>\n";
-				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
+				echo "<td width='1' class='ci-tabs-h-hueco'>".gif_nulo(4,1)."</td>\n";
 			}
 			$id_tab++;
 		}
-		echo "<td width='90%'  class='tabs-solapa-hueco'>".gif_nulo()."</td>\n";
+		echo "<td width='90%'  class='ci-tabs-h-hueco'>".gif_nulo()."</td>\n";
 		echo "</tr>";
 		echo "</table>\n";
 	}
