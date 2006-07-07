@@ -99,28 +99,6 @@ body > .div-esperar { position: fixed; }
 	background-color: #d4d0c8; 
 }
 
-/*************************
-		CI
-**************************/
-.ci {
-
-}
-.ci-barra-sup {
-	background-color: #514a84;
-}
-.ci-botonera {
-	border: 0px solid #231f20;
-	padding: 3px;
-	color: #e9e8e8;
-	background-color: #808080;
-}
-.ci-cuerpo {
-	padding:2px;
-	vertical-align: top;
-	color: #000000;
-	background-color: #d4d0c8;
-	text-align: left;
-}
 
 /*************************
 		Form. Común
@@ -384,23 +362,42 @@ body > .div-esperar { position: fixed; }
 }
 
 /*************************
-	A REVISARRR
+		CI
 **************************/
+.ci {
+}
+.ci-barra-sup {
+	background-color: #514a84;
+}
+.ci-botonera {
+	border: 0px solid #231f20;
+	padding: 3px;
+	color: #e9e8e8;
+	background-color: #808080;
+}
+.ci-cuerpo {
+	padding:2px;
+	vertical-align: top;
+	color: #000000;
+	background-color: #d4d0c8;
+	text-align: left;
+}
 
-.ci-pant-desc, .wizard-encabezado {
+.ci-pant-desc, .ci-wiz-enc {
 	padding: 5px;
 	font-size: 11px;
 	color: #222222;
 	background-color: #ffffff;
 	text-align: left;
 }
-.wizard-titulo {
+/*** Wizard ***/
+.ci-wiz-titulo {
 	font-weight: bold
 }
-.wizard-descripcion {
+.ci-wiz-descr {
 	padding-left: 15px
 }
-.wizard-pantallas {
+.ci-wiz-pant {
 	padding-right: 10px;
 	padding-left: 0px;
 	padding-bottom: 5px;
@@ -411,37 +408,148 @@ body > .div-esperar { position: fixed; }
 	white-space: nowrap;
 	text-align: left;
 }
-.wizard-pantallas-pasada {
+.ci-wiz-pant-pasada {
 	color: gray
 }
-.wizard-pantallas-futuro {
+.ci-wiz-pant-futuro {
 	color: gray
 }
-.wizard-pantallas-actual {
+.ci-wiz-pant-actual {
 	font-weight: bold;
 	color: #222222
 }
-.tabs-v-panel-pasos {
-	height: 100%;
+
+/*** Tabs verticales ***/
+.ci-tabs-v-lista {
 	vertical-align: top;
+	height: 100%;
 }
-.tabs-v-solapa {
+.ci-tabs-v-cont {
+	border-right: 2px solid #808080;
+	border-top: 1px solid #ffffff;	
+	border-bottom:  2px #808080 solid;	
+	padding: 6px 2px 6px 2px;
+	margin: 0px;
+	vertical-align: top;
+	background-color: #d4d0c8;
+	text-align: left;
+}
+.ci-tabs-v-solapa {
 	border-right: 1px solid #ffffff;
 	background-color: #d4d0c8;	
 	padding: 2px 10px 2px 2px;
 	white-space: nowrap;
 	text-align: left;
 }
-.tabs-v-solapa-sel {
-	PADDING-RIGHT: 10px;
-	 BORDER-TOP: #ffffff 1px solid;
-	 PADDING-LEFT: 3px;
-	 BORDER-LEFT: #ffffff 1px solid;
-	 BORDER-BOTTOM: #808080 1px solid;
+.ci-tabs-v-solapa-sel {
+	border-top: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #808080;	
+	padding-right: 10px;
+	padding-left: 3px;
+	white-space: nowrap;
+	background-color: #d4d0c8;
+	text-align: left;
+}
+.ci-tabs-v-boton {
+	padding: 3px 2px 12px 2px;
+	font-size: 10px;
+	line-height: 15px;
+	white-space: nowrap;
+	text-decoration: none;
+}
+.ci-tabs-v-boton:hover {
+	text-decoration: underline
+}
+.ci-tabs-v-boton-sel {
+	border: medium none;	
+	padding: 2px;
+	font-weight: bold;
+	font-size: 11px;
+	color: #000000;
+	white-space: nowrap;
+	background-color: #d4d0c8
+}
+/*** Tabs horizontales ***/
+.ci-tabs-h-lista {
+	padding: 0;
+	margin: 0;		
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;
+	font-size:10px;
+}
+.ci-tabs-h-solapa {
+	border-right: 2px solid #808080;
+	border-top: 2px solid #ffffff;
+	border-left: 2px solid #ffffff;
+	border-bottom: 2px solid #ffffff;
+	white-space: nowrap;
+	background-color: #d4d0c8;
+	text-align: center;
+}
+TD.tabs-solapa-sel {
+	BORDER-RIGHT: #808080 2px solid;
+	 BORDER-TOP: #ffffff 2px solid;
+	 BORDER-LEFT: #ffffff 2px solid;
+	 BORDER-BOTTOM: #d4d0c8 2px solid;
 	 WHITE-SPACE: nowrap;
 	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left
+	 TEXT-ALIGN: center
 }
+
+.tabs-boton {
+	BORDER-RIGHT: medium none;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: medium none;
+	 PADDING-LEFT: 2px;
+	 FONT-SIZE: 10px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: medium none;
+	 COLOR: #000000;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: medium none;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #d7d4cf
+}
+.tabs-boton-sel {
+	BORDER-RIGHT: medium none;
+	 PADDING-RIGHT: 2px;
+	 BORDER-TOP: medium none;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 BORDER-LEFT: medium none;
+	 COLOR: #000000;
+	 PADDING-TOP: 3px;
+	 BORDER-BOTTOM: medium none;
+	 WHITE-SPACE: nowrap;
+	 BACKGROUND-COLOR: #d4d0c8
+}
+
+.tabs-solapa-hueco {
+	PADDING-RIGHT: 0px;
+	 PADDING-LEFT: 0px;
+	 PADDING-BOTTOM: 0px;
+	 MARGIN: 0px;
+	 PADDING-TOP: 0px;
+	 BORDER-BOTTOM: #ffffff 2px solid
+}
+.tabs-contenedor {
+	BORDER-RIGHT: #808080 2px solid;
+	 PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 6px;
+	 PADDING-BOTTOM: 6px;
+	 MARGIN: 0px;
+	 VERTICAL-ALIGN: top;
+	 BORDER-LEFT: #ffffff 2px solid;
+	 PADDING-TOP: 6px;
+	 BORDER-BOTTOM: #808080 2px solid;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: left;
+}
+
+
 
 /*************************
 	Funcion ei_arbol
@@ -2278,116 +2386,6 @@ TD.lista-obj-clase {
 	 COLOR: #231f20;
 	 BORDER-BOTTOM: #231f20 1px solid;
 	 BACKGROUND-COLOR: #7b7979;
-	 TEXT-ALIGN: left
-}
-TD.tabs-solapa {
-	BORDER-RIGHT: #808080 2px solid;
-	 BORDER-TOP: #ffffff 2px solid;
-	 BORDER-LEFT: #ffffff 2px solid;
-	 BORDER-BOTTOM: #ffffff 2px solid;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
-}
-TD.tabs-solapa-sel {
-	BORDER-RIGHT: #808080 2px solid;
-	 BORDER-TOP: #ffffff 2px solid;
-	 BORDER-LEFT: #ffffff 2px solid;
-	 BORDER-BOTTOM: #d4d0c8 2px solid;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: center
-}
-
-.tabs-boton {
-	BORDER-RIGHT: medium none;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: medium none;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 2px;
-	 BORDER-LEFT: medium none;
-	 COLOR: #000000;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: medium none;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d7d4cf
-}
-.tabs-boton-sel {
-	BORDER-RIGHT: medium none;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: medium none;
-	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 2px;
-	 BORDER-LEFT: medium none;
-	 COLOR: #000000;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: medium none;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8
-}
-.tabs-v-boton {
-	PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 2px;
-	 FONT-SIZE: 10px;
-	 PADDING-BOTTOM: 12px;
-	 LINE-HEIGHT: 15px;
-	 PADDING-TOP: 3px;
-	 WHITE-SPACE: nowrap;
-	 TEXT-DECORATION: none
-}
-.tabs-v-boton:hover {
-	TEXT-DECORATION: underline
-}
-.tabs-v-boton-sel {
-	BORDER-RIGHT: medium none;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: medium none;
-	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 11px;
-	 PADDING-BOTTOM: 2px;
-	 BORDER-LEFT: medium none;
-	 COLOR: #000000;
-	 PADDING-TOP: 3px;
-	 BORDER-BOTTOM: medium none;
-	 WHITE-SPACE: nowrap;
-	 BACKGROUND-COLOR: #d4d0c8
-}
-.tabs-solapa-hueco {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 PADDING-TOP: 0px;
-	 BORDER-BOTTOM: #ffffff 2px solid
-}
-.tabs-contenedor {
-	BORDER-RIGHT: #808080 2px solid;
-	 PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 6px;
-	 PADDING-BOTTOM: 6px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 BORDER-LEFT: #ffffff 2px solid;
-	 PADDING-TOP: 6px;
-	 BORDER-BOTTOM: #808080 2px solid;
-	 BACKGROUND-COLOR: #d4d0c8;
-	 TEXT-ALIGN: left;
-}
-.tabs-v-contenedor {
-	BORDER-RIGHT: #808080 2px solid;
-	 PADDING-RIGHT: 2px;
-	 BORDER-TOP: #ffffff 1px solid;
-	 PADDING-LEFT: 6px;
-	 PADDING-BOTTOM: 6px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 PADDING-TOP: 6px;
-	 BORDER-BOTTOM: #808080 2px solid;
-	 BACKGROUND-COLOR: #d4d0c8;
 	 TEXT-ALIGN: left
 }
 TABLE.objeto-base-3d {

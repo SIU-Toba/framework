@@ -29,7 +29,6 @@ class form_solo_lectura extends objeto_ei_formulario
 				} else {
 					var chequeado = this.ef('checkbox').chequeado();
 				}
-				alert(chequeado);
 			}
 		";
 

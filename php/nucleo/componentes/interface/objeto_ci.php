@@ -863,10 +863,10 @@ class objeto_ci extends objeto_ei
 				break;				
 			case "tab_v": 									//*** TABs verticales
 				echo "<table class='tabla-0' width='100%'>\n";
-				echo "<tr><td class='tabs-v-panel-pasos'>";
+				echo "<tr><td class='ci-tabs-v-lista'>";
 				$this->obtener_tabs_verticales();
 				echo "</td>";
-				echo "<td class='tabs-v-contenedor'>";
+				echo "<td class='ci-tabs-v-cont'>";
 				$this->obtener_html_pantalla_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
@@ -900,9 +900,9 @@ class objeto_ci extends objeto_ei
 			$imagen = recurso::imagen_apl("info_chico.gif",true);
 			$descripcion = parser_ayuda::parsear($descripcion);
 			if ($es_wizard) {
-				$html = "<div class='wizard-encabezado'><div class='wizard-titulo'>";
+				$html = "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
 				$html .= $this->info_ci_me_pantalla[ $this->indice_etapas[ $this->etapa_gi ] ]["etiqueta"];
-				$html .= "</div><div class='wizard-descripcion'>$descripcion</div></div>";
+				$html .= "</div><div class='ci-wiz-descr'>$descripcion</div></div>";
 				echo $html;
 			} else {
 				echo "<div class='ci-pant-desc'>$imagen&nbsp;$descripcion</div>\n";
@@ -940,15 +940,15 @@ class objeto_ci extends objeto_ei
 	protected function wizard_mostrar_toc()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<ol class='wizard-pantallas'>";
+		echo "<ol class='ci-wiz-pant'>";
 		$pasada = true;
 		foreach ($this->lista_tabs as $id => $pantalla) {
 			if ($pasada)
-				$clase = 'wizard-pantallas-pasada';
+				$clase = 'ci-wiz-pant-pasada';
 			else
-				$clase = 'wizard-pantallas-futuro';			
+				$clase = 'ci-wiz-pant-futuro';			
 			if ($id == $this->etapa_gi) {
-				$clase = 'wizard-pantallas-actual';
+				$clase = 'ci-wiz-pant-actual';
 				$pasada = false;
 			}
 			echo "<li class='$clase'>";
@@ -961,7 +961,7 @@ class objeto_ci extends objeto_ei
 	protected function obtener_tabs_horizontales()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<table width='100%' class='tabla-0'>\n";
+		echo "<table width='100%' class='ci-tabs-h-lista'>\n";
 		echo "<tr>";
 		//echo "<td width='1'  class='tabs-solapa-hueco'>".gif_nulo(6,1)."</td>";
 		$id_tab = 1;
@@ -986,7 +986,7 @@ class objeto_ci extends objeto_ei
 				echo "</td>\n";
 				echo "<td width='1' class='tabs-solapa-hueco'>".gif_nulo(4,1)."</td>\n";
 			}else{
-				echo "<td class='tabs-solapa'>";
+				echo "<td class='ci-tabs-h-solapa'>";
 				$tip = str_replace("'", "\\'",$tip);
 				echo form::button_html( $this->submit.'_cambiar_tab_'.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
 				echo "</td>\n";
@@ -1002,10 +1002,9 @@ class objeto_ci extends objeto_ei
 	function obtener_tabs_verticales()
 	{
 		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<div  class='tabs-v-solapa' style='height:20px'> </div>";
+		echo "<div  class='ci-tabs-v-solapa' style='height:20px'> </div>";
 		foreach( $this->lista_tabs as $id => $tab )
 		{
-			$clase = 'tabs-boton';
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$tip = $tab["tip"];
@@ -1016,15 +1015,15 @@ class objeto_ci extends objeto_ei
 			$tecla = $acceso[1];
 			$js = "onclick=\"{$this->objeto_js}.set_evento( new evento_ei('cambiar_tab_$id', true, ''));\"";
 			if ( $this->etapa_gi == $id ) {
-				echo "<div class='tabs-v-solapa-sel'><div class='tabs-v-boton-sel'>$html</div></div>";
+				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$html</div></div>";
 			} else {
-				$atajo = recurso::ayuda($tecla, str_replace("'", "\\'",$tip));
-				echo "<div class='tabs-v-solapa'>";
-				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo class='tabs-v-boton' $js>$html</a>";
+				$atajo = recurso::ayuda($tecla, str_replace("'", "\\'",$tip), 'ci-tabs-v-boton');
+				echo "<div class='ci-tabs-v-solapa'>";
+				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo $js>$html</a>";
 				echo "</div>";
 			}
 		}
-		echo "<div class='tabs-v-solapa' style='height:99%;'></div>";
+		echo "<div class='ci-tabs-v-solapa' style='height:99%;'></div>";
 	}
 	
 	/**
