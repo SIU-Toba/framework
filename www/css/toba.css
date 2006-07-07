@@ -105,13 +105,13 @@ a > .ayuda, a.ayuda, button.ayuda {
 	padding: 2px 10px 2px 2px;
 	text-align: right;	
 }
-.ei-boton, .ei-boton-mod, .ei-boton-canc {
+.ei-boton, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
 	font-size: 11px;
 	color: #231f20;
 	height: 24px;
 	background-color: #ffffff
 }
-.ei-boton-eliminar, .ei-boton-filtrar {
+.ei-boton-baja, .ei-boton-filtrar {
 	font-weight: bold;
 	font-size: 11px;
 	color: #000000;
@@ -123,10 +123,10 @@ a > .ayuda, a.ayuda, button.ayuda {
 	color: #231f20;
 	background-color: #d4d0c8; 
 }
+
 /*************************
 		Form. Común
 **************************/
-
 
 .ei-form {}
 .ei-form-fila {
@@ -156,6 +156,7 @@ a > .ayuda, a.ayuda, button.ayuda {
 /*************************
 		Form. ML
 **************************/
+
 .ei-ml {}
 .ei-ml-grilla {
 	padding: 0;
@@ -197,7 +198,7 @@ a > .ayuda, a.ayuda, button.ayuda {
 /*****************
 		EFS
 ******************/
-.ef-input {
+.ef-input, .ef-upload {
 	border-right: #d4d0c8 2px solid;
 	border-top: #404040 2px solid;
 	border-left: #404040 2px solid;

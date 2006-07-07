@@ -88,7 +88,7 @@ class eventos
 		$evento = self::evento_estandar('baja', isset($etiqueta) ? $etiqueta : "&Eliminar", $en_botonera);	
 		$evento['baja']['maneja_datos'] = false;
 		$evento['baja']['confirmacion'] = "¿Desea ELIMINAR el registro?";
-		$evento['baja']['estilo'] = "ei-boton-eliminar";
+		$evento['baja']['estilo'] = "ei-boton-baja";
 		return $evento;
 	}
 

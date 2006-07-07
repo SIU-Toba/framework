@@ -409,5 +409,33 @@ class migracion_0_10_0 extends migracion_toba
 		$this->elemento->get_db()->ejecutar($sql);		
 	}
 	
+	/**
+	 * Los estilos de los botones de los eventos cambiaron
+	 *
+	 */
+	function proyecto__migracion_css_botones_evt()
+	{
+		$sql = " 
+			UPDATE apex_objeto_eventos
+			SET 
+				estilo = 'ei-boton'
+			WHERE
+					proyecto = '{$this->elemento->get_id()}'
+				AND	estilo = 'abm-input'
+		";
+		$this->elemento->get_db()->ejecutar($sql);	
+		
+		//--- BAJA
+		$sql = " 
+			UPDATE apex_objeto_eventos
+			SET 
+				estilo = 'ei-boton-baja'
+			WHERE
+					proyecto = '{$this->elemento->get_id()}'
+				AND	estilo = 'abm-input-eliminar'
+		";
+		$this->elemento->get_db()->ejecutar($sql);		
+	}
+	
 }
 ?>
