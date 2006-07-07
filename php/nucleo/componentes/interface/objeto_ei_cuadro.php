@@ -83,7 +83,7 @@ class objeto_ei_cuadro extends objeto_ei
 			$clave = $this->info_cuadro_columna[$a]['clave'];
 			$this->columnas[ $clave ] =& $this->info_cuadro_columna[$a];
 			//Sumarizacion general
-			if(isset($this->info_cuadro_columna[$a]['total'])){
+			if ($this->info_cuadro_columna[$a]['total'] == 1) {
 				$this->acumulador[$clave]=0;
 			}
 			//Estructura de datos
@@ -839,7 +839,7 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 		//Botonera
 		if ($this->hay_botones()) {
-			echo"<tr><td class='lista-subtitulo'>";
+			echo"<tr><td>";
 			$this->generar_botones();
 			echo "</td></tr>\n";
 		}
@@ -1034,7 +1034,7 @@ class objeto_ei_cuadro extends objeto_ei
 				$clave_seleccionada = $this->clave_seleccionada;	
 			
 			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
-			$estilo_seleccion = ($esta_seleccionada) ? "lista-seleccion" : "";
+			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "";
             echo "<tr>\n";
  			//---> Creo las CELDAS de una FILA <----
             for ($a=0;$a< $this->cantidad_columnas;$a++)
@@ -1068,7 +1068,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$metodo_filtro = 'filtrar_evt__' . $id;
 						if(method_exists($this, $metodo_filtro)){
 							if(! $this->$metodo_filtro($f) ){
-								echo "<td class='lista-col-titulo' width='1%'>&nbsp;</td>\n";
+								echo "<td class='ei-cuadro-col-tit' width='1%'>&nbsp;</td>\n";
 								continue;
 							}
 						}
@@ -1104,7 +1104,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$tip = '';
 						if (isset($evento['ayuda']))
 							$tip = $evento['ayuda'];
-						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-evt-fila';
+						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-boton-fila';
 						$tab_order = 100;//Esto esta MAAL!!!
 						$acceso = tecla_acceso( $evento["etiqueta"] );
 						$html = '';
@@ -1118,7 +1118,7 @@ class objeto_ei_cuadro extends objeto_ei
 						$html .= $acceso[0];
 						$tecla = $acceso[1];
 						//Creo JS del EVENTO
-						echo "<td class='lista-col-titulo' width='1%'>\n";
+						echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
 						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase, false);
 		            	echo "</td>\n";
 					}
@@ -1167,7 +1167,7 @@ class objeto_ei_cuadro extends objeto_ei
 	            }
 	            $estilo_columna = $this->info_cuadro_columna[$a]["estilo_titulo"];
 	            if(!$estilo_columna){
-	            	$estilo_columna = 'lista-col-titulo';
+	            	$estilo_columna = 'ei-cuadro-col-tit';
 	            }
 	            echo "<td class='$estilo_columna' $ancho>\n";
 	            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
@@ -1177,7 +1177,7 @@ class objeto_ei_cuadro extends objeto_ei
 	        }
 	        //-- Eventos sobre fila
 			if($this->cantidad_columnas_extra > 0){
-				echo "<td class='lista-col-titulo' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
+				echo "<td class='ei-cuadro-col-tit' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
 			}
 	        echo "</tr>\n";
         }
@@ -1210,7 +1210,7 @@ class objeto_ei_cuadro extends objeto_ei
 					echo  "<tr>\n";
 		            $estilo_columna = $this->info_cuadro_columna[$indice]["estilo_titulo"];
 		            if(!$estilo_columna){
-		            	$estilo_columna = 'lista-col-titulo';
+		            	$estilo_columna = 'ei-cuadro-col-tit';
 		            }
 	                echo  "<td width='95%' align='center' class='$estilo_columna'>&nbsp;" . $titulo ."&nbsp;</td>\n";
 					echo  "<td width='5%'>";
@@ -1302,13 +1302,13 @@ class objeto_ei_cuadro extends objeto_ei
 		//Titulo
 		if(isset($titulo)){
 			echo "<tr>\n";
-			echo "<td class='lista-col-titulo' colspan='2'>$titulo</td>\n";
+			echo "<td class='ei-cuadro-col-tit' colspan='2'>$titulo</td>\n";
 			echo "</tr>\n";
 		}
 		//Datos
 		foreach($datos as $desc => $valor){
 			echo "<tr>\n";
-			echo "<td class='lista-col-titulo'>$desc</td>\n";
+			echo "<td class='ei-cuadro-col-tit'>$desc</td>\n";
 			echo "<td class='$css'>$valor</td>\n";
 			echo "</tr>\n";
 		}
@@ -1349,7 +1349,7 @@ class objeto_ei_cuadro extends objeto_ei
 				$img = recurso::imagen_apl("paginacion/ultimo.gif");
 				$ultimo = recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
-			echo "<div class='lista-pag-bot'>";
+			echo "<div class='ei-cuadro-pag'>";
 			echo "$primero $anterior Página <strong>{$this->pagina_actual}</strong> de ";
 			echo "<strong>{$this->cantidad_paginas}</strong> $siguiente $ultimo";
 			echo "</div>";

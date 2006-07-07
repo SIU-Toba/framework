@@ -109,7 +109,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    static function submit($nombre,$valor,$clase="ef-boton",$extra="", $tecla = null)
+    static function submit($nombre,$valor,$clase="ei-boton",$extra="", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
@@ -127,7 +127,7 @@ class form {
     }
  //________________________________________________________________________________________________________
 
-    static function button($nombre,$valor,$extra="",$clase="ef-boton", $tecla = null)
+    static function button($nombre,$valor,$extra="",$clase="ei-boton", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
@@ -137,7 +137,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    static function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ef-boton", $con_id=true)
+    static function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ei-boton", $con_id=true)
     // Boton con html embebido
     {
 		$acceso = recurso::ayuda($tecla, $tip, $clase);
@@ -155,7 +155,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    static function archivo($nombre,$valor=null,$clase="ef-input-upload",$extra="")
+    static function archivo($nombre,$valor=null,$clase="ef-upload",$extra="")
     // Boton de SUBMIT
     {
         if(isset($valor)) $valor = "value='$valor'";

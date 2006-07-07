@@ -28,7 +28,7 @@ class info_ei_filtro extends info_ei
 			case 'basico':
 				$evento[0]['identificador'] = "filtrar";
 				$evento[0]['etiqueta'] = "&Filtrar";
-				$evento[0]['estilo'] = "abm-input-eliminar";
+				$evento[0]['estilo'] = "ei-boton-filtrar";
 				$evento[0]['orden'] = 1;
 				$evento[0]['en_botonera'] = 1;		
 				$evento[0]['maneja_datos'] = 1;

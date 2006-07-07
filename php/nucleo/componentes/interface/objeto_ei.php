@@ -179,7 +179,7 @@ class objeto_ei extends objeto
 		$tip = '';
 		if (isset($this->eventos[$id]['ayuda']))
 			$tip = $this->eventos[$id]['ayuda'];
-		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "abm-input";
+		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "ei-boton";
 		$tab_order = 0;//ATENCION: Esto esta MAAL!!!
 		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
 		$html = '';

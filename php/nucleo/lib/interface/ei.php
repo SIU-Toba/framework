@@ -155,36 +155,6 @@
 	}
 //----------------------------------------------------------------------------------	
 	
-	function ei_cuadro_vertical($datos,$titulo,$col_ver=array(),$col_formato=array(),$ancho="90%")
-/*
-	@@acceso: protegido
-	@@desc: Genera una tabla vertical del tipo propiedad: valor
-	@@param: array | Datos que hay que mostrar
-	@@param: string | Titulo
-	@@param: array | 
-	@@param:
-	@@param:
- 	@@retorno:
-*/
-	{
-		echo "<table width='$ancho' align='center' class='tabla-0'>";
-		echo "<tr><td colspan='2' class='lista-titulo'>$titulo&nbsp;&nbsp;</td></tr>";
-		foreach($datos as $nombre=>$valor){
-			$temp = ucwords(ereg_replace("_"," ",$nombre));
-			echo "<tr><td class='lista-col-titulo' width='120'>$temp</td>";
-			if(isset($col_formato[$nombre])){//Callback de formateo
-				$funcion = $col_formato[$nombre];
-				$valor = $funcion($valor);
-			}
-			if(isset($col_ver[$nombre])){//Estilo CSS
-				echo "<td class='lista-{$col_ver[$nombre]}'>$valor</td></tr>";
-			}else{
-				echo "<td class='lista-t'>$valor</td></tr>";
-			}
-		}
-		echo "</table>";
-	}
-//----------------------------------------------------------------------------------	
 
 	function ei_tabla($tabla,$identificador="Tabla NN")
 /*

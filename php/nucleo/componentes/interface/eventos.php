@@ -72,14 +72,14 @@ class eventos
 	static function alta($etiqueta=null, $en_botonera=true)
 	{
 		$evento = self::evento_estandar('alta', isset($etiqueta) ? $etiqueta : "&Agregar", $en_botonera);
-		$evento['alta']['estilo'] = "abm-input";
+		$evento['alta']['estilo'] = "ei-boton-alta";
 		return $evento;
 	}
 	
 	static function modificacion($etiqueta=null, $en_botonera=true)
 	{
 		$evento = self::evento_estandar('modificacion', isset($etiqueta) ? $etiqueta : "&Modificar", $en_botonera);
-		$evento['modificacion']['estilo'] = "abm-input";
+		$evento['modificacion']['estilo'] = "ei-boton-mod";
 		return $evento;
 	}	
 	
@@ -88,7 +88,7 @@ class eventos
 		$evento = self::evento_estandar('baja', isset($etiqueta) ? $etiqueta : "&Eliminar", $en_botonera);	
 		$evento['baja']['maneja_datos'] = false;
 		$evento['baja']['confirmacion'] = "¿Desea ELIMINAR el registro?";
-		$evento['baja']['estilo'] = "abm-input-eliminar";
+		$evento['baja']['estilo'] = "ei-boton-eliminar";
 		return $evento;
 	}
 
@@ -96,7 +96,7 @@ class eventos
 	static function cancelar($etiqueta=null, $en_botonera=true)
 	{
 		$evento = self::evento_estandar('cancelar', isset($etiqueta) ? $etiqueta : "&Cancelar", $en_botonera);
-		$evento['cancelar']['estilo'] = "abm-input";
+		$evento['cancelar']['estilo'] = "ei-boton-canc";
 		$evento['cancelar']['maneja_datos'] = false;
 		return $evento;	
 	}
@@ -106,7 +106,7 @@ class eventos
 	static function filtrar($etiqueta=null, $en_botonera=true)
 	{
 		$evento = self::evento_estandar('filtrar', isset($etiqueta) ? $etiqueta : "&Filtrar", $en_botonera);
-		$evento['filtrar']['estilo'] = "abm-input-eliminar";
+		$evento['filtrar']['estilo'] = "ei-boton-filtrar";
 		return $evento;	
 	}
 	

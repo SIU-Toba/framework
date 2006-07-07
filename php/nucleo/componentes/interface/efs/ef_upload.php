@@ -23,7 +23,7 @@ class ef_upload extends ef
 		$salida = "";
 		if (! $this->solo_lectura) {
 			if (isset($nombre_archivo)) {
-				$salida .= form::archivo($this->id_form, null, "ef-input-upload", "style='display:none'");
+				$salida .= form::archivo($this->id_form, null, "ef-upload", "style='display:none'");
 				$salida .= "<br><div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
 				$salida .= form::checkbox("{$this->id_form}_check", null, 1, 'ef-checkbox', "onclick=\"{$this->objeto_js()}.set_editable()\"");
 				$salida .= "<label for='{$this->id_form}_check'>Cambiar el Archivo</label>";
@@ -35,7 +35,7 @@ class ef_upload extends ef
 			if (isset($nombre_archivo)) {
 				$salida = "<div class='ef-upload-desc'>". $nombre_archivo ."</div>";
 			} else {
-				$salida = form::archivo($this->id_form, null, "ef-input-upload", "disabled='disabled'");
+				$salida = form::archivo($this->id_form, null, "ef-upload", "disabled='disabled'");
 			}
 		}
 		return $salida;

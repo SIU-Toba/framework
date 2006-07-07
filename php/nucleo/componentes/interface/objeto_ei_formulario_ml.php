@@ -552,15 +552,14 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
 		if(count($this->lista_ef_totales)>0){
-			echo "\n<tr>\n";
+			echo "\n<tr  class='ei-ml-fila-total'>\n";
 			if ($this->info_formulario['filas_numerar']) {
-				echo "<td class='abm-total'>&nbsp;</td>\n";
+				echo "<td>&nbsp;</td>\n";
 			}
 			foreach ($this->lista_ef_post as $ef){
-				echo "<td  class='abm-total'>\n";
-					$this->elemento_formulario[$ef]->ir_a_fila("s");
-					$id_form_total = $this->elemento_formulario[$ef]->get_id_form();
-					echo "<div id='$id_form_total' class='abm-total'>&nbsp;</div>";
+				$this->elemento_formulario[$ef]->ir_a_fila("s");
+				$id_form_total = $this->elemento_formulario[$ef]->get_id_form();
+				echo "<td id='$id_form_total'>&nbsp\n";
 				echo "</td>\n";
 			}
 	        //-- Eventos sobre fila
@@ -637,7 +636,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 					$tip = '';
 					if (isset($evento['ayuda']))
 						$tip = $evento['ayuda'];
-					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-evt-fila';
+					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-boton-fila';
 					$tab_order = null;
 					$acceso = tecla_acceso( $evento["etiqueta"] );
 					$html = '';
@@ -762,10 +761,10 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		//-- Encabezado
 		echo "<tr>\n";
 		if ($this->info_formulario['filas_numerar']) {
-			echo "<th class='lista-col-titulo'>&nbsp;</th>\n";
+			echo "<th class='ei-ml-col-tit'>&nbsp;</th>\n";
 		}
 		foreach ($this->lista_ef_post	as	$ef){
-			echo "<th class='lista-col-titulo'>\n";
+			echo "<th class='ei-cuadro-col-tit'>\n";
 			echo $this->elemento_formulario[$ef]->get_etiqueta();
 			echo "</th>\n";
 		}
