@@ -116,7 +116,7 @@ class objeto_datos_tabla extends objeto
 	private function notificar_contenedor($evento, $param1=null, $param2=null)
 	{
 		if(isset($this->contenedor)){
-			$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
+			//$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
 		}
 	}
 
@@ -144,6 +144,27 @@ class objeto_datos_tabla extends objeto
 		}
 	}
 
+	/**
+	*	Busca en la tabla padre el id de fila padre que corresponde a la fila hija especificada
+	*/
+	function get_id_fila_padre($tabla_padre, $id_fila)
+	{
+		$id_fila = $this->normalizar_id($id_fila);
+		if(!isset($this->relaciones_con_padres[$tabla_padre])) {
+			throw new excepcion_toba("La tabla padre '$tabla_padre' no existe");	
+		}
+		$id_fila_padre = $this->relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
+		if ( !($id_fila_padre === false) ) {
+			return $id_fila_padre;
+		}
+	}
+
+	function get_relacion()
+	{
+		if (isset($this->contenedor)) {
+			return $this->contenedor;		
+		}
+	}
 
 	//-------------------------------------------------------------------------------
 	//-- Preguntas BASICAS
@@ -971,7 +992,36 @@ class objeto_datos_tabla extends objeto
 		//Disparo la actulizacion de los mapeos con las tablas padres
 		$this->notificar_padres_carga();
 	}
-	
+
+	/**
+	 * Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior)
+	 * @param array $datos en formato RecordSet
+	 */
+	function anexar_datos($datos)
+	{
+		$this->log("Anexado de datos [" . count($datos) . "]");
+		//Controlo que no se haya excedido el tope de registros
+		if ($this->tope_max_filas != 0) {
+			$cantidad_filas_existentes = count($this->get_id_filas(false));				
+			$filas_resultantes = $cantidad_filas_existentes + count($datos);
+			if( $this->tope_max_filas < $filas_resultantes ){
+				$this->log("Se sobrepaso el tope maximo de registros en carga: $filas_resultantes registros" );
+				throw new excepcion_toba("Los registros cargados superan el TOPE MAXIMO de registros");
+			}
+		}
+		//Agrego las filas
+		foreach( $datos as $fila ){
+			$this->datos[$this->proxima_fila] = $fila;
+			$this->cambios[$this->proxima_fila]['estado']="db";
+			$this->cambios[$this->proxima_fila]['clave']= $this->get_clave_valor($this->proxima_fila);			
+			$this->proxima_fila++;
+		}
+		//Marco la tabla como cargada
+		$this->cargada = true;
+		//Disparo la actulizacion de los mapeos con las tablas padres
+		$this->notificar_padres_carga();
+	}
+		
 	/**
 	 * Sincroniza la tabla en memoria con el medio físico a travéz del administrador de persistencia.
 	 *
@@ -1028,15 +1078,6 @@ class objeto_datos_tabla extends objeto
 	//-------------------------------------------------------------------------------
 
 	/*--- Del AP a mi ---*/
-
-	/**
-	 * @deprecated desde 0.8.4, usar cargar_con_datos
-	 */
-	function set_datos($datos)
-	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_con_datos');
-		return $this->cargar_con_datos($datos);		
-	}
 
 	/**
 	 * El AP avisa que terminóla sincronización

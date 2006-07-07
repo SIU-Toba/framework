@@ -218,6 +218,15 @@ class relacion_entre_tablas
 		}
 	}
 
+	function get_id_padre($id_fila_hijo)
+	{
+		foreach (array_keys($this->mapeo_filas) as $padre) {
+			$pos = array_search($id_fila_hijo, $this->mapeo_filas[$padre]);
+			return $padre;
+		}
+		return false;		
+	}
+
 	/**
 	 * Busca en la tabla padre el id que machea con la fila hijo
 	 * @param array $fila_hijo Asociativo campo-valor, en la fila deben estar seteados aquellos campos que mantienen la asociación con la tabla padre
@@ -240,9 +249,9 @@ class relacion_entre_tablas
 	
 
 	/**
-	 * Busca en el mapeo el padre que tiene un hijo dado
+	 * Busca en el mapeo el padre que tiene un hijo dado.
 	 * @param mixed $id_fila_hijo Id. interno de la fila hijo
-	 * @return array [0] => id. interno del padre , [1] => posición dentro del mapeo
+	 * @return array [0] => id. interno del padre , [1] => posición del hijo dentro del mapeo
 	 */
 	protected function buscar_padre_de($id_fila_hijo)
 	{

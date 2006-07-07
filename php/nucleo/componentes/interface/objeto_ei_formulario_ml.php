@@ -584,7 +584,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		$this->filas_enviadas = array();
 
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
-		if ( $this->info_formulario['filas_agregar_online']) {
+		if ( $this->info_formulario['filas_agregar'] && $this->info_formulario['filas_agregar_online']) {
 			$this->datos["__fila__"] = array();
 			$this->ordenes[] = "__fila__";
 		}

@@ -126,13 +126,13 @@ class ap_tabla_db implements ap_tabla
 	 * necesitan mantenerse junto al conjunto de datos.
 	 *
 	 * @param string $metodo Método que obtiene los datos
-	 * @param string $clase  Clase a la que pertenece el método
-	 * @param string $include Archivo donde se encuentra la clase
+	 * @param string $clase  Clase a la que pertenece el método.	Si es NULL usa el mismo AP
+	 * @param string $include Archivo donde se encuentra la clase.	Si es NULL usa el mismo AP
 	 * @param array $col_parametros Columnas que espera recibir el DAO
 	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 */
-	public function activar_proceso_carga_externa_dao($metodo, $clase, $include, $col_parametros, $col_resultado, $sincro_continua=true)
+	public function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
 		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -197,11 +197,11 @@ class ap_tabla_db implements ap_tabla
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
-	public function cargar_por_clave($clave)
+	public function cargar_por_clave($clave, $anexar_datos=false)
 	{
 		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where($clave);
-		return $this->cargar_con_where_from_especifico($where);
+		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos);
 	}
 
 
@@ -210,13 +210,13 @@ class ap_tabla_db implements ap_tabla
 	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
-	function cargar_con_where($clausula)
+	function cargar_con_where($clausula, $anexar_datos=false)
 	{
 		$where_basico = $this->generar_clausula_where();
 		if (trim($clausula) != '') {
 			$where_basico[] = $clausula;
 		}
-		return $this->cargar_con_where_from_especifico($where_basico);
+		return $this->cargar_con_where_from_especifico($where_basico, null, $anexar_datos);
 	}
 
 	/**
@@ -226,13 +226,13 @@ class ap_tabla_db implements ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_con_where_from_especifico($where=null, $from=null)
+	public function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
 	{
 		asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
 		asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
 		$this->log("Cargar de DB");
 		$sql = $this->generar_sql_select($where, $from);
-		return $this->cargar_con_sql($sql);
+		return $this->cargar_con_sql($sql, $anexar_datos);
 	}
 
 	/**
@@ -240,7 +240,7 @@ class ap_tabla_db implements ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_con_sql($sql)
+	public function cargar_con_sql($sql, $anexar_datos=false)
 	{
 		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
@@ -251,7 +251,7 @@ class ap_tabla_db implements ap_tabla
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new excepcion_toba('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
-		return $this->cargar_con_datos($datos);
+		return $this->cargar_con_datos($datos, $anexar_datos);
 	}
 	
 	/**
@@ -260,7 +260,7 @@ class ap_tabla_db implements ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
-	public function cargar_con_datos($datos)
+	public function cargar_con_datos($datos, $anexar_datos=false)
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
@@ -281,7 +281,11 @@ class ap_tabla_db implements ap_tabla
 				}	
 			}
 			// Lleno la TABLA
-			$this->objeto_tabla->cargar_con_datos($datos);
+			if( $anexar_datos ) {
+				$this->objeto_tabla->anexar_datos($datos);
+			} else {
+				$this->objeto_tabla->cargar_con_datos($datos);
+			}
 			//ei_arbol($datos);
 			return true;
 		}else{
@@ -773,6 +777,10 @@ class ap_tabla_db implements ap_tabla
 					if(isset($evento) && isset($this->secuencias[$col_llave])){
 						throw new excepcion_toba('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
+//					if(!isset($fila[$col_llave])){
+//						toba::get_logger()->error("AP_TABLA_DB: Falta el parametro '$col_llave' en fila $fila", 'toba');
+//						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+//					}
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
 				if($parametros['tipo']=="sql")											//--- carga SQL!!
@@ -800,8 +808,16 @@ class ap_tabla_db implements ap_tabla
 					}
 					//ei_arbol($param_dao,"Parametros para el DAO");
 					// - 2 - Recupero datos
-					include_once($parametros['include']);
-					$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
+					if (isset($parametros['clase']) && isset($parametros['include'])) {
+						include_once($parametros['include']);
+						$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
+					} else {
+						if( method_exists($this, $parametros['metodo'])) {
+							$datos = $this->$parametros['metodo']($param_dao);				
+						} else {
+							throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
+						}
+					}
 				}
 				//ei_arbol($datos,"datos");
 				//-[ 2 ]- Seteo los valores recuperados en las columnas correspondientes
@@ -809,14 +825,15 @@ class ap_tabla_db implements ap_tabla
 					foreach( $parametros['col_resultado'] as $columna_externa ){
 						if(is_array($columna_externa)){
 							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
-							if(!isset($datos[0][$columna_externa['origen']])){
+							if(!array_key_exists($columna_externa['origen'], $datos[0])){
 								toba::get_logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'", 'toba');
 								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
 						}else{
-							if(!isset($datos[0][$columna_externa])){
+							if(!array_key_exists($columna_externa, $datos[0])){
 								toba::get_logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'", 'toba');
+								toba::get_logger()->error($datos, 'toba');
 								throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];

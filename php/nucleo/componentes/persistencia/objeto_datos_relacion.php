@@ -67,6 +67,7 @@ class objeto_datos_relacion extends objeto
 			$this->dependencias[$dep]->set_tope_min_filas($cant_min);
 			$this->dependencias[$dep]->set_tope_max_filas($cant_max);
 			$this->dependencias[$dep]->set_nombre_rol($dep);
+			$this->dependencias[$dep]->registrar_contenedor($this);
 		}
 	}
 
