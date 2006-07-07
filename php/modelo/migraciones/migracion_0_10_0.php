@@ -205,7 +205,7 @@ class migracion_0_10_0 extends migracion_toba
 	/**
 	 * El editable numero migra su parametro CIFRAS por TAMANO, que es en realidad lo que es!
 	 */
-	function proyecto__parametros_editable_numero()
+	function proyecto__ef_parametros_editable_numero()
 	{
 		$sql = "
 			SELECT 
@@ -238,7 +238,7 @@ class migracion_0_10_0 extends migracion_toba
 		}
 	}
 
-	function proyecto__normalizacion_parametros()
+	function proyecto__ef_normalizacion_parametros()
 	{
 		$correlacion = array(
 			'estado' =>'estado_defecto',
@@ -391,5 +391,23 @@ class migracion_0_10_0 extends migracion_toba
 		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
+	
+	/**
+	 * La clase lista-col-titulo paso a ser ei-cuadro-col-tit
+	 *
+	 */
+	function proyecto__migracion_css_cuadro()
+	{
+		$sql = " 
+			UPDATE apex_objeto_ei_cuadro_columna
+			SET 
+				estilo_titulo = 'ei-cuadro-col-tit'
+			WHERE
+					objeto_cuadro_proyecto = '{$this->elemento->get_id()}'
+				AND	estilo_titulo = 'lista-col-titulo'
+		";
+		$this->elemento->get_db()->ejecutar($sql);		
+	}
+	
 }
 ?>

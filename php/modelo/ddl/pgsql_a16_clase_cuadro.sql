@@ -160,7 +160,7 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	clave          					varchar(40)    	NOT NULL,		
 	orden				            float      		NOT NULL,
 	titulo                        	varchar(100)	NULL,
-	estilo_titulo                   varchar(100)	DEFAULT 'lista-col-titulo' NULL,
+	estilo_titulo                   varchar(100)	DEFAULT 'ei-cuadro-col-tit' NULL,
 	estilo    						int4		    NOT NULL,	
 	ancho							varchar(10)		NULL,		
 	formateo   						int4		    NULL,		
