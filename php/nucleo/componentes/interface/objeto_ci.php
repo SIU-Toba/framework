@@ -812,7 +812,7 @@ class objeto_ci extends objeto_ei
 			echo form::hidden($this->submit."__param", '');
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
-		echo "<table $ancho class='ei ci' id='{$this->objeto_js}_cont'><tr><td>";
+		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td>";
 		$this->barra_superior(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
@@ -831,7 +831,7 @@ class objeto_ci extends objeto_ei
 			$this->generar_botones('ci-botonera');
 		}
 		//--> Cuerpo del CI
-		$alto = isset($this->info_ci["alto"]) ? "style='height:" . $this->info_ci["alto"] . "'" : "";
+		$alto = isset($this->info_ci["alto"]) ? "style='_height:".$this->info_ci["alto"].";min-height:" . $this->info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
 		$this->obtener_html_pantalla();
 		echo "</div>\n";

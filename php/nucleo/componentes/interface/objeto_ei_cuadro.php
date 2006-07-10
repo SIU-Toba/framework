@@ -797,7 +797,7 @@ class objeto_ei_cuadro extends objeto_ei
 		//-- Tabla BASE
 		$mostrar_cabecera = true;
 		$ancho = convertir_a_medida_tabla($ancho);
-        echo "\n<table class='objeto-base' $ancho>\n";
+        echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
         if($mostrar_cabecera){
             echo "<tr><td>";
             $this->barra_superior(null, true,"ei-cuadro-barra-sup");
@@ -806,7 +806,7 @@ class objeto_ei_cuadro extends objeto_ei
 		//-- INICIO zona COLAPSABLE
 		echo"<tr><td>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
-        echo "<TABLE class='ei-cuadro' $colapsado id='cuerpo_{$this->objeto_js}'>";
+        echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
 		echo"<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();		

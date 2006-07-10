@@ -6,10 +6,14 @@
 	background-color: yellow; 
 	padding: 1px;
 }
-body > .div-editor { 
-	position: absolute; 
-	position: fixed; 
+body .div-editor { 
+	position: fixed;
+	_position: absolute;
 	left: 0px;
+}
+body * .div-editor {
+	position: static;
+	
 }
 #vinculo_logger {
 	white-space: nowrap;
@@ -61,19 +65,18 @@ a > .ayuda, a.ayuda, button.ayuda {
 /*************************************
 		Elementos de Interface
 **************************************/
-.ei {
-	border-right: #404040 2px solid;
+.ei-base {
+	border-right: #404040 1px solid;
 	border-top: #ffffff 1px solid;	
 	border-left: #ffffff 1px solid;	
-	border-bottom: #404040 2px solid;	
+	border-bottom: #404040 1px solid;
 	padding: 0;
 	margin: 0;	
 	font-size: 10px;
 	border-collapse: collapse;
 	background-color: #d4d0c8;
 	text-align: left;
-	empty-cells: show;
-	width: auto;
+	empty-cells: hide;
 }
 .ei-cuerpo {}
 .ei-barra-sup {
@@ -102,7 +105,6 @@ a > .ayuda, a.ayuda, button.ayuda {
 }
 .ei-botonera {
 	clear: both;
-	padding: 2px 10px 2px 2px;
 	text-align: right;	
 }
 .ei-boton, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
@@ -128,7 +130,7 @@ a > .ayuda, a.ayuda, button.ayuda {
 		Form. Común
 **************************/
 
-.ei-form {}
+.ei-form-base, ei-form-cuerpo {}
 .ei-form-fila {
 	padding: 0px 10px 5px 8px;
 	margin: 0;
@@ -275,7 +277,9 @@ a > .ayuda, a.ayuda, button.ayuda {
 /*************************
 		EI - CUADRO
 **************************/
-.ei-cuadro {
+.ei-cuadro-base {
+}
+.ei-cuadro-cuerpo {
 	width: 100%;
 }
 .ei-cuadro-cabecera, .ei-cuadro-pie {
@@ -288,7 +292,6 @@ a > .ayuda, a.ayuda, button.ayuda {
 	 text-align: center;
 }
 .ei-cuadro-col-tit, .ei-ml-col-tit {
-	border: 1px solid #231f20;
 	font-weight: bold;
 	font-size: 10px;
 	vertical-align: bottom;
@@ -307,8 +310,8 @@ a > .ayuda, a.ayuda, button.ayuda {
 }
 
 .ei-cuadro-cc-fondo {
-	PADDING: 0px;
-	BACKGROUND-COLOR: #f5f5f5; 
+	padding: 0px;
+	background-color: #f5f5f5; 
 }
 
 /*-- NIVEL 0 --*/
@@ -418,7 +421,7 @@ a > .ayuda, a.ayuda, button.ayuda {
 /*************************
 		CI
 **************************/
-.ci {
+.ci-base {
 }
 .ci-barra-sup {
 	background-color: #514a84;
@@ -435,6 +438,7 @@ a > .ayuda, a.ayuda, button.ayuda {
 	color: #000000;
 	background-color: #d4d0c8;
 	text-align: left;
+	height: 100%;
 }
 .ci-pant-desc, .ci-wiz-enc {
 	padding: 5px;
@@ -611,9 +615,9 @@ a > .ayuda, a.ayuda, button.ayuda {
 	text-decoration: underline;
 }
 .ei-arbol-nodo {
-	 vertical-align: middle;
+	vertical-align: middle;
 	clear: right;
-	 border-top: #bbbbbb 1px dotted;
+	border-top: #bbbbbb 1px dotted;
 }
 .ei-arbol-nombre {
 	 COLOR: #222222;

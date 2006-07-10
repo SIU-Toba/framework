@@ -105,7 +105,7 @@ function mostrar_ocultar_frame() {
 	</tr>
 	</table>
 </td></tr>
-<tr><td  ><? echo gif_nulo(1,2) ?></td></tr>
+<tr><td class='listado-barra-superior' ><? echo gif_nulo(1,2) ?></td></tr>
 <tr><td  class='listado-linea' ><? echo gif_nulo(1,1) ?></td></tr>
 <tr><td  class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
 <tr><td class='listado-normal'>

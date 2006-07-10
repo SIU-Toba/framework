@@ -685,7 +685,7 @@ class objeto_ei_formulario extends objeto_ei
 		if (isset($this->info_formulario["ancho"])) {
 			$ancho = convertir_a_medida_tabla($this->info_formulario["ancho"]);
 		}
-		echo "<table class='objeto-base' $ancho id='{$this->objeto_js}_cont'>";
+		echo "<table class='ei-base ei-form-base' $ancho id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
 		$this->barra_superior(null, true,"ei-form-barra-sup");
 		echo "</td></tr>\n";
@@ -708,7 +708,7 @@ class objeto_ei_formulario extends objeto_ei
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 	
-		echo "<div class='ei-cuerpo ei-form' $ancho id='cuerpo_{$this->objeto_js}'>";
+		echo "<div class='ei-cuerpo ei-form-cuerpo' $ancho id='cuerpo_{$this->objeto_js}'>";
 		$hay_colapsado = false;
 		foreach ($this->lista_ef_post as $ef){
 			if (! $this->elemento_formulario[$ef]->esta_expandido()) {

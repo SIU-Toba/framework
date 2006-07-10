@@ -1,10 +1,3 @@
-.ei-base {
-	clear: both;
-	background-color: #cac7c2;
-	padding: 2px 2px 2px 2px;
-	color: #f0f1ff;
-	text-align: right;
-}
 .abm-fila, .abm-fila-oculta {
 	padding: 0px 10px 5px 8px;
 	margin: 0;
@@ -320,21 +313,7 @@ TABLE.tabla-1 {
 	 empty-cells: show
 }
 TD.celda-vacia {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 PADDING-TOP: 0px
-}
-
-TD.celda-vacia {
-	PADDING-RIGHT: 0px;
-	 PADDING-LEFT: 0px;
-	 PADDING-BOTTOM: 0px;
-	 MARGIN: 0px;
-	 VERTICAL-ALIGN: top;
-	 PADDING-TOP: 0px
+	padding: 0;
 }
 TABLE.tabla-2 {
 	PADDING-RIGHT: 0px;
