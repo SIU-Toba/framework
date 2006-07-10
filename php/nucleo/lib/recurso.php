@@ -180,51 +180,32 @@ class recurso {
 	}
 	
 	
-	/**
-	*	Dado el nombre de una plantilla, encuentra la url  si es que existe
-	*	Para esto primero busca en el proyecto y si no lo encuentra lo busca en el mismo toba
-	*/
-	static function css($nombre=null)
-	{
-		$nombre = isset($nombre)? $nombre: info_proyecto::instancia()->get_parametro('estilo');
-		$hilo = toba::get_hilo();
-		//Si esta abierta la sesion
-		if ($hilo->sesion_abierta()) {
-			$proyecto = $hilo->obtener_proyecto();
-		} else {
-			//Si no se trata de buscar el proyecto en el PA
-			if (defined('apex_pa_proyecto')) {
-				$proyecto = apex_pa_proyecto;
-			} else {
-				$proyecto = "toba";	
-			}
-		}
-		//Si es un proyecto particular, buscar primero en el mismo		
-		if($proyecto != "toba") {
-			$path = toba_dir() . "/proyectos/$proyecto/www/css/$nombre.css";
-			if (file_exists($path)) {
-				return recurso::path_pro($proyecto) . "/css/$nombre.css";
-			}
-		}
-		//Sino buscarlo en el proyecto toba
- 		if (file_exists(toba_dir()."/www/css/$nombre.css")) {
-			return recurso::path_apl()."/css/$nombre.css";
-		}
-	}
-
 
 	/**
 	*	Crea el tag <link>
 	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
 	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
+	* 
+	* 	@todo El path a los proyectos esta asumido como toba_dir()/proyectos
 	*/
 	static function link_css($estilo=null,  $rol='screen')
 	{
 		$estilo = isset($estilo) ? $estilo : info_proyecto::instancia()->get_parametro('estilo');
-		$url = recurso::css($estilo);
-		if ($url != null) {
-			return "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
+		$link = '';
+		
+		//Busca primero en el nucleo
+ 		if (file_exists(toba_dir()."/www/css/$estilo.css")) {
+			$url = recurso::path_apl()."/css/$estilo.css";
+			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
 		}
+		//Busca tambien en el proyecto
+		$proyecto = info_proyecto::get_id();
+		$path = toba_dir() . "/proyectos/$proyecto/www/css/$estilo.css";
+		if (file_exists($path)) {
+			$url = recurso::path_pro($proyecto) . "/css/$estilo.css";
+			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
+		}
+		return $link;
 	}
 }
 ?>

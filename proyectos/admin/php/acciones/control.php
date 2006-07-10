@@ -4,8 +4,6 @@
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-barra-superior-tabn';\"";
-	ei_html_cabecera($this->info['basica']["item_nombre"], recurso::css(),"control");
-	js::cargar_consumos_basicos();
 ?>
 <script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
