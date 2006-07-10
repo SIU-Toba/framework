@@ -125,6 +125,8 @@ class objeto_ei_arbol extends objeto_ei
 		$salida .= form::hidden($this->submit."__apertura_datos", '');
 		$salida .= form::hidden($this->submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
+		$salida .= "<div class='ei-base ei-arbol-base'>";
+		$this->barra_superior(null, true,"ei-arbol-barra-sup");		
 		if (isset($this->nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
 			$barra = "";
@@ -142,14 +144,16 @@ class objeto_ei_arbol extends objeto_ei
 				}
 				$salida .= $barra;
 			}
-
+			$salida .= "<div class='ei-cuerpo ei-arbol-cuerpo'>\n";
 			foreach ($this->nodos_inicial as $nodo_inicial) {
 				$salida .= "\n<ul $id class='ei-arbol-raiz'>";
 				$salida .= $this->recorrer_recursivo($nodo_inicial, true);
 				$salida .= "</ul>";
 				$id = null;	//El id lo tiene sólo el primer nodo
 			}
+			$salida .= "</div>";			
 		}
+		$salida .= "</div>";
 		echo $salida;
 	}
 	

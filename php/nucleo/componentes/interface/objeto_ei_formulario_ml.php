@@ -559,7 +559,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			foreach ($this->lista_ef_post as $ef){
 				$this->elemento_formulario[$ef]->ir_a_fila("s");
 				$id_form_total = $this->elemento_formulario[$ef]->get_id_form();
-				echo "<td id='$id_form_total'>&nbsp\n";
+				echo "<td id='$id_form_total'>&nbsp;\n";
 				echo "</td>\n";
 			}
 	        //-- Eventos sobre fila

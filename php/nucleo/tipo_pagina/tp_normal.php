@@ -46,7 +46,7 @@ class tp_normal extends tp_basico_titulo
 			echo form::abrir("multiproyecto",toba::get_hilo()->cambiar_proyecto(),"target = '_top'");
 		}	
 		?>
-		<table width='100%' height="<?=$this->alto_cabecera?>" class='menu-barra'><tr>
+		<table width='100%' style='height: <?=$this->alto_cabecera?>' class='menu-barra'><tr>
 		<td ><?=$this->mostrar_logo()?></td>
 		<td  width='100%'>&nbsp;</td>
 		<td>

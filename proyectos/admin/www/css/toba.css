@@ -217,6 +217,26 @@ TD.barra-obj-io {
 	 BACKGROUND-COLOR: #a7a5a6;
 	 TEXT-ALIGN: left
 }
+TD.barra-item-id {
+	PADDING-RIGHT: 2px;
+	 PADDING-LEFT: 2px;
+	 FONT-WEIGHT: bold;
+	 FONT-SIZE: 11px;
+	 PADDING-BOTTOM: 2px;
+	 COLOR: #231f20;
+	 PADDING-TOP: 2px;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #7b7979;
+	 TEXT-ALIGN: left
+}
+TD.barra-item-tit {
+	FONT-SIZE: 15px;
+	 BORDER-LEFT: #4f4c4d 1px solid;
+	 COLOR: #000000;
+	 BORDER-BOTTOM: #4f4c4d 1px solid;
+	 BACKGROUND-COLOR: #d4d0c8;
+	 TEXT-ALIGN: center
+}
 TD.barra-item-link {
 	BORDER-RIGHT: #4f4c4d 1px solid;
 	 PADDING-RIGHT: 2px;
