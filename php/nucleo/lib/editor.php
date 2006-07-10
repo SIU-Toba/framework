@@ -58,6 +58,12 @@ class editor
 			return $_SESSION['toba']['_editor_']['proyecto'];
 		}
 	}
+	
+	static function set_proyecto_cargado($proyecto)
+	{
+		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
+		self::get_parametros_previsualizacion(true);
+	}
 		
 	static function get_punto_acceso_editor()
 	{
@@ -110,9 +116,9 @@ class editor
 	/**
 	*	Recuperar las propiedades y setearlas en la sesion
 	*/
-	static function get_parametros_previsualizacion()
+	static function get_parametros_previsualizacion($refrescar = false)
 	{
-		if (!isset($_SESSION['toba']['_editor_']['previsualizacion'])) {
+		if ($refrescar || !isset($_SESSION['toba']['_editor_']['previsualizacion'])) {
 			$rs = self::get_parametros_previsualizacion_db();
 			if ($rs) {
 				$_SESSION['toba']['_editor_']['previsualizacion'] = $rs;

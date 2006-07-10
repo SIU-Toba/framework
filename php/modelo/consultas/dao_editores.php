@@ -7,6 +7,7 @@ class dao_editores
 	
 	/**
 	 * Retorna la lista de proyectos que el usuario actual puede modificar
+	 * @todo Utilizar la clase instancia
 	 */
 	static function get_proyectos_accesibles()
 	{

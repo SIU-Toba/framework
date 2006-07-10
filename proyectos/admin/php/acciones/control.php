@@ -1,9 +1,22 @@
 <?
-	require_once("nucleo/obsoleto/efs_obsoletos/ef.php");
+	require_once('modelo/catalogo_modelo.php');
+	
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-barra-superior-tabn';\"";
+                      
+	if (isset($_POST['admin_proyecto'])) {
+		editor::set_proyecto_cargado($_POST['admin_proyecto']);
+		$opciones = array('validar' => false);
+		$vinculo = toba::get_vinculador()->crear_vinculo('admin', '/admin/acceso', array(), $opciones);
+		
+		//--- Refresca los otros frames
+		echo js::abrir();
+		echo "top.location.href = '$vinculo';";
+		echo js::cerrar();
+	}
+	echo form::abrir("cambiar_proyecto", '');                        
 ?>
 <script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
@@ -49,35 +62,19 @@ function mostrar_ocultar_frame() {
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
 
 <?
-	if(apex_pa_proyecto=="multi")
-	{
-		include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
-		//Si estoy en modo MULTIPROYECTO muestro un combo para cambiar a otro proyecto,
-		//sino muestro el nombre del proyecto ACTUAL
-		echo form::abrir("multiproyecto",$this->hilo->cambiar_proyecto(),"target = '_top'");
 		echo "<td class='listado-barra-superior-tabi2'>";
-		$parametros["sql"] = "SELECT 	p.proyecto, 
-                						p.descripcion_corta
-                				FROM 	apex_proyecto p,
-                						apex_usuario_proyecto up
-                				WHERE 	p.proyecto = up.proyecto
-								AND  	listar_multiproyecto = 1 
-								AND		up.usuario = '".$this->hilo->obtener_usuario()."'
-								ORDER BY orden;";
-		$proy =& new ef_combo_db(null,"",apex_sesion_post_proyecto,apex_sesion_post_proyecto,
-                                "Seleccione el proyecto en el que desea ingresar.","","",$parametros);
-		$proy->cargar_estado(editor::get_proyecto_cargado());//Que el elemento seteado
-		echo $proy->obtener_input(" onchange='multiproyecto.submit();'");
-		echo "</td>";
+		$actual = editor::get_proyecto_cargado();
+		$instancia = catalogo_modelo::instanciacion()->get_instancia(apex_pa_instancia, new mock_gui);
+		$proyectos = array();
+		foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
+			$proyectos[$proy] = $proy;
+		}
+		$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
+		echo form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
+		echo "</td>";		
 		echo "<td class='listado-barra-superior-tabi'>";
         echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false));
         echo "</td>";
-		echo form::cerrar();
-	}else{
-		echo "<td class='listado-barra-superior-tabn'>";
-		echo editor::get_proyecto_cargado();
-		echo "</td>";
-	}
 ?>
 		<td><? echo gif_nulo(3,1) ?></td>
 
@@ -152,3 +149,6 @@ function mostrar_ocultar_frame() {
 </td></tr>
 <tr><td  class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
 </table>
+<?php 
+	echo form::cerrar();
+?>

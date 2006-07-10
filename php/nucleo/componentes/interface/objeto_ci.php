@@ -812,12 +812,12 @@ class objeto_ci extends objeto_ei
 			echo form::hidden($this->submit."__param", '');
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
-		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td>";
+		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td>\n";
 		$this->barra_superior(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 		$this->obtener_html_cuerpo();
-		echo "</div>";
+		echo "\n</div>";
 		echo "</td></tr></table>";
 		$this->gi = true;		
 		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
