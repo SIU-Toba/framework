@@ -33,13 +33,13 @@ class ci_editor_php extends objeto_ci
 		$this->datos = $datos;
 		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
 		
-		require_once($this->datos['clase_archivo']);
-		if (class_exists($this->datos['clase'])) {
+//		require_once($this->datos['clase_archivo']);
+//		if (class_exists($this->datos['clase'])) {
 			$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
 			$clase_info = constructor_toba::get_info( $clave, $this->datos['clase']);
-		}else{
+/*		}else{
 			throw new excepcion_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
-		}
+		}*/
 		
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
 		/* Este mecanismo no es optimo... hay que pensarlo bien.
@@ -90,8 +90,8 @@ class ci_editor_php extends objeto_ci
 	{
 		$eis = parent::get_lista_ei();
 		if($this->archivo_php->existe()) {
-			$this->archivo_php->incluir();
-			if (! class_exists($this->datos['subclase']))
+//			$this->archivo_php->incluir();
+			if (! $this->archivo_php->contiene_clase($this->datos['subclase']))
 				$eis[] = "subclase";	//Se incluye el formulario para dar de alta subclases
 		}		
 		return $eis;

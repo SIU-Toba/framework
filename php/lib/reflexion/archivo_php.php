@@ -32,6 +32,11 @@ class archivo_php
 		return file_exists($this->nombre);
 	}
 
+	function contiene_clase($nombre)
+	{
+		return strpos(file_get_contents($this->nombre), "class $nombre") !== false;
+	}
+	
 	function mostrar()
 	{
 		require_once("3ros/PHP_Highlight.php");
@@ -51,11 +56,15 @@ class archivo_php
 		}
 		if (manejador_archivos::es_windows()) {
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
-			exec("$cmd $archivo");
+			$com = "$cmd $archivo";
+			toba::get_logger()->debug("Intentando abrir archivo con comando: '$com'");
+			exec($com);
 		} else {
 			$archivo = manejador_archivos::path_a_unix($this->nombre);
 			$archivo = str_replace(" ", "\\ ", $archivo);
-			$fp = popen("$cmd $archivo", 'r');
+			$com = "$cmd $archivo";
+			toba::get_logger()->debug("Intentando abrir archivo con comando: '$com'");
+			$fp = popen($com, 'r');
 			pclose($fp);
 		}
 	}

@@ -560,6 +560,7 @@ class objeto_ci extends objeto_ei
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
 			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
+			return false;			
 			//Puede implementarse un metodo generico de manejo de eventos? 
 		}
 	}

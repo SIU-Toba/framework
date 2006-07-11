@@ -29,6 +29,7 @@ class objeto_ei_cuadro extends objeto_ei
 	//Orden
     protected $orden_columna;                     	// Columna utilizada para realizar el orden
     protected $orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
+    protected $ordenado = false;
 	//Paginacion
 	protected $pagina_actual;
 	protected $tamanio_pagina;
@@ -54,6 +55,9 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->inicializar_manejo_clave();	
 		if($this->existe_paginado())
 			$this->inicializar_paginado();
+		if (isset($this->memoria['ordenado'])) {
+			$this->ordenado = $this->memoria['ordenado'];
+		}
 		$this->inspeccionar_sumarizaciones_usuario();
 	}
 
@@ -157,6 +161,9 @@ class objeto_ei_cuadro extends objeto_ei
 				$this->memoria["eventos"][$id] = true;
 			}
 		}
+		if (isset($this->ordenado)) {
+			$this->memoria['ordenado'] = $this->ordenado;	
+		}
 		$this->finalizar_seleccion();
 		$this->finalizar_ordenamiento();
 		$this->finalizar_paginado();
@@ -186,28 +193,38 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 		return $eventos;
 	}
-	
 
 	function disparar_eventos()
 	{
-		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
+		if (isset($this->memoria['eventos']['ordenar'])) {
+			$this->refrescar_ordenamiento();
+		}
+		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];		
 			//El evento estaba entre los ofrecidos?
 			if(isset($this->memoria['eventos'][$evento]) ) {
 				switch ($evento) {
 					case 'ordenar':
-						$this->cargar_ordenamiento();
-						$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+						if (isset($this->orden_columna) && isset($this->orden_sentido)) {
+							$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+							$exitoso = $this->reportar_evento( $evento, $parametros );							
+							if ($exitoso !== false) {
+								$this->ordenado = true;
+							} else {
+								$this->ordenado = false;	
+							}
+						}
 						break;
 					case 'cambiar_pagina':
 						$this->cargar_cambio_pagina();
 						$parametros = $this->pagina_actual;
+						$this->reportar_evento( $evento, $parametros );
 						break;
 					default:
 						$this->cargar_seleccion();
 						$parametros = $this->clave_seleccionada;
+						$this->reportar_evento( $evento, $parametros );						
 				}
-				$this->reportar_evento( $evento, $parametros );
 			}
 		}
 	}
@@ -234,13 +251,13 @@ class objeto_ei_cuadro extends objeto_ei
 		if (isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0) )
 		{
 			$this->validar_estructura_datos();
-			// - 2 - Paginacion
-			if( $this->existe_paginado() ){
-				$this->generar_paginado();
-			}
-			// - 3 - Ordenamiento
+			// - 2 - Ordenamiento
 			if($this->hay_ordenamiento()){
 				$this->ordenar();
+			}			
+			// - 3 - Paginacion
+			if( $this->existe_paginado() ){
+				$this->generar_paginado();
 			}
 			// - 4 - Cortes de control
 			if( $this->existen_cortes_control() ){
@@ -571,12 +588,8 @@ class objeto_ei_cuadro extends objeto_ei
 		}		
 	}
 
-	function cargar_ordenamiento()
+	function refrescar_ordenamiento()
 	{
-		//Estado inicial
-		unset($this->orden_columna);
-		unset($this->orden_sentido);
-
 		//¿Viene seteado de la memoria?
         if(isset($this->memoria['orden_columna']))
 			$this->orden_columna = $this->memoria['orden_columna'];
@@ -584,10 +597,23 @@ class objeto_ei_cuadro extends objeto_ei
 			$this->orden_sentido = $this->memoria['orden_sentido'];
 
 		//¿Lo cargo el usuario?
-		if (isset($_POST[$this->submit_orden_columna]) && $_POST[$this->submit_orden_columna] != '')
-			$this->orden_columna = $_POST[$this->submit_orden_columna];
-		if (isset($_POST[$this->submit_orden_sentido]) && $_POST[$this->submit_orden_sentido] != '')
-			$this->orden_sentido = $_POST[$this->submit_orden_sentido];
+		if (isset($_POST[$this->submit_orden_columna]) && $_POST[$this->submit_orden_columna] != '') {
+			$nueva_col = $_POST[$this->submit_orden_columna];
+		}
+		if (isset($_POST[$this->submit_orden_sentido]) && $_POST[$this->submit_orden_sentido] != '') {
+			$nuevo_sent = $_POST[$this->submit_orden_sentido];
+		}
+		if (isset($nueva_col) && isset($nuevo_sent)) {
+			//Si se vuelve a pedir el mismo ordenamiento, se anula			
+			if (isset($this->orden_columna) && $nueva_col == $this->orden_columna &&
+				isset($this->orden_sentido) && $nuevo_sent == $this->orden_sentido) {
+				unset($this->orden_columna);
+				unset($this->orden_sentido);
+			} else {
+				$this->orden_columna = $nueva_col;
+				$this->orden_sentido = $nuevo_sent;
+			}
+		}
 	}
 
 	function hay_ordenamiento()
@@ -596,19 +622,19 @@ class objeto_ei_cuadro extends objeto_ei
 	}
 
     function ordenar()
-    //Ordenamiento de array de dos dimensiones
-    {
-        //echo "ordenar: " . $this->orden_columna;
-		$ordenamiento = array();
-        foreach ($this->datos as $fila) { 
-            $ordenamiento[] = $fila[$this->orden_columna]; 
-        }
-        //Ordeno segun el sentido
-        if($this->orden_sentido == "asc"){
-            array_multisort($ordenamiento, SORT_ASC , $this->datos);
-        } elseif ($this->orden_sentido == "des"){
-            array_multisort($ordenamiento, SORT_DESC , $this->datos);
-        }
+	{
+		if (! $this->ordenado) {
+			$ordenamiento = array();
+	        foreach ($this->datos as $fila) { 
+	            $ordenamiento[] = $fila[$this->orden_columna]; 
+	        }
+	        //Ordeno segun el sentido
+	        if($this->orden_sentido == "asc"){
+	            array_multisort($ordenamiento, SORT_ASC , $this->datos);
+	        } elseif ($this->orden_sentido == "des"){
+	            array_multisort($ordenamiento, SORT_DESC , $this->datos);
+	        }
+		}
     }
 
 //################################################################################
