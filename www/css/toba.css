@@ -269,6 +269,9 @@ a > .ayuda, a.ayuda, button.ayuda {
 .ei-cuadro-pag {
 	 text-align: center;
 }
+.ei-cuadro-orden {
+	float: right;
+}
 .ei-cuadro-col-tit, .ei-ml-col-tit {
 	vertical-align: bottom;
 	color: #000000;

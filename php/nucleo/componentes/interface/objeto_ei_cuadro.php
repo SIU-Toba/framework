@@ -1186,7 +1186,31 @@ class objeto_ei_cuadro extends objeto_ei
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     //Genera la cabecera de una columna
     {
-		//Editor de la columna
+        //--- ¿Es ordenable?
+		if (isset($this->eventos['ordenar']) && $this->info_cuadro_columna[$indice]["no_ordenar"]!=1) {
+			$sentido = array();
+			$sentido[] = array('asc', 'Ordenar ascendente');
+			$sentido[] = array('des', 'Ordenar descendente');
+			echo "<span class='ei-cuadro-orden'>";			
+			foreach($sentido as $sen){
+			    $sel="";
+			    if ($this->hay_ordenamiento() && ($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) 
+					$sel = "_sel";//orden ACTIVO
+
+				//Comunicación del evento
+				$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
+				$evento_js = eventos::a_javascript('ordenar', $this->eventos['ordenar'], $parametros);
+				$js = "{$this->objeto_js}.set_evento($evento_js);";
+			    $src = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif");
+				echo recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
+			}
+			echo "</span>";			
+		}    	
+		//--- Nombre de la columna
+		if (trim($columna) != '' || trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
+            echo $titulo;
+        }	
+		//---Editor de la columna
 		$editor = '';
 		if( editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
 			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
@@ -1196,52 +1220,6 @@ class objeto_ei_cuadro extends objeto_ei
 				$editor = editor::get_vinculo_subcomponente($item_editor, $param_editor);
 			}
 		}	
-        //Solo son ordenables las columnas extraidas del recordse!!!
-        //Las generadas de otra forma llegan con el nombre vacio
-        if(trim($columna)!=""){
-			if (isset($this->eventos['ordenar'])) {
-				$sentido[0][0]="asc";
-				$sentido[0][1]="Ordenar ascendente";
-				$sentido[1][0]="des";
-				$sentido[1][1]="Ordenar descendente";
-				if($this->info_cuadro_columna[$indice]["no_ordenar"]!=1)
-				{							
-					echo  "<table class='tabla-0'>\n";
-					echo  "<tr>\n";
-		            $estilo_columna = $this->info_cuadro_columna[$indice]["estilo_titulo"];
-		            if(!$estilo_columna){
-		            	$estilo_columna = 'ei-cuadro-col-tit';
-		            }
-	                echo  "<td width='95%' align='center' class='$estilo_columna'>&nbsp;" . $titulo ."&nbsp;</td>\n";
-					echo  "<td width='5%'>";
-					foreach($sentido as $sen){
-					    $sel="";
-					    if ($this->hay_ordenamiento() && ($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) 
-							$sel = "_sel";//orden ACTIVO
-
-						//Comunicación del evento
-						$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
-						$evento_js = eventos::a_javascript('ordenar', $this->eventos['ordenar'], $parametros);
-						$js = "{$this->objeto_js}.set_evento($evento_js);";
-					    $src = recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif");
-						echo recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
-					}
-					echo  "</td>\n";        
-					echo  "</tr>\n";
-					echo  "</table>\n";
-				}else{
-				    echo $titulo;
-				}				
-            }else{
-                echo $titulo;
-            }
-        }
-        else            //Modificacion para que muestre los titulos de los vinculos
-        {
-            if(trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
-                echo $titulo;
-            }
-        }
 		echo $editor;
     }
 
