@@ -75,6 +75,19 @@ class logger
 		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
 	}
 	
+	/**
+	 * Este es un singleton por proyecto
+	 * @return logger
+	 */
+	static function instancia($proyecto=null)
+	{
+		if (!isset(self::$instancia[$proyecto])) {
+			self::$instancia[$proyecto] = new logger($proyecto);
+		}
+		return self::$instancia[$proyecto];	
+	}
+	
+	
 	function get_proyecto_actual()
 	{
 		if( php_sapi_name() === 'cli' ) {
@@ -114,17 +127,6 @@ class logger
 	//Informa si se guardo la informacion
 	{
 		return $this->datos_registrados;	
-	}
-	
-	/**
-	 * Este es un singleton por proyecto
-	 */
-	static function instancia($proyecto=null)
-	{
-		if (!isset(self::$instancia[$proyecto])) {
-			self::$instancia[$proyecto] = new logger($proyecto);
-		}
-		return self::$instancia[$proyecto];	
 	}
 
 	
@@ -365,6 +367,11 @@ class logger
 		return $this->dir_logs;
 	}	
 	
+	function set_directorio_logs($dir)
+	{
+		$this->dir_logs = $dir;	
+	}
+	
 	function guardar_en_archivo($archivo)
 	{
 		$hay_salida = false;
@@ -372,7 +379,7 @@ class logger
 		$salto = "\r\n";
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
-		if (is_object(toba::get_solicitud())) {
+		if (class_exists('toba') && is_object(toba::get_solicitud())) {
 			$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
 		}
 		$texto .= "Usuario: ".self::get_usuario_actual().$salto;

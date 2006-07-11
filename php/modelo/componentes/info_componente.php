@@ -252,7 +252,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
 			$parametros = $this->acceso_zona();
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax');
+			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false);
 			$vinculo = toba::get_vinculador()->crear_vinculo("admin","/admin/objetos/php", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(

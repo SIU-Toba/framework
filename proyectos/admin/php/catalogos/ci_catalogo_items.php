@@ -47,13 +47,6 @@ class ci_catalogo_items extends ci_catalogo
 	}
 	
 	
-	function obtener_html()
-	{
-		echo "<style type='text/css'>";
-		echo " .ci-cuerpo { 	background-color: #eeeeee; }";
-		echo "</style>";
-		parent::obtener_html();
-	}
 	//-------------------------------
 	//---- Fotos --------------------
 	//-------------------------------

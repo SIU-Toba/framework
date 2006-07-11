@@ -19,9 +19,15 @@ if ( isset( $_SERVER['toba_dir'] ) ) {
 	require_once('consola/consola.php');
 	$directorio_comandos = $dir . "/consola/comandos";
 	$clase_menu = 'menu_toba';
+	
+	logger::instancia()->debug('Argumentos: '.var_export($argv, true));	
 	$consola = new consola( $directorio_comandos, $clase_menu );
 	array_shift( $argv );
 	$consola->run( $argv );
+	logger::instancia()->debug('Fin consola');
+	$dir_logs = instalacion::dir_base()."/logs_consola";
+	logger::instancia()->set_directorio_logs($dir_logs);
+	logger::instancia()->guardar_en_archivo('comandos.log');
 
 } else {
 	echo "  ATENCION: La variable de entorno 'toba_dir' no esta definida!";	

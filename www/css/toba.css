@@ -58,7 +58,11 @@ body > .div-esperar { position: fixed; }
 .ayuda {
 	cursor: help;
 }
-a .ayuda, a.ayuda, button .ayuda {
+a .ayuda, a.ayuda {
+	cursor: pointer;
+	_cursor: auto;
+}
+button .ayuda {
 	cursor: auto;
 }
 legend {
