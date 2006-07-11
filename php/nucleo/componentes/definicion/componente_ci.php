@@ -47,6 +47,7 @@ class componente_ci extends componente_ei
 													identificador			as identificador,
 													etiqueta			  	as etiqueta,
 													descripcion			  	as descripcion,
+													tip						as tip,
 													imagen_recurso_origen	as imagen_recurso_origen,
 													imagen					as imagen,
 													objetos				  	as objetos,

@@ -261,13 +261,14 @@ class instalacion extends elemento_modelo
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
-	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null )
+	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null, $editor='start' )
 	{
 		$ini = new ini();
 		$ini->agregar_titulo( self::info_basica_titulo );
 		$ini->agregar_entrada( 'id_grupo_desarrollo', $id_grupo_desarrollo );
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
+		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->guardar( self::archivo_info_basica() );
 	}
 	

@@ -1038,7 +1038,7 @@ class objeto_ci extends objeto_ei
 		{
 			$id = $this->info_ci_me_pantalla[$a]["identificador"];
 			$tab[$id]['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
-			$tab[$id]['tip'] = $this->obtener_descripcion_pantalla($id);
+			$tab[$id]['tip'] = $this->info_ci_me_pantalla[$a]["tip"];
 			if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"]) {
 				if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"] == 'apex') 
 					$tab[$id]['imagen'] = recurso::imagen_apl($this->info_ci_me_pantalla[$a]["imagen"], false);

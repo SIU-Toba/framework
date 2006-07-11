@@ -57,10 +57,14 @@ body > .div-esperar { position: fixed; }
 
 .ayuda {
 	cursor: help;
-	_cursor: auto;	/* Hack IE */
 }
-a > .ayuda, a.ayuda, button.ayuda {
-	cursor: pointer;
+a .ayuda, a.ayuda, button .ayuda {
+	cursor: auto;
+}
+legend {
+	font-weight: bold;
+	font-size: 12px;
+	color: #333333;
 }
 .cuerpo {
 	margin-top: 15px; 

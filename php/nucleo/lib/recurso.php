@@ -155,11 +155,11 @@ class recurso {
 			$a = "accesskey='$tecla'";
 		}
 		if ($ayuda != '') {
-			$ayuda .= $ayuda_extra;
+			$ayuda .= ' '.$ayuda_extra;
 			$ayuda = parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 			$ayuda = str_replace(array("\""), "`", $ayuda);
-			$a = " onmouseover=\"if (dhtml_tooltip) return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"if (dhtml_tooltip) return dhtml_tooltip.hide();\" ";
+			$a .= " onmouseover=\"if (dhtml_tooltip) return dhtml_tooltip.show('$ayuda',this,event);\" onmouseout=\"if (dhtml_tooltip) return dhtml_tooltip.hide();\" ";
 			$clases_css .= ' ayuda';
 		} else {
 			$a .= " title='$ayuda_extra'";

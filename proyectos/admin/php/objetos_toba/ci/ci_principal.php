@@ -152,7 +152,7 @@ class ci_editor extends ci_editores_toba
 		if( isset($this->seleccion_pantalla) ){
 			$datos = $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla);
 			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
-			echo "<fieldset style='margin-top: 10px; padding: 7px; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #333333;'><legend>$nombre_pantalla</legend>";			
+			echo "<fieldset style='margin-top: 10px; padding: 7px;'><legend>$nombre_pantalla</legend>";			
 			$this->dependencia('pantallas')->obtener_html();			
 			echo "<table class='tabla-0'  width='100%'>";
 			echo "<tr>\n";
