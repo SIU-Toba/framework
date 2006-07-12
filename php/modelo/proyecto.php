@@ -36,6 +36,7 @@ class proyecto extends elemento_modelo
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
 		$this->db = $this->instancia->get_db();
+		logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
 	}
 
 	function get_sincronizador()
@@ -106,6 +107,8 @@ class proyecto extends elemento_modelo
 
 	function exportar()
 	{
+		logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
+		$this->manejador_interface->titulo( "Exportando PROYECTO {$this->identificador}" );		
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
@@ -116,22 +119,22 @@ class proyecto extends elemento_modelo
 			$this->exportar_componentes();
 			$this->sincronizar_archivos();
 		} catch ( excepcion_toba $e ) {
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
-			$this->manejador_interface->mensaje( $e->getMessage() );
+			$this->manejador_interface->error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
+												$e->getMessage() );
 		}
 	}
 	
 	private function sincronizar_archivos()
 	{
-		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
+		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->get_sincronizador()->sincronizar();
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}
 
 	private function exportar_tablas()
 	{
-		$this->manejador_interface->titulo( "TABLAS" );
 		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
+		$cant = 0;
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
 			$definicion = tablas_proyecto::$tabla();
 			//Genero el SQL
@@ -153,15 +156,18 @@ class proyecto extends elemento_modelo
 			if ( $regs > 1 ) {
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+			
 			}
-			$this->manejador_interface->mensaje( "TABLA  $tabla  --  $regs" );
+			logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
 			for ( $a = 0; $a < $regs ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_archivo( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 			}
+			$cant++;
 		}
+		$this->manejador_interface->mensaje("Tablas generales: $cant");
 	}
 
 	/*
@@ -169,14 +175,16 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componentes()
 	{
-		$this->manejador_interface->titulo( "COMPONENTES" );
+		$cant = 0;
 		cargador_toba::instancia()->crear_cache_simple( $this->get_id(), $this->db );
 		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
 			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db );
 			foreach ( $lista_componentes as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
+				$cant++;
 			}
 		}
+		$this->manejador_interface->mensaje("Cantidad de componentes: $cant");		
 	}
 	
 	/*
@@ -184,12 +192,13 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componente( $tipo, $id )
 	{
-		$this->manejador_interface->mensaje("COMPONENTE $tipo  --  " . $id['componente']);
 		$directorio = $this->get_dir_componentes() . '/' . $tipo;
 		manejador_archivos::crear_arbol_directorios( $directorio );
 		$archivo = manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
 		$this->guardar_archivo( $directorio .'/'. $archivo . '.sql', $contenido ); 
+		logger::instancia()->debug("COMPONENTE $tipo  --  " . $id['componente'] . 
+									' ('.$this->cant_reg_exp.' reg.)');
 	}
 	
 	/*
@@ -197,6 +206,7 @@ class proyecto extends elemento_modelo
 	*/
 	private function & get_contenido_componente( $tipo, $id )
 	{
+		$this->cant_reg_exp = 0;
 		//Recupero metadatos
 		$metadatos = cargador_toba::instancia()->get_metadatos_simples( $id, $tipo, $this->db );
 		//Obtengo el nombre del componente
@@ -211,6 +221,7 @@ class proyecto extends elemento_modelo
 		$contenido .= "------------------------------------------------------------\n";
 		foreach ( $metadatos as $tabla => $datos) {
 			for ( $a=0; $a<count($datos); $a++ ) {
+				$this->cant_reg_exp++;				
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
 		}
@@ -234,8 +245,8 @@ class proyecto extends elemento_modelo
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error( 'PROYECTO: Ha ocurrido un error durante la IMPORTACION.' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "PROYECTO: Ha ocurrido un error durante la IMPORTACION:\n".
+												$e->getMessage() );
 		}
 	}
 
@@ -289,8 +300,8 @@ class proyecto extends elemento_modelo
 			$this->manejador_interface->mensaje("El proyecto '{$this->identificador}' ha sido eliminado");
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de TABLAS de la instancia.' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
+												$e->getMessage() );
 		}
 	}
 
@@ -354,8 +365,8 @@ class proyecto extends elemento_modelo
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error("PROYECTO {$this->identificador}: Ha ocurrido un error durante la IMPORTACION.");
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error("PROYECTO {$this->identificador}: Ha ocurrido un error durante la IMPORTACION:\n".
+												$e->getMessage());
 		}
 	}
 
@@ -369,8 +380,8 @@ class proyecto extends elemento_modelo
 			$this->compilar_componentes();
 			$this->crear_compilar_archivo_referencia();
 		} catch ( excepcion_toba $e ) {
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la compilacion.' );
-			$this->manejador_interface->mensaje( $e->getMessage() );
+			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".
+												$e->getMessage());
 		}
 	}
 
@@ -609,7 +620,7 @@ class proyecto extends elemento_modelo
 				$db->cerrar_transaccion();
 			} catch ( excepcion_toba $e ) {
 				$db->abortar_transaccion();
-				$txt = 'PROYECTO: Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ' . $e->getMessage();
+				$txt = 'PROYECTO : Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ' . $e->getMessage();
 				throw new excepcion_toba( $txt );
 			}
 		} catch ( excepcion_toba $e ) {

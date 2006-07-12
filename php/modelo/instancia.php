@@ -43,6 +43,7 @@ class instancia extends elemento_modelo
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
 		$this->nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
+		logger::instancia()->debug('INSTANCIA "'.$this->identificador.'"');		
 	}
 
 	function get_sincronizador()
@@ -247,19 +248,19 @@ class instancia extends elemento_modelo
 	function exportar_local()
 	{
 		try {
-			$this->manejador_interface->titulo( "INSTANCIA" );
+			$this->manejador_interface->titulo( "Exportando local, INSTANCIA {$this->identificador}" );
 			$this->exportar_global();
 			$this->exportar_proyectos();
 			$this->sincronizar_archivos();
 		} catch ( excepcion_toba $e ) {
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "Ha ocurrido un error durante la exportacion:\n".
+												$e->getMessage());
 		}
 	}
 
 	private function sincronizar_archivos()
 	{
-		$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
+		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->get_sincronizador()->sincronizar();
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}	
@@ -270,16 +271,18 @@ class instancia extends elemento_modelo
 	{
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
 		manejador_archivos::crear_arbol_directorios( $dir_global );
-		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
-		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );	
+		$cant = 0;
+		$cant += $this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
+		$cant += $this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
+		$cant += $this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
+		$this->manejador_interface->mensaje("Tablas globales: $cant");
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
 	{
 		$contenido = "";
+		$cant = 0;
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
-			$this->manejador_interface->mensaje( "tabla $texto  --  $tabla" );
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
@@ -287,6 +290,7 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = $this->get_db()->consultar($sql);
+			logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -294,10 +298,12 @@ class instancia extends elemento_modelo
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
+			$cant ++;
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $path  , $contenido );			
 		}
+		return $cant;
 	}
 
 	/*
@@ -306,20 +312,22 @@ class instancia extends elemento_modelo
 	private function exportar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$this->manejador_interface->titulo( "PROYECTO $proyecto" );
+			logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
+			$cant = 0;
+			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
+			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
+			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
+			$this->manejador_interface->mensaje("Tablas proyecto $proyecto: $cant");
 		}
 	}
 
 	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto, $texto )
 	{
 		$contenido = "";
+		$cant = 0;
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
-			$this->manejador_interface->mensaje( "tabla $texto  --  $tabla" );
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
 			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
@@ -342,6 +350,7 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = $this->get_db()->consultar($sql);
+			logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -349,10 +358,12 @@ class instancia extends elemento_modelo
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
+			$cant++;
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $nombre_archivo, $contenido );			
 		}
+		return $cant;
 	}
 
 	private function guardar_archivo( $archivo, $contenido )
@@ -395,8 +406,8 @@ class instancia extends elemento_modelo
 			$this->get_db()->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la inicializacion de la instancia.' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
+												$e->getMessage());
 		}
 	}
 
@@ -547,8 +558,9 @@ class instancia extends elemento_modelo
 			$this->instalacion->borrar_base_datos( $this->ini_base );
 			$this->manejador_interface->mensaje("La base ha sido eliminada.");
 		} catch ( excepcion_toba $e ) {
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de la BASE' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n".
+												$e->getMessage());
+			
 		}
 	}
 
@@ -570,8 +582,8 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->mensaje("El modelo ha sido eliminado.");
 		} catch ( excepcion_toba $e ) {
 			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( 'Ha ocurrido un error durante la eliminacion de TABLAS de la instancia.' );
-			$this->manejador_interface->error( $e->getMessage() );
+			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
+												$e->getMessage());		
 		}
 	}
 
@@ -655,7 +667,9 @@ class instancia extends elemento_modelo
 			$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.self::dir_prefijo.'|' );
 			foreach ( $temp as $dir ) {
 				$temp_dir = explode( self::dir_prefijo, $dir );
-				$dirs[] = $temp_dir[1];
+				if (count($temp_dir) > 1) {
+					$dirs[] = $temp_dir[1];
+				}
 			}
 		} catch ( excepcion_toba $e ) {
 			// No existe la instalacion

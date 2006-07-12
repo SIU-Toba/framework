@@ -23,6 +23,7 @@ class instalacion extends elemento_modelo
 	function __construct()
 	{
 		$this->dir = self::dir_base();
+		logger::instancia()->debug('INSTALACION "'.$this->dir.'"');
 	}
 
 	function cargar_info_ini()

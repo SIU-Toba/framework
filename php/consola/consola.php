@@ -133,6 +133,7 @@ class consola implements gui
 	*/
 	function error( $texto )
 	{
+		logger::instancia()->error($texto);
 		$lineas = separar_texto_lineas( $texto, self::display_ancho );
 		foreach( $lineas as $linea ) {
 			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );

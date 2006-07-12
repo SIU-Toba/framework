@@ -382,7 +382,10 @@ class logger
 		if (class_exists('toba') && is_object(toba::get_solicitud())) {
 			$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
 		}
-		$texto .= "Usuario: ".self::get_usuario_actual().$salto;
+		$usuario = self::get_usuario_actual();
+		if (isset($usuario)) {
+			$texto .= "Usuario: ".$usuario.$salto;
+		}
 		$texto .= "Version-PHP: ". phpversion().$salto;
 		if (isset($_SERVER['SERVER_NAME'])) {
 			$texto .= "Servidor: ".$_SERVER['SERVER_NAME'].$salto;
@@ -395,6 +398,11 @@ class logger
 		}
 		if (isset($_SERVER["REMOTE_ADDR"])) {
 			$texto .= "Host: ".$_SERVER["REMOTE_ADDR"].$salto;			
+		}
+		if( php_sapi_name() === 'cli' ) {
+			global $argv;
+			$texto .= 'Ruta: '.getcwd().$salto;	
+			$texto .= 'Argumentos: '.implode(' ', $argv).$salto;
 		}
 		$texto .= self::fin_encabezado.$salto;
 		for($a=0; $a<count($this->mensajes); $a++) {
