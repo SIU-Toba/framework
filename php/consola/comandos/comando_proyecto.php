@@ -92,21 +92,22 @@ class comando_proyecto extends comando_toba
 
 			//-- 1 -- Cargar proyecto
 			$this->consola->enter();
-			$this->consola->subtitulo("Cargar METADATOS");
+			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
 			$i->vincular_proyecto( $p->get_id() );
 			$p->cargar_autonomo();
-			$this->consola->enter();
-			$this->consola->subtitulo("Vincular USUARIOS");
+			$this->consola->mensaje("Vinculando USUARIOS...", false);			
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
+			$cant_usuarios = 0;
 			foreach ( $usuarios as $usuario ) {
 				$p->vincular_usuario( $usuario, $grupo_acceso );
-				$this->consola->mensaje("USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
+				logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
+				$cant_usuarios++;
 			}
-
+			$this->consola->mensaje("$cant_usuarios usuarios.");
+			
 			//-- 2 -- Exportar proyecto
 			$this->consola->enter();
-			$this->consola->subtitulo("Exportar datos");
 			// Exporto la instancia con la nueva configuracion (por fuera del request)
 			$i->exportar_local();
 		} else {

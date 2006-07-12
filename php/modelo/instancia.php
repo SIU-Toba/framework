@@ -248,7 +248,7 @@ class instancia extends elemento_modelo
 	function exportar_local()
 	{
 		try {
-			$this->manejador_interface->titulo( "Exportando local, INSTANCIA {$this->identificador}" );
+			$this->manejador_interface->titulo( "Exportación local de la instancia" );
 			$this->exportar_global();
 			$this->exportar_proyectos();
 			$this->sincronizar_archivos();
@@ -269,13 +269,14 @@ class instancia extends elemento_modelo
 	*/
 	private function exportar_global()
 	{
+		$this->manejador_interface->mensaje("Exportando datos globales...", false);		
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
 		manejador_archivos::crear_arbol_directorios( $dir_global );
 		$cant = 0;
 		$cant += $this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$cant += $this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
 		$cant += $this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
-		$this->manejador_interface->mensaje("Tablas globales: $cant");
+		$this->manejador_interface->mensaje("$cant tablas.");
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
@@ -312,6 +313,7 @@ class instancia extends elemento_modelo
 	private function exportar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
+			$this->manejador_interface->mensaje("Exportando proyecto $proyecto...", false);
 			logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
@@ -319,7 +321,7 @@ class instancia extends elemento_modelo
 			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
 			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
-			$this->manejador_interface->mensaje("Tablas proyecto $proyecto: $cant");
+			$this->manejador_interface->mensaje("$cant tablas.");
 		}
 	}
 
@@ -484,14 +486,19 @@ class instancia extends elemento_modelo
 
 	function cargar_informacion_instancia_proyecto( $proyecto )
 	{
+		$this->manejador_interface->mensaje("Cargando datos locales de la instancia...", false);
+		logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
-		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje($archivo);
-			$this->get_db()->ejecutar_archivo( $archivo );
+		$total = 0;
+		foreach ( $archivos as $archivo ) {
+			$cant = $this->get_db()->ejecutar_archivo( $archivo );
+			logger::instancia()->debug($archivo . ". ($cant)");
+			$total++;
 		}
+		$this->manejador_interface->mensaje("$total arch.");
 	}
-		
+
 	/*
 	*	Genera informacion descriptiva sobre la instancia creada
 	*/
@@ -507,8 +514,10 @@ class instancia extends elemento_modelo
 	*/
 	function actualizar_secuencias()
 	{
-		$this->manejador_interface->titulo('Actualizando SECUENCIAS');
+		logger::instancia()->debug('Actualizando SECUENCIAS');
+		$this->manejador_interface->mensaje("Actualizando secuencias...", false);		
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
+		$cant = 0;
 		foreach ( secuencias::get_lista() as $seq => $datos ) {
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
@@ -530,9 +539,11 @@ class instancia extends elemento_modelo
 				}
 				$sql = "SELECT setval('$seq', $nuevo)";
 				$this->get_db()->consultar( $sql );	
+				$cant++;
 			}
-			$this->manejador_interface->mensaje("SECUENCIA $seq: $nuevo");
-		}	
+			logger::instancia()->debug("SECUENCIA $seq: $nuevo");
+		}
+		$this->manejador_interface->mensaje("$cant sec.");
 	}
 	
 	//-----------------------------------------------------------

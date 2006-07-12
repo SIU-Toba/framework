@@ -91,7 +91,7 @@ class db
 		$afectados = 0;
 		if (is_array($sql)) {
 			for($a = 0; $a < count($sql);$a++){
-				if ( $this->conexion->execute($sql[$a]) === false ){
+				if ( $this->conexion->execute($sql[$a]) === false ) {
 					throw new excepcion_toba("ERROR ejecutando SQL. ".
 											"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
 											"-- SQL ejecutado: [" . $sql[$a] . "].");
@@ -99,14 +99,14 @@ class db
 				$afectados += $this->conexion->Affected_Rows();
 			}
 		} else {
-			if ( $this->conexion->execute($sql) === false ){
+			if ( $this->conexion->execute($sql) === false ) {
 				throw new excepcion_toba("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
 										"-- SQL ejecutado: [" . $sql . "].");
 			}
 			$afectados += $this->conexion->Affected_Rows();			
 		}
-		return $afectados;		
+		return $afectados;
 	}
 	
 	/**
@@ -217,10 +217,10 @@ class db
 	{
 		if (!file_exists($archivo)) {
 			throw new excepcion_toba("Error al ejecutar comandos. El archivo '$archivo' no existe");
-		}	
+		}
 		$str = file_get_contents($archivo);
 		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
-			$this->ejecutar($str);
+		return $this->ejecutar($str);
 		//}
 	}
 	//---------------------------------------------------------------------------------------

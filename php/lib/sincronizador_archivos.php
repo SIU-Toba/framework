@@ -86,7 +86,9 @@ class sincronizador_archivos
 	{
 		$obs = array();
 		foreach ( $this->archivos_eliminados as $archivo ) {
-			system("svn delete --force $archivo");
+			$cmd = "svn delete --force $archivo";
+			system($cmd);
+			logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");
 			$obs[] = "SVN DELETE '$archivo'";
 		}
 		foreach ( $this->archivos_agregados as $archivo ) {
@@ -95,7 +97,9 @@ class sincronizador_archivos
 				en el caso de que se exporte un componente que nunca se exporto,
 				se crea la carpeta del componente
 			*/
-			system("svn add $archivo");
+			$cmd = "svn add $archivo";
+			logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");			
+			system($cmd);
 			$obs[] = "SVN ADD '$archivo'";
 		}
 		return $obs;
@@ -106,6 +110,7 @@ class sincronizador_archivos
 		$obs = array();
 		foreach ( $this->archivos_eliminados as $archivo ) {
 			unlink( $archivo );
+			logger::instancia()->info("Sincronizacion: Eliminando archivo $archivo");			
 			$obs[] = "SINCRO: eliminar '$archivo'";
 		}
 		return $obs;

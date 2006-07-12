@@ -108,7 +108,7 @@ class proyecto extends elemento_modelo
 	function exportar()
 	{
 		logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
-		$this->manejador_interface->titulo( "Exportando PROYECTO {$this->identificador}" );		
+		$this->manejador_interface->titulo( "Exportación PROYECTO {$this->identificador}" );		
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
@@ -126,13 +126,13 @@ class proyecto extends elemento_modelo
 	
 	private function sincronizar_archivos()
 	{
-		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->get_sincronizador()->sincronizar();
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}
 
 	private function exportar_tablas()
 	{
+		$this->manejador_interface->mensaje("Exportando datos generales...", false);
 		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
 		$cant = 0;
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
@@ -167,7 +167,7 @@ class proyecto extends elemento_modelo
 			}
 			$cant++;
 		}
-		$this->manejador_interface->mensaje("Tablas generales: $cant");
+		$this->manejador_interface->mensaje("$cant tablas.");
 	}
 
 	/*
@@ -175,6 +175,7 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componentes()
 	{
+		$this->manejador_interface->mensaje("Exportando componentes...", false);
 		$cant = 0;
 		cargador_toba::instancia()->crear_cache_simple( $this->get_id(), $this->db );
 		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
@@ -184,7 +185,7 @@ class proyecto extends elemento_modelo
 				$cant++;
 			}
 		}
-		$this->manejador_interface->mensaje("Cantidad de componentes: $cant");		
+		$this->manejador_interface->mensaje("$cant tablas.");		
 	}
 	
 	/*
@@ -237,6 +238,7 @@ class proyecto extends elemento_modelo
 	*/
 	function cargar_autonomo()
 	{
+		logger::instancia()->debug( "Cargando PROYECTO {$this->identificador}");					
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
@@ -255,6 +257,7 @@ class proyecto extends elemento_modelo
 	*/
 	function cargar()
 	{
+		logger::instancia()->debug("Cargando proyecto '{$this->identificador}'");
 		if( ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
 			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
@@ -264,23 +267,31 @@ class proyecto extends elemento_modelo
 
 	private function cargar_tablas()
 	{
+		$this->manejador_interface->mensaje('Cargando datos globales...', false);
 		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
+		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje( $archivo );
-			$this->db->ejecutar_archivo( $archivo );
+			$cant = $this->db->ejecutar_archivo( $archivo );
+			logger::instancia()->debug($archivo . ". ($cant)");
+			$cant_total++;
 		}
+		$this->manejador_interface->mensaje($cant_total." arch.");
 	}
 	
 	private function cargar_componentes()
 	{
+		$this->manejador_interface->mensaje('Cargando componentes...', false);		
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
+		$cant_total = 0;
 		foreach ( $subdirs as $dir ) {
-			$this->manejador_interface->mensaje( $dir );
 			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 			foreach( $archivos as $archivo ) {
-				$this->db->ejecutar_archivo( $archivo );
+				$cant = $this->db->ejecutar_archivo( $archivo );
+				logger::instancia()->debug($archivo . " ($cant)");
+				$cant_total++;
 			}
 		}
+		$this->manejador_interface->mensaje($cant_total.' arch.');
 	}
 
 	//-----------------------------------------------------------
@@ -305,13 +316,14 @@ class proyecto extends elemento_modelo
 		}
 	}
 
-	/*
-	*	Eliminacion dentro de una transaccion
-	*/
 	function eliminar()
 	{
+		$this->manejador_interface->mensaje( "Borrando metadatos...", false);
 		$sql = $this->get_sql_eliminacion();
-		$this->db->ejecutar( $sql );
+		$cant = count($sql);		
+		$cant = $this->db->ejecutar( $sql );
+		logger::instancia()->debug("Eliminacion. Registros borrados: $cant");
+		$this->manejador_interface->mensaje( "$cant reg." );				
 	}
 
 	/*
@@ -356,12 +368,15 @@ class proyecto extends elemento_modelo
 	*/
 	function regenerar()
 	{
+		logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
+		$this->manejador_interface->titulo( "Regenerando PROYECTO {$this->identificador}" );		
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
 			$this->eliminar();
 			$this->cargar();
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
+			$this->instancia->actualizar_secuencias();			
 			$this->db->cerrar_transaccion();
 		} catch ( excepcion_toba $e ) {
 			$this->db->abortar_transaccion();

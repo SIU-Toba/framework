@@ -115,14 +115,19 @@ class consola implements gui
 		echo "\n\n";
 	}
 
-	function mensaje( $texto )
+	function mensaje( $texto, $bajar_linea=true )
 	{
 		$lineas = separar_texto_lineas( $texto, self::display_ancho );
-		foreach( $lineas as $linea ) {
-			echo self::display_prefijo_linea . $linea . "\n";
+		for ($i=0; $i< count($lineas); $i++) {
+			if ($bajar_linea || $i < count($lineas) - 1) {
+				$extra = "\n";
+			} else {
+				$extra = '';
+			}
+			echo self::display_prefijo_linea . $lineas[$i] . $extra;
 		}
 	}
-
+	
 	function enter()
 	{
 		echo "\n";	
