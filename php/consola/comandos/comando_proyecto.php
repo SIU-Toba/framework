@@ -95,16 +95,15 @@ class comando_proyecto extends comando_toba
 			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
 			$i->vincular_proyecto( $p->get_id() );
 			$p->cargar_autonomo();
-			$this->consola->mensaje("Vinculando USUARIOS...", false);			
+			$this->consola->mensaje("Vinculando USUARIOS", false);
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
-			$cant_usuarios = 0;
 			foreach ( $usuarios as $usuario ) {
 				$p->vincular_usuario( $usuario, $grupo_acceso );
 				logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
-				$cant_usuarios++;
+				$this->consola->mensaje_directo('.');
 			}
-			$this->consola->mensaje("$cant_usuarios usuarios.");
+			$this->consola->mensaje("OK");
 			
 			//-- 2 -- Exportar proyecto
 			$this->consola->enter();

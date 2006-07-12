@@ -128,6 +128,11 @@ class consola implements gui
 		}
 	}
 	
+	function mensaje_directo($texto)
+	{
+		echo $texto;	
+	}
+	
 	function enter()
 	{
 		echo "\n";	

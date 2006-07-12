@@ -269,20 +269,18 @@ class instancia extends elemento_modelo
 	*/
 	private function exportar_global()
 	{
-		$this->manejador_interface->mensaje("Exportando datos globales...", false);		
+		$this->manejador_interface->mensaje("Exportando datos globales", false);		
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
 		manejador_archivos::crear_arbol_directorios( $dir_global );
-		$cant = 0;
-		$cant += $this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
-		$cant += $this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
-		$cant += $this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
-		$this->manejador_interface->mensaje("$cant tablas.");
+		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
+		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
+		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
+		$this->manejador_interface->mensaje("OK");
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
 	{
 		$contenido = "";
-		$cant = 0;
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
@@ -299,12 +297,11 @@ class instancia extends elemento_modelo
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			$cant ++;
+			$this->manejador_interface->mensaje_directo(".");
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $path  , $contenido );			
 		}
-		return $cant;
 	}
 
 	/*
@@ -313,22 +310,20 @@ class instancia extends elemento_modelo
 	private function exportar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$this->manejador_interface->mensaje("Exportando proyecto $proyecto...", false);
+			$this->manejador_interface->mensaje("Exportando proyecto $proyecto", false);
 			logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
-			$cant = 0;
-			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
-			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-			$cant += $this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
-			$this->manejador_interface->mensaje("$cant tablas.");
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
+			$this->manejador_interface->mensaje("OK");
 		}
 	}
 
 	private function exportar_tablas_proyecto( $metodo_lista_tablas, $nombre_archivo, $proyecto, $texto )
 	{
 		$contenido = "";
-		$cant = 0;
 		foreach ( tablas_instancia::$metodo_lista_tablas() as $tabla ) {
 			$definicion = tablas_instancia::$tabla();
 			//Genero el SQL
@@ -360,12 +355,11 @@ class instancia extends elemento_modelo
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			$cant++;
+			$this->manejador_interface->mensaje_directo('.');
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $nombre_archivo, $contenido );			
 		}
-		return $cant;
 	}
 
 	private function guardar_archivo( $archivo, $contenido )
@@ -383,9 +377,12 @@ class instancia extends elemento_modelo
 	*/
 	function cargar( $forzar_carga = false )
 	{
+		$this->manejador_interface->titulo('Creación de la instancia');		
 		// Existe la base?
 		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
+			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
 			$this->instalacion->crear_base_datos( $this->ini_base );
+			$this->manejador_interface->mensaje("OK");
 		}
 		// Esta el modelo cargado
 		if ( $this->existe_modelo() ) {
@@ -402,6 +399,7 @@ class instancia extends elemento_modelo
 			$this->get_db()->retrazar_constraints();
 			$this->crear_modelo_datos_toba();
 			$this->cargar_proyectos();
+			$this->manejador_interface->separador();
 			$this->cargar_informacion_instancia();
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
@@ -424,25 +422,30 @@ class instancia extends elemento_modelo
 	
 	private function crear_tablas()
 	{
-		$this->manejador_interface->titulo('Creando tablas del sistema.');
+		$this->manejador_interface->mensaje('Creando las tablas del sistema', false);
 		$directorio = nucleo::get_dir_ddl();
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
 		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje( $archivo );
-			$this->get_db()->ejecutar_archivo( $archivo );
+			$cant = $this->get_db()->ejecutar_archivo( $archivo );
+			logger::instancia()->debug($archivo . ". ($cant)");			
+			$this->manejador_interface->mensaje_directo('.');
+
 		}
+		$this->manejador_interface->mensaje("OK");
 	}
 	
 	private function cargar_datos_nucleo()
 	{
-		$this->manejador_interface->titulo('Cargando datos del nucleo.');
+		$this->manejador_interface->mensaje('Cargando datos del nucleo', false);
 		$directorio = nucleo::get_dir_metadatos();
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
-			$this->manejador_interface->mensaje( $archivo );
-			$this->get_db()->ejecutar_archivo( $archivo );
+			$cant = $this->get_db()->ejecutar_archivo( $archivo );
+			logger::instancia()->debug($archivo . ". ($cant)");
+			$this->manejador_interface->mensaje_directo('.');			
 		}
+		$this->manejador_interface->mensaje("OK");		
 	}
 
 	/*
@@ -451,7 +454,8 @@ class instancia extends elemento_modelo
 	private function cargar_proyectos()
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$this->manejador_interface->titulo( "PROYECTO: $proyecto" );
+			$this->manejador_interface->enter();
+			$this->manejador_interface->subtitulo( "PROYECTO: $proyecto" );
 			$proyecto = new proyecto( $this, $proyecto );
 			$proyecto->set_manejador_interface( $this->manejador_interface );			
 			$proyecto->cargar();
@@ -464,7 +468,7 @@ class instancia extends elemento_modelo
 	*/
 	private function cargar_informacion_instancia()
 	{
-		$this->manejador_interface->titulo('Cargando datos de la instancia');
+		$this->manejador_interface->mensaje('Cargando datos de la instancia', false);
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir() );
 		$proyectos = $this->get_lista_proyectos_vinculados();
 		$nombres_carp = array('global');
@@ -474,29 +478,29 @@ class instancia extends elemento_modelo
 		foreach ( $nombres_carp as $carp ) {
 			$dir = $this->get_dir()."/".$carp;
 			if (file_exists($dir)) {
-				$this->manejador_interface->mensaje( $dir );
 				$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 				foreach( $archivos as $archivo ) {
-					$this->manejador_interface->mensaje( $archivo );
-					$this->get_db()->ejecutar_archivo( $archivo );
+					$cant = $this->get_db()->ejecutar_archivo( $archivo );
+					logger::instancia()->debug($archivo . ". ($cant)");
+					$this->manejador_interface->mensaje_directo('.');
 				}
 			}
 		}
+		$this->manejador_interface->mensaje('OK');		
 	}
 
 	function cargar_informacion_instancia_proyecto( $proyecto )
 	{
-		$this->manejador_interface->mensaje("Cargando datos locales de la instancia...", false);
+		$this->manejador_interface->mensaje("Cargando datos locales de la instancia", false);
 		logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
-		$total = 0;
 		foreach ( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			logger::instancia()->debug($archivo . ". ($cant)");
-			$total++;
+			$this->manejador_interface->mensaje_directo('.');
 		}
-		$this->manejador_interface->mensaje("$total arch.");
+		$this->manejador_interface->mensaje("OK");
 	}
 
 	/*
@@ -515,9 +519,8 @@ class instancia extends elemento_modelo
 	function actualizar_secuencias()
 	{
 		logger::instancia()->debug('Actualizando SECUENCIAS');
-		$this->manejador_interface->mensaje("Actualizando secuencias...", false);		
+		$this->manejador_interface->mensaje("Actualizando secuencias", false);		
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
-		$cant = 0;
 		foreach ( secuencias::get_lista() as $seq => $datos ) {
 			if ( is_null( $id_grupo_de_desarrollo ) ) {
 				//Si no hay definido un grupo la secuencia se toma en forma normal
@@ -539,11 +542,11 @@ class instancia extends elemento_modelo
 				}
 				$sql = "SELECT setval('$seq', $nuevo)";
 				$this->get_db()->consultar( $sql );	
-				$cant++;
 			}
 			logger::instancia()->debug("SECUENCIA $seq: $nuevo");
+			$this->manejador_interface->mensaje_directo(".");			
 		}
-		$this->manejador_interface->mensaje("$cant sec.");
+		$this->manejador_interface->mensaje("OK");
 	}
 	
 	//-----------------------------------------------------------
@@ -566,8 +569,9 @@ class instancia extends elemento_modelo
 	{
 		try {
 			$this->desconectar_db();
+			$this->manejador_interface->mensaje("Eliminando base '{$this->ini_base}'...", false);
 			$this->instalacion->borrar_base_datos( $this->ini_base );
-			$this->manejador_interface->mensaje("La base ha sido eliminada.");
+			$this->manejador_interface->mensaje("OK");
 		} catch ( excepcion_toba $e ) {
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n".
 												$e->getMessage());

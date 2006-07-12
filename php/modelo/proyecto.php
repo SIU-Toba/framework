@@ -132,9 +132,8 @@ class proyecto extends elemento_modelo
 
 	private function exportar_tablas()
 	{
-		$this->manejador_interface->mensaje("Exportando datos generales...", false);
+		$this->manejador_interface->mensaje("Exportando datos generales", false);
 		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
-		$cant = 0;
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
 			$definicion = tablas_proyecto::$tabla();
 			//Genero el SQL
@@ -165,9 +164,9 @@ class proyecto extends elemento_modelo
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_archivo( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 			}
-			$cant++;
+			$this->manejador_interface->mensaje_directo('.');
 		}
-		$this->manejador_interface->mensaje("$cant tablas.");
+		$this->manejador_interface->mensaje("OK");
 	}
 
 	/*
@@ -175,17 +174,16 @@ class proyecto extends elemento_modelo
 	*/
 	private function exportar_componentes()
 	{
-		$this->manejador_interface->mensaje("Exportando componentes...", false);
-		$cant = 0;
+		$this->manejador_interface->mensaje("Exportando componentes", false);
 		cargador_toba::instancia()->crear_cache_simple( $this->get_id(), $this->db );
 		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
 			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db );
 			foreach ( $lista_componentes as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
-				$cant++;
 			}
+			$this->manejador_interface->mensaje_directo(".");
 		}
-		$this->manejador_interface->mensaje("$cant tablas.");		
+		$this->manejador_interface->mensaje("OK");		
 	}
 	
 	/*
@@ -267,31 +265,31 @@ class proyecto extends elemento_modelo
 
 	private function cargar_tablas()
 	{
-		$this->manejador_interface->mensaje('Cargando datos globales...', false);
+		$this->manejador_interface->mensaje('Cargando datos globales', false);
 		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
 		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
 			logger::instancia()->debug($archivo . ". ($cant)");
+			$this->manejador_interface->mensaje_directo('.');
 			$cant_total++;
 		}
-		$this->manejador_interface->mensaje($cant_total." arch.");
+		$this->manejador_interface->mensaje("OK");
 	}
 	
 	private function cargar_componentes()
 	{
-		$this->manejador_interface->mensaje('Cargando componentes...', false);		
+		$this->manejador_interface->mensaje('Cargando componentes', false);		
 		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
-		$cant_total = 0;
 		foreach ( $subdirs as $dir ) {
 			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 			foreach( $archivos as $archivo ) {
 				$cant = $this->db->ejecutar_archivo( $archivo );
 				logger::instancia()->debug($archivo . " ($cant)");
-				$cant_total++;
 			}
+			$this->manejador_interface->mensaje_directo('.');			
 		}
-		$this->manejador_interface->mensaje($cant_total.' arch.');
+		$this->manejador_interface->mensaje('OK');
 	}
 
 	//-----------------------------------------------------------
@@ -323,7 +321,7 @@ class proyecto extends elemento_modelo
 		$cant = count($sql);		
 		$cant = $this->db->ejecutar( $sql );
 		logger::instancia()->debug("Eliminacion. Registros borrados: $cant");
-		$this->manejador_interface->mensaje( "$cant reg." );				
+		$this->manejador_interface->mensaje( "OK" );				
 	}
 
 	/*

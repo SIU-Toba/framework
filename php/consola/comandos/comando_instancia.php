@@ -74,6 +74,7 @@ class comando_instancia extends comando_toba
 				$this->opcion__exportar_local();
 			}
 		}
+		$this->consola->enter();
 		$this->opcion__eliminar();
 		$this->get_instancia()->cargar();
 	}
