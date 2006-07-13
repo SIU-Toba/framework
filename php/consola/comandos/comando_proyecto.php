@@ -95,7 +95,7 @@ class comando_proyecto extends comando_toba
 			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
 			$i->vincular_proyecto( $p->get_id() );
 			$p->cargar_autonomo();
-			$this->consola->mensaje("Vinculando USUARIOS", false);
+			$this->consola->mensaje("Vinculando usuarios", false);
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
 			foreach ( $usuarios as $usuario ) {
@@ -153,7 +153,7 @@ class comando_proyecto extends comando_toba
 		$instancia->exportar_local();
 		$this->consola->separador();
 		$this->consola->mensaje( "El proyecto ha sido creado. Si se desea crear un acceso WEB al mismo" .
-									" agrege al archivo de configuracion de apache ('httpd.conf') las directivas" .
+									" incluya desde el archivo de configuración de apache ('httpd.conf') las directivas" .
 									" existentes en el archivo '".toba_dir()."/proyectos/$id_proyecto/toba.conf'" );
 		$this->consola->separador();
 	}

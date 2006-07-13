@@ -132,6 +132,7 @@ class instalacion extends elemento_modelo
 	*/
 	function conectar_base( $nombre )
 	{
+		logger::instancia()->debug("Conectando a base '$nombre'");
 		return $this->conectar_base_parametros( $this->get_parametros_base( $nombre ) );	
 	}
 
@@ -151,6 +152,7 @@ class instalacion extends elemento_modelo
 			$sql = "CREATE DATABASE $base_a_crear ENCODING '" . self::db_encoding_estandar . "';";
 			$db->ejecutar( $sql );
 			$db->destruir();
+			logger::instancia()->debug("Creada base '$base_a_crear'");
 		}else{
 			throw new excepcion_toba("INSTALACION: El metodo no esta definido para el motor especificado");
 		}
@@ -170,6 +172,7 @@ class instalacion extends elemento_modelo
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
 			$sql = "DROP DATABASE $base_a_borrar;";
+			logger::instancia()->debug("Borrada base '$base_a_borrar'");			
 			$db->ejecutar($sql);
 			$db->destruir();
 		}else{
@@ -207,6 +210,8 @@ class instalacion extends elemento_modelo
 							$parametros['clave'],
 							$parametros['base'] );
 		$db->conectar();
+		$datos_base = var_export($parametros, true);
+		logger::instancia()->debug("Parametros de conexion: $datos_base");
 		return $db;
 	}
 
@@ -243,6 +248,7 @@ class instalacion extends elemento_modelo
 	{
 		if( ! is_dir( self::dir_base() ) ) {
 			mkdir( self::dir_base() );
+			logger::instancia()->debug("Creado directorio ".self::dir_base());			
 		}		
 	}
 
@@ -254,6 +260,7 @@ class instalacion extends elemento_modelo
 		$dir = toba_dir() .'/proyectos';
 		if( ! is_dir( $dir ) ) {
 			mkdir( $dir );
+			logger::instancia()->debug("Creado directorio $dir");			
 		}		
 	}
 	
@@ -271,6 +278,7 @@ class instalacion extends elemento_modelo
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->guardar( self::archivo_info_basica() );
+		logger::instancia()->debug("Creado archivo ".self::archivo_info_basica());
 	}
 	
 	/**
@@ -328,6 +336,7 @@ class instalacion extends elemento_modelo
 			}
 		}
 		$ini->guardar( self::archivo_info_bases() );
+		logger::instancia()->debug("Creado archivo ".self::archivo_info_bases());		
 	}
 	
 	static function agregar_db( $id_base, $parametros )
@@ -353,6 +362,7 @@ class instalacion extends elemento_modelo
 		$ini->agregar_titulo( self::info_bases_titulo );
 		$ini->agregar_entrada( $id_base, $parametros );
 		$ini->guardar();
+		logger::instancia()->debug("Agregada definicion base '$id_base'");		
 	}
 	
 	static function eliminar_db( $id_base )
@@ -360,7 +370,8 @@ class instalacion extends elemento_modelo
 		$ini = new ini( self::archivo_info_bases() );
 		$ini->agregar_titulo( self::info_bases_titulo );
 		$ini->eliminar_entrada( $id_base );
-		$ini->guardar();		
+		$ini->guardar();
+		logger::instancia()->debug("Eliminada definicion base '$id_base'");				
 	}
 	
 	function existe_info_bases()
@@ -393,7 +404,9 @@ class instalacion extends elemento_modelo
 	
 	private function actualizar_version($version)
 	{
-		file_put_contents(self::dir_base()."/VERSION", $version->__toString() );
+		$numero = $version->__toString();
+		file_put_contents(self::dir_base()."/VERSION", $numero );
+		logger::instancia()->debug("Actualizada instalación a versión $numero");
 	}
 	
 	static function get_version_actual()

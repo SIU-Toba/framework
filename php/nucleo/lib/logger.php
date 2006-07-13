@@ -372,7 +372,7 @@ class logger
 		$this->dir_logs = $dir;	
 	}
 	
-	function guardar_en_archivo($archivo)
+	function guardar_en_archivo($archivo, $forzar_salida = false)
 	{
 		$hay_salida = false;
 		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
@@ -412,7 +412,7 @@ class logger
 						"][".$this->proyectos[$a]."] " . $this->mensajes[$a] . "\r\n";
 			}			
 		}
-		if ($hay_salida) {
+		if ($hay_salida || $forzar_salida) {
 			$this->guardar_archivo_log($texto, $archivo);
 		}
 	}

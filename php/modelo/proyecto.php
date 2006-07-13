@@ -612,7 +612,6 @@ class proyecto extends elemento_modelo
 			$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
 			$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
 			$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );
-			$editor->procesar_archivo( $dir_proyecto . '/www/admin.php' );
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
 			$editor->procesar_archivo( $dir_proyecto . '/toba.conf' );
 			// Asocio el proyecto a la instancia

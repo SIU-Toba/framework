@@ -64,6 +64,7 @@ class instancia extends elemento_modelo
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
 			$ini = parse_ini_file( $archivo_ini );
+			logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($ini, true));
 			if ( ! isset( $ini['base'] ) ) {
 				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
 			}
@@ -192,6 +193,7 @@ class instancia extends elemento_modelo
 				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
 				$ini->guardar();
 			}
+			logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
 			// Recargo la inicializacion de la instancia
 			$this->cargar_info_ini();
 		} else {
@@ -213,6 +215,7 @@ class instancia extends elemento_modelo
 			if ( is_dir( $dir_proyecto ) ) {
 				manejador_archivos::eliminar_directorio( $dir_proyecto );			
 			}
+			logger::instancia()->debug("Desvinculado el proyecto '$proyecto' de la instancia");
 		}
 		// Recargo la inicializacion de la instancia
 		$this->cargar_info_ini();
@@ -262,8 +265,10 @@ class instancia extends elemento_modelo
 	{
 		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->get_sincronizador()->sincronizar();
+		logger::instancia()->debug("Observaciones de sincronizacion: ".implode(', ', $obs));
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}	
+	
 	/*
 	*	Exportar informacion GLOBAL de la instancia
 	*/
@@ -418,6 +423,7 @@ class instancia extends elemento_modelo
 	{	
 		$this->crear_tablas();
 		$this->cargar_datos_nucleo();
+		logger::instancia()->debug("Modelo creado");		
 	}
 	
 	private function crear_tablas()
@@ -511,6 +517,7 @@ class instancia extends elemento_modelo
 		$revision = revision_svn( toba_dir() );
 		$sql = "INSERT INTO apex_revision ( revision ) VALUES ('$revision')";
 		$this->get_db()->ejecutar( $sql );
+		logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
 	}
 	
 	/*
@@ -585,6 +592,7 @@ class instancia extends elemento_modelo
 	function eliminar_modelo()
 	{
 		try {
+			$this->manejador_interface->mensaje("Eliminando el modelo...",false);			
 			$this->get_db()->abrir_transaccion();
 			// Tablas
 			$sql = sql_array_tablas_drop( catalogo_general::get_tablas() );
@@ -594,7 +602,8 @@ class instancia extends elemento_modelo
 			$sql = sql_array_secuencias_drop( $secuencias );
 			$this->get_db()->ejecutar( $sql );
 			$this->get_db()->cerrar_transaccion();
-			$this->manejador_interface->mensaje("El modelo ha sido eliminado.");
+			$this->manejador_interface->mensaje("OK");
+			logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
 		} catch ( excepcion_toba $e ) {
 			$this->get_db()->abortar_transaccion();
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
@@ -630,6 +639,7 @@ class instancia extends elemento_modelo
 
 	function agregar_usuario( $usuario, $nombre, $clave )
 	{
+		logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
 		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
 				VALUES ('$usuario', '$nombre', 'md5', '". md5($clave) ."')";
 		return $this->get_db()->ejecutar( $sql );
@@ -637,6 +647,7 @@ class instancia extends elemento_modelo
 	
 	function eliminar_usuario( $usuario )
 	{
+		logger::instancia()->debug("Borrando el usuario '$usuario' de la instancia {$this->identificador}");		
 		$sql = "DELETE FROM apex_usuario WHERE usuario = '$usuario'";	
 		return $this->get_db()->ejecutar( $sql );
 	}
@@ -652,14 +663,18 @@ class instancia extends elemento_modelo
 	{
 		//Creo la carpeta
 		if( ! self::existe_carpeta_instancia( $nombre ) ) {
-			mkdir( self::dir_instancia( $nombre ) );
+			$dir = self::dir_instancia( $nombre );
+			mkdir( $dir );
+			logger::instancia()->debug("Creado directorio $dir");
 		}
 		//Creo la clase que proporciona informacion sobre la instancia
 		$ini = new ini();
 		$ini->agregar_titulo( self::info_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
 		$ini->agregar_entrada( 'proyectos', implode(', ', $lista_proyectos) );
-		$ini->guardar( self::dir_instancia( $nombre ) . '/' . instancia::info_instancia );
+		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::info_instancia ;
+		$ini->guardar( $archivo );
+		logger::instancia()->debug("Creado archivo $archivo");
 	}
 
 	static function dir_instancia( $nombre )
@@ -725,6 +740,7 @@ class instancia extends elemento_modelo
 		} else {
 			$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
 		}
+		logger::instancia()->debug("Actualizando la instancia {$this->identificador} a versión $nueva");		
 		$this->get_db()->ejecutar($sql);
 	}
 	
