@@ -106,7 +106,7 @@ class version_toba
 		return $versiones;
 	}
 	
-	function ejecutar_migracion($prefijo, $elemento, $metodo_part = null)
+	function ejecutar_migracion($prefijo, $elemento, $metodo_part = null, $interface = null)
 	{
 		$nombre_clase = "migracion_".$this->partes[0].'_'.$this->partes[1].'_'.$this->partes[2];
 		$archivo = $this->path_migraciones()."/$nombre_clase.php";
@@ -118,6 +118,9 @@ class version_toba
 						(!isset($metodo_part) && strpos($metodo->getName(), $prefijo."__") === 0));
 			if ($es_metodo) {
 				$metodo->invoke($migracion);
+				if (isset($interface)) {
+					$interface->mensaje_directo('.');	
+				}
 			}
 		}
 	}

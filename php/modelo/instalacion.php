@@ -390,9 +390,11 @@ class instalacion extends elemento_modelo
 	
 	function migrar_version($version, $recursivo)
 	{
-		$this->manejador_interface->subtitulo("Migrando instalación");
-		$version->ejecutar_migracion('instalacion', $this);
+		logger::instancia()->debug("Migrando instalación hacia version ".$version->__toString());
+		$this->manejador_interface->mensaje("Migrando instalación.", false);
+		$version->ejecutar_migracion('instalacion', $this, null, $this->manejador_interface);
 		$this->actualizar_version($version);
+		$this->manejador_interface->mensaje("OK");
 		
 		//-- Se migran las instancias incluidas		
 		if ($recursivo) {
@@ -413,7 +415,6 @@ class instalacion extends elemento_modelo
 	{
 		return new version_toba(file_get_contents(toba_dir()."/VERSION"));
 	}
-	
 	
 	function get_version_anterior()
 	{

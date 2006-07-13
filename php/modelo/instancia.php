@@ -717,8 +717,9 @@ class instancia extends elemento_modelo
 		if ($version->es_mayor($this->get_version_actual())) {
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
+			logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());
 			$this->get_db()->abrir_transaccion();
-			$version->ejecutar_migracion('instancia', $this);
+			$version->ejecutar_migracion('instancia', $this, null, $this->manejador_interface);
 			$this->set_version($version);
 			
 			//-- Se migran los proyectos incluidos
@@ -728,6 +729,8 @@ class instancia extends elemento_modelo
 				}
 			}
 			$this->get_db()->cerrar_transaccion();
+		} else {
+			logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());
 		}
 	}
 	

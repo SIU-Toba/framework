@@ -513,9 +513,12 @@ class proyecto extends elemento_modelo
 	function migrar_version($version)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
-			$this->manejador_interface->mensaje("  Migrando proyecto '{$this->identificador}'");
-			$version->ejecutar_migracion('proyecto', $this);
+			logger::instancia()->debug("Migrando proyecto {$this->identificador} a la versión ".$version->__toString());
+			$this->manejador_interface->mensaje("Migrando proyecto '{$this->identificador}'");
+			$version->ejecutar_migracion('proyecto', $this, null, $this->manejador_interface);
 			$this->actualizar_campo_version($version);
+		} else {
+			logger::instancia()->debug("El proyecto {$this->identificador} no necesita migrar a la versión ".$version->__toString());
 		}
 	}
 	
@@ -525,7 +528,7 @@ class proyecto extends elemento_modelo
 		$version->ejecutar_migracion('proyecto', $this, $metodo);
 		$this->get_db()->cerrar_transaccion();		
 	}
-	
+
 	function get_version_actual()
 	{
 		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
@@ -535,7 +538,6 @@ class proyecto extends elemento_modelo
 			return version_toba::inicial();
 		}
 		return new version_toba($version);
-		
 	}
 	
 	private function actualizar_campo_version($version)
@@ -660,7 +662,7 @@ class proyecto extends elemento_modelo
 		$sql[] = "INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion) VALUES ('$id_proyecto','admin','Administrador','0','Accede a toda la funcionalidad');";
 		// Creo un perfil de datos
 		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
-		return $sql;		
+		return $sql;
 	}
 
 	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos )

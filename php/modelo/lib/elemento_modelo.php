@@ -24,7 +24,8 @@ class elemento_modelo
 	{
 		$versiones = $desde->get_secuencia_migraciones($hasta);
 		foreach ($versiones as $version) {
-			$this->manejador_interface->titulo("Versión ".$version->__toString());
+			$this->manejador_interface->enter();
+			$this->manejador_interface->subtitulo("Versión ".$version->__toString());
 			$this->migrar_version($version, $recursivo);
 		}
 	}	

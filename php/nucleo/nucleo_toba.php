@@ -130,7 +130,7 @@ class nucleo_toba
 	*/
 	function get_id_item($predefinido=null,$forzar_predefinido=false)
 	{
-		$item = toba::get_hilo()->obtener_item_solicitado();		
+		$item = toba::get_hilo()->obtener_item_solicitado();
 		if (!$item) {
 			if(isset($predefinido)){
 				$item[0] = info_proyecto::instancia()->get_id();
