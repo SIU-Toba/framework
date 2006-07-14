@@ -206,6 +206,27 @@ class editor
 	*/
 	static function generar_zona_vinculos_item( $item )
 	{
+		echo js::abrir();
+		echo "
+			function cambiar_vinculos_editor() {
+				var nodos = getElementsByClass('div-editor');
+				var mostrar =false;
+				for (var i=0; i< nodos.length; i++) {
+					if (nodos[i].className.indexOf('editor-mostrar') == -1) {
+						nodos[i].className += ' editor-mostrar';
+						mostrar = true;
+					} else {
+						nodos[i].className = 'div-editor';
+					}
+				}
+/*				var color = (mostrar) ? 'white' : '';
+				document.getElementById('editor_boton').style.backgroundColor = color;*/
+			}";
+		echo js::cerrar();
+		echo "<div id='editor_toggle' onclick='cambiar_vinculos_editor()'>
+				<button type='button' acceskey='e' id='editor_boton'>".
+				recurso::imagen_apl('editor-boton.png', true).
+				"</button></div>";		
 		self::javascript_invocacion_editor();
 		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
