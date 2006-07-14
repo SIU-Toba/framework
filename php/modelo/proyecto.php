@@ -56,6 +56,12 @@ class proyecto extends elemento_modelo
 		return $this->identificador;
 	}
 	
+	
+	function get_alias()
+	{
+		return $this->get_id();
+	}
+	
 	function get_dir()
 	{
 		return $this->dir;	

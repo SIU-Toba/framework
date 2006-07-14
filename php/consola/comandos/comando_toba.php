@@ -209,7 +209,7 @@ class comando_toba extends comando
 	*/	
 	protected function seleccionar_base()
 	{
-		$titulo = "Seleccionr BASE";
+		$titulo = "Seleccionar BASE";
 		$bases = array();
 		foreach( $this->get_instalacion()->get_lista_bases() as $db ) {
 			$param = $this->get_instalacion()->get_parametros_base( $db );
@@ -217,7 +217,9 @@ class comando_toba extends comando
 		}
 		if ( count( $bases ) > 0 ) {
 			$cabecera_tabla = implode( ', ', array_keys( $param ) );
-			return $this->consola->dialogo_lista_opciones( $bases, $titulo, false, $cabecera_tabla );
+			$defecto = key($bases);
+			return $this->consola->dialogo_lista_opciones( $bases, $titulo, false, $cabecera_tabla, true,
+															$defecto, $defecto );
 		} else {
 			return null;	
 		}
@@ -234,7 +236,8 @@ class comando_toba extends comando
 			foreach( $proyectos as $proyecto ) {
 				$p[ $proyecto ]	= $proyecto;
 			}
-			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', $obligatorio );
+			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', 
+														$obligatorio, $proyectos, 'todos');
 		} else {
 			if ( $obligatorio ) {
 				throw new excepcion_toba('No hay proyectos definidos');	

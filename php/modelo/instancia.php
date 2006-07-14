@@ -88,6 +88,7 @@ class instancia extends elemento_modelo
 
 	/**
 	*	Devuelve un array con los objetos PROYECTO cargados
+	* @return proyecto
 	*/
 	function get_proyectos()
 	{
@@ -708,6 +709,13 @@ class instancia extends elemento_modelo
 	}
 
 
+	function crear_alias_proyectos()
+	{
+		foreach( $this->get_proyectos() as $proyecto ) {
+			instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $this->get_id());
+		}
+	}
+	
 	//------------------------------------------------------------------------
 	//--------------------------  Manejo de Versiones ------------------------
 	//------------------------------------------------------------------------

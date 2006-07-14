@@ -151,7 +151,8 @@ class comando_instalacion extends comando_toba
 		if( ! instalacion::existe_info_basica() ) {
 			$this->consola->titulo( "Configurando INSTALACION en: " . instalacion::dir_base() );
 			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
-			instalacion::crear( $id_grupo_desarrollo );
+			$alias = self::definir_alias_nucleo();
+			instalacion::crear( $id_grupo_desarrollo, $alias );
 			$this->consola->enter();
 			$this->consola->mensaje("La instalacion ha sido inicializada");
 			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba instalacion agregar_db -d [nombre_base]'");
@@ -217,6 +218,21 @@ class comando_instalacion extends comando_toba
 		}
 	}
 
+	protected function definir_alias_nucleo()
+	{
+		$this->consola->enter();		
+		$this->consola->subtitulo('Definir el nombre del ALIAS del núcleo Toba');
+		$this->consola->mensaje('Este alias se utiliza para consumir todo el contenido navegable de Toba');
+		$this->consola->enter();
+		$resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
+		if ( $resultado == '' ) {
+			return 'toba';
+		} else {
+			return $resultado;	
+		}
+		
+	}
+	
 	/**
 	*	Determina sobre que base definida en 'info_bases' se va a trabajar
 	*/

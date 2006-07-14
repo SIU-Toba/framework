@@ -229,12 +229,15 @@ class consola implements gui
 	// Interaccion con el usuario
 	//------------------------------------------------------------------------
 
-	function dialogo_simple( $texto )
+	function dialogo_simple( $texto, $defecto = null )
 	{
 		echo "$texto (Si o No)\n";
 		do {
 			echo "(s/n):";
 			$respuesta = trim( fgets( STDIN ) );
+			if (isset($defecto) && $respuesta == '') {
+				$respuesta = ($defecto) ? 's' : 'n';
+			}
 			$ok = ($respuesta == 's') || ( $respuesta == 'n');
 		} while ( ! $ok );
 		if( $respuesta == 's') return true;
@@ -253,9 +256,11 @@ class consola implements gui
 
 	/**
 	*	Muestra una lista de opciones y espera que el usuario seleccione.
-	*		Soporta: multiple selecciones y seleccion no obligaroria (--).
+	*		Soporta: multiple selecciones, seleccion no obligaroria (--) y seleccion por defecto (vacio).
 	*/
-	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, $titulo = 'VALORES', $obligatorio = true )
+	function dialogo_lista_opciones( $opciones, $texto, $multiple_seleccion = false, 
+									$titulo = 'VALORES', $obligatorio = true, 
+									$defecto = null, $defecto_texto = '' )
 	{
 		self::subtitulo( $texto );
 		self::lista_asociativa( $opciones, array( 'ID', $titulo ) );
@@ -273,8 +278,15 @@ class consola implements gui
 		self::enter();
 		$valores_posibles = implode( ',', array_keys( $opciones ) );
 		do {
-			echo "($txt): ";
+			if (isset($defecto)) {
+				echo "$txt (ENTER selecciona ".$defecto_texto."): ";
+			} else {
+				echo "($txt): ";
+			}
 			$respuesta = trim( fgets( STDIN ) );
+			if (isset($defecto) && $respuesta == '') {
+				return $defecto;
+			}	
 			if ( ! $obligatorio && $respuesta == '--' ) {	// Salida para opcionales
 				return ($multiple_seleccion) ? array() : null;				
 			}

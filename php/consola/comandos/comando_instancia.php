@@ -127,7 +127,7 @@ class comando_instancia extends comando_toba
 
 		//---- A: Creo la definicion de la instancia
 		$proyectos = $this->seleccionar_proyectos();
-		// En el esquema actual, el toba siempre tiene que estar.
+		// En el esquema actual, el admin siempre tiene que estar.
 		if ( ! in_array( 'admin', $proyectos ) ) {
 			$proyectos[] = 'admin';
 		}
@@ -137,6 +137,13 @@ class comando_instancia extends comando_toba
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia();
+		
+		//-- Agregar los alias
+		$this->consola->enter();		
+		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias en el archivo toba.conf?", true);
+		if ($crear_alias) {
+			$instancia->crear_alias_proyectos();
+		}
 		try {
 			$instancia->cargar();
 		} catch ( excepcion_toba_modelo_preexiste $e ) {

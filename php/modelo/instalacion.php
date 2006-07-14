@@ -219,7 +219,7 @@ class instalacion extends elemento_modelo
 	//-- Funcionalidad estatica relacionada a la CREACION de INSTALACIONES
 	//-------------------------------------------------------------------------
 
-	static function crear( $id_grupo_desarrollo )
+	static function crear( $id_grupo_desarrollo, $alias_nucleo )
 	{
 		instalacion::crear_directorio();
 		instalacion::actualizar_version( instalacion::get_version_actual() );
@@ -228,12 +228,44 @@ class instalacion extends elemento_modelo
 		instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
 		instalacion::crear_info_bases();
 		instalacion::crear_directorio_proyectos();
-		// Creo un archivo de referencia para la configuracion del apache.
+		self::crear_archivo_apache($alias_nucleo);
+	}
+	
+	static function crear_archivo_apache($alias_nucleo)
+	{
 		$archivo = self::dir_base() . '/toba.conf';
 		copy( toba_dir(). '/php/modelo/var/toba.conf', $archivo );
 		$editor = new editor_archivos();
-		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );
+		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );		
+		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
 		$editor->procesar_archivo( $archivo );
+	}
+	
+	/**
+	 * Agrega al archivo toba.conf la definicion del proyecto
+	 */
+	static function agregar_alias_apache($alias, $dir, $instancia)
+	{
+		$archivo = self::dir_base() . '/toba.conf';
+				
+		//--- Se determina cual es el alias del nucleo
+		$alias_nucleo = 'toba';
+		$contenido = file_get_contents($archivo);
+		if (preg_match('/TOBA_ALIAS(.+)/', $contenido, $salida)) {
+			$alias_nucleo = trim($salida[1]);
+			$alias_nucleo = str_replace(array('"', "'"), '', $alias_nucleo);	//Se sacan las comillas
+		}
+		
+		//--- Se agrega el proyecto al archivo
+		$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
+		$editor = new editor_texto();
+		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );		
+		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
+		$editor->agregar_sustitucion( '|__proyecto_alias__|', $alias );
+		$editor->agregar_sustitucion( '|__proyecto_dir__|', manejador_archivos::path_a_unix($dir) );
+		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
+		$salida = $editor->procesar( $template );
+		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
 
 	static function dir_base()
