@@ -222,11 +222,22 @@ class editor
 /*				var color = (mostrar) ? 'white' : '';
 				document.getElementById('editor_boton').style.backgroundColor = color;*/
 			}";
+		echo "
+			function capturar(e) 
+			{
+			   	var id = (window.event) ? event.keyCode : e.keyCode;
+				if (id == 16) {
+					cambiar_vinculos_editor();
+				}
+			}
+			document.onkeyup = capturar
+			document.onkeydown = capturar
+		";
 		echo js::cerrar();
 		echo "<div id='editor_toggle' onclick='cambiar_vinculos_editor()'>
 				<button type='button' acceskey='e' id='editor_boton'>".
 				recurso::imagen_apl('editor-boton.png', true).
-				"</button></div>";		
+				"<br>shift</button></div>";		
 		self::javascript_invocacion_editor();
 		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
