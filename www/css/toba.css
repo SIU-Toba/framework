@@ -1128,3 +1128,17 @@ legend {
 	border-width: 1px;
 	width: 100%;
 }
+
+/*************************
+		LOGIN
+**************************/
+.login-titulo {
+	padding-top: 10px;
+	padding-bottom: 25px;
+	text-align: center;
+}
+.login-pie {
+	margin-top: 25px;
+	text-align: center;
+}
+

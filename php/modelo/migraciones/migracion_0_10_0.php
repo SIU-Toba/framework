@@ -17,6 +17,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__parametros_efs()
 	{
+		$cant = 0;
 		$sql = "
 			SELECT 
 				objeto_ei_formulario_proyecto,
@@ -40,9 +41,10 @@ class migracion_0_10_0 extends migracion_toba
 						AND	objeto_ei_formulario = '{$ef['objeto_ei_formulario']}'  
 						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
 					";
-				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant += $this->elemento->get_db()->ejecutar($sql);
 			}
-		}		
+		}
+		return $cant;		
 	}
 	
 	/**
@@ -52,6 +54,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__parametros_combo_lista_c()
 	{
+		$cant = 0;
 		$sql = "
 			SELECT 
 				objeto_ei_formulario_proyecto,
@@ -79,9 +82,10 @@ class migracion_0_10_0 extends migracion_toba
 						AND	objeto_ei_formulario = '{$ef['objeto_ei_formulario']}'  
 						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
 					";
-				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant += $this->elemento->get_db()->ejecutar($sql);
 			}
 		}
+		return $cant;		
 	}
 	
 	/**
@@ -89,6 +93,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__parametros_multiseleccion()
 	{
+		$cant = 0;
 		$sql = "
 			SELECT 
 				objeto_ei_formulario_proyecto,
@@ -115,9 +120,10 @@ class migracion_0_10_0 extends migracion_toba
 						AND	objeto_ei_formulario = '{$ef['objeto_ei_formulario']}'  
 						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
 					";
-				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant += $this->elemento->get_db()->ejecutar($sql);
 			}
 		}
+		return $cant;		
 	}
 	
 	/**
@@ -127,6 +133,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__parametros_ef_popup()
 	{
+		$cant = 0;
 		$sql = "
 			SELECT 
 				objeto_ei_formulario_proyecto,
@@ -162,9 +169,10 @@ class migracion_0_10_0 extends migracion_toba
 						AND	objeto_ei_formulario = '{$ef['objeto_ei_formulario']}'  
 						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
 					";
-				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant += $this->elemento->get_db()->ejecutar($sql);
 			}
-		}		
+		}
+		return $cant;		
 	}
 	
 	/**
@@ -182,7 +190,8 @@ class migracion_0_10_0 extends migracion_toba
 				elemento_formulario IN ('ef_combo_dao', 'ef_combo_db', 'ef_combo_db_proyecto', 
 										'ef_combo_lista', 'ef_combo_lista_c')
 		";		
-		$rs = $this->elemento->get_db()->ejecutar($sql);		
+		$cant = $this->elemento->get_db()->ejecutar($sql);
+		return $cant;		
 	}
 	
 	/**
@@ -199,7 +208,8 @@ class migracion_0_10_0 extends migracion_toba
 				objeto_ei_formulario_proyecto='{$this->elemento->get_id()}' AND
 				elemento_formulario = 'ef_editable_multilinea'
 		";		
-		$rs = $this->elemento->get_db()->ejecutar($sql);		
+		$cant = $this->elemento->get_db()->ejecutar($sql);	
+		return $cant;	
 	}
 	
 	/**
@@ -207,6 +217,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__ef_parametros_editable_numero()
 	{
+		$cant = 0;
 		$sql = "
 			SELECT 
 				objeto_ei_formulario_proyecto,
@@ -234,12 +245,15 @@ class migracion_0_10_0 extends migracion_toba
 						AND objeto_ei_formulario_fila = '{$ef['objeto_ei_formulario_fila']}'
 					";
 				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant++;
 			}
 		}
+		return $cant;
 	}
 
 	function proyecto__ef_normalizacion_parametros()
 	{
+		$cant = 0;
 		$correlacion = array(
 			'estado' =>'estado_defecto',
 			'predeterminado' => 'estado_defecto',
@@ -340,15 +354,16 @@ class migracion_0_10_0 extends migracion_toba
 					";
 				//echo $sql."\n";
 				$rs = $this->elemento->get_db()->ejecutar($sql);
+				$cant++;
 			}
 		}	
-		
 		
 		
 		//--- Pone las inicializaciones en NULL para no volver a migrarlas sin querer
 		$sql =  "UPDATE apex_objeto_ei_formulario_ef SET inicializacion = NULL
 					WHERE objeto_ei_formulario_proyecto='{$this->elemento->get_id()}'";
 		$this->elemento->get_db()->ejecutar($sql);
+		return $cant;
 	}
 
 	function proyecto__path_includes()
@@ -406,7 +421,8 @@ class migracion_0_10_0 extends migracion_toba
 					objeto_cuadro_proyecto = '{$this->elemento->get_id()}'
 				AND	estilo_titulo = 'lista-col-titulo'
 		";
-		$this->elemento->get_db()->ejecutar($sql);		
+		$cant = $this->elemento->get_db()->ejecutar($sql);	
+		return $cant;	
 	}
 	
 	/**
@@ -415,6 +431,7 @@ class migracion_0_10_0 extends migracion_toba
 	 */
 	function proyecto__migracion_css_botones_evt()
 	{
+		$cant = 0;		
 		$sql = " 
 			UPDATE apex_objeto_eventos
 			SET 
@@ -423,7 +440,7 @@ class migracion_0_10_0 extends migracion_toba
 					proyecto = '{$this->elemento->get_id()}'
 				AND	estilo = 'abm-input'
 		";
-		$this->elemento->get_db()->ejecutar($sql);	
+		$cant += $this->elemento->get_db()->ejecutar($sql);	
 		
 		//--- BAJA
 		$sql = " 
@@ -434,7 +451,33 @@ class migracion_0_10_0 extends migracion_toba
 					proyecto = '{$this->elemento->get_id()}'
 				AND	estilo = 'abm-input-eliminar'
 		";
-		$this->elemento->get_db()->ejecutar($sql);		
+		$cant += $this->elemento->get_db()->ejecutar($sql);		
+		return $cant;
+	}
+	
+	function proyecto__cambios_tipo_pagina()
+	{
+		$cant = 0;
+		//--Consumidor_html, lista_admin y com_js migran a vacio
+		$sql = "UPDATE apex_item
+				SET 
+					pagina_tipo = 'vacio'
+				WHERE 
+						proyecto = '{$this->elemento->get_id()}'
+					AND	pagina_tipo IN ('com_js', 'consumidor_html', 'lista_admin')
+			";
+		$cant+= $this->elemento->get_db()->ejecutar($sql);
+		
+		//--Popup pasa a ef_popup		
+		$sql = "UPDATE apex_item
+				SET 
+					pagina_tipo = 'popup_ef'
+				WHERE 
+						proyecto = '{$this->elemento->get_id()}'
+					AND	pagina_tipo IN ('com_js', 'consumidor_html', 'popup')
+			";
+		$cant+= $this->elemento->get_db()->ejecutar($sql);
+		return $cant;
 	}
 	
 }

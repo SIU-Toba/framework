@@ -114,10 +114,14 @@ class version_toba
 		$migracion = new $nombre_clase($elemento);
 		$clase = new ReflectionClass($nombre_clase);
 		foreach ($clase->getMethods() as $metodo) {
-			$es_metodo = ($metodo->getName() == $metodo_part ||
-						(!isset($metodo_part) && strpos($metodo->getName(), $prefijo."__") === 0));
+			$nombre_metodo = $metodo->getName();
+			$es_metodo = ($nombre_metodo == $metodo_part ||
+						(!isset($metodo_part) && strpos($nombre_metodo, $prefijo."__") === 0));
 			if ($es_metodo) {
-				$metodo->invoke($migracion);
+				$cant = $metodo->invoke($migracion);
+				if (isset($cant)) {
+					logger::instancia()->info("Migración $nombre_metodo: $cant registros.");
+				}
 				if (isset($interface)) {
 					$interface->mensaje_directo('.');	
 				}
