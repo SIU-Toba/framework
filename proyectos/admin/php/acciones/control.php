@@ -1,4 +1,5 @@
 <?
+	require_once('nucleo/lib/interface/form.php');
 	require_once('modelo/catalogo_modelo.php');
 	
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
