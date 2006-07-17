@@ -26,9 +26,10 @@ body * .div-editor {
 	bottom: 0px;
 }
 #editor_toggle button {
-	height: 50px;
+	height: 55px;
 	font-weight: bold;
 	cursor: pointer;	
+	z-index:1000;
 }
 #vinculo_logger {
 	white-space: nowrap;
