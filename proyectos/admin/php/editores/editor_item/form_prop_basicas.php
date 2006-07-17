@@ -50,7 +50,6 @@ class form_prop_basicas extends objeto_ei_formulario
 		";
 	}
 
-
 }
 
 ?>

@@ -54,7 +54,7 @@ class solicitud_web extends solicitud
 			}
 			if ($accion == '') {
 				$this->procesar_servicios();
-			} else  {
+			} else {
 				include($accion);
 			}
 		} catch( excepcion_reset_nucleo $e ) {

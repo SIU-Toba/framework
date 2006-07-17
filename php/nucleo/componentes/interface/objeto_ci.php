@@ -961,46 +961,44 @@ class objeto_ci extends objeto_ei
 
 	protected function obtener_tabs_horizontales()
 	{
-		$this->lista_tabs = $this->get_lista_tabs();
-		echo "<table class='ci-tabs-h-lista'>\n";
-		echo "<tr>";
+		$this->lista_tabs = $this->get_lista_tabs();	
+		$estilo = 'background: url("'.recurso::imagen_apl('tabs/bg.gif').'") repeat-x bottom;';
+		echo "<div style='$estilo' class='ci-tabs-h-lista'><ul>\n";
 		$id_tab = 1;
-		foreach( $this->lista_tabs as $id => $tab )
-		{
+		foreach( $this->lista_tabs as $id => $tab ) {
 			$tip = $tab["tip"];
 			$clase = 'ci-tabs-h-boton';
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$html = '';
 			if(isset($tab['imagen'])) {
-				$html = recurso::imagen($tab['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
+				$html = recurso::imagen($tab['imagen']).' ';
+			} else {
+				$html = gif_nulo(1, 16);
 			}
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
 			if(!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
+			$tip = str_replace("'", "\\'",$tip);			
+			$acceso = recurso::ayuda($tecla, $tip);
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');\"";
-			if( $this->etapa_gi == $id ){
-				//TAB actual
-				echo "<td class='ci-tabs-h-solapa-sel'>";
-				echo form::button_html( "actual", $html, '', $tab_order, null, '', 'button', '', "ci-tabs-h-boton-sel");
-				echo "</td>\n";
-				echo "<td width='1' class='ci-tabs-h-hueco'>".gif_nulo(4,1)."</td>\n";
-			}else{
-				echo "<td class='ci-tabs-h-solapa'>";
-				$tip = str_replace("'", "\\'",$tip);
-				echo form::button_html( $this->submit.'_cambiar_tab_'.$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
-				echo "</td>\n";
-				echo "<td width='1' class='ci-tabs-h-hueco'>".gif_nulo(4,1)."</td>\n";
+			if ($this->etapa_gi == $id) {
+  				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
+				echo "<li id='current' style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+			} else {
+  				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
+				echo "<li style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			}
-			$id_tab++;
+			$id_tab++;			
 		}
-		echo "<td width='90%'  class='ci-tabs-h-hueco'>".gif_nulo()."</td>\n";
-		echo "</tr>";
-		echo "</table>\n";
+		echo "</ul></div>";
 	}
 
 	function obtener_tabs_verticales()
 	{
+		
 		$this->lista_tabs = $this->get_lista_tabs();
 		echo "<div  class='ci-tabs-v-solapa' style='height:20px'> </div>";
 		foreach( $this->lista_tabs as $id => $tab )
