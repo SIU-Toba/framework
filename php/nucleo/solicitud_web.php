@@ -39,6 +39,7 @@ class solicitud_web extends solicitud
 
 	function procesar()
 	{	
+		$accion = $this->info['basica']['item_act_accion_script'];
 		try {
 			$redirecciona = ($this->info['basica']['redirecciona']);
 			// Si la pagina redirecciona, no mando los pre_servicios ahora
@@ -51,8 +52,11 @@ class solicitud_web extends solicitud
 			if ($redirecciona) {
 				$this->pre_proceso_servicio();
 			}
-			$this->procesar_servicios();
-
+			if ($accion == '') {
+				$this->procesar_servicios();
+			} else  {
+				include($accion);
+			}
 		} catch( excepcion_reset_nucleo $e ) {
 			// Recarga del nucleo
 			throw $e;
@@ -340,4 +344,5 @@ function responder($rs)
 	$respuesta = $json->encode($rs);
 	echo $respuesta;	
 }
+
 ?>

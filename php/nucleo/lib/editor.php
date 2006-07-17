@@ -233,10 +233,8 @@ class editor
 			document.onkeyup = capturar
 		";
 		echo js::cerrar();
-		echo "<div id='editor_toggle' onclick='cambiar_vinculos_editor()'>
-				<button type='button' acceskey='e' id='editor_boton'>".
-				recurso::imagen_apl('editor-boton.png', true).
-				"<br>Ctrl</button></div>";		
+		echo "<div id='editor_toggle' onclick='cambiar_vinculos_editor()'><button type='button' id='editor_boton'>".
+				recurso::imagen_apl('editor-boton.png', true)."<br>Ctrl</button></div>";
 		self::javascript_invocacion_editor();
 		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {

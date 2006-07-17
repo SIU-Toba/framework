@@ -43,7 +43,7 @@ class objeto_ei_arbol extends objeto_ei
 		toba::get_hilo()->desactivar_reciclado();		
 		$id_nodo = toba::get_hilo()->obtener_parametro('id_nodo');
 		$nodo = $this->reportar_evento("cargar_nodo", $id_nodo);
-		if (isset($nodo)) {
+		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
 			$html = $this->recorrer_hijos(current($nodo), 0);
 			echo $html;
 		} else {

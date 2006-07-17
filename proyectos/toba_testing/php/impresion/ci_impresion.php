@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ci.php'); 
-//--------------------------------------------------------------------
+
 class ci_impresion extends objeto_ci
 {
 	function mantener_estado_sesion()

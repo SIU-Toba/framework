@@ -5,6 +5,7 @@ require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
 require_once("nucleo/lib/interface/form.php");
 require_once('nucleo/lib/parser_ayuda.php');
 
+
 /**
  * Controla un flujo de pantallas
  * @package Objetos
@@ -560,8 +561,7 @@ class objeto_ci extends objeto_ei
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
 			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
-			return false;			
-			//Puede implementarse un metodo generico de manejo de eventos? 
+			return apex_ei_evt_sin_rpta;
 		}
 	}
 

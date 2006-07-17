@@ -137,20 +137,21 @@ class ci_principal extends objeto_ci
 	function evt__prop_basicas__modificacion($registro)
 	{
 		//El campo comportamiento incide en el buffer, patron y accion
-		switch ($registro['comportamiento'])
-		{
-			case 'accion':
-				$registro['actividad_buffer'] = 0;
-				$registro['actividad_patron'] = 'especifico';
-				break;
-			case 'buffer':
-				$registro['actividad_accion'] = '';
-				$registro['actividad_patron'] = 'especifico';				
-				break;
-			case 'patron':
-				$registro['actividad_buffer'] = 0;
-				$registro['actividad_accion'] = '';
-				break;								
+		if ($registro['solicitud_tipo'] == 'browser') {		
+			switch ($registro['comportamiento']) {
+				case 'accion':
+					$registro['actividad_buffer'] = 0;
+					$registro['actividad_patron'] = 'especifico';
+					break;
+				case 'buffer':
+					$registro['actividad_accion'] = '';
+					$registro['actividad_patron'] = 'especifico';				
+					break;
+				case 'patron':
+					$registro['actividad_buffer'] = 0;
+					$registro['actividad_accion'] = '';
+					break;								
+			}
 		}
 		unset($registro['comportamiento']);
 		$this->get_entidad()->tabla("base")->set($registro);

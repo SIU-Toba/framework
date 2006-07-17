@@ -208,7 +208,7 @@ class objeto_ei_cuadro extends objeto_ei
 						if (isset($this->orden_columna) && isset($this->orden_sentido)) {
 							$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
 							$exitoso = $this->reportar_evento( $evento, $parametros );							
-							if ($exitoso !== false) {
+							if ($exitoso !== apex_ei_evt_sin_rpta && $exitoso !== false) {
 								$this->ordenado = true;
 							} else {
 								$this->ordenado = false;	
@@ -455,10 +455,16 @@ class objeto_ei_cuadro extends objeto_ei
 	function generar_paginado()
 	{
 		if($this->info_cuadro["tipo_paginado"] == 'C') {
-			$this->total_registros = $this->reportar_evento("cant_reg", null);
+			$cant = $this->reportar_evento("cant_reg", null);
+			if (! is_numeric($cant)) {
+				toba::get_logger()->error("El paginado del cuadro necesita recibir una cantidad de registros numérico (se recibio '$cant')");
+				$cant = 1;
+			}
+			$this->total_registros = $cant;
 			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
-			if ($this->pagina_actual > $this->cantidad_paginas) 
+			if ($this->pagina_actual > $this->cantidad_paginas)  {
 				$this->pagina_actual = 1;
+			}
 		} elseif($this->info_cuadro["tipo_paginado"] == 'P') {
 			// 1) Calculo la cantidad total de registros
 			$this->total_registros = count($this->datos);

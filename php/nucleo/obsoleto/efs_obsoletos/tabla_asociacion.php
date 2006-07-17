@@ -1,5 +1,5 @@
 <?
-
+require_once('nucleo/lib/interface/form.php');
 /*
 * Este objeto no soporta bien a las tablas de mas de una CLAVE (PK)
 * MAXIMO hasta ahora: tabla principal 2 , tabla de referencia 1
@@ -152,7 +152,7 @@ class tabla_asociacion
     {
 		global $ADODB_FETCH_MODE, $db, $solicitud;
 		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		$vinculo = $solicitud->vinculador->generar_solicitud(null,null,$get,true);
+		$vinculo = toba::get_vinculador()->generar_solicitud(null,null,$get,true);
 		//Obtengo el recorset con la informacion de la asocicacion
         $sql = $this->generar_sql_interface();
         $rs = $db[$this->fuente][apex_db_con]->Execute($sql);

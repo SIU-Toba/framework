@@ -179,7 +179,7 @@ class objeto_mt extends objeto
                   //en proyecto está en modo debug y muestra la sql que falló y el
                   //mensaje de error original.
                   //Si el proyecto está en producción se verán los mensajes "lindos".
-                  if (apex_pa_encriptar_qs == 0)
+                  if (!defined('apex_pa_encriptar_qs') || apex_pa_encriptar_qs == 0)
                   {
                      $mensaje = $mensaje . '<div style="color: red;">' . 
                                 '<br><br><strong>MODO DEBUG</strong><br><br>SQL: (' . $sql . ')' .
