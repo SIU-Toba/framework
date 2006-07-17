@@ -1,8 +1,3 @@
-<style type="text/css">
-#editor_toggle button {
-	display:none;
-}
-</style>
 <?
 	require_once('nucleo/lib/interface/form.php');
 	require_once('modelo/catalogo_modelo.php');
