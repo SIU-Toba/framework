@@ -985,7 +985,7 @@ class objeto_ci extends objeto_ei
 			if ($this->etapa_gi == $id) {
   				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
-				echo "<li id='current' style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			} else {
   				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';

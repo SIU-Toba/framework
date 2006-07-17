@@ -556,9 +556,9 @@ hides rule from IE5-Mac \*/
 .ci-tabs-h-lista a:hover {
 	color:#333;
 }
-.ci-tabs-h-lista #current {
+.ci-tabs-h-solapa-sel {
 }
-.ci-tabs-h-lista #current a {
+.ci-tabs-h-solapa-sel a {
 	color:#333;
 	padding-bottom:5px;
 }
