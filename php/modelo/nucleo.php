@@ -394,5 +394,55 @@ class nucleo extends elemento_modelo
 		$dir = toba_dir()."/php/nucleo/componentes/info";
 		$clase_php->guardar( $dir.'/datos_editores.php' );
 	}
+	
+	function get_archivos_js_propios($patron =null)
+	{
+		if (!isset($patron)) {
+			$patron = '/.\.js/';	
+		}
+		$archivos = array();
+		$dir_js = toba_dir().'/www/js';
+		$dirs = array($dir_js, $dir_js.'/clases', $dir_js.'/interface');
+		foreach ($dirs as $directorio) {
+			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron);
+			$archivos = array_merge($archivos, $nuevos);
+		}
+		return $archivos;
+	}
+	
+	function comprimir_js()
+	{
+		$dir_js = toba_dir().'/www/js/';
+		$archivo = $dir_js . 'basico.js';
+/*		require_once('3ros/jscomp/JavaScriptCompressor.class.php');
+		require_once('3ros/jscomp/BaseConvert.class.php');
+		$comp = new JavaScriptCompressor(false);
+		$salida = $comp->getClean(file_get_contents($archivo));*/
+		require_once('3ros/jsmin.php');
+		$jsMin = new JSMin($archivo, $archivo.".new");
+		$jsMin -> minify();		
+		//file_put_contents($archivo, $salida);
+	}
+	
+	function validar_js($patron=null)
+	{
+		$archivos = $this->get_archivos_js_propios($patron);
+		$validador = toba_dir().'/bin/herramientas/jslint.js';		
+		foreach ($archivos as $archivo) {
+			if (strpos($archivo, "fecha.js") !== false) {
+				continue;	
+			}
+			$cmd = "rhino -opt 9 $validador $archivo";
+			$otro = null;
+			exec($cmd, $salida);
+			if (! empty($salida)) {
+				$this->manejador_interface->enter();
+				$relativo = str_replace(toba_dir(), '', $archivo);
+				$this->manejador_interface->subtitulo("$relativo :");			
+				echo implode("\n", $salida);
+				break;
+			}
+		}
+	}
 }
 ?>

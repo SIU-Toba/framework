@@ -1,5 +1,6 @@
 /*
 **********  Sistema de comunicaciones asincronicas con el SERVER  *********
+*/
 /*
 Copyright (c) 2006 Yahoo! Inc. All rights reserved.
 version 0.9.0
@@ -106,8 +107,11 @@ var conexion =
 			if(this._http_header.length>0){
 				this.setHeader(o);
 			}
-			postData?o.conn.send(postData):o.conn.send(null);
-
+			if (postData) {
+				o.conn.send(postData);
+			} else { 
+				o.conn.send(null);
+			}
 			return o;
 		}
 	},
@@ -292,7 +296,7 @@ var conexion =
 	isCallInProgress:function(o)
 	{
 		if(o){
-			return o.conn.readyState != 4 && o.conn.readyState != 0;
+			return o.conn.readyState != 4 && o.conn.readyState !== 0;
 		}
 	},
 
@@ -303,76 +307,7 @@ var conexion =
 			//dereference the connection object.
 			o = null;
 	}
-}
-
-
-/* 
----------VIEJO
---- RECUPERACION DE DATOS ---
-Parametros:
-	- 1 y 2) Item que hay que llamar: proyecto, item
-	- 3) Parametros que se desea pasar al item
-	- 4) Callback que hay que llamar cuando los datos regresen
-
-La lista de espera se implementa como una pila, de esta forma primero se carga el ef más lejano
-y en último lugar el ef más cercano. Así los focos se otorgan en el orden de la pantalla.
-
-*/
-
-var lista_espera = new Array();
-
-function encolar_consulta()
-{
-	lista_espera.push(arguments);
-}
-
-function atender_proxima_consulta()
-{
-	var proximo = lista_espera.pop();
-	if (proximo)
-		consultar_info (proximo[0], proximo[1], proximo[2], proximo[3], proximo[4]);
-}
-
-function callback_cascadas(respuesta)
-{
-	try {
-		var datos = eval('(' + respuesta.responseText + ')');
-		window[respuesta.argument].cascadas_respuesta(datos);
-	} catch (e) {
-		var error = 'Error.\n' + "Mensaje Server:\n" + respuesta.responseText + "\n\nError JS:\n" + e;
-		cola_mensajes.agregar(error);
-		cola_mensaje.mostrar();
-	}
-}
-
-function consultar_info(item_proyecto, item, parametros, nombre_callback)
-{
-	if (apex_solicitud_tipo == 'browser' && top[apex_frame_com]) {
-        var nombre_frame = this.name; 
-        window.nombre_callback = nombre_callback; 		
-		top[apex_frame_com].realizar_consulta(nombre_frame, item_proyecto, item, parametros, toba_prefijo_vinculo);
-	} else {
-		var callback =
-		{
-		  success: callback_cascadas,
-		  failure: toba.error_comunicacion,
-		  argument: nombre_callback
-		}
-		var vinculo = vinculador.crear_autovinculo('cascadas_efs', {'param-cascadas': parametros})
-		var con = conexion.asyncRequest('GET', vinculo, callback, null);
-	}
-}
-
-
-var nombre_callback=""; 		//Funcion a activar cuando se retorna el valor
-var com_datos_retornados="";	//Datos retornados por la funcion
-
-function retornar_info(datos)
-{
-	//alert('La respuesta llego al proxy.\n Datos: ' + datos + '\n Callback a llamar: ' + nombre_callback + '\n');
-	com_datos_retornados = datos;
-	setTimeout(nombre_callback+"(com_datos_retornados)", 0);
-}
+};
 
 
 toba.confirmar_inclusion('comunicacion_server');

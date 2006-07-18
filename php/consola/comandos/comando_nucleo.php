@@ -48,5 +48,28 @@ class comando_nucleo extends comando_toba
 		$instancia = $this->get_instancia();
 		$this->get_nucleo()->parsear_editores( $instancia );		
 	}
+	
+	/**
+	 * Comprime el codigo js
+	 */
+	function opcion__comprimir_js()
+	{
+		//Tomo la referencia a la instancia
+		$this->get_nucleo()->comprimir_js();
+	}
+	
+	/**
+	 * Valida el javascript utilizando jslint
+	 */
+	function opcion__validar_js()
+	{
+		$param = $this->get_parametros();		
+		$patron = null;
+		if ( isset($param['-a']) &&  (trim($param['-a']) != '') ) {
+			$patron = $param['-a'];
+		}		
+		//Tomo la referencia a la instancia
+		$this->get_nucleo()->validar_js($patron);
+	}		
 }
 ?>

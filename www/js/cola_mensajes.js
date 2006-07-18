@@ -4,12 +4,12 @@
 window.status = '';
 var cola_mensajes = 
 {
-	_mensajes: new Array(),
+	_mensajes: [],
 	_responsable: null,
 	
 	agregar: function(mensaje, gravedad, sujeto) {
-		if (!gravedad) gravedad = 'error';
-		this._mensajes.push(new Array(mensaje, gravedad, sujeto));
+		if (!gravedad) {gravedad = 'error';}
+		this._mensajes.push([mensaje, gravedad, sujeto]);
 	},	
 
 	mostrar : function(responsable) {
@@ -23,9 +23,10 @@ var cola_mensajes =
 	},
 	
 	limpiar: function() {
-		this._mensajes = new Array();
-		if (this._responsable)
+		this._mensajes = [];
+		if (this._responsable) {
 			this._responsable.notificar(false);
+		}
 	},
 	
 	ventana_modal: function() {
@@ -41,7 +42,7 @@ var cola_mensajes =
 			if (this._mensajes[i][1] == 'error') {
 				gravedad = '<img src="'+ toba.imagen('error') + '"/> ';
 			}
-			var texto = this._mensajes[i][0]
+			var texto = this._mensajes[i][0];
 			if (typeof this._mensajes[i][2] != 'undefined') {
 				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
 			}
@@ -75,7 +76,7 @@ var cola_mensajes =
 		var encabezado = (hay_error) ? 'Se han encontrado los siguientes problemas:\n\n' : 'Atención:\n\n';
 		alert(encabezado + mensaje);
 	}
-}
+};
 
 function overlay() {
 	el = document.getElementById("overlay");

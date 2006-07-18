@@ -1,14 +1,14 @@
-objeto_ci.prototype = new objeto;
+objeto_ci.prototype = new objeto();
 var def = objeto_ci.prototype;
 def.constructor = objeto_ci;
 //--------------------------------------------------------------------------------
 //Clase objeto_ci 
 function objeto_ci(instancia, form, input_submit) {
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
-	this._form = form									//Nombre del form contenedor del objeto
+	this._form = form;									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
 	this._ci = null;									//CI contenedor
-	this._deps = new Object();							//Listado asociativo de dependencias
+	this._deps = {};									//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
@@ -19,32 +19,32 @@ function objeto_ci(instancia, form, input_submit) {
 	def.agregar_objeto = function(objeto, identificador) {
 		objeto.set_ci(this);
 		this._deps[identificador] = objeto;
-	}
+	};
 
 	def.dependencia = function(identificador) {
 		return this._deps[identificador];
-	}
+	};
 	
 	def.iniciar = function() {
 		for (var dep in this._deps) {
 			this._deps[dep].iniciar();
 		}
-	}
+	};
 	
 	//Retorna el nodo DOM donde se muestra el componente
 	def.nodo = function() {
 		return document.getElementById(this._instancia + '_cont');	
-	}
+	};
 	
 	//---Eventos	
 	def.set_evento = function(evento) {
 		this._evento = evento;
 		this.submit();
-	}
+	};
 	
 	def.reset_evento = function() {
 		this._evento = this._evento_defecto;
-	}
+	};
 	
 
 	//---SUBMIT
@@ -54,8 +54,9 @@ function objeto_ci(instancia, form, input_submit) {
 	//2-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)
 	//Intenta realizar el submit de todos los objetos asociados
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit()) //Primero debe consultar si su padre está en proceso
+		if (this._ci && !this._ci.en_submit()) { //Primero debe consultar si su padre está en proceso
 			return this._ci.submit();
+		}
 
 		this._en_submit = true;
 		if (! this._ci) { //Si es el padre de todos, borrar las notificaciones
@@ -71,22 +72,22 @@ function objeto_ci(instancia, form, input_submit) {
 			this.submit_recursivo();
 		}
 		this._en_submit = false;
-	}
+	};
 	
 	def.submit_recursivo = function()
 	{
 		for (var dep in this._deps) {
 			this._deps[dep].submit();
 		}
-		if (this._evento.id != '') {
+		if (this._evento.id !== '') {
 			document.getElementById(this._input_submit).value = this._evento.id;
 			document.getElementById(this._input_submit + "__param").value = this._parametros;
 		}
-	}
+	};
 	
 	def.en_submit = function() {
 		return this._en_submit;		
-	}
+	};
 	
 	//Chequea si es posible realiza el submit de todos los objetos asociados
 	def.puede_submit = function() {
@@ -108,7 +109,7 @@ function objeto_ci(instancia, form, input_submit) {
 			}
 			//- 3 - Hay que confirmar la ejecucion del evento?
 			//La confirmacion se solicita escribiendo el texto de la misma
-			if(this._evento.confirmar != "") {
+			if(this._evento.confirmar !== "") {
 				if (!this._silencioso && !(confirm(this._evento.confirmar))){
 					this.reset_evento();
 					return false;
@@ -118,7 +119,7 @@ function objeto_ci(instancia, form, input_submit) {
 		} else {
 			return true;
 		}
-	}
+	};
 	
 	def.objetos_pueden_submit = function() {
 		if(this._evento && this._evento.validar) {
@@ -131,25 +132,27 @@ function objeto_ci(instancia, form, input_submit) {
 			this.resetear_errores();
 			return true;
 		}
-	}
+	};
 	
 	def.resetear_errores = function() {
 		for (var dep in this._deps) {
 			this._deps[dep].resetear_errores();
 		}
 		this.notificar(false);
-	}
+	};
 	
 	//---VALIDACION
 	//Realiza la validación de este objeto, y opcionalmente de los que están contenidos
 	def.validar = function(recursivo) {
-		if (typeof recursivo == 'undefined')
+		if (typeof recursivo == 'undefined') {
 			recursivo = true;
+		}
 		var validacion_particular = 'evt__validar_datos';
 		var ok = true;
 		if(this._evento && this._evento.validar) {
-			if (existe_funcion(this, validacion_particular))
+			if (existe_funcion(this, validacion_particular)) {
 				ok = ok && this[validacion_particular]();	
+			}
 			if (recursivo) {
 				for (var dep in this._deps) {
 					ok = ok && this._deps[dep].validar(recursivo);
@@ -157,18 +160,19 @@ function objeto_ci(instancia, form, input_submit) {
 			}
 		}
 		return ok;
-	}
+	};
 	
 	//---Notificaciones
 	def.notificar = function(mostrar) {
 		var barra = document.getElementById('barra_' + this._instancia);
 		if (barra) {
-			if (mostrar)
+			if (mostrar) {
 				barra.style.display = '';
-			else
+			} else {
 				barra.style.display = 'none';
+			}
 		}
-	}
+	};
 
 	//---Navegación 
 	def.habilitar_tab = function(tab, habilitado) {
@@ -179,22 +183,23 @@ function objeto_ci(instancia, form, input_submit) {
 			boton.onclick = '';
 		} else {
 			boton.disabled = false;
-			if (boton.onclick_viejo != '')
+			if (boton.onclick_viejo !== '') {
 				boton.onclick = boton.onclick_viejo;
+			}
 		}
-	}
+	};
 
 	def.ir_a_pantalla = function(pantalla) {
 		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
-	}
+	};
 	
 	
 	def.ir_a_anterior = function() {
 		this.ir_a_pantalla('_anterior');	
-	}	
+	};	
 		
 	def.ir_a_siguiente = function() {
 		this.ir_a_pantalla('_siguiente');
-	}
+	};
 	
 toba.confirmar_inclusion('clases/objeto_ci');

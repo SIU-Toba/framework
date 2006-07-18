@@ -1,14 +1,14 @@
-var popup_elementos = new Array();
+var popup_elementos = [];
 var popup_elementos_cant = 0;
 
 function popup_abrir_item(url, indice, elemento_cod, elemento_desc, parametros_ventana)
 {
-	popup_elementos[popup_elementos_cant] = new Array(indice, elemento_cod, elemento_desc);
+	popup_elementos[popup_elementos_cant] = [indice, elemento_cod, elemento_desc];
 	//-- Seteo parametros de la ventana
 	if(parametros_ventana !== null){
 		vars = "width=" + parametros_ventana[0] + ",height=" + parametros_ventana[1] + ",scrollbars=" + parametros_ventana[2] +  ",dependent=yes";
 	}else{
-		vars = ""
+		vars = "";
 	}
 	//-- Abro la ventana
 	if (!window.popup_hija){
@@ -41,8 +41,9 @@ function popup_callback(indice, clave, desc)
 		{
 			encontrado=true;
 			popup_elementos[i][1].value = clave;
-			if (popup_elementos[i][1].onchange)
+			if (popup_elementos[i][1].onchange) {
 				popup_elementos[i][1].onchange();
+			}
 			popup_elementos[i][2].value = desc;	
 		}			
 		i++;

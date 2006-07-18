@@ -14,7 +14,7 @@ function isset(o) {
 //----------------------------------------------------------
 function trim(s){
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
-};
+}
 
 
 //Retorna la primer ocurrencia de alguna de estas cadenas
@@ -23,11 +23,11 @@ String.prototype.primer_ocurrencia = function (cadenas) {
 	for (var i =0 ; i < cadenas.length; i++) {
 		var ocurrencia = this.indexOf(cadenas[i]);
 		if (ocurrencia != -1 && ocurrencia < primera) {
-			primera = ocurrencia
+			primera = ocurrencia;
 		}
 	}
 	return primera;
-}
+};
 
 //Retorna la ultima ocurrencia de alguna de estas cadenas
 String.prototype.ultima_ocurrencia = function (cadenas) {
@@ -35,16 +35,16 @@ String.prototype.ultima_ocurrencia = function (cadenas) {
 	for (var i =0 ; i < cadenas.length; i++) {
 		ocurrencia = this.lastIndexOf(cadenas[i]);
 		if (ocurrencia > ultima) {
-			ultima = ocurrencia
+			ultima = ocurrencia;
 		}
 	}
 	return ultima;
-}
+};
 
 //Retorna el quote necesario para usar en una exp. regular
 String.prototype.quote_exp_reg = function () {
 	return this.reemplazar('$', '\\$');
-}
+};
 
 //Reemplaza todas las ocurrencias de un string en otro
 String.prototype.reemplazar = function (buscado, nuevo) {
@@ -57,7 +57,7 @@ String.prototype.reemplazar = function (buscado, nuevo) {
 	}
 	newStr += this.substring(srchNdx,this.length);
 	return newStr;
-}
+};
 
 String.prototype.intercambiar_caracteres = function(c1, c2) {
 	var car_template = '_^_';
@@ -65,18 +65,19 @@ String.prototype.intercambiar_caracteres = function(c1, c2) {
 	var v2 = v1.reemplazar(c1, c2);
 	var v3 = v2.reemplazar(car_template, c1);
 	return v3;
-}
+};
 
 String.prototype.trim = function() {
     return this.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
-}
+};
 
 //---ARRAY
 //----------------------------------------------------------
 function in_array (elemento, arreglo) {
 	for (var i=0 ; i < arreglo.length; i++) {
-		if (arreglo[i] == elemento)
+		if (arreglo[i] == elemento) {
 			return true;
+		}
 	}
 	return false;
 }
@@ -84,8 +85,9 @@ function in_array (elemento, arreglo) {
 function array_maximo(arreglo) {
 	var maximo = 0;
 	for (var i=0 ; i < arreglo.length; i++) {
-		if (arreglo[i] > maximo)
+		if (arreglo[i] > maximo) {
 			maximo = arreglo[i];
+		}
 	}
 	return maximo;
 }
@@ -95,7 +97,7 @@ function array_maximo(arreglo) {
 
 // define the addEvent(oElement, sEvent, sCmd, bAppend) function
 function addEvent(o, _e, c, _b){
-	if (!o) return;		
+	if (!o) {return;}		
 	var e = _e.toLowerCase();
 	var b = (typeof _b == "boolean") ? _b : true;
 	var x = (o[e]) ? o[e].toString() : "";
@@ -103,7 +105,9 @@ function addEvent(o, _e, c, _b){
 	// strip out the body of the function
 	x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));
 	x = ((b) ? (x + c) : (c + x)) + "\n";
-	return o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+	//o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+	o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+	return o[e];
 }
 
 //---- DOM
@@ -136,13 +140,13 @@ function firstFocus()
 			var elemento = formulario.elements[j];
 			var display = elemento.style.display;
 			if ((elemento.type=="text" || elemento.type=="textarea") && (!elemento.disabled)  && ( display != 'none') && ( display != 'hidden') ) {
-				var error =false
+				var error =false;
 				try {
 				   elemento.focus();
 				} catch(e) {
 					error = true;
 				}
-			   if (!error) return;
+			   if (!error) {return;}
 			}
 		}
 	}
@@ -175,7 +179,7 @@ function abrir_popup(id, url, opciones, extra, dep) {
 			vars += o + '=' + opciones[o] + ',';
 		}
 	}
-	if (typeof dep == 'undefined') dep = true;
+	if (typeof dep == 'undefined') {dep = true;}
 	if (dep) {
 		vars += 'dependent=1';
 	}
@@ -199,10 +203,10 @@ function abrir_popup(id, url, opciones, extra, dep) {
 //----Mediciones de Performance
 var mediciones = 
 {
-	res: new Array(),
+	res: [],
 
 	limpiar : function() {
-		this.res = new Array();
+		this.res = [];
 	},
 	
 	marcar: function(descripcion) {
@@ -219,7 +223,7 @@ var mediciones =
 		}
 		return html;
 	}
-}
+};
 
 
 
@@ -238,19 +242,18 @@ function getObjectClass(obj)
 
 function existe_funcion(obj, f) {
 	for (funcion in obj) {
-		if (funcion == f && typeof(obj[funcion])=="function")
+		if (funcion == f && typeof(obj[funcion])=="function") {
 			return true;
+		}
 	}		
 	return false;
 }
 
 
 function getElementsByClass(searchClass,node,tag) {
-	var classElements = new Array();
-	if ( node == null )
-		node = document;
-	if ( tag == null )
-		tag = '*';
+	var classElements = [];
+	if ( typeof node == 'undefined' ) {node = document;}
+	if ( typeof tag == 'undefined') {tag = '*';}
 	var els = node.getElementsByTagName(tag);
 	var elsLen = els.length;
 	var pattern = new RegExp('(^|\\s)'+searchClass+'(\\s|$)');
@@ -264,13 +267,15 @@ function getElementsByClass(searchClass,node,tag) {
 }
 
 function $() {
-	var elements = new Array();
+	var elements = [];
 	for (var i = 0; i < arguments.length; i++) {
 		var element = arguments[i];
-		if (typeof element == 'string')
+		if (typeof element == 'string') {
 			element = document.getElementById(element);
-		if (arguments.length == 1)
+		}
+		if (arguments.length == 1) {
 			return element;
+		}
 		elements.push(element);
 	}
 	return elements;
@@ -291,10 +296,11 @@ function ei_arbol(variable, ret) {
 	DumperSepPre = "<a href='javascript: ;' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";
 	DumperSepPos = "</span>";		
 	DumperMaxDepth = 8;
-	if (ret)
+	if (ret) {
 		return Dumper(variable);
-	else
+	} else {
 		DumperPopup(variable);
+	}
 }
 
 function salir(){
