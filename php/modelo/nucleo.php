@@ -421,17 +421,6 @@ class nucleo extends elemento_modelo
 	
 	function comprimir_js()
 	{
-		
-/*		$dir_js = toba_dir().'/www/js/';
-		$archivo = $dir_js . 'basico.js';
-	require_once('3ros/jscomp/JavaScriptCompressor.class.php');
-		require_once('3ros/jscomp/BaseConvert.class.php');
-		$comp = new JavaScriptCompressor(false);
-		$salida = $comp->getClean(file_get_contents($archivo));
-	
-		//file_put_contents($archivo, $salida);
-	*/
-		$compresor = toba_dir().'/bin/herramientas/jsmin';
 		$archivos = $this->get_archivos_js_propios();
 		$total = 0;
 		require_once('3ros/jscomp/JavaScriptCompressor.class.php');
@@ -439,11 +428,14 @@ class nucleo extends elemento_modelo
 		$comp = new JavaScriptCompressor(false);
 		$salida = array();
 		foreach ($archivos as $archivo) {
+			if (strpos($archivo, "www/js/toba_") !== false) {
+				//--- Evita comprimir dos veces
+				continue;	
+			}
 			$atr = stat($archivo);
 			$total += $atr['size'];
-			//$nuevo = $comp->getClean(file_get_contents($archivo));
-			exec("$compresor < $archivo", $salida);
-			//$salida[] = $nuevo;
+			$nuevo = $comp->getClean(array('code' =>file_get_contents($archivo), 'name' => basename($archivo)));
+			$salida[] = $nuevo;
 
 		}
 		$todo = implode("\n", $salida);
@@ -454,8 +446,7 @@ class nucleo extends elemento_modelo
 		$atr = stat($archivo);
 		$nuevo_total = $atr['size'];		
 		echo "Antes: $total bytes\n";
-		echo "Despues: ".$nuevo_total." bytes";
-		
+		echo "Despues: ".$nuevo_total." bytes\n";
 	}
 	
 	function validar_js($patron=null)
@@ -465,6 +456,10 @@ class nucleo extends elemento_modelo
 		$validador = toba_dir().'/bin/herramientas/jslint.js';
 		$ok = true;
 		foreach ($archivos as $archivo) {
+			if (strpos($archivo, "www/js/toba_") !== false) {
+				//--- Evita chequear el comprimido
+				continue;	
+			}			
 			$cmd = "rhino -opt 9 $validador $archivo";
 			$otro = null;
 			exec($cmd, $salida);

@@ -981,7 +981,7 @@ class objeto_ci extends objeto_ei
 			if(!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
 			$tip = str_replace("'", "\\'",$tip);			
 			$acceso = recurso::ayuda($tecla, $tip);
-			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');\"";
+			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');return false;\"";
 			if ($this->etapa_gi == $id) {
   				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';

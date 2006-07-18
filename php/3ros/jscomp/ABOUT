@@ -1,0 +1,55 @@
+JavaScriptCompressor class,
+	removes comments or pack JavaScript source[s] code.
+ ______________________________________________________________
+ JavaScriptCompressor (just 2 public methods)
+    |
+    |________ getClean(jsSource:mixed [, removeSpaces:bool]):string
+    |         	return or more JavaScript code without comments,
+    |         	by default removes some spaces too
+    |
+    |________ getPacked(jsSource:mixed):string
+              	return or more JavaScript code packed,
+                using getClean and remove spaces too
+ --------------------------------------------------------------
+ Note about $jsSource input varible:
+ 	this var should be a string (i.e. $jsSource = file_get_contents("myFile.js");)
+      should be an array of strings (i.e. array(file_get_contents("1.js"), file_get_contents("2.js"), ... ))
+      should be an array with 1 or 2 keys:
+              (i.e. array('code'=>file_get_contents("mySource.js")))
+              (i.e. array('code'=>file_get_contents("mySource.js"), 'name'=>'mySource'))
+      ... and should be an array of arrays created with theese rules
+      array(
+		file_get_contents("secret.js"),
+              array('code'=>$anotherJS),
+              array('code'=>$myJSapplication, 'name'=>'JSApplication V 1.0')
+      )
+
+      The name used on dedicated key, will be write on parsed source header
+ --------------------------------------------------------------
+ Note about returned strings:
+ 	Your browser should wrap very long strings, then don't use
+      cut and paste from your browser, save output into your database or directly
+      in a file or print them only inside <script> and </script> tags
+ --------------------------------------------------------------
+ Note about parser performance:
+ 	"Char by char parser" is probably the best and safest way to remove comments
+      from a generic language code.
+      With pure PHP embed class this class should be slow and not really safe
+      for your server performance then don't parse JavaScript runtime for each
+      file you need and create some "parsed" caching system
+      (at least while i've not created a compiled version of theese class functions).
+ --------------------------------------------------------------
+ NOTE about JavaScript sources
+ 	If you have some errors with packed version probably the reason is your JS source.
+      JavaScript should be wrote with char ';' separator for each function, var declaration
+      and before some newline.
+      var a = 0
+      b = 1
+      alert(a + b)
+      for example is not the right way to write js code (at least not with this packer)
+      This way should be correct:
+      var a = 0,
+          b = 1;
+      alert(a + b);
+
+To know more about code to use with this "packer like" compressor please vitis this page: http://dean.edwards.name/packer/usage/sample.html

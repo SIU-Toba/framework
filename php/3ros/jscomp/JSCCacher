@@ -1,0 +1,126 @@
+<?php
+/** JSCCacher
+ * 	a simple JavaScriptCompressor caching system.
+ * With one or more js source names creates automatically the packed version
+ * only if sources have been changed or did not never packed.
+ * --------------------------------------------------------------
+ * Exaple:
+ * 		<?php
+ *              	if(isset($_GET['javascript'])) {
+ *				require 'BaseConvert.class.php';
+ *				require 'JavaScriptCompressor.class.php';
+ *				require 'JSCCacher.class.php';
+ *				new JSCCacher($_GET['javascript'], 'myJSsources');
+ *                      }
+ *              ?>
+ * --------------------------------------------------------------
+ * F.A.Q.
+ * - what is the first parameter ?
+ *        is one or more JS source names. If you call url?javascript=MySource
+ *        this class will search file MySource.js inside choosed sources folder.
+ *        If you call url?javascript=MySource|MyOtherSource this class will
+ *        search both files and creates a unique packed version inside another folder (packed by default).
+ *        Remember, only this char '|' is valid for multiple sources.
+ * 
+ * - what is the second parameter ?
+ *        is the name of the folder (without last slash) where there are you JS sources.
+ *        If you want to "protect" your sources, you should put them inside a folder
+ *        called in a really complex way, for example "72h387dh32hd8632gdiduaw9"
+ *
+ * - what is the third parameter ?
+ *        is the name of the folder (without last slash) where will be created packed version
+ *        of your single or multiple sources. Its name, by default, is "packed".
+ *        This folder requires CHMOD 777 (or writable perms) to be used from this class.
+ *        This is where your sources will be cached. Remember, every single or multiple
+ *        packed source will have a different hash name, then "sometimes" is better to cleanthis folder.
+ * --------------------------------------------------------------
+ * @Compatibility	>= PHP 4
+ * @Author		Andrea Giammarchi
+ * @Site		http://www.devpro.it/
+ * @Date		2006/06/01
+ * @Version		0.1
+ * @Dependencies	JavaScriptCompressor.class.php
+ */
+class JSCCacher {
+	
+	var	$__jsNames = '',
+		$__packedFolder = '';
+	
+	function JSCCacher(&$jsNames, $secretFolder, $packedFolder = 'packed') {
+		$this->__jsNames = &$jsNames;
+		$this->__packedFolder = &$packedFolder;
+		$this->__writePacked($secretFolder);
+	}
+	
+	function __end(&$str) {
+		echo $str;
+		exit();
+	}
+	
+	function __error($err){
+		$this->__end($err = "/** [error] {$err} */\r\n");
+	}
+	
+	function __packedName(&$arr) {
+		return $this->__packedFolder.'/'.sha1(implode('',$arr));
+	}
+	
+	function __path(&$secretFolder, &$name) {
+		return $secretFolder.'/'.$name.'.js';
+	}
+	
+	function __write(&$str, $isNew) {
+		header("Content-Type: text/javascript");
+		header('Content-Length: '.strlen($str));
+		if($isNew) {
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+			header('Cache-Control: no-store, no-cache, must-revalidate');
+			header('Cache-Control: post-check=0, pre-check=0', false);
+			header('Pragma: no-cache');
+		}
+		$this->__end($str);
+	}
+	
+	function __writePacked(&$secretFolder) {
+		$a = $b = 0;
+		$tmpString = '';
+		$filePacked = array();
+		$fileList = explode('|', $this->__jsNames);
+		$jsc = $fp = null;
+		for($b = count($fileList); $a < $b; $a++) {
+			$tmpString = $this->__path($secretFolder, $fileList[$a]);
+			if(basename($fileList[$a]) === $fileList[$a] && file_exists($tmpString))
+				array_push($filePacked, md5_file($tmpString));
+			else
+				$this->__error(trim($fileList[$a]) === '' ? 'empty name is not valid' : "name [{$fileList[$a]}] is not valid");
+		}
+		if(($b = count($filePacked)) > 0) {
+			sort($filePacked);
+			reset($filePacked);
+			if(file_exists($tmpString = $this->__packedName($filePacked)))
+				$this->__write($tmpString = file_get_contents($tmpString), false);
+			else {
+				$jsc = new JavaScriptCompressor();
+				for($a = 0; $a < $b; $a++) {
+					$filePacked[$a] = array(
+						'code' => file_get_contents($this->__path($secretFolder, $fileList[$a])),
+						'name' => $fileList[$a]
+					);
+				}
+				if(@$fp = fopen($tmpString, "w")) {
+					@flock($fp, LOCK_EX);
+					fwrite($fp, ($tmpString = $jsc->getPacked($filePacked)));
+					@flock($fp, LOCK_UN);
+					fclose($fp);
+					$this->__write($tmpString, true);
+				}
+				else
+					$this->__error(dirname($tmpString). ' is not writable');
+			}
+		}
+		else
+			$this->__error('any file to parse');
+	}
+}
+?>

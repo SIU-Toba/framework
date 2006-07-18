@@ -60,7 +60,7 @@ class js
 	static function incluir($archivo) 
 	{
 		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
-/*		if (!isset(self::$temp)) {
+		/*if (!isset(self::$temp)) {
 			self::$temp = true;
 			return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='/toba_trunk/js/toba_0.10.0.js'></SCRIPT>\n";		
 		}*/
