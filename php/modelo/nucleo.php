@@ -427,7 +427,9 @@ class nucleo extends elemento_modelo
 	function validar_js($patron=null)
 	{
 		$archivos = $this->get_archivos_js_propios($patron);
-		$validador = toba_dir().'/bin/herramientas/jslint.js';		
+		$this->manejador_interface->mensaje('Validando '.count($archivos).' archivo/s', false);		
+		$validador = toba_dir().'/bin/herramientas/jslint.js';
+		$ok = true;
 		foreach ($archivos as $archivo) {
 			if (strpos($archivo, "fecha.js") !== false) {
 				continue;	
@@ -440,8 +442,13 @@ class nucleo extends elemento_modelo
 				$relativo = str_replace(toba_dir(), '', $archivo);
 				$this->manejador_interface->subtitulo("$relativo :");			
 				echo implode("\n", $salida);
+				$ok = false;
 				break;
 			}
+			$this->manejador_interface->mensaje_directo('.');
+		}
+		if ($ok) {
+			$this->manejador_interface->mensaje('OK');
 		}
 	}
 }

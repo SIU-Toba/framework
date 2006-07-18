@@ -2,7 +2,7 @@
 //--- Creacion dinamica del div de error
 var html = "<img id='ef_warning' src='" + toba.imagen('error') + "' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
 if (pagina_cargada) {
-	document.body.innerHTML += html
+	document.body.innerHTML += html;
 } else {
 	document.write(html);
 }
@@ -31,54 +31,54 @@ def.constructor = ef;
 	//---Consultas	
 	def.get_id = function() { 
 		return this._id;	
-	}
+	};
 	
 	def.tiene_estado = function() {
-		return this.get_estado() != '';	
-	}
+		return this.get_estado() !== '';	
+	};
 		
 	def.get_estado = function() {
 		return this.input().value;
-	}
+	};
 	
 	def.get_estado_con_formato = function() {
 		return this.get_estado();
-	}	
+	};	
 
 	//Formatea un valor segun el ef y lo retorna
 	def.formatear_valor = function (valor) {
 		return valor;
-	}
-
+	};
+	
 	def.activo = function() {
 		return !(this.input().disabled);
-	}
+	};
 		
 	def.input = function() {
 		return document.getElementById(this._id_form);
-	}
+	};
 	
 	def.nodo = function() {
 		return document.getElementById('nodo_' + this._id_form);			
-	}	
+	};	
 	
 	def.get_contenedor = function() {
 		return document.getElementById('cont_' + this._id_form);		
-	}
+	};
 
 	def.get_tab_index = function () {
 		return this.input().tabIndex;
-	}
+	};
 
 	def.get_error = function() {
 		return this._error;
-	}
+	};
 
 	//---Servicios de inicio y finalización 
 	def.iniciar = function(id, controlador) {
 		this._id = id;
 		this._controlador = controlador;
-	}
+	};
 
 	def.validar = function () {
 		//--- Siempre hay que llamar a este validar antes de ejecutar el validar de un hijo
@@ -88,32 +88,34 @@ def.constructor = ef;
 			}
 		}
 		return true;
-	}	
+	};	
 	
 	def.submit = function () {
 		var input = this.input();
-		if (input && input.disabled)
+		if (input && input.disabled) {
 			input.disabled = false;
-	}		
+		}
+	};		
 	
 
 	//---Comandos 
 	def.cambiar_expansion = function(expandir) {
 		if (this._colapsable) {
-			if (expandir) 
+			if (expandir) {
 				this.nodo().style.display = '';
-			else
+			} else {
 				this.nodo().style.display = 'none';
+			}
 		}
-	}
+	};
 	
 	def.set_error = function(error) {
 		this._error = error;
-	}
+	};
 	
 	def.resetear_error = function() {
 		delete(this._error);
-	}
+	};
 
 	def.seleccionar = function () {
 		try {
@@ -123,7 +125,7 @@ def.constructor = ef;
 		} catch(e) {
 			return false;
 		}
-	}
+	};
 
 	def.resaltar = function(texto, izq) {
 		var cont = this.get_contenedor();
@@ -133,14 +135,14 @@ def.constructor = ef;
 			var clon = document.getElementById('ef_warning').cloneNode(true);
 			clon.id = 'ef_warning_' + this._id_form;
 			var pos = getElementPosition(cont);
-			clon.style.left = (pos['left']-izq) + 'px';
+			clon.style.left = (pos.left-izq) + 'px';
 			clon.style.display = '';
 			cont.insertBefore(clon, cont.firstChild);
 			warn = document.getElementById('ef_warning_' + this._id_form);
 		}
 		warn.title = texto;
 		window.status = texto;
-	}
+	};
 	
 	def.no_resaltar = function() {
 		var cont = this.get_contenedor();
@@ -150,100 +152,105 @@ def.constructor = ef;
 			delete(elem);
 			window.status = '';
 		}
-	}
+	};
 
 	def.ocultar = function(resetear) {
-		if (typeof resetear == 'undefined')
+		if (typeof resetear == 'undefined') {
 			resetear = false;
+		}
 		this.nodo().style.display = 'none';	
-		if (resetear)
+		if (resetear) {
 			this.resetear_estado();
-	}
+		}
+	};
 	
 	def.mostrar = function(mostrar, resetear) {
-		if (typeof mostrar == 'undefined') 
+		if (typeof mostrar == 'undefined') {
 			mostrar = true;
+		}
 		if (mostrar) {
 			this.nodo().style.display = '';	
 		} else {
 			this.ocultar(resetear);	
 		}
-	}
+	};
 
 	def.set_solo_lectura = function(solo_lectura) {
 		this.input().disabled = (typeof solo_lectura == 'undefined' || solo_lectura);
-	}
+	};
 	
 	def.desactivar = function() {
 		this.set_solo_lectura(true);
-	}
+	};
 
 	def.activar = function() {
 		this.set_solo_lectura(false);
-	}
+	};
 	
 	
 	def.set_tab_index = function(tab_index) {
-		if (this.input())
+		if (this.input()) {
 			this.input().tabIndex = tab_index;
-	}
-	
+		}
+	};
 	
 	def.set_estado = function(nuevo) {
 		this.input().value = nuevo;
-		if (this.input().onchange)
-			this.input().onchange();		
-	}
+		if (this.input().onchange) {
+			this.input().onchange();
+		}		
+	};
 	
 
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
-		if (this.input())
+		if (this.input()) {
 			addEvent(this.input(), 'onchange', callback);
-	}
+		}
+	};
 
 	//Multiplexacion, permite tener varias instancias del ef
 	def.ir_a_fila = function(fila) {
 		this._id_form = this._id_form_orig + fila;
 		return this;	
-	}
+	};
 	
 	//En que fila se encuentra posicionado el ef
 	def.get_fila_actual = function() {
 		return this._id_form.substring(this._id_form_orig.length);
-	}
+	};
 	
 	//Multiplexacion, deja sin seleccionar la fila en la que está 
 	def.sin_fila = function() {
 		this._id_form = this._id_form_orig;
 		return this;
-	}	
+	};	
 	
 	//---Relación con el cascadas
 	def.resetear_estado = function() {
 		this.set_estado('');
-	}
+	};
 	
 	def.borrar_opciones = def.resetear_estado;
 	
 	def.set_opciones = function(opciones) {
 		this.set_estado(opciones);	
-	}
+	};
 
 	/****** OBSOLETOS *******/
 	def.valor = function() {
 		return this.get_estado();
-	}
+	};
 	
 	def.cambiar_valor = function(nuevo) {
 		this.set_estado(nuevo);
-	}
+	};
 	/***********************/		
 	
 //--------------------------------------------------------------------------------
 //Clase ef_fijo
-ef_fijo.prototype = new ef;
-var def = ef_fijo.prototype;
+ef_fijo.prototype = new ef();
+def = ef_fijo.prototype;
 def.constructor = ef_fijo;
 
 	function ef_fijo(id_form, etiqueta, obligatorio, colapsado) {
@@ -252,6 +259,6 @@ def.constructor = ef_fijo;
 	
 	def.set_estado = function(nuevo) {
 		this.input().innerHTML = nuevo;
-	}	
+	};	
 	
 toba.confirmar_inclusion('interface/ef');

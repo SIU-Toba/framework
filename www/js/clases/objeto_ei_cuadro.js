@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_cuadro
-objeto_ei_cuadro.prototype = new objeto;
+objeto_ei_cuadro.prototype = new objeto();
 var def = objeto_ei_cuadro.prototype;
 def.constructor = objeto_ei_cuadro;
 
@@ -11,8 +11,9 @@ function objeto_ei_cuadro(instancia, input_submit) {
 	
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit())
+		if (this._ci && !this._ci.en_submit()) {
 			return this._ci.submit();
+		}
 		if (this._evento) {
 			switch (this._evento.id) {
 				case 'cambiar_pagina':
@@ -23,14 +24,15 @@ function objeto_ei_cuadro(instancia, input_submit) {
 					document.getElementById(this._input_submit + '__orden_sentido').value = this._evento.parametros.orden_sentido;
 					break;
 				default:
-					if (this._evento.parametros)
+					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
+					}
 					break;				
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
-	}
+	};
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
 	def.puede_submit = function() {
@@ -44,7 +46,7 @@ function objeto_ei_cuadro(instancia, input_submit) {
 			}		
 			//- 2 - Hay que confirmar la ejecucion del evento?
 			//La confirmacion se solicita escribiendo el texto de la misma
-			if(this._evento.confirmar != "") {
+			if (trim(this._evento.confirmar) !== "") {
 				if (!this._silencioso && !(confirm(this._evento.confirmar))){
 					this.reset_evento();
 					return false;
@@ -52,6 +54,6 @@ function objeto_ei_cuadro(instancia, input_submit) {
 			}
 		}
 		return true;
-	}	
+	};
 	
 toba.confirmar_inclusion('clases/objeto_ei_cuadro');

@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------- 
 //Clase objeto_ei_formulario_ml 
-objeto_ei_formulario_ml.prototype = new objeto_ei_formulario;
+objeto_ei_formulario_ml.prototype = new objeto_ei_formulario();
 var def = objeto_ei_formulario_ml.prototype;
 def.constructor = objeto_ei_formulario_ml;
 
@@ -11,8 +11,8 @@ def.constructor = objeto_ei_formulario_ml;
 														input_submit, maestros, esclavos, invalidos);
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
-		this._pila_deshacer = new Array();		//Pila de acciones a deshacer
-		this._ef_con_totales = new Object();	//Lisa de efs que quieren sumarizar
+		this._pila_deshacer = [];		//Pila de acciones a deshacer
+		this._ef_con_totales = {};		//Lisa de efs que quieren sumarizar
 		this._seleccionada = seleccionada;
 		this._agregado_en_linea = en_linea;
 	}
@@ -29,7 +29,7 @@ def.constructor = objeto_ei_formulario_ml;
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
 		this.reset_evento();
-	}
+	};
 
 	def.iniciar_fila = function (fila) {
 		for (id_ef in this._efs) {
@@ -42,50 +42,52 @@ def.constructor = objeto_ei_formulario_ml;
 			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
 			this._rango_tabs[0]++;
 		}
-	}	
+	};	
 	
 	def.agregar_total = function (ef) {
 		this._ef_con_totales[ef] = true;
-	}
+	};
 		
 	//----Consultas 
-	def.filas = function () { return this._filas };
+	def.filas = function () { return this._filas; };
 	
 	def.procesar = function (id_ef, fila, es_inicial, es_particular) {
 		if (typeof es_particular == 'undefined') {
 			es_particular = true;	
 		}
-		if (this.hay_procesamiento_particular_ef(id_ef))
+		if (this.hay_procesamiento_particular_ef(id_ef)) {
 			this['evt__' + id_ef + '__procesar'](es_inicial, fila);		 //Procesamiento particular
+		}
 		if (es_particular && id_ef in this._ef_con_totales) {
 			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 		}
-	}
+	};
 
 	//Función de calculo de procesamento por defecto, suma el valor de cada filas	
 	def.total = function (id_ef) {
 		var total = 0;	
 		for (fila in this._filas) {
 			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
-			valor = (valor == '' || isNaN(valor)) ? 0 : valor;
+			valor = (valor === '' || isNaN(valor)) ? 0 : valor;
 			total += valor;
 		}
 		return total;
-	}
+	};
 	
 	//----Validación 
 	def.validar = function() {
 		var ok = true;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
-			if (existe_funcion(this, validacion_particular))
+			if (existe_funcion(this, validacion_particular)) {
 				ok = this[validacion_particular]();
+			}
 			for (id_fila in this._filas) {
 				ok = this.validar_fila(id_fila) && ok;
 			}
 		}
 		return ok;
-	}
+	};
 	
 	def.validar_fila = function(id_fila) {
 		ok = true;
@@ -93,7 +95,7 @@ def.constructor = objeto_ei_formulario_ml;
 			ok = this.validar_fila_ef(this._filas[id_fila], id_ef) && ok;
 		}
 		return ok;
-	}
+	};
 	
 	def.validar_fila_ef = function(fila, id_ef, es_online) {
 		var ef = this._efs[id_ef].ir_a_fila(fila);
@@ -103,16 +105,18 @@ def.constructor = objeto_ei_formulario_ml;
 			es_valido = this[validacion_particular](fila) && es_valido;
 		}
 		if (!es_valido) {
-			if (! this._silencioso)
+			if (! this._silencioso) {
 				ef.resaltar(ef.get_error(), 8);
-			if (! es_online)
+			}
+			if (! es_online) {
 				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
+			}
 			ef.resetear_error();
 			return false;
 		}		
 		ef.no_resaltar();
 		return true;
-	}
+	};
 	
 	def.resetear_errores = function() {
 		if (! this._silencioso)	 {
@@ -122,13 +126,14 @@ def.constructor = objeto_ei_formulario_ml;
 				}
 			}
 		}
-	}	
+	};	
 	
 	//----Submit 
 	def.submit = function() {
 		//Si no es parte de un submit general, dispararlo
-		if (this._ci && !this._ci.en_submit())
+		if (this._ci && !this._ci.en_submit()) {
 			return this._ci.submit();
+		}
 		if (this._evento) {
 			for (fila in this._filas) {
 				for (id_ef in this._efs) {
@@ -136,15 +141,16 @@ def.constructor = objeto_ei_formulario_ml;
 				}
 			}
 			//Si tiene parametros los envia
-			if (this._evento.parametros)
-				document.getElementById(this._instancia + '__parametros').value = this._evento.parametros;			
+			if (this._evento.parametros) {
+				document.getElementById(this._instancia + '__parametros').value = this._evento.parametros;
+			}
 			var lista_filas = this._filas.join('_');
 			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 			return true;
 		}
-	}
+	};
 	
 	//---- Cascadas
 	def.cascadas_cambio_maestro = function(id_ef)
@@ -154,7 +160,7 @@ def.constructor = objeto_ei_formulario_ml;
 			this._efs[ef].ir_a_fila(actual);
 		}
 		objeto_ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);
-	}	
+	};	
 	
 	//----Selección 
 	def.seleccionar = function(fila) {
@@ -163,15 +169,15 @@ def.constructor = objeto_ei_formulario_ml;
 			this._seleccionada = fila;
 			this.refrescar_seleccion();
 		}
-	}
+	};
 	
 	def.deseleccionar_actual = function() {
-		if (this._seleccionada != null) {	//Deselecciona el anterior
+		if (this._seleccionada !== null) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
 			cambiar_clase(fila.cells, 'ei-ml-fila');			
 			delete(this._seleccionada);
 		}
-	}
+	};
 	
 	def.subir_seleccionada = function () {
 		//Busco las posiciones a intercambiar
@@ -183,11 +189,11 @@ def.constructor = objeto_ei_formulario_ml;
 			}
 			pos_anterior = posicion;
 		}
-		if (pos_anterior != null) {
+		if (pos_anterior !== null) {
 			this.intercambiar_filas(pos_anterior, pos_selec);
 			this.refrescar_numeracion_filas();
 		}
-	}
+	};
 	
 	def.bajar_seleccionada = function () {
 		//Busco las posiciones a intercambiar
@@ -199,11 +205,11 @@ def.constructor = objeto_ei_formulario_ml;
 			}
 			pos_siguiente = posicion;
 		}
-		if (pos_siguiente != null) {
+		if (pos_siguiente !== null) {
 			this.intercambiar_filas(pos_selec, pos_siguiente);
 			this.refrescar_numeracion_filas();
 		}
-	}
+	};
 
 	def.intercambiar_filas = function (pos_a, pos_b) {
 		//Reemplazo en el DOM
@@ -223,22 +229,23 @@ def.constructor = objeto_ei_formulario_ml;
 		var temp = this._filas[pos_a];
 		this._filas[pos_a] = this._filas[pos_b];
 		this._filas[pos_b] = temp;
-	}
+	};
 
 	//---ABM 
 	def.eliminar_seleccionada = function() {
 		var fila = this._seleccionada;
 		if(existe_funcion(this, "evt__baja")){
-			if(! ( this["evt__baja"](fila) ) ){
+			if(! ( this.evt__baja(fila) ) ){
 				return false;
 			}
 		}	
 		anterior = this.eliminar_fila(fila);
 		delete(this._seleccionada);
-		if (anterior != null)
+		if (anterior !== null) {
 			this.seleccionar(anterior);
+		}
 		this.refrescar_todo();
-	}
+	};
 	
 	//Elimina una fila y retorna la fila más cercana
 	def.eliminar_fila = function(fila) {
@@ -258,10 +265,9 @@ def.constructor = objeto_ei_formulario_ml;
 			//Crea función de deshacer
 		this._pila_deshacer.push(new Function (
 								'document.getElementById("' + id_fila + '").style.display = ""\n' +
-								this._instancia + '._filas.splice(' + i + ',0,"' + fila + '")\n'
-								));
+								this._instancia + '._filas.splice(' + i + ',0,"' + fila + '")\n'));
 		return anterior;
-	}
+	};
 	
 	def.crear_fila = function() {
 		//¿La fila se agrega en el server?
@@ -287,7 +293,7 @@ def.constructor = objeto_ei_formulario_ml;
 		this.seleccionar(this._proximo_id);
 		this.refrescar_foco();
 		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
-	}
+	};
 	
 	def.deshacer = function() {
 		if (this._pila_deshacer.length > 0) {
@@ -295,7 +301,7 @@ def.constructor = objeto_ei_formulario_ml;
 			funcion();
 		}
 		this.refrescar_todo();
-	}
+	};
 
 	//----Procesamiento
 	def.cambiar_total = function (id_ef, total) {
@@ -307,7 +313,7 @@ def.constructor = objeto_ei_formulario_ml;
 		//Se restaura el id
 		this._efs[id_ef]._id_form = id_ant;
 		return total;
-	}
+	};
 	
 	def.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
@@ -319,33 +325,33 @@ def.constructor = objeto_ei_formulario_ml;
 				}
 			}
 		}
-	}
+	};
 	
 	def.agregar_procesamiento_fila = function (id_ef, fila) {
 		var callback = this._instancia + '.procesar("' + id_ef + '", ' + fila + ')';
 		this._efs[id_ef].ir_a_fila(fila).cuando_cambia_valor(callback);
-	}
+	};
 
 	//----Botonera
 	def.boton_eliminar = function() {
 		return document.getElementById(this._instancia + '_eliminar');
-	}
+	};
 	
 	def.boton_deshacer = function() {
 		return document.getElementById(this._instancia + '_deshacer');
-	}
+	};
 	
 	def.boton_deshacer_cant = function() {
 		return document.getElementById(this._instancia + '_deshacer_cant');
-	}	
+	};	
 	
 	def.boton_subir = function() {
 		return document.getElementById(this._instancia + '_subir');
-	}
+	};
 	
 	def.boton_bajar = function() {
 		return document.getElementById(this._instancia + '_bajar');
-	}
+	};
 	
 	//----Refresco Grafico 
 	def.refrescar_todo = function () {
@@ -353,24 +359,25 @@ def.constructor = objeto_ei_formulario_ml;
 		this.refrescar_numeracion_filas();
 		this.refrescar_deshacer();
 		this.refrescar_seleccion();
-	}
+	};
 	
 	//Recorre todas las filas y las vuelve a numerara comenzando desde 1
 	def.refrescar_numeracion_filas = function () {
 		var nro = 1;
 		for (fila in this._filas) {
 			var nro_fila = document.getElementById(this._instancia + '_numerofila' + this._filas[fila]);
-			if (nro_fila)
+			if (nro_fila) {
 				nro_fila.innerHTML = nro;
+			}
 			nro++;
 		}
-	}
+	};
 	
 	//Actualiza el botón deshacer
 	def.refrescar_deshacer = function () {
 		if (this.boton_deshacer()) {
 			var tamanio = this._pila_deshacer.length;
-			if (tamanio == 0) {
+			if (tamanio === 0) {
 				this.boton_deshacer().disabled = true;
 				this.boton_deshacer_cant().innerHTML = '';
 			} else {
@@ -378,35 +385,38 @@ def.constructor = objeto_ei_formulario_ml;
 				this.boton_deshacer_cant().innerHTML = '(' + tamanio + ')';			
 			}
 		}
-	}
+	};
 	
 	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
-		if (this._seleccionada != null) {
+		if (this._seleccionada !== null) {
 			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec');
-			if (this.boton_eliminar())
+			if (this.boton_eliminar()) {
 				this.boton_eliminar().disabled = false;
+			}
 			if (this.boton_subir()) {
 				this.boton_subir().disabled = false;
 				this.boton_bajar().disabled = false;			
 			}
 		} else {
-			if (this.boton_eliminar())
+			if (this.boton_eliminar()) {
 				this.boton_eliminar().disabled = true;
+			}
 			if (this.boton_subir()) {
 				this.boton_subir().disabled = true;
 				this.boton_bajar().disabled = true;
 			}
 		}
-	}
+	};
 	
 	//Toma la fila seleccionada y le pone foco al primer ef que se la banque.
 	def.refrescar_foco = function () {
 		for (id_ef in this._efs) {
-			if (this._efs[id_ef].ir_a_fila(this._seleccionada).seleccionar())
+			if (this._efs[id_ef].ir_a_fila(this._seleccionada).seleccionar()) {
 				break;
+			}
 		}
-	}
+	};
 	
 	def.refrescar_procesamientos = function (es_inicial) {
 		for (id_ef in this._efs) {
@@ -419,7 +429,7 @@ def.constructor = objeto_ei_formulario_ml;
 				}
 			}
 		}
-	}	
+	};	
 	
 	//Toma una fila y le refresca los listeners de procesamiento
 	def.refrescar_eventos_procesamiento = function (fila) {
@@ -428,7 +438,7 @@ def.constructor = objeto_ei_formulario_ml;
 				this.agregar_procesamiento_fila(id_ef, fila);
 			}
 		}		
-	}
+	};
 	
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 
@@ -438,16 +448,16 @@ if (self.Node && ! self.Node.prototype.swapNode) {
 		var parentNode = this.parentNode;
 		node.parentNode.replaceChild(this, node);
 		parentNode.insertBefore(node, nextSibling);  
-	}
+	};
 }
 
 function intercambiar_nodos(nodo1, nodo2) {
 	if (ie) {	//BUG del IE para mantener el estado de los checkbox
-		var intercambio_vals = new Array();
+		var intercambio_vals = [];
 		var inputs = document.getElementsByTagName('input');
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].type.toLowerCase() == 'checkbox' && inputs[i].id.indexOf('__fila__') == -1) {
-				intercambio_vals.push( new Array(inputs[i].id, inputs[i].checked));
+				intercambio_vals.push( [inputs[i].id, inputs[i].checked]);
 			}
 		}	
 	}

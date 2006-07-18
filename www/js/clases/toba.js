@@ -4,7 +4,7 @@ var toba =
 {
 	_cons_incl: ['basico', 'clases/toba'],
 	_cons_carg: ['basico', 'clases/toba'],
-	_objetos: new Array(), 
+	_objetos: [], 
 	_callback_inclusion: null,
 	_ajax : false,
 	_mostrar_aguardar: true,
@@ -40,17 +40,17 @@ var toba =
 	},
 	
 	incluir : function(consumos) {
-		var a_incluir = new Array();
+		var a_incluir = [];
 		//Se divide en dos para garantizar la notificacion de fin de carga
 		for(var i=0; i< consumos.length; i++) {
 			//Evita que se cargue dos veces un consumo
 			if (! in_array(consumos[i], this._cons_incl) ) {
-				this._cons_incl.push(consumos[i])
+				this._cons_incl.push(consumos[i]);
 				a_incluir.push(consumos[i]);
 			}
 		}
 		if (a_incluir.length > 0) {
-			for (var i=0; i < a_incluir.length; i++) {
+			for (i=0; i < a_incluir.length; i++) {
 				include_source(toba_alias + '/js/' + a_incluir[i] + '.js');		
 			}
 		} else {
@@ -88,12 +88,12 @@ var toba =
 			  success: this.servicio__html_parcial ,
 			  failure: this.error_comunicacion,
 			  scope: this
-			}
+			};
 			var vinculo = vinculador.crear_autovinculo('html_parcial');
 			conexion.setForm('formulario_toba');
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {
-			document['formulario_toba'].submit();
+			document.formulario_toba.submit();
 		}
 	},
 	
@@ -122,10 +122,10 @@ var toba =
 	
 	analizar_respuesta_servicio : function(respuesta) {
 		var texto = respuesta.responseText;
-		var partes = new Array();
-		var pos_anterior = 0;
+		var partes = [];
+		var pos, pos_anterior = 0;
 		while (pos != -1) {
-			var pos = texto.indexOf('<--toba-->', pos_anterior);
+			pos = texto.indexOf('<--toba-->', pos_anterior);
 			if (pos != -1) {
 				partes.push(texto.substr(pos_anterior, pos-pos_anterior));
 				pos_anterior = pos + 10;
@@ -147,7 +147,7 @@ var toba =
 			var div = document.getElementById('div_toba_esperar');
 			if (div.currentStyle) {
 				//Arreglo para el IE para que simule el fixed
-				if (div.currentStyle['position'] == 'absolute') {
+				if (div.currentStyle.position == 'absolute') {
 					var y = (document.documentElement && document.documentElement.scrollTop) ?
 							 	document.documentElement.scrollTop :
 							 	document.body.scrollTop;
@@ -172,11 +172,11 @@ var toba =
 		this._mostrar_aguardar = aguardar;
 	}
 	
-}
+};
 
 var vinculador =
 {
-	_vinculos : new Array(),
+	_vinculos : [],
 	
 	crear_autovinculo : function(servicio, parametros, objetos) {
 		return this.crear(toba_hilo_item, servicio, parametros, objetos);
@@ -216,18 +216,18 @@ var vinculador =
 		 	cola_mensajes.mostrar();
 		 	return;
 		}
-		if (this._vinculos[identificador]['activado'] != 1) return;	//Desactivado
-		if (typeof this._vinculos[identificador]['parametros'] == 'undefined') {
-			url = this._vinculos[identificador]['url'];
+		if (this._vinculos[identificador].activado != 1) { return; }	//Desactivado
+		if (typeof this._vinculos[identificador].parametros == 'undefined') {
+			url = this._vinculos[identificador].url;
 		} else {
-			url = this.concatenar_parametros_url( 	this._vinculos[identificador]['url'],
-													this._vinculos[identificador]['parametros'] );
+			url = this.concatenar_parametros_url( 	this._vinculos[identificador].url,
+													this._vinculos[identificador].parametros );
 		}
-		if (this._vinculos[identificador]['popup'] == '1' ) {
-			abrir_popup(identificador,url,this._vinculos[identificador]['popup_parametros']);
+		if (this._vinculos[identificador].popup == '1' ) {
+			abrir_popup(identificador,url,this._vinculos[identificador].popup_parametros);
 		} else {
-			if( this._vinculos[identificador]['target'] != '' ) {
-				idtarget = this._vinculos[identificador]['target']
+			if( this._vinculos[identificador].target !== '' ) {
+				idtarget = this._vinculos[identificador].target;
 				window.parent.frames[idtarget].document.location.href = url;
 			} else {
 				document.location.href = url;
@@ -236,28 +236,28 @@ var vinculador =
 	},
 
 	agregar_parametros: function(identificador, parametros) {
-		if (typeof this._vinculos[identificador] == 'undefined') return;
-		if (typeof this._vinculos[identificador]['parametros'] == 'undefined') {
-			this._vinculos[identificador]['parametros']= parametros;
+		if (typeof this._vinculos[identificador] == 'undefined') {return;}
+		if (typeof this._vinculos[identificador].parametros == 'undefined') {
+			this._vinculos[identificador].parametros= parametros;
 		} else {
 			for (var i in parametros) {
-				this._vinculos[identificador]['parametros'][i] = parametros[i];
+				this._vinculos[identificador].parametros[i] = parametros[i];
 			}	
 		}
 	},
 
 	desactivar_vinculo : function(identificador) {
-		if (typeof this._vinculos[identificador] == 'undefined' ) return;
-		this._vinculos[identificador]['activado'] = 0;
+		if (typeof this._vinculos[identificador] == 'undefined' ) {return;}
+		this._vinculos[identificador].activado = 0;
 	},
 
 	activar_vinculo : function(identificador) {
-		if (typeof this._vinculos[identificador] == 'undefined' ) return;
-		this._vinculos[identificador]['activado'] = 1;
+		if (typeof this._vinculos[identificador] == 'undefined' ) {return;}
+		this._vinculos[identificador].activado = 1;
 	},
 	
 	// A travez de este metodo el vinculador de PHP habla con el de JS.
 	agregar_vinculo : function(identificador, datos) {
 		this._vinculos[ identificador ] = datos;
 	}
-}
+};

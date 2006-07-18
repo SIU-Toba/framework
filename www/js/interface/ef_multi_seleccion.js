@@ -1,4 +1,4 @@
-ef_multi_seleccion.prototype = new ef;
+ef_multi_seleccion.prototype = new ef();
 var def = ef_multi_seleccion.prototype;
 def.constructor = ef_multi_seleccion;
 
@@ -8,36 +8,38 @@ def.constructor = ef_multi_seleccion;
 	}
 
 	def.validar = function() {
-		if (! ef.prototype.validar.call(this))
+		var elemento;
+		if (! ef.prototype.validar.call(this)) {
 			return false;		
+		}
 		var valores = this.get_estado();
-		if (this._obligatorio && valores.length == 0) {
+		if (this._obligatorio && valores.length === 0) {
 			this._error = 'es obligatorio.';
 		    return false;
 		}
 		//--- Mínimo
-		if (this._limites[0] != null) {
+		if (this._limites[0] !== null) {
 			if (valores.length < this._limites[0]) {
-				var elemento = (this._limites[0] == 1) ? "un elemento" : this._limites[0] + " elementos";				
+				elemento = (this._limites[0] == 1) ? "un elemento" : this._limites[0] + " elementos";				
 				this._error = "requiere al menos " + elemento + " seleccionados.";
 				return false;	
 			}
 		}
 		//--- Máximo
-		if (this._limites[1] != null) {
+		if (this._limites[1] !== null) {
 			if (valores.length > this._limites[1]) {
-				var elemento = (this._limites[1] == 1) ? "un elemento" : this._limites[1] + " elementos";
+				elemento = (this._limites[1] == 1) ? "un elemento" : this._limites[1] + " elementos";
 				this._error = "no puede tener más de " + elemento + " seleccionados.";
 				return false;	
 			}
 		}
-		return true;		
-	}
+		return true;
+	};
 	
 	def.set_solo_lectura = function(solo_lectura) {
-		if (typeof solo_lectura == 'undefined')
+		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
-			
+		}
 		var input = this.input();
 		if (input) {
 			input.disabled = solo_lectura;
@@ -46,12 +48,12 @@ def.constructor = ef_multi_seleccion;
 		if (utilerias) {
 			utilerias.style.display	= (solo_lectura) ? 'none' : '';
 		}
-	}
+	};
 	
 //--------------------------------------------------------------------------------
 //Clase ef_multi_seleccion_lista
-ef_multi_seleccion_lista.prototype = new ef_multi_seleccion;
-var def = ef_multi_seleccion_lista.prototype;
+ef_multi_seleccion_lista.prototype = new ef_multi_seleccion();
+def = ef_multi_seleccion_lista.prototype;
 def.constructor = ef_multi_seleccion_lista;
 
 	function ef_multi_seleccion_lista(id_form, etiqueta, obligatorio, colapsado, limites) {
@@ -67,15 +69,15 @@ def.constructor = ef_multi_seleccion_lista;
 			}
 		}
 		return valores;
-	}	
+	};	
 	
 	def.borrar_opciones = function() {
 		this.input().length = 0;
-	}
+	};
 	
 	def.set_estado = function(nuevo) {
 		alert('metodo no implementado');
-	}
+	};
 
 	def.set_opciones = function(valores) {
 		this.borrar_opciones();
@@ -83,19 +85,19 @@ def.constructor = ef_multi_seleccion_lista;
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
 		}
-	}
+	};
 	
 	def.seleccionar_todo = function(todos) {
 		var elem = this.input();
 		for (var i=0; i < elem.length; i++) {
 			elem.options[i].selected = todos;
 		}
-	}
+	};
 
 //--------------------------------------------------------------------------------
 //Clase ef_multi_seleccion_check
-ef_multi_seleccion_check.prototype = new ef_multi_seleccion;
-var def = ef_multi_seleccion_check.prototype;
+ef_multi_seleccion_check.prototype = new ef_multi_seleccion();
+def = ef_multi_seleccion_check.prototype;
 def.constructor = ef_multi_seleccion_check;
 
 	function ef_multi_seleccion_check(id_form, etiqueta, obligatorio, colapsado, limites) {
@@ -111,7 +113,7 @@ def.constructor = ef_multi_seleccion_check;
 			}
 		}
 		return valores;
-	}	
+	};	
 
 	def.get_elementos = function() {
 		var elem = document.getElementsByName(this._id_form + '[]');
@@ -120,7 +122,7 @@ def.constructor = ef_multi_seleccion_check;
 		} else {
 			return [elem];	
 		}		
-	}
+	};
 	
 	def.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);		
@@ -129,21 +131,21 @@ def.constructor = ef_multi_seleccion_check;
 			elem[i].disabled = solo_lectura;
 		}
 		ef_multi_seleccion.prototype.set_solo_lectura.call(this, solo_lectura);
-	}
+	};
 	
 	def.seleccionar_todo = function(todos) {
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
 			elem[i].checked = todos;
 		}
-	}
+	};
 	
 	def.borrar_opciones = function() {
 		var opciones = document.getElementById(this._id_form + '_opciones');
 		while(opciones.childNodes[0]) {
 			opciones.removeChild(opciones.childNodes[0]);
 		}
-	}
+	};
 	
 	def.set_opciones = function(valores) {
 		this.borrar_opciones();
@@ -161,7 +163,7 @@ def.constructor = ef_multi_seleccion_check;
 		if (typeof this._callback != 'undefined') {
 			this.cuando_cambia_valor(this._callback);
 		}
-	}
+	};
 	
 	def.cuando_cambia_valor = function(callback) {
 		this._callback = callback;
@@ -169,12 +171,12 @@ def.constructor = ef_multi_seleccion_check;
 		for (var i=0; i < elem.length; i++) {
 			addEvent(elem[i], 'onchange', callback);
 		}
-	}
+	};
 
 //--------------------------------------------------------------------------------
 //Clase ef_multi_seleccion_doble
-ef_multi_seleccion_doble.prototype = new ef_multi_seleccion;
-var def = ef_multi_seleccion_doble.prototype;
+ef_multi_seleccion_doble.prototype = new ef_multi_seleccion();
+def = ef_multi_seleccion_doble.prototype;
 def.constructor = ef_multi_seleccion_doble;	
 
 	function ef_multi_seleccion_doble(id_form, etiqueta, obligatorio, colapsado, limites, imgs) {
@@ -187,7 +189,7 @@ def.constructor = ef_multi_seleccion_doble;
 	def.input = function(cual) {
 		cual = (typeof cual == 'undefined' || cual == 'der') ? '' : '_izq';
 		return document.getElementById(this._id_form + cual);		
-	}
+	};
 		
 	def.get_estado = function() {
 		valores = [];
@@ -196,15 +198,15 @@ def.constructor = ef_multi_seleccion_doble;
 			valores.push(opciones[i].value);	
 		}
 		return valores;
-	}
+	};
 	
 	def.pasar_a_derecha = function() {
 		this._pasar_seleccionados('izq', 'der');
-	}
+	};
 	
 	def.pasar_a_izquierda = function() {
 		this._pasar_seleccionados('der', 'izq');
-	}	
+	};	
 	
 	def._pasar_seleccionados = function(desde, hasta) {
 		var i_desde = this.input(desde);
@@ -225,15 +227,15 @@ def.constructor = ef_multi_seleccion_doble;
 			actual = i_desde.selectedIndex;
 		}
 		this.refrescar_todo();
-	}
+	};
 	
 	def.refrescar_todo = function()	{
 		this.refrescar_iconos('izq');
 		this.refrescar_iconos('der');
-		if (this._callback != null) {
+		if (this._callback !== null) {
 			eval(this._callback);	
 		}
-	}
+	};
 	
 	def.refrescar_iconos = function(posicion) {
 		var input = this.input(posicion);
@@ -244,7 +246,7 @@ def.constructor = ef_multi_seleccion_doble;
 		} else {
 			img.src = this._imgs[0 + offset];
 		}
-	}
+	};
 	
 	def.set_opciones = function(valores) {
 		this.borrar_opciones();
@@ -252,23 +254,24 @@ def.constructor = ef_multi_seleccion_doble;
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
 		}
-	}
+	};
 	
 	def.set_solo_lectura = function(solo_lectura) {
-		if (typeof solo_lectura == 'undefined')
+		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
+		}
 		this.input('izq').selectedIndex = -1;			
 		this.input('izq').disabled = solo_lectura;
 		this.input('der').selectedIndex = -1;		
 		this.input('der').disabled = solo_lectura;
 		this.refrescar_iconos('izq');
 		this.refrescar_iconos('der');		
-	}
+	};
 		
 	def.borrar_opciones =  function() {
 		this.input('izq').length = 0;
 		this.input('der').length = 0;
-	}
+	};
 
 	def.submit = function () {
 		var input = this.input('der');
@@ -279,10 +282,10 @@ def.constructor = ef_multi_seleccion_doble;
 		for (var i=0; i < opciones.length ; i++) {
 			opciones[i].selected = true;
 		}
-	}
+	};
 		
 	def.cuando_cambia_valor = function(callback) {
 		this._callback = callback;
-	}	
+	};	
 	
 toba.confirmar_inclusion('interface/ef_multi_seleccion');

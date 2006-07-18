@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_formulario 
-objeto_ei_formulario.prototype = new objeto;
+objeto_ei_formulario.prototype = new objeto();
 var def = objeto_ei_formulario.prototype;
 def.constructor = objeto_ei_formulario;
 
@@ -11,8 +11,8 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 
 	this._ci = null;							//Referencia al CI contenedor	
-	this._efs = new Object();					//Lista de objeto_ef contenidos
-	this._efs_procesar = new Object();			//ID de los ef's que poseen procesamiento
+	this._efs = {};								//Lista de objeto_ef contenidos
+	this._efs_procesar = {};					//ID de los ef's que poseen procesamiento
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
 	this._evento_defecto = null;				//No hay evento prefijado
 	this._expandido = false;					//El formulario comienza sin expandirse
@@ -22,9 +22,10 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 }
 
 	def.agregar_ef  = function (ef, identificador) {
-		if (ef)
+		if (ef) {
 			this._efs[identificador] = ef;
-	}
+		}
+	};
 	
 	def.iniciar = function () {
 		for (id_ef in this._efs) {
@@ -40,24 +41,25 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		this.refrescar_procesamientos(true);
 		this.reset_evento();
 		if (this.configurar) {
-			this.configurar()
+			this.configurar();
 		}
-	}
+	};
 
 	//---Consultas
 	def.ef = function(id) {
 		return this._efs[id];
-	}
+	};
 
 	//Retorna el nodo DOM donde se muestra el componente
 	def.nodo = function() {
 		return document.getElementById(this._instancia + '_cont');	
-	}
+	};
 
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit())
+		if (this._ci && !this._ci.en_submit()) {
 			return this._ci.submit();
+		}
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs
 			for (id_ef in this._efs) {
@@ -66,7 +68,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
-	}
+	};
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
 	def.puede_submit = function() {
@@ -86,7 +88,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 			}
 			//- 3 - Hay que confirmar la ejecucion del evento?
 			//La confirmacion se solicita escribiendo el texto de la misma
-			if(this._evento.confirmar != "") {
+			if(trim(this._evento.confirmar) !== "") {
 				if (!this._silencioso && !(confirm(this._evento.confirmar))){
 					this.reset_evento();
 					return false;
@@ -94,7 +96,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 			}
 		}
 		return true;
-	}
+	};
 
 	//---- Cascadas
 	def.cascadas_cambio_maestro = function(id_ef)
@@ -105,7 +107,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 				this.cascadas_preparar_esclavo(this._esclavos[id_ef][i]);
 			}
 		}
-	}
+	};
 	
 	def.cascadas_maestros_preparados = function(id_esclavo)
 	{
@@ -115,7 +117,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 			}
 		}
 		return true;
-	}
+	};
 	
 	def.cascadas_preparar_esclavo = function (id_esclavo)
 	{
@@ -139,7 +141,7 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		if (con_estado) {
 			this.cascadas_comunicar(id_esclavo, valores);
 		}
-	}
+	};
 	
 	def.cascadas_en_espera = function(id_ef)
 	{
@@ -151,27 +153,26 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 				this.cascadas_en_espera(this._esclavos[id_ef][i]);
 			}
 		}
-	}
+	};
 	
 	
 	def.cascadas_comunicar = function(id_ef, valores) 
 	{
 		//Empaqueto toda la informacion que tengo que mandar.
-		var parametros = {'cascadas-ef': id_ef, 'cascadas-maestros' : valores}
-		var callback =
-		{
-		  success: this.cascadas_respuesta,
-		  failure: toba.error_comunicacion,
-		  argument: id_ef,
-		  scope: this
-		}
+		var parametros = {'cascadas-ef': id_ef, 'cascadas-maestros' : valores};
+		var callback = {
+			success: this.cascadas_respuesta,
+			failure: toba.error_comunicacion,
+			argument: id_ef,
+			scope: this
+		};
 		var vinculo = vinculador.crear_autovinculo('cascadas_efs', parametros, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback, null);
-	}
+	};
 	
 	def.cascadas_respuesta = function(respuesta)
 	{
-		if (respuesta.responseText == '') {
+		if (respuesta.responseText === '') {
 			var error = 'Error en la respuesta de la cascada, para más información consulte el log';
 			cola_mensajes.limpiar();
 			cola_mensajes.agregar(error);
@@ -188,68 +189,76 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 				cola_mensajes.mostrar();				
 			}
 		}
-	}
+	};
 	
 	//----Validación 
 	def.validar = function() {
 		var ok = true;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
-			if (existe_funcion(this, validacion_particular))
+			if (existe_funcion(this, validacion_particular)) {
 				ok = this[validacion_particular]();		
+			}
 			for (id_ef in this._efs) {
 				ok = this.validar_ef(id_ef) && ok;
 			}
 		} else {
 			this.resetear_errores();
 		}
-		if (!ok)
+		if (!ok) {
 			this.reset_evento();
+		}
 		return ok;
-	}
+	};
 	
 	def.validar_ef = function(id_ef, es_online) {
 		var ef = this._efs[id_ef];
 		var validacion_particular = 'evt__' + id_ef + '__validar';
-		var ok = ef.validar()
+		var ok = ef.validar();
 		if (existe_funcion(this, validacion_particular)) {
 			ok = this[validacion_particular]() && ok;
 		}
 		if (!ok) {
-			if (! this._silencioso)
+			if (! this._silencioso) {
 				ef.resaltar(ef.get_error());
-			if (! es_online)
+			}
+			if (! es_online) {
 				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
+			}
 			ef.resetear_error();
-			return false
+			return false;
 		}
-		if (! this._silencioso)
+		if (! this._silencioso) {
 			ef.no_resaltar();
+		}
 		return true;
-	}
+	};
 	
 	def.resetear_errores = function() {
 		if (! this._silencioso)	 {
 			for (var id_ef in this._efs) {
-				if (! this._silencioso)
-					this._efs[id_ef].no_resaltar();		
+				if (! this._silencioso) {
+					this._efs[id_ef].no_resaltar();
+				}
 			}	
 		}
-	}
+	};
 
 	//---Procesamiento 
 	def.procesar = function (id_ef, es_inicial) {
-		if (this.hay_procesamiento_particular_ef(id_ef))
+		if (this.hay_procesamiento_particular_ef(id_ef)) {
 			return this['evt__' + id_ef + '__procesar'](es_inicial);	//Procesamiento particular, no hay proceso por defecto
-	}
+		}
+	};
 			
 	//Hace reflexion sobre la clase en busqueda de extensiones	
 	def.agregar_procesamientos = function() {
 		for (id_ef in this._efs) {
-			if (this.hay_procesamiento_particular_ef(id_ef))
+			if (this.hay_procesamiento_particular_ef(id_ef)) {
 				this.agregar_procesamiento(id_ef);
+			}
 		}
-	}
+	};
 
 	def.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
@@ -257,11 +266,11 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 			var callback = this._instancia + '.procesar("' + id_ef + '")';
 			this._efs[id_ef].cuando_cambia_valor(callback);
 		}
-	}	
+	};	
 	
 	def.hay_procesamiento_particular_ef = function(id_ef) {
 		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
-	}	
+	};	
 
 	//---Cambios graficos
 	def.cambiar_expansion = function() {
@@ -271,12 +280,12 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		}
 		var img = document.getElementById(this._instancia + '_cambiar_expansion');
 		img.src = (this._expandido) ? toba.imagen('contraer') : toba.imagen('expandir');
-	}
+	};
 	
 	//---Refresco Grafico
 	def.refrescar_todo = function () {
 		this.refrescar_procesamientos();
-	}		
+	};		
 	
 	def.refrescar_procesamientos = function (es_inicial) {
 		for (var id_ef in this._efs) {
@@ -284,6 +293,6 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 				this.procesar(id_ef, es_inicial);
 			}
 		}
-	}	
+	};	
 
 toba.confirmar_inclusion('clases/objeto_ei_formulario');

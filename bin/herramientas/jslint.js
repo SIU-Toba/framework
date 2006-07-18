@@ -233,4 +233,11 @@ detail('Var');s=[];c=f['(context)'];for(k in f){if(k.charAt(0)!='('&&f[k].substr
 detail('Global');s=[];for(k in f){if(k.charAt(0)!='('&&f[k]==='label'){s.push(k);}}
 detail('Label');o.push('</li>');}
 if(functions.length){o.push('</ol>');}}
-return o.join('');};return j;}();if(!jslint(readFile(arguments[0]),{browser:true, passfail:false})){var e=jslint.errors[0];print('Lint at line '+(e.line+1)+' character '+(e.character+1)+': '+e.reason);print((e.evidence||'').replace(/^\s*(\S*(\s+\S+)*)\s*$/,"$1"));quit();}
+return o.join('');};return j;}();if(!jslint(readFile(arguments[0]),{browser:true, evil:true, passfail:false})){
+for (var i=0; i < jslint.errors.length; i++) {
+	var e=jslint.errors[i];
+	print('Lint at line '+(e.line+1)+' character '+(e.character+1)+': '+e.reason);
+	print((e.evidence||'').replace(/^\s*(\S*(\s+\S+)*)\s*$/,"$1"));
+	print('');
+}
+quit();}

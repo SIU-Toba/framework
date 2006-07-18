@@ -9,12 +9,12 @@ var resizeTa =
 {
   loaded: null,
   TAlength: 0,
-  elem: new Array(),
+  elem: [],
 
   init: function (){
-    if (resizeTa.loaded)
+    if (resizeTa.loaded) {
       return;
-    else{
+    } else{
         resizeTa.loaded = true;
 		resizeTa.pageload();		 
 	} 
@@ -29,7 +29,7 @@ pageload: function (aEvent){
 	resizeTa.doc = document;
 	resizeTa.TA = document.getElementsByTagName('TEXTAREA');
     resizeTa.TAlength = resizeTa.TA.length;
-    if(resizeTa.TAlength == 0 || resizeTa.elem.length == 0){
+    if(resizeTa.TAlength === 0 || resizeTa.elem.length === 0){
         return;
     }else{
     resizeTa.rootElem = document.body;
@@ -64,7 +64,7 @@ newdiv: function (w,h,id,nr,cu){
 
 getposition: function (i){
 	var pos = getElementPosition(resizeTa.TA[i]);
-    return [pos['left'],pos['top']]
+    return [pos.left,pos.top];
 },
 
 posdivs: function (){
@@ -89,8 +89,8 @@ posdivs: function (){
 },
 
 activate: function (e){
-	if (!e) var e = window.event
-	if (!e.target) e.target = e.srcElement;
+	if (!e) { e = window.event; }
+	if (!e.target) { e.target = e.srcElement; }
 
 	resizeTa.doc = e.target.ownerDocument;
 	resizeTa.TA = resizeTa.doc.getElementsByTagName('TEXTAREA');
@@ -98,7 +98,7 @@ activate: function (e){
 	resizeTa.TAlength = resizeTa.TA.length;
 	var curTargetId = e.target.getAttribute('ID').split("_");
     curTarget = curTargetId[0];
-    curTA_Nr = parseInt(curTargetId[1]);
+    curTA_Nr = parseInt(curTargetId[1], 10);
 	resizeTa.doc.onmouseup = resizeTa.deactivate;
     switch(curTarget){
         case "gripH": resizeTa.doc.onmousemove = resizeTa.resizeta_h; break;
@@ -120,7 +120,7 @@ deactivate: function (){
 
 resizeta_h: function (e){
 	try {
-		if (!e) var e = window.event
+		if (!e) { e = window.event; }
 		curPos = resizeTa.getposition(curTA_Nr);
 		pos = resizeTa.positions(e);	
 		resizeTa.TA[curTA_Nr].style.width = pos[0] - curPos[0] + "px";
@@ -130,7 +130,7 @@ resizeta_h: function (e){
 
 resizeta_v: function (e){
 	try {
-		if (!e) var e = window.event
+		if (!e) { e = window.event; }
 		curPos = resizeTa.getposition(curTA_Nr);
 		pos = resizeTa.positions(e);	
 		resizeTa.TA[curTA_Nr].style.height = pos[1] - curPos[1] + "px";
@@ -140,7 +140,7 @@ resizeta_v: function (e){
 
 resizeta_x: function (e){
 	try {
-		if (!e) var e = window.event
+		if (!e) {e = window.event; }
 		curPos = resizeTa.getposition(curTA_Nr);
 		pos = resizeTa.positions(e);
 		resizeTa.TA[curTA_Nr].style.width = pos[0] - curPos[0] + 2 + "px";
@@ -150,12 +150,14 @@ resizeta_x: function (e){
 },
 
 positions: function(e) {
-		if (e.pageX || e.pageY)
+		if (e.pageX || e.pageY) {
 			return [e.pageX, e.pageY];
-		if (e.clientX || e.clientY)
+		}
+		if (e.clientX || e.clientY) {
 			return [e.clientX + document.body.scrollLeft, e.clientY + document.body.scrollTop];
+		}
 	}	
-}
+};
 addEvent(window, 'onload', 'resizeTa.init()');
 
 toba.confirmar_inclusion('interface/resizeTa');

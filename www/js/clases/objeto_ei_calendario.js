@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_calendario
-objeto_ei_calendario.prototype = new objeto;
+objeto_ei_calendario.prototype = new objeto();
 var def = objeto_ei_calendario.prototype;
 def.constructor = objeto_ei_calendario;
 
@@ -11,8 +11,9 @@ function objeto_ei_calendario(instancia, input_submit) {
 
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit())
+		if (this._ci && !this._ci.en_submit()) {
 			return this._ci.submit();
+		}
 		if (this._evento) {
 			//Si es la selección de una semana marco la semana
 			if (this._evento.id == 'seleccionar_semana') {
@@ -32,6 +33,6 @@ function objeto_ei_calendario(instancia, input_submit) {
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
 		return true;
-	}
+	};
 
 toba.confirmar_inclusion('clases/objeto_ei_calendario');	
