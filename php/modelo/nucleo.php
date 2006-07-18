@@ -397,31 +397,65 @@ class nucleo extends elemento_modelo
 	
 	function get_archivos_js_propios($patron =null)
 	{
-		if (!isset($patron)) {
+		$dir_js = toba_dir().'/www/js';		
+		$archivos = array();		
+		if (! isset($patron)) {
+			//--- Algunos archivos se ponen por adelantado porque requieren un orden de inclusión
+			$archivos[] = $dir_js."/basico.js";		
+			$archivos[] = $dir_js."/clases/toba.js";
+			$archivos[] = $dir_js."/clases/objeto.js";
+			$archivos[] = $dir_js."/clases/objeto_ei_formulario.js";
+			$archivos[] = $dir_js."/clases/objeto_ei_formulario_ml.js";
+			$archivos[] = $dir_js."/interface/ef.js";
 			$patron = '/.\.js/';	
 		}
-		$archivos = array();
-		$dir_js = toba_dir().'/www/js';
+		
 		$dirs = array($dir_js, $dir_js.'/clases', $dir_js.'/interface');
 		foreach ($dirs as $directorio) {
 			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron);
 			$archivos = array_merge($archivos, $nuevos);
 		}
+		$archivos = array_unique($archivos);
 		return $archivos;
 	}
 	
 	function comprimir_js()
 	{
-		$dir_js = toba_dir().'/www/js/';
+		
+/*		$dir_js = toba_dir().'/www/js/';
 		$archivo = $dir_js . 'basico.js';
-/*		require_once('3ros/jscomp/JavaScriptCompressor.class.php');
+	require_once('3ros/jscomp/JavaScriptCompressor.class.php');
 		require_once('3ros/jscomp/BaseConvert.class.php');
 		$comp = new JavaScriptCompressor(false);
-		$salida = $comp->getClean(file_get_contents($archivo));*/
-		require_once('3ros/jsmin.php');
-		$jsMin = new JSMin($archivo, $archivo.".new");
-		$jsMin -> minify();		
+		$salida = $comp->getClean(file_get_contents($archivo));
+	
 		//file_put_contents($archivo, $salida);
+	*/
+		$compresor = toba_dir().'/bin/herramientas/jsmin';
+		$archivos = $this->get_archivos_js_propios();
+		$total = 0;
+		require_once('3ros/jscomp/JavaScriptCompressor.class.php');
+		require_once('3ros/jscomp/BaseConvert.class.php');
+		$comp = new JavaScriptCompressor(false);
+		$salida = array();
+		foreach ($archivos as $archivo) {
+			$atr = stat($archivo);
+			$total += $atr['size'];
+			//$nuevo = $comp->getClean(file_get_contents($archivo));
+			exec("$compresor < $archivo", $salida);
+			//$salida[] = $nuevo;
+
+		}
+		$todo = implode("\n", $salida);
+		$version = instalacion::get_version_actual();
+		$version = $version->__toString();
+		$archivo = toba_dir()."/www/js/toba_$version.js";
+		file_put_contents($archivo, $todo);
+		$atr = stat($archivo);
+		$nuevo_total = $atr['size'];		
+		echo "Antes: $total bytes\n";
+		echo "Despues: ".$nuevo_total." bytes";
+		
 	}
 	
 	function validar_js($patron=null)
@@ -431,9 +465,6 @@ class nucleo extends elemento_modelo
 		$validador = toba_dir().'/bin/herramientas/jslint.js';
 		$ok = true;
 		foreach ($archivos as $archivo) {
-			if (strpos($archivo, "fecha.js") !== false) {
-				continue;	
-			}
 			$cmd = "rhino -opt 9 $validador $archivo";
 			$otro = null;
 			exec($cmd, $salida);

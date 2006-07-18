@@ -7,7 +7,7 @@ var pagina_cargada = false;
 
 
 function isset(o) {
-	return typeof o != 'undefined';	
+	return typeof o != 'undefined' && o !== null;	
 }
 
 //---STRING

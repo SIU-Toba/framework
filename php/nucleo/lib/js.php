@@ -7,6 +7,10 @@ class js
 	private static $instancia;
 	private static $cargados = array();
 	protected $nivel_identado = 0;
+	private static $temp;
+	private static $consumos_basicos = array(
+						'basico', 'clases/toba', 'utilidades/datadumper', 
+						'comunicacion_server', 'cola_mensajes');
 	
 	static function instancia() 
 	{
@@ -42,22 +46,26 @@ class js
 	{
 		return "1.4";
 	}
-	//-------------------------------------------------------------------------------------
+
 	static function abrir()
 	{
 		return "<SCRIPT  language='JavaScript".js::version()."' type='text/javascript'>\n";
 	}
-	//-------------------------------------------------------------------------------------
+
 	static function cerrar()
 	{
 		return "\n</SCRIPT>\n";
 	}
-	//-------------------------------------------------------------------------------------	
+
 	static function incluir($archivo) 
 	{
-		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";
+		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
+/*		if (!isset(self::$temp)) {
+			self::$temp = true;
+			return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='/toba_trunk/js/toba_0.10.0.js'></SCRIPT>\n";		
+		}*/
 	}
-	//-------------------------------------------------------------------------------------
+
 	static function ejecutar($codigo) 
 	{
 		return js::abrir().$codigo.js::cerrar();
@@ -65,17 +73,34 @@ class js
 	
 	static function cargar_consumos_basicos()
 	{
+		$imagenes = array(	'error' => recurso::imagen_apl('error.gif', false), 
+							'info' => recurso::imagen_apl('info_chico.gif', false), 
+							'maximizar' => recurso::imagen_apl('sentido_des_sel.gif', false), 
+							'minimizar' => recurso::imagen_apl('sentido_asc_sel.gif', false),
+							'expandir'  => recurso::imagen_apl('expandir_vert.gif', false),
+							'contraer'  => recurso::imagen_apl('contraer_vert.gif', false),
+							'expandir_nodo' => recurso::imagen_apl('arbol/expandir.gif', false),
+							'contraer_nodo' => recurso::imagen_apl('arbol/contraer.gif', false),
+							'esperar' => recurso::imagen_apl('wait.gif', false)
+							);
+		echo js::abrir();
+		echo "var toba_alias='".recurso::path_apl()."';\n";
+		echo "var toba_prefijo_vinculo=\"".toba::get_vinculador()->crear_autovinculo()."\";\n";
+		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
+		echo "var toba_hilo_separador='".apex_qs_separador."'\n";
+		echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
+		echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
+		echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
+		echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
+		echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
+		echo "var lista_imagenes=".js::arreglo($imagenes, true).";";
+		echo "var apex_solicitud_tipo='".toba::get_solicitud()->get_tipo()."'\n";		
+		echo js::cerrar();		
+		
 		//Incluyo el javascript STANDART	
-		$consumos = array();
-		$consumos[] = 'basico';
-		$consumos[] = 'clases/toba';
-		$consumos[] = 'utilidades/datadumper';
-		$consumos[] = 'comunicacion_server';
-		$consumos[] = 'cola_mensajes';				
-		self::cargar_consumos_globales($consumos);
+		self::cargar_consumos_globales(self::$consumos_basicos);
 	}
 	
-	//-------------------------------------------------------------------------------------
 	static function cargar_consumos_globales($consumos)
 	{
 		$consumos = array_unique($consumos);
@@ -92,39 +117,6 @@ class js
 					case 'fck_editor':
 						echo js::incluir(recurso::js("fckeditor/fckeditor.js"));
 						break;
-					case 'comunicacion_server':
-						echo js::abrir();
-						//echo "var apex_frame_com='".apex_frame_com."'\n";
-						echo "var apex_solicitud_tipo='".toba::get_solicitud()->get_tipo()."'\n";
-						echo js::cerrar();
-						echo js::incluir(recurso::js("$consumo.js"));
-						break;
-					case 'clases/toba': 
-						echo js::incluir(recurso::js("$consumo.js"));
-						$imagenes = array(	'error' => recurso::imagen_apl('error.gif', false), 
-											'info' => recurso::imagen_apl('info_chico.gif', false), 
-											'maximizar' => recurso::imagen_apl('sentido_des_sel.gif', false), 
-											'minimizar' => recurso::imagen_apl('sentido_asc_sel.gif', false),
-											'expandir'  => recurso::imagen_apl('expandir_vert.gif', false),
-											'contraer'  => recurso::imagen_apl('contraer_vert.gif', false),
-											'expandir_nodo' => recurso::imagen_apl('arbol/expandir.gif', false),
-											'contraer_nodo' => recurso::imagen_apl('arbol/contraer.gif', false),
-											'esperar' => recurso::imagen_apl('wait.gif', false)
-											);
-						echo js::abrir();
-						echo "var toba_alias='".recurso::path_apl()."';\n";
-						echo "var toba_prefijo_vinculo=\"".toba::get_vinculador()->crear_autovinculo()."\";\n";
-						echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
-						echo "var toba_hilo_separador='".apex_qs_separador."'\n";
-						echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
-						echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
-						echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
-						echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-						echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
-						echo "var lista_imagenes=".js::arreglo($imagenes, true).";";
-						echo js::cerrar();
-						break;
-					break;					
 					//--> Por defecto carga el archivo del consumo
 					default:
 						echo js::incluir(recurso::js("$consumo.js"));

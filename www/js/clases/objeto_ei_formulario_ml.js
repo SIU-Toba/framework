@@ -172,7 +172,7 @@ def.constructor = objeto_ei_formulario_ml;
 	};
 	
 	def.deseleccionar_actual = function() {
-		if (this._seleccionada !== null) {	//Deselecciona el anterior
+		if (isset(this._seleccionada)) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
 			cambiar_clase(fila.cells, 'ei-ml-fila');			
 			delete(this._seleccionada);
@@ -389,7 +389,7 @@ def.constructor = objeto_ei_formulario_ml;
 	
 	//Resalta la línea seleccionada 
 	def.refrescar_seleccion = function () {
-		if (this._seleccionada !== null) {
+		if (isset(this._seleccionada)) {
 			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec');
 			if (this.boton_eliminar()) {
 				this.boton_eliminar().disabled = false;
