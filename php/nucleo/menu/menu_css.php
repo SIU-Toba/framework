@@ -91,6 +91,7 @@ class menu_css extends menu
 		echo $this->arbol;
 		if ($this->hay_algun_item) {
 			js::cargar_consumos_globales(array('basicos/listmenu'));
+			echo js::ejecutar("var horizontals = new simpleMenu('menu-h', 'horizontal');");
 		}
 	}
 }

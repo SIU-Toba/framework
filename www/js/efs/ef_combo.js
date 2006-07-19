@@ -190,8 +190,9 @@ def.constructor = ef_radio;
 	
 	def.refrescar_callbacks = function() {
 		var elem = this.input();
+		var callback = this.get_contenedor_opciones().onchange;
 		for (var i=0; i < elem.length; i++) {
-			addEvent(elem[i], 'onclick', this.get_contenedor_opciones().onchange);
+			addEvent(elem[i], 'onclick', callback);
 		}
 	};
 	

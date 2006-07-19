@@ -401,16 +401,16 @@ class nucleo extends elemento_modelo
 		$archivos = array();		
 		if (! isset($patron)) {
 			//--- Algunos archivos se ponen por adelantado porque requieren un orden de inclusión
-			$archivos[] = $dir_js."/basico.js";		
-			$archivos[] = $dir_js."/clases/toba.js";
-			$archivos[] = $dir_js."/clases/objeto.js";
-			$archivos[] = $dir_js."/clases/objeto_ei_formulario.js";
-			$archivos[] = $dir_js."/clases/objeto_ei_formulario_ml.js";
-			$archivos[] = $dir_js."/interface/ef.js";
+			$archivos[] = $dir_js."/basicos/basico.js";		
+			$archivos[] = $dir_js."/basicos/toba.js";
+			$archivos[] = $dir_js."/componentes/ei.js";
+			$archivos[] = $dir_js."/componentes/ei_formulario.js";
+			$archivos[] = $dir_js."/componentes/ei_formulario_ml.js";
+			$archivos[] = $dir_js."/efs/ef.js";
 			$patron = '/.\.js/';	
 		}
 		
-		$dirs = array($dir_js, $dir_js.'/clases', $dir_js.'/interface');
+		$dirs = array($dir_js.'/basicos', $dir_js.'/componentes', $dir_js.'/efs');
 		foreach ($dirs as $directorio) {
 			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron);
 			$archivos = array_merge($archivos, $nuevos);

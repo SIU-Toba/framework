@@ -100,12 +100,20 @@ function addEvent(o, _e, c, _b){
 	if (!o) {return;}		
 	var e = _e.toLowerCase();
 	var b = (typeof _b == "boolean") ? _b : true;
-	var x = (o[e]) ? o[e].toString() : "";
 
-	// strip out the body of the function
-	x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));
-	x = ((b) ? (x + c) : (c + x)) + "\n";
-	//o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
+	// strip out the body of the functions	
+	if (typeof o[e] == 'function') {
+		var x = o[e].toString();
+		x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));		
+	} else {
+		x = (o[e]) ? o[e] : '';
+	}
+	if (typeof c == 'function') {
+		c = c.toString();
+		c = c.substring(c.indexOf("{")+1, c.lastIndexOf("}"));		
+	}
+
+	x = ((b) ? (x + ';' + c) : (c + ';' +  x)) + "\n";
 	o[e] = (!!window.Event) ? new Function("event", x) : new Function(x);
 	return o[e];
 }
