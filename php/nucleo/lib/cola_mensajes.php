@@ -49,7 +49,7 @@ class cola_mensajes
 	public function mostrar()
 	{
 		js::cargar_consumos_basicos(); //Por si no se cargaron antes
-		js::cargar_consumos_globales(array("cola_mensajes"));
+		js::cargar_consumos_globales(array("basicos/cola_mensajes"));
 		echo js::abrir();
 		foreach($this->mensajes as $mensaje){
 			$texto = str_replace("'", "\\'", $mensaje[0]);

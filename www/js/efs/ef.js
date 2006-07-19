@@ -261,4 +261,4 @@ def.constructor = ef_fijo;
 		this.input().innerHTML = nuevo;
 	};	
 	
-toba.confirmar_inclusion('interface/ef');
+toba.confirmar_inclusion('efs/ef');

@@ -654,7 +654,7 @@ class objeto_ei_formulario_obsoleto extends objeto_ei
 	public function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = 'clases/objeto_ei_formulario';
+		$consumo[] = 'componentes/ei_formulario';
 		//Busco las	dependencias
 		foreach ($this->lista_ef_post	as	$ef){
 			$temp	= $this->elemento_formulario[$ef]->obtener_consumo_javascript();

@@ -159,7 +159,7 @@ abstract class ef_seleccion extends ef
 
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/ef','interface/ef_combo');
+		$consumos = array('efs/ef','efs/ef_combo');
 		return $consumos;
 	}	
 	

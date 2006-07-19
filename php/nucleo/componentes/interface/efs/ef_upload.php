@@ -101,7 +101,7 @@ class ef_upload extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/ef','interface/ef_upload');
+		$consumos = array('efs/ef','efs/ef_upload');
 		return $consumos;
 	}
 	

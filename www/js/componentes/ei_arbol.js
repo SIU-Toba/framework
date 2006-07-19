@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_arbol
-objeto_ei_arbol.prototype = new objeto();
-var def = objeto_ei_arbol.prototype;
-def.constructor = objeto_ei_arbol;
+//Clase ei_arbol
+ei_arbol.prototype = new ei();
+var def = ei_arbol.prototype;
+def.constructor = ei_arbol;
 
-function objeto_ei_arbol(instancia, input_submit, item_propiedades, autovinculo) {
+function ei_arbol(instancia, input_submit, item_propiedades, autovinculo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._item_propiedades = item_propiedades;
@@ -115,4 +115,4 @@ function objeto_ei_arbol(instancia, input_submit, item_propiedades, autovinculo)
 		}	
 	};
 
-toba.confirmar_inclusion('clases/objeto_ei_arbol');
+toba.confirmar_inclusion('componentes/ei_arbol');

@@ -187,7 +187,7 @@ class objeto_ei_archivos extends objeto_ei
 	{
 		$identado = js::instancia()->identado();
 		$path = addslashes($this->path_relativo());
-		echo $identado."window.{$this->objeto_js} = new objeto_ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
 	}
 
 	//-------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ class objeto_ei_archivos extends objeto_ei
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = 'clases/objeto_ei_archivos';
+		$consumo[] = 'componentes/ei_archivos';
 		return $consumo;
 	}	
 

@@ -92,4 +92,4 @@ function overlay() {
 	scroll(0,0);
 }
 
-toba.confirmar_inclusion('cola_mensajes');
+toba.confirmar_inclusion('basicos/cola_mensajes');

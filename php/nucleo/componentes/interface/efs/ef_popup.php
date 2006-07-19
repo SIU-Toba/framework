@@ -103,7 +103,7 @@ class ef_popup extends ef_editable
     
 	function get_consumo_javascript()
 	{
-		return array_merge(ef::get_consumo_javascript(), array('interface/ef_popup'));
+		return array_merge(ef::get_consumo_javascript(), array('efs/ef_popup'));
 	}	
 	
 	function parametros_js()

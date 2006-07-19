@@ -1373,14 +1373,14 @@ class objeto_ei_cuadro extends objeto_ei
 	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new objeto_ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 
 
 	public function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = 'clases/objeto_ei_cuadro';
+		$consumo[] = 'componentes/ei_cuadro';
 		return $consumo;
 	}	
 

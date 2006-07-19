@@ -1526,4 +1526,4 @@ var calendario = new CalendarPopup('div_calendario');
 calendario.showYearNavigation();
 calendario.showYearNavigationInput();
 
-toba.confirmar_inclusion('fecha');
+toba.confirmar_inclusion('efs/fecha');

@@ -37,4 +37,4 @@
 		}
 	}
 
-toba.confirmar_inclusion('financiero');
+toba.confirmar_inclusion('basicos/financiero');

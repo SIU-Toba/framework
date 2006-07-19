@@ -303,4 +303,4 @@ def.constructor = ef_editable_multilinea;
 	};
 	
 //--------------------------------------------------------------------------------	
-toba.confirmar_inclusion('interface/ef_editable');
+toba.confirmar_inclusion('efs/ef_editable');

@@ -107,7 +107,7 @@ class ef_editable extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/mascaras', 'interface/ef', 'interface/ef_editable');
+		$consumos = array('efs/mascaras', 'efs/ef', 'efs/ef_editable');
 		return $consumos;
 	}
 
@@ -353,7 +353,7 @@ class ef_editable_fecha extends ef_editable
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = "fecha";
+		$consumo[] = "efs/fecha";
 		return $consumo;
 	}
 	
@@ -455,7 +455,7 @@ class ef_editable_textarea extends ef_editable
 		$consumo = parent::get_consumo_javascript();
 		//Consumo la clase para hacer resize de los textarea
 		if ($this->ajustable)
-			$consumo[] = "interface/resizeTa";
+			$consumo[] = "efs/resizeTa";
 		return $consumo;
 	}
 

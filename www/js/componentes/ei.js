@@ -14,11 +14,11 @@ function evento_ei(id, validar, confirmar, parametros) {
 }
 
 
-function objeto(instancia) {
+function ei(instancia) {
 	this._instancia = instancia;
 }
-def = objeto.prototype;
-def.constructor = objeto;
+def = ei.prototype;
+def.constructor = ei;
 
 	def.iniciar = function() {
 	};
@@ -115,4 +115,4 @@ def.constructor = objeto;
 		return document.getElementById('colapsar_boton_' + this._instancia);
 	};
 
-toba.confirmar_inclusion('clases/objeto');
+toba.confirmar_inclusion('componentes/ei');

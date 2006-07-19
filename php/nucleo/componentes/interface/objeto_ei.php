@@ -306,7 +306,7 @@ class objeto_ei extends objeto
 	
 	public function get_consumo_javascript()
 	{
-		return array('clases/objeto');
+		return array('componentes/ei');
 	}
 	
 	function obtener_javascript()
@@ -324,7 +324,7 @@ class objeto_ei extends objeto
 	protected function crear_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new objeto('{$this->objeto_js}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}');\n";
 	}
 	
 	protected function extender_objeto_js()

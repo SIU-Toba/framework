@@ -61,4 +61,4 @@ def.constructor = ef_checkbox;
 		this.chequear(false);
 	};
 	
-toba.confirmar_inclusion('interface/ef_checkbox');
+toba.confirmar_inclusion('efs/ef_checkbox');

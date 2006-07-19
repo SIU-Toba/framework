@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_calendario
-objeto_ei_calendario.prototype = new objeto();
-var def = objeto_ei_calendario.prototype;
-def.constructor = objeto_ei_calendario;
+//Clase ei_calendario
+ei_calendario.prototype = new ei();
+var def = ei_calendario.prototype;
+def.constructor = ei_calendario;
 
-function objeto_ei_calendario(instancia, input_submit) {
+function ei_calendario(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
@@ -35,4 +35,4 @@ function objeto_ei_calendario(instancia, input_submit) {
 		return true;
 	};
 
-toba.confirmar_inclusion('clases/objeto_ei_calendario');	
+toba.confirmar_inclusion('componentes/ei_calendario');	

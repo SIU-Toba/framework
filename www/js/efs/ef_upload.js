@@ -42,4 +42,4 @@ def.constructor = ef_upload;
 		}
 	};
 	
-toba.confirmar_inclusion('interface/ef_upload');
+toba.confirmar_inclusion('efs/ef_upload');

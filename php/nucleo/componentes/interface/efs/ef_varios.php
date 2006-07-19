@@ -118,7 +118,7 @@ class ef_checkbox extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/ef','interface/ef_checkbox');
+		$consumos = array('efs/ef','efs/ef_checkbox');
 		return $consumos;
 	}	
 	
@@ -197,7 +197,7 @@ class ef_fijo extends ef_oculto
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/ef');
+		$consumos = array('efs/ef');
 		return $consumos;
 	}	
 	

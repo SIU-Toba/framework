@@ -384,7 +384,7 @@ abstract class ef
 	 */
 	function get_consumo_javascript()
 	{
-		return array("interface/ef");
+		return array("efs/ef");
 	}	
 	
 	function set_cuando_cambia_valor($js)

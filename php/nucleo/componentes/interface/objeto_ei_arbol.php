@@ -310,7 +310,7 @@ class objeto_ei_arbol extends objeto_ei
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->id);
 		$autovinculo = toba::get_vinculador()->crear_autovinculo("", $opciones );
-		echo $identado."window.{$this->objeto_js} = new objeto_ei_arbol('{$this->objeto_js}',
+		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
 												 '{$this->submit}', $item, '$autovinculo');\n";
 	}
 
@@ -319,7 +319,7 @@ class objeto_ei_arbol extends objeto_ei
 	public function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = 'clases/objeto_ei_arbol';
+		$consumo[] = 'componentes/ei_arbol';
 		return $consumo;
 	}	
 

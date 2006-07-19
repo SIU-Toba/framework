@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_formulario 
-objeto_ei_formulario.prototype = new objeto();
-var def = objeto_ei_formulario.prototype;
-def.constructor = objeto_ei_formulario;
+//Clase ei_formulario 
+ei_formulario.prototype = new ei();
+var def = ei_formulario.prototype;
+def.constructor = ei_formulario;
 
-function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclavos, invalidos) {
+function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclavos, invalidos) {
 	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._rango_tabs = rango_tabs;
@@ -295,4 +295,4 @@ function objeto_ei_formulario(id, instancia, rango_tabs, input_submit, maestros,
 		}
 	};	
 
-toba.confirmar_inclusion('clases/objeto_ei_formulario');
+toba.confirmar_inclusion('componentes/ei_formulario');

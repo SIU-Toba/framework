@@ -564,7 +564,7 @@ function firstFocus()
 }
 </script>
 <?
-	js::cargar_consumos_globales(array('dhtml_tooltip'));
+	js::cargar_consumos_globales(array('basicos/dhtml_tooltip'));
 	}
 //----------------------------------------------------------------------------------		
 

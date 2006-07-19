@@ -9,8 +9,9 @@ class js
 	private static $comprimido_cargado = false;
 	protected $nivel_identado = 0;
 	private static $consumos_basicos = array(
-						'basico', 'clases/toba', 'utilidades/datadumper', 
-						'comunicacion_server', 'cola_mensajes');
+						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 
+						'basicos/comunicacion_server', 'basicos/cola_mensajes',
+						'basicos/vinculador');
 	
 	static function instancia() 
 	{

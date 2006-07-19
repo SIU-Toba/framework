@@ -722,7 +722,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		$maestros = js::arreglo($this->cascadas_maestros, true, false);		
 		$id = js::arreglo($this->id, false);
 		$invalidos = js::arreglo($this->efs_invalidos, true);
-		echo $identado."window.{$this->objeto_js} = new objeto_ei_formulario_ml";
+		echo $identado."window.{$this->objeto_js} = new ei_formulario_ml";
 		echo "($id, '{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea, $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
@@ -745,7 +745,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	function get_consumo_javascript()
 	{
 		$consumos = parent::get_consumo_javascript();
-		$consumos[] = 'clases/objeto_ei_formulario_ml';
+		$consumos[] = 'componentes/ei_formulario_ml';
 		return $consumos;
 	}
 

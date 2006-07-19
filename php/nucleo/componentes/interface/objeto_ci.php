@@ -1092,7 +1092,7 @@ class objeto_ci extends objeto_ei
 	function get_consumo_javascript()
 	{
 		$consumo_js = parent::get_consumo_javascript();
-		$consumo_js[] = 'clases/objeto_ci';
+		$consumo_js[] = 'componentes/ci';
 		foreach($this->dependencias_gi as $dep){
 			$temp = $this->dependencias[$dep]->get_consumo_javascript();
 			if(isset($temp))
@@ -1105,7 +1105,7 @@ class objeto_ci extends objeto_ei
 	{
 		$identado = js::instancia()->identado();	
 		//Crea le objeto CI
-		echo $identado."window.{$this->objeto_js} = new objeto_ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();

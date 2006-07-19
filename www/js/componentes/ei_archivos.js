@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------
 //Clase objeto_ei_archivos
-objeto_ei_archivos.prototype = new objeto();
+objeto_ei_archivos.prototype = new ei();
 var def = objeto_ei_archivos.prototype;
 def.constructor = objeto_ei_archivos;
 
@@ -45,4 +45,4 @@ function objeto_ei_archivos(instancia, input_submit, path_relativo) {
 		}
 	};
 
-toba.confirmar_inclusion('clases/objeto_ei_archivos');
+toba.confirmar_inclusion('componentes/objeto_ei_archivos');

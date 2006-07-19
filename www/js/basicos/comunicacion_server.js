@@ -310,4 +310,4 @@ var conexion =
 };
 
 
-toba.confirmar_inclusion('comunicacion_server');
+toba.confirmar_inclusion('basicos/comunicacion_server');

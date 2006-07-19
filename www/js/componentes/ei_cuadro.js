@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_cuadro
-objeto_ei_cuadro.prototype = new objeto();
-var def = objeto_ei_cuadro.prototype;
-def.constructor = objeto_ei_cuadro;
+//Clase ei_cuadro
+ei_cuadro.prototype = new ei();
+var def = ei_cuadro.prototype;
+def.constructor = ei_cuadro;
 
-function objeto_ei_cuadro(instancia, input_submit) {
+function ei_cuadro(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
@@ -56,4 +56,4 @@ function objeto_ei_cuadro(instancia, input_submit) {
 		return true;
 	};
 	
-toba.confirmar_inclusion('clases/objeto_ei_cuadro');
+toba.confirmar_inclusion('componentes/ei_cuadro');

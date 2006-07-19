@@ -1,13 +1,13 @@
 //-------------------------------------------------------------------------------- 
-//Clase objeto_ei_formulario_ml 
-objeto_ei_formulario_ml.prototype = new objeto_ei_formulario();
-var def = objeto_ei_formulario_ml.prototype;
-def.constructor = objeto_ei_formulario_ml;
+//Clase ei_formulario_ml 
+ei_formulario_ml.prototype = new ei_formulario();
+var def = ei_formulario_ml.prototype;
+def.constructor = ei_formulario_ml;
 
 	//----Construcción 
-	function objeto_ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
+	function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
 									proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
-		objeto_ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
+		ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
 														input_submit, maestros, esclavos, invalidos);
 		this._filas = filas;					//Carga inicial de las filas
 		this._proximo_id = proximo_id;
@@ -159,7 +159,7 @@ def.constructor = objeto_ei_formulario_ml;
 		for (var ef in this._efs) {
 			this._efs[ef].ir_a_fila(actual);
 		}
-		objeto_ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);
+		ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);
 	};	
 	
 	//----Selección 
@@ -507,4 +507,4 @@ function cambiar_atributos_en_arbol(arbol, id_orig, nuevo_id) {
 	}
 }
 
-toba.confirmar_inclusion('clases/objeto_ei_formulario_ml');
+toba.confirmar_inclusion('componentes/ei_formulario_ml');

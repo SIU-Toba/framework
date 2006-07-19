@@ -90,7 +90,7 @@ class menu_css extends menu
 		$this->preparar_arbol();
 		echo $this->arbol;
 		if ($this->hay_algun_item) {
-			js::cargar_consumos_globales(array('menu/listmenu'));
+			js::cargar_consumos_globales(array('basicos/listmenu'));
 		}
 	}
 }

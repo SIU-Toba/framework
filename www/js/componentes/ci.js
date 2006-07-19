@@ -1,9 +1,9 @@
-objeto_ci.prototype = new objeto();
-var def = objeto_ci.prototype;
-def.constructor = objeto_ci;
+ci.prototype = new ei();
+var def = ci.prototype;
+def.constructor = ci;
 //--------------------------------------------------------------------------------
-//Clase objeto_ci 
-function objeto_ci(instancia, form, input_submit) {
+//Clase ci 
+function ci(instancia, form, input_submit) {
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form;									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
@@ -202,4 +202,4 @@ function objeto_ci(instancia, form, input_submit) {
 		this.ir_a_pantalla('_siguiente');
 	};
 	
-toba.confirmar_inclusion('clases/objeto_ci');
+toba.confirmar_inclusion('componentes/ci');

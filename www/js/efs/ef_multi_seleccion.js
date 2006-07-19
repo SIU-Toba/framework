@@ -288,4 +288,4 @@ def.constructor = ef_multi_seleccion_doble;
 		this._callback = callback;
 	};	
 	
-toba.confirmar_inclusion('interface/ef_multi_seleccion');
+toba.confirmar_inclusion('efs/ef_multi_seleccion');

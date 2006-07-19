@@ -218,7 +218,7 @@ abstract class ef_multi_seleccion extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('interface/ef', 'interface/ef_multi_seleccion');
+		$consumos = array('efs/ef', 'efs/ef_multi_seleccion');
 		return $consumos;
 	}
 		

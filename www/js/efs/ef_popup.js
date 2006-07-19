@@ -98,4 +98,4 @@ function popup_callback(indice, clave, desc)
 	}
 }
 	
-toba.confirmar_inclusion('interface/ef_popup');
+toba.confirmar_inclusion('efs/ef_popup');

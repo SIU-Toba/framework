@@ -116,5 +116,5 @@ if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
 	document.write(html);
 }
 if (typeof toba != 'undefined') {
-	toba.confirmar_inclusion('dhtml_tooltip');
+	toba.confirmar_inclusion('basicos/dhtml_tooltip');
 }

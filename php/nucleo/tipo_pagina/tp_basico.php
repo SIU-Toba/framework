@@ -93,7 +93,7 @@ class tp_basico extends tipo_pagina
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
 		echo "</div>";
-		js::cargar_consumos_globales(array('dhtml_tooltip'));
+		js::cargar_consumos_globales(array('basicos/dhtml_tooltip'));
 		if ( editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');
 			editor::generar_zona_vinculos_item($item);

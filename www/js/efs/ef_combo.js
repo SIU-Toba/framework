@@ -206,4 +206,4 @@ def.constructor = ef_radio;
 	};	
 
 	
-toba.confirmar_inclusion('interface/ef_combo');
+toba.confirmar_inclusion('efs/ef_combo');
