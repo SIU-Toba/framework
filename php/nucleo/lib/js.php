@@ -6,8 +6,8 @@ class js
 	//--- SINGLETON
 	private static $instancia;
 	private static $cargados = array();
+	private static $comprimido_cargado = false;
 	protected $nivel_identado = 0;
-	private static $temp;
 	private static $consumos_basicos = array(
 						'basico', 'clases/toba', 'utilidades/datadumper', 
 						'comunicacion_server', 'cola_mensajes');
@@ -60,10 +60,6 @@ class js
 	static function incluir($archivo) 
 	{
 		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
-		/*if (!isset(self::$temp)) {
-			self::$temp = true;
-			return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='/toba_trunk/js/toba_0.10.0.js'></SCRIPT>\n";		
-		}*/
 	}
 
 	static function ejecutar($codigo) 
@@ -119,7 +115,15 @@ class js
 						break;
 					//--> Por defecto carga el archivo del consumo
 					default:
-						echo js::incluir(recurso::js("$consumo.js"));
+						$instalacion = info_instalacion::instancia();
+						if (! $instalacion->es_js_comprimido()) {
+							echo js::incluir(recurso::js("$consumo.js"));
+						} elseif (! self::$comprimido_cargado) {
+							$archivo = 'toba_'.$instalacion->get_numero_version().'.js';
+							echo js::incluir(recurso::js($archivo));
+							self::$comprimido_cargado = true;
+						}
+						break;
 		        }
 			}
 		}

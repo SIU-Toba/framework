@@ -4,6 +4,9 @@ class info_instalacion
 {
 	static private $instancia;
 	
+	/**
+	 * @return info_instalacion
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
@@ -43,6 +46,20 @@ class info_instalacion
 		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {
 			return $_SESSION['toba']['instalacion']['editor_php'];
 		}
+	}
+	
+	function es_js_comprimido()
+	{
+		if (isset($_SESSION['toba']['instalacion']['js_comprimido'])) {
+			return $_SESSION['toba']['instalacion']['js_comprimido'];
+		} else {
+			return false;	
+		}
+	}
+	
+	function get_numero_version()
+	{
+		return file_get_contents(toba_dir()."/VERSION");
 	}
 }
 ?>

@@ -427,6 +427,7 @@ class nucleo extends elemento_modelo
 		require_once('3ros/jscomp/BaseConvert.class.php');
 		$comp = new JavaScriptCompressor(false);
 		$salida = array();
+		$this->manejador_interface->mensaje('Comprimiendo '.count($archivos).' archivo/s', false);				
 		foreach ($archivos as $archivo) {
 			if (strpos($archivo, "www/js/toba_") !== false) {
 				//--- Evita comprimir dos veces
@@ -436,8 +437,9 @@ class nucleo extends elemento_modelo
 			$total += $atr['size'];
 			$nuevo = $comp->getClean(array('code' =>file_get_contents($archivo), 'name' => basename($archivo)));
 			$salida[] = $nuevo;
-
+			$this->manejador_interface->mensaje_directo('.');			
 		}
+		$this->manejador_interface->mensaje('OK');		
 		$todo = implode("\n", $salida);
 		$version = instalacion::get_version_actual();
 		$version = $version->__toString();
@@ -445,8 +447,10 @@ class nucleo extends elemento_modelo
 		file_put_contents($archivo, $todo);
 		$atr = stat($archivo);
 		$nuevo_total = $atr['size'];		
-		echo "Antes: $total bytes\n";
-		echo "Despues: ".$nuevo_total." bytes\n";
+		$this->manejador_interface->mensaje("Antes: $total bytes");
+		$this->manejador_interface->mensaje("Despues: ".$nuevo_total." bytes");
+		$this->manejador_interface->mensaje("Radio: ".number_format($nuevo_total/$total, 2));
+		instalacion::cambiar_info_basica(array('js_comprimido' => 1));
 	}
 	
 	function validar_js($patron=null)
