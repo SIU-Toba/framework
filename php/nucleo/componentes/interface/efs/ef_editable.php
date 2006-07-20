@@ -282,19 +282,32 @@ class ef_editable_numero_porcentaje extends ef_editable_numero
 
 class ef_editable_clave extends ef_editable
 {
+	protected $confirmar_clave = false;
 	
     static function get_lista_parametros()
     {
     	$param[] = 'edit_tamano';
     	$param[] = 'edit_maximo';
+    	$param[] = 'edit_confirmar_clave';
     	return $param;
     }
+    
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		if (! isset($parametros['edit_confirmar_clave'])) {
+			$this->confirmar_clave = $parametros['edit_confirmar_clave'];
+		}
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+	}
+    
     
 	function get_input()
 	{
 		$estado = isset($this->estado)? $this->estado : "";
-		$html = form::password($this->id_form,$estado)."<br>";
-		$html .= form::password($this->id_form ."_test",$estado);
+		$html = form::password($this->id_form,$estado);
+		if ($this->confirmar_clave) {
+			$html .= "<br>".form::password($this->id_form ."_test",$estado);
+		}
 		return $html;
 	}
 	

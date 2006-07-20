@@ -320,6 +320,11 @@ class objeto_ei extends objeto
 		echo "$identado//-----------------------------------------------------------------  \n";		
 		return $this->objeto_js;
 	}
+
+	function get_id_objeto_js()
+	{
+		return $this->objeto_js;
+	}
 	
 	protected function crear_objeto_js()
 	{
@@ -329,7 +334,7 @@ class objeto_ei extends objeto
 	
 	protected function extender_objeto_js()
 	{
-
+		
 	}
 	
 	protected function iniciar_objeto_js()

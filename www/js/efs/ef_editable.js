@@ -189,8 +189,8 @@ def = ef_editable_clave.prototype;
 			return false;
 		}
 		var orig = this.input();
-		var test = document.getElementById(this._id_form + '_test');
-		if (orig.value != test.value) {
+		var test = this.input_hermano();		
+		if (test && orig.value != test.value) {
 			this._error = ': Las contraseñas no coinciden.';
 		    return false;
 		}		
@@ -200,21 +200,34 @@ def = ef_editable_clave.prototype;
 	def.set_estado = function (nuevo) {
 		var input = this.input();
 		input.value = nuevo;
-		document.getElementById(this._id_form + '_test').value = nuevo;
+		var test = this.input_hermano();
+		if (test) {
+			test.value = nuevo;
+		}
 		if (input.onblur) {
 			input.onblur();
 		}
 	};
 	
+	def.input_hermano = function() {
+		return document.getElementById(this._id_form + '_test')
+	}
+	
 	def.set_tab_index = function(tab_index) {
 		this.input().tabIndex = tab_index;
-		document.getElementById(this._id_form + '_test').tabIndex = tab_index+1;
+		var test = this.input_hermano();
+		if (test) {
+			test.tabIndex = tab_index+1;
+		}
 	};	
 	
 	//cuando_cambia_valor (disparar_callback)
 	def.cuando_cambia_valor = function(callback) { 
 		addEvent(this.input(), 'onblur', callback);
-		addEvent(document.getElementById(this._id_form + '_test'), 'onblur', callback);
+		var test = this.input_hermano();
+		if (test) {		
+			addEvent(test, 'onblur', callback);
+		}
 	};
 	
 	

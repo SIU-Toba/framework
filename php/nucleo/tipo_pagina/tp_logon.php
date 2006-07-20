@@ -6,7 +6,7 @@ class tp_logon extends tp_basico
 
 	function pre_contenido()
 	{
-		echo "<div class='login-titulo'>". recurso::imagen_apl("siu.gif",true) . "</div>";		
+		echo "<div class='login-titulo'>". recurso::imagen_pro("logo.gif",true) . "</div>";		
 		echo "\n<div align='center' class='cuerpo'>\n";		
 	}
 	

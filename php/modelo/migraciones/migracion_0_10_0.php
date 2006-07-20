@@ -365,6 +365,18 @@ class migracion_0_10_0 extends migracion_toba
 		$this->elemento->get_db()->ejecutar($sql);
 		return $cant;
 	}
+	
+	function proyecto__ef_clave_nuevo_parametro()
+	{
+		$sql = " 
+			UPDATE apex_objeto_ei_formulario_ef SET edit_confirmar_clave=1
+			WHERE
+					elemento_formulario IN ('ef_editable_clave')
+				AND objeto_ei_formulario_proyecto='{$this->elemento->get_id()}'
+		";	
+		$cant = $this->elemento->get_db()->ejecutar($sql);
+		return $cant;
+	}
 
 	function proyecto__path_includes()
 	{
