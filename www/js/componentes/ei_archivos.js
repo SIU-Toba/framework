@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-//Clase objeto_ei_archivos
-objeto_ei_archivos.prototype = new ei();
-var def = objeto_ei_archivos.prototype;
-def.constructor = objeto_ei_archivos;
+//Clase ei_archivos
+ei_archivos.prototype = new ei();
+var def = ei_archivos.prototype;
+def.constructor = ei_archivos;
 
-function objeto_ei_archivos(instancia, input_submit, path_relativo) {
+function ei_archivos(instancia, input_submit, path_relativo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._path_relativo = path_relativo;
@@ -45,4 +45,4 @@ function objeto_ei_archivos(instancia, input_submit, path_relativo) {
 		}
 	};
 
-toba.confirmar_inclusion('componentes/objeto_ei_archivos');
+toba.confirmar_inclusion('componentes/ei_archivos');

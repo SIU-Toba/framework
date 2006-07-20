@@ -52,9 +52,8 @@ class catalogo_items
 		$sql_base = componente_item::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['basica']['sql'];
 		$sql .=	$filtro_items;
-		$sql .= "	AND		i.solicitud_tipo <> 'fantasma'";
+		$sql .= "	AND		(i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')";
 		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
-
 		$rs = toba::get_db('instancia')->consultar($sql);
 		$this->items = array();
 		if (!empty($rs)) {
