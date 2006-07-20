@@ -15,7 +15,7 @@ var resizeTa =
     if (resizeTa.loaded) {
       return;
     } else{
-        resizeTa.loaded = true;
+        //resizeTa.loaded = true;
 		resizeTa.pageload();		 
 	} 
   },
@@ -158,6 +158,5 @@ positions: function(e) {
 		}
 	}	
 };
-addEvent(window, 'onload', 'resizeTa.init()');
 
 toba.confirmar_inclusion('efs/resizeTa');

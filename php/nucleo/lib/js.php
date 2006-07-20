@@ -8,6 +8,7 @@ class js
 	private static $cargados = array();
 	private static $comprimido_cargado = false;
 	protected $nivel_identado = 0;
+	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 
 						'basicos/comunicacion_server', 'basicos/cola_mensajes',
@@ -119,10 +120,23 @@ class js
 						$instalacion = info_instalacion::instancia();
 						if (! $instalacion->es_js_comprimido()) {
 							echo js::incluir(recurso::js("$consumo.js"));
-						} elseif (! self::$comprimido_cargado) {
-							$archivo = 'toba_'.$instalacion->get_numero_version().'.js';
-							echo js::incluir(recurso::js($archivo));
-							self::$comprimido_cargado = true;
+						} else {
+							//-- ¿Es algo comprimido?
+							$comprimido = false;
+							foreach (self::$consumos_compr as $compr) {
+								if (strpos($consumo, $compr) !== false) {
+									$comprimido = true;
+									break;
+								}
+							}
+							if (!$comprimido) {
+								echo js::incluir(recurso::js("$consumo.js"));
+							} elseif (! self::$comprimido_cargado) {
+								//--- Es el comprimido y nunca se cargo, entonces cargarlo
+								$archivo = 'toba_'.$instalacion->get_numero_version().'.js';
+								echo js::incluir(recurso::js($archivo));
+								self::$comprimido_cargado = true;
+							}
 						}
 						break;
 		        }

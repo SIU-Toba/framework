@@ -3,7 +3,7 @@
 var toba = 
 {
 	_cons_incl: ['basicos/basico', 'basicos/toba'],
-	_cons_carg: ['basico', 'clases/toba'],
+	_cons_carg: ['basicos/basico', 'basicos/toba'],
 	_objetos: [], 
 	_callback_inclusion: null,
 	_ajax : false,

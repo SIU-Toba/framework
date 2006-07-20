@@ -298,7 +298,7 @@ function actualizar_logger(cant) {
 	}
 }
 
-function ei_arbol(variable, ret) {
+function var_dump(variable, ret) {
 	DumperIndentText = "&nbsp";
 	DumperNewline = "<br>";
 	DumperSepPre = "<a href='javascript: ;' onclick=\"o = this.nextSibling; o.style.display = (o.style.display == 'none') ? '' : 'none';\"> más </a><span style='display: none'>";

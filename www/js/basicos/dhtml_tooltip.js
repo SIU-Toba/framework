@@ -109,7 +109,7 @@ var dhtml_tooltip = {
  	}
 };
 
-var html = '<div id="dhtml_tooltip_div" onmouseover="dhtml_tooltip._continue()" onmouseout="dhtml_tooltip._stop()"></div>';
+var html = '<div id="dhtml_tooltip_div" onmouseover="if (dhtml_tooltip) return dhtml_tooltip._continue()" onmouseout="if (dhtml_tooltip) return dhtml_tooltip._stop()"></div>';
 if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
 	document.body.innerHTML += html;	
 } else {

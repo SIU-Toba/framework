@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php'); 
-//--------------------------------------------------------------------
+
 class form_ml_solo_lectura extends objeto_ei_formulario_ml
 {
 	function extender_objeto_js()

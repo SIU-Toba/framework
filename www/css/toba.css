@@ -77,7 +77,7 @@ a .ayuda, a.ayuda {
 	cursor: pointer;
 	_cursor: auto;
 }
-button .ayuda {
+button.ayuda, button .ayuda {
 	cursor: auto;
 }
 legend {
@@ -176,6 +176,7 @@ legend {
 .ei-form-etiq, .ei-form-etiq-oblig {
 	float: left;
 	margin-right: 4px;
+	margin-top: 3px;	
 }
 .ei-form-etiq-oblig {
 	font-weight: bold;

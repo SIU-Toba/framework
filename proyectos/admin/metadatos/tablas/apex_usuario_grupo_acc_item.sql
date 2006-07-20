@@ -19,7 +19,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', '204', '/admin/dimensiones/probar');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', '202', '/admin/dimensiones/propiedades');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '/admin/dimensiones/tabla_restric');
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', '284', '/admin/items/carpeta_acceso');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', '127', '/admin/items/carpeta_info');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '/admin/items/carpeta_ordenar');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', '285', '/admin/items/carpeta_propiedades');
@@ -105,7 +104,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '204', '/admin/dimensiones/probar');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '202', '/admin/dimensiones/propiedades');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', NULL, '/admin/dimensiones/tabla_restric');
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '284', '/admin/items/carpeta_acceso');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '127', '/admin/items/carpeta_info');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', NULL, '/admin/items/carpeta_ordenar');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '285', '/admin/items/carpeta_propiedades');

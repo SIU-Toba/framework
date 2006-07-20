@@ -288,6 +288,7 @@ def.constructor = ef_editable_multilinea;
 		ef.prototype.iniciar.call(this, id, controlador);
 		if (this._ajustable) {
 			resizeTa.agregar_elemento(this.input());
+			resizeTa.init();
 		}
 	};
 	
