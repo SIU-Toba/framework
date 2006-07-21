@@ -23,6 +23,9 @@ class ci_login extends objeto_ci
 	function evt__post_recuperar_interaccion()
 	{
 		if (isset($this->datos['usuario']) ) {
+			if (!isset($this->datos['clave'])) {
+				$this->datos['clave'] = null;
+			}			
 			try {
 				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
 			} catch ( excepcion_toba_login $e ) {

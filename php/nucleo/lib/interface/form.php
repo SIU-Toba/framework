@@ -6,6 +6,7 @@ require_once("nucleo/lib/recurso.php");
 *****************************************************************************************************/
 
 class form {
+	
 //Clase estatica implementa los elementos de formulario de HTML
 
     static function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
@@ -174,7 +175,8 @@ class form {
         }else{
             $enctype="application/x-www-form-urlencoded";
         }
-        return  "\n<form  enctype='$enctype' name='$nombre' method='$method' action='$action' $extra>\n";
+        return  "\n<form  enctype='$enctype' name='$nombre' onsubmit='return false;' method='$method' action='$action' $extra>\n";
+//        		"<input type='submit' style='display:none' value='HEY' onclick=\"alert('hey');objeto_ci_1000165.set_evento(new evento_ei('Ingresar', true, '' ));return false;\">";
     }
 //________________________________________________________________________________________________________
 

@@ -179,8 +179,13 @@ class objeto_ei extends objeto
 			throw new excepcion_toba("Se solicito la generacion de un boton sobre un evento inexistente: '$id'");
 		}
 		$tip = '';
-		if (isset($this->eventos[$id]['ayuda']))
+		if (isset($this->eventos[$id]['ayuda'])) {
 			$tip = $this->eventos[$id]['ayuda'];
+		}
+		$tipo_boton = 'button';		
+		if (isset($this->eventos[$id]['defecto']) && $this->eventos[$id]['defecto']) {
+			$tipo_boton = 'submit';
+		}		
 		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "ei-boton";
 		$tab_order = 0;//ATENCION: Esto esta MAAL!!!
 		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
@@ -232,7 +237,7 @@ class objeto_ei extends objeto
 			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
 			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 		}
-		echo "&nbsp;" . form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase);
+		echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 	}
 
 	//--- Manejo de grupos de eventos

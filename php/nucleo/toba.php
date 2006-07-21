@@ -99,6 +99,9 @@ class toba
 		return cronometro::instancia();	
 	}
 
+	/**
+	 * @return sesion_toba
+	 */
 	static function get_sesion()
 	{
 		$subclase = info_proyecto::instancia()->get_parametro('sesion_subclase');
@@ -111,6 +114,9 @@ class toba
 		}
 	}
 
+	/**
+	 * @return usuario_toba
+	 */
 	static function get_usuario()
 	{
 		$subclase = info_proyecto::instancia()->get_parametro('usuario_subclase');
