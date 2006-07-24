@@ -300,13 +300,12 @@ class ef_editable_clave extends ef_editable
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
     
-    
 	function get_input()
 	{
 		$estado = isset($this->estado)? $this->estado : "";
-		$html = form::password($this->id_form,$estado);
+		$html = form::password($this->id_form,$estado, $this->maximo, $this->tamano);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".form::password($this->id_form ."_test",$estado);
+			$html .= "<br>".form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano);
 		}
 		return $html;
 	}

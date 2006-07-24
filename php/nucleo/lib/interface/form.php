@@ -149,10 +149,11 @@ class form {
     }
 
 //________________________________________________________________________________________________________
-    static function password($nombre,$valor="",$clase="ef-input")
-    // Boton de SUBMIT
+    static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input")
     {
-        return "<INPUT type='password' name='$nombre' id='$nombre' value='$valor' class='$clase'>\n";
+    	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
+    	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
+        return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase'>\n";
     }
 //________________________________________________________________________________________________________
 
