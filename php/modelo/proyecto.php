@@ -505,6 +505,62 @@ class proyecto extends elemento_modelo
 				AND proyecto = '".$this->get_id()."'";
 		$this->instancia->get_db()->ejecutar( $sql );
 	}
+	
+	function get_item_login()
+	{
+		$sql = "SELECT item_pre_sesion FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
+		$rs = $this->get_db()->consultar($sql);
+		return $rs[0]['item_pre_sesion'];
+	}
+	
+	/**
+	 * @todo Cuando los dao_editores se puedan usar desde consola, cambiar la consulta manual 
+	 */
+	function actualizar_login($pisar_anterior = false)
+	{
+		//--- Averiguo la fuente destino
+		/**
+		require_once('modelo/consultas/dao_editores.php');
+		dao_editores::get_fuentes_datos
+		*/
+		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
+				FROM apex_fuente_datos
+				WHERE ( proyecto = '{$this->identificador}' )
+				ORDER BY 2";
+		$fuentes = $this->get_db()->consultar($sql);
+		if (empty($fuentes)) {
+			throw new excepcion_toba("El proyecto no tiene definida una fuente de datos.");
+		} else {
+			$fuente = current($fuentes);
+		}
+		//--- Clonando
+		$comando = 'toba item ejecutar -p admin -t 1000043 ';
+		$comando .= ' -orig_proy admin';
+		$comando .= ' -orig_item 1000042';
+		$comando .= ' -dest_proy '.$this->identificador;
+		$comando .= ' -dest_padre ""';
+		$comando .= ' -dest_fuente '.$fuente['fuente_datos'];
+		$comando .= ' -dest_dir login';	
+		$this->manejador_interface->mensaje("Clonando item de login...", false);
+		logger::instancia()->debug("Ejecutando el comando $comando");
+		$id_item = trim(exec($comando));
+		if (! is_numeric($id_item)) {
+			throw new excepcion_toba("A ocurrido un error clonando el item de login. Ver el log del proyecto admin");
+		}
+		$this->manejador_interface->mensaje("OK");
+		
+		//--- Actualizar el item de login
+		$this->manejador_interface->mensaje("Actualizando el proyecto...", false);		
+		$sql = "UPDATE apex_proyecto SET item_pre_sesion='$id_item'
+				WHERE proyecto='{$this->identificador}'";
+		$this->get_db()->ejecutar($sql);
+		$this->manejador_interface->mensaje("OK");
+		
+		//--- Borrar el item viejo
+		if ($pisar_anterior) {
+			echo "Aun no está implementada la eliminación desde consola";
+		}		
+	}
 
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones --------------------------

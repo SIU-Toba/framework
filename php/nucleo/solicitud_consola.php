@@ -50,7 +50,7 @@ class solicitud_consola extends solicitud
 			if(preg_match("/^-/",$argv[$a]))//Es un modificador
 			{
 				$pila_modificadores[$a] = $argv[$a];
-				$this->parametros[$pila_modificadores[$a]] = null;
+				$this->parametros[$pila_modificadores[$a]] = '';
 			}else{	//Es la asignacion de un modificador
 				if(isset($pila_modificadores[$a-1]))
 				{

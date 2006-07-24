@@ -196,5 +196,24 @@ class comando_proyecto extends comando_toba
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
 	}	
+	
+	/**
+	 * Actualiza o crea el item de login asociado al proyecto
+	 */
+	function opcion__actualizar_login()
+	{
+		$proyecto = $this->get_proyecto();
+	
+		//--- Existe un item de login??
+		$pisar = false;
+		if ($proyecto->get_item_login()) {
+			$clonar = $this->consola->dialogo_simple("El proyecto ya posee un item de login propio, ¿desea continuar?", true);
+			if (!$clonar) {
+				return;
+			}
+			$pisar = $this->consola->dialogo_simple("¿Desea borrar del proyecto el item de login anterior?", false);
+		}
+		$proyecto->actualizar_login($pisar);
+	}
 }
 ?>

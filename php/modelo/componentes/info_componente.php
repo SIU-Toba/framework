@@ -124,7 +124,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
 			$archivo = $this->datos['info']['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba_dir()."/proyectos/".editor::get_proyecto_cargado()."/php/";
+			$path_origen = toba_dir()."/proyectos/".$this->proyecto."/php/";
 			if (isset($nuevos_datos['proyecto'])) {
 				$path_destino = toba_dir()."/proyectos/".$nuevos_datos['proyecto']."/php/";
 			} else {
