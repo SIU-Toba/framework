@@ -6,27 +6,14 @@ class solicitud_consola extends solicitud
 	var $debug;	//Modo debug activado
 	var $estado_proceso;
 
-	function solicitud_consola($proyecto, $item, $usuario)
+	function solicitud_consola($info)
 	{
 		$this->tipo_solicitud = 'consola';
-	    $this->info = self::get_definicion_item($proyecto, $item);
-	    
-		//--[ 2 ]-- Si el tipo de solicitud es WEB, emulo el ambiente
-		//if( $this->tipo_solicitud() == "browser" )
-		//{
-			//El item solicitado es de tipo BROWSER.
-			//Emulo el ambiente WEB.
-			//Seria interesante tener un ITEM serializador de sesiones y un 
-			//mecanismo para levantar de esta forma una sesion especifica
-			$_SERVER["REMOTE_ADDR"]="localhost";
-			$_SERVER["REQUEST_METHOD"] = "GET";
-			require_once("nucleo/consola/emular_web_pa.php");
-			require_once("nucleo/consola/emular_web_inc.php");
-			sesion::abrir($usuario, $proyecto);
-			require_once("nucleo/browser/hilo.php");
-			$this->hilo = toba::get_hilo();
-		//}
-		parent::__construct($item, $usuario);
+	    $this->info = $info;
+		$_SERVER["REMOTE_ADDR"]="localhost";
+		$_SERVER["REQUEST_METHOD"] = "GET";
+		parent::__construct(toba::get_hilo()->obtener_item_solicitado(),toba::get_hilo()->obtener_usuario());
+		$this->tipo_actividad	= "accion";	
 		$this->estado_proceso = 0;
 	}
 //--------------------------------------------------------------------------------------------
@@ -58,12 +45,12 @@ class solicitud_consola extends solicitud
 	{
 		global $argv;
 		$this->parametros = array();
-		for($a=5;$a<count($argv);$a++)
+		for($a=6;$a<count($argv);$a++)
 		{
 			if(preg_match("/^-/",$argv[$a]))//Es un modificador
 			{
 				$pila_modificadores[$a] = $argv[$a];
-				$this->parametros[$pila_modificadores[$a]] = "VACIO";
+				$this->parametros[$pila_modificadores[$a]] = null;
 			}else{	//Es la asignacion de un modificador
 				if(isset($pila_modificadores[$a-1]))
 				{

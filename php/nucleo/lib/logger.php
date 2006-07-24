@@ -90,11 +90,10 @@ class logger
 	
 	function get_proyecto_actual()
 	{
-		if( php_sapi_name() === 'cli' ) {
-			return 'toba';
-			return comando_toba::get_id_proyecto_actual();
+		if (class_exists('info_proyecto')) {
+			return info_proyecto::get_id();			
 		} else {
-			return info_proyecto::get_id();
+			return 'toba';
 		}
 	}
 	

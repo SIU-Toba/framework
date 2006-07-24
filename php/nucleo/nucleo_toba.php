@@ -80,13 +80,40 @@ class nucleo_toba
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 		} catch (Exception $e) {
-			toba::get_logger()->crit($e);
+			toba::get_logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
 		toba::get_logger()->guardar();		
 		//echo cronometro::instancia()->tiempo_acumulado();
 	}
 
+	function acceso_consola($instancia, $proyecto, $item, $usuario)
+	{
+		require_once('nucleo/lib/sesion_toba.php');			//Control de sesiones HTTP		
+		require_once("nucleo/solicitud_consola.php");		
+		$estado_proceso = null;
+		try {
+			define('apex_pa_instancia', $instancia);
+			define('apex_pa_proyecto' , $proyecto);
+			//toba::get_sesion()->iniciar($usuario);
+			$this->preparar_include_path();
+			$this->iniciar_contexto_proyecto();			
+			//$this->solicitud = new solicitud_consola($proyecto, $item, $usuario);
+			$this->solicitud = constructor_toba::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'item');
+			$this->iniciar_contexto_proyecto();
+			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
+			$this->solicitud->registrar();
+			$this->solicitud->finalizar_objetos();
+			$estado_proceso = $this->solicitud->obtener_estado_proceso();
+		} catch (excepcion_toba $e) {
+			toba::get_logger()->crit($e, 'toba');
+			echo $e;
+		}
+		toba::get_logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
+		toba::get_logger()->guardar();
+		exit($estado_proceso);
+	}
+		
 	/**
 	*	Se determia el item y se controla el acceso
 	*/
@@ -110,7 +137,7 @@ class nucleo_toba
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
 				if ( toba::get_hilo()->obtener_item_solicitado() ) {
-					toba::get_logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado');
+					toba::get_logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado', 'toba');
 					toba::get_hilo()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
 					$solicitud = constructor_toba::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
@@ -166,35 +193,8 @@ class nucleo_toba
 		include_once("inicializacion.php");
 	}
 
-	function acceso_consola($instancia, $proyecto, $item, $usuario)
-	{
-		try {
-			//---- Registra la solicitud en la base
-			define("apex_pa_registrar_solicitud","db");// VALORES POSIBLES: nunca, siempre, db
-			//---- Guarda el benchmark de la generacion del item
-			define("apex_pa_registrar_cronometro","db");//VALORES POSIBLES: nunca, siempre, db
-			# Nivel de log a ARCHVO
-			define("apex_pa_log_archivo",1);
-			define("apex_pa_log_archivo_nivel",2);			
-			define('apex_pa_instancia', $instancia);
-			require_once("nucleo/solicitud_consola.php");
-			$this->solicitud = new solicitud_consola($proyecto, $item, $usuario);
-			toba::get_db("instancia");
-			try{
-				$this->iniciar_contexto_proyecto();
-				$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
-				$this->solicitud->registrar();
-				$this->solicitud->finalizar_objetos();
-			}catch( Exception $e ){
-				toba::get_logger()->crit($e);
-			}
-			toba::get_logger()->guardar();
-			exit( $this->solicitud->obtener_estado_proceso() );
-		} catch (excepcion_toba $e) {
-			ei_mensaje($e->getMessage());
-		}		
-	}
-	
+
+
 	function solicitud_en_proceso()
 	{
 		return $this->solicitud_en_proceso;
