@@ -74,7 +74,8 @@ function mostrar_ocultar_frame() {
 		echo form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
 		echo "</td>";		
 		echo "<td class='listado-barra-superior-tabi'>";
-        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false));
+		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
+        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false), $js_cambio);
         echo "</td>";
 ?>
 		<td><? echo gif_nulo(3,1) ?></td>

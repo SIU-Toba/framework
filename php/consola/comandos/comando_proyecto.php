@@ -141,21 +141,29 @@ class comando_proyecto extends comando_toba
 		$instancia = $this->get_instancia();
 		$id_instancia = $instancia->get_id();
 
-		// -- 1 -- Creo el proyecto
-		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'" );
+		// --  Creo el proyecto
+		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
 		$usuarios = $this->seleccionar_usuarios( $instancia );
 		proyecto::crear( $instancia, $id_proyecto, $usuarios );
-
-		// -- 2 -- Exporto el proyecto creado
-		$this->consola->mensaje( "Exportando metadatos iniciales" );
-		$proyecto = $this->get_proyecto();
+		$this->consola->mensaje( "OK" );
+		
+		// -- Asigno un nuevo item de login
+		$proyecto = $this->get_proyecto();		
+		$proyecto->actualizar_login();
+		
+		// -- Exporto el proyecto creado
 		$proyecto->exportar();
 		$instancia->exportar_local();
 		$this->consola->separador();
-		$this->consola->mensaje( "El proyecto ha sido creado. Si se desea crear un acceso WEB al mismo" .
-									" incluya desde el archivo de configuración de apache ('httpd.conf') las directivas" .
-									" existentes en el archivo '".toba_dir()."/proyectos/$id_proyecto/toba.conf'" );
-		$this->consola->separador();
+		$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
+		if ($agregar) {
+			instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $proyecto->get_instancia()->get_id());
+			$this->consola->separador();
+			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".instalacion::get_archivo_alias_apache().
+									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
+			$this->consola->separador();									
+		}
+		
 	}
 
 	/**

@@ -233,7 +233,7 @@ class instalacion extends elemento_modelo
 	
 	static function crear_archivo_apache($alias_nucleo)
 	{
-		$archivo = self::dir_base() . '/toba.conf';
+		$archivo = self::get_archivo_alias_apache();
 		copy( toba_dir(). '/php/modelo/var/toba.conf', $archivo );
 		$editor = new editor_archivos();
 		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );		
@@ -241,12 +241,18 @@ class instalacion extends elemento_modelo
 		$editor->procesar_archivo( $archivo );
 	}
 	
+	
+	static function get_archivo_alias_apache()
+	{
+		return self::dir_base() . '/toba.conf';
+	}
+	
 	/**
 	 * Agrega al archivo toba.conf la definicion del proyecto
 	 */
 	static function agregar_alias_apache($alias, $dir, $instancia)
 	{
-		$archivo = self::dir_base() . '/toba.conf';
+		$archivo = self::get_archivo_alias_apache();
 				
 		//--- Se determina cual es el alias del nucleo
 		$alias_nucleo = 'toba';

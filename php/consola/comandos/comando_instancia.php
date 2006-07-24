@@ -140,7 +140,7 @@ class comando_instancia extends comando_toba
 		
 		//-- Agregar los alias
 		$this->consola->enter();		
-		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias en el archivo toba.conf?", true);
+		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
 		if ($crear_alias) {
 			$instancia->crear_alias_proyectos();
 		}
