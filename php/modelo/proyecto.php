@@ -518,6 +518,13 @@ class proyecto extends elemento_modelo
 	 */
 	function actualizar_login($pisar_anterior = false)
 	{
+		//--- ¿Existe el proyecto editor?
+		if (! $this->instancia->existen_metadatos_proyecto('admin')) {
+			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
+			logger::instancia()->info($msg);
+			$this->manejador_interface->mensaje($msg);
+			return;
+		}
 		//--- Averiguo la fuente destino
 		/**
 		require_once('modelo/consultas/dao_editores.php');
