@@ -3,6 +3,12 @@ require_once("3ros/adodb464/adodb.inc.php");
 define('apex_db_asociativo', ADODB_FETCH_ASSOC);
 define('apex_db_numerico', ADODB_FETCH_NUM);
 
+//Separador de campos en sentecias extraidas con SQL
+define("apex_sql_separador","%%");			//Separador utilizado para diferenciar campos de valores compuestos
+//Comodines concatenadores de SQL
+define("apex_sql_where","%w%");
+define("apex_sql_from","%f%");
+
 /**
 *	Representa una conexión a la base de datos utilizando ADODb
 */
@@ -28,20 +34,13 @@ class db
 		$this->conexion->close();	
 	}	
 	
-	
-	function __call($nombre, $argumentos)
+	function get_parametros()
 	{
-		//-------------- MIGRACION a 0.8.3-----------------
-		logger::instancia()->obsoleto('adodb',$nombre, "0.8.3");
-
-		return call_user_func_array(array($this->conexion, $nombre), $argumentos);
-		//-------------- MIGRACION -----------------		
-	}	
-	
-	function __get($propiedad)
-	{
-		logger::instancia()->notice("El atributo de ADOdb $propiedad no se debe utilizar. Ver cambios en v0.8.3");
-		return $this->conexion->$propiedad;
+		$parametros['HOST'] = $this->profile;
+		$parametros['USUARIO'] = $this->usuario;
+		$parametros['CLAVE'] = $this->clave;
+		$parametros['BASE'] = $this->base;
+		return $parametros;
 	}
 	
 	/**
@@ -50,27 +49,15 @@ class db
 	*/
 	function conectar()
 	{
-		$this->pre_conectar();
 		$this->conexion = ADONewConnection($this->motor);
 		$status = $this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
 		if(!$status){
 			$error = $this->conexion->ErrorMsg();
 			throw new excepcion_toba("No es posible realizar la conexión a la base. $error");
 		}
-		$this->post_conectar();
 		return $this->conexion;
 	}
 	
-	/**
-	*	Lugar para personalizar las acciones previas a la conexión
-	*/
-	function pre_conectar() {}
-	
-	/**
-	*	Lugar para personalizar las acciones posteriores a la conexión
-	*/
-	function post_conectar() {}
-
 	/**
 	 * Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado
 	 */
@@ -109,16 +96,6 @@ class db
 		return $afectados;
 	}
 	
-	/**
-	*	@deprecated Desde 0.8.3
-	*	@see ejecutar
-	*/
-	function ejecutar_sql($sql)
-	{
-		logger::instancia()->obsoleto(__CLASS__, __METHOD__, "0.8.3", "Usar método ejecutar");
-		$this->ejecutar($sql);
-	}
-
 	//-------------------------------------------------------------------------------------
 	/**
 	*	Ejecuta una consulta sql
@@ -128,11 +105,11 @@ class db
 	*	@return array Resultado de la consulta en formato fila-columna
 	*	@throws excepcion_toba en caso de error
 	*/	
-	function consultar($sql, $ado=null, $obligatorio=false, $compatibilidad=false)
+	function consultar($sql, $tipo_indice=null, $obligatorio=false, $compatibilidad=false)
 	{
 		global $ADODB_FETCH_MODE;	
-		if(isset($ado)){
-			$ADODB_FETCH_MODE = $ado;
+		if(isset($tipo_indice)){
+			$ADODB_FETCH_MODE = $tipo_indice;
 		}else{
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		}
@@ -370,6 +347,4 @@ class db
 		return null;
 	}
 }
-//------------------------------------------------------------------------
-
 ?>

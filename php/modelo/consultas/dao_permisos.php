@@ -19,17 +19,17 @@ class dao_permisos
 					descripcion
 				FROM apex_permiso 
 				WHERE 
-					proyecto = '". editor::get_proyecto_cargado() ."'
+					proyecto = '". contexto_info::get_proyecto() ."'
 					$where
 				ORDER BY nombre, descripcion
 		";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function get_grupos_acceso($proyecto=null)
 	{
 		if (!isset($proyecto)) {
-			$proyecto = editor::get_proyecto_cargado();	
+			$proyecto = contexto_info::get_proyecto();	
 		}
 		$sql = "SELECT proyecto, usuario_grupo_acc, nombre
 				FROM apex_usuario_grupo_acc
@@ -37,13 +37,13 @@ class dao_permisos
 					proyecto = '$proyecto'
 				ORDER BY nombre
 		";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function get_perfiles_datos($proyecto=null)
 	{
 		if (!isset($proyecto)) {
-			$proyecto = editor::get_proyecto_cargado();	
+			$proyecto = contexto_info::get_proyecto();	
 		}
 		$sql = "SELECT proyecto, usuario_perfil_datos, nombre
 				FROM apex_usuario_perfil_datos
@@ -51,7 +51,7 @@ class dao_permisos
 					proyecto = '$proyecto'
 				ORDER BY nombre
 		";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 }

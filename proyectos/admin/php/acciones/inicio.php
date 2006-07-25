@@ -108,14 +108,11 @@ echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versi
 echo $version->__toString()."</a></div>";
 
 
-$datos = dba::get_info_db_instancia();
-$alt = recurso::ayuda(null, "<pre>".print_r($datos, true)."</pre>");
-$instancia = "<strong>".apex_pa_instancia."</strong>";
-
 echo "<div style='padding:4px; background-color: white;border: 1px solid gray'>";
-echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  $instancia:");
+echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".info_instancia::get_id()."</strong> :");
 echo "<ul style='margin-top: 0px;'>";
-foreach (dba::get_info_db_instancia() as $clave => $valor) {
+
+foreach ( toba::get_db()->get_parametros() as $clave => $valor) {
 	echo "<li>".ucfirst($clave).": $valor</li>";	
 }
 echo "</ul>";

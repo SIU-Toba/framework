@@ -8,10 +8,10 @@ class sesion_toba
 {
 	static private $instancia;
 
-	static function instancia()
+	static function instancia($clase='sesion_toba')
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new sesion_toba();	
+			self::$instancia = new $clase();	
 		}
 		return self::$instancia;	
 	}
@@ -62,6 +62,11 @@ class sesion_toba
 					return false;
 				}
 			}
+			
+			//Ventana de actualizacion para el usuario
+			$this->conf__actualizar_sesion();
+
+			//Guardo el momento del acceso
 			$_SESSION['toba']["ultimo_acceso"]=time();
 			return true;
 		} else {
@@ -78,9 +83,11 @@ class sesion_toba
 	
 	function iniciar($usuario, $clave=null)
 	{
+		$ip = $_SERVER['REMOTE_ADDR'];
 		try {
-			//___falta: Control IP rechazada
-
+			if (info_instancia::es_ip_rechazada($ip)) {
+				throw new excepcion_toba('La IP esta bloqueada. Contactese con el administrador');
+			}
 			$proyecto = info_proyecto::get_id();
 			toba::get_usuario()->cargar($usuario, $clave);
 			$grupo_acceso = toba::get_usuario()->get_grupo_acceso();
@@ -102,18 +109,17 @@ class sesion_toba
 			if (toba::get_nucleo()->solicitud_en_proceso()) {
 				throw new excepcion_reset_nucleo('INICIAR... recargando el nucleo.');
 			}
-
 		} catch ( excepcion_toba_login $e ) {
-			
-			//___falta: Registrar falla login
-			
+			//Registro la falla de login			
+			info_instancia::registrar_error_login($ip);
+			//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
+			$intentos = info_instancia::get_cantidad_intentos_en_ventana_temporal($ip, info_proyecto::instancia()->get_parametro('validacion_intentos_min'));
+			$supero_tope_intentos_en_ventana = $intentos > info_proyecto::instancia()->get_parametro('validacion_intentos');
+			if ( $supero_tope_intentos_en_ventana ) {
+				info_instancia::bloquear_ip($ip);
+			}
 			throw new excepcion_toba_login($e->getMessage());
 		}
-	}
-
-	protected function conf__inicio($usuario)
-	{
-		
 	}
 
 	function finalizar($observaciones="")
@@ -130,7 +136,10 @@ class sesion_toba
 			unset($_SESSION['toba']["path"]);
 			unset($_SESSION['toba']["path_php"]);
 			unset($_SESSION['toba']["ultimo_acceso"]);
-			editor::borrar_memoria();
+			editor::limpiar_memoria();
+			info_instalacion::limpiar_memoria();
+			info_instancia::limpiar_memoria();
+			info_proyecto::limpiar_memoria();
 			//Existieron archivos temporales asociados a la sesion, los elimino...
 			if (isset($_SESSION['toba']["archivos"])) {
 				foreach($_SESSION['toba']["archivos"] as $archivo) {
@@ -149,10 +158,11 @@ class sesion_toba
 		}
 	}
 
-	protected function conf__fin()
-	{
-		
-	}
+	protected function conf__inicio($usuario) {}
+	
+	protected function conf__fin() {}
+	
+	protected function conf__actualizar_sesion() {}
 	
 	function get_grupo_acceso()
 	{
@@ -163,16 +173,6 @@ class sesion_toba
 		}
 	}
 	
-	protected function control_ip_rechazada()
-	{
-		
-	}
-	
-	protected function registrar_error_login()
-	{
-		
-	}
-
 	function get_id()
 	{
 		return $_SESSION['toba']['id'];

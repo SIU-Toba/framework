@@ -10,7 +10,6 @@ class solicitud
 	var $indice_objetos;				//Indice	de	objetos asociados	por CLASE
 	var $objetos = array();				//Objetos standarts asociados	al	ITEM
 	var $objetos_indice_actual = 0;		//Posicion actual	del array de objetos	
-	var $bases_secundarias;				//Lista de las	bases	secundarias	abiertas	(Para	cerrarlas)
 	var $observaciones;					//Array de observaciones realizadas	durante la solicitud	
 	var $observaciones_objeto;			//Observaciones realizadas	por objetos	STANDART	
 	var $tipo_actividad;				//Determina	el	tipo de ACTIVIDAD: buffer,	patron, accion	
@@ -126,18 +125,6 @@ class solicitud
 	}	
 	//--------------------------------------------------------------------------------------------
 
-	function finalizar_solicitud()
-	{
-		//-[1]- Cierro	conexiones secundarias
-		if(isset($this->bases_secundarias)){
-			foreach($this->bases_secundarias	as	$base){
-				toba::get_db($base)->close();
-			}
-		}
-		exit();
-		//toba::get_cronometro()->marcar('SOLICITUD: Finalizar el CONTEXTO',apex_nivel_nucleo);
-	}
-
 	function get_tipo()
 	{
 		return $this->tipo_solicitud;	
@@ -176,7 +163,6 @@ class solicitud
 		$dump["en_tramite"]=	$this->en_tramite;
 		$dump["registrar"]= $this->registrar_db;
 		$dump["cronometrar"]=$this->cronometrar;
-		$dump["bases_secundarias"]=$this->bases_secundarias;
 		$dump["observaciones"]=$this->observaciones;	
 		$dump["observaciones_objeto"]=$this->observaciones_objeto;
 		ei_arbol($dump,"ESTADO de la SOLICITUD");	
@@ -220,7 +206,7 @@ class solicitud
 			//***************************	
 			case "buffer":	 //--> Disparo	el	BUFFER
 				$sql = "SELECT	cuerpo FROM	apex_buffer	WHERE buffer = '".$this->info['basica']["item_act_buffer"]."' AND proyecto =  '".$this->info['basica']["item_act_buffer_proyecto"]."';";
-				$rs = toba::get_db('instancia')->consultar($sql,apex_db_numerico);
+				$rs = info_instancia::get_db()->consultar($sql,apex_db_numerico);
 				if(!$rs) throw new excepcion_toba('BUFFER vacio...');
 				//Ejecuto el codigo PHP	de	la	base
 				$this->php = $this->info['basica']["item_act_buffer_proyecto"].",".$this->info['basica']["item_act_buffer"];
@@ -282,7 +268,6 @@ class solicitud
 		//ei_arbol($this->observaciones);
 		if($cortar_ejecucion){
 			//Corto la ejecucion	de	la	solicitud
-			$this->finalizar_solicitud();	
 			$this->registrar_db();
 			exit();
 		}
@@ -297,7 +282,6 @@ class solicitud
 		$this->observaciones_objeto[]	= array($objeto,$tipo,$observacion);
 		if($cortar_ejecucion){
 			//Corto la ejecucion	de	la	solicitud
-			$this->finalizar_solicitud();	
 			$this->registrar_db();
 			exit();
 		}

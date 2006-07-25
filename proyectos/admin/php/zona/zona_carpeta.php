@@ -12,8 +12,6 @@ class zona_carpeta extends zona
 	function cargar_editable($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		global $ADODB_FETCH_MODE, $db, $cronometro;		
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		if(!isset($editable)){
 			if(!isset($this->editable_propagado)){
 				ei_mensaje("No se especifico el editable a cargar","error");
@@ -33,15 +31,12 @@ class zona_carpeta extends zona
 					FROM	apex_item i
 					WHERE	i.proyecto='{$clave[0]}'
 					AND		item='{$clave[1]}';";
-		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
+		$rs = toba::get_db()->consultar($sql);
 		if(!$rs){
-			throw new excepcion_toba("ZONA-ITEM: NO se pudo cargar el editable $proyecto,$item - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			return false;
-		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-ITEM: El editable solicitado no existe","info");
 			return false;
 		}else{
-			$this->editable_info = current($rs->getArray());
+			$this->editable_info = $rs[0];
 			//ei_arbol($this->editable_info,"EDITABLE");
 			$this->editable_id = array( $clave[0],$clave[1] );
 			$this->editable_cargado = true;

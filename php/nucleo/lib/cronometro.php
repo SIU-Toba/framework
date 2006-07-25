@@ -70,9 +70,7 @@ class cronometro
 			if($this->marcas[$f]['n']!="INICIO"){
 				$sql = "INSERT INTO apex_solicitud_cronometro(solicitud, marca, nivel_ejecucion, texto, tiempo) VALUES ('$solicitud','$f','{$this->marcas[$f]['niv']}','{$this->marcas[$f]['n']}','$tiempo');";
 				//echo "$sql<br>";
-				if ($db["instancia"][apex_db_con]->Execute($sql) === false){
-					throw new excepcion_toba("CRONOMETRO: No se pudo registrar la marca del cronometro de la solicitud: ( " .$db["instancia"][apex_db_con]->ErrorMsg() ." )",false);
-				}
+				info_instancia::get_db()->sql($sql);
 			}
 			$temp = $momento;
 		}

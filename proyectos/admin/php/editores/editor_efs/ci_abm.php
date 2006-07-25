@@ -86,7 +86,7 @@ class ci_abm extends objeto_ci
 				ef.proyecto = '".editor::get_proyecto_cargado()."' 
 			ORDER BY obsoleto,ef.elemento_formulario
 		";
-		return consultar_fuente($sql, 'instancia');
+		return consultar_fuente($sql);
 	}
 
 	

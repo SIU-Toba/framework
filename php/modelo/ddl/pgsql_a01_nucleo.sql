@@ -183,9 +183,11 @@ CREATE TABLE			apex_proyecto
 	item_pre_sesion		          	varchar(60)		NULL,--NOT
 	log_archivo						smallint		NULL,
 	log_archivo_nivel				smallint		NULL,
+	fuente_datos					varchar(20)		NULL,--NOT
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","tem_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	--CONSTRAINT	"apex_proyecto_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES	"apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_menu" FOREIGN KEY ("menu") REFERENCES	"apex_menu" ("menu") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
 );
@@ -237,9 +239,9 @@ CREATE TABLE apex_fuente_datos
 (	
 	proyecto					varchar(15)		NOT NULL,
 	fuente_datos				varchar(20)		NOT NULL,
-	fuente_datos_motor			varchar(30)		NOT NULL,
 	descripcion					varchar(255)	NOT NULL,
 	descripcion_corta			varchar(40)		NULL,	--	NOT NULL,
+	fuente_datos_motor			varchar(30)		NULL,
 	host						varchar(60)		NULL,
 	usuario						varchar(30)		NULL,
 	clave						varchar(30)		NULL,

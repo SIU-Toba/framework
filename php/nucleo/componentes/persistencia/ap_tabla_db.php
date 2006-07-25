@@ -422,7 +422,7 @@ class ap_tabla_db implements ap_tabla
 		$sql = $this->generar_sql_update($id_registro);
 		if(isset($sql)){
 			$this->log("registro: $id_registro - " . $sql); 
-			$this->ejecutar_sql( $sql, $this->fuente);
+			$this->ejecutar_sql( $sql );
 		}
 	}
 	
@@ -434,7 +434,7 @@ class ap_tabla_db implements ap_tabla
 	{
 		$sql = $this->generar_sql_delete($id_registro);
 		$this->log("registro: $id_registro - " . $sql); 
-		$this->ejecutar_sql( $sql, $this->fuente);
+		$this->ejecutar_sql( $sql );
 		return $sql;
 	}
 
@@ -519,7 +519,7 @@ class ap_tabla_db implements ap_tabla
 	 */
 	function ejecutar_sql( $sql )
 	{
-		ejecutar_sql( $sql, $this->fuente);			
+		ejecutar_fuente( $sql, $this->fuente );			
 	}
 
 	
@@ -793,7 +793,7 @@ class ap_tabla_db implements ap_tabla
 						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
 					}
 					// - 3 - Ejecuto SQL
-					$datos = consultar_fuente($sql, $this->fuente);
+					$datos = toba::get_db($this->fuente)->consultar($sql);
 					if(!$datos){
 						toba::get_logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
 						throw new excepcion_toba('AP_TABLA_DB: ERROR en la carga de una columna externa.');

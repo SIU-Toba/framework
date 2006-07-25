@@ -13,7 +13,7 @@ class ci_creador_objeto extends objeto_ci
 	function __construct($id)
 	{
 		parent::__construct($id);
-		if (! dba::hay_fuente_definida(editor::get_proyecto_cargado())) {
+		if (! dao_editores::hay_fuente_definida(editor::get_proyecto_cargado())) {
 			throw new excepcion_toba("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
 		}		
 		

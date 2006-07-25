@@ -28,8 +28,6 @@ class zona_objeto extends zona
 			$clave[0] = $editable['proyecto'];
 			$clave[1] = $editable['objeto'];
 		}
-		global $ADODB_FETCH_MODE, $db, $cronometro;		
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	o.*,
 							o.subclase_archivo as 			archivo,
 							c.icono as						clase_icono,
@@ -57,7 +55,7 @@ class zona_objeto extends zona
 					AND		o.clase = c.clase
 					AND		o.proyecto='{$clave[0]}'
 					AND		o.objeto='{$clave[1]}'";
-		$rs = consultar_fuente($sql, "instancia");
+		$rs = consultar_fuente($sql);
 		if(empty($rs)){
 			echo ei_mensaje("ZONA-OBJETO: El editable solicitado no existe","info");
 			return false;
@@ -179,8 +177,6 @@ class zona_objeto extends zona
 		echo "<table width='100%' class='tabla-0'>";
 		echo "<tr><td  class='barra-obj-io'>OBJETOS utilizados</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
@@ -202,7 +198,7 @@ class zona_objeto extends zona
 					AND		d.proyecto='".$this->editable_id[0]."'
 					AND		d.objeto_consumidor='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
-			$rs = consultar_fuente($sql,'instancia');
+			$rs = consultar_fuente($sql);
 			if(!empty($rs)){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
@@ -262,8 +258,6 @@ class zona_objeto extends zona
 		//---------------------------------------------------------
 		echo "<tr><td  class='barra-obj-io'>VINCULOS Entrantes</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
@@ -286,7 +280,7 @@ class zona_objeto extends zona
 					AND		v.destino_objeto_proyecto= '".$this->editable_id[0]."'
 					AND		v.destino_objeto= '".$this->editable_id[1]."'
 					ORDER BY 3,4;";
-			$rs =& consultar_fuente($sql, 'instancia');
+			$rs = consultar_fuente($sql);
 			if(!empty($rs)){
 				echo "<table class='tabla-0'  width='400'>";
 				echo "<tr>";
@@ -339,8 +333,6 @@ class zona_objeto extends zona
 		//---------------------------------------------------------
 		echo "<tr><td  class='barra-obj-io'>ITEMS Consumidores</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	i.proyecto as				proyecto,
 							i.item as					item,
 							i.nombre as					nombre
@@ -351,35 +343,31 @@ class zona_objeto extends zona
 					AND		io.proyecto='".$this->editable_id[0]."'
 					AND		io.objeto='".$this->editable_id[1]."'
 					ORDER BY 2;";
-			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-			if(!$rs){
-				throw new excepcion_toba("BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			}
-			if(!$rs->EOF){
+			$datos = consultar_fuente($sql);
+			if($datos){
 				echo "<table class='tabla-0' width='400'>";
 				echo "<tr>";
 				echo "<td  colspan='2' class='barra-obj-tit'>ITEM</td>";
 				echo "<td  colspan='2' class='barra-obj-tit'>Editar</td>";
 				echo "</tr>\n";
-				while(!$rs->EOF){
+				foreach($datos as $rs){
 					echo "<tr>";
-					echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs->fields["proyecto"]."&nbsp;</td>";
-					echo "<td  class='barra-obj-link' >&nbsp;".$rs->fields["item"]."&nbsp;</td>";
+					echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs["proyecto"]."&nbsp;</td>";
+					echo "<td  class='barra-obj-link' >&nbsp;".$rs["item"]."&nbsp;</td>";
 
 					echo "<td  class='barra-obj-id' width='5'>";
 					echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 												'admin',"/admin/items/editor_items",
-												array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
-													.apex_qs_separador. $rs->fields["item"]) ) ."'>".
+												array(apex_hilo_qs_zona=>$rs["proyecto"]
+													.apex_qs_separador. $rs["item"]) ) ."'>".
 						recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
 					echo "</td>\n";
 					echo "<td  class='barra-obj-id' width='5'>";
-					echo "<a href='" . toba::get_vinculador()->generar_solicitud($rs->fields["proyecto"],$rs->fields["item"]) ."'>".
+					echo "<a href='" . toba::get_vinculador()->generar_solicitud($rs["proyecto"],$rs["item"]) ."'>".
 						recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
 					echo "</td>\n";
 
 					echo "</tr>\n";
-					$rs->movenext();
 				}
 				echo "</table>\n";
 			}else{
@@ -392,8 +380,6 @@ class zona_objeto extends zona
 		echo "<table width='100%' class='tabla-0'>";
 		echo "<tr><td  class='barra-obj-io'>Objetos consumidores</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
@@ -415,58 +401,54 @@ class zona_objeto extends zona
 					AND		d.proyecto='".$this->editable_id[0]."'
 					AND		d.objeto_proveedor='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
-			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-			if(!$rs){
-				throw new excepcion_toba("BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			}
-			if(!$rs->EOF){
+			$datos = consultar_fuente($sql);
+			if($datos){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
 				echo "<td  colspan='2' class='barra-obj-tit'>OBJETO</td>";
 				echo "<td  class='barra-obj-tit'>IDENTIFICADOR</td>";
 				echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
 				echo "</tr>\n";
-				while(!$rs->EOF){
-					if(!isset($contador[$rs->fields["clase"]])){
-						$contador[$rs->fields["clase"]] = 0;
+				foreach($datos as $rs){
+					if(!isset($contador[$rs["clase"]])){
+						$contador[$rs["clase"]] = 0;
 					}else{
-						$contador[$rs->fields["clase"]] += 1;
+						$contador[$rs["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
-						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
-						echo "<td  class='barra-obj-link'>\"".$rs->fields["objeto_identificador"]."\"</td>";
-						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
+						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
+						echo "<td  class='barra-obj-link'>\"".$rs["objeto_identificador"]."\"</td>";
+						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 														'admin',"/admin/objetos/propiedades",
-														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+															.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
-						if(isset($rs->fields["clase_editor"])){
+						if(isset($rs["clase_editor"])){
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-														$rs->fields["clase_editor_proyecto"],
-														$rs->fields["clase_editor"],
-														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+														$rs["clase_editor_proyecto"],
+														$rs["clase_editor"],
+														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+															 .apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
-						if(isset($rs->fields["clase_instanciador"])){
+						if(isset($rs["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-														$rs->fields["clase_instanciador_proyecto"], 
-														$rs->fields["clase_instanciador"],
-														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+														$rs["clase_instanciador_proyecto"], 
+														$rs["clase_instanciador"],
+														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+															.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
 						}
 						echo "</td>\n";
 					echo "</tr>\n";
-					$rs->movenext();
 				}
 				echo "</table>\n";
 			}else{

@@ -23,9 +23,9 @@ class dao_editores
 			AND p.listar_multiproyecto = 1 
 			AND	up.usuario = '".toba::get_hilo()->obtener_usuario()."'
 			ORDER BY orden;";
-		return consultar_fuente($sql, 'instancia');
+		return contexto_info::get_db()->consultar($sql);
 	}
-	
+
 	//---------------------------------------------------
 	//---------------- CLASES ---------------------------
 	//---------------------------------------------------
@@ -108,9 +108,9 @@ class dao_editores
 				FROM apex_clase 
 				WHERE 
 					$sql_todas
-					(proyecto = '". editor::get_proyecto_cargado() ."' OR proyecto='toba')
+					(proyecto = '". contexto_info::get_proyecto() ."' OR proyecto='toba')
 				ORDER BY 2";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}	
 
 	static function get_todas_clases_toba()
@@ -124,7 +124,7 @@ class dao_editores
 				FROM apex_clase 
 				WHERE 	clase = '$clase'
 				AND		proyecto = '$proyecto'";
-		$temp = consultar_fuente($sql, "instancia");
+		$temp = contexto_info::get_db()->consultar($sql);
 		if(is_array($temp)){
 			return $temp[0]['archivo'];
 		}
@@ -147,10 +147,10 @@ class dao_editores
 					c.clase_tipo = ct.clase_tipo AND 
 					c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."')	AND
 						--El proyecto es Toba o el actual
-					(c.proyecto = '". editor::get_proyecto_cargado() ."' OR c.proyecto = 'toba') AND
+					(c.proyecto = '". contexto_info::get_proyecto() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL
 				ORDER BY ct.orden DESC";
-		return consultar_fuente($sql, "instancia");	
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function get_clases_tipos()
@@ -165,7 +165,7 @@ class dao_editores
 					c.clase_tipo = ct.clase_tipo AND 
 					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')
 				ORDER BY ct.clase_tipo";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	static function get_ci_editor_clase($proyecto, $clase)
@@ -185,7 +185,7 @@ class dao_editores
 					io.objeto = o.objeto AND				-- Se busca el CI del item
 					io.proyecto = o.proyecto AND
 					o.clase = 'objeto_ci'";
-		$res = consultar_fuente($sql, "instancia");
+		$res = contexto_info::get_db()->consultar($sql);
 		return $res[0];
 	}
 	
@@ -197,10 +197,10 @@ class dao_editores
 				FROM
 					apex_objeto_ci_pantalla
 				WHERE
-					objeto_ci_proyecto = '". editor::get_proyecto_cargado() ."' AND
+					objeto_ci_proyecto = '". contexto_info::get_proyecto() ."' AND
 					objeto_ci = '$objeto'
 		";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	static function get_clases_con_fuente_datos()
@@ -232,10 +232,10 @@ class dao_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				proyecto = '". editor::get_proyecto_cargado() ."'
+				proyecto = '". contexto_info::get_proyecto() ."'
 			ORDER BY nombre;
 		";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	
@@ -245,7 +245,7 @@ class dao_editores
 	static function get_items_para_combo()
 	{
 		require_once("modelo/lib/catalogo_items.php");
-		$catalogador = new catalogo_items(editor::get_proyecto_cargado());
+		$catalogador = new catalogo_items(contexto_info::get_proyecto());
 		$catalogador->cargar(array());	
 		foreach($catalogador->items() as $item) {
 			if (! $item->es_carpeta()) {
@@ -255,7 +255,7 @@ class dao_editores
 				}else{
 					$inden = "";
 				}
-				$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
+				$datos[] =  array('proyecto' => contexto_info::get_proyecto(),
 									'id' => $item->get_id(), 
 									'padre' => $item->get_id_padre(),
 									'descripcion' => $inden . $item->get_nombre());
@@ -270,7 +270,7 @@ class dao_editores
 	static function get_carpetas_posibles($proyecto=null)
 	{
 		if (! isset($proyecto)) {
-			$proyecto = editor::get_proyecto_cargado();
+			$proyecto = contexto_info::get_proyecto();
 		}
 		require_once("modelo/lib/catalogo_items.php");
 		$catalogador = new catalogo_items($proyecto);
@@ -296,7 +296,7 @@ class dao_editores
 	static function get_items_carpeta($carpeta, $proyecto=null)
 	{
 		if (! isset($proyecto)) {
-			$proyecto = editor::get_proyecto_cargado();
+			$proyecto = contexto_info::get_proyecto();
 		}
 		$sql = "
 			SELECT 
@@ -309,7 +309,7 @@ class dao_editores
 					AND	proyecto = '$proyecto'
 			ORDER BY nombre;
 		";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function get_carpeta_de_item($item, $proyecto)
@@ -322,7 +322,7 @@ class dao_editores
 					item = '$item'
 				AND	proyecto = '$proyecto'
 		";
-		$rs = consultar_fuente($sql, "instancia");
+		$rs = contexto_info::get_db()->consultar($sql);
 		if (!empty($rs)) {
 			return $rs[0]['padre'];	
 		}
@@ -341,9 +341,9 @@ class dao_editores
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
 				WHERE 	clase = '{$clase[1]}'
-				AND 	proyecto = '". editor::get_proyecto_cargado() ."'
+				AND 	proyecto = '". contexto_info::get_proyecto() ."'
 				ORDER BY nombre";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function get_info_dependencia($objeto_proyecto, $objeto)
@@ -357,7 +357,7 @@ class dao_editores
 				AND 	o.clase_proyecto = c.proyecto
 				AND 	o.proyecto = '$objeto_proyecto'
 				AND 	o.objeto = '$objeto'";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	/**
@@ -374,7 +374,7 @@ class dao_editores
 				(o.objeto = '{$id[1]}') AND 
 				(o.proyecto = '{$id[0]}')
 		";		
-		$datos = consultar_fuente($sql, 'instancia');
+		$datos = contexto_info::get_db()->consultar($sql);
 		return $datos[0]['clase'];
 	}
 	
@@ -422,9 +422,9 @@ class dao_editores
 				FROM apex_objeto 
 				WHERE 	clase = 'objeto_datos_tabla'
 				AND		clase_proyecto = 'toba'
-				AND 	proyecto = '". editor::get_proyecto_cargado() ."'
+				AND 	proyecto = '". contexto_info::get_proyecto() ."'
 				ORDER BY 2";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	//---------------------------------------------------
 
@@ -439,9 +439,9 @@ class dao_editores
 							col_id  as	col_id
 				FROM apex_objeto_db_registros_col 
 				WHERE 	objeto = $objeto
-				AND 	objeto_proyecto = '". editor::get_proyecto_cargado() ."'
+				AND 	objeto_proyecto = '". contexto_info::get_proyecto() ."'
 				ORDER BY 3";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	//-------------------------------------------------
@@ -455,9 +455,9 @@ class dao_editores
 	{
 		$sql = "SELECT proyecto, pagina_tipo, descripcion 
 				FROM apex_pagina_tipo 
-				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' )
 				ORDER BY 3";
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 	
 	/**
@@ -467,9 +467,9 @@ class dao_editores
 	{
 		$sql = "SELECT proyecto, buffer, descripcion_corta 
 				FROM apex_buffer 
-				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' )
 				ORDER BY 2";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);		
 	}
 
 	/**
@@ -479,9 +479,9 @@ class dao_editores
 	{
 		$sql = "SELECT proyecto, patron, descripcion_corta FROM apex_patron 
 				WHERE patron != 'especifico'
-				AND ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				AND ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' )
 				ORDER BY 3";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	/**
@@ -491,9 +491,9 @@ class dao_editores
 	{
 		$sql = "SELECT proyecto, zona, nombre
 				FROM apex_item_zona
-				WHERE ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' )
+				WHERE ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' )
 				ORDER BY descripcion";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);		
 	}			
 
 	/**
@@ -505,8 +505,8 @@ class dao_editores
 						descripcion 
 				FROM apex_solicitud_obs_tipo 
 				WHERE (criterio = 'item' OR criterio='sistema')
-				AND ( proyecto = 'toba' OR proyecto = '". editor::get_proyecto_cargado() ."' ) ";
-		return consultar_fuente($sql, "instancia");		
+				AND ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' ) ";
+		return contexto_info::get_db()->consultar($sql);
 	}
 
 	/**
@@ -515,13 +515,25 @@ class dao_editores
 	function get_fuentes_datos($proyecto=null)
 	{
 		if (!isset($proyecto)) {
-			$proyecto = editor::get_proyecto_cargado();
+			$proyecto = contexto_info::get_proyecto();
 		}
 		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
 				FROM apex_fuente_datos
 				WHERE ( proyecto = '$proyecto' )
 				ORDER BY 2";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);	
+	}
+
+	/**
+	 * Determina si el proyecto cuenta con una fuente de datos propia
+	 */
+	static function hay_fuente_definida($proyecto)
+	{
+		$sql = "SELECT count(*) as cantidad
+				FROM 	apex_fuente_datos
+				WHERE	proyecto = '$proyecto'";
+		$rs = contexto_info::get_db()->consultar($sql);
+		return $rs[0]['cantidad'] > 0;
 	}
 
 	/**
@@ -531,9 +543,9 @@ class dao_editores
 	{
 		$sql = "SELECT proyecto, nucleo, nucleo 
 				FROM apex_nucleo
-				WHERE ( proyecto = '". editor::get_proyecto_cargado() ."' )
+				WHERE ( proyecto = '". contexto_info::get_proyecto() ."' )
 				ORDER BY 2 ASC";
-		return consultar_fuente($sql, "instancia");		
+		return contexto_info::get_db()->consultar($sql);	
 	}
 
 	//-------------------------------------------------
@@ -562,10 +574,10 @@ class dao_editores
 						ON (o.proyecto = l.objeto_proyecto AND o.objeto = l.objeto)
 					LEFT OUTER JOIN
 						apex_item i ON (l.item = i.item)
-					WHERE objeto_proyecto = '". editor::get_proyecto_cargado() ."'
+					WHERE objeto_proyecto = '". contexto_info::get_proyecto() ."'
 					AND ( (o.objeto IS NOT NULL) OR (i.item IS NOT NULL) ) -- no mostrar eliminados
 					ORDER BY momento DESC;";	
-		return consultar_fuente($sql, "instancia");
+		return contexto_info::get_db()->consultar($sql);
 	}
 }
 ?>

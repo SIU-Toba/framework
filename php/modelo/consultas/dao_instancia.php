@@ -9,7 +9,7 @@ class dao_instancia
 	function get_proyectos_con_estilo($estilo)
 	{
 		$sql = "SELECT proyecto FROM apex_proyecto WHERE estilo='$estilo'";
-		return consultar_fuente($sql);
+		return contexto_info::get_db()->consultar($sql);
 	}
 		
 	

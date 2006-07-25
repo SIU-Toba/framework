@@ -59,7 +59,6 @@ class nucleo_toba
 		    http::headers_standart();
 			$this->preparar_include_path();
 			$this->iniciar_contexto_proyecto();
-			toba::get_db('instancia');
 			try {
 				$this->solicitud = $this->cargar_solicitud();
 				$this->solicitud_en_proceso = true;

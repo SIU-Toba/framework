@@ -20,12 +20,7 @@ class mensaje
 	//Obtiene un mensaje GLOBAL del proyecto toba
 	//Esto es para errores genericos del motor, etc
 	{
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_msg 
-				WHERE indice = '$indice'
-				AND proyecto = 'toba';";
-		$datos = consultar_fuente($sql, "instancia");
+		$datos = info_proyecto::get_mensaje_toba($indice);
 		if(!is_array($datos)){
 			throw new excepcion_toba_def("El mensaje $indice no EXISTE.");
 		}else{
@@ -42,15 +37,7 @@ class mensaje
 	function get_proyecto($indice, $parametros=null)
 	//Obtiene un mensaje GLOBAL del proyecto
 	{
-		$hilo = toba::get_hilo();
-		$proyecto_actual = $hilo->obtener_proyecto();
-
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_msg 
-				WHERE indice = '$indice'
-				AND proyecto = '$proyecto_actual';";
-		$datos = consultar_fuente($sql, "instancia");
+		$datos = info_proyecto::get_mensaje_proyecto($indice);
 		if(!is_array($datos)){
 			$mensaje = null;
 		}else{
@@ -67,15 +54,7 @@ class mensaje
 	function get_objeto($objeto, $indice, $parametros=null)
 	//Obtiene el mensaje asociado a un OBJETO
 	{
-		$hilo = toba::get_hilo();
-		$proyecto_actual = $hilo->obtener_proyecto();
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_objeto_msg 
-				WHERE indice = '$indice'
-				AND objeto_proyecto = '$proyecto_actual'
-				AND objeto = '$objeto';";
-		$datos = consultar_fuente($sql, "instancia");
+		$datos = info_proyecto::get_mensaje_objeto($objeto, $indice);
 		if(!is_array($datos)){
 			//Retorna null para que siga la busqueda al GLOBAL
 			$mensaje = null;
@@ -109,6 +88,5 @@ class mensaje
 		return $mensaje;
 	}
 	//-----------------------------------------------------
-
 }
 ?>

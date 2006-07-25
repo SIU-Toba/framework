@@ -3,6 +3,7 @@ require_once("interfaces.php");
 require_once("lib/manejador_archivos.php");
 require_once("lib/reflexion/clase_php.php");
 require_once('modelo/consultas/dao_editores.php');
+require_once('modelo/info/contexto_info.php');
 
 class info_componente implements recorrible_como_arbol, meta_clase
 {
@@ -124,7 +125,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
 			$archivo = $this->datos['info']['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba_dir()."/proyectos/".$this->proyecto."/php/";
+			$path_origen = toba_dir()."/proyectos/".contexto_info::get_proyecto()."/php/";
 			if (isset($nuevos_datos['proyecto'])) {
 				$path_destino = toba_dir()."/proyectos/".$nuevos_datos['proyecto']."/php/";
 			} else {

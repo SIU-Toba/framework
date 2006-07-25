@@ -4,35 +4,60 @@
 */
 class info_instancia
 {
-/*
 	static private $instancia;
 	
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new info_instalacion();	
+			self::$instancia = new info_instancia();	
 		}
 		return self::$instancia;	
 	}
 
 	private function __construct()
 	{
-		$_SESSION['toba']['instancia'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
+		if(!isset($_SESSION['toba']['instancia'])) {
+			//incluyo el archivo de informacion basica de la INSTANCIA
+			$_SESSION['toba']['instancia'] = self::get_info_instancia( self::get_id() );
+		}
+	}
+	
+	function get_info_instancia($id_instancia)
+	{
+		$archivo = toba_dir() . '/instalacion/i__' . $id_instancia . '/instancia.ini';
+		if ( is_file( $archivo ) ) {
+			return parse_ini_file( $archivo );
+		} else {
+			throw new excepcion_toba("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+		} 	
+	}
+	
+	function get_id()
+	{
+		if ( ! defined('apex_pa_instancia') ) {
+			throw new excepcion_toba("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la constante 'apex_pa_instancia')");
+		}		
+		return apex_pa_instancia;
 	}
 	
 	function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['instancia']);
+		self::$instancia = null;
 	}
-*/
-	//----------------------------------------------------------------
-	// DATOS
-	//----------------------------------------------------------------
 
 	static function get_db()
 	{
-		return toba::get_db('instancia');
+		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
+			return dba::get_db($_SESSION['toba']['instancia']['base']);
+		} else {
+			throw new excepcion_toba("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".apex_pa_instancia."' no posee una BASE DEFINIDA");
+		}
 	}
+
+	//----------------------------------------------------------------
+	// DATOS
+	//----------------------------------------------------------------
 
 	//------------------------- SESION -------------------------------------
 	
@@ -126,7 +151,7 @@ class info_instancia
 	static function get_id_solicitud()
 	{
 		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
-		$rs = self::get_db('instancia')->consultar($sql);
+		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
 			throw new excepcion_toba('No es posible generar un ID para la solicitud');
 		}
@@ -138,70 +163,80 @@ class info_instancia
 		$tiempo = toba::get_cronometro()->tiempo_acumulado();
 		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
 				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
-		self::get_db('instancia')->ejecutar($sql);
+		self::get_db()->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_observaciones( $id, $tipo, $observacion )
 	{
 		$sql = "INSERT	INTO apex_solicitud_observacion (solicitud,solicitud_obs_tipo_proyecto,solicitud_obs_tipo,observacion) 
 				VALUES ('$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
-		self::get_db('instancia')->ejecutar($sql);
+		self::get_db()->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_browser($id, $sesion, $ip)
 	{
 		$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip) VALUES ('$id','$sesion','$ip');";
-		self::get_db('instancia')->ejecutar($sql);
+		self::get_db()->ejecutar($sql);
 	}
 
 	static function registrar_solicitud_consola($id, $usuario, $llamada)
 	{
 		$sql = "INSERT INTO apex_solicitud_consola (solicitud_consola, usuario, llamada) VALUES ('$id','$usuario','$llamada');";
-		self::get_db('instancia')->ejecutar($sql);
+		self::get_db()->ejecutar($sql);
 	}
 
 	static function log_sistema($tipo,$mensaje)
 	{
 		$mensaje = addslashes($mensaje);
 		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
-		self::get_db('instancia')->ejecutar($sql);
+		self::get_db()->ejecutar($sql);
+	}
+
+	//-------------------- PROYECTOS  ----------------------------
+	
+	static function get_lista_proyectos_instancia($usuario)
+	{
+		$sql = "SELECT 	p.proyecto, 
+		        						p.descripcion_corta
+		        				FROM 	apex_proyecto p,
+		        						apex_usuario_proyecto up
+		        				WHERE 	p.proyecto = up.proyecto
+								AND  	listar_multiproyecto = 1 
+								AND		up.usuario = '$usuario'
+								ORDER BY orden;";
+		return self::get_db()->consultar($sql, apex_db_numerico);
 	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
 
-	static function control_ip_rechazada()
+	static function es_ip_rechazada($ip)
 	{
-		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='{$_SERVER["REMOTE_ADDR"]}'";
+		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='$ip'";
 		$rs = self::get_db()->consultar($sql);
-		if (! empty($rs)) {
-			return array(0,"Ha sido bloqueado el acceso desde la maquina '{$_SERVER["REMOTE_ADDR"]}'. Por favor contáctese con el <a href='mailto:".apex_pa_administrador."'>Administrador</a>.");
-		}		
+		if ( empty($rs)) {
+			return false;
+		}
+		return true;
 	}
 	
-	static function registrar_error_login()
+	static function registrar_error_login($ip)
 	{
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-		if($gravedad>0){
-			$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
-					VALUES ('".$this->usuario."','".$this->clave."','".$_SERVER["REMOTE_ADDR"]."','$gravedad','$texto')";
-			$rs	= $db['instancia'][apex_db_con]->Execute($sql);
-		}
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='{$_SERVER["REMOTE_ADDR"]}' AND (gravedad > 0) AND ((now()-momento) < '" . apex_pa_validacion_ventana_intentos . " min')";
-		$rs	  = $db['instancia'][apex_db_con]->Execute($sql);
-		if ($rs->fields[0] < apex_pa_validacion_intentos){
-			return array (false,$texto." Quedan " . (apex_pa_validacion_intentos - $rs->fields[0]) . " intentos antes de bloquear la IP.");
-		}else{//Se supero la cantidad de intentos
-			self::bloquear_ip();
-			return array (false,$texto. " La IP {$_SERVER["REMOTE_ADDR"]} ha sido bloqueada. Por favor contáctese con el Administrador.");
-		}			
+		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
+				VALUES ('".$this->usuario."','".$this->clave."','$ip','1','$texto')";
+		self::get_db()->ejecutar($sql);
 	}
 
-	static function bloquear_ip()
+	static function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal)
 	{
-		global $db;
-		$sql = "INSERT INTO apex_log_ip_rechazada(ip) VALUES ('".$_SERVER["REMOTE_ADDR"]."')";
-		$db['instancia'][apex_db_con]->execute($sql);
+		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0) AND ((now()-momento) < '$ventana_temporal min')";
+		$rs = self::get_db()->consultar($sql);
+		return $rs[0]['total'];
+	}
+
+	static function bloquear_ip($ip)
+	{
+		$sql = "INSERT INTO apex_log_ip_rechazada(ip) VALUES ('$ip')";
+		self::get_db()->ejecutar($sql);
 	}
 }
 ?>

@@ -71,7 +71,7 @@ class catalogo_toba
 					FROM apex_objeto
 					WHERE (objeto = '{$componente['componente']}')
 					AND (proyecto = '{$componente['proyecto']}')";
-		$datos = consultar_fuente($sql,'instancia');
+		$datos = info_instancia::get_db()->consultar($sql);
 		return self::convertir_tipo( $datos[0]['clase'] );
 	}
 
@@ -80,17 +80,17 @@ class catalogo_toba
 	*/
 	static function get_lista_componentes( $tipo_componente, $proyecto, $db = null )
 	{
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = info_instancia::get_db();	
+		}
 		if ($tipo_componente == 'item' ) {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							item as 			componente
 					FROM apex_item 
 					WHERE proyecto = '$proyecto'
 					ORDER BY 1;";
-			if ( isset( $db ) ) {
-				$datos = $db->consultar( $sql );
-			} else {
-				$datos = consultar_fuente($sql, 'instancia' );
-			}
+			$datos = $db->consultar( $sql );
 		} else {
 			$tipo_componente = 'objeto_'.$tipo_componente;
 			$sql = "SELECT 	proyecto as 		proyecto,
@@ -99,11 +99,7 @@ class catalogo_toba
 					WHERE proyecto = '$proyecto'
 					AND clase = '$tipo_componente'
 					ORDER BY 1;";
-			if ( isset( $db ) ) {
-				$datos = $db->consultar( $sql );
-			} else {
-				$datos = consultar_fuente($sql, 'instancia' );
-			}
+			$datos = $db->consultar( $sql );
 		}
 		return $datos;
 	}

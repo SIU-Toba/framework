@@ -44,13 +44,16 @@ class cargador_toba
 	*	Retorna los metadatos de un componente, tal cual existen en las tablas
 	*	del mismo. Este metodo es utilizado por el exportador de componentes
 	*	El parametro DB tiene como objetivo brindar este servicio a la consola 
-	*	(no existe 'dba' ni 'consultar_fuente')
 	*/
 	function get_metadatos_simples( $componente, $tipo=null, $db = null )
 	{
 		$metadatos = array();	
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
+		}
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = info_instancia::get_db();	
 		}
 		$clase_def = catalogo_toba::get_nombre_clase_definicion( $tipo );
 		$estructura = call_user_func(array($clase_def,'get_estructura'));
@@ -79,11 +82,7 @@ class cargador_toba
 						" WHERE {$definicion['dump_clave_proyecto']} = '$proyecto' " .
 						" AND {$definicion['dump_clave_componente']} = '$id' " .
 						" ORDER BY {$definicion['dump_order_by']} ;\n";
-				if ( isset( $db ) ) {
-					$metadatos[$tabla] = $db->consultar( $sql );
-				} else {
-					$metadatos[$tabla] = consultar_fuente($sql, 'instancia' );
-				}
+				$metadatos[$tabla] = $db->consultar( $sql );
 			}
 		}
 		return $metadatos;
@@ -97,6 +96,10 @@ class cargador_toba
 	{
 		if ( !isset( $tipo ) ) {
 			$tipo = catalogo_toba::get_tipo( $componente );	
+		}
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = info_instancia::get_db();	
 		}
 		$proyecto = $componente['proyecto'];
 		$id = $componente['componente'];		
@@ -113,11 +116,7 @@ class cargador_toba
 														'get_vista_extendida'),
 														array( $proyecto, $id ) );
 			foreach ( $estructura as $seccion => $contenido ) {
-				if ( isset( $db ) ) {
-					$temp = $db->consultar( $contenido['sql'] );
-				} else {
-					$temp = consultar_fuente($contenido['sql'], 'instancia' );
-				}
+				$temp = $db->consultar( $contenido['sql'] );
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
 					throw new excepcion_toba("El componente '$id' tiene una estructura incorrecta. No existe el segmento '$seccion'");
 				}
@@ -150,7 +149,8 @@ class cargador_toba
 		if ( isset ( $db ) ) {
 			$this->cache_metadatos_simples = new cache_db( $db );
 		} else {
-			$this->cache_metadatos_simples = new cache_db( dba::get_db('instancia') );
+			//Acceso por el nucleo
+			$this->cache_metadatos_simples = new cache_db( info_instancia::get_db() );
 		}
 		foreach ( tablas_componente::get_lista() as $tabla ) {
 			$definicion = tablas_componente::$tabla();

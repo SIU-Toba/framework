@@ -95,59 +95,30 @@ class objeto_mt extends objeto
 	@@desc: Inicia una TRANSACCION
 */
 	{
-		global $db;
+		return toba::get_db()->abrir_transaccion();
 		$this->transaccion_abierta = true;
-		$sql = "BEGIN TRANSACTION";
-		$status = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-		if(!$status){
-			$this->registrar_info_proceso("No es posible iniciar la TRANSACCION ( " 
-										.$db[$this->info["fuente"]][apex_db_con]->ErrorMsg()." )","error");
-		}
-		return $status;
 	}
 	//-------------------------------------------------------------------------------
 	
-	function finalizar_transaccion($mensaje=null)
+	function finalizar_transaccion()
 /*
  	@@acceso: interno
 	@@desc: Finaliza una TRANSACCION
 */
 	{
-		global $db;
-		$sql = "COMMIT TRANSACTION";
-		$status = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-		if(!$status){
-			$this->registrar_info_proceso("No es posible finalizar la TRANSACCION ( " 
-										.$db[$this->info["fuente"]][apex_db_con]->ErrorMsg()." )","error");
-		}else{
-			$this->transaccion_abierta = false;
-			//Mensaje de TODO OK
-			if(isset($mensaje)){
-				$this->registrar_info_proceso($mensaje);
-			}
-		}
-		return $status;
+		return toba::get_db()->cerrar_transaccion();
+		$this->transaccion_abierta = false;
 	}
 	//-------------------------------------------------------------------------------
 	
-	function abortar_transaccion($mensaje=null)
+	function abortar_transaccion()
 /*
  	@@acceso: interno
 	@@desc: Aborta una TRANSACCION
 */
 	{
-		global $db;
+		return toba::get_db()->abortar_transaccion();
 		$this->transaccion_abierta = false;
-		$sql = "ROLLBACK TRANSACTION";
-		$status = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-		if(!$status){
-			$this->registrar_info_proceso("No es posible abortar la TRANSACCION ( " 
-										.$db[$this->info["fuente"]][apex_db_con]->ErrorMsg()." )","error");
-		}
-		if(isset($mensaje)){
-			$this->registrar_info_proceso($mensaje,"error");
-		}
-		return $status;
 	}
 	//-------------------------------------------------------------------------------
 
@@ -160,36 +131,13 @@ class objeto_mt extends objeto
 */
 	{
 		if($this->transaccion_abierta){
-			global $db;
 			$this->estado_transaccion = true;
 			if(!is_array($sentencias_sql)){
 				$sentencias_sql = array($sentencias_sql);
 			}
 			foreach($sentencias_sql as $sql){
-				//echo $sql;
-				$status_temp =  $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-				if(!$status_temp){
-					$this->estado_transaccion = false;
-					if($registrar_error){
-                  $mensaje_original = $db[$this->info["fuente"]][apex_db_con]->ErrorMsg();
-                  $mensaje = $db[$this->info["fuente"]][apex_db_con]->obtener_error_toba(
-         							    $db[$this->info["fuente"]][apex_db_con]->ErrorNo(),
-         							    $db[$this->info["fuente"]][apex_db_con]->ErrorMsg());
-                  //Si el query-string no está encriptado, entonces consideramos que
-                  //en proyecto está en modo debug y muestra la sql que falló y el
-                  //mensaje de error original.
-                  //Si el proyecto está en producción se verán los mensajes "lindos".
-                  if (!defined('apex_pa_encriptar_qs') || apex_pa_encriptar_qs == 0)
-                  {
-                     $mensaje = $mensaje . '<div style="color: red;">' . 
-                                '<br><br><strong>MODO DEBUG</strong><br><br>SQL: (' . $sql . ')' .
-                                '<br><br>Mensaje original: ' . $mensaje_original .
-                                '</div>';
-                  }
-						$this->registrar_info_proceso($mensaje, "error");
-					}
-					break;
-				}
+				echo $sql;
+				toba::get_db()->ejecutar($sql);
 			}
 			return $this->estado_transaccion;
 		}else{

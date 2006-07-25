@@ -6,6 +6,8 @@ require_once('nucleo/nucleo_toba.php');
  */
 class toba
 {
+	static private $sesion;
+
 	static function get_nucleo()
 	{
 		return nucleo_toba::instancia();
@@ -61,29 +63,24 @@ class toba
 		return cola_mensajes::instancia();
 	}
 
-	static function get_fuente($fuente, $ado=null)
+	/**
+	 * Retorna una referencia a una fuente de datos declarada en el proyecto
+	 * @param string $id_fuente
+	 * @return fuente_de_datos
+	 */
+	static function get_fuente($id_fuente=null)
 	{
-		global $db, $ADODB_FETCH_MODE;	
-		if(isset($ado)){
-			$ADODB_FETCH_MODE = $ado;
-		}else{
-			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		}
-		if(!isset($db[$fuente])){
-			throw new excepcion_toba("La fuente de datos no se encuentra disponible." );
-		}
-		return $db[$fuente];
+		return administrador_fuentes::instancia()->get_fuente($id_fuente);
 	}
 	
 	/**
-	 * Retorna la referencia a la librería que administra las consultas y comandos a la fuente de datos
-	 *
-	 * @param string $fuente
-	 * @return db_postgres7
+	 * Retorna una referencia a una base de datos
+	 * @param string $id_fuente
+	 * @return db
 	 */
-	static function get_db($fuente, $ado=null)
+	static function get_db($id_fuente=null)
 	{
-		return dba::get_db($fuente);
+		return administrador_fuentes::instancia()->get_fuente($id_fuente)->get_db();
 	}
 
 	static function get_encriptador()
@@ -104,14 +101,17 @@ class toba
 	 */
 	static function get_sesion()
 	{
-		$subclase = info_proyecto::instancia()->get_parametro('sesion_subclase');
-		$archivo = info_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			return call_user_func(array($subclase,'instancia'));
-		} else {
-			return sesion_toba::instancia();
+		if (!isset(self::$sesion)) {
+			$subclase = info_proyecto::instancia()->get_parametro('sesion_subclase');
+			$archivo = info_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
+			if( $subclase && $archivo ) {
+				require_once($archivo);
+				self::$sesion = call_user_func(array($subclase,'instancia'),$subclase);
+			} else {
+				self::$sesion = sesion_toba::instancia();
+			}
 		}
+		return self::$sesion;
 	}
 
 	/**

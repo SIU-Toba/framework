@@ -188,7 +188,7 @@ class objeto
 	@@desc: Crea la conexion que el objeto necesita para trabajar
 */
 	{
-		dba::get_db($this->info["fuente"]);
+		toba::get_db($this->info["fuente"]);
 	}
 	//-------------------------------------------------------------------------------
 
@@ -585,7 +585,7 @@ class objeto
 					o.clase = c.clase AND
 					o.clase_proyecto = c.proyecto
 		";
-		$res = consultar_fuente($sql, "instancia");
+		$res = info_instancia::get_db()->consultar($sql);
 		$this->info_dependencias[$sig] = $res[0];
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	

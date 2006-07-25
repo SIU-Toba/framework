@@ -18,11 +18,7 @@ class album_fotos
 		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql = "INSERT INTO apex_arbol_items_fotos (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones) VALUES
 					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones')";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible guardar la foto.\n$error\n$sql");
-		}
+		toba::get_db()->ejecutar($sql);
 	}
 	
 	public function borrar_foto($nombre)
@@ -35,11 +31,7 @@ class album_fotos
 					usuario = '$usuario' AND
 					foto_nombre = '$nombre'
 				";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible borrar la foto.\n$error\n$sql");
-		}
+		toba::get_db()->ejecutar($sql);
 	}
 	
 	public function fotos()
@@ -55,11 +47,7 @@ class album_fotos
 					fotos.proyecto = '$proyecto' AND
 					fotos.usuario = '$usuario'
 			";
-		$res = toba::get_db('instancia')->Execute($sql);
-		if (!$res) {
-			$error = toba::get_db('instancia')->ErrorMsg();
-			throw new excepcion_toba("No fue posible cargar las fotos.\n$error\n$sql");
-		}
+		toba::get_db()->ejecutar($sql);
 		$fotos_en_crudo = $res->GetArray();
 		$fotos = array();
 		foreach ($fotos_en_crudo as $foto) {

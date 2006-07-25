@@ -116,9 +116,9 @@ ORDER BY    3,6;";
 <? 	
 	$sql = "SELECT 	*
 			FROM apex_proyecto
-			WHERE proyecto <> 'admin'";
+			WHERE proyecto <> 'toba'";
 	//dump_sql($sql);
-	$rs = toba::get_db('instancia')->consultar($sql);
+	$rs = toba::get_db()->consultar($sql);
 	if( $rs ) {
 ?>
 <table width="100%" class='lista-obj'>
@@ -128,7 +128,7 @@ ORDER BY    3,6;";
         <tr> 
 		  </td>
           <td  class='lista-obj-dato2'  width="1">
-		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/proyectos/usuarios",array(apex_hilo_qs_zona => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/proyectos/usuarios",array('proyecto' => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
 			  <? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Ver Perfiles") ?>
 			</a>
 		  </td>
@@ -167,7 +167,7 @@ ORDER BY    3,6;";
       <td class='lista-obj-titcol' >NOMBRE</td>
     </tr>
 <?
-	$rs = toba::get_db('instancia')->consultar($sql2);
+	$rs = toba::get_db()->consultar($sql2);
     if($rs) {
 	$grupo_anterior = null;
 	foreach( $rs as $registro ) 
@@ -254,8 +254,7 @@ WHERE       NOT EXISTS (
                         WHERE p.usuario = u.usuario
                         AND p.proyecto = '".editor::get_proyecto_cargado()."' )
             ORDER BY 2";
-	//dump_sql($sql);
-	$rs = toba::get_db('instancia')->consultar($sql);
+	$rs = toba::get_db()->consultar($sql);
 	if( $rs ) {
 	foreach( $rs as $registro ) {
 ?>

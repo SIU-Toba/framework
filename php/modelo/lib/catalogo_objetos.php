@@ -87,7 +87,7 @@ class catalogo_objetos
 		";
 
 		//--- Recorrido
-		$datos = toba::get_db('instancia')->consultar($sql);
+		$datos = contexto_info::get_db()->consultar($sql);
 		$this->objetos = array();
 		foreach ($datos as $dato) {
 			$agregar = true;
@@ -166,7 +166,7 @@ class catalogo_objetos
 					c.dao_nucleo ILIKE '%$busca%'  OR	c.dao_metodo ILIKE '%$busca%'
 					)
 		";
-		$rs = consultar_fuente($sql, 'instancia');
+		$rs = contexto_info::get_db()->consultar($sql);
 		if (!empty($rs)) {
 			$sql = "AND		o.objeto IN (";
 			foreach ($rs as $obj) {

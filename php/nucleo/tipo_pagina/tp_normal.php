@@ -61,15 +61,7 @@ class tp_normal extends tp_basico_titulo
 					//Si estoy en modo MULTIPROYECTO muestro un combo para cambiar a otro proyecto,
 					//sino muestro el nombre del proyecto ACTUAL
 					echo "<td>";
-					$sql = "SELECT 	p.proyecto, 
-					        						p.descripcion_corta
-					        				FROM 	apex_proyecto p,
-					        						apex_usuario_proyecto up
-					        				WHERE 	p.proyecto = up.proyecto
-											AND  	listar_multiproyecto = 1 
-											AND		up.usuario = '".toba::get_hilo()->obtener_usuario()."'
-											ORDER BY orden;";
-					$datos = consultar_fuente($sql, 'instancia', apex_db_numerico);
+					$datos = info_instancia::get_lista_proyectos_instancia(toba::get_hilo()->obtener_usuario());
 					$datos = rs_convertir_asociativo($datos, array(0), 1);
 					echo form::select(apex_sesion_post_proyecto, toba::get_hilo()->obtener_proyecto(), $datos,
 								'ef-combo', "onchange='multiproyecto.submit();'");

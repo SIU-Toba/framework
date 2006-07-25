@@ -54,7 +54,7 @@ class catalogo_items
 		$sql .=	$filtro_items;
 		$sql .= "	AND		(i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')";
 		$sql .= "	ORDER BY i.carpeta, i.orden, i.nombre";
-		$rs = toba::get_db('instancia')->consultar($sql);
+		$rs = contexto_info::get_db()->consultar($sql);
 		$this->items = array();
 		if (!empty($rs)) {
 			foreach ($rs as $fila) {
@@ -91,7 +91,7 @@ class catalogo_items
 	{
 		$sql = "SELECT carpeta FROM apex_item i WHERE 
 					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
-		$rs = toba::get_db('instancia')->consultar($sql);
+		$rs = contexto_info::get_db()->consultar($sql);
 		if (!empty($rs)) {
 			return $rs[0]['carpeta'] == 0;
 		} else {
@@ -253,7 +253,7 @@ class catalogo_items
 			$sql = "SELECT item FROM apex_item_objeto WHERE
 					objeto = '$obj_raiz' AND proyecto = '{$this->proyecto}'
 				";
-			$rs = consultar_fuente($sql, 'instancia');
+			$rs = contexto_info::get_db()->consultar($sql);
 			foreach ($rs as $item) {
 				if (! in_array($item['item'], $ids_encontrados)) {
 					$ids_encontrados[] = $item['item'];
@@ -289,7 +289,7 @@ class catalogo_items
 		$sql_obj = "SELECT objeto_consumidor FROM apex_objeto_dependencias WHERE
 					objeto_proveedor = '$id_objeto' AND proyecto = '{$this->proyecto}'
 			";
-		$rs = consultar_fuente($sql_obj, 'instancia');
+		$rs = contexto_info::get_db()->consultar($sql_obj);
 		if (empty($rs)) {
 			if (! in_array($id_objeto, $this->raices_de_objeto)) {
 				$this->raices_de_objeto[] = $id_objeto;
@@ -400,10 +400,10 @@ class catalogo_items
 	{
 		$carpeta = $this->buscar_carpeta_inicial();
 		if ($carpeta !== false) {	
-			toba::get_db('instancia')->Execute("BEGIN TRANSACTION");
+			contexto_info::get_db()->abrir_transaccion();
 			$this->borrar_permisos_actuales($grupo);
 			$this->cambiar_permisos_recursivo($carpeta, $lista_items_permitidos, $grupo);
-			toba::get_db('instancia')->Execute("COMMIT TRANSACTION");
+			contexto_info::get_db()->cerrar_transaccion();
 			return true;
 		}
 		else
@@ -439,8 +439,7 @@ class catalogo_items
 		//Borro los permisos existentes de todo el arbol
 		$sql = "DELETE FROM apex_usuario_grupo_acc_item WHERE usuario_grupo_acc = '$grupo' AND
 							proyecto = '{$this->proyecto}';\n";
-		if(toba::get_db('instancia')->Execute($sql) === false)
-			throw new excepcion_toba("Ha ocurrido un error ELIMINANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
+		contexto_info::get_db()->ejecutar($sql);
 	}
 	
 }

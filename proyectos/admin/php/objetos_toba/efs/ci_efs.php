@@ -415,7 +415,7 @@ class ci_efs extends objeto_ci
 	function hay_cascadas()
 	{
 		foreach ($this->get_tabla()->get_filas() as $ef) {
-			if (trim($ef['carga_maestros']) != '') {
+			if (isset($ef['carga_maestros']) && trim($ef['carga_maestros']) != '') {
 				return true;
 			}
 		}

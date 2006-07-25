@@ -1,20 +1,14 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
-		$this->zona->cargar_editable();
-		$this->zona->obtener_html_barra_superior();
-		
-		$proyecto = $editable[0];
-		
-		//Inicializacion de la interface
-		$formulario = "permisos";
-		$prefijo_grupo = "ga_";//Prefijo de los COMBOS
-		$boton_post = "asignar_permisos";
-		$boton_post_nombre = "Guardar";
+	$proyecto = $_GET['proyecto'];
+	
+	//Inicializacion de la interface
+	$formulario = "permisos";
+	$prefijo_grupo = "ga_";//Prefijo de los COMBOS
+	$boton_post = "asignar_permisos";
+	$boton_post_nombre = "Guardar";
 
-		include_once("nucleo/lib/interface/form.php");
-		include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
-		global $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+	include_once("nucleo/lib/interface/form.php");
+	include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
 
 	//************************************************************************
 	//*************************  Ejecuto la TRANSACCION  *********************
@@ -41,16 +35,11 @@
 		//------------------------------------------------------------------------------
 
 		//-[2]- Realizo la TRANSACCION en la base
-		
-		$db["instancia"][apex_db_con]->Execute("BEGIN TRANSACTION");
-		//1) Borro los permisos existentes
-		$sql = "DELETE FROM apex_usuario_proyecto WHERE proyecto = '$proyecto'\n";
-		if($db["instancia"][apex_db_con]->Execute($sql) === false)
-		{
-			echo ei_mensaje("Ha ocurrido un error (1) - " .$db["instancia"][apex_db_con]->ErrorMsg());
-			$rs = $db["instancia"][apex_db_con]->Execute("ROLLBACK TRANSACTION");
-		}
-		else{
+		try {
+			toba::get_db()->abrir_transaccion();
+			//1) Borro los permisos existentes
+			$sql = "DELETE FROM apex_usuario_proyecto WHERE proyecto = '$proyecto'\n";
+			toba::get_db()->ejecutar($sql);		
 			$ok = true;
 			if(isset($permiso)){
 				if(is_array($permiso)){
@@ -58,28 +47,21 @@
 						//2) Inserto los permisos ACTUALIZADOS
 						$sql = "INSERT INTO apex_usuario_proyecto (usuario, proyecto, usuario_grupo_acc, usuario_perfil_datos)
 								VALUES ('$usuario','$proyecto','$grupo','no');\n";
-						if($db["instancia"][apex_db_con]->Execute($sql) === false)
-						{
-							echo ei_mensaje("Ha ocurrido un error ELIMINANDO los permisos - " .$db["instancia"][apex_db_con]->ErrorMsg());
-							$rs = $db["instancia"][apex_db_con]->Execute("ROLLBACK TRANSACTION");
-							$ok = false;
-							break;//Salgo del foreach
-						}
+						toba::get_db()->ejecutar($sql);		
 					}
 				}
 			}
-			//COMMIT
-			if($ok){
-				echo ei_mensaje("Los permisos han sido actualizados correctamente");
-				$rs = $db["instancia"][apex_db_con]->Execute("COMMIT TRANSACTION");
-			}
+			toba::get_db()->cerrar_transaccion();
+		} catch( excepcion_toba $e ) {
+			toba::get_db()->abortar_transaccion();
+			toba::get_cola_mensajes()->agregar("Error modificando permisos: " . $e->getMessage());
 		}
  	}
 	//************************************************************************
 	//*************************  GENERO la INTERFACE  ************************
 	//************************************************************************
 		
-	echo form::abrir($formulario, $this->vinculador->generar_solicitud(null,null,null,true));
+	echo form::abrir($formulario, $this->vinculador->generar_solicitud(null,null,array('proyecto'=>$proyecto),true));
 
 ?>
 <br>
@@ -107,15 +89,12 @@ FROM	apex_usuario u
 			ON p.usuario = u.usuario
 			AND p.proyecto = '$proyecto'
 ORDER BY 2;";
-	//dump_sql($sql);
-	$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-	if(!$rs) 
-		$this->observar("error","Lista de USUARIOS - [error] " . $db["instancia"][apex_db_con]->ErrorMsg()." - [sql]". $sql ,false,true,true);
-	if(!$rs->EOF){
-	while(!$rs->EOF)
+	$datos = toba::get_db()->consultar($sql);
+	if($datos){
+	foreach($datos as $rs)
 	{ 
 		//- Armo un EF para manejar el GRUPO de acceso del USUARIO
-		$nombre_combo = $prefijo_grupo . $rs->fields["usuario"];
+		$nombre_combo = $prefijo_grupo . $rs["usuario"];
 		$parametros["sql"] = "SELECT 	usuario_grupo_acc,
 										nombre
 								FROM 	apex_usuario_grupo_acc
@@ -127,22 +106,21 @@ ORDER BY 2;";
 								"Seleccione el grupo correspondiente al usuario.",
 								"","",$parametros);
 		//- Establezco el valor actual para el usuario
-		$grupo_acc_actual = (trim($rs->fields["grupo_acc"])!="") ? $rs->fields["grupo_acc"] : apex_ef_no_seteado;
+		$grupo_acc_actual = (trim($rs["grupo_acc"])!="") ? $rs["grupo_acc"] : apex_ef_no_seteado;
 		$ef->cargar_estado($grupo_acc_actual);//Que el elemento seteado
 		$html_ef = $ef->obtener_input();
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
-		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs->fields['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
 				<? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>
-          <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["usuario"] ?></td>
-          <td width="50%" class='lista-obj-dato1'>&nbsp;<? echo $rs->fields["nombre"] ?></td>
+          <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs["usuario"] ?></td>
+          <td width="50%" class='lista-obj-dato1'>&nbsp;<? echo $rs["nombre"] ?></td>
 		  <td width="30%" class='lista-obj-dato1'><? echo $html_ef ?></td>
 	</tr>
 <?
-	$rs->movenext();	
 	}
 }
 ?>
@@ -154,8 +132,4 @@ ORDER BY 2;";
 <br><br>
 <?		
 		echo form::cerrar();
-		$this->zona->obtener_html_barra_inferior();
-	}else{
-		echo ei_mensaje("No se explicito el PROYECTO a editar","error");
-	}
 ?>

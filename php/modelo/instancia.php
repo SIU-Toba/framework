@@ -616,9 +616,16 @@ class instancia extends elemento_modelo
 	//	Informacion sobre METADATOS
 	//-----------------------------------------------------------
 
-	function get_lista_usuarios()
+	function get_lista_usuarios($proyecto=null)
 	{
-		$sql = "SELECT usuario, nombre FROM apex_usuario";	
+		if(isset($proyecto)) {
+			$sql = "SELECT u.usuario as usuario, u.nombre as nombre
+					FROM apex_usuario u, apex_usuario_proyecto up
+					WHERE u.usuario = up.usuario
+					AND up.proyecto = '$proyecto';";
+		} else {
+			$sql = "SELECT usuario, nombre FROM apex_usuario";	
+		}
 		return $this->get_db()->consultar( $sql );
 	}
 

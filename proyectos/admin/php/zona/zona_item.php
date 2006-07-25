@@ -35,7 +35,7 @@ class zona_item extends zona
                     AND     i.actividad_patron_proyecto = p.proyecto
 					AND		i.proyecto='{$clave[0]}'
 					AND		item='{$clave[1]}';";
-		$rs = toba::get_db('instancia')->consultar($sql);
+		$rs = toba::get_db()->consultar($sql);
 		if(empty($rs)) {
 			throw new excepcion_toba("No se puede encontrar informacion del item {$clave[0]},{$clave[1]}");
 		} else {
@@ -116,8 +116,6 @@ class zona_item extends zona
 		echo "<table width='100%' class='tabla-0'>";
 		echo "<tr><td  class='barra-obj-io'>Elementos referenciados</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
-		global $ADODB_FETCH_MODE, $db;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
 							o.nombre as					objeto_nombre,
@@ -139,58 +137,54 @@ class zona_item extends zona
 					AND		io.proyecto='".$this->editable_id[0]."'
 					AND		io.item='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
-			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
-			if(!$rs){
-				throw new excepcion_toba("BARRA INFERIOR editor item: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			}
-			if(!$rs->EOF){
+			$datos = toba::get_db()->ejecutar($sql);
+			if($datos){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
 				echo "<td  colspan='2' class='barra-obj-tit'>OBJETO</td>";
 				echo "<td  class='barra-obj-tit'>INVOCACION</td>";
 				echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
 				echo "</tr>\n";
-				while(!$rs->EOF){
-					if(!isset($contador[$rs->fields["clase"]])){
-						$contador[$rs->fields["clase"]] = 0;
+				foreach($datos as $rs){
+					if(!isset($contador[$rs["clase"]])){
+						$contador[$rs["clase"]] = 0;
 					}else{
-						$contador[$rs->fields["clase"]] += 1;
+						$contador[$rs["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs->fields["clase_icono"],true)."</td>";
-						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
-						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs->fields["clase"]."\", ".($contador[$rs->fields["clase"]]).")</td>";
+						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
+						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs["clase"]."\", ".($contador[$rs["clase"]]).")</td>";
 						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													'admin',"/admin/objetos/propiedades",
-													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+														.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
-						if(isset($rs->fields["clase_editor"])){
+						if(isset($rs["clase_editor"])){
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-														$rs->fields["clase_editor_proyecto"],
-														$rs->fields["clase_editor"],
-														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-															 .apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+														$rs["clase_editor_proyecto"],
+														$rs["clase_editor"],
+														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+															 .apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
-						if(isset($rs->fields["clase_instanciador"])){
+						if(isset($rs["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-														$rs->fields["clase_instanciador_proyecto"], 
-														$rs->fields["clase_instanciador"],
-														array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
-															.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
+														$rs["clase_instanciador_proyecto"], 
+														$rs["clase_instanciador"],
+														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
+															.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
 						}
 						echo "</td>\n";
 					echo "</tr>\n";
-					$rs->movenext();
 				}
 				echo "</table>\n";
 			}else{

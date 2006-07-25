@@ -1,6 +1,8 @@
 <?
 /*
 	A travez de esta clase el nucleo registra al admin
+	Esta es una clase extraña... su contenido deberia repartirse entre modelo,
+	proyecto editor y nucleo. Por simplicidad se deja todo junto.
 */
 class editor
 {
@@ -17,6 +19,9 @@ class editor
 	{
 		$_SESSION['toba']['_editor_']['instancia'] = $instancia;
 		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
+		//Busco el ID de la base donde reside la instancia
+		$parametros_instancia = info_instancia::get_info_instancia($instancia);
+		$_SESSION['toba']['_editor_']['base'] = $parametros_instancia['base'];
 		//Averiguo el punto de acceso del editor
 		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);	
 		$_SESSION['toba']['_editor_']['punto_acceso'] = $punto_acceso[0];
@@ -45,10 +50,17 @@ class editor
 		return false;
 	}
 
-	static function get_instancia_activa()
+	static function get_id_instancia_activa()
 	{
 		if (self::activado()) {
 			return $_SESSION['toba']['_editor_']['instancia'];
+		}
+	}
+
+	static function get_base_activa()
+	{
+		if (self::activado()) {
+			return dba::get_db($_SESSION['toba']['_editor_']['base']);
 		}
 	}
 
@@ -83,7 +95,7 @@ class editor
 		return false;		
 	}
 
-	static function borrar_memoria()
+	static function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['_editor_']);
 	}
@@ -149,7 +161,8 @@ class editor
 				FROM apex_admin_param_previsualizazion
 				WHERE proyecto = '" . self::get_proyecto_cargado() . "'
 				AND usuario = '".toba::get_usuario()->get_id()."';";
-		$datos = toba::get_db('instancia')->consultar($sql);
+		//Esto se accede solo desde el ADMIN
+		$datos = toba::get_db()->consultar($sql);
 		if ($datos) {
 			return $datos[0];	
 		}
@@ -170,7 +183,8 @@ class editor
 					WHERE proyecto = '" . self::get_proyecto_cargado() . "'
 					AND usuario = '".toba::get_usuario()->get_id()."';";
 		}
-		toba::get_db('instancia')->ejecutar($sql);
+		//Esto se accede solo desde el ADMIN
+		toba::get_db()->ejecutar($sql);
 	}
 	
 	//---------------------------------------------------------------------------

@@ -11,7 +11,7 @@ class album_fotos
 
 	public function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
 	{
-		abrir_transaccion('instancia');
+		abrir_transaccion();
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
@@ -21,8 +21,8 @@ class album_fotos
 		$sql = "INSERT INTO apex_admin_album_fotos
 					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
 					('$proyecto', '$usuario', '$nombre', '$nodos_visibles', '$opciones', '{$this->tipo}', $es_pred)";
-		toba::get_db('instancia')->ejecutar($sql);
-		cerrar_transaccion('instancia');
+		ejecutar_fuente($sql);
+		cerrar_transaccion();
 	}
 	
 	public function cambiar_predeterminada($nombre)
@@ -40,7 +40,7 @@ class album_fotos
 					foto_tipo = '{$this->tipo}' AND
 					foto_nombre != '$nombre'
 		";
-		toba::get_db('instancia')->ejecutar($sql);
+		toba::get_db()->ejecutar($sql);
 		
 		//Actualiza la nueva predeterminada
 		$sql = "UPDATE apex_admin_album_fotos 
@@ -51,7 +51,7 @@ class album_fotos
 					foto_tipo = '{$this->tipo}' AND
 					foto_nombre = '$nombre'
 		";
-		toba::get_db('instancia')->ejecutar($sql);
+		toba::get_db()->ejecutar($sql);
 		cerrar_transaccion('instancia');
 	}
 	
@@ -68,7 +68,7 @@ class album_fotos
 					fotos.foto_tipo = '{$this->tipo}' AND
 					fotos.predeterminada = 1
 			";
-		$res = toba::get_db('instancia')->consultar($sql);
+		$res = toba::get_db()->consultar($sql);
 		if (empty($res)) {
 			return false;	
 		} else {
@@ -87,7 +87,7 @@ class album_fotos
 					foto_nombre = '$nombre' AND
 					foto_tipo = '{$this->tipo}'
 				";
-		toba::get_db('instancia')->ejecutar($sql);
+		toba::get_db()->ejecutar($sql);
 	}
 	
 	public function fotos($nombre = null)
@@ -111,7 +111,7 @@ class album_fotos
 					$where_nombre
 					AND fotos.foto_nombre != '".apex_foto_inicial."'
 			";
-		$fotos_en_crudo = toba::get_db('instancia')->consultar($sql);
+		$fotos_en_crudo = toba::get_db()->consultar($sql);
 		$fotos = array();
 		foreach ($fotos_en_crudo as $foto) {
 			$fotos[] = array('foto_nombre'=> $foto['foto_nombre'],

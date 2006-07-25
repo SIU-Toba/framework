@@ -10,7 +10,7 @@ class lista_casos
 		if (isset(self::$proyecto)) {
 			$proyecto = self::$proyecto;
 		} else {
-			$proyecto = editor::get_proyecto_cargado();
+			$proyecto = contexto_info::get_proyecto();
 		}
 		$path = toba_dir() . "/proyectos/$proyecto/php/testing";
 		return $path;

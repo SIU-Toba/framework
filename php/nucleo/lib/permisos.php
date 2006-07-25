@@ -14,19 +14,7 @@ class permisos
 	
 	function cargar($proyecto, $grupo)
 	{
-		$sql = " 
-			SELECT 
-				per.nombre
-			FROM
-				apex_permiso_grupo_acc per_grupo,
-				apex_permiso per
-			WHERE
-				per_grupo.proyecto = '$proyecto'
-			AND	per_grupo.usuario_grupo_acc = '$grupo'
-			AND	per_grupo.permiso = per.permiso
-			AND	per_grupo.proyecto = per.proyecto
-		";
-		$permisos = toba::get_db('instancia')->consultar($sql);
+		$permisos = info_proyecto::get_lista_permisos($grupo);
 		$this->permisos = array();
 		foreach ($permisos as $perm) {
 			$this->permisos[] = $perm['nombre'];
@@ -60,18 +48,7 @@ class permisos
 			return true;
 		}
 		//No tiene el permiso, tratar de ver si el permiso existe y cuales son sus datos
-		$proyecto = toba::get_hilo()->obtener_proyecto();
-		$sql = " 
-			SELECT
-				per.descripcion,
-				per.mensaje_particular
-			FROM
-				apex_permiso per
-			WHERE
-				per.proyecto = '$proyecto'
-			AND	per.nombre = '$permiso'
-		";
-		$rs = toba::get_db('instancia')->consultar($sql);
+		$rs = info_proyecto::get_descripcion_permiso($permiso);
 		if 	(empty($rs)) {
 			throw new excepcion_toba_def("El permiso '$permiso' no se encuentra definido en el sistema.");
 		}

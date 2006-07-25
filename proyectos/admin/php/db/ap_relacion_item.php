@@ -12,7 +12,7 @@ class ap_relacion_item extends ap_relacion_db
 		$usuario = toba::get_hilo()->obtener_usuario();
 		$sql = "INSERT INTO apex_log_objeto (usuario, objeto_proyecto, item, observacion)
 				VALUES ('$usuario','{$clave['proyecto']}','{$clave['item']}',NULL)";
-		ejecutar_sql( $sql, $this->objeto_relacion->get_fuente() );
+		ejecutar_fuente( $sql, $this->objeto_relacion->get_fuente() );
 	}
 }
 ?>	

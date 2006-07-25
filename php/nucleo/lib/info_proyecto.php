@@ -1,4 +1,5 @@
 <?php
+require_once('info_instancia.php');
 
 class info_proyecto
 {
@@ -34,6 +35,7 @@ class info_proyecto
 	function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['proyectos'][self::get_id()]);
+		self::$instancia = null;
 	}
 
 	function get_parametro($id)
@@ -62,7 +64,7 @@ class info_proyecto
 
 	static function get_db()
 	{
-		return toba::get_db('instancia');
+		return info_instancia::instancia()->get_db();
 	}
 		
 	function cargar_info_basica()
@@ -103,10 +105,26 @@ class info_proyecto
 						item_inicio_sesion      		,
 						item_pre_sesion   		       	,
 						log_archivo						,
-						log_archivo_nivel				
+						log_archivo_nivel				,
+						fuente_datos
 				FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
 						ON (p.menu = m.menu)
 				WHERE	proyecto = '".info_proyecto::get_id()."';";
+		$rs = self::get_db()->consultar($sql);
+		return $rs[0];
+	}
+
+	//------------------------  FUENTES  -------------------------
+
+	function get_info_fuente_datos($id_fuente)
+	{
+		$sql = "SELECT 	*,
+						link_instancia 		as link_base_archivo,
+						fuente_datos_motor 	as motor,
+						host 				as profile
+				FROM 	apex_fuente_datos
+				WHERE	fuente_datos = '$id_fuente'
+				AND 	proyecto = '".info_proyecto::get_id()."';";
 		$rs = self::get_db()->consultar($sql);
 		return $rs[0];
 	}
@@ -155,7 +173,7 @@ class info_proyecto
 
 	//------------------------  Permisos  -------------------------
 	
-	static function get_lista_permisos()
+	static function get_lista_permisos($grupo)
 	{
 		$sql = " 
 			SELECT 
@@ -165,7 +183,7 @@ class info_proyecto
 				apex_permiso per
 			WHERE
 				per_grupo.proyecto = '".info_proyecto::get_id()."'
-			AND	per_grupo.usuario_grupo_acc = '".toba::get_usuario()->get_id()."'
+			AND	per_grupo.usuario_grupo_acc = '$grupo'
 			AND	per_grupo.permiso = per.permiso
 			AND	per_grupo.proyecto = per.proyecto
 		";
@@ -184,6 +202,181 @@ class info_proyecto
 				per.proyecto = '".info_proyecto::get_id()."'
 			AND	per.nombre = '$permiso'
 		";
+		return self::get_db()->consultar($sql);
+	}
+
+	//------------------------  MENSAJES  -------------------------
+
+	static function get_mensaje_toba($indice)
+	{
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
+				FROM apex_msg 
+				WHERE indice = '$indice'
+				AND proyecto = 'toba';";
+		return self::get_db()->consultar($sql);	
+	}
+	
+	static function get_mensaje_proyecto($indice)
+	{
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
+				FROM apex_msg 
+				WHERE indice = '$indice'
+				AND proyecto = '".info_proyecto::get_id()."';";
+		return self::get_db()->consultar($sql);	
+	}
+
+	static function get_mensaje_objeto($objeto, $indice)
+	{
+		$sql = "SELECT
+					COALESCE(mensaje_customizable, mensaje_a) as m
+				FROM apex_objeto_msg 
+				WHERE indice = '$indice'
+				AND objeto_proyecto = '".info_proyecto::get_id()."'
+				AND objeto = '$objeto';";
+		return self::get_db()->consultar($sql);	
+	}
+
+	//------------------------  ZONA  -------------------------
+
+	static function get_items_zona($zona, $usuario)
+	{
+		$sql = "SELECT	i.proyecto as 					item_proyecto,
+						i.item as						item,
+						i.zona_orden as					orden,
+						i.imagen as						imagen,
+						i.imagen_recurso_origen as		imagen_origen,
+						i.nombre as						nombre,
+						i.descripcion as				descripcion
+				FROM	apex_item i,
+						apex_usuario_grupo_acc_item ui,
+						apex_usuario_proyecto up
+				WHERE	i.zona = '$zona'
+				AND		i.zona_proyecto = '".info_proyecto::get_id()."'
+				AND 	ui.item = i.item
+				AND		ui.proyecto = i.proyecto
+				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
+                AND     ui.proyecto = up.proyecto
+                AND     up.usuario = '$usuario'
+				AND		i.zona_listar = 1
+				ORDER BY 3;";
+		return self::get_db()->consultar($sql);	
+	}
+
+	static function get_vinculos_posibles($item, $usuario)
+	{
+		$sql =	"-- Vinculos GLOBALES del TOBA y del PROYECTO Y PROPIOS del ITEM ------------------------------------
+				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
+						v.origen_item as					origen_item,
+                        v.origen_objeto_proyecto as 		origen_objeto_proyecto,
+                        v.origen_objeto as 					origen_objeto,
+                        v.destino_item_proyecto as			destino_item_proyecto,
+                        v.destino_item 			as			destino_item,
+                        v.destino_objeto_proyecto as 		destino_objeto_proyecto,
+                        v.destino_objeto as 				destino_objeto,
+						v.indice as 						indice,
+						v.vinculo_tipo as					tipo,
+						v.inicializacion as 				inicializacion,
+						v.frame as							frame,
+						v.canal as							canal,
+						v.texto as							texto,
+						v.imagen_recurso_origen as			imagen_recurso_origen,
+						v.imagen as							imagen
+				FROM	apex_vinculo v, 
+                        apex_usuario_grupo_acc_item ui,
+                        apex_usuario_proyecto up
+				WHERE	( (v.origen_item = '".$item[1]."' AND
+							v.origen_item_proyecto= '".$item[0]."'	) 			
+							OR (v.origen_item = '/vinculos' 
+							AND ( (v.origen_item_proyecto = '".info_proyecto::get_id()."')
+									OR (v.origen_item_proyecto = 'toba') )	)
+						)
+				AND		(ui.item = v.destino_item) AND (ui.proyecto = v.destino_item_proyecto)
+                AND     (ui.usuario_grupo_acc = up.usuario_grupo_acc)  AND (ui.proyecto = up.proyecto)
+				AND		(up.usuario = '".$usuario."')
+				UNION
+				-- Vinculos GLOBALES del TOBA y del PROYECTO Y PROPIOS del ITEM (publicos) -------------------------
+				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
+						v.origen_item as					origen_item,
+                        v.origen_objeto_proyecto as 		origen_objeto_proyecto,
+                        v.origen_objeto as 					origen_objeto,
+                        v.destino_item_proyecto as			destino_item_proyecto,
+                        v.destino_item 			as			destino_item,
+                        v.destino_objeto_proyecto as 		destino_objeto_proyecto,
+                        v.destino_objeto as 				destino_objeto,
+						v.indice as 						indice,
+						v.vinculo_tipo as					tipo,
+						v.inicializacion as 				inicializacion,
+						v.frame as							frame,
+						v.canal as							canal,
+						v.texto as							texto,
+						v.imagen_recurso_origen as			imagen_recurso_origen,
+						v.imagen as							imagen
+				FROM	apex_vinculo v, 
+						apex_item i
+				WHERE	( (v.origen_item = '".$item[1]."' AND
+							v.origen_item_proyecto= '".$item[0]."'	) 			
+							OR (v.origen_item = '/vinculos' 
+							AND ( (v.origen_item_proyecto = '".info_proyecto::get_id()."')
+									OR (v.origen_item_proyecto = 'toba') )	)
+						)
+				AND		(	(i.item = v.destino_item) AND (i.proyecto = v.destino_item_proyecto)
+							AND	(i.publico =1) )
+				UNION
+				-- Vinculos de los OBJETOS asociados ---------------------------------------
+				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
+						v.origen_item as					origen_item,
+                        v.origen_objeto_proyecto as 		origen_objeto_proyecto,
+                        v.origen_objeto as 					origen_objeto,
+                        v.destino_item_proyecto as			destino_item_proyecto,
+                        v.destino_item 			as			destino_item,
+                        v.destino_objeto_proyecto as 		destino_objeto_proyecto,
+                        v.destino_objeto as 				destino_objeto,
+						v.indice as 						indice,
+						v.vinculo_tipo as					tipo,
+						v.inicializacion as 				inicializacion,
+						v.frame as							frame,
+						v.canal as							canal,
+						v.texto as							texto,
+						v.imagen_recurso_origen as			imagen_recurso_origen,
+						v.imagen as							imagen
+				FROM	apex_vinculo v, 
+						apex_item_objeto o,
+                        apex_usuario_grupo_acc_item ui,
+                        apex_usuario_proyecto up
+				WHERE	o.proyecto = v.origen_objeto_proyecto
+				AND		o.objeto = v.origen_objeto
+				AND		o.item = '".$item[1]."' AND
+						o.proyecto= '".$item[0]."'
+				AND		(ui.item = v.destino_item) AND (ui.proyecto = v.destino_item_proyecto)
+           		AND		(ui.usuario_grupo_acc = up.usuario_grupo_acc)  AND (ui.proyecto = up.proyecto)
+				AND		(up.usuario = '".$usuario."')
+				UNION
+				-- Vinculos de los OBJETOS asociados con destino AUTOVINCULO ----------------------
+				SELECT	v.origen_item_proyecto as       	origen_item_proyecto,
+						v.origen_item as					origen_item,
+                        v.origen_objeto_proyecto as 		origen_objeto_proyecto,
+                        v.origen_objeto as 					origen_objeto,
+                        v.destino_item_proyecto as			destino_item_proyecto,
+                        v.destino_item 			as			destino_item,
+                        v.destino_objeto_proyecto as 		destino_objeto_proyecto,
+                        v.destino_objeto as 				destino_objeto,
+						v.indice as 						indice,
+						v.vinculo_tipo as					tipo,
+						v.inicializacion as 				inicializacion,
+						v.frame as							frame,
+						v.canal as							canal,
+						v.texto as							texto,
+						v.imagen_recurso_origen as			imagen_recurso_origen,
+						v.imagen as							imagen
+				FROM	apex_vinculo v, 
+						apex_item_objeto o
+				WHERE	o.proyecto = v.origen_objeto_proyecto
+				AND		o.objeto = v.origen_objeto
+				AND		o.item = '".$item[1]."' AND
+						o.proyecto= '".$item[0]."'
+				AND		(v.destino_item = '/autovinculo');";
 		return self::get_db()->consultar($sql);
 	}
 

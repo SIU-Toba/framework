@@ -95,23 +95,21 @@ class objeto_cn extends objeto
 	function iniciar_transaccion()
 	{
 		$this->transaccion_abierta = true;
-		$sql = "BEGIN TRANSACTION";
-		return toba::get_db($this->info['fuente'])->ejecutar($sql);
+		return toba::get_db($this->info['fuente'])->abrir_transaccion();
 	}
 	//-------------------------------------------------------------------------------
 	
 	function finalizar_transaccion($mensaje=null)
 	{
-		$sql = "COMMIT TRANSACTION";
-		return toba::get_db($this->info['fuente'])->ejecutar($sql);
+		$this->transaccion_abierta = false;
+		return toba::get_db($this->info['fuente'])->cerrar_transaccion();
 	}
 	//-------------------------------------------------------------------------------
 	
 	function abortar_transaccion($mensaje=null)
 	{
 		$this->transaccion_abierta = false;
-		$sql = "ROLLBACK TRANSACTION";
-		return toba::get_db($this->info['fuente'])->ejecutar($sql);
+		return toba::get_db($this->info['fuente'])->abortar_transaccion($sql);
 	}
 	//-------------------------------------------------------------------------------
 

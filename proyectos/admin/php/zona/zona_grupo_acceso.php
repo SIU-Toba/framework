@@ -12,8 +12,6 @@ class zona_grupo_acceso extends zona
 	function cargar_editable($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		global $ADODB_FETCH_MODE, $db, $cronometro;		
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 		if(!isset($editable)){
 			if(!isset($this->editable_propagado)){
 				ei_mensaje("No se especifico el editable a cargar","error");
@@ -34,15 +32,12 @@ class zona_grupo_acceso extends zona
 					WHERE	proyecto = '{$clave[0]}'
 					AND		usuario_grupo_acc = '{$clave[1]}';";
 		//echo $sql;
-		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
+		$rs = toba::get_db()->consultar($sql);
 		if(!$rs){
-			throw new excepcion_toba("ZONA - GRUPO ACCESO: NO se pudo cargar el editable ".$clave[0].",".$clave[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
-			return false;
-		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA - GRUPO ACCESO: El editable solicitado no existe","info");
 			return false;
 		}else{
-			$this->editable_info = current($rs->getArray());
+			$this->editable_info = $rs[0];
 			//ei_arbol($this->editable_info,"EDITABLE");
 			$this->editable_id = array( $clave[0],$clave[1] );
 			$this->editable_cargado = true;

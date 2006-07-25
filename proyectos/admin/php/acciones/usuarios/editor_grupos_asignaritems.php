@@ -1,4 +1,7 @@
 <?
+	if($editable = $this->zona->obtener_editable_propagado()){
+		$this->zona->obtener_html_barra_superior();
+
 	include_once("nucleo/lib/interface/form.php");
 	require_once('modelo/lib/catalogo_items.php');
 
@@ -37,7 +40,6 @@
 	//--------------<  INTERFACE DE ASIGNACION de PERMISOS  >-------------------
 	//--------------------------------------------------------------------------	
 
-	ei_separador("Acceso a ITEMs");	
 	echo "<br>\n";
 	echo "<div align='center'>\n";	
 	echo form::abrir($formulario, $this->vinculador->generar_solicitud(null,null,null,true));	
@@ -63,8 +65,7 @@
 			//******************< Carpetas >*****************************
 			?>
 	          <td  class='cat-arbol-carpeta' width='2%'>
-				<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/items/carpeta_propiedades", array(apex_hilo_qs_zona => $item->get_proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
-				<img src='<? echo recurso::imagen_apl("items/carpeta.gif") ?>' border='0'></a>
+				<img src='<? echo recurso::imagen_apl("items/carpeta.gif") ?>' border='0'>
 			  </td>
 	
 	          <td  class='cat-arbol-carpeta-info'  width='2%'>
@@ -85,8 +86,7 @@
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='cat-arbol-item'  width='2%'>
-						<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/items/propiedades", array(apex_hilo_qs_zona => $item->get_proyecto() . apex_qs_separador . $item->get_id()) ) ?>" class='cat-item'>
-						<img src='<? echo recurso::imagen_apl("items/item.gif") ?>' border='0'></a>
+						<img src='<? echo recurso::imagen_apl("items/item.gif") ?>' border='0'>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? if($item->es_de_menu()){?>
@@ -139,3 +139,7 @@ function cascada(item_padre, estado)
 	}
 }
 </script>
+<?
+	$this->zona->obtener_html_barra_inferior();
+}
+?>

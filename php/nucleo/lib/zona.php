@@ -31,31 +31,8 @@ class zona
 		$this->id = $id;
 		$this->proyecto = $proyecto;
 		$this->solicitud =& $solicitud;
-
 		//Creo la lista de los VECINOS de la ZONA
-		//Por el mismo motivo que la solicitud, el control de acceso a ITEMs no lo puedo
-		//Hacer respecto del proyecto actual, sino desde el usuario (los items pueden ser
-		//de otro proyecto)
-		$sql = "SELECT	i.proyecto as 					item_proyecto,
-						i.item as						item,
-						i.zona_orden as					orden,
-						i.imagen as						imagen,
-						i.imagen_recurso_origen as		imagen_origen,
-						i.nombre as						nombre,
-						i.descripcion as				descripcion
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui,
-						apex_usuario_proyecto up
-				WHERE	i.zona = '$id'
-				AND		i.zona_proyecto = '$proyecto'
-				AND 	ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
-                AND     ui.proyecto = up.proyecto
-                AND     up.usuario = '".toba::get_hilo()->obtener_usuario()."'
-				AND		i.zona_listar = 1
-				ORDER BY 3";;
-		$this->items_vecinos = toba::get_db('instancia')->consultar($sql);
+		$this->items_vecinos = info_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
 		$this->editable_cargado = false;
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_propagado = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);

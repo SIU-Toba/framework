@@ -1,6 +1,7 @@
 <?
 require_once("interfaces.php");
 require_once('modelo/consultas/dao_editores.php');
+require_once('modelo/info/contexto_info.php');
 
 class info_item implements recorrible_como_arbol
 {
@@ -98,7 +99,7 @@ class info_item implements recorrible_como_arbol
 	*/
 	function vinculo_ejecutar()
 	{
-		if( editor::get_proyecto_cargado() == 'admin' ) {
+		if( contexto_info::get_proyecto() == 'admin' ) {
 			$vinculo = toba::get_vinculador()->crear_vinculo($this->get_proyecto(), $this->get_id(), 
 															null, array('celda_memoria'=>'central',
 																		'validar' => false,
@@ -159,7 +160,7 @@ class info_item implements recorrible_como_arbol
 					g.item = '{$this->get_id()}' AND
 					g.proyecto = '{$this->get_proyecto()}'
 			";
-			$rs = toba::get_db('instancia')->consultar($sql);
+			$rs = contexto_info::get_db()->consultar($sql);
 			if (empty($rs))
 				$this->grupos_acceso = array();
 			else
@@ -449,8 +450,7 @@ class info_item implements recorrible_como_arbol
 	{
 		$sql = "INSERT INTO apex_usuario_grupo_acc_item (usuario_grupo_acc, proyecto, item) 
 				VALUES ('$grupo', '{$this->get_proyecto()}', '{$this->get_id()}')";
-		if(toba::get_db('instancia')->Execute($sql) === false)
-			throw new excepcion_toba("Ha ocurrido un error CREANDO los permisos - " .toba::get_db('instancia')->ErrorMsg());
+		contexto_info::get_db()->ejecutar($sql);
 	}
 
 	/**
@@ -533,7 +533,7 @@ class info_item implements recorrible_como_arbol
 					FROM apex_item_objeto 
 					WHERE item='{$this->id}' AND proyecto='{$this->proyecto}'
 			";
-		$res = consultar_fuente($sql,'instancia');
+		$res = contexto_info::get_db()->consultar($sql);
 		$orden = $res[0]['maximo'];
 		$sql = "INSERT INTO apex_item_objeto 
 					(proyecto, item, objeto, orden) VALUES (
@@ -543,7 +543,7 @@ class info_item implements recorrible_como_arbol
 						$orden
 					)
 			";
-		ejecutar_sql($sql,'instancia');
+		contexto_info::get_db()->ejecutar($sql);
 	}
 	
 }
