@@ -142,7 +142,10 @@ legend {
 	font-size: 11px;
 	color: #231f20;
 	height: 24px;
-	background-color: #ffffff
+	background-color: #ffffff;
+}
+.ei-boton-defecto {
+	
 }
 .ei-boton-baja, .ei-boton-filtrar {
 	font-weight: bold;

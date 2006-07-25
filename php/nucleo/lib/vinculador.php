@@ -290,7 +290,7 @@ class vinculador
 		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
 			$parametros_formateados .= '&'.apex_hilo_qs_servicio ."=". $servicio;
 		}
-		if (isset($objetos_destino) && is_array($objetos_destino) && count($objetos_destino) > 0) {
+		if (isset($objetos_destino) && is_array($objetos_destino)) {
 			$objetos = array();
 			foreach ($objetos_destino as $obj) {
 				$objetos[] = $obj[0] . apex_qs_separador . $obj[1];

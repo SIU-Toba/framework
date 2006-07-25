@@ -182,19 +182,21 @@ class objeto_ei extends objeto
 		if (isset($this->eventos[$id]['ayuda'])) {
 			$tip = $this->eventos[$id]['ayuda'];
 		}
+		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "ei-boton";		
 		$tipo_boton = 'button';		
 		if (isset($this->eventos[$id]['defecto']) && $this->eventos[$id]['defecto']) {
 			$tipo_boton = 'submit';
-		}		
-		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "ei-boton";
+			$clase .=  '  ei-boton-defecto';			
+		}
 		$tab_order = 0;//ATENCION: Esto esta MAAL!!!
 		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
 		$html = '';
 		if (isset($this->eventos[$id]['imagen']) && $this->eventos[$id]['imagen']) {
-			if (isset($this->eventos[$id]['imagen_recurso_origen']))
+			if (isset($this->eventos[$id]['imagen_recurso_origen'])) {
 				$img = recurso::imagen_de_origen($this->eventos[$id]['imagen'], $this->eventos[$id]['imagen_recurso_origen']);
-			else
+			} else {
 				$img = $this->eventos[$id]['imagen'];
+			}
 			$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 		}
 		$html .= $acceso[0];

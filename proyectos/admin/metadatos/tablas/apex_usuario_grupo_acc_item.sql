@@ -84,6 +84,7 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000003');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000020');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000021');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'admin', NULL, '1000045');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '21', '/admin/acceso');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '168', '/admin/apex/clase_propiedades');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '183', '/admin/apex/elementos/dimension_tipo');
@@ -140,6 +141,7 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', '222', '/basicos/cronometro');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', NULL, '1240');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', NULL, '3280');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'documentador', NULL, '1000045');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'externo', NULL, '/admin/items/carpeta_ordenar');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'externo', NULL, '3280');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario', NULL, '/admin/items/carpeta_ordenar');
@@ -148,6 +150,7 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario', NULL, '/admin/objetos_toba/selector_archivo');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario', NULL, '1240');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario', NULL, '3280');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario', NULL, '1000045');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '/admin/apex/elementos/error');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', '294', '/admin/apex/elementos/vinculos_generales');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '/admin/dimensiones/tabla_restric');
@@ -163,3 +166,4 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '/admin/objetos_toba/selector_archivo');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '1240');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '3280');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('admin', 'usuario_admin', NULL, '1000045');

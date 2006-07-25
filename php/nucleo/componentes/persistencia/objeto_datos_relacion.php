@@ -136,7 +136,10 @@ class objeto_datos_relacion extends objeto
 			self::$debug_pasadas = 1;	
 		}
 		$grafo = self::grafo_relaciones($this->info_dependencias, $this->info_relaciones);
-		$diagrama = "digraph G { \n";
+		$diagrama = "digraph G {
+						rankdir=LR;
+						node [fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
+						";
 		if (isset($titulo)) {
 			$diagrama .= "label=\"$titulo\";\n";
 		}
@@ -146,7 +149,6 @@ class objeto_datos_relacion extends objeto
 			//Se determina la tabla
 			$id_tabla = $datos['identificador'];
 			$tabla = $this->dependencias[$id_tabla];
-
 
 			//Se incluye el javascript para poder dumpear los datos de la tabla
 			$var_tabla = $id_tabla.self::$debug_pasadas;
@@ -158,12 +160,16 @@ class objeto_datos_relacion extends objeto
 			$label = "$id_tabla (".count($tabla->get_id_filas(false)).")";
 			$diagrama .=  "$id_tabla [label=\"$label\",".
 							//Esta truchada es para arreglar otra ceguera del IE
-							"URL=\"javascript: padre=(window.parent.ei_arbol)? window.parent : window; padre.ei_arbol(padre.$var_tabla)\"];\n";
+							"URL=\"javascript: padre=(window.parent.var_dump)? window.parent : window; padre.var_dump(padre.$var_tabla)\"];\n";
 
 			$diagrama .= $this->dump_esquema_relaciones($nodo);
 		}
 		$diagrama .= "}";
-		objeto_ei_esquema::generar_esquema($diagrama, 'svg', true, "100%", "300px");
+		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
+		$indice = uniqid();
+		toba::get_hilo()->persistir_dato($indice, $parametros);
+		$url = toba::get_vinculador()->crear_vinculo('admin', '1000045', array('esquema' => $indice), array('validar' => false));
+		objeto_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}
 	
 	protected function dump_esquema_relaciones($nodo)
@@ -201,8 +207,8 @@ class objeto_datos_relacion extends objeto
 			$diagrama .=  $padre_id . " -> " . $hijo_id . 
 						" [label=\"$cant_padres - $cant_hijos\"".
 						//Esta truchada es para arreglar otra ceguera del IE
-						",URL=\"javascript: padre=(window.parent.ei_arbol)? window.parent : window;padre.ei_arbol(padre.$var_mapeo)\"];\n";
-		}		
+						",URL=\"javascript: padre=(window.parent.var_dump)? window.parent : window;padre.var_dump(padre.$var_mapeo)\"];\n";
+		}
 		return $diagrama;
 	}
 

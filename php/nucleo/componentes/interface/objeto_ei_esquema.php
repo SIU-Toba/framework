@@ -65,7 +65,7 @@ class objeto_ei_esquema extends objeto_ei
 		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
 	}
 
-	protected function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
+	static function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
 	{
 		$ancho = isset($ancho) ? "width='$ancho'" : "";
 		$alto = isset($alto) ? "height='$alto'" : "";
@@ -85,7 +85,7 @@ class objeto_ei_esquema extends objeto_ei
 		}
 	}
 	
-	protected function generar_archivo($contenido, $formato, $es_dirigido = true)
+	static function generar_archivo($contenido, $formato, $es_dirigido = true)
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
 		$dir_temp = toba::get_hilo()->obtener_path_temp();
@@ -120,14 +120,20 @@ class objeto_ei_esquema extends objeto_ei
 	 * En base a la definicion que dejo el componente en el request anterior
 	 * se construye el esquema y se le hace un passthru
 	 */
-	function servicio__mostrar_esquema()
+	function servicio__mostrar_esquema($parametros = null)
 	{
-		if (!isset($this->memoria['parametros'])) {
-			throw new excepcion_toba("No se pueden obtener los parámetros");
+		if (!isset($parametros)) {
+			if (!isset($this->memoria['parametros'])) {
+				throw new excepcion_toba("No se pueden obtener los parámetros");
+			}
+			$contenido = $this->memoria['parametros']['contenido'];
+			$formato = $this->memoria['parametros']['formato'];
+			$es_dirigido = $this->memoria['parametros']['es_dirigido'];
+		} else {
+			$contenido = $parametros['contenido'];
+			$formato = $parametros['formato'];
+			$es_dirigido = $parametros['es_dirigido'];
 		}
-		$contenido = $this->memoria['parametros']['contenido'];
-		$formato = $this->memoria['parametros']['formato'];
-		$es_dirigido = $this->memoria['parametros']['es_dirigido'];
 	    $tipo_salida = null;
 		switch ($formato) {
 			case 'png':
@@ -138,12 +144,11 @@ class objeto_ei_esquema extends objeto_ei
 			case 'svg':
 				$tipo_salida = "image/svg+xml";				
 			break;
-		}
-		$archivo = $this->generar_archivo($contenido, $formato, $es_dirigido);
+		}		
+		$archivo = self::generar_archivo($contenido, $formato, $es_dirigido);
 		$dir_temp = toba::get_hilo()->obtener_path_temp();
 		$path_completo = $dir_temp . "/" . $archivo;
 		if (file_exists($path_completo)) {
-			toba::get_logger()->var_dump($path_completo);
 			$fp = fopen($path_completo, 'rb');
 			if (isset($tipo_salida)) {
 				header("Content-type: $tipo_salida");
