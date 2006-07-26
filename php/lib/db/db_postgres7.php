@@ -14,85 +14,188 @@ class db_postgres7 extends db
 		$this->ejecutar("SET CONSTRAINTS ALL DEFERRED");
 		logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************", 'toba');		
 	}
+
+	//------------------------------------------------------------------------
+	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------
 
-	function obtener_metadatos($tabla)
+	/**
+	*	Busca la definicion de un TABLA. Falta terminar
+	*/
+	function obtener_definicion_columnas($tabla)
 	{
-		global $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		$sql = " SELECT 	c.attnum as			num_col,
-						c.attname as		columna, 
-						c.attnotnull as		not_null,
-						d.adsrc as			default
-				FROM 	pg_attribute c 
-						LEFT OUTER JOIN pg_attrdef d
-							ON  adrelid = c.attrelid
-							AND adnum = c.attnum
-				WHERE 	c.attrelid = (SELECT oid FROM pg_class 
-										WHERE relname = '$tabla')
-				AND 	c.attnum > 0
-				ORDER BY 1;";
-		$rs =& $this->conexion->Execute($sql);
-		if((!$rs)){
-			throw new excepcion_toba("Error consultando METADATOS (columnas)". $this->conexion->ErrorMsg() );
+		$sql = "SELECT 	a.attnum as id,
+						a.attname as nombre,
+						t.typname as tipo,
+						a.attlen as longitud,
+						a.atttypmod,
+						a.attnotnull as not_null,
+						a.atthasdef,
+						d.adsrc as default_value,
+						ic.relname AS index_name,
+						i.indisunique AS unique_key,
+						i.indisprimary AS primary_key 
+				FROM 	pg_class c,
+						pg_type t,
+						pg_attribute a 	
+							LEFT OUTER JOIN pg_attrdef d
+								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
+							LEFT OUTER JOIN ( pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid ) 
+								ON ( a.attrelid = i.indrelid AND (i.indkey[0] = a.attnum 
+																	OR i.indkey[1] = a.attnum 
+																	OR i.indkey[2] = a.attnum 
+																	OR i.indkey[3] = a.attnum 
+																	OR i.indkey[4] = a.attnum 
+																	OR i.indkey[5] = a.attnum 
+																	OR i.indkey[6] = a.attnum 
+																	OR i.indkey[7] = a.attnum) )
+				WHERE c.relkind in ('r','v') 
+				AND c.relname='$tabla'
+				AND a.attname not like '....%%'
+				AND a.attnum > 0 
+				AND a.atttypid = t.oid 
+				AND a.attrelid = c.oid 
+				ORDER BY a.attnum;";
+		$a=0;
+		$columnas = $this->conexion->MetaColumns($tabla,false);
+		if(!$columnas){
+			throw new excepcion_toba("La tabla '$tabla' no existe");	
 		}
-		if($rs->EOF){
-			$metadatos['columnas'] = array();
-		}else{
-			$metadatos['columnas'] =& $rs->getArray();
+		foreach( $columnas as $col ){
+			$definicion[$a]['columna'] = $col->name;
+			$definicion[$a]['tipo'] = $this->get_tipo_datos_generico($col->type);
+			if(($definicion[$a]['tipo'])=="C")
+				if(isset($col->max_length)) 
+					$definicion[$a]['largo'] = $col->max_length;
+			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
+			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
+			//Secuencias
+			if(isset($col->default_value)){
+				$match = array();
+				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$col->default_value,$match)){
+					$definicion[$a]['secuencia'] = $match[3];
+				}			
+			}
+			$a++;
 		}
-		$sql = "SELECT conname, contype, conkey
-				FROM pg_constraint
-				WHERE conrelid = (SELECT oid FROM pg_class 
-								WHERE relname = '$tabla');";
-		$rs = $this->conexion->Execute($sql);
-		if((!$rs)){
-			throw new excepcion_toba("Error consultando METADATOS (constraints)". $this->conexion->ErrorMsg() );
-		}
-		if($rs->EOF){
-			$metadatos['constraints'] = array();
-		}else{
-			$metadatos['constraints'] =& $rs->getArray();
-		}
-		return $metadatos;
+		return $definicion;
 	}
-	//------------------------------------------------------------------------
 
-	function obtener_tablas_prefijo($prefijo="")
-	//Buscar tablas con un prefijo determinado
+	/**
+	*	Mapea un tipo de datos especifico de un motor a uno generico de toba
+	*	Adaptado de ADOdb
+	*/
+	function get_tipo_datos_generico($tipo)
 	{
-		//Admito que el valor del argumento -t sea opcional
-		if ($prefijo == "VACIO") $prefijo = ".*";
+		$tipo=strtoupper($tipo);
+	static $typeMap = array(
+		'VARCHAR' => 'C',
+		'VARCHAR2' => 'C',
+		'CHAR' => 'C',
+		'C' => 'C',
+		'STRING' => 'C',
+		'NCHAR' => 'C',
+		'NVARCHAR' => 'C',
+		'VARYING' => 'C',
+		'BPCHAR' => 'C',
+		'CHARACTER' => 'C',
+		'INTERVAL' => 'C',  # Postgres
+		##
+		'LONGCHAR' => 'X',
+		'TEXT' => 'X',
+		'NTEXT' => 'X',
+		'M' => 'X',
+		'X' => 'X',
+		'CLOB' => 'X',
+		'NCLOB' => 'X',
+		'LVARCHAR' => 'X',
+		##
+		'BLOB' => 'B',
+		'IMAGE' => 'B',
+		'BINARY' => 'B',
+		'VARBINARY' => 'B',
+		'LONGBINARY' => 'B',
+		'B' => 'B',
+		##
+		'YEAR' => 'D', // mysql
+		'DATE' => 'D',
+		'D' => 'D',
+		##
+		'TIME' => 'T',
+		'TIMESTAMP' => 'T',
+		'DATETIME' => 'T',
+		'TIMESTAMPTZ' => 'T',
+		'T' => 'T',
+		##
+		'BOOL' => 'L',
+		'BOOLEAN' => 'L', 
+		'BIT' => 'L',
+		'L' => 'L',
+		# SERIAL... se tratan como enteros#
+		'COUNTER' => 'E',
+		'E' => 'E',
+		'SERIAL' => 'E', // ifx
+		'INT IDENTITY' => 'E',
+		##
+		'INT' => 'E',
+		'INT2' => 'E',
+		'INT4' => 'E',
+		'INT8' => 'E',
+		'INTEGER' => 'E',
+		'INTEGER UNSIGNED' => 'E',
+		'SHORT' => 'E',
+		'TINYINT' => 'E',
+		'SMALLINT' => 'E',
+		'E' => 'E',
+		##
+		'LONG' => 'N', // interbase is numeric, oci8 is blob
+		'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
+		'DECIMAL' => 'N',
+		'DEC' => 'N',
+		'REAL' => 'N',
+		'DOUBLE' => 'N',
+		'DOUBLE PRECISION' => 'N',
+		'SMALLFLOAT' => 'N',
+		'FLOAT' => 'N',
+		'NUMBER' => 'N',
+		'NUM' => 'N',
+		'NUMERIC' => 'N',
+		'MONEY' => 'N',
 		
-		global $ADODB_FETCH_MODE;
-		$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		$sql = " SELECT relname 
-				FROM pg_class 
-				WHERE relname ~* '$prefijo'
-				AND relkind = 'r'
-				ORDER BY relname;";
-		//echo $sql;
-		$rs = $this->conexion->Execute($sql);
-		if((!$rs)){
-			throw new excepcion_toba("Error consultando METADATOS (tablas)". $this->conexion->ErrorMsg() );
-		}
-		if($rs->EOF){
-			$tablas = array();
-		}else{
-			$tablas =& $rs->getArray();
-		}
-		return $tablas;
+		## informix 9.2
+		'SQLINT' => 'E', 
+		'SQLSERIAL' => 'E', 
+		'SQLSMINT' => 'E', 
+		'SQLSMFLOAT' => 'N', 
+		'SQLFLOAT' => 'N', 
+		'SQLMONEY' => 'N', 
+		'SQLDECIMAL' => 'N', 
+		'SQLDATE' => 'D', 
+		'SQLVCHAR' => 'C', 
+		'SQLCHAR' => 'C', 
+		'SQLDTIME' => 'T', 
+		'SQLINTERVAL' => 'N', 
+		'SQLBYTES' => 'B', 
+		'SQLTEXT' => 'X' 
+		);
+		if(isset($typeMap[$tipo])) 
+			return $typeMap[$tipo];
+		return null;
 	}
-	//------------------------------------------------------------------------
 
+	//-----------------------------------------------------------------------------------
+	//-- GENERACION de MENSAJES de ERROR (Esto necesita adecuacion al esquema actual)
+	//-----------------------------------------------------------------------------------
+
+	/**
+	*	Esta funcion mapea el error de la base al modulo de mensajes del toba
+	*	Basicamente deduce el SQLSTATE de la descripcion
+	*	Para que esto funcione necesito saber la version, y el idioma del motor
+	*	(VERSION POSTGRESQL 7.4.3)
+	*/
 	function obtener_error_toba($codigo, $descripcion)
-	//Esta funcion mapea el error de la base al modulo de mensajes del toba
-	//Basicamente deduce el SQLSTATE de la descripcion
-	//Para que esto funcione necesito saber la version, y el idioma del motor
-   //-------------VERSION POSTGRESQL 7.4.3----------------------------------     
 	{
       global $db;
-      
       //Se crea una conexión nueva, ya que la actual queda trabada después del error, 
       //recuperar los comentarios de tablas y campos.
       $conexion_local =& ADONewConnection('postgres7');

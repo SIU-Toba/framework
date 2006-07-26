@@ -113,7 +113,6 @@ class solicitud_consola extends solicitud
 
 	function registrar($llamada=null)
 	{
-		global $db;
 		if(isset($llamada)){
 			$str_llamada = addslashes(implode(" ",$llamada));
 			echo($str_llamada);

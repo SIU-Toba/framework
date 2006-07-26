@@ -107,7 +107,6 @@ class db
 	*/	
 	function consultar($sql, $tipo_indice=null, $obligatorio=false, $compatibilidad=false)
 	{
-		global $ADODB_FETCH_MODE;	
 		if(isset($tipo_indice)){
 			$ADODB_FETCH_MODE = $tipo_indice;
 		}else{
@@ -149,7 +148,6 @@ class db
 	*/
 	function ejecutar_transaccion($sentencias_sql)
 	{
-		global $db;
 		$sentencia_actual = 1;
 		$this->abrir_transaccion();
 		try {
@@ -160,7 +158,7 @@ class db
 		}
 		$this->cerrar_transaccion();
 	}
-//-------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------
 	
 	function abrir_transaccion()
 	{
@@ -200,7 +198,6 @@ class db
 		return $this->ejecutar($str);
 		//}
 	}
-	//---------------------------------------------------------------------------------------
 	
 	/**
 	*	Mapea el error de la base al modulo de mensajes del toba
@@ -210,141 +207,12 @@ class db
 		return array();		
 	}
 
-
-	//---------------------------------------------------------------------------------------
-
 	/**
 	*	Busca la definicion de columnas de la base
 	*	ATENCION: Utiliza ADOdb
 	*/
 	function obtener_definicion_columnas($tabla)
 	{
-		$a=0;
-		$columnas = $this->conexion->MetaColumns($tabla,false);
-		if(!$columnas){
-			throw new excepcion_toba("La tabla '$tabla' no existe");	
-		}
-		//echo "<pre>"; print_r($columnas);
-		foreach( $columnas as $col ){
-			$definicion[$a]['columna'] = $col->name;
-			$definicion[$a]['tipo'] = $this->get_tipo_datos_generico($col->type);
-			if(($definicion[$a]['tipo'])=="C")
-				if(isset($col->max_length)) 
-					$definicion[$a]['largo'] = $col->max_length;
-			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
-			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
-			//Secuencias
-			if(isset($col->default_value)){
-				$match = array();
-				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$col->default_value,$match)){
-					$definicion[$a]['secuencia'] = $match[3];
-				}			
-			}
-			$a++;
-		}
-		return $definicion;
-	}
-
-	/**
-	*	Mapea un tipo de datos especifico de un motor a uno generico de toba
-	*	Adaptado de ADOdb
-	*/
-	function get_tipo_datos_generico($tipo)
-	{
-		$tipo=strtoupper($tipo);
-	static $typeMap = array(
-		'VARCHAR' => 'C',
-		'VARCHAR2' => 'C',
-		'CHAR' => 'C',
-		'C' => 'C',
-		'STRING' => 'C',
-		'NCHAR' => 'C',
-		'NVARCHAR' => 'C',
-		'VARYING' => 'C',
-		'BPCHAR' => 'C',
-		'CHARACTER' => 'C',
-		'INTERVAL' => 'C',  # Postgres
-		##
-		'LONGCHAR' => 'X',
-		'TEXT' => 'X',
-		'NTEXT' => 'X',
-		'M' => 'X',
-		'X' => 'X',
-		'CLOB' => 'X',
-		'NCLOB' => 'X',
-		'LVARCHAR' => 'X',
-		##
-		'BLOB' => 'B',
-		'IMAGE' => 'B',
-		'BINARY' => 'B',
-		'VARBINARY' => 'B',
-		'LONGBINARY' => 'B',
-		'B' => 'B',
-		##
-		'YEAR' => 'D', // mysql
-		'DATE' => 'D',
-		'D' => 'D',
-		##
-		'TIME' => 'T',
-		'TIMESTAMP' => 'T',
-		'DATETIME' => 'T',
-		'TIMESTAMPTZ' => 'T',
-		'T' => 'T',
-		##
-		'BOOL' => 'L',
-		'BOOLEAN' => 'L', 
-		'BIT' => 'L',
-		'L' => 'L',
-		# SERIAL... se tratan como enteros#
-		'COUNTER' => 'E',
-		'E' => 'E',
-		'SERIAL' => 'E', // ifx
-		'INT IDENTITY' => 'E',
-		##
-		'INT' => 'E',
-		'INT2' => 'E',
-		'INT4' => 'E',
-		'INT8' => 'E',
-		'INTEGER' => 'E',
-		'INTEGER UNSIGNED' => 'E',
-		'SHORT' => 'E',
-		'TINYINT' => 'E',
-		'SMALLINT' => 'E',
-		'E' => 'E',
-		##
-		'LONG' => 'N', // interbase is numeric, oci8 is blob
-		'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
-		'DECIMAL' => 'N',
-		'DEC' => 'N',
-		'REAL' => 'N',
-		'DOUBLE' => 'N',
-		'DOUBLE PRECISION' => 'N',
-		'SMALLFLOAT' => 'N',
-		'FLOAT' => 'N',
-		'NUMBER' => 'N',
-		'NUM' => 'N',
-		'NUMERIC' => 'N',
-		'MONEY' => 'N',
-		
-		## informix 9.2
-		'SQLINT' => 'E', 
-		'SQLSERIAL' => 'E', 
-		'SQLSMINT' => 'E', 
-		'SQLSMFLOAT' => 'N', 
-		'SQLFLOAT' => 'N', 
-		'SQLMONEY' => 'N', 
-		'SQLDECIMAL' => 'N', 
-		'SQLDATE' => 'D', 
-		'SQLVCHAR' => 'C', 
-		'SQLCHAR' => 'C', 
-		'SQLDTIME' => 'T', 
-		'SQLINTERVAL' => 'N', 
-		'SQLBYTES' => 'B', 
-		'SQLTEXT' => 'X' 
-		);
-		if(isset($typeMap[$tipo])) 
-			return $typeMap[$tipo];
-		return null;
 	}
 }
 ?>
