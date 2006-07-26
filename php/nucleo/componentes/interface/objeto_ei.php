@@ -359,6 +359,11 @@ class objeto_ei extends objeto
 		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
 	}
 
+	function set_titulo($titulo)
+	{
+		$this->info['titulo'] = $titulo;
+	}
+		
 	//---------------------------------------------------------------
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------

@@ -398,7 +398,7 @@ class ci_efs extends objeto_ci
 	//---------------------------------	
 	function evt__esquema_cascadas__carga()
 	{
-		$diagrama = "digraph G {\nsize=\"7,7\";\n";		
+		$diagrama = "digraph G {\nsize=\"7,7\";rankdir=LR;\n";		
 		$diagrama .= "node [shape=record];\n";
 		foreach ($this->get_tabla()->get_filas() as $ef) {
 			$maestros = trim($ef['carga_maestros']);

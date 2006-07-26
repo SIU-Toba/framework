@@ -15,8 +15,10 @@ class ci_login extends objeto_ci
 
 	function evt__post_recuperar_interaccion()
 	{
-		//ei_arbol( $this->datos );
 		if ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) {
+			if (!isset($this->datos['clave'])) {
+				$this->datos['clave'] = null;
+			}			
 			try {
 				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
 				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
@@ -43,15 +45,15 @@ class ci_login extends objeto_ci
 	}
 
 	function evt__datos__carga()
-	{	/*
+	{	
 	
-			Esto rompe el esquema de las cascadas.
+		//	Esto rompe el esquema de las cascadas.
 		
 		if ( info_proyecto::instancia()->get_parametro('validacion_debug') ) {
 			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
 		} else {
 			$this->dependencia('datos')->desactivar_efs('autologin');
-		}*/
+		}
 		if (isset($this->datos['clave'])) {
 			unset($this->datos['clave']);
 		}

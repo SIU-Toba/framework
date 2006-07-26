@@ -172,13 +172,12 @@ class nucleo_toba
 	function preparar_include_path()
 	{
 		$proyecto = info_proyecto::instancia()->get_id();
+		$i_proy = info_instancia::get_path_proyecto($proyecto);
 		$i_path = ini_get("include_path");
 		if (substr(PHP_OS, 0, 3) == 'WIN'){
-			$i_proy = toba_dir() . "/proyectos/" . $proyecto;
 			$i_proy_php = $i_proy  . "/php";
 			ini_set("include_path", $i_path . ";.;" . $i_proy_php );
 		}else{
-			$i_proy = toba_dir() . "/proyectos/" . $proyecto;
 			$i_proy_php = $i_proy . "/php";
 			ini_set("include_path", $i_path . ":.:" . $i_proy_php);
 		}

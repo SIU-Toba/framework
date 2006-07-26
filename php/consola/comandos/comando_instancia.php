@@ -177,6 +177,15 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
+	 * Limpia la tabla de ips bloqueadas
+	 */
+	function opcion__desbloquear_ips()
+	{
+		$instancia = $this->get_instancia();
+		$instancia->desbloquear_ips();
+	}
+	
+	/**
 	*	Crea una instancia en base a la informacion del sistema de archivos de otra 
 	*	(La instancia 'origen' se especifica con el parametro '-o')
 	*/

@@ -26,7 +26,7 @@ class info_instancia
 	{
 		$archivo = toba_dir() . '/instalacion/i__' . $id_instancia . '/instancia.ini';
 		if ( is_file( $archivo ) ) {
-			return parse_ini_file( $archivo );
+			return parse_ini_file( $archivo, true );
 		} else {
 			throw new excepcion_toba("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
 		} 	
@@ -52,6 +52,16 @@ class info_instancia
 			return dba::get_db($_SESSION['toba']['instancia']['base']);
 		} else {
 			throw new excepcion_toba("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".apex_pa_instancia."' no posee una BASE DEFINIDA");
+		}
+	}
+	
+	static function get_path_proyecto($proyecto)
+	{
+		//incluyo el archivo de informacion basica de la INSTANCIA
+		if (isset($_SESSION['toba']['instancia'][$proyecto]['path'])) {
+			return $_SESSION['toba']['instancia'][$proyecto]['path'];
+		} else {
+			return toba_dir() . "/proyectos/" . $proyecto;
 		}
 	}
 
@@ -219,10 +229,10 @@ class info_instancia
 		return true;
 	}
 	
-	static function registrar_error_login($ip)
+	static function registrar_error_login($usuario, $ip, $texto)
 	{
 		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
-				VALUES ('".$this->usuario."','".$this->clave."','$ip','1','$texto')";
+				VALUES ('$usuario',NULL,'$ip','1','$texto')";
 		self::get_db()->ejecutar($sql);
 	}
 
@@ -235,7 +245,7 @@ class info_instancia
 
 	static function bloquear_ip($ip)
 	{
-		$sql = "INSERT INTO apex_log_ip_rechazada(ip) VALUES ('$ip')";
+		$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
 		self::get_db()->ejecutar($sql);
 	}
 }

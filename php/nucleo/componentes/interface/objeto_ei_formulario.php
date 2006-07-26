@@ -73,8 +73,6 @@ class objeto_ei_formulario extends objeto_ei
 		foreach ($this->lista_ef_post as $ef) {
 			$this->nombre_ef_cli[$ef] = $this->elemento_formulario[$ef]->get_id_form();
 		}
-		//Registar esclavos en los maestro
-		$this->registrar_cascadas();
 		//Inicializacion de especifica de cada tipo de formulario
 		$this->inicializar_especifico();
 	}
@@ -230,7 +228,7 @@ class objeto_ei_formulario extends objeto_ei
 	{
 		$this->cascadas_maestros = array();
 		$this->cascadas_esclavos = array();
-		foreach ($this->lista_ef as $esclavo) {
+		foreach ($this->lista_ef_post as $esclavo) {
 			$this->cascadas_maestros[$esclavo] = $this->elemento_formulario[$esclavo]->get_maestros();
 			foreach ($this->cascadas_maestros[$esclavo] as $maestro) {
 				if (! isset($this->elemento_formulario[$maestro])) {
@@ -420,6 +418,9 @@ class objeto_ei_formulario extends objeto_ei
 
 	function cargar_datos($datos)
 	{
+		//Registar esclavos en los maestro
+		$this->registrar_cascadas();
+		
 		if (isset($datos)){
 			//ei_arbol($datos,"DATOS para llenar el EI_FORM");
 			//Seteo los	EF	con el valor recuperado
@@ -479,7 +480,7 @@ class objeto_ei_formulario extends objeto_ei
 	
 	protected function cargar_opciones_efs()
 	{
-		foreach ($this->lista_ef as $id_ef) {
+		foreach ($this->lista_ef_post as $id_ef) {
 			if ($this->ef_requiere_carga($id_ef)) {
 				$param = array();
 				//-- Tiene maestros el ef? Todos tienen estado?

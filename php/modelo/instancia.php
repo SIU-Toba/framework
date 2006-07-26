@@ -31,6 +31,7 @@ class instancia extends elemento_modelo
 	private $db = null;						// Referencia a la CONEXION con la DB de la instancia
 	private $sincro_archivos;				// Sincronizador de archivos.
 	private $nombre_log;					// Nombre que llevan los archivos de LOG
+	private $datos_ini;
 	
 	function __construct( instalacion $instalacion, $identificador )
 	{
@@ -63,17 +64,17 @@ class instancia extends elemento_modelo
 		} else {
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
-			$ini = parse_ini_file( $archivo_ini );
-			logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($ini, true));
-			if ( ! isset( $ini['base'] ) ) {
+			$this->datos_ini = parse_ini_file( $archivo_ini, true );
+			logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
+			if ( ! isset( $this->datos_ini['base'] ) ) {
 				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
 			}
-			$this->ini_base = $ini['base'];
+			$this->ini_base = $this->datos_ini['base'];
 			// PROYECTOS
-			if ( ! isset( $ini['proyectos'] ) ) {
+			if ( ! isset( $this->datos_ini['proyectos'] ) ) {
 				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
 			}
-			$lista_proyectos = explode(',', $ini['proyectos'] );
+			$lista_proyectos = explode(',', $this->datos_ini['proyectos'] );
 			$lista_proyectos = array_map('trim',$lista_proyectos);
 			if ( count( $lista_proyectos ) == 0 ) {
 				throw new excepcion_toba("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
@@ -146,6 +147,14 @@ class instancia extends elemento_modelo
 		return $this->dir;		
 	}
 	
+	function get_path_proyecto($proyecto)
+	{
+		if (isset($this->datos_ini[$proyecto]['path'])) {
+			return $this->datos_ini[$proyecto]['path'];
+		} else {
+			return toba_dir() . "/proyectos/" . $proyecto;
+		}		
+	}
 
 	function get_lista_proyectos_vinculados()
 	{
@@ -658,6 +667,13 @@ class instancia extends elemento_modelo
 		logger::instancia()->debug("Borrando el usuario '$usuario' de la instancia {$this->identificador}");		
 		$sql = "DELETE FROM apex_usuario WHERE usuario = '$usuario'";	
 		return $this->get_db()->ejecutar( $sql );
+	}
+	
+	function desbloquear_ips()
+	{
+		$sql = "DELETE FROM apex_log_ip_rechazada";
+		$cant = $this->get_db()->ejecutar($sql);
+		$this->manejador_interface->mensaje("Ips liberadas: $cant");
 	}
 
 	//-------------------------------------------------------------

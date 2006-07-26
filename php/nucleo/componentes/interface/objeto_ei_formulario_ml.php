@@ -331,6 +331,9 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 
 	function cargar_datos($datos = null)
 	{
+		//Registar esclavos en los maestro
+		$this->registrar_cascadas();
+		
 		if ($datos !== null) {
 			//Para dar un analisis preciso de la accion del ML, es necesario discriminar cuales
 			//filas son a dar de alta y cuales son a modificar

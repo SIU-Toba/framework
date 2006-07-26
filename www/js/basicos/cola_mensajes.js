@@ -48,7 +48,7 @@ var cola_mensajes =
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		mensaje += "<div class='overlay-botonera'><input type='button' value='Aceptar' onclick='overlay()'/></div>";
+		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
 		contenedor.innerHTML = mensaje;
 		overlay();
 	},
@@ -89,7 +89,13 @@ function overlay() {
 		}
 	}
 	el.style.visibility = (visible) ? "hidden" : "visible";
-	scroll(0,0);
+	if (! visible) {
+		var boton = document.getElementById('boton_overlay');
+		if (boton) {
+			boton.focus();
+			window.firstFocus = function() {};
+		}
+	}
 }
 
 toba.confirmar_inclusion('basicos/cola_mensajes');

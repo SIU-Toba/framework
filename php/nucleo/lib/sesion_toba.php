@@ -7,6 +7,7 @@ define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto
 class sesion_toba
 {
 	static private $instancia;
+	protected $ventana_validacion = 60;
 
 	static function instancia($clase='sesion_toba')
 	{
@@ -111,12 +112,19 @@ class sesion_toba
 			}
 		} catch ( excepcion_toba_login $e ) {
 			//Registro la falla de login			
-			info_instancia::registrar_error_login($ip);
-			//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
-			$intentos = info_instancia::get_cantidad_intentos_en_ventana_temporal($ip, info_proyecto::instancia()->get_parametro('validacion_intentos_min'));
-			$supero_tope_intentos_en_ventana = $intentos > info_proyecto::instancia()->get_parametro('validacion_intentos');
-			if ( $supero_tope_intentos_en_ventana ) {
-				info_instancia::bloquear_ip($ip);
+			info_instancia::registrar_error_login($usuario, $ip, $e->getMessage());
+			$cant_max_intentos = info_proyecto::instancia()->get_parametro('validacion_intentos');
+			if (isset($cant_max_intentos)) {
+				//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
+				$ventana_temporal = info_proyecto::instancia()->get_parametro('validacion_intentos_min');
+				if (! isset($ventana_temporal)) {
+					$ventana_temporal = $this->ventana_validacion;
+				}
+				$intentos = info_instancia::get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
+				$supero_tope_intentos_en_ventana = $intentos > $cant_max_intentos;
+				if ( $supero_tope_intentos_en_ventana ) {
+					info_instancia::bloquear_ip($ip);
+				}
 			}
 			throw new excepcion_toba_login($e->getMessage());
 		}

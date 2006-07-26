@@ -200,7 +200,7 @@ class recurso {
 		}
 		//Busca tambien en el proyecto
 		$proyecto = info_proyecto::get_id();
-		$path = toba_dir() . "/proyectos/$proyecto/www/css/$estilo.css";
+		$path = info_instancia::get_path_proyecto($proyecto)."/www/css/$estilo.css";
 		if (file_exists($path)) {
 			$url = recurso::path_pro($proyecto) . "/css/$estilo.css";
 			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
