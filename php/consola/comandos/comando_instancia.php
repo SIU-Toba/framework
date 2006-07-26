@@ -127,10 +127,6 @@ class comando_instancia extends comando_toba
 
 		//---- A: Creo la definicion de la instancia
 		$proyectos = $this->seleccionar_proyectos();
-		// En el esquema actual, el admin siempre tiene que estar.
-		if ( ! in_array( 'admin', $proyectos ) ) {
-			$proyectos[] = 'admin';
-		}
 		$this->consola->enter();
 		$base = $this->seleccionar_base();
 		instancia::crear_instancia( $id_instancia, $base, $proyectos );

@@ -63,9 +63,13 @@ function mostrar_ocultar_frame() {
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
 
 <?
+		echo "<td class='listado-barra-superior-tabi'>";
+		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
+        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false), $js_cambio);
+        echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$actual = editor::get_proyecto_cargado();
-		$instancia = catalogo_modelo::instanciacion()->get_instancia(apex_pa_instancia, new mock_gui);
+		$instancia = catalogo_modelo::instanciacion()->get_instancia(editor::get_id_instancia_activa(), new mock_gui);
 		$proyectos = array();
 		foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
 			$proyectos[$proy] = $proy;
@@ -73,10 +77,6 @@ function mostrar_ocultar_frame() {
 		$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
 		echo form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
 		echo "</td>";		
-		echo "<td class='listado-barra-superior-tabi'>";
-		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
-        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false), $js_cambio);
-        echo "</td>";
 ?>
 		<td><? echo gif_nulo(3,1) ?></td>
 
