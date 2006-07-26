@@ -84,7 +84,7 @@ class sesion_toba
 	
 	function iniciar($usuario, $clave=null)
 	{
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 		try {
 			if (info_instancia::es_ip_rechazada($ip)) {
 				throw new excepcion_toba('La IP esta bloqueada. Contactese con el administrador');

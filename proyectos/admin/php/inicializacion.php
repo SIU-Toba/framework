@@ -9,4 +9,8 @@ define("apex_frame_centro","frame_centro");
 //-- FRAME comunicaciones
 define("apex_frame_com","frame_com");
 
+if (php_sapi_name() === 'cli') {
+	editor::iniciar(apex_pa_instancia, 'admin');
+}
+
 ?>

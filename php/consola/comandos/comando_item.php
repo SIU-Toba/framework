@@ -29,6 +29,7 @@ class comando_item extends comando_toba
 		}
 		$item = $param['-t'];
 
+		define('apex_pa_ID', $_SERVER['PHP_SELF']);
 		require_once("nucleo/toba.php");
 		toba::get_nucleo()->acceso_consola($id_instancia,$id_proyecto, $item, $usuario);
 	}	

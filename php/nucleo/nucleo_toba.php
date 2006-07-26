@@ -30,7 +30,7 @@ class nucleo_toba
 	
 	private function __construct()
 	{
-		if (get_magic_quotes_gpc()) {
+		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
 			throw new excepcion_toba("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
 		toba::get_cronometro();
@@ -94,9 +94,9 @@ class nucleo_toba
 		try {
 			define('apex_pa_instancia', $instancia);
 			define('apex_pa_proyecto' , $proyecto);
-			//toba::get_sesion()->iniciar($usuario);
-			$this->preparar_include_path();
-			$this->iniciar_contexto_proyecto();			
+			$this->preparar_include_path();			
+			$this->iniciar_contexto_proyecto();						
+			toba::get_sesion()->iniciar($usuario);
 			//$this->solicitud = new solicitud_consola($proyecto, $item, $usuario);
 			$this->solicitud = constructor_toba::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'item');
 			$this->iniciar_contexto_proyecto();
@@ -172,7 +172,7 @@ class nucleo_toba
 	function preparar_include_path()
 	{
 		$proyecto = info_proyecto::instancia()->get_id();
-		$i_proy = info_instancia::get_path_proyecto($proyecto);
+		$i_proy = info_instancia::instancia()->get_path_proyecto($proyecto);
 		$i_path = ini_get("include_path");
 		if (substr(PHP_OS, 0, 3) == 'WIN'){
 			$i_proy_php = $i_proy  . "/php";

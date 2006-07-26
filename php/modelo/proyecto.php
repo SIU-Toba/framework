@@ -675,7 +675,7 @@ class proyecto extends elemento_modelo
 		}
 		try {
 			//- 2 - Modificaciones en el sistema de archivos
-			$dir_proyecto = toba_dir() . '/proyectos/' . $nombre;
+			$dir_proyecto = $instancia->get_path_proyecto($nombre);
 			// Creo la CARPETA del PROYECTO
 			manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 			// Modifico los archivos

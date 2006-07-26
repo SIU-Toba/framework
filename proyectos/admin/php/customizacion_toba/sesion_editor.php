@@ -8,6 +8,11 @@ class sesion_editor extends sesion_toba
 	{
 		contexto_info::set_proyecto( editor::get_proyecto_cargado() );
 		contexto_info::set_db( editor::get_base_activa() );
+	
+	}
+	
+	protected function conf__inicio($usuario) {
+		$this->conf__actualizar_sesion();
 	}
 }
 ?>

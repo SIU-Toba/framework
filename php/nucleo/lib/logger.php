@@ -91,10 +91,12 @@ class logger
 	function get_proyecto_actual()
 	{
 		if (class_exists('info_proyecto')) {
-			return info_proyecto::get_id();			
-		} else {
-			return 'toba';
+			try {
+				return info_proyecto::get_id();			
+			} catch (Exception $e) {
+			}
 		}
+		return 'toba';
 	}
 	
 	function get_usuario_actual()

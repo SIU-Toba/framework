@@ -83,7 +83,8 @@ class info_instancia
 	
 	static function abrir_sesion($sesion, $usuario, $proyecto)
 	{
-		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$_SERVER["REMOTE_ADDR"]."','$proyecto','".session_id()."');";
+		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
+		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$ip."','$proyecto','".session_id()."');";
 		self::get_db()->ejecutar($sql);
 	}
 	
