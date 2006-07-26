@@ -5,8 +5,7 @@ class ci_grupo extends objeto_ci
 	function evt__inicializar()
 	{
 		$zona = toba::get_solicitud()->zona();
-		if ($editable = $zona->obtener_editable_propagado()){
-			$zona->cargar_editable(); 
+		if ($editable = $zona->get_editable()){
 			$clave['proyecto'] = $editable[0];
 			$clave['usuario_grupo_acc'] = $editable[1];
 			$this->dependencia('datos')->cargar($clave);

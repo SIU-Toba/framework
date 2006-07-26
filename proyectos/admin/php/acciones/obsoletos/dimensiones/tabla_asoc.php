@@ -1,6 +1,5 @@
 <?
-   if($editable = $this->zona->obtener_editable_propagado()){
-      $this->zona->cargar_editable();
+   if($editable = $this->zona->get_editable()){
       $this->zona->obtener_html_barra_superior();
       
       $parametros = parsear_propiedades($this->zona->editable_info['inicializacion']);

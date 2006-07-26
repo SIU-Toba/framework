@@ -1,7 +1,6 @@
 <?
 	//Esta pagina prueba el funcionamiento de la dimension ACTUAL (El editable de la zona)
-	if($editable = $this->zona->obtener_editable_propagado()){
-		$this->zona->cargar_editable();
+	if($editable = $this->zona->get_editable()){
 		$this->zona->obtener_html_barra_superior();
 		//$this->zona->info();
 		include("nucleo/obsoleto/efs_obsoletos/dimensiones.php");//Dimensiones

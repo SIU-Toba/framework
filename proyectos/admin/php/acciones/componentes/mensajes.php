@@ -1,7 +1,6 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 	//--> Estoy navegando la ZONA con un editable...
-		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();
 
 		$abms = $this->cargar_objeto("objeto_mt_abms",0);

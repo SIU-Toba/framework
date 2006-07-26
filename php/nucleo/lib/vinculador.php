@@ -151,7 +151,6 @@ class vinculador
 								$menu=null,$celda_memoria=null, $servicio=null,
 								$objetos_destino=null, $prefijo=null)
  	{
- 		$solicitud_actual = toba::get_solicitud();
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		if ($item_proyecto == '' || $item == '') {
@@ -167,11 +166,10 @@ class vinculador
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
 		if ($zona){//Hay que propagar la zona?
-			if($solicitud_actual->hay_zona()){//Existe una zona
-				if($solicitud_actual->zona()->controlar_carga()){//Esta cargada?
-					$parametros_formateados .= "&". apex_hilo_qs_zona 
-						."=". implode(apex_qs_separador, $solicitud_actual->zona()->obtener_editable_cargado());
-				}
+			$solicitud_actual = toba::get_solicitud();
+			if ($solicitud_actual->hay_zona() && toba::get_zona()->cargada()){
+				$parametros_formateados .= "&". apex_hilo_qs_zona 
+						."=". implode(apex_qs_separador, toba::get_zona()->get_editable());
 			}
 		}
 		//Cual es el tipo de salida?

@@ -81,8 +81,6 @@ class info_item implements recorrible_como_arbol
 
 	function puede_redireccionar() { return $this->datos['basica']['redirecciona']; } 
 
-	function tipo_solicitud() { return $this->datos['basica']['solicitud_tipo']; }
-	
 	function vinculo_editor()
 	{
 		if ($this->es_carpeta())
@@ -132,6 +130,8 @@ class info_item implements recorrible_como_arbol
 	function get_nombre() { return $this->datos['basica']['item_nombre']; }
 	
 	function get_proyecto() { return $this->datos['basica']['item_proyecto']; }
+	
+	function get_tipo_solicitud() { return $this->datos['basica']['solicitud_tipo']; }
 	
 	function crono() 
 	{ 
@@ -199,7 +199,7 @@ class info_item implements recorrible_como_arbol
 	
 	function es_de_consola()
 	{
-		return $this->tipo_solicitud() == 'consola';	
+		return $this->get_tipo_solicitud() == 'consola';	
 	}
 	
 	/**
@@ -275,12 +275,12 @@ class info_item implements recorrible_como_arbol
 				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
 				);
 				
-			if ($this->tipo_solicitud() == "consola") {
+			if ($this->es_de_consola()) {
 				$iconos[] = array(
 								'imagen' => recurso::imagen_apl("solic_consola.gif",false),
 								'ayuda' => 'Solicitud de Consola'
 							);
-			} elseif($this->tipo_solicitud()=="wddx") {
+			} elseif($this->get_tipo_solicitud()=="wddx") {
 				$iconos[] = array(
 								'imagen' => recurso::imagen_apl("solic_wddx.gif",false),
 								'ayuda' => 'Solicitud WDDX'
@@ -368,8 +368,8 @@ class info_item implements recorrible_como_arbol
 			);
 		}
 		if (!$this->es_carpeta() && 
-				$this->tipo_solicitud() != 'consola' &&
-				$this->tipo_solicitud() !="wddx") {
+				$this->get_tipo_solicitud() != 'consola' &&
+				$this->get_tipo_solicitud() !="wddx") {
 			$utilerias[] = array(
 							'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
 							'ayuda' => 'Ejecutar el ITEM',

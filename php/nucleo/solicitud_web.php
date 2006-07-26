@@ -22,7 +22,6 @@ class solicitud_web extends solicitud
 	
 	function __construct($info)
 	{
-		$this->tipo_solicitud = 'web';
 		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
         
@@ -191,7 +190,7 @@ class solicitud_web extends solicitud
 		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
 
 		//--- Parte superior de la zona
-		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
+		if ($this->hay_zona() &&  $this->zona->cargada()) {
 			$this->zona->obtener_html_barra_superior();
 		}			
 		
@@ -217,7 +216,7 @@ class solicitud_web extends solicitud
 		echo js::cerrar();
 		
 		//--- Parte inferior de la zona
-		if ($this->hay_zona() &&  $this->zona->controlar_carga()) {
+		if ($this->hay_zona() &&  $this->zona->cargada()) {
 			$this->zona->obtener_html_barra_inferior();
 		}
 		//--- Muestra la cola de mensajes

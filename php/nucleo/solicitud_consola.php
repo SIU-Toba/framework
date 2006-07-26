@@ -8,7 +8,6 @@ class solicitud_consola extends solicitud
 
 	function solicitud_consola($info)
 	{
-		$this->tipo_solicitud = 'consola';
 	    $this->info = $info;
 		$_SERVER["REMOTE_ADDR"]="localhost";
 		$_SERVER["REQUEST_METHOD"] = "GET";

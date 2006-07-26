@@ -49,7 +49,7 @@ class objeto
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		//$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->evaluar_existencia_interface_anterior();
-		$this->conectar_fuente();
+		//$this->conectar_fuente();
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');
 		$this->configuracion();
 	}

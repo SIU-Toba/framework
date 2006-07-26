@@ -1,9 +1,8 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 	//--> Estoy navegando la ZONA con un editable...
 		$abms = $this->cargar_objeto("objeto_mt_abms",0);
 		if($abms > -1){
-			$this->zona->cargar_editable();//Cargo el editable de la zona
 			$ef["objeto_proyecto"]=$editable[0];
 			$ef["objeto"]=$editable[1];
 			$this->objetos[$abms]->cargar_estado_ef($ef);			

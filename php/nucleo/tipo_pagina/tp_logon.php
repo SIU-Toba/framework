@@ -14,7 +14,7 @@ class tp_logon extends tp_basico
 	{
 		echo "</div>";		
 		echo "<div class='login-pie'>";
-		echo "<div>Desarrollado por el <strong><a href='http://www.siu.edu.ar' style='text-decoration: none' target='_blank'>SIU</a></strong></div>
+		echo "<div>Desarrollado por <strong><a href='http://www.siu.edu.ar' style='text-decoration: none' target='_blank'>SIU</a></strong></div>
 			<div>2002-2006</div>";
 		echo "</div>";
 	}

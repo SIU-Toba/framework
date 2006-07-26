@@ -4,9 +4,7 @@ class ci_fuentes extends objeto_ci
 {
 	function evt__inicializar()
 	{
-		$zona = toba::get_solicitud()->zona();
-		if ($editable = $zona->obtener_editable_propagado()){
-			$zona->cargar_editable(); 
+		if ($editable = toba::get_zona()->get_editable()){
 			$clave['proyecto'] = $editable[0];
 			$clave['fuente_datos'] = $editable[1];
 			$this->dependencia('datos')->cargar($clave);

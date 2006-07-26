@@ -1,5 +1,5 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 	//--> Estoy navegando la ZONA con un editable...
 		//-[1]- Cargo la lista de Objetos
 		$lista = $this->cargar_objeto("objeto_lista",0);
@@ -7,7 +7,6 @@
 			//-[2]- Cargo el ABM que permite asociar objetos
 			$abms = $this->cargar_objeto("objeto_mt_abms",0);
 			if($abms > -1){
-				$this->zona->cargar_editable();//Cargo el editable de la zona
 				//$this->zona->info();
 				$cargar_ef = array( "origen_item_proyecto"=>editor::get_proyecto_cargado(),
 									"origen_item"=>"/autovinculo",

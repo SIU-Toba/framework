@@ -1,6 +1,6 @@
 <?php
 require_once('nucleo/componentes/objeto.php');
-require_once("nucleo/lib/formateo.php");
+require_once("nucleo/lib/interface/formateo.php");
 
 //error_reporting(E_ALL ^ E_NOTICE);
 
@@ -26,15 +26,10 @@ class objeto_lista extends objeto
 		$sql = sql_agregar_clausulas_where($this->info_lista["sql"],$where);
 		$sql = sql_agregar_tablas_from($sql,$from);
 		//echo $sql . "<br>";
-    	$rs = $db[$this->info["fuente"]][apex_db_con]->Execute($sql);
-		if(!$rs){//SQL mal formado
-			$this->observar("error","OBJETO LISTA [generar_html] - No se genero un recordset [SQL] $sql - [ERROR] " . 
-							$db[$this->info["fuente"]][apex_db_con]->ErrorMsg(),true,true,true);
-		}
-		if($rs->EOF){//NO existe el registro
+		$this->datos = toba::get_db($this->info['fuente'])->consultar($sql);
+		if (empty($this->datos)){//NO existe el registro
 			$this->observar("info","OBJETO ABMS [obtener_interface_cuadro] - No hay registros");
 		}
-		$this->datos = $rs->getArray();
 		//ei_arbol($this->datos,"DATOS");
 	}
 //--------------------------------------------------------------------------------------------

@@ -1,14 +1,13 @@
 <?php
+
 /*
 * 
-* - BARRAS de la ZONAS
-* - Tengo que armar la funcion de refresco de la pagina vecina (refrescar_listado_editable_apex)
-* 
-* Una ZONA es un lugar donde trabajar con un EDITABLE.
-* Un EDITABLE es un elemento del sistema que se configura a travez de varios ITEMS
-* Los ITEMS que permiten acceder a las distintas facetas del editable se consideran VECINOS
-* La zona tiene dos funciones: 
-* 	- Proveer barras que permitan acceder a los distintos aspectos de editable 
+* Una zona representa un menu alrededor de un concepto (o editable) central
+* Por ejemplo mostrar un menú de opciones relacionado con un cliente particular.
+* Cada una de estas opciones es un item relacionado con la zona
+*
+* La zona tiene estas funciones: 
+* 	- Proveer barras que permitan acceder a las distintas opciones propagando el editable
 * 		(proporcionando acceso a los items vecinos)
 * 	- Proveer informacion sobre el editable a cualquier consumidor
 * 		Esto es necesario cuando: las caracteristicas del elemento cambian la interface,
@@ -16,35 +15,24 @@
 */
 class zona
 {
-	var $id;					//ID de la zona
-	var $proyecto;				//Proyecto de la zona
-	var $solicitud;				//Solicitud en la que esta cargada
-	var $items_vecinos; 		//Array de ITEMs que viven en la ZONA
-	var $editable_id;			//ID del editable cargado
-	var $editable_info;			//Propiedades del EDITABLE
-	var $editable_cargado;		//Hay un editable cargado?
-	var $editable_propagado;	//ID recibido por el canal de propagacion de la ZONA
-	var $listado;
+	protected $id;						//ID de la zona
+	protected $items_vecinos; 			//Array de ITEMs que viven en la ZONA
+	protected $editable_id;				//ID del editable cargado
+	protected $editable_info;			//Propiedades del EDITABLE
 	
-	function zona($id,$proyecto,&$solicitud)
+	function __construct($id)
 	{
 		$this->id = $id;
-		$this->proyecto = $proyecto;
-		$this->solicitud =& $solicitud;
 		//Creo la lista de los VECINOS de la ZONA
 		$this->items_vecinos = info_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
-		$this->editable_cargado = false;
 		//Se propago algo por el canal utilizado por la zona?
-		$this->editable_propagado = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
-		if ( isset($this->editable_propagado) ){
-			$this->editable_propagado = explode(apex_qs_separador,$this->editable_propagado);
-			$this->cargar_editable();
+		$this->editable_id = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
+		if ( isset($this->editable_id) ){
+			$this->cargar(explode(apex_qs_separador,$this->editable_id));
 		}
 	}
 
-	function cargar_editable($editable=null)
-	//Esta funcion debe ser reescrita por los hijos
-	//La finalidad es cargar el ARRAY 'editable_info'
+	protected function cargar_descripcion()
 	{
 	}
 
@@ -55,47 +43,37 @@ class zona
 	{
 		unset($this->editable_id);
 		unset($this->editable_info);
-		$this->editable_cargado = false;
-		unset($this->editable_propagado);
+	}
+
+	function cargada()
+	{
+		return isset($this->editable_id);
+	}
+	
+	function cargar($id)
+	{
+		$this->editable_id = $id;
+		$this->cargar_descripcion();
+	}
+
+	function get_editable()
+	{
+		return $this->editable_id;
 	}
 	
 	function info(){
 		$dump["id"]=$this->id;
-		$dump["id_proyecto"]=$this->proyecto;
 		$dump["items_vecinos"]= $this->items_vecinos;
 		$dump["editable_id"]= $this->editable_id;
 		$dump["editable_info"]= $this->editable_info;
-		$dump["editable_cargado"]= $this->editable_cargado;
-		$dump["editable_propagado"]= $this->editable_propagado;
 		ei_arbol($dump,"ZONA");
 	}
 	
-	function controlar_carga()
-	//Se cargo un EDITABLE en la ZONA? Me fijo si hay un ID disponible
-	{
-		return $this->editable_cargado;
-	}
-
-	function obtener_editable_propagado()
-	//Estoy en una secuencia de propagacion de zona
-	{
-		return $this->editable_propagado;
-	}
-
-	function obtener_editable_cargado()
-	//Estoy en una secuencia de propagacion de zona
-	{
-		return $this->editable_id;
-	}
-
-	//-------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------
 
 	function obtener_html_barra_superior()
-	//Genera el HTML de la BARRA
 	{
 		echo "<table class='zona-barra-sup'><tr>";
 		$this->obtener_html_barra_info();
@@ -104,20 +82,22 @@ class zona
 		echo "<td width='15'>&nbsp;</td>";
 		echo "</tr></table>\n";
 	}
-//-----------------------------------------------------
 
+	/**
+	 * Muestra la seccion INFORMATIVA (izquierda) de la barra
+	 */
 	function obtener_html_barra_info()
-	//Muestra la seccion INFORMATIVA (izquierda) de la barra
 	{
 		echo "	<td width='250' class='zona-barra-id'>";
 		echo "&nbsp;".$this->editable_id[1]."&nbsp;";
 		echo "</td>";
 		echo "<td width='60%' class='zona-barra-desc'>&nbsp;".$this->editable_info['nombre']."</td>";
 	}
-//-----------------------------------------------------
 
+	/**
+	 * Genera el html de la seccion de ITEMs VECINOS en la barra
+	 */
 	function obtener_html_barra_vinculos()
-	//Genera el html de la seccion de ITEMs VECINOS en la barra
 	{
 		$js_cambiar_color = " onmouseover=\"this.className='barra-item-link2';\" ".
     	                    "  onmouseout=\"this.className='barra-item-link';\"";
@@ -142,29 +122,16 @@ class zona
 			echo "</td>";
 		}
 	}
-//-----------------------------------------------------
 	
 	function obtener_html_barra_especifico()
-	//Esto es especifico de cada EDITABLE
 	{	
 	}
-//-----------------------------------------------------
+
 	
 	function obtener_html_barra_inferior()
-	//Esto es especifico de cada EDITABLE
 	{
 		return null;
 	}
-//-----------------------------------------------------
 
-	function refrescar_listado_editable_apex()
-	//Esta funcion refresca el LISTADO de la izquierda cuando se modifico
-	//el estado de existencia de un EDITABLE y esta tiene que impactar allado
-	{
-		echo "<script language'javascript'>";
-		echo "if(parent.".apex_frame_lista.".editor == '".$this->listado."') parent.".apex_frame_lista.".location.reload()";
-		echo "</script>";
-	}
-//-----------------------------------------------------
 }
 ?>

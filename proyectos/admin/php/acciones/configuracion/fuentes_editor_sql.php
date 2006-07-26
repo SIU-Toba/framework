@@ -1,7 +1,6 @@
 <?php
 
-	if($editable = $this->zona->obtener_editable_propagado()){
-		$this->zona->cargar_editable();//Cargo el editable de la zona
+	if($editable = $this->zona->get_editable()){
 		$this->zona->obtener_html_barra_superior();	
 
 		include_once("nucleo/lib/ef.php");

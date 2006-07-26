@@ -4,30 +4,10 @@ require_once('modelo/consultas/dao_editores.php');
 
 class zona_objeto extends zona
 {
-	function zona_objeto($id,$proyecto,&$solicitud)
-	{
-		$this->listado = "objeto";
-		parent::zona($id,$proyecto,$solicitud);
-	}
 
-	function cargar_editable($editable=null)
+	function cargar_descripcion($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		if(!isset($editable)){
-			if(!isset($this->editable_propagado)){
-				ei_mensaje("No se especifico el editable a cargar","error");
-				return false;
-			}else{
-				//Los editables se propagan como arrays comunes
-				$clave[0] = $this->editable_propagado[0];
-				$clave[1] = $this->editable_propagado[1];
-			}
-		}else{
-			//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
-			//Las claves de los registros que los ABM manejan son asociativas
-			$clave[0] = $editable['proyecto'];
-			$clave[1] = $editable['objeto'];
-		}
 		$sql = 	"	SELECT	o.*,
 							o.subclase_archivo as 			archivo,
 							c.icono as						clase_icono,
@@ -53,8 +33,8 @@ class zona_objeto extends zona
 							apex_clase c
 					WHERE	o.fuente_datos = d.fuente_datos
 					AND		o.clase = c.clase
-					AND		o.proyecto='{$clave[0]}'
-					AND		o.objeto='{$clave[1]}'";
+					AND		o.proyecto='{$this->editable_id[0]}'
+					AND		o.objeto='{$this->editable_id[1]}'";
 		$rs = consultar_fuente($sql);
 		if(empty($rs)){
 			echo ei_mensaje("ZONA-OBJETO: El editable solicitado no existe","info");
@@ -62,7 +42,7 @@ class zona_objeto extends zona
 		}else{
 			$this->editable_info = current($rs);
 			//ei_arbol($this->editable_info,"EDITABLE");
-			$this->editable_id = array( $clave[0],$clave[1] );
+			$this->editable_id = array( $this->editable_id[0],$this->editable_id[1] );
 			$this->editable_cargado = true;
 			return true;
 		}	

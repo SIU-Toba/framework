@@ -1,5 +1,5 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 	//--> Estoy navegando la ZONA con un editable...
 		//$this->info();
 		//$this->obtener_info_objetos();
@@ -24,7 +24,6 @@
 						}
 					}
 */
-					$this->zona->cargar_editable();//Cargo el editable de la zona
 					//$this->zona->info();
 					$this->zona->obtener_html_barra_superior();
 					$this->objetos[$abm]->obtener_html();
@@ -37,7 +36,6 @@
 			//La RAIZ no necesita editor de ningun tipo.
 			//Queda igual en su zona, donde se pueden dejar notas, informacion, etc
 			//(La raiz puede ser signigicativa en la generacion de manuales)
-			$this->zona->cargar_editable();//Cargo el editable de la zona
 			$this->zona->obtener_html_barra_superior();
 		}
 	}else{

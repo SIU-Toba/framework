@@ -1,5 +1,5 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 	//--> Estoy	navegando la ZONA con un editable...
 		//$this->info();
 		//$this->obtener_info_objetos();
@@ -14,7 +14,6 @@
 				//tengo	que	refrescarla	para que refleje el	estado de la base
 				$this->zona->refrescar_listado_editable_apex();
 			}else{
-				$this->zona->cargar_editable();//Cargo el editable de la zona
 				//$this->zona->info();
 				$this->zona->obtener_html_barra_superior();
 				$this->objetos[$abm]->obtener_html();

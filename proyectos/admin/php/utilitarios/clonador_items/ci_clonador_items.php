@@ -6,9 +6,7 @@ class ci_clonador_items extends objeto_ci
 
 	function evt__inicializar()
 	{
-		$zona = toba::get_solicitud()->zona();
-		$editable = toba::get_solicitud()->zona()->obtener_editable_propagado();
-		if (! isset($editable)) {
+		if (! toba::get_zona()->cargada()) {
 			throw new excepcion_toba('La operación se debe invocar desde la zona de un item');
 		}
 	}
@@ -18,9 +16,7 @@ class ci_clonador_items extends objeto_ci
 
 	function evt__procesar()
 	{
-		$zona = toba::get_solicitud()->zona();
-		$editable = $zona->obtener_editable_propagado();
-		list($proyecto_actual, $item_actual) = $editable;
+		list($proyecto_actual, $item_actual) = toba::get_zona()->get_editable();
 		$id = array('proyecto' => $proyecto_actual, 'componente' => $item_actual);
 		$info_item = constructor_toba::get_info($id, 'item');
 		$directorio = false;

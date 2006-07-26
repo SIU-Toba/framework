@@ -1,10 +1,9 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
+	if($editable = $this->zona->get_editable()){
 		//$this->obtener_info_objetos();
 		//-[1]- Cargo el ABM que actua sobre la cabecera
 		$abm_cabecera = $this->cargar_objeto("objeto_mt_abms",0);
 		if($abm_cabecera > -1){
-			$this->zona->cargar_editable();//Cargo el editable de la zona
 			//$this->zona->info();
 			$this->zona->obtener_html_barra_superior();
 			$clave_ef = array("objeto_filtro"=>$editable[1]);

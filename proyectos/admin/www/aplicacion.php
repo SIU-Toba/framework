@@ -3,6 +3,7 @@
 define("apex_pa_instancia","desarrollo");
 # apex_proyecto: Proyecto PRIMARIO
 define("apex_pa_proyecto","admin");
+
 #---- NIVEL de ACCESO minimo permitido
 //define("apex_pa_nivel_acceso_item","0");//Nivel de ITEMs que se pueden solicitar
 //define("apex_pa_nivel_acceso_usuario","0");//Nivel de USUARIOS

@@ -18,11 +18,10 @@ class ci_principal extends objeto_ci
 	{
 		parent::__construct($id);
 		//Cargo el editable de la zona		
-		$zona = toba::get_solicitud()->zona();
-		if ($editable = $zona->obtener_editable_propagado()) {
-			$zona->cargar_editable(); 
-			list($proyecto, $item) = $editable;
-		}	
+		$zona = toba::get_zona();
+		if ($zona->cargada()) {
+			list($proyecto, $item) = $zona->get_editable();
+		}
 		//Se notifica un item y un proyecto	
 		if (isset($item) && isset($proyecto)) {
 			//Se determina si es un nuevo item
@@ -265,6 +264,7 @@ class ci_principal extends objeto_ci
 	{
 		$this->get_entidad()->eliminar();
 		$this->elemento_eliminado = true;
+		toba::get_zona()->resetear();
 		$this->refrescar = true;
 	}
 	

@@ -3,34 +3,14 @@ require_once("nucleo/lib/zona.php");
 
 class zona_fuente extends zona
 {
-	function zona_fuente($id,$proyecto,&$solicitud)
-	{
-		$this->listado = "datos";
-		parent::zona($id,$proyecto,$solicitud);
-	}
 
-	function cargar_editable($editable=null)
+	function cargar_descripcion($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		if(!isset($editable)){
-			if(!isset($this->editable_propagado)){
-				ei_mensaje("No se especifico el editable a cargar","error");
-				return false;
-			}else{
-				//Los editables se propagan como arrays comunes
-				$clave[0] = $this->editable_propagado[0];
-				$clave[1] = $this->editable_propagado[1];
-			}
-		}else{
-			//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
-			//Las claves de los registros que los ABM manejan son asociativas
-			$clave[0] = $editable['proyecto'];
-			$clave[1] = $editable['fuente_datos'];
-		}
 		$sql = 	"	SELECT	*
 					FROM	apex_fuente_datos
-					WHERE	proyecto='{$clave[0]}'
-					AND		fuente_datos='{$clave[1]}';";
+					WHERE	proyecto='{$this->editable_id[0]}'
+					AND		fuente_datos='{$this->editable_id[1]}';";
 		//echo $sql;
 		$rs = toba::get_db()->consultar($sql);
 		if(!$rs) {
@@ -39,7 +19,7 @@ class zona_fuente extends zona
 		}else{
 			$this->editable_info = $rs[0];
 			//ei_arbol($this->editable_info,"EDITABLE");
-			$this->editable_id = array( $clave[0],$clave[1] );
+			$this->editable_id = array( $this->editable_id[0],$this->editable_id[1] );
 			$this->editable_cargado = true;
 			return true;
 		}	

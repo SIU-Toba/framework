@@ -274,7 +274,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $item) {
-			if ($item->tipo_solicitud() == $tipo) {
+			if ($item->get_tipo_solicitud() == $tipo) {
 				$encontrados[] = $item;
 			}
 		}

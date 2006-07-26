@@ -1,6 +1,5 @@
 <?
-	if($editable = $this->zona->obtener_editable_propagado()){
-		$this->zona->cargar_editable();//Cargo el editable de la zona
+	if($editable = $this->zona->get_editable()){
 		$this->zona->obtener_html_barra_superior();
 //		echo ei_mensaje("ACCESO");
 		//Inicializacion de la tabla de ASOCIACIONES

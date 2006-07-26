@@ -4,44 +4,23 @@ require_once('modelo/consultas/dao_editores.php');
 
 class zona_item extends zona
 {
-	function zona_item($id,$proyecto,&$solicitud)
-	{
-		$this->listado = "item";
-		parent::zona($id,$proyecto,$solicitud);
-	}
-
-	function cargar_editable($editable=null)
+	function cargar_descripcion()
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		if(!isset($editable)){
-			if(!isset($this->editable_propagado)){
-				ei_mensaje("No se especifico el editable a cargar","error");
-				return false;
-			}else{
-				//Los editables se propagan como arrays comunes
-				$clave[0] = $this->editable_propagado[0];
-				$clave[1] = $this->editable_propagado[1];
-			}
-		}else{
-			//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
-			//Las claves de los registros que los ABM manejan son asociativas
-			$clave[0] = $editable['proyecto'];
-			$clave[1] = $editable['item'];
-		}
+		//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
+		//Las claves de los registros que los ABM manejan son asociativas
 		$sql = 	"	SELECT	i.*,
 					p.archivo as 	actividad_patron_archivo
 					FROM	apex_item i, apex_patron p
 					WHERE	i.actividad_patron = p.patron
                     AND     i.actividad_patron_proyecto = p.proyecto
-					AND		i.proyecto='{$clave[0]}'
-					AND		item='{$clave[1]}';";
+					AND		i.proyecto='{$this->editable_id[0]}'
+					AND		item='{$this->editable_id[1]}';";
 		$rs = toba::get_db()->consultar($sql);
 		if(empty($rs)) {
-			throw new excepcion_toba("No se puede encontrar informacion del item {$clave[0]},{$clave[1]}");
+			throw new excepcion_toba("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
 		} else {
 			$this->editable_info = $rs[0];
-			$this->editable_id = array( $clave[0],$clave[1] );
-			$this->editable_cargado = true;
 			return true;
 		}	
 	}
@@ -78,9 +57,6 @@ class zona_item extends zona
 		echo "</tr></table>\n";
 		//$cronometro->marcar('ZONA: Barra SUPERIOR',apex_nivel_nucleo);
 	}
-//-----------------------------------------------------
-
-
 
 	function obtener_html_barra_especifico()
 	//Esto es especifico de cada EDITABLE

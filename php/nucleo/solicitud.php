@@ -18,7 +18,6 @@ class solicitud
 	var $registrar_db;					//Indica	si	se	va	a registrar	la	solicitud
 	var $cronometrar;					//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
 	var $log;							//Objeto que mantiene el log de la ejecucion
-	private $tipo_solicitud;
 
 	function __construct($item, $usuario)	
 	{
@@ -127,7 +126,7 @@ class solicitud
 
 	function get_tipo()
 	{
-		return $this->tipo_solicitud;	
+		return $this->info['basica']['item_solic_tipo'];
 	}
 	
 	function es_item_publico()
@@ -226,7 +225,7 @@ class solicitud
 			toba::get_cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Solicitud
 			info_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
-												$this->info['basica']['item'], $this->tipo_solicitud);
+												$this->info['basica']['item'], $this->get_tipo());
 			// Cronometro
 			if($this->cronometrar){	
 				toba::get_cronometro()->registrar($this->id);
@@ -296,11 +295,6 @@ class solicitud
 		return (trim($this->info['basica']['item_existe_ayuda'])!="");	
 	}
 	
-	function tipo_solicitud()
-	{
-		return $this->info['basica']['item_solic_tipo'];	
-	}
-	
 	/**
 	* Retorna un arreglo de datos básicos del item que se esta ejecutando
 	* @param string $prop Propiedad a obtener (opcional)
@@ -313,7 +307,7 @@ class solicitud
 		return $this->info['basica'];	
 	}
 	
-	function id()
+	function get_id()
 	{
 		return $this->id;	
 	}

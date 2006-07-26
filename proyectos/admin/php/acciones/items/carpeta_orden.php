@@ -70,9 +70,8 @@ require_once("nucleo/lib/interface/form.php");
 
 	$clases = array('ordenamiento_alfabetico', 'ordenamiento_alfabetico_recursivo');
 
-	if($editable = $this->zona->obtener_editable_propagado())
+	if($editable = $this->zona->get_editable())
 	{
-		$this->zona->cargar_editable();//Cargo el editable de la zona
 		$this->zona->obtener_html_barra_superior();
 
 		$proyecto = $editable[0];

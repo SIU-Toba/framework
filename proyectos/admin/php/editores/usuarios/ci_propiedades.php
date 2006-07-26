@@ -13,10 +13,8 @@ class ci_propiedades extends objeto_ci
 	{
 		$zona = toba::get_solicitud()->zona();
 		$cargar = false;
-		$editable = $zona->obtener_editable_propagado();
+		$editable = $zona->get_editable();
 		if (isset($editable)) {
-			//La zona tiene avisa que tiene algo
-			$zona->cargar_editable();
 			if ($editable[0] != $this->usuario_actual) {
 				//Lo que tiene la zona es nuevo, asi que se cargan los datos
 				$this->usuario_actual = $editable[0];

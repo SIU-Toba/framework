@@ -22,6 +22,14 @@ class toba
 	}
 	
 	/**
+	 * @return zona
+	 */
+	static function get_zona()
+	{
+		return nucleo_toba::instancia()->get_solicitud()->zona();
+	}
+	
+	/**
 	 * @return vinculador
 	 */
 	static function get_vinculador()

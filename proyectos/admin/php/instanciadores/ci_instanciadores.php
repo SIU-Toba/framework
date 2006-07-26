@@ -10,8 +10,7 @@ abstract class ci_instanciadores extends objeto_ci
 		parent::__construct($id);
 		//Cargo el editable de la zona		
 		$zona = toba::get_solicitud()->zona();
-		if (isset($zona) && $editable = $zona->obtener_editable_propagado()){
-			$zona->cargar_editable(); 
+		if (isset($zona) && $editable = $zona->get_editable()){
 			list($proyecto, $objeto) = $editable;
 		}	
 		//Se notifica un objeto y un proyecto	

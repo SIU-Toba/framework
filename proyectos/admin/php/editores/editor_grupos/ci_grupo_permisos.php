@@ -6,7 +6,7 @@ class ci_grupo_permisos extends objeto_ci
 
 	function evt__inicializar()
 	{
-		$editable = toba::get_solicitud()->zona()->obtener_editable_propagado();
+		$editable = toba::get_solicitud()->zona()->get_editable();
 		if ($editable && !$this->dependencia('datos')->esta_cargado()) {
 			list($proyecto, $grupo) = $editable;
 			$this->dependencia('datos')->cargar(array('usuario_grupo_acc' => $grupo,
