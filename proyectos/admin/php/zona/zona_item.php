@@ -4,7 +4,7 @@ require_once('modelo/consultas/dao_editores.php');
 
 class zona_item extends zona
 {
-	function cargar_descripcion()
+	function cargar_info()
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
 		//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)

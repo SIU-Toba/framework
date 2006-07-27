@@ -27,13 +27,9 @@ class zona
 		$this->items_vecinos = info_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_id = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
-		if ( isset($this->editable_id) ){
+		if ( isset($this->editable_id) ) {
 			$this->cargar(explode(apex_qs_separador,$this->editable_id));
 		}
-	}
-
-	protected function cargar_descripcion()
-	{
 	}
 
 	/**
@@ -53,20 +49,21 @@ class zona
 	function cargar($id)
 	{
 		$this->editable_id = $id;
-		$this->cargar_descripcion();
+		$this->cargar_info();
 	}
+	
+	protected function cargar_info()
+	{
+	}	
 
 	function get_editable()
 	{
 		return $this->editable_id;
 	}
 	
-	function info(){
-		$dump["id"]=$this->id;
-		$dump["items_vecinos"]= $this->items_vecinos;
-		$dump["editable_id"]= $this->editable_id;
-		$dump["editable_info"]= $this->editable_info;
-		ei_arbol($dump,"ZONA");
+	function get_info()
+	{
+		return $this->editable_info;
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -126,7 +123,6 @@ class zona
 	function obtener_html_barra_especifico()
 	{	
 	}
-
 	
 	function obtener_html_barra_inferior()
 	{

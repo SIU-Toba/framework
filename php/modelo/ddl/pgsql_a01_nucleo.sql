@@ -726,9 +726,12 @@ CREATE TABLE apex_item_zona
 	proyecto						varchar(15)		NOT NULL,
 	zona							varchar(20)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
-	clave_editable					varchar(100)	NULL,	--	Clave	del EDITABLE manejado en la ZONA
-	archivo							varchar(80)		NOT NULL, -- Archivo	donde	reside la clase que representa la ZONA
-	descripcion						varchar			NULL,
+	clave_editable					varchar(100)	NULL,		--	Clave	del EDITABLE manejado en la ZONA
+	archivo							varchar(80)		NOT NULL, 	-- Archivo	donde	reside la clase que representa la ZONA
+	descripcion						varchar			NULL,		--OBSOLETO
+	consulta_archivo				varchar(255)	NULL,
+	consulta_clase					varchar(60)		NULL,
+	consulta_metodo					varchar(60)		NULL,
 	CONSTRAINT	"apex_item_zona_pk" PRIMARY KEY ("proyecto","zona"),
 	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

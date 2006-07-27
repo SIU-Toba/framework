@@ -492,7 +492,7 @@ class dao_editores
 		$sql = "SELECT proyecto, zona, nombre
 				FROM apex_item_zona
 				WHERE ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' )
-				ORDER BY descripcion";
+				ORDER BY nombre";
 		return contexto_info::get_db()->consultar($sql);		
 	}			
 

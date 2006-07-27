@@ -107,6 +107,7 @@ class db
 	*/	
 	function consultar($sql, $tipo_indice=null, $obligatorio=false, $compatibilidad=false)
 	{
+		global $ADODB_FETCH_MODE;
 		if(isset($tipo_indice)){
 			$ADODB_FETCH_MODE = $tipo_indice;
 		}else{

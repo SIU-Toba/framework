@@ -5,7 +5,7 @@ require_once('modelo/consultas/dao_editores.php');
 class zona_objeto extends zona
 {
 
-	function cargar_descripcion($editable=null)
+	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
 		$sql = 	"	SELECT	o.*,

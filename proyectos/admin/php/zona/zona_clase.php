@@ -3,7 +3,7 @@ require_once("nucleo/lib/zona.php");
 
 class zona_clase extends zona
 {
-	function cargar_descripcion($editable=null)
+	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
 		global $ADODB_FETCH_MODE, $db, $cronometro;		
