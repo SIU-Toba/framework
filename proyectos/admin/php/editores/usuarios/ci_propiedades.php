@@ -4,20 +4,20 @@ require_once('nucleo/componentes/interface/objeto_ci.php');
 //--------------------------------------------------------------------
 class ci_propiedades extends objeto_ci
 {
-	protected $usuario_actual;
+	protected $usuario_actual='';
 	protected $grupo_acceso;
 	protected $eliminado = false;
 	const clave_falsa = "xS34Io9gF2JD";
 	
 	function inicializar()
 	{
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::get_zona();
 		$cargar = false;
 		$editable = $zona->get_editable();
 		if (isset($editable)) {
-			if ($editable[0] != $this->usuario_actual) {
+			if ($editable != $this->usuario_actual) {
 				//Lo que tiene la zona es nuevo, asi que se cargan los datos
-				$this->usuario_actual = $editable[0];
+				$this->usuario_actual = $editable;
 				$condiciones['basicas'] = "basicas.usuario='{$this->usuario_actual}'";
 				$condiciones['proyecto'] = "proyecto.proyecto='".editor::get_proyecto_cargado()."'";
 				$this->dependencia('datos')->get_persistidor()->cargar_con_wheres($condiciones);
@@ -68,9 +68,8 @@ class ci_propiedades extends objeto_ci
 			$basicas = $this->dependencia('datos')->tabla('basicas')->get();
 			$this->usuario_actual = $basicas['usuario'];
 			//Hay que avisarle a la zona
-			toba::get_solicitud()->zona()->cargar_editable(array('usuario' => $this->usuario_actual));
+			toba::get_zona()->cargar_editable($this->usuario_actual);
 		}
-		toba::get_solicitud()->zona()->refrescar_listado_editable_apex();
 	}
 
 	function evt__cancelar()
@@ -85,7 +84,6 @@ class ci_propiedades extends objeto_ci
 		$this->dependencia('datos')->eliminar();
 		$this->eliminado = true;
 		$this->evt__cancelar();
-		toba::get_solicitud()->zona()->refrescar_listado_editable_apex();
 	}
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS

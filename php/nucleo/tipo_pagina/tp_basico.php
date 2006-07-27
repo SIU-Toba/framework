@@ -7,6 +7,7 @@ class tp_basico extends tipo_pagina
 		$this->cabecera_html();
 		$this->comienzo_cuerpo();
 		$this->barra_superior();
+		//--- No se cierra el div de encabezado para dar lugar a la zona...
 	}
 	
 	function pre_contenido(){}
@@ -93,6 +94,7 @@ class tp_basico extends tipo_pagina
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
 		echo "</div>";
+		echo "<div class='encabezado'>";
 		js::cargar_consumos_globales(array('basicos/dhtml_tooltip'));
 		if ( editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');

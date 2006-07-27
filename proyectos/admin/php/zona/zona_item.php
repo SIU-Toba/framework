@@ -1,8 +1,8 @@
 <?php
-require_once("nucleo/lib/zona.php");
 require_once('modelo/consultas/dao_editores.php');
+require_once("zona_editor.php");
 
-class zona_item extends zona
+class zona_item extends zona_editor
 {
 	function cargar_info()
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
@@ -24,67 +24,20 @@ class zona_item extends zona
 			return true;
 		}	
 	}
-
-	function obtener_html_barra_superior()
-	//Genera el HTML de la BARRA
+	
+	function obtener_html_barra_vinculos()
 	{
-		//global $cronometro;
-		//$cronometro->marcar('basura',apex_nivel_nucleo);
-
-		echo "<table width='100%' class='tabla-0'><tr>";
-
-		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;EDITOR de ITEMS";
-		//echo recurso::imagen_apl("zona/objetos.gif",true);
-		echo "</td>";
-		
-		//Vinculo a la vista lateral
-		echo "<td class='barra-item-link' width='1'>";		
 		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
  		echo toba::get_vinculador()->obtener_vinculo_a_item_cp('admin',"/admin/items/catalogo_unificado",
  																$parametros,true, false, false, "", null, null, 'lateral');
-		echo "</td>";
+		parent::obtener_html_barra_vinculos();		
 		
-		$this->obtener_html_barra_vinculos();
-		$this->obtener_html_barra_especifico();
-		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
-		echo "</tr></table>\n";
-
-		//Nombre de la operacion
-		echo "<table  width='100%'  class='tabla-0'><tr>";
-		echo "	<td   width='10' class='barra-item-id'>";
-		echo "&nbsp;".$this->editable_id[1]."&nbsp;";
-		echo "<td class='barra-item-tit'>&nbsp;".$this->editable_info['nombre']."</td>";
-		echo "</tr></table>\n";
-		//$cronometro->marcar('ZONA: Barra SUPERIOR',apex_nivel_nucleo);
-	}
-
-	function obtener_html_barra_especifico()
-	//Esto es especifico de cada EDITABLE
-	{	
-                
-                //ATENCION, solicitud directa
-                $id_buffer = array(apex_hilo_qs_zona => $this->editable_info['actividad_buffer_proyecto']
-                                         . apex_qs_separador . $this->editable_info['actividad_buffer'] );
-                if($vinculo = toba::get_vinculador()->obtener_vinculo_a_item('admin',"/admin/buffers/propiedades",$id_buffer,true))
-                {
-                        if( !(($this->editable_info['actividad_buffer_proyecto']=="toba" )
-                             &&($this->editable_info['actividad_buffer']=="0"))){
-         		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
-	        	echo "<td  class='barra-item-link' width='1'>";
-		        echo $vinculo;
-        		echo "</a>";
-	        	echo "</td>";
-                        }
-                }
-
- 		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
-		echo "<td  class='barra-item-link' width='1'>";
 		echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
-		echo recurso::imagen_apl("items/instanciar.gif",true,null,null,"Generar una SOLICITUD a este ITEM");
+		echo recurso::imagen_apl("items/instanciar.gif",true,null,null,"Ejecutar el item");
 		echo "</a>";
-		echo "</td>";
+		
 	}
-
+	
 	function obtener_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{
@@ -113,8 +66,8 @@ class zona_item extends zona
 					AND		io.proyecto='".$this->editable_id[0]."'
 					AND		io.item='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
-			$datos = toba::get_db()->ejecutar($sql);
-			if($datos){
+			$datos = toba::get_db()->consultar($sql);
+			if(! empty($datos)){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
 				echo "<td  colspan='2' class='barra-obj-tit'>OBJETO</td>";
@@ -131,7 +84,7 @@ class zona_item extends zona
 						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs["clase"]."\", ".($contador[$rs["clase"]]).")</td>";
-						if (!in_array($rs->fields['clase'], dao_editores::get_clases_validas())) { 
+						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
 													'admin',"/admin/objetos/propiedades",

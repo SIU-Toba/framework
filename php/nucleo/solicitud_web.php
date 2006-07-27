@@ -41,12 +41,12 @@ class solicitud_web extends solicitud
 	{	
 		$accion = $this->info['basica']['item_act_accion_script'];
 		try {
+			$this->crear_zona();			
 			$redirecciona = ($this->info['basica']['redirecciona']);
 			// Si la pagina redirecciona, no mando los pre_servicios ahora
 			if (!$redirecciona) {
 				$this->pre_proceso_servicio();
 			}
-			$this->crear_zona();
 			$this->cargar_objetos();
 			$this->procesar_eventos();
 			if ($redirecciona) {
@@ -184,19 +184,19 @@ class solicitud_web extends solicitud
 			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
 		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();
-		$this->tipo_pagina->encabezado();		
+		$this->tipo_pagina->encabezado();
 	}
 	
 	protected function servicio__obtener_html($objetos)
 	{
+		//--- Parte superior de la zona
+		if (toba::get_solicitud()->hay_zona() &&  toba::get_zona()->cargada()) {
+			toba::get_zona()->obtener_html_barra_superior();
+		}
+		echo '<div style="clear:both;"></div>';
+		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
 		//--- Abre el formulario
 		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
-
-		//--- Parte superior de la zona
-		if ($this->hay_zona() &&  $this->zona->cargada()) {
-			$this->zona->obtener_html_barra_superior();
-		}			
-		
 		$this->tipo_pagina->pre_contenido();
 
 		foreach ($objetos as $obj) {
@@ -311,18 +311,7 @@ class solicitud_web extends solicitud
 		}
 	}
 //--------------------------------------------------------------------------------------------
-	/**
-	 * @return zona
-	 */
-	function zona()
-	{
-		return $this->zona;
-	}
-	
-	function hay_zona()
-	{
-		return isset($this->zona);	
-	}	
+
 	
 //--------------------------------------------------------------------------------------------
 

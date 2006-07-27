@@ -32,7 +32,7 @@ function cuadro_ayuda($titulo, $iconos)
 
 
 //--- LINKS
-echo "<div style='display: block;'>";
+echo "<div style='display: block;clear:both;'>";
 $online = array();
 $online[] = array('url' => array("Especificación 4.01 (esp)" => "http://html.conclase.net/w3c/html401-es/cover.html#minitoc"
 							),

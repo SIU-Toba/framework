@@ -85,6 +85,12 @@ legend {
 	font-size: 12px;
 	color: #333333;
 }
+.encabezado {
+	background-color:#D5D2CD;
+	border-bottom: #4f4c4d 1px solid;	
+	width: 100%;
+	padding-bottom:5px;
+}
 .cuerpo {
 	margin-top: 15px; 
 	margin-bottom: 15px;
@@ -93,7 +99,13 @@ legend {
 	text-align: center;
 	margin-top: 100px;
 }
-
+.barra-usuario {
+	white-space: nowrap;
+}
+.barra-usuario-nom {
+	display: block;
+	font-weight: bold;
+}
 /*************************************
 		Elementos de Interface
 **************************************/
@@ -700,21 +712,6 @@ hides rule from IE5-Mac \*/
 	text-align: left;
 }
 
-.item-barra {
-	border-top: #000000 1px solid;
-	border-bottom: #000000 1px solid;	
-	background-color: #514a84;
-	text-align: right;
-}
-.item-barra-tit {
-	font-weight: bold;
-	font-size: 12px;
-	color: #ffffff;
-	background-color: #514a84;
-	text-align: left
-}
-.item-barra-ayuda {}
-
 .barra-separador {
 	border: 1px solid #4f4c4d;
 	padding: 5px;
@@ -724,34 +721,49 @@ hides rule from IE5-Mac \*/
 	background-color: #d3d2d2;
 	text-align: left;
 }
-.zona-barra-sup {
-	width: 100%;
-}
-.zona-barra-id {
-	padding: 2px;
-	border-bottom: #4f4c4d 1px solid;	
-	font-weight: bold;
-	font-size: 11px;
-	color: #231f20;
-	background-color: #7b7979;
-	text-align: left;
-}
-.zona-barra-desc {
-	border-left: #4f4c4d 1px solid;
-	border-bottom: #4f4c4d 1px solid;	
-	font-size: 15px;	
-	color: #000000;
-	text-align: center;
-}
-
-
 .menu-barra {
 	color: #231f20;
-	background-color: #d4d0c8;
 	text-align: left;
 }
 
-
+.item-barra {
+	float: left;
+	padding: 3px;
+}
+.item-barra-tit {
+	font-weight: bold;
+	font-size: 11px;;
+	display: inline;
+	margin-left: 5px;
+	vertical-align: top;
+}
+.item-barra-ayuda {
+	display: inline;
+}
+/*************************
+	ZONA
+**************************/
+.zona-barra-sup {
+	text-align: center;	
+}
+.zona-barra-desc {
+	padding-top: 5px;
+	font-weight: bold;
+}
+.zona-barra-id {
+	color: gray;
+}
+.zona-items {
+	float: right;
+	background-color:#EEEEEE;
+	border: gray solid 1px;	
+	padding: 3px;
+	text-align:right;	
+	
+}
+.zona-items a {
+	padding-right: 4px;
+}
 
 
 /*************************

@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/lib/zona.php");
+require_once("zona_editor.php");
 
-class zona_carpeta extends zona
+class zona_carpeta extends zona_editor
 {
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
@@ -22,5 +22,6 @@ class zona_carpeta extends zona
 			return true;
 		}	
 	}
+	
 }
 ?>

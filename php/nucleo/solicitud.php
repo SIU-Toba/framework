@@ -311,6 +311,19 @@ class solicitud
 	{
 		return $this->id;	
 	}
+	
+	/**
+	 * @return zona
+	 */
+	function zona()
+	{
+		return $this->zona;
+	}
+	
+	function hay_zona()
+	{
+		return isset($this->zona);	
+	}		
 
 //*******************************************************************************************
 //**********************************<	OBJETOS STANDART	 >**********************************

@@ -95,9 +95,10 @@ class tp_normal extends tp_basico_titulo
 	
 	protected function info_usuario()
 	{
-		echo "<div style='white-space: nowrap'>";
-		echo "<strong>".toba::get_usuario()->get_nombre()."</strong></div>";
-		echo toba::get_usuario()->get_id();
+		echo "<div class='barra-usuario'>";
+		echo "<span class='barra-usuario-nom'>".toba::get_usuario()->get_nombre()."</span>";
+		echo "<span class='barra-usuario-id'>".toba::get_usuario()->get_id()."</span>";
+		echo "</div>";
 	}		
 	
 	function pie()

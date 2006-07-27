@@ -13,7 +13,6 @@
 					$this->objetos[$abm]->obtener_html();
 					//Si la lista de la izquierda concuerda con la del EDITABLE eliminado
 					//tengo que refrescarla para que refleje el estado de la base
-					$this->zona->refrescar_listado_editable_apex();
 				}else{
 /*	Si cambio la carpeta hay que refrescar el menu del costado.
 	Hay que pedirle los datos al ABM y compararlos con los de la zona
@@ -67,7 +66,6 @@
 						$this->zona->obtener_html_barra_inferior();
 						//Si la lista de la izquierda concuerda con la del EDITABLE ingresado
 						//tengo que refrescarla para que refleje el estado de la base
-						$this->zona->refrescar_listado_editable_apex();
 					}else{
 						//ei_mensaje("No fue posible cargar la zona","error");
 					}

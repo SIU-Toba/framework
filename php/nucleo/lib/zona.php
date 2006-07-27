@@ -66,35 +66,56 @@ class zona
 		return $this->editable_info;
 	}
 	
+	protected function get_editable_nombre()
+	{
+		$candidatos = array('nombre', 'descripcion_corta', 'descripcion');
+		foreach ($candidatos as $candidato) {
+			if (isset($this->editable_info[$candidato])) {
+				return $this->editable_info[$candidato];	
+			}			
+		}
+		return '';	
+	}
+	
+	protected function get_editable_id()
+	{
+		if (is_array($this->editable_id)) {
+			return implode(' - ', $this->editable_id);
+		} else {
+			return $this->editable_id;	
+		}
+	}
 	//-------------------------------------------------------------------------------
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
 
 	function obtener_html_barra_superior()
 	{
-		echo "<table class='zona-barra-sup'><tr>";
-		$this->obtener_html_barra_info();
+		echo "<div class='zona-barra-sup' id='zona_{$this->id}'>";
+		echo "<div class='zona-items'>";
 		$this->obtener_html_barra_vinculos();
+		echo "</div>";		
+		$this->obtener_html_barra_nombre();
+		$this->obtener_html_barra_id();		
 		$this->obtener_html_barra_especifico();
-		echo "<td width='15'>&nbsp;</td>";
-		echo "</tr></table>\n";
+		echo "</div>\n";
 	}
-
+	
 	/**
 	 * Muestra la seccion INFORMATIVA (izquierda) de la barra
 	 */
-	function obtener_html_barra_info()
+	function obtener_html_barra_id()
 	{
-		echo "	<td width='250' class='zona-barra-id'>";
-		$id = '';
-		if (is_array($this->editable_id)) {
-			$id = implode(' - ', $this->editable_id);
-		} else {
-			$id = $this->editable_id;	
-		}
-		echo $id;
-		echo "</td>";
-		echo "<td width='60%' class='zona-barra-desc'>&nbsp;".$this->editable_info['nombre']."</td>";
+		echo "<div class='zona-barra-id'>";
+		echo $this->get_editable_id();
+		echo "</div>";
+	}
+	
+	function obtener_html_barra_nombre()
+	{
+		echo "<div class='zona-barra-desc'>";
+		echo $this->get_editable_nombre();
+		echo "</div>";
 	}
 
 	/**
@@ -102,25 +123,25 @@ class zona
 	 */
 	function obtener_html_barra_vinculos()
 	{
+	
 		foreach($this->items_vecinos as $item){
-			echo "<td  class='barra-item-link' width='1'>";
- 			echo "<a href='" . toba::get_vinculador()->generar_solicitud($item['item_proyecto'],
-																				$item['item'],
-																				null,
-																				true) ."'>";
-			if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
-				if($item['imagen_origen']=="apex"){
-					echo recurso::imagen_apl($item['imagen'],true,null,null,$item['descripcion']);
-				}elseif($item['imagen_origen']=="proyecto"){
-					echo recurso::imagen_pro($item['imagen'],true,null,null,$item['descripcion']);
+			$vinculo = toba::get_vinculador()->crear_vinculo($item['item_proyecto'], $item['item'], 
+														array(), array('zona' =>true, 'validar'=>false));
+			if (isset($vinculo)) {
+	 			echo "<a href='$vinculo'>";
+				if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
+					if($item['imagen_origen']=="apex"){
+						echo recurso::imagen_apl($item['imagen'],true,null,null,$item['nombre']);
+					}elseif($item['imagen_origen']=="proyecto"){
+						echo recurso::imagen_pro($item['imagen'],true,null,null,$item['nombre']);
+					}else{
+						echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
+					}
 				}else{
-					echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['descripcion']);
+					echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
 				}
-			}else{
-				echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['descripcion']);
+				echo "</a>";
 			}
-			echo "</a>";
-			echo "</td>";
 		}
 	}
 	
@@ -130,7 +151,6 @@ class zona
 	
 	function obtener_html_barra_inferior()
 	{
-		return null;
 	}
 
 }

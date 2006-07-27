@@ -1,8 +1,8 @@
 <?php
-require_once("nucleo/lib/zona.php");
+require_once("zona_editor.php");
 require_once('modelo/consultas/dao_editores.php');
 
-class zona_objeto extends zona
+class zona_objeto extends zona_editor
 {
 
 	function cargar_info($editable=null)

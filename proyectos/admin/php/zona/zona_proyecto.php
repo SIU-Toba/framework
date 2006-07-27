@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/lib/zona.php");
+require_once("zona_editor.php");
 
-class zona_proyecto extends zona
+class zona_proyecto extends zona_editor
 {
 
 	function cargar_info($editable=null)
