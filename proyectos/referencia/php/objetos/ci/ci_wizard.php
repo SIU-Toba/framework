@@ -62,6 +62,16 @@ class ci_wizard extends objeto_ci
 		return $eventos;
 	}
 	
+	function evt__cargar_zona()
+	{
+		$editable = array('fecha' => date('D M j G:i:s T Y'), 'otro' => true);
+		toba::get_zona()->cargar($editable);	
+	}
+	
+	function evt__descargar_zona()
+	{
+		toba::get_zona()->resetear();
+	}	
 }
 
 

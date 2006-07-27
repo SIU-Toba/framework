@@ -1,0 +1,1 @@
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES ('referencia', 'zona_cis', 'Zona de prueba para Cis', NULL, NULL, NULL, NULL, NULL, NULL);

@@ -28,7 +28,7 @@ class zona
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_id = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
 		if ( isset($this->editable_id) ) {
-			$this->cargar(explode(apex_qs_separador,$this->editable_id));
+			$this->cargar(toba::get_vinculador()->url_a_variable($this->editable_id));
 		}
 	}
 
@@ -86,7 +86,13 @@ class zona
 	function obtener_html_barra_info()
 	{
 		echo "	<td width='250' class='zona-barra-id'>";
-		echo "&nbsp;".$this->editable_id[1]."&nbsp;";
+		$id = '';
+		if (is_array($this->editable_id)) {
+			$id = implode(' - ', $this->editable_id);
+		} else {
+			$id = $this->editable_id;	
+		}
+		echo $id;
 		echo "</td>";
 		echo "<td width='60%' class='zona-barra-desc'>&nbsp;".$this->editable_info['nombre']."</td>";
 	}
@@ -96,10 +102,8 @@ class zona
 	 */
 	function obtener_html_barra_vinculos()
 	{
-		$js_cambiar_color = " onmouseover=\"this.className='barra-item-link2';\" ".
-    	                    "  onmouseout=\"this.className='barra-item-link';\"";
 		foreach($this->items_vecinos as $item){
-			echo "<td  class='barra-item-link' $js_cambiar_color width='1'>";
+			echo "<td  class='barra-item-link' width='1'>";
  			echo "<a href='" . toba::get_vinculador()->generar_solicitud($item['item_proyecto'],
 																				$item['item'],
 																				null,

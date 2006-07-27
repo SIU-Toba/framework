@@ -233,8 +233,7 @@ class editor
 						nodos[i].className = 'div-editor';
 					}
 				}
-/*				var color = (mostrar) ? 'white' : '';
-				document.getElementById('editor_boton').style.backgroundColor = color;*/
+
 			}";
 		echo "
 			function capturar(e) 
@@ -247,7 +246,10 @@ class editor
 			document.onkeyup = capturar
 		";
 		echo js::cerrar();
-		echo "<div id='editor_toggle' onclick='cambiar_vinculos_editor()'><button type='button' id='editor_boton'>".
+		$ayuda = 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página';
+		$html_ayuda = recurso::ayuda(null, $ayuda);
+		echo "<div id='editor_toggle'>".
+				"<button type='button' onclick='cambiar_vinculos_editor()' $html_ayuda id='editor_boton'>".
 				recurso::imagen_apl('editor-boton.png', true)."<br>Ctrl</button></div>";
 		self::javascript_invocacion_editor();
 		echo "<div class='div-editor'>";

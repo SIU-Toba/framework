@@ -8,6 +8,7 @@ require_once("nucleo/lib/interface/form.php");				//inputs HTML
 require_once("nucleo/lib/interface/ei.php"); 				//elementos basicos de interface
 require_once("nucleo/tipo_pagina/tipo_pagina.php");			//Clase base de Tipo de pagina generico
 require_once("nucleo/menu/menu.php");						//Clase base de Menu 
+require_once("nucleo/lib/zona.php");
 require_once("lib/parseo.php");					       		//Funciones de parseo
 
 /**
@@ -80,12 +81,14 @@ class solicitud_web extends solicitud
 	
 	protected function crear_zona()
 	{
-		if(trim($this->info['basica']['item_zona'])!=""){
-			require_once($this->info['basica']['item_zona_archivo']);
-			$this->zona = new $this->info['basica']['item_zona']($this->info['basica']['item_zona'], 
-														$this->info['basica']['item_zona_proyecto'],
-														$this);
-		}		
+		$clase = 'zona';
+		if (trim($this->info['basica']['item_zona'])!="") {
+			if (isset($this->info['basica']['item_zona_archivo'])) {
+				require_once($this->info['basica']['item_zona_archivo']);
+				$clase = $this->info['basica']['item_zona'];
+			}
+			$this->zona = new $clase($this->info['basica']['item_zona']);
+		}
 	}
 	
 	protected function cargar_objetos()

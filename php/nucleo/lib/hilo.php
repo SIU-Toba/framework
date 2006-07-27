@@ -13,6 +13,7 @@ define('apex_hilo_reciclado_acceso',1);
 */
 //Separador en el caso de que una clave transporte varios valores
 define("apex_qs_separador","||");			//Separador utilizado para diferenciar campos de valores compuestos
+define("apex_qs_sep_interno","^^");			//Separador utilizado para segundo nivel de campos compuestos
 // Claves de querystring utilizadas por la pareja VINCULADOR - HILO
 define("apex_hilo_qs_id","ah");									//ID de Hilo referenciado
 define("apex_hilo_qs_item","ai");								//ITEM de catalogo a solicitar

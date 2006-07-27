@@ -726,9 +726,9 @@ CREATE TABLE apex_item_zona
 	proyecto						varchar(15)		NOT NULL,
 	zona							varchar(20)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
-	clave_editable					varchar(100)	NULL,		--	Clave	del EDITABLE manejado en la ZONA
-	archivo							varchar(80)		NOT NULL, 	-- Archivo	donde	reside la clase que representa la ZONA
-	descripcion						varchar			NULL,		--OBSOLETO
+	clave_editable					varchar(100)	NULL,		-- Clave	del EDITABLE manejado en la ZONA
+	archivo							varchar(80)		NULL, 		-- Archivo	donde	reside la clase que representa la ZONA
+	descripcion						varchar			NULL,		-- OBSOLETO
 	consulta_archivo				varchar(255)	NULL,
 	consulta_clase					varchar(60)		NULL,
 	consulta_metodo					varchar(60)		NULL,

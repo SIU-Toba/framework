@@ -102,8 +102,6 @@
 	function sl(){ return salto_linea(); }
 
 	//-----------------------------------------------------------------
-
-	
 	function tecla_acceso($etiqueta)
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
@@ -142,6 +140,7 @@
 		return $aplanado;
 	}
 	
+
 	/**
 	 * Toma una matriz en formato recordset y retorna un arreglo asociativo clave => valor
 	 *

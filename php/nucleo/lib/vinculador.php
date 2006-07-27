@@ -132,6 +132,37 @@ class vinculador
 //########################   Solicitud DIRECTA de URLS  ############################
 //##################################################################################
 	
+	function variable_a_url($variable)
+	{
+		if (! is_array($variable)) {
+			return urlencode($variable);
+		}
+		$salida = array();
+		foreach ($variable as $clave => $valor) {
+			$salida[] = urlencode($clave . apex_qs_sep_interno. $valor);
+		}
+		return implode(apex_qs_separador, $salida);
+	}
+	
+	function url_a_variable($url)
+	{
+		if (strpos($url, apex_qs_separador) === false) {
+			return urldecode($url);
+		}
+		$salida = array();
+		$partes = explode(apex_qs_separador, $url);
+		foreach ($partes as $parte) {
+			if (strpos($parte, apex_qs_sep_interno) === false) {
+				$salida[] = urldecode($parte);
+			} else {
+				//--- Manejo de claves asociativas
+				list($clave, $valor) = explode(apex_qs_sep_interno, urldecode($parte));
+				$salida[$clave] = $valor;
+			}
+		}
+		return $salida;
+	}
+
 	/**
 	 * Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
 	 * No se chequean permisos
@@ -167,9 +198,10 @@ class vinculador
 		$parametros_formateados = "";
 		if ($zona){//Hay que propagar la zona?
 			$solicitud_actual = toba::get_solicitud();
-			if ($solicitud_actual->hay_zona() && toba::get_zona()->cargada()){
+			if ($solicitud_actual->hay_zona() && toba::get_zona()->cargada()) {
+				$editable = $this->variable_a_url(toba::get_zona()->get_editable());
 				$parametros_formateados .= "&". apex_hilo_qs_zona 
-						."=". implode(apex_qs_separador, toba::get_zona()->get_editable());
+						."=".$editable;
 			}
 		}
 		//Cual es el tipo de salida?
