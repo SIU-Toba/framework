@@ -105,10 +105,6 @@ class solicitud
 		toba::get_cronometro()->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
 	}
 	
-//--------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------
-
 	function finalizar_objetos()
 	{
 		//--- Finalizo objetos TOBA ----------
@@ -311,6 +307,30 @@ class solicitud
 	{
 		return $this->id;	
 	}
+	
+	
+	//----------------------------------------------------------
+	//-------------------------- ZONA --------------------------
+	//----------------------------------------------------------
+
+	protected function crear_zona()
+	{
+		$clase = 'zona';
+		if (trim($this->info['basica']['item_zona'])!="") {
+			//--- Tiene subclase?
+			if (isset($this->info['basica']['item_zona_archivo'])) {
+				require_once($this->info['basica']['item_zona_archivo']);
+				$clase = $this->info['basica']['item_zona'];
+			}
+			//--- Tiene consulta?
+			$consulta = array(
+					'archivo' => $this->info['basica']['zona_cons_archivo'],
+					'clase' => $this->info['basica']['zona_cons_clase'],
+					'metodo' => $this->info['basica']['zona_cons_metodo']
+			);
+			$this->zona = new $clase($this->info['basica']['item_zona'], $consulta);
+		}
+	}	
 	
 	/**
 	 * @return zona

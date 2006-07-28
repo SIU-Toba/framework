@@ -79,18 +79,6 @@ class solicitud_web extends solicitud
 		}
 	}
 	
-	protected function crear_zona()
-	{
-		$clase = 'zona';
-		if (trim($this->info['basica']['item_zona'])!="") {
-			if (isset($this->info['basica']['item_zona_archivo'])) {
-				require_once($this->info['basica']['item_zona_archivo']);
-				$clase = $this->info['basica']['item_zona'];
-			}
-			$this->zona = new $clase($this->info['basica']['item_zona']);
-		}
-	}
-	
 	protected function cargar_objetos()
 	{
 		toba::get_logger()->seccion("Cargando objetos...", 'toba');

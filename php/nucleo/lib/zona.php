@@ -19,10 +19,13 @@ class zona
 	protected $items_vecinos; 			//Array de ITEMs que viven en la ZONA
 	protected $editable_id;				//ID del editable cargado
 	protected $editable_info;			//Propiedades del EDITABLE
+	protected $metodo_cons;
 	
-	function __construct($id)
+	function __construct($id, $metodo_cons)
 	{
 		$this->id = $id;
+		$this->metodo_cons = $metodo_cons;
+		
 		//Creo la lista de los VECINOS de la ZONA
 		$this->items_vecinos = info_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
 		//Se propago algo por el canal utilizado por la zona?
@@ -48,12 +51,22 @@ class zona
 	
 	function cargar($id)
 	{
-		$this->editable_id = $id;
-		$this->cargar_info();
+		//--- Cambio ??
+		if (!isset($this->editable_id) || $id !== $this->editable_id) {
+			$this->editable_id = $id;
+			$this->cargar_info();
+		}
 	}
 	
 	protected function cargar_info()
 	{
+		if (isset($this->metodo_cons['archivo'])) {
+			require_once($this->metodo_cons['archivo']);
+		}
+		if (isset($this->metodo_cons['clase']) && isset($this->metodo_cons['metodo'])) {
+			$llamada = array($this->metodo_cons['clase'], $this->metodo_cons['metodo']);
+			$this->editable_info = call_user_func($llamada, $this->editable_id);
+		}
 	}	
 
 	function get_editable()
@@ -68,6 +81,9 @@ class zona
 	
 	protected function get_editable_nombre()
 	{
+		if (is_scalar($this->editable_info)) {
+			return $this->editable_info;
+		}
 		$candidatos = array('nombre', 'descripcion_corta', 'descripcion');
 		foreach ($candidatos as $candidato) {
 			if (isset($this->editable_info[$candidato])) {
