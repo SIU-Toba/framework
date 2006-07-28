@@ -128,11 +128,6 @@
 			  <? echo recurso::imagen_apl("fuente.gif",true,null,null,"host/dsn: " . $registro["host"]) ?>
 			</a>
 		  </td>
-          <td  class='cat-item-botones2'>
-		<a href='<? echo  $this->vinculador->generar_solicitud('admin',"/admin/datos/fuente_sql",array( apex_hilo_qs_zona => $registro["fuente_proyecto"] .apex_qs_separador. $registro["fuente"])) ?>'  class="cat-item" target="<? echo  apex_frame_centro ?>">
-	        <? echo recurso::imagen_apl("sql.gif",true)?> 
-			</a>
-		  </td>
           <td  class='lista-obj-dato1' width="100%"><? echo $registro["fuente"] ?></td>
           <td  class='lista-obj-dato1'><? echo $registro["instancia_id"] ?></td>
         </tr>

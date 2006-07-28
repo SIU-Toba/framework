@@ -74,13 +74,6 @@ ORDER BY    3,6;";
      <td colspan='3'>
          <table class='cat-item'  width="100%">
          <tr><td width="3%">
-<?
-    $param['tipo'] = "normal";
-    $param['texto'] = $link_tip;
-    $param['imagen_recurso_origen'] = "apex";
-    $param['imagen'] = "usuarios/$link_img.gif";
-    echo $this->vinculador->generar_solicitud(null,null,array('usu_modo'=>$link),false,false,$param,true, 'central') ;
-?>
     <td width="92%">
     </td>
 

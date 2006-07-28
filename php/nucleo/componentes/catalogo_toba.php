@@ -28,19 +28,7 @@ class catalogo_toba
 	*/
 	static function get_lista_tipo_componentes_dump()
 	{
-		$datos = self::get_lista_tipo_componentes();
-		$datos[] = 'cuadro';
-		$datos[] = 'cuadro_reg';
-		$datos[] = 'filtro';
-		$datos[] = 'hoja';
-		$datos[] = 'mt_abms';
-		$datos[] = 'html';
-		$datos[] = 'lista';
-		$datos[] = 'mt';
-		$datos[] = 'mt_mds';
-		$datos[] = 'mt_s';
-		$datos[] = 'ut_formulario';
-		return $datos;
+		return self::get_lista_tipo_componentes();
 	}
 	
 	static function get_nombre_clase_definicion( $tipo )

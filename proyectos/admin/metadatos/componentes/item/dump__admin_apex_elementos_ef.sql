@@ -6,5 +6,3 @@ INSERT INTO apex_item_info (item_id, item_proyecto, item, descripcion_breve, des
 Este es un parrafo de prueba,
 Este es un parrafo de prueba,
 Este es un parrafo de prueba,</para>');
-INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES ('180', 'admin', '/admin/apex/elementos/ef', '122', '0', NULL);
-INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES ('180', 'admin', '/admin/apex/elementos/ef', '258', '0', NULL);

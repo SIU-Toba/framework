@@ -35,7 +35,7 @@ CREATE TABLE apex_objeto_hoja
    graf_gen_ancho                smallint       NULL,
    graf_gen_alto                 smallint       NULL,
    CONSTRAINT  "apex_obj_hoj_pk"  PRIMARY KEY ("objeto_hoja_proyecto","objeto_hoja"),
-   CONSTRAINT  "apex_obj_hoj_fk_objeto" FOREIGN KEY ("objeto_hoja_proyecto","objeto_hoja") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_obj_hoj_fk_objeto" FOREIGN KEY ("objeto_hoja_proyecto","objeto_hoja") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_obj_hoj_fk_grafico" FOREIGN KEY ("grafico") REFERENCES "apex_grafico" ("grafico") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_obj_hoj_fk_formato" FOREIGN KEY ("total_x_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -85,7 +85,7 @@ CREATE TABLE apex_objeto_hoja_directiva
    par_tabla                     varchar(40)    NULL,
    par_columna                   varchar(80)    NULL,
    CONSTRAINT  "apex_obj_hoja_dir_pk" PRIMARY KEY ("objeto_hoja_proyecto","objeto_hoja","columna"),
-   CONSTRAINT  "obj_hoja_dir_fk_objeto_hoja" FOREIGN KEY ("objeto_hoja_proyecto","objeto_hoja") REFERENCES "apex_objeto_hoja" ("objeto_hoja_proyecto","objeto_hoja") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "obj_hoja_dir_fk_objeto_hoja" FOREIGN KEY ("objeto_hoja_proyecto","objeto_hoja") REFERENCES "apex_objeto_hoja" ("objeto_hoja_proyecto","objeto_hoja") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_obj_hoja_dir_fk_tipo" FOREIGN KEY ("objeto_hoja_directiva_tipo") REFERENCES "apex_objeto_hoja_directiva_ti" ("objeto_hoja_directiva_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "obj_hoja_dir_fk_dimension" FOREIGN KEY ("par_dimension_proyecto","par_dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_obj_hoja_dir_fk_estilo" FOREIGN KEY ("columna_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

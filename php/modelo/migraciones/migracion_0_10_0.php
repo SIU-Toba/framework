@@ -491,6 +491,23 @@ class migracion_0_10_0 extends migracion_toba
 		$cant+= $this->elemento->get_db()->ejecutar($sql);
 		return $cant;
 	}
-	
+
+	function proyecto__eliminar_objetos_obsoletos()
+	{
+		$clases_obsoletas[] = 'objeto_cuadro';
+		$clases_obsoletas[] = 'objeto_cuadro_reg';
+		$clases_obsoletas[] = 'objeto_filtro';
+		$clases_obsoletas[] = 'objeto_hoja';
+		$clases_obsoletas[] = 'objeto_mt_abms';
+		$clases_obsoletas[] = 'objeto_html';
+		$clases_obsoletas[] = 'objeto_lista';
+		$clases_obsoletas[] = 'objeto_mt';
+		$clases_obsoletas[] = 'objeto_mt_mds';
+		$clases_obsoletas[] = 'objeto_mt_s';
+		$clases_obsoletas[] = 'objeto_ut_formulario';
+		$clases = implode("','",$clases_obsoletas);
+		$sql = "DELETE FROM apex_objeto WHERE clase IN ('$clases');";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}	
 }
 ?>

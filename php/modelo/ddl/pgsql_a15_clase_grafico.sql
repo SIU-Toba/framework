@@ -26,6 +26,6 @@ CREATE TABLE apex_objeto_grafico
 	inicializacion						varchar			NULL,
    CONSTRAINT  "apex_obj_grafico_pk" PRIMARY KEY ("objeto_grafico_proyecto","objeto_grafico"),
    CONSTRAINT  "apex_obj_grafico_grafico" FOREIGN KEY ("grafico") REFERENCES "apex_grafico" ("grafico") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_obj_grafico_fk_objeto" FOREIGN KEY ("objeto_grafico_proyecto","objeto_grafico") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+   CONSTRAINT  "apex_obj_grafico_fk_objeto" FOREIGN KEY ("objeto_grafico_proyecto","objeto_grafico") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

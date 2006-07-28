@@ -30,7 +30,7 @@ CREATE TABLE apex_objeto_filtro
    no_interactivo          smallint       NULL,
 	predeterminado				varchar(100)	NULL,
    CONSTRAINT  "apex_obj_fil_pk" PRIMARY KEY ("objeto_filtro_proyecto","objeto_filtro","dimension_proyecto","dimension"),
-   CONSTRAINT  "apex_obj_fil_fk_objeto" FOREIGN KEY ("objeto_filtro_proyecto","objeto_filtro") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_obj_fil_fk_objeto" FOREIGN KEY ("objeto_filtro_proyecto","objeto_filtro") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_obj_fil_fk_dimension" FOREIGN KEY ("dimension_proyecto","dimension") REFERENCES "apex_dimension" ("proyecto","dimension") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
