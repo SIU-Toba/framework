@@ -9,7 +9,18 @@ class excepcion_toba extends Exception
 }
 
 /**
-* Excepción producida en tiempo de ejecución producidas por alguna interacción del usuario
+* Excepción producida en tiempo de ejecución ejecutando SQL contra la DB
+*/
+class excepcion_toba_db extends Exception
+{
+	function get_sqlstate()
+	{
+		return $this->getCode();	
+	}
+}
+
+/**
+* Excepción producida en tiempo de ejecución por alguna interacción del usuario
 */
 class excepcion_toba_usuario extends excepcion_toba
 {

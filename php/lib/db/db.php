@@ -37,6 +37,7 @@ class db
 	
 	/**
 	*	Crea una conexion a la base
+	*	@throws excepcion_toba en caso de error
 	*/
 	function conectar()
 	{
@@ -81,7 +82,7 @@ class db
 	/**
 	*	Ejecuta un comando sql o un conjunto de ellos
 	*	@param mixed $sql Comando o arreglo de comandos
-	*	@throws excepcion_toba en caso de que algun comando falle	
+	*	@throws excepcion_toba_db en caso de que algun comando falle	
 	*/
 	function ejecutar($sql)
 	{
@@ -92,9 +93,9 @@ class db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
-					throw new excepcion_toba("ERROR ejecutando SQL. ".
+					throw new excepcion_toba_db("ERROR ejecutando SQL. ".
 											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-											"-- SQL ejecutado: [" . $sql[$id] . "].");
+											"-- SQL ejecutado: [" . $sql[$id] . "].", $e->getCode() );
 				}
 			}
 		} else {
@@ -102,9 +103,9 @@ class db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
-				throw new excepcion_toba("ERROR ejecutando SQL. ".
+				throw new excepcion_toba_db("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-										"-- SQL ejecutado: [" . $sql . "].");
+										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
 			}
 		}
 		return $afectados;
@@ -116,7 +117,7 @@ class db
 	*	@param string $ado Modo Fecth de ADO, por defecto asociativo
 	*	@param boolean $obligatorio Si la consulta no retorna datos lanza una excepcion
 	*	@return array Resultado de la consulta en formato fila-columna
-	*	@throws excepcion_toba en caso de error
+	*	@throws excepcion_toba_db en caso de error
 	*/	
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
@@ -125,9 +126,9 @@ class db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			throw new excepcion_toba("ERROR ejecutando SQL. " .
+			throw new excepcion_toba_db("ERROR ejecutando SQL. " .
 									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-									"-- SQL ejecutado: [" . $sql . "].");
+									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
 		}
 	}
 
