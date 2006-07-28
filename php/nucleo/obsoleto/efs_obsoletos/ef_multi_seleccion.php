@@ -185,7 +185,7 @@ class ef_multi_seleccion extends ef
 	    	$this->valores[apex_ef_no_seteado] = $this->no_seteado;
         }
 
-		$rs = toba::get_db($this->fuente)->consultar($this->sql, apex_db_numerico);
+		$rs = toba::get_db($this->fuente)->consultar($this->sql, toba_db_fetch_num);
 		if (empty($rs)) {
 			//echo ei_mensaje("EF etiquetado '$etiqueta'<br> No se obtuvieron registros: ". $this->sql);
 		}

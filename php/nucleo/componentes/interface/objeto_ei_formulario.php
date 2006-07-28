@@ -608,7 +608,7 @@ class objeto_ei_formulario extends objeto_ei
 			$parametros['carga_sql'] = ereg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,
 												$parametros['carga_sql']);
 		}
-		$modo = ($es_posicional) ? apex_db_numerico : apex_db_asociativo;
+		$modo = ($es_posicional) ? toba_db_fetch_num : toba_db_fetch_asoc;
 		return toba::get_db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
 	}
 	

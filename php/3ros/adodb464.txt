@@ -1,0 +1,1 @@
+Pasa a utilizarse la capa de abstraccion de base de datos PDO.

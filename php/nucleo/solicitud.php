@@ -205,7 +205,7 @@ class solicitud
 			//***************************	
 			case "buffer":	 //--> Disparo	el	BUFFER
 				$sql = "SELECT	cuerpo FROM	apex_buffer	WHERE buffer = '".$this->info['basica']["item_act_buffer"]."' AND proyecto =  '".$this->info['basica']["item_act_buffer_proyecto"]."';";
-				$rs = info_instancia::get_db()->consultar($sql,apex_db_numerico);
+				$rs = info_instancia::get_db()->consultar($sql,toba_db_fetch_num);
 				if(!$rs) throw new excepcion_toba('BUFFER vacio...');
 				//Ejecuto el codigo PHP	de	la	base
 				$this->php = $this->info['basica']["item_act_buffer_proyecto"].",".$this->info['basica']["item_act_buffer"];

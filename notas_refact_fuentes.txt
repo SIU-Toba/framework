@@ -54,4 +54,23 @@
 		//ATENCION: estoy hay que sacarlo no esta bueno asumir 'instancia'
 		$nombre = (defined('fuente_datos_defecto')) ? fuente_datos_defecto : 'instancia';
 	}
-			
+
+	-------------------- Constante tipo de FETCH			
+
+	define('apex_db_asociativo', ADODB_FETCH_ASSOC);
+	define('apex_db_numerico', ADODB_FETCH_NUM);
+				
+	define('toba_db_fetch_asoc', PDO::FETCH_ASSOC);
+	define('toba_db_fetch_num', PDO::FETCH_NUM);
+
+	
+	--------------------
+	
+	function consultar($sql, $tipo_fetch=null, $obligatorio=false, $compatibilidad=false)
+	function consultar_fuente($sql, $id_fuente=null, $tipo_indices=null, $obligatorio=false)
+
+	x
+
+	function consultar($sql, $tipo_fetch=null)
+	function consultar_fuente($sql, $id_fuente=null, $tipo_indices=null)
+	

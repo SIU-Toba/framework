@@ -207,7 +207,7 @@ class ef_editable extends ef
 	
 	function cargar_datos_db()
 	{
-		$rs = toba::get_db($this->fuente)->consultar($this->sql, apex_db_numerico);
+		$rs = toba::get_db($this->fuente)->consultar($this->sql, toba_db_fetch_num);
 		if(empty($rs)){
 			echo ei_mensaje("EF etiquetado '" . $this->etiqueta . "'<br> No se obtuvieron registros: ". $this->sql);
 		}

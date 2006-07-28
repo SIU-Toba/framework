@@ -1,7 +1,6 @@
 <?
-require_once("3ros/adodb464/adodb.inc.php");
-define('apex_db_asociativo', ADODB_FETCH_ASSOC);
-define('apex_db_numerico', ADODB_FETCH_NUM);
+define('toba_db_fetch_asoc', PDO::FETCH_ASSOC);
+define('toba_db_fetch_num', PDO::FETCH_NUM);
 
 //Separador de campos en sentecias extraidas con SQL
 define("apex_sql_separador","%%");			//Separador utilizado para diferenciar campos de valores compuestos
@@ -10,7 +9,7 @@ define("apex_sql_where","%w%");
 define("apex_sql_from","%f%");
 
 /**
-*	Representa una conexión a la base de datos utilizando ADODb
+*	Representa una conexión a la base de datos 
 */
 class db
 {
@@ -20,6 +19,8 @@ class db
 	protected $usuario;
 	protected $clave;
 	protected $base;
+	protected $debug = false;
+	protected $debug_sql_id = 0;
 	
 	function __construct($profile, $usuario, $clave, $base)
 	{
@@ -31,8 +32,22 @@ class db
 
 	function destruir()
 	{
-		$this->conexion->close();	
+		$this->conexion = null;	
 	}	
+	
+	/**
+	*	Crea una conexion a la base
+	*/
+	function conectar()
+	{
+		try {
+			$opciones =	array(PDO::ATTR_PERSISTENT => false);
+			$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
+			$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch (PDOException $e) {
+   			throw new excepcion_toba("No es posible realizar la conexión a la base: ". $e->getMessage());
+		}
+	}		
 	
 	function get_parametros()
 	{
@@ -42,29 +57,24 @@ class db
 		$parametros['BASE'] = $this->base;
 		return $parametros;
 	}
-	
-	/**
-	*	Realiza la conexión a la BD utilizando ADOdb
-	*	La creación de la conexión se encierra entre las llamas pre_conectar y post_conectar
-	*/
-	function conectar()
-	{
-		$this->conexion = ADONewConnection($this->motor);
-		$status = $this->conexion->NConnect($this->profile, $this->usuario, $this->clave, $this->base);
-		if(!$status){
-			$error = $this->conexion->ErrorMsg();
-			throw new excepcion_toba("No es posible realizar la conexión a la base. $error");
-		}
-		return $this->conexion;
-	}
-	
+
 	/**
 	 * Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado
 	 */
 	function set_modo_debug($debug=true)
 	{
-		$this->conexion->debug = $debug;
+		$this->debug = $debug;
 	}
+	
+	function log_debug($sql)
+	{
+		$id = $this->debug_sql_id++;
+		logger::instancia()->debug("***SQL[$id] : $sql");
+	}
+
+	//------------------------------------------------------------------------
+	//-- Primitivas BASICAS
+	//------------------------------------------------------------------------
 	
 	/**
 	*	Ejecuta un comando sql o un conjunto de ellos
@@ -75,21 +85,25 @@ class db
 	{
 		$afectados = 0;
 		if (is_array($sql)) {
-			for($a = 0; $a < count($sql);$a++){
-				if ( $this->conexion->execute($sql[$a]) === false ) {
+			foreach(array_keys($sql) as $id) {
+				try {
+					$afectados += $this->conexion->exec($sql[$id]);
+					if ($this->debug) $this->log_debug($sql[$id]);
+				} catch (PDOException $e) {
 					throw new excepcion_toba("ERROR ejecutando SQL. ".
-											"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
-											"-- SQL ejecutado: [" . $sql[$a] . "].");
+											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+											"-- SQL ejecutado: [" . $sql[$id] . "].");
 				}
-				$afectados += $this->conexion->Affected_Rows();
 			}
 		} else {
-			if ( $this->conexion->execute($sql) === false ) {
+			try {
+				$afectados += $this->conexion->exec($sql);
+				if ($this->debug) $this->log_debug($sql);
+			} catch (PDOException $e) {
 				throw new excepcion_toba("ERROR ejecutando SQL. ".
-										"-- Mensaje MOTOR: [" . $this->conexion->ErrorMsg() . "]".
+										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 										"-- SQL ejecutado: [" . $sql . "].");
 			}
-			$afectados += $this->conexion->Affected_Rows();			
 		}
 		return $afectados;
 	}
@@ -102,39 +116,35 @@ class db
 	*	@return array Resultado de la consulta en formato fila-columna
 	*	@throws excepcion_toba en caso de error
 	*/	
-	function consultar($sql, $tipo_indice=null, $obligatorio=false, $compatibilidad=false)
+	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
-		global $ADODB_FETCH_MODE;
-		if(isset($tipo_indice)){
-			$ADODB_FETCH_MODE = $tipo_indice;
-		}else{
-			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-		}
-		$rs = $this->conexion->Execute($sql);
-		if(!$rs){
-			throw new excepcion_toba("No se genero el Recordset. " . $this->conexion->ErrorMsg() . " -- " . $sql);
-		}elseif($rs->EOF){
-			if($obligatorio){
-				throw new excepcion_toba("La consulta no devolvio datos.");
-			}else{
-				if(!$compatibilidad) return array();
-				return null;
-			}
-		}else{
-			return $rs->getArray();
+		try {
+			$statement = $this->conexion->query($sql);
+			if ($this->debug) $this->log_debug($sql);
+			return $statement->fetchAll($tipo_fetch);
+		} catch (PDOException $e) {
+			throw new excepcion_toba("ERROR ejecutando SQL. " .
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+									"-- SQL ejecutado: [" . $sql . "].");
 		}
 	}
 
-	/**
-	*	Recupera el valor actual de una secuencia
-	*	@param string $secuencia Nombre de la secuencia
-	*	@return string Siguiente numero de la secuencia
-	*/	
-	function recuperar_secuencia($secuencia)
+	function abrir_transaccion()
 	{
-		$sql = "SELECT currval('$secuencia') as seq;";
-		$datos = $this->consultar($sql);
-		return $datos[0]['seq'];
+		$this->motor->beginTransaction();
+		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+	}
+	
+	function abortar_transaccion()
+	{
+		$this->motor->rollBack();
+		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+	}
+	
+	function cerrar_transaccion()
+	{
+		$this->motor->commit();
+		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
 	/**
@@ -155,27 +165,6 @@ class db
 		$this->cerrar_transaccion();
 	}
 
-	function abrir_transaccion()
-	{
-		$sql = 'BEGIN TRANSACTION';
-		$this->ejecutar($sql);
-		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
-	}
-	
-	function abortar_transaccion()
-	{
-		$sql = 'ROLLBACK TRANSACTION';
-		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
-	}
-	
-	function cerrar_transaccion()
-	{
-		$sql = "COMMIT TRANSACTION";
-		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
-	}
-
 	/**
 	*	Ejecuta los comandos disponibles en un archivo
 	*	@param string $archivo Path absoluto del archivo
@@ -192,11 +181,30 @@ class db
 		//}
 	}
 
-	//-------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------
+
+	function get_dsn()
+	{
+		throw new excepcion_toba("No implementado para el motor: $this->motor");
+	}
+
+	function recuperar_secuencia()
+	{
+		throw new excepcion_toba("No implementado para el motor: $this->motor");
+	}
+
+	function retrazar_constraints()
+	{
+		throw new excepcion_toba("No implementado para el motor: $this->motor");
+	}
+
+	//------------------------------------------------------------------------
+	//-- INSPECCION del MODELO de DATOS
+	//------------------------------------------------------------------------
 	
 	function get_definicion_columnas($tabla)
 	{
-		return array();	
+		throw new excepcion_toba("No implementado para el motor: $this->motor");
 	}
 	
 	/**
@@ -301,12 +309,16 @@ class db
 		return null;
 	}
 
+	//-----------------------------------------------------------------------------------
+	//-- GENERACION de MENSAJES de ERROR (Esto necesita adecuacion al esquema actual)
+	//-----------------------------------------------------------------------------------
+
 	/**
 	*	Mapea el error de la base al modulo de mensajes del toba
 	*/
 	function obtener_error_toba($codigo, $descripcion)
 	{
-		return array();		
+		throw new excepcion_toba("No implementado para el motor: $this->motor");
 	}
 }
 ?>

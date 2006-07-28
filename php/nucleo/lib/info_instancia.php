@@ -215,7 +215,7 @@ class info_instancia
 								AND  	listar_multiproyecto = 1 
 								AND		up.usuario = '$usuario'
 								ORDER BY orden;";
-		return self::get_db()->consultar($sql, apex_db_numerico);
+		return self::get_db()->consultar($sql, toba_db_fetch_num);
 	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------

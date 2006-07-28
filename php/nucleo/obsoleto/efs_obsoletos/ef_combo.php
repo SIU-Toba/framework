@@ -841,7 +841,7 @@ class ef_combo_db extends ef_combo
 	   		}
 	    	$this->valores[apex_ef_no_seteado] = $this->no_seteado;
         }
-		$rs = toba::get_db($this->fuente)->consultar($this->sql, apex_db_numerico);
+		$rs = toba::get_db($this->fuente)->consultar($this->sql, toba_db_fetch_num);
 		$temp = $this->preparar_valores($rs);
 		if(is_array($temp)){
 			$this->valores = $this->valores + $temp;

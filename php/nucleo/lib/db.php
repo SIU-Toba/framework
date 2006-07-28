@@ -6,9 +6,9 @@ require_once('nucleo/lib/administrador_fuentes.php');
 	/**
 	*	@see db::consultar()
 	*/
-	function consultar_fuente($sql, $id_fuente=null, $tipo_indices=null, $obligatorio=false)
+	function consultar_fuente($sql, $id_fuente=null, $tipo_fetch=null, $obligatorio=false)
 	{
-		return toba::get_db($id_fuente)->consultar($sql, $tipo_indices, $obligatorio);
+		return toba::get_db($id_fuente)->consultar($sql, $tipo_fetch, $obligatorio);
 	}
 
 	/**
@@ -40,7 +40,6 @@ require_once('nucleo/lib/administrador_fuentes.php');
 	*/
 	function abrir_transaccion($id_fuente=null)
 	{
-		
 		toba::get_db($id_fuente)->abrir_transaccion();
 	}
 
