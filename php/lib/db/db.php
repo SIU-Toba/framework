@@ -40,12 +40,14 @@ class db
 	*/
 	function conectar()
 	{
-		try {
-			$opciones =	array(PDO::ATTR_PERSISTENT => false);
-			$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
-			$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch (PDOException $e) {
-   			throw new excepcion_toba("No es posible realizar la conexión a la base: ". $e->getMessage());
+		if(!isset($this->conexion)) {
+			try {
+				$opciones =	array(PDO::ATTR_PERSISTENT => false);
+				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
+				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			} catch (PDOException $e) {
+	   			throw new excepcion_toba("No es posible realizar la conexión a la base: ". $e->getMessage());
+			}
 		}
 	}		
 	
@@ -131,19 +133,19 @@ class db
 
 	function abrir_transaccion()
 	{
-		$this->motor->beginTransaction();
+		$this->conexion->beginTransaction();
 		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
-		$this->motor->rollBack();
+		$this->conexion->rollBack();
 		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
-		$this->motor->commit();
+		$this->conexion->commit();
 		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
