@@ -22,33 +22,36 @@ class db_postgres7 extends db
 	/**
 	*	Busca la definicion de un TABLA. Falta terminar
 	*/
-	function obtener_definicion_columnas($tabla)
+	function get_definicion_columnas($tabla)
 	{
-		$sql = "SELECT 	a.attnum as id,
-						a.attname as nombre,
-						t.typname as tipo,
-						a.attlen as longitud,
-						a.atttypmod,
-						a.attnotnull as not_null,
-						a.atthasdef,
-						d.adsrc as default_value,
-						ic.relname AS index_name,
-						i.indisunique AS unique_key,
-						i.indisprimary AS primary_key 
+		//1) Busco definicion
+		$sql = "SELECT 	a.attname as 			nombre,
+						t.typname as 			tipo,
+						a.attlen as 			tipo_longitud,
+						a.atttypmod as 			longitud,
+						a.attnotnull as 		not_null,
+						a.atthasdef as 			tiene_predeterminado,
+						d.adsrc as 				valor_predeterminado,
+						ic.relname AS 			nombre_indice,
+						i.indisunique AS 		uk,
+						i.indisprimary AS 		pk,
+						'' as					secuencia,
+						a.attnum as 			orden
 				FROM 	pg_class c,
 						pg_type t,
 						pg_attribute a 	
 							LEFT OUTER JOIN pg_attrdef d
 								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
 							LEFT OUTER JOIN ( pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid ) 
-								ON ( a.attrelid = i.indrelid AND (i.indkey[0] = a.attnum 
-																	OR i.indkey[1] = a.attnum 
-																	OR i.indkey[2] = a.attnum 
-																	OR i.indkey[3] = a.attnum 
-																	OR i.indkey[4] = a.attnum 
-																	OR i.indkey[5] = a.attnum 
-																	OR i.indkey[6] = a.attnum 
-																	OR i.indkey[7] = a.attnum) )
+								ON ( a.attrelid = i.indrelid 
+									AND (i.indkey[0] = a.attnum 
+										OR i.indkey[1] = a.attnum 
+										OR i.indkey[2] = a.attnum 
+										OR i.indkey[3] = a.attnum 
+										OR i.indkey[4] = a.attnum 
+										OR i.indkey[5] = a.attnum 
+										OR i.indkey[6] = a.attnum 
+										OR i.indkey[7] = a.attnum) )
 				WHERE c.relkind in ('r','v') 
 				AND c.relname='$tabla'
 				AND a.attname not like '....%%'
@@ -56,131 +59,36 @@ class db_postgres7 extends db
 				AND a.atttypid = t.oid 
 				AND a.attrelid = c.oid 
 				ORDER BY a.attnum;";
-		$a=0;
-		$columnas = $this->conexion->MetaColumns($tabla,false);
+		$columnas = $this->consultar($sql);
 		if(!$columnas){
 			throw new excepcion_toba("La tabla '$tabla' no existe");	
 		}
-		foreach( $columnas as $col ){
-			$definicion[$a]['columna'] = $col->name;
-			$definicion[$a]['tipo'] = $this->get_tipo_datos_generico($col->type);
-			if(($definicion[$a]['tipo'])=="C")
-				if(isset($col->max_length)) 
-					$definicion[$a]['largo'] = $col->max_length;
-			if(isset($col->not_null)) $definicion[$a]['no_nulo_db'] = $col->not_null;
-			if(isset($col->primary_key)) $definicion[$a]['pk'] = $col->primary_key;
+		//2) Normalizo VALORES
+		$columnas_booleanas = array('uk','pk','not_null','tiene_predeterminado');
+		foreach(array_keys($columnas) as $id) {
+			//Estas columnas manejan string en vez de booleanos
+			foreach($columnas_booleanas as $x) {
+				if($columnas[$id][$x]=='t'){
+					$columnas[$id][$x] = true;
+				}else{
+					$columnas[$id][$x] = false;
+				}
+			}
+			//Tipo de datos generico
+			$columnas[$id]['tipo'] = $this->get_tipo_datos_generico($columnas[$id]['tipo']);
+			//longitudes
+			if($columnas[$id]['tipo_longitud'] <= 0){
+				$columnas[$id]['longitud'] = $columnas[$id]['longitud'] - 4;
+			}
 			//Secuencias
-			if(isset($col->default_value)){
+			if($columnas[$id]['tiene_predeterminado']){
 				$match = array();
-				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$col->default_value,$match)){
-					$definicion[$a]['secuencia'] = $match[3];
+				if(preg_match("&nextval.*?(\'|\")(.*?[.]|)(.*)(\'|\")&",$columnas[$id]['valor_predeterminado'],$match)){
+					$columnas[$id]['secuencia'] = $match[3];
 				}			
 			}
-			$a++;
 		}
-		return $definicion;
-	}
-
-	/**
-	*	Mapea un tipo de datos especifico de un motor a uno generico de toba
-	*	Adaptado de ADOdb
-	*/
-	function get_tipo_datos_generico($tipo)
-	{
-		$tipo=strtoupper($tipo);
-	static $typeMap = array(
-		'VARCHAR' => 'C',
-		'VARCHAR2' => 'C',
-		'CHAR' => 'C',
-		'C' => 'C',
-		'STRING' => 'C',
-		'NCHAR' => 'C',
-		'NVARCHAR' => 'C',
-		'VARYING' => 'C',
-		'BPCHAR' => 'C',
-		'CHARACTER' => 'C',
-		'INTERVAL' => 'C',  # Postgres
-		##
-		'LONGCHAR' => 'X',
-		'TEXT' => 'X',
-		'NTEXT' => 'X',
-		'M' => 'X',
-		'X' => 'X',
-		'CLOB' => 'X',
-		'NCLOB' => 'X',
-		'LVARCHAR' => 'X',
-		##
-		'BLOB' => 'B',
-		'IMAGE' => 'B',
-		'BINARY' => 'B',
-		'VARBINARY' => 'B',
-		'LONGBINARY' => 'B',
-		'B' => 'B',
-		##
-		'YEAR' => 'D', // mysql
-		'DATE' => 'D',
-		'D' => 'D',
-		##
-		'TIME' => 'T',
-		'TIMESTAMP' => 'T',
-		'DATETIME' => 'T',
-		'TIMESTAMPTZ' => 'T',
-		'T' => 'T',
-		##
-		'BOOL' => 'L',
-		'BOOLEAN' => 'L', 
-		'BIT' => 'L',
-		'L' => 'L',
-		# SERIAL... se tratan como enteros#
-		'COUNTER' => 'E',
-		'E' => 'E',
-		'SERIAL' => 'E', // ifx
-		'INT IDENTITY' => 'E',
-		##
-		'INT' => 'E',
-		'INT2' => 'E',
-		'INT4' => 'E',
-		'INT8' => 'E',
-		'INTEGER' => 'E',
-		'INTEGER UNSIGNED' => 'E',
-		'SHORT' => 'E',
-		'TINYINT' => 'E',
-		'SMALLINT' => 'E',
-		'E' => 'E',
-		##
-		'LONG' => 'N', // interbase is numeric, oci8 is blob
-		'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
-		'DECIMAL' => 'N',
-		'DEC' => 'N',
-		'REAL' => 'N',
-		'DOUBLE' => 'N',
-		'DOUBLE PRECISION' => 'N',
-		'SMALLFLOAT' => 'N',
-		'FLOAT' => 'N',
-		'NUMBER' => 'N',
-		'NUM' => 'N',
-		'NUMERIC' => 'N',
-		'MONEY' => 'N',
-		
-		## informix 9.2
-		'SQLINT' => 'E', 
-		'SQLSERIAL' => 'E', 
-		'SQLSMINT' => 'E', 
-		'SQLSMFLOAT' => 'N', 
-		'SQLFLOAT' => 'N', 
-		'SQLMONEY' => 'N', 
-		'SQLDECIMAL' => 'N', 
-		'SQLDATE' => 'D', 
-		'SQLVCHAR' => 'C', 
-		'SQLCHAR' => 'C', 
-		'SQLDTIME' => 'T', 
-		'SQLINTERVAL' => 'N', 
-		'SQLBYTES' => 'B', 
-		'SQLTEXT' => 'X' 
-		);
-		if(isset($typeMap[$tipo])) 
-			return $typeMap[$tipo];
-		return null;
+		return $columnas;
 	}
 
 	//-----------------------------------------------------------------------------------

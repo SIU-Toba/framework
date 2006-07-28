@@ -66,8 +66,6 @@ class db
 		$this->conexion->debug = $debug;
 	}
 	
-	//-------------------------------------------------------------------------------------	
-
 	/**
 	*	Ejecuta un comando sql o un conjunto de ellos
 	*	@param mixed $sql Comando o arreglo de comandos
@@ -96,7 +94,6 @@ class db
 		return $afectados;
 	}
 	
-	//-------------------------------------------------------------------------------------
 	/**
 	*	Ejecuta una consulta sql
 	*	@param string $sql Consulta
@@ -127,7 +124,6 @@ class db
 			return $rs->getArray();
 		}
 	}
-//-------------------------------------------------------------------------------------
 
 	/**
 	*	Recupera el valor actual de una secuencia
@@ -140,7 +136,6 @@ class db
 		$datos = $this->consultar($sql);
 		return $datos[0]['seq'];
 	}
-//-------------------------------------------------------------------------------------
 
 	/**
 	*	Ejecuta un conjunto de comandos dentro de una transacción
@@ -159,8 +154,7 @@ class db
 		}
 		$this->cerrar_transaccion();
 	}
-	//-------------------------------------------------------------------------------------
-	
+
 	function abrir_transaccion()
 	{
 		$sql = 'BEGIN TRANSACTION';
@@ -182,8 +176,6 @@ class db
 		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
-//-------------------------------------------------------------------------------------
-
 	/**
 	*	Ejecuta los comandos disponibles en un archivo
 	*	@param string $archivo Path absoluto del archivo
@@ -199,21 +191,122 @@ class db
 		return $this->ejecutar($str);
 		//}
 	}
+
+	//-------------------------------------------------------------------------------------
 	
+	function get_definicion_columnas($tabla)
+	{
+		return array();	
+	}
+	
+	/**
+	*	Mapea un tipo de datos especifico de un motor a uno generico de toba
+	*	Adaptado de ADOdb
+	*/
+	function get_tipo_datos_generico($tipo)
+	{
+		$tipo=strtoupper($tipo);
+	static $typeMap = array(
+		'VARCHAR' => 'C',
+		'VARCHAR2' => 'C',
+		'CHAR' => 'C',
+		'C' => 'C',
+		'STRING' => 'C',
+		'NCHAR' => 'C',
+		'NVARCHAR' => 'C',
+		'VARYING' => 'C',
+		'BPCHAR' => 'C',
+		'CHARACTER' => 'C',
+		'INTERVAL' => 'C',  # Postgres
+		##
+		'LONGCHAR' => 'X',
+		'TEXT' => 'X',
+		'NTEXT' => 'X',
+		'M' => 'X',
+		'X' => 'X',
+		'CLOB' => 'X',
+		'NCLOB' => 'X',
+		'LVARCHAR' => 'X',
+		##
+		'BLOB' => 'B',
+		'IMAGE' => 'B',
+		'BINARY' => 'B',
+		'VARBINARY' => 'B',
+		'LONGBINARY' => 'B',
+		'B' => 'B',
+		##
+		'YEAR' => 'D', // mysql
+		'DATE' => 'D',
+		'D' => 'D',
+		##
+		'TIME' => 'T',
+		'TIMESTAMP' => 'T',
+		'DATETIME' => 'T',
+		'TIMESTAMPTZ' => 'T',
+		'T' => 'T',
+		##
+		'BOOL' => 'L',
+		'BOOLEAN' => 'L', 
+		'BIT' => 'L',
+		'L' => 'L',
+		# SERIAL... se tratan como enteros#
+		'COUNTER' => 'E',
+		'E' => 'E',
+		'SERIAL' => 'E', // ifx
+		'INT IDENTITY' => 'E',
+		##
+		'INT' => 'E',
+		'INT2' => 'E',
+		'INT4' => 'E',
+		'INT8' => 'E',
+		'INTEGER' => 'E',
+		'INTEGER UNSIGNED' => 'E',
+		'SHORT' => 'E',
+		'TINYINT' => 'E',
+		'SMALLINT' => 'E',
+		'E' => 'E',
+		##
+		'LONG' => 'N', // interbase is numeric, oci8 is blob
+		'BIGINT' => 'N', // this is bigger than PHP 32-bit integers
+		'DECIMAL' => 'N',
+		'DEC' => 'N',
+		'REAL' => 'N',
+		'DOUBLE' => 'N',
+		'DOUBLE PRECISION' => 'N',
+		'SMALLFLOAT' => 'N',
+		'FLOAT' => 'N',
+		'NUMBER' => 'N',
+		'NUM' => 'N',
+		'NUMERIC' => 'N',
+		'MONEY' => 'N',
+		
+		## informix 9.2
+		'SQLINT' => 'E', 
+		'SQLSERIAL' => 'E', 
+		'SQLSMINT' => 'E', 
+		'SQLSMFLOAT' => 'N', 
+		'SQLFLOAT' => 'N', 
+		'SQLMONEY' => 'N', 
+		'SQLDECIMAL' => 'N', 
+		'SQLDATE' => 'D', 
+		'SQLVCHAR' => 'C', 
+		'SQLCHAR' => 'C', 
+		'SQLDTIME' => 'T', 
+		'SQLINTERVAL' => 'N', 
+		'SQLBYTES' => 'B', 
+		'SQLTEXT' => 'X' 
+		);
+		if(isset($typeMap[$tipo])) 
+			return $typeMap[$tipo];
+		return null;
+	}
+
 	/**
 	*	Mapea el error de la base al modulo de mensajes del toba
 	*/
 	function obtener_error_toba($codigo, $descripcion)
 	{
 		return array();		
-	}
-
-	/**
-	*	Busca la definicion de columnas de la base
-	*	ATENCION: Utiliza ADOdb
-	*/
-	function obtener_definicion_columnas($tabla)
-	{
 	}
 }
 ?>

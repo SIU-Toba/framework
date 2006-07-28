@@ -74,7 +74,13 @@ class ci_principal extends ci_editores_toba
 		$id_fuente = $reg['fuente_datos'];
 		$fuente = toba::get_db($id_fuente);
 		try{
-			return $fuente->obtener_definicion_columnas($tabla);
+			$columnas = $fuente->get_definicion_columnas($tabla);
+			foreach(array_keys($columnas) as $id){
+				$columnas[$id]['columna'] = $columnas[$id]['nombre'];	
+				$columnas[$id]['largo'] = $columnas[$id]['longitud'];	
+				$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];	
+			}
+			return $columnas;
 		}catch(excepcion_toba $e){
 			toba::get_cola_mensajes()->agregar( $e->getMessage() );
 		}
