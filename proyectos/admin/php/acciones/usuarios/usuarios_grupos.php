@@ -3,12 +3,12 @@
 	
 	//Inicializacion de la interface
 	$formulario = "permisos";
-	$prefijo_grupo = "ga_";//Prefijo de los COMBOS
+	$prefijo_grupo = "ef_ga";//Prefijo de los COMBOS
 	$boton_post = "asignar_permisos";
 	$boton_post_nombre = "Guardar";
 
 	include_once("nucleo/lib/interface/form.php");
-	include_once("nucleo/obsoleto/efs_obsoletos/ef.php");
+	include_once("nucleo/componentes/interface/efs/ef.php");
 
 	//************************************************************************
 	//*************************  Ejecuto la TRANSACCION  *********************
@@ -60,11 +60,9 @@
 	//************************************************************************
 	//*************************  GENERO la INTERFACE  ************************
 	//************************************************************************
-		
-	echo form::abrir($formulario, $this->vinculador->generar_solicitud(null,null,array('proyecto'=>$proyecto),true));
-
 ?>
 <br>
+<form  enctype='application/x-www-form-urlencoded' name='$formulario' method='POST' action='<? echo $this->vinculador->generar_solicitud(null,null,array('proyecto'=>$proyecto)) ?>'>
 <div align='center'>
 <table width="400" align='center' class='objeto-base'>
 <tr> 
@@ -91,24 +89,31 @@ FROM	apex_usuario u
 ORDER BY 2;";
 	$datos = toba::get_db()->consultar($sql);
 	if($datos){
+	$sql = "SELECT 	usuario_grupo_acc,
+					nombre
+			FROM 	apex_usuario_grupo_acc
+			WHERE	proyecto = '$proyecto'
+			ORDER BY nombre;";
+	$temp = toba::get_db()->consultar($sql);
+	foreach( $temp as $x) {
+		$info_usuarios[$x['usuario_grupo_acc']] = $x['nombre'];
+	}
+	$info_usuarios[apex_ef_no_seteado] = "__  NO  __";
 	foreach($datos as $rs)
 	{ 
 		//- Armo un EF para manejar el GRUPO de acceso del USUARIO
 		$nombre_combo = $prefijo_grupo . $rs["usuario"];
-		$parametros["sql"] = "SELECT 	usuario_grupo_acc,
-										nombre
-								FROM 	apex_usuario_grupo_acc
-								WHERE	proyecto = '$proyecto'
-								ORDER BY nombre;";
-		$parametros["no_seteado"] = "__  NO  __";
+		$parametros['carga_col_clave'] = "usuario_grupo_acc";
+		$parametros['carga_col_desc'] = "nombre";
 		//echo $parametros["sql"]; 
-		$ef = new ef_combo_db(	null, "", $nombre_combo, $nombre_combo,
+		$ef = new ef_combo(	null, "", $nombre_combo, $nombre_combo,
 								"Seleccione el grupo correspondiente al usuario.",
 								"","",$parametros);
 		//- Establezco el valor actual para el usuario
+		$ef->set_opciones($info_usuarios);
 		$grupo_acc_actual = (trim($rs["grupo_acc"])!="") ? $rs["grupo_acc"] : apex_ef_no_seteado;
-		$ef->cargar_estado($grupo_acc_actual);//Que el elemento seteado
-		$html_ef = $ef->obtener_input();
+		$ef->set_estado($grupo_acc_actual);//Que el elemento seteado
+		$html_ef = $ef->get_input();
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
@@ -131,5 +136,5 @@ ORDER BY 2;";
 </div>
 <br><br>
 <?		
-		echo form::cerrar();
+	echo form::cerrar();
 ?>

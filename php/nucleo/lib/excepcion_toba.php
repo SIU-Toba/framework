@@ -11,7 +11,7 @@ class excepcion_toba extends Exception
 /**
 * Excepción producida en tiempo de ejecución ejecutando SQL contra la DB
 */
-class excepcion_toba_db extends Exception
+class excepcion_toba_db extends excepcion_toba
 {
 	function get_sqlstate()
 	{
