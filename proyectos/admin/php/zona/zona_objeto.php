@@ -47,45 +47,19 @@ class zona_objeto extends zona_editor
 			return true;
 		}	
 	}
-//-----------------------------------------------------
 
-	function obtener_html_barra_superior()
-	//Genera el HTML de la BARRA
-	{
-		//global $cronometro;
-		//$cronometro->marcar('basura',apex_nivel_nucleo);
 
-		echo "<table  width='100%'  class='tabla-0'><tr>";
-
-		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;";
-		//echo recurso::imagen_apl("zona/objetos.gif",true);
-		echo "</td>";
-		$this->obtener_html_barra_vinculos();
-		$this->obtener_html_barra_especifico();
-		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
-		echo "</tr></table>\n";
-
-		//Nombre de la operacion
-		echo "<table  width='100%'  class='tabla-0'><tr>";
-		echo "	<td   width='10' class='barra-item-id'>";
-		echo "&nbsp;".$this->editable_id[1]."&nbsp;</td>";
-		echo "<td class='barra-item-tit'>&nbsp;".$this->editable_info['nombre']."</td>";
-		echo "</tr></table>\n";
-		//$cronometro->marcar('ZONA: Barra SUPERIOR',apex_nivel_nucleo);
-	}
-//-----------------------------------------------------
-
-	function obtener_html_barra_especifico()
+	function obtener_html_barra_vinculos()
 	//Esto es especifico de cada EDITABLE
 	{	
- 		echo "<td  class='barra-obj-tit' width='15'>&nbsp;</td>";
+		parent::obtener_html_barra_vinculos();
+		
 		//Acceso al codigo PHP
 		if(isset($this->editable_info['subclase_archivo']))
 		{
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud('admin',"/admin/objetos/php",null,true) ."'>";
 			echo recurso::imagen_apl("php.gif",true,null,null,"Manejo de la subclase");
-			echo "</a></td>";
+			echo "</a>";
 		}
 		
 		//Acceso a las dependencias del objeto
@@ -93,57 +67,42 @@ class zona_objeto extends zona_editor
 		if( $this->editable_info['clase_dep'] > 0 && 
 			!in_array($this->editable_info['clase'], dao_editores::get_clases_validas()))
 		{
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud('admin',"/admin/objetos/dependencias",null,true) ."'>";
 			echo recurso::imagen_apl("objetos/asociar_objeto.gif",true,null,null,"Editar DEPENDECIAS del OBJETO");
-			echo "</a></td>";
+			echo "</a>";
 		}
 
 		
 		if($this->editable_info['clase_vinculos'] == 1)
 		{
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud('admin',"/admin/objetos/vinculos",null,true) ."'>";
 			echo recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO");
-			echo "</a></td>";
+			echo "</a>";
 		}
-/*		//Falta implementar SEGURIDAD
-		//Acceso al EDITOR de la CLASE
-		$zona = array( apex_hilo_qs_zona => $this->editable_info['clase_proyecto']
-				 . apex_qs_separador . $this->editable_info['clase']);
-		echo "<td  class='barra-item-link' width='1'>";
-		echo "<a href='" . $this->solicitud->vinculador->generar_solicitud('admin',"/admin/apex/clase_propiedades",$zona) ."'>";
-		echo recurso::imagen_apl("clases.gif",true,null,null,"Instanciar el OBJETO");
-		echo "</a>";
-		echo "</td>";
-*/
+
 		//Si es un objeto viejo mostrar el el link a las propiedades básicas
 		if (!in_array($this->editable_info['clase'], dao_editores::get_clases_validas())) { 
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud('admin','/admin/objetos/propiedades',null,true) ."'>";
 			echo recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Propiedades Básicas del OBJETO");
-			echo "</a></td>";
+			echo "</a>";
 		}
 
 		//Acceso al EDITOR del objeto
 		if(isset($this->editable_info['clase_editor']))
 		{
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_editor_proyecto'],$this->editable_info['clase_editor'],null,true) ."'>";
 			echo recurso::imagen_apl("objetos/editar.gif",true,null,null,"Propiedades ESPECIFICAS del OBJETO");
-			echo "</a></td>";
+			echo "</a>";
 		}
 		//Acceso al INSTANCIADOR
 		if(isset($this->editable_info['clase_instanciador']))
 		{
-			echo "<td  class='barra-item-link' width='1'>";
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_instanciador_proyecto'],$this->editable_info['clase_instanciador'],null,true) ."'>";
 			echo recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
 			echo "</a>";
-			echo "</td>";
 		}
 	}
-//-----------------------------------------------------
+
 	
 	function obtener_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE

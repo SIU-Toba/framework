@@ -170,9 +170,10 @@ class instancia extends elemento_modelo
 	{
 		try {
 			$sql = "SELECT 1 FROM apex_proyecto;";
-			@$this->get_db()->consultar( $sql );
+			$db = $this->get_db();
+			@$db->consultar( $sql );
 			return true;
-		} catch ( excepcion_toba $e ) {
+		} catch ( excepcion_toba_db $e ) {
 			return false;
 		}
 	}

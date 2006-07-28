@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/lib/zona.php");
+require_once("zona_editor.php");
 
-class zona_buffer extends zona
+class zona_buffer extends zona_editor
 {
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
@@ -28,16 +28,6 @@ class zona_buffer extends zona
 		}	
 	}
 
-	function obtener_html_barra_info()
-	//Muestra la seccion INFORMATIVA (izquierda) de la barra
-	{
-		echo "	<td width='250' class='barra-item-id'>";
-//		echo "&nbsp;".$this->editable_id[0]."&nbsp;";
-//		echo "&nbsp;".$this->editable_id[1]."&nbsp;";
-		echo "&nbsp;".$this->editable_id[0]." - ".$this->editable_id[1]."&nbsp;";
-		echo "</td>";
-		echo "<td width='60%' class='barra-item-tit'>&nbsp;".$this->editable_info['descripcion_corta']."</td>";
-	}
 
 	function obtener_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
