@@ -55,30 +55,6 @@ class tp_basico extends tipo_pagina
 	{
 		?>
 		<style type="text/css">
-			#dhtmltooltip{
-				position: absolute;
-				width: 150px;
-				border: 1px solid black;
-				padding: 2px;
-				background-color: lightyellow;
-				visibility: hidden;
-				z-index: 100;
-			}
-			#dhtml_tooltip_div{
-				position:absolute;
-				width: 200px;
-				visibility:hidden;
-				background-color: lightyellow;			 
-				padding: 2px;
-				border: 1px solid black;
-				line-height:18px;
-				z-index:100;
-			}			
-			#div_calendario {
-				visibility:hidden;
-				position:absolute;
-				background-color: white;
-			}
 			#overlay {
 				background-image:url(<?=recurso::imagen_apl('overlay.gif', false);?>);     			
 			}
@@ -95,7 +71,7 @@ class tp_basico extends tipo_pagina
 		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
 		echo "</div>";
 		echo "<div class='encabezado'>";
-		js::cargar_consumos_globales(array('basicos/dhtml_tooltip'));
+		js::cargar_consumos_globales(array('basicos/tipclick'));
 		if ( editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');
 			editor::generar_zona_vinculos_item($item);

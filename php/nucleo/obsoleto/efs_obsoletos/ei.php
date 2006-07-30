@@ -451,7 +451,7 @@
 				/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
 				filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
 			}
-			#dhtml_tooltip_div{
+			#tipclick_div {
 			 position:absolute;
 			 width: 250px;
 			 visibility:hidden;
@@ -564,7 +564,7 @@ function firstFocus()
 }
 </script>
 <?
-	js::cargar_consumos_globales(array('basicos/dhtml_tooltip'));
+	js::cargar_consumos_globales(array('basicos/tipclick'));
 	}
 //----------------------------------------------------------------------------------		
 

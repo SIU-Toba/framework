@@ -770,6 +770,26 @@ hides rule from IE5-Mac \*/
 		Ventana Modal
 **************************/
 
+#tipclick_div{
+	position:absolute;
+	width: 200px;
+	visibility:hidden;
+	background-color: lightyellow;			 
+	padding: 2px;
+	border: 1px solid black;
+	line-height:18px;
+	z-index:100;
+}			
+#div_calendario {
+	visibility:hidden;
+	position:absolute;
+	background-color: white;
+}
+
+/*************************
+		Ventana Modal
+**************************/
+
 #overlay {
      visibility: hidden;
      position: absolute;

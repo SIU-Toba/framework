@@ -236,7 +236,7 @@ class comando_toba extends comando
 			foreach( $proyectos as $proyecto ) {
 				$p[ $proyecto ]	= $proyecto;
 			}
-			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PROYECTOS', 
+			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PATH', 
 														$obligatorio, $proyectos, 'todos');
 		} else {
 			if ( $obligatorio ) {

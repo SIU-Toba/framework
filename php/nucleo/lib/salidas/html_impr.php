@@ -43,10 +43,11 @@ class html_impr implements impresion_toba
 				padding: 10px;
 			}
 			</style>\n";
+		js::cargar_consumos_basicos();
 		echo "</head><body>\n";
 		echo "<div class='barra-impresion'>";
 		echo "<button onclick='window.print()'>".
-					recurso::imagen_apl('impresora.gif',true,null,null,'Imprimir').
+					recurso::imagen_apl('impresora.gif',true,null,null).
 			"    Imprimir</button>";		
 		echo "</div>";
 		echo "<div class='marco-impresion'>";

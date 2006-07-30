@@ -10,6 +10,7 @@ class menu_toba extends menu
 	
 	function mostrar_observaciones()
 	{
+		$this->consola->mensaje("Versión: " . file_get_contents(toba_dir().'/VERSION'));
 		$this->consola->mensaje("Directorio de la INSTALACION: " . toba_dir() );
 	}
 	

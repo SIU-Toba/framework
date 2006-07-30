@@ -88,10 +88,10 @@ cuadro_ayuda("Sitio Web", $trac);
 
 
 $offline = array();
-$offline[] = array('url' => array(recurso::path_apl()."/doc/api/index.html",
+$offline[] = array('url' => array(recurso::path_pro()."/doc/api/index.html",
 							),
 					'img' => 'admin/botones/apioffline80.png', 'frame' => 'api');
-$offline[] = array('url' => array(recurso::path_apl()."/doc/wiki/trac/toba/wiki.html",
+$offline[] = array('url' => array(recurso::path_pro()."/doc/wiki/trac/toba/wiki.html",
 							),
 					'img' => 'admin/botones/wikioffline80.png', 'frame' => 'wiki');					
 cuadro_ayuda("Ayuda Local", $offline);

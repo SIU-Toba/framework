@@ -1,4 +1,4 @@
-var dhtml_tooltip = {
+var tipclick = {
  	//---Public
 	vertical_offset : '-3px',
 	horizontal_offset : '-3px',
@@ -12,7 +12,7 @@ var dhtml_tooltip = {
 			e.stopPropagation();
 		}
 		this._do_hide();
-		var tooltip = document.getElementById("dhtml_tooltip_div");
+		var tooltip = document.getElementById("tipclick_div");
 		tooltip.innerHTML = content;
 		if ((e.type == "click" && tooltip.style.visibility == 'hidden') || e.type == "mouseover") {
 			var self = this;
@@ -61,7 +61,7 @@ var dhtml_tooltip = {
 	},
 	
 	_clear_browser_edge : function(obj, is_horizontal) {
-		var tooltip = document.getElementById("dhtml_tooltip_div");
+		var tooltip = document.getElementById("tipclick_div");
 		var edge_offset = (is_horizontal) ? parseInt(this.horizontal_offset, 10)*-1 : parseInt(this.vertical_offset, 10)*-1;
 		var is_ie = document.all && !window.opera;
 		var window_edge, content_measure;
@@ -89,12 +89,12 @@ var dhtml_tooltip = {
 	 },
 	 
  	_do_show : function() {
-	 	document.getElementById("dhtml_tooltip_div").style.visibility="visible";
+	 	document.getElementById("tipclick_div").style.visibility="visible";
  	},
  	
  	_do_hide : function() {
  		if (this._must_hide) {
-			document.getElementById("dhtml_tooltip_div").style.visibility="hidden";
+			document.getElementById("tipclick_div").style.visibility="hidden";
  		}
 		this._clear_tip();
  	},
@@ -109,12 +109,12 @@ var dhtml_tooltip = {
  	}
 };
 
-var html = '<div id="dhtml_tooltip_div" onmouseover="if (dhtml_tooltip) return dhtml_tooltip._continue()" onmouseout="if (dhtml_tooltip) return dhtml_tooltip._stop()"></div>';
+var html = '<div id="tipclick_div" onmouseover="if (window.tipclick) return tipclick._continue()" onmouseout="if (window.tipclick) return tipclick._stop()"></div>';
 if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
 	document.body.innerHTML += html;	
 } else {
 	document.write(html);
 }
 if (typeof toba != 'undefined') {
-	toba.confirmar_inclusion('basicos/dhtml_tooltip');
+	toba.confirmar_inclusion('basicos/tipclick');
 }
