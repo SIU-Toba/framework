@@ -26,7 +26,6 @@ class ci_editor_php extends objeto_ci
 	
 	/**
 	 * Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
-	 * @todo El path absoluto del proyecto se esta hardcoreando con /proyectos/
 	 */
 	function set_datos($datos)
 	{
@@ -68,7 +67,7 @@ class ci_editor_php extends objeto_ci
 			$this->meta_clase = $clase_info;
 		}
 		//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
-		$path = toba_dir(). "/proyectos/". editor::get_proyecto_cargado() . "/php/" . $this->datos['archivo'];
+		$path = info_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/" . $this->datos['archivo'];
 		$this->archivo_php = new archivo_php($path);
 		$this->clase_php = new clase_php($this->datos['subclase'], $this->archivo_php, $this->datos['clase'], $this->datos['clase_archivo']);
 		$this->clase_php->set_meta_clase($this->meta_clase);

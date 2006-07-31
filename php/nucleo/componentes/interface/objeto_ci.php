@@ -1137,27 +1137,7 @@ class objeto_ci extends objeto_ei
 	//---------------------------------------------------------------
 	//-------------------------- OBSOLETOS --------------------------
 	//----------------------------------------------------------------
-	
-	/**
-	 * Esta funcion DISPARABA la generacion de TODA la interface.
-	 * Solo es llamado por el CI EXTERIOR. La composicion recursiva es a travez de 'obtener_html'
-	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
-	 */
-	function generar_interface_grafica()
-	{
-		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "El ítem debería tener una solicitud_web asociada");
-		$this->log->debug($this->get_txt() . "[ generar_interface_grafica ]");
-		try{
-			//Cargar todos los EI que componen la interface
-			$this->cargar_dependencias_gi();
-			$this->obtener_html_base();
-		}catch(excepcion_toba $e){
-			$this->log->debug($e, 'toba');
-			$this->informar_msg($e->getMessage(), 'error');
-			toba::get_cola_mensajes()->mostrar();
-		}
-	}
-	
+
 	/**
 	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
 	 */

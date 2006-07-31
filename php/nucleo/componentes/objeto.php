@@ -1,6 +1,6 @@
 <?php
 /**
- * Padre de todas las clases que definen objetos standart de la aplicacion
+ * Padre de todas las clases que definen componentes
  * @package Objetos
  */
 class objeto
@@ -15,7 +15,6 @@ class objeto
 	protected $dependencias = array();							//Array de sub-OBJETOS
 	protected $memoria;
 	protected $memoria_existencia_previa = false;
-	protected $interface_existencia_previa = false;
 	protected $observaciones;
 	protected $canal;										// Canal por el que recibe datos 
 	protected $canal_recibido;							// Datos recibidos por el canal
@@ -28,7 +27,7 @@ class objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	
-	function objeto( $definicion )
+	function __construct( $definicion )
 	{
 		// Compatibilidad hacia atras en el ID
 		$this->id[0] = $definicion['info']['proyecto'];
@@ -48,7 +47,6 @@ class objeto
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		//$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
-		$this->evaluar_existencia_interface_anterior();
 		//$this->conectar_fuente();
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');
 		$this->configuracion();
@@ -213,22 +211,6 @@ class objeto
 //*******************************************************************************************
 //**********************<  Comunicacion de informacion al USUARIO   >************************
 //*******************************************************************************************	
-/*
-	Falta pensar el tema de las transacciones necesitan una reafirmacion despues
-	de mostrar la cola de mensajes
-*/
-	function obtener_mensaje($indice, $parametros=null)
-	//Obtiene un mensaje del repositorio de mensajes
-	{
-		//Busco el mensaje del OBJETO
-		if($mensaje = mensaje::get_objeto($this->id[1], $indice, $parametros)){
-			return $mensaje;	
-		}else{
-			//El objeto no tiene un mensaje con el indice solicitado,
-			//Busco el INDICE global
-			return mensaje::get($indice, $parametros);
-		}
-	}
 
 	function informar_msg($mensaje, $nivel=null)
 	//Guarda un  mensaje en la cola de mensajes
@@ -247,47 +229,7 @@ class objeto
 //****************************<  Informacion sobre el proceso   >****************************
 //*******************************************************************************************	
 
-	function obtener_estado_proceso()
-/*
- 	@@acceso: actividad
-	@@desc: Indica el estado del proceso: ( OK | ERROR | INFRACCION )
-*/
-	{
-		return $this->estado_proceso;
-	}
-	//-------------------------------------------------------------------------------
-
-	function mostrar_info_proceso()
-/*
- 	@@acceso: objeto
-	@@desc: Muestra el estado del proceso que se esta ejecutando
-*/
-	{
-		if(is_array($this->info_proceso)){
-			$mensaje = "";
-			foreach($this->info_proceso as $nota){
-				$mensaje .= $nota . "<br>";
-			}
-			if($mensaje!=""){
-				if(is_array($this->info_proceso_gravedad)){
-					if(in_array("error",$this->info_proceso_gravedad)){
-						$tipo = "error";
-						$subtitulo = null;
-/*	
-					$subtitulo = "CLASE <b>" . get_class($this) . "</b><br>".
-									"OBJETO <b>" . $this->id[0] . " - " . $this->id[1] . "</b>".
-									" ( " . $this->info["nombre"] . " ) ";
-*/
-					}else{
-						$tipo = "info";
-						$subtitulo = null;
-					}
-					echo ei_mensaje($mensaje, $tipo, $subtitulo);
-				}
-			}
-		}
-	}
-	//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 
 	function registrar_info_proceso($mensaje, $gravedad="info")
 /*
@@ -667,28 +609,6 @@ class objeto
 	//  INTERFACE GRAFICA
 	//-----------------------------------------------------------------------
 
-	protected function evaluar_existencia_interface_anterior()
-	{
-		if(isset($this->memoria["generacion_interface"]))
-		{
-			if( $this->memoria["generacion_interface"] == 1 ){
-				$this->interface_existencia_previa = true;
-			}
-		}
-		$this->memoria["generacion_interface"] = 0;		
-	}
-
-	protected function existio_interface_previa()
-	{
-		return $this->interface_existencia_previa;
-	}
-
-	protected function registrar_generacion_interface()
-	{
-		$this->memoria["generacion_interface"] = 1;		
-	}
-
-//*******************************************************************************************
 
 	function barra_superior_especifica()
 	{
@@ -697,13 +617,12 @@ class objeto
 	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
 		//Marco la existencia de una interface previa
-		$this->registrar_generacion_interface();
 		if($control_titulo_vacio){
 			if(trim($this->info["titulo"])==""){
 				return;	
 			}
 		}
-		if(!isset($titulo)){
+		if (!isset($titulo)) {
 			$titulo = $this->info["titulo"];	
 		}
 		echo "<div class='ei-barra-sup $estilo'>";

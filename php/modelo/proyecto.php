@@ -627,7 +627,8 @@ class proyecto extends elemento_modelo
 	//-----------------------------------------------------------
 	
 	/**
-	*	Devuelve la lista de proyectos existentes en el sistema de archivos
+	*	Devuelve la lista de proyectos existentes en la carpeta por defecto de la instalación
+	* 	Es posible que existan proyectos en otros lugares del sistema de archivos y no se listen con este método
 	*/
 	static function get_lista()
 	{

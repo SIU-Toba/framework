@@ -48,7 +48,7 @@ class comando_instalacion extends comando_toba
 			// PROYECTOS
 			$proyectos = proyecto::get_lista();
 			if ( $proyectos ) {
-				$this->consola->lista( $proyectos, 'PROYECTOS' );
+				$this->consola->lista( $proyectos, 'PROYECTOS (sólo en la carpeta por defecto)' );
 			} else {
 				$this->consola->enter();
 				$this->consola->mensaje( 'ATENCION: No existen PROYECTOS definidos.');

@@ -26,7 +26,7 @@ class ci_comparador extends objeto_ci
 				$proyectos = dao_instancia::get_proyectos_con_estilo($estilo);
 				foreach ($proyectos as $proyecto) {
 					$pro = $proyecto['proyecto'];
-					$candidato = toba::get_hilo()->obtener_path()."/proyectos/$pro/www/css/$estilo.css";
+					$candidato = info_instancia::get_path_proyecto($pro)."/www/css/$estilo.css";
 					if (file_exists($candidato)) {
 						$archivo = $candidato;
 					}
@@ -38,7 +38,7 @@ class ci_comparador extends objeto_ci
 			$this->contenidos[$estilo] = file_get_contents($archivo);
 		}
 		return $this->contenidos[$estilo];
-	}
+	} 
 	
 	function obtener_estilos($plantilla)
 	{

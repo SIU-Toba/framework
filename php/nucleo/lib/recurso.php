@@ -185,8 +185,6 @@ class recurso {
 	*	Crea el tag <link>
 	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
 	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
-	* 
-	* 	@todo El path a los proyectos esta asumido como toba_dir()/proyectos
 	*/
 	static function link_css($estilo=null,  $rol='screen')
 	{
