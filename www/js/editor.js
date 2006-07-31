@@ -22,7 +22,7 @@ var editor =
 			url = url + '&' + apex_hilo_qs_celda_memoria + '=previsualizacion';
 			url = url + '&' + toba_hilo_qs_menu  + "=1";
 			//alert(url);
-			var opciones = {'scrollbars' : '1', 'menubar': '1', 'toolbar': '1', 'location': '1'};
+			var opciones = {'resizable':1, 'scrollbars' : '1', 'menubar': '1', 'toolbar': '1', 'location': '1'};
 			abrir_popup('previsualizacion',url, opciones, null, false);
 		}
 	},
