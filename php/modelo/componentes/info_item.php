@@ -430,16 +430,18 @@ class info_item implements recorrible_como_arbol
 		}
 		return true;
 	}
-	
 
 	function get_info_extra()
 	{
 		return $this->info_extra;
 	}	
 	
+	function get_zona()
+	{
+		return $this->datos['basica']['item_zona'];
+	}
 	//------------------------------------ CAMBIO DE ESTADO --------------------------------------------------------
 
-	
 	function set_nivel($nivel) { $this->nivel = $nivel; }	
 	
 	function set_camino($camino) {

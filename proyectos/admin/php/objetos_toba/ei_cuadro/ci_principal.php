@@ -214,7 +214,6 @@ class ci_principal extends ci_editores_toba
 	function evt__columnas__cancelar()
 	{
 		unset($this->seleccion_columna);
-		unset($this->seleccion_columna_anterior);
 	}
 
 	//-----------------------------------------

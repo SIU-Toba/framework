@@ -75,7 +75,7 @@ class catalogo_items
 			$this->filtrar($opciones);
 		}
 	}
-	
+
 	function debe_cargar_todo($opciones)
 	{
 		return (isset($opciones['id']) && $opciones['id'] != '') ||
@@ -84,7 +84,9 @@ class catalogo_items
 				isset($opciones['sin_objetos']) ||
 				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
 				isset($opciones['menu']) || 
-				isset($opciones['tipo_solicitud']);
+				isset($opciones['tipo_solicitud']) ||
+				isset($opciones['zona']
+			);
 	}
 	
 	protected function debe_cargar_en_profundidad($id_item)
@@ -135,6 +137,11 @@ class catalogo_items
 		if (isset($opciones['tipo_solicitud'])) {
 			$this->dejar_items_con_tipo_solicitud($opciones['tipo_solicitud']);
 		}		
+		
+		//--- Zona
+		if (isset($opciones['zona'])) {
+			$this->dejar_items_con_zona($opciones['zona']);
+		}				
 	}
 
 	//------------------------------------PROPIEDADES --------------------------------------------------------			
@@ -275,6 +282,17 @@ class catalogo_items
 		$encontrados = array();
 		foreach ($this->items as $item) {
 			if ($item->get_tipo_solicitud() == $tipo) {
+				$encontrados[] = $item;
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);			
+	}
+	
+	function dejar_items_con_zona($zona)
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if ($item->get_zona() == $zona) {
 				$encontrados[] = $item;
 			}
 		}

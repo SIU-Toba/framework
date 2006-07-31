@@ -1134,45 +1134,5 @@ class objeto_ci extends objeto_ei
 		}
 	}
 	
-	//---------------------------------------------------------------
-	//-------------------------- OBSOLETOS --------------------------
-	//----------------------------------------------------------------
-
-	/**
-	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
-	 */
-	protected function obtener_html_base()
-	{
-		//-[1]- Muestro la cola de mensajes
-		//-[2]- Genero la SALIDA
-		$vinculo = toba::get_vinculador()->generar_solicitud(null,null,null,true);
-		$this->obtener_javascript_global_consumido();
-		echo "<br>\n";
-		echo form::abrir($this->nombre_formulario, $vinculo);
-		echo "<div align='center'>\n";
-		$this->obtener_html();
-		echo "</div>\n";
-		echo form::cerrar();
-		
-		echo js::abrir();
-		$this->obtener_javascript();
-		$identado = js::instancia()->identado();
-		echo $identado."{$this->objeto_js}.iniciar();\n";
-		echo js::cerrar();
-		echo "<br>\n";
-		toba::get_cola_mensajes()->mostrar();	
-	}
-	
-	
-	/**
-	 * @deprecated Desde 0.9.0, se debe utilizar la solicitud_web
-	 */
-	function obtener_javascript_global_consumido()
-	{
-		js::cargar_consumos_globales($this->get_consumo_javascript());
-	}
-	
-	
-	
 }
 ?>

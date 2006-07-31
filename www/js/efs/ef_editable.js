@@ -210,8 +210,8 @@ def = ef_editable_clave.prototype;
 	};
 	
 	def.input_hermano = function() {
-		return document.getElementById(this._id_form + '_test')
-	}
+		return document.getElementById(this._id_form + '_test');
+	};
 	
 	def.set_tab_index = function(tab_index) {
 		this.input().tabIndex = tab_index;

@@ -395,11 +395,11 @@ class nucleo extends elemento_modelo
 		$clase_php->guardar( $dir.'/datos_editores.php' );
 	}
 	
-	function get_archivos_js_propios($patron =null)
+	function get_archivos_js_propios($patron_incl=null, $patron_excl=null)
 	{
 		$dir_js = toba_dir().'/www/js';		
 		$archivos = array();		
-		if (! isset($patron)) {
+		if (! isset($patron_incl)) {
 			//--- Algunos archivos se ponen por adelantado porque requieren un orden de inclusión
 			$archivos[] = $dir_js."/basicos/basico.js";		
 			$archivos[] = $dir_js."/basicos/toba.js";
@@ -412,8 +412,17 @@ class nucleo extends elemento_modelo
 		
 		$dirs = array($dir_js.'/basicos', $dir_js.'/componentes', $dir_js.'/efs');
 		foreach ($dirs as $directorio) {
-			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron);
+			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron_incl);
 			$archivos = array_merge($archivos, $nuevos);
+		}
+		if (isset($patron_excl)) {
+			$nuevos = array();
+			foreach( $archivos as $archivo) {
+				if(! preg_match( $patron_excl, $archivo )){
+					$nuevos[] = $archivo;
+				}
+			}
+			$archivos = $nuevos;
 		}
 		$archivos = array_unique($archivos);
 		return $archivos;
@@ -453,9 +462,9 @@ class nucleo extends elemento_modelo
 		instalacion::cambiar_info_basica(array('js_comprimido' => 1));
 	}
 	
-	function validar_js($patron=null)
+	function validar_js($patron_incl=null, $patron_excl=null)
 	{
-		$archivos = $this->get_archivos_js_propios($patron);
+		$archivos = $this->get_archivos_js_propios($patron_incl, $patron_excl);
 		$this->manejador_interface->mensaje('Validando '.count($archivos).' archivo/s', false);		
 		$validador = toba_dir().'/bin/herramientas/jslint.js';
 		$ok = true;

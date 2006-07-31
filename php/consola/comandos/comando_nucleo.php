@@ -64,12 +64,17 @@ class comando_nucleo extends comando_toba
 	function opcion__validar_js()
 	{
 		$param = $this->get_parametros();		
-		$patron = null;
+		$patron_incl = null;
+		$patron_excl = null;
 		if ( isset($param['-a']) &&  (trim($param['-a']) != '') ) {
-			$patron = $param['-a'];
-		}		
+			$patron_incl = $param['-a'];
+		}
+		if ( isset($param['-b']) &&  (trim($param['-b']) != '') ) {
+			$patron_excl = $param['-b'];
+		}
+		
 		//Tomo la referencia a la instancia
-		$this->get_nucleo()->validar_js($patron);
+		$this->get_nucleo()->validar_js($patron_incl, $patron_excl);
 	}		
 }
 ?>
