@@ -517,5 +517,11 @@ class migracion_0_10_0 extends migracion_toba
 				AND carpeta <> 1 OR carpeta IS NULL;";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
+
+	function proyecto__migrar_tipo_solicitud_carpetas()
+	{
+		$sql = "UPDATE apex_item SET solicitud_tipo = NULL WHERE carpeta = 1;";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}
 }
 ?>
