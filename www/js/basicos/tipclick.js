@@ -13,7 +13,7 @@ var tipclick = {
 		}
 		this._do_hide();
 		var tooltip = document.getElementById("tipclick_div");
-		tooltip.firstChild.innerHTML = content;
+		tooltip.innerHTML = content;
 		if ((e.type == "click" && tooltip.style.visibility == 'hidden') || e.type == "mouseover") {
 			var self = this;
 			this._show_handler = setTimeout(function() {self._do_show();}, this.delay_appear);
@@ -109,7 +109,7 @@ var tipclick = {
  	}
 };
 
-var html = '<div id="tipclick_div" class="selectFree" onmouseover="if (window.tipclick) return tipclick._continue()" onmouseout="if (window.tipclick) return tipclick._stop()"><div></div><!--[if lte IE 6.5]><iframe></iframe><![endif]--></div>';
+var html = '<div id="tipclick_div" onmouseover="if (window.tipclick) return tipclick._continue()" onmouseout="if (window.tipclick) return tipclick._stop()"></div>';
 if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
 	document.body.innerHTML += html;	
 } else {

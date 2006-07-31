@@ -779,9 +779,6 @@ hides rule from IE5-Mac \*/
 	border: 1px solid black;
 	line-height:18px;
 	z-index:100;
-	overflow:hidden;
-}
-	
 }			
 #div_calendario {
 	visibility:hidden;
@@ -1196,17 +1193,3 @@ hides rule from IE5-Mac \*/
 	text-align: center;
 }
 
-/*************************
-		HACK IE (http://www.hedgerwow.com/360/bugs/css-select-free.html)
-**************************/
-.selectFree IFRAME
-{
- display:none;/*sorry for IE5*/ 
- display/**/:block;/*sorry for IE5*/
- position:absolute;/*must have*/
- top:0;/*must have*/
- left:0;/*must have*/
- z-index:-1;/*must have*/
- filter:mask();/*must have*/
-
-}
