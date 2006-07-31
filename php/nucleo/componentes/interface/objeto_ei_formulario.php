@@ -39,7 +39,7 @@ class objeto_ei_formulario extends objeto_ei
 
 	function __construct($id)
 	{
-		parent::objeto($id);
+		parent::__construct($id);
 		//Elementos basicos del formulario
 		$this->submit = "ei_form".$this->id[1];
 		//Nombre de los botones de javascript
@@ -360,11 +360,11 @@ class objeto_ei_formulario extends objeto_ei
 				if(isset($this->elemento_formulario[$ef])){
 					$this->elemento_formulario[$ef]->set_estado($valor);
 				}else{
-					$this->registrar_info_proceso("[cargar_estado_ef] No existe	un	elemento	de	formulario identificado	'$ef'","error");
+					throw new excepcion_toba("[cargar_estado_ef] No existe	un	elemento	de	formulario identificado	'$ef'");
 				}
 			}
 		}else{
-			$this->registrar_info_proceso("[cargar_estado_ef] Los	EF	se	cargan a	travez de un array asociativo	(\"clave\"=>\"dato a	cargar\")!","error");
+			throw new excepcion_toba("[cargar_estado_ef] Los	EF	se	cargan a	travez de un array asociativo	(\"clave\"=>\"dato a	cargar\")!");
 		}
 	}
 

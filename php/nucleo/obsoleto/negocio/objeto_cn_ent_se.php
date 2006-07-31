@@ -99,10 +99,6 @@ class objeto_cn_ent_se extends objeto_cn_ent
 		$this->etapa = null;
 		$this->descargar();
 	}
-	
-	function get_info_proceso()
-	{
-		return "La operacion fue realizada con exito";			
-	}
+
 }
 ?>

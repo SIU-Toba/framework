@@ -43,7 +43,7 @@ class objeto_datos_tabla extends objeto
 	
 	function __construct($id)
 	{
-		parent::objeto($id);
+		parent::__construct($id);
 		for($a=0; $a<count($this->info_columnas);$a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
 			$this->columnas[ $this->info_columnas[$a]['columna'] ] =& $this->info_columnas[$a];

@@ -18,9 +18,6 @@ class objeto
 	protected $observaciones;
 	protected $canal;										// Canal por el que recibe datos 
 	protected $canal_recibido;							// Datos recibidos por el canal
-	protected $info_proceso = null;					// Estado interno relacionado con el procesamiento llevado a cabo por el objeto
-	protected $info_proceso_gravedad = null;		// Array donde se apilan los niveles de gravedad, pada definir que tipo de mensaje se muestra
-	protected $info_proceso_indice = 0;
 	protected $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
 	protected $id_ses_g;									//ID global para la sesion
 	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
@@ -225,47 +222,6 @@ class objeto
 		$this->informar_msg($mensaje,$nivel);
 	}
 
-//*******************************************************************************************
-//****************************<  Informacion sobre el proceso   >****************************
-//*******************************************************************************************	
-
-//-------------------------------------------------------------------------------
-
-	function registrar_info_proceso($mensaje, $gravedad="info")
-/*
- 	@@acceso: objeto 
-	@@desc: Registra un mensaje en la cola de mensajes del proceso
-*/
-	{
-		$this->info_proceso[$this->info_proceso_indice] = $mensaje;
-		$this->info_proceso_gravedad[$this->info_proceso_indice] = $gravedad;
-		$this->info_proceso_indice++;
-	}
-	
-//*******************************************************************************************
-//********************************<  AUDITORIA Y LOG   >*************************************
-//*******************************************************************************************	
-
-	function observar($tipo,$observacion,$forzar_registro=false,$mostrar=false,$cortar_ejecucion=false)
-/*
- 	@@acceso: objeto
-	@@desc: Deja guardada una observacion en la solicitud
-	@@param: string | Tipo de error (info, error)
-	@@param: string | Texto de la observacion
-	@@param: boolean | forzar el registro el en LOG | false
-	@@param: boolean | Mostrar el mensaje de error al usuario | false
-	@@param: boolean | cortar la ejecucion | false
-*/
-	{
-		
-		$this->observaciones[]="[$tipo] ".$observacion;	//El objeto acumula sus propias observaciones
-		toba::get_solicitud()->observar_objeto($this->id,$tipo,$observacion,$forzar_registro,$mostrar,$cortar_ejecucion);
-	}
-
-	function mostrar_observaciones()
-	{
-		ei_arbol($this->observaciones);
-	}
 	
 //*******************************************************************************************
 //**************************************<  MEMORIA   >***************************************
@@ -308,7 +264,7 @@ class objeto
 	//SI la memoria no se cargo se corta la ejecucion y despliega un mensaje
 	{
 		if ((!isset($this->memoria)) || (is_null($this->memoria))){
-			$this->observar("error","Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]",false,true,true);
+			throw new excepcion_toba("Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]");
 		}
 	}
 
@@ -542,9 +498,6 @@ class objeto
 		//-[1]- El indice es valido?
 		if(!isset($this->indice_dependencias[$identificador])){
 			throw new excepcion_toba("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
-			$this->observar("error","OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].",false,true,true);
-			$this->obtener_info_dependencias();
-			return -1;
 		}
 		$posicion = $this->indice_dependencias[$identificador];
 		$clase = $this->info_dependencias[$posicion]['clase'];

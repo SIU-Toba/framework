@@ -19,7 +19,7 @@ class objeto_ei_calendario extends objeto_ei
 	var $mes_actual;
 	var $ver_contenidos;
 
-    function objeto_ei_calendario($id)
+    function __construct($id)
     {
         parent::__construct($id);
 		$dia = date("d");
