@@ -509,5 +509,13 @@ class migracion_0_10_0 extends migracion_toba
 		$sql = "DELETE FROM apex_objeto WHERE clase IN ('$clases');";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
+
+	function proyecto__migrar_solicitud_browser()
+	{
+		$sql = "UPDATE apex_item SET solicitud_tipo = 'web' 
+				WHERE solicitud_tipo = 'browser' 
+				AND carpeta <> 1 OR carpeta IS NULL;";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}	
 }
 ?>

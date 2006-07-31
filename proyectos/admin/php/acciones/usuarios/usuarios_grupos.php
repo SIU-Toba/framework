@@ -4,6 +4,7 @@
 	//Inicializacion de la interface
 	$formulario = "permisos";
 	$prefijo_grupo = "ef_ga";//Prefijo de los COMBOS
+	$prefijo_grupo2 = "ga";//Prefijo de los COMBOS
 	$boton_post = "asignar_permisos";
 	$boton_post_nombre = "Guardar";
 
@@ -62,7 +63,7 @@
 	//************************************************************************
 ?>
 <br>
-<form  enctype='application/x-www-form-urlencoded' name='$formulario' method='POST' action='<? echo $this->vinculador->generar_solicitud(null,null,array('proyecto'=>$proyecto)) ?>'>
+<form  enctype='application/x-www-form-urlencoded' name='$formulario' method='POST' action='<? echo toba::get_vinculador()->generar_solicitud(null,null,array('proyecto'=>$proyecto)) ?>'>
 <div align='center'>
 <table width="400" align='center' class='objeto-base'>
 <tr> 
@@ -102,7 +103,7 @@ ORDER BY 2;";
 	foreach($datos as $rs)
 	{ 
 		//- Armo un EF para manejar el GRUPO de acceso del USUARIO
-		$nombre_combo = $prefijo_grupo . $rs["usuario"];
+		$nombre_combo = $prefijo_grupo2 . $rs["usuario"];
 		$parametros['carga_col_clave'] = "usuario_grupo_acc";
 		$parametros['carga_col_desc'] = "nombre";
 		//echo $parametros["sql"]; 
@@ -117,7 +118,7 @@ ORDER BY 2;";
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
-		 	<a href="<? echo $this->vinculador->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo toba::get_vinculador()->generar_solicitud('admin',"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
 				<? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>

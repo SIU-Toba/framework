@@ -42,8 +42,9 @@
 
 	echo "<br>\n";
 	echo "<div align='center'>\n";	
-	echo form::abrir($formulario, $this->vinculador->generar_solicitud(null,null,null,true));	
-	?><table width="600"  class='cat-item' align='center'>
+?>
+	<form  enctype='application/x-www-form-urlencoded' name='<? echo $formulario ?>' method='POST' action='<? echo toba::get_vinculador()->generar_solicitud(null,null,null,true) ?>'>
+	<table width="600"  class='cat-item' align='center'>
         	<tr> 
           <td colspan="<? echo (5 + $maximo)?>"  class="cat-item-categ1">
 			<?
