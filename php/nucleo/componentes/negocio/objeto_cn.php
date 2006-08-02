@@ -9,14 +9,7 @@ class objeto_cn extends objeto
 	{
 		parent::__construct($id);
 		$this->transaccion_abierta = false;
-		$this->recuperar_estado_sesion();
 		$this->evt__inicializar();		
-	}
-
-	function destruir()
-	{
-		parent::destruir();
-		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 	}
 
 	function evt__inicializar()
@@ -32,10 +25,6 @@ class objeto_cn extends objeto
 		$this->evt__inicializar();
 	}
 
-	function establecer_tiempo_maximo($tiempo="30")
-	{
-		ini_set("max_execution_time",$tiempo);
-	}
 
 /*
 	function __call($metodo, $argumentos)

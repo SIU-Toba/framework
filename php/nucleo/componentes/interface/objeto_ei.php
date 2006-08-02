@@ -364,6 +364,57 @@ class objeto_ei extends objeto
 		$this->info['titulo'] = $titulo;
 	}
 		
+	function barra_superior_especifica()
+	{
+	}
+
+	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="")
+	{
+		//Marco la existencia de una interface previa
+		if($control_titulo_vacio){
+			if(trim($this->info["titulo"])==""){
+				return;	
+			}
+		}
+		if (!isset($titulo)) {
+			$titulo = $this->info["titulo"];	
+		}
+		echo "<div class='ei-barra-sup $estilo'>";
+		//---ICONOS
+		echo '<span class="ei-barra-sup-iconos">';		
+		if( editor::modo_prueba() ){ 
+			editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
+		}		
+		echo $this->barra_superior_especifica();
+		echo '</span>';
+		
+		//---Barra de mensajeria		
+		if (isset($this->objeto_js)) {
+			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
+			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
+			echo "</a>";
+		}
+
+		//--- Descripcion	
+		if(trim($this->info["descripcion"])!=""){
+			echo '<span class="ei-barra-sup-desc">';
+			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
+			echo '</span>';
+		}		
+		
+		//---Barra de colapsado
+		$colapsado = "";
+		if ($this->info['colapsable'] && isset($this->objeto_js)) {
+			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
+			echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
+		}
+
+		//---Titulo
+		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
+		echo "</div>";
+	}
+	
 	//---------------------------------------------------------------
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------

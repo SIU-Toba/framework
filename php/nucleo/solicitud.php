@@ -132,38 +132,6 @@ class solicitud
 
 	//--------------------------------------------------------------------------------------------
 
-	function info()
-	//Informacion completa
-	{
-		$this->info_definicion();
-		$this->info_estado();
-	}
-	//--------------------------------------------------------------------------------------------
-
-	function info_definicion()	
-	//Informa en pantalla la definicion	del ITEM, OBJETOS, etc.	
-	{
-		$dump["info"]=$this->info['basica'];	
-		$dump["info_objetos"]=$this->info['objetos'];
-		$dump["indice_objetos"]=$this->indice_objetos;
-		ei_arbol($dump,"DEFINICION	de	la	SOLICITUD");
-	}
-	//--------------------------------------------------------------------------------------------
-	
-	function info_estado()
-	//Informa en pantalla el estado interno
-	{
-		$dump["id"]= $this->id;	
-		$dump["objetos"] = $this->objetos;
-		$dump["en_tramite"]=	$this->en_tramite;
-		$dump["registrar"]= $this->registrar_db;
-		$dump["cronometrar"]=$this->cronometrar;
-		$dump["observaciones"]=$this->observaciones;	
-		$dump["observaciones_objeto"]=$this->observaciones_objeto;
-		ei_arbol($dump,"ESTADO de la SOLICITUD");	
-	}
-	//--------------------------------------------------------------------------------------------
-
 	function procesar()
 /*	
 	 @@acceso: core 

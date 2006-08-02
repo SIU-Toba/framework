@@ -4,6 +4,7 @@ require_once('nucleo/componentes/interface/objeto_ci.php');
 class extension_ci extends objeto_ci
 {
 	protected $tope = 10;
+	protected $s__tope;
 	
 	function evt__formulario__carga()
 	{

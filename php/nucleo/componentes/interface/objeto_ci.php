@@ -39,8 +39,6 @@ class objeto_ci extends objeto_ei
 		parent::__construct($id);
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 		$this->submit = "CI_" . $this->id[1] . "_submit";
-		$this->recuperar_estado_sesion();		//Cargo la MEMORIA no sincronizada
-		$this->cargar_info_dependencias();
 		$this->posicion_botonera = ($this->info_ci['posicion_botonera'] != '') ? $this->info_ci['posicion_botonera'] : 'abajo';
 		$this->objeto_js = "objeto_ci_{$this->id[1]}";		
 		//-- PANTALLAS
@@ -51,7 +49,6 @@ class objeto_ci extends objeto_ei
 		//Lo que sigue solo sirve para el request inicial, en los demas casos es rescrito
 		// por "definir_etapa_gi_pre_eventos" o "definir_etapa_gi_post_eventos"
 		$this->set_etapa_gi( $this->get_etapa_actual() );
-
 	}
 
 	function destruir()
@@ -71,7 +68,6 @@ class objeto_ci extends objeto_ei
 			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
 		}
 		parent::destruir();
-		$this->guardar_estado_sesion();		//GUARDO Memoria NO sincronizada
 	}
 
 	function mantener_estado_sesion()

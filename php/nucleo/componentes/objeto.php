@@ -43,8 +43,8 @@ class objeto
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
-		//$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
-		//$this->conectar_fuente();
+		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
+		$this->cargar_info_dependencias();
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');
 		$this->configuracion();
 	}
@@ -58,7 +58,7 @@ class objeto
 		//echo "Me estoy destruyendo " . $this->id[1] . "<br>";
 		//Persisto informacion
 		$this->memorizar();						//GUARDO Memoria sincronizada
-		//$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
+		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 		//Llamo a los destructores de los OBJETOS anidados
 		foreach(array_keys($this->dependencias) as $dependencia){
 			$this->dependencias[$dependencia]->destruir();
@@ -69,75 +69,6 @@ class objeto
 	{
 		return $this->id_ses_grec;
 	}
-
-	function info_estado()
-/*
- 	@@acceso: actividad
-	@@desc: Da informacion sobre el ESTADO del objeto
-*/
-	{
-		//Reemplazar por un iterador de las propiedades
-		return get_object_vars($this);
-	}
-//--------------------------------------------------------------------------------------------
-
-	function info_definicion()
-/*
- 	@@acceso: actividad
-	@@desc: Da informacion sobre la DEFINICION objeto
-*/
-	{
-		foreach($this->definicion_partes as $parte){
-			$definicion[$parte] = $this->$parte;
-		}
-		return $definicion;
-	}
-//--------------------------------------------------------------------------------------------
-
-	function exportar_definicion_php()
-/*
- 	@@acceso:
-	@@desc: 
-*/
-	{
-		//Atencion, por ahora solo para el proyecto TOBA
-		$archivo = fopen($this->exportacion_path,"w"); 
-		fwrite($archivo, "<?\n//Generacion: " .date("j-m-Y H:i:s") ."\n" );
-		fwrite($archivo, "\$definicion_objeto = unserialize(stripslashes(\"".
-								addslashes(serialize( $this->info_definicion() ))."\"));\n");
-		fwrite($archivo, "\n?>\n" );
-		fclose($archivo);
-	}
-	//-------------------------------------------------------------------------------
-
-	function exportar_definicion_sql()
-/*
-	Esto es viejo, no funciona segun el modelo actual
- 	@@acceso:
-	@@desc: 
-*/
-	{
-		$sql = db_dump_tabla("apex_objeto","WHERE objeto = '".$this->id."'");
-		foreach(explode("\n",$this->info["clase_dump"]) as $plan){
-			$plan_array = explode(":",$plan);
-			$tabla = trim($plan_array[0]);
-			$where = ereg_replace("##",$this->id,trim($plan_array[1]));
-			//echo "<TABLA> $tabla <WHERE> $where <br>";
-			$sql .= db_dump_tabla($tabla,$where);
-		}
-		return $sql;
-	}
-	//-------------------------------------------------------------------------------
-
-	function info()
-/*
-	@@acceso: actividad
-	@@desc: Imprime la informacion COMPLETA en la PANTALLA
-*/
-	{
-		ei_arbol($this->info_estado());
-		//ei_arbol($this->info_definicion());
-	}	
 
 	function get_txt()
 	{
@@ -175,35 +106,12 @@ class objeto
 			return false;
 		}
 	}
-//--------------------------------------------------------------------
-
-	function conectar_fuente()
-/*
- 	@@acceso:
-	@@desc: Crea la conexion que el objeto necesita para trabajar
-*/
-	{
-		toba::get_db($this->info["fuente"]);
-	}
-	//-------------------------------------------------------------------------------
 
 	function existe_ayuda()
 	{
 		return (trim($this->info['objeto_existe_ayuda'])!="");
 	}
-	//-------------------------------------------------------------------------------
 
-	function autovinculacion($parametro, $texto="Autovinculo")
-/*
- 	@@acceso: objeto
-	@@desc: Genera un vinculo al mismo objeto
-*/
-	{
-		$html = "<a href='". toba::get_vinculador()->generar_solicitud(null,null,$parametro,true) ."'>";
-		$html .= $texto;
-		$html .="</a>";
-		return $html;
-	}
 
 //*******************************************************************************************
 //**********************<  Comunicacion de informacion al USUARIO   >************************
@@ -291,6 +199,14 @@ class objeto
 	function mantener_estado_sesion()
 	//Esta funcion retorna las propiedades que se desea persistir
 	{
+		/*$ref = new ReflectionClass($this);
+		$props = array();
+		foreach ($ref->getProperties() as $prop) {
+			$nombre = $prop->getName();
+			if (substr($nombre, 0, 3) === 's__') {
+				$props[] = $nombre;
+			}
+		}*/		
 		return array();
 	}
 
@@ -411,35 +327,16 @@ class objeto
 	}
 
 //*******************************************************************************************
-//*******************************************************************************************
-
-	function mostrar_memoria()
-/*
- 	@@acceso: objeto
-	@@desc: Dumpea la memoria
-*/
-	{
-		if(isset($this->memoria)){
-			ei_arbol($this->memoria,"MEMORIA Sincronizada del OBJETO [". $this->id[1] ."]");
-		}
-		if(isset($_SESSION["global"][$this->id_ses_g])){
-			ei_arbol($_SESSION["global"][$this->id_ses_g],"MEMORIA GLOBAL del OBJETO [". $this->id[1] ."]");
-		}
-		//ATENCION, emprolijar esto un toque
-		if(isset($_SESSION["global"][$this->id_ses_grec])){
-			ei_arbol($_SESSION["global"][$this->id_ses_grec],"MEMORIA RECICLABLE del OBJETO [". $this->id[1] ."]");
-		}
-	}
-
-//*******************************************************************************************
 //*************************************<  DEPENDENCIAS  >************************************
 //*******************************************************************************************
 
 	function cargar_info_dependencias()
 	{
-		for($a=0;$a<count($this->info_dependencias);$a++){
-			$this->indice_dependencias[$this->info_dependencias[$a]["identificador"]] = $a;//Columna de informacion donde esta la definicion
-			$this->lista_dependencias[] = $this->info_dependencias[$a]["identificador"];
+		if (isset($this->info_dependencias)) {
+			for($a=0;$a<count($this->info_dependencias);$a++){
+				$this->indice_dependencias[$this->info_dependencias[$a]["identificador"]] = $a;//Columna de informacion donde esta la definicion
+				$this->lista_dependencias[] = $this->info_dependencias[$a]["identificador"];
+			}
 		}
 	}
 
@@ -515,37 +412,6 @@ class objeto
 		return isset($this->dependencias[$id]);
 	}
 	
-	/**
-	 * @deprecated Desde 0.8.4, usar dependencia_cargada
-	 */
-	function existe_dependencia($id)
-	{
-		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar dependencia_cargada");
-		return $this->dependencia_cargada($id);
-	}
-
-	function consultar_info_dependencia($dep,$dato=null)
-	{
-		if(isset($dato)){
-			if(isset($this->info_dependencias[$this->indice_dependencias[$dep]][$dato])){
-				return $this->info_dependencias[$this->indice_dependencias[$dep]][$dato];	
-			}else{
-				return null;
-			}
-		}else{
-			if(isset($this->info_dependencias[$this->indice_dependencias[$dep]])){
-				return $this->info_dependencias[$this->indice_dependencias[$dep]];	
-			}else{
-				return null;
-			}
-		}
-	}
-
-	function info_definicion_dependencias()
-	{
-		return $this->info_dependencias;
-	}
-
 	function get_dependencias_clase($ereg_busqueda)
 	//Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
 	{
@@ -558,60 +424,6 @@ class objeto
 		return $ok;
 	}
 	
-	//-----------------------------------------------------------------------
-	//  INTERFACE GRAFICA
-	//-----------------------------------------------------------------------
 
-
-	function barra_superior_especifica()
-	{
-	}
-
-	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="")
-	{
-		//Marco la existencia de una interface previa
-		if($control_titulo_vacio){
-			if(trim($this->info["titulo"])==""){
-				return;	
-			}
-		}
-		if (!isset($titulo)) {
-			$titulo = $this->info["titulo"];	
-		}
-		echo "<div class='ei-barra-sup $estilo'>";
-		//---ICONOS
-		echo '<span class="ei-barra-sup-iconos">';		
-		if( editor::modo_prueba() ){ 
-			editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
-		}		
-		echo $this->barra_superior_especifica();
-		echo '</span>';
-		
-		//---Barra de mensajeria		
-		if (isset($this->objeto_js)) {
-			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
-			echo recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
-			echo "</a>";
-		}
-
-		//--- Descripcion	
-		if(trim($this->info["descripcion"])!=""){
-			echo '<span class="ei-barra-sup-desc">';
-			echo recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
-			echo '</span>';
-		}		
-		
-		//---Barra de colapsado
-		$colapsado = "";
-		if ($this->info['colapsable'] && isset($this->objeto_js)) {
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-			$img_min = recurso::imagen_apl('sentido_asc_sel.gif', false);
-			echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
-		}
-
-		//---Titulo
-		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
-		echo "</div>";
-	}
 }
 ?>

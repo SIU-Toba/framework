@@ -170,11 +170,13 @@ class objeto_ei_cuadro extends objeto_ei
 		parent::destruir();
 	}
 
+	/**
+	 * @todo Pasarlo al nuevo esquema de manejo de variables de sesion y sacar el chequeo continuo
+	 */
 	function mantener_estado_sesion()								// ATENCION! esto no se esta invocando
 	{
 		$propiedades = parent::mantener_estado_sesion();
 		$propiedades[] = "tamanio_pagina";
-		$propiedades[] = "cantidad_paginas";
 		return $propiedades;
 	}
   

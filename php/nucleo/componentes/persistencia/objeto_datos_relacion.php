@@ -57,7 +57,6 @@ class objeto_datos_relacion extends objeto
 	 */
 	private function crear_tablas()
 	{
-		$this->cargar_info_dependencias();
 		foreach( $this->lista_dependencias as $dep){
 			$this->cargar_dependencia($dep);
 			//La cantidad minima y maxima se pasan a traves de dos parametros genericos del objeto

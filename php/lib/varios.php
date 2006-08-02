@@ -327,4 +327,10 @@
 	{
 		return ($_SERVER["REQUEST_METHOD"]=="GET");
 	}	
+	
+
+	function set_tiempo_maximo($tiempo="30")
+	{
+		ini_set("max_execution_time",$tiempo);
+	}	
 ?>
