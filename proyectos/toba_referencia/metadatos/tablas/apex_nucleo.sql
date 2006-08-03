@@ -1,0 +1,1 @@
+INSERT INTO apex_nucleo (proyecto, nucleo, nucleo_tipo, archivo, descripcion, descripcion_corta, doc_nucleo, doc_db, doc_sql, autodoc, orden) VALUES ('toba_referencia', 'dao_importes', '1', 'objetos/ei_filtro - ei_cuadro/dao.php', 'DAO que recupera una fecha y un importe asociado', NULL, NULL, NULL, NULL, NULL, NULL);

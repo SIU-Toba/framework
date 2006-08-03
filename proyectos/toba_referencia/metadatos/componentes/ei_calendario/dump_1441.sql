@@ -1,0 +1,4 @@
+------------------------------------------------------------
+--[1441]--  Ejemplo de ei_calendario 
+------------------------------------------------------------
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_referencia', '1441', NULL, NULL, 'toba', 'objeto_ei_calendario', NULL, NULL, NULL, NULL, 'Ejemplo de ei_calendario', NULL, NULL, NULL, 'toba_referencia', 'toba_referencia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-08-12 13:52:58');

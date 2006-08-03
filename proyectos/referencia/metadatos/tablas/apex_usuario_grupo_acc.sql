@@ -1,1 +1,0 @@
-INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion, vencimiento, dias, hora_entrada, hora_salida, listar) VALUES ('referencia', 'admin', 'Administrador', '0', 'Accede a toda la funcionalidad', NULL, NULL, NULL, NULL, NULL);

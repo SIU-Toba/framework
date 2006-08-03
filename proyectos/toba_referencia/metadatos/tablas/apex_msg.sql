@@ -1,0 +1,1 @@
+INSERT INTO apex_msg (msg, indice, proyecto, msg_tipo, descripcion_corta, mensaje_a, mensaje_b, mensaje_c, mensaje_customizable) VALUES ('183', 'info_global', 'toba_referencia', 'info', 'Este mensaje es uno global a Toba.', 'Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.', NULL, NULL, NULL);
