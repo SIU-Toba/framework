@@ -167,7 +167,7 @@ class objeto_datos_relacion extends objeto
 		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
 		$indice = uniqid();
 		toba::get_hilo()->persistir_dato($indice, $parametros);
-		$url = toba::get_vinculador()->crear_vinculo('admin', '1000045', array('esquema' => $indice), array('validar' => false));
+		$url = toba::get_vinculador()->crear_vinculo(editor::get_id(), '1000045', array('esquema' => $indice), array('validar' => false));
 		objeto_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}
 	

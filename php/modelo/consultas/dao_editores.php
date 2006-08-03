@@ -388,19 +388,19 @@ class dao_editores
 	static function get_dr_de_clase($clase)
 	{
 		$drs = array(
-			'objeto_datos_relacion' 	=> array('admin', '1532'),
-			'objeto_datos_tabla' 		=> array('admin', '1533'),
-			'objeto_ei_arbol'			=> array('admin', '1537'),
-			'objeto_ei_archivos'		=> array('admin', '1538'),
-			'objeto_ei_calendario'		=> array('admin', '1539'),
-			'objeto_ci' 				=> array('admin', '1507'),
-			'objeto_ei_cuadro' 			=> array('admin', '1531'),
-			'objeto_ei_filtro' 			=> array('admin', '1535'),
-			'objeto_ei_formulario' 		=> array('admin', '1534'),
-			'objeto_ei_formulario_ml' 	=> array('admin', '1536'),			
-			'objeto_ei_arbol' 			=> array('admin', '1610'),	
-			'objeto_cn'					=> array('admin', '1610'),
-			'item'						=> array('admin', '1554')
+			'objeto_datos_relacion' 	=> array( editor::get_id(), '1532'),
+			'objeto_datos_tabla' 		=> array( editor::get_id(), '1533'),
+			'objeto_ei_arbol'			=> array( editor::get_id(), '1537'),
+			'objeto_ei_archivos'		=> array( editor::get_id(), '1538'),
+			'objeto_ei_calendario'		=> array( editor::get_id(), '1539'),
+			'objeto_ci' 				=> array( editor::get_id(), '1507'),
+			'objeto_ei_cuadro' 			=> array( editor::get_id(), '1531'),
+			'objeto_ei_filtro' 			=> array( editor::get_id(), '1535'),
+			'objeto_ei_formulario' 		=> array( editor::get_id(), '1534'),
+			'objeto_ei_formulario_ml' 	=> array( editor::get_id(), '1536'),			
+			'objeto_ei_arbol' 			=> array( editor::get_id(), '1610'),	
+			'objeto_cn'					=> array( editor::get_id(), '1610'),
+			'item'						=> array( editor::get_id(), '1554')
 		);
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			

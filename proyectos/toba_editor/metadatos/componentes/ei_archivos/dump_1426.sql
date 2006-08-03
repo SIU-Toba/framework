@@ -1,0 +1,4 @@
+------------------------------------------------------------
+--[1426]--  Selector archivos PHP 
+------------------------------------------------------------
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_editor', '1426', NULL, NULL, 'toba', 'objeto_ei_archivos', 'ei_selector_archivos', 'editores/eiarbol_selector_archivos.php', NULL, NULL, 'Selector archivos PHP', NULL, NULL, NULL, 'toba_editor', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-08-09 10:09:00');

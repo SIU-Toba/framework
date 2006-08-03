@@ -8,7 +8,7 @@ class editor
 {
 	static function get_id()
 	{
-		return 'admin';	
+		return 'toba_editor';	
 	}
 
 	/**
@@ -90,7 +90,7 @@ class editor
 	static function acceso_recursivo()
 	{
 		if (self::activado()) {
-			return $_SESSION['toba']['_editor_']['proyecto'] == self::get_id();
+			return self::get_proyecto_cargado() == self::get_id();
 		}
 		return false;		
 	}

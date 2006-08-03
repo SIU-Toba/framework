@@ -174,7 +174,7 @@ class sesion_toba
 	
 	function get_grupo_acceso()
 	{
-		if( editor::modo_prueba() && (info_proyecto::get_id() != 'admin')) {
+		if( editor::modo_prueba() && (info_proyecto::get_id() != editor::get_id())) {
 			return editor::get_grupo_acceso_previsualizacion();
 		} else {
 			return toba::get_usuario()->get_grupo_acceso();		

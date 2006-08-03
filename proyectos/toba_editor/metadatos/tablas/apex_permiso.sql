@@ -1,0 +1,11 @@
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('1', 'toba_editor', 'prueba1', 'Utilizar la prueba uno', NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('2', 'toba_editor', 'prueba2', 'Utilizar la prueba dos', NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('3', 'toba_editor', 'prueba3', NULL, 'Este es un mensaje particular');
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('4', 'toba_editor', 'prueba4', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('5', 'toba_editor', 'prueba54', 'asdfsa', NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('6', 'toba_editor', 'prueba6', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('7', 'toba_editor', 'prueba7', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('8', 'toba_editor', 'prueba84', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('9', 'toba_editor', 'prueba9', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('10', 'toba_editor', 'prueba10', NULL, NULL);
+INSERT INTO apex_permiso (permiso, proyecto, nombre, descripcion, mensaje_particular) VALUES ('11', 'toba_editor', 'prueba11', NULL, NULL);

@@ -10,6 +10,7 @@ require_once('lib/reflexion/clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
+require_once('nucleo/lib/editor.php'); //Se necesita para saber el ID del editor
 
 /**
 *	Administrador de metadatos de PROYECTOS
@@ -519,7 +520,7 @@ class proyecto extends elemento_modelo
 	function actualizar_login($pisar_anterior = false)
 	{
 		//--- ¿Existe el proyecto editor?
-		if (! $this->instancia->existen_metadatos_proyecto('admin')) {
+		if (! $this->instancia->existen_metadatos_proyecto( editor::get_id() )) {
 			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
 			logger::instancia()->info($msg);
 			$this->manejador_interface->mensaje($msg);

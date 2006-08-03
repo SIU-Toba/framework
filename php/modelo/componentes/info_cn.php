@@ -9,7 +9,7 @@ class info_cn extends info_componente
 		$iconos[] = array(
 			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
-			'vinculo' => toba::get_vinculador()->generar_solicitud("admin","/admin/objetos_toba/crear",
+			'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'cn', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id ),
