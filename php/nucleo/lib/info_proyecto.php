@@ -114,6 +114,31 @@ class info_proyecto
 		return $rs[0];
 	}
 
+	//--------------  Carga dinamica de COMPONENTES --------------
+
+	function get_definicion_dependencia($objeto, $identificador)
+	{
+		$sql = "SELECT 
+					'$identificador' 	as identificador,
+					o.proyecto 			as proyecto,
+					o.objeto 			as objeto,
+					o.fuente_datos		as fuente,
+					o.clase				as clase,
+					o.subclase			as subclase,
+					o.subclase_archivo	as subclase_archivo,
+					c.archivo			as clase_archivo
+				FROM
+					apex_objeto o,
+					apex_clase c
+				WHERE
+					o.objeto = '$objeto' AND
+					o.proyecto = '".info_proyecto::get_id()."' AND
+					o.clase = c.clase AND
+					o.clase_proyecto = c.proyecto";
+		$res = self::get_db()->consultar($sql);
+		return $res[0];
+	}
+
 	//------------------------  FUENTES  -------------------------
 
 	function get_info_fuente_datos($id_fuente)

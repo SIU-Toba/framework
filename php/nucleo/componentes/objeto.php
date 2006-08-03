@@ -371,26 +371,7 @@ class objeto
 	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
 		$sig = count($this->info_dependencias);
-		$sql = "SELECT 
-					'$identificador' 	as identificador,
-					o.proyecto 			as proyecto,
-					o.objeto 			as objeto,
-					o.fuente_datos		as fuente,
-					o.clase				as clase,
-					o.subclase			as subclase,
-					o.subclase_archivo	as subclase_archivo,
-					c.archivo			as clase_archivo
-				FROM
-					apex_objeto o,
-					apex_clase c
-				WHERE
-					o.objeto = '$objeto' AND
-					o.proyecto = '$proyecto' AND
-					o.clase = c.clase AND
-					o.clase_proyecto = c.proyecto
-		";
-		$res = info_instancia::get_db()->consultar($sql);
-		$this->info_dependencias[$sig] = $res[0];
+		$this->info_dependencias[$sig] = info_proyecto::get_definicion_dependencia($objeto, $identificador);
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	
 	}
