@@ -106,6 +106,7 @@ class db
 				throw new excepcion_toba_db("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
+										
 			}
 		}
 		return $afectados;

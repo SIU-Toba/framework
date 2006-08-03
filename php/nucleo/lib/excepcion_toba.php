@@ -13,9 +13,17 @@ class excepcion_toba extends Exception
 */
 class excepcion_toba_db extends excepcion_toba
 {
+	protected $codigo;
+
+	function __construct($mensaje, $codigo)
+	{
+		$this->codigo = $codigo;
+		parent::__construct($mensaje);			
+	}
+	
 	function get_sqlstate()
 	{
-		return $this->getCode();	
+		return $this->codigo;	
 	}
 }
 

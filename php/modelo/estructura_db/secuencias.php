@@ -28,11 +28,6 @@ class secuencias
 		$datos['apex_solicitud_observacion_seq'] = array('campo' => 'solicitud_observacion', 'tabla'=> 'apex_solicitud_observacion');
 		$datos['apex_solicitud_obj_obs_seq'] = array('campo' => 'solicitud_obj_observacion', 'tabla'=> 'apex_solicitud_obj_observacion');
 		$datos['apex_log_error_login_seq'] = array('campo' => 'log_error_login', 'tabla'=> 'apex_log_error_login');
-		$datos['apex_ap_tarea_tipo_seq'] = array('campo' => 'tarea_tipo', 'tabla'=> 'apex_ap_tarea_tipo');
-		$datos['apex_ap_tarea_estado_seq'] = array('campo' => 'tarea_estado', 'tabla'=> 'apex_ap_tarea_estado');
-		$datos['apex_ap_tarea_tema_seq'] = array('campo' => 'tarea_tema', 'tabla'=> 'apex_ap_tarea_tema');
-		$datos['apex_ap_tarea_seq'] = array('campo' => 'tarea', 'tabla'=> 'apex_ap_tarea');
-		$datos['apex_objeto_plan_linea_seq'] = array('campo' => 'linea', 'tabla'=> 'apex_objeto_plan_linea');
 		$datos['apex_patron_msg_seq'] = array('campo' => 'patron_msg', 'tabla'=> 'apex_patron_msg');
 		$datos['apex_item_msg_seq'] = array('campo' => 'item_msg', 'tabla'=> 'apex_item_msg');
 		$datos['apex_clase_msg_seq'] = array('campo' => 'clase_msg', 'tabla'=> 'apex_clase_msg');
@@ -51,8 +46,6 @@ class secuencias
 		$datos['apex_columna_proceso_seq'] = array('campo' => 'columna_proceso', 'tabla'=> 'apex_columna_proceso');
 		$datos['apex_elemento_infra_input_seq'] = array('campo' => 'entrada', 'tabla'=> 'apex_elemento_infra_input');
 		$datos['apex_nucleo_tipo_seq'] = array('campo' => 'nucleo_tipo', 'tabla'=> 'apex_nucleo_tipo');
-		$datos['apex_tp_tarea_seq'] = array('campo' => 'tarea', 'tabla'=> 'apex_tp_tarea');
-		$datos['apex_tp_tarea_tipo_seq'] = array('campo' => 'tarea_tipo', 'tabla'=> 'apex_tp_tarea_tipo');
 		$datos['apex_permiso_seq'] = array('campo' => 'permiso', 'tabla' => 'apex_permiso');
 		return $datos;
 	}
