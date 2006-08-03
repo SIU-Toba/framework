@@ -317,6 +317,7 @@ class ap_tabla_db implements ap_tabla
 			//Regenero la estructura que mantiene los cambios realizados
 			$this->objeto_tabla->notificar_fin_sincronizacion();
 			$this->evt__post_sincronizacion();
+			if($this->utilizar_transaccion) cerrar_transaccion($this->fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
 			return $modificaciones;
 		} catch(excepcion_toba $e) {
