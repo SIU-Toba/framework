@@ -103,5 +103,18 @@ class ci_login extends objeto_ci
 		return $datos;
 	}
 	//-------------------------------------------------------------------
+	
+	function obtener_html()
+	{
+		// si se da un timeout, esta pagina puede cargarse en un frame...
+		// esta funcion detecta este caso y lo soluciona
+		$codigo_js = "
+			if(self.name!=top.name)	{
+				top.location.href='{$_SERVER['PHP_SELF']}';
+			}
+		";
+		echo js::ejecutar($codigo_js);
+		parent::obtener_html();	
+	}	
 }
 ?>

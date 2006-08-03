@@ -7,6 +7,9 @@ class parser_ayuda
 {
 	protected static $tags = array('wiki', 'api', 'link', 'url', 'test');
 	
+	/**
+	 * @todo Ver una forma de no usar exp.reg. para saber si parsear o no!
+	 */
 	static function es_texto_plano($texto)
 	{
 		return ! preg_match(self::exp_reg(), $texto);
