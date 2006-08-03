@@ -16,12 +16,14 @@ class objeto_datos_relacion extends objeto
 	protected $persistidor;
 	protected $cargado = false;
 	protected $relaciones_mapeos=array();			//Mapeo entre filas de las tablas
-	static $debug_pasadas;							//Mantiene la cantidad de pasadas para generar ids unicos en js
+	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
 
 	function __construct($id)
 	{
+		$propiedades[] = "relaciones_mapeos";
+		$propiedades[] = "cargado";
+		$this->set_propiedades_sesion($propiedades);			
 		parent::__construct($id);	
-		$this->recuperar_estado_sesion();
 		$this->crear_tablas();
 		$this->crear_relaciones();
 		if ($this->info_estructura['debug']) {
@@ -37,21 +39,12 @@ class objeto_datos_relacion extends objeto
 		foreach ($this->relaciones as $relacion) {
 			$this->relaciones_mapeos[] = $relacion->get_mapeo_filas();
 		}
-		$this->guardar_estado_sesion();
 		if ($this->info_estructura['debug']) {
 			$this->dump_esquema("FIN: ".$this->info['nombre']);	
 		}		
 		parent::destruir();
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "relaciones_mapeos";
-		$propiedades[] = "cargado";
-		return $propiedades;
-	}	
-	
 	/**
 	 * Carga los datos_tabla y les pone los topes mínimos y máximos
 	 */

@@ -23,9 +23,12 @@ class objeto
 	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
+	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
 	
 	function __construct( $definicion )
 	{
+		//--- Compatibilidad con el metodo anterior de mantener cosas en sesion
+		$this->set_propiedades_sesion($this->mantener_estado_sesion());		
 		// Compatibilidad hacia atras en el ID
 		$this->id[0] = $definicion['info']['proyecto'];
 		$this->id[1] = $definicion['info']['objeto'];
@@ -45,7 +48,7 @@ class objeto
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
-		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');
+		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');		
 		$this->configuracion();
 	}
 
@@ -196,8 +199,10 @@ class objeto
 //****************************<  Memorizacion de PROPIEDADES   >*****************************
 //*******************************************************************************************
 
+	/**
+	 * @deprecated Usar $this->set_propiedades_sesion
+	 */
 	function mantener_estado_sesion()
-	//Esta funcion retorna las propiedades que se desea persistir
 	{
 		/*$ref = new ReflectionClass($this);
 		$props = array();
@@ -210,6 +215,14 @@ class objeto
 		return array();
 	}
 
+	/**
+	 * Fuerza a persistir en sesion ciertas propiedades internas 
+	 */
+	protected function set_propiedades_sesion($props)
+	{
+		$this->propiedades_sesion = array_merge($this->propiedades_sesion, $props);
+	}
+	
 	function recuperar_estado_sesion()
 	//Recupera las propiedades guardadas en la sesion
 	{
@@ -248,15 +261,14 @@ class objeto
 	}
 	
 	function guardar_estado_sesion()
-	//Guardo propiedades en la sesion
 	{
 		//Busco las propiedades que se desea persistir entre las sesiones
-		$propiedades_a_persistir = $this->mantener_estado_sesion();
-		if(count($propiedades_a_persistir)>0){
-			for($a=0;$a<count($propiedades_a_persistir);$a++){
+		if(count($this->propiedades_sesion)>0){
+			for($a=0;$a<count($this->propiedades_sesion);$a++){
 				//Existe la propiedad
-				if(isset($this->$propiedades_a_persistir[$a])) {
-					if(is_object($this->$propiedades_a_persistir[$a])){
+				$nombre_prop = $this->propiedades_sesion[$a];
+				if(isset($this->$nombre_prop)) {
+					if(is_object($this->$nombre_prop)){
 						/*
 							PERSISTENCIA de OBJETOS 
 							-----------------------
@@ -272,15 +284,12 @@ class objeto
 								En casos como este es necesario definir __sleep en el objeto hijo, para
 									anular el controlador y __wakeup en el padre para restablecerlo
 						*/
-						$temp[$propiedades_a_persistir[$a]] = serialize($this->$propiedades_a_persistir[$a]);
+						$temp[$this->propiedades_sesion[$a]] = serialize($this->$nombre_prop);
 						//Dejo la marca de que serialize un OBJETO.
-						$temp["toba__indice_objetos_serializados"][] = $propiedades_a_persistir[$a];
+						$temp["toba__indice_objetos_serializados"][] = $this->propiedades_sesion[$a];
 					}else{
-						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+						$temp[$this->propiedades_sesion[$a]] = $this->$nombre_prop;
 					}
-				} else {
-					//$this->log->error($this->get_txt() . " Se solocito mantener el estado de una propiedad inexistente: '{$propiedades_a_persistir[$a]}' ");
-					//echo $this->get_txt() . " guardar_estado_sesion '{$propiedades_a_persistir[$a]}' == NULL <br>";
 				}
 			}
 			if(isset($temp)){
@@ -297,10 +306,10 @@ class objeto
 	function eliminar_estado_sesion($no_eliminar=null)
 	{
 		if(!isset($no_eliminar))$no_eliminar=array();
-		$propiedades_a_persistir = $this->mantener_estado_sesion();
-		for($a=0;$a<count($propiedades_a_persistir);$a++){
-			if(!in_array($propiedades_a_persistir[$a], $no_eliminar)){
-				unset($this->$propiedades_a_persistir[$a]);			
+		for($a=0;$a<count($this->propiedades_sesion);$a++){
+			if(!in_array($this->propiedades_sesion[$a], $no_eliminar)){
+				$nombre_prop = $this->propiedades_sesion[$a];
+				unset($this->$nombre_prop);
 			}
 		}
 		toba::get_hilo()->eliminar_dato_global($this->id_ses_grec);
@@ -308,15 +317,15 @@ class objeto
 	
 	function get_estado_sesion()
 	{
-		$propiedades_a_persistir = $this->mantener_estado_sesion();
-		if(count($propiedades_a_persistir)>0){
+		if(count($this->propiedades_sesion)>0){
 			$propiedades = get_object_vars($this);
-			for($a=0;$a<count($propiedades_a_persistir);$a++){
+			for($a=0;$a<count($this->propiedades_sesion);$a++){
 				//Existe la propiedad
-				if(in_array($propiedades_a_persistir[$a],$propiedades)){
+				if(in_array($this->propiedades_sesion[$a],$propiedades)){
 					//Si la propiedad no es NULL
-					if(isset( $this->$propiedades_a_persistir[$a]) ){
-						$temp[$propiedades_a_persistir[$a]] = $this->$propiedades_a_persistir[$a];
+					$nombre_prop = $this->propiedades_sesion[$a];
+					if (isset( $this->$nombre_prop) ) {
+						$temp[$this->propiedades_sesion[$a]] = $this->$nombre_prop;
 					}
 				}
 			}

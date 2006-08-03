@@ -44,6 +44,9 @@ class objeto_ei_cuadro extends objeto_ei
  
     function __construct($id)
     {
+    	$propiedades = array();
+		$propiedades[] = "tamanio_pagina";
+		$this->set_propiedades_sesion($propiedades);
         parent::__construct($id);
 		$this->procesar_definicion();
         $this->submit = "ei_cuadro" . $this->id[1];
@@ -170,16 +173,6 @@ class objeto_ei_cuadro extends objeto_ei
 		parent::destruir();
 	}
 
-	/**
-	 * @todo Pasarlo al nuevo esquema de manejo de variables de sesion y sacar el chequeo continuo
-	 */
-	function mantener_estado_sesion()								// ATENCION! esto no se esta invocando
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "tamanio_pagina";
-		return $propiedades;
-	}
-  
 //################################################################################
 //############################        EVENTOS        #############################
 //################################################################################
@@ -277,7 +270,7 @@ class objeto_ei_cuadro extends objeto_ei
 
 	private function validar_estructura_datos()
 	{
-		$muestra = $this->datos[0];
+		$muestra = current($this->datos);
 		if (!is_array($muestra)) {
 			$error = array_values($this->estructura_datos);
 		} else {
@@ -442,7 +435,9 @@ class objeto_ei_cuadro extends objeto_ei
 		}else{
 			$this->pagina_actual = 1;
 		}
-        $this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+		if (! isset($this->tamanio_pagina))  {
+        	$this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+		}
 	}
 	
 	function finalizar_paginado()
@@ -491,6 +486,11 @@ class objeto_ei_cuadro extends objeto_ei
 	function get_tamanio_pagina()
 	{
 		return $this->tamanio_pagina;
+	}
+	
+	function set_tamanio_pagina($tam)
+	{
+		$this->tamanio_pagina = $tam;	
 	}
 	
 	function get_pagina_actual()

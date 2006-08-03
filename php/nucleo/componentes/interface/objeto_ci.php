@@ -36,6 +36,9 @@ class objeto_ci extends objeto_ei
 
 	function __construct($id)
 	{
+		$propiedades = array();
+		$propiedades[] = "dependencias_ci_globales";
+		$this->set_propiedades_sesion($propiedades);
 		parent::__construct($id);
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 		$this->submit = "CI_" . $this->id[1] . "_submit";
@@ -70,13 +73,6 @@ class objeto_ci extends objeto_ei
 		parent::destruir();
 	}
 
-	function mantener_estado_sesion()
-	{
-		$estado = parent::mantener_estado_sesion();
-		$estado[] = "dependencias_ci_globales";
-		return $estado;
-	}
-	
 	function inicializar($parametro=null)
 	{
 		if(isset($parametro)){

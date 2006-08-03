@@ -43,6 +43,13 @@ class objeto_datos_tabla extends objeto
 	
 	function __construct($id)
 	{
+		$propiedades = array();
+		$propiedades[] = "cambios";
+		$propiedades[] = "datos";
+		$propiedades[] = "proxima_fila";
+		$propiedades[] = "cursor";
+		$propiedades[] = "cargada";		
+		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
 		for($a=0; $a<count($this->info_columnas);$a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
@@ -54,23 +61,6 @@ class objeto_datos_tabla extends objeto
 				$this->posee_columnas_ext = true;
 			}
 		}
-		$this->recuperar_estado_sesion();		
-	}
-
-	function destruir()
-	{
-		$this->guardar_estado_sesion();		
-	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "cambios";
-		$propiedades[] = "datos";
-		$propiedades[] = "proxima_fila";
-		$propiedades[] = "cursor";
-		$propiedades[] = "cargada";
-		return $propiedades;
 	}
 
 	/**
