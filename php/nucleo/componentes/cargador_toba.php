@@ -118,7 +118,7 @@ class cargador_toba
 			foreach ( $estructura as $seccion => $contenido ) {
 				$temp = $db->consultar( $contenido['sql'] );
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
-					throw new excepcion_toba("El componente '$id' tiene una estructura incorrecta. No existe el segmento '$seccion'");
+					throw new excepcion_toba("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
 				}
 				if ($contenido['registros']!=='1') {
 					$metadatos[$seccion] = $temp;
