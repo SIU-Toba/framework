@@ -544,7 +544,7 @@ class vinculador
 	/*
 	* Registra vinculos en la clase homologa de javascript
 	*/
-	function obtener_javascript()
+	function generar_js()
 	{
 		foreach( $this->vinculos as $id => $vinculo ) {
 			$opciones = $vinculo->get_opciones();

@@ -31,6 +31,16 @@ class ci_eventos extends objeto_ci
 		return $this->tabla;
 	}
 
+	
+	function conf__1($pant)
+	{
+		if( $this->mostrar_evento_detalle() ){
+			$pant->eliminar_dep('generador');
+		} else {
+			$pant->eliminar_dep('eventos');
+		}
+	}
+
 	//*******************************************************************
 	//*******************  EVENTOS  ************************************
 	//*******************************************************************
@@ -43,16 +53,6 @@ class ci_eventos extends objeto_ci
 		return false;
 	}
 
-	function get_lista_ei()
-	{
-		$ei[] = "eventos_lista";
-		if( $this->mostrar_evento_detalle() ){
-			$ei[] = "eventos";
-		}else{
-			$ei[] = "generador";
-		}
-		return $ei;	
-	}
 
 	function limpiar_seleccion()
 	{
@@ -130,7 +130,7 @@ class ci_eventos extends objeto_ci
 		}
 	}
 	
-	function evt__eventos_lista__carga()
+	function conf__eventos_lista()
 	{
 		return $this->get_tabla()->get_filas(null, true);
 	}
@@ -153,7 +153,7 @@ class ci_eventos extends objeto_ci
 		$this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
 	}
 	
-	function evt__eventos__carga()
+	function conf__eventos()
 	{
 		$this->seleccion_evento_anterior = $this->seleccion_evento;
 		return $this->get_tabla()->get_fila($this->seleccion_evento_anterior);

@@ -25,7 +25,7 @@ class ci_navegacion extends objeto_ci
 		return $this->dependencia('datos');
 	}	
 	
-	function evt__listado__carga()
+	function conf__listado()
 	{
 		$filtro = (isset($this->filtro)) ? $this->filtro : array();
 		return dao_permisos::get_lista_permisos($filtro);
@@ -44,7 +44,7 @@ class ci_navegacion extends objeto_ci
 		$this->filtro = $datos;
 	}
 
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		if(isset($this->filtro)){
 			return $this->filtro;

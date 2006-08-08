@@ -38,16 +38,6 @@ class objeto_ei_archivos extends objeto_ei
 		parent::destruir();
 	}
 
-	function inicializar($parametros)
-	{
-		$this->id_en_padre = $parametros['id'];
-	}
-	
-    function cargar_datos($datos=null,$memorizar=true)
-    {
-	}
-
-
 	function get_lista_eventos()
 	{
 		$eventos = array();
@@ -107,7 +97,7 @@ class objeto_ei_archivos extends objeto_ei
 		$this->dir_actual = $this->path_relativo_inicial.$path;
 	}
 
-	function obtener_html()
+	function generar_html()
 	{
 		echo form::hidden($this->submit, '');
 		echo form::hidden($this->submit."__seleccion", '');		

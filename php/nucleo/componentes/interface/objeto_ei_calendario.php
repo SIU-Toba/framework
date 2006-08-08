@@ -63,25 +63,15 @@ class objeto_ei_calendario extends objeto_ei
 		parent::destruir();
 	}
 
-
-	function inicializar($parametros)
-	{
-		$this->id_en_padre = $parametros['id'];		
-	}
-	
-    function cargar_datos($datos=null,$memorizar=true)
-/*
-    @@acceso: publico
-    @@desc: Carga los datos del calendario
-    @@retorno: boolean | Estado resultante de la operacion
-*/
+    function set_datos($datos=null)
     {
-		if ($datos)
-			foreach ($datos as $dato)
-			{
-				if (isset($dato["dia"]))
+		if (isset($datos)) {
+			foreach ($datos as $dato) {
+				if (isset($dato["dia"])) {
 					$this->calendario->setEventContent($dato["dia"], $dato["contenido"]);
+				}
 			}
+    	}
 	}
 	
 	function set_ver_contenidos($ver)
@@ -185,7 +175,7 @@ class objeto_ei_calendario extends objeto_ei
 		}
 	}
 	
-	function obtener_html()
+	function generar_html()
 	{
 		//Campos de comunicación con JS
 		echo form::hidden($this->submit, '');

@@ -59,7 +59,7 @@ class ci_principal extends ci_editores_toba
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function evt__prop_basicas__carga()
+	function conf__prop_basicas()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
@@ -159,7 +159,7 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 	
-	function evt__columnas_lista__carga()
+	function conf__columnas_lista()
 	{
 		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() )
 		{
@@ -205,7 +205,7 @@ class ci_principal extends ci_editores_toba
 		$this->evt__columnas__cancelar();
 	}
 
-	function evt__columnas__carga()
+	function conf__columnas()
 	{
 		$this->seleccion_columna_anterior = $this->seleccion_columna;
 		return $this->get_entidad()->tabla('columnas')->get_fila($this->seleccion_columna_anterior);
@@ -220,7 +220,7 @@ class ci_principal extends ci_editores_toba
 	//---- EI: Participacion en los CORTES de CONTROL del cuadro
 	//-----------------------------------------
 
-	function evt__columna_corte__carga()
+	function conf__columna_corte()
 	{
 		$cortes_asociados = $this->get_entidad()->tabla('columnas')->get_cortes_columna($this->seleccion_columna_anterior);
 		$datos = null;
@@ -274,7 +274,7 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 
-	function evt__columnas_importar__carga()
+	function conf__columnas_importar()
 	{
 		if(isset($this->importacion_cols)){
 			return $this->importacion_cols;
@@ -312,7 +312,7 @@ class ci_principal extends ci_editores_toba
 	//*****************  CORTES de CONTROL  *****************************
 	//*******************************************************************
 	
-	function evt__prop_cortes__carga()
+	function conf__prop_cortes()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
@@ -327,7 +327,7 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->tabla('cortes')->procesar_filas($datos);
 	}
 	
-	function evt__cortes__carga()
+	function conf__cortes()
 	{
 		if($datos_dbr = $this->get_entidad()->tabla('cortes')->get_filas() )
 		{

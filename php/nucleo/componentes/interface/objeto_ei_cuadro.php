@@ -14,7 +14,6 @@ define("apex_cuadro_cc_anidado","a");
 class objeto_ei_cuadro extends objeto_ei
 {
  	protected $submit;
-	protected $id_en_padre;
  	protected $columnas;
     protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
     protected $cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
@@ -224,46 +223,37 @@ class objeto_ei_cuadro extends objeto_ei
 		}
 	}
 
-    function cargar_datos($datos=null,$memorizar=true)
+    function set_datos($datos)
     {
-		// - 1 - Asigno DATOS
+		//--- Asigno DATOS
 		if(isset($datos)){
-	        $this->datos = $datos;
-		}else{													//ATENCION: Esto tiene sentido?
-			if(trim($this->info_cuadro['dao_metodo'])!=""){
-				include_once($this->info_cuadro['dao_archivo']);
-				$sentencia = "\$this->datos = " . $this->info_cuadro['dao_clase'] 
-											. "::" .  $this->info_cuadro['dao_metodo']
-											. "(".$this->info_cuadro['dao_parametros'].");";
-				eval($sentencia);
+			$this->datos = $datos;
+			if (!is_array($this->datos)) {
+				throw new excepcion_toba_def( $this->get_txt() . 
+						" El parametro para cargar el cuadro posee un formato incorrecto:" .
+							"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+			}
+			if (count($this->datos) > 0 ) {
+				$this->validar_estructura_datos();
+				// - 2 - Ordenamiento
+				if($this->hay_ordenamiento()){
+					$this->ordenar();
+				}			
+				// - 3 - Paginacion
+				if( $this->existe_paginado() ){
+					$this->generar_paginado();
+				}
+				// - 4 - Cortes de control
+				if( $this->existen_cortes_control() ){
+					$this->planificar_cortes_control();
+				}else{
+					$this->calcular_totales_generales();
+				}
 			}
 		}
-		if (isset($this->datos) && !is_array($this->datos)) {
-			throw new excepcion_toba_def( $this->get_txt() . 
-					" El parametro para cargar el cuadro posee un formato incorrecto:" .
-						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
-		}
-		if (isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0) )
-		{
-			$this->validar_estructura_datos();
-			// - 2 - Ordenamiento
-			if($this->hay_ordenamiento()){
-				$this->ordenar();
-			}			
-			// - 3 - Paginacion
-			if( $this->existe_paginado() ){
-				$this->generar_paginado();
-			}
-			// - 4 - Cortes de control
-			if( $this->existen_cortes_control() ){
-				$this->planificar_cortes_control();
-			}else{
-				$this->calcular_totales_generales();
-			}
-		}		
-		return true;
     }
 
+    
 //################################################################################
 //############################   Procesos GENERALES   ############################
 //################################################################################
@@ -805,7 +795,7 @@ class objeto_ei_cuadro extends objeto_ei
 //#################################    HTML    ###################################
 //################################################################################
 
-	public function obtener_html($mostrar_cabecera=true, $titulo=null)
+	public function generar_html($mostrar_cabecera=true, $titulo=null)
 	{
 		/*	¿Los parametros hay que destruirlos?	*/
 		

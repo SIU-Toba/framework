@@ -164,7 +164,7 @@ class ci_relaciones extends objeto_ci
 		//ei_arbol($tabla->get_filas(),"FILAS");
 	}
 	
-	function evt__relaciones_lista__carga()
+	function conf__relaciones_lista()
 	{	
 		if($datos_tabla = $this->get_tabla()->get_filas() )
 		{
@@ -250,7 +250,7 @@ class ci_relaciones extends objeto_ci
 		$this->limpiar_seleccion();
 	}
 	
-	function evt__relaciones_columnas__carga()
+	function conf__relaciones_columnas()
 	{
 		$datos = array();
 		$this->seleccion_relacion_anterior = $this->seleccion_relacion;
@@ -269,7 +269,7 @@ class ci_relaciones extends objeto_ci
 	//---- ESQUEMA de la RELACION
 	//-------------------------------------------------------------------------------------
 	
-	function evt__relaciones_esquema__carga()
+	function conf__relaciones_esquema()
 	{
 		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
 		$relaciones = $this->get_tabla()->get_filas();

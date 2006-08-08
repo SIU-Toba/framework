@@ -109,7 +109,7 @@ abstract class ci_editores_toba extends objeto_ci
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function evt__base__carga()
+	function conf__base()
 	{
 		$reg = $this->get_entidad()->tabla("base")->get();
 		if (!isset($reg)) {

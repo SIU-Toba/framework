@@ -9,7 +9,7 @@ class ci_abm_basico extends objeto_ci
 		$this->dependencia('datos')->cargar($seleccion);
 	}
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		return $this->get_datos_listado();
 	}
@@ -44,7 +44,7 @@ class ci_abm_basico extends objeto_ci
 		$this->dependencia('datos')->resetear();
 	}
 
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		if( $this->dependencia('datos')->hay_cursor() ) {
 			return $this->dependencia('datos')->get();

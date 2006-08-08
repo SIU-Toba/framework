@@ -67,7 +67,7 @@ class ci_clonador_objetos extends objeto_ci
 	*			EVENTOS
 	*********************************/
 	
-	function evt__destino__carga()
+	function conf__destino()
 	{
 		if (! isset($this->datos)) {
 			$this->datos = array();

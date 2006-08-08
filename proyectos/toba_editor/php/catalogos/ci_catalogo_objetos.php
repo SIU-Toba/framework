@@ -37,9 +37,9 @@ class ci_catalogo_objetos extends ci_catalogo
 	//-------------------EVENTOS DE OBJETOS -----------------------
 	//-------------------------------------------------------------
 	
-	function evt__fotos__carga()
+	function conf__fotos()
 	{
-		$fotos = parent::evt__fotos__carga();
+		$fotos = parent::conf__fotos();
 		$predefinidas = array();
 		$predefinidas[] = self::foto_huerfanos;
 		$predefinidas[] = self::foto_ext_rotas;
@@ -69,7 +69,7 @@ class ci_catalogo_objetos extends ci_catalogo
 		}
 	}
 	
-	function evt__listado__carga()
+	function conf__listado()
 	{
 		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);
 		if (isset($this->opciones)) {
@@ -88,7 +88,7 @@ class ci_catalogo_objetos extends ci_catalogo
 		return $obj;
 	}	
 		
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		if (isset($this->opciones)) {
 			$this->dependencia('filtro')->colapsar();			

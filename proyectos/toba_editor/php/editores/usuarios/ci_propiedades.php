@@ -100,7 +100,7 @@ class ci_propiedades extends objeto_ci
 		$this->dependencia('datos')->tabla('basicas')->set($datos);
 	}
 
-	function evt__form_basicas__carga()
+	function conf__form_basicas()
 	{
 		$datos = $this->dependencia('datos')->tabla('basicas')->get();
 		if (isset($datos)) {
@@ -116,7 +116,7 @@ class ci_propiedades extends objeto_ci
 		return $this->dependencia('datos')->tabla('proyecto')->set($datos);
 	}
 
-	function evt__form_proyecto__carga()
+	function conf__form_proyecto()
 	{
 		$base = $this->dependencia('datos')->tabla('proyecto')->get();
 		if (!isset($base) && isset($this->grupo_acceso)) {

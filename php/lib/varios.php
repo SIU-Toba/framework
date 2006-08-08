@@ -314,13 +314,11 @@
 		return str_replace($numero, $numero + $agregado, $original);
 	}
 
-	//-----------------------------------------------------------------
 	function acceso_post()
 	//Devuelde TRUE si la hoja se accedio por POST
 	{
 		return ($_SERVER["REQUEST_METHOD"]=="POST");
 	}
-	//-----------------------------------------------------------------
 
 	function acceso_get()
 	//Devuelve TRUE si el acceso se dio por GET
@@ -328,9 +326,21 @@
 		return ($_SERVER["REQUEST_METHOD"]=="GET");
 	}	
 	
-
 	function set_tiempo_maximo($tiempo="30")
 	{
 		ini_set("max_execution_time",$tiempo);
-	}	
+	}
+
+	function reflexion_buscar_propiedades($obj, $patron)
+	{
+		$ref = new ReflectionClass($obj);
+		$props = array();
+		foreach ($ref->getProperties() as $prop) {
+			$nombre = $prop->getName();
+			if (strpos($nombre, $patron) === 0) {
+				$props[] = $nombre;
+			}
+		}
+		return $props;		
+	}
 ?>

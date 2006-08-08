@@ -100,7 +100,7 @@ class ci_principal extends objeto_ci
 	//--- PROPIEDADES BASICAS
 	//-------------------------------------------------------------------
 
-	function evt__prop_basicas__carga()
+	function conf__prop_basicas()
 	{
 		//Ver si el padre viene por post
 		$padre_i = toba::get_hilo()->obtener_parametro('padre_i');
@@ -159,7 +159,7 @@ class ci_principal extends objeto_ci
 	//----------------------------------------------------------
 	//-- OBJETOS -----------------------------------------------
 	//----------------------------------------------------------
-	function evt__objetos__carga()
+	function conf__objetos()
 	{
 		$objetos = $this->get_entidad()->tabla('objetos')->get_filas(null, true);
 		//Si no hay objetos tratar de inducir las clases dependientes del patron
@@ -187,7 +187,7 @@ class ci_principal extends objeto_ci
 	/*
 	*	Toma los permisos actuales, les agrega los grupos faltantes y les pone descripcion
 	*/
-	function evt__permisos__carga()
+	function conf__permisos()
 	{
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)

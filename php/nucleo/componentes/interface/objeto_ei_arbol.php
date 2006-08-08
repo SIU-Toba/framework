@@ -33,11 +33,6 @@ class objeto_ei_arbol extends objeto_ei
 		parent::destruir();
 	}
 
-	function inicializar($parametros)
-	{
-		$this->id_en_padre = $parametros['id'];		
-	}
-	
 	function servicio__ejecutar()
 	{
 		toba::get_hilo()->desactivar_reciclado();		
@@ -76,7 +71,7 @@ class objeto_ei_arbol extends objeto_ei
 		$this->frame_destino = $frame;
 	}
 	
-    function cargar_datos($nodos=null, $memorizar=true)
+    function set_datos($nodos)
     {
 		$this->nodos_inicial = $nodos;
 	}
@@ -118,7 +113,7 @@ class objeto_ei_arbol extends objeto_ei
 		}
 	}
 	
-	function obtener_html()
+	function generar_html()
 	{
 		$salida = "";
 		$salida .= form::hidden($this->submit, '');

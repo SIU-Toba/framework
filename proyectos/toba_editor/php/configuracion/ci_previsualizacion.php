@@ -27,7 +27,7 @@ class ci_previsualizacion extends objeto_ci
 		$this->modificacion = true;
 	}
 
-	function evt__datos__carga()
+	function conf__datos()
 	{
 		return editor::get_parametros_previsualizacion();
 	}

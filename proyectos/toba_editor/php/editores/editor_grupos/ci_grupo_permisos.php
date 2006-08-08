@@ -39,7 +39,7 @@ class ci_grupo_permisos extends objeto_ci
 		$this->dependencia('datos')->tabla('grupo_permiso')->set_permisos($datos['lista_permisos']);
 	}
 
-	function evt__form__carga()
+	function conf__form()
 	{
 		$per['lista_permisos'] = $this->dependencia('datos')->tabla('grupo_permiso')->get_permisos();
 		return $per;

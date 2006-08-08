@@ -145,7 +145,7 @@ class ci_efs extends objeto_ci
 		}
 	}
 	
-	function evt__efs_lista__carga()
+	function conf__efs_lista()
 	{
 		if($datos_dbr = $this->get_tabla()->get_filas() )
 		{
@@ -198,7 +198,7 @@ class ci_efs extends objeto_ci
 		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $datos);
 	}
 	
-	function evt__efs__carga()
+	function conf__efs()
 	{
 		$this->seleccion_efs_anterior = $this->seleccion_efs;
 		return $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
@@ -264,7 +264,7 @@ class ci_efs extends objeto_ci
 	//---- PARAMETROS VARIOS
 	//---------------------------------
 	
-	function evt__param_varios__carga()
+	function conf__param_varios()
 	{
 		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
 				
@@ -304,7 +304,7 @@ class ci_efs extends objeto_ci
 	//---- PARAMETROS de CARGA
 	//---------------------------------
 
-	function evt__param_carga__carga()
+	function conf__param_carga()
 	{
 		$lista_param = $this->get_definicion_parametros(true);
 		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
@@ -385,7 +385,7 @@ class ci_efs extends objeto_ci
 		}
 	}
 
-	function evt__efs_importar__carga()
+	function conf__efs_importar()
 	{
 		if(isset($this->importacion_efs)){
 			return $this->importacion_efs;
@@ -396,7 +396,7 @@ class ci_efs extends objeto_ci
 	//---------------------------------
 	//---- EI: Cascadas		 ----
 	//---------------------------------	
-	function evt__esquema_cascadas__carga()
+	function conf__esquema_cascadas()
 	{
 		$diagrama = "digraph G {\nsize=\"7,7\";rankdir=LR;\n";		
 		$diagrama .= "node [shape=record];\n";

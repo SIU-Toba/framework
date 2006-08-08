@@ -44,11 +44,8 @@ class ci_login extends objeto_ci
 		}
 	}
 
-	function evt__datos__carga()
+	function conf__datos()
 	{	
-	
-		//	Esto rompe el esquema de las cascadas.
-		
 		if ( info_proyecto::instancia()->get_parametro('validacion_debug') ) {
 			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
 		} else {

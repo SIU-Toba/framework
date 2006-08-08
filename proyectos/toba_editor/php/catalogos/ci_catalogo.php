@@ -56,7 +56,7 @@ abstract class ci_catalogo extends objeto_ci
 	//---- Filtro de opciones ----
 	//-------------------------------
 	
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		$this->dependencia('filtro')->colapsar();
 		if (isset($this->opciones))
@@ -78,7 +78,7 @@ abstract class ci_catalogo extends objeto_ci
 	//---- Cuadro de fotos ----
 	//-------------------------------
 	
-	function evt__fotos__carga()
+	function conf__fotos()
 	{
 		$fotos = $this->album_fotos->fotos();
 		$this->dependencia('fotos')->colapsar();

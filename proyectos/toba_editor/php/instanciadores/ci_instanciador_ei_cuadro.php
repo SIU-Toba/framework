@@ -3,7 +3,7 @@ require_once('ci_instanciadores.php');
 //----------------------------------------------------------------
 class ci_instanciador_ei_cuadro extends ci_instanciadores
 {
-	function evt__objeto__carga()
+	function conf__objeto()
 	{
 		//Se insertan un par de filas de prueba
 		$columnas = $this->dependencia('objeto')->get_columnas();

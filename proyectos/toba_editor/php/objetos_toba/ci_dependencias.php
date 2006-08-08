@@ -72,7 +72,7 @@ class ci_dependencias extends objeto_ci
 		$this->evt__formulario__cancelar();
 	}
 	
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		if(isset($this->seleccion_dependencia)){
 			$this->seleccion_dependencia_anterior = $this->seleccion_dependencia;
@@ -94,7 +94,7 @@ class ci_dependencias extends objeto_ci
 		$this->seleccion_dependencia = $id;
 	}
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		return $this->get_tabla()->get_filas();
 	}

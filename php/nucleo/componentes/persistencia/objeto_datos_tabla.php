@@ -64,6 +64,24 @@ class objeto_datos_tabla extends objeto
 	}
 
 	/**
+	 * Reserva un id y lo retorna
+	 */
+	function reservar_id_fila()
+	{
+		$actual = $this->proxima_fila;
+		$this->proxima_fila++;
+		return $actual;
+	}
+
+	/**
+	 * Retorna el proximo id interno a ser utilizado
+	 */
+	function get_proximo_id()
+	{
+		return $this->proxima_fila;	
+	}
+		
+	/**
 	 * @todo El objeto deberia tener directamente algo asi
 	 */
 	protected function log($txt)

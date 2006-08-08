@@ -37,7 +37,7 @@ class ci_grupo extends objeto_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		return $this->dependencia('datos')->get();
 	}

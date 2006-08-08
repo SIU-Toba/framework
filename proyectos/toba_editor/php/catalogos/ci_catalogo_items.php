@@ -51,9 +51,9 @@ class ci_catalogo_items extends ci_catalogo
 	//---- Fotos --------------------
 	//-------------------------------
 	
-	function evt__fotos__carga()
+	function conf__fotos()
 	{
-		$fotos = parent::evt__fotos__carga();
+		$fotos = parent::conf__fotos();
 		$predefinidas = array();
 		$predefinidas[] = self::foto_inaccesibles;
 		$predefinidas[] = self::foto_sin_objetos;
@@ -130,7 +130,7 @@ class ci_catalogo_items extends ci_catalogo
 		}		
 	}
 	
-	function evt__items__carga()
+	function conf__items()
 	{
 		$inicial = '';
 		if (isset($this->opciones['inicial'])) {

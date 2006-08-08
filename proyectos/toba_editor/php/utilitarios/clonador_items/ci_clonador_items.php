@@ -42,7 +42,7 @@ class ci_clonador_items extends objeto_ci
 		$this->opciones = $datos;
 	}
 
-	function evt__opciones__carga()
+	function conf__opciones()
 	{
 		if (!isset($this->opciones)) {
 			$this->opciones = array();

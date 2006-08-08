@@ -17,7 +17,7 @@ class ci_edicion extends objeto_ci
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
 
-	function evt__basicas__carga()
+	function conf__basicas()
 	{
 		$props = $this->get_relacion()->tabla('permiso')->get();
 		$props['grupos'] = $this->get_relacion()->tabla('grupos')->get_grupos();		

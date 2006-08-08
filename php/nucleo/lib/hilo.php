@@ -25,7 +25,7 @@ define("apex_hilo_qs_cronometro","toba-cron");					//CANAL gatillo del cronometr
 define("apex_hilo_qs_menu","toma-menu");						//Indica que el vinculo proviene del MENU
 define("apex_hilo_qs_celda_memoria","toba-celda-memoria");		//Indicador que indica que el vinculo proviene del MENU
 define("apex_hilo_qs_servicio", "toba-servicio");
-define("apex_hilo_qs_servicio_defecto", "obtener_html");
+define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "toba-dest");
 //-- WDDX
 

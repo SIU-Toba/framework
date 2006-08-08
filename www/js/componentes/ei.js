@@ -39,12 +39,12 @@ def.constructor = ei;
 		}
 	};
 
-	def.set_evento_defecto = function(evento) {
-		this._evento_defecto = evento;
+	def.set_evento_implicito = function(evento) {
+		this._evento_implicito = evento;
 	};
 	
 	def.reset_evento = function() {
-		this._evento = this._evento_defecto;
+		this._evento = this._evento_implicito;
 	};
 		
 	//---Submit

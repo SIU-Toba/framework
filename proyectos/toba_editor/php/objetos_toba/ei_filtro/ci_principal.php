@@ -36,7 +36,7 @@ class ci_principal extends ci_editores_toba
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function evt__prop_basicas__carga()
+	function conf__prop_basicas()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}

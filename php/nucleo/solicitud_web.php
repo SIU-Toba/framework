@@ -117,17 +117,25 @@ class solicitud_web extends solicitud
 		
 		//-- Se procesan los eventos generados en el pedido anterior
 		foreach ($this->cis as $ci) {
-			$this->objetos[$ci]->procesar_eventos();
+			try {
+				$this->objetos[$ci]->inicializar();
+				$this->objetos[$ci]->disparar_eventos();
+			} catch(excepcion_toba_usuario $e) {
+				$this->log->info($e, 'toba');			
+				toba::get_cola_mensajes()->agregar($e->getMessage());
+			}
 		}
 	}
 	
 	protected function procesar_servicios()
 	{
-		toba::get_logger()->seccion("Cargando dependencias para responder al servicio...", 'toba');
-		//--- Se fuerza a que los Cis carguen sus dependencias (por si alguna no se cargo para atender ls eventos)
+		toba::get_logger()->seccion("Configurando dependencias para responder al servicio...", 'toba');
+		//Se fuerza a que los Cis carguen sus dependencias (por si alguna no se cargo para atender ls eventos) y se configuren
 		foreach ($this->cis as $ci) {
-			$this->objetos[$ci]->cargar_dependencias_gi();
-		}	
+			$this->objetos[$ci]->pre_configurar();
+			//--- Lugar para poner algun callback a nivel operacion?
+			$this->objetos[$ci]->post_configurar();
+		}
 		
 		//--- Se determina el destino del servicio
 		$objetos_destino = toba::get_hilo()->obtener_id_objetos_destino();
@@ -160,11 +168,11 @@ class solicitud_web extends solicitud
 		}
 	}
 
-		//---------------------------------------------------------------
-		//-------------------------- SERVICIOS --------------------------
-		//---------------------------------------------------------------
-	
-	protected function servicio_pre__obtener_html()
+	//---------------------------------------------------------------
+	//-------------------------- SERVICIOS --------------------------
+	//---------------------------------------------------------------
+
+	protected function servicio_pre__generar_html()
 	{
 		//--- Tipo de PAGINA
 		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
@@ -175,11 +183,11 @@ class solicitud_web extends solicitud
 		$this->tipo_pagina->encabezado();
 	}
 	
-	protected function servicio__obtener_html($objetos)
+	protected function servicio__generar_html($objetos)
 	{
 		//--- Parte superior de la zona
-		if (toba::get_solicitud()->hay_zona() &&  toba::get_zona()->cargada()) {
-			toba::get_zona()->obtener_html_barra_superior();
+		if (toba::get_solicitud()->hay_zona() && toba::get_zona()->cargada()) {
+			toba::get_zona()->generar_html_barra_superior();
 		}
 		echo '<div style="clear:both;"></div>';
 		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
@@ -191,10 +199,10 @@ class solicitud_web extends solicitud
 			//-- Librerias JS necesarias
 			js::cargar_consumos_globales($obj->get_consumo_javascript());
 			//-- HTML propio del objeto
-			$obj->obtener_html();
+			$obj->generar_html();
 			//-- Javascript propio del objeto
 			echo js::abrir();
-			$objeto_js = $obj->obtener_javascript();
+			$objeto_js = $obj->generar_js();
 			echo "\n$objeto_js.iniciar();\n";
 			echo js::cerrar();
 		}
@@ -203,12 +211,12 @@ class solicitud_web extends solicitud
 
 		// Carga de componentes JS genericos
 		echo js::abrir();
-		toba::get_vinculador()->obtener_javascript();
+		toba::get_vinculador()->generar_js();
 		echo js::cerrar();
 		
 		//--- Parte inferior de la zona
 		if ($this->hay_zona() &&  $this->zona->cargada()) {
-			$this->zona->obtener_html_barra_inferior();
+			$this->zona->generar_html_barra_inferior();
 		}
 		//--- Muestra la cola de mensajes
 		toba::get_cola_mensajes()->mostrar();		
@@ -250,7 +258,7 @@ class solicitud_web extends solicitud
 	{
 		//--- Se envia el HTML
 		foreach ($objetos as $objeto) {
-			$objeto->obtener_html();
+			$objeto->generar_html();
 		}	
 				
 		//--- Se envian los consumos js
@@ -270,7 +278,7 @@ class solicitud_web extends solicitud
 		echo "document.formulario_toba.action='$autovinculo'\n";
 		foreach ($objetos as $objeto) {
 			//$objeto->servicio__html_parcial();
-			$objeto_js = $objeto->obtener_javascript();
+			$objeto_js = $objeto->generar_js();
 			echo "\nwindow.$objeto_js.iniciar();\n";
 		}
 	}
@@ -298,12 +306,10 @@ class solicitud_web extends solicitud
 			$objeto->servicio__ejecutar();
 		}
 	}
-//--------------------------------------------------------------------------------------------
-
 	
 //--------------------------------------------------------------------------------------------
 
-	function registrar( )
+	function registrar()
 	{
 		parent::registrar( toba::get_hilo()->obtener_proyecto() );
 		if($this->registrar_db){
@@ -312,16 +318,5 @@ class solicitud_web extends solicitud
  	}
 }
 
-/**
- * Función temporal para no cambiar en profundidad la implementación actual de cascadas
- * @todo Esta funcion no debe estar cuando se refactorizen las cascadas en forma completa
- */
-function responder($rs)
-{
-	toba::get_logger()->debug("Respuesta Cascadas: ".var_export($rs, true), "toba");
-	$json = new Services_JSON();
-	$respuesta = $json->encode($rs);
-	echo $respuesta;	
-}
 
 ?>

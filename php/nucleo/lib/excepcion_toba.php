@@ -9,7 +9,7 @@ class excepcion_toba extends Exception
 }
 
 /**
-* Excepción producida en tiempo de ejecución ejecutando SQL contra la DB
+* Excepción ejecutando SQL contra la DB
 */
 class excepcion_toba_db extends excepcion_toba
 {
@@ -28,7 +28,7 @@ class excepcion_toba_db extends excepcion_toba
 }
 
 /**
-* Excepción producida en tiempo de ejecución por alguna interacción del usuario
+* Excepción producida por alguna interacción del usuario
 */
 class excepcion_toba_usuario extends excepcion_toba
 {
@@ -36,7 +36,7 @@ class excepcion_toba_usuario extends excepcion_toba
 }
 
 /**
-* Excepción producida en tiempo de definición producidas por error del desarrollo
+* Excepción producida por error del la definicion en el desarrollo
 */
 class excepcion_toba_def extends excepcion_toba
 {
@@ -44,7 +44,7 @@ class excepcion_toba_def extends excepcion_toba
 }
 
 /**
- * Excepción producida en tiempo de ejecución cuando el usuario no tiene permitido algún derecho
+ * Excepción producida cuando el usuario no tiene permitido algún derecho
  */
 class excepcion_toba_permisos extends excepcion_toba 
 {

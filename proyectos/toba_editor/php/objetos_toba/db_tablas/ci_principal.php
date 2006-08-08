@@ -26,7 +26,7 @@ class ci_principal extends ci_editores_toba
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function evt__prop_basicas__carga()
+	function conf__prop_basicas()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}
@@ -40,7 +40,7 @@ class ci_principal extends ci_editores_toba
 	//**  DEPENDENCIAS  *************************************************
 	//*******************************************************************
 
-	function evt__dependencias__carga()
+	function conf__dependencias()
 	{
 		return $this->get_entidad()->tabla('dependencias')->get_filas(null,true);	
 	}
@@ -123,7 +123,7 @@ class ci_principal extends ci_editores_toba
 	//--------------------    SINCRONIZACION     --------------------------------
 	//---------------------------------------------------------------------------	
 	
-	function evt__opciones__carga()
+	function conf__opciones()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
 	}

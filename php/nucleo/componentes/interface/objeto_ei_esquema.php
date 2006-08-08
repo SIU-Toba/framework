@@ -23,14 +23,14 @@ class objeto_ei_esquema extends objeto_ei
 		$this->ancho = isset($this->info_esquema['ancho']) ?  $this->info_esquema['ancho'] : null;
 	}
 
-	function cargar_datos($datos)
+	function set_datos($datos)
 	{
 		if (isset($datos)) {
 			$this->contenido = $datos;	
 		}
 	}
 	
-	function obtener_html($cabecera=true)
+	function generar_html($cabecera=true)
 	{
 		echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";

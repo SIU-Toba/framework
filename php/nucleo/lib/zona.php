@@ -105,29 +105,29 @@ class zona
 	//--------------------------   INTERFACE GRAFICA   ------------------------------
 	//-------------------------------------------------------------------------------
 
-	function obtener_html_barra_superior()
+	function generar_html_barra_superior()
 	{
 		echo "<div class='zona-barra-sup' id='zona_{$this->id}'>";
 		echo "<div class='zona-items'>";
-		$this->obtener_html_barra_vinculos();
+		$this->generar_html_barra_vinculos();
 		echo "</div>";		
-		$this->obtener_html_barra_nombre();
-		$this->obtener_html_barra_id();		
-		$this->obtener_html_barra_especifico();
+		$this->generar_html_barra_nombre();
+		$this->generar_html_barra_id();		
+		$this->generar_html_barra_especifico();
 		echo "</div>\n";
 	}
 	
 	/**
 	 * Muestra la seccion INFORMATIVA (izquierda) de la barra
 	 */
-	function obtener_html_barra_id()
+	function generar_html_barra_id()
 	{
 		echo "<div class='zona-barra-id'>";
 		echo $this->get_editable_id();
 		echo "</div>";
 	}
 	
-	function obtener_html_barra_nombre()
+	function generar_html_barra_nombre()
 	{
 		echo "<div class='zona-barra-desc'>";
 		echo $this->get_editable_nombre();
@@ -137,7 +137,7 @@ class zona
 	/**
 	 * Genera el html de la seccion de ITEMs VECINOS en la barra
 	 */
-	function obtener_html_barra_vinculos()
+	function generar_html_barra_vinculos()
 	{
 	
 		foreach($this->items_vecinos as $item){
@@ -161,11 +161,11 @@ class zona
 		}
 	}
 	
-	function obtener_html_barra_especifico()
+	function generar_html_barra_especifico()
 	{	
 	}
 	
-	function obtener_html_barra_inferior()
+	function generar_html_barra_inferior()
 	{
 	}
 

@@ -542,8 +542,8 @@ class proyecto extends elemento_modelo
 			$fuente = current($fuentes);
 		}
 		//--- Clonando
-		$comando = 'toba item ejecutar -p admin -t 1000043 ';
-		$comando .= ' -orig_proy admin';
+		$comando = 'toba item ejecutar -p toba_editor -t 1000043 ';
+		$comando .= ' -orig_proy toba_editor';
 		$comando .= ' -orig_item 1000042';
 		$comando .= ' -dest_proy '.$this->identificador;
 		$comando .= ' -dest_padre ""';
@@ -553,7 +553,7 @@ class proyecto extends elemento_modelo
 		logger::instancia()->debug("Ejecutando el comando $comando");
 		$id_item = trim(exec($comando));
 		if (! is_numeric($id_item)) {
-			throw new excepcion_toba("A ocurrido un error clonando el item de login. Ver el log del proyecto admin");
+			throw new excepcion_toba("A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
 		}
 		$this->manejador_interface->mensaje("OK");
 		

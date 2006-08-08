@@ -180,10 +180,6 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	}
 
 	function carga_inicial()
-/*
-	@@acceso: interno
-	@@desc: Carga los datos a partir de la definición
-*/
 	{
 		if (!isset($this->datos) || $this->datos === null) {
 			$this->datos = array();
@@ -328,13 +324,9 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		
 	}
 	
-
-	function cargar_datos($datos = null)
+	function set_datos($datos)
 	{
-		//Registar esclavos en los maestro
-		$this->registrar_cascadas();
-		
-		if ($datos !== null) {
+		if (isset($datos)) {
 			//Para dar un analisis preciso de la accion del ML, es necesario discriminar cuales
 			//filas son a dar de alta y cuales son a modificar
 			$this->filas_recibidas = array();
@@ -344,12 +336,8 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				}
 			}
 			$this->datos = $datos;
-		} else {
-			$this->filas_recibidas = array();
-			$this->carga_inicial();
-		}
-		//Ordenar por la columna que se establece
-		if ($this->datos != null) {
+
+			//Ordenar por la columna que se establece
 			if ($this->info_formulario['columna_orden']) {
 				$ordenes = array();
 				foreach ($this->datos as $id => $dato) {
@@ -360,8 +348,6 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			} else {
 				$this->ordenes = array_keys($this->datos);
 			}
-		} else {
-			$this->ordenes = array();	
 		}
 	}
 
@@ -466,6 +452,9 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
+		//--- Si no se cargaron datos, se cargan ahora
+		$this->carga_inicial();
+		
 		//Ancho y Scroll
 		$estilo = '';
 		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";

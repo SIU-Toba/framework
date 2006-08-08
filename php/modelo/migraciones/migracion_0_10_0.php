@@ -439,7 +439,6 @@ class migracion_0_10_0 extends migracion_toba
 	
 	/**
 	 * Los estilos de los botones de los eventos cambiaron
-	 *
 	 */
 	function proyecto__migracion_css_botones_evt()
 	{
@@ -522,6 +521,21 @@ class migracion_0_10_0 extends migracion_toba
 	{
 		$sql = "UPDATE apex_item SET solicitud_tipo = NULL WHERE carpeta = 1;";
 		return $this->elemento->get_db()->ejecutar($sql);
+	}
+	
+	/**
+	 * Se cambia:
+	 *	evt__id__carga por conf__id
+	 * 	evt__entrada__id por evt__id__entrada	
+	 */
+	function proyecto__cambio_api_ci()
+	{
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion('/evt__(\w+)__carga/', 'conf__${1}');		
+		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada\(');
+		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida\(');
+		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		$editor->procesar_archivos($archivos);
 	}
 }
 ?>

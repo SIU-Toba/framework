@@ -30,7 +30,6 @@ class objeto_ei_formulario extends objeto_ei
 
 	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
-	protected $id_en_padre;
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario';
 		
 	//---Cascadas
@@ -64,8 +63,6 @@ class objeto_ei_formulario extends objeto_ei
 		if (isset($this->info_formulario['ancho_etiqueta']) && $this->info_formulario['ancho_etiqueta'] != '') {
 			$this->ancho_etiqueta = $this->info_formulario['ancho_etiqueta'];
 		}	
-		if (isset($parametros['id']))
-			$this->id_en_padre = $parametros['id'];
 		$this->prefijo = $this->nombre_formulario . "_" . $this->id[1];
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();
@@ -173,6 +170,7 @@ class objeto_ei_formulario extends objeto_ei
 	
 	function disparar_eventos()
 	{
+		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
 		$this->pre_eventos();
 		$this->recuperar_interaccion();
 		$datos = $this->get_datos();
@@ -416,11 +414,15 @@ class objeto_ei_formulario extends objeto_ei
 		return $registro;
 	}
 
-	function cargar_datos($datos)
+	function post_configurar()
 	{
-		//Registar esclavos en los maestro
-		$this->registrar_cascadas();
-		
+		parent::post_configurar();
+		//---Registar esclavos en los maestro
+		$this->registrar_cascadas();		
+	}
+	
+	function set_datos($datos)
+	{
 		if (isset($datos)){
 			//ei_arbol($datos,"DATOS para llenar el EI_FORM");
 			//Seteo los	EF	con el valor recuperado
@@ -676,7 +678,7 @@ class objeto_ei_formulario extends objeto_ei
 		echo $json->encode($valores);
 	}
 	
-	function obtener_html()
+	function generar_html()
 	{
 		//Genero la interface
 		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";

@@ -15,12 +15,11 @@ define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
  * @package Objetos
  * @subpackage Ei
  */
-class objeto_ei extends objeto
+abstract class objeto_ei extends objeto
 {
-	protected $controlador;
 	protected $info_eventos;
 	protected $colapsado = false;						//El elemento sólo mantiene su título
-	protected $evento_por_defecto=null;					//Evento disparado cuando no hay una orden explicita
+	protected $evento_implicito=null;					//Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
@@ -41,89 +40,59 @@ class objeto_ei extends objeto
 		parent::destruir();
 	}	
 	
-	function inicializar($parametros)
+	function inicializar($parametro)
 	{
-		$this->id_en_padre = $parametros['id'];		
+		
 	}
-
-	function cargar_datos(){}
-
+	
+	function pre_configurar()
+	{
+		$this->cargar_lista_eventos();
+	}
+	
+	function post_configurar()
+	{
+		$this->filtrar_eventos();
+	}
+	
 	//--------------------------------------------------------------------
 	//--  EVENTOS   ------------------------------------------------------
 	//--------------------------------------------------------------------
 
-	protected function disparar_eventos(){}
-
-	public function agregar_controlador($controlador)
+	function eliminar_evento($id)
 	{
-		$this->controlador = $controlador;
+		if (isset($this->eventos[$id])) {
+			unset($this->eventos[$id]);
+		} else {
+			throw new excepcion_toba($this->get_txt(). 
+					" Se quiere eliminar el evento '$id', pero no está definido");
+		}		
 	}
-
-	protected function reportar_evento($evento)
-	//Registro un evento en todos mis controladores
+	
+	function modificar_evento($id, $datos)
 	{
-		$parametros = func_get_args();
-		$parametros	= array_merge(array($this->id_en_padre), $parametros);
-		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
-		//$this->controladores[$id]->registrar_evento( $this->id_en_padre, $evento, $parametros );			
+		if (isset($this->eventos[$id])) {
+			foreach ($datos as $clave => $valor) {
+				$this->eventos[$id][$clave] = $valor;	
+			}
+		} else {
+			throw new excepcion_toba_def($this->get_txt(). 
+					" Se quiere modificar el evento '$id', pero no está definido");
+		}		
 	}
-
-	public function definir_eventos()
+	
+	function set_evento_implicito($id)
 	{
-		$this->eventos = $this->get_lista_eventos();
-		//toba::get_logger()->debug($this->get_txt() . "### EVENTOS UTILIZADOS ###");
-		//toba::get_logger()->debug($this->eventos);
+		$this->evento_implicito = $id;
+	}
+	
+	function get_lista_eventos()
+	{
+		return $this->eventos;
 	}
 		
-	public function get_lista_eventos()
-	{
-		$eventos = $this->get_lista_eventos_definidos();
-		$grupo = $this->get_grupo_eventos_activo();
+	function disparar_eventos(){}
 
-		//Si hay un grupo de eventos definido:
-		//	filtro los eventos que:
-		// 		* Van a la botonera
-		//		* Tienen al menos un grupo definido
-		if(trim($grupo)!=''){ 
-			foreach(array_keys($eventos) as $id){
-				$en_botonera =  (trim($eventos[$id]['en_botonera'])==1);
-				$pertenece_a_grupo_actual = false;
-				if(trim($eventos[$id]['grupo'])!=''){
-					$asociacion_grupos = array_map('trim',explode(',',$eventos[$id]['grupo']));
-					$pertenece_a_grupo_actual = in_array($grupo, $asociacion_grupos );
-				}else{
-					//Los que no tienen grupo definido no hay que filtrarlos
-					continue;
-				}
-				//En un principio esto se usa solo para FILTRAR la botonera
-				if( $en_botonera && !($pertenece_a_grupo_actual) ){
-					toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
-					unset($eventos[$id]);
-				}
-			}
-		}
-		return $eventos;
-	}
-	
-	protected function get_lista_eventos_definidos()
-	/*
-	*	Obtiene la lista de eventos definidos desde el administrador 
-	*/
-	{
-		$eventos = array();
-		foreach ($this->info_eventos as $evento) {
-			$eventos[$evento['identificador']] = $evento;
-			//Seteo el evento por defecto
-			if($evento['implicito']){
-				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador'], 'toba');
-				$this->set_evento_defecto($evento['identificador']);
-			}
-		}
-		//toba::get_logger()->debug($this->get_txt() . "--- EVENTOS definidos ---");
-		//toba::get_logger()->debug($eventos);
-		return $eventos;
-	}
-	
 	function cant_eventos_sobre_fila()
 	{
 		$cant = 0;
@@ -132,6 +101,60 @@ class objeto_ei extends objeto
 				$cant++;
 		}
 		return $cant;
+	}
+	
+	/**
+	 * Reporto un evento en mi controlador
+	 */
+	protected function reportar_evento($evento)
+	{
+		$parametros = func_get_args();
+		$parametros	= array_merge(array($this->id_en_controlador), $parametros);
+		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
+	}
+
+	/*
+	*	Carga la lista de eventos definidos desde el editor
+	*/		
+	protected function cargar_lista_eventos()
+	{
+		$this->eventos = array();
+		foreach ($this->info_eventos as $evento) {
+			$this->eventos[$evento['identificador']] = $evento;
+			//Seteo el evento implicito
+			if($evento['implicito']){
+				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador'], 'toba');
+				$this->set_evento_implicito($evento['identificador']);
+			}		
+		}
+	}
+	
+	protected function filtrar_eventos()
+	{
+		$grupo = $this->get_grupo_eventos_activo();
+
+		//Si hay un grupo de eventos definido:
+		//	filtro los eventos que:
+		// 		* Van a la botonera
+		//		* Tienen al menos un grupo definido
+		if(trim($grupo)!=''){ 
+			foreach(array_keys($this->eventos) as $id){
+				$en_botonera =  (trim($this->eventos[$id]['en_botonera'])==1);
+				$pertenece_a_grupo_actual = false;
+				if(trim($this->eventos[$id]['grupo'])!=''){
+					$asociacion_grupos = array_map('trim',explode(',',$this->eventos[$id]['grupo']));
+					$pertenece_a_grupo_actual = in_array($grupo, $asociacion_grupos );
+				}else{
+					//Los que no tienen grupo definido no hay que filtrarlos
+					continue;
+				}
+				//En un principio esto se usa solo para FILTRAR la botonera
+				if( $en_botonera && !($pertenece_a_grupo_actual) ){
+					toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
+					unset($this->eventos[$id]);
+				}
+			}
+		}		
 	}
 	
 	protected function evento_es_en_botonera($evento)
@@ -261,42 +284,6 @@ class objeto_ei extends objeto
 	}
 	
 	//--------------------------------------------------------------------
-	//--  Cosas VIEJAS  --------------------------------------------------
-	//--------------------------------------------------------------------
-
-	/**
-	 * @deprecated  Definir los eventos en el admin
-	 */
-	function agregar_evento($evento, $establecer_como_predeterminado=false)
-	{
-		asercion::es_array_dimension($evento,1);
-		$this->eventos = array_merge($this->eventos, $evento);
-		if($establecer_como_predeterminado){
-			$id = key($evento);
-			$this->set_evento_defecto($id);
-		}
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');		
-	}
-
-	/**
-	 * @deprecated  Definir los eventos en el admin
-	 */
-	public function set_eventos($eventos)
-	{
-		$this->eventos = $eventos;
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');
-	}
-
-	/**
-	 * @deprecated Definir los eventos en el admin
-	 */
-	public function set_evento_defecto($id)
-	{
-		$this->evento_por_defecto = $id;
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3",'Definir los eventos en el administrador', 'toba');
-	}
-
-	//--------------------------------------------------------------------
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
 
@@ -316,7 +303,7 @@ class objeto_ei extends objeto
 		return array('componentes/ei');
 	}
 	
-	function obtener_javascript()
+	function generar_js()
 	{
 		$identado = js::instancia()->identado();
 		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
@@ -347,10 +334,10 @@ class objeto_ei extends objeto
 	protected function iniciar_objeto_js()
 	{
 		$identado = js::instancia()->identado();
-		//-- EVENTO por DEFECTO --
-		if($this->evento_por_defecto != null && isset($this->eventos[$this->evento_por_defecto])){
-			$evento = eventos::a_javascript($this->evento_por_defecto, $this->eventos[$this->evento_por_defecto]);
-			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_defecto($evento);\n";
+		//-- EVENTO implicito --
+		if($this->evento_implicito != null && isset($this->eventos[$this->evento_implicito])){
+			$evento = eventos::a_javascript($this->evento_implicito, $this->eventos[$this->evento_implicito]);
+			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento);\n";
 		}
 		if ($this->colapsado) {
 			echo $identado."window.{$this->objeto_js}.colapsar();\n";

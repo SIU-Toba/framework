@@ -15,7 +15,7 @@ class casos_web extends objeto_ci
 		return $atributos;
 	}
 	
-	function evt__lista_archivos__carga()
+	function conf__lista_archivos()
 	{
 		$this->dependencias['lista_archivos']->colapsar();
 		$lista = array();
@@ -42,7 +42,7 @@ class casos_web extends objeto_ci
 		$this->selecciones = $selecciones;
 	}
 
-	function evt__seleccion__carga()
+	function conf__seleccion()
 	{
 		if (isset($this->selecciones))
 			return $this->selecciones;

@@ -14,7 +14,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	this._efs = {};								//Lista de objeto_ef contenidos
 	this._efs_procesar = {};					//ID de los ef's que poseen procesamiento
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
-	this._evento_defecto = null;				//No hay evento prefijado
+	this._evento_implicito = null;				//No hay evento prefijado
 	this._expandido = false;					//El formulario comienza sin expandirse
 	this._maestros = maestros;
 	this._esclavos = esclavos;

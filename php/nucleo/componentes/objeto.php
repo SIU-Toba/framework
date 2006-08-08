@@ -1,4 +1,7 @@
 <?php
+
+define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
+
 /**
  * Padre de todas las clases que definen componentes
  * @package Objetos
@@ -20,15 +23,17 @@ class objeto
 	protected $canal_recibido;							// Datos recibidos por el canal
 	protected $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
 	protected $id_ses_g;									//ID global para la sesion
+	protected $id_en_controlador;						//Id relativo al controlador padre
 	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
-	
+	protected $controlador;
+		
 	function __construct( $definicion )
 	{
 		//--- Compatibilidad con el metodo anterior de mantener cosas en sesion
-		$this->set_propiedades_sesion($this->mantener_estado_sesion());		
+		$this->definir_propiedades_sesion();
 		// Compatibilidad hacia atras en el ID
 		$this->id[0] = $definicion['info']['proyecto'];
 		$this->id[1] = $definicion['info']['objeto'];
@@ -44,16 +49,12 @@ class objeto
 		$this->canal_recibidos = toba::get_hilo()->obtener_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
+		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');		
-		$this->configuracion();
-	}
-
-	function configuracion()
-	{
 	}
 
 	function destruir()
@@ -93,33 +94,34 @@ class objeto
 		return $this->id;	
 	}
 	
-//*******************************************************************************************
-//****************************************<  SOPORTE   >*************************************
-//*******************************************************************************************	
-
-	function consulta_datos_recibidos()
-/*
- 	@@acceso: objeto
-	@@desc: Responde si el OBJETO recibio datos por su CANAL
-*/
-	{
-		if(isset($this->canal_recibidos)){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
 	function existe_ayuda()
 	{
 		return (trim($this->info['objeto_existe_ayuda'])!="");
 	}
 
-
-//*******************************************************************************************
-//**********************<  Comunicacion de informacion al USUARIO   >************************
-//*******************************************************************************************	
-
+	/**
+	 * Metodo generico de invocar callbacks en el propio objeto
+	 *
+	 * @param string $metodo Nombre completo del metodo a invocar
+	 * @return mixed apex_callback_sin_rpta en caso que no se encuentre el callback, sino la respuesta del metodo
+	 */
+	protected function invocar_callback($metodo)
+	{
+		$parametros	= func_get_args();
+		array_splice($parametros, 0 , 1);
+		if(method_exists($this, $metodo)){
+			$this->log->debug( $this->get_txt() . "[ invocar_callback ] Callback: '$metodo'", 'toba');
+			return call_user_func_array(array($this, $metodo), $parametros);
+		}else{
+			$this->log->debug($this->get_txt() . "[ invocar_callback ]  El METODO [ $metodo ] no fue atrapado", 'toba');
+			return apex_callback_sin_rpta;
+		}
+	}
+		
+	//-------------------------------------------------------------------------------
+	//-----------------   Mensajes al usuario        --------------------------------
+	//-------------------------------------------------------------------------------
+	
 	function informar_msg($mensaje, $nivel=null)
 	//Guarda un  mensaje en la cola de mensajes
 	{
@@ -134,9 +136,9 @@ class objeto
 	}
 
 	
-//*******************************************************************************************
-//**************************************<  MEMORIA   >***************************************
-//*******************************************************************************************	
+	//---------------------------------------------------------------
+	//-----------------    MEMORIA   --------------------------------
+	//---------------------------------------------------------------
 //La memoria es una array que se hace perdurable a travez del HILO
 //Las clases que lo usen solo tienen generar las claves que necesiten dentro de este (ej: $this->memoria["una_cosa"])
 //y despues llamar a los metodos "memorizar" para guardarla en el HILO y "cargar_memoria" para recuperarlo
@@ -195,24 +197,30 @@ class objeto
 		return $this->memoria_existencia_previa;
 	}
 	
-//*******************************************************************************************
-//****************************<  Memorizacion de PROPIEDADES   >*****************************
-//*******************************************************************************************
+	//-------------------------------------------------------------------------------
+	//-----------------   Memoria de propiedades     --------------------------------
+	//-------------------------------------------------------------------------------
 
 	/**
 	 * @deprecated Usar $this->set_propiedades_sesion
 	 */
 	function mantener_estado_sesion()
 	{
-		/*$ref = new ReflectionClass($this);
-		$props = array();
-		foreach ($ref->getProperties() as $prop) {
-			$nombre = $prop->getName();
-			if (substr($nombre, 0, 3) === 's__') {
-				$props[] = $nombre;
-			}
-		}*/		
 		return array();
+	}
+	
+	function definir_propiedades_sesion()
+	{
+		//--- Compat. hacia atras
+		$props = $this->mantener_estado_sesion();
+		if (! empty($props)) {
+			$this->set_propiedades_sesion($props);
+		}
+		//--- Metodo de descubrir propiedades que empiezen con s__
+		$props = reflexion_buscar_propiedades($this, 's__');
+		if (! empty($props)) {
+			$this->set_propiedades_sesion($props);
+		}		
 	}
 
 	/**
@@ -335,10 +343,16 @@ class objeto
 		}
 	}
 
-//*******************************************************************************************
-//*************************************<  DEPENDENCIAS  >************************************
-//*******************************************************************************************
+	//-------------------------------------------------------------------
+	//-----------------   DEPENDENCIAS   --------------------------------
+	//-------------------------------------------------------------------
 
+	function set_controlador($controlador, $id_en_padre=null)
+	{
+		$this->controlador = $controlador;
+		$this->id_en_controlador = $id_en_padre;
+	}	
+	
 	function cargar_info_dependencias()
 	{
 		if (isset($this->info_dependencias)) {
@@ -348,7 +362,6 @@ class objeto
 			}
 		}
 	}
-
 	
 	/**
 	 * Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
@@ -402,6 +415,11 @@ class objeto
 		return isset($this->dependencias[$id]);
 	}
 	
+	function existe_dependencia($id)
+	{
+		return isset($this->indice_dependencias[$id]);	
+	}
+	
 	function get_dependencias_clase($ereg_busqueda)
 	//Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
 	{
@@ -414,6 +432,8 @@ class objeto
 		return $ok;
 	}
 	
+	
+
 
 }
 ?>

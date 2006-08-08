@@ -22,7 +22,7 @@ class ci_instanciador_ei_formulario extends ci_instanciadores
 		$this->datos = $parametros;
 	}	
 	
-	function evt__objeto__carga()
+	function conf__objeto()
 	{
 		if (isset($this->datos)) {
 			return $this->datos;

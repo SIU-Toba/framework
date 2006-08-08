@@ -49,7 +49,7 @@ class ci_fuentes extends objeto_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function evt__form__carga()
+	function conf__form()
 	{
 		return $this->dependencia('datos')->get();
 	}

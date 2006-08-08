@@ -5,66 +5,39 @@ require_once('modelo/componentes/info_ci.php');
 class ci_editor extends ci_editores_toba
 {
 
-	protected $seleccion_pantalla;
-	protected $seleccion_pantalla_anterior;
-	protected $pantalla_dep_asoc;
-	protected $pantalla_evt_asoc;
+	protected $s__seleccion_pantalla;
+	protected $s__seleccion_pantalla_anterior;
+	protected $s__pantalla_dep_asoc;
+	protected $s__pantalla_evt_asoc;
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
-	private $id_intermedio_pantalla;
-	protected $seleccion_externa_pantalla;
+	protected $id_intermedio_pantalla;
 	protected $clase_actual = 'objeto_ci';
 	
-	function __construct($id)
+
+	function conf()
 	{
-		parent::__construct($id);
 		$pantalla = toba::get_hilo()->obtener_parametro('pantalla');
 		//¿Se selecciono una pantalla desde afuera?
 		if (isset($pantalla)) {
-			$this->seleccion_externa_pantalla = true;
+			$this->set_pantalla(2);	
 			//Se busca cual es el id interno del ML para enviarselo
-			$datos = $this->evt__pantallas_lista__carga();
+			$datos = $this->conf__pantallas_lista();
 			foreach ($datos as $id => $dato) {
 				if ($dato['identificador'] == $pantalla) {
 					$this->evt__pantallas_lista__seleccion($id);
 				}
 			}
-		}
-	}
-	
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($this->get_entidad()->tabla('pantallas')->info(true),"PANTALLAS");
-		//ei_arbol($this->get_entidad()->tabla('eventos')->info(true),"PANTALLAS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
-	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_pantalla";
-		$propiedades[] = "seleccion_pantalla_anterior";
-		$propiedades[] = "pantalla_dep_asoc";
-		$propiedades[] = "pantalla_evt_asoc";
-		return $propiedades;
-	}
-
-	function get_etapa_actual()
-	{
-		$pantalla = parent::get_etapa_actual();
-		if (isset($this->seleccion_externa_pantalla)) {
-			return "2";	//Si se selecciono una pantalla desde afuera va hacia ella
 		} 
-		return $pantalla;
 	}
 
 	// *******************************************************************
 	// ******************* tab PROPIEDADES BASICAS  **********************
-	// *******************************************************************
+	// *********************************************;
 
-	function evt__prop_basicas__carga()
+	function conf__prop_basicas($form)
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$form->set_datos($datos);
 	}
 
 	function evt__prop_basicas__modificacion($datos)
@@ -78,9 +51,9 @@ class ci_editor extends ci_editores_toba
 	/*
 		Metodos necesarios para que el CI de eventos funcione
 	*/
-	function evt__salida__1()
+	function evt__1__salida()
 	{
-		$this->dependencia('dependencias')->limpiar_seleccion();
+		$this->dep('dependencias')->limpiar_seleccion();
 	}
 
 	function get_dbr_dependencias()
@@ -103,113 +76,61 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('pantallas')->cambiar_id_dependencia($anterior, $nuevo);
 	}	
 	
-	
 	// *******************************************************************
 	// ******************* tab PANTALLAS  ********************************
 	// *******************************************************************
-	
-	function evt__entrada__2()
+
+	function conf__2($pantalla)
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
-		$this->pantalla_dep_asoc = array();
+		$this->s__pantalla_dep_asoc = array();
 		if($registros = $this->get_entidad()->tabla('dependencias')->get_filas())
 		{
 			foreach($registros as $reg){
-				$this->pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
+				$this->s__pantalla_dep_asoc[ $reg['identificador'] ] = $reg['identificador'];
 			}
 		}
 		//--- Armo la lista de EVENTOS disponibles
-		$this->pantalla_evt_asoc = array();
+		$this->s__pantalla_evt_asoc = array();
 		if($registros = $this->get_entidad()->tabla('eventos')->get_filas())
 		{
 			foreach($registros as $reg){
-				$this->pantalla_evt_asoc[ $reg['identificador'] ] = $reg['identificador'];
+				$this->s__pantalla_evt_asoc[ $reg['identificador'] ] = $reg['identificador'];
 			}
-		}
-	}
+		}		
 
-	function get_lista_ei__2()
-	{
-		$ei[] = "pantallas_lista";
-		if( isset($this->seleccion_pantalla) ){
-			$ei[] = "pantallas";
-			if( count($this->pantalla_dep_asoc) > 0 ){
-				$ei[] = "pantallas_ei";			
+		//--- Se selecciono una pantalla?
+		if (isset($this->s__seleccion_pantalla)) {
+			$this->dependencia('pantallas_lista')->seleccionar($this->s__seleccion_pantalla);
+			if( empty($this->s__pantalla_dep_asoc) ) {
+				$pantalla->eliminar_dep('pantallas_ei');
 			}
-			if( count($this->pantalla_evt_asoc) > 0 ){
-				$ei[] = "pantallas_evt";			
-			}
-		}
-		return $ei;	
-	}
-
-	/*
-		Hay que mejorar el layout
-	*/
-	function obtener_html_contenido__2()
-	{
-		$this->dependencia('pantallas_lista')->obtener_html();			
-		if( isset($this->seleccion_pantalla) ){
-			$datos = $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla);
-			$nombre_pantalla = "Propiedades de la pantalla '{$datos['etiqueta']}' [{$datos['identificador']}]";
-			echo "<fieldset style='margin-top: 10px; padding: 7px;'><legend>$nombre_pantalla</legend>";			
-			$this->dependencia('pantallas')->obtener_html();			
-			echo "<table class='tabla-0'  width='100%'>";
-			echo "<tr>\n";
-			if( count($this->pantalla_dep_asoc) > 0 ){
-				echo "<td width='50%' style='vertical-align: top'>\n";
-				echo "<fieldset style='margin: 5px;padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Dependencias Asociadas</legend>";			
-				$this->dependencia('pantallas_ei')->obtener_html();			
-				echo "</fieldset>";
-				echo "</td>\n";
-			}
-			if( count($this->pantalla_evt_asoc) > 0 ){
-				echo "<td style='vertical-align: top'>\n";
-				echo "<fieldset style='margin: 5px; padding: 5px; FONT-SIZE: 10px; COLOR: #990000;'><legend>Eventos Asociados</legend>";			
-				$this->dependencia('pantallas_evt')->obtener_html();			
-				echo "</fieldset>";
-				echo "</td>\n";
-			}
-			echo "</tr>\n";
-			echo "</table>";
-			$this->generar_boton_evento('aceptar_pantalla');
-			$this->generar_boton_evento('cancelar_pantalla');
-			echo "</fieldset>";
+			if( empty($this->s__pantalla_evt_asoc) ){
+				$pantalla->eliminar_dep('pantallas_evt');			
+			}			
+		} else {
+			$pantalla->eliminar_dep('pantallas_ei');
+			$pantalla->eliminar_dep('pantallas_evt');
+			$pantalla->eliminar_dep('pantallas');
 		}
 	}
-
-	//Antes de cargar los datos de las pantallas, ver si alguno particular se selecciono desde afuera
-	function evt__pre_cargar_datos_dependencias__2()
+	
+	function evt__2__salida()
 	{
-		if (isset($this->seleccion_pantalla)) {
-			$this->dependencia('pantallas_lista')->seleccionar($this->seleccion_pantalla);
-		}
-	}
-			
-	function evt__post_cargar_datos_dependencias__2()
-	{
-		if( isset($this->seleccion_pantalla) ){
-			//Protejo la evento seleccionada de la eliminacion
-			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->seleccion_pantalla );
-		}
-	}
-
-	function evt__salida__2()
-	{
-		unset($this->seleccion_pantalla_anterior);
-		unset($this->seleccion_pantalla);
+		unset($this->s__seleccion_pantalla_anterior);
+		unset($this->s__seleccion_pantalla);
 	}
 
 	function evt__cancelar_pantalla()
 	{
-		unset($this->seleccion_pantalla_anterior);
-		unset($this->seleccion_pantalla);
+		unset($this->s__seleccion_pantalla_anterior);
+		unset($this->s__seleccion_pantalla);
 	}
 
 	function evt__aceptar_pantalla()
 	{
-		unset($this->seleccion_pantalla_anterior);
-		unset($this->seleccion_pantalla);
+		unset($this->s__seleccion_pantalla_anterior);
+		unset($this->s__seleccion_pantalla);
 	}
 
 	//----------------------------------------------------------
@@ -225,16 +146,16 @@ class ci_editor extends ci_editores_toba
 		*/
 		$dbr = $this->get_entidad()->tabla("pantallas");
 		$orden = 1;
-		foreach(array_keys($registros) as $id)
-		{
+		foreach(array_keys($registros) as $id) {
 			//Creo el campo orden basado en el orden real de las filas
+			//ATENCION:  Ya esta soportado en el ML
 			$registros[$id]['orden'] = $orden;
 			$orden++;
 			$accion = $registros[$id][apex_ei_analisis_fila];
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->id_intermedio_pantalla[$id] = $dbr->nueva_fila($registros[$id]);
+					$this->id_intermedio_pantalla[$id] = $dbr->nueva_fila($registros[$id], null, $id);
 					break;	
 				case "B":
 					$dbr->eliminar_fila($id);
@@ -246,10 +167,20 @@ class ci_editor extends ci_editores_toba
 		}		
 	}
 	
-	function evt__pantallas_lista__carga()
+	function evt__pantallas_lista__seleccion($id)
 	{
-		if($datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas() )
-		{
+		if(isset($this->id_intermedio_pantalla[$id])){
+			$id = $this->id_intermedio_pantalla[$id];
+		}
+		$this->s__seleccion_pantalla = $id;
+	}
+	
+	/**
+	 * @todo Cuando el ML tenga un api para setear prox. fila, cambiar este metodo
+	 */
+	function conf__pantallas_lista()
+	{
+		if ($datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas() ) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
 			for($a=0;$a<count($datos_dbr);$a++){
@@ -267,14 +198,15 @@ class ci_editor extends ci_editores_toba
 			//ei_arbol($datos,"Datos para el ML: POST proceso");
 			return $datos;
 		}
-	}
-
-	function evt__pantallas_lista__seleccion($id)
-	{
-		if(isset($this->id_intermedio_pantalla[$id])){
-			$id = $this->id_intermedio_pantalla[$id];
+		
+		//--- Se setea al ml el proximo ID
+		$id = $this->get_entidad()->tabla("pantallas")->get_proximo_id();
+		//$obj->set_proximo_id($id);
+	
+		//--Protejo la evento seleccionada de la eliminacion		
+		if( isset($this->s__seleccion_pantalla) ) {
+			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->s__seleccion_pantalla );
 		}
-		$this->seleccion_pantalla = $id;
 	}
 
 	//------------------------------------------------------
@@ -283,27 +215,27 @@ class ci_editor extends ci_editores_toba
 
 	function evt__pantallas__modificacion($datos)
 	{
-		$this->get_entidad()->tabla('pantallas')->modificar_fila($this->seleccion_pantalla_anterior, $datos);
+		$this->get_entidad()->tabla('pantallas')->modificar_fila($this->s__seleccion_pantalla_anterior, $datos);
 	}
 	
-	function evt__pantallas__carga()
+	function conf__pantallas($obj)
 	{
-		$this->seleccion_pantalla_anterior = $this->seleccion_pantalla;
-		return $this->get_entidad()->tabla('pantallas')->get_fila($this->seleccion_pantalla_anterior);
+		$this->s__seleccion_pantalla_anterior = $this->s__seleccion_pantalla;
+		$obj->set_datos($this->get_entidad()->tabla('pantallas')->get_fila($this->s__seleccion_pantalla_anterior));
 	}
 
 	//------------------------------------------------------
 	//--- Asociacion de DEPENDENCIAS a pantallas  ----------
 	//------------------------------------------------------
 
-	function evt__pantallas_ei__carga()
+	function conf__pantallas_ei()
 	{
-		if( $deps = $this->get_entidad()->tabla('pantallas')->get_dependencias_pantalla($this->seleccion_pantalla_anterior) )
+		if( $deps = $this->get_entidad()->tabla('pantallas')->get_dependencias_pantalla($this->s__seleccion_pantalla_anterior) )
 		{
 			$a=0;
 			$datos = null;
 			foreach($deps as $dep){
-				if(in_array($dep, $this->pantalla_dep_asoc)){
+				if(in_array($dep, $this->s__pantalla_dep_asoc)){
 					$datos[$a]['dependencia'] = $dep;
 					$a++;	
 				}
@@ -319,14 +251,14 @@ class ci_editor extends ci_editores_toba
 		foreach($datos as $dato){
 			$deps[] = $dato['dependencia'];
 		}
-		$this->get_entidad()->tabla('pantallas')->set_dependencias_pantalla($this->seleccion_pantalla_anterior, $deps);
+		$this->get_entidad()->tabla('pantallas')->set_dependencias_pantalla($this->s__seleccion_pantalla_anterior, $deps);
 	}
 
 	function combo_dependencias()
 	{
 		$datos = null;
 		$a=0;
-		foreach( $this->pantalla_dep_asoc as $dep => $info){
+		foreach( $this->s__pantalla_dep_asoc as $dep => $info){
 			$datos[$a]['id'] = $dep; 
 			$datos[$a]['desc'] = $info; 
 			$a++;
@@ -338,12 +270,12 @@ class ci_editor extends ci_editores_toba
 	//--- Asociacion de EVENTOS a pantallas  ---------------
 	//------------------------------------------------------
 
-	function evt__pantallas_evt__carga()
+	function conf__pantallas_evt()
 	{
-		$eventos_asociados = $this->get_entidad()->tabla('pantallas')->get_eventos_pantalla($this->seleccion_pantalla_anterior);
+		$eventos_asociados = $this->get_entidad()->tabla('pantallas')->get_eventos_pantalla($this->s__seleccion_pantalla_anterior);
 		$datos = null;
 		$a=0;
-		foreach( $this->pantalla_evt_asoc as $dep){
+		foreach( $this->s__pantalla_evt_asoc as $dep){
 			$datos[$a]['evento'] = $dep; 
 			if(is_array($eventos_asociados)){
 				if(in_array($dep, $eventos_asociados)){
@@ -365,7 +297,7 @@ class ci_editor extends ci_editores_toba
 		foreach($datos as $dato){
 			if($dato['asociar'] == "1")	$eventos[] = $dato['evento'];
 		}
-		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->seleccion_pantalla_anterior, $eventos);
+		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->s__seleccion_pantalla_anterior, $eventos);
 	}
 	
 	/**
@@ -383,7 +315,7 @@ class ci_editor extends ci_editores_toba
 		Metodos necesarios para que el CI de eventos funcione
 	*/
 
-	function evt__salida__3()
+	function evt__3__salida()
 	{
 		$this->dependencia('eventos')->limpiar_seleccion();
 	}

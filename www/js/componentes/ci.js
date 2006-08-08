@@ -11,7 +11,7 @@ function ci(instancia, form, input_submit) {
 	this._deps = {};									//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
-	this._evento_defecto = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
+	this._evento_implicito = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
 	this._parametros = "";								//Parametros opcionales que se pasan al server
 	this.reset_evento();
 }
@@ -40,10 +40,6 @@ function ci(instancia, form, input_submit) {
 	def.set_evento = function(evento) {
 		this._evento = evento;
 		this.submit();
-	};
-	
-	def.reset_evento = function() {
-		this._evento = this._evento_defecto;
 	};
 	
 

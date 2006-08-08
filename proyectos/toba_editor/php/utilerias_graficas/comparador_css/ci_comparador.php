@@ -77,7 +77,7 @@ class ci_comparador extends objeto_ci
 	//-------------------------------------------------------------------
 
 	//----------------------------- archivos -----------------------------
-	function evt__archivos__carga()
+	function conf__archivos()
 	{
 		if (isset($this->estilos)) {
 			return $this->estilos;	
@@ -93,14 +93,14 @@ class ci_comparador extends objeto_ci
 
 	
 	//------------------------------ faltantes -----------------------------------
-	function evt__faltantes__carga()
+	function conf__faltantes()
 	{
 		$this->analizar_diferencias();
 		return $this->analisis['faltantes'];
 	}
 	
 	//------------------------------ sobrantes -----------------------------------
-	function evt__sobrantes__carga()
+	function conf__sobrantes()
 	{
 		$this->analizar_diferencias();
 		return $this->analisis['sobrantes'];

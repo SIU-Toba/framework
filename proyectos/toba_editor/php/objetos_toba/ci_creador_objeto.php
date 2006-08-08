@@ -118,7 +118,7 @@ class ci_creador_objeto extends objeto_ci
 	//-----------------  TIPOS DE OBJETOS   ----------------------
 	//------------------------------------------------------------
 	
-	function evt__tipos__carga()
+	function conf__tipos()
 	{
 		return dao_editores::get_clases_editores($this->destino['tipo']);
 	}
@@ -134,7 +134,7 @@ class ci_creador_objeto extends objeto_ci
 		$this->destino += $datos;
 	}
 	
-	function evt__info_asignacion__carga()
+	function conf__info_asignacion()
 	{
 		if (isset($this->destino)) {
 			return $this->destino;
@@ -149,7 +149,7 @@ class ci_creador_objeto extends objeto_ci
 		$this->destino += $datos;
 	}
 	
-	function evt__info_asignacion_dr__carga()
+	function conf__info_asignacion_dr()
 	{
 		if (isset($this->destino)) {
 			return $this->destino;

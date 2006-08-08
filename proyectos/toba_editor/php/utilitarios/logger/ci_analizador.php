@@ -18,29 +18,13 @@ class ci_analizador extends objeto_ci
 		return $estado;	
 	}
 	
-	protected function get_pantalla_inicial()
-	{
-		if (isset($this->seleccion)) {
-			return "visor";
-		}
-		return parent::get_pantalla_inicial();		
-	}	
-	
-	function get_pantalla_actual()
-	{
-		if ($this->cambiar_pantalla) {
-			return "visor";	
-		}
-		return parent::get_pantalla_actual();
-	}
-	
 	/**
 	 * @todo Se desactiva el logger porque no corre como proyecto toba sino como el de la aplicacion
 	 * 		Cuando el admin sea un proyecto hay que sacar la desactivación
 	 */
 	function evt__inicializar()
 	{
-		toba::get_logger()->desactivar();	
+		//toba::get_logger()->desactivar();	
 		if (!isset($this->opciones)) {
 			$this->opciones['proyecto'] = editor::get_proyecto_cargado();	
 			$this->opciones['fuente'] = 'fs';
@@ -48,11 +32,18 @@ class ci_analizador extends objeto_ci
 		}
 		$this->cargar_analizador();
 	}
-	
-	function evt__pre_cargar_datos_dependencias()
+		
+	function conf()
 	{
-		$this->cargar_analizador();
+		if (isset($this->seleccion)) {
+			$this->set_pantalla_inicial('visor');
+		}
+		if ($this->cambiar_pantalla) {
+			$this->set_pantalla("visor");	
+		}
+		$this->cargar_analizador();		
 	}
+
 	
 	function cargar_analizador()
 	{
@@ -62,9 +53,9 @@ class ci_analizador extends objeto_ci
 		}
 	}
 	
-	function obtener_html_dependencias()
+	function generar_html_dependencias()
 	{
-		parent::obtener_html_dependencias();
+		parent::generar_html_dependencias();
 ?>
 		<style type="text/css">
 		.cuerpo, .ci-cuerpo {
@@ -111,9 +102,9 @@ class ci_analizador extends objeto_ci
 <?php
 		if ($this->debe_mostrar_visor()) {
 			if ($this->opciones['fuente'] == 'db') {
-				$this->obtener_html_db();
+				$this->generar_html_db();
 			} elseif ($this->opciones['fuente'] == 'fs') {
-				$this->obtener_html_fs();
+				$this->generar_html_fs();
 			}
 		}
 	}
@@ -131,8 +122,8 @@ class ci_analizador extends objeto_ci
 	function servicio__ejecutar()
 	{
 		$res = $this->analizador->obtener_pedido($this->seleccion);
-		$encabezado = $this->obtener_html_encabezado($res);
-		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
+		$encabezado = $this->generar_html_encabezado($res);
+		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
 		$ultima_mod = filemtime($this->archivo);
 		if ($anterior_mod != $ultima_mod) {
@@ -276,7 +267,7 @@ class ci_analizador extends objeto_ci
 <?php
 	}
 	
-	function obtener_html_fs()
+	function generar_html_fs()
 	{
 		if (!file_exists($this->archivo)) {
 			echo ei_mensaje("No hay logs registrados para el proyecto ".
@@ -304,11 +295,11 @@ class ci_analizador extends objeto_ci
 		echo "</div><hr style='clear:both'>";		
 		
 		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
-		list($detalle, $cant_por_nivel) = $this->obtener_html_detalles($res);
+		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 
 		//--- Encabezado 
 		echo "<ul id='logger_encabezados' style='display:none;list-style-type: none;padding: 0;margin: 0'>";		
-		echo $this->obtener_html_encabezado($res);
+		echo $this->generar_html_encabezado($res);
 		echo "</ul>";
 
 		//---- Niveles
@@ -340,7 +331,7 @@ class ci_analizador extends objeto_ci
 		echo "</div>";
 	}
 	
-	function obtener_html_encabezado($res)
+	function generar_html_encabezado($res)
 	{
 		$encabezado = $this->analizador->analizar_encabezado($res);
 		$enc = "";
@@ -352,7 +343,7 @@ class ci_analizador extends objeto_ci
 		return $enc;
 	}
 	
-	function obtener_html_detalles($res)
+	function generar_html_detalles($res)
 	{
 		$niveles = toba::get_logger()->get_niveles();
 		$cuerpo = $this->analizador->analizar_cuerpo($res);
@@ -429,7 +420,7 @@ class ci_analizador extends objeto_ci
 		unset($this->opciones);	
 	}
 	
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		if (isset($this->opciones)) {
 			return $this->opciones;	
@@ -438,7 +429,7 @@ class ci_analizador extends objeto_ci
 	
 	//---- Eventos Cuadro -------------------------------------------------------
 	
-	function evt__pedidos__carga()
+	function conf__pedidos()
 	{
 		$logs = $this->analizador->get_logs_archivo();
 		$logs = array_reverse($logs);		

@@ -10,7 +10,7 @@ class ci_selector_archivos extends objeto_ci
 		return $propiedades;
 	}
 	
-	function evt__listado__carga()
+	function conf__listado()
 	{
 		$inicial = toba::get_hilo()->obtener_parametro('ef_popup_valor');
 		$relativo = info_instancia::get_path_proyecto(editor::get_proyecto_cargado())."/php/";

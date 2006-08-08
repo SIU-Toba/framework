@@ -36,7 +36,7 @@ class ci_proyecto extends objeto_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function evt__basica__carga()
+	function conf__basica($ei)
 	{
 		return $this->dependencia('datos')->get();
 	}
@@ -48,7 +48,7 @@ class ci_proyecto extends objeto_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function evt__login__carga()
+	function conf__login($ei)
 	{
 		$datos = $this->dependencia('datos')->get();
 		if (isset($datos['item_inicio_sesion'])) {
@@ -69,7 +69,7 @@ class ci_proyecto extends objeto_ci
 		$this->dependencia('datos')->set($datos);
 	}
 
-	function evt__nucleo__carga()
+	function conf__nucleo($ei)
 	{
 		return $this->dependencia('datos')->get();
 	}

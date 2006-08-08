@@ -69,7 +69,7 @@ class ci_abm extends objeto_ci
 		$this->dependencia('relacion')->cargar($seleccion);
 	}
 
-	function evt__listado__carga()
+	function conf__listado()
 	{
 		$sql = "
 			SELECT 
@@ -90,7 +90,7 @@ class ci_abm extends objeto_ci
 	}
 
 	
-	function evt__form_base__carga()
+	function conf__form_base()
 	{
 		return 	$this->dependencia('relacion')->tabla('base')->get();
 	}
