@@ -13,7 +13,7 @@ class extension_ci extends objeto_ci
 		return $propiedades; 
 	} 	
 	
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		/*// No permitir cambiar el archivo en modo modificación
 		if (isset($this->archivo_completo))

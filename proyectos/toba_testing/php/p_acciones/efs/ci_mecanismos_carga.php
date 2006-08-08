@@ -31,12 +31,12 @@ class ci_mecanismos_carga extends objeto_ci
 		$this->registro = $registro;
 	}
 	
-	function evt__form__carga()
+	function conf__form()
 	{
 		return $this->registro;	
 	}
 	
-	function evt__form_ml__carga()
+	function conf__form_ml()
 	{
 		return $this->datos_ml;
 	}

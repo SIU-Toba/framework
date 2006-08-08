@@ -73,7 +73,7 @@ class ci_principal extends ci_editores_toba
 	//*******************  COLUMNAS  *************************************
 	//*******************************************************************
 	
-	function evt__entrada__2()
+	function evt__2__entrada()
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
 		$this->cortes_control = array();
@@ -106,7 +106,7 @@ class ci_principal extends ci_editores_toba
 		return $ei;	
 	}
 	
-	function evt__salida__2()
+	function evt__2__salida()
 	{
 		unset($this->seleccion_columna);
 		unset($this->seleccion_columna_anterior);
@@ -298,7 +298,7 @@ class ci_principal extends ci_editores_toba
 		return info_ei_cuadro::get_lista_eventos_estandar($modelo);
 	}
 
-	function evt__salida__3()
+	function evt__3__salida()
 	{
 		$this->dependencia('eventos')->limpiar_seleccion();
 	}

@@ -24,7 +24,7 @@ class ci_activacion extends objeto_ci
 		$this->datos_1 = $datos;
 	}
 
-	function evt__form_oblig__carga()
+	function conf__form_oblig()
 	{
 		if (isset($this->datos_1)) {
 			return $this->datos_1;
@@ -34,7 +34,7 @@ class ci_activacion extends objeto_ci
 		}
 	}
 	
-	function evt__form_activacion__carga()
+	function conf__form_activacion()
 	{
 		if (isset($this->datos_2)) {
 			return $this->datos_2;

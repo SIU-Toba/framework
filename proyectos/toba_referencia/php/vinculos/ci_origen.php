@@ -29,7 +29,7 @@ class ci_origen extends objeto_ci
 
 	//---- DEPENDENCIAS -------------------------------------------------------
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		$datos[0]['id'] = 3;		
 		$datos[0]['id2'] = 1;		

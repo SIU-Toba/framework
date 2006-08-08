@@ -52,7 +52,7 @@ class ci_abm_deportes extends objeto_ci
 		$this->filtro = $filtro;
 	}
 
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		if(isset($this->filtro)) return $this->filtro;
 	}
@@ -64,7 +64,7 @@ class ci_abm_deportes extends objeto_ci
 
 	//-- CUADRO --
 	
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		if(isset($this->filtro)){
 			return consultas::get_deportes($this->filtro);
@@ -90,7 +90,7 @@ class ci_abm_deportes extends objeto_ci
 
 	//-- FORMULARIO
 
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		if(isset($this->seleccion)){
 			$t = $this->get_tabla();

@@ -22,7 +22,7 @@ class ci_edicion extends objeto_ci
 	//-------------------------------------------------------------------
 
 
-	function evt__form_persona__carga()
+	function conf__form_persona()
 	{
 	  return $this->get_relacion()->tabla('persona')->get();
 	}
@@ -36,7 +36,7 @@ class ci_edicion extends objeto_ci
 	//--- Pantalla 'juegos'
 	//-------------------------------------------------------------------
 
-	function evt__form_juegos__carga()	
+	function conf__form_juegos()	
 	{
 		return $this->get_relacion()->tabla('juegos')->get_filas(null,true);	
 	}
@@ -52,7 +52,7 @@ class ci_edicion extends objeto_ci
 
 	//-- Cuadro --
 
-	function evt__cuadro_deportes__carga()	
+	function conf__cuadro_deportes()	
 	{
 		return $this->get_relacion()->tabla('deportes')->get_filas();	
 	}
@@ -63,7 +63,7 @@ class ci_edicion extends objeto_ci
 	
 	//-- Formulario --
 
-	function evt__form_deportes__carga()
+	function conf__form_deportes()
 	{
 		if(isset($this->seleccion_deporte)) {	
 			return $this->get_relacion()->tabla('deportes')->get_fila($this->seleccion_deporte);	

@@ -27,11 +27,11 @@ class ci_validacion_server extends objeto_ci
 	{
 	}
 
-	function evt__form_server__carga()
+	function conf__form_server()
 	{
 	}
 	
-	function evt__ml__carga()
+	function conf__ml()
 	{
 		
 	}

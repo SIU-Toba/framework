@@ -6,7 +6,7 @@ class extension_ci extends objeto_ci
 	protected $tope = 10;
 	protected $s__tope;
 	
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		return array(
 			'id' => '12',

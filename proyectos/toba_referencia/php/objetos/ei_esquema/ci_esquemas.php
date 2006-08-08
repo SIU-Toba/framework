@@ -49,18 +49,18 @@ digraph G {
 		$this->fuente = $datos['fuente'];
 	}
 	
-	function evt__fuente__carga()
+	function conf__fuente()
 	{
 		return array('fuente' => $this->fuente);
 	}
 	
-	function evt__dirigido__carga()
+	function conf__dirigido()
 	{
 		return $this->fuente;
 	}
 	
 	
-	function evt__svg__carga()
+	function conf__svg()
 	{
 		return "digraph G {
 					A [URL=\"javascript: alert('Este es A')\"];

@@ -40,14 +40,14 @@ class extension_ci extends objeto_ci
 		unset($this->datos_filtro);
 	}
 	
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		if (isset($this->datos_filtro))
 			return $this->datos_filtro;
 	}
 	
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		//El usuario decidió cargarlo a partir de este método?
 		if (isset($this->datos_filtro) && $this->datos_filtro['metodo'] == 'CI') {

@@ -72,7 +72,7 @@ class ci extends objeto_ci
 	//------------------------------------
 	//				ML
 	//------------------------------------
-	function evt__ml__carga()
+	function conf__ml()
 	{
 		if (isset($this->datos_ml))
 			return $this->datos_ml;
@@ -119,7 +119,7 @@ class ci extends objeto_ci
 		$this->datos_formulario = $datos;
 	}
 
-	function evt__formulario__carga(){ 
+	function conf__formulario(){ 
 		if (isset($this->datos_formulario))
 			return $this->datos_formulario;
 		else
@@ -129,7 +129,7 @@ class ci extends objeto_ci
 	//------------------------------------
 	//		FORMULARIO en ABM
 	//------------------------------------
-	function evt__formulario_abm__carga()
+	function conf__formulario_abm()
 	{
 		$this->dependencias['formulario_abm']->set_colapsable(false);
 		if (isset($this->registro_actual)) {
@@ -174,7 +174,7 @@ class ci extends objeto_ci
 	//------------------------------------
 	//		CUADRO en ABM
 	//------------------------------------
-	function evt__cuadro_abm__carga()
+	function conf__cuadro_abm()
 	{
 		//Filtra los elementos
 		$candidatos = array_values($this->datos_formulario_abm);
@@ -215,7 +215,7 @@ class ci extends objeto_ci
 	//------------------------------------
 	//		FILTRO en ABM
 	//------------------------------------
-	function evt__filtro_abm__carga()
+	function conf__filtro_abm()
 	{
 		$this->dependencias['filtro_abm']->colapsar();
 		if (isset($this->datos_filtro))

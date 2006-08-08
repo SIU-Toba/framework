@@ -21,7 +21,7 @@ class ci_wizard extends objeto_ci
 	/*
 	*  Manejo del formulario de seleccion de tipo de instalación
 	*/
-	function evt__tipos__carga()
+	function conf__tipos()
 	{
 		if (isset($this->tipo_instalacion))
 			return $this->tipo_instalacion;

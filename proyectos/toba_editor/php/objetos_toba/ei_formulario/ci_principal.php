@@ -59,7 +59,7 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 		
-	function evt__salida__2()
+	function evt__2__salida()
 	{
 		$this->dependencia('efs')->limpiar_seleccion();
 	}
@@ -84,7 +84,7 @@ class ci_principal extends ci_editores_toba
 		return info_ei_formulario::get_lista_eventos_estandar($modelo);
 	}
 
-	function evt__salida__3()
+	function evt__3__salida()
 	{
 		$this->dependencia('eventos')->limpiar_seleccion();
 	}

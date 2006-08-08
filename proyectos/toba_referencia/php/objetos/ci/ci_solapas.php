@@ -21,7 +21,7 @@ class ci_solapas extends objeto_ci
 	/**
 	*	El cuadro se carga con la cantidad de pasadas producidas hasta el momento
 	*/
-	function evt__cuadro_pasadas__carga()
+	function conf__cuadro_pasadas()
 	{
 		return array($this->pasadas_por_solapa);
 	}
@@ -29,17 +29,17 @@ class ci_solapas extends objeto_ci
 	/**
 	*	Se registran la cantidad de pasadas cuando se entra a una solapa
 	*/
-    function evt__entrada__1()
+    function evt__1__entrada()
     {
 		$this->pasadas_por_solapa[1]++;
     }
 	
-    function evt__entrada__2()
+    function evt__2__entrada()
     {
 		$this->pasadas_por_solapa[2]++;
     }
 	
-    function evt__entrada__3()
+    function evt__3__entrada()
     {
 		$this->pasadas_por_solapa[3]++;
     }		

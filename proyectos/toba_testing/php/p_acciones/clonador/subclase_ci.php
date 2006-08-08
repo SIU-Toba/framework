@@ -33,7 +33,7 @@ class subclase_ci extends objeto_ci
 	{
 	}
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 	}
 
@@ -43,7 +43,7 @@ class subclase_ci extends objeto_ci
 	{
 	}
 
-	function evt__form1__carga()
+	function conf__form1()
 	{
 	}
 

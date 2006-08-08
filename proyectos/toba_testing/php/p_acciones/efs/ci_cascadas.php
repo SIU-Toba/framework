@@ -97,7 +97,7 @@ class ci_cascadas extends objeto_ci
 		$this->form_ml = $datos;
 	}
 
-	function evt__form_ml__carga()
+	function conf__form_ml()
 	{
 		if (isset($this->form_ml)) {
 			return $this->form_ml;
@@ -112,7 +112,7 @@ class ci_cascadas extends objeto_ci
 		$this->form_simple = $datos;
 	}
 
-	function evt__form_simple__carga()
+	function conf__form_simple()
 	{
 		if (isset($this->form_simple)) {
 			return $this->form_simple;
@@ -126,7 +126,7 @@ class ci_cascadas extends objeto_ci
 		$this->form_comp = $datos;
 	}
 
-	function evt__form_comp__carga()
+	function conf__form_comp()
 	{
 		if (isset($this->form_comp)) {
 			return $this->form_comp;

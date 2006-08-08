@@ -31,7 +31,7 @@ class extension_ci extends objeto_ci
 		return $datos;
 	}
 	
-	function evt__cuadro_auto__carga()
+	function conf__cuadro_auto()
 	{
 		return $this->get_datos();	
 	}
@@ -41,7 +41,7 @@ class extension_ci extends objeto_ci
 		return count($this->get_datos());	
 	}
 	
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		$datos = $this->get_datos();
 		$tamanio_pagina = $this->dependencia('cuadro')->get_tamanio_pagina();

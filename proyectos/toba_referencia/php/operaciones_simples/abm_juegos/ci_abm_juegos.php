@@ -33,7 +33,7 @@ class ci_abm_juegos extends objeto_ci
 
 	//-- CUADRO --
 	
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		return consultas::get_juegos();
 	}
@@ -45,7 +45,7 @@ class ci_abm_juegos extends objeto_ci
 
 	//-- FORMULARIO
 
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		if(isset($this->seleccion)){
 			$this->seleccion_anterior = $this->seleccion;

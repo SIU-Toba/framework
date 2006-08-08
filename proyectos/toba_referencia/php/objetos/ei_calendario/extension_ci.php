@@ -17,7 +17,7 @@ class extension_ci extends objeto_ci
 	// La idea es que el evento "carga" del calendario recupere los contenidos de la base de datos.
 	// Para dar un ejemplo concreto de cómo se visulizan los contenidos, se setea un contenido fijo
 	// para el día de la fecha.
-	function evt__calendario__carga()
+	function conf__calendario()
 	{
         $this->dependencia("calendario")->set_ver_contenidos(true);
 		$hoy = date("Y-m-d", mktime());
@@ -38,7 +38,7 @@ class extension_ci extends objeto_ci
 		unset($this->dia);
 	}
 
-	function evt__formulario__carga()
+	function conf__formulario()
 	{
 		if (isset($this->dia))
 			return array( 'dia' => $this->dia );

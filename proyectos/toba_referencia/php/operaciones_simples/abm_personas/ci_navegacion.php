@@ -70,7 +70,7 @@ class ci_navegacion extends objeto_ci
 		$this->filtro = $datos;
 	}
 
-	function evt__filtro_personas__carga()
+	function conf__filtro_personas()
 	{
 		if(isset($this->filtro)){
 			return $this->filtro;
@@ -83,7 +83,7 @@ class ci_navegacion extends objeto_ci
 
 	//-------- CUADRO ----
 
-	function evt__cuadro_personas__carga()
+	function conf__cuadro_personas()
 	{
 		if(isset($this->filtro)){
 			return consultas::get_personas($this->filtro);

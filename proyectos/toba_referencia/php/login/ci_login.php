@@ -45,7 +45,7 @@ class ci_login extends objeto_ci
 		$this->datos = $datos;
 	}
 
-	function evt__datos__carga()
+	function conf__datos()
 	{
 		if (isset($this->datos)) {
 			if (isset($this->datos['clave'])) {
@@ -63,7 +63,7 @@ class ci_login extends objeto_ci
 		$this->datos['clave'] = null;
 	}
 
-	function evt__seleccion_usuario__carga()
+	function conf__seleccion_usuario()
 	{
 		return info_instancia::get_lista_usuarios();
 	}

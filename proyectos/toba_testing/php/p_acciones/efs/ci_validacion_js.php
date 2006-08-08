@@ -9,7 +9,7 @@ class ci_validacion_js extends objeto_ci
 		$this->datos = $datos;
 	}
 
-	function evt__form__carga()
+	function conf__form()
 	{
 		return $this->datos;
 	}

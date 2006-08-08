@@ -531,9 +531,9 @@ class migracion_0_10_0 extends migracion_toba
 	function proyecto__cambio_api_ci()
 	{
 		$editor = new editor_archivos();
-		$editor->agregar_sustitucion('/evt__(\w+)__carga/', 'conf__${1}');		
-		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada\(');
-		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida\(');
+		$editor->agregar_sustitucion('/evt__(\w+)__carga\(/', 'conf__${1}(');		
+		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada(');
+		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
 		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}

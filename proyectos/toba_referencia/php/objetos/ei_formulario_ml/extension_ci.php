@@ -13,7 +13,7 @@ class extension_ci extends objeto_ci
 		return $propiedades;		
 	}
 	
-	function evt__ml__carga()
+	function conf__ml()
 	{
 		if (isset($this->datos))
 			return $this->datos;			

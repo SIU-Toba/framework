@@ -4,7 +4,7 @@ require_once("nucleo/componentes/interface/objeto_ci.php");
 class extension_ci extends objeto_ci
 {
 
-	function evt__eventos_a__carga()
+	function conf__eventos_a()
 	{
 		return $this->get_info_localidades();
 	}

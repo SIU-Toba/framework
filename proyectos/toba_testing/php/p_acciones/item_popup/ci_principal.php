@@ -15,7 +15,7 @@ class ci_principal extends objeto_ci
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		$datos = array(
 			array('clave' => 1, 'valor' => 'Uno'),

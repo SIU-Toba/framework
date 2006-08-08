@@ -34,7 +34,7 @@ class ci_impresion extends objeto_ci
 	{
 	}
 
-	function evt__cuadro__carga()
+	function conf__cuadro()
 	{
 		$datos[0]['id'] = '1';
 		$datos[0]['tipo'] = '1';
@@ -72,7 +72,7 @@ class ci_impresion extends objeto_ci
 	{
 	}
 
-	function evt__filtro__carga()
+	function conf__filtro()
 	{
 		$datos['editable'] = 'editable';
 		$datos['combo'] = 'P';
@@ -88,7 +88,7 @@ class ci_impresion extends objeto_ci
 	{
 	}
 
-	function evt__ml__carga()
+	function conf__ml()
 	{
 		$datos[0]['id'] = '1';
 		$datos[0]['tipo'] = '1';

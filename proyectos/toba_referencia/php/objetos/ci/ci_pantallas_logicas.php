@@ -73,7 +73,7 @@ class ci_pantallas_logicas extends objeto_ci
 	/**
 	*	Control particular para no permitir salidas si no se visitaron todas las etapas
 	*/
-	function evt__salida__2()
+	function evt__2__salida()
 	{
 		//$this->informar_msg("Sali de la segunda pantalla");
 	}

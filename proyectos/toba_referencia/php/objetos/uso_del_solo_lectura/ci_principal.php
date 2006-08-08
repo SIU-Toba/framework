@@ -78,7 +78,7 @@ class ci_principal extends objeto_ci
 		$this->datos_form = $datos;	
 	}
 	
-	function evt__form__carga()
+	function conf__form()
 	{
 		return $this->datos_form;	
 	}
@@ -99,7 +99,7 @@ class ci_principal extends objeto_ci
 									$this->datos_comunes_form());
 	}
 	
-	function evt__form_ml__carga()
+	function conf__form_ml()
 	{
 		return $this->datos_form_ml;
 	}	
