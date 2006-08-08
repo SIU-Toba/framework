@@ -189,11 +189,12 @@ class objeto_ci extends objeto_ei
 					$this->dependencias[$dep]->disparar_eventos();
 				}
 				$this->disparar_evento_propio();
-				$this->evt__post_recuperar_interaccion();
 			}
 		} else {
  			$this->log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
+		$this->definir_pantalla_servicio();
+		$this->evt__post_recuperar_interaccion();		
 	}
 
 	/**
@@ -227,7 +228,7 @@ class objeto_ci extends objeto_ei
 			}
 		}
 		
-		//--- El cambio de pantalla es un evento
+		//--- El cambio de tab es un evento
 		//--- Si se lanzo se determina cual es el candidato (aun falta la aprobacion)
 		if (isset($_POST[$this->submit])) {
 			$submit = $_POST[$this->submit];
@@ -245,9 +246,10 @@ class objeto_ci extends objeto_ei
 					$this->pantalla_id_servicio =  $this->get_pantalla_inicial();
 				}
 			}
-		}			
+		}
 	}
 		
+	
 	/**
 	 * Se disparan eventos dentro del nivel actual
 	 * Puede recibir N parametros adicionales
@@ -420,8 +422,17 @@ class objeto_ci extends objeto_ei
 	protected function definir_pantalla_servicio()
 	{
 		$pantalla_previa = (isset($this->pantalla_id_eventos)) ? $this->pantalla_id_eventos : null;
-		$pantalla_actual = $this->get_pantalla_solicitada();
-		if ($pantalla_previa !== $pantalla_actual) { 
+		
+		//--- Es posible que nadie haya decidido aun la pantalla ,se decide aca
+		if (! isset($this->pantalla_id_servicio)) {
+			if(isset( $pantalla_previa )){
+				$this->pantalla_id_servicio =  $this->pantalla_id_eventos;
+			} else {
+				$this->pantalla_id_servicio = $this->get_pantalla_inicial();
+			}
+		}
+		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
+		if ($pantalla_previa !== $this->pantalla_id_servicio) { 
 			// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
 			// Esto no lo tengo que subir al metodo anterior?
 			if( isset($this->pantalla_id_eventos) ){
@@ -430,49 +441,12 @@ class objeto_ci extends objeto_ei
 				$this->invocar_callback($evento_salida);				
 			}	
 			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
-			$evento_entrada = apex_ei_evento . apex_ei_separador . $pantalla_actual . apex_ei_separador . "entrada";
+			$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
 			$this->invocar_callback($evento_entrada);
 		}
-		// -[ 3 ]-  Seteo la etapa PROPUESTA
-		$this->set_pantalla($pantalla_actual);
 		$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
 	}
 
-	/**
-	 * Retorna la pantalla solicitada por los eventos en este request (sujeto a la verificacion)
-	 * Redefinir en caso de incluir una navegación personalizada
-	 * @return Id. de la pantalla actual
-	 */
-	protected function get_pantalla_solicitada()
-	{
-		//¿Se pidio un cambio de pantalla al CI? 
-		if (isset($this->submit) && isset($_POST[$this->submit])) {
-			$submit = $_POST[$this->submit];
-			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
-			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
-			if ($tab == '_siguiente' || $tab == '_anterior') {
-				return $this->ir_a_limitrofe($tab);
-			} 
-			if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
-				if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
-					return $tab;
-				}else{
-					toba::get_logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
-					//Error, voy a la pantalla inicial
-					return $this->get_pantalla_inicial();
-				}
-			}
-		}
-		
-		//El post fue generado por otro componente ??
-		if(isset( $this->pantalla_id_eventos )){
-			return $this->pantalla_id_eventos;
-		}else{
-			//Pantalla inicial
-			return $this->get_pantalla_inicial();
-		}
-	}
-	
 	function get_pantalla_inicial()
 	{
 		return $this->info_ci_me_pantalla[0]["identificador"];
@@ -550,7 +524,6 @@ class objeto_ci extends objeto_ei
 	function pre_configurar()
 	{
 		//--- Configuracion propia
-		$this->definir_pantalla_servicio();
 		$this->conf();
 		
 		//--- Configuracion pantalla actual
