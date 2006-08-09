@@ -35,12 +35,6 @@ class ci_analizador extends objeto_ci
 		
 	function conf()
 	{
-		if (isset($this->seleccion)) {
-			$this->set_pantalla_inicial('visor');
-		}
-		if ($this->cambiar_pantalla) {
-			$this->set_pantalla("visor");	
-		}
 		$this->cargar_analizador();		
 	}
 
@@ -448,13 +442,13 @@ class ci_analizador extends objeto_ci
 	function evt__pedidos__seleccion($id)
 	{
 		$this->seleccion = $id['numero'];
-		$this->cambiar_pantalla = true;
+		$this->set_pantalla("visor");
 	}
 	
 	function evt__pedidos__ultima()
 	{
 		$this->seleccion = 'ultima';
-		$this->cambiar_pantalla = true;
+		$this->set_pantalla("visor");
 	}
 		
 }

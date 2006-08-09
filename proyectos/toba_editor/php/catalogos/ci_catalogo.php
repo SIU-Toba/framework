@@ -33,7 +33,6 @@ abstract class ci_catalogo extends objeto_ci
 			$this->dependencia($dep)->obtener_html();	
 		}
 	}	
-	
 
 	/*
 	*	Agrega al evento sacar_foto una pregunta acerca del nombre de la misma
@@ -50,7 +49,6 @@ abstract class ci_catalogo extends objeto_ci
 			}
 		";
 	}	
-		
 	
 	//-------------------------------
 	//---- Filtro de opciones ----
@@ -101,7 +99,6 @@ abstract class ci_catalogo extends objeto_ci
 		}
 		return $fotos;
 	}
-	
 	
 	function evt__fotos__seleccion($nombre)
 	{

@@ -36,7 +36,7 @@ class objeto_ci extends objeto_ei
 		$this->set_propiedades_sesion($propiedades);
 		parent::__construct($id);
 		$this->submit = "CI_" . $this->id[1] . "_submit";
-		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>	
+		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
 	function destruir()
@@ -60,6 +60,7 @@ class objeto_ci extends objeto_ei
 			$this->nombre_formulario = $parametro["nombre_formulario"];
 		}
 		$this->evt__inicializar();
+		$this->definir_pantalla_eventos();		
 	}
 
 	function evt__inicializar()
@@ -174,8 +175,7 @@ class objeto_ci extends objeto_ei
 	{
 		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');
 
-		//PANTALLA
-		$this->definir_pantalla_eventos();
+		//--- Si no hubo servicio anterior, no se atienden eventos
 		if (isset($this->pantalla_id_eventos)) {
 			$this->controlar_eventos_propios();
 			//Los eventos que no manejan dato tienen que controlarse antes
@@ -192,9 +192,31 @@ class objeto_ci extends objeto_ei
 		} else {
  			$this->log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
-		$this->definir_pantalla_servicio();
+		$this->controlar_cambio_pantalla();
 		$this->evt__post_recuperar_interaccion();		
 	}
+	
+	/**
+	 *	Si existio un cambio explicito de pantalla se notifican las callbacks de entrada-salida
+	 */
+	protected function controlar_cambio_pantalla()
+	{
+		$cambio_pantalla_explicito = (isset($this->pantalla_id_servicio) && 
+										isset($this->pantalla_id_eventos) &&
+				 						$this->pantalla_id_servicio !== $this->pantalla_id_eventos);
+		
+		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
+		if ($cambio_pantalla_explicito) { 
+			// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
+			$evento_salida = apex_ei_evento . apex_ei_separador . $this->pantalla_id_eventos . apex_ei_separador . "salida";
+			$this->invocar_callback($evento_salida);				
+
+			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+			$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
+			$this->invocar_callback($evento_entrada);
+		}
+	}
+	
 
 	/**
 	 * Reconoce que evento del CI se ejecuto
@@ -283,7 +305,6 @@ class objeto_ci extends objeto_ei
 	 * Validar el estado interno, dispara una excepcion si falla
 	 */
 	function evt__validar_datos() {}
-
 
 	/**
 	 * Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado
@@ -413,49 +434,12 @@ class objeto_ci extends objeto_ei
 		}
 	}
 
-	/**
-	 * Define la pantalla servicio
-	 * ATENCION: esto se esta ejecutando despues de los eventos propios... 
-	 * puede traer problemas de ejecucion de eventos antes de validar la salida de pantallas
-	 */
-	protected function definir_pantalla_servicio()
-	{
-		$pantalla_previa = (isset($this->pantalla_id_eventos)) ? $this->pantalla_id_eventos : null;
-		
-		//--- Es posible que nadie haya decidido aun la pantalla ,se decide aca
-		if (! isset($this->pantalla_id_servicio)) {
-			if(isset( $pantalla_previa )){
-				$this->pantalla_id_servicio =  $this->pantalla_id_eventos;
-			} else {
-				$this->pantalla_id_servicio = $this->get_pantalla_inicial();
-			}
-		}
-		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
-		if ($pantalla_previa !== $this->pantalla_id_servicio) { 
-			// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
-			// Esto no lo tengo que subir al metodo anterior?
-			if( isset($this->pantalla_id_eventos) ){
-				// Habia una etapa anterior
-				$evento_salida = apex_ei_evento . apex_ei_separador . $this->pantalla_id_eventos . apex_ei_separador . "salida";
-				$this->invocar_callback($evento_salida);				
-			}	
-			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
-			$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
-			$this->invocar_callback($evento_entrada);
-		}
-		$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
-	}
 
 	function get_pantalla_inicial()
 	{
 		return $this->info_ci_me_pantalla[0]["identificador"];
 	}
 	
-	function set_pantalla_inicial($id)
-	{
-		$this->info_ci_me_pantalla[0]["identificador"] = $id;
-	}
-
 	/**
 	 * Busca alguna regla particular para determinar si la navegación hacia una pantalla es válida
 	 * El método a definir para incidir en esta regla es evt__puede_mostrar_pantalla y recibe la pantalla como parámetro
@@ -522,6 +506,15 @@ class objeto_ci extends objeto_ei
 	
 	function pre_configurar()
 	{
+		//--- Es posible que nadie haya decidido aun la pantalla ,se decide aca
+		if (! isset($this->pantalla_id_servicio)) {
+			if (isset( $this->pantalla_id_eventos )) {
+				$this->pantalla_id_servicio =  $this->pantalla_id_eventos;
+			} else {
+				$this->pantalla_id_servicio = $this->get_pantalla_inicial();
+			}
+		}		
+		
 		//--- Configuracion propia
 		$this->conf();
 		
@@ -572,6 +565,7 @@ class objeto_ci extends objeto_ei
 	function pantalla()
 	{
 		if (! isset($this->pantalla_servicio)) {
+			$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
 			require_once('objeto_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			
 			$info = array('info' => $this->info,

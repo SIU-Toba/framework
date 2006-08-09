@@ -22,17 +22,6 @@ class objeto_ei_arbol extends objeto_ei
 		$this->objeto_js = "objeto_ei_arbol_{$this->id[1]}";
 	}
 	
-	function destruir()
-	{
-		$this->memoria["eventos"] = array();
-		if(isset($this->eventos)){
-			foreach($this->eventos as $id => $evento ){
-				$this->memoria["eventos"][$id] = true;
-			}
-		}	
-		parent::destruir();
-	}
-
 	function servicio__ejecutar()
 	{
 		toba::get_hilo()->desactivar_reciclado();		
@@ -76,12 +65,16 @@ class objeto_ei_arbol extends objeto_ei
 		$this->nodos_inicial = $nodos;
 	}
 	
-	function get_lista_eventos()
+	/**
+	 * Carga la lista de eventos definidos desde el administrador 
+	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
+	 * y agrega los tabs como eventos
+	 */
+	protected function cargar_lista_eventos()
 	{
-		$eventos = array();
-		$eventos += eventos::ver_propiedades();
-		return $eventos;
-	}
+		parent::cargar_lista_eventos();
+		$this->eventos += eventos::ver_propiedades();
+	}	
 	
 	function disparar_eventos()
 	{

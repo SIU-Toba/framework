@@ -146,14 +146,12 @@ class objeto_ei_calendario extends objeto_ei
 
 	function eliminar_observador($observador){}
 
-	function get_lista_eventos()
+	protected function cargar_lista_eventos()
 	{
-		$eventos = array();
-		$eventos += eventos::seleccionar_dia();
-		$eventos += eventos::seleccionar_semana();
-		$eventos += eventos::cambiar_mes();
-		
-		return $eventos;
+		parent::cargar_lista_eventos();
+		$this->eventos += eventos::seleccionar_dia();
+		$this->eventos += eventos::seleccionar_semana();
+		$this->eventos += eventos::cambiar_mes();
 	}
 	
 	function disparar_eventos()

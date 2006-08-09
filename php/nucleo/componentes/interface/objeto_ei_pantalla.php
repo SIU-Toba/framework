@@ -159,8 +159,7 @@ class objeto_ei_pantalla extends objeto_ei
 		}
 		
 		//-- Agrega los tabs
-		switch($this->info_ci['tipo_navegacion'])
-		{
+		switch($this->info_ci['tipo_navegacion']) {
 			case "tab_h":
 			case "tab_v":
 				foreach ($this->lista_tabs as $id => $tab) {

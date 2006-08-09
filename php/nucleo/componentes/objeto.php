@@ -110,10 +110,10 @@ class objeto
 		$parametros	= func_get_args();
 		array_splice($parametros, 0 , 1);
 		if(method_exists($this, $metodo)){
-			$this->log->debug( $this->get_txt() . "[ invocar_callback ] Callback: '$metodo'", 'toba');
+			$this->log->debug( $this->get_txt() . "[ invocar_callback ] '$metodo'", 'toba');
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
-			$this->log->debug($this->get_txt() . "[ invocar_callback ]  El METODO [ $metodo ] no fue atrapado", 'toba');
+			$this->log->debug($this->get_txt() . "[ invocar_callback ] '$metodo' no fue atrapado", 'toba');
 			return apex_callback_sin_rpta;
 		}
 	}

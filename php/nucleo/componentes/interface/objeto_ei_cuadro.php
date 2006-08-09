@@ -176,16 +176,15 @@ class objeto_ei_cuadro extends objeto_ei
 //############################        EVENTOS        #############################
 //################################################################################
 
-	function get_lista_eventos()
+	protected function cargar_lista_eventos()
 	{
-		$eventos = parent::get_lista_eventos();
+		parent::cargar_lista_eventos();
 		if($this->info_cuadro["ordenar"]) { 
-			$eventos += eventos::ordenar();		
+			$this->eventos += eventos::ordenar();		
 		}
 		if ($this->info_cuadro["paginar"]) {
-			$eventos += eventos::cambiar_pagina();
+			$this->eventos += eventos::cambiar_pagina();
 		}
-		return $eventos;
 	}
 
 	function disparar_eventos()

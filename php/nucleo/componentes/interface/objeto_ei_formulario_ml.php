@@ -686,16 +686,12 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	//--------------------------------	EVENTOS  -------------------------------
 	//-------------------------------------------------------------------------------
 
-	function get_lista_eventos()
-	/*
-		Los eventos standard estan relacionados con el consumo del formulario en un ABM
-	*/
+	protected function cargar_lista_eventos()
 	{
-		$eventos = parent::get_lista_eventos();
+		parent::cargar_lista_eventos();
 		if (! $this->info_formulario['filas_agregar_online']) {
-			$eventos +=eventos::ml_registro_nuevo();
+			$this->eventos +=eventos::ml_registro_nuevo();
 		}
-		return $eventos;
 	}
 
 	//-------------------------------------------------------------------------------

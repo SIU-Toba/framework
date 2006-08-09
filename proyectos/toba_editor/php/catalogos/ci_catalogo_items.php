@@ -22,7 +22,6 @@ class ci_catalogo_items extends ci_catalogo
 		
 		$this->catalogador = new catalogo_items(editor::get_proyecto_cargado());		
 	}
-	
 
 	function carpetas_posibles()
 	{
@@ -45,7 +44,6 @@ class ci_catalogo_items extends ci_catalogo
 		}
 		return $datos;
 	}
-	
 	
 	//-------------------------------
 	//---- Fotos --------------------

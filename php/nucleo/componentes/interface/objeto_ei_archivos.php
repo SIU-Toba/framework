@@ -38,14 +38,13 @@ class objeto_ei_archivos extends objeto_ei
 		parent::destruir();
 	}
 
-	function get_lista_eventos()
+	protected function cargar_lista_eventos()
 	{
-		$eventos = array();
-		$eventos['ir_a_carpeta'] = array();
-		$eventos['seleccionar_archivo'] = array();		
-		$eventos['crear_carpeta'] = array();		
-		$eventos['crear_archivo'] = array();
-		return $eventos;
+		parent::cargar_lista_eventos();
+		$this->eventos['ir_a_carpeta'] = array();
+		$this->eventos['seleccionar_archivo'] = array();		
+		$this->eventos['crear_carpeta'] = array();		
+		$this->eventos['crear_archivo'] = array();
 	}
 	
 	function disparar_eventos()
