@@ -55,9 +55,19 @@ class ci_principal extends ci_editores_toba
 		$columnas = $this->obtener_definicion_columnas();
 		//ei_arbol($columnas);		
 		$dbr = $this->get_entidad()->tabla("columnas");
+		$actuales = $dbr->get_filas(null, true);
 		for($a=0;$a<count($columnas);$a++){
 			try{
-				$dbr->nueva_fila($columnas[$a]);
+				//--- Evita incluir dos veces el mismo nombre
+				$nueva = true;
+				foreach ($actuales as $id => $actual) {
+					if ($columnas[$a]['columna'] == $actual['columna']) {
+						$nueva = false;
+					}
+				}
+				if ($nueva) {
+					$dbr->nueva_fila($columnas[$a]);
+				}
 			}catch(excepcion_toba $e){
 				toba::get_cola_mensajes()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
 			}

@@ -29,9 +29,9 @@ class tablas_nucleo
   21 => 'apex_nucleo_tipo',
   22 => 'apex_nota_tipo',
   23 => 'apex_msg_tipo',
-  24 => 'apex_admin_persistencia',
-  25 => 'apex_tipo_datos',
-  26 => 'apex_objeto_mt_me_tipo_nav',
+  24 => 'apex_objeto_mt_me_tipo_nav',
+  25 => 'apex_admin_persistencia',
+  26 => 'apex_tipo_datos',
 );
 	}
 
@@ -59,7 +59,7 @@ class tablas_nucleo
 	static function apex_elemento_infra()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'elemento_infra',
@@ -77,7 +77,7 @@ class tablas_nucleo
 	static function apex_elemento_infra_tabla()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'elemento_infra, tabla, columna_clave_proyecto',
@@ -104,7 +104,7 @@ class tablas_nucleo
 	static function apex_elemento_infra_input()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'entrada',
@@ -128,7 +128,7 @@ class tablas_nucleo
 	static function apex_estilo_paleta()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'estilo_paleta',
@@ -151,7 +151,7 @@ class tablas_nucleo
 	static function apex_estilo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'estilo',
@@ -173,7 +173,7 @@ class tablas_nucleo
 	static function apex_menu()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'menu',
@@ -193,7 +193,7 @@ class tablas_nucleo
 	static function apex_proyecto()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'proyecto',
@@ -246,7 +246,7 @@ class tablas_nucleo
 	static function apex_log_sistema_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'log_sistema_tipo',
@@ -264,7 +264,7 @@ class tablas_nucleo
 	static function apex_fuente_datos_motor()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'fuente_datos_motor',
@@ -283,7 +283,7 @@ class tablas_nucleo
 	static function apex_fuente_datos()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'fuente_datos',
@@ -314,7 +314,7 @@ class tablas_nucleo
 	static function apex_grafico()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'grafico',
@@ -334,7 +334,7 @@ class tablas_nucleo
 	static function apex_recurso_origen()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'recurso_origen',
@@ -352,7 +352,7 @@ class tablas_nucleo
 	static function apex_repositorio()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'repositorio',
@@ -370,7 +370,7 @@ class tablas_nucleo
 	static function apex_nivel_acceso()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'nivel_acceso',
@@ -389,7 +389,7 @@ class tablas_nucleo
 	static function apex_nivel_ejecucion()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'nivel_ejecucion',
@@ -407,7 +407,7 @@ class tablas_nucleo
 	static function apex_solicitud_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'solicitud_tipo',
@@ -427,7 +427,7 @@ class tablas_nucleo
 	static function apex_elemento_formulario()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'elemento_formulario',
@@ -450,7 +450,7 @@ class tablas_nucleo
 	static function apex_solicitud_obs_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'solicitud_obs_tipo',
@@ -470,7 +470,7 @@ class tablas_nucleo
 	static function apex_pagina_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'pagina_tipo',
@@ -495,7 +495,7 @@ class tablas_nucleo
 	static function apex_columna_estilo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'columna_estilo',
@@ -516,7 +516,7 @@ class tablas_nucleo
 	static function apex_columna_formato()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'columna_formato',
@@ -539,7 +539,7 @@ class tablas_nucleo
 	static function apex_columna_proceso()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'columna_proceso',
@@ -562,7 +562,7 @@ class tablas_nucleo
 	static function apex_pdf_propiedad()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'pdf_propiedad',
@@ -585,7 +585,7 @@ class tablas_nucleo
 	static function apex_usuario_tipodoc()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'usuario_tipodoc',
@@ -603,7 +603,7 @@ class tablas_nucleo
 	static function apex_patron()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'patron',
@@ -626,7 +626,7 @@ class tablas_nucleo
 	static function apex_patron_info()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'patron',
@@ -647,7 +647,7 @@ class tablas_nucleo
 	static function apex_buffer()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'buffer',
@@ -669,7 +669,7 @@ class tablas_nucleo
 	static function apex_clase_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'clase_tipo',
@@ -691,7 +691,7 @@ class tablas_nucleo
 	static function apex_clase()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase',
@@ -736,7 +736,7 @@ class tablas_nucleo
 	static function apex_clase_info()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase',
@@ -757,7 +757,7 @@ class tablas_nucleo
 	static function apex_clase_dependencias()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase_consumidora, identificador',
@@ -780,7 +780,7 @@ class tablas_nucleo
 	static function apex_patron_dependencias()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'patron, clase',
@@ -804,7 +804,7 @@ class tablas_nucleo
 	static function apex_solicitud_obj_obs_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'solicitud_obj_obs_tipo',
@@ -825,7 +825,7 @@ class tablas_nucleo
 	static function apex_vinculo_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'vinculo_tipo',
@@ -844,7 +844,7 @@ class tablas_nucleo
 	static function apex_nucleo_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_nucleo.sql',
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'nucleo_tipo',
@@ -864,7 +864,7 @@ class tablas_nucleo
 	static function apex_nota_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a04_notas.sql',
+  'archivo' => 'pgsql_a04_tablas_notas.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'nota_tipo',
@@ -883,7 +883,7 @@ class tablas_nucleo
 	static function apex_msg_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a05_mensajes.sql',
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'msg_tipo',
@@ -902,7 +902,7 @@ class tablas_nucleo
 	static function apex_msg()
 	{
 		return array (
-  'archivo' => 'pgsql_a05_mensajes.sql',
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'msg',
@@ -927,7 +927,7 @@ class tablas_nucleo
 	static function apex_clase_msg()
 	{
 		return array (
-  'archivo' => 'pgsql_a05_mensajes.sql',
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase_msg',
@@ -951,10 +951,29 @@ class tablas_nucleo
 );
 	}
 
+	static function apex_objeto_mt_me_tipo_nav()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'tipo_navegacion',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo_navegacion',
+    1 => 'descripcion',
+  ),
+);
+	}
+
 	static function apex_admin_persistencia()
 	{
 		return array (
-  'archivo' => 'pgsql_a21_clase_db_registros.sql',
+  'archivo' => 'pgsql_a40_componente_datos.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'ap',
@@ -976,7 +995,7 @@ class tablas_nucleo
 	static function apex_tipo_datos()
 	{
 		return array (
-  'archivo' => 'pgsql_a21_clase_db_registros.sql',
+  'archivo' => 'pgsql_a40_componente_datos.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'tipo',
@@ -987,25 +1006,6 @@ class tablas_nucleo
   'columnas' => 
   array (
     0 => 'tipo',
-    1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_objeto_mt_me_tipo_nav()
-	{
-		return array (
-  'archivo' => 'pgsql_a52_clase_mt_me.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'tipo_navegacion',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tipo_navegacion',
     1 => 'descripcion',
   ),
 );
