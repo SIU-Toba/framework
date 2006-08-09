@@ -235,6 +235,7 @@ abstract class objeto_ei extends objeto
 				} else {
 					$js = "onclick=\"imprimir_html('$url');\"";
 				}
+				echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 			} elseif ( ($this->eventos[$id]['accion'] == 'V') ) {
 			// --- VINCULO ---
 				$vinculo = new vinculo(	toba::get_hilo()->obtener_proyecto(), 
@@ -254,15 +255,18 @@ abstract class objeto_ei extends objeto
 				}
 				// Registro el vinculo en el vinculador
 				$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
-				// Escribo la sentencia que invocaria el vinculo
-				$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
+				if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
+					// Escribo la sentencia que invocaria el vinculo
+					$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
+					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+				}
 			}			
 		} else {
 			// Manejo estandar de eventos
 			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
 			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+			echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		}
-		echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 	}
 
 	//--- Manejo de grupos de eventos

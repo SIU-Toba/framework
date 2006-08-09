@@ -251,12 +251,16 @@ class vinculador
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
 		}
-		$_SESSION['toba']['instancia']['vinculos_posibles'] = $vinculos;
+		if(isset($vinculos)) {
+			$_SESSION['toba']['instancia']['vinculos_posibles'] = $vinculos;
+		}
 	}
 
 	protected function posee_acceso_item($proyecto, $item)
 	{
-		return isset($_SESSION['toba']['instancia']['vinculos_posibles'][$proyecto.'-'.$item]);
+		if(array_key_exists('vinculos_posibles',$_SESSION['toba']['instancia'])){
+			return isset($_SESSION['toba']['instancia']['vinculos_posibles'][$proyecto.'-'.$item]);
+		}
 	}
 	
 	//-------------------------------------------------------------------------------------
