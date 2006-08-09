@@ -35,16 +35,6 @@ class zona_clase extends zona
 		//$cronometro->marcar('basura',apex_nivel_nucleo);
 
 		echo "<table  width='100%'  class='tabla-0'><tr>";
-
-		//INTERFACE que solicta CRONOMETRAR la PAGINA
-		if($this->solicitud->vinculador->consultar_vinculo(editor::get_id(),"/basicos/cronometro",true))
-		{
-			echo "<td  class='barra-0-edit' width='1'>";
-			echo "<a href='".$this->solicitud->vinculador->generar_solicitud(null,null,null,true,true)."'>".
-					recurso::imagen_apl("cronometro.gif",true,null,null,"Cronometrar la ejecución del ITEM")."</a>";
-			echo "</td>";
-		}
-
 		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;EDITOR de CLASES";
 		//echo recurso::imagen_apl("zona/objetos.gif",true);
 		echo "</td>";

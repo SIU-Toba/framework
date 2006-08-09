@@ -9,9 +9,6 @@
 class vinculador 
 {
 	protected $prefijo;			//Prefijo de cualquier URL
-	protected $info;				//Vinculos a los que se puede acceder
-	protected $indices_objeto;	//Vinculos ordenados por OBJETO
-	protected $indices_item;		//Vinculos ordenados por ITEM
 	protected $vinculos = array();
 	static private $instancia;
 	
@@ -25,34 +22,12 @@ class vinculador
 	
 	private function __construct()
 	{
-		$item = toba::get_hilo()->obtener_item_solicitado();
-		$usuario = toba::get_hilo()->obtener_usuario();
-		$rs = info_proyecto::instancia()->get_vinculos_posibles($item, $usuario);
-		if(! empty($rs)){
-			//Creo el array de vinculos
-			$this->info = $rs;
-			//Creo el array de indices para accederlos
-			for($a=0;$a<count($this->info);$a++){
-				//Llevo el ID a un string para buscarlos mas facil
-				$obj = $this->info[$a]['origen_objeto_proyecto'].",".$this->info[$a]['origen_objeto'];
-				$item = $this->info[$a]['destino_item_proyecto'].",".$this->info[$a]['destino_item'];
-				$this->indices_objeto[$obj][$this->info[$a]['indice']]=$a;
-				$this->indices_item[$item]=$a;
-			}
-		}
+		//if(!isset($_SESSION['toba']['instancia']['vinculos_posibles'])){
+			$this->cargar_vinculos_posibles();			
+		//}
 		$this->prefijo = toba::get_hilo()->prefijo_vinculo();
 	}
-//----------------------------------------------------------------
 
-	function info()
-	{
-		$dump["indices_objeto"]=$this->indices_objeto;
-		$dump["indices_item"]= $this->indices_item;
-		$dump["info"]= $this->info;
-		ei_arbol($dump,"VINCULADOR");
-	}
-
-	
 	/**
 	 * Crea un vinculo hacia un item
 	 *
@@ -62,8 +37,8 @@ class vinculador
 	 * @param array $opciones Arreglo asociativo de opciones ellas son:
 	 * 					zona => Activa la propagación automática del editable en la zona,
 	 * 					cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse,
-	 * 					param_html => Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
-	 * 					escribir_tag => Indica si hay que generar el html del vinculo
+	 * 					param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL.
+	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
 	 * 					texto => Texto del vínculo
 	 * 					menu => El vinculo esta solicitado por una opción menu?
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
@@ -74,40 +49,20 @@ class vinculador
 	 */
 	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
 	{
-		$item_actual = toba::get_hilo()->obtener_item_solicitado();
-		if (!isset($proyecto)) $proyecto = $item_actual[0];
-		if (!isset($item)) $item = $item_actual[1];
 		if (!isset($opciones['zona'])) $opciones['zona'] = false;
 		if (!isset($opciones['cronometrar'])) $opciones['cronometrar'] = false;
 		if (!isset($opciones['param_html'])) $opciones['param_html'] = null;
 		if (!isset($opciones['menu'])) $opciones['menu'] = null;
 		if (!isset($opciones['celda_memoria'])) $opciones['celda_memoria'] = null;
 		if (!isset($opciones['texto'])) $opciones['texto'] = '';
-		if (!isset($opciones['validar'])) $opciones['validar'] = true;
-		if (!isset($opciones['escribir_tag'])) $opciones['escribir_tag'] = false;
 		if (!isset($opciones['servicio'])) $opciones['servicio'] = apex_hilo_qs_servicio_defecto;
 		if (!isset($opciones['objetos_destino'])) $opciones['objetos_destino'] = null;
 		if (!isset($opciones['prefijo'])) $opciones['prefijo'] = null;
-		
-		$requerido_item_actual = ($item_actual[0]==$proyecto && $item_actual[1]==$item);
-		if ( $opciones['validar'] && !$requerido_item_actual) {
-			$clave = $proyecto.",".$item;
-			if (isset($this->indices_item[$clave])) {
-				$v = $this->indices_item[$clave];
-			} else {
-				return null;	
-			}
-		}
-		$url = $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
+		return $this->generar_solicitud($proyecto, $item, $parametros, $opciones['zona'],
 								 $opciones['cronometrar'], $opciones['param_html'],
 								 $opciones['menu'], $opciones['celda_memoria'], 
 								 $opciones['servicio'], $opciones['objetos_destino'],
 								 $opciones['prefijo'] );
-		if ($opciones['escribir_tag']) {
-			return $this->generar_html_vinculo($url,$v,'lista-link',$texto, $opciones['param_html']);
-		} else {
-			return $url;
-		}
 	}
 	
 	/**
@@ -123,6 +78,11 @@ class vinculador
 
 	function registrar_vinculo( vinculo $vinculo )
 	{
+		$item = $vinculo->get_item();
+		$proyecto = $vinculo->get_proyecto();
+		if ( ! $this->posee_acceso_item($proyecto, $item) ) {
+			return null;
+		}
 		$id = count( $this->vinculos );
 		$this->vinculos[$id] = $vinculo;
 		return $id;
@@ -131,37 +91,6 @@ class vinculador
 //##################################################################################
 //########################   Solicitud DIRECTA de URLS  ############################
 //##################################################################################
-	
-	function variable_a_url($variable)
-	{
-		if (! is_array($variable)) {
-			return urlencode($variable);
-		}
-		$salida = array();
-		foreach ($variable as $clave => $valor) {
-			$salida[] = urlencode($clave . apex_qs_sep_interno. $valor);
-		}
-		return implode(apex_qs_separador, $salida);
-	}
-	
-	function url_a_variable($url)
-	{
-		if (strpos($url, apex_qs_separador) === false) {
-			return urldecode($url);
-		}
-		$salida = array();
-		$partes = explode(apex_qs_separador, $url);
-		foreach ($partes as $parte) {
-			if (strpos($parte, apex_qs_sep_interno) === false) {
-				$salida[] = urldecode($parte);
-			} else {
-				//--- Manejo de claves asociativas
-				list($clave, $valor) = explode(apex_qs_sep_interno, urldecode($parte));
-				$salida[$clave] = $valor;
-			}
-		}
-		return $salida;
-	}
 
 	/**
 	 * Generacion directa de una URL que representa un posible futuro acceso a la infraestructura
@@ -177,22 +106,31 @@ class vinculador
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
 	 * @return string URL hacia el ítem solicitado
 	 */
-	function generar_solicitud($item_proyecto="",$item="",$parametros=null,
+	function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
 								$menu=null,$celda_memoria=null, $servicio=null,
 								$objetos_destino=null, $prefijo=null)
  	{
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
-		if ($item_proyecto == '' || $item == '') {
+		$autovinculo = false;
+		if ($item_proyecto == null || $item == null) {
 			$item_solic = toba::get_hilo()->obtener_item_solicitado();
-			if($item_proyecto=="") { 
+			if($item_proyecto==null) { 
 				$item_proyecto = $item_solic[0];
 			}
-			if($item==""){
+			if($item==null){
 				$item = $item_solic[1];
+				$autovinculo = true;
 			}
 		}
+		//Controlo que el usuario posea permisos para acceder al ITEM
+		if ( !$autovinculo ) {
+			if ( ! $this->posee_acceso_item($item_proyecto, $item) ) {
+				return null;	
+			}
+		}
+
 		$item_a_llamar = $item_proyecto . apex_qs_separador . $item;
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
@@ -267,201 +205,75 @@ class vinculador
 		}
 	}
 
-//##################################################################################
-//#########  Solicitud INDIRECTA de URLs (Vinculacion a travez de la DB) ###########
-//##################################################################################
+	//-------------------------------------------------------------------------------------
+	//---------------------------- CONVERSIONES  ------------------------------------------
+	//-------------------------------------------------------------------------------------
 
-
-	/**
-	 * Recupera un VINCULO explicitamente. Controla los permisos de ACCESO
-	 *
-	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
-	 * @param string $item ID. del ítem destino (por defecto el actual)
-	 * @param array $parametros Párametros enviados al ítem, arreglo asociativo de strings
-	 * @param boolean $escribir_tag Indica si hay que generar el html del vinculo
-	 * @param boolean $zona Activa la propagación automática del editable en la zona
-	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
-	 * @param string $texto Texto del vínculo
-	 * @param array $param_html Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
-	 * @param boolean $menu El vinculo esta solicitado por el menu?
-	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
-	 * @return string URL que implementa la llamada o HTML del vinculo si el USUARIO posee permisos, NULL en el caso contrario
-	 */
-	function obtener_vinculo_a_item($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
-										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
+	function variable_a_url($variable)
 	{
-		$clave = $proyecto.",".$item;
-		if(isset($this->indices_item[$clave])){
-			$v = $this->indices_item[$clave];
-			$url = $this->generar_solicitud($this->info[$v]['destino_item_proyecto'],
-											$this->info[$v]['destino_item'],
-											$parametros,$zona,$cronometrar,null,$menu,$celda_memoria);
-			if($escribir_tag){
-				return $this->generar_html_vinculo($url,$v,'lista-link',$texto, $param_html);
-			}else{
-				return $url;
-			}
-		}else{
-			//No existe una referencia a ese ITEM.
-			//El VINCULO no esta asociado, o el usuario actual no posee permisos
-			return null;
+		if (! is_array($variable)) {
+			return urlencode($variable);
 		}
-	}
-//-------------------------------------------------------------------------------------
-
-	/**
-	 * Recupera un VINCULO explicitamente, controlando que el ITEM actual pertenezca el proyecto activo. Controla el los permisos de ACCESO.
-	 *
-	 * @see vinculador::obtener_vinculo_a_item
-	 */
-	function obtener_vinculo_a_item_cp($proyecto, $item, $parametros=null, $escribir_tag=false, $zona=false, 
-										$cronometrar=false,$texto="",$param_html=null, $menu=null, $celda_memoria=null)
-	{
-		$item_solic = toba::get_hilo()->obtener_item_solicitado();
-		if($item_solic[0] == toba::get_hilo()->obtener_proyecto() ){
-			return $this->obtener_vinculo_a_item($proyecto,$item,$parametros,$escribir_tag,$zona,
-													$cronometrar,$texto,$param_html,$menu,$celda_memoria);
-		}else{
-			return null;
+		$salida = array();
+		foreach ($variable as $clave => $valor) {
+			$salida[] = urlencode($clave . apex_qs_sep_interno. $valor);
 		}
-	}
-//-------------------------------------------------------------------------------------
-
-
-	function obtener_vinculo_de_objeto($objeto, $indice, $parametro=null, $escribir_tag=false, $texto="", $zona=true)
-/*
- 	@@acceso: objeto
-	@@desc: Este metodo es llamado desde las clases que conforman objetos de la libreria. Recupera un VINCULO asociado a un OBJETO
-	@@param: array | Id del OBJETO (proyecto/objeto)
-	@@param: string | Indice del VINCULO dentro del OBJETO
-	@@param: string | Parametro pasado al ITEM siguente| null
-	@@param: boolean | Indica si hay que generar el HTML del VINCULO | false
-	@@param: texto | Texto del vinculo | vacio
-	@@retorno: string | URL que implementa la llamada o HTML del vinculo
-	@@pendiente: El PARAMETRO pasado por el OBJETO es un STRING, no deberia ser un array?
-*/
-	{
-		//Si el OBJETO esta en su INSTANCIADOR, no tiene acceso a su contexto de VINCULOS,
-		//Por la ejecucion se considera de prueba y el LINK dumpea los parametros PASADOS
-		if( toba::get_hilo()->entorno_instanciador() === true){
-			//Esto es verdad para todos los objetos?
-			if(trim($texto)=="") $texto = "Probar";
-			return "<a href='#' class='lista-link' onclick=\"alert('PARAMETRO[ $parametro ]')\">$texto</a>";
-		}
-		//No se solicita desde el contexto de INSTANCIACION...
-		$clave = $objeto[0].",".$objeto[1];
-		if(isset($this->indices_objeto[$clave][$indice])){
-			$v = $this->indices_objeto[$clave][$indice];
-			//Veo cual es el canal que hay que utilizar
-			if(isset($this->info[$v]['canal'])){
-				$canal = $this->info[$v]['canal'];
-			}elseif(isset($this->info[$v]['destino_objeto'])){
-				$canal = apex_hilo_qs_canal_obj . $this->info[$v]['destino_objeto'];
-			}else{
-				//La ausensia de canal, puede usarse para pasar un array asociativo directo
-				return "ERROR";
-			}
-			//Armo el paquete de parametros
-			if(is_array($parametro)){
-				$paquete = $parametro;		
-			}else{
-				if(isset($parametro)){
-					$paquete = array( $canal=>$parametro);
-				}else{
-					$paquete = null;
-				}
-			}
-			//genero el URL
-			if($this->info[$v]['destino_item']=="/autovinculo"){
-				$url = $this->generar_solicitud(null,null,$paquete,true);
-			}else{
-				$url = $this->generar_solicitud($this->info[$v]['destino_item_proyecto'],$this->info[$v]['destino_item'],$paquete,$zona);
-			}
-			//Escribo el TAG o devuelvo el URL pelado
-			if($escribir_tag){
-				return $this->generar_html_vinculo($url,$v,null,$texto);
-			}else{
-				return $url;
-			}
-		}else{
-			return null;
-		}
-	}
-//----------------------------------------------------------------
-
-	/**
-	* Consulta si un USUARIO tiene acceso a un ITEM
-	*
-	* @param string $proyecto Proyecto al que pertenece el item
-	* @param string $item Id. del item a consultar
-	* @param boolean $solo_proyecto_local Controla si el ITEM es del proyecto ACTIVO
-	* @return boolean true si tiene acceso y false en el caso contrario
-	* @todo Me parece que el tercer parametro no se comporta como se supone
-	*/
-	function consultar_vinculo($proyecto, $item, $solo_proyecto_local=false)
-	{
-		$clave = $proyecto.",".$item;
-		if(isset($this->indices_item[$clave])){
-			//Controlar tambien que el ITEM se va a cargar en su propio proyecto
-			if($solo_proyecto_local){
-				$item_solic = toba::get_hilo()->obtener_item_solicitado();
-				if($item_solic[0] == toba::get_hilo()->obtener_proyecto() ){
-					return true;
-				}else{
-					return false;
-				}
-			}else{
-				return true;
-			}
-		}else{
-			return false;
-		}
+		return implode(apex_qs_separador, $salida);
 	}
 	
-//-------------------------------------------------------------------------------------
-//------------------------------ HTML  -------------------------------
-//-------------------------------------------------------------------------------------
-
-	protected function generar_html_vinculo($url, $posicion_vinculo, $clase_css='lista-link', $forzar_texto="", $param_extra=null)
-/*
- 	@@acceso: interno
-	@@desc: Inicializa la generacion de HTML del vinculo interno
-	@@param: string | URL
-	@@param: int | Posicion del vinculo en el array $this->info
-	@@param: string | Estilo CSS que hay que aplicarle al link | 'lista-link'
-	@@param: string | Forzar el texto del vinculo | vacio
-	@@retorno: string | HTML del vinculo generado
-*/
+	function url_a_variable($url)
 	{
-		if($forzar_texto==""){
-			if(trim($this->info[$posicion_vinculo]['texto']=="")){
-				//MODIFICAR!!! El texto por defecto tiene que salir del proyecto
-				$texto = "TEXTO no especificado";
-			}else{
-				$texto = $this->info[$posicion_vinculo]['texto'];
+		if (strpos($url, apex_qs_separador) === false) {
+			return urldecode($url);
+		}
+		$salida = array();
+		$partes = explode(apex_qs_separador, $url);
+		foreach ($partes as $parte) {
+			if (strpos($parte, apex_qs_sep_interno) === false) {
+				$salida[] = urldecode($parte);
+			} else {
+				//--- Manejo de claves asociativas
+				list($clave, $valor) = explode(apex_qs_sep_interno, urldecode($parte));
+				$salida[$clave] = $valor;
 			}
-		}else{
-			$this->info[$posicion_vinculo]['texto'] = $forzar_texto;
 		}
-		$parametros = $this->info[$posicion_vinculo];
-		$parametros['clase_css'] = $clase_css;
-		if (is_array($param_extra)) {
-			$parametros = array_merge($parametros, $param_extra);
-		}
-
-		return $this->generar_html($url, $parametros);
+		return $salida;
 	}
-//----------------------------------------------------------------
 
-	protected function generar_html($url, $parametros)
-/*
- 	@@acceso: interno
-	@@desc: Genera un VINCULO
-	@@param: string | URL
-	@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
- 	@@retorno: string | HTML del vinculo generado
-*/
+	//-------------------------------------------------------------------------------------
+	//------------------------------ CONTROL de ACCESO  -----------------------------------
+	//-------------------------------------------------------------------------------------
+
+	protected function cargar_vinculos_posibles()
 	{
+		$usuario = toba::get_hilo()->obtener_usuario();
+		$rs = info_instancia::instancia()->get_vinculos_posibles($usuario);
+		foreach($rs as $vinculo) {
+			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
+		}
+		$_SESSION['toba']['instancia']['vinculos_posibles'] = $vinculos;
+	}
+
+	protected function posee_acceso_item($proyecto, $item)
+	{
+		return isset($_SESSION['toba']['instancia']['vinculos_posibles'][$proyecto.'-'.$item]);
+	}
+	
+	//-------------------------------------------------------------------------------------
+	//------------------------------ SALIDA  ----------------------------------------------
+	//-------------------------------------------------------------------------------------
+
+	/**
+		@@acceso: interno
+		@@desc: Genera un VINCULO
+		@@param: string | URL
+		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+		@@retorno: string | HTML del vinculo generado
+	*/
+	protected function generar_html($url, $parametros)
+	{
+		if(!isset($parametros['tipo'])) $parametros['tipo'] = 'normal';
+		if(!isset($parametros['texto'])) $parametros['texto'] = '';
 		$id='';
 		if (isset($parametros['id'])) {
 			$id = "id='{$parametros['id']}'";
@@ -520,7 +332,6 @@ class vinculador
 		$html.= "</a>";
 		return $html;
 	}
-//----------------------------------------------------------------
 
 	/**
 	 * Genera un salto de javascript directo a una pagina

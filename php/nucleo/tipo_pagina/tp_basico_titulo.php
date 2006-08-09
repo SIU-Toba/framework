@@ -14,16 +14,6 @@ class tp_basico_titulo extends tp_basico
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$info['item_nombre']."</div>";
-	
-		/*
-		if (toba::get_solicitud()->existe_ayuda()){
-			$parametros = array("item"=>$info["item"],
-								"proyecto"=>$info["item_proyecto"]);
-			echo "<td  class='barra-0-tit' width='1'>&nbsp;";
-			echo toba::get_vinculador()->obtener_vinculo_a_item("toba","/basicos/ayuda",$parametros,true);
-			echo "&nbsp;</td>";
-		}*/
-
 		echo "</div>\n\n";
 	}
 	

@@ -86,8 +86,13 @@ function mostrar_ocultar_frame() {
 
 <?
 	$parametros = array();
-	$html_extra = array('id' => 'vinculo_logger');
-	$url =toba::get_vinculador()->obtener_vinculo_a_item(editor::get_id(),'1000003',$parametros,true, false, false, '', $html_extra, null, 'logger');
+	$html_extra = array('id' => 'vinculo_logger',
+						'imagen' => 'admin/logger.gif',
+						'imagen_recurso_origen' => 'apex',
+						'tipo' => 'popup',
+						'inicializacion' => '615,450,1,1',
+						'texto' => 'Logger');
+	$url = toba::get_vinculador()->generar_solicitud(editor::get_id(),'1000003',$parametros, false, false, $html_extra, null, 'logger');
 ?>
          <td class='listado-tabi'><? echo $url ?></td>
 

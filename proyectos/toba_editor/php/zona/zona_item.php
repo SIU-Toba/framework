@@ -28,7 +28,7 @@ class zona_item extends zona_editor
 	function obtener_html_barra_vinculos()
 	{
 		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
- 		echo toba::get_vinculador()->obtener_vinculo_a_item_cp(editor::get_id(),"/admin/items/catalogo_unificado",
+ 		echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/catalogo_unificado",
  																$parametros,true, false, false, "", null, null, 'lateral');
 		parent::obtener_html_barra_vinculos();		
 		

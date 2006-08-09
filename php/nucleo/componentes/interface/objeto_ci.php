@@ -66,7 +66,6 @@ class objeto_ci extends objeto_ei
 	//Antes que todo
 	{
 	}
-
 	
 	//--------------------------------------------------------------
 	//---------  Manejo de MEMORIA -------------------------------
