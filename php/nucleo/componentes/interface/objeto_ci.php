@@ -194,8 +194,13 @@ class objeto_ci extends objeto_ei
  			$this->log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
 		$this->controlar_cambio_pantalla();
-		$this->evt__post_recuperar_interaccion();		
+		$this->post_eventos();
 	}
+	
+	/**
+	 * Callback que se ejecuta una vez que todos los eventos se han disparado para este objeto
+	 */
+	protected function post_eventos() {}
 	
 	/**
 	 *	Si existio un cambio explicito de pantalla se notifican las callbacks de entrada-salida
@@ -516,13 +521,15 @@ class objeto_ci extends objeto_ei
 			}
 		}		
 		
-		//--- Configuracion pantalla actual
+		//--- Configuracion defecto pantalla actual
 		$this->pantalla()->pre_configurar();
+		
+		//--- Configuracion pers. propia		
+		$this->conf();
+		
+		//--- Configuracion pers. pantalla actual
 		$conf_pantalla = 'conf__'.$this->pantalla_id_servicio;
 		$this->invocar_callback($conf_pantalla, $this->pantalla());
-		
-		//--- Configuracion propia
-		$this->conf();
 		$this->pantalla()->post_configurar();		
 
 		//--- Configuracion de las dependencias
@@ -591,6 +598,9 @@ class objeto_ci extends objeto_ei
 	
 	protected function set_pantalla($id)
 	{
+		if (isset($this->pantalla_servicio)) {
+			throw new excepcion_toba($this->get_txt()."Solo es posible cambiar la pantalla actual previo a la etapa de configuración.");
+		}
 		$this->pantalla_id_servicio	= $id;
 	}
 

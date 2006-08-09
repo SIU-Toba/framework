@@ -103,5 +103,10 @@ class analizador_logger_fs
 		}
 		return $logs;
 	}
+	
+	function get_archivo_nombre()
+	{
+		return $this->archivo;	
+	}
 }
 ?>

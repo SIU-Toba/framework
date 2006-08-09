@@ -5,7 +5,7 @@ require_once('modelo/lib/analizador_logger.php');
 class ci_analizador extends objeto_ci
 {
 	protected $opciones;
-	protected $seleccion;
+	public $seleccion;
 	protected $archivo;
 	protected $cambiar_pantalla = false;
 	protected $analizador;
@@ -24,7 +24,7 @@ class ci_analizador extends objeto_ci
 	 */
 	function evt__inicializar()
 	{
-		//toba::get_logger()->desactivar();	
+		toba::get_logger()->desactivar();	
 		if (!isset($this->opciones)) {
 			$this->opciones['proyecto'] = editor::get_proyecto_cargado();	
 			$this->opciones['fuente'] = 'fs';
@@ -35,9 +35,13 @@ class ci_analizador extends objeto_ci
 		
 	function conf()
 	{
-		$this->cargar_analizador();		
+		$this->cargar_analizador();
 	}
 
+	function conf__visor()
+	{
+		$this->pantalla()->analizador = $this->analizador;		
+	}
 	
 	function cargar_analizador()
 	{
@@ -47,65 +51,9 @@ class ci_analizador extends objeto_ci
 		}
 	}
 	
-	function generar_html_dependencias()
+	function debe_mostrar_visor()
 	{
-		parent::generar_html_dependencias();
-?>
-		<style type="text/css">
-		.cuerpo, .ci-cuerpo {
-			margin-top: 0px;
-			margin-bottom: 0px;
-		}
-		.admin-logger-opciones {
-			border:1px solid black; 
-			text-align: left;
-			list-style-type: none;
-			padding: 4px;
-			margin: 0; 
-			background-color:white;
-		}		
-		.admin-logger-proyecto {
-			font-size: 20px;
-			font-weight: bold;
-			float: right;
-		}
-		.admin-logger-traza {
-			font-weight: bold;
-	 		TEXT-DECORATION: underline;
-	 		color: blue;
-	 		cursor: pointer;
-		}
-		.admin-logger-selec {
-			font-size:14px;
-			display: block;
-		}
-		.admin-logger-normal {
-			padding-left: 10px;
-		}
-		.admin-logger-seccion {
-			padding-top: 5px;
-			padding-bottom: 5px;
-			font-weight: bold;
-		}
-		pre {
-			margin: 0;
-			padding:0;
-			margin-left:20px;
-		}
-		</style>
-<?php
-		if ($this->debe_mostrar_visor()) {
-			if ($this->opciones['fuente'] == 'db') {
-				$this->generar_html_db();
-			} elseif ($this->opciones['fuente'] == 'fs') {
-				$this->generar_html_fs();
-			}
-		}
-	}
-	
-	protected function debe_mostrar_visor()
-	{
-		if ($this->get_pantalla_actual() == 'visor' && isset($this->seleccion)) {
+		if ($this->get_id_pantalla() == 'visor' && isset($this->seleccion)) {
 			if (isset($this->opciones['proyecto']) && isset($this->opciones['fuente'])) {
 				return true;
 			}
@@ -113,13 +61,23 @@ class ci_analizador extends objeto_ci
 		return false;
 	}
 	
+	function timestamp_archivo()
+	{
+		return filemtime($this->archivo);
+	}
+	
+	function existe_archivo_log()
+	{
+		return file_exists($this->archivo);
+	}
+	
 	function servicio__ejecutar()
 	{
 		$res = $this->analizador->obtener_pedido($this->seleccion);
-		$encabezado = $this->generar_html_encabezado($res);
-		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
+		$encabezado = $this->pantalla()->generar_html_encabezado($res);
+		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
 		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
-		$ultima_mod = filemtime($this->archivo);
+		$ultima_mod = $this->timestamp_archivo();
 		if ($anterior_mod != $ultima_mod) {
 			echo $ultima_mod;		
 			echo "<--toba-->";			
@@ -130,260 +88,6 @@ class ci_analizador extends objeto_ci
 			echo js::arreglo($cant_por_nivel, true);
 		}
 	}
-	
-	function extender_objeto_js() 
-	{
-		if (!$this->debe_mostrar_visor() || !file_exists($this->archivo)) {
-			return;	
-		}
-		$niveles = toba::get_logger()->get_niveles();		
-		$parametros = array();
-//		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
-?>
-			var ultima_mod ='<?=filemtime($this->archivo)?>';
-			var niveles = <?=js::arreglo($niveles)?>;
-			var niveles_actuales = {length: 0};
-			var refresco_automatico = true;
-			var consultando = false;
-
-			<?=$this->objeto_js?>.evt__refrescar = function() {
-				var callback =
-				{
-				  success: this.respuesta_refresco ,
-				  failure: toba.error_comunicacion,
-				  scope: this
-				}
-				var parametros = {'mtime': ultima_mod};
-				var vinculo = vinculador.crear_autovinculo('ejecutar', parametros);
-				conexion.asyncRequest('GET', vinculo, callback, null);
-				return false;
-			}
-			
-			<?=$this->objeto_js?>.respuesta_refresco = function(resp)
-			{
-				try {
-					var partes = toba.analizar_respuesta_servicio(resp);
-					//Se actualizo el logger?
-					if (partes.length > 0) {
-						toba.inicio_aguardar();
-						ultima_mod = partes[0];
-						document.getElementById('logger_encabezados').innerHTML = partes[1];
-						document.getElementById('logger_detalle').innerHTML = partes[2];
-						var cant = eval('(' + partes[3] + ')');
-						refrescar_cantidad_niveles(cant);
-						refrescar_detalle();
-						setTimeout("toba.fin_aguardar()", 200);
-					}
-				} catch (e) {
-					//alert(e);
-				}
-				consultando = false;				
-			}
-			
-			function mostrar_nivel(nivel)
-			{
-				var li_nivel = document.getElementById('nivel_' + nivel);
-				if (! niveles_actuales[nivel]) {
-					niveles_actuales[nivel] = true;
-					niveles_actuales.length++;
-				} else {
-					delete(niveles_actuales[nivel]);
-					niveles_actuales.length--;
-				}
-				refrescar_niveles();
-				refrescar_detalle();
-			}
-	
-			function refrescar_niveles()
-			{
-				var mostrar_todos = (niveles_actuales.length == 0);			
-				for (var i=0; i< niveles.length; i++) {
-					var nivel_min = niveles[i].toLowerCase();
-					var li_nivel = document.getElementById('nivel_' + niveles[i]);
-					var src_actual = li_nivel.childNodes[0].childNodes[0].src;
-					var diff = (mostrar_todos || niveles_actuales[niveles[i]]) ? '' : '_des';
-					var src_nuevo = toba_alias + '/img/logger/' + nivel_min + diff + '.gif';
-					if (src_actual != src_nuevo) {
-						li_nivel.childNodes[0].childNodes[0].src = src_nuevo;
-					}
-				}
-			}
-			
-			function refrescar_detalle()
-			{
-				var mostrar_todos = (niveles_actuales.length == 0);
-				var detalle = document.getElementById('logger_detalle');
-				for (var i=0; i < detalle.childNodes.length; i++) {
-					var nodo = detalle.childNodes[i];
-					var nivel = nodo.attributes['nivel'].value;
-					var debe_mostrar = (mostrar_todos || niveles_actuales[nivel]);
-					if (debe_mostrar && nodo.style.display == 'none') {
-						nodo.style.display = '';
-					}
-					if (!debe_mostrar && nodo.style.display == '') {
-						nodo.style.display = 'none';	
-					}
-				}
-			}			
-			
-			function refrescar_cantidad_niveles(cantidades)
-			{
-				for (var nivel in cantidades) {
-					var cant = (cantidades[nivel] > 0) ? '[' + cantidades[nivel] + ']' : '';
-					document.getElementById('nivel_cant_' + nivel).innerHTML = cant;
-				}
-			}
-			
-			function set_refresco_automatico(activar)
-			{
-				refresco_automatico = activar;
-				document.getElementById('div_lapso').style.display = (activar) ? "" :"none";
-			}
-			
-			function chequear_refresco()
-			{
-				if (refresco_automatico && !consultando) {
-					consultando = true;
-					toba.set_aguardar(false);
-					<?=$this->objeto_js?>.evt__refrescar();
-				}
-				timer_refresco();
-			}
-			
-			function timer_refresco()
-			{
-				var lapso = parseFloat(document.getElementById('refresco_lapso').value);
-				var lapso = (lapso>0) ? lapso : 2000;
-				setTimeout("chequear_refresco()", lapso);
-			}
-			set_refresco_automatico(document.getElementById('refresco_automatico').checked);
-			timer_refresco();
-<?php
-	}
-	
-	function generar_html_fs()
-	{
-		if (!file_exists($this->archivo)) {
-			echo ei_mensaje("No hay logs registrados para el proyecto ".
-							"<strong>{$this->opciones['proyecto']}</strong>");
-			return;
-		}			
-		$niveles = toba::get_logger()->get_niveles();
-		$niveles = array_reverse($niveles);		
-		
-		$res = $this->analizador->obtener_pedido($this->seleccion);
-		$encabezado = $this->analizador->analizar_encabezado($res);
-		
-		//--- Opciones
-		$selec = ($this->seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$this->seleccion}";
-		echo "<div>";
-		echo "<span class='admin-logger-proyecto' title='{$this->archivo}'>";
-		echo ucfirst($this->opciones['proyecto']);
-		echo "<span class='admin-logger-selec'>$selec</span></span>";
-		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
-		echo "<label>$check Ver Encabezados</label><br>";
-
-		$check = form::checkbox("refresco_automatico", 0, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");
-		$edit = form::text("refresco_lapso", 2000, false, 6, 6);
-		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
-		echo "</div><hr style='clear:both'>";		
-		
-		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
-		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
-
-		//--- Encabezado 
-		echo "<ul id='logger_encabezados' style='display:none;list-style-type: none;padding: 0;margin: 0'>";		
-		echo $this->generar_html_encabezado($res);
-		echo "</ul>";
-
-		//---- Niveles
-		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'>";
-		echo "<strong>Niveles</strong>";
-		echo "<ul class='admin-logger-opciones'>";
-		foreach ($niveles as $nivel) {
-			$img = recurso::imagen_apl('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
-			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
-			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
-			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
-		}
-		echo "</ul>";
-		echo "</div>";
-/*****	MOCKUP de la eleccion de un proyecto especifico		
- 		echo recurso::imagen_apl('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
-		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
-		echo "<strong>Proyectos</strong>";
-		echo "<ul id='logger_proyectos' class='admin-logger-opciones'>";
-		echo "<li>".form::multi_select("opciones_proyectos", array(), array('referencia','toba'), 2)."</li>";
-		echo "</ul>";		
-		echo "</div>";*/
-		
-		//--- Detalles
-		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
-		echo $detalle;
-		echo "</ol>\n";
-		
-		echo "</div>";
-	}
-	
-	function generar_html_encabezado($res)
-	{
-		$encabezado = $this->analizador->analizar_encabezado($res);
-		$enc = "";
-		//--- Encabezado		
-		foreach ($encabezado as $clave => $valor) {
-			$enc .= "<li><strong>".ucfirst($clave)."</strong>: $valor</li>\n";
-		}
-		$enc .= "<li><hr></li>";
-		return $enc;
-	}
-	
-	function generar_html_detalles($res)
-	{
-		$niveles = toba::get_logger()->get_niveles();
-		$cuerpo = $this->analizador->analizar_cuerpo($res);
-		$cant_por_nivel = array();
-		foreach ($niveles as $nivel) {
-			$cant_por_nivel[$nivel] = 0;
-		}
-		$detalle = '';
-		foreach ($cuerpo as $linea) {
-			//¿Es una sección?
-			if (substr($linea['mensaje'], 0,10) == "[SECCION] ") {
-				$linea['mensaje'] = substr($linea['mensaje'], 10);
-				$img ='';
-				$clase = "admin-logger-seccion";
-			//Es normal
-			} else {
-				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
-				$clase = "admin-logger-normal";	
-			}
-			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
-			$detalle .= "$img ";
-			$detalle .= $this->txt2html($linea['mensaje']);
-			$detalle .= "</li>";	
-			$cant_por_nivel[$linea['nivel']]++;
-		}
-		return array($detalle, $cant_por_nivel);
-	}
-	
-	function txt2html($txt)	
-	{
-		$txt = trim($txt);
-		$texto_traza = "[TRAZA]";
-		$pos_traza = strpos($txt, $texto_traza);
-		$salto = strpos($txt, "\n", 0);		
-		
-		//¿Contiene una traza?		
-		if ($pos_traza !== false) {
-			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
-			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
-			$txt = "$txt_anterior <span class='admin-logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
-		} elseif ($salto !== false) {
-			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
-			$txt = substr($txt,0,$salto)."<pre>".substr($txt, $salto)."</pre>";
-		}
-		return $txt;
-	}	
 	
 	function get_logger()
 	{

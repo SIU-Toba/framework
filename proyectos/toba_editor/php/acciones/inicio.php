@@ -148,13 +148,13 @@
 	$prohibidos[] = 'get_lista_ei';
 	$prohibidos[] = 'get_lista_eventos';
 	$prohibidos[] = 'get_pantalla_actual';
-	$prohibidos[] = 'get_pantalla_actual';
 	$prohibidos[] = 'get_lista_tabs';
 	$prohibidos[] = 'evt__post_recuperar_interaccion';
 	$prohibidos[] = 'evt__pre_cargar_datos_dependencias';
 	$prohibidos[] = 'evt__post_cargar_datos_dependencias';
 	$prohibidos[] = 'evt__post_cargar_datos_dependencias';
 	$prohibidos[] = 'get_lista_eventos';
+	$prohibidos[] = 'obtener_html';
 	$prohibidos[] = 'obtener_html_contenido';
 	$prohibidos[] = 'get_etapa_actual';
 	

@@ -197,21 +197,33 @@ class editor
 	static function javascript_invocacion_editor()
 	{
 		echo js::abrir();
-		echo "	function toba_invocar_editor(frame, url) {\n";
-		if ( editor::acceso_recursivo() ) {
-			// La previsualizacion es dentro del mismo entorno
-			echo "	top.frame_control.editor.abrir_editor(frame,url);\n";
-		} else {
-			// La previsualizacion es en un popup
-			echo "	if (window.opener) {
-					window.opener.top.frame_control.editor.abrir_editor(frame,url);
-					window.opener.focus();
+		echo "	
+			function toba_invocar_editor(frame, url) 
+			{
+				var encontrado = false;
+				var rendido = false;
+				var sujeto = window;
+				//--- Trata de encontrar el frame de edicion
+				while (! encontrado && ! rendido) {
+					if (sujeto.top && sujeto.top.frame_control && sujeto.top.frame_control.editor) {
+						encontrado = true;
+						break;
+					}
+					if (sujeto.opener) {
+						sujeto = sujeto.opener;
+					} else {
+						//-- No hay mas padres, me rindo
+						rendido = true;
+					}
+				}
+				if (encontrado) {
+					sujeto.top.frame_control.editor.abrir_editor(frame, url);
+					sujeto.focus();
 				} else {
-					// Si cerraron el editor, esta ventana a no tiene sentido abierta.
-					window.close();	
-				}\n";
-		}
-		echo "}";
+					alert('No se puede encontrar un editor de toba abierto');
+				}
+			}
+		";
 		echo js::cerrar();		
 	}
 
