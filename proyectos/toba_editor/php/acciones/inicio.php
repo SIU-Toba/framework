@@ -101,7 +101,7 @@
 	//--- VERSION
 	$version = instalacion::get_version_actual();
 	$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
-	echo "<div style='position: absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
+	echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 	//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
 	$ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 	echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
@@ -118,6 +118,32 @@
 	echo "</ul>";
 	echo "</div>";
 
+	
+	echo "<hr style='clear:both'><h1 style='text-align:center'>Migración Manual</h1>";
+	
+	//------------------ ID de PANTALLAS e EIS  -----------------
+	$sql = "
+		SELECT
+			pant.identificador		as id,
+			pant.objeto_ci			as padre
+		FROM
+			apex_objeto_ci_pantalla pant,
+			apex_objeto_dependencias dep
+		WHERE
+				pant.identificador = dep.identificador		-- Mismo id
+			AND	pant.objeto_ci_proyecto = dep.proyecto		-- Mismo proy.
+			AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
+	";
+	$rs = contexto_info::get_db()->consultar($sql);
+	if (! empty($rs)) {
+		echo "<h2>Pantallas y eis que comparten el mismo id</h2><ul>";
+		foreach ($rs as $conflicto) {
+			echo "<li>CI {$conflicto['padre']}: {$conflicto['id']}</li>";
+		}
+		echo "</ul>";
+	}
+	
+	//------------------ METODOS OBSOLETOS -----------------
 	//--- Busca archivos sin migrar 
 	$prohibidos[] = 'get_lista_ei';
 	$prohibidos[] = 'get_lista_eventos';
@@ -130,10 +156,11 @@
 	$prohibidos[] = 'evt__post_cargar_datos_dependencias';
 	$prohibidos[] = 'get_lista_eventos';
 	$prohibidos[] = 'obtener_html_contenido';
+	$prohibidos[] = 'get_etapa_actual';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
-	echo "<h1>Métodos obsoletos</h1><ul style='clear:both'>";
+	echo "<h2>Métodos obsoletos</h2> (no busca por obtener_html y obtener_javascript de los cis)<ul>";
 	foreach ($archivos as $archivo ) {
 		if ($archivo !== __FILE__) {
 			$contenido = file_get_contents($archivo);

@@ -51,6 +51,7 @@ class objeto_ci extends objeto_ei
 		if(isset($this->dependencias_ci_globales)){
 			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
 		}
+		$this->eventos = $this->pantalla_servicio->get_lista_eventos();
 		parent::destruir();
 	}
 
@@ -515,15 +516,15 @@ class objeto_ci extends objeto_ei
 			}
 		}		
 		
-		//--- Configuracion propia
-		$this->conf();
-		
 		//--- Configuracion pantalla actual
-		$this->pantalla()->pre_configurar();		
+		$this->pantalla()->pre_configurar();
 		$conf_pantalla = 'conf__'.$this->pantalla_id_servicio;
 		$this->invocar_callback($conf_pantalla, $this->pantalla());
-		$this->pantalla()->post_configurar();		
 		
+		//--- Configuracion propia
+		$this->conf();
+		$this->pantalla()->post_configurar();		
+
 		//--- Configuracion de las dependencias
 		foreach ($this->pantalla()->get_lista_dependencias() as $dep) {
 			//--- Config. por defecto

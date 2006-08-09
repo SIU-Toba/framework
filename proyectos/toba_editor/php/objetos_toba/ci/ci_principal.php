@@ -19,7 +19,7 @@ class ci_editor extends ci_editores_toba
 		$pantalla = toba::get_hilo()->obtener_parametro('pantalla');
 		//¿Se selecciono una pantalla desde afuera?
 		if (isset($pantalla)) {
-			$this->set_pantalla(2);	
+			$this->set_pantalla(2);
 			//Se busca cual es el id interno del ML para enviarselo
 			$datos = $this->conf__pantallas_lista();
 			foreach ($datos as $id => $dato) {

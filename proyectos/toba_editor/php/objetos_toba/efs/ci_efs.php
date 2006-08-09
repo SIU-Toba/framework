@@ -49,14 +49,27 @@ class ci_efs extends objeto_ci
 		return false;
 	}
 
-	function get_lista_eventos()
+	function conf()
 	{
-		$eventos = parent::get_lista_eventos();
-		if(! $this->mostrar_efs_detalle() ){
-			unset($eventos['cancelar']);
-			unset($eventos['aceptar']);
-		}		
-		return $eventos;
+		$this->pantalla()->agregar_dep('efs_lista');		
+		if ($this->mostrar_efs_detalle() ){
+			$this->pantalla()->agregar_dep("efs");
+			$param_carga = $this->get_definicion_parametros(true);			
+			$param_varios = $this->get_definicion_parametros(false);
+			if (! empty($param_varios)) {			
+				$this->pantalla()->agregar_dep('param_varios');
+			}
+			if (! empty($param_carga)) {
+				$this->pantalla()->agregar_dep('param_carga');
+			}			
+		} else {
+			$this->pantalla()->eliminar_evento('cancelar');
+			$this->pantalla()->eliminar_evento('aceptar');
+			$this->pantalla()->agregar_dep('efs_importar');
+			if ($this->hay_cascadas()) {
+				$this->pantalla()->agregar_dep('esquema_cascadas');
+			}			
+		}
 	}
 
 	function evt__cancelar()
@@ -69,28 +82,6 @@ class ci_efs extends objeto_ci
 		$this->limpiar_seleccion();	
 	}
 
-	function get_lista_ei()
-	{
-		$ei[] = "efs_lista";
-		if( $this->mostrar_efs_detalle() ){
-			$ei[] = "efs";
-			$param_carga = $this->get_definicion_parametros(true);			
-			$param_varios = $this->get_definicion_parametros(false);
-			if (! empty($param_varios)) {			
-				$ei[] = 'param_varios';
-			}
-			if (! empty($param_carga)) {
-				$ei[] = 'param_carga';
-			}
-		}else{
-			$ei[] = "efs_importar";
-			if ($this->hay_cascadas()) {
-				$ei[] = "esquema_cascadas";
-			}			
-		}
-		return $ei;	
-	}
-	
 	function evt__post_cargar_datos_dependencias()
 	{
 		if( $this->mostrar_efs_detalle() ){
