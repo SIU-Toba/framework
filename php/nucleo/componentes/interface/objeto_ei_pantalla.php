@@ -13,7 +13,6 @@ class objeto_ei_pantalla extends objeto_ei
 	protected $nombre_formulario;					// Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
 
-	
 	function __construct($info_pantalla)
 	{
 		parent::__construct($info_pantalla);

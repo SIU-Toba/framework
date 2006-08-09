@@ -54,7 +54,7 @@ class objeto
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
-		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}.", 'toba');		
+		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}", 'toba');
 	}
 
 	function destruir()

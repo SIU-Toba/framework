@@ -58,6 +58,7 @@ class ci_creador_objeto extends objeto_ci
 		$this->redireccionar_a_objeto_creado();
 	}	
 	
+	
 	function get_lista_ei__tipos()
 	{
 		$eis = array();
