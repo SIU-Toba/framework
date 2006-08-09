@@ -43,7 +43,8 @@ class componente_ci extends componente_ei
 		$sql['info_ci']['registros']='1';
 		$sql['info_ci']['obligatorio']=true;
 		//-- PANTALLAS --------------
-		$sql["info_ci_me_pantalla"]['sql'] = "SELECT	pantalla			as pantalla,	
+		$sql["info_ci_me_pantalla"]['sql'] = "SELECT	
+													pantalla			as pantalla,	
 													identificador			as identificador,
 													etiqueta			  	as etiqueta,
 													descripcion			  	as descripcion,
@@ -52,7 +53,9 @@ class componente_ci extends componente_ei
 													imagen					as imagen,
 													objetos				  	as objetos,
 													eventos					as eventos,
-													orden					as orden
+													orden					as orden,
+													subclase				as subclase,
+													subclase_archivo		as subclase_archivo
 									 	FROM	apex_objeto_ci_pantalla
 										WHERE	objeto_ci_proyecto='$proyecto'";
 		if ( isset($componente) ) {

@@ -128,7 +128,7 @@ CREATE TABLE apex_objeto_ci_pantalla
 	subclase							varchar(80)			NULL,
 	subclase_archivo					varchar(80)			NULL,
 	CONSTRAINT	"apex_obj_ci_pan__pk" PRIMARY KEY ("objeto_ci_proyecto","objeto_ci","pantalla"),
-   	CONSTRAINT  "apex_obj_ci_pan__uk" UNIQUE KEY ("objeto_ci_proyecto","objeto_ci","identificador"),
+   	CONSTRAINT  "apex_obj_ci_pan__uk" UNIQUE ("objeto_ci_proyecto","objeto_ci","identificador"),
 	CONSTRAINT	"apex_obj_ci_pan__fk_padre" FOREIGN KEY ("objeto_ci_proyecto","objeto_ci") REFERENCES "apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_obj_ci_pan_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

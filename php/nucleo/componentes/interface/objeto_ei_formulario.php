@@ -705,9 +705,6 @@ class objeto_ei_formulario extends objeto_ei
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();
 				
-		if (editor::modo_prueba()) {
-			$this->ancho_etiqueta = sumar_medida($this->ancho_etiqueta, 18);
-		}
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 	

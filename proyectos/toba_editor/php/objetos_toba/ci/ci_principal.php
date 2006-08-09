@@ -80,6 +80,26 @@ class ci_editor extends ci_editores_toba
 	// ******************* tab PANTALLAS  ********************************
 	// *******************************************************************
 
+	function existen_deps()
+	{
+		return count($this->s__pantalla_dep_asoc) > 0;
+	}
+	
+	function existen_evts()
+	{
+		return count($this->s__pantalla_evt_asoc) > 0;
+	}
+	
+	function hay_pant_sel()
+	{
+		return isset($this->s__seleccion_pantalla);
+	}
+	
+	function get_datos_pantalla_actual()
+	{
+		return $this->get_entidad()->tabla('pantallas')->get_fila($this->s__seleccion_pantalla);
+	}
+	
 	function conf__2($pantalla)
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
@@ -100,7 +120,7 @@ class ci_editor extends ci_editores_toba
 		}		
 
 		//--- Se selecciono una pantalla?
-		if (isset($this->s__seleccion_pantalla)) {
+		if ($this->hay_pant_sel()) {
 			$this->dependencia('pantallas_lista')->seleccionar($this->s__seleccion_pantalla);
 			if( empty($this->s__pantalla_dep_asoc) ) {
 				$pantalla->eliminar_dep('pantallas_ei');
@@ -204,11 +224,16 @@ class ci_editor extends ci_editores_toba
 		//$obj->set_proximo_id($id);
 	
 		//--Protejo la evento seleccionada de la eliminacion		
-		if( isset($this->s__seleccion_pantalla) ) {
+		if( $this->hay_pant_sel() ) {
 			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->s__seleccion_pantalla );
 		}
 	}
 
+/*	function 
+	
+	
+	}*/
+	
 	//------------------------------------------------------
 	//-- Informacion extendida de la pantalla  -------------
 	//------------------------------------------------------

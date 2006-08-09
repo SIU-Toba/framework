@@ -569,14 +569,21 @@ class objeto_ci extends objeto_ei
 			$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
 			require_once('objeto_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			
+			$info_pantalla = $this->get_info_pantalla($id_pantalla);
 			$info = array('info' => $this->info,
 						 'info_ci' => $this->info_ci, 
 						 'info_eventos' => $this->info_eventos,
 						 'info_ci_me_pantalla' => $this->info_ci_me_pantalla);
-			$info['info_pantalla'] = $this->get_info_pantalla($id_pantalla);
+			$info['info_pantalla'] = $info_pantalla;
 			
-			//ei_arbol($info);
-			$this->pantalla_servicio = new objeto_ei_pantalla($info, $this);	
+			if (isset($info_pantalla['subclase_archivo'])) {
+				require_once($info_pantalla['subclase_archivo']);
+			}
+			$clase = 'objeto_ei_pantalla';
+			if (isset($info_pantalla['subclase'])) {
+				$clase = $info_pantalla['subclase'];
+			}
+			$this->pantalla_servicio = new $clase($info, $this);	
 			$this->pantalla_servicio->set_controlador($this, $id_pantalla);
 		}
 		return $this->pantalla_servicio;
