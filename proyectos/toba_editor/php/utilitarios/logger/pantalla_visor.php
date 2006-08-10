@@ -60,7 +60,7 @@ class pantalla_visor extends objeto_ei_pantalla
 	{
 		if (! $this->controlador->existe_archivo_log()) {
 			echo ei_mensaje("No hay logs registrados para el proyecto ".
-							"<strong>{$this->opciones['proyecto']}</strong>");
+							"<strong>{$this->controlador->get_proyecto()}</strong>");
 			return;
 		}			
 		$seleccion = $this->controlador->seleccion;
@@ -74,7 +74,7 @@ class pantalla_visor extends objeto_ei_pantalla
 		$selec = ($seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$seleccion}";
 		echo "<div>";
 		echo "<span class='admin-logger-proyecto' title='{$this->analizador->get_archivo_nombre()}'>";
-		echo ucfirst($this->opciones['proyecto']);
+		echo ucfirst($this->controlador->get_proyecto());
 		echo "<span class='admin-logger-selec'>$selec</span></span>";
 		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";

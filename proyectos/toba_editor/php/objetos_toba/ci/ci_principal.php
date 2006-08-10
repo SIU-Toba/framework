@@ -14,7 +14,7 @@ class ci_editor extends ci_editores_toba
 	protected $clase_actual = 'objeto_ci';
 	
 
-	function conf()
+	function evt__inicializar()
 	{
 		$pantalla = toba::get_hilo()->obtener_parametro('pantalla');
 		//¿Se selecciono una pantalla desde afuera?

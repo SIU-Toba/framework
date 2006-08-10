@@ -469,8 +469,7 @@ class info_item implements recorrible_como_arbol
 		$id_dr = dao_editores::get_dr_de_clase('item');
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
 		$dr = constructor_toba::get_runtime($componente);
-		$dr->conectar_fuente();
-		$dr->configuracion();
+		$dr->inicializar();
 		$dr->cargar(array('proyecto' => $this->proyecto, 'item' => $this->id));
 		
 		foreach ($nuevos_datos as $campo => $valor) {

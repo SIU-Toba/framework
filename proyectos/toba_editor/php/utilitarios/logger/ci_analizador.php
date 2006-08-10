@@ -43,6 +43,36 @@ class ci_analizador extends objeto_ci
 		$this->pantalla()->analizador = $this->analizador;		
 	}
 	
+	function servicio__ejecutar()
+	{
+		$res = $this->analizador->obtener_pedido($this->seleccion);
+		$encabezado = $this->pantalla()->generar_html_encabezado($res);
+		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
+		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
+		$ultima_mod = $this->timestamp_archivo();
+		if ($anterior_mod != $ultima_mod) {
+			echo $ultima_mod;		
+			echo "<--toba-->";			
+			echo $encabezado;
+			echo "<--toba-->";		
+			echo $detalle;
+			echo "<--toba-->";
+			echo js::arreglo($cant_por_nivel, true);
+		}
+	}
+	
+	//---- Consultas varias ----------------------------------------------------	
+	
+	function get_logger()
+	{
+		return logger::instancia($this->opciones['proyecto']);
+	}
+	
+	function get_proyecto()
+	{
+		return $this->opciones['proyecto'];
+	}
+
 	function cargar_analizador()
 	{
 		if (isset($this->opciones)) {
@@ -71,28 +101,6 @@ class ci_analizador extends objeto_ci
 		return file_exists($this->archivo);
 	}
 	
-	function servicio__ejecutar()
-	{
-		$res = $this->analizador->obtener_pedido($this->seleccion);
-		$encabezado = $this->pantalla()->generar_html_encabezado($res);
-		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
-		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
-		$ultima_mod = $this->timestamp_archivo();
-		if ($anterior_mod != $ultima_mod) {
-			echo $ultima_mod;		
-			echo "<--toba-->";			
-			echo $encabezado;
-			echo "<--toba-->";		
-			echo $detalle;
-			echo "<--toba-->";
-			echo js::arreglo($cant_por_nivel, true);
-		}
-	}
-	
-	function get_logger()
-	{
-		return logger::instancia($this->opciones['proyecto']);
-	}
 	
 	//---- Eventos CI -------------------------------------------------------
 	

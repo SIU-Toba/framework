@@ -2,6 +2,23 @@
 require_once('modelo/catalogo_modelo.php');
 require_once('modelo/lib/gui.php');
 
+class pantalla_login extends objeto_ei_pantalla 
+{
+	function generar_html()
+	{
+		// si se da un timeout, esta pagina puede cargarse en un frame...
+		// esta funcion detecta este caso y lo soluciona
+		$codigo_js = "
+			if(self.name!=top.name)	{
+				top.location.href='{$_SERVER['PHP_SELF']}';
+			}
+		";
+		echo js::ejecutar($codigo_js);
+		parent::generar_html();	
+	}	
+	
+}
+
 class ci_login extends objeto_ci
 {
 	protected $datos = array();
@@ -98,17 +115,6 @@ class ci_login extends objeto_ci
 	}
 	//-------------------------------------------------------------------
 	
-	function obtener_html()
-	{
-		// si se da un timeout, esta pagina puede cargarse en un frame...
-		// esta funcion detecta este caso y lo soluciona
-		$codigo_js = "
-			if(self.name!=top.name)	{
-				top.location.href='{$_SERVER['PHP_SELF']}';
-			}
-		";
-		echo js::ejecutar($codigo_js);
-		parent::obtener_html();	
-	}	
 }
+
 ?>

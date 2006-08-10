@@ -57,6 +57,10 @@ class objeto
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}", 'toba');
 	}
 
+	function inicializar()
+	{
+	}	
+	
 	function destruir()
 	{
 		//echo "Me estoy destruyendo " . $this->id[1] . "<br>";

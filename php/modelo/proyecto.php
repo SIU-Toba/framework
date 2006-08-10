@@ -553,7 +553,7 @@ class proyecto extends elemento_modelo
 		logger::instancia()->debug("Ejecutando el comando $comando");
 		$id_item = trim(exec($comando));
 		if (! is_numeric($id_item)) {
-			throw new excepcion_toba("A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
+			throw new excepcion_toba("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
 		}
 		$this->manejador_interface->mensaje("OK");
 		

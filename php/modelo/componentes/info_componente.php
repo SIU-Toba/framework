@@ -101,7 +101,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		//Se construye el objeto datos_relacion
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
 		$dr = constructor_toba::get_runtime($componente);
-		$dr->configuracion();
+		$dr->inicializar();
 		
 		//Se carga con el id_origen
 		$dr->cargar(array('proyecto' => $this->proyecto, 'objeto' => $this->id));

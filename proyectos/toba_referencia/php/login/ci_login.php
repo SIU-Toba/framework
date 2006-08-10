@@ -20,8 +20,6 @@ class ci_login extends objeto_ci
 		return $ei;
 	}
 	
-	
-
 	function post_eventos()
 	{
 		if (isset($this->datos['usuario']) ) {
@@ -36,6 +34,13 @@ class ci_login extends objeto_ci
 		}
 	}
 
+	function conf()
+	{
+		if ( ! info_proyecto::instancia()->get_parametro('validacion_debug') ) {
+			$this->pantalla()->eliminar_dep('seleccion_usuario');
+		}
+	}	
+	
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------

@@ -40,11 +40,6 @@ abstract class objeto_ei extends objeto
 		parent::destruir();
 	}	
 	
-	function inicializar($parametro)
-	{
-		
-	}
-	
 	function pre_configurar()
 	{
 		$this->cargar_lista_eventos();
