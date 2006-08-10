@@ -735,7 +735,8 @@ class objeto_datos_tabla extends objeto
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
 				throw new excepcion_toba("Para procesar un conjunto de registros es necesario indicar el estado ".
-									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'");
+									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'.
+									Si los datos provienen de un ML, active la opción de analizar filas.");
 			}
 		}
 		foreach(array_keys($filas) as $id){

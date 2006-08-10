@@ -120,7 +120,7 @@ class solicitud_web extends solicitud
 			try {
 				$this->objetos[$ci]->inicializar();
 				$this->objetos[$ci]->disparar_eventos();
-			} catch(excepcion_toba_usuario $e) {
+			} catch(excepcion_toba $e) {
 				$this->log->info($e, 'toba');			
 				toba::get_cola_mensajes()->agregar($e->getMessage());
 			}

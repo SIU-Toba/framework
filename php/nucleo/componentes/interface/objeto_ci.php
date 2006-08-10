@@ -46,12 +46,12 @@ class objeto_ci extends objeto_ei
 			$this->memoria['pantalla_dep'] = $this->pantalla_servicio->get_lista_dependencias();
 			$this->memoria['pantalla_servicio'] = $this->pantalla_id_servicio;
 			$this->memoria['tabs'] = array_keys($this->pantalla_servicio->get_lista_tabs());
+			$this->eventos = $this->pantalla_servicio->get_lista_eventos();
 		}
 		//Armo la lista GLOBAL de dependencias de tipo CI
 		if(isset($this->dependencias_ci_globales)){
 			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
 		}
-		$this->eventos = $this->pantalla_servicio->get_lista_eventos();
 		parent::destruir();
 	}
 
