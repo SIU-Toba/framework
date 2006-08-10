@@ -10,16 +10,6 @@ class ci_login extends objeto_ci
 		return $propiedades;
 	}
 
-	function get_lista_ei()
-	{
-		$ei = parent::get_lista_ei();
-		if ( ! info_proyecto::instancia()->get_parametro('validacion_debug') ) {
-			unset($ei);
-			$ei[] = 'datos';
-		}
-		return $ei;
-	}
-	
 	function post_eventos()
 	{
 		if (isset($this->datos['usuario']) ) {

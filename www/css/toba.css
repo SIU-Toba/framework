@@ -10,12 +10,12 @@
 .editor-mostrar {
 	display: inline;
 }
-body .div-editor { 
+.encabezado .div-editor { 
 	position: fixed;
 	_position: absolute;
 	left: 0px;
 }
-body * .div-editor {
+.div-editor {
 	position: static;
 }
 #editor_toggle {

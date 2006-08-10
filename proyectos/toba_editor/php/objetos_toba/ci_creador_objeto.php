@@ -10,9 +10,8 @@ class ci_creador_objeto extends objeto_ci
 	protected $destino;
 	protected $objeto_construido;
 	
-	function __construct($id)
+	function evt__inicializar()
 	{
-		parent::__construct($id);
 		if (! dao_editores::hay_fuente_definida(editor::get_proyecto_cargado())) {
 			throw new excepcion_toba("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
 		}		
@@ -41,43 +40,39 @@ class ci_creador_objeto extends objeto_ci
 		return $prop;
 	}
 	
-	
-	/**
-	*	Cuando se selecciona una clase se construye el objeto
-	*/
-	function get_etapa_actual()
+	function post_eventos()
 	{
 		if (! isset($this->clase_actual)) {
-			return "tipos";
-		} 
-		if (! isset($this->objeto_construido)) {
-			return "construccion";
+			$this->set_pantalla('pant_tipos');
+		} else if (! isset($this->objeto_construido)) {
+			$this->set_pantalla('pant_construccion');
+		} else {
+			//Sino es que el objeto se creo y no hay que asignarselo a nadie asi que 
+			//hay que redireccionar
+			$this->redireccionar_a_objeto_creado();
 		}
-		//Sino es que el objeto se creo y no hay que asignarselo a nadie asi que 
-		//hay que redireccionar
-		$this->redireccionar_a_objeto_creado();
-	}	
+	}
 	
-	
-	function get_lista_ei__tipos()
+	function conf__pant_tipos()
 	{
-		$eis = array();
+		
 		if (isset($this->destino)) {
 			if ($this->destino['tipo'] == 'datos_relacion') {
-				$eis[] = 'info_asignacion_dr';
+					$this->pantalla()->agregar_dep('info_asignacion_dr');
 			} elseif ($this->destino['tipo'] == 'ci' ||
 						$this->destino['tipo'] == 'ci_pantalla' || 
 							$this->destino['tipo'] == 'cn') { 
-				$eis[] = 'info_asignacion';
+				$this->pantalla()->agregar_dep('info_asignacion');
 			}
 		}
-		$eis[] = 'tipos';		
-		return $eis;
+		$this->pantalla()->agregar_dep('tipos');
 	}
 	
-	function obtener_descripcion_pantalla($pantalla)
+	function conf()
 	{
-		switch ($pantalla) {
+		//--- Se cambia la descripcion de las pantallas
+		$des = '';
+		switch ($this->get_id_pantalla()) {
 			case 'tipos':
 				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de [wiki:Referencia/Objetos objeto] a crear.";
 				switch ($this->destino['tipo']) {
@@ -109,10 +104,10 @@ class ci_creador_objeto extends objeto_ci
 			case 'asignacion_dr':
 				$des = "<strong>Asignación a un datos_relacion</strong><br>Ingrese los datos de la tabla en la relación.";
 				break;
-			default:
-				$des = parent::obtener_descripcion_pantalla($pantalla);
 		}
-		return $des;
+		if ($des != '') {
+			$this->pantalla()->set_descripcion($des);	
+		}
 	}
 	
 	//------------------------------------------------------------
@@ -166,14 +161,10 @@ class ci_creador_objeto extends objeto_ci
 		unset($this->datos_editor);
 	}
 	
-	/**
-	*	Durante la construcción mostrar el editor
-	*/	
-	function get_lista_ei__construccion()
+	function conf__pant_construccion()
 	{
-		return array("editor");
+		$this->pantalla()->agregar_dep('editor');
 	}
-	
 		
 	function cargar_editor()
 	{
