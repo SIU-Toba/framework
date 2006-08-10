@@ -696,7 +696,17 @@ class instancia extends elemento_modelo
 		$ini = new ini();
 		$ini->agregar_titulo( self::info_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
-		$ini->agregar_entrada( 'proyectos', implode(', ', $lista_proyectos) );
+		$ini->agregar_entrada( 'proyectos', implode(', ', array_keys($lista_proyectos)) );
+		
+		//--- Se revisa la lista de proyectos para ver si algun id_proyecto != dir_proyecto
+		foreach ($lista_proyectos as $id_pro => $path_pro) {
+			if ($path_pro != $id_pro) {
+				//--- Se agrega una seccion para el proyecto
+				$path_absoluto_pro = toba_dir().'/proyectos/'.$path_pro;
+				$ini->agregar_entrada($id_pro, array('path' => $path_absoluto_pro));
+			}
+		}
+		
 		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::info_instancia ;
 		$ini->guardar( $archivo );
 		logger::instancia()->debug("Creado archivo $archivo");

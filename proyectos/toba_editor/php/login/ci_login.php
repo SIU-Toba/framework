@@ -13,21 +13,6 @@ class ci_login extends objeto_ci
 		return $propiedades;
 	}
 
-	function evt__post_recuperar_interaccion()
-	{
-		if ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) {
-			if (!isset($this->datos['clave'])) {
-				$this->datos['clave'] = null;
-			}			
-			try {
-				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
-				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
-			} catch ( excepcion_toba_login $e ) {
-				toba::get_cola_mensajes()->agregar( $e->getMessage() );
-			}
-		}
-	}
-
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
@@ -42,6 +27,18 @@ class ci_login extends objeto_ci
 				$this->datos['usuario'] = $this->datos['autologin'];
 			}
 		}
+		
+		if ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) {
+			if (!isset($this->datos['clave'])) {
+				$this->datos['clave'] = null;
+			}			
+			try {
+				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
+				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
+			} catch ( excepcion_toba_login $e ) {
+				toba::get_cola_mensajes()->agregar( $e->getMessage() );
+			}
+		}		
 	}
 
 	function conf__datos()

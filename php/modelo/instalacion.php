@@ -271,6 +271,7 @@ class instalacion extends elemento_modelo
 		$editor->agregar_sustitucion( '|__proyecto_dir__|', manejador_archivos::path_a_unix($dir) );
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
 		$salida = $editor->procesar( $template );
+		$salida = "# Alias creado automáticamente - ".date('D/M/Y H:m:s')."\n".$salida;
 		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
 

@@ -1,6 +1,4 @@
 <?
-# Instancia a la que el punto de acceso debe conectarse
-define("apex_pa_instancia","__instancia__");
 # PROYECTO
 define("apex_pa_proyecto","__proyecto__");
 

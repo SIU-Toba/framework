@@ -1,6 +1,4 @@
 <?
-# apex_pa_instancia: Instancia a la que el punto de acceso debe conectarse
-define("apex_pa_instancia","desarrollo");
 # apex_proyecto: Proyecto PRIMARIO
 define("apex_pa_proyecto",'toba_referencia');
 #---- NIVEL de ACCESO minimo permitido

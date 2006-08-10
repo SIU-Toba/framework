@@ -233,11 +233,18 @@ class comando_toba extends comando
 		$titulo = "Seleccionar PROYECTOS";
 		$proyectos = proyecto::get_lista();
 		if( count( $proyectos ) > 0 ) {
-			foreach( $proyectos as $proyecto ) {
-				$p[ $proyecto ]	= $proyecto;
+			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, true, 'Nombre real del proyecto', 
+														$obligatorio, array_keys($proyectos), 'todos');
+			//--- Se valida que un proyecto no se incluya dos veces
+			//--- Ademas se transpone la matriz, ya que ahora proyecto es una PK
+			$seleccion = array();
+			foreach ($sel as $path) {
+				if (isset($seleccion[$proyectos[$path]])) {
+					throw new excepcion_toba('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
+				}
+				$seleccion[$proyectos[$path]] = $path;
 			}
-			return $this->consola->dialogo_lista_opciones( $p, $titulo, true, 'PATH', 
-														$obligatorio, $proyectos, 'todos');
+			return $seleccion;
 		} else {
 			if ( $obligatorio ) {
 				throw new excepcion_toba('No hay proyectos definidos');	

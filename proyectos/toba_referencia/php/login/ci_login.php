@@ -19,8 +19,10 @@ class ci_login extends objeto_ci
 		}
 		return $ei;
 	}
+	
+	
 
-	function evt__post_recuperar_interaccion()
+	function post_eventos()
 	{
 		if (isset($this->datos['usuario']) ) {
 			if (!isset($this->datos['clave'])) {

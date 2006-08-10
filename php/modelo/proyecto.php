@@ -630,6 +630,7 @@ class proyecto extends elemento_modelo
 	/**
 	*	Devuelve la lista de proyectos existentes en la carpeta por defecto de la instalación
 	* 	Es posible que existan proyectos en otros lugares del sistema de archivos y no se listen con este método
+	* 	@return array Arreglo asociativo path relativo => id proyecto
 	*/
 	static function get_lista()
 	{
@@ -639,15 +640,23 @@ class proyecto extends elemento_modelo
 			if ($dir = opendir($directorio_proyectos)) {
 			   while (false	!==	($archivo = readdir($dir)))	{ 
 					if( is_dir($directorio_proyectos . '/' . $archivo) 
-						&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
-						$proyectos[] = $archivo;
+							&& ($archivo != '.' ) && ($archivo != '..' ) && ($archivo != '.svn' ) ) {
+						$arch_nombre = $directorio_proyectos . '/' . $archivo.'/PROYECTO';
+						$id = $archivo;
+						//--- Si no se encuentra el archivo PROYECTO, se asume que dir=id
+						if (file_exists($arch_nombre)) {
+							$id = file_get_contents($arch_nombre);
+						}
+						$proyectos[$archivo] = $id;													
 					}
 			   } 
-			   closedir($dir); 
+			   closedir($dir);
 			}
 		}
 		return $proyectos;
 	}
+	
+	
 	
 	/**
 	*	Indica si un proyecto existe en el sistema de archivos

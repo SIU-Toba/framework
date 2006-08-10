@@ -49,9 +49,6 @@ class logger
 	private function __construct($proyecto = null)
 	{
 		$this->proyecto_actual = (isset($proyecto)) ? $proyecto : $this->get_proyecto_actual();
-		if (defined('apex_pa_instancia')) {
-			$this->dir_logs = toba_dir()."/instalacion/i__".apex_pa_instancia."/p__{$this->proyecto_actual}/logs";
-		}
 		$this->ref_niveles[2] = "CRITICAL";
 		$this->ref_niveles[3] = "ERROR";
 		$this->ref_niveles[4] = "WARNING";
@@ -365,6 +362,10 @@ class logger
 	
 	function directorio_logs()
 	{
+		if (! isset($this->dir_logs)) {
+			$id_instancia =info_instancia::get_id();
+			$this->dir_logs = toba_dir()."/instalacion/i__".$id_instancia."/p__{$this->proyecto_actual}/logs";
+		}
 		return $this->dir_logs;
 	}	
 	

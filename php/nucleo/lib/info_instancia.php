@@ -5,6 +5,7 @@
 class info_instancia
 {
 	static private $instancia;
+	static protected $id;
 	
 	static function instancia()
 	{
@@ -32,12 +33,22 @@ class info_instancia
 		} 	
 	}
 	
-	function get_id()
+	/**
+	 * Retorna el id de la instancia actual
+	 * La configuracion puede estar cono variable de entorno del servidor o una constante del PA
+	 */
+	static function get_id()
 	{
-		if ( ! defined('apex_pa_instancia') ) {
-			throw new excepcion_toba("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la constante 'apex_pa_instancia')");
+		if ( ! isset(self::$id)) {
+			if (isset($_SERVER['TOBA_INSTANCIA'])) {
+				self::$id = $_SERVER['TOBA_INSTANCIA'];
+			} elseif (defined('apex_pa_instancia')) {
+				self::$id = apex_pa_instancia;
+			} else {
+				throw new excepcion_toba("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
+			}
 		}		
-		return apex_pa_instancia;
+		return self::$id;
 	}
 	
 	function limpiar_memoria()
@@ -51,7 +62,7 @@ class info_instancia
 		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
 			return dba::get_db($_SESSION['toba']['instancia']['base']);
 		} else {
-			throw new excepcion_toba("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".apex_pa_instancia."' no posee una BASE DEFINIDA");
+			throw new excepcion_toba("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
 		}
 	}
 	

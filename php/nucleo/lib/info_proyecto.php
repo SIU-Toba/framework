@@ -111,6 +111,9 @@ class info_proyecto
 						ON (p.menu = m.menu)
 				WHERE	proyecto = '".info_proyecto::get_id()."';";
 		$rs = self::get_db()->consultar($sql);
+		if (empty($rs)) {
+			throw new excepcion_toba("El proyecto '".info_proyecto::get_id()."' no se encuentra cargado en la instancia");	
+		}
 		return $rs[0];
 	}
 
