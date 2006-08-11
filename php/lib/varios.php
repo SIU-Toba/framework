@@ -10,7 +10,23 @@
 		return substr($dir,0, -8);
 	}
 
-	//-----------------------------------------------------------------			
+	function array_elem_limitrofes($arreglo, $elem)
+	{
+		$arreglo = array_values($arreglo);
+		$anterior = false;
+		$siguiente = false;
+		$pos = array_search($elem, $arreglo);
+		if ($pos !== false) {
+			if ($pos > 0) {
+				$anterior = $arreglo[$pos - 1];	
+			}
+			if ($pos < count($arreglo) -1) {
+				$siguiente = $arreglo[$pos + 1];
+			}
+		}
+		return array($anterior, $siguiente);
+	}
+	
 	function array_no_nulo($array)
 	//Controla que el array tiene todas sus entradas en NULL
 	{
@@ -20,7 +36,7 @@
 		}
 		return $x;
 	}
-	//-----------------------------------------------------------------		
+
 	function array_renombrar_llave($arreglo,$nueva_llave)
 	//Renombra todas las llaves de primer nivel de $arreglo por la $nueva_llave
 	{
@@ -50,7 +66,7 @@
 		}
 		return $arreglo;
 	}	
-	//-----------------------------------------------------------------	
+
 	function rs_ordenar_por_columna($rs, $columna, $tipo = SORT_ASC)
 	{
 		$rs_columna = array();
@@ -60,7 +76,7 @@
 		array_multisort($rs_columna, $tipo, $rs);
 		return $rs;
 	}
-	//-----------------------------------------------------------------		
+
 	function rs_ordenar_por_columnas( $rs, $columnas, $tipo = SORT_ASC )
 	{
 		// Armo los arrays utilizados para ORDENAR
@@ -81,12 +97,11 @@
 		call_user_func_array( 'array_multisort', $parametros );
 		return $parametros[ $indice_resultado ];
 	}
-	//-----------------------------------------------------------------		
+
 	function pasar_a_unica_linea($string)
 	{
 		return  preg_replace("/\r\n|\n/", "\\n", $string);
 	}
-	//-----------------------------------------------------------------
 
 	function salto_linea()
 	//Salto de linea dependiente de la plataforma
@@ -97,11 +112,9 @@
 			return "\n";
 		}	
 	}
-	//-----------------------------------------------------------------
 
 	function sl(){ return salto_linea(); }
 
-	//-----------------------------------------------------------------
 	function tecla_acceso($etiqueta)
 	//Toma una etiqueta e intenta extraer el caracter de acceso rápido
 	// Ej: Proce&sar retornar array('<u>P</u>rocesar', 'P')
@@ -118,7 +131,6 @@
 			return array($nueva_etiqueta, $tecla);
 		}
 	}
-	//-----------------------------------------------------------------	
 	
 	function array_borrar_valor(& $arreglo, $valor)
 	{

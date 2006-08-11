@@ -60,10 +60,15 @@ class objeto_ci extends objeto_ei
 		if(isset($parametro)){
 			$this->nombre_formulario = $parametro["nombre_formulario"];
 		}
+		if (!$this->existio_memoria_previa()) {
+			$this->ini__operacion();
+		}
 		$this->evt__inicializar();
 		$this->definir_pantalla_eventos();		
 	}
 
+	function ini__operacion() {}
+	
 	function evt__inicializar()
 	//Antes que todo
 	{
@@ -97,8 +102,8 @@ class objeto_ci extends objeto_ei
 		$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->evt__inicializar();
-	}	
-	
+	}
+		
 	//--------------------------------------------------------------
 	//------  Interaccion con un CONTROLADOR de NEGOCIO ------------
 	//--------------------------------------------------------------
@@ -263,14 +268,16 @@ class objeto_ci extends objeto_ei
 			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
 			if ($tab == '_siguiente' || $tab == '_anterior') {
 				$this->pantalla_id_servicio = $this->ir_a_limitrofe($tab);
-			} 
-			if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
-				if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
-					$this->pantalla_id_servicio = $tab;
-				}else{
-					toba::get_logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
-					//Error, voy a la pantalla inicial
-					$this->pantalla_id_servicio =  $this->get_pantalla_inicial();
+			} else {
+				//--- Se pidio un cambio explicito
+				if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
+					if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
+						$this->pantalla_id_servicio = $tab;
+					}else{
+						toba::get_logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
+						//Error, voy a la pantalla inicial
+						$this->pantalla_id_servicio =  $this->get_pantalla_inicial();
+					}
 				}
 			}
 		}
@@ -473,7 +480,7 @@ class objeto_ci extends objeto_ei
 		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior
 		$candidato = $this->pantalla_id_eventos;
 		while ($candidato !== false) {
-			$limitrofes = $this->pantallas_limitrofes($candidato);
+			$limitrofes = array_elem_limitrofes($this->memoria['tabs'], $candidato);
 			$candidato = $limitrofes[$indice];
 			if ($this->puede_ir_a_pantalla($candidato)) {
 				return $candidato;
@@ -483,28 +490,8 @@ class objeto_ci extends objeto_ei
 		return $this->pantalla_id_eventos;
 	}
 	
-	/**
-	 * Wizard: Determina la pantalla anterior y siguiente a la dada 
-	 */
-	function pantallas_limitrofes($actual)
-	{
-		reset($this->lista_tabs);
-		$pantalla = current($this->lista_tabs);
-		$anterior = false;
-		$siguiente = false;
-		while ($pantalla !== false) {
-			if (key($this->lista_tabs) == $actual) {  //Es la pantalla actual?
-				if (next($this->lista_tabs) !== false)
-					$siguiente = key($this->lista_tabs);
-				else
-					$siguiente = false;
-				break;
-			}
-			$anterior = key($this->lista_tabs);
-			$pantalla = next($this->lista_tabs);
-		}
-		return array($anterior, $siguiente);	
-	}	
+
+	
 
 	//------------------------------------------------
 	//--  ETAPA SERVICIO  ----------------------------

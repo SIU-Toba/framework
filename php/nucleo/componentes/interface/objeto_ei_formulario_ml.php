@@ -12,7 +12,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	protected $datos;
 	protected $lista_ef_totales = array();
 	protected $clave_seleccionada;				//Id de la fila seleccionada
-	protected $siguiente_id_fila;				//Autoincremental que se va a asociar al ef que identifica una fila
+	protected $siguiente_id_fila;				//Autoincremental que se usa para crear filas en la interface y asegurar que sean unicas
 	protected $filas_recibidas;					//Lista de filas recibidas desde el ci
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
@@ -204,10 +204,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		if ($lista_filas != '') {
 			$filas_post = explode('_', $lista_filas);
 			//Por cada fila
-			foreach ($filas_post as $fila)
-			{
-				if ($fila >= $this->siguiente_id_fila)
-					$this->siguiente_id_fila = $fila + 1;
+			foreach ($filas_post as $fila) {
 				//1) Cargo los EFs
 				foreach ($this->lista_ef as $ef){
 					$this->elemento_formulario[$ef]->ir_a_fila($fila);
@@ -268,12 +265,13 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	function get_datos($analizar_diferencias = false)
 	{
 		//Envia el ordenamiento como una columna aparte
-		if ($this->info_formulario['columna_orden']) {
-			$orden = 1;
-			foreach (array_keys($this->datos) as $id) {
+		$orden = 1;
+		foreach (array_keys($this->datos) as $id) {
+			if (isset($this->info_formulario['columna_orden'])) {
 				$this->datos[$id][$this->info_formulario['columna_orden']] = $orden;
-				$orden++;
 			}
+			$this->datos[$id][apex_datos_clave_fila] = $id;
+			$orden++;
 		}
 		if ($analizar_diferencias) {
 			//Analizo la procedencia del registro: es alta o modificación
@@ -326,28 +324,44 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	
 	function set_datos($datos)
 	{
-		if (isset($datos)) {
+		if (!is_array($datos)) {
+			throw new excepcion_toba_def( $this->get_txt() . 
+					" El parametro para cargar el cuadro posee un formato incorrecto:" .
+						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+		}		
+		
+		$this->filas_recibidas = array();
+		$this->datos = array();
+		foreach ($datos as $id => $fila) {
+			//--- Se determina la clave real de la fila
+			if (isset($fila[apex_datos_clave_fila])) {
+				$id = $fila[apex_datos_clave_fila];
+			}
+			//--- Se actualiza la secuencia autoincremental
+			if (is_numeric($id) && $id >= $this->siguiente_id_fila) {
+				$this->siguiente_id_fila = $id + 1;
+			}
+			$this->datos[$id] = $fila;
+			
 			//Para dar un analisis preciso de la accion del ML, es necesario discriminar cuales
 			//filas son a dar de alta y cuales son a modificar
-			$this->filas_recibidas = array();
-			foreach ($datos as $id => $fila) {
-				if (! isset($fila[apex_ei_analisis_fila]) || $fila[apex_ei_analisis_fila] != 'A') {
-					$this->filas_recibidas[] = $id;
-				}
+			if (! isset($fila[apex_ei_analisis_fila]) || $fila[apex_ei_analisis_fila] != 'A') {
+				$this->filas_recibidas[] = $id;
 			}
-			$this->datos = $datos;
+		}
 
-			//Ordenar por la columna que se establece
-			if ($this->info_formulario['columna_orden']) {
-				$ordenes = array();
-				foreach ($this->datos as $id => $dato) {
-					$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
-				}
-				asort($ordenes);
-				$this->ordenes = array_keys($ordenes);
-			} else {
-				$this->ordenes = array_keys($this->datos);
+		//---Ordenar por la columna que se establece
+		//El ML no ordena el arreglo, porque esto cambiaria las claves asociativas
+		//por eso mantiene la variable $this->ordenes
+		if ($this->info_formulario['columna_orden']) {
+			$ordenes = array();
+			foreach ($this->datos as $id => $dato) {
+				$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
 			}
+			asort($ordenes);
+			$this->ordenes = array_keys($ordenes);
+		} else {
+			$this->ordenes = array_keys($this->datos);
 		}
 	}
 

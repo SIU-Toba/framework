@@ -224,33 +224,30 @@ class objeto_ei_cuadro extends objeto_ei
 
     function set_datos($datos)
     {
-		//--- Asigno DATOS
-		if(isset($datos)){
-			$this->datos = $datos;
-			if (!is_array($this->datos)) {
-				throw new excepcion_toba_def( $this->get_txt() . 
-						" El parametro para cargar el cuadro posee un formato incorrecto:" .
-							"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+		$this->datos = $datos;
+		if (!is_array($this->datos)) {
+			throw new excepcion_toba_def( $this->get_txt() . 
+					" El parametro para cargar el cuadro posee un formato incorrecto:" .
+						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
+		}
+		if (count($this->datos) > 0 ) {
+			$this->validar_estructura_datos();
+			// - 2 - Ordenamiento
+			if($this->hay_ordenamiento()){
+				$this->ordenar();
+			}			
+			// - 3 - Paginacion
+			if( $this->existe_paginado() ){
+				$this->generar_paginado();
 			}
-			if (count($this->datos) > 0 ) {
-				$this->validar_estructura_datos();
-				// - 2 - Ordenamiento
-				if($this->hay_ordenamiento()){
-					$this->ordenar();
-				}			
-				// - 3 - Paginacion
-				if( $this->existe_paginado() ){
-					$this->generar_paginado();
-				}
-				// - 4 - Cortes de control
-				if( $this->existen_cortes_control() ){
-					$this->planificar_cortes_control();
-				}else{
-					$this->calcular_totales_generales();
-				}
+			// - 4 - Cortes de control
+			if( $this->existen_cortes_control() ){
+				$this->planificar_cortes_control();
+			}else{
+				$this->calcular_totales_generales();
 			}
 		}
-    }
+   }
 
     
 //################################################################################

@@ -11,13 +11,9 @@
 	display: inline;
 }
 .encabezado .div-editor { 
-	position: fixed;
-	_position: absolute;
-	left: 0px;
+	position: absolute;
 }
-.div-editor {
-	position: static;
-}
+
 #editor_toggle {
 	position: fixed;
 	_position: absolute;

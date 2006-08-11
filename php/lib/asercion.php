@@ -1,28 +1,28 @@
 <?
 class asercion
 {
-	function no_es_nulo($variable, $texto="ATENCION, el elemento es NULO")
+	static function no_es_nulo($variable, $texto="ATENCION, el elemento es NULO")
 	{
 		if(!isset($variable)){
 			throw new excepcion_toba($texto);
 		}
 	}
 
-	function es_objeto($instancia, $texto="ATENCION, el elemento no es un OBJETO")
+	static function es_objeto($instancia, $texto="ATENCION, el elemento no es un OBJETO")
 	{
 		if(!is_object($instancia)){
 			throw new excepcion_toba($texto);
 		}
 	}
 
-	function es_array($array, $texto="ATENCION, el elemento no es un ARRAY")
+	static function es_array($array, $texto="ATENCION, el elemento no es un ARRAY")
 	{
 		if(!is_array($array)){
 			throw new excepcion_toba($texto);
 		}
 	}
 
-	function arrays_igual_largo($array_1, $array_2, $texto="ATENCION, los arrays no tienen el mismo tamaño")
+	static function arrays_igual_largo($array_1, $array_2, $texto="ATENCION, los arrays no tienen el mismo tamaño")
 	{
 		self::es_array($array_1,$texto . "- El parametro 1 no es un array");
 		self::es_array($array_2,$texto . "- El parametro 2 no es un array");
@@ -31,7 +31,7 @@ class asercion
 		}		
 	}
 
-	function es_array_dimension($array, $dimension, $texto="ERROR: ")
+	static function es_array_dimension($array, $dimension, $texto="ERROR: ")
 	{
 		if(!is_array($array)){
 			throw new excepcion_toba($texto . "el elemento no es un ARRAY");
@@ -43,7 +43,7 @@ class asercion
 		}
 	}
 
-	function es_array_o_null($array, $texto="ATENCION, el elemento no es un ARRAY y no es NULO")
+	static function es_array_o_null($array, $texto="ATENCION, el elemento no es un ARRAY y no es NULO")
 	{
 		if(is_null($array)){
 			return;
@@ -53,7 +53,7 @@ class asercion
 		}
 	}
 
-	function error($texto)
+	static function error($texto)
 	{
 		throw new excepcion_toba($texto);
 	}

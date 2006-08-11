@@ -166,7 +166,8 @@ class objeto_ei_pantalla extends objeto_ei
 				}
 				break;
 			case "wizard":
-				list($anterior, $siguiente) = $this->pantallas_limitrofes($this->etapa_gi);
+				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->lista_tabs),
+																	$this->info_pantalla['identificador']);
 				if ($anterior !== false)
 					$this->eventos += eventos::ci_pantalla_anterior($anterior);
 				if ($siguiente !== false)
@@ -331,6 +332,7 @@ class objeto_ei_pantalla extends objeto_ei
 		}		
 		echo "</ol>";
 	}
+	
 
 	protected function generar_tabs_horizontales()
 	{
