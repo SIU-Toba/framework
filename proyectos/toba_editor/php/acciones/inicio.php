@@ -1,4 +1,5 @@
 <?php
+echo '<div style="text-align:left">';
 	require_once('modelo/instalacion.php');
 	require_once('admin_util.php');
 	
@@ -133,6 +134,7 @@
 				pant.identificador = dep.identificador		-- Mismo id
 			AND	pant.objeto_ci_proyecto = dep.proyecto		-- Mismo proy.
 			AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
+			AND dep.proyecto = '".editor::get_proyecto_cargado()."'
 	";
 	$rs = contexto_info::get_db()->consultar($sql);
 	if (! empty($rs)) {
@@ -183,4 +185,5 @@
 		}
 	}
 	echo "</ul>";
+echo '</div>';
 ?>

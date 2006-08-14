@@ -39,7 +39,6 @@ class solicitud_web extends solicitud
 
 	function procesar()
 	{	
-		$accion = $this->info['basica']['item_act_accion_script'];
 		try {
 			$this->crear_zona();			
 			$redirecciona = ($this->info['basica']['redirecciona']);
@@ -52,11 +51,7 @@ class solicitud_web extends solicitud
 			if ($redirecciona) {
 				$this->pre_proceso_servicio();
 			}
-			if ($accion == '') {
-				$this->procesar_servicios();
-			} else {
-				include($accion);
-			}
+			$this->procesar_servicios();
 		} catch( excepcion_reset_nucleo $e ) {
 			// Recarga del nucleo
 			throw $e;
@@ -191,24 +186,31 @@ class solicitud_web extends solicitud
 		}
 		echo '<div style="clear:both;"></div>';
 		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
-		//--- Abre el formulario
-		echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
 		$this->tipo_pagina->pre_contenido();
+		
+		//--- Abre el formulario
+		$accion = $this->info['basica']['item_act_accion_script'];
+		if ($accion == '') {
+			echo form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
+			foreach ($objetos as $obj) {
+				//-- Librerias JS necesarias
+				js::cargar_consumos_globales($obj->get_consumo_javascript());
+				//-- HTML propio del objeto
+				$obj->generar_html();
+				//-- Javascript propio del objeto
+				echo js::abrir();
+				$objeto_js = $obj->generar_js();
+				echo "\n$objeto_js.iniciar();\n";
+				echo js::cerrar();
+			}
+			//--- Fin del form y parte inferior del tipo de página
+			echo form::cerrar();
 
-		foreach ($objetos as $obj) {
-			//-- Librerias JS necesarias
-			js::cargar_consumos_globales($obj->get_consumo_javascript());
-			//-- HTML propio del objeto
-			$obj->generar_html();
-			//-- Javascript propio del objeto
-			echo js::abrir();
-			$objeto_js = $obj->generar_js();
-			echo "\n$objeto_js.iniciar();\n";
-			echo js::cerrar();
+		} else {
+			include($accion);	
 		}
 
 		$this->tipo_pagina->post_contenido();
-
 		// Carga de componentes JS genericos
 		echo js::abrir();
 		toba::get_vinculador()->generar_js();
@@ -220,10 +222,7 @@ class solicitud_web extends solicitud
 		}
 		//--- Muestra la cola de mensajes
 		toba::get_cola_mensajes()->mostrar();		
-		
-		//--- Fin del form y parte inferior del tipo de página
-		echo form::cerrar();
-		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (pie) ',apex_nivel_nucleo);
+		toba::get_cronometro()->marcar('SOLICITUD: Pagina TIPO (pie) ',apex_nivel_nucleo);
        	$this->tipo_pagina->pie();
 	}
 	
