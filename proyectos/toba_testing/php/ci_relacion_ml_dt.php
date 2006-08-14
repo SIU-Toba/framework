@@ -4,6 +4,7 @@ class ci_relacion_ml_dt extends objeto_ci
 {
 	protected $s__id_fila_uno;
 	protected $s__id_fila_dos;
+	const id_siguiente = 2000;
 	
 	function ini__operacion()
 	{
@@ -11,8 +12,13 @@ class ci_relacion_ml_dt extends objeto_ci
 		$this->s__id_fila_dos = $this->dep('dt')->nueva_fila(array('id' => 1, 'descripcion' => 'Uno', 'orden' => 1));
 	}
 	
+	//------- PRIMERA PANTALLA
+
 	function evt__ml__modificacion($datos)
 	{
+		$this->dep('dt')->procesar_filas($datos);
+		
+		$datos = $this->dep('dt')->get_filas();
 		if (count($datos) != 2) {
 			throw new excepcion_toba('Se esperaban dos registros');
 		}
@@ -28,7 +34,6 @@ class ci_relacion_ml_dt extends objeto_ci
 										$this->s__id_fila_dos . '. Pero se encontro la clave '.
 										$segunda[apex_datos_clave_fila]);
 		}		
-		$this->dep('dt')->procesar_filas($datos);
 	}
 	
 	function conf__ml($ml)
@@ -36,23 +41,32 @@ class ci_relacion_ml_dt extends objeto_ci
 		return $this->dep('dt')->get_filas();	
 	}
 	
-	function conf__cuadro($cuadro)
+	//------- SEGUNDA PANTALLA
+
+	function evt__ml2__modificacion($datos)
 	{
-		return $this->dep('dt')->get_filas();		
+		//--- En el procesamiento el DT debe respetar los IDS que vienen del ML
+		$this->dep('dt')->procesar_filas($datos);
+		
+		$datos = $this->dep('dt')->get_filas();
+		if (count($datos) != 4) {
+			throw new excepcion_toba('Se esperaban cuatro registros');
+		}
+		$primera = $datos[2];
+		if ($primera[apex_datos_clave_fila] != self::id_siguiente ) {
+			throw new excepcion_toba('Se esperaba que el id de la tercera fila fuera '.self::id_siguiente );
+		}
+		$segunda = $datos[3];
+		if ($segunda[apex_datos_clave_fila] != self::id_siguiente + 1) {
+			throw new excepcion_toba('Se esperaba que el id de la cuarta fila fuera '.self::id_siguiente + 1);
+		}			
 	}
 	
-	function evt__cancelar()
+	function conf__ml2($ml)
 	{
-		$this->dep('dt')->resetear();
-		parent::evt__cancelar();
+		$ml->set_proximo_id(self::id_siguiente);	
 	}
-	
-	function evt__procesar()
-	{
-		echo ei_mensaje("OK");
-		$this->dep('dt')->resetear();
-	}
-	
+
 }
 
 ?>

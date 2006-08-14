@@ -32,7 +32,7 @@ class objeto_datos_tabla extends objeto
 	protected $cambios = array();				// Cambios realizados sobre los datos
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
+	protected $proxima_fila = 231;				// Posicion del proximo registro en el array de datos
 	protected $cursor;							// Puntero a una fila específica
 	protected $cargada = false;
 	// Relaciones con el exterior
@@ -512,9 +512,11 @@ class objeto_datos_tabla extends objeto
 	 * @param array $fila Asociativo campo->valor a insertar
 	 * @param mixed $ids_padres Asociativo padre =>id de las filas padres de esta nueva, 
 	 * 						  en caso de que no se brinde, se utilizan las posiciones actuales de estas tablas padres
+	 * @param integer $id_nuevo Opcional. Id interno de la nueva fila, si no se especifica (recomendado)
+	 * 								Se utiliza el proximo id interno.
 	 * @return mixed Id. interno de la fila creada
 	 */
-	function nueva_fila($fila=array(), $ids_padres=null)
+	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
 	{
 		if( $this->tope_max_filas != 0){
 			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
@@ -534,9 +536,12 @@ class objeto_datos_tabla extends objeto
 			}
 		}
 		
-		//Se le asigna un id a la fila
-		$id_nuevo = $this->proxima_fila;	
-		
+		//---Se le asigna un id a la fila
+		if (!isset($id_nuevo) || $id_nuevo < $this->proxima_fila) {
+			$id_nuevo = $this->proxima_fila;
+		}
+		$this->proxima_fila = $id_nuevo + 1;
+				
 		//Se notifica a las relaciones del alta
 		foreach ($this->relaciones_con_padres as $padre => $relacion) {
 			$id_padre = null;
@@ -549,7 +554,6 @@ class objeto_datos_tabla extends objeto
 		//Se agrega la fila
 		$this->datos[$id_nuevo] = $fila;
 		$this->registrar_cambio($id_nuevo,"i");
-		$this->proxima_fila++;
 		
 		return $id_nuevo;
 	}
@@ -731,7 +735,7 @@ class objeto_datos_tabla extends objeto
 	function procesar_filas($filas)
 	{
 		asercion::es_array($filas,"objeto_datos_tabla - El parametro no es un array.");
-		//Controlo estructura
+		//--- Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
 				throw new excepcion_toba("Para procesar un conjunto de registros es necesario indicar el estado ".
@@ -739,18 +743,26 @@ class objeto_datos_tabla extends objeto
 									Si los datos provienen de un ML, active la opción de analizar filas.");
 			}
 		}
-		foreach(array_keys($filas) as $id){
-			$accion = $filas[$id][apex_ei_analisis_fila];
-			unset($filas[$id][apex_ei_analisis_fila]);
+		//--- El id de la fila se asume que la key del registro o la columna apex_datos_clave_fila
+		foreach ($filas as $id => $fila) {
+			$id_explicito = false;
+			if (isset($fila[apex_datos_clave_fila])) {
+				$id = $fila[apex_datos_clave_fila];
+				$id_explicito = true;
+			}	
+			$accion = $fila[apex_ei_analisis_fila];
+			unset($fila[apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					$this->nueva_fila($filas[$id]);
+					//--- Si el ML notifico explicitamente el id, este es el id de la nueva fila, sino usa el mecanismo interno
+					$nuevo_id = ($id_explicito) ? $id : null;
+					$this->nueva_fila($fila,null, $nuevo_id);
 					break;	
 				case "B":
 					$this->eliminar_fila($id);
 					break;	
 				case "M":
-					$this->modificar_fila($id, $filas[$id]);
+					$this->modificar_fila($id, $fila);
 					break;	
 			}
 		}

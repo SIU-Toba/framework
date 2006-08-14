@@ -29,7 +29,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	{
 		parent::__construct($id);
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(5000);
-		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156000;
+		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156;
 		$this->filas_recibidas = isset($this->memoria['filas_recibidas']) ? $this->memoria['filas_recibidas'] : array();
 	}
 
@@ -185,9 +185,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			$this->datos = array();
 			if ($this->info_formulario["filas"] > 0 ) {
 				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
-					//A cada fila se le brinda un id único
-					$this->datos[$this->siguiente_id_fila] = array();
-					$this->siguiente_id_fila++;	
+					$this->agregar_registro_nuevo();
 				}
 			}
 		}
@@ -322,6 +320,12 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		
 	}
 	
+	function pre_configurar()
+	{
+		parent::pre_configurar();
+		$this->filas_recibidas = array();
+	}
+	
 	function set_datos($datos)
 	{
 		if (!is_array($datos)) {
@@ -376,6 +380,11 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		$this->siguiente_id_fila++;
 	}
 
+	function set_proximo_id($id)
+	{
+		$this->siguiente_id_fila = $id;	
+	}
+	
 	function existen_datos_cargados()
 	{
 		if(isset($this->datos)){
