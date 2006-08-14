@@ -91,7 +91,6 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	 * @param boolean/string $dir_subclases Si el componente tiene subclases clona los archivos, en caso afirmativo indicar la ruta destino (relativa)
 	 * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
 	 * @return array Clave del objeto que resulta del clonado
-	 * @todo El path absoluto de los archivos clonados se basa en la presuncion de que es $toba_dir/proyectos/$proyecto, esto seguramente cambia
 	 */
 	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
 	{
@@ -124,9 +123,9 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
 			$archivo = $this->datos['info']['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba_dir()."/proyectos/".contexto_info::get_proyecto()."/php/";
+			$path_origen = info_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
 			if (isset($nuevos_datos['proyecto'])) {
-				$path_destino = toba_dir()."/proyectos/".$nuevos_datos['proyecto']."/php/";
+				$path_destino = info_instancia::get_path_proyecto($nuevos_datos['proyecto'])."/php/";
 			} else {
 				$path_destino = $path_origen;	
 			}
