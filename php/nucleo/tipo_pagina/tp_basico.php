@@ -2,6 +2,8 @@
 
 class tp_basico extends tipo_pagina
 {
+	protected $clase_encabezado = '';
+	
 	function encabezado()
 	{
 		$this->cabecera_html();
@@ -62,20 +64,24 @@ class tp_basico extends tipo_pagina
 		<?php
 	}
 
+	/**
+	 * Crea el <body> y recursos basicos. 
+	 * Incluye un <div> que se propaga hasta el fin de la zona parte sup. 
+	 */
 	protected function comienzo_cuerpo()
 	{
+		js::cargar_consumos_globales(array('basicos/tipclick'));
 		echo "<body>\n";
+		if ( editor::modo_prueba() ) {
+			$item = toba::get_solicitud()->get_datos_item('item');
+			editor::generar_zona_vinculos_item($item);
+		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
 		$img = recurso::imagen_apl('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
 		echo "</div>";
-		echo "<div class='encabezado'>";
-		js::cargar_consumos_globales(array('basicos/tipclick'));
-		if ( editor::modo_prueba() ) {
-			$item = toba::get_solicitud()->get_datos_item('item');
-			editor::generar_zona_vinculos_item($item);
-		}
+		echo "<div class='{$this->clase_encabezado}'>";
 	}
 
 	protected function barra_superior()

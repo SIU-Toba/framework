@@ -215,7 +215,7 @@ abstract class objeto_ei extends objeto
 			} else {
 				$img = $this->eventos[$id]['imagen'];
 			}
-			$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+			$html .= recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
@@ -262,6 +262,10 @@ abstract class objeto_ei extends objeto
 			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 			echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		}
+		//--- Link al editor
+		if (editor::modo_prueba()) {
+			$html .= editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id)."\n";
+		}		
 	}
 
 	//--- Manejo de grupos de eventos

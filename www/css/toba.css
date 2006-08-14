@@ -6,6 +6,7 @@
 	background-color: yellow; 
 	padding: 1px;
 	display: none;
+	vertical-align: middle;	
 }
 .editor-mostrar {
 	display: inline;
@@ -721,7 +722,6 @@ hides rule from IE5-Mac \*/
 	color: #231f20;
 	text-align: left;
 }
-
 .item-barra {
 	float: left;
 	padding: 3px;

@@ -1,7 +1,7 @@
 <?php
-require_once("tp_basico.php");
+require_once("tp_basico_titulo.php");
 
-class tp_popup extends tp_basico
+class tp_popup extends tp_basico_titulo 
 {
 	
 	protected function comienzo_cuerpo()
@@ -24,10 +24,14 @@ class tp_popup extends tp_basico
 		";
 		echo js::cerrar();
 		echo "\n\n";
+	}
+	
+	protected function barra_superior()
+	{
 		echo "<table width='100%' class='item-barra'><tr>";
 		echo "<td width='1'>". gif_nulo(8,22) . "</td>";
 		echo "<td width='95%' class='item-barra-tit'>".$this->titulo_pagina()."</td>";
-		echo "</tr></table>\n\n";
+		echo "</tr></table>\n\n";		
 	}
 	
 	function pie()

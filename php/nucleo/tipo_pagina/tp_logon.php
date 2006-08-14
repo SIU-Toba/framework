@@ -9,7 +9,7 @@ class tp_logon extends tp_basico
 		echo "<div class='login-titulo'>". recurso::imagen_pro("logo.gif",true) . "</div>";		
 		echo "\n<div align='center' class='cuerpo'>\n";		
 	}
-	
+
 	function post_contenido()
 	{
 		echo "</div>";		

@@ -63,7 +63,6 @@ class objeto
 	
 	function destruir()
 	{
-		//echo "Me estoy destruyendo " . $this->id[1] . "<br>";
 		//Persisto informacion
 		$this->memorizar();						//GUARDO Memoria sincronizada
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
