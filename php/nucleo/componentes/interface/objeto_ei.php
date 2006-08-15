@@ -219,6 +219,10 @@ abstract class objeto_ei extends objeto
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
+		//--- Link al editor
+		if (editor::modo_prueba()) {
+			echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id)."\n";
+		}				
 		if ( isset($this->eventos[$id]['accion']) ) {
 			// Acciones predeterminadas
 			if ($this->eventos[$id]['accion'] == 'H') {
@@ -262,10 +266,6 @@ abstract class objeto_ei extends objeto
 			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 			echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		}
-		//--- Link al editor
-		if (editor::modo_prueba()) {
-			$html .= editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id)."\n";
-		}		
 	}
 
 	//--- Manejo de grupos de eventos

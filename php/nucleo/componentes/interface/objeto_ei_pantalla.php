@@ -8,8 +8,8 @@ require_once("objeto_ei.php");
 class objeto_ei_pantalla extends objeto_ei
 {
 	// Navegacion
-	protected $lista_tabs;
-	protected $lista_eis;
+	protected $lista_tabs = array();
+	protected $dependencias;
 	protected $nombre_formulario;					// Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
 
@@ -29,6 +29,19 @@ class objeto_ei_pantalla extends objeto_ei
 		$this->cargar_lista_eventos();
 	}
 	
+	/**
+	 * En la post_configuracion ya estan definidas las dependencias que participan
+	 * Asi que es hora de pedir al controlador que construya los objetos, los inicialize y configure
+	 */
+	function post_configurar()
+	{
+		parent::post_configurar();
+		$this->dependencias = array();
+		foreach ($this->lista_dependencias as $id) {
+			$this->dependencias[$id] = $this->controlador->dependencia($id);	
+		}
+	}
+	
 	function get_descripcion()
 	{
 		return trim($this->info_pantalla["descripcion"]);
@@ -42,12 +55,11 @@ class objeto_ei_pantalla extends objeto_ei
 	//------------------------------------------------------
 	//---------------		Dependencias    ----------------
 	//------------------------------------------------------
-
 	function agregar_dep($id_obj)
 	{
 		//--- Chequeo para evitar el bug #389				
 		if ($this->controlador->existe_dependencia($id_obj)) {
-			$this->dependencias[$id_obj] = $this->controlador->dependencia($id_obj);
+			$this->lista_dependencias[] = $id_obj;
 		} else {
 			toba::get_logger()->error($this->get_txt(). 
 					" Se quiere agregar la dependencia '$id_obj', pero esta no está definida en el CI");
@@ -56,8 +68,8 @@ class objeto_ei_pantalla extends objeto_ei
 	
 	function eliminar_dep($id)
 	{
-		if (isset($this->dependencias[$id])) {
-			unset($this->dependencias[$id]);
+		if (in_array($id, $this->lista_dependencias)) {
+			array_borrar_valor($this->lista_dependencias, $id);
 		} else {
 			throw new excepcion_toba($this->get_txt(). 
 					" Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
@@ -69,14 +81,13 @@ class objeto_ei_pantalla extends objeto_ei
 	 */
 	function get_lista_dependencias()
 	{
-		return array_keys($this->dependencias);
+		return $this->lista_dependencias;
 	}
 	
 	protected function cargar_lista_dep()
 	{
 		//Busco la definicion standard para la etapa
 		$objetos = trim($this->info_pantalla["objetos"] );
-		$this->dependencias = array();
 		if ( $objetos != "" ) {
 			$objetos = array_map("trim", explode(",", $objetos ) );
 			foreach ($objetos as $id_obj) {
@@ -303,8 +314,7 @@ class objeto_ei_pantalla extends objeto_ei
 	protected function generar_html_dependencias()
 	{
 		$existe_previo = 0;
-		foreach($this->dependencias as $dep)
-		{
+		foreach($this->dependencias as $dep) {
 			if($existe_previo){ //Separador
 				echo "<hr>\n";
 			}
@@ -322,7 +332,7 @@ class objeto_ei_pantalla extends objeto_ei
 				$clase = 'ci-wiz-toc-pant-pasada';
 			else
 				$clase = 'ci-wiz-toc-pant-futuro';			
-			if ($id == $this->etapa_gi) {
+			if ($id == $this->id_en_controlador) {
 				$clase = 'ci-wiz-toc-pant-actual';
 				$pasada = false;
 			}
@@ -385,7 +395,7 @@ class objeto_ei_pantalla extends objeto_ei
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
 			$js = "onclick=\"{$this->objeto_js}.set_evento( new evento_ei('cambiar_tab_$id', true, ''));\"";
-			if ( $this->etapa_gi == $id ) {
+			if ( $this->id_en_controlador == $id ) {
 				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$html</div></div>";
 			} else {
 				$atajo = recurso::ayuda($tecla, str_replace("'", "\\'",$tip), 'ci-tabs-v-boton');
@@ -479,8 +489,8 @@ class objeto_ei_pantalla extends objeto_ei
 	function vista_impresion( impresion_toba $salida )
 	{
 		$salida->titulo( $this->get_titulo() );
-		foreach($this->dependencias_gi as $dep) {
-			$this->dependencias[$dep]->vista_impresion( $salida );
+		foreach($this->dependencias as $dep) {
+			$dep->vista_impresion( $salida );
 		}
 	}
 	

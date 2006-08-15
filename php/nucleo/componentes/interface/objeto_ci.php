@@ -18,17 +18,17 @@ class objeto_ci extends objeto_ei
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
 	protected $dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
 	protected $dependencias_inicializadas = array();// Lista de dependencias inicializadas
+	protected $dependencias_configuradas = array();
 	protected $eventos;								// Lista de eventos que expone el CI
 	protected $evento_actual;						// Evento propio recuperado de la interaccion
 	protected $evento_actual_param;					// Parametros del evento actual
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
-	protected $gi = false;							// Indica si el CI se utiliza para la generacion de interface
-	protected $objeto_js;							// Nombre del objeto js asociado
 	// Pantalla
 	protected $pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
 	protected $pantalla_id_servicio;				// Id de la pantalla a mostrar en el servicio
 	protected $pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
-
+	protected $en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
+	
 	function __construct($id)
 	{
 		$propiedades = array();
@@ -394,11 +394,18 @@ class objeto_ci extends objeto_ei
 	function dependencia($id, $carga_en_demanda = true)
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
-		if ( ! in_array( $id, $this->dependencias_inicializadas ) ) {
- 			if (  $dependencia instanceof objeto_ei ) {
-				$parametro['id'] = $id;
-				$parametro['nombre_formulario'] = $this->nombre_formulario;
-				$this->inicializar_dependencia( $id, $parametro );
+		if ($this->en_servicio && $carga_en_demanda) {
+			if (! in_array( $id, $this->dependencias_inicializadas ) ) {
+	 			if (  $dependencia instanceof objeto_ei ) {
+					$parametro['id'] = $id;
+					$parametro['nombre_formulario'] = $this->nombre_formulario;
+					$this->inicializar_dependencia( $id, $parametro );
+				}
+			}
+			//--- A los eis se les debe configurar cuando estan en servicio
+			if ($this->dependencias[$id] instanceof objeto_ei 
+					&& ! in_array($id, $this->dependencias_configuradas)) {
+				$this->configurar_dep($id);
 			}
 		}
 		return $dependencia;
@@ -491,14 +498,13 @@ class objeto_ci extends objeto_ei
 	}
 	
 
-	
-
 	//------------------------------------------------
 	//--  ETAPA SERVICIO  ----------------------------
 	//------------------------------------------------
 	
 	function pre_configurar()
 	{
+		$this->en_servicio = true;
 		//--- Es posible que nadie haya decidido aun la pantalla ,se decide aca
 		if (! isset($this->pantalla_id_servicio)) {
 			if (isset( $this->pantalla_id_eventos )) {
@@ -515,26 +521,28 @@ class objeto_ci extends objeto_ei
 		$this->conf();
 		
 		//--- Configuracion pers. pantalla actual
-		$conf_pantalla = 'conf__'.$this->pantalla_id_servicio;
-		$this->invocar_callback($conf_pantalla, $this->pantalla());
+		$this->invocar_callback('conf__'.$this->pantalla_id_servicio, $this->pantalla());
 		$this->pantalla()->post_configurar();		
-
-		//--- Configuracion de las dependencias
-		foreach ($this->pantalla()->get_lista_dependencias() as $dep) {
-			//--- Config. por defecto
-			$this->dependencias[$dep]->pre_configurar();
-			
-			//--- Config. personalizada
-			$conf_pantalla = 'conf__'.$dep;
-			$rpta = $this->invocar_callback($conf_pantalla, $this->dependencias[$dep]);
-			//--- Por comodidad y compat.hacia atras, si se responde con algo se asume que es para cargarle datos
-			if (isset($rpta) && $rpta !== apex_callback_sin_rpta) {
-				$this->dependencias[$dep]->set_datos($rpta);
-			}		
-			
-			//--- Config. por defecto
-			$this->dependencias[$dep]->post_configurar();
+	}
+	
+	protected function configurar_dep($dep)
+	{
+		if (in_array($dep, $this->dependencias_configuradas)) {
+			throw new excepcion_toba("La dependencia '$dep' ya ha sido configurada anteriormente");
 		}
+		$this->dependencias_configuradas[] = $dep;		
+		//--- Config. por defecto
+		$this->dependencias[$dep]->pre_configurar();
+		//--- Config. personalizada
+		//ei_arbol($this->dependencias, $dep);return;
+		$rpta = $this->invocar_callback('conf__'.$dep, $this->dependencias[$dep]);
+		//--- Por comodidad y compat.hacia atras, si se responde con algo se asume que es para cargarle datos
+		if (isset($rpta) && $rpta !== apex_callback_sin_rpta) {
+			$this->dependencias[$dep]->set_datos($rpta);
+		}		
+		
+		//--- Config. por defecto
+		$this->dependencias[$dep]->post_configurar();
 	}
 	
 	function post_configurar()

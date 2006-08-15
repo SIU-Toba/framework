@@ -841,7 +841,7 @@ class objeto_ei_formulario extends objeto_ei
 	
 	function get_valor_imprimible_ef( $id_ef ) 
 	{
-		require_once('nucleo/lib/formateo.php');
+		require_once('nucleo/lib/interface/formateo.php');
 		$ef = $this->elemento_formulario[$id_ef];
 		$valor = $ef->get_descripcion_estado();
 		if ( $ef instanceof ef_editable_moneda ) {

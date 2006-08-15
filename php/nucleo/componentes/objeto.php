@@ -14,7 +14,7 @@ class objeto
 	protected $info_dependencias;						//Definicion de las dependencias
 	protected $indice_dependencias;					//Indice que mapea las definiciones de las dependencias con su
 	protected $dependencias_indice_actual = 0;	
-	protected $lista_dependencias;					//Lista de dependencias disponibles
+	protected $lista_dependencias = array();					//Lista de dependencias disponibles
 	protected $dependencias = array();							//Array de sub-OBJETOS
 	protected $memoria;
 	protected $memoria_existencia_previa = false;

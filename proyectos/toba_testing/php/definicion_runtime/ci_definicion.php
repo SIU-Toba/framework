@@ -29,7 +29,7 @@ class ci_definicion extends objeto_ci
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
 
-	function get_lista_ei()
+	function conf()
 	{
 		$clave = array('componente' => '1000127', 'proyecto' => 'toba_testing');
 		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos($clave, 'ei_formulario');
@@ -46,7 +46,6 @@ class ci_definicion extends objeto_ci
 		$metadatos['info_formulario_ef'] = array();
 		$metadatos['info_formulario_ef'][] = $nuevo_ef;
 		cargador_toba::instancia()->set_metadatos_extendidos($metadatos, $clave);				
-		return parent::get_lista_ei();
 	}
 	
 	//---- form -------------------------------------------------------
@@ -60,7 +59,6 @@ class ci_definicion extends objeto_ci
 	{
 		return $this->datos;
 	}
-
 
 }
 

@@ -6,13 +6,15 @@
 	background-color: yellow; 
 	padding: 1px;
 	display: none;
-	vertical-align: middle;	
 }
 .editor-mostrar {
 	display: inline;
 }
-.encabezado .div-editor { 
+body .div-editor { 
 	position: absolute;
+}
+body * .div-editor {
+	position: relative;
 }
 
 #editor_toggle {
