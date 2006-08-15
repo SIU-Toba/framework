@@ -2,7 +2,7 @@
 
 class ci_grupo extends objeto_ci
 {
-	function evt__inicializar()
+	function ini()
 	{
 		$zona = toba::get_solicitud()->zona();
 		if ($editable = $zona->get_editable()){

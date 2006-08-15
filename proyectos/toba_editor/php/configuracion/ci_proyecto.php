@@ -5,7 +5,7 @@ class ci_proyecto extends objeto_ci
 {
 	protected $iniciado = false;
 	
-	function evt__inicializar()
+	function ini()
 	{
 		if(!$this->iniciado) {
 			$this->dependencia('datos')->cargar(array('proyecto'=>editor::get_proyecto_cargado()));

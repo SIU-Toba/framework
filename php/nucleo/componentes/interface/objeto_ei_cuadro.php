@@ -1197,7 +1197,13 @@ class objeto_ei_cuadro extends objeto_ei
 	        }
 	        //-- Eventos sobre fila
 			if($this->cantidad_columnas_extra > 0){
-				echo "<td class='ei-cuadro-col-tit' colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
+				foreach ($this->get_eventos_sobre_fila() as $id_ev) {
+					echo "<td class='ei-cuadro-col-tit'>&nbsp;";
+					if (editor::modo_prueba()) {
+						echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id_ev)."\n";
+					}
+					echo "</td>\n";
+				}
 			}
 	        echo "</tr>\n";
         }

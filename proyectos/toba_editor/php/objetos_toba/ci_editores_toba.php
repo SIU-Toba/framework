@@ -35,9 +35,8 @@ abstract class ci_editores_toba extends objeto_ci
 		//Necesito cargar la entidad antes de mostrar la pantalla
 	}
 	
-	function evt__inicializar()
+	function ini()
 	{
-		parent::evt__inicializar();
 		$evento = toba::get_hilo()->obtener_parametro('evento');
 		if (isset($evento)) {
 			$this->set_pantalla(3);

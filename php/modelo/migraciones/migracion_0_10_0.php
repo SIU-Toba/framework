@@ -527,6 +527,7 @@ class migracion_0_10_0 extends migracion_toba
 	 * Se cambia:
 	 *	evt__id__carga por conf__id
 	 * 	evt__entrada__id por evt__id__entrada	
+	 *  evt__inicializar por ini
 	 */
 	function proyecto__cambio_api_ci()
 	{
@@ -534,6 +535,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/evt__(\w+)__carga\(/', 'conf__${1}(');		
 		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada(');
 		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
+		$editor->agregar_sustitucion('/evt__inicializar\(/', 'ini(');
 		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}

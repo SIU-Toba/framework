@@ -63,16 +63,17 @@ class objeto_ci extends objeto_ei
 		if (!$this->existio_memoria_previa()) {
 			$this->ini__operacion();
 		}
-		$this->evt__inicializar();
+		$this->ini();
 		$this->definir_pantalla_eventos();		
 	}
 
 	function ini__operacion() {}
 	
-	function evt__inicializar()
-	//Antes que todo
+	function ini()
 	{
+		
 	}
+
 	
 	//--------------------------------------------------------------
 	//---------  Manejo de MEMORIA -------------------------------
@@ -101,7 +102,7 @@ class objeto_ci extends objeto_ei
 		$this->set_pantalla( $this->get_pantalla_inicial() );
 		$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
-		$this->evt__inicializar();
+		$this->ini();
 	}
 		
 	//--------------------------------------------------------------

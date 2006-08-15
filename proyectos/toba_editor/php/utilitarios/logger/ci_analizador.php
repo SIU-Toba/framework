@@ -22,7 +22,7 @@ class ci_analizador extends objeto_ci
 	 * @todo Se desactiva el logger porque no corre como proyecto toba sino como el de la aplicacion
 	 * 		Cuando el admin sea un proyecto hay que sacar la desactivación
 	 */
-	function evt__inicializar()
+	function ini()
 	{
 		toba::get_logger()->desactivar();	
 		if (!isset($this->opciones)) {

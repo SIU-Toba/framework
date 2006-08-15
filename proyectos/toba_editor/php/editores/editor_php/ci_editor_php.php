@@ -11,7 +11,7 @@ class ci_editor_php extends objeto_ci
 	protected $meta_clase;	//Al CI le sirve para contextualizar el FORM de opciones
 	protected $subcomponente;
 
-	function evt__inicializar()
+	function ini()
 	{
 		$this->set_datos(toba::get_zona()->get_info());		
 	}

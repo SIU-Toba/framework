@@ -9,10 +9,10 @@ class objeto_cn extends objeto
 	{
 		parent::__construct($id);
 		$this->transaccion_abierta = false;
-		$this->evt__inicializar();		
+		$this->ini();
 	}
 
-	function evt__inicializar()
+	function ini()
 	{
 		//Esto hay que redeclararlo en los HIJOS	
 	}	
@@ -22,7 +22,7 @@ class objeto_cn extends objeto
 		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
 		//$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
-		$this->evt__inicializar();
+		$this->ini();
 	}
 
 

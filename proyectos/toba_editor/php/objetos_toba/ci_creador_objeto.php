@@ -10,7 +10,7 @@ class ci_creador_objeto extends objeto_ci
 	protected $destino;
 	protected $objeto_construido;
 	
-	function evt__inicializar()
+	function ini()
 	{
 		if (! dao_editores::hay_fuente_definida(editor::get_proyecto_cargado())) {
 			throw new excepcion_toba("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");

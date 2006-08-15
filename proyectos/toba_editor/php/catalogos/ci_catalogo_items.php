@@ -10,7 +10,7 @@ class ci_catalogo_items extends ci_catalogo
 	const foto_inaccesibles = "Items con problemas de acceso";
 	const foto_sin_objetos = "Items sin objetos asociados";
 	
-	function evt__inicializar()
+	function ini()
 	{
 		$this->album_fotos = new album_fotos('cat_item');
 

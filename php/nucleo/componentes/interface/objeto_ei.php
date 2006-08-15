@@ -98,6 +98,17 @@ abstract class objeto_ei extends objeto
 		return $cant;
 	}
 	
+	function get_eventos_sobre_fila()
+	{
+		$salida = array();
+		foreach ($this->eventos as $id => $evento) {
+			if ($evento['sobre_fila']) {
+				$salida[]=$id;
+			}
+		}
+		return $salida;
+	}
+	
 	/**
 	 * Reporto un evento en mi controlador
 	 */

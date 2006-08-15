@@ -2,7 +2,7 @@
 
 class ci_fuentes extends objeto_ci
 {
-	function evt__inicializar()
+	function ini()
 	{
 		if ($editable = toba::get_zona()->get_editable()){
 			$clave['proyecto'] = $editable[0];

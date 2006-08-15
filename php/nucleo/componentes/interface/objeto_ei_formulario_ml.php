@@ -532,10 +532,14 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 			echo "</th>\n";
 		}
         //-- Eventos sobre fila
-		$cant_sobre_fila = $this->cant_eventos_sobre_fila();
-		if($cant_sobre_fila > 0){
-			echo "<th class='ei-ml-columna' colspan='$cant_sobre_fila'>\n";
-            echo "</th>\n";
+		if($this->cant_eventos_sobre_fila() > 0){
+			foreach ($this->get_eventos_sobre_fila() as $id_ev) {
+				echo "<th class='ei-ml-columna'>&nbsp;\n";
+				if (editor::modo_prueba()) {
+					echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id_ev)."\n";
+				}
+	            echo "</th>\n";
+			}
 		}		
 		echo "</tr>\n";
 	}

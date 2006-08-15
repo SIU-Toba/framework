@@ -4,7 +4,7 @@ require_once('nucleo/componentes/interface/objeto_ci.php');
 class ci_grupo_permisos extends objeto_ci
 {
 
-	function evt__inicializar()
+	function ini()
 	{
 		$editable = toba::get_solicitud()->zona()->get_editable();
 		if ($editable && !$this->dependencia('datos')->esta_cargado()) {
