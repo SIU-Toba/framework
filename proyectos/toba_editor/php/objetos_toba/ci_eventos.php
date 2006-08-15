@@ -31,6 +31,13 @@ class ci_eventos extends objeto_ci
 		return $this->tabla;
 	}
 
+	function set_evento_editado($id)
+	{
+		$filas = $this->get_tabla()->get_id_fila_condicion(array('identificador' => $id));
+		if (count($filas) == 1) {
+			$this->evt__eventos_lista__seleccion(current($filas));
+		}
+	}
 	
 	function conf__1($pant)
 	{
@@ -142,6 +149,7 @@ class ci_eventos extends objeto_ci
 			$id = $this->id_intermedio_evento[$id];
 		}
 		$this->seleccion_evento = $id;
+		$this->dependencia('eventos_lista')->seleccionar($id);		
 	}
 	
 	//-----------------------------------------

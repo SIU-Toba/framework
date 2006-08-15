@@ -394,19 +394,17 @@ class objeto_ci extends objeto_ei
 	function dependencia($id, $carga_en_demanda = true)
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
-		if ($this->en_servicio && $carga_en_demanda) {
-			if (! in_array( $id, $this->dependencias_inicializadas ) ) {
-	 			if (  $dependencia instanceof objeto_ei ) {
-					$parametro['id'] = $id;
-					$parametro['nombre_formulario'] = $this->nombre_formulario;
-					$this->inicializar_dependencia( $id, $parametro );
-				}
+		if (! in_array( $id, $this->dependencias_inicializadas ) ) {
+ 			if (  $dependencia instanceof objeto_ei ) {
+				$parametro['id'] = $id;
+				$parametro['nombre_formulario'] = $this->nombre_formulario;
+				$this->inicializar_dependencia( $id, $parametro );
 			}
-			//--- A los eis se les debe configurar cuando estan en servicio
-			if ($this->dependencias[$id] instanceof objeto_ei 
+		}
+		//--- A los eis se les debe configurar cuando estan en servicio
+		if (	$this->en_servicio	&&	$this->dependencias[$id] instanceof objeto_ei 
 					&& ! in_array($id, $this->dependencias_configuradas)) {
-				$this->configurar_dep($id);
-			}
+			$this->configurar_dep($id);
 		}
 		return $dependencia;
 	}

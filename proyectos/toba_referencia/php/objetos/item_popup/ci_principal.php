@@ -3,10 +3,6 @@ require_once('nucleo/componentes/interface/objeto_ci.php');
 //--------------------------------------------------------------------
 class ci_principal extends objeto_ci
 {
-	function extender_objeto_js()
-	{
-	}
-
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();

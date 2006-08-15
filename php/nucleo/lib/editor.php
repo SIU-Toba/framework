@@ -366,7 +366,7 @@ class editor
 		$opciones['celda_memoria'] = 'central';
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
-		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente));
+		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
 		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";

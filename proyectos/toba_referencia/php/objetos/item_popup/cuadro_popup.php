@@ -11,7 +11,6 @@ class cuadro_popup extends objeto_ei_cuadro
 				seleccionar(seleccion[0], seleccion[1]);
 				return false;
 			}
-		
 		";
 	}
 

@@ -219,10 +219,11 @@ abstract class objeto_ei extends objeto
 		}
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
+
 		//--- Link al editor
 		if (editor::modo_prueba()) {
 			echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id)."\n";
-		}				
+		}
 		if ( isset($this->eventos[$id]['accion']) ) {
 			// Acciones predeterminadas
 			if ($this->eventos[$id]['accion'] == 'H') {
