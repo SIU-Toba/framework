@@ -159,6 +159,7 @@ echo '<div style="text-align:left">';
 	$prohibidos[] = 'obtener_html';
 	$prohibidos[] = 'obtener_html_contenido';
 	$prohibidos[] = 'get_etapa_actual';
+	$prohibidos[] = '__cant_reg';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
@@ -176,7 +177,13 @@ echo '<div style="text-align:left">';
 			$encontrados = array_unique($encontrados);
 			$path = substr($archivo, strpos($archivo, 'php')+4);
 			if (! empty($encontrados)) {
-				echo "<li><strong>$path</strong>:<ul>";
+				//-- Se crea el icono de abrir
+				$parametros = array('archivo' => $path);
+				$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false);
+				$vinculo = toba::get_vinculador()->crear_vinculo(editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+				$js = "toba.comunicar_vinculo('$vinculo')";
+				$icono = "<img style='cursor:pointer' onclick=\"$js\" src='".recurso::imagen_apl('reflexion/abrir.gif', false)."'>";
+				echo "<li>$icono <strong>$path</strong>:<ul>";
 				foreach ($encontrados as $metodo) {
 					echo "<li>".$metodo."</li>";
 				}

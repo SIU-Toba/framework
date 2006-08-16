@@ -60,7 +60,7 @@ class ci_editor_php extends objeto_ci
 				$this->datos['clase_archivo'] = $mts['padre_archivo'];
 				$this->meta_clase = $mts['meta_clase'];
 			}else{
-				throw new exception_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');			
+				throw new exception_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');
 			}
 		}else{
 			//La metaclase del componente es su CLASE INFO
@@ -98,6 +98,11 @@ class ci_editor_php extends objeto_ci
 	
 	function evt__abrir()
 	{
+		$arch = toba::get_hilo()->obtener_parametro('archivo');
+		if (isset($arch)) {
+			$arch = info_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/" .$arch;
+			$this->archivo_php = new archivo_php($arch);	
+		}
 		$this->archivo_php->abrir();
 	}
 	

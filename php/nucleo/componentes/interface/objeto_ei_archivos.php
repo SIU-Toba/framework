@@ -21,6 +21,9 @@ class objeto_ei_archivos extends objeto_ei
 		if (isset($this->memoria['dir_actual'])) {
 			$this->dir_actual = $this->memoria['dir_actual'];
 		}
+		if (isset($this->memoria['path_relativo_inicial'])) {
+			$this->path_relativo_inicial = $this->memoria['path_relativo_inicial'];
+		}		
 		$this->extensiones = array("php");
 		$this->ocultos = array(".svn");
 	}
@@ -54,15 +57,25 @@ class objeto_ei_archivos extends objeto_ei
 			//El evento estaba entre los ofrecidos?
 			if (isset($this->memoria['eventos'][$evento]) ) {
 				$parametros = $_POST[$this->submit."__seleccion"];
-				$seleccion = $this->dir_actual."/$parametros";
 				switch($evento){
 					case 'ir_a_carpeta':
-						$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));							 
+						$seleccion = $this->dir_actual."/$parametros";						
+						//--- Chequeo de seguridad
+						if (isset($this->path_relativo_inicial)) {
+							if (strpos(realpath($seleccion), realpath($this->path_relativo_inicial)) !== 0) {
+							   throw new excepcion_toba("El path es invalido");
+							}				
+						}
+						$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));
 						break;
 					case 'crear_carpeta': 
+						$parametros = str_replace('.', '', $parametros);
+						$seleccion = $this->dir_actual."/$parametros";
 						manejador_archivos::crear_arbol_directorios($seleccion);
 						break;
 					case 'crear_archivo': 
+						$parametros = str_replace('.', '', $parametros);
+						$seleccion = $this->dir_actual."/$parametros";					
 						manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
 					default:
