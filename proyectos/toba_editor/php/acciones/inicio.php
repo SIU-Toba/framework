@@ -163,7 +163,8 @@ echo '<div style="text-align:left">';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
-	echo "<h2>Métodos obsoletos</h2> (no busca por obtener_html y obtener_javascript de los cis)<ul>";
+	echo "<h2>Métodos obsoletos</h2> (no busca por extender_objeto_js de los cis)";
+	echo "<ul style='list-style-type:none'>";
 	foreach ($archivos as $archivo ) {
 		if ($archivo !== __FILE__) {
 			$contenido = file_get_contents($archivo);
@@ -177,12 +178,7 @@ echo '<div style="text-align:left">';
 			$encontrados = array_unique($encontrados);
 			$path = substr($archivo, strpos($archivo, 'php')+4);
 			if (! empty($encontrados)) {
-				//-- Se crea el icono de abrir
-				$parametros = array('archivo' => $path);
-				$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false);
-				$vinculo = toba::get_vinculador()->crear_vinculo(editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
-				$js = "toba.comunicar_vinculo('$vinculo')";
-				$icono = "<img style='cursor:pointer' onclick=\"$js\" src='".recurso::imagen_apl('reflexion/abrir.gif', false)."'>";
+				$icono = admin_util::get_icono_abrir_php($path);
 				echo "<li>$icono <strong>$path</strong>:<ul>";
 				foreach ($encontrados as $metodo) {
 					echo "<li>".$metodo."</li>";

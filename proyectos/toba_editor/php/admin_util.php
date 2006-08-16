@@ -36,5 +36,14 @@ class admin_util
 		$host = (info_instalacion::instancia()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
 		return "https://$host.siu.edu.ar";
 	}
+	
+	static function get_icono_abrir_php($archivo)
+	{
+		$parametros = array('archivo' => $archivo);
+		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false);
+		$vinculo = toba::get_vinculador()->crear_vinculo(editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		$js = "toba.comunicar_vinculo('$vinculo')";
+		return "<img style='cursor:pointer' onclick=\"$js\" src='".recurso::imagen_apl('reflexion/abrir.gif', false)."'>";		
+	}
 }
 ?>
