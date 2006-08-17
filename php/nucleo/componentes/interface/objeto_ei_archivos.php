@@ -74,8 +74,9 @@ class objeto_ei_archivos extends objeto_ei
 						manejador_archivos::crear_arbol_directorios($seleccion);
 						break;
 					case 'crear_archivo': 
-						$parametros = str_replace('.', '', $parametros);
-						$seleccion = $this->dir_actual."/$parametros";					
+						$parametros = str_replace('/', '', $parametros);
+						$seleccion = $this->dir_actual."/$parametros";	
+						var_dump($seleccion);				
 						manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
 					default:

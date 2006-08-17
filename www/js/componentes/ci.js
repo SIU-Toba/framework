@@ -62,7 +62,9 @@ function ci(instancia, form, input_submit) {
 				//toba.set_ajax(this);
 				toba.comunicar_eventos();
 			} else {
-				cola_mensajes.mostrar(this);		
+				if (window.cola_mensajes) {
+					cola_mensajes.mostrar(this);
+				}
 			}
 		} else {
 			this.submit_recursivo();

@@ -7,6 +7,16 @@ class odt_pantallas extends objeto_datos_tabla
 		$this->set_no_duplicado(array('identificador'));
 	}
 	
+	function get_ids_pantallas()
+	{
+		$pantallas = array();
+		$filas = $this->get_filas(null, true);		
+		foreach ($filas as $id => $pantalla) {
+			$pantallas[] = $pantalla['identificador'];
+		}
+		return $pantallas;
+	}
+	
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con las DEPENDENCIAS
 	//-----------------------------------------------------

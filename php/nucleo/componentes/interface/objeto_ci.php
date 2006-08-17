@@ -41,6 +41,7 @@ class objeto_ci extends objeto_ei
 
 	function destruir()
 	{
+		$this->fin();
 		if( isset($this->pantalla_servicio) ){
 			//Guardo INFO sobre la interface generada
 			$this->memoria['pantalla_dep'] = $this->pantalla_servicio->get_lista_dependencias();
@@ -54,6 +55,8 @@ class objeto_ci extends objeto_ei
 		}
 		parent::destruir();
 	}
+	
+	function fin() {}
 
 	function inicializar($parametro=null)
 	{
@@ -69,11 +72,7 @@ class objeto_ci extends objeto_ei
 
 	function ini__operacion() {}
 	
-	function ini()
-	{
-		
-	}
-
+	function ini() {}
 	
 	//--------------------------------------------------------------
 	//---------  Manejo de MEMORIA -------------------------------
