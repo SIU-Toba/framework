@@ -355,14 +355,17 @@ class objeto_ei_pantalla extends objeto_ei
 			$tab_order = 0;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$html = '';
-			if(isset($tab['imagen'])) {
-				$html = recurso::imagen($tab['imagen']).' ';
+			if (editor::modo_prueba()) {
+				$html .= editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+			}
+			if (isset($tab['imagen'])) {
+				$html .= recurso::imagen($tab['imagen']).' ';
 			} else {
-				$html = gif_nulo(1, 16);
+				$html .= gif_nulo(1, 16);
 			}
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
-			if(!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
+			if (!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
 			$tip = str_replace("'", "\\'",$tip);			
 			$acceso = recurso::ayuda($tecla, $tip);
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');return false;\"";
@@ -455,8 +458,9 @@ class objeto_ei_pantalla extends objeto_ei
 		$consumo_js[] = 'componentes/ci';
 		foreach($this->dependencias as $dep) {
 			$temp = $dep->get_consumo_javascript();
-			if(isset($temp))
+			if (isset($temp)) {
 				$consumo_js = array_merge($consumo_js, $temp);
+			}
 		}
 		return $consumo_js;
 	}

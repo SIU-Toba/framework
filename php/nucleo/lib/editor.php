@@ -375,4 +375,19 @@ class editor
 		$salida .= "</span>";		
 		return $salida;
 	}
+	
+	static function get_vinculo_pantalla($componente, $editor, $pantalla)
+	{
+		$opciones['celda_memoria'] = 'central';
+		$opciones['prefijo'] = self::get_punto_acceso_editor();
+		$opciones['validar'] = false;
+		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
+		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$salida = "<span class='div-editor'>";		
+		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
+		$salida .= recurso::imagen_apl('objetos/editar.gif',true);
+		$salida .= "</a>\n";
+		$salida .= "</span>";		
+		return $salida;		
+	}
 }

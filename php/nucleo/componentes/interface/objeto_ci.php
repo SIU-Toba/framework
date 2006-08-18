@@ -25,7 +25,7 @@ class objeto_ci extends objeto_ei
 	protected $posicion_botonera;					// Posicion de la botonera en la interface
 	// Pantalla
 	protected $pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
-	protected $pantalla_id_servicio;				// Id de la pantalla a mostrar en el servicio
+	private   $pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio
 	protected $pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
 	protected $en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	
@@ -198,8 +198,8 @@ class objeto_ci extends objeto_ei
 		} else {
  			$this->log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
+		$this->post_eventos();		
 		$this->controlar_cambio_pantalla();
-		$this->post_eventos();
 	}
 	
 	/**
@@ -227,7 +227,6 @@ class objeto_ci extends objeto_ei
 			$this->invocar_callback($evento_entrada);
 		}
 	}
-	
 
 	/**
 	 * Reconoce que evento del CI se ejecuto
@@ -434,7 +433,6 @@ class objeto_ci extends objeto_ei
 		}
 	}
 		
-	
 	//--------------------------------------------------------
 	//--  MANEJO de PANTALLAS  -------------------------------
 	//--------------------------------------------------------
