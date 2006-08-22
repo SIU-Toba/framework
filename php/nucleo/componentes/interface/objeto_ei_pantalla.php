@@ -351,13 +351,9 @@ class objeto_ei_pantalla extends objeto_ei
 		$id_tab = 1;
 		foreach( $this->lista_tabs as $id => $tab ) {
 			$tip = $tab["tip"];
-			$clase = 'ci-tabs-h-boton';
-			$tab_order = 0;
+			$tab_order = null;
 			$acceso = tecla_acceso( $tab["etiqueta"] );
 			$html = '';
-			if (editor::modo_prueba()) {
-				$html .= editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
-			}
 			if (isset($tab['imagen'])) {
 				$html .= recurso::imagen($tab['imagen']).' ';
 			} else {
@@ -369,14 +365,18 @@ class objeto_ei_pantalla extends objeto_ei
 			$tip = str_replace("'", "\\'",$tip);			
 			$acceso = recurso::ayuda($tecla, $tip);
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');return false;\"";
+			$editor = '';
+			if (editor::modo_prueba()) {
+				$editor = editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+			}			
 			if ($this->id_en_controlador == $id) {
   				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
-				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor<a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			} else {
   				$estilo_li = 'background:url("'.recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
-				echo "<li style='$estilo_li'><a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor<a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			}
 			$id_tab++;			
 		}

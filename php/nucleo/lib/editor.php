@@ -383,7 +383,7 @@ class editor
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
 		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
-		$salida = "<span class='div-editor'>";		
+		$salida = "<span class='div-editor' style='position:absolute'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= recurso::imagen_apl('objetos/editar.gif',true);
 		$salida .= "</a>\n";
