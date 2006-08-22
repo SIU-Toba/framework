@@ -112,7 +112,8 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	def.cascadas_maestros_preparados = function(id_esclavo)
 	{
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
-			if (! this.ef(this._maestros[id_esclavo][i]).tiene_estado()) {
+			var ef = this.ef(this._maestros[id_esclavo][i]);
+			if (ef && ! ef.tiene_estado()) {
 				return false;
 			}
 		}
@@ -129,10 +130,12 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		var valores = '';
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
-			if (this.ef(id_maestro).tiene_estado()) {
+			var ef = this.ef(id_maestro);			
+			if (ef && ef.tiene_estado()) {
 				var valor = this.ef(id_maestro).get_estado();
 				valores +=  id_maestro + '-;-' + valor + '-|-';
-			} else {
+			} else if (ef) {
+				//-- Evita caso del oculto
 				con_estado = false;
 				break;
 			}

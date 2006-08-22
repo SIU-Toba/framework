@@ -4,9 +4,8 @@ class ci_fuentes extends objeto_ci
 {
 	function ini()
 	{
-		if ($editable = toba::get_zona()->get_editable()){
-			$clave['proyecto'] = $editable[0];
-			$clave['fuente_datos'] = $editable[1];
+		if ($editable = toba::get_zona()->get_editable()) {
+			$clave['proyecto'] = editor::get_proyecto_cargado();
 			$this->dependencia('datos')->cargar($clave);
 		}			
 	}
@@ -30,7 +29,10 @@ class ci_fuentes extends objeto_ci
 	{
 		$this->dependencia('datos')->sincronizar();
 		$clave = $this->dependencia('datos')->get_clave_valor(0);
-		toba::get_solicitud()->zona()->cargar_editable($clave);
+		$zona = toba::get_solicitud()->zona();
+		if (! $zona->cargada()) {
+			$zona->cargar(array_values($clave));
+		}
 	}
 
 	function evt__eliminar()

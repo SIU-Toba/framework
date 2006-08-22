@@ -46,7 +46,6 @@ class ci_cascadas extends objeto_ci
 		);	
 	}
 	
-	
 	function get_combo_temp($popup)
 	{
 		return array(
@@ -54,9 +53,9 @@ class ci_cascadas extends objeto_ci
 			);
 	}
 	
-	function get_popup($clave)
+	function get_popup($clave, $oculto)
 	{
-		return "Descripción: $clave";	
+		return "Descripción: $clave ($oculto)";	
 	}
 	
 	function get_datos_multi_claves($par1)

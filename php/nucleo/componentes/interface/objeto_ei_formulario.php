@@ -642,9 +642,9 @@ class objeto_ei_formulario extends objeto_ei
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new excepcion_toba("Cascadas: Invocación incorrecta");	
 		}
-		
 		$id_ef = trim(toba::get_hilo()->obtener_parametro('cascadas-ef'));
 		$maestros = array();
+		$ids_maestros = $this->cascadas_maestros[$id_ef];
 		foreach (explode('-|-', toba::get_hilo()->obtener_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
@@ -652,6 +652,13 @@ class objeto_ei_formulario extends objeto_ei
 					throw new excepcion_toba("Cascadas: Cantidad incorrecta de parametros ($par).");						
 				}
 				$id_ef_maestro = $param[0];
+				
+				//--- Verifique que este entre los maestros y lo elimina de la lista
+				if (!in_array($id_ef_maestro, $ids_maestros)) {
+					throw new excepcion_toba("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+				}
+				array_borrar_valor($ids_maestros, $id_ef_maestro);
+				
 				$campos = $this->elemento_formulario[$id_ef_maestro]->get_dato();
 				$valores = explode(apex_ef_separador, $param[1]);
 				if (!is_array($campos)) {
@@ -668,6 +675,13 @@ class objeto_ei_formulario extends objeto_ei
 					$maestros[$id_ef_maestro] = $valores_clave;
 				}
 			}
+		}
+		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
+		foreach ($ids_maestros as $id_ef_maestro) {
+			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
+				throw new excepcion_toba("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+			}
+			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
 		toba::get_logger()->debug("Cascadas '$id_ef', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->ejecutar_metodo_carga_ef($id_ef, $maestros);

@@ -160,6 +160,7 @@ echo '<div style="text-align:left">';
 	$prohibidos[] = 'obtener_html_contenido';
 	$prohibidos[] = 'get_etapa_actual';
 	$prohibidos[] = '__cant_reg';
+	$prohibidos[] = 'cargar_editable';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
