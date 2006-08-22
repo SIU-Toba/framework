@@ -11,9 +11,9 @@ require_once("nucleo/componentes/interface/efs/ef.php");
  */
 class objeto_ei_formulario extends objeto_ei
 {
+	protected $prefijo = 'form';	
 	protected $elemento_formulario;			// interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
 	protected $nombre_formulario;			// interno | string | Nombre del	FORMULARIO en el cliente
-	protected $prefijo;						// Prefijo de todos los objetos creados por este FORMs
 	protected $lista_ef = array();			// interno | array |	Lista	completa	de	a los	EF
 	protected $lista_ef_post = array();		// interno | array |	Lista	de	elementos que se reciben por POST
 	protected $lista_ef_ocultos = array();
@@ -39,13 +39,10 @@ class objeto_ei_formulario extends objeto_ei
 	function __construct($id)
 	{
 		parent::__construct($id);
-		//Elementos basicos del formulario
-		$this->submit = "ei_form".$this->id[1];
 		//Nombre de los botones de javascript
-		$this->js_eliminar = "eliminar_ei_{$this->id[1]}";
-		$this->js_agregar = "agregar_ei_{$this->id[1]}";
+		$this->js_eliminar = "eliminar_ei_{$this->submit}";
+		$this->js_agregar = "agregar_ei_{$this->submit}";
 		$this->evento_mod_estricto = true;
-		$this->objeto_js = "objeto_form_{$this->id[1]}";
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);
 	}
 
@@ -63,7 +60,6 @@ class objeto_ei_formulario extends objeto_ei
 		if (isset($this->info_formulario['ancho_etiqueta']) && $this->info_formulario['ancho_etiqueta'] != '') {
 			$this->ancho_etiqueta = $this->info_formulario['ancho_etiqueta'];
 		}	
-		$this->prefijo = $this->nombre_formulario . "_" . $this->id[1];
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();
 		//Cargo IDs en el CLIENTE

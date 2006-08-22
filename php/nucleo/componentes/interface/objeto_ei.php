@@ -17,13 +17,23 @@ define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
  */
 abstract class objeto_ei extends objeto
 {
+ 	protected $submit;	
+ 	protected $objeto_js;
 	protected $info_eventos;
 	protected $colapsado = false;						//El elemento sólo mantiene su título
 	protected $evento_implicito=null;					//Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
-
+	protected $prefijo = 'ei';
+	
+	function __construct($definicion)
+	{
+		parent::__construct($definicion);
+        $this->submit = $this->prefijo.'_'.$this->id[1];
+		$this->objeto_js = "js_".$this->submit;
+	}
+	
 	function destruir()
 	{
 		$this->memoria["eventos"] = array();
@@ -415,6 +425,11 @@ abstract class objeto_ei extends objeto
 		//---Titulo
 		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
 		echo "</div>";
+	}
+	
+	function get_id_form()
+	{
+		return $this->submit;	
 	}
 	
 	//---------------------------------------------------------------

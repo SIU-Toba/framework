@@ -354,6 +354,10 @@ class objeto
 	{
 		$this->controlador = $controlador;
 		$this->id_en_controlador = $id_en_padre;
+		if (isset($this->objeto_js)) {
+			$this->objeto_js .= '_'.$id_en_padre;
+			$this->submit .= '_'.$id_en_padre;
+		}
 	}	
 	
 	function cargar_info_dependencias()

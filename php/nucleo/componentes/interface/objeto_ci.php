@@ -13,6 +13,7 @@ require_once('nucleo/lib/parser_ayuda.php');
 class objeto_ci extends objeto_ei
 {
 	// General
+ 	protected $prefijo = 'ci';	
 	protected $cn=null;								// Controlador de negocio asociado
 	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
@@ -35,7 +36,6 @@ class objeto_ci extends objeto_ei
 		$propiedades[] = "dependencias_ci_globales";
 		$this->set_propiedades_sesion($propiedades);
 		parent::__construct($id);
-		$this->submit = "CI_" . $this->id[1] . "_submit";
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
@@ -581,7 +581,7 @@ class objeto_ci extends objeto_ei
 			if (isset($info_pantalla['subclase'])) {
 				$clase = $info_pantalla['subclase'];
 			}
-			$this->pantalla_servicio = new $clase($info, $this);	
+			$this->pantalla_servicio = new $clase($info, $this->submit, $this->objeto_js);	
 			$this->pantalla_servicio->set_controlador($this, $id_pantalla);
 		}
 		return $this->pantalla_servicio;

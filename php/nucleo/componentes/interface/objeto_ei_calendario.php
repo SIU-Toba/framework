@@ -13,6 +13,7 @@ require_once('3ros/activecalendar/activecalendar.php');
  */
 class objeto_ei_calendario extends objeto_ei
 {
+	protected $prefijo = 'cal';	
 	var $calendario;
 	var $semana_seleccionada;
 	var $dia_seleccionado;
@@ -29,8 +30,6 @@ class objeto_ei_calendario extends objeto_ei
 		$this->semana_seleccionada = array("semana" => $semana, "anio" => $anio);
 		$this->dia_seleccionado = array("dia" => $dia, "mes" =>$mes, "anio" => $anio);
 		$this->mes_actual = array("mes" => $mes, "anio" => $anio);
-		$this->submit = "ei_calendario" . $this->id[1];
-		$this->objeto_js = "objeto_calendario_{$this->id[1]}";
 		$this->calendario = new calendario();
 	}
 	

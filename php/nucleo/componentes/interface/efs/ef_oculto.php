@@ -29,7 +29,7 @@ class ef_oculto extends ef
 
 	function clave_memoria()
 	{
-		return "obj_" . $this->id_padre[1] . "_ef_" . $this->id_form;
+		return "ef_" . $this->id_form;
 	}
 
 	function set_estado($estado)

@@ -13,7 +13,7 @@ define("apex_cuadro_cc_anidado","a");
  */
 class objeto_ei_cuadro extends objeto_ei
 {
- 	protected $submit;
+	protected $prefijo = 'cuadro';	
  	protected $columnas;
     protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
     protected $cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
@@ -48,12 +48,6 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->set_propiedades_sesion($propiedades);
         parent::__construct($id);
 		$this->procesar_definicion();
-        $this->submit = "ei_cuadro" . $this->id[1];
-		$this->submit_orden_columna = $this->submit."__orden_columna";
-		$this->submit_orden_sentido = $this->submit."__orden_sentido";
-		$this->submit_seleccion = $this->submit."__seleccion";
-		$this->submit_paginado = $this->submit."__pagina_actual";
-		$this->objeto_js = "objeto_cuadro_{$this->id[1]}";
 		$this->inicializar_manejo_clave();	
 		if($this->existe_paginado())
 			$this->inicializar_paginado();
@@ -63,6 +57,14 @@ class objeto_ei_cuadro extends objeto_ei
 		$this->inspeccionar_sumarizaciones_usuario();
 	}
 
+	function inicializar()
+	{
+		$this->submit_orden_columna = $this->submit."__orden_columna";
+		$this->submit_orden_sentido = $this->submit."__orden_sentido";
+		$this->submit_seleccion = $this->submit."__seleccion";
+		$this->submit_paginado = $this->submit."__pagina_actual";		
+	}
+	
 	function procesar_definicion()
 	{
 		$estructura_datos = array();
@@ -1240,13 +1242,11 @@ class objeto_ei_cuadro extends objeto_ei
         }	
 		//---Editor de la columna
 		$editor = '';
-		if( editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
+		if ( editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
 			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
-			if ( $this->id[0] == toba::get_hilo()->obtener_proyecto() ) {
-				$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
-										'columna' => $columna );
-				$editor = editor::get_vinculo_subcomponente($item_editor, $param_editor);
-			}
+			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
+									'columna' => $columna );
+			$editor = editor::get_vinculo_subcomponente($item_editor, $param_editor);
 		}	
 		echo $editor;
     }

@@ -49,14 +49,8 @@ abstract class ef
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->id = $id;				
-		//--- Esto es para tener compatibilidad para atras		
-		if (is_object($padre)) {
-			$this->padre = $padre;
-			$this->id_padre = $padre->get_id();
-		} else {
-			$this->id_padre = $padre;	
-		}
-		$this->id_form_orig = "ef_" . $this->id_padre[1] . $this->id;
+		$this->padre = $padre;
+		$this->id_form_orig = "ef_" . $this->padre->get_id_form() . $this->id;
 		$this->ir_a_fila();
 		$this->etiqueta = $etiqueta;
 		$this->descripcion = $descripcion;

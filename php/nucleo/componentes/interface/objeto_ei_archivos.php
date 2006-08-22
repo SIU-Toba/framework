@@ -9,6 +9,7 @@ require_once("lib/manejador_archivos.php");
  */
 class objeto_ei_archivos extends objeto_ei
 {
+	protected $prefijo = 'arch';	
 	protected $dir_actual;
 	protected $path_relativo_inicial;
 	protected $filtro;
@@ -16,8 +17,6 @@ class objeto_ei_archivos extends objeto_ei
     function __construct($id)
     {
         parent::__construct($id);
-        $this->objeto_js = "objeto_archivo_{$this->id[1]}";
-        $this->submit = "ei_archivo" . $this->id[1];
 		if (isset($this->memoria['dir_actual'])) {
 			$this->dir_actual = $this->memoria['dir_actual'];
 		}
@@ -76,7 +75,6 @@ class objeto_ei_archivos extends objeto_ei
 					case 'crear_archivo': 
 						$parametros = str_replace('/', '', $parametros);
 						$seleccion = $this->dir_actual."/$parametros";	
-						var_dump($seleccion);				
 						manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
 					default:

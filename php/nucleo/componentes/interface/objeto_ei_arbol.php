@@ -8,6 +8,7 @@ require_once("objeto_ei.php");
 */
 class objeto_ei_arbol extends objeto_ei
 {
+	protected $prefijo = 'arbol';	
 	protected $nodos_inicial;
 	protected $item_propiedades = array();
 	protected $nivel_apertura = 1;
@@ -15,12 +16,6 @@ class objeto_ei_arbol extends objeto_ei
 	protected $todos_abiertos = false;
 	protected $frame_destino = null;
 	
-    function __construct($id)
-    {
-        parent::__construct($id);
-		$this->submit = "ei_arbol" . $this->id[1];
-		$this->objeto_js = "objeto_ei_arbol_{$this->id[1]}";
-	}
 	
 	function servicio__ejecutar()
 	{

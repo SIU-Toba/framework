@@ -155,9 +155,10 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		if (!$this->cargado) {
 			//Seteo los datos asociados al uso de este editor
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase_proyecto", 'toba' );
-			$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"clase", $this->get_clase_actual() );
+			$fijos = array('proyecto' => editor::get_proyecto_cargado(),
+							'clase_proyecto' => 'toba',
+							'clase' => $this->get_clase_actual());
+			$this->get_entidad()->tabla('base')->set($fijos);
 		}
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();

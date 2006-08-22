@@ -13,14 +13,20 @@ class objeto_ei_pantalla extends objeto_ei
 	protected $nombre_formulario;					// Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
 
-	function __construct($info_pantalla)
+	function __construct($info_pantalla, $submit, $objeto_js)
 	{
 		parent::__construct($info_pantalla);
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
-		$this->submit = "CI_" . $this->id[1] . "_submit";
+		$this->submit = $submit;
+		$this->objeto_js = $objeto_js;
 		$this->posicion_botonera = ($this->info_ci['posicion_botonera'] != '') ? $this->info_ci['posicion_botonera'] : 'abajo';
-		$this->objeto_js = "objeto_ci_{$this->id[1]}";		
 	}
+	
+	function set_controlador($controlador, $id_en_padre=null)
+	{
+		$this->controlador = $controlador;
+		$this->id_en_controlador = $id_en_padre;
+	}	
 
 	function pre_configurar()
 	{
@@ -412,7 +418,7 @@ class objeto_ei_pantalla extends objeto_ei
 	
 	protected function get_utilidades_impresion_html()
 	{
-		$id_frame = "objeto_ci_{$this->id[1]}_print";
+		$id_frame = "{$this->submit}_print";
 		echo "<iframe style='position:absolute;width: 0px; height: 0px; border-style: none;' "
 			."name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
 		echo js::abrir();

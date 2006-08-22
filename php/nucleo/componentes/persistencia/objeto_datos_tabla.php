@@ -32,7 +32,7 @@ class objeto_datos_tabla extends objeto
 	protected $cambios = array();				// Cambios realizados sobre los datos
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proxima_fila = 231;				// Posicion del proximo registro en el array de datos
+	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
 	protected $cursor;							// Puntero a una fila específica
 	protected $cargada = false;
 	// Relaciones con el exterior
