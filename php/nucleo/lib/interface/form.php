@@ -84,7 +84,7 @@ class form {
 
 //________________________________________________________________________________________________________    
     
-    static function radio($nombre, $actual, $datos, $clase=null, $extra="")
+    static function radio($nombre, $actual, $datos, $clase=null, $extra="", $tab_index = "")
     {
     	if (!is_array($datos)) {
     		$datos = array();	
@@ -95,7 +95,8 @@ class form {
     	foreach ($datos as $clave => $valor) {
     		$id = $nombre . $i;
     		$sel = ($actual == $clave) ? "checked" : "";
-    		$html .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='$nombre' value='$clave' $sel $html_clase $extra />$valor</label>\n";
+    		$html .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='$nombre' value='$clave' $sel $html_clase $extra $tab_index />$valor</label>\n";
+    		$tab_index = '';
     		$i++;
     	}
 		return $html;
@@ -138,7 +139,7 @@ class form {
     }
 //________________________________________________________________________________________________________
 
-    static function button_html($nombre,$html, $extra="", $tab = 0, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ei-boton", $con_id=true)
+    static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ei-boton", $con_id=true)
     // Boton con html embebido
     {
 		$acceso = recurso::ayuda($tecla, $tip, $clase);
@@ -149,11 +150,11 @@ class form {
     }
 
 //________________________________________________________________________________________________________
-    static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input")
+    static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
     {
     	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
     	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
-        return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase'>\n";
+        return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra>\n";
     }
 //________________________________________________________________________________________________________
 

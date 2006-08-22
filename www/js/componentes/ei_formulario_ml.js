@@ -20,7 +20,7 @@ def.constructor = ei_formulario_ml;
 	def.iniciar = function() {
 		//Iniciar las filas
 		for (fila in this._filas) {
-			this.iniciar_fila(this._filas[fila]);
+			this.iniciar_fila(this._filas[fila], false);
 		}
 		//Agregar totales
 		for (var id_ef in this._ef_con_totales) {
@@ -31,16 +31,18 @@ def.constructor = ei_formulario_ml;
 		this.reset_evento();
 	};
 
-	def.iniciar_fila = function (fila) {
+	def.iniciar_fila = function (fila, agregar_tabindex) {
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
 			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[fila][id_ef]);
 			}			
 			ef.iniciar(id_ef, this);
-			ef.set_tab_index(this._rango_tabs[0]);
+			if (agregar_tabindex) {
+				ef.set_tab_index(this._rango_tabs[0]);
+				this._rango_tabs[0]++;
+			}
 			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
-			this._rango_tabs[0]++;
 		}
 	};	
 	
@@ -286,7 +288,7 @@ def.constructor = ei_formulario_ml;
 		fila_template.parentNode.appendChild(nuevo_nodo);
 
 			//Refresca la interface
-		this.iniciar_fila(this._proximo_id);
+		this.iniciar_fila(this._proximo_id, true);
 		this.refrescar_eventos_procesamiento(this._proximo_id);
 		this.refrescar_numeracion_filas();
 		this.refrescar_procesamientos();		

@@ -202,6 +202,10 @@ abstract class objeto_ei extends objeto
 	*/
 	function generar_botones_eventos()
 	{
+		//--- Si el componente no reservo tabs, se reservan ahora
+		if (!isset($this->rango_tabs)) {
+			$this->rango_tabs = manejador_tabs::instancia()->reservar(count($this->eventos));			
+		}
 		foreach(array_keys($this->eventos) as $id )	{
 			if ($this->evento_es_en_botonera($this->eventos[$id])) {
 				$this->generar_boton_evento($id);
@@ -217,6 +221,7 @@ abstract class objeto_ei extends objeto
 		if(!isset($this->eventos[$id])){
 			throw new excepcion_toba("Se solicito la generacion de un boton sobre un evento inexistente: '$id'");
 		}
+		$tab_order = $this->rango_tabs[0]++;
 		$tip = '';
 		if (isset($this->eventos[$id]['ayuda'])) {
 			$tip = $this->eventos[$id]['ayuda'];
@@ -227,7 +232,6 @@ abstract class objeto_ei extends objeto
 			$tipo_boton = 'submit';
 			$clase .=  '  ei-boton-defecto';			
 		}
-		$tab_order = 0;//ATENCION: Esto esta MAAL!!!
 		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
 		$html = '';
 		if (isset($this->eventos[$id]['imagen']) && $this->eventos[$id]['imagen']) {

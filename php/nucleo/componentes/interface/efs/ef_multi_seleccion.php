@@ -297,7 +297,9 @@ class ef_multi_seleccion_lista extends ef_multi_seleccion
 			";
 		}
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
-		$extra = ($this->solo_lectura) ? "disabled" : "";
+		$tab = $this->padre->get_tab_index();
+		$extra = " tabindex='$tab'";
+		$extra .= ($this->solo_lectura) ? "disabled" : "";
 		$html .= form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
@@ -343,13 +345,17 @@ class ef_multi_seleccion_check extends ef_multi_seleccion
 						<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
 				";
 			}		
+			$tab = $this->padre->get_tab_index();
+			$input_extra = " tabindex='$tab'";
+			
 			$html .= "<div id='{$this->id_form}_opciones'>";
 			$i =0;
 			foreach ($this->opciones as $clave => $descripcion) {
 				$id = $this->id_form.$i;
 				$checkeado = in_array($clave, $estado) ? "checked" : "";
 				$html .= "<label class='ef-multi-check' for='$id'>";
-				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox'>";
+				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox' $input_extra>";
+				$input_extra = '';
 				$html .= "$descripcion</label>\n";
 				$i++;
 			}
@@ -390,6 +396,8 @@ class ef_multi_seleccion_doble extends ef_multi_seleccion
 		
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$extra = " tabindex='$tab'";		
 		$html = '';
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$estado = $this->get_estado_para_input();
@@ -414,7 +422,8 @@ class ef_multi_seleccion_doble extends ef_multi_seleccion
 		$html .= "<table style='font-weight:normal;'>";
 		$html .= "<tr><td>$etiq_izq</td><td></td><td>$etiq_der</td></tr>";
 		$html .= "<tr><td>";
-		$html .= form::multi_select($this->id_form."_izq", array(), $izq, $tamanio, 'ef-combo', "$disabled ondblclick=\"$ef_js.pasar_a_derecha();\" onchange=\"$ef_js.refrescar_iconos('izq');\"");
+
+		$html .= form::multi_select($this->id_form."_izq", array(), $izq, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_derecha();\" onchange=\"$ef_js.refrescar_iconos('izq');\"");
 		$html .= "</td><td>$boton_der<br><br>$boton_izq</td><td>";
 		$html .= form::multi_select($this->id_form, array(), $der, $tamanio, 'ef-combo', "$disabled ondblclick=\"$ef_js.pasar_a_izquierda();\" onchange=\"$ef_js.refrescar_iconos('der');\"");		
 		$html .= "</td></tr>";

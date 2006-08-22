@@ -172,6 +172,14 @@ def.constructor = ef_multi_seleccion_check;
 			addEvent(elem[i], 'onchange', callback);
 		}
 	};
+	
+	def.set_tab_index = function(tab_index) {
+		var elem = this.get_elementos();
+		if (elem.length > 0) {
+			elem[0].tabIndex = tab_index;
+		}
+	};
+	
 
 //--------------------------------------------------------------------------------
 //Clase ef_multi_seleccion_doble
@@ -287,5 +295,10 @@ def.constructor = ef_multi_seleccion_doble;
 	def.cuando_cambia_valor = function(callback) {
 		this._callback = callback;
 	};	
+	
+	def.set_tab_index = function(tab_index) {
+		this.input('izq').tabIndex = tab_index;
+	};
+		
 	
 toba.confirmar_inclusion('efs/ef_multi_seleccion');

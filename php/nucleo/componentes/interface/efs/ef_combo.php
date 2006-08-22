@@ -182,11 +182,13 @@ class ef_combo extends ef_seleccion
 			$input .= form::hidden($this->id_form, $estado);
             return $input;
 		} else {
+			$tab = $this->padre->get_tab_index();
+			$extra = " tabindex='$tab'";
 			$js = '';
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
-			$html .= form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra, $this->categorias);
+			$html .= form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
 			return $html;
 		}
 	}	
@@ -216,7 +218,9 @@ class ef_radio extends ef_seleccion
 				$html .= "$descripcion</label>\n";
 			}
 		} else {
-			$html .= form::radio($this->id_form, $estado, $this->opciones, null, $callback);
+			$tab = $this->padre->get_tab_index();
+			$tab_index = " tabindex='$tab'";
+			$html .= form::radio($this->id_form, $estado, $this->opciones, null, $callback, $tab_index);
 		}
 		$html .= '</div>';
 		return $html;

@@ -43,7 +43,7 @@ class objeto_ei_formulario extends objeto_ei
 		$this->js_eliminar = "eliminar_ei_{$this->submit}";
 		$this->js_agregar = "agregar_ei_{$this->submit}";
 		$this->evento_mod_estricto = true;
-		$this->rango_tabs = manejador_tabs::instancia()->reservar(50);
+		$this->rango_tabs = manejador_tabs::instancia()->reservar(250);		
 	}
 
 	function destruir()
@@ -362,6 +362,12 @@ class objeto_ei_formulario extends objeto_ei
 		}
 	}
 
+	function get_tab_index()
+	{
+		if (isset($this->rango_tabs)) {
+			return $this->rango_tabs[0]++;
+		}	
+	}
 	
 	//-------------------------------------------------------------------------------
 	//-------------------------	  MANEJO de DATOS	  -------------------------------

@@ -205,6 +205,14 @@ def.constructor = ef_radio;
 			elem[i].disabled = solo_lectura;
 		}
 	};	
+	
+	def.set_tab_index = function(tab_index) {
+		var elem = this.input();
+		if (elem.length > 0) {
+			elem[0].tabIndex = tab_index;
+		}
+	};
+
 
 	
 toba.confirmar_inclusion('efs/ef_combo');

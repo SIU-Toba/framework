@@ -98,6 +98,8 @@ class ef_editable extends ef
     
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$this->input_extra .= " tabindex='$tab'";
 		$input = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
 		if (isset($this->unidad)) {
 			$input .= ' '. $this->unidad;
@@ -302,8 +304,10 @@ class ef_editable_clave extends ef_editable
     
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$this->input_extra .= " tabindex='$tab'";
 		$estado = isset($this->estado)? $this->estado : "";
-		$html = form::password($this->id_form,$estado, $this->maximo, $this->tamano);
+		$html = form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		if ($this->confirmar_clave) {
 			$html .= "<br>".form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano);
 		}
@@ -371,8 +375,11 @@ class ef_editable_fecha extends ef_editable
 	
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$this->input_extra .= " tabindex='$tab'";
 		$html = "<span class='ef-fecha'>";
-		$html .= form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,$this->tamano, $this->estilo);
+		$html .= form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,
+								$this->tamano, $this->estilo, $this->input_extra);
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
@@ -488,7 +495,9 @@ class ef_editable_textarea extends ef_editable
 				$obj = $this->objeto_js();
 				$this->javascript .= "onkeydown=\"$obj.validar()\" onkeyup=\"$obj.validar()\"";
 			}
-			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript);
+			$tab = $this->padre->get_tab_index();
+			$this->input_extra .= " tabindex='$tab'";
+			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra);
 		}
 		return $html;
 	}

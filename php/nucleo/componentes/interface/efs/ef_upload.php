@@ -8,6 +8,8 @@ class ef_upload extends ef
 	
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$extra = " tabindex='$tab'";		
 		$estado = $this->get_estado_input();
 		//--- Se puede cargar con el nombre del archivo o el arreglo que php brinda
 		//--- al hacer el upload
@@ -25,10 +27,10 @@ class ef_upload extends ef
 			if (isset($nombre_archivo)) {
 				$salida .= form::archivo($this->id_form, null, "ef-upload", "style='display:none'");
 				$salida .= "<br><div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
-				$salida .= form::checkbox("{$this->id_form}_check", null, 1, 'ef-checkbox', "onclick=\"{$this->objeto_js()}.set_editable()\"");
+				$salida .= form::checkbox("{$this->id_form}_check", null, 1, 'ef-checkbox', "$extra onclick=\"{$this->objeto_js()}.set_editable()\"");
 				$salida .= "<label for='{$this->id_form}_check'>Cambiar el Archivo</label>";
 			} else {
-				$salida = form::archivo($this->id_form);
+				$salida = form::archivo($this->id_form, null, 'ef-upload', $extra);
 				$salida .= form::checkbox("{$this->id_form}_check", 1, 1, 'ef-checkbox', "style='display:none'");
 			}
 		} else { // En modo sólo lectura

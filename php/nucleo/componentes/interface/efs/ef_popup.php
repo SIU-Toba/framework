@@ -75,6 +75,8 @@ class ef_popup extends ef_editable
 	
 	function get_input()
 	{
+		$tab = $this->padre->get_tab_index();
+		$extra = " tabindex='$tab'";		
 		if(!isset($this->estado)) $this->estado="";	
 		if ($this->descripcion_estado == '') {
 			$this->descripcion_estado = $this->estado;			
@@ -88,13 +90,14 @@ class ef_popup extends ef_editable
 		if ($this->editable) {
 			$r .= form::hidden($this->id_form."_desc", $this->estado);
 			$disabled = ($this->solo_lectura) ? "disabled" : "";
-			$r .= form::text($this->id_form, $this->descripcion_estado ,false, "", $this->tamano, "ef-input", $disabled.' '.$js);
+			$r .= form::text($this->id_form, $this->descripcion_estado ,false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
+			$extra = '';
 		} else {
 			$r .= form::hidden($this->id_form, $this->estado, $js);
 			$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ");
 		}	
 		$display = ($this->solo_lectura) ? "visibility:hidden" : "";
-		$r .= "<a id='{$this->id_form}_vinculo' style='$display' ";
+		$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 		$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
         $r .= " href='#'>".recurso::imagen_apl('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
         $r .= "</span>\n";

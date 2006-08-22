@@ -30,9 +30,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	def.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
-			this._efs[id_ef].set_tab_index(this._rango_tabs[0]);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
-			this._rango_tabs[0] = this._rango_tabs[0] + 5;
 			if (this._invalidos[id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[id_ef]);
 			}

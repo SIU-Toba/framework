@@ -22,13 +22,8 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
 	
 	function __construct($id)
-/*
-	@@acceso: nucleo
-	@@desc: constructor de la clase
-*/
 	{
 		parent::__construct($id);
-		$this->rango_tabs = manejador_tabs::instancia()->reservar(5000);
 		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156;
 		$this->filas_recibidas = isset($this->memoria['filas_recibidas']) ? $this->memoria['filas_recibidas'] : array();
 	}
@@ -688,22 +683,21 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		$ordenar = $this->info_formulario['filas_ordenar'];
 		if ($agregar || $ordenar) {
 			echo "<div style='text-align: left'>";
-			$tab = ($this->rango_tabs[1] - 10);
 			if ($agregar) {
 				echo form::button_html("{$this->objeto_js}_agregar", recurso::imagen_apl('ml/agregar.gif', true), 
-										"onclick='{$this->objeto_js}.crear_fila();'", $tab++, '+', 'Crea una nueva fila');
+										"onclick='{$this->objeto_js}.crear_fila();'", $this->rango_tabs[0]++, '+', 'Crea una nueva fila');
 				echo form::button_html("{$this->objeto_js}_eliminar", recurso::imagen_apl('ml/borrar.gif', true), 
-										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $tab++, '-', 'Elimina la fila seleccionada');
+										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
 				$html = recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
 				echo form::button_html("{$this->objeto_js}_deshacer", $html, 
-										" onclick='{$this->objeto_js}.deshacer();' disabled", $tab++, 'z', 'Deshace la última eliminación');
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->rango_tabs[0]++, 'z', 'Deshace la última eliminación');
 				echo "&nbsp;";
 			}
 			if ($ordenar) {
 				echo form::button_html("{$this->objeto_js}_subir", recurso::imagen_apl('ml/subir.gif', true), 
-										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $tab++, '<', 'Sube una posición la fila seleccionada');
+										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
 				echo form::button_html("{$this->objeto_js}_bajar", recurso::imagen_apl('ml/bajar.gif', true),
-                                        "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $tab++, '>', 'Baja una posición la fila seleccionada');
+                                        "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $this->rango_tabs[0]++, '>', 'Baja una posición la fila seleccionada');
 			}
 			echo "</div>\n";
 		}

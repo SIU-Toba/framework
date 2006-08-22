@@ -82,9 +82,9 @@ class ef_checkbox extends ef
             return $html_devuelto;   
          }else
          {
-         	//$extra = "DISABLED" . $this->javascript;
-         	//echo ei_mensaje($extra);
-            return form :: checkbox($this->id_form, $this->estado, $this->valor,null,$this->javascript);
+			$tab = $this->padre->get_tab_index();
+			$extra = " tabindex='$tab'";		
+            return form :: checkbox($this->id_form, $this->estado, $this->valor,null, $extra.' '.$this->javascript);
          }            
     }
 
