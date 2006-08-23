@@ -61,6 +61,7 @@ class objeto_ei_pantalla extends objeto_ei
 	//------------------------------------------------------
 	//---------------		Dependencias    ----------------
 	//------------------------------------------------------
+
 	function agregar_dep($id_obj)
 	{
 		//--- Chequeo para evitar el bug #389				
@@ -157,7 +158,15 @@ class objeto_ei_pantalla extends objeto_ei
 	//---------------------------------------------
 	//---------------	EVENTOS    ----------------
 	//---------------------------------------------
+
+	function agregar_evento($id)
+	{
+	}
 	
+	function eliminar_evento($id)
+	{
+	}
+		
 	/**
 	 * Carga la lista de eventos definidos desde el administrador 
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
@@ -492,14 +501,19 @@ class objeto_ei_pantalla extends objeto_ei
 		}
 	}
 
-	/**
-	*	ATENCION: Esto esta bien???
-	*/	
-	protected function extender_objeto_js()
+	function generar_js()
 	{
+		$identado = js::instancia()->identado();
+		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		$this->crear_objeto_js();
 		$this->controlador->extender_objeto_js();
+		$this->extender_objeto_js();
+		echo "\n";
+		$this->iniciar_objeto_js();
+		echo "$identado//-----------------------------------------------------------------  \n";		
+		return $this->objeto_js;
 	}
-	
+
 	//---------------------------------------------------------------
 	//------------------------ SALIDA Impresion ---------------------
 	//---------------------------------------------------------------

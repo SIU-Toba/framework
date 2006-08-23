@@ -1099,7 +1099,7 @@ class objeto_ei_cuadro extends objeto_ei
 						//--->  Generacion del GATILLO del EVENTO
 						if ( isset($this->eventos[$id]['accion']) && ($this->eventos[$id]['accion'] == 'V') ) {
 							//El evento es una ACCION predeterminada de tipo VINCULO!
-							$vinculo = new vinculo(	toba::get_hilo()->obtener_proyecto(), 
+							$vinculo = new vinculo_toba( toba::get_hilo()->obtener_proyecto(), 
 													$this->eventos[$id]['accion_vinculo_item'],
 													$this->eventos[$id]['accion_vinculo_popup'],
 													$this->eventos[$id]['accion_vinculo_popup_param'] );

@@ -76,7 +76,7 @@ class vinculador
 		return $this->crear_vinculo(null, null, $parametros, $opciones);
 	}
 
-	function registrar_vinculo( vinculo $vinculo )
+	function registrar_vinculo( vinculo_toba $vinculo )
 	{
 		$item = $vinculo->get_item();
 		$proyecto = $vinculo->get_proyecto();

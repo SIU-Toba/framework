@@ -395,7 +395,6 @@ class objeto_ci extends objeto_ei
 		//--- A los eis se les debe configurar cuando estan en servicio
 		if (	$this->en_servicio	
 				&&	$this->dependencias[$id] instanceof objeto_ei 
-				&& ! $this->dependencias[$id] instanceof objeto_ci	//Los CI se configuran en un lugar prefijado de su CI controlador 
 				&& ! $this->dependencia_esta_configurada($id) ) {
 			$this->configurar_dep($id);
 		}
@@ -540,18 +539,7 @@ class objeto_ci extends objeto_ei
 		return in_array($id, $this->dependencias_configuradas);
 	}
 	
-	function post_configurar()
-	{
-		//Configuro las dependencias que son CI. Esto se hace aparte porque de esta forma se permite
-		//que los CI controladores puededan definir el estado de sus CI dependientes antes de que estos
-		//gatillen su configuracion propia
-		$cis = $this->pantalla()->get_lista_dependencias();
-		foreach( $cis as $ci ) {
-			if( $this->dependencias[$ci] instanceof objeto_ci ) {
-				$this->configurar_dep($ci);
-			}
-		}
-	}
+	function post_configurar(){}
 
 	/**
 	 * Ventana para hacer una configuración personalizada del ci

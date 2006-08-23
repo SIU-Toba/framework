@@ -45,7 +45,7 @@ class ef_popup extends ef_editable
 		}
     	$this->item_destino = $parametros['popup_item'];
 		$this->item_destino_proyecto = $parametros['popup_proyecto'];
-		$vinculo = new vinculo(	$this->item_destino_proyecto, 
+		$vinculo = new vinculo_toba(	$this->item_destino_proyecto, 
 										$this->item_destino,
 										true,
 										$this->ventana );

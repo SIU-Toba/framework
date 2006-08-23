@@ -100,7 +100,8 @@ class ci_editor_php extends objeto_ci
 	{
 		$arch = toba::get_hilo()->obtener_parametro('archivo');
 		if (isset($arch)) {
-			$arch = info_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/" .$arch;
+			$path_proyecto = info_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/";
+			$arch =  $path_proyecto . $arch;
 			$this->archivo_php = new archivo_php($arch);	
 		}
 		$this->archivo_php->abrir();

@@ -30,34 +30,17 @@ class ci_relaciones extends objeto_ci
 
 	function conf()
 	{
-		echo "1: CONFIGURACION CI<br>";
 		if( $this->mostrar_detalle_relacion() ){
+			$this->get_datos_relacion_activa();
 			$this->pantalla()->eliminar_dep('relaciones_esquema');
-			$this->pantalla()->agregar_evento('cancelar');
+			//$this->pantalla()->agregar_evento('cancelar');
+			$this->dependencia('relaciones_lista')->set_fila_protegida($this->s__seleccion_relacion);			
+			$this->dependencia('relaciones_lista')->seleccionar($this->s__seleccion_relacion);
 		} else {
 			$this->pantalla()->eliminar_dep('relaciones_columnas');
 		}	
 	}
 
-	function evt__pre_cargar_datos_dependencias()
-	{
-		echo "2: PREPARACION pantalla<br>";
-		if( $this->mostrar_detalle_relacion() ){
-			$this->get_datos_relacion_activa();
-		}		
-	}
-
-	function evt__post_cargar_datos_dependencias()
-	{
-		if( $this->mostrar_detalle_relacion() ){
-			//Protejo la efs seleccionada de la eliminacion
-			//ATENCION! - $this->dependencias["relaciones_lista"]->set_fila_protegida($this->s__seleccion_relacion_anterior);
-		}
-		if (isset($this->s__seleccion_relacion)) {
-			$this->dependencia("relaciones_lista")->seleccionar($this->s__seleccion_relacion);
-		}
-	}
-	
 	function limpiar_seleccion()
 	{
 		unset($this->s__seleccion_relacion);
@@ -194,7 +177,6 @@ class ci_relaciones extends objeto_ci
 
 	function get_columnas_padre()
 	{
-		echo "3: DAOS<br>";
 		return dao_editores::get_lista_dt_columnas( $this->rel_activa_padre );
 	}
 	
@@ -232,7 +214,6 @@ class ci_relaciones extends objeto_ci
 	
 	function conf__relaciones_columnas()
 	{
-		echo "4: cargo DEP<br>";
 		$datos = array();
 		$this->s__seleccion_relacion_anterior = $this->s__seleccion_relacion;
 		for($a=0;$a<count($this->rel_activa_hijo_claves);$a++) {

@@ -4,7 +4,6 @@ require_once('modelo/componentes/info_ei_formulario_ml.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $ef_seleccionado;
 	protected $clase_actual = 'objeto_ei_formulario_ml';	
 	
 	function ini()
@@ -13,8 +12,8 @@ class ci_principal extends ci_editores_toba
 		$ef = toba::get_hilo()->obtener_parametro('ef');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($ef)) {
-			$this->ef_seleccionado = $ef;
 			$this->set_pantalla(2);
+			$this->dependencia('efs')->seleccionar_ef($ef);
 		}
 	}
 
@@ -44,14 +43,6 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//** Dialogo con el CI de EFs  **************************************
 	//*******************************************************************
-	
-	//Antes de cargar los datos de los efs, ver si alguno particular se selecciono desde afuera
-	function conf__2()
-	{
-		if (isset($this->ef_seleccionado)) {
-			$this->dependencia('efs')->seleccionar_ef($this->ef_seleccionado);
-		}
-	}	
 	
 	function evt__2__salida()
 	{

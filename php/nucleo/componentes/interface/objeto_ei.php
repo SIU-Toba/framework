@@ -1,7 +1,8 @@
 <?
 require_once("nucleo/componentes/objeto.php");
 require_once('nucleo/lib/salidas/impresion_toba.php');
-require_once('nucleo/lib/vinculo.php');
+require_once('nucleo/lib/vinculo_toba.php');
+require_once('nucleo/lib/evento_toba.php');
 require_once('eventos.php');
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_ei_evento","evt");
@@ -263,7 +264,7 @@ abstract class objeto_ei extends objeto
 				echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 			} elseif ( ($this->eventos[$id]['accion'] == 'V') ) {
 			// --- VINCULO ---
-				$vinculo = new vinculo(	toba::get_hilo()->obtener_proyecto(), 
+				$vinculo = new vinculo_toba(	toba::get_hilo()->obtener_proyecto(), 
 										$this->eventos[$id]['accion_vinculo_item'],
 										$this->eventos[$id]['accion_vinculo_popup'],
 										$this->eventos[$id]['accion_vinculo_popup_param'] );

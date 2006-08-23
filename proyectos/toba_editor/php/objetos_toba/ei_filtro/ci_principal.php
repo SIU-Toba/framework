@@ -5,7 +5,6 @@ require_once('modelo/componentes/info_ei_filtro.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_ei_filtro';	
-	protected $ef_seleccionado;
 	
 	function ini()
 	{
@@ -13,7 +12,7 @@ class ci_principal extends ci_editores_toba
 		$ef = toba::get_hilo()->obtener_parametro('ef');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($ef)) {
-			$this->ef_seleccionado = $ef;
+			$this->dependencia('efs')->seleccionar_ef($ef);
 			$this->set_pantalla(2);
 		}
 	}
@@ -36,14 +35,6 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//** Dialogo con el CI de EFs  **************************************
 	//*******************************************************************
-	
-	//Antes de cargar los datos de los efs, ver si alguno particular se selecciono desde afuera
-	function conf__2()
-	{
-		if (isset($this->ef_seleccionado)) {
-			$this->dependencia('efs')->seleccionar_ef($this->ef_seleccionado);
-		}
-	}	
 	
 	function evt__2__salida()
 	{
