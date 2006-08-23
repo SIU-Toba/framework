@@ -5,56 +5,30 @@ require_once('modelo/componentes/info_ei_cuadro.php');
 class ci_principal extends ci_editores_toba
 {
 	//Columnas
-	protected $seleccion_columna;
-	protected $seleccion_columna_anterior;
+	protected $s__seleccion_columna;
+	protected $s__seleccion_columna_anterior;
 	private $id_intermedio_columna;
-	protected $columna_especifica;
-	protected $cortes_control;
-	protected $importacion_cols;
+	protected $s__cortes_control;
+	protected $s__importacion_cols;
 	protected $clase_actual = 'objeto_ei_cuadro';
 	
-	function __construct($id)
+	function ini()
 	{
-		parent::__construct($id);
+		parent::ini();
 		$col = toba::get_hilo()->obtener_parametro('columna');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($col)) {
-			$this->columna_especifica = $col;
+			$this->set_pantalla(2);
+			echo "ACA";
 			$id_interno = $this->get_entidad()->tabla("columnas")->get_id_fila_condicion(array('clave'=>$col));
 			if (count($id_interno) == 1) {
 				$this->evt__columnas_lista__seleccion($id_interno[0]);			
 			} else {
 				throw new excepcion_toba("No se encontro la columna $col.");
 			}
-
 		}
-	}	
-	
-	function get_etapa_actual()
-	{
-		if (isset($this->columna_especifica)) {
-			return 2;	//Si se selecciono una columna desde afuera va a la pantalla de edición de las columnas
-		} 
-		return parent::get_etapa_actual();
-	}	
-	
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($this->get_entidad()->tabla('columnas')->info(true),"COLUMNAS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_columna";
-		$propiedades[] = "seleccion_columna_anterior";
-		$propiedades[] = "cortes_control";
-		$propiedades[] = "importacion_cols";
-		return $propiedades;
-	}
-
+	
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
@@ -72,57 +46,48 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//*******************  COLUMNAS  *************************************
 	//*******************************************************************
-	
-	function evt__2__entrada()
-	{
-		//--- Armo la lista de DEPENDENCIAS disponibles
-		$this->cortes_control = array();
-		if($registros = $this->get_entidad()->tabla('cortes')->get_filas())
-		{
-			foreach($registros as $reg){
-				$this->cortes_control[ $reg['identificador'] ] = $reg['identificador'];
-			}
-		}
-	}
+
 	function mostrar_columna_detalle()
 	{
-		if( isset($this->seleccion_columna) ){
+		if( isset($this->s__seleccion_columna) ){
 			return true;	
 		}
 		return false;
 	}
-
-	function get_lista_ei__2()
+	
+	function evt__2__entrada()
 	{
-		$ei[] = "columnas_lista";
-		if( $this->mostrar_columna_detalle() ){
-			$ei[] = "columnas";
-			if( count($this->cortes_control) > 0 ){
-				$ei[] = "columna_corte";			
+		//--- Armo la lista de DEPENDENCIAS disponibles
+		$this->s__cortes_control = array();
+		if($registros = $this->get_entidad()->tabla('cortes')->get_filas())
+		{
+			foreach($registros as $reg){
+				$this->s__cortes_control[ $reg['identificador'] ] = $reg['identificador'];
 			}
-		}else{
-			$ei[] = "columnas_importar";
 		}
-		return $ei;	
+	}
+
+	function conf__2($pantalla)
+	{
+		if( $this->mostrar_columna_detalle() ){
+			$pantalla->eliminar_dep('columnas_importar');
+			$existen_cortes = count($this->s__cortes_control) > 0;
+			if( ! $existen_cortes ){
+				$pantalla->eliminar_dep('columna_corte');
+			}
+			$this->dependencia('columnas_lista')->set_fila_protegida($this->s__seleccion_columna);
+			$this->dependencia("columnas_lista")->seleccionar($this->s__seleccion_columna);
+		}else{
+			$pantalla->eliminar_dep('columnas');
+			$pantalla->eliminar_dep('columna_corte');
+			$this->dependencia('columnas_importar')->colapsar();
+		}
 	}
 	
 	function evt__2__salida()
 	{
-		unset($this->seleccion_columna);
-		unset($this->seleccion_columna_anterior);
-	}
-
-	function evt__post_cargar_datos_dependencias__2()
-	{
-		if( $this->mostrar_columna_detalle() ){
-			//Protejo la columna seleccionada de la eliminacion
-			$this->dependencia("columnas_lista")->set_fila_protegida($this->seleccion_columna_anterior);
-		}else{
-			$this->dependencia("columnas_importar")->colapsar();
-		}
-		if (isset($this->seleccion_columna)) {
-			$this->dependencia("columnas_lista")->seleccionar($this->seleccion_columna);
-		}		
+		unset($this->s__seleccion_columna);
+		unset($this->s__seleccion_columna_anterior);
 	}
 
 	//-------------------------------
@@ -187,7 +152,7 @@ class ci_principal extends ci_editores_toba
 		if(isset($this->id_intermedio_columna[$id])){
 			$id = $this->id_intermedio_columna[$id];
 		}
-		$this->seleccion_columna = $id;
+		$this->s__seleccion_columna = $id;
 	}
 
 	//-----------------------------------------
@@ -196,24 +161,24 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas__modificacion($datos)
 	{
-		$this->get_entidad()->tabla('columnas')->modificar_fila($this->seleccion_columna_anterior, $datos);
+		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 	}
 	
 	function evt__columnas__aceptar($datos)
 	{
-		$this->get_entidad()->tabla('columnas')->modificar_fila($this->seleccion_columna_anterior, $datos);
+		$this->get_entidad()->tabla('columnas')->modificar_fila($this->s__seleccion_columna_anterior, $datos);
 		$this->evt__columnas__cancelar();
 	}
 
 	function conf__columnas()
 	{
-		$this->seleccion_columna_anterior = $this->seleccion_columna;
-		return $this->get_entidad()->tabla('columnas')->get_fila($this->seleccion_columna_anterior);
+		$this->s__seleccion_columna_anterior = $this->s__seleccion_columna;
+		return $this->get_entidad()->tabla('columnas')->get_fila($this->s__seleccion_columna_anterior);
 	}
 
 	function evt__columnas__cancelar()
 	{
-		unset($this->seleccion_columna);
+		unset($this->s__seleccion_columna);
 	}
 
 	//-----------------------------------------
@@ -222,10 +187,10 @@ class ci_principal extends ci_editores_toba
 
 	function conf__columna_corte()
 	{
-		$cortes_asociados = $this->get_entidad()->tabla('columnas')->get_cortes_columna($this->seleccion_columna_anterior);
+		$cortes_asociados = $this->get_entidad()->tabla('columnas')->get_cortes_columna($this->s__seleccion_columna_anterior);
 		$datos = null;
 		$a=0;
-		foreach( $this->cortes_control as $corte){
+		foreach( $this->s__cortes_control as $corte){
 			$datos[$a]['identificador'] = $corte; 
 			if(is_array($cortes_asociados)){
 				if(in_array($corte, $cortes_asociados)){
@@ -247,7 +212,7 @@ class ci_principal extends ci_editores_toba
 		foreach($datos as $dato){
 			if($dato['total'] == "1")	$cortes[] = $dato['identificador'];
 		}
-		$this->get_entidad()->tabla('columnas')->set_cortes_columna($this->seleccion_columna_anterior, $cortes);
+		$this->get_entidad()->tabla('columnas')->set_cortes_columna($this->s__seleccion_columna_anterior, $cortes);
 	}
 
 	//---------------------------------
@@ -256,7 +221,7 @@ class ci_principal extends ci_editores_toba
 
 	function evt__columnas_importar__importar($datos)
 	{
-		$this->importacion_cols = $datos;
+		$this->s__importacion_cols = $datos;
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
@@ -276,8 +241,8 @@ class ci_principal extends ci_editores_toba
 
 	function conf__columnas_importar()
 	{
-		if(isset($this->importacion_cols)){
-			return $this->importacion_cols;
+		if(isset($this->s__importacion_cols)){
+			return $this->s__importacion_cols;
 		}
 	}
 

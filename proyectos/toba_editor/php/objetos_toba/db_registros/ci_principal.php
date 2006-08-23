@@ -13,12 +13,6 @@ class ci_principal extends ci_editores_toba
 		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
 	}
 
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		return $propiedades;
-	}
-
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************

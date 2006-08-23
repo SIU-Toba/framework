@@ -11,9 +11,8 @@ abstract class ci_editores_toba extends objeto_ci
 	private $falla_carga = false;
 	private $elemento_eliminado = false;
 
-	function __construct($id)
+	function ini()
 	{
-		parent::__construct($id);
 		//Cargo el editable de la zona		
 		$zona = toba::get_solicitud()->zona();
 		if ($editable = $zona->get_editable()){
@@ -31,12 +30,10 @@ abstract class ci_editores_toba extends objeto_ci
 				$this->cambio_objeto = false;	
 			}
 		}
-		$this->etapa_particular = toba::get_hilo()->obtener_parametro('etapa');
-		//Necesito cargar la entidad antes de mostrar la pantalla
-	}
-	
-	function ini()
-	{
+		//Llegada a un TAB especifico desde el arbol
+		$etapa = toba::get_hilo()->obtener_parametro('etapa');
+		if( isset($etapa) ) $this->set_pantalla($etapa);
+		//Llegada desde un evento
 		$evento = toba::get_hilo()->obtener_parametro('evento');
 		if (isset($evento)) {
 			$this->set_pantalla(3);
@@ -82,7 +79,6 @@ abstract class ci_editores_toba extends objeto_ci
 			echo ei_mensaje("El elemento ha sido eliminado.");
 			return;
 		}
-		
 		parent::obtener_html();
 	}
 
@@ -93,15 +89,6 @@ abstract class ci_editores_toba extends objeto_ci
 			unset($eventos['eliminar']);
 		}
 		return $eventos;
-	}
-
-	function get_etapa_actual()
-	{
-		if (isset($this->etapa_particular)) {
-			return $this->etapa_particular;	
-		} else {
-			return parent::get_etapa_actual();	
-		}
 	}
 
 	function evt__eliminar()

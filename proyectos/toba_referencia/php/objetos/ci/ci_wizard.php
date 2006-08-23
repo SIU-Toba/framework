@@ -78,6 +78,4 @@ class ci_wizard extends objeto_ci
 		return date('D M j G:i:s T Y', $id['fecha']);
 	}
 }
-
-
 ?>

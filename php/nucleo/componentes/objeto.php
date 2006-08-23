@@ -398,11 +398,7 @@ class objeto
 
 	function cargar_dependencia($identificador, $parametros=null)
  	{
-		//-[0]- La dependencia ya esta cargada?
-		if(isset($this->dependencias[$identificador])){
-			return 999;
-		}
-		//-[1]- El indice es valido?
+		//El indice es valido?
 		if(!isset($this->indice_dependencias[$identificador])){
 			throw new excepcion_toba("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
 		}

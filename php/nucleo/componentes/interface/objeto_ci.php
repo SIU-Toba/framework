@@ -15,7 +15,6 @@ class objeto_ci extends objeto_ei
 	// General
  	protected $prefijo = 'ci';	
 	protected $cn=null;								// Controlador de negocio asociado
-	protected $dependencias_ci_globales = array();	// Lista de todas las dependencias CI instanciadas desde el momento 0
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
 	protected $dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
 	protected $dependencias_inicializadas = array();// Lista de dependencias inicializadas
@@ -32,9 +31,6 @@ class objeto_ci extends objeto_ei
 	
 	function __construct($id)
 	{
-		$propiedades = array();
-		$propiedades[] = "dependencias_ci_globales";
-		$this->set_propiedades_sesion($propiedades);
 		parent::__construct($id);
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
@@ -48,10 +44,6 @@ class objeto_ci extends objeto_ei
 			$this->memoria['pantalla_servicio'] = $this->pantalla_id_servicio;
 			$this->memoria['tabs'] = array_keys($this->pantalla_servicio->get_lista_tabs());
 			$this->eventos = $this->pantalla_servicio->get_lista_eventos();
-		}
-		//Armo la lista GLOBAL de dependencias de tipo CI
-		if(isset($this->dependencias_ci_globales)){
-			$this->dependencias_ci_globales = array_merge($this->dependencias_ci_globales, $this->dependencias_ci);
 		}
 		parent::destruir();
 	}
@@ -401,8 +393,10 @@ class objeto_ci extends objeto_ei
 			}
 		}
 		//--- A los eis se les debe configurar cuando estan en servicio
-		if (	$this->en_servicio	&&	$this->dependencias[$id] instanceof objeto_ei 
-					&& ! in_array($id, $this->dependencias_configuradas)) {
+		if (	$this->en_servicio	
+				&&	$this->dependencias[$id] instanceof objeto_ei 
+				&& ! $this->dependencias[$id] instanceof objeto_ci	//Los CI se configuran en un lugar prefijado de su CI controlador 
+				&& ! $this->dependencia_esta_configurada($id) ) {
 			$this->configurar_dep($id);
 		}
 		return $dependencia;
@@ -523,7 +517,7 @@ class objeto_ci extends objeto_ei
 	
 	protected function configurar_dep($dep)
 	{
-		if (in_array($dep, $this->dependencias_configuradas)) {
+		if ($this->dependencia_esta_configurada($dep)) {
 			throw new excepcion_toba("La dependencia '$dep' ya ha sido configurada anteriormente");
 		}
 		$this->dependencias_configuradas[] = $dep;		
@@ -541,8 +535,23 @@ class objeto_ci extends objeto_ei
 		$this->dependencias[$dep]->post_configurar();
 	}
 	
+	function dependencia_esta_configurada($id)
+	{
+		return in_array($id, $this->dependencias_configuradas);
+	}
+	
 	function post_configurar()
-	{}
+	{
+		//Configuro las dependencias que son CI. Esto se hace aparte porque de esta forma se permite
+		//que los CI controladores puededan definir el estado de sus CI dependientes antes de que estos
+		//gatillen su configuracion propia
+		$cis = $this->pantalla()->get_lista_dependencias();
+		foreach( $cis as $ci ) {
+			if( $this->dependencias[$ci] instanceof objeto_ci ) {
+				$this->configurar_dep($ci);
+			}
+		}
+	}
 
 	/**
 	 * Ventana para hacer una configuración personalizada del ci

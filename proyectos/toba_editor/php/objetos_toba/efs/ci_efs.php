@@ -9,31 +9,14 @@ require_once("nucleo/componentes/interface/efs/ef.php");
 class ci_efs extends objeto_ci
 {
 	protected $tabla;
-	protected $seleccion_efs;
-	protected $seleccion_efs_anterior;
-	protected $importacion_efs;
+	protected $s__seleccion_efs;
+	protected $s__seleccion_efs_anterior;
+	protected $s__importacion_efs;
 	private $id_intermedio_efs;
 	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
 	protected $modificado = false;
 
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($this->get_tabla()->elemento('efss')->info(true),"efsS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
-	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_efs";
-		$propiedades[] = "seleccion_efs_anterior";
-		$propiedades[] = "importacion_efs";
-		return $propiedades;
-	}
-
 	function get_tabla()
-	//Acceso al db_tablas
 	{
 		if (! isset($this->tabla)) {
 			$this->tabla = $this->controlador->get_dbr_efs();
@@ -43,17 +26,32 @@ class ci_efs extends objeto_ci
 
 	function mostrar_efs_detalle()
 	{
-		if( isset($this->seleccion_efs) ){
+		if( isset($this->s__seleccion_efs) ){
 			return true;	
 		}
 		return false;
 	}
 
+	/**
+	*	El contenedor selecciona un ef por su identificador real
+	*/	
+	function seleccionar_ef($id)
+	{
+		$id_interno = $this->get_tabla()->get_id_fila_condicion(array('identificador'=>$id));
+		if (count($id_interno) == 1) {
+			$this->evt__efs_lista__seleccion(current($id_interno));
+		} else {
+			throw new excepcion_toba("No se encontro el ef $id.");
+		}
+	}
+	
 	function conf()
 	{
 		$this->pantalla()->agregar_dep('efs_lista');		
 		if ($this->mostrar_efs_detalle() ){
-			$this->pantalla()->agregar_dep("efs");
+			$this->dependencia('efs_lista')->set_fila_protegida($this->s__seleccion_efs);
+			$this->dependencia('efs_lista')->seleccionar($this->s__seleccion_efs);
+			$this->pantalla()->agregar_dep('efs');
 			$param_carga = $this->get_definicion_parametros(true);			
 			$param_varios = $this->get_definicion_parametros(false);
 			if (! empty($param_varios)) {			
@@ -62,16 +60,18 @@ class ci_efs extends objeto_ci
 			if (! empty($param_carga)) {
 				$this->pantalla()->agregar_dep('param_carga');
 			}			
+			//Protejo la efs seleccionada de la eliminacion
 		} else {
 			$this->pantalla()->eliminar_evento('cancelar');
 			$this->pantalla()->eliminar_evento('aceptar');
 			$this->pantalla()->agregar_dep('efs_importar');
+			$this->dependencia('efs_importar')->colapsar();
 			if ($this->hay_cascadas()) {
 				$this->pantalla()->agregar_dep('esquema_cascadas');
 			}			
 		}
 	}
-
+	
 	function evt__cancelar()
 	{
 		$this->limpiar_seleccion();	
@@ -82,23 +82,10 @@ class ci_efs extends objeto_ci
 		$this->limpiar_seleccion();	
 	}
 
-	function evt__post_cargar_datos_dependencias()
-	{
-		if( $this->mostrar_efs_detalle() ){
-			//Protejo la efs seleccionada de la eliminacion
-			$this->dependencia("efs_lista")->set_fila_protegida($this->seleccion_efs_anterior);
-		}else{
-			$this->dependencia("efs_importar")->colapsar();
-		}
-		if (isset($this->seleccion_efs)) {
-			$this->dependencia("efs_lista")->seleccionar($this->seleccion_efs);
-		}
-	}
-	
 	function limpiar_seleccion()
 	{
-		unset($this->seleccion_efs);
-		unset($this->seleccion_efs_anterior);
+		unset($this->s__seleccion_efs);
+		unset($this->s__seleccion_efs_anterior);
 	}
 
 	//-------------------------------
@@ -164,20 +151,7 @@ class ci_efs extends objeto_ci
 		if(isset($this->id_intermedio_efs[$id])){
 			$id = $this->id_intermedio_efs[$id];
 		}
-		$this->seleccion_efs = $id;
-	}
-
-	/**
-	*	Selecciona un ef por su identificador real
-	*/	
-	function seleccionar_ef($id)
-	{
-		$id_interno = $this->get_tabla()->get_id_fila_condicion(array('identificador'=>$id));
-		if (count($id_interno) == 1) {
-			$this->evt__efs_lista__seleccion(current($id_interno));
-		} else {
-			throw new excepcion_toba("No se encontro el ef $id.");
-		}
+		$this->s__seleccion_efs = $id;
 	}
 
 	//-----------------------------------------
@@ -186,19 +160,19 @@ class ci_efs extends objeto_ci
 
 	function evt__efs__modificacion($datos)
 	{
-		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $datos);
+		$this->get_tabla()->modificar_fila($this->s__seleccion_efs_anterior, $datos);
 	}
 	
 	function conf__efs()
 	{
-		$this->seleccion_efs_anterior = $this->seleccion_efs;
-		return $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		$this->s__seleccion_efs_anterior = $this->s__seleccion_efs;
+		return $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 	}
 
 	function evt__efs__cancelar()
 	{
-		unset($this->seleccion_efs);
-		unset($this->seleccion_efs_anterior);
+		unset($this->s__seleccion_efs);
+		unset($this->s__seleccion_efs_anterior);
 	}
 
 	//-----------------------------------------
@@ -226,7 +200,7 @@ class ci_efs extends objeto_ci
 		$filas = $this->get_tabla()->get_filas(null, true);
 		$posibles = array();
 		foreach ($filas as $clave => $datos) {
-			if ($clave != $this->seleccion_efs) {
+			if ($clave != $this->s__seleccion_efs) {
 				$posibles[] = array($datos['identificador'], $datos['identificador']);
 			}
 		}
@@ -243,12 +217,12 @@ class ci_efs extends objeto_ci
 	
 	function get_tipo_ef()
 	{
-		return $this->get_tabla()->get_fila_columna( $this->seleccion_efs, "elemento_formulario");
+		return $this->get_tabla()->get_fila_columna( $this->s__seleccion_efs, "elemento_formulario");
 	}
 	
 	function set_parametros($parametros)
 	{
-		$this->get_tabla()->modificar_fila($this->seleccion_efs_anterior, $parametros);
+		$this->get_tabla()->modificar_fila($this->s__seleccion_efs_anterior, $parametros);
 	}
 
 	//---------------------------------
@@ -257,7 +231,7 @@ class ci_efs extends objeto_ci
 	
 	function conf__param_varios()
 	{
-		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 				
 		//--- Se desactivan los efs que no forman parte de la definicion
 		$param = $this->get_definicion_parametros();
@@ -298,7 +272,7 @@ class ci_efs extends objeto_ci
 	function conf__param_carga()
 	{
 		$lista_param = $this->get_definicion_parametros(true);
-		$fila = $this->get_tabla()->get_fila($this->seleccion_efs_anterior);
+		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 		
 		//---Desactiva los efs que no pertenecen a los parametros
 		$todos = $this->dependencia('param_carga')->get_nombres_ef();
@@ -360,7 +334,7 @@ class ci_efs extends objeto_ci
 
 	function evt__efs_importar__importar($datos)
 	{
-		$this->importacion_efs = $datos;
+		$this->s__importacion_efs = $datos;
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
@@ -378,8 +352,8 @@ class ci_efs extends objeto_ci
 
 	function conf__efs_importar()
 	{
-		if(isset($this->importacion_efs)){
-			return $this->importacion_efs;
+		if(isset($this->s__importacion_efs)){
+			return $this->s__importacion_efs;
 		}
 	}
 

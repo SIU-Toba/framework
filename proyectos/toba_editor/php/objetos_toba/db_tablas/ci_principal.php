@@ -10,17 +10,9 @@ require_once('objetos_toba/ci_editores_toba.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $seleccion_relacion;
-	protected $seleccion_relacion_anterior;
+	protected $s__seleccion_relacion;
+	protected $s__seleccion_relacion_anterior;
 	protected $clase_actual = 'objeto_datos_relacion';		
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_relacion";
-		$propiedades[] = "seleccion_relacion_anterior";
-		return $propiedades;
-	}
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************

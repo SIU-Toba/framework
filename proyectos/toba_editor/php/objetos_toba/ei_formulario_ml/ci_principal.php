@@ -7,43 +7,29 @@ class ci_principal extends ci_editores_toba
 	protected $ef_seleccionado;
 	protected $clase_actual = 'objeto_ei_formulario_ml';	
 	
-	function __construct($id)
+	function ini()
 	{
-		parent::__construct($id);
+		parent::ini();
 		$ef = toba::get_hilo()->obtener_parametro('ef');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($ef)) {
 			$this->ef_seleccionado = $ef;
+			$this->set_pantalla(2);
 		}
 	}
 
-	function destruir()
-	{
-		parent::destruir();
-		//ei_arbol($this->get_entidad()->tabla('efss')->info(true),"efsS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
-	}
-	
-	function get_etapa_actual()
-	{
-		if (isset($this->ef_seleccionado)) {
-			return 2;	//Si se selecciono un ef desde afuera va a la pantalla de edición de ef
-		} 
-		return parent::get_etapa_actual();
-	}
-	
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function evt__base__modificacion($datos)
-	{
-		$this->get_entidad()->tabla("base")->set($datos);
-	}
-
 	function conf__prop_basicas()
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->get();
+	}
+	
+	function evt__base__modificacion($datos)
+	{
+		$this->get_entidad()->tabla("base")->set($datos);
 	}
 
 	function evt__prop_basicas__modificacion($datos)
@@ -60,7 +46,7 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	
 	//Antes de cargar los datos de los efs, ver si alguno particular se selecciono desde afuera
-	function evt__pre_cargar_datos_dependencias__2()
+	function conf__2()
 	{
 		if (isset($this->ef_seleccionado)) {
 			$this->dependencia('efs')->seleccionar_ef($this->ef_seleccionado);
@@ -101,6 +87,5 @@ class ci_principal extends ci_editores_toba
 	{
 		return $this->get_entidad()->tabla('eventos');
 	}
-
 }
 ?>
