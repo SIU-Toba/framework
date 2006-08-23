@@ -143,7 +143,7 @@ class ef_editable_numero extends ef_editable
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-numero";
-        $parametros['edit_tamano'] = (isset($parametros['edit_tamano'])) ? $parametros['edit_tamano'] : 5;
+        $parametros['edit_tamano'] = (isset($parametros['edit_tamano'])) ? $parametros['edit_tamano'] : 10;
 		if (isset($parametros['edit_rango'])) {
 			$this->cambiar_rango($parametros['edit_rango']);
 		}
