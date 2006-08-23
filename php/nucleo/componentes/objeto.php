@@ -28,6 +28,9 @@ class objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
+	/**
+	 * @var objeto_ci
+	 */
 	protected $controlador;
 		
 	function __construct( $definicion )

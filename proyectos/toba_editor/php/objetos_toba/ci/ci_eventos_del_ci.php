@@ -35,6 +35,23 @@ class ci_eventos_del_ci extends ci_eventos
 	{
 		return $this->controlador->get_pantallas_posibles();
 	}	
+	
+	/**
+	 * La generacion se extiende para incluir la asociacion con las pantallas definidas
+	 */
+	function evt__generador__cargar($datos)
+	{
+		$eventos = $this->controlador->get_eventos_estandar($datos['modelo']);
+		foreach($eventos as $evento) {
+			try{
+				$this->get_tabla()->nueva_fila($evento);
+				//--- Se agrega el evento en todas las pantallas existentes
+				$this->controlador->set_pantallas_evento(null, $evento['identificador']);
+			}catch(excepcion_toba $e){
+				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+			}
+		}
+	}
 }
 
 ?>

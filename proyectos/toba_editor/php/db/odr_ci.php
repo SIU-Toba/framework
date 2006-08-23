@@ -9,7 +9,7 @@ class odr_ci extends objeto_datos_relacion
 		if ($this->tabla('pantallas')->get_cantidad_filas() == 0) {
 			$fila = array('identificador' => 'pant_inicial', 'etiqueta' => 'Pantalla Inicial');
 			$this->tabla('pantallas')->nueva_fila($fila);
-		}		
+		}
 		parent::sincronizar();
 	}
 	

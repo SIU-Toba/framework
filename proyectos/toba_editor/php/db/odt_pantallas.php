@@ -93,6 +93,12 @@ class odt_pantallas extends objeto_datos_tabla
 	function set_pantallas_evento($pant_presentes, $evento)
 	{
 		$filas = $this->get_filas(array(), true);
+		//--- Si no se pasan pantallas, se asumen todas
+		if (!isset($pant_presentes)) {
+			foreach ($filas as $id => $pantalla) {
+				$pant_presentes[] = $pantalla['identificador'];
+			}
+		}
 		//Se recorre las pantallas
 		foreach ($filas as $id => $pantalla) {
 			$eventos_actuales = $this->get_eventos_pantalla($id);

@@ -199,9 +199,10 @@ class ci_editor extends ci_editores_toba
 	/**
 	 * @todo Cuando el ML tenga un api para setear prox. fila, cambiar este metodo
 	 */
-	function conf__pantallas_lista()
+	function conf__pantallas_lista($ml)
 	{
-		if ($datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas() ) {
+		$datos_dbr = $this->get_entidad()->tabla('pantallas')->get_filas();
+		if (!empty($datos_dbr)) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
 			for($a=0;$a<count($datos_dbr);$a++){
@@ -217,23 +218,24 @@ class ci_editor extends ci_editores_toba
 				$datos[ $id_dbr ] = $datos_dbr[$a];
 			}
 			//ei_arbol($datos,"Datos para el ML: POST proceso");
-			return $datos;
+		} else {
+			//--Carga inicial
+			$datos = array(array(
+							'identificador' => 'pant_inicial', 
+							'etiqueta' => 'Pantalla Inicial',
+							apex_ei_analisis_fila => 'A'
+					));
 		}
+		$ml->set_datos($datos);		
 		
 		//--- Se setea al ml el proximo ID
-		$id = $this->get_entidad()->tabla("pantallas")->get_proximo_id();
-		//$obj->set_proximo_id($id);
+		$ml->set_proximo_id( $this->get_entidad()->tabla("pantallas")->get_proximo_id() );
 	
 		//--Protejo la evento seleccionada de la eliminacion		
 		if( $this->hay_pant_sel() ) {
 			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->s__seleccion_pantalla );
 		}
 	}
-
-/*	function 
-	
-	
-	}*/
 	
 	//------------------------------------------------------
 	//-- Informacion extendida de la pantalla  -------------
@@ -368,9 +370,9 @@ class ci_editor extends ci_editores_toba
 	}
 	
 	/**
-	 * Se actualiza la aparicion de un evento en todas las pantallas
+	 * Se actualiza la aparicion de un evento en las pantallas dadas
 	 *
-	 * @param array $pant_presentes Pantallas en las que el evento aparece
+	 * @param array $pant_presentes Pantallas en las que el evento aparece (si es null se asumen todas)
 	 * @param string $evento Identificador del evento (ej: procesar)
 	 */
 	function set_pantallas_evento($pant_presentes, $evento)
