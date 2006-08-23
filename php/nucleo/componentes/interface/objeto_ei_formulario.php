@@ -458,12 +458,9 @@ class objeto_ei_formulario extends objeto_ei
 					$this->elemento_formulario[$ef]->set_estado($temp);
 				}
 			}
-			//Memorizo que clave cargue de la base
-			//guardo los datos en la memoria
-			//para compararlos y saber si se modificaron
-			//$this->memoria["datos"] = $datos;
-			//$this->procesar_dependencias();
-			$this->set_grupo_eventos_activo('cargado');
+			if ($this->grupo_eventos_activo == '') {
+				$this->set_grupo_eventos_activo('cargado');
+			}
 		}
 	}
 	
