@@ -105,8 +105,13 @@ abstract class ci_editores_toba extends objeto_ci
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function conf__base()
+		
+	function conf__base($form)
 	{
+		if (! in_array($this->get_clase_actual(), dao_editores::get_clases_con_fuente_datos())) {
+			//Oculta la fuente
+			$form->desactivar_efs(array('fuente_datos'));
+		}
 		$reg = $this->get_entidad()->tabla("base")->get();
 		if (!isset($reg)) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
@@ -131,6 +136,12 @@ abstract class ci_editores_toba extends objeto_ci
 
 	function evt__base__modificacion($datos)
 	{
+		if (!isset($datos['fuente_datos'])) {
+			$datos['fuente_datos'] = NULL;	
+		}
+		if (!isset($datos['fuente_datos_proyecto'])) {
+			$datos['fuente_datos_proyecto'] = NULL;	
+		}
 		$this->get_entidad()->tabla("base")->set($datos);
 	}
 	

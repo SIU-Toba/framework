@@ -3,7 +3,7 @@ require_once("nucleo/componentes/interface/efs/ef.php");// Elementos de interfac
 
 class ef_editable extends ef
 {
-	protected $tamano;
+	protected $tamano = 20;
 	protected $maximo;
 	protected $estilo="ef-input";
 	protected $mascara;
@@ -36,7 +36,9 @@ class ef_editable extends ef
 			$this->estado = $this->estado_defecto;
 		}
 		//Tamaño del editable
-		$this->tamano = (isset($parametros['edit_tamano']))? $parametros['edit_tamano'] : 20;
+		if (isset($parametros['edit_tamano'])) {
+			$this->tamano = $parametros['edit_tamano'];	
+		}
 		//Maximo de caracteres
 		if(isset($parametros['edit_maximo'])){
 			if($parametros['edit_maximo']!=""){
@@ -131,6 +133,7 @@ class ef_editable_numero extends ef_editable
 {
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
+	protected $tamano = 10;
 	protected $mensaje_defecto;
 
     static function get_lista_parametros()
@@ -143,7 +146,6 @@ class ef_editable_numero extends ef_editable
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-numero";
-        $parametros['edit_tamano'] = (isset($parametros['edit_tamano'])) ? $parametros['edit_tamano'] : 10;
 		if (isset($parametros['edit_rango'])) {
 			$this->cambiar_rango($parametros['edit_rango']);
 		}
@@ -245,6 +247,7 @@ class ef_editable_moneda extends ef_editable_numero
 {
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
 	protected $mensaje_defecto = ' debe ser un importe positivo.';
+	protected $tamano = 12;	
 	
 	function crear_objeto_js()
 	{

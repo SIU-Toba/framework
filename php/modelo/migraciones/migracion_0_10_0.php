@@ -505,21 +505,27 @@ class migracion_0_10_0 extends migracion_toba
 		$clases_obsoletas[] = 'objeto_mt_s';
 		$clases_obsoletas[] = 'objeto_ut_formulario';
 		$clases = implode("','",$clases_obsoletas);
-		$sql = "DELETE FROM apex_objeto WHERE clase IN ('$clases');";
+		$sql = "DELETE FROM apex_objeto WHERE 						
+						proyecto = '{$this->elemento->get_id()}' AND 
+						clase IN ('$clases');";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
 
 	function proyecto__migrar_solicitud_browser()
 	{
 		$sql = "UPDATE apex_item SET solicitud_tipo = 'web' 
-				WHERE solicitud_tipo = 'browser' 
-				AND carpeta <> 1 OR carpeta IS NULL;";
+				WHERE 
+						proyecto = '{$this->elemento->get_id()}'
+					AND	solicitud_tipo = 'browser' 
+					AND carpeta <> 1 OR carpeta IS NULL;";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
 
 	function proyecto__migrar_tipo_solicitud_carpetas()
 	{
-		$sql = "UPDATE apex_item SET solicitud_tipo = NULL WHERE carpeta = 1;";
+		$sql = "UPDATE apex_item SET solicitud_tipo = NULL WHERE 
+						carpeta = 1;
+					AND	proyecto = '{$this->elemento->get_id()}'";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}
 	
@@ -538,6 +544,22 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/evt__inicializar\(/', 'ini(');
 		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
+	}
+	
+	function proyecto__fuente_no_obligatoria()
+	{
+		$sql = "
+			UPDATE apex_objeto SET fuente_datos=NULL, fuente_datos_proyecto=NULL
+			WHERE 
+					proyecto = '{$this->elemento->get_id()}'
+				AND clase NOT IN ('objeto_ei_formulario', 
+								'objeto_ei_formulario_ml',
+								'objeto_ei_filtro',
+								'objeto_datos_tabla',
+								'objeto_datos_relacion',
+								'objeto_cn');
+			";
+		return $this->elemento->get_db()->ejecutar($sql);
 	}
 }
 ?>

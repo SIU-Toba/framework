@@ -49,51 +49,11 @@ class zona_objeto extends zona_editor
 	}
 
 
-	function obtener_html_barra_vinculos()
+	function generar_html_barra_vinculos()
 	//Esto es especifico de cada EDITABLE
 	{	
-		parent::obtener_html_barra_vinculos();
+		parent::generar_html_barra_vinculos();
 		
-		//Acceso al codigo PHP
-		if(isset($this->editable_info['subclase_archivo']))
-		{
-			echo "<a href='" . toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/php",null,true) ."'>";
-			echo recurso::imagen_apl("php.gif",true,null,null,"Manejo de la subclase");
-			echo "</a>";
-		}
-		
-		//Acceso a las dependencias del objeto
-		//Esto es obsoleto para editores nuevos
-		if( $this->editable_info['clase_dep'] > 0 && 
-			!in_array($this->editable_info['clase'], dao_editores::get_clases_validas()))
-		{
-			echo "<a href='" . toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/dependencias",null,true) ."'>";
-			echo recurso::imagen_apl("objetos/asociar_objeto.gif",true,null,null,"Editar DEPENDECIAS del OBJETO");
-			echo "</a>";
-		}
-
-		
-		if($this->editable_info['clase_vinculos'] == 1)
-		{
-			echo "<a href='" . toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/vinculos",null,true) ."'>";
-			echo recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO");
-			echo "</a>";
-		}
-
-		//Si es un objeto viejo mostrar el el link a las propiedades básicas
-		if (!in_array($this->editable_info['clase'], dao_editores::get_clases_validas())) { 
-			echo "<a href='" . toba::get_vinculador()->generar_solicitud(editor::get_id(),'/admin/objetos/propiedades',null,true) ."'>";
-			echo recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Propiedades Básicas del OBJETO");
-			echo "</a>";
-		}
-
-		//Acceso al EDITOR del objeto
-		if(isset($this->editable_info['clase_editor']))
-		{
-			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_editor_proyecto'],$this->editable_info['clase_editor'],null,true) ."'>";
-			echo recurso::imagen_apl("objetos/editar.gif",true,null,null,"Propiedades ESPECIFICAS del OBJETO");
-			echo "</a>";
-		}
 		//Acceso al INSTANCIADOR
 		if(isset($this->editable_info['clase_instanciador']))
 		{
@@ -104,7 +64,7 @@ class zona_objeto extends zona_editor
 	}
 
 	
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{
 		//La representacion del objeto fantasma no deberia tener barra inferior.

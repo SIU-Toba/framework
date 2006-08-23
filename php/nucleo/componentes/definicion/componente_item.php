@@ -90,16 +90,16 @@ class componente_item implements definicion_toba
 						d.clave as						  	fuente_clave,
 						d.base as						  	fuente_base
 				FROM	apex_item_objeto io,	
-						apex_objeto	o,	
-						apex_fuente_datos	d,	
+						apex_objeto	o LEFT OUTER JOIN apex_fuente_datos d ON (
+									o.fuente_datos	= d.fuente_datos AND
+									o.fuente_datos_proyecto	= d.proyecto),
 						apex_clase c
-				WHERE	io.objeto =	o.objeto	
-					 AND		io.proyecto	= o.proyecto
-				AND		o.clase = c.clase	
-				AND		o.clase_proyecto = c.proyecto	
-				AND		o.fuente_datos	= d.fuente_datos
-				AND		o.fuente_datos_proyecto	= d.proyecto
-				AND		io.proyecto	= '$proyecto'";
+				WHERE	
+							io.objeto =	o.objeto	
+					AND		io.proyecto	= o.proyecto
+					AND		o.clase = c.clase	
+					AND		o.clase_proyecto = c.proyecto	
+					AND		io.proyecto	= '$proyecto'";
 		if ( isset($componente) ) {
 			$sql['objetos']['sql'] .= "	AND		io.item ='$componente' ";	
 		}
