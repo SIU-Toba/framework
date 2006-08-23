@@ -204,7 +204,7 @@ abstract class objeto_ei extends objeto
 	{
 		//--- Si el componente no reservo tabs, se reservan ahora
 		if (!isset($this->rango_tabs)) {
-			$this->rango_tabs = manejador_tabs::instancia()->reservar(count($this->eventos));			
+			//$this->rango_tabs = manejador_tabs::instancia()->reservar(count($this->eventos));			
 		}
 		foreach(array_keys($this->eventos) as $id )	{
 			if ($this->evento_es_en_botonera($this->eventos[$id])) {
@@ -221,7 +221,7 @@ abstract class objeto_ei extends objeto
 		if(!isset($this->eventos[$id])){
 			throw new excepcion_toba("Se solicito la generacion de un boton sobre un evento inexistente: '$id'");
 		}
-		$tab_order = $this->rango_tabs[0]++;
+		$tab_order = manejador_tabs::instancia()->siguiente();
 		$tip = '';
 		if (isset($this->eventos[$id]['ayuda'])) {
 			$tip = $this->eventos[$id]['ayuda'];

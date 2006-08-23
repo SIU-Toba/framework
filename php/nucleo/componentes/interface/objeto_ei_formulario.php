@@ -43,7 +43,6 @@ class objeto_ei_formulario extends objeto_ei
 		$this->js_eliminar = "eliminar_ei_{$this->submit}";
 		$this->js_agregar = "agregar_ei_{$this->submit}";
 		$this->evento_mod_estricto = true;
-		$this->rango_tabs = manejador_tabs::instancia()->reservar(250);		
 	}
 
 	function destruir()
@@ -720,6 +719,7 @@ class objeto_ei_formulario extends objeto_ei
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();
+		$this->rango_tabs = manejador_tabs::instancia()->reservar(250);		
 				
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";

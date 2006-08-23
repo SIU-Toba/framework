@@ -470,6 +470,7 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 
 	function generar_formulario()
 	{
+		$this->rango_tabs = manejador_tabs::instancia()->reservar(1000);		
 		//--- Si no se cargaron datos, se cargan ahora
 		$this->carga_inicial();
 		

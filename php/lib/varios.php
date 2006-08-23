@@ -287,6 +287,11 @@
 			$this->proximo_tab = $this->proximo_tab + $cantidad;
 			return $reserva;
 		}
+		
+		function siguiente()
+		{
+			return $this->proximo_tab++;
+		}
 	}
 	
 	/**

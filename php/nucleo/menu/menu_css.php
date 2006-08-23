@@ -51,7 +51,7 @@ class menu_css extends menu
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li><a href='$vinculo' " .
+			$this->arbol .= $inden . "<li><a tabindex='-1' href='$vinculo' " .
 							"title='".$this->items[$nodo]['nombre']."'>" . 
 							$this->items[$nodo]['nombre']."</a>";
 			$this->arbol .= $inden . "</li>\n";
