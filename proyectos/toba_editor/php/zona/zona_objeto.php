@@ -18,21 +18,13 @@ class zona_objeto extends zona_editor
 							c.archivo as					clase_archivo,
 							c.plan_dump_objeto as 			clase_plan_sql,
 							c.vinculos as					clase_vinculos,
-							d.fuente_datos as				fuente,
-							d.fuente_datos_motor as			fuente_motor,
-							d.host as						fuente_host,
-							d.usuario as					fuente_usuario,
-							d.clave as						fuente_clave,
-							d.base as						fuente_base,
 							( SELECT count(*) 
 								FROM apex_clase_dependencias cd 
 								WHERE c.clase = cd.clase_consumidora 
 								AND c.proyecto = cd.clase_consumidora_proyecto ) as clase_dep
 					FROM	apex_objeto o,
-							apex_fuente_datos d,
 							apex_clase c
-					WHERE	o.fuente_datos = d.fuente_datos
-					AND		o.clase = c.clase
+					WHERE	o.clase = c.clase
 					AND		o.proyecto='{$this->editable_id[0]}'
 					AND		o.objeto='{$this->editable_id[1]}'";
 		$rs = consultar_fuente($sql);

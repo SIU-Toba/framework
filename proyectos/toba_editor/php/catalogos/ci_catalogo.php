@@ -2,29 +2,15 @@
 require_once('catalogos/album_fotos.php');
 
 define('apex_foto_inicial', '-- Completo --');
-//----------------------------------------------------------------
 /**
 *	Una clase general para el manejo de catalogo de item/objetos
 */
 abstract class ci_catalogo extends objeto_ci
 {
-	protected $opciones;
-	protected $apertura;			//Ultima apertura creada
+	protected $s__opciones;
+	protected $s__apertura;			//Ultima apertura creada
 	protected $apertura_selecc;		//Seleccion explicita de apertura
 	protected $album_fotos;
-	
-	function __construct($id)
-	{
-		parent::__construct($id);
-	}
-		
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "apertura";
-		$propiedades[] = "opciones";
-		return $propiedades;
-	}	
 	
 	function obtener_html_dependencias()
 	{
@@ -57,19 +43,19 @@ abstract class ci_catalogo extends objeto_ci
 	function conf__filtro()
 	{
 		$this->dependencia('filtro')->colapsar();
-		if (isset($this->opciones))
-			return $this->opciones;
+		if (isset($this->s__opciones))
+			return $this->s__opciones;
 	}
 	
 	function evt__filtro__cancelar()
 	{
-		unset($this->opciones);
+		unset($this->s__opciones);
 		$this->dependencia('fotos')->deseleccionar();
 	}
 	
 	function evt__filtro__filtrar($datos)
 	{
-		$this->opciones = $datos;
+		$this->s__opciones = $datos;
 	}	
 	
 	//-------------------------------
@@ -88,10 +74,10 @@ abstract class ci_catalogo extends objeto_ci
 			if ($foto['predeterminada'] == 1) {
 				$fotos[$id]['defecto'] = "home.gif";
 				//Carga la por defecto
-				if (!isset($this->opciones) && !isset($this->apertura)) { 
-					$this->apertura = $foto['foto_nodos_visibles'];
-					$this->apertura_selecc = $this->apertura;
-					$this->opciones = $foto['foto_opciones'];
+				if (!isset($this->s__opciones) && !isset($this->s__apertura)) { 
+					$this->s__apertura = $foto['foto_nodos_visibles'];
+					$this->apertura_selecc = $this->s__apertura;
+					$this->s__opciones = $foto['foto_opciones'];
 				}
 			}
 			else 
@@ -105,9 +91,9 @@ abstract class ci_catalogo extends objeto_ci
 		$foto_nombre = $nombre['foto_nombre'];
 		$foto = $this->album_fotos->foto($foto_nombre);
 		if ($foto !== false) {
-			$this->apertura = $foto['foto_nodos_visibles'];
-			$this->apertura_selecc = $this->apertura;
-			$this->opciones = $foto['foto_opciones'];
+			$this->s__apertura = $foto['foto_nodos_visibles'];
+			$this->apertura_selecc = $this->s__apertura;
+			$this->s__opciones = $foto['foto_opciones'];
 		}
 
 	}
@@ -124,7 +110,7 @@ abstract class ci_catalogo extends objeto_ci
 	
 	function evt__sacar_foto($nombre)
 	{
-		$this->album_fotos->agregar_foto($nombre, $this->apertura, $this->opciones);
+		$this->album_fotos->agregar_foto($nombre, $this->s__apertura, $this->s__opciones);
 		$this->evt__fotos__seleccion($nombre);
 	}	
 }

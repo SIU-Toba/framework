@@ -4,26 +4,13 @@ require_once('modelo/consultas/dao_editores.php');
 class ci_relaciones extends objeto_ci
 {
 	protected $tabla;
-	protected $seleccion_relacion;
-	protected $seleccion_relacion_anterior;
+	protected $s__seleccion_relacion;
+	protected $s__seleccion_relacion_anterior;
 	private $id_intermedio_relaciones;
 	private $rel_activa_padre;
 	private $rel_activa_padre_claves;
 	private $rel_activa_hijo;
 	private $rel_activa_hijo_claves;
-
-	function destruir()
-	{
-		parent::destruir();
-	}
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "seleccion_relacion";
-		$propiedades[] = "seleccion_relacion_anterior";
-		return $propiedades;
-	}
 
 	function get_tabla()
 	{
@@ -35,34 +22,26 @@ class ci_relaciones extends objeto_ci
 
 	function mostrar_detalle_relacion()
 	{
-		if( isset($this->seleccion_relacion) ){
+		if( isset($this->s__seleccion_relacion) ){
 			return true;	
 		}
 		return false;
 	}
 
-	function get_lista_eventos()
+	function conf()
 	{
-		$eventos = parent::get_lista_eventos();
-		if( !$this->mostrar_detalle_relacion() ){
-			unset($eventos['cancelar']);
-		}		
-		return $eventos;
-	}
-
-	function get_lista_ei()
-	{
-		$ei[] = "relaciones_lista";
+		echo "1: CONFIGURACION CI<br>";
 		if( $this->mostrar_detalle_relacion() ){
-			$ei[] = "relaciones_columnas";
+			$this->pantalla()->eliminar_dep('relaciones_esquema');
+			$this->pantalla()->agregar_evento('cancelar');
 		} else {
-			$ei[] = "relaciones_esquema";	
-		}
-		return $ei;	
+			$this->pantalla()->eliminar_dep('relaciones_columnas');
+		}	
 	}
 
 	function evt__pre_cargar_datos_dependencias()
 	{
+		echo "2: PREPARACION pantalla<br>";
 		if( $this->mostrar_detalle_relacion() ){
 			$this->get_datos_relacion_activa();
 		}		
@@ -72,17 +51,17 @@ class ci_relaciones extends objeto_ci
 	{
 		if( $this->mostrar_detalle_relacion() ){
 			//Protejo la efs seleccionada de la eliminacion
-			//ATENCION! - $this->dependencias["relaciones_lista"]->set_fila_protegida($this->seleccion_relacion_anterior);
+			//ATENCION! - $this->dependencias["relaciones_lista"]->set_fila_protegida($this->s__seleccion_relacion_anterior);
 		}
-		if (isset($this->seleccion_relacion)) {
-			$this->dependencia("relaciones_lista")->seleccionar($this->seleccion_relacion);
+		if (isset($this->s__seleccion_relacion)) {
+			$this->dependencia("relaciones_lista")->seleccionar($this->s__seleccion_relacion);
 		}
 	}
 	
 	function limpiar_seleccion()
 	{
-		unset($this->seleccion_relacion);
-		unset($this->seleccion_relacion_anterior);
+		unset($this->s__seleccion_relacion);
+		unset($this->s__seleccion_relacion_anterior);
 	}
 
 	function evt__cancelar()
@@ -193,7 +172,7 @@ class ci_relaciones extends objeto_ci
 		if(isset($this->id_intermedio_relaciones[$id])){
 			$id = $this->id_intermedio_relaciones[$id];
 		}
-		$this->seleccion_relacion = $id;
+		$this->s__seleccion_relacion = $id;
 	}
 	
 	//-------------------------------------------------------------------------------------
@@ -202,7 +181,7 @@ class ci_relaciones extends objeto_ci
 
 	function get_datos_relacion_activa()
 	{
-		$relacion_activa = $this->get_tabla()->get_fila($this->seleccion_relacion);
+		$relacion_activa = $this->get_tabla()->get_fila($this->s__seleccion_relacion);
 		$this->rel_activa_padre = $relacion_activa['padre_objeto'];
 		if(isset( $relacion_activa['padre_clave'] )){
 			$this->rel_activa_padre_claves = explode(",",$relacion_activa['padre_clave']);			
@@ -215,6 +194,7 @@ class ci_relaciones extends objeto_ci
 
 	function get_columnas_padre()
 	{
+		echo "3: DAOS<br>";
 		return dao_editores::get_lista_dt_columnas( $this->rel_activa_padre );
 	}
 	
@@ -236,7 +216,7 @@ class ci_relaciones extends objeto_ci
 		}
 		$fila['padre_clave'] = implode(",",$padre_clave);
 		$fila['hijo_clave'] = implode(",",$hijo_clave);
-		$this->get_tabla()->modificar_fila($this->seleccion_relacion_anterior, $fila);
+		$this->get_tabla()->modificar_fila($this->s__seleccion_relacion_anterior, $fila);
 	}
 	
 	function evt__relaciones_columnas__aceptar($datos)
@@ -252,8 +232,9 @@ class ci_relaciones extends objeto_ci
 	
 	function conf__relaciones_columnas()
 	{
+		echo "4: cargo DEP<br>";
 		$datos = array();
-		$this->seleccion_relacion_anterior = $this->seleccion_relacion;
+		$this->s__seleccion_relacion_anterior = $this->s__seleccion_relacion;
 		for($a=0;$a<count($this->rel_activa_hijo_claves);$a++) {
 			if ($this->rel_activa_padre_claves[$a] != '') {
 				$datos[$a]['columnas_padre'] = $this->rel_activa_padre_claves[$a];

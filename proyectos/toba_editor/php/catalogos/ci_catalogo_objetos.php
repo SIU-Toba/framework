@@ -1,6 +1,5 @@
 <?php
 
-//----------------------------------------------------------------
 require_once('catalogos/ci_catalogo.php'); 
 require_once('modelo/lib/catalogo_objetos.php');
 require_once('modelo/componentes/info_componente.php');
@@ -20,7 +19,6 @@ class ci_catalogo_objetos extends ci_catalogo
 		$this->catalogo = new catalogo_objetos(editor::get_proyecto_cargado());
 	}
 	
-
 	function agregar_foto_inicial()
 	{
 		$this->album_fotos->agregar_foto(apex_foto_inicial, array(), array(), false);
@@ -56,13 +54,13 @@ class ci_catalogo_objetos extends ci_catalogo
 	
 	function evt__fotos__seleccion($nombre)
 	{
-		unset($this->opciones);						
+		unset($this->s__opciones);						
 		switch ( $nombre['foto_nombre']) {
 			case self::foto_ext_rotas:
-				$this->opciones['extensiones_rotas'] = 1;
+				$this->s__opciones['extensiones_rotas'] = 1;
 				break;
 			case self::foto_huerfanos:
-				$this->opciones['huerfanos'] = 1;
+				$this->s__opciones['huerfanos'] = 1;
 				break;
 			default:
 				parent::evt__fotos__seleccion($nombre);
@@ -72,16 +70,16 @@ class ci_catalogo_objetos extends ci_catalogo
 	function conf__listado()
 	{
 		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);
-		if (isset($this->opciones)) {
-			return $this->catalogo->get_objetos($this->opciones);
+		if (isset($this->s__opciones)) {
+			return $this->catalogo->get_objetos($this->s__opciones);
 		}
 	}
 	
 	function evt__listado__cargar_nodo($id)
 	{
 		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);		
-		if (isset($this->opciones)) {
-			$opciones = $this->opciones;
+		if (isset($this->s__opciones)) {
+			$opciones = $this->s__opciones;
 		}
 		$opciones['id'] = $id;
 		$obj = $this->catalogo->get_objetos($opciones, true);
@@ -90,9 +88,9 @@ class ci_catalogo_objetos extends ci_catalogo
 		
 	function conf__filtro()
 	{
-		if (isset($this->opciones)) {
+		if (isset($this->s__opciones)) {
 			$this->dependencia('filtro')->colapsar();			
-			return $this->opciones;
+			return $this->s__opciones;
 		}
 	}	
 	

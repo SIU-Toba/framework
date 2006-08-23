@@ -2,7 +2,6 @@
 require_once('catalogos/ci_catalogo.php'); 
 require_once("modelo/lib/catalogo_items.php");
 
-//----------------------------------------------------------------
 class ci_catalogo_items extends ci_catalogo
 {
 	protected $catalogador; 
@@ -13,11 +12,10 @@ class ci_catalogo_items extends ci_catalogo
 	function ini()
 	{
 		$this->album_fotos = new album_fotos('cat_item');
-
 		//Si se pidio un item especifico, cargarlo
 		$item_selecc = toba::get_hilo()->obtener_parametro('item');
 		if ($item_selecc != null) {
-			$this->opciones['inicial'] = $item_selecc;
+			$this->s__opciones['inicial'] = $item_selecc;
 		}
 		
 		$this->catalogador = new catalogo_items(editor::get_proyecto_cargado());		
@@ -71,15 +69,15 @@ class ci_catalogo_items extends ci_catalogo
 	{
 		switch ( $nombre['foto_nombre']) {
 			case apex_foto_inicial:
-				$this->opciones =array();
+				$this->s__opciones =array();
 				break;
 			case self::foto_inaccesibles:
-				$this->opciones = array();
-				$this->opciones['inaccesibles'] = true;
+				$this->s__opciones = array();
+				$this->s__opciones['inaccesibles'] = true;
 				break;
 			case self::foto_sin_objetos :
-				$this->opciones = array();
-				$this->opciones['sin_objetos'] = true;
+				$this->s__opciones = array();
+				$this->s__opciones['sin_objetos'] = true;
 				break;
 			default:
 				parent::evt__fotos__seleccion($nombre);
@@ -94,8 +92,8 @@ class ci_catalogo_items extends ci_catalogo
 	{
 		$excepciones = array();
 		//¿Hay apertura seleccionada?		
-		if (isset($this->apertura) && $con_excepciones) {
-			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->apertura;
+		if (isset($this->s__apertura) && $con_excepciones) {
+			$apertura = (isset($this->apertura_selecc)) ? $this->apertura_selecc : $this->s__apertura;
 			$this->dependencia('items')->set_apertura_nodos($apertura);
 			foreach ($apertura as $nodo => $incluido) {
 				if ($incluido) {
@@ -104,15 +102,15 @@ class ci_catalogo_items extends ci_catalogo
 			}
 		}
 
-		$opciones = isset($this->opciones) ? $this->opciones : array();
+		$opciones = isset($this->s__opciones) ? $this->s__opciones : array();
 		$this->catalogador->cargar($opciones, $inicial, $excepciones);
 		
 		$this->dependencia('items')->set_frame_destino(apex_frame_centro);
 
-		if (isset($this->opciones)) {
+		if (isset($this->s__opciones)) {
 			//Cuando el catalogo carga todo los items es porque va a filtrar algo
 			//entonces el resultado se debe mostrar completo, sin colapsados
-			if ($this->catalogador->debe_cargar_todo($this->opciones)) {
+			if ($this->catalogador->debe_cargar_todo($this->s__opciones)) {
 				$this->dependencia('items')->set_todos_abiertos();
 			}
 		}
@@ -131,8 +129,8 @@ class ci_catalogo_items extends ci_catalogo
 	function conf__items()
 	{
 		$inicial = '';
-		if (isset($this->opciones['inicial'])) {
-			$inicial = $this->opciones['inicial'];
+		if (isset($this->s__opciones['inicial'])) {
+			$inicial = $this->s__opciones['inicial'];
 		}
 		return $this->get_nodo_raiz($inicial);
 	}
@@ -144,13 +142,13 @@ class ci_catalogo_items extends ci_catalogo
 
 	function evt__items__ver_propiedades($id)
 	{
-		$this->apertura[$id] = 1;
-		$this->opciones['inicial'] = $id;
+		$this->s__apertura[$id] = 1;
+		$this->s__opciones['inicial'] = $id;
 	}
 	
 	function evt__items__cambio_apertura($datos)
 	{
-		$this->apertura = $datos;
+		$this->s__apertura = $datos;
 	}
 	
 }

@@ -491,6 +491,14 @@ class objeto_ei_pantalla extends objeto_ei
 			echo $identado."{$this->objeto_js}.agregar_objeto($objeto, '$id');\n";
 		}
 	}
+
+	/**
+	*	ATENCION: Esto esta bien???
+	*/	
+	protected function extender_objeto_js()
+	{
+		$this->controlador->extender_objeto_js();
+	}
 	
 	//---------------------------------------------------------------
 	//------------------------ SALIDA Impresion ---------------------
