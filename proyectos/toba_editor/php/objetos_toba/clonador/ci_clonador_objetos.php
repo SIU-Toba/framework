@@ -10,18 +10,12 @@ class ci_clonador_objetos extends objeto_ci
 	protected $destino;
 	protected $nuevo_nombre;
 	
-	function __construct($id)
+	function ini()
 	{
-		parent::__construct($id);
-		//Cargo el editable de la zona
-		$zona = toba::get_solicitud()->zona();
-		if (isset($zona) && $editable = $zona->get_editable()){
-			list($proyecto, $objeto) = $editable;
+		if (! toba::get_zona()->cargada()) {
+			throw new excepcion_toba('La operación se debe invocar desde la zona de un item');
 		}
-		if (isset($objeto) && isset($proyecto)) {
-			$this->id_objeto = array('objeto' => $objeto, 'proyecto' => $proyecto);
-		}	
-	}
+	}	
 	
 	function mantener_estado_sesion()
 	{
@@ -32,7 +26,7 @@ class ci_clonador_objetos extends objeto_ci
 	}		
 	
 	/********************************
-	*				DAOS
+	*			DAOS
 	*********************************/
 	
 	static function get_tipos_destino()
@@ -79,7 +73,6 @@ class ci_clonador_objetos extends objeto_ci
 	function evt__destino__modificacion($datos)
 	{
 		$this->datos = $datos;
-		$this->nuevo_nombre = $datos['nuevo_nombre'];
 		if ($datos['con_destino']) {
 			if (isset($datos['tipo']) && isset($datos['objeto'])) {
 				$this->destino = $datos;
@@ -114,33 +107,24 @@ class ci_clonador_objetos extends objeto_ci
 	function evt__procesar()
 	{
 		abrir_transaccion("instancia");
-		//--- Clonación
-		$clave = array('componente' => $this->id_objeto['objeto'],
-						'proyecto' => $this->id_objeto['proyecto']);
-		$info = constructor_toba::get_info($clave, null, false);
-		$clon = $info->clonar(array('nombre' => $this->nuevo_nombre), false, false);
+		$directorio = false;
+		if ($this->datos['con_subclases']) {
+			$directorio = $this->datos['carpeta_subclases'];
+		}
+		list($proyecto_actual, $comp_actual) = toba::get_zona()->get_editable();
+		$id = array('proyecto' => $proyecto_actual, 'componente' => $comp_actual);
+		$info = constructor_toba::get_info($id, null, $this->datos['profundidad']);
+		$nuevos_datos = array('anexo_nombre' => $this->datos['anexo_nombre']);
+		$clon = $info->clonar($nuevos_datos, $directorio, false);
 		
 		//--- Asignación
 		if (isset($this->destino)) {
 			$asignador = new asignador_objetos($clon, $this->destino);
 			$asignador->asignar();
 		}
-		cerrar_transaccion("instancia");		
+		cerrar_transaccion("instancia");
 		admin_util::redireccionar_a_editor_objeto($clon['proyecto'], $clon['objeto']);
 	}
-	
-	function generar_interface_grafica()
-	{
-		$zona = toba::get_solicitud()->zona();
-		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_superior();
-		}
-		parent::generar_interface_grafica();
-		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_inferior();
-		}	
-	}
-	
 }
 
 ?>

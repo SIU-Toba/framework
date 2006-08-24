@@ -191,16 +191,20 @@ class dao_editores
 	
 	static function get_pantallas_de_ci($objeto)
 	{
-		$sql = "SELECT
-					pantalla,
-					identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
-				FROM
-					apex_objeto_ci_pantalla
-				WHERE
-					objeto_ci_proyecto = '". contexto_info::get_proyecto() ."' AND
-					objeto_ci = '$objeto'
-		";
-		return contexto_info::get_db()->consultar($sql);
+		if (is_numeric($objeto)) {
+			$sql = "SELECT
+						pantalla,
+						identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
+					FROM
+						apex_objeto_ci_pantalla
+					WHERE
+						objeto_ci_proyecto = '". contexto_info::get_proyecto() ."' AND
+						objeto_ci = '$objeto'
+			";
+			return contexto_info::get_db()->consultar($sql);
+		} else {
+			return array();	
+		}
 	}
 
 	static function get_clases_con_fuente_datos()

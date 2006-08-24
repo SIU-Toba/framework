@@ -37,6 +37,30 @@ class info_datos_tabla extends info_componente
 		return array_merge($iconos, parent::get_utilerias());	
 	}	
 
+	/**
+	 * La clonacion del DT puede implicar clonar su AP
+	 */
+	protected function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
+	{
+		parent::clonar_subclase($dr, $dir_subclases, $proyecto_dest);
+		if (isset($this->datos['info_estructura']['ap_sub_clase_archivo'])) {
+			$archivo = $this->datos['info_estructura']['ap_sub_clase_archivo'];
+			$nuevo_archivo = $dir_subclases."/".basename($archivo);
+			$path_origen = info_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
+			if (isset($proyecto_dest)) {
+				$path_destino = info_instancia::get_path_proyecto($proyecto_dest)."/php/";
+			} else {
+				$path_destino = $path_origen;	
+			}
+			$dr->tabla('prop_basicas')->set_fila_columna_valor(0, 'ap_archivo', $nuevo_archivo);
+			//--- Si el dir. destino no existe, se lo crea
+			if (!file_exists($path_destino.$dir_subclases)) {
+				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+			}
+			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
+		}
+	}		
+	
 	//---------------------------------------------------------------------	
 	//-- Generacion de METADATOS para otros componentes
 	//---------------------------------------------------------------------

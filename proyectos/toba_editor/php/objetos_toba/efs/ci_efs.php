@@ -366,7 +366,7 @@ class ci_efs extends objeto_ci
 		$diagrama = "digraph G {\nsize=\"7,7\";rankdir=LR;\n";		
 		$diagrama .= "node [shape=record];\n";
 		foreach ($this->get_tabla()->get_filas() as $ef) {
-			$maestros = trim($ef['carga_maestros']);
+			$maestros = isset($ef['carga_maestros']) ? trim($ef['carga_maestros']) : '';
 			if ($maestros != '') {
 				foreach (explode(',', $maestros) as $dep) {
 					$diagrama .= $dep.'->'.$ef['identificador'].";\n";

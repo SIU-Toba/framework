@@ -11,7 +11,6 @@ class ci_clonador_items extends objeto_ci
 		}
 	}
 	
-	
 	//---- Eventos CI -------------------------------------------------------
 
 	function evt__procesar()
@@ -46,11 +45,10 @@ class ci_clonador_items extends objeto_ci
 	{
 		if (!isset($this->opciones)) {
 			$this->opciones = array();
-			$this->opciones['proyecto'] = editor::get_proyecto_cargado();	
+			$this->opciones['proyecto'] = editor::get_proyecto_cargado();
 		}
 		return $this->opciones;
 	}
-
 
 }
 

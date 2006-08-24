@@ -60,7 +60,7 @@ class ci_editor_php extends objeto_ci
 				$this->datos['clase_archivo'] = $mts['padre_archivo'];
 				$this->meta_clase = $mts['meta_clase'];
 			}else{
-				throw new exception_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');
+				throw new excepcion_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');
 			}
 		}else{
 			//La metaclase del componente es su CLASE INFO

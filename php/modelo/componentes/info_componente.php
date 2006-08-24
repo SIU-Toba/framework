@@ -120,21 +120,9 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		}
 		
 		//--- Si tiene subclase, se copia el archivo y se cambia
-		if ($dir_subclases !== false && isset($this->datos['info']['subclase_archivo'])) {
-			$archivo = $this->datos['info']['subclase_archivo'];
-			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = info_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
-			if (isset($nuevos_datos['proyecto'])) {
-				$path_destino = info_instancia::get_path_proyecto($nuevos_datos['proyecto'])."/php/";
-			} else {
-				$path_destino = $path_origen;	
-			}
-			$dr->tabla('base')->set_fila_columna_valor(0, 'subclase_archivo', $nuevo_archivo);
-			//--- Si el dir. destino no existe, se lo crea
-			if (!file_exists($path_destino.$dir_subclases)) {
-				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
-			}
-			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
+		if ($dir_subclases !== false) {
+			$proyecto_dest = isset($nuevos_datos['proyecto']) ? $nuevos_datos['proyecto'] : null;
+			$this->clonar_subclase($dr, $dir_subclases, $proyecto_dest);
 		}
 		
 		//--- Se reemplazan los datos y se clonan los hijos
@@ -169,6 +157,26 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$clave = $dr->tabla('base')->get_clave_valor(0);
 		$clave['componente'] = $clave['objeto'];
 		return $clave;
+	}
+	
+	protected function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
+	{
+		if (isset($this->datos['info']['subclase_archivo'])) {
+			$archivo = $this->datos['info']['subclase_archivo'];
+			$nuevo_archivo = $dir_subclases."/".basename($archivo);
+			$path_origen = info_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
+			if (isset($proyecto_dest)) {
+				$path_destino = info_instancia::get_path_proyecto($proyecto_dest)."/php/";
+			} else {
+				$path_destino = $path_origen;	
+			}
+			$dr->tabla('base')->set_fila_columna_valor(0, 'subclase_archivo', $nuevo_archivo);
+			//--- Si el dir. destino no existe, se lo crea
+			if (!file_exists($path_destino.$dir_subclases)) {
+				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+			}
+			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
+		}
 	}
 
 	//---------------------------------------------------------------------	
