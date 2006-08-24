@@ -93,6 +93,7 @@ var popup_elementos = [];
 
 function popup_callback(indice, clave, desc)
 {
+	//---Evita error en firefox 1.5 porque la ventana hija se ha cerrado y este proceso se empieza a disparar desde alli
 	if (popup_elementos[indice] != 'undefined') {
 		setTimeout('popup_elementos["'+indice+'"].set_estado("'+clave+'", "'+desc+'")', 1);
 	}

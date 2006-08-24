@@ -286,7 +286,7 @@ abstract class objeto_ei extends objeto
 					$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
 					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 				}
-			}			
+			}	
 		} else {
 			// Manejo estandar de eventos
 			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);

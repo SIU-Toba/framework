@@ -1097,32 +1097,38 @@ class objeto_ei_cuadro extends objeto_ei
 							}
 						}
 						//--->  Generacion del GATILLO del EVENTO
-						if ( isset($this->eventos[$id]['accion']) && ($this->eventos[$id]['accion'] == 'V') ) {
-							//El evento es una ACCION predeterminada de tipo VINCULO!
-							$vinculo = new vinculo_toba( toba::get_hilo()->obtener_proyecto(), 
-													$this->eventos[$id]['accion_vinculo_item'],
-													$this->eventos[$id]['accion_vinculo_popup'],
-													$this->eventos[$id]['accion_vinculo_popup_param'] );
-							$vinculo->set_parametros( $this->obtener_clave_fila_array($f) );
-							if( $this->eventos[$id]['accion_vinculo_celda'] ) {
-								$vinculo->set_opciones(array('celda_memoria'=>$this->eventos[$id]['accion_vinculo_celda']));	
-							}
-							if( $this->eventos[$id]['accion_vinculo_target'] ) {
-								$vinculo->set_target($this->eventos[$id]['accion_vinculo_target']);
-							}
-							// ventana de modificacion del vinculo
-							$nombre_filtro = 'modificar_vinculo_fila__' . $id;
-							if ( method_exists($this, $nombre_filtro) ) {
-								$this->$nombre_filtro( $vinculo, $f );
-							}
-							// Registro el vinculo en el vinculador
-							$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
-							// Escribo la sentencia que invocaria el vinculo
-							$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
-						} else {
-							//El evento es una ACCION predeterminada de tipo VINCULO!
-							$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
-							$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
+						switch ($this->eventos[$id]['accion']) {
+							case 'V':
+								//El evento es una ACCION predeterminada de tipo VINCULO!
+								$vinculo = new vinculo_toba( toba::get_hilo()->obtener_proyecto(), 
+														$this->eventos[$id]['accion_vinculo_item'],
+														$this->eventos[$id]['accion_vinculo_popup'],
+														$this->eventos[$id]['accion_vinculo_popup_param'] );
+								$vinculo->set_parametros( $this->obtener_clave_fila_array($f) );
+								if( $this->eventos[$id]['accion_vinculo_celda'] ) {
+									$vinculo->set_opciones(array('celda_memoria'=>$this->eventos[$id]['accion_vinculo_celda']));	
+								}
+								if( $this->eventos[$id]['accion_vinculo_target'] ) {
+									$vinculo->set_target($this->eventos[$id]['accion_vinculo_target']);
+								}
+								// ventana de modificacion del vinculo
+								$nombre_filtro = 'modificar_vinculo_fila__' . $id;
+								if ( method_exists($this, $nombre_filtro) ) {
+									$this->$nombre_filtro( $vinculo, $f );
+								}
+								// Registro el vinculo en el vinculador
+								$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
+								// Escribo la sentencia que invocaria el vinculo
+								$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
+								break;
+								
+							case 'P':	//-- Respuesta ef_popup
+								$js = "onclick=\"var seleccion = '$clave_fila'.split('||');seleccionar(seleccion[0], seleccion[1]);\"";
+								break;
+							default:
+								//El evento es una ACCION predeterminada de tipo VINCULO!
+								$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
+								$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
 						}
 						//--->  Generacion del HTML del EVENTO
 						$tip = '';
