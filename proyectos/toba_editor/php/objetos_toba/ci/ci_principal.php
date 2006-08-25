@@ -22,7 +22,7 @@ class ci_editor extends ci_editores_toba
 		if (isset($pantalla)) {
 			$this->set_pantalla(2);
 			//Se busca cual es el id interno del ML para enviarselo
-			$datos = $this->conf__pantallas_lista();
+			$datos = $this->conf__pantallas_lista($this->dep('pantallas_lista'));
 			foreach ($datos as $id => $dato) {
 				if ($dato['identificador'] == $pantalla) {
 					$this->evt__pantallas_lista__seleccion($id);
@@ -235,6 +235,7 @@ class ci_editor extends ci_editores_toba
 		if( $this->hay_pant_sel() ) {
 			$this->dependencia("pantallas_lista")->set_fila_protegida( $this->s__seleccion_pantalla );
 		}
+		return $datos;
 	}
 	
 	//------------------------------------------------------

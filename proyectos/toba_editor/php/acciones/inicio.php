@@ -147,18 +147,20 @@ echo '<div style="text-align:left">';
 	
 	//------------------ METODOS OBSOLETOS -----------------
 	//--- Busca archivos sin migrar 
-	$prohibidos[] = 'get_lista_ei';
-	$prohibidos[] = 'get_lista_eventos';
-	$prohibidos[] = 'get_pantalla_actual';
-	$prohibidos[] = 'get_lista_tabs';
-	$prohibidos[] = 'evt__post_recuperar_interaccion';
-	$prohibidos[] = 'evt__pre_cargar_datos_dependencias';
-	$prohibidos[] = 'evt__post_cargar_datos_dependencias';
-	$prohibidos[] = 'obtener_html';
-	$prohibidos[] = 'obtener_html_contenido';
-	$prohibidos[] = 'get_etapa_actual';
-	$prohibidos[] = '__cant_reg';
-	$prohibidos[] = 'cargar_editable';
+	$prohibidos['get_lista_ei'] = 'Usar $this->pantalla()->agregar_dep o eliminar_dep en la configuración.';
+	$prohibidos['get_lista_eventos']= 'Usar $this->pantalla()->agregar_evento, modificar_evento o eliminar_evento en la configuración.';
+	$prohibidos['get_pantalla_actual']= 'Usar $this->set_pantalla() en la configuración.';
+	$prohibidos['get_lista_tabs']= 'Si se usaba solo para obtener información ahora se puede hacer con $this->pantalla()->get_lista_tabs, 
+									si se usaba para redefinir usar agregar_tab o eliminar_tab de $this->pantalla';
+	$prohibidos['evt__post_recuperar_interaccion']= 'Definir post_eventos()';
+	$prohibidos['evt__pre_cargar_datos_dependencias']= 'Definir el metodo conf() del ci';
+	$prohibidos['evt__post_cargar_datos_dependencias']= 'Ya no es necesario ya que las dependencias se pueden cargar con un metodo';
+	$prohibidos['obtener_html']= 'Se cambio por generar_html. Si era de un ci el método se delego a las pantalla asoaciada';
+	$prohibidos['obtener_html_contenido']= 'Se cambio por generar_html_contenido. Si era de un ci el método se delego a las pantalla asoaciada';
+	$prohibidos['get_etapa_actual']= 'Usar $this->set_pantalla() en la configuración.';
+	$prohibidos['__cant_reg']= 'El paginado del cuadro a cargo del CI no se hace mas con el evento cant_reg sino configurandolo explicitamente con el metodo del cuadro set_total_registros.';
+	$prohibidos['cargar_editable']= 'Usar set_editable';
+	$prohibidos['inicializar']= 'Definir el metodo ini()';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
@@ -168,7 +170,7 @@ echo '<div style="text-align:left">';
 		if ($archivo !== __FILE__) {
 			$contenido = file_get_contents($archivo);
 			$encontrados = array();
-			foreach ($prohibidos as $prohibido) {
+			foreach (array_keys($prohibidos) as $prohibido) {
 				if (strpos($contenido, $prohibido) !== false) {
 					$encontrados[] = $prohibido;
 				}
@@ -178,9 +180,11 @@ echo '<div style="text-align:left">';
 			$path = substr($archivo, strpos($archivo, 'php')+4);
 			if (! empty($encontrados)) {
 				$icono = admin_util::get_icono_abrir_php($path);
-				echo "<li>$icono <strong>$path</strong>:<ul>";
+				echo "<li>$icono <strong>$path</strong>:<ul style='list-style-type:none'>";
 				foreach ($encontrados as $metodo) {
-					echo "<li>".$metodo."</li>";
+					$ayuda = $prohibidos[$metodo];
+					$icono = recurso::imagen_apl('descripcion.gif', true, null, null, $ayuda);
+					echo "<li>$icono $metodo</li>";
 				}
 				echo "</ul></li>";
 			}

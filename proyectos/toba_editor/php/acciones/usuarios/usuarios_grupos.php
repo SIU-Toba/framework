@@ -4,7 +4,6 @@
 	//Inicializacion de la interface
 	$formulario = "permisos";
 	$prefijo_grupo = "ef_ga";//Prefijo de los COMBOS
-	$prefijo_grupo2 = "ga";//Prefijo de los COMBOS
 	$boton_post = "asignar_permisos";
 	$boton_post_nombre = "Guardar";
 
@@ -32,7 +31,6 @@
 				}
 			}
 		}
-		//ei_arbol($permiso,"PERMISOS");
 		//------------------------------------------------------------------------------
 
 		//-[2]- Realizo la TRANSACCION en la base
@@ -103,18 +101,10 @@ ORDER BY 2;";
 	foreach($datos as $rs)
 	{ 
 		//- Armo un EF para manejar el GRUPO de acceso del USUARIO
-		$nombre_combo = $prefijo_grupo2 . $rs["usuario"];
-		$parametros['carga_col_clave'] = "usuario_grupo_acc";
-		$parametros['carga_col_desc'] = "nombre";
+		$nombre_combo = $prefijo_grupo . $rs["usuario"];
 		//echo $parametros["sql"]; 
-		$ef = new ef_combo(	null, "", $nombre_combo, $nombre_combo,
-								"Seleccione el grupo correspondiente al usuario.",
-								"","",$parametros);
-		//- Establezco el valor actual para el usuario
-		$ef->set_opciones($info_usuarios);
 		$grupo_acc_actual = (trim($rs["grupo_acc"])!="") ? $rs["grupo_acc"] : apex_ef_no_seteado;
-		$ef->set_estado($grupo_acc_actual);//Que el elemento seteado
-		$html_ef = $ef->get_input();
+		$html_ef = form::select($nombre_combo, $grupo_acc_actual, $info_usuarios)
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>

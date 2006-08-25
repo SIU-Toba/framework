@@ -9,7 +9,7 @@ class ci_propiedades extends objeto_ci
 	protected $eliminado = false;
 	const clave_falsa = "xS34Io9gF2JD";
 	
-	function inicializar()
+	function ini()
 	{
 		$zona = toba::get_zona();
 		$cargar = false;
@@ -39,24 +39,13 @@ class ci_propiedades extends objeto_ci
 		return $propiedades;
 	}
 	
-	function obtener_html()
-	{
-		if($this->eliminado){
-			echo ei_mensaje("El usuario ha sido eliminado.");
-			return;
-		}
-		parent::obtener_html();
-	}
-	
 	//---- Eventos CI -------------------------------------------------------
 
-	function get_lista_eventos()
+	function conf()
 	{
-		$eventos = parent::get_lista_eventos();
 		if(! isset($this->usuario_actual)){
-			unset($eventos['eliminar']);
+			$this->pantalla()->eliminar_estado_sesion('eliminar');
 		}
-		return $eventos;
 	}		
 	
 	function evt__procesar()
@@ -68,7 +57,7 @@ class ci_propiedades extends objeto_ci
 			$basicas = $this->dependencia('datos')->tabla('basicas')->get();
 			$this->usuario_actual = $basicas['usuario'];
 			//Hay que avisarle a la zona
-			toba::get_zona()->cargar_editable($this->usuario_actual);
+			toba::get_zona()->cargar($this->usuario_actual);
 		}
 	}
 
@@ -83,6 +72,7 @@ class ci_propiedades extends objeto_ci
 	{
 		$this->dependencia('datos')->eliminar();
 		$this->eliminado = true;
+		toba::get_cola_mensajes()->agregar("El usuario ha sido eliminado.", 'info');
 		$this->evt__cancelar();
 	}
 	//-------------------------------------------------------------------

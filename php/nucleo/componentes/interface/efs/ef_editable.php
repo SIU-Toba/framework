@@ -299,7 +299,7 @@ class ef_editable_clave extends ef_editable
     
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		if (! isset($parametros['edit_confirmar_clave'])) {
+		if ( isset($parametros['edit_confirmar_clave'])) {
 			$this->confirmar_clave = $parametros['edit_confirmar_clave'];
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
@@ -307,12 +307,12 @@ class ef_editable_clave extends ef_editable
     
 	function get_input()
 	{
-		$tab = $this->padre->get_tab_index();
+		$tab = $this->padre->get_tab_index(2);
 		$this->input_extra .= " tabindex='$tab'";
 		$estado = isset($this->estado)? $this->estado : "";
 		$html = form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano);
+			$html .= "<br>".form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		}
 		return $html;
 	}

@@ -165,6 +165,12 @@ class objeto_ei_pantalla extends objeto_ei
 	
 	function eliminar_evento($id)
 	{
+		if (isset($this->eventos[$id])) {
+			unset($this->eventos[$id]);
+		} else {
+			throw new excepcion_toba_def($this->get_txt(). 
+					" Se quiere eliminar el evento '$id', pero esta no está en la pantalla actual");
+		}
 	}
 		
 	/**

@@ -22,7 +22,19 @@ class ci_editor_php extends objeto_ci
 		$props[] = 'subcomponente';
 		return $props;
 	}
-
+	
+	function conf()
+	{
+		if (isset($this->archivo_php) && $this->archivo_php->existe()) {
+			if (! $this->archivo_php->contiene_clase($this->datos['subclase'])) {
+				$this->pantalla()->agregar_dep('subclase');
+			}
+			$this->pantalla()->eliminar_evento('crear_archivo');			
+		} else {
+			$this->pantalla()->eliminar_evento('abrir');	
+		}
+	}
+	
 	
 	/**
 	 * Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
@@ -73,29 +85,7 @@ class ci_editor_php extends objeto_ci
 		$this->clase_php->set_meta_clase($this->meta_clase);
 	}
 	
-	//--- EVENTOS
-	function get_lista_eventos(){
-		$eventos = parent::get_lista_eventos();
-		if($this->archivo_php->existe()) {
-			unset($eventos['crear_archivo']);
-		} else {
-			unset($eventos['abrir']);
-		}
-		return $eventos;
-	}
-	
-	function get_lista_ei()
-	//Sobreescribir la lista de EIs a mostrar
-	{
-		$eis = parent::get_lista_ei();
-		if($this->archivo_php->existe()) {
-//			$this->archivo_php->incluir();
-			if (! $this->archivo_php->contiene_clase($this->datos['subclase']))
-				$eis[] = "subclase";	//Se incluye el formulario para dar de alta subclases
-		}		
-		return $eis;
-	}
-	
+
 	function evt__abrir()
 	{
 		$arch = toba::get_hilo()->obtener_parametro('archivo');
@@ -126,28 +116,55 @@ class ci_editor_php extends objeto_ci
 		$this->evt__abrir();
 	}
 	
-	//--- Archivo Plano	
-	function obtener_html_contenido__1()
+	function archivo_php()
 	{
-		$this->obtener_html_dependencias();
-		echo "<br>";
-		if($this->archivo_php->existe()){
-			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
-			echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
-			$this->archivo_php->mostrar();
-			echo "</div>";
-		}
+		return $this->archivo_php;
+	}	
+	
+	function clase_php()
+	{
+		return $this->clase_php;	
 	}
 	
-	//--- Análisis de la clase
-	function obtener_html_contenido__2()
+}
+
+class pantalla_codigo extends objeto_ei_pantalla 
+{
+	function archivo_php()
 	{
-		$this->obtener_html_dependencias();
+		return $this->controlador->archivo_php();	
+	}
+	
+	//--- Archivo Plano	
+	function generar_html_dependencias()
+	{
+		parent::generar_html_dependencias();
+		echo "<br>";
+		if($this->archivo_php()->existe()){
+			ei_separador("ARCHIVO: ". $this->archivo_php()->nombre());
+			echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
+			$this->archivo_php()->mostrar();
+			echo "</div>";
+		}
+	}	
+}
+
+
+class pantalla_analisis extends objeto_ei_pantalla 
+{
+	function archivo_php()
+	{
+		return $this->controlador->archivo_php();	
+	}	
+
+	function generar_html_dependencias()
+	{
+		parent::generar_html_dependencias();
 		echo "<br>";	
-		if($this->archivo_php->existe()){
-			ei_separador("ARCHIVO: ". $this->archivo_php->nombre());
-			$this->archivo_php->incluir();
-			$this->clase_php->analizar();
+		if($this->archivo_php()->existe()){
+			ei_separador("ARCHIVO: ". $this->archivo_php()->nombre());
+			$this->archivo_php()->incluir();
+			$this->controlador->clase_php()->analizar();
 		}
 	}	
 }

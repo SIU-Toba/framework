@@ -48,7 +48,7 @@ abstract class ef
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$this->id = $id;				
+		$this->id = $id;		
 		$this->padre = $padre;
 		$this->id_form_orig = "ef_" . $this->padre->get_id_form() . $this->id;
 		$this->ir_a_fila();

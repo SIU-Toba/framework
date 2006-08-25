@@ -299,12 +299,6 @@ class objeto_ci extends objeto_ei
 	//------------------------------------------------
 	//--  Eventos Predefinidos------------------------
 	//------------------------------------------------
-	
-	/**
-	 * Despues de que los eventos son atendidos
-	 */
-	function evt__post_recuperar_interaccion() {}
-
 	/**
 	 * Validar el estado interno, dispara una excepcion si falla
 	 */
