@@ -36,11 +36,15 @@ var cola_mensajes =
 			this.ventana_alert();
 			return;	
 		}
-		var mensaje = '<div class="overlay-titulo">Se han encontrado los siguientes problemas:</div>';
+		var mensaje = '';
+		var titulo = '';		
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad = '';
 			if (this._mensajes[i][1] == 'error') {
+				titulo = 'Se han encontrado los siguientes problemas:';
 				gravedad = '<img src="'+ toba.imagen('error') + '"/> ';
+			} else {
+				gravedad = '<img src="'+ toba.imagen('info') + '"/> ';
 			}
 			var texto = this._mensajes[i][0];
 			if (typeof this._mensajes[i][2] != 'undefined') {
@@ -49,7 +53,7 @@ var cola_mensajes =
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
 		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
-		contenedor.innerHTML = mensaje;
+		contenedor.innerHTML = '<div class="overlay-titulo">'+titulo+'</div>' + mensaje;
 		overlay();
 	},
 	

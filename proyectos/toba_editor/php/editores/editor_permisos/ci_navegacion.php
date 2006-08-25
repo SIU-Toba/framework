@@ -4,14 +4,12 @@ require_once('modelo/consultas/dao_permisos.php');
 //--------------------------------------------------------------------
 class ci_navegacion extends objeto_ci
 {
-	protected $pantalla = "seleccion";
 	protected $seleccion;
 	protected $filtro = array();
 	
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "pantalla";
 		$propiedades[] = "seleccion";
 		$propiedades[] = "filtro";
 		return $propiedades;
@@ -35,7 +33,7 @@ class ci_navegacion extends objeto_ci
 	{
 		$this->seleccion = $id;
 		$this->get_relacion()->cargar($this->seleccion);
-		$this->pantalla = 'edicion';
+		$this->set_pantalla('edicion');
 	}	
 	
 
@@ -55,21 +53,16 @@ class ci_navegacion extends objeto_ci
 		unset($this->filtro);	
 	}
 	
-	function get_pantalla_actual()
-	{
-		return $this->pantalla;
-	}
-	
 	function evt__agregar()
 	{
-		$this->pantalla = 'edicion';	
+		$this->set_pantalla('edicion');		
 	}
 	
 	function evt__cancelar()
 	{
 		$this->get_relacion()->resetear();
 		parent::evt__cancelar();		
-		$this->pantalla = 'seleccion';		
+		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__guardar()
@@ -82,7 +75,7 @@ class ci_navegacion extends objeto_ci
 	function evt__eliminar()
 	{
 		$this->get_relacion()->eliminar();
-		$this->pantalla = 'seleccion';
+		$this->set_pantalla('seleccion');
 	}	
 
 }

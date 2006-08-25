@@ -18,7 +18,7 @@ class ci_grupo extends objeto_ci
 	{
 		$this->dependencia('datos')->sincronizar();
 		$clave = $this->dependencia('datos')->get_clave_valor(0);
-		toba::get_solicitud()->zona()->cargar_editable($clave);
+		toba::get_zona()->set_editable($clave);
 	}
 
 	function evt__eliminar()
