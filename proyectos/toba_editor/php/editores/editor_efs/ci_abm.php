@@ -10,23 +10,12 @@ class ci_abm extends objeto_ci
 		$propiedades[] = 'es_nuevo';
 		return $propiedades;
 	}
-
-	function get_etapa_actual()
-	{
-		if ($this->dependencia('relacion')->esta_cargado() || $this->es_nuevo) {
-			return 'edicion';
-		} else {
-			return 'seleccion';	
-		}
-	}
 	
-	function get_lista_eventos()
+	function conf()
 	{
-		$eventos = parent::get_lista_eventos();
 		if ($this->es_nuevo) {
-			unset($eventos['eliminar']);
+			$this->pantalla()->eliminar_evento('eliminar');
 		}
-		return $eventos;
 	}
 	
 	//---- Eventos CI -------------------------------------------------------
@@ -45,12 +34,14 @@ class ci_abm extends objeto_ci
 	function evt__cancelar()
 	{
 		$this->dependencia('relacion')->resetear();
+		$this->set_pantalla('seleccion');
 		$this->es_nuevo = false;
 	}
 
 	function evt__nuevo()
 	{
 		$this->es_nuevo = true;	
+		$this->set_pantalla('edicion');
 	}
 	
 	function evt__eliminar()
@@ -67,6 +58,7 @@ class ci_abm extends objeto_ci
 	function evt__listado__seleccion($seleccion)
 	{
 		$this->dependencia('relacion')->cargar($seleccion);
+		$this->set_pantalla('edicion');
 	}
 
 	function conf__listado()

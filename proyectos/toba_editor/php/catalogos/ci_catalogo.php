@@ -12,14 +12,6 @@ abstract class ci_catalogo extends objeto_ci
 	protected $apertura_selecc;		//Seleccion explicita de apertura
 	protected $album_fotos;
 	
-	function obtener_html_dependencias()
-	{
-		foreach($this->dependencias_gi as $dep)
-		{
-			$this->dependencia($dep)->obtener_html();	
-		}
-	}	
-
 	/*
 	*	Agrega al evento sacar_foto una pregunta acerca del nombre de la misma
 	*/

@@ -404,7 +404,7 @@ class ci_editor extends ci_editores_toba
 	// *******************  tab PHP  *************************************
 	// *******************************************************************
 
-	function obtener_html_contenido__4()
+	function generar_html_contenido__4()
 	{	
 		require_once('lib/reflexion/archivo_php.php');
 		require_once('lib/reflexion/clase_php.php');

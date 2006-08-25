@@ -497,8 +497,8 @@ class objeto_ci extends objeto_ei
 			}
 		}		
 		
-		//--- Configuracion defecto pantalla actual
-		$this->pantalla()->pre_configurar();
+		//--- Se fija la pantalla actual
+		$this->pantalla();
 		
 		//--- Configuracion pers. propia		
 		$this->conf();
@@ -574,6 +574,7 @@ class objeto_ci extends objeto_ei
 			}
 			$this->pantalla_servicio = new $clase($info, $this->submit, $this->objeto_js);	
 			$this->pantalla_servicio->set_controlador($this, $id_pantalla);
+			$this->pantalla_servicio->pre_configurar();
 		}
 		return $this->pantalla_servicio;
 	}
