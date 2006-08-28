@@ -265,15 +265,12 @@ legend {
 	cursor: hand;	
 }
 .ef-barra-divisora {
-	border-right: #404040 2px solid;
-	border-top: #d4d0c8 2px solid;
-	border-left: #d4d0c8 2px solid;	
-	border-bottom: #404040 2px solid;
-	font-size: 11px;
-	color: #000000;
-	background-color: #c2c2c2;
+	border-bottom: gray 1px solid;
 	text-align: left;
 	padding-left:10px;
+	margin-bottom: 2px;
+	margin: 8px 5px 5px 2px;
+	font-weight: bold;
 }
 .ef-numero {
 	color: #231f20;

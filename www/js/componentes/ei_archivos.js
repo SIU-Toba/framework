@@ -12,9 +12,9 @@ function ei_archivos(instancia, input_submit, path_relativo) {
 
 	//---Submit
 	def.submit = function() {
-		var padre_esta_en_proceso = this._ci && !this._ci.en_submit();
+		var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 		if (padre_esta_en_proceso) {
-			return this._ci.submit();
+			return this.controlador.submit();
 		}
 		if (this._evento) {
 			document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;

@@ -10,7 +10,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	this._rango_tabs = rango_tabs;
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 
-	this._ci = null;							//Referencia al CI contenedor	
+	this.controlador = null;							//Referencia al CI contenedor	
 	this._efs = {};								//Lista de objeto_ef contenidos
 	this._efs_procesar = {};					//ID de los ef's que poseen procesamiento
 	this._silencioso = false;					//¿Silenciar confirmaciones y alertas? Util para testing
@@ -55,8 +55,8 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit()) {
-			return this._ci.submit();
+		if (this.controlador && !this.controlador.en_submit()) {
+			return this.controlador.submit();
 		}
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs

@@ -133,8 +133,8 @@ def.constructor = ei_formulario_ml;
 	//----Submit 
 	def.submit = function() {
 		//Si no es parte de un submit general, dispararlo
-		if (this._ci && !this._ci.en_submit()) {
-			return this._ci.submit();
+		if (this.controlador && !this.controlador.en_submit()) {
+			return this.controlador.submit();
 		}
 		if (this._evento) {
 			for (fila in this._filas) {

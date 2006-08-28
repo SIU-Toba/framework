@@ -13,9 +13,9 @@ function ei_arbol(instancia, input_submit, item_propiedades, autovinculo) {
 
 	//---Submit
 	def.submit = function() {
-		var padre_esta_en_proceso = this._ci && !this._ci.en_submit();
+		var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 		if (padre_esta_en_proceso) {
-			return this._ci.submit();
+			return this.controlador.submit();
 		}
 		if (this._evento) {
 			//Si es la selección de una semana marco la semana

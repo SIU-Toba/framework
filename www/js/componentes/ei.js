@@ -23,8 +23,8 @@ def.constructor = ei;
 	def.iniciar = function() {
 	};
 
-	def.set_ci = function(ci) {
-		this._ci = ci;
+	def.setcontrolador = function(ci) {
+		this.controlador = ci;
 	};
 	
 	//----------------------------------------------------------------
@@ -49,9 +49,9 @@ def.constructor = ei;
 		
 	//---Submit
 	def.submit = function() {
-		var padre_esta_listo = this._ci && !this._ci.en_submit();
+		var padre_esta_listo = this.controlador && !this.controlador.en_submit();
 		if (padre_esta_listo) {
-			return this._ci.submit();
+			return this.controlador.submit();
 		}
 	};
 	

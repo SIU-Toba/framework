@@ -7,7 +7,7 @@ function ci(instancia, form, input_submit) {
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form;									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
-	this._ci = null;									//CI contenedor
+	this.controlador = null;									//CI contenedor
 	this._deps = {};									//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
@@ -17,7 +17,7 @@ function ci(instancia, form, input_submit) {
 }
 
 	def.agregar_objeto = function(objeto, identificador) {
-		objeto.set_ci(this);
+		objeto.setcontrolador(this);
 		this._deps[identificador] = objeto;
 	};
 
@@ -50,12 +50,12 @@ function ci(instancia, form, input_submit) {
 	//2-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)
 	//Intenta realizar el submit de todos los objetos asociados
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit()) { //Primero debe consultar si su padre está en proceso
-			return this._ci.submit();
+		if (this.controlador && !this.controlador.en_submit()) { //Primero debe consultar si su padre está en proceso
+			return this.controlador.submit();
 		}
 
 		this._en_submit = true;
-		if (! this._ci) { //Si es el padre de todos, borrar las notificaciones
+		if (! this.controlador) { //Si es el padre de todos, borrar las notificaciones
 			cola_mensajes.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();

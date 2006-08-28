@@ -11,8 +11,8 @@ function ei_cuadro(instancia, input_submit) {
 	
 	//---Submit 
 	def.submit = function() {
-		if (this._ci && !this._ci.en_submit()) {
-			return this._ci.submit();
+		if (this.controlador && !this.controlador.en_submit()) {
+			return this.controlador.submit();
 		}
 		if (this._evento) {
 			switch (this._evento.id) {
