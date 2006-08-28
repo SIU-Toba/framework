@@ -17,7 +17,7 @@ function ci(instancia, form, input_submit) {
 }
 
 	def.agregar_objeto = function(objeto, identificador) {
-		objeto.setcontrolador(this);
+		objeto.set_controlador(this);
 		this._deps[identificador] = objeto;
 	};
 

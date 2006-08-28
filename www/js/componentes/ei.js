@@ -23,7 +23,7 @@ def.constructor = ei;
 	def.iniciar = function() {
 	};
 
-	def.setcontrolador = function(ci) {
+	def.set_controlador = function(ci) {
 		this.controlador = ci;
 	};
 	
