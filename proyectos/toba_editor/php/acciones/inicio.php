@@ -106,14 +106,14 @@ echo '<div style="text-align:left">';
 	//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
 	$ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 	echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
-	echo $version->__toString()."</a></div>";
-	
+	echo $version->__toString()."</a>";
+	echo "</div>";
 	
 	echo "<div style='padding:4px; background-color: white;border: 1px solid gray'>";
 	echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".info_instancia::get_id()."</strong> :");
 	echo "<ul style='margin-top: 0px;'>";
 	
-	foreach ( toba::get_db()->get_parametros() as $clave => $valor) {
+	foreach (toba::get_db()->get_parametros() as $clave => $valor) {
 		echo "<li>".ucfirst($clave).": $valor</li>";	
 	}
 	echo "</ul>";

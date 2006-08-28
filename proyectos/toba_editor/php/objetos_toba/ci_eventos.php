@@ -67,14 +67,6 @@ class ci_eventos extends objeto_ci
 		unset($this->seleccion_evento_anterior);
 	}
 	
-	function evt__post_cargar_datos_dependencias()
-	{
-		if( $this->mostrar_evento_detalle() ){
-			//Protejo la evento seleccionada de la eliminacion
-			$this->dependencia("eventos_lista")->set_fila_protegida($this->seleccion_evento_anterior);
-		}
-	}
-
 	//-------------------------------
 	//---- EI: Generador ------------
 	//-------------------------------
@@ -137,9 +129,13 @@ class ci_eventos extends objeto_ci
 		}
 	}
 	
-	function conf__eventos_lista()
+	function conf__eventos_lista($ml)
 	{
-		return $this->get_tabla()->get_filas(null, true);
+		$ml->set_datos( $this->get_tabla()->get_filas(null, true) );
+		if( $this->mostrar_evento_detalle() ){
+			//Protejo la evento seleccionada de la eliminacion
+			$ml->set_fila_protegida($this->seleccion_evento_anterior);
+		}
 	}
 
 

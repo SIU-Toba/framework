@@ -50,6 +50,7 @@ abstract class ci_editores_toba extends objeto_ci
 				$this->cargado = true;
 				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
 			}else{
+				toba::get_cola_mensajes()->agregar("El elemento seleccionado no existe.","error");
 				$this->falla_carga = true;	
 			}
 		}		
@@ -68,27 +69,12 @@ abstract class ci_editores_toba extends objeto_ci
 	{
 		$this->id_objeto = 	$id;
 	}
-	
-	function obtener_html()
-	{
-		if($this->falla_carga === true){
-			echo ei_mensaje("El elemento seleccionado no existe.","error");
-			return;
-		}
-		if($this->elemento_eliminado){
-			echo ei_mensaje("El elemento ha sido eliminado.");
-			return;
-		}
-		parent::obtener_html();
-	}
 
-	function get_lista_eventos()
+	function conf()
 	{
-		$eventos = parent::get_lista_eventos();
 		if(!$this->cargado){
-			unset($eventos['eliminar']);
+			$this->pantalla()->eliminar_evento('eliminar');
 		}
-		return $eventos;
 	}
 
 	function evt__eliminar()
@@ -97,6 +83,7 @@ abstract class ci_editores_toba extends objeto_ci
 		$this->elemento_eliminado = true;
 		$zona = toba::get_solicitud()->zona();
 		$zona->resetear();
+		toba::get_cola_mensajes()->agregar("El elemento ha sido eliminado.", "error");		
 		admin_util::refrescar_editor_item();
 	}
 	

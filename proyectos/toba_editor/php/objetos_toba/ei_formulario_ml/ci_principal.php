@@ -79,4 +79,5 @@ class ci_principal extends ci_editores_toba
 		return $this->get_entidad()->tabla('eventos');
 	}
 }
+
 ?>

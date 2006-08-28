@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php');
-require_once('nucleo/browser/clases/objeto_ci.php');
 
 Mock::generate('objeto_ci');
 

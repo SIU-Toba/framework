@@ -48,15 +48,19 @@ class casos_web extends objeto_ci
 			return $this->selecciones;
 	}	
 	
-	function obtener_html_dependencias()
+	function get_selecciones()
 	{
-		$test_js = toba::get_vinculador()->generar_solicitud(editor::get_id(), '/pruebas/testing_automatico_js',null, true);
-		parent::obtener_html_dependencias();
-		echo "<br>".$test_js;
+		return $this->selecciones;	
 	}
-	
-	function obtener_html_contenido__2()
+
+}
+
+
+class pantalla_testing extends objeto_ei_pantalla 
+{
+	function generar_html_dependencias()
 	{
+		$selecciones = $this->controlador->get_selecciones();
 		echo "<div style='background-color: white; border: 1px solid black; text-align: left; padding: 15px'>";
 		try {
 			//Se construye un suite por categoria que tenga test seleccionados
@@ -64,7 +68,7 @@ class casos_web extends objeto_ci
 				$test = new GroupTest($categoria['nombre']);
 				$hay_uno = false;
 			    foreach (lista_casos::get_casos() as $caso) {
-				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $this->selecciones['casos'])) {
+				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
 						$hay_uno = true;
 						require_once($caso['archivo']);
 				        $test->addTestCase(new $caso['id']($caso['nombre']));
@@ -112,8 +116,19 @@ class casos_web extends objeto_ci
 				echo $e;
 		}
 		echo "</div>";
-		$this->obtener_html_dependencias();
-	}
+		//$this->generar_html_dependencias();
+	}	
 }
 
+class pantalla_seleccion  extends objeto_ei_pantalla
+{
+	function generar_html_dependencias()
+	{
+		$opciones = array('param_html' => array('texto' => 'Testing JS'));
+		$test_js = toba::get_vinculador()->crear_vinculo('toba_editor', '/pruebas/testing_automatico_js', null, $opciones);
+		parent::generar_html_dependencias();
+		echo "<br>".$test_js;
+	}
+	
+}
 ?>

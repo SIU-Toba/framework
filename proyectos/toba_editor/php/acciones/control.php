@@ -61,7 +61,6 @@ function mostrar_ocultar_frame() {
 		 </td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
-
 <?
 		echo "<td class='listado-barra-superior-tabi'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
@@ -77,8 +76,13 @@ function mostrar_ocultar_frame() {
 		$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
 		echo form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
 		echo "</td>";		
+
+		echo "<td class='listado-barra-superior-tabi'>";
+		$img = recurso::imagen_apl('items/instanciar.gif', true);
+		echo "<a href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
+		echo "</td>";		
 ?>
-		<td><? echo gif_nulo(3,1) ?></td>
+		<td><? echo gif_nulo(5,1) ?></td>
 
 		<td class='listado-tabi'>
         <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
@@ -143,7 +147,7 @@ function mostrar_ocultar_frame() {
 		<td class='listado-tabi'>
 			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
 		</td>
-		
+
 		<td class='listado-tabi'>
 			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
 		</td>
