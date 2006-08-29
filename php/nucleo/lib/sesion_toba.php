@@ -3,7 +3,6 @@
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 
-
 class sesion_toba
 {
 	static private $instancia;

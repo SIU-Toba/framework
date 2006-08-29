@@ -176,7 +176,7 @@
 					throw new excepcion_toba("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
 				}
 			}
-            $valores[implode(apex_ef_separador, $valores_clave)] = $fila[$valor];
+            $valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];
 		}
         return $valores;
     }	

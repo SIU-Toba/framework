@@ -658,7 +658,7 @@ class objeto_ei_formulario extends objeto_ei
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
 				$campos = $this->elemento_formulario[$id_ef_maestro]->get_dato();
-				$valores = explode(apex_ef_separador, $param[1]);
+				$valores = explode(apex_qs_separador, $param[1]);
 				if (!is_array($campos)) {
 					$maestros[$id_ef_maestro] = $param[1];
 				} else {

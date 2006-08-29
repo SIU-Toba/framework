@@ -826,7 +826,6 @@ class hilo
 */
 	//
 	//Es importante que esto este en un FORM que posea un campo
-	// apex_sesion_post_proyecto, que es la clave que espera la sesion para saber
 	// cual es el proximo proyecto a cargar
 	{
 		return $this->prefijo_vinculo() ."&". apex_sesion_qs_cambio_proyecto . "=1";

@@ -92,10 +92,10 @@ abstract class ef_seleccion extends ef
 			//Maneja muchos datos
 			$opcion = "";
 		    foreach ($this->dato as $dato) { //Sigo el orden de las columnas
-	        	$opcion .= $this->estado[$dato] . apex_ef_separador;
+	        	$opcion .= $this->estado[$dato] . apex_qs_separador;
 		    }
-		   //Saca el ultimo apex_ef_separador
-			$opcion = substr($opcion, 0, -1 * strlen(apex_ef_separador));
+		   //Saca el ultimo apex_qs_separador
+			$opcion = substr($opcion, 0, -1 * strlen(apex_qs_separador));
 			return $opcion;
 		} else {
 			return $this->estado;				
@@ -132,7 +132,7 @@ abstract class ef_seleccion extends ef
 				$this->estado = $this->estado_nulo;
 			} else {
 				$cant_datos = count($this->dato);
-	            $valores = explode(apex_ef_separador, $seleccion);
+	            $valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
 					throw new excepcion_toba("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");

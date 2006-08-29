@@ -160,7 +160,7 @@ abstract class ef_multi_seleccion extends ef
 			$cant_datos = count($this->dato);
 			$this->estado = array();
 			foreach ($estado as $seleccion) {
-	            $valores = explode(apex_ef_separador, $seleccion);
+	            $valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
 					throw new excepcion_toba("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");
@@ -259,7 +259,7 @@ abstract class ef_multi_seleccion extends ef
 		} else {
 			$salida = array();
 			foreach ($this->estado as $registro) {
-				$salida[] = implode(apex_ef_separador, $registro);
+				$salida[] = implode(apex_qs_separador, $registro);
 			}	
 			return $salida;
 		}

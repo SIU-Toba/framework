@@ -90,6 +90,31 @@ legend {
 	width: 100%;
 	padding-bottom:5px;
 }
+.enc-cambio-proy {
+	float: right;
+	margin: 5px;
+	margin-right: 20px;
+}
+.enc-cambio-proy img {
+	vertical-align:middle;
+	margin: 2px;
+}
+.enc-usuario {
+	float: right;
+	margin-top: 5px;
+	text-align: right;
+}
+.enc-usuario-nom {
+	display: block;
+	font-weight: bold;
+}
+.enc-usuario-id {
+}
+.enc-salir {
+	float: right;
+	margin: 5px;
+	margin-top: 5px;
+}
 .cuerpo {
 	margin-top: 15px; 
 	margin-bottom: 15px;
@@ -98,13 +123,7 @@ legend {
 	text-align: center;
 	margin-top: 100px;
 }
-.barra-usuario {
-	white-space: nowrap;
-}
-.barra-usuario-nom {
-	display: block;
-	font-weight: bold;
-}
+
 /*************************************
 		Elementos de Interface
 **************************************/

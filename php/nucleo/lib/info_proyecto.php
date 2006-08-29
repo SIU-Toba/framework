@@ -116,6 +116,11 @@ class info_proyecto
 		}
 		return $rs[0];
 	}
+	
+	function es_multiproyecto()
+	{
+		return $this->get_parametro('listar_multiproyecto');
+	}
 
 	//--------------  Carga dinamica de COMPONENTES --------------
 
