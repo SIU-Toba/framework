@@ -235,17 +235,35 @@ class info_instancia
 
 	//-------------------- PROYECTOS  ----------------------------
 	
-	static function get_lista_proyectos_instancia($usuario)
+	static function get_url_proyectos($proys)
 	{
-		$sql = "SELECT 	p.proyecto, 
-		        						p.descripcion_corta
-		        				FROM 	apex_proyecto p,
-		        						apex_usuario_proyecto up
-		        				WHERE 	p.proyecto = up.proyecto
-								AND  	listar_multiproyecto = 1 
-								AND		up.usuario = '$usuario'
-								ORDER BY orden;";
-		return self::get_db()->consultar($sql, toba_db_fetch_num);
+		$salida = array();
+		foreach ($proys as $pro) {
+			//incluyo el archivo de informacion basica de la INSTANCIA
+			if (isset($_SESSION['toba']['instancia'][$pro]['url'])) {
+				$salida[$pro] = $_SESSION['toba']['instancia'][$pro]['url'];
+			} else {
+				$salida[$pro] = '/'.$pro;
+			}
+		}
+		return $salida;
+	}
+	
+	static function get_proyectos_accesibles($refrescar=false)
+	{
+		if ($refrescar || ! isset($_SESSION['toba']['instancia']['proyectos_accesibles'])) {
+			$sql = "SELECT 		p.proyecto, 
+	    						p.descripcion_corta
+	    				FROM 	apex_proyecto p,
+	    						apex_usuario_proyecto up
+	    				WHERE 	p.proyecto = up.proyecto
+						AND  	listar_multiproyecto = 1 
+						AND		up.usuario = '$usuario'
+						ORDER BY orden;";
+			$_SESSION['toba']['instancia']['proyectos_accesibles'] =
+					 self::get_db()->consultar($sql, toba_db_fetch_num);
+		}
+		return $_SESSION['toba']['instancia']['proyectos_accesibles'];
 	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------

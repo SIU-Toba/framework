@@ -99,7 +99,6 @@ class info_proyecto
 						usuario_subclase				,
 						usuario_subclase_archivo		,
 						encriptar_qs					,
-						combo_cambiar_proyecto			,
 						registrar_solicitud				,
 						registrar_cronometro			,
 						item_inicio_sesion      		,

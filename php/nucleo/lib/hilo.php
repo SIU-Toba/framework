@@ -819,17 +819,5 @@ class hilo
 		return $this->prefijo_vinculo() ."&". apex_sesion_qs_finalizar . "=1";
 	}	
 
-	function cambiar_proyecto()
-/*
- 	@@acceso: nucleo
-	@@desc: Crea el vinculo que hay que llamar para cambiar de proyecto.
-*/
-	//
-	//Es importante que esto este en un FORM que posea un campo
-	// cual es el proximo proyecto a cargar
-	{
-		return $this->prefijo_vinculo() ."&". apex_sesion_qs_cambio_proyecto . "=1";
-	}	
-	//----------------------------------------------------------------
 }
 ?>

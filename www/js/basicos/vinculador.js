@@ -2,7 +2,7 @@
 var vinculador =
 {
 	_vinculos : [],
-	
+		
 	crear_autovinculo : function(servicio, parametros, objetos) {
 		return this.crear(toba_hilo_item, servicio, parametros, objetos);
 	},
@@ -29,6 +29,10 @@ var vinculador =
 			vinculo += '&' + i + '=' + encodeURI(parametros[i]);
 		}
 		return vinculo;
+	},
+	
+	ir_a_proyecto : function(proyecto) {
+		window.location.href = window.url_proyectos[proyecto];
 	},
 
 	//--------------------------------------------------

@@ -170,10 +170,6 @@ var toba =
 	
 	set_aguardar : function(aguardar) {
 		this._mostrar_aguardar = aguardar;
-	},
-	
-	submit_defecto : function() {
-		return true;	
 	}
 	
 };

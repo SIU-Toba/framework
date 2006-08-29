@@ -56,7 +56,7 @@ class tp_normal extends tp_basico_titulo
 			$this->cambio_proyecto();
 		}		
 		if (apex_pa_proyecto=="multi") {
-			echo form::abrir("multiproyecto",toba::get_hilo()->cambiar_proyecto(),"target = '_top'");
+			
 		}	
 		//--- Logo
 		echo "<div style='height:{$this->alto_cabecera}'>";
@@ -66,13 +66,21 @@ class tp_normal extends tp_basico_titulo
 
 	protected function cambio_proyecto()
 	{
-		echo "<div class='enc-cambio-proy'>";
-		echo recurso::imagen_apl("proyecto.gif",true);
-		$datos = info_instancia::get_lista_proyectos_instancia(toba::get_hilo()->obtener_usuario());
-		echo form::select(apex_sesion_qs_cambio_proyecto, info_proyecto::instancia()->get_id(), 
-					rs_convertir_asociativo($datos, array(0), 1),
-					'ef-combo', "onchange='multiproyecto.submit();'");
-		echo "</div>";
+		$proyectos = info_instancia::get_proyectos_accesibles();
+		$actual = info_proyecto::instancia()->get_id();
+		if (count($proyectos) > 1) {
+			//-- Si hay al menos dos proyectos
+			echo '<div class="enc-cambio-proy">';
+			echo '<a href="#" title="Ir a la inicio" onclick="vinculador.ir_a_proyecto(\''.$actual.'\');">'.
+					recurso::imagen_apl("home.gif",true).'</a>';
+			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
+			echo form::select(apex_sesion_qs_cambio_proyecto, $actual, 
+								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
+			echo js::abrir();
+			echo 'var url_proyectos = '.js::arreglo(info_instancia::get_url_proyectos(array_keys($datos)), true);
+			echo js::cerrar();
+			echo '</div>';
+		}
 	}
 	
 	protected function mostrar_logo()
