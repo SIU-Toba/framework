@@ -176,7 +176,6 @@ CREATE TABLE			apex_proyecto
 	usuario_subclase				varchar(40)		NULL,
 	usuario_subclase_archivo		varchar(255)	NULL,
 	encriptar_qs					smallint		NULL,
-	combo_cambiar_proyecto			smallint		NULL,
 	registrar_solicitud				varchar(1)		NULL,
 	registrar_cronometro			varchar(1)		NULL,
 	item_inicio_sesion      		varchar(60)		NULL,--NOT

@@ -55,9 +55,6 @@ class tp_normal extends tp_basico_titulo
 		if(info_proyecto::instancia()->es_multiproyecto()) {		
 			$this->cambio_proyecto();
 		}		
-		if (apex_pa_proyecto=="multi") {
-			
-		}	
 		//--- Logo
 		echo "<div style='height:{$this->alto_cabecera}'>";
 		$this->mostrar_logo();
