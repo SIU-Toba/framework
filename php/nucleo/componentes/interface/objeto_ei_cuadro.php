@@ -159,12 +159,6 @@ class objeto_ei_cuadro extends objeto_ei
 	
 	function destruir()
 	{
-		$this->memoria["eventos"] = array();
-		if(isset($this->eventos)){
-			foreach($this->eventos as $id => $evento ){
-				$this->memoria["eventos"][$id] = true;
-			}
-		}
 		if (isset($this->ordenado)) {
 			$this->memoria['ordenado'] = $this->ordenado;	
 		}
@@ -1086,75 +1080,28 @@ class objeto_ei_cuadro extends objeto_ei
             }
  			//---> Creo los EVENTOS de la FILA <---
 			if ( $this->tipo_salida != 'pdf' ) {
-				foreach ($this->eventos as $id => $evento) {
-					if ($evento['sobre_fila']) {
-						//Filtrado de eventos por fila
-						$metodo_filtro = 'filtrar_evt__' . $id;
-						if(method_exists($this, $metodo_filtro)){
-							if(! $this->$metodo_filtro($f) ){
-								echo "<td class='ei-cuadro-col-tit' width='1%'>&nbsp;</td>\n";
-								continue;
-							}
-						}
-						//--->  Generacion del GATILLO del EVENTO
-						switch ($this->eventos[$id]['accion']) {
-							case 'V':
-								//El evento es una ACCION predeterminada de tipo VINCULO!
-								$vinculo = new vinculo_toba( toba::get_hilo()->obtener_proyecto(), 
-														$this->eventos[$id]['accion_vinculo_item'],
-														$this->eventos[$id]['accion_vinculo_popup'],
-														$this->eventos[$id]['accion_vinculo_popup_param'] );
-								$vinculo->set_parametros( $this->obtener_clave_fila_array($f) );
-								if( $this->eventos[$id]['accion_vinculo_celda'] ) {
-									$vinculo->set_opciones(array('celda_memoria'=>$this->eventos[$id]['accion_vinculo_celda']));	
-								}
-								if( $this->eventos[$id]['accion_vinculo_target'] ) {
-									$vinculo->set_target($this->eventos[$id]['accion_vinculo_target']);
-								}
-								// ventana de modificacion del vinculo
-								$nombre_filtro = 'modificar_vinculo_fila__' . $id;
-								if ( method_exists($this, $nombre_filtro) ) {
-									$this->$nombre_filtro( $vinculo, $f );
-								}
-								// Registro el vinculo en el vinculador
-								$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
-								// Escribo la sentencia que invocaria el vinculo
-								$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
-								break;
-								
-							case 'P':	//-- Respuesta ef_popup
-								$js = "onclick=\"var seleccion = '$clave_fila'.split('||');seleccionar(seleccion[0], seleccion[1]);\"";
-								break;
-							default:
-								//El evento es una ACCION predeterminada de tipo VINCULO!
-								$evento_js = eventos::a_javascript($id, $evento, $clave_fila);
-								$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-						}
-						//--->  Generacion del HTML del EVENTO
-						$tip = '';
-						if (isset($evento['ayuda']))
-							$tip = $evento['ayuda'];
-						$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-boton-fila';
-						$tab_order = 100;//Esto esta MAAL!!!
-						$acceso = tecla_acceso( $evento["etiqueta"] );
-						$html = '';
-						if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
-							if (isset($evento['imagen_recurso_origen']))
-								$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
-							else
-								$img = $evento['imagen'];
-							$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-						}
-						$html .= $acceso[0];
-						$tecla = $acceso[1];
-						//Creo JS del EVENTO
-						echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
-						echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase, false);
-		            	echo "</td>\n";
+				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
+					echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
+					//1: Posiciono al evento en la fila
+					$evento->set_parametros($clave_fila);
+					if($evento->posee_accion_vincular()){
+						$evento->vinculo()->set_parametros($this->obtener_clave_fila_array($f));	
 					}
+					//2: Ventana de modificacion del evento por fila
+					$callback_modificacion_eventos = 'conf_evt__' . $id;
+					if(method_exists($this, $callback_modificacion_eventos)){
+						$this->$callback_modificacion_eventos($evento, $f);
+					}
+					//3: Genero el boton
+					if( $evento->esta_activado() ) {
+						$evento->generar_boton($this->submit, $this->objeto_js);
+					} else {
+						$evento->activar();	//Lo activo para la proxima fila
+					}
+	            	echo "</td>\n";
 				}
 			}
-			//----------------------------
+			//--------------------------------------
             echo "</tr>\n";
         }
 		if(isset($totales)){
@@ -1207,10 +1154,10 @@ class objeto_ei_cuadro extends objeto_ei
 	        }
 	        //-- Eventos sobre fila
 			if($this->cantidad_columnas_extra > 0){
-				foreach ($this->get_eventos_sobre_fila() as $id_ev) {
+				foreach ($this->get_eventos_sobre_fila() as $evento) {
 					echo "<td class='ei-cuadro-col-tit'>&nbsp;";
 					if (editor::modo_prueba()) {
-						echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id_ev)."\n";
+						echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 					}
 					echo "</td>\n";
 				}

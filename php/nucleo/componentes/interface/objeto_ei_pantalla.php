@@ -159,20 +159,6 @@ class objeto_ei_pantalla extends objeto_ei
 	//---------------	EVENTOS    ----------------
 	//---------------------------------------------
 
-	function agregar_evento($id)
-	{
-	}
-	
-	function eliminar_evento($id)
-	{
-		if (isset($this->eventos[$id])) {
-			unset($this->eventos[$id]);
-		} else {
-			throw new excepcion_toba_def($this->get_txt(). 
-					" Se quiere eliminar el evento '$id', pero esta no está en la pantalla actual");
-		}
-	}
-		
 	/**
 	 * Carga la lista de eventos definidos desde el administrador 
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
@@ -180,16 +166,16 @@ class objeto_ei_pantalla extends objeto_ei
 	 */
 	protected function cargar_lista_eventos()
 	{
-		//--- Filtra los que no estan
+		//--- Filtra los eventos definidos por el usuario segun la asignacion a pantallas
 		parent::cargar_lista_eventos();
 		$ev_etapa = explode(',', $this->info_pantalla['eventos']);
-		foreach (array_keys($this->eventos) as $id) {
+		foreach (array_keys($this->eventos_usuario_utilizados) as $id) {
 			if (! in_array($id, $ev_etapa)) {
-				unset($this->eventos[$id]);
+				unset($this->eventos_usuario_utilizados[$id]);
 			}
 		}
 		
-		//-- Agrega los tabs
+		//-- Agrega los eventos internos relacionados con la navegacion tabs
 		switch($this->info_ci['tipo_navegacion']) {
 			case "tab_h":
 			case "tab_v":
@@ -207,7 +193,7 @@ class objeto_ei_pantalla extends objeto_ei
 				break;
 		}		
 	}
-	
+
 	//---------------------------------------------------------------
 	//-------------------------- SALIDA HTML --------------------------
 	//----------------------------------------------------------------
@@ -216,7 +202,7 @@ class objeto_ei_pantalla extends objeto_ei
 	{
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
-		if ( count($this->eventos) > 0) {
+		if ( (count($this->eventos) > 0) || (count($this->eventos_usuario_utilizados) > 0) ) {
 			echo form::hidden($this->submit, '');
 			echo form::hidden($this->submit."__param", '');
 		}
@@ -249,7 +235,7 @@ class objeto_ei_pantalla extends objeto_ei
 			$this->generar_botones('ci-botonera');
 		}
 		if ( $this->utilizar_impresion_html ) {
-			$this->get_utilidades_impresion_html();
+			$this->generar_utilidades_impresion_html();
 		}
 	}
 	
@@ -431,7 +417,7 @@ class objeto_ei_pantalla extends objeto_ei
 		echo "<div class='ci-tabs-v-solapa' style='height:99%;'></div>";
 	}
 	
-	protected function get_utilidades_impresion_html()
+	protected function generar_utilidades_impresion_html()
 	{
 		$id_frame = "{$this->submit}_print";
 		echo "<iframe style='position:absolute;width: 0px; height: 0px; border-style: none;' "

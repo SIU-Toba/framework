@@ -1,6 +1,6 @@
 <?php
 
-class tab_toba
+class toba_tab
 {
 	function __construct($datos)
 	{

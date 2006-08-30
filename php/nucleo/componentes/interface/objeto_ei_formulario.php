@@ -458,7 +458,7 @@ class objeto_ei_formulario extends objeto_ei
 					$this->elemento_formulario[$ef]->set_estado($temp);
 				}
 			}
-			if ($this->grupo_eventos_activo == '') {
+			if ($this->grupo_eventos_activo == 'no_cargado') {
 				$this->set_grupo_eventos_activo('cargado');
 			}
 		}

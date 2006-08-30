@@ -62,7 +62,7 @@ class ci_editor extends ci_editores_toba
 		return $this->get_entidad()->tabla('dependencias');
 	}
 	
-	function evt__dependencias__del_dep($id)
+	function eliminar_dependencia($id)
 	{
 		//El ci de dependencias avisa que se borro la dependencias $id
 		$this->get_entidad()->tabla('pantallas')->eliminar_dependencia($id);
@@ -71,7 +71,7 @@ class ci_editor extends ci_editores_toba
 	/**
 	*	El ci de dependencias avisa que una dependencia cambio su identificacion
 	*/
-	function evt__dependencias__mod_id($anterior, $nuevo)
+	function modificar_dependencia($anterior, $nuevo)
 	{
 		//Este cambio se le notifica a las pantallas
 		$this->get_entidad()->tabla('pantallas')->cambiar_id_dependencia($anterior, $nuevo);
@@ -329,14 +329,6 @@ class ci_editor extends ci_editores_toba
 		$this->get_entidad()->tabla('pantallas')->set_eventos_pantalla($this->s__seleccion_pantalla_anterior, $eventos);
 	}
 	
-	/**
-	*	Se modifica el identificador de un evento, esto afecta a todas las pantallas en la que esta incluído
-	*/
-	function evt__eventos__mod_id($id_anterior, $id_nuevo)
-	{
-		$this->get_entidad()->tabla('pantallas')->cambiar_id_evento($id_anterior, $id_nuevo);
-	}
-
 	// *******************************************************************
 	// *******************  tab EVENTOS  *********************************
 	// *******************************************************************
@@ -364,12 +356,20 @@ class ci_editor extends ci_editores_toba
 		return info_ci::get_lista_eventos_estandar($modelo);
 	}
 
-	function evt__eventos__del_evento($id)
+	function eliminar_evento($id)
 	{
 		//El ci de EVENTOS avisa que se borro el evento $id
 		$this->get_entidad()->tabla('pantallas')->eliminar_evento($id);
 	}
 	
+	/**
+	*	Se modifica el identificador de un evento, esto afecta a todas las pantallas en la que esta incluído
+	*/
+	function modificar_evento($id_anterior, $id_nuevo)
+	{
+		$this->get_entidad()->tabla('pantallas')->cambiar_id_evento($id_anterior, $id_nuevo);
+	}
+
 	/**
 	 * Se actualiza la aparicion de un evento en las pantallas dadas
 	 *

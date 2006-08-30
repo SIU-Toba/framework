@@ -161,6 +161,8 @@ echo '<div style="text-align:left">';
 	$prohibidos['__cant_reg']= 'El paginado del cuadro a cargo del CI no se hace mas con el evento cant_reg sino configurandolo explicitamente con el metodo del cuadro set_total_registros.';
 	$prohibidos['cargar_editable']= 'Usar set_editable';
 	$prohibidos['inicializar']= 'Definir el metodo ini()';
+	$prohibidos[] = 'filtrar_evt__';
+	$prohibidos[] = 'modificar_vinculo__';
 	
 	$dir = info_instancia::get_path_proyecto(editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);

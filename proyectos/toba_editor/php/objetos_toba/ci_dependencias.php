@@ -55,7 +55,7 @@ class ci_dependencias extends objeto_ci
 		$id_dep = $this->get_tabla()->get_fila_columna($this->seleccion_dependencia_anterior,"identificador");
 		$this->get_tabla()->eliminar_fila($this->seleccion_dependencia_anterior);
 		//Se dispara un evento que indica cual es la DEPENDENCIA que se elimino (para que el controlador actualize su estado)
-		$this->reportar_evento( "del_dep", $id_dep );
+		$this->controlador->eliminar_dependencia( $id_dep );
 		$this->evt__formulario__cancelar();
 	}
 	
@@ -67,7 +67,7 @@ class ci_dependencias extends objeto_ci
 	
 		//Si se cambio el id de la dependencia notificar al controlador de nivel superior
 		if ($id_nuevo != $id_anterior) {
-			$this->reportar_evento("mod_id", $id_anterior, $id_nuevo);
+			$this->controlador->modificar_dependencia($id_anterior, $id_nuevo);
 		}
 		$this->evt__formulario__cancelar();
 	}

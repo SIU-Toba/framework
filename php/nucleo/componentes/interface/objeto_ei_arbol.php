@@ -16,12 +16,19 @@ class objeto_ei_arbol extends objeto_ei
 	protected $todos_abiertos = false;
 	protected $frame_destino = null;
 	
+	function __construct($datos)
+	{
+		parent::__construct($datos);
+		$this->eventos['cambio_apertura'] = '';
+		$this->eventos['ver_propiedades'] = '';
+		$this->eventos['cargar_nodo'] = '';
+	}
 	
 	function servicio__ejecutar()
 	{
 		toba::get_hilo()->desactivar_reciclado();		
 		$id_nodo = toba::get_hilo()->obtener_parametro('id_nodo');
-		$nodo = $this->reportar_evento("cargar_nodo", $id_nodo);
+		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
 		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
 			$html = $this->recorrer_hijos(current($nodo), 0);
 			echo $html;

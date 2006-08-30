@@ -169,6 +169,12 @@ abstract class ci_editores_toba extends objeto_ci
 		return call_user_func(array($clase, "get_tipo_abreviado"));
 	}
 		
+	/*
+		Todos los EI que tienen un tab de eventos necesitan implementar estos metodos.
+		Actualmente solo se utilizan en el CI
+	*/
+	function eliminar_evento($id){}
+	function modificar_evento($id_anterior, $id_nuevo){}
 	
 }
 ?>

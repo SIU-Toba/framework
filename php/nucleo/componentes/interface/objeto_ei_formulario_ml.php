@@ -529,10 +529,10 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 		}
         //-- Eventos sobre fila
 		if($this->cant_eventos_sobre_fila() > 0){
-			foreach ($this->get_eventos_sobre_fila() as $id_ev) {
+			foreach ($this->get_eventos_sobre_fila() as $evento) {
 				echo "<th class='ei-ml-columna'>&nbsp;\n";
 				if (editor::modo_prueba()) {
-					echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id_ev)."\n";
+					echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 				}
 	            echo "</th>\n";
 			}
@@ -639,38 +639,25 @@ class objeto_ei_formulario_ml extends objeto_ei_formulario
 				echo "</td>\n";
 			}
  			//---> Creo los EVENTOS de la FILA <---
-			foreach ($this->eventos as $id => $evento) {
-				if ($evento['sobre_fila']) {
-					//Filtrado de eventos por fila
-					$metodo_filtro = 'filtrar_evt__' . $id;
-					if(method_exists($this, $metodo_filtro)){
-						if(! $this->$metodo_filtro ) 
-							continue;
-					}
-					//HTML del EVENTO
-					$tip = '';
-					if (isset($evento['ayuda']))
-						$tip = $evento['ayuda'];
-					$clase = ( isset($evento['estilo']) && (trim( $evento['estilo'] ) != "")) ? $evento['estilo'] : 'ei-boton-fila';
-					$tab_order = null;
-					$acceso = tecla_acceso( $evento["etiqueta"] );
-					$html = '';
-					if (isset($evento['imagen_recurso_origen']) && $evento['imagen']) {
-						if (isset($evento['imagen_recurso_origen']))
-							$img = recurso::imagen_de_origen($evento['imagen'], $evento['imagen_recurso_origen']);
-						else
-							$img = $evento['imagen'];
-						$html = recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-					}
-					$html .= $acceso[0];
-					$tecla = $acceso[1];
-					//Creo JS del EVENTO
-					$evento_js = eventos::a_javascript($id, $evento, $fila);
-					$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-					echo "<td class='$estilo_fila'>\n";
-					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, 'button', '', $clase, false);
-	            	echo "</td>\n";
-				}	
+			foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
+				echo "<td class='$estilo_fila'>\n";
+				//1: Posiciono al evento en la fila
+				$evento->set_parametros($fila);
+				if($evento->posee_accion_vincular()){
+					$evento->vinculo()->set_parametros($fila);	
+				}
+				//2: Ventana de modificacion del evento por fila
+				$callback_modificacion_eventos = 'conf_evt__' . $id;
+				if(method_exists($this, $callback_modificacion_eventos)){
+					$this->$callback_modificacion_eventos($evento, $fila);
+				}
+				//3: Genero el boton
+				if( $evento->esta_activado() ) {
+					$evento->generar_boton($this->submit, $this->objeto_js);
+				} else {
+					$evento->activar();	//Lo activo para la proxima fila
+				}
+            	echo "</td>\n";
 			}
 			//----------------------------			
 			echo "</tr>\n";

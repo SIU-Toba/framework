@@ -5,18 +5,11 @@ class cuadro_origen extends objeto_ei_cuadro
 	/*
 		Modificacion en PHP a los vinculos de las FILAS
 	*/
-	function modificar_vinculo_fila__prueba($vinculo, $fila)
+	function conf_evt__en_fila_redefinido($evento, $fila)
 	{
-		$vinculo->agregar_parametro( 'nota', $this->datos[$fila]['descripcion'] );
-	}
-
-	/*
-		agregar parametros en PHP a un boton normal, ubicado en la botonore
-	*/
-	function modificar_vinculo__boton( $vinculo )
-	{
-		$vinculo->agregar_parametro( 'dia', 'lunes' );
-		$vinculo->agregar_parametro( 'bebida', 'vino' );
+		$evento->vinculo()->agregar_parametro( 'nota', 'En PHP se agrego la columna _descripcion_ al paso de parametros ' .
+											'(El ID del cuadro se incorpora por defecto). VALOR: ' . 
+												$this->datos[$fila]['descripcion'] );
 	}
 
 	/*
@@ -25,8 +18,8 @@ class cuadro_origen extends objeto_ei_cuadro
 	*/
 	function extender_objeto_js()
 	{
-		echo "{$this->objeto_js}.modificar_vinculo__boton = function(id_vinculo){
-				var parametros = { mes: 'octubre', estacion: 'primavera'};
+		echo "{$this->objeto_js}.modificar_vinculo__en_botonera = function(id_vinculo){
+				var parametros = { nota2: 'Esto se agrego en JAVASCRIPT', mes: 'octubre', estacion: 'primavera'};
 				vinculador.agregar_parametros(id_vinculo, parametros);
 		}";
 	}

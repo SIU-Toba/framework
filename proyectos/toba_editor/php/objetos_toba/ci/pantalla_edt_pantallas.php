@@ -28,8 +28,8 @@ class pantalla_edt_pantallas extends objeto_ei_pantalla
 			}
 			echo "</tr>\n";
 			echo "</table>";
-			$this->generar_boton_evento('aceptar_pantalla');
-			$this->generar_boton_evento('cancelar_pantalla');
+			$this->generar_boton('aceptar_pantalla');
+			$this->generar_boton('cancelar_pantalla');
 			echo "</fieldset>";
 		}
 	}

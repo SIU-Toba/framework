@@ -1,8 +1,8 @@
 <?
 require_once("nucleo/componentes/objeto.php");
 require_once('nucleo/lib/salidas/impresion_toba.php');
-require_once('nucleo/lib/vinculo_toba.php');
-require_once('nucleo/lib/evento_toba.php');
+require_once('nucleo/lib/toba_evento_usuario.php');
+require_once('nucleo/lib/toba_vinculo.php');
 require_once('eventos.php');
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_ei_evento","evt");
@@ -21,9 +21,13 @@ abstract class objeto_ei extends objeto
  	protected $submit;	
  	protected $objeto_js;
 	protected $info_eventos;
-	protected $colapsado = false;						//El elemento sólo mantiene su título
-	protected $evento_implicito=null;					//Evento disparado cuando no hay una orden explicita
-	protected $eventos = array();
+	protected $colapsado = false;						// El elemento sólo mantiene su título
+	protected $evento_implicito=null;					// Evento disparado cuando no hay una orden explicita
+	protected $eventos = array();						// Eventos INTERNOS del componente
+	protected $eventos_usuario = array();				// Eventos declarados en el administrador
+	protected $eventos_usuario_utilizados = array();	// Lista de eventos del usuario que estan activos
+	protected $eventos_usuario_utilizados_sobre_fila;	// Lista de eventos del administrador que se utilizaran
+	protected $botones_graficados_ad_hoc = array();		// Lista de botones que se imprimieron por orden del usuario
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
 	protected $prefijo = 'ei';
@@ -37,15 +41,23 @@ abstract class objeto_ei extends objeto
 	
 	function destruir()
 	{
-		$this->memoria["eventos"] = array();
+		//Recuerdo los eventos enviados durante los servicios
+		if(!isset($this->memoria['eventos'])){
+			$this->memoria['eventos'] = array();
+		}
 		if(isset($this->eventos)){
 			foreach($this->eventos as $id => $evento ){
-				if(isset($evento['maneja_datos'])){
-					$val = $evento['maneja_datos'];
+				$this->memoria['eventos'][$id] = true;
+			}
+		}
+		if(isset($this->eventos_usuario_utilizados)){
+			foreach($this->eventos_usuario_utilizados as $id => $evento ){
+				if($evento->maneja_datos()){
+					$val = true;
 				}else{
-					$val = true;	
+					$val = false;	
 				}
-				$this->memoria["eventos"][$id] = $val;
+				$this->memoria['eventos'][$id] = $val;
 			}
 		}
 		parent::destruir();
@@ -65,125 +77,146 @@ abstract class objeto_ei extends objeto
 	//--  EVENTOS   ------------------------------------------------------
 	//--------------------------------------------------------------------
 
-	function eliminar_evento($id)
+	/**
+	*	Recupera un evento
+	*/
+	function evento($id)
 	{
-		if (isset($this->eventos[$id])) {
-			unset($this->eventos[$id]);
+		if (isset($this->eventos_usuario_utilizados[$id])) {
+			return $this->eventos_usuario_utilizados[$id];
+		} else {
+			if(isset($this->eventos_usuario[$id])){
+				throw new excepcion_toba($this->get_txt(). " El EVENTO '$id' no esta ASOCIADO actualmente al componente.");
+			} else {
+				throw new excepcion_toba($this->get_txt(). " El EVENTO '$id' no está definido.");
+			}
+		}
+	}
+
+	function agregar_evento($id)
+	{
+		if(isset($this->eventos_usuario[ $id ])){
+			$this->eventos_usuario_utilizados[ $id ] = $this->eventos_usuario[ $id ];
 		} else {
 			throw new excepcion_toba($this->get_txt(). 
-					" Se quiere eliminar el evento '$id', pero no está definido");
+					" Se quiere agregar el EVENTO '$id', pero no está definido.");
 		}		
 	}
-	
-	function modificar_evento($id, $datos)
+
+	function eliminar_evento($id)
 	{
-		if (isset($this->eventos[$id])) {
-			foreach ($datos as $clave => $valor) {
-				$this->eventos[$id][$clave] = $valor;	
-			}
+		if(isset($this->eventos_usuario[ $id ])){
+			if(isset($this->eventos_usuario_utilizados[ $id ])){
+				unset($this->eventos_usuario_utilizados[ $id ]);
+				toba::get_logger()->debug("Se elimino el evento: $id", 'toba');
+			}		
 		} else {
-			throw new excepcion_toba_def($this->get_txt(). 
-					" Se quiere modificar el evento '$id', pero no está definido");
+			throw new excepcion_toba($this->get_txt(). 
+					" Se quiere eliminar el EVENTO '$id', pero no está definido.");
 		}		
 	}
-	
-	function set_evento_implicito($id)
-	{
-		$this->evento_implicito = $id;
-	}
-	
-	function get_lista_eventos()
-	{
-		return $this->eventos;
-	}
-		
-	function disparar_eventos(){}
 
-	function cant_eventos_sobre_fila()
-	{
-		$cant = 0;
-		foreach ($this->eventos as $evento) {
-			if ($evento['sobre_fila'])
-				$cant++;
-		}
-		return $cant;
-	}
+	//--- Manejo interno --------------------------------------
 	
-	function get_eventos_sobre_fila()
-	{
-		$salida = array();
-		foreach ($this->eventos as $id => $evento) {
-			if ($evento['sobre_fila']) {
-				$salida[]=$id;
-			}
-		}
-		return $salida;
-	}
-	
-	/**
-	 * Reporto un evento en mi controlador
-	 */
-	protected function reportar_evento($evento)
-	{
-		$parametros = func_get_args();
-		$parametros	= array_merge(array($this->id_en_controlador), $parametros);
-		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
-	}
-
 	/*
 	*	Carga la lista de eventos definidos desde el editor
 	*/		
 	protected function cargar_lista_eventos()
 	{
-		$this->eventos = array();
-		foreach ($this->info_eventos as $evento) {
-			$this->eventos[$evento['identificador']] = $evento;
-			//Seteo el evento implicito
-			if($evento['implicito']){
-				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $evento['identificador'], 'toba');
-				$this->set_evento_implicito($evento['identificador']);
-			}		
+		foreach ($this->info_eventos as $info_evento) {
+			$e = new toba_evento_usuario($info_evento);
+			$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
+			$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
+			if( $e->es_implicito() ){
+				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $e->get_id(), 'toba');
+				$this->evento_implicito = $e;
+			}
 		}
 	}
+
+	function get_eventos_sobre_fila()
+	{
+		if(!isset($this->eventos_usuario_utilizados_sobre_fila)){
+			$this->eventos_usuario_utilizados_sobre_fila = array();
+			foreach ($this->eventos_usuario_utilizados as $id => $evento) {
+				if ($evento->esta_sobre_fila()) {
+					$this->eventos_usuario_utilizados_sobre_fila[$id]=$evento;
+				}
+			}
+		}
+		//ei_arbol($this->eventos_usuario_utilizados_sobre_fila,'pepe');
+		return $this->eventos_usuario_utilizados_sobre_fila;
+	}
 	
+	function cant_eventos_sobre_fila()
+	{
+		return count( $this->get_eventos_sobre_fila() );
+	}
+
+	function disparar_eventos(){}
+		
+	/**
+	 * Reporto un evento en mi controlador
+	 */
+	protected function reportar_evento($evento)
+	{
+		if(!isset( $this->memoria['eventos'][$evento] )){
+			throw new excepcion_toba('ERROR EI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
+		}
+		$parametros = func_get_args();
+		$parametros	= array_merge(array($this->id_en_controlador), $parametros);
+		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
+	}
+
+	function get_lista_eventos_usuario()
+	{
+		return $this->eventos_usuario_utilizados;
+	}
+
+	function get_lista_eventos_internos()
+	{
+		return $this->eventos;
+	}
+
+	//--- Manejo de grupos de eventos --------------------------------------
+	
+	/**
+		Activa un grupo de eventos
+	*/
+	function set_grupo_eventos_activo($grupo)
+	{
+		$this->grupo_eventos_activo = $grupo;
+	}
+	
+	/**
+		Devuelve el grupo de eventos activos
+	*/
+	function get_grupo_eventos_activo()
+	{
+		return $this->grupo_eventos_activo;	
+	}
+		
 	protected function filtrar_eventos()
 	{
 		$grupo = $this->get_grupo_eventos_activo();
-
-		//Si hay un grupo de eventos definido:
-		//	filtro los eventos que:
-		// 		* Van a la botonera
-		//		* Tienen al menos un grupo definido
 		if(trim($grupo)!=''){ 
-			foreach(array_keys($this->eventos) as $id){
-				$en_botonera =  (trim($this->eventos[$id]['en_botonera'])==1);
-				$pertenece_a_grupo_actual = false;
-				if(trim($this->eventos[$id]['grupo'])!=''){
-					$asociacion_grupos = array_map('trim',explode(',',$this->eventos[$id]['grupo']));
-					$pertenece_a_grupo_actual = in_array($grupo, $asociacion_grupos );
-				}else{
-					//Los que no tienen grupo definido no hay que filtrarlos
-					continue;
-				}
-				//En un principio esto se usa solo para FILTRAR la botonera
-				if( $en_botonera && !($pertenece_a_grupo_actual) ){
-					toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
-					unset($this->eventos[$id]);
+			foreach($this->eventos_usuario_utilizados as $id => $evento){
+				if( $evento->posee_grupo_asociado() ){
+					if( !$evento->pertenece_a_grupo($grupo) ){
+						unset($this->eventos_usuario_utilizados[$id]);
+						toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
+					}
 				}
 			}
 		}		
 	}
-	
-	protected function evento_es_en_botonera($evento)
-	{
-		//Se asume que si no se definio nada en el evento, es en botonera					
-		return !isset($evento['en_botonera']) ||  trim($evento['en_botonera'])==1;
-	}
+
+	//--- BOTONES -------------------------------------------------
 	
 	function hay_botones() 
 	{
-		foreach(array_keys($this->eventos) as $id  ) {	
-			if ($this->evento_es_en_botonera($this->eventos[$id]) ) {
+		foreach ($this->eventos_usuario_utilizados as $evento) {	
+			if ( $evento->esta_en_botonera() ) {
 				return true;
 			}
 		}
@@ -201,118 +234,45 @@ abstract class objeto_ei extends objeto
 	/*
 		Genera los botones de todos los eventos marcardos para aparecer en la botonera.
 	*/
-	function generar_botones_eventos()
+	protected function generar_botones_eventos()
 	{
 		//--- Si el componente no reservo tabs, se reservan ahora
 		if (!isset($this->rango_tabs)) {
 			//$this->rango_tabs = manejador_tabs::instancia()->reservar(count($this->eventos));			
 		}
-		foreach(array_keys($this->eventos) as $id )	{
-			if ($this->evento_es_en_botonera($this->eventos[$id])) {
-				$this->generar_boton_evento($id);
+		foreach($this->eventos_usuario_utilizados as $evento )	{
+			if ( $evento->esta_en_botonera() ) {
+				if( !in_array($evento->get_id(), $this->botones_graficados_ad_hoc ) ) {
+					$this->generar_html_boton($evento);
+				}
 			}
 		}
 	}
 
-	/*
-		Genera el HTML del BOTON correspondiente a un evento definido
-	*/
-	function generar_boton_evento($id)
+	protected function generar_html_boton($evento)
 	{
-		if(!isset($this->eventos[$id])){
-			throw new excepcion_toba("Se solicito la generacion de un boton sobre un evento inexistente: '$id'");
-		}
-		$tab_order = manejador_tabs::instancia()->siguiente();
-		$tip = '';
-		if (isset($this->eventos[$id]['ayuda'])) {
-			$tip = $this->eventos[$id]['ayuda'];
-		}
-		$clase = ( isset($this->eventos[$id]['estilo']) && (trim( $this->eventos[$id]['estilo'] ) != "")) ? $this->eventos[$id]['estilo'] : "ei-boton";		
-		$tipo_boton = 'button';		
-		if (isset($this->eventos[$id]['defecto']) && $this->eventos[$id]['defecto']) {
-			$tipo_boton = 'submit';
-			$clase .=  '  ei-boton-defecto';			
-		}
-		$acceso = tecla_acceso( $this->eventos[$id]["etiqueta"] );
-		$html = '';
-		if (isset($this->eventos[$id]['imagen']) && $this->eventos[$id]['imagen']) {
-			if (isset($this->eventos[$id]['imagen_recurso_origen'])) {
-				$img = recurso::imagen_de_origen($this->eventos[$id]['imagen'], $this->eventos[$id]['imagen_recurso_origen']);
-			} else {
-				$img = $this->eventos[$id]['imagen'];
-			}
-			$html .= recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-		}
-		$html .= $acceso[0];
-		$tecla = $acceso[1];
-
 		//--- Link al editor
 		if (editor::modo_prueba()) {
-			echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $id)."\n";
+			echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 		}
-		if ( isset($this->eventos[$id]['accion']) ) {
-			// Acciones predeterminadas
-			if ($this->eventos[$id]['accion'] == 'H') {
-				$this->utilizar_impresion_html = true;
-				// --- IMPRIMIR HTML ---
-				$url = $this->vinculo_vista_html_impresion();
-				if ( $this->eventos[$id]['accion_imphtml_debug'] == 1 ) {
-					$js = "onclick=\"imprimir_html('$url',true);\"";
-				} else {
-					$js = "onclick=\"imprimir_html('$url');\"";
-				}
-				echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
-			} elseif ( ($this->eventos[$id]['accion'] == 'V') ) {
-			// --- VINCULO ---
-				$vinculo = new vinculo_toba(	toba::get_hilo()->obtener_proyecto(), 
-										$this->eventos[$id]['accion_vinculo_item'],
-										$this->eventos[$id]['accion_vinculo_popup'],
-										$this->eventos[$id]['accion_vinculo_popup_param'] );
-				if( $this->eventos[$id]['accion_vinculo_celda'] ) {
-					$vinculo->set_opciones(array('celda_memoria'=>$this->eventos[$id]['accion_vinculo_celda']));	
-				}
-				if( $this->eventos[$id]['accion_vinculo_target'] ) {
-					$vinculo->set_target($this->eventos[$id]['accion_vinculo_target']);
-				}
-				// ventana de modificacion del vinculo
-				$nombre_filtro = 'modificar_vinculo__' . $id;
-				if ( method_exists($this, $nombre_filtro) ) {
-					$this->$nombre_filtro( $vinculo );
-				}
-				// Registro el vinculo en el vinculador
-				$id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
-				if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
-					// Escribo la sentencia que invocaria el vinculo
-					$js = "onclick=\"{$this->objeto_js}.invocar_vinculo('$id', '$id_vinculo');\"";
-					echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
-				}
-			}	
-		} else {
-			// Manejo estandar de eventos
-			$evento_js = eventos::a_javascript($id, $this->eventos[$id]);
-			$js = "onclick=\"{$this->objeto_js}.set_evento($evento_js);\"";
-			echo form::button_html( $this->submit."_".$id, $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+		//--- Utilidades de impresion
+		if ( $evento->posee_accion_imprimir() ) {
+			$this->utilizar_impresion_html = true;					
+		}
+		$evento->generar_boton($this->submit, $this->objeto_js);
+	}
+
+	/**
+	*	Metodo para graficar un boton por orden del usuario
+	*/
+	function generar_boton($id_evento, $excluir_botonera=true)
+	{
+		$this->generar_html_boton($this->evento($id_evento));
+		if($excluir_botonera) {
+			$this->botones_graficados_ad_hoc[] = $id_evento;
 		}
 	}
 
-	//--- Manejo de grupos de eventos
-	
-	/**
-		Activa un grupo de eventos
-	*/
-	function set_grupo_eventos_activo($grupo)
-	{
-		$this->grupo_eventos_activo = $grupo;
-	}
-	
-	/**
-		Devuelve el grupo de eventos activos
-	*/
-	function get_grupo_eventos_activo()
-	{
-		return $this->grupo_eventos_activo;	
-	}
-	
 	//--------------------------------------------------------------------
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
@@ -365,9 +325,9 @@ abstract class objeto_ei extends objeto
 	{
 		$identado = js::instancia()->identado();
 		//-- EVENTO implicito --
-		if($this->evento_implicito != null && isset($this->eventos[$this->evento_implicito])){
-			$evento = eventos::a_javascript($this->evento_implicito, $this->eventos[$this->evento_implicito]);
-			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento);\n";
+		if(is_object($this->evento_implicito)){
+			$evento_js = $this->evento_implicito->get_evt_javascript();
+			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
 		}
 		if ($this->colapsado) {
 			echo $identado."window.{$this->objeto_js}.colapsar();\n";
@@ -457,17 +417,6 @@ abstract class objeto_ei extends objeto
 	function vista_impresion_html( $salida )
 	{
 		$salida->titulo( $this->get_nombre() );
-	}
-
-	/**
-	*	Devuelve un autovinculo pidiendo un servicio PDF
-	*/
-	function vinculo_vista_html_impresion()
-	{
-		$opciones['servicio'] = 'vista_html_impr';
-		$opciones['objetos_destino'] = array( $this->id );
-		//$opciones['celda_memoria'] = 'popup';
-		return toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );
 	}
 }
 ?>

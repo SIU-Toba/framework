@@ -9,21 +9,17 @@ class cuadro_fotos extends objeto_ei_cuadro
 		$this->fotos_predefinidas = $fotos;
 	}
 	
-	function filtrar_evt__defecto($f)
+	function conf_evt__defecto($evento, $f)
 	{
 		 $clave = $this->obtener_clave_fila($f);
-		 if (! in_array($clave, $this->fotos_predefinidas)) {
-		 	return true;
-		 } else {
-		 	return false;
+		 if (in_array($clave, $this->fotos_predefinidas)) {
+			$evento->desactivar();
 		 }
 	}
 	
-	function filtrar_evt__baja($f)
+	function conf_evt__baja($evento, $f)
 	{
-		 return $this->filtrar_evt__defecto($f);
+		 return $this->conf_evt__defecto($evento, $f);
 	}	
-	
 }
-
 ?>

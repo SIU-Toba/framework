@@ -43,7 +43,8 @@ class objeto_ci extends objeto_ei
 			$this->memoria['pantalla_dep'] = $this->pantalla_servicio->get_lista_dependencias();
 			$this->memoria['pantalla_servicio'] = $this->pantalla_id_servicio;
 			$this->memoria['tabs'] = array_keys($this->pantalla_servicio->get_lista_tabs());
-			$this->eventos = $this->pantalla_servicio->get_lista_eventos();
+			$this->eventos_usuario_utilizados = $this->pantalla_servicio->get_lista_eventos_usuario();
+			$this->eventos = $this->pantalla_servicio->get_lista_eventos_internos();
 		}
 		parent::destruir();
 	}
@@ -232,6 +233,10 @@ class objeto_ci extends objeto_ei
 			if(isset(  $this->memoria['eventos'][$evento] )){
 				$this->evento_actual = $evento;
 				$this->evento_actual_param = $_POST[$this->submit."__param"];
+			} else {
+				if( $evento != '') {
+					throw new excepcion_toba('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
+				}
 			}
 		}
 	}
@@ -548,7 +553,7 @@ class objeto_ci extends objeto_ei
 			}
 		}
 	}
-	
+
 	/**
 	 * @return objeto_ei_pantalla
 	 */
@@ -577,6 +582,14 @@ class objeto_ci extends objeto_ei
 			$this->pantalla_servicio->pre_configurar();
 		}
 		return $this->pantalla_servicio;
+	}
+
+	/**
+	*	Shortcut para acceder a un evento propio (en realidad es de la pantalla)
+	*/
+	function evento($id)
+	{
+		return $this->pantalla()->evento($id);
 	}
 	
 	protected function set_pantalla($id)

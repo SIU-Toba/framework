@@ -1,6 +1,6 @@
 <?php
 
-class vinculo_toba
+class toba_vinculo
 {
 	private $item;
 	private $proyecto;
