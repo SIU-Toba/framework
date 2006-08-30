@@ -13,6 +13,7 @@ http://www.brothercake.com/scripts/listmenu/
 function simpleMenu(navid, orient)
 {
 	//if the dom is not supported, or this is opera 5 or 6, don't continue
+	var version = parseInt(navigator.appVersion);
 	var opera5 = /opera[\/ ][56]/i.test(navigator.userAgent);
 	if(typeof document.getElementById == 'undefined' || opera5) { return; }
 	
@@ -21,7 +22,6 @@ function simpleMenu(navid, orient)
 
 	//identify internet explorer [but both opera and konqueror recognise the .all collection]
 	this.isie = typeof document.all != 'undefined' && typeof window.opera == 'undefined' && !this.iskde;
-
 	//identify old safari [< 1.2]
 	this.isoldsaf = navigator.vendor == 'Apple Computer, Inc.' && typeof XMLHttpRequest == 'undefined';
 
@@ -95,15 +95,15 @@ simpleMenu.prototype.init = function(trigger, isie, isoldsaf, iskde, navid, isho
 				
 				//if this is a horizontal navbar
 				//set the left position to auto [css] or compute a position [compute]
-				if(this.ishoriz) { this.menu.style.left = (isie || isoldsaf) ? this.offsetLeft + 'px' : 'auto'; }
+				if(this.ishoriz) { this.menu.style.left = (ie6omenor || isoldsaf) ? this.offsetLeft + 'px' : 'auto'; }
 				
 				//if this is a horizontal navbar and a first-level submenu 
 				//set the top position to auto [css] or compute a position [compute]
 				//otherwise set it to 0 [css] or compute a position [compute]
 				this.menu.style.top = (this.ishoriz && this.issub) ? 
-				  (isie || (this.ishoriz && isoldsaf)) ? 
+				  (ie6omenor || (this.ishoriz && isoldsaf)) ? 
 				    this.link.offsetHeight + 'px' : 'auto' : 
-				  (isie || (this.ishoriz && isoldsaf)) ? 
+				  (ie6omenor || (this.ishoriz && isoldsaf)) ? 
 				    this.offsetTop + 'px' : '0';
 			}
 		};

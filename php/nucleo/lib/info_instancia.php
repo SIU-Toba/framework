@@ -252,6 +252,7 @@ class info_instancia
 	static function get_proyectos_accesibles($refrescar=false)
 	{
 		if ($refrescar || ! isset($_SESSION['toba']['instancia']['proyectos_accesibles'])) {
+			$usuario = toba::get_hilo()->obtener_usuario();
 			$sql = "SELECT 		p.proyecto, 
 	    						p.descripcion_corta
 	    				FROM 	apex_proyecto p,

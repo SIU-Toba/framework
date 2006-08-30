@@ -1,5 +1,7 @@
 var agt=navigator.userAgent.toLowerCase();
 var ie= ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+var ie7 = (ie && agt.indexOf("msie 7") != -1);
+var ie6omenor = (ie && !ie7);
 var ns6=document.getElementById && !document.all;
 var ereg_numero = /^[1234567890,.-]*$/;
 var ereg_nulo = /^\s*$/;

@@ -321,10 +321,6 @@ class hilo
 	}
 	
 	function obtener_usuario()
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve el identificador del USUARIO logueado
-*/
 	{
 		return toba::get_usuario()->get_id();
 	}
