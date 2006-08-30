@@ -1,13 +1,16 @@
-<?
+<?php
 require_once('nucleo/nucleo_toba.php');
 
 /**
- * Obtencion de referencias a los objetos centrales del TOBA
+ * Clase estática que contiene shorcuts a las clases centrales del nucleo
  */
 class toba
 {
 	static private $sesion;
 
+	/**
+	 * @return nucleo_toba
+	 */
 	static function get_nucleo()
 	{
 		return nucleo_toba::instancia();
@@ -46,7 +49,7 @@ class toba
 	}
 	
 	/**
-	*	Retorna el logger de eventos de toba
+	*	Retorna el logger de mensajes internos
 	*	@return logger
 	*/
 	static function get_logger()

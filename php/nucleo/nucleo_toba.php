@@ -21,6 +21,9 @@ require_once('nucleo/componentes/cargador_toba.php');		//Cargador de componentes
 require_once('nucleo/componentes/catalogo_toba.php');		//Catalogo de componentes
 
 
+/**
+ * Clase que brinda las puertas de acceso al núcleo de toba
+ */
 class nucleo_toba
 {
 	static private $instancia;
@@ -44,11 +47,17 @@ class nucleo_toba
 		return self::$instancia;	
 	}	
 
+	/**
+	 * @return solicitud
+	 */
 	function get_solicitud()
 	{
 		return $this->solicitud;
 	}
 		
+	/**
+	 * Punto de entrada http al nucleo
+	 */
 	function acceso_web()
 	{
 		try {
@@ -86,9 +95,13 @@ class nucleo_toba
 		//echo cronometro::instancia()->tiempo_acumulado();
 	}
 
+	/**
+	 * Punto de entrada desde la consola al nucleo
+	 */	
 	function acceso_consola($instancia, $proyecto, $item, $usuario)
 	{
 		require_once('nucleo/lib/sesion_toba.php');			//Control de sesiones HTTP		
+		require_once('nucleo/solicitud.php');		
 		require_once("nucleo/solicitud_consola.php");		
 		$estado_proceso = null;
 		try {
@@ -103,7 +116,7 @@ class nucleo_toba
 			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
-			$estado_proceso = $this->solicitud->obtener_estado_proceso();
+			$estado_proceso = $this->solicitud->get_estado_proceso();
 		} catch (excepcion_toba $e) {
 			toba::get_logger()->crit($e, 'toba');
 			echo $e;
@@ -114,8 +127,8 @@ class nucleo_toba
 	}
 		
 	/**
-	*	Se determia el item y se controla el acceso
-	*/
+	 * Se determia el item y se controla el acceso
+	 */
 	function cargar_solicitud()
 	{
 		if (toba::get_sesion()->controlar_estado_activacion()) {
@@ -152,8 +165,8 @@ class nucleo_toba
 	}
 
 	/**
-	*	Averigua el ITEM ACTUAL. Si no existe y puede busca un ITEM PREDEFINIDO
-	*/
+	 * Averigua el ITEM ACTUAL. Si no existe y puede busca un ITEM PREDEFINIDO
+	 */
 	function get_id_item($predefinido=null,$forzar_predefinido=false)
 	{
 		$item = toba::get_hilo()->obtener_item_solicitado();
@@ -169,7 +182,10 @@ class nucleo_toba
 		return $item;
 	}
 	
-	function preparar_include_path()
+	/**
+	 * Incluye la ruta del php de toba y del proyecto actual
+	 */
+	protected function preparar_include_path()
 	{
 		$proyecto = info_proyecto::instancia()->get_id();
 		$i_proy = info_instancia::instancia()->get_path_proyecto($proyecto);
@@ -186,12 +202,13 @@ class nucleo_toba
 		//echo "PROYECTO: $proyecto - INCLUDE_PATH= \"" . ini_get("include_path") ."\"";
 	}
 
-	function iniciar_contexto_proyecto()
+	/**
+	 * Incluye la ventana de inicialización del proyecto
+	 */
+	protected function iniciar_contexto_proyecto()
 	{
 		include_once("inicializacion.php");
 	}
-
-
 
 	function solicitud_en_proceso()
 	{

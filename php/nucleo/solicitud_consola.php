@@ -1,30 +1,32 @@
 <?php
-require_once("solicitud.php");
 
+/**
+ * Solicitud pensada para ejecutar items en la consola
+ * De esta forma se cuenta con la capacidad de usar las librerias de toba
+ * aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
+ */
 class solicitud_consola extends solicitud
 {
-	var $debug;	//Modo debug activado
-	var $estado_proceso;
-
-	function solicitud_consola($info)
+	protected $estado_proceso = 0;
+	
+	function __construct($info)
 	{
 	    $this->info = $info;
 		$_SERVER["REMOTE_ADDR"]="localhost";
 		$_SERVER["REQUEST_METHOD"] = "GET";
 		parent::__construct(toba::get_hilo()->obtener_item_solicitado(),toba::get_hilo()->obtener_usuario());
-		$this->tipo_actividad	= "accion";	
-		$this->estado_proceso = 0;
 	}
-//--------------------------------------------------------------------------------------------
-
-	function controlar_permisos()
+	
+	function procesar()
 	{
-		return array(true, "No se chequean permisos en el acceso por consola");			
+		$accion = $this->info['basica']['item_act_accion_script'];	
+		require($accion);
 	}
-//--------------------------------------------------------------------------------------------
 
+	/**
+	 * Muestra un dialogo de ayuda de la operación en base a la descripción
+	 */
 	function ayuda()
-	//Atrapo las llamadas a la ayuda... sino proceso
 	{
 		$rs = info_proyecto::get_menu_consola($this->info['basica']['item_proyecto'],$this->info['basica']['item']);	
 		if ($rs) {
@@ -37,79 +39,59 @@ class solicitud_consola extends solicitud
 			echo "No hay ayuda disponible\n";
 		}
 	}
-//--------------------------------------------------------------------------------------------
 
+	/**
+	 * Registra los parametros de la llamada en un array asociativo
+	 */
 	function registrar_parametros()
-	//Registra los parametros de la llamada en un array asociativo
 	{
 		global $argv;
 		$this->parametros = array();
-		for($a=6;$a<count($argv);$a++)
-		{
-			if(preg_match("/^-/",$argv[$a]))//Es un modificador
-			{
+		for($a=6;$a<count($argv);$a++) {
+			if (preg_match("/^-/",$argv[$a])) { //Es un modificador
 				$pila_modificadores[$a] = $argv[$a];
 				$this->parametros[$pila_modificadores[$a]] = '';
-			}else{	//Es la asignacion de un modificador
-				if(isset($pila_modificadores[$a-1]))
-				{
+			} else {	//Es la asignacion de un modificador
+				if(isset($pila_modificadores[$a-1])) {
 					$this->parametros[$pila_modificadores[$a-1]]=$argv[$a];
-				}else{
+				} else {
 					echo "\n ERROR PARSEANDO PARAMETROS: Los modificadores no pueden contener espacios\n";
 					echo " El error ha ocurrido entre las cadenas: \"" . $argv[$a-1] ."\" y \"". $argv[$a] ."\"\n";
 					echo " (Si esta definiendo una REGEXP utilice \"/s\")\n";
 					exit(222);
 				}
-			}		
+			}	
 		}
 		//Seteo el modo DEBUG
-		if(isset($this->parametros["--debug"])){
+		if (isset($this->parametros["--debug"])) {
 			$this->debug = true;
-		}else{
+		} else {
 			$this->debug = false;
 		}
 		//Ayuda??
-		if(isset($this->parametros["--help"])){
+		if (isset($this->parametros["--help"])) {
 			$this->ayuda();
 			exit();
-		}		
+		}
 	}
-//--------------------------------------------------------------------------------------------
 	
-	function obtener_estado_proceso()
+	/**
+	 * Retorna el estado actual de la operación
+	 * El estado de la operación se retorna al sistema cuando termina la operación
+	 */
+	function get_estado_proceso()
 	{
 		return $this->estado_proceso;
 	}
-
-//--------------------------------------------------------------------------------------------
-
-	function depurar($variable, $nota, $recuadro=true)
-	//Mostrar variables si estoy ejecutando en modo DEBUG
+	
+	/**
+	 * Cambia el estado que se retorna al sistema cuando termina la operación
+	 * @param int $estado Entero entre 0 y 254
+	 */
+	function set_estado_proceso($estado)
 	{
-		$separador = "---------------------------------------------------------------------------------";
-		if($this->debug){
-			if($recuadro){
-				fwrite(STDERR, "\n$separador\n" );
-				fwrite(STDERR, "---|   " . $nota ."\n" );
-				fwrite(STDERR, "$separador\n\n" );
-				fwrite(STDERR, $this->imprimir_variable($variable) ."\n") ;
-				fwrite(STDERR, "$separador\n\n" );
-			}else{
-				fwrite(STDERR, $this->imprimir_variable($variable) ."\n");
-			}
-		}
+		$this->estado_proceso = $estado;
 	}
-//--------------------------------------------------------------------------------------------
-
-    function imprimir_variable($variable)
-    {
-        if(is_array($variable)){
-            return var_dump($variable);
-        }else{
-            return $variable;
-        }
-    }
-//--------------------------------------------------------------------------------------------
 
 	function registrar($llamada=null)
 	{

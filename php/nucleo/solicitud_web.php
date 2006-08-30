@@ -12,6 +12,10 @@ require_once("nucleo/lib/zona.php");
 require_once("lib/parseo.php");					       		//Funciones de parseo
 
 /**
+ * Solicitud pensada para contener el ciclo request-response http
+ * La etapa de request se la denomina de 'eventos' 
+ * La etapa de response se la denomina de 'servicios'
+ * 
  * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  */
 class solicitud_web extends solicitud
@@ -25,18 +29,13 @@ class solicitud_web extends solicitud
 	{
 		$this->info = $info;
 		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
-        
-		parent::__construct(toba::get_hilo()->obtener_item_solicitado(),toba::get_hilo()->obtener_usuario());
-		
-		//Le pregunto al HILO si se solicito cronometrar la PAGINA
-		if(toba::get_hilo()->usuario_solicita_cronometrar()){
-			$this->registrar_db = true;
-			$this->cronometrar = true;
-		}
-		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Inicializacion (ZONA, VINCULADOR)',"nucleo");
+		parent::__construct(toba::get_hilo()->obtener_item_solicitado(), toba::get_hilo()->obtener_usuario());
+		toba::get_cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
-//--------------------------------------------------------------------------------------------
 
+	/**
+	 * Crea la zona, carga los componentes, procesa los eventos y los servicios
+	 */
 	function procesar()
 	{	
 		try {
@@ -74,6 +73,9 @@ class solicitud_web extends solicitud
 		}
 	}
 	
+	/**
+	 * Instancia los cis/cns de primer nivel asignados al item y los relaciona
+	 */
 	protected function cargar_objetos()
 	{
 		toba::get_logger()->seccion("Cargando objetos...", 'toba');
@@ -99,7 +101,10 @@ class solicitud_web extends solicitud
 			throw new excepcion_toba_def("Necesita asociar un objeto CI al ítem.");
 	    }
 	}
-	
+
+	/**
+	 * Inicializa los componentes y dispara la atención de eventos en forma recursiva
+	 */
 	protected function procesar_eventos()
 	{
 		toba::get_logger()->seccion("Procesando eventos...", 'toba');		
@@ -109,7 +114,6 @@ class solicitud_web extends solicitud
 				$_POST[$clave] = utf8_decode($valor);
 			}
 		}
-		
 		//-- Se procesan los eventos generados en el pedido anterior
 		foreach ($this->cis as $ci) {
 			try {
@@ -122,6 +126,9 @@ class solicitud_web extends solicitud
 		}
 	}
 	
+	/**
+	 * Se configuran los componentes y se atiende el servicio en forma recursiva
+	 */
 	protected function procesar_servicios()
 	{
 		toba::get_logger()->seccion("Configurando dependencias para responder al servicio...", 'toba');
@@ -167,6 +174,9 @@ class solicitud_web extends solicitud
 	//-------------------------- SERVICIOS --------------------------
 	//---------------------------------------------------------------
 
+	/**
+	 * Optimización del servicio de generar html para enviar algun contenido al browser
+	 */
 	protected function servicio_pre__generar_html()
 	{
 		//--- Tipo de PAGINA
@@ -178,6 +188,9 @@ class solicitud_web extends solicitud
 		$this->tipo_pagina->encabezado();
 	}
 	
+	/**
+	 * Servicio común de generación html
+	 */
 	protected function servicio__generar_html($objetos)
 	{
 		//--- Parte superior de la zona
@@ -233,7 +246,10 @@ class solicitud_web extends solicitud
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}
-	
+
+	/**
+	 * Genera una salida html pensada para impresión
+	 */
 	protected function servicio__vista_html_impr( $objetos )
 	{
 		$clase = info_proyecto::instancia()->get_parametro('salida_impr_html_c');
@@ -251,7 +267,8 @@ class solicitud_web extends solicitud
 	}
 
 	/**
-	 * Retorna el html y js localizado de un componente y sus dependencias
+	 * Retorna el html y js localizado de un componente y sus dependencias.
+	 * Pensado como respuesta a una solicitud AJAX
 	 */
 	protected function servicio__html_parcial($objetos)
 	{
@@ -282,6 +299,9 @@ class solicitud_web extends solicitud
 		}
 	}
 	
+	/**
+	 * Responde los valores en cascadas de un formulario específico
+	 */
 	protected function servicio__cascadas_efs($objetos)
 	{
 		toba::get_hilo()->desactivar_reciclado();
@@ -305,8 +325,6 @@ class solicitud_web extends solicitud
 			$objeto->servicio__ejecutar();
 		}
 	}
-	
-//--------------------------------------------------------------------------------------------
 
 	function registrar()
 	{
