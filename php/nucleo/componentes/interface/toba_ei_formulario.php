@@ -78,10 +78,10 @@ class toba_ei_formulario extends toba_ei
 			$id_ef = $this->info_formulario_ef[$a]["identificador"];
 			$this->lista_ef[]	= $id_ef;
 			switch ($this->info_formulario_ef[$a]["elemento_formulario"]) {
-				case	"toba_ef_oculto":
-				case	"toba_ef_oculto_secuencia":
-				case	"toba_ef_oculto_proyecto":
-				case	"toba_ef_oculto_usuario":
+				case	"ef_oculto":
+				case	"ef_oculto_secuencia":
+				case	"ef_oculto_proyecto":
+				case	"ef_oculto_usuario":
 					$this->lista_toba_ef_ocultos[] = $id_ef;
 					break;
 				default:
