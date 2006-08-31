@@ -34,7 +34,7 @@
 
  			echo "<td  class='barra-item-link' width='1'>";
  	 		echo "<a href='" . $this->vinculador->generar_url("/admin/usuarios/perfil",array($this->contexto['get']=>$this->contexto['elemento'])) ."'>".
-	  			recurso::imagen_apl("usuarios/perfil.gif",true). "</a>";
+	  			toba_recurso::imagen_apl("usuarios/perfil.gif",true). "</a>";
 			echo "</td>";
 			
 //----------- FIN

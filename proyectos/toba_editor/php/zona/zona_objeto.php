@@ -50,7 +50,7 @@ class zona_objeto extends zona_editor
 		if(isset($this->editable_info['clase_instanciador']))
 		{
 			echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_info['clase_instanciador_proyecto'],$this->editable_info['clase_instanciador'],null,true) ."'>";
-			echo recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
+			echo toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
 			echo "</a>";
 		}
 	}
@@ -104,7 +104,7 @@ class zona_objeto extends zona_editor
 						$contador[$fila["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($fila["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($fila["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$fila["objeto"]."] ".$fila["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-link'>\$this->dependencias[\"".$fila["objeto_identificador"]."\"]->metodo()</td>";
 								//Si es un objeto viejo mostrar el el link a las propiedades básicas
@@ -114,7 +114,7 @@ class zona_objeto extends zona_editor
 													editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}							
 						echo "<td  class='barra-obj-id' width='5'>";
@@ -124,7 +124,7 @@ class zona_objeto extends zona_editor
 														$fila["clase_editor"],
 														array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 															 .apex_qs_separador. $fila["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
 						if(isset($fila["clase_instanciador"])){
 							echo "</td>\n";
@@ -134,7 +134,7 @@ class zona_objeto extends zona_editor
 														$fila["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 															.apex_qs_separador. $fila["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
 						}
 						echo "</td>\n";
 					echo "</tr>\n";
@@ -186,7 +186,7 @@ class zona_objeto extends zona_editor
 						$contador[$fila["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($fila["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($fila["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >".$fila["objeto"]."</td>";
 						echo "<td  class='barra-obj-link' width='300'>".$fila["objeto_nombre"]. "&nbsp;-&nbsp;" . $fila["objeto_descripcion"]."</td>";
 						if (!in_array($fila['clase'], dao_editores::get_clases_validas())) { 
@@ -195,7 +195,7 @@ class zona_objeto extends zona_editor
 													editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
@@ -203,7 +203,7 @@ class zona_objeto extends zona_editor
 													editor::get_id(),"/admin/objetos/vinculos",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
-							recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO"). "</a>";
+							toba_recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO"). "</a>";
 						echo "</td>\n";
 						echo "<td  class='barra-obj-id' width='5'>";
 						echo "<a href='" . toba::get_vinculador()->generar_solicitud(
@@ -211,7 +211,7 @@ class zona_objeto extends zona_editor
 													$fila["clase_editor"],
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														 .apex_qs_separador. $fila["objeto"]) ) ."'>".
-							recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+							toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 					echo "</tr>\n";
 				}
 				echo "</table>\n";
@@ -251,11 +251,11 @@ class zona_objeto extends zona_editor
 												editor::get_id(),"/admin/items/editor_items",
 												array(apex_hilo_qs_zona=>$rs["proyecto"]
 													.apex_qs_separador. $rs["item"]) ) ."'>".
-						recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
+						toba_recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
 					echo "</td>\n";
 					echo "<td  class='barra-obj-id' width='5'>";
 					echo "<a href='" . toba::get_vinculador()->generar_solicitud($rs["proyecto"],$rs["item"]) ."'>".
-						recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
+						toba_recurso::imagen_apl("items/instanciar.gif",true,null,null,"Instanciar el ITEM consumidor"). "</a>";
 					echo "</td>\n";
 
 					echo "</tr>\n";
@@ -307,7 +307,7 @@ class zona_objeto extends zona_editor
 						$contador[$rs["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".recurso::imagen_apl($rs["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-link'>\"".$rs["objeto_identificador"]."\"</td>";
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
@@ -316,7 +316,7 @@ class zona_objeto extends zona_editor
 														editor::get_id(),"/admin/objetos/propiedades",
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 															.apex_qs_separador. $rs["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
@@ -326,7 +326,7 @@ class zona_objeto extends zona_editor
 														$rs["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 															 .apex_qs_separador. $rs["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
 						if(isset($rs["clase_instanciador"])){
 							echo "</td>\n";
@@ -336,7 +336,7 @@ class zona_objeto extends zona_editor
 														$rs["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 															.apex_qs_separador. $rs["objeto"]) ) ."'>".
-								recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
+								toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
 						}
 						echo "</td>\n";
 					echo "</tr>\n";

@@ -48,7 +48,7 @@
         	<tr> 
           <td colspan="<? echo (5 + $maximo)?>"  class="cat-item-categ1">
 			<?
-				echo form::submit($boton_post,$boton_post_nombre);
+				echo toba_form::submit($boton_post,$boton_post_nombre);
 			?>
 		  </td>
         </tr>	
@@ -66,20 +66,20 @@
 			//******************< Carpetas >*****************************
 			?>
 	          <td  class='cat-arbol-carpeta' width='2%'>
-				<img src='<? echo recurso::imagen_apl("items/carpeta.gif") ?>' border='0'>
+				<img src='<? echo toba_recurso::imagen_apl("items/carpeta.gif") ?>' border='0'>
 			  </td>
 	
 	          <td  class='cat-arbol-carpeta-info'  width='2%'>
 				<? if($item->es_de_menu()){?>
-							<img src='<? echo recurso::imagen_apl("items/menu.gif") ?>' border='0'>
+							<img src='<? echo toba_recurso::imagen_apl("items/menu.gif") ?>' border='0'>
 				<? }else{ echo gif_nulo(); } ?>
 			  </td>
 			  
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->get_nombre()?></td>
 		  
@@ -87,21 +87,21 @@
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='cat-arbol-item'  width='2%'>
-						<img src='<? echo recurso::imagen_apl("items/item.gif") ?>' border='0'>
+						<img src='<? echo toba_recurso::imagen_apl("items/item.gif") ?>' border='0'>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? if($item->es_de_menu()){?>
-						<img src='<? echo recurso::imagen_apl("items/menu.gif") ?>' border='0'>
+						<img src='<? echo toba_recurso::imagen_apl("items/menu.gif") ?>' border='0'>
 			<? }else{ echo gif_nulo(); } ?>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? 
 				$extra = " camino='".implode(separador_camino, $item->get_camino())."' ";
-				echo form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
+				echo toba_form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 					  </td>
 			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->get_nombre()?></td>
 			          <td  class='cat-item-dato1' width='100' ><? echo $item->get_id(); ?></td>
-			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
+			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo toba_recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
 			<?					  
 		}
 		echo "</tr>";
@@ -110,7 +110,7 @@
 		<tr> 
           <td colspan="<? echo (5 + $maximo)?>" align="center" class="cat-item-categ1">
 	<?
-		echo form::submit($boton_post,$boton_post_nombre);
+		echo toba_form::submit($boton_post,$boton_post_nombre);
 		?>
 		  </td>
         </tr>
@@ -119,7 +119,7 @@
 	<br>
 	<br>
 	<? 
-	echo form::cerrar();
+	echo toba_form::cerrar();
 ?>
 <script languaje='javascript'>
 function cascada(item_padre, estado)

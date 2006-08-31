@@ -1,6 +1,6 @@
 <?
 
-class fuente_editor extends fuente_de_datos
+class fuente_editor extends toba_fuente_datos
 {
 	function get_db()
 	{

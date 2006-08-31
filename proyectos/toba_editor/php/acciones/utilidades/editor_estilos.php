@@ -237,8 +237,8 @@
 
 	function mostrar_clases_modificadas()
 	{
-		var img_ver = '<img src="<?php echo recurso::imagen_apl('doc.gif'); ?>" border=0/>';
-		var img_borrar = '<img src="<?php echo recurso::imagen_apl('borrar.gif'); ?>" border=0/>';
+		var img_ver = '<img src="<?php echo toba_recurso::imagen_apl('doc.gif'); ?>" border=0/>';
+		var img_borrar = '<img src="<?php echo toba_recurso::imagen_apl('borrar.gif'); ?>" border=0/>';
 		var html = '<ul>';
 		var hay_uno = false;
 		for (clase in clases_modificadas)

@@ -36,7 +36,7 @@ class zona_clase extends zona
 
 		echo "<table  width='100%'  class='tabla-0'><tr>";
 		echo "<td width='90%' class='barra-obj-tit1'>&nbsp;&nbsp;EDITOR de CLASES";
-		//echo recurso::imagen_apl("zona/objetos.gif",true);
+		//echo toba_recurso::imagen_apl("zona/objetos.gif",true);
 		echo "</td>";
 		$this->obtener_html_barra_vinculos();
 		$this->obtener_html_barra_especifico();

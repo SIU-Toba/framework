@@ -68,7 +68,7 @@
 	 <td width="98%" colspan='4' class="lista-obj-titulo" >Usuarios de la INSTANCIA</td>
 </tr>
 <tr><td colspan="4"  class="cat-item-categ1">
-<?	echo form::submit($boton_post,$boton_post_nombre); ?>
+<?	echo toba_form::submit($boton_post,$boton_post_nombre); ?>
 </td></tr>
 	<tr> 
           <td  colspan='2' width="20%" class='lista-obj-titcol'></td>
@@ -104,12 +104,12 @@ ORDER BY 2;";
 		$nombre_combo = $prefijo_grupo . $rs["usuario"];
 		//echo $parametros["sql"]; 
 		$grupo_acc_actual = (trim($rs["grupo_acc"])!="") ? $rs["grupo_acc"] : apex_ef_no_seteado;
-		$html_ef = form::select($nombre_combo, $grupo_acc_actual, $info_usuarios)
+		$html_ef = toba_form::select($nombre_combo, $grupo_acc_actual, $info_usuarios)
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
 		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
-				<? echo recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
+				<? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>
           <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs["usuario"] ?></td>
@@ -121,11 +121,11 @@ ORDER BY 2;";
 }
 ?>
 <tr><td colspan="4"  class="cat-item-categ1">
-<?	echo form::submit($boton_post,$boton_post_nombre); ?>
+<?	echo toba_form::submit($boton_post,$boton_post_nombre); ?>
 </td></tr>
 </table>
 </div>
 <br><br>
 <?		
-	echo form::cerrar();
+	echo toba_form::cerrar();
 ?>

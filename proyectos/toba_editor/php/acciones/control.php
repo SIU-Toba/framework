@@ -17,7 +17,7 @@
 		echo "top.location.href = '$vinculo';";
 		echo js::cerrar();
 	}
-	echo form::abrir("cambiar_proyecto", '');                        
+	echo toba_form::abrir("cambiar_proyecto", '');                        
 ?>
 <script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
@@ -26,11 +26,11 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?echo recurso::imagen_apl("expandir.gif",false);?>';
+		imagen.src = '<?echo toba_recurso::imagen_apl("expandir.gif",false);?>';
 		frame_admin.cols = '8,*';
 		expandido = false;
 	} else {
-		imagen.src = '<?echo recurso::imagen_apl("contraer.gif",false);?>';
+		imagen.src = '<?echo toba_recurso::imagen_apl("contraer.gif",false);?>';
 		frame_admin.cols = ancho_frame;
 		expandido = true;
 	}
@@ -39,7 +39,7 @@ function mostrar_ocultar_frame() {
 </script>
 
 <?
-	$js_editor = recurso::js('editor.js');
+	$js_editor = toba_recurso::js('editor.js');
 	$datos = editor::get_parametros_previsualizacion_js();
 	$parametros_previsualizacion = js::arreglo($datos, true);
 ?>
@@ -56,15 +56,15 @@ function mostrar_ocultar_frame() {
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a href="javascript: mostrar_ocultar_frame();"><img src="<? echo recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
-		 <? echo recurso::imagen_apl("logo_barra_apex.gif",true)?>
+		<a href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_apl("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
+		 <? echo toba_recurso::imagen_apl("logo_barra_apex.gif",true)?>
 		 </td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
 <?
 		echo "<td class='listado-barra-superior-tabi'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
-        echo form::image('cambiar',recurso::imagen_apl('cambiar_proyecto.gif',false), $js_cambio);
+        echo toba_form::image('cambiar',toba_recurso::imagen_apl('cambiar_proyecto.gif',false), $js_cambio);
         echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$actual = editor::get_proyecto_cargado();
@@ -74,11 +74,11 @@ function mostrar_ocultar_frame() {
 			$proyectos[$proy] = $proy;
 		}
 		$js_cambio = "onchange='document.cambiar_proyecto.submit()'";
-		echo form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
+		echo toba_form::select("admin_proyecto", $actual, $proyectos, 'ef-combo', "$js_cambio");
 		echo "</td>";		
 
 		echo "<td class='listado-barra-superior-tabi'>";
-		$img = recurso::imagen_apl('items/instanciar.gif', true);
+		$img = toba_recurso::imagen_apl('items/instanciar.gif', true);
 		echo "<a href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
 		echo "</td>";		
 ?>
@@ -86,7 +86,7 @@ function mostrar_ocultar_frame() {
 
 		<td class='listado-tabi'>
         <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
-        <? echo recurso::imagen_apl("actividad_local.gif",true,null,null,"LOG de modificacion de componentes") ?></a></td>
+        <? echo toba_recurso::imagen_apl("actividad_local.gif",true,null,null,"LOG de modificacion de componentes") ?></a></td>
 
 <?
 	$parametros = array();
@@ -102,12 +102,12 @@ function mostrar_ocultar_frame() {
 
          <td class='listado-tabi'>
         <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
-		 <? echo recurso::imagen_apl("home.gif",true,null,null,"Pagina inicial") ?></a></td>
+		 <? echo toba_recurso::imagen_apl("home.gif",true,null,null,"Pagina inicial") ?></a></td>
 
 
 		<td><? echo gif_nulo(3,1) ?></td>
          <td><a href="#" class="list-obj"  onclick='javascript:salir();return false;'>
-		 <? echo recurso::imagen_apl("finalizar_sesion.gif",true,null,null,"Finalizar SESION") ?></a></td>
+		 <? echo toba_recurso::imagen_apl("finalizar_sesion.gif",true,null,null,"Finalizar SESION") ?></a></td>
 		<td><? echo gif_nulo(3,1) ?></td>
 
 	</tr>
@@ -122,14 +122,14 @@ function mostrar_ocultar_frame() {
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		 <td class='listado-tabi'><? echo recurso::imagen_apl("items/item.gif",true) ?></td>
+		 <td class='listado-tabi'><? echo toba_recurso::imagen_apl("items/item.gif",true) ?></td>
 		 <td class='listado-tabn' <? echo $js_cambiar_color_1 ?> >
 		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">ITEMS</a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		 <td class='listado-tabi'><? echo recurso::imagen_apl("objetos/objeto.gif",true) ?></td>
+		 <td class='listado-tabi'><? echo toba_recurso::imagen_apl("objetos/objeto.gif",true) ?></td>
 		<td class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
 		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">COMPONENTES</a>
 		</td>
@@ -137,19 +137,19 @@ function mostrar_ocultar_frame() {
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		<td  class='listado-tabi'>
-		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo recurso::imagen_apl("configurar.gif",true,null,null,"Configurar Proyecto") ?></a>
+		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_apl("configurar.gif",true,null,null,"Configurar Proyecto") ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo recurso::imagen_apl("usuarios/usuario.gif",true) ?></a>
+		<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
+			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_apl("testing.gif",true,null,null,"Testing automático") ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
+			<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_apl("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
 		</td>
 		
 		
@@ -161,5 +161,5 @@ function mostrar_ocultar_frame() {
 <tr><td  class='listado-normal'><? echo gif_nulo(1,4) ?></td></tr>
 </table>
 <?php 
-	echo form::cerrar();
+	echo toba_form::cerrar();
 ?>

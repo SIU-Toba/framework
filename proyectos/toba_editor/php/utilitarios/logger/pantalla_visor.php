@@ -76,11 +76,11 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<span class='admin-logger-proyecto' title='{$this->analizador->get_archivo_nombre()}'>";
 		echo ucfirst($this->controlador->get_proyecto());
 		echo "<span class='admin-logger-selec'>$selec</span></span>";
-		$check = form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
+		$check = toba_form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";
 
-		$check = form::checkbox("refresco_automatico", 0, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");
-		$edit = form::text("refresco_lapso", 2000, false, 6, 6);
+		$check = toba_form::checkbox("refresco_automatico", 0, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");
+		$edit = toba_form::text("refresco_lapso", 2000, false, 6, 6);
 		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
 		echo "</div><hr style='clear:both'>";		
 		
@@ -97,7 +97,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<strong>Niveles</strong>";
 		echo "<ul class='admin-logger-opciones'>";
 		foreach ($niveles as $nivel) {
-			$img = recurso::imagen_apl('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
+			$img = toba_recurso::imagen_apl('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
 			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
 			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
 			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
@@ -105,11 +105,11 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "</ul>";
 		echo "</div>";
 /*****	MOCKUP de la eleccion de un proyecto especifico		
- 		echo recurso::imagen_apl('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
+ 		echo toba_recurso::imagen_apl('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
 		echo "<strong>Proyectos</strong>";
 		echo "<ul id='logger_proyectos' class='admin-logger-opciones'>";
-		echo "<li>".form::multi_select("opciones_proyectos", array(), array('referencia','toba'), 2)."</li>";
+		echo "<li>".toba_form::multi_select("opciones_proyectos", array(), array('referencia','toba'), 2)."</li>";
 		echo "</ul>";		
 		echo "</div>";*/
 		
@@ -151,7 +151,7 @@ class pantalla_visor extends toba_ei_pantalla
 				$clase = "admin-logger-seccion";
 			//Es normal
 			} else {
-				$img = recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
+				$img = toba_recurso::imagen_apl('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
 				$clase = "admin-logger-normal";	
 			}
 			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";

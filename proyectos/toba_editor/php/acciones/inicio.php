@@ -13,7 +13,7 @@ echo '<div style="text-align:left">';
 			if (count($icono['url']) == 1) {
 				foreach ($icono['url'] as $ayuda => $url) {
 					echo "<a href='$url' target='{$icono['frame']}'>";
-					echo recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
+					echo toba_recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
 					echo "</a>";
 				}
 			} else {
@@ -23,7 +23,7 @@ echo '<div style="text-align:left">';
 					$ayuda .= "</a></li>";
 				}
 				$ayuda .= "</ul>";
-				echo recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
+				echo toba_recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
 			}
 			echo "</li>\n";
 		}
@@ -89,10 +89,10 @@ echo '<div style="text-align:left">';
 	
 	
 	$offline = array();
-	$offline[] = array('url' => array(recurso::path_pro()."/doc/api/index.html",
+	$offline[] = array('url' => array(toba_recurso::path_pro()."/doc/api/index.html",
 								),
 						'img' => 'admin/botones/apioffline80.png', 'frame' => 'api');
-	$offline[] = array('url' => array(recurso::path_pro()."/doc/wiki/trac/toba/wiki.html",
+	$offline[] = array('url' => array(toba_recurso::path_pro()."/doc/wiki/trac/toba/wiki.html",
 								),
 						'img' => 'admin/botones/wikioffline80.png', 'frame' => 'wiki');					
 	cuadro_ayuda("Ayuda Local", $offline);
@@ -104,7 +104,7 @@ echo '<div style="text-align:left">';
 	$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 	echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 	//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
-	$ayuda = recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
+	$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
 	echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
 	echo $version->__toString()."</a>";
 	echo "</div>";
@@ -185,7 +185,7 @@ echo '<div style="text-align:left">';
 				echo "<li>$icono <strong>$path</strong>:<ul style='list-style-type:none'>";
 				foreach ($encontrados as $metodo) {
 					$ayuda = $prohibidos[$metodo];
-					$icono = recurso::imagen_apl('descripcion.gif', true, null, null, $ayuda);
+					$icono = toba_recurso::imagen_apl('descripcion.gif', true, null, null, $ayuda);
 					echo "<li>$icono $metodo</li>";
 				}
 				echo "</ul></li>";
