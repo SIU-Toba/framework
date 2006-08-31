@@ -32,7 +32,7 @@ class toba_evento_usuario
 			}
 			return $this->vinculo;
 		} else {
-			throw new excepcion_toba('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
+			throw new toba_excepcion('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
 		}
 	}
 
@@ -119,12 +119,12 @@ class toba_evento_usuario
 	function get_imagen()
 	{
 		if (isset($this->datos['imagen']) && $this->datos['imagen'] != '') {
-			if (isset($this->datos['imagen_recurso_origen'])) {
-				$img = recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_recurso_origen']);
+			if (isset($this->datos['imagen_toba_recurso_origen'])) {
+				$img = toba_recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_toba_recurso_origen']);
 			} else {
 				$img = $this->datos['imagen'];
 			}
-			return recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
+			return toba_recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 		}
 	}
 
@@ -160,11 +160,11 @@ class toba_evento_usuario
 	function set_imagen($url_relativa, $origen=null)
 	{
 		if (isset($origen) && ( ($origen != 'apex') || ( $origen != 'proyecto') ) ) {
-			throw new excepcion_toba_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
+			throw new toba_excepcion_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
 		} else {
 			$origen = 'apex';	
 		}
-		$this->datos['imagen_recurso_origen'] = $origen;
+		$this->datos['imagen_toba_recurso_origen'] = $origen;
 		$this->datos['imagen'] = $url_relativa;
 	}
 

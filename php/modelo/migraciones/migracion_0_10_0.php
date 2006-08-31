@@ -561,5 +561,52 @@ class migracion_0_10_0 extends migracion_toba
 			";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}
+	
+	/**
+	 * Todas las clases del nucleo deben estar precedidas por toba_
+	 */
+	function proyecto__namespace_toba()
+	{
+		$editor = new editor_archivos();
+		
+		//--- Reemplazos directos		
+/*		$editor->agregar_sustitucion('/nucleo_toba/', 			'toba_nucleo');
+		$editor->agregar_sustitucion('/solicitud_web/', 		'toba_solicitud_web');
+		$editor->agregar_sustitucion('/solicitud_consola/', 	'toba_solicitud_consola');
+		$editor->agregar_sustitucion('/constructor_toba/', 		'toba_constructor');
+		$editor->agregar_sustitucion('/catalogo_toba/', 		'toba_catalogo');
+		$editor->agregar_sustitucion('/cargador_toba/', 		'toba_cargador');
+		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
+		$editor->agregar_sustitucion('/objeto_ei/', 			'toba_ei');
+		$editor->agregar_sustitucion('/objeto_cn/', 			'toba_cn');		
+		$editor->agregar_sustitucion('/ef_combo/', 				'toba_ef_combo');
+		$editor->agregar_sustitucion('/ef_editable/', 			'toba_ef_editable');
+		$editor->agregar_sustitucion('/ef_multi_seleccion/', 	'toba_ef_multi_seleccion');
+		$editor->agregar_sustitucion('/ef_oculto/', 			'toba_ef_oculto');
+		$editor->agregar_sustitucion('/ef_popup/', 				'toba_ef_popup');
+		$editor->agregar_sustitucion('/ef_sin_estado/', 		'toba_ef_sin_estado');
+		$editor->agregar_sustitucion('/ef_upload/', 			'toba_ef_upload');
+		$editor->agregar_sustitucion('/ef_varios/', 			'toba_ef_varios');
+		$editor->agregar_sustitucion('/ap_relacion/', 			'toba_ap_relacion');
+		$editor->agregar_sustitucion('/ap_tabla/', 				'toba_ap_tabla');
+		$editor->agregar_sustitucion('/objeto_datos_/', 		'toba_datos');
+		$editor->agregar_sustitucion('/relacion_entre_tablas/',	'toba_relacion_entre_tablas');
+		$editor->agregar_sustitucion('/relacion_entre_tablas/',	'toba_relacion_entre_tablas');
+		$editor->agregar_sustitucion('/tipo_datos/',			'toba_tipo_datos');
+		$editor->agregar_sustitucion('/administrador_fuentes/',	'toba_admin_fuentes');
+		$editor->agregar_sustitucion('/excepcion_toba/',		'toba_excepcion');
+		$editor->agregar_sustitucion('/info_instalacion/',		'toba_instalacion');
+		$editor->agregar_sustitucion('/info_instancia/',		'toba_instancia');
+		$editor->agregar_sustitucion('/info_proyecto/',			'toba_proyecto');
+		$editor->agregar_sustitucion('/parser_ayuda/',			'toba_parser_ayuda');
+		$editor->agregar_sustitucion('/recurso/',				'toba_recurso');
+		$editor->agregar_sustitucion('/sesion_toba/',			'toba_sesion');
+		$editor->agregar_sustitucion('/usuario_toba/',			'toba_usuario');*/
+		$editor->agregar_sustitucion('/html_impr/',				'toba_impr_html');
+		$editor->agregar_sustitucion('/impresion_toba/',		'toba_impresion');
+		
+		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
+		$editor->procesar_archivos($archivos);
+	}
 }
 ?>

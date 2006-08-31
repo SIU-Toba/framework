@@ -29,10 +29,10 @@ class componente_ei_formulario_ml extends componente_ei_formulario
 		//EF
 		$sql["info_formulario_ef"]['sql'] = "SELECT	*,
 										estilo as					columna_estilo
-								FROM	apex_objeto_ei_formulario_ef
-								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
+								FROM	apex_toba_ei_formulario_ef
+								WHERE	toba_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
+			$sql['info_formulario_ef']['sql'] .= "	AND		toba_ei_formulario='$componente' ";	
 		}
 		$sql['info_formulario_ef']['sql'] .= " AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";

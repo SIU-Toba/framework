@@ -9,7 +9,7 @@ class componente_ei_formulario extends componente_ei
 		$estructura[3]['tabla'] = 'apex_objeto_ut_formulario';
 		$estructura[3]['registros'] = '1';
 		$estructura[3]['obligatorio'] = false;
-		$estructura[4]['tabla'] = 'apex_objeto_ei_formulario_ef';
+		$estructura[4]['tabla'] = 'apex_toba_ei_formulario_ef';
 		$estructura[4]['registros'] = 'n';
 		$estructura[4]['obligatorio'] = false;
 		return $estructura;		
@@ -32,10 +32,10 @@ class componente_ei_formulario extends componente_ei
 		$sql['info_formulario']['obligatorio']=true;
 		//EF
 		$sql["info_formulario_ef"]['sql'] = "SELECT	*
-								FROM	apex_objeto_ei_formulario_ef
-								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
+								FROM	apex_toba_ei_formulario_ef
+								WHERE	toba_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
+			$sql['info_formulario_ef']['sql'] .= "	AND		toba_ei_formulario='$componente' ";	
 		}
 		$sql['info_formulario_ef']['sql'] .= " AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";

@@ -38,7 +38,7 @@ class vinculador
 	 * 					zona => Activa la propagación automática del editable en la zona,
 	 * 					cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse,
 	 * 					param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL.
-	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
+	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_toba_recurso_origen, imagen,
 	 * 					texto => Texto del vínculo
 	 * 					menu => El vinculo esta solicitado por una opción menu?
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
@@ -182,7 +182,7 @@ class vinculador
 		$vinculo = $prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
 
-			$encriptar_qs = info_proyecto::instancia()->get_parametro('encriptar_qs');
+			$encriptar_qs = toba_proyecto::instancia()->get_parametro('encriptar_qs');
 			if($encriptar_qs){
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
@@ -247,7 +247,7 @@ class vinculador
 	protected function cargar_vinculos_posibles()
 	{
 		$usuario = toba::get_hilo()->obtener_usuario();
-		$rs = info_instancia::instancia()->get_vinculos_posibles($usuario);
+		$rs = toba_instancia::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
 		}
@@ -271,7 +271,7 @@ class vinculador
 		@@acceso: interno
 		@@desc: Genera un VINCULO
 		@@param: string | URL
-		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_toba_recurso_origen, imagen
 		@@retorno: string | HTML del vinculo generado
 	*/
 	protected function generar_html($url, $parametros)
@@ -322,11 +322,11 @@ class vinculador
 		}
 
 		if( isset($parametros['imagen']) && 
-				isset($parametros['imagen_recurso_origen'])){
-			if($parametros['imagen_recurso_origen']=="apex"){
-				$html.= recurso::imagen_apl($parametros['imagen'],true,null,null,$parametros['texto']);
-			}elseif($parametros['imagen_recurso_origen']=="proyecto"){
-				$html.= recurso::imagen_pro($parametros['imagen'],true,null,null,$parametros['texto']);
+				isset($parametros['imagen_toba_recurso_origen'])){
+			if($parametros['imagen_toba_recurso_origen']=="apex"){
+				$html.= toba_recurso::imagen_apl($parametros['imagen'],true,null,null,$parametros['texto']);
+			}elseif($parametros['imagen_toba_recurso_origen']=="proyecto"){
+				$html.= toba_recurso::imagen_pro($parametros['imagen'],true,null,null,$parametros['texto']);
 			}else{
 				$html.= $parametros['texto'];
 			}

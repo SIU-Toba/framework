@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/nucleo_toba.php');
+require_once('nucleo/toba_nucleo.php');
 
 /**
  * Clase estática que contiene shorcuts a las clases centrales del nucleo
@@ -9,19 +9,19 @@ class toba
 	static private $sesion;
 
 	/**
-	 * @return nucleo_toba
+	 * @return toba_nucleo
 	 */
 	static function get_nucleo()
 	{
-		return nucleo_toba::instancia();
+		return toba_nucleo::instancia();
 	}
 	
 	/**
-	 * @return solicitud_web
+	 * @return toba_solicitud_web
 	 */
 	static function get_solicitud()
 	{
-		return nucleo_toba::instancia()->get_solicitud();	
+		return toba_nucleo::instancia()->get_solicitud();	
 	}
 	
 	/**
@@ -29,7 +29,7 @@ class toba
 	 */
 	static function get_zona()
 	{
-		return nucleo_toba::instancia()->get_solicitud()->zona();
+		return toba_nucleo::instancia()->get_solicitud()->zona();
 	}
 	
 	/**
@@ -81,7 +81,7 @@ class toba
 	 */
 	static function get_fuente($id_fuente=null)
 	{
-		return administrador_fuentes::instancia()->get_fuente($id_fuente);
+		return toba_admin_fuentes::instancia()->get_fuente($id_fuente);
 	}
 	
 	/**
@@ -91,7 +91,7 @@ class toba
 	 */
 	static function get_db($id_fuente=null)
 	{
-		return administrador_fuentes::instancia()->get_fuente($id_fuente)->get_db();
+		return toba_admin_fuentes::instancia()->get_fuente($id_fuente)->get_db();
 	}
 
 	static function get_encriptador()
@@ -108,35 +108,35 @@ class toba
 	}
 
 	/**
-	 * @return sesion_toba
+	 * @return toba_sesion
 	 */
 	static function get_sesion()
 	{
 		if (!isset(self::$sesion)) {
-			$subclase = info_proyecto::instancia()->get_parametro('sesion_subclase');
-			$archivo = info_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
+			$subclase = toba_proyecto::instancia()->get_parametro('sesion_subclase');
+			$archivo = toba_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
 			if( $subclase && $archivo ) {
 				require_once($archivo);
 				self::$sesion = call_user_func(array($subclase,'instancia'),$subclase);
 			} else {
-				self::$sesion = sesion_toba::instancia();
+				self::$sesion = toba_sesion::instancia();
 			}
 		}
 		return self::$sesion;
 	}
 
 	/**
-	 * @return usuario_toba
+	 * @return toba_usuario
 	 */
 	static function get_usuario()
 	{
-		$subclase = info_proyecto::instancia()->get_parametro('usuario_subclase');
-		$archivo = info_proyecto::instancia()->get_parametro('usuario_subclase_archivo');
+		$subclase = toba_proyecto::instancia()->get_parametro('usuario_subclase');
+		$archivo = toba_proyecto::instancia()->get_parametro('usuario_subclase_archivo');
 		if( $subclase && $archivo ) {
 			require_once($archivo);
 			return call_user_func(array($subclase,'instancia'));
 		} else {
-			return usuario_toba::instancia();
+			return toba_usuario::instancia();
 		}
 	}
 }

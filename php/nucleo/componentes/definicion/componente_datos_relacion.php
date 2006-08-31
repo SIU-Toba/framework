@@ -6,10 +6,10 @@ class componente_datos_relacion extends componente_toba
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[2]['tabla'] = 'apex_objeto_datos_rel';
+		$estructura[2]['tabla'] = 'apex_toba_datosrel';
 		$estructura[2]['registros'] = '1';
 		$estructura[2]['obligatorio'] = true;
-		$estructura[3]['tabla'] = 'apex_objeto_datos_rel_asoc';
+		$estructura[3]['tabla'] = 'apex_toba_datosrel_asoc';
 		$estructura[3]['registros'] = 'n';
 		$estructura[3]['obligatorio'] = true;
 		$estructura[4]['tabla'] = 'apex_objeto_dependencias';
@@ -28,7 +28,7 @@ class componente_datos_relacion extends componente_toba
 													ap			,	
 													ap_clase	,	
 													ap_archivo		
-										 FROM		apex_objeto_datos_rel
+										 FROM		apex_toba_datosrel
 										 WHERE		proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
 			$sql["info_estructura"]['sql'] .= "	AND		objeto='$componente' ";	
@@ -51,7 +51,7 @@ class componente_datos_relacion extends componente_toba
 												hijo_clave		,
 												cascada			,
 												orden			
-									 FROM		apex_objeto_datos_rel_asoc 
+									 FROM		apex_toba_datosrel_asoc 
 									 WHERE		proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
 			$sql["info_relaciones"]['sql'] .= "	AND		objeto='$componente' ";	

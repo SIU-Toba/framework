@@ -27,7 +27,7 @@ class zona
 		$this->metodo_cons = $metodo_cons;
 		
 		//Creo la lista de los VECINOS de la ZONA
-		$this->items_vecinos = info_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
+		$this->items_vecinos = toba_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_id = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
 		if ( isset($this->editable_id) ) {
@@ -147,14 +147,14 @@ class zona
 	 			echo "<a href='$vinculo'>";
 				if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
 					if($item['imagen_origen']=="apex"){
-						echo recurso::imagen_apl($item['imagen'],true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_apl($item['imagen'],true,null,null,$item['nombre']);
 					}elseif($item['imagen_origen']=="proyecto"){
-						echo recurso::imagen_pro($item['imagen'],true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_pro($item['imagen'],true,null,null,$item['nombre']);
 					}else{
-						echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
 					}
 				}else{
-					echo recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
+					echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
 				}
 				echo "</a>";
 			}

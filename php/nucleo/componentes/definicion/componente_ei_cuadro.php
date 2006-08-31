@@ -12,7 +12,7 @@ class componente_ei_cuadro extends componente_ei
 		$estructura[4]['tabla'] = 'apex_objeto_cuadro_cc';
 		$estructura[4]['registros'] = 'n';
 		$estructura[4]['obligatorio'] = false;		
-		$estructura[5]['tabla'] = 'apex_objeto_ei_cuadro_columna';
+		$estructura[5]['tabla'] = 'apex_toba_ei_cuadro_columna';
 		$estructura[5]['registros'] = 'n';
 		$estructura[5]['obligatorio'] = false;		
 		return $estructura;		
@@ -78,7 +78,7 @@ class componente_ei_cuadro extends componente_ei
 												c.total							as total,
 												c.total_cc						as total_cc
 									 FROM		apex_columna_estilo e,
-												apex_objeto_ei_cuadro_columna	c
+												apex_toba_ei_cuadro_columna	c
 												LEFT OUTER JOIN apex_columna_formato f	
 												ON	f.columna_formato	= c.formateo
 									 WHERE	objeto_cuadro_proyecto = '$proyecto' ";
