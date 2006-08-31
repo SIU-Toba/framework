@@ -70,7 +70,7 @@ class asignador_objetos
 	protected function asignar_a_pantalla_ci()
 	{
 		$this->asignar_a_ci();
-		$sql = "UPDATE apex_toba_ci_pantalla
+		$sql = "UPDATE apex_objeto_ci_pantalla
 				SET 
 					objetos =   
 						CASE 
@@ -79,8 +79,8 @@ class asignador_objetos
             				ELSE objetos || ','
        					END || '{$this->destino['id_dependencia']}'
 				WHERE
-					toba_ci_proyecto = '{$this->destino['proyecto']}' AND
-					toba_ci = '{$this->destino['objeto']}' AND
+					objeto_ci_proyecto = '{$this->destino['proyecto']}' AND
+					objeto_ci = '{$this->destino['objeto']}' AND
 					pantalla = '{$this->destino['pantalla']}'
 			";
 		ejecutar_fuente($sql,'instancia');

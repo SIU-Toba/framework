@@ -4,7 +4,7 @@ require_once('objetos_toba/ci_editores_toba.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
-	protected $clase_actual = 'toba_datos_tabla';	
+	protected $clase_actual = 'objeto_datos_tabla';	
 
 	function destruir()
 	{

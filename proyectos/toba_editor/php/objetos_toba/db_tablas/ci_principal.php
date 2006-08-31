@@ -12,7 +12,7 @@ class ci_principal extends ci_editores_toba
 {
 	protected $s__seleccion_relacion;
 	protected $s__seleccion_relacion_anterior;
-	protected $clase_actual = 'toba_datos_relacion';		
+	protected $clase_actual = 'objeto_datos_relacion';		
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************

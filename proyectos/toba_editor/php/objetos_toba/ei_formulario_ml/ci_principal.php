@@ -4,7 +4,7 @@ require_once('modelo/componentes/info_ei_formulario_ml.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $clase_actual = 'toba_ei_formulario_ml';	
+	protected $clase_actual = 'objeto_ei_formulario_ml';	
 	
 	function ini()
 	{

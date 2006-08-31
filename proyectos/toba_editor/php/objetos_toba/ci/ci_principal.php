@@ -11,7 +11,7 @@ class ci_editor extends ci_editores_toba
 	protected $s__pantalla_evt_asoc;
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
 	protected $id_intermedio_pantalla;
-	protected $clase_actual = 'toba_ci';
+	protected $clase_actual = 'objeto_ci';
 	
 
 	function ini()

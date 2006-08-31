@@ -126,14 +126,14 @@ echo '<div style="text-align:left">';
 	$sql = "
 		SELECT
 			pant.identificador		as id,
-			pant.toba_ci			as padre
+			pant.objeto_ci			as padre
 		FROM
-			apex_toba_ci_pantalla pant,
+			apex_obeto_ci_pantalla pant,
 			apex_objeto_dependencias dep
 		WHERE
 				pant.identificador = dep.identificador		-- Mismo id
-			AND	pant.toba_ci_proyecto = dep.proyecto		-- Mismo proy.
-			AND pant.toba_ci = dep.objeto_consumidor		-- Mismo CI padre
+			AND	pant.objeto_ci_proyecto = dep.proyecto		-- Mismo proy.
+			AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
 			AND dep.proyecto = '".editor::get_proyecto_cargado()."'
 	";
 	$rs = contexto_info::get_db()->consultar($sql);

@@ -4,7 +4,7 @@ require_once('modelo/componentes/info_ei.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $clase_actual = 'toba_ei_esquema';	
+	protected $clase_actual = 'objeto_ei_esquema';	
 	
 	function get_dbr_eventos()
 	{
