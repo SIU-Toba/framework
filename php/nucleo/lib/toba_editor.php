@@ -196,7 +196,7 @@ class editor
 	*/
 	static function javascript_invocacion_editor()
 	{
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "	
 			function toba_invocar_editor(frame, url) 
 			{
@@ -224,7 +224,7 @@ class editor
 				}
 			}
 		";
-		echo js::cerrar();		
+		echo toba_js::cerrar();		
 	}
 
 	/*
@@ -232,7 +232,7 @@ class editor
 	*/
 	static function generar_zona_vinculos_item( $item )
 	{
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "
 			function cambiar_vinculos_editor() {
 				var nodos = getElementsByClass('div-editor');
@@ -257,7 +257,7 @@ class editor
 			}
 			document.onkeyup = capturar
 		";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 		$ayuda = 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página';
 		$html_ayuda = toba_recurso::ayuda(null, $ayuda);
 		echo "<div id='editor_toggle'>".

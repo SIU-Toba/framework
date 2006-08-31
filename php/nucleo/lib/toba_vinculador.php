@@ -350,10 +350,10 @@ class vinculador
 	function navegar_a($item_proyecto="",$item="",$parametros=null,
 								$zona=false,$cronometrar=false)
 	{
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "document.location.href='".
 				$this->generar_solicitud($item_proyecto,$item,$parametros,$zona,$cronometrar)."'\n";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 	}
 
 	/*
@@ -380,7 +380,7 @@ class vinculador
 				$datos['popup_parametros'] = $vinculo->get_popup_parametros();
 				$datos['target'] = $vinculo->get_target();
 				$datos['activado'] = 1;
-				$datos_js = js::arreglo($datos, true);
+				$datos_js = toba_js::arreglo($datos, true);
 				echo "vinculador.agregar_vinculo('$id',$datos_js);\n";
 			}
 		}

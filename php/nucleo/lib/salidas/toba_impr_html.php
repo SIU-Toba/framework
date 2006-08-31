@@ -43,7 +43,7 @@ class toba_impr_html implements toba_impresion
 				padding: 10px;
 			}
 			</style>\n";
-		js::cargar_consumos_basicos();
+		toba_js::cargar_consumos_basicos();
 		echo "</head><body>\n";
 		echo "<div class='barra-impresion'>";
 		echo "<button onclick='window.print()'>".

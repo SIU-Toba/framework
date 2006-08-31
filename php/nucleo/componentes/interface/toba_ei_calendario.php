@@ -211,7 +211,7 @@ class toba_ei_calendario extends toba_ei
 
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei_calendario('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 

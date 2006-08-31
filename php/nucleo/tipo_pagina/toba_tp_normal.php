@@ -73,9 +73,9 @@ class tp_normal extends tp_basico_titulo
 			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
 			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
 								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
-			echo js::abrir();
-			echo 'var url_proyectos = '.js::arreglo(toba_instancia::get_url_proyectos(array_keys($datos)), true);
-			echo js::cerrar();
+			echo toba_js::abrir();
+			echo 'var url_proyectos = '.toba_js::arreglo(toba_instancia::get_url_proyectos(array_keys($datos)), true);
+			echo toba_js::cerrar();
 			echo '</div>';
 		}
 	}

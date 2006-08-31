@@ -207,14 +207,14 @@ class toba_solicitud_web extends toba_solicitud
 			echo toba_form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
 			foreach ($objetos as $obj) {
 				//-- Librerias JS necesarias
-				js::cargar_consumos_globales($obj->get_consumo_javascript());
+				toba_js::cargar_consumos_globales($obj->get_consumo_javascript());
 				//-- HTML propio del objeto
 				$obj->generar_html();
 				//-- Javascript propio del objeto
-				echo js::abrir();
+				echo toba_js::abrir();
 				$objeto_js = $obj->generar_js();
 				echo "\n$objeto_js.iniciar();\n";
-				echo js::cerrar();
+				echo toba_js::cerrar();
 			}
 			//--- Fin del form y parte inferior del tipo de página
 			echo toba_form::cerrar();
@@ -225,9 +225,9 @@ class toba_solicitud_web extends toba_solicitud
 
 		$this->tipo_pagina->post_contenido();
 		// Carga de componentes JS genericos
-		echo js::abrir();
+		echo toba_js::abrir();
 		toba::get_vinculador()->generar_js();
-		echo js::cerrar();
+		echo toba_js::cerrar();
 		
 		//--- Parte inferior de la zona
 		if ($this->hay_zona() &&  $this->zona->cargada()) {
@@ -283,7 +283,7 @@ class toba_solicitud_web extends toba_solicitud
 		foreach ($objetos as $objeto) {
 			$consumos = array_merge($consumos, $objeto->get_consumo_javascript());
 		}
-		echo "toba.incluir(".js::arreglo($consumos, false).");\n"; 
+		echo "toba.incluir(".toba_js::arreglo($consumos, false).");\n"; 
 		
 		//--- Se envia el javascript
 		echo "<--toba-->";

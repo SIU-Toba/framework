@@ -28,9 +28,9 @@ class eventos
 	// Toma la definición de un evento y la pasa a su homonimo js
 	{
 		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
-		$js_validar = isset( $evento['maneja_datos'] ) ? js::bool($evento['maneja_datos']) : "true";
+		$js_validar = isset( $evento['maneja_datos'] ) ? toba_js::bool($evento['maneja_datos']) : "true";
 		if (is_array($parametros))
-			$param = ", ".js::arreglo($parametros, true);
+			$param = ", ".toba_js::arreglo($parametros, true);
 		else		
 			$param = (isset($parametros)) ? ", '$parametros'" : '';
 		return "new evento_ei('$id', $js_validar, $js_confirm $param)";

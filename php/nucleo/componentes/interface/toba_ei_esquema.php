@@ -74,10 +74,10 @@ class toba_ei_esquema extends toba_ei
 				echo "<img src='$url' $ancho $alto border='0'>";				
 			break;
 			case 'svg':
-				js::cargar_consumos_globales(array("utilidades/svglib"));
-				echo js::abrir();
+				toba_js::cargar_consumos_globales(array("utilidades/svglib"));
+				echo toba_js::abrir();
 				echo "//aviso_instalacion_svg()";
-				echo js::cerrar();				
+				echo toba_js::cerrar();				
 				echo "<embed src='$url' type='image/svg+xml' $ancho $alto palette='foreground' pluginspage='http://www.adobe.com/svg/viewer/install/auto'>\n";
 				echo "</embed>"; 
 			break;

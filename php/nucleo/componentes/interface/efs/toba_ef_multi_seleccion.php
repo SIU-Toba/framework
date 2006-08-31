@@ -202,7 +202,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		$limites = array();
 		$limites[0] = isset($this->cant_minima) ? $this->cant_minima : null;
 		$limites[1] = isset($this->cant_maxima) ? $this->cant_maxima : null;
-		return parent::parametros_js().','.js::arreglo($limites, false);
+		return parent::parametros_js().','.toba_js::arreglo($limites, false);
 	}
 	
 	function es_seleccionable()
@@ -385,7 +385,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$imgs[] = toba_recurso::imagen_apl('paginacion/si_siguiente.gif', false);
 		$imgs[] = toba_recurso::imagen_apl('paginacion/no_anterior.gif', false);
 		$imgs[] = toba_recurso::imagen_apl('paginacion/si_anterior.gif', false);
-		return parent::parametros_js().",".js::arreglo($imgs, false);
+		return parent::parametros_js().",".toba_js::arreglo($imgs, false);
 	}
 	
 	function crear_objeto_js()

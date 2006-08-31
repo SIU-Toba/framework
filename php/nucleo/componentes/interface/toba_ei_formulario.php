@@ -803,12 +803,12 @@ class toba_ei_formulario extends toba_ei
 
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$esclavos = js::arreglo($this->cascadas_esclavos, true, false);
-		$maestros = js::arreglo($this->cascadas_maestros, true, false);
-		$id = js::arreglo($this->id, false);
-		$invalidos = js::arreglo($this->efs_invalidos, true);
+		$esclavos = toba_js::arreglo($this->cascadas_esclavos, true, false);
+		$maestros = toba_js::arreglo($this->cascadas_maestros, true, false);
+		$id = toba_js::arreglo($this->id, false);
+		$invalidos = toba_js::arreglo($this->efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->submit}', $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";

@@ -31,7 +31,7 @@ class tp_basico extends tipo_pagina
 		$this->encoding();
 		$this->plantillas_css();
 		$this->estilos_css();
-		js::cargar_consumos_basicos();
+		toba_js::cargar_consumos_basicos();
 		echo "</HEAD>\n";
 	}
 	
@@ -70,7 +70,7 @@ class tp_basico extends tipo_pagina
 	 */
 	protected function comienzo_cuerpo()
 	{
-		js::cargar_consumos_globales(array('basicos/tipclick'));
+		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
 		echo "<body>\n";
 		if ( editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');

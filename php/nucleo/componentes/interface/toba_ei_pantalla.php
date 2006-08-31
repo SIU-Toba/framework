@@ -422,7 +422,7 @@ class toba_ei_pantalla extends toba_ei
 		$id_frame = "{$this->submit}_print";
 		echo "<iframe style='position:absolute;width: 0px; height: 0px; border-style: none;' "
 			."name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "
 		function imprimir_html( url, forzar_popup )
 		{
@@ -448,7 +448,7 @@ class toba_ei_pantalla extends toba_ei
 		  }
 		}
 		";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -474,17 +474,17 @@ class toba_ei_pantalla extends toba_ei
 
 	function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();	
+		$identado = toba_js::instancia()->identado();	
 		//Crea le objeto CI
 		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();
-		js::instancia()->identar(1);		
+		toba_js::instancia()->identar(1);		
 		foreach($this->dependencias as $id => $dep)	{
 			$objetos[$id] = $dep->generar_js();
 		}
-		$identado = js::instancia()->identar(-1);		
+		$identado = toba_js::instancia()->identar(-1);		
 		//Agrega a los objetos hijos
 		//ATENCION: Esto no permite tener el mismo formulario instanciado dos veces
 		echo "\n";
@@ -495,7 +495,7 @@ class toba_ei_pantalla extends toba_ei
 
 	function generar_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
 		$this->crear_objeto_js();
 		$this->controlador->extender_objeto_js();

@@ -295,7 +295,7 @@ abstract class toba_ei extends toba_componente
 	
 	function generar_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
 		$this->crear_objeto_js();
 		$this->extender_objeto_js();
@@ -312,7 +312,7 @@ abstract class toba_ei extends toba_componente
 	
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}');\n";
 	}
 	
@@ -323,11 +323,11 @@ abstract class toba_ei extends toba_componente
 	
 	protected function iniciar_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		//-- EVENTO implicito --
 		if(is_object($this->evento_implicito)){
 			$evento_js = $this->evento_implicito->get_evt_javascript();
-			echo js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
+			echo toba_js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
 		}
 		if ($this->colapsado) {
 			echo $identado."window.{$this->objeto_js}.colapsar();\n";

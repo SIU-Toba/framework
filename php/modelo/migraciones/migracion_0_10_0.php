@@ -603,10 +603,11 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/html_impr/',				'toba_impr_html');
 		$editor->agregar_sustitucion('/impresion_toba/',		'toba_impresion');
 		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
-		*/
 		$editor->agregar_sustitucion('/js::/',					'toba_js::');
+		*/
 		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
-
+		
+		
 		$editor = new editor_archivos();
 /*		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
 		$editor->agregar_sustitucion('/objeto_ei/', 			'toba_ei');
@@ -629,6 +630,7 @@ class migracion_0_10_0 extends migracion_toba
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 */
+		$editor->procesar_archivos($archivos);
 	}
 }
 ?>

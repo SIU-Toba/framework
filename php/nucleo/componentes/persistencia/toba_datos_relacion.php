@@ -144,9 +144,9 @@ class toba_datos_relacion extends toba_componente
 
 			//Se incluye el javascript para poder dumpear los datos de la tabla
 			$var_tabla = $id_tabla.self::$debug_pasadas;
-			echo js::abrir();
-			echo "var $var_tabla = ".js::arreglo($tabla->get_filas(null, true, false), true).";\n";
-			echo js::cerrar();
+			echo toba_js::abrir();
+			echo "var $var_tabla = ".toba_js::arreglo($tabla->get_filas(null, true, false), true).";\n";
+			echo toba_js::cerrar();
 			
 			//Se incluye la tabla como nodo
 			$label = "$id_tabla (".count($tabla->get_id_filas(false)).")";
@@ -179,9 +179,9 @@ class toba_datos_relacion extends toba_componente
 			
 			//Incluyo el mapeo en JS para poder dumpearlo
 			$var_mapeo = $padre_id."_".$hijo_id.self::$debug_pasadas;
-			echo js::abrir();
-			echo "var $var_mapeo = ".js::arreglo($mapeo, true).";\n";
-			echo js::cerrar();
+			echo toba_js::abrir();
+			echo "var $var_mapeo = ".toba_js::arreglo($mapeo, true).";\n";
+			echo toba_js::cerrar();
 	
 			//Calculo la cantidad de filas padres e hijas involucradas en la relación
 			$cant_padres = 0;

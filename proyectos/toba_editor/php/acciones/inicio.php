@@ -110,7 +110,7 @@ echo '<div style="text-align:left">';
 	echo "</div>";
 	
 	echo "<div style='padding:4px; background-color: white;border: 1px solid gray'>";
-	echo  parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".toba_instancia::get_id()."</strong> :");
+	echo  toba_parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".toba_instancia::get_id()."</strong> :");
 	echo "<ul style='margin-top: 0px;'>";
 	
 	foreach (toba::get_db()->get_parametros() as $clave => $valor) {
@@ -128,7 +128,7 @@ echo '<div style="text-align:left">';
 			pant.identificador		as id,
 			pant.objeto_ci			as padre
 		FROM
-			apex_obeto_ci_pantalla pant,
+			apex_objeto_ci_pantalla pant,
 			apex_objeto_dependencias dep
 		WHERE
 				pant.identificador = dep.identificador		-- Mismo id

@@ -14,7 +14,7 @@ class tp_popup extends tp_basico_titulo
 	    }
 		$hilo->persistir_dato('ef_popup', $ef_popup);
 	
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "
 			function seleccionar(clave, descripcion)
 			{
@@ -22,7 +22,7 @@ class tp_popup extends tp_basico_titulo
 				window.close();
 			}
 		";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 		echo "\n\n";
 	}
 	

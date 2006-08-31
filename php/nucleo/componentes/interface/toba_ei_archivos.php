@@ -186,7 +186,7 @@ class toba_ei_archivos extends toba_ei
 
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		$path = addslashes($this->path_relativo());
 		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
 	}

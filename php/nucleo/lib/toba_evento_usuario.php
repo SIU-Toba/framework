@@ -249,7 +249,7 @@ class toba_evento_usuario
 		$js_confirm = $this->posee_confirmacion() ? "'".$this->get_msg_confirmacion()."'" : "''";
 		$js_validar = $this->maneja_datos() ? "true" : "false";
 		if (is_array($this->parametros))
-			$param = ", ".js::arreglo($this->parametros, true);
+			$param = ", ".toba_js::arreglo($this->parametros, true);
 		else		
 			$param = (isset($this->parametros)) ? ", '".$this->parametros."'" : '';
 		return "new evento_ei('".$this->get_id()."', $js_validar, $js_confirm $param)";

@@ -1321,7 +1321,7 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
+		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 

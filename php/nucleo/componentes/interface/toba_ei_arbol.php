@@ -295,8 +295,8 @@ class toba_ei_arbol extends toba_ei
 
 	protected function crear_objeto_js()
 	{
-		$identado = js::instancia()->identado();
-		$item = js::arreglo($this->item_propiedades, false);
+		$identado = toba_js::instancia()->identado();
+		$item = toba_js::arreglo($this->item_propiedades, false);
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->id);
 		$autovinculo = toba::get_vinculador()->crear_autovinculo("", $opciones );

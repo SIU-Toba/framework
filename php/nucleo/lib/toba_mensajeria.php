@@ -48,16 +48,16 @@ class cola_mensajes
 	
 	public function mostrar()
 	{
-		js::cargar_consumos_basicos(); //Por si no se cargaron antes
-		js::cargar_consumos_globales(array("basicos/cola_mensajes"));
-		echo js::abrir();
+		toba_js::cargar_consumos_basicos(); //Por si no se cargaron antes
+		toba_js::cargar_consumos_globales(array("basicos/cola_mensajes"));
+		echo toba_js::abrir();
 		foreach($this->mensajes as $mensaje){
 			$texto = str_replace("'", "\\'", $mensaje[0]);
-			$texto = js::string($texto);
+			$texto = toba_js::string($texto);
 			echo "cola_mensajes.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
 		}
 		echo "cola_mensajes.mostrar()\n";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 	}
 	
 	public function vaciar()

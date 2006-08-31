@@ -17,7 +17,7 @@ class toba_js
 	static function instancia() 
 	{
 		if (! isset(self::$instancia)) {
-			self::$instancia = new js();
+			self::$instancia = new toba_js();
 		}
 		return self::$instancia;
 	}
@@ -51,7 +51,7 @@ class toba_js
 
 	static function abrir()
 	{
-		return "<SCRIPT  language='JavaScript".js::version()."' type='text/javascript'>\n";
+		return "<SCRIPT  language='JavaScript".toba_js::version()."' type='text/javascript'>\n";
 	}
 
 	static function cerrar()
@@ -61,12 +61,12 @@ class toba_js
 
 	static function incluir($archivo) 
 	{
-		return "<SCRIPT language='JavaScript".js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
+		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
 	}
 
 	static function ejecutar($codigo) 
 	{
-		return js::abrir().$codigo.js::cerrar();
+		return toba_js::abrir().$codigo.toba_js::cerrar();
 	}
 	
 	static function cargar_consumos_basicos()
@@ -81,7 +81,7 @@ class toba_js
 							'contraer_nodo' => toba_recurso::imagen_apl('arbol/contraer.gif', false),
 							'esperar' => toba_recurso::imagen_apl('wait.gif', false)
 							);
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "var toba_alias='".toba_recurso::path_apl()."';\n";
 		echo "var toba_prefijo_vinculo=\"".toba::get_vinculador()->crear_autovinculo()."\";\n";
 		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
@@ -90,10 +90,10 @@ class toba_js
 		echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 		echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 		echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-		echo "var toba_hilo_item=".js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
-		echo "var lista_imagenes=".js::arreglo($imagenes, true).";";
+		echo "var toba_hilo_item=".toba_js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
+		echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
 		echo "var apex_solicitud_tipo='".toba::get_solicitud()->get_tipo()."'\n";		
-		echo js::cerrar();		
+		echo toba_js::cerrar();		
 		
 		//Incluyo el javascript STANDART	
 		self::cargar_consumos_globales(self::$consumos_basicos);
@@ -113,13 +113,13 @@ class toba_js
 						break;
 					//--> Codigo necesario para el EDITOR HTML embebido
 					case 'fck_editor':
-						echo js::incluir(toba_recurso::js("fckeditor/fckeditor.js"));
+						echo toba_js::incluir(toba_recurso::js("fckeditor/fckeditor.js"));
 						break;
 					//--> Por defecto carga el archivo del consumo
 					default:
 						$instalacion = toba_instalacion::instancia();
 						if (! $instalacion->es_js_comprimido()) {
-							echo js::incluir(toba_recurso::js("$consumo.js"));
+							echo toba_js::incluir(toba_recurso::js("$consumo.js"));
 						} else {
 							//-- ¿Es algo comprimido?
 							$comprimido = false;
@@ -130,11 +130,11 @@ class toba_js
 								}
 							}
 							if (!$comprimido) {
-								echo js::incluir(toba_recurso::js("$consumo.js"));
+								echo toba_js::incluir(toba_recurso::js("$consumo.js"));
 							} elseif (! self::$comprimido_cargado) {
 								//--- Es el comprimido y nunca se cargo, entonces cargarlo
 								$archivo = 'toba_'.$instalacion->get_numero_version().'.js';
-								echo js::incluir(toba_recurso::js($archivo));
+								echo toba_js::incluir(toba_recurso::js($archivo));
 								self::$comprimido_cargado = true;
 							}
 						}
@@ -146,7 +146,7 @@ class toba_js
 	
 	static function finalizar()
 	{
-		//echo js::ejecutar('toba.confirmar_inclusion('. js::arreglo(self::$cargados) .')');	
+		//echo toba_js::ejecutar('toba.confirmar_inclusion('. toba_js::arreglo(self::$cargados) .')');	
 	}
 	
 	//----------------------------------------------------------------------------------
