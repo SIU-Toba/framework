@@ -10,7 +10,7 @@ class ci_instanciador_ci extends ci_instanciadores
 	*/
 	function __call($metodo, $parametros)
 	{
-		toba::get_logger()->debug("Simulación - Se invoca el metodo $metodo");
+		toba::logger()->debug("Simulación - Se invoca el metodo $metodo");
 		return new objeto_de_mentira();
 	}
 

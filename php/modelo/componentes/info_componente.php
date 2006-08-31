@@ -72,7 +72,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	{
 		$editor_item = $this->datos['info']['clase_editor_item'];
 		$editor_proyecto = $this->datos['info']['clase_editor_proyecto'];
-		return toba::get_vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
+		return toba::vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
 															false, false, null, true, 'central');
 	}
 
@@ -245,7 +245,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("items/simular.gif", false),
 				'ayuda' => "Simula la ejecución de este ".$this->datos_clase['clase'],
-				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos['info']['clase_instanciador_proyecto'],
+				'vinculo' => toba::vinculador()->generar_solicitud($this->datos['info']['clase_instanciador_proyecto'],
 																		$this->datos['info']['clase_instanciador_item'],
 																		$this->acceso_zona(),
 																		false, false, null, true, "central")
@@ -260,7 +260,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		if (isset($this->datos['info']['subclase_archivo'])) {
 			$parametros = $this->acceso_zona();
 			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false);
-			$vinculo = toba::get_vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl('reflexion/abrir.gif', false),
@@ -273,7 +273,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl('php.gif', false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php', $this->acceso_zona(),
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central'),
 				'plegado' => true
 			);

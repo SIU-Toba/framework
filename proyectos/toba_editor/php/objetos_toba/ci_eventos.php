@@ -79,7 +79,7 @@ class ci_eventos extends toba_ci
 			try{
 				$this->get_tabla()->nueva_fila($evento);
 			}catch(toba_excepcion $e){
-				toba::get_cola_mensajes()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+				toba::notificacion()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
 			}
 		}
 	}

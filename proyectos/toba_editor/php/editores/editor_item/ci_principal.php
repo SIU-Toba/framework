@@ -14,7 +14,7 @@ class ci_principal extends toba_ci
 	
 	function ini()
 	{
-		$zona = toba::get_zona();
+		$zona = toba::zona();
 		if ($zona->cargada()) {
 			list($proyecto, $item) = $zona->get_editable();
 		}
@@ -41,7 +41,7 @@ class ci_principal extends toba_ci
 	//Acceso al DATOS_RELACION
 	{
 		if ($this->cambio_item){
-			toba::get_logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
+			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
 			$this->dependencia('datos')->cargar( $this->id_item);
 		}
 		return $this->dependencia('datos');
@@ -67,8 +67,8 @@ class ci_principal extends toba_ci
 	function conf__prop_basicas()
 	{
 		//Ver si el padre viene por post
-		$padre_i = toba::get_hilo()->obtener_parametro('padre_i');
-		$padre_p = toba::get_hilo()->obtener_parametro('padre_p');
+		$padre_i = toba::hilo()->obtener_parametro('padre_i');
+		$padre_p = toba::hilo()->obtener_parametro('padre_p');
 
 		//¿Es un item nuevo?
 		if (isset($padre_p) && isset($padre_i)) {
@@ -227,8 +227,8 @@ class ci_principal extends toba_ci
 	function evt__eliminar()
 	{
 		$this->get_entidad()->eliminar();
-		toba::get_cola_mensajes()->agregar("El item ha sido eliminado","info");
-		toba::get_zona()->resetear();
+		toba::notificacion()->agregar("El item ha sido eliminado","info");
+		toba::zona()->resetear();
 		admin_util::refrescar_editor_item();
 	}
 	

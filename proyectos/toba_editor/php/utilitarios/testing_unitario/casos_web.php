@@ -101,7 +101,7 @@ class pantalla_testing extends toba_ei_pantalla
 							}
 						}
 					    $cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
-					    $path_temp = toba::get_hilo()->obtener_path_temp_www();
+					    $path_temp = toba::hilo()->obtener_path_temp_www();
 					    $salida = $path_temp['real'] ."/cobertura.html";
 					    $cc->renderToFile($salida);
 					    echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
@@ -125,7 +125,7 @@ class pantalla_seleccion  extends toba_ei_pantalla
 	function generar_html_dependencias()
 	{
 		$opciones = array('param_html' => array('texto' => 'Testing JS'));
-		$test_js = toba::get_vinculador()->crear_vinculo('toba_editor', '/pruebas/testing_automatico_js', null, $opciones);
+		$test_js = toba::vinculador()->crear_vinculo('toba_editor', '/pruebas/testing_automatico_js', null, $opciones);
 		parent::generar_html_dependencias();
 		echo "<br>".$test_js;
 	}

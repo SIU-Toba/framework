@@ -14,7 +14,7 @@ class zona_usuario extends zona_editor
 		$sql = 	"	SELECT	*
 					FROM	apex_usuario
 					WHERE	usuario='{$this->editable_id}'";
-		$rs = toba::get_db()->consultar($sql);
+		$rs = toba::db()->consultar($sql);
 		if(!$rs){
 			echo ei_mensaje("ZONA-USUARIO: El editable solicitado no existe","info");
 			return false;

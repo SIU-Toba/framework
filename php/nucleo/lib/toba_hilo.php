@@ -93,7 +93,7 @@ class toba_hilo
 		$encriptar_qs = toba_proyecto::instancia()->get_parametro('encriptar_qs');
 		if($encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
-				$encriptador = toba::get_encriptador();
+				$encriptador = toba::encriptador();
 				parse_str($encriptador->descifrar($_GET[apex_hilo_qs_parametros]), $parametros);
 				$this->parametros = array_merge($this->parametros, $parametros);
 				unset($this->parametros[apex_hilo_qs_parametros]);
@@ -322,7 +322,7 @@ class toba_hilo
 	
 	function obtener_usuario()
 	{
-		return toba::get_usuario()->get_id();
+		return toba::usuario()->get_id();
 	}
     
     /**
@@ -364,7 +364,7 @@ class toba_hilo
 	@@desc: Notifica el GRUPO de ACCESO del usuario
 */
 	{
-		return toba::get_sesion()->get_grupo_acceso();
+		return toba::sesion()->get_grupo_acceso();
 	}
 
 	function obtener_usuario_perfil_datos()
@@ -395,7 +395,7 @@ class toba_hilo
 	@@desc: Notifica si el ITEM que se esta ejecutando es el INSTANCIADOR de un objeto de la libreria
 */
 	{
-		$item = toba::get_hilo()->obtener_item_solicitado();
+		$item = toba::hilo()->obtener_item_solicitado();
 		if(strpos($item[0],"admin/objetos/instanciadores")) {
 			return true;
 		} else {
@@ -420,7 +420,7 @@ class toba_hilo
 				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
 				como "reciclables" y la memoria sincronizada (la alienada al request anterior).
 			*/
-			toba::get_logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)', 'toba');
+			toba::logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_memoria_global_reciclable();
 		}
@@ -625,7 +625,7 @@ class toba_hilo
 			
 			$es_distinto_item = ($_SESSION[$celda]['item_anterior'] != $_SESSION[$celda]['item']);
 			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
-				toba::get_logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
+				toba::logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
 				foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_global($reciclable);
@@ -647,7 +647,7 @@ class toba_hilo
 			if($tipo == apex_hilo_reciclado_acceso){
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$_SESSION[$celda]["reciclables_activos"])){
-					toba::get_logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
+					toba::logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
 					$this->eliminar_dato_global($reciclable);
 				}
 			}
@@ -754,7 +754,7 @@ class toba_hilo
 	 */	
 	public function persistir_dato($indice, $datos)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->persistir_dato_sincronizado($indice, $datos);
 	}
 
@@ -763,7 +763,7 @@ class toba_hilo
 	 */	
 	public function eliminar_dato($indice)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->eliminar_dato_sincronizado($indice);
 	}
 
@@ -772,7 +772,7 @@ class toba_hilo
 	 */
 	public function recuperar_dato($indice)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		return $this->recuperar_dato_sincronizado($indice);
 	}
 

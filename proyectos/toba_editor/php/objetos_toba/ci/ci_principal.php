@@ -17,7 +17,7 @@ class ci_editor extends ci_editores_toba
 	function ini()
 	{
 		parent::ini();
-		$pantalla = toba::get_hilo()->obtener_parametro('pantalla');
+		$pantalla = toba::hilo()->obtener_parametro('pantalla');
 		//¿Se selecciono una pantalla desde afuera?
 		if (isset($pantalla)) {
 			$this->set_pantalla(2);
@@ -418,7 +418,7 @@ class ci_editor extends ci_editores_toba
 		$clase_archivo = dao_editores::get_archivo_de_clase($registro['clase_proyecto'], $clase );
 		$proyecto = $this->id_objeto['proyecto'];
 
-	    $path = toba::get_hilo()->obtener_proyecto_path() . "/php/" . $subclase_archivo;
+	    $path = toba::hilo()->obtener_proyecto_path() . "/php/" . $subclase_archivo;
 		//Manejo de archivos            
 		$archivo_php = new archivo_php($path);
 		//Manejo de clases

@@ -10,7 +10,7 @@ class zona_carpeta extends zona_editor
 					FROM	apex_item i
 					WHERE	i.proyecto='{$this->editable_id[0]}'
 					AND		item='{$this->editable_id[1]}';";
-		$rs = toba::get_db()->consultar($sql);
+		$rs = toba::db()->consultar($sql);
 		if(!$rs){
 			echo ei_mensaje("ZONA-ITEM: El editable solicitado no existe","info");
 			return false;

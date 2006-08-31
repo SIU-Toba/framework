@@ -101,7 +101,7 @@ class toba_logger
 		if( php_sapi_name() === 'cli' ) {
 			return null;
 		} else {
-			return toba::get_usuario()->get_id();
+			return toba::usuario()->get_id();
 		}
 	}
 	
@@ -381,8 +381,8 @@ class toba_logger
 		$salto = "\r\n";
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;
-		if (class_exists('toba') && is_object(toba::get_solicitud())) {
-			$texto .= "Operacion: ".toba::get_solicitud()->get_datos_item('item_nombre').$salto;
+		if (class_exists('toba') && is_object(toba::solicitud())) {
+			$texto .= "Operacion: ".toba::solicitud()->get_datos_item('item_nombre').$salto;
 		}
 		$usuario = self::get_usuario_actual();
 		if (isset($usuario)) {

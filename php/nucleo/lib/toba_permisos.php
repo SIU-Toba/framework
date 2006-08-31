@@ -58,7 +58,7 @@ class toba_permisos
 			if (isset($rs[0]['mensaje_particular'])) {
 				throw new toba_excepcion_permisos($rs[0]['mensaje_particular']);
 			} else {
-				$usuario = toba::get_hilo()->obtener_usuario();
+				$usuario = toba::hilo()->obtener_usuario();
 				$descripcion = isset($rs[0]['descripcion']) ? $rs[0]['descripcion'] : $permiso;
 				throw new toba_excepcion_permisos("El usuario $usuario no tiene permiso de $descripcion");
 			}

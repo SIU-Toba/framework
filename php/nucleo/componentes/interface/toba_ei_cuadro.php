@@ -388,7 +388,7 @@ class toba_ei_cuadro extends toba_ei
     */
 	function obtener_clave()
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar obtener_clave_seleccionada");
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar obtener_clave_seleccionada");
 		return $this->obtener_clave_seleccionada();
 	}
 	

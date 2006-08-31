@@ -108,7 +108,7 @@ abstract class toba_ei extends toba_componente
 		if(isset($this->eventos_usuario[ $id ])){
 			if(isset($this->eventos_usuario_utilizados[ $id ])){
 				unset($this->eventos_usuario_utilizados[ $id ]);
-				toba::get_logger()->debug("Se elimino el evento: $id", 'toba');
+				toba::logger()->debug("Se elimino el evento: $id", 'toba');
 			}		
 		} else {
 			throw new toba_excepcion($this->get_txt(). 
@@ -128,7 +128,7 @@ abstract class toba_ei extends toba_componente
 			$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
 			$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
 			if( $e->es_implicito() ){
-				toba::get_logger()->debug($this->get_txt() . " IMPLICITO: " . $e->get_id(), 'toba');
+				toba::logger()->debug($this->get_txt() . " IMPLICITO: " . $e->get_id(), 'toba');
 				$this->evento_implicito = $e;
 			}
 		}
@@ -204,7 +204,7 @@ abstract class toba_ei extends toba_componente
 				if( $evento->posee_grupo_asociado() ){
 					if( !$evento->pertenece_a_grupo($grupo) ){
 						unset($this->eventos_usuario_utilizados[$id]);
-						toba::get_logger()->debug("Se filtro el evento: $id", 'toba');
+						toba::logger()->debug("Se filtro el evento: $id", 'toba');
 					}
 				}
 			}

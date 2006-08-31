@@ -57,13 +57,13 @@ class archivo_php
 		if (manejador_archivos::es_windows()) {
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
 			$com = "$cmd $archivo";
-			toba::get_logger()->debug("Intentando abrir archivo con comando: '$com'");
+			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
 			exec($com);
 		} else {
 			$archivo = manejador_archivos::path_a_unix($this->nombre);
 			$archivo = str_replace(" ", "\\ ", $archivo);
 			$com = "$cmd $archivo";
-			toba::get_logger()->debug("Intentando abrir archivo con comando: '$com'");
+			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
 			$fp = popen($com, 'r');
 			pclose($fp);
 		}

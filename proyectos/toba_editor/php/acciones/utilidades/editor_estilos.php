@@ -1,8 +1,8 @@
 <?php
-	$plantilla = toba::get_hilo()->obtener_parametro('plantilla');
+	$plantilla = toba::hilo()->obtener_parametro('plantilla');
 	if (isset($_POST['elem_nueva_plantilla']))
 	{
-		$archivo_css = toba::get_hilo()->obtener_path()."/www/css/".apex_proyecto_estilo.".css";
+		$archivo_css = toba::hilo()->obtener_path()."/www/css/".apex_proyecto_estilo.".css";
 		$texto_css = $_POST['elem_nueva_plantilla'];
 		$texto_css = str_replace(';', ";\n\t", $texto_css);
 		file_put_contents($archivo_css, $texto_css);

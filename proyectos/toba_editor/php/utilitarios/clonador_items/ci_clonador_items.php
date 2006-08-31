@@ -6,7 +6,7 @@ class ci_clonador_items extends toba_ci
 
 	function ini()
 	{
-		if (! toba::get_zona()->cargada()) {
+		if (! toba::zona()->cargada()) {
 			throw new toba_excepcion('La operación se debe invocar desde la zona de un item');
 		}
 	}
@@ -15,7 +15,7 @@ class ci_clonador_items extends toba_ci
 
 	function evt__procesar()
 	{
-		list($proyecto_actual, $item_actual) = toba::get_zona()->get_editable();
+		list($proyecto_actual, $item_actual) = toba::zona()->get_editable();
 		$id = array('proyecto' => $proyecto_actual, 'componente' => $item_actual);
 		$info_item = constructor_toba::get_info($id, 'item');
 		$directorio = false;

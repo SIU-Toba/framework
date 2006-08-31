@@ -12,7 +12,7 @@ class analizador_logger_fs
 	function analizar_cuerpo($log)
 	{
 		$cuerpo = array();
-		$niveles = toba::get_logger()->get_niveles();
+		$niveles = toba::logger()->get_niveles();
 		$texto = trim(substr($log, strpos($log, toba_logger::fin_encabezado) + strlen(toba_logger::fin_encabezado), strlen($log)));
 		$patron = "/\[(";
 		$patron .= implode("|", $niveles);

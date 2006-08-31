@@ -11,7 +11,7 @@ class toba
 	/**
 	 * @return toba_nucleo
 	 */
-	static function get_nucleo()
+	static function nucleo()
 	{
 		return toba_nucleo::instancia();
 	}
@@ -19,49 +19,49 @@ class toba
 	/**
 	 * @return toba_solicitud_web
 	 */
-	static function get_solicitud()
+	static function solicitud()
 	{
 		return toba_nucleo::instancia()->get_solicitud();	
 	}
 	
 	/**
-	 * @return zona
+	 * @return toba_zona
 	 */
-	static function get_zona()
+	static function zona()
 	{
 		return toba_nucleo::instancia()->get_solicitud()->zona();
 	}
 	
 	/**
-	 * @return vinculador
+	 * @return toba_vinculador
 	 */
-	static function get_vinculador()
+	static function vinculador()
 	{
 		return toba_vinculador::instancia();
 	}
 	
 	/**
-	 * @return hilo
+	 * @return toba_hilo
 	 */
-	static function get_hilo()
+	static function hilo()
 	{
 		return toba_hilo::instancia();
 	}
 	
 	/**
 	*	Retorna el logger de mensajes internos
-	*	@return logger
+	*	@return toba_logger
 	*/
-	static function get_logger()
+	static function logger()
 	{
 		return toba_logger::instancia();
 	}
 	
 	/**
-	 * Retorna la referencia al administrador de permisos particulares
-	 *	@return permisos
+	 * Retorna la referencia al administrador de permisos especiales
+	 *	@return toba_permisos
 	 */
-	static function get_permisos()
+	static function permisos()
 	{
 		return toba_permisos::instancia();
 	}
@@ -69,7 +69,7 @@ class toba
 	/**
 	 * @return cola_mensajes
 	 */
-	static function get_cola_mensajes()
+	static function notificacion()
 	{
 		return cola_mensajes::instancia();
 	}
@@ -79,7 +79,7 @@ class toba
 	 * @param string $id_fuente
 	 * @return toba_fuente_datos
 	 */
-	static function get_fuente($id_fuente=null)
+	static function fuente($id_fuente=null)
 	{
 		return toba_admin_fuentes::instancia()->get_fuente($id_fuente);
 	}
@@ -87,22 +87,22 @@ class toba
 	/**
 	 * Retorna una referencia a una base de datos
 	 * @param string $id_fuente
-	 * @return db
+	 * @return toba_db
 	 */
-	static function get_db($id_fuente=null)
+	static function db($id_fuente=null)
 	{
 		return toba_admin_fuentes::instancia()->get_fuente($id_fuente)->get_db();
 	}
 
-	static function get_encriptador()
+	static function encriptador()
 	{
 		return encriptador::instancia();	
 	}
 
 	/**
-	 * @return cronometro
+	 * @return toba_cronometro
 	 */
-	static function get_cronometro()
+	static function cronometro()
 	{
 		return toba_cronometro::instancia();	
 	}
@@ -110,7 +110,7 @@ class toba
 	/**
 	 * @return toba_sesion
 	 */
-	static function get_sesion()
+	static function sesion()
 	{
 		if (!isset(self::$sesion)) {
 			$subclase = toba_proyecto::instancia()->get_parametro('sesion_subclase');
@@ -128,7 +128,7 @@ class toba
 	/**
 	 * @return toba_usuario
 	 */
-	static function get_usuario()
+	static function usuario()
 	{
 		$subclase = toba_proyecto::instancia()->get_parametro('usuario_subclase');
 		$archivo = toba_proyecto::instancia()->get_parametro('usuario_subclase_archivo');

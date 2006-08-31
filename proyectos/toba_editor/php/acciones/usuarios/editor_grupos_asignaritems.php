@@ -43,7 +43,7 @@
 	echo "<br>\n";
 	echo "<div align='center'>\n";	
 ?>
-	<form  enctype='application/x-www-form-urlencoded' name='<? echo $formulario ?>' method='POST' action='<? echo toba::get_vinculador()->generar_solicitud(null,null,null,true) ?>'>
+	<form  enctype='application/x-www-form-urlencoded' name='<? echo $formulario ?>' method='POST' action='<? echo toba::vinculador()->generar_solicitud(null,null,null,true) ?>'>
 	<table width="600"  class='cat-item' align='center'>
         	<tr> 
           <td colspan="<? echo (5 + $maximo)?>"  class="cat-item-categ1">

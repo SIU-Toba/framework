@@ -169,7 +169,7 @@ class toba_proyecto
 		if ($solo_primer_nivel) {
 			$rest = " AND i.padre = '' ";
 		}
-		$grupo = toba::get_hilo()->obtener_usuario_grupo_acceso();
+		$grupo = toba::hilo()->obtener_usuario_grupo_acceso();
 		$sql = "SELECT 	i.padre as 		padre,
 						i.carpeta as 	carpeta, 
 						i.proyecto as	proyecto,

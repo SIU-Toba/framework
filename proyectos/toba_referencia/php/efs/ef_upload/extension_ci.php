@@ -27,7 +27,7 @@ class extension_ci extends toba_ci
 			$this->nombre_archivo = $datos['archivo']['name'];
 			
 			// Mover los archivos subidos al servidor del directorio temporal PHP a uno propio.
-			$archivo = toba::get_hilo()->obtener_proyecto_path() . '/temp/'. $datos['archivo']['name'];
+			$archivo = toba::hilo()->obtener_proyecto_path() . '/temp/'. $datos['archivo']['name'];
 			move_uploaded_file($datos['archivo']['tmp_name'], $archivo);
 		}
 	}

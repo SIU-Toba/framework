@@ -41,7 +41,7 @@ class toba_ei_esquema extends toba_ei
 		echo toba_form::hidden($this->submit, '');
 		if (isset($this->contenido)) {
 			//Se arma el archivo .dot
-			toba::get_logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido", 'toba');
+			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido", 'toba');
 			$this->generar_esquema($this->contenido, $this->info_esquema['formato'], 
 									$this->info_esquema['dirigido'], $this->ancho,
 									$this->alto);
@@ -59,7 +59,7 @@ class toba_ei_esquema extends toba_ei
 		//Vinculo a un item que hace el passthru y borra el archivo
 		$destino = array($this->id);
 		$this->memoria['parametros'] = $parametros;
-		$url = toba::get_vinculador()->crear_autovinculo(array(), array('servicio' => 'mostrar_esquema', 
+		$url = toba::vinculador()->crear_autovinculo(array(), array('servicio' => 'mostrar_esquema', 
 																		'objetos_destino' => $destino));
 		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
 	}
@@ -87,7 +87,7 @@ class toba_ei_esquema extends toba_ei
 	static function generar_archivo($contenido, $formato, $es_dirigido = true)
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
-		$dir_temp = toba::get_hilo()->obtener_path_temp();
+		$dir_temp = toba::hilo()->obtener_path_temp();
 		$grafico = manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
 		$salida = manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 		
@@ -107,7 +107,7 @@ class toba_ei_esquema extends toba_ei
 			echo "<pre>";
 			echo implode("\n", $salida);
 			echo "</pre>";
-			toba::get_logger()->error(implode("\n", $salida));
+			toba::logger()->error(implode("\n", $salida));
 		}
 		
 		//Se elimina el archivo .dot
@@ -145,7 +145,7 @@ class toba_ei_esquema extends toba_ei
 			break;
 		}		
 		$archivo = self::generar_archivo($contenido, $formato, $es_dirigido);
-		$dir_temp = toba::get_hilo()->obtener_path_temp();
+		$dir_temp = toba::hilo()->obtener_path_temp();
 		$path_completo = $dir_temp . "/" . $archivo;
 		if (file_exists($path_completo)) {
 			$fp = fopen($path_completo, 'rb');
@@ -157,7 +157,7 @@ class toba_ei_esquema extends toba_ei
 			fclose($fp);
 			unlink($path_completo);
 		} else {
-			toba::get_logger()->error("El archivo $path_completo no se encuentra");
+			toba::logger()->error("El archivo $path_completo no se encuentra");
 		}
 	}
 

@@ -48,7 +48,7 @@ class toba_ef_popup extends toba_ef_editable
 										$this->item_destino,
 										true,
 										$this->ventana );
-        $this->id_vinculo = toba::get_vinculador()->registrar_vinculo( $vinculo );
+        $this->id_vinculo = toba::vinculador()->registrar_vinculo( $vinculo );
 
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}

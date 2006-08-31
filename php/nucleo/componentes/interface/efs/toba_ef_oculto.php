@@ -34,18 +34,18 @@ class toba_ef_oculto extends toba_ef
 	function set_estado($estado)
 	{
 		$this->estado = $estado;
-		toba::get_hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+		toba::hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 		return true;
 	}
 
 	function cargar_estado_post()
 	{
 		//Intenta cargar el estado a partir del hilo
-		$temp = toba::get_hilo()->recuperar_dato_sincronizado($this->clave_memoria());
+		$temp = toba::hilo()->recuperar_dato_sincronizado($this->clave_memoria());
 		if(isset($temp)) {
 			$this->estado = $temp;
 			//Tengo que memorizar el estado para la proxima instanciacion
-			toba::get_hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+			toba::hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
 			return true;
 		}
 		return false;
@@ -54,7 +54,7 @@ class toba_ef_oculto extends toba_ef
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
-		toba::get_hilo()->eliminar_dato_sincronizado($this->clave_memoria());
+		toba::hilo()->eliminar_dato_sincronizado($this->clave_memoria());
 		if(isset($this->estado)){
 			unset($this->estado);
 		}
@@ -84,7 +84,7 @@ class toba_ef_oculto_proyecto extends toba_ef_oculto
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-        $parametros["estado"]=toba::get_hilo()->obtener_proyecto();
+        $parametros["estado"]=toba::hilo()->obtener_proyecto();
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
 	}
     
@@ -94,7 +94,7 @@ class toba_ef_oculto_proyecto extends toba_ef_oculto
         if($estado!=""){
     		$this->estado = $estado;
         }else{
-            $this->estado = toba::get_hilo()->obtener_proyecto();
+            $this->estado = toba::hilo()->obtener_proyecto();
         }
 		return true;
 	}
@@ -102,13 +102,13 @@ class toba_ef_oculto_proyecto extends toba_ef_oculto
 	function resetear_estado()
 	//Resetea el estado INTERNO
 	{
-		$this->estado = toba::get_hilo()->obtener_proyecto();
+		$this->estado = toba::hilo()->obtener_proyecto();
 	}	
 	
     function validar_estado()
     //Controla que el proyecto ACTUAL sea el mismo que el proyecto SETEADO
     {
-        $proyecto_actual = toba::get_hilo()->obtener_proyecto();
+        $proyecto_actual = toba::hilo()->obtener_proyecto();
         if ($this->estado != $proyecto_actual ){
 			return "No se puede cargar un ELEMENTO fuera de su PROYECTO\n(A: $proyecto_actual S:{$this->estado})";
         }
@@ -137,19 +137,19 @@ class toba_ef_oculto_usuario extends toba_ef_oculto
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-		$this->estado = toba::get_hilo()->obtener_usuario();
+		$this->estado = toba::hilo()->obtener_usuario();
 	}
 
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
-		$this->estado = toba::get_hilo()->obtener_usuario();
+		$this->estado = toba::hilo()->obtener_usuario();
 	}	
 
 	function set_estado($estado=null)
 	//Desabilito la carga via POST y utilizo memoria
 	{
-		$this->estado = toba::get_hilo()->obtener_usuario();
+		$this->estado = toba::hilo()->obtener_usuario();
 		return true;
 	}
 

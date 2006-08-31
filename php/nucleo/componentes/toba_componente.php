@@ -45,11 +45,11 @@ class toba_componente
 			$this->definicion_partes[] = $parte;
 			$this->$parte = $definicion[$parte];
 		}
-		$this->solicitud = toba::get_solicitud();
-		$this->log = toba::get_logger();
+		$this->solicitud = toba::solicitud();
+		$this->log = toba::logger();
 		//Recibi datos por el CANAL?
 		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
-		$this->canal_recibidos = toba::get_hilo()->obtener_parametro($this->canal);
+		$this->canal_recibidos = toba::hilo()->obtener_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
@@ -131,7 +131,7 @@ class toba_componente
 	function informar_msg($mensaje, $nivel=null)
 	//Guarda un  mensaje en la cola de mensajes
 	{
-		toba::get_cola_mensajes()->agregar($mensaje,$nivel);	
+		toba::notificacion()->agregar($mensaje,$nivel);	
 	}
 	
 	function informar($indice, $parametros=null,$nivel=null)
@@ -158,7 +158,7 @@ class toba_componente
 */
 	{
 		if(isset($this->memoria)){
-			toba::get_hilo()->persistir_dato_sincronizado("obj_".$this->id[1],$this->memoria);
+			toba::hilo()->persistir_dato_sincronizado("obj_".$this->id[1],$this->memoria);
 		}else{
 
 		}
@@ -170,7 +170,7 @@ class toba_componente
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		if($this->memoria = toba::get_hilo()->recuperar_dato_sincronizado("obj_".$this->id[1])){
+		if($this->memoria = toba::hilo()->recuperar_dato_sincronizado("obj_".$this->id[1])){
 			$this->memoria_existencia_previa = true;
 		}
 	}
@@ -194,7 +194,7 @@ class toba_componente
 */
 	{
 		unset($this->memoria);
-		toba::get_hilo()->persistir_dato_sincronizado("obj_".$this->id[1],null);
+		toba::hilo()->persistir_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
 	function existio_memoria_previa()
@@ -240,9 +240,9 @@ class toba_componente
 	function recuperar_estado_sesion()
 	//Recupera las propiedades guardadas en la sesion
 	{
-		if(toba::get_hilo()->existe_dato_global($this->id_ses_grec)){
+		if(toba::hilo()->existe_dato_global($this->id_ses_grec)){
 			//Recupero las propiedades de la sesion
-			$temp = toba::get_hilo()->recuperar_dato_global($this->id_ses_grec);
+			$temp = toba::hilo()->recuperar_dato_global($this->id_ses_grec);
 			if(isset($temp["toba__indice_objetos_serializados"]))	//El objeto persistio otros objetos
 			{
 				/*
@@ -309,10 +309,10 @@ class toba_componente
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
-				toba::get_hilo()->persistir_dato_global($this->id_ses_grec, $temp, true);
+				toba::hilo()->persistir_dato_global($this->id_ses_grec, $temp, true);
 			}else{
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
-				toba::get_hilo()->eliminar_dato_global($this->id_ses_grec);
+				toba::hilo()->eliminar_dato_global($this->id_ses_grec);
 			}
 		}
 	}
@@ -326,7 +326,7 @@ class toba_componente
 				unset($this->$nombre_prop);
 			}
 		}
-		toba::get_hilo()->eliminar_dato_global($this->id_ses_grec);
+		toba::hilo()->eliminar_dato_global($this->id_ses_grec);
 	}
 	
 	function get_estado_sesion()

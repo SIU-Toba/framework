@@ -13,7 +13,7 @@ class ci_editor_php extends toba_ci
 
 	function ini()
 	{
-		$this->set_datos(toba::get_zona()->get_info());		
+		$this->set_datos(toba::zona()->get_info());		
 	}
 	
 	function mantener_estado_sesion()
@@ -60,7 +60,7 @@ class ci_editor_php extends toba_ci
 			//Cargue un subcomponente en un request anterior.
 			$subcomponente = $this->subcomponente;
 		}else{
-			$subcomponente = toba::get_hilo()->obtener_parametro('subcomponente');
+			$subcomponente = toba::hilo()->obtener_parametro('subcomponente');
 		}
 		if ($subcomponente) {
 			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
@@ -88,7 +88,7 @@ class ci_editor_php extends toba_ci
 
 	function evt__abrir()
 	{
-		$arch = toba::get_hilo()->obtener_parametro('archivo');
+		$arch = toba::hilo()->obtener_parametro('archivo');
 		if (isset($arch)) {
 			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$arch =  $path_proyecto . $arch;

@@ -14,7 +14,7 @@ class toba_cargador
 	private function __construct()
 	{
 		if (class_exists('toba')) {
-			$this->redefinidos = toba::get_hilo()->recuperar_dato_sincronizado("toba_catalogo");
+			$this->redefinidos = toba::hilo()->recuperar_dato_sincronizado("toba_catalogo");
 			if (!isset($this->redefinidos)) {
 				$this->redefinidos = array();
 			}	
@@ -33,7 +33,7 @@ class toba_cargador
 	
 	function destruir()
 	{
-		toba::get_hilo()->persistir_dato_sincronizado("toba_catalogo", $this->redefinidos);
+		toba::hilo()->persistir_dato_sincronizado("toba_catalogo", $this->redefinidos);
 	}
 
 	//----------------------------------------------------------------

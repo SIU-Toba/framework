@@ -30,7 +30,7 @@ class toba_sesion
 			// Controlo si se solicito el final de la sesion
 			if ($this->controlar_fin_sesion()) {
 				$this->finalizar();
-				toba::get_hilo()->set_item_solicitado(null);//Fuerza a buscar el item inicial
+				toba::hilo()->set_item_solicitado(null);//Fuerza a buscar el item inicial
 				return false;
 			}
 
@@ -42,7 +42,7 @@ class toba_sesion
 			if($ventana != 0){ // 0 implica desactivacion
 				$tiempo_desconectado = ((time()-$_SESSION['toba']["ultimo_acceso"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_desconectado >= $ventana){
-					toba::get_cola_mensajes("Usted ha permanecido mas de $ventana minutos sin interactuar 
+					toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar 
 								con el servidor. Por razones de seguridad su sesion ha sido eliminada. 
 								Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 								Disculpe las molestias ocasionadas.");
@@ -55,7 +55,7 @@ class toba_sesion
 			if($maximo != 0){ // 0 implica desactivacion
 				$tiempo_total = ((time()-$_SESSION['toba']["inicio"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_total >= $maximo){
-					toba::get_cola_mensajes("Se ha superado el tiempo de sesion permitido ($maximo minutos)
+					toba::notificacion("Se ha superado el tiempo de sesion permitido ($maximo minutos)
 								Por favor vuelva a registrarse si desea continuar utilizando el sistema.
 								Disculpe las molestias ocasionadas.");
 					$this->finalizar("Se exedio el tiempo maximo de sesion ($maximo m.)");
@@ -89,24 +89,24 @@ class toba_sesion
 				throw new toba_excepcion('La IP esta bloqueada. Contactese con el administrador');
 			}
 			$proyecto = toba_proyecto::get_id();
-			toba::get_usuario()->cargar($usuario, $clave);
-			$grupo_acceso = toba::get_usuario()->get_grupo_acceso();
+			toba::usuario()->cargar($usuario, $clave);
+			$grupo_acceso = toba::usuario()->get_grupo_acceso();
 
 			//Creo la sesion
 			$id = toba_instancia::get_id_sesion();
-			toba_instancia::abrir_sesion(	$id, toba::get_usuario()->get_id(), $proyecto );
+			toba_instancia::abrir_sesion(	$id, toba::usuario()->get_id(), $proyecto );
 			$_SESSION['toba']["id"] = $id;
 			$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
 			$_SESSION['toba']["inicio"]=time();
 			//PATHs
 			$_SESSION['toba']["path"] = toba_dir();
 			$_SESSION['toba']["path_php"] = $_SESSION['toba']["path"]. "/php";
-			toba::get_logger()->debug('Se creo la SESION [usuario: ' . $_SESSION['toba']["usuario"]['id'] . ' ]', 'toba');
+			toba::logger()->debug('Se creo la SESION [usuario: ' . $_SESSION['toba']["usuario"]['id'] . ' ]', 'toba');
 			
 			$this->conf__inicio($usuario);
 			
 			//Si la solicitud ya esta en proceso, reinicio forzando la recarga del nucleo
-			if (toba::get_nucleo()->solicitud_en_proceso()) {
+			if (toba::nucleo()->solicitud_en_proceso()) {
 				throw new excepcion_reset_nucleo('INICIAR... recargando el nucleo.');
 			}
 		} catch ( toba_excepcion_login $e ) {
@@ -159,7 +159,7 @@ class toba_sesion
 			//session_unset();
 			//session_destroy();
 			//Si la solicitud ya esta en proceso, reinicio forzando la recarga del nucleo
-			if (toba::get_nucleo()->solicitud_en_proceso()) {
+			if (toba::nucleo()->solicitud_en_proceso()) {
 				throw new excepcion_reset_nucleo('FINALIZAR... recargando el nucleo.');
 			}
 		}
@@ -176,7 +176,7 @@ class toba_sesion
 		if( toba_editor::modo_prueba() && (toba_proyecto::get_id() != toba_editor::get_id())) {
 			return toba_editor::get_grupo_acceso_previsualizacion();
 		} else {
-			return toba::get_usuario()->get_grupo_acceso();		
+			return toba::usuario()->get_grupo_acceso();		
 		}
 	}
 	

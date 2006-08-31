@@ -57,25 +57,25 @@ class extension_ci extends toba_ci
 	
 	function evt__cuadro__seleccion($seleccion)
 	{
-		toba::get_cola_mensajes()->agregar("Se seleccionó la fecha {$seleccion['fecha']}", "info");
+		toba::notificacion()->agregar("Se seleccionó la fecha {$seleccion['fecha']}", "info");
 	}
 	
 	function evt__cuadro__baja($seleccion)
 	{
-		toba::get_cola_mensajes()->agregar("Se quiere borrar la fecha {$seleccion['fecha']}", "info");	
+		toba::notificacion()->agregar("Se quiere borrar la fecha {$seleccion['fecha']}", "info");	
 	}
 	
     function evt__cuadro__ordenar($param) 
     { 
         $columna = $param['columna']; 
         $sentido = $param['sentido']; 
-        toba::get_cola_mensajes()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
+        toba::notificacion()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
     } 	
 	
 	function evt__mi_evento()
 	{
 		$this->dependencia('cuadro')->deseleccionar();
-		toba::get_cola_mensajes()->agregar("Este evento borra la selección del cuadro (si es que la hay)", 'info');	
+		toba::notificacion()->agregar("Este evento borra la selección del cuadro (si es que la hay)", 'info');	
 	}
 
 	function filtrar_importes()

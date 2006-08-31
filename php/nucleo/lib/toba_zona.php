@@ -27,11 +27,11 @@ class toba_zona
 		$this->metodo_cons = $metodo_cons;
 		
 		//Creo la lista de los VECINOS de la ZONA
-		$this->items_vecinos = toba_proyecto::get_items_zona($id, toba::get_hilo()->obtener_usuario());
+		$this->items_vecinos = toba_proyecto::get_items_zona($id, toba::hilo()->obtener_usuario());
 		//Se propago algo por el canal utilizado por la zona?
-		$this->editable_id = toba::get_hilo()->obtener_parametro(apex_hilo_qs_zona);
+		$this->editable_id = toba::hilo()->obtener_parametro(apex_hilo_qs_zona);
 		if ( isset($this->editable_id) ) {
-			$this->cargar(toba::get_vinculador()->url_a_variable($this->editable_id));
+			$this->cargar(toba::vinculador()->url_a_variable($this->editable_id));
 		}
 	}
 
@@ -141,7 +141,7 @@ class toba_zona
 	{
 	
 		foreach($this->items_vecinos as $item){
-			$vinculo = toba::get_vinculador()->crear_vinculo($item['item_proyecto'], $item['item'], 
+			$vinculo = toba::vinculador()->crear_vinculo($item['item_proyecto'], $item['item'], 
 														array(), array('zona' =>true, 'validar'=>false));
 			if (isset($vinculo)) {
 	 			echo "<a href='$vinculo'>";

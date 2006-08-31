@@ -87,7 +87,7 @@ class info_item implements recorrible_como_arbol
 			$item_editor = "/admin/items/carpeta_propiedades";
 		else
 			$item_editor = "/admin/items/editor_items";		
-		return toba::get_vinculador()->generar_solicitud(toba_editor::get_id(), $item_editor,
+		return toba::vinculador()->generar_solicitud(toba_editor::get_id(), $item_editor,
 						array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
 						false, false, null, true, "central");
 	}
@@ -98,7 +98,7 @@ class info_item implements recorrible_como_arbol
 	function vinculo_ejecutar()
 	{
 		if( contexto_info::get_proyecto() == toba_editor::get_id() ) {
-			$vinculo = toba::get_vinculador()->crear_vinculo($this->get_proyecto(), $this->get_id(), 
+			$vinculo = toba::vinculador()->crear_vinculo($this->get_proyecto(), $this->get_id(), 
 															null, array('celda_memoria'=>'central',
 																		'validar' => false,
 																		'menu' => true ) );
@@ -336,21 +336,21 @@ class info_item implements recorrible_como_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_apl("items/carpeta_ordenar.gif", false),
 				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_ordenar", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_ordenar", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()) )
 			);
 */
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_propiedades", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_propiedades", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => true								
 			);
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => true								
 			);			
@@ -359,7 +359,7 @@ class info_item implements recorrible_como_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un objeto asociado al item",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 									array('destino_tipo' =>'item', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id ),

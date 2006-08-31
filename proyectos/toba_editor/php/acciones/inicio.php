@@ -113,7 +113,7 @@ echo '<div style="text-align:left">';
 	echo  toba_parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".toba_instancia::get_id()."</strong> :");
 	echo "<ul style='margin-top: 0px;'>";
 	
-	foreach (toba::get_db()->get_parametros() as $clave => $valor) {
+	foreach (toba::db()->get_parametros() as $clave => $valor) {
 		echo "<li>".ucfirst($clave).": $valor</li>";	
 	}
 	echo "</ul>";

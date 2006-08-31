@@ -13,7 +13,7 @@ class cuadro extends toba_ei_cuadro
         $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
 		if(apex_pa_encriptar_qs)
 		{
-			$encriptador = toba::get_encriptador();
+			$encriptador = toba::encriptador();
 			//ATENCION: me faltaria ponerle un uniqid("") para que sea mas robusto;
 			$id_fila = $encriptador->cifrar($id_fila);
 		}

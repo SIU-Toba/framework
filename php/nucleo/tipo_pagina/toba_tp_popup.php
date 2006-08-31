@@ -7,7 +7,7 @@ class toba_tp_popup extends toba_tp_basico_titulo
 	protected function comienzo_cuerpo()
 	{
 		parent::comienzo_cuerpo();
-		$hilo = toba::get_hilo();
+		$hilo = toba::hilo();
 	    $ef_popup = $hilo->obtener_parametro('ef_popup');
 	    if ($ef_popup == null) {
 	        $ef_popup = $hilo->recuperar_dato('ef_popup');

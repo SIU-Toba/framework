@@ -58,7 +58,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function cargar($clave)
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
 		return $this->cargar_por_clave($clave);		
 	}
 	
@@ -130,7 +130,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if($this->utilizar_transaccion) {
 				abrir_transaccion($fuente);
 				if ($this->retrazar_constraints) {
-					toba::get_db($fuente)->retrazar_constraints();
+					toba::db($fuente)->retrazar_constraints();
 				}
 			}
 			$this->evt__pre_sincronizacion();
@@ -139,7 +139,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if($this->utilizar_transaccion) cerrar_transaccion($fuente);			
 		}catch(toba_excepcion $e){
 			if($this->utilizar_transaccion) abortar_transaccion($fuente);
-			toba::get_logger()->debug($e, 'toba');
+			toba::logger()->debug($e, 'toba');
 			throw new toba_excepcion($e->getMessage());
 		}					
 	}
@@ -196,7 +196,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if ($this->utilizar_transaccion) {
 				abrir_transaccion($fuente);
 				if ($this->retrazar_constraints) {
-					toba::get_db($fuente)->retrazar_constraints();
+					toba::db($fuente)->retrazar_constraints();
 				}
 			}
 			$this->evt__pre_eliminacion();
@@ -207,10 +207,10 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			}
 		} catch(toba_excepcion $e) {
 			if($this->utilizar_transaccion) {
-				toba::get_logger()->info("Abortando transacción en $fuente", 'toba');				
+				toba::logger()->info("Abortando transacción en $fuente", 'toba');				
 				abortar_transaccion($fuente);
 			}
-			toba::get_logger()->debug("Relanzando excepción. ".$e, 'toba');
+			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
 			throw new toba_excepcion($e->getMessage());
 		}
 	}

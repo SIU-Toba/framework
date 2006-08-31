@@ -4,7 +4,7 @@ class ci_grupo extends toba_ci
 {
 	function ini()
 	{
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::solicitud()->zona();
 		if ($editable = $zona->get_editable()){
 			$clave['proyecto'] = $editable[0];
 			$clave['usuario_grupo_acc'] = $editable[1];
@@ -18,13 +18,13 @@ class ci_grupo extends toba_ci
 	{
 		$this->dependencia('datos')->sincronizar();
 		$clave = $this->dependencia('datos')->get_clave_valor(0);
-		toba::get_zona()->set_editable($clave);
+		toba::zona()->set_editable($clave);
 	}
 
 	function evt__eliminar()
 	{
 		$this->dependencia('datos')->eliminar_todo();
-		toba::get_solicitud()->zona()->resetear();
+		toba::solicitud()->zona()->resetear();
 	}
 
 	//-------------------------------------------------------------------

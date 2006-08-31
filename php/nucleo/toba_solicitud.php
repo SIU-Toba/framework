@@ -23,11 +23,11 @@ abstract class toba_solicitud
 	function __construct($item, $usuario)	
 	{
 		//Le pregunto al HILO si se solicito cronometrar la PAGINA
-		if(toba::get_hilo()->usuario_solicita_cronometrar()){
+		if(toba::hilo()->usuario_solicita_cronometrar()){
 			$this->registrar_db = true;
 			$this->cronometrar = true;
 		}		
-		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
+		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		$this->item = $item;
 		$this->usuario = $usuario;
 
@@ -46,8 +46,8 @@ abstract class toba_solicitud
 		}
 
 		//--- Cargo los OBJETOS que se encuentran asociados
-		$this->log = toba::get_logger();
-		toba::get_cronometro()->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
+		$this->log = toba::logger();
+		toba::cronometro()->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
 	}
 	
 
@@ -61,7 +61,7 @@ abstract class toba_solicitud
 	 */
 	function cargar_objeto($clase,$posicion,$parametros=null)
 	{
-		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
+		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		//-[1]- El indice	es	valido?
 		if(!isset($this->indice_objetos[$clase][$posicion])){	
 			$this->observar(array("toba","error"),"SOLICITUD [obtener_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
@@ -74,7 +74,7 @@ abstract class toba_solicitud
 		$clave['componente'] = $this->info['objetos'][$posicion]['objeto'];
 		$this->objetos[$indice] = toba_constructor::get_runtime( $clave, $clase );
 
-		toba::get_cronometro()->marcar('SOLICITUD: Crear OBJETO	['. $this->info['objetos'][$posicion]['objeto']	.']',apex_nivel_nucleo);
+		toba::cronometro()->marcar('SOLICITUD: Crear OBJETO	['. $this->info['objetos'][$posicion]['objeto']	.']',apex_nivel_nucleo);
 		$this->objetos_indice_actual++;
 		return $indice;
 	}	
@@ -92,7 +92,7 @@ abstract class toba_solicitud
 		toba_cargador::instancia()->destruir();
 		
 		//--- Finalizo objetos BASICOS -------
-		toba::get_hilo()->destruir();
+		toba::hilo()->destruir();
 		//dump_session();
 	}	
 
@@ -108,13 +108,13 @@ abstract class toba_solicitud
 	function registrar()	
 	{
 		if($this->registrar_db) {
-			toba::get_cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
+			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Solicitud
 			toba_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 												$this->info['basica']['item'], $this->get_tipo());
 			// Cronometro
 			if($this->cronometrar){	
-				toba::get_cronometro()->registrar($this->id);
+				toba::cronometro()->registrar($this->id);
 			}
 			// Observaciones
 			if(count($this->observaciones)>0) {

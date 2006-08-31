@@ -63,7 +63,7 @@ class ci_principal extends ci_editores_toba
 					$dbr->nueva_fila($columnas[$a]);
 				}
 			}catch(toba_excepcion $e){
-				toba::get_cola_mensajes()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
+				toba::notificacion()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
 			}
 		}
 	}
@@ -76,7 +76,7 @@ class ci_principal extends ci_editores_toba
 		$reg = $this->get_entidad()->tabla("base")->get();
 		$proyecto = $reg['fuente_datos_proyecto'];
 		$id_fuente = $reg['fuente_datos'];
-		$fuente = toba::get_db($id_fuente);
+		$fuente = toba::db($id_fuente);
 		try{
 			$columnas = $fuente->get_definicion_columnas($tabla);
 			foreach(array_keys($columnas) as $id){
@@ -86,7 +86,7 @@ class ci_principal extends ci_editores_toba
 			}
 			return $columnas;
 		}catch(toba_excepcion $e){
-			toba::get_cola_mensajes()->agregar( $e->getMessage() );
+			toba::notificacion()->agregar( $e->getMessage() );
 		}
 	}	
 

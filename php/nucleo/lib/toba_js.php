@@ -83,16 +83,16 @@ class toba_js
 							);
 		echo toba_js::abrir();
 		echo "var toba_alias='".toba_recurso::path_apl()."';\n";
-		echo "var toba_prefijo_vinculo=\"".toba::get_vinculador()->crear_autovinculo()."\";\n";
+		echo "var toba_prefijo_vinculo=\"".toba::vinculador()->crear_autovinculo()."\";\n";
 		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 		echo "var toba_hilo_separador='".apex_qs_separador."'\n";
 		echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
 		echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 		echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 		echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-		echo "var toba_hilo_item=".toba_js::arreglo(toba::get_hilo()->obtener_item_solicitado(), false)."\n";
+		echo "var toba_hilo_item=".toba_js::arreglo(toba::hilo()->obtener_item_solicitado(), false)."\n";
 		echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
-		echo "var apex_solicitud_tipo='".toba::get_solicitud()->get_tipo()."'\n";		
+		echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";		
 		echo toba_js::cerrar();		
 		
 		//Incluyo el javascript STANDART	

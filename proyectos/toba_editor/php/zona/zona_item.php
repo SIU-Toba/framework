@@ -16,7 +16,7 @@ class zona_item extends zona_editor
                     AND     i.actividad_patron_proyecto = p.proyecto
 					AND		i.proyecto='{$this->editable_id[0]}'
 					AND		item='{$this->editable_id[1]}';";
-		$rs = toba::get_db()->consultar($sql);
+		$rs = toba::db()->consultar($sql);
 		if(empty($rs)) {
 			throw new toba_excepcion("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
 		} else {
@@ -28,11 +28,11 @@ class zona_item extends zona_editor
 	function obtener_html_barra_vinculos()
 	{
 		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
- 		echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",
+ 		echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",
  																$parametros,true, false, false, "", null, null, 'lateral');
 		parent::obtener_html_barra_vinculos();		
 		
-		echo "<a href='" . toba::get_vinculador()->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
+		echo "<a href='" . toba::vinculador()->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
 		echo toba_recurso::imagen_apl("items/instanciar.gif",true,null,null,"Ejecutar el item");
 		echo "</a>";
 		
@@ -66,7 +66,7 @@ class zona_item extends zona_editor
 					AND		io.proyecto='".$this->editable_id[0]."'
 					AND		io.item='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
-			$datos = toba::get_db()->consultar($sql);
+			$datos = toba::db()->consultar($sql);
 			if(! empty($datos)){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
@@ -86,7 +86,7 @@ class zona_item extends zona_editor
 						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs["clase"]."\", ".($contador[$rs["clase"]]).")</td>";
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
+							echo "<a href='" . toba::vinculador()->generar_solicitud(
 													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														.apex_qs_separador. $rs["objeto"]) ) ."'>".
@@ -95,7 +95,7 @@ class zona_item extends zona_editor
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						if(isset($rs["clase_editor"])){
-							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
+							echo "<a href='" . toba::vinculador()->generar_solicitud(
 														$rs["clase_editor_proyecto"],
 														$rs["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
@@ -105,7 +105,7 @@ class zona_item extends zona_editor
 						if(isset($rs["clase_instanciador"])){
 							echo "</td>\n";
 							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
+							echo "<a href='" . toba::vinculador()->generar_solicitud(
 														$rs["clase_instanciador_proyecto"], 
 														$rs["clase_instanciador"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]

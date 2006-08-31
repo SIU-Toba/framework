@@ -269,7 +269,7 @@ class toba_ci extends toba_ei
 					if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
 						$this->pantalla_id_servicio = $tab;
 					}else{
-						toba::get_logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
+						toba::logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
 						//Error, voy a la pantalla inicial
 						$this->pantalla_id_servicio =  $this->get_pantalla_inicial();
 					}
@@ -468,7 +468,7 @@ class toba_ci extends toba_ei
 	protected function ir_a_limitrofe($sentido)
 	{
 		if (!isset($this->pantalla_id_eventos)) {
-			toba::get_logger()->crit("No se pudo determinar la pantalla anterior, no se encuentra en la memoria sincronizada");
+			toba::logger()->crit("No se pudo determinar la pantalla anterior, no se encuentra en la memoria sincronizada");
 			return $this->get_pantalla_inicial();
 		}
 		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior

@@ -9,7 +9,7 @@ abstract class ci_instanciadores extends toba_ci
 	{
 		parent::__construct($id);
 		//Cargo el editable de la zona		
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::solicitud()->zona();
 		if (isset($zona) && $editable = $zona->get_editable()){
 			list($proyecto, $objeto) = $editable;
 		}	
@@ -31,7 +31,7 @@ abstract class ci_instanciadores extends toba_ci
 	{
 		switch ($pantalla) {
 			case 'simulacion':
-				$nombre = toba::get_solicitud()->zona->editable_info['nombre'];
+				$nombre = toba::solicitud()->zona->editable_info['nombre'];
 				$des = "Simulando la ejecución de <strong>$nombre</strong>";
 				break;
 			default:
@@ -52,7 +52,7 @@ abstract class ci_instanciadores extends toba_ci
 	
 	function generar_interface_grafica()
 	{
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::solicitud()->zona();
 		if (isset($zona) && isset($this->id_objeto)) {
 			$zona->obtener_html_barra_superior();
 		}

@@ -16,7 +16,7 @@ class ci_mensajes extends toba_ci
 		//Notificación de los mensajes al usuario desde el mismo objeto
 		$this->informar_msg($m_propio, 'info');
 		//Notificación de los mensajes al usuario utilizando un mecanismo global
-		toba::get_cola_mensajes()->agregar($m_global, 'info');
+		toba::notificacion()->agregar($m_global, 'info');
 	}
 }
 

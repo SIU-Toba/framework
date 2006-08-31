@@ -64,7 +64,7 @@ class pantalla_visor extends toba_ei_pantalla
 			return;
 		}			
 		$seleccion = $this->controlador->seleccion;
-		$niveles = toba::get_logger()->get_niveles();
+		$niveles = toba::logger()->get_niveles();
 		$niveles = array_reverse($niveles);		
 		
 		$res = $this->analizador->obtener_pedido($seleccion);
@@ -136,7 +136,7 @@ class pantalla_visor extends toba_ei_pantalla
 	
 	function generar_html_detalles($res)
 	{
-		$niveles = toba::get_logger()->get_niveles();
+		$niveles = toba::logger()->get_niveles();
 		$cuerpo = $this->analizador->analizar_cuerpo($res);
 		$cant_por_nivel = array();
 		foreach ($niveles as $nivel) {
@@ -188,9 +188,9 @@ class pantalla_visor extends toba_ei_pantalla
 		if (!$this->controlador->debe_mostrar_visor() || ! $this->controlador->existe_archivo_log()) {
 			return;	
 		}
-		$niveles = toba::get_logger()->get_niveles();		
+		$niveles = toba::logger()->get_niveles();		
 		$parametros = array();
-//		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
+//		$vinculo = toba::vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
 			var ultima_mod ='<?=$this->controlador->timestamp_archivo();?>';
 			var niveles = <?=toba_js::arreglo($niveles)?>;

@@ -36,7 +36,7 @@ class toba_nucleo
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
 			throw new toba_excepcion("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
-		toba::get_cronometro();
+		toba::cronometro();
 	}
 	
 	static function instancia()
@@ -79,19 +79,19 @@ class toba_nucleo
 				}
 				//TRAP para forzar la recarga de solicitud
 				$this->solicitud_en_proceso = false;
-				toba::get_hilo()->limpiar_memoria();
+				toba::hilo()->limpiar_memoria();
 				$item_nuevo = $e->get_item();
-				toba::get_hilo()->set_item_solicitado( $item_nuevo );				
+				toba::hilo()->set_item_solicitado( $item_nuevo );				
 				$this->solicitud = $this->cargar_solicitud();
 				$this->solicitud->procesar();
 			}
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 		} catch (Exception $e) {
-			toba::get_logger()->crit($e, 'toba');
+			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
-		toba::get_logger()->guardar();		
+		toba::logger()->guardar();		
 		//echo cronometro::instancia()->tiempo_acumulado();
 	}
 
@@ -109,7 +109,7 @@ class toba_nucleo
 			define('apex_pa_proyecto' , $proyecto);
 			$this->preparar_include_path();			
 			$this->iniciar_contexto_proyecto();						
-			toba::get_sesion()->iniciar($usuario);
+			toba::sesion()->iniciar($usuario);
 			//$this->solicitud = new toba_solicitud_consola($proyecto, $item, $usuario);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'item');
 			$this->iniciar_contexto_proyecto();
@@ -118,11 +118,11 @@ class toba_nucleo
 			$this->solicitud->finalizar_objetos();
 			$estado_proceso = $this->solicitud->get_estado_proceso();
 		} catch (toba_excepcion $e) {
-			toba::get_logger()->crit($e, 'toba');
+			toba::logger()->crit($e, 'toba');
 			echo $e;
 		}
-		toba::get_logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
-		toba::get_logger()->guardar();
+		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
+		toba::logger()->guardar();
 		exit($estado_proceso);
 	}
 		
@@ -131,9 +131,9 @@ class toba_nucleo
 	 */
 	function cargar_solicitud()
 	{
-		if (toba::get_sesion()->controlar_estado_activacion()) {
+		if (toba::sesion()->controlar_estado_activacion()) {
 			$item = $this->get_id_item('item_inicio_sesion');
-			$grupo_acceso = toba::get_sesion()->get_grupo_acceso();
+			$grupo_acceso = toba::sesion()->get_grupo_acceso();
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
 				toba_proyecto::control_acceso_item($item, $grupo_acceso);
@@ -148,9 +148,9 @@ class toba_nucleo
 				// el nucleo trata de cargar un item explicito por URL. El mismo no va a ser publico...
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
-				if ( toba::get_hilo()->obtener_item_solicitado() ) {
-					toba::get_logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado', 'toba');
-					toba::get_hilo()->set_item_solicitado(null);					
+				if ( toba::hilo()->obtener_item_solicitado() ) {
+					toba::logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado', 'toba');
+					toba::hilo()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
 					$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 					if (!$solicitud->es_item_publico()) {
@@ -169,12 +169,12 @@ class toba_nucleo
 	 */
 	function get_id_item($predefinido=null,$forzar_predefinido=false)
 	{
-		$item = toba::get_hilo()->obtener_item_solicitado();
+		$item = toba::hilo()->obtener_item_solicitado();
 		if (!$item) {
 			if(isset($predefinido)){
 				$item[0] = toba_proyecto::instancia()->get_id();
 				$item[1] = toba_proyecto::instancia()->get_parametro($predefinido);		
-				toba::get_hilo()->set_item_solicitado($item);
+				toba::hilo()->set_item_solicitado($item);
 			} else {
 				throw new toba_excepcion('NUCLEO: No es posible determinar el item a cargar');
 			}

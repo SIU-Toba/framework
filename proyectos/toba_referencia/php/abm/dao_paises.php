@@ -4,7 +4,7 @@ class dao_paises {
 
  public function get_paises($datos = null) {
 	
-	$conn = toba::get_db("referencia");
+	$conn = toba::db("referencia");
 	
 	if (isset($datos['nombre']))
 		$sql = "SELECT * FROM paises WHERE nombre ILIKE '%{$datos['nombre']}%'";

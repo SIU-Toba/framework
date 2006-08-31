@@ -29,7 +29,7 @@ class info_datos_tabla extends info_componente
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central"),
 				'plegado' => true																		
 			);

@@ -86,7 +86,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	protected function log($txt)
 	{
-		toba::get_logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
+		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -570,7 +570,7 @@ class toba_datos_tabla extends toba_componente
 		$id = $this->normalizar_id($id);
 		if(!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
-			toba::get_logger()->error($mensaje);
+			toba::logger()->error($mensaje);
 			throw new toba_excepcion($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
@@ -633,7 +633,7 @@ class toba_datos_tabla extends toba_componente
 		$id = $this->normalizar_id($id_fila);		
 		if (!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe un registro con el INDICE indicado ($id)";
-			toba::get_logger()->error($mensaje);
+			toba::logger()->error($mensaje);
 			throw new toba_excepcion($mensaje);
 		}
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
@@ -656,7 +656,7 @@ class toba_datos_tabla extends toba_componente
 		$id = $this->normalizar_id($id);
 		if (!$this->existe_fila($id)) {
 			$mensaje = $this->get_txt() . " ELIMINAR. No existe un registro con el INDICE indicado ($id)";
-			toba::get_logger()->error($mensaje);
+			toba::logger()->error($mensaje);
 			throw new toba_excepcion($mensaje);
 		}
 		if ( $this->get_cursor() == $id ) { 
@@ -831,7 +831,7 @@ class toba_datos_tabla extends toba_componente
 			if( !(isset($this->columnas[$campo]))  ){
 				$mensaje = $this->get_txt() . get_class($this)." El registro tiene una estructura incorrecta: El campo '$campo' ". 
 						" no forma parte de la DEFINICION.";
-				toba::get_logger()->warning($mensaje);
+				toba::logger()->warning($mensaje);
 			}
 		}
 	}
@@ -913,11 +913,11 @@ class toba_datos_tabla extends toba_componente
 			foreach($this->campos_no_nulo as $campo){
 				if(isset($fila[$campo])){
 					if((trim($fila[$campo])=="")||(trim($fila[$campo])=='NULL')){
-						toba::get_logger()->error($mensaje_programador . $campo);
+						toba::logger()->error($mensaje_programador . $campo);
 						throw new toba_excepcion($mensaje_usuario . " ('$campo' se encuentra vacio)");
 					}
 				}else{
-						toba::get_logger()->error($mensaje_programador . $campo);
+						toba::logger()->error($mensaje_programador . $campo);
 						throw new toba_excepcion($mensaje_usuario . " ('$campo' se encuentra vacio)");
 				}
 			}
@@ -1072,7 +1072,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function eliminar()
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
+		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
 		$this->eliminar_todo();	
 	}
 

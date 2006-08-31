@@ -28,9 +28,9 @@ class toba_solicitud_web extends toba_solicitud
 	function __construct($info)
 	{
 		$this->info = $info;
-		toba::get_cronometro()->marcar('basura',apex_nivel_nucleo);
-		parent::__construct(toba::get_hilo()->obtener_item_solicitado(), toba::get_hilo()->obtener_usuario());
-		toba::get_cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
+		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
+		parent::__construct(toba::hilo()->obtener_item_solicitado(), toba::hilo()->obtener_usuario());
+		toba::cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
 
 	/**
@@ -55,9 +55,9 @@ class toba_solicitud_web extends toba_solicitud
 			// Recarga del nucleo
 			throw $e;
 		} catch(toba_excepcion $e) {
-			toba::get_logger()->error($e, 'toba');
-			toba::get_cola_mensajes()->agregar($e->getMessage(), "error");
-			toba::get_cola_mensajes()->mostrar();
+			toba::logger()->error($e, 'toba');
+			toba::notificacion()->agregar($e->getMessage(), "error");
+			toba::notificacion()->mostrar();
 		}
 	}
 	
@@ -66,7 +66,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function pre_proceso_servicio()
 	{
-		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
+		$servicio = toba::hilo()->obtener_servicio_solicitado();
 		$callback = "servicio_pre__$servicio";
 		if (method_exists($this, $callback)) {
 			$this->$callback();
@@ -78,7 +78,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function cargar_objetos()
 	{
-		toba::get_logger()->seccion("Cargando objetos...", 'toba');
+		toba::logger()->seccion("Cargando objetos...", 'toba');
 		$this->cis = array();		
 		if ($this->info['objetos'] > 0) {
 			$i = 0;
@@ -107,7 +107,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function procesar_eventos()
 	{
-		toba::get_logger()->seccion("Procesando eventos...", 'toba');		
+		toba::logger()->seccion("Procesando eventos...", 'toba');		
 		//--Antes de procesar los eventos toda entrada UTF-8 debe ser pasada a ISO88591
 		if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'UTF-8') !== false) {
 			foreach ($_POST as $clave => $valor) {
@@ -121,7 +121,7 @@ class toba_solicitud_web extends toba_solicitud
 				$this->objetos[$ci]->disparar_eventos();
 			} catch(toba_excepcion $e) {
 				$this->log->info($e, 'toba');			
-				toba::get_cola_mensajes()->agregar($e->getMessage());
+				toba::notificacion()->agregar($e->getMessage());
 			}
 		}
 	}
@@ -131,7 +131,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function procesar_servicios()
 	{
-		toba::get_logger()->seccion("Configurando dependencias para responder al servicio...", 'toba');
+		toba::logger()->seccion("Configurando dependencias para responder al servicio...", 'toba');
 		//Se fuerza a que los Cis carguen sus dependencias (por si alguna no se cargo para atender ls eventos) y se configuren
 		foreach ($this->cis as $ci) {
 			$this->objetos[$ci]->pre_configurar();
@@ -140,7 +140,7 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		
 		//--- Se determina el destino del servicio
-		$objetos_destino = toba::get_hilo()->obtener_id_objetos_destino();
+		$objetos_destino = toba::hilo()->obtener_id_objetos_destino();
 		if (!isset($objetos_destino)) {
 			//En caso que el servicio no especifique destino, se asume que son todos los cis asociados al item
 			$destino = array();
@@ -156,9 +156,9 @@ class toba_solicitud_web extends toba_solicitud
 			}
 		}
 
-		$servicio = toba::get_hilo()->obtener_servicio_solicitado();
+		$servicio = toba::hilo()->obtener_servicio_solicitado();
 		$callback = "servicio__$servicio";
-		toba::get_logger()->seccion("Respondiendo al $callback...", 'toba');		
+		toba::logger()->seccion("Respondiendo al $callback...", 'toba');		
 		if (method_exists($this, $callback)) {
 			$this->$callback($destino);
 		} elseif (count($destino) == 1 && method_exists(current($destino), $callback)) {
@@ -180,7 +180,7 @@ class toba_solicitud_web extends toba_solicitud
 	protected function servicio_pre__generar_html()
 	{
 		//--- Tipo de PAGINA
-		toba::get_cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
+		toba::cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
 		if (isset($this->info['basica']['tipo_pagina_archivo'])) {
 			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
@@ -194,8 +194,8 @@ class toba_solicitud_web extends toba_solicitud
 	protected function servicio__generar_html($objetos)
 	{
 		//--- Parte superior de la zona
-		if (toba::get_solicitud()->hay_zona() && toba::get_zona()->cargada()) {
-			toba::get_zona()->generar_html_barra_superior();
+		if (toba::solicitud()->hay_zona() && toba::zona()->cargada()) {
+			toba::zona()->generar_html_barra_superior();
 		}
 		echo '<div style="clear:both;"></div>';
 		echo "</div>"; //-- Se finaliza aqui el div del encabezado, por la optimizacion del pre-servicio..
@@ -204,7 +204,7 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Abre el formulario
 		$accion = $this->info['basica']['item_act_accion_script'];
 		if ($accion == '') {
-			echo toba_form::abrir("formulario_toba", toba::get_vinculador()->crear_autovinculo());
+			echo toba_form::abrir("formulario_toba", toba::vinculador()->crear_autovinculo());
 			foreach ($objetos as $obj) {
 				//-- Librerias JS necesarias
 				toba_js::cargar_consumos_globales($obj->get_consumo_javascript());
@@ -226,7 +226,7 @@ class toba_solicitud_web extends toba_solicitud
 		$this->tipo_pagina->post_contenido();
 		// Carga de componentes JS genericos
 		echo toba_js::abrir();
-		toba::get_vinculador()->generar_js();
+		toba::vinculador()->generar_js();
 		echo toba_js::cerrar();
 		
 		//--- Parte inferior de la zona
@@ -234,8 +234,8 @@ class toba_solicitud_web extends toba_solicitud
 			$this->zona->generar_html_barra_inferior();
 		}
 		//--- Muestra la cola de mensajes
-		toba::get_cola_mensajes()->mostrar();		
-		toba::get_cronometro()->marcar('SOLICITUD: Pagina TIPO (pie) ',apex_nivel_nucleo);
+		toba::notificacion()->mostrar();		
+		toba::cronometro()->marcar('SOLICITUD: Pagina TIPO (pie) ',apex_nivel_nucleo);
        	$this->tipo_pagina->pie();
 	}
 	
@@ -288,7 +288,7 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Se envia el javascript
 		echo "<--toba-->";
 		//Se actualiza el prefijo de los vinculos
-		$autovinculo = toba::get_vinculador()->crear_autovinculo();
+		$autovinculo = toba::vinculador()->crear_autovinculo();
 		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
 		echo "document.formulario_toba.action='$autovinculo'\n";
@@ -304,7 +304,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__cascadas_efs($objetos)
 	{
-		toba::get_hilo()->desactivar_reciclado();
+		toba::hilo()->desactivar_reciclado();
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);
@@ -312,7 +312,7 @@ class toba_solicitud_web extends toba_solicitud
 			}
 			$objetos[0]->servicio__cascadas_efs();
 		} catch(toba_excepcion $e) {
-			toba::get_logger()->error($e, 'toba');
+			toba::logger()->error($e, 'toba');
 		}
 	}
 		
@@ -328,7 +328,7 @@ class toba_solicitud_web extends toba_solicitud
 
 	function registrar()
 	{
-		parent::registrar( toba::get_hilo()->obtener_proyecto() );
+		parent::registrar( toba::hilo()->obtener_proyecto() );
 		if($this->registrar_db){
 			toba_instancia::registrar_solicitud_browser($this->id, toba_sesion::get_id(), $_SERVER['REMOTE_ADDR']);
 		}

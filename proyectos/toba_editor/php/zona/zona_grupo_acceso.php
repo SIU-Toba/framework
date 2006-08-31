@@ -11,7 +11,7 @@ class zona_grupo_acceso extends zona_editor
 					WHERE	proyecto = '{$this->editable_id[0]}'
 					AND		usuario_grupo_acc = '{$this->editable_id[1]}';";
 		//echo $sql;
-		$rs = toba::get_db()->consultar($sql);
+		$rs = toba::db()->consultar($sql);
 		if(!$rs){
 			echo ei_mensaje("ZONA - GRUPO ACCESO: El editable solicitado no existe","info");
 			return false;

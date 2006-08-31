@@ -343,7 +343,7 @@ class ci_efs extends toba_ci
 				try{
 					$this->get_tabla()->nueva_fila($ef);
 				}catch(toba_excepcion $e){
-					toba::get_cola_mensajes()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
+					toba::notificacion()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
 				}
 			}
 		}

@@ -37,8 +37,8 @@ class toba_tp_basico extends toba_tipo_pagina
 	
 	protected function titulo_pagina()
 	{
-		$item = toba::get_solicitud()->get_datos_item('item_nombre');
-		return toba::get_hilo()->obtener_proyecto_descripcion() . ' - ' . $item;
+		$item = toba::solicitud()->get_datos_item('item_nombre');
+		return toba::hilo()->obtener_proyecto_descripcion() . ' - ' . $item;
 	}
 	
 	protected function encoding()
@@ -73,7 +73,7 @@ class toba_tp_basico extends toba_tipo_pagina
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
 		echo "<body>\n";
 		if ( toba_editor::modo_prueba() ) {
-			$item = toba::get_solicitud()->get_datos_item('item');
+			$item = toba::solicitud()->get_datos_item('item');
 			toba_editor::generar_zona_vinculos_item($item);
 		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		

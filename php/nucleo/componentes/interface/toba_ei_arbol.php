@@ -26,14 +26,14 @@ class toba_ei_arbol extends toba_ei
 	
 	function servicio__ejecutar()
 	{
-		toba::get_hilo()->desactivar_reciclado();		
-		$id_nodo = toba::get_hilo()->obtener_parametro('id_nodo');
+		toba::hilo()->desactivar_reciclado();		
+		$id_nodo = toba::hilo()->obtener_parametro('id_nodo');
 		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
 		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
 			$html = $this->recorrer_hijos(current($nodo), 0);
 			echo $html;
 		} else {
-			toba::get_logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
+			toba::logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
 		}
 	}
 	
@@ -299,7 +299,7 @@ class toba_ei_arbol extends toba_ei
 		$item = toba_js::arreglo($this->item_propiedades, false);
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->id);
-		$autovinculo = toba::get_vinculador()->crear_autovinculo("", $opciones );
+		$autovinculo = toba::vinculador()->crear_autovinculo("", $opciones );
 		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
 												 '{$this->submit}', $item, '$autovinculo');\n";
 	}

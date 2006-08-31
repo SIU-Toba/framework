@@ -11,7 +11,7 @@ class ci_propiedades extends toba_ci
 	
 	function ini()
 	{
-		$zona = toba::get_zona();
+		$zona = toba::zona();
 		$cargar = false;
 		$editable = $zona->get_editable();
 		if (isset($editable)) {
@@ -25,7 +25,7 @@ class ci_propiedades extends toba_ci
 		}
 		
 		//Si se pasa el grupo de acceso se resetea la operación porque se asume un alta
-		$g_acceso = toba::get_hilo()->obtener_parametro('grupo_acceso');
+		$g_acceso = toba::hilo()->obtener_parametro('grupo_acceso');
 		if (isset($g_acceso)) {
 			$this->evt__cancelar();
 			$this->grupo_acceso = $g_acceso;
@@ -57,7 +57,7 @@ class ci_propiedades extends toba_ci
 			$basicas = $this->dependencia('datos')->tabla('basicas')->get();
 			$this->usuario_actual = $basicas['usuario'];
 			//Hay que avisarle a la zona
-			toba::get_zona()->cargar($this->usuario_actual);
+			toba::zona()->cargar($this->usuario_actual);
 		}
 	}
 
@@ -65,14 +65,14 @@ class ci_propiedades extends toba_ci
 	{
 		$this->dependencia('datos')->resetear();
 		unset($this->usuario_actual);
-		toba::get_solicitud()->zona()->resetear();
+		toba::solicitud()->zona()->resetear();
 	}
 
 	function evt__eliminar()
 	{
 		$this->dependencia('datos')->eliminar();
 		$this->eliminado = true;
-		toba::get_cola_mensajes()->agregar("El usuario ha sido eliminado.", 'info');
+		toba::notificacion()->agregar("El usuario ha sido eliminado.", 'info');
 		$this->evt__cancelar();
 	}
 	//-------------------------------------------------------------------

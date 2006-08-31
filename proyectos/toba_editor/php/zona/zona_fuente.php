@@ -11,7 +11,7 @@ class zona_fuente extends zona_editor
 					WHERE	proyecto='{$this->editable_id[0]}'
 					AND		fuente_datos='{$this->editable_id[1]}';";
 		//echo $sql;
-		$rs = toba::get_db()->consultar($sql);
+		$rs = toba::db()->consultar($sql);
 		if(!$rs) {
 			echo ei_mensaje("ZONA-FUENTE: El editable solicitado no existe","info");
 			return false;

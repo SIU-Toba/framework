@@ -24,7 +24,7 @@ class ci_analizador extends toba_ci
 	 */
 	function ini()
 	{
-		toba::get_logger()->desactivar();	
+		toba::logger()->desactivar();	
 		if (!isset($this->opciones)) {
 			$this->opciones['proyecto'] = toba_editor::get_proyecto_cargado();	
 			$this->opciones['fuente'] = 'fs';
@@ -48,7 +48,7 @@ class ci_analizador extends toba_ci
 		$res = $this->analizador->obtener_pedido($this->seleccion);
 		$encabezado = $this->pantalla()->generar_html_encabezado($res);
 		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
-		$anterior_mod = toba::get_hilo()->obtener_parametro('mtime');
+		$anterior_mod = toba::hilo()->obtener_parametro('mtime');
 		$ultima_mod = $this->timestamp_archivo();
 		if ($anterior_mod != $ultima_mod) {
 			echo $ultima_mod;		

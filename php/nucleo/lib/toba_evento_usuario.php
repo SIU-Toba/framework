@@ -19,7 +19,7 @@ class toba_evento_usuario
 	{
 		if ( $this->posee_accion_vincular() ) {
 			if ( !isset( $this->vinculo ) ) {
-				$this->vinculo = new toba_vinculo(	toba::get_hilo()->obtener_proyecto(), 
+				$this->vinculo = new toba_vinculo(	toba::hilo()->obtener_proyecto(), 
 										$this->datos['accion_vinculo_item'],
 										$this->datos['accion_vinculo_popup'],
 										$this->datos['accion_vinculo_popup_param'] );
@@ -218,7 +218,7 @@ class toba_evento_usuario
 			$opciones['servicio'] = 'vista_toba_impr_html';
 			$opciones['objetos_destino'] = array( $this->id );
 			//$opciones['celda_memoria'] = 'popup';
-			$url = toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );
+			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
 			if ( $this->datos['accion_imphtml_debug'] == 1 ) {
 				$js = "onclick=\"imprimir_html('$url',true);\"";
 			} else {
@@ -228,7 +228,7 @@ class toba_evento_usuario
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
-			$id_vinculo = toba::get_vinculador()->registrar_vinculo( $this->vinculo() );
+			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
 			if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
 				// Escribo la sentencia que invocaria el vinculo
 				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";

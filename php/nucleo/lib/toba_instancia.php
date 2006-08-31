@@ -201,7 +201,7 @@ class toba_instancia
 
 	static function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
-		$tiempo = toba::get_cronometro()->tiempo_acumulado();
+		$tiempo = toba::cronometro()->tiempo_acumulado();
 		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
 				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
 		self::get_db()->ejecutar($sql);
@@ -252,7 +252,7 @@ class toba_instancia
 	static function get_proyectos_accesibles($refrescar=false)
 	{
 		if ($refrescar || ! isset($_SESSION['toba']['instancia']['proyectos_accesibles'])) {
-			$usuario = toba::get_hilo()->obtener_usuario();
+			$usuario = toba::hilo()->obtener_usuario();
 			$sql = "SELECT 		p.proyecto, 
 	    						p.descripcion_corta
 	    				FROM 	apex_proyecto p,

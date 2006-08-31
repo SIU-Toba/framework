@@ -68,7 +68,7 @@ class toba_ei_pantalla extends toba_ei
 		if ($this->controlador->existe_dependencia($id_obj)) {
 			$this->lista_dependencias[] = $id_obj;
 		} else {
-			toba::get_logger()->error($this->get_txt(). 
+			toba::logger()->error($this->get_txt(). 
 					" Se quiere agregar la dependencia '$id_obj', pero esta no está definida en el CI");
 		}
 	}

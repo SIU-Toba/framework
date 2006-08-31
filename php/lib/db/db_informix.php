@@ -13,21 +13,21 @@ class db_informix extends db
 	{
 		$sql = 'BEGIN WORK';
 		$this->ejecutar($sql);
-		toba::get_logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		toba::logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK WORK';
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba::logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT WORK";
 		$this->ejecutar($sql);		
-		toba::get_logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba::logger()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}	
 }
 ?>

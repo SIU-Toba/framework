@@ -590,5 +590,31 @@ class migracion_0_10_0 extends migracion_toba
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
+	
+	/**
+	 * Debido a las nuevas convenciones, se prefiere que los metodos que no retornan tipos simples
+	 * no se prefijen con get_, por ej. se usa toba::logger()
+	 */
+	function proyecto__cambio_convenciones_clase_toba()
+	{
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion('/toba::get_logger/', 			'toba::logger');
+		$editor->agregar_sustitucion('/toba::get_nucleo/', 			'toba::nucleo');
+		$editor->agregar_sustitucion('/toba::get_solicitud/', 		'toba::solicitud');
+		$editor->agregar_sustitucion('/toba::get_zona/', 			'toba::zona');
+		$editor->agregar_sustitucion('/toba::get_vinculador/', 		'toba::vinculador');
+		$editor->agregar_sustitucion('/toba::get_hilo/', 			'toba::hilo');
+		$editor->agregar_sustitucion('/toba::get_permisos/', 		'toba::permisos');
+		$editor->agregar_sustitucion('/toba::get_cola_mensajes/',	'toba::notificacion');
+		$editor->agregar_sustitucion('/toba::get_fuente/',			'toba::fuente');
+		$editor->agregar_sustitucion('/toba::get_db/',				'toba::db');
+		$editor->agregar_sustitucion('/toba::get_encriptador/',		'toba::encriptador');
+		$editor->agregar_sustitucion('/toba::get_cronometro/',		'toba::cronometro');
+		$editor->agregar_sustitucion('/toba::get_sesion/',			'toba::sesion');
+		$editor->agregar_sustitucion('/toba::get_usuario/',			'toba::usuario');
+		//$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);
+	}
 }
 ?>

@@ -88,8 +88,8 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	protected function info_usuario()
 	{
 		echo '<div class="enc-usuario">';		
-		echo "<span class='enc-usuario-nom'>".toba::get_usuario()->get_nombre()."</span>";
-		echo "<span class='enc-usuario-id'>".toba::get_usuario()->get_id()."</span>";
+		echo "<span class='enc-usuario-nom'>".toba::usuario()->get_nombre()."</span>";
+		echo "<span class='enc-usuario-id'>".toba::usuario()->get_id()."</span>";
 		echo '</div>';		
 	}		
 	

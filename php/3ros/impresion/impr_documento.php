@@ -27,7 +27,7 @@ class impr_documento
     */
     function impr_documento($nombre = null, &$conexion)
     {
-    	toba::get_logger()->ocultar();
+    	toba::logger()->ocultar();
        $this->nombre = $nombre;
        $this->conexion =& $conexion;
        $this->hoja_ancho = 210.0;

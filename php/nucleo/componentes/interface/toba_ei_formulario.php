@@ -596,7 +596,7 @@ class toba_ei_formulario extends toba_ei
         //Armo la sentencia que limita al proyecto
         $sql_where = "";
         if (isset($parametros['columna_proyecto'])) {
-    		$sql_where .= $parametros["columna_proyecto"] . " = '".toba::get_hilo()->obtener_proyecto()."' ";
+    		$sql_where .= $parametros["columna_proyecto"] . " = '".toba::hilo()->obtener_proyecto()."' ";
 			if (isset($parametros["incluir_toba"]) && $parametros["incluir_toba"]) {
 		        $sql_where .= " OR ".$parametros["columna_proyecto"]." = 'toba'";
 			}
@@ -610,7 +610,7 @@ class toba_ei_formulario extends toba_ei
 												$parametros['carga_sql']);
 		}
 		$modo = ($es_posicional) ? toba_db_fetch_num : toba_db_fetch_asoc;
-		return toba::get_db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
+		return toba::db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
 	}
 	
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
@@ -641,10 +641,10 @@ class toba_ei_formulario extends toba_ei
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_excepcion("Cascadas: Invocación incorrecta");	
 		}
-		$id_ef = trim(toba::get_hilo()->obtener_parametro('cascadas-ef'));
+		$id_ef = trim(toba::hilo()->obtener_parametro('cascadas-ef'));
 		$maestros = array();
 		$ids_maestros = $this->cascadas_maestros[$id_ef];
-		foreach (explode('-|-', toba::get_hilo()->obtener_parametro('cascadas-maestros')) as $par) {
+		foreach (explode('-|-', toba::hilo()->obtener_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
@@ -682,9 +682,9 @@ class toba_ei_formulario extends toba_ei
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}
-		toba::get_logger()->debug("Cascadas '$id_ef', Estado de los maestros: ".var_export($maestros, true));		
+		toba::logger()->debug("Cascadas '$id_ef', Estado de los maestros: ".var_export($maestros, true));		
 		$valores = $this->ejecutar_metodo_carga_ef($id_ef, $maestros);
-		toba::get_logger()->debug("Cascadas '$id_ef', Respuesta: ".var_export($valores, true));				
+		toba::logger()->debug("Cascadas '$id_ef', Respuesta: ".var_export($valores, true));				
 		
 		//--- Se arma la respuesta en formato JSON
 		$json = new Services_JSON();

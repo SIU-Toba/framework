@@ -65,12 +65,12 @@ class ci_wizard extends toba_ci
 	function evt__cargar_zona()
 	{
 		$editable = array('fecha' => time(), 'otro' => true);
-		toba::get_zona()->cargar($editable);	
+		toba::zona()->cargar($editable);	
 	}
 	
 	function evt__descargar_zona()
 	{
-		toba::get_zona()->resetear();
+		toba::zona()->resetear();
 	}	
 	
 	static function get_info_zona($id)

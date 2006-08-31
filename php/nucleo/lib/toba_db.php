@@ -8,7 +8,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/
 	function consultar_fuente($sql, $id_fuente=null, $tipo_fetch=null, $obligatorio=false)
 	{
-		return toba::get_db($id_fuente)->consultar($sql, $tipo_fetch, $obligatorio);
+		return toba::db($id_fuente)->consultar($sql, $tipo_fetch, $obligatorio);
 	}
 
 	/**
@@ -16,7 +16,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/
 	function ejecutar_fuente($sql, $id_fuente=null)
 	{
-		return toba::get_db($id_fuente)->ejecutar($sql);
+		return toba::db($id_fuente)->ejecutar($sql);
 	}
 	
 	/**
@@ -24,7 +24,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/
 	function ejecutar_transaccion($sentencias_sql, $id_fuente=null)
 	{
-		toba::get_db($id_fuente)->ejecutar_transaccion($sentencias_sql);
+		toba::db($id_fuente)->ejecutar_transaccion($sentencias_sql);
 	}
 
 	/**
@@ -32,7 +32,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/
 	function recuperar_secuencia($sql, $id_fuente=null)
 	{
-		return toba::get_db($id_fuente)->recuperar_secuencia($sql);
+		return toba::db($id_fuente)->recuperar_secuencia($sql);
 	}
 	
 	/**
@@ -40,7 +40,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/
 	function abrir_transaccion($id_fuente=null)
 	{
-		toba::get_db($id_fuente)->abrir_transaccion();
+		toba::db($id_fuente)->abrir_transaccion();
 	}
 
 	/**
@@ -48,7 +48,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/	
 	function abortar_transaccion($id_fuente=null)
 	{
-		toba::get_db($id_fuente)->abortar_transaccion();
+		toba::db($id_fuente)->abortar_transaccion();
 	}
 
 	/**
@@ -56,6 +56,6 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	*/	
 	function cerrar_transaccion($id_fuente=null)
 	{
-		toba::get_db($id_fuente)->cerrar_transaccion();
+		toba::db($id_fuente)->cerrar_transaccion();
 	}
 ?>

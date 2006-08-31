@@ -58,7 +58,7 @@ class nombre_clase extends clase_padre
 	 */
 	function no_me_llames()
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __FUNCTION__, 'Explicar qué cosa usar');	
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, 'Explicar qué cosa usar');	
 	}
 	
 	

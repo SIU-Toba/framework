@@ -63,8 +63,8 @@ class ci_abm_juegos extends toba_ci
 			$t->sincronizar();
 			$this->resetear();
 		}catch(toba_excepcion $e){
-			toba::get_cola_mensajes()->agregar('Error insertando');
-			toba::get_logger()->error( $e->getMessage() );
+			toba::notificacion()->agregar('Error insertando');
+			toba::logger()->error( $e->getMessage() );
 		}
 	}
 

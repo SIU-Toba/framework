@@ -18,9 +18,9 @@ abstract class test_toba extends UnitTestCase
 	protected function restaurar_estado($sentencias)
 	{
 		foreach ($sentencias as $sql) {
-			$rs = toba::get_db('instancia')->Execute($sql);
+			$rs = toba::db('instancia')->Execute($sql);
 			if (!$rs)
-			    $this->Fail("Error restaurando estado:\n$sql\n".toba::get_db('instancia')->ErrorMsg());
+			    $this->Fail("Error restaurando estado:\n$sql\n".toba::db('instancia')->ErrorMsg());
 		}	
 	}
 	

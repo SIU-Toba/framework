@@ -27,7 +27,7 @@ class info_datos_relacion extends info_componente
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear una nueva tabla asociada a la relación",
-			'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'datos_relacion', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id),
@@ -40,7 +40,7 @@ class info_datos_relacion extends info_componente
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central"),
 				'plegado' => true																		
 			);

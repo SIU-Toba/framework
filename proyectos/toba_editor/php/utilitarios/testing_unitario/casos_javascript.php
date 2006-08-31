@@ -1,7 +1,7 @@
 <?php
 	
 $url = toba_recurso::path_apl()."/js/jsunit/testRunner.html?autorun=true&showTestFrame=50&testPage=";
-$path =  toba::get_hilo()->obtener_path().'/www/js/testing/';
+$path =  toba::hilo()->obtener_path().'/www/js/testing/';
 $casos = glob($path."*.html");
 
 echo "<ul>";

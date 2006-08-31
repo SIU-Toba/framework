@@ -12,7 +12,7 @@ class ci_clonador_objetos extends toba_ci
 	
 	function ini()
 	{
-		if (! toba::get_zona()->cargada()) {
+		if (! toba::zona()->cargada()) {
 			throw new toba_excepcion('La operación se debe invocar desde la zona de un item');
 		}
 	}	
@@ -111,7 +111,7 @@ class ci_clonador_objetos extends toba_ci
 		if ($this->datos['con_subclases']) {
 			$directorio = $this->datos['carpeta_subclases'];
 		}
-		list($proyecto_actual, $comp_actual) = toba::get_zona()->get_editable();
+		list($proyecto_actual, $comp_actual) = toba::zona()->get_editable();
 		$id = array('proyecto' => $proyecto_actual, 'componente' => $comp_actual);
 		$info = constructor_toba::get_info($id, null, $this->datos['profundidad']);
 		$nuevos_datos = array('anexo_nombre' => $this->datos['anexo_nombre']);

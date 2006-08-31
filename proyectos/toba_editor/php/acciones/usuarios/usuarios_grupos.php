@@ -35,10 +35,10 @@
 
 		//-[2]- Realizo la TRANSACCION en la base
 		try {
-			toba::get_db()->abrir_transaccion();
+			toba::db()->abrir_transaccion();
 			//1) Borro los permisos existentes
 			$sql = "DELETE FROM apex_usuario_proyecto WHERE proyecto = '$proyecto'\n";
-			toba::get_db()->ejecutar($sql);		
+			toba::db()->ejecutar($sql);		
 			$ok = true;
 			if(isset($permiso)){
 				if(is_array($permiso)){
@@ -46,14 +46,14 @@
 						//2) Inserto los permisos ACTUALIZADOS
 						$sql = "INSERT INTO apex_usuario_proyecto (usuario, proyecto, usuario_grupo_acc, usuario_perfil_datos)
 								VALUES ('$usuario','$proyecto','$grupo','no');\n";
-						toba::get_db()->ejecutar($sql);		
+						toba::db()->ejecutar($sql);		
 					}
 				}
 			}
-			toba::get_db()->cerrar_transaccion();
+			toba::db()->cerrar_transaccion();
 		} catch( toba_excepcion $e ) {
-			toba::get_db()->abortar_transaccion();
-			toba::get_cola_mensajes()->agregar("Error modificando permisos: " . $e->getMessage());
+			toba::db()->abortar_transaccion();
+			toba::notificacion()->agregar("Error modificando permisos: " . $e->getMessage());
 		}
  	}
 	//************************************************************************
@@ -61,7 +61,7 @@
 	//************************************************************************
 ?>
 <br>
-<form  enctype='application/x-www-form-urlencoded' name='$formulario' method='POST' action='<? echo toba::get_vinculador()->generar_solicitud(null,null,array('proyecto'=>$proyecto)) ?>'>
+<form  enctype='application/x-www-form-urlencoded' name='$formulario' method='POST' action='<? echo toba::vinculador()->generar_solicitud(null,null,array('proyecto'=>$proyecto)) ?>'>
 <div align='center'>
 <table width="400" align='center' class='objeto-base'>
 <tr> 
@@ -86,14 +86,14 @@ FROM	apex_usuario u
 			ON p.usuario = u.usuario
 			AND p.proyecto = '$proyecto'
 ORDER BY 2;";
-	$datos = toba::get_db()->consultar($sql);
+	$datos = toba::db()->consultar($sql);
 	if($datos){
 	$sql = "SELECT 	usuario_grupo_acc,
 					nombre
 			FROM 	apex_usuario_grupo_acc
 			WHERE	proyecto = '$proyecto'
 			ORDER BY nombre;";
-	$temp = toba::get_db()->consultar($sql);
+	$temp = toba::db()->consultar($sql);
 	foreach( $temp as $x) {
 		$info_usuarios[$x['usuario_grupo_acc']] = $x['nombre'];
 	}
@@ -108,7 +108,7 @@ ORDER BY 2;";
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
-		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
 				<? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>

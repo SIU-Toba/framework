@@ -25,7 +25,7 @@ class toba_vinculador
 		//if(!isset($_SESSION['toba']['instancia']['vinculos_posibles'])){
 			$this->cargar_vinculos_posibles();			
 		//}
-		$this->prefijo = toba::get_hilo()->prefijo_vinculo();
+		$this->prefijo = toba::hilo()->prefijo_vinculo();
 	}
 
 	/**
@@ -115,7 +115,7 @@ class toba_vinculador
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		$autovinculo = false;
 		if ($item_proyecto == null || $item == null) {
-			$item_solic = toba::get_hilo()->obtener_item_solicitado();
+			$item_solic = toba::hilo()->obtener_item_solicitado();
 			if($item_proyecto==null) { 
 				$item_proyecto = $item_solic[0];
 			}
@@ -135,9 +135,9 @@ class toba_vinculador
 		//-[2]- Determino parametros
 		$parametros_formateados = "";
 		if ($zona){//Hay que propagar la zona?
-			$solicitud_actual = toba::get_solicitud();
-			if ($solicitud_actual->hay_zona() && toba::get_zona()->cargada()) {
-				$editable = $this->variable_a_url(toba::get_zona()->get_editable());
+			$solicitud_actual = toba::solicitud();
+			if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
+				$editable = $this->variable_a_url(toba::zona()->get_editable());
 				$parametros_formateados .= "&". apex_hilo_qs_zona 
 						."=".$editable;
 			}
@@ -157,7 +157,7 @@ class toba_vinculador
 		//Cual es la celda de memoria del proximo request?
 		if(!isset($celda_memoria)){
 			//Por defecto propago la celda actual del HILO
-			$celda_memoria = toba::get_hilo()->get_celda_memoria_actual();
+			$celda_memoria = toba::hilo()->get_celda_memoria_actual();
 		}		
 		$parametros_formateados .= "&". apex_hilo_qs_celda_memoria ."=". $celda_memoria;
 		//La proxima pagina va a CRONOMETRARSE?
@@ -187,7 +187,7 @@ class toba_vinculador
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
 				$parametros_formateados .= $parametros_formateados . "&jmb76=". uniqid("");
-				$vinculo = $vinculo . "&". apex_hilo_qs_parametros ."=". toba::get_encriptador()->cifrar($parametros_formateados);
+				$vinculo = $vinculo . "&". apex_hilo_qs_parametros ."=". toba::encriptador()->cifrar($parametros_formateados);
 			}else{
 				$vinculo = $vinculo . $parametros_formateados;
 			}
@@ -246,7 +246,7 @@ class toba_vinculador
 
 	protected function cargar_vinculos_posibles()
 	{
-		$usuario = toba::get_hilo()->obtener_usuario();
+		$usuario = toba::hilo()->obtener_usuario();
 		$rs = toba_instancia::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;

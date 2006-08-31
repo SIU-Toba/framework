@@ -159,8 +159,8 @@ class toba_datos_relacion extends toba_componente
 		$diagrama .= "}";
 		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
 		$indice = uniqid();
-		toba::get_hilo()->persistir_dato($indice, $parametros);
-		$url = toba::get_vinculador()->crear_vinculo(toba_editor::get_id(), '1000045', array('esquema' => $indice), array('validar' => false));
+		toba::hilo()->persistir_dato($indice, $parametros);
+		$url = toba::vinculador()->crear_vinculo(toba_editor::get_id(), '1000045', array('esquema' => $indice), array('validar' => false));
 		toba_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}
 	
@@ -457,7 +457,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function eliminar()
 	{
-		toba::get_logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
+		toba::logger()->obsoleto(__CLASS__, __METHOD__, "0.8.4", "Usar eliminar_todo");
 		$this->eliminar_todo();	
 	}
 	
@@ -484,7 +484,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	protected function log($txt)
 	{
-		toba::get_logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
+		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
 	}
 	//-------------------------------------------------------------------------------
 }

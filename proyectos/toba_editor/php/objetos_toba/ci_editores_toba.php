@@ -14,7 +14,7 @@ abstract class ci_editores_toba extends toba_ci
 	function ini()
 	{
 		//Cargo el editable de la zona		
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::solicitud()->zona();
 		if ($editable = $zona->get_editable()){
 			list($proyecto, $objeto) = $editable;
 		}	
@@ -31,10 +31,10 @@ abstract class ci_editores_toba extends toba_ci
 			}
 		}
 		//Llegada a un TAB especifico desde el arbol
-		$etapa = toba::get_hilo()->obtener_parametro('etapa');
+		$etapa = toba::hilo()->obtener_parametro('etapa');
 		if( isset($etapa) ) $this->set_pantalla($etapa);
 		//Llegada desde un evento
-		$evento = toba::get_hilo()->obtener_parametro('evento');
+		$evento = toba::hilo()->obtener_parametro('evento');
 		if (isset($evento)) {
 			$this->set_pantalla(3);
 			$this->dependencia('eventos')->set_evento_editado($evento);
@@ -45,12 +45,12 @@ abstract class ci_editores_toba extends toba_ci
 	//Acceso al DATOS_RELACION
 	{
 		if($this->cambio_objeto && !$this->falla_carga){
-			toba::get_logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
+			toba::logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
 			if( $this->dependencia('datos')->cargar( $this->id_objeto ) ){
 				$this->cargado = true;
 				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
 			}else{
-				toba::get_cola_mensajes()->agregar("El elemento seleccionado no existe.","error");
+				toba::notificacion()->agregar("El elemento seleccionado no existe.","error");
 				$this->falla_carga = true;	
 			}
 		}		
@@ -81,9 +81,9 @@ abstract class ci_editores_toba extends toba_ci
 	{
 		$this->get_entidad()->eliminar();
 		$this->elemento_eliminado = true;
-		$zona = toba::get_solicitud()->zona();
+		$zona = toba::solicitud()->zona();
 		$zona->resetear();
-		toba::get_cola_mensajes()->agregar("El elemento ha sido eliminado.", "error");		
+		toba::notificacion()->agregar("El elemento ha sido eliminado.", "error");		
 		admin_util::refrescar_editor_item();
 	}
 	

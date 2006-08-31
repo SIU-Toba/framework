@@ -230,7 +230,7 @@ class manejador_archivos
 	        $filesize = filesize($src);
 	        $src_handle = fopen($src, "r");
 	        if ($src_handle === false) {
-	            toba::get_logger()->error("Comprimir archivo: No se puede abrir $src");
+	            toba::logger()->error("Comprimir archivo: No se puede abrir $src");
 	            return false;
 	        }
 	        if (!file_exists($dst)){
@@ -243,10 +243,10 @@ class manejador_archivos
 	            gzclose($dst_handle);
 	            return true;
 	        } else {
-	            toba::get_logger()->error("Comprimir archivo: $dst ya existe");
+	            toba::logger()->error("Comprimir archivo: $dst ya existe");
 	        }
 	    } else {
-            toba::get_logger()->error("Comprimir archivo: $src no existe");	    	
+            toba::logger()->error("Comprimir archivo: $src no existe");	    	
 	    }
 	    return false;
 	 }	

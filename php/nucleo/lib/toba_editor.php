@@ -44,7 +44,7 @@ class toba_editor
 	*/
 	static function modo_prueba()
 	{
-		if (self::activado() && toba::get_sesion()->activa()) {
+		if (self::activado() && toba::sesion()->activa()) {
 			return $_SESSION['toba']['_editor_']['proyecto'] == toba_proyecto::get_id();
 		}
 		return false;
@@ -160,9 +160,9 @@ class toba_editor
 		$sql = "SELECT grupo_acceso, punto_acceso 
 				FROM apex_admin_param_previsualizazion
 				WHERE proyecto = '" . self::get_proyecto_cargado() . "'
-				AND usuario = '".toba::get_usuario()->get_id()."';";
+				AND usuario = '".toba::usuario()->get_id()."';";
 		//Esto se accede solo desde el ADMIN
-		$datos = toba::get_db()->consultar($sql);
+		$datos = toba::db()->consultar($sql);
 		if ($datos) {
 			return $datos[0];	
 		}
@@ -175,16 +175,16 @@ class toba_editor
 		if (!$rs) {
 			$sql = "INSERT INTO apex_admin_param_previsualizazion (grupo_acceso, punto_acceso, proyecto, usuario) 
 					VALUES ('{$datos['grupo_acceso']}', '{$datos['punto_acceso']}', 
-							'" . self::get_proyecto_cargado() . "', '".toba::get_usuario()->get_id()."');";
+							'" . self::get_proyecto_cargado() . "', '".toba::usuario()->get_id()."');";
 		} else {
 			$sql = "UPDATE apex_admin_param_previsualizazion
 					SET grupo_acceso = '{$datos['grupo_acceso']}', 
 						punto_acceso = '{$datos['punto_acceso']}'
 					WHERE proyecto = '" . self::get_proyecto_cargado() . "'
-					AND usuario = '".toba::get_usuario()->get_id()."';";
+					AND usuario = '".toba::usuario()->get_id()."';";
 		}
 		//Esto se accede solo desde el ADMIN
-		toba::get_db()->ejecutar($sql);
+		toba::db()->ejecutar($sql);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -297,7 +297,7 @@ class toba_editor
 		if(!isset($opciones['prefijo'])) $opciones['prefijo'] = self::get_punto_acceso_editor();
 		if(!isset($opciones['validar'])) $opciones['validar'] = false;
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
-		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
+		$url = toba::vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
 		$html = "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
 		$html .= toba_recurso::imagen_apl($imagen,true);//,null,null,$vinculo['tip']);
 		$html .= '</a>';
@@ -322,7 +322,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=> $proyecto . apex_qs_separador . $item);
-		$vinculos[0]['url'] = toba::get_vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
+		$vinculos[0]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
 		$vinculos[0]['frame'] = 'frame_centro';
 		$vinculos[0]['imagen'] = 'objetos/editar.gif';
 		$vinculos[0]['tip'] = 'Ir al editor del item.';
@@ -330,14 +330,14 @@ class toba_editor
 		//Catalogo Unificado
 		$parametros = array("proyecto"=>$proyecto,"item"=>$item);
 		$opciones['celda_memoria'] = 'lateral';
-		$vinculos[1]['url'] = toba::get_vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
+		$vinculos[1]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
 		$vinculos[1]['frame'] = 'frame_lista';
 		$vinculos[1]['imagen'] = 'objetos/arbol.gif';
 		$vinculos[1]['tip'] = 'Ver composicion del ITEM.';
 
 /*		//Consola JS
 		//-- Link a la consola JS
-		$vinculos[2]['url'] = toba::get_vinculador()->crear_vinculo(self::get_id(),'/admin/objetos/consola_js');
+		$vinculos[2]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/objetos/consola_js');
 		$vinculos[2]['frame'] = 'frame_lista';
 		$vinculos[2]['imagen'] = 'solic_consola.gif';
 		$vinculos[2]['tip'] = 'Ir al editor del item.';
@@ -354,7 +354,7 @@ class toba_editor
 		
 		//Vinculo al EDITOR del OBJETO
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente));
-		$vinculos[0]['url'] = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$vinculos[0]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$vinculos[0]['frame'] = 'frame_centro';
 		$vinculos[0]['imagen'] = 'objetos/editar.gif';
 		$vinculos[0]['tip'] = 'Ir al editor del componente.';
@@ -367,7 +367,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
-		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_apl('objetos/editar.gif',true);
@@ -382,7 +382,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
-		$url = toba::get_vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor' style='position:absolute'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_apl('objetos/editar.gif',true);

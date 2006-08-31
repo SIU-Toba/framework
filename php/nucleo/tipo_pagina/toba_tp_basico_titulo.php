@@ -7,7 +7,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 
 	protected function barra_superior()
 	{
-		$info = toba::get_solicitud()->get_datos_item();			
+		$info = toba::solicitud()->get_datos_item();			
 		echo "<div class='item-barra'>";
 		if (trim($info['item_descripcion']) != '') {
 			echo "<div class='item-barra-ayuda'>";
