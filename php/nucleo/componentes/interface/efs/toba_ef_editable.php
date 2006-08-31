@@ -111,7 +111,7 @@ class toba_ef_editable extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/mascaras', 'efs/ef', 'efs/toba_ef_editable');
+		$consumos = array('efs/mascaras', 'efs/ef', 'efs/ef_editable');
 		return $consumos;
 	}
 
@@ -122,7 +122,7 @@ class toba_ef_editable extends ef
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable({$this->parametros_js()})";
+		return "new ef_editable({$this->parametros_js()})";
 	}	
 	
 }
@@ -237,7 +237,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_numero({$this->parametros_js()})";
+		return "new ef_editable_numero({$this->parametros_js()})";
 	}	
 }
 //########################################################################################################
@@ -251,7 +251,7 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_moneda({$this->parametros_js()})";
+		return "new ef_editable_moneda({$this->parametros_js()})";
 	}	
 }
 
@@ -278,7 +278,7 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_porcentaje({$this->parametros_js()})";
+		return "new ef_editable_porcentaje({$this->parametros_js()})";
 	}	
 }
 
@@ -319,7 +319,7 @@ class toba_ef_editable_clave extends toba_ef_editable
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_clave({$this->parametros_js()})";
+		return "new ef_editable_clave({$this->parametros_js()})";
 	}
 }
 //########################################################################################################
@@ -415,7 +415,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
    
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_fecha({$this->parametros_js()})";
+		return "new ef_editable_fecha({$this->parametros_js()})";
 	}		   
 }
 //########################################################################################################
@@ -517,7 +517,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_editable_multilinea({$this->parametros_js()})";
+		return "new ef_editable_multilinea({$this->parametros_js()})";
 	}			
 	
 	function parametros_js()

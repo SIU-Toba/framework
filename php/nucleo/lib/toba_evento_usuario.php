@@ -119,8 +119,8 @@ class toba_evento_usuario
 	function get_imagen()
 	{
 		if (isset($this->datos['imagen']) && $this->datos['imagen'] != '') {
-			if (isset($this->datos['imagen_toba_recurso_origen'])) {
-				$img = toba_recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_toba_recurso_origen']);
+			if (isset($this->datos['imagen_recurso_origen'])) {
+				$img = toba_recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_recurso_origen']);
 			} else {
 				$img = $this->datos['imagen'];
 			}
@@ -164,7 +164,7 @@ class toba_evento_usuario
 		} else {
 			$origen = 'apex';	
 		}
-		$this->datos['imagen_toba_recurso_origen'] = $origen;
+		$this->datos['imagen_recurso_origen'] = $origen;
 		$this->datos['imagen'] = $url_relativa;
 	}
 

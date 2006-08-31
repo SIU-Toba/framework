@@ -21,7 +21,7 @@ class componente_ei extends componente_toba
 												sobre_fila				as sobre_fila,
 												confirmacion			as confirmacion,
 												estilo					as estilo,
-												imagen_toba_recurso_origen	as imagen_toba_recurso_origen,
+												imagen_recurso_origen	as imagen_recurso_origen,
 												imagen					as imagen,
 												en_botonera				as en_botonera,
 												ayuda					as ayuda,

@@ -220,7 +220,7 @@ class toba_instancia
 		self::get_db()->ejecutar($sql);
 	}
 
-	static function registrar_toba_solicitud_consola($id, $usuario, $llamada)
+	static function registrar_solicitud_consola($id, $usuario, $llamada)
 	{
 		$sql = "INSERT INTO apex_toba_solicitud_consola (toba_solicitud_consola, usuario, llamada) VALUES ('$id','$usuario','$llamada');";
 		self::get_db()->ejecutar($sql);

@@ -103,13 +103,13 @@ class toba_ef_upload extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/ef','efs/toba_ef_upload');
+		$consumos = array('efs/ef','efs/ef_upload');
 		return $consumos;
 	}
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_upload({$this->parametros_js()})";
+		return "new ef_upload({$this->parametros_js()})";
 	}
 	
 }

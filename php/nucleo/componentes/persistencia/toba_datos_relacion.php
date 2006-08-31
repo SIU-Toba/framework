@@ -1,6 +1,6 @@
 <?
 require_once("nucleo/componentes/objeto.php");
-require_once("toba_toba_relacion_entre_tablas.php");
+require_once("toba_relacion_entre_tablas.php");
 require_once("nucleo/componentes/interface/toba_ei_esquema.php");
 require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
@@ -9,7 +9,7 @@ require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topol
  *  @subpackage Persistencia
  *  @todo En el dump_esquema incluir la posición actual de los cursores
  */
-class toba_datosrelacion extends objeto
+class toba_datos_relacion extends objeto
 {
 	protected $relaciones = array();		
 	protected $tablas_raiz;
@@ -64,7 +64,7 @@ class toba_datosrelacion extends objeto
 	}
 
 	/**
-	 * Para cada relación definida crea una toba_toba_relacion_entre_tablas
+	 * Para cada relación definida crea una toba_relacion_entre_tablas
 	 * Determina cual es la tabla raiz
 	 */
 	private function crear_relaciones()
@@ -75,7 +75,7 @@ class toba_datosrelacion extends objeto
 				$id_padre = $this->info_relaciones[$a]['padre_id'];
 				$id_hijo = $this->info_relaciones[$a]['hijo_id'];
 				$id_relacion = $id_padre.'-'.$id_hijo;
-				$this->relaciones[$id_relacion] = new toba_toba_relacion_entre_tablas(	$this->dependencias[ $id_padre ],
+				$this->relaciones[$id_relacion] = new toba_relacion_entre_tablas(	$this->dependencias[ $id_padre ],
 																	explode(",",$this->info_relaciones[$a]['padre_clave']),
 																	$id_padre,
 																	$this->dependencias[ $id_hijo ],
@@ -171,7 +171,7 @@ class toba_datosrelacion extends objeto
 		foreach ($nodo->getNeighbours() as $nodo_vecino) {
 			$datos_vecino = $nodo_vecino->getData();
 			
-			//Busco los toba_toba_relacion_entre_tablas correspondientes
+			//Busco los toba_relacion_entre_tablas correspondientes
 			$hijo_id = $datos_vecino['identificador'];
 			$padre_id = $datos['identificador'];
 			$relacion = $this->relaciones[$padre_id."-".$hijo_id];
@@ -213,7 +213,7 @@ class toba_datosrelacion extends objeto
 
 	/**
 	 * Retorna el orden hacia adelante en el cual se deben sincronizar las tablas
-	 * @return array Arreglo de toba_datostabla
+	 * @return array Arreglo de toba_datos_tabla
 	 */
 	function orden_sincronizacion()
 	{
@@ -228,7 +228,7 @@ class toba_datosrelacion extends objeto
 	/**
 	 * Retorna el orden hacia adelante en el cual se deben cargar las tablas
 	 * Por defecto es el mismo que el orden de sincronización
-	 * @return array Arreglo de toba_datostabla
+	 * @return array Arreglo de toba_datos_tabla
 	 */
 	function orden_carga()
 	{
@@ -287,7 +287,7 @@ class toba_datosrelacion extends objeto
 	/**
 	 *	Retorna un datos_tabla
 	 * @param string $tabla Id. de la tabla en la relación
-	 * @return toba_datostabla
+	 * @return toba_datos_tabla
 	 */
 	function tabla($tabla)
 	//Devuelve una referencia a una tabla para trabajar con ella

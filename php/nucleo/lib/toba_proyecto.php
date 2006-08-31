@@ -278,7 +278,7 @@ class toba_proyecto
 						i.item as						item,
 						i.zona_orden as					orden,
 						i.imagen as						imagen,
-						i.imagen_toba_recurso_origen as		imagen_origen,
+						i.imagen_recurso_origen as		imagen_origen,
 						i.nombre as						nombre,
 						i.descripcion as				descripcion
 				FROM	apex_item i,

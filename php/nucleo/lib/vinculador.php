@@ -38,7 +38,7 @@ class vinculador
 	 * 					zona => Activa la propagación automática del editable en la zona,
 	 * 					cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse,
 	 * 					param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL.
-	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_toba_recurso_origen, imagen,
+	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
 	 * 					texto => Texto del vínculo
 	 * 					menu => El vinculo esta solicitado por una opción menu?
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
@@ -271,7 +271,7 @@ class vinculador
 		@@acceso: interno
 		@@desc: Genera un VINCULO
 		@@param: string | URL
-		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_toba_recurso_origen, imagen
+		@@param: array | Parametros para la construccion del HTML. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
 		@@retorno: string | HTML del vinculo generado
 	*/
 	protected function generar_html($url, $parametros)
@@ -322,10 +322,10 @@ class vinculador
 		}
 
 		if( isset($parametros['imagen']) && 
-				isset($parametros['imagen_toba_recurso_origen'])){
-			if($parametros['imagen_toba_recurso_origen']=="apex"){
+				isset($parametros['imagen_recurso_origen'])){
+			if($parametros['imagen_recurso_origen']=="apex"){
 				$html.= toba_recurso::imagen_apl($parametros['imagen'],true,null,null,$parametros['texto']);
-			}elseif($parametros['imagen_toba_recurso_origen']=="proyecto"){
+			}elseif($parametros['imagen_recurso_origen']=="proyecto"){
 				$html.= toba_recurso::imagen_pro($parametros['imagen'],true,null,null,$parametros['texto']);
 			}else{
 				$html.= $parametros['texto'];

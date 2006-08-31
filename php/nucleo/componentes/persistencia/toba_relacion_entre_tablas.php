@@ -9,12 +9,12 @@
  * @todo actualizacion dinamica del MAPEO de filas
  * @todo cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion
  */
-class toba_toba_relacion_entre_tablas
+class toba_relacion_entre_tablas
 {
-	protected $tabla_padre;					// Referencia al toba_datostabla PADRE
+	protected $tabla_padre;					// Referencia al toba_datos_tabla PADRE
 	protected $tabla_padre_claves;
 	protected $tabla_padre_id;
-	protected $tabla_hijo;					// Referencia al toba_datostabla HIJO
+	protected $tabla_hijo;					// Referencia al toba_datos_tabla HIJO
 	protected $tabla_hijo_claves;
 	protected $tabla_hijo_id;
 	protected $mapeo_campos = array();

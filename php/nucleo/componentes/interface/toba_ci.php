@@ -158,7 +158,7 @@ class toba_ci extends toba_ei
 	// hay que redeclarar este metodo con la misma regla utilizada en 
 	// por la operacion
 	{
-		return $this->get_dependencias_clase('toba_ci');
+		return $this->get_dependencias_clase('objeto_ci');
 	}
 	
 	//------------------------------------------------

@@ -178,7 +178,6 @@ class form {
             $enctype="application/x-www-form-urlencoded";
         }
         return  "\n<form  enctype='$enctype' name='$nombre' onsubmit='return false;' method='$method' action='$action' $extra>\n";
-//        		"<input type='submit' style='display:none' value='HEY' onclick=\"alert('hey');toba_ci_1000165.set_evento(new evento_ei('Ingresar', true, '' ));return false;\">";
     }
 //________________________________________________________________________________________________________
 

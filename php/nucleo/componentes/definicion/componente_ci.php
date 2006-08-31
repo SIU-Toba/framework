@@ -16,7 +16,7 @@ class componente_ci extends componente_ei
 		$estructura[4]['tabla'] = 'apex_objeto_mt_me';
 		$estructura[4]['registros'] = '1';
 		$estructura[4]['obligatorio'] = true;
-		$estructura[5]['tabla'] = 'apex_toba_ci_pantalla';
+		$estructura[5]['tabla'] = 'apex_objeto_ci_pantalla';
 		$estructura[5]['registros'] = 'n';
 		$estructura[5]['obligatorio'] = true;
 		return $estructura;		
@@ -49,17 +49,17 @@ class componente_ci extends componente_ei
 													etiqueta			  	as etiqueta,
 													descripcion			  	as descripcion,
 													tip						as tip,
-													imagen_toba_recurso_origen	as imagen_toba_recurso_origen,
+													imagen_recurso_origen	as imagen_recurso_origen,
 													imagen					as imagen,
 													objetos				  	as objetos,
 													eventos					as eventos,
 													orden					as orden,
 													subclase				as subclase,
 													subclase_archivo		as subclase_archivo
-									 	FROM	apex_toba_ci_pantalla
-										WHERE	toba_ci_proyecto='$proyecto'";
+									 	FROM	apex_objeto_ci_pantalla
+										WHERE	objeto_ci_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_ci_me_pantalla']['sql'] .= "	AND		toba_ci='$componente' ";	
+			$sql['info_ci_me_pantalla']['sql'] .= "	AND		objeto_ci='$componente' ";	
 		}
 		$sql['info_ci_me_pantalla']['sql'] .= "ORDER	BY	orden;";
 		$sql['info_ci_me_pantalla']['registros']='n';

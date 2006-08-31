@@ -8,17 +8,17 @@ class tp_popup extends tp_basico_titulo
 	{
 		parent::comienzo_cuerpo();
 		$hilo = toba::get_hilo();
-	    $toba_ef_popup = $hilo->obtener_parametro('toba_ef_popup');
-	    if ($toba_ef_popup == null) {
-	        $toba_ef_popup = $hilo->recuperar_dato('toba_ef_popup');
+	    $ef_popup = $hilo->obtener_parametro('ef_popup');
+	    if ($ef_popup == null) {
+	        $ef_popup = $hilo->recuperar_dato('ef_popup');
 	    }
-		$hilo->persistir_dato('toba_ef_popup', $toba_ef_popup);
+		$hilo->persistir_dato('ef_popup', $ef_popup);
 	
 		echo js::abrir();
 		echo "
 			function seleccionar(clave, descripcion)
 			{
-				window.opener.popup_callback('". $toba_ef_popup ."', clave, descripcion);
+				window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
 				window.close();
 			}
 		";

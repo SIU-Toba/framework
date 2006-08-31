@@ -145,8 +145,8 @@ class toba_ei_pantalla extends toba_ei
 			$id = $this->info_ci_me_pantalla[$a]["identificador"];
 			$this->lista_tabs[$id]['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
 			$this->lista_tabs[$id]['tip'] = $this->info_ci_me_pantalla[$a]["tip"];
-			if ($this->info_ci_me_pantalla[$a]["imagen_toba_recurso_origen"]) {
-				if ($this->info_ci_me_pantalla[$a]["imagen_toba_recurso_origen"] == 'apex') {
+			if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"]) {
+				if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"] == 'apex') {
 					$this->lista_tabs[$id]['imagen'] = toba_recurso::imagen_apl($this->info_ci_me_pantalla[$a]["imagen"], false);
 				} else {
 					$this->lista_tabs[$id]['imagen'] = toba_recurso::imagen_pro($this->info_ci_me_pantalla[$a]["imagen"], false);

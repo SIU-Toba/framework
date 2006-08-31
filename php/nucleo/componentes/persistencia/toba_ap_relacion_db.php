@@ -8,12 +8,12 @@ require_once("ap.php");
  */
 class toba_ap_relacion_db implements toba_ap_relacion
 {
-	protected $objeto_relacion; 				//toba_datosrelacion que persiste
+	protected $objeto_relacion; 				//toba_datos_relacion que persiste
 	protected $utilizar_transaccion;			//Determina si la sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $retrazar_constraints=false;		//Intenta retrazar el chequeo de claves foraneas hasta el fin de la transacción
 	
 	/**
-	 * @param toba_datosrelacion $objeto_relacion Relación que persiste
+	 * @param toba_datos_relacion $objeto_relacion Relación que persiste
 	 */
 	function __construct($objeto_relacion)
 	{
@@ -69,7 +69,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	public function cargar_por_clave($clave)
 	{
-		asercion::es_array($clave,"AP toba_datosrelacion -  ERROR: La clave debe ser un array");
+		asercion::es_array($clave,"AP toba_datos_relacion -  ERROR: La clave debe ser un array");
 		$this->objeto_relacion->resetear();		
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
 		$tablas = $this->objeto_relacion->orden_carga();		

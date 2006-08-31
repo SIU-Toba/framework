@@ -218,7 +218,7 @@ abstract class toba_ef_multi_seleccion extends ef
 	
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/ef', 'efs/toba_ef_multi_seleccion');
+		$consumos = array('efs/ef', 'efs/ef_multi_seleccion');
 		return $consumos;
 	}
 		
@@ -306,7 +306,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_multi_seleccion_lista({$this->parametros_js()})";
+		return "new ef_multi_seleccion_lista({$this->parametros_js()})";
 	}	
 	
 }
@@ -318,7 +318,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_multi_seleccion_check({$this->parametros_js()})";
+		return "new ef_multi_seleccion_check({$this->parametros_js()})";
 	}	
 	
 	function get_input()
@@ -391,7 +391,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_multi_seleccion_doble({$this->parametros_js()})";
+		return "new ef_multi_seleccion_doble({$this->parametros_js()})";
 	}	
 		
 	function get_input()

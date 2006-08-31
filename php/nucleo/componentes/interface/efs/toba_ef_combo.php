@@ -159,7 +159,7 @@ abstract class ef_seleccion extends ef
 
 	function get_consumo_javascript()
 	{
-		$consumos = array('efs/ef','efs/toba_ef_combo');
+		$consumos = array('efs/ef','efs/ef_combo');
 		return $consumos;
 	}	
 	
@@ -195,7 +195,7 @@ class toba_ef_combo extends ef_seleccion
 
 	function crear_objeto_js()
 	{
-		return "new toba_ef_combo({$this->parametros_js()})";
+		return "new ef_combo({$this->parametros_js()})";
 	}
 }
 

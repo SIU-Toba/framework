@@ -7,13 +7,13 @@ if (!defined("apex_db_registros_separador")) {
 }
 
 /**
- * Administrador de persistencia a una tabla de DB desde un toba_datostabla
+ * Administrador de persistencia a una tabla de DB desde un toba_datos_tabla
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  * 
  * @todo Poder desactivar el control de sincronizacion (¿se necesita esto?)
  * @todo Como se implementa la carga de columnas externas??
  * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
- * @todo Hay que definir el manejo de claves (en base a toba_datosrelacion)	
+ * @todo Hay que definir el manejo de claves (en base a toba_datos_relacion)	
  * @todo Esta clase no deberia utilizar ADOdb!!!
  * @package Objetos
  * @subpackage Persistencia
@@ -46,7 +46,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	
 	/**
-	 * @param toba_datostabla $datos_tabla Tabla que persiste
+	 * @param toba_datos_tabla $datos_tabla Tabla que persiste
 	 */
 	function __construct($datos_tabla)
 	{

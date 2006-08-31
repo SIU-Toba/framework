@@ -106,7 +106,7 @@ class toba_ef_popup extends toba_ef_editable
     
 	function get_consumo_javascript()
 	{
-		return array_merge(ef::get_consumo_javascript(), array('efs/toba_ef_popup'));
+		return array_merge(ef::get_consumo_javascript(), array('efs/ef_popup'));
 	}	
 	
 	function parametros_js()
@@ -117,7 +117,7 @@ class toba_ef_popup extends toba_ef_editable
 	
 	function crear_objeto_js()
 	{
-		return "new toba_ef_popup({$this->parametros_js()})";
+		return "new ef_popup({$this->parametros_js()})";
 	}		
 	
 	function resetear_estado()

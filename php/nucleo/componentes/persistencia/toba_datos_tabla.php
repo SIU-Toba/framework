@@ -15,7 +15,7 @@ require_once("toba_tipo_datos.php");
  * @subpackage Persistencia
  * @todo Control de FK y PK
  */
-class toba_datostabla extends objeto
+class toba_datos_tabla extends objeto
 {
 	protected $persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
@@ -105,7 +105,7 @@ class toba_datostabla extends objeto
 	
 	/**
 	 * Retorna las relaciones con las tablas padre
-	 * @return toba_toba_relacion_entre_tablas
+	 * @return toba_relacion_entre_tablas
 	 */
 	function get_relaciones_con_padres()
 	{
@@ -734,7 +734,7 @@ class toba_datostabla extends objeto
 	 */
 	function procesar_filas($filas)
 	{
-		asercion::es_array($filas,"toba_datostabla - El parametro no es un array.");
+		asercion::es_array($filas,"toba_datos_tabla - El parametro no es un array.");
 		//--- Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
