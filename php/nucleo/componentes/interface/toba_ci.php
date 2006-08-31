@@ -562,6 +562,11 @@ class toba_ci extends toba_ei
 			$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
 			require_once('toba_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			
+			if(!isset($id_pantalla)) {
+				//Se esta consumiendo la pantalla antes de la configuracion,
+				//y sin un set_pantalla de por medio: utilizo la misma pantalla de los eventos.
+				$id_pantalla = $this->pantalla_id_eventos;
+			}	
 			$info_pantalla = $this->get_info_pantalla($id_pantalla);
 			$info = array('info' => $this->info,
 						 'info_ci' => $this->info_ci, 
@@ -594,7 +599,7 @@ class toba_ci extends toba_ei
 	protected function set_pantalla($id)
 	{
 		if (isset($this->pantalla_servicio)) {
-			throw new toba_excepcion($this->get_txt()."Solo es posible cambiar la pantalla actual previo a la etapa de configuración.");
+			throw new excepcion_toba($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
 		}
 		$this->pantalla_id_servicio	= $id;
 	}

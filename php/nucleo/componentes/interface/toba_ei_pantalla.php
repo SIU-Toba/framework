@@ -12,6 +12,7 @@ class toba_ei_pantalla extends toba_ei
 	protected $dependencias;
 	protected $nombre_formulario;					// Nombre del <form> del MT
 	protected $submit;								// Boton de SUBMIT
+	protected $id_en_controlador;
 
 	function __construct($info_pantalla, $submit, $objeto_js)
 	{
@@ -109,6 +110,10 @@ class toba_ei_pantalla extends toba_ei
 	
 	function eliminar_tab($id)
 	{
+		if($id == $this->id_en_controlador ) {
+			throw new toba_excepcion_def($this->get_txt(). 
+					'No es posible eliminar el tab correspondiente a la pantalla que se esta mostrando');
+		}
 		if (isset($this->lista_tabs[$id])) {
 			unset($this->lista_tabs[$id]);
 		} else {
@@ -379,11 +384,11 @@ class toba_ei_pantalla extends toba_ei
 			if ($this->id_en_controlador == $id) {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
-				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor<a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor<a id='".$this->submit.'_cambiar_tab_'.$id."' style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			} else {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
-				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor<a style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor<a id='".$this->submit.'_cambiar_tab_'.$id."' style='$estilo_a' href='#' $acceso $js>$html</a></li>";
 			}
 			$id_tab++;			
 		}
@@ -405,11 +410,16 @@ class toba_ei_pantalla extends toba_ei
 			$html .= $acceso[0];
 			$tecla = $acceso[1];
 			$js = "onclick=\"{$this->objeto_js}.set_evento( new evento_ei('cambiar_tab_$id', true, ''));\"";
+
+			$editor = '';
+			if (toba_editor::modo_prueba()) {
+				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+			}
 			if ( $this->id_en_controlador == $id ) {
-				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$html</div></div>";
+				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor $html</div></div>";
 			} else {
 				$atajo = toba_recurso::ayuda($tecla, str_replace("'", "\\'",$tip), 'ci-tabs-v-boton');
-				echo "<div class='ci-tabs-v-solapa'>";
+				echo "<div class='ci-tabs-v-solapa'>$editor";
 				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo $js>$html</a>";
 				echo "</div>";
 			}
@@ -476,7 +486,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();	
 		//Crea le objeto CI
-		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}', '{$this->id_en_controlador}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();

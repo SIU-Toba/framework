@@ -3,11 +3,12 @@ var def = ci.prototype;
 def.constructor = ci;
 //--------------------------------------------------------------------------------
 //Clase ci 
-function ci(instancia, form, input_submit) {
+function ci(instancia, form, input_submit, id_en_controlador) {
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form;									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
-	this.controlador = null;									//CI contenedor
+	this._id_en_controlador = id_en_controlador;		//ID del tab actual
+	this.controlador = null;							//CI contenedor
 	this._deps = {};									//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
@@ -186,6 +187,21 @@ function ci(instancia, form, input_submit) {
 			}
 		}
 	};
+
+	def.mostrar_tab = function (tab, mostrar) {
+		if (tab == this._id_en_controlador) {
+			cola_mensajes.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
+			cola_mensajes.mostrar();
+			return;
+		}
+		var elemento = document.getElementById(this._input_submit + '_cambiar_tab_' + tab);
+		var elemento_tab = elemento.parentNode;
+		if (! mostrar) {
+			elemento_tab.style.display = 'none';
+		} else {
+			elemento_tab.style.display = '';
+		}		
+	}
 
 	def.ir_a_pantalla = function(pantalla) {
 		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));

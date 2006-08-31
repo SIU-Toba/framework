@@ -86,7 +86,7 @@ abstract class toba_ei extends toba_componente
 			return $this->eventos_usuario_utilizados[$id];
 		} else {
 			if(isset($this->eventos_usuario[$id])){
-				throw new toba_excepcion($this->get_txt(). " El EVENTO '$id' no esta ASOCIADO actualmente al componente.");
+				throw new excepcion_toba($this->get_txt(). " El EVENTO '$id' no esta asociado actualmente al componente.");
 			} else {
 				throw new toba_excepcion($this->get_txt(). " El EVENTO '$id' no está definido.");
 			}
@@ -161,7 +161,7 @@ abstract class toba_ei extends toba_componente
 	protected function reportar_evento($evento)
 	{
 		if(!isset( $this->memoria['eventos'][$evento] )){
-			throw new toba_excepcion('ERROR EI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
+			throw new excepcion_toba($this->get_txt() . ' error EI - Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
 		}
 		$parametros = func_get_args();
 		$parametros	= array_merge(array($this->id_en_controlador), $parametros);

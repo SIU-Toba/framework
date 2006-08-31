@@ -812,6 +812,9 @@ class toba_datos_tabla extends toba_componente
 	 */
 	private function validar_fila($fila, $id=null)
 	{
+		if(!is_array($fila)){
+			throw new excepcion_toba($this->get_txt() . ' La fila debe ser una array');	
+		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
 		$this->control_valores_unicos_fila($fila, $id);
