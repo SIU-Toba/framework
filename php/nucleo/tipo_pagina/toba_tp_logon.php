@@ -1,7 +1,7 @@
 <?
 require_once("toba_tp_basico.php");
 
-class tp_logon extends tp_basico
+class toba_tp_logon extends toba_tp_basico
 {
 
 	function pre_contenido()

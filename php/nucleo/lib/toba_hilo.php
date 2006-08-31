@@ -29,7 +29,7 @@ define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "toba-dest");
 //-- WDDX
 
-class hilo
+class toba_hilo
 /* Todas las preguntas sobre el ESTADO de la aplicacion deberian caer en esta clase:
 * 	- El GET a travez del array de PARAMETROS
 * 	- La sesion a travez de la MEMORIA
@@ -50,7 +50,7 @@ class hilo
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new hilo();
+			self::$instancia = new toba_hilo();
 		}
 		return self::$instancia;		
 	}

@@ -18,7 +18,7 @@ class ci_catalogo_items extends ci_catalogo
 			$this->s__opciones['inicial'] = $item_selecc;
 		}
 		
-		$this->catalogador = new catalogo_items(editor::get_proyecto_cargado());		
+		$this->catalogador = new catalogo_items(toba_editor::get_proyecto_cargado());		
 	}
 
 	function carpetas_posibles()
@@ -35,7 +35,7 @@ class ci_catalogo_items extends ci_catalogo
 				}else{
 					$inden = "";
 				}
-				$datos[] =  array('proyecto' => editor::get_proyecto_cargado(),
+				$datos[] =  array('proyecto' => toba_editor::get_proyecto_cargado(),
 									'id' => $carpeta->get_id(), 
 									'nombre' => $inden . $carpeta->nombre());
 			}

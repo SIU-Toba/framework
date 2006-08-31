@@ -134,7 +134,7 @@ echo '<div style="text-align:left">';
 				pant.identificador = dep.identificador		-- Mismo id
 			AND	pant.objeto_ci_proyecto = dep.proyecto		-- Mismo proy.
 			AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
-			AND dep.proyecto = '".editor::get_proyecto_cargado()."'
+			AND dep.proyecto = '".toba_editor::get_proyecto_cargado()."'
 	";
 	$rs = contexto_info::get_db()->consultar($sql);
 	if (! empty($rs)) {
@@ -164,7 +164,7 @@ echo '<div style="text-align:left">';
 	$prohibidos[] = 'filtrar_evt__';
 	$prohibidos[] = 'modificar_vinculo__';
 	
-	$dir = toba_instancia::get_path_proyecto(editor::get_proyecto_cargado());
+	$dir = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);
 	echo "<h2>Métodos obsoletos</h2> (no busca por extender_objeto_js de los cis)";
 	echo "<ul style='list-style-type:none'>";

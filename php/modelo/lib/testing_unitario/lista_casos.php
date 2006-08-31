@@ -12,7 +12,7 @@ class lista_casos
 		} else {
 			$proyecto = contexto_info::get_proyecto();
 		}
-		$path = info_instancia::get_path_proyecto($proyecto)."/php/testing";
+		$path = toba_instancia::get_path_proyecto($proyecto)."/php/testing";
 		return $path;
 	}
 	

@@ -45,7 +45,7 @@ class ci_clonador_items extends toba_ci
 	{
 		if (!isset($this->opciones)) {
 			$this->opciones = array();
-			$this->opciones['proyecto'] = editor::get_proyecto_cargado();
+			$this->opciones['proyecto'] = toba_editor::get_proyecto_cargado();
 		}
 		return $this->opciones;
 	}

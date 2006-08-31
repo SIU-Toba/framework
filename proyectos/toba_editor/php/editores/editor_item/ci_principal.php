@@ -156,7 +156,7 @@ class ci_principal extends toba_ci
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
-		$grupos = dao_permisos::get_grupos_acceso(editor::get_proyecto_cargado());
+		$grupos = dao_permisos::get_grupos_acceso(toba_editor::get_proyecto_cargado());
 		$datos = array();
 		foreach ($grupos as $grupo) {
 			//El grupo esta asignado al item?
@@ -216,7 +216,7 @@ class ci_principal extends toba_ci
 	function evt__procesar()
 	{
 		//Seteo los datos asociados al uso de este editor
-		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
+		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
 		if (! isset($this->id_item)) {		//Si el item es nuevo

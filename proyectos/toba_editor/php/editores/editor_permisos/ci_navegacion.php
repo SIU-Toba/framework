@@ -67,7 +67,7 @@ class ci_navegacion extends toba_ci
 	
 	function evt__guardar()
 	{
-		$this->get_relacion()->tabla('permiso')->set_columna_valor('proyecto', editor::get_proyecto_cargado());
+		$this->get_relacion()->tabla('permiso')->set_columna_valor('proyecto', toba_editor::get_proyecto_cargado());
 		$this->get_relacion()->sincronizar();
 		$this->evt__cancelar();
 	}

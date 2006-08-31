@@ -29,7 +29,7 @@ class info_datos_tabla extends info_componente
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/php", $param_editores,
+				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central"),
 				'plegado' => true																		
 			);
@@ -46,9 +46,9 @@ class info_datos_tabla extends info_componente
 		if (isset($this->datos['info_estructura']['ap_sub_clase_archivo'])) {
 			$archivo = $this->datos['info_estructura']['ap_sub_clase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = info_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
+			$path_origen = toba_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
 			if (isset($proyecto_dest)) {
-				$path_destino = info_instancia::get_path_proyecto($proyecto_dest)."/php/";
+				$path_destino = toba_instancia::get_path_proyecto($proyecto_dest)."/php/";
 			} else {
 				$path_destino = $path_origen;	
 			}

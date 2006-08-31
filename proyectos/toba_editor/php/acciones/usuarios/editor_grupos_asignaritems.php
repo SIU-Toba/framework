@@ -8,7 +8,7 @@
 	define('separador_camino', '_%_');
 
 	$grupo = $editable[1];
-	$arbol = new catalogo_items(editor::get_proyecto_cargado());
+	$arbol = new catalogo_items(toba_editor::get_proyecto_cargado());
 	$arbol->cargar(array());
 	$arbol->sacar_publicos();
 

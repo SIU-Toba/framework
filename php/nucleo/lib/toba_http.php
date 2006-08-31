@@ -1,6 +1,6 @@
 <?php
 
-class http
+class toba_http
 {
 //Maneja HEADERS de HTTP.
 //Atencion, hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
@@ -39,12 +39,12 @@ class http
 		//	cuando la pagina anterior fue solicitada con un POST y se presiona el boton BACK
 		//	se muestra un mensaje de pagina caducada y un usuario puede pensar que es un error del sistema
 		//	Este error de transparencia del cache esta comentado en el RFC del HTTP 
-		http::encoding();
+		toba_http::encoding();
 		if( acceso_post() ){
 			if(!headers_sent()){
-				http::cache();
+				toba_http::cache();
 			}else{
-				http::no_cache();
+				toba_http::no_cache();
 			}
 		}
 	}

@@ -67,13 +67,13 @@ class ci_relaciones extends toba_ci
 		//-- PADRE --
 		$padre = explode(",",$datos['padre']);
 		$datos['padre_id'] = $padre[0];
-		$datos['padre_proyecto'] = editor::get_proyecto_cargado();
+		$datos['padre_proyecto'] = toba_editor::get_proyecto_cargado();
 		$datos['padre_objeto'] = $padre[1];
 		unset($datos['padre']);
 		//-- HIJO --
 		$hijo = explode(",",$datos['hija']);
 		$datos['hijo_id'] = $hijo[0];
-		$datos['hijo_proyecto'] = editor::get_proyecto_cargado();
+		$datos['hijo_proyecto'] = toba_editor::get_proyecto_cargado();
 		$datos['hijo_objeto'] = $hijo[1];
 		unset($datos['hija']);
 		return $datos;

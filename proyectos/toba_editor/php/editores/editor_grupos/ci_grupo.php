@@ -33,7 +33,7 @@ class ci_grupo extends toba_ci
 
 	function evt__formulario__modificacion($datos)
 	{
-		$datos['proyecto'] = editor::get_proyecto_cargado();
+		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		$this->dependencia('datos')->set($datos);
 	}
 

@@ -2,7 +2,7 @@
 require_once("toba_tp_basico_titulo.php");
 require_once("nucleo/lib/interface/toba_form.php");
 
-class tp_normal extends tp_basico_titulo
+class toba_tp_normal extends toba_tp_basico_titulo
 {
 	protected $menu;
 	protected $alto_cabecera = "34px";
@@ -43,7 +43,7 @@ class tp_normal extends tp_basico_titulo
 	protected function cabecera_aplicacion()
 	{
 		//--- Salir
-		$js = editor::modo_prueba() ? 'window.close()' : 'salir()';
+		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
 		echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'"><img src='.
 				toba_recurso::imagen_apl('finalizar_sesion.gif').
 				' border="0"></a>';

@@ -1,7 +1,7 @@
 <?php
 require_once("toba_tp_basico.php");
 
-class tp_basico_titulo extends tp_basico
+class toba_tp_basico_titulo extends toba_tp_basico
 {
 	protected $clase_encabezado = 'encabezado';	
 

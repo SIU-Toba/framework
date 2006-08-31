@@ -8,7 +8,7 @@
 	$boton_post_nombre = "Guardar";
 
 	include_once("nucleo/lib/interface/form.php");
-	include_once("nucleo/componentes/interface/efs/ef.php");
+	include_once("nucleo/componentes/interface/efs/toba_ef.php");
 
 	//************************************************************************
 	//*************************  Ejecuto la TRANSACCION  *********************
@@ -108,7 +108,7 @@ ORDER BY 2;";
 ?>
         <tr> 
           <td width="2%" class='lista-obj-botones'>
-		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
 				<? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>

@@ -4,7 +4,7 @@
 	Esta es una clase extraña... su contenido deberia repartirse entre modelo,
 	proyecto editor y nucleo. Por simplicidad se deja todo junto.
 */
-class editor
+class toba_editor
 {
 	static function get_id()
 	{

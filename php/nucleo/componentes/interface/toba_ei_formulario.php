@@ -789,10 +789,10 @@ class toba_ei_formulario extends toba_ei
 	
 	protected function generar_vinculo_editor($id_ef)
 	{
-		if (editor::modo_prueba()) {
+		if (toba_editor::modo_prueba()) {
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
 									'ef' => $id_ef );
-			return editor::get_vinculo_subcomponente($this->item_editor, $param_editor);			
+			return toba_editor::get_vinculo_subcomponente($this->item_editor, $param_editor);			
 		}
 		return null;
 	}

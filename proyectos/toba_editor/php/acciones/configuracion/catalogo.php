@@ -16,7 +16,7 @@
 	$rs = array (
 				  0 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '/admin/proyectos/propiedades',
 				    'nombre' => 'Parametros Basicos',
 				    'descripcion' => 'Editor de proyectos',
@@ -24,7 +24,7 @@
 				  ),
 				  1 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '3287',
 				    'nombre' => 'Param. Previsualizacion',
 				    'descripcion' => NULL,
@@ -32,7 +32,7 @@
 				  ),
 				  2 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '/admin/apex/elementos/pagina_tipo',
 				    'nombre' => 'Tipo de PAGINA',
 				    'descripcion' => NULL,
@@ -40,7 +40,7 @@
 				  ),
 				  3 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '/admin/apex/elementos/zona',
 				    'nombre' => 'ZONA',
 				    'descripcion' => NULL,
@@ -48,7 +48,7 @@
 				  ),
 				  4 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '/admin/apex/elementos/error',
 				    'nombre' => 'MENSAJES',
 				    'descripcion' => 'Errores genericos del proyecto',
@@ -56,7 +56,7 @@
 				  ),
 				  5 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '1000020',
 				    'nombre' => 'Elementos de Formulario (efs)',
 				    'descripcion' => NULL,
@@ -64,7 +64,7 @@
 				  ) /*,
 				  6 => 
 				  array (
-				    'proyecto' => editor::get_id(),
+				    'proyecto' => toba_editor::get_id(),
 				    'item' => '/admin/apex/elementos/vinculos_generales',
 				    'nombre' => 'Vinculos GLOBALES',
 				    'descripcion' => NULL,
@@ -95,7 +95,7 @@
 <tr> 
 	 <td width="98%" class="lista-obj-titulo" >FUENTES de DATOS</td>
  <td width="2%"  class='lista-obj-titulo'>
-	<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/datos/fuente",null,false,false,null,true)?>" class="list-obj" target="<? echo  apex_frame_centro ?>">
+	<a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/datos/fuente",null,false,false,null,true)?>" class="list-obj" target="<? echo  apex_frame_centro ?>">
 	<? echo toba_recurso::imagen_apl("fuente_nueva.gif",true) ?>
 	</a>
 </td>
@@ -113,7 +113,7 @@
 					f.host as						host,
 					f.instancia_id as				instancia_id
 			FROM 	apex_fuente_datos f
-			WHERE   f.proyecto = '".editor::get_proyecto_cargado()."'			
+			WHERE   f.proyecto = '".toba_editor::get_proyecto_cargado()."'			
 			ORDER BY f.fuente_datos;";
 	$rs = toba::get_db()->consultar($sql);
 ?>
@@ -124,7 +124,7 @@
 ?>
         <tr> 
           <td  class='cat-item-botones2'>
-		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/datos/fuente",array( apex_hilo_qs_zona => $registro["fuente_proyecto"] .apex_qs_separador. $registro["fuente"]))?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/datos/fuente",array( apex_hilo_qs_zona => $registro["fuente_proyecto"] .apex_qs_separador. $registro["fuente"]))?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
 			  <? echo toba_recurso::imagen_apl("fuente.gif",true,null,null,"host/dsn: " . $registro["host"]) ?>
 			</a>
 		  </td>

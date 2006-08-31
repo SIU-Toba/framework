@@ -65,7 +65,7 @@ class toba_nucleo
 			require_once('nucleo/lib/toba_http.php');				//Genera Encabezados de HTTP
 			require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP
 			session_start();
-		    http::headers_standart();
+		    toba_http::headers_standart();
 			$this->preparar_include_path();
 			$this->iniciar_contexto_proyecto();
 			try {

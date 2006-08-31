@@ -1156,8 +1156,8 @@ class toba_ei_cuadro extends toba_ei
 			if($this->cantidad_columnas_extra > 0){
 				foreach ($this->get_eventos_sobre_fila() as $evento) {
 					echo "<td class='ei-cuadro-col-tit'>&nbsp;";
-					if (editor::modo_prueba()) {
-						echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
+					if (toba_editor::modo_prueba()) {
+						echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 					}
 					echo "</td>\n";
 				}
@@ -1195,11 +1195,11 @@ class toba_ei_cuadro extends toba_ei
         }	
 		//---Editor de la columna
 		$editor = '';
-		if ( editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
+		if ( toba_editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
 			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
 									'columna' => $columna );
-			$editor = editor::get_vinculo_subcomponente($item_editor, $param_editor);
+			$editor = toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);
 		}	
 		echo $editor;
     }

@@ -10,7 +10,7 @@ define("apex_frame_centro","frame_centro");
 define("apex_frame_com","frame_com");
 
 if (php_sapi_name() === 'cli') {
-	editor::iniciar(toba_instancia::get_id(), editor::get_id());
+	toba_editor::iniciar(toba_instancia::get_id(), toba_editor::get_id());
 }
 
 ?>

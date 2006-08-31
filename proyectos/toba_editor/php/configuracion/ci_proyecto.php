@@ -8,7 +8,7 @@ class ci_proyecto extends toba_ci
 	function ini()
 	{
 		if(!$this->iniciado) {
-			$this->dependencia('datos')->cargar(array('proyecto'=>editor::get_proyecto_cargado()));
+			$this->dependencia('datos')->cargar(array('proyecto'=>toba_editor::get_proyecto_cargado()));
 			$this->iniciado = true;
 		}	
 	}

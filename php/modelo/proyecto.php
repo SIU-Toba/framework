@@ -520,7 +520,7 @@ class proyecto extends elemento_modelo
 	function actualizar_login($pisar_anterior = false)
 	{
 		//--- ¿Existe el proyecto editor?
-		if (! $this->instancia->existen_metadatos_proyecto( editor::get_id() )) {
+		if (! $this->instancia->existen_metadatos_proyecto( toba_editor::get_id() )) {
 			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
 			toba_logger::instancia()->info($msg);
 			$this->manejador_interface->mensaje($msg);

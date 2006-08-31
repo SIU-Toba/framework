@@ -223,7 +223,7 @@ class ci_principal extends ci_editores_toba
 	{
 		$this->s__importacion_cols = $datos;
 		if(isset($datos['datos_tabla'])){
-			$clave = array( 'proyecto' => editor::get_proyecto_cargado(),
+			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
 			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_columnas($datos['pk']);

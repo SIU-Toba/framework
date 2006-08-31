@@ -90,7 +90,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado a la pantalla",
-			'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",
+			'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array('destino_tipo' => 'ci_pantalla', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id,
@@ -102,7 +102,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
 				'ayuda' => "Editar esta pantalla",
-				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(), "/admin/objetos_toba/editores/ci", $param_editores,
+				'vinculo' => toba::get_vinculador()->generar_solicitud(toba_editor::get_id(), "/admin/objetos_toba/editores/ci", $param_editores,
 																		false, false, null, true, "central")
 		);
 		return $iconos;	

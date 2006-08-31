@@ -252,8 +252,8 @@ abstract class toba_ei extends toba_componente
 	protected function generar_html_boton($evento)
 	{
 		//--- Link al editor
-		if (editor::modo_prueba()) {
-			echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
+		if (toba_editor::modo_prueba()) {
+			echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 		}
 		//--- Utilidades de impresion
 		if ( $evento->posee_accion_imprimir() ) {
@@ -359,8 +359,8 @@ abstract class toba_ei extends toba_componente
 		echo "<div class='ei-barra-sup $estilo'>";
 		//---ICONOS
 		echo '<span class="ei-barra-sup-iconos">';		
-		if( editor::modo_prueba() ){ 
-			editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
+		if( toba_editor::modo_prueba() ){ 
+			toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
 		}		
 		echo $this->barra_superior_especifica();
 		echo '</span>';

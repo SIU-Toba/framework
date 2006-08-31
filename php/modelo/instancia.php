@@ -15,8 +15,8 @@ require_once('lib/reflexion/clase_datos.php');
 class instancia extends elemento_modelo
 {
 	const dir_prefijo = 'i__';
-	const info_instancia = 'instancia.ini';
-	const info_instancia_titulo = 'Configuracion de la INSTANCIA';
+	const toba_instancia = 'instancia.ini';
+	const toba_instancia_titulo = 'Configuracion de la INSTANCIA';
 	const prefijo_dir_proyecto = 'p__';
 	const dir_datos_globales = 'global';
 	const archivo_datos = 'datos.sql';
@@ -58,7 +58,7 @@ class instancia extends elemento_modelo
 
 	function cargar_info_ini()
 	{
-		$archivo_ini = $this->dir . '/' . self::info_instancia;
+		$archivo_ini = $this->dir . '/' . self::toba_instancia;
 		if ( ! is_file( $archivo_ini ) ) {
 			throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
 		} else {
@@ -234,8 +234,8 @@ class instancia extends elemento_modelo
 
 	private function get_ini()
 	{
-		$ini = new ini( $this->dir . '/' . self::info_instancia );
-		$ini->agregar_titulo( self::info_instancia_titulo );
+		$ini = new ini( $this->dir . '/' . self::toba_instancia );
+		$ini->agregar_titulo( self::toba_instancia_titulo );
 		return $ini;
 	}
 
@@ -694,7 +694,7 @@ class instancia extends elemento_modelo
 		}
 		//Creo la clase que proporciona informacion sobre la instancia
 		$ini = new ini();
-		$ini->agregar_titulo( self::info_instancia_titulo );
+		$ini->agregar_titulo( self::toba_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
 		$ini->agregar_entrada( 'proyectos', implode(', ', array_keys($lista_proyectos)) );
 		
@@ -707,7 +707,7 @@ class instancia extends elemento_modelo
 			}
 		}
 		
-		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::info_instancia ;
+		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::toba_instancia ;
 		$ini->guardar( $archivo );
 		toba_logger::instancia()->debug("Creado archivo $archivo");
 	}

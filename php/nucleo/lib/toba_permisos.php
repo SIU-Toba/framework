@@ -3,7 +3,7 @@
 /**
  * Permite hacer validaciones de permisos particulares sobre el usuario actual
  */
-class permisos
+class toba_permisos
 {
 	static private $instancia;
 	protected $permisos;
@@ -30,7 +30,7 @@ class permisos
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new permisos();	
+			self::$instancia = new toba_permisos();	
 		}
 		return self::$instancia;	
 	}

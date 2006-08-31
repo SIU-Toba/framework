@@ -111,7 +111,7 @@ class zona_objeto extends zona_editor
 						if (!in_array($fila['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";		
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-													editor::get_id(),"/admin/objetos/propiedades",
+													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
 								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
@@ -192,7 +192,7 @@ class zona_objeto extends zona_editor
 						if (!in_array($fila['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-													editor::get_id(),"/admin/objetos/propiedades",
+													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
 								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
@@ -200,7 +200,7 @@ class zona_objeto extends zona_editor
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
 						echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-													editor::get_id(),"/admin/objetos/vinculos",
+													toba_editor::get_id(),"/admin/objetos/vinculos",
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														.apex_qs_separador. $fila["objeto"]) ) ."'>".
 							toba_recurso::imagen_apl("vinculos.gif",true,null,null,"Editar VINCULOS del OBJETO"). "</a>";
@@ -248,7 +248,7 @@ class zona_objeto extends zona_editor
 
 					echo "<td  class='barra-obj-id' width='5'>";
 					echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-												editor::get_id(),"/admin/items/editor_items",
+												toba_editor::get_id(),"/admin/items/editor_items",
 												array(apex_hilo_qs_zona=>$rs["proyecto"]
 													.apex_qs_separador. $rs["item"]) ) ."'>".
 						toba_recurso::imagen_apl("items/item.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
@@ -313,7 +313,7 @@ class zona_objeto extends zona_editor
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-														editor::get_id(),"/admin/objetos/propiedades",
+														toba_editor::get_id(),"/admin/objetos/propiedades",
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 															.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";

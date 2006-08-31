@@ -1,6 +1,6 @@
 <?php
 
-class tp_basico extends tipo_pagina
+class toba_tp_basico extends toba_tipo_pagina
 {
 	protected $clase_encabezado = '';
 	
@@ -72,9 +72,9 @@ class tp_basico extends tipo_pagina
 	{
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
 		echo "<body>\n";
-		if ( editor::modo_prueba() ) {
+		if ( toba_editor::modo_prueba() ) {
 			$item = toba::get_solicitud()->get_datos_item('item');
-			editor::generar_zona_vinculos_item($item);
+			toba_editor::generar_zona_vinculos_item($item);
 		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
 		$img = toba_recurso::imagen_apl('wait.gif');

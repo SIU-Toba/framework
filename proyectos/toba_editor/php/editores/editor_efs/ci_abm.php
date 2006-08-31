@@ -24,7 +24,7 @@ class ci_abm extends toba_ci
 	{
 		if ($this->es_nuevo) {
 			//Seteo los datos asociados al uso de este editor
-			$this->dependencia('relacion')->tabla('base')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
+			$this->dependencia('relacion')->tabla('base')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		}		
 		$this->dependencia('relacion')->sincronizar();
 		$this->dependencia('relacion')->resetear();
@@ -75,7 +75,7 @@ class ci_abm extends toba_ci
 			FROM
 				apex_elemento_formulario ef
 			WHERE
-				ef.proyecto = '".editor::get_proyecto_cargado()."' 
+				ef.proyecto = '".toba_editor::get_proyecto_cargado()."' 
 			ORDER BY obsoleto,ef.elemento_formulario
 		";
 		return consultar_fuente($sql);

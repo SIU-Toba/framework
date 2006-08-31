@@ -1,7 +1,7 @@
 <?php
 require_once("nucleo/lib/toba_zona.php");
 
-class zona_dimension extends zona
+class zona_dimension extends toba_zona
 {
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
@@ -51,7 +51,7 @@ class zona_dimension extends zona
 			$param['imagen_recurso_origen'] = "apex";
 			$param['imagen'] = 'tabla.gif';
 			echo "<td  class='barra-item-link' width='1'>";
-			echo $this->solicitud->vinculador->generar_solicitud(editor::get_id(),"/admin/dimensiones/tabla_restric",null,true,false,$param);
+			echo $this->solicitud->vinculador->generar_solicitud(toba_editor::get_id(),"/admin/dimensiones/tabla_restric",null,true,false,$param);
 			echo "</a>";
 			echo "</td>";
 		}
@@ -115,7 +115,7 @@ class zona_dimension extends zona
 						echo "<td  class='barra-obj-link' >[".$rs->fields["objeto"]."] ".$rs->fields["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-id' width='5'>";
 						echo "<a href='" . $this->solicitud->vinculador->generar_solicitud(
-													editor::get_id(),"/admin/objetos/propiedades",
+													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs->fields["objeto_proyecto"]
 														.apex_qs_separador. $rs->fields["objeto"]) ) ."'>".
 							toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
@@ -184,7 +184,7 @@ class zona_dimension extends zona
 					echo "<tr>";
 						echo "<td  class='barra-obj-link' width='5'>";
 						echo $this->solicitud->vinculador->generar_solicitud(
-													editor::get_id(),"/admin/usuarios/perfil",
+													toba_editor::get_id(),"/admin/usuarios/perfil",
 													array(apex_hilo_qs_zona=>$rs->fields["proyecto"]
 													. apex_qs_separador. $rs->fields["perfil_datos"]),
 													false, false, $param_html );

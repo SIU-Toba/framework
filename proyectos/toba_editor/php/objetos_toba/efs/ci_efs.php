@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/componentes/interface/toba_ci.php'); 
-require_once("nucleo/componentes/interface/efs/ef.php");
 /*
 	ATENCION: 
 		El controlador tiene que implementar "get_dbr_efs()" 
@@ -336,7 +335,7 @@ class ci_efs extends toba_ci
 	{
 		$this->s__importacion_efs = $datos;
 		if(isset($datos['datos_tabla'])){
-			$clave = array( 'proyecto' => editor::get_proyecto_cargado(),
+			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
 			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_efs($datos['pk']);

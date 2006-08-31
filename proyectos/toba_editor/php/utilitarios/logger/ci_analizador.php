@@ -26,7 +26,7 @@ class ci_analizador extends toba_ci
 	{
 		toba::get_logger()->desactivar();	
 		if (!isset($this->opciones)) {
-			$this->opciones['proyecto'] = editor::get_proyecto_cargado();	
+			$this->opciones['proyecto'] = toba_editor::get_proyecto_cargado();	
 			$this->opciones['fuente'] = 'fs';
 			$this->seleccion = 'ultima';
 		}

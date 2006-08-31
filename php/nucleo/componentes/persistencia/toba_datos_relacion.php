@@ -160,7 +160,7 @@ class toba_datos_relacion extends toba_componente
 		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
 		$indice = uniqid();
 		toba::get_hilo()->persistir_dato($indice, $parametros);
-		$url = toba::get_vinculador()->crear_vinculo(editor::get_id(), '1000045', array('esquema' => $indice), array('validar' => false));
+		$url = toba::get_vinculador()->crear_vinculo(toba_editor::get_id(), '1000045', array('esquema' => $indice), array('validar' => false));
 		toba_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}
 	

@@ -373,8 +373,8 @@ class toba_ei_pantalla extends toba_ei
 			$acceso = toba_recurso::ayuda($tecla, $tip);
 			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');return false;\"";
 			$editor = '';
-			if (editor::modo_prueba()) {
-				$editor = editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+			if (toba_editor::modo_prueba()) {
+				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
 			}			
 			if ($this->id_en_controlador == $id) {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';

@@ -8,6 +8,7 @@ excepciones:
  - Que tal seria el nombre toba_error en lugar de excepcion? 
   (es dificil de escribir y hay muchos bugs relacionados con escribirlo mal, ya que no saltan hasta que ocurre la excpceion (a veces casi nunca))
   
+toba_tab: que es?
 
   
   

@@ -140,7 +140,7 @@ abstract class ci_editores_toba extends toba_ci
 	{
 		if (!$this->cargado) {
 			//Seteo los datos asociados al uso de este editor
-			$fijos = array('proyecto' => editor::get_proyecto_cargado(),
+			$fijos = array('proyecto' => toba_editor::get_proyecto_cargado(),
 							'clase_proyecto' => 'toba',
 							'clase' => $this->get_clase_actual());
 			$this->get_entidad()->tabla('base')->set($fijos);

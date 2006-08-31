@@ -13,7 +13,7 @@
 * 		Esto es necesario cuando: las caracteristicas del elemento cambian la interface,
 * 									Se desee proveer acceso a elementos asociados, etc.
 */
-class zona
+class toba_zona
 {
 	protected $id;						//ID de la zona
 	protected $items_vecinos; 			//Array de ITEMs que viven en la ZONA

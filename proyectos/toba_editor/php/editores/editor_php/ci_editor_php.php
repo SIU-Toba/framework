@@ -79,7 +79,7 @@ class ci_editor_php extends toba_ci
 			$this->meta_clase = $clase_info;
 		}
 		//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
-		$path = toba_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/" . $this->datos['archivo'];
+		$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $this->datos['archivo'];
 		$this->archivo_php = new archivo_php($path);
 		$this->clase_php = new clase_php($this->datos['subclase'], $this->archivo_php, $this->datos['clase'], $this->datos['clase_archivo']);
 		$this->clase_php->set_meta_clase($this->meta_clase);
@@ -90,7 +90,7 @@ class ci_editor_php extends toba_ci
 	{
 		$arch = toba::get_hilo()->obtener_parametro('archivo');
 		if (isset($arch)) {
-			$path_proyecto = toba_instancia::get_path_proyecto(editor::get_proyecto_cargado()) . "/php/";
+			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$arch =  $path_proyecto . $arch;
 			$this->archivo_php = new archivo_php($arch);	
 		}

@@ -6,7 +6,7 @@
  * @package Utilidades
  * @todo que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual
  */
-class vinculador 
+class toba_vinculador 
 {
 	protected $prefijo;			//Prefijo de cualquier URL
 	protected $vinculos = array();
@@ -15,7 +15,7 @@ class vinculador
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new vinculador();
+			self::$instancia = new toba_vinculador();
 		}
 		return self::$instancia;		
 	}

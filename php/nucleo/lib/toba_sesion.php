@@ -143,7 +143,7 @@ class toba_sesion
 			unset($_SESSION['toba']["path"]);
 			unset($_SESSION['toba']["path_php"]);
 			unset($_SESSION['toba']["ultimo_acceso"]);
-			editor::limpiar_memoria();
+			toba_editor::limpiar_memoria();
 			toba_instalacion::limpiar_memoria();
 			toba_instancia::limpiar_memoria();
 			toba_proyecto::limpiar_memoria();
@@ -173,8 +173,8 @@ class toba_sesion
 	
 	function get_grupo_acceso()
 	{
-		if( editor::modo_prueba() && (toba_proyecto::get_id() != editor::get_id())) {
-			return editor::get_grupo_acceso_previsualizacion();
+		if( toba_editor::modo_prueba() && (toba_proyecto::get_id() != toba_editor::get_id())) {
+			return toba_editor::get_grupo_acceso_previsualizacion();
 		} else {
 			return toba::get_usuario()->get_grupo_acceso();		
 		}

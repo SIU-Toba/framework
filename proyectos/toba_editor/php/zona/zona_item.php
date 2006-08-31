@@ -28,7 +28,7 @@ class zona_item extends zona_editor
 	function obtener_html_barra_vinculos()
 	{
 		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
- 		echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/catalogo_unificado",
+ 		echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",
  																$parametros,true, false, false, "", null, null, 'lateral');
 		parent::obtener_html_barra_vinculos();		
 		
@@ -87,7 +87,7 @@ class zona_item extends zona_editor
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::get_vinculador()->generar_solicitud(
-													editor::get_id(),"/admin/objetos/propiedades",
+													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														.apex_qs_separador. $rs["objeto"]) ) ."'>".
 								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";

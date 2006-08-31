@@ -19,7 +19,7 @@ class ci_propiedades extends toba_ci
 				//Lo que tiene la zona es nuevo, asi que se cargan los datos
 				$this->usuario_actual = $editable;
 				$condiciones['basicas'] = "basicas.usuario='{$this->usuario_actual}'";
-				$condiciones['proyecto'] = "proyecto.proyecto='".editor::get_proyecto_cargado()."'";
+				$condiciones['proyecto'] = "proyecto.proyecto='".toba_editor::get_proyecto_cargado()."'";
 				$this->dependencia('datos')->get_persistidor()->cargar_con_wheres($condiciones);
 			}
 		}
@@ -50,7 +50,7 @@ class ci_propiedades extends toba_ci
 	
 	function evt__procesar()
 	{
-		$this->dependencia('datos')->tabla('proyecto')->set_fila_columna_valor(0,"proyecto",editor::get_proyecto_cargado() );
+		$this->dependencia('datos')->tabla('proyecto')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		$this->dependencia('datos')->sincronizar();
 		if (! isset($this->usuario_actual)) {
 			//Si era un alta

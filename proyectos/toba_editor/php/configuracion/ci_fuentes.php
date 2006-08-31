@@ -5,7 +5,7 @@ class ci_fuentes extends toba_ci
 	function ini()
 	{
 		if ($editable = toba::get_zona()->get_editable()) {
-			$clave['proyecto'] = editor::get_proyecto_cargado();
+			$clave['proyecto'] = toba_editor::get_proyecto_cargado();
 			$this->dependencia('datos')->cargar($clave);
 		}			
 	}
@@ -47,7 +47,7 @@ class ci_fuentes extends toba_ci
 
 	function evt__form__modificacion($datos)
 	{
-		$datos['proyecto'] = editor::get_proyecto_cargado();
+		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		$this->dependencia('datos')->set($datos);
 	}
 

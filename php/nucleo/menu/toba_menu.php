@@ -1,6 +1,6 @@
 <?php
 
-abstract class menu
+abstract class toba_menu
 {
 	function plantilla_css()
 	{

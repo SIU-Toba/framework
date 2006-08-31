@@ -23,13 +23,13 @@ class ci_previsualizacion extends toba_ci
 
 	function evt__datos__modificacion($datos)
 	{
-		editor::set_parametros_previsualizacion($datos);
+		toba_editor::set_parametros_previsualizacion($datos);
 		$this->modificacion = true;
 	}
 
 	function conf__datos()
 	{
-		return editor::get_parametros_previsualizacion();
+		return toba_editor::get_parametros_previsualizacion();
 	}
 }
 ?>

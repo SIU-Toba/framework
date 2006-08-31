@@ -16,7 +16,7 @@ class ci_catalogo_objetos extends ci_catalogo
 	{
 		parent::__construct($id);
 		$this->album_fotos = new album_fotos('cat_objeto');
-		$this->catalogo = new catalogo_objetos(editor::get_proyecto_cargado());
+		$this->catalogo = new catalogo_objetos(toba_editor::get_proyecto_cargado());
 	}
 	
 	function agregar_foto_inicial()

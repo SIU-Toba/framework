@@ -33,7 +33,7 @@ class ci_clonador_objetos extends toba_ci
 	{
 		$destinos = array(
 						array(
-							'proyecto' => editor::get_proyecto_cargado(),
+							'proyecto' => toba_editor::get_proyecto_cargado(),
 							'clase' => 'item'
 						)
 					);
@@ -65,7 +65,7 @@ class ci_clonador_objetos extends toba_ci
 	{
 		if (! isset($this->datos)) {
 			$this->datos = array();
-			$this->datos['proyecto'] = editor::get_proyecto_cargado();	
+			$this->datos['proyecto'] = toba_editor::get_proyecto_cargado();	
 		}
 		return $this->datos;
 	}
@@ -99,7 +99,7 @@ class ci_clonador_objetos extends toba_ci
 						$tipo = $this->destino['tipo'];
 				}
 				$this->destino['tipo'] = $tipo;
-				$this->destino['proyecto'] = editor::get_proyecto_cargado();
+				$this->destino['proyecto'] = toba_editor::get_proyecto_cargado();
 			}
 		}
 	}

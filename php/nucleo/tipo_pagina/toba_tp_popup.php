@@ -1,7 +1,7 @@
 <?php
 require_once("toba_tp_basico_titulo.php");
 
-class tp_popup extends tp_basico_titulo 
+class toba_tp_popup extends toba_tp_basico_titulo 
 {
 	
 	protected function comienzo_cuerpo()

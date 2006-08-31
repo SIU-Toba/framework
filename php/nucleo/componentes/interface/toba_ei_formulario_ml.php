@@ -531,8 +531,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if($this->cant_eventos_sobre_fila() > 0){
 			foreach ($this->get_eventos_sobre_fila() as $evento) {
 				echo "<th class='ei-ml-columna'>&nbsp;\n";
-				if (editor::modo_prueba()) {
-					echo editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
+				if (toba_editor::modo_prueba()) {
+					echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 				}
 	            echo "</th>\n";
 			}

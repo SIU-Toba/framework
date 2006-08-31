@@ -18,7 +18,7 @@ class ci_abm_basico extends toba_ci
 
 	function evt__formulario__alta($datos)
 	{
-		$datos['proyecto'] = editor::get_proyecto_cargado();
+		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		$this->dependencia('datos')->set($datos);
 		$this->dependencia('datos')->sincronizar();
 		$this->dependencia('datos')->resetear();
@@ -33,7 +33,7 @@ class ci_abm_basico extends toba_ci
 
 	function evt__formulario__modificacion($datos)
 	{
-		$datos['proyecto'] = editor::get_proyecto_cargado();
+		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		$this->dependencia('datos')->set($datos);
 		$this->dependencia('datos')->sincronizar();
 		$this->dependencia('datos')->resetear();

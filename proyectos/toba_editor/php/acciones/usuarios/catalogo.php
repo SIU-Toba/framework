@@ -39,7 +39,7 @@ FROM        apex_usuario_proyecto up
             RIGHT OUTER JOIN apex_usuario_grupo_acc ga
                 ON  ga.proyecto = up.proyecto
                 AND     ga.usuario_grupo_acc = up.usuario_grupo_acc
-WHERE       ga.proyecto = '".editor::get_proyecto_cargado()."'
+WHERE       ga.proyecto = '".toba_editor::get_proyecto_cargado()."'
 --AND         ga.nivel_acceso >= ".toba::get_hilo()->obtener_usuario_nivel_acceso()."
 ORDER BY    3,6;";
 
@@ -64,7 +64,7 @@ ORDER BY    3,6;";
                         RIGHT OUTER JOIN apex_usuario_perfil_datos pd
                             ON up.proyecto = pd.proyecto
                             AND up.usuario_perfil_datos = pd.usuario_perfil_datos
-                WHERE   pd.proyecto = '".editor::get_proyecto_cargado()."'
+                WHERE   pd.proyecto = '".toba_editor::get_proyecto_cargado()."'
                 ORDER BY    1,3,5;";
     }
 ?>
@@ -84,7 +84,7 @@ ORDER BY    3,6;";
     $param['imagen_recurso_origen'] = "apex";
     $param['imagen'] = "usuarios/permisos.gif";
     $param['frame'] = "frame_centro";
-    echo toba::get_vinculador()->generar_solicitud(editor::get_id(),'3276',array(),false,false,$param,true, 'central') ;
+    echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),'3276',array(),false,false,$param,true, 'central') ;
 ?>
     </td>
     </tr>
@@ -97,7 +97,7 @@ ORDER BY    3,6;";
 //--------------------------<  PROPIEDADES de OTROS proyectos  >------------------------
 //--------------------------------------------------------------------------------------
 
-	if(editor::get_proyecto_cargado()==editor::get_id())
+	if(toba_editor::get_proyecto_cargado()==toba_editor::get_id())
 	{
 ?>
 </table>
@@ -121,7 +121,7 @@ ORDER BY    3,6;";
         <tr> 
 		  </td>
           <td  class='lista-obj-dato2'  width="1">
-		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/proyectos/usuarios",array('proyecto' => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
+		 	<a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/usuarios",array('proyecto' => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
 			  <? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Ver Perfiles") ?>
 			</a>
 		  </td>
@@ -147,7 +147,7 @@ ORDER BY    3,6;";
 <tr>
      <td width="98%" class="lista-obj-titulo" ><? echo $titulo ?></td>
      <td width="2%"  class='lista-obj-titulo'>
-    <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),$editor, null, false, false, null, true, 'central') ?>"
+    <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),$editor, null, false, false, null, true, 'central') ?>"
     class="list-obj" target="<? echo  apex_frame_centro ?>">
     <? echo toba_recurso::imagen_apl("usuarios/{$editor_img}_nuevo.gif",true,null,null,"Crear $editor_tip") ?>
     </a>
@@ -172,20 +172,20 @@ ORDER BY    3,6;";
         <table class='tabla-0'>
         <tr>
           <td width="2%" class='cat-item-categ1'>
-            <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),$editor,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),$editor,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo toba_recurso::imagen_apl("usuarios/$editor_img.gif",true,null,null,"Modificar $editor_tip") ?>
             </a>
 <? if (isset($editor2)){ ?>
       </td>
           <td width="2%" class='cat-item-categ1'>
-            <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),$editor2,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),$editor2,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo toba_recurso::imagen_apl("usuarios/$editor2_img.gif",true,null,null,"Modificar $editor2_tip") ?>
             </a>
       </td>
 <? } ?>
           <td align="center" class="cat-item-categ1"><? echo $registro["corte_descripcion"] ?></td>
          <td width="2%"  class='cat-item-categ1'>
-            <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/propiedades",array($modo=>$registro[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
+            <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array($modo=>$registro[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
             <? echo toba_recurso::imagen_apl("usuarios/usuario_nuevo.gif",true,null,null,"Crear Usuario") ?>
             </a>
         </td>
@@ -199,7 +199,7 @@ ORDER BY    3,6;";
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <img src="<? echo toba_recurso::imagen_apl("usuarios/usuario.gif") ?>" alt="Modificar USUARIO" border="0">
             </a>
       </td>
@@ -245,7 +245,7 @@ FROM        apex_usuario u
 WHERE       NOT EXISTS (
                         SELECT 1 FROM apex_usuario_proyecto p
                         WHERE p.usuario = u.usuario
-                        AND p.proyecto = '".editor::get_proyecto_cargado()."' )
+                        AND p.proyecto = '".toba_editor::get_proyecto_cargado()."' )
             ORDER BY 2";
 	$rs = toba::get_db()->consultar($sql);
 	if( $rs ) {
@@ -253,7 +253,7 @@ WHERE       NOT EXISTS (
 ?>
         <tr>
           <td width="2%" class='lista-obj-botones'>
-            <a href="<? echo toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
+            <a href="<? echo toba::get_vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
                 <? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
             </a>
       </td>

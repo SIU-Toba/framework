@@ -1,7 +1,7 @@
 <?php
 require_once("nucleo/lib/toba_zona.php");
 
-class zona_trabajo extends zona
+class zona_trabajo extends toba_zona
 {
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA

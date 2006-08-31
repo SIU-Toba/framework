@@ -37,7 +37,7 @@ class toba
 	 */
 	static function get_vinculador()
 	{
-		return vinculador::instancia();
+		return toba_vinculador::instancia();
 	}
 	
 	/**
@@ -45,7 +45,7 @@ class toba
 	 */
 	static function get_hilo()
 	{
-		return hilo::instancia();
+		return toba_hilo::instancia();
 	}
 	
 	/**
@@ -63,7 +63,7 @@ class toba
 	 */
 	static function get_permisos()
 	{
-		return permisos::instancia();
+		return toba_permisos::instancia();
 	}
 
 	/**

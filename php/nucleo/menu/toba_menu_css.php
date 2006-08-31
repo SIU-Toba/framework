@@ -1,6 +1,6 @@
 <?php
 
-class menu_css extends menu
+class toba_menu_css extends toba_menu
 {
 	private $items;
 	private $prof=1;
