@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
+require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 
-class extension_cuadro_sumarizacion_b extends objeto_ei_cuadro
+class extension_cuadro_sumarizacion_b extends toba_ei_cuadro
 {
 
 	/**

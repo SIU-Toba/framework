@@ -1,6 +1,6 @@
 <?php
 
-class cuadro_origen extends objeto_ei_cuadro
+class cuadro_origen extends toba_ei_cuadro
 {
 	/*
 		Modificacion en PHP a los vinculos de las FILAS

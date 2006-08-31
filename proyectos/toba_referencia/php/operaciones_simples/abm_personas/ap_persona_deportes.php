@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/persistencia/ap_tabla_db_s.php");
+require_once("nucleo/persistencia/toba_ap_tabla_db_s.php");
 
-class ap_persona_deportes extends ap_tabla_db_s
+class ap_persona_deportes extends toba_ap_tabla_db_s
 {
 	function inicializar()
 	{

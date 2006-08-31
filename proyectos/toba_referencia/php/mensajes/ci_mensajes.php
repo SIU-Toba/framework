@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 
-class ci_mensajes extends objeto_ci
+class ci_mensajes extends toba_ci
 {
 
 	function __construct($id)

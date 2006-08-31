@@ -1,11 +1,11 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 
 /**
 *	Esta clase es un ejemplo de navegación particular. Al no tener un tipo de navegación predeterminado, esta debe
 *   hacerse manualmente, en este caso dependiendo de dos eventos pasar_pantalla_1 y pasar_pantalla_2.
 */
-class ci_pantallas_logicas extends objeto_ci
+class ci_pantallas_logicas extends toba_ci
 {
 	protected $pantalla_actual;
 
@@ -33,10 +33,10 @@ class ci_pantallas_logicas extends objeto_ci
 		$eventos = parent::get_lista_eventos();
 		if ($this->pantalla_actual == 1)
 			$eventos += eventos::evento_estandar('pasar_pantalla_2', 'Pasar a la pantalla 2', true, 
-													recurso::imagen_apl('paginacion/si_siguiente.gif'));
+													toba_recurso::imagen_apl('paginacion/si_siguiente.gif'));
 		else
 			$eventos += eventos::evento_estandar('pasar_pantalla_1', 'Volver a la pantalla 1', true, 
-													recurso::imagen_apl('paginacion/si_anterior.gif'));		
+													toba_recurso::imagen_apl('paginacion/si_anterior.gif'));		
 		return $eventos;
 	}	
 	
@@ -67,7 +67,7 @@ class ci_pantallas_logicas extends objeto_ci
 	*/
 	function obtener_html_contenido__1()
 	{
-		echo recurso::imagen_pro("presentaciones/operacion.gif",true);	
+		echo toba_recurso::imagen_pro("presentaciones/operacion.gif",true);	
 	}
 
 	/**

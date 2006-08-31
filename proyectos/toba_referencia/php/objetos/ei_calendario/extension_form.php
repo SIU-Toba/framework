@@ -1,8 +1,8 @@
 <?php
   
-require_once('nucleo/componentes/interface/objeto_ei_formulario.php');
+require_once('nucleo/componentes/interface/toba_ei_formulario.php');
 
-class extension_form extends objeto_ei_formulario
+class extension_form extends toba_ei_formulario
 {
 	function get_lista_eventos()
 	{

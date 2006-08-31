@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ei_cuadro.php');
+require_once('nucleo/componentes/interface/toba_ei_cuadro.php');
 
-class extension_cuadro extends objeto_ei_cuadro
+class extension_cuadro extends toba_ei_cuadro
 {
 	function extender_objeto_js()
 	{

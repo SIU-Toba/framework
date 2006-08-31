@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
   
-class extension_ci extends objeto_ci
+class extension_ci extends toba_ci
 {
 	protected $nombre_archivo;
 	

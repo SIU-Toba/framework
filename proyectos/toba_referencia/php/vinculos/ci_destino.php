@@ -1,6 +1,6 @@
 <?php
 
-class ci_destino extends objeto_ci
+class ci_destino extends toba_ci
 {
 	function ini()
 	{

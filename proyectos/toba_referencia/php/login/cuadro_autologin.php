@@ -1,6 +1,6 @@
 <?php 
 
-class cuadro_autologin extends objeto_ei_cuadro
+class cuadro_autologin extends toba_ei_cuadro
 {
 	function extender_objeto_js()
 	{

@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 //----------------------------------------------------------------
-class diapositivas extends objeto_ci
+class diapositivas extends toba_ci
 {
 	function mantener_estado_sesion()
 	{
@@ -13,7 +13,7 @@ class diapositivas extends objeto_ci
 
 	function obtener_html_contenido__1()
 	{
-		echo recurso::imagen_pro("presentaciones/operacion.gif",true);
+		echo toba_recurso::imagen_pro("presentaciones/operacion.gif",true);
 	}
 
 

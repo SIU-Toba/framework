@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ei_formulario.php');
+require_once('nucleo/componentes/interface/toba_ei_formulario.php');
 
-class extension_formulario extends objeto_ei_formulario
+class extension_formulario extends toba_ei_formulario
 {
 	/*
 	*	Se le agrega un evento particular 'mi_accion' y uno cancelar
@@ -12,7 +12,7 @@ class extension_formulario extends objeto_ei_formulario
 		unset($eventos['mi_evento']);
 		$mi_accion = eventos::duplicar(eventos::alta(), 'mi_accion');
 		$mi_accion['mi_accion']['etiqueta'] = 'Mi acción';
-		$mi_accion['mi_accion']['imagen'] = recurso::imagen_apl('objetos/fantasma.gif');
+		$mi_accion['mi_accion']['imagen'] = toba_recurso::imagen_apl('objetos/fantasma.gif');
 		$eventos += $mi_accion;
 		$eventos += eventos::cancelar();
 		return $eventos;

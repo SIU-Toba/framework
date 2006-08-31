@@ -1,9 +1,9 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 require_once('operaciones_simples/consultas.php'); 
 
 //----------------------------------------------------------------
-class ci_navegacion extends objeto_ci
+class ci_navegacion extends toba_ci
 {
 	protected $pantalla = "seleccion";
 	protected $filtro;

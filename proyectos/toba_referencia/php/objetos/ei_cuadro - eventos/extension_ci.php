@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/interface/objeto_ci.php");
+require_once("nucleo/componentes/interface/toba_ci.php");
 
-class extension_ci extends objeto_ci
+class extension_ci extends toba_ci
 {
 
 	function conf__eventos_a()

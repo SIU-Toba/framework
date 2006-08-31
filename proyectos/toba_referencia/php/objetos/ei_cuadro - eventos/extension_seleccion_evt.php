@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
+require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 
-class extension_seleccion_evt extends objeto_ei_cuadro
+class extension_seleccion_evt extends toba_ei_cuadro
 {
 	/**
 		El evento seleccion es solo para las localidades que

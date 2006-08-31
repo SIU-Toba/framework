@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('operaciones_simples/consultas.php'); 
 
-class ci_abm_deportes extends objeto_ci
+class ci_abm_deportes extends toba_ci
 {
 	protected $seleccion;
 	protected $filtro;

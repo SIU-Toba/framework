@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/interface/objeto_ei_cuadro.php");
+require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 
-class extendion_cuadro_estetica extends objeto_ei_cuadro
+class extendion_cuadro_estetica extends toba_ei_cuadro
 {
 	/**
 		Redefinir la CABECERA de todo el cuadro

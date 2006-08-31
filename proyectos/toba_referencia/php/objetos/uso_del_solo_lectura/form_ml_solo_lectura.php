@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ei_formulario_ml.php'); 
+require_once('nucleo/componentes/interface/toba_ei_formulario_ml.php'); 
 //--------------------------------------------------------------------
-class form_ml_solo_lectura extends objeto_ei_formulario_ml
+class form_ml_solo_lectura extends toba_ei_formulario_ml
 {
 	function extender_objeto_js()
 	{

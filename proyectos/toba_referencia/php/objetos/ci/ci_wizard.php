@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 
-class ci_wizard extends objeto_ci
+class ci_wizard extends toba_ci
 {
 	protected $tipo_instalacion;
 	

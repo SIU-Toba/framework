@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 
-class ci_solapas extends objeto_ci
+class ci_solapas extends toba_ci
 {
 	var $pasadas_por_solapa;
 

@@ -1,6 +1,6 @@
 <?php
 
-class ci_origen extends objeto_ci
+class ci_origen extends toba_ci
 {
 	function conf()
 	{

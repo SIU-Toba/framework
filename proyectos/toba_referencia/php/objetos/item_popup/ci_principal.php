@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 //--------------------------------------------------------------------
-class ci_principal extends objeto_ci
+class ci_principal extends toba_ci
 {
 	function mantener_estado_sesion()
 	{

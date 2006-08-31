@@ -1,7 +1,7 @@
 <?php
 require_once('objetos/ei_filtro - ei_cuadro/dao.php');
   
-class extension_ci extends objeto_ci
+class extension_ci extends toba_ci
 {
 	protected $orden;
 	

@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ei_filtro.php');
+require_once('nucleo/componentes/interface/toba_ei_filtro.php');
 
-class extension_filtro extends objeto_ei_filtro
+class extension_filtro extends toba_ei_filtro
 {
 	function extender_objeto_js()
 	{
