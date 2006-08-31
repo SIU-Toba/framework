@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class form_opciones extends objeto_ei_formulario
+class form_opciones extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

@@ -3,7 +3,7 @@ require_once('modelo/consultas/dao_editores.php');
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
 //----------------------------------------------------------------
-class ci_creador_objeto extends objeto_ci
+class ci_creador_objeto extends toba_ci
 {
 	protected $clase_actual;
 	protected $datos_editor;

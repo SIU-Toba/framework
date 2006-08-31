@@ -1,7 +1,7 @@
 <?php 
 require_once('modelo/consultas/dao_editores.php');
 
-class ci_proyecto extends objeto_ci
+class ci_proyecto extends toba_ci
 {
 	protected $iniciado = false;
 	

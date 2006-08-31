@@ -1,7 +1,7 @@
 <?php 
 require_once('modelo/catalogo_modelo.php');
 
-class ci_login extends objeto_ci
+class ci_login extends toba_ci
 {
 	function mantener_estado_sesion()
 	{

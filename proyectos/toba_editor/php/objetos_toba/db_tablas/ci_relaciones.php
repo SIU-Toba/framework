@@ -1,7 +1,7 @@
 <?php
 require_once('modelo/consultas/dao_editores.php');
 
-class ci_relaciones extends objeto_ci
+class ci_relaciones extends toba_ci
 {
 	protected $tabla;
 	protected $s__seleccion_relacion;
@@ -115,7 +115,7 @@ class ci_relaciones extends objeto_ci
 		//Se buscan ciclos
 		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
 		$relaciones = $this->get_tabla()->get_filas();
-		$hay_ciclos = objeto_datos_relacion::hay_ciclos($tablas, $relaciones);
+		$hay_ciclos = toba_datos_relacion::hay_ciclos($tablas, $relaciones);
 		if ($hay_ciclos) {
 			$this->informar_msg("El esquema de relaciones actual contiene ciclos. ".
 								"En un esquema con ciclos el mecanismo de sincronización no puede" .
@@ -235,7 +235,7 @@ class ci_relaciones extends objeto_ci
 	{
 		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
 		$relaciones = $this->get_tabla()->get_filas();
-		$grafo = objeto_datos_relacion::grafo_relaciones($tablas, $relaciones);
+		$grafo = toba_datos_relacion::grafo_relaciones($tablas, $relaciones);
 		$diagrama = "digraph G { \n";
 		$diagrama .= "size=\"7,7\";\n";		
 		$diagrama .= "node [shape=record];\n";

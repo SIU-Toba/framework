@@ -1,6 +1,6 @@
 <?php
 
-class cuadro_actividad_local extends objeto_ei_cuadro
+class cuadro_actividad_local extends toba_ei_cuadro
 {
 	function modificar_vinculo_fila__seleccion($vinculo, $fila)
 	{

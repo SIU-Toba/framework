@@ -1,10 +1,10 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('modelo/consultas/dao_permisos.php');
 require_once('admin_util.php');
 //----------------------------------------------------------------
 
-class ci_principal extends objeto_ci
+class ci_principal extends toba_ci
 {
 	protected $cambio_item = false;
 	protected $id_item;
@@ -132,7 +132,7 @@ class ci_principal extends objeto_ci
  			//Es patron?
  			if (isset($basicas['actividad_patron']) && $basicas['actividad_patron'] != 'especifico') {
  				//Este es el lugar para cargar los objetos del tipo deseado
-				//$objetos[] = array('clase' => 'toba,objeto_ci', apex_ei_analisis_fila => 'A');
+				//$objetos[] = array('clase' => 'toba,toba_ci', apex_ei_analisis_fila => 'A');
  			}
 			
 		}

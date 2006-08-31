@@ -1,12 +1,12 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 //--------------------------------------------------------------------
-class ci_edicion extends objeto_ci
+class ci_edicion extends toba_ci
 {
 	protected $esta_cargado = false;
 	
 	/**
-	 * @return objeto_datos_relacion
+	 * @return toba_datos_relacion
 	 */
 	function get_relacion()	
 	{

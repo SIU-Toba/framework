@@ -1,12 +1,12 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once("nucleo/componentes/interface/efs/ef.php");
 /*
 	ATENCION: 
 		El controlador tiene que implementar "get_dbr_efs()" 
 		para que este CI puede obtener el DBR que utiliza para trabajar
 */
-class ci_efs extends objeto_ci
+class ci_efs extends toba_ci
 {
 	protected $tabla;
 	protected $s__seleccion_efs;

@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_clonador_items extends objeto_ci
+class ci_clonador_items extends toba_ci
 {
 	protected $opciones;
 

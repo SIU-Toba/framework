@@ -1,6 +1,6 @@
 <?
 
-class odt_eventos extends objeto_datos_tabla
+class odt_eventos extends toba_datos_tabla
 {
 	function configuracion()
 	{

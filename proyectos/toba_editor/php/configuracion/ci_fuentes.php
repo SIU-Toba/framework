@@ -1,6 +1,6 @@
 <?php 
 
-class ci_fuentes extends objeto_ci
+class ci_fuentes extends toba_ci
 {
 	function ini()
 	{

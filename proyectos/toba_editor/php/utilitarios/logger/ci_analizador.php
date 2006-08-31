@@ -2,7 +2,7 @@
 require_once('modelo/lib/analizador_logger.php');
 //--------------------------------------------------------------------
 
-class ci_analizador extends objeto_ci
+class ci_analizador extends toba_ci
 {
 	protected $opciones;
 	public $seleccion;

@@ -5,7 +5,7 @@ define('apex_foto_inicial', '-- Completo --');
 /**
 *	Una clase general para el manejo de catalogo de item/objetos
 */
-abstract class ci_catalogo extends objeto_ci
+abstract class ci_catalogo extends toba_ci
 {
 	protected $s__opciones;
 	protected $s__apertura;			//Ultima apertura creada

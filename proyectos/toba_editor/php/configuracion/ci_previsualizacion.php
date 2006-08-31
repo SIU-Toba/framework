@@ -1,7 +1,7 @@
 <?php 
 require_once('modelo/consultas/dao_permisos.php');
 
-class ci_previsualizacion extends objeto_ci
+class ci_previsualizacion extends toba_ci
 {
 	private $modificacion = false;
 

@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 
 //--------------------------------------------------------------------
-class ci_propiedades extends objeto_ci
+class ci_propiedades extends toba_ci
 {
 	protected $usuario_actual='';
 	protected $grupo_acceso;

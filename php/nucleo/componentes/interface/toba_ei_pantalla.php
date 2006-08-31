@@ -510,7 +510,7 @@ class toba_ei_pantalla extends toba_ei
 	//------------------------ SALIDA Impresion ---------------------
 	//---------------------------------------------------------------
 	
-	function vista_impresion( impresion_toba $salida )
+	function vista_impresion( toba_impresion $salida )
 	{
 		$salida->titulo( $this->get_titulo() );
 		foreach($this->dependencias as $dep) {

@@ -1,6 +1,6 @@
 <?php 
 
-class eiform_proyecto_confbasica extends objeto_ei_formulario
+class eiform_proyecto_confbasica extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

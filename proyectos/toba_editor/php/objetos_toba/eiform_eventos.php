@@ -1,6 +1,6 @@
 <?php
 
-class eiform_eventos extends objeto_ei_formulario
+class eiform_eventos extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

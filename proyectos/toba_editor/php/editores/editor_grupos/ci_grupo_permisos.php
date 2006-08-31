@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 //--------------------------------------------------------------------
-class ci_grupo_permisos extends objeto_ci
+class ci_grupo_permisos extends toba_ci
 {
 
 	function ini()

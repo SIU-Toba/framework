@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 
-abstract class ci_instanciadores extends objeto_ci
+abstract class ci_instanciadores extends toba_ci
 {
 	protected $id_objeto;
 

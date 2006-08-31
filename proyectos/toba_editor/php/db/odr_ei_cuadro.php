@@ -1,6 +1,6 @@
 <?php
 
-class odr_ei_cuadro extends objeto_datos_relacion
+class odr_ei_cuadro extends toba_datos_relacion
 {
 	/**
 	*	Si hay un evento sobre_fila hay que validar que haya una clave definida

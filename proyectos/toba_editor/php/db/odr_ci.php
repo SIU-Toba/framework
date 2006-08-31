@@ -1,6 +1,6 @@
 <?php 
 
-class odr_ci extends objeto_datos_relacion 
+class odr_ci extends toba_datos_relacion 
 {
 
 	function sincronizar()

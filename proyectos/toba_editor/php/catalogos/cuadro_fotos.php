@@ -1,6 +1,6 @@
 <?php
 
-class cuadro_fotos extends objeto_ei_cuadro
+class cuadro_fotos extends toba_ei_cuadro
 {
 	protected $fotos_predefinidas = array();
 	

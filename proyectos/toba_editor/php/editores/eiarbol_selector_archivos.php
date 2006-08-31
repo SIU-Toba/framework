@@ -1,6 +1,6 @@
 <?php
 
-class ei_selector_archivos extends objeto_ei_archivos
+class ei_selector_archivos extends toba_ei_archivos
 {
 
 	function extender_objeto_js()

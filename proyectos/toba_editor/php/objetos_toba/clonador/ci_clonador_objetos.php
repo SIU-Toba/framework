@@ -1,10 +1,10 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('modelo/consultas/dao_editores.php');
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
 //----------------------------------------------------------------
-class ci_clonador_objetos extends objeto_ci
+class ci_clonador_objetos extends toba_ci
 {
 	protected $id_objeto;
 	protected $destino;
@@ -77,7 +77,7 @@ class ci_clonador_objetos extends objeto_ci
 			if (isset($datos['tipo']) && isset($datos['objeto'])) {
 				$this->destino = $datos;
 				//Validaciones 
-				if ($this->destino['tipo'] == 'objeto_ci' || $this->destino['tipo'] == 'objeto_ci') {
+				if ($this->destino['tipo'] == 'toba_ci' || $this->destino['tipo'] == 'toba_ci') {
 					if (!isset($this->destino['id_dependencia'])) {
 						throw new toba_excepcion("El identificador es obligatorio");
 					}
@@ -85,14 +85,14 @@ class ci_clonador_objetos extends objeto_ci
 				//Se convierten los tipos a los que entiende el asignador
 				$tipo = null;
 				switch ($this->destino['tipo']) {
-					case 'objeto_ci':
+					case 'toba_ci':
 						if (isset($this->destino['pantalla'])) {
 							$tipo = 'ci_pantalla';
 						} else {
 							$tipo = 'ci';
 						}
 						break;
-					case 'objeto_datos_relacion':
+					case 'toba_datos_relacion':
 						$tipo = 'datos_relacion';
 						break;
 					default:

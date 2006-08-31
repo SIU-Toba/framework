@@ -1,11 +1,11 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 /*
 	El controlador tiene que implementar:
 	
 		- get_dbr_dependencias()
 */
-class ci_dependencias extends objeto_ci
+class ci_dependencias extends toba_ci
 {
 	private $tabla;
 	protected $seleccion_dependencia;

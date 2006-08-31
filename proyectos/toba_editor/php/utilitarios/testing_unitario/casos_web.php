@@ -4,7 +4,7 @@ require_once('modelo/lib/testing_unitario/lista_casos.php');
 require_once("lib/reflexion/archivo_php.php");
 require_once("lib/manejador_archivos.php");
 
-class casos_web extends objeto_ci
+class casos_web extends toba_ci
 {
 	protected $selecciones;
 	
@@ -56,7 +56,7 @@ class casos_web extends objeto_ci
 }
 
 
-class pantalla_testing extends objeto_ei_pantalla 
+class pantalla_testing extends toba_ei_pantalla 
 {
 	function generar_html_dependencias()
 	{
@@ -120,7 +120,7 @@ class pantalla_testing extends objeto_ei_pantalla
 	}	
 }
 
-class pantalla_seleccion  extends objeto_ei_pantalla
+class pantalla_seleccion  extends toba_ei_pantalla
 {
 	function generar_html_dependencias()
 	{

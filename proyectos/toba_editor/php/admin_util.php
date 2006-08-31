@@ -14,8 +14,8 @@ class admin_util
 		echo js::abrir();
 		$frame = "parent.".apex_frame_lista;
 		echo "
-			if ($frame.objeto_ci_1381) {
-				$frame.objeto_ci_1381.set_evento(new $frame.evento_ei('refrescar', true, '' ));
+			if ($frame.toba_ci_1381) {
+				$frame.toba_ci_1381.set_evento(new $frame.evento_ei('refrescar', true, '' ));
 			}
 		";
 		echo js::cerrar();		

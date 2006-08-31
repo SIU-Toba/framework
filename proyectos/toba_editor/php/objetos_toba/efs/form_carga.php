@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class form_carga extends objeto_ei_formulario
+class form_carga extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

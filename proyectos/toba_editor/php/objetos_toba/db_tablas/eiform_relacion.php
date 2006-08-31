@@ -4,7 +4,7 @@
 		- La tabla padre e hija no puede ser la misma
 */
 
-class eiform_relacion extends objeto_ei_formulario
+class eiform_relacion extends toba_ei_formulario
 {
 	function generar_formulario()
 	{

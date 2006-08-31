@@ -1,6 +1,6 @@
 <?
 
-class odt_cuadro_columnas extends objeto_datos_tabla
+class odt_cuadro_columnas extends toba_datos_tabla
 {
 	function configuracion()
 	{

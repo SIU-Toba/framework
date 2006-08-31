@@ -1,6 +1,6 @@
 <?
 
-class odt_pantallas extends objeto_datos_tabla
+class odt_pantallas extends toba_datos_tabla
 {
 	function configuracion()
 	{

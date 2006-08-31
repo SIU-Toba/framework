@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('modelo/consultas/dao_permisos.php');
 //--------------------------------------------------------------------
-class ci_navegacion extends objeto_ci
+class ci_navegacion extends toba_ci
 {
 	protected $seleccion;
 	protected $filtro = array();
@@ -16,7 +16,7 @@ class ci_navegacion extends objeto_ci
 	}
 	
 	/**
-	 * @return objeto_datos_relacion
+	 * @return toba_datos_relacion
 	 */
 	function get_relacion()
 	{

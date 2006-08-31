@@ -1,6 +1,6 @@
 <?
 
-class odt_dr_asociac extends objeto_datos_tabla
+class odt_dr_asociac extends toba_datos_tabla
 {
 	/**
 	 * Valida que una relación tenga al menos un par de columnas asociadas

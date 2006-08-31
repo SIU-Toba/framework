@@ -1,7 +1,7 @@
 <?
-require_once('impresion_toba.php');
+require_once('toba_impresion.php');
 
-class html_impr implements impresion_toba
+class toba_impr_html implements toba_impresion
 {
 	private $objetos = array();
 	private $configuracion = array();

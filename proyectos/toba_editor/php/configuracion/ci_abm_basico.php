@@ -1,6 +1,6 @@
 <?php 
 
-class ci_abm_basico extends objeto_ci
+class ci_abm_basico extends toba_ci
 {
 	//---- cuadro -------------------------------------------------------
 

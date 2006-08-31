@@ -2,7 +2,7 @@
 require_once('modelo/consultas/dao_instancia.php');
 require_once('3ros/cssparser.php');
 //----------------------------------------------------------------
-class ci_comparador extends objeto_ci
+class ci_comparador extends toba_ci
 {
 	protected $estilos;
 	protected $contenidos = array();

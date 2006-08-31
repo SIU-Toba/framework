@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('admin_util.php');
 
-abstract class ci_editores_toba extends objeto_ci
+abstract class ci_editores_toba extends toba_ci
 {
 	protected $id_objeto;
 	protected $cambio_objeto;

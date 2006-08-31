@@ -1,6 +1,6 @@
 <?
 
-class odt_formulario_efs extends objeto_datos_tabla
+class odt_formulario_efs extends toba_datos_tabla
 {
 	function configuracion()
 	{

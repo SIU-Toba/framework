@@ -404,9 +404,9 @@ abstract class toba_ei extends objeto
 	/*
 	*	Despachador de tipos de salidas de impresion
 	*/
-	function vista_impresion( impresion_toba $salida )
+	function vista_impresion( toba_impresion $salida )
 	{
-		if ( $salida instanceof html_impr ) {
+		if ( $salida instanceof toba_impr_html ) {
 			$this->vista_impresion_html( $salida );	
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 
-class ci_selector_archivos extends objeto_ci
+class ci_selector_archivos extends toba_ci
 {
 	protected $archivo;
 	

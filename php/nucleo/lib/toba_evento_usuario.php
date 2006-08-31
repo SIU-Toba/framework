@@ -215,7 +215,7 @@ class toba_evento_usuario
 
 		if ( $this->posee_accion_imprimir() ) {
 			// ---*** IMPRIMIR HTML ***---
-			$opciones['servicio'] = 'vista_html_impr';
+			$opciones['servicio'] = 'vista_toba_impr_html';
 			$opciones['objetos_destino'] = array( $this->id );
 			//$opciones['celda_memoria'] = 'popup';
 			$url = toba::get_vinculador()->crear_vinculo( null, null, array(), $opciones );

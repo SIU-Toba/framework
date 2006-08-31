@@ -1,6 +1,6 @@
 <?php
 
-class pantalla_visor extends objeto_ei_pantalla 
+class pantalla_visor extends toba_ei_pantalla 
 {
 	public $analizador;
 	

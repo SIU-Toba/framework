@@ -1,7 +1,7 @@
 <?
 
 
-class eiform_ap extends objeto_ei_formulario
+class eiform_ap extends toba_ei_formulario
 {
 	function extender_objeto_js() 
 	{

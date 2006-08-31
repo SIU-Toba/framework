@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_abm extends objeto_ci
+class ci_abm extends toba_ci
 {
 	protected $es_nuevo = false;
 		

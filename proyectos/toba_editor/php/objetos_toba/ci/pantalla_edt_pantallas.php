@@ -1,6 +1,6 @@
 <?php
 
-class pantalla_edt_pantallas extends objeto_ei_pantalla 
+class pantalla_edt_pantallas extends toba_ei_pantalla 
 {
 	function generar_html_dependencias()
 	{

@@ -1,6 +1,6 @@
 <?
 
-class odt_datos_tabla_columna extends objeto_datos_tabla
+class odt_datos_tabla_columna extends toba_datos_tabla
 {
 	function configuracion()
 	{

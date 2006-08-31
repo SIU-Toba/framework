@@ -1,12 +1,12 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php'); 
+require_once('nucleo/componentes/interface/toba_ci.php'); 
 /*
 	El controlador tiene que implementar 2 metodos:
 	
 		- get_dbr_eventos()
 		- get_eventos_estandar()		
 */
-class ci_eventos extends objeto_ci
+class ci_eventos extends toba_ci
 {
 	//Eventos
 	private $tabla;

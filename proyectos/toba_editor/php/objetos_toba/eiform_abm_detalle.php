@@ -1,8 +1,8 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ei_formulario_ml.php'); 
+require_once('nucleo/componentes/interface/toba_ei_formulario_ml.php'); 
 
 
-class eiform_abm_detalle extends objeto_ei_formulario_ml
+class eiform_abm_detalle extends toba_ei_formulario_ml
 {
 	private $fila_protegida;
 

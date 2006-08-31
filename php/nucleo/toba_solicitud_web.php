@@ -250,7 +250,7 @@ class toba_solicitud_web extends toba_solicitud
 	/**
 	 * Genera una salida html pensada para impresión
 	 */
-	protected function servicio__vista_html_impr( $objetos )
+	protected function servicio__vista_toba_impr_html( $objetos )
 	{
 		$clase = toba_proyecto::instancia()->get_parametro('salida_impr_html_c');
 		$archivo = toba_proyecto::instancia()->get_parametro('salida_impr_html_a');
@@ -259,8 +259,8 @@ class toba_solicitud_web extends toba_solicitud
 			require_once($archivo);
 			$salida = new $clase();	
 		} else {
-			require_once('nucleo/lib/salidas/html_impr.php');
-			$salida = new html_impr();
+			require_once('nucleo/lib/salidas/toba_impr_html.php');
+			$salida = new toba_impr_html();
 		}
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();

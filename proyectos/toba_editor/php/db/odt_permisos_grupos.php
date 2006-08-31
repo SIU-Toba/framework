@@ -1,7 +1,7 @@
 <?php
 
 
-class odt_permisos_grupos extends objeto_datos_tabla
+class odt_permisos_grupos extends toba_datos_tabla
 {
 	function set_grupos($grupos)
 	{

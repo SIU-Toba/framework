@@ -1,9 +1,9 @@
 <?php
-require_once('nucleo/componentes/interface/objeto_ci.php');
+require_once('nucleo/componentes/interface/toba_ci.php');
 require_once('lib/reflexion/archivo_php.php');
 require_once('lib/reflexion/clase_php.php');
 
-class ci_editor_php extends objeto_ci
+class ci_editor_php extends toba_ci
 {
 	protected $datos;
 	protected $archivo_php;
@@ -128,7 +128,7 @@ class ci_editor_php extends objeto_ci
 	
 }
 
-class pantalla_codigo extends objeto_ei_pantalla 
+class pantalla_codigo extends toba_ei_pantalla 
 {
 	function archivo_php()
 	{
@@ -150,7 +150,7 @@ class pantalla_codigo extends objeto_ei_pantalla
 }
 
 
-class pantalla_analisis extends objeto_ei_pantalla 
+class pantalla_analisis extends toba_ei_pantalla 
 {
 	function archivo_php()
 	{
