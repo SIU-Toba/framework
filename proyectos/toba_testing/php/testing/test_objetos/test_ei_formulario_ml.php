@@ -1,6 +1,6 @@
 <?php
 
-Mock::generate('objeto_ci');
+Mock::generate('toba_ci');
 
 class test_ei_formulario_ml extends test_toba
 {
@@ -30,7 +30,7 @@ class test_ei_formulario_ml extends test_toba
 	function crear_ml_para_analisis_gen_interface($datos)
 	{
 		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
-											'objeto_ei_formulario_ml');
+											'toba_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->definir_eventos();
 		$ml->cargar_datos($datos);
@@ -47,7 +47,7 @@ class test_ei_formulario_ml extends test_toba
 	function crear_ml_para_analisis_disparo_eventos($observador, $metodo, $datos, $evento='modificacion')
 	{
 		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
-											'objeto_ei_formulario_ml');
+											'toba_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);
@@ -67,7 +67,7 @@ class test_ei_formulario_ml extends test_toba
 	function crear_ml_para_seleccion($observador, $metodo, $datos, $parametros, $evento='seleccion')
 	{
 		$ml = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1322'), 
-											'objeto_ei_formulario_ml');
+											'toba_ei_formulario_ml');
 		$ml->inicializar(array('nombre_formulario' => ''));
 		$ml->agregar_controlador($observador);
 		$ml->set_metodo_analisis($metodo);
@@ -110,7 +110,7 @@ class test_ei_formulario_ml extends test_toba
 						array('lista'=> 'f')
 					);							
 
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));		
 					
 		//Carga de estado inicial
@@ -146,7 +146,7 @@ class test_ei_formulario_ml extends test_toba
 						147 => array(					apex_ei_analisis_fila => 'B')
 					);		
 
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 		$observador->expectOnce('registrar_evento', array(null, 'modificacion', $esperados));		
 					
 		//Carga de estado inicial
@@ -173,7 +173,7 @@ class test_ei_formulario_ml extends test_toba
 						145 => array('lista'=> 'c')
 					);							 
 
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'b'), 146));
 		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'registro_alta', array('lista'=>'d'), 155));
 		$observador->expectArgumentsAt(2, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'c'), 145));
@@ -215,7 +215,7 @@ class test_ei_formulario_ml extends test_toba
 						array('lista'=> 'b'),
 						array('lista'=> 'd')
 					);
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 
 		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
 		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'modificacion', $esperados));
@@ -256,7 +256,7 @@ class test_ei_formulario_ml extends test_toba
 						147 => array(					apex_ei_analisis_fila => 'B')
 					);		
 					
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'modificacion', $esperados));
 		//Se va a seleccionar el elemento 'd' que esta en el indice 155 del arreglo en la modificacion
 		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'seleccion', '155'));
@@ -290,7 +290,7 @@ class test_ei_formulario_ml extends test_toba
 						145 => array('lista'=> 'c')
 					);							 
 
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'b'), 146));
 		$observador->expectArgumentsAt(1, 'registrar_evento', array(null, 'registro_alta', array('lista'=>'d'), 155));
 		$observador->expectArgumentsAt(2, 'registrar_evento', array(null, 'registro_modificacion', array('lista'=>'c'), 145));
@@ -328,7 +328,7 @@ class test_ei_formulario_ml extends test_toba
 						234 => array('lista' => 'c'),
 					);			
 
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 
 		//Se va a seleccionar el elemento 'd' que esta en el indice 1 del arreglo en la modificacion
 		$observador->expectArgumentsAt(0, 'registrar_evento', array(null, 'seleccion_sin_datos', '146'));
@@ -373,7 +373,7 @@ class test_ei_formulario_ml extends test_toba
 						array('lista'=> 'd')
 					);
 						
-		$observador = new Mockobjeto_ci($this);
+		$observador = new Mocktoba_ci($this);
 
 		//Se genera la pantalla
 		$this->crear_ml_para_analisis_gen_interface($iniciales);

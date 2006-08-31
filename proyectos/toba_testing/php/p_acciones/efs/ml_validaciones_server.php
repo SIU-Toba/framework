@@ -1,7 +1,7 @@
 <?php
 
 //--------------------------------------------------------------------
-class ml_instancias_server extends objeto_ei_formulario_ml
+class ml_instancias_server extends toba_ei_formulario_ml
 {
 	function extender_objeto_js()
 	{

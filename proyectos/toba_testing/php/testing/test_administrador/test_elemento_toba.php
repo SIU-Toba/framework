@@ -60,7 +60,7 @@ class test_elemento_toba extends test_toba
 		$desconocidos = array('evt__mirar');
 		$sospechosos = array('evt___otro');
 		
-		$et_ci = new elemento_objeto_ci();
+		$et_ci = new elemento_toba_ci();
 		$this->asertar_eventos($et_ci, $predefinidos, $invalidos, $desconocidos, $sospechosos);
 	}
 */	
@@ -86,7 +86,7 @@ class test_elemento_toba extends test_toba
 	function test_generacion_ci_con_dependencias()
 	{
 		$nombre_clase = 'mi_ci';
-		$clase = new clase_php($nombre_clase, '', 'objeto_ci', 'nucleo/browser/clases/objeto_ci.php');
+		$clase = new clase_php($nombre_clase, '', 'toba_ci', 'nucleo/browser/clases/toba_ci.php');
 		$clase->set_objeto('toba_testing', '1323');
 		$codigo = $clase->generar_clase($this->generar_todo());
 //		highlight_string("<?php\n $codigo \n");
@@ -137,7 +137,7 @@ class test_elemento_toba extends test_toba
 	function test_generacion_ei_formulario()
 	{
 		$nombre_clase = 'mi_ei_formulario';
-		$clase = new clase_php($nombre_clase, '', 'objeto_ei_formulario', 'nucleo/browser/clases/objeto_ei_formulario.php');
+		$clase = new clase_php($nombre_clase, '', 'toba_ei_formulario', 'nucleo/browser/clases/toba_ei_formulario.php');
 		$clase->set_objeto('toba_testing', '1324');
 		$codigo = $clase->generar_clase($this->generar_todo());
 //		highlight_string("<?php\n $codigo \n");
@@ -151,7 +151,7 @@ class test_elemento_toba extends test_toba
 	function test_generacion_ei_cuadro()
 	{
 		$nombre_clase = 'mi_ei_cuadro';
-		$clase = new clase_php($nombre_clase, '', 'objeto_ei_cuadro', 'nucleo/browser/clases/objeto_ei_cuadro.php');
+		$clase = new clase_php($nombre_clase, '', 'toba_ei_cuadro', 'nucleo/browser/clases/toba_ei_cuadro.php');
 		$clase->set_objeto('toba_testing', '1326');
 		$codigo = $clase->generar_clase($this->generar_todo());
 //		highlight_string("<?php\n $codigo \n");
@@ -164,7 +164,7 @@ class test_elemento_toba extends test_toba
 	function test_generacion_ei_filtro()
 	{
 		$nombre_clase = 'mi_ei_filtro';
-		$clase = new clase_php($nombre_clase, '', 'objeto_ei_filtro', 'nucleo/browser/clases/objeto_ei_filtro.php');
+		$clase = new clase_php($nombre_clase, '', 'toba_ei_filtro', 'nucleo/browser/clases/toba_ei_filtro.php');
 		$clase->set_objeto('toba_testing', '1330');
 		$codigo = $clase->generar_clase($this->generar_todo());
 //		highlight_string("<?php\n $codigo \n");

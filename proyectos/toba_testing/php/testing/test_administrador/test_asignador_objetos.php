@@ -43,7 +43,7 @@ class test_asignador_objetos extends test_toba
 	function test_asignar_a_ci()
 	{
 		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
-											'objeto_ci', true, null, true);		
+											'toba_ci', true, null, true);		
 		//Setup
 		$ci_destino = array('tipo' => 'ci',
 							'objeto' =>'1605', 
@@ -56,7 +56,7 @@ class test_asignador_objetos extends test_toba
 		
 		//Validacion
 		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
-											'objeto_ci', true, null, true);		
+											'toba_ci', true, null, true);		
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($hijos), 3);
 		$this->assertEqual($hijos[2]->get_id(), '1606');
@@ -69,7 +69,7 @@ class test_asignador_objetos extends test_toba
 	function test_asignar_a_pantalla_ci_sin_objetos_previos()
 	{
 		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
-											'objeto_ci');			
+											'toba_ci');			
 		//Setup
 		$ci_destino = array('tipo' => 'ci_pantalla',
 							'objeto' =>'1605', 
@@ -83,7 +83,7 @@ class test_asignador_objetos extends test_toba
 
 		//Validacion
 		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
-											'objeto_ci');			
+											'toba_ci');			
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($obj->get_hijos()), 2);		//Tiene dos pantallas
 		$pantalla = $hijos[1];
@@ -109,7 +109,7 @@ class test_asignador_objetos extends test_toba
 
 		//Validacion
 		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
-											'objeto_ci');
+											'toba_ci');
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($obj->get_hijos()), 2);		//Tiene dos pantallas
 		$pantalla = $hijos[0];

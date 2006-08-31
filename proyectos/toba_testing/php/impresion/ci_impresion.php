@@ -1,6 +1,6 @@
 <?php
 
-class ci_impresion extends objeto_ci
+class ci_impresion extends toba_ci
 {
 	function mantener_estado_sesion()
 	{

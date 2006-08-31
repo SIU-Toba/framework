@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class subclase_ci extends objeto_ci
+class subclase_ci extends toba_ci
 {
 	function extender_objeto_js()
 	{

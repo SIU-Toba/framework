@@ -4,7 +4,7 @@ require_once("base_test_datos.php");
 class test_dr_nn_deptos extends base_test_datos
 {
 	/**
-	 * @var objeto_datos_relacion
+	 * @var toba_datos_relacion
 	 */
 	protected $dr;
 	
@@ -31,7 +31,7 @@ class test_dr_nn_deptos extends base_test_datos
 	function get_dr()
 	{
 		$dr = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1625'), 
-											'objeto_datos_relacion');
+											'toba_datos_relacion');
 		return $dr;
 	}
 

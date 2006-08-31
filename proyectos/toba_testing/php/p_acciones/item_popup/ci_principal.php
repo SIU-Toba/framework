@@ -1,6 +1,6 @@
 <?php
 
-class ci_principal extends objeto_ci
+class ci_principal extends toba_ci
 {
 	function extender_objeto_js()
 	{

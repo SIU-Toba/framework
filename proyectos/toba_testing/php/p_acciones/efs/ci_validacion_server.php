@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_validacion_server extends objeto_ci
+class ci_validacion_server extends toba_ci
 {
 	function mantener_estado_sesion()
 	{

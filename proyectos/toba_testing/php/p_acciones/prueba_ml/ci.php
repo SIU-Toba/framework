@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/browser/clases/objeto_ci.php");
+require_once("nucleo/browser/clases/toba_ci.php");
 
-class ci extends objeto_ci
+class ci extends toba_ci
 { 
 	protected $datos_ml;
 	protected $datos_formulario;
@@ -56,7 +56,7 @@ class ci extends objeto_ci
 			$eventos += eventos::cancelar();
 			//Se le agrega un evento seleccion_borrar a cada fila
 			$borra = eventos::duplicar(eventos::seleccion(), 'seleccion_borrar');
-			$borra['seleccion_borrar']['imagen'] = recurso::imagen_apl('borrar.gif');
+			$borra['seleccion_borrar']['imagen'] = toba_recurso::imagen_apl('borrar.gif');
 			$borra['seleccion_borrar']['confirmacion'] = '¿Está seguro que quiere borrar la fila?';
 			$borra['seleccion_borrar']['ayuda'] = 'Borra la fila';
 			$eventos += $borra;

@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_cascadas extends objeto_ci
+class ci_cascadas extends toba_ci
 {
 	protected $form_simple;
 	protected $form_comp;	

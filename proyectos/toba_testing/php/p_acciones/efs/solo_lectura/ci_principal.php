@@ -1,6 +1,6 @@
 <?php
 
-class ci_principal extends objeto_ci
+class ci_principal extends toba_ci
 {
 	protected $datos_form;
 	protected $datos_form_ml;

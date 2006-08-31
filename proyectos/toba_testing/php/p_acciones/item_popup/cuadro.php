@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/browser/clases/objeto_ei_cuadro.php");
+require_once("nucleo/browser/clases/toba_ei_cuadro.php");
 
-class cuadro extends objeto_ei_cuadro
+class cuadro extends toba_ei_cuadro
 {
     function obtener_clave_pura_fila($fila)
 	//Genero la CLAVE
@@ -153,7 +153,7 @@ class cuadro extends objeto_ei_cuadro
                 }
 	            //-- Evento FIJO de seleccion
 					echo "<td class='lista-col-titulo'>\n";
-					echo form::image($this->submit.$clave_fila,recurso::imagen_apl("doc.gif"), 
+					echo toba_form::image($this->submit.$clave_fila,toba_recurso::imagen_apl("doc.gif"), 
 									"onClick='seleccionar(\"{$this->datos[$f]['id']}\", \"{$this->datos[$f]['descripcion']}\")';");
 	            	echo "</td>\n";
 				//----------------------------

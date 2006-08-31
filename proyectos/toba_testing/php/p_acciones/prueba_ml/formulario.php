@@ -1,7 +1,7 @@
 <?php
-include_once('nucleo/browser/clases/objeto_ei_formulario.php');
+include_once('nucleo/browser/clases/toba_ei_formulario.php');
 
-class formulario extends objeto_ei_formulario
+class formulario extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

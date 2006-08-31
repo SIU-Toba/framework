@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_activacion extends objeto_ci
+class ci_activacion extends toba_ci
 {
 	protected $datos_1;
 	protected $datos_2;

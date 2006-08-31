@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_definicion extends objeto_ci
+class ci_definicion extends toba_ci
 {
 	protected $datos = array();
 	

@@ -1,6 +1,6 @@
 <?php 
 //--------------------------------------------------------------------
-class ci_mecanismos_carga extends objeto_ci
+class ci_mecanismos_carga extends toba_ci
 {
 	protected $registro;
 	protected $datos_ml;

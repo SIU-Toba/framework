@@ -1,7 +1,7 @@
 <?php
-require_once('nucleo/browser/clases/objeto_ei_formulario_ml.php');
+require_once('nucleo/browser/clases/toba_ei_formulario_ml.php');
 
-class ml extends objeto_ei_formulario_ml
+class ml extends toba_ei_formulario_ml
 {
 	function extender_objeto_js()
 	{
