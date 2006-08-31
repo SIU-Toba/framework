@@ -12,7 +12,7 @@ class zona_proyecto extends zona_editor
 					WHERE	proyecto='{$this->editable_id[0]}'";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			throw new excepcion_toba("ZONA-PROYECTO: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new toba_excepcion("ZONA-PROYECTO: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-PROYECTO: El editable solicitado no existe","info");

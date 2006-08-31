@@ -115,7 +115,7 @@ class ci extends objeto_ci
 	function evt__formulario__modificacion($datos)
 	{
 		if ($datos['editable'] == 'asd')
-			throw new excepcion_toba('El editable no puede ser \'asd\'.');
+			throw new toba_excepcion('El editable no puede ser \'asd\'.');
 		$this->datos_formulario = $datos;
 	}
 
@@ -153,7 +153,7 @@ class ci extends objeto_ci
 		if (isset($this->datos_formulario_abm[$clave]))
 			$this->datos_formulario_abm[$clave] = $registro_mod;
 		else
-			throw new excepcion_toba('EL ABM no contiene un registro en edición');
+			throw new toba_excepcion('EL ABM no contiene un registro en edición');
 	}	
 
 	function evt__formulario_abm__cancelar()
@@ -168,7 +168,7 @@ class ci extends objeto_ci
 		if (isset($this->registro_actual))
 			unset($this->datos_formulario_abm[$this->registro_actual]);
 		else
-			throw new excepcion_toba('EL ABM no contiene un registro en edición');	
+			throw new toba_excepcion('EL ABM no contiene un registro en edición');	
 	}	
 	
 	//------------------------------------

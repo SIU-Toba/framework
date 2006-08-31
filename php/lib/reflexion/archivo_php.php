@@ -52,7 +52,7 @@ class archivo_php
 	{
 		$cmd = info_instalacion::instancia()->get_editor_php();
 		if (strlen($cmd) == 0) {
-			throw new excepcion_toba_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
+			throw new toba_excepcion_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
 		}
 		if (manejador_archivos::es_windows()) {
 			$archivo = manejador_archivos::path_a_windows($this->nombre);
@@ -129,7 +129,7 @@ class archivo_php
 				$inicio = "<?";
 				$final = substr($this->contenido, $pos + 2);
 			} else {
-				throw new excepcion_toba("El archivo no contiene las marcas PHP de inicio de archivo");
+				throw new toba_excepcion("El archivo no contiene las marcas PHP de inicio de archivo");
 			}
 		}
 		$this->contenido = $inicio."\n".$codigo.$final;
@@ -142,7 +142,7 @@ class archivo_php
 			$final = "?>";
 			$inicio = substr($this->contenido, 0, $pos);
 		} else {
-			throw new excepcion_toba("El archivo no contiene las marcas PHP de fin de archivo");
+			throw new toba_excepcion("El archivo no contiene las marcas PHP de fin de archivo");
 		}
 		$this->contenido = $inicio."\n".$codigo."\n".$final;	
 	}

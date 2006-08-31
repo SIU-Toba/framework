@@ -15,7 +15,7 @@ class comando_test extends comando_toba
 	function opcion__ci()
 	{
 		if ( !isset( $this->argumentos[1] ) || !isset( $this->argumentos[2] ) ) {
-			throw new excepcion_toba("Es necesario indicar el nombre de las dos instancias");
+			throw new toba_excepcion("Es necesario indicar el nombre de las dos instancias");
 		}
 		$ci = new comparador_instancias( $this->argumentos[1], $this->argumentos[2] );
 		$datos = $ci->procesar();

@@ -51,7 +51,7 @@ class sincronizador_archivos
 			// Controlo que el cliente SVN este en el PATH
 			exec("svn --help", $resultado, $status);
 			if( $status !== 0 ){
-				throw new excepcion_toba("SINCRONIZADOR: Es necesario tener un cliente SVN de linea de comandos en el PATH");
+				throw new toba_excepcion("SINCRONIZADOR: Es necesario tener un cliente SVN de linea de comandos en el PATH");
 			}
 			return 'svn';	
 		} else {

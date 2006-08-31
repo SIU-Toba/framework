@@ -32,7 +32,7 @@ private $relacion;
 	try{
 			$t = $this->get_relacion();
 			$t->sincronizar();
-		}catch(excepcion_toba $e){
+		}catch(toba_excepcion $e){
 			toba::get_cola_mensajes()->agregar('Error insertando');
 			toba::get_logger()->error( $e->getMessage() );
 		}     

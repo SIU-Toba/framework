@@ -1,5 +1,5 @@
 <?php
-require_once("tp_basico.php");
+require_once("toba_tp_basico.php");
 
 class tp_basico_titulo extends tp_basico
 {

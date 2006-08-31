@@ -2,7 +2,7 @@
 require_once('modelo/catalogo_modelo.php');
 require_once('modelo/lib/gui.php');
 
-class pantalla_login extends objeto_ei_pantalla 
+class pantalla_login extends toba_ei_pantalla  
 {
 	function generar_html()
 	{
@@ -19,7 +19,7 @@ class pantalla_login extends objeto_ei_pantalla
 	
 }
 
-class ci_login extends objeto_ci
+class ci_login extends toba_ci
 {
 	protected $datos = array();
 
@@ -39,7 +39,7 @@ class ci_login extends objeto_ci
 	function evt__datos__modificacion($datos)
 	{
 		$this->datos = $datos;
-		if ( info_proyecto::instancia()->get_parametro('validacion_debug') ) {
+		if ( toba_proyecto::instancia()->get_parametro('validacion_debug') ) {
 			if ( $this->datos['autologin'] ) {
 				$this->datos['usuario'] = $this->datos['autologin'];
 			}
@@ -52,7 +52,7 @@ class ci_login extends objeto_ci
 			try {
 				editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
 				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
-			} catch ( excepcion_toba_login $e ) {
+			} catch ( toba_excepcion_login $e ) {
 				toba::get_cola_mensajes()->agregar( $e->getMessage() );
 			}
 		}		
@@ -60,7 +60,7 @@ class ci_login extends objeto_ci
 
 	function conf__datos()
 	{	
-		if ( info_proyecto::instancia()->get_parametro('validacion_debug') ) {
+		if ( toba_proyecto::instancia()->get_parametro('validacion_debug') ) {
 			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
 		} else {
 			$this->dependencia('datos')->desactivar_efs('autologin');

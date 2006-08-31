@@ -1,6 +1,6 @@
 <?php
 
-class excepcion_curso extends excepcion_toba
+class excepcion_curso extends toba_excepcion
 {
 }
 

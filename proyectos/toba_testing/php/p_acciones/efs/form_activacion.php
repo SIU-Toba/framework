@@ -15,11 +15,11 @@ class form_activacion extends objeto_ei_formulario
 		$ok = false;
 		try {
 			parent::validar_estado();
-		} catch (excepcion_toba_validacion $e) {
+		} catch (toba_excepcion_validacion $e) {
 			$causante = $e->get_causante()->get_id();
 			//--- El obligatorio no tiene que dar excepcion
 			if ($causante == 'obligatorio') {
-				throw new excepcion_toba_validacion("El ef obligatorio no debio tirar excepcion!!<br>".
+				throw new toba_excepcion_validacion("El ef obligatorio no debio tirar excepcion!!<br>".
 													$e->getMessage(), $e->get_causante());
 			} else {
 				$ok = true;	
@@ -27,7 +27,7 @@ class form_activacion extends objeto_ei_formulario
 		}
 		//--- El NO obligatorio si tiene que dar		
 		if (! $ok) {
-			throw new excepcion_toba_validacion("El ef no obligatorio debio tirar excepcion!!",
+			throw new toba_excepcion_validacion("El ef no obligatorio debio tirar excepcion!!",
 												 $this->ef('no_obligatorio'));
 		}
 	}

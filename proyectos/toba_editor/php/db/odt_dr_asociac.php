@@ -18,7 +18,7 @@ class odt_dr_asociac extends objeto_datos_tabla
 		if (!$ok) {
 			$mensaje = "Debe especificar al menos una asociación de columnas en la ".
 						"relación entre {$fila['padre_id']} y {$fila['hijo_id']}";
-			throw new excepcion_toba($mensaje);
+			throw new toba_excepcion($mensaje);
 		}
 	}
 	

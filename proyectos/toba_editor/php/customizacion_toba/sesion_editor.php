@@ -1,7 +1,7 @@
 <?
 require_once('modelo/info/contexto_info.php');
 
-class sesion_editor extends sesion_toba
+class sesion_editor extends toba_sesion
 {
 
 	protected function conf__actualizar_sesion()

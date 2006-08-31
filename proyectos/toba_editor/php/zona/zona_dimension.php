@@ -13,7 +13,7 @@ class zona_dimension extends zona
 		//echo $sql;
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			throw new excepcion_toba("ZONA-DIMENSION: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new toba_excepcion("ZONA-DIMENSION: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-DIMENSION: El editable solicitado no existe","info");
@@ -96,7 +96,7 @@ class zona_dimension extends zona
 					ORDER BY 4,5,6;";
 			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 			if(!$rs){
-				throw new excepcion_toba("BARRA INFERIOR editor DIMENSIONES: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+				throw new toba_excepcion("BARRA INFERIOR editor DIMENSIONES: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			}
 			if(!$rs->EOF){
 				echo "<table class='tabla-0' width='400'>";
@@ -168,7 +168,7 @@ class zona_dimension extends zona
 					ORDER BY nombre;";
 			$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 			if(!$rs){
-				throw new excepcion_toba("BARRA INFERIOR editor DIMENSIONES: NO se pudo cargar definicion. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+				throw new toba_excepcion("BARRA INFERIOR editor DIMENSIONES: NO se pudo cargar definicion. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			}
 			if(!$rs->EOF){
 				$param_html['texto'] = "Editar PERFIL de DATOS";

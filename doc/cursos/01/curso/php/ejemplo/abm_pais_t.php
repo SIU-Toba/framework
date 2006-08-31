@@ -77,7 +77,7 @@ class abm_pais_t extends objeto_ci
 		try{
 			$t->sincronizar();
 			$this->reset();
-		}catch(excepcion_toba $e){
+		}catch(toba_excepcion $e){
 			toba::get_cola_mensajes()->agregar('Error insertando');
 			toba::get_logger()->error( $e->getMessage() );
 		}

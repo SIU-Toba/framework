@@ -98,7 +98,7 @@
 */
 	{
 		if(!is_array($datos)){
-			throw new excepcion_toba("Los datos tienen que ser un array");	
+			throw new toba_excepcion("Los datos tienen que ser un array");	
 		}
 		foreach(array_keys($datos) as $columna){
 			if(is_null( $datos[$columna] )){

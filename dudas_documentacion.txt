@@ -4,3 +4,18 @@ nucleo_toba:
 solicitud_web
  - Porque atrapa la excepcion_reset_nucleo y la vuelve a disparar?
  
+excepciones:
+ - Que tal seria el nombre toba_error en lugar de excepcion? 
+  (es dificil de escribir y hay muchos bugs relacionados con escribirlo mal, ya que no saltan hasta que ocurre la excpceion (a veces casi nunca))
+  
+
+  
+  
+ //--------- CAMBIOS
+ El prefijo toba_ de las clases indica que es del nucleo (internamente se lo debe pensar como nucleo_). 
+ Esto es porque los proyectos solo consumen a traves de api el nucleo, entonces tiene sentido que toba sea el nucleo.
+ 
+  - info_proyecto, info_instancia, etc pasaron a ser toba_proyecto, toba_instancia,etc
+  - cola_mensajes -> toba_notificaciones
+  
+ 

@@ -1,5 +1,4 @@
 <?
-require_once('ef.php');
 
 class toba_ef_popup extends toba_ef_editable
 {

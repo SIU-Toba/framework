@@ -1,5 +1,4 @@
 <?
-require_once("ef.php");
 require_once("toba_ef_oculto.php");
 
 

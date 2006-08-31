@@ -77,7 +77,7 @@ class toba
 	/**
 	 * Retorna una referencia a una fuente de datos declarada en el proyecto
 	 * @param string $id_fuente
-	 * @return fuente_de_datos
+	 * @return toba_fuente_datos
 	 */
 	static function get_fuente($id_fuente=null)
 	{

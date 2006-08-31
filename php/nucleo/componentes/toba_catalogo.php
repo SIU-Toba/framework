@@ -41,8 +41,8 @@ class toba_catalogo
 	{
 		$clase_definicion = self::get_nombre_clase_definicion( $tipo );
 		$path = call_user_func( array( $clase_definicion, 'get_path_clase_runtime') );
-		require_once( $path .'/objeto_'. $tipo. '.php');
-		return 'objeto_'. $tipo;
+		require_once( $path .'/toba_'. $tipo. '.php');
+		return 'toba_'. $tipo;
 	}
 
 	static function get_nombre_clase_info( $tipo )

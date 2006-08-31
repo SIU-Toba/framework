@@ -16,7 +16,7 @@ class formulario_consola
 	function agregar_campo( $parametros )
 	{
 		if ( !isset( $parametros['id'] ) || !isset( $parametros['nombre'] ) ) {
-			throw new excepcion_toba("CONSOLA: Formulario mal definido");
+			throw new toba_excepcion("CONSOLA: Formulario mal definido");
 		}
 		$this->campos[ $parametros['id'] ] = $parametros;
 	}

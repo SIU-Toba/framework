@@ -1,5 +1,4 @@
 <?php
-require_once("nucleo/componentes/interface/efs/ef.php");// Elementos de interface
 
 class toba_ef_editable extends ef
 {

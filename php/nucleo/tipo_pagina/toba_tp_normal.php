@@ -1,6 +1,6 @@
 <?php
-require_once("tp_basico_titulo.php");
-require_once("nucleo/lib/interface/form.php");
+require_once("toba_tp_basico_titulo.php");
+require_once("nucleo/lib/interface/toba_form.php");
 
 class tp_normal extends tp_basico_titulo
 {

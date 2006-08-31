@@ -37,7 +37,7 @@ class db
 	
 	/**
 	*	Crea una conexion a la base
-	*	@throws excepcion_toba en caso de error
+	*	@throws toba_excepcion en caso de error
 	*/
 	function conectar()
 	{
@@ -47,7 +47,7 @@ class db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-	   			throw new excepcion_toba("No es posible realizar la conexión a la base: ". $e->getMessage());
+	   			throw new toba_excepcion("No es posible realizar la conexión a la base: ". $e->getMessage());
 			}
 		}
 	}		
@@ -82,7 +82,7 @@ class db
 	/**
 	*	Ejecuta un comando sql o un conjunto de ellos
 	*	@param mixed $sql Comando o arreglo de comandos
-	*	@throws excepcion_toba_db en caso de que algun comando falle	
+	*	@throws toba_excepcion_db en caso de que algun comando falle	
 	*/
 	function ejecutar($sql)
 	{
@@ -93,7 +93,7 @@ class db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
-					throw new excepcion_toba_db("ERROR ejecutando SQL. ".
+					throw new toba_excepcion_db("ERROR ejecutando SQL. ".
 											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 											"-- SQL ejecutado: [" . $sql[$id] . "].", $e->getCode() );
 				}
@@ -103,7 +103,7 @@ class db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
-				throw new excepcion_toba_db("ERROR ejecutando SQL. ".
+				throw new toba_excepcion_db("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
 										
@@ -118,7 +118,7 @@ class db
 	*	@param string $ado Modo Fecth de ADO, por defecto asociativo
 	*	@param boolean $obligatorio Si la consulta no retorna datos lanza una excepcion
 	*	@return array Resultado de la consulta en formato fila-columna
-	*	@throws excepcion_toba_db en caso de error
+	*	@throws toba_excepcion_db en caso de error
 	*/	
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
@@ -127,7 +127,7 @@ class db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			throw new excepcion_toba_db("ERROR ejecutando SQL. " .
+			throw new toba_excepcion_db("ERROR ejecutando SQL. " .
 									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
 		}
@@ -177,7 +177,7 @@ class db
 	//Esta función ejecuta una serie de comandos sql dados en un archivo, contra la BD dada.
 	{
 		if (!file_exists($archivo)) {
-			throw new excepcion_toba("Error al ejecutar comandos. El archivo '$archivo' no existe");
+			throw new toba_excepcion("Error al ejecutar comandos. El archivo '$archivo' no existe");
 		}
 		$str = file_get_contents($archivo);
 		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
@@ -189,17 +189,17 @@ class db
 
 	function get_dsn()
 	{
-		throw new excepcion_toba("No implementado para el motor: $this->motor");
+		throw new toba_excepcion("No implementado para el motor: $this->motor");
 	}
 
 	function recuperar_secuencia()
 	{
-		throw new excepcion_toba("No implementado para el motor: $this->motor");
+		throw new toba_excepcion("No implementado para el motor: $this->motor");
 	}
 
 	function retrazar_constraints()
 	{
-		throw new excepcion_toba("No implementado para el motor: $this->motor");
+		throw new toba_excepcion("No implementado para el motor: $this->motor");
 	}
 
 	//------------------------------------------------------------------------
@@ -208,7 +208,7 @@ class db
 	
 	function get_definicion_columnas($tabla)
 	{
-		throw new excepcion_toba("No implementado para el motor: $this->motor");
+		throw new toba_excepcion("No implementado para el motor: $this->motor");
 	}
 	
 	/**
@@ -322,7 +322,7 @@ class db
 	*/
 	function obtener_error_toba($codigo, $descripcion)
 	{
-		throw new excepcion_toba("No implementado para el motor: $this->motor");
+		throw new toba_excepcion("No implementado para el motor: $this->motor");
 	}
 }
 ?>

@@ -60,7 +60,7 @@ class toba_instancia
 	static function get_db()
 	{
 		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
-			return dba::get_db($_SESSION['toba']['instancia']['base']);
+			return toba_dba::get_db($_SESSION['toba']['instancia']['base']);
 		} else {
 			throw new toba_excepcion("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
 		}

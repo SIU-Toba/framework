@@ -13,7 +13,7 @@ class ci_clonador_objetos extends objeto_ci
 	function ini()
 	{
 		if (! toba::get_zona()->cargada()) {
-			throw new excepcion_toba('La operación se debe invocar desde la zona de un item');
+			throw new toba_excepcion('La operación se debe invocar desde la zona de un item');
 		}
 	}	
 	
@@ -79,7 +79,7 @@ class ci_clonador_objetos extends objeto_ci
 				//Validaciones 
 				if ($this->destino['tipo'] == 'objeto_ci' || $this->destino['tipo'] == 'objeto_ci') {
 					if (!isset($this->destino['id_dependencia'])) {
-						throw new excepcion_toba("El identificador es obligatorio");
+						throw new toba_excepcion("El identificador es obligatorio");
 					}
 				}				
 				//Se convierten los tipos a los que entiende el asignador

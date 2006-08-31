@@ -1,8 +1,8 @@
 <?
 define("apex_cuadro_compatible",1);
 require_once("toba_ei.php");
-require_once("nucleo/lib/interface/form.php");
-require_once("nucleo/lib/interface/formateo.php"); 
+require_once("nucleo/lib/interface/toba_form.php");
+require_once("nucleo/lib/interface/toba_formateo.php"); 
 define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 

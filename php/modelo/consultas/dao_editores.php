@@ -409,7 +409,7 @@ class dao_editores
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			
 		} else {
-			throw new excepcion_toba("No hay definido un datos_relacion para la clase $clase");
+			throw new toba_excepcion("No hay definido un datos_relacion para la clase $clase");
 		}
 	}	
 	

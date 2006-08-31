@@ -1,14 +1,14 @@
 <?php
 require_once("nucleo/lib/toba_recurso.php");						//Encapsulamiento de la llamada a toba_recursos
-require_once("nucleo/lib/js.php");							//Encapsulamiento de la utilidades javascript
-require_once("nucleo/lib/debug.php");						//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/lib/hilo.php");						//Canal de comunicacion inter-ejecutable
-require_once("nucleo/lib/interface/formateo.php"); 			//Funciones de formateo de columnas
-require_once("nucleo/lib/interface/form.php");				//inputs HTML
-require_once("nucleo/lib/interface/ei.php"); 				//elementos basicos de interface
-require_once("nucleo/tipo_pagina/tipo_pagina.php");			//Clase base de Tipo de pagina generico
-require_once("nucleo/menu/menu.php");						//Clase base de Menu 
-require_once("nucleo/lib/zona.php");
+require_once("nucleo/lib/toba_js.php");							//Encapsulamiento de la utilidades javascript
+require_once("nucleo/lib/toba_debug.php");						//DUMP de arrays, arboles y estructuras centrales
+require_once("nucleo/lib/toba_hilo.php");						//Canal de comunicacion inter-ejecutable
+require_once("nucleo/lib/interface/toba_formateo.php"); 			//Funciones de formateo de columnas
+require_once("nucleo/lib/interface/toba_form.php");				//inputs HTML
+require_once("nucleo/lib/interface/toba_ei.php"); 				//elementos basicos de interface
+require_once("nucleo/tipo_pagina/toba_tipo_pagina.php");			//Clase base de Tipo de pagina generico
+require_once("nucleo/menu/toba_menu.php");						//Clase base de Menu 
+require_once("nucleo/lib/toba_zona.php");
 require_once("lib/parseo.php");					       		//Funciones de parseo
 
 /**
@@ -18,7 +18,7 @@ require_once("lib/parseo.php");					       		//Funciones de parseo
  * 
  * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  */
-class toba_solicitud_web extends solicitud
+class toba_solicitud_web extends toba_solicitud
 {
 	protected $zona;			//Objeto que representa una zona que vincula varios items
 	protected $cis;

@@ -1,5 +1,4 @@
 <?php
-require_once("ef.php");
 
 abstract class toba_ef_multi_seleccion extends ef
 {

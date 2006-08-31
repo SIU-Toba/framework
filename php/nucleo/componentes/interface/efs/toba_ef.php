@@ -1,5 +1,4 @@
-<?
-require_once("nucleo/lib/interface/form.php");// Elementos STANDART de formulario
+<?php
 
 define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
 define("apex_ef_valor_oculto", "#oculto#"); // Valor que debe ser considerado como SOLO DISPONIBLE EN SERVER

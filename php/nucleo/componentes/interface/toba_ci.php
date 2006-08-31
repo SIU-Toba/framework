@@ -2,7 +2,6 @@
 require_once('toba_ei_pantalla.php');
 require_once("nucleo/componentes/interface/toba_ei_formulario.php");
 require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
-require_once("nucleo/lib/interface/form.php");
 require_once('nucleo/lib/toba_parser_ayuda.php');
 
 /**

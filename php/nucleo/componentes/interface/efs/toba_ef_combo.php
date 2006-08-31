@@ -1,5 +1,4 @@
 <?php
-require_once("nucleo/componentes/interface/efs/ef.php");
 
 abstract class ef_seleccion extends ef
 {

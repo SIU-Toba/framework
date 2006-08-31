@@ -167,7 +167,7 @@ class test_dr_nn_deptos extends base_test_datos
 		if(isset($datos[$tabla][$concepto])){
 			return 	$datos[$tabla][$concepto];
 		}else{
-			throw new excepcion_toba("Se solicito una FILA inexistente");
+			throw new toba_excepcion("Se solicito una FILA inexistente");
 		}
 	}
 
@@ -315,7 +315,7 @@ class test_dr_nn_deptos extends base_test_datos
 		try {
 			$this->dr->sincronizar();
 			$this->pass();
-		} catch (excepcion_toba  $e) {
+		} catch (toba_excepcion  $e) {
 			$this->fail($e->getMessage());
 		}
 		$this->control_cambios_dr(	array(	"depto" => array("db", "db"),
@@ -447,7 +447,7 @@ class test_dr_nn_deptos extends base_test_datos
 		try {
 			$this->dr->sincronizar();
 			$this->pass();
-		} catch (excepcion_toba $e) {
+		} catch (toba_excepcion $e) {
 			$this->fail($e->getMessage());
 		}
 		$this->cargar();

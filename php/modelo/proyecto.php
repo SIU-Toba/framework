@@ -1,8 +1,8 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
-require_once('nucleo/componentes/catalogo_toba.php');
-require_once('nucleo/componentes/cargador_toba.php');
+require_once('nucleo/componentes/toba_catalogo.php');
+require_once('nucleo/componentes/toba_cargador.php');
 require_once('lib/manejador_archivos.php');
 require_once('lib/sincronizador_archivos.php');
 require_once('lib/editor_archivos.php');
@@ -10,7 +10,7 @@ require_once('lib/reflexion/clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
-require_once('nucleo/lib/editor.php'); //Se necesita para saber el ID del editor
+require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del editor
 
 /**
 *	Administrador de metadatos de PROYECTOS
@@ -34,7 +34,7 @@ class proyecto extends elemento_modelo
 		$this->identificador = $identificador;
 		$this->dir = $instancia->get_path_proyecto($identificador);
 		if( ! is_dir( $this->dir ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
+			throw new toba_excepcion("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
 		$this->db = $this->instancia->get_db();
 		logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
@@ -119,13 +119,13 @@ class proyecto extends elemento_modelo
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
 		if( !( $existen_metadatos || $existe_vinculo ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			throw new toba_excepcion("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
 		try {
 			$this->exportar_tablas();
 			$this->exportar_componentes();
 			$this->sincronizar_archivos();
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->manejador_interface->error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
 												$e->getMessage() );
 		}
@@ -182,9 +182,9 @@ class proyecto extends elemento_modelo
 	private function exportar_componentes()
 	{
 		$this->manejador_interface->mensaje("Exportando componentes", false);
-		cargador_toba::instancia()->crear_cache_simple( $this->get_id(), $this->db );
-		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
-			$lista_componentes = catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db );
+		toba_cargador::instancia()->crear_cache_simple( $this->get_id(), $this->db );
+		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
+			$lista_componentes = toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db );
 			foreach ( $lista_componentes as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
@@ -214,7 +214,7 @@ class proyecto extends elemento_modelo
 	{
 		$this->cant_reg_exp = 0;
 		//Recupero metadatos
-		$metadatos = cargador_toba::instancia()->get_metadatos_simples( $id, $tipo, $this->db );
+		$metadatos = toba_cargador::instancia()->get_metadatos_simples( $id, $tipo, $this->db );
 		//Obtengo el nombre del componente
 		if ( isset($metadatos['apex_objeto']) ) {
 			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
@@ -250,7 +250,7 @@ class proyecto extends elemento_modelo
 			$this->cargar();
 			$this->instancia->actualizar_secuencias();
 			$this->db->cerrar_transaccion();
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->db->abortar_transaccion();
 			$this->manejador_interface->error( "PROYECTO: Ha ocurrido un error durante la IMPORTACION:\n".
 												$e->getMessage() );
@@ -264,7 +264,7 @@ class proyecto extends elemento_modelo
 	{
 		logger::instancia()->debug("Cargando proyecto '{$this->identificador}'");
 		if( ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
-			throw new excepcion_toba("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
+			throw new toba_excepcion("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
@@ -314,7 +314,7 @@ class proyecto extends elemento_modelo
 			$this->eliminar();
 			$this->db->cerrar_transaccion();
 			$this->manejador_interface->mensaje("El proyecto '{$this->identificador}' ha sido eliminado");
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->db->abortar_transaccion();
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
 												$e->getMessage() );
@@ -383,7 +383,7 @@ class proyecto extends elemento_modelo
 			$this->instancia->cargar_informacion_instancia_proyecto( $this->identificador );
 			$this->instancia->actualizar_secuencias();			
 			$this->db->cerrar_transaccion();
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->db->abortar_transaccion();
 			$this->manejador_interface->error("PROYECTO {$this->identificador}: Ha ocurrido un error durante la IMPORTACION:\n".
 												$e->getMessage());
@@ -399,7 +399,7 @@ class proyecto extends elemento_modelo
 		try {
 			$this->compilar_componentes();
 			$this->crear_compilar_archivo_referencia();
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".
 												$e->getMessage());
 		}
@@ -410,11 +410,11 @@ class proyecto extends elemento_modelo
 	*/
 	function compilar_componentes()
 	{
-		foreach (catalogo_toba::get_lista_tipo_componentes_dump() as $tipo) {
+		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
 			$this->manejador_interface->titulo( $tipo );
 			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
 			manejador_archivos::crear_arbol_directorios( $path );
-			foreach (catalogo_toba::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
+			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente );
 			}
 		}
@@ -429,7 +429,7 @@ class proyecto extends elemento_modelo
 		$nombre = manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
 		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
 		$clase = new clase_datos( $nombre );		
-		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
+		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
 		$directorio = $this->get_dir_componentes_compilados() . '/' . $tipo;
@@ -537,7 +537,7 @@ class proyecto extends elemento_modelo
 				ORDER BY 2";
 		$fuentes = $this->get_db()->consultar($sql);
 		if (empty($fuentes)) {
-			throw new excepcion_toba("El proyecto no tiene definida una fuente de datos.");
+			throw new toba_excepcion("El proyecto no tiene definida una fuente de datos.");
 		} else {
 			$fuente = current($fuentes);
 		}
@@ -553,7 +553,7 @@ class proyecto extends elemento_modelo
 		logger::instancia()->debug("Ejecutando el comando $comando");
 		$id_item = trim(exec($comando));
 		if (! is_numeric($id_item)) {
-			throw new excepcion_toba("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
+			throw new toba_excepcion("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
 		}
 		$this->manejador_interface->mensaje("OK");
 		
@@ -679,10 +679,10 @@ class proyecto extends elemento_modelo
 		//- 1 - Controles
 		$dir_template = toba_dir() . self::template_proyecto;
 		if ( $nombre == 'toba' ) {
-			throw new excepcion_toba("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
+			throw new toba_excepcion("INSTALACION: No es posible crear un proyecto con el nombre 'toba'");	
 		}
 		if ( self::existe( $nombre ) ) {
-			throw new excepcion_toba("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
+			throw new toba_excepcion("INSTALACION: Ya existe una carpeta con el nombre '$nombre' en la carpeta 'proyectos'");	
 		}
 		try {
 			//- 2 - Modificaciones en el sistema de archivos
@@ -714,12 +714,12 @@ class proyecto extends elemento_modelo
 					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', 'no' ) );
 				}
 				$db->cerrar_transaccion();
-			} catch ( excepcion_toba $e ) {
+			} catch ( toba_excepcion $e ) {
 				$db->abortar_transaccion();
 				$txt = 'PROYECTO : Ha ocurrido un error durante la carga de METADATOS del PROYECTO. DETALLE: ' . $e->getMessage();
-				throw new excepcion_toba( $txt );
+				throw new toba_excepcion( $txt );
 			}
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			// Borro la carpeta creada
 			if ( is_dir( $dir_proyecto ) ) {
 				$instancia->desvincular_proyecto( $nombre );

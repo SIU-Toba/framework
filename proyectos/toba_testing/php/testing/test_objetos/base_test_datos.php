@@ -20,7 +20,7 @@ class base_test_datos extends test_toba
 		foreach( $this->get_sql_eliminar_tablas() as $sql ){
 			try{
 				ejecutar_sql($sql);
-			}catch(excepcion_toba $e){
+			}catch(toba_excepcion $e){
 				//todo bien! el elemento no existia
 			}
 		}

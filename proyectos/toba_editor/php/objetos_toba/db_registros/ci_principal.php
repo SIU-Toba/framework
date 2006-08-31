@@ -62,7 +62,7 @@ class ci_principal extends ci_editores_toba
 				if ($nueva) {
 					$dbr->nueva_fila($columnas[$a]);
 				}
-			}catch(excepcion_toba $e){
+			}catch(toba_excepcion $e){
 				toba::get_cola_mensajes()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
 			}
 		}
@@ -85,7 +85,7 @@ class ci_principal extends ci_editores_toba
 				$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];	
 			}
 			return $columnas;
-		}catch(excepcion_toba $e){
+		}catch(toba_excepcion $e){
 			toba::get_cola_mensajes()->agregar( $e->getMessage() );
 		}
 	}	

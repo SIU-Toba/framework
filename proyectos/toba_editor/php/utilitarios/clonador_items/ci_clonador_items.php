@@ -7,7 +7,7 @@ class ci_clonador_items extends objeto_ci
 	function ini()
 	{
 		if (! toba::get_zona()->cargada()) {
-			throw new excepcion_toba('La operación se debe invocar desde la zona de un item');
+			throw new toba_excepcion('La operación se debe invocar desde la zona de un item');
 		}
 	}
 	

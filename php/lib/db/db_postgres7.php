@@ -100,7 +100,7 @@ class db_postgres7 extends db
 				ORDER BY a.attnum;";
 		$columnas = $this->consultar($sql);
 		if(!$columnas){
-			throw new excepcion_toba("La tabla '$tabla' no existe");	
+			throw new toba_excepcion("La tabla '$tabla' no existe");	
 		}
 		//2) Normalizo VALORES
 		$columnas_booleanas = array('uk','pk','not_null','tiene_predeterminado');

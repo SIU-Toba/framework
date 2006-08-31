@@ -51,7 +51,7 @@
 				}
 			}
 			toba::get_db()->cerrar_transaccion();
-		} catch( excepcion_toba $e ) {
+		} catch( toba_excepcion $e ) {
 			toba::get_db()->abortar_transaccion();
 			toba::get_cola_mensajes()->agregar("Error modificando permisos: " . $e->getMessage());
 		}

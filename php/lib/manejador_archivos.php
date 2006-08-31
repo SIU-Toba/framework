@@ -14,7 +14,7 @@ class manejador_archivos
 		}
 		if (!file_exists($path)) {
 			if (!mkdir($path, $modo, true)) {
-				throw new excepcion_toba("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
+				throw new toba_excepcion("No es posible crear el directorio $path, verifique que el usuario de Apache posea privilegios de escritura sobre este directorio");
 			}
 		}
 	}
@@ -91,7 +91,7 @@ class manejador_archivos
 	{
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
-			throw new excepcion_toba("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_excepcion("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
 		} 
 		if ( ! $recursivo_subdir ) {
 			if ( $dir = opendir( $directorio ) ) {	
@@ -124,7 +124,7 @@ class manejador_archivos
 	function buscar_archivos_directorio_recursivo( $directorio )
 	{
 		if( ! is_dir( $directorio ) ) {
-			throw new excepcion_toba("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_excepcion("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
 		} 
 		$archivos = array();
 		$d = dir( $directorio );
@@ -149,7 +149,7 @@ class manejador_archivos
 	{
 		$dirs = array();
 		if( ! is_dir( $directorio ) ) {
-			throw new excepcion_toba("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
+			throw new toba_excepcion("BUSCAR SUBDIRECTORIOS: El directorio '$directorio' es INVALIDO");
 		} 
 		if ($dir = opendir( $directorio )) {	
 		   while (false	!==	( $archivo = readdir( $dir ) ) )	{ 
@@ -172,7 +172,7 @@ class manejador_archivos
 	static function copiar_directorio( $origen, $destino )
 	{
 		if( ! is_dir( $origen ) ) {
-			throw new excepcion_toba("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
+			throw new toba_excepcion("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
 		} 
 		if( ! is_dir( $destino ) ) {
 			mkdir( $destino );
@@ -205,7 +205,7 @@ class manejador_archivos
 	static function eliminar_directorio( $directorio )
 	{
 		if( ! is_dir( $directorio ) ) {
-			throw new excepcion_toba("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
+			throw new toba_excepcion("ELIMINAR DIRECTORIO: El directorio '$directorio' es INVALIDO");
 		} 
 		$dir = opendir( $directorio );
 		while ( $archivo = readdir( $dir ) ) {

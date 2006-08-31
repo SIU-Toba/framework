@@ -1,5 +1,5 @@
 <?
-require_once("tp_basico.php");
+require_once("toba_tp_basico.php");
 
 class tp_logon extends tp_basico
 {

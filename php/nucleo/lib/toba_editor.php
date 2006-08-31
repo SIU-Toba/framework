@@ -60,7 +60,7 @@ class editor
 	static function get_base_activa()
 	{
 		if (self::activado()) {
-			return dba::get_db($_SESSION['toba']['_editor_']['base']);
+			return toba_dba::get_db($_SESSION['toba']['_editor_']['base']);
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-interface interface_usuario
+interface toba_interface_usuario
 {
 	/*
 		Debe llamarse antes que las demas,

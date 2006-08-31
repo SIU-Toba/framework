@@ -1,9 +1,9 @@
 <?
-require_once("nucleo/componentes/objeto.php");
-require_once('nucleo/lib/salidas/impresion_toba.php');
+require_once("nucleo/componentes/toba_componente.php");
+require_once('nucleo/lib/salidas/toba_impresion.php');
 require_once('nucleo/lib/toba_evento_usuario.php');
 require_once('nucleo/lib/toba_vinculo.php');
-require_once('eventos.php');
+require_once('toba_eventos.php');
 define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
 define("apex_ei_evento","evt");
 define("apex_ei_separador","__");

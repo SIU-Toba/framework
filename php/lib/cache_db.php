@@ -28,10 +28,10 @@ class cache_db
 				return $datos;
 			} else {
 				//En el caso de algunas tablas, esto puede pasar 
-				//throw new excepcion_toba("CACHE: La clave '$clave' de la tabla '$tabla' no existe");
+				//throw new toba_excepcion("CACHE: La clave '$clave' de la tabla '$tabla' no existe");
 			}
 		} else {
-			throw new excepcion_toba("CACHE: La tabla '$tabla' no existe");
+			throw new toba_excepcion("CACHE: La tabla '$tabla' no existe");
 		}
 	}
 

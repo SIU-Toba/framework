@@ -1,5 +1,4 @@
 <?
-//ef_linea_titulo
 
 abstract class toba_ef_sin_estado extends ef
 {

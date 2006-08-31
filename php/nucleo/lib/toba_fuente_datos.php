@@ -1,6 +1,6 @@
 <?
 
-class fuente_de_datos
+class toba_fuente_datos
 {
 	protected $definicion;
 	protected $db;
@@ -14,8 +14,7 @@ class fuente_de_datos
 	{
 		if (!isset($this->db)) {
 			$this->pre_conectar();
-			$this->db = dba::get_db($this->definicion['instancia_id']);
-			//$this->db->set_fuente_de_datos($this);
+			$this->db = toba_dba::get_db($this->definicion['instancia_id']);
 			$this->post_conectar();
 		}
 		return $this->db;

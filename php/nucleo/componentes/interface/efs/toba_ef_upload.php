@@ -1,6 +1,5 @@
 <?php
-require_once("ef.php");// Elementos de interface
-  
+
 class toba_ef_upload extends ef
 {
 	protected $archivo_cargado = false;		//Se cargo un archivo en la etapa anterior?

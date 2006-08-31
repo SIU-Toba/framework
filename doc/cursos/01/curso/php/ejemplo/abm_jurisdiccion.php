@@ -105,7 +105,7 @@ class abm_jurisdiccion extends objeto_ci
 		try{
 			$t->sincronizar();
 			$this->reset();
-		}catch(excepcion_toba $e){
+		}catch(toba_excepcion $e){
 			toba::get_cola_mensajes()->agregar('Error insertando la jurisdicción.');
 			toba::get_logger()->error( $e->getMessage() );
 		}

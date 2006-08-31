@@ -6,7 +6,7 @@
 *				(algo puede funcionar en el administrador y dejar de andar en un proyecto)
 *			- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia
 */
-class dba
+class toba_dba
 {
 	const path_archivo_bases = '/instalacion/bases.ini';
 	private static $dba;						// Implementacion del singleton.
@@ -59,8 +59,7 @@ class dba
 	*/
 	static function get_db( $nombre )
 	{
-		$dba = self::get_instancia();
-		return $dba->get_conexion( $nombre );
+		return self::get_instancia()->get_conexion( $nombre );
 	}
 	
 	/**

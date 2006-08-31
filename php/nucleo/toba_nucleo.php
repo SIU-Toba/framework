@@ -1,18 +1,18 @@
 <?php
 require_once('lib/asercion.php');    		   	   			//Aserciones
-require_once('lib/db.php');				    				//Manejo de bases (utiliza abodb340)
+require_once('lib/toba_db.php');				    				//Manejo de bases (utiliza abodb340)
 require_once('lib/encriptador.php');						//Encriptador
 require_once('lib/varios.php');								//Funciones genericas (Manejo de paths, etc.)
 require_once('lib/sql.php');								//Libreria de manipulacion del SQL
 require_once('nucleo/lib/toba_excepcion.php');				//Excepciones del TOBA
-require_once('nucleo/lib/logger.php');						//Logger
+require_once('nucleo/lib/toba_logger.php');						//toba_logger
 require_once('nucleo/lib/mensajes.php');					//Modulo de mensajes parametrizables
-require_once('nucleo/lib/cola_mensajes.php');				//Cola de mensajes utilizada durante la EJECUCION
-require_once('nucleo/lib/permisos.php');					//Administrador de permisos particulares
+require_once('nucleo/lib/toba_notificaciones.php');				//Cola de mensajes utilizada durante la EJECUCION
+require_once('nucleo/lib/toba_permisos.php');					//Administrador de permisos particulares
 require_once('nucleo/lib/toba_recurso.php');						//Obtencion de imágenes de la aplicación
 require_once('nucleo/lib/toba_usuario.php');	  			//Informacion sobre el usuario
-require_once('nucleo/lib/editor.php');			 	 		//Interaccion con el EDITOR
-require_once('nucleo/lib/cronometro.php');          		//Cronometrar ejecucion
+require_once('nucleo/lib/toba_editor.php');			 	 		//Interaccion con el EDITOR
+require_once('nucleo/lib/toba_cronometro.php');          		//Cronometrar ejecucion
 require_once('nucleo/lib/toba_instalacion.php');			//Informacion sobre la instalacion
 require_once('nucleo/lib/toba_instancia.php');				//Informacion sobre la instancia
 require_once('nucleo/lib/toba_proyecto.php');	   			//Informacion sobre el proyecto
@@ -61,8 +61,8 @@ class toba_nucleo
 	function acceso_web()
 	{
 		try {
-			require_once('nucleo/solicitud.php');
-			require_once('nucleo/lib/http.php');				//Genera Encabezados de HTTP
+			require_once('nucleo/toba_solicitud.php');
+			require_once('nucleo/lib/toba_http.php');				//Genera Encabezados de HTTP
 			require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP
 			session_start();
 		    http::headers_standart();

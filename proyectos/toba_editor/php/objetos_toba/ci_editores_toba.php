@@ -158,7 +158,7 @@ abstract class ci_editores_toba extends objeto_ci
 		if (isset($this->clase_actual)) {
 			return $this->clase_actual;
 		} else {
-			throw new excepcion_toba("El editor actual no tiene definida sobre que clase de objeto trabaja");
+			throw new toba_excepcion("El editor actual no tiene definida sobre que clase de objeto trabaja");
 		}
 	}
 	

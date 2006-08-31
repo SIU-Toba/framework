@@ -589,12 +589,10 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/ef_varios/', 			'toba_ef_varios');
 		$editor->agregar_sustitucion('/ap_relacion/', 			'toba_ap_relacion');
 		$editor->agregar_sustitucion('/ap_tabla/', 				'toba_ap_tabla');
-		$editor->agregar_sustitucion('/objeto_datos_/', 		'toba_datos');
-		$editor->agregar_sustitucion('/relacion_entre_tablas/',	'toba_relacion_entre_tablas');
 		$editor->agregar_sustitucion('/relacion_entre_tablas/',	'toba_relacion_entre_tablas');
 		$editor->agregar_sustitucion('/tipo_datos/',			'toba_tipo_datos');
 		$editor->agregar_sustitucion('/administrador_fuentes/',	'toba_admin_fuentes');
-		$editor->agregar_sustitucion('/excepcion_toba/',		'toba_excepcion');
+		$editor->agregar_sustitucion('/toba_excepcion/',		'toba_excepcion');
 		$editor->agregar_sustitucion('/info_instalacion/',		'toba_instalacion');
 		$editor->agregar_sustitucion('/info_instancia/',		'toba_instancia');
 		$editor->agregar_sustitucion('/info_proyecto/',			'toba_proyecto');
@@ -606,6 +604,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/impresion_toba/',		'toba_impresion');
 		
 		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
+		
 		$editor->procesar_archivos($archivos);
 	}
 }

@@ -18,7 +18,7 @@ class ci_login extends objeto_ci
 			}			
 			try {
 				toba::get_sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
-			} catch ( excepcion_toba_login $e ) {
+			} catch ( toba_excepcion_login $e ) {
 				toba::get_cola_mensajes()->agregar( $e->getMessage() );
 			}
 		}

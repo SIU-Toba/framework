@@ -1,5 +1,4 @@
 <?php
-include_once("ef.php");// Elementos de interface
 /*
 *			ef <abstracta>
 * 			|

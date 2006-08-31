@@ -1,6 +1,6 @@
 <?
-require_once('nucleo/lib/fuente_de_datos.php');	
-require_once('nucleo/lib/dba.php');
+require_once('nucleo/lib/toba_fuente_datos.php');	
+require_once('nucleo/lib/toba_dba.php');
 
 class toba_admin_fuentes
 {
@@ -36,12 +36,12 @@ class toba_admin_fuentes
 			if (isset($parametros['subclase_archivo'])) {
 				$archivo = $parametros['subclase_archivo'];
 			} else {
-				$archivo = "nucleo/lib/fuente_de_datos.php";
+				$archivo = "nucleo/lib/toba_fuente_datos.php";
 			}
 			if (isset($parametros['subclase_nombre'])) {
 				$clase = $parametros['subclase_nombre'];
 			} else {
-				$clase = "fuente_de_datos";
+				$clase = "toba_fuente_datos";
 			}		
 			require_once($archivo);
 			$this->fuentes[$id] = new $clase($parametros);

@@ -21,7 +21,7 @@ class odr_ci extends objeto_datos_relacion
 		$ids_pantallas = $this->tabla('pantallas')->get_ids_pantallas();	
 		foreach ($this->tabla('dependencias')->get_filas() as $dep) {
 			if (in_array($dep['identificador'], $ids_pantallas)) {
-				throw new excepcion_toba_def("El identificador '{$dep['identificador']}' se está usando tanto para una pantalla como para una dependencia.");
+				throw new toba_excepcion_def("El identificador '{$dep['identificador']}' se está usando tanto para una pantalla como para una dependencia.");
 			}
 		}
 	}	

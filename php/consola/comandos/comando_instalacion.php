@@ -70,7 +70,7 @@ class comando_instalacion extends comando_toba
 	{
 		$def = $this->get_id_base_actual();
 		if ( $this->get_instalacion()->existe_base_datos_definida( $def ) ) {
-			throw new excepcion_toba( "Ya existe una base definida con el ID '$def'");
+			throw new toba_excepcion( "Ya existe una base definida con el ID '$def'");
 		}
 		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
 		$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
@@ -98,7 +98,7 @@ class comando_instalacion extends comando_toba
 				$i->eliminar_db( $def );
 			}
 		} else {
-			throw new excepcion_toba( "NO EXISTE una base definida con el ID '$def'");
+			throw new toba_excepcion( "NO EXISTE una base definida con el ID '$def'");
 		}
 	}
 	
@@ -111,7 +111,7 @@ class comando_instalacion extends comando_toba
 		if( $this->get_instalacion()->existe_base_datos( $def ) !== true ) {
 			$this->get_instalacion()->crear_base_datos( $def );
 		} else {
-			throw new excepcion_toba( "Ya EXISTE una base '$def' en el MOTOR");
+			throw new toba_excepcion( "Ya EXISTE una base '$def' en el MOTOR");
 		}
 	}
 
@@ -130,7 +130,7 @@ class comando_instalacion extends comando_toba
 				$this->get_instalacion()->borrar_base_datos( $def );
 			}
 		} else {
-			throw new excepcion_toba( "NO EXISTE una base '$def' en el MOTOR");
+			throw new toba_excepcion( "NO EXISTE una base '$def' en el MOTOR");
 		}
 	}
 
@@ -246,7 +246,7 @@ class comando_instalacion extends comando_toba
 		if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
 			return $param['-d'];
 		} else {
-			throw new excepcion_toba("Es necesario indicar el ID de la BASE a utilizar. Utilice el modificador '-d'");
+			throw new toba_excepcion("Es necesario indicar el ID de la BASE a utilizar. Utilice el modificador '-d'");
 		}
 	}
 	

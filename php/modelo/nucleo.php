@@ -70,7 +70,7 @@ class nucleo extends elemento_modelo
 			$this->analizar_tablas();
 			$this->generar_archivos_estructura();
 			$this->generar_archivos_catalogo();
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante el parseo.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}
@@ -96,7 +96,7 @@ class nucleo extends elemento_modelo
 			//Intento abrir	el archivo
 			$fd	= @fopen ($archivo,	"r");
 			if(!is_resource($fd)){
-				throw new excepcion_toba("ERROR: '$archivo' no es un archivo valido\n");
+				throw new toba_excepcion("ERROR: '$archivo' no es un archivo valido\n");
 			}
 			//Recorro el archivo
 			$table = null; //Referencia a una tabla.
@@ -130,7 +130,7 @@ class nucleo extends elemento_modelo
 				{
 					$temp =	preg_split("/(\s*):(\s*)/",$buffer);
 					if(!isset($temp[1])||!isset($temp[2])){	
-						throw new excepcion_toba("Error parseando la linea: $temp\n (archivo: $archivo)");
+						throw new toba_excepcion("Error parseando la linea: $temp\n (archivo: $archivo)");
 					}
 					$tabla[trim($temp[1])]=addslashes(trim($temp[2]));
 				}
@@ -167,13 +167,13 @@ class nucleo extends elemento_modelo
 			$dump_nucleo_multiproyecto = ( $tabla['dump'] == 'nucleo_multiproyecto' );
 			//-- Controles de integridad de la DEFINICION del plan --
 			if ( $dump_componente && ( $es_instancia || $es_log ) ) {
-				throw new excepcion_toba("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
+				throw new toba_excepcion("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
 			}
 			if( $es_instancia && $es_log ) {
-				throw new excepcion_toba("La tabla '$id' posee un error en el plan de dumpeo: historica + instancia.");
+				throw new toba_excepcion("La tabla '$id' posee un error en el plan de dumpeo: historica + instancia.");
 			}
 			if( !( $dump_componente || $dump_proyecto || $dump_nucleo ) ) {
-				throw new excepcion_toba("La tabla '$id' no posee una modalidad de dumpeo definida.");
+				throw new toba_excepcion("La tabla '$id' no posee una modalidad de dumpeo definida.");
 			}
 			//-- Armo el PLAN --
 			if ( $es_instancia ) {
@@ -298,7 +298,7 @@ class nucleo extends elemento_modelo
 					$this->guardar_tabla_archivo($tabla, $contenido);
 				}
 			}
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->manejador_interface->error( 'Ha ocurrido un error durante la exportacion.' );
 			$this->manejador_interface->error( $e->getMessage() );
 		}

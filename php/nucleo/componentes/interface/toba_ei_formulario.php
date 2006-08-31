@@ -1,6 +1,6 @@
 <?
 require_once("toba_ei.php");	//Ancestro de todos los	OE
-require_once("nucleo/componentes/interface/efs/ef.php");
+require_once("nucleo/componentes/interface/efs/toba_ef.php");
 
 /**
  * Un formulario simple presenta una grilla de campos editables. 
@@ -107,15 +107,16 @@ class toba_ei_formulario extends toba_ei
 			//Nombre	del formulario.
 			$id_ef = $this->info_formulario_ef[$a]["identificador"];
 			$this->parametros_carga_efs[$id_ef] = $parametros;
-			$this->elemento_formulario[$id_ef] = new $this->info_formulario_ef[$a]["elemento_formulario"](
-																		$this, 
-																		$this->nombre_formulario,
-																		$this->info_formulario_ef[$a]["identificador"],
-																		$this->info_formulario_ef[$a]["etiqueta"],
-																		addslashes($this->info_formulario_ef[$a]["descripcion"]),
-																		$dato,
-																		$this->info_formulario_ef[$a]["obligatorio"],
-																		$parametros);
+			$clase_ef = 'toba_'.$this->info_formulario_ef[$a]["elemento_formulario"];
+			$this->elemento_formulario[$id_ef] = new $clase_ef(
+															$this, 
+															$this->nombre_formulario,
+															$this->info_formulario_ef[$a]["identificador"],
+															$this->info_formulario_ef[$a]["etiqueta"],
+															addslashes($this->info_formulario_ef[$a]["descripcion"]),
+															$dato,
+															$this->info_formulario_ef[$a]["obligatorio"],
+															$parametros);
 			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
 			if (isset($this->info_formulario_ef[$a]['etiqueta_estilo'])) {
 				$this->elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->info_formulario_ef[$a]['etiqueta_estilo'] );

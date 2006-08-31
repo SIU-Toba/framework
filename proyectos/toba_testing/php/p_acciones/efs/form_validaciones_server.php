@@ -28,7 +28,7 @@ class form_validaciones_server extends objeto_ei_formulario
 			if ($valido !== true)  {
 				echo "<li>$ef: ".$valido."</li>";
 			} else {
-				throw new excepcion_toba("El ef $ef no debería haber validado.");				
+				throw new toba_excepcion("El ef $ef no debería haber validado.");				
 			}
 		}
 		echo "</ul>";

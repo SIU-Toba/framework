@@ -24,7 +24,7 @@ class ci_principal extends ci_editores_toba
 			if (count($id_interno) == 1) {
 				$this->evt__columnas_lista__seleccion($id_interno[0]);			
 			} else {
-				throw new excepcion_toba("No se encontro la columna $col.");
+				throw new toba_excepcion("No se encontro la columna $col.");
 			}
 		}
 	}
@@ -232,7 +232,7 @@ class ci_principal extends ci_editores_toba
 			foreach($datos as $col){
 				try{
 					$cols->nueva_fila($col);
-				}catch(excepcion_toba $e){
+				}catch(toba_excepcion $e){
 					toba::get_cola_mensajes()->agregar("Error agregando la columna '{$col['clave']}'. " . $e->getMessage());
 				}
 			}

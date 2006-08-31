@@ -18,7 +18,7 @@ class test_migracion extends test_toba
 			} else {
 				$this->pass();				
 			}
-		} catch (excepcion_toba $e) {
+		} catch (toba_excepcion $e) {
 			if ($es_valida) {
 				$this->fail("La version $version debería ser válida ");	
 			} else {

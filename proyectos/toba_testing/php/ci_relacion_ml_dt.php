@@ -20,17 +20,17 @@ class ci_relacion_ml_dt extends objeto_ci
 		
 		$datos = $this->dep('dt')->get_filas();
 		if (count($datos) != 2) {
-			throw new excepcion_toba('Se esperaban dos registros');
+			throw new toba_excepcion('Se esperaban dos registros');
 		}
 		$primera = current($datos);
 		if ($primera[apex_datos_clave_fila] != $this->s__id_fila_uno) {
-			throw new excepcion_toba('Se esperaban que la PRIMERA fila tenga la clave '.
+			throw new toba_excepcion('Se esperaban que la PRIMERA fila tenga la clave '.
 										$this->s__id_fila_uno . '. Pero se encontro la clave '.
 										$primera[apex_datos_clave_fila]);
 		}
 		$segunda = next($datos);
 		if ($segunda[apex_datos_clave_fila] != $this->s__id_fila_dos) {
-			throw new excepcion_toba('Se esperaban que la SEGUNDA fila tenga la clave '.
+			throw new toba_excepcion('Se esperaban que la SEGUNDA fila tenga la clave '.
 										$this->s__id_fila_dos . '. Pero se encontro la clave '.
 										$segunda[apex_datos_clave_fila]);
 		}		
@@ -50,15 +50,15 @@ class ci_relacion_ml_dt extends objeto_ci
 		
 		$datos = $this->dep('dt')->get_filas();
 		if (count($datos) != 4) {
-			throw new excepcion_toba('Se esperaban cuatro registros');
+			throw new toba_excepcion('Se esperaban cuatro registros');
 		}
 		$primera = $datos[2];
 		if ($primera[apex_datos_clave_fila] != self::id_siguiente ) {
-			throw new excepcion_toba('Se esperaba que el id de la tercera fila fuera '.self::id_siguiente );
+			throw new toba_excepcion('Se esperaba que el id de la tercera fila fuera '.self::id_siguiente );
 		}
 		$segunda = $datos[3];
 		if ($segunda[apex_datos_clave_fila] != self::id_siguiente + 1) {
-			throw new excepcion_toba('Se esperaba que el id de la cuarta fila fuera '.self::id_siguiente + 1);
+			throw new toba_excepcion('Se esperaba que el id de la cuarta fila fuera '.self::id_siguiente + 1);
 		}			
 	}
 	

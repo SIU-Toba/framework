@@ -1,6 +1,6 @@
 <?php
-require_once("nucleo/lib/hilo.php");
-require_once("nucleo/lib/vinculador.php");
+require_once("nucleo/lib/toba_hilo.php");
+require_once("nucleo/lib/toba_vinculador.php");
 
 /**
  * Una solicitud es la representación de una operación o item en runtime

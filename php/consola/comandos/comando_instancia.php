@@ -86,13 +86,13 @@ class comando_instancia extends comando_toba
 	{
 		try {
 			$this->get_instancia()->cargar();
-		} catch ( excepcion_toba_modelo_preexiste $e ) {
+		} catch ( toba_excepcion_modelo_preexiste $e ) {
 			$this->consola->error( 'Ya existe una instancia en la base de datos' );
 			$this->consola->lista( $this->get_instancia()->get_parametros_db(), 'BASE' );
 			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA?') ) {
 				$this->get_instancia()->cargar( true );
 			}
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
 			$this->consola->error( $e->getMessage() );
 		}
@@ -118,10 +118,10 @@ class comando_instancia extends comando_toba
 		$id_instancia = $this->get_id_instancia_actual();
 		$instalacion = $this->get_instalacion();
 		if ( instancia::existe_carpeta_instancia($id_instancia) ) {
-			throw new excepcion_toba("Ya existe una INSTANCIA con el nombre '$id_instancia'");
+			throw new toba_excepcion("Ya existe una INSTANCIA con el nombre '$id_instancia'");
 		}
 		if ( ! $instalacion->hay_bases() ) {
-			throw new excepcion_toba("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+			throw new toba_excepcion("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
 		}
 		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
 
@@ -142,7 +142,7 @@ class comando_instancia extends comando_toba
 		}
 		try {
 			$instancia->cargar();
-		} catch ( excepcion_toba_modelo_preexiste $e ) {
+		} catch ( toba_excepcion_modelo_preexiste $e ) {
 			$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
 			$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
 			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
@@ -150,7 +150,7 @@ class comando_instancia extends comando_toba
 			} else {
 				return;	
 			}
-		} catch ( excepcion_toba $e ) {
+		} catch ( toba_excepcion $e ) {
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
 			$this->consola->error( $e->getMessage() );
 		}
@@ -195,7 +195,7 @@ class comando_instancia extends comando_toba
 		if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
 			return $param['-o'];
 		} else {
-			throw new excepcion_toba("Es necesario indicar el la instancia original '-o'");
+			throw new toba_excepcion("Es necesario indicar el la instancia original '-o'");
 		}		
 	}
 

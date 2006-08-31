@@ -165,7 +165,7 @@ class test_dr_1n_simple extends base_test_datos
 			$fila_db = $this->get_fila_test("detalle_b", 'valido_2');
 			$this->dr->tabla('detalle_b')->nueva_fila( $fila_db );
 			$this->fail('Control del TOPE maximo');
-		}catch(excepcion_toba $e){
+		}catch(toba_excepcion $e){
 			$this->pass();
 		}
 		//Modificar en M

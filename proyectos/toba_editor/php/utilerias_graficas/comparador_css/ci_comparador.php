@@ -33,7 +33,7 @@ class ci_comparador extends objeto_ci
 				}
 			}
 			if (! isset($archivo)) {
-				throw new excepcion_toba("No se encuentra el archivo del estilo $estilo");
+				throw new toba_excepcion("No se encuentra el archivo del estilo $estilo");
 			}
 			$this->contenidos[$estilo] = file_get_contents($archivo);
 		}

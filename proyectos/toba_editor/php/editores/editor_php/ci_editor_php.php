@@ -49,7 +49,7 @@ class ci_editor_php extends objeto_ci
 			$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
 			$clase_info = constructor_toba::get_info( $clave, $this->datos['clase']);
 /*		}else{
-			throw new excepcion_toba('Error: no es posible acceder a los METADATOS del componente seleccionado');
+			throw new toba_excepcion('Error: no es posible acceder a los METADATOS del componente seleccionado');
 		}*/
 		
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
@@ -72,7 +72,7 @@ class ci_editor_php extends objeto_ci
 				$this->datos['clase_archivo'] = $mts['padre_archivo'];
 				$this->meta_clase = $mts['meta_clase'];
 			}else{
-				throw new excepcion_toba('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');
+				throw new toba_excepcion('ERROR cargando el SUBCOMPONENTE: El subcomponente esta declarado pero su metaclase no existe.');
 			}
 		}else{
 			//La metaclase del componente es su CLASE INFO

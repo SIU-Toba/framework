@@ -1,10 +1,10 @@
 <?
 require_once("lib/asercion.php"); 		      	   	//Aserciones
-require_once("nucleo/lib/cronometro.php");          //Cronometrar ejecucion
+require_once("nucleo/lib/toba_cronometro.php");          //Cronometrar ejecucion
 require_once("lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("lib/sql.php");					//Libreria de manipulacion del SQL
-require_once("nucleo/lib/excepcion_toba.php");		//Excepciones del TOBA
-require_once("nucleo/lib/logger.php");				//Logger
+require_once("nucleo/lib/toba_excepcion.php");		//Excepciones del TOBA
+require_once("nucleo/lib/toba_logger.php");				//Logger
 require_once("lib/parseo.php");       	   	//Parseo
 require_once("lib/texto.php");       	   	//Manipulacion de texto
 require_once("modelo/lib/gui.php");
@@ -28,7 +28,7 @@ class consola implements gui
 	{
 		ini_set("error_reporting", E_ALL);
 		if( ! is_dir( $ubicacion_comandos ) ) {
-			throw new excepcion_toba("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
+			throw new toba_excepcion("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
 		}
 		$this->ubicacion_comandos = $ubicacion_comandos;
 		require_once( $this->ubicacion_comandos ."/$clase_menu.php");
@@ -49,7 +49,7 @@ class consola implements gui
 				$comando = $argumentos[0];
 				array_shift( $argumentos );
 				$this->invocar_comando( $comando, $argumentos );
-			} catch (excepcion_toba $e ) {
+			} catch (toba_excepcion $e ) {
 				$this->mensaje( $e->getMessage() );	
 			}
 		} else {
@@ -70,7 +70,7 @@ class consola implements gui
 			$comando->set_argumentos( $argumentos );			
 			$comando->procesar();
 		} else {
-			throw new excepcion_toba("ERROR: El COMANDO '$nombre_comando' no existe.");
+			throw new toba_excepcion("ERROR: El COMANDO '$nombre_comando' no existe.");
 		}
 	}
 /*

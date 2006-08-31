@@ -41,7 +41,7 @@ class ci_efs extends objeto_ci
 		if (count($id_interno) == 1) {
 			$this->evt__efs_lista__seleccion(current($id_interno));
 		} else {
-			throw new excepcion_toba("No se encontro el ef $id.");
+			throw new toba_excepcion("No se encontro el ef $id.");
 		}
 	}
 	
@@ -343,7 +343,7 @@ class ci_efs extends objeto_ci
 			foreach($datos as $ef){
 				try{
 					$this->get_tabla()->nueva_fila($ef);
-				}catch(excepcion_toba $e){
+				}catch(toba_excepcion $e){
 					toba::get_cola_mensajes()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
 				}
 			}
