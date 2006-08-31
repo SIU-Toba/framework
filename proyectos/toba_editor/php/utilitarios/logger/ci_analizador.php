@@ -57,7 +57,7 @@ class ci_analizador extends toba_ci
 			echo "<--toba-->";		
 			echo $detalle;
 			echo "<--toba-->";
-			echo js::arreglo($cant_por_nivel, true);
+			echo toba_js::arreglo($cant_por_nivel, true);
 		}
 	}
 	

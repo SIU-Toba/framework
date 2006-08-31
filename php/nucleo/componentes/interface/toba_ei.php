@@ -16,7 +16,7 @@ define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
  * @package Objetos
  * @subpackage Ei
  */
-abstract class toba_ei extends objeto
+abstract class toba_ei extends toba_componente
 {
  	protected $submit;	
  	protected $objeto_js;

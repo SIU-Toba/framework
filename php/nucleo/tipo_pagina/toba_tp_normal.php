@@ -71,7 +71,7 @@ class tp_normal extends tp_basico_titulo
 			echo '<a href="#" title="Ir a la inicio" onclick="vinculador.ir_a_proyecto(\''.$actual.'\');">'.
 					toba_recurso::imagen_apl("home.gif",true).'</a>';
 			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
-			echo form::select(apex_sesion_qs_cambio_proyecto, $actual, 
+			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
 								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
 			echo js::abrir();
 			echo 'var url_proyectos = '.js::arreglo(toba_instancia::get_url_proyectos(array_keys($datos)), true);

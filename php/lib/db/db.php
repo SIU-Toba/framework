@@ -72,7 +72,7 @@ class db
 	function log_debug($sql)
 	{
 		$id = $this->debug_sql_id++;
-		logger::instancia()->debug("***SQL[$id] : $sql");
+		toba_logger::instancia()->debug("***SQL[$id] : $sql");
 	}
 
 	//------------------------------------------------------------------------
@@ -136,19 +136,19 @@ class db
 	function abrir_transaccion()
 	{
 		$this->conexion->beginTransaction();
-		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
 		$this->conexion->rollBack();
-		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$this->conexion->commit();
-		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
 	/**

@@ -30,28 +30,28 @@ class db_postgres7 extends db
 	function retrazar_constraints()
 	{
 		$this->ejecutar("SET CONSTRAINTS ALL DEFERRED");
-		logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************", 'toba');		
+		toba_logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************", 'toba');		
 	}
 
 	function abrir_transaccion()
 	{
 		$sql = 'BEGIN TRANSACTION';
 		$this->ejecutar($sql);
-		logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
+		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK TRANSACTION';
 		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT TRANSACTION";
 		$this->ejecutar($sql);		
-		logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
+		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
 	//------------------------------------------------------------------------

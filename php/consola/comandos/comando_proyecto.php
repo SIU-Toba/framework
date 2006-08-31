@@ -100,7 +100,7 @@ class comando_proyecto extends comando_toba
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
 			foreach ( $usuarios as $usuario ) {
 				$p->vincular_usuario( $usuario, $grupo_acceso );
-				logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
+				toba_logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
 				$this->consola->mensaje_directo('.');
 			}
 			$this->consola->mensaje("OK");

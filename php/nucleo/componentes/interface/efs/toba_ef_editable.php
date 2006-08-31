@@ -1,6 +1,6 @@
 <?php
 
-class toba_ef_editable extends ef
+class toba_ef_editable extends toba_ef
 {
 	protected $tamano = 20;
 	protected $maximo;
@@ -11,7 +11,7 @@ class toba_ef_editable extends ef
 	
     static function get_lista_parametros_carga()
     {
-    	$parametros = ef::get_lista_parametros_carga_basico();    
+    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
@@ -101,7 +101,7 @@ class toba_ef_editable extends ef
 	{
 		$tab = $this->padre->get_tab_index();
 		$this->input_extra .= " tabindex='$tab'";
-		$input = form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
+		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
 		if (isset($this->unidad)) {
 			$input .= ' '. $this->unidad;
 		}
@@ -309,9 +309,9 @@ class toba_ef_editable_clave extends toba_ef_editable
 		$tab = $this->padre->get_tab_index(2);
 		$this->input_extra .= " tabindex='$tab'";
 		$estado = isset($this->estado)? $this->estado : "";
-		$html = form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
+		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
+			$html .= "<br>".toba_form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		}
 		return $html;
 	}
@@ -380,7 +380,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		$tab = $this->padre->get_tab_index();
 		$this->input_extra .= " tabindex='$tab'";
 		$html = "<span class='ef-fecha'>";
-		$html .= form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,
+		$html .= toba_form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,
 								$this->tamano, $this->estilo, $this->input_extra);
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
@@ -487,11 +487,11 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		}
 		$html = "";
 		if($this->solo_lectura){
-			$html .= form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
+			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
 		}else{
 			if($this->resaltar){
 				$javascript = " onclick='javascript: document.getElementById('{$this->id_form}').select()'";
-				$html .= form::button($this->id_form . "_res", "Seleccionar", $javascript );
+				$html .= toba_form::button($this->id_form . "_res", "Seleccionar", $javascript );
 			}
 			if ($this->maximo) {
 				$obj = $this->objeto_js();
@@ -499,7 +499,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 			}
 			$tab = $this->padre->get_tab_index();
 			$this->input_extra .= " tabindex='$tab'";
-			$html .= form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra);
+			$html .= toba_form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra);
 		}
 		return $html;
 	}

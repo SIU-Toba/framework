@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/lib/zona.php");
+require_once("nucleo/lib/toba_zona.php");
 
 class zona_dimension extends zona
 {

@@ -5,7 +5,7 @@ define("apex_nivel_objeto","objeto");
 define("apex_nivel_item","item");
 define("apex_nivel_lib","lib");
 
-class cronometro
+class toba_cronometro
 {
 	protected $marcas;
 	protected $indice;
@@ -21,7 +21,7 @@ class cronometro
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new cronometro();	
+			self::$instancia = new toba_cronometro();	
 		}
 		return self::$instancia;	
 	}	

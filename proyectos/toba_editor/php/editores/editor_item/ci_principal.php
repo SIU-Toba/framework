@@ -240,9 +240,9 @@ class ci_principal extends toba_ci
 		$elem_item = constructor_toba::get_info($clave, 'item');
 		$vinculo = $elem_item->vinculo_editor();
 		admin_util::refrescar_editor_item();
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "window.location.href='$vinculo'\n";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 	}		
 	// *******************************************************************	
 

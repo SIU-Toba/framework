@@ -35,7 +35,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			for ( $a=0; $a<count($this->datos['info_dependencias']); $a++) {
 				$clave['proyecto'] = $this->datos['info_dependencias'][$a]['proyecto'];
 				$clave['componente'] = $this->datos['info_dependencias'][$a]['objeto'];
-				$this->subelementos[$a]= constructor_toba::get_info( $clave );
+				$this->subelementos[$a]= toba_constructor::get_info( $clave );
 				$this->subelementos[$a]->set_consumidor($this, $this->datos['info_dependencias'][$a] );
 			}
 		}
@@ -99,7 +99,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		
 		//Se construye el objeto datos_relacion
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
-		$dr = constructor_toba::get_runtime($componente);
+		$dr = toba_constructor::get_runtime($componente);
 		$dr->inicializar();
 		
 		//Se carga con el id_origen
@@ -238,12 +238,12 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$clase_corto = substr($this->datos['info']['clase'], 7);		
 		$iconos = array();
 		$iconos[] = array(
-				'imagen' => recurso::imagen_apl($this->datos['info']['clase_icono'], false),
+				'imagen' => toba_recurso::imagen_apl($this->datos['info']['clase_icono'], false),
 				'ayuda' => "Objeto [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
 			);	
 		if(isset($this->datos['info']['instanciador_item'])) {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("items/simular.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/simular.gif", false),
 				'ayuda' => "Simula la ejecución de este ".$this->datos_clase['clase'],
 				'vinculo' => toba::get_vinculador()->generar_solicitud($this->datos['info']['clase_instanciador_proyecto'],
 																		$this->datos['info']['clase_instanciador_item'],
@@ -263,7 +263,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 			$vinculo = toba::get_vinculador()->crear_vinculo(editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl('reflexion/abrir.gif', false),
+				'imagen' => toba_recurso::imagen_apl('reflexion/abrir.gif', false),
 				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
 				'vinculo' => "javascript: $js;",
@@ -271,7 +271,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 				'plegado' => false
 			);
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl('php.gif', false),
+				'imagen' => toba_recurso::imagen_apl('php.gif', false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),'/admin/objetos/php', $this->acceso_zona(),
 																		false, false, null, true, 'central'),
@@ -291,14 +291,14 @@ class info_componente implements recorrible_como_arbol, meta_clase
 					$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
 					$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
 								" title='".$pantalla['etiqueta']."'>".
-								recurso::imagen_apl($img, true).
+								toba_recurso::imagen_apl($img, true).
 								'</a> ';
 				}
 				$ayuda .= "</div>";
 				$ayuda = str_replace("'", "\\'", $ayuda);
 			}
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+				'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
 				'ayuda' => $ayuda,
 				'vinculo' => $this->vinculo_editor()
 			);

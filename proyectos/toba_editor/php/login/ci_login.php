@@ -13,7 +13,7 @@ class pantalla_login extends toba_ei_pantalla
 				top.location.href='{$_SERVER['PHP_SELF']}';
 			}
 		";
-		echo js::ejecutar($codigo_js);
+		echo toba_js::ejecutar($codigo_js);
 		parent::generar_html();	
 	}	
 	

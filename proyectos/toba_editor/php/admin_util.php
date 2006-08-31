@@ -11,14 +11,14 @@ class admin_util
 	*/
 	static function refrescar_editor_item()
 	{
-		echo js::abrir();
+		echo toba_js::abrir();
 		$frame = "parent.".apex_frame_lista;
 		echo "
 			if ($frame.objeto_ci_1381) {
 				$frame.objeto_ci_1381.set_evento(new $frame.evento_ei('refrescar', true, '' ));
 			}
 		";
-		echo js::cerrar();		
+		echo toba_js::cerrar();		
 	}
 	
 	function redireccionar_a_editor_objeto($proyecto, $objeto)
@@ -26,14 +26,14 @@ class admin_util
 		$clave = array( 'componente'=>$objeto, 'proyecto'=>$proyecto );
 		$vinculo = constructor_toba::get_info($clave)->vinculo_editor();
 		admin_util::refrescar_editor_item();
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "window.location.href='$vinculo'\n";
-		echo js::cerrar();		
+		echo toba_js::cerrar();		
 	}
 	
 	function get_url_desarrollos()
 	{
-		$host = (info_instalacion::instancia()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
+		$host = (toba_instalacion::instancia()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
 		return "https://$host.siu.edu.ar";
 	}
 	

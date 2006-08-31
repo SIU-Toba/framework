@@ -799,11 +799,11 @@ class toba_ei_cuadro extends toba_ei
 	private function html_inicio()
 	{
 		//Campos de comunicación con JS
-		echo form::hidden($this->submit, '');
-		echo form::hidden($this->submit_seleccion, '');
-		echo form::hidden($this->submit_orden_columna, '');
-		echo form::hidden($this->submit_orden_sentido, '');
-		echo form::hidden($this->submit_paginado, '');
+		echo toba_form::hidden($this->submit, '');
+		echo toba_form::hidden($this->submit_seleccion, '');
+		echo toba_form::hidden($this->submit_orden_columna, '');
+		echo toba_form::hidden($this->submit_orden_sentido, '');
+		echo toba_form::hidden($this->submit_paginado, '');
 		//-- Scroll       
         if($this->info_cuadro["scroll"]){
 			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";

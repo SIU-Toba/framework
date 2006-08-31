@@ -103,10 +103,10 @@ class catalogo_objetos
 			if ($agregar) {
 				$clave = array('componente' =>$dato['objeto'], 'proyecto' => $this->proyecto);			
 				if (! $en_profundidad) {
-					$info = constructor_toba::get_info($clave, $dato['clase'], false, 
+					$info = toba_constructor::get_info($clave, $dato['clase'], false, 
 										array('info' =>$dato));
 				} else {
-					$info = constructor_toba::get_info($clave, $dato['clase'], true, null, true); 
+					$info = toba_constructor::get_info($clave, $dato['clase'], true, null, true); 
 				}
 				if (isset($this->explicaciones[$dato['objeto']] )) {
 					$explicacion = implode("<hr>", $this->explicaciones[$dato['objeto']]);

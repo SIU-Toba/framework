@@ -175,10 +175,10 @@ class toba_ei_calendario extends toba_ei
 	function generar_html()
 	{
 		//Campos de comunicación con JS
-		echo form::hidden($this->submit, '');
-		echo form::hidden($this->submit."__seleccionar_semana", '');
-		echo form::hidden($this->submit."__seleccionar_dia", '');
-		echo form::hidden($this->submit."__cambiar_mes", '');
+		echo toba_form::hidden($this->submit, '');
+		echo toba_form::hidden($this->submit."__seleccionar_semana", '');
+		echo toba_form::hidden($this->submit."__seleccionar_dia", '');
+		echo toba_form::hidden($this->submit."__cambiar_mes", '');
 
 		$this->calendario->updateCalendar($this->mes_actual["mes"], $this->mes_actual["anio"]);
 		$this->calendario->enableDatePicker(2000,2010);

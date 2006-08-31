@@ -17,7 +17,7 @@ require_once("toba_ef_oculto.php");
  * #######################################################################################################
  */
 
-class ef_checkbox extends ef
+class toba_ef_checkbox extends toba_ef
 {
     protected $valor;
     protected $valor_no_seteado;
@@ -69,7 +69,7 @@ class ef_checkbox extends ef
          if ($this->solo_lectura) 
          {
 		 	if ($this->estado != "")
-	            $html_devuelto = form::hidden($this->id_form, $this->estado);
+	            $html_devuelto = toba_form::hidden($this->id_form, $this->estado);
 			else
 				$html_devuelto = "";
 				
@@ -83,7 +83,7 @@ class ef_checkbox extends ef
          {
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";		
-            return form :: checkbox($this->id_form, $this->estado, $this->valor,null, $extra.' '.$this->javascript);
+            return toba_form::checkbox($this->id_form, $this->estado, $this->valor,null, $extra.' '.$this->javascript);
          }            
     }
 
@@ -150,7 +150,7 @@ class ef_checkbox extends ef
 }
 // ########################################################################################################
 // ########################################################################################################
-class ef_fijo extends toba_ef_oculto
+class toba_ef_fijo extends toba_ef_oculto
 {
 	private $estilo;
 	private $maneja_datos;
@@ -212,7 +212,7 @@ class ef_fijo extends toba_ef_oculto
 // ########################################################################################################
 //Editor WYSIWYG de HTML
 
-class ef_html extends ef
+class toba_ef_html extends toba_ef
 {
 	var $ancho;
 	var $alto;

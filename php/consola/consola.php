@@ -33,7 +33,7 @@ class consola implements gui
 		$this->ubicacion_comandos = $ubicacion_comandos;
 		require_once( $this->ubicacion_comandos ."/$clase_menu.php");
 		$this->menu = new $clase_menu( $this );
-		cronometro::instancia()->marcar('Consola online');
+		toba_cronometro::instancia()->marcar('Consola online');
 	}
 
 	function get_ubicacion_comandos()
@@ -43,7 +43,7 @@ class consola implements gui
 
 	function run( $argumentos )
 	{
-		cronometro::instancia()->marcar('Inicio proceso.');
+		toba_cronometro::instancia()->marcar('Inicio proceso.');
 		if ( count($argumentos) > 0 ) {
 			try {
 				$comando = $argumentos[0];
@@ -56,7 +56,7 @@ class consola implements gui
 			//Aca se tendria que abrir el INTERPRETE
 			$this->menu->mostrar_ayuda_raiz();
 		}
-		cronometro::instancia()->marcar('Fin proceso.');
+		toba_cronometro::instancia()->marcar('Fin proceso.');
 		$this->menu->mostrar_resumen();
 	}
 
@@ -143,7 +143,7 @@ class consola implements gui
 	*/
 	function error( $texto )
 	{
-		logger::instancia()->error($texto);
+		toba_logger::instancia()->error($texto);
 		$lineas = separar_texto_lineas( $texto, self::display_ancho );
 		foreach( $lineas as $linea ) {
 			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );

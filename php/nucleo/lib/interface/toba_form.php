@@ -5,7 +5,7 @@ require_once("nucleo/lib/toba_recurso.php");
 ****************************************** Elementos de Formulario ************************************
 *****************************************************************************************************/
 
-class form {
+class toba_form {
 	
 //Clase estatica implementa los elementos de formulario de HTML
 
@@ -117,7 +117,7 @@ class form {
 		if ($tecla === null)
 	        return "<INPUT type='submit' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
 		else
-			return form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'submit', '', $clase);
+			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'submit', '', $clase);
     }
 //________________________________________________________________________________________________________
 
@@ -135,7 +135,7 @@ class form {
 		if ($tecla === null)
 	        return "<INPUT type='button' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
 		else
-			return form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
+			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
 //________________________________________________________________________________________________________
 

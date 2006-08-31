@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/persistencia/ap_relacion_db.php");
+require_once("nucleo/componentes/persistencia/toba_ap_relacion_db.php");
 
-class ap_relacion_item extends ap_relacion_db
+class ap_relacion_item extends toba_ap_relacion_db
 {
 	/**
 	 * 	Log de modificacion de un OBJETO TOBA

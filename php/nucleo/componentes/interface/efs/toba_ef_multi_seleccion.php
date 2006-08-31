@@ -1,6 +1,6 @@
 <?php
 
-abstract class toba_ef_multi_seleccion extends ef
+abstract class toba_ef_multi_seleccion extends toba_ef
 {
 	protected $opciones = array();
 	protected $tamanio;
@@ -23,7 +23,7 @@ abstract class toba_ef_multi_seleccion extends ef
     
     static function get_lista_parametros_carga()
     {
-    	return ef::get_lista_parametros_carga_basico();	
+    	return toba_ef::get_lista_parametros_carga_basico();	
     }
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -299,7 +299,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";
 		$extra .= ($this->solo_lectura) ? "disabled" : "";
-		$html .= form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
+		$html .= toba_form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
 	
@@ -422,9 +422,9 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$html .= "<tr><td>$etiq_izq</td><td></td><td>$etiq_der</td></tr>";
 		$html .= "<tr><td>";
 
-		$html .= form::multi_select($this->id_form."_izq", array(), $izq, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_derecha();\" onchange=\"$ef_js.refrescar_iconos('izq');\"");
+		$html .= toba_form::multi_select($this->id_form."_izq", array(), $izq, $tamanio, 'ef-combo', "$extra $disabled ondblclick=\"$ef_js.pasar_a_derecha();\" onchange=\"$ef_js.refrescar_iconos('izq');\"");
 		$html .= "</td><td>$boton_der<br><br>$boton_izq</td><td>";
-		$html .= form::multi_select($this->id_form, array(), $der, $tamanio, 'ef-combo', "$disabled ondblclick=\"$ef_js.pasar_a_izquierda();\" onchange=\"$ef_js.refrescar_iconos('der');\"");		
+		$html .= toba_form::multi_select($this->id_form, array(), $der, $tamanio, 'ef-combo', "$disabled ondblclick=\"$ef_js.pasar_a_izquierda();\" onchange=\"$ef_js.refrescar_iconos('der');\"");		
 		$html .= "</td></tr>";
 		$html .= "</table>";
 		return $html;

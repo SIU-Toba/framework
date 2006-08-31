@@ -37,7 +37,7 @@ class proyecto extends elemento_modelo
 			throw new toba_excepcion("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
 		$this->db = $this->instancia->get_db();
-		logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
+		toba_logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
 	}
 
 	function get_sincronizador()
@@ -114,7 +114,7 @@ class proyecto extends elemento_modelo
 
 	function exportar()
 	{
-		logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
+		toba_logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
 		$this->manejador_interface->titulo( "Exportación PROYECTO {$this->identificador}" );		
 		$existe_vinculo = $this->instancia->existe_proyecto_vinculado( $this->identificador );
 		$existen_metadatos = $this->instancia->existen_metadatos_proyecto( $this->identificador );
@@ -164,7 +164,7 @@ class proyecto extends elemento_modelo
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 			
 			}
-			logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
+			toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
 			for ( $a = 0; $a < $regs ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
@@ -203,7 +203,7 @@ class proyecto extends elemento_modelo
 		$archivo = manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
 		$this->guardar_archivo( $directorio .'/'. $archivo . '.sql', $contenido ); 
-		logger::instancia()->debug("COMPONENTE $tipo  --  " . $id['componente'] . 
+		toba_logger::instancia()->debug("COMPONENTE $tipo  --  " . $id['componente'] . 
 									' ('.$this->cant_reg_exp.' reg.)');
 	}
 	
@@ -243,7 +243,7 @@ class proyecto extends elemento_modelo
 	*/
 	function cargar_autonomo()
 	{
-		logger::instancia()->debug( "Cargando PROYECTO {$this->identificador}");					
+		toba_logger::instancia()->debug( "Cargando PROYECTO {$this->identificador}");					
 		try {
 			$this->db->abrir_transaccion();
 			$this->db->retrazar_constraints();
@@ -262,7 +262,7 @@ class proyecto extends elemento_modelo
 	*/
 	function cargar()
 	{
-		logger::instancia()->debug("Cargando proyecto '{$this->identificador}'");
+		toba_logger::instancia()->debug("Cargando proyecto '{$this->identificador}'");
 		if( ! ( $this->instancia->existe_proyecto_vinculado( $this->identificador ) ) ) {
 			throw new toba_excepcion("PROYECTO: El proyecto '{$this->identificador}' no esta asociado a la instancia actual");
 		}
@@ -277,7 +277,7 @@ class proyecto extends elemento_modelo
 		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
-			logger::instancia()->debug($archivo . ". ($cant)");
+			toba_logger::instancia()->debug($archivo . ". ($cant)");
 			$this->manejador_interface->mensaje_directo('.');
 			$cant_total++;
 		}
@@ -292,7 +292,7 @@ class proyecto extends elemento_modelo
 			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 			foreach( $archivos as $archivo ) {
 				$cant = $this->db->ejecutar_archivo( $archivo );
-				logger::instancia()->debug($archivo . " ($cant)");
+				toba_logger::instancia()->debug($archivo . " ($cant)");
 			}
 			$this->manejador_interface->mensaje_directo('.');			
 		}
@@ -327,7 +327,7 @@ class proyecto extends elemento_modelo
 		$sql = $this->get_sql_eliminacion();
 		$cant = count($sql);		
 		$cant = $this->db->ejecutar( $sql );
-		logger::instancia()->debug("Eliminacion. Registros borrados: $cant");
+		toba_logger::instancia()->debug("Eliminacion. Registros borrados: $cant");
 		$this->manejador_interface->mensaje( "OK" );				
 	}
 
@@ -373,7 +373,7 @@ class proyecto extends elemento_modelo
 	*/
 	function regenerar()
 	{
-		logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
+		toba_logger::instancia()->debug( "Regenerando PROYECTO {$this->identificador}");
 		$this->manejador_interface->titulo( "Regenerando PROYECTO {$this->identificador}" );		
 		try {
 			$this->db->abrir_transaccion();
@@ -522,7 +522,7 @@ class proyecto extends elemento_modelo
 		//--- ¿Existe el proyecto editor?
 		if (! $this->instancia->existen_metadatos_proyecto( editor::get_id() )) {
 			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
-			logger::instancia()->info($msg);
+			toba_logger::instancia()->info($msg);
 			$this->manejador_interface->mensaje($msg);
 			return;
 		}
@@ -550,7 +550,7 @@ class proyecto extends elemento_modelo
 		$comando .= ' -dest_fuente '.$fuente['fuente_datos'];
 		$comando .= ' -dest_dir login';	
 		$this->manejador_interface->mensaje("Clonando item de login...", false);
-		logger::instancia()->debug("Ejecutando el comando $comando");
+		toba_logger::instancia()->debug("Ejecutando el comando $comando");
 		$id_item = trim(exec($comando));
 		if (! is_numeric($id_item)) {
 			throw new toba_excepcion("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
@@ -583,12 +583,12 @@ class proyecto extends elemento_modelo
 	function migrar_version($version)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
-			logger::instancia()->debug("Migrando proyecto {$this->identificador} a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("Migrando proyecto {$this->identificador} a la versión ".$version->__toString());
 			$this->manejador_interface->mensaje("Migrando proyecto '{$this->identificador}'");
 			$version->ejecutar_migracion('proyecto', $this, null, $this->manejador_interface);
 			$this->actualizar_campo_version($version);
 		} else {
-			logger::instancia()->debug("El proyecto {$this->identificador} no necesita migrar a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("El proyecto {$this->identificador} no necesita migrar a la versión ".$version->__toString());
 		}
 	}
 	

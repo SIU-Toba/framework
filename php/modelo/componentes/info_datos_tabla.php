@@ -27,7 +27,7 @@ class info_datos_tabla extends info_componente
 								'subcomponente'=>'ap');
 		if (isset($this->datos['info_estructura']["ap_sub_clase_archivo"])) {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("php_ap.gif", false),
+				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central"),

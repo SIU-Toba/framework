@@ -13,7 +13,7 @@ class analizador_logger_fs
 	{
 		$cuerpo = array();
 		$niveles = toba::get_logger()->get_niveles();
-		$texto = trim(substr($log, strpos($log, logger::fin_encabezado) + strlen(logger::fin_encabezado), strlen($log)));
+		$texto = trim(substr($log, strpos($log, toba_logger::fin_encabezado) + strlen(toba_logger::fin_encabezado), strlen($log)));
 		$patron = "/\[(";
 		$patron .= implode("|", $niveles);
 		$patron .= ")\]/";
@@ -33,7 +33,7 @@ class analizador_logger_fs
 	
 	function analizar_encabezado($log)
 	{
-		$encabezado = substr($log, 0, strpos($log, logger::fin_encabezado));
+		$encabezado = substr($log, 0, strpos($log, toba_logger::fin_encabezado));
 		$pares = explode("\r\n", trim($encabezado));
 		$basicos = array();
 		foreach ($pares as $texto) {
@@ -76,11 +76,11 @@ class analizador_logger_fs
 			fseek($fp, $pos, SEEK_END);
 			$hay_mas_para_leer = (abs($pos) < $total);
 			$acumulado = fread($fp, $franja_acum);
-			$ocurrencia = strrpos($acumulado, logger::separador);
+			$ocurrencia = strrpos($acumulado, toba_logger::separador);
 			if ($ocurrencia !== false) {
 				//Se encontro el separador, una parte del acumulado pertenece a este pedido
 				$encontrado = true;
-				$acumulado = substr($acumulado, $ocurrencia + strlen(logger::separador));
+				$acumulado = substr($acumulado, $ocurrencia + strlen(toba_logger::separador));
 				$hay_algo_antes =  $hay_mas_para_leer || ($ocurrencia !== 0);
 			}
 			$franja_acum += $franja;
@@ -96,7 +96,7 @@ class analizador_logger_fs
 			return array();	
 		}
 		$texto = trim(file_get_contents($this->archivo));
-		$logs = explode(logger::separador , $texto);
+		$logs = explode(toba_logger::separador , $texto);
 		if (count($logs) > 0) {
 			//Borra el primer elemento que siempre esta vacio
 			array_splice($logs, 0 ,1);

@@ -1,7 +1,7 @@
 <?php
-require_once("nucleo/componentes/objeto.php");
+require_once("nucleo/componentes/toba_componente.php");
 
-class toba_cn extends objeto
+class toba_cn extends toba_componente
 {
 	protected $transaccion_abierta;			// privado | boolean | Indica si la transaccion se encuentra en proceso
 

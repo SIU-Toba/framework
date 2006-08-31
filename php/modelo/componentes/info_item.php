@@ -27,7 +27,7 @@ class info_item implements recorrible_como_arbol
 			$this->cargar_dependencias();
 		}
 		if($this->es_de_menu()) {
-			$this->info_extra .= recurso::imagen_apl("items/menu.gif",true)." - Está incluído en el MENU";
+			$this->info_extra .= toba_recurso::imagen_apl("items/menu.gif",true)." - Está incluído en el MENU";
 		}
 	}
 
@@ -38,7 +38,7 @@ class info_item implements recorrible_como_arbol
 			for ($a=0; $a<count($this->datos['objetos']); $a++) {
 				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
 				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
-				$this->subelementos[$a] = constructor_toba::get_info( $clave );
+				$this->subelementos[$a] = toba_constructor::get_info( $clave );
 			}
 		}
 	}
@@ -54,7 +54,7 @@ class info_item implements recorrible_como_arbol
 		while ($item_ancestro->get_id() != null) {
 			$id = array('componente' => $item_ancestro->get_id_padre(), 
 						'proyecto' => $item_ancestro->get_proyecto());
-			$nodo = constructor_toba::get_info($id, 'item', false);
+			$nodo = toba_constructor::get_info($id, 'item', false);
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
 		}
@@ -266,47 +266,47 @@ class info_item implements recorrible_como_arbol
 		$iconos = array();
 		if ($this->es_carpeta()) {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("items/carpeta.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/carpeta.gif", false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
 		} else {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("items/item.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/item.gif", false),
 				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
 				);
 				
 			if ($this->es_de_consola()) {
 				$iconos[] = array(
-								'imagen' => recurso::imagen_apl("solic_consola.gif",false),
+								'imagen' => toba_recurso::imagen_apl("solic_consola.gif",false),
 								'ayuda' => 'Solicitud de Consola'
 							);
 			} elseif($this->get_tipo_solicitud()=="wddx") {
 				$iconos[] = array(
-								'imagen' => recurso::imagen_apl("solic_wddx.gif",false),
+								'imagen' => toba_recurso::imagen_apl("solic_wddx.gif",false),
 								'ayuda' => 'Solicitud WDDX'
 							);
 			}
 			if($this->crono()){		
 				$iconos[] = array(
-					'imagen' => recurso::imagen_apl("cronometro.gif", false),
+					'imagen' => toba_recurso::imagen_apl("cronometro.gif", false),
 					'ayuda'=> "El ITEM se cronometra"
 				);			
 			}
 			if($this->es_publico()){
 				$iconos[] = array(
-					'imagen' => recurso::imagen_apl("usuarios/usuario.gif", false),
+					'imagen' => toba_recurso::imagen_apl("usuarios/usuario.gif", false),
 					'ayuda'=> "ITEM público"
 				);				
 			}
 			if($this->puede_redireccionar()){
 				$iconos[] = array(
-					'imagen' => recurso::imagen_apl("refrescar.gif", false),
+					'imagen' => toba_recurso::imagen_apl("refrescar.gif", false),
 					'ayuda'=> "ITEM puede redireccionar."
 				);				
 			}
 			if($this->registra_solicitud() == 1){
 				$iconos[] = array(
-					'imagen' => recurso::imagen_apl("solicitudes.gif", false),
+					'imagen' => toba_recurso::imagen_apl("solicitudes.gif", false),
 					'ayuda'=> "El ITEM se registra"
 				);				
 			}
@@ -322,7 +322,7 @@ class info_item implements recorrible_como_arbol
 		} else { //Es un item común
 			if ($this->es_de_menu()) {
 				$utilerias[] = array(
-					'imagen' => recurso::imagen_apl("items/menu.gif", false),
+					'imagen' => toba_recurso::imagen_apl("items/menu.gif", false),
 					'ayuda'=> "El ITEM esta incluido en el MENU del PROYECTO"
 				);	
 			}
@@ -334,21 +334,21 @@ class info_item implements recorrible_como_arbol
 			// Ordenamiento, Nueva carpeta, nuevo item
 /*			
 			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("items/carpeta_ordenar.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/carpeta_ordenar.gif", false),
 				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/carpeta_ordenar", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()) )
 			);
 */
 			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("items/carpeta_nuevo.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/carpeta_nuevo.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/carpeta_propiedades", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => true								
 			);
 			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("items/item_nuevo.gif", false),
+				'imagen' => toba_recurso::imagen_apl("items/item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/items/editor_items", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
@@ -357,7 +357,7 @@ class info_item implements recorrible_como_arbol
 
 		} else { //Es un item común
 			$utilerias[] = array(
-				'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+				'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un objeto asociado al item",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",
 									array('destino_tipo' =>'item', 
@@ -371,14 +371,14 @@ class info_item implements recorrible_como_arbol
 				$this->get_tipo_solicitud() != 'consola' &&
 				$this->get_tipo_solicitud() !="wddx") {
 			$utilerias[] = array(
-							'imagen' => recurso::imagen_apl("items/instanciar.gif",false),
+							'imagen' => toba_recurso::imagen_apl("items/instanciar.gif",false),
 							'ayuda' => 'Ejecutar el ITEM',
 							'vinculo' => $this->vinculo_ejecutar()
 						);			
 			
 		}		
 		$utilerias[] = array(
-			'imagen' => recurso::imagen_apl("objetos/editar.gif", false),
+			'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
 			'ayuda' => "Editar propiedades del ITEM",
 			'vinculo' => $this->vinculo_editor()
 		);				
@@ -468,7 +468,7 @@ class info_item implements recorrible_como_arbol
 		//-- Cargo el DR asociado
 		$id_dr = dao_editores::get_dr_de_clase('item');
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
-		$dr = constructor_toba::get_runtime($componente);
+		$dr = toba_constructor::get_runtime($componente);
 		$dr->inicializar();
 		$dr->cargar(array('proyecto' => $this->proyecto, 'item' => $this->id));
 		

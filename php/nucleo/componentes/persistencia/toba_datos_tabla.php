@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/componentes/objeto.php");
+require_once("nucleo/componentes/toba_componente.php");
 require_once("toba_tipo_datos.php");
 
 /**
@@ -15,7 +15,7 @@ require_once("toba_tipo_datos.php");
  * @subpackage Persistencia
  * @todo Control de FK y PK
  */
-class toba_datos_tabla extends objeto
+class toba_datos_tabla extends toba_componente 
 {
 	protected $persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
@@ -956,7 +956,7 @@ class toba_datos_tabla extends objeto
 				}
 			}else{
 				$include = $this->info_estructura['ap_clase_archivo'];
-				$clase = $this->info_estructura['ap_clase'];
+				$clase = 'toba_'.$this->info_estructura['ap_clase'];
 			}
 			require_once( $include );
 			$this->persistidor = new $clase( $this );

@@ -1,6 +1,6 @@
 <?php
 
-abstract class ef_seleccion extends ef
+abstract class toba_ef_seleccion extends toba_ef
 {
 	protected $opciones;
 	protected $predeterminado;		//Si el combo tiene predeterminados, tengo que inicializarlo
@@ -11,7 +11,7 @@ abstract class ef_seleccion extends ef
 
     static function get_lista_parametros_carga()
     {
-    	$param = ef::get_lista_parametros_carga_basico();    	
+    	$param = toba_ef::get_lista_parametros_carga_basico();    	
 		$param[] = 'carga_no_seteado';
 		return $param;
     }
@@ -167,7 +167,7 @@ abstract class ef_seleccion extends ef
 //########################################################################################################
 //########################################################################################################
 
-class toba_ef_combo extends ef_seleccion
+class toba_ef_combo extends toba_ef_seleccion
 {
 
 	function get_input()
@@ -177,8 +177,8 @@ class toba_ef_combo extends ef_seleccion
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
-        	$input = form::select("",$estado, $this->opciones, "ef-combo", "disabled");	
-			$input .= form::hidden($this->id_form, $estado);
+        	$input = toba_form::select("",$estado, $this->opciones, "ef-combo", "disabled");	
+			$input .= toba_form::hidden($this->id_form, $estado);
             return $input;
 		} else {
 			$tab = $this->padre->get_tab_index();
@@ -187,7 +187,7 @@ class toba_ef_combo extends ef_seleccion
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}
-			$html .= form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
+			$html .= toba_form::select($this->id_form, $estado ,$this->opciones, 'ef-combo', $js . $this->input_extra.$extra, $this->categorias);
 			return $html;
 		}
 	}	
@@ -198,7 +198,7 @@ class toba_ef_combo extends ef_seleccion
 	}
 }
 
-class ef_radio extends ef_seleccion 
+class toba_ef_radio extends toba_ef_seleccion 
 {
 	function get_input()
 	{
@@ -219,7 +219,7 @@ class ef_radio extends ef_seleccion
 		} else {
 			$tab = $this->padre->get_tab_index();
 			$tab_index = " tabindex='$tab'";
-			$html .= form::radio($this->id_form, $estado, $this->opciones, null, $callback, $tab_index);
+			$html .= toba_form::radio($this->id_form, $estado, $this->opciones, null, $callback, $tab_index);
 		}
 		$html .= '</div>';
 		return $html;

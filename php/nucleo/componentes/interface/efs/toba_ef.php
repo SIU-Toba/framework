@@ -13,7 +13,7 @@ require_once("toba_ef_multi_seleccion.php");
 require_once("toba_ef_sin_estado.php");
 require_once("toba_ef_upload.php");
 
-abstract class ef
+abstract class toba_ef
 {
 	protected $padre;		    	// PADRE del ELEMENTO (ID del objeto en el que este esta incluido)
 	protected $id;			    	// ID del ELEMENTO

@@ -24,8 +24,8 @@ if ( isset( $_SERVER['toba_dir'] ) ) {
 	$consola = new consola( $directorio_comandos, $clase_menu );
 	$consola->run( $argv );
 	$dir_logs = instalacion::dir_base()."/logs_consola";
-	logger::instancia()->set_directorio_logs($dir_logs);
-	logger::instancia()->guardar_en_archivo('comandos.log');
+	toba_logger::instancia()->set_directorio_logs($dir_logs);
+	toba_logger::instancia()->guardar_en_archivo('comandos.log');
 
 } else {
 	echo "  ATENCION: La variable de entorno 'toba_dir' no esta definida!";	

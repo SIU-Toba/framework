@@ -72,7 +72,7 @@ class info_ci extends info_ei
 	{
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
 			'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'ci', 

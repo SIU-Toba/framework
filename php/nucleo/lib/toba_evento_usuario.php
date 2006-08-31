@@ -224,7 +224,7 @@ class toba_evento_usuario
 			} else {
 				$js = "onclick=\"imprimir_html('$url');\"";
 			}
-			echo form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
@@ -232,12 +232,12 @@ class toba_evento_usuario
 			if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
 				// Escribo la sentencia que invocaria el vinculo
 				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
-				echo form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+				echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 			}
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
-			echo form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		}
 	}
 

@@ -120,7 +120,7 @@ class version_toba
 			if ($es_metodo) {
 				$cant = $metodo->invoke($migracion);
 				if (isset($cant)) {
-					logger::instancia()->info("Migración $nombre_metodo: $cant registros.");
+					toba_logger::instancia()->info("Migración $nombre_metodo: $cant registros.");
 				}
 				if (isset($interface)) {
 					$interface->mensaje_directo('.');	

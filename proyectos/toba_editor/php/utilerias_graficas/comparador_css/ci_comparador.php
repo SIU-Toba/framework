@@ -26,7 +26,7 @@ class ci_comparador extends toba_ci
 				$proyectos = dao_instancia::get_proyectos_con_estilo($estilo);
 				foreach ($proyectos as $proyecto) {
 					$pro = $proyecto['proyecto'];
-					$candidato = info_instancia::get_path_proyecto($pro)."/www/css/$estilo.css";
+					$candidato = toba_instancia::get_path_proyecto($pro)."/www/css/$estilo.css";
 					if (file_exists($candidato)) {
 						$archivo = $candidato;
 					}

@@ -60,7 +60,7 @@ class menu
 	{
 		$this->consola->enter();
 		$this->consola->linea_completa( null, '_');
-		$c = cronometro::instancia();
+		$c = toba_cronometro::instancia();
 		$tiempo = number_format($c->tiempo_acumulado(),3,",",".");
 		$this->consola->mensaje("TIEMPO: $tiempo segundos");
 		//print_r( $c->get_marcas() );

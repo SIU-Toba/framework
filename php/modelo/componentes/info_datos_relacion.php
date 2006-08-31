@@ -25,7 +25,7 @@ class info_datos_relacion extends info_componente
 		//ei_arbol($this->datos);
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear una nueva tabla asociada a la relación",
 			'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'datos_relacion', 
@@ -38,7 +38,7 @@ class info_datos_relacion extends info_componente
 								'subcomponente'=>'ap');
 		if (isset($this->datos['info_estructura']["ap_clase"])) {
 			$iconos[] = array(
-				'imagen' => recurso::imagen_apl("php_ap.gif", false),
+				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
 				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
 				'vinculo' => toba::get_vinculador()->generar_solicitud(editor::get_id(),"/admin/objetos/php", $param_editores,
 																		false, false, null, true, "central"),

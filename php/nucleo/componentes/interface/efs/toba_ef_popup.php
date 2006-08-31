@@ -11,7 +11,7 @@ class toba_ef_popup extends toba_ef_editable
 
     static function get_lista_parametros_carga()
     {
-    	$parametros = ef::get_lista_parametros_carga_basico();    
+    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
@@ -87,13 +87,13 @@ class toba_ef_popup extends toba_ef_editable
 		}
 		$r .= "<span class='ef-popup'>";
 		if ($this->editable) {
-			$r .= form::hidden($this->id_form."_desc", $this->estado);
+			$r .= toba_form::hidden($this->id_form."_desc", $this->estado);
 			$disabled = ($this->solo_lectura) ? "disabled" : "";
-			$r .= form::text($this->id_form, $this->descripcion_estado ,false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
+			$r .= toba_form::text($this->id_form, $this->descripcion_estado ,false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
 			$extra = '';
 		} else {
-			$r .= form::hidden($this->id_form, $this->estado, $js);
-			$r .= form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ");
+			$r .= toba_form::hidden($this->id_form, $this->estado, $js);
+			$r .= toba_form::text($this->id_form."_desc", $this->descripcion_estado ,false, "", $this->tamano, "ef-input", "disabled ");
 		}	
 		$display = ($this->solo_lectura) ? "visibility:hidden" : "";
 		$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
@@ -105,13 +105,13 @@ class toba_ef_popup extends toba_ef_editable
     
 	function get_consumo_javascript()
 	{
-		return array_merge(ef::get_consumo_javascript(), array('efs/ef_popup'));
+		return array_merge(toba_ef::get_consumo_javascript(), array('efs/ef_popup'));
 	}	
 	
 	function parametros_js()
 	{
 		$vinculo = (is_numeric($this->id_vinculo)) ? $this->id_vinculo : "null";
-		return ef::parametros_js().", $vinculo";
+		return toba_ef::parametros_js().", $vinculo";
 	}
 	
 	function crear_objeto_js()

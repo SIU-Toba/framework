@@ -111,9 +111,9 @@ class toba_ei_arbol extends toba_ei
 	function generar_html()
 	{
 		$salida = "";
-		$salida .= form::hidden($this->submit, '');
-		$salida .= form::hidden($this->submit."__apertura_datos", '');
-		$salida .= form::hidden($this->submit."__seleccion", '');
+		$salida .= toba_form::hidden($this->submit, '');
+		$salida .= toba_form::hidden($this->submit."__apertura_datos", '');
+		$salida .= toba_form::hidden($this->submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
 		$salida .= "<div class='ei-base ei-arbol-base'>";
 		$this->barra_superior(null, true,"ei-arbol-barra-sup");		

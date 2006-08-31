@@ -110,8 +110,8 @@ class toba_ei_archivos extends toba_ei
 
 	function generar_html()
 	{
-		echo form::hidden($this->submit, '');
-		echo form::hidden($this->submit."__seleccion", '');		
+		echo toba_form::hidden($this->submit, '');
+		echo toba_form::hidden($this->submit."__seleccion", '');		
 	
 		$dir = opendir($this->dir_actual);
 		$archivos = array();

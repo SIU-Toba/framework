@@ -38,7 +38,7 @@ class toba_ei_esquema extends toba_ei
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
 		echo "<tr><td><div $colapsado id='cuerpo_{$this->objeto_js}'>";
 		//Campo de sincronizacion con JS
-		echo form::hidden($this->submit, '');
+		echo toba_form::hidden($this->submit, '');
 		if (isset($this->contenido)) {
 			//Se arma el archivo .dot
 			toba::get_logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido", 'toba');

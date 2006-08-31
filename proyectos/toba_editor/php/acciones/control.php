@@ -1,5 +1,4 @@
-<?
-	require_once('nucleo/lib/interface/form.php');
+<?php
 	require_once('modelo/catalogo_modelo.php');
 	
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
@@ -13,9 +12,9 @@
 		$vinculo = toba::get_vinculador()->crear_vinculo(editor::get_id(), '/admin/acceso', array(), $opciones);
 		
 		//--- Refresca los otros frames
-		echo js::abrir();
+		echo toba_js::abrir();
 		echo "top.location.href = '$vinculo';";
-		echo js::cerrar();
+		echo toba_js::cerrar();
 	}
 	echo toba_form::abrir("cambiar_proyecto", '');                        
 ?>
@@ -41,7 +40,7 @@ function mostrar_ocultar_frame() {
 <?
 	$js_editor = toba_recurso::js('editor.js');
 	$datos = editor::get_parametros_previsualizacion_js();
-	$parametros_previsualizacion = js::arreglo($datos, true);
+	$parametros_previsualizacion = toba_js::arreglo($datos, true);
 ?>
 <SCRIPT language='JavaScript1.4' type='text/javascript' src='<? echo $js_editor  ?>'></SCRIPT>
 <SCRIPT language='JavaScript1.4' type='text/javascript' >

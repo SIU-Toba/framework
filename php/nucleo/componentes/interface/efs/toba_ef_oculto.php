@@ -12,7 +12,7 @@
 */
 
 
-class toba_ef_oculto extends ef
+class toba_ef_oculto extends toba_ef
 {
 //Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
 //La propagacion de su estado a travez de solicitudes se lleva a cabo impementado MEMORIA

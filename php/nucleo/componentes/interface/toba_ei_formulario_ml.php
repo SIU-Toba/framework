@@ -498,8 +498,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$colspan++;
 		}			
 		//Campo de comunicacion con JS
-		echo form::hidden("{$this->objeto_js}_listafilas",'');
-		echo form::hidden("{$this->objeto_js}__parametros", '');
+		echo toba_form::hidden("{$this->objeto_js}_listafilas",'');
+		echo toba_form::hidden("{$this->objeto_js}__parametros", '');
 		
 		echo "<table class='ei-ml-grilla' style='width: $ancho' >\n";
 		echo "<thead>\n";
@@ -672,19 +672,19 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if ($agregar || $ordenar) {
 			echo "<div style='text-align: left'>";
 			if ($agregar) {
-				echo form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_apl('ml/agregar.gif', true), 
+				echo toba_form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_apl('ml/agregar.gif', true), 
 										"onclick='{$this->objeto_js}.crear_fila();'", $this->rango_tabs[0]++, '+', 'Crea una nueva fila');
-				echo form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_apl('ml/borrar.gif', true), 
+				echo toba_form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_apl('ml/borrar.gif', true), 
 										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
 				$html = toba_recurso::imagen_apl('ml/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-				echo form::button_html("{$this->objeto_js}_deshacer", $html, 
+				echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
 										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->rango_tabs[0]++, 'z', 'Deshace la última eliminación');
 				echo "&nbsp;";
 			}
 			if ($ordenar) {
-				echo form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_apl('ml/subir.gif', true), 
+				echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_apl('ml/subir.gif', true), 
 										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
-				echo form::button_html("{$this->objeto_js}_bajar", toba_recurso::imagen_apl('ml/bajar.gif', true),
+				echo toba_form::button_html("{$this->objeto_js}_bajar", toba_recurso::imagen_apl('ml/bajar.gif', true),
                                         "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $this->rango_tabs[0]++, '>', 'Baja una posición la fila seleccionada');
 			}
 			echo "</div>\n";

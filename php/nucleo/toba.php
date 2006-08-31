@@ -54,7 +54,7 @@ class toba
 	*/
 	static function get_logger()
 	{
-		return logger::instancia();
+		return toba_logger::instancia();
 	}
 	
 	/**
@@ -104,7 +104,7 @@ class toba
 	 */
 	static function get_cronometro()
 	{
-		return cronometro::instancia();	
+		return toba_cronometro::instancia();	
 	}
 
 	/**

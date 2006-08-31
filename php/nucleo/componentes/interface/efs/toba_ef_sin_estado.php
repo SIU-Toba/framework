@@ -1,6 +1,6 @@
 <?
 
-abstract class toba_ef_sin_estado extends ef
+abstract class toba_ef_sin_estado extends toba_ef
 {
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{

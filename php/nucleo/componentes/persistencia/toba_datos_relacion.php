@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/componentes/objeto.php");
+require_once("nucleo/componentes/toba_componente.php");
 require_once("toba_relacion_entre_tablas.php");
 require_once("nucleo/componentes/interface/toba_ei_esquema.php");
 require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
@@ -9,7 +9,7 @@ require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topol
  *  @subpackage Persistencia
  *  @todo En el dump_esquema incluir la posición actual de los cursores
  */
-class toba_datos_relacion extends objeto
+class toba_datos_relacion extends toba_componente 
 {
 	protected $relaciones = array();		
 	protected $tablas_raiz;

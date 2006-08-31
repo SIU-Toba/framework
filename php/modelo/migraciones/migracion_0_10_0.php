@@ -573,9 +573,9 @@ class migracion_0_10_0 extends migracion_toba
 /*		$editor->agregar_sustitucion('/nucleo_toba/', 			'toba_nucleo');
 		$editor->agregar_sustitucion('/solicitud_web/', 		'toba_solicitud_web');
 		$editor->agregar_sustitucion('/solicitud_consola/', 	'toba_solicitud_consola');
-		$editor->agregar_sustitucion('/constructor_toba/', 		'toba_constructor');
+		$editor->agregar_sustitucion('/toba_constructor/', 		'toba_constructor');
 		$editor->agregar_sustitucion('/catalogo_toba/', 		'toba_catalogo');
-		$editor->agregar_sustitucion('/cargador_toba/', 		'toba_cargador');
+		$editor->agregar_sustitucion('/toba_cargador/', 		'toba_cargador');
 		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
 		$editor->agregar_sustitucion('/objeto_ei/', 			'toba_ei');
 		$editor->agregar_sustitucion('/objeto_cn/', 			'toba_cn');		
@@ -604,22 +604,31 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/impresion_toba/',		'toba_impresion');
 		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
 		*/
+		$editor->agregar_sustitucion('/js::/',					'toba_js::');
+		$archivos = manejador_archivos::get_archivos_directorio(toba_dir().'/php/nucleo', '|.php|', true);
 
 		$editor = new editor_archivos();
-		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
+/*		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
 		$editor->agregar_sustitucion('/objeto_ei/', 			'toba_ei');
 		$editor->agregar_sustitucion('/objeto_cn/', 			'toba_cn');
 		$editor->agregar_sustitucion('/objeto_datos_tabla/',	'toba_datos_tabla');
 		$editor->agregar_sustitucion('/objeto_datos_relacion/',	'toba_datos_relacion');
 		$editor->agregar_sustitucion('/nucleo_toba/',			'toba_nucleo');
 		$editor->agregar_sustitucion('/form::/',				'toba_form::');
-		$editor->agregar_sustitucion('/recurso::/',				'toba_recurso::');
+		$editor->agregar_sustitucion('/toba_recurso::/',				'toba_toba_recurso::');
 		$editor->agregar_sustitucion('/fuente_de_datos/',		'toba_fuente_datos');
-		
+		$editor->agregar_sustitucion('/info_instalacion/',	'toba_instalacion');
+		$editor->agregar_sustitucion('/info_instancia/',		'toba_instancia');
+		$editor->agregar_sustitucion('/info_proyecto/',			'toba_proyecto');
+		$editor->agregar_sustitucion('/parser_ayuda/',			'toba_parser_ayuda');
+		$editor->agregar_sustitucion('/excepcion_toba/',		'toba_excepcion');
+		$editor->agregar_sustitucion('/js::/',					'toba_js::');
+		$editor->agregar_sustitucion('/zona.php/',				'toba_zona.php');
+		$editor->agregar_sustitucion('/ap_relacion_db/',		'toba_ap_relacion_db');
+		$editor->agregar_sustitucion('/ap_tabla_db/',			'toba_ap_tabla_db');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
-
-		
 		$editor->procesar_archivos($archivos);
+*/
 	}
 }
 ?>

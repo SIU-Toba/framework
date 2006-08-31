@@ -193,7 +193,7 @@ class pantalla_visor extends toba_ei_pantalla
 //		$vinculo = toba::get_vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
 			var ultima_mod ='<?=$this->controlador->timestamp_archivo();?>';
-			var niveles = <?=js::arreglo($niveles)?>;
+			var niveles = <?=toba_js::arreglo($niveles)?>;
 			var niveles_actuales = {length: 0};
 			var refresco_automatico = true;
 			var consultando = false;

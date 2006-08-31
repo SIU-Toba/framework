@@ -1,6 +1,6 @@
 <?php
 
-class js
+class toba_js
 //Clase para funciones javascript.
 {
 	//--- SINGLETON

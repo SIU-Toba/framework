@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/persistencia/ap_tabla_db.php");
+require_once("nucleo/componentes/persistencia/toba_ap_tabla_db.php");
 
-class apdb_usuario_basicas extends ap_tabla_db
+class apdb_usuario_basicas extends toba_ap_tabla_db
 {
 	protected function evt__pre_update($id)
 	{

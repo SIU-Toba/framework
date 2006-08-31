@@ -44,7 +44,7 @@ class instancia extends elemento_modelo
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
 		$this->nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
-		logger::instancia()->debug('INSTANCIA "'.$this->identificador.'"');		
+		toba_logger::instancia()->debug('INSTANCIA "'.$this->identificador.'"');		
 	}
 
 	function get_sincronizador()
@@ -65,7 +65,7 @@ class instancia extends elemento_modelo
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
 			$this->datos_ini = parse_ini_file( $archivo_ini, true );
-			logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
+			toba_logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
 			if ( ! isset( $this->datos_ini['base'] ) ) {
 				throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
 			}
@@ -204,7 +204,7 @@ class instancia extends elemento_modelo
 				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
 				$ini->guardar();
 			}
-			logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
+			toba_logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
 			// Recargo la inicializacion de la instancia
 			$this->cargar_info_ini();
 		} else {
@@ -226,7 +226,7 @@ class instancia extends elemento_modelo
 			if ( is_dir( $dir_proyecto ) ) {
 				manejador_archivos::eliminar_directorio( $dir_proyecto );			
 			}
-			logger::instancia()->debug("Desvinculado el proyecto '$proyecto' de la instancia");
+			toba_logger::instancia()->debug("Desvinculado el proyecto '$proyecto' de la instancia");
 		}
 		// Recargo la inicializacion de la instancia
 		$this->cargar_info_ini();
@@ -276,7 +276,7 @@ class instancia extends elemento_modelo
 	{
 		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
 		$obs = $this->get_sincronizador()->sincronizar();
-		logger::instancia()->debug("Observaciones de sincronizacion: ".implode(', ', $obs));
+		toba_logger::instancia()->debug("Observaciones de sincronizacion: ".implode(', ', $obs));
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}	
 	
@@ -305,7 +305,7 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = $this->get_db()->consultar($sql);
-			logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
+			toba_logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -327,7 +327,7 @@ class instancia extends elemento_modelo
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			$this->manejador_interface->mensaje("Exportando proyecto $proyecto", false);
-			logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
+			toba_logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
@@ -363,7 +363,7 @@ class instancia extends elemento_modelo
 					" ORDER BY {$definicion['dump_order_by']} ;\n";
 			//$this->manejador_interface->mensaje( $sql );
 			$datos = $this->get_db()->consultar($sql);
-			logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
+			toba_logger::instancia()->debug("Tabla $texto  --  $tabla (".count($datos).' reg.)');
 			if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
 				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
@@ -434,7 +434,7 @@ class instancia extends elemento_modelo
 	{	
 		$this->crear_tablas();
 		$this->cargar_datos_nucleo();
-		logger::instancia()->debug("Modelo creado");		
+		toba_logger::instancia()->debug("Modelo creado");		
 	}
 	
 	private function crear_tablas()
@@ -445,7 +445,7 @@ class instancia extends elemento_modelo
 		sort($archivos);
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			logger::instancia()->debug($archivo . ". ($cant)");			
+			toba_logger::instancia()->debug($archivo . ". ($cant)");			
 			$this->manejador_interface->mensaje_directo('.');
 
 		}
@@ -459,7 +459,7 @@ class instancia extends elemento_modelo
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			logger::instancia()->debug($archivo . ". ($cant)");
+			toba_logger::instancia()->debug($archivo . ". ($cant)");
 			$this->manejador_interface->mensaje_directo('.');			
 		}
 		$this->manejador_interface->mensaje("OK");		
@@ -498,7 +498,7 @@ class instancia extends elemento_modelo
 				$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 				foreach( $archivos as $archivo ) {
 					$cant = $this->get_db()->ejecutar_archivo( $archivo );
-					logger::instancia()->debug($archivo . ". ($cant)");
+					toba_logger::instancia()->debug($archivo . ". ($cant)");
 					$this->manejador_interface->mensaje_directo('.');
 				}
 			}
@@ -509,12 +509,12 @@ class instancia extends elemento_modelo
 	function cargar_informacion_instancia_proyecto( $proyecto )
 	{
 		$this->manejador_interface->mensaje("Cargando datos locales de la instancia", false);
-		logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
+		toba_logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
 		foreach ( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			logger::instancia()->debug($archivo . ". ($cant)");
+			toba_logger::instancia()->debug($archivo . ". ($cant)");
 			$this->manejador_interface->mensaje_directo('.');
 		}
 		$this->manejador_interface->mensaje("OK");
@@ -528,7 +528,7 @@ class instancia extends elemento_modelo
 		$revision = revision_svn( toba_dir() );
 		$sql = "INSERT INTO apex_revision ( revision ) VALUES ('$revision')";
 		$this->get_db()->ejecutar( $sql );
-		logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
+		toba_logger::instancia()->debug("Actualizada la revision svn de la instancia a $revision");
 	}
 	
 	/*
@@ -536,7 +536,7 @@ class instancia extends elemento_modelo
 	*/
 	function actualizar_secuencias()
 	{
-		logger::instancia()->debug('Actualizando SECUENCIAS');
+		toba_logger::instancia()->debug('Actualizando SECUENCIAS');
 		$this->manejador_interface->mensaje("Actualizando secuencias", false);		
 		$id_grupo_de_desarrollo = $this->instalacion->get_id_grupo_desarrollo();
 		foreach ( secuencias::get_lista() as $seq => $datos ) {
@@ -561,7 +561,7 @@ class instancia extends elemento_modelo
 				$sql = "SELECT setval('$seq', $nuevo)";
 				$this->get_db()->consultar( $sql );	
 			}
-			logger::instancia()->debug("SECUENCIA $seq: $nuevo");
+			toba_logger::instancia()->debug("SECUENCIA $seq: $nuevo");
 			$this->manejador_interface->mensaje_directo(".");			
 		}
 		$this->manejador_interface->mensaje("OK");
@@ -614,7 +614,7 @@ class instancia extends elemento_modelo
 			$this->get_db()->ejecutar( $sql );
 			$this->get_db()->cerrar_transaccion();
 			$this->manejador_interface->mensaje("OK");
-			logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
+			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
 		} catch ( toba_excepcion $e ) {
 			$this->get_db()->abortar_transaccion();
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
@@ -657,7 +657,7 @@ class instancia extends elemento_modelo
 
 	function agregar_usuario( $usuario, $nombre, $clave )
 	{
-		logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
+		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
 		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
 				VALUES ('$usuario', '$nombre', 'md5', '". md5($clave) ."')";
 		return $this->get_db()->ejecutar( $sql );
@@ -665,7 +665,7 @@ class instancia extends elemento_modelo
 	
 	function eliminar_usuario( $usuario )
 	{
-		logger::instancia()->debug("Borrando el usuario '$usuario' de la instancia {$this->identificador}");		
+		toba_logger::instancia()->debug("Borrando el usuario '$usuario' de la instancia {$this->identificador}");		
 		$sql = "DELETE FROM apex_usuario WHERE usuario = '$usuario'";	
 		return $this->get_db()->ejecutar( $sql );
 	}
@@ -690,7 +690,7 @@ class instancia extends elemento_modelo
 		if( ! self::existe_carpeta_instancia( $nombre ) ) {
 			$dir = self::dir_instancia( $nombre );
 			mkdir( $dir );
-			logger::instancia()->debug("Creado directorio $dir");
+			toba_logger::instancia()->debug("Creado directorio $dir");
 		}
 		//Creo la clase que proporciona informacion sobre la instancia
 		$ini = new ini();
@@ -709,7 +709,7 @@ class instancia extends elemento_modelo
 		
 		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::info_instancia ;
 		$ini->guardar( $archivo );
-		logger::instancia()->debug("Creado archivo $archivo");
+		toba_logger::instancia()->debug("Creado archivo $archivo");
 	}
 
 	static function dir_instancia( $nombre )
@@ -759,7 +759,7 @@ class instancia extends elemento_modelo
 		if ($version->es_mayor($this->get_version_actual())) {
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
-			logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());
 			$this->get_db()->abrir_transaccion();
 			$version->ejecutar_migracion('instancia', $this, null, $this->manejador_interface);
 			$this->set_version($version);
@@ -772,7 +772,7 @@ class instancia extends elemento_modelo
 			}
 			$this->get_db()->cerrar_transaccion();
 		} else {
-			logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());
+			toba_logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());
 		}
 	}
 	
@@ -785,7 +785,7 @@ class instancia extends elemento_modelo
 		} else {
 			$sql = "UPDATE apex_instancia SET version='$nueva' WHERE instancia='{$this->identificador}'";
 		}
-		logger::instancia()->debug("Actualizando la instancia {$this->identificador} a versión $nueva");		
+		toba_logger::instancia()->debug("Actualizando la instancia {$this->identificador} a versión $nueva");		
 		$this->get_db()->ejecutar($sql);
 	}
 	

@@ -1,7 +1,7 @@
 <?
-require_once("nucleo/componentes/persistencia/ap_tabla_db_s.php");
+require_once("nucleo/componentes/persistencia/toba_ap_tabla_db_s.php");
 
-class apdb_item_objetos extends ap_tabla_db_s
+class apdb_item_objetos extends toba_ap_tabla_db_s
 {
 	function inicializar()
 	{

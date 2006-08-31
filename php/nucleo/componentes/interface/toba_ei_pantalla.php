@@ -203,8 +203,8 @@ class toba_ei_pantalla extends toba_ei
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
 		if ( (count($this->eventos) > 0) || (count($this->eventos_usuario_utilizados) > 0) ) {
-			echo form::hidden($this->submit, '');
-			echo form::hidden($this->submit."__param", '');
+			echo toba_form::hidden($this->submit, '');
+			echo toba_form::hidden($this->submit."__param", '');
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
 		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td>\n";

@@ -16,7 +16,7 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 				y con el monitor... hay que pasar lo montado en esos elementos
 				sobre este.
 */
-class logger
+class toba_logger
 {
 	const separador = "-o-o-o-o-o-";
 	const fin_encabezado = "==========";
@@ -79,7 +79,7 @@ class logger
 	static function instancia($proyecto=null)
 	{
 		if (!isset(self::$instancia[$proyecto])) {
-			self::$instancia[$proyecto] = new logger($proyecto);
+			self::$instancia[$proyecto] = new toba_logger($proyecto);
 		}
 		return self::$instancia[$proyecto];	
 	}
