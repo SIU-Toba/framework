@@ -6,7 +6,7 @@
 	(que implique el color que se le da al mensaje)
 
 */
-class cola_mensajes
+class toba_notificacion
 {
 	private $mensajes = array();
 	static private $instancia;
@@ -14,7 +14,7 @@ class cola_mensajes
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new cola_mensajes();
+			self::$instancia = new toba_notificacion();
 		}
 		return self::$instancia;		
 	}
@@ -49,14 +49,14 @@ class cola_mensajes
 	public function mostrar()
 	{
 		toba_js::cargar_consumos_basicos(); //Por si no se cargaron antes
-		toba_js::cargar_consumos_globales(array("basicos/cola_mensajes"));
+		toba_js::cargar_consumos_globales(array("basicos/notificacion"));
 		echo toba_js::abrir();
 		foreach($this->mensajes as $mensaje){
 			$texto = str_replace("'", "\\'", $mensaje[0]);
 			$texto = toba_js::string($texto);
-			echo "cola_mensajes.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
+			echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
 		}
-		echo "cola_mensajes.mostrar()\n";
+		echo "notificacion.mostrar()\n";
 		echo toba_js::cerrar();
 	}
 	

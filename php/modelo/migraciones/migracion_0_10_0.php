@@ -615,5 +615,15 @@ class migracion_0_10_0 extends migracion_toba
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
+	
+	function proyecto__notificacion_js()
+	{
+		$editor = new editor_archivos();		
+		$editor->agregar_sustitucion('/cola_mensajes\./',			'notificacion.');
+		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);
+	}
+	
+	
 }
 ?>

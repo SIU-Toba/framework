@@ -12,7 +12,7 @@ class form_persona_deportes extends toba_ei_formulario
 				var hora_f = parseFloat( this.ef('hora_fin').valor() );
 				if ( hora_i >= hora_f ) {
 						var mensaje = \"La 'Hora inicio' tiene que ser menor a la 'Hora fin.'.\";
-						cola_mensajes.agregar(mensaje);
+						notificacion.agregar(mensaje);
 						this.ef('hora_fin').set_error(mensaje);
 						return false;
 				}

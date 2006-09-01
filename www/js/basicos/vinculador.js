@@ -41,8 +41,8 @@ var vinculador =
 	
 	invocar : function(identificador) {
 		if (typeof this._vinculos[identificador] == 'undefined') {
-		 	cola_mensajes.agregar('Ud. no tiene permisos para ingresar a esta operación');
-		 	cola_mensajes.mostrar();
+		 	notificacion.agregar('Ud. no tiene permisos para ingresar a esta operación');
+		 	notificacion.mostrar();
 		 	return;
 		}
 		if (this._vinculos[identificador].activado != 1) { return; }	//Desactivado

@@ -175,9 +175,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	{
 		if (respuesta.responseText === '') {
 			var error = 'Error en la respuesta de la cascada, para más información consulte el log';
-			cola_mensajes.limpiar();
-			cola_mensajes.agregar(error);
-			cola_mensajes.mostrar();			
+			notificacion.limpiar();
+			notificacion.agregar(error);
+			notificacion.mostrar();			
 		} else {
 			try {
 				var datos = eval('(' + respuesta.responseText + ')');
@@ -185,9 +185,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 				this.ef(respuesta.argument).activar();
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
-				cola_mensajes.limpiar();
-				cola_mensajes.agregar(error);
-				cola_mensajes.mostrar();				
+				notificacion.limpiar();
+				notificacion.agregar(error);
+				notificacion.mostrar();				
 			}
 		}
 	};
@@ -224,7 +224,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 				ef.resaltar(ef.get_error());
 			}
 			if (! es_online) {
-				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
+				notificacion.agregar(ef.get_error(), 'error', ef._etiqueta);
 			}
 			ef.resetear_error();
 			return false;

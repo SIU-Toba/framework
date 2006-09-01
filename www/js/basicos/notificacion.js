@@ -2,7 +2,7 @@
 *	Clase para manejo de mensajería al usuario
 **/
 window.status = '';
-var cola_mensajes = 
+var notificacion = 
 {
 	_mensajes: [],
 	_responsable: null,
@@ -102,4 +102,4 @@ function overlay() {
 	}
 }
 
-toba.confirmar_inclusion('basicos/cola_mensajes');
+toba.confirmar_inclusion('basicos/notificacion');

@@ -7,7 +7,7 @@ require_once('lib/sql.php');								//Libreria de manipulacion del SQL
 require_once('nucleo/lib/toba_error.php');				//Excepciones del TOBA
 require_once('nucleo/lib/toba_logger.php');						//toba_logger
 require_once('nucleo/lib/mensajes.php');					//Modulo de mensajes parametrizables
-require_once('nucleo/lib/toba_notificaciones.php');				//Cola de mensajes utilizada durante la EJECUCION
+require_once('nucleo/lib/toba_notificacion.php');				//Cola de mensajes utilizada durante la EJECUCION
 require_once('nucleo/lib/toba_permisos.php');					//Administrador de permisos particulares
 require_once('nucleo/lib/toba_recurso.php');						//Obtencion de imágenes de la aplicación
 require_once('nucleo/lib/toba_usuario.php');	  			//Informacion sobre el usuario

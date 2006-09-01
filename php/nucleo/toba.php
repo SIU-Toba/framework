@@ -67,11 +67,11 @@ class toba
 	}
 
 	/**
-	 * @return cola_mensajes
+	 * @return toba_notificacion
 	 */
 	static function notificacion()
 	{
-		return cola_mensajes::instancia();
+		return toba_notificacion::instancia();
 	}
 
 	/**

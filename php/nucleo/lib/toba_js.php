@@ -11,7 +11,7 @@ class toba_js
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 
-						'basicos/comunicacion_server', 'basicos/cola_mensajes',
+						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 	
 	static function instancia() 

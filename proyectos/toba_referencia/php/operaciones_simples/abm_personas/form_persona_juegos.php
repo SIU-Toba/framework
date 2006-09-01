@@ -23,7 +23,7 @@ class form_persona_juegos extends toba_ei_formulario_ml
 					}
 				}
 				if(!ok){
-					cola_mensajes.agregar(mensaje);
+					notificacion.agregar(mensaje);
 				}
 				return ok;
 			}

@@ -25,7 +25,7 @@ class extension_formulario extends toba_ei_formulario
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this.ef('descripcion').valor() != '' && this.ef('otra_descripcion').valor() != '' ) {
-						cola_mensajes.agregar('Sólo puede ingresar una descripción.');
+						notificacion.agregar('Sólo puede ingresar una descripción.');
 						return false;
 				}
 				return true;

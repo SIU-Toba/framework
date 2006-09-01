@@ -111,7 +111,7 @@ def.constructor = ei_formulario_ml;
 				ef.resaltar(ef.get_error(), 8);
 			}
 			if (! es_online) {
-				cola_mensajes.agregar(ef.get_error(), 'error', ef._etiqueta);
+				notificacion.agregar(ef.get_error(), 'error', ef._etiqueta);
 			}
 			ef.resetear_error();
 			return false;

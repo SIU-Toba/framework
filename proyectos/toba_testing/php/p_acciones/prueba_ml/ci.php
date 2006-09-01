@@ -243,7 +243,7 @@ class ci extends toba_ci
 		echo "
 			{$this->objeto_js}.evt__validar_datos = function() {
 				if (this._evento.id == 'procesar') {
-					cola_mensajes.agregar('No se puede procesar!');
+					notificacion.agregar('No se puede procesar!');
 					return false;
 				}
 				return true;

@@ -367,7 +367,7 @@ abstract class toba_ei extends toba_componente
 		
 		//---Barra de mensajeria		
 		if (isset($this->objeto_js)) {
-			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='cola_mensajes.mostrar({$this->objeto_js})'>";
+			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
 			echo toba_recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 			echo "</a>";
 		}

@@ -57,14 +57,14 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 
 		this._en_submit = true;
 		if (! this.controlador) { //Si es el padre de todos, borrar las notificaciones
-			cola_mensajes.limpiar();
+			notificacion.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();
 				//toba.set_ajax(this);
 				toba.comunicar_eventos();
 			} else {
-				if (window.cola_mensajes) {
-					cola_mensajes.mostrar(this);
+				if (window. notificacion) {
+					notificacion.mostrar(this);
 				}
 			}
 		} else {
@@ -190,8 +190,8 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 
 	def.mostrar_tab = function (tab, mostrar) {
 		if (tab == this._id_en_controlador) {
-			cola_mensajes.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
-			cola_mensajes.mostrar();
+			notificacion.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
+			notificacion.mostrar();
 			return;
 		}
 		var elemento = document.getElementById(this._input_submit + '_cambiar_tab_' + tab);

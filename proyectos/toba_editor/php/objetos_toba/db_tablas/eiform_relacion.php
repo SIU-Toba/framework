@@ -61,7 +61,7 @@ class eiform_relacion extends toba_ei_formulario
 					{
 						if(this.ef(elementos).valor() == 'nopar')
 						{
-							cola_mensajes.agregar('Debe seleccionar el elemento '+elementos);
+							notificacion.agregar('Debe seleccionar el elemento '+elementos);
 							salida = false;
 						}
 					}
