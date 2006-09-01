@@ -35,12 +35,6 @@ class toba_ei_calendario extends toba_ei
 	
 	function destruir()
 	{
-		$this->memoria["eventos"] = array();
-		if(isset($this->eventos)){
-			foreach($this->eventos as $id => $evento ){
-				$this->memoria["eventos"][$id] = true;
-			}
-		}
 		//Seleccionar Semana
 		if (isset($this->semana_seleccionada)) {
 			$this->memoria['semana_seleccionada'] = $this->semana_seleccionada;
@@ -159,7 +153,7 @@ class toba_ei_calendario extends toba_ei
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];	
 			//El evento estaba entre los ofrecidos?
-			if(isset($this->memoria['eventos'][$evento]) ) {
+			if (isset($this->memoria['eventos'][$evento]) ) {
 				if ($evento == 'seleccionar_dia')
 					$parametros = $this->dia_seleccionado;
 				elseif ($evento == 'seleccionar_semana')

@@ -177,7 +177,7 @@ class toba_ei_formulario extends toba_ei
 			//La opcion seleccionada estaba entre las ofrecidas?
 			if (isset($this->memoria['eventos'][$evento])) {
 				//Me fijo si el evento requiere validacion
-				$maneja_datos = $this->memoria['eventos'][$evento];
+				$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
 				if($maneja_datos) {
 					if (! $validado) {
 						$this->validar_estado();

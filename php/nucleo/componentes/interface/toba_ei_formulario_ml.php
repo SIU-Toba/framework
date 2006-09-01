@@ -91,7 +91,6 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
 			//La opcion seleccionada estaba entre las ofrecidas?		
 			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {		
-			
 				$this->disparar_eventos_especifico($_POST[$this->submit]);
 			}
 		} else {	//Es la primera carga
@@ -102,7 +101,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	
 	protected function disparar_eventos_especifico($evento)
 	{
-		$maneja_datos = $this->memoria['eventos'][$evento];
+		$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
 		$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
 		
 		//Me fijo si el evento envia datos modificados

@@ -178,7 +178,7 @@ class toba_ci extends toba_ei
 			$this->controlar_eventos_propios();
 			//Los eventos que no manejan dato tienen que controlarse antes
 			if( isset($this->memoria['eventos'][$this->evento_actual]) && 
-					$this->memoria['eventos'][$this->evento_actual] == false ) {
+					$this->memoria['eventos'][$this->evento_actual] == apex_ei_evt_no_maneja_datos ) {
 				$this->disparar_evento_propio();
 			} else {
 				//Disparo los eventos de las dependencias
@@ -229,13 +229,11 @@ class toba_ci extends toba_ei
 		if(isset($_POST[$this->submit])){
 			$evento = $_POST[$this->submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
-			if(isset(  $this->memoria['eventos'][$evento] )){
+			if (isset( $this->memoria['eventos'][$evento] )) {
 				$this->evento_actual = $evento;
 				$this->evento_actual_param = $_POST[$this->submit."__param"];
 			} else {
-				if( $evento != '') {
-					throw new toba_error('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
-				}
+				throw new toba_error('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
 			}
 		}
 	}
@@ -248,6 +246,7 @@ class toba_ci extends toba_ei
 				//Ejecuto el metodo que implementa al evento
 				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]", 'toba');
 				$this->$metodo($this->evento_actual_param);
+			
 				//Comunico el evento al contenedor
 				$this->reportar_evento( $this->evento_actual );
 			}else{

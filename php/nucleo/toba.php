@@ -7,6 +7,7 @@ require_once('nucleo/toba_nucleo.php');
 class toba
 {
 	static private $sesion;
+	static private $mensajes;
 
 	/**
 	 * @return toba_nucleo
@@ -79,7 +80,10 @@ class toba
 	 */	
 	static function mensajes()
 	{
-		
+		if (!isset(self::$mensajes)) {
+			self::$mensajes = new toba_mensajes();
+		}
+		return self::$mensajes;
 	}
 	
 	/**

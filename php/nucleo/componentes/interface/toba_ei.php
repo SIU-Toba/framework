@@ -10,6 +10,8 @@ define("apex_ei_separador","__");
 define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
 define("apex_datos_clave_fila","x_dbr_clave");				//Clave interna de los datos_tabla, por compatibilidad es igual.
 define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
+define('apex_ei_evt_maneja_datos', 1);
+define('apex_ei_evt_no_maneja_datos', -1);
 
 /**
  * Clase base de los elementos de interface (ei)
@@ -41,21 +43,18 @@ abstract class toba_ei extends toba_componente
 	
 	function destruir()
 	{
-		//Recuerdo los eventos enviados durante los servicios
-		if(!isset($this->memoria['eventos'])){
-			$this->memoria['eventos'] = array();
-		}
+		$this->memoria['eventos'] = array();
 		if(isset($this->eventos)){
 			foreach($this->eventos as $id => $evento ){
-				$this->memoria['eventos'][$id] = true;
+				$this->memoria['eventos'][$id] = apex_ei_evt_maneja_datos;
 			}
 		}
 		if(isset($this->eventos_usuario_utilizados)){
 			foreach($this->eventos_usuario_utilizados as $id => $evento ){
 				if($evento->maneja_datos()){
-					$val = true;
+					$val = apex_ei_evt_maneja_datos;
 				}else{
-					$val = false;	
+					$val = apex_ei_evt_no_maneja_datos;	
 				}
 				$this->memoria['eventos'][$id] = $val;
 			}
@@ -160,9 +159,6 @@ abstract class toba_ei extends toba_componente
 	 */
 	protected function reportar_evento($evento)
 	{
-		if(!isset( $this->memoria['eventos'][$evento] )){
-			throw new toba_error($this->get_txt() . ' error EI - Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
-		}
 		$parametros = func_get_args();
 		$parametros	= array_merge(array($this->id_en_controlador), $parametros);
 		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);

@@ -29,12 +29,6 @@ class toba_ei_archivos extends toba_ei
 	
 	function destruir()
 	{
-		$this->memoria["eventos"] = array();
-		if(isset($this->eventos)){
-			foreach($this->eventos as $id => $evento ){
-				$this->memoria["eventos"][$id] = true;
-			}
-		}
 		$this->memoria['dir_actual'] = $this->dir_actual;
 		$this->memoria['path_relativo_inicial'] = $this->path_relativo_inicial;
 		parent::destruir();

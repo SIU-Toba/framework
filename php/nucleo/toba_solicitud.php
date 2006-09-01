@@ -212,7 +212,7 @@ abstract class toba_solicitud
 
 	protected function crear_zona()
 	{
-		$clase = 'zona';
+		$clase = 'toba_zona';
 		if (trim($this->info['basica']['item_zona'])!="") {
 			//--- Tiene subclase?
 			if (isset($this->info['basica']['item_zona_archivo'])) {
