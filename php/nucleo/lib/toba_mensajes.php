@@ -2,9 +2,9 @@
 /*
 	Esta clase obtiene los mensajes guardados en la DB
 */
-class mensaje
+class toba_mensajes
 {
-	function get($indice, $parametros=null)
+	static function get($indice, $parametros=null)
 	//Obtiene un MENSAJE
 	//Escala del proyecto actual al TOBA si no lo encuentra en el primero
 	{
@@ -16,7 +16,7 @@ class mensaje
 	}
 	//-----------------------------------------------------
 
-	function get_toba($indice, $parametros=null)
+	static function get_toba($indice, $parametros=null)
 	//Obtiene un mensaje GLOBAL del proyecto toba
 	//Esto es para errores genericos del motor, etc
 	{
@@ -34,7 +34,7 @@ class mensaje
 	}
 	//-----------------------------------------------------
 	
-	function get_proyecto($indice, $parametros=null)
+	static function get_proyecto($indice, $parametros=null)
 	//Obtiene un mensaje GLOBAL del proyecto
 	{
 		$datos = toba_proyecto::get_mensaje_proyecto($indice);
@@ -51,7 +51,7 @@ class mensaje
 	}
 	//-----------------------------------------------------
 
-	function get_objeto($objeto, $indice, $parametros=null)
+	static function get_objeto($objeto, $indice, $parametros=null)
 	//Obtiene el mensaje asociado a un OBJETO
 	{
 		$datos = toba_proyecto::get_mensaje_objeto($objeto, $indice);
@@ -69,7 +69,7 @@ class mensaje
 	}
 	//-----------------------------------------------------
 
-	function parsear_parametros($mensaje, $parametros)
+	static function parsear_parametros($mensaje, $parametros)
 	//Si el mensaje fue definido con comodines (%numero%)
 	//Estos pueden ser reemplazados por valores provistos en la llamada
 	{

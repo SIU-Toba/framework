@@ -35,7 +35,7 @@ class toba_notificacion
 
 	public function agregar_id($indice, $parametros=null, $nivel='error')
 	{
-		$this->agregar(mensaje::get($indice, $parametros), $nivel);
+		$this->agregar(toba::mensajes()->get($indice, $parametros), $nivel);
 	}
 
 	public function verificar_mensajes()

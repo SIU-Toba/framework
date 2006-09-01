@@ -75,6 +75,14 @@ class toba
 	}
 
 	/**
+	 * @return toba_mensajes
+	 */	
+	static function mensajes()
+	{
+		
+	}
+	
+	/**
 	 * Retorna una referencia a una fuente de datos declarada en el proyecto
 	 * @param string $id_fuente
 	 * @return toba_fuente_datos

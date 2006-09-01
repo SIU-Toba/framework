@@ -128,6 +128,18 @@ class toba_componente
 	//-----------------   Mensajes al usuario        --------------------------------
 	//-------------------------------------------------------------------------------
 	
+	function get_mensaje($indice, $parametros=null)
+	{
+		//Busco el mensaje del OBJETO
+		if($mensaje = toba::mensajes()->get_objeto($this->id[1], $indice, $parametros)) {
+			return $mensaje;	
+		} else {
+			//El objeto no tiene un mensaje con el indice solicitado,
+			//Busco el INDICE global
+			return toba::mensajes()->get($indice, $parametros);
+		}
+	}
+	
 	function informar_msg($mensaje, $nivel=null)
 	//Guarda un  mensaje en la cola de mensajes
 	{
@@ -137,7 +149,7 @@ class toba_componente
 	function informar($indice, $parametros=null,$nivel=null)
 	//Obtiene un mensaje del repositorio y lo guarda en la cola de mensajes
 	{
-		$mensaje = $this->obtener_mensaje($indice, $parametros);
+		$mensaje = $this->get_mensaje($indice, $parametros);
 		$this->informar_msg($mensaje,$nivel);
 	}
 

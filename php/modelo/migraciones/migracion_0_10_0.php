@@ -587,6 +587,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/extends zona/',			'extends toba_zona');
 		$editor->agregar_sustitucion('/ap_relacion_db/',		'toba_ap_relacion_db');
 		$editor->agregar_sustitucion('/ap_tabla_db/',			'toba_ap_tabla_db');
+		$editor->agregar_sustitucion('/mensaje::/',				'toba::mensajes()->');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
