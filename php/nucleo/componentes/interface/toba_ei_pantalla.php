@@ -1,5 +1,6 @@
 <?php
-require_once("toba_ei.php");
+require_once('toba_ei.php');
+require_once('nucleo/lib/toba_tab.php');
 
 /**
 * @package Objetos
@@ -122,18 +123,6 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
-	function modificar_tab($id, $datos)
-	{
-		if (isset($this->lista_tabs[$id])) {
-			foreach ($datos as $clave => $valor) {
-				$this->lista_tabs[$id][$clave] = $valor;	
-			}
-		} else {
-			throw new toba_error_def($this->get_txt(). 
-					" Se quiere modificar el tab '$id', pero esta no está en la pantalla actual");
-		}		
-	}
-	
 	function get_lista_tabs()
 	{
 		return $this->lista_tabs;	
@@ -148,15 +137,12 @@ class toba_ei_pantalla extends toba_ei
 		for($a = 0; $a<count($this->info_ci_me_pantalla);$a++)
 		{
 			$id = $this->info_ci_me_pantalla[$a]["identificador"];
-			$this->lista_tabs[$id]['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
-			$this->lista_tabs[$id]['tip'] = $this->info_ci_me_pantalla[$a]["tip"];
-			if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"]) {
-				if ($this->info_ci_me_pantalla[$a]["imagen_recurso_origen"] == 'apex') {
-					$this->lista_tabs[$id]['imagen'] = toba_recurso::imagen_apl($this->info_ci_me_pantalla[$a]["imagen"], false);
-				} else {
-					$this->lista_tabs[$id]['imagen'] = toba_recurso::imagen_pro($this->info_ci_me_pantalla[$a]["imagen"], false);
-				}
-			}
+			$datos['identificador'] = $id;
+			$datos['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
+			$datos['ayuda'] = $this->info_ci_me_pantalla[$a]["tip"];
+			$datos['imagen'] = $this->info_ci_me_pantalla[$a]["imagen"];
+			$datos['imagen_recurso_origen'] = $this->info_ci_me_pantalla[$a]["imagen_recurso_origen"];
+			$this->lista_tabs[$id] = new toba_tab($datos);
 		}
 	}	
 	
@@ -360,23 +346,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$estilo = 'background: url("'.toba_recurso::imagen_apl('tabs/bg.gif').'") repeat-x bottom;';
 		echo "<div style='$estilo' class='ci-tabs-h-lista'><ul>\n";
-		$id_tab = 1;
 		foreach( $this->lista_tabs as $id => $tab ) {
-			$tip = $tab["tip"];
-			$tab_order = null;
-			$acceso = tecla_acceso( $tab["etiqueta"] );
-			$html = '';
-			if (isset($tab['imagen'])) {
-				$html .= toba_recurso::imagen($tab['imagen']).' ';
-			} else {
-				$html .= gif_nulo(1, 16);
-			}
-			$html .= $acceso[0];
-			$tecla = $acceso[1];
-			if (!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
-			$tip = str_replace("'", "\\'",$tip);			
-			$acceso = toba_recurso::ayuda($tecla, $tip);
-			$js = "onclick=\"{$this->objeto_js}.ir_a_pantalla('$id');return false;\"";
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
 				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
@@ -384,43 +354,35 @@ class toba_ei_pantalla extends toba_ei
 			if ($this->id_en_controlador == $id) {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
-				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor<a id='".$this->submit.'_cambiar_tab_'.$id."' style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
+				echo $tab->get_html($this->submit, $this->objeto_js, false, $estilo);
+				echo "</li>";
 			} else {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
-				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor<a id='".$this->submit.'_cambiar_tab_'.$id."' style='$estilo_a' href='#' $acceso $js>$html</a></li>";
+				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor";
+				echo $tab->get_html($this->submit, $this->objeto_js, true, $estilo);
+				echo "</li>";
 			}
-			$id_tab++;			
 		}
 		echo "</ul></div>";
 	}
 
 	protected function generar_tabs_verticales()
 	{
-		
 		echo "<div  class='ci-tabs-v-solapa' style='height:20px'> </div>";
-		foreach( $this->lista_tabs as $id => $tab )
-		{
-			$tab_order = 0;
-			$acceso = tecla_acceso( $tab["etiqueta"] );
-			$tip = $tab["tip"];
-			$html = '';
-			if(isset($tab['imagen'])) 
-				$html = toba_recurso::imagen($tab['imagen'], null, null, null, null, null, 'vertical-align: middle;' ).' ';
-			$html .= $acceso[0];
-			$tecla = $acceso[1];
-			$js = "onclick=\"{$this->objeto_js}.set_evento( new evento_ei('cambiar_tab_$id', true, ''));\"";
-
+		foreach( $this->lista_tabs as $id => $tab ) {
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
 				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
 			}
 			if ( $this->id_en_controlador == $id ) {
-				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor $html</div></div>";
+				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor ";
+				echo $tab->get_html($this->submit, $this->objeto_js, false);
+				echo "</div>";
 			} else {
-				$atajo = toba_recurso::ayuda($tecla, str_replace("'", "\\'",$tip), 'ci-tabs-v-boton');
-				echo "<div class='ci-tabs-v-solapa'>$editor";
-				echo "<a id='".$this->submit.'_cambiar_tab_'.$id."' href='#' $atajo $js>$html</a>";
+				echo "<div class='ci-tabs-v-solapa'>$editor ";
+				echo $tab->get_html($this->submit, $this->objeto_js);
 				echo "</div>";
 			}
 		}

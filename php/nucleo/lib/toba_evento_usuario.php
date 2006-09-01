@@ -1,16 +1,10 @@
 <?php
+require_once('nucleo/lib/toba_boton.php');
 
-class toba_evento_usuario
+class toba_evento_usuario extends toba_boton
 {
-	protected $datos;
 	protected $vinculo;
-	protected $activado = true;		//Utilizado en los evento sobre_fila para filtrar filas puntuales
 	protected $parametros = null;
-		
-	function __construct($datos)
-	{
-		$this->datos = $datos;
-	}
 
 	/**
 	*	Devuelve el vinculo asociado al evento
@@ -48,11 +42,6 @@ class toba_evento_usuario
 		return ( $this->datos['sobre_fila'] == true );
 	}
 	
-	function posee_confirmacion()
-	{
-		return ( trim($this->datos['confirmacion']) !== '' );
-	}
-
 	function esta_en_botonera()
 	{
 		// La condicion del EI agregaba esto: !isset($evento['en_botonera'])
@@ -106,38 +95,6 @@ class toba_evento_usuario
 		return $this->datos['identificador'];	
 	}
 	
-	function get_etiqueta()
-	{
-		return $this->datos['etiqueta'];	
-	}
-
-	function get_msg_confirmacion()
-	{
-		return $this->datos['confirmacion'];	
-	}
-
-	function get_imagen()
-	{
-		if (isset($this->datos['imagen']) && $this->datos['imagen'] != '') {
-			if (isset($this->datos['imagen_recurso_origen'])) {
-				$img = toba_recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_recurso_origen']);
-			} else {
-				$img = $this->datos['imagen'];
-			}
-			return toba_recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
-		}
-	}
-
-	function get_imagen_url_rel()
-	{
-		return $this->datos['imagen'];
-	}
-
-	function get_msg_ayuda()
-	{
-		return $this->datos['ayuda'];	
-	}
-
 	function get_grupos()
 	{
 		if ( $this->posee_grupo_asociado() ) {
@@ -147,53 +104,17 @@ class toba_evento_usuario
 	
 	//--------- Seters ---------------------
 	
-	function set_etiqueta($texto)
-	{
-		$this->datos['etiqueta'] = $texto;
-	}
-	
-	function set_msg_confirmacion($texto)
-	{
-		$this->datos['confirmacion'] = $texto;
-	}
-
-	function set_imagen($url_relativa, $origen=null)
-	{
-		if (isset($origen) && ( ($origen != 'apex') || ( $origen != 'proyecto') ) ) {
-			throw new toba_error_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
-		} else {
-			$origen = 'apex';	
-		}
-		$this->datos['imagen_recurso_origen'] = $origen;
-		$this->datos['imagen'] = $url_relativa;
-	}
-
-	function set_msg_ayuda($texto)
-	{
-		$this->datos['ayuda'] = $texto;
-	}
-
 	function set_parametros($parametros = null)
 	{
 		$this->parametros = $parametros;
 	}
 	
-	function desactivar()
-	{
-		$this->activado = false;			
-	}
-
-	function activar()
-	{
-		$this->activado = true;
-	}
-
 	//--------- Consumo interno ------------
 	
 	/**
 	*	Genera el HTML del BOTON
 	*/
-	function generar_boton($id_submit, $id_componente)
+	function get_html($id_submit, $id_componente)
 	{
 		$tab_order = manejador_tabs::instancia()->siguiente();
 		$tip = '';
@@ -224,7 +145,7 @@ class toba_evento_usuario
 			} else {
 				$js = "onclick=\"imprimir_html('$url');\"";
 			}
-			echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
@@ -232,12 +153,12 @@ class toba_evento_usuario
 			if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
 				// Escribo la sentencia que invocaria el vinculo
 				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
-				echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 			}
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
-			echo toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
 		}
 	}
 

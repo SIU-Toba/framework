@@ -1094,7 +1094,7 @@ class toba_ei_cuadro extends toba_ei
 					}
 					//3: Genero el boton
 					if( $evento->esta_activado() ) {
-						$evento->generar_boton($this->submit, $this->objeto_js);
+						echo $evento->get_html($this->submit, $this->objeto_js);
 					} else {
 						$evento->activar();	//Lo activo para la proxima fila
 					}
