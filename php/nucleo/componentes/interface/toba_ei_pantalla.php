@@ -177,10 +177,20 @@ class toba_ei_pantalla extends toba_ei
 			case "wizard":
 				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->lista_tabs),
 																	$this->info_pantalla['identificador']);
-				if ($anterior !== false)
-					$this->eventos += eventos::ci_pantalla_anterior($anterior);
-				if ($siguiente !== false)
-					$this->eventos += eventos::ci_pantalla_siguiente($siguiente);
+				if ($anterior !== false) {
+					$e = new toba_evento_usuario();
+					$e->set_id('cambiar_tab__anterior');
+					$e->set_etiqueta('< &Anterior');
+					$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
+					$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
+				}
+				if ($siguiente !== false) {
+					$e = new toba_evento_usuario();
+					$e->set_id('cambiar_tab__siguiente');
+					$e->set_etiqueta('&Siguiente >');
+					$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
+					$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
+				}
 				break;
 		}		
 	}
@@ -335,7 +345,7 @@ class toba_ei_pantalla extends toba_ei
 				$pasada = false;
 			}
 			echo "<li class='$clase'>";
-			echo $pantalla['etiqueta'];
+			echo $pantalla->get_etiqueta();
 			echo "</li>";
 		}		
 		echo "</ol>";

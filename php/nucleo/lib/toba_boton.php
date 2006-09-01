@@ -8,9 +8,21 @@ class toba_boton
 	protected $datos;
 	protected $activado = true;
 
-	function __construct($datos)
+	function __construct($datos=null)
 	{
-		$this->datos = $datos;
+		if (isset($datos)) {
+			$this->datos = $datos;
+		} else {
+			$this->datos['etiqueta'] = '';
+			$this->datos['maneja_datos'] = true;
+			$this->datos['sobre_fila'] = false;
+			$this->datos['confirmacion'] = '';
+			$this->datos['estilo'] = "";
+			$this->datos['imagen'] = '';
+			$this->datos['en_botonera'] = true;
+			$this->datos['ayuda'] = '';
+			$this->datos['accion'] = '';
+		}
 	}
 
 	//--------- Preguntas ---------------------
@@ -55,7 +67,11 @@ class toba_boton
 	}
 	
 	//--------- Seters ---------------------
-
+	function set_id($id)
+	{
+		 $this->datos['identificador'] = $id;
+	}
+	
 	function set_etiqueta($texto)
 	{
 		$this->datos['etiqueta'] = $texto;

@@ -8,6 +8,7 @@ class eventos
 	static function evento_estandar($id, $etiqueta=null, $en_botonera=true, $imagen = '', $ayuda = '', $maneja_datos=true)
 	//Retorna un evento estandar listo para modificar
 	{
+		$evento[$id]['identificador'] = $id;
 		$evento[$id]['etiqueta'] = $etiqueta;
 		$evento[$id]['maneja_datos'] = $maneja_datos;
 		$evento[$id]['sobre_fila'] = false;			//Propiedad particular que entiende el cuadro (y el ML debería tambien)
