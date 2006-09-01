@@ -21,10 +21,10 @@ class test_clonador_objetos extends test_toba
 	{
 		$nuevo_nombre = "Objeto Clonado";
 		$nuevos_datos = array('nombre' => $nuevo_nombre);
-		$info = constructor_toba::get_info(array('componente' => $id, 'proyecto' => 'toba_testing'));
+		$info = toba_constructor::get_info(array('componente' => $id, 'proyecto' => 'toba_testing'));
 		$clon = $info->clonar($nuevos_datos, false);
 		//--- Verificación
-		$meta_objeto = constructor_toba::get_info( array('proyecto' => $clon['proyecto'],
+		$meta_objeto = toba_constructor::get_info( array('proyecto' => $clon['proyecto'],
 													'componente'=> $clon['objeto']) );
 		$this->assertEqual($nuevo_nombre, $meta_objeto->get_nombre_largo());
 		$this->assertTrue(is_numeric($clon['objeto']));

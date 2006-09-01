@@ -11,7 +11,7 @@ class zona_trabajo extends toba_zona
 					WHERE	usuario='{$this->editable_id[0]}'";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			throw new toba_excepcion("ZONA-USUARIO: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new toba_error("ZONA-USUARIO: NO se pudo cargar el editable ".$this->editable_id[0].",".$this->editable_id[1]." - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 			return false;
 		}elseif($rs->EOF){
 			echo ei_mensaje("ZONA-USUARIO: El editable solicitado no existe","info");

@@ -86,7 +86,7 @@ class toba_sesion
 		$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 		try {
 			if (toba_instancia::es_ip_rechazada($ip)) {
-				throw new toba_excepcion('La IP esta bloqueada. Contactese con el administrador');
+				throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 			}
 			$proyecto = toba_proyecto::get_id();
 			toba::usuario()->cargar($usuario, $clave);
@@ -107,9 +107,9 @@ class toba_sesion
 			
 			//Si la solicitud ya esta en proceso, reinicio forzando la recarga del nucleo
 			if (toba::nucleo()->solicitud_en_proceso()) {
-				throw new excepcion_reset_nucleo('INICIAR... recargando el nucleo.');
+				throw new toba_reset_nucleo('INICIAR... recargando el nucleo.');
 			}
-		} catch ( toba_excepcion_login $e ) {
+		} catch ( toba_error_login $e ) {
 			//Registro la falla de login			
 			toba_instancia::registrar_error_login($usuario, $ip, $e->getMessage());
 			$cant_max_intentos = toba_proyecto::instancia()->get_parametro('validacion_intentos');
@@ -125,7 +125,7 @@ class toba_sesion
 					toba_instancia::bloquear_ip($ip);
 				}
 			}
-			throw new toba_excepcion_login($e->getMessage());
+			throw new toba_error_login($e->getMessage());
 		}
 	}
 
@@ -160,7 +160,7 @@ class toba_sesion
 			//session_destroy();
 			//Si la solicitud ya esta en proceso, reinicio forzando la recarga del nucleo
 			if (toba::nucleo()->solicitud_en_proceso()) {
-				throw new excepcion_reset_nucleo('FINALIZAR... recargando el nucleo.');
+				throw new toba_reset_nucleo('FINALIZAR... recargando el nucleo.');
 			}
 		}
 	}

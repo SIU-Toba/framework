@@ -26,7 +26,7 @@ class info_ci extends info_ei
 											$this->subelementos, $this->proyecto, $this->id);
 			}
 		}
-		throw new toba_excepcion("No se encuentra la pantalla $id");
+		throw new toba_error("No se encuentra la pantalla $id");
 	}
 	
 	function get_cant_pantallas()

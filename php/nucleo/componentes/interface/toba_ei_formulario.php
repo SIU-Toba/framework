@@ -209,7 +209,7 @@ class toba_ei_formulario extends toba_ei
 			if ($validacion !== true) {
 				$this->efs_invalidos[$ef] = $validacion;
 				$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
-				throw new toba_excepcion_validacion($etiqueta.': '.$validacion, $this->ef($ef));
+				throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 			}
 		}
 	}
@@ -226,7 +226,7 @@ class toba_ei_formulario extends toba_ei
 			$this->cascadas_maestros[$esclavo] = $this->elemento_formulario[$esclavo]->get_maestros();
 			foreach ($this->cascadas_maestros[$esclavo] as $maestro) {
 				if (! isset($this->elemento_formulario[$maestro])) {
-					throw new toba_excepcion_def("Cascadas: El ef '$maestro' no esta definido");
+					throw new toba_error_def("Cascadas: El ef '$maestro' no esta definido");
 				}
 				$this->cascadas_esclavos[$maestro][] = $esclavo;
 
@@ -295,7 +295,7 @@ class toba_ei_formulario extends toba_ei
 			if(isset($this->elemento_formulario[$ef])){
 				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
-				throw new toba_excepcion("Deshabilitar EF: El ef '$ef' no existe");
+				throw new toba_error("Deshabilitar EF: El ef '$ef' no existe");
 			}
 		}
 	}
@@ -319,7 +319,7 @@ class toba_ei_formulario extends toba_ei
 				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);
 				$this->memoria['efs'][$ef]['obligatorio'] = $obligatorios;
 			} else {
-				throw new toba_excepcion("El ef '$ef' no existe");
+				throw new toba_error("El ef '$ef' no existe");
 			}
 		}
 	}
@@ -342,7 +342,7 @@ class toba_ei_formulario extends toba_ei
 			if ($pos !== false) {
 				array_splice($this->lista_ef_post, $pos, 1);
 			} else {
-				throw new toba_excepcion("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
+				throw new toba_error("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
 			}
 		}
 	}
@@ -354,11 +354,11 @@ class toba_ei_formulario extends toba_ei
 				if(isset($this->elemento_formulario[$ef])){
 					$this->elemento_formulario[$ef]->set_estado($valor);
 				}else{
-					throw new toba_excepcion("[cargar_estado_ef] No existe	un	elemento	de	formulario identificado	'$ef'");
+					throw new toba_error("[cargar_estado_ef] No existe	un	elemento	de	formulario identificado	'$ef'");
 				}
 			}
 		}else{
-			throw new toba_excepcion("[cargar_estado_ef] Los	EF	se	cargan a	travez de un array asociativo	(\"clave\"=>\"dato a	cargar\")!");
+			throw new toba_error("[cargar_estado_ef] Los	EF	se	cargan a	travez de un array asociativo	(\"clave\"=>\"dato a	cargar\")!");
 		}
 	}
 
@@ -385,7 +385,7 @@ class toba_ei_formulario extends toba_ei
 			if (is_array($dato)){	//El EF maneja	DATO COMPUESTO
 				if ($this->elemento_formulario[$ef]->es_estado_unico()) {
 					if ((count($dato))!=(count($estado))) {//Error	de	consistencia interna	del EF
-						throw new toba_excepcion_def("Error de consistencia	interna en el EF etiquetado: ".
+						throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
 											$this->elemento_formulario[$ef]->get_etiqueta().
 											"\nRecibido: ".var_export($estado, true));
 					}
@@ -399,7 +399,7 @@ class toba_ei_formulario extends toba_ei
 					foreach ($estado as $sub_estado) {
 						if (count($dato) != count($sub_estado)) {
 							//Error	de	consistencia interna	del EF
-							throw new toba_excepcion_def("Error de consistencia	interna en el EF etiquetado: ".
+							throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
 												$this->elemento_formulario[$ef]->get_etiqueta().
 												"\nRecibido: ".var_export($sub_estado, true));
 						}
@@ -583,7 +583,7 @@ class toba_ei_formulario extends toba_ei
 			} elseif (count($campos) == 2) {
 				$valores[trim($campos[0])] = trim($campos[1]);
 			} else {
-				throw new toba_excepcion_def("La lista de opciones del ef '$id_ef' es incorrecta.");
+				throw new toba_error_def("La lista de opciones del ef '$id_ef' es incorrecta.");
 			}
 		}		
 		return $valores;
@@ -639,7 +639,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once('3ros/JSON.php');				
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
-			throw new toba_excepcion("Cascadas: Invocación incorrecta");	
+			throw new toba_error("Cascadas: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::hilo()->obtener_parametro('cascadas-ef'));
 		$maestros = array();
@@ -648,13 +648,13 @@ class toba_ei_formulario extends toba_ei
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {
-					throw new toba_excepcion("Cascadas: Cantidad incorrecta de parametros ($par).");						
+					throw new toba_error("Cascadas: Cantidad incorrecta de parametros ($par).");						
 				}
 				$id_ef_maestro = $param[0];
 				
 				//--- Verifique que este entre los maestros y lo elimina de la lista
 				if (!in_array($id_ef_maestro, $ids_maestros)) {
-					throw new toba_excepcion("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
+					throw new toba_error("Cascadas: El ef '$id_ef_maestro' no esta entre los maestros de '$id_ef'");
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
@@ -678,7 +678,7 @@ class toba_ei_formulario extends toba_ei
 		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
 		foreach ($ids_maestros as $id_ef_maestro) {
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
-				throw new toba_excepcion("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
+				throw new toba_error("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
 			}
 			$maestros[$id_ef_maestro] = $this->ef($id_ef_maestro)->get_estado();
 		}

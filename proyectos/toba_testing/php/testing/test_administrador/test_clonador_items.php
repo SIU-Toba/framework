@@ -19,13 +19,13 @@ class test_clonador_items extends test_toba
 	
 	function probar_item($id, $anexo, $clonar_archivos=false)
 	{
-		$info = constructor_toba::get_info(array('componente' => $id, 'proyecto' => 'toba_testing'), 'item');
+		$info = toba_constructor::get_info(array('componente' => $id, 'proyecto' => 'toba_testing'), 'item');
 		$clon = $info->clonar($anexo, $clonar_archivos, false);
 		$this->assertTrue(is_numeric($clon['item']));
 		$this->assertNotEqual($clon['item'], $id);		
 		
 		//--- Verificación
-		return constructor_toba::get_info( array('proyecto' => $clon['proyecto'],
+		return toba_constructor::get_info( array('proyecto' => $clon['proyecto'],
 													'componente'=> $clon['item']), 'item' );
 	}
 

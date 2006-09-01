@@ -33,7 +33,7 @@ abstract class test_toba extends UnitTestCase
        
     function pre_run()
     {
-    	constructor_toba::set_refresco_forzado(true);
+    	toba_constructor::set_refresco_forzado(true);
     }
     
     function post_run(){}

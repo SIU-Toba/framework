@@ -65,7 +65,7 @@ class ci_analizador extends toba_ci
 	
 	function get_logger()
 	{
-		return logger::instancia($this->opciones['proyecto']);
+		return toba_logger::instancia($this->opciones['proyecto']);
 	}
 	
 	function get_proyecto()

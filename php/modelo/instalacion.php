@@ -32,7 +32,7 @@ class instalacion extends elemento_modelo
 			//--- Levanto la CONFIGURACION de bases
 			$archivo_ini_bases = $this->dir . '/' . self::info_bases;
 			if ( ! is_file( $archivo_ini_bases ) ) {
-				throw new toba_excepcion("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
+				throw new toba_error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_bases' no existe)");
 			} else {
 				//  BASE
 				$this->ini_bases = parse_ini_file( $archivo_ini_bases, true );
@@ -40,7 +40,7 @@ class instalacion extends elemento_modelo
 			//--- Levanto la CONFIGURACION de bases
 			$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;
 			if ( ! is_file( $archivo_ini_instalacion ) ) {
-				throw new toba_excepcion("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
+				throw new toba_error("INSTALACION: La instalacion '".toba_dir()."' es invalida. (El archivo de configuracion '$archivo_ini_instalacion' no existe)");
 			} else {
 				//  BASE
 				$this->ini_instalacion = parse_ini_file( $archivo_ini_instalacion );
@@ -99,7 +99,7 @@ class instalacion extends elemento_modelo
 		if ( isset( $this->ini_bases[$id_base] ) ) {
 			return $this->ini_bases[$id_base];			
 		} else {
-			throw new toba_excepcion("INSTALACION: La base '$id_base' no existe en el archivo bases.ini");
+			throw new toba_error("INSTALACION: La base '$id_base' no existe en el archivo bases.ini");
 		}
 	}
 
@@ -154,7 +154,7 @@ class instalacion extends elemento_modelo
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
 		}else{
-			throw new toba_excepcion("INSTALACION: El metodo no esta definido para el motor especificado");
+			throw new toba_error("INSTALACION: El metodo no esta definido para el motor especificado");
 		}
 	}
 
@@ -176,7 +176,7 @@ class instalacion extends elemento_modelo
 			$db->ejecutar($sql);
 			$db->destruir();
 		}else{
-			throw new toba_excepcion("INSTALACION: El metodo no esta definido para el motor especificado");
+			throw new toba_error("INSTALACION: El metodo no esta definido para el motor especificado");
 		}
 	}
 
@@ -191,7 +191,7 @@ class instalacion extends elemento_modelo
 			$db = @$this->conectar_base_parametros( $info_db );
 			$db->destruir();
 			return true;
-		}catch(toba_excepcion $e){
+		}catch(toba_error $e){
 			return false;
 		}
 	}
@@ -371,7 +371,7 @@ class instalacion extends elemento_modelo
 				isset( $base['base'] ) ) {
 				$ini->agregar_entrada( $id, $base );	
 			} else {
-				throw new toba_excepcion("La definicion de la BASE '$id' es INCORRECTA.");	
+				throw new toba_error("La definicion de la BASE '$id' es INCORRECTA.");	
 			}
 		}
 		$ini->guardar( self::archivo_info_bases() );
@@ -381,7 +381,7 @@ class instalacion extends elemento_modelo
 	static function agregar_db( $id_base, $parametros )
 	{
 		if ( ! is_array( $parametros ) ) {
-			throw new toba_excepcion("INSTALACION: Los parametros definidos son incorrectos");	
+			throw new toba_error("INSTALACION: Los parametros definidos son incorrectos");	
 		} else {
 			// Estan todos los parametros
 			if ( !isset( $parametros['motor']  )
@@ -389,12 +389,12 @@ class instalacion extends elemento_modelo
 				|| !isset( $parametros['usuario'] )
 				|| !isset( $parametros['clave'] )
 				|| !isset( $parametros['base'] ) ) {
-				throw new toba_excepcion("INSTALACION: Los parametros definidos son incorrectos");	
+				throw new toba_error("INSTALACION: Los parametros definidos son incorrectos");	
 			}
 			// El motor es reconocido
 			$motores = array('postgres7', 'informix', 'mysql', 'odbc');
 			if( ! in_array( $parametros['motor'], $motores ) ) {
-				throw new toba_excepcion("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores) );	
+				throw new toba_error("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores) );	
 			}
 		}
 		$ini = new ini( self::archivo_info_bases() );

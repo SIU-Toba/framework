@@ -1,11 +1,11 @@
 <?php
 
-class toba_excepcion_modelo extends toba_excepcion 
+class toba_error_modelo extends toba_error 
 {
 	
 }
 
-class toba_excepcion_modelo_preexiste extends toba_excepcion_modelo
+class toba_error_modelo_preexiste extends toba_error_modelo
 {
 	
 }

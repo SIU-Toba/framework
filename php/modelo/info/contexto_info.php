@@ -21,7 +21,7 @@ class contexto_info
 	static function get_db()
 	{
 		if (!isset(self::$db)) {
-			throw new toba_excepcion("El contexto no se encuentra inicializado: base indefinida");
+			throw new toba_error("El contexto no se encuentra inicializado: base indefinida");
 		}
 		return self::$db;
 	}
@@ -29,7 +29,7 @@ class contexto_info
 	static function get_proyecto()
 	{
 		if (!isset(self::$proyecto)) {
-			throw new toba_excepcion("El contexto no se encuentra inicializado: proyecto indefinido");
+			throw new toba_error("El contexto no se encuentra inicializado: proyecto indefinido");
 		}
 		return self::$proyecto;
 	}

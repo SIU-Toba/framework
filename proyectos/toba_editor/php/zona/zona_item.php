@@ -18,7 +18,7 @@ class zona_item extends zona_editor
 					AND		item='{$this->editable_id[1]}';";
 		$rs = toba::db()->consultar($sql);
 		if(empty($rs)) {
-			throw new toba_excepcion("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
+			throw new toba_error("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
 		} else {
 			$this->editable_info = $rs[0];
 			return true;

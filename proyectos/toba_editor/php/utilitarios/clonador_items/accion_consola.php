@@ -2,24 +2,24 @@
 $this->registrar_parametros();
 
 if (!isset($this->parametros['-orig_proy'])) {
-	throw new toba_excepcion('El parámetro -orig_proy es obligatorio');
+	throw new toba_error('El parámetro -orig_proy es obligatorio');
 }
 if (!isset($this->parametros['-orig_item'])) {
-	throw new toba_excepcion('El parámetro -orig_item es obligatorio');
+	throw new toba_error('El parámetro -orig_item es obligatorio');
 }
 if (!isset($this->parametros['-dest_proy'])) {
-	throw new toba_excepcion('El parámetro -dest_proy es obligatorio');
+	throw new toba_error('El parámetro -dest_proy es obligatorio');
 }
 if (!isset($this->parametros['-dest_padre'])) {
-	throw new toba_excepcion('El parámetro -dest_padre es obligatorio');
+	throw new toba_error('El parámetro -dest_padre es obligatorio');
 }
 if (!isset($this->parametros['-dest_fuente'])) {
-	throw new toba_excepcion('El parámetro -dest_fuente es obligatorio');
+	throw new toba_error('El parámetro -dest_fuente es obligatorio');
 }
 
 $id = array(	'proyecto' => $this->parametros['-orig_proy'],
 			 	'componente' =>  $this->parametros['-orig_item']);
-$info_item = constructor_toba::get_info($id, 'item');
+$info_item = toba_constructor::get_info($id, 'item');
 
 $nuevos_datos = array();
 $nuevos_datos['proyecto'] = $this->parametros['-dest_proy'];

@@ -24,7 +24,7 @@ class test_dr_1n_simple extends base_test_datos
 
 	function get_dr()
 	{
-		$dr = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1516'), 
+		$dr = toba_constructor::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1516'), 
 											'toba_datos_relacion');		
 		return $dr;
 	}
@@ -165,7 +165,7 @@ class test_dr_1n_simple extends base_test_datos
 			$fila_db = $this->get_fila_test("detalle_b", 'valido_2');
 			$this->dr->tabla('detalle_b')->nueva_fila( $fila_db );
 			$this->fail('Control del TOPE maximo');
-		}catch(toba_excepcion $e){
+		}catch(toba_error $e){
 			$this->pass();
 		}
 		//Modificar en M

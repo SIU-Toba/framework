@@ -106,7 +106,7 @@ class ci_abm_deportes extends toba_ci
 		try{
 			$t->sincronizar();
 			$this->resetear();
-		}catch(toba_excepcion $e){
+		}catch(toba_error $e){
 			toba::notificacion()->agregar('Error insertando');
 			toba::logger()->error( $e->getMessage() );
 		}

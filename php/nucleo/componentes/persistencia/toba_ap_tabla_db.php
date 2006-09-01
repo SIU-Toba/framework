@@ -246,10 +246,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		try{
 			$db = toba::db($this->fuente);			
 			$datos = $db->consultar($sql);
-		}catch(toba_excepcion $e){
+		}catch(toba_error $e){
 			toba::logger()->error( get_class($this). ' - '.
 									'Error cargando datos. ' .$e->getMessage() );
-			throw new toba_excepcion('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
+			throw new toba_error('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
 		return $this->cargar_con_datos($datos, $anexar_datos);
 	}
@@ -320,13 +320,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			if($this->utilizar_transaccion) cerrar_transaccion($this->fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
 			return $modificaciones;
-		} catch(toba_excepcion $e) {
+		} catch(toba_error $e) {
 			if($this->utilizar_transaccion) { 
 				toba::logger()->info("Abortando transacción en {$this->fuente}", 'toba');				
 				abortar_transaccion($this->fuente);
 			}
 			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
-			throw new toba_excepcion($e->getMessage());
+			throw new toba_error($e->getMessage());
 		}		
 	}		
 	
@@ -631,7 +631,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if (isset($this->sql_carga)) {
 			return $this->generar_sql_select($this->sql_carga['where'], $this->sql_carga['from'], $campos);
 		} else {
-			throw new toba_excepcion("AP-TABLA Db: La tabla no ha sido cargada anteriormente");
+			throw new toba_error("AP-TABLA Db: La tabla no ha sido cargada anteriormente");
 		}
 	}
 	
@@ -776,11 +776,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->secuencias[$col_llave])){
-						throw new toba_excepcion('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
+						throw new toba_error('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
 //					if(!isset($fila[$col_llave])){
 //						toba::logger()->error("AP_TABLA_DB: Falta el parametro '$col_llave' en fila $fila", 'toba');
-//						throw new toba_excepcion('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+//						throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 //					}
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
@@ -797,7 +797,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$datos = toba::db($this->fuente)->consultar($sql);
 					if(!$datos){
 						toba::logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
-						throw new toba_excepcion('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+						throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 					}
 				}
 				elseif($parametros['tipo']=="dao")										//--- carga DAO!!
@@ -816,7 +816,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						if( method_exists($this, $parametros['metodo'])) {
 							$datos = $this->$parametros['metodo']($param_dao);				
 						} else {
-							throw new toba_excepcion('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
+							throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
 						}
 					}
 				}
@@ -828,14 +828,14 @@ class toba_ap_tabla_db implements toba_ap_tabla
 							//Hay una regla de mapeo entre el valor devuelto y la columna del DT
 							if(!array_key_exists($columna_externa['origen'], $datos[0])){
 								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '{$columna_externa['origen']}'", 'toba');
-								throw new toba_excepcion('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+								throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa['destino']] = $datos[0][$columna_externa['origen']];
 						}else{
 							if(!array_key_exists($columna_externa, $datos[0])){
 								toba::logger()->error("AP_TABLA_DB: Se esperaba que que conjunto de valores devueltos posean la columna '$columna_externa'", 'toba');
 								toba::logger()->error($datos, 'toba');
-								throw new toba_excepcion('AP_TABLA_DB: ERROR en la carga de una columna externa.');
+								throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
 							}
 							$valores_recuperados[$columna_externa] = $datos[0][$columna_externa];
 						}

@@ -9,7 +9,7 @@ class toba_proyecto
 	static function get_id()
 	{
 		if(! defined('apex_pa_proyecto') ){
-			throw new toba_excepcion("Es necesario definir la constante 'apex_pa_proyecto'");
+			throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
 		}
 		return apex_pa_proyecto;
 	}
@@ -48,7 +48,7 @@ class toba_proyecto
 			if( array_key_exists($id,$_SESSION['toba']['proyectos'][self::get_id()])) {
 				return null;
 			}else{
-				throw new toba_excepcion("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
+				throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
 			}
 		}	
 	}
@@ -111,7 +111,7 @@ class toba_proyecto
 				WHERE	proyecto = '".toba_proyecto::get_id()."';";
 		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_excepcion("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia");	
+			throw new toba_error("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia");	
 		}
 		return $rs[0];
 	}
@@ -199,7 +199,7 @@ class toba_proyecto
 					AND	ui.item =	'{$item[1]}';";
 		$rs = self::get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_excepcion('El usuario no posee permisos para acceder al item solicitado.');
+			throw new toba_error('El usuario no posee permisos para acceder al item solicitado.');
 		}
 	}
 

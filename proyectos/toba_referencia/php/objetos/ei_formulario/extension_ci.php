@@ -24,7 +24,7 @@ class extension_ci extends toba_ci
 	function evt__formulario__mi_accion($datos)
 	{
 		if ($datos['importe'] > $this->tope )
-			throw new toba_excepcion('El importe no puede se mayor que '.$this->tope);
+			throw new toba_error('El importe no puede se mayor que '.$this->tope);
 		ei_arbol($datos, 'Resultado de mi acción');
 	}
 

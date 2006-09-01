@@ -12,11 +12,11 @@ class version_toba
 		$this->partes = explode('.', $numero);
 		//Validando el numero
 		if (count($this->partes) !== 3) {
-			throw new toba_excepcion("El número de versión $numero es incorrecto. Las versiones constan de tres numeros A.B.C");
+			throw new toba_error("El número de versión $numero es incorrecto. Las versiones constan de tres numeros A.B.C");
 		}
 		foreach ($this->partes as $parte) {
 			if (!is_numeric($parte) || !is_int(intval($parte))) {
-				throw new toba_excepcion("El número de versión $numero es incorrecto. El formato es A.B.C siendo estas componentes números enteros");
+				throw new toba_error("El número de versión $numero es incorrecto. El formato es A.B.C siendo estas componentes números enteros");
 			}
 		}
 	}

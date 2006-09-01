@@ -109,7 +109,7 @@ class toba_cargador
 			return $this->redefinidos[$clave_ser];
 		}
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE de EXTENDIDOS no implementado!
-			throw new toba_excepcion('No implementado');
+			throw new toba_error('No implementado');
 		} else {													// Sin CACHE!
 			$clase_def = toba_catalogo::get_nombre_clase_definicion( $tipo );
 			$estructura = call_user_func_array( array(	$clase_def,
@@ -118,7 +118,7 @@ class toba_cargador
 			foreach ( $estructura as $seccion => $contenido ) {
 				$temp = $db->consultar( $contenido['sql'] );
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
-					throw new toba_excepcion("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
+					throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
 				}
 				if ($contenido['registros']!=='1') {
 					$metadatos[$seccion] = $temp;

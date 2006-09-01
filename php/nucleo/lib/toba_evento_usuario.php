@@ -32,7 +32,7 @@ class toba_evento_usuario
 			}
 			return $this->vinculo;
 		} else {
-			throw new toba_excepcion('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
+			throw new toba_error('El evento "' . $this->get_id() . '" no posee un VINCULO ASOCIADO.');
 		}
 	}
 
@@ -160,7 +160,7 @@ class toba_evento_usuario
 	function set_imagen($url_relativa, $origen=null)
 	{
 		if (isset($origen) && ( ($origen != 'apex') || ( $origen != 'proyecto') ) ) {
-			throw new toba_excepcion_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
+			throw new toba_error_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
 		} else {
 			$origen = 'apex';	
 		}

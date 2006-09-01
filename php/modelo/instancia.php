@@ -39,7 +39,7 @@ class instancia extends elemento_modelo
 		$this->instalacion = $instalacion;
 		$this->dir = $this->instalacion->get_dir() . '/' . self::dir_prefijo . $this->identificador;
 		if( ! is_dir( $this->dir ) ) {
-			throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
+			throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (la carpeta '{$this->dir}' no existe)");
 		}
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
@@ -60,24 +60,24 @@ class instancia extends elemento_modelo
 	{
 		$archivo_ini = $this->dir . '/' . self::toba_instancia;
 		if ( ! is_file( $archivo_ini ) ) {
-			throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
+			throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no existe)");
 		} else {
 			//--- Levanto la CONFIGURACION de la instancia
 			//  BASE
 			$this->datos_ini = parse_ini_file( $archivo_ini, true );
 			toba_logger::instancia()->debug("Parametros instancia {$this->identificador}: ".var_export($this->datos_ini, true));
 			if ( ! isset( $this->datos_ini['base'] ) ) {
-				throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
+				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'base')");
 			}
 			$this->ini_base = $this->datos_ini['base'];
 			// PROYECTOS
 			if ( ! isset( $this->datos_ini['proyectos'] ) ) {
-				throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
+				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
 			}
 			$lista_proyectos = explode(',', $this->datos_ini['proyectos'] );
 			$lista_proyectos = array_map('trim',$lista_proyectos);
 			if ( count( $lista_proyectos ) == 0 ) {
-				throw new toba_excepcion("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
 			}
 			$this->ini_proyectos_vinculados = $lista_proyectos;
 		}
@@ -173,7 +173,7 @@ class instancia extends elemento_modelo
 			$db = $this->get_db();
 			@$db->consultar( $sql );
 			return true;
-		} catch ( toba_excepcion_db $e ) {
+		} catch ( toba_error_db $e ) {
 			return false;
 		}
 	}
@@ -208,7 +208,7 @@ class instancia extends elemento_modelo
 			// Recargo la inicializacion de la instancia
 			$this->cargar_info_ini();
 		} else {
-			throw new toba_excepcion("El proyecto '$proyecto' no existe.");
+			throw new toba_error("El proyecto '$proyecto' no existe.");
 		}
 	}
 	
@@ -266,7 +266,7 @@ class instancia extends elemento_modelo
 			$this->exportar_global();
 			$this->exportar_proyectos();
 			$this->sincronizar_archivos();
-		} catch ( toba_excepcion $e ) {
+		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "Ha ocurrido un error durante la exportacion:\n".
 												$e->getMessage());
 		}
@@ -406,7 +406,7 @@ class instancia extends elemento_modelo
 				$this->eliminar();
 				$this->instalacion->crear_base_datos( $this->ini_base );
 			} else {
-				throw new toba_excepcion_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+				throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
 			}
 		}
 		//Inicio el proceso de carga
@@ -420,7 +420,7 @@ class instancia extends elemento_modelo
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
 			$this->get_db()->cerrar_transaccion();
-		} catch ( toba_excepcion $e ) {
+		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
 			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
 												$e->getMessage());
@@ -590,7 +590,7 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->mensaje("Eliminando base '{$this->ini_base}'...", false);
 			$this->instalacion->borrar_base_datos( $this->ini_base );
 			$this->manejador_interface->mensaje("OK");
-		} catch ( toba_excepcion $e ) {
+		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n".
 												$e->getMessage());
 			
@@ -615,7 +615,7 @@ class instancia extends elemento_modelo
 			$this->get_db()->cerrar_transaccion();
 			$this->manejador_interface->mensaje("OK");
 			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
-		} catch ( toba_excepcion $e ) {
+		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
 												$e->getMessage());		
@@ -736,7 +736,7 @@ class instancia extends elemento_modelo
 					$dirs[] = $temp_dir[1];
 				}
 			}
-		} catch ( toba_excepcion $e ) {
+		} catch ( toba_error $e ) {
 			// No existe la instalacion
 		}
 		return $dirs;

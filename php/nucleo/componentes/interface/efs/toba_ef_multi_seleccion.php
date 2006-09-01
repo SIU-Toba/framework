@@ -127,7 +127,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			//El estado tiene el formato adecuado?
 			$cant_datos = count($this->dato);
 			if (count($estado) <> $cant_datos) {
-				throw new toba_excepcion("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
+				throw new toba_error("Ha intentado cargar el combo '{$this->id}' con un array que posee un formato inadecuado " .
 								" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($estado) . ".");
 			}
 		}								
@@ -161,7 +161,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			foreach ($estado as $seleccion) {
 	            $valores = explode(apex_qs_separador, $seleccion);
 				if (count($valores) <> $cant_datos) {
-					throw new toba_excepcion("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
+					throw new toba_error("Ha intentado cargar el ef '{$this->id}' con un array que posee un formato inadecuado " .
 									" se esperaban {$cant_datos} claves, pero se utilizaron: ". count($valores) . ".");
 				}
 				$nuevo = array();

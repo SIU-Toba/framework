@@ -24,7 +24,7 @@ class ci_principal extends ci_editores_toba
 			if (count($id_interno) == 1) {
 				$this->evt__columnas_lista__seleccion($id_interno[0]);			
 			} else {
-				throw new toba_excepcion("No se encontro la columna $col.");
+				throw new toba_error("No se encontro la columna $col.");
 			}
 		}
 	}
@@ -225,14 +225,14 @@ class ci_principal extends ci_editores_toba
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
-			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
+			$dt = toba_constructor::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_columnas($datos['pk']);
 			//ei_arbol($datos);
 			$cols = $this->get_entidad()->tabla("columnas");
 			foreach($datos as $col){
 				try{
 					$cols->nueva_fila($col);
-				}catch(toba_excepcion $e){
+				}catch(toba_error $e){
 					toba::notificacion()->agregar("Error agregando la columna '{$col['clave']}'. " . $e->getMessage());
 				}
 			}

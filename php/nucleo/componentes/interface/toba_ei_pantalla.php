@@ -79,7 +79,7 @@ class toba_ei_pantalla extends toba_ei
 		if (in_array($id, $this->lista_dependencias)) {
 			array_borrar_valor($this->lista_dependencias, $id);
 		} else {
-			throw new toba_excepcion($this->get_txt(). 
+			throw new toba_error($this->get_txt(). 
 					" Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
 		}
 	}
@@ -111,13 +111,13 @@ class toba_ei_pantalla extends toba_ei
 	function eliminar_tab($id)
 	{
 		if($id == $this->id_en_controlador ) {
-			throw new toba_excepcion_def($this->get_txt(). 
+			throw new toba_error_def($this->get_txt(). 
 					'No es posible eliminar el tab correspondiente a la pantalla que se esta mostrando');
 		}
 		if (isset($this->lista_tabs[$id])) {
 			unset($this->lista_tabs[$id]);
 		} else {
-			throw new toba_excepcion_def($this->get_txt(). 
+			throw new toba_error_def($this->get_txt(). 
 					" Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
 		}
 	}
@@ -129,7 +129,7 @@ class toba_ei_pantalla extends toba_ei
 				$this->lista_tabs[$id][$clave] = $valor;	
 			}
 		} else {
-			throw new toba_excepcion_def($this->get_txt(). 
+			throw new toba_error_def($this->get_txt(). 
 					" Se quiere modificar el tab '$id', pero esta no está en la pantalla actual");
 		}		
 	}

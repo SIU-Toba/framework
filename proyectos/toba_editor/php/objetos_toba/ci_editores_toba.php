@@ -6,7 +6,6 @@ abstract class ci_editores_toba extends toba_ci
 {
 	protected $id_objeto;
 	protected $cambio_objeto;
-	protected $cargado = false;
 	protected $etapa_particular;
 	private $falla_carga = false;
 	private $elemento_eliminado = false;
@@ -47,7 +46,6 @@ abstract class ci_editores_toba extends toba_ci
 		if($this->cambio_objeto && !$this->falla_carga){
 			toba::logger()->debug($this->get_txt() . '*** se cargo la relacion: ' . $this->id_objeto['objeto']); 	
 			if( $this->dependencia('datos')->cargar( $this->id_objeto ) ){
-				$this->cargado = true;
 				$this->cambio_objeto = false;//Sino sigue entrando aca por cada vez que se solicita la entidad
 			}else{
 				toba::notificacion()->agregar("El elemento seleccionado no existe.","error");
@@ -72,7 +70,7 @@ abstract class ci_editores_toba extends toba_ci
 
 	function conf()
 	{
-		if(!$this->cargado){
+		if(! $this->get_entidad()->esta_cargado()){
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}
@@ -138,7 +136,7 @@ abstract class ci_editores_toba extends toba_ci
 	
 	function evt__procesar()
 	{
-		if (!$this->cargado) {
+		if (!$this->get_entidad()->esta_cargado()) {
 			//Seteo los datos asociados al uso de este editor
 			$fijos = array('proyecto' => toba_editor::get_proyecto_cargado(),
 							'clase_proyecto' => 'toba',
@@ -158,14 +156,14 @@ abstract class ci_editores_toba extends toba_ci
 		if (isset($this->clase_actual)) {
 			return $this->clase_actual;
 		} else {
-			throw new toba_excepcion("El editor actual no tiene definida sobre que clase de objeto trabaja");
+			throw new toba_error("El editor actual no tiene definida sobre que clase de objeto trabaja");
 		}
 	}
 	
 	function get_abreviacion_clase_actual()
 	{
-		$tipo = catalogo_toba::convertir_tipo( $this->get_clase_actual() );
-		$clase = catalogo_toba::get_nombre_clase_definicion($tipo);
+		$tipo = toba_catalogo::convertir_tipo( $this->get_clase_actual() );
+		$clase = toba_catalogo::get_nombre_clase_definicion($tipo);
 		return call_user_func(array($clase, "get_tipo_abreviado"));
 	}
 		

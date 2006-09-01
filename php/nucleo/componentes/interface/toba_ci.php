@@ -234,7 +234,7 @@ class toba_ci extends toba_ei
 				$this->evento_actual_param = $_POST[$this->submit."__param"];
 			} else {
 				if( $evento != '') {
-					throw new toba_excepcion('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
+					throw new toba_error('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
 				}
 			}
 		}
@@ -515,7 +515,7 @@ class toba_ci extends toba_ei
 	protected function configurar_dep($dep)
 	{
 		if ($this->dependencia_esta_configurada($dep)) {
-			throw new toba_excepcion("La dependencia '$dep' ya ha sido configurada anteriormente");
+			throw new toba_error("La dependencia '$dep' ya ha sido configurada anteriormente");
 		}
 		$this->dependencias_configuradas[] = $dep;		
 		//--- Config. por defecto
@@ -599,7 +599,7 @@ class toba_ci extends toba_ei
 	protected function set_pantalla($id)
 	{
 		if (isset($this->pantalla_servicio)) {
-			throw new excepcion_toba($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
 		}
 		$this->pantalla_id_servicio	= $id;
 	}

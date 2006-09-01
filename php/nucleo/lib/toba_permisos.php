@@ -50,17 +50,17 @@ class toba_permisos
 		//No tiene el permiso, tratar de ver si el permiso existe y cuales son sus datos
 		$rs = toba_proyecto::get_descripcion_permiso($permiso);
 		if 	(empty($rs)) {
-			throw new toba_excepcion_def("El permiso '$permiso' no se encuentra definido en el sistema.");
+			throw new toba_error_def("El permiso '$permiso' no se encuentra definido en el sistema.");
 		}
 		if (! $lanzar_excepcion) {
 			return false;
 		} else {
 			if (isset($rs[0]['mensaje_particular'])) {
-				throw new toba_excepcion_permisos($rs[0]['mensaje_particular']);
+				throw new toba_error_permisos($rs[0]['mensaje_particular']);
 			} else {
 				$usuario = toba::hilo()->obtener_usuario();
 				$descripcion = isset($rs[0]['descripcion']) ? $rs[0]['descripcion'] : $permiso;
-				throw new toba_excepcion_permisos("El usuario $usuario no tiene permiso de $descripcion");
+				throw new toba_error_permisos("El usuario $usuario no tiene permiso de $descripcion");
 			}
 		}
 	}

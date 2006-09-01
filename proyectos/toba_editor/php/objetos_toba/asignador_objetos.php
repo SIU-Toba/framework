@@ -31,7 +31,7 @@ class asignador_objetos
 				$this->asignar_a_datos_relacion();
 				break;
 			default:
-				throw new toba_excepcion("El destinatario del objeto ('{$this->destino['tipo']}') no es ninguno de los predefinidos");
+				throw new toba_error("El destinatario del objeto ('{$this->destino['tipo']}') no es ninguno de los predefinidos");
 		}
 	}
 	

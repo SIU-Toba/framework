@@ -47,7 +47,7 @@ class ci_eventos_del_ci extends ci_eventos
 				$this->get_tabla()->nueva_fila($evento);
 				//--- Se agrega el evento en todas las pantallas existentes
 				$this->controlador->set_pantallas_evento(null, $evento['identificador']);
-			}catch(toba_excepcion $e){
+			}catch(toba_error $e){
 				toba::notificacion()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
 			}
 		}

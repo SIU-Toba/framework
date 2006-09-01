@@ -52,7 +52,7 @@ class ci_login extends toba_ci
 			try {
 				toba_editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
 				toba::sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
-			} catch ( toba_excepcion_login $e ) {
+			} catch ( toba_error_login $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
 		}		

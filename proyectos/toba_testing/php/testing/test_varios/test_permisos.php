@@ -14,7 +14,7 @@ class test_permisos extends test_toba
 		try {
 			toba::permisos()->validar("inexistente");
 			$this->fail();
-		} catch (toba_excepcion_def $e) {
+		} catch (toba_error_def $e) {
 			$this->pass();	
 		}
 	}
@@ -24,7 +24,7 @@ class test_permisos extends test_toba
 		try {
 			permisos::instancia()->validar("prueba1");
 			$this->pass();			
-		} catch (toba_excepcion_permisos $e) {
+		} catch (toba_error_permisos $e) {
 			$this->fail();			
 		}		
 	}	
@@ -34,7 +34,7 @@ class test_permisos extends test_toba
 		try {
 			permisos::instancia()->validar("prueba2");
 			$this->fail();
-		} catch (toba_excepcion_permisos $e) {
+		} catch (toba_error_permisos $e) {
 			$this->pass();	
 		}		
 	}

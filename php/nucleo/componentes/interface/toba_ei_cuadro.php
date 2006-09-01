@@ -123,12 +123,12 @@ class toba_ei_cuadro extends toba_ei
 				if (substr($metodo->getName(), 0, 12) == 'sumarizar_cc'){		//** Sumarizacion Corte de control
 					$temp = explode('__', $metodo->getName());
 					if(count($temp)!=3){
-						throw new toba_excepcion_def("La funcion de sumarizacion esta mal definida");	
+						throw new toba_error_def("La funcion de sumarizacion esta mal definida");	
 					}
 					$id = $temp[2];
 					$corte = $temp[1];
 					if(!isset($this->cortes_def[$corte])){	//El corte esta definido?
-						throw new toba_excepcion_def("La funcion de sumarizacion no esta direccionada a un CORTE existente");	
+						throw new toba_error_def("La funcion de sumarizacion no esta direccionada a un CORTE existente");	
 					}
 					//Agrego la sumarizacion al corte
 					$this->cortes_def[$corte]['sum_usuario'][]=$id;
@@ -140,7 +140,7 @@ class toba_ei_cuadro extends toba_ei
 				}
 				if($id){
 					if(isset($this->sum_usuario[$id])){
-						throw new toba_excepcion_def("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");	
+						throw new toba_error_def("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");	
 					}
 					// Agrego la sumarizacion en la pila de sumarizaciones.
 					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
@@ -222,7 +222,7 @@ class toba_ei_cuadro extends toba_ei
     {
 		$this->datos = $datos;
 		if (!is_array($this->datos)) {
-			throw new toba_excepcion_def( $this->get_txt() . 
+			throw new toba_error_def( $this->get_txt() . 
 					" El parametro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}
@@ -264,7 +264,7 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
 		if(count($error)>0){
-			throw new toba_excepcion_def( $this->get_txt() . 
+			throw new toba_error_def( $this->get_txt() . 
 					" El array provisto para cargar el cuadro posee un formato incorrecto\n" .
 					" Las columnas: '". implode("', '",$error) ."' NO EXISTEN");
 		}
@@ -435,7 +435,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if($this->info_cuadro["tipo_paginado"] == 'C') {
 			if (!isset($this->total_registros) || ! is_numeric($this->total_registros)) {
-				throw new toba_excepcion("El paginado del cuadro necesita recibir la cantidad total de registros para poder paginar");
+				throw new toba_error("El paginado del cuadro necesita recibir la cantidad total de registros para poder paginar");
 			}
 			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
 			if ($this->pagina_actual > $this->cantidad_paginas)  {
@@ -667,7 +667,7 @@ class toba_ei_cuadro extends toba_ei
 	private function generar_salida($tipo)
 	{
 		if(($tipo!="html")&&($tipo!="pdf")){
-			throw new toba_excepcion_def("El tipo de salida '$tipo' es invalida");	
+			throw new toba_error_def("El tipo de salida '$tipo' es invalida");	
 		}
 		$this->tipo_salida = $tipo;
 		if( $this->datos_cargados() ){

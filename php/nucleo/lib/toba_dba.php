@@ -39,7 +39,7 @@ class toba_dba
 		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
 			return self::$bases_definidas[ $id_base ];
 		} else {
-			throw new toba_excepcion("DBA: La BASE '$id_base' no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
+			throw new toba_error("DBA: La BASE '$id_base' no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
 		}
 	}
 	
@@ -114,7 +114,7 @@ class toba_dba
 		if( !( isset($parametros['motor']) && isset($parametros['profile']) 
 				&& isset($parametros['usuario']) && isset($parametros['clave'])
 				&& isset($parametros['base']) ) ) {
-			throw new toba_excepcion("DBA: La BASE '$id_base' no esta definida correctamente." );
+			throw new toba_error("DBA: La BASE '$id_base' no esta definida correctamente." );
 		}
 		$archivo = "lib/db/db_" . $parametros['motor'] . ".php";
 		$clase = "db_" . $parametros['motor'];

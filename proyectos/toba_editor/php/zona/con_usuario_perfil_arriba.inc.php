@@ -9,7 +9,7 @@
 					WHERE	usuario_perfil_datos='".$this->contexto['elemento']."';";
 		$rs =& $db["instancia"][apex_db_con]->Execute($sql);
 		if(!$rs){
-			throw new toba_excepcion("BARRA-OBJETO: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
+			throw new toba_error("BARRA-OBJETO: NO se pudo cargar definicion: $this->contexto['elemento']. - [SQL]  $sql - [ERROR] " . $db["instancia"][apex_db_con]->ErrorMsg() );
 		}elseif($rs->EOF){
 			echo "<table width='100%' class='tabla-0'><tr>";
 			echo "	<td width='90%' class='barra-obj-tit'>&nbsp;NUEVO</td>";

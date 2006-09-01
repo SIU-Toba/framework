@@ -62,7 +62,7 @@ class test_dt_clave_simple extends base_test_datos
 	
 	function get_dt()
 	{
-		$dt = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1427'), 
+		$dt = toba_constructor::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1427'), 
 											'toba_datos_tabla');
 		return $dt;
 	}

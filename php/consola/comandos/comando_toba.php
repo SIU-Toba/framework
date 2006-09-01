@@ -82,7 +82,7 @@ class comando_toba extends comando
 			$id = $this->get_entorno_id_instancia();
 		}
 		if ( $obligatorio && is_null( $id ) ) {
-			throw new toba_excepcion("Es necesario definir una INSTANCIA. Utilice el modificador '-i' o defina la variable de entorno 'toba_instancia'");
+			throw new toba_error("Es necesario definir una INSTANCIA. Utilice el modificador '-i' o defina la variable de entorno 'toba_instancia'");
 		}
 		return $id;
 	}
@@ -110,7 +110,7 @@ class comando_toba extends comando
 			$id = $this->get_entorno_id_proyecto();
 		}
 		if ( $obligatorio && is_null( $id ) ) {
-			throw new toba_excepcion("Es necesario definir un PROYECTO. Utilice el modificador '-p' o defina la variable de entorno 'toba_proyecto'");
+			throw new toba_error("Es necesario definir un PROYECTO. Utilice el modificador '-p' o defina la variable de entorno 'toba_proyecto'");
 		}
 		return $id;
 	}
@@ -240,14 +240,14 @@ class comando_toba extends comando
 			$seleccion = array();
 			foreach ($sel as $path) {
 				if (isset($seleccion[$proyectos[$path]])) {
-					throw new toba_excepcion('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
+					throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
 				}
 				$seleccion[$proyectos[$path]] = $path;
 			}
 			return $seleccion;
 		} else {
 			if ( $obligatorio ) {
-				throw new toba_excepcion('No hay proyectos definidos');	
+				throw new toba_error('No hay proyectos definidos');	
 			}
 			return array();
 		}

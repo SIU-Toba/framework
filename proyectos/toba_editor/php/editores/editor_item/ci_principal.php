@@ -237,7 +237,7 @@ class ci_principal extends toba_ci
 		$datos = $this->get_entidad()->tabla("base")->get();
 		$clave = array( 'proyecto' => $datos['proyecto'],
 						'componente' => $datos['item'] );
-		$elem_item = constructor_toba::get_info($clave, 'item');
+		$elem_item = toba_constructor::get_info($clave, 'item');
 		$vinculo = $elem_item->vinculo_editor();
 		admin_util::refrescar_editor_item();
 		echo toba_js::abrir();

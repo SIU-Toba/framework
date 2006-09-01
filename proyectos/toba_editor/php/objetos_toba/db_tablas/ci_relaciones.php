@@ -194,7 +194,7 @@ class ci_relaciones extends toba_ci
 			$hijo_clave[] = $datos[$a]['columnas_hija'];
 		}
 		if(count($padre_clave) != count($hijo_clave) ){
-			throw new toba_excepcion_def("La cantidad de claves tiene que ser simetrica");
+			throw new toba_error_def("La cantidad de claves tiene que ser simetrica");
 		}
 		$fila['padre_clave'] = implode(",",$padre_clave);
 		$fila['hijo_clave'] = implode(",",$hijo_clave);

@@ -109,7 +109,7 @@ class toba_hilo
 			$this->celda_memoria_actual = $this->parametros[apex_hilo_qs_celda_memoria];
 			unset($this->parametros[apex_hilo_qs_celda_memoria]);
 			if($this->celda_memoria_actual == 'toba'){
-				throw new toba_excepcion_def("No puede utilizarse la palabra 'toba' como nombre de celda");
+				throw new toba_error_def("No puede utilizarse la palabra 'toba' como nombre de celda");
 			}
 		}
 		if (isset($this->parametros[apex_hilo_qs_servicio])) {
@@ -333,7 +333,7 @@ class toba_hilo
 	{
 		$param = $this->obtener_usuario_parametros();
 		if(($parametro != 'a')&&($parametro != 'b')&&($parametro != 'c')){
-			throw new toba_excepcion("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
+			throw new toba_error("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
 		}
 		return $param[$parametro];
 	}
@@ -569,7 +569,7 @@ class toba_hilo
 	{
 		if($tipo_reciclado != apex_hilo_reciclado_item && $tipo_reciclado != apex_hilo_reciclado_acceso ){
 			//El tipo de reciclado es invalido!
-			throw new toba_excepcion('El tipo de reciclado solicitado es invalido');
+			throw new toba_error('El tipo de reciclado solicitado es invalido');
 		}
 		if( !$this->existe_dato_reciclable($indice) ){
 			$celda = $this->get_celda_memoria_actual();

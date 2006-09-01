@@ -44,17 +44,17 @@ class toba_usuario implements toba_interface_usuario
 		$datos_usuario = toba_instancia::get_info_autenticacion($id_usuario);
 		if( empty($datos_usuario) ) {
 			// El usuario no existe	
-			throw new toba_excepcion_login("La combinacion usuario/clave es incorrecta.");
+			throw new toba_error_login("La combinacion usuario/clave es incorrecta.");
 		}
 		if (!isset($clave)) {
 			if (!(toba_proyecto::instancia()->get_parametro('validacion_debug'))) {
-				throw new toba_excepcion_login("Es necesario ingresar la clave.");	
+				throw new toba_error_login("Es necesario ingresar la clave.");	
 			}
 		} else {
 			if( $datos_usuario['autentificacion'] == 'md5' ) $clave = md5($clave);
 			if( !($datos_usuario['clave'] === $clave) ) {
 				// Error de login
-				throw new toba_excepcion_login("La combinacion usuario/clave es incorrecta.");
+				throw new toba_error_login("La combinacion usuario/clave es incorrecta.");
 			}
 		}
 	}
@@ -67,7 +67,7 @@ class toba_usuario implements toba_interface_usuario
 		if($this->cargado()){
 			return $_SESSION['toba']['usuario']['id'];
 		} else {
-			throw new toba_excepcion_usuario("No hay un usuario cargado!");
+			throw new toba_error_usuario("No hay un usuario cargado!");
 		}
 	}
 
@@ -79,7 +79,7 @@ class toba_usuario implements toba_interface_usuario
 		if($this->cargado()){
 			return $_SESSION['toba']['usuario']['nombre'];
 		}else{
-			throw new toba_excepcion_usuario("No hay un usuario cargado!");
+			throw new toba_error_usuario("No hay un usuario cargado!");
 		}
 	}
 	
@@ -93,13 +93,13 @@ class toba_usuario implements toba_interface_usuario
 			if (!isset($_SESSION['toba']['usuario']['grupo_acceso'][$proyecto])) {
 				$datos_grupo_acceso = toba_instancia::get_grupo_acceso( $this->get_id(), $proyecto );
 				if(empty($datos_grupo_acceso)){
-					throw new toba_excepcion_login("El usuario '".$this->get_id()."' no pertenece un grupo de acceso del proyecto '$proyecto'. ACCESO DENEGADO");
+					throw new toba_error_login("El usuario '".$this->get_id()."' no pertenece un grupo de acceso del proyecto '$proyecto'. ACCESO DENEGADO");
 				}
 				$_SESSION['toba']['usuario']['grupo_acceso'][$proyecto] = $datos_grupo_acceso[0]['grupo_acceso'];
 			}
 			return $_SESSION['toba']['usuario']['grupo_acceso'][$proyecto];
 		}else{
-			throw new toba_excepcion_usuario("No hay un usuario cargado!");
+			throw new toba_error_usuario("No hay un usuario cargado!");
 		}
 	}
 

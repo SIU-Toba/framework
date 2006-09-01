@@ -4,7 +4,7 @@ require_once('lib/toba_db.php');				    				//Manejo de bases (utiliza abodb340)
 require_once('lib/encriptador.php');						//Encriptador
 require_once('lib/varios.php');								//Funciones genericas (Manejo de paths, etc.)
 require_once('lib/sql.php');								//Libreria de manipulacion del SQL
-require_once('nucleo/lib/toba_excepcion.php');				//Excepciones del TOBA
+require_once('nucleo/lib/toba_error.php');				//Excepciones del TOBA
 require_once('nucleo/lib/toba_logger.php');						//toba_logger
 require_once('nucleo/lib/mensajes.php');					//Modulo de mensajes parametrizables
 require_once('nucleo/lib/toba_notificaciones.php');				//Cola de mensajes utilizada durante la EJECUCION
@@ -34,7 +34,7 @@ class toba_nucleo
 	private function __construct()
 	{
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
-			throw new toba_excepcion("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
+			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
 		toba::cronometro();
 	}
@@ -72,10 +72,10 @@ class toba_nucleo
 				$this->solicitud = $this->cargar_solicitud();
 				$this->solicitud_en_proceso = true;
 				$this->solicitud->procesar();
-			} catch( excepcion_reset_nucleo $e ) {
+			} catch( toba_reset_nucleo $e ) {
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
-					throw new toba_excepcion('ERROR: El item no esta habilitado para provocar redirecciones.');
+					throw new toba_error('ERROR: El item no esta habilitado para provocar redirecciones.');
 				}
 				//TRAP para forzar la recarga de solicitud
 				$this->solicitud_en_proceso = false;
@@ -117,7 +117,7 @@ class toba_nucleo
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
 			$estado_proceso = $this->solicitud->get_estado_proceso();
-		} catch (toba_excepcion $e) {
+		} catch (toba_error $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e;
 		}
@@ -154,10 +154,10 @@ class toba_nucleo
 					$item = $this->get_id_item('item_pre_sesion');
 					$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 					if (!$solicitud->es_item_publico()) {
-						throw new toba_excepcion($mensaje_error);				
+						throw new toba_error($mensaje_error);				
 					}
 				} else {
-					throw new toba_excepcion($mensaje_error);				
+					throw new toba_error($mensaje_error);				
 				}
 			}
 			return $solicitud;
@@ -176,7 +176,7 @@ class toba_nucleo
 				$item[1] = toba_proyecto::instancia()->get_parametro($predefinido);		
 				toba::hilo()->set_item_solicitado($item);
 			} else {
-				throw new toba_excepcion('NUCLEO: No es posible determinar el item a cargar');
+				throw new toba_error('NUCLEO: No es posible determinar el item a cargar');
 			}
 		}
 		return $item;

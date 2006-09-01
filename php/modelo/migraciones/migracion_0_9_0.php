@@ -44,7 +44,7 @@ class migracion_0_9_0 extends migracion_toba
 		define("apex_db_link_id",8);
 		
 		if( ! is_file( toba_dir() . '/php/instancias.php' ) ) {
-			throw new toba_excepcion("No existe el archivo 'instancias.php'. No es posible realizar la conversion.");
+			throw new toba_error("No existe el archivo 'instancias.php'. No es posible realizar la conversion.");
 		}		
 		require_once('instancias.php');
 	

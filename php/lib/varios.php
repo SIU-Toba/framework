@@ -173,7 +173,7 @@
 				if (isset($fila[$clave])) {
 					$valores_clave[] = $fila[$clave];
 				} else {
-					throw new toba_excepcion("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+					throw new toba_error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
 				}
 			}
             $valores[implode(apex_qs_separador, $valores_clave)] = $fila[$valor];

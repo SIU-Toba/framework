@@ -40,7 +40,7 @@ class ci_efs extends toba_ci
 		if (count($id_interno) == 1) {
 			$this->evt__efs_lista__seleccion(current($id_interno));
 		} else {
-			throw new toba_excepcion("No se encontro el ef $id.");
+			throw new toba_error("No se encontro el ef $id.");
 		}
 	}
 	
@@ -210,7 +210,7 @@ class ci_efs extends toba_ci
 	{
 		$ef = $this->get_tipo_ef();
 		$metodo = ($carga) ? "get_lista_parametros_carga" : "get_lista_parametros";
-		$parametros = call_user_func(array($ef, $metodo));
+		$parametros = call_user_func(array('toba_'.$ef, $metodo));
 		return $parametros;
 	}
 	
@@ -337,12 +337,12 @@ class ci_efs extends toba_ci
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
-			$dt = constructor_toba::get_info( $clave, 'datos_tabla' );
+			$dt = toba_constructor::get_info( $clave, 'datos_tabla' );
 			$datos = $dt->exportar_datos_efs($datos['pk']);
 			foreach($datos as $ef){
 				try{
 					$this->get_tabla()->nueva_fila($ef);
-				}catch(toba_excepcion $e){
+				}catch(toba_error $e){
 					toba::notificacion()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
 				}
 			}

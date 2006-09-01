@@ -26,7 +26,7 @@ class fuente_toba
 		$rs = $db["instancia"][apex_db_con]->Execute($sql);
 
 		if ((!$rs) || ($rs->EOF)) {
-			throw new toba_excepcion("FUENTE_TOBA: no existe la fuente de Datos '{$id}' para el proyecto '{$proyecto_fuente}'");
+			throw new toba_error("FUENTE_TOBA: no existe la fuente de Datos '{$id}' para el proyecto '{$proyecto_fuente}'");
 		} else {
 			//La conexion es un LINK a la conexion primaria de la INSTANCIA?
 			if (isset($rs->fields["link_instancia"]) && ($rs->fields["link_instancia"] == 1)) {
@@ -43,7 +43,7 @@ class fuente_toba
 						$this->datos_db[apex_db_clave] = $instancia[$instancia_id][apex_db_clave];
 						$this->datos_db[apex_db_base] = $instancia[$instancia_id][apex_db_base];
 					} else {
-						throw new toba_excepcion("FUENTE_TOBA: no existe el indice en 'instancias.php'");
+						throw new toba_error("FUENTE_TOBA: no existe el indice en 'instancias.php'");
 					}
 				}
 			} else {
@@ -96,7 +96,7 @@ class fuente_toba
 		$str = file_get_contents(dirname(__FILE__).$sql);
 
 		if ($db[$this->id][apex_db_con]->Execute($str) == false) {
-			throw new toba_excepcion("FUENTE_TOBA: Imposible ejecutar comando '{$str}' : ".$db[$this->id][apex_db_con]->ErrorMsg());
+			throw new toba_error("FUENTE_TOBA: Imposible ejecutar comando '{$str}' : ".$db[$this->id][apex_db_con]->ErrorMsg());
 		}
 
 	}
@@ -119,7 +119,7 @@ class fuente_toba
 				return false;
 			}
 		}else{
-			throw new toba_excepcion("FUENTE_TOBA: Imposible conectarse al Motor de BD predeterminado");
+			throw new toba_error("FUENTE_TOBA: Imposible conectarse al Motor de BD predeterminado");
 		}
 	}
 	
@@ -133,7 +133,7 @@ class fuente_toba
 		$sql = " CREATE DATABASE {$this->datos_db[apex_db_base]}";
 		
 		if ($db["instancia"][apex_db_con]->Execute($sql) == false) {
-			throw new toba_excepcion("FUENTE_TOBA: Imposible crear Base de Datos : ".$conn->ErrorMsg());
+			throw new toba_error("FUENTE_TOBA: Imposible crear Base de Datos : ".$conn->ErrorMsg());
 		}
 
 	}	

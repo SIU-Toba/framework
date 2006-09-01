@@ -159,7 +159,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id_fila = $this->normalizar_id($id_fila);
 		if(!isset($this->relaciones_con_padres[$tabla_padre])) {
-			throw new toba_excepcion("La tabla padre '$tabla_padre' no existe");	
+			throw new toba_error("La tabla padre '$tabla_padre' no existe");	
 		}
 		$id_fila_padre = $this->relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
 		if ( !($id_fila_padre === false) ) {
@@ -249,7 +249,7 @@ class toba_datos_tabla extends toba_componente
 		if(is_numeric($cantidad) && $cantidad >= 0){
 			$this->tope_max_filas = $cantidad;	
 		}else{
-			throw new toba_excepcion("El valor especificado en el TOPE MAXIMO de registros es incorrecto");
+			throw new toba_error("El valor especificado en el TOPE MAXIMO de registros es incorrecto");
 		}
 	}
 
@@ -260,7 +260,7 @@ class toba_datos_tabla extends toba_componente
 		if(is_numeric($cantidad) && $cantidad >= 0){
 			$this->tope_min_filas = $cantidad;
 		}else{
-			throw new toba_excepcion("El valor especificado en el TOPE MINIMO de registros es incorrecto");
+			throw new toba_error("El valor especificado en el TOPE MINIMO de registros es incorrecto");
 		}
 	}
 
@@ -294,7 +294,7 @@ class toba_datos_tabla extends toba_componente
 		if( $this->existe_fila($id) ){
 			$this->cursor = $id;	
 		}else{
-			throw new toba_excepcion($this->get_txt() . "La fila '$id' no es valida");
+			throw new toba_error($this->get_txt() . "La fila '$id' no es valida");
 		}
 	}	
 	
@@ -399,7 +399,7 @@ class toba_datos_tabla extends toba_componente
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			foreach( array_keys($condiciones) as $columna){
 				if( !isset($this->columnas[$columna]) ){
-					throw new toba_excepcion("El campo '$columna' no existe. No es posible filtrar por dicho campo");
+					throw new toba_error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
 				}
 			}
 			foreach($coincidencias as $pos => $id_fila){
@@ -428,7 +428,7 @@ class toba_datos_tabla extends toba_componente
 			return $temp;
 		}else{
 			return null;
-			//throw new toba_excepcion("Se solicito un registro incorrecto");
+			//throw new toba_error("Se solicito un registro incorrecto");
 		}
 	}
 
@@ -499,7 +499,7 @@ class toba_datos_tabla extends toba_componente
 				return $id[apex_datos_clave_fila];
 			}
 		}
-		throw new toba_excepcion($this->get_txt() . ' La clave tiene un formato incorrecto.');
+		throw new toba_error($this->get_txt() . ' La clave tiene un formato incorrecto.');
 	}
 
 	//-------------------------------------------------------------------------------
@@ -521,7 +521,7 @@ class toba_datos_tabla extends toba_componente
 		if( $this->tope_max_filas != 0){
 			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
 				$info = 'filas: ' . $this->get_cantidad_filas() . ' tope: ' . $this->tope_max_filas;
-				throw new toba_excepcion("No es posible agregar FILAS (TOPE MAX.) $info");
+				throw new toba_error("No es posible agregar FILAS (TOPE MAX.) $info");
 			}
 		}
 		$this->notificar_contenedor("ins", $fila);
@@ -571,7 +571,7 @@ class toba_datos_tabla extends toba_componente
 		if(!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::logger()->error($mensaje);
-			throw new toba_excepcion($mensaje);
+			throw new toba_error($mensaje);
 		}
 		//Saco el campo que indica la posicion del registro
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
@@ -634,12 +634,12 @@ class toba_datos_tabla extends toba_componente
 		if (!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe un registro con el INDICE indicado ($id)";
 			toba::logger()->error($mensaje);
-			throw new toba_excepcion($mensaje);
+			throw new toba_error($mensaje);
 		}
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
 			if (!isset($this->relaciones_con_padres[$tabla_padre])) {
 				$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe una relación padre $tabla_padre.";
-				throw new toba_excepcion($mensaje);
+				throw new toba_error($mensaje);
 			}
 			$this->relaciones_con_padres[$tabla_padre]->cambiar_padre($id_fila, $id_padre);
 		}
@@ -657,7 +657,7 @@ class toba_datos_tabla extends toba_componente
 		if (!$this->existe_fila($id)) {
 			$mensaje = $this->get_txt() . " ELIMINAR. No existe un registro con el INDICE indicado ($id)";
 			toba::logger()->error($mensaje);
-			throw new toba_excepcion($mensaje);
+			throw new toba_error($mensaje);
 		}
 		if ( $this->get_cursor() == $id ) { 
  			$this->resetear_cursor();        
@@ -704,10 +704,10 @@ class toba_datos_tabla extends toba_componente
 			if( isset($this->columnas[$columna]) ){
 				$this->modificar_fila($id, array($columna => $valor));
 			}else{
-				throw new toba_excepcion("La columna '$columna' no es valida");
+				throw new toba_error("La columna '$columna' no es valida");
 			}
 		}else{
-			throw new toba_excepcion("La fila '$id' no es valida");
+			throw new toba_error("La fila '$id' no es valida");
 		}
 	}
 
@@ -717,7 +717,7 @@ class toba_datos_tabla extends toba_componente
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
 		if(! isset($this->columnas[$columna]) ) { 
-			throw new toba_excepcion("La columna '$columna' no es valida");
+			throw new toba_error("La columna '$columna' no es valida");
 		}
 		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->modificar_fila($fila, array($columna => $valor));
@@ -738,7 +738,7 @@ class toba_datos_tabla extends toba_componente
 		//--- Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){
-				throw new toba_excepcion("Para procesar un conjunto de registros es necesario indicar el estado ".
+				throw new toba_error("Para procesar un conjunto de registros es necesario indicar el estado ".
 									"de cada uno utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'.
 									Si los datos provienen de un ML, active la opción de analizar filas.");
 			}
@@ -799,7 +799,7 @@ class toba_datos_tabla extends toba_componente
 		} elseif ($this->hay_cursor()) {
 			return $this->get_fila($this->get_cursor());
 		} else {
-			throw new toba_excepcion("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+			throw new toba_error("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
 		}
 	}
 
@@ -813,7 +813,7 @@ class toba_datos_tabla extends toba_componente
 	private function validar_fila($fila, $id=null)
 	{
 		if(!is_array($fila)){
-			throw new excepcion_toba($this->get_txt() . ' La fila debe ser una array');	
+			throw new toba_error($this->get_txt() . ' La fila debe ser una array');	
 		}
 		$this->evt__validar_ingreso($fila, $id);
 		$this->control_estructura_fila($fila);
@@ -868,7 +868,7 @@ class toba_datos_tabla extends toba_componente
 							}
 						}
 						if($combinacion_existente){
-							throw new toba_excepcion($this->get_txt().": Error de valores repetidos en columna '$columna'");
+							throw new toba_error($this->get_txt().": Error de valores repetidos en columna '$columna'");
 						}
 					}
 				}				
@@ -897,7 +897,7 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Ventana para hacer validaciones particulares previo a la sincronización
-	 * El proceso puede ser abortado con un toba_excepcion, el mensaje se muestra al usuario
+	 * El proceso puede ser abortado con un toba_error, el mensaje se muestra al usuario
 	 * @param array $fila Asociativo clave-valor de la fila a validar
 	 */
 	function evt__validar_fila($fila){}
@@ -917,11 +917,11 @@ class toba_datos_tabla extends toba_componente
 				if(isset($fila[$campo])){
 					if((trim($fila[$campo])=="")||(trim($fila[$campo])=='NULL')){
 						toba::logger()->error($mensaje_programador . $campo);
-						throw new toba_excepcion($mensaje_usuario . " ('$campo' se encuentra vacio)");
+						throw new toba_error($mensaje_usuario . " ('$campo' se encuentra vacio)");
 					}
 				}else{
 						toba::logger()->error($mensaje_programador . $campo);
-						throw new toba_excepcion($mensaje_usuario . " ('$campo' se encuentra vacio)");
+						throw new toba_error($mensaje_usuario . " ('$campo' se encuentra vacio)");
 				}
 			}
 		}
@@ -934,7 +934,7 @@ class toba_datos_tabla extends toba_componente
 			if( $this->tope_min_filas != 0){
 				if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
 					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new toba_excepcion("datos_tabla '".$this->info['nombre']."': Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
+					throw new toba_error("datos_tabla '".$this->info['nombre']."': Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
 				}
 			}
 		}
@@ -955,7 +955,7 @@ class toba_datos_tabla extends toba_componente
 				$include = $this->info_estructura['ap_sub_clase_archivo'];
 				$clase = $this->info_estructura['ap_sub_clase'];
 				if( (trim($clase) == "") || (trim($include) == "") ){
-					throw new toba_excepcion( $this->get_txt() . "Error en la definicion");
+					throw new toba_error( $this->get_txt() . "Error en la definicion");
 				}
 			}else{
 				$include = $this->info_estructura['ap_clase_archivo'];
@@ -997,7 +997,7 @@ class toba_datos_tabla extends toba_componente
 				//Hay mas datos que los que permite el tope, todo mal
 				$this->datos = null;
 				$this->log("Se sobrepaso el tope maximo de registros en carga: " . count( $this->datos ) . " registros" );
-				throw new toba_excepcion("Los registros cargados superan el TOPE MAXIMO de registros");
+				throw new toba_error("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
 		if(false){	// Hay que pensar este esquema...
@@ -1030,7 +1030,7 @@ class toba_datos_tabla extends toba_componente
 			$filas_resultantes = $cantidad_filas_existentes + count($datos);
 			if( $this->tope_max_filas < $filas_resultantes ){
 				$this->log("Se sobrepaso el tope maximo de registros en carga: $filas_resultantes registros" );
-				throw new toba_excepcion("Los registros cargados superan el TOPE MAXIMO de registros");
+				throw new toba_error("Los registros cargados superan el TOPE MAXIMO de registros");
 			}
 		}
 		//Agrego las filas

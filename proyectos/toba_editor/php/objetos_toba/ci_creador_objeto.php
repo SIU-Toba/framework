@@ -13,7 +13,7 @@ class ci_creador_objeto extends toba_ci
 	function ini()
 	{
 		if (! dao_editores::hay_fuente_definida(toba_editor::get_proyecto_cargado())) {
-			throw new toba_excepcion("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
+			throw new toba_error("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
 		}		
 		
 		if (isset($this->clase_actual)) {
@@ -184,12 +184,12 @@ class ci_creador_objeto extends toba_ci
 				case 'item': 
 				case 'ci':
 				case 'datos_relacion':
-					$info = constructor_toba::get_info($clave, $this->destino['tipo'], false);								
+					$info = toba_constructor::get_info($clave, $this->destino['tipo'], false);								
 					$nombre .= $info->get_nombre_corto();
 					break;
 				case 'ci_pantalla':
 					//--- Si es una pantalla el info_ci se carga en profunidad para traer el nombre de la misma
-					$info = constructor_toba::get_info($clave, 'ci', true);			
+					$info = toba_constructor::get_info($clave, 'ci', true);			
 					$pantalla = $info->get_pantalla($this->destino['pantalla']);
 					$nombre .= $info->get_nombre_corto() .' - '.$pantalla->get_id();
 					break;

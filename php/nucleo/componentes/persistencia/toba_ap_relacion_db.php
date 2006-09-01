@@ -137,10 +137,10 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			$this->proceso_sincronizacion();
 			$this->evt__post_sincronizacion();
 			if($this->utilizar_transaccion) cerrar_transaccion($fuente);			
-		}catch(toba_excepcion $e){
+		}catch(toba_error $e){
 			if($this->utilizar_transaccion) abortar_transaccion($fuente);
 			toba::logger()->debug($e, 'toba');
-			throw new toba_excepcion($e->getMessage());
+			throw new toba_error($e->getMessage());
 		}					
 	}
 
@@ -205,13 +205,13 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			if ($this->utilizar_transaccion) {
 				cerrar_transaccion($fuente);
 			}
-		} catch(toba_excepcion $e) {
+		} catch(toba_error $e) {
 			if($this->utilizar_transaccion) {
 				toba::logger()->info("Abortando transacción en $fuente", 'toba');				
 				abortar_transaccion($fuente);
 			}
 			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
-			throw new toba_excepcion($e->getMessage());
+			throw new toba_error($e->getMessage());
 		}
 	}
 

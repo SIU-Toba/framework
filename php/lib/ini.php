@@ -40,7 +40,7 @@ class ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			unset( $this->entradas[ $nombre ] );
 		} else {
-			throw new toba_excepcion("La entrada '$nombre' no existe");
+			throw new toba_error("La entrada '$nombre' no existe");
 		}
 	}
 
@@ -49,7 +49,7 @@ class ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			return $this->entradas[ $nombre ];
 		} else {
-			throw new toba_excepcion("La entrada '$nombre' no existe");
+			throw new toba_error("La entrada '$nombre' no existe");
 		}
 	}
 	
@@ -58,7 +58,7 @@ class ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			$this->entradas[ $nombre ] = $datos;
 		} else {
-			throw new toba_excepcion("La entrada '$nombre' no existe");
+			throw new toba_error("La entrada '$nombre' no existe");
 		}
 	}
 
@@ -70,7 +70,7 @@ class ini
 	{
 		if ( ! isset( $archivo ) ) {
 			if ( ! isset( $this->path ) )  {
-				throw new toba_excepcion('Es necesario especificar el PATH del INI que se desea generar');	
+				throw new toba_error('Es necesario especificar el PATH del INI que se desea generar');	
 			} else {
 				$archivo = $this->path;	
 			}

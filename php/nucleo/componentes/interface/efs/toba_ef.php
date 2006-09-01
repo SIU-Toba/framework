@@ -93,7 +93,7 @@ abstract class toba_ef
 		if ($cant_claves > 1 || is_array($this->dato)) {
 			$cant_datos = count($this->dato);
 			if (!is_array($this->dato) || count($this->campos_clave) != $cant_datos) {
-				throw new toba_excepcion_def("EF: {$this->etiqueta}. La cantidad de claves ($cant_claves)
+				throw new toba_error_def("EF: {$this->etiqueta}. La cantidad de claves ($cant_claves)
 															tiene que corresponderse con la cantidad de datos manejados por el EF ($cant_datos)");
 			}
 			foreach ($this->dato as $dato){

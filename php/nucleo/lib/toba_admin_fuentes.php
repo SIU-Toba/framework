@@ -21,7 +21,7 @@ class toba_admin_fuentes
 	{
 		$predeterminada = toba_proyecto::instancia()->get_parametro('fuente_datos');	
 		if( !($predeterminada) && $obligatorio ) {
-			throw new toba_excepcion('No existe una fuente de datos predeterminada');
+			throw new toba_error('No existe una fuente de datos predeterminada');
 		}
 		return $predeterminada;
 	}

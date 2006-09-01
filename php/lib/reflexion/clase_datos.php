@@ -52,7 +52,7 @@ class clase_datos
 		if ( isset( $this->metodos[ $nombre ] ) ) {
 			unset( $this->metodos[ $nombre ] );
 		} else {
-			throw new toba_excepcion("El metodo '$nombre' no existe");
+			throw new toba_error("El metodo '$nombre' no existe");
 		}
 	}
 
@@ -61,7 +61,7 @@ class clase_datos
 		if ( isset( $this->metodos[ $nombre ] ) ) {
 			return $this->metodos[ $nombre ];
 		} else {
-			throw new toba_excepcion("El metodo '$nombre' no existe");
+			throw new toba_error("El metodo '$nombre' no existe");
 		}
 	}
 	
@@ -70,7 +70,7 @@ class clase_datos
 		if ( isset( $this->metodos[ $nombre ] ) ) {
 			$this->metodos[ $nombre ] = $datos;
 		} else {
-			throw new toba_excepcion("El metodo '$nombre' no existe");
+			throw new toba_error("El metodo '$nombre' no existe");
 		}
 	}
 
@@ -82,7 +82,7 @@ class clase_datos
 	{
 		if ( ! isset( $archivo ) ) {
 			if ( ! isset( $this->path ) )  {
-				throw new toba_excepcion('Es necesario especificar el PATH de la clase que se desea generar');	
+				throw new toba_error('Es necesario especificar el PATH de la clase que se desea generar');	
 			} else {
 				$archivo = $this->path;	
 			}

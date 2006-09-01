@@ -96,7 +96,7 @@ class toba_constructor
 		if ( isset( self::$objetos_runtime_instanciados[ $id['componente'] ] ) ) {
 			return self::$objetos_runtime_instanciados[ $id['componente'] ];
 		} else {
-			throw new toba_excepcion("El objeto '{$id['componente']}' no fue instanciado");	
+			throw new toba_error("El objeto '{$id['componente']}' no fue instanciado");	
 		}
 	}
 	
@@ -105,7 +105,7 @@ class toba_constructor
 	*/
 	static private function get_metadatos_compilados( $id, $tipo )
 	{
-		$directorio_componentes = info_instancia::get_path_proyecto() . '/metadatos_compilados/componentes';		
+		$directorio_componentes = toba_instancia::get_path_proyecto() . '/metadatos_compilados/componentes';		
 		$prefijo = 'php_';
 		if ( $tipo == 'item' ) {
 			$nombre = $prefijo . manejador_archivos::nombre_valido( $id['componente'] );
@@ -125,7 +125,7 @@ class toba_constructor
 					&& apex_pa_componentes_compilados__error_buscar_db ){
 				return toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
 			} else {
-				throw new toba_excepcion("No existe el componente compilado solicitado . CLASE: $tipo, ID: '{$id['componente']}'");
+				throw new toba_error("No existe el componente compilado solicitado . CLASE: $tipo, ID: '{$id['componente']}'");
 			}
 		}
 */

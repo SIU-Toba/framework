@@ -58,10 +58,10 @@ class toba_cn extends toba_componente
 			$this->evt__limpieza_memoria();
 			return $resultado;
 		}
-		catch(toba_excepcion $e){
+		catch(toba_error $e){
 			$this->abortar_transaccion();
 			$this->log->debug($e, 'toba');	
-			throw new toba_excepcion( $e->getMessage() );
+			throw new toba_error( $e->getMessage() );
 		}
 	}
 	//-------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ class toba_cn extends toba_componente
 				toba::db($this->info['fuente'])->ejecutar($sql);
 			}
 		}else{
-			throw new toba_excepcion('La transaccion no se encuentra abierta');
+			throw new toba_error('La transaccion no se encuentra abierta');
 		}
 	}
 }

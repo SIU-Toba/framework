@@ -51,10 +51,10 @@ class toba_solicitud_web extends toba_solicitud
 				$this->pre_proceso_servicio();
 			}
 			$this->procesar_servicios();
-		} catch( excepcion_reset_nucleo $e ) {
+		} catch( toba_reset_nucleo $e ) {
 			// Recarga del nucleo
 			throw $e;
-		} catch(toba_excepcion $e) {
+		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
 			toba::notificacion()->agregar($e->getMessage(), "error");
 			toba::notificacion()->mostrar();
@@ -98,7 +98,7 @@ class toba_solicitud_web extends toba_solicitud
 			    } 
 			}
 		} else { 
-			throw new toba_excepcion_def("Necesita asociar un objeto CI al ítem.");
+			throw new toba_error_def("Necesita asociar un objeto CI al ítem.");
 	    }
 	}
 
@@ -119,7 +119,7 @@ class toba_solicitud_web extends toba_solicitud
 			try {
 				$this->objetos[$ci]->inicializar();
 				$this->objetos[$ci]->disparar_eventos();
-			} catch(toba_excepcion $e) {
+			} catch(toba_error $e) {
 				$this->log->info($e, 'toba');			
 				toba::notificacion()->agregar($e->getMessage());
 			}
@@ -166,7 +166,7 @@ class toba_solicitud_web extends toba_solicitud
 			$obj = current($destino);
 			$obj->$callback();
 		} else {
-			throw new toba_excepcion("El servicio $servicio no está soportado");			
+			throw new toba_error("El servicio $servicio no está soportado");			
 		}
 	}
 
@@ -308,10 +308,10 @@ class toba_solicitud_web extends toba_solicitud
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);
-				throw new toba_excepcion("Las cascadas sólo admiten un objeto destino (actualmente: $actual)");
+				throw new toba_error("Las cascadas sólo admiten un objeto destino (actualmente: $actual)");
 			}
 			$objetos[0]->servicio__cascadas_efs();
-		} catch(toba_excepcion $e) {
+		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
 		}
 	}

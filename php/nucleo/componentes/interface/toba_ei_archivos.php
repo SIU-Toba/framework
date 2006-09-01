@@ -62,7 +62,7 @@ class toba_ei_archivos extends toba_ei
 						//--- Chequeo de seguridad
 						if (isset($this->path_relativo_inicial)) {
 							if (strpos(realpath($seleccion), realpath($this->path_relativo_inicial)) !== 0) {
-							   throw new toba_excepcion("El path es invalido");
+							   throw new toba_error("El path es invalido");
 							}				
 						}
 						$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));

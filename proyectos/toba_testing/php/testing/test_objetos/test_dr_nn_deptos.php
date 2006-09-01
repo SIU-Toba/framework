@@ -30,7 +30,7 @@ class test_dr_nn_deptos extends base_test_datos
 
 	function get_dr()
 	{
-		$dr = constructor_toba::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1625'), 
+		$dr = toba_constructor::get_runtime(array('proyecto' => 'toba_testing', 'componente' => '1625'), 
 											'toba_datos_relacion');
 		return $dr;
 	}
@@ -167,7 +167,7 @@ class test_dr_nn_deptos extends base_test_datos
 		if(isset($datos[$tabla][$concepto])){
 			return 	$datos[$tabla][$concepto];
 		}else{
-			throw new toba_excepcion("Se solicito una FILA inexistente");
+			throw new toba_error("Se solicito una FILA inexistente");
 		}
 	}
 
@@ -315,7 +315,7 @@ class test_dr_nn_deptos extends base_test_datos
 		try {
 			$this->dr->sincronizar();
 			$this->pass();
-		} catch (toba_excepcion  $e) {
+		} catch (toba_error  $e) {
 			$this->fail($e->getMessage());
 		}
 		$this->control_cambios_dr(	array(	"depto" => array("db", "db"),
@@ -447,7 +447,7 @@ class test_dr_nn_deptos extends base_test_datos
 		try {
 			$this->dr->sincronizar();
 			$this->pass();
-		} catch (toba_excepcion $e) {
+		} catch (toba_error $e) {
 			$this->fail($e->getMessage());
 		}
 		$this->cargar();

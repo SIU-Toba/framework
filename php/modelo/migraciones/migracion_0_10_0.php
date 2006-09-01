@@ -581,7 +581,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/info_instancia/',		'toba_instancia');
 		$editor->agregar_sustitucion('/info_proyecto/',			'toba_proyecto');
 		$editor->agregar_sustitucion('/parser_ayuda/',			'toba_parser_ayuda');
-		$editor->agregar_sustitucion('/excepcion_toba/',		'toba_excepcion');
+		$editor->agregar_sustitucion('/excepcion_toba/',		'toba_error');
 		$editor->agregar_sustitucion('/js::/',					'toba_js::');
 		$editor->agregar_sustitucion('/zona.php/',				'toba_zona.php');
 		$editor->agregar_sustitucion('/extends zona/',			'extends toba_zona');
@@ -612,7 +612,6 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/toba::get_cronometro/',		'toba::cronometro');
 		$editor->agregar_sustitucion('/toba::get_sesion/',			'toba::sesion');
 		$editor->agregar_sustitucion('/toba::get_usuario/',			'toba::usuario');
-		//$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}

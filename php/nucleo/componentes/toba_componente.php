@@ -183,7 +183,7 @@ class toba_componente
 	//SI la memoria no se cargo se corta la ejecucion y despliega un mensaje
 	{
 		if ((!isset($this->memoria)) || (is_null($this->memoria))){
-			throw new toba_excepcion("Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]");
+			throw new toba_error("Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]");
 		}
 	}
 
@@ -403,7 +403,7 @@ class toba_componente
  	{
 		//El indice es valido?
 		if(!isset($this->indice_dependencias[$identificador])){
-			throw new toba_excepcion("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
+			throw new toba_error("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
 		}
 		$posicion = $this->indice_dependencias[$identificador];
 		$clase = $this->info_dependencias[$posicion]['clase'];

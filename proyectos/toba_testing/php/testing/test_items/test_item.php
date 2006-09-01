@@ -17,13 +17,13 @@ class test_item extends test_toba
 	function test_consulta_grupos_acceso()
 	{
 		//Un item sin permisos no debe tener grupo de acceso
-		$item = constructor_toba::get_info(array('proyecto' => 'toba_testing', 
+		$item = toba_constructor::get_info(array('proyecto' => 'toba_testing', 
 												'componente' => '/pruebas_item/item_sin_permisos'), 
 											'item');
 		$this->AssertEqual(count($item->grupos_acceso()), 0);
 		
 		//Item con dos grupos permitidos
-		$item = constructor_toba::get_info(array('proyecto' => 'toba_testing', 
+		$item = toba_constructor::get_info(array('proyecto' => 'toba_testing', 
 												'componente' => '/pruebas_item/item_con_dos_grupos'), 
 											'item');		
 		$this->AssertEqual(count($item->grupos_acceso()), 2, 'La cantidad de grupos debe ser 2 (%s)');
@@ -34,7 +34,7 @@ class test_item extends test_toba
 	function test_otorgar_permiso()
 	{
 		//Se carga un item sin permisos
-		$item = constructor_toba::get_info(array('proyecto' => 'toba_testing', 
+		$item = toba_constructor::get_info(array('proyecto' => 'toba_testing', 
 												'componente' => '/pruebas_item/item_sin_permisos'), 
 											'item');
 											
@@ -42,7 +42,7 @@ class test_item extends test_toba
 		$item->otorgar_permiso('documentacion');
 		
 		//Se vuelve a cargar debe tener permisos de documentador
-		$item = constructor_toba::get_info(array('proyecto' => 'toba_testing', 
+		$item = toba_constructor::get_info(array('proyecto' => 'toba_testing', 
 												'componente' => '/pruebas_item/item_sin_permisos'), 
 											'item');
 		$this->AssertEqual(count($item->grupos_acceso()), 1, 'Debe haber sólo 1 grupo (%s)');

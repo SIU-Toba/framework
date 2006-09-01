@@ -121,7 +121,7 @@ class toba_editor
 		if(isset($param_prev['grupo_acceso'])) {
 			return $param_prev['grupo_acceso'];
 		} else {
-			throw new toba_excepcion("No esta definido el parametro 'grupo de acceso' del editor.");	
+			throw new toba_error("No esta definido el parametro 'grupo de acceso' del editor.");	
 		}
 	}
 
@@ -148,7 +148,7 @@ class toba_editor
 	static function set_parametros_previsualizacion($datos)
 	{
 		if (!( array_key_exists('punto_acceso', $datos) && array_key_exists('grupo_acceso', $datos))) {
-			throw new toba_excepcion('Los parametros de previsualizacion son incorrectos.');	
+			throw new toba_error('Los parametros de previsualizacion son incorrectos.');	
 		}
 		$_SESSION['toba']['_editor_']['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
 		$_SESSION['toba']['_editor_']['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];

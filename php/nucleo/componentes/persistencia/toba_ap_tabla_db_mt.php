@@ -31,7 +31,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		foreach(array_keys($this->definicion) as $n_tab)
 		{
 			if(!isset($this->definicion[$n_tab]['nombre'])){
-				throw new toba_excepcion("La tabla descripta en la posicicion $n_tab no posee un atributo 'nombre'");
+				throw new toba_error("La tabla descripta en la posicicion $n_tab no posee un atributo 'nombre'");
 			}
 		}
 	}
@@ -369,7 +369,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//Elimina los registros.
 	{
 		if($this->baja_logica){
-			throw new toba_excepcion("No esta implementada la baja logica en MT");	
+			throw new toba_error("No esta implementada la baja logica en MT");	
 		}
 		//Primero las secundarias, despues las principales
 

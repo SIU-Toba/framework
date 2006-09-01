@@ -22,10 +22,10 @@ class mensaje
 	{
 		$datos = toba_proyecto::get_mensaje_toba($indice);
 		if(!is_array($datos)){
-			throw new toba_excepcion_def("El mensaje $indice no EXISTE.");
+			throw new toba_error_def("El mensaje $indice no EXISTE.");
 		}else{
 			if(trim($datos[0]['m'])==""){
-				throw new toba_excepcion_def("El mensaje $indice, existe pero está vacío.");
+				throw new toba_error_def("El mensaje $indice, existe pero está vacío.");
 			}else{
 				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
 			}

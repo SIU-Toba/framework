@@ -29,7 +29,7 @@ class toba_instancia
 		if ( is_file( $archivo ) ) {
 			return parse_ini_file( $archivo, true );
 		} else {
-			throw new toba_excepcion("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
+			throw new toba_error("INFO_INSTANCIA: No se encuentra definido el archivo de inicializacion de la INSTANCIA: '".self::get_id()."' ('$archivo')");
 		} 	
 	}
 	
@@ -45,7 +45,7 @@ class toba_instancia
 			} elseif (defined('apex_pa_instancia')) {
 				self::$id = apex_pa_instancia;
 			} else {
-				throw new toba_excepcion("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
+				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
 			}
 		}		
 		return self::$id;
@@ -62,7 +62,7 @@ class toba_instancia
 		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
 			return toba_dba::get_db($_SESSION['toba']['instancia']['base']);
 		} else {
-			throw new toba_excepcion("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
+			throw new toba_error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
 		}
 	}
 	
@@ -87,7 +87,7 @@ class toba_instancia
 		$sql = "SELECT nextval('apex_sesion_browser_seq'::text) as id;";
 		$rs = self::get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_excepcion("No es posible recuperar el ID de la sesion.");
+			throw new toba_error("No es posible recuperar el ID de la sesion.");
 		}
 		return $rs[0]['id'];	
 	}
@@ -127,7 +127,7 @@ class toba_instancia
 				WHERE	usuario = '$usuario'";
 		$rs = self::get_db()->consultar($sql);
 		if(empty($rs)){
-			throw new toba_excepcion("El usuario '$usuario' no existe.");
+			throw new toba_error("El usuario '$usuario' no existe.");
 		}
 		return $rs[0];
 	}
@@ -137,7 +137,7 @@ class toba_instancia
 		$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario='$usuario'";
 		$rs = self::get_db()->consultar($sql);
 		if(empty($rs)){
-			//throw new toba_excepcion("El usuario '$usuario' no existe.");
+			//throw new toba_error("El usuario '$usuario' no existe.");
 			return array();
 		}
 		return $rs[0];
@@ -194,7 +194,7 @@ class toba_instancia
 		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
 		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_excepcion('No es posible generar un ID para la solicitud');
+			throw new toba_error('No es posible generar un ID para la solicitud');
 		}
 		return $rs[0]['id'];
 	}

@@ -123,7 +123,7 @@ class toba_ei_esquema extends toba_ei
 	{
 		if (!isset($parametros)) {
 			if (!isset($this->memoria['parametros'])) {
-				throw new toba_excepcion("No se pueden obtener los parámetros");
+				throw new toba_error("No se pueden obtener los parámetros");
 			}
 			$contenido = $this->memoria['parametros']['contenido'];
 			$formato = $this->memoria['parametros']['formato'];

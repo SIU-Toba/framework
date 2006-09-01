@@ -5,7 +5,7 @@ interface toba_interface_usuario
 	/*
 		Debe llamarse antes que las demas,
 		si ocure un fallo en la autentificacion debe disparar
-		una excepcion de tipo 'toba_excepcion_login'
+		una excepcion de tipo 'toba_error_login'
 	*/
 	function cargar($id_usuario, $clave=null);
 	/*

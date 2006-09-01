@@ -225,7 +225,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if ($validacion !== true) {
 					$this->efs_invalidos[$id_fila][$ef] = $validacion;
 					$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
-					throw new toba_excepcion_validacion($etiqueta.': '.$validacion, $this->ef($ef));
+					throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 				}
 			}
 		}
@@ -242,7 +242,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 
 	function cargar_estado_ef($array_ef)
 	{
-		throw new toba_excepcion("No esta implementado en el multilínea");
+		throw new toba_error("No esta implementado en el multilínea");
 		//ATENCION: En un multilinea esto es distinto. FALTA
 	}
 
@@ -324,7 +324,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function set_datos($datos)
 	{
 		if (!is_array($datos)) {
-			throw new toba_excepcion_def( $this->get_txt() . 
+			throw new toba_error_def( $this->get_txt() . 
 					" El parametro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}		

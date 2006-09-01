@@ -33,7 +33,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$item = constructor_toba::get_info( array('componente'=>'1240','proyecto'=>'toba_testing'), 'item');
+		$item = toba_constructor::get_info( array('componente'=>'1240','proyecto'=>'toba_testing'), 'item');
 		$this->assertEqual(count($item->get_hijos()), 1);
 	}
 	
@@ -42,7 +42,7 @@ class test_asignador_objetos extends test_toba
 	*/	
 	function test_asignar_a_ci()
 	{
-		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci', true, null, true);		
 		//Setup
 		$ci_destino = array('tipo' => 'ci',
@@ -55,7 +55,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 		
 		//Validacion
-		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci', true, null, true);		
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($hijos), 3);
@@ -68,7 +68,7 @@ class test_asignador_objetos extends test_toba
 	*/		
 	function test_asignar_a_pantalla_ci_sin_objetos_previos()
 	{
-		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci');			
 		//Setup
 		$ci_destino = array('tipo' => 'ci_pantalla',
@@ -82,7 +82,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 
 		//Validacion
-		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci');			
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($obj->get_hijos()), 2);		//Tiene dos pantallas
@@ -108,7 +108,7 @@ class test_asignador_objetos extends test_toba
 		$asignador->asignar();
 
 		//Validacion
-		$obj = constructor_toba::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
+		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci');
 		$hijos = $obj->get_hijos();
 		$this->assertEqual(count($obj->get_hijos()), 2);		//Tiene dos pantallas

@@ -3,7 +3,7 @@
 /**
 * Error interno de toba
 */
-class toba_excepcion extends Exception
+class toba_error extends Exception
 {
 
 }
@@ -11,7 +11,7 @@ class toba_excepcion extends Exception
 /**
 * Excepción ejecutando SQL contra la DB
 */
-class toba_excepcion_db extends toba_excepcion
+class toba_error_db extends toba_error
 {
 	protected $codigo;
 
@@ -30,7 +30,7 @@ class toba_excepcion_db extends toba_excepcion
 /**
 * Excepción producida por alguna interacción del usuario
 */
-class toba_excepcion_usuario extends toba_excepcion
+class toba_error_usuario extends toba_error
 {
 
 }
@@ -38,7 +38,7 @@ class toba_excepcion_usuario extends toba_excepcion
 /**
 * Excepción producida por error del la definicion en el desarrollo
 */
-class toba_excepcion_def extends toba_excepcion
+class toba_error_def extends toba_error
 {
 
 }
@@ -46,7 +46,7 @@ class toba_excepcion_def extends toba_excepcion
 /**
  * Excepción producida cuando el usuario no tiene permitido algún derecho
  */
-class toba_excepcion_permisos extends toba_excepcion 
+class toba_error_permisos extends toba_error 
 {
 	
 }
@@ -54,13 +54,13 @@ class toba_excepcion_permisos extends toba_excepcion
 /**
  * Excepción producida por un login incorrecto
  */
-class toba_excepcion_login extends toba_excepcion
+class toba_error_login extends toba_error
 {
 
 }
 
 
-class toba_excepcion_validacion extends toba_excepcion 
+class toba_error_validacion extends toba_error 
 {
 	protected $causante;
 	
@@ -79,7 +79,7 @@ class toba_excepcion_validacion extends toba_excepcion
 /**
  * Excepción para recargar una solicitud
  */
-class excepcion_reset_nucleo extends Exception
+class toba_reset_nucleo extends Exception
 {
 	private $item = null;
 
