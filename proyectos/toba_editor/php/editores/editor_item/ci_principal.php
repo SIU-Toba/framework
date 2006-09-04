@@ -6,50 +6,54 @@ require_once('admin_util.php');
 
 class ci_principal extends toba_ci
 {
-	protected $cambio_item = false;
-	protected $id_item;
-	private $elemento_eliminado = false;
+	protected $s__id_item ;
+	protected $s__inicializar_item_nuevo = true;
 	protected $id_temporal = "<span style='white-space:nowrap'>A asignar</span>";
+	private $elemento_eliminado = false;
+	protected $cambio_item = false;
 	private $refrescar = false;
+	
 	
 	function ini()
 	{
 		$zona = toba::zona();
 		if ($zona->cargada()) {
 			list($proyecto, $item) = $zona->get_editable();
-		}
-		//Se notifica un item y un proyecto	
-		if (isset($item) && isset($proyecto)) {
-			//Se determina si es un nuevo item
-			$es_nuevo = (!isset($this->id_item) || 
-						($this->id_item['proyecto'] != $proyecto || $this->id_item['item'] != $item));
-			if ($es_nuevo) {
-				$this->set_item( array('proyecto'=>$proyecto, 'item'=>$item) );
-				$this->cambio_item = true;
+			//Se notifica un item y un proyecto	
+			if (isset($item) && isset($proyecto)) {
+				//Se determina si es un nuevo item
+				$es_nuevo = (!isset($this->s__id_item ) || 
+							($this->s__id_item['proyecto'] != $proyecto || $this->s__id_item ['item'] != $item));
+				if ($es_nuevo) {
+					$this->set_item( array('proyecto'=>$proyecto, 'item'=>$item) );
+					$this->cambio_item = true;
+				}
+			}
+		} else {
+			//Creacion de un item nuevo
+			if ( $this->s__inicializar_item_nuevo ) {
+				unset($this->s__id_item );
+				$datos = $this->get_entidad();
+				$datos->resetear();
+				$this->inicializar_item( $datos );
+				$this->s__inicializar_item_nuevo = false;
 			}
 		}
 	}
 	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "id_item";
-		return $propiedades;
-	}	
-
 	function get_entidad()
 	//Acceso al DATOS_RELACION
 	{
 		if ($this->cambio_item){
-			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->id_item);
-			$this->dependencia('datos')->cargar( $this->id_item);
+			toba::logger()->debug($this->get_txt() . '*** se cargo el item: ' . $this->s__id_item );
+			$this->dependencia('datos')->cargar( $this->s__id_item );
 		}
 		return $this->dependencia('datos');
 	}	
 
 	function set_item($id)
 	{
-		$this->id_item = $id;
+		$this->s__id_item  = $id;
 	}
 	
 	function conf()
@@ -59,6 +63,25 @@ class ci_principal extends toba_ci
 		}
 	}	
 	
+	/**
+	*	Inicializacion de un ITEM nuevo, llega el DR vacio
+	*/
+	function inicializar_item( $dr )
+	{
+		//Ver si el padre viene por post
+		$padre_i = toba::hilo()->obtener_parametro('padre_i');
+		$padre_p = toba::hilo()->obtener_parametro('padre_p');
+		if (isset($padre_p) && isset($padre_i)) {
+			$datos = array('item' => $this->id_temporal);
+			$datos['padre'] = $padre_i;
+			$datos['padre_proyecto'] = $padre_p;
+
+		}
+		$dr->tabla('base')->set( $datos );
+		//Le agrego el permiso del usuario actual
+		$permiso_usuario_actual = array('usuario_grupo_acc' => toba::usuario()->get_grupo_acceso() );
+		$dr->tabla('permisos')->nueva_fila( $permiso_usuario_actual );
+	}
 
 	//-------------------------------------------------------------------
 	//--- PROPIEDADES BASICAS
@@ -66,23 +89,7 @@ class ci_principal extends toba_ci
 
 	function conf__prop_basicas()
 	{
-		//Ver si el padre viene por post
-		$padre_i = toba::hilo()->obtener_parametro('padre_i');
-		$padre_p = toba::hilo()->obtener_parametro('padre_p');
-
-		//¿Es un item nuevo?
-		if (isset($padre_p) && isset($padre_i)) {
-			//Se resetea el dbt para que no recuerde datos anteriores
-			unset($this->id_item);
-			$this->get_entidad()->resetear();
-			//Para el caso del alta el id es asignado automáticamente 
-			$datos = array('item' => $this->id_temporal);
-			$datos['padre'] = $padre_i;
-			$datos['padre_proyecto'] = $padre_p;
-
-		} else {
-			$datos = $this->get_entidad()->tabla("base")->get();
-		}
+		$datos = $this->get_entidad()->tabla("base")->get();
 	
 		//Transfiere los campos accion, buffer y patron a uno comportamiento
 		if (isset($datos['actividad_accion']) && $datos['actividad_accion'] != '') {
@@ -165,14 +172,14 @@ class ci_principal extends toba_ci
 				//Si esta asignado ponerle el nombre del grupo y chequear el checkbox
 				if ($asignado['usuario_grupo_acc'] == $grupo['usuario_grupo_acc']) {
 					$grupo['tiene_permiso'] = 1;
-					$grupo['item'] = $this->id_item['item'];
+					$grupo['item'] = $this->s__id_item ['item'];
 					$esta_asignado = true;
 				}
 			}
 			//Si no esta asignado poner el item y deschequear el checkbox
 			if (!$esta_asignado) {
 				$grupo['tiene_permiso'] = 0;
-				$grupo['item'] = $this->id_item['item'];
+				$grupo['item'] = $this->s__id_item ['item'];
 			}
 			$datos[] = $grupo;
 		}
@@ -219,7 +226,7 @@ class ci_principal extends toba_ci
 		$this->get_entidad()->tabla('base')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();	
-		if (! isset($this->id_item)) {		//Si el item es nuevo
+		if (! isset($this->s__id_item )) {		//Si el item es nuevo
 			$this->redireccionar_a_objeto_creado();		
 		}
 	}
