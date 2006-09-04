@@ -17,7 +17,7 @@ class toba_boton
 			$this->datos['maneja_datos'] = true;
 			$this->datos['sobre_fila'] = false;
 			$this->datos['confirmacion'] = '';
-			$this->datos['estilo'] = "";
+			$this->datos['estilo'] = '';
 			$this->datos['imagen'] = '';
 			$this->datos['en_botonera'] = true;
 			$this->datos['ayuda'] = '';
