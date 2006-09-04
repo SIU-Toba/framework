@@ -5,7 +5,7 @@ require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 require_once('nucleo/lib/toba_parser_ayuda.php');
 
 /**
- * Componente que Controla un flujo de pantallas
+ * Controlador de Interface (ci): Componente responsable de manejar las pantallas y sus distintos elementos
  * @package Componentes
  * @subpackage Eis
  */
@@ -27,9 +27,11 @@ class toba_ci extends toba_ei
 	private   $pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio
 	protected $pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
 	protected $en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
+	protected $ini_operacion = true;				// Indica si la operación recién se inicia
 	
 	function __construct($id)
 	{
+		$this->set_propiedades_sesion(array('ini_operacion'));		
 		parent::__construct($id);
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
@@ -48,6 +50,9 @@ class toba_ci extends toba_ei
 		parent::destruir();
 	}
 	
+	/**
+	 * Ventana de extensión previa a la destrucción del componente, al final de la atención de los servicios
+	 */
 	function fin() {}
 
 	function inicializar($parametro=null)
@@ -55,15 +60,30 @@ class toba_ci extends toba_ei
 		if(isset($parametro)){
 			$this->nombre_formulario = $parametro["nombre_formulario"];
 		}
-		if (!$this->existio_memoria_previa()) {
+		if ($this->ini_operacion) {
+			$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');
 			$this->ini__operacion();
+			$this->ini_operacion = false;
 		}
 		$this->ini();
 		$this->definir_pantalla_eventos();		
 	}
 
+	/**
+	 * Ventana de extensión que se ejecuta cuando el componente se inicia en la operación.
+	 * Su utilidad recide en por ejemplo inicializar un conjunto de variables de sesion y evitar
+	 * el chequeo continuo de las mismas.
+	 * Este momento generalmente se corresponde con el inicio del item, aunque existen excepciones:
+	 *  - Si el componente es un ci dentro de otro ci, recien se ejecuta cuando entra a la operacion que no necesariamente es al inicio,
+	 * 		si por ejemplo se encuentra en la 3er pantalla del ci principal.
+	 *  - Si se ejecuta una limpieza de memoria (comportamiento por defecto del evt__cancelar)
+	 */
 	function ini__operacion() {}
 	
+	/**
+	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 * Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente
+	 */
 	function ini() {}
 	
 	//--------------------------------------------------------------
@@ -82,7 +102,9 @@ class toba_ci extends toba_ei
 			}
 			$this->dependencias[$dep]->disparar_limpieza_memoria();
 		}
-		$this->evt__limpieza_memoria();
+		$this->evt__limpieza_memoria(array('ini_operacion'));
+		$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');		
+		$this->ini__operacion();
 	}
 	
 	/**

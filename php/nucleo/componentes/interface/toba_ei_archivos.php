@@ -139,7 +139,7 @@ class toba_ei_archivos extends toba_ei
 		sort($archivos);
 		sort($carpetas);
 		$path = pathinfo($this->dir_actual);
-		$this->barra_superior("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
+		$this->generar_html_barra_sup("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
 		echo "<div style=''>\n";
 		
 		$img_crear_carpeta = toba_recurso::imagen_apl('archivos/carpeta_nueva.gif', true);

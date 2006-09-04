@@ -14,7 +14,7 @@ define('apex_ei_evt_maneja_datos', 1);
 define('apex_ei_evt_no_maneja_datos', -1);
 
 /**
- * Clase base de los elementos de interface (ei)
+ * Clase base de los componentes o elementos de interface (ei)
  * @package Componentes
  * @subpackage Eis
  */
@@ -41,6 +41,9 @@ abstract class toba_ei extends toba_componente
 		$this->objeto_js = "js_".$this->submit;
 	}
 	
+	/**
+	 * Destructor del objeto
+	 */
 	function destruir()
 	{
 		$this->memoria['eventos'] = array();
@@ -62,11 +65,17 @@ abstract class toba_ei extends toba_componente
 		parent::destruir();
 	}	
 	
+	/**
+	 * Ventana previa a la configuración del componente
+	 */
 	function pre_configurar()
 	{
 		$this->cargar_lista_eventos();
 	}
-	
+
+	/**
+	 * Ventana posterior a la configuración del componente
+	 */
 	function post_configurar()
 	{
 		$this->filtrar_eventos();
@@ -77,7 +86,8 @@ abstract class toba_ei extends toba_componente
 	//--------------------------------------------------------------------
 
 	/**
-	*	Recupera un evento
+	* Recupera el objeto asociado de un evento
+	* @return toba_evento_usuario
 	*/
 	function evento($id)
 	{
@@ -92,6 +102,9 @@ abstract class toba_ei extends toba_componente
 		}
 	}
 
+	/**
+	 * Determina que un evento definido va a formar parte de los eventos a mostrar en el servicio actual
+	 */
 	function agregar_evento($id)
 	{
 		if(isset($this->eventos_usuario[ $id ])){
@@ -102,6 +115,9 @@ abstract class toba_ei extends toba_componente
 		}		
 	}
 
+	/**
+	 * Elimina un evento definido de la lista de eventos a utilizar en el servicio actual
+	 */
 	function eliminar_evento($id)
 	{
 		if(isset($this->eventos_usuario[ $id ])){
@@ -133,6 +149,10 @@ abstract class toba_ei extends toba_componente
 		}
 	}
 
+	/**
+	 * Retorna la lista de eventos que fueron definidos a nivel de fila
+	 * @return array(id => toba_evento_usuario)
+	 */
 	function get_eventos_sobre_fila()
 	{
 		if(!isset($this->eventos_usuario_utilizados_sobre_fila)){
@@ -152,6 +172,9 @@ abstract class toba_ei extends toba_componente
 		return count( $this->get_eventos_sobre_fila() );
 	}
 
+	/**
+	 * Inicia la etapa de eventos en este componente
+	 */
 	function disparar_eventos(){}
 		
 	/**
@@ -164,11 +187,19 @@ abstract class toba_ei extends toba_componente
 		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
 	}
 
+	/**
+	 * Retorna todos los eventos definidos por el usuario, excluyendo los internos del componente
+	 * @return array(toba_evento_usuario)
+	 */
 	function get_lista_eventos_usuario()
 	{
 		return $this->eventos_usuario_utilizados;
 	}
 
+	/**
+	 * Retorna todos los eventos definidos por el componente (llamados internos), excluyendo los definidos por el usuario
+	 * @return array(toba_evento_usuario)
+	 */	
 	function get_lista_eventos_internos()
 	{
 		return $this->eventos;
@@ -177,21 +208,24 @@ abstract class toba_ei extends toba_componente
 	//--- Manejo de grupos de eventos --------------------------------------
 	
 	/**
-		Activa un grupo de eventos
-	*/
+	 * Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo
+	 */
 	function set_grupo_eventos_activo($grupo)
 	{
 		$this->grupo_eventos_activo = $grupo;
 	}
 	
 	/**
-		Devuelve el grupo de eventos activos
-	*/
+	 * Retorna el grupo de eventos activos
+	 */
 	function get_grupo_eventos_activo()
 	{
 		return $this->grupo_eventos_activo;	
 	}
-		
+
+	/**
+	 * Dispara el filtrado de eventos en base a grupos
+	 */
 	protected function filtrar_eventos()
 	{
 		$grupo = $this->get_grupo_eventos_activo();
@@ -208,7 +242,10 @@ abstract class toba_ei extends toba_componente
 	}
 
 	//--- BOTONES -------------------------------------------------
-	
+
+	/**
+	 * Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente
+	 */
 	function hay_botones() 
 	{
 		foreach ($this->eventos_usuario_utilizados as $evento) {	
@@ -218,7 +255,11 @@ abstract class toba_ei extends toba_componente
 		}
 		return false;
 	}	
-	
+
+	/**
+	 * Genera la botonera del componente
+	 * @param string $clase Clase css con el que se muestra la botonera
+	 */
 	function generar_botones($clase = '')
 	{
 		//----------- Generacion
@@ -227,15 +268,11 @@ abstract class toba_ei extends toba_componente
 		echo "</div>";
 	}	
 	
-	/*
-		Genera los botones de todos los eventos marcardos para aparecer en la botonera.
-	*/
+	/**
+	 * Genera los botones de todos los eventos marcardos para aparecer en la botonera.
+	 */
 	protected function generar_botones_eventos()
 	{
-		//--- Si el componente no reservo tabs, se reservan ahora
-		if (!isset($this->rango_tabs)) {
-			//$this->rango_tabs = manejador_tabs::instancia()->reservar(count($this->eventos));			
-		}
 		foreach($this->eventos_usuario_utilizados as $evento )	{
 			if ( $evento->esta_en_botonera() ) {
 				if( !in_array($evento->get_id(), $this->botones_graficados_ad_hoc ) ) {
@@ -273,79 +310,47 @@ abstract class toba_ei extends toba_componente
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
 
-	public function colapsar()
+	/**
+	 * Fuerza a que el componente se grafique colpsado, pudiendo el usuario descolapsarlo posteriormente
+	 */
+	function colapsar()
 	{
 		$this->colapsado = true;
 		$this->info['colapsable'] = true;
 	}
 	
-	public function set_colapsable($colapsable)
+	/**
+	 * Determina si el componente podra ser colapsado/descolapsado por el usuario
+	 * @param boolean $colapsable Si o no se permite colapsar
+	 */
+	function set_colapsable($colapsable)
 	{
 		$this->info['colapsable'] = $colapsable;
 	}
-	
-	public function get_consumo_javascript()
-	{
-		return array('componentes/ei');
-	}
-	
-	function generar_js()
-	{
-		$identado = toba_js::instancia()->identado();
-		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
-		$this->crear_objeto_js();
-		$this->extender_objeto_js();
-		echo "\n";
-		$this->iniciar_objeto_js();
-		echo "$identado//-----------------------------------------------------------------  \n";		
-		return $this->objeto_js;
-	}
 
-	function get_id_objeto_js()
-	{
-		return $this->objeto_js;
-	}
-	
-	protected function crear_objeto_js()
-	{
-		$identado = toba_js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}');\n";
-	}
-	
-	protected function extender_objeto_js()
-	{
-		
-	}
-	
-	protected function iniciar_objeto_js()
-	{
-		$identado = toba_js::instancia()->identado();
-		//-- EVENTO implicito --
-		if(is_object($this->evento_implicito)){
-			$evento_js = $this->evento_implicito->get_evt_javascript();
-			echo toba_js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
-		}
-		if ($this->colapsado) {
-			echo $identado."window.{$this->objeto_js}.colapsar();\n";
-		}
-		//Se agrega al objeto al singleton toba
-		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
-	}
-
+	/**
+	 * Cambia el titulo del componente para el servicio actual
+	 */
 	function set_titulo($titulo)
 	{
 		$this->info['titulo'] = $titulo;
 	}
 		
-	function barra_superior_especifica()
+	function generar_html_barra_sup_especifica()
 	{
 	}
 
-	function barra_superior($titulo=null, $control_titulo_vacio=false, $estilo="")
+	/**
+	 * Genera la barra con el título y los íconos
+	 *
+	 * @param string $titulo Título de la barra
+	 * @param boolean $control_titulo_vacio Si el comp. no tiene titulo definido, ni se lo pasa por parametro, no grafica la barra
+	 * @param string $estilo Clase css a utilizar
+	 */
+	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
-		//Marco la existencia de una interface previa
 		if($control_titulo_vacio){
-			if(trim($this->info["titulo"])==""){
+			if(trim($this->info["titulo"])=="" && trim($titulo) == ''){
 				return;	
 			}
 		}
@@ -358,7 +363,7 @@ abstract class toba_ei extends toba_componente
 		if( toba_editor::modo_prueba() ){ 
 			toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
 		}		
-		echo $this->barra_superior_especifica();
+		echo $this->generar_html_barra_sup_especifica();
 		echo '</span>';
 		
 		//---Barra de mensajeria		
@@ -391,15 +396,68 @@ abstract class toba_ei extends toba_componente
 	function get_id_form()
 	{
 		return $this->submit;	
+	}	
+	
+	//-----------------------------------------
+	//--  JAVASCRIPT --------------------------
+	//-----------------------------------------
+	
+	function get_consumo_javascript()
+	{
+		return array('componentes/ei');
 	}
 	
+	function generar_js()
+	{
+		$identado = toba_js::instancia()->identado();
+		echo "\n$identado//---------------- CREANDO OBJETO {$this->objeto_js} --------------  \n";
+		$this->crear_objeto_js();
+		$this->extender_objeto_js();
+		echo "\n";
+		$this->iniciar_objeto_js();
+		echo "$identado//-----------------------------------------------------------------  \n";		
+		return $this->objeto_js;
+	}
+
+	/**
+	 * Retorna el id del componente en javascript.
+	 */
+	function get_id_objeto_js()
+	{
+		return $this->objeto_js;
+	}
+	
+	protected function crear_objeto_js()
+	{
+		$identado = toba_js::instancia()->identado();
+		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}');\n";
+	}
+	
+	protected function extender_objeto_js()
+	{}
+	
+	protected function iniciar_objeto_js()
+	{
+		$identado = toba_js::instancia()->identado();
+		//-- EVENTO implicito --
+		if(is_object($this->evento_implicito)){
+			$evento_js = $this->evento_implicito->get_evt_javascript();
+			echo toba_js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
+		}
+		if ($this->colapsado) {
+			echo $identado."window.{$this->objeto_js}.colapsar();\n";
+		}
+		//Se agrega al objeto al singleton toba
+		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
+	}
+
 	//---------------------------------------------------------------
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
 
-	/*
-	*	Despachador de tipos de salidas de impresion
-	*/
+	/**
+	 * Despachador de tipos de salidas de impresion
+	 */
 	function vista_impresion( toba_impresion $salida )
 	{
 		if ( $salida instanceof toba_impr_html ) {
@@ -407,9 +465,9 @@ abstract class toba_ei extends toba_componente
 		}
 	}
 
-	/*
-	*	Impresion HTML por defecto
-	*/
+	/**
+	 * Impresion HTML por defecto
+	 */
 	function vista_impresion_html( $salida )
 	{
 		$salida->titulo( $this->get_nombre() );

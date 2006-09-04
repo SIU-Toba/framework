@@ -703,7 +703,7 @@ class toba_ei_formulario extends toba_ei
 		}
 		echo "<table class='ei-base ei-form-base' $ancho id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
-		$this->barra_superior(null, true,"ei-form-barra-sup");
+		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
 		echo "</td></tr>\n";
 		echo "<tr><td>";
 		$this->generar_formulario();	

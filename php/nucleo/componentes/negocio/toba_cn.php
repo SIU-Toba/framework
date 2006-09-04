@@ -1,6 +1,11 @@
 <?php
 require_once("nucleo/componentes/toba_componente.php");
 
+/**
+ * Padre de todas las clases que definen componentes
+ * @package Componentes
+ * @subpackage Negocio
+ */
 class toba_cn extends toba_componente
 {
 	protected $transaccion_abierta;			// privado | boolean | Indica si la transaccion se encuentra en proceso

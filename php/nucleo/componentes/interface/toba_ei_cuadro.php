@@ -823,7 +823,7 @@ class toba_ei_cuadro extends toba_ei
         echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
         if($mostrar_cabecera){
             echo "<tr><td>";
-            $this->barra_superior(null, true,"ei-cuadro-barra-sup");
+            $this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
             echo "</td></tr>\n";
         }
 		//-- INICIO zona COLAPSABLE

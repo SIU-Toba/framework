@@ -241,8 +241,8 @@ class toba_solicitud_web extends toba_solicitud
 	
 	protected function servicio__vista_pdf( $objetos )
 	{
-		require_once('nucleo/lib/salidas/pdf.php');
-		$salida = new pdf();
+		require_once('nucleo/lib/salidas/toba_pdf.php');
+		$salida = new toba_pdf();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}

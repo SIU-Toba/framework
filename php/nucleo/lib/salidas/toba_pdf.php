@@ -1,7 +1,7 @@
 <?
 //require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
 
-class pdf
+class toba_pdf
 {
 	private $objetos = array();
 	private $configuracion = array();

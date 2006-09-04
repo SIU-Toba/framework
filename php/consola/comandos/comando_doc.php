@@ -26,13 +26,7 @@ class comando_doc extends comando_toba
 					-*WikiMacros* -*RecentChanges*';
 		system($comando);
 
-		$this->consola->mensaje("Convirtiendo codificacion de UTF-8 a ISO88591:");
-		//Se buscan los archivos .html del arbol de directorios
-		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
-		foreach ($archivos as $archivo) {
-			$this->convertir_codificacion($archivo);
-		}
-		$this->consola->mensaje("Fin conversión");
+		$this->convertir_codificacion_dir($destino);
 	}
 	
 	/**
@@ -40,6 +34,12 @@ class comando_doc extends comando_toba
 	 */
 	function opcion__api()
 	{
+		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
+		$lista = manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
+		foreach ($lista as $arch) {
+			unlink($arch);
+		}
+		
 		//--- Se incluye a phpdocumentor en el path
 		$dir = toba_dir()."/php/3ros";
 		$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
@@ -47,21 +47,36 @@ class comando_doc extends comando_toba
 		
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "Toba API";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes';
-		$_phpDocumentor_setting['target'] = toba_dir().'/proyectos/toba_editor/www/doc/api';
-//		$_phpDocumentor_setting['output'] = "HTML:Smarty:HandS";
+		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo';
+		$_phpDocumentor_setting['target'] = $dest;
+		//$_phpDocumentor_setting['output'] = "HTML:Smarty:HandS";
+		$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
+		
+		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
 	}
 
 
-	protected function convertir_codificacion($archivo)
+	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
 		$this->consola->mensaje("\t".$archivo);
 		$utf8 = file_get_contents($archivo);
-		$iso = iconv("UTF-8", "ISO-8859-1", $utf8);
+		$iso = iconv($desde, $hasta, $utf8);
 		file_put_contents($archivo, $iso);
 	}
-		
+
+	
+	protected function convertir_codificacion_dir($destino, $desde="UTF-8", $hasta="ISO-8859-1")
+	{
+		//Se buscan los archivos .html del arbol de directorios
+		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$cant = count($archivos);
+		$this->consola->mensaje("Convirtiendo $cant archivos de codificacion $desde a $hasta:");		
+		foreach ($archivos as $archivo) {
+			$this->convertir_codificacion($archivo, $desde, $hasta);
+		}
+		$this->consola->mensaje("Fin conversión");
+	}
 }
 ?>
