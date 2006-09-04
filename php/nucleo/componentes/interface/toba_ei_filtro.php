@@ -3,8 +3,8 @@ require_once("toba_ei_formulario.php");	//Ancestro de todos los	OE
 
 /**
  * Un filtro presenta una grilla de campos similar al formulario, pero con el objetivo de reducir el conjunto de datos mostrados por otro objeto. 
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 class toba_ei_filtro extends toba_ei_formulario
 {

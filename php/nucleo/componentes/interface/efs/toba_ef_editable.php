@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Elemento editable equivalente a un <input type='text'>
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable extends toba_ef
 {
 	protected $tamano = 20;
@@ -128,6 +132,11 @@ class toba_ef_editable extends toba_ef
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento editable que sólo permite ingresar números
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_numero extends toba_ef_editable
 {
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
@@ -242,6 +251,11 @@ class toba_ef_editable_numero extends toba_ef_editable
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento editable que sólo permite ingresar números que representan un valor monetario
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_moneda extends toba_ef_editable_numero
 {
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
@@ -257,7 +271,11 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 //########################################################################################################
 //########################################################################################################
 
-
+/**
+ * Elemento editable que sólo permite ingresar números que representan un porcentaje
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 {
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
@@ -284,6 +302,11 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento editable que permite ingresar contraseñas, con o sin campo de confirmación
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_clave extends toba_ef_editable
 {
 	protected $confirmar_clave = false;
@@ -311,7 +334,7 @@ class toba_ef_editable_clave extends toba_ef_editable
 		$estado = isset($this->estado)? $this->estado : "";
 		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".toba_form::password($this->id_form ."_test",$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
+			$html .= "<br>".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		}
 		return $html;
 	}
@@ -321,11 +344,16 @@ class toba_ef_editable_clave extends toba_ef_editable
 		return "new ef_editable_clave({$this->parametros_js()})";
 	}
 }
+
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento editable que permite ingresar fechas
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_fecha extends toba_ef_editable
-//Campo que maneja fechas
 {
     static function get_lista_parametros()
     {
@@ -420,6 +448,11 @@ class toba_ef_editable_fecha extends toba_ef_editable
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento editable que permite ingresar textos largos, equivalene a un tag <textarea>
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_editable_textarea extends toba_ef_editable
 {
 	protected $lineas;

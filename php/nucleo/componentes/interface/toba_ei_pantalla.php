@@ -3,8 +3,8 @@ require_once('toba_ei.php');
 require_once('nucleo/lib/toba_tab.php');
 
 /**
-* @package Objetos
-* @subpackage Ei
+* @package Componentes
+* @subpackage Eis
 */
 class toba_ei_pantalla extends toba_ei
 {

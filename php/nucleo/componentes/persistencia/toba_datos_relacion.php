@@ -5,7 +5,7 @@ require_once("nucleo/componentes/interface/toba_ei_esquema.php");
 require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 /**
- * 	@package Objetos
+ * 	@package Componentes
  *  @subpackage Persistencia
  *  @todo En el dump_esquema incluir la posición actual de los cursores
  */

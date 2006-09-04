@@ -3,7 +3,7 @@ require_once("toba_ap.php");
 
 /**
  * 	Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
- * 	@package Objetos
+ * 	@package Componentes
  *  @subpackage Persistencia
  */
 class toba_ap_relacion_db implements toba_ap_relacion

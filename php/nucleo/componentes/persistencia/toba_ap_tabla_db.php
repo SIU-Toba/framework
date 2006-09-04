@@ -15,7 +15,7 @@ if (!defined("apex_db_registros_separador")) {
  * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
  * @todo Hay que definir el manejo de claves (en base a toba_datos_relacion)	
  * @todo Esta clase no deberia utilizar ADOdb!!!
- * @package Objetos
+ * @package Componentes
  * @subpackage Persistencia
  */
  

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Elemento que permite la selección de varios valores. Clase base abstracta
+ * @package Componentes
+ * @subpackage Efs
+ */
 abstract class toba_ef_multi_seleccion extends toba_ef
 {
 	protected $opciones = array();
@@ -270,6 +275,11 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Permite la selección de varios valores a partir de una lista. Equivale al tag <select multiple> en HTML
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 {
     static function get_lista_parametros()
@@ -312,6 +322,11 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Permite la selección de varios valores a partir de un conjunto de checkboxes
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 {
 	
@@ -368,7 +383,11 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 //########################################################################################################
 //########################################################################################################
 
-
+/**
+ * Permite la selección de varios valores a partir de una lista doble, pasando los elementos de un lado hacia el otro
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 {
     static function get_lista_parametros()

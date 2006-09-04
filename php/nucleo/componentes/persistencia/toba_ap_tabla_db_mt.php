@@ -2,7 +2,7 @@
 require_once("toba_ap_tabla_db.php");
 
 /**
- * 	@package Objetos
+ * 	@package Componentes
  *  @subpackage Persistencia
  */
 class toba_ap_tabla_db_mt extends toba_ap_tabla_db

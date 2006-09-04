@@ -1,18 +1,23 @@
 <?php
 
 define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
-define("apex_ef_valor_oculto", "#oculto#"); // Valor que debe ser considerado como SOLO DISPONIBLE EN SERVER
 define("apex_ef_cascada","%");	//Mascara para reemplazar el valor de una dependencia en un SQL
 
 require_once("toba_ef_combo.php");
 require_once("toba_ef_editable.php");
+require_once("toba_ef_multi_seleccion.php");
 require_once("toba_ef_oculto.php");
 require_once("toba_ef_popup.php");
-require_once("toba_ef_varios.php");
-require_once("toba_ef_multi_seleccion.php");
 require_once("toba_ef_sin_estado.php");
 require_once("toba_ef_upload.php");
+require_once("toba_ef_varios.php");
 
+/**
+ * Clase base de los elementos de formulario. 
+ * Estos son controles o widgets que forman parte de un formulario
+ * @package Componentes
+ * @subpackage Efs
+ */
 abstract class toba_ef
 {
 	protected $padre;		    	// PADRE del ELEMENTO (ID del objeto en el que este esta incluido)
@@ -102,9 +107,12 @@ abstract class toba_ef
 		} else {
 			$this->estado_nulo = null;	
 		}
-		
 	}
 
+	//-----------------------------------------------------
+	//---------- Propiedades ESTATICAS del ef -------------
+	//-----------------------------------------------------	
+	
 	static function get_lista_parametros()
 	{
 		return array();
@@ -129,6 +137,78 @@ abstract class toba_ef
 			'carga_maestros',
 			'carga_cascada_relaj'
 		);	
+	}	
+	
+	/**
+	 * El ef permite seleccionar valores o solo se pueden editar?
+	 */
+	function es_seleccionable()
+	{
+		return false;
+	}
+
+	/**
+	 * El ef maneja un único valor como estado? O maneja un arreglo de estados?
+	 */
+	function es_estado_unico() 
+	{
+		return true;	
+	}
+	
+	function carga_depende_de_estado()
+	{
+		return false;	
+	}	
+
+	function tiene_etiqueta()
+	{
+		return true;	
+	}
+		
+	//-----------------------------------------------------
+	//------ Propiedades relacionadas con la carga --------
+	//-----------------------------------------------------		
+	
+	function get_maestros()
+	{
+		return $this->maestros;
+	}	
+	
+	/**
+	 * Retorna la/s columna/s clave/s del ef. 
+	 * Esto está disponible cuando se brinda un mecanismo de carga asociado al ef.
+	 * @return array
+	 */
+	function get_campos_clave()
+	{
+		return $this->campos_clave;
+	}
+	
+	/**
+	 * Retorna la columna 'valor' del ef
+	 * Esto está disponible cuando se brinda un mecanismo de carga asociado al ef.
+	 * @return mixed Nombre del campo definido como valor o descripción
+	 */	
+	function get_campo_valor()
+	{
+		return $this->campo_valor;	
+	}
+	
+	/**
+	 * Retorna true si tanto los campos clave como valor son posicionales
+	 * @return boolean
+	 */
+	function son_campos_posicionales()
+	{
+		if (! is_numeric($this->campo_valor)) {
+			return false;	
+		}
+		foreach ($this->campos_clave as $campo) {
+			if (! is_numeric($campo)) {
+				return false;	
+			}
+		}
+		return true;
 	}	
 	
 	//-----------------------------------------------------
@@ -170,6 +250,9 @@ abstract class toba_ef
 		return trim($this->descripcion);	
 	}
 	
+	/**
+	 * El 'dato' del ef es la o las columnas de datos asociadas.
+	 */
 	function get_dato()
 	{
 		return $this->dato;
@@ -184,7 +267,10 @@ abstract class toba_ef
 	{
 		return $this->id_form;
 	}	
-	
+
+	/**
+	 * Retorna el valor actual del ef
+	 */
 	function get_estado()
 	{
 		if ($this->tiene_estado()) {
@@ -199,6 +285,9 @@ abstract class toba_ef
 		return $this->get_estado();
 	}
 
+	/**
+	 * Retorna true si el ef tiene un valor o estado distinto al nulo
+	 */
 	function tiene_estado()
 	{
 		return isset($this->estado) && ($this->estado !== apex_ef_no_seteado);
@@ -212,11 +301,18 @@ abstract class toba_ef
 		return $this->tiene_estado();
 	}
 
+	/**
+	 * Retorna el valor del ef a su estado inicial
+	 */
 	function resetear_estado()
 	{
 		$this->set_estado($this->estado_defecto);
 	}
 
+	/**
+	 * Chequea la valides del estado actual del ef
+	 * @return mixed Retorna true cuando es valido y un string con el mensaje cuando es inválido
+	 */
     function validar_estado()
     {
     	$obligatorio = false;
@@ -233,54 +329,6 @@ abstract class toba_ef
         return true;
     }
 	
-	function get_maestros()
-	{
-		return $this->maestros;
-	}	
-	
-	function es_seleccionable()
-	{
-		return false;
-	}
-	
-	function es_estado_unico() 
-	{
-		return true;	
-	}
-	
-	function carga_depende_de_estado()
-	{
-		return false;	
-	}
-
-	function tiene_etiqueta()
-	{
-		return true;	
-	}
-	
-	function get_campos_clave()
-	{
-		return $this->campos_clave;
-	}
-	
-	function get_campo_valor()
-	{
-		return $this->campo_valor;	
-	}
-	
-	function son_campos_posicionales()
-	{
-		if (! is_numeric($this->campo_valor)) {
-			return false;	
-		}
-		foreach ($this->campos_clave as $campo) {
-			if (! is_numeric($campo)) {
-				return false;	
-			}
-		}
-		return true;
-	}
-
 	//-----------------------------------------------------
 	//-------------- CAMBIO DE PROPIEDADES -----------------
 	//-----------------------------------------------------
@@ -347,19 +395,23 @@ abstract class toba_ef
 	//-------------------- JAVASCRIPT ---------------------
 	//-----------------------------------------------------
 	
+	/**
+	 * Retorna la sentencia de creación del objeto javascript que representa al EF
+	 */
 	function crear_objeto_js()
-	//Retorna la sentencia de creación del objeto javascript que representa al EF
 	{
 		return "new ef({$this->parametros_js()})";
 	}
-	
+
+	/**
+	 * Retorna el nombre de la instancia del objeto en javascript
+	 * Ej: alert({$ef->objeto_js()}.valor())
+	 */
 	function objeto_js()
-	//Retorna el nombre de la instancia del objeto en javascript
-	//Ej: alert({$ef->objeto_js()}.valor())
 	{
 		return $this->padre->get_objeto_js_ef($this->id);
 	}
-	
+
 	protected function parametros_js()
 	{
 		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
@@ -378,12 +430,19 @@ abstract class toba_ef
 	{
 		return array("efs/ef");
 	}	
-	
+
+	/**
+	 * Determina el codigo personalizado a ejecutar cuando el ef cambia de valor en el cliente.
+	 * Por ejemplo en el onchange de los input html
+	 */
 	function set_cuando_cambia_valor($js)
 	{
 		$this->cuando_cambia_valor = $js;
 	}		
-	
+
+	/**
+	 * Retorna el js utilizado cuando el ef cambia de valor en el cliente
+	 */
 	protected function get_cuando_cambia_valor()
 	{
 		//--- Se llama a $this->objeto_js para que los ML se posicionen en la fila correcta

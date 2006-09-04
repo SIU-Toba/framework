@@ -2,8 +2,8 @@
 require_once("componente_ei.php");
 /**
  * Controla un flujo de pantallas
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 class componente_ci extends componente_ei
 {

@@ -4,8 +4,8 @@ require_once("toba_ei_formulario.php");	//Ancestro de todos los	OE
 /**
  * Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
  * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 class toba_ei_formulario_ml extends toba_ei_formulario
 {
@@ -638,6 +638,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				echo "</td>\n";
 			}
  			//---> Creo los EVENTOS de la FILA <---
+ 			
 			foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 				echo "<td class='$estilo_fila'>\n";
 				//1: Posiciono al evento en la fila
@@ -652,7 +653,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				//3: Genero el boton
 				if( $evento->esta_activado() ) {
-					$evento->get_html($this->submit, $this->objeto_js);
+					echo $evento->get_html($this->submit, $this->objeto_js);
 				} else {
 					$evento->activar();	//Lo activo para la proxima fila
 				}

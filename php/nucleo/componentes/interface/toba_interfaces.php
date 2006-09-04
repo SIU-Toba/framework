@@ -1,7 +1,7 @@
 <?
 /**
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 interface ei
 {

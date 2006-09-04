@@ -4,7 +4,7 @@ define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
 
 /**
  * Padre de todas las clases que definen componentes
- * @package Objetos
+ * @package Componentes
  */
 class toba_componente
 {

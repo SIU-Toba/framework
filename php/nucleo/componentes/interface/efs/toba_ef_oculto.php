@@ -77,59 +77,6 @@ class toba_ef_oculto extends toba_ef
 //########################################################################################################
 //########################################################################################################
 
-class toba_ef_oculto_proyecto extends toba_ef_oculto
-//Este elemento de formulario tienen propositos de seguridad:
-//HAce que no se pueda editar un elemento de un proyecto cuando uno se encuentra logueado en otro
-{
-
-	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
-	{
-        $parametros["estado"]=toba::hilo()->obtener_proyecto();
-		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-	}
-    
-	function set_estado($estado="")
-	//Desabilito la carga via POST
-	{
-        if($estado!=""){
-    		$this->estado = $estado;
-        }else{
-            $this->estado = toba::hilo()->obtener_proyecto();
-        }
-		return true;
-	}
-
-	function resetear_estado()
-	//Resetea el estado INTERNO
-	{
-		$this->estado = toba::hilo()->obtener_proyecto();
-	}	
-	
-    function validar_estado()
-    //Controla que el proyecto ACTUAL sea el mismo que el proyecto SETEADO
-    {
-        $proyecto_actual = toba::hilo()->obtener_proyecto();
-        if ($this->estado != $proyecto_actual ){
-			return "No se puede cargar un ELEMENTO fuera de su PROYECTO\n(A: $proyecto_actual S:{$this->estado})";
-        }
-        return true;
-    }
-}
-//########################################################################################################
-//########################################################################################################
-
-class toba_ef_oculto_secuencia extends toba_ef_oculto
-//Este elemento maneja un campo ques una secuencia
-{
-
-	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
-	{
-		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-	}
-}
-//########################################################################################################
-//########################################################################################################
-
 class toba_ef_oculto_usuario extends toba_ef_oculto
 //Este elemento maneja un campo ques una secuencia
 {

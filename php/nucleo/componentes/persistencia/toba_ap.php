@@ -2,7 +2,7 @@
 
 /**
  * 	Interface: Administradorr de persistencia de una estructura de datos tipo tabla, un contenedor de filas de datos
- * 	@package Objetos
+ * 	@package Componentes
  *  @subpackage Persistencia
  */
 interface toba_ap_tabla
@@ -52,7 +52,7 @@ interface toba_ap_tabla
 
 /**
  * 	Interface: Administrador de persistencia de un conjunto relacionado de tablas
- * 	@package Objetos
+ * 	@package Componentes
  *  @subpackage Persistencia
  */
 interface toba_ap_relacion

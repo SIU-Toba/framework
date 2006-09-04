@@ -40,13 +40,18 @@ class comando_doc extends comando_toba
 	 */
 	function opcion__api()
 	{
+		//--- Se incluye a phpdocumentor en el path
+		$dir = toba_dir()."/php/3ros";
+		$separador = (substr(PHP_OS, 0, 3) == 'WIN') ? ";.;" : ":.:";
+		ini_set("include_path", ini_get("include_path"). $separador . $dir);
+		
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "Toba API";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/runtime';
-		$_phpDocumentor_setting['target'] = toba_dir().'/www/doc/api';
-		$_phpDocumentor_setting['output'] = "HTML:Smarty:HandS";
-		$_phpDocumentor_setting['ignore'] = '__*.php,eventos.php,objeto_ci_abm.php,objeto_cuadro*.php,objeto_esquema*.php,objeto_filtro.php,objeto_grafico.php,objeto_hoja*.php,objeto_mt*.php,objeto_ut*.php,objeto_plan.php,objeto_lista.php,objeto_mapa.php,objeto_ei_multicheq.php,objeto_html.php';
-		require_once("3ros/phpdocumentor/phpDocumentor/phpdoc.inc");
+		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes';
+		$_phpDocumentor_setting['target'] = toba_dir().'/proyectos/toba_editor/www/doc/api';
+//		$_phpDocumentor_setting['output'] = "HTML:Smarty:HandS";
+		$_phpDocumentor_setting['ignore'] = 'componente*.php';
+		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
 	}
 
 

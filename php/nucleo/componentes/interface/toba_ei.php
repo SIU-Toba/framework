@@ -15,8 +15,8 @@ define('apex_ei_evt_no_maneja_datos', -1);
 
 /**
  * Clase base de los elementos de interface (ei)
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 abstract class toba_ei extends toba_componente
 {

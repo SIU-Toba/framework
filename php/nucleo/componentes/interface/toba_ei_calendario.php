@@ -1,15 +1,15 @@
 <?php
 /**
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 require_once("toba_ei.php");
 require_once('3ros/activecalendar/activecalendar.php');
 
 /**
  * Calendario para visualizar contenidos diarios y seleccionar días o semanas.
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 class toba_ei_calendario extends toba_ei
 {

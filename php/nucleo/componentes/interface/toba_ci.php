@@ -5,9 +5,9 @@ require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 require_once('nucleo/lib/toba_parser_ayuda.php');
 
 /**
- * Controla un flujo de pantallas
- * @package Objetos
- * @subpackage Ei
+ * Componente que Controla un flujo de pantallas
+ * @package Componentes
+ * @subpackage Eis
  */
 class toba_ci extends toba_ei
 {
@@ -226,7 +226,7 @@ class toba_ci extends toba_ei
 	protected function controlar_eventos_propios()
 	{
 		$this->evento_actual = "";
-		if(isset($_POST[$this->submit])){
+		if (isset($_POST[$this->submit]) && $_POST[$this->submit] != '') {
 			$evento = $_POST[$this->submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
 			if (isset( $this->memoria['eventos'][$evento] )) {

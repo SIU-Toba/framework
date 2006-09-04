@@ -3,8 +3,8 @@ require_once("toba_ei.php");
 
 /**
 * Consume una estructura arbolea que implementa la interfaz recorrible_como_arbol
-* @package Objetos
-* @subpackage Ei
+* @package Componentes
+* @subpackage Eis
 */
 class toba_ei_arbol extends toba_ei
 {

@@ -1,4 +1,4 @@
-<?
+<?php
 define("apex_cuadro_compatible",1);
 require_once("toba_ei.php");
 require_once("nucleo/lib/interface/toba_form.php");
@@ -8,7 +8,7 @@ define("apex_cuadro_cc_anidado","a");
 
 /**
  * Un ei_cuadro es una grilla de registros pensados para visualización. 
- * @package Objetos
+ * @package Componentes
  * @subpackage  Ei
  */
 class toba_ei_cuadro extends toba_ei
@@ -237,13 +237,13 @@ class toba_ei_cuadro extends toba_ei
 				$this->generar_paginado();
 			}
 			// - 4 - Cortes de control
-			if( $this->existen_cortes_control() ){
+			if ( $this->existen_cortes_control() ){
 				$this->planificar_cortes_control();
-			}else{
+			} else {
 				$this->calcular_totales_generales();
 			}
 		}
-   }
+	}
 
     
 //################################################################################
@@ -481,7 +481,12 @@ class toba_ei_cuadro extends toba_ei
 	{
 		return $this->pagina_actual;
 	}
-
+	
+	function set_pagina_actual($pag)
+	{
+		$this->pagina_actual = $pag;	
+	}
+	
 	function cargar_cambio_pagina()
 	{	
 		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 

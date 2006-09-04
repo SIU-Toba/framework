@@ -6,8 +6,8 @@ require_once("nucleo/componentes/interface/efs/toba_ef.php");
  * Un formulario simple presenta una grilla de campos editables. 
  * A cada uno de estos campos se los denomina Elementos de Formulario (efs).
  * @todo Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.
- * @package Objetos
- * @subpackage Ei
+ * @package Componentes
+ * @subpackage Eis
  */
 class toba_ei_formulario extends toba_ei
 {

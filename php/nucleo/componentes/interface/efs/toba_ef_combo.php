@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Clase base de los elementos de formulario que permiten seleccionar un único elemento
+ * @package Componentes
+ * @subpackage Efs
+ */
 abstract class toba_ef_seleccion extends toba_ef
 {
 	protected $opciones;
@@ -45,6 +50,10 @@ abstract class toba_ef_seleccion extends toba_ef
 		return true;
 	}
 	
+	/**
+	 * Cambia el conjunto de opciones disponibles para que el usuario seleecione
+	 * @param array $datos Arreglo asociativo clave => valor. Si es null se asume que el ef esta temporalmente deshabilitado
+	 */
 	function set_opciones($datos)
 	{
 		$this->opciones_cargadas = true;
@@ -58,7 +67,10 @@ abstract class toba_ef_seleccion extends toba_ef
 	{
 		return $this->estado;
 	}	
-	
+
+	/**
+	 * Retorna la descripción asociada a la opción actualmente seleccionada
+	 */
 	function get_descripcion_estado()
 	{
 		if ( isset( $this->estado ) && isset( $this->opciones[ $this->estado ] ) ) {
@@ -100,7 +112,7 @@ abstract class toba_ef_seleccion extends toba_ef
 			return $this->estado;				
 		}
 	}
-	
+
 	function set_estado($estado)
 	{
 		if (isset($estado) && is_array($this->dato)) {
@@ -167,6 +179,11 @@ abstract class toba_ef_seleccion extends toba_ef
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Combo equivalente a un <select> en HTML 
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_combo extends toba_ef_seleccion
 {
 
@@ -198,6 +215,15 @@ class toba_ef_combo extends toba_ef_seleccion
 	}
 }
 
+//########################################################################################################
+//########################################################################################################
+
+
+/**
+ * Radio buttons equivalentes a <input type='radio'>
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_radio extends toba_ef_seleccion 
 {
 	function get_input()

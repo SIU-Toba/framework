@@ -11,7 +11,7 @@ require_once("toba_tipo_datos.php");
  * Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la 
  * transacción de negocios.
  *
- * @package Objetos
+ * @package Componentes
  * @subpackage Persistencia
  * @todo Control de FK y PK
  */

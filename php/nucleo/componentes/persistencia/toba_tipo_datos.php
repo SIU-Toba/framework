@@ -11,7 +11,7 @@
 	L    Logico                         
 	X    Caracter largo    
 	B    Binario                        
- * @package Objetos
+ * @package Componentes
  * @subpackage Persistencia
  */
 class toba_tipo_datos
