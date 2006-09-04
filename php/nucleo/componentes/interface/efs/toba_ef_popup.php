@@ -1,5 +1,10 @@
-<?
+<?php
 
+/**
+ * Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_popup extends toba_ef_editable
 {
     protected $descripcion_estado = '';

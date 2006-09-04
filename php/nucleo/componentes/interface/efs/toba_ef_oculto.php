@@ -1,17 +1,10 @@
 <?php
-/*
-*			ef <abstracta>
-* 			|
-* 			+----> toba_ef_oculto
-*       			|
-*		        	+----> toba_ef_oculto_proyecto (Maneja el dato del registro que representa el proyecto)
-*       			|
-*		        	+----> toba_ef_oculto_secuencia
-*       			|
-*		        	+----> toba_ef_oculto_usuario (Usuario que realizo la SOLICITUD)
-*/
 
-
+/**
+ * Elemento no-editable, que no viaja al cliente y mantiene su estado en el servidor
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_oculto extends toba_ef
 {
 //Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
@@ -77,6 +70,12 @@ class toba_ef_oculto extends toba_ef
 //########################################################################################################
 //########################################################################################################
 
+/**
+ * Elemento no-editable, que no viaja al cliente y mantiene su estado en el servidor. 
+ * Su estado por defecto es el id del usuario actualmente logueado
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_oculto_usuario extends toba_ef_oculto
 //Este elemento maneja un campo ques una secuencia
 {
@@ -103,4 +102,5 @@ class toba_ef_oculto_usuario extends toba_ef_oculto
 }
 //########################################################################################################
 //########################################################################################################
+
 ?>

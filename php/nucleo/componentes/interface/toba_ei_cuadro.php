@@ -9,7 +9,7 @@ define("apex_cuadro_cc_anidado","a");
 /**
  * Un ei_cuadro es una grilla de registros pensados para visualización. 
  * @package Componentes
- * @subpackage  Ei
+ * @subpackage Eis
  */
 class toba_ei_cuadro extends toba_ei
 {

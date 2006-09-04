@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Ef que selecciona un archivo de su sistema para que esté disponible en el servidor
+ * Equivale a un <INPUT type='file'>
+ * @package Componentes
+ * @subpackage Efs
+ */
 class toba_ef_upload extends toba_ef
 {
 	protected $archivo_cargado = false;		//Se cargo un archivo en la etapa anterior?

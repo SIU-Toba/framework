@@ -1,5 +1,10 @@
-<?
+<?php
 
+/**
+ * Clase base de los efs que no mantienen estado
+ * @package Componentes
+ * @subpackage Efs
+ */
 abstract class toba_ef_sin_estado extends toba_ef
 {
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -58,7 +63,12 @@ abstract class toba_ef_sin_estado extends toba_ef
 #####################################################################################
 #####################################################################################
 
-class ef_barra_divisora extends toba_ef_sin_estado
+/**
+ * Incluye una barra separadora con la etiqueta como texto, utiliza la clase css ef-barra-divisora
+ * @package Componentes
+ * @subpackage Efs
+ */
+class toba_ef_barra_divisora extends toba_ef_sin_estado
 {
 	function get_input()
 	{
@@ -69,7 +79,12 @@ class ef_barra_divisora extends toba_ef_sin_estado
 #####################################################################################
 #####################################################################################
 
-class ef_fieldset extends toba_ef_sin_estado
+/**
+ * Incluye un fieldset que permite juntar varios efs con una etiqueta común
+ * @package Componentes
+ * @subpackage Efs
+ */
+class toba_ef_fieldset extends toba_ef_sin_estado
 {
 	protected $fin;
 	

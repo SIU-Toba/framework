@@ -1,22 +1,11 @@
 <?
 require_once("toba_ef_oculto.php");
 
-
 /**
- * ef <abstracta>
- * 			|
- * 			+----> ef_checkbox
- * 			|
- * 			+----> ef_fijo
- * 			|
- * 			+----> ef_elemento_ini (FALTA botones: limpiar, inicializar, parametros mejor)
- * 			|
- * 			+----> toba_ef_combo_editable
- * 
- * #########################################################################################################
- * #######################################################################################################
+ * Muestra un checkbox con el tag <input type='checkbox'>
+ * @package Componentes
+ * @subpackage Efs
  */
-
 class toba_ef_checkbox extends toba_ef
 {
     protected $valor;

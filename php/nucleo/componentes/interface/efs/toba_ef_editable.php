@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Elemento editable equivalente a un <input type='text'>
  * @package Componentes
