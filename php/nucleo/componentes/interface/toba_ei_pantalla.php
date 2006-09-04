@@ -365,13 +365,13 @@ class toba_ei_pantalla extends toba_ei
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
 				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
-				echo $tab->get_html($this->submit, $this->objeto_js, false, $estilo);
+				echo $tab->get_html('H', $this->submit, $this->objeto_js, true, $estilo_a);
 				echo "</li>";
 			} else {
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
 				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor";
-				echo $tab->get_html($this->submit, $this->objeto_js, true, $estilo);
+				echo $tab->get_html('H', $this->submit, $this->objeto_js, true, $estilo_a);
 				echo "</li>";
 			}
 		}
@@ -388,11 +388,11 @@ class toba_ei_pantalla extends toba_ei
 			}
 			if ( $this->id_en_controlador == $id ) {
 				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor ";
-				echo $tab->get_html($this->submit, $this->objeto_js, false);
-				echo "</div>";
+				echo $tab->get_html('V', $this->submit, $this->objeto_js, false);
+				echo "</div></div>";
 			} else {
 				echo "<div class='ci-tabs-v-solapa'>$editor ";
-				echo $tab->get_html($this->submit, $this->objeto_js);
+				echo $tab->get_html('V', $this->submit, $this->objeto_js);
 				echo "</div>";
 			}
 		}
