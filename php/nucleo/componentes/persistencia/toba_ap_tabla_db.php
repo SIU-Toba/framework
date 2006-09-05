@@ -81,7 +81,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
 	}
 
-	public function info()
+	function info()
 	{
 		return get_object_vars($this);
 	}
@@ -90,12 +90,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//------  Configuracion  --------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function activar_transaccion()		
+	function activar_transaccion()		
 	{
 		$this->utilizar_transaccion = true;
 	}
 
-	public function desactivar_transaccion()		
+	function desactivar_transaccion()		
 	{
 		$this->utilizar_transaccion = false;
 	}
@@ -110,7 +110,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta la sql para actualizar los valores de las columnas
 	 */
-	public function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
+	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
 		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
@@ -132,7 +132,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $col_resultado Columnas del recorset resultante que se tomarán para rellenar la tabla
 	 * @param boolean $sincro_continua En cada pedido de página ejecuta el DAO para actualizar los valores de las columnas
 	 */
-	public function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true)
+	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
 		$proximo = count($this->proceso_carga_externa);
 		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
@@ -151,7 +151,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param string $columna Columna que determina la baja lógica
 	 * @param mixed $valor Valor que toma la columna al dar de baja un registro
 	 */
-	public function activar_baja_logica($columna, $valor)
+	function activar_baja_logica($columna, $valor)
 	{
 		$this->baja_logica = true;
 		$this->baja_logica_columna = $columna;
@@ -161,17 +161,17 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Permite que las modificaciones puedan cambiar las claves del registro
 	 */
-	public function activar_modificacion_clave()
+	function activar_modificacion_clave()
 	{
 		$this->flag_modificacion_clave = true;
 	}
 
-	public function activar_control_sincro()
+	function activar_control_sincro()
 	{
 		$this->control_sincro_db = true;
 	}
 
-	public function desactivar_control_sincro()
+	function desactivar_control_sincro()
 	{
 		$this->control_sincro_db = false;
 	}
@@ -184,7 +184,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @see cargar_por_clave
 	 * @deprecated Desde 0.8.4
 	 */
-	public function cargar($clave)
+	function cargar($clave)
 	{
 		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_* o cargar_con');
 		return $this->cargar_por_clave($clave);	
@@ -197,7 +197,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
-	public function cargar_por_clave($clave, $anexar_datos=false)
+	function cargar_por_clave($clave, $anexar_datos=false)
 	{
 		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where($clave);
@@ -226,7 +226,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
+	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
 	{
 		asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
 		asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
@@ -240,7 +240,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	public function cargar_con_sql($sql, $anexar_datos=false)
+	function cargar_con_sql($sql, $anexar_datos=false)
 	{
 		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
@@ -260,7 +260,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
-	public function cargar_con_datos($datos, $anexar_datos=false)
+	function cargar_con_datos($datos, $anexar_datos=false)
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
@@ -304,7 +304,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * la sincronización es guiada por ese objeto
 	 * @return integer Cantidad de registros modificados
 	 */
-	public function sincronizar()
+	function sincronizar()
 	{
 		$this->log("Inicio SINCRONIZAR");
 		try{
@@ -739,7 +739,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 *
 	 * @return array
 	 */
-	public function get_sql_inserts()
+	function get_sql_inserts()
 	{
 		$this->get_estado_datos_tabla();
 		$sql = array();
@@ -763,7 +763,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * 
 	 * @todo Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)* 
 	 */
-	public function completar_campos_externos_fila($fila, $evento=null)
+	function completar_campos_externos_fila($fila, $evento=null)
 	{
 		//Itero planes de carga externa
 		$valores_recuperados = array();

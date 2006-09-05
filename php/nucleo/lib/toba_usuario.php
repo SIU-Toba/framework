@@ -102,6 +102,11 @@ class toba_usuario implements toba_interface_usuario
 			throw new toba_error_usuario("No hay un usuario cargado!");
 		}
 	}
+	
+	function get_perfil_datos()
+	{
+		return $_SESSION['toba']["usuario"]["perfil_datos"];
+	}	
 
 	function get_fecha_vencimiento()
 	{

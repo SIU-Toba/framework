@@ -132,7 +132,7 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
-	public function agregar_observador($observador)
+	function agregar_observador($observador)
 	{
 		$this->observadores[] = $observador;
 	}
@@ -211,7 +211,7 @@ class toba_ei_calendario extends toba_ei
 
 	//-------------------------------------------------------------------------------
 
-	public function get_consumo_javascript()
+	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_calendario';

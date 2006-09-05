@@ -26,7 +26,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 		}
 	}
 	
-	public function tiene_dependencia($dep)
+	function tiene_dependencia($dep)
 	{
 		return in_array($dep, $this->dependencias);
 	}

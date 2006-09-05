@@ -306,7 +306,7 @@ class toba_ei_arbol extends toba_ei
 
 	//-------------------------------------------------------------------------------
 
-	public function get_consumo_javascript()
+	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_arbol';

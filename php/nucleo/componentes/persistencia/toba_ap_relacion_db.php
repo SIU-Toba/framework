@@ -21,7 +21,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		$this->activar_transaccion();
 	}
 
-	public function info()
+	function info()
 	{
 		return get_object_vars($this);
 	}
@@ -30,12 +30,12 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	//------  Configuracion  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	public function activar_transaccion()		
+	function activar_transaccion()		
 	{
 		$this->utilizar_transaccion = true;
 	}
 
-	public function desactivar_transaccion()		
+	function desactivar_transaccion()		
 	{
 		$this->utilizar_transaccion = false;
 	}
@@ -43,7 +43,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	/**
 	 * Intenta retrazar el chequeo de constraints hasta el final de la transacción
 	 */
-	public function retrasar_constraints()
+	function retrasar_constraints()
 	{
 		$this->retrazar_constraints = true;	
 	}
@@ -67,7 +67,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * @param array $clave Asociativo campo=>valor correspondientes a campos de la(s) tabla(s) raiz
 	 * @return boolean Verdadero si al menos se carga una tabla
 	 */
-	public function cargar_por_clave($clave)
+	function cargar_por_clave($clave)
 	{
 		asercion::es_array($clave,"AP toba_datos_relacion -  ERROR: La clave debe ser un array");
 		$this->objeto_relacion->resetear();		
@@ -110,7 +110,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		return $ok;
 	}
 
-	public function esta_cargado()
+	function esta_cargado()
 	{
 		return $this->objeto_relacion->esta_cargado();
 	}
@@ -123,7 +123,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Sincroniza los cambios con la base de datos
 	 * En caso de error se aborta la transacción (si tiene) y se lanza una excepción
 	 */
-	public function sincronizar()
+	function sincronizar()
 	{
 		$fuente = $this->objeto_relacion->get_fuente();
 		try{
@@ -189,7 +189,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * Elimina cada elemento de las tabla de la relación y luego sincroniza con la base
 	 * Todo el proceso se ejecuta dentro de una transacción, si se definio así
 	 */
-	public function eliminar_todo()
+	function eliminar_todo()
 	{
 		$fuente = $this->objeto_relacion->get_fuente();		
 		try {

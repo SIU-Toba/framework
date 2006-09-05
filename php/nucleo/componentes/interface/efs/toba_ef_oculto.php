@@ -83,19 +83,19 @@ class toba_ef_oculto_usuario extends toba_ef_oculto
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
-		$this->estado = toba::hilo()->get_usuario();
+		$this->estado = toba::usuario()->get_id();
 	}
 
 	function resetear_estado()
 	//Devuelve el estado interno
 	{
-		$this->estado = toba::hilo()->get_usuario();
+		$this->estado = toba::usuario()->get_id();
 	}	
 
 	function set_estado($estado=null)
 	//Desabilito la carga via POST y utilizo memoria
 	{
-		$this->estado = toba::hilo()->get_usuario();
+		$this->estado = toba::usuario()->get_id();
 		return true;
 	}
 

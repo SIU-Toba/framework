@@ -4,19 +4,19 @@ class album_fotos
 {
 	protected $tipo;
 	
-	public function __construct($tipo_fotos) 
+	function __construct($tipo_fotos) 
 	{
 		$this->tipo = $tipo_fotos;
 	}
 
-	public function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
+	function agregar_foto($nombre, $nodos_visibles, $opciones, $pred = false)
 	{
 		abrir_transaccion();
 		$this->borrar_foto($nombre);	//Lo borra antes para poder hacer una especie de update
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->get_usuario();
+		$usuario = toba::usuario()->get_id();
 		$es_pred = ($pred) ? "1" : "0";
 		$sql = "INSERT INTO apex_admin_album_fotos
 					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
@@ -25,10 +25,10 @@ class album_fotos
 		cerrar_transaccion();
 	}
 	
-	public function cambiar_predeterminada($nombre)
+	function cambiar_predeterminada($nombre)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->get_usuario();		
+		$usuario = toba::usuario()->get_id();		
 		
 		abrir_transaccion('instancia');
 		//Actualiza las otras fotos
@@ -55,10 +55,10 @@ class album_fotos
 		cerrar_transaccion('instancia');
 	}
 	
-	public function get_predeterminada()
+	function get_predeterminada()
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->get_usuario();
+		$usuario = toba::usuario()->get_id();
 		$sql = "SELECT 
 					foto_nombre
 				FROM apex_admin_album_fotos fotos
@@ -76,10 +76,10 @@ class album_fotos
 		}
 	}
 	
-	public function borrar_foto($nombre)
+	function borrar_foto($nombre)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->get_usuario();
+		$usuario = toba::usuario()->get_id();
 		$sql = "DELETE FROM apex_admin_album_fotos
 				WHERE
 					proyecto = '$proyecto' AND
@@ -90,10 +90,10 @@ class album_fotos
 		toba::db()->ejecutar($sql);
 	}
 	
-	public function fotos($nombre = null)
+	function fotos($nombre = null)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->get_usuario();
+		$usuario = toba::usuario()->get_id();
 		$where_nombre = '';
 		if ($nombre !== null) {
 			$where_nombre = " AND fotos.foto_nombre = '$nombre' ";
@@ -123,7 +123,7 @@ class album_fotos
 		return $fotos;
 	}	
 	
-	public function foto($nombre)
+	function foto($nombre)
 	{
 		$fotos = $this->fotos($nombre);
 		if (count($fotos) == 0)

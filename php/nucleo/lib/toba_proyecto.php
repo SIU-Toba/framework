@@ -121,6 +121,40 @@ class toba_proyecto
 		return $this->get_parametro('listar_multiproyecto');
 	}
 
+	function get_path()
+	{
+		return $_SESSION['toba']["path_proyecto"];
+	}	
+	
+	/**
+	 * Retorna path real y URL de la carpeta navegable del proyecto actual
+	 * @return array Path 'real' (en el sist.arch.) y 'browser' (URL navegable)
+	 */
+	function get_path_www($archivo="")
+	{
+		$path_real = $this->get_path();
+		$path_real = $path_real . "/www/" . $archivo;
+		$path_browser = toba_recurso::path_pro();
+		if ($archivo != "") {
+		 	$path_browser .= "/" . $archivo;
+		}
+		return array(	"real" => $path_real,
+						"browser" => $path_browser);
+	}
+	
+	/**
+	 * Retorna un directorio abierto a la navegación donde almacenar archivos temporales
+	 */
+	function get_path_temp_www()
+	{
+		$path = $this->get_path_www("temp");
+		if (!file_exists($path['real'])) {
+			mkdir($path['real'], 0700);
+		}
+		return $path;
+	}	
+	
+	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
 	function get_definicion_dependencia($objeto, $identificador)
@@ -169,7 +203,7 @@ class toba_proyecto
 		if ($solo_primer_nivel) {
 			$rest = " AND i.padre = '' ";
 		}
-		$grupo = toba::hilo()->get_usuario_grupo_acceso();
+		$grupo = toba::sesion()->get_grupo_acceso();
 		$sql = "SELECT 	i.padre as 		padre,
 						i.carpeta as 	carpeta, 
 						i.proyecto as	proyecto,

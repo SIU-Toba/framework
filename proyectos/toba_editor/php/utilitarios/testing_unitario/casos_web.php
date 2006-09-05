@@ -101,7 +101,7 @@ class pantalla_testing extends toba_ei_pantalla
 							}
 						}
 					    $cc =  PHPUnit2_Util_CodeCoverage_Renderer::factory('HTML',array('tests' => $archivos));
-					    $path_temp = toba::hilo()->get_path_temp_www();
+					    $path_temp = toba::proyecto()->get_path_temp_www();
 					    $salida = $path_temp['real'] ."/cobertura.html";
 					    $cc->renderToFile($salida);
 					    echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";

@@ -64,5 +64,23 @@ class toba_instalacion
 	{
 		return file_get_contents(toba_dir()."/VERSION");
 	}
+	
+	/**
+	 * Retorna el path de la instalación de toba
+	 */
+	function get_path()
+	{
+		return $_SESSION['toba']["path"];
+	}	
+	
+	/**
+	 * Retorna un path donde incluir archivos temporales, el path no es navegable
+	 */
+	function get_path_temp()
+	{
+		return toba_dir()."/temp";	
+	}
+	
+	
 }
 ?>

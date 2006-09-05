@@ -30,9 +30,9 @@ define("apex_hilo_qs_objetos_destino", "toba-dest");
 
 
 /**
- * El hilo contiene la información historica de la aplicación:
+ * El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
  *  - Memoria general de la aplicación (el $_SESSION sin manejo)
- *  - Memoria de las operaciones 
+ *  - Memoria de las operaciones
  *  - Memoria sincronizada entre URLs
  *  - Parametros del link desde donde se vino ($_GET)
  */
@@ -249,134 +249,8 @@ class toba_hilo
 		}
 	}
 
-	/**
-	 * @deprecated Usar 
-	 */
-	function get_proyecto()
-	{
-		return toba::proyecto()->get_id();
-	}
 
-	function get_proyecto_descripcion()
-	{
-		return toba::proyecto()->get_parametro('descripcion');
-	}
-	
-	function get_path()
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve el PATH del toba
-*/
-	{
-		return $_SESSION['toba']["path"];
-	}
-	
-	function get_proyecto_path()
-/*
- 	@@acceso: actividad
-	@@desc: Devuelve el PATH del PROYECTO
-*/
-	{
-			return $_SESSION['toba']["path_proyecto"];
-	}
-	
-	/**
-	 * Retorna path real y URL de la carpeta navegable del proyecto actual
-	 * @return array Path 'real' (en el sist.arch.) y 'browser' (URL navegable)
-	 */
-	function get_proyecto_path_www($archivo="")
-	{
-		$path_real = $this->get_path();
-		$path_real = $path_real . "/www/" . $archivo;
-		$path_browser = toba_recurso::path_pro();
-		if ($archivo != "") {
-		 	$path_browser .= "/" . $archivo;
-		}
-		return array(	"real" => $path_real,
-						"browser" => $path_browser);
-	}
-	
-	/**
-	 * Retorna un path donde incluir archivos temporales, el path no es navegable
-	 */
-	function get_path_temp()
-	{
-		return toba_dir()."/temp";	
-	}
-	
-	/**
-	 * Retorna un directorio abierto a la navegación donde almacenar archivos temporales
-	 */
-	function get_path_temp_www()
-	{
-		$path = $this->get_proyecto_path_www("temp");
-		if (!file_exists($path['real'])) {
-			mkdir($path['real'], 0700);
-		}
-		return $path;
-	}
-	
-	function get_usuario()
-	{
-		return toba::usuario()->get_id();
-	}
-    
-    /**
-    	Devuelve un parametro del usuario.
-    	Los parametros pueden ser (a,b,c)
-    */
-	function get_usuario_parametro($parametro)
-	{
-		$param = $this->get_usuario_parametros();
-		if(($parametro != 'a')&&($parametro != 'b')&&($parametro != 'c')){
-			throw new toba_error("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
-		}
-		return $param[$parametro];
-	}
-	
-	/*
-		Devuelve todos los parametros del usuario
-	*/
-	function get_usuario_parametros()
-	{
-		$param['a'] = $_SESSION['toba']["usuario"]["parametro_a"];
-		$param['b'] = $_SESSION['toba']["usuario"]["parametro_b"];
-		$param['c'] = $_SESSION['toba']["usuario"]["parametro_c"];
-		return $param;
-	}
-
-	function get_usuario_nivel_acceso()
-/*
- 	@@acceso: actividad
-	@@desc: Notifica el nivel de acceso que posee el usuario
-*/
-	{
-		return null;//$_SESSION['toba']["usuario"]["nivel_acceso"];
-	}
-
-	function get_usuario_grupo_acceso()
-/*
- 	@@acceso: actividad
-	@@desc: Notifica el GRUPO de ACCESO del usuario
-*/
-	{
-		return toba::sesion()->get_grupo_acceso();
-	}
-
-	function get_usuario_perfil_datos()
-/*
- 	@@acceso: actividad
-	@@desc: Notifica el GRUPO de ACCESO del usuario
-*/
-	{
-		return $_SESSION['toba']["usuario"]["perfil_datos"];
-	}
-	
 	function usuario_solicita_cronometrar()
-/*
- 	@@acceso: nucleo
-	@@desc: Notifica si se solicito registrar la cronometracion del ITEM que se esta ejecutando
-*/
 	{
 		if(isset($this->parametros[apex_hilo_qs_cronometro])){
 			return true;
@@ -385,24 +259,9 @@ class toba_hilo
 		}
 	}
 
-	function entorno_instanciador()
-/*
- 	@@acceso: nucleo
-	@@desc: Notifica si el ITEM que se esta ejecutando es el INSTANCIADOR de un objeto de la libreria
-*/
-	{
-		$item = toba::hilo()->get_item_solicitado();
-		if(strpos($item[0],"admin/objetos/instanciadores")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//------------ MEMORIA (persistencia en $_SESSION) ---------------
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------	
 
 	/**
@@ -423,19 +282,19 @@ class toba_hilo
 		$this->inicializar_reciclaje_global();
 	}
 
-	public function limpiar_memoria()
+	function limpiar_memoria()
 	{
 		$this->limpiar_memoria_sincronizada();
 		$this->limpiar_memoria_global();
 	}
 
-	public function dump_memoria()
+	function dump_memoria()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		ei_arbol($_SESSION,"MEMORIA Completa");
 	}
 
-	public function dump_celda_memoria()
+	function dump_celda_memoria()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		ei_arbol($_SESSION[$celda],"CELDA de MEMORIA: $celda");
@@ -444,7 +303,7 @@ class toba_hilo
 	/**
 		Indica cual es la celda actual
 	*/
-	public function get_celda_memoria_actual()
+	function get_celda_memoria_actual()
 	//Indica cual es la celda de memoria que se utiliza en este REQUEST
 	{
 		return $this->celda_memoria_actual;
@@ -453,7 +312,7 @@ class toba_hilo
 	/**
 		Indica si se accedio por el menu
 	*/
-	public function verificar_acceso_menu()
+	function verificar_acceso_menu()
 	//Indica si el request se genero desde el menu
 	{
 		return $this->acceso_menu;
@@ -462,7 +321,7 @@ class toba_hilo
 	/**
 		Desactiva el reciclado
 	*/
-	public function desactivar_reciclado()
+	function desactivar_reciclado()
 	{
 		$this->reciclar_memoria = false;
 	}
@@ -474,7 +333,7 @@ class toba_hilo
 	/**
 		Persiste un dato global
 	*/
-	public function persistir_dato_global($indice, $datos, $reciclable=false, $tipo_reciclado=null)
+	function persistir_dato_global($indice, $datos, $reciclable=false, $tipo_reciclado=null)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		$_SESSION[$celda]['global'][$indice]=$datos;
@@ -488,7 +347,7 @@ class toba_hilo
 	/**
 		Recupera un dato global
 	*/
-	public function recuperar_dato_global($indice)
+	function recuperar_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if($this->existe_dato_global($indice))
@@ -504,7 +363,7 @@ class toba_hilo
 	/**
 		Elimina un dato global
 	*/
-	public function eliminar_dato_global($indice)
+	function eliminar_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]['global'][$indice])){
@@ -516,7 +375,7 @@ class toba_hilo
 	/**
 		Chequea si un dato global existe
 	*/
-	public function existe_dato_global($indice)
+	function existe_dato_global($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		return isset($_SESSION[$celda]['global'][$indice]);
@@ -525,7 +384,7 @@ class toba_hilo
 	/**
 		Elimina TODA la informacion global
 	*/
-	public function limpiar_memoria_global()
+	function limpiar_memoria_global()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		unset($_SESSION[$celda]['global']);
@@ -653,7 +512,7 @@ class toba_hilo
 	/**
 		Controla si existe un dato reciclabe
 	*/
-	public function existe_dato_reciclable($indice)
+	function existe_dato_reciclable($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		return (isset($_SESSION[$celda]["reciclables"][$indice]));
@@ -700,13 +559,13 @@ class toba_hilo
 	//********  Persistencia SINCRONIZADA (Exclusiva para el PROXIMO request ********
 	//*******************************************************************************
 		
-	public function persistir_dato_sincronizado($indice, $datos)
+	function persistir_dato_sincronizado($indice, $datos)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
 	}
 
-	public function recuperar_dato_sincronizado($indice)
+	function recuperar_dato_sincronizado($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
@@ -716,7 +575,7 @@ class toba_hilo
 		}
 	}
 
-	public function eliminar_dato_sincronizado($indice)
+	function eliminar_dato_sincronizado($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
@@ -724,7 +583,7 @@ class toba_hilo
 		}
 	}
 
-	public function limpiar_memoria_sincronizada()
+	function limpiar_memoria_sincronizada()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		unset($_SESSION[$celda]["hilo"]);
@@ -748,7 +607,7 @@ class toba_hilo
 	/**
 	 * @deprecated Usar persistir dato sincronizado
 	 */	
-	public function persistir_dato($indice, $datos)
+	function persistir_dato($indice, $datos)
 	{
 		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->persistir_dato_sincronizado($indice, $datos);
@@ -757,7 +616,7 @@ class toba_hilo
 	/**
 	 * @deprecated Usar eliminar dato sincronizado
 	 */	
-	public function eliminar_dato($indice)
+	function eliminar_dato($indice)
 	{
 		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		$this->eliminar_dato_sincronizado($indice);
@@ -766,16 +625,14 @@ class toba_hilo
 	/**
 	 * @deprecated Usar recuperar dato sincronizado
 	 */
-	public function recuperar_dato($indice)
+	function recuperar_dato($indice)
 	{
 		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
 		return $this->recuperar_dato_sincronizado($indice);
 	}
 
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//---------------- MANEJO de ARCHIVOS de SESION ------------------
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------	
 /*
 	Estas funciones pertinen manejar el ciclo de vida de archivos
@@ -789,11 +646,9 @@ class toba_hilo
 		}
 	}
 	
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//-------------------- EVENTOS de SESION TOBA --------------------
 	//----------------------------------------------------------------
-	//----------------------------------------------------------------	
 /*
 * Las funciones que siguen generan dos links ESPECIALES que se atrapan antes que cualquier 
 * proxima ACTIVIDAD (Antes de que exista la proxima solicitud). 

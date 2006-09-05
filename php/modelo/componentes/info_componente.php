@@ -429,14 +429,14 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $cuerpo;
 	}
 
-	public function generar_metodos()
+	function generar_metodos()
 	{
 		return array();
 	}
 	
 	//----  FILTRO de COMENTARIOS  --------------
 
-	public function set_nivel_comentarios($nivel)
+	function set_nivel_comentarios($nivel)
 	{
 		$this->nivel_comentarios = $nivel;	
 		foreach ($this->subelementos as $elemento) {

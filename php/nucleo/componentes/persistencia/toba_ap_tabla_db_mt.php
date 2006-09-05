@@ -17,7 +17,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	private $campos_sql_update;				// Campos utilizados para generar SQL UPDATE
 	private $join;							// SQL de joins entre las tablas
 
-	public function validar_definicion()
+	function validar_definicion()
 	{
 		/*
 			- Tienen que haber por lo menos 2 tablas
@@ -119,7 +119,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
 
-	public function info_definicion()
+	function info_definicion()
 	//Informacion del buffer
 	{
 		$estado = parent::info_definicion();
@@ -132,12 +132,12 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		return $estado;
 	}
 
-	public function get_clave()
+	function get_clave()
 	{
 		return $this->clave;
 	}
 
-	public function get_clave_valor($id_registro)
+	function get_clave_valor($id_registro)
 	{
 		return $this->get_clave_valor_tabla($id_registro, $this->tabla_maestra);
 	}
@@ -155,12 +155,12 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//-- Especificacion de SERVICIOS
 	//-------------------------------------------------------------------------------
 
-	public function activar_inner_join()
+	function activar_inner_join()
 	{
 		$this->tipo_join = "inner";
 	}
 	
-	public function activar_outer_join()
+	function activar_outer_join()
 	{
 		$this->tipo_join = "outer";
 	}

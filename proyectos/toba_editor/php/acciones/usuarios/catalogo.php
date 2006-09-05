@@ -40,7 +40,6 @@ FROM        apex_usuario_proyecto up
                 ON  ga.proyecto = up.proyecto
                 AND     ga.usuario_grupo_acc = up.usuario_grupo_acc
 WHERE       ga.proyecto = '".toba_editor::get_proyecto_cargado()."'
---AND         ga.nivel_acceso >= ".toba::hilo()->get_usuario_nivel_acceso()."
 ORDER BY    3,6;";
 
     }else{
@@ -204,7 +203,7 @@ ORDER BY    3,6;";
             </a>
       </td>
 <?
-    if( $registro["usuario"] == toba::hilo()->get_usuario() ){
+    if( $registro["usuario"] == toba::usuario()->get_id() ){
 ?>
           <td width="30%" class='lista-obj-dato4'>&nbsp;<b><? echo $registro["usuario"] ?></b></td>
           <td width="70%" class='lista-obj-dato4'>&nbsp;<b><? echo $registro["usuario_nombre"] ?></b></td>

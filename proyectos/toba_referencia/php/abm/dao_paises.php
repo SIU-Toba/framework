@@ -2,7 +2,7 @@
 
 class dao_paises {
 
- public function get_paises($datos = null) {
+ function get_paises($datos = null) {
 	
 	$conn = toba::db("referencia");
 	

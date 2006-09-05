@@ -649,5 +649,22 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->procesar_archivos($archivos);		
 	}
 	
+	/**
+	 * Algunos metodos del hilo se derivan al toba_proyecto, toba_usuario, etc.
+	 */
+	function proyecto__cambio_api_hilo()
+	{
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path_www/', 		'toba::proyecto()->get_path_www');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path/', 			'toba::proyecto()->get_path');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp_www/', 			'toba::proyecto()->get_path_temp_www');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp/', 				'toba::instalacion()->get_path_temp');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path/', 						'toba::instalacion()->get_path');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto/', 					'toba::proyecto()->get_id');		
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_usuario/', 					'toba::usuario()->get_id');				
+		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);		
+	}	
+	
 }
 ?>

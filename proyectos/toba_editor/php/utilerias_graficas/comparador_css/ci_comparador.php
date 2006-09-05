@@ -18,7 +18,7 @@ class ci_comparador extends toba_ci
 	function get_contenido($estilo)
 	{
 		if (!isset($this->contenidos[$estilo])) {
-			$candidato = toba::hilo()->get_path()."/www/css/$estilo.css";
+			$candidato = toba::instalacion()->get_path()."/www/css/$estilo.css";
 			if (file_exists($candidato)) {
 				$archivo = $candidato;
 			} else {

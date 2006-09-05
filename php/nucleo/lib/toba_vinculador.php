@@ -246,7 +246,7 @@ class toba_vinculador
 
 	protected function cargar_vinculos_posibles()
 	{
-		$usuario = toba::hilo()->get_usuario();
+		$usuario = toba::usuario()->get_id();
 		$rs = toba::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;

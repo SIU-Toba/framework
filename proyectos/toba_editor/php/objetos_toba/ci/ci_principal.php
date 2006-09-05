@@ -418,7 +418,7 @@ class ci_editor extends ci_editores_toba
 		$clase_archivo = dao_editores::get_archivo_de_clase($registro['clase_proyecto'], $clase );
 		$proyecto = $this->id_objeto['proyecto'];
 
-	    $path = toba::hilo()->get_proyecto_path() . "/php/" . $subclase_archivo;
+	    $path = toba::proyecto()->get_path() . "/php/" . $subclase_archivo;
 		//Manejo de archivos            
 		$archivo_php = new archivo_php($path);
 		//Manejo de clases

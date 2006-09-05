@@ -638,30 +638,30 @@ class toba_ei_cuadro extends toba_ei
 //###############################    API basica    ###############################
 //################################################################################
 
-	public function set_titulo_columna($id_columna, $titulo)
+	function set_titulo_columna($id_columna, $titulo)
 	{
 		$this->columnas[$id_columna]["titulo"] = $titulo;
 	}    
 
-    public function get_datos()
+    function get_datos()
     {
         return $this->datos;    
     }	
 
-	public function set_titulo()
+	function set_titulo()
 	{
 	}
 	
-	public function ocultar_cabecera()
+	function ocultar_cabecera()
 	{
 	}
 	
-	public function get_estructura_datos()
+	function get_estructura_datos()
 	{
 		return $this->estructura_datos;		
 	}
 	
-	public function get_columnas()
+	function get_columnas()
 	{
 		return $this->columnas;	
 	}
@@ -794,7 +794,7 @@ class toba_ei_cuadro extends toba_ei
 //#################################    HTML    ###################################
 //################################################################################
 
-	public function generar_html($mostrar_cabecera=true, $titulo=null)
+	function generar_html($mostrar_cabecera=true, $titulo=null)
 	{
 		/*	¿Los parametros hay que destruirlos?	*/
 		
@@ -1331,7 +1331,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 
-	public function get_consumo_javascript()
+	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_cuadro';

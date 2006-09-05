@@ -29,7 +29,7 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$this->info = $info;
 		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
-		parent::__construct(toba::hilo()->get_item_solicitado(), toba::hilo()->get_usuario());
+		parent::__construct(toba::hilo()->get_item_solicitado(), toba::usuario()->get_id());
 		toba::cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
 
@@ -328,7 +328,7 @@ class toba_solicitud_web extends toba_solicitud
 
 	function registrar()
 	{
-		parent::registrar( toba::hilo()->get_proyecto() );
+		parent::registrar( toba::proyecto()->get_id() );
 		if($this->registrar_db){
 			toba_instancia::registrar_solicitud_browser($this->id, toba_sesion::get_id(), $_SERVER['REMOTE_ADDR']);
 		}

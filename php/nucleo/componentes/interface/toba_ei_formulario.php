@@ -596,7 +596,7 @@ class toba_ei_formulario extends toba_ei
         //Armo la sentencia que limita al proyecto
         $sql_where = "";
         if (isset($parametros['columna_proyecto'])) {
-    		$sql_where .= $parametros["columna_proyecto"] . " = '".toba::hilo()->get_proyecto()."' ";
+    		$sql_where .= $parametros["columna_proyecto"] . " = '".toba::proyecto()->get_id()."' ";
 			if (isset($parametros["incluir_toba"]) && $parametros["incluir_toba"]) {
 		        $sql_where .= " OR ".$parametros["columna_proyecto"]." = 'toba'";
 			}

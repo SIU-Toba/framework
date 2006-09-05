@@ -28,7 +28,7 @@ class proyecto extends elemento_modelo
 	const template_proyecto = '/php/modelo/template_proyecto';
 	private $compilacion_tabla_tipos;
 
-	public function __construct( instancia $instancia, $identificador )
+	function __construct( instancia $instancia, $identificador )
 	{
 		$this->instancia = $instancia;
 		$this->identificador = $identificador;
