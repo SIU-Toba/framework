@@ -36,7 +36,7 @@ class zona_trabajo extends toba_zona
 		echo "<td width='60%' class='barra-item-tit'>&nbsp;".$this->editable_info['nombre']."</td>";
 	}	
 	
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	{
 		//echo "BARRA inferior<br>"	;	
 	}

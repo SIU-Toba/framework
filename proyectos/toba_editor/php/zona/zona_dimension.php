@@ -57,7 +57,7 @@ class zona_dimension extends toba_zona
 		}
 	}
 
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{
 		//La representacion del objeto fantasma no deberia tener barra inferior.

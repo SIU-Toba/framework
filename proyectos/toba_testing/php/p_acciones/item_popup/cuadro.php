@@ -96,7 +96,7 @@ class cuadro extends toba_ei_cuadro
             for ($f=0; $f< $this->filas; $f++)
             {
 				$resaltado = "";
-				$clave_fila = $this->obtener_clave_fila($f);
+				$clave_fila = $this->get_clave_fila($f);
 				//$this->clave_seleccionada
 				//$resaltado = "_s";
 				
@@ -134,9 +134,9 @@ class cuadro extends toba_ei_cuadro
                     }
                     //*** 3) Generacion de VINCULOS!
                     if(trim($this->info_cuadro_columna[$a]["vinculo_indice"])!=""){
-                        $id_fila = $this->obtener_clave_fila($f);
+                        $id_fila = $this->get_clave_fila($f);
                         //Genero el VINCULO
-                        $vinculo = $this->solicitud->vinculador->obtener_vinculo_de_objeto( $this->id,
+                        $vinculo = $this->solicitud->vinculador->get_vinculo_de_objeto( $this->id,
                                                                                 $this->info_cuadro_columna[$a]["vinculo_indice"],
                                                                                 $id_fila, true, $valor);
                         //El vinculador puede no devolver nada en dos casos: 

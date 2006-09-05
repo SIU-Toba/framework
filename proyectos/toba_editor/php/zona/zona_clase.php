@@ -28,7 +28,7 @@ class zona_clase extends zona
 		}	
 	}
 
-	function obtener_html_barra_superior()
+	function generar_html_barra_superior()
 	//Genera el HTML de la BARRA
 	{
 		//global $cronometro;

@@ -54,11 +54,11 @@ abstract class ci_instanciadores extends toba_ci
 	{
 		$zona = toba::solicitud()->zona();
 		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_superior();
+			$zona->generar_html_barra_superior();
 		}
 		parent::generar_interface_grafica();
 		if (isset($zona) && isset($this->id_objeto)) {
-			$zona->obtener_html_barra_inferior();
+			$zona->generar_html_barra_inferior();
 		}	
 	}
 

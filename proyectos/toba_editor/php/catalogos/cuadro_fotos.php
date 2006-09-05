@@ -11,7 +11,7 @@ class cuadro_fotos extends toba_ei_cuadro
 	
 	function conf_evt__defecto($evento, $f)
 	{
-		 $clave = $this->obtener_clave_fila($f);
+		 $clave = $this->get_clave_fila($f);
 		 if (in_array($clave, $this->fotos_predefinidas)) {
 			$evento->desactivar();
 		 }

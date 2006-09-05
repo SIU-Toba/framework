@@ -1,6 +1,6 @@
 <?
 	if($editable = $this->zona->get_editable()){
-		$this->zona->obtener_html_barra_superior();
+		$this->zona->generar_html_barra_superior();
 
 	include_once("nucleo/lib/interface/form.php");
 	require_once('modelo/lib/catalogo_items.php');
@@ -141,6 +141,6 @@ function cascada(item_padre, estado)
 }
 </script>
 <?
-	$this->zona->obtener_html_barra_inferior();
+	$this->zona->generar_html_barra_inferior();
 }
 ?>

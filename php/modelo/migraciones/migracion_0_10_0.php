@@ -627,22 +627,21 @@ class migracion_0_10_0 extends migracion_toba
 	
 	/**
 	 * Los obtener_X pasan a ser get_X 
-	 *
 	 */
-	function proyecto__cambio_api_hilo()
+	function proyecto__cambio_api_obtener_get()
 	{
  		
 		$editor = new editor_archivos();
 		$editor->agregar_sustitucion('/evt__obtener_datos_cn/', 		'evt__get_datos_cn');
 		$editor->agregar_sustitucion('/obtener_clave_fila/', 			'get_clave_fila');
-		$editor->agregar_sustitucion('/obtener_proyecto()/', 			'get_proyecto()');
-		$editor->agregar_sustitucion('/obtener_proyecto_path()/', 		'get_proyecto_path()');
+		$editor->agregar_sustitucion('/obtener_proyecto\(\)/', 			'get_proyecto()');
+		$editor->agregar_sustitucion('/obtener_proyecto_path\(\)/', 		'get_proyecto_path()');
 		$editor->agregar_sustitucion('/obtener_vinculo_de_objeto/', 	'get_vinculo_de_objeto');
-		$editor->agregar_sustitucion('/obtener_path()/', 				'get_path()');
+		$editor->agregar_sustitucion('/obtener_path\(\)/', 				'get_path()');
 		$editor->agregar_sustitucion('/obtener_usuario_nivel_acceso/',	'get_usuario_nivel_acceso');
-		$editor->agregar_sustitucion('/obtener_usuario()/',				'get_usuario()');
+		$editor->agregar_sustitucion('/obtener_usuario\(\)/',				'get_usuario()');
 		$editor->agregar_sustitucion('/obtener_html_barra_superior/',	'generar_html_barra_superior');
-		$editor->agregar_sustitucion('/obtener_html_barra_inferior/',	'generar_html_barra_inferior()');
+		$editor->agregar_sustitucion('/obtener_html_barra_inferior/',	'generar_html_barra_inferior');
 		$editor->agregar_sustitucion('/obtener_proyecto_descripcion/',	'get_proyecto_descripcion');
 		$editor->agregar_sustitucion('/obtener_path_temp_www/',			'get_path_temp_www');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);

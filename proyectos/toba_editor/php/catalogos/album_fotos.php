@@ -16,7 +16,7 @@ class album_fotos
 		$nodos_visibles = addslashes(serialize($nodos_visibles));
 		$opciones = addslashes(serialize($opciones));
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->obtener_usuario();
+		$usuario = toba::hilo()->get_usuario();
 		$es_pred = ($pred) ? "1" : "0";
 		$sql = "INSERT INTO apex_admin_album_fotos
 					 (proyecto, usuario, foto_nombre, foto_nodos_visibles, foto_opciones, foto_tipo, predeterminada) VALUES
@@ -28,7 +28,7 @@ class album_fotos
 	public function cambiar_predeterminada($nombre)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->obtener_usuario();		
+		$usuario = toba::hilo()->get_usuario();		
 		
 		abrir_transaccion('instancia');
 		//Actualiza las otras fotos
@@ -58,7 +58,7 @@ class album_fotos
 	public function get_predeterminada()
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->obtener_usuario();
+		$usuario = toba::hilo()->get_usuario();
 		$sql = "SELECT 
 					foto_nombre
 				FROM apex_admin_album_fotos fotos
@@ -79,7 +79,7 @@ class album_fotos
 	public function borrar_foto($nombre)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->obtener_usuario();
+		$usuario = toba::hilo()->get_usuario();
 		$sql = "DELETE FROM apex_admin_album_fotos
 				WHERE
 					proyecto = '$proyecto' AND
@@ -93,7 +93,7 @@ class album_fotos
 	public function fotos($nombre = null)
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$usuario = toba::hilo()->obtener_usuario();
+		$usuario = toba::hilo()->get_usuario();
 		$where_nombre = '';
 		if ($nombre !== null) {
 			$where_nombre = " AND fotos.foto_nombre = '$nombre' ";

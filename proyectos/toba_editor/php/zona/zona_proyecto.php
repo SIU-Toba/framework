@@ -37,7 +37,7 @@ class zona_proyecto extends zona_editor
 		echo "<td width='60%' class='barra-item-tit'>&nbsp;".$this->editable_info['proyecto']."</td>";
 	}	
 
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	{
 		//echo "BARRA inferior<br>"	;	
 	}

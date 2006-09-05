@@ -25,7 +25,7 @@ class zona_usuario extends zona_editor
 		}	
 	}
 
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	{
 		//echo "BARRA inferior<br>"	;	
 	}

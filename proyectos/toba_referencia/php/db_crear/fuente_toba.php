@@ -15,7 +15,7 @@ class fuente_toba
 		if(isset($proyecto)){
 			$proyecto_fuente = $proyecto;
 		}else{
-			$proyecto_fuente = $solicitud->hilo->obtener_proyecto();
+			$proyecto_fuente = $solicitud->hilo->get_proyecto();
 		}
 		
 		$sql = "SELECT 	*

@@ -38,7 +38,7 @@ class zona_item extends zona_editor
 		
 	}
 	
-	function obtener_html_barra_inferior()	
+	function generar_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{
 		echo "<br>";
