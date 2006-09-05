@@ -531,7 +531,7 @@ class toba_logger
 		Tiene que haber un metodo para que el log en la DB se haga con un objeto asociado
 		Esto tiene que pisar una tabla del TOBA
 	
-		$archivo = $this->solicitud->hilo->obtener_proyecto_path() . "/log_sistema.txt";
+		$archivo = $this->solicitud->hilo->get_proyecto_path() . "/log_sistema.txt";
 		//Abro el archivo
 		$a = fopen($archivo,"a");
 		fwrite($a, "--------- INICIO ---------\n");

@@ -49,7 +49,7 @@ abstract class toba_componente
 		$this->log = toba::logger();
 		//Recibi datos por el CANAL?
 		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
-		$this->canal_recibidos = toba::hilo()->obtener_parametro($this->canal);
+		$this->canal_recibidos = toba::hilo()->get_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo

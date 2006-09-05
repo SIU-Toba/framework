@@ -320,7 +320,7 @@ class db
 	/**
 	*	Mapea el error de la base al modulo de mensajes del toba
 	*/
-	function obtener_error_toba($codigo, $descripcion)
+	function get_error_toba($codigo, $descripcion)
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}

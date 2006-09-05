@@ -14,7 +14,7 @@ class toba_solicitud_consola extends solicitud
 	    $this->info = $info;
 		$_SERVER["REMOTE_ADDR"]="localhost";
 		$_SERVER["REQUEST_METHOD"] = "GET";
-		parent::__construct(toba::hilo()->obtener_item_solicitado(),toba::hilo()->obtener_usuario());
+		parent::__construct(toba::hilo()->get_item_solicitado(),toba::hilo()->get_usuario());
 	}
 	
 	function procesar()

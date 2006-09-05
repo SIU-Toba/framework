@@ -18,7 +18,7 @@ abstract class toba_ef_sin_estado extends toba_ef
 		return false;
 	}
 
-	function obtener_estado()
+	function get_estado()
 	//Devuelve el estado interno
 	{
 		return null;
@@ -41,7 +41,7 @@ abstract class toba_ef_sin_estado extends toba_ef
     	return true;
     }
 	
-    function obtener_javascript()
+    function get_javascript()
     //Devuelve el javascript del elemento
     {
         return "";

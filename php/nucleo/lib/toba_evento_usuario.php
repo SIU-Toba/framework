@@ -13,7 +13,7 @@ class toba_evento_usuario extends toba_boton
 	{
 		if ( $this->posee_accion_vincular() ) {
 			if ( !isset( $this->vinculo ) ) {
-				$this->vinculo = new toba_vinculo(	toba::hilo()->obtener_proyecto(), 
+				$this->vinculo = new toba_vinculo(	toba::hilo()->get_proyecto(), 
 										$this->datos['accion_vinculo_item'],
 										$this->datos['accion_vinculo_popup'],
 										$this->datos['accion_vinculo_popup_param'] );

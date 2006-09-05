@@ -29,7 +29,7 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$this->info = $info;
 		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
-		parent::__construct(toba::hilo()->obtener_item_solicitado(), toba::hilo()->obtener_usuario());
+		parent::__construct(toba::hilo()->get_item_solicitado(), toba::hilo()->get_usuario());
 		toba::cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
 
@@ -66,7 +66,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function pre_proceso_servicio()
 	{
-		$servicio = toba::hilo()->obtener_servicio_solicitado();
+		$servicio = toba::hilo()->get_servicio_solicitado();
 		$callback = "servicio_pre__$servicio";
 		if (method_exists($this, $callback)) {
 			$this->$callback();
@@ -140,7 +140,7 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		
 		//--- Se determina el destino del servicio
-		$objetos_destino = toba::hilo()->obtener_id_objetos_destino();
+		$objetos_destino = toba::hilo()->get_id_objetos_destino();
 		if (!isset($objetos_destino)) {
 			//En caso que el servicio no especifique destino, se asume que son todos los cis asociados al item
 			$destino = array();
@@ -156,7 +156,7 @@ class toba_solicitud_web extends toba_solicitud
 			}
 		}
 
-		$servicio = toba::hilo()->obtener_servicio_solicitado();
+		$servicio = toba::hilo()->get_servicio_solicitado();
 		$callback = "servicio__$servicio";
 		toba::logger()->seccion("Respondiendo al $callback...", 'toba');		
 		if (method_exists($this, $callback)) {
@@ -328,7 +328,7 @@ class toba_solicitud_web extends toba_solicitud
 
 	function registrar()
 	{
-		parent::registrar( toba::hilo()->obtener_proyecto() );
+		parent::registrar( toba::hilo()->get_proyecto() );
 		if($this->registrar_db){
 			toba_instancia::registrar_solicitud_browser($this->id, toba_sesion::get_id(), $_SERVER['REMOTE_ADDR']);
 		}

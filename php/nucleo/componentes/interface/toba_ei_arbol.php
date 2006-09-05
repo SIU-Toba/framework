@@ -27,7 +27,7 @@ class toba_ei_arbol extends toba_ei
 	function servicio__ejecutar()
 	{
 		toba::hilo()->desactivar_reciclado();		
-		$id_nodo = toba::hilo()->obtener_parametro('id_nodo');
+		$id_nodo = toba::hilo()->get_parametro('id_nodo');
 		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
 		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
 			$html = $this->recorrer_hijos(current($nodo), 0);

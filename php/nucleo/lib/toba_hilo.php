@@ -27,13 +27,16 @@ define("apex_hilo_qs_celda_memoria","toba-celda-memoria");		//Indicador que indi
 define("apex_hilo_qs_servicio", "toba-servicio");
 define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "toba-dest");
-//-- WDDX
 
+
+/**
+ * El hilo contiene la información historica de la aplicación:
+ *  - Memoria general de la aplicación (el $_SESSION sin manejo)
+ *  - Memoria de las operaciones 
+ *  - Memoria sincronizada entre URLs
+ *  - Parametros del link desde donde se vino ($_GET)
+ */
 class toba_hilo
-/* Todas las preguntas sobre el ESTADO de la aplicacion deberian caer en esta clase:
-* 	- El GET a travez del array de PARAMETROS
-* 	- La sesion a travez de la MEMORIA
-*/
 {
 	private $id;
 	private $url_actual;
@@ -154,42 +157,36 @@ class toba_hilo
 		$this->item_solicitado = $item;
 	}
 
+	/**
+	 * Muestra el estado actual del hilo
+	 */
 	function info()
-/*
- 	@@acceso: actividad
-	@@desc: Muestra el estado del HILO
-*/	{
+	{
 		$dump["item_solicitado"]=$this->item_solicitado;
 		$dump["hilo_referencia"]=$this->hilo_referencia;
 		$dump["parametros"]=$this->parametros;
 		ei_arbol($dump,"HILO");
 	}
 
+	/**
+	 * Genera la primera porcion de todas las URLs
+	 */
 	function prefijo_vinculo()
-/*
- 	@@acceso: interno
-	@@desc: Genera la primera porcion de las URLs
-	@@retorno: Prefijo de las URLs
-*/
 	{
 		return $this->url_actual . "?" . apex_hilo_qs_id  . "=" . $this->id;
 	}
 
-	function obtener_id()
-/*
- 	@@acceso: interno
-	@@desc: Devuelve el ID del hilo
-	@@retorno: string | identificador del hilo
-*/
+	/**
+	 * Retorna el id que identifica univocamente este request
+	 */
+	function get_id()
 	{
 		return $this->id;
 	}
 
-	//----------------------------------------------------------------	
 	//----------------------------------------------------------------
 	//-----------------  ACCESO al ESTADO GENERAL  -------------------
 	//----------------------------------------------------------------
-	//----------------------------------------------------------------	
 	
 	/**
 	 * Determina si la sesion fue abierta o aún no se ha logueado el usuario
@@ -199,7 +196,7 @@ class toba_hilo
 		return isset($_SESSION['toba']);
 	}
 	
-	function obtener_servicio_solicitado()
+	function get_servicio_solicitado()
 	{
 		return $this->servicio;	
 	}
@@ -207,12 +204,12 @@ class toba_hilo
 	/**
 	 * Retorna la referencia a aquellos objetos destino del servicio solicitado
 	 */
-	function obtener_id_objetos_destino()
+	function get_id_objetos_destino()
 	{
 		return $this->objetos_destino;
 	}
 	
-	function obtener_parametro($canal)
+	function get_parametro($canal)
 /*
  	@@acceso: actividad
 	@@desc: Recupera un parametro enviado por el VINCULADOR
@@ -227,7 +224,7 @@ class toba_hilo
 		}
 	}
 
-	function obtener_parametros()
+	function get_parametros()
 /*
  	@@acceso: actividad
 	@@desc: Recupera un parametro enviado por el VINCULADOR
@@ -243,14 +240,14 @@ class toba_hilo
 	 * Retorna el item requerido en este pedido de página
 	 * @return array [0]=>proyecto, [1]=>id_item
 	 */
-	function obtener_item_solicitado()
+	function get_item_solicitado()
 	{
 		if (isset($this->item_solicitado)) {
 			return $this->item_solicitado;
 		}
 	}
 
-	function obtener_proyecto()
+	function get_proyecto()
 /*
  	DEPRECADO
 */
@@ -258,7 +255,7 @@ class toba_hilo
 		return toba_proyecto::instancia()->get_id();
 	}
 
-	function obtener_proyecto_descripcion()
+	function get_proyecto_descripcion()
 /*
  	DEPRECADO
 */
@@ -266,7 +263,7 @@ class toba_hilo
 		return toba_proyecto::instancia()->get_parametro('descripcion');
 	}
 	
-	function obtener_path()
+	function get_path()
 /*
  	@@acceso: actividad
 	@@desc: Devuelve el PATH del toba
@@ -275,7 +272,7 @@ class toba_hilo
 		return $_SESSION['toba']["path"];
 	}
 	
-	function obtener_proyecto_path()
+	function get_proyecto_path()
 /*
  	@@acceso: actividad
 	@@desc: Devuelve el PATH del PROYECTO
@@ -288,9 +285,9 @@ class toba_hilo
 	 * Retorna path real y URL de la carpeta navegable del proyecto actual
 	 * @return array Path 'real' (en el sist.arch.) y 'browser' (URL navegable)
 	 */
-	function obtener_proyecto_path_www($archivo="")
+	function get_proyecto_path_www($archivo="")
 	{
-		$path_real = $this->obtener_path();
+		$path_real = $this->get_path();
 		$path_real = $path_real . "/www/" . $archivo;
 		$path_browser = toba_recurso::path_pro();
 		if ($archivo != "") {
@@ -303,7 +300,7 @@ class toba_hilo
 	/**
 	 * Retorna un path donde incluir archivos temporales, el path no es navegable
 	 */
-	function obtener_path_temp()
+	function get_path_temp()
 	{
 		return toba_dir()."/temp";	
 	}
@@ -311,16 +308,16 @@ class toba_hilo
 	/**
 	 * Retorna un directorio abierto a la navegación donde almacenar archivos temporales
 	 */
-	function obtener_path_temp_www()
+	function get_path_temp_www()
 	{
-		$path = $this->obtener_proyecto_path_www("temp");
+		$path = $this->get_proyecto_path_www("temp");
 		if (!file_exists($path['real'])) {
 			mkdir($path['real'], 0700);
 		}
 		return $path;
 	}
 	
-	function obtener_usuario()
+	function get_usuario()
 	{
 		return toba::usuario()->get_id();
 	}
@@ -329,9 +326,9 @@ class toba_hilo
     	Devuelve un parametro del usuario.
     	Los parametros pueden ser (a,b,c)
     */
-	function obtener_usuario_parametro($parametro)
+	function get_usuario_parametro($parametro)
 	{
-		$param = $this->obtener_usuario_parametros();
+		$param = $this->get_usuario_parametros();
 		if(($parametro != 'a')&&($parametro != 'b')&&($parametro != 'c')){
 			throw new toba_error("El parametro '$parametro' no existe. Los parametros posibles son: 'a', 'b' y 'c'");
 		}
@@ -341,7 +338,7 @@ class toba_hilo
 	/*
 		Devuelve todos los parametros del usuario
 	*/
-	function obtener_usuario_parametros()
+	function get_usuario_parametros()
 	{
 		$param['a'] = $_SESSION['toba']["usuario"]["parametro_a"];
 		$param['b'] = $_SESSION['toba']["usuario"]["parametro_b"];
@@ -349,7 +346,7 @@ class toba_hilo
 		return $param;
 	}
 
-	function obtener_usuario_nivel_acceso()
+	function get_usuario_nivel_acceso()
 /*
  	@@acceso: actividad
 	@@desc: Notifica el nivel de acceso que posee el usuario
@@ -358,7 +355,7 @@ class toba_hilo
 		return null;//$_SESSION['toba']["usuario"]["nivel_acceso"];
 	}
 
-	function obtener_usuario_grupo_acceso()
+	function get_usuario_grupo_acceso()
 /*
  	@@acceso: actividad
 	@@desc: Notifica el GRUPO de ACCESO del usuario
@@ -367,7 +364,7 @@ class toba_hilo
 		return toba::sesion()->get_grupo_acceso();
 	}
 
-	function obtener_usuario_perfil_datos()
+	function get_usuario_perfil_datos()
 /*
  	@@acceso: actividad
 	@@desc: Notifica el GRUPO de ACCESO del usuario
@@ -395,7 +392,7 @@ class toba_hilo
 	@@desc: Notifica si el ITEM que se esta ejecutando es el INSTANCIADOR de un objeto de la libreria
 */
 	{
-		$item = toba::hilo()->obtener_item_solicitado();
+		$item = toba::hilo()->get_item_solicitado();
 		if(strpos($item[0],"admin/objetos/instanciadores")) {
 			return true;
 		} else {

@@ -46,11 +46,11 @@ class analizador_logger_fs
 	}	
 		
 
-	function obtener_pedido($seleccion)
+	function get_pedido($seleccion)
 	{
 		//Pedir el ultimo es un caso especial porque se trata con mas eficiencia
 		if ($seleccion == 'ultima') {
-			return $this->obtener_ultimo_pedido();	
+			return $this->get_ultimo_pedido();	
 		}
 		//Trata de encontrar el n-esimo pedido en el archivo
 		//Este metodo es mucha mas ineficiente que obtener el ultimo
@@ -62,7 +62,7 @@ class analizador_logger_fs
 	 * Recorre en inversa el archivo tratando de encontrar el limite de la ultima seccion
 	 * @return array Texto del ultimo pedido, ¿Queda algo antes?
 	 */
-	function obtener_ultimo_pedido()
+	function get_ultimo_pedido()
 	{
 		$total = filesize($this->archivo);
 		$fp = fopen($this->archivo, "rb");

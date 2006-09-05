@@ -87,7 +87,7 @@ class toba_ei_esquema extends toba_ei
 	static function generar_archivo($contenido, $formato, $es_dirigido = true)
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
-		$dir_temp = toba::hilo()->obtener_path_temp();
+		$dir_temp = toba::hilo()->get_path_temp();
 		$grafico = manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
 		$salida = manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 		
@@ -145,7 +145,7 @@ class toba_ei_esquema extends toba_ei
 			break;
 		}		
 		$archivo = self::generar_archivo($contenido, $formato, $es_dirigido);
-		$dir_temp = toba::hilo()->obtener_path_temp();
+		$dir_temp = toba::hilo()->get_path_temp();
 		$path_completo = $dir_temp . "/" . $archivo;
 		if (file_exists($path_completo)) {
 			$fp = fopen($path_completo, 'rb');

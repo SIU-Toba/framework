@@ -4,13 +4,5 @@ nucleo_toba:
 solicitud_web
  - Porque atrapa la excepcion_reset_nucleo y la vuelve a disparar?
  
-toba_tab: que es?
-
-  
-  
-
-  
  
-  
-  
  

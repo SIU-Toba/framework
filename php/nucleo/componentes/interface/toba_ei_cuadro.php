@@ -145,13 +145,13 @@ class toba_ei_cuadro extends toba_ei
 					// Agrego la sumarizacion en la pila de sumarizaciones.
 					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
 					$this->sum_usuario[$id]['corte'] = $corte;
-					$this->sum_usuario[$id]['descripcion'] = $this->obtener_desc_sumarizacion($metodo->getDocComment());
+					$this->sum_usuario[$id]['descripcion'] = $this->get_desc_sumarizacion($metodo->getDocComment());
 				}
 			}
 		}		
 	}
 
-	private function obtener_desc_sumarizacion($texto)
+	private function get_desc_sumarizacion($texto)
 	{
 	    $desc =  parsear_doc_comment( $texto );
 		return trim($desc != '')? $desc : 'Descripcion no definida';
@@ -360,7 +360,7 @@ class toba_ei_cuadro extends toba_ei
 		return isset($this->clave_seleccionada);
 	}
 
-    function obtener_clave_fila($fila)
+    function get_clave_fila($fila)
 	//Genero la CLAVE
     {
         $id_fila = "";
@@ -373,7 +373,7 @@ class toba_ei_cuadro extends toba_ei
         return $id_fila;
     }
 
-	function obtener_clave_fila_array($fila)
+	function get_clave_fila_array($fila)
 	{
         if (isset($this->columnas_clave)) {
 	        foreach($this->columnas_clave as $clave){
@@ -384,19 +384,19 @@ class toba_ei_cuadro extends toba_ei
 	}
 
     /**
-    *	@deprecated Desde 0.8.3. Usar obtener_clave_seleccionada
+    *	@deprecated Desde 0.8.3. Usar get_clave_seleccionada
     */
-	function obtener_clave()
+	function get_clave()
 	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar obtener_clave_seleccionada");
-		return $this->obtener_clave_seleccionada();
+		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, "0.8.3", "Usar get_clave_seleccionada");
+		return $this->get_clave_seleccionada();
 	}
 	
     /**
     *	En caso de existir una fila seleccionada, retorna su clave
 	*	@return array Arreglo asociativo id_clave => valor_clave    
     */
-	function obtener_clave_seleccionada()
+	function get_clave_seleccionada()
 	{
 		return $this->clave_seleccionada;
 	}
@@ -449,14 +449,14 @@ class toba_ei_cuadro extends toba_ei
 				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
 				if ($this->pagina_actual > $this->cantidad_paginas) 
 					$this->pagina_actual = 1;
-				$this->datos = $this->obtener_datos_paginados($this->datos);
+				$this->datos = $this->get_datos_paginados($this->datos);
 			}
 		}else{
 			$this->cantidad_paginas = 1;
 		}
 	}
 
-	function obtener_datos_paginados($datos)
+	function get_datos_paginados($datos)
 	{
 		$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
 		return array_slice($datos, $offset, $this->tamanio_pagina);
@@ -643,7 +643,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->columnas[$id_columna]["titulo"] = $titulo;
 	}    
 
-    public function obtener_datos()
+    public function get_datos()
     {
         return $this->datos;    
     }	
@@ -1050,7 +1050,7 @@ class toba_ei_cuadro extends toba_ei
         foreach($filas as $f)
         {
 			$resaltado = "";
-			$clave_fila = $this->obtener_clave_fila($f);
+			$clave_fila = $this->get_clave_fila($f);
 			if (is_array($this->clave_seleccionada)) 
 				$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
 			else
@@ -1090,7 +1090,7 @@ class toba_ei_cuadro extends toba_ei
 					//1: Posiciono al evento en la fila
 					$evento->set_parametros($clave_fila);
 					if($evento->posee_accion_vincular()){
-						$evento->vinculo()->set_parametros($this->obtener_clave_fila_array($f));	
+						$evento->vinculo()->set_parametros($this->get_clave_fila_array($f));	
 					}
 					//2: Ventana de modificacion del evento por fila
 					$callback_modificacion_eventos = 'conf_evt__' . $id;

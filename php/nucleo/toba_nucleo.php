@@ -148,7 +148,7 @@ class toba_nucleo
 				// el nucleo trata de cargar un item explicito por URL. El mismo no va a ser publico...
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
-				if ( toba::hilo()->obtener_item_solicitado() ) {
+				if ( toba::hilo()->get_item_solicitado() ) {
 					toba::logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado', 'toba');
 					toba::hilo()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
@@ -169,7 +169,7 @@ class toba_nucleo
 	 */
 	function get_id_item($predefinido=null,$forzar_predefinido=false)
 	{
-		$item = toba::hilo()->obtener_item_solicitado();
+		$item = toba::hilo()->get_item_solicitado();
 		if (!$item) {
 			if(isset($predefinido)){
 				$item[0] = toba_proyecto::instancia()->get_id();

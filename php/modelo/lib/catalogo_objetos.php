@@ -93,7 +93,7 @@ class catalogo_objetos
 			$agregar = true;
 			if (isset($opciones['extensiones_rotas']) && $opciones['extensiones_rotas'] == 1) {
 				$archivo = $dato['subclase_archivo'];
-				$path_proy = toba::hilo()->obtener_proyecto_path()."/php/".$archivo;
+				$path_proy = toba::hilo()->get_proyecto_path()."/php/".$archivo;
 				$path_toba = toba_dir()."/php/".$archivo;
 				if (file_exists($path_proy) || file_exists($path_toba)) {
 					//Si se encuentra el archivo la extension no esta rota

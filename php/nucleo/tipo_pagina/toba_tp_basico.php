@@ -38,7 +38,7 @@ class toba_tp_basico extends toba_tipo_pagina
 	protected function titulo_pagina()
 	{
 		$item = toba::solicitud()->get_datos_item('item_nombre');
-		return toba::hilo()->obtener_proyecto_descripcion() . ' - ' . $item;
+		return toba::hilo()->get_proyecto_descripcion() . ' - ' . $item;
 	}
 	
 	protected function encoding()

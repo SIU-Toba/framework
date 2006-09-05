@@ -132,7 +132,7 @@ class toba_ci extends toba_ei
 	function disparar_obtencion_datos_cn( $modo=null )
 	{
 		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]", 'toba');
-		$this->evt__obtener_datos_cn( $modo );
+		$this->evt__get_datos_cn( $modo );
 		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
 			if( !isset($this->dependencias[$dep]) ){
@@ -143,10 +143,10 @@ class toba_ci extends toba_ei
 		}
 	}
 
-	function evt__obtener_datos_cn( $modo=null )
+	function evt__get_datos_cn( $modo=null )
 	{
 		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
-		$this->log->warning($this->get_txt() . "[ evt__obtener_datos_cn ] No fue redefinido!");
+		$this->log->warning($this->get_txt() . "[ evt__get_datos_cn ] No fue redefinido!");
 	}
 
 	//--  SALIDA de DATOS ----

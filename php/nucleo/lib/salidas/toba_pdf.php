@@ -62,7 +62,7 @@ class toba_pdf
 	{
 		$this->generar_html_encabezado();
 		foreach( $this->objetos as $objeto ) {
-			$objeto->obtener_pdf( $this );	
+			$objeto->get_pdf( $this );	
 		}
 		$this->generar_html_pie();
 	}

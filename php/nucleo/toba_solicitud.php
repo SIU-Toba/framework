@@ -64,7 +64,7 @@ abstract class toba_solicitud
 		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		//-[1]- El indice	es	valido?
 		if(!isset($this->indice_objetos[$clase][$posicion])){	
-			$this->observar(array("toba","error"),"SOLICITUD [obtener_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
+			$this->observar(array("toba","error"),"SOLICITUD [get_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
 			return -1;
 		}
 		$posicion =	$this->indice_objetos[$clase][$posicion];	

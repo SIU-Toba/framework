@@ -28,7 +28,7 @@ class toba_recurso {
 			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
 		} else {
 			if (!isset($proyecto)) {
-				$alias = toba::hilo()->obtener_proyecto();
+				$alias = toba::hilo()->get_proyecto();
 			} else {
 				$alias = $proyecto;
 			}

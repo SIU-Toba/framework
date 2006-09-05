@@ -42,7 +42,7 @@ class toba_vinculador
 	 * 					texto => Texto del vínculo
 	 * 					menu => El vinculo esta solicitado por una opción menu?
 	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
-	 * 					servicio => Servicio solicitado, por defecto obtener_html
+	 * 					servicio => Servicio solicitado, por defecto get_html
 	 * 					objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
 	 * 					prefijo => Punto de acceso a llamar.
 	 * @return string Una URL o el link html en caso
@@ -115,7 +115,7 @@ class toba_vinculador
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		$autovinculo = false;
 		if ($item_proyecto == null || $item == null) {
-			$item_solic = toba::hilo()->obtener_item_solicitado();
+			$item_solic = toba::hilo()->get_item_solicitado();
 			if($item_proyecto==null) { 
 				$item_proyecto = $item_solic[0];
 			}
@@ -246,7 +246,7 @@ class toba_vinculador
 
 	protected function cargar_vinculos_posibles()
 	{
-		$usuario = toba::hilo()->obtener_usuario();
+		$usuario = toba::hilo()->get_usuario();
 		$rs = toba_instancia::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;

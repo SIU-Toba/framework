@@ -23,14 +23,14 @@ class formulario_consola
 	
 	function procesar()
 	{
-		$this->obtener_valores();
+		$this->get_valores();
 		do {
 			$this->listar_valores();
 			$this->interface->enter();
 			$ok = $this->interface->dialogo_simple('Los valores ingresados son correctos?');
 			if ( ! $ok ) {
 				//$this->corregir_valores();			
-				$this->obtener_valores();
+				$this->get_valores();
 			}
 		} while ( ! $ok );
 		// Devuelvo el resultado
@@ -40,7 +40,7 @@ class formulario_consola
 		return $datos;
 	}
 	
-	function obtener_valores()
+	function get_valores()
 	{
 		$this->interface->enter();
 		$this->interface->subtitulo( $this->titulo );
@@ -61,7 +61,7 @@ class formulario_consola
 		$this->interface->tabla( $datos, array( 'Campo', 'Valor'));
 	}
 	
-	// Deberia ser una forma mas copada de obtener_valores
+	// Deberia ser una forma mas copada de get_valores
 	function corregir_valores()
 	{
 	}	
