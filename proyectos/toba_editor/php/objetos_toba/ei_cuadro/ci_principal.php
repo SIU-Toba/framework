@@ -15,7 +15,7 @@ class ci_principal extends ci_editores_toba
 	function ini()
 	{
 		parent::ini();
-		$col = toba::hilo()->obtener_parametro('columna');
+		$col = toba::hilo()->get_parametro('columna');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($col)) {
 			$this->set_pantalla(2);

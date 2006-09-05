@@ -1,5 +1,5 @@
 <?
-    if ($modo = toba::hilo()->obtener_parametro("usu_modo")) {
+    if ($modo = toba::hilo()->get_parametro("usu_modo")) {
         toba::hilo()->persistir_dato_global("usu_modo",$modo);
     }else{
         if(!($modo = toba::hilo()->recuperar_dato_global("usu_modo"))){

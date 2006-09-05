@@ -30,10 +30,10 @@ abstract class ci_editores_toba extends toba_ci
 			}
 		}
 		//Llegada a un TAB especifico desde el arbol
-		$etapa = toba::hilo()->obtener_parametro('etapa');
+		$etapa = toba::hilo()->get_parametro('etapa');
 		if( isset($etapa) ) $this->set_pantalla($etapa);
 		//Llegada desde un evento
-		$evento = toba::hilo()->obtener_parametro('evento');
+		$evento = toba::hilo()->get_parametro('evento');
 		if (isset($evento)) {
 			$this->set_pantalla(3);
 			$this->dependencia('eventos')->set_evento_editado($evento);

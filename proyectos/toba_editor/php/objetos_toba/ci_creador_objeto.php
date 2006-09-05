@@ -20,13 +20,13 @@ class ci_creador_objeto extends toba_ci
 			$this->cargar_editor();
 		}
 		$hilo = toba::hilo();
-		$destino_tipo = $hilo->obtener_parametro('destino_tipo');
+		$destino_tipo = $hilo->get_parametro('destino_tipo');
 		if (isset($destino_tipo)) {
 			$this->destino = array();
 			$this->destino['tipo'] = $destino_tipo;
-			$this->destino['objeto'] = $hilo->obtener_parametro('destino_id');
-			$this->destino['proyecto'] = $hilo->obtener_parametro('destino_proyecto');
-			$this->destino['pantalla'] = $hilo->obtener_parametro('destino_pantalla');
+			$this->destino['objeto'] = $hilo->get_parametro('destino_id');
+			$this->destino['proyecto'] = $hilo->get_parametro('destino_proyecto');
+			$this->destino['pantalla'] = $hilo->get_parametro('destino_pantalla');
 		}
 	}
 	

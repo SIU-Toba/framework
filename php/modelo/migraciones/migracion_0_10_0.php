@@ -644,6 +644,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/obtener_html_barra_inferior/',	'generar_html_barra_inferior');
 		$editor->agregar_sustitucion('/obtener_proyecto_descripcion/',	'get_proyecto_descripcion');
 		$editor->agregar_sustitucion('/obtener_path_temp_www/',			'get_path_temp_www');
+		$editor->agregar_sustitucion('/obtener_parametro/',				'get_parametro');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}
